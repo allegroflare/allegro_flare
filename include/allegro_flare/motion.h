@@ -1,0 +1,66 @@
+#ifndef __ALLEGRO_FLARE_MOTION_CONTROL
+#define __ALLEGRO_FLARE_MOTION_CONTROL
+
+
+
+#include <vector>
+//#include <allegro_flare/allegro_flare.h>
+#include <allegro_flare/interpolators.h>
+
+
+
+class Motion
+{
+public:
+	class Node // might find a better name
+	{
+	public:
+		float *val;
+		float start_time;
+		float end_time;
+		float start_val;
+		float end_val;
+		float (*interpolator_func)(float);
+		void (*callback_func)(void *);
+		void *callback_data;
+		bool active;
+
+		Node();
+		Node(float *val, float start_time, float end_time, float start_val, float end_val,
+			float (*interpolator_func)(float), void (*callback_func)(void *data), void *callback_data);
+		bool update(float time_now);
+		void set(float *val, float start_time, float end_time, float start_val, float end_val,
+			float (*interpolator_func)(float), void (*callback_func)(void *data), void *callback_data);
+		void clear();
+	};
+
+private:
+	int last_index;
+	unsigned num_reserved;
+	int get_new_index();
+	std::vector<Motion::Node *> control;
+
+public:
+	Motion(unsigned num_reserved=200);
+	bool update(float time_now);
+
+	bool is_being_animated(float *val);
+	bool clear_animations_on(float *val);
+	bool clear_animations_on(std::vector<float *> vals);
+	void clear_all();
+
+	// simple motion
+	void animate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data);
+	void move(float *val, float displacement, float duration, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
+	void move_to(float *val, float dest_val, float duration, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
+
+	// same as above, but clears any existing animations on *val beforehand.
+	void canimate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data);
+	void cmove(float *val, float displacement, float duration, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
+	void cmove_to(float *val, float dest_val, float duration, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
+};
+
+
+
+
+#endif
