@@ -88,7 +88,19 @@ void SimpleNotificationScreen::primary_timer_func()
 				y_cursor,
 				border_radius,
 				border_radius,
-				color::color(notifications[i].box_color, limit<float>(0.0, 1.0, notifications[i].lifespan)));
+				color::color(notifications[i].box_color, limit<float>(0.0, 1.0, notifications[i].lifespan) * 0.2));
+
+			float line_width = 3.0;
+			float h_line_width = line_width/2;
+			al_draw_rounded_rectangle(
+				x_cursor-notifications[i].text_width - padding_x*2 + h_line_width,
+				y_cursor-notifications[i].text_height - padding_y*2 + h_line_width,
+				x_cursor - h_line_width,
+				y_cursor - h_line_width,
+				border_radius,
+				border_radius,
+				color::color(notifications[i].box_color,  0.15),
+				h_line_width);
 
 			notifications[i].draw(x_cursor - padding_x, y_cursor - padding_y);
 

@@ -15,14 +15,17 @@ Display *Display::find_display(ALLEGRO_DISPLAY *display)
 
 
 Display::Display(int width, int height, int display_flags)
-	: _background_color(color::darkgoldenrod)
+	: _background_color(color::hex("6ca3fe"))
 	, _width(width)
 	, _height(height)
 {
-	//if (fullscreen) al_set_new_display_flags(ALLEGRO_FULLSCREEN);
-	al_set_new_display_flags(display_flags);
-	//al_set_new_display_flags(display_flags | ALLEGRO_PROGRAMMABLE_PIPELINE);
-	//al_set_new_display_option(ALLEGRO_VSYNC, 2, ALLEGRO_REQUIRE); // requires vsync to be OFF
+	al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
+	al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 256, ALLEGRO_SUGGEST); // hmm... not sure about this one either
+	al_set_new_display_option(ALLEGRO_SAMPLES, 4, ALLEGRO_SUGGEST);
+	al_set_new_display_flags(display_flags | ALLEGRO_OPENGL); // At this time, OpenGL is requied for AllegroFlare
+															  // as there are certain features that are not working
+															  // in Direct3d mode
+	
  	display = al_create_display(width, height);
 	displays.push_back(this);
 }

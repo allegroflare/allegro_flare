@@ -755,3 +755,21 @@ void MusicNotation::set_spacing_method(spacing_method_t method)
 {
 	this->spacing_method = method;
 }
+
+
+
+
+char MusicNotation::duration_denominator_to_char(int denominator)
+{
+	switch (denominator)
+	{
+		case 1: return 'w'; break;
+		case 2: return 'h'; break;
+		case 4: return 'q'; break;
+		case 8: return 'e'; break;
+		case 16: return 's'; break;
+		case 32: return 't'; break;
+		case 64: return 'i'; break;
+		default: return 'q';
+	}
+}

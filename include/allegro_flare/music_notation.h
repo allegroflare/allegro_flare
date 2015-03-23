@@ -104,6 +104,7 @@ public:
 	void set_spacing_method(spacing_method_t method);
 
 	static float get_duration_fixed_width(int duration, float quarter_note_width, int num_dots);
+	char duration_denominator_to_char(int denominator);
 };
 
 

@@ -3,6 +3,8 @@
 
 
 
+#define ALLEGRO_FLARE_VER "0.8.3"
+
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -63,6 +65,7 @@ public:
 	static ALLEGRO_TEXTLOG *textlog;
 	static ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
 	static ALLEGRO_EVENT_QUEUE *event_queue;
+	static ALLEGRO_FONT *builtin_font;
 	static ALLEGRO_TIMER *primary_timer;
 	static bool shutdown_program;
 	static Screen *current_screen;

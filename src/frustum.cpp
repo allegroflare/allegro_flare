@@ -10,10 +10,10 @@
 Frustum::Frustum(int width, int height, int znear, float multiplier)
 	: znear(znear * multiplier)
 	, zfar(30000)
-	, top(-height/2 * multiplier)
-	, left(-width/2 * multiplier)
-	, bottom(height/2 * multiplier)
-	, right(width/2 * multiplier)
+	, top(height/2 * multiplier)   //+					//-    <-previously
+	, left(-width/2 * multiplier)   //-					//-
+	, bottom(-height/2 * multiplier)  //-				//+
+	, right(width/2 * multiplier)    //+				//+
 {}
 
 

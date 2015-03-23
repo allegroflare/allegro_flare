@@ -76,9 +76,11 @@ vec2d Bone::get_direction()
 
 
 
+#include <algorithm>
+
 void Bone::set_position(float unit_val)
 {
-	position = min(1.0, max(0.0, unit_val));
+	position = std::min<float>(1.0, std::max<float>(0.0, unit_val));
 	//direction = (get_max_angle() - get_min_angle()) / 2
 }
 

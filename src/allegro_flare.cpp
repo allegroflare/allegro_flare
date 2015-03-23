@@ -34,12 +34,10 @@ void af::initialize(std::string config_filename)
 	primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
 
 	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
-	al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
-	al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 256, ALLEGRO_SUGGEST); // hmm... not sure about this one either
-	al_set_new_display_option(ALLEGRO_SAMPLES, 4, ALLEGRO_SUGGEST);
-	al_set_new_display_flags(ALLEGRO_OPENGL);
 
-	al_init_user_event_source(&_user_event_src_for_faking_events); /////
+	builtin_font = al_create_builtin_font();
+
+	al_init_user_event_source(&_user_event_src_for_faking_events); ///// TODO: didn't work, take this one out and it's infesting(!) code
 
 	event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, &_user_event_src_for_faking_events); /////
@@ -204,7 +202,7 @@ void af::run_loop()
 		case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
 			Screen::mouse_down_funcs();
 			break;
-		case ALLEGRO_EVENT_MOUSE_WARPED: // hmm, now adding mouse_warped events to mouse_axes for joystick-as-mouse emulation
+		//case ALLEGRO_EVENT_MOUSE_WARPED: // hmm, now adding mouse_warped events to mouse_axes for joystick-as-mouse emulation
 		case ALLEGRO_EVENT_MOUSE_AXES:
 			Screen::mouse_axes_funcs();
 			break;
@@ -285,6 +283,7 @@ ALLEGRO_TEXTLOG *af::textlog = NULL;
 ALLEGRO_JOYSTICK *af::joystick = NULL;
 ALLEGRO_EVENT_QUEUE *af::event_queue = NULL;
 ALLEGRO_TIMER *af::primary_timer = NULL;
+ALLEGRO_FONT *af::builtin_font = NULL;
 bool af::shutdown_program = false;
 Screen *af::current_screen = NULL;
 double af::time_now = 0;

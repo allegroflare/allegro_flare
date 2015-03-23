@@ -56,7 +56,7 @@ void Screen::primary_timer_funcs()
 			}
 		}
 		stop_profile_timer("Full Cycle");
-		if (af::drawing_profiler_graph) draw_profile_timer_graph();
+		//if (af::drawing_profiler_graph) draw_profile_timer_graph();
 		Display::displays[d]->flip();
 		start_profile_timer("Full Cycle");
 	}

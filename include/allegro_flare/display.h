@@ -29,11 +29,11 @@ private:
 	static Display *find_display(ALLEGRO_DISPLAY *display);
 	ALLEGRO_COLOR _background_color;
 
-	Display(int width, int height, int display_flags); // you must use AllegroFlare::create_display
-
 	int _width, _height;
 
 public:
+	Display(int width, int height, int display_flags); // you must use AllegroFlare::create_display
+
 	ALLEGRO_DISPLAY *display; // TODO: change this to al_display
 	virtual void display_close_func();
 

@@ -91,9 +91,10 @@ public:
     return !(*this == other);
    }
    
-   inline std::string ToString() const {
+   inline std::string ToString(int precision=5) const {
       std::ostringstream str;
-      str << "( " << x << ", " << y << ", " << z << " )";
+	  str.precision(precision);
+      str << "( " << std::fixed << x << ", " << std::fixed << y << ", " << std::fixed << z << " )";
       return str.str();
    }
    

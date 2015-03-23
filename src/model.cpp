@@ -137,6 +137,7 @@ void Model::Object::draw(ALLEGRO_BITMAP *texture, ALLEGRO_COLOR col)
 		for (unsigned i=0; i<face_index_lists.size(); i++)
 		{
 			//texture = textures.get_texture(i);
+
 			if (has_uv_coordinates && texture && !uv_index_lists.empty())
 			{
 				// reset the uv coordinates
@@ -154,7 +155,7 @@ void Model::Object::draw(ALLEGRO_BITMAP *texture, ALLEGRO_COLOR col)
 			al_draw_indexed_prim(&parent->vertexes[0], NULL, has_uv_coordinates ? texture : NULL, &face_index_lists[i][0], face_index_lists[i].size(), prim_type);
 
 			// draw lines
-			//al_draw_indexed_prim(&parent->vertexes[0], NULL, NULL, &face_index_lists[i][0], face_index_lists[i].size(), ALLEGRO_PRIM_LINE_LOOP);
+			//al_draw_indexed_prim(&parent->vertexes[0], NULL, NULL, &face_index_lists[i][0], face_index_lists[i].size(), ::ALLEGRO_PRIM_TRIANGLE_LIST);
 
 			// draw colored prim
 			//al_draw_indexed_prim(&parent->vertexes[0], NULL, NULL, &face_index_lists[i][0], face_index_lists[i].size(), ALLEGRO_PRIM_LINE_LOOP);
@@ -466,7 +467,9 @@ bool Model::load_obj_file(std::string filename, ALLEGRO_COLOR color)
 {
 	clear();
 
-  std::cout << "Loading Model..." << std::endl; // filename << "\"" << std::endl;
+	bool verbose = false;
+
+  if (verbose) std::cout << "Loading Model..." << std::endl; // filename << "\"" << std::endl;
 
 
   std::ifstream in(filename, std::ios::in);
@@ -501,7 +504,7 @@ bool Model::load_obj_file(std::string filename, ALLEGRO_COLOR color)
 
 	  line_count++;
 
-	  if (line_count%10000 == 0) std::cout << "..." << line_count;
+	  if (verbose) if (line_count%10000 == 0) std::cout << "..." << line_count;
 
 	 // std::cout << ".";
 
@@ -559,7 +562,7 @@ bool Model::load_obj_file(std::string filename, ALLEGRO_COLOR color)
 	{
 		if (objects.empty()) // this statement and its contents was recenty revised, though it may cause some problems with backward compatib
 		{  
-			std::cout << "  ! Object not explicitly declared (auto-creating)" << std::endl;
+			if (verbose) std::cout << "  ! Object not explicitly declared (auto-creating)" << std::endl;
 			objects.push_back(Object(this));
 			objects.back().prim_type = ALLEGRO_PRIM_TRIANGLE_FAN;
 			objects.back().name = "[INTERNALLY_CREATED_UNNAMED_INITIAL_GROUP]";
@@ -612,15 +615,18 @@ bool Model::load_obj_file(std::string filename, ALLEGRO_COLOR color)
 //  std::cout << "<5>";
   }
 
-  std::cout << "  Loaded Successfully" << std::endl;
-  std::cout << "    objects.size(): " << objects.size() << std::endl;
-  std::cout << "    uvs.size(): " << uvs.size() << std::endl;
-  std::cout << "    vertexes.size(): " << vertexes.size() << std::endl;
-  for (unsigned i=0; i<objects.size(); i++)
+  if (verbose)
   {
-	  std::cout << "    + object " << i << " (" << objects[i].name << ")" << std::endl;
-	  std::cout << "      face_index_lists.size(): " << objects[i].face_index_lists.size() << std::endl;
-	  std::cout << "      uv_index_lists.size(): " << objects[i].uv_index_lists.size() << std::endl;
+	  std::cout << "  Loaded Successfully" << std::endl;
+	  std::cout << "    objects.size(): " << objects.size() << std::endl;
+	  std::cout << "    uvs.size(): " << uvs.size() << std::endl;
+	  std::cout << "    vertexes.size(): " << vertexes.size() << std::endl;
+	  for (unsigned i=0; i<objects.size(); i++)
+	  {
+		  std::cout << "    + object " << i << " (" << objects[i].name << ")" << std::endl;
+		  std::cout << "      face_index_lists.size(): " << objects[i].face_index_lists.size() << std::endl;
+		  std::cout << "      uv_index_lists.size(): " << objects[i].uv_index_lists.size() << std::endl;
+	  }
   }
 
   return true;

@@ -161,6 +161,11 @@ static void draw_3d_triangle(vec3d v1, vec3d v2, vec3d v3, ALLEGRO_COLOR col)
 	al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
 }
 
+static bool basically_equal(const vec3d &first, const vec3d &other, float threshold)
+{
+	return fabs(first.x - other.x) < threshold && fabs(first.y - other.y) < threshold && fabs(first.z - other.z) < threshold;
+}
+
 
 
 
