@@ -195,8 +195,10 @@ bool DataAttr::load(std::string filename)
 		}
 		else
 		{
-			std::string key = php::trim(lines[i].substr(0, pos_of_first_equals_sign));
-			std::string value = php::trim(lines[i].substr(pos_of_first_equals_sign+1));
+			std::string key = lines[i].substr(0, pos_of_first_equals_sign);
+			std::string value = lines[i].substr(pos_of_first_equals_sign+1);
+			key = php::trim(key);
+			value = php::trim(value);
 			
 			set(key, value);
 
