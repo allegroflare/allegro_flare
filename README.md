@@ -9,28 +9,29 @@ AllegroFlare is a C++ framework based on the Allegro 5 game programming library.
 Simple Example
 ============
 
-	#include <allegro_flare/allegro_flare.h>
+```cpp
+#include <allegro_flare/allegro_flare.h>
 
-	class MyApp : public Screen
-	{
-	public:
-	    MyApp(Display *display)
-	        : Screen(display)
-	    {}
-	    void primary_timer() override
-	    {
-	        al_draw_filled_rectangle(300, 400, 200, 100, color::chartreuse);
-	    }
-	}
+class MyApp : public Screen
+{
+public:
+    MyApp(Display *display)
+        : Screen(display)
+    {}
+    void primary_timer() override
+    {
+        al_draw_filled_rectangle(300, 400, 200, 100, color::chartreuse);
+    }
+}
 
-	int main(int argc, char **argv)
-	{
-	    af::initialize(); // initialize all things AllegroFlare
-	    Display *display = af::create_display(800, 600); // creates a new Window
-	    MyApp *my_app = new MyApp(display); // creates a new instance of your app
-	    af::run_loop(); // run the AllegroFlare framework
-	}
-
+int main(int argc, char **argv)
+{
+    af::initialize(); // initialize all things AllegroFlare
+    Display *display = af::create_display(800, 600); // creates a new Window
+    MyApp *my_app = new MyApp(display); // creates a new instance of your app
+    af::run_loop(); // run the AllegroFlare framework
+}
+```
 
 
 Some Features and Tools
