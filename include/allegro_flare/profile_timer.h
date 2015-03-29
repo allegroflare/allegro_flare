@@ -16,8 +16,8 @@
 
 
 #include <string>
-#include <allegro5\allegro.h>
-#include <allegro5\allegro_font.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
 
 typedef char char64_t[64];
 
