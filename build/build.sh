@@ -34,7 +34,7 @@ ALLEGRO_LIB_DIR="~/Libraries/allegro-5.1.8/build/lib/"
 
 # list the files here that are to be compiled and linked into the library
 
-files=( path2d appearance2d color collision_mesh )
+files=( path2d appearance2d color )
 
 
 
