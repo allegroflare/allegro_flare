@@ -34,7 +34,56 @@ ALLEGRO_LIB_DIR="~/Libraries/allegro-5.1.8/build/lib/"
 
 # list the files here that are to be compiled and linked into the library
 
-files=( path2d appearance2d color )
+files=(
+	allegro_flare
+	appearance2d
+	attr_save_load
+	automation
+	bitmap_object
+	blender
+	camera2d
+	camera3d
+	#cam_view
+	color
+	config
+	#curl
+	data_attr
+	display
+	#dmx
+	drawing_interface
+	file_path
+	file_path_object
+	frustum
+	grid2d
+	identification
+	image_processing
+	#interprocess
+	#interprocess_through_files
+	md5
+	#midi_win
+	model
+	model_bin
+	motion
+	music_notation
+	object2d
+	#open_cv_video
+	paragraph
+	path2d
+	placement2d
+	placement3d
+	profile_timer
+	programming_language
+	render_sample
+	screen
+	sha2
+	#shared_memory
+	shared_memory
+	skeleton
+	sound_object
+	text_object
+	#text_to_speech_win
+	timeline
+	)
 
 
 
