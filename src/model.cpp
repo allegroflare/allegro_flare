@@ -472,7 +472,7 @@ bool Model::load_obj_file(std::string filename, ALLEGRO_COLOR color)
   if (verbose) std::cout << "Loading Model..." << std::endl; // filename << "\"" << std::endl;
 
 
-  std::ifstream in(filename, std::ios::in);
+  std::ifstream in(filename.c_str(), std::ios::in);
   if (!in)
   {
 	  std::cerr << "[" << __FUNCTION__ << "] Cannot open " << filename << std::endl;

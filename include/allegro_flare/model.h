@@ -22,27 +22,27 @@
 class TextureSet
 {
 public:
-	std::vector<std::pair<int, ALLEGRO_BITMAP *>> textures;
-//	std::vector<std::pair<std::string, ALLEGRO_BITMAP *>> textures;
+	std::vector<std::pair<int, ALLEGRO_BITMAP *> > textures;
+//	std::vector<std::pair<std::string, ALLEGRO_BITMAP *> > textures;
 
 	TextureSet();
 	bool set_texture_by_index(int model_object_index, ALLEGRO_BITMAP *bmp);
-	bool TextureSet::has_texture(int model_object_index);
+	bool has_texture(int model_object_index);
 
-	ALLEGRO_BITMAP *TextureSet::get_texture(int model_object_index);
+	ALLEGRO_BITMAP *get_texture(int model_object_index);
 };
 
 
 class ColorSet
 {
 public:
-	std::vector<std::pair<int, ALLEGRO_COLOR>> textures;
+	std::vector<std::pair<int, ALLEGRO_COLOR> > textures;
 
 	ColorSet();
 	bool set_color(int model_object_index, ALLEGRO_COLOR col);
-	bool ColorSet::has_color(int model_object_index);
+	bool has_color(int model_object_index);
 
-	ALLEGRO_COLOR ColorSet::get_color(int model_object_index);
+	ALLEGRO_COLOR get_color(int model_object_index);
 };
 
 
@@ -103,9 +103,9 @@ public:
 	public:
 		Model *parent;
 		std::string name;
-		std::vector<std::vector<int>> face_index_lists;
-		std::vector<std::vector<int>> vertex_normal_lists;
-		std::vector<std::vector<int>> uv_index_lists;
+		std::vector<std::vector<int> > face_index_lists;
+		std::vector<std::vector<int> > vertex_normal_lists;
+		std::vector<std::vector<int> > uv_index_lists;
 		ALLEGRO_PRIM_TYPE prim_type;
 		
 		bool has_uv_coordinates;
