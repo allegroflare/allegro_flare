@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <cstdlib> // for atoi and atof
 
 
 
