@@ -65,7 +65,7 @@ public:
 	static ALLEGRO_EVENT_QUEUE *event_queue;
 	static ALLEGRO_FONT *builtin_font;
 	static ALLEGRO_TIMER *primary_timer;
-	static bool shutdown_program;
+	static bool shutdown_program; // set this to true at any time to shutdown the program
 	static Screen *current_screen;
 	static ALLEGRO_EVENT *current_event;
 	static double time_now; // used to be current_event_time
