@@ -75,6 +75,11 @@ public:
 	static int key_alt, key_shift, key_ctrl;
 	static bool drawing_profiler_graph;
 
+	static FontBin fonts;
+	static SampleBin samples;
+	static BitmapBin bitmaps;
+	static Motion motion;
+
 	static void initialize(std::string config_filename="");
 	static Display *create_display(int width=960, int height=540);
 	static Display *create_display(int width, int height, int display_flags);

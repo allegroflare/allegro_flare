@@ -26,6 +26,7 @@ public:
 	};
 
 	Bin(std::string directory);
+	void __check_al_system_is_installed();
 	void set_path(std::string directory); // <- hmm
 	void set_full_path(std::string directory); // <- hmm
 	virtual ~Bin(); // < should this be a pure virtual funcion that requires clear()?
@@ -77,12 +78,24 @@ template<class T>
 Bin<T>::Bin(std::string dir)
 	: directory(NULL)
 {
+	__check_al_system_is_installed();
 	set_path(dir);
 	//al_append_path_component(directory, "data");
 	//al_append_path_component(directory, "bitmaps");
 }
 
 
+
+
+template<class T>
+void Bin<T>::__check_al_system_is_installed()
+{
+	if (!al_is_system_installed())
+	{
+		std::cout << "[warning Bin<T>::__check_al_system_is_installed()] auto_calling al_init();" << std::endl;
+		al_init();
+	}
+}
 
 
 template<class T>

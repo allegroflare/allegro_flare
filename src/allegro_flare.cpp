@@ -289,3 +289,11 @@ int af::key_shift = 0;
 int af::key_ctrl = 0;
 bool af::drawing_profiler_graph = false;
 
+// note: for the bins to be constructed here, al_init() needs to be called
+// prior to its intended place of af::initialize();  Maybe address this in
+// the future.
+BitmapBin af::bitmaps("data/bitmaps");
+FontBin af::fonts("data/fonts");
+SampleBin af::samples("data/samples");
+Motion af::motion(200);
+
