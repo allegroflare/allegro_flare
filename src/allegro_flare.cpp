@@ -37,10 +37,7 @@ void af::initialize(std::string config_filename)
 
 	builtin_font = al_create_builtin_font();
 
-	al_init_user_event_source(&_user_event_src_for_faking_events); ///// TODO: didn't work, take this one out and it's infesting(!) code
-
 	event_queue = al_create_event_queue();
-	al_register_event_source(event_queue, &_user_event_src_for_faking_events); /////
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_mouse_event_source());
 	al_register_event_source(event_queue, al_get_joystick_event_source());
@@ -276,8 +273,6 @@ void af::log(std::string message)
 }
 
 
-
-ALLEGRO_EVENT_SOURCE af::_user_event_src_for_faking_events;
 
 ALLEGRO_TEXTLOG *af::textlog = NULL;
 ALLEGRO_JOYSTICK *af::joystick = NULL;

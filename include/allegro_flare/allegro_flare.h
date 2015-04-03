@@ -60,8 +60,6 @@ class af
 {
 public:
 
-	static ALLEGRO_EVENT_SOURCE _user_event_src_for_faking_events;
-
 	static ALLEGRO_TEXTLOG *textlog;
 	static ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
 	static ALLEGRO_EVENT_QUEUE *event_queue;
