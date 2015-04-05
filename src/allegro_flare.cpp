@@ -182,6 +182,10 @@ void af::run_loop()
 		case ALLEGRO_EVENT_KEY_DOWN:
 			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
 				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) af::key_shift++;
+			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) af::key_alt++;
+			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) af::key_ctrl++;
 			if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
 				drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
 			Screen::key_down_funcs();
@@ -189,6 +193,10 @@ void af::run_loop()
 		case ALLEGRO_EVENT_KEY_UP:
 			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
 				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) af::key_shift--;
+			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) af::key_alt--;
+			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) af::key_ctrl--;
 			Screen::key_up_funcs();
 			break;
 		case ALLEGRO_EVENT_KEY_CHAR:
