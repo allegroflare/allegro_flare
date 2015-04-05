@@ -163,6 +163,7 @@ void af::run_loop()
 		
 		current_event = &this_event;
 		time_now = this_event.any.timestamp;
+		af::motion.update(time_now);
 
 		Screen::on_events(current_event);
 
