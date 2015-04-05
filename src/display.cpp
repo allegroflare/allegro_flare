@@ -19,12 +19,15 @@ Display::Display(int width, int height, int display_flags)
 	, _width(width)
 	, _height(height)
 {
+
 	al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
-	al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 256, ALLEGRO_SUGGEST); // hmm... not sure about this one either
+	al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 16, ALLEGRO_SUGGEST); // hmm... not sure about this one either
 	al_set_new_display_option(ALLEGRO_SAMPLES, 4, ALLEGRO_SUGGEST);
-	al_set_new_display_flags(display_flags | ALLEGRO_OPENGL); // At this time, OpenGL is requied for AllegroFlare
-															  // as there are certain features that are not working
-															  // in Direct3d mode
+//	al_set_new_display_flags(display_flags | ALLEGRO_OPENGL);	// Previously, OpenGL was forced because AllegroFlare
+																// required certain specific features.  However,
+																// now having the program run in OpenGL mode causes
+																// offscreen bitmaps to not be drawn correctly. So
+																// this feature has been removed.
 	
  	display = al_create_display(width, height);
 	displays.push_back(this);
