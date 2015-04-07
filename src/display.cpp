@@ -29,6 +29,8 @@ Display::Display(int width, int height, int display_flags)
 																// offscreen bitmaps to not be drawn correctly. So
 																// this feature has been removed.
 	
+	al_set_new_display_flags(display_flags);
+
  	display = al_create_display(width, height);
 	displays.push_back(this);
 }
