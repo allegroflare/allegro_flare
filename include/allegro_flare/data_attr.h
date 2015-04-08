@@ -25,6 +25,7 @@ public:
 	std::string get(std::string key);
 	bool set(std::string key, std::string value);
 	bool has(std::string key);
+	bool remove(std::string key);
 	bool matches(std::string key, std::string value); // checks if there is a matching key with value
 
 	int get_as_int(std::string key);

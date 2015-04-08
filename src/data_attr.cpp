@@ -30,6 +30,14 @@ bool DataAttr::has(std::string key)
 
 
 
+bool DataAttr::remove(std::string key)
+{
+	std::map<std::string, std::string>::iterator it=data.find(key);
+	if (it == data.end()) return false;
+	data.erase(it);
+}
+
+
 
 bool DataAttr::matches(std::string key, std::string value)
 {
