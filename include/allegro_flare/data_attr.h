@@ -34,6 +34,9 @@ public:
 
 	bool load(std::string filename);
 	bool save(std::string filename);
+
+	unsigned size();
+	std::map<std::string, std::string> get_copy();
 };
 
 

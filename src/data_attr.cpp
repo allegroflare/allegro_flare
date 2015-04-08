@@ -225,3 +225,18 @@ bool DataAttr::save(std::string filename)
 
 	return php::file_put_contents(filename, output.str());
 }
+
+
+
+
+unsigned DataAttr::size()
+{
+	return data.size();
+}
+
+
+
+std::map<std::string, std::string> DataAttr::get_copy()
+{
+	return data;
+}
