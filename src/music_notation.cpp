@@ -389,6 +389,7 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 						if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
 						else if (text_before_equals.compare("staff_color") == 0) staff_color = color::name(text_after_equals.c_str());
 						else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
+						else if (tokens[t] == "ignore_spaces") ignore_spaces = true;
 						else if (tokens[t] == "rhythm_only") rhythm_only = true;
 						else if (tokens[t].find("spacing=fixed")==0) spacing_method = MusicNotation::SPACING_FIXED;
 						else if (tokens[t].find("spacing=aesthetic")==0) spacing_method = MusicNotation::SPACING_AESTHETIC;
