@@ -27,9 +27,6 @@ placement2d::placement2d(float x, float y, float w, float h)
 	, scale(1, 1)
 	, anchor(0, 0)
 	, rotation(0)
-/*	: x(x), y(y), w(w), h(h), rotation(0), scale_x(1), scale_y(1),
-	align_x(0.5), align_y(0.5), anchor_x(0), anchor_y(0)
-	*/
 {}
 
 
@@ -42,9 +39,6 @@ placement2d::placement2d(float x, float y, float w, float h, float rotation, flo
 	, scale(scale_x, scale_y)
 	, anchor(anchor_x, anchor_y)
 	, rotation(rotation)
-/*	: x(x), y(y), w(w), h(h), rotation(rotation), scale_x(scale_x), scale_y(scale_y),
-	align_x(align_x), align_y(align_y), anchor_x(anchor_x), anchor_y(anchor_y)
-	*/
 {}
 
 
@@ -98,6 +92,16 @@ void placement2d::draw_box(ALLEGRO_COLOR color, bool draw_origin)
 
 
 
+void placement2d::draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, float pt, float pr, float pb, float pl)
+{
+	if (draw_origin) al_draw_circle(position.x, position.y, 5, color, 3.0);
+	start_transform();
+	al_draw_rectangle(0, 0, size.x, size.y, color, 3.0);
+	al_draw_rectangle(-pl, -pt, size.x+pr, size.y+pb, al_map_rgba_f(color.r*0.5, color.g*0.5, color.b*0.5, color.a*0.5), 3.0);
+	restore_transform();
+}
+
+
 void placement2d::transform_coordinates(float *xx, float *yy)
 	// unsure
 {
@@ -147,6 +151,18 @@ bool placement2d::collide(float x, float y)
 	return true;
 }
 
+
+
+bool placement2d::collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left)
+{
+	transform_coordinates(&x, &y);
+
+	if (x < -padding_left) return false;
+	if (x > size.x+padding_right) return false;
+	if (y < -padding_top) return false;
+	if (y > size.y+padding_bottom) return false;
+	return true;
+}
 
 
 void placement2d::clear()

@@ -26,11 +26,13 @@ public:
 	void start_transform();
 	void restore_transform();
 	void draw_box(ALLEGRO_COLOR color, bool draw_origin);
+	void draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, float pt, float pr, float pb, float pl);
 	void draw_origin();
 	void clear();
 	void transform_coordinates(float *x, float *y);
 	void place_coordinates(float *x, float *y);
 	bool collide(float x, float y);
+	bool collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left);
 	std::string get_string();
 
 	//placement2d operator+=(placement2d &rhs); << this would be cool... for things like placement+=velocity;
