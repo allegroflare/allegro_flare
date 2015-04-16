@@ -431,38 +431,6 @@ A_INLINE std::string tostring(T val)
 
 
 
-#include <allegro_flare/md5.h>
-
-A_INLINE std::string md5_file(std::string filename)
-{
-	std::string data;
-	std::ifstream input_file( filename.c_str(), std::ios::binary | std::ios::in );
-	if( !input_file)
-	{
-		std::cout << "! Failed to open file \"filename\"" << std::endl;
-		return "[error1]";
-		// exit/return
-	}
-
-	std::ostringstream ss;
-	ss << input_file.rdbuf();
-	data = ss.str();
-
-
-	MD5 md5 = MD5(data);
- 
-
-	input_file .close();
-
-	return md5.hexdigest();
-}
-
-
-
-
-
-
-
 
 #include <vector>
 A_INLINE std::vector<int> to_int(const std::vector<std::string> &arr)
