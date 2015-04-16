@@ -1,3 +1,6 @@
+#ifndef __AF_USEFUL_HEADER
+#define __AF_USEFUL_HEADER
+
 
 
 
@@ -9,6 +12,19 @@
 // parsing this file for documentation is like this
 // here is the regular expression for a section header: \n//\n// .+\n(//.*\n)*//\n\n
 
+
+
+#include <string>
+#include <vector>
+
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_native_dialog.h>
+
+#include <allegro_flare/vec2d.h>
+#include <allegro_flare/vec3d.h>
+#include <allegro_flare/color.h>
 
 
 
@@ -84,7 +100,7 @@ bool is_number(const std::string& s);
 // will do a find using a binary search (your elements must already be ordered)
 // TODO: this function is unfinished
 template<class Iter, class T>
-A_INLINE Iter binary_find(Iter begin, Iter end, T val)
+inline Iter binary_find(Iter begin, Iter end, T val)
 {
     // Finds the lower bound in at most log(last - first) + 1 comparisons
     Iter i = std::lower_bound(begin, end, val);
@@ -221,7 +237,7 @@ vec2d reflect(vec2d &point, const vec2d &axis);
 vec3d reflect(vec3d &point, const vec3d &axis);
 
 // calculate the distance between points using the distance formula
-float distance(float x1, float y1, float x2, float y2)
+float distance(float x1, float y1, float x2, float y2);
 float distance(const vec2d &point1, const vec2d &point2);
 float distance(const vec2d *point1, const vec2d *point2);
 
@@ -307,10 +323,7 @@ std::vector<std::string> get_directory_listing(std::string directory);
 
 namespace javascript
 {
-	void alert(std::string message)
-	{
-		al_show_native_message_box(al_get_current_display(), "Alert", "", message.c_str(), NULL, ALLEGRO_MESSAGEBOX_WARN);
-	}
+	void alert(std::string message);
 };
 
 
