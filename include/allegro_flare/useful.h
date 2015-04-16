@@ -450,7 +450,7 @@ A_INLINE std::string sha256_file(std::string filename)
 	ss << input_file.rdbuf();
 	data = ss.str();
 
-    std::string output = sha256(data);
+    std::string output = get_sha256_hash(data);
 
 	input_file .close();
 
