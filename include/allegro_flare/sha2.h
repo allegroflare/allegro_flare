@@ -13,6 +13,7 @@ std::string get_sha256_hash(std::string input);
 std::string get_sha384_hash(std::string input);
 std::string get_sha512_hash(std::string input);
 
+std::string get_sha256_hash_of_file(std::string filename);
 
 
 

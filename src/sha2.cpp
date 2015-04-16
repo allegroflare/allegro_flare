@@ -237,7 +237,37 @@ std::string get_sha512_hash(std::string input)
 	return sha512(input);
 }
 
+
+#include <fstream>
+#include <iostream>
+#include <sstream>
+std::string get_sha256_hash_of_file(std::string filename)
+{
+	std::string data;
+	std::ifstream input_file( filename.c_str(), std::ios::binary | std::ios::in );
+	if( !input_file)
+	{
+		std::cout << "! Failed to open file \"filename\"" << std::endl;
+		return "[error1]";
+		// exit/return
+	}
+
+	std::ostringstream ss;
+	ss << input_file.rdbuf();
+	data = ss.str();
+
+    std::string output = get_sha256_hash(data);
+
+	input_file .close();
+
+	return output;
+}
+
+
 // original author code continues below:
+
+
+
 
 
 
