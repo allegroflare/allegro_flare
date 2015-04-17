@@ -15,32 +15,32 @@ captures the comments: \n(?P<comment>(\n\/\/ (.+))+)</p>
 <code><pre>
 #define ALLEGRO_FLAGS_EMPTY 0</pre></code>
 <p>
-macro that replaces previous usage of NULL</p>
+macro that replaces previous usage of NULL.</p>
 <h3></h3>
 <code><pre>
 static const float FULL_ROTATION = 6.28318531;</pre></code>
 <p>
 </p>
-<p class='todo'>TODO: change to #define</p><h3></h3>
+<p class='todo'>TODO: change to #define.</p><h3></h3>
 <code><pre>
 static const float TAU = 6.28318531;</pre></code>
 <p>
 </p>
-<p class='todo'>TODO: change to #define</p><h3>degrees_to_radians</h3>
+<p class='todo'>TODO: change to #define.</p><h3>degrees_to_radians</h3>
 <code><pre>
 float degrees_to_radians(float deg);</pre></code>
 <p>
-convert from degrees to radians</p>
+Converts a value from degrees to radians.</p>
 <h3>radians_to_degrees</h3>
 <code><pre>
 float radians_to_degrees(float rad);</pre></code>
 <p>
-convert from radians to degrees</p>
+Converts a value from radians to degrees.</p>
 <h3>basically_equal</h3>
 <code><pre>
 bool basically_equal(float v1, float v2, float threshold=0.00001f);</pre></code>
 <p>
-returns true if the value of two floats are equivalent within a given threshold.
+Returns true if the value of two floats are equivalent within a given threshold.
 Sometimes using the == operator between two floats might produce unexpected results
 doe to precision and rounding errors.  Using this function will help reduce that
 potential pitfall.</p>
@@ -56,7 +56,7 @@ T limit(const T &range1, const T &range2, const T &val)
 	return val;
 }</pre></code>
 <p>
-returns a number who's value has been limited to be within (non-inclusive) a range</p>
+Returns a number whose value has been limited to be within (non-inclusive) a range.</p>
 <h3>in_range</h3>
 <code><pre>
 template<class T>
@@ -67,7 +67,7 @@ bool in_range(const T &min, const T &max, const T &val)
 	return true;
 }</pre></code>
 <p>
-finds if a value is within (non-inclusive) the given min and max ranges</p>
+Finds if a value is within (non-inclusive) the given min and max ranges.</p>
 <h3>mid</h3>
 <code><pre>
 template<class T>
@@ -76,17 +76,17 @@ T mid(const T &val1, const T &val2)
 	return (max(val1, val2) - min(val1, val2)) / 2.0 + min(val1, val2);
 }</pre></code>
 <p>
-returns the midpoint between two values</p>
+Returns the midpoint between two values.</p>
 <h3>round</h3>
 <code><pre>
 float round(float val);</pre></code>
 <p>
-returns the next greatest whole number if the given value is not a whole number itself; e.g. it rounds the number up.</p>
+Returns the next greatest whole number if the given value is not a whole number itself; e.g. it rounds the number up.</p>
 <h3>is_number</h3>
 <code><pre>
 bool is_number(const std::string& s); </pre></code>
 <p>
-returns true if the given string only contains characters that pass std::is_digit()
+Returns true if the given string only contains characters that pass `std::is_digit()`.
 </p>
 <p class='todo'>TODO: rename this to to_int or something similar</p><h3>binary_find</h3>
 <code><pre>
@@ -96,7 +96,7 @@ inline Iter binary_find(Iter begin, Iter end, T val)
     // Finds the lower bound in at most log(last - first) + 1 comparisons
     Iter i = std::lower_bound(begin, end, val);</pre></code>
 <p>
-will do a find using a binary search (your elements must already be ordered)
+Finds an element matching `val` using a binary search (your elements must already be ordered).
 </p>
 <p class='todo'>TODO: this function is unfinished</p><h3>tostring</h3>
 <code><pre>
@@ -108,77 +108,77 @@ std::string tostring(T val)
 	return s.str();
 }</pre></code>
 <p>
-converts a value to a string representation</p>
+Converts a value to a string representation.</p>
 <h3>get_xml_encoded_ustr</h3>
 <code><pre>
 std::string get_xml_encoded_ustr(ALLEGRO_USTR *ustr);</pre></code>
 <p>
-returns a string with each character encoded in XML, e.g. #&x00fe;</p>
+Returns a string with each character encoded in XML, e.g. #&x00fe;.</p>
 <h3>escape_xml_chars</h3>
 <code><pre>
 std::string escape_xml_chars(std::string xml);</pre></code>
 <p>
-escapes any XML characters in a string.  This is useful
-for passing complex arguments in a CURL command</p>
+Escapes any XML characters in a string.  
+This is useful for passing complex arguments in a CURL command.</p>
 <h3>as_hex</h3>
 <code><pre>
 std::string as_hex(int32_t num);</pre></code>
 <p>
-converts an int32_t into the string hexidecimal representation of the number
+Converts an int32_t into the string hexidecimal representation of the number.
 </p>
-<p class='todo'>TODO should change this function name to to_hex_string() or something similar</p><h3>to_int</h3>
+<p class='todo'>TODO should change this function name to to_hex_string() or something similar.</p><h3>to_int</h3>
 <code><pre>
 std::vector<int> to_int(const std::vector<std::string> &arr);</pre></code>
 <p>
-given an array of strings, will return an array of ints</p>
+Returns an array of ints given an array of strings..</p>
 <h3>get_datetime_str</h3>
 <code><pre>
 std::string get_datetime_str();</pre></code>
 <p>
-returns the current datetime in "DD-MM-YYYY HH:MM:SS" format
+Returns the current datetime in "DD-MM-YYYY HH:MM:SS" format.
 </p>
 <p class='todo'>TODO: test in gcc</p><h3>random_bool</h3>
 <code><pre>
 bool random_bool();</pre></code>
 <p>
-returns a random true or false</p>
+Returns a random boolean `true` or `false`.</p>
 <h3>random_float</h3>
 <code><pre>
 float random_float(float min, float max);</pre></code>
 <p>
-returns a random float between min and max (inclusive)</p>
+Returns a random float between `min` and `max` (inclusive).</p>
 <h3>random_double</h3>
 <code><pre>
 double random_double(double min, double max);</pre></code>
 <p>
-returns a random double between min and max (inclusive)</p>
+Returns a random double between min and max (inclusive).</p>
 <h3>random_int</h3>
 <code><pre>
 int random_int(int min, int max);</pre></code>
 <p>
-returns a random integer between min and max (inclusive)</p>
+Returns a random integer between min and max (inclusive).</p>
 <h3>random_sign</h3>
 <code><pre>
 int random_sign();</pre></code>
 <p>
-returns either a 1 or -1, selected at random</p>
+Returns either a 1 or -1, selected at random.</p>
 <h3>random_letter</h3>
 <code><pre>
 unsigned char random_letter(bool lower);</pre></code>
 <p>
-returns a random uppercase char 'A-Z'
-if lower=true, then it will return a random lowercase letter 'a-z'</p>
+Returns a random uppercase char 'A-Z'.
+If `lower=true`, then a random lowercase letter 'a-z' will be returned.</p>
 <h3>random_letter_or_number</h3>
 <code><pre>
 unsigned char random_letter_or_number();</pre></code>
 <p>
-returns a char that is either an uppercase character 'A-Z', a lowercase character 'a-z', or a number character from '0-9'</p>
+Returns a char that is either an uppercase character 'A-Z', a lowercase character 'a-z', or a number character from '0-9'.</p>
 <h3>random_string</h3>
 <code><pre>
 std::string random_string(unsigned int length);</pre></code>
 <p>
-generates a string of the size length consisting of randomly selected characters 'A-Za-z0-0'
-This is useful for generating random strings for identifiers or unique instances
+Generates a string of the size length consisting of randomly selected characters [A-Za-z0-0].
+This is useful for generating random strings for identifiers or unique instances.
 </p>
 <p class='todo'>TODO: aaaagggghhh ;[ this is not funny tested</p><h3>random_element</h3>
 <code><pre>
@@ -188,9 +188,9 @@ T random_element(std::vector<T> &elements)
 	return elements[random_int(0, elements.size())];
 }</pre></code>
 <p>
-returns a randomly selected element from the vector
-WARNING: this function does not do any bounds checking.
-If the array is empty, this function will throw an out-of-bounds exception</p>
+Returns a randomly selected element from the vector.
+WARNING: this function does not do any bounds checking.  If the array is empty
+this function will throw an out-of-bounds exception.</p>
 <h3>random_element</h3>
 <code><pre>
 template<class T>
@@ -199,65 +199,65 @@ T random_element(T elements[], int size)
 	return elements[random_int(0, size-1)];
 }</pre></code>
 <p>
-returns a random selected element from an array of elements[]
-if the array is empty, it will throw an out-of-bounds exception</p>
+Returns a random selected element from an array of elements.
+If the array is empty, it will throw an out-of-bounds exception.</p>
 <h3>random_color</h3>
 <code><pre>
 ALLEGRO_COLOR random_color();</pre></code>
 <p>
-returns an ALLEGRO_COLOR with randomly picked RGB values
+Returns an ALLEGRO_COLOR with randomly picked RGB values.
 </p>
-<p class='todo'>TODO: this function is more useful for tests. Since the RGB values are generated
+<p class='todo'>TODO: This function is more useful for tests. Since the RGB values are generated
 independently, the colors that are typically generated fall into the middle of the
 color space.  A better, more 'random' color might integrate some color theory. </p><h3>dot_product</h3>
 <code><pre>
 float dot_product(vec3d A, vec3d B);</pre></code>
 <p>
-calculate the dot product between two vectors</p>
+Calculate the dot product between two vectors.</p>
 <h3>cross_product</h3>
 <code><pre>
 vec3d cross_product(vec3d A, vec3d B);</pre></code>
 <p>
-calculate the cross product between two vectors</p>
+Calculate the cross product between two vectors.</p>
 <h3>project</h3>
 <code><pre>
 vec2d project(vec2d &point, vec2d &axis);
 vec3d project(vec3d point, vec3d point_on_plane, vec3d normal_of_plane);</pre></code>
 <p>
-returns a point projected onto an axis</p>
+Returns a point projected onto an axis.</p>
 <h3>rotate_point</h3>
 <code><pre>
 vec2d rotate_point(vec2d point, float angle);</pre></code>
 <p>
-rotates a point by an angle</p>
+Rotates a point by an angle.</p>
 <h3>reflect</h3>
 <code><pre>
 vec2d reflect(vec2d &point, const vec2d &axis);
 vec3d reflect(vec3d &point, const vec3d &axis);</pre></code>
 <p>
-reflect a point along an axis</p>
+Reflects a point along an axis.</p>
 <h3>distance</h3>
 <code><pre>
 float distance(float x1, float y1, float x2, float y2);
 float distance(const vec2d &point1, const vec2d &point2);
 float distance(const vec2d *point1, const vec2d *point2);</pre></code>
 <p>
-calculate the distance between points using the distance formula</p>
+Calculates the distance between points using the distance formula.</p>
 <h3>manhattan_distance</h3>
 <code><pre>
 float manhattan_distance(float x1, float y1, float x2, float y2);
 float manhattan_distance(const vec2d *point1, const vec2d *point2);</pre></code>
 <p>
-calculate the manhattan distance between points (google "Manhattan Distance")
-manhattan distance is a slightly faster (but less accurate) way to get the distance</p>
+Calculates the manhattan distance between points (google "Manhattan Distance").
+Manhattan distance is a slightly faster (but less accurate) alternative to the distance formula.</p>
 <h3>distance_squared</h3>
 <code><pre>
 float distance_squared(const vec2d &point1, const vec2d &point2);</pre></code>
 <p>
-calculate the distance squared between points
-finding the distance squared is a fast calculation, you might use it to prune out
+Calculates the distance squared between points.
+Finding the distance squared is a fast calculation, you might use it to prune out
 *possible* collisions between objects before calculating a more accurate distance
-with the normal distance() formula</p>
+with the normal distance() formula.</p>
 <h3>draw_crosshair</h3>
 <code><pre>
 void draw_crosshair(float x, float y, ALLEGRO_COLOR color=al_color_name("white"));
@@ -265,65 +265,67 @@ void draw_crosshair(float x, float y, float z, ALLEGRO_COLOR col=color::black, f
 void draw_crosshair(vec2d &point, ALLEGRO_COLOR color=al_color_name("white"));
 void draw_crosshair(vec3d point, ALLEGRO_COLOR col=color::black, float size=10);</pre></code>
 <p>
-draws a crosshair at a given coordinate on the screen</p>
+Draws a crosshair at a given coordinate on the screen.</p>
 <h3>build_vertex</h3>
 <code><pre>
 ALLEGRO_VERTEX build_vertex(float x, float y, float z, ALLEGRO_COLOR col, float u, float v);</pre></code>
 <p>
-creates an ALLEGRO_VERTEX with the following parameters</p>
+Creates an ALLEGRO_VERTEX with the following parameters.</p>
 <h3>draw_textured_rectangle</h3>
 <code><pre>
 void draw_textured_rectangle(float x, float y, float w, float h, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);</pre></code>
 <p>
-draws a rectangle with the given texture.  The texture will tile if the rectangle
-extends beyond the width or height of the image.  The orientation of the texture is
-aligned at the (x, y) of the texture</p>
+Draws a rectangle with the given texture.
+The texture will tile if the rectangle extends beyond the width or height of the image.
+The orientation of the texture is aligned at the (x, y) of the texture.</p>
 <h3>draw_offset_textured_rectangle</h3>
 <code><pre>
 void draw_offset_textured_rectangle(float x, float y, float w, float h, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);</pre></code>
 <p>
-same as draw_textured_rectangle, but allows you to define an x y offset for the texture.</p>
+Same as `draw_textured_rectangle`, but allows you to define an x y offset for the texture.</p>
 <h3>draw_stretched_bitmap</h3>
 <code><pre>
 void draw_stretched_bitmap(float x, float y, float w, float h, ALLEGRO_BITMAP *bitmap, int flip_flags=ALLEGRO_FLAGS_EMPTY, ALLEGRO_COLOR color=color::white);</pre></code>
 <p>
-draws an image stretched to fit the given width and height</p>
+Draws an image stretched to fit the given width and height.</p>
 <h3>draw_unicode_char</h3>
 <code><pre>
 void draw_unicode_char(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);</pre></code>
 <p>
-might be obsolete?  look in the unique font drawing routines</p>
-<h3>animate_color</h3>
+Draws a unicode character on the screen.
+</p>
+<p class='todo'>TODO: might be obsolete?  look in the unique font drawing routines.</p><h3>animate_color</h3>
 <code><pre>
 #include <allegro_flare/motion.h>
 void animate_color(Motion *motion, ALLEGRO_COLOR *dest_color, const ALLEGRO_COLOR start, const ALLEGRO_COLOR end, double start_time, double duration, interpolator::interpolator_func_t interpolator_func);</pre></code>
 <p>
-initializes an animation on an ALLEGRO_COLOR so that it will crossfade between two colors</p>
+Initializes an animation on an ALLEGRO_COLOR so that it will crossfade between two colors.</p>
 <h3>take_screenshot</h3>
 <code><pre>
 std::string take_screenshot(std::string filename="");</pre></code>
 <p>
 using the allegro functions, writes a screenshot to a file.
-if the filename is left blank, then "screenshot-[time].png" will be generated
-as the filename</p>
+If the filename is left blank, then "screenshot-[time].png" will be generated
+as the filename.</p>
 <h3>key_pressed</h3>
 <code><pre>
 bool key_pressed(int al_keycode);</pre></code>
 <p>
-checks to see if a key is currently pressed</p>
+checks to see if a key is currently pressed.</p>
 <h3>pick_filename</h3>
 <code><pre>
 std::string pick_filename();</pre></code>
 <p>
-using the allegro path addon, this will open a native dialogue box
-prompting the user to select a file.
+Opens a native dialogue box prompting the user to select a file.
+This is a _blocking_ function and will halt any activity that is running in the
+calling thread.  This function uses the allegro path addon.
 </p>
-<p class='todo'>TODO: add an additional parameter limiting the file extensions</p><h3>get_directory_listing</h3>
+<p class='todo'>TODO: add an additional parameter limiting the file extensions.</p><h3>get_directory_listing</h3>
 <code><pre>
 #include <iostream>
 std::vector<std::string> get_directory_listing(std::string directory);</pre></code>
 <p>
-get a listing of all the files in the directory</p>
+Get a listing of all the files in the directory.</p>
 
 
 </body>
