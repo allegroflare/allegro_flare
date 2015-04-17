@@ -222,8 +222,10 @@ ALLEGRO_COLOR random_color();
 // Vector math functions (2d and 3d variants)
 //
 
-// basic vector math
+// calculate the dot product between two vectors
 float dot_product(vec3d A, vec3d B);
+
+// calculate the cross product between two vectors
 vec3d cross_product(vec3d A, vec3d B);
 
 // returns a point projected onto an axis
