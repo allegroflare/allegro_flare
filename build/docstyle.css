@@ -14,7 +14,6 @@ pre
 	padding: 10px 20px;
 	background-color: #efefef;
 	border-radius: 6px;
-	font-size: 10px;
 	color: gray;
 	font-weight: bold;
 }
@@ -22,7 +21,17 @@ pre
 
 H3
 {
-	margin-top: 40px;
+	margin-top: 50px;
 }
+
+p.todo
+{
+	background-color: #ffffee;
+	font-size: 80%;
+	color: #f16e26;
+	padding: 7px 14px;
+	border: 1px solid #f16e26;
+}
+
 
 
