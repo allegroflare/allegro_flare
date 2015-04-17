@@ -11,7 +11,8 @@
 
 // parsing this file for documentation is like this
 // here is the regular expression for a section header: \n//\n// .+\n(//.*\n)*//\n\n
-
+// captures the comments: \n(?P<comment>(\n\/\/ (.+))+)
+// captures comments and definitions (but definitions have a leading newline: \n(?P<name>(\n\/\/ (.+))+)(?P<function_def>(\n.+)+)
 
 
 #include <string>
@@ -270,27 +271,33 @@ void draw_crosshair(vec3d point, ALLEGRO_COLOR col=color::black, float size=10);
 // Allegro utility functions
 //
 
+// creates an ALLEGRO_VERTEX with the following parameters
 ALLEGRO_VERTEX build_vertex(float x, float y, float z, ALLEGRO_COLOR col, float u, float v);
 
+// draws a rectangle with the given texture.  The texture will tile if the rectangle
+// extends beyond the width or height of the image.  The orientation of the texture is
+// aligned at the (x, y) of the texture
 void draw_textured_rectangle(float x, float y, float w, float h, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);
 
+// same as draw_textured_rectangle, but allows you to define an x y offset for the texture.
 void draw_offset_textured_rectangle(float x, float y, float w, float h, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);
 
+// draws an image stretched to fit the given width and height
 void draw_stretched_bitmap(float x, float y, float w, float h, ALLEGRO_BITMAP *bitmap, int flip_flags=ALLEGRO_FLAGS_EMPTY, ALLEGRO_COLOR color=color::white);
 
 // might be obsolete?  look in the unique font drawing routines
 void draw_unicode_char(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
 
-// using a Motion object, this will modify a color so that it will crossfade between two colors
+// initializes an animation on an ALLEGRO_COLOR so that it will crossfade between two colors
 #include <allegro_flare/motion.h>
 void animate_color(Motion *motion, ALLEGRO_COLOR *dest_color, const ALLEGRO_COLOR start, const ALLEGRO_COLOR end, double start_time, double duration, interpolator::interpolator_func_t interpolator_func);
 
-// using the allegro functions, writes a screenshot.
+// using the allegro functions, writes a screenshot to a file.
 // if the filename is left blank, then "screenshot-[time].png" will be generated
 // as the filename
 std::string take_screenshot(std::string filename="");
 
-// using allegro, this will check if a key is currently pressed
+// checks to see if a key is currently pressed
 bool key_pressed(int al_keycode);
 
 
