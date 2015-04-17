@@ -1,0 +1,28 @@
+
+
+body
+{
+	width: 600px;
+	margin: auto;
+	font-family: 'Droid Sans';
+}
+
+
+pre
+{
+	font-family: Consolas;
+	padding: 10px 20px;
+	background-color: #efefef;
+	border-radius: 6px;
+	font-size: 10px;
+	color: gray;
+	font-weight: bold;
+}
+
+
+H3
+{
+	margin-top: 40px;
+}
+
+
