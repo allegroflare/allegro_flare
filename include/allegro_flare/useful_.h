@@ -239,7 +239,7 @@ vec2d rotate_point(vec2d point, float angle);
 vec2d reflect(vec2d &point, const vec2d &axis);
 vec3d reflect(vec3d &point, const vec3d &axis);
 
-// Calculates the distance between points using the distance formula.
+// Calculates the distance between points.
 float distance(float x1, float y1, float x2, float y2);
 float distance(const vec2d &point1, const vec2d &point2);
 float distance(const vec2d *point1, const vec2d *point2);
@@ -250,9 +250,9 @@ float manhattan_distance(float x1, float y1, float x2, float y2);
 float manhattan_distance(const vec2d *point1, const vec2d *point2);
 
 // Calculates the distance squared between points.
-// Finding the distance squared is a fast calculation, you might use it to prune out
-// *possible* collisions between objects before calculating a more accurate distance
-// with the normal distance() formula.
+// Finding the distance squared is a fast calculation, so you might use it to prune out
+// possible collisions between objects before calculating a more accurate distance
+// with the usual `distance()` function.
 float distance_squared(const vec2d &point1, const vec2d &point2);
 
 // Draws a crosshair at a given coordinate on the screen.
@@ -278,10 +278,11 @@ ALLEGRO_VERTEX build_vertex(float x, float y, float z, ALLEGRO_COLOR col, float 
 
 // Draws a rectangle with the given texture.
 // The texture will tile if the rectangle extends beyond the width or height of the image.
-// The orientation of the texture is aligned at the (x, y) of the texture.
+// The top left corner of the texture is aligned at `x` and `y` of the rectangle.  To define
+// an offset, use `draw_offset_textured_rectangle`.
 void draw_textured_rectangle(float x, float y, float w, float h, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);
 
-// Same as `draw_textured_rectangle`, but allows you to define an x y offset for the texture.
+// Same as `draw_textured_rectangle`, but allows you to define an x and y offset for the texture.
 void draw_offset_textured_rectangle(float x, float y, float w, float h, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);
 
 // Draws an image stretched to fit the given width and height.
@@ -291,16 +292,17 @@ void draw_stretched_bitmap(float x, float y, float w, float h, ALLEGRO_BITMAP *b
 // TODO: might be obsolete?  look in the unique font drawing routines.
 void draw_unicode_char(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
 
-// Initializes an animation on an ALLEGRO_COLOR so that it will crossfade between two colors.
+// Initializes an animation on an `ALLEGRO_COLOR` so that it will crossfade between two colors.
 #include <allegro_flare/motion.h>
 void animate_color(Motion *motion, ALLEGRO_COLOR *dest_color, const ALLEGRO_COLOR start, const ALLEGRO_COLOR end, double start_time, double duration, interpolator::interpolator_func_t interpolator_func);
 
-// using the allegro functions, writes a screenshot to a file.
+// Captures a screenshot of the current display (e.g. the contents of the current program window) and writes the image to a file.
 // If the filename is left blank, then "screenshot-[time].png" will be generated
-// as the filename.
+// as the filename, where [time] is in the `YYYY-MM-DD HH-MM-SS` format.
+// This function uses the allegro library.
 std::string take_screenshot(std::string filename="");
 
-// checks to see if a key is currently pressed.
+// Checks to see if a key is currently pressed.
 bool key_pressed(int al_keycode);
 
 
