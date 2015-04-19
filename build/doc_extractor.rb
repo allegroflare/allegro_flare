@@ -64,7 +64,7 @@ class DocParser
 
 		@function_defs.each do |fdef|
 			content += "<h3>#{fdef.name}</h3>\n"
-			content += "<code><pre>#{fdef.declaration}</pre></code>\n"
+			content += "<pre class='code'>#{fdef.declaration}</pre>\n"
 			content += "<p>#{fdef.description}</p>\n"
 			content += "<p class='todo'>#{fdef.todo}</p>" if !fdef.todo.nil? 
 		end
