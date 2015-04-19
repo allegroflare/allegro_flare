@@ -86,7 +86,7 @@ Returns the next greatest whole number if the given value is not a whole number 
 <code><pre>
 bool is_number(const std::string& s); </pre></code>
 <p>
-Returns true if the given string only contains characters that pass `std::is_digit()`.
+Returns true if the given string only contains characters that pass <code>std::is_digit()</code>.
 </p>
 <p class='todo'>TODO: rename this to to_int or something similar</p><h3>binary_find</h3>
 <code><pre>
@@ -96,7 +96,7 @@ inline Iter binary_find(Iter begin, Iter end, T val)
     // Finds the lower bound in at most log(last - first) + 1 comparisons
     Iter i = std::lower_bound(begin, end, val);</pre></code>
 <p>
-Finds an element matching `val` using a binary search (your elements must already be ordered).
+Finds an element matching <code>val</code> using a binary search (your elements must already be ordered).
 </p>
 <p class='todo'>TODO: this function is unfinished</p><h3>tostring</h3>
 <code><pre>
@@ -141,12 +141,12 @@ Returns the current datetime in "DD-MM-YYYY HH:MM:SS" format.
 <code><pre>
 bool random_bool();</pre></code>
 <p>
-Returns a random boolean `true` or `false`.</p>
+Returns a random boolean <code>true</code> or <code>false</code>.</p>
 <h3>random_float</h3>
 <code><pre>
 float random_float(float min, float max);</pre></code>
 <p>
-Returns a random float between `min` and `max` (inclusive).</p>
+Returns a random float between <code>min</code> and <code>max</code> (inclusive).</p>
 <h3>random_double</h3>
 <code><pre>
 double random_double(double min, double max);</pre></code>
@@ -167,7 +167,7 @@ Returns either a 1 or -1, selected at random.</p>
 unsigned char random_letter(bool lower);</pre></code>
 <p>
 Returns a random uppercase char 'A-Z'.
-If `lower=true`, then a random lowercase letter 'a-z' will be returned.</p>
+If <code>lower=true</code>, then a random lowercase letter 'a-z' will be returned.</p>
 <h3>random_letter_or_number</h3>
 <code><pre>
 unsigned char random_letter_or_number();</pre></code>
@@ -282,7 +282,7 @@ The orientation of the texture is aligned at the (x, y) of the texture.</p>
 <code><pre>
 void draw_offset_textured_rectangle(float x, float y, float w, float h, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);</pre></code>
 <p>
-Same as `draw_textured_rectangle`, but allows you to define an x y offset for the texture.</p>
+Same as <code>draw_textured_rectangle</code>, but allows you to define an x y offset for the texture.</p>
 <h3>draw_stretched_bitmap</h3>
 <code><pre>
 void draw_stretched_bitmap(float x, float y, float w, float h, ALLEGRO_BITMAP *bitmap, int flip_flags=ALLEGRO_FLAGS_EMPTY, ALLEGRO_COLOR color=color::white);</pre></code>

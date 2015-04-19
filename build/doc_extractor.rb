@@ -16,6 +16,10 @@ class CodeDef
 		function_name_matchdata = / (?<func_identifier>[_A-Za-z0-9:]*)\(/.match(declaration)
 		@name = function_name_matchdata[:func_identifier] if !function_name_matchdata.nil?
 
+		# replace tick marks `content` with code tags
+		description.gsub!(/`([^`]*)`/, '<code>\1</code>')
+
+		# set the description (strip the to-do tag if necessairy)
 		@todo = description.match(/TODO[\s\S]*/)
 		if @todo.nil?
 			@description = description
