@@ -6,7 +6,7 @@
 <H1>AllegroFlare Documentation</H1>
 <h3></h3>
 <code><pre>
-// captures comments and definitions (but definitions have a leading newline: \n(?P<name>(\n\/\/ (.+))+)(?P<function_def>(\n.+)+)</pre></code>
+// captures comments and definitions (but definitions have a leading newline: \n(?P&lt;name&gt;(\n\/\/ (.+))+)(?P&lt;function_def&gt;(\n.+)+)</pre></code>
 <p>
 parsing this file for documentation is like this
 here is the regular expression for a section header: \n//\n.+\n(//.*\n)*//\n\n
@@ -46,32 +46,32 @@ doe to precision and rounding errors.  Using this function will help reduce that
 potential pitfall.</p>
 <h3>limit</h3>
 <code><pre>
-template<class T>
-T limit(const T &range1, const T &range2, const T &val)
+template&lt;class T&gt;
+T limit(const T &amp;range1, const T &amp;range2, const T &amp;val)
 {
-	float min = (range1 < range2) ? range1 : range2;
-	float max = (range1 > range2) ? range1 : range2;
-	if (val < min) return min;
-	if (val > max) return max;
+	float min = (range1 &lt; range2) ? range1 : range2;
+	float max = (range1 &gt; range2) ? range1 : range2;
+	if (val &lt; min) return min;
+	if (val &gt; max) return max;
 	return val;
 }</pre></code>
 <p>
 Returns a number whose value has been limited to be within (non-inclusive) a range.</p>
 <h3>in_range</h3>
 <code><pre>
-template<class T>
-bool in_range(const T &min, const T &max, const T &val)
+template&lt;class T&gt;
+bool in_range(const T &amp;min, const T &amp;max, const T &amp;val)
 {
-	if (val < min) return false;
-	if (val > max) return false;
+	if (val &lt; min) return false;
+	if (val &gt; max) return false;
 	return true;
 }</pre></code>
 <p>
 Finds if a value is within (non-inclusive) the given min and max ranges.</p>
 <h3>mid</h3>
 <code><pre>
-template<class T>
-T mid(const T &val1, const T &val2)
+template&lt;class T&gt;
+T mid(const T &amp;val1, const T &amp;val2)
 {
 	return (max(val1, val2) - min(val1, val2)) / 2.0 + min(val1, val2);
 }</pre></code>
@@ -84,13 +84,13 @@ float round(float val);</pre></code>
 Returns the next greatest whole number if the given value is not a whole number itself; e.g. it rounds the number up.</p>
 <h3>is_number</h3>
 <code><pre>
-bool is_number(const std::string& s); </pre></code>
+bool is_number(const std::string&amp; s); </pre></code>
 <p>
 Returns true if the given string only contains characters that pass <code>std::is_digit()</code>.
 </p>
 <p class='todo'>TODO: rename this to to_int or something similar</p><h3>binary_find</h3>
 <code><pre>
-template<class Iter, class T>
+template&lt;class Iter, class T&gt;
 inline Iter binary_find(Iter begin, Iter end, T val)
 {
     // Finds the lower bound in at most log(last - first) + 1 comparisons
@@ -100,11 +100,11 @@ Finds an element matching <code>val</code> using a binary search (your elements 
 </p>
 <p class='todo'>TODO: this function is unfinished</p><h3>tostring</h3>
 <code><pre>
-template<class T>
+template&lt;class T&gt;
 std::string tostring(T val)
 {
 	std::ostringstream s;
-	s << val;
+	s &lt;&lt; val;
 	return s.str();
 }</pre></code>
 <p>
@@ -128,7 +128,7 @@ Converts an int32_t into the string hexidecimal representation of the number.
 </p>
 <p class='todo'>TODO should change this function name to to_hex_string() or something similar.</p><h3>to_int</h3>
 <code><pre>
-std::vector<int> to_int(const std::vector<std::string> &arr);</pre></code>
+std::vector&lt;int&gt; to_int(const std::vector&lt;std::string&gt; &amp;arr);</pre></code>
 <p>
 Returns an array of ints given an array of strings..</p>
 <h3>get_datetime_str</h3>
@@ -182,8 +182,8 @@ This is useful for generating random strings for identifiers or unique instances
 </p>
 <p class='todo'>TODO: aaaagggghhh ;[ this is not funny tested</p><h3>random_element</h3>
 <code><pre>
-template<class T>
-T random_element(std::vector<T> &elements)
+template&lt;class T&gt;
+T random_element(std::vector&lt;T&gt; &amp;elements)
 {
 	return elements[random_int(0, elements.size())];
 }</pre></code>
@@ -193,7 +193,7 @@ WARNING: this function does not do any bounds checking.  If the array is empty
 this function will throw an out-of-bounds exception.</p>
 <h3>random_element</h3>
 <code><pre>
-template<class T>
+template&lt;class T&gt;
 T random_element(T elements[], int size)
 {
 	return elements[random_int(0, size-1)];
@@ -221,7 +221,7 @@ vec3d cross_product(vec3d A, vec3d B);</pre></code>
 Calculate the cross product between two vectors.</p>
 <h3>project</h3>
 <code><pre>
-vec2d project(vec2d &point, vec2d &axis);
+vec2d project(vec2d &amp;point, vec2d &amp;axis);
 vec3d project(vec3d point, vec3d point_on_plane, vec3d normal_of_plane);</pre></code>
 <p>
 Returns a point projected onto an axis.</p>
@@ -232,14 +232,14 @@ vec2d rotate_point(vec2d point, float angle);</pre></code>
 Rotates a point by an angle.</p>
 <h3>reflect</h3>
 <code><pre>
-vec2d reflect(vec2d &point, const vec2d &axis);
-vec3d reflect(vec3d &point, const vec3d &axis);</pre></code>
+vec2d reflect(vec2d &amp;point, const vec2d &amp;axis);
+vec3d reflect(vec3d &amp;point, const vec3d &amp;axis);</pre></code>
 <p>
 Reflects a point along an axis.</p>
 <h3>distance</h3>
 <code><pre>
 float distance(float x1, float y1, float x2, float y2);
-float distance(const vec2d &point1, const vec2d &point2);
+float distance(const vec2d &amp;point1, const vec2d &amp;point2);
 float distance(const vec2d *point1, const vec2d *point2);</pre></code>
 <p>
 Calculates the distance between points using the distance formula.</p>
@@ -252,7 +252,7 @@ Calculates the manhattan distance between points (google "Manhattan Distance").
 Manhattan distance is a slightly faster (but less accurate) alternative to the distance formula.</p>
 <h3>distance_squared</h3>
 <code><pre>
-float distance_squared(const vec2d &point1, const vec2d &point2);</pre></code>
+float distance_squared(const vec2d &amp;point1, const vec2d &amp;point2);</pre></code>
 <p>
 Calculates the distance squared between points.
 Finding the distance squared is a fast calculation, you might use it to prune out
@@ -260,9 +260,9 @@ Finding the distance squared is a fast calculation, you might use it to prune ou
 with the normal distance() formula.</p>
 <h3>draw_crosshair</h3>
 <code><pre>
-void draw_crosshair(float x, float y, ALLEGRO_COLOR color=al_color_name("white"));
+void draw_crosshair(float x, float y, ALLEGRO_COLOR color=al_color_name(&quot;white&quot;));
 void draw_crosshair(float x, float y, float z, ALLEGRO_COLOR col=color::black, float size=10);
-void draw_crosshair(vec2d &point, ALLEGRO_COLOR color=al_color_name("white"));
+void draw_crosshair(vec2d &amp;point, ALLEGRO_COLOR color=al_color_name(&quot;white&quot;));
 void draw_crosshair(vec3d point, ALLEGRO_COLOR col=color::black, float size=10);</pre></code>
 <p>
 Draws a crosshair at a given coordinate on the screen.</p>
@@ -273,14 +273,14 @@ ALLEGRO_VERTEX build_vertex(float x, float y, float z, ALLEGRO_COLOR col, float 
 Creates an ALLEGRO_VERTEX with the following parameters.</p>
 <h3>draw_textured_rectangle</h3>
 <code><pre>
-void draw_textured_rectangle(float x, float y, float w, float h, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);</pre></code>
+void draw_textured_rectangle(float x, float y, float w, float h, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &amp;color=color::white);</pre></code>
 <p>
 Draws a rectangle with the given texture.
 The texture will tile if the rectangle extends beyond the width or height of the image.
 The orientation of the texture is aligned at the (x, y) of the texture.</p>
 <h3>draw_offset_textured_rectangle</h3>
 <code><pre>
-void draw_offset_textured_rectangle(float x, float y, float w, float h, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);</pre></code>
+void draw_offset_textured_rectangle(float x, float y, float w, float h, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &amp;color=color::white);</pre></code>
 <p>
 Same as <code>draw_textured_rectangle</code>, but allows you to define an x y offset for the texture.</p>
 <h3>draw_stretched_bitmap</h3>
@@ -296,13 +296,13 @@ Draws a unicode character on the screen.
 </p>
 <p class='todo'>TODO: might be obsolete?  look in the unique font drawing routines.</p><h3>animate_color</h3>
 <code><pre>
-#include <allegro_flare/motion.h>
+#include &lt;allegro_flare/motion.h&gt;
 void animate_color(Motion *motion, ALLEGRO_COLOR *dest_color, const ALLEGRO_COLOR start, const ALLEGRO_COLOR end, double start_time, double duration, interpolator::interpolator_func_t interpolator_func);</pre></code>
 <p>
 Initializes an animation on an ALLEGRO_COLOR so that it will crossfade between two colors.</p>
 <h3>take_screenshot</h3>
 <code><pre>
-std::string take_screenshot(std::string filename="");</pre></code>
+std::string take_screenshot(std::string filename=&quot;&quot;);</pre></code>
 <p>
 using the allegro functions, writes a screenshot to a file.
 If the filename is left blank, then "screenshot-[time].png" will be generated
@@ -322,8 +322,8 @@ calling thread.  This function uses the allegro path addon.
 </p>
 <p class='todo'>TODO: add an additional parameter limiting the file extensions.</p><h3>get_directory_listing</h3>
 <code><pre>
-#include <iostream>
-std::vector<std::string> get_directory_listing(std::string directory);</pre></code>
+#include &lt;iostream&gt;
+std::vector&lt;std::string&gt; get_directory_listing(std::string directory);</pre></code>
 <p>
 Get a listing of all the files in the directory.</p>
 

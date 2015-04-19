@@ -1,5 +1,5 @@
 
-
+require "cgi" # for CGI::escapeHTML
 
 
  
@@ -10,7 +10,9 @@ class CodeDef
 	def initialize(line_number, section, declaration, description)
 		@line_number = line_number
 		@section = section
-		@declaration = declaration
+		
+		# encode the declaration by escaping speical chars <, >, &, etc...
+		@declaration = CGI::escapeHTML(declaration)
 
 		# extract *only* the function name
 		function_name_matchdata = / (?<func_identifier>[_A-Za-z0-9:]*)\(/.match(declaration)
