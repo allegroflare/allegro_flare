@@ -2,4 +2,4 @@ msvc-10.0/
 lib/
 *.swp
 
-build/tmp
+build/tmp*
