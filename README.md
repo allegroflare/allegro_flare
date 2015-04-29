@@ -1,7 +1,7 @@
 AllegroFlare
 =============
 
-Current version - Development on v0.8.4
+Current version - Development on v0.8.5
 
 
 AllegroFlare is a C++ framework based on the Allegro 5 game programming library.  Several classes/functions are provided that are not dependent on using the framework.
