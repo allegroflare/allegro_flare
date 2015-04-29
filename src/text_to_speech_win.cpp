@@ -1,6 +1,6 @@
 
 
-#include <allegro_flare/text_to_speech_win.h>
+#include <allegro_flare/platform_specific/text_to_speech_win.h>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_windows.h>

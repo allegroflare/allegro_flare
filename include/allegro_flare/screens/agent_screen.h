@@ -6,7 +6,7 @@
 
 
 
-#include <allegro_flare/text_to_speech_win.h>
+#include <allegro_flare/platform_specific/text_to_speech_win.h>
 #include <allegro_flare/screen.h>
 #include <allegro_flare/placement2d.h>
 #include <allegro_flare/motion.h>
