@@ -21,7 +21,7 @@ private:
 	std::string memory_location_identifier;
 	std::vector<std::string> commands;
 
-	void timer_func() override;
+	void timer_func();
 public:
 	InterprocessSender(std::string memory_location_identifier="my_shared_memory", int size_in_bytes=512);
 	~InterprocessSender();
@@ -47,7 +47,7 @@ private:
 public:
 	InterprocessRecipient(std::string memory_location_identifier="my_shared_memory", int size_in_bytes=512, int num_refreshes_per_sec=30);
 	~InterprocessRecipient();
-	void timer_func() override;
+	void timer_func();
 	virtual void on_command(std::string command);
 };
 

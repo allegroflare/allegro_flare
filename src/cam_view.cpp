@@ -81,7 +81,7 @@ void CamView::update()
 void CamView::draw_bitmap(float x, float y)
 {
 	//al_draw_filled_rectangle(x, y, x+bitmap_width, y+bitmap_height, color::black);
-	al_draw_bitmap(bitmap, x, y, NULL);
+	al_draw_bitmap(bitmap, x, y, 0);
 }
 
 

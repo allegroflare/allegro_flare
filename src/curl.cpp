@@ -513,7 +513,7 @@ DOWNLOADED_ALLEGRO_FILE *create_downloaded_al_memfile(std::string url)
 	{
 		std::cout << "error: al_file could not be created via al_open_memfile\n";
 		delete_downloaded_to_memory_file(&chunk);
-		return false;
+		return NULL;
 	}
 	for (long i=0; i<(long)chunk.size; i++)
 	{

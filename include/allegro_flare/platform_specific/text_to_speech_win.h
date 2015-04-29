@@ -9,12 +9,13 @@
 #include <vector>
 
 
-#ifdef _MSC_VER
-#include <sapi.h>
-#else
-#define NOMINMAX
+//#ifdef _MSC_VER
+//
+//#else
+//#define NOMINMAX
+//#include <sapi.h>
 #include <windows.h>
-#endif
+//#endif
 //
 
 
