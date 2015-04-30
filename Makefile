@@ -1,22 +1,45 @@
 
 
+
+
+
+# These are some system variables that you might set:
+
 CC=g++
-SOURCEDIR=./src
-# OBJECT_TEMP_DIR=./build/temp
+CVER=-minigw-4.8.1
 DELETE_FILE_COMMAND=del #rm for linux
 
+
+
+# Here are the locations of the other library's header files, you might want to modify these:
+
 ALLEGRO_INCLUDE_DIR=E:/allegro-5.1.8-mingw-4.7.0/include
-ALLEGRO_FLARE_INCLUDE_DIR=./include
 BOOST_INCLUDE_DIR=E:/boost/boost_1_47
+
+
+
+
+
+
+# Everything from here to the end of the file can be ignored
+
+# These variables you do not set, they are automatic:
+
+ALLEGRO_FLARE_INCLUDE_DIR=./include
+SOURCEDIR=./src
 INCLUDE_FLAGS=-I$(ALLEGRO_INCLUDE_DIR) -I$(ALLEGRO_FLARE_INCLUDE_DIR)
+# OBJECT_TEMP_DIR=./build/temp
 # COMPILE_FLAGS=-Wall
+
 
 
 
 # build targets:
 # there are several different targets; based on your platform and dependencies you may have installed
 
-all: allegro_flare appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object frustum grid2d identification image_processing interprocess_through_files md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful_
+all: allegro_flare appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object frustum grid2d identification image_processing interprocess_through_files md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful_ bins drawing_interfaces fonts
+	ar rvs ./lib/liballegro_flare-0.8.5-mingw-4.8.1.a *.o
+	make clean
 
 open_cv: cam_view open_cv_video
 
@@ -35,8 +58,7 @@ windows: clipboard_win midi_win text_to_speech_win
 
 
 
-
-# these are the independent build commands for each file
+# these are the independent build targets for each file
 
 allegro_flare:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS)
@@ -184,6 +206,53 @@ timeline:
 
 useful_:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS) 
+
+
+
+# in bins/
+
+bins: bitmap_bin font_bin sample_bin
+
+bitmap_bin:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/bins/$@.cpp $(INCLUDE_FLAGS) 
+
+font_bin:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/bins/$@.cpp $(INCLUDE_FLAGS) 
+
+sample_bin:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/bins/$@.cpp $(INCLUDE_FLAGS) 
+
+
+
+# in drawing_interfaces/
+
+drawing_interfaces: drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
+
+drawing_interface_allegro5:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/drawing_interfaces/$@.cpp $(INCLUDE_FLAGS) 
+
+drawing_interface_html_canvas:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/drawing_interfaces/$@.cpp $(INCLUDE_FLAGS) 
+
+drawing_interface_svg:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/drawing_interfaces/$@.cpp $(INCLUDE_FLAGS) 
+
+
+
+# in fonts/
+
+fonts: font_bravura font_font_awesome font_segoe_ui_symbol
+
+font_bravura:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/fonts/$@.cpp $(INCLUDE_FLAGS) 
+
+font_font_awesome:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/fonts/$@.cpp $(INCLUDE_FLAGS) 
+
+font_segoe_ui_symbol:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/fonts/$@.cpp $(INCLUDE_FLAGS) 
+
+
 
 
 
