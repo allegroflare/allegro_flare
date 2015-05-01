@@ -80,7 +80,7 @@ public:
 	static BitmapBin bitmaps;
 	static Motion motion;
 
-	static void initialize(std::string config_filename="");
+	static bool initialize(std::string config_filename="");
 	static Display *create_display(int width=960, int height=540);
 	static Display *create_display(int width, int height, int display_flags);
 	static Display *create_display(int width, int height, int display_flags, int adapter);

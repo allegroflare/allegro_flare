@@ -5,9 +5,9 @@
 
 
 
-void af::initialize(std::string config_filename)
+bool af::initialize(std::string config_filename)
 {
-	if (initialized) return;
+	if (initialized) return initialized;
 
 	al_init();
 
@@ -48,6 +48,8 @@ void af::initialize(std::string config_filename)
 	joystick = al_get_joystick(0); // make this better eventually
 
 	initialized = true;
+
+	return initialized;
 }
 
 
