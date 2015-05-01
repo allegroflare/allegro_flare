@@ -3,3 +3,11 @@ lib/
 *.swp
 
 build/tmp*
+
+*.exe
+*.o
+*.obj
+
+allegro.log
+
+
