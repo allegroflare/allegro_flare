@@ -19,7 +19,7 @@ public:
 		, model(new Model())
 	{
 		model->load_obj_file("data/models/heart_item-01.obj");
-		model->textures.set_texture_by_index(1, bitmaps["heart_item-01tx.png"]);
+		model->textures.set_texture_by_index(0, bitmaps["heart_item-01tx.png"]);
 	}
 
 	void primary_timer_func() override
