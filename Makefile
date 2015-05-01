@@ -27,6 +27,7 @@ BOOST_INCLUDE_DIR=E:/boost/boost_1_47
 
 ALLEGRO_FLARE_INCLUDE_DIR=./include
 SOURCEDIR=./src
+EXAMPLESDIR=./examples
 INCLUDE_FLAGS=-I$(ALLEGRO_INCLUDE_DIR) -I$(ALLEGRO_FLARE_INCLUDE_DIR)
 # OBJECT_TEMP_DIR=./build/temp
 # COMPILE_FLAGS=-Wall
@@ -54,6 +55,10 @@ windows: clipboard_win midi_win text_to_speech_win
 # osx:
 
 # linux:
+
+
+
+
 
 
 
@@ -260,4 +265,34 @@ font_segoe_ui_symbol:
 
 clean:
 	$(DELETE_FILE_COMMAND) *o
+
+
+
+
+
+
+#
+# Example Programs
+# ==========================
+#
+
+# here are the directories of the projects 
+ALLEGRO_FLARE_DIR=E:/allegro_flare
+ALLEGRO_DIR=E:/allegro-5.1.8-mingw-4.7.0
+
+# these are the names of the libs you are linking
+ALLEGRO_MONOLITH_LIB=allegro-5.1.8-monolith-md
+ALLEGRO_FLARE_LIB=allegro_flare-0.8.5-mingw-4.8.1
+
+examples: ex_masked_bitmap.exe ex_model_viewer.exe
+
+ex_masked_bitmap.exe: ./examples/ex_masked_bitmap.cpp
+	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
+	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
+
+ex_model_viewer.exe: ./examples/ex_model_viewer.cpp
+	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
+	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
+
+
 
