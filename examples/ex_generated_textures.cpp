@@ -37,11 +37,11 @@ public:
 	{
 		al_set_window_title(display->display, "Generated Textures Test");
 
-		circle_render = generate_circle(128);
-		gradient_render = generate_gradient(128);
-		circle_gradient = generate_circle_gradient(128);
-		noise_texture = generate_noise(128, 128);
-		wood_texture = generate_wood(128, 128);
+		circle_render = generate_circle_bitmap(128);
+		gradient_render = generate_gradient_bitmap(128);
+		circle_gradient = generate_circle_gradient_bitmap(128);
+		noise_texture = generate_noise_bitmap(128, 128);
+		wood_texture = generate_wood_grain_bitmap(128, 128);
 	}
 	void primary_timer_func() override
 	{

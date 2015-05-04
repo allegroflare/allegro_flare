@@ -10,7 +10,7 @@
 
 
 
-ALLEGRO_BITMAP *generate_circle(float size=512, ALLEGRO_COLOR col=color::white, int padding=0)
+ALLEGRO_BITMAP *generate_circle_bitmap(float size=512, ALLEGRO_COLOR col=color::white, int padding=0)
 {
 	// set everything up for rendering
 	int w = size;
@@ -33,7 +33,7 @@ ALLEGRO_BITMAP *generate_circle(float size=512, ALLEGRO_COLOR col=color::white, 
 
 
 
-ALLEGRO_BITMAP *generate_gradient(float size=512, ALLEGRO_COLOR top_color=color::transparent, ALLEGRO_COLOR bottom_color=color::black, int padding=0)
+ALLEGRO_BITMAP *generate_gradient_bitmap(float size=512, ALLEGRO_COLOR top_color=color::transparent, ALLEGRO_COLOR bottom_color=color::black, int padding=0)
 {
 	// set everything up for rendering
 	int w = size;
@@ -65,10 +65,10 @@ ALLEGRO_BITMAP *generate_gradient(float size=512, ALLEGRO_COLOR top_color=color:
 
 
 
-ALLEGRO_BITMAP *generate_circle_gradient(float size=512, ALLEGRO_COLOR top_color=color::transparent, ALLEGRO_COLOR bottom_color=color::black, int padding=0)
+ALLEGRO_BITMAP *generate_circle_gradient_bitmap(float size=512, ALLEGRO_COLOR top_color=color::transparent, ALLEGRO_COLOR bottom_color=color::black, int padding=0)
 {
-	ALLEGRO_BITMAP *circle = generate_circle(size);
-	ALLEGRO_BITMAP *gradient = generate_gradient(size);
+	ALLEGRO_BITMAP *circle = generate_circle_bitmap(size);
+	ALLEGRO_BITMAP *gradient = generate_gradient_bitmap(size);
 	ALLEGRO_BITMAP *circle_gradient = create_masked_bitmap(circle, gradient);
 	al_destroy_bitmap(circle);
 	al_destroy_bitmap(gradient);
@@ -77,7 +77,7 @@ ALLEGRO_BITMAP *generate_circle_gradient(float size=512, ALLEGRO_COLOR top_color
 
 
 
-ALLEGRO_BITMAP *generate_noise(float w, float h, float min_intensity=0.5, float max_intensity=0.7)
+ALLEGRO_BITMAP *generate_noise_bitmap(float w, float h, float min_intensity=0.5, float max_intensity=0.7)
 {
 	// set everything up
 	ALLEGRO_BITMAP *surface = al_create_bitmap(w, h);
@@ -108,13 +108,13 @@ ALLEGRO_BITMAP *generate_noise(float w, float h, float min_intensity=0.5, float 
 
 
 
-ALLEGRO_BITMAP *generate_wood(float w, float h, ALLEGRO_COLOR base_color=al_color_name("sienna"))
+ALLEGRO_BITMAP *generate_wood_grain_bitmap(float w, float h, ALLEGRO_COLOR base_color=al_color_name("sienna"))
 {
 	// set up everything
 	float h_stretch = 12;
 	float angle = 1.0;
 	ALLEGRO_BITMAP *surface = al_create_bitmap(w, h);
-	ALLEGRO_BITMAP *noise_texture = generate_noise(w, h, 0.5, 0.7);
+	ALLEGRO_BITMAP *noise_texture = generate_noise_bitmap(w, h, 0.5, 0.7);
 	ALLEGRO_STATE state;
 	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP | ALLEGRO_STATE_BLENDER);
 
