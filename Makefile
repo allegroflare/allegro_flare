@@ -126,7 +126,7 @@ frustum:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS)
 
 generate_textures:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS)
+	$(CC) -c -std=gnu++11 $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS)
 
 grid2d:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS)
