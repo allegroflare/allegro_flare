@@ -278,13 +278,31 @@ void draw_offset_textured_rectangle(float x, float y, float w, float h, float of
 	al_draw_prim(v, NULL, texture, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
 }
 
-
 void draw_stretched_bitmap(float x, float y, float w, float h, ALLEGRO_BITMAP *bitmap, int flip_flags, ALLEGRO_COLOR color)
 {
 	al_draw_tinted_scaled_bitmap(bitmap, color, 0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap),
 		x, y, w, h, flip_flags);
 }
 
+void draw_dashed_line(float x, float y, float x2, float y2, ALLEGRO_COLOR &col, float thickness)
+{
+	float dash = 6;
+	float space = 6;
+
+	int segments = distance(x, y, x2, y2) / (dash+space);
+	vec2d dir = vec2d(x2-x, y2-y).Normalized();
+
+	float dist_traveled = 0;
+	for (int i=0; i<segments; i++)
+	{
+		al_draw_line(x + dir.x*dist_traveled, y + dir.y*dist_traveled,
+			x + dir.x*dist_traveled + dir.x*dash, y + dir.y*dist_traveled + dir.y*dash, col, thickness);
+		dist_traveled += (dash+space);
+	}
+	// draw last partial segment
+	al_draw_line(x + dir.x*dist_traveled + dir.x*dash, y + dir.y*dist_traveled + dir.y*dash,
+		x2, y2, col, thickness);
+}
 
 
 void animate_color(Motion *motion, ALLEGRO_COLOR *dest_color, const ALLEGRO_COLOR start, const ALLEGRO_COLOR end, double start_time, double duration, interpolator::interpolator_func_t interpolator_func)

@@ -288,6 +288,9 @@ void draw_offset_textured_rectangle(float x, float y, float w, float h, float of
 // Draws an image stretched to fit the given width and height.
 void draw_stretched_bitmap(float x, float y, float w, float h, ALLEGRO_BITMAP *bitmap, int flip_flags=ALLEGRO_FLAGS_EMPTY, ALLEGRO_COLOR color=color::white);
 
+// Draws a dashed line.
+void draw_dashed_line(float x, float y, float x2, float y2, ALLEGRO_COLOR &col, float thickness);
+
 // Draws a unicode character on the screen.
 // TODO: might be obsolete?  look in the unique font drawing routines.
 void draw_unicode_char(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
