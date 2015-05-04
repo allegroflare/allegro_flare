@@ -52,13 +52,13 @@ public:
 
 	// simple motion
 	void animate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data);
-	void move(float *val, float displacement, float duration, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
-	void move_to(float *val, float dest_val, float duration, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
+	void move(float *val, float displacement, float duration=0.4, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
+	void move_to(float *val, float dest_val, float duration=0.4, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
 
 	// same as above, but clears any existing animations on *val beforehand.
 	void canimate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data);
-	void cmove(float *val, float displacement, float duration, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
-	void cmove_to(float *val, float dest_val, float duration, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
+	void cmove(float *val, float displacement, float duration=0.4, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
+	void cmove_to(float *val, float dest_val, float duration=0.4, float (*interpolator_func)(float)=interpolator::fastIn, void (*callback_func)(void *)=NULL, void *callback_data=NULL);
 };
 
 
