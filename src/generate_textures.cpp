@@ -30,6 +30,35 @@ ALLEGRO_BITMAP *generate_circle_bitmap(float size, ALLEGRO_COLOR col, int paddin
 
 
 
+ALLEGRO_BITMAP *generate_triangle_bitmap(float x1, float y1, float x2, float y2, float x3, float y3, ALLEGRO_COLOR col)
+{
+	// find the width and height of the bitmap (this could be more comprehensive? What about -negative points?)
+	float max_x = std::max({x1, x2, x2}); // I now love c++11
+	float max_y = std::max({y1, y2, y3});
+
+	// start drawing
+	ALLEGRO_BITMAP *surface = al_create_bitmap(max_x, max_y);
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	al_clear_to_color(color::transparent);
+	al_set_target_bitmap(surface);
+
+	// build our triangle
+	ALLEGRO_VERTEX v[3];
+	v[0] = build_vertex(x1, y1, 0, col, 0, 0);
+	v[1] = build_vertex(x2, y2, 0, col, 0, 0);
+	v[2] = build_vertex(x3, y3, 0, col, 0, 0);
+
+	// draw the triangle
+	al_draw_prim(v, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_LIST);
+
+	// restore drawing state
+	al_restore_state(&state);
+	return surface;
+}
+
+
+
 ALLEGRO_BITMAP *generate_gradient_bitmap(float size, ALLEGRO_COLOR top_color, ALLEGRO_COLOR bottom_color, int padding)
 {
 	// set everything up for rendering
