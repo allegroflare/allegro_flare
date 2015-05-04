@@ -108,7 +108,7 @@ ALLEGRO_BITMAP *generate_noise(float w, float h, float min_intensity=0.5, float 
 
 
 
-ALLEGRO_BITMAP *generate_wood(float w, float h)
+ALLEGRO_BITMAP *generate_wood(float w, float h, ALLEGRO_COLOR base_color=al_color_name("sienna"))
 {
 	// set up everything
 	float h_stretch = 12;
@@ -122,7 +122,7 @@ ALLEGRO_BITMAP *generate_wood(float w, float h)
 	al_set_target_bitmap(surface);
 
 	// set the base color
-	al_clear_to_color(al_color_name("sienna"));
+	al_clear_to_color(base_color);
 
 	// draw the wood grain (should clean this up a little bit)
 	al_set_separate_blender(ALLEGRO_DEST_MINUS_SRC, ALLEGRO_ONE, ALLEGRO_ONE, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE); // subtraction blender
