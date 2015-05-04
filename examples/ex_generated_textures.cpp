@@ -1,0 +1,67 @@
+
+
+
+
+//
+// ex_generated_textures.cpp
+//
+// This example demonstrates some textures that are generated proceedurally.  These
+// are "design primitives" that you might used to create more ellaborate graphical
+// assets.
+//
+
+
+
+#include <allegro_flare/allegro_flare.h>
+#include <allegro_flare/generate_textures.h>
+
+
+
+class MyProject : public Screen
+{
+private:
+	ALLEGRO_BITMAP *circle_render;
+	ALLEGRO_BITMAP *gradient_render;
+	ALLEGRO_BITMAP *circle_gradient;
+	ALLEGRO_BITMAP *wood_texture;
+	ALLEGRO_BITMAP *noise_texture;
+
+public:
+	MyProject(Display *display)
+		: Screen(display)
+		, circle_render(NULL)
+		, gradient_render(NULL)
+		, circle_gradient(NULL)
+		, wood_texture(NULL)
+		, noise_texture(NULL)
+	{
+		al_set_window_title(display->display, "Generated Textures Test");
+
+		circle_render = generate_circle(128);
+		gradient_render = generate_gradient(128);
+		circle_gradient = generate_circle_gradient(128);
+		noise_texture = generate_noise(128, 128);
+		wood_texture = generate_wood(128, 128);
+	}
+	void primary_timer_func() override
+	{
+		al_draw_bitmap(circle_render, 200, 100, ALLEGRO_FLAGS_EMPTY);
+		al_draw_bitmap(gradient_render, 400, 100, ALLEGRO_FLAGS_EMPTY);
+		al_draw_bitmap(circle_gradient, 600, 100, ALLEGRO_FLAGS_EMPTY);
+
+		al_draw_bitmap(noise_texture, 200, 300, ALLEGRO_FLAGS_EMPTY);
+		al_draw_bitmap(wood_texture, 400, 300, ALLEGRO_FLAGS_EMPTY);
+	}
+};
+
+
+
+int main(int argc, char **argv)
+{
+	af::initialize();
+	Display *display = af::create_display();
+	MyProject *proj = new MyProject(display);
+	af::run_loop();
+}
+
+
