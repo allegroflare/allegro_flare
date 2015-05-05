@@ -26,6 +26,8 @@ private:
 	ALLEGRO_BITMAP *wood_texture;
 	ALLEGRO_BITMAP *noise_texture;
 
+	ALLEGRO_BITMAP *interpolator_render;
+
 public:
 	MyProject(Display *display)
 		: Screen(display)
@@ -34,6 +36,7 @@ public:
 		, circle_gradient(NULL)
 		, wood_texture(NULL)
 		, noise_texture(NULL)
+		, interpolator_render(NULL)
 	{
 		al_set_window_title(display->display, "Generated Textures Test");
 
@@ -42,6 +45,8 @@ public:
 		circle_gradient = generate_circle_gradient_bitmap(128);
 		noise_texture = generate_noise_bitmap(128, 128);
 		wood_texture = generate_wood_grain_bitmap(128, 128);
+
+		interpolator_render = generate_interpolator_graph_bitmap(interpolator::fastInOut, 128, color::white ,4, 6);
 	}
 	void primary_timer_func() override
 	{
@@ -51,6 +56,7 @@ public:
 
 		al_draw_bitmap(noise_texture, 200, 300, ALLEGRO_FLAGS_EMPTY);
 		al_draw_bitmap(wood_texture, 400, 300, ALLEGRO_FLAGS_EMPTY);
+		al_draw_bitmap(interpolator_render, 600, 300, ALLEGRO_FLAGS_EMPTY);
 	}
 };
 

@@ -1,6 +1,7 @@
 
 
 
+
 #include <allegro_flare/generate_textures.h>
 #include <allegro_flare/image_processing.h>
 
@@ -170,6 +171,68 @@ ALLEGRO_BITMAP *generate_wood_grain_bitmap(float w, float h, ALLEGRO_COLOR base_
 	al_restore_state(&state);
 
 	// return the generated image
+	return surface;
+}
+
+
+
+
+ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float(* interpolator_func)(float), float size, ALLEGRO_COLOR col, float thickness, float padding_)
+{
+	// setup the drawing surface
+	ALLEGRO_BITMAP *surface = al_create_bitmap(size, size);
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	al_set_target_bitmap(surface);
+	al_clear_to_color(color::transparent);
+
+	
+	//
+	//	 start drawing the graph
+	//
+
+
+	float padding = size*0.2;
+	float line_width = size/100.0;
+	float roundness = 6;
+
+	float w = size;
+	float h = size;
+
+	//al_draw_filled_rounded_rectangle(0, 0, w, h, roundness, roundness, al_color_name("seashell"));
+	//al_draw_rounded_rectangle(0, 0, w, h, roundness, roundness, al_color_name("rosybrown"), line_width);
+
+	float offset_y = h;
+
+	float x = padding;
+	float y = padding;
+	w += padding*2;
+	h += padding*2;
+
+	//y *= -1;
+	h *= -1;
+
+	int num_points = 50;
+	for (int i=0; i<=(num_points-1); i++)
+	{
+		float point_x = (float)i/(num_points-1);
+		float point_y = interpolator_func(point_x);
+
+		point_x *= (size-padding*2);
+		point_y *= -(size-padding*2);
+
+		point_x += x;
+		point_y += y+(size-padding*2);
+
+		al_draw_filled_circle(point_x, point_y, line_width*1.3, col);
+	}
+
+	
+
+	// restore things to the way they were
+	al_restore_state(&state);
+
+	// return the created image
 	return surface;
 }
 

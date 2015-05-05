@@ -22,6 +22,9 @@ ALLEGRO_BITMAP *generate_noise_bitmap(float w, float h, float min_intensity=0.5,
 
 ALLEGRO_BITMAP *generate_wood_grain_bitmap(float w, float h, ALLEGRO_COLOR base_color=al_color_name("sienna"));
 
+ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float (*interpolator_func)(float), float size=512, ALLEGRO_COLOR col=color::white, float thickness=5, float padding=0);
+
+
 
 
 #endif
