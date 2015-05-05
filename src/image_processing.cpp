@@ -179,6 +179,58 @@ void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float))
 
 
 
+#include <allegro_flare/path2d.h>
+
+void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALLEGRO_COLOR hist_col)
+{
+	if (!img) return;
+
+	// lock the target for faster processing
+	al_lock_bitmap(img, ALLEGRO_PIXEL_FORMAT_ARGB_8888, ALLEGRO_LOCK_WRITEONLY);
+
+	long histogram[256] = {0};
+	float histogram_max = 0;
+
+	// process each color
+	for (int y=0; y<al_get_bitmap_height(img); y++)
+	{
+		// ? -> float val = 1.0 - (float)y/al_get_bitmap_height(img);
+		for (int x=0; x<al_get_bitmap_width(img); x++)
+		{
+			// grab the pixel at the current x/y location
+			ALLEGRO_COLOR col = al_get_pixel(img, x, y);
+
+			// this is the actual color manipulation function
+			float brightness = color::get_lightness(col); // << this is the heart of the function that measures the value of the pixel
+
+			int brightness_index = (int)(brightness*255);
+			histogram[brightness_index] += 1;
+			if (histogram[brightness_index] > histogram_max) histogram_max = histogram[brightness_index];
+		}
+	}
+	al_unlock_bitmap(img);
+
+	// put the histogram into a path2d
+	path2d path;
+	path.add_point(0, 0);
+	for (unsigned i=0; i<256; i++)
+	{
+		path.add_point((float)i/255, (float)histogram[i]/histogram_max, false);
+	}
+	path.add_point(1, 0);
+
+	path.reverse();
+	path.flip_v();
+	path.scale(w, h);
+	path.move(x, y);
+
+	path.refresh_segment_info();
+	path.draw_shape(hist_col);
+}
+
+
+
+
 
 
 ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, int op, int src, int dst, int alpha_op, int alpha_src, int alpha_dst, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)

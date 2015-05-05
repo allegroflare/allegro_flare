@@ -55,7 +55,7 @@ namespace color
 
 	void change_alpha(ALLEGRO_COLOR &color, float alpha);
 
-	float get_lightness(ALLEGRO_COLOR &color);
+	float get_lightness(ALLEGRO_COLOR &color); // should be called luminance
 
 
 
