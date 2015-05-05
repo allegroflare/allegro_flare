@@ -25,8 +25,7 @@ private:
 	ALLEGRO_BITMAP *circle_gradient;
 	ALLEGRO_BITMAP *wood_texture;
 	ALLEGRO_BITMAP *noise_texture;
-
-	ALLEGRO_BITMAP *interpolator_render;
+	ALLEGRO_BITMAP *brush_metal_texture;
 
 public:
 	MyProject(Display *display)
@@ -36,7 +35,7 @@ public:
 		, circle_gradient(NULL)
 		, wood_texture(NULL)
 		, noise_texture(NULL)
-		, interpolator_render(NULL)
+		, brush_metal_texture(NULL)
 	{
 		al_set_window_title(display->display, "Generated Textures Test");
 
@@ -45,8 +44,7 @@ public:
 		circle_gradient = generate_circle_gradient_bitmap(128);
 		noise_texture = generate_noise_bitmap(128, 128);
 		wood_texture = generate_wood_grain_bitmap(128, 128);
-
-		interpolator_render = generate_interpolator_graph_bitmap(interpolator::fastInOut, 128, color::white ,4, 6);
+		brush_metal_texture = generate_brush_metal_bitmap(128, 128);
 	}
 	void primary_timer_func() override
 	{
@@ -56,7 +54,7 @@ public:
 
 		al_draw_bitmap(noise_texture, 200, 300, ALLEGRO_FLAGS_EMPTY);
 		al_draw_bitmap(wood_texture, 400, 300, ALLEGRO_FLAGS_EMPTY);
-		al_draw_bitmap(interpolator_render, 600, 300, ALLEGRO_FLAGS_EMPTY);
+		al_draw_bitmap(brush_metal_texture, 600, 300, ALLEGRO_FLAGS_EMPTY);
 	}
 };
 
@@ -65,7 +63,7 @@ public:
 int main(int argc, char **argv)
 {
 	af::initialize();
-	Display *display = af::create_display();
+	Display *display = af::create_display(960, 540);
 	MyProject *proj = new MyProject(display);
 	af::run_loop();
 }

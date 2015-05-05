@@ -177,7 +177,52 @@ ALLEGRO_BITMAP *generate_wood_grain_bitmap(float w, float h, ALLEGRO_COLOR base_
 
 
 
-ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float(* interpolator_func)(float), float size, ALLEGRO_COLOR col, float thickness, float padding_)
+ALLEGRO_BITMAP *generate_brush_metal_bitmap(float w, float h, ALLEGRO_COLOR base_color)
+{
+	// TODO: clean this function up
+
+	// set everything up	
+	float h_stretch = 1.0;
+	float v_stretch = 26.0;
+	float angle = 1.0;
+	ALLEGRO_BITMAP *noise_texture = generate_noise_bitmap(w, h); // TODO: this should be greater(w, h) or something similar
+	ALLEGRO_BITMAP *gradient_texture = generate_gradient_bitmap(w); // TODO: this should be greater(w, h) or something similar
+	ALLEGRO_BITMAP *tex = al_create_bitmap(w, h);
+
+	// store the state and set the drawing surface
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP | ALLEGRO_STATE_BLENDER);
+	al_set_target_bitmap(tex);
+
+
+	//
+	// draw the content
+	//
+	al_clear_to_color(base_color);
+
+	al_draw_tinted_bitmap(gradient_texture, color::name("white", 0.1), 0, 0, ALLEGRO_FLAGS_EMPTY);
+
+	al_set_separate_blender(ALLEGRO_DEST_MINUS_SRC, ALLEGRO_ONE, ALLEGRO_ONE, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
+
+	al_draw_tinted_scaled_bitmap(noise_texture, color::name("white", 0.3), 0, 0, al_get_bitmap_width(noise_texture), al_get_bitmap_height(noise_texture),
+		0, 0, al_get_bitmap_width(noise_texture)*h_stretch, al_get_bitmap_height(noise_texture)*v_stretch, ALLEGRO_FLAGS_EMPTY);
+
+	al_draw_tinted_bitmap(noise_texture, color::name("white", 0.1), -200, -200, ALLEGRO_FLAGS_EMPTY);
+
+
+
+	// restore the state
+	al_restore_state(&state);
+	al_destroy_bitmap(gradient_texture);
+	al_destroy_bitmap(noise_texture);
+
+	// return the generated image
+	return tex;
+}
+
+
+
+ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float(* interpolator_func)(float), float size, ALLEGRO_COLOR col, float thickness, float padding)
 {
 	// setup the drawing surface
 	ALLEGRO_BITMAP *surface = al_create_bitmap(size, size);
@@ -192,15 +237,10 @@ ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float(* interpolator_func)(fl
 	//
 
 
-	float padding = size*0.2;
-	float line_width = size/100.0;
-	float roundness = 6;
+	float line_width = thickness;
 
 	float w = size;
 	float h = size;
-
-	//al_draw_filled_rounded_rectangle(0, 0, w, h, roundness, roundness, al_color_name("seashell"));
-	//al_draw_rounded_rectangle(0, 0, w, h, roundness, roundness, al_color_name("rosybrown"), line_width);
 
 	float offset_y = h;
 
@@ -213,6 +253,8 @@ ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float(* interpolator_func)(fl
 	h *= -1;
 
 	int num_points = 50;
+
+	vec2d previous_point(0, 1);
 	for (int i=0; i<=(num_points-1); i++)
 	{
 		float point_x = (float)i/(num_points-1);
