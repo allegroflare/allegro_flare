@@ -2,6 +2,23 @@
 #define __AF_USEFUL_PHP_HEADER
 
 
+#ifdef _MSC_VER
+#define A_INLINE __inline
+#else
+#define A_INLINE static inline
+#endif
+
+
+
+#ifndef __FUNCTION__
+#define __FUNCTION__ __func__
+#endif
+
+
+#ifndef ALLEGRO_FLAGS_EMPTY
+#define ALLEGRO_FLAGS_EMPTY 0
+#endif
+
 
 
 #include <allegro_flare/useful.h>
