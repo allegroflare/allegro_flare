@@ -318,7 +318,6 @@ path2d &path2d::reverse()
 
 	clear();
 	point = *newpoints;
-	std::cout << newpoints->size() << std::endl;
 
 	refresh_segment_info();
 
