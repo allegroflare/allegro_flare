@@ -38,7 +38,7 @@ INCLUDE_FLAGS=-I$(ALLEGRO_INCLUDE_DIR) -I$(ALLEGRO_FLARE_INCLUDE_DIR)
 # build targets:
 # there are several different targets; based on your platform and dependencies you may have installed
 
-all: allegro_flare appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object frustum generate_textures grid2d identification image_processing interprocess_through_files md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful_ bins drawing_interfaces fonts screens
+all: allegro_flare appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object frustum generate_textures grid2d identification image_processing interprocess_through_files md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful_ bins drawing_interfaces fonts screens windows
 	ar rvs ./lib/liballegro_flare-0.8.5-mingw-4.8.1.a *.o
 	make clean
 
@@ -50,7 +50,7 @@ boost: interprocess shared_memory
 
 dmx: dmx
 
-windows: clipboard_win midi_win text_to_speech_win
+windows: clipboard_win midi_win 
 
 # osx:
 
