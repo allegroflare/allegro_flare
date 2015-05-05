@@ -13,8 +13,7 @@ ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, float scale);
 void invert(ALLEGRO_BITMAP *img); // does not properly invert the alpha
 void trim(ALLEGRO_BITMAP *img); // doesn't actually trim, yet, just draws rectangle around the trimmed region 
 ALLEGRO_BITMAP *create_color_overlay(ALLEGRO_BITMAP *bmp, ALLEGRO_COLOR color);
-
-
+void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float));
 
 
 // image masks

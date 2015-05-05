@@ -141,6 +141,44 @@ ALLEGRO_BITMAP *create_color_overlay(ALLEGRO_BITMAP *original, ALLEGRO_COLOR col
 
 
 
+void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float))
+{
+	// set everything up
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	ALLEGRO_COLOR col;
+	al_set_target_bitmap(img);
+
+	// lock the target for faster processing
+	al_lock_bitmap(img, ALLEGRO_PIXEL_FORMAT_ARGB_8888, ALLEGRO_LOCK_WRITEONLY);
+
+	// process each color
+	for (int y=0; y<al_get_bitmap_height(img); y++)
+	{
+		// ? -> float val = 1.0 - (float)y/al_get_bitmap_height(img);
+		for (int x=0; x<al_get_bitmap_width(img); x++)
+		{
+			// grab the pixel at the current x/y location
+			col = al_get_pixel(img, x, y);
+
+			// this is the actual color manipulation function
+			col.r = interpolator_func(col.r);
+			col.g = interpolator_func(col.g);
+			col.b = interpolator_func(col.b);
+			col.a = interpolator_func(col.a);
+
+			// place the pixel
+			al_put_pixel(x, y, col);
+		}
+	}
+	al_unlock_bitmap(img);
+
+	// put everything back to the way it was
+	al_restore_state(&state);	
+}
+
+
+
 
 
 ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, int op, int src, int dst, int alpha_op, int alpha_src, int alpha_dst, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
