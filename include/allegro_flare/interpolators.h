@@ -231,7 +231,7 @@ static inline float exponentialIn(float t)
 	float b = 0;
 	float c = 1;
 	float d = 1;
-	return (t==0) ? b : c * pow(2, 10 * (t/d - 1)) + b;
+	return (t==0) ? b : c * (float)pow(2, 10 * (t/d - 1)) + b;
 };
 
 // exponential easing out - decelerating to zero velocity
@@ -240,7 +240,7 @@ static inline float exponentialOut(float t)
 	float b = 0;
 	float c = 1;
 	float d = 1;
-	return (t==d) ? b+c : c * (-pow(2, -10 * t/d) + 1) + b;
+	return (t==d) ? b+c : c * (float)(-pow(2, -10 * t/d) + 1) + b;
 };
 
 // exponential easing in/out - accelerating until halfway, then decelerating
@@ -251,8 +251,8 @@ static inline float exponentialInOut(float t)
 	float d = 1;
 	if (t==0) return b;
 	if (t==d) return b+c;
-	if ((t/=d/2) < 1) return c/2 * pow(2, 10 * (t - 1)) + b;
-	return c/2 * (-pow(2, -10 * --t) + 2) + b;
+	if ((t/=d/2) < 1) return c/2 * (float)pow(2, 10 * (t - 1)) + b;
+	return c/2 * (float)(-pow(2, -10 * --t) + 2) + b;
 };
 
 
@@ -311,7 +311,7 @@ static inline float elasticIn(float t)
 	if (amplitude < 1) { amplitude = 1; s = period/4.0f; }
 	else s = period/(2*INTERP_PI) * asin (1/amplitude);
 	t -= 1;
-	return -(amplitude * pow(2, 10 * (t)) * sin((t - s) * (2.0f * INTERP_PI) / period));
+	return -(amplitude * (float)pow(2, 10 * (t)) * sin((t - s) * (2.0f * INTERP_PI) / period));
 };
 
 

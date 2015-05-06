@@ -52,7 +52,7 @@ int VirtualMemory::get_as_int(std::string identifier) const
 
 float VirtualMemory::get_as_float(std::string identifier) const
 {
-	return atof(get(identifier).c_str());
+	return (float)atof(get(identifier).c_str());
 }
 
 

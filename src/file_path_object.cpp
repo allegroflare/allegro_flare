@@ -380,7 +380,7 @@ int PathObject::get_num_items()
 
 ALLEGRO_PATH *PathObject::get_item(int index_num)
 {
-	if (index_num < 0 || path.empty() || index_num >= path.size()) return NULL;
+	if (index_num < 0 || path.empty() || index_num >= (int)path.size()) return NULL;
 	return path[index_num];
 }
 
