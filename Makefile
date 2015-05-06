@@ -38,7 +38,7 @@ INCLUDE_FLAGS=-I$(ALLEGRO_INCLUDE_DIR) -I$(ALLEGRO_FLARE_INCLUDE_DIR)
 # build targets:
 # there are several different targets; based on your platform and dependencies you may have installed
 
-all: allegro_flare appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object frustum generate_textures grid2d identification image_processing interprocess_through_files md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful bins drawing_interfaces fonts screens windows lib
+all: allegro_flare appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object frustum generate_textures grid2d identification image_processing md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful bins drawing_interfaces fonts screens windows lib
 
 lib: *.o
 	ar rvs ./lib/liballegro_flare-0.8.5-mingw-4.8.1.a *.o
@@ -140,9 +140,6 @@ image_processing:
 
 interprocess:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS)
-
-interprocess_through_files:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS) 
 
 md5:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp $(INCLUDE_FLAGS) 

@@ -6,6 +6,7 @@
 
 
 #include <vector>
+#include <string>
 
 
 #define NOTE_OFF			 0x80
@@ -65,3 +66,4 @@ bool midi_sysex_send_message(char device_id, char command_format, char command, 
 
 
 #endif
+
