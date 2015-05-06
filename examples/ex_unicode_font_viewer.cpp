@@ -1,28 +1,47 @@
 
 
 
-#include <allegro_flare/screens/unicode_font_viewer_screen.h>
 
 #include <allegro_flare/allegro_flare.h>
+#include <allegro_flare/screen.h>
+#include <allegro5/allegro_font.h>
+#include <allegro_flare/bins/font_bin.h>
+
+
+class UnicodeFontViewerExample : public Screen
+{
+private:
+	FontBin fonts;
+	ALLEGRO_FONT *unicode_font, *ui_font, *ui_font_mini;
+	int32_t unicode_range_start;
+
+public:
+	UnicodeFontViewerExample(Display *display, std::string font_identifier_str);
+
+	void draw_unicode_character(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
+
+	void primary_timer_func() override;
+
+	void key_char_func() override;
+};
 
 
 
 
 
-
-UnicodeFontViewerScreen::UnicodeFontViewerScreen(Display *display, std::string font_identifier_str)
+UnicodeFontViewerExample::UnicodeFontViewerExample(Display *display, std::string font_identifier_str)
 	: Screen(display)
 	, fonts("data/fonts")
-	, unicode_font(fonts["Bravura.otf 40"])
-	, ui_font(fonts["union__.ttf 20"])
-	, ui_font_mini(fonts["union__.ttf 9"])
+	, unicode_font(fonts[font_identifier_str])
+	, ui_font(fonts["DroidSans.ttf 20"])
+	, ui_font_mini(fonts["DroidSans.ttf 9"])
 	, unicode_range_start(0x1D000)
 {}
 
 
 
 
-void UnicodeFontViewerScreen::draw_unicode_character(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y)
+void UnicodeFontViewerExample::draw_unicode_character(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y)
 {
 	static ALLEGRO_USTR *ustr = NULL;
 	if (!ustr) ustr = al_ustr_new("");
@@ -33,12 +52,12 @@ void UnicodeFontViewerScreen::draw_unicode_character(ALLEGRO_FONT *font, ALLEGRO
 
 
 
-void UnicodeFontViewerScreen::primary_timer_func()
+void UnicodeFontViewerExample::primary_timer_func()
 {
 	int32_t unicode_range_end = unicode_range_start+0x00ff;
 
-	al_draw_text(ui_font, color::green, 20, 20, ALLEGRO_FLAGS_EMPTY, "Press the RIGHT ARROW and LEFT ARROW keys to flip through the pages");
-	al_draw_text(ui_font, color::green, 20, 60, ALLEGRO_FLAGS_EMPTY, tostring("range " + tostring(unicode_range_start) + "-" + tostring(unicode_range_end)).c_str());
+	al_draw_text(ui_font, color::white, 20, 20, ALLEGRO_FLAGS_EMPTY, "Press the RIGHT ARROW and LEFT ARROW keys to flip through the pages");
+	al_draw_text(ui_font, color::white, 20, 60, ALLEGRO_FLAGS_EMPTY, tostring("range " + tostring(unicode_range_start) + "-" + tostring(unicode_range_end)).c_str());
 
 	//int y=90;
 	int line = 0;
@@ -51,7 +70,7 @@ void UnicodeFontViewerScreen::primary_timer_func()
 		int x = 100 + row*row_width;
 		int y = 100 + line*line_height;
 		draw_unicode_character(unicode_font, color::black, character, ALLEGRO_ALIGN_CENTER, x, y);
-		al_draw_text(ui_font_mini, color::green, x, y, ALLEGRO_FLAGS_EMPTY, tostring(character).c_str());
+		al_draw_text(ui_font_mini, color::white, x, y, ALLEGRO_FLAGS_EMPTY, tostring(character).c_str());
 		row += 1;
 		if (row > num_rows) { row = 0; line++; }
 	}
@@ -60,7 +79,7 @@ void UnicodeFontViewerScreen::primary_timer_func()
 
 
 
-void UnicodeFontViewerScreen::key_char_func()
+void UnicodeFontViewerExample::key_char_func()
 {
 	switch(af::current_event->keyboard.keycode)
 	{
@@ -72,4 +91,19 @@ void UnicodeFontViewerScreen::key_char_func()
 		break;
 	}
 }
+
+
+
+
+
+int main(int argc, char **argv)
+{
+	af::initialize();
+	Display *display = af::create_display();
+	UnicodeFontViewerExample *program = new UnicodeFontViewerExample(display, "Bravura.otf 40");
+	af::run_loop();
+	return 0;
+}
+
+
 
