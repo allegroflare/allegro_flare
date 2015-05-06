@@ -192,13 +192,13 @@ void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALL
 	float histogram_max = 0;
 
 	// process each color
-	for (int y=0; y<al_get_bitmap_height(img); y++)
+	for (int pixel_y=0; pixel_y<al_get_bitmap_height(img); pixel_y++)
 	{
 		// ? -> float val = 1.0 - (float)y/al_get_bitmap_height(img);
-		for (int x=0; x<al_get_bitmap_width(img); x++)
+		for (int pixel_x=0; pixel_x<al_get_bitmap_width(img); pixel_x++)
 		{
 			// grab the pixel at the current x/y location
-			ALLEGRO_COLOR col = al_get_pixel(img, x, y);
+			ALLEGRO_COLOR col = al_get_pixel(img, pixel_x, pixel_y);
 
 			// this is the actual color manipulation function
 			float brightness = color::get_lightness(col); // << this is the heart of the function that measures the value of the pixel
