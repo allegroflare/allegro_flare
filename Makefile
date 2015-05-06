@@ -314,5 +314,9 @@ ex_histogram.exe: ./examples/ex_histogram.cpp
 	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
 	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
 
+test_encryption.exe: ./examples/test_encryption.cpp
+	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
+	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
+
 
 

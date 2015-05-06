@@ -1,5 +1,11 @@
 
 
+
+
+
+
+
+
 ///// header first
 
 
@@ -454,25 +460,37 @@ MD5& MD5::finalize()
  
 //////////////////////////////
  
+#include <sstream>
+#include <iomanip>
+
 // return hex representation of digest as string
 std::string MD5::hexdigest() const
 {
   if (!finalized)
     return "";
- 
+
+  /*  
   char buf[33];
   for (int i=0; i<16; i++)
     sprintf(buf+i*2, "%02x", digest[i]);
   buf[32]=0;
- 
   return std::string(buf);
+  */
+
+  // the above commented code was replaced by the code below
+  // to eliminate compile errors involving the sprintf function
+  std::stringstream stream;
+  stream << std::hex << std::setfill('0');
+  for (int i=0; i<16; i++)
+	  stream << std::setw(2) << static_cast<unsigned>(digest[i]);
+  return stream.str();
 }
  
 //////////////////////////////
  
 std::ostream& operator<<(std::ostream& out, MD5 md5)
 {
-  return out << md5.hexdigest(); // <- not my (Mark's) code, but I get a compile warning C4717
+  return out << md5.hexdigest(); // <- not my (Mark's) code, but I get a compile warning C4717 in msvc 10
 }
 
 //////////////////////////////

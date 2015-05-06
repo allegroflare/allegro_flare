@@ -241,11 +241,14 @@ std::string get_sha512_hash(std::string input)
 #include <fstream>
 #include <iostream>
 #include <sstream>
-std::string get_sha256_hash_of_file(std::string filename)
+
+
+
+static std::string ___generate_hash_from_file(std::string filename, std::string(*hash_func)(std::string))
 {
 	std::string data;
-	std::ifstream input_file( filename.c_str(), std::ios::binary | std::ios::in );
-	if( !input_file)
+	std::ifstream input_file(filename.c_str(), std::ios::binary | std::ios::in);
+	if (!input_file)
 	{
 		std::cout << "! Failed to open file \"filename\"" << std::endl;
 		return "[error1]";
@@ -256,11 +259,31 @@ std::string get_sha256_hash_of_file(std::string filename)
 	ss << input_file.rdbuf();
 	data = ss.str();
 
-    std::string output = get_sha256_hash(data);
+	std::string output = hash_func(data);
 
-	input_file .close();
+	input_file.close();
 
 	return output;
+}
+
+std::string get_sha224_hash_of_file(std::string filename)
+{
+	return ___generate_hash_from_file(filename, get_sha224_hash);
+}
+
+std::string get_sha256_hash_of_file(std::string filename)
+{
+	return ___generate_hash_from_file(filename, get_sha256_hash);
+}
+
+std::string get_sha384_hash_of_file(std::string filename)
+{
+	return ___generate_hash_from_file(filename, get_sha384_hash);
+}
+
+std::string get_sha512_hash_of_file(std::string filename)
+{
+	return ___generate_hash_from_file(filename, get_sha512_hash);
 }
 
 
@@ -655,6 +678,10 @@ void SHA512::final(unsigned char *digest)
     }
 }
  
+
+#include <sstream>
+#include <iomanip>
+
 std::string sha224(std::string input)
 {
     unsigned char digest[SHA224::DIGEST_SIZE];
@@ -664,11 +691,21 @@ std::string sha224(std::string input)
     ctx.update((unsigned char*)input.c_str(), input.length());
     ctx.final(digest);
  
+	/*
     char buf[2*SHA224::DIGEST_SIZE+1];
     buf[2*SHA224::DIGEST_SIZE] = 0;
     for (int i = 0; i < SHA224::DIGEST_SIZE; i++)
         sprintf(buf+i*2, "%02x", digest[i]);
     return std::string(buf);
+	*/
+
+	// the above commented code was replaced by the code below
+	// to eliminate compile errors involving the sprintf function
+	std::stringstream stream;
+	stream << std::hex << std::setfill('0');
+	for (int i = 0; i<SHA224::DIGEST_SIZE; i++)
+		stream << std::setw(2) << static_cast<unsigned>(digest[i]);
+	return stream.str();
 }
  
 std::string sha256(std::string input)
@@ -681,11 +718,21 @@ std::string sha256(std::string input)
     ctx.update( (unsigned char*)input.c_str(), input.length());
     ctx.final(digest);
  
+	/*
     char buf[2*SHA256::DIGEST_SIZE+1];
     buf[2*SHA256::DIGEST_SIZE] = 0;
     for (int i = 0; i < SHA256::DIGEST_SIZE; i++)
         sprintf(buf+i*2, "%02x", digest[i]);
     return std::string(buf);
+	*/
+
+	// the above commented code was replaced by the code below
+	// to eliminate compile errors involving the sprintf function
+	std::stringstream stream;
+	stream << std::hex << std::setfill('0');
+	for (int i = 0; i<SHA256::DIGEST_SIZE; i++)
+		stream << std::setw(2) << static_cast<unsigned>(digest[i]);
+	return stream.str();
 }
  
 std::string sha384(std::string input)
@@ -697,11 +744,21 @@ std::string sha384(std::string input)
     ctx.update((unsigned char*)input.c_str(), input.length());
     ctx.final(digest);
  
+	/*
     char buf[2*SHA384::DIGEST_SIZE+1];
     buf[2*SHA384::DIGEST_SIZE] = 0;
     for (int i = 0; i < SHA384::DIGEST_SIZE; i++)
         sprintf(buf+i*2, "%02x", digest[i]);
     return std::string(buf);
+	*/
+
+	// the above commented code was replaced by the code below
+	// to eliminate compile errors involving the sprintf function
+	std::stringstream stream;
+	stream << std::hex << std::setfill('0');
+	for (int i = 0; i<SHA384::DIGEST_SIZE; i++)
+		stream << std::setw(2) << static_cast<unsigned>(digest[i]);
+	return stream.str();
 }
  
 std::string sha512(std::string input)
@@ -713,9 +770,19 @@ std::string sha512(std::string input)
     ctx.update((unsigned char*)input.c_str(), input.length());
     ctx.final(digest);
  
+	/*
     char buf[2*SHA512::DIGEST_SIZE+1];
     buf[2*SHA512::DIGEST_SIZE] = 0;
     for (int i = 0; i < SHA512::DIGEST_SIZE; i++)
         sprintf(buf+i*2, "%02x", digest[i]);
     return std::string(buf);
+	*/
+
+	// the above commented code was replaced by the code below
+	// to eliminate compile errors involving the sprintf function
+	std::stringstream stream;
+	stream << std::hex << std::setfill('0');
+	for (int i = 0; i<SHA512::DIGEST_SIZE; i++)
+		stream << std::setw(2) << static_cast<unsigned>(digest[i]);
+	return stream.str();
 }
