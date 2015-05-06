@@ -1,4 +1,4 @@
-msvc-10.0/
+msvc-*/
 lib/
 *.swp
 
