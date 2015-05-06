@@ -3,7 +3,7 @@
 #include <allegro_flare/color.h>
 #include <math.h>
 #include <sstream>
-
+#include <algorithm>
 
 
 
@@ -130,33 +130,27 @@ void change_hue(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1
 
 void change_saturation(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1, float op2))
 {
-	using std::min;
-	using std::max;
 	float h, s, l, a=color.a;
 	al_color_rgb_to_hsl(color.r, color.g, color.b, &h, &s, &l);
-	s = min(max(0.0f, operation(s, amount)), 1.0f);
+	s = std::min(std::max(0.0f, operation(s, amount)), 1.0f);
 	color = al_color_hsl(h, s, l);
 	color.a = a;
 }
 
 void change_lightness(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1, float op2))
 {
-	using std::min;
-	using std::max;
 	float h, s, l, a=color.a;
 	al_color_rgb_to_hsl(color.r, color.g, color.b, &h, &s, &l);
-	l = min(max(0.0f, operation(l, amount)), 1.0f);
+	l = std::min(std::max(0.0f, operation(l, amount)), 1.0f);
 	color = al_color_hsl(h, s, l);
 	color.a = a;
 }
 
 void change_value(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1, float op2))
 {
-	using std::min;
-	using std::max;
 	float h, s, v, a=color.a;
 	al_color_rgb_to_hsv(color.r, color.g, color.b, &h, &s, &v);
-	v = min(max(0.0f, operation(v, amount)), 1.0f);
+	v = std::min(std::max(0.0f, operation(v, amount)), 1.0f);
 	color = al_color_hsl(h, s, v);
 	color.a = a;
 }

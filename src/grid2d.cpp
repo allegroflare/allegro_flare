@@ -218,8 +218,9 @@ void grid2d::draw_guides(ALLEGRO_COLOR color)
 }
 
 
+//#include <cstdio> // for std::sprintf
+#include <allegro_flare/useful.h> // to replace the issues surrounding std::sprintf
 
-#include <cstdio> // for std::sprintf
 
 void grid2d::draw_guide_numbers(ALLEGRO_FONT *font, float padding, ALLEGRO_COLOR color)
 {
@@ -228,22 +229,25 @@ void grid2d::draw_guide_numbers(ALLEGRO_FONT *font, float padding, ALLEGRO_COLOR
 	//float width = get_max_horizontal_guide();
 	//float height = get_max_vertical_guide();
 
-	char str[32];
+	//char str[32];
+	std::string str_;
 
 	// draw horizontals
 	for (unsigned i=0; i<horizontal_guide.size(); i++)
 	{
-		std::sprintf(str, "%d", i);
+		//std::sprintf(str, "%d", i);
+		str_ = tostring(i);
 		//al_draw_line(horizontal_guide[i], top, horizontal_guide[i], height, color::black, 1.0);
-		al_draw_text(font, color, horizontal_guide[i], top - padding - al_get_font_ascent(font), ALLEGRO_ALIGN_CENTER, str);
+		al_draw_text(font, color, horizontal_guide[i], top - padding - al_get_font_ascent(font), ALLEGRO_ALIGN_CENTER, str_.c_str());
 	}
 
 	// draw verticals
 	for (unsigned i=0; i<vertical_guide.size(); i++)
 	{
-		std::sprintf(str, "%d", i);
+		//std::sprintf(str, "%d", i);
+		str_ = tostring(i);
 		//al_draw_line(left, vertical_guide[i], width, vertical_guide[i], color::black, 1.0);
-		al_draw_text(font, color, left - padding, vertical_guide[i] - al_get_font_ascent(font)/2, ALLEGRO_ALIGN_RIGHT, str);
+		al_draw_text(font, color, left - padding, vertical_guide[i] - al_get_font_ascent(font)/2, ALLEGRO_ALIGN_RIGHT, str_.c_str());
 	}
 
 	//al_draw_rectangle(0, 0, width, height, color::black, 2.0);
