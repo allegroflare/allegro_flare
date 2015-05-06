@@ -92,7 +92,7 @@ T mid(const T &val1, const T &val2)
 }
 
 // Returns the next greatest whole number if the given value is not a whole number itself; e.g. it rounds the number up.
-float round(float val);
+float round_up(float val);
 
 // Returns true if the given string only contains characters that pass `std::is_digit()`.
 // TODO: rename this to to_int or something similar

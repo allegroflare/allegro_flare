@@ -207,7 +207,7 @@ vec3d cross_product(vec3d A, vec3d B)
 
 
 
-float round(float val)
+float round_up(float val)
 {
 	return floor(val + 0.5f);
 }
