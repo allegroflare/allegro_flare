@@ -56,8 +56,8 @@ void init_midi()
 		midi_out_device.back()->manufacturer_id = device.wMid;
 		midi_out_device.back()->product_id = device.wPid;
 		midi_out_device.back()->driver_version = device.vDriverVersion;
-		strcpy(midi_out_device.back()->name, device.szPname);
-		strncpy(midi_out_device.back()->name, device.szPname, 32);
+		midi_out_device.back()->name = device.szPname;
+		midi_out_device.back()->name = device.szPname;
 		midi_out_device.back()->device_type = device.wTechnology;
 		midi_out_device.back()->num_voices = device.wVoices;
 		midi_out_device.back()->num_notes = device.wNotes;
@@ -75,7 +75,7 @@ void init_midi()
 		midi_in_device.back()->manufacturer_id = device.wMid;
 		midi_in_device.back()->product_id = device.wPid;
 		midi_in_device.back()->driver_version = device.vDriverVersion;
-		strcpy(midi_out_device.back()->name, device.szPname);
+		midi_out_device.back()->name = device.szPname;
 	}
 
 	for (unsigned i=0; i<midi_out_device.size(); i++)
