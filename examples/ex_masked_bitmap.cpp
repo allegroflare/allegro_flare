@@ -1,5 +1,17 @@
 
 
+
+//
+// test_masked_bitmap.cpp
+//
+// This program demonstrates the create_masked_bitmap() function, which combines two images.
+// The resulting bitmap is the least alpha of both, and the color values of the first.
+// In other words, the first image is the source, and the opacity of the second is combined
+// into it.
+//
+
+
+
 #include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/image_processing.h>
 
