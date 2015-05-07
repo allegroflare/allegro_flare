@@ -3,7 +3,7 @@
 
 
 //
-// ex_generated_textures.cpp
+// test_generated_textures.cpp
 //
 // This example demonstrates some textures that are generated proceedurally.  These
 // are "design primitives" that you might used to create more ellaborate graphical

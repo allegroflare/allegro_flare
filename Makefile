@@ -293,17 +293,13 @@ ALLEGRO_DIR=E:/allegro-5.1.8-mingw-4.7.0
 ALLEGRO_MONOLITH_LIB=allegro-5.1.8-monolith-md
 ALLEGRO_FLARE_LIB=allegro_flare-0.8.5-mingw-4.8.1
 
-examples: ex_masked_bitmap.exe ex_model_viewer.exe ex_generated_textures.exe ex_histogram.exe ex_unicode_font_viewer.exe test_encryption.exe
+examples: ex_masked_bitmap.exe ex_model_viewer.exe ex_histogram.exe ex_unicode_font_viewer.exe test_encryption.exe test_generated_textures.exe
 
 ex_masked_bitmap.exe: ./examples/ex_masked_bitmap.cpp
 	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
 	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
 
 ex_model_viewer.exe: ./examples/ex_model_viewer.cpp
-	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
-	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
-
-ex_generated_textures.exe: ./examples/ex_generated_textures.cpp
 	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
 	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
 
@@ -316,6 +312,10 @@ ex_unicode_font_viewer.exe: ./examples/ex_unicode_font_viewer.cpp
 	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
 
 test_encryption.exe: ./examples/test_encryption.cpp
+	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
+	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
+
+test_generated_textures.exe: ./examples/test_generated_textures.cpp
 	$(CC) -c $(COMPILE_FLAGS) -std=gnu++11 $(EXAMPLESDIR)/$(basename $@).cpp $(INCLUDE_FLAGS)
 	$(CC) $(basename $@).o -o $(EXAMPLESDIR)/$(basename $@).exe -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) -L$(ALLEGRO_FLARE_DIR)/lib -L$(ALLEGRO_DIR)/lib
 
