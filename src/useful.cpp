@@ -252,28 +252,26 @@ void draw_crosshair(vec3d point, ALLEGRO_COLOR col, float size)
 	draw_crosshair(point.x, point.y, point.z, col, size);
 }
 
-void draw_textured_rectangle(float x, float y, float w, float h, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color)
+void draw_textured_rectangle(float x1, float y1, float x2, float y2, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color)
 {
 	ALLEGRO_VERTEX v[4];
-	v[0] = build_vertex(x, y, 0, color, 0, 0);
-	v[1] = build_vertex(w, y, 0, color, w, 0);
-	v[2] = build_vertex(w, h, 0, color, w, h);
-	v[3] = build_vertex(x, h, 0, color, 0, h);
 
-	//al_draw_filled_rounded_rectangle(0, 0, placement.w, placement.h, 3, 3, background_color);
+	v[0] = build_vertex(x1, y1, 0, color, x1-x1, y1-y1);
+	v[1] = build_vertex(x2, y1, 0, color, x2-x1, y1-y1);
+	v[2] = build_vertex(x2, y2, 0, color, x2-x1, y2-y1);
+	v[3] = build_vertex(x1, y2, 0, color, x1-x1, y2-y1);
 
 	al_draw_prim(v, NULL, texture, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
 }
 
-void draw_offset_textured_rectangle(float x, float y, float w, float h, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color)
+void draw_offset_textured_rectangle(float x1, float y1, float x2, float y2, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color)
 {
 	ALLEGRO_VERTEX v[4];
-	v[0] = build_vertex(x, y, 0, color, 0+offset_x, 0+offset_y);
-	v[1] = build_vertex(w, y, 0, color, w+offset_x, 0+offset_y);
-	v[2] = build_vertex(w, h, 0, color, w+offset_x, h+offset_y);
-	v[3] = build_vertex(x, h, 0, color, 0+offset_x, h+offset_y);
 
-	//al_draw_filled_rounded_rectangle(0, 0, placement.w, placement.h, 3, 3, background_color);
+	v[0] = build_vertex(x1, y1, 0, color, x1-x1+offset_x, y1-y1+offset_y);
+	v[1] = build_vertex(x2, y1, 0, color, x2-x1+offset_x, y1-y1+offset_y);
+	v[2] = build_vertex(x2, y2, 0, color, x2-x1+offset_x, y2-y1+offset_y);
+	v[3] = build_vertex(x1, y2, 0, color, x1-x1+offset_x, y2-y1+offset_y);
 
 	al_draw_prim(v, NULL, texture, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
 }

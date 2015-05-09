@@ -281,10 +281,10 @@ ALLEGRO_VERTEX build_vertex(float x, float y, float z, ALLEGRO_COLOR col, float 
 // The texture will tile if the rectangle extends beyond the width or height of the image.
 // The top left corner of the texture is aligned at `x` and `y` of the rectangle.  To define
 // an offset, use `draw_offset_textured_rectangle`.
-void draw_textured_rectangle(float x, float y, float w, float h, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);
+void draw_textured_rectangle(float x1, float y1, float x2, float y2, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);
 
 // Same as `draw_textured_rectangle`, but allows you to define an x and y offset for the texture.
-void draw_offset_textured_rectangle(float x, float y, float w, float h, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);
+void draw_offset_textured_rectangle(float x1, float y1, float x2, float y2, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color=color::white);
 
 // Draws an image stretched to fit the given width and height.
 void draw_stretched_bitmap(float x, float y, float w, float h, ALLEGRO_BITMAP *bitmap, int flip_flags=ALLEGRO_FLAGS_EMPTY, ALLEGRO_COLOR color=color::white);
