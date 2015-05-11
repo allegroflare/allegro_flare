@@ -16,6 +16,18 @@ ALLEGRO_BITMAP *create_color_overlay(ALLEGRO_BITMAP *bmp, ALLEGRO_COLOR color);
 void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float));
 
 
+// blurs
+
+	// TODO: make better api for using these functions, for example:
+	//		ALLEGRO_BITMAP *create_blurred_image(ALLEGRO_BITMAP *image, float radius);
+ 
+void horizontal_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r);
+void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r);
+void box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r);
+void gaussian_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r);
+
+
+
 // draws a histogram of luminance
 void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALLEGRO_COLOR hist_col=color::white);
 

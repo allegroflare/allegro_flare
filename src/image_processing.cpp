@@ -179,6 +179,196 @@ void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float))
 
 
 
+
+
+
+
+// the following algorithms provided by IvanK from
+// http://blog.ivank.net/fastest-gaussian-blur.html
+// and were adapted for allegro by Mark Oates
+//
+
+
+#include <math.h> // for sqrt
+
+
+static std::vector<float> __boxesForGauss(float sigma, int n)  // standard deviation, number of boxes
+{
+    float wIdeal = sqrt((12*sigma*sigma/n)+1);  // Ideal averaging filter width 
+    int wl = floor(wIdeal);
+		if(wl%2==0) wl--;
+    int wu = wl+2;
+				
+    float mIdeal = (12*sigma*sigma - n*wl*wl - 4*n*wl - 3*n)/(-4*wl - 4);
+    int m = round(mIdeal);
+    // var sigmaActual = Math.sqrt( (m*wl*wl + (n-m)*wu*wu - n)/12 );
+				
+    std::vector<float> sizes;
+
+	for(unsigned i=0; i<n; i++)
+		sizes.push_back((i<m) ? wl : wu);
+
+    return sizes;
+}
+
+
+static ALLEGRO_COLOR __get_pix_from(ALLEGRO_BITMAP *bmp, int index)
+{
+	int x = index%al_get_bitmap_width(bmp);
+	int y = index/al_get_bitmap_width(bmp);
+	return al_get_pixel(bmp, x, y);
+}
+
+
+static void __put_pix_to(ALLEGRO_BITMAP *bmp, int index, ALLEGRO_COLOR val)
+{
+	ALLEGRO_COLOR col = val;
+	al_put_pixel(index%al_get_bitmap_width(bmp), index/al_get_bitmap_width(bmp), col);
+}
+
+
+
+
+
+void horizontal_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
+	// this is IvanK's boxBlurH_4 algorithm 
+{
+	al_set_target_bitmap(tcl);
+
+
+	al_lock_bitmap(scl, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_READONLY);
+	al_lock_bitmap(tcl, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
+
+	float iarr = 1.0 / (r+r+1);
+
+	for(int i=0; i<h; i++)
+	{
+		int ti = i*w;
+		int li = ti;
+		int ri = ti+r;
+
+		ALLEGRO_COLOR fv = __get_pix_from(scl, ti);
+		ALLEGRO_COLOR lv = __get_pix_from(scl, ti+w-1);
+		ALLEGRO_COLOR val = (r+1.0f)*fv;
+
+		for(unsigned j=0; j<r; j++)
+		{
+			val = val + __get_pix_from(scl, ti+j);
+		}
+		for(unsigned j=0; j<=r ; j++)
+		{
+			val = val + __get_pix_from(scl, ri++) - fv;
+			//tcl[ti++] = round(val*iarr);
+			__put_pix_to(tcl, ti++, val*iarr);
+		}
+		for(unsigned j=r+1; j<w-r; j++)
+		{
+			val = val + __get_pix_from(scl, ri++) - __get_pix_from(scl, li++);
+			//tcl[ti++] = round(val*iarr);
+			__put_pix_to(tcl, ti++, val*iarr);
+		}
+		for(unsigned j=w-r; j<w; j++)
+		{
+			val = val + lv - __get_pix_from(scl, li++);
+			//tcl[ti++] = round(val*iarr);
+			__put_pix_to(tcl, ti++, val*iarr);
+		}
+	}
+
+	al_unlock_bitmap(tcl);
+	al_unlock_bitmap(scl);
+}
+
+
+
+void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
+	// this is IvanK's boxBlurT_4 algorithm 
+{
+	float iarr = 1.0 / (r+r+1);
+
+	al_set_target_bitmap(tcl);
+
+
+	al_lock_bitmap(scl, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_READONLY);
+	al_lock_bitmap(tcl, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
+
+	for(unsigned i=0; i<w; i++)
+	{
+		int ti = i;
+		int li = ti;
+		int ri = ti+r*w;
+
+		ALLEGRO_COLOR fv = __get_pix_from(scl, ti);
+		ALLEGRO_COLOR lv = __get_pix_from(scl, ti+w*(h-1));
+		ALLEGRO_COLOR val = (r+1.0f)*fv;
+
+		for(unsigned j=0; j<r; j++)
+		{
+			val = val + __get_pix_from(scl, ti+j*w);
+		}
+		for(unsigned j=0; j<=r; j++)
+		{
+			val = val + __get_pix_from(scl, ri) - fv;
+			//tcl[ti] = round(val*iarr);
+			__put_pix_to(tcl, ti, val*iarr);
+			ri+=w;
+			ti+=w;
+		}
+		for(unsigned j=r+1; j<h-r; j++)
+		{
+			val = val + __get_pix_from(scl, ri) - __get_pix_from(scl, li);
+			//tcl[ti] = Math.round(val*iarr);
+			__put_pix_to(tcl, ti, val*iarr);
+			li+=w;
+			ri+=w;
+			ti+=w;
+		}
+		for(unsigned j=h-r; j<h; j++)
+		{
+			val = val + lv - __get_pix_from(scl, li);
+			//tcl[ti] = Math.round(val*iarr);
+			__put_pix_to(tcl, ti, val*iarr);
+			li+=w;
+			ti+=w;
+		}
+	}
+
+	al_unlock_bitmap(tcl);
+	al_unlock_bitmap(scl);
+}
+
+
+void box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
+	// this is IvanK's boxBlur_4 algorithm
+{
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	al_set_target_bitmap(tcl);
+	al_draw_bitmap(scl, 0, 0, 0);
+	al_restore_state(&state);
+	
+    //for(unsigned i=0; i<scl.length; i++) tcl[i] = scl[i];
+    horizontal_box_blur(tcl, scl, w, h, r);
+    vertical_box_blur(scl, tcl, w, h, r);
+}
+
+
+void gaussian_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
+	// this is IvanK's gaussBlur_4 algorithm
+{
+	// TODO: these algos (and the other blurs) could be optimized for locks
+    std::vector<float> bxs = __boxesForGauss(r, 3);
+    box_blur(scl, tcl, w, h, (bxs[0]-1)/2);
+    box_blur(tcl, scl, w, h, (bxs[1]-1)/2);
+    box_blur(scl, tcl, w, h, (bxs[2]-1)/2);
+}
+
+
+
+
+
+
+
 #include <allegro_flare/path2d.h>
 
 void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALLEGRO_COLOR hist_col)
