@@ -281,3 +281,126 @@ ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float(* interpolator_func)(fl
 
 
 
+ALLEGRO_BITMAP *create_pixel_pattern_1(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int checker_size)
+{
+	int bitmap_size = 64;
+	ALLEGRO_BITMAP *surface = al_create_bitmap(bitmap_size, bitmap_size);
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	al_set_target_bitmap(surface);
+	
+	// clear to the back color
+	al_clear_to_color(pixel2_color);
+
+	// begin drawing the surface
+	al_lock_bitmap(surface, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY); // is ALLEGRO_PIXEL_FORMAT_ANY correct?
+	int num_rows_cols = bitmap_size / checker_size;
+	for (unsigned row=0; row<num_rows_cols; row++)
+		for (unsigned col=0; col<num_rows_cols; col++)
+		{
+			if ((row+col) % 2 == 1) continue; // skip if the square is even
+	
+			// draw a square of n x n size, at (x, y)
+			for (unsigned yy=0; yy<checker_size; yy++)
+				for (unsigned xx=0; xx<checker_size; xx++)
+				{
+					al_put_pixel(col*checker_size + xx, row*checker_size + yy, pixel1_color);
+				}
+		}
+	al_unlock_bitmap(surface);
+
+	al_restore_state(&state);
+	return surface;
+}
+
+
+
+ALLEGRO_BITMAP *create_pixel_pattern_2(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int dot_distance)
+{
+	int bitmap_size = 64;
+	ALLEGRO_BITMAP *surface = al_create_bitmap(bitmap_size, bitmap_size);
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	al_set_target_bitmap(surface);
+	
+	// clear to the back color
+	al_clear_to_color(pixel2_color);
+
+	// begin drawing the surface
+	al_lock_bitmap(surface, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY); // is ALLEGRO_PIXEL_FORMAT_ANY correct?
+	for (unsigned y=0; y<bitmap_size; y+=dot_distance)
+		for (unsigned x=0; x<bitmap_size; x+=dot_distance)
+		{
+			al_put_pixel(x, y, pixel1_color);
+		}
+	al_unlock_bitmap(surface);
+
+	al_restore_state(&state);
+	return surface;
+}
+
+
+ALLEGRO_BITMAP *create_pixel_pattern_3(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int x_distance, int y_distance)
+{
+	int bitmap_size_x = x_distance * 8;
+	int bitmap_size_y = y_distance * 8;
+	ALLEGRO_BITMAP *surface = al_create_bitmap(bitmap_size_x, bitmap_size_y);
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	al_set_target_bitmap(surface);
+	
+	// clear to the back color
+	al_clear_to_color(pixel2_color);
+
+	// begin drawing the surface
+	int slope = (int)(x_distance * 1.5);
+	al_lock_bitmap(surface, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY); // is ALLEGRO_PIXEL_FORMAT_ANY correct?
+	for (unsigned y=0; y<bitmap_size_y; y+=y_distance)
+		for (unsigned x=0; x<bitmap_size_x; x+=x_distance)
+		{
+			al_put_pixel(x + (y*slope)%x_distance, y, pixel1_color);
+		}
+	al_unlock_bitmap(surface);
+
+	al_restore_state(&state);
+	return surface;
+}
+
+
+
+ALLEGRO_BITMAP *create_pixel_pattern_4(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int x_distance, float slope)
+{
+	//TODO this function is not complete, and may not return expected results when other values than the default values are given. 
+	// Further development is needed to provide this flexibility to the function, but at the default values, it returns the intended
+	// pattern
+
+	int bitmap_size_x = x_distance * 8;
+	int bitmap_size_y = x_distance * 8;
+
+	ALLEGRO_BITMAP *surface = al_create_bitmap(bitmap_size_x, bitmap_size_y);
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	al_set_target_bitmap(surface);
+
+	if (x_distance < 0) { al_restore_state(&state); return surface; }
+	while (slope < 0) { slope += x_distance; }
+	
+	// clear to the back color
+	al_clear_to_color(pixel2_color);
+
+	// begin drawing the surface
+	al_lock_bitmap(surface, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY); // is ALLEGRO_PIXEL_FORMAT_ANY correct?
+	for (unsigned y=0; y<bitmap_size_y; y+=1)
+		for (unsigned x=0; x<bitmap_size_x; x+=x_distance)
+		{
+			al_put_pixel(x + ((int)(y*slope))%x_distance, y, pixel1_color);
+		}
+	al_unlock_bitmap(surface);
+
+	al_restore_state(&state);
+	return surface;
+}
+
+
+
+
