@@ -8,6 +8,7 @@
 
 ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, int dest_w, int dest_h);
 ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, float scale);
+ALLEGRO_BITMAP *create_padded_bitmap(ALLEGRO_BITMAP *original, int padding_top, int padding_right, int padding_bottom, int padding_left);
 
 
 void invert(ALLEGRO_BITMAP *img); // does not properly invert the alpha

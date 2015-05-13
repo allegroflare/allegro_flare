@@ -41,6 +41,22 @@ ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, float scale)
 
 
 
+ALLEGRO_BITMAP *create_padded_bitmap(ALLEGRO_BITMAP *original, int padding_top, int padding_right, int padding_bottom, int padding_left)
+{
+	ALLEGRO_BITMAP *surface = al_create_bitmap(al_get_bitmap_width(original)+padding_left+padding_right, al_get_bitmap_height(original)+padding_top+padding_bottom);
+
+	ALLEGRO_STATE state;
+	al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+	al_set_target_bitmap(surface);
+	al_clear_to_color(color::transparent);
+	al_draw_bitmap(original, padding_left, padding_top, 0);
+	al_restore_state(&state);
+
+	return surface;
+}
+
+
+
 
 void invert(ALLEGRO_BITMAP *img)
 {
