@@ -1,4 +1,4 @@
-AllegroFlare
+![](http://zeoxdesign.com/images/allegro_flare_logo-04.png) AllegroFlare
 =============
 
 Current version - Development on v0.8.5
