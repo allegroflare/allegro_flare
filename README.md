@@ -15,10 +15,8 @@ Simple Example
 class MyApp : public Screen
 {
 public:
-    MyApp(Display *display)
-        : Screen(display)
-    {}
-    void primary_timer() override
+    MyApp(Display *display) : Screen(display) {}
+    void primary_timer_func() override
     {
         al_draw_filled_rectangle(300, 400, 200, 100, color::chartreuse);
     }
