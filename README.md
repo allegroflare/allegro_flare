@@ -4,7 +4,7 @@
 Current version - Development on v0.8.5
 
 
-AllegroFlare is a C++ framework based on the Allegro 5 game programming library.
+AllegroFlare is an C++ framework based on the Allegro 5 game programming library.  All of the regular functionality of Allegro remains intact with AllegroFlare, but now you have an expanded feature set with tons of cool stuff.  Using the framework makes for fast and fun development, or, you can cherry-pick any of the fantastic classes in AllegroFlare and use them in any vanilla Allegro program.
 
 Simple Example
 ============
@@ -66,7 +66,7 @@ GUI
 
 Color
 - Color creation and manipulation (`mix()`, `change_hue()`, `change_lightness()`, etc.)
-- Operators for math with ALLEGRO_COLORs (`+`, `-`, `*`, `==`)
+- Operators for ALLEGRO_COLORs (`+`, `-`, `*`, `==`)
 - Many color definitions (`color::yellowgreen`, `color::blue`, `color::plum`, `color::floralwhite`, etc)
 
 Encryption
