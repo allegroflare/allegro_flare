@@ -4,7 +4,7 @@
 Current version - Development on v0.8.5
 
 
-AllegroFlare is an C++ framework based on the Allegro 5 game programming library.  All of the regular functionality of Allegro remains intact with AllegroFlare, but now you have an expanded feature set with tons of cool stuff.  Using the framework makes for fast and fun development, or, you can cherry-pick any of the fantastic classes in AllegroFlare and use them in any vanilla Allegro program.
+AllegroFlare is an C++ framework based on the Allegro 5 game programming library.  All of the regular functionality of Allegro remains intact with AllegroFlare, but now with an expanded feature set and tons of cool stuff.  Using the framework makes for fast and fun development, or, you can cherry-pick any of the fantastic classes and functions provided by AllegroFlare and use them in your vanilla Allegro program.
 
 Simple Example
 ============
@@ -75,10 +75,10 @@ Encryption
 Other cool stuff (requires dependencies)
 - Interprocess and Shared Memory (boost)
 - Text-to-speech API (windows)
-- Download a file (curl)
-- webcam (OpenCV)
-- theatre lighting control (dmx-box)
-- MIDI (windows)
+- Download a file in a thread (curl)
+- Webcam access (OpenCV)
+- Theatre lighting control (dmx-box)
+- MIDI control (windows)
 
 And More
 - Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc..
