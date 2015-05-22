@@ -46,18 +46,19 @@ Resource Management
 
 Graphics
 - 2D path shapes (`path2d`)
-- 2D and 3D tools (`vec2d`, `vec3d`, `placement2d`, `placement3d`, `Camera2D`, `Camera3D`, etc)
+- 2D and 3D positioning tools (`vec2d`, `vec3d`, `placement2d`, `placement3d`)
+- cameras (`Camera2D`, `Camera3D`)
 - 3D model loading (`Model`)
-- Basic image manipulation (`gaussian_blur()`, `color_overlay()`, `trim()`, `invert()`, etc)
+- Basic image manipulation (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc)
 - Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc)
 - Music notation (`MusicNotation`)
 
 Motion
-- timing control and animation (`Motion`)
+- timing and movement control (`Motion`)
 - easing functions (`interpolator::fastIn`, `interpolator::trippleSlowInOut`, `interpolator::bounceIn`, etc)
 
 Scripting and Animation
-- Timelines for playback (`Timeline`, `Stage`, `Actor`, `Script`)
+- Timelines and playback (`Timeline`, `Stage`, `Actor`, `Script`)
 - Make any of your class's functions accessible from a script (`Scriptable`)
 - Add attributes to objects for saving/loading/scripting (`Attr`, `ElementID`, `AttrLoader`)
 
