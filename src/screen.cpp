@@ -156,19 +156,19 @@ void Screen::joy_axis_funcs()
 }
 
 
-void Screen::joy_up_funcs()
+void Screen::joy_button_up_funcs()
 {
 	for (unsigned i=0; i<screens.size(); i++)
 		//if (instance[i]->input_active)
-			screens[i]->joy_up_func();
+			screens[i]->joy_button_up_func();
 }
 
 
-void Screen::joy_down_funcs()
+void Screen::joy_button_down_funcs()
 {
 	for (unsigned i=0; i<screens.size(); i++)
 		//if (instance[i]->input_active)
-			screens[i]->joy_down_func();
+			screens[i]->joy_button_down_func();
 }
 
 
@@ -272,8 +272,8 @@ void Screen::mouse_up_func() {}
 void Screen::key_down_func() {}
 void Screen::key_up_func() {}
 void Screen::key_char_func() {}
-void Screen::joy_down_func() {}
-void Screen::joy_up_func() {}
+void Screen::joy_button_down_func() {}
+void Screen::joy_button_up_func() {}
 void Screen::joy_axis_func() {}
 void Screen::joy_config_func() {}
 void Screen::user_event_func() {}

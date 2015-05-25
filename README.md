@@ -38,11 +38,12 @@ Some Examples of Features and Tools
 Framework
 - All initialization with one function (`af::initialize()`)
 - Easy system interface with one class (`Screen`)
-- virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_down_func()`, `key_char_func()`, etc)
+- virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc)
+- Global bins for assets (`af::bitmaps["mypic.jpg"]`, `af::fonts["Times.ttf 16"]`, etc)
 
 Resource Management
-- Use any image, sample, or font by filename (`af::bitmaps["mypic.jpg"]`, `af::fonts["Times.ttf 16"]`, etc)
 - Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`)
+- Use any image, sample, or font by filename
 
 Graphics
 - 2D path shapes (`path2d`)

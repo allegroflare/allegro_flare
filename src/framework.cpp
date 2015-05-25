@@ -223,10 +223,10 @@ void af::run_loop()
 			Screen::mouse_axes_funcs();
 			break;
 		case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-			Screen::joy_down_funcs();
+			Screen::joy_button_down_funcs();
 			break;
 		case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-			Screen::joy_up_funcs();
+			Screen::joy_button_up_funcs();
 			break;
 		case ALLEGRO_EVENT_JOYSTICK_AXIS:
 			Screen::joy_axis_funcs();

@@ -30,8 +30,8 @@ private:
 	static void mouse_down_funcs();
 	static void mouse_up_funcs();
 	static void key_char_funcs();
-	static void joy_down_funcs();
-	static void joy_up_funcs();
+	static void joy_button_down_funcs();
+	static void joy_button_up_funcs();
 	static void joy_axis_funcs();
 	static void joy_config_funcs();
 	static void user_event_funcs();
@@ -59,8 +59,8 @@ public:
 	virtual void key_down_func();
 	virtual void key_up_func();
 	virtual void key_char_func();
-	virtual void joy_down_func();
-	virtual void joy_up_func();
+	virtual void joy_button_down_func();
+	virtual void joy_button_up_func();
 	virtual void joy_axis_func();
 	virtual void joy_config_func();
 	virtual void user_event_func();
