@@ -51,6 +51,7 @@
 #include <allegro_flare/file_path.h>
 #include <allegro_flare/file_path_object.h>
 #include <allegro_flare/config.h>
+#include <allegro_flare/clipboard.h>
 
 #include <zlib.h>
 
