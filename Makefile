@@ -40,7 +40,7 @@ OBJ_EXT=o
 # build targets:
 # there are several different targets; based on your platform and dependencies you may have installed
 
-all: appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object framework frustum generate_textures grid2d identification image_processing md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful bins drawing_interfaces fonts screens
+all: appearance2d attr_save_load automation bitmap_object blender camera2d camera3d clipboard color config data_attr display drawing_interface file_path file_path_object framework frustum generate_textures grid2d identification image_processing md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful bins drawing_interfaces fonts screens
 	make lib
 
 lib: ./obj/*.o
@@ -91,6 +91,9 @@ camera2d:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
 
 camera3d:
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
+
+clipboard:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
 
 clipboard_win:
