@@ -56,6 +56,8 @@ dmx: dmx
 
 windows: clipboard_win midi_win 
 
+clipboard: clipboard_generic
+
 # osx:
 
 # linux:
@@ -93,7 +95,7 @@ camera2d:
 camera3d:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
 
-clipboard:
+clipboard_generic:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
 
 clipboard_win:

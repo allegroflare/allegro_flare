@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/clipboard_win.h>
+#include <allegro_flare/clipboard.h>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_windows.h>
@@ -10,18 +10,39 @@
 
 
 
-void WinClipboard::set(std::string text)
+Clipboard *Clipboard::instance = NULL;
+
+
+
+
+Clipboard::Clipboard()
+	: __text("")
+{}
+
+
+
+
+Clipboard *Clipboard::get_instance()
+{
+	if (!instance) instance = new Clipboard();
+	return instance;
+}
+
+
+
+
+void Clipboard::set(std::string text)
 {
 	if ( !OpenClipboard(NULL) )
 	{
 		//AfxMessageBox( _T("Cannot open the Clipboard") );
-		std::cout << "WinClipboard.set(): Cannot open the Clipboard" << std::endl;
+		std::cout << "Clipboard.set(): Cannot open the Clipboard" << std::endl;
 		return;
 	}
 	// Remove the current Clipboard contents 
 	if( !EmptyClipboard() )
 	{
-		std::cout << "WinClipboard.set(): Cannot empty the Clipboard" << std::endl;
+		std::cout << "Clipboard.set(): Cannot empty the Clipboard" << std::endl;
 		return;
 	}
 	// Get the currently selected data
@@ -30,7 +51,7 @@ void WinClipboard::set(std::string text)
 	//strcpy_s((char*)hGlob, 64, text.c_str());
 	if (!hGlob)
 	{
-		std::cout << "WinClipboard.set(): could not allocate hGlob" << std::endl;
+		std::cout << "Clipboard.set(): could not allocate hGlob" << std::endl;
 		CloseClipboard();
 		return;
 	}
@@ -41,7 +62,7 @@ void WinClipboard::set(std::string text)
 	// For the appropriate data formats... 
 	if ( ::SetClipboardData( CF_TEXT, hGlob ) == NULL )
 	{
-		std::cout << "WinClipboard.set(): Unable to set Clipboard data, error: " << GetLastError() << std::endl;
+		std::cout << "Clipboard.set(): Unable to set Clipboard data, error: " << GetLastError() << std::endl;
 		//CString msg;
 		//msg.Format(_T("Unable to set Clipboard data, error: %d"), GetLastError());
 		//AfxMessageBox( msg );
@@ -50,17 +71,19 @@ void WinClipboard::set(std::string text)
 		return;
 	}
 	CloseClipboard();
+
+	get_instance()->__text = text;
 }
 
 
 
 
-std::string WinClipboard::get()
+std::string Clipboard::get()
 {
 	// Try opening the clipboard
 	if (! OpenClipboard(NULL))
 	{
-		std::cout << "WinClipboard.get(): Cannot open the Clipboard" << std::endl;
+		std::cout << "Clipboard.get(): Cannot open the Clipboard" << std::endl;
 		return "";
 	}
 
@@ -68,7 +91,7 @@ std::string WinClipboard::get()
 	HANDLE hData = GetClipboardData(CF_TEXT);
 	if (hData == NULL) // NULL was nullptr, but was changed for compatability
 	{
-		std::cout << "WinClipboard.get(): Cannot get the clipboard handle" << std::endl;
+		std::cout << "Clipboard.get(): Cannot get the clipboard handle" << std::endl;
 		return "";
 	}
 
@@ -76,7 +99,7 @@ std::string WinClipboard::get()
 	char * pszText = static_cast<char*>( GlobalLock(hData) );
 	if (pszText == NULL) // NULL was nullptr, but was changed for compatability
 	{
-		std::cout << "WinClipboard.get(): Cannot lock the handle" << std::endl;
+		std::cout << "Clipboard.get(): Cannot lock the handle" << std::endl;
 		return "";
 	}
 
