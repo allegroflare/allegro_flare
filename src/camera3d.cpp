@@ -163,7 +163,7 @@ void Camera3D::set_frustum_as_camera(ALLEGRO_DISPLAY *d)
 		frustum.left, frustum.top, frustum.znear,
 		frustum.right, frustum.bottom, frustum.zfar);
 
-	al_set_projection_transform(d, &transform);
+	al_use_projection_transform(&transform);
 }
 
 

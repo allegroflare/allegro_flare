@@ -295,14 +295,14 @@ ALLEGRO_BITMAP *create_pixel_pattern_1(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR
 	// begin drawing the surface
 	al_lock_bitmap(surface, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY); // is ALLEGRO_PIXEL_FORMAT_ANY correct?
 	int num_rows_cols = bitmap_size / checker_size;
-	for (unsigned row=0; row<num_rows_cols; row++)
-		for (unsigned col=0; col<num_rows_cols; col++)
+	for (auto row=0; row<num_rows_cols; row++)
+		for (auto col=0; col<num_rows_cols; col++)
 		{
 			if ((row+col) % 2 == 1) continue; // skip if the square is even
 	
 			// draw a square of n x n size, at (x, y)
-			for (unsigned yy=0; yy<checker_size; yy++)
-				for (unsigned xx=0; xx<checker_size; xx++)
+			for (auto yy=0; yy<checker_size; yy++)
+				for (auto xx=0; xx<checker_size; xx++)
 				{
 					al_put_pixel(col*checker_size + xx, row*checker_size + yy, pixel1_color);
 				}
@@ -328,8 +328,8 @@ ALLEGRO_BITMAP *create_pixel_pattern_2(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR
 
 	// begin drawing the surface
 	al_lock_bitmap(surface, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY); // is ALLEGRO_PIXEL_FORMAT_ANY correct?
-	for (unsigned y=0; y<bitmap_size; y+=dot_distance)
-		for (unsigned x=0; x<bitmap_size; x+=dot_distance)
+	for (auto y=0; y<bitmap_size; y+=dot_distance)
+		for (auto x=0; x<bitmap_size; x+=dot_distance)
 		{
 			al_put_pixel(x, y, pixel1_color);
 		}
@@ -355,8 +355,8 @@ ALLEGRO_BITMAP *create_pixel_pattern_3(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR
 	// begin drawing the surface
 	int slope = (int)(x_distance * 1.5);
 	al_lock_bitmap(surface, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY); // is ALLEGRO_PIXEL_FORMAT_ANY correct?
-	for (unsigned y=0; y<bitmap_size_y; y+=y_distance)
-		for (unsigned x=0; x<bitmap_size_x; x+=x_distance)
+	for (auto y=0; y<bitmap_size_y; y+=y_distance)
+		for (auto x=0; x<bitmap_size_x; x+=x_distance)
 		{
 			al_put_pixel(x + (y*slope)%x_distance, y, pixel1_color);
 		}
@@ -390,8 +390,8 @@ ALLEGRO_BITMAP *create_pixel_pattern_4(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR
 
 	// begin drawing the surface
 	al_lock_bitmap(surface, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY); // is ALLEGRO_PIXEL_FORMAT_ANY correct?
-	for (unsigned y=0; y<bitmap_size_y; y+=1)
-		for (unsigned x=0; x<bitmap_size_x; x+=x_distance)
+	for (auto y=0; y<bitmap_size_y; y+=1)
+		for (auto x=0; x<bitmap_size_x; x+=x_distance)
 		{
 			al_put_pixel(x + ((int)(y*slope))%x_distance, y, pixel1_color);
 		}
