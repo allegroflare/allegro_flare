@@ -41,11 +41,11 @@ Some Examples of Features and Tools
 - Use virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc)
 - Access assets through global media bins (`af::bitmaps["mypic.jpg"]`, `af::fonts["Times.ttf 16"]`, etc)
 
-Resource Management
+### Resource Management
 - Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`)
 - Use any image, sample, or font by filename
 
-Graphics
+### Graphics
 - 2D path shapes (`path2d`)
 - 2D and 3D positioning tools (`vec2d`, `vec3d`, `placement2d`, `placement3d`)
 - cameras (`Camera2D`, `Camera3D`)
@@ -54,27 +54,27 @@ Graphics
 - Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc)
 - Create music notation (`MusicNotation`)
 
-Motion
+### Motion
 - timing and movement control (`Motion`)
 - easing functions (`interpolator::fastIn`, `interpolator::trippleSlowInOut`, `interpolator::bounceIn`, etc)
 
-Scripting and Animation
+### Scripting and Animation
 - Use useful clases to automate playback of your objects (`Motion`, `Timeline`, `Stage`, `Actor`, `Script`)
 - Use any member function from your classes in a script (`Scriptable`)
 - Add attributes to your classes for scripting, saving, and loading (`Attr`, `ElementID`, `AttrLoader`)
 
-GUI
+### GUI
 - (see the [FlareGUI project](https://github.com/MarkOates/flare_gui))
 
-Color
+### Color
 - Color creation and manipulation (`mix()`, `change_hue()`, `change_lightness()`, etc.)
 - Operators for ALLEGRO_COLORs (`+`, `-`, `*`, `==`)
 - Many color definitions (`color::yellowgreen`, `color::blue`, `color::plum`, `color::floralwhite`, etc)
 
-Encryption
+### Encryption
 - md5 and sha2 functions
 
-Other cool stuff (requires dependencies)
+### Other cool stuff (requires dependencies)
 - Interprocess and Shared Memory (boost)
 - Text-to-speech API (windows)
 - Download a file in a thread (curl)
@@ -82,7 +82,7 @@ Other cool stuff (requires dependencies)
 - Theatre lighting control (dmx-box)
 - MIDI control (windows)
 
-And More
+### And More
 - Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc..
 
 Dependencies
