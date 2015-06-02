@@ -35,11 +35,11 @@ int main(int argc, char **argv)
 Some Examples of Features and Tools
 ============
 
-Framework
-- All initialization with one function (`af::initialize()`)
-- Easy system interface with one class (`Screen`)
-- virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc)
-- Global bins for assets (`af::bitmaps["mypic.jpg"]`, `af::fonts["Times.ttf 16"]`, etc)
+### Framework
+- Initialize (basically) everything with one function (`af::initialize()`)
+- Interface with the system through a parent class (`Screen`)
+- Use virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc)
+- Access assets through global media bins (`af::bitmaps["mypic.jpg"]`, `af::fonts["Times.ttf 16"]`, etc)
 
 Resource Management
 - Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`)
@@ -52,16 +52,16 @@ Graphics
 - 3D model loading (`Model`)
 - Basic image manipulation (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc)
 - Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc)
-- Music notation (`MusicNotation`)
+- Create music notation (`MusicNotation`)
 
 Motion
 - timing and movement control (`Motion`)
 - easing functions (`interpolator::fastIn`, `interpolator::trippleSlowInOut`, `interpolator::bounceIn`, etc)
 
 Scripting and Animation
-- Timelines and playback (`Timeline`, `Stage`, `Actor`, `Script`)
-- Make any of your class's functions accessible from a script (`Scriptable`)
-- Add attributes to objects for saving/loading/scripting (`Attr`, `ElementID`, `AttrLoader`)
+- Use useful clases to automate playback of your objects (`Motion`, `Timeline`, `Stage`, `Actor`, `Script`)
+- Use any member function from your classes in a script (`Scriptable`)
+- Add attributes to your classes for scripting, saving, and loading (`Attr`, `ElementID`, `AttrLoader`)
 
 GUI
 - (see the [FlareGUI project](https://github.com/MarkOates/flare_gui))
