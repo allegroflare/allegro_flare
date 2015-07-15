@@ -258,6 +258,7 @@ void af::run_loop()
 			break;
 		default:
 			if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type)) Screen::user_event_funcs();
+			else std::cout << "uncaught event [" << this_event.type << "]" << std::endl;
 			break;
 		}
 	}
