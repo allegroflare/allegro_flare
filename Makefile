@@ -139,7 +139,7 @@ frustum:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
 
 generate_textures:
-	$(CC) -c -std=gnu++11 $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
 
 grid2d:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
@@ -148,7 +148,7 @@ identification:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
 
 image_processing:
-	$(CC) -c -std=gnu++11 $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
+	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
 
 interprocess:
 	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)

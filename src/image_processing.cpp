@@ -221,7 +221,7 @@ static std::vector<float> __boxesForGauss(float sigma, int n)  // standard devia
 				
     std::vector<float> sizes;
 
-	for(auto i=0; i<n; i++)
+	for(int i=0; i<n; i++)
 		sizes.push_back((i<m) ? wl : wu);
 
     return sizes;
@@ -267,23 +267,23 @@ void horizontal_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h,
 		ALLEGRO_COLOR lv = __get_pix_from(scl, ti+w-1);
 		ALLEGRO_COLOR val = (r+1.0f)*fv;
 
-		for(auto j=0; j<r; j++)
+		for(int j=0; j<r; j++)
 		{
 			val = val + __get_pix_from(scl, ti+j);
 		}
-		for(auto j=0; j<=r ; j++)
+		for(int j=0; j<=r ; j++)
 		{
 			val = val + __get_pix_from(scl, ri++) - fv;
 			//tcl[ti++] = round(val*iarr);
 			__put_pix_to(tcl, ti++, val*iarr);
 		}
-		for(auto j=r+1; j<w-r; j++)
+		for(int j=r+1; j<w-r; j++)
 		{
 			val = val + __get_pix_from(scl, ri++) - __get_pix_from(scl, li++);
 			//tcl[ti++] = round(val*iarr);
 			__put_pix_to(tcl, ti++, val*iarr);
 		}
-		for(auto j=w-r; j<w; j++)
+		for(int j=w-r; j<w; j++)
 		{
 			val = val + lv - __get_pix_from(scl, li++);
 			//tcl[ti++] = round(val*iarr);
@@ -308,7 +308,7 @@ void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, i
 	al_lock_bitmap(scl, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_READONLY);
 	al_lock_bitmap(tcl, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
 
-	for(auto i=0; i<w; i++)
+	for(int i=0; i<w; i++)
 	{
 		int ti = i;
 		int li = ti;
@@ -318,11 +318,11 @@ void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, i
 		ALLEGRO_COLOR lv = __get_pix_from(scl, ti+w*(h-1));
 		ALLEGRO_COLOR val = (r+1.0f)*fv;
 
-		for(auto j=0; j<r; j++)
+		for(int j=0; j<r; j++)
 		{
 			val = val + __get_pix_from(scl, ti+j*w);
 		}
-		for(auto j=0; j<=r; j++)
+		for(int j=0; j<=r; j++)
 		{
 			val = val + __get_pix_from(scl, ri) - fv;
 			//tcl[ti] = round(val*iarr);
@@ -330,7 +330,7 @@ void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, i
 			ri+=w;
 			ti+=w;
 		}
-		for(auto j=r+1; j<h-r; j++)
+		for(int j=r+1; j<h-r; j++)
 		{
 			val = val + __get_pix_from(scl, ri) - __get_pix_from(scl, li);
 			//tcl[ti] = Math.round(val*iarr);
@@ -339,7 +339,7 @@ void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, i
 			ri+=w;
 			ti+=w;
 		}
-		for(auto j=h-r; j<h; j++)
+		for(int j=h-r; j<h; j++)
 		{
 			val = val + lv - __get_pix_from(scl, li);
 			//tcl[ti] = Math.round(val*iarr);
