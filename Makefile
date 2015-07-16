@@ -1,293 +1,54 @@
 
 
 
+# bins drawing_interfaces fonts screens
 
-
-# These are some system variables that you might set:
-
-CC=g++
-CVER=-minigw-4.8.1
-DELETE_FILE_COMMAND=del #rm for linux
-
-
-
-# Here are the locations of the other library's header files, you might want to modify these:
-
-ALLEGRO_BASE_DIR=E:/allegro-5.1.11-mingw-edgar
-ALLEGRO_FLARE_BASE_DIR=E:/allegro_flare
-ALLEGRO_INCLUDE_DIR=$(ALLEGRO_BASE_DIR)/include
-BOOST_INCLUDE_DIR=E:/boost/boost_1_47
 
 ALLEGRO_FLARE_VERSION_STR=0.8.6
 
+INCLUDE_FLAGS=-IE:/allegro-5.1.11-mingw-edgar/include -IE:/allegro_flare/include
 
 
 
+CORE_ITEMS=appearance2d attr_save_load automation bitmap_object blender camera2d camera3d clipboard_generic color config data_attr display drawing_interface file_path file_path_object framework frustum generate_textures grid2d identification image_processing md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful
 
+BIN_ITEMS=font_bin sample_bin bitmap_bin
 
-# Everything from here to the end of the file can be ignored
+DI_ITEMS=drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
 
-# These variables you do not set, they are automatic:
+FONT_ITEMS=font_bravura font_font_awesome font_segoe_ui_symbol
 
-ALLEGRO_FLARE_INCLUDE_DIR=./include
-SOURCEDIR=./src
-EXAMPLESDIR=./examples
-INCLUDE_FLAGS=-I$(ALLEGRO_INCLUDE_DIR) -I$(ALLEGRO_FLARE_INCLUDE_DIR)
-OBJ_DIR=./obj
-OBJ_EXT=o
-# OBJECT_TEMP_DIR=./build/temp
-# COMPILE_FLAGS=-Wall
+SCREEN_ITEMS=simple_notification_screen
 
 
 
+OBJ_FILES=$(CORE_ITEMS:%=obj/%.o)
+BIN_OBJ_FILES=$(BIN_ITEMS:%=obj/%.o)
+DI_OBJ_FILES=$(DI_ITEMS:%=obj/%.o)
+FONT_OBJ_FILES=$(FONT_ITEMS:%=obj/%.o)
+SCREEN_OBJ_FILES=$(SCREEN_ITEMS:%=obj/%.o)
 
-# build targets:
-# there are several different targets; based on your platform and dependencies you may have installed
 
-all: appearance2d attr_save_load automation bitmap_object blender camera2d camera3d clipboard color config data_attr display drawing_interface file_path file_path_object framework frustum generate_textures grid2d identification image_processing md5 model model_bin motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 skeleton sound_object text_object timeline useful bins drawing_interfaces fonts screens
-	make lib
 
-lib: ./obj/*.o
-	ar rvs ./lib/liballegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-mingw-4.8.1.a $(OBJ_DIR)/*.$(OBJ_EXT)
+core: $(OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES)
+	ar rvs lib/liballegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-mingw-4.8.1.a $^
 
-open_cv: cam_view open_cv_video
 
-curl: curl
 
-boost: interprocess shared_memory 
+$(OBJ_FILES): obj/%.o : src/%.cpp
+	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
-dmx: dmx
+$(BIN_OBJ_FILES): obj/%.o : src/bins/%.cpp
+	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
-windows: clipboard_win midi_win 
+$(DI_OBJ_FILES): obj/%.o : src/drawing_interfaces/%.cpp
+	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
-clipboard: clipboard_generic
+$(FONT_OBJ_FILES): obj/%.o : src/fonts/%.cpp
+	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
-# osx:
-
-# linux:
-
-
-
-
-
-
-
-
-# these are the independent build targets for each file
-
-appearance2d:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-attr_save_load:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-automation:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-bitmap_object:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-blender:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-cam_view:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-camera2d:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-camera3d:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-clipboard_generic:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-clipboard_win:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-color:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-config:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-curl:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-data_attr:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-display:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-dmx:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-drawing_interface:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-file_path:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-file_path_object:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-framework:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-frustum:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-generate_textures:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-grid2d:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-identification:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-image_processing:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-interprocess:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-md5:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-midi_win:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-model:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-model_bin:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-motion:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-music_notation:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-object2d:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-open_cv_video:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-path2d:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-paragraph:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-placement2d:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-placement3d:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-profile_timer:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-programming_language:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-render_sample:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-screen:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-sha2:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-shared_memory:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-skeleton:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-sound_object:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-text_object:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-text_to_speech_win:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-timeline:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-useful:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-
-
-# in bins/
-
-bins: bitmap_bin font_bin sample_bin
-
-bitmap_bin:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/bins/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-font_bin:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/bins/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-sample_bin:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/bins/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-
-
-# in drawing_interfaces/
-
-drawing_interfaces: drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
-
-drawing_interface_allegro5:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/drawing_interfaces/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-drawing_interface_html_canvas:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/drawing_interfaces/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-drawing_interface_svg:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/drawing_interfaces/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-
-
-# in fonts/
-
-fonts: font_bravura font_font_awesome font_segoe_ui_symbol
-
-font_bravura:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/fonts/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-font_font_awesome:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/fonts/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-font_segoe_ui_symbol:
-	$(CC) -c $(COMPILE_FLAGS) $(SOURCEDIR)/fonts/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS) 
-
-
-
-# in screens/
-
-screens: simple_notification_screen
-
-simple_notification_screen:
-	$(CC) -c -std=gnu++11 $(COMPILE_FLAGS) $(SOURCEDIR)/screens/$@.cpp -o $(OBJ_DIR)/$(basename $@).$(OBJ_EXT) $(INCLUDE_FLAGS)
-
-
-
-
-# and finally, the cleanup
-
-clean:
-	$(DELETE_FILE_COMMAND) ./obj/*.$(OBJ_EXT)
-
-
+$(SCREEN_OBJ_FILES): obj/%.o : src/screens/%.cpp
+	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 
 
@@ -298,10 +59,15 @@ clean:
 #
 
 # here are the directories of the projects 
+#
 
 # these are the names of the libs you are linking
+EXAMPLESDIR=./examples
+ALLEGRO_BASE_DIR=E:/allegro-5.1.11-mingw-edgar
+ALLEGRO_FLARE_BASE_DIR=E:/allegro_flare
 ALLEGRO_MONOLITH_LIB=allegro_monolith-debug.dll
 ALLEGRO_FLARE_LIB=allegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-mingw-4.8.1
+CC=g++
 
 examples: ex_masked_bitmap.exe ex_model_viewer.exe ex_histogram.exe ex_unicode_font_viewer.exe test_encryption.exe test_generated_textures.exe ex_blur.exe
 
