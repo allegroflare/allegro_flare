@@ -4,8 +4,8 @@ msvc-*/
 build/tmp*
 
 *.exe
-*.o
-*.obj
+obj/*.o
+obj/*.obj
 
 allegro.log
 
