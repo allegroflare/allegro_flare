@@ -53,7 +53,7 @@ bool af::initialize(std::string config_filename)
 	al_register_event_source(event_queue, al_get_joystick_event_source());
 	al_register_event_source(event_queue, al_get_default_menu_event_source());
 
-	joystick = al_get_joystick(0); // make this better eventually
+	if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
 
 	initialized = true;
 
