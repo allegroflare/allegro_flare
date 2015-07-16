@@ -232,6 +232,10 @@ void af::run_loop()
 		case ALLEGRO_EVENT_JOYSTICK_AXIS:
 			Screen::joy_axis_funcs();
 			break;
+		case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+		case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+			// currently ignored
+			break;
 		case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
 			Screen::display_switch_out_funcs();
 			break;
