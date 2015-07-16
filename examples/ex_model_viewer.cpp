@@ -11,15 +11,16 @@ class Project : public Screen
 public:
 	Camera3D camera;
 	BitmapBin bitmaps;
-	Model *model;
+	ModelNew *model;
 
 	Project(Display *display)
 		: Screen(display)
 		, camera(vec3d(0, 0, -5), vec3d(0, 0, 1), vec3d(0, 1, 0))
-		, model(new Model())
+		, model(new ModelNew())
 	{
+		model->texture_scale = vec2d(1024, 1024);
 		model->load_obj_file("data/models/heart_item-01.obj");
-		model->textures.set_texture_by_index(0, bitmaps["heart_item-01tx.png"]);
+		model->set_texture(bitmaps["heart_item-01tx.png"]);
 	}
 
 	void primary_timer_func() override
