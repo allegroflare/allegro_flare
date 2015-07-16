@@ -17,25 +17,25 @@ bool af::initialize(std::string config_filename)
 {
 	if (initialized) return initialized;
 
-	al_init();
+	if (!al_init()) std::cerr << "al_init() failed" << std::endl;
 
 	ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
 	al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
 	al_destroy_path(resource_path);
 
-	al_install_mouse();
-	al_install_keyboard();
-	al_install_joystick();
-	al_install_audio();
+	if (!al_install_mouse()) std::cerr << "al_install_mouse() failed" << std::endl;
+	if (!al_install_keyboard()) std::cerr << "al_install_keyboard() failed" << std::endl;
+	if (!al_install_joystick()) std::cerr << "al_install_joystick() failed" << std::endl;
+	if (!al_install_audio()) std::cerr << "al_install_audio() failed" << std::endl;
 
-	al_init_native_dialog_addon();
-	al_init_primitives_addon();
-	al_init_image_addon();
-	al_init_font_addon();
-	al_init_ttf_addon();
-	al_init_acodec_addon();
+	if (!al_init_native_dialog_addon()) std::cerr << "al_init_native_dialog_addon() failed" << std::endl;
+	if (!al_init_primitives_addon()) std::cerr << "al_init_primitives_addon() failed" << std::endl;
+	if (!al_init_image_addon()) std::cerr << "al_init_image_addon() failed" << std::endl;
+	if (!al_init_font_addon()) std::cerr << "al_init_font_addon() failed" << std::endl;
+	if (!al_init_ttf_addon()) std::cerr << "al_init_ttf_addon() failed" << std::endl;
+	if (!al_init_acodec_addon()) std::cerr << "al_init_acodec_addon() failed" << std::endl;
 
-	al_reserve_samples(32); // eventually, something like af::config->get_value_int("NUM_RESERVE_SAMPLES");
+	if (!al_reserve_samples(32)) std::cerr << "al_reserve_samples() failed" << std::endl;
 
 	srand(time(NULL));
 
@@ -54,6 +54,7 @@ bool af::initialize(std::string config_filename)
 	al_register_event_source(event_queue, al_get_default_menu_event_source());
 
 	if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
+	else std::cerr << "no joystick(s) detected" << std::endl;
 
 	initialized = true;
 
