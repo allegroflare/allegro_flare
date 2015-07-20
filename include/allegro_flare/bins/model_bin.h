@@ -13,13 +13,13 @@
 
 
 
-class ModelBin : public Bin<Model *>
+class ModelBin : public Bin<ModelNew *>
 {
 public:
 	ModelBin(std::string directory="data/models");
 	~ModelBin();
-	Model *load_data(std::string identifier);
-	void destroy_data(Model *bmp);
+	ModelNew *load_data(std::string identifier);
+	void destroy_data(ModelNew *bmp);
 };
 
 
