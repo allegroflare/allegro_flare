@@ -26,7 +26,16 @@ public:
 	void primary_timer_func() override
 	{
 		camera.set_frustum_as_camera(display->display);
-		if (model) model->draw();
+
+		if (model)
+		{
+			ALLEGRO_TRANSFORM t;
+			al_identity_transform(&t);
+			al_rotate_transform_3d(&t, 0, 1, 0, al_get_time()*0.5);
+			al_use_transform(&t);
+
+			model->draw();
+		}
 	}
 };
 
