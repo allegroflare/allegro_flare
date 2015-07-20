@@ -12,8 +12,8 @@ Frustum::Frustum(int width, int height, int znear, float multiplier)
 	, zfar(30000)
 	, top(height/2 * multiplier)   //+					//-    <-previously
 	, left(-width/2 * multiplier)   //-					//-
-	, bottom(-height/2 * multiplier)  //-				//+
 	, right(width/2 * multiplier)    //+				//+
+	, bottom(-height/2 * multiplier)  //-				//+
 {}
 
 

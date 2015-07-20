@@ -34,8 +34,8 @@ ALLEGRO_BITMAP *generate_circle_bitmap(float size, ALLEGRO_COLOR col, int paddin
 ALLEGRO_BITMAP *generate_triangle_bitmap(float x1, float y1, float x2, float y2, float x3, float y3, ALLEGRO_COLOR col)
 {
 	// find the width and height of the bitmap (this could be more comprehensive? What about -negative points?)
-	float max_x = std::max({x1, x2, x2}); // I now love c++11
-	float max_y = std::max({y1, y2, y3});
+	float max_x = std::max(std::max(x1, x2), x2);
+	float max_y = std::max(std::max(y1, y2), y3);
 
 	// start drawing
 	ALLEGRO_BITMAP *surface = al_create_bitmap(max_x, max_y);
@@ -139,7 +139,6 @@ ALLEGRO_BITMAP *generate_wood_grain_bitmap(float w, float h, ALLEGRO_COLOR base_
 {
 	// set up everything
 	float h_stretch = 12;
-	float angle = 1.0;
 	ALLEGRO_BITMAP *surface = al_create_bitmap(w, h);
 	ALLEGRO_BITMAP *noise_texture = generate_noise_bitmap(w, h, 0.5, 0.7);
 	ALLEGRO_STATE state;
@@ -184,7 +183,6 @@ ALLEGRO_BITMAP *generate_brush_metal_bitmap(float w, float h, ALLEGRO_COLOR base
 	// set everything up	
 	float h_stretch = 1.0;
 	float v_stretch = 26.0;
-	float angle = 1.0;
 	ALLEGRO_BITMAP *noise_texture = generate_noise_bitmap(w, h); // TODO: this should be greater(w, h) or something similar
 	ALLEGRO_BITMAP *gradient_texture = generate_gradient_bitmap(w); // TODO: this should be greater(w, h) or something similar
 	ALLEGRO_BITMAP *tex = al_create_bitmap(w, h);
@@ -241,8 +239,6 @@ ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float(* interpolator_func)(fl
 
 	float w = size;
 	float h = size;
-
-	float offset_y = h;
 
 	float x = padding;
 	float y = padding;

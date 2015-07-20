@@ -169,6 +169,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 	std::cout << "loading complete... " << vertexes.size() << " vertexes assembled." << std::endl;
 
 	al_fclose(file);
+	return true;
 }
 
 

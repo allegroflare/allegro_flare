@@ -703,7 +703,7 @@ std::string sha224(std::string input)
 	// to eliminate compile errors involving the sprintf function
 	std::stringstream stream;
 	stream << std::hex << std::setfill('0');
-	for (int i = 0; i<SHA224::DIGEST_SIZE; i++)
+	for (unsigned int i = 0; i<SHA224::DIGEST_SIZE; i++)
 		stream << std::setw(2) << static_cast<unsigned>(digest[i]);
 	return stream.str();
 }
@@ -730,7 +730,7 @@ std::string sha256(std::string input)
 	// to eliminate compile errors involving the sprintf function
 	std::stringstream stream;
 	stream << std::hex << std::setfill('0');
-	for (int i = 0; i<SHA256::DIGEST_SIZE; i++)
+	for (unsigned int i = 0; i<SHA256::DIGEST_SIZE; i++)
 		stream << std::setw(2) << static_cast<unsigned>(digest[i]);
 	return stream.str();
 }
@@ -756,7 +756,7 @@ std::string sha384(std::string input)
 	// to eliminate compile errors involving the sprintf function
 	std::stringstream stream;
 	stream << std::hex << std::setfill('0');
-	for (int i = 0; i<SHA384::DIGEST_SIZE; i++)
+	for (unsigned int i = 0; i<SHA384::DIGEST_SIZE; i++)
 		stream << std::setw(2) << static_cast<unsigned>(digest[i]);
 	return stream.str();
 }
@@ -782,7 +782,7 @@ std::string sha512(std::string input)
 	// to eliminate compile errors involving the sprintf function
 	std::stringstream stream;
 	stream << std::hex << std::setfill('0');
-	for (int i = 0; i<SHA512::DIGEST_SIZE; i++)
+	for (unsigned int i = 0; i<SHA512::DIGEST_SIZE; i++)
 		stream << std::setw(2) << static_cast<unsigned>(digest[i]);
 	return stream.str();
 }

@@ -35,6 +35,7 @@ bool DataAttr::remove(std::string key)
 	std::map<std::string, std::string>::iterator it=data.find(key);
 	if (it == data.end()) return false;
 	data.erase(it);
+	return true;
 }
 
 

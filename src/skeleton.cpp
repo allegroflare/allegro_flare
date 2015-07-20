@@ -40,10 +40,11 @@ Bone *Bone::__get_nth_child_recursive(int n)
 
 Bone::Bone(vec2d dir_vec, float length, float tau_range)
 	: parent(NULL)
+	, children()
 	, midpoint_direction(dir_vec.Normalized())
 	, length(length)
-	, range(tau_range * TAU)
 	, position(0.5)
+	, range(tau_range * TAU)
 {}
 
 
@@ -129,7 +130,6 @@ void Bone::__draw_recursive(Bone *bone, vec2d last_direction, vec2d pos, int ind
 {
 	unsigned i = 0;
 	Bone *child = NULL;
-	vec2d position = 0;
 	vec2d direction = 0;
 
 	for (i=0; i<bone->children.size(); i++)

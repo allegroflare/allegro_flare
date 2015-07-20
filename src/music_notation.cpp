@@ -189,14 +189,14 @@ MusicNotation::MusicNotation(DrawingInterface *drawing_interface, float staff_li
 	, stem_thickness(staff_line_distance*0.15)
 	, beam_thickness(staff_line_distance*0.4)
 	, font_bravura(al_load_font(bravura_location.c_str(), -int(font_size_px), ALLEGRO_FLAGS_EMPTY))
+	, spacing_method(SPACING_AESTHETIC)
 	, current_note_duration(4)
 	, current_note_is_rest(false)
 	, current_accidental(0)
 	, cursor_pos(0)
 	, int_cast_y(true)
-	, just_one_beam()
-	, spacing_method(SPACING_AESTHETIC)
 	, ignore_spaces(false)
+	, just_one_beam()
 {
 	if (!font_bravura)
 	{

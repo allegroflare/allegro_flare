@@ -10,13 +10,13 @@
 
 SimpleNotificationScreen::SimpleNotification::SimpleNotification(std::string text, ALLEGRO_FONT *font, ALLEGRO_COLOR box_color, ALLEGRO_COLOR text_color)
 	: text(text)
+	, font(font)
 	, lifespan(5)
 	, can_die(false)
-	, font(font)
 	// TODO: remove the initialization complexity here
+	, num_lines(std::count(text.begin(), text.end(), '\n') + 1)
 	, text_width(al_get_text_width(font, text.c_str()))
 	, text_height(al_get_font_line_height(font) * num_lines)
-	, num_lines(std::count(text.begin(), text.end(), '\n') + 1)
 	, box_color(box_color)
 	, text_color(text_color)
 {
@@ -57,8 +57,9 @@ bool SimpleNotificationScreen::SimpleNotification::update()
 		
 SimpleNotificationScreen::SimpleNotificationScreen(Display *display, ALLEGRO_FONT *font)
 	: Screen(display)
-	, font(font)
 	, motion(20)
+	, font(font)
+	, notifications()
 {
 	instance = this;
 }

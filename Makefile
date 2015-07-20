@@ -34,19 +34,19 @@ core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCR
 	ar rvs lib/liballegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-mingw-4.8.1.a $^
 
 $(CORE_OBJ_FILES): obj/%.o : src/%.cpp
-	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(BIN_OBJ_FILES): obj/%.o : src/bins/%.cpp
-	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(DI_OBJ_FILES): obj/%.o : src/drawing_interfaces/%.cpp
-	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(FONT_OBJ_FILES): obj/%.o : src/fonts/%.cpp
-	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(SCREEN_OBJ_FILES): obj/%.o : src/screens/%.cpp
-	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	g++ -c -Wall -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 
 

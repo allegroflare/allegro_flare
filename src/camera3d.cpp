@@ -9,14 +9,14 @@
 
 
 Camera3D::Camera3D(vec3d position, vec3d view_vector, vec3d up_vector)
-	: position(position)
+	: camera_tracking_mode(Camera3D::CAMERA_VIEW_THIRD_PERSON_HIGH)
+	, position(position)
 	, view_vector(view_vector)
 	, up_vector(up_vector)
 	, pitch(0)
 	, stepback(0)
 	, stepback_pitch(0)
 	, stepback_rotation(0)
-	, camera_tracking_mode(Camera3D::CAMERA_VIEW_THIRD_PERSON_HIGH)
 {}
 
 
