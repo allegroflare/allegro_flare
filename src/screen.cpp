@@ -132,6 +132,14 @@ void Screen::mouse_axes_funcs()
 }
 
 
+void Screen::mouse_warp_funcs()
+{
+	for (unsigned i=0; i<screens.size(); i++)
+		//if (instance[i]->input_active)
+			screens[i]->mouse_warp_func();
+}
+
+
 void Screen::mouse_down_funcs()
 {
 	for (unsigned i=0; i<screens.size(); i++)
@@ -265,6 +273,7 @@ void Screen::on_event(ALLEGRO_EVENT *ev) {}
 void Screen::primary_timer_func() {}
 void Screen::timer_func() {}
 void Screen::mouse_axes_func() {}
+void Screen::mouse_warp_func() {}
 void Screen::display_switch_in_func() {}
 void Screen::display_switch_out_func() {}
 void Screen::mouse_down_func() {}

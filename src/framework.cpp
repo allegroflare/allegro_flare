@@ -219,7 +219,9 @@ void af::run_loop()
 		case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
 			Screen::mouse_down_funcs();
 			break;
-		//case ALLEGRO_EVENT_MOUSE_WARPED: // hmm, now adding mouse_warped events to mouse_axes for joystick-as-mouse emulation
+		case ALLEGRO_EVENT_MOUSE_WARPED:
+			Screen::mouse_warp_funcs();
+			break;
 		case ALLEGRO_EVENT_MOUSE_AXES:
 			Screen::mouse_axes_funcs();
 			break;

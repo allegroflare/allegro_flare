@@ -27,6 +27,7 @@ private:
 	static void key_down_funcs();
 	static void key_up_funcs();
 	static void mouse_axes_funcs();
+	static void mouse_warp_funcs();
 	static void mouse_down_funcs();
 	static void mouse_up_funcs();
 	static void key_char_funcs();
@@ -54,6 +55,7 @@ public:
 	virtual void display_switch_in_func();
 	virtual void display_switch_out_func();
 	virtual void mouse_axes_func();
+	virtual void mouse_warp_func();
 	virtual void mouse_down_func();
 	virtual void mouse_up_func();
 	virtual void key_down_func();
