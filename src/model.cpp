@@ -13,13 +13,21 @@
 
 
 
-
-
 ModelNew::ModelNew()
-	: vertexes()
+	: vertex_declaration(NULL)
+	, vertexes()
 	, texture(NULL)
 	, texture_scale(vec2d(1.0, 1.0))
 {
+	ALLEGRO_VERTEX_ELEMENT elems[] = {
+		{ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, x)},
+		{ALLEGRO_PRIM_TEX_COORD_PIXEL, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, u)},
+		{ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, color)},
+		{ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, nx)},
+		{0, 0, 0}
+	};
+
+	vertex_declaration = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX_WITH_NORMAL));
 }
 
 
@@ -38,10 +46,10 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 	char buff[256];
 	ALLEGRO_FILE* file = al_fopen(filename, "r");
 	ALLEGRO_COLOR white = al_color_name("white");
-	std::vector<ALLEGRO_VERTEX> vtxs;
+	std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vtxs;
 	std::vector<vt_coord> vt_coords;
 	std::vector<vec3d> vt_normals;
-	ALLEGRO_VERTEX vtx;
+	ALLEGRO_VERTEX_WITH_NORMAL vtx;
 	vt_coord vt_c;
 	vec3d vt_normal;
 	vec2d vt_s = texture_scale;
@@ -55,6 +63,8 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 		vtx.x = vtx.y = vtx.z = 0;
 		vtx.color = white;
 		vtx.u = vtx.v = 0;
+		vtx.nx = vtx.nz = 0;
+		vtx.ny = 1;
 
 		int face_v1 = 0;
 		int face_v2 = 0;
@@ -123,6 +133,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.z = vtxs[face_v1-1].z * scale;
 			vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u * vt_s.x : 0);
 			vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v * vt_s.y : 0);
+			vtx.nx = vt_normals[face_vn1-1].x;
+			vtx.ny = vt_normals[face_vn1-1].y;
+			vtx.nz = vt_normals[face_vn1-1].z;
 			vertexes.push_back(vtx);
 
 			vtx.x = vtxs[face_v2-1].x * scale;
@@ -130,6 +143,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.z = vtxs[face_v2-1].z * scale;
 			vtx.u = (vertex_textures_found ? vt_coords[face_vt2-1].u * vt_s.x : 0);
 			vtx.v = (vertex_textures_found ? vt_coords[face_vt2-1].v * vt_s.y : 0);
+			vtx.nx = vt_normals[face_vn2-1].x;
+			vtx.ny = vt_normals[face_vn2-1].y;
+			vtx.nz = vt_normals[face_vn2-1].z;
 			vertexes.push_back(vtx);
 
 			vtx.x = vtxs[face_v3-1].x * scale;
@@ -137,6 +153,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.z = vtxs[face_v3-1].z * scale;
 			vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u * vt_s.x : 0);
 			vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v * vt_s.y : 0);
+			vtx.nx = vt_normals[face_vn3-1].x;
+			vtx.ny = vt_normals[face_vn3-1].y;
+			vtx.nz = vt_normals[face_vn3-1].z;
 			vertexes.push_back(vtx);
 
 			if (num_vertexes_captured == 4)
@@ -146,6 +165,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.z = vtxs[face_v3-1].z * scale;
 				vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u * vt_s.x : 0);
 				vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v * vt_s.y : 0);
+				vtx.nx = vt_normals[face_vn3-1].x;
+				vtx.ny = vt_normals[face_vn3-1].y;
+				vtx.nz = vt_normals[face_vn3-1].z;
 				vertexes.push_back(vtx);
 
 				vtx.x = vtxs[face_v4-1].x * scale;
@@ -153,6 +175,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.z = vtxs[face_v4-1].z * scale;
 				vtx.u = (vertex_textures_found ? vt_coords[face_vt4-1].u * vt_s.x : 0);
 				vtx.v = (vertex_textures_found ? vt_coords[face_vt4-1].v * vt_s.y : 0);
+				vtx.nx = vt_normals[face_vn4-1].x;
+				vtx.ny = vt_normals[face_vn4-1].y;
+				vtx.nz = vt_normals[face_vn4-1].z;
 				vertexes.push_back(vtx);
 
 				vtx.x = vtxs[face_v1-1].x * scale;
@@ -160,6 +185,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.z = vtxs[face_v1-1].z * scale;
 				vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u * vt_s.x : 0);
 				vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v * vt_s.y : 0);
+				vtx.nx = vt_normals[face_vn1-1].x;
+				vtx.ny = vt_normals[face_vn1-1].y;
+				vtx.nz = vt_normals[face_vn1-1].z;
 				vertexes.push_back(vtx);
 
 			}
@@ -177,7 +205,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 void ModelNew::inspect()
 {
 	for (unsigned i=0; i<vertexes.size(); i++)
-		printf("%f %f %f : %f %f", vertexes[i].x, vertexes[i].y, vertexes[i].z, vertexes[i].u, vertexes[i].v);
+		printf("[%d] %f %f %f : %f %f : %f %f %f\n", i, vertexes[i].x, vertexes[i].y, vertexes[i].z, vertexes[i].u, vertexes[i].v, vertexes[i].nx, vertexes[i].ny, vertexes[i].nz);
 }
 
 
@@ -189,7 +217,7 @@ void ModelNew::draw()
 	//al_translate_transform_3d(&t, 0, 3, 0);
 	//al_use_transform(&t);
 	//al_draw_prim(&vertexes[0], NULL, NULL, 0, vertexes.size(), ALLEGRO_PRIM_LINE_LOOP);
-	al_draw_prim(&vertexes[0], NULL, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+	al_draw_prim(&vertexes[0], vertex_declaration, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 }
 
 

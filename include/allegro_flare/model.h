@@ -14,6 +14,15 @@
 class ModelNew
 {
 private:
+
+	typedef struct
+	{
+		float x, y, z;
+		float u, v;
+		ALLEGRO_COLOR color;
+		float nx, ny, nz;
+	} ALLEGRO_VERTEX_WITH_NORMAL;
+
 	class vt_coord
 	{
 	public:
@@ -22,7 +31,8 @@ private:
 	};
 
 public:
-	std::vector<ALLEGRO_VERTEX> vertexes;
+	ALLEGRO_VERTEX_DECL *vertex_declaration;
+	std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vertexes;
 	ALLEGRO_BITMAP *texture;
 	vec2d texture_scale;
 
