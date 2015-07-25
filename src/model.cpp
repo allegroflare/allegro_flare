@@ -17,11 +17,10 @@ ModelNew::ModelNew()
 	: vertex_declaration(NULL)
 	, vertexes()
 	, texture(NULL)
-	, texture_scale(vec2d(1.0, 1.0))
 {
 	ALLEGRO_VERTEX_ELEMENT elems[] = {
 		{ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, x)},
-		{ALLEGRO_PRIM_TEX_COORD_PIXEL, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, u)},
+		{ALLEGRO_PRIM_TEX_COORD, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, u)},
 		{ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, color)},
 		{ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, nx)},
 		{0, 0, 0}
@@ -52,7 +51,6 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 	ALLEGRO_VERTEX_WITH_NORMAL vtx;
 	vt_coord vt_c;
 	vec3d vt_normal;
-	vec2d vt_s = texture_scale;
 	bool vertex_textures_found = false;
 	bool vertex_normals_found = false;
 
@@ -131,8 +129,8 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.x = vtxs[face_v1-1].x * scale;
 			vtx.y = vtxs[face_v1-1].y * scale;
 			vtx.z = vtxs[face_v1-1].z * scale;
-			vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u * vt_s.x : 0);
-			vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v * vt_s.y : 0);
+			vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u : 0);
+			vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v : 0);
 			vtx.nx = vt_normals[face_vn1-1].x;
 			vtx.ny = vt_normals[face_vn1-1].y;
 			vtx.nz = vt_normals[face_vn1-1].z;
@@ -141,8 +139,8 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.x = vtxs[face_v2-1].x * scale;
 			vtx.y = vtxs[face_v2-1].y * scale;
 			vtx.z = vtxs[face_v2-1].z * scale;
-			vtx.u = (vertex_textures_found ? vt_coords[face_vt2-1].u * vt_s.x : 0);
-			vtx.v = (vertex_textures_found ? vt_coords[face_vt2-1].v * vt_s.y : 0);
+			vtx.u = (vertex_textures_found ? vt_coords[face_vt2-1].u : 0);
+			vtx.v = (vertex_textures_found ? vt_coords[face_vt2-1].v : 0);
 			vtx.nx = vt_normals[face_vn2-1].x;
 			vtx.ny = vt_normals[face_vn2-1].y;
 			vtx.nz = vt_normals[face_vn2-1].z;
@@ -151,8 +149,8 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.x = vtxs[face_v3-1].x * scale;
 			vtx.y = vtxs[face_v3-1].y * scale;
 			vtx.z = vtxs[face_v3-1].z * scale;
-			vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u * vt_s.x : 0);
-			vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v * vt_s.y : 0);
+			vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u : 0);
+			vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v : 0);
 			vtx.nx = vt_normals[face_vn3-1].x;
 			vtx.ny = vt_normals[face_vn3-1].y;
 			vtx.nz = vt_normals[face_vn3-1].z;
@@ -163,8 +161,8 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.x = vtxs[face_v3-1].x * scale;
 				vtx.y = vtxs[face_v3-1].y * scale;
 				vtx.z = vtxs[face_v3-1].z * scale;
-				vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u * vt_s.x : 0);
-				vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v * vt_s.y : 0);
+				vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u : 0);
+				vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v : 0);
 				vtx.nx = vt_normals[face_vn3-1].x;
 				vtx.ny = vt_normals[face_vn3-1].y;
 				vtx.nz = vt_normals[face_vn3-1].z;
@@ -173,8 +171,8 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.x = vtxs[face_v4-1].x * scale;
 				vtx.y = vtxs[face_v4-1].y * scale;
 				vtx.z = vtxs[face_v4-1].z * scale;
-				vtx.u = (vertex_textures_found ? vt_coords[face_vt4-1].u * vt_s.x : 0);
-				vtx.v = (vertex_textures_found ? vt_coords[face_vt4-1].v * vt_s.y : 0);
+				vtx.u = (vertex_textures_found ? vt_coords[face_vt4-1].u : 0);
+				vtx.v = (vertex_textures_found ? vt_coords[face_vt4-1].v : 0);
 				vtx.nx = vt_normals[face_vn4-1].x;
 				vtx.ny = vt_normals[face_vn4-1].y;
 				vtx.nz = vt_normals[face_vn4-1].z;
@@ -183,8 +181,8 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.x = vtxs[face_v1-1].x * scale;
 				vtx.y = vtxs[face_v1-1].y * scale;
 				vtx.z = vtxs[face_v1-1].z * scale;
-				vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u * vt_s.x : 0);
-				vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v * vt_s.y : 0);
+				vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u : 0);
+				vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v : 0);
 				vtx.nx = vt_normals[face_vn1-1].x;
 				vtx.ny = vt_normals[face_vn1-1].y;
 				vtx.nz = vt_normals[face_vn1-1].z;

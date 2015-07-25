@@ -34,7 +34,6 @@ public:
 	ALLEGRO_VERTEX_DECL *vertex_declaration;
 	std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vertexes;
 	ALLEGRO_BITMAP *texture;
-	vec2d texture_scale;
 
 	ModelNew();
 	void set_texture(ALLEGRO_BITMAP *tx);
