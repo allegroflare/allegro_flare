@@ -18,8 +18,6 @@ public:
 		, camera(vec3d(0, 0, -5), vec3d(0, 0, 1), vec3d(0, 1, 0))
 		, model(new ModelNew())
 	{
-		bitmaps.load("heart_item-02.png");
-
 		model->load_obj_file("data/models/heart_item-01.obj");
 		model->set_texture(bitmaps["heart_item-02.png"]);
 	}
