@@ -192,8 +192,6 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 		}
 	}
 
-	std::cout << "loading complete... " << vertexes.size() << " vertexes assembled." << std::endl;
-
 	al_fclose(file);
 	return true;
 }
@@ -208,13 +206,17 @@ void ModelNew::inspect()
 
 
 
+int ModelNew::get_num_vertexes()
+{
+	return vertexes.size();
+}
+
+
+
 void ModelNew::draw()
 {
-	//ALLEGRO_TRANSFORM t;
-	//al_identity_transform(&t);
-	//al_translate_transform_3d(&t, 0, 3, 0);
-	//al_use_transform(&t);
-	//al_draw_prim(&vertexes[0], NULL, NULL, 0, vertexes.size(), ALLEGRO_PRIM_LINE_LOOP);
+	if (vertexes.empty()) return;
+
 	al_draw_prim(&vertexes[0], vertex_declaration, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 }
 
