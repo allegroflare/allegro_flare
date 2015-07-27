@@ -31,12 +31,7 @@ void Screen::primary_timer_funcs()
 	// then do screens in order sorted by displays.
 	for (unsigned d=0; d<Display::displays.size(); d++)
 	{
-		Display::displays[d]->set_as_target_bitmap(); // < THIS LINE will also reset the current
-													  // transform and screen setting to ortho,
-													  // so if you want do draw a 3D scene, you'll
-													  // need to setup the projection again from here
-
-		al_clear_to_color(Display::displays[d]->_background_color);
+		Display::displays[d]->clear();
 		for (unsigned i=0; i<screens.size(); i++)
 		{
 			if (screens[i]->display == Display::displays[d])

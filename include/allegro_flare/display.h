@@ -46,6 +46,7 @@ public:
 
 	void flip();
 	void background_color(const ALLEGRO_COLOR &color);
+	void clear();
 };
 
 

@@ -87,3 +87,36 @@ void Display::background_color(const ALLEGRO_COLOR &color)
 {
 	_background_color = color;
 }
+
+
+void Display::clear()
+{
+	// in theory, a user would never interface with the backbuffer,
+	// they would only draw to sub-bitmaps of the backbuffer, each
+	// sub-bitmap belonging to a Screen.  In this way, no transforms
+	// or other projections would (should) ever be applied to the
+	// backbuffer bitmap.  Clearing and drawing a quad would not be
+	// "messed up" by any existing state
+
+	ALLEGRO_BITMAP *bbuffer = al_get_backbuffer(display);
+	ALLEGRO_COLOR lightened = color::mix(_background_color, color::white, 0.25);
+	float w = al_get_bitmap_width(bbuffer);
+	float h = al_get_bitmap_height(bbuffer);
+
+	al_set_target_bitmap(bbuffer);
+
+	al_clear_to_color(_background_color);
+
+
+	ALLEGRO_VERTEX v[4] = {
+		{0, 0, 0, 0, 0, _background_color},
+		{0, h, 0, 0, 0, lightened},
+		{w, h, 0, 0, 0, lightened},
+		{w, 0, 0, 0, 0, _background_color},
+	};
+
+	al_draw_prim(&v[0], NULL, 0, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
+}
+
+
+
