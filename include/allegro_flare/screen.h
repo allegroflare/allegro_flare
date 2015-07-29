@@ -39,10 +39,10 @@ private:
 	static void native_menu_click_funcs();
 
 private:
-	ALLEGRO_BITMAP *backbuffer_sub_bitmap;
 	void prepare_drawing_state(bool prepare_3d=false);
 
 public:
+	ALLEGRO_BITMAP *backbuffer_sub_bitmap;
 	Display *display;
 
 	static void send_signal(int signal, void *data); // experimental
