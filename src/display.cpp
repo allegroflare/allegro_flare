@@ -21,7 +21,7 @@ Display::Display(int width, int height, int display_flags)
 {
 	// set a few options and flags
 	al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
-	al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 16, ALLEGRO_SUGGEST); // hmm... not sure about this one either
+	al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
 	al_set_new_display_option(ALLEGRO_SAMPLES, 16, ALLEGRO_SUGGEST);
 	al_set_new_display_flags(display_flags);
 
