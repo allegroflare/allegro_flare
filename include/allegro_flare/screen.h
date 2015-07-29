@@ -38,6 +38,9 @@ private:
 	static void user_event_funcs();
 	static void native_menu_click_funcs();
 
+private:
+	ALLEGRO_BITMAP *backbuffer_sub_bitmap;
+	void prepare_drawing_state(bool prepare_3d=false);
 
 public:
 	Display *display;
@@ -77,6 +80,7 @@ public:
 	//bool updating;
 	//bool input_active;
 
+
 	static void bring_to_front(Screen *s);
 	void set_on_display(Display *display);
 	static int get_num_screens();
@@ -88,3 +92,4 @@ public:
 
 
 #endif
+

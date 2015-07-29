@@ -36,17 +36,7 @@ void Screen::primary_timer_funcs()
 		{
 			if (screens[i]->display == Display::displays[d])
 			{
-				Display::displays[d]->set_as_target_bitmap(); // < THIS LINE will also reset the current
-															  // transform and screen setting to ortho,
-															  // so if you want do draw a 3D scene, you'll
-															  // need to setup the projection again from here
-
-				// these next three lines were recently added, they insure that 2D will be drawn correctly
-				// (if projection was used in the previous frame)
-				al_set_render_state(ALLEGRO_DEPTH_TEST, 0); //< disable the depth test, otherwise bitmaps will be drawn in the incorrect order
-				al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);  // not sure if this is needed
-				al_clear_depth_buffer(1); // not sure if this is needed
-
+				screens[i]->prepare_drawing_state();
 				screens[i]->primary_timer_func();
 			}
 		}
@@ -218,8 +208,22 @@ Screen::Screen(Display *display)
 	//, updating(true)
 	//, input_active(true)
 	//, drawing(true)
-	: display(display)
+	: backbuffer_sub_bitmap(NULL)
+	, display(display)
 {
+	if (!display)
+	{
+		std::cout << "[Screen::Screen()] display is NULL, cannot create backbuffer_sub_bitmap" << std::endl;
+	}
+	else
+	{
+		ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display->display);
+		backbuffer_sub_bitmap = al_create_sub_bitmap(al_get_backbuffer(display->display),
+											0, 0, al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
+
+		if (!backbuffer_sub_bitmap) std::cout << "[Screen::Screen()] there was an error creating the backbuffer_sub_bitmap" << std::endl;
+	}
+
 	screens.push_back(this);
 }
 
@@ -234,6 +238,27 @@ Screen::~Screen()
 			i--;
 		}
 }
+
+
+
+
+void Screen::prepare_drawing_state(bool prepare_3d)
+{
+	if (backbuffer_sub_bitmap) al_set_target_bitmap(backbuffer_sub_bitmap);
+	else al_set_target_bitmap(al_get_backbuffer(display->display));
+
+	if (prepare_3d)
+	{
+		al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+		al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+		al_clear_depth_buffer(1);
+	}
+	else
+	{
+		al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+	}
+}
+
 
 
 	
