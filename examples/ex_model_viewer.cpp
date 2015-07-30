@@ -1,7 +1,7 @@
-#include <allegro_flare/allegro_flare.h>
 
-#include <allegro_flare/camera3d.h>
-#include <allegro_flare/model.h>
+
+
+#include <allegro_flare/allegro_flare.h>
 
 
 

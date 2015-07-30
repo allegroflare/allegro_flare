@@ -32,9 +32,10 @@
 #include <allegro_flare/bit_flags.h>
 #include <allegro_flare/profile_timer.h>
 
-#include <allegro_flare/camera2d.h>
 #include <allegro_flare/display.h>
 #include <allegro_flare/screen.h>
+#include <allegro_flare/camera2d.h>
+#include <allegro_flare/camera3d.h>
 
 #include <allegro_flare/interpolators.h>
 #include <allegro_flare/color.h>
@@ -42,7 +43,12 @@
 #include <allegro_flare/identification.h>
 
 #include <allegro_flare/render_sample.h>
+#include <allegro_flare/generate_textures.h>
+#include <allegro_flare/image_processing.h>
 #include <allegro_flare/path2d.h>
+
+#include <allegro_flare/shader.h>
+#include <allegro_flare/model.h>
 
 #include <allegro_flare/objects/sound_object.h>
 #include <allegro_flare/objects/text_object.h>
@@ -59,3 +65,4 @@
 
 
 #endif
+
