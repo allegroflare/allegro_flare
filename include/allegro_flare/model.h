@@ -36,12 +36,16 @@ public:
 	ALLEGRO_BITMAP *texture;
 
 	ModelNew();
-	void set_texture(ALLEGRO_BITMAP *tx);
 	bool load_obj_file(const char *filename, float scale=1.0);
 	void inspect();
 	int get_num_vertexes();
 	void draw();
+
+	// modify
+	void set_texture(ALLEGRO_BITMAP *tx);
+	void scale(float scale);
 };
+
 
 
 

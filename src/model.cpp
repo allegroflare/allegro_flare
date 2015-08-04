@@ -31,13 +31,6 @@ ModelNew::ModelNew()
 
 
 
-void ModelNew::set_texture(ALLEGRO_BITMAP *tx)
-{
-	texture = tx;
-}
-
-
-
 bool ModelNew::load_obj_file(const char *filename, float scale)
 {
 	vertexes.clear();
@@ -218,6 +211,25 @@ void ModelNew::draw()
 	if (vertexes.empty()) return;
 
 	al_draw_prim(&vertexes[0], vertex_declaration, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+}
+
+
+
+void ModelNew::set_texture(ALLEGRO_BITMAP *tx)
+{
+	texture = tx;
+}
+
+
+
+void ModelNew::scale(float scale)
+{
+	for (unsigned i=0; i<vertexes.size(); i++)
+	{
+		vertexes[i].x *= scale;
+		vertexes[i].y *= scale;
+		vertexes[i].z *= scale;
+	}
 }
 
 
