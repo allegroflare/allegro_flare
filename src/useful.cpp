@@ -99,6 +99,12 @@ int random_int(int min, int max)
     return rand()%(max-min+1) + min;
 }
 
+int random_int(std::vector<int> vals)
+{
+	if (vals.empty()) return 0;
+	return vals[random_int(0, vals.size()-1)];
+}
+
 bool random_bool()
 {
     return (rand()%2 == 1);
