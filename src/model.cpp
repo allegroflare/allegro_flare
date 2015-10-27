@@ -124,9 +124,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.z = vtxs[face_v1-1].z * scale;
 			vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u : 0);
 			vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v : 0);
-			vtx.nx = vt_normals[face_vn1-1].x;
-			vtx.ny = vt_normals[face_vn1-1].y;
-			vtx.nz = vt_normals[face_vn1-1].z;
+			vtx.nx = (vertex_normals_found ? vt_normals[face_vn1-1].x : 0);
+			vtx.ny = (vertex_normals_found ? vt_normals[face_vn1-1].y : 0);
+			vtx.nz = (vertex_normals_found ? vt_normals[face_vn1-1].z : 1);
 			vertexes.push_back(vtx);
 
 			vtx.x = vtxs[face_v2-1].x * scale;
@@ -134,9 +134,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.z = vtxs[face_v2-1].z * scale;
 			vtx.u = (vertex_textures_found ? vt_coords[face_vt2-1].u : 0);
 			vtx.v = (vertex_textures_found ? vt_coords[face_vt2-1].v : 0);
-			vtx.nx = vt_normals[face_vn2-1].x;
-			vtx.ny = vt_normals[face_vn2-1].y;
-			vtx.nz = vt_normals[face_vn2-1].z;
+			vtx.nx = (vertex_normals_found ? vt_normals[face_vn2-1].x : 0);
+			vtx.ny = (vertex_normals_found ? vt_normals[face_vn2-1].y : 0);
+			vtx.nz = (vertex_normals_found ? vt_normals[face_vn2-1].z : 1);
 			vertexes.push_back(vtx);
 
 			vtx.x = vtxs[face_v3-1].x * scale;
@@ -144,9 +144,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.z = vtxs[face_v3-1].z * scale;
 			vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u : 0);
 			vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v : 0);
-			vtx.nx = vt_normals[face_vn3-1].x;
-			vtx.ny = vt_normals[face_vn3-1].y;
-			vtx.nz = vt_normals[face_vn3-1].z;
+			vtx.nx = (vertex_normals_found ? vt_normals[face_vn3-1].x : 0);
+			vtx.ny = (vertex_normals_found ? vt_normals[face_vn3-1].y : 0);
+			vtx.nz = (vertex_normals_found ? vt_normals[face_vn3-1].z : 1);
 			vertexes.push_back(vtx);
 
 			if (num_vertexes_captured == 4)
@@ -156,9 +156,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.z = vtxs[face_v3-1].z * scale;
 				vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u : 0);
 				vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v : 0);
-				vtx.nx = vt_normals[face_vn3-1].x;
-				vtx.ny = vt_normals[face_vn3-1].y;
-				vtx.nz = vt_normals[face_vn3-1].z;
+				vtx.nx = (vertex_normals_found ? vt_normals[face_vn3-1].x : 0);
+				vtx.ny = (vertex_normals_found ? vt_normals[face_vn3-1].y : 0);
+				vtx.nz = (vertex_normals_found ? vt_normals[face_vn3-1].z : 1);
 				vertexes.push_back(vtx);
 
 				vtx.x = vtxs[face_v4-1].x * scale;
@@ -166,9 +166,9 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.z = vtxs[face_v4-1].z * scale;
 				vtx.u = (vertex_textures_found ? vt_coords[face_vt4-1].u : 0);
 				vtx.v = (vertex_textures_found ? vt_coords[face_vt4-1].v : 0);
-				vtx.nx = vt_normals[face_vn4-1].x;
-				vtx.ny = vt_normals[face_vn4-1].y;
-				vtx.nz = vt_normals[face_vn4-1].z;
+				vtx.nx = (vertex_normals_found ? vt_normals[face_vn4-1].x : 0);
+				vtx.ny = (vertex_normals_found ? vt_normals[face_vn4-1].y : 0);
+				vtx.nz = (vertex_normals_found ? vt_normals[face_vn4-1].z : 1);
 				vertexes.push_back(vtx);
 
 				vtx.x = vtxs[face_v1-1].x * scale;
@@ -176,14 +176,16 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.z = vtxs[face_v1-1].z * scale;
 				vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u : 0);
 				vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v : 0);
-				vtx.nx = vt_normals[face_vn1-1].x;
-				vtx.ny = vt_normals[face_vn1-1].y;
-				vtx.nz = vt_normals[face_vn1-1].z;
+				vtx.nx = (vertex_normals_found ? vt_normals[face_vn1-1].x : 0);
+				vtx.ny = (vertex_normals_found ? vt_normals[face_vn1-1].y : 0);
+				vtx.nz = (vertex_normals_found ? vt_normals[face_vn1-1].z : 1);
 				vertexes.push_back(vtx);
-
 			}
 		}
 	}
+
+	if (!vertex_normals_found) std::cout << "Vertex normals not found when loading \"" << filename << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)." << std::endl;
+	if (!vertex_textures_found) std::cout << "Vertex textures not found when loading \"" << filename << "\".  Unexpected results may occour." << std::endl;
 
 	al_fclose(file);
 	return true;
