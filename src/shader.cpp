@@ -52,6 +52,13 @@ void Shader::stop()
 
 
 
+bool Shader::set_sampler(const char *name, ALLEGRO_BITMAP *bitmap, int unit)
+{
+	return al_set_shader_sampler(name, bitmap, unit);
+}
+
+
+
 bool Shader::set_mat4(const char *name, ALLEGRO_TRANSFORM *t)
 {
 	return al_set_shader_matrix(name, t);
