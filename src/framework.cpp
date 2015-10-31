@@ -251,7 +251,11 @@ void af::run_loop()
 		case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
 			std::cout << "a joystick was added/removed" << std::endl;
 			al_reconfigure_joysticks();
-			joystick = al_get_joystick(0);
+			// note: a bug in allegro causes a crash when al_get_joystick(0) if there
+			// are 0 joysticks.  So this extra check has been added to prevent
+			// the crash from occuring, though it should be corrected in future
+			// versions when this bug in allegro is fixed.
+			joystick = (al_get_num_joysticks() == 0) ? NULL : al_get_joystick(0);
 			Screen::joy_config_funcs();
 			break;
 		case ALLEGRO_EVENT_MENU_CLICK:
