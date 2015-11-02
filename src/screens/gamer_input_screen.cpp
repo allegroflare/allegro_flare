@@ -16,7 +16,7 @@ GamerInputScreen::GamerInputScreen(Display *display)
 {
 	al_init_user_event_source(&input_event_source);
 	al_register_event_source(af::event_queue, &input_event_source);
-	setup_default_joystick_mapping_for_LOGITECH_RUMBLEPAD_2();
+	setup_default_joystick_mapping_for_XBOX_360_CONTROLLER();
 	setup_default_keyboard_mapping_for_ARROW_KEYS();
 }
 
@@ -119,6 +119,23 @@ void GamerInputScreen::setup_default_joystick_mapping_for_LOGITECH_RUMBLEPAD_2()
 	button_b_joystick_buttonmap = 1;
 	button_c_joystick_buttonmap = 2;
 }
+
+
+
+
+void GamerInputScreen::setup_default_joystick_mapping_for_XBOX_360_CONTROLLER()
+{
+	button_up_joystick_buttonmap = -1;
+	button_down_joystick_buttonmap = -1;
+	button_left_joystick_buttonmap = -1;
+	button_right_joystick_buttonmap = -1;
+	button_start_joystick_buttonmap = 7;
+	button_back_joystick_buttonmap = 6;
+	button_a_joystick_buttonmap = 2;
+	button_b_joystick_buttonmap = 0;
+	button_c_joystick_buttonmap = 1;
+}
+
 
 
 
@@ -242,7 +259,7 @@ void GamerInputScreen::joy_button_up_func()
 void GamerInputScreen::draw_gamer_input_state(bool button[GAMER_BUTTON_SIZE_MAX], float opacity, float x, float y, float align_x, float align_y, float scale_x, float scale_y)
 {
 	// get the controller bmp
-	ALLEGRO_BITMAP *controller = af::bitmaps["awesome_controller-01.2.png"];
+	ALLEGRO_BITMAP *controller = af::bitmaps["game_controller.png"];
 
 	// store the state and use a new transform
 	ALLEGRO_STATE prev_state;
