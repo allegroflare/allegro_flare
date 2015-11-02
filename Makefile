@@ -16,7 +16,7 @@ CORE_ITEMS=appearance2d attr_save_load automation bitmap_object blender camera2d
 BIN_ITEMS=font_bin sample_bin bitmap_bin model_bin
 DI_ITEMS=drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
 FONT_ITEMS=font_bravura font_font_awesome font_segoe_ui_symbol
-SCREEN_ITEMS=simple_notification_screen
+SCREEN_ITEMS=simple_notification_screen gamer_input_screen
 
 CORE_OBJ_FILES=$(CORE_ITEMS:%=obj/%.o)
 BIN_OBJ_FILES=$(BIN_ITEMS:%=obj/%.o)
