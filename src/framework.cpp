@@ -74,7 +74,7 @@ Display *af::create_display(int width, int height)
 Display *af::create_display(int width, int height, int display_flags)
 {
 	Display *display = new Display(width, height, display_flags);
-	al_register_event_source(event_queue, al_get_display_event_source(display->display));
+	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
 	return display;
 }
 
@@ -83,7 +83,7 @@ Display *af::create_display(int width, int height, int display_flags, int adapte
 {
 	if (adapter!=-1) al_set_new_display_adapter(adapter);
 	Display *display = new Display(width, height, display_flags);
-	al_register_event_source(event_queue, al_get_display_event_source(display->display));
+	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
 	return display;
 }
 
@@ -91,7 +91,7 @@ Display *af::create_display(int width, int height, int display_flags, int adapte
 Display *af::create_display(int width, int height, bool fullscreen)
 {
 	Display *display = new Display(width, height, fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED);
-	al_register_event_source(event_queue, al_get_display_event_source(display->display));
+	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
 	return display;
 }
 
@@ -101,7 +101,7 @@ Display *af::create_display(int width, int height, bool fullscreen, int adapter)
 	if (adapter!=-1) al_set_new_display_adapter(adapter);
 	Display *display = new Display(width, height, fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED);
 
-	al_register_event_source(event_queue, al_get_display_event_source(display->display));
+	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
 	return display;
 }
 

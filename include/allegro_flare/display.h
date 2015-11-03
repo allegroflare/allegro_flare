@@ -34,7 +34,7 @@ private:
 public:
 	Display(int width, int height, int display_flags); // you must use AllegroFlare::create_display
 
-	ALLEGRO_DISPLAY *display; // TODO: change this to al_display
+	ALLEGRO_DISPLAY *al_display;
 	virtual void display_close_func();
 
 	void set_as_target_bitmap(); // untested

@@ -37,7 +37,7 @@ public:
 		, noise_texture(NULL)
 		, brush_metal_texture(NULL)
 	{
-		al_set_window_title(display->display, "Generated Textures Test");
+		al_set_window_title(display->al_display, "Generated Textures Test");
 
 		circle_render = generate_circle_bitmap(128);
 		gradient_render = generate_gradient_bitmap(128);

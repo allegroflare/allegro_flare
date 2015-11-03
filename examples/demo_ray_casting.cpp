@@ -1185,7 +1185,7 @@ public:
 
 		moveSpeed = 0.04;
 
-		al_hide_mouse_cursor(display->display);
+		al_hide_mouse_cursor(display->al_display);
 		depth_caches.resize(viewport_width);
 		obj_entity_caches.resize(10 * 2);
 
@@ -1892,7 +1892,7 @@ public:
 		  planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
 		}
 
-		al_set_mouse_xy(display->display, display->width()/2, display->height()/2);
+		al_set_mouse_xy(display->al_display, display->width()/2, display->height()/2);
 	}
 };
 

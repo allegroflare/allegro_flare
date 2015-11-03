@@ -24,7 +24,7 @@ public:
 
 	void primary_timer_func() override
 	{
-		camera.set_frustum_as_camera(display->display);
+		camera.set_frustum_as_camera(display->al_display);
 
 		if (model)
 		{

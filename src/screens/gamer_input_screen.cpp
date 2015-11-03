@@ -300,7 +300,7 @@ void GamerInputScreen::draw_gamer_input_state(bool button[GAMER_BUTTON_SIZE_MAX]
 void GamerInputScreen::primary_timer_func()
 {
 	// just draw the joystick buttons
-	if (show_graphic) draw_gamer_input_state(pressed, 0.5, al_get_display_width(display->display)-10, 10, 1.0, 0.0);
+	if (show_graphic) draw_gamer_input_state(pressed, 0.5, al_get_display_width(display->al_display)-10, 10, 1.0, 0.0);
 }
 
 

@@ -5,10 +5,10 @@
 
 
 
-Display *Display::find_display(ALLEGRO_DISPLAY *display)
+Display *Display::find_display(ALLEGRO_DISPLAY *al_display)
 {
 	for (unsigned i=0; i<displays.size(); i++)
-		if (display == displays[i]->display) return displays[i];
+		if (al_display == displays[i]->al_display) return displays[i];
 	return NULL;
 }
 
@@ -18,6 +18,7 @@ Display::Display(int width, int height, int display_flags)
 	: _background_color(color::hex("abc788"))
 	, _width(width)
 	, _height(height)
+	, al_display(NULL)
 {
 	// set a few options and flags
 	al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
@@ -26,7 +27,7 @@ Display::Display(int width, int height, int display_flags)
 	al_set_new_display_flags(display_flags);
 
 	// create the actual display
- 	display = al_create_display(width, height);
+ 	al_display = al_create_display(width, height);
 
 	// add the display to AllegroFlare's list of displays
 	displays.push_back(this);
@@ -36,7 +37,7 @@ Display::Display(int width, int height, int display_flags)
 	// In the event that this occurs, then a display will be repositioned
 	// back to a sane coordinate on the desktop.
 	int dx, dy;
-	al_get_window_position(display, &dx, &dy);
+	al_get_window_position(al_display, &dx, &dy);
 	if (dx >= 1920 || dy >= 1080)
 	{
 		std::cout << "Display positioned at (" << dx << ", " << dy << ")." << std::endl;
@@ -45,7 +46,7 @@ Display::Display(int width, int height, int display_flags)
 		int new_pos_y = 1080/2 - height/2;
 
 		std::cout << "Repositioning display to (" << new_pos_x << ", " << new_pos_y << ")" << std::endl;
-		al_set_window_position(display, new_pos_x, new_pos_y);
+		al_set_window_position(al_display, new_pos_x, new_pos_y);
 	}
 
 }
@@ -72,7 +73,7 @@ float Display::center() { return _width/2; }
 
 void Display::set_as_target_bitmap()
 {
-	al_set_target_bitmap(al_get_backbuffer(display));
+	al_set_target_bitmap(al_get_backbuffer(al_display));
 }
 
 
@@ -98,7 +99,7 @@ void Display::clear()
 	// backbuffer bitmap.  Clearing and drawing a quad would not be
 	// "messed up" by any existing state
 
-	ALLEGRO_BITMAP *bbuffer = al_get_backbuffer(display);
+	ALLEGRO_BITMAP *bbuffer = al_get_backbuffer(al_display);
 	ALLEGRO_COLOR lightened = color::mix(_background_color, color::white, 0.25);
 	float w = al_get_bitmap_width(bbuffer);
 	float h = al_get_bitmap_height(bbuffer);

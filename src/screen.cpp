@@ -217,8 +217,8 @@ Screen::Screen(Display *display)
 	}
 	else
 	{
-		ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display->display);
-		backbuffer_sub_bitmap = al_create_sub_bitmap(al_get_backbuffer(display->display),
+		ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display->al_display);
+		backbuffer_sub_bitmap = al_create_sub_bitmap(al_get_backbuffer(display->al_display),
 											0, 0, al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
 
 		if (!backbuffer_sub_bitmap) std::cout << "[Screen::Screen()] there was an error creating the backbuffer_sub_bitmap" << std::endl;
@@ -245,7 +245,7 @@ Screen::~Screen()
 void Screen::prepare_drawing_state(bool prepare_3d)
 {
 	if (backbuffer_sub_bitmap) al_set_target_bitmap(backbuffer_sub_bitmap);
-	else al_set_target_bitmap(al_get_backbuffer(display->display));
+	else al_set_target_bitmap(al_get_backbuffer(display->al_display));
 
 	if (prepare_3d)
 	{
