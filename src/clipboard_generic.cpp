@@ -21,6 +21,7 @@ Clipboard *Clipboard::get_instance()
 
 void Clipboard::set(std::string text)
 {
+	std::cout << "Copying to clipboard (Your OS is not supported; Using internal clipboard)" << std::endl;
 	Clipboard::get_instance()->__text = text;
 }
 
@@ -28,6 +29,7 @@ void Clipboard::set(std::string text)
 
 std::string Clipboard::get()
 {
+	std::cout << "Copying from clipboard (Your OS is not supported; Using internal clipboard)" << std::endl;
 	return Clipboard::get_instance()->__text;
 }
 

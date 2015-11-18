@@ -12,7 +12,7 @@ INCLUDE_FLAGS=-IE:/allegro-5.1.11-mingw-edgar/include -IE:/allegro_flare/include
 
 
 
-CORE_ITEMS=appearance2d attr_save_load automation bitmap_object blender camera2d camera3d clipboard_generic color config data_attr display drawing_interface file_path file_path_object framework frustum generate_textures grid2d identification image_processing md5 model motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 shader skeleton sound_object text_object timeline useful
+CORE_ITEMS=appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object framework frustum generate_textures grid2d identification image_processing md5 model motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 shader skeleton sound_object text_object timeline useful
 BIN_ITEMS=font_bin sample_bin bitmap_bin model_bin
 DI_ITEMS=drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
 FONT_ITEMS=font_bravura font_font_awesome font_segoe_ui_symbol
@@ -23,6 +23,21 @@ BIN_OBJ_FILES=$(BIN_ITEMS:%=obj/%.o)
 DI_OBJ_FILES=$(DI_ITEMS:%=obj/%.o)
 FONT_OBJ_FILES=$(FONT_ITEMS:%=obj/%.o)
 SCREEN_OBJ_FILES=$(SCREEN_ITEMS:%=obj/%.o)
+
+
+#
+# Add platform-specific targets to the items
+# using this technique - http://stackoverflow.com/questions/714100/os-detecting-makefile
+#
+
+ifeq ($(OS), Windows_NT)
+	CORE_ITEMS += clipboard_win
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		CORE_ITEMS += clipboard_generic
+	endif
+endif
 
 
 

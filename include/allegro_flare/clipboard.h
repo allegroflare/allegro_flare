@@ -11,11 +11,12 @@ class Clipboard
 {
 private:
 	static Clipboard *instance;
+	static Clipboard *get_instance();
+
 	std::string __text;
 	Clipboard();
 
 public:
-	static Clipboard *get_instance();
 	static void set(std::string text);
 	static std::string get();
 };

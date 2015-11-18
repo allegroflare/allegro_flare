@@ -112,6 +112,8 @@ std::string Clipboard::get()
 	// Release the clipboard
 	CloseClipboard();
 
+	get_instance()->__text = text;
+
 	return text;
 }
 

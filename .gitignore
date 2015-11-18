@@ -1,5 +1,6 @@
 msvc-*/
 *.swp
+*.swo
 
 build/tmp*
 
