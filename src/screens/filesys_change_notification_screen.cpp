@@ -44,6 +44,21 @@ FileSysChangeNotificationScreen *FileSysChangeNotificationScreen::get_instance()
 }
 
 
+
+
+void _filesys_change_event_dtor(ALLEGRO_EVENT *e)
+{
+	if (!e) return;
+	if (e->user.type == ALLEGRO_EVENT_FILESYS_CHANGE)
+	{
+		// TODO
+		// distruct data here
+		//std::string *ptr = static_cast<std::string *>(e->user.data2);
+		//delete ptr;
+		//my_event.user.data2 = (intptr_t)(new std::string(value)); // directory that fired the changed as std::string*
+	}
+}
+
 void FileSysChangeNotificationScreen::emit_filesys_change(std::string value)
 {
 	ALLEGRO_EVENT my_event;
@@ -51,7 +66,8 @@ void FileSysChangeNotificationScreen::emit_filesys_change(std::string value)
 	// TODO:
 	// the string data needs to be destructed at some later point!!
 	// this is a danggling pointer.
-	//my_event.user.data1 = (intptr_t)(new std::string(value)); // directory that fired the changed as std::string*
+	my_event.user.data1 = 0; // directory that fired the changed as std::string*
+	my_event.user.data2 = (intptr_t)(new std::string(value)); // directory that fired the changed as std::string*
 	al_emit_user_event(&get_instance()->filesys_change_event_source, &my_event, NULL);
 
 }
@@ -63,6 +79,8 @@ void FileSysChangeNotificationScreen::emit_filesys_change(std::string value)
 
 
 #ifdef _WIN32
+
+
 
 
 
@@ -98,11 +116,11 @@ std::vector<folder_watch_handle> folder_watch_handles;
 
 
 
+static ALLEGRO_THREAD *_filesys_watch_thread = NULL;
 
 static void RefreshDirectory(LPTSTR);
 static void RefreshTree(LPTSTR);
 static void WatchDirectory(LPTSTR);
-
 
 
 
@@ -118,9 +136,9 @@ void _tmain(int argc, TCHAR *argv[])
     WatchDirectory(argv[1]);
 }
 */
-void WatchDirectory(LPTSTR lpDirARG)
+void WatchDirectory(LPTSTR lpDir)
 {
-	LPTSTR lpDir = "C:/Users/Mark/Desktop";
+//	LPTSTR lpDir = "C:/Users/Mark/Desktop";
    DWORD dwWaitStatus; 
    HANDLE dwChangeHandles[2]; 
 
@@ -259,6 +277,21 @@ void RefreshTree(LPTSTR lpDrive)
 
 
 
+//////////////////////////////////
+
+
+void *_filesys_watch_thread_proc(ALLEGRO_THREAD *this_thread, void *args)
+{
+	if (!args) return NULL;
+
+	// what a mess :(
+
+	std::string directory = *static_cast<std::string *>(args);
+	WatchDirectory(const_cast<char *>(directory.c_str()));
+}
+
+
+//////////////////////////////////
 
 
 void FileSysChangeNotificationScreen::watch_directory__blocking(std::string directory)
@@ -267,6 +300,21 @@ void FileSysChangeNotificationScreen::watch_directory__blocking(std::string dire
 }
 
 
+
+void FileSysChangeNotificationScreen::watch_directory__in_thread(std::string directory)
+{
+	if (_filesys_watch_thread)
+	{
+		std::cout << "Thread already exists watching another directory.  Limit 1" << std::endl;
+		return;
+	}
+	
+	FileSysChangeNotificationScreen *inst = get_instance();
+	std::string *args = new std::string(directory);
+	_filesys_watch_thread = al_create_thread(_filesys_watch_thread_proc, args);
+	if (_filesys_watch_thread) al_start_thread(_filesys_watch_thread);
+	else std::cout << "there was an error with allegro when trying to create the thread." << std::endl;
+}
 
 
 
