@@ -11,17 +11,20 @@
 
 
 
+typedef struct
+{
+	float x, y, z;
+	float u, v;
+	ALLEGRO_COLOR color;
+	float nx, ny, nz;
+} ALLEGRO_VERTEX_WITH_NORMAL;
+
+
+
+
 class ModelNew
 {
 private:
-
-	typedef struct
-	{
-		float x, y, z;
-		float u, v;
-		ALLEGRO_COLOR color;
-		float nx, ny, nz;
-	} ALLEGRO_VERTEX_WITH_NORMAL;
 
 	struct vt_coord
 	{
