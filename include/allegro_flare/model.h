@@ -8,6 +8,7 @@
 #include <vector>
 #include <allegro5/allegro_primitives.h>
 #include <allegro_flare/vec2d.h>
+#include <allegro_flare/vec3d.h>
 
 
 
@@ -58,6 +59,9 @@ public:
 	// modify
 	void set_texture(ALLEGRO_BITMAP *tx);
 	void scale(float scale);
+
+	vec3d get_min_vertex_coordinate();
+	vec3d get_max_vertex_coordinate();
 };
 
 

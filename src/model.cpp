@@ -305,4 +305,35 @@ void ModelNew::scale(float scale)
 
 
 
+vec3d ModelNew::get_min_vertex_coordinate()
+{
+	if (vertexes.empty()) return vec3d(0, 0, 0);
+
+	vec3d min_coord = vec3d(vertexes[0].x, vertexes[0].y, vertexes[0].z);
+	for (unsigned i=1; i<vertexes.size(); i++)
+	{
+		if (vertexes[i].x < min_coord.x) min_coord.x = vertexes[i].x;
+		if (vertexes[i].y < min_coord.y) min_coord.y = vertexes[i].y;
+		if (vertexes[i].z < min_coord.z) min_coord.z = vertexes[i].z;
+	}
+	return min_coord;
+}
+
+
+
+vec3d ModelNew::get_max_vertex_coordinate()
+{
+	if (vertexes.empty()) return vec3d(0, 0, 0);
+
+	vec3d max_coord = vec3d(vertexes[0].x, vertexes[0].y, vertexes[0].z);
+	for (unsigned i=0; i<vertexes.size(); i++)
+	{
+		if (vertexes[i].x > max_coord.x) max_coord.x = vertexes[i].x;
+		if (vertexes[i].y > max_coord.y) max_coord.y = vertexes[i].y;
+		if (vertexes[i].z > max_coord.z) max_coord.z = vertexes[i].z;
+	}
+	return max_coord;
+}
+
+
 
