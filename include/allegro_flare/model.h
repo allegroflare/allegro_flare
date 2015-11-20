@@ -39,6 +39,7 @@ private:
 	public:
 		std::string identifier;
 		std::vector<int> index_list;
+		ALLEGRO_BITMAP *texture;
 	};
 
 public:
@@ -58,6 +59,8 @@ public:
 
 	// modify
 	void set_texture(ALLEGRO_BITMAP *tx);
+	bool set_named_object_texture(int index, ALLEGRO_BITMAP *tx);
+	bool set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx);
 	void scale(float scale);
 
 	vec3d get_min_vertex_coordinate();

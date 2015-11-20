@@ -101,6 +101,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			// create a new named object
 			named_object new_named_object;
 			new_named_object.identifier = namebuff;
+			new_named_object.texture = NULL;
 			named_objects.push_back(new_named_object);
 			current_named_object = &named_objects.back();
 		}
@@ -262,7 +263,8 @@ bool ModelNew::draw_object(int index)
 
 	named_object &object = named_objects[index];
 
-	al_draw_indexed_prim(&vertexes[0], vertex_declaration, texture,
+	al_draw_indexed_prim(&vertexes[0], vertex_declaration,
+		(object.texture) ? object.texture : texture,
 		&object.index_list[0], object.index_list.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
 	return true;
@@ -289,6 +291,31 @@ bool ModelNew::draw_object(std::string name)
 void ModelNew::set_texture(ALLEGRO_BITMAP *tx)
 {
 	texture = tx;
+}
+
+
+
+bool ModelNew::set_named_object_texture(int index, ALLEGRO_BITMAP *tx)
+{
+	if (index < 0 || index > (int)named_objects.size()) return false;
+	named_objects[index].texture = tx;
+	return true;
+}
+
+
+
+bool ModelNew::set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx)
+{
+	bool object_exists = false;
+	for (unsigned i=0; i<named_objects.size(); i++)
+	{
+		if (named_objects[i].identifier == object_name)
+		{
+			named_objects[i].texture = tx;
+			object_exists = true;
+		}
+	}
+	return object_exists;
 }
 
 
