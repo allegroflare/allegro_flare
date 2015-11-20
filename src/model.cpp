@@ -46,6 +46,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 	vec3d vt_normal;
 	bool vertex_textures_found = false;
 	bool vertex_normals_found = false;
+	ModelNew::named_object *current_named_object = NULL;
 
 	if (!al_filename_exists(filename)) std::cout << "cannot load file " << filename << std::endl;
 
@@ -91,6 +92,18 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			sscanf(buff, "vn %f %f %f", &vt_normal.x, &vt_normal.y, &vt_normal.z);
 			vt_normals.push_back(vt_normal);
 		}
+		else if (strncmp(buff, "o ", 2) == 0)
+		{
+			// grab the name of the object
+			char namebuff[128];
+			sscanf(buff, "o %127s", namebuff); 
+
+			// create a new named object
+			named_object new_named_object;
+			new_named_object.identifier = namebuff;
+			named_objects.push_back(new_named_object);
+			current_named_object = &named_objects.back();
+		}
 		else if (strncmp(buff, "f ", 2) == 0)
 		{
 			int num_vertexes_captured = 0;
@@ -128,6 +141,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.ny = (vertex_normals_found ? vt_normals[face_vn1-1].y : 0);
 			vtx.nz = (vertex_normals_found ? vt_normals[face_vn1-1].z : 1);
 			vertexes.push_back(vtx);
+			if (current_named_object) current_named_object->index_list.push_back(vertexes.size()-1);
 
 			vtx.x = vtxs[face_v2-1].x * scale;
 			vtx.y = vtxs[face_v2-1].y * scale;
@@ -138,6 +152,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.ny = (vertex_normals_found ? vt_normals[face_vn2-1].y : 0);
 			vtx.nz = (vertex_normals_found ? vt_normals[face_vn2-1].z : 1);
 			vertexes.push_back(vtx);
+			if (current_named_object) current_named_object->index_list.push_back(vertexes.size()-1);
 
 			vtx.x = vtxs[face_v3-1].x * scale;
 			vtx.y = vtxs[face_v3-1].y * scale;
@@ -148,6 +163,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 			vtx.ny = (vertex_normals_found ? vt_normals[face_vn3-1].y : 0);
 			vtx.nz = (vertex_normals_found ? vt_normals[face_vn3-1].z : 1);
 			vertexes.push_back(vtx);
+			if (current_named_object) current_named_object->index_list.push_back(vertexes.size()-1);
 
 			if (num_vertexes_captured == 4)
 			{
@@ -160,6 +176,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.ny = (vertex_normals_found ? vt_normals[face_vn3-1].y : 0);
 				vtx.nz = (vertex_normals_found ? vt_normals[face_vn3-1].z : 1);
 				vertexes.push_back(vtx);
+				if (current_named_object) current_named_object->index_list.push_back(vertexes.size()-1);
 
 				vtx.x = vtxs[face_v4-1].x * scale;
 				vtx.y = vtxs[face_v4-1].y * scale;
@@ -170,6 +187,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.ny = (vertex_normals_found ? vt_normals[face_vn4-1].y : 0);
 				vtx.nz = (vertex_normals_found ? vt_normals[face_vn4-1].z : 1);
 				vertexes.push_back(vtx);
+				if (current_named_object) current_named_object->index_list.push_back(vertexes.size()-1);
 
 				vtx.x = vtxs[face_v1-1].x * scale;
 				vtx.y = vtxs[face_v1-1].y * scale;
@@ -180,12 +198,14 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 				vtx.ny = (vertex_normals_found ? vt_normals[face_vn1-1].y : 0);
 				vtx.nz = (vertex_normals_found ? vt_normals[face_vn1-1].z : 1);
 				vertexes.push_back(vtx);
+				if (current_named_object) current_named_object->index_list.push_back(vertexes.size()-1);
 			}
 		}
 	}
 
 	if (!vertex_normals_found) std::cout << "Vertex normals not found when loading \"" << filename << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)." << std::endl;
 	if (!vertex_textures_found) std::cout << "Vertex textures not found when loading \"" << filename << "\".  Unexpected results may occour." << std::endl;
+	std::cout << named_objects.size() << " named objects found" << std::endl;
 
 	al_fclose(file);
 	return true;
@@ -208,11 +228,60 @@ int ModelNew::get_num_vertexes()
 
 
 
+int ModelNew::get_num_named_objects()
+{
+	return named_objects.size();
+}
+
+
+
 void ModelNew::draw()
 {
 	if (vertexes.empty()) return;
 
-	al_draw_prim(&vertexes[0], vertex_declaration, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+	if (named_objects.empty())
+	{
+		al_draw_prim(&vertexes[0], vertex_declaration, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+	}
+	else
+	{
+		// draw each of the named objects individually
+		// TODO: this is not optimized, revisit this in the future
+		for (unsigned i=0; i<named_objects.size(); i++)
+		{
+			draw_object(i);
+		}
+	}
+}
+
+
+
+bool ModelNew::draw_object(int index)
+{
+	if (index < 0 || index > (int)named_objects.size()) return false;
+
+	named_object &object = named_objects[index];
+
+	al_draw_indexed_prim(&vertexes[0], vertex_declaration, texture,
+		&object.index_list[0], object.index_list.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+	return true;
+}
+
+
+
+bool ModelNew::draw_object(std::string name)
+{
+	bool object_exists = false;
+	for (unsigned i=0; i<named_objects.size(); i++)
+	{
+		if (named_objects[i].identifier == name)
+		{
+			draw_object(i);
+			object_exists = true;
+		}
+	}
+	return object_exists;
 }
 
 
