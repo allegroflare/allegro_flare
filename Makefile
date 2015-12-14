@@ -7,9 +7,18 @@
 
 
 ALLEGRO_FLARE_VERSION_STR=0.8.6
+COMPILER_NAME=clang
+COMPILER_VERSION=7.0.2
 
-INCLUDE_FLAGS=-IE:/allegro-5.1.11-mingw-edgar/include -IE:/allegro_flare/include
+ALLEGRO_DIR=/Users/markoates/Repos/allegro
+ALLEGRO_FLARE_DIR=/Users/markoates/Repos/allegro_flare
+# ALLEGRO_DIR=E:/allegro-5.1.11-mingw-edgar
+# ALLEGRO_FLARE_DIR=E:/allegro_flare/include
 
+
+
+ALLEGRO_FLARE_LIB_NAME=allegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-$(COMPILER_NAME)-$(COMPILER_VERSION)
+INCLUDE_FLAGS=-I$(ALLEGRO_DIR)/include -I$(ALLEGRO_FLARE_DIR)/include
 
 
 CORE_ITEMS=appearance2d attr_save_load automation bitmap_object blender camera2d camera3d color config data_attr display drawing_interface file_path file_path_object framework frustum generate_textures grid2d identification image_processing md5 model motion music_notation object2d paragraph path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 shader skeleton sound_object text_object timeline useful
@@ -31,8 +40,10 @@ SCREEN_OBJ_FILES=$(SCREEN_ITEMS:%=obj/%.o)
 #
 
 ifeq ($(OS), Windows_NT)
+	BINARY_EXTENSION=.exe
 	CORE_ITEMS += clipboard_win
 else
+	BINARY_EXTENSION=
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
 		CORE_ITEMS += clipboard_generic
@@ -46,7 +57,7 @@ endif
 #
 
 core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES)
-	ar rvs lib/liballegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-mingw-4.8.1.a $^
+	ar rvs lib/lib$(ALLEGRO_FLARE_LIB_NAME).a $^
 
 $(CORE_OBJ_FILES): obj/%.o : src/%.cpp
 	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
@@ -72,12 +83,12 @@ $(SCREEN_OBJ_FILES): obj/%.o : src/screens/%.cpp
 
 
 EXAMPLES=$(wildcard examples/*.cpp)
-EXAMPLE_OBJS=$(EXAMPLES:examples/%.cpp=bin/%.exe)
+EXAMPLE_OBJS=$(EXAMPLES:examples/%.cpp=bin/%$(BINARY_EXTENSION))
 
 examples: $(EXAMPLE_OBJS)
 
-bin/%.exe: examples/%.cpp
-	g++ -std=gnu++11 $< -o $@ -IE:/allegro_flare/include -IE:/allegro-5.1.11-mingw-edgar/include -LE:/allegro_flare/lib -lallegro_flare-0.8.6-mingw-4.8.1 -LE:/allegro-5.1.11-mingw-edgar/lib -lallegro_monolith-debug.dll
+bin/%$(BINARY_EXTENSION): examples/%.cpp
+	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -lallegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-$(COMPILER_NAME)-$(COMPILER_VERSION) -L$(ALLEGRO_DIR)/lib -lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro_main -lallegro
 
 
 
