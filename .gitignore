@@ -1,12 +1,32 @@
+# Visual Studio projects
+
 msvc-*/
+
+
+# vim swap files
+
 *.swp
 *.swo
 
+
+# temp files in the build dir
+
 build/tmp*
 
-*.exe
+
+# compiled object files and any executable files
+
 obj/*.o
 obj/*.obj
+bin/
+
+
+# OSX image caches
+
+.DS_store
+
+
+# Allegro log files
 
 allegro.log
 
