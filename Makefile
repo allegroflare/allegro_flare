@@ -37,6 +37,7 @@ SCREEN_OBJ_FILES=$(SCREEN_ITEMS:%=obj/%.o)
 #
 # Add platform-specific targets to the items
 # using this technique - http://stackoverflow.com/questions/714100/os-detecting-makefile
+# ==========================
 #
 
 ifeq ($(OS), Windows_NT)
@@ -48,12 +49,16 @@ else
 	ifeq ($(UNAME_S),Linux)
 		CORE_ITEMS += clipboard_generic
 	endif
+	ifeq ($(UNAME_S),Darwin)
+		CORE_ITEMS += clipboard_osx
+	endif
 endif
 
 
 
 #
 # Targets
+# ==========================
 #
 
 core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES)
