@@ -82,6 +82,16 @@ $(SCREEN_OBJ_FILES): obj/%.o : src/screens/%.cpp
 
 
 #
+# Cleanup
+# ==========================
+#
+
+clean:
+	rm ./obj/*.o
+
+
+
+#
 # Example Programs
 # ==========================
 #
