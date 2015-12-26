@@ -64,13 +64,13 @@ float distance(const vec2d *point1, const vec2d *point2)
 float manhattan_distance(const vec2d *point1, const vec2d *point2)
 {
 	// may consider writing out the abs function
-	return abs(point2->x - point1->x) + abs(point2->y - point1->y);
+	return std::abs(point2->x - point1->x) + std::abs(point2->y - point1->y);
 }
 
 float manhattan_distance(float x1, float y1, float x2, float y2)
 {
 	// may consider writing out the abs function
-	return abs(x2 - x1) + abs(y2 - y1);
+	return std::abs(x2 - x1) + std::abs(y2 - y1);
 }
 
 float distance_squared(const vec2d &point1, const vec2d &point2)
@@ -360,7 +360,7 @@ std::vector<int> to_int(const std::vector<std::string> &arr)
 
 bool basically_equal(float v1, float v2, float threshold)
 {
-	if (abs(v1 - v2) > threshold) return false;
+	if (std::abs(v1 - v2) > threshold) return false;
 	return true;
 }
 

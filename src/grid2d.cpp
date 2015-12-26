@@ -64,11 +64,11 @@ float grid2d::get_min_vertical_guide()
 int grid2d::get_closest_horizontal_guide_index(float x, float threshold)
 {
 	int index = 0;
-	float dist = abs(x - horizontal_guide[index]);
+	float dist = std::abs(x - horizontal_guide[index]);
 
 	for (int i=0; i<(int)horizontal_guide.size(); i++)
 	{
-		float this_distance = abs(x - horizontal_guide[i]);
+		float this_distance = std::abs(x - horizontal_guide[i]);
 		if (this_distance < dist)
 		{
 			dist = this_distance;
@@ -83,11 +83,11 @@ int grid2d::get_closest_horizontal_guide_index(float x, float threshold)
 int grid2d::get_closest_vertical_guide_index(float y, float threshold)
 {
 	int index = 0;
-	float dist = abs(y - vertical_guide[index]);
+	float dist = std::abs(y - vertical_guide[index]);
 
 	for (int i=0; i<(int)vertical_guide.size(); i++)
 	{
-		float this_distance = abs(y - vertical_guide[i]);
+		float this_distance = std::abs(y - vertical_guide[i]);
 		if (this_distance < dist)
 		{
 			dist = this_distance;
@@ -109,7 +109,7 @@ int grid2d::get_closest_coordinate_index_to_the_left(float x)
 	{
 		if (horizontal_guide[i] >= x) continue;
 
-		float distance = abs(x - horizontal_guide[i]);
+		float distance = std::abs(x - horizontal_guide[i]);
 		if ((!found) || (distance < closest))
 		{
 			closest = distance;
@@ -134,7 +134,7 @@ int grid2d::get_closest_coordinate_index_above(float y)
 	{
 		if (vertical_guide[i] >= y) continue;
 
-		float distance = abs(y - vertical_guide[i]);
+		float distance = std::abs(y - vertical_guide[i]);
 		if ((!found) || (distance < closest))
 		{
 			found = true;
@@ -169,7 +169,7 @@ vec2d grid2d::get_closest_left_coordinate(float x, float y)
 	{
 		if (horizontal_guide[i] >= x) continue;
 
-		float this_distance = abs(x - horizontal_guide[i]);
+		float this_distance = std::abs(x - horizontal_guide[i]);
 
 		if (!found)
 		{

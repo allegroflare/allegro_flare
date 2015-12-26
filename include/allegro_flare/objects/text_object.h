@@ -64,12 +64,12 @@ public:
 		}
 		return *this;
 	}
-	inline TextObject &align(float x, float y) { object2d::align(x, y); return *this; }
-	inline TextObject &position(float x, float y) { object2d::position(x, y); return *this; }
-	inline TextObject &anchor(float x, float y) { object2d::anchor(x, y); return *this; }
-	inline TextObject &scale(float x, float y) { object2d::scale(x, y); return *this; }
-	inline TextObject &scale(float s) { object2d::scale(s); return *this; }
-	inline TextObject &opacity(float opacity) { object2d::opacity(opacity); return *this; }
+	inline TextObject &align(float x, float y) override { object2d::align(x, y); return *this; }
+	inline TextObject &position(float x, float y) override { object2d::position(x, y); return *this; }
+	inline TextObject &anchor(float x, float y) override { object2d::anchor(x, y); return *this; }
+	inline TextObject &scale(float x, float y) override { object2d::scale(x, y); return *this; }
+	inline TextObject &scale(float s) override { object2d::scale(s); return *this; }
+	inline TextObject &opacity(float opacity) override { object2d::opacity(opacity); return *this; }
 	inline TextObject &font(ALLEGRO_FONT *font)
 	{
 		if (_font == font) return *this;
@@ -78,8 +78,16 @@ public:
 		*_w = al_get_text_width(_font, str.c_str());
 		return *this;
 	}
-	inline TextObject &color(ALLEGRO_COLOR color) { object2d::color(color); return *this; }
-	inline TextObject &color(const char *color) { object2d::color(color); return *this; }
+	inline TextObject &color(ALLEGRO_COLOR _color) override
+	{
+		object2d::color(_color);
+		return *this;
+	}
+	inline TextObject &color(const char *_color, float opacity=1.0) override
+	{
+		object2d::color(_color, opacity);
+		return *this;
+	}
 
 	ALLEGRO_BITMAP *create_render()
 	{
@@ -95,7 +103,7 @@ public:
 		al_restore_state(&state);
 		return img;
 	}
-	inline TextObject &draw()
+	inline TextObject &draw() override
 	{
 		if (_placement) _placement->start_transform();
  		if (_font) al_draw_text(_font, (_appearance)?color::color(_appearance->color, _appearance->opacity):al_map_rgba_f(1,1,1,1), 0, 0, ALLEGRO_FLAGS_EMPTY, str.c_str());

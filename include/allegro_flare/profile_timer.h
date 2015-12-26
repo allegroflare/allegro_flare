@@ -60,6 +60,7 @@ public:
 	double get_time()
 	{
 		if (!timing) return end_time - start_time;
+		return 0.0;
 	}
 };
 

@@ -51,7 +51,7 @@ namespace segoe_ui_symbol
 	extern const int32_t video;
 	extern const int32_t mailmessage;
 	extern const int32_t reply;
-	extern const int32_t favorite;
+	extern const int32_t favorite_A;
 	extern const int32_t unfavorite;
 	extern const int32_t mobilecontact;
 	extern const int32_t blockedconent;
@@ -134,7 +134,7 @@ namespace segoe_ui_symbol
 	extern const int32_t favorite;
 	extern const int32_t camera;
 	extern const int32_t settings;
-	extern const int32_t video;
+	extern const int32_t video_A;
 	extern const int32_t sync;
 	extern const int32_t download;
 	extern const int32_t mail;

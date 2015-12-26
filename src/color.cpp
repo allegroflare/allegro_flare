@@ -2,6 +2,7 @@
 
 #include <allegro_flare/color.h>
 #include <math.h>
+#include <cmath>
 #include <sstream>
 #include <algorithm>
 
@@ -251,10 +252,10 @@ bool operator ==(const ALLEGRO_COLOR &lhs, const ALLEGRO_COLOR &rhs)
 
 bool basically_equal(const ALLEGRO_COLOR &col1, const ALLEGRO_COLOR &col2, float threshold)
 {
-	if (abs(col1.a - col2.a) > threshold) return false;
-	if (abs(col1.g - col2.g) > threshold) return false;
-	if (abs(col1.b - col2.b) > threshold) return false;
-	if (abs(col1.r - col2.r) > threshold) return false;
+	if (std::abs(col1.a - col2.a) > threshold) return false;
+	if (std::abs(col1.g - col2.g) > threshold) return false;
+	if (std::abs(col1.b - col2.b) > threshold) return false;
+	if (std::abs(col1.r - col2.r) > threshold) return false;
 	return true;
 }
 
@@ -409,3 +410,4 @@ const ALLEGRO_COLOR yellowgreen = al_color_name("yellowgreen");
 
 
 }
+

@@ -81,7 +81,6 @@ private:
 
 	int num_timers;
 	bool sorted;
-	ALLEGRO_BITMAP *graph;
 
 	int create_timer(const char64_t name)
 	{
@@ -158,8 +157,6 @@ public:
 	{
 		for (int i=0; i<(int)timer.size(); i++) delete timer[i];
 		timer.clear();
-		size_t size;
-		size++;
 	}
 
 	void start_timer(const char64_t name)

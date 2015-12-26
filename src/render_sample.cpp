@@ -11,6 +11,7 @@ using namespace std;
 bool do_cout = false;
 
 
+/*
 // this function returns a value between -1 and 1 of the sample located at pos
 static float inline get_f_sample_at(ALLEGRO_SAMPLE *sample, float pos, int channel_num=0)
 {
@@ -34,7 +35,7 @@ static float inline get_f_sample_at(ALLEGRO_SAMPLE *sample, float pos, int chann
 
 	return 0;
 }
-
+*/
 
 
 // This function returns a positive value between 0 and 1 of the maximum value between the given ranges.

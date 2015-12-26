@@ -65,7 +65,7 @@ core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCR
 	ar rvs lib/lib$(ALLEGRO_FLARE_LIB_NAME).a $^
 
 $(CORE_OBJ_FILES): obj/%.o : src/%.cpp
-	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(BIN_OBJ_FILES): obj/%.o : src/bins/%.cpp
 	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)

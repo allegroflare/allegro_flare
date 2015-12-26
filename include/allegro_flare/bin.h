@@ -253,22 +253,18 @@ bool Bin<T>::load(std::string identifier, std::string filename)
 template<class T>
 bool Bin<T>::include(std::string identifier, T data)
 {
-	ALLEGRO_PATH *path = NULL;
+	// check if the record already exists
 	Bin<T>::Record *r = get_record(identifier);
 	if (r) return false;
 
-	//path = al_clone_path(directory);
-	//al_set_path_filename(path, filename.c_str());
-
+	// create a new record
 	r = new Bin<T>::Record(identifier, NULL, data);
-	//r = new Bin<T>::Record;
-	//r->identifier = identifier;
-	//r->file_path = NULL;
-	//r->data = data;
-
 	record.push_back(r);
+
+	// sort
 	std::sort(record.begin(), record.end(), bin_record_comp<T>);
 
+	// return success or failure
 	if (!r->data) return false;
 	return true;
 }
@@ -280,7 +276,6 @@ template<class T>
 bool Bin<T>::rename(std::string identifier, std::string new_identifer)
 	// be sure to test this
 {
-	ALLEGRO_PATH *path = NULL;
 	Bin<T>::Record *r = get_record(identifier);
 	if (!r) return false;
 
