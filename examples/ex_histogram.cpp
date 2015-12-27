@@ -26,6 +26,7 @@ int main(int argc, char **argv)
 	Display *display = af::create_display();
 	MyProject *proj = new MyProject(display);
 	af::run_loop();
+	return 0;
 }
 
 
