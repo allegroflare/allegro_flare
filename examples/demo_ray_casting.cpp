@@ -815,7 +815,7 @@ public:
 	bool active;
 	ObjEntity()
 		: image(NULL)
-		, type(type)
+		, type(0)
 		, x(random_float(2, 24*2-2))
 		, y(random_float(2, 24*2-2))
 		, active(false)
@@ -1392,14 +1392,14 @@ public:
 		al_get_keyboard_state(&keyboard_state);
 
 		//move forward if no wall in front of you
-		if (al_key_down(&keyboard_state, ALLEGRO_KEY_W))
+		if (al_key_down(&keyboard_state, ALLEGRO_KEY_W) || al_key_down(&keyboard_state, ALLEGRO_KEY_UP))
 		{
 			velocity_y = 1.0;
 		  if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
 		  if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
 		}
 		//move backwards if no wall behind you
-		if (al_key_down(&keyboard_state, ALLEGRO_KEY_S))
+		if (al_key_down(&keyboard_state, ALLEGRO_KEY_S) || al_key_down(&keyboard_state, ALLEGRO_KEY_DOWN))
 		{
 			velocity_y = -1.0;
 		  if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
@@ -1421,6 +1421,14 @@ public:
 			float dirY2 = dirX;
 		  if(worldMap[int(posX - dirX2 * moveSpeed)][int(posY)] == false) posX -= dirX2 * moveSpeed;
 		  if(worldMap[int(posX)][int(posY - dirY2 * moveSpeed)] == false) posY -= dirY2 * moveSpeed;
+		}
+		if (al_key_down(&keyboard_state, ALLEGRO_KEY_RIGHT))
+		{
+			rotate_view(0.01);
+		}
+		if (al_key_down(&keyboard_state, ALLEGRO_KEY_LEFT))
+		{
+			rotate_view(-0.01);
 		}
 
 
@@ -1869,6 +1877,9 @@ public:
 		case ALLEGRO_KEY_F1:
 			debug = !debug;
 			break;
+		case ALLEGRO_KEY_SPACE:
+			trigger_down = true;
+			break;
 		case ALLEGRO_KEY_R:
 			reload_weapon();
 			break;
@@ -1876,23 +1887,34 @@ public:
 			return;
 		}
 	}
-	void mouse_axes_func() override
+	void key_up_func() override
 	{
-		int dx = af::current_event->mouse.dx;
-		if (abs(dx) > 0)
+		switch(af::current_event->keyboard.keycode)
 		{
-
-		double rotSpeed = af::current_event->mouse.dx * 0.001;
-
+			case ALLEGRO_KEY_SPACE:
+				trigger_down = false;
+				break;
+		}
+	}
+	void rotate_view(float rotSpeed)
+	{
 		  double oldDirX = dirX;
 		  dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
 		  dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
 		  double oldPlaneX = planeX;
 		  planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
 		  planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-		}
 
 		al_set_mouse_xy(display->al_display, display->width()/2, display->height()/2);
+	}
+	void mouse_axes_func() override
+	{
+		int dx = af::current_event->mouse.dx;
+		if (abs(dx) > 0)
+		{
+			double rotSpeed = af::current_event->mouse.dx * 0.001;
+			rotate_view(rotSpeed);
+		}
 	}
 };
 
@@ -1904,6 +1926,7 @@ int main(int argc, char *argv[])
 	Display *display = af::create_display(1920/2, 1080/2);
 	Project *project = new Project(display);
 	af::run_loop();
+	return 0;
 }
 
 
