@@ -392,7 +392,7 @@ void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALL
 	if (!img) return;
 
 	// lock the target for faster processing
-	al_lock_bitmap(img, ALLEGRO_PIXEL_FORMAT_ARGB_8888, ALLEGRO_LOCK_WRITEONLY);
+	al_lock_bitmap(img, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
 
 	long histogram[256] = {0};
 	float histogram_max = 0;
@@ -414,6 +414,8 @@ void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALL
 			if (histogram[brightness_index] > histogram_max) histogram_max = histogram[brightness_index];
 		}
 	}
+
+	// unlock our bitmap
 	al_unlock_bitmap(img);
 
 	// put the histogram into a path2d
