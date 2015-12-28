@@ -16,11 +16,15 @@ Shader::Shader(const char *vertex_source_filename, const char *fragment_source_f
 
 	if (!al_attach_shader_source_file(shader, ALLEGRO_VERTEX_SHADER, vertex_source_filename))
 		std::cerr << "There was an error attaching the VERTEX shader source from file:"
-					<< std::endl << al_get_shader_log(shader) << std::endl;
+					<< std::endl << "\"" << vertex_source_filename << "\""
+					<< std::endl << al_get_shader_log(shader)
+					<< std::endl;
 
 	if (!al_attach_shader_source_file(shader, ALLEGRO_PIXEL_SHADER, fragment_source_filename))
 		std::cerr << "There was an error attaching the FRAGMENT shader source from file:"
-					<< std::endl << al_get_shader_log(shader) << std::endl;
+					<< std::endl << "\"" << fragment_source_filename << "\""
+					<< std::endl << al_get_shader_log(shader)
+					<< std::endl;
 
 	if (!al_build_shader(shader))
 	{
