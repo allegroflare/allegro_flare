@@ -14,10 +14,16 @@ class Shader
 {
 private:
 	ALLEGRO_SHADER *shader;
+	void build();
 
 public:
 	Shader(const char *vertex_source_filename, const char *fragment_source_filename);
+	Shader();
 	~Shader();
+
+	// initialize
+	void attach_source_files(const char *vertex_source_filename, const char *fragment_source_filename);
+	void attach_source_code(const char *vertex_source_code, const char *fragment_source_code);
 
 	// activate and deactivate
 	void use();

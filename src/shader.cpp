@@ -14,23 +14,15 @@ Shader::Shader(const char *vertex_source_filename, const char *fragment_source_f
 {
 	if (!shader) std::cerr << "There was a problem creating a shader." << std::endl;
 
-	if (!al_attach_shader_source_file(shader, ALLEGRO_VERTEX_SHADER, vertex_source_filename))
-		std::cerr << "There was an error attaching the VERTEX shader source from file:"
-					<< std::endl << "\"" << vertex_source_filename << "\""
-					<< std::endl << al_get_shader_log(shader)
-					<< std::endl;
+	attach_source_files(vertex_source_filename, fragment_source_filename);
+}
 
-	if (!al_attach_shader_source_file(shader, ALLEGRO_PIXEL_SHADER, fragment_source_filename))
-		std::cerr << "There was an error attaching the FRAGMENT shader source from file:"
-					<< std::endl << "\"" << fragment_source_filename << "\""
-					<< std::endl << al_get_shader_log(shader)
-					<< std::endl;
 
-	if (!al_build_shader(shader))
-	{
-		std::cerr << "There were errors when building the shader:" << std::endl;
-		std::cerr << al_get_shader_log(shader) << std::endl;
-	}
+
+Shader::Shader()
+	: shader(al_create_shader(ALLEGRO_SHADER_GLSL))
+{
+	if (!shader) std::cerr << "There was a problem creating a shader." << std::endl;
 }
 
 
@@ -45,6 +37,63 @@ Shader::~Shader()
 void Shader::use()
 {
 	al_use_shader(shader);
+}
+
+
+
+void Shader::attach_source_files(const char *vertex_source_filename, const char *fragment_source_filename)
+{
+	if (!al_attach_shader_source_file(shader, ALLEGRO_VERTEX_SHADER, vertex_source_filename))
+	{
+		std::cerr << "There was an error attaching the VERTEX shader source from file:"
+					<< std::endl << "\"" << vertex_source_filename << "\""
+					<< std::endl << al_get_shader_log(shader)
+					<< std::endl;
+	}
+
+	if (!al_attach_shader_source_file(shader, ALLEGRO_PIXEL_SHADER, fragment_source_filename))
+	{
+		std::cerr << "There was an error attaching the FRAGMENT shader source from file:"
+					<< std::endl << "\"" << fragment_source_filename << "\""
+					<< std::endl << al_get_shader_log(shader)
+					<< std::endl;
+	}
+
+	build();
+}
+
+
+
+void Shader::attach_source_code(const char *vertex_source_code, const char *fragment_source_code)
+{
+	if (vertex_source_code)
+	{
+		if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code))
+		std::cerr << "There was an error attaching the VERTEX shader source code:"
+		<< std::endl << al_get_shader_log(shader)
+		<< std::endl;
+	}
+
+	if (fragment_source_code)
+	{
+		if (!al_attach_shader_source(shader, ALLEGRO_PIXEL_SHADER, fragment_source_code))
+		std::cerr << "There was an error attaching the FRAGMENT shader source code:"
+		<< std::endl << al_get_shader_log(shader)
+		<< std::endl;
+	}
+
+	build();
+}
+
+
+
+void Shader::build()
+{
+	if (!al_build_shader(shader))
+	{
+		std::cerr << "There were errors when building the shader:" << std::endl;
+		std::cerr << al_get_shader_log(shader) << std::endl;
+	}
 }
 
 
