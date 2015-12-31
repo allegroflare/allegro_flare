@@ -34,6 +34,8 @@
 
 #include <allegro_flare/display.h>
 #include <allegro_flare/screen.h>
+#include <allegro_flare/placement2d.h>
+#include <allegro_flare/placement3d.h>
 #include <allegro_flare/camera2d.h>
 #include <allegro_flare/camera3d.h>
 
