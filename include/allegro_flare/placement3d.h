@@ -23,6 +23,8 @@ public:
 
 	void start_transform();
 	void restore_transform();
+	void build_transform(ALLEGRO_TRANSFORM *transform);
+
 	bool collide(float x, float y, float z); // untested
 	bool fcollide(float x, float y, float z, float d);
 };
