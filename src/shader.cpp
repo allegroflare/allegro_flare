@@ -3,6 +3,7 @@
 
 
 #include <allegro_flare/shader.h>
+#include <allegro_flare/cubemap.h>
 
 #include <iostream>
 
@@ -101,6 +102,44 @@ void Shader::build()
 void Shader::stop()
 {
 	al_use_shader(NULL);
+}
+
+
+
+bool Shader::set_sampler_cube(const char *name, ALLEGRO_FLARE_CUBEMAP_TEXTURE *cubemap, int unit)
+{
+	// grab the currently active shader program
+	GLint currProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &currProgram);
+	GLint shader_program_object = currProgram;
+
+	// get and verify that the uniform name is there and valid
+	GLint handle = glGetUniformLocation(shader_program_object, name);
+	if (handle < 0)
+	{
+		// this warning is silenced because there are instances where a user
+		// intentionally attempts to assign the uniform even knowing it is not there.
+		// a better reporting mechanisim might be used for all Shader::set_* functions.
+		//std::cout << "uniform not found for \"" << name << "\" in shader" << std::endl;
+		return false;
+	}
+
+	// bind it
+	glActiveTexture(GL_TEXTURE0 + unit);
+	glBindTexture(GL_TEXTURE_CUBE_MAP_EXT, cubemap->id);
+	glUniform1i(handle, unit);
+
+	// check for errors
+	GLenum err = glGetError();
+	if (err != 0)
+	{
+		// NOTE: in the internal Allegro 5 code, this pattern returns the acual message, rather
+		// than the error number.  However, the funciton to get the message for the error
+		// is an internal Allegro function.  This will work for now.
+		std::cout << "[Shader::set_sampler] error: glGetError() returned " << err << std::endl;
+		return err;
+	}
+	return true;
 }
 
 
