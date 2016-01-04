@@ -7,14 +7,19 @@
 
 
 ALLEGRO_FLARE_VERSION_STR=0.8.6
+
 COMPILER_NAME=clang
 COMPILER_VERSION=7.0.2
+# COMPILER_NAME=mingw
+# COMPILER_VERSION=4.8.1
 
 ALLEGRO_DIR=/Users/markoates/Repos/allegro
 ALLEGRO_FLARE_DIR=/Users/markoates/Repos/allegro_flare
 # ALLEGRO_DIR=E:/allegro-5.1.11-mingw-edgar
-# ALLEGRO_FLARE_DIR=E:/allegro_flare/include
+# ALLEGRO_FLARE_DIR=E:/allegro_flare
 
+ALLEGRO_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro_main -lallegro
+# ALLEGRO_LIBS=-lallegro_monolith-debug.dll
 
 
 ALLEGRO_FLARE_LIB_NAME=allegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-$(COMPILER_NAME)-$(COMPILER_VERSION)
@@ -103,7 +108,6 @@ EXAMPLE_OBJS=$(EXAMPLES:examples/%.cpp=bin/%$(BINARY_EXTENSION))
 examples: $(EXAMPLE_OBJS)
 
 bin/%$(BINARY_EXTENSION): examples/%.cpp
-	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -l$(ALLEGRO_FLARE_LIB_NAME) -L$(ALLEGRO_DIR)/lib -lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro_main -lallegro
-
+	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -l$(ALLEGRO_FLARE_LIB_NAME) -L$(ALLEGRO_DIR)/lib $(ALLEGRO_LIBS)
 
 
