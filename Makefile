@@ -112,6 +112,17 @@ bin/%$(BINARY_EXTENSION): examples/%.cpp
 
 
 #
+# Documentation
+# ===============================================
+#
+
+documentation:
+	python docs/compile_docs.py
+
+
+
+
+#
 # Cleanup
 # ===============================================
 #
