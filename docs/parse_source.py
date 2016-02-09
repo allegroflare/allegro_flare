@@ -52,9 +52,32 @@ found_items = declarations.matcher.find(criteria, global_namespace)
 unique_item_names = set();
 
 for item in found_items:
+    print item.location.file_name + " : " + str(item.location.line)
     unique_item_names.update({item.name})
 
+
+
+# cross-correlate declarations in the database
+
+connection = sqlite3.connect('doc_entries.db')
+connection.row_factory = sqlite3.Row
+c = connection.cursor()
+
+
+found_items = 0
+unfound_items = 0
+
 for item in unique_item_names:
-    print item
+    c.execute('SELECT * FROM entries WHERE decl=?', (item, ))
+    entries = c.fetchall()
+    if len(entries) == 0:
+        print item
+        unfound_items += 1
+    else:
+        print item + " - FOUND"
+        found_items += 1
 
-
+print "=============================="
+print str(found_items) + " items found."
+print str(unfound_items) + " matches missing."
+print "=============================="
