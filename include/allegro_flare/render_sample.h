@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __GRAPH_SAMPLE_HEADER
 #define __GRAPH_SAMPLE_HEADER
 

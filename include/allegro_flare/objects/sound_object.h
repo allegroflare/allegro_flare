@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ___ALLEGRO_FLARE_SOUND_OBJECT_HEADER
+#define ___ALLEGRO_FLARE_SOUND_OBJECT_HEADER
 
 
 
@@ -97,3 +98,6 @@ public:
 Sound &sound(const char *identifier);
 Sound &sound(ALLEGRO_SAMPLE *sample);
 */
+
+
+#endif

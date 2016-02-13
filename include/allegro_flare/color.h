@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __ALLEGRO_FLARE_COLOR_HEADER
 #define __ALLEGRO_FLARE_COLOR_HEADER
 

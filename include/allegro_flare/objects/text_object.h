@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __ALLEGRO_FLARE_TEXT_OBJECT_HEADER
 #define __ALLEGRO_FLARE_TEXT_OBJECT_HEADER
 

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ALLEGRO_FLARE_PATH2D_HEADER
+#define __ALLEGRO_FLARE_PATH2D_HEADER
 
 
 
@@ -133,3 +134,5 @@ public:
 	void refresh_segment_info();
 };
 
+
+#endif
