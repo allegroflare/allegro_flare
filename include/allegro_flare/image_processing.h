@@ -6,6 +6,9 @@
 
 #include <allegro5/allegro.h>
 
+#include <allegro_flare/color.h>
+
+
 ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, int dest_w, int dest_h);
 ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, float scale);
 ALLEGRO_BITMAP *create_padded_bitmap(ALLEGRO_BITMAP *original, int padding_top, int padding_right, int padding_bottom, int padding_left);
