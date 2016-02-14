@@ -199,7 +199,7 @@ namespace color
 	extern const ALLEGRO_COLOR mintcream;
 	extern const ALLEGRO_COLOR mistyrose;
 	extern const ALLEGRO_COLOR moccasin;
-	extern const ALLEGRO_COLOR avajowhite;
+	extern const ALLEGRO_COLOR navajowhite;
 	extern const ALLEGRO_COLOR navy;
 	extern const ALLEGRO_COLOR oldlace;
 	extern const ALLEGRO_COLOR olive;
