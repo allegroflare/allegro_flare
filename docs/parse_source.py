@@ -19,14 +19,37 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 # filename = "../include/allegro_flare/" + filename_file
 
 '''
-create table parsed_declarations(
-           id int primary key not null
-           signature varchar(255),
-           header_file varchar(255),
-           line_number int,
-           name varchar(128),
-           );
+create_entries_query = """
+CREATE TABLE IF NOT EXISTS entries(
+    id INTEGER PRIMARY KEY,
+    decl VARCHAR(128),
+    description TEXT
+    );
+"""
 '''
+#make_table_connection.execute(create_entries_query)
+
+create_query = """
+CREATE TABLE parsed_declarations(
+           id INTEGER PRIMARY KEY,
+           object_str VARCHAR(255),
+           decl_string VARCHAR(255),
+           name VARCHAR(128),
+           attributes VARCHAR(255),
+           header_file VARCHAR(255),
+           line_number INTEGER
+           );
+"""
+
+parse_cache_connection = sqlite3.connect('~TEMP.db')
+# connection.row_factory = sqlite3.Row
+parse_cache_make_table_connection = parse_cache_connection.cursor()
+parse_cache_make_table_connection.execute("DROP TABLE IF EXISTS parsed_declarations;")
+parse_cache_make_table_connection.execute(create_query)
+
+parse_cache_connection.commit()
+
+
 
 def parse_file(filename):
     # Find the location of the xml generator (castxml or gccxml)
@@ -60,29 +83,37 @@ def parse_file(filename):
 
 
 
-    # create a unique list of declaration names
+    # populate the table with unique names
+
+    count = 0
+    for item in found_items:
+        count = count + 1 
+        #print item.location.file_name + " : " + str(item.location.line)
+        parse_cache_make_table_connection.execute("INSERT INTO parsed_declarations VALUES (NULL,?,?,?,?,?,?);",
+            (str(item), item.decl_string, item.name, item.attributes, item.location.file_name, str(item.location.line))
+            )
+        parse_cache_connection.commit()
+
+    # create a list of unique items
 
     unique_item_names = set();
-
     for item in found_items:
-        print item.location.file_name + " : " + str(item.location.line)
         unique_item_names.update({item.name})
-
 
 
     # cross-correlate declarations in the database
 
-    connection = sqlite3.connect('doc_entries.db')
-    connection.row_factory = sqlite3.Row
-    c = connection.cursor()
+    docs_connection = sqlite3.connect('doc_entries.db')
+    docs_connection.row_factory = sqlite3.Row
+    docs_c = docs_connection.cursor()
 
 
     found_items = 0
     unfound_items = 0
 
     for item in unique_item_names:
-        c.execute('SELECT * FROM entries WHERE decl=?', (item, ))
-        entries = c.fetchall()
+        docs_c.execute('SELECT * FROM entries WHERE decl=?', (item, ))
+        entries = docs_c.fetchall()
         if len(entries) == 0:
             print item
             unfound_items += 1
@@ -106,6 +137,9 @@ header_files += glob.glob("../include/allegro_flare/*/*.h")
 header_files += glob.glob("../include/allegro_flare/*.h")
 
 
-
+count = 0
+num_header_files = len(header_files) 
 for f in header_files:
+    count = count + 1
+    print "===== parsing " + str(count) + " of " + str(num_header_files) + " ====="
     parse_file(f)
