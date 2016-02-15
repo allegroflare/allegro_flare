@@ -69,8 +69,8 @@ public:
 	float v;
 	IsectData()
 		: t(0)
-		, u(u)
-		, v(v)
+		, u(0)
+		, v(0)
 	{}
 };
 
