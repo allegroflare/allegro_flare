@@ -37,7 +37,9 @@ CREATE TABLE parsed_declarations(
            name VARCHAR(128),
            attributes VARCHAR(255),
            header_file VARCHAR(255),
-           line_number INTEGER
+           line_number INTEGER,
+           in_source_documentation TEXT,
+           documentation TEXT
            );
 """
 
@@ -89,8 +91,8 @@ def parse_file(filename):
     for item in found_items:
         count = count + 1 
         #print item.location.file_name + " : " + str(item.location.line)
-        parse_cache_make_table_connection.execute("INSERT INTO parsed_declarations VALUES (NULL,?,?,?,?,?,?);",
-            (str(item), item.decl_string, item.name, item.attributes, item.location.file_name, str(item.location.line))
+        parse_cache_make_table_connection.execute("INSERT INTO parsed_declarations VALUES (NULL,?,?,?,?,?,?,?,?);",
+            (str(item), item.decl_string, item.name, item.attributes, item.location.file_name, str(item.location.line), "", "")
             )
         parse_cache_connection.commit()
 
