@@ -40,6 +40,8 @@ int main(int argc, char **argv)
 	Display *display = af::create_display(1100, 500);
 	MaskedBitmapExampleProgram *prog = new MaskedBitmapExampleProgram(display);
 	af::run_loop();
+
+	return 0;
 }
 
 

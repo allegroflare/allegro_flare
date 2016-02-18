@@ -49,6 +49,8 @@ int main(int argc, char *argv[])
 	Project *proj = new Project(display);
 
 	af::run_loop();
+
+	return 0;
 }
 
 
