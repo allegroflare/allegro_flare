@@ -40,10 +40,11 @@
 #include <allegro_flare/camera3d.h>
 
 #include <allegro_flare/interpolators.h>
-#include <allegro_flare/color.h>
 #include <allegro_flare/motion.h>
 #include <allegro_flare/identification.h>
+#include <allegro_flare/scriptable.h>
 
+#include <allegro_flare/color.h>
 #include <allegro_flare/render_sample.h>
 #include <allegro_flare/generate_textures.h>
 #include <allegro_flare/image_processing.h>

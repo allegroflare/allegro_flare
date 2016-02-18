@@ -53,14 +53,7 @@ public:
 		lookup_table.push_back(new lookup_row(identifier, function));
 		//std::sort(lookup_table.begin(), lookup_table.end(), lookup_row_cmp);
 	}
-/*
-	void call_scriptable_func(T *calling_object, std::string identifier, std::string args)
-	{
-		scriptable_func found_func = get_scriptable_func(identifier);
-		if (found_func) (calling_object->*found_func)(args);
-	}
-*/
-	bool call_scriptable_func(std::string identifier, std::string args)
+	bool call_func(std::string identifier, std::string args)
 	{
 		T *calling_object = (T *)(this);
 		scriptable_func found_func = get_scriptable_func(identifier);
@@ -68,7 +61,9 @@ public:
 		return false;
 	}
 	void call_scriptable_command_function(std::string command)
-		// has the following format command_identifier(argument_string)
+		// allows you to call a function, but using the following format:
+		// "command_identifier(argument_string)"
+		// note: at this time, this function does *not* account for nested parens (())
 	{
 		std::string command_identifier = command;
 		std::string command_args = "";
@@ -86,61 +81,15 @@ public:
 		std::cout << "  command_identifier: \"" << command_identifier << "\"" << std::endl;
 		std::cout << "  command_args: \"" << command_args << "\"" << std::endl;
 
-		if (!call_scriptable_func(command_identifier, command_args))
+		if (!call_func(command_identifier, command_args))
 		{
 			std::cout << "[Scriptable<?>::call_scriptable_command_function()] error, command \"" << command_identifier << "\" does not exist." << std::endl;
 		}
 	}
-	//virtual void call_func(std::string funcname, std::string args) = 0;
 };
 
 
 
-
-
-
-
-
-
-/*
-////////// EXAMPLE ////////////
-////////// EXAMPLE ////////////
-
-
-
-class MyScriptableThing : public Scriptable<MyScriptableThing>
-{
-public:
-//	void call_func(std::string funcname, std::string args)
-//	{
-//		call_scriptable_func(this, funcname, args);
-//	}
-
-	void echo (std::string arg)
-	{
-		std::cout << arg << std::endl;
-	}
-
-	MyScriptableThing(std::string name)
-		: Scriptable(name)
-	{
-		register_function("echo", &MyScriptableThing::echo);
-	}
-};
-
-
-
-
-int main()
-{
-	MyScriptableThing f("yada");
-
-	f.call_func("echo", "hello_world");
-
-	int i;
-	std::cin >> i;
-}
-*/
 
 
 
