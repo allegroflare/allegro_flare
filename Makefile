@@ -128,6 +128,6 @@ documentation:
 #
 
 clean:
-	rm ./obj/*.o
-	rm $(EXAMPLE_OBJS)
+	-rm ./obj/*.o
+	-rm $(EXAMPLE_OBJS)
 
