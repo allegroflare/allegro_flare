@@ -63,10 +63,10 @@ class Actor
 public:
 	actor_t type;
 	std::string identifier;
-	std::vector<Timeline::Track<float> *> params;
+	std::vector<Timeline::Track *> params;
 
 	Actor(std::string identifier, actor_t type);
-	Timeline::Track<float> *get_param_by_id(const char *id);
+	Timeline::Track *get_param_by_id(const char *id);
 
 	virtual void load_script(std::string script_filename);
 	virtual void render(double time) = 0;

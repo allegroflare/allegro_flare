@@ -57,7 +57,7 @@ Actor::Actor(std::string identifier, actor_t type)
 
 
 
-Timeline::Track<float> *Actor::get_param_by_id(const char *id)
+Timeline::Track *Actor::get_param_by_id(const char *id)
 {
 	for (unsigned i=0; i<params.size(); i++)
 		if (params[i]->label == id) return params[i];
@@ -82,7 +82,7 @@ void Actor::load_script(std::string script_filename)
 		if (tokens.size() != 4) continue;
 
 		double time_sec = atof(tokens[0].c_str());
-		Timeline::Track<float> *param = get_param_by_id(tokens[1].c_str());
+		Timeline::Track *param = get_param_by_id(tokens[1].c_str());
 		float val = atof(tokens[2].c_str());
 		interpolator::interpolator_func_t interpolator_func = interpolator::get_interpolator_by_name(tokens[3]);
 		param->add(time_sec, val, interpolator_func);
@@ -112,14 +112,14 @@ void Actor2D::register_params()
 {
 	//std::cout << "Here";
 	params.clear();
-	params.push_back(new Timeline::Track<float>(0, "x"));
-	params.push_back(new Timeline::Track<float>(0, "y"));
-	params.push_back(new Timeline::Track<float>(0.5, "align_x"));
-	params.push_back(new Timeline::Track<float>(0.5, "align_y"));
-	params.push_back(new Timeline::Track<float>(1, "scale_x"));
-	params.push_back(new Timeline::Track<float>(1, "scale_y"));
-	params.push_back(new Timeline::Track<float>(0, "rotation"));
-	params.push_back(new Timeline::Track<float>(1, "opacity"));
+	params.push_back(new Timeline::Track(0, "x"));
+	params.push_back(new Timeline::Track(0, "y"));
+	params.push_back(new Timeline::Track(0.5, "align_x"));
+	params.push_back(new Timeline::Track(0.5, "align_y"));
+	params.push_back(new Timeline::Track(1, "scale_x"));
+	params.push_back(new Timeline::Track(1, "scale_y"));
+	params.push_back(new Timeline::Track(0, "rotation"));
+	params.push_back(new Timeline::Track(1, "opacity"));
 }
 
 
