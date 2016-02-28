@@ -64,6 +64,7 @@ public:
 
    // Set the value of the attribute
    void set(std::string key, std::string value="");
+   void set(std::string key, const char *value);
    void set(std::string key, bool value);
    void set(std::string key, float value);
    void set(std::string key, int value);

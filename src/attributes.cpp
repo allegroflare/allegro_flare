@@ -210,6 +210,14 @@ void Attributes::set(std::string key, std::string value)
 
 
 
+void Attributes::set(std::string key, const char *value)
+{
+   set(key, std::string(value));
+}
+
+
+
+
 void Attributes::set(std::string key, bool value)
 {
    // TODO
