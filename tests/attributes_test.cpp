@@ -61,3 +61,20 @@ BOOST_AUTO_TEST_CASE(attribute_values_can_be_changed)
    BOOST_CHECK_EQUAL(attributes.get("name"), "Beary");
 }
 
+BOOST_AUTO_TEST_CASE(attributes_can_be_removed)
+{
+   Attributes attributes;
+   attributes.set("os", "OSX");
+   attributes.remove("os");
+   BOOST_CHECK_EQUAL(attributes.num_attributes(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(attributes_matching_key_value_can_be_removed)
+{
+   Attributes attributes;
+   attributes.set("os", "Windows");
+   attributes.remove("os", "Windows");
+   BOOST_CHECK_EQUAL(attributes.num_attributes(), 0);
+}
+
+

@@ -132,8 +132,11 @@ bool Attributes::remove(std::string key)
 
 bool Attributes::remove(std::string key, std::string value)
 {
-   // TODO
-   return false;
+   int index = __find_attribute_index(key, value);
+   if (index == -1) return false;
+
+   attributes.erase(attributes.begin() + index);
+   return true;
 }
 
 
