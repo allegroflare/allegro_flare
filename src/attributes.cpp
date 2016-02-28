@@ -173,8 +173,8 @@ std::string Attributes::get(std::string key)
 
 int Attributes::get_as_int(std::string key)
 {
-   // TODO
-   return 0;
+   int index = __find_or_create_attribute_index(key);
+   return atoi(attributes[index].value.c_str());
 }
 
 
@@ -182,8 +182,8 @@ int Attributes::get_as_int(std::string key)
 
 float Attributes::get_as_float(std::string key)
 {
-   // TODO
-   return 0.0;
+   int index = __find_or_create_attribute_index(key);
+   return atof(attributes[index].value.c_str());
 }
 
 
@@ -191,8 +191,7 @@ float Attributes::get_as_float(std::string key)
 
 std::string Attributes::get_as_string(std::string key)
 {
-   // TODO
-   return "";
+   return get(key);
 }
 
 
@@ -200,8 +199,8 @@ std::string Attributes::get_as_string(std::string key)
 
 bool Attributes::get_as_bool(std::string key)
 {
-   // TODO
-   return false;
+   int index = __find_or_create_attribute_index(key);
+   return (strcmp(attributes[index].value.c_str(), "false") != 0);
 }
 
 

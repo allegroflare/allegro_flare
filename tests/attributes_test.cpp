@@ -98,6 +98,29 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_set_with_standard_datatypes)
 
    attributes.set("happy", true);
    BOOST_CHECK_EQUAL(attributes.get("happy"), "true");
+
+   attributes.set("caffinated", false);
+   BOOST_CHECK_EQUAL(attributes.get("caffinated"), "false");
+}
+
+BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_to_standard_datatypes)
+{
+   Attributes attributes;
+
+   attributes.set("value", "128");
+   BOOST_CHECK_EQUAL(attributes.get_as_int("value"), 128);
+
+   attributes.set("phi", "1.618");
+   BOOST_CHECK_CLOSE(attributes.get_as_float("phi"), 1.618, 0.00001);
+
+   attributes.set("flavor", "sweet");
+   BOOST_CHECK_EQUAL(attributes.get_as_string("flavor"), std::string("sweet"));
+
+   attributes.set("should_do_laundry", "true");
+   BOOST_CHECK_EQUAL(attributes.get_as_bool("should_do_laundry"), true);
+
+   attributes.set("doing_laundry_now", "false");
+   BOOST_CHECK_EQUAL(attributes.get_as_bool("doing_laundry_now"), false);
 }
 
 

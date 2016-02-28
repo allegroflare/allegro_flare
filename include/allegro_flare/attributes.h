@@ -67,7 +67,8 @@ public:
    // Return the value of the attribute as a std::string datatype
    std::string get_as_string(std::string key);
 
-   // Returns the value of the attribute as a bool
+   // Returns the value of the attribute as a bool.
+   // A value that is anything other than "false" will evaluate to true.
    bool get_as_bool(std::string key);
 
    // Gets the value of the attribute as a custom datatype and assigns it to dest
