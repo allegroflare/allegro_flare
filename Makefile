@@ -123,6 +123,25 @@ documentation:
 
 
 #
+# Testing
+# ===============================================
+#
+
+TESTS=$(wildcard tests/*.cpp)
+TEST_OBJS=$(TESTS:tests/%.cpp=bin/%$(BINARY_EXTENSION))
+
+ALLEGRO_TEST_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro
+
+examples: $(EXAMPLE_OBJS)
+tests: $(TEST_OBJS)
+
+bin/%$(BINARY_EXTENSION): tests/%.cpp
+	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -l$(ALLEGRO_FLARE_LIB_NAME) -L$(ALLEGRO_DIR)/lib $(ALLEGRO_TEST) -lboost_unit_test_framework
+
+
+
+
+#
 # Cleanup
 # ===============================================
 #
@@ -130,4 +149,5 @@ documentation:
 clean:
 	-rm ./obj/*.o
 	-rm $(EXAMPLE_OBJS)
+	-rm $(TEST_OBJS)
 
