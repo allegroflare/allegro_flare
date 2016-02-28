@@ -102,7 +102,6 @@ Attributes::~Attributes()
 
 bool Attributes::exists(std::string key)
 {
-   // TODO
    int index = __find_attribute_index(key);
    return (index != -1);
 }
@@ -112,8 +111,8 @@ bool Attributes::exists(std::string key)
 
 bool Attributes::exists(std::string key, std::string value)
 {
-   // TODO
-   return false;
+   int index = __find_attribute_index(key, value);
+   return (index != -1);
 }
 
 
@@ -121,8 +120,11 @@ bool Attributes::exists(std::string key, std::string value)
 
 bool Attributes::remove(std::string key)
 {
-   // TODO
-   return false;
+   int index = __find_attribute_index(key);
+   if (index == -1) return false;
+
+   attributes.erase(attributes.begin() + index);
+   return true;
 }
 
 
@@ -139,8 +141,7 @@ bool Attributes::remove(std::string key, std::string value)
 
 int Attributes::num_attributes()
 {
-   // TODO
-   return 0;
+   return attributes.size();
 }
 
 
@@ -148,8 +149,8 @@ int Attributes::num_attributes()
 
 std::string Attributes::get(std::string key)
 {
-   // TODO
-   return "";
+   int index = __find_or_create_attribute_index(key);
+   return attributes[index].value;
 }
 
 
@@ -202,7 +203,6 @@ bool Attributes::get_as_custom(void *dest, std::string datatype, std::string key
 
 void Attributes::set(std::string key, std::string value)
 {
-   // TODO
    int index = __find_or_create_attribute_index(key);
    attributes[index].value = value;
 }
@@ -415,7 +415,10 @@ int Attributes::__find_attribute_index(std::string key)
 
 int Attributes::__find_attribute_index(std::string key, std::string value)
 {
-   // TODO
+   for (int i=0; i<attributes.size(); i++)
+      if ((strcmp(key.c_str(), attributes[i].key.c_str()) == 0)
+         && (strcmp(value.c_str(), attributes[i].value.c_str()) == 0))
+         return i;
    return -1;
 }
 
