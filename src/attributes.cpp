@@ -17,6 +17,18 @@
 
 
 
+// Converts a value to a string representation.
+#include <sstream>
+template<class T>
+std::string __tostring(T val)
+{
+	std::ostringstream s;
+	s << val;
+	return s.str();
+}
+
+
+
 
 class Attributes::AttributeRecord
 {
@@ -132,7 +144,7 @@ bool Attributes::remove(std::string key)
 
 bool Attributes::remove(std::string key, std::string value)
 {
-   int index = __find_attribute_index(key, value);
+   int index = __find_attribute_index(key);
    if (index == -1) return false;
 
    attributes.erase(attributes.begin() + index);
@@ -223,8 +235,8 @@ void Attributes::set(std::string key, const char *value)
 
 void Attributes::set(std::string key, bool value)
 {
-   // TODO
-   return;
+   int index = __find_or_create_attribute_index(key);
+   attributes[index].value = (value ? "true" : "false");
 }
 
 
@@ -232,8 +244,16 @@ void Attributes::set(std::string key, bool value)
 
 void Attributes::set(std::string key, float value)
 {
-   // TODO
-   return;
+   int index = __find_or_create_attribute_index(key);
+   attributes[index].value = __tostring(value);
+}
+
+
+
+
+void Attributes::set(std::string key, double value)
+{
+   set(key, (float)value);
 }
 
 
@@ -241,8 +261,8 @@ void Attributes::set(std::string key, float value)
 
 void Attributes::set(std::string key, int value)
 {
-   // TODO
-   return;
+   int index = __find_or_create_attribute_index(key);
+   attributes[index].value = __tostring(value);
 }
 
 

@@ -41,8 +41,19 @@ public:
 
 
    //
-   // Retriving type-casted values
+   // Getting / Setting Values
    //
+
+   // Set the value of the attribute
+   void set(std::string key, std::string value="");
+   void set(std::string key, const char *value);
+   void set(std::string key, bool value);
+   void set(std::string key, float value);
+   void set(std::string key, double value); // will downcast to float
+   void set(std::string key, int value);
+
+   // Set the value of the attribute using a custom datatype
+   bool set(std::string key, std::string datatype, void *value);
 
    // Return the value of the attribute formatted as a std::string
    std::string get(std::string key);
@@ -61,16 +72,6 @@ public:
 
    // Gets the value of the attribute as a custom datatype and assigns it to dest
    bool get_as_custom(void *dest, std::string datatype, std::string key);
-
-   // Set the value of the attribute
-   void set(std::string key, std::string value="");
-   void set(std::string key, const char *value);
-   void set(std::string key, bool value);
-   void set(std::string key, float value);
-   void set(std::string key, int value);
-
-   // Set the value of the attribute using a custom datatype
-   bool set(std::string key, std::string datatype, void *value);
 
 
    //

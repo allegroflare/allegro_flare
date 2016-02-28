@@ -77,4 +77,29 @@ BOOST_AUTO_TEST_CASE(attributes_matching_key_value_can_be_removed)
    BOOST_CHECK_EQUAL(attributes.num_attributes(), 0);
 }
 
+BOOST_AUTO_TEST_CASE(attributes_can_be_set_with_standard_datatypes)
+{
+   Attributes attributes;
+
+   attributes.set("name", "Mark");
+   BOOST_CHECK_EQUAL(attributes.get("name"), "Mark");
+
+   attributes.set("father", std::string("Tony"));
+   BOOST_CHECK_EQUAL(attributes.get("father"), "Tony");
+
+   attributes.set("answer", 42);
+   BOOST_CHECK_EQUAL(attributes.get("answer"), "42");
+
+   attributes.set("pi", 3.14f);
+   BOOST_CHECK_EQUAL(attributes.get("pi"), "3.14");
+
+   attributes.set("tau", 6.28);
+   BOOST_CHECK_EQUAL(attributes.get("tau"), "6.28");
+
+   attributes.set("happy", true);
+   BOOST_CHECK_EQUAL(attributes.get("happy"), "true");
+}
+
+
+
 
