@@ -88,4 +88,4 @@ Some Examples of Features and Tools
 Dependencies
 ============
 
-AllegroFlare requires Allegro 5.1.11 or greater.  You can also include other features with CURL, OpenCV, and Boost.
+AllegroFlare requires Allegro 5.1.13 or greater.  You can also include other features with CURL, OpenCV, and Boost.
