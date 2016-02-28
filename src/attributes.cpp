@@ -103,7 +103,8 @@ Attributes::~Attributes()
 bool Attributes::exists(std::string key)
 {
    // TODO
-   return false;
+   int index = __find_attribute_index(key);
+   return (index != -1);
 }
 
 
@@ -202,7 +203,8 @@ bool Attributes::get_as_custom(void *dest, std::string datatype, std::string key
 void Attributes::set(std::string key, std::string value)
 {
    // TODO
-   return;
+   int index = __find_or_create_attribute_index(key);
+   attributes[index].value = value;
 }
 
 
@@ -395,7 +397,8 @@ std::vector<std::string> Attributes::get_known_datatypes()
 
 int Attributes::__find_attribute_index(std::string key)
 {
-   // TODO
+   for (int i=0; i<attributes.size(); i++)
+      if (strcmp(key.c_str(), attributes[i].key.c_str()) == 0) return i;
    return -1;
 }
 
@@ -413,8 +416,10 @@ int Attributes::__find_attribute_index(std::string key, std::string value)
 
 int Attributes::__find_or_create_attribute_index(std::string key)
 {
-   // TODO
-   return -1;
+   for (int i=0; i<attributes.size(); i++)
+      if (strcmp(key.c_str(), attributes[i].key.c_str()) == 0) return i;
+   attributes.push_back(AttributeRecord(key));
+   return attributes.size()-1;
 }
 
 
