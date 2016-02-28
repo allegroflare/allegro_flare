@@ -10,10 +10,41 @@
 //
 //
 //
-// Internal Functions and Definitions
+// Internal Definitions
 //
 //
 //
+
+
+
+
+class Attributes::AttributeRecord
+{
+public:
+   std::string key;
+   std::string value;
+   std::string datatype;
+   void *bound;
+
+   AttributeRecord(std::string key, std::string value="")
+      : key(key)
+      , value(value)
+      , datatype("unbound")
+      , bound(NULL)
+   {}
+
+   bool is_bound()
+   {
+      // TODO
+      return false;
+   }
+
+   bool is_bound_as(std::string datatype)
+   {
+      // TODO
+      return false;
+   }
+};
 
 
 
@@ -44,42 +75,6 @@ public:
 
 
 
-int Attributes::__find_attribute_index(std::string key)
-{
-   // TODO
-   return -1;
-}
-
-
-
-
-int Attributes::__find_attribute_index(std::string key, std::string value)
-{
-   // TODO
-   return -1;
-}
-
-
-
-
-int Attributes::__find_or_create_attribute_index(std::string key)
-{
-   // TODO
-   return -1;
-}
-
-
-
-
-int Attributes::__find_or_create_attribute_index(std::string key, std::string value)
-{
-   // TODO
-   return -1;
-}
-
-
-
-
 //
 //
 //
@@ -87,37 +82,6 @@ int Attributes::__find_or_create_attribute_index(std::string key, std::string va
 //
 //
 //
-
-
-
-
-class Attributes::AttributeRecord
-{
-public:
-   std::string key;
-   std::string datatype;
-   std::string value;
-   void *bound;
-
-   AttributeRecord(std::string key, std::string value="")
-      : key(key)
-      , datatype("unbound")
-      , value(value)
-      , bound(NULL)
-   {}
-
-   bool is_bound()
-   {
-      // TODO
-      return false;
-   }
-
-   bool is_bound_as(std::string datatype)
-   {
-      // TODO
-      return false;
-   }
-};
 
 
 
@@ -426,6 +390,32 @@ std::vector<std::string> Attributes::get_known_datatypes()
    return result;
 }
 
+
+
+
+int Attributes::__find_attribute_index(std::string key)
+{
+   // TODO
+   return -1;
+}
+
+
+
+
+int Attributes::__find_attribute_index(std::string key, std::string value)
+{
+   // TODO
+   return -1;
+}
+
+
+
+
+int Attributes::__find_or_create_attribute_index(std::string key)
+{
+   // TODO
+   return -1;
+}
 
 
 

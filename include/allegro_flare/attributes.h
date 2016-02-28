@@ -135,7 +135,6 @@ private:
    int __find_attribute_index(std::string key);
    int __find_attribute_index(std::string key, std::string value);
    int __find_or_create_attribute_index(std::string key);
-   int __find_or_create_attribute_index(std::string key, std::string value);
 };
 
 
