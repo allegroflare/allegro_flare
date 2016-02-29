@@ -135,7 +135,7 @@ ALLEGRO_TEST_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog 
 examples: $(EXAMPLE_OBJS)
 tests: $(TEST_OBJS)
 
-bin/%$(BINARY_EXTENSION): tests/%.cpp
+bin/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGRO_FLARE_LIB_NAME).a
 	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -l$(ALLEGRO_FLARE_LIB_NAME) -L$(ALLEGRO_DIR)/lib $(ALLEGRO_TEST) -lboost_unit_test_framework
 
 
