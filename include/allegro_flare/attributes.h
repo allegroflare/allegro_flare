@@ -104,6 +104,9 @@ public:
    // Returns true if the attribute is currently bound to a variable
    bool is_bound(std::string key);
 
+   // Returns true if the attribute is currently bound to a variable matching the datatype
+   bool is_bound_as(std::string key, std::string datatype);
+
    // Get the datatype of the variable that the attribute is currently bounded to.
    // Possible return values are "string", "int", "float", "bool", "unbound",
    // or any custom datatype that has been defined with create_datatype_definition()
@@ -111,6 +114,9 @@ public:
 
    // Unbind the attriute from its currently bound variable if one is currently bound
    bool unbind(std::string key);
+
+   // Returns true if the attribute and its bound variable have the same value
+   bool is_synced(std::string key);
 
    // Returns true if the attribute and its bound variable do not have the same value
    bool is_unsynced(std::string key);

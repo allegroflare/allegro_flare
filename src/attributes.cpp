@@ -47,14 +47,12 @@ public:
 
    bool is_bound()
    {
-      // TODO
-      return false;
+      return (strcmp(datatype.c_str(), "unbound") != 0);
    }
 
    bool is_bound_as(std::string datatype)
    {
-      // TODO
-      return false;
+      return (strcmp(this->datatype.c_str(), datatype.c_str()) == 0);
    }
 };
 
@@ -165,6 +163,7 @@ int Attributes::num_attributes()
 std::string Attributes::get(std::string key)
 {
    int index = __find_or_create_attribute_index(key);
+   pull_value(key);
    return attributes[index].value;
 }
 
@@ -219,6 +218,7 @@ void Attributes::set(std::string key, std::string value)
 {
    int index = __find_or_create_attribute_index(key);
    attributes[index].value = value;
+   push_value(key);
 }
 
 
@@ -236,6 +236,7 @@ void Attributes::set(std::string key, bool value)
 {
    int index = __find_or_create_attribute_index(key);
    attributes[index].value = (value ? "true" : "false");
+   push_value(key);
 }
 
 
@@ -245,6 +246,7 @@ void Attributes::set(std::string key, float value)
 {
    int index = __find_or_create_attribute_index(key);
    attributes[index].value = __tostring(value);
+   push_value(key);
 }
 
 
@@ -262,6 +264,7 @@ void Attributes::set(std::string key, int value)
 {
    int index = __find_or_create_attribute_index(key);
    attributes[index].value = __tostring(value);
+   push_value(key);
 }
 
 
@@ -305,43 +308,45 @@ std::map<std::string, std::string> Attributes::get_copy()
 
 
 
-bool bind(std::string key, float *var)
+void Attributes::bind(std::string key, float *var)
 {
    // TODO
-   return false;
+   return;
 }
 
 
 
 
-bool bind(std::string key, int *var)
+void Attributes::bind(std::string key, int *var)
 {
-   // TODO
-   return false;
+   int index = __find_or_create_attribute_index(key);
+   attributes[index].datatype = "int";
+   attributes[index].bound = (void *)var;
+   pull_value(key);
 }
 
 
 
 
-bool bind(std::string key, bool *var)
+void Attributes::bind(std::string key, bool *var)
 {
    // TODO
-   return false;
+   return;
 }
 
 
 
 
-bool bind(std::string key, std::string *var)
+void Attributes::bind(std::string key, std::string *var)
 {
    // TODO
-   return false;
+   return;
 }
 
 
 
 
-bool bind(std::string key, std::string datatype, void *var)
+bool Attributes::bind(std::string key, std::string datatype, void *var)
 {
    // TODO
    return false;
@@ -351,6 +356,16 @@ bool bind(std::string key, std::string datatype, void *var)
 
 
 bool Attributes::is_bound(std::string key)
+{
+   int index = __find_attribute_index(key);
+   if (index == -1) return false; // TODO possibly throw an error
+   return (strcmp(attributes[index].datatype.c_str(), "unbound") != 0);
+}
+
+
+
+
+bool Attributes::is_bound_as(std::string key, std::string datatype)
 {
    // TODO
    return false;
@@ -377,10 +392,29 @@ bool Attributes::unbind(std::string key)
 
 
 
+bool Attributes::is_synced(std::string key)
+{
+   int index = __find_attribute_index(key);
+   if (index == -1 || !attributes[index].is_bound())
+      return true;
+   else if (attributes[index].datatype == "int")
+      return attributes[index].value == __tostring(*static_cast<int *>(attributes[index].bound));
+   else if (attributes[index].datatype == "float")
+      return attributes[index].value == __tostring(*static_cast<float *>(attributes[index].bound));
+   else if (attributes[index].datatype == "bool")
+      return attributes[index].value == (*static_cast<bool *>(attributes[index].bound) ? "true" : "false");
+   else if (attributes[index].datatype == "string")
+      return attributes[index].value == (*static_cast<std::string *>(attributes[index].bound));
+   //TODO custom datatype or unknown datatype
+   return false;
+}
+
+
+
+
 bool Attributes::is_unsynced(std::string key)
 {
-   // TODO
-   return false;
+   return !is_synced(key);
 }
 
 
@@ -388,8 +422,19 @@ bool Attributes::is_unsynced(std::string key)
 
 bool Attributes::push_value(std::string key)
 {
-   // TODO
-   return false;
+   int index = __find_attribute_index(key);
+   if (index == -1 || !attributes[index].is_bound())
+      return false;
+   else if (attributes[index].datatype == "int")
+      *static_cast<int *>(attributes[index].bound) = atoi(attributes[index].value.c_str());
+   else if (attributes[index].datatype == "float")
+      *static_cast<float *>(attributes[index].bound) = atof(attributes[index].value.c_str());
+   else if (attributes[index].datatype == "bool")
+      *static_cast<bool *>(attributes[index].bound) = (attributes[index].value != "false");
+   else if (attributes[index].datatype == "string")
+      *static_cast<std::string *>(attributes[index].bound) = attributes[index].value;
+   //TODO custom datatype or unknown datatype
+   return true;
 }
 
 
@@ -397,8 +442,19 @@ bool Attributes::push_value(std::string key)
 
 bool Attributes::pull_value(std::string key)
 {
-   // TODO
-   return false;
+   int index = __find_attribute_index(key);
+   if (index == -1 || !attributes[index].is_bound())
+      return false;
+   else if (attributes[index].datatype == "int")
+      attributes[index].value = __tostring(*static_cast<int *>(attributes[index].bound));
+   else if (attributes[index].datatype == "float")
+      attributes[index].value = __tostring(*static_cast<float *>(attributes[index].bound));
+   else if (attributes[index].datatype == "bool")
+      attributes[index].value = (*static_cast<bool *>(attributes[index].bound) ? "true" : "false");
+   else if (attributes[index].datatype == "string")
+      attributes[index].value = (*static_cast<std::string *>(attributes[index].bound));
+   //TODO custom datatype or unknown datatype
+   return true;
 }
 
 

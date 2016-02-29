@@ -176,6 +176,72 @@ BOOST_AUTO_TEST_CASE(a_copy_of_the_key_value_pairs_can_be_retrieved)
    }
 }
 
+BOOST_AUTO_TEST_CASE(binding_will_create_an_attribute_if_it_did_not_exist_previously)
+{
+   int temperature = -40;
+   Attributes attributes;
+   attributes.bind("temperature", &temperature);
+   BOOST_CHECK_EQUAL(attributes.exists("temperature"), true);
+}
+
+BOOST_AUTO_TEST_CASE(an_attribute_identifies_as_unbound_when_not_bounded)
+{
+   Attributes attributes;
+   attributes.set("size", "32");
+   BOOST_CHECK_EQUAL(attributes.is_bound("size"), false);
+}
+
+BOOST_AUTO_TEST_CASE(an_attribute_identifies_as_bounded_when_bouneded)
+{
+   int size = 256;
+   Attributes attributes;
+   attributes.bind("size", &size);
+   BOOST_CHECK_EQUAL(attributes.is_bound("size"), true);
+}
+
+BOOST_AUTO_TEST_CASE(an_attribute_is_set_to_the_value_of_the_variable_when_bound)
+{
+   Attributes attributes;
+   attributes.set("temperature", 72);
+   int temperature = -40;
+   attributes.bind("temperature", &temperature);
+   BOOST_CHECK_EQUAL(attributes.is_synced("temperature"), true);
+}
+
+BOOST_AUTO_TEST_CASE(an_attribute_is_not_synced_if_the_variable_is_modified)
+{
+   Attributes attributes;
+   int temperature = -40;
+   attributes.bind("temperature", &temperature);
+   temperature = 72;
+   BOOST_CHECK_EQUAL(attributes.is_unsynced("temperature"), true);
+}
+
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_retrieved)
+{
+   Attributes attributes;
+   int kilometers = 1000;
+   attributes.bind("kilometers", &kilometers);
+   kilometers = 42;
+   BOOST_CHECK_EQUAL(attributes.get("kilometers"), "42");
+}
+
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_to_the_bound_variable_when_set)
+{
+   Attributes attributes;
+   int kilometers = 1000;
+   attributes.bind("kilometers", &kilometers);
+   attributes.set("kilometers", "120");
+   BOOST_CHECK_EQUAL(kilometers, 120);
+}
+
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_set_to_all_datatypes)
+{
+   // TODO
+}
+
+
+
 
 
 
