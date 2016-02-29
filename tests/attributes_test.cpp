@@ -123,6 +123,24 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_standard_datatypes)
    BOOST_CHECK_EQUAL(attributes.get_as_bool("doing_laundry_now"), false);
 }
 
+BOOST_AUTO_TEST_CASE(custom_datatypes_can_be_created)
+{
+   // TODO
+   // test saving/loading of files
+}
+
+BOOST_AUTO_TEST_CASE(attributes_can_be_set_using_custom_datatypes)
+{
+   // TODO
+   // test saving/loading of files
+}
+
+BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)
+{
+   // TODO
+   // test saving/loading of files
+}
+
 BOOST_AUTO_TEST_CASE(attributes_can_be_saved_and_loaded_from_files)
 {
    // TODO
