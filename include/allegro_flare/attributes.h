@@ -95,10 +95,10 @@ public:
 
    // Bind a variable to the attribute.  Binding will cause the variable to be
    // updated anytime the attribute is modified.
-   bool bind(std::string key, float *var);
-   bool bind(std::string key, int *var);
-   bool bind(std::string key, bool *var);
-   bool bind(std::string key, std::string *var);
+   void bind(std::string key, float *var);
+   void bind(std::string key, int *var);
+   void bind(std::string key, bool *var);
+   void bind(std::string key, std::string *var);
    bool bind(std::string key, std::string datatype, void *var);
 
    // Returns true if the attribute is currently bound to a variable

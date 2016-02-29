@@ -310,8 +310,7 @@ std::map<std::string, std::string> Attributes::get_copy()
 
 void Attributes::bind(std::string key, float *var)
 {
-   // TODO
-   return;
+   bind(key, "float", (void *)var);
 }
 
 
@@ -319,10 +318,7 @@ void Attributes::bind(std::string key, float *var)
 
 void Attributes::bind(std::string key, int *var)
 {
-   int index = __find_or_create_attribute_index(key);
-   attributes[index].datatype = "int";
-   attributes[index].bound = (void *)var;
-   pull_value(key);
+   bind(key, "int", (void *)var);
 }
 
 
@@ -330,8 +326,7 @@ void Attributes::bind(std::string key, int *var)
 
 void Attributes::bind(std::string key, bool *var)
 {
-   // TODO
-   return;
+   bind(key, "bool", (void *)var);
 }
 
 
@@ -339,8 +334,7 @@ void Attributes::bind(std::string key, bool *var)
 
 void Attributes::bind(std::string key, std::string *var)
 {
-   // TODO
-   return;
+   bind(key, "string", (void *)var);
 }
 
 
@@ -348,7 +342,18 @@ void Attributes::bind(std::string key, std::string *var)
 
 bool Attributes::bind(std::string key, std::string datatype, void *var)
 {
-   // TODO
+   int index = __find_or_create_attribute_index(key);
+   if (datatype == "int" || datatype == "float" || datatype == "bool" || datatype == "string")
+   {
+      attributes[index].datatype = datatype;
+      attributes[index].bound = var;
+      pull_value(key);
+      return true;
+   }
+   else
+   {
+      // TODO handle created datatypes; throw if type is unrecognized
+   }
    return false;
 }
 

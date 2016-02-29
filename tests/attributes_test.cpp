@@ -235,12 +235,69 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_to_the_bound_variable_when_set)
    BOOST_CHECK_EQUAL(kilometers, 120);
 }
 
-BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_set_to_all_datatypes)
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_all_standard_datatypes)
+{
+   Attributes attributes;
+
+   int int_val = 123;
+   float float_val = 12.34f;
+   std::string string_val = "Hello World!";
+   bool bool_val = true;
+
+   attributes.set("val", "nothing");
+
+   attributes.bind("val", &int_val);
+   BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
+   BOOST_CHECK_EQUAL(attributes.get("val"), "123");
+
+   attributes.bind("val", &float_val);
+   BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
+   BOOST_CHECK_EQUAL(attributes.get("val"), "12.34");
+
+   attributes.bind("val", &string_val);
+   BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
+   BOOST_CHECK_EQUAL(attributes.get("val"), "Hello World!");
+
+   attributes.bind("val", &bool_val);
+   BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
+   BOOST_CHECK_EQUAL(attributes.get("val"), "true");
+}
+
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_all_standard_datatypes)
+{
+   Attributes attributes;
+
+   int int_val = 1984;
+   float float_val = 65.4f;
+   std::string string_val = "Daisy, Daisy, give me your answer, do.";
+   bool bool_val = false;
+
+   attributes.bind("val", &int_val);
+   attributes.set("val", 187);
+   BOOST_CHECK_EQUAL(int_val, 187);
+
+   attributes.bind("val", &float_val);
+   attributes.set("val", 32.1f);
+   BOOST_CHECK_EQUAL(float_val, 32.1f);
+
+   attributes.bind("val", &string_val);
+   attributes.set("val", "Hello, Dave.");
+   BOOST_CHECK_EQUAL(string_val, "Hello, Dave.");
+
+   attributes.bind("val", &bool_val);
+   attributes.set("val", true);
+   BOOST_CHECK_EQUAL(bool_val, true);
+}
+
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_a_custom_datatype)
 {
    // TODO
 }
 
-
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_a_custom_datatype)
+{
+   // TODO
+}
 
 
 
