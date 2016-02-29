@@ -123,6 +123,41 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_standard_datatypes)
    BOOST_CHECK_EQUAL(attributes.get_as_bool("doing_laundry_now"), false);
 }
 
+BOOST_AUTO_TEST_CASE(attributes_can_be_saved_and_loaded_from_files)
+{
+   // TODO
+   // test saving/loading of files
+}
+
+BOOST_AUTO_TEST_CASE(a_copy_of_the_key_value_pairs_can_be_retrieved)
+{
+   Attributes attributes;
+
+   attributes.set("name", "Alex");
+   attributes.set("color", "green");
+   attributes.set("height", 16);
+
+   std::map<std::string, std::string> values = attributes.get_copy();
+
+   std::map<std::string, std::string> expected;
+   expected["name"] = "Alex";
+   expected["color"] = "green";
+   expected["height"] = "16";
+
+   BOOST_REQUIRE_EQUAL(values.size(), expected.size());
+
+   // p.s. I'm not a fan of this technique
+   auto itv=values.begin();
+   auto ite=expected.begin();
+   while (itv != values.end())
+   {
+      BOOST_CHECK_EQUAL(itv->first, ite->first);
+      BOOST_CHECK_EQUAL(itv->second, ite->second);
+      itv++;
+      ite++;
+   }
+}
+
 
 
 

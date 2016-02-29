@@ -296,8 +296,9 @@ bool Attributes::load(std::string filename)
 
 std::map<std::string, std::string> Attributes::get_copy()
 {
-   // TODO
    std::map<std::string, std::string> result;
+   for (unsigned i=0; i<attributes.size(); i++)
+      result[attributes[i].key] = get(attributes[i].key);
    return result;
 }
 
