@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_to_the_bound_variable_when_set)
    BOOST_CHECK_EQUAL(kilometers, 120);
 }
 
-BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_all_standard_datatypes)
+BOOST_AUTO_TEST_CASE(user_can_get_the_bound_datatype_for_standard_datatypes)
 {
    Attributes attributes;
 
@@ -244,7 +244,35 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_all_standard_
    std::string string_val = "Hello World!";
    bool bool_val = true;
 
-   attributes.set("val", "nothing");
+   attributes.bind("val", &int_val);
+   BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "int");
+
+   attributes.bind("val", &float_val);
+   BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "float");
+
+   attributes.bind("val", &string_val);
+   BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "string");
+
+   attributes.bind("val", &bool_val);
+   BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "bool");
+}
+
+BOOST_AUTO_TEST_CASE(an_attribute_will_identify_its_datatype_as_unbound_if_not_binded)
+{
+   Attributes attributes;
+   attributes.set("val", "foobar");
+   BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "unbound");
+   BOOST_CHECK_EQUAL(attributes.is_bound_as("val", "unbound"), true);
+}
+
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_all_standard_datatypes)
+{
+   Attributes attributes;
+
+   int int_val = 123;
+   float float_val = 12.34f;
+   std::string string_val = "Hello World!";
+   bool bool_val = true;
 
    attributes.bind("val", &int_val);
    BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
@@ -289,6 +317,16 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_all_standard_da
    BOOST_CHECK_EQUAL(bool_val, true);
 }
 
+BOOST_AUTO_TEST_CASE(a_bound_attribute_can_be_unbound)
+{
+   Attributes attribute;
+   int value = 1234;
+   attribute.bind("val", &value);
+   BOOST_CHECK_EQUAL(attribute.is_bound("val"), true);
+   attribute.unbind("val");
+   BOOST_CHECK_EQUAL(attribute.is_bound("val"), false);
+}
+
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_a_custom_datatype)
 {
    // TODO
@@ -299,6 +337,10 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_a_custom_dataty
    // TODO
 }
 
+BOOST_AUTO_TEST_CASE(user_can_get_the_bound_datatype_on_custom_datatypes)
+{
+   // TODO
+}
 
 
 

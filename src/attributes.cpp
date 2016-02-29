@@ -372,8 +372,10 @@ bool Attributes::is_bound(std::string key)
 
 bool Attributes::is_bound_as(std::string key, std::string datatype)
 {
-   // TODO
-   return false;
+   int index = __find_attribute_index(key);
+   if (index == -1) return false;
+   if (!attributes[index].is_bound() && (datatype == "unbound")) return true;
+   return strcmp(attributes[index].datatype.c_str(), datatype.c_str()) == 0;
 }
 
 
@@ -381,8 +383,10 @@ bool Attributes::is_bound_as(std::string key, std::string datatype)
 
 std::string Attributes::get_bound_type(std::string key)
 {
-   // TODO
-   return "";
+   int index = __find_attribute_index(key);
+   if (index == -1) return "";
+   if (!attributes[index].is_bound()) return "unbound";
+   return attributes[index].datatype;
 }
 
 
@@ -390,8 +394,11 @@ std::string Attributes::get_bound_type(std::string key)
 
 bool Attributes::unbind(std::string key)
 {
-   // TODO
-   return false;
+   int index = __find_attribute_index(key);
+   if (index == -1 || !attributes[index].is_bound()) return false;
+   attributes[index].datatype = "unbound";
+   attributes[index].bound = NULL;
+   return true;
 }
 
 
