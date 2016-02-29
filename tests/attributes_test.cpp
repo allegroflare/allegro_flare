@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_set_with_standard_datatypes)
    BOOST_CHECK_EQUAL(attributes.get("caffinated"), "false");
 }
 
-BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_to_standard_datatypes)
+BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_standard_datatypes)
 {
    Attributes attributes;
 
