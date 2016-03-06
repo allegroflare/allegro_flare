@@ -173,9 +173,22 @@ BOOST_AUTO_TEST_CASE(an_attribute_can_not_be_set_as_an_unknown_datatype)
    BOOST_CHECK_EQUAL(attributes.set("key", "an_unknown_datatype", (void *)&custom), false);
 }
 
+BOOST_AUTO_TEST_CASE(a_variable_cannot_be_bound_to_a_datatype_that_does_not_exist)
+{
+   Attributes attributes;
+   my_custom_datatype custom;
+   BOOST_CHECK_EQUAL(attributes.bind("key", "an_unknown_datatype", &custom), false);
+}
+
 BOOST_AUTO_TEST_CASE(custom_datatypes_can_be_bound)
 {
-   // TODO
+   Attributes attributes;
+   my_custom_datatype custom;
+
+   attributes.create_datatype_definition("my_custom_datatype",
+      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   BOOST_CHECK_EQUAL(attributes.bind("foo", "my_custom_datatype", &custom), true);
 }
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_set_using_custom_datatypes)
@@ -193,10 +206,24 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_set_using_custom_datatypes)
    BOOST_CHECK_EQUAL(attributes.get("position"), "0.35 0.01");
 }
 
-BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)
+BOOST_AUTO_TEST_CASE(custom_attributes_are_pulled_when_bound)
 {
    // TODO
-   // test saving/loading of files
+}
+
+BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)
+{
+   Attributes attributes;
+   my_custom_datatype my_2d_vector;
+
+   attributes.create_datatype_definition("my_custom_datatype",
+      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   attributes.set("position", "123.4 567.8");
+   attributes.get_as_custom(&my_2d_vector, "my_custom_datatype", "position");
+
+   BOOST_CHECK_CLOSE(my_2d_vector.x, 123.4f, 0.00001);
+   BOOST_CHECK_CLOSE(my_2d_vector.y, 567.8f, 0.00001);
 }
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_saved_and_loaded_from_files)
@@ -347,6 +374,54 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_all_standard_
    attributes.bind("val", &bool_val);
    BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
    BOOST_CHECK_EQUAL(attributes.get("val"), "true");
+}
+
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_all_standard_datatypes)
+{
+   Attributes attributes;
+
+   int int_val = 123;
+   float float_val = 12.34f;
+   std::string string_val = "Hello World!";
+   bool bool_val = true;
+
+   attributes.bind("val", &int_val);
+   int_val = 456;
+   BOOST_CHECK_EQUAL(attributes.get_as_int("val"), 456);
+
+   attributes.bind("val", &float_val);
+   float_val = 56.78f;
+   BOOST_CHECK_CLOSE(attributes.get_as_float("val"), 56.78f, 0.00001);
+
+   attributes.bind("val", &string_val);
+   string_val = "Twas a good day, today.";
+   BOOST_CHECK_EQUAL(attributes.get_as_string("val"), "Twas a good day, today.");
+
+   attributes.bind("val", &bool_val);
+   bool_val = false;
+   BOOST_CHECK_EQUAL(attributes.get_as_bool("val"), false);
+}
+
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_a_custom_datatype)
+{
+   Attributes attributes;
+   my_custom_datatype custom_var, value_to_fill;
+
+   custom_var.x = 0.876f;
+   custom_var.y = 6.543f;
+
+   // create custom datatype
+   attributes.create_datatype_definition("my_custom_datatype",
+      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   // bind it to an existing datatype with values
+   attributes.bind("custom", "my_custom_datatype", &custom_var);
+
+   attributes.get_as_custom(&value_to_fill, "my_custom_datatype", "custom");
+
+   // check the value of the set variable
+   BOOST_CHECK_CLOSE(value_to_fill.x, 0.876f, 0.00001);
+   BOOST_CHECK_CLOSE(value_to_fill.y, 6.543f, 0.00001);
 }
 
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_all_standard_datatypes)

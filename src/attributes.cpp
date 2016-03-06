@@ -175,6 +175,7 @@ std::string Attributes::get(std::string key)
 int Attributes::get_as_int(std::string key)
 {
    int index = __find_or_create_attribute_index(key);
+   pull_value(key);
    return atoi(attributes[index].value.c_str());
 }
 
@@ -184,6 +185,7 @@ int Attributes::get_as_int(std::string key)
 float Attributes::get_as_float(std::string key)
 {
    int index = __find_or_create_attribute_index(key);
+   pull_value(key);
    return atof(attributes[index].value.c_str());
 }
 
@@ -201,6 +203,7 @@ std::string Attributes::get_as_string(std::string key)
 bool Attributes::get_as_bool(std::string key)
 {
    int index = __find_or_create_attribute_index(key);
+   pull_value(key);
    return (strcmp(attributes[index].value.c_str(), "false") != 0);
 }
 
@@ -209,8 +212,11 @@ bool Attributes::get_as_bool(std::string key)
 
 bool Attributes::get_as_custom(void *dest, std::string datatype, std::string key)
 {
-   // TODO
-   return false;
+   int index = __find_or_create_attribute_index(key);
+   DatatypeDefinition *datatype_def = DatatypeDefinition::find_definition(datatype);
+   if (!datatype_def) return false; // perhaps throw an error here
+   pull_value(key);
+   return datatype_def->to_val_func(dest, attributes[index].value);
 }
 
 
@@ -348,16 +354,13 @@ void Attributes::bind(std::string key, std::string *var)
 bool Attributes::bind(std::string key, std::string datatype, void *var)
 {
    int index = __find_or_create_attribute_index(key);
-   if (datatype == "int" || datatype == "float" || datatype == "bool" || datatype == "string")
+   if (datatype == "int" || datatype == "float" || datatype == "bool" || datatype == "string"
+       || DatatypeDefinition::find_definition(datatype))
    {
       attributes[index].datatype = datatype;
       attributes[index].bound = var;
       pull_value(key);
       return true;
-   }
-   else
-   {
-      // TODO handle created datatypes; throw if type is unrecognized
    }
    return false;
 }
@@ -470,7 +473,12 @@ bool Attributes::pull_value(std::string key)
       attributes[index].value = (*static_cast<bool *>(attributes[index].bound) ? "true" : "false");
    else if (attributes[index].datatype == "string")
       attributes[index].value = (*static_cast<std::string *>(attributes[index].bound));
-   //TODO custom datatype or unknown datatype
+   else
+   {
+      DatatypeDefinition *datatype_def = DatatypeDefinition::find_definition(attributes[index].datatype);
+      if (!datatype_def) return false; // possibly throw an error
+      attributes[index].value = datatype_def->to_str_func(attributes[index].bound);
+   }
    return true;
 }
 
