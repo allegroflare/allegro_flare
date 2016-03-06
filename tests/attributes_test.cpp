@@ -475,5 +475,10 @@ BOOST_AUTO_TEST_CASE(user_can_get_the_bound_datatype_on_custom_datatypes)
    // TODO
 }
 
+BOOST_AUTO_TEST_CASE(user_can_get_the_known_datatypes)
+{
+   // TODO
+}
+
 
 
