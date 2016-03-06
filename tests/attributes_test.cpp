@@ -8,6 +8,33 @@
 #include <allegro_flare/attributes.h>
 
 
+#include <sstream>
+struct my_custom_datatype
+{
+public:
+   float x;
+   float y;
+
+   static bool to_val_func(void *val, std::string str)
+   {
+      my_custom_datatype &f = *static_cast<my_custom_datatype *>(val);
+      std::stringstream ss(str);
+      ss >> f.x;
+      ss >> f.y;
+      return true;
+   }
+
+   static std::string to_str_func(void *val)
+   {
+      my_custom_datatype &f = *static_cast<my_custom_datatype *>(val);
+      std::stringstream ss;
+      ss << f.x << " " << f.y;
+      return ss.str();
+   }
+};
+
+
+
 BOOST_AUTO_TEST_CASE(unknown_attributes_do_not_exist)
 {
    Attributes attributes;
@@ -123,16 +150,47 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_standard_datatypes)
    BOOST_CHECK_EQUAL(attributes.get_as_bool("doing_laundry_now"), false);
 }
 
-BOOST_AUTO_TEST_CASE(custom_datatypes_can_be_created)
+BOOST_AUTO_TEST_CASE(a_datatype_that_has_not_been_created_is_inknown)
+{
+   Attributes attributes;
+   BOOST_CHECK_EQUAL(Attributes::datatype_is_known("my_custom_datatype"), false);
+}
+
+BOOST_AUTO_TEST_CASE(custom_datatypes_that_have_been_created_are_known)
+{
+   Attributes attributes;
+
+   attributes.create_datatype_definition("my_custom_datatype",
+      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   BOOST_CHECK_EQUAL(Attributes::datatype_is_known("my_custom_datatype"), true);
+}
+
+BOOST_AUTO_TEST_CASE(an_attribute_can_not_be_set_as_an_unknown_datatype)
+{
+   Attributes attributes;
+   my_custom_datatype custom;
+   BOOST_CHECK_EQUAL(attributes.set("key", "an_unknown_datatype", (void *)&custom), false);
+}
+
+BOOST_AUTO_TEST_CASE(custom_datatypes_can_be_bound)
 {
    // TODO
-   // test saving/loading of files
 }
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_set_using_custom_datatypes)
 {
-   // TODO
-   // test saving/loading of files
+   Attributes attributes;
+   my_custom_datatype my_2d_vector;
+   my_2d_vector.x = 0.35;
+   my_2d_vector.y = 0.01;
+
+   attributes.create_datatype_definition("my_custom_datatype",
+      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   attributes.set("position", "my_custom_datatype", (void *)&my_2d_vector);
+
+   BOOST_CHECK_EQUAL(attributes.get("position"), "0.35 0.01");
 }
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)

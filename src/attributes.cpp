@@ -77,11 +77,13 @@ public:
    static std::vector<DatatypeDefinition> definitions;
    static DatatypeDefinition *find_definition(std::string identifier)
    {
-      // TODO
+      for (auto &definition : definitions)
+         if (strcmp(definition.identifier.c_str(), identifier.c_str()) == 0) return &definition;
       return NULL;
    }
 };
 
+std::vector<DatatypeDefinition> DatatypeDefinition::definitions;
 
 
 
@@ -272,8 +274,11 @@ void Attributes::set(std::string key, int value)
 
 bool Attributes::set(std::string key, std::string datatype, void *value)
 {
-   // TODO
-   return false;
+   int index = __find_or_create_attribute_index(key);
+   DatatypeDefinition *datatype_def = DatatypeDefinition::find_definition(datatype);
+   if (!datatype_def) return false; // perhaps throw an error here
+   attributes[index].value = datatype_def->to_str_func(value);
+   return true;
 }
 
 
@@ -472,13 +477,25 @@ bool Attributes::pull_value(std::string key)
 
 
 
-void Attributes::create_datatype_definition(
+bool Attributes::create_datatype_definition(
    std::string datatype_identifier,
    bool (*to_val_func)(void *val, std::string str),
    std::string (*to_str_func)(void *val))
 {
-   // TODO
-   return;
+   DatatypeDefinition *definition = DatatypeDefinition::find_definition(datatype_identifier);
+   DatatypeDefinition::definitions.push_back(DatatypeDefinition(datatype_identifier, to_val_func, to_str_func));
+
+   if (definition) return false;
+   DatatypeDefinition::definitions.push_back(DatatypeDefinition(datatype_identifier, to_val_func, to_str_func));
+   return true;
+}
+
+
+
+
+bool Attributes::datatype_is_known(std::string datatype)
+{
+   return (DatatypeDefinition::find_definition(datatype) != NULL);
 }
 
 

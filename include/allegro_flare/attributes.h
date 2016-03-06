@@ -133,9 +133,12 @@ public:
    //
 
    // Create a definition for a datatype so it can be bound to an attribute
-   static void create_datatype_definition(std::string datatype_identifier,
+   static bool create_datatype_definition(std::string datatype_identifier,
       bool (*to_val_func)(void *val, std::string str),
       std::string (*to_str_func)(void *val));
+
+   // Returns true if the datatype has a known definition
+   static bool datatype_is_known(std::string datatype);
 
    // Return a vector containing string names for all recognized datatypes
    static std::vector<std::string> get_known_datatypes();
