@@ -484,12 +484,12 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_a_custom_dataty
 
 BOOST_AUTO_TEST_CASE(a_bound_attribute_can_be_unbound)
 {
-   Attributes attribute;
+   Attributes attributes;
    int value = 1234;
-   attribute.bind("val", &value);
-   BOOST_CHECK_EQUAL(attribute.is_bound("val"), true);
-   attribute.unbind("val");
-   BOOST_CHECK_EQUAL(attribute.is_bound("val"), false);
+   attributes.bind("val", &value);
+   BOOST_CHECK_EQUAL(attributes.is_bound("val"), true);
+   attributes.unbind("val");
+   BOOST_CHECK_EQUAL(attributes.is_bound("val"), false);
 }
 
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_a_custom_datatype)
