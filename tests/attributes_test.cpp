@@ -492,19 +492,20 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_can_be_unbound)
    BOOST_CHECK_EQUAL(attributes.is_bound("val"), false);
 }
 
-BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_a_custom_datatype)
+BOOST_AUTO_TEST_CASE(user_can_get_the_known_datatypes_in_alphabetical_order)
 {
-   // TODO
-}
+   Attributes attributes;
+   auto types = attributes.get_known_datatypes();
 
-BOOST_AUTO_TEST_CASE(user_can_get_the_bound_datatype_on_custom_datatypes)
-{
-   // TODO
-}
+   attributes.create_datatype_definition("my_custom_datatype",
+      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-BOOST_AUTO_TEST_CASE(user_can_get_the_known_datatypes)
-{
-   // TODO
+   BOOST_REQUIRE_EQUAL(types.size(), 5);
+   BOOST_CHECK_EQUAL(types[0], "bool");
+   BOOST_CHECK_EQUAL(types[1], "float");
+   BOOST_CHECK_EQUAL(types[2], "int");
+   BOOST_CHECK_EQUAL(types[3], "my_custom_datatype");
+   BOOST_CHECK_EQUAL(types[4], "string");
 }
 
 

@@ -97,6 +97,9 @@ std::vector<DatatypeDefinition> DatatypeDefinition::definitions;
 
 
 
+std::vector<std::string> Attributes::denied_custom_types = {"int", "float", "bool", "string"};
+
+
 
 Attributes::Attributes()
 {
@@ -496,15 +499,17 @@ bool Attributes::pull_value(std::string key)
 
 
 bool Attributes::create_datatype_definition(
-   std::string datatype_identifier,
+   std::string identifier,
    bool (*to_val_func)(void *val, std::string str),
    std::string (*to_str_func)(void *val))
 {
-   DatatypeDefinition *definition = DatatypeDefinition::find_definition(datatype_identifier);
-   DatatypeDefinition::definitions.push_back(DatatypeDefinition(datatype_identifier, to_val_func, to_str_func));
+   std::vector<std::string> &denied_types = Attributes::denied_custom_types;
+   if (std::find(denied_types.begin(), denied_types.end(), identifier) != denied_types.end()) return false;
 
+   DatatypeDefinition *definition = DatatypeDefinition::find_definition(identifier);
    if (definition) return false;
-   DatatypeDefinition::definitions.push_back(DatatypeDefinition(datatype_identifier, to_val_func, to_str_func));
+
+   DatatypeDefinition::definitions.push_back(DatatypeDefinition(identifier, to_val_func, to_str_func));
    return true;
 }
 
@@ -521,8 +526,10 @@ bool Attributes::datatype_is_known(std::string datatype)
 
 std::vector<std::string> Attributes::get_known_datatypes()
 {
-   // TODO
-   std::vector<std::string> result;
+   std::vector<std::string> result = Attributes::denied_custom_types;
+   for (unsigned i=0; i<DatatypeDefinition::definitions.size(); i++)
+      result.push_back(DatatypeDefinition::definitions[i].identifier);
+   std::sort(result.begin(), result.end());
    return result;
 }
 

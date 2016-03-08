@@ -144,6 +144,8 @@ public:
    static std::vector<std::string> get_known_datatypes();
 
 private:
+   static std::vector<std::string> denied_custom_types;
+
    int __find_attribute_index(std::string key);
    int __find_attribute_index(std::string key, std::string value);
    int __find_or_create_attribute_index(std::string key);
