@@ -425,7 +425,12 @@ bool Attributes::is_synced(std::string key)
       return attributes[index].value == (*static_cast<bool *>(attributes[index].bound) ? "true" : "false");
    else if (attributes[index].datatype == "string")
       return attributes[index].value == (*static_cast<std::string *>(attributes[index].bound));
-   //TODO custom datatype or unknown datatype
+   else
+   {
+      DatatypeDefinition *datatype_def = DatatypeDefinition::find_definition(attributes[index].datatype);
+      if (!datatype_def) return false; // possibly throw an error
+      return attributes[index].value == datatype_def->to_str_func(attributes[index].bound);
+   }
    return false;
 }
 
@@ -453,7 +458,12 @@ bool Attributes::push_value(std::string key)
       *static_cast<bool *>(attributes[index].bound) = (attributes[index].value != "false");
    else if (attributes[index].datatype == "string")
       *static_cast<std::string *>(attributes[index].bound) = attributes[index].value;
-   //TODO custom datatype or unknown datatype
+   else
+   {
+      DatatypeDefinition *datatype_def = DatatypeDefinition::find_definition(attributes[index].datatype);
+      if (!datatype_def) return false; // possibly throw an error
+      return datatype_def->to_val_func(attributes[index].bound, attributes[index].value);
+   }
    return true;
 }
 

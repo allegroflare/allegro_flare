@@ -206,9 +206,22 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_set_using_custom_datatypes)
    BOOST_CHECK_EQUAL(attributes.get("position"), "0.35 0.01");
 }
 
-BOOST_AUTO_TEST_CASE(custom_attributes_are_pulled_when_bound)
+BOOST_AUTO_TEST_CASE(a_custom_attribute_is_set_to_the_value_of_the_variable_when_bound)
 {
-   // TODO
+   Attributes attributes;
+   my_custom_datatype custom_var;
+
+   custom_var.x = 0.876f;
+   custom_var.y = 6.543f;
+
+   // create custom datatype
+   attributes.create_datatype_definition("my_custom_datatype",
+      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   // bind it to an existing datatype with values
+   attributes.bind("custom", "my_custom_datatype", &custom_var);
+
+   BOOST_CHECK_EQUAL(attributes.is_synced("custom"), true);
 }
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)
@@ -450,6 +463,25 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_all_standard_da
    BOOST_CHECK_EQUAL(bool_val, true);
 }
 
+BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_a_custom_datatype)
+{
+   Attributes attributes;
+
+   attributes.create_datatype_definition("my_custom_datatype",
+      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   my_custom_datatype custom_var;
+
+   custom_var.x = 0.876f;
+   custom_var.y = 6.543f;
+
+   attributes.bind("custom", "my_custom_datatype", &custom_var);
+   attributes.set("custom", "1.1 0.8");
+
+   BOOST_CHECK_CLOSE(custom_var.x, 1.1, 0.0001);
+   BOOST_CHECK_CLOSE(custom_var.y, 0.8, 0.0001);
+}
+
 BOOST_AUTO_TEST_CASE(a_bound_attribute_can_be_unbound)
 {
    Attributes attribute;
@@ -461,11 +493,6 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_can_be_unbound)
 }
 
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_a_custom_datatype)
-{
-   // TODO
-}
-
-BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_a_custom_datatype)
 {
    // TODO
 }
