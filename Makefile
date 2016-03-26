@@ -41,12 +41,17 @@ BIN_ITEMS=font_bin sample_bin bitmap_bin model_bin
 DI_ITEMS=drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
 FONT_ITEMS=font_bravura font_font_awesome font_segoe_ui_symbol
 SCREEN_ITEMS=simple_notification_screen gamer_input_screen filesys_change_notification_screen
+GUI_WIDGET_ITEMS=style_assets button checkbox console dial draggable_region family float_spinner framed_window image int_spinner labeled_checkbox list_spinner music_notation progress_bar scaled_text scroll_area scrollbar slider spinner surface_area text text_area text_box text_input text_list toggle_button widget gui_screen window xy_controller
+GUI_SURFACE_AREA_ITEMS=bitmap box box_padded circle column row
 
 CORE_OBJ_FILES=$(CORE_ITEMS:%=obj/%.o)
 BIN_OBJ_FILES=$(BIN_ITEMS:%=obj/%.o)
 DI_OBJ_FILES=$(DI_ITEMS:%=obj/%.o)
 FONT_OBJ_FILES=$(FONT_ITEMS:%=obj/%.o)
 SCREEN_OBJ_FILES=$(SCREEN_ITEMS:%=obj/%.o)
+GUI_WIDGET_OBJ_FILES=$(GUI_WIDGET_ITEMS:%=obj/%.o)
+GUI_SURFACE_AREA_OBJ_FILES=$(GUI_SURFACE_AREA_ITEMS:%=obj/%.o)
+
 
 # Append platform-specific components to the items
 # using this technique - http://stackoverflow.com/questions/714100/os-detecting-makefile
@@ -73,7 +78,7 @@ endif
 # ===============================================
 #
 
-core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES)
+core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES) $(GUI_WIDGET_OBJ_FILES) $(GUI_SURFACE_AREA_OBJ_FILES)
 	ar rvs lib/lib$(ALLEGRO_FLARE_LIB_NAME).a $^
 
 $(CORE_OBJ_FILES): obj/%.o : source/%.cpp
@@ -90,6 +95,12 @@ $(FONT_OBJ_FILES): obj/%.o : source/fonts/%.cpp
 
 $(SCREEN_OBJ_FILES): obj/%.o : source/screens/%.cpp
 	g++ -c -Wall -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+
+$(GUI_WIDGET_OBJ_FILES): obj/%.o : source/gui/%.cpp
+	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+
+$(GUI_SURFACE_AREA_OBJ_FILES): obj/%.o : source/gui/surface_areas/%.cpp
+	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 
 
