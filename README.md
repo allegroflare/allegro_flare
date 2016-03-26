@@ -1,7 +1,7 @@
 ![](http://zeoxdesign.com/images/allegro_flare_logo-04.png) AllegroFlare
 =============
 
-Current version - Development on v0.8.6
+Current version - v0.8.7wip
 
 
 AllegroFlare is a C++ application toolkit that extends the functionality of the Allegro 5 game programming library.  Every part of the existing Allegro 5 library remains intact when using AllegroFlare.  AllegroFlare also includes an optional Framework class that makes for fast and fun development, or, you can cherry-pick any of the fantastic classes and functions provided by AllegroFlare without using the framework at all.
