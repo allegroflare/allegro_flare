@@ -21,7 +21,8 @@ COMPILER_VERSION=7.0.2
 ALLEGRO_FLARE_VERSION_STR=0.8.7wip
 
 LIBS_ROOT=/Users/markoates/Repos
-ALLEGRO_DIR=$(LIBS_ROOT)/allegro-5.1.13
+ALLEGRO_DIR=$(LIBS_ROOT)/allegro5
+ALLEGRO_LIB_DIR=$(ALLEGRO_DIR)/build/lib
 ALLEGRO_FLARE_DIR=$(LIBS_ROOT)/allegro_flare
 
 ALLEGRO_FLARE_LIB_NAME=allegro_flare-$(ALLEGRO_FLARE_VERSION_STR)-$(COMPILER_NAME)-$(COMPILER_VERSION)
@@ -106,7 +107,7 @@ ALLEGRO_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lall
 examples: $(EXAMPLE_OBJS)
 
 bin/%$(BINARY_EXTENSION): examples/%.cpp
-	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -l$(ALLEGRO_FLARE_LIB_NAME) -L$(ALLEGRO_DIR)/lib $(ALLEGRO_LIBS)
+	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -l$(ALLEGRO_FLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
 
 
 
@@ -136,7 +137,7 @@ examples: $(EXAMPLE_OBJS)
 tests: $(TEST_OBJS)
 
 bin/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGRO_FLARE_LIB_NAME).a
-	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -l$(ALLEGRO_FLARE_LIB_NAME) -L$(ALLEGRO_DIR)/lib $(ALLEGRO_TEST) -lboost_unit_test_framework
+	g++ -std=gnu++11 $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGRO_FLARE_DIR)/lib -l$(ALLEGRO_FLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_TEST) -lboost_unit_test_framework
 
 
 
