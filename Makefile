@@ -76,19 +76,19 @@ endif
 core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES)
 	ar rvs lib/lib$(ALLEGRO_FLARE_LIB_NAME).a $^
 
-$(CORE_OBJ_FILES): obj/%.o : src/%.cpp
+$(CORE_OBJ_FILES): obj/%.o : source/%.cpp
 	g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
-$(BIN_OBJ_FILES): obj/%.o : src/bins/%.cpp
+$(BIN_OBJ_FILES): obj/%.o : source/bins/%.cpp
 	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
-$(DI_OBJ_FILES): obj/%.o : src/drawing_interfaces/%.cpp
+$(DI_OBJ_FILES): obj/%.o : source/drawing_interfaces/%.cpp
 	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
-$(FONT_OBJ_FILES): obj/%.o : src/fonts/%.cpp
+$(FONT_OBJ_FILES): obj/%.o : source/fonts/%.cpp
 	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
-$(SCREEN_OBJ_FILES): obj/%.o : src/screens/%.cpp
+$(SCREEN_OBJ_FILES): obj/%.o : source/screens/%.cpp
 	g++ -c -Wall -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 
