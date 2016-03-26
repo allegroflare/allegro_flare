@@ -4,7 +4,7 @@
 
 
 
-#include <allegro_flare/music_notation.h>
+#include <allegro_flare/render_music_notation.h>
 
 #include <allegro_flare/gui/widget.h>
 

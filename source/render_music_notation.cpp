@@ -4,7 +4,7 @@
 
 #include <allegro5/allegro_primitives.h>
 
-#include <allegro_flare/music_notation.h>
+#include <allegro_flare/render_music_notation.h>
 #include <allegro_flare/fonts/font_bravura.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>
