@@ -6,6 +6,8 @@ Current version - v0.8.7wip
 
 AllegroFlare is a C++ application toolkit that extends the functionality of the Allegro 5 game programming library.  Every part of the existing Allegro 5 library remains intact when using AllegroFlare.  AllegroFlare also includes an optional Framework class that makes for fast and fun development, or, you can cherry-pick any of the fantastic classes and functions provided by AllegroFlare without using the framework at all.
 
+
+
 Simple Example
 ============
 
@@ -32,6 +34,14 @@ int main(int argc, char **argv)
 ```
 
 
+
+Dependencies
+============
+
+AllegroFlare requires Allegro 5.1.13 or greater.  You can also include other features with CURL, OpenCV, and Boost.
+
+
+
 Some Examples of Features and Tools
 ============
 
@@ -54,6 +64,9 @@ Some Examples of Features and Tools
 - Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc)
 - Create music notation (`MusicNotation`)
 
+### GUI
+- see the section further down.
+
 ### Motion
 - timing and movement control (`Motion`)
 - easing functions (`interpolator::fastIn`, `interpolator::trippleSlowInOut`, `interpolator::bounceIn`, etc)
@@ -62,9 +75,6 @@ Some Examples of Features and Tools
 - Use useful clases to automate playback of your objects (`Motion`, `Timeline`, `Stage`, `Actor`, `Script`)
 - Use any member function from your classes in a script (`Scriptable`)
 - Add attributes to your classes for scripting, saving, and loading (`Attr`, `ElementID`, `AttrLoader`)
-
-### GUI
-- (see the [FlareGUI project](https://github.com/MarkOates/flare_gui))
 
 ### Color
 - Color creation and manipulation (`mix()`, `change_hue()`, `change_lightness()`, etc.)
@@ -85,7 +95,72 @@ Some Examples of Features and Tools
 ### And More
 - Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc..
 
-Dependencies
-============
 
-AllegroFlare requires Allegro 5.1.13 or greater.  You can also include other features with CURL, OpenCV, and Boost.
+
+GUI
+========
+
+A new GUI extension has recently been merged into AllegroFlare that used to exist as an separate extension called [FlareGUI](https://github.com/MarkOates/flare_gui).  The GUI, like AllegroFlare itself, is still in beta.  To use it, you would create a new screen that derives from `FGUIScreen` and any of the standard set of widgets (buttons, checkboxes, text, etc.).
+
+
+```cpp
+#include <flare_gui/flare_gui.h>
+
+
+class Project : public FGUIScreen
+{
+public:
+	Project(Display *display) : FGUIScreen(display)
+	{
+		new FGUIText(this, 100, 100, "This is a normal text box.");
+		new FGUIScaledText(this, 100, 150, "This is a scaled text box.  It renders smoothly when in motion.");
+		new FGUICheckbox(this, 100, 200, 20);
+		new FGUIButton(this, 150, 250, 100, 40, "Click Me!");
+		new FGUIVerticalSlider(this, 110, 340, 20, 80);
+		new FGUIVerticalSlider(this, 140, 340, 20, 80);
+		new FGUIVerticalSlider(this, 170, 340, 20, 80);
+		new FGUITextInput(this, 250, 450, 360, 40, "Input some text here");
+	}
+};
+
+
+void main()
+{
+	af::initialize();
+	Display *display = af::create_display(800, 600, NULL);
+	Project *project = new Project(display);
+	af::run_loop();
+}
+```
+
+### Standard GUI Widgets
+
+* FGUIButton
+* FGUICheckbox
+* FGUIDial
+* FGUIFramedWindow
+* FGUIImage
+* FGUIIntSpinner
+* FGUILabeledCheckbox
+* FGUIListSpinner
+* FGUIMusicNotation
+* FGUIProgressBar
+* FGUIScaledText
+* FGUIScreen
+* FGUIScrollArea
+* FGUIScrollBar
+* FGUISpinner
+* FGUIVerticalSlider
+* FGUIText
+* FGUITextArea
+* FGUITextBox
+* FGUITextInput
+* FGUITextList
+* FGUIToggleButton
+* FGUIXYController
+* FGUIWidget
+* FGUIWindowGUI
+
+
+
+
