@@ -65,6 +65,8 @@
 #include <zlib.h>
 
 #include <allegro_flare/framework.h>
+#include <allegro_flare/gui.h>
+
 
 
 #endif
