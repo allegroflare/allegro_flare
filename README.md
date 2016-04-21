@@ -9,7 +9,7 @@ AllegroFlare is a C++ application toolkit that extends the functionality of the 
 
 
 Simple Example
-============
+--------------
 
 ```cpp
 #include <allegro_flare/allegro_flare.h>
@@ -36,14 +36,14 @@ int main(int argc, char **argv)
 
 
 Dependencies
-============
+------------
 
 AllegroFlare requires Allegro 5.1.13 or greater.  You can also include other features with CURL, OpenCV, and Boost.
 
 
 
 Some Examples of Features and Tools
-============
+-----------------------------------
 
 ### Framework
 - Initialize (basically) everything with one function (`af::initialize()`)
@@ -98,7 +98,7 @@ Some Examples of Features and Tools
 
 
 GUI
-========
+---
 
 A new GUI extension has recently been merged into AllegroFlare that used to exist as an separate extension called [FlareGUI](https://github.com/MarkOates/flare_gui).  The GUI, like AllegroFlare itself, is still in beta.  To use it, you would create a new screen that derives from `FGUIScreen` and any of the standard set of widgets (buttons, checkboxes, text, etc.).
 
