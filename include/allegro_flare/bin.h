@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include <allegro_flare/console_color.h>
+
 
 
 template <class T>
@@ -195,7 +197,7 @@ T Bin<T>::get(std::string identifier)
 {
 	Bin<T>::Record *r = get_record(identifier);
 	if (r) return r->data;
-	std::cout << "[" << __FUNCTION__ << "] could not load \"" << identifier << "\"" << std::endl;
+	std::cout << CONSOLE_COLOR_RED << "[" << __FUNCTION__ << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
 	return NULL;
 }
 
@@ -209,11 +211,11 @@ T Bin<T>::auto_get(std::string identifier)
 
 	if (load(identifier, identifier))
 	{
-		std::cout << "["  << __FUNCTION__  << "] Record \"" << identifier << "\" auto-created" << std::endl;
+		std::cout << CONSOLE_COLOR_YELLOW << "["  << __FUNCTION__  << "] Record \"" << identifier << "\" auto-created" << CONSOLE_COLOR_DEFAULT << std::endl;
 		return get(identifier);
 	}
 
-	std::cout << "["  << __FUNCTION__  << "] could not load \"" << identifier << "\"" << std::endl;
+	std::cout << CONSOLE_COLOR_RED << "["  << __FUNCTION__  << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
 	return NULL;
 }
 

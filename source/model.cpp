@@ -10,6 +10,7 @@
 #include <allegro5/allegro_color.h>
 
 #include <allegro_flare/vec3d.h>
+#include <allegro_flare/console_color.h>
 
 
 
@@ -48,7 +49,8 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 	bool vertex_normals_found = false;
 	ModelNew::named_object *current_named_object = NULL;
 
-	if (!al_filename_exists(filename)) std::cout << "cannot load file " << filename << std::endl;
+	if (!al_filename_exists(filename))
+      std::cout << CONSOLE_COLOR_RED << "Could not load \"" << filename << "\" when creating Model3D" << CONSOLE_COLOR_DEFAULT << std::endl;
 
 	while (al_fgets(file, buff, 256))
 	{
