@@ -100,11 +100,11 @@ Some Examples of Features and Tools
 GUI
 ---
 
-A new GUI extension has recently been merged into AllegroFlare that used to exist as an separate extension called [FlareGUI](https://github.com/MarkOates/flare_gui).  The GUI, like AllegroFlare itself, is still in beta.  To use it, you would create a new screen that derives from `FGUIScreen` and any of the standard set of widgets (buttons, checkboxes, text, etc.).
+A new GUI that used to exist as a separate extension called [FlareGUI](https://github.com/MarkOates/flare_gui) has recently been merged into AllegroFlare.  Like AllegroFlare, the GUI is still in beta.  To use it, first create a new screen that derives from `FGUIScreen` (using the GUI requires using the `Framework`).  The easiest way to add widgets (buttons, checkboxes, text, etc.) is to declare them inside the constructor.
 
 
 ```cpp
-#include <flare_gui/flare_gui.h>
+#include <allegro_flare/allegro_flare.h>
 
 
 class Project : public FGUIScreen
