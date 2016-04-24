@@ -25,8 +25,10 @@ public:
 	void restore_transform();
 	void build_transform(ALLEGRO_TRANSFORM *transform);
 
-	bool collide(float x, float y, float z); // untested
-	bool fcollide(float x, float y, float z, float d);
+   placement3d& operator+=(const placement3d& other);
+
+	bool collide(float x, float y, float z); // not implemented
+	bool fcollide(float x, float y, float z, float d); // not implemented
 };
 
 

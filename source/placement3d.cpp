@@ -81,3 +81,17 @@ void placement3d::build_transform(ALLEGRO_TRANSFORM *transform)
 }
 
 
+
+placement3d& placement3d::operator+=(const placement3d& other)
+{
+   position += other.position;
+   size += other.size;
+   align += other.align;
+   scale += other.scale;
+   anchor += other.anchor;
+   rotation += other.rotation;
+   return *this;
+}
+
+
+
