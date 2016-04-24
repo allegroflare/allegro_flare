@@ -16,6 +16,7 @@
 class FontBin;
 class SampleBin;
 class BitmapBin;
+class ModelBin;
 class Motion;
 
 
@@ -42,6 +43,7 @@ public:
 	static FontBin fonts;
 	static SampleBin samples;
 	static BitmapBin bitmaps;
+	static ModelBin models;
 	static Motion motion;
 
 	static bool initialize(std::string config_filename="");

@@ -9,6 +9,7 @@
 #include <allegro_flare/bins/sample_bin.h>
 #include <allegro_flare/bins/bitmap_bin.h>
 #include <allegro_flare/bins/font_bin.h>
+#include <allegro_flare/bins/model_bin.h>
 #include <allegro_flare/motion.h>
 
 
@@ -327,5 +328,6 @@ bool af::drawing_profiler_graph = false;
 BitmapBin af::bitmaps("data/bitmaps");
 FontBin af::fonts("data/fonts");
 SampleBin af::samples("data/samples");
+ModelBin af::models("data/models");
 Motion af::motion(200);
 
