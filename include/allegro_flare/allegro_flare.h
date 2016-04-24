@@ -27,6 +27,7 @@
 #include <allegro_flare/bins/bitmap_bin.h>
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/bins/model_bin.h>
 
 #include <allegro_flare/useful.h>
 #include <allegro_flare/bit_flags.h>
