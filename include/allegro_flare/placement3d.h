@@ -28,6 +28,8 @@ public:
 
    placement3d& operator+=(const placement3d& other);
 
+   vec3d get_real_position();
+
 	bool collide(float x, float y, float z); // not implemented
 	bool fcollide(float x, float y, float z, float d); // not implemented
 };

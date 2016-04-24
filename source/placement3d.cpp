@@ -102,6 +102,19 @@ void placement3d::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
 
 
 
+vec3d placement3d::get_real_position()
+{
+   vec3d real_position(0, 0, 0);
+   ALLEGRO_TRANSFORM t;
+   build_transform(&t);
+
+   al_transform_coordinates_3d(&t, &real_position.x, &real_position.y, &real_position.z);
+
+   return real_position;
+}
+
+
+
 placement3d& placement3d::operator+=(const placement3d& other)
 {
    position += other.position;
