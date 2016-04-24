@@ -24,6 +24,7 @@ public:
 	void start_transform();
 	void restore_transform();
 	void build_transform(ALLEGRO_TRANSFORM *transform);
+   void build_reverse_transform(ALLEGRO_TRANSFORM *transform);
 
    placement3d& operator+=(const placement3d& other);
 

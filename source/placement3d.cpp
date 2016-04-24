@@ -82,6 +82,26 @@ void placement3d::build_transform(ALLEGRO_TRANSFORM *transform)
 
 
 
+void placement3d::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
+{
+   al_identity_transform(transform);
+
+   // translate
+   al_translate_transform_3d(transform, -position.x, -position.y, -position.z);
+
+   // rotate
+   al_rotate_transform_3d(transform, 0, 0, -1, rotation.z * TAU);
+   al_rotate_transform_3d(transform, 0, -1, 0, rotation.y * TAU);
+   al_rotate_transform_3d(transform, -1, 0, 0, rotation.x * TAU);
+
+   // offset for alignment and anchors
+   al_translate_transform_3d(transform, -anchor.x, -anchor.y, -anchor.z);
+   al_scale_transform_3d(transform, 1.0/scale.x, 1.0/scale.y, 1.0/scale.z);
+   al_translate_transform_3d(transform, align.x*size.x, align.y*size.y, align.z*size.z);
+}
+
+
+
 placement3d& placement3d::operator+=(const placement3d& other)
 {
    position += other.position;
