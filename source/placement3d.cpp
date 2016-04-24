@@ -72,8 +72,8 @@ void placement3d::build_transform(ALLEGRO_TRANSFORM *transform)
 	al_translate_transform_3d(transform, anchor.x, anchor.y, anchor.z);
 
 	// rotate
-	al_rotate_transform_3d(transform, 1, 0, 0, rotation.x * TAU); // <-- uuhh... not sure how this should work
 	al_rotate_transform_3d(transform, 0, 1, 0, rotation.y * TAU); // <-- uuhh... not sure how this should work
+	al_rotate_transform_3d(transform, 1, 0, 0, rotation.x * TAU); // <-- uuhh... not sure how this should work
 	al_rotate_transform_3d(transform, 0, 0, 1, rotation.z * TAU); // <-- uuhh... not sure how this should work
 
 	// translate
@@ -91,8 +91,8 @@ void placement3d::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
 
    // rotate
    al_rotate_transform_3d(transform, 0, 0, -1, rotation.z * TAU);
-   al_rotate_transform_3d(transform, 0, -1, 0, rotation.y * TAU);
    al_rotate_transform_3d(transform, -1, 0, 0, rotation.x * TAU);
+   al_rotate_transform_3d(transform, 0, -1, 0, rotation.y * TAU);
 
    // offset for alignment and anchors
    al_translate_transform_3d(transform, -anchor.x, -anchor.y, -anchor.z);
