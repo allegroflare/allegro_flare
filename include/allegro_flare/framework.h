@@ -13,6 +13,8 @@
 #include <allegro_flare/display.h>
 #include <allegro_flare/screen.h>
 
+#include <allegro_flare/decorated_cout.h>
+
 class FontBin;
 class SampleBin;
 class BitmapBin;
@@ -57,9 +59,18 @@ public:
 	static void use_screen(Screen *screen);
 	static void run_loop();
 
+   /*
 	static void open_log_window();
 	static void close_log_window();
 	static void log(std::string message);
+   */
+
+   static DecoratedCout error;
+   static DecoratedCout warning;
+   static DecoratedCout success;
+   static DecoratedCout message;
+   static DecoratedCout notice;
+   static DecoratedCout log;
 };
 
 
