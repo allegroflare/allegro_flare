@@ -12,6 +12,12 @@
 
 
 
+ElementIDManager::ElementIDManager()
+   : elements()
+{}
+
+
+
 void ElementIDManager::add(ElementID *obj) { elements.push_back(obj); }
 
 
