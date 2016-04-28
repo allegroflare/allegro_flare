@@ -43,6 +43,17 @@ ElementID *ElementIDManager::get_element_by_id(std::string id)
 
 
 
+std::vector<ElementID *> ElementIDManager::get_elements_by_class(std::string class_name)
+{
+   std::vector<ElementID *> result;
+   for (auto &e : object)
+      if (e->has_class(class_name)) result.push_back(e);
+   return result;
+}
+
+
+
+
 //
 // ElementID
 //
