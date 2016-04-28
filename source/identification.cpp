@@ -12,18 +12,18 @@
 
 
 
-void ElementIDManager::add(ElementID *obj) { object.push_back(obj); }
+void ElementIDManager::add(ElementID *obj) { elements.push_back(obj); }
 
 
 
 void ElementIDManager::remove(ElementID *obj)
 {
    // (fix this, it's linear)
-   for (unsigned i=0; i<object.size(); i++)
+   for (unsigned i=0; i<elements.size(); i++)
    {
-      if (object[i] == obj)
+      if (elements[i] == obj)
       {
-         object.erase(object.begin()+i);
+         elements.erase(elements.begin()+i);
          return;
       }
    }
@@ -34,9 +34,9 @@ void ElementIDManager::remove(ElementID *obj)
 ElementID *ElementIDManager::get_element_by_id(std::string id)
 {
    // (fix this, it's linear)
-   for (unsigned i=0; i<object.size(); i++)
+   for (unsigned i=0; i<elements.size(); i++)
    {
-      if (object[i]->id == id) return object[i];
+      if (elements[i]->id == id) return elements[i];
    }
    return NULL;
 }
@@ -46,7 +46,7 @@ ElementID *ElementIDManager::get_element_by_id(std::string id)
 std::vector<ElementID *> ElementIDManager::get_elements_by_class(std::string class_name)
 {
    std::vector<ElementID *> result;
-   for (auto &e : object)
+   for (auto &e : elements)
       if (e->has_class(class_name)) result.push_back(e);
    return result;
 }
