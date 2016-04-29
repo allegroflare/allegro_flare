@@ -54,7 +54,7 @@ public:
 
    void set_id(std::string id);
    std::string get_id() { return id; }
-   std::string get_id_info_str();
+   std::string to_string();
 };
 
 

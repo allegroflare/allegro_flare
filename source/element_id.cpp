@@ -113,7 +113,7 @@ bool ElementID::has_class(std::string _class)
 
 
 
-std::string ElementID::get_id_info_str()
+std::string ElementID::to_string()
 {
    std::ostringstream ss;
    ss << "ID: \"" << id << "\"\n";
