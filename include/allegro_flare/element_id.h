@@ -50,10 +50,10 @@ public:
    void add_class(std::string _class);
    void remove_class(std::string _class);
    bool has_class(std::string _class);
-   std::vector<std::string> get_classes() { return classes; }
+   std::vector<std::string> get_classes();
 
    void set_id(std::string id);
-   std::string get_id() { return id; }
+   std::string get_id();
    std::string to_string();
 };
 

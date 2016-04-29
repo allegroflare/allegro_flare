@@ -113,6 +113,20 @@ bool ElementID::has_class(std::string _class)
 
 
 
+std::vector<std::string> ElementID::get_classes()
+{
+   return classes;
+}
+
+
+
+std::string ElementID::get_id()
+{
+   return id;
+}
+
+
+
 std::string ElementID::to_string()
 {
    std::ostringstream ss;
