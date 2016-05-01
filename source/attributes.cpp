@@ -316,8 +316,22 @@ bool Attributes::save(std::string filename)
 
 bool Attributes::load(std::string filename)
 {
-   // TODO
+#define DELIMITER ": "
+
+   std::ifstream file(filename);
+   std::string delimiter = DELIMITER;
+
+   for (std::string line; std::getline(file, line); )
+   {
+      int pos = line.find(delimiter);
+      std::string key = line.substr(0, pos);
+      std::string value = line.erase(0, pos + delimiter.length());
+      set(key, value);
+   }
+
    return false;
+
+#undef DELIMITER
 }
 
 

@@ -286,9 +286,37 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_saved_to_a_file)
    BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
 }
 
+BOOST_AUTO_TEST_CASE(attributes_can_be_loaded_from_a_file)
 {
-   // TODO
-   // test saving/loading of files
+   std::string test_filename = "TEST_alex_attributes_2.txt";
+
+   // remove the test file if it already exists
+
+   if (access(test_filename.c_str(), F_OK) != -1)
+      BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
+
+   // create a faux file
+
+   std::ofstream outfile(test_filename);
+   outfile << "name: Alex\n";
+   outfile << "color: green\n";
+   outfile << "height: 16\n";
+   outfile.close();
+
+   BOOST_REQUIRE(-1 != access(test_filename.c_str(), F_OK));
+
+   // load the file
+
+   Attributes attributes;
+   attributes.load(test_filename);
+
+   BOOST_CHECK_EQUAL("Alex", attributes.get("name"));
+   BOOST_CHECK_EQUAL("green", attributes.get("color"));
+   BOOST_CHECK_EQUAL("16", attributes.get("height"));
+
+   // cleanup our file
+
+   BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
 }
 
 BOOST_AUTO_TEST_CASE(a_copy_of_the_key_value_pairs_can_be_retrieved)
