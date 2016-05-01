@@ -248,7 +248,7 @@ void af::run_loop()
 			break;
 		case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
 			//Screen::display_switch_in_funcs();
-			//if (textlog) close_log_window();
+			if (textlog) close_log_window();
 			break;
 		case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
 			std::cout << "a joystick was added/removed" << std::endl;
@@ -278,7 +278,7 @@ void af::run_loop()
 }
 
 
-/*
+
 void af::open_log_window()
 {
 	if (textlog) return;
@@ -304,7 +304,7 @@ void af::log(std::string message)
 	if (!textlog) return;
 	al_append_native_text_log(textlog, message.c_str());
 }
-*/
+
 
 
 ALLEGRO_TEXTLOG *af::textlog = NULL;
@@ -330,11 +330,4 @@ FontBin af::fonts("data/fonts");
 SampleBin af::samples("data/samples");
 ModelBin af::models("data/models");
 Motion af::motion(200);
-
-DecoratedCout af::error  ("!ERROR! : ",  DecoratedCout::CONSOLE_RED,      true);
-DecoratedCout af::warning("WARNING : ",  DecoratedCout::CONSOLE_YELLOW,   true);
-DecoratedCout af::success("SUCCESS : ",  DecoratedCout::CONSOLE_GREEN,    true);
-DecoratedCout af::message("MESSAGE : ",  DecoratedCout::CONSOLE_DEFAULT,  true);
-DecoratedCout af::notice ("NOTICE  : ",  DecoratedCout::CONSOLE_BLUE,     true);
-DecoratedCout af::log    ("LOG     : ",  DecoratedCout::CONSOLE_DEFAULT,  false);
 
