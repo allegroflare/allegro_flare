@@ -239,7 +239,53 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)
    BOOST_CHECK_CLOSE(my_2d_vector.y, 567.8f, 0.00001);
 }
 
-BOOST_AUTO_TEST_CASE(attributes_can_be_saved_and_loaded_from_files)
+#include <fstream>
+#include <unistd.h>
+
+BOOST_AUTO_TEST_CASE(attributes_can_be_saved_to_a_file)
+{
+   std::string test_filename = "TEST_alex_attributes_1.txt";
+
+   // remove the test file if it already exists
+
+   if (access(test_filename.c_str(), F_OK) != -1)
+      BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
+
+   // create and save our attributes
+
+   Attributes attributes;
+
+   attributes.set("name", "Alex");
+   attributes.set("color", "green");
+   attributes.set("height", "16");
+
+   attributes.save(test_filename);
+
+   // validate the file was created
+
+   std::ifstream file(test_filename);
+   BOOST_REQUIRE_EQUAL(file.fail(), false);
+
+   // validate the contents of the file
+
+   std::string expected_file_contents = "";
+   expected_file_contents += "name: Alex\n";
+   expected_file_contents += "color: green\n";
+   expected_file_contents += "height: 16\n";
+
+   file.open(test_filename);
+   std::stringstream contents;
+   contents << file.rdbuf();
+
+   BOOST_CHECK_EQUAL(expected_file_contents, contents.str());
+
+   file.close();
+
+   // remove the test file if it already exists
+
+   BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
+}
+
 {
    // TODO
    // test saving/loading of files

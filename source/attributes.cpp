@@ -292,11 +292,23 @@ bool Attributes::set(std::string key, std::string datatype, void *value)
 
 
 
+#include <fstream>
 
 bool Attributes::save(std::string filename)
 {
-   // TODO
+#define DELIMITER ": "
+
+   std::ofstream file;
+   file.open(filename);
+
+   for(auto &a : attributes)
+      file << a.key << DELIMITER << a.value << std::endl;
+
+   file.close();
+
    return false;
+
+#undef DELIMITER
 }
 
 
