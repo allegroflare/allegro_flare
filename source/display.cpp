@@ -31,24 +31,6 @@ Display::Display(int width, int height, int display_flags)
 
 	// add the display to AllegroFlare's list of displays
 	displays.push_back(this);
-
-	// HACK: This is a sanity check.  When using an AMD Radeon HD 7670M on my system,
-	// newly created displays are positioned offscren, at (32767, 32767).
-	// In the event that this occurs, then a display will be repositioned
-	// back to a sane coordinate on the desktop.
-	int dx, dy;
-	al_get_window_position(al_display, &dx, &dy);
-	if (dx >= 1920 || dy >= 1080)
-	{
-		std::cout << "Display positioned at (" << dx << ", " << dy << ")." << std::endl;
-
-		int new_pos_x = 1920/2 - width/2;
-		int new_pos_y = 1080/2 - height/2;
-
-		std::cout << "Repositioning display to (" << new_pos_x << ", " << new_pos_y << ")" << std::endl;
-		al_set_window_position(al_display, new_pos_x, new_pos_y);
-	}
-
 }
 
 
