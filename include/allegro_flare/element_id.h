@@ -55,6 +55,7 @@ public:
    void set_id(std::string id);
    std::string get_id();
    std::string to_string();
+   int get_unique_id_num();
 };
 
 

@@ -142,4 +142,8 @@ std::string ElementID::to_string()
 
 
 
+int ElementID::get_unique_id_num()
+{
+  return unique_id_num;
+}
 
