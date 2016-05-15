@@ -43,6 +43,7 @@ public:
 	static bool set_bool(const char *name, bool b);
 	static bool set_vec3(const char *name, float x, float y, float z);
 	static bool set_vec3(const char *name, const vec3d vec);
+	static bool set_vec4(const char *name, float x, float y, float z, float a);
 };
 
 

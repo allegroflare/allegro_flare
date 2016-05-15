@@ -193,4 +193,11 @@ bool Shader::set_vec3(const char *name, const vec3d vec)
 
 
 
+bool Shader::set_vec4(const char *name, float x, float y, float z, float a)
+{
+	float vec4[4] = {x, y, z, a};
+	return al_set_shader_float_vector(name, 4, &vec4[0], 1);
+}
+
+
 
