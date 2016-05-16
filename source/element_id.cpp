@@ -44,6 +44,17 @@ ElementID *ElementIDManager::get_element_by_id(std::string id)
    {
       if (elements[i]->id == id) return elements[i];
    }
+   al_set_new_bitmap_depth(32);
+   return NULL;
+}
+
+
+
+ElementID *ElementIDManager::get_element_by_unique_id(int unique_id)
+{
+   // (fix this, it's linear)
+   for (unsigned i=0; i<elements.size(); i++)
+      if (elements[i]->unique_id_num == unique_id) return elements[i];
    return NULL;
 }
 

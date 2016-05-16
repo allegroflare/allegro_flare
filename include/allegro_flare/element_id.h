@@ -25,6 +25,7 @@ public:
    std::vector<ElementID *> elements;
 
    ElementID *get_element_by_id(std::string id);
+   ElementID *get_element_by_unique_id(int unique_id);
    std::vector<ElementID *> get_elements_by_class(std::string class_name);
 };
 
