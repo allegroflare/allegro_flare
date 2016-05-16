@@ -4,6 +4,8 @@
 
 #include <allegro_flare/attributes.h>
 
+#include <cstdio>
+#include <cstring>
 
 
 
