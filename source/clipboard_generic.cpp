@@ -1,7 +1,7 @@
 
 
 #include <allegro_flare/clipboard.h>
-
+#include <iostream>
 
 
 
