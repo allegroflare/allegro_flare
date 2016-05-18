@@ -2,10 +2,15 @@
 
 
 
+#include <allegro_flare/gui/gui_screen.h>
+#include <allegro_flare/gui/widgets/text_input.h>
+#include <allegro_flare/framework.h>
+
+
 // come back to this, Mark, this is a cool idea.
 
 
-class FGUIConsole : public UIScreen
+class FGUIConsole : public FGUIScreen
 {
 public:
 
@@ -19,7 +24,7 @@ public:
       };
       int type;
       std::string message;
-      ConsoleMessage(std::string message, int type)
+      Message(std::string message, int type)
          : message(message)
          , type(type)
       {}
@@ -46,7 +51,7 @@ public:
    float visibility_counter;
    ALLEGRO_FONT *font;
    int toggle_key;
-   std::vector<ConsoleMessage> message;
+   std::vector<Message> message;
    float console_padding;
    float console_height;
    float text_input_height;
@@ -55,7 +60,7 @@ public:
 
    FGUIConsole(Display *display)
       : FGUIScreen(display)
-      , font(af::fonts["DroidSerif.ttf 19"])
+      , font(af::fonts["DroidSans.ttf 19"])
       , active(false)
       , visibility_counter(0)
       , toggle_key(ALLEGRO_KEY_TILDE)
@@ -65,7 +70,7 @@ public:
       , console_padding(20)
       , current_indexed_past_message(0)
    {
-      text_input_widget = new FGUITextInput(this, font, "", console_padding, -150, display->width()-console_padding*2, text_input_height);
+      text_input_widget = new FGUITextInput(this, console_padding, -150, display->width()-console_padding*2, text_input_height, "");
       text_input_widget->place.align.x = 0.0;
       text_input_widget->place.align.y = 1.0;
    }
@@ -74,7 +79,7 @@ public:
    {
       if (af::current_event->keyboard.keycode == toggle_key)
       {
-         toggle_console();
+         toggle_visibility();
       }
       else
       {
@@ -84,9 +89,10 @@ public:
             current_indexed_past_message--;
          break;
          case ALLEGRO_KEY_ENTER:
-            if (php::trim(text_input_widget->get_text()) != "")
+            std::string message_text = text_input_widget->get_text();
+            if (php::trim(message_text) != "")
             {
-               append_message(text_input_widget->get_text(), 0);
+               append_message(message_text, 0);
                text_input_widget->set_text("");
             }
          break;
@@ -96,7 +102,7 @@ public:
 
    void append_message(std::string text, int type)
    {
-      message.push_back(ConsoleMessage(text, type));
+      message.push_back(Message(text, type));
    }
 
    void on_draw() override
@@ -117,7 +123,7 @@ public:
       }
    }
 
-   bool toggle_console()
+   bool toggle_visibility()
    {
       if (active)
       {
@@ -148,3 +154,33 @@ public:
    }
 };
 
+
+
+
+class ExampleProject : public FGUIScreen
+{
+public:
+   FGUIConsole *console;
+   ExampleProject(Display *display)
+      : FGUIScreen(display)
+      , console(NULL)
+   {
+      console = new FGUIConsole(display);
+   }
+   void mouse_down_func() override
+   {
+      console->toggle_visibility();
+   }
+};
+
+
+
+
+int main(int argc, char **argv)
+{
+   af::initialize();
+   Display *d = af::create_display(800, 600);
+   ExampleProject *ex = new ExampleProject(d);
+   af::run_loop();
+   return 0;
+}
