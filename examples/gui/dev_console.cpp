@@ -4,13 +4,12 @@
 
 // come back to this, Mark, this is a cool idea.
 
-/*
 
-class MessageConsole : public FGUIScreen
+class FGUIConsole : public UIScreen
 {
 public:
 
-   class ConsoleMessage
+   class Message
    {
    public:
       enum message_type_t
@@ -54,7 +53,7 @@ public:
    int current_indexed_past_message;
    FGUITextInput *text_input_widget;
 
-   MessageConsole(Display *display)
+   FGUIConsole(Display *display)
       : FGUIScreen(display)
       , font(af::fonts["DroidSerif.ttf 19"])
       , active(false)
@@ -149,4 +148,3 @@ public:
    }
 };
 
-*/

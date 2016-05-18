@@ -41,7 +41,7 @@ BIN_ITEMS=font_bin sample_bin bitmap_bin model_bin
 DI_ITEMS=drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
 FONT_ITEMS=font_bravura font_font_awesome font_segoe_ui_symbol
 SCREEN_ITEMS=simple_notification_screen gamer_input_screen filesys_change_notification_screen
-GUI_WIDGET_ITEMS=style_assets button checkbox console dial draggable_region family float_spinner framed_window image int_spinner labeled_checkbox list_spinner music_notation progress_bar scaled_text scroll_area scrollbar slider spinner surface_area text text_area text_box text_input text_list toggle_button widget gui_screen window xy_controller
+GUI_WIDGET_ITEMS=style_assets button checkbox dial draggable_region family float_spinner framed_window image int_spinner labeled_checkbox list_spinner music_notation progress_bar scaled_text scroll_area scrollbar slider spinner surface_area text text_area text_box text_input text_list toggle_button widget gui_screen window xy_controller
 GUI_SURFACE_AREA_ITEMS=bitmap box box_padded circle column row
 
 CORE_OBJ_FILES=$(CORE_ITEMS:%=obj/%.o)
