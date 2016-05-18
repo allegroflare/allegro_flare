@@ -8,6 +8,38 @@ AllegroFlare is a C++ application toolkit that extends the functionality of the 
 
 
 
+Build Instructions
+-----------------------------------
+
+AllegroFlare works on Windows, Linux, and OSX.  Before compiling, you'll need to have [Allegro 5.2.0](http://liballeg.org/) or greater on your system.  If you're using `gcc` or `clang`, the process for building is the same on all systems.
+
+#### Step 1: Clone the repo
+```
+$> git clone https://github.com/MarkOates/allegro_flare.git
+```
+
+#### Step 2: Set your directories in `Makefile`
+At the top of the `Makefile` are 4 variables.  Edit them to point to the locations where you have Allegro and AllegroFlare on your computer.  If you're on Windows, your `LIBS_ROOT` might be something like `C:/Users/Repos/`.
+```
+LIBS_ROOT=/Users/markoates/Repos
+ALLEGRO_DIR=$(LIBS_ROOT)/allegro5
+ALLEGRO_LIB_DIR=$(LIBS_ROOT)/allegro5/build/lib
+ALLEGROFLARE_DIR=$(LIBS_ROOT)/allegro_flare
+```
+
+#### Step 3: Run Make
+```
+$> make
+```
+Success!  The only thing left to do is `#include <allegro_flare/allegro_flare.h>` in your program and link with the AllegroFlare lib the Allegro libs when compiling your program.
+
+#### Step 4: Make the Examples (optional)
+```
+$> make examples
+```
+
+
+
 Simple Example
 --------------
 
@@ -32,13 +64,6 @@ int main(int argc, char **argv)
     af::run_loop(); // run the AllegroFlare framework
 }
 ```
-
-
-
-Dependencies
-------------
-
-AllegroFlare requires Allegro 5.2.0 or greater.  You can also include other features with CURL, OpenCV, and Boost.
 
 
 
