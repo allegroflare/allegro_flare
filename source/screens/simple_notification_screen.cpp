@@ -69,7 +69,7 @@ SimpleNotificationScreen::SimpleNotificationScreen(Display *display, ALLEGRO_FON
 
 void SimpleNotificationScreen::primary_timer_func()
 {
-	motion.update(af::time_now);
+	motion.update(Framework::time_now);
 
 	float x_cursor = display->width()-20;
 	float y_cursor = display->height()-20;

@@ -5,7 +5,7 @@
 #include <allegro_flare/gui/widgets/text_input.h>
 
 
-#include <allegro_flare/allegro_flare.h> // for af::current_event and af::fonts
+#include <allegro_flare/allegro_flare.h> // for Framework::current_event and Framework::fonts
 
 #include <allegro_flare/gui/widget.h>
 #include <allegro_flare/gui/surface_areas/box.h>
@@ -20,7 +20,7 @@ FGUITextInput::FGUITextInput(FGUIWidget *parent, float x, float y, float w, floa
    , text("")
    , cursor_pos(0)
    , cursor_end(0)
-   , font(af::fonts["DroidSans.ttf 20"])
+   , font(Framework::fonts["DroidSans.ttf 20"])
    , cursor_blink_counter(0)
    , text_x_offset(0)
    , font_color(color::white)
@@ -159,8 +159,8 @@ void FGUITextInput::on_key_char()
 
    cursor_blink_counter = 1.0;
 
-   int unichar = af::current_event->keyboard.unichar;
-   int keycode = af::current_event->keyboard.keycode;
+   int unichar = Framework::current_event->keyboard.unichar;
+   int keycode = Framework::current_event->keyboard.keycode;
    bool printable = false;
 
    if ((unichar >= ' ') && (unichar <= '~'))
@@ -177,7 +177,7 @@ void FGUITextInput::on_key_char()
       || keycode == ALLEGRO_KEY_X
       || keycode == ALLEGRO_KEY_V
       || keycode == ALLEGRO_KEY_A)
-      && af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+      && Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
    {
       //std::cout << "cut-copy-pate" << std::endl;
       if (keycode == ALLEGRO_KEY_A)
@@ -212,7 +212,7 @@ void FGUITextInput::on_key_char()
       }
       else
       {
-         if (af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+         if (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
          {
             cursor_pos = text.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", cursor_pos);
             if (cursor_pos == std::string::npos)
@@ -233,7 +233,7 @@ void FGUITextInput::on_key_char()
       }
       else
       {
-         if (af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+         if (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
          {
             cursor_pos = text.find_last_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'\"", cursor_pos-1);
             if (cursor_pos == std::string::npos)
@@ -274,8 +274,8 @@ void FGUITextInput::on_key_char()
    }
    else if (keycode == ALLEGRO_KEY_BACKSPACE)
    {
-      if ((af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
-         && (af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT))
+      if ((Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+         && (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT))
       {
          // do nothing in this specific case.
          goto keyout;
@@ -288,7 +288,7 @@ void FGUITextInput::on_key_char()
       }
       else
       {
-         if (af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+         if (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
          {
             cursor_pos = text.find_last_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'\"", cursor_pos-1);
             if (cursor_pos == std::string::npos)
@@ -310,7 +310,7 @@ void FGUITextInput::on_key_char()
       {
          if (cursor_pos != text.size())
          {
-            if (af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+            if (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
             {
                //cursor = text.find_first_of("", cursor); ?
                cursor_pos = text.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", cursor_pos);
@@ -339,7 +339,7 @@ void FGUITextInput::on_key_char()
 
    keyout:
 
-   if (!(af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT) || printable)
+   if (!(Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT) || printable)
       cursor_end = cursor_pos;
 }
 

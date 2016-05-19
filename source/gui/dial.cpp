@@ -41,14 +41,14 @@ float FGUIDial::get_value()
 
 void FGUIDial::on_mouse_down()
 {
-   al_hide_mouse_cursor(af::current_event->mouse.display);
+   al_hide_mouse_cursor(Framework::current_event->mouse.display);
 }
 
 
 
 void FGUIDial::on_mouse_up()
 {
-   al_show_mouse_cursor(af::current_event->mouse.display);
+   al_show_mouse_cursor(Framework::current_event->mouse.display);
 }
 
 
@@ -60,7 +60,7 @@ void FGUIDial::on_drag(float x, float y, float dx, float dy)
    set_value(adjusted_val);
 
    // prevent the mouse cursor from moving on the screen
-   al_set_mouse_xy(af::current_event->mouse.display, x-dx, y-dy);
+   al_set_mouse_xy(Framework::current_event->mouse.display, x-dx, y-dy);
 }
 
 

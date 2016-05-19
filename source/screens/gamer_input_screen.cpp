@@ -15,7 +15,7 @@ GamerInputScreen::GamerInputScreen(Display *display)
 	: Screen(display)
 {
 	al_init_user_event_source(&input_event_source);
-	al_register_event_source(af::event_queue, &input_event_source);
+	al_register_event_source(Framework::event_queue, &input_event_source);
 	setup_default_joystick_mapping_for_XBOX_360_CONTROLLER();
 	setup_default_keyboard_mapping_for_ARROW_KEYS();
 }
@@ -26,7 +26,7 @@ GamerInputScreen::~GamerInputScreen()
 {
 	// uninit user event source?
 	//al_init_user_event_source(&my_event_source);
-	al_unregister_event_source(af::event_queue, &input_event_source);
+	al_unregister_event_source(Framework::event_queue, &input_event_source);
 }
 
 
@@ -147,15 +147,15 @@ void GamerInputScreen::setup_default_joystick_mapping_for_XBOX_360_CONTROLLER()
 
 void GamerInputScreen::key_down_func()
 {
-	if (af::current_event->keyboard.keycode == button_up_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_UP);
-	else if (af::current_event->keyboard.keycode == button_down_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_DOWN);
-	else if (af::current_event->keyboard.keycode == button_left_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_LEFT);
-	else if (af::current_event->keyboard.keycode == button_right_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_RIGHT);
-	else if (af::current_event->keyboard.keycode == button_start_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_START);
-	else if (af::current_event->keyboard.keycode == button_back_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_BACK);
-	else if (af::current_event->keyboard.keycode == button_a_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_A);
-	else if (af::current_event->keyboard.keycode == button_b_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_B);
-	else if (af::current_event->keyboard.keycode == button_c_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_C);
+	if (Framework::current_event->keyboard.keycode == button_up_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_UP);
+	else if (Framework::current_event->keyboard.keycode == button_down_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_DOWN);
+	else if (Framework::current_event->keyboard.keycode == button_left_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_LEFT);
+	else if (Framework::current_event->keyboard.keycode == button_right_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_RIGHT);
+	else if (Framework::current_event->keyboard.keycode == button_start_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_START);
+	else if (Framework::current_event->keyboard.keycode == button_back_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_BACK);
+	else if (Framework::current_event->keyboard.keycode == button_a_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_A);
+	else if (Framework::current_event->keyboard.keycode == button_b_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_B);
+	else if (Framework::current_event->keyboard.keycode == button_c_keyboard_keymap) emit_gamer_button_down(GAMER_BUTTON_C);
 }
 
 
@@ -163,15 +163,15 @@ void GamerInputScreen::key_down_func()
 
 void GamerInputScreen::key_up_func()
 {
-	if (af::current_event->keyboard.keycode == button_up_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_UP);
-	else if (af::current_event->keyboard.keycode == button_down_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_DOWN);
-	else if (af::current_event->keyboard.keycode == button_left_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_LEFT);
-	else if (af::current_event->keyboard.keycode == button_right_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_RIGHT);
-	else if (af::current_event->keyboard.keycode == button_start_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_START);
-	else if (af::current_event->keyboard.keycode == button_back_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_BACK);
-	else if (af::current_event->keyboard.keycode == button_a_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_A);
-	else if (af::current_event->keyboard.keycode == button_b_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_B);
-	else if (af::current_event->keyboard.keycode == button_c_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_C);
+	if (Framework::current_event->keyboard.keycode == button_up_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_UP);
+	else if (Framework::current_event->keyboard.keycode == button_down_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_DOWN);
+	else if (Framework::current_event->keyboard.keycode == button_left_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_LEFT);
+	else if (Framework::current_event->keyboard.keycode == button_right_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_RIGHT);
+	else if (Framework::current_event->keyboard.keycode == button_start_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_START);
+	else if (Framework::current_event->keyboard.keycode == button_back_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_BACK);
+	else if (Framework::current_event->keyboard.keycode == button_a_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_A);
+	else if (Framework::current_event->keyboard.keycode == button_b_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_B);
+	else if (Framework::current_event->keyboard.keycode == button_c_keyboard_keymap) emit_gamer_button_up(GAMER_BUTTON_C);
 }
 
 
@@ -179,9 +179,9 @@ void GamerInputScreen::key_up_func()
 
 void GamerInputScreen::joy_axis_func()
 {
-	float pos = af::current_event->joystick.pos;
+	float pos = Framework::current_event->joystick.pos;
 
-	if (af::current_event->joystick.axis == 0) // left-right
+	if (Framework::current_event->joystick.axis == 0) // left-right
 	{
 		if (fabs(pos) < 0.5)
 		{
@@ -200,7 +200,7 @@ void GamerInputScreen::joy_axis_func()
 			if (!pressed[GAMER_BUTTON_RIGHT]) emit_gamer_button_down(GAMER_BUTTON_RIGHT);
 		}
 	}
-	if (af::current_event->joystick.axis == 1) // up-down
+	if (Framework::current_event->joystick.axis == 1) // up-down
 	{
 		if (fabs(pos) < 0.5)
 		{
@@ -226,15 +226,15 @@ void GamerInputScreen::joy_axis_func()
 
 void GamerInputScreen::joy_button_down_func()
 {
-	if (af::current_event->joystick.button == button_up_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_UP);
-	else if (af::current_event->joystick.button == button_down_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_DOWN);
-	else if (af::current_event->joystick.button == button_left_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_LEFT);
-	else if (af::current_event->joystick.button == button_right_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_RIGHT);
-	else if (af::current_event->joystick.button == button_start_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_START);
-	else if (af::current_event->joystick.button == button_back_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_BACK);
-	else if (af::current_event->joystick.button == button_a_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_A);
-	else if (af::current_event->joystick.button == button_b_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_B);
-	else if (af::current_event->joystick.button == button_c_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_C);
+	if (Framework::current_event->joystick.button == button_up_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_UP);
+	else if (Framework::current_event->joystick.button == button_down_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_DOWN);
+	else if (Framework::current_event->joystick.button == button_left_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_LEFT);
+	else if (Framework::current_event->joystick.button == button_right_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_RIGHT);
+	else if (Framework::current_event->joystick.button == button_start_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_START);
+	else if (Framework::current_event->joystick.button == button_back_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_BACK);
+	else if (Framework::current_event->joystick.button == button_a_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_A);
+	else if (Framework::current_event->joystick.button == button_b_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_B);
+	else if (Framework::current_event->joystick.button == button_c_joystick_buttonmap) emit_gamer_button_down(GAMER_BUTTON_C);
 }
 
 
@@ -242,15 +242,15 @@ void GamerInputScreen::joy_button_down_func()
 
 void GamerInputScreen::joy_button_up_func()
 {
-	if (af::current_event->joystick.button == button_up_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_UP);
-	else if (af::current_event->joystick.button == button_down_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_DOWN);
-	else if (af::current_event->joystick.button == button_left_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_LEFT);
-	else if (af::current_event->joystick.button == button_right_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_RIGHT);
-	else if (af::current_event->joystick.button == button_start_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_START);
-	else if (af::current_event->joystick.button == button_back_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_BACK);
-	else if (af::current_event->joystick.button == button_a_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_A);
-	else if (af::current_event->joystick.button == button_b_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_B);
-	else if (af::current_event->joystick.button == button_c_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_C);
+	if (Framework::current_event->joystick.button == button_up_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_UP);
+	else if (Framework::current_event->joystick.button == button_down_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_DOWN);
+	else if (Framework::current_event->joystick.button == button_left_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_LEFT);
+	else if (Framework::current_event->joystick.button == button_right_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_RIGHT);
+	else if (Framework::current_event->joystick.button == button_start_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_START);
+	else if (Framework::current_event->joystick.button == button_back_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_BACK);
+	else if (Framework::current_event->joystick.button == button_a_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_A);
+	else if (Framework::current_event->joystick.button == button_b_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_B);
+	else if (Framework::current_event->joystick.button == button_c_joystick_buttonmap) emit_gamer_button_up(GAMER_BUTTON_C);
 }
 
 
@@ -259,7 +259,7 @@ void GamerInputScreen::joy_button_up_func()
 void GamerInputScreen::draw_gamer_input_state(bool button[GAMER_BUTTON_SIZE_MAX], float opacity, float x, float y, float align_x, float align_y, float scale_x, float scale_y)
 {
 	// get the controller bmp
-	ALLEGRO_BITMAP *controller = af::bitmaps["game_controller.png"];
+	ALLEGRO_BITMAP *controller = Framework::bitmaps["game_controller.png"];
 
 	// store the state and use a new transform
 	ALLEGRO_STATE prev_state;

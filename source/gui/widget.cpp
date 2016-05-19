@@ -63,7 +63,7 @@ FGUIWidget::~FGUIWidget()
       };
 
       std::vector<float*> pacement_elements (_elem, _elem + sizeof(_elem) / sizeof(float*) );
-      af::motion.clear_animations_on(pacement_elements);
+      Framework::motion.clear_animations_on(pacement_elements);
    }
 }
 
@@ -169,7 +169,7 @@ void FGUIWidget::draw_func()
    if (focused && gimmie_super_screen()->draw_focused_outline)
    {
       al_draw_rounded_rectangle(0, 0, surface_area->placement.size.x, surface_area->placement.size.y, 3, 3, color::color(color::black, 0.2), 5);
-      al_draw_rounded_rectangle(0, 0, surface_area->placement.size.x, surface_area->placement.size.y, 3, 3, color::mix(gimmie_super_screen()->focused_outline_color, color::purple, 0.6+0.4*sin(af::time_now*3)), 1.5);
+      al_draw_rounded_rectangle(0, 0, surface_area->placement.size.x, surface_area->placement.size.y, 3, 3, color::mix(gimmie_super_screen()->focused_outline_color, color::purple, 0.6+0.4*sin(Framework::time_now*3)), 1.5);
    }
    */
 
@@ -225,7 +225,7 @@ void FGUIWidget::mouse_axes_func(float x, float y, float dx, float dy)
       on_drag(x, y, dx, dy);
    }
 
-   if (af::current_event->mouse.dz != 0 || af::current_event->mouse.dw != 0) on_mouse_wheel();
+   if (Framework::current_event->mouse.dz != 0 || Framework::current_event->mouse.dw != 0) on_mouse_wheel();
 }
 
 
@@ -347,7 +347,7 @@ void FGUIWidget::joy_down_func()
       family.children[i]->joy_down_func();
 
 
-   if (mouse_over && af::current_event->joystick.button == 0)
+   if (mouse_over && Framework::current_event->joystick.button == 0)
    {
       set_as_focused();
    }

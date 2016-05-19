@@ -54,18 +54,18 @@ void FGUICheckbox::toggle()
    if (checked)
    {
       // check reveals
-      af::motion.cmove_to(&check_opacity, 1.0, speed * 0.5, interpolator::doubleFastIn);
-      af::motion.cmove_to(&check_placement.scale.x, 1.0, speed*0.85, interpolator::fastOut);
-      af::motion.cmove_to(&check_placement.scale.y, 1.0, speed*0.85, interpolator::fastOut);
-      af::motion.cmove_to(&check_placement.rotation, -0.1, speed, interpolator::fastOut);
+      Framework::motion.cmove_to(&check_opacity, 1.0, speed * 0.5, interpolator::doubleFastIn);
+      Framework::motion.cmove_to(&check_placement.scale.x, 1.0, speed*0.85, interpolator::fastOut);
+      Framework::motion.cmove_to(&check_placement.scale.y, 1.0, speed*0.85, interpolator::fastOut);
+      Framework::motion.cmove_to(&check_placement.rotation, -0.1, speed, interpolator::fastOut);
    }
    else
    {
       // check removes
-      af::motion.cmove_to(&check_opacity, 0.0, speed, interpolator::doubleFastOut);
-      af::motion.cmove_to(&check_placement.scale.x, 0.0, speed, interpolator::slowIn);
-      af::motion.cmove_to(&check_placement.scale.y, 0.0, speed, interpolator::slowIn);
-      af::motion.cmove_to(&check_placement.rotation, -0.4, speed, interpolator::linear);
+      Framework::motion.cmove_to(&check_opacity, 0.0, speed, interpolator::doubleFastOut);
+      Framework::motion.cmove_to(&check_placement.scale.x, 0.0, speed, interpolator::slowIn);
+      Framework::motion.cmove_to(&check_placement.scale.y, 0.0, speed, interpolator::slowIn);
+      Framework::motion.cmove_to(&check_placement.rotation, -0.4, speed, interpolator::linear);
    }
 
    on_change();
@@ -106,8 +106,8 @@ void FGUICheckbox::on_click()
 void FGUICheckbox::on_key_char()
 {
    if (!focused) return;
-   if (af::current_event->keyboard.keycode == ALLEGRO_KEY_SPACE
-      || af::current_event->keyboard.keycode == ALLEGRO_KEY_ENTER)
+   if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_SPACE
+      || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ENTER)
    {
       toggle();
    }
@@ -121,7 +121,7 @@ void FGUICheckbox::on_joy_down()
 
    // TODO: this should not be hard-coded as button 0, it should be coded
    // as the "ENTER" button or "ACTIVATE" or whatever in the joystick config
-   if (af::current_event->joystick.button == 0)
+   if (Framework::current_event->joystick.button == 0)
       toggle();
 }
 
@@ -143,7 +143,7 @@ void FGUICheckbox::on_draw()
 
 
    // draw the check
-   ALLEGRO_FONT *font_awesome = af::fonts["FontAwesome.otf " + tostring(((int)(place.size.x*1.75)))];
+   ALLEGRO_FONT *font_awesome = Framework::fonts["FontAwesome.otf " + tostring(((int)(place.size.x*1.75)))];
 
    static ALLEGRO_USTR *ustr = al_ustr_new("");
    al_ustr_set_chr(ustr, 0, font_awesome::ok);

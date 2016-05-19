@@ -33,7 +33,7 @@ FGUIProgressBar::FGUIProgressBar(FGUIWidget *parent, float x, float y, float w, 
 void FGUIProgressBar::set_val(float normalized_val)
 {
    normalized_val = limit<float>(0, 1, normalized_val);
-   af::motion.cmove_to(&val, normalized_val, update_speed, interpolator::doubleFastIn);
+   Framework::motion.cmove_to(&val, normalized_val, update_speed, interpolator::doubleFastIn);
 }
 
 

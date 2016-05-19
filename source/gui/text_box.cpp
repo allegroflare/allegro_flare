@@ -6,7 +6,7 @@
 #include <allegro_flare/gui/widgets/text_box.h>
 #include <allegro_flare/gui/surface_areas/box.h>
 
-#include <allegro_flare/allegro_flare.h> // for af::fonts
+#include <allegro_flare/allegro_flare.h> // for Framework::fonts
 
 
 
@@ -16,7 +16,7 @@
 
 FGUITextBox::FGUITextBox(FGUIWidget *parent, float x, float y, float w, float h, std::string text)
    : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
-   , font(af::fonts["DroidSans.ttf 20"])
+   , font(Framework::fonts["DroidSans.ttf 20"])
    , text(text)
    , text_color(color::black)
 {

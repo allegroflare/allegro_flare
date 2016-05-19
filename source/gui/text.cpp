@@ -16,7 +16,7 @@
 FGUIText::FGUIText(FGUIWidget *parent, float x, float y, std::string text)
    : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 200, 20)) // just set arbitrary width and height
    , text(text)
-   , font(af::fonts["DroidSans.ttf 20"])
+   , font(Framework::fonts["DroidSans.ttf 20"])
    , font_color(color::white)
 {
    attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIText");

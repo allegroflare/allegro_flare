@@ -15,7 +15,7 @@
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/style_assets.h>
 
-#include <allegro_flare/allegro_flare.h> // for af::time_now
+#include <allegro_flare/allegro_flare.h> // for Framework::time_now
 
 
 
@@ -141,8 +141,8 @@ void FGUIButton::on_key_down()
    // NOTE! this is similar to the on_joy_down button too.
    if (!is_focused()) return;
 
-   if (af::current_event->keyboard.keycode == ALLEGRO_KEY_ENTER
-      || af::current_event->keyboard.keycode == ALLEGRO_KEY_SPACE
+   if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ENTER
+      || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_SPACE
       )
    {
       on_click();
@@ -156,7 +156,7 @@ void FGUIButton::on_joy_down()
    // NOTE! this is similar to the on_key_down button too.
    if (!mouse_over) return;
 
-   if (af::current_event->joystick.button == 0)
+   if (Framework::current_event->joystick.button == 0)
    {
       on_click();
    }

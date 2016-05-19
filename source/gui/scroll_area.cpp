@@ -87,7 +87,7 @@ void FGUIScrollArea::on_timer()
 void FGUIScrollArea::on_mouse_wheel()
 {
    //if (focused && !v_slider->is_focused())
-   //   v_slider->set_val(v_slider->get_val() + af::current_event->mouse.dz * v_slider->wheel_sensitivity);
+   //   v_slider->set_val(v_slider->get_val() + Framework::current_event->mouse.dz * v_slider->wheel_sensitivity);
 }
 
 

@@ -78,7 +78,7 @@ void FGUITextList::move_selected_item(int delta)
 void FGUITextList::on_key_char()
 {
    if (!is_focused()) return;
-   switch(af::current_event->keyboard.keycode)
+   switch(Framework::current_event->keyboard.keycode)
    {
    case ALLEGRO_KEY_DOWN:
       move_selected_item(1);
@@ -147,7 +147,7 @@ void FGUITextList::joy_down_func()
    FGUIWidget::joy_down_func();
    if (!mouse_over) return;
 
-   if (af::current_event->joystick.button == 0) // TODO: this should not be a hard-coded "0"
+   if (Framework::current_event->joystick.button == 0) // TODO: this should not be a hard-coded "0"
    {
       select_at_mouse_cursor();
    }
@@ -174,7 +174,7 @@ void FGUITextList::draw_item(vec2d position, int index)
    position.y += item_padding;
    bool item_is_selected = index == (this->currently_selected_item);
 
-   ALLEGRO_FONT *font = af::fonts["DroidSans.ttf 18"];
+   ALLEGRO_FONT *font = Framework::fonts["DroidSans.ttf 18"];
 
    if (item_is_selected)
    {

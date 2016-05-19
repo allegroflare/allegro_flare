@@ -73,8 +73,8 @@ void FGUIFramedWindow::on_draw()
    draw_window_frame_around(0, 0, place.size.x, place.size.y);
 
    // draw the title text
-   al_draw_text(af::fonts["DroidSans.ttf 16"], color::black, 6+1, -25+2, 0, window_title.c_str());
-   al_draw_text(af::fonts["DroidSans.ttf 16"], color::white, 6, -25, 0, window_title.c_str());
+   al_draw_text(Framework::fonts["DroidSans.ttf 16"], color::black, 6+1, -25+2, 0, window_title.c_str());
+   al_draw_text(Framework::fonts["DroidSans.ttf 16"], color::white, 6, -25, 0, window_title.c_str());
 }
 
 
