@@ -6,8 +6,8 @@
 
 int main(int argc, char *argv[])
 {
-   af::initialize();
-   Display *display = af::create_display(800, 600);
+   Framework::initialize();
+   Display *display = Framework::create_display(800, 600);
 
    std::cout << "the current clipboard text is \"" << Clipboard::get() << "\"" << std::endl;
    std::cout << "setting clipboard text" << std::endl;

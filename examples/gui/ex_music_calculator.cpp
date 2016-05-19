@@ -86,7 +86,7 @@ public:
    FGUITextInput *text_input;
    FGUIText *notation_text;
    std::string result_text;
-   Project() : FGUIScreen(af::create_display())
+   Project() : FGUIScreen(Framework::create_display())
       , music_render(al_create_bitmap(200, 80))
       , text_input(NULL)
       , notation_text(NULL)
@@ -164,8 +164,8 @@ public:
 
 int main(int argc, char **argv)
 {
-   af::initialize();
+   Framework::initialize();
    Project *p = new Project();
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }

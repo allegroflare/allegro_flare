@@ -26,8 +26,8 @@ public:
    FGUINotificationBubble(FGUIWidget *parent, float x, float y, std::string text)
       : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 280, 90))
       , text(text)
-      , font(af::fonts["DroidSerif.ttf 20"])
-      , spawn_time(af::time_now)
+      , font(Framework::fonts["DroidSerif.ttf 20"])
+      , spawn_time(Framework::time_now)
       , lifespan(4.0)
       , paused(false)
       , opacity(0)
@@ -35,7 +35,7 @@ public:
       attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUINotificationBubble");
       attr.set("id", "NotificationBubble" + tostring(FGUIWidget::get_num_created_widgets()));
 
-      af::motion.cmove_to(&this->opacity, 1.0, 0.5);
+      Framework::motion.cmove_to(&this->opacity, 1.0, 0.5);
 
       this->surface_area->placement.align.x = 1.0;
       this->surface_area->placement.align.y = 1.0;
@@ -43,17 +43,17 @@ public:
 
    ~FGUINotificationBubble()
    {
-      af::motion.clear_animations_on(&this->opacity);
+      Framework::motion.clear_animations_on(&this->opacity);
    }
 
    void on_timer()
    {
       if (paused || delete_me) return;
 
-      if ((af::time_now - spawn_time) > lifespan)
+      if ((Framework::time_now - spawn_time) > lifespan)
       {
          delete_me = true;
-         af::motion.cmove_to(&this->opacity, 0, 0.6);
+         Framework::motion.cmove_to(&this->opacity, 0, 0.6);
       }
    }
 
@@ -62,7 +62,7 @@ public:
       if (delete_me) return;
 
       paused = true;
-      af::motion.cmove_to(&this->opacity, 1.0, 0.5);
+      Framework::motion.cmove_to(&this->opacity, 1.0, 0.5);
    }
 
    void on_mouse_leave()
@@ -70,7 +70,7 @@ public:
       if (delete_me) return;
 
       paused = false;
-      spawn_time  = af::time_now;
+      spawn_time  = Framework::time_now;
    }
 
    void on_draw()
@@ -135,12 +135,12 @@ public:
 
 int main(int argc, char *argv[])
 {
-   af::initialize();
-   Display *display = af::create_display(1280, 800, false);
+   Framework::initialize();
+   Display *display = Framework::create_display(1280, 800, false);
 
    NotificationBubbleTestProject *proj = new NotificationBubbleTestProject(display);
 
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }
 

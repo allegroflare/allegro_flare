@@ -81,7 +81,7 @@ void UnicodeFontViewerExample::primary_timer_func()
 
 void UnicodeFontViewerExample::key_char_func()
 {
-	switch(af::current_event->keyboard.keycode)
+	switch(Framework::current_event->keyboard.keycode)
 	{
 	case ALLEGRO_KEY_RIGHT:
 		unicode_range_start += 0x0100;
@@ -98,10 +98,10 @@ void UnicodeFontViewerExample::key_char_func()
 
 int main(int argc, char **argv)
 {
-	af::initialize();
-	Display *display = af::create_display();
+	Framework::initialize();
+	Display *display = Framework::create_display();
 	UnicodeFontViewerExample *program = new UnicodeFontViewerExample(display, "Bravura.otf 40");
-	af::run_loop();
+	Framework::run_loop();
 	return 0;
 }
 

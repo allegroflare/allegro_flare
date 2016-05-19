@@ -60,7 +60,7 @@ public:
 
    FGUIConsole(Display *display)
       : FGUIScreen(display)
-      , font(af::fonts["DroidSans.ttf 19"])
+      , font(Framework::fonts["DroidSans.ttf 19"])
       , active(false)
       , visibility_counter(0)
       , toggle_key(ALLEGRO_KEY_TILDE)
@@ -77,13 +77,13 @@ public:
 
    void key_down_func() override
    {
-      if (af::current_event->keyboard.keycode == toggle_key)
+      if (Framework::current_event->keyboard.keycode == toggle_key)
       {
          toggle_visibility();
       }
       else
       {
-         switch(af::current_event->keyboard.keycode)
+         switch(Framework::current_event->keyboard.keycode)
          {
          case ALLEGRO_KEY_UP:
             current_indexed_past_message--;
@@ -128,15 +128,15 @@ public:
       if (active)
       {
          // hide
-         af::motion.canimate(&visibility_counter, visibility_counter, 0, af::time_now, af::time_now+0.2, interpolator::fastIn, NULL, NULL);
-         af::motion.canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, -150, af::time_now, af::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion.canimate(&visibility_counter, visibility_counter, 0, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion.canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, -150, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
          text_input_widget->set_as_unfocused();
       }
       else
       {
          // show
-         af::motion.canimate(&visibility_counter, visibility_counter, 1, af::time_now, af::time_now+0.2, interpolator::fastIn, NULL, NULL);
-         af::motion.canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, console_height-console_padding, af::time_now, af::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion.canimate(&visibility_counter, visibility_counter, 1, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion.canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, console_height-console_padding, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
          text_input_widget->set_as_focused();
       }
 
@@ -178,9 +178,9 @@ public:
 
 int main(int argc, char **argv)
 {
-   af::initialize();
-   Display *d = af::create_display(800, 600);
+   Framework::initialize();
+   Display *d = Framework::create_display(800, 600);
    ExampleProject *ex = new ExampleProject(d);
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }

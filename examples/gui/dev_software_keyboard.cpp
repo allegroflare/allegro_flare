@@ -250,7 +250,7 @@ public:
 
    void on_draw() override
    {
-      motion_manager.update(af::time_now);
+      motion_manager.update(Framework::time_now);
 
       al_draw_filled_rectangle(0, 0, w, h, color::black);
       al_draw_rounded_rectangle(0, 0, w, h, 4, 4, color::black, 4.0);
@@ -305,7 +305,7 @@ public:
 
    void on_key_char() override
    {
-      int allegro_key = af::current_event->keyboard.keycode;
+      int allegro_key = Framework::current_event->keyboard.keycode;
       for (unsigned i=0; i<43; i++)
          if (key[i].allegro_key_code == allegro_key) key[i].trigger();
    }
@@ -314,7 +314,7 @@ public:
    {
       if (!visible) return;
 
-      int keycode = af::current_event->keyboard.keycode;
+      int keycode = Framework::current_event->keyboard.keycode;
       if (keycode == ALLEGRO_KEY_RSHIFT || keycode == ALLEGRO_KEY_LSHIFT)
          toggle_shift();
    }
@@ -375,9 +375,9 @@ public:
 
 int main(int argc, char *argv[])
 {
-   af::initialize();
-   Display *display = af::create_display(1100, 600);
+   Framework::initialize();
+   Display *display = Framework::create_display(1100, 600);
    SoftKeyboardExample *example = new SoftKeyboardExample(display);
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }

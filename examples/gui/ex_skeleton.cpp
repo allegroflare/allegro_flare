@@ -178,7 +178,7 @@ public:
 
    void on_timer() override
    {
-      bone_animator.update(af::time_now);
+      bone_animator.update(Framework::time_now);
 
       if (rotating)
       {
@@ -222,12 +222,12 @@ public:
 
    void on_key_char() override
    {
-      if (af::current_event->keyboard.keycode == ALLEGRO_KEY_UP)
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_UP)
       {
          focus_bone_index++;
          if (focus_bone_index > bone_test->get_tree_size()) focus_bone_index = bone_test->get_tree_size();
       }
-      if (af::current_event->keyboard.keycode == ALLEGRO_KEY_DOWN)
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_DOWN)
       {
          focus_bone_index--;
          if (focus_bone_index < 0) focus_bone_index = 0;
@@ -236,24 +236,24 @@ public:
 
    void on_key_down() override
    {
-      //std::cout << af::current_event->keyboard.keycode << std::endl;
-      if (af::current_event->keyboard.keycode == ALLEGRO_KEY_RIGHT)
+      //std::cout << Framework::current_event->keyboard.keycode << std::endl;
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_RIGHT)
       {
          rotating = 1;
       }
-      if (af::current_event->keyboard.keycode == ALLEGRO_KEY_LEFT)
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LEFT)
       {
          rotating = -1;
       }
-      if (af::current_event->keyboard.keycode == ALLEGRO_KEY_F12)
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_F12)
       {
          std::string screenshot_filename = take_screenshot();
          simple_notification_screen->spawn_notification("screenshot saved\n\"" + screenshot_filename + "\"");
       }
-      if (af::current_event->keyboard.keycode >= ALLEGRO_KEY_1 && af::current_event->keyboard.keycode <= ALLEGRO_KEY_9)
+      if (Framework::current_event->keyboard.keycode >= ALLEGRO_KEY_1 && Framework::current_event->keyboard.keycode <= ALLEGRO_KEY_9)
       {
-         int state_bank_num = af::current_event->keyboard.keycode - ALLEGRO_KEY_1;
-         if (af::key_shift)
+         int state_bank_num = Framework::current_event->keyboard.keycode - ALLEGRO_KEY_1;
+         if (Framework::key_shift)
          {
             //SkeletonState
             skeleton_states[state_bank_num].set(bone_test);
@@ -272,7 +272,7 @@ public:
             //std::cout << "moving to bank " << frame_bank_num << std::endl;
          }
       }
-      if (af::current_event->keyboard.keycode == ALLEGRO_KEY_L)
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_L)
       {
          std::string filename = pick_filename();
          if (!filename.empty())
@@ -287,8 +287,8 @@ public:
 
    void on_key_up() override
    {
-      if (af::current_event->keyboard.keycode == ALLEGRO_KEY_RIGHT) rotating = 0;
-      if (af::current_event->keyboard.keycode == ALLEGRO_KEY_LEFT) rotating = 0;
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_RIGHT) rotating = 0;
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LEFT) rotating = 0;
    }
 
    void joy_config_func() override
@@ -303,10 +303,10 @@ public:
 
 int main(int argc, char *argv[])
 {
-   af::initialize();
-   Display *display = af::create_display(1600, 800);
+   Framework::initialize();
+   Display *display = Framework::create_display(1600, 800);
    SkeletonExampleProgram *prog = new SkeletonExampleProgram(display);
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }
 

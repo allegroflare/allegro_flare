@@ -474,12 +474,12 @@ public:
 
 int main(int argc, char *argv[])
 {
-   af::initialize();
-   Display *display = af::create_display(1280, 800, false);
+   Framework::initialize();
+   Display *display = Framework::create_display(1280, 800, false);
 
    PianoKeyboardExampleProject *project = new PianoKeyboardExampleProject(display);
 
-   af::run_loop();
+   Framework::run_loop();
 
    return 0;
 }

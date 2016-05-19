@@ -30,7 +30,7 @@ public:
    {}
    void on_draw() override
    {
-      ALLEGRO_FONT *font = af::fonts["FontAwesome.otf -" + tostring(place.size.x/3)];
+      ALLEGRO_FONT *font = Framework::fonts["FontAwesome.otf -" + tostring(place.size.x/3)];
       int line_height = al_get_font_line_height(font);
       draw_unicode_char(font, color::white, icon, ALLEGRO_ALIGN_CENTER, place.size.x/2, place.size.y/2 - line_height/2-1);
    }
@@ -57,7 +57,7 @@ public:
    MyMediaPlayer(FGUIWidget *parent)
       : FGUIWindow(parent, 650, 500, 200, 170)
       , filename("water_4.wav")
-      , sound(af::samples[filename])
+      , sound(Framework::samples[filename])
       , progress_bar(NULL)
       , play_button(NULL)
       , stop_button(NULL)
@@ -242,7 +242,7 @@ public:
          virtual_memory.set(parsed_key_val.first, parsed_key_val.second);
          virtual_memory.save(virtual_memory_filename);
       }
-      else if (message_caught = (message == "close_window")) af::shutdown_program = true;
+      else if (message_caught = (message == "close_window")) Framework::shutdown_program = true;
       else if (message_caught = Screen::signal_has_header("set_progress_bar", message))
       {
          std::string val = Screen::strip_signal_header("set_progress_bar", message);
@@ -253,17 +253,17 @@ public:
       }
       else if (message_caught = (message == "shrink"))
       {
-         af::motion.cmove_to(&place.scale.x, 0.86, 0.3);
-         af::motion.cmove_to(&place.scale.y, 0.86, 0.3);
+         Framework::motion.cmove_to(&place.scale.x, 0.86, 0.3);
+         Framework::motion.cmove_to(&place.scale.y, 0.86, 0.3);
       }
       else if (message_caught = (message == "grow"))
       {
-         af::motion.cmove_to(&place.scale.x, 1, 0.3);
-         af::motion.cmove_to(&place.scale.y, 1, 0.3);
+         Framework::motion.cmove_to(&place.scale.x, 1, 0.3);
+         Framework::motion.cmove_to(&place.scale.y, 1, 0.3);
       }
       else if (message_caught = (message == "exit"))
       {
-         af::shutdown_program = true;
+         Framework::shutdown_program = true;
       }
       else if (message_caught = Screen::signal_has_header("set_music", message))
       {
@@ -281,8 +281,8 @@ public:
    void on_mouse_down() override
    {
       FGUIWindow::on_mouse_down();
-      mouse_down_x = af::current_event->mouse.x;
-      mouse_down_y = af::current_event->mouse.y;
+      mouse_down_x = Framework::current_event->mouse.x;
+      mouse_down_y = Framework::current_event->mouse.y;
    }
    void on_drag(float x, float y, float mx, float my) override
    {
@@ -344,14 +344,14 @@ public:
 
 int main(int argc, char *argv[])
 {
-   af::initialize();
-   //Display *display = af::create_display(800, 720);
+   Framework::initialize();
+   //Display *display = Framework::create_display(800, 720);
 
    Display *display = new Display(800, 720, ALLEGRO_NOFRAME);
-   al_register_event_source(af::event_queue, al_get_display_event_source(display->al_display));
+   al_register_event_source(Framework::event_queue, al_get_display_event_source(display->al_display));
 
    Project *main = new Project(display);
-   af::run_loop();
+   Framework::run_loop();
 
    return 0;
 }

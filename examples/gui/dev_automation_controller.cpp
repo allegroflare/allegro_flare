@@ -102,12 +102,12 @@ public:
             al_draw_circle(points[i].x, points[i].y, 10, color::color(color::orange, 0.2), 6);
 
          // draw the debug (for testing)
-         // al_draw_text(af::fonts["DroidSans.ttf 16"], color::white, points[i].x, points[i].y, ALLEGRO_ALIGN_CENTRE, tostring(i).c_str());
+         // al_draw_text(Framework::fonts["DroidSans.ttf 16"], color::white, points[i].x, points[i].y, ALLEGRO_ALIGN_CENTRE, tostring(i).c_str());
       }
    }
    void on_click() override
    {
-      if (af::current_event->mouse.button == 2) // right-click
+      if (Framework::current_event->mouse.button == 2) // right-click
       {
          // erase the focused point
          if (focused_points_index != -1)
@@ -117,7 +117,7 @@ public:
             sort_points();
          }
       }
-      else if (af::current_event->mouse.button == 1) // left-click
+      else if (Framework::current_event->mouse.button == 1) // left-click
       {
          // create a new point on the graph
          points.push_back(mouse_pos);
@@ -146,10 +146,10 @@ public:
 
 int main(int argc, char **argv)
 {
-   af::initialize();
-   Display *display = af::create_display(1000, 700);
+   Framework::initialize();
+   Display *display = Framework::create_display(1000, 700);
    RubberBandDev *rubber_band_dev = new RubberBandDev(display);
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }
 

@@ -23,12 +23,12 @@ private:
 public:
 	MaskedBitmapExampleProgram(Display *display) : Screen(display)
 	{
-		bitmap = create_masked_bitmap(af::bitmaps["rooster_cat_grid.png"], af::bitmaps["elm_circle.png"]);
+		bitmap = create_masked_bitmap(Framework::bitmaps["rooster_cat_grid.png"], Framework::bitmaps["elm_circle.png"]);
 	}
 	void primary_timer_func() override
 	{
-		al_draw_bitmap(af::bitmaps["rooster_cat_grid.png"], 100, 100, 0);
-		al_draw_bitmap(af::bitmaps["elm_circle.png"], 400, 100, 0);
+		al_draw_bitmap(Framework::bitmaps["rooster_cat_grid.png"], 100, 100, 0);
+		al_draw_bitmap(Framework::bitmaps["elm_circle.png"], 400, 100, 0);
 		al_draw_bitmap(bitmap, 700, 100, 0);
 	}
 };
@@ -36,10 +36,10 @@ public:
 
 int main(int argc, char **argv)
 {
-	af::initialize();
-	Display *display = af::create_display(1100, 500);
+	Framework::initialize();
+	Display *display = Framework::create_display(1100, 500);
 	MaskedBitmapExampleProgram *prog = new MaskedBitmapExampleProgram(display);
-	af::run_loop();
+	Framework::run_loop();
 
 	return 0;
 }
