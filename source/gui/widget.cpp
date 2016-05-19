@@ -63,7 +63,7 @@ FGUIWidget::~FGUIWidget()
       };
 
       std::vector<float*> pacement_elements (_elem, _elem + sizeof(_elem) / sizeof(float*) );
-      Framework::motion.clear_animations_on(pacement_elements);
+      Framework::motion().clear_animations_on(pacement_elements);
    }
 }
 

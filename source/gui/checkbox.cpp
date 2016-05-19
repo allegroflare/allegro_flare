@@ -54,18 +54,18 @@ void FGUICheckbox::toggle()
    if (checked)
    {
       // check reveals
-      Framework::motion.cmove_to(&check_opacity, 1.0, speed * 0.5, interpolator::doubleFastIn);
-      Framework::motion.cmove_to(&check_placement.scale.x, 1.0, speed*0.85, interpolator::fastOut);
-      Framework::motion.cmove_to(&check_placement.scale.y, 1.0, speed*0.85, interpolator::fastOut);
-      Framework::motion.cmove_to(&check_placement.rotation, -0.1, speed, interpolator::fastOut);
+      Framework::motion().cmove_to(&check_opacity, 1.0, speed * 0.5, interpolator::doubleFastIn);
+      Framework::motion().cmove_to(&check_placement.scale.x, 1.0, speed*0.85, interpolator::fastOut);
+      Framework::motion().cmove_to(&check_placement.scale.y, 1.0, speed*0.85, interpolator::fastOut);
+      Framework::motion().cmove_to(&check_placement.rotation, -0.1, speed, interpolator::fastOut);
    }
    else
    {
       // check removes
-      Framework::motion.cmove_to(&check_opacity, 0.0, speed, interpolator::doubleFastOut);
-      Framework::motion.cmove_to(&check_placement.scale.x, 0.0, speed, interpolator::slowIn);
-      Framework::motion.cmove_to(&check_placement.scale.y, 0.0, speed, interpolator::slowIn);
-      Framework::motion.cmove_to(&check_placement.rotation, -0.4, speed, interpolator::linear);
+      Framework::motion().cmove_to(&check_opacity, 0.0, speed, interpolator::doubleFastOut);
+      Framework::motion().cmove_to(&check_placement.scale.x, 0.0, speed, interpolator::slowIn);
+      Framework::motion().cmove_to(&check_placement.scale.y, 0.0, speed, interpolator::slowIn);
+      Framework::motion().cmove_to(&check_placement.rotation, -0.4, speed, interpolator::linear);
    }
 
    on_change();
@@ -143,7 +143,7 @@ void FGUICheckbox::on_draw()
 
 
    // draw the check
-   ALLEGRO_FONT *font_awesome = Framework::fonts["FontAwesome.otf " + tostring(((int)(place.size.x*1.75)))];
+   ALLEGRO_FONT *font_awesome = Framework::font("FontAwesome.otf " + tostring(((int)(place.size.x*1.75))));
 
    static ALLEGRO_USTR *ustr = al_ustr_new("");
    al_ustr_set_chr(ustr, 0, font_awesome::ok);

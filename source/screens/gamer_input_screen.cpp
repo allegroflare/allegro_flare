@@ -259,7 +259,7 @@ void GamerInputScreen::joy_button_up_func()
 void GamerInputScreen::draw_gamer_input_state(bool button[GAMER_BUTTON_SIZE_MAX], float opacity, float x, float y, float align_x, float align_y, float scale_x, float scale_y)
 {
 	// get the controller bmp
-	ALLEGRO_BITMAP *controller = Framework::bitmaps["game_controller.png"];
+	ALLEGRO_BITMAP *controller = Framework::bitmap("game_controller.png");
 
 	// store the state and use a new transform
 	ALLEGRO_STATE prev_state;

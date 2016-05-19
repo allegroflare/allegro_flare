@@ -30,7 +30,7 @@ FGUIWindow::FGUIWindow(FGUIWidget *parent, float x, float y, float w, float h)
 void FGUIWindow::on_draw()
 {
    FGUIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
-   draw_textured_rectangle(1, 1, place.size.x-1, place.size.y-1, Framework::bitmaps["rough.jpg"], color::color(color::white, 0.1));
+   draw_textured_rectangle(1, 1, place.size.x-1, place.size.y-1, Framework::bitmap("rough.jpg"), color::color(color::white, 0.1));
 }
 
 

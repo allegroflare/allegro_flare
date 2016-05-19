@@ -26,7 +26,7 @@ std::string FGUIScaledText::_get_font_index_str()
 void FGUIScaledText::refresh_render()
 {
    // for easy life
-   ALLEGRO_FONT *scaled_font = Framework::fonts[_get_font_index_str()];
+   ALLEGRO_FONT *scaled_font = Framework::font(_get_font_index_str());
 
    // save the previous state
    ALLEGRO_STATE previous_state;

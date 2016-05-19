@@ -16,7 +16,7 @@
 
 FGUITextBox::FGUITextBox(FGUIWidget *parent, float x, float y, float w, float h, std::string text)
    : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
-   , font(Framework::fonts["DroidSans.ttf 20"])
+   , font(Framework::font("DroidSans.ttf 20"))
    , text(text)
    , text_color(color::black)
 {

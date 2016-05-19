@@ -87,7 +87,7 @@ FGUITextArea::FGUITextArea(FGUIWidget *parent, float x, float y, float w, float 
    : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
    , cursor(0, 0)
    , full_text(text)
-   , font(Framework::fonts["DroidSans.ttf 20"])
+   , font(Framework::font("DroidSans.ttf 20"))
    , cursor_blink_counter(1)
 {
    attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUITextArea");

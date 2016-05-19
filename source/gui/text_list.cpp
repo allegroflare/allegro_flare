@@ -174,7 +174,7 @@ void FGUITextList::draw_item(vec2d position, int index)
    position.y += item_padding;
    bool item_is_selected = index == (this->currently_selected_item);
 
-   ALLEGRO_FONT *font = Framework::fonts["DroidSans.ttf 18"];
+   ALLEGRO_FONT *font = Framework::font("DroidSans.ttf 18");
 
    if (item_is_selected)
    {

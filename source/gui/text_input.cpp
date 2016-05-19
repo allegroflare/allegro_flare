@@ -20,7 +20,7 @@ FGUITextInput::FGUITextInput(FGUIWidget *parent, float x, float y, float w, floa
    , text("")
    , cursor_pos(0)
    , cursor_end(0)
-   , font(Framework::fonts["DroidSans.ttf 20"])
+   , font(Framework::font("DroidSans.ttf 20"))
    , cursor_blink_counter(0)
    , text_x_offset(0)
    , font_color(color::white)

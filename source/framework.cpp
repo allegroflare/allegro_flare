@@ -14,6 +14,59 @@
 
 
 
+Framework *Framework::get_instance()
+{
+   if (!instance) instance = new Framework(1);
+   return instance;
+}
+
+
+
+Framework::Framework(int val)
+   : fonts("data/fonts")
+   , samples("data/samples")
+   , bitmaps("data/bitmaps")
+   , models("data/models")
+   , motions(200)
+{}
+
+
+
+ALLEGRO_FONT *Framework::font(std::string identifier)
+{
+   return get_instance()->fonts[identifier];
+}
+
+
+
+ALLEGRO_BITMAP *Framework::bitmap(std::string identifier)
+{
+   return get_instance()->bitmaps[identifier];
+}
+
+
+
+ALLEGRO_SAMPLE *Framework::sample(std::string identifier)
+{
+   return get_instance()->samples[identifier];
+}
+
+
+
+ModelNew *Framework::model(std::string identifier)
+{
+   return get_instance()->models[identifier];
+}
+
+
+
+Motion &Framework::motion()
+{
+   return get_instance()->motions;
+}
+
+
+
 bool Framework::initialize(std::string config_filename)
 {
 	if (initialized) return initialized;
@@ -176,7 +229,7 @@ void Framework::run_loop()
 		
 		current_event = &this_event;
 		time_now = this_event.any.timestamp;
-		Framework::motion.update(time_now);
+		get_instance()->motions.update(time_now);
 
 		Screen::on_events(current_event);
 
@@ -322,12 +375,5 @@ int Framework::key_shift = 0;
 int Framework::key_ctrl = 0;
 bool Framework::drawing_profiler_graph = false;
 
-// note: for the bins to be constructed here, al_init() needs to be called
-// prior to its intended place of Framework::initialize();  Maybe address this in
-// the future.
-BitmapBin Framework::bitmaps("data/bitmaps");
-FontBin Framework::fonts("data/fonts");
-SampleBin Framework::samples("data/samples");
-ModelBin Framework::models("data/models");
-Motion Framework::motion(200);
+Framework *Framework::instance = NULL;
 
