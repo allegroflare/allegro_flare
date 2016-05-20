@@ -60,7 +60,7 @@ public:
 
    FGUIConsole(Display *display)
       : FGUIScreen(display)
-      , font(Framework::fonts["DroidSans.ttf 19"])
+      , font(Framework::font("DroidSans.ttf 19"))
       , active(false)
       , visibility_counter(0)
       , toggle_key(ALLEGRO_KEY_TILDE)
@@ -128,15 +128,15 @@ public:
       if (active)
       {
          // hide
-         Framework::motion.canimate(&visibility_counter, visibility_counter, 0, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
-         Framework::motion.canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, -150, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion().canimate(&visibility_counter, visibility_counter, 0, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion().canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, -150, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
          text_input_widget->set_as_unfocused();
       }
       else
       {
          // show
-         Framework::motion.canimate(&visibility_counter, visibility_counter, 1, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
-         Framework::motion.canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, console_height-console_padding, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion().canimate(&visibility_counter, visibility_counter, 1, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion().canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, console_height-console_padding, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
          text_input_widget->set_as_focused();
       }
 

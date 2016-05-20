@@ -23,12 +23,12 @@ private:
 public:
 	MaskedBitmapExampleProgram(Display *display) : Screen(display)
 	{
-		bitmap = create_masked_bitmap(Framework::bitmaps["rooster_cat_grid.png"], Framework::bitmaps["elm_circle.png"]);
+		bitmap = create_masked_bitmap(Framework::bitmap("rooster_cat_grid.png"), Framework::bitmap("elm_circle.png"));
 	}
 	void primary_timer_func() override
 	{
-		al_draw_bitmap(Framework::bitmaps["rooster_cat_grid.png"], 100, 100, 0);
-		al_draw_bitmap(Framework::bitmaps["elm_circle.png"], 400, 100, 0);
+		al_draw_bitmap(Framework::bitmap("rooster_cat_grid.png"), 100, 100, 0);
+		al_draw_bitmap(Framework::bitmap("elm_circle.png"), 400, 100, 0);
 		al_draw_bitmap(bitmap, 700, 100, 0);
 	}
 };

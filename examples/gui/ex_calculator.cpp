@@ -214,7 +214,7 @@ public:
       this->draw_focused_outline = false;
 
       // make a nice background image
-      FGUIImage *img = new FGUIImage(this, 0, 0, Framework::bitmaps["veddy_nice.png"]);
+      FGUIImage *img = new FGUIImage(this, 0, 0, Framework::bitmap("veddy_nice.png"));
          img->set_color(color::color(color::white, 0.2));
          img->place.position = vec2d(display->center(), display->middle());
 
@@ -227,11 +227,11 @@ public:
       calculator->place.rotation = 0.1;
 
       // create a nice "reveal" animation
-      Framework::motion.cmove_to(&calculator->place.position.x, display->center(), 0.7);
-      Framework::motion.cmove_to(&calculator->place.position.y, display->middle(), 0.7);
-      Framework::motion.cmove_to(&calculator->place.scale.x, 1.0, 0.9);
-      Framework::motion.cmove_to(&calculator->place.scale.y, 1.0, 0.9);
-      Framework::motion.cmove_to(&calculator->place.rotation, 0, 0.9);
+      Framework::motion().cmove_to(&calculator->place.position.x, display->center(), 0.7);
+      Framework::motion().cmove_to(&calculator->place.position.y, display->middle(), 0.7);
+      Framework::motion().cmove_to(&calculator->place.scale.x, 1.0, 0.9);
+      Framework::motion().cmove_to(&calculator->place.scale.y, 1.0, 0.9);
+      Framework::motion().cmove_to(&calculator->place.rotation, 0, 0.9);
     }
 };
 

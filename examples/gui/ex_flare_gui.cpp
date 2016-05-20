@@ -30,7 +30,7 @@ public:
    {}
    void on_draw() override
    {
-      ALLEGRO_FONT *font = Framework::fonts["FontAwesome.otf -" + tostring(place.size.x/3)];
+      ALLEGRO_FONT *font = Framework::font("FontAwesome.otf -" + tostring(place.size.x/3));
       int line_height = al_get_font_line_height(font);
       draw_unicode_char(font, color::white, icon, ALLEGRO_ALIGN_CENTER, place.size.x/2, place.size.y/2 - line_height/2-1);
    }
@@ -57,7 +57,7 @@ public:
    MyMediaPlayer(FGUIWidget *parent)
       : FGUIWindow(parent, 650, 500, 200, 170)
       , filename("water_4.wav")
-      , sound(Framework::samples[filename])
+      , sound(Framework::sample(filename))
       , progress_bar(NULL)
       , play_button(NULL)
       , stop_button(NULL)
@@ -253,13 +253,13 @@ public:
       }
       else if (message_caught = (message == "shrink"))
       {
-         Framework::motion.cmove_to(&place.scale.x, 0.86, 0.3);
-         Framework::motion.cmove_to(&place.scale.y, 0.86, 0.3);
+         Framework::motion().cmove_to(&place.scale.x, 0.86, 0.3);
+         Framework::motion().cmove_to(&place.scale.y, 0.86, 0.3);
       }
       else if (message_caught = (message == "grow"))
       {
-         Framework::motion.cmove_to(&place.scale.x, 1, 0.3);
-         Framework::motion.cmove_to(&place.scale.y, 1, 0.3);
+         Framework::motion().cmove_to(&place.scale.x, 1, 0.3);
+         Framework::motion().cmove_to(&place.scale.y, 1, 0.3);
       }
       else if (message_caught = (message == "exit"))
       {

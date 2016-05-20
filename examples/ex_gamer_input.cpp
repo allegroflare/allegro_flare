@@ -41,7 +41,7 @@ public:
 		, simple_notification_screen(NULL)
 	{
 		gamer_input_screen = new GamerInputScreen(display);
-		simple_notification_screen = new SimpleNotificationScreen(display, Framework::fonts["DroidSans.ttf 20"]);
+		simple_notification_screen = new SimpleNotificationScreen(display, Framework::font("DroidSans.ttf 20"));
 	}
 	void primary_timer_func() override
 	{

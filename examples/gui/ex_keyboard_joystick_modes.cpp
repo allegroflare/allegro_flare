@@ -47,7 +47,7 @@ public:
    FlareGUIJoystick(Display *display)
       : FGUIScreen(display)
       , notification_screen(NULL)
-      , font(Framework::fonts["DroidSerif.ttf 20"])
+      , font(Framework::font("DroidSerif.ttf 20"))
       //, last_focused_ancestor(0)
       //, joy_as_mouse(false)
       //, joy_vertical_pos(0)
@@ -57,7 +57,7 @@ public:
       , submit_button(NULL)
    {
       //FGUIScreen::draw_focused_outline = false;
-      notification_screen = new SimpleNotificationScreen(display, Framework::fonts["DroidSerif.ttf 16"]);
+      notification_screen = new SimpleNotificationScreen(display, Framework::font("DroidSerif.ttf 16"));
 
       float button_x = 800/2;
       float button_y = 200;

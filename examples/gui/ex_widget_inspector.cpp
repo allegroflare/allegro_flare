@@ -83,8 +83,8 @@ public:
    {
       FGUIFramedWindow::on_draw();
 
-      ALLEGRO_FONT *font = Framework::fonts["DroidSans.ttf 15"];
-      ALLEGRO_FONT *font2 = Framework::fonts["DroidSans.ttf 15"];
+      ALLEGRO_FONT *font = Framework::font("DroidSans.ttf 15");
+      ALLEGRO_FONT *font2 = Framework::font("DroidSans.ttf 15");
       float x_cursor = 160;
       incrementer<float> y_cursor(60, 24);
 

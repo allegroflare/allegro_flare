@@ -26,7 +26,7 @@ public:
    FGUINotificationBubble(FGUIWidget *parent, float x, float y, std::string text)
       : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 280, 90))
       , text(text)
-      , font(Framework::fonts["DroidSerif.ttf 20"])
+      , font(Framework::font("DroidSerif.ttf 20"))
       , spawn_time(Framework::time_now)
       , lifespan(4.0)
       , paused(false)
@@ -35,7 +35,7 @@ public:
       attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUINotificationBubble");
       attr.set("id", "NotificationBubble" + tostring(FGUIWidget::get_num_created_widgets()));
 
-      Framework::motion.cmove_to(&this->opacity, 1.0, 0.5);
+      Framework::motion().cmove_to(&this->opacity, 1.0, 0.5);
 
       this->surface_area->placement.align.x = 1.0;
       this->surface_area->placement.align.y = 1.0;
@@ -43,7 +43,7 @@ public:
 
    ~FGUINotificationBubble()
    {
-      Framework::motion.clear_animations_on(&this->opacity);
+      Framework::motion().clear_animations_on(&this->opacity);
    }
 
    void on_timer()
@@ -53,7 +53,7 @@ public:
       if ((Framework::time_now - spawn_time) > lifespan)
       {
          delete_me = true;
-         Framework::motion.cmove_to(&this->opacity, 0, 0.6);
+         Framework::motion().cmove_to(&this->opacity, 0, 0.6);
       }
    }
 
@@ -62,7 +62,7 @@ public:
       if (delete_me) return;
 
       paused = true;
-      Framework::motion.cmove_to(&this->opacity, 1.0, 0.5);
+      Framework::motion().cmove_to(&this->opacity, 1.0, 0.5);
    }
 
    void on_mouse_leave()
