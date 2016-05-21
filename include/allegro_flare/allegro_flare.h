@@ -48,6 +48,7 @@
 #include <allegro_flare/color.h>
 #include <allegro_flare/render_sample.h>
 #include <allegro_flare/generate_textures.h>
+#include <allegro_flare/render_cache.h>
 #include <allegro_flare/image_processing.h>
 #include <allegro_flare/path2d.h>
 
