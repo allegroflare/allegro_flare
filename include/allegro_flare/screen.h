@@ -15,7 +15,7 @@
 class Screen
 {
 private:
-	friend class af;
+	friend class Framework;
 	friend class Display;
 
 	static std::vector<Screen *> screens; // this was recently changed from "instance" to "screens"

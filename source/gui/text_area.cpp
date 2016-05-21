@@ -87,7 +87,7 @@ FGUITextArea::FGUITextArea(FGUIWidget *parent, float x, float y, float w, float 
    : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
    , cursor(0, 0)
    , full_text(text)
-   , font(af::fonts["DroidSans.ttf 20"])
+   , font(Framework::font("DroidSans.ttf 20"))
    , cursor_blink_counter(1)
 {
    attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUITextArea");
@@ -331,7 +331,7 @@ void FGUITextArea::on_draw()
 
 void FGUITextArea::on_key_down()
 {
-   int keycode = af::current_event->keyboard.keycode;
+   int keycode = Framework::current_event->keyboard.keycode;
    if (keycode == ALLEGRO_KEY_RSHIFT || keycode == ALLEGRO_KEY_LSHIFT)
    {
       // note: this should still activate even if the textarea widget is not focused
@@ -343,7 +343,7 @@ void FGUITextArea::on_key_down()
 
 void FGUITextArea::on_key_up()
 {
-   int keycode = af::current_event->keyboard.keycode;
+   int keycode = Framework::current_event->keyboard.keycode;
    if (keycode == ALLEGRO_KEY_RSHIFT || keycode == ALLEGRO_KEY_LSHIFT)
    {
       // note: this should still activate even if the textarea widget is not focused
@@ -364,16 +364,16 @@ void FGUITextArea::on_key_char()
 
    cursor_blink_counter = 1;
 
-   int unichar = af::current_event->keyboard.unichar;
-   int keycode = af::current_event->keyboard.keycode;
-   int modifier = af::current_event->keyboard.modifiers;
+   int unichar = Framework::current_event->keyboard.unichar;
+   int keycode = Framework::current_event->keyboard.keycode;
+   int modifier = Framework::current_event->keyboard.modifiers;
 
    // test cut-copy-paste
    if ((keycode == ALLEGRO_KEY_C
       || keycode == ALLEGRO_KEY_X
       || keycode == ALLEGRO_KEY_V
       || keycode == ALLEGRO_KEY_A)
-      && af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+      && Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
    {
       //std::cout << "cut-copy-pate" << std::endl;
       if (keycode == ALLEGRO_KEY_A)
@@ -415,7 +415,7 @@ void FGUITextArea::on_key_char()
    }
    else if (keycode == ALLEGRO_KEY_RIGHT)
    {
-      if (af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+      if (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
       {
          move_cursor_to_next_of("null");
       }
@@ -426,7 +426,7 @@ void FGUITextArea::on_key_char()
    }
    else if (keycode == ALLEGRO_KEY_LEFT)
    {
-      if (af::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+      if (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
       {
          move_cursor_to_previous_not_of("null");
       }

@@ -78,26 +78,16 @@ static bool bin_record_comp(const typename Bin<T>::Record *b1, const typename Bi
 
 template<class T>
 Bin<T>::Bin(std::string dir)
-	: directory(NULL)
+   : directory(NULL)
+   , record()
 {
-	__check_al_system_is_installed();
-	set_path(dir);
-	//al_append_path_component(directory, "data");
-	//al_append_path_component(directory, "bitmaps");
+   set_path(dir);
+   if (!al_is_system_installed())
+      std::cout << "DEPRECIATION ERROR: Bins can no longer be created prior to al_init(). You have probably tried to create a bin in the global namespace." << std::endl;
 }
 
 
 
-
-template<class T>
-void Bin<T>::__check_al_system_is_installed()
-{
-	if (!al_is_system_installed())
-	{
-		std::cout << "[warning Bin<T>::__check_al_system_is_installed()] auto_calling al_init();" << std::endl;
-		al_init();
-	}
-}
 
 
 template<class T>

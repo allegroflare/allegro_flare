@@ -47,7 +47,7 @@ public:
    FlareGUIJoystick(Display *display)
       : FGUIScreen(display)
       , notification_screen(NULL)
-      , font(af::fonts["DroidSerif.ttf 20"])
+      , font(Framework::font("DroidSerif.ttf 20"))
       //, last_focused_ancestor(0)
       //, joy_as_mouse(false)
       //, joy_vertical_pos(0)
@@ -57,7 +57,7 @@ public:
       , submit_button(NULL)
    {
       //FGUIScreen::draw_focused_outline = false;
-      notification_screen = new SimpleNotificationScreen(display, af::fonts["DroidSerif.ttf 16"]);
+      notification_screen = new SimpleNotificationScreen(display, Framework::font("DroidSerif.ttf 16"));
 
       float button_x = 800/2;
       float button_y = 200;
@@ -124,12 +124,12 @@ public:
    //{
    //   FGUIScreen::joy_down_func();
 
-      //std::cout << "joy button " << af::current_event->joystick.button << std::endl;
+      //std::cout << "joy button " << Framework::current_event->joystick.button << std::endl;
 
-      //if (af::current_event->joystick.button ==  5) jump_focus_to_next_widget(); // XBOX Controller shoulder trigger button
-      //if (af::current_event->joystick.button ==  4) jump_focus_to_previous_widget(); // XBOX Controller shoulder trigger button
+      //if (Framework::current_event->joystick.button ==  5) jump_focus_to_next_widget(); // XBOX Controller shoulder trigger button
+      //if (Framework::current_event->joystick.button ==  4) jump_focus_to_previous_widget(); // XBOX Controller shoulder trigger button
 /*
-      if (af::current_event->joystick.button ==  0)
+      if (Framework::current_event->joystick.button ==  0)
       {
          // does only 1 button
          FOR (children.children)
@@ -154,11 +154,11 @@ public:
       ev.type = ALLEGRO_EVENT_KEY_DOWN;
       ev.any.timestamp = al_get_time();
       ev.any.type = ALLEGRO_EVENT_KEY_DOWN;
-      ev.any.source = &af::_user_event_src_for_faking_events;
+      ev.any.source = &Framework::_user_event_src_for_faking_events;
       ev.keyboard.type = ALLEGRO_EVENT_KEY_DOWN;
       ev.keyboard.keycode = ALLEGRO_KEY_ESCAPE;
       ev.keyboard.display = al_get_current_display();
-      al_emit_user_event(&af::_user_event_src_for_faking_events , &ev , NULL);
+      al_emit_user_event(&Framework::_user_event_src_for_faking_events , &ev , NULL);
       */
    //}
    //void joy_axis_func() override
@@ -166,8 +166,8 @@ public:
    //   FGUIScreen::joy_axis_func();
 
       //use_joystick_as_mouse = true;
-      //if (af::current_event->joystick.axis == 0) joy_horizontal_pos = af::current_event->joystick.pos;
-      //if (af::current_event->joystick.axis == 1) joy_vertical_pos = af::current_event->joystick.pos;
+      //if (Framework::current_event->joystick.axis == 0) joy_horizontal_pos = Framework::current_event->joystick.pos;
+      //if (Framework::current_event->joystick.axis == 1) joy_vertical_pos = Framework::current_event->joystick.pos;
 
 
       //if (hide_mouse_cursor_on_widget_jump) al_show_mouse_cursor(display->display);
@@ -191,13 +191,13 @@ public:
 
 int main(int argc, char *argv[])
 {
-   af::initialize();
+   Framework::initialize();
 
-   //Display *display = af::create_display(1920, 1080, true);
-   Display *display = af::create_display(1000, 700);
+   //Display *display = Framework::create_display(1920, 1080, true);
+   Display *display = Framework::create_display(1000, 700);
    FlareGUIJoystick *joystick_ex = new FlareGUIJoystick(display);
 
-   af::run_loop();
+   Framework::run_loop();
 
    return 0;
 }

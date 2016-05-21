@@ -25,14 +25,14 @@ FileSysChangeNotificationScreen *FileSysChangeNotificationScreen::instance = NUL
 FileSysChangeNotificationScreen::FileSysChangeNotificationScreen()
 {
 	al_init_user_event_source(&filesys_change_event_source);
-	al_register_event_source(af::event_queue, &filesys_change_event_source);
+	al_register_event_source(Framework::event_queue, &filesys_change_event_source);
 	// spawn watcher thread
 }
 
 
 FileSysChangeNotificationScreen::~FileSysChangeNotificationScreen()
 {
-	al_unregister_event_source(af::event_queue, &filesys_change_event_source);
+	al_unregister_event_source(Framework::event_queue, &filesys_change_event_source);
 	// join watcher thread
 }
 

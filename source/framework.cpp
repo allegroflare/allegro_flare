@@ -14,7 +14,60 @@
 
 
 
-bool af::initialize(std::string config_filename)
+Framework *Framework::get_instance()
+{
+   if (!instance) instance = new Framework(1);
+   return instance;
+}
+
+
+
+Framework::Framework(int val)
+   : fonts("data/fonts")
+   , samples("data/samples")
+   , bitmaps("data/bitmaps")
+   , models("data/models")
+   , motions(200)
+{}
+
+
+
+ALLEGRO_FONT *Framework::font(std::string identifier)
+{
+   return get_instance()->fonts[identifier];
+}
+
+
+
+ALLEGRO_BITMAP *Framework::bitmap(std::string identifier)
+{
+   return get_instance()->bitmaps[identifier];
+}
+
+
+
+ALLEGRO_SAMPLE *Framework::sample(std::string identifier)
+{
+   return get_instance()->samples[identifier];
+}
+
+
+
+ModelNew *Framework::model(std::string identifier)
+{
+   return get_instance()->models[identifier];
+}
+
+
+
+Motion &Framework::motion()
+{
+   return get_instance()->motions;
+}
+
+
+
+bool Framework::initialize(std::string config_filename)
 {
 	if (initialized) return initialized;
 
@@ -64,16 +117,16 @@ bool af::initialize(std::string config_filename)
 }
 
 
-// TODO: get rid of all these silly af::create_display() overloads
+// TODO: get rid of all these silly Framework::create_display() overloads
 
 
-Display *af::create_display(int width, int height)
+Display *Framework::create_display(int width, int height)
 {
 	return create_display(width, height, false, -1);
 }
 
 
-Display *af::create_display(int width, int height, int display_flags)
+Display *Framework::create_display(int width, int height, int display_flags)
 {
 	Display *display = new Display(width, height, display_flags);
 	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
@@ -81,7 +134,7 @@ Display *af::create_display(int width, int height, int display_flags)
 }
 
 
-Display *af::create_display(int width, int height, int display_flags, int adapter)
+Display *Framework::create_display(int width, int height, int display_flags, int adapter)
 {
 	if (adapter!=-1) al_set_new_display_adapter(adapter);
 	Display *display = new Display(width, height, display_flags);
@@ -90,7 +143,7 @@ Display *af::create_display(int width, int height, int display_flags, int adapte
 }
 
 
-Display *af::create_display(int width, int height, bool fullscreen)
+Display *Framework::create_display(int width, int height, bool fullscreen)
 {
 	Display *display = new Display(width, height, fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED);
 	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
@@ -98,7 +151,7 @@ Display *af::create_display(int width, int height, bool fullscreen)
 }
 
 
-Display *af::create_display(int width, int height, bool fullscreen, int adapter)
+Display *Framework::create_display(int width, int height, bool fullscreen, int adapter)
 {
 	if (adapter!=-1) al_set_new_display_adapter(adapter);
 	Display *display = new Display(width, height, fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED);
@@ -109,7 +162,7 @@ Display *af::create_display(int width, int height, bool fullscreen, int adapter)
 
 
 
-Display *af::create_display(Display::resolution_t resolution)
+Display *Framework::create_display(Display::resolution_t resolution)
 {
 	int w, h;
 	int screen_flags = ALLEGRO_FLAGS_EMPTY;
@@ -157,14 +210,14 @@ Display *af::create_display(Display::resolution_t resolution)
 
 
 
-void af::use_screen(Screen *screen)
+void Framework::use_screen(Screen *screen)
 {
 	//current_screen = screen;
 }
 
 
 
-void af::run_loop()
+void Framework::run_loop()
 {
 	al_start_timer(primary_timer);
 
@@ -176,7 +229,7 @@ void af::run_loop()
 		
 		current_event = &this_event;
 		time_now = this_event.any.timestamp;
-		af::motion.update(time_now);
+		get_instance()->motions.update(time_now);
 
 		Screen::on_events(current_event);
 
@@ -193,23 +246,23 @@ void af::run_loop()
 					al_drop_next_event(event_queue);
 			break;
 		case ALLEGRO_EVENT_KEY_DOWN:
-			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
-				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) af::key_shift++;
-			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
-				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) af::key_alt++;
-			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
-				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) af::key_ctrl++;
+			if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
+				|| Framework::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Framework::key_shift++;
+			if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+				|| Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Framework::key_alt++;
+			if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+				|| Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Framework::key_ctrl++;
 			if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
 				drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
 			Screen::key_down_funcs();
 			break;
 		case ALLEGRO_EVENT_KEY_UP:
-			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
-				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) af::key_shift--;
-			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
-				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) af::key_alt--;
-			if (af::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
-				|| af::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) af::key_ctrl--;
+			if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
+				|| Framework::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Framework::key_shift--;
+			if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+				|| Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Framework::key_alt--;
+			if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+				|| Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Framework::key_ctrl--;
 			Screen::key_up_funcs();
 			break;
 		case ALLEGRO_EVENT_KEY_CHAR:
@@ -279,7 +332,7 @@ void af::run_loop()
 
 
 
-void af::open_log_window()
+void Framework::open_log_window()
 {
 	if (textlog) return;
 
@@ -289,7 +342,7 @@ void af::open_log_window()
 
 
 
-void af::close_log_window()
+void Framework::close_log_window()
 {
 	if (!textlog) return;
 
@@ -299,7 +352,7 @@ void af::close_log_window()
 
 
 
-void af::log(std::string message)
+void Framework::log(std::string message)
 {
 	if (!textlog) return;
 	al_append_native_text_log(textlog, message.c_str());
@@ -307,27 +360,20 @@ void af::log(std::string message)
 
 
 
-ALLEGRO_TEXTLOG *af::textlog = NULL;
-ALLEGRO_JOYSTICK *af::joystick = NULL;
-ALLEGRO_EVENT_QUEUE *af::event_queue = NULL;
-ALLEGRO_TIMER *af::primary_timer = NULL;
-ALLEGRO_FONT *af::builtin_font = NULL;
-bool af::shutdown_program = false;
-Screen *af::current_screen = NULL;
-double af::time_now = 0;
-ALLEGRO_EVENT *af::current_event = NULL;
-bool af::initialized = false;
-int af::key_alt = 0;
-int af::key_shift = 0;
-int af::key_ctrl = 0;
-bool af::drawing_profiler_graph = false;
+ALLEGRO_TEXTLOG *Framework::textlog = NULL;
+ALLEGRO_JOYSTICK *Framework::joystick = NULL;
+ALLEGRO_EVENT_QUEUE *Framework::event_queue = NULL;
+ALLEGRO_TIMER *Framework::primary_timer = NULL;
+ALLEGRO_FONT *Framework::builtin_font = NULL;
+bool Framework::shutdown_program = false;
+Screen *Framework::current_screen = NULL;
+double Framework::time_now = 0;
+ALLEGRO_EVENT *Framework::current_event = NULL;
+bool Framework::initialized = false;
+int Framework::key_alt = 0;
+int Framework::key_shift = 0;
+int Framework::key_ctrl = 0;
+bool Framework::drawing_profiler_graph = false;
 
-// note: for the bins to be constructed here, al_init() needs to be called
-// prior to its intended place of af::initialize();  Maybe address this in
-// the future.
-BitmapBin af::bitmaps("data/bitmaps");
-FontBin af::fonts("data/fonts");
-SampleBin af::samples("data/samples");
-ModelBin af::models("data/models");
-Motion af::motion(200);
+Framework *Framework::instance = NULL;
 

@@ -19,7 +19,7 @@ public:
 		, blurred(NULL)
 		, src(NULL)
 	{
-		ALLEGRO_BITMAP *src = af::bitmaps["elm_circle.png"];
+		ALLEGRO_BITMAP *src = Framework::bitmap("elm_circle.png");
 		blurred = al_create_bitmap(al_get_bitmap_width(src), al_get_bitmap_height(src));
 	}
 	void key_down_func() override
@@ -29,7 +29,7 @@ public:
 		algo = algo % 4;
 
 		al_destroy_bitmap(src);
-		src = al_clone_bitmap(af::bitmaps["elm_circle.png"]);
+		src = al_clone_bitmap(Framework::bitmap("elm_circle.png"));
 
 		switch(algo)
 		{
@@ -50,10 +50,10 @@ public:
 	void primary_timer_func() override
 	{
 		int h=al_get_bitmap_height(blurred), w=al_get_bitmap_width(blurred);
-		al_draw_bitmap(af::bitmaps["elm_circle.png"], display->width()/2-w/2-w/2, display->height()/2-h/2, 0);
+		al_draw_bitmap(Framework::bitmap("elm_circle.png"), display->width()/2-w/2-w/2, display->height()/2-h/2, 0);
 		al_draw_bitmap(blurred, display->width()/2-w/2+w/2, display->height()/2-h/2, 0);
 
-		al_draw_text(af::fonts["DroidSans.ttf 20"], color::white, 100, 100, 0, "Press any key to cycle through the blending modes");
+		al_draw_text(Framework::font("DroidSans.ttf 20"), color::white, 100, 100, 0, "Press any key to cycle through the blending modes");
 	}
 };
 
@@ -61,10 +61,10 @@ public:
 
 int main(int argc, char **argv)
 {
-	af::initialize();
-	Display *display = af::create_display();
+	Framework::initialize();
+	Display *display = Framework::create_display();
 	MyProject *proj = new MyProject(display);
-	af::run_loop();
+	Framework::run_loop();
 
 	return 0;
 }

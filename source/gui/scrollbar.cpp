@@ -163,8 +163,8 @@ void FGUIScrollBar::set_position(float position_in_unit_value)
 }
 void FGUIScrollBar::on_key_down()
 {
-   if (af::current_event->keyboard.keycode == ALLEGRO_KEY_DOWN) step_down();
-   else if (af::current_event->keyboard.keycode == ALLEGRO_KEY_UP) step_up();
+   if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_DOWN) step_down();
+   else if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_UP) step_up();
 }
 void FGUIScrollBar::on_draw() {}
 void FGUIScrollBar::on_change()

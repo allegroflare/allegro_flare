@@ -37,7 +37,7 @@ Display::Display(int width, int height, int display_flags)
 
 void Display::display_close_func()
 {
-	af::shutdown_program = true;
+	Framework::shutdown_program = true;
 }
 
 

@@ -31,7 +31,7 @@ void FGUIScreen::primary_timer_func()
 {
    if (use_joystick_as_mouse)
    {
-      if (af::joystick)
+      if (Framework::joystick)
       {
          float sensitivity = 8.0;
 
@@ -39,7 +39,7 @@ void FGUIScreen::primary_timer_func()
          al_get_mouse_state(&mouse_state);
 
          ALLEGRO_JOYSTICK_STATE joystick_state;
-         al_get_joystick_state(af::joystick, &joystick_state);
+         al_get_joystick_state(Framework::joystick, &joystick_state);
 
          // TODO:
          // right now the joystick axis to use for the mouse emulation is static,
@@ -66,12 +66,12 @@ void FGUIScreen::primary_timer_func()
 
 void FGUIScreen::mouse_axes_func()
 {
-   if (af::current_event->mouse.display != display->al_display) return;
+   if (Framework::current_event->mouse.display != display->al_display) return;
 
-   float mx = af::current_event->mouse.x;
-   float my = af::current_event->mouse.y;
-   float mdx = af::current_event->mouse.dx;
-   float mdy = af::current_event->mouse.dy;
+   float mx = Framework::current_event->mouse.x;
+   float my = Framework::current_event->mouse.y;
+   float mdx = Framework::current_event->mouse.dx;
+   float mdy = Framework::current_event->mouse.dy;
 
    FGUIWidget::mouse_axes_func(mx, my, mdx, mdy);
 }
@@ -80,7 +80,7 @@ void FGUIScreen::mouse_axes_func()
 
 void FGUIScreen::mouse_down_func()
 {
-   if (af::current_event->mouse.display != display->al_display) return;
+   if (Framework::current_event->mouse.display != display->al_display) return;
    FGUIWidget::mouse_down_func();
 }
 
@@ -88,7 +88,7 @@ void FGUIScreen::mouse_down_func()
 
 void FGUIScreen::mouse_up_func()
 {
-   if (af::current_event->mouse.display != display->al_display) return;
+   if (Framework::current_event->mouse.display != display->al_display) return;
    FGUIWidget::mouse_up_func();
 }
 
@@ -96,18 +96,18 @@ void FGUIScreen::mouse_up_func()
 
 void FGUIScreen::key_down_func()
 {
-   if (af::current_event->keyboard.display != display->al_display) return;
+   if (Framework::current_event->keyboard.display != display->al_display) return;
 
 
    // these next two conditionals are for keyboard/joystick navigation of widgets
 
 /*
-   if (af::current_event->keyboard.keycode == ALLEGRO_KEY_TAB)
+   if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_TAB)
    {
-      if (af::key_shift) jump_focus_to_ancestor_by_delta(true);// jump_focus_to_previous_direct_descendent();
+      if (Framework::key_shift) jump_focus_to_ancestor_by_delta(true);// jump_focus_to_previous_direct_descendent();
       else jump_focus_to_ancestor_by_delta(); //jump_focus_to_next_direct_descendent();
    }
-   if (af::current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+   if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE)
    {
       children.unfocus_all();
       al_show_mouse_cursor(display->display); // restore visibility of the cursor here
@@ -121,7 +121,7 @@ void FGUIScreen::key_down_func()
 
 void FGUIScreen::key_up_func()
 {
-   if (af::current_event->keyboard.display != display->al_display) return;
+   if (Framework::current_event->keyboard.display != display->al_display) return;
    FGUIWidget::key_up_func();
 }
 
@@ -129,7 +129,7 @@ void FGUIScreen::key_up_func()
 
 void FGUIScreen::key_char_func()
 {
-   if (af::current_event->keyboard.display != display->al_display) return;
+   if (Framework::current_event->keyboard.display != display->al_display) return;
 
    FGUIWidget::key_char_func();
 }
@@ -140,8 +140,8 @@ void FGUIScreen::joy_down_func()
 {
 /*
    // for joystick / keyboard navigation of widgets
-   if (af::current_event->joystick.button ==  5) jump_focus_to_ancestor_by_delta(); // XBOX Controller right shoulder trigger button
-   if (af::current_event->joystick.button ==  4) jump_focus_to_ancestor_by_delta(true); // XBOX Controller left shoulder trigger button
+   if (Framework::current_event->joystick.button ==  5) jump_focus_to_ancestor_by_delta(); // XBOX Controller right shoulder trigger button
+   if (Framework::current_event->joystick.button ==  4) jump_focus_to_ancestor_by_delta(true); // XBOX Controller left shoulder trigger button
 */
 
    FGUIWidget::joy_down_func();
@@ -151,7 +151,7 @@ void FGUIScreen::joy_down_func()
 
 void FGUIScreen::joy_up_func()
 {
-//   if (af::current_event->keyboard.display != display->display) return;
+//   if (Framework::current_event->keyboard.display != display->display) return;
    FGUIWidget::joy_up_func();
 }
 
@@ -161,8 +161,8 @@ void FGUIScreen::joy_axis_func()
 {
 // this stuff is now polled on the timer
 //   use_joystick_as_mouse = true;
-//   if (af::current_event->joystick.axis == 0) joy_horizontal_pos = af::current_event->joystick.pos;
-//   if (af::current_event->joystick.axis == 1) joy_vertical_pos = af::current_event->joystick.pos;
+//   if (Framework::current_event->joystick.axis == 0) joy_horizontal_pos = Framework::current_event->joystick.pos;
+//   if (Framework::current_event->joystick.axis == 1) joy_vertical_pos = Framework::current_event->joystick.pos;
 
    FGUIWidget::joy_axis_func();
 }

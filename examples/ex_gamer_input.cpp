@@ -41,7 +41,7 @@ public:
 		, simple_notification_screen(NULL)
 	{
 		gamer_input_screen = new GamerInputScreen(display);
-		simple_notification_screen = new SimpleNotificationScreen(display, af::fonts["DroidSans.ttf 20"]);
+		simple_notification_screen = new SimpleNotificationScreen(display, Framework::font("DroidSans.ttf 20"));
 	}
 	void primary_timer_func() override
 	{
@@ -58,19 +58,19 @@ public:
 	}
 	void user_event_func() override
 	{
-		switch(af::current_event->type)
+		switch(Framework::current_event->type)
 		{
 		case ALLEGRO_EVENT_GAMER_BUTTON_UP:
-			if (af::current_event->user.data1 == GAMER_BUTTON_UP) moving_up = false;
-			if (af::current_event->user.data1 == GAMER_BUTTON_DOWN) moving_down = false;
-			if (af::current_event->user.data1 == GAMER_BUTTON_LEFT) moving_left = false;
-			if (af::current_event->user.data1 == GAMER_BUTTON_RIGHT) moving_right = false;
+			if (Framework::current_event->user.data1 == GAMER_BUTTON_UP) moving_up = false;
+			if (Framework::current_event->user.data1 == GAMER_BUTTON_DOWN) moving_down = false;
+			if (Framework::current_event->user.data1 == GAMER_BUTTON_LEFT) moving_left = false;
+			if (Framework::current_event->user.data1 == GAMER_BUTTON_RIGHT) moving_right = false;
 			break;
 		case ALLEGRO_EVENT_GAMER_BUTTON_DOWN:
-			if (af::current_event->user.data1 == GAMER_BUTTON_UP) moving_up = true;
-			if (af::current_event->user.data1 == GAMER_BUTTON_DOWN) moving_down = true;
-			if (af::current_event->user.data1 == GAMER_BUTTON_LEFT) moving_left = true;
-			if (af::current_event->user.data1 == GAMER_BUTTON_RIGHT) moving_right = true;
+			if (Framework::current_event->user.data1 == GAMER_BUTTON_UP) moving_up = true;
+			if (Framework::current_event->user.data1 == GAMER_BUTTON_DOWN) moving_down = true;
+			if (Framework::current_event->user.data1 == GAMER_BUTTON_LEFT) moving_left = true;
+			if (Framework::current_event->user.data1 == GAMER_BUTTON_RIGHT) moving_right = true;
 			break;
 		}
 	}
@@ -78,10 +78,10 @@ public:
 	{
 		if (simple_notification_screen)
 		{
-			if (af::joystick != NULL)
+			if (Framework::joystick != NULL)
 			{
 				std::stringstream notification_message;
-				notification_message << "New joystick added\n" << al_get_joystick_name(af::joystick);
+				notification_message << "New joystick added\n" << al_get_joystick_name(Framework::joystick);
 				simple_notification_screen->spawn_notification(notification_message.str());
 			}
 			else
@@ -97,10 +97,10 @@ public:
 
 int main(int argc, char **argv)
 {
-	af::initialize();
-	Display *display = af::create_display();
+	Framework::initialize();
+	Display *display = Framework::create_display();
 	MyProject *proj = new MyProject(display);
-	af::run_loop();
+	Framework::run_loop();
 
 	return 0;
 }

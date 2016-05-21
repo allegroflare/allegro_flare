@@ -83,8 +83,8 @@ public:
    {
       FGUIFramedWindow::on_draw();
 
-      ALLEGRO_FONT *font = af::fonts["DroidSans.ttf 15"];
-      ALLEGRO_FONT *font2 = af::fonts["DroidSans.ttf 15"];
+      ALLEGRO_FONT *font = Framework::font("DroidSans.ttf 15");
+      ALLEGRO_FONT *font2 = Framework::font("DroidSans.ttf 15");
       float x_cursor = 160;
       incrementer<float> y_cursor(60, 24);
 
@@ -176,9 +176,9 @@ public:
 
 int main(int argc, char **argv)
 {
-   af::initialize();
-   Display *display = af::create_display(800, 500);
+   Framework::initialize();
+   Display *display = Framework::create_display(800, 500);
    Project *proj = new Project(display);
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }

@@ -23,7 +23,7 @@ public:
 	};
 
 private:
-	friend class af;
+	friend class Framework;
 	friend class Screen; // <- eh for now, because of the display <-> screen relationship
 	static std::vector<Display *> displays; // used to be "instance"
 	static Display *find_display(ALLEGRO_DISPLAY *display);

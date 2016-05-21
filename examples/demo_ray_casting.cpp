@@ -1311,7 +1311,7 @@ public:
 				{
 					text_notification.set_text("Press 'R' to reload");
 					text_notification.spawn();
-					motion.canimate(&gun_sprite.get_attr("y"), display->height()+8, display->height(), af::time_now, af::time_now+0.1, interpolator::doubleFastIn, NULL, NULL);  
+					motion.canimate(&gun_sprite.get_attr("y"), display->height()+8, display->height(), Framework::time_now, Framework::time_now+0.1, interpolator::doubleFastIn, NULL, NULL);  
 				}
 			}
 			else
@@ -1320,7 +1320,7 @@ public:
 				al_play_sample(samples["gunshot-01.wav"], 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 				bullets_in_magazine--;
 				gun_fired = true;
-				motion.canimate(&gun_sprite.get_attr("y"), display->height()-16, display->height(), af::time_now, af::time_now+0.2, interpolator::doubleFastIn, NULL, NULL);  
+				motion.canimate(&gun_sprite.get_attr("y"), display->height()-16, display->height(), Framework::time_now, Framework::time_now+0.2, interpolator::doubleFastIn, NULL, NULL);  
 			}
 		}
 	}
@@ -1331,7 +1331,7 @@ public:
 
 
 	  profiler.start("motion.update()");
-		motion.update(af::time_now);
+		motion.update(Framework::time_now);
 	  profiler.stop("motion.update()");
 
 
@@ -1857,7 +1857,7 @@ public:
 					  if (player_picked_up_item)
 					  {
 						  depth_caches_z_sorted[x]->obj_entity->active = false;
-						  animate_color(&motion, &frame_color, item_color, color::black, af::time_now, pickup_frame_time_length, interpolator::fastIn);
+						  animate_color(&motion, &frame_color, item_color, color::black, Framework::time_now, pickup_frame_time_length, interpolator::fastIn);
 						  text_notification.set_text(notification_text, TextNotification::STYLE_PICKUP_ITEM);
 						  text_notification.background_color = item_color;
 						  text_notification.spawn();
@@ -1872,7 +1872,7 @@ public:
 	}
 	void key_down_func() override
 	{
-		switch(af::current_event->keyboard.keycode)
+		switch(Framework::current_event->keyboard.keycode)
 		{
 		case ALLEGRO_KEY_F1:
 			debug = !debug;
@@ -1889,7 +1889,7 @@ public:
 	}
 	void key_up_func() override
 	{
-		switch(af::current_event->keyboard.keycode)
+		switch(Framework::current_event->keyboard.keycode)
 		{
 			case ALLEGRO_KEY_SPACE:
 				trigger_down = false;
@@ -1909,10 +1909,10 @@ public:
 	}
 	void mouse_axes_func() override
 	{
-		int dx = af::current_event->mouse.dx;
+		int dx = Framework::current_event->mouse.dx;
 		if (abs(dx) > 0)
 		{
-			double rotSpeed = af::current_event->mouse.dx * 0.001;
+			double rotSpeed = Framework::current_event->mouse.dx * 0.001;
 			rotate_view(rotSpeed);
 		}
 	}
@@ -1922,10 +1922,10 @@ public:
 
 int main(int argc, char *argv[])
 {
-	af::initialize();
-	Display *display = af::create_display(1920/2, 1080/2);
+	Framework::initialize();
+	Display *display = Framework::create_display(1920/2, 1080/2);
 	Project *project = new Project(display);
-	af::run_loop();
+	Framework::run_loop();
 	return 0;
 }
 

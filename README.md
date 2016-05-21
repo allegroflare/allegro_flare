@@ -58,10 +58,10 @@ public:
 
 int main(int argc, char **argv)
 {
-    af::initialize(); // initialize all things AllegroFlare
-    Display *display = af::create_display(800, 600); // creates a new Window
+    Framework::initialize(); // initialize all things AllegroFlare
+    Display *display = Framework::create_display(800, 600); // creates a new Window
     MyApp *my_app = new MyApp(display); // creates a new instance of your app
-    af::run_loop(); // run the AllegroFlare framework
+    Framework::run_loop(); // run the AllegroFlare framework
 }
 ```
 
@@ -71,10 +71,10 @@ Some Examples of Features and Tools
 -----------------------------------
 
 ### Framework
-- Initialize (basically) everything with one function (`af::initialize()`)
+- Initialize (basically) everything with one function (`Framework::initialize()`)
 - Interface with the system through a parent class (`Screen`)
 - Use virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc)
-- Access assets through global media bins (`af::bitmaps["mypic.jpg"]`, `af::fonts["Times.ttf 16"]`, etc)
+- Access assets through global media bins (`Framework::bitmaps["mypic.jpg"]`, `Framework::fonts["Times.ttf 16"]`, etc)
 
 ### Resource Management
 - Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`)
@@ -151,10 +151,10 @@ public:
 
 void main()
 {
-	af::initialize();
-	Display *display = af::create_display(800, 600, NULL);
+	Framework::initialize();
+	Display *display = Framework::create_display(800, 600, NULL);
 	Project *project = new Project(display);
-	af::run_loop();
+	Framework::run_loop();
 }
 ```
 

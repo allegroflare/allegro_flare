@@ -13,19 +13,30 @@
 #include <allegro_flare/display.h>
 #include <allegro_flare/screen.h>
 
-class FontBin;
-class SampleBin;
-class BitmapBin;
-class ModelBin;
-class Motion;
+#include <allegro_flare/bins/font_bin.h>
+#include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/bins/bitmap_bin.h>
+#include <allegro_flare/bins/model_bin.h>
+#include <allegro_flare/motion.h>
 
 
 
 
-class af
+class Framework
 {
-public:
+private:
+   static Framework *instance;
+   static Framework *get_instance();
+   Framework(int val);
+   ~Framework();
 
+	FontBin fonts;
+	SampleBin samples;
+	BitmapBin bitmaps;
+	ModelBin models;
+	Motion motions;
+
+public:
 	static ALLEGRO_TEXTLOG *textlog;
 	static ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
 	static ALLEGRO_EVENT_QUEUE *event_queue;
@@ -40,11 +51,11 @@ public:
 	static int key_alt, key_shift, key_ctrl;
 	static bool drawing_profiler_graph;
 
-	static FontBin fonts;
-	static SampleBin samples;
-	static BitmapBin bitmaps;
-	static ModelBin models;
-	static Motion motion;
+   static ALLEGRO_FONT *font(std::string identifier);
+   static ALLEGRO_BITMAP *bitmap(std::string identifier);
+   static ALLEGRO_SAMPLE *sample(std::string identifier);
+   static ModelNew *model(std::string identifier);
+   static Motion &motion(); // we'll do this for now
 
 	static bool initialize(std::string config_filename="");
 	static Display *create_display(int width=1280, int height=720);

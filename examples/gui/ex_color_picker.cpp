@@ -18,7 +18,7 @@ public:
    void on_draw() override
    {
       FGUIWidget::on_draw();
-      ALLEGRO_FONT *font = af::fonts["DroidSans.ttf 12"];
+      ALLEGRO_FONT *font = Framework::font("DroidSans.ttf 12");
       al_draw_text(font, color::white, place.size.x/2, place.size.y/2 - al_get_font_line_height(font)/2, ALLEGRO_ALIGN_CENTER, attr.get("id").c_str());
    }
 };
@@ -305,9 +305,9 @@ public:
       if (sender == button) // click is automatic message to parent for FGUIButton
       {
          // animate the button around randomly when it gets clicked
-         af::motion.cmove_to(&button->place.position.x, random_float(100, 600), 0.4);
-         af::motion.cmove_to(&button->place.position.y, random_float(100, 500), 0.4);
-         af::motion.cmove_to(&button->place.rotation, random_float(-0.4, 0.4), 0.4);
+         Framework::motion().cmove_to(&button->place.position.x, random_float(100, 600), 0.4);
+         Framework::motion().cmove_to(&button->place.position.y, random_float(100, 500), 0.4);
+         Framework::motion().cmove_to(&button->place.rotation, random_float(-0.4, 0.4), 0.4);
       }
    }
 };
@@ -317,10 +317,10 @@ public:
 
 int main(int argc, char **argv)
 {
-   af::initialize();
-   Display *display = af::create_display();
+   Framework::initialize();
+   Display *display = Framework::create_display();
    MyProject *proj = new MyProject(display);
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }
 

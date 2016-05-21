@@ -9,7 +9,7 @@
 
 #include <allegro_flare/gui/surface_areas/box.h>
 
-#include <allegro_flare/framework.h> // for af::current_event 
+#include <allegro_flare/framework.h> // for Framework::current_event 
 
 
 
@@ -55,7 +55,7 @@ void FGUISpinner::on_key_char()
 {
    if (!focused) return;
 
-   switch(af::current_event->keyboard.keycode)
+   switch(Framework::current_event->keyboard.keycode)
    {
    case ALLEGRO_KEY_UP:
    case ALLEGRO_KEY_PAD_PLUS:

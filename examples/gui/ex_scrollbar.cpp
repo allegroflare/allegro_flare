@@ -35,10 +35,10 @@ public:
 
 int main(int argc, char **argv)
 {
-   af::initialize();
-   Display *display = af::create_display();
+   Framework::initialize();
+   Display *display = Framework::create_display();
    Project *proj = new Project(display);
-   af::run_loop();
+   Framework::run_loop();
    return 0;
 }
 

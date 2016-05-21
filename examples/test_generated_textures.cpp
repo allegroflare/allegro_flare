@@ -62,10 +62,10 @@ public:
 
 int main(int argc, char **argv)
 {
-	af::initialize();
-	Display *display = af::create_display(960, 540);
+	Framework::initialize();
+	Display *display = Framework::create_display(960, 540);
 	MyProject *proj = new MyProject(display);
-	af::run_loop();
+	Framework::run_loop();
 
 	return 0;
 }

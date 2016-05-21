@@ -83,7 +83,7 @@ void FGUIVerticalSlider::on_mouse_move(float x, float y, float dx, float dy)
 
 void FGUIVerticalSlider::on_mouse_down()
 {
-   //if (mouse_over && af::current_event->mouse.button == 1) set_val_by_y(mouse_y);
+   //if (mouse_over && Framework::current_event->mouse.button == 1) set_val_by_y(mouse_y);
    if (mouse_over)
    {
       set_val_by_y(mouse_y);
@@ -105,7 +105,7 @@ void FGUIVerticalSlider::on_drag(float x, float y, float dx, float dy)
 
 void FGUIVerticalSlider::on_mouse_wheel()
 {
-   if (focused) set_val(get_val() + af::current_event->mouse.dz * wheel_sensitivity);
+   if (focused) set_val(get_val() + Framework::current_event->mouse.dz * wheel_sensitivity);
 }
 
 
@@ -115,7 +115,7 @@ void FGUIVerticalSlider::on_key_char()
    if (!focused) return;
    float increment_dist = 0.1;
    if (num_notches >= 3) increment_dist = 1.0 / num_notches;
-   switch (af::current_event->keyboard.keycode)
+   switch (Framework::current_event->keyboard.keycode)
    {
       case ALLEGRO_KEY_UP:
          set_val(val + increment_dist);
