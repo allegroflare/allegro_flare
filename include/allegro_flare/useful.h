@@ -174,9 +174,6 @@ double random_double(double min, double max);
 // Returns a random integer between min and max (inclusive).
 int random_int(int min, int max);
 
-// Returns a random integer between min and max (inclusive).
-int random_int(std::vector<int> vals);
-
 // Returns either a 1 or -1, selected at random.
 int random_sign();
 
@@ -193,20 +190,21 @@ unsigned char random_letter_or_number();
 std::string random_string(unsigned int length);
 
 // Returns a randomly selected element from the vector.
-// WARNING: this function does not do any bounds checking.  If the array is empty
-// this function will throw an out-of-bounds exception.
+// If the vector is empty, unexpected things can happen and your program will most likely crash.
+// You should ensure that your vector is not empty before calling this function.
 template<class T>
 T random_element(std::vector<T> &elements)
 {
-	return elements[random_int(0, elements.size())];
+   return elements[random_int(0, elements.size()-1)];
 }
 
 // Returns a random selected element from an array of elements.
-// If the array is empty, it will throw an out-of-bounds exception.
+// If the array is empty, unexpected things can happen and your program will most likely crash.
+// You should ensure that your array is not empty before calling this function.
 template<class T>
 T random_element(T elements[], int size)
 {
-	return elements[random_int(0, size-1)];
+   return elements[random_int(0, size-1)];
 }
 
 // Returns an ALLEGRO_COLOR with randomly picked RGB values.
