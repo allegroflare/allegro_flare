@@ -1,4 +1,4 @@
-#ifndef __AF_PIANO_KEYBOAD_HEADER
+#ifndef __UI_PIANO_KEYBOAD_HEADER
 #define __AF_PIANO_KEYBOAD_HEADER
 
 
@@ -45,7 +45,7 @@ public:
 
 
 
-class FGUIPianoKeyboard : public FGUIWidget
+class UIPianoKeyboard : public UIWidget
 {
 public:
    vec2d mouse_screen, mouse_world;
@@ -54,7 +54,7 @@ public:
    PianoKeyboardKey keys[NUM_KEYS];
    float w, h;
 
-   FGUIPianoKeyboard(FGUIWidget *parent, float x, float y);
+   UIPianoKeyboard(UIWidget *parent, float x, float y);
 
    bool is_black_key(int num, std::vector<int> &set);
 
@@ -201,8 +201,8 @@ void PianoKeyboardKey::on_mouse_up()
 
 
 
-FGUIPianoKeyboard::FGUIPianoKeyboard(FGUIWidget *parent, float x, float y)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 500, 100))
+UIPianoKeyboard::UIPianoKeyboard(UIWidget *parent, float x, float y)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, 500, 100))
 {
    set_keys_to_pentatonic();
    //init_midi();
@@ -214,48 +214,48 @@ FGUIPianoKeyboard::FGUIPianoKeyboard(FGUIWidget *parent, float x, float y)
    //camera.rotation = 0.1;
 }
 
-bool FGUIPianoKeyboard::is_black_key(int num, std::vector<int> &set)
+bool UIPianoKeyboard::is_black_key(int num, std::vector<int> &set)
 {
    for (std::vector<int>::iterator it=set.begin(); it!=set.end(); it++)
       if ((*it) == num) return false;
    return true;
 }
 
-void FGUIPianoKeyboard::set_keys_to_diatonic()
+void UIPianoKeyboard::set_keys_to_diatonic()
 {
    int myints[] = {0, 2, 4, 5, 7, 9, 11};
    std::vector<int> set(myints, myints + sizeof(myints) / sizeof(int));
    set_keys_to_scale(set);
 }
 
-void FGUIPianoKeyboard::set_keys_to_whole_tone()
+void UIPianoKeyboard::set_keys_to_whole_tone()
 {
    int myints[] = {0, 2, 4, 6, 8, 10};
    std::vector<int> set(myints, myints + sizeof(myints) / sizeof(int));
    set_keys_to_scale(set);
 }
 
-void FGUIPianoKeyboard::set_keys_to_octatonic1()
+void UIPianoKeyboard::set_keys_to_octatonic1()
 {
    int myints[] = {0, 1, 3, 4, 6, 7, 9, 10};
    std::vector<int> set(myints, myints + sizeof(myints) / sizeof(int));
    set_keys_to_scale(set);
 }
 
-void FGUIPianoKeyboard::set_keys_to_pentatonic()
+void UIPianoKeyboard::set_keys_to_pentatonic()
 {
    int myints[] = {0, 2, 4, 7, 9 };
    std::vector<int> set(myints, myints + sizeof(myints) / sizeof(int));
    set_keys_to_scale(set);
 }
 
-void FGUIPianoKeyboard::set_keys_to_scale(int *set_array, int size)
+void UIPianoKeyboard::set_keys_to_scale(int *set_array, int size)
 {
    std::vector<int> set(set_array, set_array + size / sizeof(int));
    set_keys_to_scale(set);
 }
 
-void FGUIPianoKeyboard::set_keys_to_scale(std::vector<int> &set)
+void UIPianoKeyboard::set_keys_to_scale(std::vector<int> &set)
 {
    float key_width = 20;
    float key_height = 100;
@@ -322,7 +322,7 @@ void FGUIPianoKeyboard::set_keys_to_scale(std::vector<int> &set)
    place.size.y = h;
 }
 
-void FGUIPianoKeyboard::on_draw()
+void UIPianoKeyboard::on_draw()
 {
    al_draw_filled_rectangle(0, 0, w, h, color::hex("876833")); // dark tan
    //al_draw_filled_rectangle(0, 0, w, h, color::hex("172b43")); // dark blue
@@ -336,7 +336,7 @@ void FGUIPianoKeyboard::on_draw()
       if (keys[i].black_key) keys[i].draw();
 }
 
-void FGUIPianoKeyboard::on_mouse_move(float x, float y, float dx, float dy)
+void UIPianoKeyboard::on_mouse_move(float x, float y, float dx, float dy)
 {
    place.transform_coordinates(&x, &y);
 
@@ -367,13 +367,13 @@ void FGUIPianoKeyboard::on_mouse_move(float x, float y, float dx, float dy)
    }
 }
 
-void FGUIPianoKeyboard::on_mouse_down()
+void UIPianoKeyboard::on_mouse_down()
 {
    for (int i=0; i<NUM_KEYS; i++)
       keys[i].on_mouse_down();
 }
 
-void FGUIPianoKeyboard::on_mouse_up()
+void UIPianoKeyboard::on_mouse_up()
 {
    for (int i=0; i<NUM_KEYS; i++)
       keys[i].on_mouse_up();
@@ -404,13 +404,13 @@ void FGUIPianoKeyboard::on_mouse_up()
 
 
 
-class PianoKeyboardExampleProject : public FGUIScreen
+class PianoKeyboardExampleProject : public UIScreen
 {
 public:
    Display *display;
    ALLEGRO_FONT *font;
    PianoKeyboardExampleProject(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , font(al_load_font("data/fonts/DroidSans.ttf", -20, ALLEGRO_FLAGS_EMPTY))
    {
 
@@ -418,34 +418,34 @@ public:
       std::vector<int> major7;  major7.push_back(0); major7.push_back(4); major7.push_back(7); major7.push_back(11);
 
 
-      FGUIPianoKeyboard *piano_keyboard1 = new FGUIPianoKeyboard(this, 0, 0);
+      UIPianoKeyboard *piano_keyboard1 = new UIPianoKeyboard(this, 0, 0);
       piano_keyboard1->place.position.x = -200 + display->width()/2;
       piano_keyboard1->place.position.y = display->height()/2;
       piano_keyboard1->place.scale.x = 0.7;
       piano_keyboard1->place.scale.y = 0.7;
 
-      FGUIPianoKeyboard *piano_keyboard5 = new FGUIPianoKeyboard(this, 0, 0);
+      UIPianoKeyboard *piano_keyboard5 = new UIPianoKeyboard(this, 0, 0);
       piano_keyboard5->set_keys_to_scale(major7);
       piano_keyboard5->place.position.y = 300 + display->height()/2;
       piano_keyboard5->place.position.x = -200 + display->width()/2;
       piano_keyboard5->place.scale.x = 0.7;
       piano_keyboard5->place.scale.y = 0.7;
 
-      FGUIPianoKeyboard *piano_keyboard4 = new FGUIPianoKeyboard(this, 0, 0);
+      UIPianoKeyboard *piano_keyboard4 = new UIPianoKeyboard(this, 0, 0);
       piano_keyboard4->set_keys_to_whole_tone();
       piano_keyboard4->place.position.y = 150 + display->height()/2;
       piano_keyboard4->place.position.x = -200 + display->width()/2;
       piano_keyboard4->place.scale.x = 0.7;
       piano_keyboard4->place.scale.y = 0.7;
 
-      FGUIPianoKeyboard *piano_keyboard2 = new FGUIPianoKeyboard(this, 0, 0);
+      UIPianoKeyboard *piano_keyboard2 = new UIPianoKeyboard(this, 0, 0);
       piano_keyboard2->set_keys_to_diatonic();
       piano_keyboard2->place.position.y = -150 + display->height()/2;
       piano_keyboard2->place.position.x = -200 + display->width()/2;
       piano_keyboard2->place.scale.x = 0.7;
       piano_keyboard2->place.scale.y = 0.7;
 
-      FGUIPianoKeyboard *piano_keyboard3 = new FGUIPianoKeyboard(this, 0, 0);
+      UIPianoKeyboard *piano_keyboard3 = new UIPianoKeyboard(this, 0, 0);
       piano_keyboard3->set_keys_to_octatonic1();
       piano_keyboard3->place.position.y = -300 + display->height()/2;
       piano_keyboard3->place.position.x = -200 + display->width()/2;
@@ -454,7 +454,7 @@ public:
 
       std::vector<int> this_set; this_set.push_back(0); this_set.push_back(4); this_set.push_back(6);
          this_set.push_back(10); this_set.push_back(11);
-      FGUIPianoKeyboard *piano_keyboard6 = new FGUIPianoKeyboard(this, 0, 0);
+      UIPianoKeyboard *piano_keyboard6 = new UIPianoKeyboard(this, 0, 0);
       piano_keyboard6->set_keys_to_scale(this_set);
       piano_keyboard6->place.position.x = 250 + display->width()/2;
       piano_keyboard6->place.position.y = 200 + display->height()/2;

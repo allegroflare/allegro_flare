@@ -10,7 +10,7 @@
 // come back to this, Mark, this is a cool idea.
 
 
-class FGUIConsole : public FGUIScreen
+class UIConsole : public UIScreen
 {
 public:
 
@@ -56,10 +56,10 @@ public:
    float console_height;
    float text_input_height;
    int current_indexed_past_message;
-   FGUITextInput *text_input_widget;
+   UITextInput *text_input_widget;
 
-   FGUIConsole(Display *display)
-      : FGUIScreen(display)
+   UIConsole(Display *display)
+      : UIScreen(display)
       , font(Framework::font("DroidSans.ttf 19"))
       , active(false)
       , visibility_counter(0)
@@ -70,7 +70,7 @@ public:
       , console_padding(20)
       , current_indexed_past_message(0)
    {
-      text_input_widget = new FGUITextInput(this, console_padding, -150, display->width()-console_padding*2, text_input_height, "");
+      text_input_widget = new UITextInput(this, console_padding, -150, display->width()-console_padding*2, text_input_height, "");
       text_input_widget->place.align.x = 0.0;
       text_input_widget->place.align.y = 1.0;
    }
@@ -157,15 +157,15 @@ public:
 
 
 
-class ExampleProject : public FGUIScreen
+class ExampleProject : public UIScreen
 {
 public:
-   FGUIConsole *console;
+   UIConsole *console;
    ExampleProject(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , console(NULL)
    {
-      console = new FGUIConsole(display);
+      console = new UIConsole(display);
    }
    void mouse_down_func() override
    {

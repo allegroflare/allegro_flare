@@ -18,7 +18,7 @@ public:
    {
       grid2d::draw_guides();
    }
-   bool fit_to_grid(int grid_x1, int grid_y1, int grid_x2, int grid_y2, FGUIWidget *widget/*, vec2d align = vec2d(0.5, 0.5)*/)
+   bool fit_to_grid(int grid_x1, int grid_y1, int grid_x2, int grid_y2, UIWidget *widget/*, vec2d align = vec2d(0.5, 0.5)*/)
    {
       vec2d top_left = grid2d::get_guide_pos(grid_x1, grid_y1);
       vec2d bottom_right = grid2d::get_guide_pos(grid_x2, grid_y2);
@@ -31,11 +31,11 @@ public:
 
       return true;
    }
-   bool fit_in_cell(int cell_x, int cell_y, FGUIWidget *widget/*, vec2d align = vec2d(0.5, 0.5)*/)
+   bool fit_in_cell(int cell_x, int cell_y, UIWidget *widget/*, vec2d align = vec2d(0.5, 0.5)*/)
    {
       return fit_to_grid(cell_x, cell_y, cell_x+1, cell_y+1, widget);
    }
-   bool fit_in_cells(int cell1_x, int cell1_y, int cell2_x, int cell2_y, FGUIWidget *widget/*, vec2d align = vec2d(0.5, 0.5)*/)
+   bool fit_in_cells(int cell1_x, int cell1_y, int cell2_x, int cell2_y, UIWidget *widget/*, vec2d align = vec2d(0.5, 0.5)*/)
    {
       return fit_to_grid(cell1_x, cell1_y, cell2_x+1, cell2_y+1, widget);
    }
@@ -43,13 +43,13 @@ public:
 
 
 
-class Calculator : public FGUIWindow
+class Calculator : public UIWindow
 {
 public:
    GridHelper grid;
-   FGUITextInput *result_display;
-   Calculator(FGUIWidget *parent)
-      : FGUIWindow(parent, 400, 400, 100, 100)
+   UITextInput *result_display;
+   Calculator(UIWidget *parent)
+      : UIWindow(parent, 400, 400, 100, 100)
       , grid()
       , result_display(NULL)
    {
@@ -58,10 +58,10 @@ public:
       place.position += vec2d(500, 100);
 
 
-      new FGUIDraggableRegion(this, place.size.x/2, place.size.y/2, place.size.x, place.size.y);
+      new UIDraggableRegion(this, place.size.x/2, place.size.y/2, place.size.x, place.size.y);
 
 
-      result_display = new FGUITextInput(this, 0, 0, 0, 0, "0");
+      result_display = new UITextInput(this, 0, 0, 0, 0, "0");
       result_display->set_font_color(color::aliceblue);
       grid.fit_in_cells(1, 1, 9, 1, result_display);
 
@@ -93,19 +93,19 @@ public:
       m_make_button("<-", 9, 5);
       m_make_button("=", 9, 7, 9, 9);
    }
-   FGUIButton *m_make_button(std::string label, float cell_x, float cell_y)
+   UIButton *m_make_button(std::string label, float cell_x, float cell_y)
    {
-      FGUIButton *button = new FGUIButton(this, 0, 0, 0, 0, label);
+      UIButton *button = new UIButton(this, 0, 0, 0, 0, label);
       grid.fit_in_cell(cell_x, cell_y, button);
       return button;
    }
-   FGUIButton *m_make_button(std::string label, float cell1_x, float cell1_y, float cell2_x, float cell2_y)
+   UIButton *m_make_button(std::string label, float cell1_x, float cell1_y, float cell2_x, float cell2_y)
    {
-      FGUIButton *button = new FGUIButton(this, 0, 0, 0, 0, label);
+      UIButton *button = new UIButton(this, 0, 0, 0, 0, label);
       grid.fit_in_cells(cell1_x, cell1_y, cell2_x, cell2_y, button);
       return button;
    }
-   void on_message(FGUIWidget *sender, std::string message) override
+   void on_message(UIWidget *sender, std::string message) override
    {
       if (message == "on_click")
       {
@@ -203,18 +203,18 @@ public:
 
 
 
-class Project : public FGUIScreen
+class Project : public UIScreen
 {
 public:
    Calculator *calculator;
 
     Project(Display *display)
-        : FGUIScreen(display)
+        : UIScreen(display)
     {
       this->draw_focused_outline = false;
 
       // make a nice background image
-      FGUIImage *img = new FGUIImage(this, 0, 0, Framework::bitmap("veddy_nice.png"));
+      UIImage *img = new UIImage(this, 0, 0, Framework::bitmap("veddy_nice.png"));
          img->set_color(color::color(color::white, 0.2));
          img->place.position = vec2d(display->center(), display->middle());
 

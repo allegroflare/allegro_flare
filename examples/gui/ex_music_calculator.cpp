@@ -79,22 +79,22 @@ RubyScriptResult run_ruby_script(std::string script_filename, std::string args)
 
 
 
-class Project : public FGUIScreen
+class Project : public UIScreen
 {
 public:
    ALLEGRO_BITMAP *music_render;
-   FGUITextInput *text_input;
-   FGUIText *notation_text;
+   UITextInput *text_input;
+   UIText *notation_text;
    std::string result_text;
-   Project() : FGUIScreen(Framework::create_display())
+   Project() : UIScreen(Framework::create_display())
       , music_render(al_create_bitmap(200, 80))
       , text_input(NULL)
       , notation_text(NULL)
       , result_text()
    {
-      text_input = new FGUITextInput(this, display->center(), display->height()*2/3, 300, 40, "0 1 2 3 4 5");
+      text_input = new UITextInput(this, display->center(), display->height()*2/3, 300, 40, "0 1 2 3 4 5");
       text_input->attr.set("on_submit_send_text", "process music");
-      notation_text = new FGUIText(this, display->center()-text_input->place.size.x/2, display->height()*2/3+45,
+      notation_text = new UIText(this, display->center()-text_input->place.size.x/2, display->height()*2/3+45,
          "[notation_string]");
    }
 
@@ -104,13 +104,13 @@ public:
       DrawingInterfaceAllegro5 drawing_interface;
       MusicNotation music_notation(&drawing_interface);
 
-      FGUIScreen::primary_timer_func();
+      UIScreen::primary_timer_func();
 
       last_width = music_notation.draw(display->center() - last_width/2, display->height()/3,
          "{staff_color=white color=white spacing=fixed ignore_spaces}" + result_text);
    }
 
-   void on_message(FGUIWidget *parent, std::string message) override
+   void on_message(UIWidget *parent, std::string message) override
    {
       // on any message, reset the result_text
       result_text = get_result_from_script(text_input->get_text());

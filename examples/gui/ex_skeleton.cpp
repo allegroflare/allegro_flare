@@ -109,7 +109,7 @@ byonce
 
 
 
-class SkeletonExampleProgram : public FGUIScreen
+class SkeletonExampleProgram : public UIScreen
 {
 public:
    FontBin fonts;
@@ -122,10 +122,10 @@ public:
 
    SimpleNotificationScreen *simple_notification_screen;
 
-   FGUIButton *presets[9];
+   UIButton *presets[9];
 
    SkeletonExampleProgram(Display *disp)
-      : FGUIScreen(disp)
+      : UIScreen(disp)
       , bone_test(NULL)
       , rotating(0)
       , fonts()
@@ -137,31 +137,31 @@ public:
       bone_test = BoneFactory::build_simple_person();
       simple_notification_screen = new SimpleNotificationScreen(display, fonts["DroidSans.ttf 14"]);
 
-      (new FGUIText(this, 10, 17, "Skeleton Example"))->place.align.y = 0.0;
+      (new UIText(this, 10, 17, "Skeleton Example"))->place.align.y = 0.0;
 
       //ALLEGRO_FONT *button_font = fonts["consola.ttf 19"];
       float button_y = 140;
-      presets[0] = new FGUIButton(this, 100, button_y+60*1, 160, 50, "Frame1");
+      presets[0] = new UIButton(this, 100, button_y+60*1, 160, 50, "Frame1");
          presets[0]->attr.set("filename", "frame1.bfs");
-      presets[1] = new FGUIButton(this, 100, button_y+60*2, 160, 50, "Frame2");
+      presets[1] = new UIButton(this, 100, button_y+60*2, 160, 50, "Frame2");
          presets[1]->attr.set("filename", "frame2.bfs");
-      presets[2] = new FGUIButton(this, 100, button_y+60*3, 160, 50, "Frame3");
+      presets[2] = new UIButton(this, 100, button_y+60*3, 160, 50, "Frame3");
          presets[2]->attr.set("filename", "frame3.bfs");
-      presets[3] = new FGUIButton(this, 100, button_y+60*4, 160, 50, "Frame4");
+      presets[3] = new UIButton(this, 100, button_y+60*4, 160, 50, "Frame4");
          presets[3]->attr.set("filename", "frame4.bfs");
-      presets[4] = new FGUIButton(this, 100, button_y+60*5, 160, 50, "Frame5");
+      presets[4] = new UIButton(this, 100, button_y+60*5, 160, 50, "Frame5");
          presets[4]->attr.set("filename", "frame5.bfs");
-      presets[5] = new FGUIButton(this, 100, button_y+60*6, 160, 50, "Frame6");
+      presets[5] = new UIButton(this, 100, button_y+60*6, 160, 50, "Frame6");
          presets[5]->attr.set("filename", "frame6.bfs");
-      presets[6] = new FGUIButton(this, 100, button_y+60*7, 160, 50, "Frame7");
+      presets[6] = new UIButton(this, 100, button_y+60*7, 160, 50, "Frame7");
          presets[6]->attr.set("filename", "frame7.bfs");
-      presets[7] = new FGUIButton(this, 100, button_y+60*8, 160, 50, "Frame8");
+      presets[7] = new UIButton(this, 100, button_y+60*8, 160, 50, "Frame8");
          presets[7]->attr.set("filename", "frame8.bfs");
-      presets[8] = new FGUIButton(this, 100, button_y+60*9, 160, 50, "Frame9");
+      presets[8] = new UIButton(this, 100, button_y+60*9, 160, 50, "Frame9");
          presets[8]->attr.set("filename", "frame9.bfs");
    }
 
-   void on_message(FGUIWidget *sender, std::string message) override
+   void on_message(UIWidget *sender, std::string message) override
    {
       if (message.empty()) return;
       //simple_notification_screen->spawn_notification("message recieved\n\"" + message + "\"");

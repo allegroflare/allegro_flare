@@ -9,7 +9,7 @@
 
 == widget_inspector_ex.cpp ==
 
-demonstrates the use of FGUIWidgetInspector
+demonstrates the use of UIWidgetInspector
 
 */
 
@@ -63,25 +63,25 @@ public:
 
 
 
-class FGUIWidgetInspector : public FGUIFramedWindow
+class UIWidgetInspector : public UIFramedWindow
 {
 public:
-   FGUIWidget *target_widget;
+   UIWidget *target_widget;
    incrementer<float> y_cursor;
 
-   FGUIWidgetInspector(FGUIWidget *parent)
-      : FGUIFramedWindow(parent, 400, 300, 340, 340)
+   UIWidgetInspector(UIWidget *parent)
+      : UIFramedWindow(parent, 400, 300, 340, 340)
       , target_widget(NULL)
       , y_cursor(60, 26)
    {
-      attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIWidgetInspector");
-      attr.set("id", "WidgetInspector" + tostring(FGUIWidget::get_num_created_widgets()));
+      attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIWidgetInspector");
+      attr.set("id", "WidgetInspector" + tostring(UIWidget::get_num_created_widgets()));
 
-      new FGUIDraggableRegion(this, place.size.x/2, place.size.y/2, place.size.x, place.size.y);
+      new UIDraggableRegion(this, place.size.x/2, place.size.y/2, place.size.x, place.size.y);
    }
    void on_draw()
    {
-      FGUIFramedWindow::on_draw();
+      UIFramedWindow::on_draw();
 
       ALLEGRO_FONT *font = Framework::font("DroidSans.ttf 15");
       ALLEGRO_FONT *font2 = Framework::font("DroidSans.ttf 15");
@@ -97,7 +97,7 @@ public:
       }
 
       al_draw_text(font, color::white, x_cursor, y_cursor++, ALLEGRO_ALIGN_RIGHT, (tostring("id")).c_str());
-      al_draw_text(font, color::white, x_cursor, y_cursor++, ALLEGRO_ALIGN_RIGHT, (tostring(FGUI_ATTR__FGUI_WIDGET_TYPE)).c_str());
+      al_draw_text(font, color::white, x_cursor, y_cursor++, ALLEGRO_ALIGN_RIGHT, (tostring(UI_ATTR__UI_WIDGET_TYPE)).c_str());
       y_cursor += 0.5f;
       al_draw_text(font, color::white, x_cursor, y_cursor++, ALLEGRO_ALIGN_RIGHT, (tostring("position.x")).c_str());
       al_draw_text(font, color::white, x_cursor, y_cursor++, ALLEGRO_ALIGN_RIGHT, (tostring("position.y").c_str()));
@@ -112,7 +112,7 @@ public:
       x_cursor += 10;
 
       al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (target_widget->attr.get("id")).c_str());
-      al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (target_widget->attr.get(FGUI_ATTR__FGUI_WIDGET_TYPE)).c_str());
+      al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (target_widget->attr.get(UI_ATTR__UI_WIDGET_TYPE)).c_str());
       y_cursor += 0.5f;
       al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (tostring(target_widget->place.position.x)).c_str());
       al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (tostring(target_widget->place.position.y)).c_str());
@@ -125,7 +125,7 @@ public:
 
       //al_draw_text(font, color::white, x_cursor, y_cursor++, 0, (tostring("num_children ") + tostring(target_widget->ch)).c_str());
    }
-   void set_target_widget(FGUIWidget *widget)
+   void set_target_widget(UIWidget *widget)
    {
       target_widget = widget;
    }
@@ -136,21 +136,21 @@ public:
 
 
 
-class Project : public FGUIScreen
+class Project : public UIScreen
 {
 public:
-   FGUIWidgetInspector *widget_inspector;
-   FGUIWindow* window[3];
+   UIWidgetInspector *widget_inspector;
+   UIWindow* window[3];
    Project(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , widget_inspector(NULL)
       , window()
    {
-      window[0] = new FGUIWindow(this, 200, 200, 300, 200);
-      window[1] = new FGUIWindow(this, 280, 300, 100, 80);
-      window[2] = new FGUIWindow(this, 570, 280, 400, 320);
+      window[0] = new UIWindow(this, 200, 200, 300, 200);
+      window[1] = new UIWindow(this, 280, 300, 100, 80);
+      window[2] = new UIWindow(this, 570, 280, 400, 320);
 
-      widget_inspector = new FGUIWidgetInspector(this);
+      widget_inspector = new UIWidgetInspector(this);
    }
    void on_timer()
    {
@@ -164,7 +164,7 @@ public:
       int num_widgets_d = children.get_num_of_widgets_d();
       for (unsigned i=0; i<num_widgets_d; i++)
       {
-         FGUIWidget *widget = children.get_nth_child_d(i);
+         UIWidget *widget = children.get_nth_child_d(i);
          if (widget && widget->is_focused()) widget_inspector->set_target_widget(widget);
       }
       */

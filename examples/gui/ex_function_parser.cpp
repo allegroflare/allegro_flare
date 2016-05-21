@@ -287,25 +287,25 @@ public:
 #include <string>
 
 
-class Project : public FGUIScreen
+class Project : public UIScreen
 {
 public:
-   class Input : public FGUITextInput
+   class Input : public UITextInput
    {
    public:
-      Input(FGUIWidget *parent)
-         : FGUITextInput(parent, PADDING, PADDING, WIDTH, 40, "function(arg1, \"this is a string\")")
+      Input(UIWidget *parent)
+         : UITextInput(parent, PADDING, PADDING, WIDTH, 40, "function(arg1, \"this is a string\")")
       {
          place.align.x = 0;
          place.align.y = 0;
       }
    };
 
-   class Output : public FGUITextArea
+   class Output : public UITextArea
    {
    public:
-      Output(FGUIWidget *parent)
-         : FGUITextArea(parent, PADDING, PADDING + 80, WIDTH, 400, "")
+      Output(UIWidget *parent)
+         : UITextArea(parent, PADDING, PADDING + 80, WIDTH, 400, "")
       {
          place.align.x = 0;
          place.align.y = 0;
@@ -313,7 +313,7 @@ public:
       void on_draw() override
       {
          al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, color::color(color::white, 0.1));
-         FGUITextArea::on_draw();
+         UITextArea::on_draw();
       }
    };
 
@@ -372,7 +372,7 @@ private:
 
 public:
    Project(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , input(new Input(this))
       , output(new Output(this))
    {}
