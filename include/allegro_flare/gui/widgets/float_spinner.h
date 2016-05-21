@@ -1,5 +1,5 @@
-#ifndef __FGUI_FLOAT_SPINNER_HEADER
-#define __FGUI_FLOAT_SPINNER_HEADER
+#ifndef __UI_FLOAT_SPINNER_HEADER
+#define __UI_FLOAT_SPINNER_HEADER
 
 
 
@@ -7,14 +7,14 @@
 
 
 
-class FGUIFloatSpinner : public FGUISpinner
+class UIFloatSpinner : public UISpinner
 {
 private:
    float val;
    float increment_amount;
 
 public:
-   FGUIFloatSpinner(FGUIWidget *parent, float x, float y, float w, float h);
+   UIFloatSpinner(UIWidget *parent, float x, float y, float w, float h);
 
    void set_val(std::string strval) override;
    void set_increment(float increment_amount=0.1);

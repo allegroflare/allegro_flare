@@ -11,19 +11,19 @@
 
 
 
-FGUIDial::FGUIDial(FGUIWidget *parent, float x, float y, float diameter)
-   : FGUIWidget(parent, new FGUISurfaceAreaCircle(x, y, diameter/2))
+UIDial::UIDial(UIWidget *parent, float x, float y, float diameter)
+   : UIWidget(parent, new UISurfaceAreaCircle(x, y, diameter/2))
    , val(0.4)
    , radius(diameter/2)
    , sensitivity(0.002)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIDial");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIDial");
    attr.set("id", "Dial" + tostring(get_num_created_widgets()));
 }
 
 
 
-void FGUIDial::set_value(float unit_val)
+void UIDial::set_value(float unit_val)
 {
    float prev_val = val;
    val = limit<float>(0, 1, unit_val);
@@ -32,28 +32,28 @@ void FGUIDial::set_value(float unit_val)
 
 
 
-float FGUIDial::get_value()
+float UIDial::get_value()
 {
    return val;
 }
 
 
 
-void FGUIDial::on_mouse_down()
+void UIDial::on_mouse_down()
 {
    al_hide_mouse_cursor(Framework::current_event->mouse.display);
 }
 
 
 
-void FGUIDial::on_mouse_up()
+void UIDial::on_mouse_up()
 {
    al_show_mouse_cursor(Framework::current_event->mouse.display);
 }
 
 
 
-void FGUIDial::on_drag(float x, float y, float dx, float dy)
+void UIDial::on_drag(float x, float y, float dx, float dy)
 {
    float adjusted_val = val;
    adjusted_val -= dy * sensitivity;
@@ -65,7 +65,7 @@ void FGUIDial::on_drag(float x, float y, float dx, float dy)
 
 
 
-void FGUIDial::on_draw()
+void UIDial::on_draw()
 {
    // some visual styling
    ALLEGRO_COLOR button_color = al_color_html("575962");
@@ -120,7 +120,7 @@ void FGUIDial::on_draw()
 
    // draw the shade down
    float shade_inset = 3;
-   ALLEGRO_BITMAP *shade = FGUIStyleAssets::get_shade_down_circle_gradient();
+   ALLEGRO_BITMAP *shade = UIStyleAssets::get_shade_down_circle_gradient();
    al_draw_tinted_scaled_bitmap(shade, color::color(color::white, 0.2),
       0, 0, al_get_bitmap_width(shade), al_get_bitmap_height(shade),
       shade_inset + radius-inner_radius, shade_inset + radius-inner_radius,
@@ -135,7 +135,7 @@ void FGUIDial::on_draw()
 
 
 
-void FGUIDial::on_change()
+void UIDial::on_change()
 {
    send_message_to_parent("on_change");
 }

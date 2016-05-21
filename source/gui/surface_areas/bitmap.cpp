@@ -12,14 +12,14 @@
 
 
 
-FGUISurfaceAreaBitmap::FGUISurfaceAreaBitmap(float x, float y, ALLEGRO_BITMAP *bitmap)
-   : FGUISurfaceArea(x, y, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap))
+UISurfaceAreaBitmap::UISurfaceAreaBitmap(float x, float y, ALLEGRO_BITMAP *bitmap)
+   : UISurfaceArea(x, y, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap))
    , bitmap(bitmap)
 {}
 
 
 
-bool FGUISurfaceAreaBitmap::collides(float x, float y)
+bool UISurfaceAreaBitmap::collides(float x, float y)
 {
    if (!placement.collide(x, y)) return false;
 
@@ -33,7 +33,7 @@ bool FGUISurfaceAreaBitmap::collides(float x, float y)
 
 
 
-void FGUISurfaceAreaBitmap::draw_bounding_area()
+void UISurfaceAreaBitmap::draw_bounding_area()
 {
    placement.draw_box(color::color(color::aliceblue, 0.2), true);
 }

@@ -15,8 +15,8 @@
 
 
 
-FGUITextInput::FGUITextInput(FGUIWidget *parent, float x, float y, float w, float h, std::string text)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, std::string text)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
    , text("")
    , cursor_pos(0)
    , cursor_end(0)
@@ -29,7 +29,7 @@ FGUITextInput::FGUITextInput(FGUIWidget *parent, float x, float y, float w, floa
    , mouse_cursor_x(0)
    , mouse_cursor_y(0)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUITextInput");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UITextInput");
    attr.set("id", "TextInput" + tostring(get_num_created_widgets()));
    set_text(text);
 
@@ -38,14 +38,14 @@ FGUITextInput::FGUITextInput(FGUIWidget *parent, float x, float y, float w, floa
 
 
 
-FGUITextInput::~FGUITextInput()
+UITextInput::~UITextInput()
 {
    al_destroy_bitmap(_text_render);
 }
 
 
 
-void FGUITextInput::set_text(std::string text)
+void UITextInput::set_text(std::string text)
 {
    if (this->text == text) return;
    this->text = text;
@@ -56,7 +56,7 @@ void FGUITextInput::set_text(std::string text)
 
 
 
-std::string FGUITextInput::get_text()
+std::string UITextInput::get_text()
 {
    return text;
 }
@@ -64,14 +64,14 @@ std::string FGUITextInput::get_text()
 
 
 
-bool FGUITextInput::selection_active()
+bool UITextInput::selection_active()
 {
    return (cursor_pos != cursor_end);
 }
 
 
 
-void FGUITextInput::insert_text(std::string text)
+void UITextInput::insert_text(std::string text)
 {
    _insert_text(text.c_str());
    cursor_end = cursor_pos; 
@@ -79,7 +79,7 @@ void FGUITextInput::insert_text(std::string text)
 
 
 #include <algorithm>
-std::string FGUITextInput::get_selection()
+std::string UITextInput::get_selection()
 {
    if (selection_active())
    {
@@ -93,7 +93,7 @@ std::string FGUITextInput::get_selection()
 
 
 
-void FGUITextInput::_insert_text(const char *str)
+void UITextInput::_insert_text(const char *str)
 {
    //if (cursor_pos != cursor_end) _handle_erase(); // this causes a crash
    text.insert(cursor_pos, str);
@@ -103,7 +103,7 @@ void FGUITextInput::_insert_text(const char *str)
 
 
 
-void FGUITextInput::clear_selection()
+void UITextInput::clear_selection()
 {
    int cursor_min = std::min(cursor_pos, cursor_end);
    _handle_erase();
@@ -112,13 +112,13 @@ void FGUITextInput::clear_selection()
 }
 
 
-void FGUITextInput::set_font_color(ALLEGRO_COLOR col)
+void UITextInput::set_font_color(ALLEGRO_COLOR col)
 {
    font_color = col;
 }
 
 
-void FGUITextInput::_handle_erase()
+void UITextInput::_handle_erase()
 {
    int del_len = 1;
    int *left = &cursor_pos;
@@ -134,13 +134,13 @@ void FGUITextInput::_handle_erase()
 }
 
 
-void FGUITextInput::on_click()
+void UITextInput::on_click()
 {
 
 }
 
 
-void FGUITextInput::on_mouse_move(float x, float y, float dx, float dy)
+void UITextInput::on_mouse_move(float x, float y, float dx, float dy)
 {
    place.transform_coordinates(&x, &y); // hm, could be a really heavy calculation to do repeatedly
    mouse_cursor_x = x;
@@ -148,7 +148,7 @@ void FGUITextInput::on_mouse_move(float x, float y, float dx, float dy)
 }
 
 
-void FGUITextInput::on_key_char()
+void UITextInput::on_key_char()
 {
    if (!focused) return;
 
@@ -347,7 +347,7 @@ void FGUITextInput::on_key_char()
 
 
 
-void FGUITextInput::_update_text_and_selection_render(float len_to_cursor, float len_to_cursor_end)
+void UITextInput::_update_text_and_selection_render(float len_to_cursor, float len_to_cursor_end)
 {
    ALLEGRO_STATE state;
    al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
@@ -380,7 +380,7 @@ void FGUITextInput::_update_text_and_selection_render(float len_to_cursor, float
 
 
 
-void FGUITextInput::on_draw()
+void UITextInput::on_draw()
 {
    placement2d &placement = surface_area->placement;
 
@@ -402,7 +402,7 @@ void FGUITextInput::on_draw()
 
 
 
-   FGUIStyleAssets::draw_inset(0, 0, placement.size.x, placement.size.y, color::color(color::black, 0.1));
+   UIStyleAssets::draw_inset(0, 0, placement.size.x, placement.size.y, color::color(color::black, 0.1));
    // draw the border-box
    if (focused) al_draw_rounded_rectangle(0, 0, placement.size.x, placement.size.y, 3, 3, color::dodgerblue, 2.0);   
 
@@ -427,7 +427,7 @@ void FGUITextInput::on_draw()
 
 
 
-void FGUITextInput::on_focus()
+void UITextInput::on_focus()
 {
    if (attr.has("select_all_on_focus"))
    {
@@ -439,7 +439,7 @@ void FGUITextInput::on_focus()
 
 
 
-void FGUITextInput::on_submit()
+void UITextInput::on_submit()
 {
    if (family.parent) family.parent->on_message(this, "on_submit");
    on_change();

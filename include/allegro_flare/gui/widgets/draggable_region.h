@@ -1,5 +1,5 @@
-#ifndef FGUI_DRAGGABLE_REGION_HEADER
-#define FGUI_DRAGGABLE_REGION_HEADER
+#ifndef UI_DRAGGABLE_REGION_HEADER
+#define UI_DRAGGABLE_REGION_HEADER
 
 
 
@@ -9,13 +9,13 @@
 
 
 
-class FGUIDraggableRegion : public FGUIWidget
+class UIDraggableRegion : public UIWidget
 {
 protected:
    ALLEGRO_COLOR background_color;
 
 public:
-   FGUIDraggableRegion(FGUIWidget *parent, float x, float y, float w, float h);
+   UIDraggableRegion(UIWidget *parent, float x, float y, float w, float h);
 
    void set_color(ALLEGRO_COLOR col);
 

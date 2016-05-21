@@ -1,5 +1,5 @@
-#ifndef FGUI_SCALED_TEXT_HEADER
-#define FGUI_SCALED_TEXT_HEADER
+#ifndef UI_SCALED_TEXT_HEADER
+#define UI_SCALED_TEXT_HEADER
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-class FGUIScaledText : public FGUIWidget
+class UIScaledText : public UIWidget
 {
 protected:
    ALLEGRO_BITMAP *render;
@@ -25,7 +25,7 @@ protected:
    void refresh_render();
 
 public:
-   FGUIScaledText(FGUIWidget *parent, float x, float y, std::string text);
+   UIScaledText(UIWidget *parent, float x, float y, std::string text);
 
    void set_font_color(ALLEGRO_COLOR color);
    void set_text(std::string text);

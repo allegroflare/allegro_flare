@@ -13,19 +13,19 @@
 
 
 
-FGUIToggleButton::FGUIToggleButton(FGUIWidget *parent, float x, float y, float w, float h, std::string _text)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+UIToggleButton::UIToggleButton(UIWidget *parent, float x, float y, float w, float h, std::string _text)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
    , pressed(false)
    , text(_text)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIToggleButton");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIToggleButton");
    attr.set("id", "ToggleButton" + tostring(get_num_created_widgets()));
 }
 
 
 
 
-void FGUIToggleButton::set_text(std::string text)
+void UIToggleButton::set_text(std::string text)
 {
    this->text = text;
 }
@@ -33,7 +33,7 @@ void FGUIToggleButton::set_text(std::string text)
 
 
 
-bool FGUIToggleButton::toggle()
+bool UIToggleButton::toggle()
    // returns true if the button is pressed
 {
    pressed = !pressed;
@@ -43,7 +43,7 @@ bool FGUIToggleButton::toggle()
 
 
 
-bool FGUIToggleButton::set_as_pressed()
+bool UIToggleButton::set_as_pressed()
    // returns true if the state was changed,
    // returns false if it stayed the same
 {
@@ -57,7 +57,7 @@ bool FGUIToggleButton::set_as_pressed()
 
 
 
-bool FGUIToggleButton::set_as_unpressed()
+bool UIToggleButton::set_as_unpressed()
    // returns true if the state was changed,
    // returns false if it stayed the same
 {
@@ -71,45 +71,45 @@ bool FGUIToggleButton::set_as_unpressed()
 
 
 
-void FGUIToggleButton::silently_set_as_pressed()
+void UIToggleButton::silently_set_as_pressed()
 {
    pressed = true;
 }
 
 
 
-void FGUIToggleButton::silently_set_as_unpressed()
+void UIToggleButton::silently_set_as_unpressed()
 {
    pressed = false;
 }
 
 
 
-bool FGUIToggleButton::is_pressed()
+bool UIToggleButton::is_pressed()
 {
    return pressed;
 }
 
 
 
-void FGUIToggleButton::on_draw()
+void UIToggleButton::on_draw()
 {
-   if (pressed) FGUIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y);
-   else FGUIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
+   if (pressed) UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y);
+   else UIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
 
-   FGUIStyleAssets::draw_styled_text("ui", place.size.x/2, place.size.y/2 + (pressed ? 1 : 0),
+   UIStyleAssets::draw_styled_text("ui", place.size.x/2, place.size.y/2 + (pressed ? 1 : 0),
       0.5, 0.5, text.c_str());
 }
 
 
 
 
-void FGUIToggleButton::on_click() { toggle(); }
+void UIToggleButton::on_click() { toggle(); }
 
 
 
 
-void FGUIToggleButton::on_change()
+void UIToggleButton::on_change()
 {
    send_message_to_parent("on_change");
 }

@@ -1,5 +1,5 @@
-#ifndef FGUI_TEXT_HEADER
-#define FGUI_TEXT_HEADER
+#ifndef __UI_TEXT_HEADER
+#define __UI_TEXT_HEADER
 
 
 
@@ -12,7 +12,7 @@
 
 
 
-class FGUIText : public FGUIWidget
+class UIText : public UIWidget
 {
 protected:
    std::string text;
@@ -20,7 +20,7 @@ protected:
    ALLEGRO_COLOR font_color;
    
 public:
-   FGUIText(FGUIWidget *parent, float x, float y, std::string text);
+   UIText(UIWidget *parent, float x, float y, std::string text);
 
    std::string get_text();
 

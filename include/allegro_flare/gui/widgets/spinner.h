@@ -1,5 +1,5 @@
-#ifndef __FGUI_SPINNER_HEADER
-#define __FGUI_SPINNER_HEADER
+#ifndef __UI_SPINNER_HEADER
+#define __UI_SPINNER_HEADER
 
 
 
@@ -8,22 +8,22 @@
 
 
 
-class FGUITextInput;
-class FGUIButton;
+class UITextInput;
+class UIButton;
 
 
-class FGUISpinner : public FGUIWidget
+class UISpinner : public UIWidget
 {
 protected:
-   FGUITextInput *text_input;
-   FGUIButton *up_button;
-   FGUIButton *down_button;
+   UITextInput *text_input;
+   UIButton *up_button;
+   UIButton *down_button;
 
 public:
-   FGUISpinner(FGUIWidget *parent, float x, float y, float w, float h);
+   UISpinner(UIWidget *parent, float x, float y, float w, float h);
 
    void on_draw() override;
-   void on_message(FGUIWidget *sender, std::string message) override;
+   void on_message(UIWidget *sender, std::string message) override;
    void on_key_char() override;
    void on_change() override;
 

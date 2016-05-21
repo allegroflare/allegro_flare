@@ -1,5 +1,5 @@
-#ifndef FGUI_BUTTON_HEADER
-#define FGUI_BUTTON_HEADER
+#ifndef UI_BUTTON_HEADER
+#define UI_BUTTON_HEADER
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-class FGUIButton : public FGUIWidget
+class UIButton : public UIWidget
 {
 protected:
    ALLEGRO_BITMAP *icon;
@@ -20,7 +20,7 @@ protected:
    float content_alignment;
 
 public:
-   FGUIButton(FGUIWidget *parent, float x, float y, float w, float h, std::string text);
+   UIButton(UIWidget *parent, float x, float y, float w, float h, std::string text);
 
    void set_text(std::string text);
    void set_icon(ALLEGRO_BITMAP *icon);

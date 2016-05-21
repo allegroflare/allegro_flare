@@ -1,5 +1,5 @@
-#ifndef __FGUI_STYLE_ASSETS_HEADER
-#define __FGUI_STYLE_ASSETS_HEADER
+#ifndef __UI_STYLE_ASSETS_HEADER
+#define __UI_STYLE_ASSETS_HEADER
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-class FGUIStyleAssets
+class UIStyleAssets
 {
 private:
    ALLEGRO_BITMAP *shade_down_circle_gradient;
@@ -25,12 +25,12 @@ private:
    ALLEGRO_FONT *mini_font;
    ALLEGRO_FONT *micro_font;
 
-   static FGUIStyleAssets *instance;
+   static UIStyleAssets *instance;
 
-   FGUIStyleAssets();
-   ~FGUIStyleAssets();
+   UIStyleAssets();
+   ~UIStyleAssets();
 
-   static FGUIStyleAssets *get_instance();
+   static UIStyleAssets *get_instance();
 
    static ALLEGRO_BITMAP *generate_widget_icon(int size, ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color);
 

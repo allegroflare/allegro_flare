@@ -11,8 +11,8 @@
 
 
 
-FGUIListSpinner::FGUIListSpinner(FGUIWidget *parent, float x, float y, float w, float h)
-   : FGUISpinner(parent, x, y, w, h)
+UIListSpinner::UIListSpinner(UIWidget *parent, float x, float y, float w, float h)
+   : UISpinner(parent, x, y, w, h)
    , items()
    , it(items.begin())
 {}
@@ -20,7 +20,7 @@ FGUIListSpinner::FGUIListSpinner(FGUIWidget *parent, float x, float y, float w, 
 
 
 
-int FGUIListSpinner::add_item(std::string item)
+int UIListSpinner::add_item(std::string item)
 {
    items.push_back(item);
    // note: whenever an item is added or removed, it's important that
@@ -35,7 +35,7 @@ int FGUIListSpinner::add_item(std::string item)
 
 
 
-int FGUIListSpinner::add_items(std::vector<std::string> new_items)
+int UIListSpinner::add_items(std::vector<std::string> new_items)
 {
    items.insert(items.end(), new_items.begin(), new_items.end());
    // refresh the iterator (important)
@@ -47,7 +47,7 @@ int FGUIListSpinner::add_items(std::vector<std::string> new_items)
 
 
 
-void FGUIListSpinner::sort()
+void UIListSpinner::sort()
 {
    std::sort(items.begin(), items.end());
 }
@@ -55,7 +55,7 @@ void FGUIListSpinner::sort()
 
 
 
-std::string FGUIListSpinner::get_val()
+std::string UIListSpinner::get_val()
 {
    if (items.empty()) return "";
    return (*it);
@@ -64,7 +64,7 @@ std::string FGUIListSpinner::get_val()
 
 
 
-void FGUIListSpinner::set_val(std::string strval)
+void UIListSpinner::set_val(std::string strval)
 {
    // the behavior of this function will do nothing
 }
@@ -72,7 +72,7 @@ void FGUIListSpinner::set_val(std::string strval)
 
 
 
-void FGUIListSpinner::increment()
+void UIListSpinner::increment()
 {
    if (items.empty()) return;
 
@@ -85,7 +85,7 @@ void FGUIListSpinner::increment()
 
 
 
-void FGUIListSpinner::decrement()
+void UIListSpinner::decrement()
 {
    if (items.empty()) return;
 

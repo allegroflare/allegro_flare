@@ -1,5 +1,5 @@
-#ifndef FGUI_TEXT_INPUT_HEADER
-#define FGUI_TEXT_INPUT_HEADER
+#ifndef __UI_TEXT_INPUT_HEADER
+#define __UI_TEXT_INPUT_HEADER
 
 
 
@@ -10,7 +10,7 @@
 
 
 
-class FGUITextInput : public FGUIWidget
+class UITextInput : public UIWidget
 {
 protected:
    float mouse_cursor_x, mouse_cursor_y;
@@ -29,8 +29,8 @@ protected:
    void _update_text_and_selection_render(float len_to_cursor, float len_to_cursor_end);
 
 public:
-   explicit FGUITextInput(FGUIWidget *parent, float x, float y, float w, float h, std::string initial_text="");
-   ~FGUITextInput();
+   explicit UITextInput(UIWidget *parent, float x, float y, float w, float h, std::string initial_text="");
+   ~UITextInput();
 
    void set_text(std::string text);
    std::string get_text();

@@ -13,13 +13,13 @@
 
 
 
-FGUIText::FGUIText(FGUIWidget *parent, float x, float y, std::string text)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 200, 20)) // just set arbitrary width and height
+UIText::UIText(UIWidget *parent, float x, float y, std::string text)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, 200, 20)) // just set arbitrary width and height
    , text(text)
    , font(Framework::font("DroidSans.ttf 20"))
    , font_color(color::white)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIText");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIText");
    attr.set("id", "Text" + tostring(get_num_created_widgets()));
 
    // text elements do not recieve focus when ALLEGRO_KEY_TABbing
@@ -35,21 +35,21 @@ FGUIText::FGUIText(FGUIWidget *parent, float x, float y, std::string text)
 
 
 
-void FGUIText::on_draw()
+void UIText::on_draw()
 {
    al_draw_text(font, font_color, 0, 0, ALLEGRO_ALIGN_LEFT, text.c_str());
 }
 
 
 
-std::string FGUIText::get_text()
+std::string UIText::get_text()
 {
    return text;
 }
 
 
 
-void FGUIText::set_font_and_text(ALLEGRO_FONT *font, std::string text)
+void UIText::set_font_and_text(ALLEGRO_FONT *font, std::string text)
 {
    this->text = text;
    this->font = font;
@@ -59,21 +59,21 @@ void FGUIText::set_font_and_text(ALLEGRO_FONT *font, std::string text)
 
 
 
-void FGUIText::set_text(std::string text)
+void UIText::set_text(std::string text)
 {
    set_font_and_text(this->font, text);
 }
 
 
 
-void FGUIText::set_font(ALLEGRO_FONT *font)
+void UIText::set_font(ALLEGRO_FONT *font)
 {
    set_font_and_text(font, this->text);
 }
 
 
 
-void FGUIText::set_font_color(const ALLEGRO_COLOR &font_color)
+void UIText::set_font_color(const ALLEGRO_COLOR &font_color)
 {
    this->font_color = font_color;
 }

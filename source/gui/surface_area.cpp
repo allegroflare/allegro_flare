@@ -13,15 +13,15 @@
 
 #include <iostream>
 
-FGUISurfaceArea::FGUISurfaceArea(float x, float y, float w, float h)
+UISurfaceArea::UISurfaceArea(float x, float y, float w, float h)
    : placement(x, y, w, h)
 {
-   //std::cout << "FGUISurfaceArea()" << std::endl;
+   //std::cout << "UISurfaceArea()" << std::endl;
 }
 
 
 
-FGUISurfaceArea::~FGUISurfaceArea()
+UISurfaceArea::~UISurfaceArea()
 {
-   //std::cout << "~FGUISurfaceArea()" << std::endl;
+   //std::cout << "~UISurfaceArea()" << std::endl;
 }

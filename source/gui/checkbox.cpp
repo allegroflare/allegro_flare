@@ -19,34 +19,34 @@
 
 
 
-FGUICheckbox::FGUICheckbox(FGUIWidget *parent, float x, float y, float size)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, size, size))
+UICheckbox::UICheckbox(UIWidget *parent, float x, float y, float size)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, size, size))
    , checked(false)
    , check_placement(0, 0, size, size, -0.4, 0.0, 0.0, 0.45, 0.75)
-   , check_color(color::mix(FGUIStyleAssets::get_hilight_color(), color::white, 0.6))
+   , check_color(color::mix(UIStyleAssets::get_hilight_color(), color::white, 0.6))
    , check_opacity(0)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUICheckbox");
-   attr.set("id", "Checkbox" + tostring(FGUIWidget::get_num_created_widgets()));
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UICheckbox");
+   attr.set("id", "Checkbox" + tostring(UIWidget::get_num_created_widgets()));
 }
 
 
 
-bool FGUICheckbox::is_checked()
+bool UICheckbox::is_checked()
 {
    return checked;
 }
 
 
 
-void FGUICheckbox::set_color(ALLEGRO_COLOR col)
+void UICheckbox::set_color(ALLEGRO_COLOR col)
 {
    check_color = col;
 }
 
 
 
-void FGUICheckbox::toggle()
+void UICheckbox::toggle()
 {
    checked = !checked;
 
@@ -73,7 +73,7 @@ void FGUICheckbox::toggle()
 
 
 
-bool FGUICheckbox::set_as_checked()
+bool UICheckbox::set_as_checked()
 {
    // returns true if the value is or was changed to checked
    // the behavior for these return values might change based on some
@@ -84,7 +84,7 @@ bool FGUICheckbox::set_as_checked()
 }
 
 
-bool FGUICheckbox::set_as_unchecked()
+bool UICheckbox::set_as_unchecked()
 {
    // returns true if the value IS or WAS CHANGED TO unchecked
    // the behavior for these return values might change based on some
@@ -96,14 +96,14 @@ bool FGUICheckbox::set_as_unchecked()
 
 
 
-void FGUICheckbox::on_click()
+void UICheckbox::on_click()
 {
    toggle();
 }
 
 
 
-void FGUICheckbox::on_key_char()
+void UICheckbox::on_key_char()
 {
    if (!focused) return;
    if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_SPACE
@@ -115,7 +115,7 @@ void FGUICheckbox::on_key_char()
 
 
 
-void FGUICheckbox::on_joy_down()
+void UICheckbox::on_joy_down()
 {
    if (!mouse_over) return;
 
@@ -127,17 +127,17 @@ void FGUICheckbox::on_joy_down()
 
 
 
-void FGUICheckbox::on_draw()
+void UICheckbox::on_draw()
 {
    float check_inset = place.size.x*0.2;   
 
 
    // draw the background shape
-   FGUIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
+   UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
 
 
    // draw the gradient
-   ALLEGRO_BITMAP *shade_down = FGUIStyleAssets::get_shade_down_gradient();
+   ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
    al_draw_tinted_scaled_bitmap(shade_down, color::color(color::white, 0.3), 0, 0, al_get_bitmap_width(shade_down), al_get_bitmap_height(shade_down),
          check_inset, check_inset, place.size.x-check_inset*2, place.size.y-check_inset*2, ALLEGRO_FLIP_VERTICAL);
 
@@ -167,7 +167,7 @@ void FGUICheckbox::on_draw()
 
 
 
-void FGUICheckbox::on_change()
+void UICheckbox::on_change()
 {
    send_message_to_parent("on_change");
 }

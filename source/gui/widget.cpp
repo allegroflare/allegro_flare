@@ -11,7 +11,7 @@
 
 
 
-FGUIWidget::FGUIWidget(FGUIWidget *parent, FGUISurfaceArea *surface_area)
+UIWidget::UIWidget(UIWidget *parent, UISurfaceArea *surface_area)
    : family(parent)
    , surface_area(surface_area)
    , place(surface_area->placement)
@@ -24,7 +24,7 @@ FGUIWidget::FGUIWidget(FGUIWidget *parent, FGUISurfaceArea *surface_area)
    , mouse_is_blocked(false)
    , disabled(false)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIWidget");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIWidget");
    attr.set("id", "Widget" + tostring(widget_count));
 
    if (parent) parent->family.register_as_child(this);
@@ -36,15 +36,15 @@ FGUIWidget::FGUIWidget(FGUIWidget *parent, FGUISurfaceArea *surface_area)
 
 
 
-FGUIWidget::~FGUIWidget()
+UIWidget::~UIWidget()
 {
-   family.delete_all(); // from FGUIParent
+   family.delete_all(); // from UIParent
 
    if (surface_area) delete surface_area;
    if (family.parent) family.parent->family.unregister_as_child(this);
    num_active_widgets--;
    
-   std::cout << "~FGUIWidget() { type=" << attr.get(FGUI_ATTR__FGUI_WIDGET_TYPE) << " }" << std::endl;
+   std::cout << "~UIWidget() { type=" << attr.get(UI_ATTR__UI_WIDGET_TYPE) << " }" << std::endl;
 
    // clear all elements from the motion manager
    // I'm not sure about this.  There isn't really a fast, elegant way to guarantee
@@ -72,7 +72,7 @@ FGUIWidget::~FGUIWidget()
 
 
 
-bool FGUIWidget::is_focused()
+bool UIWidget::is_focused()
 {
    return focused;
 }
@@ -80,7 +80,7 @@ bool FGUIWidget::is_focused()
 
 
 
-bool FGUIWidget::is_mouse_over()
+bool UIWidget::is_mouse_over()
 {
    return mouse_over;
 }
@@ -88,7 +88,7 @@ bool FGUIWidget::is_mouse_over()
 
 
 
-bool FGUIWidget::is_disabled()
+bool UIWidget::is_disabled()
 {
    return disabled;
 }
@@ -97,7 +97,7 @@ bool FGUIWidget::is_disabled()
 
 
 
-void FGUIWidget::bring_to_front()
+void UIWidget::bring_to_front()
 {
    if (!family.parent) return;
       // hmm.. the logic of this should be executed by the parent, not this child
@@ -117,7 +117,7 @@ void FGUIWidget::bring_to_front()
 
 
 
-void FGUIWidget::send_message_to_parent(std::string message)
+void UIWidget::send_message_to_parent(std::string message)
 {
    if (disabled) return;
 
@@ -127,7 +127,7 @@ void FGUIWidget::send_message_to_parent(std::string message)
 
 
 
-void FGUIWidget::primary_timer_func()
+void UIWidget::primary_timer_func()
 {
    if (disabled) return;
 
@@ -142,7 +142,7 @@ void FGUIWidget::primary_timer_func()
       if (family.children[i]->delete_me)
       {
          std::cout << "Deleting child object...";
-         // NOTE: when a FGUIWidget is deleted, it automatically
+         // NOTE: when a UIWidget is deleted, it automatically
          // removes itself from the parent, so that step
          // does not need to be done here.  Also, widgets will
          // automatically delete thier children as well.
@@ -156,7 +156,7 @@ void FGUIWidget::primary_timer_func()
 
 
 
-void FGUIWidget::draw_func()
+void UIWidget::draw_func()
 {
    if (surface_area) surface_area->placement.start_transform();
 
@@ -182,7 +182,7 @@ void FGUIWidget::draw_func()
 
 
 // widget developer functions:
-void FGUIWidget::mouse_axes_func(float x, float y, float dx, float dy)
+void UIWidget::mouse_axes_func(float x, float y, float dx, float dy)
 {
    if (disabled) return;
 
@@ -230,7 +230,7 @@ void FGUIWidget::mouse_axes_func(float x, float y, float dx, float dy)
 
 
 
-void FGUIWidget::mouse_down_func()
+void UIWidget::mouse_down_func()
 {
    if (disabled) return;
 
@@ -258,7 +258,7 @@ void FGUIWidget::mouse_down_func()
 
 
 
-void FGUIWidget::mouse_up_func()
+void UIWidget::mouse_up_func()
 {
    if (disabled) return;
 
@@ -282,7 +282,7 @@ void FGUIWidget::mouse_up_func()
 
 
 
-void FGUIWidget::key_down_func()
+void UIWidget::key_down_func()
 {
    if (disabled) return;
 
@@ -295,7 +295,7 @@ void FGUIWidget::key_down_func()
 }
 
 
-void FGUIWidget::key_up_func()
+void UIWidget::key_up_func()
 {
    if (disabled) return;
 
@@ -306,7 +306,7 @@ void FGUIWidget::key_up_func()
 }
 
 
-void FGUIWidget::key_char_func()
+void UIWidget::key_char_func()
 {
    if (disabled) return;
 
@@ -317,7 +317,7 @@ void FGUIWidget::key_char_func()
 }
 
 
-void FGUIWidget::joy_up_func()
+void UIWidget::joy_up_func()
 {
    if (disabled) return;
 
@@ -328,7 +328,7 @@ void FGUIWidget::joy_up_func()
 }
 
 
-void FGUIWidget::joy_axis_func()
+void UIWidget::joy_axis_func()
 {
    if (disabled) return;
 
@@ -339,7 +339,7 @@ void FGUIWidget::joy_axis_func()
 }
 
 
-void FGUIWidget::joy_down_func()
+void UIWidget::joy_down_func()
 {
    if (disabled) return;
 
@@ -357,65 +357,65 @@ void FGUIWidget::joy_down_func()
 
 
 // user functions:
-void FGUIWidget::on_focus() {}
-void FGUIWidget::on_blur() {}
-void FGUIWidget::on_drop() {}
+void UIWidget::on_focus() {}
+void UIWidget::on_blur() {}
+void UIWidget::on_drop() {}
 
-void FGUIWidget::on_mouse_enter() {}
-void FGUIWidget::on_mouse_leave() {}
-void FGUIWidget::on_mouse_move(float x, float y, float dx, float dy) {}
-void FGUIWidget::on_mouse_down() {}
-void FGUIWidget::on_mouse_up() {}
-void FGUIWidget::on_mouse_wheel() {}
-void FGUIWidget::on_click() {}
+void UIWidget::on_mouse_enter() {}
+void UIWidget::on_mouse_leave() {}
+void UIWidget::on_mouse_move(float x, float y, float dx, float dy) {}
+void UIWidget::on_mouse_down() {}
+void UIWidget::on_mouse_up() {}
+void UIWidget::on_mouse_wheel() {}
+void UIWidget::on_click() {}
 
-void FGUIWidget::on_key_down() {}
-void FGUIWidget::on_key_up() {}
-void FGUIWidget::on_key_char() {}
+void UIWidget::on_key_down() {}
+void UIWidget::on_key_up() {}
+void UIWidget::on_key_char() {}
 
-void FGUIWidget::on_joy_down() {}
-void FGUIWidget::on_joy_up() {}
-void FGUIWidget::on_joy_axis() {}
+void UIWidget::on_joy_down() {}
+void UIWidget::on_joy_up() {}
+void UIWidget::on_joy_axis() {}
 
-void FGUIWidget::on_timer() {}
-void FGUIWidget::on_draw()
+void UIWidget::on_timer() {}
+void UIWidget::on_draw()
 {
    if (surface_area)
    {
       al_draw_rounded_rectangle(0, 0, surface_area->placement.size.x, surface_area->placement.size.y, 4, 4, color::color(color::aliceblue, 0.2), 2.0);
-      ALLEGRO_BITMAP *widget_icon = FGUIStyleAssets::get_widget_icon();
+      ALLEGRO_BITMAP *widget_icon = UIStyleAssets::get_widget_icon();
       al_draw_tinted_bitmap(widget_icon, color::color(color::white, 0.1), place.size.x/2-al_get_bitmap_width(widget_icon)/2, place.size.y/2-al_get_bitmap_height(widget_icon)/2, 0);
    }
 }
-void FGUIWidget::on_drag(float x, float y, float dx, float dy) {}
-void FGUIWidget::on_change() {}
-void FGUIWidget::on_message(FGUIWidget *sender, std::string message) {};
+void UIWidget::on_drag(float x, float y, float dx, float dy) {}
+void UIWidget::on_change() {}
+void UIWidget::on_message(UIWidget *sender, std::string message) {};
 
 
 
-int FGUIWidget::num_active_widgets = 0;
+int UIWidget::num_active_widgets = 0;
 
 
 
-int FGUIWidget::widget_count = 0;
+int UIWidget::widget_count = 0;
 
 
 
-int FGUIWidget::get_num_created_widgets()
+int UIWidget::get_num_created_widgets()
 {
    return widget_count;
 }
 
 
 
-int FGUIWidget::get_num_active_widgets()
+int UIWidget::get_num_active_widgets()
 {
    return num_active_widgets;
 }
 
 
 
-void FGUIWidget::set_as_focused()
+void UIWidget::set_as_focused()
    // iterates through all siblings and sets all parent's children to unfocused.
    // if the widget is not already focused, then set to focused and on_focus() is called
 {
@@ -426,7 +426,7 @@ void FGUIWidget::set_as_focused()
 
 
 
-void FGUIWidget::set_as_unfocused()
+void UIWidget::set_as_unfocused()
    // if the widget is currently focused, chages the state to !focused and calls on_blur().
 {
    if (disabled) return;
@@ -440,7 +440,7 @@ void FGUIWidget::set_as_unfocused()
 
 
 
-void FGUIWidget::set_as_disabled()
+void UIWidget::set_as_disabled()
 {
    if (disabled) return; // no change
 
@@ -450,7 +450,7 @@ void FGUIWidget::set_as_disabled()
 
 
 
-void FGUIWidget::set_as_enabled()
+void UIWidget::set_as_enabled()
 {
    if (!disabled) return; // no change
 

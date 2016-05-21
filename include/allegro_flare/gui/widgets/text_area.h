@@ -1,5 +1,5 @@
-#ifndef __AF_TEXT_AREA_HEADER
-#define __AF_TEXT_AREA_HEADER
+#ifndef __UI_TEXT_AREA_HEADER
+#define __UI_TEXT_AREA_HEADER
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-class FGUITextArea : public FGUIWidget
+class UITextArea : public UIWidget
 {
 protected:
    class Cursor
@@ -49,7 +49,7 @@ protected:
 
 public:
 
-   FGUITextArea(FGUIWidget *parent, float x, float y, float w, float h, std::string text="");
+   UITextArea(UIWidget *parent, float x, float y, float w, float h, std::string text="");
 
    void move_cursor(int delta);
    void move_cursor_to(int pos);

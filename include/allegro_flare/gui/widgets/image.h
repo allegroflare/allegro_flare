@@ -1,5 +1,5 @@
-#ifndef __AF_IMAGE_HEADER
-#define __AF_IMAGE_HEADER
+#ifndef __UI_IMAGE_HEADER
+#define __UI_IMAGE_HEADER
 
 
 
@@ -9,14 +9,14 @@
 
 
 
-class FGUIImage : public FGUIWidget
+class UIImage : public UIWidget
 {
 protected:
    ALLEGRO_COLOR color;
    ALLEGRO_BITMAP *bitmap;
 
 public:
-   FGUIImage(FGUIWidget *parent, float x, float y, ALLEGRO_BITMAP *bitmap);
+   UIImage(UIWidget *parent, float x, float y, ALLEGRO_BITMAP *bitmap);
 
    void set_bitmap(ALLEGRO_BITMAP *bitmap);
    void set_color(ALLEGRO_COLOR color);

@@ -11,14 +11,14 @@
 
 
 
-FGUIScreen::FGUIScreen(Display *display)
+UIScreen::UIScreen(Display *display)
    : Screen(display)
-   , FGUIWidget(NULL, new FGUISurfaceAreaBox(0, 0, display->width(), display->height()))
+   , UIWidget(NULL, new UISurfaceAreaBox(0, 0, display->width(), display->height()))
    , draw_focused_outline(true)
    , use_joystick_as_mouse(true)
    , focused_outline_color(color::dodgerblue)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIScreen");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIScreen");
    attr.set("id", "Screen" + tostring(widget_count));
 
    surface_area->placement.align.x = 0;
@@ -27,7 +27,7 @@ FGUIScreen::FGUIScreen(Display *display)
 
 
 
-void FGUIScreen::primary_timer_func()
+void UIScreen::primary_timer_func()
 {
    if (use_joystick_as_mouse)
    {
@@ -56,15 +56,15 @@ void FGUIScreen::primary_timer_func()
 
    // call the parent's usual functions
 
-   FGUIWidget::primary_timer_func();
-   FGUIWidget::draw_func();
+   UIWidget::primary_timer_func();
+   UIWidget::draw_func();
 
    on_draw_after_children();
 }
 
 
 
-void FGUIScreen::mouse_axes_func()
+void UIScreen::mouse_axes_func()
 {
    if (Framework::current_event->mouse.display != display->al_display) return;
 
@@ -73,28 +73,28 @@ void FGUIScreen::mouse_axes_func()
    float mdx = Framework::current_event->mouse.dx;
    float mdy = Framework::current_event->mouse.dy;
 
-   FGUIWidget::mouse_axes_func(mx, my, mdx, mdy);
+   UIWidget::mouse_axes_func(mx, my, mdx, mdy);
 }
 
 
 
-void FGUIScreen::mouse_down_func()
+void UIScreen::mouse_down_func()
 {
    if (Framework::current_event->mouse.display != display->al_display) return;
-   FGUIWidget::mouse_down_func();
+   UIWidget::mouse_down_func();
 }
 
 
 
-void FGUIScreen::mouse_up_func()
+void UIScreen::mouse_up_func()
 {
    if (Framework::current_event->mouse.display != display->al_display) return;
-   FGUIWidget::mouse_up_func();
+   UIWidget::mouse_up_func();
 }
 
 
 
-void FGUIScreen::key_down_func()
+void UIScreen::key_down_func()
 {
    if (Framework::current_event->keyboard.display != display->al_display) return;
 
@@ -114,29 +114,29 @@ void FGUIScreen::key_down_func()
    }
 */
 
-   FGUIWidget::key_down_func();
+   UIWidget::key_down_func();
 }
 
 
 
-void FGUIScreen::key_up_func()
+void UIScreen::key_up_func()
 {
    if (Framework::current_event->keyboard.display != display->al_display) return;
-   FGUIWidget::key_up_func();
+   UIWidget::key_up_func();
 }
 
 
 
-void FGUIScreen::key_char_func()
+void UIScreen::key_char_func()
 {
    if (Framework::current_event->keyboard.display != display->al_display) return;
 
-   FGUIWidget::key_char_func();
+   UIWidget::key_char_func();
 }
 
 
 
-void FGUIScreen::joy_down_func()
+void UIScreen::joy_down_func()
 {
 /*
    // for joystick / keyboard navigation of widgets
@@ -144,35 +144,35 @@ void FGUIScreen::joy_down_func()
    if (Framework::current_event->joystick.button ==  4) jump_focus_to_ancestor_by_delta(true); // XBOX Controller left shoulder trigger button
 */
 
-   FGUIWidget::joy_down_func();
+   UIWidget::joy_down_func();
 }
 
 
 
-void FGUIScreen::joy_up_func()
+void UIScreen::joy_up_func()
 {
 //   if (Framework::current_event->keyboard.display != display->display) return;
-   FGUIWidget::joy_up_func();
+   UIWidget::joy_up_func();
 }
 
 
 
-void FGUIScreen::joy_axis_func()
+void UIScreen::joy_axis_func()
 {
 // this stuff is now polled on the timer
 //   use_joystick_as_mouse = true;
 //   if (Framework::current_event->joystick.axis == 0) joy_horizontal_pos = Framework::current_event->joystick.pos;
 //   if (Framework::current_event->joystick.axis == 1) joy_vertical_pos = Framework::current_event->joystick.pos;
 
-   FGUIWidget::joy_axis_func();
+   UIWidget::joy_axis_func();
 }
 
 
 
-void FGUIScreen::on_draw() {}
+void UIScreen::on_draw() {}
 
 
 
-void FGUIScreen::on_draw_after_children() {}
+void UIScreen::on_draw_after_children() {}
 
 

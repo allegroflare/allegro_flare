@@ -16,14 +16,14 @@
 
 
 
-std::string FGUIScaledText::_get_font_index_str()
+std::string UIScaledText::_get_font_index_str()
 {
    return font_filename + " " + tostring((int)(font_size * render_scale));
 }
 
 
 
-void FGUIScaledText::refresh_render()
+void UIScaledText::refresh_render()
 {
    // for easy life
    ALLEGRO_FONT *scaled_font = Framework::font(_get_font_index_str());
@@ -53,8 +53,8 @@ void FGUIScaledText::refresh_render()
 
 
 
-FGUIScaledText::FGUIScaledText(FGUIWidget *parent, float x, float y, std::string text)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 100, 100))
+UIScaledText::UIScaledText(UIWidget *parent, float x, float y, std::string text)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, 100, 100))
    , font_filename("DroidSans.ttf")
    , font_size(14)
    , render_scale(3.0)
@@ -62,8 +62,8 @@ FGUIScaledText::FGUIScaledText(FGUIWidget *parent, float x, float y, std::string
    , text(text)
    , font_color(color::white)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIScaledText");
-   attr.set("id", "ScaledText" + tostring(FGUIWidget::get_num_created_widgets()));
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIScaledText");
+   attr.set("id", "ScaledText" + tostring(UIWidget::get_num_created_widgets()));
 
    this->surface_area->placement.align.x = 0.0;
    this->no_focus = true;
@@ -73,7 +73,7 @@ FGUIScaledText::FGUIScaledText(FGUIWidget *parent, float x, float y, std::string
 
 
 
-void FGUIScaledText::on_draw()
+void UIScaledText::on_draw()
 {
    if (!render) return;
 
@@ -83,14 +83,14 @@ void FGUIScaledText::on_draw()
 
 
 
-void FGUIScaledText::set_font_color(ALLEGRO_COLOR color)
+void UIScaledText::set_font_color(ALLEGRO_COLOR color)
 {
    font_color = color;
 }
 
 
 
-void FGUIScaledText::set_text(std::string text)
+void UIScaledText::set_text(std::string text)
 {
    if (this->text.compare(text)==0) return;
    this->text = text;
@@ -99,7 +99,7 @@ void FGUIScaledText::set_text(std::string text)
 
 
 
-void FGUIScaledText::set_font(std::string _font_filename, int _font_size)
+void UIScaledText::set_font(std::string _font_filename, int _font_size)
 {
    if (_font_size == font_size && _font_filename == font_filename) return;
 

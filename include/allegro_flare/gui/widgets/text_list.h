@@ -1,5 +1,5 @@
-#ifndef __AF_TEXT_LIST_HEADER
-#define __AF_TEXT_LIST_HEADER
+#ifndef __UI_TEXT_LIST_HEADER
+#define __UI_TEXT_LIST_HEADER
 
 
 
@@ -15,20 +15,20 @@
 
 
 
-class FGUIListItem // TODO: maybe.. abstract FGUITextList into a FGUIList<T> template 
+class UIListItem // TODO: maybe.. abstract UITextList into a UIList<T> template 
 {
 protected:
    std::string item;
 
 public:
-   FGUIListItem();
+   UIListItem();
    virtual vec2d draw_item(vec2d position) = 0; // returns the width/height of the item
 };
 
 
 
 
-class FGUITextList : public FGUIWidget
+class UITextList : public UIWidget
 {
 public:
    float item_padding;
@@ -37,7 +37,7 @@ public:
    std::vector<std::string> items;
 
 public:
-   FGUITextList(FGUIWidget *parent, float x, float y, float w);
+   UITextList(UIWidget *parent, float x, float y, float w);
 
    void add_item(std::string item);
    void select_item(int index);

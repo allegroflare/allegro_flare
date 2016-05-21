@@ -14,13 +14,13 @@
 
 
 
-FGUITextBox::FGUITextBox(FGUIWidget *parent, float x, float y, float w, float h, std::string text)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+UITextBox::UITextBox(UIWidget *parent, float x, float y, float w, float h, std::string text)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
    , font(Framework::font("DroidSans.ttf 20"))
    , text(text)
    , text_color(color::black)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUITextBox");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UITextBox");
    attr.set("id", "TextBox" + tostring(get_num_created_widgets()));
 
    no_focus = true;
@@ -32,7 +32,7 @@ FGUITextBox::FGUITextBox(FGUIWidget *parent, float x, float y, float w, float h,
 
 
 
-void FGUITextBox::set_font(ALLEGRO_FONT *font)
+void UITextBox::set_font(ALLEGRO_FONT *font)
 {
    this->font = font;
 }
@@ -41,7 +41,7 @@ void FGUITextBox::set_font(ALLEGRO_FONT *font)
 
 
 
-void FGUITextBox::set_text(std::string text)
+void UITextBox::set_text(std::string text)
 {
    this->text = text;
 }
@@ -50,7 +50,7 @@ void FGUITextBox::set_text(std::string text)
 
 
 
-std::string FGUITextBox::get_text()
+std::string UITextBox::get_text()
 {
    return this->text;
 }
@@ -58,7 +58,7 @@ std::string FGUITextBox::get_text()
 
 
 
-void FGUITextBox::set_text_color(ALLEGRO_COLOR col)
+void UITextBox::set_text_color(ALLEGRO_COLOR col)
 {
    this->text_color = col;
 }
@@ -66,7 +66,7 @@ void FGUITextBox::set_text_color(ALLEGRO_COLOR col)
 
 
 
-void FGUITextBox::on_draw()
+void UITextBox::on_draw()
 {
    if (font) al_draw_multiline_text(font, text_color, 0, 0, place.size.x, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text.c_str());
 }

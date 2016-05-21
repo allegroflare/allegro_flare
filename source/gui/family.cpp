@@ -8,7 +8,7 @@
 
 
 
-FGUIFamily::FGUIFamily(FGUIWidget *parent)
+UIFamily::UIFamily(UIWidget *parent)
    : progenitor(NULL)
    , parent(parent)
 {}
@@ -16,7 +16,7 @@ FGUIFamily::FGUIFamily(FGUIWidget *parent)
 
 
 
-void FGUIFamily::register_as_child(FGUIWidget *widget)
+void UIFamily::register_as_child(UIWidget *widget)
 {
    if (!widget) return;
 
@@ -30,24 +30,24 @@ void FGUIFamily::register_as_child(FGUIWidget *widget)
 
 
 #include <iostream>
-void FGUIFamily::unregister_as_child(FGUIWidget *widget)
+void UIFamily::unregister_as_child(UIWidget *widget)
 {
    for (unsigned i=0; i<children.size(); i++)
    {
       if (children[i] == widget)
       {
          children.erase(children.begin()+i);
-         std::cout << "[FGUIFamily::detach_widget()] widget found and detached successfully." << std::endl;
+         std::cout << "[UIFamily::detach_widget()] widget found and detached successfully." << std::endl;
          return;
       }
    }
-   std::cout << "[FGUIFamily::detach_widget()] error - widget not found." << std::endl;
+   std::cout << "[UIFamily::detach_widget()] error - widget not found." << std::endl;
 }
 
 
 
 
-bool FGUIFamily::has_child(FGUIWidget *widget)
+bool UIFamily::has_child(UIWidget *widget)
 {
    for (unsigned i=0; i<children.size(); i++)
       if (widget == children[i]) return true;
@@ -56,7 +56,7 @@ bool FGUIFamily::has_child(FGUIWidget *widget)
 
 
 
-bool FGUIFamily::assign_child_to_new_parent(FGUIWidget *child_widget, FGUIWidget *new_parent)
+bool UIFamily::assign_child_to_new_parent(UIWidget *child_widget, UIWidget *new_parent)
 {
    // have the current parent remove this child
    if (!child_widget) { std::cout << "err1" << std::endl; return false; } // TODO: fix crappy error messages
@@ -86,7 +86,7 @@ bool FGUIFamily::assign_child_to_new_parent(FGUIWidget *child_widget, FGUIWidget
 
 
 
-bool FGUIFamily::set_focus_to_child(FGUIWidget *widget)
+bool UIFamily::set_focus_to_child(UIWidget *widget)
 {
    // make sure the child is not already focused
    if (widget && widget->is_focused()) return false;
@@ -111,7 +111,7 @@ bool FGUIFamily::set_focus_to_child(FGUIWidget *widget)
 
 
 
-void FGUIFamily::delete_all()
+void UIFamily::delete_all()
 {
    for (unsigned i=0; i<children.size(); i++)
       delete children[i];
@@ -121,7 +121,7 @@ void FGUIFamily::delete_all()
 
 
 
-void FGUIFamily::unfocus_all()
+void UIFamily::unfocus_all()
 {
    for (unsigned i=0; i<children.size(); i++)
       if (children[i]->is_focused()) children[i]->set_as_unfocused();
@@ -129,7 +129,7 @@ void FGUIFamily::unfocus_all()
 
 
 
-FGUIWidget *FGUIFamily::get_element_by_id(std::string id)
+UIWidget *UIFamily::get_element_by_id(std::string id)
 {
    for (unsigned i=0; i<children.size(); i++)
       if (children[i]->attr.matches("id", id)) return children[i];
@@ -139,7 +139,7 @@ FGUIWidget *FGUIFamily::get_element_by_id(std::string id)
 
 
 
-FGUIWidget *FGUIFamily::get_1st_element_with_attr(std::string key)
+UIWidget *UIFamily::get_1st_element_with_attr(std::string key)
 {
    for (unsigned i=0; i<children.size(); i++)
       if (children[i]->attr.has(key)) return children[i];
@@ -149,7 +149,7 @@ FGUIWidget *FGUIFamily::get_1st_element_with_attr(std::string key)
 
 
 
-FGUIWidget *FGUIFamily::get_1st_element_with_attr_val(std::string key, std::string val)
+UIWidget *UIFamily::get_1st_element_with_attr_val(std::string key, std::string val)
 {
    for (unsigned i=0; i<children.size(); i++)
       if (children[i]->attr.matches(key, val)) return children[i];
@@ -162,27 +162,27 @@ FGUIWidget *FGUIFamily::get_1st_element_with_attr_val(std::string key, std::stri
 
 
 
-int FGUIFamily::_index_count = 0;
+int UIFamily::_index_count = 0;
 
 
 
 
-FGUIWidget *FGUIFamily::get_nth_descendant(int n)
+UIWidget *UIFamily::get_nth_descendant(int n)
 {
    _index_count = 0;
-   // note: the 0th child is the owner of this FGUIFamily.
+   // note: the 0th child is the owner of this UIFamily.
    // TODO: perhaps this function should be promoted up to the Parent that calls it.
    return __get_nth_descendant_r(*this, n);
 }
 
-FGUIWidget *FGUIFamily::__get_nth_descendant_r(FGUIFamily &children, int n)
+UIWidget *UIFamily::__get_nth_descendant_r(UIFamily &children, int n)
 {
-   FGUIWidget *widget = NULL;
+   UIWidget *widget = NULL;
    for (unsigned i=0; i<children.children.size(); i++)
    {
       _index_count++;
-      FGUIWidget *p = children.children[i];
-      widget = FGUIFamily::__get_nth_descendant_r(p->family, n);
+      UIWidget *p = children.children[i];
+      widget = UIFamily::__get_nth_descendant_r(p->family, n);
       if (widget) return widget;
    }
    return NULL;
@@ -192,20 +192,20 @@ FGUIWidget *FGUIFamily::__get_nth_descendant_r(FGUIFamily &children, int n)
 
 
 
-int FGUIFamily::get_num_descendants()
+int UIFamily::get_num_descendants()
 {
    _index_count = 1;
    return __get_num_descendants_r(*this);
 }
 
-int FGUIFamily::__get_num_descendants_r(FGUIFamily &children)
+int UIFamily::__get_num_descendants_r(UIFamily &children)
 {
    for (unsigned i=0; i<children.children.size(); i++)
    {
       _index_count++;
 
-      FGUIWidget *p = children.children[i];
-      FGUIFamily::__get_num_descendants_r(p->family);
+      UIWidget *p = children.children[i];
+      UIFamily::__get_num_descendants_r(p->family);
    }
    return _index_count;
 }
@@ -214,7 +214,7 @@ int FGUIFamily::__get_num_descendants_r(FGUIFamily &children)
 
 
 
-void FGUIFamily::draw_all()
+void UIFamily::draw_all()
 {
    for (unsigned i=0; i<children.size(); i++)
       children[i]->draw_func();
@@ -223,7 +223,7 @@ void FGUIFamily::draw_all()
 
 
 
-void FGUIFamily::draw_all_except(FGUIWidget *widget)
+void UIFamily::draw_all_except(UIWidget *widget)
 {
    for (unsigned i=0; i<children.size(); i++)
    {

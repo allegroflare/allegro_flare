@@ -1,5 +1,5 @@
-#ifndef __FGUI_PROGRESS_BAR_HEADER
-#define __FGUI_PROGRESS_BAR_HEADER
+#ifndef __UI_PROGRESS_BAR_HEADER
+#define __UI_PROGRESS_BAR_HEADER
 
 
 
@@ -9,7 +9,7 @@
 
 
 
-class FGUIProgressBar : public FGUIWidget
+class UIProgressBar : public UIWidget
 {
 protected:
    float val; // val from [0 - 1]
@@ -17,7 +17,7 @@ protected:
    ALLEGRO_COLOR bar_color;
 
 public:
-   FGUIProgressBar(FGUIWidget *parent, float x, float y, float w, float h);
+   UIProgressBar(UIWidget *parent, float x, float y, float w, float h);
 
    void set_val(float unit_val); // val from [0 - 1]
    void set_val(float _val, float min, float max);

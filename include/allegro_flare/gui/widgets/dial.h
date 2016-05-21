@@ -1,5 +1,5 @@
-#ifndef __FGUI_DIAL_HEADER
-#define __FGUI_DIAL_HEADER
+#ifndef __UI_DIAL_HEADER
+#define __UI_DIAL_HEADER
 
 
 
@@ -9,7 +9,7 @@
 
 
 
-class FGUIDial : public FGUIWidget
+class UIDial : public UIWidget
 {
 protected:
    float val;
@@ -17,7 +17,7 @@ protected:
    float sensitivity;
 
 public:
-   FGUIDial(FGUIWidget *parent, float x, float y, float size);
+   UIDial(UIWidget *parent, float x, float y, float size);
 
    void set_value(float unit_val);
    float get_value();

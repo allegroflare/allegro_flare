@@ -1,5 +1,5 @@
-#ifndef FGUI_COLLISION_BOX_PADDED_HEADER
-#define FGUI_COLLISION_BOX_PADDED_HEADER
+#ifndef __UI_COLLISION_BOX_PADDED_HEADER
+#define __UI_COLLISION_BOX_PADDED_HEADER
 
 
 
@@ -9,7 +9,7 @@
 
 
 
-class FGUISurfaceAreaBoxPadded : public FGUISurfaceArea
+class UISurfaceAreaBoxPadded : public UISurfaceArea
 {
 private:
    float padding_top;
@@ -18,8 +18,8 @@ private:
    float padding_left;
 
 public:
-   FGUISurfaceAreaBoxPadded(float x, float y, float w, float h, float pt, float pr, float pb, float pl);
-   ~FGUISurfaceAreaBoxPadded();
+   UISurfaceAreaBoxPadded(float x, float y, float w, float h, float pt, float pr, float pb, float pl);
+   ~UISurfaceAreaBoxPadded();
 
    void draw_bounding_area();
    bool collides(float x, float y);

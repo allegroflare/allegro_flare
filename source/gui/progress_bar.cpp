@@ -18,19 +18,19 @@
 
 
 
-FGUIProgressBar::FGUIProgressBar(FGUIWidget *parent, float x, float y, float w, float h)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+UIProgressBar::UIProgressBar(UIWidget *parent, float x, float y, float w, float h)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
    , val(0)
    , update_speed(0.4)
    , bar_color(color::dodgerblue)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIProgressBar");
-   attr.set("id", "ProgressBar" + tostring(FGUIWidget::get_num_created_widgets()));
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIProgressBar");
+   attr.set("id", "ProgressBar" + tostring(UIWidget::get_num_created_widgets()));
 }
 
 
 
-void FGUIProgressBar::set_val(float normalized_val)
+void UIProgressBar::set_val(float normalized_val)
 {
    normalized_val = limit<float>(0, 1, normalized_val);
    Framework::motion().cmove_to(&val, normalized_val, update_speed, interpolator::doubleFastIn);
@@ -38,7 +38,7 @@ void FGUIProgressBar::set_val(float normalized_val)
 
 
 
-void FGUIProgressBar::set_val(float _val, float min, float max)
+void UIProgressBar::set_val(float _val, float min, float max)
 {
    float normalized_val = (_val - min) / (max - min);
    set_val(normalized_val);
@@ -46,7 +46,7 @@ void FGUIProgressBar::set_val(float _val, float min, float max)
 
 
 
-void FGUIProgressBar::on_draw()
+void UIProgressBar::on_draw()
 {
    float roundness = place.size.y/4;
    float inset_padding = 3;
@@ -71,7 +71,7 @@ void FGUIProgressBar::on_draw()
       roundness, roundness, bar_color);
 
    // draw the shaded bitmap
-   ALLEGRO_BITMAP *shade_down = FGUIStyleAssets::get_shade_down_gradient();
+   ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
    draw_stretched_bitmap(3, 3, place.size.x-6, place.size.y-6, shade_down, 0, color::color(color::white, 0.2));
 }
 

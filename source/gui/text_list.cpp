@@ -13,7 +13,7 @@
 
 
 
-FGUIListItem::FGUIListItem() {};
+UIListItem::UIListItem() {};
 
 
 
@@ -21,19 +21,19 @@ FGUIListItem::FGUIListItem() {};
 
 
 
-FGUITextList::FGUITextList(FGUIWidget *parent, float x, float y, float w)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, 20))
+UITextList::UITextList(UIWidget *parent, float x, float y, float w)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, 20))
    , currently_selected_item(0)
    , item_padding(5)
    , item_height(20)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUITextList");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UITextList");
    attr.set("id", "TextList" + tostring(get_num_created_widgets()));
 }
 
 
 
-void FGUITextList::add_item(std::string item)
+void UITextList::add_item(std::string item)
 {
    // TODO: insert()
    // also, change selection if the new added item is before or after this item, k? :)
@@ -42,16 +42,16 @@ void FGUITextList::add_item(std::string item)
 
 
 
-void FGUITextList::select_item(int index)
+void UITextList::select_item(int index)
 {
    std::string *item = get_item(index);
-   if (!item) { std::cout << "FGUIList["<< attr.get("id") << "] cannot select item at index " << index; return; }
+   if (!item) { std::cout << "UIList["<< attr.get("id") << "] cannot select item at index " << index; return; }
    else currently_selected_item = index;
 }
 
 
 
-std::string *FGUITextList::get_item(int index)
+std::string *UITextList::get_item(int index)
 {
    if (index < 0 || index >= (int)items.size()) return NULL;
    return &items[index];
@@ -59,14 +59,14 @@ std::string *FGUITextList::get_item(int index)
 
 
 
-std::string *FGUITextList::get_selected_item()
+std::string *UITextList::get_selected_item()
 {
    return get_item(currently_selected_item);
 }
 
 
 
-void FGUITextList::move_selected_item(int delta)
+void UITextList::move_selected_item(int delta)
 {
    currently_selected_item += delta;
    while (currently_selected_item < 0) currently_selected_item += items.size();
@@ -75,7 +75,7 @@ void FGUITextList::move_selected_item(int delta)
 
 
 
-void FGUITextList::on_key_char()
+void UITextList::on_key_char()
 {
    if (!is_focused()) return;
    switch(Framework::current_event->keyboard.keycode)
@@ -91,14 +91,14 @@ void FGUITextList::on_key_char()
 
 
 
-float FGUITextList::get_item_height(int index)
+float UITextList::get_item_height(int index)
 {
    return item_height + item_padding*2;
 }
 
 
 
-int FGUITextList::get_item_index_at(float x, float y)
+int UITextList::get_item_index_at(float x, float y)
 {
    float padding_x = 16*2, padding_y = item_padding;
 
@@ -115,11 +115,11 @@ int FGUITextList::get_item_index_at(float x, float y)
 
 
 
-void FGUITextList::on_select() {}
+void UITextList::on_select() {}
 
 
 
-bool FGUITextList::select_at(float x, float y)
+bool UITextList::select_at(float x, float y)
 {
    int item_at = get_item_index_at(x, y);
    if (item_at == -1 || item_at == currently_selected_item) return false;
@@ -130,7 +130,7 @@ bool FGUITextList::select_at(float x, float y)
 
 
 
-bool FGUITextList::select_at_mouse_cursor() // need to eventually account for multiple mouse cursors.
+bool UITextList::select_at_mouse_cursor() // need to eventually account for multiple mouse cursors.
 {
    ALLEGRO_MOUSE_STATE mouse_state;
    al_get_mouse_state(&mouse_state);
@@ -142,9 +142,9 @@ bool FGUITextList::select_at_mouse_cursor() // need to eventually account for mu
 
 
 
-void FGUITextList::joy_down_func()
+void UITextList::joy_down_func()
 {
-   FGUIWidget::joy_down_func();
+   UIWidget::joy_down_func();
    if (!mouse_over) return;
 
    if (Framework::current_event->joystick.button == 0) // TODO: this should not be a hard-coded "0"
@@ -155,9 +155,9 @@ void FGUITextList::joy_down_func()
 
 
 
-void FGUITextList::mouse_down_func()
+void UITextList::mouse_down_func()
 {
-   FGUIWidget::mouse_down_func();
+   UIWidget::mouse_down_func();
    if (!mouse_over) return;
 
    //std::cout << "(" << mouse_state.x << ", " << mouse_state.y << ") -> (" << x << ", " << y << ")" << std::endl;
@@ -166,7 +166,7 @@ void FGUITextList::mouse_down_func()
 
 
 
-void FGUITextList::draw_item(vec2d position, int index)
+void UITextList::draw_item(vec2d position, int index)
    // returns the height of this item in the list
 {
    if (index < 0 || index >= (int)items.size()) return;
@@ -196,9 +196,9 @@ void FGUITextList::draw_item(vec2d position, int index)
 
 
 
-void FGUITextList::on_draw()
+void UITextList::on_draw()
 {
-   FGUIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
+   UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
    float padding_x = 16*2, padding_y = item_padding;
 
    vec2d cursor = vec2d(padding_x, padding_y);

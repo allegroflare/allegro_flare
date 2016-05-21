@@ -1,5 +1,5 @@
-#ifndef __AF_SCROLL_AREA_HEADER
-#define __AF_SCROLL_AREA_HEADER
+#ifndef __UI_SCROLL_AREA_HEADER
+#define __UI_SCROLL_AREA_HEADER
 
 
 
@@ -8,22 +8,22 @@
 
 #include <allegro_flare/gui/widget.h>
 
-class FGUIScrollBar;
+class UIScrollBar;
 
 
 
 
-class FGUIScrollArea : public FGUIWidget
+class UIScrollArea : public UIWidget
 {
 protected:
-   FGUIScrollBar *v_slider;
-   FGUIWidget *canvas;
+   UIScrollBar *v_slider;
+   UIWidget *canvas;
    ALLEGRO_BITMAP *canvas_render;
 
 public:
-   FGUIScrollArea(FGUIWidget *parent, float x, float y, float w, float h, FGUIWidget *content_parent);
+   UIScrollArea(UIWidget *parent, float x, float y, float w, float h, UIWidget *content_parent);
 
-   FGUIWidget *get_canvas();
+   UIWidget *get_canvas();
    void render_canvas();
 
    void mouse_axes_func(float mx, float my, float mdx, float mdy) override;

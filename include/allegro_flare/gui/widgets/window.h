@@ -1,5 +1,5 @@
-#ifndef FGUI_WINDOW_HEADER
-#define FGUI_WINDOW_HEADER
+#ifndef UI_WINDOW_HEADER
+#define UI_WINDOW_HEADER
 
 
 
@@ -9,13 +9,13 @@
 
 
 
-class FGUIWindow : public FGUIWidget
+class UIWindow : public UIWidget
 {
 protected:
    ALLEGRO_COLOR background_color;
 
 public:
-   FGUIWindow(FGUIWidget *parent, float x, float y, float w, float h);
+   UIWindow(UIWidget *parent, float x, float y, float w, float h);
 
    void on_draw() override;
    void on_focus() override;
