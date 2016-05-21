@@ -11,6 +11,7 @@ RenderCache::RenderCache()
   , previous_state()
   , previous_samples(0)
   , previous_depth(0)
+  , dirty(true)
 {}
 
 
@@ -55,6 +56,8 @@ void RenderCache::finish_surface()
   al_set_new_bitmap_depth(previous_depth);
   al_set_new_bitmap_samples(previous_samples);
   al_restore_state(&previous_state);
+
+  mark_as_clean();
 }
 
 
@@ -62,6 +65,27 @@ void RenderCache::finish_surface()
 void RenderCache::draw(float origin_x, float origin_y)
 {
   if (render) al_draw_bitmap(render, origin_x-padding, origin_y-padding, 0);
+}
+
+
+
+void RenderCache::mark_as_dirty()
+{
+  dirty = true;
+}
+
+
+
+void RenderCache::mark_as_clean()
+{
+  dirty = false;
+}
+
+
+
+bool RenderCache::is_dirty()
+{
+  return dirty;
 }
 
 
