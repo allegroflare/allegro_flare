@@ -1,5 +1,5 @@
-#ifndef FGUI_COLLISION_BITMAP_HEADER
-#define FGUI_COLLISION_BITMAP_HEADER
+#ifndef __UI_COLLISION_BITMAP_HEADER
+#define __UI_COLLISION_BITMAP_HEADER
 
 
 
@@ -9,12 +9,12 @@
 
 
 
-class FGUISurfaceAreaBitmap : public FGUISurfaceArea
+class UISurfaceAreaBitmap : public UISurfaceArea
 {
 private:
    ALLEGRO_BITMAP *bitmap;
 public:
-   FGUISurfaceAreaBitmap(float x, float y, ALLEGRO_BITMAP *bitmap);
+   UISurfaceAreaBitmap(float x, float y, ALLEGRO_BITMAP *bitmap);
 
    void draw_bounding_area();
    bool collides(float x, float y);

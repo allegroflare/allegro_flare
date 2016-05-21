@@ -1,5 +1,5 @@
-#ifndef FGUI_NOTIFICATION_BUBBLE_HEADER
-#define FGUI_NOTIFICATION_BUBBLE_HEADER
+#ifndef __UI_NOTIFICATION_BUBBLE_HEADER
+#define __UI_NOTIFICATION_BUBBLE_HEADER
 
 
 
@@ -13,7 +13,7 @@
 #include <allegro5/allegro_primitives.h>
 
 
-class FGUINotificationBubble : public FGUIWidget
+class UINotificationBubble : public UIWidget
 {
 private:
    std::string text;
@@ -23,8 +23,8 @@ private:
    ALLEGRO_FONT *font;
 
 public:
-   FGUINotificationBubble(FGUIWidget *parent, float x, float y, std::string text)
-      : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 280, 90))
+   UINotificationBubble(UIWidget *parent, float x, float y, std::string text)
+      : UIWidget(parent, new UISurfaceAreaBox(x, y, 280, 90))
       , text(text)
       , font(Framework::font("DroidSerif.ttf 20"))
       , spawn_time(Framework::time_now)
@@ -32,8 +32,8 @@ public:
       , paused(false)
       , opacity(0)
    {
-      attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUINotificationBubble");
-      attr.set("id", "NotificationBubble" + tostring(FGUIWidget::get_num_created_widgets()));
+      attr.set(UI_ATTR__UI_WIDGET_TYPE, "UINotificationBubble");
+      attr.set("id", "NotificationBubble" + tostring(UIWidget::get_num_created_widgets()));
 
       Framework::motion().cmove_to(&this->opacity, 1.0, 0.5);
 
@@ -41,7 +41,7 @@ public:
       this->surface_area->placement.align.y = 1.0;
    }
 
-   ~FGUINotificationBubble()
+   ~UINotificationBubble()
    {
       Framework::motion().clear_animations_on(&this->opacity);
    }
@@ -92,21 +92,21 @@ public:
 
 
 
-class NotificationBubbleTestProject : public FGUIScreen
+class NotificationBubbleTestProject : public UIScreen
 {
 public:
    float mouse_x;
    float mouse_y;
-   FGUIText *bubble_count_text;
+   UIText *bubble_count_text;
    NotificationBubbleTestProject(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , mouse_x(display->width()/2)
       , mouse_y(display->height()/2)
       , bubble_count_text(NULL)
    {
       al_set_mouse_xy(display->al_display, mouse_x, mouse_y);
-      new FGUIText(this, 40, 30, "Move the mouse and press any key to spawn a NotificationBubble.");
-      bubble_count_text = new FGUIText(this, 40, 60, "Number of active bubbles: 0");
+      new UIText(this, 40, 30, "Move the mouse and press any key to spawn a NotificationBubble.");
+      bubble_count_text = new UIText(this, 40, 60, "Number of active bubbles: 0");
    }
    std::string get_random_quote()
    {
@@ -119,7 +119,7 @@ public:
    }
    void on_mouse_down() override
    {
-      new FGUINotificationBubble(this, mouse_x, mouse_y, get_random_quote());
+      new UINotificationBubble(this, mouse_x, mouse_y, get_random_quote());
    }
    void primary_timer_func() override
    {
@@ -127,7 +127,7 @@ public:
       message += tostring(this->family.children.size());
       bubble_count_text->set_text(message);
 
-      FGUIScreen::primary_timer_func();
+      UIScreen::primary_timer_func();
    }
 };
 

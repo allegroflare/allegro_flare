@@ -7,7 +7,7 @@
 
 
 
-FGUIStyleAssets::FGUIStyleAssets()
+UIStyleAssets::UIStyleAssets()
    : shade_down_circle_gradient(NULL)
    , shade_down_gradient(NULL)
    , widget_icon(NULL)
@@ -22,7 +22,7 @@ FGUIStyleAssets::FGUIStyleAssets()
 
 
 
-FGUIStyleAssets::~FGUIStyleAssets()
+UIStyleAssets::~UIStyleAssets()
 {
    al_destroy_bitmap(shade_down_circle_gradient);
    al_destroy_bitmap(shade_down_gradient);
@@ -30,9 +30,9 @@ FGUIStyleAssets::~FGUIStyleAssets()
 
 
 
-FGUIStyleAssets *FGUIStyleAssets::get_instance()
+UIStyleAssets *UIStyleAssets::get_instance()
 {
-   if (!instance) instance = new FGUIStyleAssets();
+   if (!instance) instance = new UIStyleAssets();
    return instance;
 }
 
@@ -44,9 +44,9 @@ FGUIStyleAssets *FGUIStyleAssets::get_instance()
 //
 
 
-ALLEGRO_BITMAP *FGUIStyleAssets::get_shade_down_circle_gradient()
+ALLEGRO_BITMAP *UIStyleAssets::get_shade_down_circle_gradient()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->shade_down_circle_gradient)
       inst->shade_down_circle_gradient = generate_circle_gradient_bitmap();
    return inst->shade_down_circle_gradient;
@@ -54,9 +54,9 @@ ALLEGRO_BITMAP *FGUIStyleAssets::get_shade_down_circle_gradient()
 
 
 
-ALLEGRO_BITMAP *FGUIStyleAssets::get_shade_down_gradient()
+ALLEGRO_BITMAP *UIStyleAssets::get_shade_down_gradient()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->shade_down_gradient)
       inst->shade_down_gradient = generate_gradient_bitmap();
    return inst->shade_down_gradient;
@@ -64,9 +64,9 @@ ALLEGRO_BITMAP *FGUIStyleAssets::get_shade_down_gradient()
 
 
 
-ALLEGRO_BITMAP *FGUIStyleAssets::get_widget_icon()
+ALLEGRO_BITMAP *UIStyleAssets::get_widget_icon()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->widget_icon)
       inst->widget_icon = generate_widget_icon(64, color::white, color::transparent);
    return inst->widget_icon;
@@ -74,9 +74,9 @@ ALLEGRO_BITMAP *FGUIStyleAssets::get_widget_icon()
 
 
 
-ALLEGRO_BITMAP *FGUIStyleAssets::get_pixel_pattern_3()
+ALLEGRO_BITMAP *UIStyleAssets::get_pixel_pattern_3()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->pixel_pattern_3)
       inst->pixel_pattern_3 = create_pixel_pattern_3(color::black, color::transparent);
    return inst->pixel_pattern_3;
@@ -90,9 +90,9 @@ ALLEGRO_BITMAP *FGUIStyleAssets::get_pixel_pattern_3()
 //
 
 
-ALLEGRO_FONT *FGUIStyleAssets::get_title_font()
+ALLEGRO_FONT *UIStyleAssets::get_title_font()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->title_font)
    {
       inst->title_font = al_load_font("data/fonts/DroidSans.ttf", 28, 0);
@@ -107,9 +107,9 @@ ALLEGRO_FONT *FGUIStyleAssets::get_title_font()
 
 
 
-ALLEGRO_FONT *FGUIStyleAssets::get_text_font()
+ALLEGRO_FONT *UIStyleAssets::get_text_font()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->text_font)
    {
       inst->text_font = al_load_font("data/fonts/DroidSans.ttf", 18, 0);
@@ -124,9 +124,9 @@ ALLEGRO_FONT *FGUIStyleAssets::get_text_font()
 
 
 
-ALLEGRO_FONT *FGUIStyleAssets::get_ui_font()
+ALLEGRO_FONT *UIStyleAssets::get_ui_font()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->ui_font)
    {
       inst->ui_font = al_load_font("data/fonts/DroidSans.ttf", 15, 0);
@@ -141,9 +141,9 @@ ALLEGRO_FONT *FGUIStyleAssets::get_ui_font()
 
 
 
-ALLEGRO_FONT *FGUIStyleAssets::get_mini_font()
+ALLEGRO_FONT *UIStyleAssets::get_mini_font()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->mini_font)
    {
       inst->mini_font = al_load_font("data/fonts/DroidSans.ttf", 14, 0);
@@ -158,9 +158,9 @@ ALLEGRO_FONT *FGUIStyleAssets::get_mini_font()
 
 
 
-ALLEGRO_FONT *FGUIStyleAssets::get_micro_font()
+ALLEGRO_FONT *UIStyleAssets::get_micro_font()
 {
-   FGUIStyleAssets *inst = get_instance();
+   UIStyleAssets *inst = get_instance();
    if (!inst->micro_font)
    {
       inst->micro_font = al_load_font("data/fonts/DroidSans.ttf", 10, 0);
@@ -182,7 +182,7 @@ ALLEGRO_FONT *FGUIStyleAssets::get_micro_font()
 //
 
 
-void FGUIStyleAssets::draw_inset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
+void UIStyleAssets::draw_inset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
 {
    float border_thickness = 2.0;
    float texture_inset = border_thickness/2;
@@ -206,7 +206,7 @@ void FGUIStyleAssets::draw_inset(float x, float y, float w, float h, ALLEGRO_COL
       al_draw_arc(x+w-arc_roundness/2 - 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, FULL_ROTATION*0.25, -FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
 
    // draw the shaded bitmap
-   ALLEGRO_BITMAP *shade_down = FGUIStyleAssets::get_shade_down_gradient();
+   ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
    draw_stretched_bitmap(x+texture_inset, y+texture_inset, w-texture_inset*2, std::min(20.0f, h-texture_inset*2), shade_down, ALLEGRO_FLIP_VERTICAL, color::color(color::white, 0.05));
 
    // draw the shade at the top of the button
@@ -216,11 +216,11 @@ void FGUIStyleAssets::draw_inset(float x, float y, float w, float h, ALLEGRO_COL
 
 
 
-void FGUIStyleAssets::draw_outset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
+void UIStyleAssets::draw_outset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
 {
    float border_thickness = 2.0;
    float texture_inset = border_thickness/2;
-   ALLEGRO_BITMAP *shade_down = FGUIStyleAssets::get_shade_down_gradient();
+   ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
 
    // draw the shade cast by the button
    int shade_height = 8;
@@ -241,7 +241,7 @@ void FGUIStyleAssets::draw_outset(float x, float y, float w, float h, ALLEGRO_CO
 
 
 
-void FGUIStyleAssets::draw_flatset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
+void UIStyleAssets::draw_flatset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
 {
    float border_thickness = 2.0;
    al_draw_filled_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, col);
@@ -255,12 +255,12 @@ void FGUIStyleAssets::draw_flatset(float x, float y, float w, float h, ALLEGRO_C
 // text
 //
 
-void FGUIStyleAssets::draw_styled_text(std::string style, float x, float y, float align_x, float align_y, std::string text)
+void UIStyleAssets::draw_styled_text(std::string style, float x, float y, float align_x, float align_y, std::string text)
 {
 
    if (style=="ui" || style=="ui_disabled")
    {
-      ALLEGRO_FONT *font = FGUIStyleAssets::get_ui_font();
+      ALLEGRO_FONT *font = UIStyleAssets::get_ui_font();
 
       float w = al_get_text_width(font, text.c_str()); // < not ideal or optimum for speed
                                                             //   consider some alternatives.
@@ -277,7 +277,7 @@ void FGUIStyleAssets::draw_styled_text(std::string style, float x, float y, floa
    else
       // draw the default style, default text
    {
-      ALLEGRO_FONT *font = FGUIStyleAssets::get_text_font();
+      ALLEGRO_FONT *font = UIStyleAssets::get_text_font();
 
       float w = al_get_text_width(font, text.c_str()); // < not ideal or optimum for speed
                                                             //   consider some alternatives.
@@ -295,12 +295,12 @@ void FGUIStyleAssets::draw_styled_text(std::string style, float x, float y, floa
 // colors
 //
 
-ALLEGRO_COLOR FGUIStyleAssets::get_surface_color()
+ALLEGRO_COLOR UIStyleAssets::get_surface_color()
 {
    return color::hex("575962");
 }
 
-ALLEGRO_COLOR FGUIStyleAssets::get_hilight_color()
+ALLEGRO_COLOR UIStyleAssets::get_hilight_color()
 {
    return color::dodgerblue;
 }
@@ -314,7 +314,7 @@ ALLEGRO_COLOR FGUIStyleAssets::get_hilight_color()
 //
 
 
-ALLEGRO_BITMAP *FGUIStyleAssets::generate_widget_icon(int size, ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color)
+ALLEGRO_BITMAP *UIStyleAssets::generate_widget_icon(int size, ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color)
 {
    float scale = 4.0; // 4.0 is essentially equivelent to 4x FSAA
    size *= scale;
@@ -359,7 +359,7 @@ ALLEGRO_BITMAP *FGUIStyleAssets::generate_widget_icon(int size, ALLEGRO_COLOR fr
 
 
 
-FGUIStyleAssets *FGUIStyleAssets::instance = NULL;
+UIStyleAssets *UIStyleAssets::instance = NULL;
 
 
 

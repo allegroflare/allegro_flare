@@ -14,30 +14,30 @@
 
 
 
-FGUISpinner::FGUISpinner(FGUIWidget *parent, float x, float y, float w, float h)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+UISpinner::UISpinner(UIWidget *parent, float x, float y, float w, float h)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
 {
    float button_width = 29;
 
-   text_input = new FGUITextInput(this, 0, 0, w, h);
+   text_input = new UITextInput(this, 0, 0, w, h);
    text_input->place.align = 0;
 
-   up_button = new FGUIButton(this, w-button_width/2, h/4, button_width, h/2, "-");
+   up_button = new UIButton(this, w-button_width/2, h/4, button_width, h/2, "-");
    up_button->place.align = vec2d(0.5, 0.5);
 
-   down_button = new FGUIButton(this, w-button_width/2, h/4*3, button_width, h/2, "-");
+   down_button = new UIButton(this, w-button_width/2, h/4*3, button_width, h/2, "-");
    down_button->place.align = vec2d(0.5, 0.5);
 }
 
 
 
 
-void FGUISpinner::on_draw() {}
+void UISpinner::on_draw() {}
 
 
 
 
-void FGUISpinner::on_message(FGUIWidget *sender, std::string message)
+void UISpinner::on_message(UIWidget *sender, std::string message)
 {
    if (sender == up_button) increment();
    else if (sender == down_button) decrement();
@@ -51,7 +51,7 @@ void FGUISpinner::on_message(FGUIWidget *sender, std::string message)
 
 
 
-void FGUISpinner::on_key_char()
+void UISpinner::on_key_char()
 {
    if (!focused) return;
 
@@ -71,7 +71,7 @@ void FGUISpinner::on_key_char()
 
 
 
-void FGUISpinner::on_change()
+void UISpinner::on_change()
 {
    if (family.parent) family.parent->on_message(this, "on_change");
 }

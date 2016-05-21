@@ -9,15 +9,15 @@
 
 
 
-class FGUINullWidget : public FGUIWidget
+class UINullWidget : public UIWidget
 {
 public:
-   FGUINullWidget(FGUIWidget *parent, float x, float y, float w, float h)
-      : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+   UINullWidget(UIWidget *parent, float x, float y, float w, float h)
+      : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
    {}
    void on_draw() override
    {
-      FGUIWidget::on_draw();
+      UIWidget::on_draw();
       ALLEGRO_FONT *font = Framework::font("DroidSans.ttf 12");
       al_draw_text(font, color::white, place.size.x/2, place.size.y/2 - al_get_font_line_height(font)/2, ALLEGRO_ALIGN_CENTER, attr.get("id").c_str());
    }
@@ -26,14 +26,14 @@ public:
 
 
 
-class FGUIColorBox : public FGUIWidget
+class UIColorBox : public UIWidget
 {
 private:
    ALLEGRO_COLOR *color1, *color2;
 
 public:
-   FGUIColorBox(FGUIWidget *parent, float x, float y, float w, float h, ALLEGRO_COLOR *col1, ALLEGRO_COLOR *col2)
-      : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+   UIColorBox(UIWidget *parent, float x, float y, float w, float h, ALLEGRO_COLOR *col1, ALLEGRO_COLOR *col2)
+      : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
       , color1(col1)
       , color2(col2)
    {}
@@ -47,13 +47,13 @@ public:
 
 
 
-class GUIColorField : public FGUIXYController
+class UIColorField : public UIXYController
 {
 private:
    ALLEGRO_COLOR tl, tr, br, bl;
 
 public:
-   using FGUIXYController::FGUIXYController;
+   using UIXYController::UIXYController;
    ALLEGRO_COLOR get_color()
    {
       return color::mix(color::mix(tl, tr, marker.x), color::mix(bl, br, marker.x), marker.y);
@@ -68,7 +68,7 @@ public:
    void on_draw() override
    {
       float pdg = 7; // padding
-      FGUIStyleAssets::draw_inset(-pdg, -pdg, place.size.x+pdg*2, place.size.y+pdg*2, color::color(color::black, 0.1));
+      UIStyleAssets::draw_inset(-pdg, -pdg, place.size.x+pdg*2, place.size.y+pdg*2, color::color(color::black, 0.1));
 
       ALLEGRO_VERTEX v[4];
       v[0] = build_vertex(0, 0, 0, tl, 0, 0);
@@ -116,7 +116,7 @@ void draw_pointing_triangle(float target_x, float target_y, float rotation, floa
 
 
 
-class GUIColorSlider : public FGUIVerticalSlider
+class UIColorSlider : public UIVerticalSlider
 {
 private:
    class color_stop
@@ -134,7 +134,7 @@ private:
    // TODO: sort color stops
 
 public:
-   using FGUIVerticalSlider::FGUIVerticalSlider;
+   using UIVerticalSlider::UIVerticalSlider;
    void set_colors(ALLEGRO_COLOR top_color, ALLEGRO_COLOR bottom_color)
    {
       clear_color_stops();
@@ -164,7 +164,7 @@ public:
    void on_draw() override
    {
       float pdg = 7; // padding
-      FGUIStyleAssets::draw_inset(-pdg, -pdg, place.size.x+pdg*2, place.size.y+pdg*2, color::color(color::black, 0.1));
+      UIStyleAssets::draw_inset(-pdg, -pdg, place.size.x+pdg*2, place.size.y+pdg*2, color::color(color::black, 0.1));
 
       ALLEGRO_VERTEX v[16]; // gives a limit of 8 stops
       for (unsigned i=0; i<color_stops.size(); i++)
@@ -190,23 +190,23 @@ public:
 
 
 
-class FGUIColorPicker : public FGUIFramedWindow
+class UIColorPicker : public UIFramedWindow
 {
 private:
    ALLEGRO_COLOR picked_color;
    ALLEGRO_COLOR starting_color;
 
-   GUIColorField *xy_color_field;
-   GUIColorSlider *color_slider;
+   UIColorField *xy_color_field;
+   UIColorSlider *color_slider;
 
-   FGUITextInput *r_val;
-   FGUITextInput *g_val;
-   FGUITextInput *b_val;
-   FGUITextInput *hex_val;
+   UITextInput *r_val;
+   UITextInput *g_val;
+   UITextInput *b_val;
+   UITextInput *hex_val;
 
 public:
-   FGUIColorPicker(FGUIWidget *parent, float x, float y)
-      : FGUIFramedWindow(parent, x, y, 570, 300)
+   UIColorPicker(UIWidget *parent, float x, float y)
+      : UIFramedWindow(parent, x, y, 570, 300)
       , picked_color(color::gray)
       , starting_color(color::gray)
       , r_val(NULL)
@@ -217,31 +217,31 @@ public:
       this->set_title("Pick a color");
 
       // the color field
-      xy_color_field = new GUIColorField(this, 30, 30, 240, 240);
+      xy_color_field = new UIColorField(this, 30, 30, 240, 240);
       xy_color_field->set_colors(color::green, color::blue, color::red, color::yellow);
 
       // the color slider
-      color_slider = new GUIColorSlider(this, 300, 30, 30, 240);
+      color_slider = new UIColorSlider(this, 300, 30, 30, 240);
       color_slider->set_colors(color::white, color::orange, color::black);
 
       // the current color
-      new FGUIColorBox(this, 360, 30, 60, 90, &picked_color, &starting_color);
+      new UIColorBox(this, 360, 30, 60, 90, &picked_color, &starting_color);
 
       // the RGB inputs
-      new FGUIText(this, 465, 65-30, "R");
-      r_val = new FGUITextInput(this, 480, 30, 60, 30);
-      new FGUIText(this, 465, 110-30, "G");
-      g_val = new FGUITextInput(this, 480, 75, 60, 30);
-      new FGUIText(this, 465, 155-30, "B");
-      b_val = new FGUITextInput(this, 480, 120, 60, 30);
+      new UIText(this, 465, 65-30, "R");
+      r_val = new UITextInput(this, 480, 30, 60, 30);
+      new UIText(this, 465, 110-30, "G");
+      g_val = new UITextInput(this, 480, 75, 60, 30);
+      new UIText(this, 465, 155-30, "B");
+      b_val = new UITextInput(this, 480, 120, 60, 30);
 
       // the hex input
-      new FGUIText(this, 420, 215-30, "#");
-      hex_val = new FGUITextInput(this, 435, 180, 105, 30);
+      new UIText(this, 420, 215-30, "#");
+      hex_val = new UITextInput(this, 435, 180, 105, 30);
 
       // Cancel and OK Buttons
-      new FGUIButton(this, 375, 240, 75, 30, "Cancel");
-      new FGUIButton(this, 465, 240, 75, 30, "OK");
+      new UIButton(this, 375, 240, 75, 30, "Cancel");
+      new UIButton(this, 465, 240, 75, 30, "OK");
 
       // re-align all the elements
       for (unsigned i=0; i<family.children.size(); i++)
@@ -265,7 +265,7 @@ public:
       color_slider->set_colors(color::white, col, color::black);
    }
 
-   void on_message(FGUIWidget *sender, std::string message) override
+   void on_message(UIWidget *sender, std::string message) override
    {
       if (sender == xy_color_field)
       {
@@ -280,29 +280,29 @@ public:
 
 
 
-class MyProject : public FGUIScreen
+class MyProject : public UIScreen
 {
 private:
-   FGUIButton *button;
+   UIButton *button;
 
-   FGUIColorPicker *color_picker;
+   UIColorPicker *color_picker;
 
 public:
    MyProject(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , button(NULL)
       , color_picker(NULL)
    {
       // create our button
-      button = new FGUIButton(this, 200, 200, 140, 70, "Click Me!");
+      button = new UIButton(this, 200, 200, 140, 70, "Click Me!");
 
       // create the color picker
-      color_picker = new FGUIColorPicker(this, 400, 100);
+      color_picker = new UIColorPicker(this, 400, 100);
       color_picker->place.align = vec2d(0, 0);
    }
-   void on_message(FGUIWidget *sender, std::string message) override
+   void on_message(UIWidget *sender, std::string message) override
    {
-      if (sender == button) // click is automatic message to parent for FGUIButton
+      if (sender == button) // click is automatic message to parent for UIButton
       {
          // animate the button around randomly when it gets clicked
          Framework::motion().cmove_to(&button->place.position.x, random_float(100, 600), 0.4);

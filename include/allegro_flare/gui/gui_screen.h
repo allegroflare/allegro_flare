@@ -1,5 +1,5 @@
-#ifndef FGUI_WIDGET_SCREEN_HEADER
-#define FGUI_WIDGET_SCREEN_HEADER
+#ifndef __UI_WIDGET_SCREEN_HEADER
+#define __UI_WIDGET_SCREEN_HEADER
 
 
 
@@ -15,7 +15,7 @@
 
 
 
-class FGUIScreen : public Screen, public FGUIWidget
+class UIScreen : public Screen, public UIWidget
 {
 public:
    bool draw_focused_outline;
@@ -26,7 +26,7 @@ public:
    // bool use_joystick_as_mouse_cursor
    // bool allow_tab_to_traverse_widgets
 
-   FGUIScreen(Display *display);
+   UIScreen(Display *display);
 
    // for the builder
    void primary_timer_func();

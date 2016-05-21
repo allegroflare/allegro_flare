@@ -156,7 +156,7 @@ float SoftKeyKey::key_roundness = 0.0;
 
 
 
-class FGUISoftwareKeyboard : public FGUIWidget
+class UISoftwareKeyboard : public UIWidget
 {
 public:
    Motion motion_manager;
@@ -173,8 +173,8 @@ public:
 
    bool shift_pressed;
 
-   FGUISoftwareKeyboard(FGUIWidget *parent, float x, float y)
-      : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 850, 250))
+   UISoftwareKeyboard(UIWidget *parent, float x, float y)
+      : UIWidget(parent, new UISurfaceAreaBox(x, y, 850, 250))
       , num_cols(12)
       , num_rows(4)
     //  , display(display)
@@ -354,16 +354,16 @@ public:
 
 
 
-class SoftKeyboardExample : public FGUIScreen
+class SoftKeyboardExample : public UIScreen
 {
 private:
-   FGUISoftwareKeyboard *keyboard;
+   UISoftwareKeyboard *keyboard;
 public:
    SoftKeyboardExample(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , keyboard(NULL)
    {
-      keyboard = new FGUISoftwareKeyboard(this, display->width()/2, display->height()/2);
+      keyboard = new UISoftwareKeyboard(this, display->width()/2, display->height()/2);
    }
 };
 

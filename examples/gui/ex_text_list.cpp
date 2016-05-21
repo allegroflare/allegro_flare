@@ -5,13 +5,13 @@
 
 
 
-class Project : public FGUIScreen
+class Project : public UIScreen
 {
 public:
    Project(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
    {
-      FGUITextList *text_list = new FGUITextList(this, 500, 300, 300);
+      UITextList *text_list = new UITextList(this, 500, 300, 300);
          text_list->add_item("Carrots");
          text_list->add_item("Veggies");
          text_list->add_item("Hamburgers");

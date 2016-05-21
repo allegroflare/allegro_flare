@@ -14,8 +14,8 @@
 
 
 
-FGUIIntSpinner::FGUIIntSpinner(FGUIWidget *parent, float x, float y, float w, float h)
-   : FGUISpinner(parent, x, y, w, h)
+UIIntSpinner::UIIntSpinner(UIWidget *parent, float x, float y, float w, float h)
+   : UISpinner(parent, x, y, w, h)
    , val(0)
 {
    text_input->set_text(tostring(val));
@@ -24,7 +24,7 @@ FGUIIntSpinner::FGUIIntSpinner(FGUIWidget *parent, float x, float y, float w, fl
 
 
 
-void FGUIIntSpinner::set_val(std::string strval)
+void UIIntSpinner::set_val(std::string strval)
 {
    val = atoi(strval.c_str());
    text_input->set_text(tostring(val));
@@ -34,7 +34,7 @@ void FGUIIntSpinner::set_val(std::string strval)
 
 
 
-int FGUIIntSpinner::get_val()
+int UIIntSpinner::get_val()
 {
    return val;
 }
@@ -42,7 +42,7 @@ int FGUIIntSpinner::get_val()
 
 
 
-void FGUIIntSpinner::increment()
+void UIIntSpinner::increment()
 {
    val++;
    text_input->set_text(tostring(val));
@@ -52,7 +52,7 @@ void FGUIIntSpinner::increment()
 
 
 
-void FGUIIntSpinner::decrement()
+void UIIntSpinner::decrement()
 {
    val--;
    text_input->set_text(tostring(val));

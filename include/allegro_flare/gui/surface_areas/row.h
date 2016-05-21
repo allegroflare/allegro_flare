@@ -1,5 +1,5 @@
-#ifndef FGUI_COLLISION_ROW_HEADER
-#define FGUI_COLLISION_ROW_HEADER
+#ifndef __UI_COLLISION_ROW_HEADER
+#define __UI_COLLISION_ROW_HEADER
 
 
 
@@ -9,10 +9,10 @@
 
 
 
-class FGUISurfaceAreaRow : public FGUISurfaceArea
+class UISurfaceAreaRow : public UISurfaceArea
 {
 public:
-   FGUISurfaceAreaRow(float y, float h);
+   UISurfaceAreaRow(float y, float h);
 
    void draw_bounding_area();
    bool collides(float x, float y);

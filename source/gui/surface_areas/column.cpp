@@ -8,8 +8,8 @@
 
 
 
-FGUISurfaceAreaColumn::FGUISurfaceAreaColumn(float x, float w)
-   : FGUISurfaceArea(x, 0, w, 0)
+UISurfaceAreaColumn::UISurfaceAreaColumn(float x, float w)
+   : UISurfaceArea(x, 0, w, 0)
 {
 }
 
@@ -17,7 +17,7 @@ FGUISurfaceAreaColumn::FGUISurfaceAreaColumn(float x, float w)
 
 
 
-void FGUISurfaceAreaColumn::draw_bounding_area()
+void UISurfaceAreaColumn::draw_bounding_area()
 {
    
 }
@@ -26,7 +26,7 @@ void FGUISurfaceAreaColumn::draw_bounding_area()
 
 
 
-bool FGUISurfaceAreaColumn::collides(float x, float y)
+bool UISurfaceAreaColumn::collides(float x, float y)
 {
    if (x < placement.position.x) return false;
    if (x > placement.position.x + placement.size.x) return false;

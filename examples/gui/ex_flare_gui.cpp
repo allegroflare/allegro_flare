@@ -17,14 +17,14 @@
 
 #include <allegro_flare/fonts/font_font_awesome.h>
 
-class FGUICircleButton : public FGUIWidget
+class UICircleButton : public UIWidget
 {
 public:
    int32_t icon;
    ALLEGRO_COLOR icon_color;
 
-   FGUICircleButton(FGUIWidget *parent, float x, float y, float radius, int32_t icon, std::string message_to_parent)
-      : FGUIWidget(parent, new FGUISurfaceAreaCircle(x-(radius)+10, y+(radius)-10, radius))
+   UICircleButton(UIWidget *parent, float x, float y, float radius, int32_t icon, std::string message_to_parent)
+      : UIWidget(parent, new UISurfaceAreaCircle(x-(radius)+10, y+(radius)-10, radius))
       , icon(icon)
       , icon_color(color::gray)
    {}
@@ -43,19 +43,19 @@ public:
 
 #include <allegro_flare/objects/sound_object.h>
 
-class MyMediaPlayer : public FGUIWindow
+class MyMediaPlayer : public UIWindow
 {
 private:
    std::string filename;
    Sound sound;
-   FGUIProgressBar *progress_bar;
-   FGUIButton *play_button;
-   FGUIButton *stop_button;
-   FGUIText *filename_label;
-   FGUIText *media_player_title;
+   UIProgressBar *progress_bar;
+   UIButton *play_button;
+   UIButton *stop_button;
+   UIText *filename_label;
+   UIText *media_player_title;
 public:
-   MyMediaPlayer(FGUIWidget *parent)
-      : FGUIWindow(parent, 650, 500, 200, 170)
+   MyMediaPlayer(UIWidget *parent)
+      : UIWindow(parent, 650, 500, 200, 170)
       , filename("water_4.wav")
       , sound(Framework::sample(filename))
       , progress_bar(NULL)
@@ -63,19 +63,19 @@ public:
       , stop_button(NULL)
       , media_player_title(NULL)
    {
-      filename_label = new FGUIText(this, 100, 34, filename);
+      filename_label = new UIText(this, 100, 34, filename);
       filename_label->place.align.x = 0.5;
       filename_label->set_font_color(color::white);
 
-      new FGUIDraggableRegion(this, place.size.x/2, place.size.y/2, place.size.x, place.size.y);
+      new UIDraggableRegion(this, place.size.x/2, place.size.y/2, place.size.x, place.size.y);
 
-      play_button = new FGUIButton(this, 100-45, 120+4, 80, 50, "play");
+      play_button = new UIButton(this, 100-45, 120+4, 80, 50, "play");
 
-      stop_button = new FGUIButton(this, 190-45, 120+4, 80, 50, "stop");
+      stop_button = new UIButton(this, 190-45, 120+4, 80, 50, "stop");
 
-      progress_bar = new FGUIProgressBar(this, 100, 70+4, 180, 18);
+      progress_bar = new UIProgressBar(this, 100, 70+4, 180, 18);
    }
-   void on_message(FGUIWidget *sender, std::string message) override
+   void on_message(UIWidget *sender, std::string message) override
    {
       if (sender == play_button) sound.play();
       else if (sender == stop_button) sound.stop();
@@ -98,14 +98,14 @@ inline bool is_valid_variable_name(const std::string &str)
 }
 
 
-class MyFGUIWindow : public FGUIWindow
+class MyUIWindow : public UIWindow
 {
 private:
    ALLEGRO_DISPLAY *display;
-   FGUITextInput *text_input;
-   FGUIMusicNotation *music_render;
-   FGUIProgressBar *progress_bar;
-   FGUIText *text;
+   UITextInput *text_input;
+   UIMusicNotation *music_render;
+   UIProgressBar *progress_bar;
+   UIText *text;
    MyMediaPlayer *media_player;
 
    DataAttr virtual_memory;
@@ -114,8 +114,8 @@ private:
    int mouse_down_x, mouse_down_y;
 
 public:
-   MyFGUIWindow(FGUIWidget *parent, Display *display)
-      : FGUIWindow(parent, 0, 0, display->width(), display->height())
+   MyUIWindow(UIWidget *parent, Display *display)
+      : UIWindow(parent, 0, 0, display->width(), display->height())
       , display(display->al_display)
       , text_input(NULL)
       , music_render(NULL)
@@ -133,18 +133,18 @@ public:
       float y = 1;
 
 
-      text_input = new FGUITextInput(this, place.size.x/2, 80, place.size.x-30, 50, "");
+      text_input = new UITextInput(this, place.size.x/2, 80, place.size.x-30, 50, "");
       text_input->set_as_focused();
       text_input->attr.set("default_text_when_empty", "type a command");
 
-      text = new FGUIText(this, 27, text_input->place.position.y + text_input->place.size.y + 4, "last:");
+      text = new UIText(this, 27, text_input->place.position.y + text_input->place.size.y + 4, "last:");
 
 
 
-      music_render = new FGUIMusicNotation(this, this->place.size.x/2, 300);
+      music_render = new UIMusicNotation(this, this->place.size.x/2, 300);
 
 
-      FGUIScaledText *title_text = new FGUIScaledText(this, 20, 12, "FlareGUI Example");
+      UIScaledText *title_text = new UIScaledText(this, 20, 12, "UI Example");
       title_text->place.align.x = 0;
       title_text->place.align.y = 0;
 
@@ -152,27 +152,27 @@ public:
 
 
       float radius = 30;
-      new FGUICircleButton(this, window_right - 14, 0, radius, font_awesome::remove, "close_window");
+      new UICircleButton(this, window_right - 14, 0, radius, font_awesome::remove, "close_window");
 
 
 
-      new FGUIButton(this, 100, 200+60*0, 80, 50, "0.0");
-      new FGUIButton(this, 100, 200+60*1, 80, 50, "0.2");
-      new FGUIButton(this, 100, 200+60*2, 80, 50, "0.5");
-      new FGUIButton(this, 100, 200+60*3, 80, 50, "1.0");
+      new UIButton(this, 100, 200+60*0, 80, 50, "0.0");
+      new UIButton(this, 100, 200+60*1, 80, 50, "0.2");
+      new UIButton(this, 100, 200+60*2, 80, 50, "0.5");
+      new UIButton(this, 100, 200+60*3, 80, 50, "1.0");
 
-      new FGUIButton(this, 100, 200+60*4+20, 110, 50, "set music");
+      new UIButton(this, 100, 200+60*4+20, 110, 50, "set music");
 
-      new FGUIButton(this, 100, 200+60*5+40, 80, 50, "shrink");
-      new FGUIButton(this, 100, 200+60*6+40, 80, 50, "grow");
-
-
-      new FGUILabeledCheckbox(this, 600, 160, "Option 1");
-      new FGUILabeledCheckbox(this, 600, 210, "Option 2");
-      new FGUILabeledCheckbox(this, 600, 260, "Option 3");
+      new UIButton(this, 100, 200+60*5+40, 80, 50, "shrink");
+      new UIButton(this, 100, 200+60*6+40, 80, 50, "grow");
 
 
-      progress_bar = new FGUIProgressBar(this, 225, 400, 160, 20);
+      new UILabeledCheckbox(this, 600, 160, "Option 1");
+      new UILabeledCheckbox(this, 600, 210, "Option 2");
+      new UILabeledCheckbox(this, 600, 260, "Option 3");
+
+
+      progress_bar = new UIProgressBar(this, 225, 400, 160, 20);
       progress_bar->place.rotation = TAU * 0.25;
 
 
@@ -226,7 +226,7 @@ public:
       }
       return str;
    }
-   void on_message(FGUIWidget *sender, std::string message) override
+   void on_message(UIWidget *sender, std::string message) override
    {
       if (sender == text_input && message == "on_submit")
       {
@@ -280,13 +280,13 @@ public:
    }
    void on_mouse_down() override
    {
-      FGUIWindow::on_mouse_down();
+      UIWindow::on_mouse_down();
       mouse_down_x = Framework::current_event->mouse.x;
       mouse_down_y = Framework::current_event->mouse.y;
    }
    void on_drag(float x, float y, float mx, float my) override
    {
-      FGUIWindow::on_drag(x, y, mx, my);
+      UIWindow::on_drag(x, y, mx, my);
 
       if (mouse_down_y > 40) return;
 
@@ -296,7 +296,7 @@ public:
    }
    void on_draw() override
    {
-      FGUIWindow::on_draw();
+      UIWindow::on_draw();
 
       ALLEGRO_COLOR frame_color = color::color(color::hex("8e283e"));
       al_draw_filled_rectangle(0, 0, place.size.x, 40, frame_color);
@@ -320,16 +320,16 @@ public:
 
 
 
-class Project : public FGUIScreen
+class Project : public UIScreen
 {
 public:
-   MyFGUIWindow *window;
+   MyUIWindow *window;
    Project(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
    {
       draw_focused_outline = false;
 
-      window = new MyFGUIWindow(this, display);
+      window = new MyUIWindow(this, display);
       window->place.position.x = display->width()/2;
       window->place.position.y = display->height()/2;
 

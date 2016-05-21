@@ -1,5 +1,5 @@
-#ifndef __FGUI_INT_SPINNER_HEADER
-#define __FGUI_INT_SPINNER_HEADER
+#ifndef __UI_INT_SPINNER_HEADER
+#define __UI_INT_SPINNER_HEADER
 
 
 
@@ -7,13 +7,13 @@
 
 
 
-class FGUIIntSpinner : public FGUISpinner
+class UIIntSpinner : public UISpinner
 {
 private:
    int val;
 
 public:
-   FGUIIntSpinner(FGUIWidget *parent, float x, float y, float w, float h);
+   UIIntSpinner(UIWidget *parent, float x, float y, float w, float h);
 
    void set_val(std::string strval) override;
    void increment() override;

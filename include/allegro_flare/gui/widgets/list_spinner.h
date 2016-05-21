@@ -1,5 +1,5 @@
-#ifndef __FGUI_LIST_SPINNER_HEADER
-#define __FGUI_LIST_SPINNER_HEADER
+#ifndef __UI_LIST_SPINNER_HEADER
+#define __UI_LIST_SPINNER_HEADER
 
 
 
@@ -7,14 +7,14 @@
 
 
 
-class FGUIListSpinner : public FGUISpinner
+class UIListSpinner : public UISpinner
 {
 private:
    std::vector<std::string> items;
    std::vector<std::string>::iterator it;
 
 public:
-   FGUIListSpinner(FGUIWidget *parent, float x, float y, float w, float h);
+   UIListSpinner(UIWidget *parent, float x, float y, float w, float h);
 
 
    // add a new item to the end of the list

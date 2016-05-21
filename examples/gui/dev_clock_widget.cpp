@@ -152,27 +152,27 @@ void timer_func(Framework *f, ALLEGRO_TIMER_EVENT *ev)
 
 
 
-class ClockExampleProgram : public FGUIScreen
+class ClockExampleProgram : public UIScreen
 {
 private:
    bool clock_showing;
-   FGUIButton *show_button;
-   FGUIButton *hide_button;
+   UIButton *show_button;
+   UIButton *hide_button;
 public:
    ClockExampleProgram(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , clock_showing(false)
       , show_button(NULL)
       , hide_button(NULL)
    {
-      show_button = new FGUIButton(this, 200, 200, 80, 50, "Show");
-      hide_button = new FGUIButton(this, 200, 300, 80, 50, "Hide");
+      show_button = new UIButton(this, 200, 200, 80, 50, "Show");
+      hide_button = new UIButton(this, 200, 300, 80, 50, "Hide");
    }
    void on_timer() override
    {
       draw_clock(display->width()/2, display->height()/2, clock_radius, clock_opacity);
    }
-   void on_message(FGUIWidget *sender, std::string message) override
+   void on_message(UIWidget *sender, std::string message) override
    {
       if (sender == show_button) show_clock(NULL, NULL, NULL);
       else if (sender == hide_button) hide_clock(NULL, NULL, NULL);

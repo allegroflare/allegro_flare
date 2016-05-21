@@ -1,5 +1,5 @@
-#ifndef FGUI_CHECKBOX_HEADER
-#define FGUI_CHECKBOX_HEADER
+#ifndef UI_CHECKBOX_HEADER
+#define UI_CHECKBOX_HEADER
 
 
 
@@ -9,7 +9,7 @@
 
 
 
-class FGUICheckbox : public FGUIWidget
+class UICheckbox : public UIWidget
 {
 protected:
    bool checked;
@@ -18,7 +18,7 @@ protected:
    float check_opacity;
 
 public:
-   FGUICheckbox(FGUIWidget *parent, float x, float y, float size);
+   UICheckbox(UIWidget *parent, float x, float y, float size);
 
    void toggle();
    bool is_checked();

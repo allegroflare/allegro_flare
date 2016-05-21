@@ -1,5 +1,5 @@
-#ifndef FGUI_HEADER
-#define FGUI_HEADER
+#ifndef __UI_HEADER
+#define __UI_HEADER
 
 
 

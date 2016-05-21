@@ -1,5 +1,5 @@
-#ifndef FGUI_WIDGET_HEADER
-#define FGUI_WIDGET_HEADER
+#ifndef UI_WIDGET_HEADER
+#define UI_WIDGET_HEADER
 
 
 
@@ -13,8 +13,8 @@
 #include <allegro_flare/gui/family.h>
 
 
-class FGUIScreen;
-class FGUIFamily;
+class UIScreen;
+class UIFamily;
 class Motion;
 class FontBin;
 class SampleBin;
@@ -24,26 +24,26 @@ class SampleBin;
 enum WIDGET_FLAGS
 {
    // states
-   FGUI_FLAG_MOUSE_OVER = 0x01,
-   FGUI_FLAG_MOUSE_DOWN_ON_OVER = 0x02,
-   FGUI_FLAG_FOCUSED = 0x04,
-   FGUI_FLAG_CAN_BE_DELETED = 0x08,
-   FGUI_FLAG_ANIMATING_DELETE = 0x10,
-   FGUI_FLAG_SOMETHING_ELSE = 0x20,
+   UI_FLAG_MOUSE_OVER = 0x01,
+   UI_FLAG_MOUSE_DOWN_ON_OVER = 0x02,
+   UI_FLAG_FOCUSED = 0x04,
+   UI_FLAG_CAN_BE_DELETED = 0x08,
+   UI_FLAG_ANIMATING_DELETE = 0x10,
+   UI_FLAG_SOMETHING_ELSE = 0x20,
 
    // behaviors
-   FGUI_FLAG_BRING_TO_FRONT_ON_FOCUS = 0x40
+   UI_FLAG_BRING_TO_FRONT_ON_FOCUS = 0x40
 };
 */
 
 
 
 
-#define FGUI_ATTR__FGUI_WIDGET_TYPE "FGUI_WIDGET_TYPE"
+#define UI_ATTR__UI_WIDGET_TYPE "UI_WIDGET_TYPE"
 
 
 
-class FGUIWidget
+class UIWidget
 {
 private:
    static int num_active_widgets; // holds the number of widgets that have been created but not destroyed
@@ -51,13 +51,13 @@ private:
 
 protected:
 
-   friend class FGUIScreen;
-   friend class FGUIFamily;
-   friend class FGUIScrollArea;
+   friend class UIScreen;
+   friend class UIFamily;
+   friend class UIScrollArea;
    
-   FGUIFamily family;
+   UIFamily family;
 
-   FGUISurfaceArea *surface_area;
+   UISurfaceArea *surface_area;
 
    // TODO these might need to be implemented in a flag system
    bool mouse_over;
@@ -92,8 +92,8 @@ public:
 
    placement2d &place;
 
-   FGUIWidget(FGUIWidget *parent, FGUISurfaceArea *surface_area);
-   virtual ~FGUIWidget();
+   UIWidget(UIWidget *parent, UISurfaceArea *surface_area);
+   virtual ~UIWidget();
 
 
    // ordering
@@ -116,7 +116,7 @@ public:
 
    // state
    virtual void on_change();
-   virtual void on_message(FGUIWidget *sender, std::string message);
+   virtual void on_message(UIWidget *sender, std::string message);
    virtual void on_focus();
    virtual void on_blur();
 

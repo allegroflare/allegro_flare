@@ -12,29 +12,29 @@
 
 #include <iostream>
 
-FGUISurfaceAreaBox::FGUISurfaceAreaBox(float x, float y, float w, float h)
-   : FGUISurfaceArea(x, y, w, h)
+UISurfaceAreaBox::UISurfaceAreaBox(float x, float y, float w, float h)
+   : UISurfaceArea(x, y, w, h)
 {
-   //std::cout << "FGUISurfaceAreaBox()" << std::endl;
+   //std::cout << "UISurfaceAreaBox()" << std::endl;
 }
 
 
 
-FGUISurfaceAreaBox::~FGUISurfaceAreaBox()
+UISurfaceAreaBox::~UISurfaceAreaBox()
 {
-   //std::cout << "~FGUISurfaceAreaBox()" << std::endl;
+   //std::cout << "~UISurfaceAreaBox()" << std::endl;
 }
 
 
 
-bool FGUISurfaceAreaBox::collides(float x, float y)
+bool UISurfaceAreaBox::collides(float x, float y)
 {
    return placement.collide(x, y);
 }
 
 
 
-void FGUISurfaceAreaBox::draw_bounding_area()
+void UISurfaceAreaBox::draw_bounding_area()
 {
    placement.draw_box(color::color(color::aliceblue, 0.2), true);
 }

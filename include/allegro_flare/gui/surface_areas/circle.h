@@ -1,5 +1,5 @@
-#ifndef FGUI_COLLISION_CIRCLE_HEADER
-#define FGUI_COLLISION_CIRCLE_HEADER
+#ifndef __UI_COLLISION_CIRCLE_HEADER
+#define __UI_COLLISION_CIRCLE_HEADER
 
 
 
@@ -9,10 +9,10 @@
 
 
 
-class FGUISurfaceAreaCircle : public FGUISurfaceArea
+class UISurfaceAreaCircle : public UISurfaceArea
 {
 public:
-   FGUISurfaceAreaCircle(float x, float y, float r);
+   UISurfaceAreaCircle(float x, float y, float r);
 
    void draw_bounding_area();
    bool collides(float x, float y);

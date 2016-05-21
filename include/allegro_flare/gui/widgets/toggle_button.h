@@ -1,5 +1,5 @@
-#ifndef __FGUI_TOGGLE_BUTTON_HEADER
-#define __FGUI_TOGGLE_BUTTON_HEADER
+#ifndef __UI_TOGGLE_BUTTON_HEADER
+#define __UI_TOGGLE_BUTTON_HEADER
 
 
 
@@ -11,14 +11,14 @@
 
 
 
-class FGUIToggleButton : public FGUIWidget
+class UIToggleButton : public UIWidget
 {
 protected:
    bool pressed;
    std::string text;
 
 public:
-   FGUIToggleButton(FGUIWidget *parent, float x, float y, float w, float h, std::string _text="");
+   UIToggleButton(UIWidget *parent, float x, float y, float w, float h, std::string _text="");
 
    void set_text(std::string text);
 

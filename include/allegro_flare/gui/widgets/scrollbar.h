@@ -1,5 +1,5 @@
-#ifndef __FGUI_SCROLLBAR_HEADER
-#define __FGUI_SCROLLBAR_HEADER
+#ifndef __UI_SCROLLBAR_HEADER
+#define __UI_SCROLLBAR_HEADER
 
 
 
@@ -9,42 +9,42 @@
 
 
 
-class FGUIScrollBar : public FGUIWidget
+class UIScrollBar : public UIWidget
 {
 protected:
 
-   class UpButton : public FGUIWidget
+   class UpButton : public UIWidget
    {
    public:
-      UpButton(FGUIWidget *parent, float x, float y, float w, float h);
+      UpButton(UIWidget *parent, float x, float y, float w, float h);
       void on_click() override;
       void on_draw() override;
    };
 
-   class DownButton : public FGUIWidget
+   class DownButton : public UIWidget
    {
    public:
-      DownButton(FGUIWidget *parent, float x, float y, float w, float h);
+      DownButton(UIWidget *parent, float x, float y, float w, float h);
       void on_click() override;
       void on_draw() override;
    };
 
-   class Rail : public FGUIWidget
+   class Rail : public UIWidget
    {
    public:
       float current_mouse_y;
-      Rail(FGUIWidget *parent, float x, float y, float w, float h);
+      Rail(UIWidget *parent, float x, float y, float w, float h);
       void on_draw() override;
       void on_mouse_move(float x, float y, float dx, float dy) override;
       void on_click() override;
    };
 
-   class Handle : public FGUIWidget
+   class Handle : public UIWidget
    {
    private:
       float min_y, max_y;
    public:
-      Handle(FGUIWidget *parent, float x, float y, float w, float h);
+      Handle(UIWidget *parent, float x, float y, float w, float h);
       void set_min_max_coordinate_position(float min_val, float max_val);
       void on_drag(float x, float y, float dx, float dy);
       void on_draw();
@@ -58,7 +58,7 @@ protected:
    DownButton *down_button;
 
 public:
-   FGUIScrollBar(FGUIWidget *parent, float x, float y, float w, float h);
+   UIScrollBar(UIWidget *parent, float x, float y, float w, float h);
 
    void step_up();
    void step_down();

@@ -7,7 +7,7 @@
 
 #include <allegro_flare/screens/simple_notification_screen.h>
 
-//using namespace FGUIGlobal;
+//using namespace UIGlobal;
 
 
 
@@ -24,14 +24,14 @@
 
 
 
-class FlareGUIJoystick : public FGUIScreen
+class JoystickExample : public UIScreen
 {
 private:
    SimpleNotificationScreen *notification_screen;
    ALLEGRO_FONT *font;
 
-   FGUITextInput *text_input;
-   FGUIButton *submit_button;
+   UITextInput *text_input;
+   UIButton *submit_button;
 
 //   bool joystick_navigation;
 //   bool keyboard_navigation;
@@ -44,8 +44,8 @@ private:
    //int last_focused_ancestor;
 
 public:
-   FlareGUIJoystick(Display *display)
-      : FGUIScreen(display)
+   JoystickExample(Display *display)
+      : UIScreen(display)
       , notification_screen(NULL)
       , font(Framework::font("DroidSerif.ttf 20"))
       //, last_focused_ancestor(0)
@@ -56,37 +56,37 @@ public:
       , text_input(NULL)
       , submit_button(NULL)
    {
-      //FGUIScreen::draw_focused_outline = false;
+      //UIScreen::draw_focused_outline = false;
       notification_screen = new SimpleNotificationScreen(display, Framework::font("DroidSerif.ttf 16"));
 
       float button_x = 800/2;
       float button_y = 200;
       float button_spacing = 60;
       int cur = 0;
-      new FGUIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button1");
-      new FGUIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button2");
-      new FGUIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button3");
-      new FGUIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button4");
-      new FGUIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button5");
+      new UIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button1");
+      new UIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button2");
+      new UIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button3");
+      new UIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button4");
+      new UIButton(this, button_x, button_y+button_spacing*cur++, 170, 50, "Button5");
 
 
-      text_input = new FGUITextInput(this, 400, 500, 300, 45, "This is a text input");
-      submit_button = new FGUIButton(this, 400+170+30, 500, 80, 50, "send");
+      text_input = new UITextInput(this, 400, 500, 300, 45, "This is a text input");
+      submit_button = new UIButton(this, 400+170+30, 500, 80, 50, "send");
 
 
-      new FGUITextArea(this, 800, 320, 200, 300, "This is a textarea");
+      new UITextArea(this, 800, 320, 200, 300, "This is a textarea");
 
-      new FGUIScaledText(this, 60, 100, "Widget Selection Example");
+      new UIScaledText(this, 60, 100, "Widget Selection Example");
 
-      new FGUIText(this, 20, display->height()-70-30, "Use the mouse OR joystick to move the mouse cursor.");
-      new FGUIText(this, 20, display->height()-40-30, "Press the joystick SHOULDER BUTTONS or keyboard's TAB to jump to the next GUI widget.");
-      new FGUIText(this, 20, display->height()-40, "(you can also hot-swap the joystick)");
+      new UIText(this, 20, display->height()-70-30, "Use the mouse OR joystick to move the mouse cursor.");
+      new UIText(this, 20, display->height()-40-30, "Press the joystick SHOULDER BUTTONS or keyboard's TAB to jump to the next UI widget.");
+      new UIText(this, 20, display->height()-40, "(you can also hot-swap the joystick)");
 
       //std::cout << "count_complete_lineage: " << get_num_ancestors() << std::endl;
    }
    //void on_draw() override
    //{
-   //   FGUIScreen::on_draw();
+   //   UIScreen::on_draw();
 //
 //      if (joy_as_mouse) al_draw_filled_circle(10, 10, 3, color::yellow);
 //   }
@@ -94,7 +94,7 @@ public:
    {
       notification_screen->spawn_notification(notification);
    }
-   void on_message(FGUIWidget *sender, std::string message) override
+   void on_message(UIWidget *sender, std::string message) override
    {
       if (sender == submit_button)
       {
@@ -105,7 +105,7 @@ public:
 
    //void joy_config_func() override
    //{
-   //   FGUIScreen::joy_config_func();
+   //   UIScreen::joy_config_func();
    //
    //   std::cout << "joy config change" << std::endl;
    //   notification_screen->spawn_notification("joystick configuration change");
@@ -113,7 +113,7 @@ public:
 
    //void mouse_axes_func() override
    //{
-   //   FGUIScreen::mouse_axes_func();
+   //   UIScreen::mouse_axes_func();
 
       //if (hide_mouse_cursor_on_widget_jump)
       //{
@@ -122,7 +122,7 @@ public:
    //}
    //void _joy_down_func()
    //{
-   //   FGUIScreen::joy_down_func();
+   //   UIScreen::joy_down_func();
 
       //std::cout << "joy button " << Framework::current_event->joystick.button << std::endl;
 
@@ -137,9 +137,9 @@ public:
             if (children.children[i]->is_mouse_over())
             {
                children.children[i]->set_as_focused();
-               if (children.children[i]->attr.matches("FGUI_WIDGET_TYPE", "FGUIButton"))
+               if (children.children[i]->attr.matches("UI_WIDGET_TYPE", "UIButton"))
                {
-                  FGUIButton *button = static_cast<FGUIButton *>(children.children[i]);
+                  UIButton *button = static_cast<UIButton *>(children.children[i]);
                   button->on_click();
                }
             }
@@ -163,7 +163,7 @@ public:
    //}
    //void joy_axis_func() override
    //{
-   //   FGUIScreen::joy_axis_func();
+   //   UIScreen::joy_axis_func();
 
       //use_joystick_as_mouse = true;
       //if (Framework::current_event->joystick.axis == 0) joy_horizontal_pos = Framework::current_event->joystick.pos;
@@ -175,11 +175,11 @@ public:
    /*
    void key_char_func() override
    {
-      FGUIScreen::key_char_func();
+      UIScreen::key_char_func();
    }
    void key_down_func() override
    {
-      FGUIScreen::key_down_func();
+      UIScreen::key_down_func();
    }
    */
 };
@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
 
    //Display *display = Framework::create_display(1920, 1080, true);
    Display *display = Framework::create_display(1000, 700);
-   FlareGUIJoystick *joystick_ex = new FlareGUIJoystick(display);
+   JoystickExample *joystick_ex = new JoystickExample(display);
 
    Framework::run_loop();
 

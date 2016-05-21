@@ -11,11 +11,11 @@
 
 
 
-FGUILabeledCheckbox::FGUILabeledCheckbox(FGUIWidget *parent, float x, float y, std::string label_text)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, 100, 12*2 + 24))
+UILabeledCheckbox::UILabeledCheckbox(UIWidget *parent, float x, float y, std::string label_text)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, 100, 12*2 + 24))
    , padding(12)
-   , checkbox(new FGUICheckbox(this, padding+12, padding+12, 24))
-   , label(new FGUIText(this, padding*2+24, place.size.y*0.5, label_text))
+   , checkbox(new UICheckbox(this, padding+12, padding+12, 24))
+   , label(new UIText(this, padding*2+24, place.size.y*0.5, label_text))
 {
    place.size.x = padding + checkbox->place.size.x + padding + label->place.size.x + padding;
 }
@@ -23,7 +23,7 @@ FGUILabeledCheckbox::FGUILabeledCheckbox(FGUIWidget *parent, float x, float y, s
 
 
 
-void FGUILabeledCheckbox::on_click()
+void UILabeledCheckbox::on_click()
 {
    // if the user clicks on anything *other* than the checkbox, toggle it manually
    if (!checkbox->is_mouse_over()) checkbox->toggle();
@@ -32,7 +32,7 @@ void FGUILabeledCheckbox::on_click()
 
 
 
-void FGUILabeledCheckbox::on_draw()
+void UILabeledCheckbox::on_draw()
 {
    al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, 2, 2, color::color(color::white, 0.2), 2.0);
 }
@@ -40,7 +40,7 @@ void FGUILabeledCheckbox::on_draw()
 
 
 
-void FGUILabeledCheckbox::on_message(FGUIWidget *sender, std::string message)
+void UILabeledCheckbox::on_message(UIWidget *sender, std::string message)
 {
    // pass the message up the tree
    send_message_to_parent(message);

@@ -14,8 +14,8 @@
 
 
 
-FGUIFloatSpinner::FGUIFloatSpinner(FGUIWidget *parent, float x, float y, float w, float h)
-   : FGUISpinner(parent, x, y, w, h)
+UIFloatSpinner::UIFloatSpinner(UIWidget *parent, float x, float y, float w, float h)
+   : UISpinner(parent, x, y, w, h)
    , val(0.0)
    , increment_amount(0.1)
 {
@@ -25,7 +25,7 @@ FGUIFloatSpinner::FGUIFloatSpinner(FGUIWidget *parent, float x, float y, float w
 
 
 
-void FGUIFloatSpinner::set_val(std::string strval)
+void UIFloatSpinner::set_val(std::string strval)
 {
    val = atof(strval.c_str());
    text_input->set_text(tostring(val));
@@ -35,7 +35,7 @@ void FGUIFloatSpinner::set_val(std::string strval)
 
 
 
-void FGUIFloatSpinner::set_increment(float increment_amount)
+void UIFloatSpinner::set_increment(float increment_amount)
 {
    this->increment_amount = increment_amount;
 }
@@ -43,7 +43,7 @@ void FGUIFloatSpinner::set_increment(float increment_amount)
 
 
 
-float FGUIFloatSpinner::get_val()
+float UIFloatSpinner::get_val()
 {
    return val;
 }
@@ -51,7 +51,7 @@ float FGUIFloatSpinner::get_val()
 
 
 
-void FGUIFloatSpinner::increment()
+void UIFloatSpinner::increment()
 {
    val += increment_amount;
    text_input->set_text(tostring(val));
@@ -61,7 +61,7 @@ void FGUIFloatSpinner::increment()
 
 
 
-void FGUIFloatSpinner::decrement()
+void UIFloatSpinner::decrement()
 {
    val -= increment_amount;
    text_input->set_text(tostring(val));

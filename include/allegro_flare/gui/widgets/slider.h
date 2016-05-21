@@ -1,5 +1,5 @@
-#ifndef __AFGUI_SLIDER_HEADER
-#define __AFGUI_SLIDER_HEADER
+#ifndef __UI_SLIDER_HEADER
+#define __UI_SLIDER_HEADER
 
 
 
@@ -9,7 +9,7 @@
 
 
 
-class FGUIVerticalSlider : public FGUIWidget
+class UIVerticalSlider : public UIWidget
 {
 protected:
    float val;
@@ -19,7 +19,7 @@ protected:
    ALLEGRO_COLOR slider_color;
 
 public:
-   FGUIVerticalSlider(FGUIWidget *parent, float x, float y, float w, float h);
+   UIVerticalSlider(UIWidget *parent, float x, float y, float w, float h);
 
    void set_notches(int num_notches);
    void set_val_by_y(float y);

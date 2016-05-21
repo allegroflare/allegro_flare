@@ -1,5 +1,5 @@
-#ifndef __AFGUI_MUSIC_NOTATION_HEADER
-#define __AFGUI_MUSIC_NOTATION_HEADER
+#ifndef __AUI_MUSIC_NOTATION_HEADER
+#define __AUI_MUSIC_NOTATION_HEADER
 
 
 
@@ -11,14 +11,14 @@
 
 
 
-class FGUIMusicNotation : public FGUIWidget
+class UIMusicNotation : public UIWidget
 {
 protected:
    MusicNotation notation;
    std::string val;
 
 public:
-   FGUIMusicNotation(FGUIWidget *parent, float x, float y);
+   UIMusicNotation(UIWidget *parent, float x, float y);
 
    std::string get_val();
    void set_val(std::string);

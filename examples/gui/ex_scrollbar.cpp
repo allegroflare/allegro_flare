@@ -7,21 +7,21 @@
 
 
 
-class Project : public FGUIScreen
+class Project : public UIScreen
 {
 public:
-   FGUIText *position_text;
-   FGUIScrollBar *scrollbar;
+   UIText *position_text;
+   UIScrollBar *scrollbar;
    Project(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
       , position_text(NULL)
       , scrollbar(NULL)
    {
       this->draw_focused_outline = false;
 
-      scrollbar = new FGUIScrollBar(this, 200, 200, 20, 200);
+      scrollbar = new UIScrollBar(this, 200, 200, 20, 200);
 
-      position_text = new FGUIText(this, 250, display->height()/2, "(position)");
+      position_text = new UIText(this, 250, display->height()/2, "(position)");
    }
    void on_timer() override
    {

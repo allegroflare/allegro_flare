@@ -21,21 +21,21 @@
 
 
 
-FGUIButton::FGUIButton(FGUIWidget *parent, float x, float y, float w, float h, std::string text)
-   : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+UIButton::UIButton(UIWidget *parent, float x, float y, float w, float h, std::string text)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
    , text(text)
    , content_alignment(0.5)
-   , font(FGUIStyleAssets::get_ui_font())
+   , font(UIStyleAssets::get_ui_font())
    , icon(NULL)
 {
-   attr.set(FGUI_ATTR__FGUI_WIDGET_TYPE, "FGUIButton");
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIButton");
    attr.set("id", "Button" + tostring(get_num_created_widgets()));
 }
 
 
 
 
-void FGUIButton::set_icon(ALLEGRO_BITMAP *icon)
+void UIButton::set_icon(ALLEGRO_BITMAP *icon)
 {
    if (!icon) return;
    this->icon = icon;
@@ -43,7 +43,7 @@ void FGUIButton::set_icon(ALLEGRO_BITMAP *icon)
 
 
 
-void FGUIButton::set_content_alignment(float _content_alignment)
+void UIButton::set_content_alignment(float _content_alignment)
 {
    content_alignment = _content_alignment;
 }
@@ -52,12 +52,12 @@ void FGUIButton::set_content_alignment(float _content_alignment)
 
 #include <allegro_flare/gui/gui_screen.h>
 
-void FGUIButton::on_draw()
+void UIButton::on_draw()
 {
    bool is_depressed = mouse_over && mouse_down_on_over;
-   if (is_disabled()) FGUIStyleAssets::draw_flatset(0, 0, place.size.x, place.size.y, color::color(FGUIStyleAssets::get_surface_color(), 0.5));
-   else if (is_depressed) FGUIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y);
-   else FGUIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
+   if (is_disabled()) UIStyleAssets::draw_flatset(0, 0, place.size.x, place.size.y, color::color(UIStyleAssets::get_surface_color(), 0.5));
+   else if (is_depressed) UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y);
+   else UIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
 
    // draw a gloss along the top
    // al_draw_filled_rounded_rectangle(4, 4, place.size.x-4, 4+place.size.y/3, 4, 4, color::color(color::white, 0.05));
@@ -65,7 +65,7 @@ void FGUIButton::on_draw()
    // draw a soft hilight over the button if the mouse is over it
    if (!disabled)
       al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 5, 5,
-         color::mix(color::transparent, FGUIStyleAssets::get_hilight_color(), mouse_over * 0.1));
+         color::mix(color::transparent, UIStyleAssets::get_hilight_color(), mouse_over * 0.1));
 
 
    // draw the icon and/or the text
@@ -92,7 +92,7 @@ void FGUIButton::on_draw()
    }
    if (font && !text.empty())
    {
-      FGUIStyleAssets::draw_styled_text(is_disabled() ? "ui_disabled" : "ui", place.size.x/2, place.size.y/2 + is_depressed*1, 0.5, 0.5, text);
+      UIStyleAssets::draw_styled_text(is_disabled() ? "ui_disabled" : "ui", place.size.x/2, place.size.y/2 + is_depressed*1, 0.5, 0.5, text);
 /*
       al_draw_text(font, color::color(color::black, 0.4), start_x, placement.size.y/2-al_get_font_line_height(font)/2+1, ALLEGRO_ALIGN_LEFT, text.c_str());
       al_draw_text(font, color::white, start_x, placement.size.y/2-al_get_font_line_height(font)/2-1, ALLEGRO_ALIGN_LEFT, text.c_str());
@@ -101,7 +101,7 @@ void FGUIButton::on_draw()
 
    if (is_disabled())
    {
-      draw_textured_rectangle(1, 1, place.size.x-2, place.size.y-2, FGUIStyleAssets::get_pixel_pattern_3(), color::color(color::white, 0.2));
+      draw_textured_rectangle(1, 1, place.size.x-2, place.size.y-2, UIStyleAssets::get_pixel_pattern_3(), color::color(color::white, 0.2));
       //al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3,
       //   color::mix(color::gray, color::transparent, 0.5));
    }
@@ -109,18 +109,18 @@ void FGUIButton::on_draw()
 
 
 
-void FGUIButton::set_text(std::string text)
+void UIButton::set_text(std::string text)
 {
    text = text;
 }
 
 
 
-void FGUIButton::on_click()
+void UIButton::on_click()
 {
-   FGUIWidget::on_click();
+   UIWidget::on_click();
 
-   // automatic behavior for FGUIButton, will send an on_click to the parent when clicked this
+   // automatic behavior for UIButton, will send an on_click to the parent when clicked this
    // represents a new use-friendly concept where widgets automatically send messages to their
    // parents for their most common purpose event.  In this case, a button. You click it.
    if (family.parent) family.parent->on_message(this, "on_click");
@@ -128,15 +128,15 @@ void FGUIButton::on_click()
 
 
 
-void FGUIButton::on_mouse_enter() {}
+void UIButton::on_mouse_enter() {}
 
 
 
-void FGUIButton::on_mouse_leave() {}
+void UIButton::on_mouse_leave() {}
 
 
 
-void FGUIButton::on_key_down()
+void UIButton::on_key_down()
 {
    // NOTE! this is similar to the on_joy_down button too.
    if (!is_focused()) return;
@@ -151,7 +151,7 @@ void FGUIButton::on_key_down()
 
 
 
-void FGUIButton::on_joy_down()
+void UIButton::on_joy_down()
 {
    // NOTE! this is similar to the on_key_down button too.
    if (!mouse_over) return;

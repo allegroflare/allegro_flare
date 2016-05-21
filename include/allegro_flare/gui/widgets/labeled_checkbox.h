@@ -1,27 +1,27 @@
-#ifndef __FGUI_LABELED_CHECKBOX_HEADER
-#define __FGUI_LABELED_CHECKBOX_HEADER
+#ifndef __UI_LABELED_CHECKBOX_HEADER
+#define __UI_LABELED_CHECKBOX_HEADER
 
 
 #include <allegro_flare/gui/widget.h>
 
 
-class FGUICheckbox;
-class FGUIText;
+class UICheckbox;
+class UIText;
 
 
-class FGUILabeledCheckbox : public FGUIWidget
+class UILabeledCheckbox : public UIWidget
 {
 private:
    float padding;
-   FGUICheckbox *checkbox;
-   FGUIText *label;
+   UICheckbox *checkbox;
+   UIText *label;
 
 public:
-   FGUILabeledCheckbox(FGUIWidget *parent, float x, float y, std::string label_text);
+   UILabeledCheckbox(UIWidget *parent, float x, float y, std::string label_text);
 
    void on_click() override;
    void on_draw() override;
-   void on_message(FGUIWidget *sender, std::string message) override;
+   void on_message(UIWidget *sender, std::string message) override;
 };
 
 

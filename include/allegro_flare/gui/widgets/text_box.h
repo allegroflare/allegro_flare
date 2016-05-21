@@ -1,5 +1,5 @@
-#ifndef __AF_TEXT_BOX_OLD_HEADER
-#define __AF_TEXT_BOX_OLD_HEADER
+#ifndef __UI_TEXT_BOX_HEADER
+#define __UI_TEXT_BOX_HEADER
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-class FGUITextBox : public FGUIWidget
+class UITextBox : public UIWidget
 {
 protected:
    ALLEGRO_FONT *font;
@@ -19,7 +19,7 @@ protected:
    std::string text;
 
 public:
-   FGUITextBox(FGUIWidget *parent, float x, float y, float w, float h, std::string text);
+   UITextBox(UIWidget *parent, float x, float y, float w, float h, std::string text);
 
    void set_text(std::string text);
    void set_font(ALLEGRO_FONT *font);

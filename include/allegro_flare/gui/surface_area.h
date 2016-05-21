@@ -1,5 +1,5 @@
-#ifndef FGUI_COLLISION_AREA_HEADER
-#define FGUI_COLLISION_AREA_HEADER
+#ifndef __UI_COLLISION_AREA_HEADER
+#define __UI_COLLISION_AREA_HEADER
 
 
 
@@ -9,12 +9,12 @@
 
 
 
-class FGUISurfaceArea
+class UISurfaceArea
 {
 public:
    placement2d placement;
-   FGUISurfaceArea(float x, float y, float w, float h);
-   virtual ~FGUISurfaceArea();
+   UISurfaceArea(float x, float y, float w, float h);
+   virtual ~UISurfaceArea();
 
    virtual void draw_bounding_area() = 0;
    virtual bool collides(float x, float y) = 0;

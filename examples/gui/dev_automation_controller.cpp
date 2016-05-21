@@ -6,7 +6,7 @@
 
 
 
-class AutomationController : public FGUIWidget
+class AutomationController : public UIWidget
 {
 private:
    vec2d mouse_pos;
@@ -28,8 +28,8 @@ private:
    }
 
 public:
-   AutomationController(FGUIWidget *parent, float x, float y, float w, float h)
-      : FGUIWidget(parent, new FGUISurfaceAreaBox(x, y, w, h))
+   AutomationController(UIWidget *parent, float x, float y, float w, float h)
+      : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
       , mouse_pos(0)
       , points()
       , guide_color(color::white)
@@ -76,7 +76,7 @@ public:
    }
    void on_draw() override
    {
-      FGUIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
+      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
 
       // draw the guides
       if (mouse_over)
@@ -130,13 +130,13 @@ public:
 
 
 
-class RubberBandDev : public FGUIScreen
+class RubberBandDev : public UIScreen
 {
 public:
    RubberBandDev(Display *display)
-      : FGUIScreen(display)
+      : UIScreen(display)
    {
-      new FGUIText(this, 100, display->height()/5, "Click in the AutomationController to add a point.  Right-click to erase a point.");
+      new UIText(this, 100, display->height()/5, "Click in the AutomationController to add a point.  Right-click to erase a point.");
       AutomationController *controller = new AutomationController(this, display->width()/2, display->height()/2, display->width()/5*4, 200);
    }
 };

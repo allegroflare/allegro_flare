@@ -122,29 +122,29 @@ Some Examples of Features and Tools
 
 
 
-GUI
+UI
 ---
 
-A new GUI that used to exist as a separate extension called [FlareGUI](https://github.com/MarkOates/flare_gui) has recently been merged into AllegroFlare.  Like AllegroFlare, the GUI is still in beta.  To use it, first create a new screen that derives from `FGUIScreen` (using the GUI requires using the `Framework`).  The easiest way to add widgets (buttons, checkboxes, text, etc.) is to declare them inside the constructor.
+A new graphical UI has recently been merged into AllegroFlare and the features are still in beta.  To use it, first create a new screen that derives from `UIScreen` (using the UI requires using the `Framework`).  The easiest way to add widgets (buttons, checkboxes, text, etc.) is to declare them inside the constructor.
 
 
 ```cpp
 #include <allegro_flare/allegro_flare.h>
 
 
-class Project : public FGUIScreen
+class Project : public UIScreen
 {
 public:
-	Project(Display *display) : FGUIScreen(display)
+	Project(Display *display) : UIScreen(display)
 	{
-		new FGUIText(this, 100, 100, "This is a normal text box.");
-		new FGUIScaledText(this, 100, 150, "This is a scaled text box.  It renders smoothly when in motion.");
-		new FGUICheckbox(this, 100, 200, 20);
-		new FGUIButton(this, 150, 250, 100, 40, "Click Me!");
-		new FGUIVerticalSlider(this, 110, 340, 20, 80);
-		new FGUIVerticalSlider(this, 140, 340, 20, 80);
-		new FGUIVerticalSlider(this, 170, 340, 20, 80);
-		new FGUITextInput(this, 250, 450, 360, 40, "Input some text here");
+		new UIText(this, 100, 100, "This is a normal text box.");
+		new UIScaledText(this, 100, 150, "This is a scaled text box.  It renders smoothly when in motion.");
+		new UICheckbox(this, 100, 200, 20);
+		new UIButton(this, 150, 250, 100, 40, "Click Me!");
+		new UIVerticalSlider(this, 110, 340, 20, 80);
+		new UIVerticalSlider(this, 140, 340, 20, 80);
+		new UIVerticalSlider(this, 170, 340, 20, 80);
+		new UITextInput(this, 250, 450, 360, 40, "Input some text here");
 	}
 };
 
@@ -158,33 +158,33 @@ void main()
 }
 ```
 
-### Standard GUI Widgets
+### Standard UI Widgets
 
-* FGUIButton
-* FGUICheckbox
-* FGUIDial
-* FGUIFramedWindow
-* FGUIImage
-* FGUIIntSpinner
-* FGUILabeledCheckbox
-* FGUIListSpinner
-* FGUIMusicNotation
-* FGUIProgressBar
-* FGUIScaledText
-* FGUIScreen
-* FGUIScrollArea
-* FGUIScrollBar
-* FGUISpinner
-* FGUIVerticalSlider
-* FGUIText
-* FGUITextArea
-* FGUITextBox
-* FGUITextInput
-* FGUITextList
-* FGUIToggleButton
-* FGUIXYController
-* FGUIWidget
-* FGUIWindowGUI
+* UIButton
+* UICheckbox
+* UIDial
+* UIFramedWindow
+* UIImage
+* UIIntSpinner
+* UILabeledCheckbox
+* UIListSpinner
+* UIMusicNotation
+* UIProgressBar
+* UIScaledText
+* UIScreen
+* UIScrollArea
+* UIScrollBar
+* UISpinner
+* UIVerticalSlider
+* UIText
+* UITextArea
+* UITextBox
+* UITextInput
+* UITextList
+* UIToggleButton
+* UIXYController
+* UIWidget
+* UIWindow
 
 
 
