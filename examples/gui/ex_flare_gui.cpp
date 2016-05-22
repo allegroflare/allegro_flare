@@ -228,55 +228,67 @@ public:
    }
    void on_message(UIWidget *sender, std::string message) override
    {
+      bool message_caught = false;
+
+
+      // check if it's one of the possible messages we expect
+
       if (sender == text_input && message == "on_submit")
       {
          message = text_input->get_text();
          text_input->set_text("");
       }
-
-      bool message_caught = false;
-      if (message_caught = (parses_as_variable_definition(message)))
+      else if (parses_as_variable_definition(message))
       {
+         message_caught = true;
          std::pair<std::string, std::string> parsed_key_val = parse_key_value(message);
          std::cout << parsed_key_val.first << "=" << parsed_key_val.second;
          virtual_memory.set(parsed_key_val.first, parsed_key_val.second);
          virtual_memory.save(virtual_memory_filename);
       }
-      else if (message_caught = (message == "close_window")) Framework::shutdown_program = true;
-      else if (message_caught = Screen::signal_has_header("set_progress_bar", message))
+      else if (message == "close_window")
       {
+         message_caught = true;
+         Framework::shutdown_program = true;
+      }
+      else if (Screen::signal_has_header("set_progress_bar", message))
+      {
+         message_caught = true;
          std::string val = Screen::strip_signal_header("set_progress_bar", message);
          val = php::trim(val);
          val = attempt_to_evaluate(val);
 
          if (progress_bar) progress_bar->set_val(atof(val.c_str()));
       }
-      else if (message_caught = (message == "shrink"))
+      else if (message == "shrink")
       {
+         message_caught = true;
          Framework::motion().cmove_to(&place.scale.x, 0.86, 0.3);
          Framework::motion().cmove_to(&place.scale.y, 0.86, 0.3);
       }
-      else if (message_caught = (message == "grow"))
+      else if (message == "grow")
       {
+         message_caught = true;
          Framework::motion().cmove_to(&place.scale.x, 1, 0.3);
          Framework::motion().cmove_to(&place.scale.y, 1, 0.3);
       }
-      else if (message_caught = (message == "exit"))
+      else if (message == "exit")
       {
+         message_caught = true;
          Framework::shutdown_program = true;
       }
-      else if (message_caught = Screen::signal_has_header("set_music", message))
+      else if (Screen::signal_has_header("set_music", message))
       {
+         message_caught = true;
          std::string val = Screen::strip_signal_header("set_music", message);
          music_render->set_val(php::trim(val));
       }
 
-      if (message_caught)
-      {
-         text->set_text("last: " + message);
-      }
 
-      if (!message_caught) std::cout << "Uncaught message: \"" << message << "\"" << std::endl;
+      // give feedback on the message that was received
+
+      if (message_caught) text->set_text("last: " + message);
+      else std::cout << "Uncaught message: \"" << message << "\"" << std::endl;
    }
    void on_mouse_down() override
    {
