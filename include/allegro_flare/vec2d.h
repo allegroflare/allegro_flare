@@ -21,7 +21,7 @@ public:
       : x( x ), y( y ) {}
 
 
-   static inline vec2d PolarCoords( float angle, float magnitude ) {
+   static inline vec2d polar_coords( float angle, float magnitude ) {
       return vec2d( magnitude * std::cos( angle ), magnitude * std::sin( angle ));
    }
 
@@ -43,7 +43,7 @@ public:
    }
 
 
-   inline vec2d Normalized() const {
+   inline vec2d normalized() const {
       float magnitude = get_magnitude();
 
       return vec2d( x / magnitude, y / magnitude );
@@ -84,12 +84,6 @@ public:
       str << "(" << x << ", " << y << ")";
       return str.str();
    }
-   
-   /*
-   inline std::string GetString() const {
-      return ToString();
-   }
-   */
 };
 
 
@@ -139,7 +133,7 @@ inline vec2d operator - ( vec2d vec ) {
 // NORMALIZATION
 
 inline vec2d operator ~ ( vec2d vec ) {
-   return vec.Normalized();
+   return vec.normalized();
 }
 
 
@@ -148,7 +142,7 @@ inline vec2d operator ~ ( vec2d vec ) {
 
 // Checks if the points are in counter clockwise order //
 
-inline bool IsCounterClockwise( const vec2d first, const vec2d second, const vec2d third ) {
+inline bool is_counter_clockwise( const vec2d first, const vec2d second, const vec2d third ) {
   float dx1, dx2, dy1, dy2;
 
   dx1 = second.x - first.x;

@@ -294,7 +294,7 @@ void draw_dashed_line(float x, float y, float x2, float y2, ALLEGRO_COLOR &col, 
 	float space = 6;
 
 	int segments = distance(x, y, x2, y2) / (dash+space);
-	vec2d dir = vec2d(x2-x, y2-y).Normalized();
+	vec2d dir = vec2d(x2-x, y2-y).normalized();
 
 	float dist_traveled = 0;
 	for (int i=0; i<segments; i++)

@@ -41,7 +41,7 @@ Bone *Bone::__get_nth_child_recursive(int n)
 Bone::Bone(vec2d dir_vec, float length, float tau_range)
 	: parent(NULL)
 	, children()
-	, midpoint_direction(dir_vec.Normalized())
+	, midpoint_direction(dir_vec.normalized())
 	, length(length)
 	, position(0.5)
 	, range(tau_range * TAU)
@@ -72,7 +72,7 @@ float Bone::get_angle()
 
 vec2d Bone::get_direction()
 {
-	return vec2d::PolarCoords(get_angle(), 1.0);
+	return vec2d::polar_coords(get_angle(), 1.0);
 }
 
 
@@ -139,11 +139,11 @@ void Bone::__draw_recursive(Bone *bone, vec2d last_direction, vec2d pos, int ind
 		child = &bone->children[i];
 
 		float direction_ang = last_direction.get_angle() + child->get_angle();
-		direction = vec2d::PolarCoords(direction_ang, 1);
+		direction = vec2d::polar_coords(direction_ang, 1);
 			
 		vec2d start = pos;
 		vec2d end = pos + direction * child->length;
-		//direction = (end - start).Normalized();
+		//direction = (end - start).normalized();
 
 		// draw the bone and the endpoints
 		if (_index_count == index_to_hilight) al_draw_line(start.x, start.y, end.x, end.y, color::pink, 8.0);
