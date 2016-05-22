@@ -21,31 +21,22 @@ public:
       : x( x ), y( y ), z( z ) {}
 
 
-   
-//   static inline vec2d PolarCoords( float angle, float magnitude ) {
-//      return vec2d( magnitude * std::cos( angle ), magnitude * std::sin( angle ));
-//   }
-
 
    // METHODS //
 
-//   inline float GetAngle() const {
-//     return std::atan2( y, x );
-//   }
 
-
-   inline float GetMagnitude() const {
-      return std::sqrt( GetMagnitudeSquared() );
+   inline float get_magnitude() const {
+      return std::sqrt( get_magnitude_squared() );
    }
 
 
-   inline float GetMagnitudeSquared() const {
+   inline float get_magnitude_squared() const {
       return x * x + y * y + z * z;
    }
 
 
-   inline vec3d Normalized() const {
-      float magnitude = GetMagnitude();
+   inline vec3d normalized() const {
+      float magnitude = get_magnitude();
 	  // what if magnitude is 0?
       return vec3d( x / magnitude, y / magnitude, z / magnitude);
    }
@@ -91,15 +82,15 @@ public:
     return !(*this == other);
    }
    
-   inline std::string ToString(int precision=5) const {
+   inline std::string to_string(int precision=5) const {
       std::ostringstream str;
 	  str.precision(precision);
       str << "( " << std::fixed << x << ", " << std::fixed << y << ", " << std::fixed << z << " )";
       return str.str();
    }
    
-   inline std::string GetString() const {
-      return ToString();
+   inline std::string get_string() const {
+      return to_string();
    }
 };
 
@@ -150,32 +141,8 @@ inline vec3d operator - ( vec3d vec ) {
 // NORMALIZATION
 
 inline vec3d operator ~ ( vec3d vec ) {
-   return vec.Normalized();
+   return vec.normalized();
 }
-
-
-// TESTS
-
-
-// Checks if the points are in counter clockwise order //
-
-/*
-inline bool IsCounterClockwise( const vec2d first, const vec2d second, const vec2d third ) {
-  float dx1, dx2, dy1, dy2;
-
-  dx1 = second.x - first.x;
-  dy1 = second.y - first.y;
-  dx2 = third.x - second.x;
-  dy2 = third.y - second.y;
-
-  return dy1*dx2 < dy2*dx1;
-}
-*/
-
-
-
-
-
 
 
 

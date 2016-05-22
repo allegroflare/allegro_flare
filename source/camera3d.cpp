@@ -171,7 +171,7 @@ void Camera3D::set_frustum_as_camera(ALLEGRO_DISPLAY *d)
 
 void Camera3D::look_at(vec3d target)
 {
-	view_vector = (target - position).Normalized();
+	view_vector = (target - position).normalized();
 }
 
 
