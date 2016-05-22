@@ -3,7 +3,7 @@
 
 
 
-#define ALLEGRO_FLARE_VER "0.8.7"
+#define ALLEGRO_FLARE_VER "0.8.8wip"
 
 
 #include <allegro5/allegro.h>
