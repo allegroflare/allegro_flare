@@ -31,12 +31,7 @@ ALLEGROFLARE_DIR=$(LIBS_ROOT)/allegro_flare
 ```
 $> make
 ```
-Success!  The only thing left to do is `#include <allegro_flare/allegro_flare.h>` in your program and link with the AllegroFlare lib the Allegro libs when compiling your program.
-
-#### Step 4: Make the Examples (optional)
-```
-$> make examples
-```
+Success!  The only thing left to do is `#include <allegro_flare/allegro_flare.h>` in your program and link with the AllegroFlare lib and the Allegro libs when compiling your program.  Optionally, you can build the example programs with `make examples`.
 
 
 
