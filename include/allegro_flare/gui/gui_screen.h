@@ -30,6 +30,7 @@ public:
 
    // for the builder
    void primary_timer_func();
+   using UIWidget::mouse_axes_func;
    void mouse_axes_func();
    void mouse_down_func();
    void mouse_up_func();
