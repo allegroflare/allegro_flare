@@ -85,7 +85,9 @@ Some Examples of Features and Tools
 - Create music notation (`MusicNotation`)
 
 ### GUI
-- see the section further down.
+- Interface with the GUI through the parent class `UIScreen`
+- Use from a list of usefull widgets `UIButton`, `UICheckbox`, `UIDial`, `UIFramedWindow`, `UIImage`, `UIIntSpinner`, `UILabeledCheckbox`, `UIListSpinner`, `UIMusicNotation`, `UIProgressBar`, `UIScaledText`, `UIScreen`, `UIScrollArea`, `UIScrollBar`, `UISpinner`, `UIVerticalSlider`, `UIText`, `UITextArea`, `UITextBox`, `UITextInput`, `UITextList`, `UIToggleButton`, `UIXYController`, `UIWidget`, `UIWindow`
+- Easily create your own widget by inheriting from `UIWidget`
 
 ### Motion
 - timing and movement control (`Motion`)
@@ -114,73 +116,5 @@ Some Examples of Features and Tools
 
 ### And More
 - Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc..
-
-
-
-UI
----
-
-A new graphical UI has recently been merged into AllegroFlare and the features are still in beta.  To use it, first create a new screen that derives from `UIScreen` (using the UI requires using the `Framework`).  The easiest way to add widgets (buttons, checkboxes, text, etc.) is to declare them inside the constructor.
-
-
-```cpp
-#include <allegro_flare/allegro_flare.h>
-
-
-class Project : public UIScreen
-{
-public:
-	Project(Display *display) : UIScreen(display)
-	{
-		new UIText(this, 100, 100, "This is a normal text box.");
-		new UIScaledText(this, 100, 150, "This is a scaled text box.  It renders smoothly when in motion.");
-		new UICheckbox(this, 100, 200, 20);
-		new UIButton(this, 150, 250, 100, 40, "Click Me!");
-		new UIVerticalSlider(this, 110, 340, 20, 80);
-		new UIVerticalSlider(this, 140, 340, 20, 80);
-		new UIVerticalSlider(this, 170, 340, 20, 80);
-		new UITextInput(this, 250, 450, 360, 40, "Input some text here");
-	}
-};
-
-
-void main()
-{
-	Framework::initialize();
-	Display *display = Framework::create_display(800, 600, NULL);
-	Project *project = new Project(display);
-	Framework::run_loop();
-}
-```
-
-### Standard UI Widgets
-
-* UIButton
-* UICheckbox
-* UIDial
-* UIFramedWindow
-* UIImage
-* UIIntSpinner
-* UILabeledCheckbox
-* UIListSpinner
-* UIMusicNotation
-* UIProgressBar
-* UIScaledText
-* UIScreen
-* UIScrollArea
-* UIScrollBar
-* UISpinner
-* UIVerticalSlider
-* UIText
-* UITextArea
-* UITextBox
-* UITextInput
-* UITextList
-* UIToggleButton
-* UIXYController
-* UIWidget
-* UIWindow
-
-
 
 
