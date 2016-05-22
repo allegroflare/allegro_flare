@@ -219,7 +219,6 @@ public:
 
 
 
-      return_text << text << "\n";
       std::vector<std::size_t> positions = traverse_and_mark_strings(line);
       return_text << get_marked_string(positions) << "\n";
       std::string supplanted_string = supplant_strings(line, positions);
