@@ -71,3 +71,43 @@ BOOST_AUTO_TEST_CASE(will_return_NULL_when_the_requested_child_is_not_found)
 }
 
 
+
+BOOST_AUTO_TEST_CASE(will_find_children_with_a_matching_attribute)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+   child_1->set("name", "Samuel");
+   ElementID *child_2 = new ElementID(&root);
+   child_2->set("value", "42");
+   ElementID *child_3 = new ElementID(&root);
+   child_3->set("name", "Joey");
+
+   std::vector<ElementID *> results = root.find_all("name");
+
+   BOOST_REQUIRE_EQUAL(2, results.size());
+   BOOST_CHECK_EQUAL(child_1, results[0]);
+   BOOST_CHECK_EQUAL(child_3, results[1]);
+}
+
+
+BOOST_AUTO_TEST_CASE(will_find_children_with_a_matching_attribute_and_value)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+   child_1->set("name", "Samuel");
+   ElementID *child_2 = new ElementID(&root);
+   child_2->set("value", "42");
+   ElementID *child_3 = new ElementID(&root);
+   child_3->set("value", "128");
+   ElementID *child_4 = new ElementID(&root);
+   child_4->set("value", "42");
+
+   std::vector<ElementID *> results = root.find_all("value", "42");
+
+   BOOST_REQUIRE_EQUAL(2, results.size());
+   BOOST_CHECK_EQUAL(child_2, results[0]);
+   BOOST_CHECK_EQUAL(child_4, results[1]);
+}
+

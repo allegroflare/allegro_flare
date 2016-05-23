@@ -49,6 +49,24 @@ ElementID *ElementID::find_first(std::string attribute, std::string value)
 }
 
 
+std::vector<ElementID *> ElementID::find_all(std::string attribute)
+{
+   std::vector<ElementID *> results;
+   for (auto &child : children)
+      if (child->exists(attribute)) results.push_back(child);
+   return results;
+}
+
+
+std::vector<ElementID *> ElementID::find_all(std::string attribute, std::string value)
+{
+   std::vector<ElementID *> results;
+   for (auto &child : children)
+      if (child->exists(attribute, value)) results.push_back(child);
+   return results;
+}
+
+
 int ElementID::next_unique_id = 1;
 
 
