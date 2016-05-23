@@ -19,6 +19,7 @@ public:
    ~ElementID();
 
    int get_id();
+   int num_children();
 };
 
 

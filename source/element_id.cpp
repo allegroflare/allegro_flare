@@ -27,6 +27,12 @@ int ElementID::get_id()
 }
 
 
+int ElementID::num_children()
+{
+   return children.size();
+}
+
+
 int ElementID::next_unique_id = 1;
 
 
