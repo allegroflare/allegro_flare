@@ -32,31 +32,28 @@ std::string __tostring(T val)
 
 
 
-class Attributes::AttributeRecord
+Attributes::AttributeRecord::AttributeRecord(std::string key, std::string value)
+   : key(key)
+   , value(value)
+   , datatype("unbound")
+   , bound(NULL)
+{}
+
+
+
+
+bool Attributes::AttributeRecord::is_bound()
 {
-public:
-   std::string key;
-   std::string value;
-   std::string datatype;
-   void *bound;
+   return (strcmp(datatype.c_str(), "unbound") != 0);
+}
 
-   AttributeRecord(std::string key, std::string value="")
-      : key(key)
-      , value(value)
-      , datatype("unbound")
-      , bound(NULL)
-   {}
 
-   bool is_bound()
-   {
-      return (strcmp(datatype.c_str(), "unbound") != 0);
-   }
 
-   bool is_bound_as(std::string datatype)
-   {
-      return (strcmp(this->datatype.c_str(), datatype.c_str()) == 0);
-   }
-};
+
+bool Attributes::AttributeRecord::is_bound_as(std::string datatype)
+{
+   return (strcmp(this->datatype.c_str(), datatype.c_str()) == 0);
+}
 
 
 
