@@ -20,6 +20,9 @@ public:
 
    int get_id();
    int num_children();
+
+   ElementID *find_first(std::string attribute);
+   ElementID *find_first(std::string attribute, std::string value);
 };
 
 
