@@ -42,7 +42,6 @@
 
 #include <allegro_flare/interpolators.h>
 #include <allegro_flare/motion.h>
-#include <allegro_flare/element_id.h>
 #include <allegro_flare/scriptable.h>
 
 #include <allegro_flare/color.h>
