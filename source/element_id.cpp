@@ -27,6 +27,15 @@ int ElementID::get_id()
 }
 
 
+ElementID *ElementID::get_root()
+{
+   if (!parent) return NULL;
+   ElementID *ancestor = parent;
+   while (ancestor->parent) ancestor = ancestor->parent;
+   return ancestor;
+}
+
+
 int ElementID::num_children()
 {
    return children.size();

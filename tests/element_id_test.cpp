@@ -17,35 +17,33 @@ BOOST_AUTO_TEST_CASE(first_element_created_had_id_1)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_return_its_number_of_children)
+BOOST_AUTO_TEST_CASE(will_return_its_root)
 {
    ElementID root = ElementID(NULL);
-   BOOST_CHECK_EQUAL(root.num_children(), 0);
+      ElementID *child_1 = new ElementID(&root);
+         ElementID *child_1_A = new ElementID(child_1);
+         ElementID *child_1_B = new ElementID(child_1);
+      ElementID *child_2 = new ElementID(&root);
+         ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_B = new ElementID(child_2);
+            ElementID *child_2_B_1 = new ElementID(child_2_B);
+         ElementID *child_2_C = new ElementID(child_2);
 
-   ElementID *child_1 = new ElementID(&root);
-   BOOST_CHECK_EQUAL(root.num_children(), 1);
-
-   ElementID *child_2 = new ElementID(&root);
-   BOOST_CHECK_EQUAL(root.num_children(), 2);
-
-   ElementID *child_3 = new ElementID(&root);
-   BOOST_CHECK_EQUAL(root.num_children(), 3);
+   BOOST_CHECK_EQUAL(&root, child_1->get_root());
+      BOOST_CHECK_EQUAL(&root, child_1_A->get_root());
+      BOOST_CHECK_EQUAL(&root, child_1_B->get_root());
+   BOOST_CHECK_EQUAL(&root, child_2->get_root());
+      BOOST_CHECK_EQUAL(&root, child_2_A->get_root());
+      BOOST_CHECK_EQUAL(&root, child_2_B->get_root());
+         BOOST_CHECK_EQUAL(&root, child_2_B_1->get_root());
+      BOOST_CHECK_EQUAL(&root, child_2_C->get_root());
 }
 
 
-BOOST_AUTO_TEST_CASE(will_return_its_number_of_descendants)
+BOOST_AUTO_TEST_CASE(without_a_root_will_return_NULL)
 {
    ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-         new ElementID(child_1_A);
-      new ElementID(child_1);
-
-   ElementID *child_2 = new ElementID(&root);
-      new ElementID(child_2);
-
-   BOOST_CHECK_EQUAL(6, root.num_descendants());
+   BOOST_CHECK_EQUAL((void *)0, root.get_root());
 }
 
 
