@@ -127,3 +127,73 @@ BOOST_AUTO_TEST_CASE(will_find_children_with_a_matching_attribute_and_value)
    BOOST_CHECK_EQUAL(child_4, results[1]);
 }
 
+
+BOOST_AUTO_TEST_CASE(will_find_all_descendants_matching_an_attribute)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+   child_1->set("color", "green");
+      ElementID *child_1_A = new ElementID(child_1);
+      child_1_A->set("color", "orange");
+         ElementID *child_1_A_1 = new ElementID(child_1_A);
+         child_1_A_1->set("size", "large");
+         child_1_A_1->set("color", "green");
+         ElementID *child_1_A_2 = new ElementID(child_1_A);
+         child_1_A_2->set("size", "medium");
+         ElementID *child_1_A_3 = new ElementID(child_1_A);
+         child_1_A_3->set("color", "green");
+      ElementID *child_1_B = new ElementID(child_1);
+      child_1_B->set("name", "Samuel");
+
+   ElementID *child_2 = new ElementID(&root);
+   child_2->set("name", "Emmanuelle");
+      ElementID *child_2_A = new ElementID(child_2);
+      child_2_A->set("color", "green");
+
+   std::vector<ElementID *> results = root.find_all_descendants("color");
+
+   BOOST_REQUIRE_EQUAL(5, results.size());
+
+   BOOST_CHECK_EQUAL(child_1, results[0]);
+   BOOST_CHECK_EQUAL(child_1_A, results[1]);
+   BOOST_CHECK_EQUAL(child_1_A_1, results[2]);
+   BOOST_CHECK_EQUAL(child_1_A_3, results[3]);
+   BOOST_CHECK_EQUAL(child_2_A, results[4]);
+}
+
+
+BOOST_AUTO_TEST_CASE(will_find_all_descendants_matching_an_attribute_and_value)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+   child_1->set("color", "green");
+      ElementID *child_1_A = new ElementID(child_1);
+      child_1_A->set("color", "orange");
+         ElementID *child_1_A_1 = new ElementID(child_1_A);
+         child_1_A_1->set("size", "large");
+         child_1_A_1->set("color", "green");
+         ElementID *child_1_A_2 = new ElementID(child_1_A);
+         child_1_A_2->set("size", "medium");
+         ElementID *child_1_A_3 = new ElementID(child_1_A);
+         child_1_A_3->set("color", "green");
+      ElementID *child_1_B = new ElementID(child_1);
+      child_1_B->set("name", "Samuel");
+
+   ElementID *child_2 = new ElementID(&root);
+   child_2->set("name", "Emmanuelle");
+      ElementID *child_2_A = new ElementID(child_2);
+      child_2_A->set("color", "green");
+
+   std::vector<ElementID *> results = root.find_all_descendants("color", "green");
+
+   BOOST_REQUIRE_EQUAL(4, results.size());
+
+   BOOST_CHECK_EQUAL(child_1, results[0]);
+   BOOST_CHECK_EQUAL(child_1_A_1, results[1]);
+   BOOST_CHECK_EQUAL(child_1_A_3, results[2]);
+   BOOST_CHECK_EQUAL(child_2_A, results[3]);
+}
+
+

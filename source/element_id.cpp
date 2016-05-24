@@ -76,6 +76,34 @@ std::vector<ElementID *> ElementID::find_all(std::string attribute, std::string 
 }
 
 
+std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute)
+{
+   std::vector<ElementID *> results;
+   for (auto &child : children)
+   {
+      if (child->exists(attribute)) results.push_back(child);
+
+      std::vector<ElementID *> child_descendants = child->find_all_descendants(attribute);
+      results.insert(results.end(), child_descendants.begin(), child_descendants.end());
+   }
+   return results;
+}
+
+
+std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute, std::string value)
+{
+   std::vector<ElementID *> results;
+   for (auto &child : children)
+   {
+      if (child->exists(attribute, value)) results.push_back(child);
+
+      std::vector<ElementID *> child_descendants = child->find_all_descendants(attribute, value);
+      results.insert(results.end(), child_descendants.begin(), child_descendants.end());
+   }
+   return results;
+}
+
+
 int ElementID::next_unique_id = 1;
 
 

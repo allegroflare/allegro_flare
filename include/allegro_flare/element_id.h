@@ -26,6 +26,8 @@ public:
    ElementID *find_first(std::string attribute, std::string value);
    std::vector<ElementID *> find_all(std::string attribute);
    std::vector<ElementID *> find_all(std::string attribute, std::string value);
+   std::vector<ElementID *> find_all_descendants(std::string attribute);
+   std::vector<ElementID *> find_all_descendants(std::string attribute, std::string value);
 };
 
 
