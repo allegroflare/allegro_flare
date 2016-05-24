@@ -104,6 +104,18 @@ std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute, 
 }
 
 
+ElementID *ElementID::find_descendant_by_id(int id_to_match)
+{
+   for (ElementID *child : children)
+   {
+      if (child->get_id() == id_to_match) return child;
+      ElementID *child_return = child->find_descendant_by_id(id_to_match);
+      if (child_return) return child_return;
+   }
+   return NULL;
+}
+
+
 int ElementID::next_unique_id = 1;
 
 

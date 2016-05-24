@@ -197,3 +197,28 @@ BOOST_AUTO_TEST_CASE(will_find_all_descendants_matching_an_attribute_and_value)
 }
 
 
+BOOST_AUTO_TEST_CASE(will_get_a_descendant_by_id)
+{
+   ElementID root = ElementID(NULL);
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+   ElementID *child_2 = new ElementID(&root);
+      ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_A_1 = new ElementID(child_2_A);
+         ElementID *child_2_A_2 = new ElementID(child_2_A);
+         ElementID *child_2_A_3 = new ElementID(child_2_A);
+      ElementID *child_2_B = new ElementID(child_2);
+         ElementID *child_2_B_1 = new ElementID(child_2_B);
+   ElementID *child_3 = new ElementID(&root);
+      ElementID *child_3_A = new ElementID(child_3);
+      ElementID *child_3_B = new ElementID(child_3);
+
+
+   BOOST_CHECK_EQUAL(child_1, root.find_descendant_by_id(child_1->get_id()));
+   BOOST_CHECK_EQUAL(child_2, root.find_descendant_by_id(child_2->get_id()));
+   BOOST_CHECK_EQUAL(child_2_A_2, root.find_descendant_by_id(child_2_A_2->get_id()));
+   BOOST_CHECK_EQUAL(child_3_A, root.find_descendant_by_id(child_3_A->get_id()));
+}
+
+
+
