@@ -33,6 +33,15 @@ int ElementID::num_children()
 }
 
 
+int ElementID::num_descendants()
+{
+   int count = 0;
+   for (auto &child : children)
+      count += child->num_descendants() + 1;
+   return count;
+}
+
+
 ElementID *ElementID::find_first(std::string attribute)
 {
    for (auto &child : children)

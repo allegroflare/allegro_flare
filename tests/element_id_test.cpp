@@ -33,6 +33,22 @@ BOOST_AUTO_TEST_CASE(will_return_its_number_of_children)
 }
 
 
+BOOST_AUTO_TEST_CASE(will_return_its_number_of_descendants)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+         new ElementID(child_1_A);
+      new ElementID(child_1);
+
+   ElementID *child_2 = new ElementID(&root);
+      new ElementID(child_2);
+
+   BOOST_CHECK_EQUAL(6, root.num_descendants());
+}
+
+
 BOOST_AUTO_TEST_CASE(will_find_first_child_element_matching_attributes)
 {
    ElementID root = ElementID(NULL);
