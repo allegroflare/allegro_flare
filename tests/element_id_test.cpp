@@ -85,6 +85,83 @@ BOOST_AUTO_TEST_CASE(will_return_NULL_when_the_requested_child_is_not_found)
 }
 
 
+BOOST_AUTO_TEST_CASE(will_find_the_first_descendant_matching_an_attribute)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+   child_1->set("color", "green");
+      ElementID *child_1_A = new ElementID(child_1);
+      child_1_A->set("color", "orange");
+         ElementID *child_1_A_1 = new ElementID(child_1_A);
+         child_1_A_1->set("color", "green");
+         ElementID *child_1_A_2 = new ElementID(child_1_A);
+         child_1_A_2->set("size", "medium");
+         ElementID *child_1_A_3 = new ElementID(child_1_A);
+         child_1_A_3->set("color", "pink");
+      ElementID *child_1_B = new ElementID(child_1);
+      child_1_B->set("name", "Samuel");
+         ElementID *child_1_B_1 = new ElementID(child_1_B);
+         child_1_B_1->set("size", "large");
+
+   ElementID *child_2 = new ElementID(&root);
+   child_2->set("name", "Emmanuelle");
+      ElementID *child_2_A = new ElementID(child_2);
+      child_2_A->set("color", "green");
+      ElementID *child_2_B = new ElementID(child_2);
+      child_2_B->set("power", "42");
+
+   BOOST_CHECK_EQUAL(child_1, root.find_first_descendant("color"));
+   BOOST_CHECK_EQUAL(child_1_A_2, root.find_first_descendant("size"));
+   BOOST_CHECK_EQUAL(child_1_B, root.find_first_descendant("name"));
+   BOOST_CHECK_EQUAL(child_2_B, root.find_first_descendant("power"));
+}
+
+
+BOOST_AUTO_TEST_CASE(will_find_the_first_descendant_matching_an_attribute_with_value)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+   child_1->set("color", "green");
+      ElementID *child_1_A = new ElementID(child_1);
+      child_1_A->set("color", "orange");
+         ElementID *child_1_A_1 = new ElementID(child_1_A);
+         child_1_A_1->set("color", "green");
+         ElementID *child_1_A_2 = new ElementID(child_1_A);
+         child_1_A_2->set("size", "medium");
+         ElementID *child_1_A_3 = new ElementID(child_1_A);
+         child_1_A_3->set("color", "pink");
+      ElementID *child_1_B = new ElementID(child_1);
+      child_1_B->set("name", "Samuel");
+         ElementID *child_1_B_1 = new ElementID(child_1_B);
+         child_1_B_1->set("size", "large");
+
+   ElementID *child_2 = new ElementID(&root);
+   child_2->set("name", "Emmanuelle");
+      ElementID *child_2_A = new ElementID(child_2);
+      child_2_A->set("color", "green");
+      ElementID *child_2_B = new ElementID(child_2);
+      child_2_B->set("power", "42");
+
+   BOOST_CHECK_EQUAL(child_1, root.find_first_descendant("color", "green"));
+   BOOST_CHECK_EQUAL(child_1_A, root.find_first_descendant("color", "orange"));
+   BOOST_CHECK_EQUAL(child_1_A_2, root.find_first_descendant("size", "medium"));
+   BOOST_CHECK_EQUAL(child_1_A_3, root.find_first_descendant("color", "pink"));
+   BOOST_CHECK_EQUAL(child_1_B, root.find_first_descendant("name", "Samuel"));
+   BOOST_CHECK_EQUAL(child_2, root.find_first_descendant("name", "Emmanuelle"));
+   BOOST_CHECK_EQUAL(child_2_B, root.find_first_descendant("power", "42"));
+}
+
+
+BOOST_AUTO_TEST_CASE(returns_NULL_when_no_unable_to_find_descendant_with_a_matching_attribute_or_attribute_and_value)
+{
+   ElementID root = ElementID(NULL);
+
+   BOOST_CHECK_EQUAL((void *)0, root.find_first_descendant("foo"));
+   BOOST_CHECK_EQUAL((void *)0, root.find_first_descendant("foo", "bar"));
+}
+
 
 BOOST_AUTO_TEST_CASE(will_find_children_with_a_matching_attribute)
 {

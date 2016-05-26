@@ -67,6 +67,30 @@ ElementID *ElementID::find_first(std::string attribute, std::string value)
 }
 
 
+ElementID *ElementID::find_first_descendant(std::string attribute)
+{
+   for (auto &child : children)
+   {
+      if (child->exists(attribute)) return child;
+      ElementID *child_descendant = child->find_first_descendant(attribute);
+      if (child_descendant) return child_descendant;
+   }
+   return NULL;
+}
+
+
+ElementID *ElementID::find_first_descendant(std::string attribute, std::string value)
+{
+   for (auto &child : children)
+   {
+      if (child->exists(attribute, value)) return child;
+      ElementID *child_descendant = child->find_first_descendant(attribute, value);
+      if (child_descendant) return child_descendant;
+   }
+   return NULL;
+}
+
+
 std::vector<ElementID *> ElementID::find_all(std::string attribute)
 {
    std::vector<ElementID *> results;
