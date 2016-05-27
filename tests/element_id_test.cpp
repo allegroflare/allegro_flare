@@ -8,6 +8,30 @@
 #include <allegro_flare/element_id.h>
 
 
+struct Fixture
+{
+   ElementID root;
+      ElementID *child_1;
+         ElementID *child_1_A;
+         ElementID *child_1_B;
+      ElementID *child_2;
+         ElementID *child_2_A;
+            ElementID *child_2_A_1;
+         ElementID *child_2_B;
+
+   Fixture()
+      : root(NULL)
+      , child_1(new ElementID(&root))
+      , child_1_A(new ElementID(child_1))
+      , child_1_B(new ElementID(child_1))
+      , child_2(new ElementID(&root))
+      , child_2_A(new ElementID(child_2))
+      , child_2_A_1(new ElementID(child_2_A))
+      , child_2_B(new ElementID(child_2))
+   {}
+};
+
+
 BOOST_AUTO_TEST_CASE(has_a_first_element_with_id_1)
 {
    ElementID element1 = ElementID(NULL);
@@ -293,18 +317,8 @@ BOOST_AUTO_TEST_CASE(gets_a_descendant_by_id)
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_an_nth_descendant)
+BOOST_FIXTURE_TEST_CASE(returns_an_nth_descendant, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    BOOST_CHECK_EQUAL(child_1, root.get_nth_descendant(0));
    BOOST_CHECK_EQUAL(child_1_A, root.get_nth_descendant(1));
    BOOST_CHECK_EQUAL(child_1_B, root.get_nth_descendant(2));
@@ -319,18 +333,8 @@ BOOST_AUTO_TEST_CASE(returns_an_nth_descendant)
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_NULL_when_an_nth_descendant_does_not_exist)
+BOOST_FIXTURE_TEST_CASE(returns_NULL_when_an_nth_descendant_does_not_exist, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    BOOST_CHECK_EQUAL((void *)0, root.get_nth_descendant(-1));
    BOOST_CHECK_EQUAL((void *)0, root.get_nth_descendant(7));
 
@@ -343,18 +347,8 @@ BOOST_AUTO_TEST_CASE(returns_NULL_when_an_nth_descendant_does_not_exist)
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_a_flat_list_of_descendants)
+BOOST_FIXTURE_TEST_CASE(returns_a_flat_list_of_descendants, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    std::vector<ElementID *> expected = {
       child_1, child_1_A, child_1_B, child_2, child_2_A, child_2_A_1, child_2_B
    };
@@ -366,18 +360,8 @@ BOOST_AUTO_TEST_CASE(returns_a_flat_list_of_descendants)
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_an_index_of_a_child_element)
+BOOST_FIXTURE_TEST_CASE(returns_an_index_of_a_child_element, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    BOOST_CHECK_EQUAL(0, root.get_index_of_child(child_1));
    BOOST_CHECK_EQUAL(1, root.get_index_of_child(child_2));
 
@@ -391,18 +375,8 @@ BOOST_AUTO_TEST_CASE(returns_an_index_of_a_child_element)
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_negative_1_if_an_index_is_not_present_for_an_element)
+BOOST_FIXTURE_TEST_CASE(returns_negative_1_if_an_index_is_not_present_for_an_element, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    BOOST_CHECK_EQUAL(-1, root.get_index_of_child(child_1_A));
    BOOST_CHECK_EQUAL(-1, root.get_index_of_child(child_2_A));
    BOOST_CHECK_EQUAL(-1, root.get_index_of_child(child_2_A_1));
@@ -417,18 +391,8 @@ BOOST_AUTO_TEST_CASE(returns_negative_1_if_an_index_is_not_present_for_an_elemen
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_an_nth_child)
+BOOST_FIXTURE_TEST_CASE(returns_an_nth_child, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    BOOST_CHECK_EQUAL(child_1, root.get_nth_child(0));
    BOOST_CHECK_EQUAL(child_2, root.get_nth_child(1));
 
@@ -442,63 +406,31 @@ BOOST_AUTO_TEST_CASE(returns_an_nth_child)
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_its_next_sibling)
+BOOST_FIXTURE_TEST_CASE(returns_its_next_sibling, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    BOOST_CHECK_EQUAL(child_2, child_1->get_next_sibling());
    BOOST_CHECK_EQUAL(child_1_B, child_1_A->get_next_sibling());
    BOOST_CHECK_EQUAL(child_2_B, child_2_A->get_next_sibling());
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_its_previous_sibling)
+BOOST_FIXTURE_TEST_CASE(returns_its_previous_sibling, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    BOOST_CHECK_EQUAL(child_1, child_2->get_previous_sibling());
    BOOST_CHECK_EQUAL(child_1_A, child_1_B->get_previous_sibling());
    BOOST_CHECK_EQUAL(child_2_A, child_2_B->get_previous_sibling());
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_NULL_when_a_next_or_previous_sibling_does_not_exist)
+BOOST_FIXTURE_TEST_CASE(returns_NULL_when_a_next_or_previous_sibling_does_not_exist, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
    BOOST_CHECK_EQUAL((void *)0, root.get_next_sibling());
    BOOST_CHECK_EQUAL((void *)0, root.get_previous_sibling());
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_a_list_of_children)
+BOOST_FIXTURE_TEST_CASE(returns_a_list_of_children, Fixture)
 {
-   ElementID root = ElementID(NULL);
-
-   ElementID *child_1 = new ElementID(&root);
-      ElementID *child_1_A = new ElementID(child_1);
-      ElementID *child_1_B = new ElementID(child_1);
-   ElementID *child_2 = new ElementID(&root);
-      ElementID *child_2_A = new ElementID(child_2);
-         ElementID *child_2_A_1 = new ElementID(child_2_A);
-      ElementID *child_2_B = new ElementID(child_2);
-
    std::vector<ElementID *> expected_root_children = {child_1, child_2};
    std::vector<ElementID *> expected_child_1_children = {child_1_A, child_1_B};
    std::vector<ElementID *> expected_child_2_children = {child_2_A, child_2_B};
