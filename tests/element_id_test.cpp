@@ -8,7 +8,7 @@
 #include <allegro_flare/element_id.h>
 
 
-BOOST_AUTO_TEST_CASE(first_element_created_had_id_1)
+BOOST_AUTO_TEST_CASE(has_a_first_element_with_id_1)
 {
    ElementID element1 = ElementID(NULL);
    ElementID element2 = ElementID(NULL);
@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(first_element_created_had_id_1)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_return_its_root)
+BOOST_AUTO_TEST_CASE(returns_its_root)
 {
    ElementID root = ElementID(NULL);
       ElementID *child_1 = new ElementID(&root);
@@ -40,14 +40,14 @@ BOOST_AUTO_TEST_CASE(will_return_its_root)
 }
 
 
-BOOST_AUTO_TEST_CASE(without_a_root_will_return_NULL)
+BOOST_AUTO_TEST_CASE(returns_NULL_without_a_root)
 {
    ElementID root = ElementID(NULL);
    BOOST_CHECK_EQUAL((void *)0, root.get_root());
 }
 
 
-BOOST_AUTO_TEST_CASE(will_find_first_child_element_matching_attributes)
+BOOST_AUTO_TEST_CASE(returns_the_first_child_with_a_matching_attribute)
 {
    ElementID root = ElementID(NULL);
 
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(will_find_first_child_element_matching_attributes)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_find_first_child_element_matching_attribute_with_value)
+BOOST_AUTO_TEST_CASE(finds_the_first_child_with_a_matching_attribute_and_value)
 {
    ElementID root = ElementID(NULL);
 
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(will_find_first_child_element_matching_attribute_with_value
 }
 
 
-BOOST_AUTO_TEST_CASE(will_return_NULL_when_the_requested_child_is_not_found)
+BOOST_AUTO_TEST_CASE(returns_NULL_when_a_child_with_matching_attributes_is_not_found)
 {
    ElementID root = ElementID(NULL);
 
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(will_return_NULL_when_the_requested_child_is_not_found)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_find_the_first_descendant_matching_an_attribute)
+BOOST_AUTO_TEST_CASE(finds_the_first_descendant_with_a_matching_attribute)
 {
    ElementID root = ElementID(NULL);
 
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(will_find_the_first_descendant_matching_an_attribute)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_find_the_first_descendant_matching_an_attribute_with_value)
+BOOST_AUTO_TEST_CASE(finds_the_first_descendant_with_a_matching_attribute_and_value)
 {
    ElementID root = ElementID(NULL);
 
@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_CASE(will_find_the_first_descendant_matching_an_attribute_with_v
 }
 
 
-BOOST_AUTO_TEST_CASE(returns_NULL_when_no_unable_to_find_descendant_with_a_matching_attribute_or_attribute_and_value)
+BOOST_AUTO_TEST_CASE(returns_NULL_when_a_matching_descendant_does_not_exist)
 {
    ElementID root = ElementID(NULL);
 
@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_CASE(returns_NULL_when_no_unable_to_find_descendant_with_a_match
 }
 
 
-BOOST_AUTO_TEST_CASE(will_find_children_with_a_matching_attribute)
+BOOST_AUTO_TEST_CASE(finds_children_with_a_matching_attribute)
 {
    ElementID root = ElementID(NULL);
 
@@ -182,7 +182,7 @@ BOOST_AUTO_TEST_CASE(will_find_children_with_a_matching_attribute)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_find_children_with_a_matching_attribute_and_value)
+BOOST_AUTO_TEST_CASE(finds_children_with_a_matching_attribute_and_value)
 {
    ElementID root = ElementID(NULL);
 
@@ -203,7 +203,7 @@ BOOST_AUTO_TEST_CASE(will_find_children_with_a_matching_attribute_and_value)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_find_all_descendants_matching_an_attribute)
+BOOST_AUTO_TEST_CASE(finds_all_descendants_matching_an_attribute)
 {
    ElementID root = ElementID(NULL);
 
@@ -238,7 +238,7 @@ BOOST_AUTO_TEST_CASE(will_find_all_descendants_matching_an_attribute)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_find_all_descendants_matching_an_attribute_and_value)
+BOOST_AUTO_TEST_CASE(finds_all_descendants_matching_an_attribute_and_value)
 {
    ElementID root = ElementID(NULL);
 
@@ -269,7 +269,7 @@ BOOST_AUTO_TEST_CASE(will_find_all_descendants_matching_an_attribute_and_value)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_get_a_descendant_by_id)
+BOOST_AUTO_TEST_CASE(gets_a_descendant_by_id)
 {
    ElementID root = ElementID(NULL);
    ElementID *child_1 = new ElementID(&root);
@@ -293,7 +293,7 @@ BOOST_AUTO_TEST_CASE(will_get_a_descendant_by_id)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_return_the_nth_descendant)
+BOOST_AUTO_TEST_CASE(returns_an_nth_descendant)
 {
    ElementID root = ElementID(NULL);
 
@@ -319,7 +319,7 @@ BOOST_AUTO_TEST_CASE(will_return_the_nth_descendant)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_return_NULL_when_an_nth_descendant_does_not_exist)
+BOOST_AUTO_TEST_CASE(returns_NULL_when_an_nth_descendant_does_not_exist)
 {
    ElementID root = ElementID(NULL);
 
@@ -343,7 +343,7 @@ BOOST_AUTO_TEST_CASE(will_return_NULL_when_an_nth_descendant_does_not_exist)
 }
 
 
-BOOST_AUTO_TEST_CASE(will_return_a_flat_list_of_descendants)
+BOOST_AUTO_TEST_CASE(returns_a_flat_list_of_descendants)
 {
    ElementID root = ElementID(NULL);
 
