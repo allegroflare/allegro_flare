@@ -5,19 +5,36 @@
 #include <allegro_flare/console_color.h>
 
 
+
+void ElementID::add_child(ElementID *child)
+{
+   children.push_back(child);
+}
+
+
+bool ElementID::remove_child(ElementID *child)
+{
+   int index = get_index_of_child(child);
+   if (index == -1) return false;
+   children.erase(children.begin() + index);
+   return true;
+}
+
+
 ElementID::ElementID(ElementID *parent)
    : Attributes()
    , id(next_unique_id++)
    , parent(parent)
    , children()
 {
-   if (parent) parent->children.push_back(this);
+   if (parent) parent->add_child(this);
 }
 
 
 ElementID::~ElementID()
 {
-   for (auto &child : children) delete child;
+   while(children.size() > 0) delete children[0];
+   if (parent) parent->remove_child(this);
 }
 
 

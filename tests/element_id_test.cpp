@@ -71,6 +71,22 @@ BOOST_AUTO_TEST_CASE(returns_NULL_without_a_root)
 }
 
 
+BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted)
+{
+   ElementID root = ElementID(NULL);
+   ElementID *child_1 = new ElementID(&root);
+   ElementID *child_2 = new ElementID(&root);
+
+   BOOST_CHECK_EQUAL(2, root.num_children());
+
+   delete child_1;
+   BOOST_CHECK_EQUAL(1, root.num_children());
+
+   delete child_2;
+   BOOST_CHECK_EQUAL(0, root.num_children());
+}
+
+
 BOOST_AUTO_TEST_CASE(returns_the_first_child_with_a_matching_attribute)
 {
    ElementID root = ElementID(NULL);

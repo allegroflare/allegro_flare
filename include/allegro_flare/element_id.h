@@ -13,6 +13,9 @@ private:
    ElementID *parent;
    std::vector<ElementID *> children;
 
+   void add_child(ElementID *child);
+   bool remove_child(ElementID *child);
+
 public:
    ElementID(ElementID *parent);
    ~ElementID();
