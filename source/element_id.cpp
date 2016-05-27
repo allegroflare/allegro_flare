@@ -5,7 +5,6 @@
 #include <allegro_flare/console_color.h>
 
 
-
 void ElementID::add_child(ElementID *child)
 {
    children.push_back(child);
@@ -219,6 +218,13 @@ ElementID *ElementID::get_nth_child(int index)
 {
    if (index < 0 || index >= children.size()) return nullptr;
    return children[index];
+}
+
+
+ElementID *ElementID::get_random_child()
+{
+   int random_int = rand() % children.size();
+   return get_nth_child(random_int);
 }
 
 

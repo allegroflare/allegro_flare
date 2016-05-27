@@ -441,6 +441,38 @@ BOOST_FIXTURE_TEST_CASE(returns_an_nth_child, Fixture)
 }
 
 
+BOOST_AUTO_TEST_CASE(returns_a_random_child)
+{
+   ElementID root(NULL);
+   ElementID *child_1 = new ElementID(&root);
+   ElementID *child_2 = new ElementID(&root);
+   ElementID *child_3 = new ElementID(&root);
+
+   int child_1_picks = 0;
+   int child_2_picks = 0;
+   int child_3_picks = 0;
+
+   const int TOTAL_TRIES = 200;
+   int min_expected_picks = TOTAL_TRIES/6;
+
+   for (unsigned i=0; i<TOTAL_TRIES; i++)
+   {
+      ElementID *picked_element = root.get_random_child();
+      if (picked_element == child_1) child_1_picks++;
+      else if (picked_element == child_2) child_2_picks++;
+      else if (picked_element == child_3) child_3_picks++;
+   }
+
+   int total_picks = child_1_picks + child_2_picks + child_3_picks;
+
+   BOOST_CHECK_EQUAL(TOTAL_TRIES, total_picks);
+
+   BOOST_CHECK(child_1_picks > min_expected_picks);
+   BOOST_CHECK(child_2_picks > min_expected_picks);
+   BOOST_CHECK(child_3_picks > min_expected_picks);
+}
+
+
 BOOST_FIXTURE_TEST_CASE(returns_its_next_sibling, Fixture)
 {
    BOOST_CHECK_EQUAL(child_2, child_1->get_next_sibling());

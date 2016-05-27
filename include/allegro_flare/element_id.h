@@ -34,6 +34,7 @@ public:
    std::vector<ElementID *> find_all_descendants(std::string attribute);
    std::vector<ElementID *> find_all_descendants(std::string attribute, std::string value);
    ElementID *get_nth_child(int index);
+   ElementID *get_random_child();
    ElementID *get_nth_descendant(int num);
    ElementID *find_descendant_by_id(int id);
    std::vector<ElementID *> get_children();
