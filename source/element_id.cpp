@@ -153,14 +153,11 @@ ElementID *ElementID::find_descendant_by_id(int id_to_match)
 int ElementID::__index_count_r;
 ElementID *ElementID::__get_nth_descendant_r(std::vector<ElementID *> &children, int n)
 {
-   ElementID *element = NULL;
-   for (unsigned i=0; i<children.size(); i++)
+   for (ElementID *child : children)
    {
       __index_count_r++;
-      if (__index_count_r == n) return children[i];
-
-      ElementID *p = children[i];
-      element = __get_nth_descendant_r(p->children, n);
+      if (__index_count_r == n) return child;
+      ElementID *element = __get_nth_descendant_r(child->children, n);
       if (element) return element;
    }
    return NULL;
