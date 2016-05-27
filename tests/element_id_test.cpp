@@ -346,3 +346,26 @@ BOOST_AUTO_TEST_CASE(will_return_NULL_when_an_nth_descendant_does_not_exist)
 }
 
 
+BOOST_AUTO_TEST_CASE(will_return_a_flat_list_of_descendants)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+      ElementID *child_1_B = new ElementID(child_1);
+   ElementID *child_2 = new ElementID(&root);
+      ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_A_1 = new ElementID(child_2_A);
+      ElementID *child_2_B = new ElementID(child_2);
+
+   std::vector<ElementID *> expected = {
+      child_1, child_1_A, child_1_B, child_2, child_2_A, child_2_A_1, child_2_B
+   };
+
+   std::vector<ElementID *> list_of_descendants = root.get_flat_list_of_descendants();
+
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected.begin(), expected.end(),
+      list_of_descendants.begin(), list_of_descendants.end());
+}
+
+

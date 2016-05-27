@@ -174,6 +174,19 @@ ElementID *ElementID::get_nth_descendant(int num)
 }
 
 
+std::vector<ElementID *> ElementID::get_flat_list_of_descendants()
+{
+   std::vector<ElementID *> elements;
+   for (auto &child : children)
+   {
+      elements.push_back(child);
+      std::vector<ElementID *> child_elements = child->get_flat_list_of_descendants();
+      elements.insert(elements.end(), child_elements.begin(), child_elements.end());
+   }
+   return elements;
+}
+
+
 int ElementID::next_unique_id = 1;
 
 
