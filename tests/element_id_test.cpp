@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(returns_NULL_without_a_root)
 }
 
 
-BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted)
+BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_1)
 {
    ElementID root = ElementID(NULL);
    ElementID *child_1 = new ElementID(&root);
@@ -84,6 +84,25 @@ BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted)
 
    delete child_2;
    BOOST_CHECK_EQUAL(0, root.num_children());
+}
+
+
+BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_2)
+{
+   ElementID root = ElementID(NULL);
+   std::vector<ElementID *> children(100, nullptr);
+   for (auto &c : children) c = new ElementID(&root);
+
+   std::srand(unsigned(std::time(0)));
+   std::random_shuffle(children.begin(), children.end());
+
+   for (unsigned i=0; i<children.size(); i++)
+   {
+      delete children[i];
+
+      int expected_num_children = children.size() - i - 1;
+      BOOST_CHECK_EQUAL(expected_num_children, root.num_children());
+   }
 }
 
 
