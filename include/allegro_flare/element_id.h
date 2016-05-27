@@ -33,6 +33,8 @@ public:
    ElementID *find_descendant_by_id(int id);
    ElementID *get_nth_descendant(int num);
    std::vector<ElementID *> get_flat_list_of_descendants();
+   int get_index_of_child(ElementID *child);
+   ElementID *get_nth_child(int index);
 
 private:
    static int next_unique_id;

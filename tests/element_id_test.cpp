@@ -366,3 +366,79 @@ BOOST_AUTO_TEST_CASE(returns_a_flat_list_of_descendants)
 }
 
 
+BOOST_AUTO_TEST_CASE(returns_an_index_of_a_child_element)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+      ElementID *child_1_B = new ElementID(child_1);
+   ElementID *child_2 = new ElementID(&root);
+      ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_A_1 = new ElementID(child_2_A);
+      ElementID *child_2_B = new ElementID(child_2);
+
+   BOOST_CHECK_EQUAL(0, root.get_index_of_child(child_1));
+   BOOST_CHECK_EQUAL(1, root.get_index_of_child(child_2));
+
+   BOOST_CHECK_EQUAL(0, child_1->get_index_of_child(child_1_A));
+   BOOST_CHECK_EQUAL(1, child_1->get_index_of_child(child_1_B));
+
+   BOOST_CHECK_EQUAL(0, child_2->get_index_of_child(child_2_A));
+   BOOST_CHECK_EQUAL(1, child_2->get_index_of_child(child_2_B));
+
+   BOOST_CHECK_EQUAL(0, child_2_A->get_index_of_child(child_2_A_1));
+}
+
+
+BOOST_AUTO_TEST_CASE(returns_negative_1_if_an_index_is_not_present_for_an_element)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+      ElementID *child_1_B = new ElementID(child_1);
+   ElementID *child_2 = new ElementID(&root);
+      ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_A_1 = new ElementID(child_2_A);
+      ElementID *child_2_B = new ElementID(child_2);
+
+   BOOST_CHECK_EQUAL(-1, root.get_index_of_child(child_1_A));
+   BOOST_CHECK_EQUAL(-1, root.get_index_of_child(child_2_A));
+   BOOST_CHECK_EQUAL(-1, root.get_index_of_child(child_2_A_1));
+
+   BOOST_CHECK_EQUAL(-1, child_1->get_index_of_child(child_2));
+   BOOST_CHECK_EQUAL(-1, child_1->get_index_of_child(child_2_A_1));
+   BOOST_CHECK_EQUAL(-1, child_1->get_index_of_child(&root));
+
+   BOOST_CHECK_EQUAL(-1, child_2->get_index_of_child(child_1));
+   BOOST_CHECK_EQUAL(-1, child_2->get_index_of_child(child_1_A));
+   BOOST_CHECK_EQUAL(-1, child_2->get_index_of_child(child_1_B));
+}
+
+
+BOOST_AUTO_TEST_CASE(returns_an_nth_child)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+      ElementID *child_1_B = new ElementID(child_1);
+   ElementID *child_2 = new ElementID(&root);
+      ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_A_1 = new ElementID(child_2_A);
+      ElementID *child_2_B = new ElementID(child_2);
+
+   BOOST_CHECK_EQUAL(child_1, root.get_nth_child(0));
+   BOOST_CHECK_EQUAL(child_2, root.get_nth_child(1));
+
+   BOOST_CHECK_EQUAL(child_1_A, child_1->get_nth_child(0));
+   BOOST_CHECK_EQUAL(child_1_B, child_1->get_nth_child(1));
+
+   BOOST_CHECK_EQUAL(child_2_A, child_2->get_nth_child(0));
+   BOOST_CHECK_EQUAL(child_2_B, child_2->get_nth_child(1));
+
+   BOOST_CHECK_EQUAL(child_2_A_1, child_2_A->get_nth_child(0));
+}
+
+

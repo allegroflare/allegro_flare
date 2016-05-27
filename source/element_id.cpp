@@ -184,6 +184,21 @@ std::vector<ElementID *> ElementID::get_flat_list_of_descendants()
 }
 
 
+int ElementID::get_index_of_child(ElementID *child)
+{
+   for (int i=0; i<children.size(); i++)
+      if (children[i] == child) return i;
+   return -1;
+}
+
+
+ElementID *ElementID::get_nth_child(int index)
+{
+   if (index < 0 || index >= children.size()) return nullptr;
+   return children[index];
+}
+
+
 int ElementID::next_unique_id = 1;
 
 
