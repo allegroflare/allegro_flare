@@ -192,6 +192,12 @@ int ElementID::get_index_of_child(ElementID *child)
 }
 
 
+bool ElementID::is_child(ElementID *child)
+{
+   return get_index_of_child(child) != -1;
+}
+
+
 ElementID *ElementID::get_nth_child(int index)
 {
    if (index < 0 || index >= children.size()) return nullptr;
