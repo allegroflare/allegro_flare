@@ -487,3 +487,36 @@ BOOST_AUTO_TEST_CASE(returns_NULL_when_a_next_or_previous_sibling_does_not_exist
 }
 
 
+BOOST_AUTO_TEST_CASE(returns_a_list_of_children)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+      ElementID *child_1_B = new ElementID(child_1);
+   ElementID *child_2 = new ElementID(&root);
+      ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_A_1 = new ElementID(child_2_A);
+      ElementID *child_2_B = new ElementID(child_2);
+
+   std::vector<ElementID *> expected_root_children = {child_1, child_2};
+   std::vector<ElementID *> expected_child_1_children = {child_1_A, child_1_B};
+   std::vector<ElementID *> expected_child_2_children = {child_2_A, child_2_B};
+   std::vector<ElementID *> expected_child_2_A_children = {child_2_A_1};
+
+   std::vector<ElementID *> returned_root_children = root.get_children();
+   std::vector<ElementID *> returned_child_1_children = child_1->get_children();
+   std::vector<ElementID *> returned_child_2_children = child_2->get_children();
+   std::vector<ElementID *> returned_child_2_A_children = child_2_A->get_children();
+
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_root_children.begin(), expected_root_children.end(),
+         returned_root_children.begin(), returned_root_children.end());
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_child_1_children.begin(), expected_child_1_children.end(),
+         returned_child_1_children.begin(), returned_child_1_children.end());
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_child_2_children.begin(), expected_child_2_children.end(),
+         returned_child_2_children.begin(), returned_child_2_children.end());
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_child_2_A_children.begin(), expected_child_2_A_children.end(),
+         returned_child_2_A_children.begin(), returned_child_2_A_children.end());
+}
+
+

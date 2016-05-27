@@ -217,6 +217,12 @@ ElementID *ElementID::get_previous_sibling()
 }
 
 
+std::vector<ElementID *> ElementID::get_children()
+{
+   return children;
+}
+
+
 int ElementID::next_unique_id = 1;
 
 
