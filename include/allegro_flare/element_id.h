@@ -35,6 +35,8 @@ public:
    std::vector<ElementID *> get_flat_list_of_descendants();
    int get_index_of_child(ElementID *child);
    ElementID *get_nth_child(int index);
+   ElementID *get_next_sibling();
+   ElementID *get_previous_sibling();
 
 private:
    static int next_unique_id;

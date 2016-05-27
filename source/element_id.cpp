@@ -199,6 +199,24 @@ ElementID *ElementID::get_nth_child(int index)
 }
 
 
+ElementID *ElementID::get_next_sibling()
+{
+   if (!parent) return nullptr;
+   int index = parent->get_index_of_child(this);
+   if (index == -1) return nullptr;
+   return parent->get_nth_child(index+1);
+}
+
+
+ElementID *ElementID::get_previous_sibling()
+{
+   if (!parent) return nullptr;
+   int index = parent->get_index_of_child(this);
+   if (index == -1) return nullptr;
+   return parent->get_nth_child(index-1);
+}
+
+
 int ElementID::next_unique_id = 1;
 
 
