@@ -261,14 +261,11 @@ BOOST_AUTO_TEST_CASE(will_find_all_descendants_matching_an_attribute_and_value)
       ElementID *child_2_A = new ElementID(child_2);
       child_2_A->set("color", "green");
 
+   std::vector<ElementID *> expected = {child_1, child_1_A_1, child_1_A_3, child_2_A};
+
    std::vector<ElementID *> results = root.find_all_descendants("color", "green");
 
-   BOOST_REQUIRE_EQUAL(4, results.size());
-
-   BOOST_CHECK_EQUAL(child_1, results[0]);
-   BOOST_CHECK_EQUAL(child_1_A_1, results[1]);
-   BOOST_CHECK_EQUAL(child_1_A_3, results[2]);
-   BOOST_CHECK_EQUAL(child_2_A, results[3]);
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected.begin(), expected.end(), results.begin(), results.end());
 }
 
 
