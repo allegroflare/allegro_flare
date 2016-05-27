@@ -149,6 +149,31 @@ ElementID *ElementID::find_descendant_by_id(int id_to_match)
 }
 
 
+// used internally for recursively counting nodes in the tree
+int ElementID::__index_count_r;
+ElementID *ElementID::__get_nth_descendant_r(std::vector<ElementID *> &children, int n)
+{
+   ElementID *element = NULL;
+   for (unsigned i=0; i<children.size(); i++)
+   {
+      __index_count_r++;
+      if (__index_count_r == n) return children[i];
+
+      ElementID *p = children[i];
+      element = __get_nth_descendant_r(p->children, n);
+      if (element) return element;
+   }
+   return NULL;
+}
+
+
+ElementID *ElementID::get_nth_descendant(int num)
+{
+   __index_count_r = -1;
+   return __get_nth_descendant_r(children, num);
+}
+
+
 int ElementID::next_unique_id = 1;
 
 

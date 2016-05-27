@@ -10,6 +10,9 @@ class ElementID : public Attributes
 {
 private:
    static int next_unique_id;
+   static int __index_count_r;
+   static ElementID *__get_nth_descendant_r(std::vector<ElementID *> &children, int num);
+
    int id;
    ElementID *parent;
    std::vector<ElementID *> children;
@@ -32,6 +35,7 @@ public:
    std::vector<ElementID *> find_all_descendants(std::string attribute);
    std::vector<ElementID *> find_all_descendants(std::string attribute, std::string value);
    ElementID *find_descendant_by_id(int id);
+   ElementID *get_nth_descendant(int num);
 };
 
 

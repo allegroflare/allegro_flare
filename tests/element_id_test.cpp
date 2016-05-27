@@ -296,4 +296,53 @@ BOOST_AUTO_TEST_CASE(will_get_a_descendant_by_id)
 }
 
 
+BOOST_AUTO_TEST_CASE(will_return_the_nth_descendant)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+      ElementID *child_1_B = new ElementID(child_1);
+   ElementID *child_2 = new ElementID(&root);
+      ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_A_1 = new ElementID(child_2_A);
+      ElementID *child_2_B = new ElementID(child_2);
+
+   BOOST_CHECK_EQUAL(child_1, root.get_nth_descendant(0));
+   BOOST_CHECK_EQUAL(child_1_A, root.get_nth_descendant(1));
+   BOOST_CHECK_EQUAL(child_1_B, root.get_nth_descendant(2));
+   BOOST_CHECK_EQUAL(child_2, root.get_nth_descendant(3));
+   BOOST_CHECK_EQUAL(child_2_A, root.get_nth_descendant(4));
+   BOOST_CHECK_EQUAL(child_2_A_1, root.get_nth_descendant(5));
+   BOOST_CHECK_EQUAL(child_2_B, root.get_nth_descendant(6));
+
+   BOOST_CHECK_EQUAL(child_2_A, child_2->get_nth_descendant(0));
+   BOOST_CHECK_EQUAL(child_2_A_1, child_2->get_nth_descendant(1));
+   BOOST_CHECK_EQUAL(child_2_B, child_2->get_nth_descendant(2));
+}
+
+
+BOOST_AUTO_TEST_CASE(will_return_NULL_when_an_nth_descendant_does_not_exist)
+{
+   ElementID root = ElementID(NULL);
+
+   ElementID *child_1 = new ElementID(&root);
+      ElementID *child_1_A = new ElementID(child_1);
+      ElementID *child_1_B = new ElementID(child_1);
+   ElementID *child_2 = new ElementID(&root);
+      ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_A_1 = new ElementID(child_2_A);
+      ElementID *child_2_B = new ElementID(child_2);
+
+   BOOST_CHECK_EQUAL((void *)0, root.get_nth_descendant(-1));
+   BOOST_CHECK_EQUAL((void *)0, root.get_nth_descendant(7));
+
+   BOOST_CHECK_EQUAL((void *)0, child_1->get_nth_descendant(2));
+
+   BOOST_CHECK_EQUAL((void *)0, child_1_A->get_nth_descendant(0));
+
+   BOOST_CHECK_EQUAL((void *)0, child_2->get_nth_descendant(3));
+   BOOST_CHECK_EQUAL((void *)0, child_2_A->get_nth_descendant(1));
+}
+
 
