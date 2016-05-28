@@ -53,7 +53,7 @@ ALLEGRO_SAMPLE *Framework::sample(std::string identifier)
 
 
 
-ModelNew *Framework::model(std::string identifier)
+Model3D *Framework::model(std::string identifier)
 {
    return get_instance()->models[identifier];
 }

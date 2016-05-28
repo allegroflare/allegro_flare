@@ -79,7 +79,7 @@ Some Examples of Features and Tools
 - 2D path shapes (`path2d`)
 - 2D and 3D positioning tools (`vec2d`, `vec3d`, `placement2d`, `placement3d`)
 - cameras (`Camera2D`, `Camera3D`)
-- 3D model loading (`Model`)
+- 3D model loading (`Model3D`)
 - Basic image manipulation (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc)
 - Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc)
 - Create music notation (`MusicNotation`)
