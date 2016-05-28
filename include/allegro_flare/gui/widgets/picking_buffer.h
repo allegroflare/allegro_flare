@@ -9,6 +9,8 @@
 class UIPickingBuffer : public UIWidget
 {
 public:
+   static const int ID_MAX = 16777216;
+
    ALLEGRO_BITMAP *surface_render;
    int mouse_x, mouse_y;
    int depth;
