@@ -1,5 +1,5 @@
-#ifndef __AF_MODEL_HEADER
-#define __AF_MODEL_HEADER
+#ifndef __AF_MODEL_3D_HEADER
+#define __AF_MODEL_3D_HEADER
 
 
 
@@ -23,7 +23,7 @@ typedef struct
 
 
 
-class ModelNew
+class Model3D
 {
 public:
 	struct named_object
@@ -49,7 +49,7 @@ public:
 	ALLEGRO_BITMAP *texture;
 	std::vector<named_object> named_objects; // < this is not very effecient, vector in a vector. Fix later.
 
-	ModelNew();
+	Model3D();
 	bool load_obj_file(const char *filename, float scale=1.0);
 	void inspect();
 	int get_num_vertexes();

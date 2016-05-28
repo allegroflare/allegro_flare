@@ -14,7 +14,7 @@
 
 
 
-ModelNew::ModelNew()
+Model3D::Model3D()
 	: vertex_declaration(NULL)
 	, vertexes()
 	, texture(NULL)
@@ -32,7 +32,7 @@ ModelNew::ModelNew()
 
 
 
-bool ModelNew::load_obj_file(const char *filename, float scale)
+bool Model3D::load_obj_file(const char *filename, float scale)
 {
 	vertexes.clear();
 
@@ -47,7 +47,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 	vec3d vt_normal;
 	bool vertex_textures_found = false;
 	bool vertex_normals_found = false;
-	ModelNew::named_object *current_named_object = NULL;
+	Model3D::named_object *current_named_object = NULL;
 
 	if (!al_filename_exists(filename))
       std::cout << CONSOLE_COLOR_RED << "Could not load \"" << filename << "\" when creating Model3D" << CONSOLE_COLOR_DEFAULT << std::endl;
@@ -216,7 +216,7 @@ bool ModelNew::load_obj_file(const char *filename, float scale)
 
 
 
-void ModelNew::inspect()
+void Model3D::inspect()
 {
 	for (unsigned i=0; i<vertexes.size(); i++)
 		printf("[%d] %f %f %f : %f %f : %f %f %f\n", i, vertexes[i].x, vertexes[i].y, vertexes[i].z, vertexes[i].u, vertexes[i].v, vertexes[i].nx, vertexes[i].ny, vertexes[i].nz);
@@ -224,21 +224,21 @@ void ModelNew::inspect()
 
 
 
-int ModelNew::get_num_vertexes()
+int Model3D::get_num_vertexes()
 {
 	return vertexes.size();
 }
 
 
 
-int ModelNew::get_num_named_objects()
+int Model3D::get_num_named_objects()
 {
 	return named_objects.size();
 }
 
 
 
-void ModelNew::draw()
+void Model3D::draw()
 {
 	if (vertexes.empty()) return;
 
@@ -259,7 +259,7 @@ void ModelNew::draw()
 
 
 
-bool ModelNew::draw_object(int index)
+bool Model3D::draw_object(int index)
 {
 	if (index < 0 || index > (int)named_objects.size()) return false;
 
@@ -274,7 +274,7 @@ bool ModelNew::draw_object(int index)
 
 
 
-bool ModelNew::draw_object(std::string name)
+bool Model3D::draw_object(std::string name)
 {
 	bool object_exists = false;
 	for (unsigned i=0; i<named_objects.size(); i++)
@@ -290,14 +290,14 @@ bool ModelNew::draw_object(std::string name)
 
 
 
-void ModelNew::set_texture(ALLEGRO_BITMAP *tx)
+void Model3D::set_texture(ALLEGRO_BITMAP *tx)
 {
 	texture = tx;
 }
 
 
 
-bool ModelNew::set_named_object_texture(int index, ALLEGRO_BITMAP *tx)
+bool Model3D::set_named_object_texture(int index, ALLEGRO_BITMAP *tx)
 {
 	if (index < 0 || index > (int)named_objects.size()) return false;
 	named_objects[index].texture = tx;
@@ -306,7 +306,7 @@ bool ModelNew::set_named_object_texture(int index, ALLEGRO_BITMAP *tx)
 
 
 
-bool ModelNew::set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx)
+bool Model3D::set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx)
 {
 	bool object_exists = false;
 	for (unsigned i=0; i<named_objects.size(); i++)
@@ -322,7 +322,7 @@ bool ModelNew::set_named_object_texture(std::string object_name, ALLEGRO_BITMAP 
 
 
 
-void ModelNew::scale(float scale)
+void Model3D::scale(float scale)
 {
 	for (unsigned i=0; i<vertexes.size(); i++)
 	{
@@ -334,7 +334,7 @@ void ModelNew::scale(float scale)
 
 
 
-vec3d ModelNew::get_min_vertex_coordinate()
+vec3d Model3D::get_min_vertex_coordinate()
 {
 	if (vertexes.empty()) return vec3d(0, 0, 0);
 
@@ -350,7 +350,7 @@ vec3d ModelNew::get_min_vertex_coordinate()
 
 
 
-vec3d ModelNew::get_max_vertex_coordinate()
+vec3d Model3D::get_max_vertex_coordinate()
 {
 	if (vertexes.empty()) return vec3d(0, 0, 0);
 

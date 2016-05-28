@@ -54,7 +54,7 @@ public:
    static ALLEGRO_FONT *font(std::string identifier);
    static ALLEGRO_BITMAP *bitmap(std::string identifier);
    static ALLEGRO_SAMPLE *sample(std::string identifier);
-   static ModelNew *model(std::string identifier);
+   static Model3D *model(std::string identifier);
    static Motion &motion(); // we'll do this for now
 
 	static bool initialize(std::string config_filename="");
