@@ -71,6 +71,31 @@ BOOST_AUTO_TEST_CASE(returns_NULL_without_a_root)
 }
 
 
+BOOST_AUTO_TEST_CASE(returns_its_number_of_children)
+{
+   ElementID root = ElementID(NULL);
+   BOOST_CHECK_EQUAL(0, root.num_children());
+   new ElementID(&root);
+   BOOST_CHECK_EQUAL(1, root.num_children());
+   new ElementID(&root);
+   BOOST_CHECK_EQUAL(2, root.num_children());
+}
+
+
+BOOST_AUTO_TEST_CASE(returns_true_if_it_has_children_otherwise_false)
+{
+   ElementID root = ElementID(NULL);
+
+   BOOST_CHECK_EQUAL(false, root.has_children());
+
+   new ElementID(&root);
+   BOOST_CHECK_EQUAL(true, root.has_children());
+
+   delete root.get_nth_child(0);
+   BOOST_CHECK_EQUAL(false, root.has_children());
+}
+
+
 BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_1)
 {
    ElementID root = ElementID(NULL);

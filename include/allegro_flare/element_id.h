@@ -23,6 +23,7 @@ public:
    int get_id();
    ElementID *get_root();
    int num_children();
+   bool has_children();
    int num_descendants();
 
    ElementID *find_first(std::string attribute);

@@ -58,6 +58,12 @@ int ElementID::num_children()
 }
 
 
+bool ElementID::has_children()
+{
+   return !children.empty();
+}
+
+
 int ElementID::num_descendants()
 {
    int count = 0;
