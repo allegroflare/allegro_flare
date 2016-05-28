@@ -29,6 +29,11 @@ UIPickingBuffer::UIPickingBuffer(UIWidget *parent, float x, float y, int w, int 
 
 
 
+std::string UIPickingBuffer::MESSAGE_HEADER = "on_click_id ";
+
+
+
+
 void UIPickingBuffer::clear_surface()
 {
    ALLEGRO_STATE state;
@@ -59,8 +64,7 @@ void UIPickingBuffer::on_click()
       if (mouse_y < 0 || mouse_y > al_get_bitmap_height(surface_render)) return;
 
       int clicked_id = decode_id(al_get_pixel(surface_render, mouse_x, mouse_y));
-      // TODO: improve message to include ID
-      send_message_to_parent("on_click_id()");
+      send_message_to_parent(UIPickingBuffer::compose_on_click_id_message(clicked_id));
    }
 }
 
@@ -100,6 +104,38 @@ ALLEGRO_COLOR UIPickingBuffer::encode_id(int id)
 
    return al_map_rgba(r, g, b, a);
 }
+
+
+
+
+std::string UIPickingBuffer::compose_on_click_id_message(int id)
+{
+   std::stringstream ss;
+   ss << MESSAGE_HEADER << id;
+   return ss.str();
+}
+
+
+
+
+int UIPickingBuffer::extract_on_click_id(std::string message)
+{
+   if (strncmp(message.c_str(), MESSAGE_HEADER.c_str(), MESSAGE_HEADER.size()) == 0)
+   {
+      int extracted_id = atoi(message.substr(MESSAGE_HEADER.size()).c_str());
+      return extracted_id;
+   }
+   return 0;
+}
+
+
+
+
+bool UIPickingBuffer::is_on_click_id_message(std::string message)
+{
+   return strncmp(message.c_str(), MESSAGE_HEADER.c_str(), MESSAGE_HEADER.size()) == 0;
+}
+
 
 
 

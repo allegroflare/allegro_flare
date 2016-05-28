@@ -101,3 +101,34 @@ BOOST_FIXTURE_TEST_CASE(does_not_encode_negative_numbers, Setup)
    int encoded_num = UIPickingBuffer::decode_id(UIPickingBuffer::encode_id(-1));
    BOOST_CHECK_NE(-1, encoded_num);
 }
+
+
+BOOST_AUTO_TEST_CASE(builds_an_on_click_id_message)
+{
+   BOOST_CHECK_EQUAL("on_click_id 42", UIPickingBuffer::compose_on_click_id_message(42));
+   BOOST_CHECK_EQUAL("on_click_id 64", UIPickingBuffer::compose_on_click_id_message(64));
+   BOOST_CHECK_EQUAL("on_click_id 3", UIPickingBuffer::compose_on_click_id_message(3));
+}
+
+
+BOOST_AUTO_TEST_CASE(extracts_an_id_from_an_on_click_id_message)
+{
+   BOOST_CHECK_EQUAL(42, UIPickingBuffer::extract_on_click_id("on_click_id 42"));
+   BOOST_CHECK_EQUAL(64, UIPickingBuffer::extract_on_click_id("on_click_id 64"));
+   BOOST_CHECK_EQUAL(3, UIPickingBuffer::extract_on_click_id("on_click_id 3"));
+}
+
+
+BOOST_AUTO_TEST_CASE(identifies_a_properly_formatted_on_click_id_message)
+{
+   BOOST_CHECK_EQUAL(true, UIPickingBuffer::is_on_click_id_message("on_click_id 9"));
+   BOOST_CHECK_EQUAL(true, UIPickingBuffer::is_on_click_id_message("on_click_id 345678"));
+   BOOST_CHECK_EQUAL(true, UIPickingBuffer::is_on_click_id_message("on_click_id 42"));
+
+   BOOST_CHECK_EQUAL(false, UIPickingBuffer::is_on_click_id_message(""));
+   BOOST_CHECK_EQUAL(false, UIPickingBuffer::is_on_click_id_message("foo bar"));
+   BOOST_CHECK_EQUAL(false, UIPickingBuffer::is_on_click_id_message("on_click_id"));
+   BOOST_CHECK_EQUAL(false, UIPickingBuffer::is_on_click_id_message("on_click_id9"));
+}
+
+

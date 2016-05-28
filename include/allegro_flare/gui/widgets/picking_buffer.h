@@ -24,6 +24,13 @@ public:
 
    static int decode_id(ALLEGRO_COLOR color);
    static ALLEGRO_COLOR encode_id(int id);
+
+   static std::string compose_on_click_id_message(int id);
+   static int extract_on_click_id(std::string message);
+   static bool is_on_click_id_message(std::string message);
+
+private:
+   static std::string MESSAGE_HEADER;
 };
 
 
