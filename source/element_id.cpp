@@ -2,158 +2,262 @@
 
 
 #include <allegro_flare/element_id.h>
+#include <allegro_flare/console_color.h>
 
 
-
-
-//
-// ElementIDManager
-//
-
-
-
-ElementIDManager::ElementIDManager()
-   : elements()
-{}
-
-
-
-void ElementIDManager::add(ElementID *obj) { elements.push_back(obj); }
-
-
-
-void ElementIDManager::remove(ElementID *obj)
+void ElementID::add_child(ElementID *child)
 {
-   // (fix this, it's linear)
-   for (unsigned i=0; i<elements.size(); i++)
-   {
-      if (elements[i] == obj)
-      {
-         elements.erase(elements.begin()+i);
-         return;
-      }
-   }
+   children.push_back(child);
 }
 
 
-
-ElementID *ElementIDManager::get_element_by_id(std::string id)
+bool ElementID::remove_child(ElementID *child)
 {
-   // (fix this, it's linear)
-   for (unsigned i=0; i<elements.size(); i++)
-   {
-      if (elements[i]->id == id) return elements[i];
-   }
-   return NULL;
-}
-
-
-
-ElementID *ElementIDManager::get_element_by_unique_id(int unique_id)
-{
-   // (fix this, it's linear)
-   for (unsigned i=0; i<elements.size(); i++)
-      if (elements[i]->unique_id_num == unique_id) return elements[i];
-   return NULL;
-}
-
-
-
-std::vector<ElementID *> ElementIDManager::get_elements_by_class(std::string class_name)
-{
-   std::vector<ElementID *> result;
-   for (auto &e : elements)
-      if (e->has_class(class_name)) result.push_back(e);
-   return result;
-}
-
-
-
-
-//
-// ElementID
-//
-
-
-
-ElementID::ElementID(ElementIDManager *manager)
-   : manager(manager)
-   , unique_id_num(next_unique_id_num++)
-{
-   if (manager) manager->add(this);
-}
-
-
-
-ElementID::~ElementID() { if (manager) manager->remove(this); }
-
-
-
-int ElementID::next_unique_id_num = 0;
-
-
-
-void ElementID::set_id(std::string id) { this->id = id; }
-
-
-
-void ElementID::add_class(std::string _class)
-{
-   if (!has_class(_class)) classes.push_back(_class);
-}
-
-
-
-void ElementID::remove_class(std::string _class)
-{
-   std::vector<std::string>::iterator it = std::find(classes.begin(), classes.end(), _class);
-   if (it == classes.end()) return;
-   classes.erase(it);
-   return;
-}
-
-
-
-bool ElementID::has_class(std::string _class)
-{
-   std::vector<std::string>::iterator it = std::find(classes.begin(), classes.end(), _class);
-   if (it == classes.end()) return false;
+   int index = get_index_of_child(child);
+   if (index == -1) return false;
+   children.erase(children.begin() + index);
    return true;
 }
 
 
-
-std::vector<std::string> ElementID::get_classes()
+ElementID::ElementID(ElementID *parent)
+   : Attributes()
+   , id(next_unique_id++)
+   , parent(parent)
+   , children()
 {
-   return classes;
+   if (parent) parent->add_child(this);
 }
 
 
+ElementID::~ElementID()
+{
+   while(children.size() > 0) delete children[0];
+   if (parent) parent->remove_child(this);
+}
 
-std::string ElementID::get_id()
+
+int ElementID::get_id()
 {
    return id;
 }
 
 
-
-std::string ElementID::to_string()
+ElementID *ElementID::get_root()
 {
-   std::ostringstream ss;
-   ss << "ID: \"" << id << "\"\n";
-   ss << "classes \n{";
-   for (unsigned i=0; i<classes.size(); i++)
+   if (!parent) return NULL;
+   ElementID *ancestor = parent;
+   while (ancestor->parent) ancestor = ancestor->parent;
+   return ancestor;
+}
+
+
+int ElementID::num_children()
+{
+   return children.size();
+}
+
+
+bool ElementID::has_children()
+{
+   return !children.empty();
+}
+
+
+int ElementID::num_descendants()
+{
+   int count = 0;
+   for (auto &child : children)
+      count += child->num_descendants() + 1;
+   return count;
+}
+
+
+ElementID *ElementID::find_first(std::string attribute)
+{
+   for (auto &child : children)
+      if (child->exists(attribute)) return child;
+   return NULL;
+}
+
+
+ElementID *ElementID::find_first(std::string attribute, std::string value)
+{
+   for (auto &child : children)
+      if (child->exists(attribute, value)) return child;
+   return NULL;
+}
+
+
+ElementID *ElementID::find_first_descendant(std::string attribute)
+{
+   for (auto &child : children)
    {
-      ss << "   \"" << classes[i] << "\"\n";
+      if (child->exists(attribute)) return child;
+      ElementID *child_descendant = child->find_first_descendant(attribute);
+      if (child_descendant) return child_descendant;
    }
-   ss << "}";
-   return ss.str();
+   return NULL;
 }
 
 
-
-int ElementID::get_unique_id_num()
+ElementID *ElementID::find_first_descendant(std::string attribute, std::string value)
 {
-  return unique_id_num;
+   for (auto &child : children)
+   {
+      if (child->exists(attribute, value)) return child;
+      ElementID *child_descendant = child->find_first_descendant(attribute, value);
+      if (child_descendant) return child_descendant;
+   }
+   return NULL;
 }
+
+
+std::vector<ElementID *> ElementID::find_all(std::string attribute)
+{
+   std::vector<ElementID *> results;
+   for (auto &child : children)
+      if (child->exists(attribute)) results.push_back(child);
+   return results;
+}
+
+
+std::vector<ElementID *> ElementID::find_all(std::string attribute, std::string value)
+{
+   std::vector<ElementID *> results;
+   for (auto &child : children)
+      if (child->exists(attribute, value)) results.push_back(child);
+   return results;
+}
+
+
+std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute)
+{
+   std::vector<ElementID *> results;
+   for (auto &child : children)
+   {
+      if (child->exists(attribute)) results.push_back(child);
+
+      std::vector<ElementID *> child_descendants = child->find_all_descendants(attribute);
+      results.insert(results.end(), child_descendants.begin(), child_descendants.end());
+   }
+   return results;
+}
+
+
+std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute, std::string value)
+{
+   std::vector<ElementID *> results;
+   for (auto &child : children)
+   {
+      if (child->exists(attribute, value)) results.push_back(child);
+
+      std::vector<ElementID *> child_descendants = child->find_all_descendants(attribute, value);
+      results.insert(results.end(), child_descendants.begin(), child_descendants.end());
+   }
+   return results;
+}
+
+
+ElementID *ElementID::find_descendant_by_id(int id_to_match)
+{
+   for (ElementID *child : children)
+   {
+      if (child->get_id() == id_to_match) return child;
+      ElementID *child_return = child->find_descendant_by_id(id_to_match);
+      if (child_return) return child_return;
+   }
+   return NULL;
+}
+
+
+// used internally for recursively counting nodes in the tree
+int ElementID::__index_count_r;
+ElementID *ElementID::__get_nth_descendant_r(std::vector<ElementID *> &children, int n)
+{
+   for (ElementID *child : children)
+   {
+      __index_count_r++;
+      if (__index_count_r == n) return child;
+      ElementID *element = __get_nth_descendant_r(child->children, n);
+      if (element) return element;
+   }
+   return NULL;
+}
+
+
+ElementID *ElementID::get_nth_descendant(int num)
+{
+   __index_count_r = -1;
+   return __get_nth_descendant_r(children, num);
+}
+
+
+std::vector<ElementID *> ElementID::get_flat_list_of_descendants()
+{
+   std::vector<ElementID *> elements;
+   for (auto &child : children)
+   {
+      elements.push_back(child);
+      std::vector<ElementID *> child_elements = child->get_flat_list_of_descendants();
+      elements.insert(elements.end(), child_elements.begin(), child_elements.end());
+   }
+   return elements;
+}
+
+
+int ElementID::get_index_of_child(ElementID *child)
+{
+   for (int i=0; i<children.size(); i++)
+      if (children[i] == child) return i;
+   return -1;
+}
+
+
+bool ElementID::is_child(ElementID *child)
+{
+   return get_index_of_child(child) != -1;
+}
+
+
+ElementID *ElementID::get_nth_child(int index)
+{
+   if (index < 0 || index >= children.size()) return nullptr;
+   return children[index];
+}
+
+
+ElementID *ElementID::get_random_child()
+{
+   int random_int = rand() % children.size();
+   return get_nth_child(random_int);
+}
+
+
+ElementID *ElementID::get_next_sibling()
+{
+   if (!parent) return nullptr;
+   int index = parent->get_index_of_child(this);
+   if (index == -1) return nullptr;
+   return parent->get_nth_child(index+1);
+}
+
+
+ElementID *ElementID::get_previous_sibling()
+{
+   if (!parent) return nullptr;
+   int index = parent->get_index_of_child(this);
+   if (index == -1) return nullptr;
+   return parent->get_nth_child(index-1);
+}
+
+
+std::vector<ElementID *> ElementID::get_children()
+{
+   return children;
+}
+
+
+int ElementID::next_unique_id = 1;
+
 

@@ -16,7 +16,19 @@
 class Attributes
 {
 private:
-   class AttributeRecord;
+   class AttributeRecord
+   {
+   public:
+      std::string key;
+      std::string value;
+      std::string datatype;
+      void *bound;
+
+      AttributeRecord(std::string key, std::string value="");
+      bool is_bound();
+      bool is_bound_as(std::string datatype);
+   };
+
    std::vector<AttributeRecord> attributes;
 
 public:
