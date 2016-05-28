@@ -1,0 +1,101 @@
+
+
+
+
+#define ALLEGRO_UNSTABLE
+
+#include <allegro5/allegro_primitives.h>
+
+#include <allegro_flare/gui/widgets/picking_buffer.h>
+#include <allegro_flare/gui/surface_areas/box.h>
+
+
+
+UIPickingBuffer::UIPickingBuffer(UIWidget *parent, float x, float y, int w, int h, int depth)
+   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   , surface_render(NULL)
+   , mouse_x(0)
+   , mouse_y(0)
+   , draw_surface_render(true)
+{
+   int previous_depth = al_get_new_bitmap_depth();
+   al_set_new_bitmap_depth(depth);
+   surface_render = al_create_bitmap(place.size.x, place.size.y);
+   al_set_new_bitmap_depth(previous_depth);
+
+   clear_surface();
+}
+
+
+
+
+void UIPickingBuffer::clear_surface()
+{
+   ALLEGRO_STATE state;
+   al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+   al_set_target_bitmap(surface_render);
+   al_clear_to_color(color::transparent);
+   al_restore_state(&state);
+}
+
+
+
+
+void UIPickingBuffer::on_mouse_move(float x, float y, float dx, float dy)
+{
+   place.transform_coordinates(&x, &y);
+   mouse_x = x;
+   mouse_y = y;
+}
+
+
+
+
+void UIPickingBuffer::on_click()
+{
+   if (surface_render)
+   {
+      if (mouse_x < 0 || mouse_x > al_get_bitmap_width(surface_render)) return;
+      if (mouse_y < 0 || mouse_y > al_get_bitmap_height(surface_render)) return;
+
+      int clicked_id = decode_id(al_get_pixel(surface_render, mouse_x, mouse_y));
+      // TODO: improve message to include ID
+      send_message_to_parent("on_click_id()");
+   }
+}
+
+
+
+
+void UIPickingBuffer::on_draw()
+{
+   if (draw_surface_render)
+   {
+      al_draw_rectangle(0, 0, place.size.x, place.size.y, color::green, 8);
+      al_draw_bitmap(surface_render, 0, 0, 0);
+   }
+}
+
+
+
+
+int UIPickingBuffer::decode_id(ALLEGRO_COLOR color)
+{
+   unsigned char r, g, b, a;
+   al_unmap_rgba(color, &r, &g, &b, &a);
+   return r * 256 + g;
+}
+
+
+
+
+ALLEGRO_COLOR UIPickingBuffer::encode_id(int id)
+{
+   ALLEGRO_COLOR color;
+   unsigned char r = id / 256;
+   unsigned char g = id % 256;
+   return al_map_rgba(r, g, 0, 255);
+}
+
+
+
