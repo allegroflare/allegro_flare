@@ -54,7 +54,7 @@
 #include <allegro_flare/path2d.h>
 
 #include <allegro_flare/shader.h>
-#include <allegro_flare/model.h>
+#include <allegro_flare/model3d.h>
 
 #include <allegro_flare/objects/sound_object.h>
 #include <allegro_flare/objects/text_object.h>

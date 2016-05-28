@@ -9,7 +9,7 @@
 #include <allegro5/allegro_image.h>
 
 #include <allegro_flare/bin.h>
-#include <allegro_flare/model.h>
+#include <allegro_flare/model3d.h>
 
 
 

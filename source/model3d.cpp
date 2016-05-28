@@ -1,7 +1,7 @@
 
 
 
-#include <allegro_flare/model.h>
+#include <allegro_flare/model3d.h>
 
 #include <iostream>
 #include <cstdio>
