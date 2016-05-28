@@ -111,7 +111,7 @@ void UIButton::on_draw()
 
 void UIButton::set_text(std::string text)
 {
-   text = text;
+   this->text = text;
 }
 
 
