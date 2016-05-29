@@ -4,6 +4,7 @@
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 
+#define ALLEGRO_UNSTABLE
 
 #include <allegro_flare/gui/widgets/picking_buffer.h>
 
@@ -17,6 +18,26 @@ struct Setup
       BOOST_REQUIRE_EQUAL(true, al_init());
    }
    ~Setup()
+   {
+      al_uninstall_system();
+   }
+};
+
+
+
+struct SetupWithDisplay
+{
+   ALLEGRO_DISPLAY *display;
+   SetupWithDisplay()
+      : display(NULL)
+   {
+      BOOST_REQUIRE_EQUAL(false, al_is_system_installed());
+      BOOST_REQUIRE_EQUAL(true, al_init());
+
+      display = al_create_display(800, 600);
+      BOOST_REQUIRE_NE((void *)0, display);
+   }
+   ~SetupWithDisplay()
    {
       al_uninstall_system();
    }
@@ -129,6 +150,41 @@ BOOST_AUTO_TEST_CASE(identifies_a_properly_formatted_on_click_id_message)
    BOOST_CHECK_EQUAL(false, UIPickingBuffer::is_on_click_id_message("foo bar"));
    BOOST_CHECK_EQUAL(false, UIPickingBuffer::is_on_click_id_message("on_click_id"));
    BOOST_CHECK_EQUAL(false, UIPickingBuffer::is_on_click_id_message("on_click_id9"));
+}
+
+
+BOOST_FIXTURE_TEST_CASE(creates_a_render_surface_with_or_without_a_depth_buffer, SetupWithDisplay)
+{
+   UIPickingBuffer *id_picker_1 = new UIPickingBuffer(NULL, 0, 0, 300, 200, 0);
+   BOOST_CHECK_EQUAL(0, al_get_bitmap_depth(id_picker_1->surface_render));
+
+   UIPickingBuffer *id_picker_2 = new UIPickingBuffer(NULL, 0, 0, 300, 200, 32);
+   BOOST_CHECK_EQUAL(32, al_get_bitmap_depth(id_picker_2->surface_render));
+}
+
+
+BOOST_FIXTURE_TEST_CASE(creates_a_render_surface_without_multisampling, SetupWithDisplay)
+{
+   al_set_new_bitmap_samples(32);
+
+   UIPickingBuffer *id_picker = new UIPickingBuffer(NULL, 0, 0, 200, 200, 0);
+   BOOST_CHECK_EQUAL(0, al_get_bitmap_samples(id_picker->surface_render));
+
+   BOOST_CHECK_EQUAL(32, al_get_new_bitmap_samples());
+}
+
+
+BOOST_FIXTURE_TEST_CASE(recreates_a_render_surface, SetupWithDisplay)
+{
+   UIPickingBuffer *id_picker = new UIPickingBuffer(NULL, 0, 0, 300, 200, 0);
+   BOOST_CHECK_EQUAL(300, al_get_bitmap_width(id_picker->surface_render));
+   BOOST_CHECK_EQUAL(200, al_get_bitmap_height(id_picker->surface_render));
+   BOOST_CHECK_EQUAL(0, al_get_bitmap_depth(id_picker->surface_render));
+
+   id_picker->create_new_surface(800, 600, 32);
+   BOOST_CHECK_EQUAL(800, al_get_bitmap_width(id_picker->surface_render));
+   BOOST_CHECK_EQUAL(600, al_get_bitmap_height(id_picker->surface_render));
+   BOOST_CHECK_EQUAL(32, al_get_bitmap_depth(id_picker->surface_render));
 }
 
 

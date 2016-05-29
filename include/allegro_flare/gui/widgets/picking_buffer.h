@@ -17,6 +17,7 @@ public:
    bool draw_surface_render;
 
    UIPickingBuffer(UIWidget *parent, float x, float y, int w, int h, int depth);
+   void create_new_surface(int w, int h, int depth);
    void clear_surface();
    void on_mouse_move(float x, float y, float dx, float dy) override;
    void on_click() override;

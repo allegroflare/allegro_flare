@@ -18,11 +18,7 @@ UIPickingBuffer::UIPickingBuffer(UIWidget *parent, float x, float y, int w, int 
    , mouse_y(0)
    , draw_surface_render(true)
 {
-   int previous_depth = al_get_new_bitmap_depth();
-   al_set_new_bitmap_depth(depth);
-   surface_render = al_create_bitmap(place.size.x, place.size.y);
-   al_set_new_bitmap_depth(previous_depth);
-
+   create_new_surface(place.size.x, place.size.y, depth);
    clear_surface();
 }
 
@@ -30,6 +26,27 @@ UIPickingBuffer::UIPickingBuffer(UIWidget *parent, float x, float y, int w, int 
 
 
 std::string UIPickingBuffer::MESSAGE_HEADER = "on_click_id ";
+
+
+
+
+void UIPickingBuffer::create_new_surface(int w, int h, int depth)
+{
+   if (surface_render) al_destroy_bitmap(surface_render);
+
+   int previous_depth = al_get_new_bitmap_depth();
+   int previous_samples = al_get_new_bitmap_samples();
+   ALLEGRO_STATE previous_state;
+   al_store_state(&previous_state, ALLEGRO_STATE_BITMAP);
+
+   al_set_new_bitmap_depth(depth);
+   al_set_new_bitmap_samples(0);
+   surface_render = al_create_bitmap(w, h);
+
+   al_restore_state(&previous_state);
+   al_set_new_bitmap_depth(previous_depth);
+   al_set_new_bitmap_samples(previous_samples);
+}
 
 
 
