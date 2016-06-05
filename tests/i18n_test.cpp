@@ -16,6 +16,8 @@
 
 struct Fixture
 {
+   const char *TEST_FOLDER = "data/languages/tests/";
+
    Fixture()
    {
       BOOST_REQUIRE_EQUAL(false, al_is_system_installed());
@@ -27,6 +29,7 @@ struct Fixture
 
       I18n::initialize();
    }
+
    ~Fixture()
    {
       I18n::destruct();
@@ -51,7 +54,6 @@ BOOST_FIXTURE_TEST_CASE(has_the_proper_files_and_folders_for_testing, Fixture)
 
 BOOST_FIXTURE_TEST_CASE(can_set_a_languages_folder, Fixture)
 {
-   std::string TEST_FOLDER = "data/languages/tests/";
    BOOST_CHECK_EQUAL(true, I18n::set_languages_folder(TEST_FOLDER));
    BOOST_CHECK_EQUAL(TEST_FOLDER, I18n::get_languages_folder());
 }
