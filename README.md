@@ -83,10 +83,11 @@ Some Examples of Features and Tools
 - Basic image manipulation (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc)
 - Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc)
 - Create music notation (`MusicNotation`)
+- Offscreen bitmaps / Cache expensive renders (`RenderCache`)
 
 ### GUI
 - Interface with the GUI through the parent class `UIScreen`
-- Use from a list of usefull widgets `UIButton`, `UICheckbox`, `UIDial`, `UIFramedWindow`, `UIImage`, `UIIntSpinner`, `UILabeledCheckbox`, `UIListSpinner`, `UIMusicNotation`, `UIProgressBar`, `UIScaledText`, `UIScreen`, `UIScrollArea`, `UIScrollBar`, `UISpinner`, `UIVerticalSlider`, `UIText`, `UITextArea`, `UITextBox`, `UITextInput`, `UITextList`, `UIToggleButton`, `UIXYController`, `UIWidget`, `UIWindow`
+- Use from a list of usefull widgets `UIButton`, `UICheckbox`, `UIDial`, `UIFramedWindow`, `UIImage`, `UIIntSpinner`, `UILabeledCheckbox`, `UIListSpinner`, `UIMusicNotation`, `UIPickingBuffer`, `UIProgressBar`, `UIScaledText`, `UIScreen`, `UIScrollArea`, `UIScrollBar`, `UISpinner`, `UIVerticalSlider`, `UIText`, `UITextArea`, `UITextBox`, `UITextInput`, `UITextList`, `UIToggleButton`, `UIXYController`, `UIWidget`, `UIWindow`
 - Easily create your own widget by inheriting from `UIWidget`
 
 ### Motion
@@ -96,7 +97,7 @@ Some Examples of Features and Tools
 ### Scripting and Animation
 - Use useful clases to automate playback of your objects (`Motion`, `Timeline`, `Stage`, `Actor`, `Script`)
 - Use any member function from your classes in a script (`Scriptable`)
-- Add attributes to your classes for scripting, saving, and loading (`Attr`, `ElementID`, `AttrLoader`)
+- Add attributes to your classes for scripting, saving, and loading (`Attributes`, `ElementID`)
 
 ### Color
 - Color creation and manipulation (`mix()`, `change_hue()`, `change_lightness()`, etc.)
