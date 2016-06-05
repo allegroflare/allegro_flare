@@ -24,9 +24,13 @@ struct Fixture
       ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
       al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
       al_destroy_path(resource_path);
+
+      I18n::initialize();
    }
    ~Fixture()
    {
+      I18n::destruct();
+
       al_uninstall_system();
    }
 };
@@ -45,25 +49,28 @@ BOOST_FIXTURE_TEST_CASE(has_the_proper_files_and_folders_for_testing, Fixture)
 
 
 
-BOOST_AUTO_TEST_CASE(can_set_a_languages_folder)
+BOOST_FIXTURE_TEST_CASE(can_set_a_languages_folder, Fixture)
 {
-   // TODO
+   std::string TEST_FOLDER = "data/languages/tests/";
+   BOOST_CHECK_EQUAL(true, I18n::set_languages_folder(TEST_FOLDER));
+   BOOST_CHECK_EQUAL(TEST_FOLDER, I18n::get_languages_folder());
 }
 
 
 
 
-BOOST_AUTO_TEST_CASE(returns_false_when_trying_to_set_a_languages_folder_that_does_not_exist)
+BOOST_FIXTURE_TEST_CASE(initialized_its_languages_folder_to__data_slash_languages__by_default, Fixture)
 {
-   // TODO
+   BOOST_CHECK_EQUAL("data/languages/", I18n::get_languages_folder());
 }
 
 
 
 
-BOOST_AUTO_TEST_CASE(can_set_a_locale)
+BOOST_FIXTURE_TEST_CASE(returns_false_when_trying_to_set_a_languages_folder_that_does_not_exist, Fixture)
 {
-   // TODO
+   std::string fake_folder = "foo/dir/that/doesnt/exist/";
+   BOOST_CHECK_EQUAL(false, I18n::set_languages_folder(fake_folder));
 }
 
 

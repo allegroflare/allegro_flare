@@ -4,6 +4,11 @@
 
 #include <allegro_flare/i18n.h>
 
+#include <allegro5/allegro.h>
+
+#include <allegro_flare/console_color.h>
+
+#include <iostream>
 
 
 
@@ -61,9 +66,26 @@ bool I18n::destruct()
 
 
 
+bool I18n::set_languages_folder(std::string folder)
+{
+   if (!al_filename_exists(folder.c_str()))
+   {
+      std::cout << CONSOLE_COLOR_RED;
+      std::cout << "Could not open folder \"" << folder << "\" to find language files.";
+      std::cout << CONSOLE_COLOR_DEFAULT;
+      std::cout << std::endl;
+      return false;
+   }
+   get_instance()->languages_folder = folder;
+   return true;
+}
+
+
+
+
 std::string I18n::get_languages_folder()
 {
-   return "";
+   return get_instance()->languages_folder;
 }
 
 
