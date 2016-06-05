@@ -25,6 +25,8 @@ private:
    std::map<std::string, std::string> lines;
 
 public:
+   static bool initialize(std::string folder="data/languages/");
+   static bool destruct();
    static bool set_languages_folder(std::string folder="data/languages/");
    static std::string get_languages_folder();
    static bool set_locale(std::string locale);

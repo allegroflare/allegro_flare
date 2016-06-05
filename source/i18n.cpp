@@ -38,8 +38,23 @@ I18n::~I18n()
 
 
 
-bool I18n::set_languages_folder(std::string folder)
+bool I18n::initialize(std::string folder)
 {
+   get_instance();
+   return set_languages_folder(folder);
+}
+
+
+
+
+bool I18n::destruct()
+{
+   if (instance)
+   {
+      delete instance;
+      instance = nullptr;
+      return true;
+   }
    return false;
 }
 
