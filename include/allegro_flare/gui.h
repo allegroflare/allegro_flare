@@ -26,6 +26,7 @@
 #include <allegro_flare/gui/widgets/list_spinner.h>
 #include <allegro_flare/gui/widgets/labeled_checkbox.h>
 #include <allegro_flare/gui/widgets/music_notation.h>
+#include <allegro_flare/gui/widgets/picking_buffer.h>
 #include <allegro_flare/gui/widgets/progress_bar.h>
 #include <allegro_flare/gui/widgets/scaled_text.h>
 #include <allegro_flare/gui/widgets/scroll_area.h>
