@@ -90,6 +90,22 @@ std::string I18n::get_languages_folder()
 
 
 
+std::string I18n::find_language_file(std::string locale)
+{
+   if (locale.empty()) return "";
+
+   std::vector<std::string> filenames = get_instance()->get_language_filenames();
+
+   for (auto &filename : filenames)
+   {
+      if (strncmp(locale.c_str(), filename.c_str(), locale.size()) == 0)
+         return get_instance()->languages_folder + filename;
+   }
+
+   return "";
+}
+
+
 
 bool I18n::set_locale(std::string locale)
 {

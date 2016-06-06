@@ -92,9 +92,29 @@ BOOST_FIXTURE_TEST_CASE(returns_a_list_of_language_files_in_the_languages_folder
 
 
 
-BOOST_AUTO_TEST_CASE(initialized_its_languages_folder_to__data_slash_languages__by_default)
+BOOST_FIXTURE_TEST_CASE(finds_a_language_file_by_locale, Fixture)
 {
-   // TODO
+   I18n::set_languages_folder(TEST_FOLDER);
+   std::string expected_filename = "";
+
+   expected_filename = "data/languages/tests/en.txt";
+   BOOST_CHECK_EQUAL(expected_filename, I18n::find_language_file("en"));
+
+   expected_filename = "data/languages/tests/fr.txt";
+   BOOST_CHECK_EQUAL(expected_filename, I18n::find_language_file("fr"));
+
+   expected_filename = "data/languages/tests/it.txt";
+   BOOST_CHECK_EQUAL(expected_filename, I18n::find_language_file("it"));
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(returns_an_empty_string_when_a_language_file_cannot_be_found, Fixture)
+{
+   I18n::set_languages_folder(TEST_FOLDER);
+
+   BOOST_CHECK_EQUAL("", I18n::find_language_file("locale_that_doesnt_exist"));
 }
 
 
