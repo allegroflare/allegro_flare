@@ -1,0 +1,2 @@
+welcome_message = Benvenuti a Allegro!
+start_button = inizio
