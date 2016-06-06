@@ -149,6 +149,45 @@ BOOST_FIXTURE_TEST_CASE(successfully_populates_labels_when_loading_a_language_fi
 
 
 
+BOOST_FIXTURE_TEST_CASE(can_set_a_locale, Fixture)
+{
+   I18n::set_languages_folder(TEST_FOLDER);
+
+   BOOST_CHECK_EQUAL(true, I18n::set_locale("en"));
+   BOOST_CHECK_EQUAL(true, I18n::set_locale("fr"));
+   BOOST_CHECK_EQUAL(true, I18n::set_locale("it"));
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(returns_false_when_unable_to_set_a_locale, Fixture)
+{
+   I18n::set_languages_folder(TEST_FOLDER);
+
+   BOOST_CHECK_EQUAL(false, I18n::set_locale("not_a_locale"));
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(can_retrieve_the_current_locale, Fixture)
+{
+   I18n::set_languages_folder(TEST_FOLDER);
+
+   I18n::set_locale("en");
+   BOOST_CHECK_EQUAL("en", I18n::get_locale());
+
+   I18n::set_locale("fr");
+   BOOST_CHECK_EQUAL("fr", I18n::get_locale());
+
+   I18n::set_locale("it");
+   BOOST_CHECK_EQUAL("it", I18n::get_locale());
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(clears_the_locale_and_folder_if_a_file_is_loaded_manually)
 {
    // TODO

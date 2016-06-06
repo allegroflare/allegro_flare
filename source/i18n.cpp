@@ -109,15 +109,29 @@ std::string I18n::find_language_file(std::string locale)
 
 bool I18n::set_locale(std::string locale)
 {
-   return false;
+   std::string filename = find_language_file(locale);
+   if (filename == "")
+   {
+      std::cout << CONSOLE_COLOR_RED;
+      std::cout << "Could not find language file for locale \"" << locale << "\"";
+      std::cout << CONSOLE_COLOR_DEFAULT;
+      std::cout << std::endl;
+      return false;
+   }
+
+   if (!load_language_file(filename)) return false;
+
+   get_instance()->current_locale = locale;
+   get_instance()->current_language_filename = filename;
+   return true;
 }
 
 
 
 
-bool I18n::load_language_file(std::string filename)
+std::string I18n::get_locale()
 {
-   return false;
+   return get_instance()->current_locale;
 }
 
 
