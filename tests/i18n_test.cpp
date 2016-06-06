@@ -78,9 +78,15 @@ BOOST_FIXTURE_TEST_CASE(returns_false_when_trying_to_set_a_languages_folder_that
 
 
 
-BOOST_AUTO_TEST_CASE(returns_false_when_a_trying_to_set_a_locale_does_not_exist)
+BOOST_FIXTURE_TEST_CASE(returns_a_list_of_language_files_in_the_languages_folder, Fixture)
 {
-   // TODO
+   I18n::set_languages_folder(TEST_FOLDER);
+
+   std::vector<std::string> expected_files = {"en.txt", "fr.txt", "it.txt"};
+   std::vector<std::string> returned_files = I18n::get_language_filenames();
+
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_files.begin(), expected_files.end(),
+      returned_files.begin(), returned_files.end());
 }
 
 

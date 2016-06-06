@@ -131,3 +131,40 @@ std::string I18n::t(std::string text_label)
 
 
 
+std::vector<std::string> I18n::get_language_filenames()
+{
+   std::vector<std::string> results;
+   ALLEGRO_FS_ENTRY* dir = al_create_fs_entry(get_instance()->languages_folder.c_str());
+   ALLEGRO_FS_ENTRY* entry = nullptr;
+   ALLEGRO_PATH *path = nullptr;
+
+   if (al_open_directory(dir))
+   {
+      while((entry = al_read_directory(dir)))
+      {
+         uint32_t flags = al_get_fs_entry_mode(entry);
+
+         if (flags & ALLEGRO_FILEMODE_ISFILE)
+         {
+            path = al_create_path(al_get_fs_entry_name(entry));
+            results.push_back(al_get_path_filename(path));
+            al_destroy_path(path);
+         }
+
+         al_destroy_fs_entry(entry);
+         entry = nullptr;
+      }
+   }
+   else
+   {
+      std::cout << "something went wrong" << std::endl;
+   }
+
+   al_destroy_fs_entry(dir);
+
+   return results;
+}
+
+
+
+

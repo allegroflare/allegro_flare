@@ -4,8 +4,9 @@
 
 
 
-#include <string>
 #include <map>
+#include <string>
+#include <vector>
 
 
 
@@ -34,6 +35,7 @@ public:
    static std::string get_locale();
    static std::string get_language_name();
    static std::string t(std::string text_label);
+   static std::vector<std::string> get_language_filenames();
 };
 
 
