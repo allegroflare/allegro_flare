@@ -226,14 +226,6 @@ BOOST_FIXTURE_TEST_CASE(loads_translations_when_a_locale_is_set, Fixture)
 
 
 
-BOOST_AUTO_TEST_CASE(clears_the_locale_and_folder_if_a_file_is_loaded_manually)
-{
-   // TODO
-}
-
-
-
-
 BOOST_FIXTURE_TEST_CASE(returns_an_empty_string_when_a_translation_does_not_exist_for_that_label, Fixture)
 {
    BOOST_REQUIRE_EQUAL(true, I18n::load_language_file("en", "English", "data/languages/tests/en.txt"));
