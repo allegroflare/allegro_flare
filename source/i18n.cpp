@@ -29,6 +29,7 @@ I18n *I18n::get_instance()
 I18n::I18n()
    : languages_folder("")
    , current_locale("")
+   , current_language_name("")
    , current_language_filename("")
    , lines()
 {}
@@ -119,7 +120,7 @@ bool I18n::set_locale(std::string locale)
       return false;
    }
 
-   if (!load_language_file(filename)) return false;
+   if (!load_language_file(locale, locale, filename)) return false;
 
    get_instance()->current_locale = locale;
    get_instance()->current_language_filename = filename;
@@ -137,7 +138,7 @@ std::string I18n::get_locale()
 
 
 
-bool I18n::load_language_file(std::string filename)
+bool I18n::load_language_file(std::string as_locale, std::string as_language_name, std::string filename)
 {
    if (!al_filename_exists(filename.c_str()))
    {
@@ -161,6 +162,10 @@ bool I18n::load_language_file(std::string filename)
       }
 
       al_destroy_config(config_file);
+
+      get_instance()->current_locale = as_locale;
+      get_instance()->current_language_name = as_language_name;
+      get_instance()->current_language_filename = filename;
    }
    else
    {
@@ -180,7 +185,7 @@ bool I18n::load_language_file(std::string filename)
 
 std::string I18n::get_language_name()
 {
-   return "";
+   return get_instance()->current_language_name;
 }
 
 
