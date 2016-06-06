@@ -123,9 +123,42 @@ bool I18n::load_language_file(std::string filename)
 
 
 
-std::string I18n::get_locale()
+bool I18n::load_language_file(std::string filename)
 {
-   return "";
+   if (!al_filename_exists(filename.c_str()))
+   {
+      std::cout << CONSOLE_COLOR_RED;
+      std::cout << "Cannot load language file \"" << filename << "\"";
+      std::cout << CONSOLE_COLOR_DEFAULT;
+      std::cout << std::endl;
+      return false;
+   }
+
+   ALLEGRO_CONFIG *config_file = al_load_config_file(filename.c_str());
+   if (config_file)
+   {
+      get_instance()->lines.clear();
+      ALLEGRO_CONFIG_ENTRY *iterator = NULL;
+      const char *key = al_get_first_config_entry(config_file, NULL, &iterator);
+      while (iterator)
+      {
+         get_instance()->lines[key] = al_get_config_value(config_file, NULL, key);
+         key = al_get_next_config_entry(&iterator);
+      }
+
+      al_destroy_config(config_file);
+   }
+   else
+   {
+      std::cout << CONSOLE_COLOR_RED;
+      std::cout << "Malformed language file \"" << filename << "\".  See ALLEGRO_CONFIG docs for proper format.";
+      std::cout << CONSOLE_COLOR_DEFAULT;
+      std::cout << std::endl;
+      al_destroy_config(config_file);
+      return false;
+   }
+
+   return true;
 }
 
 
@@ -141,7 +174,7 @@ std::string I18n::get_language_name()
 
 std::string I18n::t(std::string text_label)
 {
-   return "";
+   return get_instance()->lines[text_label];
 }
 
 

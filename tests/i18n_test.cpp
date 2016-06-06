@@ -120,6 +120,35 @@ BOOST_FIXTURE_TEST_CASE(returns_an_empty_string_when_a_language_file_cannot_be_f
 
 
 
+BOOST_FIXTURE_TEST_CASE(returns_true_when_a_language_file_loads_successfully, Fixture)
+{
+   BOOST_CHECK_EQUAL(true, I18n::load_language_file("data/languages/tests/en.txt"));
+   BOOST_CHECK_EQUAL(true, I18n::load_language_file("data/languages/tests/fr.txt"));
+   BOOST_CHECK_EQUAL(true, I18n::load_language_file("data/languages/tests/it.txt"));
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(returns_false_when_unable_to_load_a_language_file, Fixture)
+{
+   BOOST_CHECK_EQUAL(false, I18n::load_language_file("foo/folder/file_that_doesnt_exist.txt"));
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(successfully_populates_labels_when_loading_a_language_file, Fixture)
+{
+   BOOST_REQUIRE_EQUAL(true, I18n::load_language_file("data/languages/tests/en.txt"));
+
+   BOOST_CHECK_EQUAL("Welcome to Allegro!", I18n::t("welcome_message"));
+   BOOST_CHECK_EQUAL("start", I18n::t("start_button"));
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(clears_the_locale_and_folder_if_a_file_is_loaded_manually)
 {
    // TODO
