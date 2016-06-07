@@ -68,8 +68,8 @@ Some Examples of Features and Tools
 ### Framework
 - Initialize (basically) everything with one function (`Framework::initialize()`)
 - Interface with the system through a parent class (`Screen`)
-- Use virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc)
-- Get any asset by filename (`Framework::bitmap("mypic.jpg")`, `Framework::font("Times.ttf 16")`, etc)
+- Use virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc.)
+- Get any asset by filename (`Framework::bitmap("mypic.jpg")`, `Framework::font("Times.ttf 16")`, etc.)
 
 ### Resource Management
 - Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`)
@@ -80,8 +80,8 @@ Some Examples of Features and Tools
 - 2D and 3D positioning tools (`vec2d`, `vec3d`, `placement2d`, `placement3d`)
 - cameras (`Camera2D`, `Camera3D`)
 - 3D model loading (`Model3D`)
-- Basic image manipulation (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc)
-- Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc)
+- Basic image manipulation (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc.)
+- Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc.)
 - Create music notation (`MusicNotation`)
 - Offscreen bitmaps / Cache expensive renders (`RenderCache`)
 
@@ -92,7 +92,7 @@ Some Examples of Features and Tools
 
 ### Motion
 - timing and movement control (`Motion`)
-- easing functions (`interpolator::fastIn`, `interpolator::trippleSlowInOut`, `interpolator::bounceIn`, etc)
+- easing functions (`interpolator::fastIn`, `interpolator::trippleSlowInOut`, `interpolator::bounceIn`, etc.)
 
 ### Scripting and Animation
 - Use useful clases to automate playback of your objects (`Motion`, `Timeline`, `Stage`, `Actor`, `Script`)
@@ -102,7 +102,7 @@ Some Examples of Features and Tools
 ### Color
 - Color creation and manipulation (`mix()`, `change_hue()`, `change_lightness()`, etc.)
 - Operators for ALLEGRO_COLORs (`+`, `-`, `*`, `==`)
-- Many color definitions (`color::yellowgreen`, `color::blue`, `color::plum`, `color::floralwhite`, etc)
+- Many color definitions (`color::yellowgreen`, `color::blue`, `color::plum`, `color::floralwhite`, etc.)
 
 ### Encryption
 - md5 and sha2 functions
@@ -116,6 +116,6 @@ Some Examples of Features and Tools
 - MIDI control (windows)
 
 ### And More
-- Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc..
+- Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc.
 
 
