@@ -240,16 +240,16 @@ BOOST_FIXTURE_TEST_CASE(formats_a_translation_with_variable_args, Fixture)
    I18n::set_languages_folder(TEST_FOLDER);
 
    I18n::set_locale("en");
-   BOOST_CHECK_EQUAL("Travel time is 6 hours and 45 minutes.", I18n::ft("travel_time", 6, 45));
-   BOOST_CHECK_EQUAL("Nice to meet you, Alex.", I18n::ft("greeting", "Alex"));
+   BOOST_CHECK_EQUAL("Travel time is 6 hours and 45 minutes.", I18n::tf("travel_time", 6, 45));
+   BOOST_CHECK_EQUAL("Nice to meet you, Alex.", I18n::tf("greeting", "Alex"));
 
    I18n::set_locale("fr");
-   BOOST_CHECK_EQUAL("Voyage de temps est de 6 heures et 45 minutes.", I18n::ft("travel_time", 6, 45));
-   BOOST_CHECK_EQUAL("Ravi de vous rencontrer, Alex.", I18n::ft("greeting", "Alex"));
+   BOOST_CHECK_EQUAL("Voyage de temps est de 6 heures et 45 minutes.", I18n::tf("travel_time", 6, 45));
+   BOOST_CHECK_EQUAL("Ravi de vous rencontrer, Alex.", I18n::tf("greeting", "Alex"));
 
    I18n::set_locale("it");
-   BOOST_CHECK_EQUAL("Il tempo di percorrenza è di 6 ore e 45 minuti.", I18n::ft("travel_time", 6, 45));
-   BOOST_CHECK_EQUAL("Piacere di conoscerti, Alex.", I18n::ft("greeting", "Alex"));
+   BOOST_CHECK_EQUAL("Il tempo di percorrenza è di 6 ore e 45 minuti.", I18n::tf("travel_time", 6, 45));
+   BOOST_CHECK_EQUAL("Piacere di conoscerti, Alex.", I18n::tf("greeting", "Alex"));
 }
 
 

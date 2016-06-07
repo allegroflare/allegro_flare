@@ -200,7 +200,7 @@ std::string I18n::t(std::string text_label)
 
 
 
-std::string I18n::ft(std::string text_label, ...)
+std::string I18n::tf(std::string text_label, ...)
 {
    std::string format = get_instance()->lines[text_label];
    char buff[512];
