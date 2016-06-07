@@ -92,6 +92,7 @@ std::string I18n::get_languages_folder()
 
 
 
+
 std::string I18n::find_language_file(std::string locale)
 {
    if (locale.empty()) return "";
@@ -106,6 +107,7 @@ std::string I18n::find_language_file(std::string locale)
 
    return "";
 }
+
 
 
 
