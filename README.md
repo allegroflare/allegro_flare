@@ -69,7 +69,7 @@ Some Examples of Features and Tools
 - Initialize (basically) everything with one function (`Framework::initialize()`)
 - Interface with the system through a parent class (`Screen`)
 - Use virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc)
-- Access assets through global media bins (`Framework::bitmaps["mypic.jpg"]`, `Framework::fonts["Times.ttf 16"]`, etc)
+- Get any asset by filename (`Framework::bitmap("mypic.jpg")`, `Framework::font("Times.ttf 16")`, etc)
 
 ### Resource Management
 - Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`)
