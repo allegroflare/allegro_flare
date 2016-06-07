@@ -76,14 +76,16 @@ Some Examples of Features and Tools
 - Use any image, sample, or font by filename
 
 ### Graphics
-- 2D path shapes (`path2d`)
-- 2D and 3D positioning tools (`vec2d`, `vec3d`, `placement2d`, `placement3d`)
-- cameras (`Camera2D`, `Camera3D`)
-- 3D model loading (`Model3D`)
-- Basic image manipulation (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc.)
-- Image generation (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc.)
+- Easily position, size, rotate and draw images with (`BitmapObject`)
+- Draw to offscreen bitmaps / Cache expensive renders (`RenderCache`)
+- Use 3D models (`Model3D`)
+- Use cameras for better placement/views (`Camera2D`, `Camera3D`)
+- Use shaders (`Shader`)
+- Easily place objects in 2D and 3D space (`vec2d`, `vec3d`, `placement2d`, `placement3d`)
+- Modify images with filters (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc.)
+- Generate images from data (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc.)
+- Create paths (`path2d`)
 - Create music notation (`MusicNotation`)
-- Offscreen bitmaps / Cache expensive renders (`RenderCache`)
 
 ### GUI
 - Interface with the GUI through the parent class `UIScreen`
