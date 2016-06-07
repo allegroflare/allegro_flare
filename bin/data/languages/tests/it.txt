@@ -1,2 +1,4 @@
 welcome_message = Benvenuti a Allegro!
 start_button = inizio
+travel_time = Il tempo di percorrenza è di %d ore e %d minuti.
+greeting = Piacere di conoscerti, %s.

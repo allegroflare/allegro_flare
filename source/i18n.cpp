@@ -12,6 +12,7 @@
 
 
 
+
 I18n *I18n::instance = nullptr;
 
 
@@ -194,6 +195,27 @@ std::string I18n::get_language_name()
 std::string I18n::t(std::string text_label)
 {
    return get_instance()->lines[text_label];
+}
+
+
+
+
+std::string I18n::ft(std::string text_label, ...)
+{
+   std::string format = get_instance()->lines[text_label];
+   char buff[512];
+
+   va_list args;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvarargs"
+   va_start(args, format);
+#pragma clang diagnostic pop
+
+   vsnprintf(buff, sizeof(buff), format.c_str(), args);
+   va_end(args);
+
+   return buff;
 }
 
 
