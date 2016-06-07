@@ -226,9 +226,24 @@ BOOST_FIXTURE_TEST_CASE(loads_translations_when_a_locale_is_set, Fixture)
 
 
 
-BOOST_FIXTURE_TEST_CASE(returns_an_empty_string_when_a_translation_does_not_exist_for_that_label, Fixture)
+BOOST_FIXTURE_TEST_CASE(knows_if_a_translation_label_exists_or_not, Fixture)
 {
-   BOOST_REQUIRE_EQUAL(true, I18n::load_language_file("en", "English", "data/languages/tests/en.txt"));
+   I18n::set_languages_folder(TEST_FOLDER);
+   I18n::set_locale("en");
+
+   BOOST_CHECK_EQUAL(true, I18n::t_exists("blank_content"));
+   BOOST_CHECK_EQUAL(false, I18n::t_exists("label_that_does_not_exist"));
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(returns_an_empty_string_when_a_translation_is_blank_or_does_not_exist_for_that_label, Fixture)
+{
+   I18n::set_languages_folder(TEST_FOLDER);
+   I18n::set_locale("en");
+
+   BOOST_CHECK_EQUAL("", I18n::t("blank_content"));
    BOOST_CHECK_EQUAL("", I18n::t("label_that_does_not_exist"));
 }
 

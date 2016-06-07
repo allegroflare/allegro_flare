@@ -194,6 +194,14 @@ std::string I18n::get_language_name()
 
 
 
+bool I18n::t_exists(std::string label)
+{
+   return get_instance()->lines.find(label) != get_instance()->lines.end();
+}
+
+
+
+
 std::string I18n::t(std::string text_label)
 {
    return get_instance()->lines[text_label];

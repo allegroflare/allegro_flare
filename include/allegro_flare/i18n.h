@@ -35,6 +35,7 @@ public:
    static bool load_language_file(std::string as_locale, std::string as_language_name, std::string filename);
    static std::string get_locale();
    static std::string get_language_name();
+   static bool t_exists(std::string text_label);
    static std::string t(std::string text_label);
    static std::string tf(std::string text_label, ...);
    static std::vector<std::string> get_language_filenames();
