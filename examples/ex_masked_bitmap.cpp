@@ -1,6 +1,7 @@
 
 
 
+
 //
 // test_masked_bitmap.cpp
 //
@@ -12,37 +13,44 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
+
+
 
 
 class MaskedBitmapExampleProgram : public Screen
 {
 private:
-	ALLEGRO_BITMAP *bitmap;
-	
+   ALLEGRO_BITMAP *bitmap;
+
 public:
-	MaskedBitmapExampleProgram(Display *display) : Screen(display)
-	{
-		bitmap = create_masked_bitmap(Framework::bitmap("rooster_cat_grid.png"), Framework::bitmap("elm_circle.png"));
-	}
-	void primary_timer_func() override
-	{
-		al_draw_bitmap(Framework::bitmap("rooster_cat_grid.png"), 100, 100, 0);
-		al_draw_bitmap(Framework::bitmap("elm_circle.png"), 400, 100, 0);
-		al_draw_bitmap(bitmap, 700, 100, 0);
-	}
+   MaskedBitmapExampleProgram(Display *display) : Screen(display)
+   {
+      bitmap = create_masked_bitmap(Framework::bitmap("rooster_cat_grid.png"), Framework::bitmap("elm_circle.png"));
+   }
+
+   void primary_timer_func() override
+   {
+      al_draw_bitmap(Framework::bitmap("rooster_cat_grid.png"), 100, 100, 0);
+      al_draw_bitmap(Framework::bitmap("elm_circle.png"), 400, 100, 0);
+      al_draw_bitmap(bitmap, 700, 100, 0);
+   }
 };
+
+
 
 
 int main(int argc, char **argv)
 {
-	Framework::initialize();
-	Display *display = Framework::create_display(1100, 500);
-	MaskedBitmapExampleProgram *prog = new MaskedBitmapExampleProgram(display);
-	Framework::run_loop();
+   Framework::initialize();
+   Display *display = Framework::create_display(1100, 500);
+   MaskedBitmapExampleProgram *prog = new MaskedBitmapExampleProgram(display);
+   Framework::run_loop();
 
-	return 0;
+   return 0;
 }
+
 
 
 
