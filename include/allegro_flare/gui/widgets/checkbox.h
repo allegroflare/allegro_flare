@@ -1,5 +1,5 @@
-#ifndef UI_CHECKBOX_HEADER
-#define UI_CHECKBOX_HEADER
+#ifndef __UI_CHECKBOX_HEADER
+#define __UI_CHECKBOX_HEADER
 
 
 

@@ -1,5 +1,5 @@
-#ifndef UI_WINDOW_HEADER
-#define UI_WINDOW_HEADER
+#ifndef __UI_WINDOW_HEADER
+#define __UI_WINDOW_HEADER
 
 
 

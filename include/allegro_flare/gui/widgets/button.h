@@ -1,5 +1,5 @@
-#ifndef UI_BUTTON_HEADER
-#define UI_BUTTON_HEADER
+#ifndef __UI_BUTTON_HEADER
+#define __UI_BUTTON_HEADER
 
 
 
