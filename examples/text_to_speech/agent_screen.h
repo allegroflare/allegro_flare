@@ -4,8 +4,6 @@
 
 
 
-
-
 #include <allegro_flare/platform_specific/text_to_speech_win.h>
 #include <allegro_flare/screen.h>
 #include <allegro_flare/placement2d.h>
@@ -14,13 +12,6 @@
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/bitmap_bin.h>
 
-
-
-/*
-
-SpeakingAgent is dependent on some images, among other things
-
-*/
 
 
 
@@ -50,7 +41,6 @@ protected:
 public:
 	SpeakingAgent(Display *display=NULL);
 };
-
 
 
 
