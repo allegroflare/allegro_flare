@@ -1,19 +1,8 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
-
-
-
-/*
-
-== widget_inspector_ex.cpp ==
-
-demonstrates the use of UIWidgetInspector
-
-*/
-
-
 
 
 
@@ -79,6 +68,7 @@ public:
 
       new UIDraggableRegion(this, place.size.x/2, place.size.y/2, place.size.x, place.size.y);
    }
+
    void on_draw()
    {
       UIFramedWindow::on_draw();
@@ -125,13 +115,12 @@ public:
 
       //al_draw_text(font, color::white, x_cursor, y_cursor++, 0, (tostring("num_children ") + tostring(target_widget->ch)).c_str());
    }
+
    void set_target_widget(UIWidget *widget)
    {
       target_widget = widget;
    }
 };
-
-
 
 
 
@@ -152,6 +141,7 @@ public:
 
       widget_inspector = new UIWidgetInspector(this);
    }
+
    void on_timer()
    {
       if (window[0]->is_focused()) widget_inspector->set_target_widget(window[0]);
@@ -182,3 +172,7 @@ int main(int argc, char **argv)
    Framework::run_loop();
    return 0;
 }
+
+
+
+

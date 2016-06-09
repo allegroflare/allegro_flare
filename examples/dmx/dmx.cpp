@@ -1,4 +1,9 @@
+
+
+
+
 #include <allegro_flare/dmx.h>
+
 
 
 
@@ -8,14 +13,24 @@
 // This is enough data for a full frame DMX message (512 channels)
 // http://en.wikipedia.org/wiki/DMX512#Protocol
 
+
+
+
 static unsigned char dmxData_[DMX_DATA_LENGTH];
+
+
 
 
 static void *_current_dmx_device = 0; //null
 
 
 
+
 void dmx_out(int channel, char data, const DMXDevice *device)
 {
-	//send_data_to_channel(
+   //send_data_to_channel(
 }
+
+
+
+

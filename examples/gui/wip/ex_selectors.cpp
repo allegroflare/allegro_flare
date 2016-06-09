@@ -1,6 +1,7 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
 
 
@@ -109,5 +110,7 @@ int main(int argc, char **argv)
    af::run_loop();
    return 0;
 }
+
+
 
 

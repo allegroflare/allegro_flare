@@ -1,8 +1,8 @@
 
 
 
-#include <allegro_flare/allegro_flare.h>
 
+#include <allegro_flare/allegro_flare.h>
 
 
 
@@ -23,12 +23,12 @@ public:
 
       position_text = new UIText(this, 250, display->height()/2, "(position)");
    }
+
    void on_timer() override
    {
       position_text->set_text(tostring(scrollbar->get_position()));
    }
 };
-
 
 
 

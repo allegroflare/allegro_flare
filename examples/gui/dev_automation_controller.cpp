@@ -1,8 +1,11 @@
 
 
+
+
 #include <allegro_flare/allegro_flare.h>
 
 #include <limits>
+
 
 
 
@@ -152,5 +155,7 @@ int main(int argc, char **argv)
    Framework::run_loop();
    return 0;
 }
+
+
 
 

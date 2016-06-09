@@ -15,17 +15,17 @@
 
 class InterprocessSender : public Screen, public SharedMemory
 {
-	// note: this Screen does not use a display, it only inherets the timer_func()
+// note: this Screen does not use a display, it only inherets the timer_func()
 private:
-	ALLEGRO_TIMER *timer;
-	std::string memory_location_identifier;
-	std::vector<std::string> commands;
+   ALLEGRO_TIMER *timer;
+   std::string memory_location_identifier;
+   std::vector<std::string> commands;
 
-	void timer_func();
+   void timer_func();
 public:
-	InterprocessSender(std::string memory_location_identifier="my_shared_memory", int size_in_bytes=512);
-	~InterprocessSender();
-	void push_command(std::string command);
+   InterprocessSender(std::string memory_location_identifier="my_shared_memory", int size_in_bytes=512);
+   ~InterprocessSender();
+   void push_command(std::string command);
 };
 
 
@@ -33,22 +33,22 @@ public:
 
 class InterprocessRecipient : public Screen, public SharedMemory
 {
-	// checks the shared memory location for changes in the memory at a frequncy of 240 checks/sec
-	// if a new string is there, it grabs it as a string, clears the shared memory space, then
-	// the user can process the command through on_command();
+// checks the shared memory location for changes in the memory at a frequncy of 240 checks/sec
+// if a new string is there, it grabs it as a string, clears the shared memory space, then
+// the user can process the command through on_command();
 private:
-	ALLEGRO_TIMER *timer;
-	std::string memory_location_identifier;
+   ALLEGRO_TIMER *timer;
+   std::string memory_location_identifier;
 
-	std::string empty_string;
-	std::string content_now;
-	std::string content_last_check;
+   std::string empty_string;
+   std::string content_now;
+   std::string content_last_check;
 
 public:
-	InterprocessRecipient(std::string memory_location_identifier="my_shared_memory", int size_in_bytes=512, int num_refreshes_per_sec=30);
-	~InterprocessRecipient();
-	void timer_func();
-	virtual void on_command(std::string command);
+   InterprocessRecipient(std::string memory_location_identifier="my_shared_memory", int size_in_bytes=512, int num_refreshes_per_sec=30);
+   ~InterprocessRecipient();
+   void timer_func();
+   virtual void on_command(std::string command);
 };
 
 

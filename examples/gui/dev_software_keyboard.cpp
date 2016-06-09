@@ -1,4 +1,7 @@
 
+
+
+
 #include <allegro_flare/allegro_flare.h>
 
 
@@ -9,7 +12,6 @@ enum
    SIGNAL_NONE = 0,
    SIGNAL_TOGGLE_KEYBOARD_VISIBILITY,
 };
-
 
 
 
@@ -145,6 +147,9 @@ public:
    }
 };
 
+
+
+
 bool SoftKeyKey::initialized = false;
 ALLEGRO_FONT *SoftKeyKey::large_font = NULL;
 ALLEGRO_FONT *SoftKeyKey::small_font = NULL;
@@ -153,6 +158,7 @@ ALLEGRO_COLOR SoftKeyKey::alt_key_color = color::black;
 ALLEGRO_SAMPLE *SoftKeyKey::keypress_sound = NULL;
 ALLEGRO_SAMPLE *SoftKeyKey::keyhover_sound = NULL;
 float SoftKeyKey::key_roundness = 0.0;
+
 
 
 
@@ -177,7 +183,7 @@ public:
       : UIWidget(parent, new UISurfaceAreaBox(x, y, 850, 250))
       , num_cols(12)
       , num_rows(4)
-    //  , display(display)
+      //  , display(display)
       , motion_manager(3)
       , visible(true)
       , w(850)
@@ -264,7 +270,7 @@ public:
 
    void toggle_visibility()
    {
-   /*
+      /*
       motion_manager.clear_animations_on(&placement.position.y);
       motion_manager.clear_animations_on(&placement.scale.x);
       motion_manager.clear_animations_on(&placement.scale.y); //TODO should this be .y?
@@ -286,7 +292,7 @@ public:
          motion_manager.animate(&placement.scale.y, placement.scale.y, 0.9, time_now, time_now+0.4, interpolator::quadrupleFastIn, NULL, NULL);
          for (int i=0; i<43; i++) key[i].mouse_over = false;
       }
-   */
+      */
       visible = !visible;
    }
 
@@ -349,11 +355,6 @@ public:
 
 
 
-
-
-
-
-
 class SoftKeyboardExample : public UIScreen
 {
 private:
@@ -370,9 +371,6 @@ public:
 
 
 
-
-
-
 int main(int argc, char *argv[])
 {
    Framework::initialize();
@@ -381,3 +379,7 @@ int main(int argc, char *argv[])
    Framework::run_loop();
    return 0;
 }
+
+
+
+

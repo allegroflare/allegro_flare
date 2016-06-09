@@ -3,14 +3,16 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/color.h>
-
 #include <allegro_flare/gui/widget.h>
 #include <allegro_flare/gui/surface_areas/box.h>
 
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
+
+
 
 
 class UINotificationBubble : public UIWidget
@@ -85,10 +87,8 @@ public:
 
 
 
-
-
-
 #endif
+
 
 
 
@@ -130,6 +130,7 @@ public:
       UIScreen::primary_timer_func();
    }
 };
+
 
 
 

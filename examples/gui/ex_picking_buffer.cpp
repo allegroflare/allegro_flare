@@ -1,11 +1,16 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
+
+
 
 
 #define SCREEN_W (1920/3*2)
 #define SCREEN_H (1080/3*2)
+
+
 
 
 class Project : public UIScreen
@@ -68,6 +73,8 @@ public:
 };
 
 
+
+
 int main(int argc, char **argv)
 {
    Framework::initialize();
@@ -76,5 +83,7 @@ int main(int argc, char **argv)
    Framework::run_loop();
    return 0;
 }
+
+
 
 

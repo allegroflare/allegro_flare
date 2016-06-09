@@ -3,8 +3,6 @@
 
 
 
-
-
 class DMXDevice
 {
 public:
@@ -14,12 +12,16 @@ public:
 
 
 
-
 class DMXLight
 {
 public:
-	float pan;
-	float tilt;
-	float r, g, b, brightness;
-	float softness;
+   float pan;
+   float tilt;
+   float r, g, b, brightness;
+   float softness;
 };
+
+
+
+
+

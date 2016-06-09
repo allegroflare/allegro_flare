@@ -3,8 +3,6 @@
 
 
 #include <allegro_flare/allegro_flare.h>
-
-
 #include <allegro_flare/screens/simple_notification_screen.h>
 
 //using namespace UIGlobal;
@@ -12,14 +10,7 @@
 
 
 
-
-
-
-
-
-
 #define FOR(container) for (unsigned i=0; i<container.size(); i++)
-
 
 
 
@@ -187,8 +178,6 @@ public:
 
 
 
-
-
 int main(int argc, char *argv[])
 {
    Framework::initialize();
@@ -201,3 +190,7 @@ int main(int argc, char *argv[])
 
    return 0;
 }
+
+
+
+

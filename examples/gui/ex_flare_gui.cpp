@@ -1,21 +1,14 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
-
-
-
-
 #include <allegro_flare/gui/widgets/progress_bar.h>
-
-
 #include <allegro_flare/gui/widgets/music_notation.h>
-
-
-
-
-
 #include <allegro_flare/fonts/font_font_awesome.h>
+
+
+
 
 class UICircleButton : public UIWidget
 {
@@ -39,9 +32,10 @@ public:
 
 
 
-
-
 #include <allegro_flare/objects/sound_object.h>
+
+
+
 
 class MyMediaPlayer : public UIWindow
 {
@@ -89,13 +83,13 @@ public:
 
 
 
-
-
 #include <cctype>
 inline bool is_valid_variable_name(const std::string &str)
 {
    return (str.find_first_not_of("ABCDEFGHIJKLMNOPQRSTUV_abcdefghijklmnopqrstuvwxyz") == std::string::npos);
 }
+
+
 
 
 class MyUIWindow : public UIWindow
@@ -330,8 +324,6 @@ public:
 
 
 
-
-
 class Project : public UIScreen
 {
 public:
@@ -354,6 +346,9 @@ public:
 
 #include <allegro_flare/allegro_flare.h>
 
+
+
+
 int main(int argc, char *argv[])
 {
    Framework::initialize();
@@ -367,4 +362,7 @@ int main(int argc, char *argv[])
 
    return 0;
 }
+
+
+
 

@@ -1,7 +1,11 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
+
+
+
 
 //S("target", UISignalSlot)->game();
 
@@ -39,7 +43,6 @@ public:
    }
    virtual void receive(std::string message, void *data=NULL) {}
 };
-
 
 
 
@@ -90,12 +93,12 @@ public:
       cursor_y += 40;
 
       new UICheckbox(this, cursor_x, cursor_y, 24);
-         new UIText(this, cursor_x+36, cursor_y, "Show hilight on focused widget");
+      new UIText(this, cursor_x+36, cursor_y, "Show hilight on focused widget");
 
       new UICheckbox(this, cursor_x, cursor_y+spacing_y, 24);
-         new UIText(this, cursor_x+36, cursor_y+spacing_y, "Allow click to focus on no_focus elements");
-
+      new UIText(this, cursor_x+36, cursor_y+spacing_y, "Allow click to focus on no_focus elements");
    }
+
    UIWidget *build_canvas_for_scrollable_area()
    {
       // canvas should always be the first child
@@ -103,21 +106,22 @@ public:
       canvas->place.align = vec2d(0, 0);
 
       //{
-         // some example in-canvas elements
-         UIImage *img = new UIImage(canvas, canvas->place.size.x/2, 120, Framework::bitmap("pic1.jpg"));
-            img->place.rotation = 0.2;
-         new UIImage(canvas, canvas->place.size.x/2, 330, Framework::bitmap("pic2.png"));
-         new UITextBox(canvas, canvas->place.size.x/2, 510, 300, 120,   "The content in this scroll area is a parent widget.");
-         UITextList *text_list = new UITextList(canvas, canvas->place.size.x/2, 700, 300);
-            text_list->add_item("Shoes");
-            text_list->add_item("Groceries");
-            text_list->add_item("Wrapping Paper");
-            text_list->add_item("Toys");
-            text_list->add_item("Dishwashing Soap");
-         new UIButton(canvas, canvas->place.size.x/2, canvas->place.size.y-60, 110, 60, "Button");
+      // some example in-canvas elements
+      UIImage *img = new UIImage(canvas, canvas->place.size.x/2, 120, Framework::bitmap("pic1.jpg"));
+      img->place.rotation = 0.2;
+      new UIImage(canvas, canvas->place.size.x/2, 330, Framework::bitmap("pic2.png"));
+      new UITextBox(canvas, canvas->place.size.x/2, 510, 300, 120,   "The content in this scroll area is a parent widget.");
+      UITextList *text_list = new UITextList(canvas, canvas->place.size.x/2, 700, 300);
+      text_list->add_item("Shoes");
+      text_list->add_item("Groceries");
+      text_list->add_item("Wrapping Paper");
+      text_list->add_item("Toys");
+      text_list->add_item("Dishwashing Soap");
+      new UIButton(canvas, canvas->place.size.x/2, canvas->place.size.y-60, 110, 60, "Button");
       //}
       return canvas;
    }
+
    void on_timer()
    {
       std::stringstream text_box_text;
@@ -132,11 +136,6 @@ public:
 
 
 
-
-
-
-
-
 int main(int argc, char *argv[])
 {
    Framework::initialize();
@@ -144,4 +143,8 @@ int main(int argc, char *argv[])
    ScrollAreaExpampleProgram *proj = new ScrollAreaExpampleProgram(display);
    Framework::run_loop();
    return 0;
-}//
+}
+
+
+
+
