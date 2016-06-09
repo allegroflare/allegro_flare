@@ -1,0 +1,5 @@
+welcome_message = Bienvenue à Allegro!
+start_button = démarrer
+blank_content =
+travel_time = Voyage de temps est de %d heures et %d minutes.
+greeting = Ravi de vous rencontrer, %s.
