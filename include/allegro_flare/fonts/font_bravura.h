@@ -3,96 +3,92 @@
 
 
 
+
 #include <stdint.h>
-
-
-
-
-
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 
 
+
+
 namespace bravura
 {
-	//void draw(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
+   //void draw(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
 
+   extern const int32_t barline;
+   extern const int32_t final_barline;
 
+   // clefs
+   extern const int32_t g_clef;
+   extern const int32_t g_clef_8vb;
+   extern const int32_t g_clef_8va;
+   extern const int32_t c_clef;
+   extern const int32_t f_clef;
+   extern const int32_t f_clef_8va;
+   extern const int32_t percussion_clef_1;
+   extern const int32_t percussion_clef_2;
 
-	extern const int32_t barline;
-	extern const int32_t final_barline;
+   // accidentals (chromatic)
+   extern const int32_t double_sharp;
+   extern const int32_t double_flat;
+   extern const int32_t flat;
+   extern const int32_t natural;
+   extern const int32_t sharp;
 
-	// clefs
-	extern const int32_t g_clef;
-	extern const int32_t g_clef_8vb;
-	extern const int32_t g_clef_8va;
-	extern const int32_t c_clef;
-	extern const int32_t f_clef;
-	extern const int32_t f_clef_8va;
-	extern const int32_t percussion_clef_1;
-	extern const int32_t percussion_clef_2;
+   // rests
+   extern const int32_t whole_rest;
+   extern const int32_t half_rest;
+   extern const int32_t quarter_rest;
+   extern const int32_t eighth_rest;
+   extern const int32_t sixteenth_rest;
+   extern const int32_t rest_8;
+   extern const int32_t rest_16;
+   extern const int32_t rest_32;
+   extern const int32_t rest_64;
+   extern const int32_t rest_128;
 
-	// accidentals (chromatic)
-	extern const int32_t double_sharp;
-	extern const int32_t double_flat;
-	extern const int32_t flat;
-	extern const int32_t natural;
-	extern const int32_t sharp;
+   // note heads
+   extern const int32_t open_note_head;
+   extern const int32_t closed_note_head;
+   extern const int32_t double_whole_note_head;
+   extern const int32_t whole_note_head;
 
-	// rests
-	extern const int32_t whole_rest;
-	extern const int32_t half_rest;
-	extern const int32_t quarter_rest;
-	extern const int32_t eighth_rest;
-	extern const int32_t sixteenth_rest;
-	extern const int32_t rest_8;
-	extern const int32_t rest_16;
-	extern const int32_t rest_32;
-	extern const int32_t rest_64;
-	extern const int32_t rest_128;
+   // notes
+   extern const int32_t double_whole_note;
+   extern const int32_t whole_note;
+   extern const int32_t half_note;
+   extern const int32_t half_note_down;
+   extern const int32_t quarter_note;
+   extern const int32_t quarter_note_down;
+   extern const int32_t eighth_note;
+   extern const int32_t eighth_note_down;
+   extern const int32_t sixteenth_note;
+   extern const int32_t sixteenth_note_down;
+   extern const int32_t thirtysecond_note;
+   extern const int32_t thirtysecond_note_down;
 
-	// note heads
-	extern const int32_t open_note_head;
-	extern const int32_t closed_note_head;
-	extern const int32_t double_whole_note_head;
-	extern const int32_t whole_note_head;
+   // TODO: from here down, glyphs are in the 110000+ range and don't display correctly when imported as SVG to illustrator
 
-	// notes
-	extern const int32_t double_whole_note;
-	extern const int32_t whole_note;
-	extern const int32_t half_note;
-	extern const int32_t half_note_down;
-	extern const int32_t quarter_note;
-	extern const int32_t quarter_note_down;
-	extern const int32_t eighth_note;
-	extern const int32_t eighth_note_down;
-	extern const int32_t sixteenth_note;
-	extern const int32_t sixteenth_note_down;
-	extern const int32_t thirtysecond_note;
-	extern const int32_t thirtysecond_note_down;
+   // note parts
+   extern const int32_t stem;
+   extern const int32_t dot;
 
-	// TODO: from here down, glyphs are in the 110000+ range and don't display correctly when imported as SVG to illustrator
+   // articulations
+   extern const int32_t accent;
+   extern const int32_t staccato;
+   extern const int32_t tenuto;
+   extern const int32_t marcato;
+   extern const int32_t staccato_marcato;
+   extern const int32_t staccato_accent;
+   extern const int32_t staccato_tenuto;
 
-	// note parts
-	extern const int32_t stem;
-	extern const int32_t dot;
-
-	// articulations
-	extern const int32_t accent;
-	extern const int32_t staccato;
-	extern const int32_t tenuto;
-	extern const int32_t marcato;
-	extern const int32_t staccato_marcato;
-	extern const int32_t staccato_accent;
-	extern const int32_t staccato_tenuto;
-
-	// dynamics
-	extern const int32_t dynamic_r;
-	extern const int32_t dynamic_s;
-	extern const int32_t dynamic_z;
-	extern const int32_t dynamic_p;
-	extern const int32_t dynamic_m;
-	extern const int32_t dynamic_f;
+   // dynamics
+   extern const int32_t dynamic_r;
+   extern const int32_t dynamic_s;
+   extern const int32_t dynamic_z;
+   extern const int32_t dynamic_p;
+   extern const int32_t dynamic_m;
+   extern const int32_t dynamic_f;
 }
 
 
