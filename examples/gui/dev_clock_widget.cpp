@@ -1,6 +1,7 @@
 
 
 
+
 //
 // This is a copy of an old clock program.  It's a really nice looking, so I dumped it here to be
 // developed into an example program.  It used an old framework, but that functionality is mostly
@@ -12,8 +13,12 @@
 //
 
 
+
+
 #include <allegro_flare/allegro_flare.h>
 #include <time.h>
+
+
 
 
 float max_clock_radius = 80;
@@ -22,8 +27,10 @@ float clock_opacity = 0.0;
 
 
 
+
 inline float inv(float val) { return (1.0-val)*-1; }
 inline float range(float val, float min, float max) { return val*(max-min)+min; }
+
 
 
 
@@ -87,15 +94,16 @@ void draw_clock(float x, float y, float radius=100, float opacity=1.0)
       ALLEGRO_BITMAP *clock_overlay = Framework::bitmap("clock_overlay.png");
       float clock_overlay_scale = scale/2;
       al_draw_tinted_scaled_bitmap(clock_overlay, color::name("white", opacity),
-         0, 0, al_get_bitmap_width(clock_overlay), al_get_bitmap_height(clock_overlay),
-         x-al_get_bitmap_width(clock_overlay)*0.5*clock_overlay_scale, y-al_get_bitmap_height(clock_overlay)*0.5*clock_overlay_scale,
-         al_get_bitmap_width(clock_overlay)*clock_overlay_scale, al_get_bitmap_height(clock_overlay)*clock_overlay_scale, ALLEGRO_FLAGS_EMPTY);
+            0, 0, al_get_bitmap_width(clock_overlay), al_get_bitmap_height(clock_overlay),
+            x-al_get_bitmap_width(clock_overlay)*0.5*clock_overlay_scale, y-al_get_bitmap_height(clock_overlay)*0.5*clock_overlay_scale,
+            al_get_bitmap_width(clock_overlay)*clock_overlay_scale, al_get_bitmap_height(clock_overlay)*clock_overlay_scale, ALLEGRO_FLAGS_EMPTY);
    }
 
    // border outline
    al_draw_circle(x, y, radius*1.09 + inv(opacity)*60, color::name("darkblue", opacity*0.2), radius/100.0*3);
    al_draw_circle(x, y, radius*1.235 + inv(opacity)*30, color::name("darkblue", opacity*0.1), radius/100.0*2);
 }
+
 
 
 
@@ -108,6 +116,7 @@ void hide_clock(void *obj, ALLEGRO_MOUSE_EVENT *ev, void *user)
 
 
 
+
 void show_clock(void *obj, ALLEGRO_MOUSE_EVENT *ev, void *user)
 {
    Framework::motion().cmove_to(&clock_opacity, 1.0, 0.3, interpolator::slowInOut);
@@ -117,9 +126,10 @@ void show_clock(void *obj, ALLEGRO_MOUSE_EVENT *ev, void *user)
 
 
 
+
 /*
-void draw_button(void *obj, void *user)
-{
+   void draw_button(void *obj, void *user)
+   {
    UIButton *b = static_cast<UIButton *>(obj);
    float off = b->pix_r;
 
@@ -130,17 +140,19 @@ void draw_button(void *obj, void *user)
 
    al_draw_filled_rounded_rectangle(b->x+off, b->y+off, b->x+b->w-off, b->y+b->h-off, b->roundness, b->roundness, bg_color);
    al_draw_rounded_rectangle(b->x+off, b->y+off, b->x+b->w-off, b->y+b->h-off, b->roundness, b->roundness, border_color, 1.0);
-   //al_draw_rounded_rectangle(b->x+off+1, b->y+off+1, b->x+b->w-off-1, b->y+b->h-off-1, b->roundness, b->roundness, b->inner_border_color, 1.0);
-   al_draw_filled_rectangle(b->x+3+off, b->y+3+off, b->x+b->w-3-off, b->y+b->h/2-off, hilight_color);
+//al_draw_rounded_rectangle(b->x+off+1, b->y+off+1, b->x+b->w-off-1, b->y+b->h-off-1, b->roundness, b->roundness, b->inner_border_color, 1.0);
+al_draw_filled_rectangle(b->x+3+off, b->y+3+off, b->x+b->w-3-off, b->y+b->h/2-off, hilight_color);
 
-   if (b->font) al_draw_text(b->font, text_color,
-      b->x+b->w/2+b->label_displacement_x, b->y+b->h/2-al_get_font_ascent(b->font)/2+b->label_displacement_y-1,
-      ALLEGRO_ALIGN_CENTRE, b->label.c_str());
+if (b->font) al_draw_text(b->font, text_color,
+b->x+b->w/2+b->label_displacement_x, b->y+b->h/2-al_get_font_ascent(b->font)/2+b->label_displacement_y-1,
+ALLEGRO_ALIGN_CENTRE, b->label.c_str());
 
-   //if (b->click_in)
-   //   al_draw_rounded_rectangle(b->x+off+1, b->y+off+1, b->x+b->w-off-1, b->y+b->h-off-1, b->roundness, b->roundness, al_color_name("yellow"), 1.0);
+//if (b->click_in)
+//   al_draw_rounded_rectangle(b->x+off+1, b->y+off+1, b->x+b->w-off-1, b->y+b->h-off-1, b->roundness, b->roundness, al_color_name("yellow"), 1.0);
 }
 */
+
+
 
 
 /*
@@ -180,6 +192,8 @@ public:
 };
 
 
+
+
 int main(int argc, char **argv)
 {
    Framework::initialize();
@@ -188,6 +202,7 @@ int main(int argc, char **argv)
    Framework::run_loop();
    return 0;
 }
+
 
 
 

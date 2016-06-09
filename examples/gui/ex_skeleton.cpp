@@ -1,12 +1,10 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
-
 #include <allegro_flare/skeleton.h>
-
 #include <allegro_flare/screens/simple_notification_screen.h>
-
 
 
 
@@ -90,21 +88,6 @@ public:
       return root;
    }
 };
-
-
-/*
-talked about makeup
-doing each other's hair
-make cookies
-meeting your man
-leggings
-bugs so gross
-byonce
-*/
-
-
-
-
 
 
 
@@ -296,7 +279,6 @@ public:
       simple_notification_screen->spawn_notification("Joystick was added/removed.");
    }
 };
-
 
 
 

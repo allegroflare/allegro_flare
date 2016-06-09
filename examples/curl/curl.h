@@ -2,6 +2,8 @@
 #define __CURL_HEADER
 
 
+
+
 #include <string>
 #include <allegro5/allegro_memfile.h>
 
@@ -13,10 +15,7 @@ void download_file(std::string url, std::string dest_filename); //TODO KNOWN ISS
 float get_progress_percent();
 
 int upload_file_via_ftp(std::string local_file_location, std::string filename_while_uploading, std::string remote_filename_after_uploading,
-						std::string remote_url, std::string username, std::string password);
-
-
-
+      std::string remote_url, std::string username, std::string password);
 
 
 
@@ -25,8 +24,8 @@ int upload_file_via_ftp(std::string local_file_location, std::string filename_wh
 
 struct DownloadMemoryStruct
 {
-  char *memory;
-  size_t size;
+   char *memory;
+   size_t size;
 };
 
 DownloadMemoryStruct *download_to_memory(std::string url="http://www.example.com/", bool (*do_something_with_it)(DownloadMemoryStruct *str)=NULL);
@@ -38,16 +37,16 @@ bool delete_downloaded_to_memory_file(DownloadMemoryStruct *mem);
 
 bool something_done(DownloadMemoryStruct *stru)
 {
-	if (!stru) return false;
+   if (!stru) return false;
 
-	  printf("  ... to ALLEGRO_FILE ...");
-	  ALLEGRO_FILE *f = al_fopen("THIS_FILE.jpg", "wb");
-	  for (long i=0; i<(long)stru->size; i++)
-	  {
-		  al_fputc(f, stru->memory[i]);
-	  }
-	  al_fclose(f);
-	  printf("  ... ALLEGRO_FILE written ...");
+   printf("  ... to ALLEGRO_FILE ...");
+   ALLEGRO_FILE *f = al_fopen("THIS_FILE.jpg", "wb");
+   for (long i=0; i<(long)stru->size; i++)
+   {
+      al_fputc(f, stru->memory[i]);
+   }
+   al_fclose(f);
+   printf("  ... ALLEGRO_FILE written ...");
 }
 
 */
@@ -55,23 +54,17 @@ bool something_done(DownloadMemoryStruct *stru)
 
 
 
-
-
-
-
 struct DOWNLOADED_ALLEGRO_FILE
 {
 public:
-  ALLEGRO_FILE *file;
-  char *memory;
-  size_t size;
+   ALLEGRO_FILE *file;
+   char *memory;
+   size_t size;
 };
 
 
 DOWNLOADED_ALLEGRO_FILE *create_downloaded_al_memfile(std::string url="http://www.example.com/");
 bool delete_downloaded_al_memfile(DOWNLOADED_ALLEGRO_FILE *file);
-
-
 
 
 

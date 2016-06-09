@@ -4,10 +4,10 @@
 
 #include <allegro_flare/allegro_flare.h>
 
-
-
-
 #include <allegro_flare/grid2d.h>
+
+
+
 
 class GridHelper : public grid2d
 {
@@ -40,6 +40,7 @@ public:
       return fit_to_grid(cell1_x, cell1_y, cell2_x+1, cell2_y+1, widget);
    }
 };
+
 
 
 
@@ -203,20 +204,21 @@ public:
 
 
 
+
 class Project : public UIScreen
 {
 public:
    Calculator *calculator;
 
-    Project(Display *display)
-        : UIScreen(display)
-    {
+   Project(Display *display)
+      : UIScreen(display)
+   {
       this->draw_focused_outline = false;
 
       // make a nice background image
       UIImage *img = new UIImage(this, 0, 0, Framework::bitmap("veddy_nice.png"));
-         img->set_color(color::color(color::white, 0.2));
-         img->place.position = vec2d(display->center(), display->middle());
+      img->set_color(color::color(color::white, 0.2));
+      img->place.position = vec2d(display->center(), display->middle());
 
       // create the calculator
       calculator = new Calculator(this);
@@ -232,8 +234,10 @@ public:
       Framework::motion().cmove_to(&calculator->place.scale.x, 1.0, 0.9);
       Framework::motion().cmove_to(&calculator->place.scale.y, 1.0, 0.9);
       Framework::motion().cmove_to(&calculator->place.rotation, 0, 0.9);
-    }
+   }
 };
+
+
 
 
 int main(int argc, char **argv)
@@ -244,3 +248,7 @@ int main(int argc, char **argv)
    Framework::run_loop();
    return 0;
 }
+
+
+
+

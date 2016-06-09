@@ -1,21 +1,8 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
-
-
-
-/*{
-
-
-framed_window_ex.cpp
-====================
-
-simple example program of how a framed window might be implemented
-
-
-}*/
-
 
 
 

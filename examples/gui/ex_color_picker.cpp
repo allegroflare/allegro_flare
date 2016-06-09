@@ -1,6 +1,9 @@
 
 
+
+
 #include <allegro_flare/allegro_flare.h>
+
 
 
 
@@ -111,7 +114,6 @@ void draw_pointing_triangle(float target_x, float target_y, float rotation, floa
    al_draw_prim(v, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
    place.restore_transform();
 }
-
 
 
 
@@ -277,6 +279,7 @@ public:
       }
    }
 };
+
 
 
 

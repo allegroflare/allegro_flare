@@ -1,6 +1,7 @@
 
 
 
+
 // // // // //
 // This is the run script part of the file
 // // // // //
@@ -8,9 +9,10 @@
 #include <string>
 #include <iostream>
 #include <stdio.h>
-
-
 #include <string>
+
+
+
 
 struct RubyScriptResult
 {
@@ -29,16 +31,16 @@ struct RubyScriptResult
 #endif
 
 static std::string exec(const char* cmd) {
-    FILE* pipe = popen(cmd, "r");
-    if (!pipe) return "ERROR";
-    char buffer[128];
-    std::string result = "";
-    while(!feof(pipe)) {
-       if(fgets(buffer, 128, pipe) != NULL)
-          result += buffer;
-    }
-    pclose(pipe);
-    return result;
+   FILE* pipe = popen(cmd, "r");
+   if (!pipe) return "ERROR";
+   char buffer[128];
+   std::string result = "";
+   while(!feof(pipe)) {
+      if(fgets(buffer, 128, pipe) != NULL)
+         result += buffer;
+   }
+   pclose(pipe);
+   return result;
 }
 
 RubyScriptResult run_ruby_script(std::string script_filename, std::string args)
@@ -162,6 +164,8 @@ public:
 };
 
 
+
+
 int main(int argc, char **argv)
 {
    Framework::initialize();
@@ -169,3 +173,7 @@ int main(int argc, char **argv)
    Framework::run_loop();
    return 0;
 }
+
+
+
+

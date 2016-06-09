@@ -3,6 +3,7 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
 //#include <allegro_flare/midi_win.h> // this was stripped out, but will need to be implemented in a comprehensive way
 
@@ -41,10 +42,6 @@ public:
 
 
 
-
-
-
-
 class UIPianoKeyboard : public UIWidget
 {
 public:
@@ -74,21 +71,7 @@ public:
 
 
 
-
-
-
 #endif
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -109,6 +92,9 @@ PianoKeyboardKey::PianoKeyboardKey()
    , black_key(false)
 {}
 
+
+
+
 void PianoKeyboardKey::set(float x, float y, float w, float h, int midi_key_num, bool black_key)
 {
    this->x = x;
@@ -119,6 +105,9 @@ void PianoKeyboardKey::set(float x, float y, float w, float h, int midi_key_num,
    this->black_key = black_key;
 }
 
+
+
+
 bool PianoKeyboardKey::collide(float mouse_x, float mouse_y)
 {
    if (mouse_x < x) return false;
@@ -127,6 +116,9 @@ bool PianoKeyboardKey::collide(float mouse_x, float mouse_y)
    if (mouse_y >= y+h) return false;
    return true;
 }
+
+
+
 
 void PianoKeyboardKey::draw()
 {
@@ -141,20 +133,32 @@ void PianoKeyboardKey::draw()
    else if (midi_key_num%12 == 0) al_draw_circle(x+w/2, y+h, w/5, color::dodgerblue, 1.0);
 }
 
+
+
+
 void PianoKeyboardKey::on_mouse_leave()
 {
    if (triggered) release();
 }
 
+
+
+
 void PianoKeyboardKey::on_mouse_enter()
 {
 }
+
+
+
 
 void PianoKeyboardKey::switch_out()
 {
    if (mouse_over) on_mouse_leave();
    mouse_over = false;
 }
+
+
+
 
 void PianoKeyboardKey::on_mouse_move(float mouse_x, float mouse_y)
 {
@@ -164,12 +168,18 @@ void PianoKeyboardKey::on_mouse_move(float mouse_x, float mouse_y)
    mouse_over = collide_now;
 }
 
+
+
+
 void PianoKeyboardKey::trigger()
 {
    //midi_note_on(0, midi_key_num+60, 64);
    std::cout << "note triggered!" << std::endl;
    triggered = true;
 }
+
+
+
 
 void PianoKeyboardKey::release()
 {
@@ -178,10 +188,16 @@ void PianoKeyboardKey::release()
    triggered = false;
 }
 
+
+
+
 void PianoKeyboardKey::on_mouse_down()
 {
    if (mouse_over) trigger();
 }
+
+
+
 
 void PianoKeyboardKey::on_mouse_up()
 {
@@ -214,12 +230,18 @@ UIPianoKeyboard::UIPianoKeyboard(UIWidget *parent, float x, float y)
    //camera.rotation = 0.1;
 }
 
+
+
+
 bool UIPianoKeyboard::is_black_key(int num, std::vector<int> &set)
 {
    for (std::vector<int>::iterator it=set.begin(); it!=set.end(); it++)
       if ((*it) == num) return false;
    return true;
 }
+
+
+
 
 void UIPianoKeyboard::set_keys_to_diatonic()
 {
@@ -228,12 +250,18 @@ void UIPianoKeyboard::set_keys_to_diatonic()
    set_keys_to_scale(set);
 }
 
+
+
+
 void UIPianoKeyboard::set_keys_to_whole_tone()
 {
    int myints[] = {0, 2, 4, 6, 8, 10};
    std::vector<int> set(myints, myints + sizeof(myints) / sizeof(int));
    set_keys_to_scale(set);
 }
+
+
+
 
 void UIPianoKeyboard::set_keys_to_octatonic1()
 {
@@ -242,6 +270,9 @@ void UIPianoKeyboard::set_keys_to_octatonic1()
    set_keys_to_scale(set);
 }
 
+
+
+
 void UIPianoKeyboard::set_keys_to_pentatonic()
 {
    int myints[] = {0, 2, 4, 7, 9 };
@@ -249,11 +280,17 @@ void UIPianoKeyboard::set_keys_to_pentatonic()
    set_keys_to_scale(set);
 }
 
+
+
+
 void UIPianoKeyboard::set_keys_to_scale(int *set_array, int size)
 {
    std::vector<int> set(set_array, set_array + size / sizeof(int));
    set_keys_to_scale(set);
 }
+
+
+
 
 void UIPianoKeyboard::set_keys_to_scale(std::vector<int> &set)
 {
@@ -322,6 +359,9 @@ void UIPianoKeyboard::set_keys_to_scale(std::vector<int> &set)
    place.size.y = h;
 }
 
+
+
+
 void UIPianoKeyboard::on_draw()
 {
    al_draw_filled_rectangle(0, 0, w, h, color::hex("876833")); // dark tan
@@ -335,6 +375,9 @@ void UIPianoKeyboard::on_draw()
    for (int i=0; i<NUM_KEYS; i++)
       if (keys[i].black_key) keys[i].draw();
 }
+
+
+
 
 void UIPianoKeyboard::on_mouse_move(float x, float y, float dx, float dy)
 {
@@ -367,35 +410,23 @@ void UIPianoKeyboard::on_mouse_move(float x, float y, float dx, float dy)
    }
 }
 
+
+
+
 void UIPianoKeyboard::on_mouse_down()
 {
    for (int i=0; i<NUM_KEYS; i++)
       keys[i].on_mouse_down();
 }
 
+
+
+
 void UIPianoKeyboard::on_mouse_up()
 {
    for (int i=0; i<NUM_KEYS; i++)
       keys[i].on_mouse_up();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -413,7 +444,6 @@ public:
       : UIScreen(display)
       , font(al_load_font("data/fonts/DroidSans.ttf", -20, ALLEGRO_FLAGS_EMPTY))
    {
-
 
       std::vector<int> major7;  major7.push_back(0); major7.push_back(4); major7.push_back(7); major7.push_back(11);
 
@@ -453,7 +483,7 @@ public:
       piano_keyboard3->place.scale.y = 0.7;
 
       std::vector<int> this_set; this_set.push_back(0); this_set.push_back(4); this_set.push_back(6);
-         this_set.push_back(10); this_set.push_back(11);
+      this_set.push_back(10); this_set.push_back(11);
       UIPianoKeyboard *piano_keyboard6 = new UIPianoKeyboard(this, 0, 0);
       piano_keyboard6->set_keys_to_scale(this_set);
       piano_keyboard6->place.position.x = 250 + display->width()/2;
@@ -462,12 +492,8 @@ public:
       piano_keyboard6->place.scale.x = 0.7;
       piano_keyboard6->place.scale.y = 0.7;
       //piano_keyboard5->camera.x -= 200;
-
-
    }
 };
-
-
 
 
 

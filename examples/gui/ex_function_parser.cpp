@@ -1,19 +1,14 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
-
-
 
 
 
 
 int WIDTH = 700;
 int PADDING = 20;
-
-
-
-
 
 
 
@@ -37,6 +32,7 @@ std::vector<std::size_t> traverse_and_mark_strings(std::string text)
 
    return positions;
 }
+
 
 
 
@@ -73,7 +69,6 @@ std::vector<std::string> extract_arg_tokens(std::string tokens_str)
 
 
 
-
 std::string extract_function_token(std::string line)
 {
    line = php::trim(line);
@@ -99,53 +94,44 @@ std::string supplant_strings(std::string line, std::vector<std::size_t> position
 
 
 
-
 std::string extract_args_token(std::string line)
 {
-      //return_text << "> parse out strings" << "\n";
+   //return_text << "> parse out strings" << "\n";
+
+   std::string opening_token = "(";
+   std::string closing_token = ")";
 
 
-
-
-      std::string opening_token = "(";
-      std::string closing_token = ")";
-
-
-      std::size_t string_token_start = line.find(opening_token);
-      while(string_token_start != std::string::npos)
+   std::size_t string_token_start = line.find(opening_token);
+   while(string_token_start != std::string::npos)
+   {
+      std::size_t string_token_end = line.rfind(closing_token);
+      if (string_token_end == std::string::npos)
       {
-         std::size_t string_token_end = line.rfind(closing_token);
-         if (string_token_end == std::string::npos)
-         {
-            //return_text << ">> ! error, no matching \" found." << "\n";
-            //break;
-            return "";
-         }
-         else
-         {
-            return line.substr(string_token_start+1, string_token_end-string_token_start-1);
-            //return return_text.str();
-            //std::vector<std::string> tokens = php::explode(",", return_text.str());
-            /*
-            return_text << ">> string found" << "\n";
-            return_text << text << "\n";
-            return_text << get_pointing_string(string_token_END, string_token_START) << "\n";
-            std::size_t replacement_len = string_token_START-string_token_END-1;
-            text = text.replace(string_token_END, replacement_len, std::string(replacement_len, '#'));
-            return_text << text << "\n";
-            */
-         }
-
-         string_token_start = line.find(opening_token);
+         //return_text << ">> ! error, no matching \" found." << "\n";
+         //break;
+         return "";
+      }
+      else
+      {
+         return line.substr(string_token_start+1, string_token_end-string_token_start-1);
+         //return return_text.str();
+         //std::vector<std::string> tokens = php::explode(",", return_text.str());
+         /*
+         return_text << ">> string found" << "\n";
+         return_text << text << "\n";
+         return_text << get_pointing_string(string_token_END, string_token_START) << "\n";
+         std::size_t replacement_len = string_token_START-string_token_END-1;
+         text = text.replace(string_token_END, replacement_len, std::string(replacement_len, '#'));
+         return_text << text << "\n";
+         */
       }
 
+      string_token_start = line.find(opening_token);
+   }
 
-      return "";
-
+   return "";
 }
-
-
-
 
 
 
@@ -173,9 +159,6 @@ public:
    }
 };
 std::vector<Func *> Func::funcs;
-
-
-
 
 
 
@@ -247,7 +230,6 @@ public:
 
 
 
-
 class Variable
 {
 public:
@@ -255,8 +237,6 @@ public:
    std::string value;
    std::string type;
 };
-
-
 
 
 
@@ -282,8 +262,9 @@ public:
 
 
 
-
 #include <string>
+
+
 
 
 class Project : public UIScreen
@@ -384,11 +365,6 @@ public:
 
 
 
-
-
-
-
-
 int main(int argc, char *argv[])
 {
    Framework::initialize();
@@ -400,3 +376,7 @@ int main(int argc, char *argv[])
 
    return 0;
 }
+
+
+
+

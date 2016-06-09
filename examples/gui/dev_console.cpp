@@ -7,13 +7,16 @@
 #include <allegro_flare/framework.h>
 
 
+
+
 // come back to this, Mark, this is a cool idea.
+
+
 
 
 class UIConsole : public UIScreen
 {
 public:
-
    class Message
    {
    public:
@@ -87,7 +90,7 @@ public:
          {
          case ALLEGRO_KEY_UP:
             current_indexed_past_message--;
-         break;
+            break;
          case ALLEGRO_KEY_ENTER:
             std::string message_text = text_input_widget->get_text();
             if (php::trim(message_text) != "")
@@ -95,7 +98,7 @@ public:
                append_message(message_text, 0);
                text_input_widget->set_text("");
             }
-         break;
+            break;
          }
       }
    }
@@ -184,3 +187,7 @@ int main(int argc, char **argv)
    Framework::run_loop();
    return 0;
 }
+
+
+
+
