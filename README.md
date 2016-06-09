@@ -117,7 +117,6 @@ Some Examples of Features and Tools
 - Text-to-speech API (windows)
 - Download a file in a thread (curl)
 - Webcam access (OpenCV)
-- Theatre lighting control (dmx-box)
 - MIDI control (windows)
 
 ### And More
