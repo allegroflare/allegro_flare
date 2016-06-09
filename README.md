@@ -33,7 +33,7 @@ $ make
 ```
 Success!  The only thing left to do is `#include <allegro_flare/allegro_flare.h>` in your program and link with the AllegroFlare lib and the Allegro libs when compiling.  Optionally, you can build the example programs with `make examples`.
 
-
+If you run into any problems or have questions, ask on the [allegro.cc forums](http://www.allegro.cc/forums/recent).
 
 Simple Example
 --------------
