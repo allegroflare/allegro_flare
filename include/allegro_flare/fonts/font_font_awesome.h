@@ -1,5 +1,5 @@
-#ifndef AF_FONT_AWESOME_HEADER
-#define AF_FONT_AWESOME_HEADER
+#ifndef __AF_FONT_AWESOME_HEADER
+#define __AF_FONT_AWESOME_HEADER
 
 
 
@@ -13,8 +13,6 @@
 
 namespace font_awesome
 {
-   //void draw(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
-
    extern const int32_t glass;
    extern const int32_t music;
    extern const int32_t search;

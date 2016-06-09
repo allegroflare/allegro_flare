@@ -1,5 +1,5 @@
-#ifndef AF_SEGOE_SYMBOL_HEADER
-#define AF_SEGOE_SYMBOL_HEADER
+#ifndef __AF_SEGOE_SYMBOL_HEADER
+#define __AF_SEGOE_SYMBOL_HEADER
 
 
 
@@ -13,8 +13,6 @@
 
 namespace segoe_ui_symbol
 {
-   //void draw(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
-
    /* Hearts */
    extern const int32_t outlinedheart;
    extern const int32_t solidheart;
@@ -169,7 +167,7 @@ namespace segoe_ui_symbol
    extern const int32_t mapaddress;
    extern const int32_t phone;
    extern const int32_t videochat;
-   extern const int32_t switch_;  // switch_ is used because switch is a keyword
+   extern const int32_t switch_;
    extern const int32_t presence;
    extern const int32_t rename;
    extern const int32_t expandtile;

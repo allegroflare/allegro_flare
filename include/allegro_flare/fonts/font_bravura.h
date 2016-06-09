@@ -13,8 +13,6 @@
 
 namespace bravura
 {
-   //void draw(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y);
-
    extern const int32_t barline;
    extern const int32_t final_barline;
 
