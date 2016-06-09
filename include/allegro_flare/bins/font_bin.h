@@ -4,8 +4,8 @@
 
 
 
-#include <allegro_flare/bin.h>
 #include <allegro5/allegro_font.h>
+#include <allegro_flare/bin.h>
 
 
 
