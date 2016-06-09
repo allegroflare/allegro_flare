@@ -29,7 +29,7 @@ I18n *I18n::get_instance()
 
 I18n::I18n()
    : languages_folder("")
-   , current_language_designator("")
+   , current_language_code("")
    , current_language_name("")
    , current_language_filename("")
    , lines()
@@ -93,15 +93,15 @@ std::string I18n::get_languages_folder()
 
 
 
-std::string I18n::find_language_file(std::string language_designator)
+std::string I18n::find_language_file(std::string language_code)
 {
-   if (language_designator.empty()) return "";
+   if (language_code.empty()) return "";
 
    std::vector<std::string> filenames = get_instance()->get_language_filenames();
 
    for (auto &filename : filenames)
    {
-      if (strncmp(language_designator.c_str(), filename.c_str(), language_designator.size()) == 0)
+      if (strncmp(language_code.c_str(), filename.c_str(), language_code.size()) == 0)
          return get_instance()->languages_folder + filename;
    }
 
@@ -111,21 +111,21 @@ std::string I18n::find_language_file(std::string language_designator)
 
 
 
-bool I18n::set_language(std::string language_designator)
+bool I18n::set_language(std::string language_code)
 {
-   std::string filename = find_language_file(language_designator);
+   std::string filename = find_language_file(language_code);
    if (filename == "")
    {
       std::cout << CONSOLE_COLOR_RED;
-      std::cout << "Could not find language file for language_designator \"" << language_designator << "\"";
+      std::cout << "Could not find language file for language_code \"" << language_code << "\"";
       std::cout << CONSOLE_COLOR_DEFAULT;
       std::cout << std::endl;
       return false;
    }
 
-   if (!load_language_file(language_designator, language_designator, filename)) return false;
+   if (!load_language_file(language_code, language_code, filename)) return false;
 
-   get_instance()->current_language_designator = language_designator;
+   get_instance()->current_language_code = language_code;
    get_instance()->current_language_filename = filename;
    return true;
 }
@@ -135,13 +135,13 @@ bool I18n::set_language(std::string language_designator)
 
 std::string I18n::get_language()
 {
-   return get_instance()->current_language_designator;
+   return get_instance()->current_language_code;
 }
 
 
 
 
-bool I18n::load_language_file(std::string as_language, std::string as_language_name, std::string filename)
+bool I18n::load_language_file(std::string as_language_code, std::string as_language_name, std::string filename)
 {
    if (!al_filename_exists(filename.c_str()))
    {
@@ -166,7 +166,7 @@ bool I18n::load_language_file(std::string as_language, std::string as_language_n
 
       al_destroy_config(config_file);
 
-      get_instance()->current_language_designator = as_language;
+      get_instance()->current_language_code = as_language_code;
       get_instance()->current_language_name = as_language_name;
       get_instance()->current_language_filename = filename;
    }
