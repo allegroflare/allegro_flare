@@ -65,8 +65,6 @@ namespace bravura
    extern const int32_t thirtysecond_note;
    extern const int32_t thirtysecond_note_down;
 
-   // TODO: from here down, glyphs are in the 110000+ range and don't display correctly when imported as SVG to illustrator
-
    // note parts
    extern const int32_t stem;
    extern const int32_t dot;
