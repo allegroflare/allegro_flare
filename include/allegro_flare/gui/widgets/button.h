@@ -4,9 +4,9 @@
 
 
 
+#include <allegro5/allegro_font.h>
 #include <allegro_flare/gui/widget.h>
 #include <allegro_flare/motion.h>
-#include <allegro5/allegro_font.h>
 
 
 
