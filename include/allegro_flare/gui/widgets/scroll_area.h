@@ -5,8 +5,10 @@
 
 
 #include <allegro5/bitmap.h>
-
 #include <allegro_flare/gui/widget.h>
+
+
+
 
 class UIScrollBar;
 
@@ -31,7 +33,6 @@ public:
    void on_mouse_wheel() override;
    void draw_func() override;
 };
-
 
 
 

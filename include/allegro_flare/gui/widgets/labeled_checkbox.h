@@ -2,11 +2,17 @@
 #define __UI_LABELED_CHECKBOX_HEADER
 
 
+
+
 #include <allegro_flare/gui/widget.h>
+
+
 
 
 class UICheckbox;
 class UIText;
+
+
 
 
 class UILabeledCheckbox : public UIWidget
@@ -26,5 +32,5 @@ public:
 
 
 
-#endif
 
+#endif

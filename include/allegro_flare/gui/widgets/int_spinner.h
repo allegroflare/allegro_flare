@@ -3,7 +3,9 @@
 
 
 
+
 #include <allegro_flare/gui/widgets/spinner.h>
+
 
 
 
@@ -25,6 +27,4 @@ public:
 
 
 
-
 #endif
-

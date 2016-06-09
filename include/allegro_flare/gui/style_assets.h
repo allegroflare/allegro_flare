@@ -6,8 +6,8 @@
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <allegro_flare/color.h>
 
-#include <allegro_flare/color.h> // should be removed eventually
 
 
 
@@ -54,11 +54,9 @@ public:
 
    static ALLEGRO_COLOR get_surface_color();
    static ALLEGRO_COLOR get_hilight_color();
-
 };
 
 
 
 
 #endif
-

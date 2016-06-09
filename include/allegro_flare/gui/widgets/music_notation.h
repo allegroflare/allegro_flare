@@ -4,9 +4,8 @@
 
 
 
-#include <allegro_flare/render_music_notation.h>
-
 #include <allegro_flare/gui/widget.h>
+#include <allegro_flare/render_music_notation.h>
 
 
 
@@ -22,7 +21,6 @@ public:
 
    std::string get_val();
    void set_val(std::string);
-
    void on_draw() override;
 };
 

@@ -5,7 +5,6 @@
 
 
 #include <allegro5/allegro_font.h>
-
 #include <allegro_flare/gui/widget.h>
 
 
@@ -48,7 +47,6 @@ protected:
    Cursor cursor;
 
 public:
-
    UITextArea(UIWidget *parent, float x, float y, float w, float h, std::string text="");
 
    void move_cursor(int delta);
@@ -69,8 +67,6 @@ public:
    void on_key_up() override;
    void on_key_char() override;
 };
-
-
 
 
 

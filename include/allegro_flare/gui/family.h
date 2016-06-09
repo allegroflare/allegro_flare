@@ -8,7 +8,11 @@
 #include <vector>
 #include <string>
 
+
+
+
 class UIWidget;
+
 
 
 
@@ -29,11 +33,11 @@ public:
    bool has_child(UIWidget *widget);
    void register_as_child(UIWidget *widget);
    void unregister_as_child(UIWidget *widget);
-   static bool assign_child_to_new_parent(UIWidget *child_widget, UIWidget *new_parent); // warning, this function may require some 
-                                                                                             // safety usage guidelines
-                                                                                             // reassigning a parent in the middle of
-                                                                                             // a loop in the children could cause
-                                                                                             // unintended consequences, for example
+   static bool assign_child_to_new_parent(UIWidget *child_widget, UIWidget *new_parent);  // warning, this function may require some 
+                                                                                          // safety usage guidelines
+                                                                                          // reassigning a parent in the middle of
+                                                                                          // a loop in the children could cause
+                                                                                          // unintended consequences, for example
 
    bool set_focus_to_child(UIWidget *child);
 
@@ -41,7 +45,7 @@ public:
    void delete_all();
    void draw_all();
    void draw_all_except(UIWidget *widget); // hmm... a solution to a scroll-view and/or portal view draw-func access problem.
-                                   // I'm not sure about the appropriate solution to this one.
+                                           // I'm not sure about the appropriate solution to this one.
 
    // selection:
    int get_num_descendants();

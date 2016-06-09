@@ -1,16 +1,17 @@
-#ifndef UI_WIDGET_HEADER
-#define UI_WIDGET_HEADER
+#ifndef __UI_WIDGET_HEADER
+#define __UI_WIDGET_HEADER
+
 
 
 
 #include <allegro5/allegro.h>
-#include <allegro_flare/gui/surface_area.h>
-#include <allegro_flare/data_attr.h>
-#include <allegro_flare/color.h>
-
-#include <allegro_flare/bit_flags.h>
-
 #include <allegro_flare/gui/family.h>
+#include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/bit_flags.h>
+#include <allegro_flare/color.h>
+#include <allegro_flare/data_attr.h>
+
+
 
 
 class UIScreen;
@@ -18,6 +19,8 @@ class UIFamily;
 class Motion;
 class FontBin;
 class SampleBin;
+
+
 
 
 /*
@@ -43,6 +46,7 @@ enum WIDGET_FLAGS
 
 
 
+
 class UIWidget
 {
 private:
@@ -50,13 +54,11 @@ private:
    static int widget_count; // a counter that is incremented each time a new widget is created
 
 protected:
-
    friend class UIScreen;
    friend class UIFamily;
    friend class UIScrollArea;
-   
-   UIFamily family;
 
+   UIFamily family;
    UISurfaceArea *surface_area;
 
    // TODO these might need to be implemented in a flag system
@@ -70,7 +72,6 @@ protected:
    // maybe will need to add:
    // bool skip_on_tab_focus (or no_focus);
    // bool no_jumpout_on_tab;
-
 
    // widget *developer* functions:
    virtual void draw_func();
@@ -89,17 +90,14 @@ public:
    //BitFlags<int16_t> flags;    // << this should be added eventually
    bool delete_me;
    DataAttr attr;
-
    placement2d &place;
 
    UIWidget(UIWidget *parent, UISurfaceArea *surface_area);
    virtual ~UIWidget();
 
-
    // ordering
    void bring_to_front();
    void send_message_to_parent(std::string message);
-
 
    // retrieval
    bool is_mouse_over();
@@ -110,9 +108,9 @@ public:
    void set_as_enabled();
    void set_as_disabled();
 
-   ///
+   //
    // widget behavior functions
-   ///
+   //
 
    // state
    virtual void on_change();
@@ -153,6 +151,4 @@ public:
 
 
 
-
 #endif
-

@@ -5,8 +5,8 @@
 
 
 #include <allegro_flare/gui/widget.h>
-#include <allegro_flare/gui/widgets/draggable_region.h>
 #include <allegro_flare/gui/widgets/button.h>
+#include <allegro_flare/gui/widgets/draggable_region.h>
 
 
 

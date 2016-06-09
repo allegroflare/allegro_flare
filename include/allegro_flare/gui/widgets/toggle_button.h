@@ -5,7 +5,6 @@
 
 
 #include <string>
-
 #include <allegro_flare/gui/widget.h>
 
 
@@ -38,6 +37,4 @@ public:
 
 
 
-
 #endif
-

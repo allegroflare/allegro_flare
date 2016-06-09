@@ -3,7 +3,10 @@
 
 
 
+
 #include <allegro_flare/gui/widget.h>
+
+
 
 
 class UIPickingBuffer : public UIWidget
@@ -33,6 +36,7 @@ public:
 private:
    static std::string MESSAGE_HEADER;
 };
+
 
 
 

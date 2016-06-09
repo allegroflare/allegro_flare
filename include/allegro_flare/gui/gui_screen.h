@@ -4,14 +4,13 @@
 
 
 
-#include <allegro_flare/screen.h>
-
-#include <allegro_flare/gui/widget.h>
-
 #include <allegro_flare/bins/bitmap_bin.h>
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/gui/widget.h>
 #include <allegro_flare/motion.h>
+#include <allegro_flare/screen.h>
+
 
 
 
@@ -45,7 +44,6 @@ public:
    virtual void on_draw();
    virtual void on_draw_after_children();
 };
-
 
 
 

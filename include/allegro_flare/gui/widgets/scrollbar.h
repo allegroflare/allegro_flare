@@ -12,7 +12,6 @@
 class UIScrollBar : public UIWidget
 {
 protected:
-
    class UpButton : public UIWidget
    {
    public:
@@ -74,5 +73,5 @@ public:
 
 
 
-#endif
 
+#endif

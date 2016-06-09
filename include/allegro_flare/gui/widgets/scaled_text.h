@@ -5,7 +5,6 @@
 
 
 #include <allegro5/allegro_color.h>
-
 #include <allegro_flare/gui/widget.h>
 
 
@@ -33,7 +32,6 @@ public:
 
    void on_draw() override;
 };
-
 
 
 

@@ -6,7 +6,6 @@
 
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_color.h>
-
 #include <allegro_flare/gui/widget.h>
 
 
@@ -18,7 +17,7 @@ protected:
    std::string text;
    ALLEGRO_FONT *font;
    ALLEGRO_COLOR font_color;
-   
+
 public:
    UIText(UIWidget *parent, float x, float y, std::string text);
 
