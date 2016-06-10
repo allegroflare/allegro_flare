@@ -1,18 +1,15 @@
 
 
-//#include <allegro_flare/drawing_interface.h>
 
 
+#include <allegro_flare/drawing_interfaces/drawing_interface_svg.h>
 
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h> // for escape_xml_chars(), as_hex()
 #include <allegro_flare/useful_php.h>
 
-#include <allegro_flare/drawing_interfaces/drawing_interface_svg.h>
 
 // SVG
-
-
 
 
 
@@ -23,6 +20,8 @@ DrawingInterfaceSVG::DrawingInterfaceSVG()
 	//, current_document_output()
 	//, current_canvas_id(next_html5_canvas_id++)
 {}
+
+
 
 
 /*
@@ -93,6 +92,8 @@ std::string DrawingInterface::get_canvas_id()
 */
 
 
+
+
 void DrawingInterfaceSVG::prepare_surface(int surface_width, int surface_height)
 {
 	current_document_output.clear();
@@ -106,10 +107,12 @@ void DrawingInterfaceSVG::prepare_surface(int surface_width, int surface_height)
 
 
 
+
 void DrawingInterfaceSVG::draw_line(float x1, float y1, float x2, float y2, ALLEGRO_COLOR color, float thickness)
 {
 	current_document_output << "<line x1=\"" << x1 << "\" y1=\"" << y1 << "\" x2=\"" << x2 << "\" y2=\"" << y2 << "\" style=\"stroke: " << color::get_css_str(color) << "; stroke-width: " << thickness << ";\" />" << "\n";
 }
+
 
 
 
@@ -120,10 +123,12 @@ void DrawingInterfaceSVG::draw_rectangle(float x1, float y1, float x2, float y2,
 
 
 
+
 void DrawingInterfaceSVG::draw_text(std::string text, float x, float y, float align_x, float align_y, ALLEGRO_COLOR color, std::string font_family, float font_size, ALLEGRO_FONT *font)
 {
 	current_document_output << "<text x=\"" << x << "\" y=\"" << y << "\" font-family=\"" << font_family << "\" font-size=\"" << (font_size/4) << "px\" fill=\"" << color::get_css_str(color) << "\">" << escape_xml_chars(text) << "</text>" << "\n";
 }
+
 
 
 
@@ -134,10 +139,12 @@ void DrawingInterfaceSVG::draw_ustr_chr(int32_t ustr_char, float x, float y, flo
 
 
 
+
 void DrawingInterfaceSVG::finish_surface()
 {
 	current_document_output << "</svg>" << "\n";
 }
+
 
 
 
@@ -148,9 +155,12 @@ bool DrawingInterfaceSVG::save_file(std::string file_basename)
 
 
 
+
 std::string DrawingInterfaceSVG::get_output()
 {
 	return current_document_output.str();
 }
+
+
 
 

@@ -2,15 +2,17 @@
 
 
 
-
 #include <allegro_flare/drawing_interfaces/drawing_interface_html_canvas.h>
 
+#include <allegro_flare/color.h> 
 #include <allegro_flare/useful.h> 
 #include <allegro_flare/useful_php.h> 
-#include <allegro_flare/color.h> 
 
 
-// DrawingInterfaceHTMLCanvas
+
+
+int DrawingInterfaceHTMLCanvas::next_html5_canvas_id = 1;
+
 
 
 
@@ -19,10 +21,13 @@ DrawingInterfaceHTMLCanvas::DrawingInterfaceHTMLCanvas()
 {}
 
 
+
+
 std::string DrawingInterfaceHTMLCanvas::get_canvas_id()
 {
 	return std::string("canvas") + tostring(current_canvas_id);
 }
+
 
 
 
@@ -39,6 +44,7 @@ void DrawingInterfaceHTMLCanvas::prepare_surface(int surface_width, int surface_
 
 
 
+
 void DrawingInterfaceHTMLCanvas::draw_line(float x1, float y1, float x2, float y2, ALLEGRO_COLOR color, float thickness)
 {
 	current_document_output << "context.beginPath();" << "\n";
@@ -52,6 +58,7 @@ void DrawingInterfaceHTMLCanvas::draw_line(float x1, float y1, float x2, float y
 
 
 
+
 void DrawingInterfaceHTMLCanvas::draw_rectangle(float x1, float y1, float x2, float y2, ALLEGRO_COLOR outline_color, float thickness)
 {
 	current_document_output << "context.strokeStyle=\"" << color::get_css_str(outline_color) << "\";" << "\n";
@@ -59,6 +66,7 @@ void DrawingInterfaceHTMLCanvas::draw_rectangle(float x1, float y1, float x2, fl
 	current_document_output << "context.strokeRect(" << x1 << ", " << y1 << ", " << (x2-x1) << ", " << (y2-y1) << ");" << "\n";
 	current_document_output << "\n";
 }
+
 
 
 
@@ -72,6 +80,7 @@ void DrawingInterfaceHTMLCanvas::draw_text(std::string text, float x, float y, f
 
 
 
+
 void DrawingInterfaceHTMLCanvas::draw_ustr_chr(int32_t ustr_char, float x, float y, float align_x, float align_y, ALLEGRO_COLOR color, std::string font_family, float font_size, ALLEGRO_FONT *font)
 {
 	current_document_output << "context.fillStyle=\"" << color::get_css_str(color) << "\";" << "\n";
@@ -82,10 +91,12 @@ void DrawingInterfaceHTMLCanvas::draw_ustr_chr(int32_t ustr_char, float x, float
 
 
 
+
 void DrawingInterfaceHTMLCanvas::finish_surface()
 {
 	current_document_output << "</script>" << "\n";
 }
+
 
 
 
@@ -101,15 +112,11 @@ bool DrawingInterfaceHTMLCanvas::save_file(std::string file_basename)
 
 
 
+
 std::string DrawingInterfaceHTMLCanvas::get_output()
 {
 	return current_document_output.str();
 }
-
-
-
-int DrawingInterfaceHTMLCanvas::next_html5_canvas_id = 1;
-
 
 
 

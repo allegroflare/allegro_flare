@@ -1,10 +1,8 @@
 
 
+
+
 #include <allegro_flare/bins/model_bin.h>
-
-
-
-
 
 
 
@@ -40,4 +38,7 @@ void ModelBin::destroy_data(Model3D *mdl)
 	if (!mdl) return;
 	delete mdl;
 }
+
+
+
 

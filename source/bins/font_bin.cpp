@@ -1,12 +1,10 @@
 
 
 
+
 #include <allegro_flare/bins/font_bin.h>
+
 #include <allegro_flare/useful.h>
-//#include <algorithm>
-
-
-
 
 
 
@@ -19,10 +17,10 @@ int FontBin::_get_valid_font_size(std::string num)
 
 
 
-
 FontBin::FontBin(std::string directory)
 	: Bin<ALLEGRO_FONT *>(directory)
 {}
+
 
 
 
@@ -59,6 +57,7 @@ void FontBin::destroy_data(ALLEGRO_FONT *f)
 {
 	al_destroy_font(f);
 }
+
 
 
 

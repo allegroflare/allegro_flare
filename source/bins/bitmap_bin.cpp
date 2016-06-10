@@ -7,10 +7,6 @@
 
 
 
-
-
-
-
 BitmapBin::BitmapBin(std::string directory)
 	: Bin<ALLEGRO_BITMAP *>(directory)
 {}
@@ -38,5 +34,7 @@ void BitmapBin::destroy_data(ALLEGRO_BITMAP *bmp)
 {
 	al_destroy_bitmap(bmp);
 }
+
+
 
 
