@@ -1,16 +1,37 @@
 
+
+
+
 #include <allegro_flare/framework.h>
 
-#include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_acodec.h>
-
-#include <allegro_flare/useful.h>
-
-#include <allegro_flare/bins/sample_bin.h>
+#include <allegro5/allegro_ttf.h>
 #include <allegro_flare/bins/bitmap_bin.h>
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/model_bin.h>
+#include <allegro_flare/bins/sample_bin.h>
 #include <allegro_flare/motion.h>
+#include <allegro_flare/useful.h>
+
+
+
+
+ALLEGRO_TEXTLOG *Framework::textlog = NULL;
+ALLEGRO_JOYSTICK *Framework::joystick = NULL;
+ALLEGRO_EVENT_QUEUE *Framework::event_queue = NULL;
+ALLEGRO_TIMER *Framework::primary_timer = NULL;
+ALLEGRO_FONT *Framework::builtin_font = NULL;
+bool Framework::shutdown_program = false;
+Screen *Framework::current_screen = NULL;
+double Framework::time_now = 0;
+ALLEGRO_EVENT *Framework::current_event = NULL;
+bool Framework::initialized = false;
+int Framework::key_alt = 0;
+int Framework::key_shift = 0;
+int Framework::key_ctrl = 0;
+bool Framework::drawing_profiler_graph = false;
+Framework *Framework::instance = NULL;
+
 
 
 
@@ -19,6 +40,7 @@ Framework *Framework::get_instance()
    if (!instance) instance = new Framework(1);
    return instance;
 }
+
 
 
 
@@ -32,10 +54,12 @@ Framework::Framework(int val)
 
 
 
+
 ALLEGRO_FONT *Framework::font(std::string identifier)
 {
    return get_instance()->fonts[identifier];
 }
+
 
 
 
@@ -46,10 +70,12 @@ ALLEGRO_BITMAP *Framework::bitmap(std::string identifier)
 
 
 
+
 ALLEGRO_SAMPLE *Framework::sample(std::string identifier)
 {
    return get_instance()->samples[identifier];
 }
+
 
 
 
@@ -60,10 +86,12 @@ Model3D *Framework::model(std::string identifier)
 
 
 
+
 Motion &Framework::motion()
 {
    return get_instance()->motions;
 }
+
 
 
 
@@ -117,7 +145,6 @@ bool Framework::initialize(std::string config_filename)
 }
 
 
-// TODO: get rid of all these silly Framework::create_display() overloads
 
 
 Display *Framework::create_display(int width, int height)
@@ -126,12 +153,16 @@ Display *Framework::create_display(int width, int height)
 }
 
 
+
+
 Display *Framework::create_display(int width, int height, int display_flags)
 {
 	Display *display = new Display(width, height, display_flags);
 	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
 	return display;
 }
+
+
 
 
 Display *Framework::create_display(int width, int height, int display_flags, int adapter)
@@ -143,12 +174,16 @@ Display *Framework::create_display(int width, int height, int display_flags, int
 }
 
 
+
+
 Display *Framework::create_display(int width, int height, bool fullscreen)
 {
 	Display *display = new Display(width, height, fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED);
 	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
 	return display;
 }
+
+
 
 
 Display *Framework::create_display(int width, int height, bool fullscreen, int adapter)
@@ -159,6 +194,7 @@ Display *Framework::create_display(int width, int height, bool fullscreen, int a
 	al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
 	return display;
 }
+
 
 
 
@@ -210,10 +246,12 @@ Display *Framework::create_display(Display::resolution_t resolution)
 
 
 
+
 void Framework::use_screen(Screen *screen)
 {
 	//current_screen = screen;
 }
+
 
 
 
@@ -332,6 +370,7 @@ void Framework::run_loop()
 
 
 
+
 void Framework::open_log_window()
 {
 	if (textlog) return;
@@ -339,6 +378,7 @@ void Framework::open_log_window()
 	textlog = al_open_native_text_log("Log", ALLEGRO_TEXTLOG_MONOSPACE);
 	al_register_event_source(event_queue, al_get_native_text_log_event_source(textlog));
 }
+
 
 
 
@@ -352,6 +392,7 @@ void Framework::close_log_window()
 
 
 
+
 void Framework::log(std::string message)
 {
 	if (!textlog) return;
@@ -360,20 +401,4 @@ void Framework::log(std::string message)
 
 
 
-ALLEGRO_TEXTLOG *Framework::textlog = NULL;
-ALLEGRO_JOYSTICK *Framework::joystick = NULL;
-ALLEGRO_EVENT_QUEUE *Framework::event_queue = NULL;
-ALLEGRO_TIMER *Framework::primary_timer = NULL;
-ALLEGRO_FONT *Framework::builtin_font = NULL;
-bool Framework::shutdown_program = false;
-Screen *Framework::current_screen = NULL;
-double Framework::time_now = 0;
-ALLEGRO_EVENT *Framework::current_event = NULL;
-bool Framework::initialized = false;
-int Framework::key_alt = 0;
-int Framework::key_shift = 0;
-int Framework::key_ctrl = 0;
-bool Framework::drawing_profiler_graph = false;
-
-Framework *Framework::instance = NULL;
 

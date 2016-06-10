@@ -3,13 +3,14 @@
 
 
 #include <allegro_flare/file_path.h>
+
 #include <algorithm>
 #include <iostream>
-
-
-
-
 #include <locale>
+
+
+
+
 static bool __is_number(const std::string& s)
 {
 	std::locale loc;
@@ -17,6 +18,7 @@ static bool __is_number(const std::string& s)
     while (it != s.end() && std::isdigit(*it, loc)) ++it;
     return !s.empty() && it == s.end();
 }
+
 
 
 
@@ -90,8 +92,6 @@ const char *Path::find(std::string filename)
 
 
 
-
-
 void __recursive_traverse_dir(ALLEGRO_FS_ENTRY *folder, std::vector<ALLEGRO_PATH *> *path)
 {
 	if (al_open_directory(folder))
@@ -119,7 +119,12 @@ void __recursive_traverse_dir(ALLEGRO_FS_ENTRY *folder, std::vector<ALLEGRO_PATH
 }
 
 
+
+
 //#include <allegro_flare/profile_timer.h>
+
+
+
 
 std::string Path::find_from(std::string absolute_base_folder, std::string filename_to_find)
 	// returns the full file path from the current directory
@@ -160,7 +165,6 @@ std::string Path::find_from(std::string absolute_base_folder, std::string filena
 
 	return "";
 }
-
 
 
 
@@ -228,7 +232,6 @@ Path::~Path()
 
 
 
-
 void Path::str_out()
 {
 	get_instance();
@@ -238,7 +241,6 @@ void Path::str_out()
 		std::cout << al_path_cstr(path[i], ALLEGRO_NATIVE_PATH_SEP) << std::endl;
 	}
 }
-
 
 
 
@@ -263,3 +265,7 @@ void Path::rescan()
 
 Path *Path::instance = NULL;
 std::vector<ALLEGRO_PATH *> Path::path;
+
+
+
+

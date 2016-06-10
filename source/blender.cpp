@@ -1,6 +1,12 @@
+
+
+
+
 #include <allegro_flare/blender.h>
 
 #include <allegro5/allegro.h>
+
+
 
 
 void set_blender(blender_t type)
@@ -26,3 +32,7 @@ void set_blender(blender_t type)
 		break;
 	}
 }
+
+
+
+

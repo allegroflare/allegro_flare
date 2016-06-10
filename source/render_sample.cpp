@@ -1,14 +1,25 @@
+
+
+
+
 #include <allegro_flare/render_sample.h>
 
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_color.h>
-#include <allegro5/allegro_acodec.h>
-
 #include <iostream>
+#include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_primitives.h>
+
+
+
+
 using namespace std;
 
 
+
+
 bool do_cout = false;
+
+
 
 
 /*
@@ -36,6 +47,8 @@ static float inline get_f_sample_at(ALLEGRO_SAMPLE *sample, float pos, int chann
 	return 0;
 }
 */
+
+
 
 
 // This function returns a positive value between 0 and 1 of the maximum value between the given ranges.
@@ -86,11 +99,15 @@ static float inline get_max_f_sample_within(ALLEGRO_SAMPLE *sample, float pos_be
 static bool composite_stereo_render = true;
 
 
+
+
 void draw_wav_sample(ALLEGRO_BITMAP *dest, ALLEGRO_SAMPLE *sample)
 {
 	if (!sample) return;
 	draw_wav_sample(dest, sample, 0, al_get_sample_length(sample));
 }
+
+
 
 
 void draw_wav_sample(ALLEGRO_BITMAP *dest, ALLEGRO_SAMPLE *sample, float samp_start, float samp_end)
@@ -104,6 +121,8 @@ void draw_wav_sample(ALLEGRO_BITMAP *dest, ALLEGRO_SAMPLE *sample, float samp_st
 
 	al_set_target_bitmap(prev);
 }
+
+
 
 
 void draw_wav_sample(float x, float y, float width, float height, float samp_start, float samp_end, ALLEGRO_SAMPLE *sample)
@@ -176,3 +195,7 @@ void draw_wav_sample(float x, float y, float width, float height, float samp_sta
 
 	al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA);
 }
+
+
+
+

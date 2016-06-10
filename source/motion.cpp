@@ -1,7 +1,11 @@
 
 
 
+
 #include <allegro_flare/motion.h>
+
+#include <allegro5/allegro.h> // for al_get_time()
+
 
 
 
@@ -19,6 +23,7 @@ Motion::Node::Node()
 
 
 
+
 Motion::Node::Node(float *val, float start_time, float end_time, float start_val, float end_val,
 	float (*interpolator_func)(float), void (*callback_func)(void *data), void *callback_data)
 	: val(val)
@@ -31,6 +36,7 @@ Motion::Node::Node(float *val, float start_time, float end_time, float start_val
 	, callback_data(callback_data)
 	, active(true)
 { }
+
 
 
 
@@ -54,6 +60,7 @@ bool Motion::Node::update(float time_now)
 
 
 
+
 void Motion::Node::set(float *val, float start_time, float end_time, float start_val, float end_val,
 	float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data)
 {
@@ -67,6 +74,7 @@ void Motion::Node::set(float *val, float start_time, float end_time, float start
 	this->callback_func = callback_func;
 	this->callback_data = callback_data;
 }
+
 
 
 
@@ -85,8 +93,6 @@ void Motion::Node::clear()
 
 
 
-
-
 Motion::Motion(unsigned num_reserved)
 	: last_index(0)
 	, num_reserved(num_reserved)
@@ -94,6 +100,7 @@ Motion::Motion(unsigned num_reserved)
 	for (unsigned i=0; i<num_reserved; i++)
 		control.push_back(new Motion::Node());
 }
+
 
 
 
@@ -107,6 +114,7 @@ int Motion::get_new_index()
 
 
 
+
 void Motion::animate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data)
 {
 	int new_index = get_new_index();
@@ -116,7 +124,6 @@ void Motion::animate(float *val, float start_val, float end_val, float start_tim
 
 
 
-#include <allegro5/allegro.h> // for al_get_time()
 
 void Motion::move(float *val, float displacement, float duration, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data)
 {
@@ -125,6 +132,8 @@ void Motion::move(float *val, float displacement, float duration, float (*interp
 	control[new_index]->clear();
 	control[new_index]->set(val, time_now, time_now+duration, *val, *val+displacement, interpolator_func, callback_func, callback_data);
 }
+
+
 
 
 void Motion::move_to(float *val, float end_val, float duration, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data)
@@ -136,6 +145,8 @@ void Motion::move_to(float *val, float end_val, float duration, float (*interpol
 }
 
 
+
+
 void Motion::canimate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data)
 {
 	int new_index = get_new_index();
@@ -143,6 +154,8 @@ void Motion::canimate(float *val, float start_val, float end_val, float start_ti
 	control[new_index]->clear();
 	control[new_index]->set(val, start_time, end_time, start_val, end_val, interpolator_func, callback_func, callback_data);
 }
+
+
 
 
 void Motion::cmove(float *val, float displacement, float duration, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data)
@@ -153,6 +166,8 @@ void Motion::cmove(float *val, float displacement, float duration, float (*inter
 	control[new_index]->clear();
 	control[new_index]->set(val, time_now, time_now+duration, *val, *val+displacement, interpolator_func, callback_func, callback_data);
 }
+
+
 
 
 void Motion::cmove_to(float *val, float end_val, float duration, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data)
@@ -181,6 +196,7 @@ bool Motion::clear_animations_on(float *val)
 
 
 
+
 bool Motion::clear_animations_on(std::vector<float *> vals)
 {
 	bool found = false;
@@ -196,11 +212,13 @@ bool Motion::clear_animations_on(std::vector<float *> vals)
 
 
 
+
 void Motion::clear_all()
 {
 	for (unsigned c=0; c<control.size(); c++)
 		control[c]->clear();
 }
+
 
 
 
@@ -228,7 +246,6 @@ bool Motion::is_being_animated(float *val)
 
 
 
-
 int Motion::get_num_active_animations()
 {
 	int count = 0;
@@ -236,3 +253,7 @@ int Motion::get_num_active_animations()
 		if (control[i]->active) count++;
 	return count;
 }
+
+
+
+

@@ -1,8 +1,12 @@
 
 
 
+
 #include <allegro_flare/render_cache.h>
+
 #include <allegro_flare/color.h> // for color::transparent
+
+
 
 
 RenderCache::RenderCache()
@@ -13,6 +17,7 @@ RenderCache::RenderCache()
   , previous_depth(0)
   , dirty(true)
 {}
+
 
 
 
@@ -51,6 +56,7 @@ void RenderCache::setup_surface(int w, int h, int multisamples, int depth)
 
 
 
+
 void RenderCache::finish_surface()
 {
   al_set_new_bitmap_depth(previous_depth);
@@ -62,10 +68,12 @@ void RenderCache::finish_surface()
 
 
 
+
 void RenderCache::draw(float origin_x, float origin_y)
 {
   if (render) al_draw_bitmap(render, origin_x-padding, origin_y-padding, 0);
 }
+
 
 
 
@@ -76,6 +84,7 @@ void RenderCache::mark_as_dirty()
 
 
 
+
 void RenderCache::mark_as_clean()
 {
   dirty = false;
@@ -83,10 +92,12 @@ void RenderCache::mark_as_clean()
 
 
 
+
 bool RenderCache::is_dirty()
 {
   return dirty;
 }
+
 
 
 

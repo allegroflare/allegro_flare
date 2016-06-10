@@ -3,13 +3,16 @@
 
 
 #include <allegro_flare/file_path_object.h>
+
 #include <algorithm>
 #include <iostream>
-
-
-
-
 #include <locale>
+#include <sstream>
+#include <allegro_flare/profile_timer.h>
+
+
+
+
 static bool __is_number(const std::string& s)
 {
 	std::locale loc;
@@ -17,6 +20,7 @@ static bool __is_number(const std::string& s)
     while (it != s.end() && std::isdigit(*it, loc)) ++it;
     return !s.empty() && it == s.end();
 }
+
 
 
 
@@ -84,13 +88,6 @@ static void __recursive_traverse_dir(ALLEGRO_FS_ENTRY *folder, std::vector<ALLEG
 
 
 
-
-
-
-#include <allegro_flare/profile_timer.h>
-
-
-
 PathObject::PathObject(std::string root_directory)
 	: root(NULL)
 	, path()
@@ -129,10 +126,6 @@ PathObject::PathObject(std::string root_directory)
 
 
 
-
-
-#include <sstream>
-
 std::string PathObject::get_listing()
 {
 	std::stringstream ss;
@@ -148,7 +141,6 @@ std::string PathObject::get_listing()
 
 
 
-
 const char *PathObject::find(std::string filename)
 	// returns the full file path from the current directory
 	// this could be made more effecient with a binary search
@@ -158,8 +150,6 @@ const char *PathObject::find(std::string filename)
 			return al_path_cstr(path[i], ALLEGRO_NATIVE_PATH_SEP);
 	return "";
 }
-
-
 
 
 
@@ -190,14 +180,12 @@ int PathObject::_bfind(std::string filename)
 
 
 
-
 const char *PathObject::bfind(std::string filename)
 {
 	int found = _bfind(filename);
 	if (found == -1) return "";
 	return al_path_cstr(path[found], ALLEGRO_NATIVE_PATH_SEP);
 }
-
 
 
 
@@ -241,13 +229,11 @@ std::string PathObject::find_from(std::string absolute_base_folder, std::string 
 
 
 
-
 const char *PathObject::bfind_latest(std::string filename_pattern)
 {
 	std::cout << __FUNCTION__ << " is under construction.  Switching to find_latest()" << std::endl;
 	return find_latest(filename_pattern);
 }
-
 
 
 
@@ -310,7 +296,6 @@ std::vector<std::string> PathObject::find_all_versions(std::string filename)
 
 
 
-
 const char *PathObject::find_latest(std::string filename)
 	//TODO: make a bfind_latest
 	// find_latest doest not emplore a binary search, it's linear.
@@ -369,7 +354,6 @@ const char *PathObject::find_latest(std::string filename)
 
 
 
-
 int PathObject::get_num_items()
 {
 	return path.size();
@@ -396,7 +380,6 @@ PathObject::~PathObject()
 
 
 
-
 void PathObject::str_out()
 {
 	//get_instance();
@@ -406,7 +389,6 @@ void PathObject::str_out()
 		std::cout << al_path_cstr(path[i], ALLEGRO_NATIVE_PATH_SEP) << std::endl;
 	}
 }
-
 
 
 
@@ -431,3 +413,7 @@ void PathObject::rescan()
 
 //PathObject *PathObject::instance = NULL;
 //std::vector<ALLEGRO_PATH *> PathObject::path;
+
+
+
+

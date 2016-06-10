@@ -4,12 +4,12 @@
 
 #include <allegro_flare/clipboard.h>
 
-#include <allegro5/allegro.h>
-//#include <allegro5/allegro_osx.h>
-#include <unistd.h>
 #include <iostream>
-#include <stdlib.h>
 #include <sstream>
+#include <stdlib.h>
+#include <unistd.h>
+#include <allegro5/allegro.h>
+
 
 
 
@@ -74,5 +74,7 @@ std::string Clipboard::get()
 
   return text;
 }
+
+
 
 

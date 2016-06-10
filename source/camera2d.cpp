@@ -1,5 +1,7 @@
 
 
+
+
 #include <allegro_flare/camera2d.h>
 
 
@@ -12,6 +14,8 @@ projected_point_data::projected_point_data(float x, float y, float scale)
 {}
 
 
+
+
 /*
 	ALLEGRO_COLOR overlay_color;
 	float overlay_opacity;
@@ -21,6 +25,8 @@ projected_point_data::projected_point_data(float x, float y, float scale)
 	float x, y, w, h, align_x, align_y, scale_x, scale_y, rotation;
 	float z, home_z, depth;
 */
+
+
 
 
 Camera2D::Camera2D(float x, float y, float width, float height)
@@ -47,6 +53,8 @@ Camera2D::Camera2D(float x, float y, float width, float height)
 	//depth = 512;  // 512 is an accurate balance to where moving right 100px feels
 		            // proportionally the same distance as moving forward 100px
 }
+
+
 
 
 void Camera2D::start_transform()
@@ -77,10 +85,14 @@ void Camera2D::start_transform()
 }
 
 
+
+
 void Camera2D::restore_transform()
 {
 	al_restore_state(&previous_state);
 }
+
+
 
 
 /*
@@ -92,10 +104,14 @@ void Camera2D::target(float x, float y)
 */
 
 
+
+
 void Camera2D::translate_screen_to_world(vec2d *vec)
 {
 	translate_screen_to_world(&vec->x, &vec->y);
 }
+
+
 
 
 void Camera2D::translate_screen_to_world(float *x, float *y)
@@ -116,6 +132,8 @@ void Camera2D::translate_screen_to_world(float *x, float *y)
 }
 
 
+
+
 void Camera2D::translate_world_to_screen(vec2d *vec)
 	// has not been tested
 {
@@ -129,6 +147,7 @@ void Camera2D::translate_world_to_screen(vec2d *vec)
 
 
 
+
 float Camera2D::get_scale(float world_z)
 {
 	float distance_from_camera = z - world_z;
@@ -139,6 +158,8 @@ float Camera2D::get_scale(float world_z)
 }
 
 
+
+
 projected_point_data Camera2D::get_projected_point(float world_x, float world_y, float world_z)
 {
 	/*
@@ -147,3 +168,7 @@ projected_point_data Camera2D::get_projected_point(float world_x, float world_y,
 	*/
 	return projected_point_data(0, 0, 1);
 }
+
+
+
+

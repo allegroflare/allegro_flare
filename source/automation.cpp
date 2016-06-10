@@ -1,5 +1,8 @@
-#include <allegro_flare/automation.h>
 
+
+
+
+#include <allegro_flare/automation.h>
 
 #include <allegro_flare/useful.h>
 
@@ -12,13 +15,14 @@ namespace automation
 
 
 
-
 std::string BasicScriptReader::remove_comments(std::string &line)
 {
 	std::size_t comment_pos = line.find("//");
 	if (comment_pos == std::string::npos) return line;
 	else return line.substr(0, comment_pos);
 }
+
+
 
 
 BasicScriptReader::BasicScriptReader(std::string script)
@@ -28,11 +32,15 @@ BasicScriptReader::BasicScriptReader(std::string script)
 };
 
 
+
+
 bool BasicScriptReader::at_end()
 {
 	if (current_line_index >= lines.size()) return true;
 	return false;
 }
+
+
 
 
 std::string BasicScriptReader::get_next_line(bool remove_comments)
@@ -43,7 +51,9 @@ std::string BasicScriptReader::get_next_line(bool remove_comments)
 
 
 
-
+//
+// Actor
+//
 
 
 
@@ -57,6 +67,7 @@ Actor::Actor(std::string identifier, actor_t type)
 
 
 
+
 Timeline::Track *Actor::get_param_by_id(const char *id)
 {
 	for (unsigned i=0; i<params.size(); i++)
@@ -64,6 +75,7 @@ Timeline::Track *Actor::get_param_by_id(const char *id)
 	std::cout << "cannot find param \"" << identifier << "." << id << "\"" << std::endl;
 	return NULL;
 }
+
 
 
 
@@ -92,9 +104,9 @@ void Actor::load_script(std::string script_filename)
 
 
 
-
-
-
+//
+// Actor2D
+// 
 
 
 
@@ -105,6 +117,7 @@ Actor2D::Actor2D(std::string identifier, ALLEGRO_BITMAP *bitmap)
 {
 	register_params();
 }
+
 
 
 
@@ -121,6 +134,7 @@ void Actor2D::register_params()
 	params.push_back(new Timeline::Track(0, "rotation"));
 	params.push_back(new Timeline::Track(1, "opacity"));
 }
+
 
 
 
@@ -142,6 +156,9 @@ void Actor2D::render(double time)
 
 
 
+//
+// ActorManager
+//
 
 
 
@@ -196,6 +213,7 @@ Actor *ActorManager::get_actor_by_id(const char *id)
 
 
 
+
 void ActorManager::render(double time)
 {
 	for (unsigned i=0; i<actors.size(); i++)
@@ -205,5 +223,8 @@ void ActorManager::render(double time)
 
 
 
-
 } // (end namespace automation)
+
+
+
+

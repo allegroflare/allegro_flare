@@ -1,13 +1,18 @@
 
 
+
+
 #include <allegro_flare/clipboard.h>
+
 #include <iostream>
+
 
 
 
 Clipboard::Clipboard()
 	: __text()
 {}
+
 
 
 
@@ -19,11 +24,13 @@ Clipboard *Clipboard::get_instance()
 
 
 
+
 void Clipboard::set(std::string text)
 {
 	std::cout << "Copying to clipboard (Your OS is not supported; Using internal clipboard)" << std::endl;
 	Clipboard::get_instance()->__text = text;
 }
+
 
 
 
@@ -35,7 +42,9 @@ std::string Clipboard::get()
 
 
 
+
 Clipboard *Clipboard::instance = NULL;
+
 
 
 

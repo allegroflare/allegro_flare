@@ -1,16 +1,16 @@
 
 
 
+
 #include <allegro_flare/model3d.h>
 
-#include <iostream>
 #include <cstdio>
-
-#include <allegro5/allegro_primitives.h>
+#include <iostream>
 #include <allegro5/allegro_color.h>
-
-#include <allegro_flare/vec3d.h>
+#include <allegro5/allegro_primitives.h>
 #include <allegro_flare/console_color.h>
+#include <allegro_flare/vec3d.h>
+
 
 
 
@@ -29,6 +29,7 @@ Model3D::Model3D()
 
 	vertex_declaration = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX_WITH_NORMAL));
 }
+
 
 
 
@@ -216,11 +217,13 @@ bool Model3D::load_obj_file(const char *filename, float scale)
 
 
 
+
 void Model3D::inspect()
 {
 	for (unsigned i=0; i<vertexes.size(); i++)
 		printf("[%d] %f %f %f : %f %f : %f %f %f\n", i, vertexes[i].x, vertexes[i].y, vertexes[i].z, vertexes[i].u, vertexes[i].v, vertexes[i].nx, vertexes[i].ny, vertexes[i].nz);
 }
+
 
 
 
@@ -231,10 +234,12 @@ int Model3D::get_num_vertexes()
 
 
 
+
 int Model3D::get_num_named_objects()
 {
 	return named_objects.size();
 }
+
 
 
 
@@ -259,6 +264,7 @@ void Model3D::draw()
 
 
 
+
 bool Model3D::draw_object(int index)
 {
 	if (index < 0 || index > (int)named_objects.size()) return false;
@@ -271,6 +277,7 @@ bool Model3D::draw_object(int index)
 
 	return true;
 }
+
 
 
 
@@ -290,10 +297,12 @@ bool Model3D::draw_object(std::string name)
 
 
 
+
 void Model3D::set_texture(ALLEGRO_BITMAP *tx)
 {
 	texture = tx;
 }
+
 
 
 
@@ -303,6 +312,7 @@ bool Model3D::set_named_object_texture(int index, ALLEGRO_BITMAP *tx)
 	named_objects[index].texture = tx;
 	return true;
 }
+
 
 
 
@@ -322,6 +332,7 @@ bool Model3D::set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *
 
 
 
+
 void Model3D::scale(float scale)
 {
 	for (unsigned i=0; i<vertexes.size(); i++)
@@ -331,6 +342,7 @@ void Model3D::scale(float scale)
 		vertexes[i].z *= scale;
 	}
 }
+
 
 
 
@@ -350,6 +362,7 @@ vec3d Model3D::get_min_vertex_coordinate()
 
 
 
+
 vec3d Model3D::get_max_vertex_coordinate()
 {
 	if (vertexes.empty()) return vec3d(0, 0, 0);
@@ -363,6 +376,7 @@ vec3d Model3D::get_max_vertex_coordinate()
 	}
 	return max_coord;
 }
+
 
 
 

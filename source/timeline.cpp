@@ -1,14 +1,12 @@
 
 
-#include <allegro_flare/timeline.h>
 
+
+#include <allegro_flare/timeline.h>
 
 #include <algorithm>
 #include <sstream>
-
-
 #include <allegro_flare/interpolators.h>
-
 
 
 
@@ -21,13 +19,11 @@ Timeline::Keyframe::Keyframe(float time, float val, float (*interpolator_func)(f
 
 
 
+
 static bool keyframe_sort_func(const Timeline::Keyframe *k1, const Timeline::Keyframe *k2)
 {
 	return k1->time < k2->time;
 }
-
-
-
 
 
 
@@ -62,6 +58,9 @@ float Timeline::Track::get_displacement(float t1, float t2)
 {
 	return get(t2) - get(t1);
 }
+
+
+
 
 float Timeline::Track::get(float time)
 {
@@ -109,4 +108,7 @@ std::string Timeline::Track::get_str()
 
 	return ss.str();
 }
+
+
+
 

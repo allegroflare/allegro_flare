@@ -1,11 +1,11 @@
 
 
 
+
 #include <allegro_flare/grid2d.h>
 
 #include <algorithm>
-
-
+#include <allegro_flare/useful.h> // to replace the issues surrounding std::sprintf
 
 
 
@@ -17,10 +17,12 @@ grid2d::grid2d()
 
 
 
+
 void grid2d::add_horizontal_guide(float x)
 {
 	horizontal_guide.push_back(x);
 }
+
 
 
 
@@ -31,11 +33,14 @@ void grid2d::add_vertical_guide(float y)
 
 
 
+
 float grid2d::get_max_horizontal_guide()
 {
 	std::vector<float>::iterator it = std::max_element(horizontal_guide.begin(), horizontal_guide.end());
 	return (it==horizontal_guide.end()) ? 0 : *it;
 }
+
+
 
 
 float grid2d::get_max_vertical_guide()
@@ -46,6 +51,7 @@ float grid2d::get_max_vertical_guide()
 
 
 
+
 float grid2d::get_min_horizontal_guide()
 {
 	std::vector<float>::iterator it = std::min_element(horizontal_guide.begin(), horizontal_guide.end());
@@ -53,11 +59,14 @@ float grid2d::get_min_horizontal_guide()
 }
 
 
+
+
 float grid2d::get_min_vertical_guide()
 {
 	std::vector<float>::iterator it = std::min_element(vertical_guide.begin(), vertical_guide.end());
 	return (it==vertical_guide.end()) ? 0 : *it;
 }
+
 
 
 
@@ -80,6 +89,7 @@ int grid2d::get_closest_horizontal_guide_index(float x, float threshold)
 
 
 
+
 int grid2d::get_closest_vertical_guide_index(float y, float threshold)
 {
 	int index = 0;
@@ -96,6 +106,7 @@ int grid2d::get_closest_vertical_guide_index(float y, float threshold)
 	}
 	return index;
 }
+
 
 
 
@@ -124,6 +135,7 @@ int grid2d::get_closest_coordinate_index_to_the_left(float x)
 
 
 
+
 int grid2d::get_closest_coordinate_index_above(float y)
 {
 	float closest = 0;
@@ -149,12 +161,14 @@ int grid2d::get_closest_coordinate_index_above(float y)
 
 
 
+
 vec2d grid2d::get_closest_coordinates(float x, float y, float threshold)
 {
 	int hgi = get_closest_horizontal_guide_index(x);
 	int vgi = get_closest_vertical_guide_index(y);
 	return vec2d(get_horizontal_guide_pos(hgi), get_vertical_guide_pos(vgi));
 }
+
 
 
 
@@ -195,6 +209,7 @@ vec2d grid2d::get_closest_left_coordinate(float x, float y)
 
 
 
+
 void grid2d::draw_guides(ALLEGRO_COLOR color)
 {
 	float left = get_min_horizontal_guide();
@@ -218,8 +233,6 @@ void grid2d::draw_guides(ALLEGRO_COLOR color)
 }
 
 
-//#include <cstdio> // for std::sprintf
-#include <allegro_flare/useful.h> // to replace the issues surrounding std::sprintf
 
 
 void grid2d::draw_guide_numbers(ALLEGRO_FONT *font, float padding, ALLEGRO_COLOR color)
@@ -255,12 +268,14 @@ void grid2d::draw_guide_numbers(ALLEGRO_FONT *font, float padding, ALLEGRO_COLOR
 
 
 
+
 float grid2d::get_horizontal_guide_pos(int index)
 {
 	if (index < 0) return 0;
 	if (index >= (int)horizontal_guide.size()) return 0;
 	return horizontal_guide[index];
 }
+
 
 
 
@@ -278,3 +293,7 @@ vec2d grid2d::get_guide_pos(int x_index, int y_index)
 {
 	return vec2d(get_horizontal_guide_pos(x_index), get_vertical_guide_pos(y_index));
 }
+
+
+
+

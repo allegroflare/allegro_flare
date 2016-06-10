@@ -1,4 +1,10 @@
+
+
+
+
 #include <allegro_flare/path2d.h>
+
+#include <iostream>
 //#include <allegro_flare/text_object.h>
 #include <allegro_flare/useful.h>
 #include <allegro_flare/useful_php.h>
@@ -21,10 +27,10 @@ SegmentInfo::SegmentInfo(vec2d &start, vec2d &end)
 
 
 
-
 path2d::path2d()
 	: _length(0.0f)
 { }
+
 
 
 
@@ -44,6 +50,7 @@ path2d::~path2d()
 
 
 
+
 path2d &path2d::add_point(float x, float y, bool refresh)
 {
 	point.push_back(vec2d(x, y));
@@ -58,6 +65,7 @@ path2d &path2d::add_point(float x, float y, bool refresh)
 
 	return *this;
 }
+
 
 
 
@@ -79,6 +87,7 @@ path2d &path2d::add_arc(float center_x, float center_y, float radius_x, float ra
 
 	return *this;
 }
+
 
 
 
@@ -106,6 +115,7 @@ path2d &path2d::make_arc(int first_index, float arc_strength, int num_segments, 
 
 
 
+
 path2d &path2d::clear()
 {
 	//for (int i=0; i<(int)point.size(); i++) delete point[i];
@@ -118,7 +128,8 @@ path2d &path2d::clear()
 }
 
 
-#include <iostream>
+
+
 path2d &path2d::concat(path2d &path)
 {
 	if (this == &path) { std::cout << "[path2d::concat] cannot concat to self (line " + tostring(__LINE__) + ")"; return *this; } // prevent self-appending
@@ -140,7 +151,9 @@ vec2d path2d::top_left() { return _top_left; }
 
 
 
+
 vec2d path2d::bottom_right() { return _bottom_right; }
+
 
 
 
@@ -148,7 +161,9 @@ float path2d::width() { return _bottom_right.x - _top_left.x; }
 
 
 
+
 float path2d::height() { return _bottom_right.y - _top_left.y; }
+
 
 
 
@@ -157,6 +172,7 @@ path2d &path2d::top_left(float x, float y)
 	vec2d disp = vec2d(x, y) - _top_left;
 	return move(disp.x, disp.y);
 }
+
 
 
 
@@ -195,7 +211,7 @@ void path2d::set_shape_color(ALLEGRO_COLOR col)
 
 
 
-#include <iostream>
+
 path2d &path2d::append(path2d &path)
 {
 	if (this == &path) { std::cout << "[path2d::append] cannot append to self (line " + tostring(__LINE__) + ")"; return *this; } // prevent self-appending
@@ -208,6 +224,7 @@ path2d &path2d::append(path2d &path)
 
 	return *this;
 }
+
 
 
 
@@ -235,6 +252,7 @@ vec2d path2d::coordinate_at(float dist)
 
 
 
+
 path2d &path2d::rotate(float angle, float anchor_x, float anchor_y)
 {
 	ALLEGRO_TRANSFORM t;
@@ -250,10 +268,12 @@ path2d &path2d::rotate(float angle, float anchor_x, float anchor_y)
 
 
 
+
 path2d &path2d::rotate(float angle, vec2d pivot)
 {
 	return rotate(angle, pivot.x, pivot.y);
 }
+
 
 
 
@@ -285,6 +305,7 @@ path2d &path2d::flip_v()
 
 
 
+
 path2d &path2d::flip_h()
 {
 	// this can be optimized
@@ -302,6 +323,7 @@ path2d &path2d::flip_h()
 
 	return *this;
 }
+
 
 
 
@@ -354,10 +376,12 @@ void path2d::refresh_segment_info()
 
 
 
+
 float path2d::length()
 {
 	return _length;
 }
+
 
 
 
@@ -412,6 +436,7 @@ path2d &path2d::soften()
 
 
 
+
 path2d &path2d::move(float x, float y)
 {
 	for (int i=0; i<(int)point.size(); i++)
@@ -436,10 +461,13 @@ path2d &path2d::move(float x, float y)
 
 
 
+
 path2d &path2d::to_origin()
 {
 	return this->move_start_to(0,0);
 }
+
+
 
 
 path2d &path2d::move_start_to(float x, float y)
@@ -449,6 +477,7 @@ path2d &path2d::move_start_to(float x, float y)
 
 	return *this;
 }
+
 
 
 
@@ -462,6 +491,7 @@ path2d &path2d::move_end_to(float x, float y)
 
 
 
+
 path2d &path2d::scale(float s)
 {
 	return this->scale(s, s);
@@ -469,10 +499,13 @@ path2d &path2d::scale(float s)
 
 
 
+
 path2d &path2d::scale_to(float w, float h)
 {
 	return scale(w/width(), h/height());
 }
+
+
 
 
 path2d &path2d::scale(float x, float y)
@@ -489,9 +522,10 @@ path2d &path2d::scale(float x, float y)
 
 
 
-path2d &path2d::resegment(int num_segments, bool refresh)
+
 // this function will take the whole path and split it into
 // num_segments of equal length, traveling along the path.
+path2d &path2d::resegment(int num_segments, bool refresh)
 {
 	if (num_segments <= 1) return *this;
 
@@ -556,6 +590,7 @@ float path2d::length_to(int index)
 
 	return len;
 }
+
 
 
 
@@ -625,7 +660,6 @@ const path2d &path2d::copy_to(path2d *dest) const
 
 
 
-
 path2d *path2d::create_copy()
 {
 	path2d *dest = new path2d;
@@ -667,8 +701,8 @@ bool path2d::load(std::string filename)
 
 
 
+// this is experimental and incomplete
 bool path2d::load_eps(std::string filename)
-	// this is experimental and probably incomplete
 {
 	clear();
 
@@ -736,6 +770,8 @@ void path2d::update_vertexs()
 }
 
 
+
+
 /*
 void path2d::draw_shape(ALLEGRO_BITMAP *image)
 {
@@ -747,10 +783,12 @@ void path2d::draw_shape(ALLEGRO_BITMAP *image)
 
 
 
+
 void path2d::draw_shape(ALLEGRO_COLOR color)
 {
 	al_draw_filled_polygon(&point[0].x, point.size(), color);
 }
+
 
 
 
@@ -812,6 +850,7 @@ path2d *path2d::create_extrapolation(float radian, float theta)
 
 
 
+
 path2d::path2d(const path2d &source)
 {
 	source.copy_to(this);
@@ -848,6 +887,7 @@ bool path2d::within_range(float x)
 
 
 
+
 float path2d::get_y(float x)
 	// assumes within_range() is true
 	// this is too slow for practical real-time usage
@@ -871,5 +911,7 @@ float path2d::get_y(float x)
 	vec2d point = (rpoint - lpoint) * percentage_between + lpoint;
 	return point.y;
 }
+
+
 
 

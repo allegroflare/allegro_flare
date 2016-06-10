@@ -1,16 +1,18 @@
 
 
+
+
 #include <allegro_flare/profile_timer.h>
 
-#include <vector>
 #include <algorithm>
-
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_color.h>
-
 #include <sstream>
 #include <stdio.h>
+#include <vector>
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_ttf.h>
+
+
 
 
 #ifdef _MSC_VER
@@ -23,10 +25,15 @@
 #endif
 
 
+
+
 ProfilerBuilder *ProfilerBuilder::dummy = NULL;
 
 
+
+
 #define MAX_TIMER_NAME_LEN 64
+
 
 
 
@@ -40,6 +47,8 @@ static int int_comp(int i1, int i2)
 */
 
 
+
+
 class profile_timer_class
 {
 public:
@@ -49,9 +58,13 @@ public:
 };
 
 
+
+
 bool timerRecordPresidence(const profile_timer_class *a, const profile_timer_class *b) {
 	return (strcmp(a->name, b->name)<0);
 }
+
+
 
 
 class Profiler
@@ -210,9 +223,12 @@ public:
 		al_draw_line(x+ALLEGRO_BPS_TO_SECS(72)*10000, y, x+ALLEGRO_BPS_TO_SECS(72)*10000, y+h, limit_bar_color, 1.0);
 	}
 };
+
 Profiler *Profiler::instance = NULL;
 ALLEGRO_COLOR Profiler::bg_color, Profiler::bar_color, Profiler::font_color, Profiler::limit_bar_color;
 ALLEGRO_FONT *Profiler::font = NULL;
+
+
 
 
 void start_profile_timer(const char64_t name)
@@ -220,17 +236,30 @@ void start_profile_timer(const char64_t name)
 	Profiler::get_instance()->start_timer(name);
 }
 
+
+
+
 void stop_profile_timer(const char64_t name, PROFILE_TIMER_TIME_T time_at)
 {
 	Profiler::get_instance()->stop_timer(name, time_at);
 }
+
+
+
 
 PROFILE_TIMER_TIME_T get_profile_timer_length(const char64_t name)
 {
 	return Profiler::get_instance()->get_duration(name);
 }
 
+
+
+
 void draw_profile_timer_graph(float x, float y)
 {
 	Profiler::get_instance()->draw(x, y);
 }
+
+
+
+

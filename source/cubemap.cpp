@@ -1,10 +1,11 @@
 
 
 
+
 #include <allegro_flare/cubemap.h>
-#include <allegro_flare/console_color.h>
 
 #include <iostream>
+#include <allegro_flare/console_color.h>
 
 
 
@@ -14,6 +15,7 @@ bool glsl_destroy_cubemap_texture(ALLEGRO_FLARE_CUBEMAP_TEXTURE *texture)
 	// todo
 	return false;
 }
+
 
 
 

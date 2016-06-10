@@ -1,7 +1,20 @@
 
 
 
+
 #include <allegro_flare/decorated_cout.h>
+
+
+
+
+const char *DecoratedCout::log_filename = "af_log.txt";
+int DecoratedCout::instances = 0;
+std::ofstream DecoratedCout::log_file;
+const char *DecoratedCout::CONSOLE_RED = "\033[1;31m";
+const char *DecoratedCout::CONSOLE_YELLOW = "\033[1;33m";
+const char *DecoratedCout::CONSOLE_GREEN = "\033[1;32m";
+const char *DecoratedCout::CONSOLE_BLUE = "\033[1;36m";
+const char *DecoratedCout::CONSOLE_DEFAULT = "\033[0m";
 
 
 
@@ -14,6 +27,7 @@ DecoratedCout::DecoratedCout(const char *prefix, const char *console_color, bool
    if (instances == 0) log_file.open(log_filename);
    instances++;
 }
+
 
 
 
@@ -48,15 +62,5 @@ DecoratedCout& DecoratedCout::operator<< (std::ostream& (*f)(std::ios_base &)) {
 }
 
 
-
-
-const char *DecoratedCout::log_filename = "af_log.txt";
-int DecoratedCout::instances = 0;
-std::ofstream DecoratedCout::log_file;
-const char *DecoratedCout::CONSOLE_RED = "\033[1;31m";
-const char *DecoratedCout::CONSOLE_YELLOW = "\033[1;33m";
-const char *DecoratedCout::CONSOLE_GREEN = "\033[1;32m";
-const char *DecoratedCout::CONSOLE_BLUE = "\033[1;36m";
-const char *DecoratedCout::CONSOLE_DEFAULT = "\033[0m";
 
 

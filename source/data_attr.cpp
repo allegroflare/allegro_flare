@@ -2,10 +2,9 @@
 
 
 
-
-
 #include <allegro_flare/data_attr.h>
 
+#include <allegro_flare/useful_php.h>
 
 
 
@@ -30,6 +29,7 @@ bool DataAttr::has(std::string key)
 
 
 
+
 bool DataAttr::remove(std::string key)
 {
 	std::map<std::string, std::string>::iterator it=data.find(key);
@@ -37,6 +37,7 @@ bool DataAttr::remove(std::string key)
 	data.erase(it);
 	return true;
 }
+
 
 
 
@@ -87,7 +88,6 @@ std::string DataAttr::get_as_string(std::string key)
 
 
 
-#include <allegro_flare/useful_php.h>
 
 bool DataAttr::get_as_bool(std::string key)
 {
@@ -102,6 +102,7 @@ bool DataAttr::get_as_bool(std::string key)
 
 	return true; // eh... ok, screw it. :/
 }
+
 
 
 
@@ -134,6 +135,7 @@ DataAttr::~DataAttr()
 
 
 
+
 /*
 DataAttr *DataAttr::get_element_by_id(std::string id)
 {
@@ -153,6 +155,7 @@ DataAttr *DataAttr::get_element_by_id(std::string id)
 	return NULL;
 }
 */
+
 
 
 
@@ -245,7 +248,12 @@ unsigned DataAttr::size()
 
 
 
+
 std::map<std::string, std::string> DataAttr::get_copy()
 {
 	return data;
 }
+
+
+
+

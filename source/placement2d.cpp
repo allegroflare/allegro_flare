@@ -1,10 +1,13 @@
 
 
+
+
 #include <allegro_flare/placement2d.h>
 
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_color.h>
 #include <sstream>
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_primitives.h>
+
 
 
 
@@ -75,10 +78,12 @@ void placement2d::draw_origin()
 
 
 
+
 void placement2d::restore_transform()
 {
 	al_use_transform(&previous_transform);
 }
+
 
 
 
@@ -92,6 +97,7 @@ void placement2d::draw_box(ALLEGRO_COLOR color, bool draw_origin)
 
 
 
+
 void placement2d::draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, float pt, float pr, float pb, float pl)
 {
 	if (draw_origin) al_draw_circle(position.x, position.y, 5, color, 3.0);
@@ -100,6 +106,8 @@ void placement2d::draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, f
 	al_draw_rectangle(-pl, -pt, size.x+pr, size.y+pb, al_map_rgba_f(color.r*0.5, color.g*0.5, color.b*0.5, color.a*0.5), 3.0);
 	restore_transform();
 }
+
+
 
 
 void placement2d::transform_coordinates(float *xx, float *yy)
@@ -117,6 +125,7 @@ void placement2d::transform_coordinates(float *xx, float *yy)
 	al_invert_transform(&transform);
 	al_transform_coordinates(&transform, xx, yy);
 }
+
 
 
 
@@ -139,6 +148,7 @@ void placement2d::place_coordinates(float *x, float *y)
 
 
 
+
 bool placement2d::collide(float x, float y)
 {
 	transform_coordinates(&x, &y);
@@ -153,6 +163,7 @@ bool placement2d::collide(float x, float y)
 
 
 
+
 bool placement2d::collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left)
 {
 	transform_coordinates(&x, &y);
@@ -163,6 +174,8 @@ bool placement2d::collide(float x, float y, float padding_top, float padding_rig
 	if (y > size.y+padding_bottom) return false;
 	return true;
 }
+
+
 
 
 void placement2d::clear()
@@ -182,9 +195,14 @@ void placement2d::clear()
 
 
 
+
 std::string placement2d::get_string()
 {
 	std::stringstream ss;
 	ss << "x" << position.x << " y" << position.y << " w" << size.x << " h" << size.y;
 	return ss.str();
 }
+
+
+
+

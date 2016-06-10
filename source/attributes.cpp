@@ -6,6 +6,8 @@
 
 #include <cstdio>
 #include <cstring>
+#include <fstream>
+
 
 
 
@@ -16,6 +18,7 @@
 //
 //
 //
+
 
 
 
@@ -86,6 +89,7 @@ std::vector<DatatypeDefinition> DatatypeDefinition::definitions;
 
 
 
+
 //
 //
 //
@@ -96,7 +100,9 @@ std::vector<DatatypeDefinition> DatatypeDefinition::definitions;
 
 
 
+
 std::vector<std::string> Attributes::denied_custom_types = {"int", "float", "bool", "string"};
+
 
 
 
@@ -291,7 +297,6 @@ bool Attributes::set(std::string key, std::string datatype, void *value)
 
 
 
-#include <fstream>
 
 bool Attributes::save(std::string filename)
 {

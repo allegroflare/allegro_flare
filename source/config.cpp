@@ -1,4 +1,6 @@
 
+
+
 #include <allegro_flare/config.h>
 
 #include <iostream>
@@ -60,6 +62,7 @@ float ConfigSettings::get_value_float(std::string section, std::string key)
 	if (!val) return 0;
 	return atof(val);
 }
+
 
 
 

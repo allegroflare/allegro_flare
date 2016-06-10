@@ -1,7 +1,11 @@
 
 
+
+
 #include <allegro_flare/display.h>
+
 #include <allegro_flare/allegro_flare.h>
+
 
 
 
@@ -11,6 +15,7 @@ Display *Display::find_display(ALLEGRO_DISPLAY *al_display)
 		if (al_display == displays[i]->al_display) return displays[i];
 	return NULL;
 }
+
 
 
 
@@ -35,6 +40,7 @@ Display::Display(int width, int height, int display_flags)
 
 
 
+
 void Display::display_close_func()
 {
 	Framework::shutdown_program = true;
@@ -42,7 +48,9 @@ void Display::display_close_func()
 
 
 
+
 std::vector<Display *> Display::displays;
+
 
 
 
@@ -53,10 +61,12 @@ float Display::center() { return _width/2; }
 
 
 
+
 void Display::set_as_target_bitmap()
 {
 	al_set_target_bitmap(al_get_backbuffer(al_display));
 }
+
 
 
 
@@ -66,10 +76,14 @@ void Display::flip()
 }
 
 
+
+
 void Display::background_color(const ALLEGRO_COLOR &color)
 {
 	_background_color = color;
 }
+
+
 
 
 void Display::clear()
@@ -100,6 +114,7 @@ void Display::clear()
 
 	al_draw_prim(&v[0], NULL, 0, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
 }
+
 
 
 

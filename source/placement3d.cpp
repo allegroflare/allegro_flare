@@ -2,8 +2,8 @@
 
 
 
-
 #include <allegro_flare/placement3d.h>
+
 #include <allegro_flare/useful.h> // just for #define TAU
 
 
@@ -20,6 +20,7 @@ placement3d::placement3d()
 
 
 
+
 placement3d::placement3d(float x, float y, float z)
 	: position(x, y, z)
 	, size(0, 0, 0)
@@ -31,6 +32,7 @@ placement3d::placement3d(float x, float y, float z)
 
 
 
+
 placement3d::placement3d(vec3d position)
 	: position(position.x, position.y, position.z)
 	, size(0, 0, 0)
@@ -39,6 +41,7 @@ placement3d::placement3d(vec3d position)
 	, anchor(0, 0, 0)
 	, rotation(0, 0, 0)
 {}
+
 
 
 
@@ -55,10 +58,12 @@ void placement3d::start_transform()
 
 
 
+
 void placement3d::restore_transform()
 {
 	al_use_transform(&previous_transform);
 }
+
 
 
 
@@ -82,6 +87,7 @@ void placement3d::build_transform(ALLEGRO_TRANSFORM *transform)
 
 
 
+
 void placement3d::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
 {
    al_identity_transform(transform);
@@ -102,6 +108,7 @@ void placement3d::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
 
 
 
+
 vec3d placement3d::get_real_position()
 {
    vec3d real_position(0, 0, 0);
@@ -115,6 +122,7 @@ vec3d placement3d::get_real_position()
 
 
 
+
 placement3d& placement3d::operator+=(const placement3d& other)
 {
    position += other.position;
@@ -125,6 +133,7 @@ placement3d& placement3d::operator+=(const placement3d& other)
    rotation += other.rotation;
    return *this;
 }
+
 
 
 

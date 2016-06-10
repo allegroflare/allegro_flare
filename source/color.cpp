@@ -1,11 +1,13 @@
 
 
-#include <allegro_flare/color.h>
-#include <math.h>
-#include <cmath>
-#include <sstream>
-#include <algorithm>
 
+
+#include <allegro_flare/color.h>
+
+#include <algorithm>
+#include <cmath>
+#include <math.h>
+#include <sstream>
 
 
 
@@ -21,8 +23,6 @@ float blend_op::divide(float val1, float val2) { return val1 / val2; }
 
 
 
-
-
 ALLEGRO_COLOR color(const char *color_name, float alpha) // maybe remove this function?
 {
 	ALLEGRO_COLOR col = al_color_name(color_name);
@@ -34,6 +34,8 @@ ALLEGRO_COLOR color(const char *color_name, float alpha) // maybe remove this fu
 }
 
 
+
+
 ALLEGRO_COLOR color(ALLEGRO_COLOR color, float alpha) // maybe rename to "adjust_alpha"
 {
 	color.a *= alpha;
@@ -42,6 +44,8 @@ ALLEGRO_COLOR color(ALLEGRO_COLOR color, float alpha) // maybe rename to "adjust
 	color.b *= alpha;
 	return color;
 }
+
+
 
 
 ALLEGRO_COLOR hex(const char *hex, float alpha)
@@ -55,6 +59,8 @@ ALLEGRO_COLOR hex(const char *hex, float alpha)
 }
 
 
+
+
 ALLEGRO_COLOR name(const char *name, float alpha)
 {
 	ALLEGRO_COLOR color = al_color_name(name);
@@ -66,10 +72,13 @@ ALLEGRO_COLOR name(const char *name, float alpha)
 }
 
 
+
+
 ALLEGRO_COLOR rgb(float r, float g, float b, float alpha)
 {
 	return al_map_rgba_f(r, g, b, alpha);
 }
+
 
 
 
@@ -83,17 +92,12 @@ ALLEGRO_COLOR hsl(float h, float s, float l, float alpha)
 
 
 
-
-
-
 std::string get_css_str(ALLEGRO_COLOR &col)
 {
 	std::stringstream ss;
 	ss << "rgba(" << (int)(col.r * 255) << ", " << (int)(col.g * 255) << ", " << (int)(col.b * 255) << ", " << col.a << ")";
 	return ss.str();
 }
-
-
 
 
 
@@ -110,6 +114,7 @@ ALLEGRO_COLOR mix(const ALLEGRO_COLOR &col1, const ALLEGRO_COLOR &col2, float sc
 
 
 
+
 void change_alpha(ALLEGRO_COLOR &color, float alpha)
 {
 	color.a *= alpha;
@@ -117,6 +122,9 @@ void change_alpha(ALLEGRO_COLOR &color, float alpha)
 	color.g *= color.a;
 	color.b *= color.a;
 }
+
+
+
 
 void change_hue(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1, float op2))
 {
@@ -129,6 +137,9 @@ void change_hue(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1
 	color.a = a;
 }
 
+
+
+
 void change_saturation(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1, float op2))
 {
 	float h, s, l, a=color.a;
@@ -137,6 +148,9 @@ void change_saturation(ALLEGRO_COLOR &color, float amount, float (*operation)(fl
 	color = al_color_hsl(h, s, l);
 	color.a = a;
 }
+
+
+
 
 void change_lightness(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1, float op2))
 {
@@ -147,6 +161,9 @@ void change_lightness(ALLEGRO_COLOR &color, float amount, float (*operation)(flo
 	color.a = a;
 }
 
+
+
+
 void change_value(ALLEGRO_COLOR &color, float amount, float (*operation)(float op1, float op2))
 {
 	float h, s, v, a=color.a;
@@ -155,6 +172,9 @@ void change_value(ALLEGRO_COLOR &color, float amount, float (*operation)(float o
 	color = al_color_hsl(h, s, v);
 	color.a = a;
 }
+
+
+
 
 float get_lightness(ALLEGRO_COLOR &color)
 {
@@ -166,38 +186,42 @@ float get_lightness(ALLEGRO_COLOR &color)
 
 
 
-
-
-
-
 void change_hue(ALLEGRO_BITMAP *bitmap, float amount, float (*operation)(float op1, float op2))
 {
 	adjust_image(bitmap, amount, color::change_hue, operation);
 }
+
+
+
 
 void change_saturation(ALLEGRO_BITMAP *bitmap, float amount, float (*operation)(float op1, float op2))
 {
 	adjust_image(bitmap, amount, color::change_saturation, operation);
 }
 
+
+
+
 void change_lightness(ALLEGRO_BITMAP *bitmap, float amount, float (*operation)(float op1, float op2))
 {
 	adjust_image(bitmap, amount, color::change_lightness, operation);
 }
+
+
+
 
 void change_value(ALLEGRO_BITMAP *bitmap, float amount, float (*operation)(float op1, float op2))
 {
 	adjust_image(bitmap, amount, color::change_value, operation);
 }
 
+
+
+
 void change_to_color(ALLEGRO_BITMAP *bitmap, float __amount_discarded, float (*operation)(float op1, float op2))
 {
 
 }
-
-
-
-
 
 
 
@@ -224,17 +248,11 @@ void adjust_image(ALLEGRO_BITMAP *bitmap, float amount,
 
 
 
-
-
 /*
 static void adjust_image(ALLEGRO_BITMAP *bitmap, float (*filter_func)(float))
 {
 }
 */
-
-
-
-
 
 
 
@@ -248,8 +266,6 @@ bool operator ==(const ALLEGRO_COLOR &lhs, const ALLEGRO_COLOR &rhs)
 
 
 
-
-
 bool basically_equal(const ALLEGRO_COLOR &col1, const ALLEGRO_COLOR &col2, float threshold)
 {
 	if (std::abs(col1.a - col2.a) > threshold) return false;
@@ -258,7 +274,6 @@ bool basically_equal(const ALLEGRO_COLOR &col1, const ALLEGRO_COLOR &col2, float
 	if (std::abs(col1.r - col2.r) > threshold) return false;
 	return true;
 }
-
 
 
 
@@ -409,5 +424,10 @@ const ALLEGRO_COLOR yellow = al_color_name("yellow");
 const ALLEGRO_COLOR yellowgreen = al_color_name("yellowgreen");
 
 
-}
+
+
+} // end namespace color
+
+
+
 

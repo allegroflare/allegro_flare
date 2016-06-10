@@ -4,9 +4,10 @@
 
 #include <allegro_flare/clipboard.h>
 
+#include <iostream>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_windows.h>
-#include <iostream>
+
 
 
 
@@ -116,5 +117,7 @@ std::string Clipboard::get()
 
 	return text;
 }
+
+
 
 

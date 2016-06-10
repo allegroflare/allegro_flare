@@ -1,14 +1,20 @@
 
 
 
+
 #include <allegro_flare/element_id.h>
+
 #include <allegro_flare/console_color.h>
+
+
 
 
 void ElementID::add_child(ElementID *child)
 {
    children.push_back(child);
 }
+
+
 
 
 bool ElementID::remove_child(ElementID *child)
@@ -18,6 +24,8 @@ bool ElementID::remove_child(ElementID *child)
    children.erase(children.begin() + index);
    return true;
 }
+
+
 
 
 ElementID::ElementID(ElementID *parent)
@@ -30,6 +38,8 @@ ElementID::ElementID(ElementID *parent)
 }
 
 
+
+
 ElementID::~ElementID()
 {
    while(children.size() > 0) delete children[0];
@@ -37,10 +47,14 @@ ElementID::~ElementID()
 }
 
 
+
+
 int ElementID::get_id()
 {
    return id;
 }
+
+
 
 
 ElementID *ElementID::get_root()
@@ -52,16 +66,22 @@ ElementID *ElementID::get_root()
 }
 
 
+
+
 int ElementID::num_children()
 {
    return children.size();
 }
 
 
+
+
 bool ElementID::has_children()
 {
    return !children.empty();
 }
+
+
 
 
 int ElementID::num_descendants()
@@ -73,6 +93,8 @@ int ElementID::num_descendants()
 }
 
 
+
+
 ElementID *ElementID::find_first(std::string attribute)
 {
    for (auto &child : children)
@@ -81,12 +103,16 @@ ElementID *ElementID::find_first(std::string attribute)
 }
 
 
+
+
 ElementID *ElementID::find_first(std::string attribute, std::string value)
 {
    for (auto &child : children)
       if (child->exists(attribute, value)) return child;
    return NULL;
 }
+
+
 
 
 ElementID *ElementID::find_first_descendant(std::string attribute)
@@ -101,6 +127,8 @@ ElementID *ElementID::find_first_descendant(std::string attribute)
 }
 
 
+
+
 ElementID *ElementID::find_first_descendant(std::string attribute, std::string value)
 {
    for (auto &child : children)
@@ -113,6 +141,8 @@ ElementID *ElementID::find_first_descendant(std::string attribute, std::string v
 }
 
 
+
+
 std::vector<ElementID *> ElementID::find_all(std::string attribute)
 {
    std::vector<ElementID *> results;
@@ -122,6 +152,8 @@ std::vector<ElementID *> ElementID::find_all(std::string attribute)
 }
 
 
+
+
 std::vector<ElementID *> ElementID::find_all(std::string attribute, std::string value)
 {
    std::vector<ElementID *> results;
@@ -129,6 +161,8 @@ std::vector<ElementID *> ElementID::find_all(std::string attribute, std::string 
       if (child->exists(attribute, value)) results.push_back(child);
    return results;
 }
+
+
 
 
 std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute)
@@ -145,6 +179,8 @@ std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute)
 }
 
 
+
+
 std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute, std::string value)
 {
    std::vector<ElementID *> results;
@@ -159,6 +195,8 @@ std::vector<ElementID *> ElementID::find_all_descendants(std::string attribute, 
 }
 
 
+
+
 ElementID *ElementID::find_descendant_by_id(int id_to_match)
 {
    for (ElementID *child : children)
@@ -169,6 +207,8 @@ ElementID *ElementID::find_descendant_by_id(int id_to_match)
    }
    return NULL;
 }
+
+
 
 
 // used internally for recursively counting nodes in the tree
@@ -186,11 +226,15 @@ ElementID *ElementID::__get_nth_descendant_r(std::vector<ElementID *> &children,
 }
 
 
+
+
 ElementID *ElementID::get_nth_descendant(int num)
 {
    __index_count_r = -1;
    return __get_nth_descendant_r(children, num);
 }
+
+
 
 
 std::vector<ElementID *> ElementID::get_flat_list_of_descendants()
@@ -206,12 +250,16 @@ std::vector<ElementID *> ElementID::get_flat_list_of_descendants()
 }
 
 
+
+
 int ElementID::get_index_of_child(ElementID *child)
 {
    for (int i=0; i<children.size(); i++)
       if (children[i] == child) return i;
    return -1;
 }
+
+
 
 
 bool ElementID::is_child(ElementID *child)
@@ -227,11 +275,15 @@ ElementID *ElementID::get_nth_child(int index)
 }
 
 
+
+
 ElementID *ElementID::get_random_child()
 {
    int random_int = rand() % children.size();
    return get_nth_child(random_int);
 }
+
+
 
 
 ElementID *ElementID::get_next_sibling()
@@ -243,6 +295,8 @@ ElementID *ElementID::get_next_sibling()
 }
 
 
+
+
 ElementID *ElementID::get_previous_sibling()
 {
    if (!parent) return nullptr;
@@ -252,12 +306,18 @@ ElementID *ElementID::get_previous_sibling()
 }
 
 
+
+
 std::vector<ElementID *> ElementID::get_children()
 {
    return children;
 }
 
 
+
+
 int ElementID::next_unique_id = 1;
+
+
 
 

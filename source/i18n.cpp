@@ -4,11 +4,9 @@
 
 #include <allegro_flare/i18n.h>
 
-#include <allegro5/allegro.h>
-
-#include <allegro_flare/console_color.h>
-
 #include <iostream>
+#include <allegro5/allegro.h>
+#include <allegro_flare/console_color.h>
 
 
 

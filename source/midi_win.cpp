@@ -1,18 +1,16 @@
 
 
 
+
 #include <allegro_flare/midi_win.h>
 
-
-// this is the windows specific midi calls
-
-
-#include <windows.h>   /* required before including mmsystem.h */
 #include <mmsystem.h>  /* multimedia functions (such as MIDI) for Windows */
+#include <windows.h>   /* required before including mmsystem.h */
 
-#include <vector>
-#include <string>
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
 
 
 
@@ -21,14 +19,17 @@ static bool midi_initialized = false;
 
 
 
+
 std::vector<MIDI_IN_DEVICE *> midi_in_device;
 std::vector<MIDI_OUT_DEVICE *> midi_out_device;
+
 
 
 
 static HMIDIOUT current_midi_out_device_handler; //<- eventually this will be a vector
 										  // so multiple devices can be used
 										  // simultaniously.
+
 
 
 void init_midi()
@@ -92,6 +93,7 @@ void init_midi()
 
 
 
+
 void uninstall_midi()
 {
 	if (!midi_initialized) return;
@@ -102,6 +104,7 @@ void uninstall_midi()
    // Remove any data in MIDI device and close the MIDI Output port
    midiOutClose(current_midi_out_device_handler);
 }
+
 
 
 
@@ -120,12 +123,12 @@ bool open_midi_device(MIDI_OUT_DEVICE *dev)
 
 
 
+
 typedef union
 {
 	unsigned long word;
 	unsigned char data[4];
 } midi_message;
-
 
 
 
@@ -150,7 +153,6 @@ bool midi_patch_change(unsigned char channel, unsigned char patch_num)
 
 
 
-
 bool midi_note_on(unsigned char channel, unsigned char pitch, unsigned char velocity)
 	// max velocity of 127
 {
@@ -168,6 +170,7 @@ bool midi_note_on(unsigned char channel, unsigned char pitch, unsigned char velo
     }
 	return true;
 }
+
 
 
 
@@ -199,10 +202,6 @@ void midi_all_notes_off()
 
 
 
-
-
-
-
 // below is untested
 
 typedef union
@@ -213,8 +212,6 @@ typedef union
 
 
 
-
-#include <sstream>
 
 std::string __get_midiOutPrepareHeader_error_message(UINT err)
 {
@@ -232,6 +229,9 @@ std::string __get_midiOutPrepareHeader_error_message(UINT err)
 	return ss.str();
 }
 
+
+
+
 bool midi_sysex_send_message(char device_id, char command_format, char command, char data)
 {
 	if (device_id == 0xF7
@@ -245,9 +245,6 @@ bool midi_sysex_send_message(char device_id, char command_format, char command, 
 			<< std::endl;
 		return false;
 	}
-
-
-
 
 
 
@@ -315,6 +312,7 @@ bool midi_sysex_send_message(char device_id, char command_format, char command, 
 
 
 
+
 /*
 
 // example program
@@ -332,3 +330,7 @@ void main()
 }
 
 */
+
+
+
+

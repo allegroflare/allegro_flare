@@ -2,12 +2,11 @@
 
 
 
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_color.h>
-
-#include <allegro_flare/useful_php.h>
 #include <allegro_flare/object2d.h>
 
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro_flare/useful_php.h>
 
 
 
@@ -20,29 +19,18 @@
 
 
 
-
-
 float &object2d::w() { return *_w; }
 float &object2d::h() { return *_h; }
 float &object2d::w(float val) { return *_w=val; }
 float &object2d::h(float val) { return *_h=val; }
-
-
-
 void object2d::top(float val) { *_y = val; }
 void object2d::left(float val) { *_x = val; }
-
-
-
 float object2d::top() { return *_y; }
 float object2d::right() { return *_x+*_w; }
 float object2d::bottom() { return *_y+*_h; }
 float object2d::left() { return *_x; }
 float object2d::center() { return *_x+*_w/2; }
 float object2d::middle() { return *_y+*_h/2; }
-
-
-
 float object2d::anchor_x() { return (_placement) ? _placement->anchor.x : 0.0; }
 float object2d::anchor_y() { return (_placement) ? _placement->anchor.x : 0.0; }
 float object2d::scale_x() { return (_placement) ? _placement->scale.x : 1.0; }
@@ -51,6 +39,7 @@ float object2d::align_x() { return (_placement) ? _placement->align.x : 0.0; }
 float object2d::align_y() { return (_placement) ? _placement->align.y : 0.0; }
 float object2d::opacity() { return (_appearance) ? _appearance->opacity : 1.0; }
 ALLEGRO_COLOR object2d::color() { return (_appearance)?_appearance->color:al_map_rgba_f(1,1,1,1); }
+
 
 
 
@@ -93,6 +82,7 @@ object2d &object2d::transform_on()
 
 
 
+
 object2d &object2d::appearance_on()
 {
 	if (!_appearance)
@@ -106,12 +96,14 @@ object2d &object2d::appearance_on()
 
 
 
+
 object2d &object2d::rotation(float rotation)
 {
 	if (!_placement) transform_on();
 	_placement->rotation = rotation;
 	return *this;
 }
+
 
 
 
@@ -125,6 +117,7 @@ object2d &object2d::scale(float scale)
 
 
 
+
 object2d &object2d::anchor(float x, float y)
 {
 	if (!_placement) transform_on();
@@ -135,6 +128,7 @@ object2d &object2d::anchor(float x, float y)
 
 
 
+
 object2d &object2d::scale(float scale_x, float scale_y)
 {
 	if (!_placement) transform_on();
@@ -142,6 +136,7 @@ object2d &object2d::scale(float scale_x, float scale_y)
 	_placement->scale.y = scale_y;
 	return *this;
 }
+
 
 
 
@@ -156,6 +151,7 @@ object2d &object2d::scale_to_fit(float w, float h)
 
 	return *this;
 }
+
 
 
 
@@ -174,11 +170,14 @@ object2d &object2d::scale_to(float w, float h) { return scale(w/(*this->_w), h/(
 
 
 
+
 object2d &object2d::scale_to_width(float w) { return scale(w/(*this->_w)); }
 
 
 
+
 object2d &object2d::scale_to_height(float h) { return scale(h/(*this->_h)); }
+
 
 
 
@@ -189,6 +188,7 @@ object2d &object2d::align(float align_x, float align_y)
 	_placement->align.y = align_y;
 	return *this;
 }
+
 
 
 
@@ -256,12 +256,14 @@ object2d &object2d::markup(std::string str)
 
 
 
+
 object2d &object2d::opacity(float v)
 {
 	appearance_on();
 	_appearance->opacity = v;
 	return *this;
 }
+
 
 
 
@@ -274,12 +276,14 @@ object2d &object2d::color(ALLEGRO_COLOR color)
 
 
 
+
 object2d &object2d::color(const char *color, float opacity)
 {
 	appearance_on();
 	//_appearance->color = ::color(color, opacity);
 	return *this;
 }
+
 
 
 
@@ -292,12 +296,14 @@ object2d &object2d::position(float x, float y)
 
 
 
+
 object2d &object2d::move(float x, float y)
 {
 	*_x += x;
 	*_y += y;
 	return *this;
 }
+
 
 
 
@@ -312,10 +318,12 @@ object2d &object2d::draw()
 
 
 
+
 void object2d::draw_origin(ALLEGRO_COLOR col)
 {
 	draw_crosshair(*_x, *_y, col);
 }
+
 
 
 
@@ -328,3 +336,7 @@ bool object2d::collide(float x, float y)
 	if (y > *_y+*_h) return false;
 	return true;
 }
+
+
+
+

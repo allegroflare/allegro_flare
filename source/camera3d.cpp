@@ -8,6 +8,7 @@
 
 
 
+
 Camera3D::Camera3D(vec3d position, vec3d view_vector, vec3d up_vector)
 	: camera_tracking_mode(Camera3D::CAMERA_VIEW_THIRD_PERSON_HIGH)
 	, position(position)
@@ -176,7 +177,12 @@ void Camera3D::look_at(vec3d target)
 
 
 
+
 Frustum Camera3D::get_frustum(ALLEGRO_DISPLAY *d)
 {
 	return Frustum(al_get_display_width(d), al_get_display_height(d), 500, 0.0001);
 }
+
+
+
+

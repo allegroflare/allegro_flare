@@ -30,6 +30,7 @@ ALLEGRO_BITMAP *generate_circle_bitmap(float size, ALLEGRO_COLOR col, int paddin
 
 
 
+
 ALLEGRO_BITMAP *generate_triangle_bitmap(float x1, float y1, float x2, float y2, float x3, float y3, ALLEGRO_COLOR col)
 {
 	// find the width and height of the bitmap (this could be more comprehensive? What about -negative points?)
@@ -56,6 +57,7 @@ ALLEGRO_BITMAP *generate_triangle_bitmap(float x1, float y1, float x2, float y2,
 	al_restore_state(&state);
 	return surface;
 }
+
 
 
 
@@ -91,6 +93,7 @@ ALLEGRO_BITMAP *generate_gradient_bitmap(float size, ALLEGRO_COLOR top_color, AL
 
 
 
+
 ALLEGRO_BITMAP *generate_circle_gradient_bitmap(float size, ALLEGRO_COLOR top_color, ALLEGRO_COLOR bottom_color, int padding)
 {
 	ALLEGRO_BITMAP *circle = generate_circle_bitmap(size);
@@ -100,6 +103,7 @@ ALLEGRO_BITMAP *generate_circle_gradient_bitmap(float size, ALLEGRO_COLOR top_co
 	al_destroy_bitmap(gradient);
 	return circle_gradient;
 }
+
 
 
 
@@ -131,6 +135,7 @@ ALLEGRO_BITMAP *generate_noise_bitmap(float w, float h, float min_intensity, flo
 	// return the generated image
 	return surface;
 }
+
 
 
 
@@ -216,6 +221,7 @@ ALLEGRO_BITMAP *generate_brush_metal_bitmap(float w, float h, ALLEGRO_COLOR base
 	// return the generated image
 	return tex;
 }
+
 
 
 
@@ -310,6 +316,7 @@ ALLEGRO_BITMAP *create_pixel_pattern_1(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR
 
 
 
+
 ALLEGRO_BITMAP *create_pixel_pattern_2(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int dot_distance)
 {
 	int bitmap_size = 64;
@@ -333,6 +340,8 @@ ALLEGRO_BITMAP *create_pixel_pattern_2(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR
 	al_restore_state(&state);
 	return surface;
 }
+
+
 
 
 ALLEGRO_BITMAP *create_pixel_pattern_3(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int x_distance, int y_distance)
@@ -360,6 +369,7 @@ ALLEGRO_BITMAP *create_pixel_pattern_3(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR
 	al_restore_state(&state);
 	return surface;
 }
+
 
 
 

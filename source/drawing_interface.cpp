@@ -1,5 +1,7 @@
 
 
+
+
 #include <allegro_flare/drawing_interface.h>
 
 
@@ -11,8 +13,10 @@ DrawingInterface::DrawingInterface(std::string drawing_mode_name)
 
 
 
+
 DrawingInterface::~DrawingInterface()
 {}
+
 
 
 

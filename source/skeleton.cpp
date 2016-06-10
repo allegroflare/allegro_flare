@@ -1,12 +1,12 @@
+
+
+
+
 #include <allegro_flare/skeleton.h>
 
-
-
-
+#include <algorithm>
 #include <allegro5/allegro_primitives.h>
-
 #include <allegro_flare/color.h>
-
 #include <allegro_flare/useful.h>
 #include <allegro_flare/useful_php.h>
 
@@ -24,6 +24,7 @@ void Bone::__count_tree_size_recursive()
 
 
 
+
 Bone *Bone::__get_nth_child_recursive(int n)
 {
 	for (unsigned i=0; i<children.size(); i++)
@@ -38,6 +39,7 @@ Bone *Bone::__get_nth_child_recursive(int n)
 
 
 
+
 Bone::Bone(vec2d dir_vec, float length, float tau_range)
 	: parent(NULL)
 	, children()
@@ -49,10 +51,12 @@ Bone::Bone(vec2d dir_vec, float length, float tau_range)
 
 
 
+
 float Bone::get_min_angle()
 {
 	return midpoint_direction.get_angle() - range / 2;
 }
+
 
 
 
@@ -63,10 +67,12 @@ float Bone::get_max_angle()
 
 
 
+
 float Bone::get_angle()
 {
 	return get_min_angle() + range * position;
 }
+
 
 
 
@@ -77,13 +83,13 @@ vec2d Bone::get_direction()
 
 
 
-#include <algorithm>
 
 void Bone::set_position(float unit_val)
 {
 	position = std::min<float>(1.0, std::max<float>(0.0, unit_val));
 	//direction = (get_max_angle() - get_min_angle()) / 2
 }
+
 
 
 
@@ -96,12 +102,14 @@ int Bone::get_tree_size()
 
 
 
+
 Bone *Bone::get_nth_child(int n)
 {
 	_index_count = 0;
 	if (n==0) return this;
 	return __get_nth_child_recursive(n);
 }
+
 
 
 
@@ -116,6 +124,7 @@ void Bone::draw(float x, float y, int index_to_hilight)
 
 
 
+
 Bone *Bone::add_child(vec2d _direction, float _length, float _tau_range)
 	// note: _direction is the direction of the central point of rotation
 	// tau_range is a value from 0 to 1, denominating the unit value of TAU which is the range of the rotation
@@ -123,6 +132,7 @@ Bone *Bone::add_child(vec2d _direction, float _length, float _tau_range)
 	children.push_back(Bone(_direction, _length, _tau_range));
 	return &children.back();
 }
+
 
 
 
@@ -160,6 +170,7 @@ void Bone::__draw_recursive(Bone *bone, vec2d last_direction, vec2d pos, int ind
 
 
 
+
 void Bone::scale(float amount)
 {
 	length *= amount;
@@ -171,10 +182,12 @@ void Bone::scale(float amount)
 
 
 
+
 void Bone::rotate_position(float unit_val_of_joint_angle)
 {
 	set_position(position + unit_val_of_joint_angle);
 }
+
 
 
 
@@ -183,18 +196,10 @@ int Bone::_index_count = 0;
 
 
 
-
-
-
-
-
 SkeletonState::BonePositionRecord::BonePositionRecord(int index, float position)
 	: index(index)
 	, position(position)
 {}
-
-
-
 
 
 
@@ -211,7 +216,9 @@ void SkeletonState::__append_children_to_frame_recursive(Bone *bone)
 
 
 
+
 SkeletonState::SkeletonState() {}
+
 
 
 
@@ -224,6 +231,7 @@ void SkeletonState::set(Bone *bone_root)
 
 
 
+
 void SkeletonState::save(std::string filename)
 {
 	std::stringstream content;
@@ -233,6 +241,7 @@ void SkeletonState::save(std::string filename)
 	}
 	php::file_put_contents(filename, content.str());
 }
+
 
 
 
@@ -259,6 +268,7 @@ void SkeletonState::load(std::string filename)
 
 
 
+
 SkeletonState::BonePositionRecord *SkeletonState::get_frame_by_bone_index(int index)
 {
 	for (unsigned i=0; i<bone_positions.size(); i++)
@@ -267,5 +277,7 @@ SkeletonState::BonePositionRecord *SkeletonState::get_frame_by_bone_index(int in
 	}
 	return NULL;
 }
+
+
 
 

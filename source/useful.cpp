@@ -2,12 +2,13 @@
 
 
 
-
 #include <allegro_flare/useful.h>
 
-
-
-
+#include <algorithm>
+#include <ctime>
+#include <locale>
+#include <sstream>
+#include <string>
 #include <map>
 
 
@@ -19,10 +20,14 @@ float degrees_to_radians(float deg)
 }
 
 
+
+
 float radians_to_degrees(float rad)
 {
 	return 180.0f / ALLEGRO_PI * rad;
 }
+
+
 
 
 void draw_crosshair(float x, float y, ALLEGRO_COLOR color)
@@ -31,6 +36,8 @@ void draw_crosshair(float x, float y, ALLEGRO_COLOR color)
 	al_draw_line(x, y-half_size, x, y+half_size, color, 1.0);
 	al_draw_line(x-half_size, y, x+half_size, y, color, 1.0);
 }
+
+
 
 
 void draw_crosshair(vec2d &point, ALLEGRO_COLOR color)
@@ -43,23 +50,29 @@ void draw_crosshair(vec2d &point, ALLEGRO_COLOR color)
 
 
 
-
-
-
 float distance(float x1, float y1, float x2, float y2)
 {
       return sqrt( ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)) ) ;
 }
+
+
+
 
 float distance(const vec2d &point1, const vec2d &point2)
 {
       return sqrt( ((point1.x - point2.x) * (point1.x - point2.x)) + ((point1.y - point2.y) * (point1.y - point2.y)) ) ;
 }
 
+
+
+
 float distance(const vec2d *point1, const vec2d *point2)
 {
       return sqrt( ((point1->x - point2->x) * (point1->x - point2->x)) + ((point1->y - point2->y) * (point1->y - point2->y)) ) ;
 }
+
+
+
 
 float manhattan_distance(const vec2d *point1, const vec2d *point2)
 {
@@ -67,16 +80,25 @@ float manhattan_distance(const vec2d *point1, const vec2d *point2)
 	return std::abs(point2->x - point1->x) + std::abs(point2->y - point1->y);
 }
 
+
+
+
 float manhattan_distance(float x1, float y1, float x2, float y2)
 {
 	// may consider writing out the abs function
 	return std::abs(x2 - x1) + std::abs(y2 - y1);
 }
 
+
+
+
 float distance_squared(const vec2d &point1, const vec2d &point2)
 {
 	return ((point1.x - point2.x) * (point1.x - point2.x)) + ((point1.y - point2.y) * (point1.y - point2.y));
 }
+
+
+
 
 float random_float(float min, float max)
 {
@@ -86,18 +108,21 @@ float random_float(float min, float max)
 
 
 
-
-
-
 double random_double(double min, double max)
 {
     return ((double) rand()/RAND_MAX)*(max-min) + min;
 }
 
+
+
+
 int random_int(int min, int max)
 {
     return rand()%(max-min+1) + min;
 }
+
+
+
 
 int random_int(std::vector<int> vals)
 {
@@ -105,21 +130,33 @@ int random_int(std::vector<int> vals)
 	return vals[random_int(0, vals.size()-1)];
 }
 
+
+
+
 bool random_bool()
 {
     return (rand()%2 == 1);
 }
+
+
+
 
 int random_sign()
 {
     return random_bool() ? 1 : -1;
 }
 
+
+
+
 unsigned char random_letter(bool lower)
 {
 	if (lower) return (unsigned char)(rand()%26 + 'a');
 	return (unsigned char)(rand()%26 + 'A');
 }
+
+
+
 
 unsigned char random_letter_or_number()
 {
@@ -131,6 +168,9 @@ unsigned char random_letter_or_number()
 	return '-';
 }
 
+
+
+
 std::string random_string(unsigned int length)
 {
 	std::string return_str;
@@ -139,11 +179,13 @@ std::string random_string(unsigned int length)
 	return return_str;
 }
 
+
+
+
 ALLEGRO_COLOR random_color()
 {
 	return al_map_rgb(random_int(0, 255), random_int(0, 255), random_int(0, 255));
 }
-
 
 
 
@@ -164,13 +206,15 @@ vec2d rotate_point(vec2d point, float angle)
 
 
 
-
 // reflect a point along an axis
 vec2d reflect(vec2d &point, const vec2d &axis)
 {
     float d = point * axis;
 	return point - 2 * d * axis;
 }
+
+
+
 
 vec3d reflect(vec3d &point, const vec3d &axis) 
 {
@@ -187,16 +231,21 @@ vec3d reflect(vec3d &point, const vec3d &axis)
 
 
 
-
 float dot_product(vec3d A, vec3d B)
 {
 	return A * B;
 }
 
+
+
+
 vec3d project(vec3d point, vec3d point_on_plane, vec3d normal_of_plane)
 {
 	return point - dot_product(point - point_on_plane, normal_of_plane) * normal_of_plane;
 }
+
+
+
 
 vec3d cross_product(vec3d A, vec3d B)
 {
@@ -211,17 +260,10 @@ vec3d cross_product(vec3d A, vec3d B)
 
 
 
-
-
 float round_up(float val)
 {
 	return floor(val + 0.5f);
 }
-
-
-
-
-
 
 
 
@@ -232,6 +274,9 @@ ALLEGRO_VERTEX build_vertex(float x, float y, float z, ALLEGRO_COLOR col, float 
 	vertex.x = x, vertex.y = y, vertex.z = z, vertex.color = col, vertex.u = u, vertex.v = v;
 	return vertex;
 }
+
+
+
 
 void draw_crosshair(float x, float y, float z, ALLEGRO_COLOR col, float size)
 {
@@ -253,10 +298,16 @@ void draw_crosshair(float x, float y, float z, ALLEGRO_COLOR col, float size)
 	al_draw_prim(&v, NULL, NULL, 0, 6, ALLEGRO_PRIM_LINE_LIST);
 }
 
+
+
+
 void draw_crosshair(vec3d point, ALLEGRO_COLOR col, float size)
 {
 	draw_crosshair(point.x, point.y, point.z, col, size);
 }
+
+
+
 
 void draw_textured_rectangle(float x1, float y1, float x2, float y2, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color)
 {
@@ -270,6 +321,9 @@ void draw_textured_rectangle(float x1, float y1, float x2, float y2, ALLEGRO_BIT
 	al_draw_prim(v, NULL, texture, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
 }
 
+
+
+
 void draw_offset_textured_rectangle(float x1, float y1, float x2, float y2, float offset_x, float offset_y, ALLEGRO_BITMAP *texture, const ALLEGRO_COLOR &color)
 {
 	ALLEGRO_VERTEX v[4];
@@ -282,11 +336,17 @@ void draw_offset_textured_rectangle(float x1, float y1, float x2, float y2, floa
 	al_draw_prim(v, NULL, texture, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
 }
 
+
+
+
 void draw_stretched_bitmap(float x, float y, float w, float h, ALLEGRO_BITMAP *bitmap, int flip_flags, ALLEGRO_COLOR color)
 {
 	al_draw_tinted_scaled_bitmap(bitmap, color, 0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap),
 		x, y, w, h, flip_flags);
 }
+
+
+
 
 void draw_dashed_line(float x, float y, float x2, float y2, ALLEGRO_COLOR &col, float thickness)
 {
@@ -309,6 +369,8 @@ void draw_dashed_line(float x, float y, float x2, float y2, ALLEGRO_COLOR &col, 
 }
 
 
+
+
 void animate_color(Motion *motion, ALLEGRO_COLOR *dest_color, const ALLEGRO_COLOR start, const ALLEGRO_COLOR end, double start_time, double duration, interpolator::interpolator_func_t interpolator_func)
 {
 	motion->clear_animations_on(&dest_color->r);
@@ -321,9 +383,6 @@ void animate_color(Motion *motion, ALLEGRO_COLOR *dest_color, const ALLEGRO_COLO
 	motion->animate(&dest_color->b, start.b, end.b, start_time, start_time+duration, interpolator_func, NULL, NULL);
 	motion->animate(&dest_color->a, start.a, end.a, start_time, start_time+duration, interpolator_func, NULL, NULL);
 }
-
-
-
 
 
 
@@ -341,9 +400,6 @@ bool key_pressed(int al_keycode)
 
 
 
-
-
-
 std::vector<int> to_int(const std::vector<std::string> &arr)
 {
 	std::vector<int> result;
@@ -351,9 +407,6 @@ std::vector<int> to_int(const std::vector<std::string> &arr)
 		result.push_back(atoi(arr[i].c_str()));
 	return result;
 }
-
-
-
 
 
 
@@ -396,20 +449,15 @@ std::vector<std::string> get_directory_listing(std::string directory)
 
 
 
-
-
 namespace javascript
 {
 
-void alert(std::string message)
-{
-	al_show_native_message_box(al_get_current_display(), "Alert", "", message.c_str(), NULL, ALLEGRO_MESSAGEBOX_WARN);
-}
+   void alert(std::string message)
+   {
+      al_show_native_message_box(al_get_current_display(), "Alert", "", message.c_str(), NULL, ALLEGRO_MESSAGEBOX_WARN);
+   }
 
 };
-
-
-
 
 
 
@@ -425,9 +473,6 @@ void draw_unicode_char(ALLEGRO_FONT *font, ALLEGRO_COLOR color, int32_t icon, in
 
 
 
-
-
-
 std::string get_xml_encoded_ustr(ALLEGRO_USTR *ustr)
 {
 	std::stringstream output;
@@ -438,8 +483,6 @@ std::string get_xml_encoded_ustr(ALLEGRO_USTR *ustr)
 	}
 	return output.str();
 }
-
-
 
 
 
@@ -474,10 +517,6 @@ std::string escape_xml_chars(std::string xml)
 
 
 
-
-
-#include <string>
-#include <sstream>
 std::string as_hex(int32_t num)
 {
 	std::stringstream stream;
@@ -488,10 +527,6 @@ std::string as_hex(int32_t num)
 
 
 
-
-
-
-#include <locale>
 bool is_number(const std::string& s) // this is closer to is int
 {
 	std::locale loc;
@@ -503,10 +538,9 @@ bool is_number(const std::string& s) // this is closer to is int
 
 
 
-
-
-
 /// TODO: here are some new additions, they need to be categorized somewhere and the required headers should be placed above them
+
+
 
 
 std::string pick_filename()
@@ -533,8 +567,6 @@ std::string pick_filename()
 
 
 
-#include <ctime>
-#include <sstream>
 
 std::string get_datetime_str()
 	// returns the current datetime in "DD-MM-YYYY HH:MM:SS" format
@@ -564,10 +596,6 @@ std::string get_datetime_str()
 
 
 
-
-
-
-#include <algorithm>
 std::string take_screenshot(std::string filename)
 {
 	ALLEGRO_STATE previous_state;

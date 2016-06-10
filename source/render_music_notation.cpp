@@ -2,25 +2,15 @@
 
 
 
-#include <allegro5/allegro_primitives.h>
-
 #include <allegro_flare/render_music_notation.h>
+
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_ttf.h>
 #include <allegro_flare/fonts/font_bravura.h>
+#include <allegro_flare/blender.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>
 #include <allegro_flare/useful_php.h>
-#include <allegro_flare/blender.h>
-
-#include <allegro5/allegro_ttf.h>
-
-//#include <allegro_flare/drawing_interface.h>
-
-
-
-
-
-
-
 
 
 
@@ -156,22 +146,6 @@ void MusicNotation::Beam::draw(MusicNotation *notation_context, ALLEGRO_COLOR co
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 float MusicNotation::_get_staff_position_offset(int staff_position)
 {
 	return - staff_position * staff_line_distance * 0.5;
@@ -277,12 +251,15 @@ float MusicNotation::get_duration_fixed_width(int duration, float quarter_note_w
 }
 
 
+
+
 /*
 void draw_line(float x1, float y1, float x2, float y2, ALLEGRO_COLOR color, float thickness)
 {
 	al_draw_line(x1, y1, x2, y2, color, thickness);
 }
 */
+
 
 
 
@@ -717,6 +694,7 @@ void MusicNotation::draw_music_symbol(int32_t symbol, float x, float y, const AL
 
 
 
+
 void MusicNotation::draw_line(float x1, float y1, float x2, float y2, const ALLEGRO_COLOR &color, float thickness)
 {
 	drawing_interface->draw_line(x1, y1, x2, y2, color, thickness);
@@ -745,10 +723,12 @@ bool MusicNotation::bravura_is_valid()
 
 
 
+
 float MusicNotation::get_quarter_note_spacing()
 {
 	return this->quarter_note_spacing;
 }
+
 
 
 
@@ -774,3 +754,7 @@ char MusicNotation::duration_denominator_to_char(int denominator)
 		default: return 'q';
 	}
 }
+
+
+
+

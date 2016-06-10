@@ -1,12 +1,14 @@
 
 
 
-#include <allegro5/allegro_primitives.h>
 
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h> // for only ALLEGRO_FLAGS_EMPTY
 #include <allegro_flare/image_processing.h>
 
+#include <math.h> // for sqrt
+#include <allegro5/allegro_primitives.h>
+#include <allegro_flare/color.h>
+#include <allegro_flare/path2d.h>
+#include <allegro_flare/useful.h> // for only ALLEGRO_FLAGS_EMPTY
 
 
 
@@ -26,7 +28,6 @@ ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, int dest_w, int dest_h
 	al_restore_state(&state);
 	return surface;
 }
-
 
 
 
@@ -81,7 +82,6 @@ void invert(ALLEGRO_BITMAP *img)
 
 
 
-
 void trim(ALLEGRO_BITMAP *bmp)
 {
 	int top_most = al_get_bitmap_height(bmp);
@@ -118,7 +118,6 @@ void trim(ALLEGRO_BITMAP *bmp)
 
 	al_restore_state(&state);
 }
-
 
 
 
@@ -196,16 +195,12 @@ void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float))
 
 
 
-
-
-
 // the following algorithms provided by IvanK from
 // http://blog.ivank.net/fastest-gaussian-blur.html
 // and were adapted for allegro by Mark Oates
-//
 
 
-#include <math.h> // for sqrt
+
 
 
 static std::vector<float> __boxesForGauss(float sigma, int n)  // standard deviation, number of boxes
@@ -228,6 +223,8 @@ static std::vector<float> __boxesForGauss(float sigma, int n)  // standard devia
 }
 
 
+
+
 static ALLEGRO_COLOR __get_pix_from(ALLEGRO_BITMAP *bmp, int index)
 {
 	int x = index%al_get_bitmap_width(bmp);
@@ -236,12 +233,13 @@ static ALLEGRO_COLOR __get_pix_from(ALLEGRO_BITMAP *bmp, int index)
 }
 
 
+
+
 static void __put_pix_to(ALLEGRO_BITMAP *bmp, int index, ALLEGRO_COLOR val)
 {
 	ALLEGRO_COLOR col = val;
 	al_put_pixel(index%al_get_bitmap_width(bmp), index/al_get_bitmap_width(bmp), col);
 }
-
 
 
 
@@ -294,6 +292,7 @@ void horizontal_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h,
 	al_unlock_bitmap(tcl);
 	al_unlock_bitmap(scl);
 }
+
 
 
 
@@ -354,6 +353,8 @@ void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, i
 }
 
 
+
+
 void box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
 	// this is IvanK's boxBlur_4 algorithm
 {
@@ -369,6 +370,8 @@ void box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
 }
 
 
+
+
 void gaussian_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
 	// this is IvanK's gaussBlur_4 algorithm
 {
@@ -381,11 +384,6 @@ void gaussian_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r
 
 
 
-
-
-
-
-#include <allegro_flare/path2d.h>
 
 void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALLEGRO_COLOR hist_col)
 {
@@ -439,8 +437,6 @@ void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALL
 
 
 
-
-
 ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, int op, int src, int dst, int alpha_op, int alpha_src, int alpha_dst, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
 {
 	ALLEGRO_TRANSFORM identity_transform;
@@ -471,19 +467,20 @@ ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *
 
 
 
-
-
-
 ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image)
 {
 	return create_masked_bitmap(top_image, bottom_image, 0, 0, 2, 2, 0, 2, NULL, NULL);
 }
 
 
+
+
 ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
 {
 	return create_masked_bitmap(top_image, bottom_image, 0, 0, 2, 2, 0, 2, top_transform, bottom_transform);
 }
+
+
 
 
 void draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, int op, int src, int dst, int alpha_op, int alpha_src, int alpha_dst, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
@@ -514,14 +511,21 @@ void draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, 
 }
 
 
+
+
 void draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image)
 {
 	draw_masked_bitmap(destination, top_image, bottom_image, 0, 0, 2, 2, 0, 2, NULL, NULL);
 }
 
 
+
+
 void draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
 {
 	draw_masked_bitmap(destination, top_image, bottom_image, 0, 0, 2, 2, 0, 2, top_transform, bottom_transform);
 }
+
+
+
 
