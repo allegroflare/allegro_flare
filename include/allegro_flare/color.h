@@ -1,5 +1,5 @@
-#ifndef __ALLEGRO_FLARE_COLOR_HEADER
-#define __ALLEGRO_FLARE_COLOR_HEADER
+#ifndef __AF_COLOR_HEADER
+#define __AF_COLOR_HEADER
 
 
 

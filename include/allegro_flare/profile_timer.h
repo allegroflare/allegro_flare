@@ -1,5 +1,5 @@
-#ifndef __AF_PROFILE_TIMER
-#define __AF_PROFILE_TIMER
+#ifndef __AF_PROFILE_TIMER_HEADER
+#define __AF_PROFILE_TIMER_HEADER
 
 
 

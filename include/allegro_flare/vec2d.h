@@ -1,5 +1,5 @@
-#ifndef OL_VEC2D_HPP
-#define OL_VEC2D_HPP
+#ifndef __AF_VEC_2D_HEADER
+#define __AF_VEC_2D_HEADER
 
 #include <cmath>
 #include <string>

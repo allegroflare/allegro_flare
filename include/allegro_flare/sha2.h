@@ -1,5 +1,5 @@
-#ifndef SHA2_H
-#define SHA2_H
+#ifndef __AF_SHA2_HEADER
+#define __AF_SHA2_HEADER
 
 
 

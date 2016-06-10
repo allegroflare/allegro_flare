@@ -2,6 +2,8 @@
 #define __AF_AUTOMATION_HEADER
 
 
+
+
 /*{
 
 
@@ -25,6 +27,7 @@ create entire complex animation sequences if you wished.
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/timeline.h>
 
@@ -33,6 +36,7 @@ create entire complex animation sequences if you wished.
 
 namespace automation
 {
+
 
 
 
@@ -48,7 +52,6 @@ public:
 	bool at_end();
 	std::string get_next_line(bool remove_comments=true);
 };
-
 
 
 
@@ -76,7 +79,6 @@ public:
 
 
 
-
 class ActorManager
 {
 protected:
@@ -92,9 +94,6 @@ public:
 	Actor *get_actor_by_id(const char *id);
 	void render(double time);
 };
-
-
-
 
 
 
@@ -115,9 +114,6 @@ public:
 
 
 
-
-
-
 /*
 
 class ActorBin : public Bin<Actor *>
@@ -133,8 +129,8 @@ public:
 
 
 
-} // (end namespace automation)
 
+} // (end namespace automation)
 
 
 

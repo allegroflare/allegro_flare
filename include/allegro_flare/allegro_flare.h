@@ -1,5 +1,5 @@
-#ifndef __ALLEGRO_FLARE_HEADER
-#define __ALLEGRO_FLARE_HEADER
+#ifndef __AF_CORE_HEADER
+#define __AF_CORE_HEADER
 
 
 

@@ -1,5 +1,5 @@
-#ifndef __ALLEGRO_FLARE_BLENDER
-#define __ALLEGRO_FLARE_BLENDER
+#ifndef __AF_BLENDER_HEADER
+#define __AF_BLENDER_HEADER
 
 
 

@@ -1,5 +1,5 @@
-#ifndef __AF_USEFUL3D_HEADER
-#define __AF_USEFUL3D_HEADER
+#ifndef __AF_USEFUL_3D_HEADER
+#define __AF_USEFUL_3D_HEADER
 
 
 

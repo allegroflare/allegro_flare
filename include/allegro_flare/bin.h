@@ -1,5 +1,5 @@
-#ifndef __ALLEGRO_FLARE_BIN_TEMPLATE
-#define __ALLEGRO_FLARE_BIN_TEMPLATE
+#ifndef __AF_BIN_TEMPLATE
+#define __AF_BIN_TEMPLATE
 
 
 

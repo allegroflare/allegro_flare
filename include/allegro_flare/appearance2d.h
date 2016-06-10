@@ -1,10 +1,13 @@
-#ifndef __ALLEGRO_FLARE_APPEARANCE_HEADER
-#define __ALLEGRO_FLARE_APPEARANCE_HEADER
+#ifndef __AF_APPEARANCE_HEADER
+#define __AF_APPEARANCE_HEADER
+
 
 
 
 #include <allegro5/allegro.h>
 #include <allegro_flare/blender.h>
+
+
 
 
 class appearance2d

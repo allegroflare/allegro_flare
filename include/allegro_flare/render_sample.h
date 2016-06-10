@@ -1,5 +1,5 @@
-#ifndef __GRAPH_SAMPLE_HEADER
-#define __GRAPH_SAMPLE_HEADER
+#ifndef __AF_DRAW_WAVE_SAMPLE_HEADER
+#define __AF_DRAW_WAVE_SAMPLE_HEADER
 
 
 #include <allegro5/allegro.h>

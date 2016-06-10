@@ -1,7 +1,5 @@
-#ifndef __ALLEGRO_FLARE_ATTRIBUTES_HEADER
-#define __ALLEGRO_FLARE_ATTRIBUTES_HEADER
-
-
+#ifndef __AF_ATTRIBUTES_HEADER
+#define __AF_ATTRIBUTES_HEADER
 
 
 
@@ -11,6 +9,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+
+
 
 
 class Attributes
@@ -162,9 +162,6 @@ private:
    int __find_attribute_index(std::string key, std::string value);
    int __find_or_create_attribute_index(std::string key);
 };
-
-
-
 
 
 

@@ -1,5 +1,5 @@
-#ifndef __AF_VEC3D_HPP
-#define __AF_VEC3D_HPP
+#ifndef __AF_VEC_3D_HEADER
+#define __AF_VEC_3D_HEADER
 
 #include <cmath>
 #include <string>

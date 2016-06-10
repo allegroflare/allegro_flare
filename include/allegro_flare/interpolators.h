@@ -1,5 +1,5 @@
-#ifndef __INTERPOLATORS_HEADDER
-#define __INTERPOLATORS_HEADDER
+#ifndef __AF_INTERPOLATORS_HEADER
+#define __AF_INTERPOLATORS_HEADER
 
 
 #include <math.h>
