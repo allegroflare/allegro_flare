@@ -4,12 +4,12 @@
 
 
 
-
-#include <allegro_flare/useful.h>
-#include <allegro_flare/placement2d.h>
-#include <allegro_flare/appearance2d.h>
-#include <string>
 #include <iostream>
+#include <string>
+#include <allegro_flare/appearance2d.h>
+#include <allegro_flare/placement2d.h>
+#include <allegro_flare/useful.h>
+
 
 
 
@@ -73,10 +73,8 @@ public:
 
 	virtual void draw_origin(ALLEGRO_COLOR col=al_map_rgb(255,0,0));
 
-
 	bool collide(float x, float y);
 };
-
 
 
 

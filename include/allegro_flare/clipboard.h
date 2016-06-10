@@ -4,8 +4,10 @@
 
 
 
-
 #include <string>
+
+
+
 
 class Clipboard
 {
@@ -24,7 +26,4 @@ public:
 
 
 
-
-
 #endif
-

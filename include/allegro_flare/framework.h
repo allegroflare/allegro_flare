@@ -7,17 +7,15 @@
 #include <string>
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_font.h>
-
-#include <allegro_flare/display.h>
-#include <allegro_flare/screen.h>
-
-#include <allegro_flare/bins/font_bin.h>
-#include <allegro_flare/bins/sample_bin.h>
+#include <allegro5/allegro_native_dialog.h>
 #include <allegro_flare/bins/bitmap_bin.h>
+#include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/model_bin.h>
+#include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/display.h>
 #include <allegro_flare/motion.h>
+#include <allegro_flare/screen.h>
 
 
 
@@ -77,4 +75,3 @@ public:
 
 
 #endif
-

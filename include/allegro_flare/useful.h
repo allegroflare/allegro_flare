@@ -4,28 +4,25 @@
 
 
 
-
-
 // defines a list of general purpose, useful utility functions
-
-
 // parsing this file for documentation is like this
 // here is the regular expression for a section header: \n//\n// .+\n(//.*\n)*//\n\n
 // captures the comments: \n(?P<comment>(\n\/\/ (.+))+)
 // captures comments and definitions (but definitions have a leading newline: \n(?P<name>(\n\/\/ (.+))+)(?P<function_def>(\n.+)+)
 
 
+
+
 #include <string>
 #include <vector>
-
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_native_dialog.h>
-
 #include <allegro_flare/vec2d.h>
 #include <allegro_flare/vec3d.h>
 #include <allegro_flare/color.h>
+
 
 
 
@@ -53,9 +50,6 @@ float radians_to_degrees(float rad);
 // doe to precision and rounding errors.  Using this function will help reduce that
 // potential pitfall.
 bool basically_equal(float v1, float v2, float threshold=0.00001f);
-
-
-
 
 
 
@@ -115,10 +109,6 @@ inline Iter binary_find(Iter begin, Iter end, T val)
 
 
 
-
-
-
-
 //
 // String utility functions
 // encoding / escaping / converting / formatting, etc
@@ -150,10 +140,6 @@ std::vector<int> to_int(const std::vector<std::string> &arr);
 // Returns the current datetime in "DD-MM-YYYY HH:MM:SS" format.
 // TODO: test in gcc
 std::string get_datetime_str();
-
-
-
-
 
 
 
@@ -216,9 +202,6 @@ ALLEGRO_COLOR random_color();
 
 
 
-
-
-
 //
 // Vector math functions (2d and 3d variants)
 //
@@ -255,12 +238,6 @@ float manhattan_distance(const vec2d *point1, const vec2d *point2);
 // possible collisions between objects before calculating a more accurate distance
 // with the usual `distance()` function.
 float distance_squared(const vec2d &point1, const vec2d &point2);
-
-
-
-
-
-
 
 
 
@@ -313,8 +290,6 @@ bool key_pressed(int al_keycode);
 
 
 
-
-
 //
 // Filesystem functions
 //
@@ -332,8 +307,6 @@ std::vector<std::string> get_directory_listing(std::string directory);
 
 
 
-
-
 //
 // javascript-like functions
 // TODO: these should probably be moved to a useful_js.h or something similar
@@ -347,14 +320,4 @@ namespace javascript
 
 
 
-
-
-
-
-
-
-
-
-
 #endif
-

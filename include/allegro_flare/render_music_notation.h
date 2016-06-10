@@ -6,13 +6,10 @@
 
 #include <string>
 #include <vector>
-
-#include <allegro5/allegro_font.h>
 #include <allegro5/allegro_color.h>
-
+#include <allegro5/allegro_font.h>
 #include <allegro_flare/drawing_interface.h>
 
-//class DrawingInterface;
 
 
 
@@ -44,7 +41,6 @@ private:
 		std::vector<beam_point> beam_points; // assuming left-to-right
 
 	public:
-
 		void add_beam_point(float note_x, float y_center, int note_staff_pos, float note_head_width, MusicNotation *notation_context);
 		void clear();
 		void draw(MusicNotation *notation_context, ALLEGRO_COLOR color);
@@ -106,7 +102,6 @@ public:
 	static float get_duration_fixed_width(int duration, float quarter_note_width, int num_dots);
 	char duration_denominator_to_char(int denominator);
 };
-
 
 
 

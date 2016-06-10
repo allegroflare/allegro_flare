@@ -13,7 +13,6 @@
 class Timeline
 {
 public:
-
 	class Keyframe
 	{
 	public:
@@ -23,7 +22,6 @@ public:
 
 		Keyframe(float time, float val, float (*interpolator_func)(float)=interpolator::linear);
 	};
-
 
 	class Track
 	{
@@ -40,6 +38,7 @@ public:
 		std::string get_str();
 	};
 };
+
 
 
 

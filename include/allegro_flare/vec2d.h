@@ -1,12 +1,19 @@
 #ifndef __AF_VEC_2D_HEADER
 #define __AF_VEC_2D_HEADER
 
+
+
+
 #include <cmath>
-#include <string>
 #include <sstream>
+#include <string>
+
+
 
 
 // from OpenLayer //
+
+
 
 
 class vec2d
@@ -87,11 +94,18 @@ public:
 };
 
 
+
+
 // ADDITION AND SUBTRACTION //
+
+
+
 
 inline vec2d operator + ( vec2d first, vec2d second ) {
    return vec2d( first.x + second.x, first.y + second.y );
 }
+
+
 
 
 inline vec2d operator - ( vec2d first, vec2d second ) {
@@ -99,11 +113,18 @@ inline vec2d operator - ( vec2d first, vec2d second ) {
 }
 
 
+
+
 // MULTIPLICATION AND DIVISION
+
+
+
 
 inline vec2d operator * ( vec2d vec, float factor ) {
    return vec2d( factor * vec.x, factor * vec.y );
 }
+
+
 
 
 inline vec2d operator * ( float factor, vec2d vec ) {
@@ -111,37 +132,57 @@ inline vec2d operator * ( float factor, vec2d vec ) {
 }
 
 
+
+
 inline vec2d operator / ( vec2d vec, float divisor ) {
    return vec2d( vec.x / divisor, vec.y / divisor );
 }
 
 
+
+
 // DOT PRODUCT //
+
+
+
 
 inline float operator * ( vec2d first, vec2d second ) {
    return first.x * second.x + first.y * second.y;
 }
 
 
+
+
 // SIGN //
+
+
+
 
 inline vec2d operator - ( vec2d vec ) {
    return vec2d( -vec.x, -vec.y );
 }
 
 
+
+
 // NORMALIZATION
+
+
+
 
 inline vec2d operator ~ ( vec2d vec ) {
    return vec.normalized();
 }
 
 
+
+
 // TESTS
 
 
-// Checks if the points are in counter clockwise order //
 
+
+// Checks if the points are in counter clockwise order
 inline bool is_counter_clockwise( const vec2d first, const vec2d second, const vec2d third ) {
   float dx1, dx2, dy1, dy2;
 
@@ -152,15 +193,6 @@ inline bool is_counter_clockwise( const vec2d first, const vec2d second, const v
 
   return dy1*dx2 < dy2*dx1;
 }
-
-
-
-
-
-
-
-
-
 
 
 

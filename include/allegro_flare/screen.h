@@ -3,13 +3,13 @@
 
 
 
-#include <allegro5/allegro.h>
 
-#include <vector>
 #include <string>
-
-
+#include <vector>
+#include <allegro5/allegro.h>
 #include <allegro_flare/display.h>
+
+
 
 
 class Screen
@@ -92,4 +92,3 @@ public:
 
 
 #endif
-

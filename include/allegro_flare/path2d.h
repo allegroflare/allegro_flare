@@ -3,11 +3,10 @@
 
 
 
-// path2d
 
 #include <vector>
-#include <allegro_flare/vec2d.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro_flare/vec2d.h>
 
 
 
@@ -36,9 +35,7 @@ class path2d
 public:
 	// with this current method, "point" carries duplicate data also in "segment"
 
-
 	std::vector<ALLEGRO_VERTEX> vertex;
-
 
 	float length();
 	float length_along(int first_index, int last_index);
@@ -47,12 +44,10 @@ public:
 	vec2d &get_point(int index);
 	vec2d coordinate_at(float dist); // returns the point along the line, after traveling a distance of dist
 
-
 	// filesys
 	bool load(std::string filename);
 	bool load_eps(std::string filename); // doens't work exactly, very hacky
 	bool save(std::string filename);
-
 
 	// generators
 	path2d *create_copy();
@@ -89,29 +84,20 @@ public:
 	path2d &bottom_right(float x, float y);
 	path2d &reverse();
 
-
 	// for usage when this path represents a normal function
 	bool within_range(float x);
 	float get_y(float x);
-
-
 
 	vec2d top_left();
 	vec2d bottom_right();
 	float width();
 	float height();
 
-
-
 	// presentation
 	void draw(bool draw_points=false, bool show_normals=false, bool show_bounding_box=false, bool show_normal_angles=false, ALLEGRO_COLOR col=al_map_rgba_f(0,0,0,1.0), float thickness=2.0);
 
-
-
 	// modifiers
 	void set_shape_color(ALLEGRO_COLOR col);
-
-
 
 	// all of these things should be considered internal
 	vec2d _top_left;
@@ -133,6 +119,8 @@ public:
 
 	void refresh_segment_info();
 };
+
+
 
 
 #endif

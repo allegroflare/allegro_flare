@@ -3,10 +3,12 @@
 
 
 
-#include <allegro5/allegro.h>
-#include <string>
 
+#include <string>
+#include <allegro5/allegro.h>
 #include <allegro_flare/vec2d.h>
+
+
 
 
 class placement2d

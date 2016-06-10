@@ -3,8 +3,11 @@
 
 
 
+
 #include <iostream>
 #include <fstream>
+
+
 
 
 struct DecoratedCout
@@ -39,6 +42,7 @@ public:
    DecoratedCout& operator<< (std::ostream& (*f)(std::ios &));
    DecoratedCout& operator<< (std::ostream& (*f)(std::ios_base &));
 };
+
 
 
 

@@ -9,6 +9,7 @@
 
 
 
+
 /*
 static vec3d cross_product(vec3d A, vec3d B)
 {
@@ -18,6 +19,8 @@ static vec3d cross_product(vec3d A, vec3d B)
 	vector.z = A.x*B.y - A.y*B.x; 
 	return vector;
 }
+
+
 
 
 static float dot_product(vec3d A, vec3d B)
@@ -61,6 +64,9 @@ public:
 	{}
 };
 
+
+
+
 class IsectData
 {
 public:
@@ -73,6 +79,9 @@ public:
 		, v(0)
 	{}
 };
+
+
+
 
 class Triangle
 {
@@ -124,6 +133,7 @@ public:
 
 
 
+
 static void draw_3d_line(vec3d start, vec3d end, ALLEGRO_COLOR col=color::red)
 {
 	ALLEGRO_VERTEX vtx[2];
@@ -132,25 +142,40 @@ static void draw_3d_line(vec3d start, vec3d end, ALLEGRO_COLOR col=color::red)
 	al_draw_prim(&vtx[0], NULL, NULL, 0, 2, ALLEGRO_PRIM_LINE_LIST);
 }
 
+
+
+
 static ALLEGRO_VERTEX create_vtx(vec3d vec, ALLEGRO_COLOR col)
 {
 	return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
 }
+
+
+
 
 static vec3d centroid(vec3d v1, vec3d v2, vec3d v3)
 {
 	return (v1 + v2 + v3) / 3;
 }
 
+
+
+
 static vec3d tovec3d(ALLEGRO_VERTEX v1)
 {
 	return vec3d(v1.x, v1.y, v1.z);
 }
 
+
+
+
 static vec3d centroid(vec3d v1, vec3d v2, vec3d v3, vec3d v4)
 {
 	return (v1 + v2 + v3 + v4) / 4;
 }
+
+
+
 
 static void draw_3d_triangle(vec3d v1, vec3d v2, vec3d v3, ALLEGRO_COLOR col)
 {
@@ -160,6 +185,9 @@ static void draw_3d_triangle(vec3d v1, vec3d v2, vec3d v3, ALLEGRO_COLOR col)
 	vtx[2] = create_vtx(v3, col);
 	al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
 }
+
+
+
 
 static bool basically_equal(const vec3d &first, const vec3d &other, float threshold)
 {

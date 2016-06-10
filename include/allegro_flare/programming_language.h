@@ -10,23 +10,21 @@
 
 
 
+
 class Function
 {
 public:
 	std::string identifier;
 	std::vector<std::string> args;
 	std::string body;
-
-	//Function
 };
 
 
-// a variable is also a function (without arguments)
-
-// you could overload it with arguments if you wanted to
 
 
 class Variable
+// a variable is also a function (without arguments)
+// you could overload it with arguments if you wanted to
 {
 public:
 	std::string identifier;
@@ -35,7 +33,6 @@ public:
 
 	Variable(std::string identifier, std::string value, std::string type);
 };
-
 
 
 
@@ -68,14 +65,12 @@ public:
 
 
 
-
 class InterpreterInterface
 {
 public:
 	VirtualMemory memory;
 	virtual void interpret(std::string val) = 0;
 };
-
 
 
 

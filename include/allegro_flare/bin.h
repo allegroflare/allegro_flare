@@ -3,12 +3,16 @@
 
 
 
-#include <allegro5/allegro.h>
 
+#include <algorithm>
+#include <sstream>
 #include <string>
 #include <vector>
-
+#include <allegro5/allegro.h>
 #include <allegro_flare/console_color.h>
+#include <allegro_flare/useful.h>
+#include <allegro_flare/useful_php.h>
+
 
 
 
@@ -54,17 +58,6 @@ private:
 
 
 
-
-
-
-
-
-
-#include <algorithm>
-#include <sstream>
-
-
-
 template<class T>
 static bool bin_record_comp(const typename Bin<T>::Record *b1, const typename Bin<T>::Record *b2)
 {
@@ -73,8 +66,6 @@ static bool bin_record_comp(const typename Bin<T>::Record *b1, const typename Bi
 
 
 
-
-#include <allegro_flare/useful.h>
 
 template<class T>
 Bin<T>::Bin(std::string dir)
@@ -89,12 +80,9 @@ Bin<T>::Bin(std::string dir)
 
 
 
-
 template<class T>
 Bin<T>::~Bin()
 {}
-
-
 
 
 
@@ -111,8 +99,6 @@ Bin<T>::Record::Record(std::string identifier, ALLEGRO_PATH *file_path, T data)
 
 
 
-
-
 template<class T>
 Bin<T>::Record::~Record()
 {
@@ -122,9 +108,6 @@ Bin<T>::Record::~Record()
 
 
 
-
-
-#include <allegro_flare/useful_php.h>
 
 template<class T>
 void Bin<T>::set_path(std::string path)
@@ -141,18 +124,12 @@ void Bin<T>::set_path(std::string path)
 
 
 
-
-
 template<class T>
 void Bin<T>::set_full_path(std::string path)
 {
 	if (directory) al_destroy_path(directory);
 	directory = al_create_path_for_directory(path.c_str());
 }
-
-
-
-
 
 
 
@@ -182,6 +159,7 @@ typename Bin<T>::Record *Bin<T>::get_record(std::string identifier)
 
 
 
+
 template<class T>
 T Bin<T>::get(std::string identifier)
 {
@@ -190,6 +168,7 @@ T Bin<T>::get(std::string identifier)
 	std::cout << CONSOLE_COLOR_RED << "[" << __FUNCTION__ << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
 	return NULL;
 }
+
 
 
 
@@ -208,6 +187,7 @@ T Bin<T>::auto_get(std::string identifier)
 	std::cout << CONSOLE_COLOR_RED << "["  << __FUNCTION__  << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
 	return NULL;
 }
+
 
 
 
@@ -298,6 +278,7 @@ void Bin<T>::clear()
 
 
 
+
 template<class T>
 std::string Bin<T>::get_str()
 {
@@ -310,6 +291,7 @@ std::string Bin<T>::get_str()
 
 
 
+
 template<class T>
 T Bin<T>::operator[](const std::string &identifier)
 {
@@ -319,8 +301,4 @@ T Bin<T>::operator[](const std::string &identifier)
 
 
 
-
-
 #endif
-
-

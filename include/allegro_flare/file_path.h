@@ -4,7 +4,6 @@
 
 
 
-
 // wishlist
 // have a std::vector<std::string, std::string> with special path locations
 // project_path
@@ -22,9 +21,12 @@
 // make all functions operate with a FIND_LATEST flag or something
 
 
-#include <allegro5/allegro.h>
+
+
 #include <string>
 #include <vector>
+#include <allegro5/allegro.h>
+
 
 
 
@@ -60,7 +62,6 @@ public:
 
 	~Path();
 };
-
 
 
 

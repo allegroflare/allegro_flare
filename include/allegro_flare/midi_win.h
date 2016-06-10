@@ -4,19 +4,21 @@
 
 
 
-
 #include <vector>
 #include <string>
 
 
-#define NOTE_OFF			 0x80
-#define NOTE_ON				 0x90
-#define AFTERTOUCH			 0xA0
-#define CONTINOUS_CONTROLLER 0xB0
-#define PATCH_CHANGE	     0xC0
-#define CHANNEL_PRESSURE     0xD0
-#define PITCH_BEND		     0xE0
-#define SYSTEM_MESSAGE		 0xF0
+
+
+#define NOTE_OFF               0x80
+#define NOTE_ON                0x90
+#define AFTERTOUCH             0xA0
+#define CONTINOUS_CONTROLLER   0xB0
+#define PATCH_CHANGE           0xC0
+#define CHANNEL_PRESSURE       0xD0
+#define PITCH_BEND             0xE0
+#define SYSTEM_MESSAGE         0xF0
+
 
 
 
@@ -30,6 +32,8 @@ public:
 	unsigned int driver_version;
 	char name[32]; // replace this with a string
 };
+
+
 
 
 class MIDI_OUT_DEVICE
@@ -46,6 +50,8 @@ public:
 	unsigned short num_notes; //<- if this device is a port, then this number is 0
 	unsigned short num_channels;
 };
+
+
 
 
 extern std::vector<MIDI_IN_DEVICE *> midi_in_device;
@@ -66,4 +72,3 @@ bool midi_sysex_send_message(char device_id, char command_format, char command, 
 
 
 #endif
-

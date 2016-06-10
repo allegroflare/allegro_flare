@@ -19,5 +19,4 @@ ALLEGRO_BITMAP *create_interpolator_render(int w, int h, interpolator::interpola
 
 
 
-
 #endif

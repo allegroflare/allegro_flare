@@ -5,7 +5,6 @@
 
 
 #include <vector>
-
 #include <allegro_flare/vec2d.h>
 
 
@@ -50,9 +49,6 @@ public:
 
 
 
-
-
-
 class SkeletonState
 {
 public:
@@ -76,13 +72,6 @@ public:
 	void load(std::string filename);
 	BonePositionRecord *get_frame_by_bone_index(int index);
 };
-
-
-
-
-
-
-
 
 
 

@@ -1,12 +1,19 @@
 #ifndef __AF_VEC_3D_HEADER
 #define __AF_VEC_3D_HEADER
 
+
+
+
 #include <cmath>
-#include <string>
 #include <sstream>
+#include <string>
+
+
 
 
 // from OpenLayer //
+
+
 
 
 class vec3d
@@ -95,11 +102,18 @@ public:
 };
 
 
+
+
 // ADDITION AND SUBTRACTION //
+
+
+
 
 inline vec3d operator + ( vec3d first, vec3d second ) {
    return vec3d( first.x + second.x, first.y + second.y, first.z + second.z );
 }
+
+
 
 
 inline vec3d operator - ( vec3d first, vec3d second ) {
@@ -107,11 +121,18 @@ inline vec3d operator - ( vec3d first, vec3d second ) {
 }
 
 
+
+
 // MULTIPLICATION AND DIVISION
+
+
+
 
 inline vec3d operator * ( vec3d vec, float factor ) {
    return vec3d( factor * vec.x, factor * vec.y, factor * vec.z );
 }
+
+
 
 
 inline vec3d operator * ( float factor, vec3d vec ) {
@@ -119,33 +140,47 @@ inline vec3d operator * ( float factor, vec3d vec ) {
 }
 
 
+
+
 inline vec3d operator / ( vec3d vec, float divisor ) {
    return vec3d( vec.x / divisor, vec.y / divisor, vec.z / divisor );
 }
 
 
+
+
 // DOT PRODUCT //
+
+
+
 
 inline float operator * ( vec3d first, vec3d second ) {
    return first.x * second.x + first.y * second.y + first.z * second.z;
 }
 
 
+
+
 // SIGN //
+
+
+
 
 inline vec3d operator - ( vec3d vec ) {
    return vec3d( -vec.x, -vec.y, -vec.z );
 }
 
 
+
+
 // NORMALIZATION
+
+
+
 
 inline vec3d operator ~ ( vec3d vec ) {
    return vec.normalized();
 }
-
-
-
 
 
 

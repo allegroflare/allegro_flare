@@ -4,7 +4,6 @@
 
 
 
-
 enum blender_t
 {
 	BLENDER_UNDEF,
@@ -14,6 +13,7 @@ enum blender_t
 	BLENDER_SUBTRACTIVE,
 	BLENDER_SCREEN
 };
+
 
 
 

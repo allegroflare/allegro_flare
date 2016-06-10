@@ -7,6 +7,8 @@
 //#include <cstdint>
 
 
+
+
 template<class T>
 class BitFlags
 {
@@ -32,11 +34,15 @@ BitFlags<T>::BitFlags(T flags)
 {}
 
 
+
+
 template<class T>
 bool BitFlags<T>::has(T state_flag)
 {
 	return (flags & state_flag) == state_flag;
 }
+
+
 
 
 template<class T>
@@ -45,6 +51,8 @@ bool BitFlags<T>::set(T state_flag)
 	flags = flags | state_flag;
 	return true;
 }
+
+
 
 
 template<class T>
@@ -58,6 +66,7 @@ bool BitFlags<T>::unset(T state_flag)
 
 
 
+
 template<class T>
 bool BitFlags<T>::toggle(T state_flag)
 {
@@ -65,6 +74,7 @@ bool BitFlags<T>::toggle(T state_flag)
 	else set(state_flag);
 	return has(state_flag);
 }
+
 
 
 
@@ -78,7 +88,6 @@ void BitFlags<T>::clear()
 
 
 /*
-
 
 BitFlags bitflags<int> // int is probably 32 bits, so 32 flags, on very old systems, it'll be 16, newer will be 64
 						// I opted for templating this instead of "#include <cstdint> because it requires the
@@ -105,6 +114,7 @@ enum tile_flag_t
 	TILE_FLAG_DESTRUCTABLE = 0x40,
 	TILE_FLAG_GOAL = 0x80
 };
+
 */
 
 

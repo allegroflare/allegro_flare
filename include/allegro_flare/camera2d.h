@@ -3,9 +3,12 @@
 
 
 
+
 #include <allegro5/allegro.h>
 #include <allegro_flare/placement2d.h>
 #include <allegro_flare/vec2d.h>
+
+
 
 
 class projected_point_data
@@ -16,6 +19,8 @@ public:
 	float scale;
 	projected_point_data(float x, float y, float scale);
 };
+
+
 
 
 class Camera2D

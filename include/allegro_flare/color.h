@@ -3,11 +3,11 @@
 
 
 
+
+#include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_color.h>
-#include <string>
 //#include <allegro_flare/color_names.h>
-
 
 
 
@@ -81,14 +81,9 @@ namespace color
 
 
 
-
-
-
 	void adjust_image(ALLEGRO_BITMAP *bitmap, float amount,
 		void (*filter_func)(ALLEGRO_COLOR &, float, float (*)(float, float)),
 		float (*filter_func_op)(float op1, float op2)=color::blend_op::multiply);
-
-
 
 
 
@@ -97,7 +92,6 @@ namespace color
 
 	// TODO: fix for potential floating point errors
 	bool operator ==(const ALLEGRO_COLOR &lhs, const ALLEGRO_COLOR &rhs);
-
 
 
 
@@ -246,11 +240,9 @@ namespace color
 	extern const ALLEGRO_COLOR whitesmoke;
 	extern const ALLEGRO_COLOR yellow;
 	extern const ALLEGRO_COLOR yellowgreen;
-
-
-
-
 }
+
+
 
 
 inline ALLEGRO_COLOR operator+(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
@@ -264,6 +256,8 @@ inline ALLEGRO_COLOR operator+(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rh
 }
 
 
+
+
 inline ALLEGRO_COLOR operator-(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
 {
 	ALLEGRO_COLOR result;
@@ -273,6 +267,8 @@ inline ALLEGRO_COLOR operator-(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rh
 	result.b = lhs.b - rhs.b;
 	return result;
 }
+
+
 
 
 inline ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
@@ -286,6 +282,8 @@ inline ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rh
 }
 
 
+
+
 inline ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& lhs, float rhs)
 {
 	ALLEGRO_COLOR result;
@@ -295,6 +293,8 @@ inline ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& lhs, float rhs)
 	result.b = lhs.b * rhs;
 	return result;
 }
+
+
 
 
 inline ALLEGRO_COLOR operator*(float lhs, const ALLEGRO_COLOR& rhs)

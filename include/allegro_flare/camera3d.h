@@ -5,8 +5,8 @@
 
 
 #include <allegro5/allegro.h>
-#include <allegro_flare/vec3d.h>
 #include <allegro_flare/frustum.h>
+#include <allegro_flare/vec3d.h>
 
 
 
@@ -15,6 +15,8 @@ struct camera_tracking_setting // TODO: <-this
 {
 
 };
+
+
 
 
 class Camera3D
@@ -61,6 +63,7 @@ public:
 
 	Frustum get_frustum(ALLEGRO_DISPLAY *d);
 };
+
 
 
 

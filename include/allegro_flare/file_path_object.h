@@ -4,7 +4,6 @@
 
 
 
-
 // wishlist
 // have a std::vector<std::string, std::string> with special path locations
 // project_path
@@ -22,15 +21,15 @@
 // make all functions operate with a FIND_LATEST flag or something
 
 
-#include <allegro5/allegro.h>
+
+
 #include <string>
 #include <vector>
-
-
-
-
-
+#include <allegro5/allegro.h>
 #include <allegro_flare/data_attr.h>
+
+
+
 
 class PathObject
 {
@@ -78,6 +77,7 @@ public:
 
 
 
+
 // find_latest("this_is_my_filename - ##.txt");
 		// A convention I use frequently is to have the filename followed
 		// by a space-dash-space " - " and then the two digit version
@@ -91,6 +91,7 @@ public:
 		// return the file matching the pattern with the largest
 		// two-digit number.  This only works with two digits.
 		// if no file is found, then "" is returned.
+
 
 
 

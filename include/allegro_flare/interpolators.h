@@ -2,8 +2,12 @@
 #define __AF_INTERPOLATORS_HEADER
 
 
+
+
 #include <math.h>
 #include <string>
+
+
 
 
 static inline bool ___in_range(const float &num, const float &min, const float &max)
@@ -15,8 +19,10 @@ static inline bool ___in_range(const float &num, const float &min, const float &
 
 
 
+
 namespace interpolator
 {
+
 
 
 
@@ -24,7 +30,9 @@ typedef float (*interpolator_func_t)(float t);
 
 
 
+
 #define INTERP_PI 3.1415926536f
+
 
 
 
@@ -42,24 +50,36 @@ static inline float linear(float value)
 
 
 
- ///////////// QUADRATIC EASING: t^2 ///////////////////
+///////////// QUADRATIC EASING: t^2 ///////////////////
+
+
+
 
 // quadratic easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in value, d: duration
 // t and d can be in frames or seconds/milliseconds
 //A_INLINE float quadraticIn(float t)
+
 static inline float quadraticIn(float t)
 {
 	return t*t;
 };
 
+
+
+
 // quadratic easing out - decelerating to zero velocity
+
 static inline float quadraticOut(float t)
 {
 	return -t*(t-2);
 };
 
+
+
+
 // quadratic easing in/out - acceleration until halfway, then deceleration
+
 static inline float quadraticInOut(float t)
 {
 	float b = 0;
@@ -70,7 +90,11 @@ static inline float quadraticInOut(float t)
 	return -c/2 * ((t)*(t-2) - 1) + b;
 };
 
+
+
+
 // quadratic easing in/out - deceleration until halfway, then acceleration
+
 static inline float quadraticOutIn(float t)
 {
     if (t < 0.5f) return quadraticOut(t*2) * 0.5f;
@@ -81,12 +105,12 @@ static inline float quadraticOutIn(float t)
 
 
 
-
- ///////////// CUBIC EASING: t^3 ///////////////////////
+///////////// CUBIC EASING: t^3 ///////////////////////
 
 // cubic easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in value, d: duration
 // t and d can be frames or seconds/milliseconds
+
 static inline float cubicIn(float t)
 {
 	float b = 0;
@@ -95,14 +119,22 @@ static inline float cubicIn(float t)
 	return c*(t)*t*t + b;
 };
 
+
+
+
 // cubic easing out - decelerating to zero velocity
+
 static inline float cubicOut(float t)
 {
 	t = t-1;
 	return t*t*t + 1;
 };
 
+
+
+
 // cubic easing in/out - acceleration until halfway, then deceleration
+
 static inline float cubicInOut(float t)
 {
 	float b = 0;
@@ -117,11 +149,12 @@ static inline float cubicInOut(float t)
 
 
 
- ///////////// QUARTIC EASING: t^4 /////////////////////
+///////////// QUARTIC EASING: t^4 /////////////////////
 
 // quartic easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in value, d: duration
 // t and d can be frames or seconds/milliseconds
+
 static inline float quarticIn(float t)
 {
 	float b = 0;
@@ -131,7 +164,11 @@ static inline float quarticIn(float t)
 	return c*t*t*t*t + b;
 };
 
+
+
+
 // quartic easing out - decelerating to zero velocity
+
 static inline float quarticOut(float t)
 {
 	float b = 0;
@@ -141,7 +178,11 @@ static inline float quarticOut(float t)
 	return -c * (t*t*t*t - 1) + b;
 };
 
+
+
+
 // quartic easing in/out - acceleration until halfway, then deceleration
+
 static inline float quarticInOut(float t)
 {
 	float b = 0;
@@ -153,11 +194,14 @@ static inline float quarticInOut(float t)
 };
 
 
- ///////////// QUINTIC EASING: t^5  ////////////////////
+
+
+///////////// QUINTIC EASING: t^5  ////////////////////
 
 // quintic easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in value, d: duration
 // t and d can be frames or seconds/milliseconds
+
 static inline float quinticIn(float t)
 {
 	float b = 0;
@@ -167,7 +211,11 @@ static inline float quinticIn(float t)
 	return c*t*t*t*t*t + b;
 };
 
+
+
+
 // quintic easing out - decelerating to zero velocity
+
 static inline float quinticOut(float t)
 {
 	float b = 0;
@@ -177,7 +225,11 @@ static inline float quinticOut(float t)
 	return c*(t*t*t*t*t + 1) + b;
 };
 
+
+
+
 // quintic easing in/out - acceleration until halfway, then deceleration
+
 static inline float quinticInOut(float t)
 {
 	float b = 0;
@@ -191,10 +243,15 @@ static inline float quinticInOut(float t)
 
 
 
- ///////////// SINUSOIDAL EASING: sin(t) ///////////////
+
+///////////// SINUSOIDAL EASING: sin(t) ///////////////
+
+
+
 
 // sinusoidal easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in position, d: duration
+
 static inline float sineIn(float t)
 {
 	float b = 0.0f;
@@ -203,7 +260,11 @@ static inline float sineIn(float t)
 	return -c * cos(t/d * (INTERP_PI/2.0f)) + c + b;
 };
 
+
+
+
 // sinusoidal easing out - decelerating to zero velocity
+
 static inline float sineOut(float t)
 {
 	float b = 0;
@@ -212,7 +273,11 @@ static inline float sineOut(float t)
 	return c * sin(t/d * (INTERP_PI/2.0f)) + b;
 };
 
+
+
+
 // sinusoidal easing in/out - accelerating until halfway, then decelerating
+
 static inline float sineInOut(float t)
 {
 	float b = 0;
@@ -222,10 +287,16 @@ static inline float sineInOut(float t)
 };
 
 
- ///////////// EXPONENTIAL EASING: 2^t /////////////////
+
+
+///////////// EXPONENTIAL EASING: 2^t /////////////////
+
+
+
 
 // exponential easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in position, d: duration
+
 static inline float exponentialIn(float t)
 {
 	float b = 0;
@@ -234,7 +305,11 @@ static inline float exponentialIn(float t)
 	return (t==0) ? b : c * (float)pow(2, 10 * (t/d - 1)) + b;
 };
 
+
+
+
 // exponential easing out - decelerating to zero velocity
+
 static inline float exponentialOut(float t)
 {
 	float b = 0;
@@ -243,7 +318,11 @@ static inline float exponentialOut(float t)
 	return (t==d) ? b+c : c * (float)(-pow(2, -10 * t/d) + 1) + b;
 };
 
+
+
+
 // exponential easing in/out - accelerating until halfway, then decelerating
+
 static inline float exponentialInOut(float t)
 {
 	float b = 0;
@@ -256,10 +335,16 @@ static inline float exponentialInOut(float t)
 };
 
 
- /////////// CIRCULAR EASING: sqrt(1-t^2) //////////////
+
+
+/////////// CIRCULAR EASING: sqrt(1-t^2) //////////////
+
+
+
 
 // circular easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in position, d: duration
+
 static inline float circularIn(float t)
 {
 	float b = 0;
@@ -269,7 +354,11 @@ static inline float circularIn(float t)
 	return -c * (sqrt(1 - (t)*t) - 1) + b;
 };
 
+
+
+
 // circular easing out - decelerating to zero velocity
+
 static inline float circularOut(float t)
 {
 	float b = 0;
@@ -279,7 +368,11 @@ static inline float circularOut(float t)
 	return c * sqrt(1 - (t)*t) + b;
 };
 
+
+
+
 // circular easing in/out - acceleration until halfway, then deceleration
+
 static inline float circularInOut(float t)
 {
 	float b = 0;
@@ -291,11 +384,15 @@ static inline float circularInOut(float t)
 };
 
 
- /////////// ELASTIC EASING: exponentially decaying sine wave  //////////////
+
+
+/////////// ELASTIC EASING: exponentially decaying sine wave  //////////////
+
+
+
 
 // t: current time, b: beginning value, c: change in value, d: duration, a: amplitude (optional), p: period (optional)
 // t and d can be in frames or seconds/milliseconds
-
 
 static inline float elasticIn(float t)
 {
@@ -316,7 +413,11 @@ static inline float elasticIn(float t)
 
 
 
- /////////// BACK EASING: overshooting cubic easing: (s+1)*t^3 - s*t^2  //////////////
+
+/////////// BACK EASING: overshooting cubic easing: (s+1)*t^3 - s*t^2  //////////////
+
+
+
 
 // back easing in - backtracking slightly, then reversing direction and moving to target
 // t: current time, b: beginning value, c: change in value, d: duration, s: overshoot amount (optional)
@@ -340,7 +441,11 @@ static inline float backIn(float t)
 	return c*(t)*t*((s+1)*t - s) + b;
 };
 
+
+
+
 // back easing out - moving towards target, overshooting it slightly, then reversing and coming back to target
+
 static inline float backOut(float t)
 {
 	float b = 0;
@@ -352,8 +457,12 @@ static inline float backOut(float t)
 	return c*((t)*t*((s+1)*t + s) + 1) + b;
 };
 
+
+
+
 // back easing in/out - backtracking slightly, then reversing direction and moving to target,
 // then overshooting target, reversing, and finally coming back to target
+
 static inline float backInOut(float t)
 {
 	float s = OVERSHOOT;
@@ -364,11 +473,16 @@ static inline float backInOut(float t)
 };
 
 
- /////////// BOUNCE EASING: exponentially decaying parabolic bounce  //////////////
+
+
+/////////// BOUNCE EASING: exponentially decaying parabolic bounce  //////////////
+
+
 
 
 // t: current time, b: beginning value, c: change in position, d: duration
 // bounce easing out
+
 static inline float bounceOut(float t)
 {
 	if (t < (1.0f/2.75f)) return (7.5625f*t*t);
@@ -390,7 +504,10 @@ static inline float bounceOut(float t)
 };
 
 
+
+
 // bounce easing in
+
 static inline float bounceIn(float t)
 {
 	t = 1.0f - t;
@@ -413,24 +530,15 @@ static inline float bounceIn(float t)
 };
 
 
+
+
 // bounce easing in/out
+
 static inline float bounceInOut(float t)
 {
 	if (t < 0.5f) return bounceIn(t*2.0f) * 0.5f;
 	return bounceOut(t*2.0f-1.0f) * 0.5f + 0.5f;
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -459,12 +567,6 @@ static inline float quadrupleFastOut(float t) { return quinticIn(t); }
 static inline float quadrupleSlowIn(float t) { return quinticIn(t); }
 static inline float quadrupleSlowOut(float t) { return quinticOut(t); }
 static inline float quadrupleSlowInOut(float t) { return quinticInOut(t); }
-
-
-
-
-
-
 
 
 
@@ -509,7 +611,6 @@ static inline float bloompIn(float value)
 
 
 
-
 static inline interpolator_func_t get_interpolator_by_name(std::string name)
 {
 	// incomplete
@@ -546,8 +647,6 @@ static inline interpolator_func_t get_interpolator_by_name(std::string name)
 
 
 
-
-
 static inline std::string get_interpolator_func_name_as_str(interpolator_func_t func)
 {
 	// incomplete
@@ -565,11 +664,8 @@ static inline std::string get_interpolator_func_name_as_str(interpolator_func_t 
 
 
 
+
 };
-
-
-
-
 
 
 

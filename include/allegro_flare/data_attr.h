@@ -4,13 +4,13 @@
 
 
 
-
-
-#include <map>
 #include <algorithm>
-#include <vector>
-#include <string>
 #include <iostream>
+#include <map>
+#include <string>
+#include <vector>
+
+
 
 
 class DataAttr
@@ -39,9 +39,6 @@ public:
 	unsigned size();
 	std::map<std::string, std::string> get_copy();
 };
-
-
-
 
 
 

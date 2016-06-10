@@ -3,9 +3,12 @@
 
 
 
+
 #define ALLEGRO_UNSTABLE
 
 #include <allegro5/allegro.h>
+
+
 
 
 class RenderCache
@@ -27,6 +30,7 @@ public:
   void mark_as_clean();
   bool is_dirty();
 };
+
 
 
 

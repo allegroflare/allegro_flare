@@ -2,6 +2,8 @@
 #define __AF_USEFUL_PHP_HEADER
 
 
+
+
 #ifdef _MSC_VER
 #define A_INLINE __inline
 #else
@@ -10,9 +12,12 @@
 
 
 
+
 #ifndef __FUNCTION__
 #define __FUNCTION__ __func__
 #endif
+
+
 
 
 #ifndef ALLEGRO_FLAGS_EMPTY
@@ -21,7 +26,19 @@
 
 
 
+
+#include <algorithm> 
+#include <cctype>
+#include <fstream>
+#include <functional> 
+#include <iomanip>
+#include <iostream>
+#include <locale>
+#include <sstream>
+#include <string>
+#include <vector>
 #include <allegro_flare/useful.h>
+
 
 
 
@@ -47,8 +64,6 @@ namespace php
 
 
 
-
-#include <vector>
 A_INLINE std::vector<std::string> php::explode(const std::string &delimiter, const std::string &str)
 {
 	// note: this function skips multiple delimiters, e.g. it will not return return empty tokens
@@ -85,8 +100,6 @@ A_INLINE std::vector<std::string> php::explode(const std::string &delimiter, con
 
 
 // UNTESTED
-#include <vector>
-#include <sstream>
 A_INLINE std::string php::implode(const std::string &delimiter, const std::vector<std::string> &parts)
 {
 	std::stringstream ss;
@@ -101,8 +114,6 @@ A_INLINE std::string php::implode(const std::string &delimiter, const std::vecto
 
 
 
-
-
 A_INLINE std::string php::strtoupper(std::string input)
 {
 	for (unsigned i=0; i<input.size(); i++)
@@ -113,9 +124,7 @@ A_INLINE std::string php::strtoupper(std::string input)
 
 
 
-
 // UNTESTED
-#include <string>
 A_INLINE std::string php::str_replace(const std::string &search, const std::string &replace, std::string &subject)
 {
     std::string buffer;
@@ -147,8 +156,6 @@ A_INLINE std::string php::str_replace(const std::string &search, const std::stri
 
 
 
-
-#include <string>
 // not tested, but from: http://www.zedwood.com/article/116/cpp-strpos-function
 A_INLINE size_t php::strpos(const std::string &haystack, const std::string &needle, int offset)
 {
@@ -172,11 +179,6 @@ A_INLINE size_t php::strpos(const std::string &haystack, const std::string &need
 
 
 
-
-
-
-#include <fstream>
-#include <string>
 A_INLINE bool php::file_exists(std::string filename)
 {
 	std::fstream file(filename.c_str());
@@ -187,9 +189,6 @@ A_INLINE bool php::file_exists(std::string filename)
 
 
 
-
-#include <fstream>
-#include <string>
 A_INLINE std::string php::file_get_contents(std::string filename)
 {
 	std::ifstream file(filename.c_str());
@@ -205,12 +204,6 @@ A_INLINE std::string php::file_get_contents(std::string filename)
 
 
 
-
-
-
-#include <fstream>
-#include <iostream>
-#include <string>
 A_INLINE bool php::file_put_contents(std::string filename, std::string contents)
 {
 	std::ofstream file;
@@ -224,24 +217,23 @@ A_INLINE bool php::file_put_contents(std::string filename, std::string contents)
 
 
 
-
-
-#include <algorithm> 
-#include <functional> 
-#include <cctype>
-#include <locale>
-
 // trim from start
 A_INLINE std::string php::ltrim(std::string &s) {
         s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
         return s;
 }
 
+
+
+
 // trim from end
 A_INLINE std::string php::rtrim(std::string &s) {
         s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
         return s;
 }
+
+
+
 
 // trim from both ends
 A_INLINE std::string php::trim(std::string &s)
@@ -257,26 +249,28 @@ A_INLINE std::string php::trim(std::string &s)
 
 
 
-
-
-
-
-
-
-
 // next 4 functions are from
 // http://www.geekhideout.com/urlcode.shtml
+
+
+
 
 // Converts a hex character to its integer value
 A_INLINE char __from_hex(char ch) {
   return isdigit(ch) ? ch - '0' : tolower(ch) - 'a' + 10;
 }
 
+
+
+
 // Converts an integer value to its hex character
 A_INLINE char __to_hex(char code) {
   static char hex[] = "0123456789abcdef";
   return hex[code & 15];
 }
+
+
+
 
 // Returns a url-encoded version of str
 // IMPORTANT: be sure to free() the returned string after use
@@ -294,6 +288,8 @@ char *php::url_encode(char *str) {
   *pbuf = '\0';
   return buf;
 }
+
+
 
 
 // Returns a url-decoded version of str //
@@ -321,22 +317,12 @@ char *php::url_decode(char *str)
 
 
 
-
-
-
-
-
-
-
-#include <iomanip>
 A_INLINE std::string php::number_format(double number, int precision)
 {
 	std::stringstream ss;
 	ss << std::setprecision(precision) << number;
 	return ss.str();
 }
-
-
 
 
 

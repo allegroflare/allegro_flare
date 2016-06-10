@@ -5,13 +5,18 @@
 
 
 #include <vector>
-#include <allegro_flare/vec2d.h>
-#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
-
+#include <allegro5/allegro_primitives.h>
 #include <allegro_flare/color.h>
+#include <allegro_flare/vec2d.h>
+
+
+
 
 //"If I hadn't tried, the cost would have been my soul." - Kirk
+
+
+
 
 class grid2d
 {
@@ -47,7 +52,6 @@ public:
 	void draw_guides(ALLEGRO_COLOR color=color::black);
 	void draw_guide_numbers(ALLEGRO_FONT *font, float padding=10, ALLEGRO_COLOR color=color::black);
 };
-
 
 
 

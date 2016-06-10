@@ -4,13 +4,15 @@
 
 
 
-
 #include <allegro5/allegro.h>
-
 #include <allegro_flare/vec3d.h>
 
 
+
+
 struct ALLEGRO_FLARE_CUBEMAP_TEXTURE;
+
+
 
 
 class Shader
@@ -49,7 +51,4 @@ public:
 
 
 
-
-
 #endif
-

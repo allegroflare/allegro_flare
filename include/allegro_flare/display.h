@@ -3,9 +3,10 @@
 
 
 
-#include <allegro5/allegro.h>
 
 #include <vector>
+#include <allegro5/allegro.h>
+
 
 
 
@@ -52,6 +53,4 @@ public:
 
 
 
-
 #endif
-
