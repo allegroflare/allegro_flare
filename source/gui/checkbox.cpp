@@ -111,7 +111,7 @@ void UICheckbox::on_key_char()
 {
    if (!focused) return;
    if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_SPACE
-      || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ENTER)
+         || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ENTER)
    {
       toggle();
    }
@@ -157,7 +157,7 @@ void UICheckbox::on_draw()
    check_placement.position.y = place.size.y/2 + place.size.y*0.3;
    check_placement.size.x = al_get_ustr_width(font_awesome, ustr);
    check_placement.size.y = al_get_font_line_height(font_awesome);
-   
+
    if (checked)
    {
       float boxfade_opacity = 1.0 - check_opacity;

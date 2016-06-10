@@ -10,7 +10,7 @@
 
 
 SampleBin::SampleBin(std::string directory)
-	: Bin<ALLEGRO_SAMPLE *>(directory)
+   : Bin<ALLEGRO_SAMPLE *>(directory)
 {}
 
 
@@ -18,7 +18,7 @@ SampleBin::SampleBin(std::string directory)
 
 SampleBin::~SampleBin()
 {
-	clear();
+   clear();
 }
 
 
@@ -26,7 +26,7 @@ SampleBin::~SampleBin()
 
 ALLEGRO_SAMPLE *SampleBin::load_data(std::string identifier)
 {
-	return al_load_sample(identifier.c_str());
+   return al_load_sample(identifier.c_str());
 }
 
 
@@ -34,7 +34,7 @@ ALLEGRO_SAMPLE *SampleBin::load_data(std::string identifier)
 
 void SampleBin::destroy_data(ALLEGRO_SAMPLE *sample)
 {
-	al_destroy_sample(sample);
+   al_destroy_sample(sample);
 }
 
 

@@ -217,10 +217,10 @@ void UITextList::on_draw()
    for (unsigned i=0; i<items.size(); i++)
    {
       bool item_is_selected = i == (this->currently_selected_item);
-      
+
       if (item_is_selected)
          al_draw_filled_rounded_rectangle(item_padding, cursor.y,
-            place.size.x-item_padding, cursor.y+item_height+item_padding*2, 3, 3, color::color(color::dodgerblue, 0.2));
+               place.size.x-item_padding, cursor.y+item_height+item_padding*2, 3, 3, color::color(color::dodgerblue, 0.2));
 
       draw_item(cursor, i);
       cursor.y += get_item_height(i);

@@ -229,7 +229,7 @@ void UITextArea::on_draw()
    std::size_t pos = 0;
    std::size_t found_pos = 0;
    int _number_of_lines = 0;
-      
+
    bool selection_active = cursor.selection_active();
    int selection_line_start = 0;
    int selection_line_end = 0;
@@ -338,8 +338,8 @@ void UITextArea::on_draw()
    if (focused)
    {
       al_draw_line(cursor_draw_pos_x, cursor_draw_pos_y,
-         cursor_draw_pos_x, cursor_draw_pos_y+line_height,
-         color::color(color::aliceblue, 0.5), 2.0);
+            cursor_draw_pos_x, cursor_draw_pos_y+line_height,
+            color::color(color::aliceblue, 0.5), 2.0);
    }
 
 
@@ -424,10 +424,10 @@ void UITextArea::on_key_char()
 
    // test cut-copy-paste
    if ((keycode == ALLEGRO_KEY_C
-      || keycode == ALLEGRO_KEY_X
-      || keycode == ALLEGRO_KEY_V
-      || keycode == ALLEGRO_KEY_A)
-      && Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+       || keycode == ALLEGRO_KEY_X
+       || keycode == ALLEGRO_KEY_V
+       || keycode == ALLEGRO_KEY_A)
+       && Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
    {
       //std::cout << "cut-copy-pate" << std::endl;
       if (keycode == ALLEGRO_KEY_A)

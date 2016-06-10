@@ -8,7 +8,7 @@
 
 
 ModelBin::ModelBin(std::string directory)
-	: Bin<Model3D *>(directory)
+   : Bin<Model3D *>(directory)
 {}
 
 
@@ -16,7 +16,7 @@ ModelBin::ModelBin(std::string directory)
 
 ModelBin::~ModelBin()
 {
-	clear();
+   clear();
 }
 
 
@@ -24,10 +24,10 @@ ModelBin::~ModelBin()
 
 Model3D *ModelBin::load_data(std::string identifier)
 {
-	Model3D *m = new Model3D();
-	if (m->load_obj_file(identifier.c_str(), 1.0f)) return m;
-	delete m;
-	return NULL;
+   Model3D *m = new Model3D();
+   if (m->load_obj_file(identifier.c_str(), 1.0f)) return m;
+   delete m;
+   return NULL;
 }
 
 
@@ -35,8 +35,8 @@ Model3D *ModelBin::load_data(std::string identifier)
 
 void ModelBin::destroy_data(Model3D *mdl)
 {
-	if (!mdl) return;
-	delete mdl;
+   if (!mdl) return;
+   delete mdl;
 }
 
 

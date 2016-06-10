@@ -221,11 +221,11 @@ void UIStyleAssets::draw_inset(float x, float y, float w, float h, ALLEGRO_COLOR
    // draw the bottom line hilight
    ALLEGRO_COLOR hilight_color = color::mix(color::white, color::transparent, 0.6);
    al_draw_line(x+roundness, y+h+1.5, x+w-roundness, y+h+1.5, hilight_color, 1.0);
-      // left arc
-      float arc_unit_amount = 0.8;
-      float arc_roundness = roundness + 0.5;
-      al_draw_arc(x+arc_roundness/2 + 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, FULL_ROTATION*0.25, FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
-      al_draw_arc(x+w-arc_roundness/2 - 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, FULL_ROTATION*0.25, -FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
+   // left arc
+   float arc_unit_amount = 0.8;
+   float arc_roundness = roundness + 0.5;
+   al_draw_arc(x+arc_roundness/2 + 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, FULL_ROTATION*0.25, FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
+   al_draw_arc(x+w-arc_roundness/2 - 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, FULL_ROTATION*0.25, -FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
 
    // draw the shaded bitmap
    ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
@@ -290,7 +290,7 @@ void UIStyleAssets::draw_styled_text(std::string style, float x, float y, float 
       ALLEGRO_FONT *font = UIStyleAssets::get_ui_font();
 
       float w = al_get_text_width(font, text.c_str()); // < not ideal or optimum for speed
-                                                            //   consider some alternatives.
+      //   consider some alternatives.
       float h = al_get_font_line_height(font);
 
       // draw the dropshadow
@@ -307,7 +307,7 @@ void UIStyleAssets::draw_styled_text(std::string style, float x, float y, float 
       ALLEGRO_FONT *font = UIStyleAssets::get_text_font();
 
       float w = al_get_text_width(font, text.c_str()); // < not ideal or optimum for speed
-                                                            //   consider some alternatives.
+      //   consider some alternatives.
       float h = al_get_font_line_height(font);
 
       al_draw_text(font, color::white, x-w*align_x, y-h*align_y-1, 0, text.c_str());

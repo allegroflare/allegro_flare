@@ -10,36 +10,36 @@
 
 
 placement3d::placement3d()
-	: position(0, 0, 0)
-	, size(0, 0, 0)
-	, align(0.5, 0.5, 0.5)
-	, scale(1.0, 1.0, 1.0)
-	, anchor(0, 0, 0)
-	, rotation(0, 0, 0)
+   : position(0, 0, 0)
+   , size(0, 0, 0)
+   , align(0.5, 0.5, 0.5)
+   , scale(1.0, 1.0, 1.0)
+   , anchor(0, 0, 0)
+   , rotation(0, 0, 0)
 {}
 
 
 
 
 placement3d::placement3d(float x, float y, float z)
-	: position(x, y, z)
-	, size(0, 0, 0)
-	, align(0.5, 0.5, 0.5)
-	, scale(1.0, 1.0, 1.0)
-	, anchor(0, 0, 0)
-	, rotation(0, 0, 0)
+   : position(x, y, z)
+   , size(0, 0, 0)
+   , align(0.5, 0.5, 0.5)
+   , scale(1.0, 1.0, 1.0)
+   , anchor(0, 0, 0)
+   , rotation(0, 0, 0)
 {}
 
 
 
 
 placement3d::placement3d(vec3d position)
-	: position(position.x, position.y, position.z)
-	, size(0, 0, 0)
-	, align(0.5, 0.5, 0.5)
-	, scale(1.0, 1.0, 1.0)
-	, anchor(0, 0, 0)
-	, rotation(0, 0, 0)
+   : position(position.x, position.y, position.z)
+   , size(0, 0, 0)
+   , align(0.5, 0.5, 0.5)
+   , scale(1.0, 1.0, 1.0)
+   , anchor(0, 0, 0)
+   , rotation(0, 0, 0)
 {}
 
 
@@ -47,13 +47,13 @@ placement3d::placement3d(vec3d position)
 
 void placement3d::start_transform()
 {
-	ALLEGRO_TRANSFORM transform;
-	al_copy_transform(&previous_transform, al_get_current_transform());
-	
-	this->build_transform(&transform);
+   ALLEGRO_TRANSFORM transform;
+   al_copy_transform(&previous_transform, al_get_current_transform());
 
-	al_compose_transform(&transform, &previous_transform);
-	al_use_transform(&transform);
+   this->build_transform(&transform);
+
+   al_compose_transform(&transform, &previous_transform);
+   al_use_transform(&transform);
 }
 
 
@@ -61,7 +61,7 @@ void placement3d::start_transform()
 
 void placement3d::restore_transform()
 {
-	al_use_transform(&previous_transform);
+   al_use_transform(&previous_transform);
 }
 
 
@@ -69,20 +69,20 @@ void placement3d::restore_transform()
 
 void placement3d::build_transform(ALLEGRO_TRANSFORM *transform)
 {
-	al_identity_transform(transform);
+   al_identity_transform(transform);
 
-	// offset for alignment and anchors
-	al_translate_transform_3d(transform, -align.x*size.x, -align.y*size.y, -align.z*size.z);
-	al_scale_transform_3d(transform, scale.x, scale.y, scale.z);
-	al_translate_transform_3d(transform, anchor.x, anchor.y, anchor.z);
+   // offset for alignment and anchors
+   al_translate_transform_3d(transform, -align.x*size.x, -align.y*size.y, -align.z*size.z);
+   al_scale_transform_3d(transform, scale.x, scale.y, scale.z);
+   al_translate_transform_3d(transform, anchor.x, anchor.y, anchor.z);
 
-	// rotate
-	al_rotate_transform_3d(transform, 0, 1, 0, rotation.y * TAU); // <-- uuhh... not sure how this should work
-	al_rotate_transform_3d(transform, 1, 0, 0, rotation.x * TAU); // <-- uuhh... not sure how this should work
-	al_rotate_transform_3d(transform, 0, 0, 1, rotation.z * TAU); // <-- uuhh... not sure how this should work
+   // rotate
+   al_rotate_transform_3d(transform, 0, 1, 0, rotation.y * TAU); // <-- uuhh... not sure how this should work
+   al_rotate_transform_3d(transform, 1, 0, 0, rotation.x * TAU); // <-- uuhh... not sure how this should work
+   al_rotate_transform_3d(transform, 0, 0, 1, rotation.z * TAU); // <-- uuhh... not sure how this should work
 
-	// translate
-	al_translate_transform_3d(transform, position.x, position.y, position.z);
+   // translate
+   al_translate_transform_3d(transform, position.x, position.y, position.z);
 }
 
 

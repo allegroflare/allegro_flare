@@ -39,7 +39,7 @@ bool UISurfaceAreaBoxPadded::collides(float x, float y)
 void UISurfaceAreaBoxPadded::draw_bounding_area()
 {
    placement.draw_box_with_padding(color::color(color::aliceblue, 0.2), true,
-      padding_top, padding_right, padding_bottom, padding_left);
+         padding_top, padding_right, padding_bottom, padding_left);
 }
 
 

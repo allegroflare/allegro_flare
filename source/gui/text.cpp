@@ -23,10 +23,10 @@ UIText::UIText(UIWidget *parent, float x, float y, std::string text)
 
    // text elements do not recieve focus when ALLEGRO_KEY_TABbing
    no_focus = true;
-   
+
    // unlike other widgets, text will always align left by default
    this->surface_area->placement.align.x = 0.0;
-   
+
    // update the dimentions of the box
    place.size.x = al_get_text_width(font, text.c_str());
    place.size.y = al_get_font_line_height(font);

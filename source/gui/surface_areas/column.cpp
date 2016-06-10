@@ -7,7 +7,6 @@
 
 
 
-
 UISurfaceAreaColumn::UISurfaceAreaColumn(float x, float w)
    : UISurfaceArea(x, 0, w, 0)
 {
@@ -18,7 +17,6 @@ UISurfaceAreaColumn::UISurfaceAreaColumn(float x, float w)
 
 void UISurfaceAreaColumn::draw_bounding_area()
 {
-   
 }
 
 

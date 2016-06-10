@@ -43,7 +43,7 @@ UIWidget::~UIWidget()
    if (surface_area) delete surface_area;
    if (family.parent) family.parent->family.unregister_as_child(this);
    num_active_widgets--;
-   
+
    std::cout << "~UIWidget() { type=" << attr.get(UI_ATTR__UI_WIDGET_TYPE) << " }" << std::endl;
 
    // clear all elements from the motion manager
@@ -97,9 +97,9 @@ bool UIWidget::is_disabled()
 void UIWidget::bring_to_front()
 {
    if (!family.parent) return;
-      // hmm.. the logic of this should be executed by the parent, not this child
-      // TODO: this function should simply call something like family->bring_to_front(this)
-      // and not all this stuff:
+   // hmm.. the logic of this should be executed by the parent, not this child
+   // TODO: this function should simply call something like family->bring_to_front(this)
+   // and not all this stuff:
    for (unsigned i=0; i<family.parent->family.children.size(); i++)
    {
       if (family.parent->family.children[i] == this)
@@ -160,7 +160,7 @@ void UIWidget::draw_func()
    on_draw();
 
    family.draw_all(); // TODO: should be renamed to draw_children();
-   
+
    // draws the focus rectangle if it's focused
    /*
    if (focused && gimmie_super_screen()->draw_focused_outline)
@@ -199,7 +199,6 @@ void UIWidget::mouse_axes_func(float x, float y, float dx, float dy)
 
    for (int i=(int)family.children.size()-1; i>=0; i--)
       family.children[i]->mouse_axes_func(tmx, tmy, dx, dy);  // I'm not sure why these are dx/dy, but it works correctly this way
-
 
 
    // then proceed with the execution of the function
@@ -317,7 +316,7 @@ void UIWidget::key_char_func()
 
    for (unsigned i=0; i<family.children.size(); i++)
       family.children[i]->key_char_func();
-   
+
    on_key_char();
 }
 

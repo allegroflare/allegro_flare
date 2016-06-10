@@ -60,7 +60,7 @@ void UIButton::on_draw()
    // draw a soft hilight over the button if the mouse is over it
    if (!disabled)
       al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 5, 5,
-         color::mix(color::transparent, UIStyleAssets::get_hilight_color(), mouse_over * 0.1));
+            color::mix(color::transparent, UIStyleAssets::get_hilight_color(), mouse_over * 0.1));
 
 
    // draw the icon and/or the text
@@ -88,10 +88,10 @@ void UIButton::on_draw()
    if (font && !text.empty())
    {
       UIStyleAssets::draw_styled_text(is_disabled() ? "ui_disabled" : "ui", place.size.x/2, place.size.y/2 + is_depressed*1, 0.5, 0.5, text);
-/*
+      /*
       al_draw_text(font, color::color(color::black, 0.4), start_x, placement.size.y/2-al_get_font_line_height(font)/2+1, ALLEGRO_ALIGN_LEFT, text.c_str());
       al_draw_text(font, color::white, start_x, placement.size.y/2-al_get_font_line_height(font)/2-1, ALLEGRO_ALIGN_LEFT, text.c_str());
-*/
+      */
    }
 
    if (is_disabled())
@@ -142,7 +142,7 @@ void UIButton::on_key_down()
    if (!is_focused()) return;
 
    if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ENTER
-      || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_SPACE
+         || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_SPACE
       )
    {
       on_click();

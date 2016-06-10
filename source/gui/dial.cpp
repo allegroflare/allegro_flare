@@ -95,13 +95,13 @@ void UIDial::on_draw()
 
    // draw the background slider
    al_draw_arc(radius, radius,
-      inner_radius + (bar_thickness)/2,
-      min_theta, full_theta, back_color, bar_thickness);
+         inner_radius + (bar_thickness)/2,
+         min_theta, full_theta, back_color, bar_thickness);
 
    // draw the foreground slider
    al_draw_arc(radius, radius,
-      inner_radius + (bar_thickness)/2,
-      min_theta, full_theta*val, front_color, bar_thickness);
+         inner_radius + (bar_thickness)/2,
+         min_theta, full_theta*val, front_color, bar_thickness);
 
    // if the dial is at 0, then the dot color should be the OFF color
    ALLEGRO_COLOR marker_color = front_color;
@@ -115,23 +115,23 @@ void UIDial::on_draw()
 
    // draw a dot, marking the position of the dial
    al_draw_filled_circle(
-      radius + dial_point_x*(inner_radius - bar_thickness),
-      radius + dial_point_y*(inner_radius - bar_thickness),
-      bar_thickness*0.5, marker_color);
+         radius + dial_point_x*(inner_radius - bar_thickness),
+         radius + dial_point_y*(inner_radius - bar_thickness),
+         bar_thickness*0.5, marker_color);
 
    // draw outlines (and inner-outlines) for the circle buton
    //al_draw_circle(radius, radius,
    //   inner_radius-1, al_color_name("white"), 1.0);
    al_draw_circle(radius, radius,
-      inner_radius, color::color(color::black, 0.2), 2);
+         inner_radius, color::color(color::black, 0.2), 2);
 
    // draw the shade down
    float shade_inset = 3;
    ALLEGRO_BITMAP *shade = UIStyleAssets::get_shade_down_circle_gradient();
    al_draw_tinted_scaled_bitmap(shade, color::color(color::white, 0.2),
-      0, 0, al_get_bitmap_width(shade), al_get_bitmap_height(shade),
-      shade_inset + radius-inner_radius, shade_inset + radius-inner_radius,
-      inner_radius*2 - shade_inset*2, inner_radius*2 - shade_inset*2, 0);
+         0, 0, al_get_bitmap_width(shade), al_get_bitmap_height(shade),
+         shade_inset + radius-inner_radius, shade_inset + radius-inner_radius,
+         inner_radius*2 - shade_inset*2, inner_radius*2 - shade_inset*2, 0);
 
    // draw a bounding rectangle
    //al_draw_rectangle(0, 0, place.size.x, place.size.y, color::dodgerblue, 1.0);

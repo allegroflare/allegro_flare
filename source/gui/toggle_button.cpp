@@ -102,7 +102,7 @@ void UIToggleButton::on_draw()
    else UIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
 
    UIStyleAssets::draw_styled_text("ui", place.size.x/2, place.size.y/2 + (pressed ? 1 : 0),
-      0.5, 0.5, text.c_str());
+         0.5, 0.5, text.c_str());
 }
 
 

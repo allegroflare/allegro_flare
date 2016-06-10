@@ -186,10 +186,10 @@ void UITextInput::on_key_char()
       printable = true;
    }
    if ((keycode == ALLEGRO_KEY_C
-      || keycode == ALLEGRO_KEY_X
-      || keycode == ALLEGRO_KEY_V
-      || keycode == ALLEGRO_KEY_A)
-      && Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
+       || keycode == ALLEGRO_KEY_X
+       || keycode == ALLEGRO_KEY_V
+       || keycode == ALLEGRO_KEY_A)
+       && Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
    {
       //std::cout << "cut-copy-pate" << std::endl;
       if (keycode == ALLEGRO_KEY_A)
@@ -287,7 +287,7 @@ void UITextInput::on_key_char()
    else if (keycode == ALLEGRO_KEY_BACKSPACE)
    {
       if ((Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL)
-         && (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT))
+          && (Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT))
       {
          // do nothing in this specific case.
          goto keyout;
@@ -348,7 +348,6 @@ void UITextInput::on_key_char()
       //_play(keypress);
    }
 
-
    keyout:
 
    if (!(Framework::current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT) || printable)
@@ -364,8 +363,8 @@ void UITextInput::_update_text_and_selection_render(float len_to_cursor, float l
    al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
 
    if (!_text_render
-      || place.size.x != al_get_bitmap_width(_text_render)
-      || place.size.y != al_get_bitmap_height(_text_render)
+       || place.size.x != al_get_bitmap_width(_text_render)
+       || place.size.y != al_get_bitmap_height(_text_render)
       )
    {
       al_destroy_bitmap(_text_render);

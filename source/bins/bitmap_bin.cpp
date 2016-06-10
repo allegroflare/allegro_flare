@@ -8,7 +8,7 @@
 
 
 BitmapBin::BitmapBin(std::string directory)
-	: Bin<ALLEGRO_BITMAP *>(directory)
+   : Bin<ALLEGRO_BITMAP *>(directory)
 {}
 
 
@@ -16,7 +16,7 @@ BitmapBin::BitmapBin(std::string directory)
 
 BitmapBin::~BitmapBin()
 {
-	clear();
+   clear();
 }
 
 
@@ -24,7 +24,7 @@ BitmapBin::~BitmapBin()
 
 ALLEGRO_BITMAP *BitmapBin::load_data(std::string identifier)
 {
-	return al_load_bitmap(identifier.c_str());
+   return al_load_bitmap(identifier.c_str());
 }
 
 
@@ -32,7 +32,7 @@ ALLEGRO_BITMAP *BitmapBin::load_data(std::string identifier)
 
 void BitmapBin::destroy_data(ALLEGRO_BITMAP *bmp)
 {
-	al_destroy_bitmap(bmp);
+   al_destroy_bitmap(bmp);
 }
 
 

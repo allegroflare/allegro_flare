@@ -83,7 +83,7 @@ bool UIFamily::assign_child_to_new_parent(UIWidget *child_widget, UIWidget *new_
    {
       std::cout << "warning: registering a child to a NULL parent - (TODO: implement this functionality)" << std::endl;
       new_parent->family.register_as_child(NULL); //< is this ok?? right now, nothing really happens with this functionality
-                                         // it's akin to a dangling pointer and the child is left without
+      // it's akin to a dangling pointer and the child is left without
    }
 
    return true;

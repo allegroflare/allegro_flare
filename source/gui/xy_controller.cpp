@@ -56,7 +56,7 @@ void UIXYController::on_mouse_move(float x, float y, float dx, float dy)
 {
    place.transform_coordinates(&x, &y);
    mouse_pos = vec2d(x, y);
-   
+
    if (mouse_down_on_over)
       set_point(mouse_pos.x / place.size.x, mouse_pos.y / place.size.y);   
 }

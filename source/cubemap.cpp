@@ -10,19 +10,19 @@
 
 
 
+// todo
 bool glsl_destroy_cubemap_texture(ALLEGRO_FLARE_CUBEMAP_TEXTURE *texture)
 {
-	// todo
-	return false;
+   return false;
 }
 
 
 
 
+//https://www.allegro.cc/forums/thread/611449
+//Faces are in a single bitmap. Images in the strip are in the following order:
+//+x -x +y -y +z -z
 ALLEGRO_FLARE_CUBEMAP_TEXTURE *glsl_create_cubemap_from_vertical_strip(const char *filename)
-	//https://www.allegro.cc/forums/thread/611449
-	//Faces are in a single bitmap. Images in the strip are in the following order:
-	//+x -x +y -y +z -z
 {
    if (!filename)
    {

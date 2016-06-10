@@ -27,9 +27,9 @@
 template<class T>
 std::string __tostring(T val)
 {
-	std::ostringstream s;
-	s << val;
-	return s.str();
+   std::ostringstream s;
+   s << val;
+   return s.str();
 }
 
 
@@ -68,9 +68,7 @@ public:
    bool (*to_val_func)(void *val, std::string str);
    std::string (*to_str_func)(void *val);
 
-   DatatypeDefinition(std::string identifier,
-      bool (*to_val_func)(void *val, std::string str),
-      std::string (*to_str_func)(void *val))
+   DatatypeDefinition(std::string identifier, bool (*to_val_func)(void *val, std::string str), std::string (*to_str_func)(void *val))
       : identifier(identifier)
       , to_val_func(to_val_func)
       , to_str_func(to_str_func)
@@ -388,7 +386,7 @@ bool Attributes::bind(std::string key, std::string datatype, void *var)
 {
    int index = __find_or_create_attribute_index(key);
    if (datatype == "int" || datatype == "float" || datatype == "bool" || datatype == "string"
-       || DatatypeDefinition::find_definition(datatype))
+         || DatatypeDefinition::find_definition(datatype))
    {
       attributes[index].datatype = datatype;
       attributes[index].bound = var;
@@ -529,9 +527,9 @@ bool Attributes::pull_value(std::string key)
 
 
 bool Attributes::create_datatype_definition(
-   std::string identifier,
-   bool (*to_val_func)(void *val, std::string str),
-   std::string (*to_str_func)(void *val))
+      std::string identifier,
+      bool (*to_val_func)(void *val, std::string str),
+      std::string (*to_str_func)(void *val))
 {
    std::vector<std::string> &denied_types = Attributes::denied_custom_types;
    if (std::find(denied_types.begin(), denied_types.end(), identifier) != denied_types.end()) return false;
@@ -580,7 +578,7 @@ int Attributes::__find_attribute_index(std::string key, std::string value)
 {
    for (int i=0; i<attributes.size(); i++)
       if ((strcmp(key.c_str(), attributes[i].key.c_str()) == 0)
-         && (strcmp(value.c_str(), attributes[i].value.c_str()) == 0))
+          && (strcmp(value.c_str(), attributes[i].value.c_str()) == 0))
          return i;
    return -1;
 }

@@ -39,7 +39,7 @@ int UIListSpinner::add_items(std::vector<std::string> new_items)
    items.insert(items.end(), new_items.begin(), new_items.end());
    // refresh the iterator (important)
    it = items.begin();
-      text_input->set_text(*it);
+   text_input->set_text(*it);
    return items.size();
 }
 

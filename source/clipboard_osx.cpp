@@ -19,7 +19,7 @@ Clipboard *Clipboard::instance = NULL;
 
 
 Clipboard::Clipboard()
-	: __text("")
+   : __text("")
 {}
 
 
@@ -27,19 +27,19 @@ Clipboard::Clipboard()
 
 static std::string __OSX_exec(const char* cmd)
 {
-  FILE* pipe = popen(cmd, "r");
-  if (!pipe) return "ERROR";
-  char buffer[128];
-  std::string result = "";
-  while(!feof(pipe))
-  {
-    if(fgets(buffer, 128, pipe) != NULL)
-    {
-      result += buffer;
-    }
-  }
-  pclose(pipe);
-  return result;
+   FILE* pipe = popen(cmd, "r");
+   if (!pipe) return "ERROR";
+   char buffer[128];
+   std::string result = "";
+   while(!feof(pipe))
+   {
+      if(fgets(buffer, 128, pipe) != NULL)
+      {
+         result += buffer;
+      }
+   }
+   pclose(pipe);
+   return result;
 }
 
 
@@ -47,8 +47,8 @@ static std::string __OSX_exec(const char* cmd)
 
 Clipboard *Clipboard::get_instance()
 {
-  if (!instance) instance = new Clipboard();
-  return instance;
+   if (!instance) instance = new Clipboard();
+   return instance;
 }
 
 
@@ -56,11 +56,11 @@ Clipboard *Clipboard::get_instance()
 
 void Clipboard::set(std::string text)
 {
-  std::stringstream cmd;
-  cmd << "printf \"" << text << "\" | pbcopy";
-  __OSX_exec(cmd.str().c_str());
+   std::stringstream cmd;
+   cmd << "printf \"" << text << "\" | pbcopy";
+   __OSX_exec(cmd.str().c_str());
 
-  get_instance()->__text = text;
+   get_instance()->__text = text;
 }
 
 
@@ -68,11 +68,11 @@ void Clipboard::set(std::string text)
 
 std::string Clipboard::get()
 {
-  std::string text = __OSX_exec("pbpaste");
+   std::string text = __OSX_exec("pbpaste");
 
-  get_instance()->__text = text;
+   get_instance()->__text = text;
 
-  return text;
+   return text;
 }
 
 

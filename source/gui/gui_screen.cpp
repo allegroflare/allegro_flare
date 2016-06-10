@@ -48,8 +48,8 @@ void UIScreen::primary_timer_func()
          if (joystick_state.stick[0].axis[0] != 0.0 || joystick_state.stick[0].axis[1] != 0.0)
          {
             al_set_mouse_xy(display->al_display,
-               mouse_state.x + joystick_state.stick[0].axis[0]*sensitivity,
-               mouse_state.y + joystick_state.stick[0].axis[1]*sensitivity);
+                  mouse_state.x + joystick_state.stick[0].axis[0]*sensitivity,
+                  mouse_state.y + joystick_state.stick[0].axis[1]*sensitivity);
          }
       }
    }
@@ -105,18 +105,18 @@ void UIScreen::key_down_func()
 
    // these next two conditionals are for keyboard/joystick navigation of widgets
 
-/*
-   if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_TAB)
-   {
+   /*
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_TAB)
+      {
       if (Framework::key_shift) jump_focus_to_ancestor_by_delta(true);// jump_focus_to_previous_direct_descendent();
       else jump_focus_to_ancestor_by_delta(); //jump_focus_to_next_direct_descendent();
-   }
-   if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-   {
+      }
+      if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+      {
       children.unfocus_all();
       al_show_mouse_cursor(display->display); // restore visibility of the cursor here
-   }
-*/
+      }
+      */
 
    UIWidget::key_down_func();
 }
@@ -145,11 +145,11 @@ void UIScreen::key_char_func()
 
 void UIScreen::joy_down_func()
 {
-/*
+   /*
    // for joystick / keyboard navigation of widgets
    if (Framework::current_event->joystick.button ==  5) jump_focus_to_ancestor_by_delta(); // XBOX Controller right shoulder trigger button
    if (Framework::current_event->joystick.button ==  4) jump_focus_to_ancestor_by_delta(true); // XBOX Controller left shoulder trigger button
-*/
+   */
 
    UIWidget::joy_down_func();
 }
@@ -159,7 +159,7 @@ void UIScreen::joy_down_func()
 
 void UIScreen::joy_up_func()
 {
-//   if (Framework::current_event->keyboard.display != display->display) return;
+   //   if (Framework::current_event->keyboard.display != display->display) return;
    UIWidget::joy_up_func();
 }
 
@@ -168,10 +168,10 @@ void UIScreen::joy_up_func()
 
 void UIScreen::joy_axis_func()
 {
-// this stuff is now polled on the timer
-//   use_joystick_as_mouse = true;
-//   if (Framework::current_event->joystick.axis == 0) joy_horizontal_pos = Framework::current_event->joystick.pos;
-//   if (Framework::current_event->joystick.axis == 1) joy_vertical_pos = Framework::current_event->joystick.pos;
+   // this stuff is now polled on the timer
+   // use_joystick_as_mouse = true;
+   // if (Framework::current_event->joystick.axis == 0) joy_horizontal_pos = Framework::current_event->joystick.pos;
+   // if (Framework::current_event->joystick.axis == 1) joy_vertical_pos = Framework::current_event->joystick.pos;
 
    UIWidget::joy_axis_func();
 }

@@ -57,8 +57,6 @@ void UIProgressBar::on_draw()
 
    // draw the background outline
    al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, roundness, roundness, color::color(color::black, 0.2), 2.0);
-      
-
 
    // because of the rounded corners, the min drawing
    // width of the bar
@@ -68,8 +66,8 @@ void UIProgressBar::on_draw()
 
    // draw the progress bar
    al_draw_filled_rounded_rectangle(inset_padding, inset_padding,
-      place.size.x*_val - inset_padding, place.size.y - inset_padding,
-      roundness, roundness, bar_color);
+         place.size.x*_val - inset_padding, place.size.y - inset_padding,
+         roundness, roundness, bar_color);
 
    // draw the shaded bitmap
    ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();

@@ -29,7 +29,7 @@ UIFramedWindow::UIFramedWindow(UIWidget *parent, float x, float y, float w, floa
    // create the close button in the top right of the window
    float close_button_width = 16;
    close_button = new UIButton(this, place.size.x-close_button_width/2, 0-frame_thickness*2-close_button_width/2,
-      close_button_width, close_button_width, "");
+         close_button_width, close_button_width, "");
 }
 
 
@@ -51,7 +51,7 @@ void UIFramedWindow::draw_window_frame_around(float x1, float y1, float x2, floa
    // inset frame shadow
    ALLEGRO_COLOR frame_outline_color = frame_base_color;
    al_draw_rectangle(x1-frame_thickness+0.5, y1-frame_thickness-titlebar_height+0.5,
-      x2+frame_thickness-0.5, y2+frame_thickness-0.5, frame_outline_color, 1.0);
+         x2+frame_thickness-0.5, y2+frame_thickness-0.5, frame_outline_color, 1.0);
 }
 
 
