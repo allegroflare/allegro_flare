@@ -3,6 +3,7 @@
 
 
 
+
 #include <allegro_flare/allegro_flare.h>
 
 #define ALLEGRO_EVENT_FILESYS_CHANGE ALLEGRO_GET_EVENT_TYPE('F','S','C','H')
@@ -13,20 +14,21 @@
 class FileSysChangeNotificationScreen
 {
 private:
-	static FileSysChangeNotificationScreen *instance;
-	ALLEGRO_EVENT_SOURCE filesys_change_event_source;
-	static FileSysChangeNotificationScreen *get_instance();
+   static FileSysChangeNotificationScreen *instance;
+   ALLEGRO_EVENT_SOURCE filesys_change_event_source;
+   static FileSysChangeNotificationScreen *get_instance();
 
-	FileSysChangeNotificationScreen();
-	~FileSysChangeNotificationScreen();
+   FileSysChangeNotificationScreen();
+   ~FileSysChangeNotificationScreen();
 
 public:
-	static void watch_directory__blocking(std::string directory);
-	static void watch_directory__in_thread(std::string directory);
-	static void emit_filesys_change(std::string dir);
-	//static void unwatch_directory(std::string directory);
-	//static std::vector<std::string> get_watched_directories();
+   static void watch_directory__blocking(std::string directory);
+   static void watch_directory__in_thread(std::string directory);
+   static void emit_filesys_change(std::string dir);
+   //static void unwatch_directory(std::string directory);
+   //static std::vector<std::string> get_watched_directories();
 };
+
 
 
 
@@ -41,24 +43,24 @@ public:
 class MyProject : public Screen
 {
 public:
-	MyProject(Display *display)
-		: Screen(display)
-	{
-		FileSysChangeNotificationScreen::watch_directory__in_thread("C:/Users/Mark/Desktop/myfolder");
-	}
+   MyProject(Display *display)
+      : Screen(display)
+   {
+      FileSysChangeNotificationScreen::watch_directory__in_thread("C:/Users/Mark/Desktop/myfolder");
+   }
 
-	void user_event_func() override
-	{
-		if (af::current_event->type == ALLEGRO_EVENT_FILESYS_CHANGE)
-		{
-			std::cout << "DIRECTORY CHANGED!" << std::endl;
-		}
-	}
+   void user_event_func() override
+   {
+      if (af::current_event->type == ALLEGRO_EVENT_FILESYS_CHANGE)
+      {
+         std::cout << "DIRECTORY CHANGED!" << std::endl;
+      }
+   }
 };
 
 */
 
 
 
-#endif
 
+#endif
