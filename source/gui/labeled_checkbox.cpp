@@ -1,13 +1,14 @@
 
 
 
+
 #include <allegro_flare/gui/widgets/labeled_checkbox.h>
 
 #include <allegro5/allegro_primitives.h>
-
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/widgets/checkbox.h>
 #include <allegro_flare/gui/widgets/text.h>
+
 
 
 

@@ -1,14 +1,12 @@
 
 
 
+
 #include <allegro_flare/gui/widgets/toggle_button.h>
-
-
-#include <allegro_flare/allegro_flare.h> // for af::fonts
 
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/style_assets.h>
-
+#include <allegro_flare/allegro_flare.h> // for af::fonts
 
 
 
@@ -33,8 +31,8 @@ void UIToggleButton::set_text(std::string text)
 
 
 
+// returns true if the button is pressed
 bool UIToggleButton::toggle()
-   // returns true if the button is pressed
 {
    pressed = !pressed;
    on_change();
@@ -43,9 +41,10 @@ bool UIToggleButton::toggle()
 
 
 
+
+// returns true if the state was changed,
+// returns false if it stayed the same
 bool UIToggleButton::set_as_pressed()
-   // returns true if the state was changed,
-   // returns false if it stayed the same
 {
    if (!pressed)
    {
@@ -57,9 +56,10 @@ bool UIToggleButton::set_as_pressed()
 
 
 
+
+// returns true if the state was changed,
+// returns false if it stayed the same
 bool UIToggleButton::set_as_unpressed()
-   // returns true if the state was changed,
-   // returns false if it stayed the same
 {
    if (pressed)
    {
@@ -71,10 +71,12 @@ bool UIToggleButton::set_as_unpressed()
 
 
 
+
 void UIToggleButton::silently_set_as_pressed()
 {
    pressed = true;
 }
+
 
 
 
@@ -85,10 +87,12 @@ void UIToggleButton::silently_set_as_unpressed()
 
 
 
+
 bool UIToggleButton::is_pressed()
 {
    return pressed;
 }
+
 
 
 
@@ -113,6 +117,7 @@ void UIToggleButton::on_change()
 {
    send_message_to_parent("on_change");
 }
+
 
 
 

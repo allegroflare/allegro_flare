@@ -4,13 +4,11 @@
 
 #include <allegro_flare/gui/widgets/text_input.h>
 
-
-#include <allegro_flare/allegro_flare.h> // for Framework::current_event and Framework::fonts
-
-#include <allegro_flare/gui/widget.h>
+#include <algorithm>
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/style_assets.h>
-
+#include <allegro_flare/gui/widget.h>
+#include <allegro_flare/allegro_flare.h> // for Framework::current_event and Framework::fonts
 
 
 
@@ -38,10 +36,12 @@ UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, s
 
 
 
+
 UITextInput::~UITextInput()
 {
    al_destroy_bitmap(_text_render);
 }
+
 
 
 
@@ -53,6 +53,7 @@ void UITextInput::set_text(std::string text)
    cursor_end = cursor_pos;
    on_change();
 }
+
 
 
 
@@ -71,6 +72,7 @@ bool UITextInput::selection_active()
 
 
 
+
 void UITextInput::insert_text(std::string text)
 {
    _insert_text(text.c_str());
@@ -78,7 +80,8 @@ void UITextInput::insert_text(std::string text)
 }
 
 
-#include <algorithm>
+
+
 std::string UITextInput::get_selection()
 {
    if (selection_active())
@@ -103,6 +106,7 @@ void UITextInput::_insert_text(const char *str)
 
 
 
+
 void UITextInput::clear_selection()
 {
    int cursor_min = std::min(cursor_pos, cursor_end);
@@ -112,10 +116,14 @@ void UITextInput::clear_selection()
 }
 
 
+
+
 void UITextInput::set_font_color(ALLEGRO_COLOR col)
 {
    font_color = col;
 }
+
+
 
 
 void UITextInput::_handle_erase()
@@ -134,10 +142,14 @@ void UITextInput::_handle_erase()
 }
 
 
+
+
 void UITextInput::on_click()
 {
 
 }
+
+
 
 
 void UITextInput::on_mouse_move(float x, float y, float dx, float dy)
@@ -148,13 +160,13 @@ void UITextInput::on_mouse_move(float x, float y, float dx, float dy)
 }
 
 
+
+
 void UITextInput::on_key_char()
 {
    if (!focused) return;
 
    // TODO: implement the on_change()
-   
-
 
 
    cursor_blink_counter = 1.0;
@@ -346,7 +358,6 @@ void UITextInput::on_key_char()
 
 
 
-
 void UITextInput::_update_text_and_selection_render(float len_to_cursor, float len_to_cursor_end)
 {
    ALLEGRO_STATE state;
@@ -364,14 +375,12 @@ void UITextInput::_update_text_and_selection_render(float len_to_cursor, float l
    al_clear_to_color(color::transparent);
 
 
-
    // draw the text hilight
    ALLEGRO_COLOR cursor_select_color = color::hex("c6e2ff");
    al_draw_filled_rectangle(padding+len_to_cursor+text_x_offset, padding, padding+len_to_cursor_end+text_x_offset, padding+al_get_font_line_height(font), focused ? cursor_select_color : color::color(cursor_select_color, 0.4));
 
    if (text.empty() && attr.has("default_text_when_empty")) al_draw_text(font, color::color(font_color, 0.2), padding+text_x_offset, padding, ALLEGRO_FLAGS_EMPTY, attr.get("default_text_when_empty").c_str());
    else al_draw_text(font, font_color, padding+text_x_offset, padding, ALLEGRO_FLAGS_EMPTY, text.c_str());
-
 
 
    al_restore_state(&state);
@@ -387,8 +396,6 @@ void UITextInput::on_draw()
    //float roundness = 2;
 
 
-
-
    if ((cursor_blink_counter-= 0.025) < 0) cursor_blink_counter = 1.0;
 
 
@@ -401,12 +408,9 @@ void UITextInput::on_draw()
    //float padding = 10;
 
 
-
    UIStyleAssets::draw_inset(0, 0, placement.size.x, placement.size.y, color::color(color::black, 0.1));
    // draw the border-box
    if (focused) al_draw_rounded_rectangle(0, 0, placement.size.x, placement.size.y, 3, 3, color::dodgerblue, 2.0);   
-
-
 
 
    text_x_offset = 0;
@@ -427,6 +431,7 @@ void UITextInput::on_draw()
 
 
 
+
 void UITextInput::on_focus()
 {
    if (attr.has("select_all_on_focus"))
@@ -439,11 +444,13 @@ void UITextInput::on_focus()
 
 
 
+
 void UITextInput::on_submit()
 {
    if (family.parent) family.parent->on_message(this, "on_submit");
    on_change();
 }
+
 
 
 

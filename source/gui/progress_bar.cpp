@@ -1,19 +1,17 @@
 
 
 
+
 #include <allegro_flare/gui/widgets/progress_bar.h>
 
-
 #include <allegro5/allegro_primitives.h>
-
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h>
-#include <allegro_flare/allegro_flare.h>
-
-#include <allegro_flare/gui.h>
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/gui_screen.h>
 #include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/allegro_flare.h>
+#include <allegro_flare/color.h>
+#include <allegro_flare/gui.h>
+#include <allegro_flare/useful.h>
 
 
 
@@ -30,6 +28,7 @@ UIProgressBar::UIProgressBar(UIWidget *parent, float x, float y, float w, float 
 
 
 
+
 void UIProgressBar::set_val(float normalized_val)
 {
    normalized_val = limit<float>(0, 1, normalized_val);
@@ -38,11 +37,13 @@ void UIProgressBar::set_val(float normalized_val)
 
 
 
+
 void UIProgressBar::set_val(float _val, float min, float max)
 {
    float normalized_val = (_val - min) / (max - min);
    set_val(normalized_val);
 }
+
 
 
 
@@ -74,5 +75,7 @@ void UIProgressBar::on_draw()
    ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
    draw_stretched_bitmap(3, 3, place.size.x-6, place.size.y-6, shade_down, 0, color::color(color::white, 0.2));
 }
+
+
 
 

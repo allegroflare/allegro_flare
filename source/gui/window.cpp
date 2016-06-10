@@ -2,13 +2,11 @@
 
 
 
-
 #include <allegro_flare/gui/widgets/window.h>
 
-#include <allegro_flare/allegro_flare.h> // for tostring and Framework:: bins
-
-#include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/allegro_flare.h> // for tostring and Framework:: bins
 
 
 
@@ -26,7 +24,6 @@ UIWindow::UIWindow(UIWidget *parent, float x, float y, float w, float h)
 
 
 
-
 void UIWindow::on_draw()
 {
    UIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
@@ -36,11 +33,11 @@ void UIWindow::on_draw()
 
 
 
-
 void UIWindow::on_focus()
 {
    if (attr.has("bring_to_front_on_focus")) bring_to_front();
 }
+
 
 
 

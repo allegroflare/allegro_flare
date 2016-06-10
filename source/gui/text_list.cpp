@@ -2,21 +2,17 @@
 
 
 
-#include <allegro_flare/allegro_flare.h>
-
 #include <allegro_flare/gui/widgets/text_list.h>
+
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/gui_screen.h>
 #include <allegro_flare/gui/style_assets.h>
-
+#include <allegro_flare/allegro_flare.h>
 
 
 
 
 UIListItem::UIListItem() {};
-
-
-
 
 
 
@@ -33,12 +29,14 @@ UITextList::UITextList(UIWidget *parent, float x, float y, float w)
 
 
 
+
 void UITextList::add_item(std::string item)
 {
    // TODO: insert()
    // also, change selection if the new added item is before or after this item, k? :)
    items.push_back(item);
 }
+
 
 
 
@@ -51,11 +49,13 @@ void UITextList::select_item(int index)
 
 
 
+
 std::string *UITextList::get_item(int index)
 {
    if (index < 0 || index >= (int)items.size()) return NULL;
    return &items[index];
 }
+
 
 
 
@@ -66,12 +66,14 @@ std::string *UITextList::get_selected_item()
 
 
 
+
 void UITextList::move_selected_item(int delta)
 {
    currently_selected_item += delta;
    while (currently_selected_item < 0) currently_selected_item += items.size();
    currently_selected_item = currently_selected_item % items.size();
 }
+
 
 
 
@@ -91,10 +93,12 @@ void UITextList::on_key_char()
 
 
 
+
 float UITextList::get_item_height(int index)
 {
    return item_height + item_padding*2;
 }
+
 
 
 
@@ -115,7 +119,9 @@ int UITextList::get_item_index_at(float x, float y)
 
 
 
+
 void UITextList::on_select() {}
+
 
 
 
@@ -130,6 +136,7 @@ bool UITextList::select_at(float x, float y)
 
 
 
+
 bool UITextList::select_at_mouse_cursor() // need to eventually account for multiple mouse cursors.
 {
    ALLEGRO_MOUSE_STATE mouse_state;
@@ -139,6 +146,7 @@ bool UITextList::select_at_mouse_cursor() // need to eventually account for mult
 
    return select_at(x, y);
 }
+
 
 
 
@@ -155,6 +163,7 @@ void UITextList::joy_down_func()
 
 
 
+
 void UITextList::mouse_down_func()
 {
    UIWidget::mouse_down_func();
@@ -163,6 +172,7 @@ void UITextList::mouse_down_func()
    //std::cout << "(" << mouse_state.x << ", " << mouse_state.y << ") -> (" << x << ", " << y << ")" << std::endl;
    select_at_mouse_cursor();
 }
+
 
 
 
@@ -196,6 +206,7 @@ void UITextList::draw_item(vec2d position, int index)
 
 
 
+
 void UITextList::on_draw()
 {
    UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
@@ -219,3 +230,7 @@ void UITextList::on_draw()
    cursor += vec2d(padding_x, padding_y);
    place.size.y = cursor.y;
 }
+
+
+
+

@@ -1,9 +1,8 @@
 
+
+
+
 #include <allegro_flare/gui/surface_areas/row.h>
-
-
-
-
 
 
 
@@ -16,12 +15,9 @@ UISurfaceAreaRow::UISurfaceAreaRow(float y, float h)
 
 
 
-
 void UISurfaceAreaRow::draw_bounding_area()
 {
-   
 }
-
 
 
 
@@ -32,4 +28,7 @@ bool UISurfaceAreaRow::collides(float x, float y)
    if (y > placement.position.y + placement.size.y) return false;
    return true;
 }
+
+
+
 

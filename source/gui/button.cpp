@@ -4,19 +4,14 @@
 
 #include <allegro_flare/gui/widgets/button.h>
 
-
-
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
-
-#include <allegro_flare/color.h>
-
-#include <allegro_flare/gui/widget.h>
-#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/gui/gui_screen.h>
 #include <allegro_flare/gui/style_assets.h>
-
+#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/gui/widget.h>
 #include <allegro_flare/allegro_flare.h> // for Framework::time_now
-
+#include <allegro_flare/color.h>
 
 
 
@@ -43,6 +38,7 @@ void UIButton::set_icon(ALLEGRO_BITMAP *icon)
 
 
 
+
 void UIButton::set_content_alignment(float _content_alignment)
 {
    content_alignment = _content_alignment;
@@ -50,7 +46,6 @@ void UIButton::set_content_alignment(float _content_alignment)
 
 
 
-#include <allegro_flare/gui/gui_screen.h>
 
 void UIButton::on_draw()
 {
@@ -109,10 +104,12 @@ void UIButton::on_draw()
 
 
 
+
 void UIButton::set_text(std::string text)
 {
    this->text = text;
 }
+
 
 
 
@@ -128,11 +125,14 @@ void UIButton::on_click()
 
 
 
+
 void UIButton::on_mouse_enter() {}
 
 
 
+
 void UIButton::on_mouse_leave() {}
+
 
 
 
@@ -151,6 +151,7 @@ void UIButton::on_key_down()
 
 
 
+
 void UIButton::on_joy_down()
 {
    // NOTE! this is similar to the on_key_down button too.
@@ -161,5 +162,7 @@ void UIButton::on_joy_down()
       on_click();
    }
 }
+
+
 
 

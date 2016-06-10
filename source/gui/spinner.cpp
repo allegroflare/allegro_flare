@@ -4,11 +4,9 @@
 
 #include <allegro_flare/gui/widgets/spinner.h>
 
-#include <allegro_flare/gui/widgets/text_input.h>
-#include <allegro_flare/gui/widgets/button.h>
-
 #include <allegro_flare/gui/surface_areas/box.h>
-
+#include <allegro_flare/gui/widgets/button.h>
+#include <allegro_flare/gui/widgets/text_input.h>
 #include <allegro_flare/framework.h> // for Framework::current_event 
 
 
@@ -75,10 +73,6 @@ void UISpinner::on_change()
 {
    if (family.parent) family.parent->on_message(this, "on_change");
 }
-
-
-
-
 
 
 

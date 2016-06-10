@@ -2,13 +2,9 @@
 
 
 
-#include <allegro_flare/allegro_flare.h>
-
 #include <allegro_flare/gui/widgets/slider.h>
 
-
-
-
+#include <allegro_flare/allegro_flare.h>
 
 
 
@@ -27,6 +23,7 @@ UIVerticalSlider::UIVerticalSlider(UIWidget *parent, float x, float y, float w, 
 
 
 
+
 void UIVerticalSlider::on_draw()
 {
    al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3, color::color(color::black, 0.2));
@@ -42,6 +39,7 @@ void UIVerticalSlider::on_draw()
 
 
 
+
 void UIVerticalSlider::set_notches(int num_notches)
 {
    this->num_notches = num_notches;
@@ -49,10 +47,12 @@ void UIVerticalSlider::set_notches(int num_notches)
 
 
 
+
 void UIVerticalSlider::set_val_by_y(float y)
 {
    set_val((place.size.y-y)/place.size.y);
 }
+
 
 
 
@@ -66,10 +66,12 @@ void UIVerticalSlider::set_val(float val)
 
 
 
+
 void UIVerticalSlider::set_color(ALLEGRO_COLOR col)
 {
    slider_color = col;
 }
+
 
 
 
@@ -78,6 +80,7 @@ void UIVerticalSlider::on_mouse_move(float x, float y, float dx, float dy)
    place.transform_coordinates(&x, &y);
    mouse_y = y; // TODO: check, is setting the mouse_y directly appropriate for this?
 }
+
 
 
 
@@ -93,6 +96,7 @@ void UIVerticalSlider::on_mouse_down()
 
 
 
+
 void UIVerticalSlider::on_drag(float x, float y, float dx, float dy)
 {
    place.transform_coordinates(&x, &y);
@@ -103,10 +107,12 @@ void UIVerticalSlider::on_drag(float x, float y, float dx, float dy)
 
 
 
+
 void UIVerticalSlider::on_mouse_wheel()
 {
    if (focused) set_val(get_val() + Framework::current_event->mouse.dz * wheel_sensitivity);
 }
+
 
 
 
@@ -128,6 +134,7 @@ void UIVerticalSlider::on_key_char()
 
 
 
+
 float UIVerticalSlider::get_val()
 {
    return val;
@@ -135,8 +142,12 @@ float UIVerticalSlider::get_val()
 
 
 
+
 float UIVerticalSlider::get_val(float min, float max)
 {
    return (max-min) * val + min;
 }
+
+
+
 

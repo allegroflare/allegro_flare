@@ -2,14 +2,11 @@
 
 
 
-
 #include <allegro_flare/gui/widgets/float_spinner.h>
 
-#include <allegro_flare/useful.h> // for tostring
-
-#include <allegro_flare/gui/widgets/text_input.h>
 #include <allegro_flare/gui/widgets/button.h>
-
+#include <allegro_flare/gui/widgets/text_input.h>
+#include <allegro_flare/useful.h> // for tostring
 
 
 
@@ -67,6 +64,7 @@ void UIFloatSpinner::decrement()
    text_input->set_text(tostring(val));
    on_change();
 }
+
 
 
 

@@ -1,8 +1,8 @@
 
 
 
-#include <allegro_flare/gui/surface_areas/column.h>
 
+#include <allegro_flare/gui/surface_areas/column.h>
 
 
 
@@ -16,12 +16,10 @@ UISurfaceAreaColumn::UISurfaceAreaColumn(float x, float w)
 
 
 
-
 void UISurfaceAreaColumn::draw_bounding_area()
 {
    
 }
-
 
 
 
@@ -32,4 +30,7 @@ bool UISurfaceAreaColumn::collides(float x, float y)
    if (x > placement.position.x + placement.size.x) return false;
    return true;
 }
+
+
+
 

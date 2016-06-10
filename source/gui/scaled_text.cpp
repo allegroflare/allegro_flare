@@ -5,13 +5,11 @@
 #include <allegro_flare/gui/widgets/scaled_text.h>
 
 #include <allegro5/allegro_font.h>
-
-#include <allegro_flare/allegro_flare.h> // for bins
-#include <allegro_flare/useful.h> // for tostring
-
-#include <allegro_flare/gui.h>
-#include <allegro_flare/gui/gui_screen.h> // < TODO: don't think this is needed
 #include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/gui/gui_screen.h> // < TODO: don't think this is needed
+#include <allegro_flare/allegro_flare.h> // for bins
+#include <allegro_flare/gui.h>
+#include <allegro_flare/useful.h> // for tostring
 
 
 
@@ -20,6 +18,7 @@ std::string UIScaledText::_get_font_index_str()
 {
    return font_filename + " " + tostring((int)(font_size * render_scale));
 }
+
 
 
 
@@ -53,6 +52,7 @@ void UIScaledText::refresh_render()
 
 
 
+
 UIScaledText::UIScaledText(UIWidget *parent, float x, float y, std::string text)
    : UIWidget(parent, new UISurfaceAreaBox(x, y, 100, 100))
    , font_filename("DroidSans.ttf")
@@ -73,6 +73,7 @@ UIScaledText::UIScaledText(UIWidget *parent, float x, float y, std::string text)
 
 
 
+
 void UIScaledText::on_draw()
 {
    if (!render) return;
@@ -83,10 +84,12 @@ void UIScaledText::on_draw()
 
 
 
+
 void UIScaledText::set_font_color(ALLEGRO_COLOR color)
 {
    font_color = color;
 }
+
 
 
 
@@ -99,6 +102,7 @@ void UIScaledText::set_text(std::string text)
 
 
 
+
 void UIScaledText::set_font(std::string _font_filename, int _font_size)
 {
    if (_font_size == font_size && _font_filename == font_filename) return;
@@ -108,5 +112,7 @@ void UIScaledText::set_font(std::string _font_filename, int _font_size)
 
    refresh_render();
 }
+
+
 
 

@@ -1,13 +1,14 @@
 
 
+
+
 #include <allegro_flare/gui/widget.h>
-
-
-#include <allegro_flare/allegro_flare.h>
 
 #include <allegro_flare/gui/gui_screen.h>
 #include <allegro_flare/gui/family.h>
 #include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/allegro_flare.h>
+
 
 
 
@@ -31,7 +32,6 @@ UIWidget::UIWidget(UIWidget *parent, UISurfaceArea *surface_area)
    num_active_widgets++;
    widget_count++;
 }
-
 
 
 
@@ -70,8 +70,6 @@ UIWidget::~UIWidget()
 
 
 
-
-
 bool UIWidget::is_focused()
 {
    return focused;
@@ -92,7 +90,6 @@ bool UIWidget::is_disabled()
 {
    return disabled;
 }
-
 
 
 
@@ -181,6 +178,7 @@ void UIWidget::draw_func()
 
 
 
+
 // widget developer functions:
 void UIWidget::mouse_axes_func(float x, float y, float dx, float dy)
 {
@@ -230,6 +228,7 @@ void UIWidget::mouse_axes_func(float x, float y, float dx, float dy)
 
 
 
+
 void UIWidget::mouse_down_func()
 {
    if (disabled) return;
@@ -258,6 +257,7 @@ void UIWidget::mouse_down_func()
 
 
 
+
 void UIWidget::mouse_up_func()
 {
    if (disabled) return;
@@ -282,6 +282,7 @@ void UIWidget::mouse_up_func()
 
 
 
+
 void UIWidget::key_down_func()
 {
    if (disabled) return;
@@ -295,6 +296,8 @@ void UIWidget::key_down_func()
 }
 
 
+
+
 void UIWidget::key_up_func()
 {
    if (disabled) return;
@@ -304,6 +307,8 @@ void UIWidget::key_up_func()
 
    on_key_up();
 }
+
+
 
 
 void UIWidget::key_char_func()
@@ -317,6 +322,8 @@ void UIWidget::key_char_func()
 }
 
 
+
+
 void UIWidget::joy_up_func()
 {
    if (disabled) return;
@@ -328,6 +335,8 @@ void UIWidget::joy_up_func()
 }
 
 
+
+
 void UIWidget::joy_axis_func()
 {
    if (disabled) return;
@@ -337,6 +346,8 @@ void UIWidget::joy_axis_func()
 
    on_joy_axis();
 }
+
+
 
 
 void UIWidget::joy_down_func()
@@ -356,11 +367,12 @@ void UIWidget::joy_down_func()
 }
 
 
+
+
 // user functions:
 void UIWidget::on_focus() {}
 void UIWidget::on_blur() {}
 void UIWidget::on_drop() {}
-
 void UIWidget::on_mouse_enter() {}
 void UIWidget::on_mouse_leave() {}
 void UIWidget::on_mouse_move(float x, float y, float dx, float dy) {}
@@ -368,16 +380,17 @@ void UIWidget::on_mouse_down() {}
 void UIWidget::on_mouse_up() {}
 void UIWidget::on_mouse_wheel() {}
 void UIWidget::on_click() {}
-
 void UIWidget::on_key_down() {}
 void UIWidget::on_key_up() {}
 void UIWidget::on_key_char() {}
-
 void UIWidget::on_joy_down() {}
 void UIWidget::on_joy_up() {}
 void UIWidget::on_joy_axis() {}
-
 void UIWidget::on_timer() {}
+
+
+
+
 void UIWidget::on_draw()
 {
    if (surface_area)
@@ -387,9 +400,14 @@ void UIWidget::on_draw()
       al_draw_tinted_bitmap(widget_icon, color::color(color::white, 0.1), place.size.x/2-al_get_bitmap_width(widget_icon)/2, place.size.y/2-al_get_bitmap_height(widget_icon)/2, 0);
    }
 }
+
+
+
+
 void UIWidget::on_drag(float x, float y, float dx, float dy) {}
 void UIWidget::on_change() {}
 void UIWidget::on_message(UIWidget *sender, std::string message) {};
+
 
 
 
@@ -397,7 +415,9 @@ int UIWidget::num_active_widgets = 0;
 
 
 
+
 int UIWidget::widget_count = 0;
+
 
 
 
@@ -408,6 +428,7 @@ int UIWidget::get_num_created_widgets()
 
 
 
+
 int UIWidget::get_num_active_widgets()
 {
    return num_active_widgets;
@@ -415,9 +436,10 @@ int UIWidget::get_num_active_widgets()
 
 
 
+
+// iterates through all siblings and sets all parent's children to unfocused.
+// if the widget is not already focused, then set to focused and on_focus() is called
 void UIWidget::set_as_focused()
-   // iterates through all siblings and sets all parent's children to unfocused.
-   // if the widget is not already focused, then set to focused and on_focus() is called
 {
    if (disabled) return;
    // todo: this might require that the superparent is iterated
@@ -426,8 +448,9 @@ void UIWidget::set_as_focused()
 
 
 
+
+// if the widget is currently focused, chages the state to !focused and calls on_blur().
 void UIWidget::set_as_unfocused()
-   // if the widget is currently focused, chages the state to !focused and calls on_blur().
 {
    if (disabled) return;
 
@@ -437,6 +460,7 @@ void UIWidget::set_as_unfocused()
       on_blur();
    }
 }
+
 
 
 
@@ -450,11 +474,14 @@ void UIWidget::set_as_disabled()
 
 
 
+
 void UIWidget::set_as_enabled()
 {
    if (!disabled) return; // no change
 
    disabled = false;
 }
+
+
 
 

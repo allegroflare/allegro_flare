@@ -1,12 +1,12 @@
 
 
 
+
 #include <allegro_flare/gui/widgets/xy_controller.h>
+
 #include <allegro_flare/gui/surface_areas/box.h>
-#include <allegro_flare/useful.h>
-
-
 #include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/useful.h>
 
 
 
@@ -77,6 +77,7 @@ void UIXYController::on_draw()
 
    al_draw_circle(local_marker.x, local_marker.y, 10, color::color(color::dodgerblue, 0.2), 6);
 }
+
 
 
 

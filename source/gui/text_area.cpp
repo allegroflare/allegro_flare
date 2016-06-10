@@ -2,25 +2,24 @@
 
 
 
+#include <allegro_flare/gui/widgets/text_area.h>
 
 #include <allegro5/allegro_primitives.h>
-
-#include <allegro_flare/allegro_flare.h>
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h>
-#include <allegro_flare/clipboard.h>
-
-#include <allegro_flare/gui/widgets/text_area.h>
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/allegro_flare.h>
+#include <allegro_flare/clipboard.h>
+#include <allegro_flare/color.h>
+#include <allegro_flare/useful.h>
 
 
 
 
-
-
-
+//
 // UITextArea::Cursor
+//
+
+
 
 
 UITextArea::Cursor::Cursor(int head_pos, int anchor_pos)
@@ -29,11 +28,18 @@ UITextArea::Cursor::Cursor(int head_pos, int anchor_pos)
    , anchor_down(false)
 {}
 
+
+
+
 void UITextArea::Cursor::move(int delta)
 {
    head_pos += delta;
    if (!anchor_down) _anchor_pos = head_pos;
 }
+
+
+
+
 void UITextArea::Cursor::move(int delta, int min, int max)
 {
    head_pos += delta;
@@ -42,11 +48,19 @@ void UITextArea::Cursor::move(int delta, int min, int max)
 
    if (!anchor_down) _anchor_pos = head_pos;
 }
+
+
+
+
 void UITextArea::Cursor::move_to(int pos)
 {
    head_pos = pos;
    if (!anchor_down) _anchor_pos = head_pos;
 }
+
+
+
+
 void UITextArea::Cursor::move_to(int pos, int min, int max)
 {
    head_pos = pos;
@@ -56,14 +70,16 @@ void UITextArea::Cursor::move_to(int pos, int min, int max)
    //head_pos = pos;
    if (!anchor_down) _anchor_pos = head_pos;
 }
-void UITextArea::Cursor::move_anchor_to_cursor() { _anchor_pos = head_pos; }
 
+
+
+
+void UITextArea::Cursor::move_anchor_to_cursor() { _anchor_pos = head_pos; }
 int UITextArea::Cursor::pos() { return head_pos; }
 int UITextArea::Cursor::anchor_pos() { return _anchor_pos; }
 int UITextArea::Cursor::get_start() { return std::min(head_pos, _anchor_pos); }
 int UITextArea::Cursor::get_end() { return std::max(head_pos, _anchor_pos); }
 int UITextArea::Cursor::get_selection_length() { return get_end() - get_start(); }
-
 void UITextArea::Cursor::set_anchor_down() { anchor_down = true; }
 void UITextArea::Cursor::set_anchor_up() { anchor_down = false; }
 bool UITextArea::Cursor::is_anchor_down() { return anchor_down; }
@@ -72,14 +88,10 @@ bool UITextArea::Cursor::selection_active() { return head_pos != _anchor_pos; }
 
 
 
-
-
-
-
-
-
-
+//
 // UITextArea
+//
+
 
 
 
@@ -94,17 +106,26 @@ UITextArea::UITextArea(UIWidget *parent, float x, float y, float w, float h, std
    attr.set("id", "TextArea" + tostring(get_num_created_widgets()));
 }
 
+
+
+
 void UITextArea::move_cursor(int delta)
 {
    cursor.move(delta, 0, (int)full_text.length());
    cursor_blink_counter = 1;
 }
 
+
+
+
 void UITextArea::move_cursor_to(int pos)
 {
    cursor.move_to(pos, 0, (int)full_text.length());
    cursor_blink_counter = 1;
 }
+
+
+
 
 void UITextArea::move_cursor_to_next_of(std::string chars)
 {
@@ -117,12 +138,18 @@ void UITextArea::move_cursor_to_next_of(std::string chars)
    move_cursor(1);
 }
 
+
+
+
 void UITextArea::move_cursor_to_previous_not_of(std::string chars)
 {
    int cursor_pos = full_text.find_last_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'\"", std::max(0, cursor.pos()-1));
    if (cursor_pos == std::string::npos) { cursor_pos = 0; }
    cursor.move_to(cursor_pos);
 }
+
+
+
 
 void UITextArea::erase_selection()
 {
@@ -132,16 +159,22 @@ void UITextArea::erase_selection()
 }
 
 
+
+
 void UITextArea::set_font(ALLEGRO_FONT *font)
 {
    this->font = font;
 }
 
 
+
+
 ALLEGRO_FONT *UITextArea::get_font()
 {
    return font;
 }
+
+
 
 
 void UITextArea::set_text(std::string text)
@@ -151,6 +184,9 @@ void UITextArea::set_text(std::string text)
    cursor.move_anchor_to_cursor();
 }
 
+
+
+
 void UITextArea::insert_text(std::string text)
 {
    full_text.insert(cursor.pos(), text);
@@ -159,10 +195,16 @@ void UITextArea::insert_text(std::string text)
    cursor.move_anchor_to_cursor();
 }
 
+
+
+
 std::string UITextArea::get_text()
 {
    return this->full_text;
 }
+
+
+
 
 void UITextArea::on_draw()
 {
@@ -329,6 +371,9 @@ void UITextArea::on_draw()
    }
 }
 
+
+
+
 void UITextArea::on_key_down()
 {
    int keycode = Framework::current_event->keyboard.keycode;
@@ -340,6 +385,9 @@ void UITextArea::on_key_down()
 
    if (!focused) return;
 }
+
+
+
 
 void UITextArea::on_key_up()
 {
@@ -353,10 +401,16 @@ void UITextArea::on_key_up()
    if (!focused) return;
 }
 
+
+
+
 std::string UITextArea::get_selection()
 {
    return full_text.substr(cursor.get_start(), cursor.get_selection_length());
 }
+
+
+
 
 void UITextArea::on_key_char()
 {
@@ -459,6 +513,7 @@ void UITextArea::on_key_char()
       }
    }
 }
+
 
 
 

@@ -2,11 +2,11 @@
 
 
 
-#include <allegro_flare/allegro_flare.h>
-
 #include <allegro_flare/gui/widgets/framed_window.h>
+
 #include <allegro_flare/gui/surface_areas/box_padded.h>
 #include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/allegro_flare.h>
 
 
 
@@ -34,6 +34,7 @@ UIFramedWindow::UIFramedWindow(UIWidget *parent, float x, float y, float w, floa
 
 
 
+
 void UIFramedWindow::draw_window_frame_around(float x1, float y1, float x2, float y2)
 {
    ALLEGRO_COLOR frame_base_color = UIStyleAssets::get_hilight_color();
@@ -55,11 +56,13 @@ void UIFramedWindow::draw_window_frame_around(float x1, float y1, float x2, floa
 
 
 
+
 void UIFramedWindow::on_message(UIWidget *sender, std::string message)
    // when implemented in UIWindowFrame, on_draw() should not need to be overridden at all
 {
    if (sender == close_button) this->delete_me = true;
 }
+
 
 
 
@@ -79,10 +82,12 @@ void UIFramedWindow::on_draw()
 
 
 
+
 void UIFramedWindow::on_focus() 
 {
    bring_to_front();
 }
+
 
 
 

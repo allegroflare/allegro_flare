@@ -2,14 +2,10 @@
 
 
 
-
 #include <allegro_flare/gui/widgets/text_box.h>
+
 #include <allegro_flare/gui/surface_areas/box.h>
-
 #include <allegro_flare/allegro_flare.h> // for Framework::fonts
-
-
-
 
 
 
@@ -29,9 +25,6 @@ UITextBox::UITextBox(UIWidget *parent, float x, float y, float w, float h, std::
 
 
 
-
-
-
 void UITextBox::set_font(ALLEGRO_FONT *font)
 {
    this->font = font;
@@ -40,12 +33,10 @@ void UITextBox::set_font(ALLEGRO_FONT *font)
 
 
 
-
 void UITextBox::set_text(std::string text)
 {
    this->text = text;
 }
-
 
 
 
@@ -70,6 +61,7 @@ void UITextBox::on_draw()
 {
    if (font) al_draw_multiline_text(font, text_color, 0, 0, place.size.x, al_get_font_line_height(font), ALLEGRO_ALIGN_LEFT, text.c_str());
 }
+
 
 
 

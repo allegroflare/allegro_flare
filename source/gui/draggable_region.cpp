@@ -4,14 +4,12 @@
 
 #include <allegro_flare/gui/widgets/draggable_region.h>
 
-
-
+#include <allegro5/allegro_primitives.h>
+#include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>
 
-#include <allegro5/allegro_primitives.h>
 
-#include <allegro_flare/gui/surface_areas/box.h>
 
 
 std::string tostring(int v); // so as not to have to declare  #include <allegro_flare/useful.h>
@@ -29,6 +27,7 @@ UIDraggableRegion::UIDraggableRegion(UIWidget *parent, float x, float y, float w
 
 
 
+
 void UIDraggableRegion::set_color(ALLEGRO_COLOR new_color)
 {
    background_color = new_color;
@@ -36,10 +35,12 @@ void UIDraggableRegion::set_color(ALLEGRO_COLOR new_color)
 
 
 
+
 void UIDraggableRegion::on_draw()
 {
    al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 5, 5, background_color);
 }
+
 
 
 
@@ -55,3 +56,7 @@ void UIDraggableRegion::on_drag(float x, float y, float dx, float dy)
       parent_placement.position.y += dy;
    }
 }
+
+
+
+

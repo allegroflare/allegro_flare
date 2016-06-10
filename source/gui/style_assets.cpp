@@ -1,9 +1,17 @@
 
 
+
+
 #include <allegro_flare/gui/style_assets.h>
 
 #include <allegro_flare/generate_textures.h>
 #include <allegro_flare/image_processing.h>
+
+
+
+
+UIStyleAssets *UIStyleAssets::instance = NULL;
+
 
 
 
@@ -22,11 +30,13 @@ UIStyleAssets::UIStyleAssets()
 
 
 
+
 UIStyleAssets::~UIStyleAssets()
 {
    al_destroy_bitmap(shade_down_circle_gradient);
    al_destroy_bitmap(shade_down_gradient);
 }
+
 
 
 
@@ -44,6 +54,8 @@ UIStyleAssets *UIStyleAssets::get_instance()
 //
 
 
+
+
 ALLEGRO_BITMAP *UIStyleAssets::get_shade_down_circle_gradient()
 {
    UIStyleAssets *inst = get_instance();
@@ -51,6 +63,7 @@ ALLEGRO_BITMAP *UIStyleAssets::get_shade_down_circle_gradient()
       inst->shade_down_circle_gradient = generate_circle_gradient_bitmap();
    return inst->shade_down_circle_gradient;
 }   
+
 
 
 
@@ -64,6 +77,7 @@ ALLEGRO_BITMAP *UIStyleAssets::get_shade_down_gradient()
 
 
 
+
 ALLEGRO_BITMAP *UIStyleAssets::get_widget_icon()
 {
    UIStyleAssets *inst = get_instance();
@@ -71,6 +85,7 @@ ALLEGRO_BITMAP *UIStyleAssets::get_widget_icon()
       inst->widget_icon = generate_widget_icon(64, color::white, color::transparent);
    return inst->widget_icon;
 }
+
 
 
 
@@ -90,6 +105,8 @@ ALLEGRO_BITMAP *UIStyleAssets::get_pixel_pattern_3()
 //
 
 
+
+
 ALLEGRO_FONT *UIStyleAssets::get_title_font()
 {
    UIStyleAssets *inst = get_instance();
@@ -104,6 +121,7 @@ ALLEGRO_FONT *UIStyleAssets::get_title_font()
    }
    return inst->title_font;
 }
+
 
 
 
@@ -124,6 +142,7 @@ ALLEGRO_FONT *UIStyleAssets::get_text_font()
 
 
 
+
 ALLEGRO_FONT *UIStyleAssets::get_ui_font()
 {
    UIStyleAssets *inst = get_instance();
@@ -141,6 +160,7 @@ ALLEGRO_FONT *UIStyleAssets::get_ui_font()
 
 
 
+
 ALLEGRO_FONT *UIStyleAssets::get_mini_font()
 {
    UIStyleAssets *inst = get_instance();
@@ -155,6 +175,7 @@ ALLEGRO_FONT *UIStyleAssets::get_mini_font()
    }
    return inst->mini_font;
 }
+
 
 
 
@@ -176,10 +197,11 @@ ALLEGRO_FONT *UIStyleAssets::get_micro_font()
 
 
 
-
 //
 // shapes
 //
+
+
 
 
 void UIStyleAssets::draw_inset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
@@ -216,6 +238,7 @@ void UIStyleAssets::draw_inset(float x, float y, float w, float h, ALLEGRO_COLOR
 
 
 
+
 void UIStyleAssets::draw_outset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
 {
    float border_thickness = 2.0;
@@ -241,6 +264,7 @@ void UIStyleAssets::draw_outset(float x, float y, float w, float h, ALLEGRO_COLO
 
 
 
+
 void UIStyleAssets::draw_flatset(float x, float y, float w, float h, ALLEGRO_COLOR col, float roundness)
 {
    float border_thickness = 2.0;
@@ -254,6 +278,9 @@ void UIStyleAssets::draw_flatset(float x, float y, float w, float h, ALLEGRO_COL
 //
 // text
 //
+
+
+
 
 void UIStyleAssets::draw_styled_text(std::string style, float x, float y, float align_x, float align_y, std::string text)
 {
@@ -290,15 +317,20 @@ void UIStyleAssets::draw_styled_text(std::string style, float x, float y, float 
 
 
 
-
 //
 // colors
 //
+
+
+
 
 ALLEGRO_COLOR UIStyleAssets::get_surface_color()
 {
    return color::hex("575962");
 }
+
+
+
 
 ALLEGRO_COLOR UIStyleAssets::get_hilight_color()
 {
@@ -308,10 +340,11 @@ ALLEGRO_COLOR UIStyleAssets::get_hilight_color()
 
 
 
-
 //
 // internal
 //
+
+
 
 
 ALLEGRO_BITMAP *UIStyleAssets::generate_widget_icon(int size, ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color)
@@ -357,9 +390,6 @@ ALLEGRO_BITMAP *UIStyleAssets::generate_widget_icon(int size, ALLEGRO_COLOR fron
 }
 
 
-
-
-UIStyleAssets *UIStyleAssets::instance = NULL;
 
 
 

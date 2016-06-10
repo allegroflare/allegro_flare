@@ -2,12 +2,8 @@
 
 
 
-
 #include <allegro_flare/gui/surface_areas/alpha_bitmap.h>
 #include <allegro_flare/color.h>
-
-
-
 
 
 
@@ -16,6 +12,7 @@ UISurfaceAreaBitmap::UISurfaceAreaBitmap(float x, float y, ALLEGRO_BITMAP *bitma
    : UISurfaceArea(x, y, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap))
    , bitmap(bitmap)
 {}
+
 
 
 
@@ -33,9 +30,12 @@ bool UISurfaceAreaBitmap::collides(float x, float y)
 
 
 
+
 void UISurfaceAreaBitmap::draw_bounding_area()
 {
    placement.draw_box(color::color(color::aliceblue, 0.2), true);
 }
+
+
 
 

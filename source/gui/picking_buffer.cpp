@@ -4,10 +4,11 @@
 
 #define ALLEGRO_UNSTABLE
 
-#include <allegro5/allegro_primitives.h>
-
 #include <allegro_flare/gui/widgets/picking_buffer.h>
+
+#include <allegro5/allegro_primitives.h>
 #include <allegro_flare/gui/surface_areas/box.h>
+
 
 
 

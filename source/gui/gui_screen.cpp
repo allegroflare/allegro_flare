@@ -1,12 +1,11 @@
 
 
 
+
 #include <allegro_flare/gui/gui_screen.h>
-#include <allegro_flare/allegro_flare.h>
 
 #include <allegro_flare/gui/surface_areas/box.h>
-
-
+#include <allegro_flare/allegro_flare.h>
 
 
 
@@ -24,6 +23,7 @@ UIScreen::UIScreen(Display *display)
    surface_area->placement.align.x = 0;
    surface_area->placement.align.y = 0;
 }
+
 
 
 
@@ -64,6 +64,7 @@ void UIScreen::primary_timer_func()
 
 
 
+
 void UIScreen::mouse_axes_func()
 {
    if (Framework::current_event->mouse.display != display->al_display) return;
@@ -78,6 +79,7 @@ void UIScreen::mouse_axes_func()
 
 
 
+
 void UIScreen::mouse_down_func()
 {
    if (Framework::current_event->mouse.display != display->al_display) return;
@@ -86,11 +88,13 @@ void UIScreen::mouse_down_func()
 
 
 
+
 void UIScreen::mouse_up_func()
 {
    if (Framework::current_event->mouse.display != display->al_display) return;
    UIWidget::mouse_up_func();
 }
+
 
 
 
@@ -119,11 +123,13 @@ void UIScreen::key_down_func()
 
 
 
+
 void UIScreen::key_up_func()
 {
    if (Framework::current_event->keyboard.display != display->al_display) return;
    UIWidget::key_up_func();
 }
+
 
 
 
@@ -133,6 +139,7 @@ void UIScreen::key_char_func()
 
    UIWidget::key_char_func();
 }
+
 
 
 
@@ -149,11 +156,13 @@ void UIScreen::joy_down_func()
 
 
 
+
 void UIScreen::joy_up_func()
 {
 //   if (Framework::current_event->keyboard.display != display->display) return;
    UIWidget::joy_up_func();
 }
+
 
 
 
@@ -169,10 +178,14 @@ void UIScreen::joy_axis_func()
 
 
 
+
 void UIScreen::on_draw() {}
 
 
 
+
 void UIScreen::on_draw_after_children() {}
+
+
 
 

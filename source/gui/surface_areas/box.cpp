@@ -2,21 +2,19 @@
 
 
 
-
+#include <iostream>
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/color.h>
 
 
 
 
-
-#include <iostream>
-
 UISurfaceAreaBox::UISurfaceAreaBox(float x, float y, float w, float h)
    : UISurfaceArea(x, y, w, h)
 {
    //std::cout << "UISurfaceAreaBox()" << std::endl;
 }
+
 
 
 
@@ -27,6 +25,7 @@ UISurfaceAreaBox::~UISurfaceAreaBox()
 
 
 
+
 bool UISurfaceAreaBox::collides(float x, float y)
 {
    return placement.collide(x, y);
@@ -34,9 +33,12 @@ bool UISurfaceAreaBox::collides(float x, float y)
 
 
 
+
 void UISurfaceAreaBox::draw_bounding_area()
 {
    placement.draw_box(color::color(color::aliceblue, 0.2), true);
 }
+
+
 
 

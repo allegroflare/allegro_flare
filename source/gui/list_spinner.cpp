@@ -4,9 +4,8 @@
 
 #include <allegro_flare/gui/widgets/list_spinner.h>
 
-#include <allegro_flare/gui/widgets/text_input.h>
 #include <allegro_flare/gui/widgets/button.h>
-
+#include <allegro_flare/gui/widgets/text_input.h>
 
 
 
@@ -94,7 +93,6 @@ void UIListSpinner::decrement()
    text_input->set_text(*it);
    on_change();
 }   
-
 
 
 

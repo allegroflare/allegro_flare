@@ -4,12 +4,11 @@
 
 #include <allegro_flare/gui/widgets/text.h>
 
-#include <allegro_flare/color.h>
 #include <allegro_flare/gui/surface_areas/box.h>
-
+#include <allegro_flare/allegro_flare.h> // for fonts
+#include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>
 
-#include <allegro_flare/allegro_flare.h> // for fonts
 
 
 
@@ -35,6 +34,7 @@ UIText::UIText(UIWidget *parent, float x, float y, std::string text)
 
 
 
+
 void UIText::on_draw()
 {
    al_draw_text(font, font_color, 0, 0, ALLEGRO_ALIGN_LEFT, text.c_str());
@@ -42,10 +42,12 @@ void UIText::on_draw()
 
 
 
+
 std::string UIText::get_text()
 {
    return text;
 }
+
 
 
 
@@ -59,10 +61,12 @@ void UIText::set_font_and_text(ALLEGRO_FONT *font, std::string text)
 
 
 
+
 void UIText::set_text(std::string text)
 {
    set_font_and_text(this->font, text);
 }
+
 
 
 
@@ -73,7 +77,12 @@ void UIText::set_font(ALLEGRO_FONT *font)
 
 
 
+
 void UIText::set_font_color(const ALLEGRO_COLOR &font_color)
 {
    this->font_color = font_color;
 }
+
+
+
+

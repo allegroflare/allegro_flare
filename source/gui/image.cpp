@@ -1,10 +1,12 @@
 
 
 
+
 #include <allegro_flare/gui/widgets/image.h>
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h> // for tostring
+
 
 
 
@@ -37,7 +39,12 @@ void UIImage::set_bitmap(ALLEGRO_BITMAP *bitmap)
 
 
 
+
 void UIImage::set_color(ALLEGRO_COLOR color)
 {
    this->color = color;
 }
+
+
+
+

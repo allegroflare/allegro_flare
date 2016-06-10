@@ -4,17 +4,13 @@
 
 #include <allegro_flare/gui/widgets/checkbox.h>
 
-
 #include <allegro5/allegro_primitives.h>
-
-#include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/fonts/font_font_awesome.h>
-#include <allegro_flare/color.h>
-
-#include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/gui_screen.h>
 #include <allegro_flare/gui/style_assets.h>
-
+#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/allegro_flare.h>
+#include <allegro_flare/color.h>
 
 
 
@@ -32,6 +28,7 @@ UICheckbox::UICheckbox(UIWidget *parent, float x, float y, float size)
 
 
 
+
 bool UICheckbox::is_checked()
 {
    return checked;
@@ -39,10 +36,12 @@ bool UICheckbox::is_checked()
 
 
 
+
 void UICheckbox::set_color(ALLEGRO_COLOR col)
 {
    check_color = col;
 }
+
 
 
 
@@ -73,6 +72,7 @@ void UICheckbox::toggle()
 
 
 
+
 bool UICheckbox::set_as_checked()
 {
    // returns true if the value is or was changed to checked
@@ -82,6 +82,8 @@ bool UICheckbox::set_as_checked()
    toggle();
    return is_checked();
 }
+
+
 
 
 bool UICheckbox::set_as_unchecked()
@@ -96,10 +98,12 @@ bool UICheckbox::set_as_unchecked()
 
 
 
+
 void UICheckbox::on_click()
 {
    toggle();
 }
+
 
 
 
@@ -115,6 +119,7 @@ void UICheckbox::on_key_char()
 
 
 
+
 void UICheckbox::on_joy_down()
 {
    if (!mouse_over) return;
@@ -124,6 +129,7 @@ void UICheckbox::on_joy_down()
    if (Framework::current_event->joystick.button == 0)
       toggle();
 }
+
 
 
 
@@ -167,9 +173,12 @@ void UICheckbox::on_draw()
 
 
 
+
 void UICheckbox::on_change()
 {
    send_message_to_parent("on_change");
 }
+
+
 
 

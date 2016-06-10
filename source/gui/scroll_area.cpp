@@ -1,10 +1,12 @@
 
 
 
-#include <allegro_flare/allegro_flare.h> // for bins
 
 #include <allegro_flare/gui/widgets/scroll_area.h>
+
 #include <allegro_flare/gui/widgets/slider.h>
+#include <allegro_flare/allegro_flare.h> // for bins
+
 
 
 
@@ -25,10 +27,12 @@ UIScrollArea::UIScrollArea(UIWidget *parent, float x, float y, float w, float h,
 
 
 
+
 UIWidget *UIScrollArea::get_canvas()
 {
    return canvas;
 }
+
 
 
 
@@ -50,6 +54,7 @@ void UIScrollArea::render_canvas()
 
    al_restore_state(&state);
 }
+
 
 
 
@@ -75,6 +80,7 @@ void UIScrollArea::mouse_axes_func(float mx, float my, float mdx, float mdy)
 
 
 
+
 void UIScrollArea::on_timer()
 {
    if (canvas)
@@ -84,11 +90,13 @@ void UIScrollArea::on_timer()
 
 
 
+
 void UIScrollArea::on_mouse_wheel()
 {
    //if (focused && !v_slider->is_focused())
    //   v_slider->set_val(v_slider->get_val() + Framework::current_event->mouse.dz * v_slider->wheel_sensitivity);
 }
+
 
 
 
@@ -107,5 +115,7 @@ void UIScrollArea::draw_func()
 
    place.restore_transform();
 }
+
+
 
 

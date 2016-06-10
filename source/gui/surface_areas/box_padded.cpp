@@ -2,15 +2,12 @@
 
 
 
-
+#include <iostream>
 #include <allegro_flare/gui/surface_areas/box_padded.h>
 #include <allegro_flare/color.h>
 
 
 
-
-
-#include <iostream>
 
 UISurfaceAreaBoxPadded::UISurfaceAreaBoxPadded(float x, float y, float w, float h, float pt, float pr, float pb, float pl)
    : UISurfaceArea(x, y, w, h)
@@ -23,9 +20,11 @@ UISurfaceAreaBoxPadded::UISurfaceAreaBoxPadded(float x, float y, float w, float 
 
 
 
+
 UISurfaceAreaBoxPadded::~UISurfaceAreaBoxPadded()
 {
 }
+
 
 
 
@@ -33,6 +32,7 @@ bool UISurfaceAreaBoxPadded::collides(float x, float y)
 {
    return placement.collide(x, y, padding_top, padding_right, padding_bottom, padding_left);
 }
+
 
 
 
@@ -44,6 +44,7 @@ void UISurfaceAreaBoxPadded::draw_bounding_area()
 
 
 
+
 void UISurfaceAreaBoxPadded::get_padding(float *pt, float *pr, float *pb, float *pl)
 {
    *pt = padding_top;
@@ -51,6 +52,7 @@ void UISurfaceAreaBoxPadded::get_padding(float *pt, float *pr, float *pb, float 
    *pb = padding_bottom;
    *pl = padding_left;
 }
+
 
 
 

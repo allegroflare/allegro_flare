@@ -1,9 +1,16 @@
 
 
+
+
 #include <allegro_flare/gui/family.h>
 
+#include <iostream>
 #include <allegro_flare/gui/widget.h>
 
+
+
+
+int UIFamily::_index_count = 0;
 
 
 
@@ -29,7 +36,7 @@ void UIFamily::register_as_child(UIWidget *widget)
 
 
 
-#include <iostream>
+
 void UIFamily::unregister_as_child(UIWidget *widget)
 {
    for (unsigned i=0; i<children.size(); i++)
@@ -53,6 +60,7 @@ bool UIFamily::has_child(UIWidget *widget)
       if (widget == children[i]) return true;
    return false;
 }
+
 
 
 
@@ -84,8 +92,6 @@ bool UIFamily::assign_child_to_new_parent(UIWidget *child_widget, UIWidget *new_
 
 
 
-
-
 bool UIFamily::set_focus_to_child(UIWidget *widget)
 {
    // make sure the child is not already focused
@@ -110,7 +116,6 @@ bool UIFamily::set_focus_to_child(UIWidget *widget)
 
 
 
-
 void UIFamily::delete_all()
 {
    for (unsigned i=0; i<children.size(); i++)
@@ -121,11 +126,13 @@ void UIFamily::delete_all()
 
 
 
+
 void UIFamily::unfocus_all()
 {
    for (unsigned i=0; i<children.size(); i++)
       if (children[i]->is_focused()) children[i]->set_as_unfocused();
 }
+
 
 
 
@@ -139,6 +146,7 @@ UIWidget *UIFamily::get_element_by_id(std::string id)
 
 
 
+
 UIWidget *UIFamily::get_1st_element_with_attr(std::string key)
 {
    for (unsigned i=0; i<children.size(); i++)
@@ -146,6 +154,7 @@ UIWidget *UIFamily::get_1st_element_with_attr(std::string key)
 
    return NULL;
 }
+
 
 
 
@@ -160,13 +169,6 @@ UIWidget *UIFamily::get_1st_element_with_attr_val(std::string key, std::string v
 
 
 
-
-
-int UIFamily::_index_count = 0;
-
-
-
-
 UIWidget *UIFamily::get_nth_descendant(int n)
 {
    _index_count = 0;
@@ -174,6 +176,9 @@ UIWidget *UIFamily::get_nth_descendant(int n)
    // TODO: perhaps this function should be promoted up to the Parent that calls it.
    return __get_nth_descendant_r(*this, n);
 }
+
+
+
 
 UIWidget *UIFamily::__get_nth_descendant_r(UIFamily &children, int n)
 {
@@ -191,12 +196,14 @@ UIWidget *UIFamily::__get_nth_descendant_r(UIFamily &children, int n)
 
 
 
-
 int UIFamily::get_num_descendants()
 {
    _index_count = 1;
    return __get_num_descendants_r(*this);
 }
+
+
+
 
 int UIFamily::__get_num_descendants_r(UIFamily &children)
 {
@@ -209,7 +216,6 @@ int UIFamily::__get_num_descendants_r(UIFamily &children)
    }
    return _index_count;
 }
-
 
 
 
@@ -230,4 +236,7 @@ void UIFamily::draw_all_except(UIWidget *widget)
       if (children[i] != widget) children[i]->draw_func();
    }
 }
+
+
+
 

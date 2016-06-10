@@ -1,12 +1,13 @@
 
 
-#include <allegro_flare/gui/widgets/dial.h>
-#include <allegro_flare/gui/style_assets.h>
 
-#include <allegro_flare/allegro_flare.h> // for bins
-#include <allegro_flare/useful.h> // for tostring
+
+#include <allegro_flare/gui/widgets/dial.h>
 
 #include <allegro_flare/gui/surface_areas/circle.h>
+#include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/allegro_flare.h> // for bins
+#include <allegro_flare/useful.h> // for tostring
 
 
 
@@ -23,12 +24,14 @@ UIDial::UIDial(UIWidget *parent, float x, float y, float diameter)
 
 
 
+
 void UIDial::set_value(float unit_val)
 {
    float prev_val = val;
    val = limit<float>(0, 1, unit_val);
    if (basically_equal(prev_val, val)) on_change();
 }
+
 
 
 
@@ -39,6 +42,7 @@ float UIDial::get_value()
 
 
 
+
 void UIDial::on_mouse_down()
 {
    al_hide_mouse_cursor(Framework::current_event->mouse.display);
@@ -46,10 +50,12 @@ void UIDial::on_mouse_down()
 
 
 
+
 void UIDial::on_mouse_up()
 {
    al_show_mouse_cursor(Framework::current_event->mouse.display);
 }
+
 
 
 
@@ -62,6 +68,7 @@ void UIDial::on_drag(float x, float y, float dx, float dy)
    // prevent the mouse cursor from moving on the screen
    al_set_mouse_xy(Framework::current_event->mouse.display, x-dx, y-dy);
 }
+
 
 
 
@@ -135,10 +142,12 @@ void UIDial::on_draw()
 
 
 
+
 void UIDial::on_change()
 {
    send_message_to_parent("on_change");
 }
+
 
 
 
