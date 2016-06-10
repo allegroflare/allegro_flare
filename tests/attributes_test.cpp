@@ -1,7 +1,7 @@
 
 
-#define BOOST_TEST_MODULE AttributesTestModule
 #define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MODULE AttributesTestModule
 #include <boost/test/unit_test.hpp>
 
 
