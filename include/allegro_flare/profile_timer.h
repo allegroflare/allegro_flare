@@ -39,27 +39,27 @@ void draw_profile_timer_graph(float x=10, float y=10);
 class ProfileTimer
 {
 public:
-	bool timing;
-	double start_time;
-	double end_time;
+   bool timing;
+   double start_time;
+   double end_time;
 
-	void start()
-	{
-		timing = true;
-		start_time = al_get_time();
-	}
+   void start()
+   {
+      timing = true;
+      start_time = al_get_time();
+   }
 
-	void stop()
-	{
-		end_time = al_get_time();
-		timing = false;
-	}
+   void stop()
+   {
+      end_time = al_get_time();
+      timing = false;
+   }
 
-	double get_time()
-	{
-		if (!timing) return end_time - start_time;
-		return 0.0;
-	}
+   double get_time()
+   {
+      if (!timing) return end_time - start_time;
+      return 0.0;
+   }
 };
 
 
@@ -68,14 +68,14 @@ public:
 class ProfilerBuilder
 {
 private:
-	const char *name;
-	static ProfilerBuilder *dummy;
+   const char *name;
+   static ProfilerBuilder *dummy;
 
 public:
-	static ProfilerBuilder *get_dummy() { if (!dummy) dummy = new ProfilerBuilder(); return dummy; }
-	inline void start() { start_profile_timer(name); }
-	inline void stop() { stop_profile_timer(name); }
-	inline ProfilerBuilder &clear(const char *name) { this->name = name; return *this; }
+   static ProfilerBuilder *get_dummy() { if (!dummy) dummy = new ProfilerBuilder(); return dummy; }
+   inline void start() { start_profile_timer(name); }
+   inline void stop() { stop_profile_timer(name); }
+   inline ProfilerBuilder &clear(const char *name) { this->name = name; return *this; }
 };
 
 
@@ -83,7 +83,7 @@ public:
 
 static inline ProfilerBuilder &profiler(const char *name)
 {
-	return ProfilerBuilder::get_dummy()->clear(name);
+   return ProfilerBuilder::get_dummy()->clear(name);
 }
 
 

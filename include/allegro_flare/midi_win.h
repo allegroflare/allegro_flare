@@ -25,12 +25,12 @@
 class MIDI_IN_DEVICE
 {
 public:
-	bool open;
-	unsigned short device_port_num;
-	unsigned short manufacturer_id;
-	unsigned short product_id;
-	unsigned int driver_version;
-	char name[32]; // replace this with a string
+   bool open;
+   unsigned short device_port_num;
+   unsigned short manufacturer_id;
+   unsigned short product_id;
+   unsigned int driver_version;
+   char name[32]; // replace this with a string
 };
 
 
@@ -39,16 +39,16 @@ public:
 class MIDI_OUT_DEVICE
 {
 public:
-	bool open;
-	unsigned short device_port_num;
-	unsigned short manufacturer_id;
-	unsigned short product_id;
-	unsigned int driver_version;
-	std::string name;
-	unsigned short device_type;
-	unsigned short num_voices; //<- if this device is a port, then this number is 0
-	unsigned short num_notes; //<- if this device is a port, then this number is 0
-	unsigned short num_channels;
+   bool open;
+   unsigned short device_port_num;
+   unsigned short manufacturer_id;
+   unsigned short product_id;
+   unsigned int driver_version;
+   std::string name;
+   unsigned short device_type;
+   unsigned short num_voices; //<- if this device is a port, then this number is 0
+   unsigned short num_notes; //<- if this device is a port, then this number is 0
+   unsigned short num_channels;
 };
 
 

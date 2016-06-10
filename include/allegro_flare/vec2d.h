@@ -79,13 +79,13 @@ public:
    }
 
    inline bool operator == ( const vec2d &other ) const {
-    return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01;
+      return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01;
    }
-   
+
    inline bool operator != ( const vec2d &other ) const {
-    return !(*this == other);
+      return !(*this == other);
    }
-   
+
    inline std::string get_string() const {
       std::ostringstream str;
       str << "(" << x << ", " << y << ")";
@@ -184,14 +184,14 @@ inline vec2d operator ~ ( vec2d vec ) {
 
 // Checks if the points are in counter clockwise order
 inline bool is_counter_clockwise( const vec2d first, const vec2d second, const vec2d third ) {
-  float dx1, dx2, dy1, dy2;
+   float dx1, dx2, dy1, dy2;
 
-  dx1 = second.x - first.x;
-  dy1 = second.y - first.y;
-  dx2 = third.x - second.x;
-  dy2 = third.y - second.y;
+   dx1 = second.x - first.x;
+   dy1 = second.y - first.y;
+   dx2 = third.x - second.x;
+   dy2 = third.y - second.y;
 
-  return dy1*dx2 < dy2*dx1;
+   return dy1*dx2 < dy2*dx1;
 }
 
 

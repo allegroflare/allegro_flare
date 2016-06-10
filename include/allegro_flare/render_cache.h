@@ -14,21 +14,21 @@
 class RenderCache
 {
 private:
-  ALLEGRO_BITMAP *render;
-  int padding;
-  ALLEGRO_STATE previous_state;
-  int previous_samples; // should not be necessairy in future versions of Allegro
-  int previous_depth;
-  bool dirty;
+   ALLEGRO_BITMAP *render;
+   int padding;
+   ALLEGRO_STATE previous_state;
+   int previous_samples; // should not be necessairy in future versions of Allegro
+   int previous_depth;
+   bool dirty;
 
 public:
-  RenderCache();
-  void setup_surface(int w, int h, int multisamples=0, int depth=0);
-  void finish_surface();
-  void draw(float origin_x, float origin_y);
-  void mark_as_dirty();
-  void mark_as_clean();
-  bool is_dirty();
+   RenderCache();
+   void setup_surface(int w, int h, int multisamples=0, int depth=0);
+   void finish_surface();
+   void draw(float origin_x, float origin_y);
+   void mark_as_dirty();
+   void mark_as_clean();
+   bool is_dirty();
 };
 
 

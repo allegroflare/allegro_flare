@@ -44,7 +44,7 @@ public:
 
    inline vec3d normalized() const {
       float magnitude = get_magnitude();
-	  // what if magnitude is 0?
+      // what if magnitude is 0?
       return vec3d( x / magnitude, y / magnitude, z / magnitude);
    }
 
@@ -54,48 +54,48 @@ public:
 
    inline void operator += ( const vec3d &other ) {
       x += other.x;
-	  y += other.y;
-	  z += other.z;
+      y += other.y;
+      z += other.z;
    }
 
    inline void operator -= ( const vec3d &other ) {
       x -= other.x;
-	  y -= other.y;
-	  z -= other.z;
+      y -= other.y;
+      z -= other.z;
    }
 
 
    inline void operator *= ( float factor )
    {
       x *= factor;
-	  y *= factor;
-	  z *= factor;
+      y *= factor;
+      z *= factor;
    }
 
 
    inline void operator /= ( float divisor )
    {
       x /= divisor; 
-	  y /= divisor;
-	  z /= divisor;
+      y /= divisor;
+      z /= divisor;
    }
 
    inline bool operator == ( const vec3d &other ) const
    {
-    return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01 && fabs(z - other.z) < 0.01;
+      return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01 && fabs(z - other.z) < 0.01;
    }
-   
+
    inline bool operator != ( const vec3d &other ) const {
-    return !(*this == other);
+      return !(*this == other);
    }
-   
+
    inline std::string to_string(int precision=5) const {
       std::ostringstream str;
-	  str.precision(precision);
+      str.precision(precision);
       str << "( " << std::fixed << x << ", " << std::fixed << y << ", " << std::fixed << z << " )";
       return str.str();
    }
-   
+
    inline std::string get_string() const {
       return to_string();
    }

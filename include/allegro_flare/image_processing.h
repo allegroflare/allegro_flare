@@ -29,7 +29,7 @@ void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float));
 
 // TODO: make better api for using these functions, for example:
 //		ALLEGRO_BITMAP *create_blurred_image(ALLEGRO_BITMAP *image, float radius);
- 
+
 void horizontal_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r);
 void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r);
 void box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r);

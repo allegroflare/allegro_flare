@@ -12,7 +12,7 @@
 
 struct ALLEGRO_FLARE_CUBEMAP_TEXTURE
 {
-	GLuint id;
+   GLuint id;
 };
 
 

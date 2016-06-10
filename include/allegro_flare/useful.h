@@ -62,27 +62,27 @@ bool basically_equal(float v1, float v2, float threshold=0.00001f);
 template<class T>
 T limit(const T &range1, const T &range2, const T &val)
 {
-	float min = (range1 < range2) ? range1 : range2;
-	float max = (range1 > range2) ? range1 : range2;
-	if (val < min) return min;
-	if (val > max) return max;
-	return val;
+   float min = (range1 < range2) ? range1 : range2;
+   float max = (range1 > range2) ? range1 : range2;
+   if (val < min) return min;
+   if (val > max) return max;
+   return val;
 }
 
 // Finds if a value is within (non-inclusive) the given min and max ranges.
 template<class T>
 bool in_range(const T &min, const T &max, const T &val)
 {
-	if (val < min) return false;
-	if (val > max) return false;
-	return true;
+   if (val < min) return false;
+   if (val > max) return false;
+   return true;
 }
 
 // Returns the midpoint between two values.
 template<class T>
 T mid(const T &val1, const T &val2)
 {
-	return (max(val1, val2) - min(val1, val2)) / 2.0 + min(val1, val2);
+   return (max(val1, val2) - min(val1, val2)) / 2.0 + min(val1, val2);
 }
 
 // Returns the next greatest whole number if the given value is not a whole number itself; e.g. it rounds the number up.
@@ -97,13 +97,13 @@ bool is_number(const std::string& s);
 template<class Iter, class T>
 inline Iter binary_find(Iter begin, Iter end, T val)
 {
-    // Finds the lower bound in at most log(last - first) + 1 comparisons
-    Iter i = std::lower_bound(begin, end, val);
+   // Finds the lower bound in at most log(last - first) + 1 comparisons
+   Iter i = std::lower_bound(begin, end, val);
 
-    if (i != end && *i == val)
-        return i; // found
-    else
-        return end; // not found
+   if (i != end && *i == val)
+      return i; // found
+   else
+      return end; // not found
 }
 
 
@@ -118,9 +118,9 @@ inline Iter binary_find(Iter begin, Iter end, T val)
 template<class T>
 std::string tostring(T val)
 {
-	std::ostringstream s;
-	s << val;
-	return s.str();
+   std::ostringstream s;
+   s << val;
+   return s.str();
 }
 
 // Returns a string with each character encoded in XML, e.g. #&x00fe;.
@@ -314,7 +314,7 @@ std::vector<std::string> get_directory_listing(std::string directory);
 
 namespace javascript
 {
-	void alert(std::string message);
+   void alert(std::string message);
 };
 
 

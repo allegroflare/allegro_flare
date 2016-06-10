@@ -14,9 +14,9 @@
 class Function
 {
 public:
-	std::string identifier;
-	std::vector<std::string> args;
-	std::string body;
+   std::string identifier;
+   std::vector<std::string> args;
+   std::string body;
 };
 
 
@@ -27,11 +27,11 @@ class Variable
 // you could overload it with arguments if you wanted to
 {
 public:
-	std::string identifier;
-	std::string value;
-	std::string type;
+   std::string identifier;
+   std::string value;
+   std::string type;
 
-	Variable(std::string identifier, std::string value, std::string type);
+   Variable(std::string identifier, std::string value, std::string type);
 };
 
 
@@ -40,26 +40,26 @@ public:
 class VirtualMemory
 {
 private:
-	Variable *get_record_by_identifier(std::string identifier) const;
-	std::vector<Variable *> variable;
+   Variable *get_record_by_identifier(std::string identifier) const;
+   std::vector<Variable *> variable;
 
 public:
-	// get, set, and isset
-	std::string get(std::string identifier) const;
-	void set(std::string identifier, std::string value);
-	bool isset(std::string identifier) const;
+   // get, set, and isset
+   std::string get(std::string identifier) const;
+   void set(std::string identifier, std::string value);
+   bool isset(std::string identifier) const;
 
-	std::string get_type(std::string identifier) const;
-	void set_type(std::string identifier, std::string type);
-	bool has_type(std::string identifier);
+   std::string get_type(std::string identifier) const;
+   void set_type(std::string identifier, std::string type);
+   bool has_type(std::string identifier);
 
-	// get the variable casted as a specific type
-	int get_as_int(std::string identifier) const;
-	float get_as_float(std::string identifier) const;
-	std::string get_as_string(std::string identifier) const;
+   // get the variable casted as a specific type
+   int get_as_int(std::string identifier) const;
+   float get_as_float(std::string identifier) const;
+   std::string get_as_string(std::string identifier) const;
 
-	// output to console
-	void dump();
+   // output to console
+   void dump();
 };
 
 
@@ -68,8 +68,8 @@ public:
 class InterpreterInterface
 {
 public:
-	VirtualMemory memory;
-	virtual void interpret(std::string val) = 0;
+   VirtualMemory memory;
+   virtual void interpret(std::string val) = 0;
 };
 
 

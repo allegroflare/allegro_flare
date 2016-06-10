@@ -14,10 +14,10 @@
 
 typedef struct
 {
-	float x, y, z;
-	float u, v;
-	ALLEGRO_COLOR color;
-	float nx, ny, nz;
+   float x, y, z;
+   float u, v;
+   ALLEGRO_COLOR color;
+   float nx, ny, nz;
 } ALLEGRO_VERTEX_WITH_NORMAL;
 
 
@@ -26,47 +26,47 @@ typedef struct
 class Model3D
 {
 public:
-	struct named_object
-	{
-	public:
-		std::string identifier;
-		std::vector<int> index_list;
-		ALLEGRO_BITMAP *texture;
-	};
+   struct named_object
+   {
+   public:
+      std::string identifier;
+      std::vector<int> index_list;
+      ALLEGRO_BITMAP *texture;
+   };
 
 private:
-	struct vt_coord
-	{
-	public:
-		float u;
-		float v;
-	};
+   struct vt_coord
+   {
+   public:
+      float u;
+      float v;
+   };
 
 public:
-	ALLEGRO_VERTEX_DECL *vertex_declaration;
-	std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vertexes;
-	ALLEGRO_BITMAP *texture;
-	std::vector<named_object> named_objects; // < this is not very effecient, vector in a vector. Fix later.
+   ALLEGRO_VERTEX_DECL *vertex_declaration;
+   std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vertexes;
+   ALLEGRO_BITMAP *texture;
+   std::vector<named_object> named_objects; // < this is not very effecient, vector in a vector. Fix later.
 
-	Model3D();
-	bool load_obj_file(const char *filename, float scale=1.0);
-	void inspect();
-	int get_num_vertexes();
-	int get_num_named_objects();
-	void draw();
-	bool draw_object(int index);
-	bool draw_object(std::string name);
+   Model3D();
+   bool load_obj_file(const char *filename, float scale=1.0);
+   void inspect();
+   int get_num_vertexes();
+   int get_num_named_objects();
+   void draw();
+   bool draw_object(int index);
+   bool draw_object(std::string name);
 
-	// modify
-	void set_texture(ALLEGRO_BITMAP *tx);
-	bool set_named_object_texture(int index, ALLEGRO_BITMAP *tx);
-	bool set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx);
-	bool set_named_object_color(int index, ALLEGRO_COLOR col);
-	bool set_named_object_color(std::string object_name, ALLEGRO_COLOR col);
-	void scale(float scale);
+   // modify
+   void set_texture(ALLEGRO_BITMAP *tx);
+   bool set_named_object_texture(int index, ALLEGRO_BITMAP *tx);
+   bool set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx);
+   bool set_named_object_color(int index, ALLEGRO_COLOR col);
+   bool set_named_object_color(std::string object_name, ALLEGRO_COLOR col);
+   void scale(float scale);
 
-	vec3d get_min_vertex_coordinate();
-	vec3d get_max_vertex_coordinate();
+   vec3d get_min_vertex_coordinate();
+   vec3d get_max_vertex_coordinate();
 };
 
 

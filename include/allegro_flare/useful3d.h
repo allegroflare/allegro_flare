@@ -13,11 +13,11 @@
 /*
 static vec3d cross_product(vec3d A, vec3d B)
 {
-	vec3d vector;
-	vector.x = A.y*B.z - B.y*A.z;
-	vector.y = B.x*A.z - A.x*B.z;
-	vector.z = A.x*B.y - A.y*B.x; 
-	return vector;
+   vec3d vector;
+   vector.x = A.y*B.z - B.y*A.z;
+   vector.y = B.x*A.z - A.x*B.z;
+   vector.z = A.x*B.y - A.y*B.x;
+   return vector;
 }
 
 
@@ -25,7 +25,7 @@ static vec3d cross_product(vec3d A, vec3d B)
 
 static float dot_product(vec3d A, vec3d B)
 {
-	return A * B;
+   return A * B;
 }
 */
 
@@ -40,14 +40,14 @@ static float dot_product(vec3d A, vec3d B)
 // THIS HAS NOT BEEN USED, YET:
 static bool intersectPlane(const vec3d &n, const vec3d &p0, const vec3d& l0, const vec3d &l, float &d)
 {
-    // assuming vectors are all normalized
-    float denom = dot_product(n, l);
-    if (denom > 1e-6) {
-        vec3d p0l0 = p0 - l0;
-        d = dot_product(p0l0, n) / denom; 
-        return (d >= 0);
-    }
-    return false;
+   // assuming vectors are all normalized
+   float denom = dot_product(n, l);
+   if (denom > 1e-6) {
+      vec3d p0l0 = p0 - l0;
+      d = dot_product(p0l0, n) / denom;
+      return (d >= 0);
+   }
+   return false;
 }
 
 
@@ -56,12 +56,12 @@ static bool intersectPlane(const vec3d &n, const vec3d &p0, const vec3d& l0, con
 class Ray // TODO: rename this to Ray3D and make an alternative Ray2D
 {
 public:
-	vec3d orig;
-	vec3d dir;
-	Ray(vec3d orig, vec3d dir)
-		: orig(orig)
-		, dir(dir)
-	{}
+   vec3d orig;
+   vec3d dir;
+   Ray(vec3d orig, vec3d dir)
+      : orig(orig)
+      , dir(dir)
+   {}
 };
 
 
@@ -70,14 +70,14 @@ public:
 class IsectData
 {
 public:
-	float t;
-	float u;
-	float v;
-	IsectData()
-		: t(0)
-		, u(0)
-		, v(0)
-	{}
+   float t;
+   float u;
+   float v;
+   IsectData()
+      : t(0)
+      , u(0)
+      , v(0)
+   {}
 };
 
 
@@ -86,49 +86,50 @@ public:
 class Triangle
 {
 public:
-	vec3d v0, v1, v2;
+   vec3d v0, v1, v2;
 
-	Triangle(vec3d v0, vec3d v1, vec3d v2)
-		: v0(v0)
-		, v1(v1)
-		, v2(v2)
-	{}
-	bool intersect(const Ray &r, IsectData &isectData) const
-	{
-		//http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
-		//#ifdef MOLLER_TRUMBORE
-		vec3d edge1 = v1 - v0;
-		vec3d edge2 = v2 - v0;
-		vec3d pvec = cross_product(r.dir, edge2);
-		float det = dot_product(edge1, pvec);
-		if (det == 0) return false;
-		float invDet = 1 / det;
-		vec3d tvec = r.orig - v0;
-		isectData.u = dot_product(tvec, pvec) * invDet;
-		if (isectData.u < 0 || isectData.u > 1) return false;
-		vec3d qvec = cross_product(tvec, edge1);
-		isectData.v = dot_product(r.dir, qvec) * invDet;
-		if (isectData.v < 0 || isectData.u + isectData.v > 1) return false;
-		isectData.t = dot_product(edge2, qvec) * invDet;
-	//#else
-	//    ...
-	//#endif
-		return true;
-	}
+   Triangle(vec3d v0, vec3d v1, vec3d v2)
+      : v0(v0)
+      , v1(v1)
+      , v2(v2)
+   {}
 
-	ALLEGRO_VERTEX _create_vtx(vec3d vec, ALLEGRO_COLOR col)
-	{
-		return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
-	}
+   bool intersect(const Ray &r, IsectData &isectData) const
+   {
+      //http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
+      //#ifdef MOLLER_TRUMBORE
+      vec3d edge1 = v1 - v0;
+      vec3d edge2 = v2 - v0;
+      vec3d pvec = cross_product(r.dir, edge2);
+      float det = dot_product(edge1, pvec);
+      if (det == 0) return false;
+      float invDet = 1 / det;
+      vec3d tvec = r.orig - v0;
+      isectData.u = dot_product(tvec, pvec) * invDet;
+      if (isectData.u < 0 || isectData.u > 1) return false;
+      vec3d qvec = cross_product(tvec, edge1);
+      isectData.v = dot_product(r.dir, qvec) * invDet;
+      if (isectData.v < 0 || isectData.u + isectData.v > 1) return false;
+      isectData.t = dot_product(edge2, qvec) * invDet;
+      //#else
+      //    ...
+      //#endif
+      return true;
+   }
 
-	void draw(ALLEGRO_COLOR col = color::orange)
-	{
-		ALLEGRO_VERTEX vtx[3];
-		vtx[0] = _create_vtx(v0, col);
-		vtx[1] = _create_vtx(v1, col);
-		vtx[2] = _create_vtx(v2, col);
-		al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
-	}
+   ALLEGRO_VERTEX _create_vtx(vec3d vec, ALLEGRO_COLOR col)
+   {
+      return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
+   }
+
+   void draw(ALLEGRO_COLOR col = color::orange)
+   {
+      ALLEGRO_VERTEX vtx[3];
+      vtx[0] = _create_vtx(v0, col);
+      vtx[1] = _create_vtx(v1, col);
+      vtx[2] = _create_vtx(v2, col);
+      al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
+   }
 };
 
 
@@ -136,10 +137,10 @@ public:
 
 static void draw_3d_line(vec3d start, vec3d end, ALLEGRO_COLOR col=color::red)
 {
-	ALLEGRO_VERTEX vtx[2];
-	vtx[0] = build_vertex(start.x, start.y, start.z, col, 0, 0);
-	vtx[1] = build_vertex(end.x, end.y, end.z, col, 0, 0);
-	al_draw_prim(&vtx[0], NULL, NULL, 0, 2, ALLEGRO_PRIM_LINE_LIST);
+   ALLEGRO_VERTEX vtx[2];
+   vtx[0] = build_vertex(start.x, start.y, start.z, col, 0, 0);
+   vtx[1] = build_vertex(end.x, end.y, end.z, col, 0, 0);
+   al_draw_prim(&vtx[0], NULL, NULL, 0, 2, ALLEGRO_PRIM_LINE_LIST);
 }
 
 
@@ -147,7 +148,7 @@ static void draw_3d_line(vec3d start, vec3d end, ALLEGRO_COLOR col=color::red)
 
 static ALLEGRO_VERTEX create_vtx(vec3d vec, ALLEGRO_COLOR col)
 {
-	return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
+   return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
 }
 
 
@@ -155,7 +156,7 @@ static ALLEGRO_VERTEX create_vtx(vec3d vec, ALLEGRO_COLOR col)
 
 static vec3d centroid(vec3d v1, vec3d v2, vec3d v3)
 {
-	return (v1 + v2 + v3) / 3;
+   return (v1 + v2 + v3) / 3;
 }
 
 
@@ -163,7 +164,7 @@ static vec3d centroid(vec3d v1, vec3d v2, vec3d v3)
 
 static vec3d tovec3d(ALLEGRO_VERTEX v1)
 {
-	return vec3d(v1.x, v1.y, v1.z);
+   return vec3d(v1.x, v1.y, v1.z);
 }
 
 
@@ -171,7 +172,7 @@ static vec3d tovec3d(ALLEGRO_VERTEX v1)
 
 static vec3d centroid(vec3d v1, vec3d v2, vec3d v3, vec3d v4)
 {
-	return (v1 + v2 + v3 + v4) / 4;
+   return (v1 + v2 + v3 + v4) / 4;
 }
 
 
@@ -179,11 +180,11 @@ static vec3d centroid(vec3d v1, vec3d v2, vec3d v3, vec3d v4)
 
 static void draw_3d_triangle(vec3d v1, vec3d v2, vec3d v3, ALLEGRO_COLOR col)
 {
-	ALLEGRO_VERTEX vtx[3];
-	vtx[0] = create_vtx(v1, col);
-	vtx[1] = create_vtx(v2, col);
-	vtx[2] = create_vtx(v3, col);
-	al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
+   ALLEGRO_VERTEX vtx[3];
+   vtx[0] = create_vtx(v1, col);
+   vtx[1] = create_vtx(v2, col);
+   vtx[2] = create_vtx(v3, col);
+   al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
 }
 
 
@@ -191,7 +192,7 @@ static void draw_3d_triangle(vec3d v1, vec3d v2, vec3d v3, ALLEGRO_COLOR col)
 
 static bool basically_equal(const vec3d &first, const vec3d &other, float threshold)
 {
-	return fabs(first.x - other.x) < threshold && fabs(first.y - other.y) < threshold && fabs(first.z - other.z) < threshold;
+   return fabs(first.x - other.x) < threshold && fabs(first.y - other.y) < threshold && fabs(first.z - other.z) < threshold;
 }
 
 
