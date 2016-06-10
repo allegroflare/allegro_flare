@@ -5,10 +5,17 @@
 #include <boost/test/unit_test.hpp>
 
 
+
+
 #include <allegro_flare/attributes.h>
 
-
+#include <fstream>
 #include <sstream>
+#include <unistd.h>
+
+
+
+
 struct my_custom_datatype
 {
 public:
@@ -35,11 +42,15 @@ public:
 
 
 
+
 BOOST_AUTO_TEST_CASE(unknown_attributes_do_not_exist)
 {
    Attributes attributes;
    BOOST_CHECK(attributes.exists("hello") == false);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_created)
 {
@@ -48,12 +59,18 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_created)
    BOOST_CHECK(attributes.exists("hello"));
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(created_key_value_pairs_exist)
 {
    Attributes attributes;
    attributes.set("size", "large");
    BOOST_CHECK_EQUAL(attributes.exists("size", "large"), true);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(unknown_key_value_pairs_do_not_exist)
 {
@@ -62,12 +79,18 @@ BOOST_AUTO_TEST_CASE(unknown_key_value_pairs_do_not_exist)
    BOOST_CHECK_EQUAL(attributes.exists("size", "small"), false);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(attribute_values_can_be_retrieved)
 {
    Attributes attributes;
    attributes.set("name", "Alex");
    BOOST_CHECK_EQUAL(attributes.get("name"), "Alex");
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_counted)
 {
@@ -80,6 +103,9 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_counted)
    BOOST_CHECK_EQUAL(attributes.num_attributes(), 3);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(attribute_values_can_be_changed)
 {
    Attributes attributes;
@@ -87,6 +113,9 @@ BOOST_AUTO_TEST_CASE(attribute_values_can_be_changed)
    attributes.set("name", "Beary");
    BOOST_CHECK_EQUAL(attributes.get("name"), "Beary");
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_removed)
 {
@@ -96,6 +125,9 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_removed)
    BOOST_CHECK_EQUAL(attributes.num_attributes(), 0);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(attributes_matching_key_value_can_be_removed)
 {
    Attributes attributes;
@@ -103,6 +135,9 @@ BOOST_AUTO_TEST_CASE(attributes_matching_key_value_can_be_removed)
    attributes.remove("os", "Windows");
    BOOST_CHECK_EQUAL(attributes.num_attributes(), 0);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_set_with_standard_datatypes)
 {
@@ -130,6 +165,9 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_set_with_standard_datatypes)
    BOOST_CHECK_EQUAL(attributes.get("caffinated"), "false");
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_standard_datatypes)
 {
    Attributes attributes;
@@ -150,21 +188,30 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_standard_datatypes)
    BOOST_CHECK_EQUAL(attributes.get_as_bool("doing_laundry_now"), false);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(a_datatype_that_has_not_been_created_is_inknown)
 {
    Attributes attributes;
    BOOST_CHECK_EQUAL(Attributes::datatype_is_known("my_custom_datatype"), false);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(custom_datatypes_that_have_been_created_are_known)
 {
    Attributes attributes;
 
    attributes.create_datatype_definition("my_custom_datatype",
-      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
    BOOST_CHECK_EQUAL(Attributes::datatype_is_known("my_custom_datatype"), true);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(an_attribute_can_not_be_set_as_an_unknown_datatype)
 {
@@ -173,6 +220,9 @@ BOOST_AUTO_TEST_CASE(an_attribute_can_not_be_set_as_an_unknown_datatype)
    BOOST_CHECK_EQUAL(attributes.set("key", "an_unknown_datatype", (void *)&custom), false);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(a_variable_cannot_be_bound_to_a_datatype_that_does_not_exist)
 {
    Attributes attributes;
@@ -180,16 +230,22 @@ BOOST_AUTO_TEST_CASE(a_variable_cannot_be_bound_to_a_datatype_that_does_not_exis
    BOOST_CHECK_EQUAL(attributes.bind("key", "an_unknown_datatype", &custom), false);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(custom_datatypes_can_be_bound)
 {
    Attributes attributes;
    my_custom_datatype custom;
 
    attributes.create_datatype_definition("my_custom_datatype",
-      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
    BOOST_CHECK_EQUAL(attributes.bind("foo", "my_custom_datatype", &custom), true);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_set_using_custom_datatypes)
 {
@@ -199,12 +255,15 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_set_using_custom_datatypes)
    my_2d_vector.y = 0.01;
 
    attributes.create_datatype_definition("my_custom_datatype",
-      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
    attributes.set("position", "my_custom_datatype", (void *)&my_2d_vector);
 
    BOOST_CHECK_EQUAL(attributes.get("position"), "0.35 0.01");
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(a_custom_attribute_is_set_to_the_value_of_the_variable_when_bound)
 {
@@ -216,7 +275,7 @@ BOOST_AUTO_TEST_CASE(a_custom_attribute_is_set_to_the_value_of_the_variable_when
 
    // create custom datatype
    attributes.create_datatype_definition("my_custom_datatype",
-      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
    // bind it to an existing datatype with values
    attributes.bind("custom", "my_custom_datatype", &custom_var);
@@ -224,13 +283,16 @@ BOOST_AUTO_TEST_CASE(a_custom_attribute_is_set_to_the_value_of_the_variable_when
    BOOST_CHECK_EQUAL(attributes.is_synced("custom"), true);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)
 {
    Attributes attributes;
    my_custom_datatype my_2d_vector;
 
    attributes.create_datatype_definition("my_custom_datatype",
-      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
    attributes.set("position", "123.4 567.8");
    attributes.get_as_custom(&my_2d_vector, "my_custom_datatype", "position");
@@ -239,8 +301,8 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)
    BOOST_CHECK_CLOSE(my_2d_vector.y, 567.8f, 0.00001);
 }
 
-#include <fstream>
-#include <unistd.h>
+
+
 
 BOOST_AUTO_TEST_CASE(attributes_can_be_saved_to_a_file)
 {
@@ -286,6 +348,9 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_saved_to_a_file)
    BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(attributes_can_be_loaded_from_a_file)
 {
    std::string test_filename = "TEST_alex_attributes_2.txt";
@@ -319,6 +384,9 @@ BOOST_AUTO_TEST_CASE(attributes_can_be_loaded_from_a_file)
    BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(a_copy_of_the_key_value_pairs_can_be_retrieved)
 {
    Attributes attributes;
@@ -348,6 +416,9 @@ BOOST_AUTO_TEST_CASE(a_copy_of_the_key_value_pairs_can_be_retrieved)
    }
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(binding_will_create_an_attribute_if_it_did_not_exist_previously)
 {
    int temperature = -40;
@@ -356,12 +427,18 @@ BOOST_AUTO_TEST_CASE(binding_will_create_an_attribute_if_it_did_not_exist_previo
    BOOST_CHECK_EQUAL(attributes.exists("temperature"), true);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(an_attribute_identifies_as_unbound_when_not_bounded)
 {
    Attributes attributes;
    attributes.set("size", "32");
    BOOST_CHECK_EQUAL(attributes.is_bound("size"), false);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(an_attribute_identifies_as_bounded_when_bouneded)
 {
@@ -370,6 +447,9 @@ BOOST_AUTO_TEST_CASE(an_attribute_identifies_as_bounded_when_bouneded)
    attributes.bind("size", &size);
    BOOST_CHECK_EQUAL(attributes.is_bound("size"), true);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(an_attribute_is_set_to_the_value_of_the_variable_when_bound)
 {
@@ -380,6 +460,9 @@ BOOST_AUTO_TEST_CASE(an_attribute_is_set_to_the_value_of_the_variable_when_bound
    BOOST_CHECK_EQUAL(attributes.is_synced("temperature"), true);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(an_attribute_is_not_synced_if_the_variable_is_modified)
 {
    Attributes attributes;
@@ -388,6 +471,9 @@ BOOST_AUTO_TEST_CASE(an_attribute_is_not_synced_if_the_variable_is_modified)
    temperature = 72;
    BOOST_CHECK_EQUAL(attributes.is_unsynced("temperature"), true);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_retrieved)
 {
@@ -398,6 +484,9 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_retrieved)
    BOOST_CHECK_EQUAL(attributes.get("kilometers"), "42");
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_to_the_bound_variable_when_set)
 {
    Attributes attributes;
@@ -406,6 +495,9 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_to_the_bound_variable_when_set)
    attributes.set("kilometers", "120");
    BOOST_CHECK_EQUAL(kilometers, 120);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(user_can_get_the_bound_datatype_for_standard_datatypes)
 {
@@ -429,6 +521,9 @@ BOOST_AUTO_TEST_CASE(user_can_get_the_bound_datatype_for_standard_datatypes)
    BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "bool");
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(an_attribute_will_identify_its_datatype_as_unbound_if_not_binded)
 {
    Attributes attributes;
@@ -436,6 +531,9 @@ BOOST_AUTO_TEST_CASE(an_attribute_will_identify_its_datatype_as_unbound_if_not_b
    BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "unbound");
    BOOST_CHECK_EQUAL(attributes.is_bound_as("val", "unbound"), true);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_all_standard_datatypes)
 {
@@ -463,6 +561,9 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_all_standard_
    BOOST_CHECK_EQUAL(attributes.get("val"), "true");
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_all_standard_datatypes)
 {
    Attributes attributes;
@@ -489,6 +590,9 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_all_standard_da
    BOOST_CHECK_EQUAL(attributes.get_as_bool("val"), false);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_a_custom_datatype)
 {
    Attributes attributes;
@@ -499,7 +603,7 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_a_custom_dataty
 
    // create custom datatype
    attributes.create_datatype_definition("my_custom_datatype",
-      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
    // bind it to an existing datatype with values
    attributes.bind("custom", "my_custom_datatype", &custom_var);
@@ -510,6 +614,9 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_a_custom_dataty
    BOOST_CHECK_CLOSE(value_to_fill.x, 0.876f, 0.00001);
    BOOST_CHECK_CLOSE(value_to_fill.y, 6.543f, 0.00001);
 }
+
+
+
 
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_all_standard_datatypes)
 {
@@ -537,12 +644,15 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_all_standard_da
    BOOST_CHECK_EQUAL(bool_val, true);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_a_custom_datatype)
 {
    Attributes attributes;
 
    attributes.create_datatype_definition("my_custom_datatype",
-      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
    my_custom_datatype custom_var;
 
@@ -556,6 +666,9 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_a_custom_dataty
    BOOST_CHECK_CLOSE(custom_var.y, 0.8, 0.0001);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(a_bound_attribute_can_be_unbound)
 {
    Attributes attributes;
@@ -566,13 +679,16 @@ BOOST_AUTO_TEST_CASE(a_bound_attribute_can_be_unbound)
    BOOST_CHECK_EQUAL(attributes.is_bound("val"), false);
 }
 
+
+
+
 BOOST_AUTO_TEST_CASE(user_can_get_the_known_datatypes_in_alphabetical_order)
 {
    Attributes attributes;
    auto types = attributes.get_known_datatypes();
 
    attributes.create_datatype_definition("my_custom_datatype",
-      my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
    BOOST_REQUIRE_EQUAL(types.size(), 5);
    BOOST_CHECK_EQUAL(types[0], "bool");
@@ -581,6 +697,7 @@ BOOST_AUTO_TEST_CASE(user_can_get_the_known_datatypes_in_alphabetical_order)
    BOOST_CHECK_EQUAL(types[3], "my_custom_datatype");
    BOOST_CHECK_EQUAL(types[4], "string");
 }
+
 
 
 

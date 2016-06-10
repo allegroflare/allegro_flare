@@ -5,7 +5,11 @@
 #include <boost/test/unit_test.hpp>
 
 
+
+
 #include <allegro_flare/clipboard.h>
+
+
 
 
 BOOST_AUTO_TEST_CASE(can_get_and_set_a_string)

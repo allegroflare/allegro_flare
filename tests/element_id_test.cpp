@@ -5,7 +5,11 @@
 #include <boost/test/unit_test.hpp>
 
 
+
+
 #include <allegro_flare/element_id.h>
+
+
 
 
 struct Fixture
@@ -32,6 +36,8 @@ struct Fixture
 };
 
 
+
+
 BOOST_AUTO_TEST_CASE(has_a_first_element_with_id_1)
 {
    ElementID element1 = ElementID(NULL);
@@ -39,6 +45,8 @@ BOOST_AUTO_TEST_CASE(has_a_first_element_with_id_1)
    BOOST_CHECK_EQUAL(element1.get_id(), 1);
    BOOST_CHECK_EQUAL(element2.get_id(), 2);
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(returns_its_root)
@@ -64,11 +72,15 @@ BOOST_AUTO_TEST_CASE(returns_its_root)
 }
 
 
+
+
 BOOST_AUTO_TEST_CASE(returns_NULL_without_a_root)
 {
    ElementID root = ElementID(NULL);
    BOOST_CHECK_EQUAL((void *)0, root.get_root());
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(returns_its_number_of_children)
@@ -80,6 +92,8 @@ BOOST_AUTO_TEST_CASE(returns_its_number_of_children)
    new ElementID(&root);
    BOOST_CHECK_EQUAL(2, root.num_children());
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(returns_true_if_it_has_children_otherwise_false)
@@ -96,6 +110,8 @@ BOOST_AUTO_TEST_CASE(returns_true_if_it_has_children_otherwise_false)
 }
 
 
+
+
 BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_1)
 {
    ElementID root = ElementID(NULL);
@@ -110,6 +126,8 @@ BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_1)
    delete child_2;
    BOOST_CHECK_EQUAL(0, root.num_children());
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_2)
@@ -131,6 +149,8 @@ BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_2)
 }
 
 
+
+
 BOOST_AUTO_TEST_CASE(returns_the_first_child_with_a_matching_attribute)
 {
    ElementID root = ElementID(NULL);
@@ -142,6 +162,8 @@ BOOST_AUTO_TEST_CASE(returns_the_first_child_with_a_matching_attribute)
 
    BOOST_CHECK_EQUAL(child_1, root.find_first("name"));
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(finds_the_first_child_with_a_matching_attribute_and_value)
@@ -157,6 +179,8 @@ BOOST_AUTO_TEST_CASE(finds_the_first_child_with_a_matching_attribute_and_value)
 }
 
 
+
+
 BOOST_AUTO_TEST_CASE(returns_NULL_when_a_child_with_matching_attributes_is_not_found)
 {
    ElementID root = ElementID(NULL);
@@ -167,6 +191,8 @@ BOOST_AUTO_TEST_CASE(returns_NULL_when_a_child_with_matching_attributes_is_not_f
    BOOST_CHECK_EQUAL((void*)(0), root.find_first("DNE"));
    BOOST_CHECK_EQUAL((void*)(0), root.find_first("DNE", "not found"));
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(finds_the_first_descendant_with_a_matching_attribute)
@@ -200,6 +226,8 @@ BOOST_AUTO_TEST_CASE(finds_the_first_descendant_with_a_matching_attribute)
    BOOST_CHECK_EQUAL(child_1_B, root.find_first_descendant("name"));
    BOOST_CHECK_EQUAL(child_2_B, root.find_first_descendant("power"));
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(finds_the_first_descendant_with_a_matching_attribute_and_value)
@@ -238,6 +266,8 @@ BOOST_AUTO_TEST_CASE(finds_the_first_descendant_with_a_matching_attribute_and_va
 }
 
 
+
+
 BOOST_AUTO_TEST_CASE(returns_NULL_when_a_matching_descendant_does_not_exist)
 {
    ElementID root = ElementID(NULL);
@@ -245,6 +275,8 @@ BOOST_AUTO_TEST_CASE(returns_NULL_when_a_matching_descendant_does_not_exist)
    BOOST_CHECK_EQUAL((void *)0, root.find_first_descendant("foo"));
    BOOST_CHECK_EQUAL((void *)0, root.find_first_descendant("foo", "bar"));
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(finds_children_with_a_matching_attribute)
@@ -266,6 +298,8 @@ BOOST_AUTO_TEST_CASE(finds_children_with_a_matching_attribute)
 }
 
 
+
+
 BOOST_AUTO_TEST_CASE(finds_children_with_a_matching_attribute_and_value)
 {
    ElementID root = ElementID(NULL);
@@ -285,6 +319,8 @@ BOOST_AUTO_TEST_CASE(finds_children_with_a_matching_attribute_and_value)
    BOOST_CHECK_EQUAL(child_2, results[0]);
    BOOST_CHECK_EQUAL(child_4, results[1]);
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(finds_all_descendants_matching_an_attribute)
@@ -322,6 +358,8 @@ BOOST_AUTO_TEST_CASE(finds_all_descendants_matching_an_attribute)
 }
 
 
+
+
 BOOST_AUTO_TEST_CASE(finds_all_descendants_matching_an_attribute_and_value)
 {
    ElementID root = ElementID(NULL);
@@ -353,6 +391,8 @@ BOOST_AUTO_TEST_CASE(finds_all_descendants_matching_an_attribute_and_value)
 }
 
 
+
+
 BOOST_AUTO_TEST_CASE(gets_a_descendant_by_id)
 {
    ElementID root = ElementID(NULL);
@@ -377,6 +417,8 @@ BOOST_AUTO_TEST_CASE(gets_a_descendant_by_id)
 }
 
 
+
+
 BOOST_FIXTURE_TEST_CASE(returns_an_nth_descendant, Fixture)
 {
    BOOST_CHECK_EQUAL(child_1, root.get_nth_descendant(0));
@@ -393,6 +435,8 @@ BOOST_FIXTURE_TEST_CASE(returns_an_nth_descendant, Fixture)
 }
 
 
+
+
 BOOST_FIXTURE_TEST_CASE(returns_NULL_when_an_nth_descendant_does_not_exist, Fixture)
 {
    BOOST_CHECK_EQUAL((void *)0, root.get_nth_descendant(-1));
@@ -407,6 +451,8 @@ BOOST_FIXTURE_TEST_CASE(returns_NULL_when_an_nth_descendant_does_not_exist, Fixt
 }
 
 
+
+
 BOOST_FIXTURE_TEST_CASE(returns_a_flat_list_of_descendants, Fixture)
 {
    std::vector<ElementID *> expected = {
@@ -418,6 +464,8 @@ BOOST_FIXTURE_TEST_CASE(returns_a_flat_list_of_descendants, Fixture)
    BOOST_CHECK_EQUAL_COLLECTIONS(expected.begin(), expected.end(),
       list_of_descendants.begin(), list_of_descendants.end());
 }
+
+
 
 
 BOOST_FIXTURE_TEST_CASE(returns_an_index_of_a_child_element, Fixture)
@@ -451,6 +499,8 @@ BOOST_FIXTURE_TEST_CASE(returns_negative_1_if_an_index_is_not_present_for_an_ele
 }
 
 
+
+
 BOOST_FIXTURE_TEST_CASE(returns_an_nth_child, Fixture)
 {
    BOOST_CHECK_EQUAL(child_1, root.get_nth_child(0));
@@ -464,6 +514,8 @@ BOOST_FIXTURE_TEST_CASE(returns_an_nth_child, Fixture)
 
    BOOST_CHECK_EQUAL(child_2_A_1, child_2_A->get_nth_child(0));
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(returns_a_random_child)
@@ -498,12 +550,16 @@ BOOST_AUTO_TEST_CASE(returns_a_random_child)
 }
 
 
+
+
 BOOST_FIXTURE_TEST_CASE(returns_its_next_sibling, Fixture)
 {
    BOOST_CHECK_EQUAL(child_2, child_1->get_next_sibling());
    BOOST_CHECK_EQUAL(child_1_B, child_1_A->get_next_sibling());
    BOOST_CHECK_EQUAL(child_2_B, child_2_A->get_next_sibling());
 }
+
+
 
 
 BOOST_FIXTURE_TEST_CASE(returns_its_previous_sibling, Fixture)
@@ -514,11 +570,15 @@ BOOST_FIXTURE_TEST_CASE(returns_its_previous_sibling, Fixture)
 }
 
 
+
+
 BOOST_FIXTURE_TEST_CASE(returns_NULL_when_a_next_or_previous_sibling_does_not_exist, Fixture)
 {
    BOOST_CHECK_EQUAL((void *)0, root.get_next_sibling());
    BOOST_CHECK_EQUAL((void *)0, root.get_previous_sibling());
 }
+
+
 
 
 BOOST_FIXTURE_TEST_CASE(can_identify_if_an_element_is_a_child, Fixture)
@@ -529,6 +589,8 @@ BOOST_FIXTURE_TEST_CASE(can_identify_if_an_element_is_a_child, Fixture)
    BOOST_CHECK_EQUAL(true, child_1->is_child(child_1_B));
    BOOST_CHECK_EQUAL(false, child_1->is_child(child_2_B));
 }
+
+
 
 
 BOOST_FIXTURE_TEST_CASE(returns_a_list_of_children, Fixture)
@@ -552,5 +614,7 @@ BOOST_FIXTURE_TEST_CASE(returns_a_list_of_children, Fixture)
    BOOST_CHECK_EQUAL_COLLECTIONS(expected_child_2_A_children.begin(), expected_child_2_A_children.end(),
          returned_child_2_A_children.begin(), returned_child_2_A_children.end());
 }
+
+
 
 
