@@ -4,15 +4,6 @@
 
 
 
-// defines a list of general purpose, useful utility functions
-// parsing this file for documentation is like this
-// here is the regular expression for a section header: \n//\n// .+\n(//.*\n)*//\n\n
-// captures the comments: \n(?P<comment>(\n\/\/ (.+))+)
-// captures comments and definitions (but definitions have a leading newline: \n(?P<name>(\n\/\/ (.+))+)(?P<function_def>(\n.+)+)
-
-
-
-
 #include <string>
 #include <vector>
 #include <allegro5/allegro_font.h>
