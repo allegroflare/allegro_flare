@@ -164,6 +164,7 @@ bin/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGROFLARE_LIB_NAME).a
 
 clean:
 	-rm ./obj/*.o
+	-rm ./lib/*.a
 	-rm $(EXAMPLE_OBJS)
 	-rm $(GUI_EXAMPLE_OBJS)
 	-rm $(TEST_OBJS)
