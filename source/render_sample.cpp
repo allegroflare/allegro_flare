@@ -12,11 +12,6 @@
 
 
 
-using namespace std;
-
-
-
-
 bool do_cout = false;
 
 
@@ -112,7 +107,7 @@ void draw_wav_sample(ALLEGRO_BITMAP *dest, ALLEGRO_SAMPLE *sample)
 
 void draw_wav_sample(ALLEGRO_BITMAP *dest, ALLEGRO_SAMPLE *sample, float samp_start, float samp_end)
 {
-   if (!dest) { cout << "(!) Could not render sample: destination bitmap is invalid." << endl; return; }
+   if (!dest) { std::cout << "(!) Could not render sample: destination bitmap is invalid." << std::endl; return; }
    ALLEGRO_BITMAP *prev = al_get_target_bitmap();
    al_set_target_bitmap(dest);
    al_clear_to_color(al_color_name("black"));
