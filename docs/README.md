@@ -30,6 +30,8 @@ Development of the project will be broken down into several sub-tasks.
 ##### Phase 1. Setup
 + Build and setup the necessairy tools/dependencies/workflow
 + Verify/update the codebase is parsable and reachable
++ Write instructions for setting up and using the workflow (see "How to Parse
+  Documentation" below)
 + Create and output an initial parse of the codebase
 
 ##### Phase 2. Populate the database
@@ -45,3 +47,7 @@ Development of the project will be broken down into several sub-tasks.
 ### What's your timeline?
 
 No deadlines are imposed on this project.  It will progress as time allows.  Would like to have a working v1 ready in 2 months, March 31 2016.
+
+## How to Parse Documentation
+
+[todo]
