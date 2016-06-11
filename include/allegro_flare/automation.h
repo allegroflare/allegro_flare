@@ -4,30 +4,6 @@
 
 
 
-/*{
-
-
-AUTOMATION
-
-automation allows you to create or hook objects and their parameters into
-the automation system where their parameters can be controlled by a list
-of instructions that occur over time.  You can think of it as scripting,
-but it's more like a piece of music, where instructions are given in a
-static script. the Actor class controls the parameters for the object,
-as well as interpolates values between keyframes (with various available
-curves).
-
-Anything can be controlled by an Actor (but right now only float parameters
-are controlled).  You could automate the position of an object, or the
-value of a volume knob over time, for example.  You could, in essence,
-create entire complex animation sequences if you wished.
-
-
-}*/
-
-
-
-
 #include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/timeline.h>
 
