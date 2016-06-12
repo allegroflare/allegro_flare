@@ -36,7 +36,7 @@ INCLUDE_FLAGS=-I$(ALLEGRO_DIR)/include -I$(ALLEGROFLARE_DIR)/include
 # ===============================================
 #
 
-CORE_ITEMS=appearance2d attributes automation bitmap_object blender camera2d camera3d color config cubemap data_attr decorated_cout display drawing_interface file_path file_path_object framework frustum generate_textures grid2d element_id i18n image_processing md5 model3d motion render_cache render_music_notation object2d path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 shader skeleton sound_object text_object timeline useful
+CORE_ITEMS=appearance2d attributes automation bitmap_object blender camera2d camera3d color config cubemap data_attr decorated_cout display drawing_interface file_path file_path_object framework frustum generate_textures grid2d element_id i18n image_processing md5 model3d motion render_cache render_music_notation object2d path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 shader skeleton sound_object text_object timeline useful vec2d
 BIN_ITEMS=font_bin sample_bin bitmap_bin model_bin
 DI_ITEMS=drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
 FONT_ITEMS=font_bravura font_font_awesome font_segoe_ui_symbol

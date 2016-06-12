@@ -4,8 +4,6 @@
 
 
 
-#include <cmath>
-#include <sstream>
 #include <string>
 
 
@@ -16,160 +14,63 @@ class vec2d
 public:
    float x, y;
 
-   vec2d(float x=0.0, float y=0.0)
-      : x(x)
-      , y(y)
-   {}
+   vec2d(float x=0.0, float y=0.0);
 
-   static inline vec2d polar_coords(float angle, float magnitude)
-   {
-      return vec2d(magnitude * std::cos(angle), magnitude * std::sin(angle));
-   }
+   // returns the polar coordinates of an angle (in radians?) and magnitude
+   static vec2d polar_coords(float angle, float magnitude);
 
-   inline float get_angle() const
-   {
-      return std::atan2(y, x);
-   }
+   // return the arctangent(2) for the current vector
+   float get_angle() const;
 
-   inline float get_magnitude() const
-   {
-      return std::sqrt(get_magnitude_squared());
-   }
+   // return the magnitude, or length of the vector
+   float get_magnitude() const;
 
-   inline float get_magnitude_squared() const
-   {
-      return x*x + y*y;
-   }
+   // return the magnitude squared of the vector
+   float get_magnitude_squared() const;
 
-   inline vec2d normalized() const
-   {
-      float magnitude = get_magnitude();
-      return vec2d(x/magnitude, y/magnitude);
-   }
+   // returns the normalized value of the vector where the length = 1
+   vec2d normalized() const;
 
-   inline void operator+=(const vec2d &other)
-   {
-      x += other.x;
-      y += other.y;
-   }
+   void operator+=(const vec2d &other);
+   void operator-=(const vec2d &other);
+   void operator*=(float factor);
+   void operator/=(float divisor);
+   bool operator==(const vec2d &other) const;
+   bool operator!=(const vec2d &other) const;
 
-   inline void operator-=(const vec2d &other)
-   {
-      x -= other.x;
-      y -= other.y;
-   }
-
-   inline void operator*=(float factor)
-   {
-      x *= factor;
-      y *= factor;
-   }
-
-   inline void operator/=(float divisor)
-   {
-      x /= divisor;
-      y /= divisor;
-   }
-
-   inline bool operator==(const vec2d &other) const
-   {
-      return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01;
-   }
-
-   inline bool operator!=(const vec2d &other) const
-   {
-      return !(*this == other);
-   }
-
-   inline std::string get_string() const
-   {
-      std::ostringstream str;
-      str << "(" << x << ", " << y << ")";
-      return str.str();
-   }
+   // returns the vector formatted as a string
+   std::string get_string() const;
 };
 
 
 
 
-inline vec2d operator+(vec2d first, vec2d second)
-{
-   return vec2d(first.x + second.x, first.y + second.y);
-}
+// add two vectors
+vec2d operator+(vec2d first, vec2d second);
 
+// subtract two vectors
+vec2d operator-(vec2d first, vec2d second);
 
+// multiply a vector by a factor
+vec2d operator*(vec2d vec, float factor);
 
+// multiply two vectors
+vec2d operator*(float factor, vec2d vec);
 
-inline vec2d operator-(vec2d first, vec2d second)
-{
-   return vec2d(first.x - second.x, first.y - second.y);
-}
-
-
-
-
-inline vec2d operator*(vec2d vec, float factor)
-{
-   return vec2d(factor * vec.x, factor * vec.y);
-}
-
-
-
-
-inline vec2d operator*(float factor, vec2d vec)
-{
-   return vec2d(factor * vec.x, factor * vec.y);
-}
-
-
-
-
-inline vec2d operator/(vec2d vec, float divisor)
-{
-   return vec2d(vec.x / divisor, vec.y / divisor);
-}
-
-
-
+// divide a vector by a factor
+vec2d operator/(vec2d vec, float divisor);
 
 // dot product
-inline float operator*(vec2d first, vec2d second)
-{
-   return first.x * second.x + first.y * second.y;
-}
-
-
-
+float operator*(vec2d first, vec2d second);
 
 // change the sign
-inline vec2d operator-(vec2d vec)
-{
-   return vec2d(-vec.x, -vec.y);
-}
-
-
-
+vec2d operator-(vec2d vec);
 
 // normalize
-inline vec2d operator~(vec2d vec)
-{
-   return vec.normalized();
-}
-
-
-
+vec2d operator~(vec2d vec);
 
 // Check if the points are in counter clockwise order
-inline bool is_counter_clockwise(const vec2d first, const vec2d second, const vec2d third) {
-   float dx1, dx2, dy1, dy2;
-
-   dx1 = second.x - first.x;
-   dy1 = second.y - first.y;
-   dx2 = third.x - second.x;
-   dy2 = third.y - second.y;
-
-   return dy1*dx2 < dy2*dx1;
-}
+bool is_counter_clockwise(const vec2d first, const vec2d second, const vec2d third);
 
 
 
