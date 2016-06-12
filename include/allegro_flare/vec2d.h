@@ -22,7 +22,7 @@ public:
    // return the arctangent(2) for the current vector
    float get_angle() const;
 
-   // return the magnitude, or length of the vector
+   // return the magnitude, or length, of the vector
    float get_magnitude() const;
 
    // return the magnitude squared of the vector
@@ -53,8 +53,6 @@ vec2d operator-(vec2d first, vec2d second);
 
 // multiply a vector by a factor
 vec2d operator*(vec2d vec, float factor);
-
-// multiply two vectors
 vec2d operator*(float factor, vec2d vec);
 
 // divide a vector by a factor

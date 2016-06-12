@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <allegro_flare/useful.h> // to replace the issues surrounding std::sprintf
+#include <cmath>
 
 
 

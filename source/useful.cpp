@@ -5,6 +5,7 @@
 #include <allegro_flare/useful.h>
 
 #include <algorithm>
+#include <cmath>
 #include <ctime>
 #include <locale>
 #include <sstream>

@@ -4,6 +4,7 @@
 
 
 
+#include <sstream>
 #include <string>
 #include <vector>
 #include <allegro5/allegro_font.h>
