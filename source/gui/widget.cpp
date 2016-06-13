@@ -44,7 +44,7 @@ UIWidget::~UIWidget()
    if (family.parent) family.parent->family.unregister_as_child(this);
    num_active_widgets--;
 
-   std::cout << "~UIWidget() { type=" << attr.get(UI_ATTR__UI_WIDGET_TYPE) << " }" << std::endl;
+   // std::cout << "~UIWidget() { type=" << attr.get(UI_ATTR__UI_WIDGET_TYPE) << " }" << std::endl;
 
    // clear all elements from the motion manager
    // I'm not sure about this.  There isn't really a fast, elegant way to guarantee
