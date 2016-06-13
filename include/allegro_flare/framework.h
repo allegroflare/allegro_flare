@@ -25,7 +25,7 @@ class Framework
 private:
    static Framework *instance;
    static Framework *get_instance();
-   Framework(int val);
+   static bool initialized;
    ~Framework();
 
    FontBin fonts;
@@ -44,7 +44,6 @@ public:
    static Screen *current_screen;
    static ALLEGRO_EVENT *current_event;
    static double time_now; // used to be current_event_time
-   static bool initialized;
 
    static int key_alt, key_shift, key_ctrl;
    static bool drawing_profiler_graph;
@@ -56,6 +55,7 @@ public:
    static Motion &motion(); // we'll do this for now
 
    static bool initialize(std::string config_filename="");
+   static bool is_initialized();
    static Display *create_display(int width=1280, int height=720);
    static Display *create_display(int width, int height, int display_flags);
    static Display *create_display(int width, int height, int display_flags, int adapter);

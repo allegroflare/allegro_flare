@@ -147,6 +147,14 @@ bool Framework::initialize(std::string config_filename)
 
 
 
+bool Framework::is_initialized()
+{
+   return initialized;
+}
+
+
+
+
 Display *Framework::create_display(int width, int height)
 {
    return create_display(width, height, false, -1);
