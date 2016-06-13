@@ -15,15 +15,12 @@
 
 
 UIPickingBuffer::UIPickingBuffer(UIWidget *parent, float x, float y, int w, int h, int depth)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIPickingBuffer", new UISurfaceAreaBox(x, y, w, h))
    , surface_render(NULL)
    , mouse_x(0)
    , mouse_y(0)
    , draw_surface_render(true)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIPickingBuffer");
-   attr.set("id", "PickingBuffer" + tostring(get_num_created_widgets()));
-
    create_new_surface(place.size.x, place.size.y, depth);
    clear_surface();
 }

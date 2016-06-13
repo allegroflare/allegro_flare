@@ -92,7 +92,7 @@ public:
    DataAttr attr;
    placement2d &place;
 
-   UIWidget(UIWidget *parent, UISurfaceArea *surface_area);
+   UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area);
    virtual ~UIWidget();
 
    // ordering

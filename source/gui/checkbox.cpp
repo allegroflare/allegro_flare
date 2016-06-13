@@ -16,15 +16,12 @@
 
 
 UICheckbox::UICheckbox(UIWidget *parent, float x, float y, float size)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, size, size))
+   : UIWidget(parent, "UICheckbox", new UISurfaceAreaBox(x, y, size, size))
    , checked(false)
    , check_placement(0, 0, size, size, -0.4, 0.0, 0.0, 0.45, 0.75)
    , check_color(color::mix(UIStyleAssets::get_hilight_color(), color::white, 0.6))
    , check_opacity(0)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UICheckbox");
-   attr.set("id", "Checkbox" + tostring(UIWidget::get_num_created_widgets()));
-}
+{}
 
 
 

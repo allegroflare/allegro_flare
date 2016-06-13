@@ -13,14 +13,11 @@
 
 
 UIText::UIText(UIWidget *parent, float x, float y, std::string text)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, 200, 20)) // just set arbitrary width and height
+   : UIWidget(parent, "UIText", new UISurfaceAreaBox(x, y, 200, 20)) // just set arbitrary width and height
    , text(text)
    , font(Framework::font("DroidSans.ttf 20"))
    , font_color(color::white)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIText");
-   attr.set("id", "Text" + tostring(get_num_created_widgets()));
-
    // text elements do not recieve focus when ALLEGRO_KEY_TABbing
    no_focus = true;
 

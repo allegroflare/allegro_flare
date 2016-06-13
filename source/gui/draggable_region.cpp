@@ -18,12 +18,9 @@ std::string tostring(int v); // so as not to have to declare  #include <allegro_
 
 
 UIDraggableRegion::UIDraggableRegion(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIDraggableRegion", new UISurfaceAreaBox(x, y, w, h))
    , background_color(color::color(color::black, 0.1))
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIDraggableRegion");
-   attr.set("id", "DraggableRegion" + tostring<int>(UIWidget::get_num_created_widgets()));
-}
+{}
 
 
 

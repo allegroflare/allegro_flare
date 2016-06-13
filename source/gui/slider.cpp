@@ -10,16 +10,13 @@
 
 
 UIVerticalSlider::UIVerticalSlider(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIVerticalSlider", new UISurfaceAreaBox(x, y, w, h))
    , val(0.6)
    , mouse_y(0)
    , num_notches(0)
    , wheel_sensitivity(0.1)
    , slider_color(color::dodgerblue)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIVerticalSlider");
-   attr.set("id", "VerticalSlider" + tostring(get_num_created_widgets()));
-}
+{}
 
 
 

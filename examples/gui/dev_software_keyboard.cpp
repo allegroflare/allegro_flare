@@ -180,7 +180,7 @@ public:
    bool shift_pressed;
 
    UISoftwareKeyboard(UIWidget *parent, float x, float y)
-      : UIWidget(parent, new UISurfaceAreaBox(x, y, 850, 250))
+      : UIWidget(parent, "UISoftwareKeyboard", new UISurfaceAreaBox(x, y, 850, 250))
       , num_cols(12)
       , num_rows(4)
       //  , display(display)

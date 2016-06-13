@@ -218,7 +218,7 @@ void PianoKeyboardKey::on_mouse_up()
 
 
 UIPianoKeyboard::UIPianoKeyboard(UIWidget *parent, float x, float y)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, 500, 100))
+   : UIWidget(parent, "UIPianoKeyboard", new UISurfaceAreaBox(x, y, 500, 100))
 {
    set_keys_to_pentatonic();
    //init_midi();

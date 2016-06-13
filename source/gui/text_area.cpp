@@ -96,15 +96,12 @@ bool UITextArea::Cursor::selection_active() { return head_pos != _anchor_pos; }
 
 
 UITextArea::UITextArea(UIWidget *parent, float x, float y, float w, float h, std::string text)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UITextArea", new UISurfaceAreaBox(x, y, w, h))
    , cursor(0, 0)
    , full_text(text)
    , font(Framework::font("DroidSans.ttf 20"))
    , cursor_blink_counter(1)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UITextArea");
-   attr.set("id", "TextArea" + tostring(get_num_created_widgets()));
-}
+{}
 
 
 

@@ -17,15 +17,12 @@
 
 
 UIButton::UIButton(UIWidget *parent, float x, float y, float w, float h, std::string text)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIButton", new UISurfaceAreaBox(x, y, w, h))
    , text(text)
    , content_alignment(0.5)
    , font(UIStyleAssets::get_ui_font())
    , icon(NULL)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIButton");
-   attr.set("id", "Button" + tostring(get_num_created_widgets()));
-}
+{}
 
 
 

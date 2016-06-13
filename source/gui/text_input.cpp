@@ -14,7 +14,7 @@
 
 
 UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, std::string text)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UITextInput", new UISurfaceAreaBox(x, y, w, h))
    , text("")
    , cursor_pos(0)
    , cursor_end(0)
@@ -27,9 +27,6 @@ UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, s
    , mouse_cursor_x(0)
    , mouse_cursor_y(0)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UITextInput");
-   attr.set("id", "TextInput" + tostring(get_num_created_widgets()));
-
    set_text(text);
 
    _text_render = al_create_bitmap(w, h);

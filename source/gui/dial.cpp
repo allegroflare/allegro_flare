@@ -13,14 +13,11 @@
 
 
 UIDial::UIDial(UIWidget *parent, float x, float y, float diameter)
-   : UIWidget(parent, new UISurfaceAreaCircle(x, y, diameter/2))
+   : UIWidget(parent, "UIDial", new UISurfaceAreaCircle(x, y, diameter/2))
    , val(0.4)
    , radius(diameter/2)
    , sensitivity(0.002)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIDial");
-   attr.set("id", "Dial" + tostring(get_num_created_widgets()));
-}
+{}
 
 
 

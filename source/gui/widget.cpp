@@ -12,7 +12,7 @@
 
 
 
-UIWidget::UIWidget(UIWidget *parent, UISurfaceArea *surface_area)
+UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area)
    : family(parent)
    , surface_area(surface_area)
    , place(surface_area->placement)
@@ -25,8 +25,8 @@ UIWidget::UIWidget(UIWidget *parent, UISurfaceArea *surface_area)
    , mouse_is_blocked(false)
    , disabled(false)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIWidget");
-   attr.set("id", "Widget" + tostring(widget_count));
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
+   attr.set("id", widget_typename + tostring(widget_count));
 
    if (parent) parent->family.register_as_child(this);
    num_active_widgets++;

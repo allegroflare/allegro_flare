@@ -14,7 +14,7 @@ private:
 
 public:
    RenderCachedUIWidget(UIWidget *p, float x, float y, float w, float h)
-      : UIWidget(p, new UISurfaceAreaBox(x, y, w, h))
+      : UIWidget(p, "RenderCachedUIWidget", new UISurfaceAreaBox(x, y, w, h))
       , render_cache(RenderCache())
    {}
 

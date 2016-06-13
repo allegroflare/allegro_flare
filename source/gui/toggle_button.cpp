@@ -12,13 +12,10 @@
 
 
 UIToggleButton::UIToggleButton(UIWidget *parent, float x, float y, float w, float h, std::string _text)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIToggleButton", new UISurfaceAreaBox(x, y, w, h))
    , pressed(false)
    , text(_text)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIToggleButton");
-   attr.set("id", "ToggleButton" + tostring(get_num_created_widgets()));
-}
+{}
 
 
 

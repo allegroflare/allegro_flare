@@ -11,15 +11,12 @@
 
 
 UIScrollArea::UIScrollArea(UIWidget *parent, float x, float y, float w, float h, UIWidget *content_parent)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIScrollArea", new UISurfaceAreaBox(x, y, w, h))
    , canvas(content_parent)
    , v_slider(NULL)
    , canvas_render(al_create_bitmap(w, h))
 {
    if (canvas) UIFamily::assign_child_to_new_parent(canvas, this); // I believe this usage is the proper design.
-
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIScrollArea");
-   attr.set("id", "ScrollArea" + tostring(UIWidget::get_num_created_widgets()));
 
    v_slider = new UIScrollBar(this, w, 0, 16, h);
    v_slider->place.align = vec2d(1, 0);

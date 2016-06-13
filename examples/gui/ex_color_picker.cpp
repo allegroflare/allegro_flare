@@ -16,7 +16,7 @@ class UINullWidget : public UIWidget
 {
 public:
    UINullWidget(UIWidget *parent, float x, float y, float w, float h)
-      : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+      : UIWidget(parent, "UINullWidget", new UISurfaceAreaBox(x, y, w, h))
    {}
    void on_draw() override
    {
@@ -36,7 +36,7 @@ private:
 
 public:
    UIColorBox(UIWidget *parent, float x, float y, float w, float h, ALLEGRO_COLOR *col1, ALLEGRO_COLOR *col2)
-      : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+      : UIWidget(parent, "UIColorBox", new UISurfaceAreaBox(x, y, w, h))
       , color1(col1)
       , color2(col2)
    {}

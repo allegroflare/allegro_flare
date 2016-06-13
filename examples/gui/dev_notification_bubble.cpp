@@ -26,7 +26,7 @@ private:
 
 public:
    UINotificationBubble(UIWidget *parent, float x, float y, std::string text)
-      : UIWidget(parent, new UISurfaceAreaBox(x, y, 280, 90))
+      : UIWidget(parent, "UINotificationBubble", new UISurfaceAreaBox(x, y, 280, 90))
       , text(text)
       , font(Framework::font("DroidSerif.ttf 20"))
       , spawn_time(Framework::time_now)
@@ -34,9 +34,6 @@ public:
       , paused(false)
       , opacity(0)
    {
-      attr.set(UI_ATTR__UI_WIDGET_TYPE, "UINotificationBubble");
-      attr.set("id", "NotificationBubble" + tostring(UIWidget::get_num_created_widgets()));
-
       Framework::motion().cmove_to(&this->opacity, 1.0, 0.5);
 
       this->surface_area->placement.align.x = 1.0;

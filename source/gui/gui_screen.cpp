@@ -12,14 +12,11 @@
 
 UIScreen::UIScreen(Display *display)
    : Screen(display)
-   , UIWidget(NULL, new UISurfaceAreaBox(0, 0, display->width(), display->height()))
+   , UIWidget(NULL, "UIScreen", new UISurfaceAreaBox(0, 0, display->width(), display->height()))
    , draw_focused_outline(true)
    , use_joystick_as_mouse(true)
    , focused_outline_color(color::dodgerblue)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIScreen");
-   attr.set("id", "Screen" + tostring(widget_count));
-
    surface_area->placement.align.x = 0;
    surface_area->placement.align.y = 0;
 }

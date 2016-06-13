@@ -14,14 +14,11 @@
 
 
 UILabeledCheckbox::UILabeledCheckbox(UIWidget *parent, float x, float y, std::string label_text)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, 100, 12*2 + 24))
+   : UIWidget(parent, "UILabeledCheckbox", new UISurfaceAreaBox(x, y, 100, 12*2 + 24))
    , padding(12)
    , checkbox(new UICheckbox(this, padding+12, padding+12, 24))
    , label(new UIText(this, padding*2+24, place.size.y*0.5, label_text))
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UILabeledCheckbox");
-   attr.set("id", "LabeledCheckbox" + tostring(get_num_created_widgets()));
-
    place.size.x = padding + checkbox->place.size.x + padding + label->place.size.x + padding;
 }
 

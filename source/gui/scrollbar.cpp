@@ -14,11 +14,8 @@
 
 
 UIScrollBar::UpButton::UpButton(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIScrollBar::UpButton");
-   attr.set("id", "ScrollBar::UpButton" + tostring(get_num_created_widgets()));
-}
+   : UIWidget(parent, "UIScrollBar::UpButton", new UISurfaceAreaBox(x, y, w, h))
+{}
 
 
 
@@ -40,11 +37,8 @@ void UIScrollBar::UpButton::on_draw()
 
 
 UIScrollBar::DownButton::DownButton(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIScrollBar::DownButton");
-   attr.set("id", "ScrollBar::DownButton" + tostring(get_num_created_widgets()));
-}
+   : UIWidget(parent, "UIScrollBar::DownButton", new UISurfaceAreaBox(x, y, w, h))
+{}
 
 
 
@@ -66,7 +60,7 @@ void UIScrollBar::DownButton::on_draw()
 
 
 UIScrollBar::Rail::Rail(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIScrollBar::Rail", new UISurfaceAreaBox(x, y, w, h))
    , current_mouse_y(0)
 {}
 
@@ -102,7 +96,7 @@ void UIScrollBar::Rail::on_click()
 
 
 UIScrollBar::Handle::Handle(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIScrollBar::Handle", new UISurfaceAreaBox(x, y, w, h))
    , min_y(0)
    , max_y(0)
 {
@@ -163,15 +157,12 @@ void UIScrollBar::Handle::set_position(float position_in_unit_value)
 
 
 UIScrollBar::UIScrollBar(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIScrollBar", new UISurfaceAreaBox(x, y, w, h))
    , rail(NULL)
    , handle(NULL)
    , up_button(NULL)
    , down_button(NULL)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIScrollBar");
-   attr.set("id", "ScrollBar" + tostring(get_num_created_widgets()));
-
    // create the rail
    rail = new UIScrollBar::Rail(this, 0, 0, w, h);
    rail->place.align = vec2d(0, 0);

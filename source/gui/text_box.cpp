@@ -11,14 +11,11 @@
 
 
 UITextBox::UITextBox(UIWidget *parent, float x, float y, float w, float h, std::string text)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UITextBox", new UISurfaceAreaBox(x, y, w, h))
    , font(Framework::font("DroidSans.ttf 20"))
    , text(text)
    , text_color(color::black)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UITextBox");
-   attr.set("id", "TextBox" + tostring(get_num_created_widgets()));
-
    no_focus = true;
 }
 

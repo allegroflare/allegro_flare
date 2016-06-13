@@ -32,7 +32,7 @@ private:
 
 public:
    AutomationController(UIWidget *parent, float x, float y, float w, float h)
-      : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+      : UIWidget(parent, "AutomationController", new UISurfaceAreaBox(x, y, w, h))
       , mouse_pos(0)
       , points()
       , guide_color(color::white)

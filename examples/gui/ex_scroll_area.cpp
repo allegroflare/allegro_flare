@@ -102,7 +102,7 @@ public:
    UIWidget *build_canvas_for_scrollable_area()
    {
       // canvas should always be the first child
-      UIWidget *canvas = new UIWidget(this, new UISurfaceAreaBox(0, 0, 400, 600*1.5));
+      UIWidget *canvas = new UIWidget(this, "UIWidget", new UISurfaceAreaBox(0, 0, 400, 600*1.5));
       canvas->place.align = vec2d(0, 0);
 
       //{

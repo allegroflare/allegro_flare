@@ -12,7 +12,7 @@
 
 
 UIFramedWindow::UIFramedWindow(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBoxPadded(x, y, w, h, 30+6, 6, 6, 6))
+   : UIWidget(parent, "UIFramedWindow", new UISurfaceAreaBoxPadded(x, y, w, h, 30+6, 6, 6, 6))
    , titlebar_dragger(NULL)
    , titlebar_height(30)
    , frame_thickness(6)
@@ -21,8 +21,6 @@ UIFramedWindow::UIFramedWindow(UIWidget *parent, float x, float y, float w, floa
 {
    // it might be nice to have an UIWindowFrame, and should behave like a separate widget that
    // is derived from UIWindow (or any other widget for that matter, actually.)
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIFramedWindow");
-   attr.set("id", "FramedWindow" + tostring(get_num_created_widgets()));
 
    titlebar_dragger = new UIDraggableRegion(this, 0, -titlebar_height, place.size.x, titlebar_height);
    titlebar_dragger->place.align = vec2d(0, 0);

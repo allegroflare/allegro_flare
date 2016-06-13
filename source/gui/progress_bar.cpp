@@ -17,14 +17,11 @@
 
 
 UIProgressBar::UIProgressBar(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIProgressBar", new UISurfaceAreaBox(x, y, w, h))
    , val(0)
    , update_speed(0.4)
    , bar_color(color::dodgerblue)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIProgressBar");
-   attr.set("id", "ProgressBar" + tostring(UIWidget::get_num_created_widgets()));
-}
+{}
 
 
 

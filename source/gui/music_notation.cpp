@@ -14,13 +14,10 @@
 
 
 UIMusicNotation::UIMusicNotation(UIWidget *parent, float x, float y)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, 300, 80))
+   : UIWidget(parent, "UIMusicNotation", new UISurfaceAreaBox(x, y, 300, 80))
    , notation(new DrawingInterfaceAllegro5())
    , val("")
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIMusicNotation");
-   attr.set("id", "MusicNotation" + tostring(UIWidget::get_num_created_widgets()));
-}
+{}
 
 
 

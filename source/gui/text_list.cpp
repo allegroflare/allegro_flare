@@ -18,14 +18,11 @@ UIListItem::UIListItem() {};
 
 
 UITextList::UITextList(UIWidget *parent, float x, float y, float w)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, 20))
+   : UIWidget(parent, "UITextList", new UISurfaceAreaBox(x, y, w, 20))
    , currently_selected_item(0)
    , item_padding(5)
    , item_height(20)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UITextList");
-   attr.set("id", "TextList" + tostring(get_num_created_widgets()));
-}
+{}
 
 
 

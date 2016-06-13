@@ -12,15 +12,12 @@
 
 
 UIXYController::UIXYController(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
+   : UIWidget(parent, "UIXYController", new UISurfaceAreaBox(x, y, w, h))
    , mouse_pos(0)
    , marker(0.5, 0.5)
    , guide_color(color::white)
    , guide_opacity(0.3)
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIXYController");
-   attr.set("id", "XYController" + tostring(get_num_created_widgets()));
-}
+{}
 
 
 
