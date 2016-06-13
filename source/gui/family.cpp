@@ -16,7 +16,7 @@ int UIFamily::_index_count = 0;
 
 
 UIFamily::UIFamily(UIWidget *parent)
-   : progenitor(NULL)
+   : progenitor(nullptr)
    , parent(parent)
 {}
 
