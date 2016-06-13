@@ -6,6 +6,7 @@
 
 #include <allegro_flare/gui/widgets/button.h>
 #include <allegro_flare/gui/widgets/text_input.h>
+#include <allegro_flare/useful.h> // for to_string
 
 
 
@@ -14,7 +15,11 @@ UIListSpinner::UIListSpinner(UIWidget *parent, float x, float y, float w, float 
    : UISpinner(parent, x, y, w, h)
    , items()
    , it(items.begin())
-{}
+{
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIListSpinner");
+   attr.set("id", "ListSpinner" + tostring(get_num_created_widgets()));
+}
+
 
 
 

@@ -8,6 +8,7 @@
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/widgets/checkbox.h>
 #include <allegro_flare/gui/widgets/text.h>
+#include <allegro_flare/useful.h> // for to_string
 
 
 
@@ -18,6 +19,9 @@ UILabeledCheckbox::UILabeledCheckbox(UIWidget *parent, float x, float y, std::st
    , checkbox(new UICheckbox(this, padding+12, padding+12, 24))
    , label(new UIText(this, padding*2+24, place.size.y*0.5, label_text))
 {
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UILabeledCheckbox");
+   attr.set("id", "LabeledCheckbox" + tostring(get_num_created_widgets()));
+
    place.size.x = padding + checkbox->place.size.x + padding + label->place.size.x + padding;
 }
 

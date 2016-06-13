@@ -18,6 +18,8 @@ UIXYController::UIXYController(UIWidget *parent, float x, float y, float w, floa
    , guide_color(color::white)
    , guide_opacity(0.3)
 {
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIXYController");
+   attr.set("id", "XYController" + tostring(get_num_created_widgets()));
 }
 
 

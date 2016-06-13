@@ -15,6 +15,9 @@
 UISpinner::UISpinner(UIWidget *parent, float x, float y, float w, float h)
    : UIWidget(parent, new UISurfaceAreaBox(x, y, w, h))
 {
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UISpinner");
+   attr.set("id", "Spinner" + tostring(get_num_created_widgets()));
+
    float button_width = 29;
 
    text_input = new UITextInput(this, 0, 0, w, h);

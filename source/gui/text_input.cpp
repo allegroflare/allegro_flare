@@ -29,6 +29,7 @@ UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, s
 {
    attr.set(UI_ATTR__UI_WIDGET_TYPE, "UITextInput");
    attr.set("id", "TextInput" + tostring(get_num_created_widgets()));
+
    set_text(text);
 
    _text_render = al_create_bitmap(w, h);

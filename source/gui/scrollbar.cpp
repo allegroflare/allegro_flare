@@ -169,6 +169,9 @@ UIScrollBar::UIScrollBar(UIWidget *parent, float x, float y, float w, float h)
    , up_button(NULL)
    , down_button(NULL)
 {
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIScrollBar");
+   attr.set("id", "ScrollBar" + tostring(get_num_created_widgets()));
+
    // create the rail
    rail = new UIScrollBar::Rail(this, 0, 0, w, h);
    rail->place.align = vec2d(0, 0);

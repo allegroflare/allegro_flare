@@ -9,6 +9,7 @@
 #include <sstream>
 #include <allegro5/allegro_primitives.h>
 #include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/useful.h> // for to_string
 
 
 
@@ -20,6 +21,9 @@ UIPickingBuffer::UIPickingBuffer(UIWidget *parent, float x, float y, int w, int 
    , mouse_y(0)
    , draw_surface_render(true)
 {
+   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIPickingBuffer");
+   attr.set("id", "PickingBuffer" + tostring(get_num_created_widgets()));
+
    create_new_surface(place.size.x, place.size.y, depth);
    clear_surface();
 }
