@@ -66,3 +66,30 @@ float ConfigSettings::get_value_float(std::string section, std::string key)
 
 
 
+std::string ConfigSettings::get_or_default_str(std::string section, std::string key, std::string _default)
+{
+   if (has_value(section, key)) return get_value_str(section, key);
+   return _default;
+}
+
+
+
+
+int ConfigSettings::get_or_default_int(std::string section, std::string key, int _default)
+{
+   if (has_value(section, key)) return get_value_int(section, key);
+   return _default;
+}
+
+
+
+
+float ConfigSettings::get_or_default_float(std::string section, std::string key, float _default)
+{
+   if (has_value(section, key)) return get_value_float(section, key);
+   return _default;
+}
+
+
+
+
