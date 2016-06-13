@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(necessairy_test_file_exists)
 
 BOOST_AUTO_TEST_CASE(retrieves_if_the_config_key_exists_in_the_global_space)
 {
-   ConfigSettings config = ConfigSettings(TEST_FILENAME);
+   Config config = Config(TEST_FILENAME);
 
    BOOST_CHECK_EQUAL(true, config.has_value("", "name"));
    BOOST_CHECK_EQUAL(true, config.has_value("", "width"));
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(retrieves_if_the_config_key_exists_in_the_global_space)
 
 BOOST_AUTO_TEST_CASE(retrieves_a_string_value)
 {
-   ConfigSettings config = ConfigSettings(TEST_FILENAME);
+   Config config = Config(TEST_FILENAME);
 
    BOOST_CHECK_EQUAL("Jordan", config.get_value_str("", "name"));
 }
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_CASE(retrieves_a_string_value)
 
 BOOST_AUTO_TEST_CASE(retrieves_an_int_value)
 {
-   ConfigSettings config = ConfigSettings(TEST_FILENAME);
+   Config config = Config(TEST_FILENAME);
 
    BOOST_CHECK_EQUAL(1080, config.get_value_int("", "width"));
    BOOST_CHECK_EQUAL(320, config.get_value_int("", "height"));
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(retrieves_an_int_value)
 
 BOOST_AUTO_TEST_CASE(retrieves_a_float_value_within_a_margin_of_error)
 {
-   ConfigSettings config = ConfigSettings(TEST_FILENAME);
+   Config config = Config(TEST_FILENAME);
 
    BOOST_CHECK_CLOSE(3.14, config.get_value_float("", "pi"), 0.00001);
 }
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(retrieves_a_float_value_within_a_margin_of_error)
 
 BOOST_AUTO_TEST_CASE(returns_a_default_value_if_a_section_and_key_does_not_exist)
 {
-   ConfigSettings config = ConfigSettings(TEST_FILENAME);
+   Config config = Config(TEST_FILENAME);
 
    BOOST_CHECK_EQUAL("Beary", config.get_or_default_str("", "hero", "Beary"));
    BOOST_CHECK_EQUAL(42, config.get_or_default_int("", "speed", 42));

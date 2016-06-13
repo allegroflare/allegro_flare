@@ -8,7 +8,7 @@
 
 
 
-ConfigSettings::ConfigSettings(std::string filename)
+Config::Config(std::string filename)
    : filename(filename)
    , config_file(al_load_config_file(filename.c_str()))
 {
@@ -22,7 +22,7 @@ ConfigSettings::ConfigSettings(std::string filename)
 
 
 
-bool ConfigSettings::has_value(std::string section, std::string key)
+bool Config::has_value(std::string section, std::string key)
 {
    if (!config_file) return false;
    const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
@@ -33,7 +33,7 @@ bool ConfigSettings::has_value(std::string section, std::string key)
 
 
 
-std::string ConfigSettings::get_value_str(std::string section, std::string key)
+std::string Config::get_value_str(std::string section, std::string key)
 {
    if (!config_file) return "";
    const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
@@ -44,7 +44,7 @@ std::string ConfigSettings::get_value_str(std::string section, std::string key)
 
 
 
-int ConfigSettings::get_value_int(std::string section, std::string key)
+int Config::get_value_int(std::string section, std::string key)
 {
    if (!config_file) return 0;
    const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
@@ -55,7 +55,7 @@ int ConfigSettings::get_value_int(std::string section, std::string key)
 
 
 
-float ConfigSettings::get_value_float(std::string section, std::string key)
+float Config::get_value_float(std::string section, std::string key)
 {
    if (!config_file) return 0;
    const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
@@ -66,7 +66,7 @@ float ConfigSettings::get_value_float(std::string section, std::string key)
 
 
 
-std::string ConfigSettings::get_or_default_str(std::string section, std::string key, std::string _default)
+std::string Config::get_or_default_str(std::string section, std::string key, std::string _default)
 {
    if (has_value(section, key)) return get_value_str(section, key);
    return _default;
@@ -75,7 +75,7 @@ std::string ConfigSettings::get_or_default_str(std::string section, std::string 
 
 
 
-int ConfigSettings::get_or_default_int(std::string section, std::string key, int _default)
+int Config::get_or_default_int(std::string section, std::string key, int _default)
 {
    if (has_value(section, key)) return get_value_int(section, key);
    return _default;
@@ -84,7 +84,7 @@ int ConfigSettings::get_or_default_int(std::string section, std::string key, int
 
 
 
-float ConfigSettings::get_or_default_float(std::string section, std::string key, float _default)
+float Config::get_or_default_float(std::string section, std::string key, float _default)
 {
    if (has_value(section, key)) return get_value_float(section, key);
    return _default;

@@ -10,13 +10,13 @@
 
 
 
-class ConfigSettings
+class Config
 {
 public:
    std::string filename;
    ALLEGRO_CONFIG *config_file;
 
-   ConfigSettings(std::string filename);
+   Config(std::string filename);
 
    bool has_value(std::string section, std::string key);
    std::string get_value_str(std::string section, std::string key);
