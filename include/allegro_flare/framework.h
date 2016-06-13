@@ -59,6 +59,7 @@ public:
    static Config &get_config();
 
    static bool initialize(std::string config_filename="data/config/config.cfg");
+   static bool destruct();
    static bool is_initialized();
    static Display *create_display(int width=1280, int height=720);
    static Display *create_display(int width, int height, int display_flags);

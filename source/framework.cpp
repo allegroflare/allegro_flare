@@ -55,6 +55,12 @@ Framework::Framework(std::string config_filename)
 
 
 
+Framework::~Framework()
+{}
+
+
+
+
 ALLEGRO_FONT *Framework::font(std::string identifier)
 {
    return get_instance()->fonts[identifier];
@@ -151,6 +157,22 @@ bool Framework::initialize(std::string config_filename)
 
    initialized = true;
 
+   return true;
+}
+
+
+
+
+bool Framework::destruct()
+{
+   // TODO autit this function
+
+   delete instance;
+   instance = nullptr;
+
+   initialized = false;
+
+   al_uninstall_system();
    return true;
 }
 
