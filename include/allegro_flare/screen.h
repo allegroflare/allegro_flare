@@ -84,7 +84,7 @@ public:
    static void bring_to_front(Screen *s);
    void set_on_display(Display *display);
    static int get_num_screens();
-   Screen(Display *display=NULL);
+   Screen(Display *display=nullptr);
    ~Screen();
 };
 

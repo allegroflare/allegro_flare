@@ -7,6 +7,7 @@
 #include <iostream>
 #include <allegro5/allegro_color.h>
 #include <allegro_flare/allegro_flare.h> // just for af::drawing_profiler_graph
+#include <allegro_flare/console_color.h>
 #include <allegro_flare/display.h>
 #include <allegro_flare/profile_timer.h>
 
@@ -249,6 +250,19 @@ Screen::Screen(Display *display)
    : backbuffer_sub_bitmap(NULL)
    , display(display)
 {
+   if (!Framework::is_initialized())
+   {
+      std::cout << CONSOLE_COLOR_YELLOW << "[Screen::Screen()] auto-initializing with default config" << CONSOLE_COLOR_DEFAULT << std::endl;
+      Framework::initialize();
+      if (!this->display)
+      {
+         std::cout << CONSOLE_COLOR_YELLOW << "[Screen::Screen()] auto-creating display" << CONSOLE_COLOR_DEFAULT << std::endl;
+         int display_width = Framework::get_config().get_or_default_int("", "screen_width", 1280);
+         int display_height = Framework::get_config().get_or_default_int("", "screen_height", 720);
+         this->display = Framework::create_display(display_width, display_height);
+      }
+   }
+
    if (!display)
    {
       std::cout << "[Screen::Screen()] display is NULL, cannot create backbuffer_sub_bitmap" << std::endl;

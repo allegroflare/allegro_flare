@@ -37,15 +37,15 @@ Framework *Framework::instance = NULL;
 
 Framework *Framework::get_instance()
 {
-   if (!instance) instance = new Framework(1);
    return instance;
 }
 
 
 
 
-Framework::Framework(int val)
-   : fonts("data/fonts")
+Framework::Framework(std::string config_filename)
+   : config(config_filename)
+   , fonts("data/fonts")
    , samples("data/samples")
    , bitmaps("data/bitmaps")
    , models("data/models")
@@ -95,6 +95,14 @@ Motion &Framework::motion()
 
 
 
+Config &Framework::get_config()
+{
+   return get_instance()->config;
+}
+
+
+
+
 bool Framework::initialize(std::string config_filename)
 {
    if (initialized) return initialized;
@@ -139,9 +147,11 @@ bool Framework::initialize(std::string config_filename)
    if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
    else std::cerr << "no joystick(s) detected" << std::endl;
 
+   instance = new Framework(config_filename);
+
    initialized = true;
 
-   return initialized;
+   return true;
 }
 
 

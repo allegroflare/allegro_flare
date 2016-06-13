@@ -13,6 +13,7 @@
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/model_bin.h>
 #include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/config.h>
 #include <allegro_flare/display.h>
 #include <allegro_flare/motion.h>
 #include <allegro_flare/screen.h>
@@ -26,8 +27,10 @@ private:
    static Framework *instance;
    static Framework *get_instance();
    static bool initialized;
+   Framework(std::string config_filename);
    ~Framework();
 
+   Config config;
    FontBin fonts;
    SampleBin samples;
    BitmapBin bitmaps;
@@ -53,8 +56,9 @@ public:
    static ALLEGRO_SAMPLE *sample(std::string identifier);
    static Model3D *model(std::string identifier);
    static Motion &motion(); // we'll do this for now
+   static Config &get_config();
 
-   static bool initialize(std::string config_filename="");
+   static bool initialize(std::string config_filename="data/config/config.cfg");
    static bool is_initialized();
    static Display *create_display(int width=1280, int height=720);
    static Display *create_display(int width, int height, int display_flags);
