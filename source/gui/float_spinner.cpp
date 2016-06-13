@@ -12,13 +12,10 @@
 
 
 UIFloatSpinner::UIFloatSpinner(UIWidget *parent, float x, float y, float w, float h)
-   : UISpinner(parent, x, y, w, h)
+   : UISpinnerBase(parent, "UIFloatSpinner", x, y, w, h)
    , val(0.0)
    , increment_amount(0.1)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIFloatSpinner");
-   attr.set("id", "FloatSpinner" + tostring(get_num_created_widgets()));
-
    text_input->set_text(tostring(val));
 }
 

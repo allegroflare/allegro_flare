@@ -1,5 +1,5 @@
-#ifndef __UI_SPINNER_HEADER
-#define __UI_SPINNER_HEADER
+#ifndef __UI_SPINNER_BASE_HEADER
+#define __UI_SPINNER_BASE_HEADER
 
 
 
@@ -15,7 +15,7 @@ class UIButton;
 
 
 
-class UISpinner : public UIWidget
+class UISpinnerBase : public UIWidget
 {
 protected:
    UITextInput *text_input;
@@ -23,7 +23,7 @@ protected:
    UIButton *down_button;
 
 public:
-   UISpinner(UIWidget *parent, float x, float y, float w, float h);
+   UISpinnerBase(UIWidget *parent, std::string widget_typename, float x, float y, float w, float h);
 
    void on_draw() override;
    void on_message(UIWidget *sender, std::string message) override;

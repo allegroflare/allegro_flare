@@ -12,13 +12,10 @@
 
 
 UIListSpinner::UIListSpinner(UIWidget *parent, float x, float y, float w, float h)
-   : UISpinner(parent, x, y, w, h)
+   : UISpinnerBase(parent, "UIListSpinner", x, y, w, h)
    , items()
    , it(items.begin())
-{
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIListSpinner");
-   attr.set("id", "ListSpinner" + tostring(get_num_created_widgets()));
-}
+{}
 
 
 

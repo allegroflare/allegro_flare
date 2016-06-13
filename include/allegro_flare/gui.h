@@ -27,7 +27,6 @@
 #include <allegro_flare/gui/widgets/scroll_area.h>
 #include <allegro_flare/gui/widgets/scrollbar.h>
 #include <allegro_flare/gui/widgets/slider.h>
-#include <allegro_flare/gui/widgets/spinner.h>
 #include <allegro_flare/gui/widgets/text.h>
 #include <allegro_flare/gui/widgets/text_area.h>
 #include <allegro_flare/gui/widgets/text_box.h>

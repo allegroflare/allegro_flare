@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/gui/widgets/spinner.h>
+#include <allegro_flare/gui/widgets/spinner_base.h>
 
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/widgets/button.h>
@@ -12,8 +12,8 @@
 
 
 
-UISpinner::UISpinner(UIWidget *parent, float x, float y, float w, float h)
-   : UIWidget(parent, "UISpinner", new UISurfaceAreaBox(x, y, w, h))
+UISpinnerBase::UISpinnerBase(UIWidget *parent, std::string widget_typename, float x, float y, float w, float h)
+   : UIWidget(parent, widget_typename, new UISurfaceAreaBox(x, y, w, h))
 {
    float button_width = 29;
 
@@ -30,12 +30,12 @@ UISpinner::UISpinner(UIWidget *parent, float x, float y, float w, float h)
 
 
 
-void UISpinner::on_draw() {}
+void UISpinnerBase::on_draw() {}
 
 
 
 
-void UISpinner::on_message(UIWidget *sender, std::string message)
+void UISpinnerBase::on_message(UIWidget *sender, std::string message)
 {
    if (sender == up_button) increment();
    else if (sender == down_button) decrement();
@@ -49,7 +49,7 @@ void UISpinner::on_message(UIWidget *sender, std::string message)
 
 
 
-void UISpinner::on_key_char()
+void UISpinnerBase::on_key_char()
 {
    if (!focused) return;
 
@@ -69,7 +69,7 @@ void UISpinner::on_key_char()
 
 
 
-void UISpinner::on_change()
+void UISpinnerBase::on_change()
 {
    if (family.parent) family.parent->on_message(this, "on_change");
 }

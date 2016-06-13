@@ -4,12 +4,12 @@
 
 
 
-#include <allegro_flare/gui/widgets/spinner.h>
+#include <allegro_flare/gui/widgets/spinner_base.h>
 
 
 
 
-class UIIntSpinner : public UISpinner
+class UIIntSpinner : public UISpinnerBase
 {
 private:
    int val;

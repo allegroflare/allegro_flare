@@ -4,12 +4,12 @@
 
 
 
-#include <allegro_flare/gui/widgets/spinner.h>
+#include <allegro_flare/gui/widgets/spinner_base.h>
 
 
 
 
-class UIFloatSpinner : public UISpinner
+class UIFloatSpinner : public UISpinnerBase
 {
 private:
    float val;

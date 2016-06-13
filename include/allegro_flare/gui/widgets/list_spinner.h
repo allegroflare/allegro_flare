@@ -4,12 +4,12 @@
 
 
 
-#include <allegro_flare/gui/widgets/spinner.h>
+#include <allegro_flare/gui/widgets/spinner_base.h>
 
 
 
 
-class UIListSpinner : public UISpinner
+class UIListSpinner : public UISpinnerBase
 {
 private:
    std::vector<std::string> items;
