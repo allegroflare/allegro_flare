@@ -81,7 +81,7 @@ endif
 #
 
 core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES) $(GUI_WIDGET_OBJ_FILES) $(GUI_SURFACE_AREA_OBJ_FILES) $(GUI_LAYOUT_LOADER_OBJ_FILES)
-	ar rvs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
+	ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
 
 $(CORE_OBJ_FILES): obj/%.o : source/%.cpp
 	g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
