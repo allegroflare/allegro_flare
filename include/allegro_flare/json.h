@@ -17,94 +17,93 @@ namespace JSON
 {
    class Value
    {
-      public:
-         std::string value;
-         virtual std::string toString(void);
+   public:
+      std::string value;
+      virtual std::string toString(void);
    };
 
    class Object : public Value
    {
-      public:
-         std::map<std::string, Value *> values;
+   public:
+      std::map<std::string, Value *> values;
 
-         virtual std::string toString(void);
+      virtual std::string toString(void);
 
-         Value& operator[](std::string const &key);
+      Value& operator[](std::string const &key);
    };
 
    class Array : public Value
    {
-      public:
-         std::vector<Value *> values;
-         void push(Value *value);	
+   public:
+      std::vector<Value *> values;
+      void push(Value *value);
 
-         virtual std::string toString(void);
-         Value &operator[](size_t i) const;
+      virtual std::string toString(void);
+      Value &operator[](size_t i) const;
    };
 
    class String : public Value
    {
-      public:
-         virtual std::string toString(void);
-         std::string stringValue() const;
+   public:
+      virtual std::string toString(void);
+      std::string stringValue() const;
    };
 
    class Integer : public Value
    {
-      public :
-         int intValue() const;
+   public :
+      int intValue() const;
    };
 
    class Float : public Value
    {
-      public:
-         float floatValue() const;
+   public:
+      float floatValue() const;
    };
 
    class Boolean : public Value
    {
-      public:
-         Boolean(bool b);
-         bool boolValue() const;
+   public:
+      Boolean(bool b);
+      bool boolValue() const;
    };
 
    class Null : public Value
    {
-      public:
-         Null();
+   public:
+      Null();
    };
 
    /* private */
    class Token
    {
-      public:
-         enum {
-            ENDOF = 0,
-            INTEGER,
-            FLOAT,
-            STRING,
-            COMMA,
-            KEYWORD,
-            COLON,
-            BRACE_OPEN,
-            BRACE_CLOSE,
-            BRACKET_OPEN,
-            BRACKET_CLOSE
-         } type;
-         std::string value;
+   public:
+      enum {
+         ENDOF = 0,
+         INTEGER,
+         FLOAT,
+         STRING,
+         COMMA,
+         KEYWORD,
+         COLON,
+         BRACE_OPEN,
+         BRACE_CLOSE,
+         BRACKET_OPEN,
+         BRACKET_CLOSE
+      } type;
+      std::string value;
    };
 
    class Parser
    {
+   private:
       std::string json;
       int i;
       Token current, prev;
 
-      //Value *rootValue, *value;
-
       void nextToken();
 
-      public:
+   public:
       Parser(const std::string &json);
 
       bool accept(int type);
