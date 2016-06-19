@@ -13,7 +13,7 @@
 class UILayoutLoaderBase
 {
 public:
-   virtual UIWidget *load_file(std::string filename) = 0;
+   virtual bool load_file(UIWidget *parent, std::string filename) = 0;
 };
 
 

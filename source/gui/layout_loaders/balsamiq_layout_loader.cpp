@@ -7,10 +7,10 @@
 
 
 
-UIWidget *BalsamiqLayoutLoader::load_file(std::string filename)
+bool BalsamiqLayoutLoader::load_file(UIWidget *parent, std::string filename)
 {
    // TODO
-   return nullptr;
+   return false;
 }
 
 

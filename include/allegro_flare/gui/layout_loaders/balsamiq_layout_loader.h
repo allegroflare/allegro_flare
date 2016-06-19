@@ -5,14 +5,19 @@
 
 
 #include <allegro_flare/gui/layout_loader_base.h>
+#include <allegro_flare/gui/widget.h>
 
 
 
 
 class BalsamiqLayoutLoader : public UILayoutLoaderBase
 {
+private:
+   std::string version;
+
 public:
-   UIWidget *load_file(std::string filename) override;
+   bool load_file(UIWidget *parent, std::string filename) override;
+   std::string get_version();
 };
 
 
