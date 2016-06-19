@@ -198,7 +198,7 @@ UIWidget *UIFamily::__get_nth_descendant_r(UIFamily &children, int n)
 
 int UIFamily::get_num_descendants()
 {
-   _index_count = 1;
+   _index_count = 0;
    return __get_num_descendants_r(*this);
 }
 
