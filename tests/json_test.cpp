@@ -109,6 +109,18 @@ BOOST_AUTO_TEST_CASE(knows_if_a_key_exists_in_a_JSON_object)
 
 
 
+BOOST_AUTO_TEST_CASE(parses_an_empty_object_as_valid)
+{
+   JSON::Object o = json_object("{}");
+
+   BOOST_CHECK_EQUAL(false, o.exists("foo"));
+   BOOST_CHECK_EQUAL(false, o.exists("bar"));
+   BOOST_CHECK_EQUAL(true, o.values.empty());
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(decodes_a_complex_JSON_object)
 {
 }
