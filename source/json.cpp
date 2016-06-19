@@ -58,6 +58,14 @@ namespace JSON
 
 
 
+   bool Object::exists(std::string const &key)
+   {
+      return values.find(key) != values.end();
+   }
+
+
+
+
    // Array
 
    void Array::push(Value *value)

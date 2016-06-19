@@ -30,6 +30,7 @@ namespace JSON
       virtual std::string toString(void);
 
       Value& operator[](std::string const &key);
+      bool exists(std::string const &key);
    };
 
    class Array : public Value

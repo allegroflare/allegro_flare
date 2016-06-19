@@ -95,6 +95,20 @@ BOOST_AUTO_TEST_CASE(decodes_a_JSON_object)
 
 
 
+BOOST_AUTO_TEST_CASE(knows_if_a_key_exists_in_a_JSON_object)
+{
+   JSON::Object o = json_object("{\"width\": 900, \"height\": 600, \"name\": \"George\"}");
+
+   BOOST_CHECK_EQUAL(true, o.exists("width"));
+   BOOST_CHECK_EQUAL(true, o.exists("height"));
+   BOOST_CHECK_EQUAL(true, o.exists("name"));
+   BOOST_CHECK_EQUAL(false, o.exists("foo"));
+   BOOST_CHECK_EQUAL(false, o.exists("bar"));
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(decodes_a_complex_JSON_object)
 {
 }
