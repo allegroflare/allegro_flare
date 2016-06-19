@@ -23,7 +23,14 @@
 
 bool BalsamiqLayoutLoader::load_file(UIWidget *parent, std::string filename)
 {
-   if (!php::file_exists(filename)) return false;
+   if (!php::file_exists(filename))
+   {
+      std::cout
+         << CONSOLE_COLOR_RED << "BalsamiqLayoutLoader could not find file \""
+         << filename << "\" to open.\n"
+         << CONSOLE_COLOR_DEFAULT << std::endl;
+      return false;
+   }
    std::string file_contents = php::file_get_contents(filename);
 
    // attempt to parse through the file contents
