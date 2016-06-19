@@ -484,3 +484,11 @@ void UIWidget::set_as_enabled()
 
 
 
+UIFamily &UIWidget::get_family()
+{
+   return family;
+}
+
+
+
+

@@ -107,6 +107,7 @@ public:
    void set_as_unfocused();
    void set_as_enabled();
    void set_as_disabled();
+   UIFamily &get_family();
 
    //
    // widget behavior functions
