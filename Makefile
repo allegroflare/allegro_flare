@@ -42,7 +42,7 @@ DI_ITEMS=drawing_interface_allegro5 drawing_interface_html_canvas drawing_interf
 FONT_ITEMS=font_bravura font_font_awesome font_segoe_ui_symbol
 SCREEN_ITEMS=simple_notification_screen gamer_input_screen filesys_change_notification_screen
 GUI_WIDGET_ITEMS=style_assets button checkbox dial draggable_region family float_spinner framed_window image int_spinner labeled_checkbox list_spinner music_notation picking_buffer progress_bar scaled_text scroll_area scrollbar slider spinner_base surface_area text text_area text_box text_input text_list toggle_button widget gui_screen window xy_controller
-GUI_SURFACE_AREA_ITEMS=bitmap box box_padded circle column row
+GUI_SURFACE_AREA_ITEMS=bitmap_alpha box box_padded circle column row
 GUI_LAYOUT_LOADER_ITEMS=balsamiq_layout_loader
 
 CORE_OBJ_FILES=$(CORE_ITEMS:%=obj/%.o)
