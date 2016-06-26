@@ -4,9 +4,12 @@
 
 #include <allegro_flare/gui/layout_loaders/balsamiq_layout_loader.h>
 #include <allegro_flare/gui/widgets/button.h>
+#include <allegro_flare/gui/widgets/image.h>
+#include <allegro_flare/gui/widgets/labeled_checkbox.h>
 #include <allegro_flare/gui/widgets/text.h>
 #include <allegro_flare/gui/widgets/text_box.h>
 #include <allegro_flare/console_color.h>
+#include <allegro_flare/framework.h>  // TODO #include is only for Framwork::bitmap, should eventually be replaced with UIStyleAssets
 #include <allegro_flare/json.h>
 #include <allegro_flare/useful_php.h>
 
@@ -73,9 +76,17 @@ bool BalsamiqLayoutLoader::load_file(UIWidget *parent, std::string filename)
             std::string text = properties.exists("text") ? json_string(properties.values["text"]->toString()).stringValue() : "";
             UIButton *button_widget = new UIButton(parent, x, y, w, h, text);
          }
+         else if (this_object_type == "CheckBox")
+         {
+            std::string text = properties.exists("text") ? json_string(properties.values["text"]->toString()).stringValue() : "";
+            UILabeledCheckbox *labeled_checkbox_widget = new UILabeledCheckbox(parent, x, y, text);
+         }
          else if (this_object_type == "Image")
          {
-            NOT_IMPLEMENTED("Image")
+            std::string text = properties.exists("text") ? json_string(properties.values["text"]->toString()).stringValue() : "";
+            UIImage *image = new UIImage(parent, x, y, Framework::bitmap(text)); // TODO Framwork::bitmap to be in pulled from UIStyleAssets
+            image->attr.set("balsamiq_widget", "1");
+            image->place.align = vec2d(0, 0);
          }
          else if (this_object_type == "Label")
          {
