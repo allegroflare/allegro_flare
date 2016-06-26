@@ -11,17 +11,13 @@
 
 UISurfaceAreaBox::UISurfaceAreaBox(float x, float y, float w, float h)
    : UISurfaceArea(x, y, w, h)
-{
-   //std::cout << "UISurfaceAreaBox()" << std::endl;
-}
+{}
 
 
 
 
 UISurfaceAreaBox::~UISurfaceAreaBox()
-{
-   //std::cout << "~UISurfaceAreaBox()" << std::endl;
-}
+{}
 
 
 
