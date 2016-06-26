@@ -16,8 +16,19 @@ public:
       : UIScreen(display)
       , balsamiq(nullptr)
    {
+      load_layout();
+   }
+   void load_layout()
+   {
+      if (balsamiq) delete balsamiq;
+
+      balsamiq = new UIWidget(this, "BalsamiqLayoutRoot", new UISurfaceAreaBox(0, 0, 0, 0));
       BalsamiqLayoutLoader loader;
-      loader.load_file(this, "data/tests/layouts/balsamiq_layout.json");
+      loader.load_file(balsamiq, "data/layouts/layout2.json");
+   }
+   void on_message(UIWidget *sender, std::string message)
+   {
+      std::cout << "Click!" << std::endl;
    }
 };
 
