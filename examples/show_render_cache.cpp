@@ -59,7 +59,7 @@ public:
       : UIScreen(Framework::initialize() ? Framework::create_display() : NULL)
       , ui_widget_1(this, 400, 500, 300, 200)
       , ui_widget_2(this, 800, 300, 300, 200)
-      {}
+   {}
 };
 
 
