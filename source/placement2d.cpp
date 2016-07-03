@@ -50,21 +50,13 @@ placement2d::placement2d(float x, float y, float w, float h, float rotation, flo
 void placement2d::start_transform()
 {
    ALLEGRO_TRANSFORM transform;
+   al_copy_transform(&previous_transform, al_get_current_transform());
 
-   al_copy_transform(&previous_transform, al_get_current_transform()); 
-   al_identity_transform(&transform);
-
-   al_translate_transform(&transform, -align.x*size.x, -align.y*size.y);
-   al_scale_transform(&transform, scale.x, scale.y);
-   al_translate_transform(&transform, anchor.x, anchor.y); // changing this
-   al_rotate_transform(&transform, rotation);
-   al_translate_transform(&transform, position.x, position.y);
+   this->build_transform(&transform);
 
    al_compose_transform(&transform, &previous_transform);
-
    al_use_transform(&transform);
 }
-
 
 
 
@@ -82,6 +74,20 @@ void placement2d::draw_origin()
 void placement2d::restore_transform()
 {
    al_use_transform(&previous_transform);
+}
+
+
+
+
+void placement2d::build_transform(ALLEGRO_TRANSFORM *transform)
+{
+   al_identity_transform(transform);
+
+   al_translate_transform(transform, -align.x*size.x, -align.y*size.y);
+   al_scale_transform(transform, scale.x, scale.y);
+   al_translate_transform(transform, anchor.x, anchor.y);
+   al_rotate_transform(transform, rotation);
+   al_translate_transform(transform, position.x, position.y);
 }
 
 

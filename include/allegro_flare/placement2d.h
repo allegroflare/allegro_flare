@@ -27,6 +27,7 @@ public:
 
    void start_transform();
    void restore_transform();
+   void build_transform(ALLEGRO_TRANSFORM *transform);
    void draw_box(ALLEGRO_COLOR color, bool draw_origin);
    void draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, float pt, float pr, float pb, float pl);
    void draw_origin();
