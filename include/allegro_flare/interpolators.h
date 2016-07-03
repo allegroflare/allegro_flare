@@ -63,7 +63,7 @@ namespace interpolator
    static inline float quadraticIn(float t)
    {
       return t*t;
-   };
+   }
 
 
 
@@ -73,7 +73,7 @@ namespace interpolator
    static inline float quadraticOut(float t)
    {
       return -t*(t-2);
-   };
+   }
 
 
 
@@ -88,7 +88,7 @@ namespace interpolator
       if ((t/=d/2) < 1) return c/2*t*t + b;
       --t;
       return -c/2 * ((t)*(t-2) - 1) + b;
-   };
+   }
 
 
 
@@ -100,7 +100,7 @@ namespace interpolator
       if (t < 0.5f) return quadraticOut(t*2) * 0.5f;
       else if (t > 0.5f) return quadraticIn((t-0.5f)*2) * 0.5f + 0.5f;
       else return t; // t == 0.5
-   };
+   }
 
 
 
@@ -117,7 +117,7 @@ namespace interpolator
       float c = 1;
       //	float d = 1;
       return c*(t)*t*t + b;
-   };
+   }
 
 
 
@@ -128,7 +128,7 @@ namespace interpolator
    {
       t = t-1;
       return t*t*t + 1;
-   };
+   }
 
 
 
@@ -144,7 +144,7 @@ namespace interpolator
       if ((t) < 1) return c/2*t*t*t + b;
       t -= 2;
       return c/2*(t*t*t + 2) + b;
-   };
+   }
 
 
 
@@ -162,7 +162,7 @@ namespace interpolator
       float d = 1;
       t /= d;
       return c*t*t*t*t + b;
-   };
+   }
 
 
 
@@ -176,7 +176,7 @@ namespace interpolator
       float d = 1;
       t = t/d-1;
       return -c * (t*t*t*t - 1) + b;
-   };
+   }
 
 
 
@@ -191,7 +191,7 @@ namespace interpolator
       if ((t/=d/2) < 1) return c/2*t*t*t*t + b;
       t -= 2;
       return -c/2 * (t*t*t*t - 2) + b;
-   };
+   }
 
 
 
@@ -209,7 +209,7 @@ namespace interpolator
       float d = 1;
       t /= d;
       return c*t*t*t*t*t + b;
-   };
+   }
 
 
 
@@ -223,7 +223,7 @@ namespace interpolator
       float d = 1;
       t = t/d - 1;
       return c*(t*t*t*t*t + 1) + b;
-   };
+   }
 
 
 
@@ -239,7 +239,7 @@ namespace interpolator
       if ((t) < 1) return c/2*t*t*t*t*t + b;
       t -= 2;
       return c/2*(t*t*t*t*t + 2) + b;
-   };
+   }
 
 
 
@@ -258,7 +258,7 @@ namespace interpolator
       float c = 1.0f;
       float d = 1.0f;
       return -c * cos(t/d * (INTERP_PI/2.0f)) + c + b;
-   };
+   }
 
 
 
@@ -271,7 +271,7 @@ namespace interpolator
       float c = 1;
       float d = 1;
       return c * sin(t/d * (INTERP_PI/2.0f)) + b;
-   };
+   }
 
 
 
@@ -284,7 +284,7 @@ namespace interpolator
       float c = 1;
       float d = 1;
       return -c/2 * (cos(INTERP_PI*t/d) - 1) + b;
-   };
+   }
 
 
 
@@ -303,7 +303,7 @@ namespace interpolator
       float c = 1;
       float d = 1;
       return (t==0) ? b : c * (float)pow(2, 10 * (t/d - 1)) + b;
-   };
+   }
 
 
 
@@ -316,7 +316,7 @@ namespace interpolator
       float c = 1;
       float d = 1;
       return (t==d) ? b+c : c * (float)(-pow(2, -10 * t/d) + 1) + b;
-   };
+   }
 
 
 
@@ -332,7 +332,7 @@ namespace interpolator
       if (t==d) return b+c;
       if ((t/=d/2) < 1) return c/2 * (float)pow(2, 10 * (t - 1)) + b;
       return c/2 * (float)(-pow(2, -10 * --t) + 2) + b;
-   };
+   }
 
 
 
@@ -352,7 +352,7 @@ namespace interpolator
       float d = 1;
       t /= d;
       return -c * (sqrt(1 - (t)*t) - 1) + b;
-   };
+   }
 
 
 
@@ -366,7 +366,7 @@ namespace interpolator
       float d = 1;
       t = t/d - 1;
       return c * sqrt(1 - (t)*t) + b;
-   };
+   }
 
 
 
@@ -381,7 +381,7 @@ namespace interpolator
       if ((t/=d/2) < 1) return -c/2 * (sqrt(1 - t*t) - 1) + b;
       t -= 2;
       return c/2 * (sqrt(1 - (t)*t) + 1) + b;
-   };
+   }
 
 
 
@@ -409,7 +409,7 @@ namespace interpolator
       else s = period/(2*INTERP_PI) * asin (1/amplitude);
       t -= 1;
       return -(amplitude * (float)pow(2, 10 * (t)) * sin((t - s) * (2.0f * INTERP_PI) / period));
-   };
+   }
 
 
 
@@ -439,7 +439,7 @@ namespace interpolator
       float s = OVERSHOOT;
       t /= d;
       return c*(t)*t*((s+1)*t - s) + b;
-   };
+   }
 
 
 
@@ -455,7 +455,7 @@ namespace interpolator
       float s = OVERSHOOT;
       t = t/d - 1;
       return c*((t)*t*((s+1)*t + s) + 1) + b;
-   };
+   }
 
 
 
@@ -470,7 +470,7 @@ namespace interpolator
       t -= 2;
       s *= (1.525f);
       return 0.5f*((t)*t*(((s)+1)*t + s) + 2);
-   };
+   }
 
 
 
@@ -501,7 +501,7 @@ namespace interpolator
          t-=(2.625f/2.75f);
          return (7.5625f*(t)*t + 0.984375f);
       }
-   };
+   }
 
 
 
@@ -527,7 +527,7 @@ namespace interpolator
          t-=(2.625f/2.75f);
          return 1.0f - (7.5625f*(t)*t + 0.984375f);
       }
-   };
+   }
 
 
 
@@ -538,7 +538,7 @@ namespace interpolator
    {
       if (t < 0.5f) return bounceIn(t*2.0f) * 0.5f;
       return bounceOut(t*2.0f-1.0f) * 0.5f + 0.5f;
-   };
+   }
 
 
 
@@ -665,7 +665,7 @@ namespace interpolator
 
 
 
-};
+}
 
 
 
