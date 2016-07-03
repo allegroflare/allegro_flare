@@ -21,9 +21,7 @@ bool UISurfaceAreaBitmapAlpha::collides(float x, float y)
 {
    if (!placement.collide(x, y)) return false;
 
-   // TODO will need to account for nested transforms
    placement.transform_coordinates(&x, &y);
-
    ALLEGRO_COLOR pixel_color = al_get_pixel(bitmap, x, y);
 
    if (pixel_color.a <= alpha_threshold) return false;
