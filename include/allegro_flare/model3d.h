@@ -56,6 +56,9 @@ public:
    void clear();
    int get_num_vertexes();
    int get_num_named_objects();
+   vec3d get_min_vertex_coordinate();
+   vec3d get_max_vertex_coordinate();
+
    void draw();
    bool draw_object(int index);
    bool draw_object(std::string name);
@@ -66,9 +69,6 @@ public:
    bool set_named_object_color(int index, ALLEGRO_COLOR col);
    bool set_named_object_color(std::string object_name, ALLEGRO_COLOR col);
    void scale(float scale);
-
-   vec3d get_min_vertex_coordinate();
-   vec3d get_max_vertex_coordinate();
 };
 
 
