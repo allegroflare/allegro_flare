@@ -48,6 +48,8 @@ placement3d::placement3d(vec3d position)
 void placement3d::start_transform()
 {
    ALLEGRO_TRANSFORM transform;
+
+   if (!al_get_current_transform()) return;
    al_copy_transform(&previous_transform, al_get_current_transform());
 
    this->build_transform(&transform);
@@ -61,6 +63,7 @@ void placement3d::start_transform()
 
 void placement3d::restore_transform()
 {
+   if (!al_get_current_transform()) return;
    al_use_transform(&previous_transform);
 }
 

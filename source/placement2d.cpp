@@ -50,6 +50,8 @@ placement2d::placement2d(float x, float y, float w, float h, float rotation, flo
 void placement2d::start_transform()
 {
    ALLEGRO_TRANSFORM transform;
+
+   if (!al_get_current_transform()) return;
    al_copy_transform(&previous_transform, al_get_current_transform());
 
    this->build_transform(&transform);
@@ -73,6 +75,7 @@ void placement2d::draw_origin()
 
 void placement2d::restore_transform()
 {
+   if (!al_get_current_transform()) return;
    al_use_transform(&previous_transform);
 }
 
