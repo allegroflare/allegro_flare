@@ -13,6 +13,7 @@ class UISurfaceAreaBitmapAlpha : public UISurfaceArea
 {
 private:
    ALLEGRO_BITMAP *bitmap;
+
 public:
    UISurfaceAreaBitmapAlpha(float x, float y, ALLEGRO_BITMAP *bitmap);
 
