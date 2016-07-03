@@ -1,4 +1,4 @@
-![](http://zeoxdesign.com/images/allegro_flare_logo-04.png) AllegroFlare
+![Allegro Flare](bin/data/bitmaps/allegro_flare_logo-04.png?raw=true) AllegroFlare
 =============
 
 Current version - v0.8.8wip
