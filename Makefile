@@ -90,7 +90,7 @@ $(BIN_OBJ_FILES): obj/%.o : source/bins/%.cpp
 	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(DI_OBJ_FILES): obj/%.o : source/drawing_interfaces/%.cpp
-	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(FONT_OBJ_FILES): obj/%.o : source/fonts/%.cpp
 	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
