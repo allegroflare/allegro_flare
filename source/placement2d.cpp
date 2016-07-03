@@ -123,13 +123,7 @@ void placement2d::transform_coordinates(float *xx, float *yy)
    // unsure
 {
    ALLEGRO_TRANSFORM transform;
-
-   al_copy_transform(&transform, al_get_current_transform());
-   al_translate_transform(&transform, -align.x*size.x, -align.y*size.y);
-   al_scale_transform(&transform, scale.x, scale.y);
-   al_translate_transform(&transform, anchor.x, anchor.y); // these were negative, I'm making them positive
-   al_rotate_transform(&transform, rotation);
-   al_translate_transform(&transform, position.x, position.y);
+   this->build_transform(&transform);
 
    al_invert_transform(&transform);
    al_transform_coordinates(&transform, xx, yy);
@@ -142,15 +136,7 @@ void placement2d::place_coordinates(float *x, float *y)
    // unsure
 {
    ALLEGRO_TRANSFORM transform;
-
-   //al_copy_transform(&previous_transform, al_get_current_transform());
-   al_identity_transform(&transform);
-
-   al_translate_transform(&transform, -align.x*size.x, -align.y*size.y);
-   al_scale_transform(&transform, scale.x, scale.y);
-   al_translate_transform(&transform, anchor.x, anchor.y);
-   al_rotate_transform(&transform, rotation);
-   al_translate_transform(&transform, position.x, position.y);
+   this->build_transform(&transform);
 
    al_transform_coordinates(&transform, x, y);
 }
