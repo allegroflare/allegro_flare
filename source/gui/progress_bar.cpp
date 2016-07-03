@@ -18,7 +18,7 @@
 
 UIProgressBar::UIProgressBar(UIWidget *parent, float x, float y, float w, float h)
    : UIWidget(parent, "UIProgressBar", new UISurfaceAreaBox(x, y, w, h))
-   , val(0)
+   , unit_val(0)
    , update_speed(0.4)
    , bar_color(color::dodgerblue)
 {}
@@ -26,19 +26,19 @@ UIProgressBar::UIProgressBar(UIWidget *parent, float x, float y, float w, float 
 
 
 
-void UIProgressBar::set_val(float normalized_val)
+void UIProgressBar::set_val(float unit_val)
 {
-   normalized_val = limit<float>(0, 1, normalized_val);
-   Framework::motion().cmove_to(&val, normalized_val, update_speed, interpolator::doubleFastIn);
+   unit_val = limit<float>(0, 1, unit_val);
+   Framework::motion().cmove_to(&this->unit_val, unit_val, update_speed, interpolator::doubleFastIn);
 }
 
 
 
 
-void UIProgressBar::set_val(float _val, float min, float max)
+void UIProgressBar::set_val(float val, float min, float max)
 {
-   float normalized_val = (_val - min) / (max - min);
-   set_val(normalized_val);
+   val = (val - min) / (max - min);
+   set_val(val);
 }
 
 
@@ -58,12 +58,12 @@ void UIProgressBar::on_draw()
    // because of the rounded corners, the min drawing
    // width of the bar
    float min_width = 15/place.size.x; // 15 pixels
-   float _val = val;
-   if (_val < min_width) _val = min_width;
+   float val = unit_val;
+   if (val < min_width) val = min_width;
 
    // draw the progress bar
    al_draw_filled_rounded_rectangle(inset_padding, inset_padding,
-         place.size.x*_val - inset_padding, place.size.y - inset_padding,
+         place.size.x*val - inset_padding, place.size.y - inset_padding,
          roundness, roundness, bar_color);
 
    // draw the shaded bitmap
