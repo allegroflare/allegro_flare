@@ -46,18 +46,20 @@ public:
    ALLEGRO_VERTEX_DECL *vertex_declaration;
    std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vertexes;
    ALLEGRO_BITMAP *texture;
-   std::vector<named_object> named_objects; // < this is not very effecient, vector in a vector. Fix later.
+   std::vector<named_object> named_objects;
 
    Model3D();
+   ~Model3D();
+
    bool load_obj_file(const char *filename, float scale=1.0);
    void inspect();
+   void clear();
    int get_num_vertexes();
    int get_num_named_objects();
    void draw();
    bool draw_object(int index);
    bool draw_object(std::string name);
 
-   // modify
    void set_texture(ALLEGRO_BITMAP *tx);
    bool set_named_object_texture(int index, ALLEGRO_BITMAP *tx);
    bool set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx);

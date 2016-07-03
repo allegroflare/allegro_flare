@@ -33,9 +33,17 @@ Model3D::Model3D()
 
 
 
+Model3D::~Model3D()
+{
+   al_destroy_vertex_decl(vertex_declaration);
+}
+
+
+
+
 bool Model3D::load_obj_file(const char *filename, float scale)
 {
-   vertexes.clear();
+   clear();
 
    char buff[256];
    ALLEGRO_FILE* file = al_fopen(filename, "r");
@@ -222,6 +230,15 @@ void Model3D::inspect()
 {
    for (unsigned i=0; i<vertexes.size(); i++)
       printf("[%d] %f %f %f : %f %f : %f %f %f\n", i, vertexes[i].x, vertexes[i].y, vertexes[i].z, vertexes[i].u, vertexes[i].v, vertexes[i].nx, vertexes[i].ny, vertexes[i].nz);
+}
+
+
+
+
+void Model3D::clear()
+{
+   vertexes.clear();
+   named_objects.clear();
 }
 
 
