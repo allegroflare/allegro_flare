@@ -85,6 +85,15 @@ BOOST_FIXTURE_TEST_CASE(will_collide_on_a_pixel_with_alpha_greater_than_threshol
 
 
 
+BOOST_FIXTURE_TEST_CASE(returns_its_bitmap, Fixture)
+{
+   UISurfaceAreaBitmapAlpha surface_area = UISurfaceAreaBitmapAlpha(0, 0, Fixture::bitmap);
+   BOOST_CHECK_EQUAL(Fixture::bitmap, surface_area.get_surface_area_bitmap());
+}
+
+
+
+
 BOOST_FIXTURE_TEST_CASE(can_set_the_alpha_threshold, Fixture)
 {
    ALLEGRO_BITMAP *bmp = al_create_bitmap(1, 1);

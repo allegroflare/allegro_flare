@@ -57,3 +57,11 @@ float UISurfaceAreaBitmapAlpha::get_alpha_threshold()
 
 
 
+ALLEGRO_BITMAP *UISurfaceAreaBitmapAlpha::get_surface_area_bitmap()
+{
+   return bitmap;
+}
+
+
+
+

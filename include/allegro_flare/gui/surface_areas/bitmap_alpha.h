@@ -22,6 +22,7 @@ public:
    bool collides(float x, float y);
    void set_alpha_threshold(float threshold=0.001);
    float get_alpha_threshold();
+   ALLEGRO_BITMAP *get_surface_area_bitmap();
 };
 
 
