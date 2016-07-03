@@ -11,17 +11,13 @@
 
 UISurfaceArea::UISurfaceArea(float x, float y, float w, float h)
    : placement(x, y, w, h)
-{
-   //std::cout << "UISurfaceArea()" << std::endl;
-}
+{}
 
 
 
 
 UISurfaceArea::~UISurfaceArea()
-{
-   //std::cout << "~UISurfaceArea()" << std::endl;
-}
+{}
 
 
 
