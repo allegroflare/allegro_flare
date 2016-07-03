@@ -198,3 +198,17 @@ std::string placement2d::get_string()
 
 
 
+placement2d& placement2d::operator+=(placement2d& other)
+{
+   position += other.position;
+   size += other.size;
+   align += other.align;
+   scale += other.scale;
+   anchor += other.anchor;
+   rotation += other.rotation;
+   return *this;
+}
+
+
+
+

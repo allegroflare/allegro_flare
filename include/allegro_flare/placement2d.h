@@ -38,7 +38,7 @@ public:
    bool collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left);
    std::string get_string();
 
-   //placement2d operator+=(placement2d &rhs); << this would be cool... for things like placement+=velocity;
+   placement2d& operator+=(placement2d &other);
 };
 
 
