@@ -120,7 +120,6 @@ void placement2d::draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, f
 
 
 void placement2d::transform_coordinates(float *xx, float *yy)
-   // unsure
 {
    ALLEGRO_TRANSFORM transform;
    this->build_transform(&transform);
@@ -133,7 +132,6 @@ void placement2d::transform_coordinates(float *xx, float *yy)
 
 
 void placement2d::place_coordinates(float *x, float *y)
-   // unsure
 {
    ALLEGRO_TRANSFORM transform;
    this->build_transform(&transform);
@@ -148,7 +146,6 @@ bool placement2d::collide(float x, float y)
 {
    transform_coordinates(&x, &y);
 
-   // todo account for anchors and widths things (?)
    if (x < 0) return false;
    if (x > size.x) return false;
    if (y < 0) return false;
