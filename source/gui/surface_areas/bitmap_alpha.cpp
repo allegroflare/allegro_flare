@@ -11,6 +11,7 @@
 UISurfaceAreaBitmapAlpha::UISurfaceAreaBitmapAlpha(float x, float y, ALLEGRO_BITMAP *bitmap)
    : UISurfaceArea(x, y, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap))
    , bitmap(bitmap)
+   , alpha_threshold(0.001)
 {}
 
 
@@ -25,7 +26,7 @@ bool UISurfaceAreaBitmapAlpha::collides(float x, float y)
 
    ALLEGRO_COLOR pixel_color = al_get_pixel(bitmap, x, y);
 
-   if (pixel_color.a < 0.001) return false;
+   if (pixel_color.a <= alpha_threshold) return false;
    return true;
 }
 
@@ -35,6 +36,22 @@ bool UISurfaceAreaBitmapAlpha::collides(float x, float y)
 void UISurfaceAreaBitmapAlpha::draw_bounding_area()
 {
    placement.draw_box(color::color(color::aliceblue, 0.2), true);
+}
+
+
+
+
+void UISurfaceAreaBitmapAlpha::set_alpha_threshold(float threshold)
+{
+   alpha_threshold = threshold;
+}
+
+
+
+
+float UISurfaceAreaBitmapAlpha::get_alpha_threshold()
+{
+   return alpha_threshold;
 }
 
 

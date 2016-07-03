@@ -85,3 +85,38 @@ BOOST_FIXTURE_TEST_CASE(will_collide_on_a_pixel_with_alpha_greater_than_threshol
 
 
 
+BOOST_FIXTURE_TEST_CASE(can_set_the_alpha_threshold, Fixture)
+{
+   ALLEGRO_BITMAP *bmp = al_create_bitmap(1, 1);
+   UISurfaceAreaBitmapAlpha surface_area = UISurfaceAreaBitmapAlpha(0, 0, bmp);
+   surface_area.placement.align = vec2d(0, 0);
+   al_set_target_bitmap(bmp);
+
+   float alpha = 0.5;
+
+   surface_area.set_alpha_threshold(alpha);
+   al_put_pixel(0, 0, al_map_rgba_f(1.0, 1.0, 1.0, alpha - 0.01));
+   BOOST_CHECK_EQUAL(false, surface_area.collides(0.5, 0.5));
+   al_put_pixel(0, 0, al_map_rgba_f(1.0, 1.0, 1.0, alpha + 0.01));
+   BOOST_CHECK_EQUAL(true, surface_area.collides(0.5, 0.5));
+
+   alpha = 0.1;
+
+   surface_area.set_alpha_threshold(alpha);
+   al_put_pixel(0, 0, al_map_rgba_f(1.0, 1.0, 1.0, alpha - 0.01));
+   BOOST_CHECK_EQUAL(false, surface_area.collides(0.5, 0.5));
+   al_put_pixel(0, 0, al_map_rgba_f(1.0, 1.0, 1.0, alpha + 0.01));
+   BOOST_CHECK_EQUAL(true, surface_area.collides(0.5, 0.5));
+
+   alpha = 0.9;
+
+   surface_area.set_alpha_threshold(alpha);
+   al_put_pixel(0, 0, al_map_rgba_f(1.0, 1.0, 1.0, alpha - 0.01));
+   BOOST_CHECK_EQUAL(false, surface_area.collides(0.5, 0.5));
+   al_put_pixel(0, 0, al_map_rgba_f(1.0, 1.0, 1.0, alpha + 0.01));
+   BOOST_CHECK_EQUAL(true, surface_area.collides(0.5, 0.5));
+}
+
+
+
+
