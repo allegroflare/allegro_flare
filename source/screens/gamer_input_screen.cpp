@@ -4,6 +4,8 @@
 
 #include <allegro_flare/screens/gamer_input_screen.h>
 
+#include <math.h>
+
 
 
 
@@ -15,6 +17,7 @@ GamerInputScreen::GamerInputScreen(Display *display)
    setup_default_joystick_mapping_for_XBOX_360_CONTROLLER();
    setup_default_keyboard_mapping_for_ARROW_KEYS();
 }
+
 
 
 

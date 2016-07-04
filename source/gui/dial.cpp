@@ -8,6 +8,7 @@
 #include <allegro_flare/gui/style_assets.h>
 #include <allegro_flare/allegro_flare.h> // for bins
 #include <allegro_flare/useful.h> // for tostring
+#include <math.h>
 
 
 

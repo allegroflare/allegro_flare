@@ -16,6 +16,7 @@
 
 
 #include <allegro_flare/allegro_flare.h>
+#include <math.h>
 #include <time.h>
 
 

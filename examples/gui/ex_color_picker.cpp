@@ -7,6 +7,7 @@
 
 
 
+#include <math.h>
 #include <allegro_flare/gui/surface_areas/box.h>
 
 
