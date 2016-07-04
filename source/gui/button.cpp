@@ -110,6 +110,14 @@ void UIButton::set_text(std::string text)
 
 
 
+std::string UIButton::get_text()
+{
+   return text;
+}
+
+
+
+
 void UIButton::on_click()
 {
    UIWidget::on_click();

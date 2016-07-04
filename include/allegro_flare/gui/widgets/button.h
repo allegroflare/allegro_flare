@@ -23,6 +23,7 @@ public:
    UIButton(UIWidget *parent, float x, float y, float w, float h, std::string text);
 
    void set_text(std::string text);
+   std::string get_text();
    void set_icon(ALLEGRO_BITMAP *icon);
    void set_content_alignment(float alignment=0.5);
 

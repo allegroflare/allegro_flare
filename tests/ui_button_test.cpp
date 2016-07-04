@@ -37,3 +37,14 @@ BOOST_FIXTURE_TEST_CASE(correctly_sets_its_widget_typename, Fixture)
 
 
 
+BOOST_FIXTURE_TEST_CASE(sets_and_gets_the_text, Fixture)
+{
+   UIButton button = UIButton(NULL, 0, 0, 10, 10, "Hello");
+   BOOST_CHECK_EQUAL("Hello", button.get_text());
+   button.set_text("foo");
+   BOOST_CHECK_EQUAL("foo", button.get_text());
+}
+
+
+
+
