@@ -700,38 +700,6 @@ bool path2d::load(std::string filename)
 
 
 
-// this is experimental and incomplete
-bool path2d::load_eps(std::string filename)
-{
-   clear();
-
-   if (!php::file_exists(filename)) { std::cout << "[path2d::load] file not found."; return false; }
-   std::ifstream file(filename.c_str());
-   std::string input = "";
-   if (!file) return "";
-   char buffer[256];
-
-   //std::vector<std::string> parts = str_explode("\n", file_get_contents(filename));
-   int line = 0;
-   while (!file.fail())
-   {
-      file.getline(buffer, 256);
-      // move the cursor to "%%EndPageSetup"
-      if (strcmp(buffer, "%%EndPageSetup") == 0) std::cout << "FOUDN!" << std::endl;
-      std::cout << "line: " << line << " " << buffer << std::endl;
-      line++;
-      //[1 0 0 1 0 0 ]ct
-   }
-
-   std::cout << "OUT!" << std::endl;
-
-   refresh_segment_info();
-   return true;
-}
-
-
-
-
 bool path2d::save(std::string filename)
 {
    std::string output = "";

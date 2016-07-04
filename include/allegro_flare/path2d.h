@@ -46,7 +46,6 @@ public:
 
    // filesys
    bool load(std::string filename);
-   bool load_eps(std::string filename); // doens't work exactly, very hacky
    bool save(std::string filename);
 
    // generators
