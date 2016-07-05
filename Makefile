@@ -96,7 +96,7 @@ $(FONT_OBJ_FILES): obj/%.o : source/fonts/%.cpp
 	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(SCREEN_OBJ_FILES): obj/%.o : source/screens/%.cpp
-	g++ -c -Wall -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
 
 $(GUI_WIDGET_OBJ_FILES): obj/%.o : source/gui/%.cpp
 	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
