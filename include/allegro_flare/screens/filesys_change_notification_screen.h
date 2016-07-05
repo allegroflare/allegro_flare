@@ -1,5 +1,5 @@
-#ifndef __AF_FILESYS_CHANGE_NOTIFICATION_SCREEN_HEADER
-#define __AF_FILESYS_CHANGE_NOTIFICATION_SCREEN_HEADER
+#ifndef __AF_FILESYS_WATCHER_HEADER
+#define __AF_FILESYS_WATCHER_HEADER
 
 
 
@@ -11,15 +11,15 @@
 
 
 
-class FileSysChangeNotificationScreen
+class FileSysWatcher
 {
 private:
-   static FileSysChangeNotificationScreen *instance;
+   static FileSysWatcher *instance;
    ALLEGRO_EVENT_SOURCE filesys_change_event_source;
-   static FileSysChangeNotificationScreen *get_instance();
+   static FileSysWatcher *get_instance();
 
-   FileSysChangeNotificationScreen();
-   ~FileSysChangeNotificationScreen();
+   FileSysWatcher();
+   ~FileSysWatcher();
 
 public:
    static void watch_directory__blocking(std::string directory);

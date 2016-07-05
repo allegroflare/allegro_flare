@@ -15,7 +15,7 @@ public:
       : Screen(display)
    {
       // watch the executable directory
-      FileSysChangeNotificationScreen::watch_directory__in_thread(".");
+      FileSysWatcher::watch_directory__in_thread(".");
    }
 
    void user_event_func() override

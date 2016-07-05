@@ -18,12 +18,12 @@ Ok, this is nasty code.  It needs a lot of work to be user friendly and more rea
 
 
 
-FileSysChangeNotificationScreen *FileSysChangeNotificationScreen::instance = NULL;
+FileSysWatcher *FileSysWatcher::instance = NULL;
 
 
 
 
-FileSysChangeNotificationScreen::FileSysChangeNotificationScreen()
+FileSysWatcher::FileSysWatcher()
 {
    al_init_user_event_source(&filesys_change_event_source);
    al_register_event_source(Framework::event_queue, &filesys_change_event_source);
@@ -33,7 +33,7 @@ FileSysChangeNotificationScreen::FileSysChangeNotificationScreen()
 
 
 
-FileSysChangeNotificationScreen::~FileSysChangeNotificationScreen()
+FileSysWatcher::~FileSysWatcher()
 {
    al_unregister_event_source(Framework::event_queue, &filesys_change_event_source);
    // join watcher thread
@@ -42,9 +42,9 @@ FileSysChangeNotificationScreen::~FileSysChangeNotificationScreen()
 
 
 
-FileSysChangeNotificationScreen *FileSysChangeNotificationScreen::get_instance()
+FileSysWatcher *FileSysWatcher::get_instance()
 {
-   if (!instance) instance = new FileSysChangeNotificationScreen();
+   if (!instance) instance = new FileSysWatcher();
    return instance;
 }
 
@@ -67,7 +67,7 @@ void _filesys_change_event_dtor(ALLEGRO_EVENT *e)
 
 
 
-void FileSysChangeNotificationScreen::emit_filesys_change(std::string value)
+void FileSysWatcher::emit_filesys_change(std::string value)
 {
    ALLEGRO_EVENT my_event;
    my_event.user.type = ALLEGRO_EVENT_FILESYS_CHANGE;
@@ -268,7 +268,7 @@ void RefreshDirectory(LPTSTR lpDir)
    // This is where you might place code to refresh your
    // directory listing, but not the subtree because it
    // would not be necessary.
-   FileSysChangeNotificationScreen::emit_filesys_change(lpDir);
+   FileSysWatcher::emit_filesys_change(lpDir);
    _tprintf(TEXT("Directory (%s) changed.\n"), lpDir);
 }
 
@@ -277,7 +277,7 @@ void RefreshTree(LPTSTR lpDrive)
    // This is where you might place code to refresh your
    // directory listing, including the subtree.
 
-   FileSysChangeNotificationScreen::emit_filesys_change(lpDrive);
+   FileSysWatcher::emit_filesys_change(lpDrive);
    _tprintf(TEXT("Directory tree (%s) changed.\n"), lpDrive);
 }
 
@@ -302,14 +302,14 @@ void *_filesys_watch_thread_proc(ALLEGRO_THREAD *this_thread, void *args)
 //////////////////////////////////
 
 
-void FileSysChangeNotificationScreen::watch_directory__blocking(std::string directory)
+void FileSysWatcher::watch_directory__blocking(std::string directory)
 {
    WatchDirectory(const_cast<char *>(directory.c_str()));
 }
 
 
 
-void FileSysChangeNotificationScreen::watch_directory__in_thread(std::string directory)
+void FileSysWatcher::watch_directory__in_thread(std::string directory)
 {
    if (_filesys_watch_thread)
    {
@@ -317,7 +317,7 @@ void FileSysChangeNotificationScreen::watch_directory__in_thread(std::string dir
       return;
    }
 
-   FileSysChangeNotificationScreen *inst = get_instance();
+   FileSysWatcher *inst = get_instance();
    std::string *args = new std::string(directory);
    _filesys_watch_thread = al_create_thread(_filesys_watch_thread_proc, args);
    if (_filesys_watch_thread) al_start_thread(_filesys_watch_thread);
@@ -330,16 +330,16 @@ void FileSysChangeNotificationScreen::watch_directory__in_thread(std::string dir
 
 
 // TODO
-void FileSysChangeNotificationScreen::watch_directory__in_thread(std::string directory)
+void FileSysWatcher::watch_directory__in_thread(std::string directory)
 {
-   std::cout << "FileSysChangeNotificationSccreen::whatch_directory__blocking() is not supported on this platform" << std::endl;
+   std::cout << "FileSysWatcher::whatch_directory__blocking() is not supported on this platform" << std::endl;
 }
 
 
 // TODO
-void FileSysChangeNotificationScreen::watch_directory__blocking(std::string directory)
+void FileSysWatcher::watch_directory__blocking(std::string directory)
 {
-   std::cout << "FileSysChangeNotificationSccreen::whatch_directory__blocking() is not supported on this platform" << std::endl;
+   std::cout << "FileSysWatcher::whatch_directory__blocking() is not supported on this platform" << std::endl;
 }
 
 
