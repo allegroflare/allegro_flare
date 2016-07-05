@@ -32,35 +32,4 @@ public:
 
 
 
-/*
-
-//
-// example usage:
-//
-
-#include <allegro_flare/screens/filesys_change_notification_screen.h>
-
-class MyProject : public Screen
-{
-public:
-   MyProject(Display *display)
-      : Screen(display)
-   {
-      FileSysChangeNotificationScreen::watch_directory__in_thread("C:/Users/Mark/Desktop/myfolder");
-   }
-
-   void user_event_func() override
-   {
-      if (af::current_event->type == ALLEGRO_EVENT_FILESYS_CHANGE)
-      {
-         std::cout << "DIRECTORY CHANGED!" << std::endl;
-      }
-   }
-};
-
-*/
-
-
-
-
 #endif
