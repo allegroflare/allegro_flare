@@ -43,6 +43,7 @@
 #include <allegro_flare/element_id.h>
 #include <allegro_flare/file_path.h>
 #include <allegro_flare/file_path_object.h>
+#include <allegro_flare/filesys_watcher.h>
 #include <allegro_flare/framework.h>
 #include <allegro_flare/generate_textures.h>
 #include <allegro_flare/gui.h>

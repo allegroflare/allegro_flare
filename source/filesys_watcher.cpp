@@ -13,7 +13,9 @@ Ok, this is nasty code.  It needs a lot of work to be user friendly and more rea
 
 
 
-#include <allegro_flare/screens/filesys_change_notification_screen.h>
+#include <allegro_flare/filesys_watcher.h>
+
+#include <allegro_flare/framework.h>
 
 
 

@@ -4,7 +4,8 @@
 
 
 
-#include <allegro_flare/allegro_flare.h>
+#include <allegro5/allegro.h>
+#include <string>
 
 #define ALLEGRO_EVENT_FILESYS_CHANGE ALLEGRO_GET_EVENT_TYPE('F','S','C','H')
 
