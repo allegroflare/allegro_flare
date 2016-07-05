@@ -330,6 +330,13 @@ void FileSysChangeNotificationScreen::watch_directory__in_thread(std::string dir
 
 
 // TODO
+void FileSysChangeNotificationScreen::watch_directory__in_thread(std::string directory)
+{
+   std::cout << "FileSysChangeNotificationSccreen::whatch_directory__blocking() is not supported on this platform" << std::endl;
+}
+
+
+// TODO
 void FileSysChangeNotificationScreen::watch_directory__blocking(std::string directory)
 {
    std::cout << "FileSysChangeNotificationSccreen::whatch_directory__blocking() is not supported on this platform" << std::endl;
