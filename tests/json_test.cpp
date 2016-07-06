@@ -121,6 +121,70 @@ BOOST_AUTO_TEST_CASE(parses_an_empty_object_as_valid)
 
 
 
+BOOST_AUTO_TEST_CASE(returns_its_value_as_a_string_representation)
+{
+   JSON::Value v = JSON::decode("\"This is my string\"");
+   BOOST_CHECK_EQUAL("This is my string", v.as_string());
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(returns_its_value_as_a_JSON_object_representation)
+{
+   std::string obj_str = "{\"width\": 900, \"height\": 600, \"name\": \"George\"}";
+   JSON::Object expected = json_object(obj_str);
+   JSON::Value v = JSON::decode(obj_str);
+   JSON::Object returned = v.as_object();
+
+   //BOOST_CHECK_EQUAL(expected.value, returned.value);
+   //BOOST_REQUIRE_EQUAL(expected.values.size(), returned.values.size());
+   //for (unsigned i=0; i<expected.values.size(); i++)
+      //BOOST_CHECK_EQUAL(expected.values[i].value, returned.values[i].value);
+   //BOOST_CHECK_EQUAL(expected.toString(), returned.toString()); 
+   //BOOST_CHECK_EQUAL(expected.(), returned.toString()); 
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(returns_its_value_as_an_array_representation)
+{
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(returns_its_value_as_an_integer_representation)
+{
+   JSON::Value v = JSON::decode("\"1234567\"");
+   BOOST_CHECK_EQUAL(1234567, v.as_integer());
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(returns_its_value_as_an_float_representation)
+{
+   JSON::Value v = JSON::decode("\"3.14\"");
+   BOOST_CHECK_CLOSE(3.14f, v.as_float(), 0.0001);
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(returns_its_value_as_an_boolean_representation)
+{
+   JSON::Value v1 = JSON::decode("\"true\"");
+   BOOST_CHECK_EQUAL(true, v1.as_bool());
+
+   JSON::Value v2 = JSON::decode("\"false\"");
+   BOOST_CHECK_EQUAL(false, v2.as_bool());
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(decodes_a_complex_JSON_object)
 {
 }

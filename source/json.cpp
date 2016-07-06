@@ -23,6 +23,62 @@ namespace JSON
 
 
 
+   std::string Value::as_string(void)
+   {
+      JSON::String s = static_cast<JSON::String &>(*this);
+      return s.stringValue();
+   }
+
+
+
+
+   Object Value::as_object(void)
+   {
+      std::string str = this->toString();
+      JSON::Object o = static_cast<JSON::Object &>(JSON::decode(str));
+      return o;
+   }
+
+
+
+
+   Array Value::as_array(void)
+   {
+      std::string str = this->toString();
+      JSON::Array a = static_cast<JSON::Array &>(JSON::decode(str));
+      return a;
+   }
+
+
+
+
+   int Value::as_integer(void)
+   {
+      JSON::Integer i = static_cast<JSON::Integer &>(*this);
+      return i.intValue();
+   }
+
+
+
+
+   float Value::as_float(void)
+   {
+      JSON::Float f = static_cast<JSON::Float &>(*this);
+      return f.floatValue();
+   }
+
+
+
+
+   bool Value::as_bool(void)
+   {
+      JSON::Boolean b = static_cast<JSON::Boolean &>(*this);
+      return b.boolValue();
+   }
+
+
+
+
    // Object
 
    std::string Object::toString(void)

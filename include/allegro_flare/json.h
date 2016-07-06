@@ -15,11 +15,21 @@
 
 namespace JSON
 {
+   class Array;
+   class Object;
+
    class Value
    {
    public:
       std::string value;
       virtual std::string toString(void);
+
+      std::string as_string();
+      JSON::Object as_object();
+      JSON::Array as_array();
+      int as_integer();
+      float as_float();
+      bool as_bool();
    };
 
    class Object : public Value
