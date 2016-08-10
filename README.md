@@ -1,10 +1,10 @@
-![Allegro Flare](bin/data/bitmaps/allegro_flare_logo-04.png?raw=true) AllegroFlare
+![Allegro Flare](bin/data/bitmaps/allegro_flare_logo-04.png?raw=true) AllegroFlare - Fast and fun game development in C++
 =============
 
 Current version - v0.8.8wip
 
 
-AllegroFlare is a C++ application toolkit that extends the functionality of the Allegro 5 game programming library.  Every part of the existing Allegro 5 library remains intact when using AllegroFlare.  AllegroFlare also includes an optional Framework class that makes for fast and fun development, or, you can cherry-pick any of the fantastic classes and functions provided by AllegroFlare without using the framework at all.
+AllegroFlare is a game programming library in C++.  It's built on top of the [Allegro 5 Game Programming Library](http://liballeg.org), extending it with new features to make your game development expreience all the more enjoyable.
 
 
 
