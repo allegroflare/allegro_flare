@@ -3,7 +3,7 @@
 
 
 //
-// test_masked_bitmap.cpp
+// ex_masked_bitmap.cpp
 //
 // This program demonstrates the create_masked_bitmap() function, which combines two images.
 // The resulting bitmap is the least alpha of both, and the color values of the first.
