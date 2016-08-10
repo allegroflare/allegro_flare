@@ -4,11 +4,6 @@
 
 
 
-#define ALLEGRO_FLARE_VER "0.8.8wip"
-
-
-
-
 #include <string>
 #include <vector>
 #include <zlib.h>
@@ -61,6 +56,7 @@
 #include <allegro_flare/scriptable.h>
 #include <allegro_flare/shader.h>
 #include <allegro_flare/useful.h>
+#include <allegro_flare/version.h>
 
 
 

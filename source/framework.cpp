@@ -12,6 +12,7 @@
 #include <allegro_flare/bins/sample_bin.h>
 #include <allegro_flare/motion.h>
 #include <allegro_flare/useful.h>
+#include <allegro_flare/version.h>
 
 
 
@@ -406,6 +407,30 @@ void Framework::run_loop()
          break;
       }
    }
+}
+
+
+
+
+std::string Framework::get_allegro_version()
+{
+   uint32_t version = al_get_allegro_version();
+   int major = version >> 24;
+   int minor = (version >> 16) & 255;
+   int revision = (version >> 8) & 255;
+   int release = version & 255;
+
+   std::stringstream str;
+   str << major << '.' << minor << '.' << revision << " - release " << release;
+   return str.str();
+}
+
+
+
+
+std::string Framework::get_version()
+{
+   return ALLEGRO_FLARE_VER;
 }
 
 

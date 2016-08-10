@@ -71,6 +71,8 @@ public:
    static void use_screen(Screen *screen);
    static void run_loop();
 
+   static std::string get_allegro_version();
+   static std::string get_version();
    static void open_log_window();
    static void close_log_window();
    static void log(std::string message);
