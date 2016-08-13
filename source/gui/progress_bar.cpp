@@ -29,7 +29,7 @@ UIProgressBar::UIProgressBar(UIWidget *parent, float x, float y, float w, float 
 void UIProgressBar::set_val(float unit_val)
 {
    unit_val = limit<float>(0, 1, unit_val);
-   Framework::motion().cmove_to(&this->unit_val, unit_val, update_speed, interpolator::doubleFastIn);
+   Framework::motion().cmove_to(&this->unit_val, unit_val, update_speed, interpolator::double_fast_in);
 }
 
 

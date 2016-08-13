@@ -50,17 +50,17 @@ void UICheckbox::toggle()
    if (checked)
    {
       // check reveals
-      Framework::motion().cmove_to(&check_opacity, 1.0, speed * 0.5, interpolator::doubleFastIn);
-      Framework::motion().cmove_to(&check_placement.scale.x, 1.0, speed*0.85, interpolator::fastOut);
-      Framework::motion().cmove_to(&check_placement.scale.y, 1.0, speed*0.85, interpolator::fastOut);
-      Framework::motion().cmove_to(&check_placement.rotation, -0.1, speed, interpolator::fastOut);
+      Framework::motion().cmove_to(&check_opacity, 1.0, speed * 0.5, interpolator::double_fast_in);
+      Framework::motion().cmove_to(&check_placement.scale.x, 1.0, speed*0.85, interpolator::fast_out);
+      Framework::motion().cmove_to(&check_placement.scale.y, 1.0, speed*0.85, interpolator::fast_out);
+      Framework::motion().cmove_to(&check_placement.rotation, -0.1, speed, interpolator::fast_out);
    }
    else
    {
       // check removes
-      Framework::motion().cmove_to(&check_opacity, 0.0, speed, interpolator::doubleFastOut);
-      Framework::motion().cmove_to(&check_placement.scale.x, 0.0, speed, interpolator::slowIn);
-      Framework::motion().cmove_to(&check_placement.scale.y, 0.0, speed, interpolator::slowIn);
+      Framework::motion().cmove_to(&check_opacity, 0.0, speed, interpolator::double_fast_out);
+      Framework::motion().cmove_to(&check_placement.scale.x, 0.0, speed, interpolator::slow_in);
+      Framework::motion().cmove_to(&check_placement.scale.y, 0.0, speed, interpolator::slow_in);
       Framework::motion().cmove_to(&check_placement.rotation, -0.4, speed, interpolator::linear);
    }
 
