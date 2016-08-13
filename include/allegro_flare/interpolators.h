@@ -15,71 +15,71 @@ namespace interpolator
 
    float linear(float value);
 
-   float quadraticIn(float t);
-   float quadraticOut(float t);
-   float quadraticInOut(float t);
-   float quadraticOutIn(float t);
+   float quadratic_in(float t);
+   float quadratic_out(float t);
+   float quadratic_in_out(float t);
+   float quadratic_out_in(float t);
 
-   float cubicIn(float t);
-   float cubicOut(float t);
-   float cubicInOut(float t);
+   float cubic_in(float t);
+   float cubic_out(float t);
+   float cubic_in_out(float t);
 
-   float quarticIn(float t);
-   float quarticOut(float t);
-   float quarticInOut(float t);
+   float quartic_in(float t);
+   float quartic_out(float t);
+   float quartic_in_out(float t);
 
-   float quinticIn(float t);
-   float quinticOut(float t);
-   float quinticInOut(float t);
+   float quintic_in(float t);
+   float quintic_out(float t);
+   float quintic_in_out(float t);
 
-   float sineIn(float t);
-   float sineOut(float t);
-   float sineInOut(float t);
+   float sine_in(float t);
+   float sine_out(float t);
+   float sine_in_out(float t);
 
-   float exponentialIn(float t);
-   float exponentialOut(float t);
-   float exponentialInOut(float t);
+   float exponential_in(float t);
+   float exponential_out(float t);
+   float exponential_in_out(float t);
 
-   float circularIn(float t);
-   float circularOut(float t);
-   float circularInOut(float t);
+   float circular_in(float t);
+   float circular_out(float t);
+   float circular_in_out(float t);
 
-   float elasticIn(float t);
+   float elastic_in(float t);
 
-   float backIn(float t);
-   float backOut(float t);
-   float backInOut(float t);
+   float back_in(float t);
+   float back_out(float t);
+   float back_in_out(float t);
 
-   float bounceOut(float t);
-   float bounceIn(float t);
-   float bounceInOut(float t);
+   float bounce_out(float t);
+   float bounce_in(float t);
+   float bounce_in_out(float t);
 
-   float fastIn(float t);
-   float fastOut(float t);
-   float fastInOut(float t);
-   float slowIn(float t);
-   float slowOut(float t);
-   float slowInOut(float t);
+   float fast_in(float t);
+   float fast_out(float t);
+   float fast_in_out(float t);
+   float slow_in(float t);
+   float slow_out(float t);
+   float slow_in_out(float t);
 
-   float doubleFastIn(float t);
-   float doubleFastOut(float t);
-   float doubleSlowIn(float t);
-   float doubleSlowOut(float t);
-   float doubleSlowInOut(float t);
+   float double_fast_in(float t);
+   float double_fast_out(float t);
+   float double_slow_in(float t);
+   float double_slow_out(float t);
+   float double_slow_in_out(float t);
 
-   float trippleFastIn(float t);
-   float trippleFastOut(float t);
-   float trippleSlowIn(float t);
-   float trippleSlowOut(float t);
-   float trippleSlowInOut(float t);
+   float tripple_fast_in(float t);
+   float tripple_fast_out(float t);
+   float tripple_slow_in(float t);
+   float tripple_slow_out(float t);
+   float tripple_slow_in_out(float t);
 
-   float quadrupleFastIn(float t);
-   float quadrupleFastOut(float t);
-   float quadrupleSlowIn(float t);
-   float quadrupleSlowOut(float t);
-   float quadrupleSlowInOut(float t);
+   float quadruple_fast_in(float t);
+   float quadruple_fast_out(float t);
+   float quadruple_slow_in(float t);
+   float quadruple_slow_out(float t);
+   float quadruple_slow_in_out(float t);
 
-   float bloompIn(float value); // TODO: fix this broken function
+   float bloomp_in(float value); // TODO: fix this broken function
 
    interpolator_func_t get_interpolator_by_name(std::string name);
    std::string get_interpolator_func_name_as_str(interpolator_func_t func); // TODO: complete this function

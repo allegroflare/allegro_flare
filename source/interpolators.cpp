@@ -47,9 +47,9 @@ float interpolator::linear(float value)
 // quadratic easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in value, d: duration
 // t and d can be in frames or seconds/milliseconds
-//A_INLINE float quadraticIn(float t)
+//A_INLINE float quadratic_in(float t)
 
-float interpolator::quadraticIn(float t)
+float interpolator::quadratic_in(float t)
 {
    return t*t;
 }
@@ -59,7 +59,7 @@ float interpolator::quadraticIn(float t)
 
 // quadratic easing out - decelerating to zero velocity
 
-float interpolator::quadraticOut(float t)
+float interpolator::quadratic_out(float t)
 {
    return -t*(t-2);
 }
@@ -69,7 +69,7 @@ float interpolator::quadraticOut(float t)
 
 // quadratic easing in/out - acceleration until halfway, then deceleration
 
-float interpolator::quadraticInOut(float t)
+float interpolator::quadratic_in_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -84,10 +84,10 @@ float interpolator::quadraticInOut(float t)
 
 // quadratic easing in/out - deceleration until halfway, then acceleration
 
-float interpolator::quadraticOutIn(float t)
+float interpolator::quadratic_out_in(float t)
 {
-   if (t < 0.5f) return quadraticOut(t*2) * 0.5f;
-   else if (t > 0.5f) return quadraticIn((t-0.5f)*2) * 0.5f + 0.5f;
+   if (t < 0.5f) return quadratic_out(t*2) * 0.5f;
+   else if (t > 0.5f) return quadratic_in((t-0.5f)*2) * 0.5f + 0.5f;
    else return t; // t == 0.5
 }
 
@@ -100,7 +100,7 @@ float interpolator::quadraticOutIn(float t)
 // t: current time, b: beginning value, c: change in value, d: duration
 // t and d can be frames or seconds/milliseconds
 
-float interpolator::cubicIn(float t)
+float interpolator::cubic_in(float t)
 {
    float b = 0;
    float c = 1;
@@ -113,7 +113,7 @@ float interpolator::cubicIn(float t)
 
 // cubic easing out - decelerating to zero velocity
 
-float interpolator::cubicOut(float t)
+float interpolator::cubic_out(float t)
 {
    t = t-1;
    return t*t*t + 1;
@@ -124,7 +124,7 @@ float interpolator::cubicOut(float t)
 
 // cubic easing in/out - acceleration until halfway, then deceleration
 
-float interpolator::cubicInOut(float t)
+float interpolator::cubic_in_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -144,7 +144,7 @@ float interpolator::cubicInOut(float t)
 // t: current time, b: beginning value, c: change in value, d: duration
 // t and d can be frames or seconds/milliseconds
 
-float interpolator::quarticIn(float t)
+float interpolator::quartic_in(float t)
 {
    float b = 0;
    float c = 1;
@@ -158,7 +158,7 @@ float interpolator::quarticIn(float t)
 
 // quartic easing out - decelerating to zero velocity
 
-float interpolator::quarticOut(float t)
+float interpolator::quartic_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -172,7 +172,7 @@ float interpolator::quarticOut(float t)
 
 // quartic easing in/out - acceleration until halfway, then deceleration
 
-float interpolator::quarticInOut(float t)
+float interpolator::quartic_in_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -191,7 +191,7 @@ float interpolator::quarticInOut(float t)
 // t: current time, b: beginning value, c: change in value, d: duration
 // t and d can be frames or seconds/milliseconds
 
-float interpolator::quinticIn(float t)
+float interpolator::quintic_in(float t)
 {
    float b = 0;
    float c = 1;
@@ -205,7 +205,7 @@ float interpolator::quinticIn(float t)
 
 // quintic easing out - decelerating to zero velocity
 
-float interpolator::quinticOut(float t)
+float interpolator::quintic_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -219,7 +219,7 @@ float interpolator::quinticOut(float t)
 
 // quintic easing in/out - acceleration until halfway, then deceleration
 
-float interpolator::quinticInOut(float t)
+float interpolator::quintic_in_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -241,7 +241,7 @@ float interpolator::quinticInOut(float t)
 // sinusoidal easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in position, d: duration
 
-float interpolator::sineIn(float t)
+float interpolator::sine_in(float t)
 {
    float b = 0.0f;
    float c = 1.0f;
@@ -254,7 +254,7 @@ float interpolator::sineIn(float t)
 
 // sinusoidal easing out - decelerating to zero velocity
 
-float interpolator::sineOut(float t)
+float interpolator::sine_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -267,7 +267,7 @@ float interpolator::sineOut(float t)
 
 // sinusoidal easing in/out - accelerating until halfway, then decelerating
 
-float interpolator::sineInOut(float t)
+float interpolator::sine_in_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -286,7 +286,7 @@ float interpolator::sineInOut(float t)
 // exponential easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in position, d: duration
 
-float interpolator::exponentialIn(float t)
+float interpolator::exponential_in(float t)
 {
    float b = 0;
    float c = 1;
@@ -299,7 +299,7 @@ float interpolator::exponentialIn(float t)
 
 // exponential easing out - decelerating to zero velocity
 
-float interpolator::exponentialOut(float t)
+float interpolator::exponential_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -312,7 +312,7 @@ float interpolator::exponentialOut(float t)
 
 // exponential easing in/out - accelerating until halfway, then decelerating
 
-float interpolator::exponentialInOut(float t)
+float interpolator::exponential_in_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -334,7 +334,7 @@ float interpolator::exponentialInOut(float t)
 // circular easing in - accelerating from zero velocity
 // t: current time, b: beginning value, c: change in position, d: duration
 
-float interpolator::circularIn(float t)
+float interpolator::circular_in(float t)
 {
    float b = 0;
    float c = 1;
@@ -348,7 +348,7 @@ float interpolator::circularIn(float t)
 
 // circular easing out - decelerating to zero velocity
 
-float interpolator::circularOut(float t)
+float interpolator::circular_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -362,7 +362,7 @@ float interpolator::circularOut(float t)
 
 // circular easing in/out - acceleration until halfway, then deceleration
 
-float interpolator::circularInOut(float t)
+float interpolator::circular_in_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -383,7 +383,7 @@ float interpolator::circularInOut(float t)
 // t: current time, b: beginning value, c: change in value, d: duration, a: amplitude (optional), p: period (optional)
 // t and d can be in frames or seconds/milliseconds
 
-float interpolator::elasticIn(float t)
+float interpolator::elastic_in(float t)
 {
    float amplitude = 1.0f; //<- not sure how modifying these variables will change things
    float period = 0.3f; //<- not sure how modifying these variables will change things
@@ -418,7 +418,7 @@ float interpolator::elasticIn(float t)
 // an OVERSHOOT value of 1.70158 produces an overshoot of 10%
 #define OVERSHOOT 1.70158f
 
-float interpolator::backIn(float t)
+float interpolator::back_in(float t)
 {
    float b = 0;
    float c = 1;
@@ -435,7 +435,7 @@ float interpolator::backIn(float t)
 
 // back easing out - moving towards target, overshooting it slightly, then reversing and coming back to target
 
-float interpolator::backOut(float t)
+float interpolator::back_out(float t)
 {
    float b = 0;
    float c = 1;
@@ -452,7 +452,7 @@ float interpolator::backOut(float t)
 // back easing in/out - backtracking slightly, then reversing direction and moving to target,
 // then overshooting target, reversing, and finally coming back to target
 
-float interpolator::backInOut(float t)
+float interpolator::back_in_out(float t)
 {
    float s = OVERSHOOT;
    if ((t) < 1) { t /= 0.5f; s*=(1.525f); return 0.5f*(t*t*(((s)+1)*t - s)); }
@@ -472,7 +472,7 @@ float interpolator::backInOut(float t)
 // t: current time, b: beginning value, c: change in position, d: duration
 // bounce easing out
 
-float interpolator::bounceOut(float t)
+float interpolator::bounce_out(float t)
 {
    if (t < (1.0f/2.75f)) return (7.5625f*t*t);
    else if (t < (2.0f/2.75f))
@@ -497,7 +497,7 @@ float interpolator::bounceOut(float t)
 
 // bounce easing in
 
-float interpolator::bounceIn(float t)
+float interpolator::bounce_in(float t)
 {
    t = 1.0f - t;
    if (t < (1.0f/2.75f)) return 1.0f - (7.5625f*t*t);
@@ -523,49 +523,49 @@ float interpolator::bounceIn(float t)
 
 // bounce easing in/out
 
-float interpolator::bounceInOut(float t)
+float interpolator::bounce_in_out(float t)
 {
-   if (t < 0.5f) return bounceIn(t*2.0f) * 0.5f;
-   return bounceOut(t*2.0f-1.0f) * 0.5f + 0.5f;
+   if (t < 0.5f) return bounce_in(t*2.0f) * 0.5f;
+   return bounce_out(t*2.0f-1.0f) * 0.5f + 0.5f;
 }
 
 
 
 
-float interpolator::fastIn(float t) { return quadraticOut(t); }
-float interpolator::fastOut(float t) { return quadraticIn(t); }
-float interpolator::fastInOut(float t) { return quadraticOutIn(t); }
-float interpolator::slowIn(float t) { return quadraticIn(t); }
-float interpolator::slowOut(float t) { return quadraticOut(t); }
-float interpolator::slowInOut(float t) { return quadraticInOut(t); }
+float interpolator::fast_in(float t) { return quadratic_out(t); }
+float interpolator::fast_out(float t) { return quadratic_in(t); }
+float interpolator::fast_in_out(float t) { return quadratic_out_in(t); }
+float interpolator::slow_in(float t) { return quadratic_in(t); }
+float interpolator::slow_out(float t) { return quadratic_out(t); }
+float interpolator::slow_in_out(float t) { return quadratic_in_out(t); }
 
-float interpolator::doubleFastIn(float t) { return cubicOut(t); }
-float interpolator::doubleFastOut(float t) { return cubicIn(t); }
-float interpolator::doubleSlowIn(float t) { return cubicIn(t); }
-float interpolator::doubleSlowOut(float t) { return cubicOut(t); }
-float interpolator::doubleSlowInOut(float t) { return cubicInOut(t); }
+float interpolator::double_fast_in(float t) { return cubic_out(t); }
+float interpolator::double_fast_out(float t) { return cubic_in(t); }
+float interpolator::double_slow_in(float t) { return cubic_in(t); }
+float interpolator::double_slow_out(float t) { return cubic_out(t); }
+float interpolator::double_slow_in_out(float t) { return cubic_in_out(t); }
 
-float interpolator::trippleFastIn(float t) { return quarticOut(t); }
-float interpolator::trippleFastOut(float t) { return quarticIn(t); }
-float interpolator::trippleSlowIn(float t) { return quarticIn(t); }
-float interpolator::trippleSlowOut(float t) { return quarticOut(t); }
-float interpolator::trippleSlowInOut(float t) { return quarticInOut(t); }
+float interpolator::tripple_fast_in(float t) { return quartic_out(t); }
+float interpolator::tripple_fast_out(float t) { return quartic_in(t); }
+float interpolator::tripple_slow_in(float t) { return quartic_in(t); }
+float interpolator::tripple_slow_out(float t) { return quartic_out(t); }
+float interpolator::tripple_slow_in_out(float t) { return quartic_in_out(t); }
 
-float interpolator::quadrupleFastIn(float t) { return quinticOut(t); }
-float interpolator::quadrupleFastOut(float t) { return quinticIn(t); }
-float interpolator::quadrupleSlowIn(float t) { return quinticIn(t); }
-float interpolator::quadrupleSlowOut(float t) { return quinticOut(t); }
-float interpolator::quadrupleSlowInOut(float t) { return quinticInOut(t); }
+float interpolator::quadruple_fast_in(float t) { return quintic_out(t); }
+float interpolator::quadruple_fast_out(float t) { return quintic_in(t); }
+float interpolator::quadruple_slow_in(float t) { return quintic_in(t); }
+float interpolator::quadruple_slow_out(float t) { return quintic_out(t); }
+float interpolator::quadruple_slow_in_out(float t) { return quintic_in_out(t); }
 
 
 
 
 // TODO: fix this thing
 
-float interpolator::bloompIn(float value)
+float interpolator::bloomp_in(float value)
 {
-#define fast_curve_interpolator(xxx, yyy, zzz) (fastIn((zzz-xxx)/(yyy-xxx))*(yyy-xxx) + xxx)
-#define slow_curve_interpolator(xxx, yyy, zzz) (slowIn((zzz-xxx)/(yyy-xxx))*(yyy-xxx) + xxx)
+#define fast_curve_interpolator(xxx, yyy, zzz) (fast_in((zzz-xxx)/(yyy-xxx))*(yyy-xxx) + xxx)
+#define slow_curve_interpolator(xxx, yyy, zzz) (slow_in((zzz-xxx)/(yyy-xxx))*(yyy-xxx) + xxx)
 
    float bounce_peak = 0.2f;
    //float &value = value;
@@ -588,7 +588,7 @@ float interpolator::bloompIn(float value)
    }
    else if (value >= 0.75f)
    {
-      float inner_value = slowInOut(value)*0.25f + 0.75f; //slow_inout_curve_interpolator(1.0f, 0.75f, value);
+      float inner_value = slow_in_out(value)*0.25f + 0.75f; //slow_inout_curve_interpolator(1.0f, 0.75f, value);
       return 1.0f - inner_value * bounce_peak * 0.4f; // bounce_peak is the total extra amount in the bounce
    }
    return value;
@@ -605,30 +605,30 @@ interpolator::interpolator_func_t interpolator::get_interpolator_by_name(std::st
    // incomplete
    if (name == "linear") return linear;
 
-   else if (name == "fastIn") return fastIn;
-   else if (name == "fastOut") return fastOut;
-   else if (name == "fastInOut") return fastInOut;
-   else if (name == "slowIn") return slowIn;
-   else if (name == "slowOut") return slowOut;
-   else if (name == "slowInOut") return slowInOut;
+   else if (name == "fast_in") return fast_in;
+   else if (name == "fast_out") return fast_out;
+   else if (name == "fast_in_out") return fast_in_out;
+   else if (name == "slow_in") return slow_in;
+   else if (name == "slow_out") return slow_out;
+   else if (name == "slow_in_out") return slow_in_out;
 
-   else if (name == "doubleFastIn") return doubleFastIn;
-   else if (name == "doubleFastOut") return doubleFastOut;
-   else if (name == "doubleSlowIn") return doubleSlowIn;
-   else if (name == "doubleSlowOut") return doubleSlowOut;
-   else if (name == "doubleSlowInOut") return doubleSlowInOut;
+   else if (name == "double_fast_in") return double_fast_in;
+   else if (name == "double_fast_out") return double_fast_out;
+   else if (name == "double_slow_in") return double_slow_in;
+   else if (name == "double_slow_out") return double_slow_out;
+   else if (name == "double_slow_in_out") return double_slow_in_out;
 
-   else if (name == "trippleFastIn") return trippleFastIn;
-   else if (name == "trippleFastOut") return trippleFastOut;
-   else if (name == "trippleSlowIn") return trippleSlowIn;
-   else if (name == "trippleSlowOut") return trippleSlowOut;
-   else if (name == "trippleSlowInOut") return trippleSlowInOut;
+   else if (name == "tripple_fast_in") return tripple_fast_in;
+   else if (name == "tripple_fast_out") return tripple_fast_out;
+   else if (name == "tripple_slow_in") return tripple_slow_in;
+   else if (name == "tripple_slow_out") return tripple_slow_out;
+   else if (name == "tripple_slow_in_out") return tripple_slow_in_out;
 
-   else if (name == "quadrupleFastIn") return quadrupleFastIn;
-   else if (name == "quadrupleFastOut") return quadrupleFastOut;
-   else if (name == "quadrupleSlowIn") return quadrupleSlowIn;
-   else if (name == "quadrupleSlowOut") return quadrupleSlowOut;
-   else if (name == "quadrupleSlowInOut") return quadrupleSlowInOut;
+   else if (name == "quadruple_fast_in") return quadruple_fast_in;
+   else if (name == "quadruple_fast_out") return quadruple_fast_out;
+   else if (name == "quadruple_slow_in") return quadruple_slow_in;
+   else if (name == "quadruple_slow_out") return quadruple_slow_out;
+   else if (name == "quadruple_slow_in_out") return quadruple_slow_in_out;
 
    return NULL;
 }
@@ -641,12 +641,12 @@ std::string interpolator::get_interpolator_func_name_as_str(interpolator::interp
    // incomplete
    if (func == linear) return "linear";
 
-   else if (func == fastIn) return "fastIn";
-   else if (func == fastOut) return "fastOut";
-   else if (func == fastInOut) return "fastInOut";
-   else if (func == slowIn) return "slowIn";
-   else if (func == slowOut) return "slowOut";
-   else if (func == slowInOut) return "slowInOut";
+   else if (func == fast_in) return "fast_in";
+   else if (func == fast_out) return "fast_out";
+   else if (func == fast_in_out) return "fast_in_out";
+   else if (func == slow_in) return "slow_in";
+   else if (func == slow_out) return "slow_out";
+   else if (func == slow_in_out) return "slow_in_out";
 
    return "undef";
 }
