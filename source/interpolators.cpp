@@ -33,21 +33,10 @@ float interpolator::linear(float value)
 
 
 
-///////////// LIBRARY EASING FUNCTIONS //////////////
-// the equations below come from http://robertpenner.com/easing/
+///////////// Quadratic Easing: t^2 ///////////////////
 
 
 
-
-///////////// QUADRATIC EASING: t^2 ///////////////////
-
-
-
-
-// quadratic easing in - accelerating from zero velocity
-// t: current time, b: beginning value, c: change in value, d: duration
-// t and d can be in frames or seconds/milliseconds
-//A_INLINE float quadratic_in(float t)
 
 float interpolator::quadratic_in(float t)
 {
@@ -57,8 +46,6 @@ float interpolator::quadratic_in(float t)
 
 
 
-// quadratic easing out - decelerating to zero velocity
-
 float interpolator::quadratic_out(float t)
 {
    return -t*(t-2);
@@ -66,8 +53,6 @@ float interpolator::quadratic_out(float t)
 
 
 
-
-// quadratic easing in/out - acceleration until halfway, then deceleration
 
 float interpolator::quadratic_in_out(float t)
 {
@@ -82,8 +67,6 @@ float interpolator::quadratic_in_out(float t)
 
 
 
-// quadratic easing in/out - deceleration until halfway, then acceleration
-
 float interpolator::quadratic_out_in(float t)
 {
    if (t < 0.5f) return quadratic_out(t*2) * 0.5f;
@@ -94,11 +77,10 @@ float interpolator::quadratic_out_in(float t)
 
 
 
-///////////// CUBIC EASING: t^3 ///////////////////////
+///////////// Cubic Easing: t^3 ///////////////////////
 
-// cubic easing in - accelerating from zero velocity
-// t: current time, b: beginning value, c: change in value, d: duration
-// t and d can be frames or seconds/milliseconds
+
+
 
 float interpolator::cubic_in(float t)
 {
@@ -111,8 +93,6 @@ float interpolator::cubic_in(float t)
 
 
 
-// cubic easing out - decelerating to zero velocity
-
 float interpolator::cubic_out(float t)
 {
    t = t-1;
@@ -121,8 +101,6 @@ float interpolator::cubic_out(float t)
 
 
 
-
-// cubic easing in/out - acceleration until halfway, then deceleration
 
 float interpolator::cubic_in_out(float t)
 {
@@ -138,11 +116,10 @@ float interpolator::cubic_in_out(float t)
 
 
 
-///////////// QUARTIC EASING: t^4 /////////////////////
+///////////// Quadratic Easing: t^4 /////////////////////
 
-// quartic easing in - accelerating from zero velocity
-// t: current time, b: beginning value, c: change in value, d: duration
-// t and d can be frames or seconds/milliseconds
+
+
 
 float interpolator::quartic_in(float t)
 {
@@ -156,8 +133,6 @@ float interpolator::quartic_in(float t)
 
 
 
-// quartic easing out - decelerating to zero velocity
-
 float interpolator::quartic_out(float t)
 {
    float b = 0;
@@ -169,8 +144,6 @@ float interpolator::quartic_out(float t)
 
 
 
-
-// quartic easing in/out - acceleration until halfway, then deceleration
 
 float interpolator::quartic_in_out(float t)
 {
@@ -185,11 +158,10 @@ float interpolator::quartic_in_out(float t)
 
 
 
-///////////// QUINTIC EASING: t^5  ////////////////////
+///////////// Quintic Easing: t^5 ////////////////////
 
-// quintic easing in - accelerating from zero velocity
-// t: current time, b: beginning value, c: change in value, d: duration
-// t and d can be frames or seconds/milliseconds
+
+
 
 float interpolator::quintic_in(float t)
 {
@@ -203,8 +175,6 @@ float interpolator::quintic_in(float t)
 
 
 
-// quintic easing out - decelerating to zero velocity
-
 float interpolator::quintic_out(float t)
 {
    float b = 0;
@@ -216,8 +186,6 @@ float interpolator::quintic_out(float t)
 
 
 
-
-// quintic easing in/out - acceleration until halfway, then deceleration
 
 float interpolator::quintic_in_out(float t)
 {
@@ -233,13 +201,10 @@ float interpolator::quintic_in_out(float t)
 
 
 
-///////////// SINUSOIDAL EASING: sin(t) ///////////////
+///////////// Sinusoidal Easing: sin(t) ///////////////
 
 
 
-
-// sinusoidal easing in - accelerating from zero velocity
-// t: current time, b: beginning value, c: change in position, d: duration
 
 float interpolator::sine_in(float t)
 {
@@ -252,8 +217,6 @@ float interpolator::sine_in(float t)
 
 
 
-// sinusoidal easing out - decelerating to zero velocity
-
 float interpolator::sine_out(float t)
 {
    float b = 0;
@@ -264,8 +227,6 @@ float interpolator::sine_out(float t)
 
 
 
-
-// sinusoidal easing in/out - accelerating until halfway, then decelerating
 
 float interpolator::sine_in_out(float t)
 {
@@ -278,13 +239,10 @@ float interpolator::sine_in_out(float t)
 
 
 
-///////////// EXPONENTIAL EASING: 2^t /////////////////
+///////////// Exponential Easing: 2^t /////////////////
 
 
 
-
-// exponential easing in - accelerating from zero velocity
-// t: current time, b: beginning value, c: change in position, d: duration
 
 float interpolator::exponential_in(float t)
 {
@@ -297,8 +255,6 @@ float interpolator::exponential_in(float t)
 
 
 
-// exponential easing out - decelerating to zero velocity
-
 float interpolator::exponential_out(float t)
 {
    float b = 0;
@@ -309,8 +265,6 @@ float interpolator::exponential_out(float t)
 
 
 
-
-// exponential easing in/out - accelerating until halfway, then decelerating
 
 float interpolator::exponential_in_out(float t)
 {
@@ -326,13 +280,10 @@ float interpolator::exponential_in_out(float t)
 
 
 
-/////////// CIRCULAR EASING: sqrt(1-t^2) //////////////
+/////////// Circular Easing: sqrt(1-t^2) //////////////
 
 
 
-
-// circular easing in - accelerating from zero velocity
-// t: current time, b: beginning value, c: change in position, d: duration
 
 float interpolator::circular_in(float t)
 {
@@ -346,8 +297,6 @@ float interpolator::circular_in(float t)
 
 
 
-// circular easing out - decelerating to zero velocity
-
 float interpolator::circular_out(float t)
 {
    float b = 0;
@@ -359,8 +308,6 @@ float interpolator::circular_out(float t)
 
 
 
-
-// circular easing in/out - acceleration until halfway, then deceleration
 
 float interpolator::circular_in_out(float t)
 {
@@ -375,13 +322,10 @@ float interpolator::circular_in_out(float t)
 
 
 
-/////////// ELASTIC EASING: exponentially decaying sine wave  //////////////
+/////////// Elastic Easing: Exponentially Decaying Sine Wave  //////////////
 
 
 
-
-// t: current time, b: beginning value, c: change in value, d: duration, a: amplitude (optional), p: period (optional)
-// t and d can be in frames or seconds/milliseconds
 
 float interpolator::elastic_in(float t)
 {
@@ -403,17 +347,10 @@ float interpolator::elastic_in(float t)
 
 
 
-/////////// BACK EASING: overshooting cubic easing: (s+1)*t^3 - s*t^2  //////////////
+/////////// Back Easing: Overshooting Cubic Easing: (s+1)*t^3 - s*t^2  //////////////
 
 
 
-
-// back easing in - backtracking slightly, then reversing direction and moving to target
-// t: current time, b: beginning value, c: change in value, d: duration, s: overshoot amount (optional)
-// t and d can be in frames or seconds/milliseconds
-// s controls the amount of overshoot: higher s means greater overshoot
-// s has a default value of 1.70158, which produces an overshoot of 10 percent
-// s==0 produces cubic easing with no overshoot
 
 // an OVERSHOOT value of 1.70158 produces an overshoot of 10%
 #define OVERSHOOT 1.70158f
@@ -433,8 +370,6 @@ float interpolator::back_in(float t)
 
 
 
-// back easing out - moving towards target, overshooting it slightly, then reversing and coming back to target
-
 float interpolator::back_out(float t)
 {
    float b = 0;
@@ -449,9 +384,6 @@ float interpolator::back_out(float t)
 
 
 
-// back easing in/out - backtracking slightly, then reversing direction and moving to target,
-// then overshooting target, reversing, and finally coming back to target
-
 float interpolator::back_in_out(float t)
 {
    float s = OVERSHOOT;
@@ -464,13 +396,10 @@ float interpolator::back_in_out(float t)
 
 
 
-/////////// BOUNCE EASING: exponentially decaying parabolic bounce  //////////////
+/////////// Bounce Easing: Exponentially Decaying Parabolic Bounce  //////////////
 
 
 
-
-// t: current time, b: beginning value, c: change in position, d: duration
-// bounce easing out
 
 float interpolator::bounce_out(float t)
 {
@@ -494,8 +423,6 @@ float interpolator::bounce_out(float t)
 
 
 
-
-// bounce easing in
 
 float interpolator::bounce_in(float t)
 {
@@ -521,13 +448,16 @@ float interpolator::bounce_in(float t)
 
 
 
-// bounce easing in/out
-
 float interpolator::bounce_in_out(float t)
 {
    if (t < 0.5f) return bounce_in(t*2.0f) * 0.5f;
    return bounce_out(t*2.0f-1.0f) * 0.5f + 0.5f;
 }
+
+
+
+
+/////////// User-Friendly Names //////////////
 
 
 
