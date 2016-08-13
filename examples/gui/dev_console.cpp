@@ -131,15 +131,15 @@ public:
       if (active)
       {
          // hide
-         Framework::motion().canimate(&visibility_counter, visibility_counter, 0, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
-         Framework::motion().canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, -150, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion().canimate(&visibility_counter, visibility_counter, 0, Framework::time_now, Framework::time_now+0.2, interpolator::fast_in, NULL, NULL);
+         Framework::motion().canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, -150, Framework::time_now, Framework::time_now+0.2, interpolator::fast_in, NULL, NULL);
          text_input_widget->set_as_unfocused();
       }
       else
       {
          // show
-         Framework::motion().canimate(&visibility_counter, visibility_counter, 1, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
-         Framework::motion().canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, console_height-console_padding, Framework::time_now, Framework::time_now+0.2, interpolator::fastIn, NULL, NULL);
+         Framework::motion().canimate(&visibility_counter, visibility_counter, 1, Framework::time_now, Framework::time_now+0.2, interpolator::fast_in, NULL, NULL);
+         Framework::motion().canimate(&text_input_widget->place.position.y, text_input_widget->place.position.y, console_height-console_padding, Framework::time_now, Framework::time_now+0.2, interpolator::fast_in, NULL, NULL);
          text_input_widget->set_as_focused();
       }
 

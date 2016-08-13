@@ -120,8 +120,8 @@ void hide_clock(void *obj, ALLEGRO_MOUSE_EVENT *ev, void *user)
 
 void show_clock(void *obj, ALLEGRO_MOUSE_EVENT *ev, void *user)
 {
-   Framework::motion().cmove_to(&clock_opacity, 1.0, 0.3, interpolator::slowInOut);
-   Framework::motion().cmove_to(&clock_radius, max_clock_radius, 0.3, interpolator::slowInOut);
+   Framework::motion().cmove_to(&clock_opacity, 1.0, 0.3, interpolator::slow_in_out);
+   Framework::motion().cmove_to(&clock_radius, max_clock_radius, 0.3, interpolator::slow_in_out);
    if (clock_opacity == 0.0) al_play_sample(Framework::sample("clock_show.wav"), 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 }
 

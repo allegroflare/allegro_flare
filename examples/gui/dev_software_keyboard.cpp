@@ -100,7 +100,7 @@ public:
    {
       ALLEGRO_COLOR key_color_now = is_standard_key ? key_color : alt_key_color;
       if (mouse_over) key_color_now = color::greenyellow;
-      if (pressed_counter > 0) key_color_now = color::mix(key_color_now, color::greenyellow, interpolator::trippleFastOut(pressed_counter));
+      if (pressed_counter > 0) key_color_now = color::mix(key_color_now, color::greenyellow, interpolator::tripple_fast_out(pressed_counter));
 
       //: is_standard_key ? key_color : alt_key_color;
       al_draw_filled_rectangle(x, y, x+w, y+h, key_color_now);
@@ -279,17 +279,17 @@ public:
       if (visible)
       {
          // hide
-         motion_manager.animate(&placement.position.y, placement.position.y, -display->height()/3*2.2, time_now, time_now+0.4, interpolator::quadrupleFastIn, NULL, NULL);
-         motion_manager.animate(&placement.scale.x, placement.scale.x, 0.7, time_now, time_now+0.4, interpolator::quadrupleFastIn, NULL, NULL);
-         motion_manager.animate(&placement.scale.y, placement.scale.y, 0.7, time_now, time_now+0.4, interpolator::quadrupleFastIn, NULL, NULL);
+         motion_manager.animate(&placement.position.y, placement.position.y, -display->height()/3*2.2, time_now, time_now+0.4, interpolator::quadruple_fast_in, NULL, NULL);
+         motion_manager.animate(&placement.scale.x, placement.scale.x, 0.7, time_now, time_now+0.4, interpolator::quadruple_fast_in, NULL, NULL);
+         motion_manager.animate(&placement.scale.y, placement.scale.y, 0.7, time_now, time_now+0.4, interpolator::quadruple_fast_in, NULL, NULL);
          for (int i=0; i<43; i++) key[i].mouse_over = false;
       }
       else
       {
          // show
-         motion_manager.animate(&placement.position.y, placement.position.y, -display->height()/2+h, time_now, time_now+0.4, interpolator::quadrupleFastIn, NULL, NULL);
-         motion_manager.animate(&placement.scale.x, placement.scale.x, 0.9, time_now, time_now+0.4, interpolator::quadrupleFastIn, NULL, NULL);
-         motion_manager.animate(&placement.scale.y, placement.scale.y, 0.9, time_now, time_now+0.4, interpolator::quadrupleFastIn, NULL, NULL);
+         motion_manager.animate(&placement.position.y, placement.position.y, -display->height()/2+h, time_now, time_now+0.4, interpolator::quadruple_fast_in, NULL, NULL);
+         motion_manager.animate(&placement.scale.x, placement.scale.x, 0.9, time_now, time_now+0.4, interpolator::quadruple_fast_in, NULL, NULL);
+         motion_manager.animate(&placement.scale.y, placement.scale.y, 0.9, time_now, time_now+0.4, interpolator::quadruple_fast_in, NULL, NULL);
          for (int i=0; i<43; i++) key[i].mouse_over = false;
       }
       */
