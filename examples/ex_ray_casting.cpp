@@ -1352,7 +1352,7 @@ public:
             {
                text_notification.set_text("Press 'R' to reload");
                text_notification.spawn();
-               motion.canimate(&gun_sprite.get_attr("y"), display->height()+8, display->height(), Framework::time_now, Framework::time_now+0.1, interpolator::doubleFastIn, NULL, NULL);  
+               motion.canimate(&gun_sprite.get_attr("y"), display->height()+8, display->height(), Framework::time_now, Framework::time_now+0.1, interpolator::double_fast_in, NULL, NULL);
             }
          }
          else
@@ -1361,7 +1361,7 @@ public:
             al_play_sample(samples["gunshot-01.wav"], 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
             bullets_in_magazine--;
             gun_fired = true;
-            motion.canimate(&gun_sprite.get_attr("y"), display->height()-16, display->height(), Framework::time_now, Framework::time_now+0.2, interpolator::doubleFastIn, NULL, NULL);  
+            motion.canimate(&gun_sprite.get_attr("y"), display->height()-16, display->height(), Framework::time_now, Framework::time_now+0.2, interpolator::double_fast_in, NULL, NULL);
          }
       }
    }
@@ -1895,7 +1895,7 @@ public:
                   if (player_picked_up_item)
                   {
                      depth_caches_z_sorted[x]->obj_entity->active = false;
-                     animate_color(&motion, &frame_color, item_color, color::black, Framework::time_now, pickup_frame_time_length, interpolator::fastIn);
+                     animate_color(&motion, &frame_color, item_color, color::black, Framework::time_now, pickup_frame_time_length, interpolator::fast_in);
                      text_notification.set_text(notification_text, TextNotification::STYLE_PICKUP_ITEM);
                      text_notification.background_color = item_color;
                      text_notification.spawn();
