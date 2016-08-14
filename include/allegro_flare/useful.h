@@ -239,9 +239,9 @@ float distance_squared(const vec2d &point1, const vec2d &point2);
 //
 
 // Draws a crosshair at a given coordinate on the screen.
-void draw_crosshair(float x, float y, ALLEGRO_COLOR color=al_color_name("white"));
+void draw_crosshair(float x, float y, ALLEGRO_COLOR color=al_color_name("white"), float size=10);
 void draw_crosshair(float x, float y, float z, ALLEGRO_COLOR col=color::black, float size=10);
-void draw_crosshair(vec2d &point, ALLEGRO_COLOR color=al_color_name("white"));
+void draw_crosshair(vec2d &point, ALLEGRO_COLOR color=al_color_name("white"), float size=10);
 void draw_crosshair(vec3d point, ALLEGRO_COLOR col=color::black, float size=10);
 
 // Creates an ALLEGRO_VERTEX with the following parameters.

@@ -31,9 +31,9 @@ float radians_to_degrees(float rad)
 
 
 
-void draw_crosshair(float x, float y, ALLEGRO_COLOR color)
+void draw_crosshair(float x, float y, ALLEGRO_COLOR color, float size)
 {
-   float half_size = 12;
+   float half_size = size * 0.5;
    al_draw_line(x, y-half_size, x, y+half_size, color, 1.0);
    al_draw_line(x-half_size, y, x+half_size, y, color, 1.0);
 }
@@ -41,9 +41,9 @@ void draw_crosshair(float x, float y, ALLEGRO_COLOR color)
 
 
 
-void draw_crosshair(vec2d &point, ALLEGRO_COLOR color)
+void draw_crosshair(vec2d &point, ALLEGRO_COLOR color, float size)
 {
-   float half_size = 5;
+   float half_size = size * 0.5;
    al_draw_line(point.x, point.y-half_size, point.x, point.y+half_size, color, 1.0);
    al_draw_line(point.x-half_size, point.y, point.x+half_size, point.y, color, 1.0);
 }
