@@ -68,6 +68,7 @@ protected:
    bool dragging;
    bool no_focus; // possibly implemented in a flag system instead
    bool mouse_is_blocked;
+   float local_mouse_x, local_mouse_y;
    bool disabled;
    // maybe will need to add:
    // bool skip_on_tab_focus (or no_focus);
