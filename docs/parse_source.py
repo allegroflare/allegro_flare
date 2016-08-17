@@ -2,6 +2,7 @@ import os
 import sys
 import glob
 import sqlite3
+import re
 
 from pygccxml import utils
 from pygccxml import declarations
@@ -91,8 +92,9 @@ def parse_file(filename):
     for item in found_items:
         count = count + 1 
         #print item.location.file_name + " : " + str(item.location.line)
+        cleaned_filename = re.match(r'/Users/markoates/Repos/allegro_flare/(.*)', item.location.file_name).group(1)
         parse_cache_make_table_connection.execute("INSERT INTO parsed_declarations VALUES (NULL,?,?,?,?,?,?,?,?);",
-            (str(item), item.decl_string, item.name, item.attributes, item.location.file_name, str(item.location.line), "", "")
+            (str(item), item.decl_string, item.name, item.attributes, cleaned_filename, str(item.location.line), "", "")
             )
         parse_cache_connection.commit()
 

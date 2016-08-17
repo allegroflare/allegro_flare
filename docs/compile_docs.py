@@ -15,12 +15,12 @@ connection.row_factory = sqlite3.Row
 
 c = connection.cursor()
 
-c.execute('''SELECT * FROM parsed_declarations''')
+cursor = c.execute('''SELECT * FROM parsed_declarations''')
 
 entries = c.fetchall()
-
-
 print "There are " + str(len(entries)) + " entries."
+
+column_names = list(map(lambda x: x[0], cursor.description))
 
 
 # Create an .html file to write to
@@ -30,7 +30,9 @@ f.write('<head><link rel="stylesheet" type="text/css" href="docstyle.css"></head
 
 for entry in entries:
     f.write('<h3>' + entry['name'] + '</h3>')
-    f.write('<div class="doc">' + entry['object_str'] + '</div>')
-    f.write('<div class="doc">' + entry['decl_string'] + '</div>')
+    f.write('<table class="comprehensive">')
+    for column_name in column_names:
+        f.write('<tr><td>' + column_name + '</td><td>' + str(entry[column_name]) + '</td></tr>')
+    f.write('</table>')
 
 f.close()

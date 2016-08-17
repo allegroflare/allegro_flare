@@ -42,5 +42,7 @@ p.todo
 	border: 1px solid #f16e26;
 }
 
-
-
+table.comprehensive
+{
+  font-size: 8px;
+}
