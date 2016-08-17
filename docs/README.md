@@ -46,7 +46,7 @@ Development of the project will be broken down into several sub-tasks.
 
 ### What's your timeline?
 
-No deadlines are imposed on this project.  It will progress as time allows.  Would like to have a working v1 ready in 2 months, March 31 2016.
+No deadlines are imposed on this project.  It will progress as time allows.
 
 ## How to Parse Documentation
 
