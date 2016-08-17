@@ -1,5 +1,11 @@
 # AllegroFlare Docs Project
 
+## How to Use
+
+For information on how to parse the source into documentation, see `HOW_TO_BUILD.md`
+
+## Project Overview
+
 ### What do you want to make?
 
 A simple, comprehensive project that makes documenting code for AllegroFlare fun, easy, and achievable.  The tool(s) made shouldn't be too abstract, they can be talor-fit to AllegroFlare's codebase and style.
@@ -47,7 +53,3 @@ Development of the project will be broken down into several sub-tasks.
 ### What's your timeline?
 
 No deadlines are imposed on this project.  It will progress as time allows.
-
-## How to Parse Documentation
-
-[todo]
