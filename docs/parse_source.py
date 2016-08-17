@@ -36,6 +36,9 @@ CREATE TABLE parsed_declarations(
            object_str VARCHAR(255),
            decl_string VARCHAR(255),
            name VARCHAR(128),
+           declaration_type VARCHAR(32),
+           parent_name VARCHAR(64),
+           top_parent_name VARCHAR(64),
            attributes VARCHAR(255),
            header_file VARCHAR(255),
            line_number INTEGER,
@@ -93,8 +96,15 @@ def parse_file(filename):
         count = count + 1 
         #print item.location.file_name + " : " + str(item.location.line)
         cleaned_filename = re.match(r'/Users/markoates/Repos/allegro_flare/(.*)', item.location.file_name).group(1)
-        parse_cache_make_table_connection.execute("INSERT INTO parsed_declarations VALUES (NULL,?,?,?,?,?,?,?,?);",
-            (str(item), item.decl_string, item.name, item.attributes, cleaned_filename, str(item.location.line), "", "")
+
+        declaration_type = item.__class__.__name__
+        if declaration_type[-2:] == "_t":
+            declaration_type = declaration_type[:-2]
+        declaration_type = declaration_type.replace('_', ' ')
+        declaration_type = "%s" % declaration_type
+
+        parse_cache_make_table_connection.execute("INSERT INTO parsed_declarations VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?);",
+            (str(item), item.decl_string, item.name, declaration_type, str(item.parent.name), str(item.top_parent.name), item.attributes, cleaned_filename, str(item.location.line), "", "")
             )
         parse_cache_connection.commit()
 
