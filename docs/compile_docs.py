@@ -20,7 +20,7 @@ c = connection.cursor()
 
 c.execute('SELECT DISTINCT parent_name FROM parsed_declarations ORDER BY parent_name ASC;')
 
-parents = c.fetchall()
+parent_names = c.fetchall()
 
 
 # Create the full listings
@@ -38,8 +38,10 @@ column_names = list(map(lambda x: x[0], cursor.description))
 f = open('index.html', 'w')
 f.write('<head><link rel="stylesheet" type="text/css" href="docstyle.css"></head>')
 
-for parent in parents:
-    f.write('<h2>' + entry['name'] + '</h2>\n')
+f.write('<ul>\n')
+for parent_name in parent_names:
+    f.write('  <li>' + parent_name[0] + '</li>\n')
+f.write('</ul>\n')
 
 for entry in entries:
     f.write('<h3>' + entry['name'] + '</h3>\n')
