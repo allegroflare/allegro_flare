@@ -146,9 +146,9 @@ def parse_file(filename):
 
 
 # get a file list
-header_files = glob.glob("../include/allegro_flare/*/*/*.h")
-header_files += glob.glob("../include/allegro_flare/*/*.h")
-header_files += glob.glob("../include/allegro_flare/*.h")
+header_files = glob.glob("../../include/allegro_flare/*/*/*.h")
+header_files += glob.glob("../../include/allegro_flare/*/*.h")
+header_files += glob.glob("../../include/allegro_flare/*.h")
 
 
 count = 0
