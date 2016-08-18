@@ -6,6 +6,7 @@
 
 #include "useful.h"
 #include "color.h"
+#include <math.h> // for fabs
 
 
 
