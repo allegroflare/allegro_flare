@@ -29,10 +29,11 @@ f = open('index.html', 'w')
 f.write('<head><link rel="stylesheet" type="text/css" href="docstyle.css"></head>')
 
 for entry in entries:
-    f.write('<h3>' + entry['name'] + '</h3>')
-    f.write('<table class="comprehensive">')
+    f.write('<h3>' + entry['name'] + '</h3>\n')
+    f.write('<table class="comprehensive">\n')
     for column_name in column_names:
-        f.write('<tr><td>' + column_name + '</td><td>' + str(entry[column_name]) + '</td></tr>')
-    f.write('</table>')
+        f.write('<tr><td>' + column_name + '</td><td>' + str(entry[column_name]) + '</td></tr>\n')
+    f.write('</table>\n')
+    f.write('\n')
 
 f.close()
