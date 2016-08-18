@@ -35,7 +35,7 @@ column_names = list(map(lambda x: x[0], cursor.description))
 
 # Create an .html file to write to
 
-f = open('index.html', 'w')
+f = open('../index.html', 'w')
 f.write('<head><link rel="stylesheet" type="text/css" href="docstyle.css"></head>')
 
 f.write('<ul>\n')
