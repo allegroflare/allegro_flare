@@ -15,7 +15,17 @@ connection.row_factory = sqlite3.Row
 
 c = connection.cursor()
 
-cursor = c.execute('''SELECT * FROM parsed_declarations''')
+
+# Get a distinct list of parent names
+
+c.execute('SELECT DISTINCT parent_name FROM parsed_declarations ORDER BY parent_name ASC;')
+
+parents = c.fetchall()
+
+
+# Create the full listings
+
+cursor = c.execute('SELECT * FROM parsed_declarations WHERE parent_name=?', ('UISurfaceAreaBitmapAlpha',))
 
 entries = c.fetchall()
 print "There are " + str(len(entries)) + " entries."
@@ -27,6 +37,9 @@ column_names = list(map(lambda x: x[0], cursor.description))
 
 f = open('index.html', 'w')
 f.write('<head><link rel="stylesheet" type="text/css" href="docstyle.css"></head>')
+
+for parent in parents:
+    f.write('<h2>' + entry['name'] + '</h2>\n')
 
 for entry in entries:
     f.write('<h3>' + entry['name'] + '</h3>\n')
