@@ -61,6 +61,7 @@ for parent_name in parent_names:
 
     for entry in entries:
         f.write('<h3>' + entry['name'] + '</h3>\n')
+        f.write('<pre class="code">' + entry['declaration'] + '</pre>\n')
         f.write('<table class="comprehensive">\n')
         for column_name in column_names:
             f.write('<tr><td>' + column_name + '</td><td>' + str(entry[column_name]) + '</td></tr>\n')
