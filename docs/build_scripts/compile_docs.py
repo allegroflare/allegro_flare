@@ -23,14 +23,16 @@ c.execute('SELECT DISTINCT parent_name FROM parsed_declarations ORDER BY parent_
 parent_names = c.fetchall()
 
 
+
 # Create the full listings
 
-cursor = c.execute('SELECT * FROM parsed_declarations WHERE parent_name=?', ('UISurfaceAreaBitmapAlpha',))
+cursor = c.execute('SELECT * FROM parsed_declarations')
 
 entries = c.fetchall()
 print "There are " + str(len(entries)) + " entries."
 
 column_names = list(map(lambda x: x[0], cursor.description))
+
 
 
 # Create an .html file to write to
@@ -43,12 +45,30 @@ for parent_name in parent_names:
     f.write('  <li>' + parent_name[0] + '</li>\n')
 f.write('</ul>\n')
 
-for entry in entries:
-    f.write('<h3>' + entry['name'] + '</h3>\n')
-    f.write('<table class="comprehensive">\n')
-    for column_name in column_names:
-        f.write('<tr><td>' + column_name + '</td><td>' + str(entry[column_name]) + '</td></tr>\n')
-    f.write('</table>\n')
-    f.write('\n')
+
+
+# write the individual entries by sections
+
+for parent_name in parent_names:
+
+    parent_name_str = str(parent_name['parent_name'])
+
+    f.write('<hr>\n')
+    f.write('<h2>' + parent_name_str + '</h2>\n')
+
+    cursor = c.execute('SELECT * FROM parsed_declarations WHERE parent_name=?', (parent_name_str,))
+    entries = c.fetchall()
+
+    for entry in entries:
+        f.write('<h3>' + entry['name'] + '</h3>\n')
+        f.write('<table class="comprehensive">\n')
+        for column_name in column_names:
+            f.write('<tr><td>' + column_name + '</td><td>' + str(entry[column_name]) + '</td></tr>\n')
+        f.write('</table>\n')
+        f.write('\n')
+
+
+
+# close the file
 
 f.close()
