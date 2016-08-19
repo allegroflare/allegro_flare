@@ -13,6 +13,9 @@ from pygccxml import parser
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 
+from terminal_color_output import *
+
+
 
 
 # The c++ file we want to parse
@@ -132,13 +135,20 @@ def parse_file(filename):
             print item
             unfound_items += 1
         else:
-            print item + " - FOUND"
+            print_green(item + " - FOUND")
             found_items += 1
 
-    print "=============================="
-    print str(found_items) + " items found."
-    print str(unfound_items) + " matches missing."
-    print "=============================="
+    if unfound_items == 0:
+        print_func = print_green
+    elif found_items == 0:
+        print_func = print_red
+    else:
+        print_func = print_yellow
+
+    print_func("==============================")
+    print_func(str(found_items) + " items found.")
+    print_func(str(unfound_items) + " matches missing.")
+    print_func("==============================")
 
     return
 
