@@ -23,6 +23,8 @@ UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea 
    , no_focus(false)
    , delete_me(false)
    , mouse_is_blocked(false)
+   , local_mouse_x(0)
+   , local_mouse_y(0)
    , disabled(false)
 {
    attr.set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
@@ -186,19 +188,19 @@ void UIWidget::mouse_axes_func(float x, float y, float dx, float dy)
 
    // start by transforming the coordinates for the children
 
-   float tmx = x;
-   float tmy = y;
+   local_mouse_x = x;
+   local_mouse_y = y;
    float tmdx = dx;
    float tmdy = dy;
 
-   surface_area->placement.transform_coordinates(&tmx, &tmy);
+   surface_area->placement.transform_coordinates(&local_mouse_x, &local_mouse_y);
    surface_area->placement.transform_coordinates(&tmdx, &tmdy);
 
    if (family.parent && family.parent->mouse_is_blocked) mouse_is_blocked = true;
    else mouse_is_blocked = false;
 
    for (int i=(int)family.children.size()-1; i>=0; i--)
-      family.children[i]->mouse_axes_func(tmx, tmy, dx, dy);  // I'm not sure why these are dx/dy, but it works correctly this way
+      family.children[i]->mouse_axes_func(local_mouse_x, local_mouse_y, dx, dy);  // I'm not sure why these are dx/dy, but it works correctly this way
 
 
    // then proceed with the execution of the function
