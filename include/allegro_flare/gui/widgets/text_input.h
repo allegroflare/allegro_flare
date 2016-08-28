@@ -13,7 +13,6 @@
 class UITextInput : public UIWidget
 {
 protected:
-   float mouse_cursor_x, mouse_cursor_y;
    std::string text;
    int cursor_pos;
    int cursor_end;
@@ -45,7 +44,6 @@ public:
    virtual void on_submit(); // usually instigated by the ENTER key
 
    void on_click() override;
-   void on_mouse_move(float x, float y, float dx, float dy) override;
    void on_key_char() override;
    void on_draw() override;
    void on_focus() override;

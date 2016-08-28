@@ -24,8 +24,6 @@ UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, s
    , font_color(color::white)
    , _text_render(NULL)
    , padding(10)
-   , mouse_cursor_x(0)
-   , mouse_cursor_y(0)
 {
    set_text(text);
 
@@ -145,16 +143,6 @@ void UITextInput::_handle_erase()
 void UITextInput::on_click()
 {
 
-}
-
-
-
-
-void UITextInput::on_mouse_move(float x, float y, float dx, float dy)
-{
-   place.transform_coordinates(&x, &y); // hm, could be a really heavy calculation to do repeatedly
-   mouse_cursor_x = x;
-   mouse_cursor_y = y;
 }
 
 
@@ -423,7 +411,7 @@ void UITextInput::on_draw()
    if (focused) al_draw_line(len_to_cursor+padding+text_x_offset, padding-padding*0.25, len_to_cursor+padding+text_x_offset, padding+padding*0.25+font_height, color::color(color::dodgerblue, cursor_blink_counter), 2.0);
 
    // draw the inner mouse position
-   if (mouse_over) al_draw_line(mouse_cursor_x, 3, mouse_cursor_x, place.size.y-3, color::color(color::white, 0.4), 1.0);
+   if (mouse_over) al_draw_line(local_mouse_x, 3, local_mouse_x, place.size.y-3, color::color(color::white, 0.4), 1.0);
 }
 
 
