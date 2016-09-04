@@ -3,6 +3,10 @@
 <html>
 <head>
 <style>
+*
+{
+  font-family: arial;
+}
 div.box
 {
   position: absolute;
@@ -10,11 +14,17 @@ div.box
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
 
-  font-family: arial;
   background-color: green;
   padding: 10px;
   color: white;
   border-radius: 6px;
+}
+span.button
+{
+  background-color: dodgerblue;
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: white;
 }
 </style>
 </head>
@@ -22,6 +32,9 @@ div.box
 <body>
 <div class="canvas">
   <div class="box">Centered box!</div>
+</div>
+<div class="controls">
+  <span class="button">Export</span>
 </div>
 </body>
 
