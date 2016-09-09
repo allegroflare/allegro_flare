@@ -16,17 +16,8 @@ pre.code
 	background-color: #efefef;
 	border-radius: 6px;
 	color: gray;
-	font-weight: bold;
 }
 
-code
-{
-	font-family: Consolas;
-	color: gray;
-	font-weight: bold;
-	background-color: #efefef;
-	padding: 1px 2px;
-}
 
 H3
 {
