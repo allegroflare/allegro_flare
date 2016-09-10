@@ -13,6 +13,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 
 from terminal_color_output import *
+from extract_in_source_documentation import *
 
 
 
@@ -97,7 +98,6 @@ def parse_file(filename):
     count = 0
     for item in found_items:
         count = count + 1 
-        #print item.location.file_name + " : " + str(item.location.line)
         cleaned_filename = re.match(r'/Users/markoates/Repos/allegro_flare/(.*)', item.location.file_name).group(1)
 
         # create `declaration_type`
@@ -111,8 +111,12 @@ def parse_file(filename):
         declaration = str(item)
         declaration = re.match(r'(.*) \[.*\]$', declaration).group(1)
 
+        # try to extract any preceeding '//' comments above the declaration
+        in_source_documentation = extract_in_source_documentation(item.location.file_name, item.location.line)
+
+        # insert the content into the table
         parse_cache_make_table_connection.execute("INSERT INTO parsed_declarations VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?);",
-            (str(item), item.decl_string, declaration, item.name, declaration_type, str(item.parent.name), str(item.top_parent.name), item.attributes, cleaned_filename, str(item.location.line), "", "")
+            (str(item), item.decl_string, declaration, item.name, declaration_type, str(item.parent.name), str(item.top_parent.name), item.attributes, cleaned_filename, str(item.location.line), in_source_documentation, "")
             )
         parse_cache_connection.commit()
 
