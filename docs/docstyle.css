@@ -19,6 +19,14 @@ pre.code
   font-size: 12px;
 }
 
+h2
+{
+  margin-top: 60px;
+  font-size: 42px;
+  border-bottom: 3px solid #db0f53;
+  font-weight: normal;
+  color: #db0f53;
+}
 
 H3
 {
