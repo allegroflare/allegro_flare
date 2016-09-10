@@ -21,21 +21,33 @@
 def extract_in_source_documentation(filename, declaration_line_number):
     # 1) open the file in question
 
-    # 2) go to the line number declaration_line_number
+    file_pointer = file(filename, 'r')
+
+    # 2) grab all the lines in the file and put them into an array
+
+    file_lines = file_pointer.readlines()
+    extracted_comment = ''
 
     # 3) go to the preceeding line.  If this preceeding line
     #    begins with '//', then prepend the contents of that line
-    #    to an array of lines.  If there is not a commented '//'
+    #    to the final comment.  If there is not a commented '//'
     #    line, then proceed to step 5.
 
     # 4) repeat step 3 to see if there is another preceeding
     #    line of '//' comments.  If there are no more '//' lines
     #    left, then proceed to step 5.
 
-    # 5) Remove all preceeding '//' characters from each line
+    current_line_number = declaration_line_number - 1 - 1
+    line = file_lines[current_line_number].strip()
 
-    # 6) Join all the lines together into a single string and
-    #    return that string.
+    while line[:2] == '//':
+        extracted_comment = line[2:] + extracted_comment
+        current_line_number = current_line_number - 1
+        line = file_lines[current_line_number].strip()
+
+    # 5) Return the final extracted comment
+
+    return extracted_comment
 
 
 
