@@ -1,6 +1,7 @@
 import os
 import sys
 import sqlite3
+import cgi
 
 
 # Set the path to the path of this script
@@ -60,11 +61,14 @@ for parent_name in parent_names:
     entries = c.fetchall()
 
     for entry in entries:
+        declaration = cgi.escape(entry['declaration'])
+
         f.write('<h3>' + entry['name'] + '</h3>\n')
-        f.write('<pre class="code">' + entry['declaration'] + '</pre>\n')
+        f.write('<pre class="code">' + declaration + '</pre>\n')
         f.write('<table class="comprehensive">\n')
         for column_name in column_names:
-            f.write('<tr><td>' + column_name + '</td><td>' + str(entry[column_name]) + '</td></tr>\n')
+            column_value = cgi.escape(str(entry[column_name]))
+            f.write('<tr><td>' + column_name + '</td><td>' + column_value + '</td></tr>\n')
         f.write('</table>\n')
         f.write('\n')
 
