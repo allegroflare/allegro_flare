@@ -61,11 +61,13 @@ for parent_name in parent_names:
     entries = c.fetchall()
 
     for entry in entries:
+        entry_name = entry['name']
+        if entry['declaration_type'] == 'member function': entry_name += '()'
         declaration = cgi.escape(entry['declaration'])
         in_source_documentation = cgi.escape(entry['in_source_documentation'])
 
         f.write('<div class="listing_container">\n')
-        f.write('<h3>' + entry['name'] + '</h3>\n')
+        f.write('<h3>' + entry_name + '</h3>\n')
         f.write('<p>' + in_source_documentation + '</p>\n')
         f.write('<pre class="code">' + declaration + '</pre>\n')
         f.write('</div>\n')
