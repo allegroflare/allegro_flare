@@ -19,6 +19,15 @@ pre.code
   font-size: 12px;
 }
 
+
+p.in_source_documentation
+{
+  border-radius: 3px;
+  background-color: #fff2e1;
+  padding: 8px 12px;
+}
+
+
 h2
 {
   margin-top: 60px;

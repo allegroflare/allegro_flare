@@ -62,9 +62,11 @@ for parent_name in parent_names:
 
     for entry in entries:
         declaration = cgi.escape(entry['declaration'])
+        in_source_documentation = cgi.escape(entry['in_source_documentation'])
 
         f.write('<h3>' + entry['name'] + '</h3>\n')
         f.write('<pre class="code">' + declaration + '</pre>\n')
+        f.write('<p class="in_source_documentation">' + in_source_documentation + '</p>\n')
         f.write('<table class="comprehensive">\n')
         for column_name in column_names:
             column_value = cgi.escape(str(entry[column_name]))
