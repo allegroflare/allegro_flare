@@ -59,9 +59,13 @@ for parent_name in parent_names:
     cursor = c.execute('SELECT * FROM parsed_declarations WHERE parent_name=?', (parent_name_str,))
     entries = c.fetchall()
 
+    TYPE_OF_FUNCTION = ['member function', 'constructor', 'destructor', 'free function']
+    MEMBER_FUNCTION = ['member function']
+
     for entry in entries:
         entry_name = entry['name']
-        if entry['declaration_type'] == 'member function': entry_name = '.' + entry_name + '()'
+        if entry['declaration_type'] in TYPE_OF_FUNCTION: entry_name += '()'
+        if entry['declaration_type'] in MEMBER_FUNCTION: entry_name = '.' + entry_name
         declaration = cgi.escape(entry['declaration'])
         in_source_documentation = cgi.escape(entry['in_source_documentation'])
 
