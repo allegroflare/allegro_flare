@@ -23,17 +23,17 @@ pre.code
 
 div.listing_container
 {
-	margin-top: 6px;
-  border-radius: 3px;
-  background-color: #fff2e1;
-  padding: 16px 16px 3px 16px;
-  color: #662032;
+	margin-top: 2px;
+  border-radius: 2px;
+  background-color: #efefef;
+  padding: 11px 16px 9px 16px;
+  color: #909090;
   font-size: 13px;
 }
 
 div.listing_container p
 {
-  margin: 6px 0 16px 0;
+  margin: 5px 0 0px 0;
   padding: 0;
 }
 
@@ -52,7 +52,8 @@ H3
   margin: 0;
   padding: 0;
   color: black;
-  font-size: 20px;
+  font-family: consolas;
+  font-size: 15px;
 }
 
 p.todo
