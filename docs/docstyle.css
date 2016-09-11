@@ -41,9 +41,8 @@ div.listing_container p
 h2
 {
   margin-top: 50px;
-  font-size: 42px;
-  border-bottom: 3px solid #db0f53;
-  font-weight: normal;
+  font-size: 30px;
+  font-family: consolas;
   color: #db0f53;
 }
 

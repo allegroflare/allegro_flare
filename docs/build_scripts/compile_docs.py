@@ -54,7 +54,6 @@ for parent_name in parent_names:
 
     parent_name_str = str(parent_name['parent_name'])
 
-    f.write('<hr>\n')
     f.write('<h2>' + parent_name_str + '</h2>\n')
 
     cursor = c.execute('SELECT * FROM parsed_declarations WHERE parent_name=?', (parent_name_str,))
