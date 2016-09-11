@@ -59,15 +59,10 @@ for parent_name in parent_names:
 
     cursor = c.execute('SELECT * FROM parsed_declarations WHERE parent_name=?', (parent_name_str,))
     entries = c.fetchall()
-    previous_entry_name = None
 
     for entry in entries:
         entry_name = entry['name']
         if entry['declaration_type'] == 'member function': entry_name = '.' + entry_name + '()'
-
-        if entry_name == previous_entry_name:
-            continue
-
         declaration = cgi.escape(entry['declaration'])
         in_source_documentation = cgi.escape(entry['in_source_documentation'])
 
@@ -83,8 +78,6 @@ for parent_name in parent_names:
             f.write('<tr><td>' + column_name + '</td><td>' + column_value + '</td></tr>\n')
         f.write('</table>\n')
         f.write('\n')
-
-        previous_entry_name = entry_name
 
 
 
