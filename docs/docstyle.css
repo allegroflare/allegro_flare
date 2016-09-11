@@ -12,25 +12,35 @@ body
 pre.code
 {
 	font-family: Consolas;
-	padding: 10px 20px;
-	background-color: #efefef;
+	padding: 10px 14px;
+	background-color: #662032;
+	border: 1px solid gray;
 	border-radius: 6px;
-	color: gray;
+	color: white;
   font-size: 12px;
 }
 
 
-p.in_source_documentation
+div.listing_container
 {
+	margin-top: 50px;
   border-radius: 3px;
   background-color: #fff2e1;
-  padding: 8px 12px;
+  padding: 16px 16px 3px 16px;
+  color: #662032;
+  font-size: 12px;
+}
+
+div.listing_container p
+{
+  margin: 6px 0 16px 0;
+  padding: 0;
 }
 
 
 h2
 {
-  margin-top: 60px;
+  margin-top: 50px;
   font-size: 42px;
   border-bottom: 3px solid #db0f53;
   font-weight: normal;
@@ -39,7 +49,10 @@ h2
 
 H3
 {
-	margin-top: 50px;
+  margin: 0;
+  padding: 0;
+  color: black;
+  font-size: 20px;
 }
 
 p.todo
