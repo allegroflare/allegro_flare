@@ -68,7 +68,8 @@ for parent_name in parent_names:
 
         f.write('<div class="listing_container">\n')
         f.write('<h3>' + entry_name + '</h3>\n')
-        f.write('<p>' + in_source_documentation + '</p>\n')
+        if (in_source_documentation):
+            f.write('<p>' + in_source_documentation + '</p>\n')
         f.write('<pre class="code">' + declaration + '</pre>\n')
         f.write('</div>\n')
         f.write('<table class="comprehensive">\n')
