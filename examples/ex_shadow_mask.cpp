@@ -15,7 +15,7 @@ public:
 
    ExShadowMask(Display *display)
       : Screen(display)
-      , shadow_mask(display->width(), display->height(), al_load_bitmap("data/bitmaps/light_gradient.jpg"))
+      , shadow_mask(display->width(), display->height(), Framework::bitmap("light_gradient.jpg"))
       , mouse(200, 200)
    {}
    void primary_timer_func() override
