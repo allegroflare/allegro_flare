@@ -42,7 +42,7 @@ CREATE TABLE parsed_declarations(
            name VARCHAR(128),
            declaration_type VARCHAR(32),
            parent_name VARCHAR(64),
-           top_parent_name VARCHAR(64),
+           grandparent_name VARCHAR(64),
            attributes VARCHAR(255),
            header_file VARCHAR(255),
            line_number INTEGER,
@@ -114,9 +114,13 @@ def parse_file(filename):
         # try to extract any preceeding '//' comments above the declaration
         in_source_documentation = extract_in_source_documentation(item.location.file_name, item.location.line)
 
+        # get grandparent's name
+        grandparent = item.parent.parent
+        grandparent_name = grandparent.name if grandparent else ''
+
         # insert the content into the table
         parse_cache_make_table_connection.execute("INSERT INTO parsed_declarations VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?);",
-            (str(item), item.decl_string, declaration, item.name, declaration_type, str(item.parent.name), str(item.top_parent.name), item.attributes, cleaned_filename, str(item.location.line), in_source_documentation, "")
+            (str(item), item.decl_string, declaration, item.name, declaration_type, str(item.parent.name), str(grandparent_name), item.attributes, cleaned_filename, str(item.location.line), in_source_documentation, "")
             )
         parse_cache_connection.commit()
 
