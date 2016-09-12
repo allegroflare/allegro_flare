@@ -36,9 +36,9 @@ void ShadowMask::update_surface()
 
 
 
-ShadowMask::ShadowMask(int width, int height)
+ShadowMask::ShadowMask(int width, int height, ALLEGRO_BITMAP *light_bitmap)
    : surface(al_create_bitmap(width, height))
-   , light_bitmap(al_load_bitmap("data/bitmaps/gradient.jpg"))
+   , light_bitmap(light_bitmap)
 {
    if (!light_bitmap) std::cout << "There was an error loading the light bitmap" << std::endl;
 }

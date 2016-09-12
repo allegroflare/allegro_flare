@@ -30,7 +30,7 @@ private:
    void update_surface();
 
 public:
-   ShadowMask(int width, int height);
+   ShadowMask(int width, int height, ALLEGRO_BITMAP *light_bitmap);
    ~ShadowMask();
 
    void clear_points();
