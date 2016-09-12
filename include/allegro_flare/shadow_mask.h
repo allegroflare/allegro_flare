@@ -33,8 +33,13 @@ public:
    ShadowMask(int width, int height, ALLEGRO_BITMAP *light_bitmap);
    ~ShadowMask();
 
-   void clear_points();
+   // Adds a light point to the mask.
    void add_point(float x, float y);
+
+   // Removes all the light points from the mask.
+   void clear_points();
+
+   // Draws the mask to the screen.
    void draw();
 };
 
