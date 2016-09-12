@@ -1,4 +1,4 @@
-![Allegro Flare](bin/data/bitmaps/allegro_flare_logo-04.png?raw=true) AllegroFlare - Fast and fun game development in C++
+![Allegro Flare](bin/data/bitmaps/allegro_flare_logo-04.png?raw=true) AllegroFlare
 =============
 
 Current version - v0.8.8wip
