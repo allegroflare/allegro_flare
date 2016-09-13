@@ -33,7 +33,7 @@ unsigned int Random::get_seed()
 
 
 
-int Random::get_random_int(int max, int min)
+int Random::get_random_int(int min, int max)
 {
    std::uniform_int_distribution<int> dist(min, max);
    return dist(random_number_generator);
@@ -42,7 +42,7 @@ int Random::get_random_int(int max, int min)
 
 
 
-float Random::get_random_float(float max, float min)
+float Random::get_random_float(float min, float max)
 {
    std::uniform_real_distribution<float> dist(min, max);
    return dist(random_number_generator);
@@ -53,7 +53,7 @@ float Random::get_random_float(float max, float min)
 
 bool Random::get_one_in_chance(int chance)
 {
-   if (get_random_int(chance - 1) == 0)
+   if (get_random_int(0, chance - 1) == 0)
       return true;
    return false;
 }

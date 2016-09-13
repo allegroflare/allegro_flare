@@ -18,7 +18,7 @@ private:
 
 public:
    // Seeds the random number generator with the time.
-   Random(unsigned int seed = (unsigned int)time(0));
+   Random(unsigned int seed=(unsigned int)time(0));
 
    // Manually seeds the random number generator with a value.
    void set_seed(unsigned int new_seed);
@@ -27,10 +27,10 @@ public:
    unsigned int get_seed();
 
    // Returns a random integer.
-   int get_random_int(int max, int min = 0);
+   int get_random_int(int min, int max);
 
    // Returns a random floating point number.
-   float get_random_float(float max, float min = 0);
+   float get_random_float(float min, float max);
 
    // Returns true if the random number is one in [chance].
    bool get_one_in_chance(int chance);
