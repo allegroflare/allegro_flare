@@ -23,14 +23,14 @@ public:
    }
 
    // Manually seeds the rng with a value.
-   void Seed(unsigned int value)
+   void set_seed(unsigned int value)
    {
       rng.seed(value);
    }
 
    // Returns random integer.
    template <typename T>
-   T GetNextInt(T max, T min = 0)
+   T get_random_int(T max, T min = 0)
    {
       std::uniform_int_distribution<T> dist(min, max);
       return dist(rng);
@@ -38,26 +38,26 @@ public:
 
    // Returns random real number.
    template <typename T>
-   T GetNextReal(T max, T min = 0)
+   T get_random_real(T max, T min = 0)
    {
       std::uniform_real_distribution<T> dist(min, max);
       return dist(rng);
    }
 
    // Returns true if the random number is one in [chance].
-   bool OneIn(int chance)
+   bool get_one_in_chance(int chance)
    {
-      if (GetNextInt(chance - 1) == 0)
+      if (get_next_int(chance - 1) == 0)
          return true;
       return false;
    }
 
    // Returns the result of rolling dice with a number of sides.
-   int RollDice(int number, int sides)
+   int roll_dice(int number_of_die, int sides)
    {
       int result = 0;
-      for (int i = 0; i < number; i++)
-         result += GetNextInt(sides, 1);
+      for (int i = 0; i < number_of_die; i++)
+         result += get_next_int(sides, 1);
       return result;
    }
 };
