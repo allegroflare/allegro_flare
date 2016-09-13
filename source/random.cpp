@@ -8,7 +8,10 @@
 
 
 Random::Random(unsigned int seed)
-{}
+   : seed(seed)
+{
+   set_seed(seed);
+}
 
 
 
