@@ -21,14 +21,14 @@ public:
          .align(0.5, 1.0)
          .draw();
 
-      TextObject(get_screen_dimentions_text())
+      TextObject(get_screen_dimentions_str())
          .font(Framework::font("DroidSans.ttf 80"))
          .color(color::black)
          .position(display->center(), display->middle()-40)
          .align(0.5, 0.0)
          .draw();
    }
-   std::string get_screen_dimentions_text()
+   std::string get_screen_dimentions_str()
    {
       int width = al_get_display_width(display->al_display);
       int height = al_get_display_height(display->al_display);
