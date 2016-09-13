@@ -50,7 +50,7 @@ float Random::get_random_float(float max, float min)
 
 bool Random::get_one_in_chance(int chance)
 {
-   if (get_next_int(chance - 1) == 0)
+   if (get_random_int(chance - 1) == 0)
       return true;
    return false;
 }
@@ -62,7 +62,7 @@ int Random::roll_dice(int number_of_die, int sides)
 {
    int result = 0;
    for (int i = 0; i < number_of_die; i++)
-      result += get_next_int(sides, 1);
+      result += get_random_int(sides, 1);
    return result;
 }
 
