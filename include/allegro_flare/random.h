@@ -35,18 +35,16 @@ public:
    }
 
    // Returns random integer.
-   template <typename T>
-   T get_random_int(T max, T min = 0)
+   int get_random_int(int max, int min = 0)
    {
-      std::uniform_int_distribution<T> dist(min, max);
+      std::uniform_int_distribution<int> dist(min, max);
       return dist(random_number_generator);
    }
 
-   // Returns random real number.
-   template <typename T>
-   T get_random_real(T max, T min = 0)
+   // Returns random floating point number.
+   float get_random_float(float max, float min = 0)
    {
-      std::uniform_real_distribution<T> dist(min, max);
+      std::uniform_real_distribution<float> dist(min, max);
       return dist(random_number_generator);
    }
 
