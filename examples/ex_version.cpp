@@ -37,14 +37,6 @@ public:
          .align(0.5, 0.0)
          .draw();
    }
-   std::string get_screen_dimentions_text()
-   {
-      int width = al_get_display_width(display->al_display);
-      int height = al_get_display_height(display->al_display);
-      std::stringstream ss;
-      ss << width << " x " << height;
-      return ss.str();
-   }
 };
 
 
