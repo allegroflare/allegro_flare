@@ -26,10 +26,10 @@ public:
    // Retrieve the current random number generator seed.
    unsigned int get_seed();
 
-   // Returns random integer.
+   // Returns a random integer.
    int get_random_int(int max, int min = 0);
 
-   // Returns random floating point number.
+   // Returns a random floating point number.
    float get_random_float(float max, float min = 0);
 
    // Returns true if the random number is one in [chance].
