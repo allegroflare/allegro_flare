@@ -13,22 +13,22 @@
 class Random
 {
 private:
-   std::mt19937 rng;
+   std::mt19937 random_number_generator;
    unsigned int seed;
 
 public:
-   // Seeds the rng with the time.
+   // Seeds the random number generator with the time.
    Random(unsigned int seed = (unsigned int)time(0))
    {}
 
-   // Manually seeds the rng with a value.
+   // Manually seeds the random number generator with a value.
    void set_seed(unsigned int new_seed)
    {
       seed = new_seed;
-      rng.seed(seed);
+      random_number_generator.seed(seed);
    }
 
-   // Retrieve the current RNG seed.
+   // Retrieve the current random number generator seed.
    unsigned int get_seed()
    {
       return seed;
@@ -39,7 +39,7 @@ public:
    T get_random_int(T max, T min = 0)
    {
       std::uniform_int_distribution<T> dist(min, max);
-      return dist(rng);
+      return dist(random_number_generator);
    }
 
    // Returns random real number.
@@ -47,7 +47,7 @@ public:
    T get_random_real(T max, T min = 0)
    {
       std::uniform_real_distribution<T> dist(min, max);
-      return dist(rng);
+      return dist(random_number_generator);
    }
 
    // Returns true if the random number is one in [chance].
