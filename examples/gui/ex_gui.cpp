@@ -324,11 +324,11 @@ public:
 
 
 
-class Project : public UIScreen
+class ExGUI : public UIScreen
 {
 public:
    MyUIWindow *window;
-   Project(Display *display)
+   ExGUI(Display *display)
       : UIScreen(display)
    {
       draw_focused_outline = false;
@@ -357,7 +357,7 @@ int main(int argc, char *argv[])
    Display *display = new Display(800, 720, ALLEGRO_NOFRAME);
    al_register_event_source(Framework::event_queue, al_get_display_event_source(display->al_display));
 
-   Project *main = new Project(display);
+   ExGUI *main = new ExGUI(display);
    Framework::run_loop();
 
    return 0;
