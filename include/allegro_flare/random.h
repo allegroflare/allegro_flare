@@ -14,18 +14,24 @@ class Random
 {
 private:
    std::mt19937 rng;
+   unsigned int seed;
 
 public:
    // Seeds the rng with the time.
-   Random()
-   {
-      rng.seed((unsigned int)time(0));
-   }
+   Random(unsigned int seed = (unsigned int)time(0))
+   {}
 
    // Manually seeds the rng with a value.
-   void set_seed(unsigned int value)
+   void set_seed(unsigned int new_seed)
    {
-      rng.seed(value);
+      seed = new_seed;
+      rng.seed(seed);
+   }
+
+   // Retrieve the current RNG seed.
+   unsigned int get_seed()
+   {
+      return seed;
    }
 
    // Returns random integer.
