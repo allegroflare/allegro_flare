@@ -23,6 +23,9 @@
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/model_bin.h>
 #include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/fonts/font_bravura.h>
+#include <allegro_flare/fonts/font_font_awesome.h>
+#include <allegro_flare/fonts/font_segoe_ui_symbol.h>
 #include <allegro_flare/objects/sound_object.h>
 #include <allegro_flare/objects/text_object.h>
 #include <allegro_flare/objects/bitmap_object.h>
