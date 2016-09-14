@@ -10,25 +10,6 @@
 
 
 
-class UICircleButton : public UIWidget
-{
-public:
-   int32_t icon;
-   ALLEGRO_COLOR icon_color;
-
-   UICircleButton(UIWidget *parent, float x, float y, float radius, int32_t icon, std::string message_to_parent)
-      : UIWidget(parent, "UICircleButton", new UISurfaceAreaCircle(x-(radius)+10, y+(radius)-10, radius))
-      , icon(icon)
-      , icon_color(color::gray)
-   {}
-   void on_draw() override
-   {
-      ALLEGRO_FONT *font = Framework::font("FontAwesome.otf -" + tostring(place.size.x/3));
-      int line_height = al_get_font_line_height(font);
-      draw_unicode_char(font, color::white, icon, ALLEGRO_ALIGN_CENTER, place.size.x/2, place.size.y/2 - line_height/2-1);
-   }
-};
-
 
 
 
@@ -95,6 +76,25 @@ inline bool is_valid_variable_name(const std::string &str)
 class MyUIWindow : public UIWindow
 {
 private:
+   class UICircleButton : public UIWidget
+   {
+   public:
+      int32_t icon;
+      ALLEGRO_COLOR icon_color;
+
+      UICircleButton(UIWidget *parent, float x, float y, float radius, int32_t icon, std::string message_to_parent)
+         : UIWidget(parent, "UICircleButton", new UISurfaceAreaCircle(x-(radius)+10, y+(radius)-10, radius))
+         , icon(icon)
+         , icon_color(color::gray)
+      {}
+      void on_draw() override
+      {
+         ALLEGRO_FONT *font = Framework::font("FontAwesome.otf -" + tostring(place.size.x/3));
+         int line_height = al_get_font_line_height(font);
+         draw_unicode_char(font, color::white, icon, ALLEGRO_ALIGN_CENTER, place.size.x/2, place.size.y/2 - line_height/2-1);
+      }
+   };
+
    ALLEGRO_DISPLAY *display;
    UITextInput *text_input;
    UIMusicNotation *music_render;
