@@ -64,11 +64,8 @@ public:
 
 
 
+
 #include <cctype>
-inline bool is_valid_variable_name(const std::string &str)
-{
-   return (str.find_first_not_of("ABCDEFGHIJKLMNOPQRSTUV_abcdefghijklmnopqrstuvwxyz") == std::string::npos);
-}
 
 
 
@@ -190,6 +187,10 @@ public:
       key = message.substr(0, pos);
       val = message.substr(pos+1);
       return std::pair<std::string, std::string>(php::trim(key), attempt_to_evaluate(php::trim(val)));
+   }
+   bool is_valid_variable_name(const std::string &str)
+   {
+      return (str.find_first_not_of("ABCDEFGHIJKLMNOPQRSTUV_abcdefghijklmnopqrstuvwxyz") == std::string::npos);
    }
    std::string attempt_to_evaluate(std::string str)
    {
