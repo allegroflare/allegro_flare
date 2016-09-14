@@ -3,17 +3,6 @@
 
 
 #include <allegro_flare/allegro_flare.h>
-#include <allegro_flare/gui/widgets/progress_bar.h>
-#include <allegro_flare/gui/widgets/music_notation.h>
-#include <allegro_flare/fonts/font_font_awesome.h>
-
-
-
-
-
-
-
-#include <allegro_flare/objects/sound_object.h>
 
 
 
@@ -60,7 +49,6 @@ public:
       progress_bar->set_val(sound.position());
    }
 };
-
 
 
 
@@ -341,11 +329,6 @@ public:
       //std::cout << "this widget has " << get_num_ancestors() << " leaves" << std::endl;
    }
 };
-
-
-
-
-#include <allegro_flare/allegro_flare.h>
 
 
 
