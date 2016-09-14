@@ -29,11 +29,10 @@ public:
       float percentage;
       std::string file_url;
       std::string local_filename;
-      std::function status_change_callback;
       std::string error;
 
    public:
-      FileHandle(std::string file_url, std::string local_filename, std::function status_change_callback);
+      FileHandle(std::string file_url, std::string local_filename);
       ~FileHandle();
 
       float get_percentage();
@@ -48,7 +47,7 @@ public:
    static int num_downloading_files();
    static bool clear_all_downloaded_files();
    static bool clear_history();
-   static FileHandle download_file(std::string file_url, std::function<> status_change_callback);
+   static FileHandle download_file(std::string file_url, std::string local_filename);
 };
 
 
