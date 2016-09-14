@@ -112,12 +112,10 @@ $(GUI_SURFACE_AREA_OBJ_FILES): obj/%.o : source/gui/surface_areas/%.cpp
 
 EXAMPLES=$(wildcard examples/*.cpp)
 EXAMPLE_OBJS=$(EXAMPLES:examples/%.cpp=bin/%$(BINARY_EXTENSION))
-GUI_EXAMPLES=$(wildcard examples/gui/*.cpp)
-GUI_EXAMPLE_OBJS=$(GUI_EXAMPLES:examples/gui/%.cpp=bin/%$(BINARY_EXTENSION))
 
 ALLEGRO_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro_main -lallegro
 
-examples: $(EXAMPLE_OBJS) $(GUI_EXAMPLE_OBJS)
+examples: $(EXAMPLE_OBJS)
 
 bin/%$(BINARY_EXTENSION): examples/gui/%.cpp
 	g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
@@ -166,6 +164,5 @@ clean:
 	-rm ./obj/*.o
 	-rm ./lib/*.a
 	-rm $(EXAMPLE_OBJS)
-	-rm $(GUI_EXAMPLE_OBJS)
 	-rm $(TEST_OBJS)
 
