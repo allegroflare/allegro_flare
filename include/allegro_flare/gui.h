@@ -11,6 +11,7 @@
 #include <allegro_flare/gui/surface_areas/column.h>
 #include <allegro_flare/gui/surface_areas/row.h>
 #include <allegro_flare/gui/widgets/button.h>
+#include <allegro_flare/gui/widgets/camera.h>
 #include <allegro_flare/gui/widgets/checkbox.h>
 #include <allegro_flare/gui/widgets/dial.h>
 #include <allegro_flare/gui/widgets/draggable_region.h>
