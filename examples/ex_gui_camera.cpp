@@ -11,10 +11,12 @@ class ExGUICamera : public UIScreen
 {
 public:
    UICamera *camera;
+   UIButton *reset_camera_button;
    UIButton *button1, *button2, *button3, *button4;
    ExGUICamera(Display *display)
       : UIScreen(display)
       , camera(new UICamera(this, 0, 0, 1, 1))
+      , reset_camera_button(new UIButton(this, 300, 200, 120, 50, "reset camera"))
       , button1(new UIButton(camera, 200, 100, 120, 50, "button1"))
       , button2(new UIButton(camera, 800, 800, 120, 50, "button2"))
       , button3(new UIButton(camera, 600, 300, 120, 50, "button3"))
