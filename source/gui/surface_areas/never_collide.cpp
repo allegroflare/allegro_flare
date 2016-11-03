@@ -8,8 +8,8 @@
 
 
 
-UISurfaceAreaNeverCollide::UISurfaceAreaNeverCollide()
-   : UISurfaceArea(0, 0, 1, 1)
+UISurfaceAreaNeverCollide::UISurfaceAreaNeverCollide(float x, float y, float w, float h)
+   : UISurfaceArea(x, y, w, h)
 {}
 
 

@@ -11,7 +11,7 @@
 class UISurfaceAreaNeverCollide : public UISurfaceArea
 {
 public:
-   UISurfaceAreaNeverCollide();
+   UISurfaceAreaNeverCollide(float x, float y, float w, float h);
    ~UISurfaceAreaNeverCollide();
 
    void draw_bounding_area();
