@@ -22,6 +22,14 @@ public:
       , button3(new UIButton(camera, 600, 300, 120, 50, "button3"))
       , button4(new UIButton(camera, 500, 500, 120, 50, "button4"))
    {}
+   void on_message(UIWidget *sender, std::string message) override
+   {
+      if (sender == reset_camera_button) camera->place.position = vec2d(0, 0);
+      else if (sender == button1) camera->place.position.y -= 10;
+      else if (sender == button2) camera->place.position.y += 10;
+      else if (sender == button3) camera->place.position.x -= 10;
+      else if (sender == button4) camera->place.position.x += 10;
+   }
 };
 
 
