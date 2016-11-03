@@ -13,6 +13,7 @@ public:
    UICamera *camera;
    UIButton *reset_camera_button;
    UIButton *button1, *button2, *button3, *button4;
+   UIButton *zoom_in_button, *zoom_out_button;
    ExGUICamera(Display *display)
       : UIScreen(display)
       , camera(new UICamera(this, 0, 0, 1, 1))
@@ -21,14 +22,22 @@ public:
       , button2(new UIButton(camera, 800, 800, 120, 50, "button2"))
       , button3(new UIButton(camera, 600, 300, 120, 50, "button3"))
       , button4(new UIButton(camera, 500, 500, 120, 50, "button4"))
+      , zoom_in_button(new UIButton(camera, 400, 500, 120, 50, "ZOOM +"))
+      , zoom_out_button(new UIButton(camera, 900, 500, 120, 50, "ZOOM -"))
    {}
    void on_message(UIWidget *sender, std::string message) override
    {
-      if (sender == reset_camera_button) camera->place.position = vec2d(0, 0);
+      if (sender == reset_camera_button)
+      {
+         camera->place.position = vec2d(0, 0);
+         camera->place.scale = vec2d(1, 1);
+      }
       else if (sender == button1) camera->place.position.y -= 10;
       else if (sender == button2) camera->place.position.y += 10;
       else if (sender == button3) camera->place.position.x -= 10;
       else if (sender == button4) camera->place.position.x += 10;
+      else if (sender == zoom_in_button) camera->place.scale *= 1.1;
+      else if (sender == zoom_out_button) camera->place.scale *= 0.9;
    }
 };
 
