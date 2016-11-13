@@ -81,6 +81,18 @@ namespace bravura
    const int32_t dynamic_p = 119183;
    const int32_t dynamic_m = 119184;
    const int32_t dynamic_f = 119185;
+
+   // numbers
+   const int32_t number_0 = 57472;
+   const int32_t number_1 = 57473;
+   const int32_t number_2 = 57474;
+   const int32_t number_3 = 57475;
+   const int32_t number_4 = 57476;
+   const int32_t number_5 = 57477;
+   const int32_t number_6 = 57478;
+   const int32_t number_7 = 57479;
+   const int32_t number_8 = 57480;
+   const int32_t number_9 = 57481;
 }
 
 

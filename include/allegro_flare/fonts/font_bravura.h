@@ -85,6 +85,18 @@ namespace bravura
    extern const int32_t dynamic_p;
    extern const int32_t dynamic_m;
    extern const int32_t dynamic_f;
+
+   // numbers
+   extern const int32_t number_0;
+   extern const int32_t number_1;
+   extern const int32_t number_2;
+   extern const int32_t number_3;
+   extern const int32_t number_4;
+   extern const int32_t number_5;
+   extern const int32_t number_6;
+   extern const int32_t number_7;
+   extern const int32_t number_8;
+   extern const int32_t number_9;
 }
 
 
