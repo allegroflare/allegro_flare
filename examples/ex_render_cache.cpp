@@ -48,14 +48,14 @@ public:
 
 
 
-class Project : public UIScreen
+class ExRenderCache : public UIScreen
 {
 private:
    RenderCachedUIWidget ui_widget_1;
    RenderCachedUIWidget ui_widget_2;
 
 public:
-   Project()
+   ExRenderCache()
       : UIScreen(Framework::initialize() ? Framework::create_display() : NULL)
       , ui_widget_1(this, 400, 500, 300, 200)
       , ui_widget_2(this, 800, 300, 300, 200)
@@ -67,7 +67,7 @@ public:
 
 int main(int c, char** v)
 {
-   Project project = Project();
+   ExRenderCache project = ExRenderCache();
    Framework::run_loop();
    return 0;
 }
