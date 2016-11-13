@@ -18,6 +18,15 @@ public:
       , render_cache(RenderCache())
    {}
 
+   void draw_widget()
+   {
+      al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 6, 6, random_color());
+      for (unsigned i=0; i<10; i++)
+         al_draw_filled_circle(random_int(0, place.size.x), random_int(0, place.size.y), random_int(8, 20), random_color());
+      al_draw_filled_rectangle(-1, -1, 1, 1, color::black);
+      for (int i=0; i<4; i++) al_draw_circle(0, 0, i*3, color::black, 1.0);
+   }
+
    void on_draw() override
    {
       if (render_cache.is_dirty())
@@ -28,15 +37,6 @@ public:
       }
 
       render_cache.draw(0, 0);
-   }
-
-   void draw_widget()
-   {
-      al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 6, 6, random_color());
-      for (unsigned i=0; i<10; i++)
-         al_draw_filled_circle(random_int(0, place.size.x), random_int(0, place.size.y), random_int(8, 20), random_color());
-      al_draw_filled_rectangle(-1, -1, 1, 1, color::black);
-      for (int i=0; i<4; i++) al_draw_circle(0, 0, i*3, color::black, 1.0);
    }
 
    void on_click() override
