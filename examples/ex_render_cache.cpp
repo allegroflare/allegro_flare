@@ -18,7 +18,7 @@ public:
       , render_cache(RenderCache())
    {}
 
-   void on_draw()
+   void on_draw() override
    {
       if (render_cache.is_dirty())
       {
@@ -39,7 +39,7 @@ public:
       for (int i=0; i<4; i++) al_draw_circle(0, 0, i*3, color::black, 1.0);
    }
 
-   void on_click()
+   void on_click() override
    {
       render_cache.mark_as_dirty();
    }
