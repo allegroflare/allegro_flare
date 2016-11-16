@@ -452,29 +452,6 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
          {
             std::string parened_string = content.substr(pos_opening_paren+1, pos_closing_paren - pos_opening_paren - 1);
 
-            // TODO: parse the braced string for tokens here
-            /*
-               std::vector<std::string> tokens = php::explode(" ", parened_string);
-               for (unsigned t=0; t<tokens.size(); t++)
-               {
-               std::size_t pos_of_equals = tokens[t].find("=");
-               std::string text_before_equals = "";
-               std::string text_after_equals = "";
-               if (pos_of_equals != std::string::npos)
-               {
-               text_before_equals = tokens[t].substr(0, pos_of_equals);
-               text_after_equals = tokens[t].substr(pos_of_equals+1);
-               }
-
-               if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
-               else if (text_before_equals.compare("staff_color") == 0) staff_color = color::name(text_after_equals.c_str());
-               else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
-               else if (tokens[t] == "rhythm_only") rhythm_only = true;
-               else if (tokens[t].find("spacing=fixed")==0) spacing_method = MusicNotation::SPACING_FIXED;
-               else if (tokens[t].find("spacing=aesthetic")==0) spacing_method = MusicNotation::SPACING_AESTHETIC;
-               }
-               */
-
             // set the cursor to the end of this braced section
             i = pos_closing_paren;
 
