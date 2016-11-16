@@ -289,6 +289,7 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 
    for (int i=0; i<(int)content.size(); i++) // TODO make this an iterator
    {
+      std::vector<int> multi_note;
       staff_pos = 0;
       num_dots = 0;
 
@@ -482,6 +483,11 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 
             // set the cursor to the end of this braced section
             i = pos_closing_paren;
+
+            std::vector<std::string> tokens = php::explode(" ", parened_string);
+            for (auto &token : tokens)
+               multi_note.push_back(atoi(token.c_str()));
+
             staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 8);
             break;
          }
@@ -574,7 +580,11 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
       draw_ledger_lines_to(start_x+x_cursor, y, staff_pos, get_music_symbol_width(symbol), staff_color);
       //		set_blender(BLENDER_NORMAL);
 
-      draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(staff_pos), color);
+      if (multi_note.empty())
+         draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(staff_pos), color);
+      else
+         for (int i=0; i<multi_note.size(); i++)
+            draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(multi_note[i]), color);
 
       // draw the dots
       float dots_x_cursor = 0;
