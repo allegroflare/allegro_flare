@@ -435,7 +435,9 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
       }
       case '(':
       {
-         // scale degrees *not* in the [0-9] range can be notated contained in () curly braces.
+         // Scale degrees *not* in the [0-9] range can be contained in () parens.
+         // Also, you can have multiple staff degrees for a single note by placing them in
+         // parans separated by spaces i.g. "(0 4 -7 8 11 -16)"
 
          // find the closing brace
          std::size_t pos_opening_paren = i;
