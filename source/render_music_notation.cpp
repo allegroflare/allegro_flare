@@ -634,7 +634,7 @@ void MusicNotation::set_staff_line_distance(float distance)
    quarter_note_spacing = distance * 30; // = staff_line_distance * 30
    if (font_bravura)
    {
-      delete font_bravura;
+      al_destroy_font(font_bravura);
       font_bravura = al_load_font("data/music_notation/Bravura.otf", (int)(distance * 4), ALLEGRO_FLAGS_EMPTY);
    }
 }
