@@ -275,7 +275,6 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
    current_note_is_rest = false;
    uint32_t symbol = bravura::closed_note_head;
    uint32_t current_accidental_symbol = 0x0000;
-   int current_octave = 0;
    bool force_rest_to_0_pos = true;
    bool adding_beams = false;
    bool rhythm_only = false;
@@ -313,11 +312,6 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
       case '-': current_accidental_symbol = bravura::flat; continue;
       case '+': current_accidental_symbol = bravura::sharp; continue;
       case '=': current_accidental_symbol = bravura::natural; continue;
-      case '\'': current_octave++; continue;
-      case ',': current_octave--; continue;
-
-                // special cases for starting-stopping beams
-
       case ':': adding_beams = true; continue;
       case ';':
       {
@@ -488,12 +482,12 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
             for (auto &token : tokens)
                multi_note.push_back(atoi(token.c_str()));
 
-            staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 8);
+            staff_pos = atoi(tostring(parened_string).c_str());
             break;
          }
       }
       default:
-         staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 8);
+         staff_pos = atoi(tostring(content[i]).c_str());
          break;
       }
 
