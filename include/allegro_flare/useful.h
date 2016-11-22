@@ -151,6 +151,7 @@ double random_double(double min, double max);
 
 // Returns a random integer between min and max (inclusive).
 int random_int(int min, int max);
+int random_int(std::vector<int> vals);
 
 // Returns either a 1 or -1, selected at random.
 int random_sign();
