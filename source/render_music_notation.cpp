@@ -632,10 +632,16 @@ void MusicNotation::draw_ledger_lines_to(float x, float y, int staff_pos, float 
 
    x += head_width/2;
 
+   // for performance reasons, we'll cap the number of lines to a reasonable number
+   const int MAX_LINES_TO_DRAW = 60;
+   int lines_drawn = 0;
+
    for (int i=3; i<abs(staff_pos/2)+1; i++)
    {
       if (staff_pos > 0) draw_line(x-hwidth, y-staff_line_distance*i+yoffset, x+hwidth, y-staff_line_distance*i+yoffset, color, thickness);
       else draw_line(x-hwidth, y+staff_line_distance*i+yoffset, x+hwidth, y+staff_line_distance*i+yoffset, color, thickness);
+
+      if (++lines_drawn > MAX_LINES_TO_DRAW) break;
    }
 }
 
