@@ -220,6 +220,18 @@ int UIFamily::__get_num_descendants_r(UIFamily &children)
 
 
 
+bool UIFamily::has_descendant(UIWidget *widget)
+{
+   int num_desc = get_num_descendants();
+
+   for (unsigned i=0; i<num_desc; i++)
+      if (get_nth_descendant(i) == widget) return true;
+   return false;
+}
+
+
+
+
 void UIFamily::draw_all()
 {
    for (unsigned i=0; i<children.size(); i++)

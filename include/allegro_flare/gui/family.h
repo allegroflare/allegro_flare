@@ -53,6 +53,7 @@ public:
    UIWidget *get_1st_element_with_attr(std::string key); // not tested
    UIWidget *get_1st_element_with_attr_val(std::string key, std::string val); // not tested
    UIWidget *get_nth_descendant(int n);
+   bool has_descendant(UIWidget *widget);
 
 private:
    // these are recursive search functions, they're entirely intended for internal use
