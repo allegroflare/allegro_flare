@@ -49,6 +49,27 @@ public:
    ElementID *get_next_sibling();
    ElementID *get_previous_sibling();
 
+   template<class T> // does not have tests
+   std::vector<T *> get_flat_list_of_descendants()
+   {
+      std::vector<T *> elements;
+      for (auto &child : children)
+      {
+         elements.push_back(static_cast<T *>(child));
+         std::vector<T *> child_elements = child->get_flat_list_of_descendants<T>();
+         elements.insert(elements.end(), child_elements.begin(), child_elements.end());
+      }
+      return elements;
+   }
+
+   template<class T> // does not have tests
+   std::vector<T *> get_children()
+   {
+      std::vector<T *> elements;
+      for (auto &child : children) elements.push_back(static_cast<T *>(child));
+      return elements;
+   }
+
 private:
    static int next_unique_id;
    static int __index_count_r;
