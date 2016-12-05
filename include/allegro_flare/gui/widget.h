@@ -7,6 +7,7 @@
 #include <allegro5/allegro.h>
 #include <allegro_flare/gui/family.h>
 #include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/attributes.h>
 #include <allegro_flare/bit_flags.h>
 #include <allegro_flare/color.h>
 
@@ -46,7 +47,7 @@ enum WIDGET_FLAGS
 
 
 
-class UIWidget
+class UIWidget : public Attributes
 {
 private:
    static int num_active_widgets; // holds the number of widgets that have been created but not destroyed
