@@ -40,8 +40,9 @@ void UITextList::add_item(std::string item)
 void UITextList::select_item(int index)
 {
    std::string *item = get_item(index);
-   if (!item) { std::cout << "UIList["<< attr.get("id") << "] cannot select item at index " << index; return; }
-   else currently_selected_item = index;
+   //DataAttrPull
+   //if (!item) { std::cout << "UIList["<< attr.get("id") << "] cannot select item at index " << index; return; }
+   //else currently_selected_item = index;
 }
 
 

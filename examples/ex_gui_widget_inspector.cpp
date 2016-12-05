@@ -98,8 +98,9 @@ public:
       y_cursor.reset();
       x_cursor += 10;
 
-      al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (target_widget->attr.get("id")).c_str());
-      al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (target_widget->attr.get(UI_ATTR__UI_WIDGET_TYPE)).c_str());
+      //DataAttrPull
+      //al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (target_widget->attr.get("id")).c_str());
+      //al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (target_widget->attr.get(UI_ATTR__UI_WIDGET_TYPE)).c_str());
       y_cursor += 0.5f;
       al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (tostring(target_widget->place.position.x)).c_str());
       al_draw_text(font2, color::white, x_cursor, y_cursor++, 0, (tostring(target_widget->place.position.y)).c_str());

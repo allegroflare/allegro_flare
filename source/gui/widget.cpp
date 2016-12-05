@@ -27,8 +27,9 @@ UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea 
    , local_mouse_y(0)
    , disabled(false)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
-   attr.set("id", widget_typename + tostring(widget_count));
+   //DataAttrPull
+   //attr.set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
+   //attr.set("id", widget_typename + tostring(widget_count));
 
    if (parent) parent->family.register_as_child(this);
    num_active_widgets++;

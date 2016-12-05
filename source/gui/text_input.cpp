@@ -428,12 +428,13 @@ void UITextInput::on_draw()
 
 void UITextInput::on_focus()
 {
-   if (attr.has("select_all_on_focus"))
-   {
+   //DataAttrPull
+   //if (attr.has("select_all_on_focus"))
+   //{
       // select all
-      cursor_end = 0;
-      cursor_pos = text.length();
-   }
+    //  cursor_end = 0;
+    //  cursor_pos = text.length();
+   //}
 }
 
 

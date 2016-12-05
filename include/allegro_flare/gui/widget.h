@@ -9,7 +9,6 @@
 #include <allegro_flare/gui/surface_area.h>
 #include <allegro_flare/bit_flags.h>
 #include <allegro_flare/color.h>
-#include <allegro_flare/data_attr.h>
 
 
 
@@ -90,7 +89,6 @@ protected:
 public:
    //BitFlags<int16_t> flags;    // << this should be added eventually
    bool delete_me;
-   DataAttr attr;
    placement2d &place;
 
    UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area);

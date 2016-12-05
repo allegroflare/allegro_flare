@@ -23,7 +23,8 @@ public:
    {
       UIWidget::on_draw();
       ALLEGRO_FONT *font = Framework::font("DroidSans.ttf 12");
-      al_draw_text(font, color::white, place.size.x/2, place.size.y/2 - al_get_font_line_height(font)/2, ALLEGRO_ALIGN_CENTER, attr.get("id").c_str());
+      //DataAttrPull
+      //al_draw_text(font, color::white, place.size.x/2, place.size.y/2 - al_get_font_line_height(font)/2, ALLEGRO_ALIGN_CENTER, attr.get("id").c_str());
    }
 };
 
