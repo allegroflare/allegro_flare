@@ -43,6 +43,8 @@ void UIDraggableRegion::on_draw()
 
 void UIDraggableRegion::on_drag(float x, float y, float dx, float dy)
 {
+   //UIFamilyGut
+   /*
    if (family.parent)
    {
       // This might not be the best method, that is, directly controlling the parameters
@@ -52,6 +54,7 @@ void UIDraggableRegion::on_drag(float x, float y, float dx, float dy)
       parent_placement.position.x += dx;
       parent_placement.position.y += dy;
    }
+   */
 }
 
 

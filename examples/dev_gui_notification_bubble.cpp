@@ -121,7 +121,8 @@ public:
    void primary_timer_func() override
    {
       std::string message = "Number of active bubbles: ";
-      message += tostring(this->family.children.size());
+      //UIFamilyGut
+      //message += tostring(this->family.children.size());
       bubble_count_text->set_text(message);
 
       UIScreen::primary_timer_func();

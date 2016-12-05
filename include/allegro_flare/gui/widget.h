@@ -58,7 +58,7 @@ protected:
    friend class UIFamily;
    friend class UIScrollArea;
 
-   UIFamily family;
+   //UIFamily family;
    UISurfaceArea *surface_area;
 
    // TODO these might need to be implemented in a flag system
@@ -107,7 +107,7 @@ public:
    void set_as_unfocused();
    void set_as_enabled();
    void set_as_disabled();
-   UIFamily &get_family();
+   //UIFamily &get_family();
 
    //
    // widget behavior functions

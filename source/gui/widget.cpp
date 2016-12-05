@@ -14,7 +14,7 @@
 
 UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area)
    : Attributes()
-   , family(parent)
+   //, family(parent)
    , surface_area(surface_area)
    , place(surface_area->placement)
    , mouse_down_on_over(false)
@@ -31,7 +31,8 @@ UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea 
    set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
    set("id", widget_typename + tostring(widget_count));
 
-   if (parent) parent->family.register_as_child(this);
+   //UIWidgetGut
+   //if (parent) parent->family.register_as_child(this);
    num_active_widgets++;
    widget_count++;
 }
@@ -41,10 +42,12 @@ UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea 
 
 UIWidget::~UIWidget()
 {
-   family.delete_all(); // from UIParent
+   //UIWidgetGut
+   //family.delete_all(); // from UIParent
 
    if (surface_area) delete surface_area;
-   if (family.parent) family.parent->family.unregister_as_child(this);
+   //UIWidgetGut
+   //if (family.parent) family.parent->family.unregister_as_child(this);
    num_active_widgets--;
 
    // std::cout << "~UIWidget() { type=" << attr.get(UI_ATTR__UI_WIDGET_TYPE) << " }" << std::endl;
@@ -99,6 +102,8 @@ bool UIWidget::is_disabled()
 
 void UIWidget::bring_to_front()
 {
+   //UIFamilyGut
+   /*
    if (!family.parent) return;
    // hmm.. the logic of this should be executed by the parent, not this child
    // TODO: this function should simply call something like family->bring_to_front(this)
@@ -112,6 +117,7 @@ void UIWidget::bring_to_front()
          return;
       }
    }
+   */
 }
 
 
@@ -121,7 +127,8 @@ void UIWidget::send_message_to_parent(std::string message)
 {
    if (disabled) return;
 
-   if (family.parent) family.parent->on_message(this, message);
+   //UIFamilyGut
+   //if (family.parent) family.parent->on_message(this, message);
 }
 
 
@@ -133,10 +140,13 @@ void UIWidget::primary_timer_func()
 
    on_timer();
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->primary_timer_func();
+   //UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->primary_timer_func();
 
    // delete the widgets who request deletion
+   //UIFamilyGut
+   /*
    for (unsigned i=0; i<family.children.size(); i++)
    {
       if (family.children[i]->delete_me)
@@ -151,6 +161,7 @@ void UIWidget::primary_timer_func()
          i--;
       }
    }
+   */
 }
 
 
@@ -162,7 +173,8 @@ void UIWidget::draw_func()
 
    on_draw();
 
-   family.draw_all(); // TODO: should be renamed to draw_children();
+   //UIFamilyGut
+   //family.draw_all(); // TODO: should be renamed to draw_children();
 
    // draws the focus rectangle if it's focused
    /*
@@ -197,6 +209,8 @@ void UIWidget::mouse_axes_func(float x, float y, float dx, float dy)
    surface_area->placement.transform_coordinates(&local_mouse_x, &local_mouse_y);
    surface_area->placement.transform_coordinates(&tmdx, &tmdy);
 
+   // UIFamilyGut
+   /*
    if (family.parent && family.parent->mouse_is_blocked) mouse_is_blocked = true;
    else mouse_is_blocked = false;
 
@@ -217,6 +231,7 @@ void UIWidget::mouse_axes_func(float x, float y, float dx, float dy)
       mouse_over = mouse_over_now;
       if (family.parent && mouse_over) family.parent->mouse_is_blocked = true;
    }
+   */
 
    on_mouse_move(x, y, dx, dy); // TODO I think this needs to be the translated coordinates, and maybe even should be on the on_drag() call below as well
    if (mouse_down_on_over)
@@ -236,8 +251,9 @@ void UIWidget::mouse_down_func()
    if (disabled) return;
 
    // call this function on the children first
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->mouse_down_func();
+   // UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->mouse_down_func();
 
    // now do the execution of the function
    if (mouse_over)
@@ -265,8 +281,9 @@ void UIWidget::mouse_up_func()
    if (disabled) return;
 
    // call this function on the children first
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->mouse_up_func();
+   //UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->mouse_up_func();
 
    // then continue with the function on self
    if (mouse_over && mouse_down_on_over)
@@ -290,8 +307,9 @@ void UIWidget::key_down_func()
    if (disabled) return;
 
    // call this function on the children first
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->key_down_func();
+   // UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->key_down_func();
 
    // then call on self
    on_key_down();
@@ -304,8 +322,9 @@ void UIWidget::key_up_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->key_up_func();
+   // UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->key_up_func();
 
    on_key_up();
 }
@@ -317,8 +336,9 @@ void UIWidget::key_char_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->key_char_func();
+   // UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->key_char_func();
 
    on_key_char();
 }
@@ -330,8 +350,9 @@ void UIWidget::joy_up_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->joy_up_func();
+   // UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->joy_up_func();
 
    on_joy_up();
 }
@@ -343,8 +364,9 @@ void UIWidget::joy_axis_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->joy_axis_func();
+   // UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->joy_axis_func();
 
    on_joy_axis();
 }
@@ -356,8 +378,9 @@ void UIWidget::joy_down_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->joy_down_func();
+   // UIFamilyGut
+   //for (unsigned i=0; i<family.children.size(); i++)
+      //family.children[i]->joy_down_func();
 
 
    if (mouse_over && Framework::current_event->joystick.button == 0)
@@ -445,7 +468,8 @@ void UIWidget::set_as_focused()
 {
    if (disabled) return;
    // todo: this might require that the superparent is iterated
-   if (family.parent) family.parent->family.set_focus_to_child(this);
+   //UIFamilyGut
+   //if (family.parent) family.parent->family.set_focus_to_child(this);
 }
 
 
@@ -487,10 +511,13 @@ void UIWidget::set_as_enabled()
 
 
 
+//UIFamilyGut
+/*
 UIFamily &UIWidget::get_family()
 {
    return family;
 }
+*/
 
 
 

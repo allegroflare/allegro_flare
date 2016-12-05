@@ -18,7 +18,8 @@ UICamera::UICamera(UIWidget *parent, float x, float y, float w, float h)
 
 void UICamera::on_message(UIWidget *sender, std::string message)
 {
-   if (family.parent) family.parent->on_message(sender, message);
+   //UIFamilyGut
+   //if (family.parent) family.parent->on_message(sender, message);
 }
 
 

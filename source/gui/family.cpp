@@ -69,12 +69,16 @@ bool UIFamily::assign_child_to_new_parent(UIWidget *child_widget, UIWidget *new_
    // have the current parent remove this child
    if (!child_widget) { std::cout << "err1" << std::endl; return false; } // TODO: fix crappy error messages
 
+   //UIFamilyGut
+   /*
    if (child_widget->family.parent)
    {
       child_widget->family.parent->family.unregister_as_child(child_widget);
    }
+   */
 
    // assign the parent to the new parent
+   /*
    if (new_parent)
    {
       new_parent->family.register_as_child(child_widget);
@@ -85,6 +89,7 @@ bool UIFamily::assign_child_to_new_parent(UIWidget *child_widget, UIWidget *new_
       new_parent->family.register_as_child(NULL); //< is this ok?? right now, nothing really happens with this functionality
       // it's akin to a dangling pointer and the child is left without
    }
+   */
 
    return true;
 }
@@ -187,7 +192,10 @@ UIWidget *UIFamily::__get_nth_descendant_r(UIFamily &children, int n)
    {
       _index_count++;
       UIWidget *p = children.children[i];
+      //UIFamilyGut
+      /*
       widget = UIFamily::__get_nth_descendant_r(p->family, n);
+      */
       if (widget) return widget;
    }
    return NULL;
@@ -212,7 +220,8 @@ int UIFamily::__get_num_descendants_r(UIFamily &children)
       _index_count++;
 
       UIWidget *p = children.children[i];
-      UIFamily::__get_num_descendants_r(p->family);
+      //UIFamilyGut
+      //UIFamily::__get_num_descendants_r(p->family);
    }
    return _index_count;
 }
