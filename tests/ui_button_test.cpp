@@ -30,9 +30,8 @@ struct Fixture
 
 BOOST_FIXTURE_TEST_CASE(correctly_sets_its_widget_typename, Fixture)
 {
-   //DataAttrPull
-   //UIButton button = UIButton(NULL, 0, 0, 10, 10, "Hello");
-   //BOOST_CHECK_EQUAL("UIButton", button.attr.get(UI_ATTR__UI_WIDGET_TYPE));
+   UIButton button = UIButton(NULL, 0, 0, 10, 10, "Hello");
+   BOOST_CHECK_EQUAL("UIButton", button.get(UI_ATTR__UI_WIDGET_TYPE));
 }
 
 

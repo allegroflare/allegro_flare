@@ -138,9 +138,8 @@ void UIFamily::unfocus_all()
 
 UIWidget *UIFamily::get_element_by_id(std::string id)
 {
-   //DataAttrPull
-   //for (unsigned i=0; i<children.size(); i++)
-      //if (children[i]->attr.matches("id", id)) return children[i];
+   for (unsigned i=0; i<children.size(); i++)
+      if (children[i]->exists("id", id)) return children[i];
 
    return NULL;
 }
@@ -150,9 +149,8 @@ UIWidget *UIFamily::get_element_by_id(std::string id)
 
 UIWidget *UIFamily::get_1st_element_with_attr(std::string key)
 {
-   //DataAttrPull
-   //for (unsigned i=0; i<children.size(); i++)
-      //if (children[i]->attr.has(key)) return children[i];
+   for (unsigned i=0; i<children.size(); i++)
+      if (children[i]->exists(key)) return children[i];
 
    return NULL;
 }
@@ -162,9 +160,8 @@ UIWidget *UIFamily::get_1st_element_with_attr(std::string key)
 
 UIWidget *UIFamily::get_1st_element_with_attr_val(std::string key, std::string val)
 {
-   //DataAttrPull
-   //for (unsigned i=0; i<children.size(); i++)
-      //if (children[i]->attr.matches(key, val)) return children[i];
+   for (unsigned i=0; i<children.size(); i++)
+      if (children[i]->exists(key, val)) return children[i];
 
    return NULL;
 }
