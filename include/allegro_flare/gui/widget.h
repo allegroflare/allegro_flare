@@ -5,7 +5,6 @@
 
 
 #include <allegro5/allegro.h>
-#include <allegro_flare/gui/family.h>
 #include <allegro_flare/gui/surface_area.h>
 #include <allegro_flare/element_id.h>
 #include <allegro_flare/bit_flags.h>
@@ -15,7 +14,6 @@
 
 
 class UIScreen;
-class UIFamily;
 class Motion;
 class FontBin;
 class SampleBin;
@@ -55,7 +53,6 @@ private:
 
 protected:
    friend class UIScreen;
-   friend class UIFamily;
    friend class UIScrollArea;
 
    UISurfaceArea *surface_area;
@@ -106,7 +103,6 @@ public:
    void set_as_unfocused();
    void set_as_enabled();
    void set_as_disabled();
-   //UIFamily &get_family();
 
    //
    // widget behavior functions
