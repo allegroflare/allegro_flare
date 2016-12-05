@@ -25,6 +25,7 @@ UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, s
    , font_color(color::white)
    , _text_render(NULL)
    , padding(10)
+   , select_all_on_focus(false)
 {
    set_text(text);
 
@@ -118,6 +119,14 @@ void UITextInput::clear_selection()
 void UITextInput::set_default_text_when_empty(std::string default_text)
 {
    default_text_when_empty = default_text;
+}
+
+
+
+
+void UITextInput::set_select_all_on_focus(bool will_select)
+{
+   select_all_on_focus = will_select;
 }
 
 
@@ -428,13 +437,12 @@ void UITextInput::on_draw()
 
 void UITextInput::on_focus()
 {
-   //DataAttrPull
-   //if (attr.has("select_all_on_focus"))
-   //{
+   if (select_all_on_focus)
+   {
       // select all
-    //  cursor_end = 0;
-    //  cursor_pos = text.length();
-   //}
+      cursor_end = 0;
+      cursor_pos = text.length();
+   }
 }
 
 

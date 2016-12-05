@@ -22,6 +22,7 @@ protected:
    int text_x_offset;
    ALLEGRO_COLOR font_color;
    float padding;
+   bool select_all_on_focus;
 
    ALLEGRO_BITMAP *_text_render;
    void _insert_text(const char *str);
@@ -42,6 +43,7 @@ public:
    void insert_text(std::string text);
    void clear_selection();
    void set_default_text_when_empty(std::string default_text="");
+   void set_select_all_on_focus(bool will_select=false);
 
    virtual void on_submit(); // usually instigated by the ENTER key
 
