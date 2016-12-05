@@ -14,6 +14,7 @@ class UITextInput : public UIWidget
 {
 protected:
    std::string text;
+   std::string default_text_when_empty;
    int cursor_pos;
    int cursor_end;
    float cursor_blink_counter;
@@ -40,6 +41,7 @@ public:
    bool selection_active();
    void insert_text(std::string text);
    void clear_selection();
+   void set_default_text_when_empty(std::string default_text="");
 
    virtual void on_submit(); // usually instigated by the ENTER key
 

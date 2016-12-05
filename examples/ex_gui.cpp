@@ -114,7 +114,7 @@ public:
 
       text_input = new UITextInput(this, place.size.x/2, 80, place.size.x-30, 50, "");
       text_input->set_as_focused();
-      text_input->attr.set("default_text_when_empty", "type a command");
+      text_input->set_default_text_when_empty("type a command");
 
       text = new UIText(this, 27, text_input->place.position.y + text_input->place.size.y + 4, "last:");
 
