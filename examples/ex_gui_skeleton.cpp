@@ -176,8 +176,8 @@ public:
       bone_test->draw(display->width()/2, display->height()/4, focus_bone_index);
 
       al_draw_text(fonts["DroidSans.ttf 42"], color::white, 10, 17, 0, (tostring("Skeleton Example")).c_str());
-      al_draw_text(fonts["consola.ttf 20"], color::white, 10, 60, 0, (tostring("number of bones: ") + tostring(bone_test->get_tree_size())).c_str());
-      al_draw_text(fonts["consola.ttf 20"], color::white, 10, 80, 0, (tostring("current focused bone index: ") + tostring(focus_bone_index)).c_str());
+      al_draw_text(fonts["DroidSans.ttf 20"], color::white, 10, 60, 0, (tostring("number of bones: ") + tostring(bone_test->get_tree_size())).c_str());
+      al_draw_text(fonts["DroidSans.ttf 20"], color::white, 10, 80, 0, (tostring("current focused bone index: ") + tostring(focus_bone_index)).c_str());
       //al_draw_text(fonts["consola.ttf 32"], color::white, 10, 20, 0, tostring(bone_test->get_tree_size()).c_str());
 
       // draw some nice text at the bottom
