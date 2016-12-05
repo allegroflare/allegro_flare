@@ -87,7 +87,7 @@ private:
    UIText *text;
    MyMediaPlayer *media_player;
 
-   DataAttr virtual_memory;
+   Attributes virtual_memory;
    std::string virtual_memory_filename;
 
    int mouse_down_x, mouse_down_y;
@@ -195,7 +195,7 @@ public:
          }
          else
          {
-            if (!virtual_memory.has(possible_variable_name))
+            if (!virtual_memory.exists(possible_variable_name))
             {
                std::cout << "[error] unrecognized symbol \"" << possible_variable_name << "\"" << std::endl;
                return "";
