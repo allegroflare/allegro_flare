@@ -63,9 +63,6 @@ public:
       , target_widget(NULL)
       , y_cursor(60, 26)
    {
-      attr.set(UI_ATTR__UI_WIDGET_TYPE, "UIWidgetInspector");
-      attr.set("id", "WidgetInspector" + tostring(UIWidget::get_num_created_widgets()));
-
       new UIDraggableRegion(this, place.size.x/2, place.size.y/2, place.size.x, place.size.y);
    }
 
