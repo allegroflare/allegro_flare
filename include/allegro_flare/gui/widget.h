@@ -7,7 +7,7 @@
 #include <allegro5/allegro.h>
 #include <allegro_flare/gui/family.h>
 #include <allegro_flare/gui/surface_area.h>
-#include <allegro_flare/attributes.h>
+#include <allegro_flare/element_id.h>
 #include <allegro_flare/bit_flags.h>
 #include <allegro_flare/color.h>
 
@@ -47,7 +47,7 @@ enum WIDGET_FLAGS
 
 
 
-class UIWidget : public Attributes
+class UIWidget : public ElementID
 {
 private:
    static int num_active_widgets; // holds the number of widgets that have been created but not destroyed
@@ -58,7 +58,6 @@ protected:
    friend class UIFamily;
    friend class UIScrollArea;
 
-   //UIFamily family;
    UISurfaceArea *surface_area;
 
    // TODO these might need to be implemented in a flag system

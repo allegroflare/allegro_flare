@@ -13,8 +13,7 @@
 
 
 UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area)
-   : Attributes()
-   //, family(parent)
+   : ElementID(parent)
    , surface_area(surface_area)
    , place(surface_area->placement)
    , mouse_down_on_over(false)
