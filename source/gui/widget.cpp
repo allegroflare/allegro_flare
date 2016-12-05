@@ -125,8 +125,19 @@ void UIWidget::send_message_to_parent(std::string message)
 {
    if (disabled) return;
 
-   //UIFamilyGut
-   //if (family.parent) family.parent->on_message(this, message);
+   UIWidget *parent = static_cast<UIWidget *>(get_parent());
+   if (parent) parent->on_message(this, message);
+}
+
+
+
+
+void UIWidget::send_message_to_parent(std::string message, UIWidget *widget)
+{
+   if (disabled) return;
+
+   UIWidget *parent = static_cast<UIWidget *>(get_parent());
+   if (parent) parent->on_message(widget, message);
 }
 
 

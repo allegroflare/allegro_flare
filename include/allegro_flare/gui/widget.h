@@ -94,6 +94,7 @@ public:
    // ordering
    void bring_to_front();
    void send_message_to_parent(std::string message);
+   void send_message_to_parent(std::string message, UIWidget *sender);
 
    // retrieval
    bool is_mouse_over();
