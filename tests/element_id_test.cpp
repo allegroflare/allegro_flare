@@ -112,6 +112,29 @@ BOOST_AUTO_TEST_CASE(returns_true_if_it_has_children_otherwise_false)
 
 
 
+BOOST_AUTO_TEST_CASE(returns_its_parent)
+{
+   ElementID root = ElementID(nullptr);
+   ElementID child_1 = ElementID(&root);
+   ElementID child_1A = ElementID(&child_1);
+
+   BOOST_CHECK_EQUAL(&root, child_1.get_parent());
+   BOOST_CHECK_EQUAL(&child_1, child_1A.get_parent());
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(returns_nullptr_if_it_does_not_have_a_parent)
+{
+   ElementID root = ElementID(nullptr);
+
+   BOOST_CHECK_EQUAL((ElementID *)(nullptr), root.get_parent());
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_1)
 {
    ElementID root = ElementID(NULL);

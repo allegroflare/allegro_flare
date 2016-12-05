@@ -25,6 +25,7 @@ public:
    ~ElementID();
 
    int get_id();
+   ElementID *get_parent();
    ElementID *get_root();
    int num_children();
    bool has_children();

@@ -57,6 +57,14 @@ int ElementID::get_id()
 
 
 
+ElementID *ElementID::get_parent()
+{
+   return parent;
+}
+
+
+
+
 ElementID *ElementID::get_root()
 {
    if (!parent) return NULL;
