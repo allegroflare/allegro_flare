@@ -247,9 +247,8 @@ public:
       new UIButton(this, 465, 240, 75, 30, "OK");
 
       // re-align all the elements
-      //UIFamilyGut
-      //for (unsigned i=0; i<family.children.size(); i++)
-         //family.children[i]->place.align = vec2d(0, 0);
+      for (auto &child : get_children<UIWidget>())
+         child->place.align = vec2d(0, 0);
    }
    void set_color(ALLEGRO_COLOR col)
    {

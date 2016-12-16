@@ -71,8 +71,7 @@ void UISpinnerBase::on_key_char()
 
 void UISpinnerBase::on_change()
 {
-   //UIFamilyGut
-   //if (family.parent) family.parent->on_message(this, "on_change");
+   if (has_parent()) static_cast<UIWidget *>(get_parent())->on_message(this, "on_change");
 }
 
 

@@ -250,12 +250,8 @@ public:
          }
          else
          {
-            //UIFamilyGut
-            /*
-            if (state_bank_num < 0) {}
-            else if (state_bank_num >= (int)family.children.size()) {}
-            else family.children[state_bank_num]->on_click();
-            */
+            UIWidget *child = static_cast<UIWidget *>(get_nth_child(state_bank_num));
+            if (child) child->on_click();
             //set_to_keyframe(bone_test, &frames[frame_bank_num], 0.3);
             //std::cout << "moving to bank " << frame_bank_num << std::endl;
          }

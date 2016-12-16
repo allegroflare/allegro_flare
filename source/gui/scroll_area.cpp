@@ -16,8 +16,7 @@ UIScrollArea::UIScrollArea(UIWidget *parent, float x, float y, float w, float h,
    , v_slider(NULL)
    , canvas_render(al_create_bitmap(w, h))
 {
-   //UIFamilyGut
-   //if (canvas) UIFamily::assign_child_to_new_parent(canvas, this); // I believe this usage is the proper design.
+   if (canvas) this->reassign_parent(canvas);
 
    v_slider = new UIScrollBar(this, w, 0, 16, h);
    v_slider->place.align = vec2d(1, 0);
@@ -65,8 +64,8 @@ void UIScrollArea::mouse_axes_func(float mx, float my, float mdx, float mdy)
 
    if (!surface_area->collides(mx, my))
    {
-      //UIFamilyGut
-      //family.parent->mouse_is_blocked = true; // TODO: this works, but I don't think it's "correct"
+      UIWidget *parent = static_cast<UIWidget *>(get_parent());
+      if (parent) parent->mouse_is_blocked = true; // TODO: this works, but I don't think it's "correct"
       // e.g. what if there is no parent?
    }
    else
@@ -110,8 +109,8 @@ void UIScrollArea::draw_func()
    UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
    if (canvas) al_draw_bitmap(canvas_render, 0, 0, ALLEGRO_FLAGS_EMPTY);
 
-   //UIFamilyGut
-   //family.draw_all_except(canvas); // except the canvas?
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      if (child != canvas) child->draw_func();
 
    place.restore_transform();
 }

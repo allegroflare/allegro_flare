@@ -27,14 +27,15 @@ public:
    void primary_timer_func() override
    {
       UIScreen::primary_timer_func();
-      //UIFamilyGut
-      /*
-      for (unsigned i=0; i<family.children.size(); i++)
+      for (unsigned i=0; i<num_children(); i++)
       {
-         if (family.children[i]->delete_me == true)
-            delete family.children[i--];
+         UIWidget *child = static_cast<UIWidget *>(get_nth_child(i));
+         if (child->delete_me == true)
+         {
+            delete child;
+            i--;
+         }
       }
-      */
    }
    void on_message(UIWidget *sender, std::string message) override
    {

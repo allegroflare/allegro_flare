@@ -125,8 +125,7 @@ void UIButton::on_click()
    // automatic behavior for UIButton, will send an on_click to the parent when clicked this
    // represents a new use-friendly concept where widgets automatically send messages to their
    // parents for their most common purpose event.  In this case, a button. You click it.
-   //UIFamilyGut
-   //if (family.parent) family.parent->on_message(this, "on_click");
+   send_message_to_parent("on_click");
 }
 
 

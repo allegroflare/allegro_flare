@@ -450,9 +450,8 @@ void UITextInput::on_focus()
 
 void UITextInput::on_submit()
 {
-   //UIFamilyGut
-   //if (family.parent) family.parent->on_message(this, "on_submit");
-   //on_change();
+   if (has_parent()) static_cast<UIWidget *>(get_parent())->on_message(this, "on_submit");
+   on_change();
 }
 
 
