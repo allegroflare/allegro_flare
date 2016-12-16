@@ -47,6 +47,7 @@ public:
    std::vector<ElementID *> get_flat_list_of_descendants();
    int get_index_of_child(ElementID *child);
    bool is_child(ElementID *child);
+   bool is_descendant(ElementID *descendant);
    ElementID *get_next_sibling();
    ElementID *get_previous_sibling();
 

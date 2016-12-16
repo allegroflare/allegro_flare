@@ -616,6 +616,47 @@ BOOST_FIXTURE_TEST_CASE(can_identify_if_an_element_is_a_child, Fixture)
 
 
 
+BOOST_FIXTURE_TEST_CASE(can_identify_if_an_element_is_a_descendant, Fixture)
+{
+   BOOST_CHECK_EQUAL(true, root.is_descendant(child_1));
+   BOOST_CHECK_EQUAL(true, root.is_descendant(child_1_B));
+   BOOST_CHECK_EQUAL(true, root.is_descendant(child_2));
+   BOOST_CHECK_EQUAL(true, root.is_descendant(child_2_A_1));
+   BOOST_CHECK_EQUAL(true, root.is_descendant(child_2_B));
+
+   BOOST_CHECK_EQUAL(true, child_2->is_descendant(child_2_A));
+   BOOST_CHECK_EQUAL(true, child_2->is_descendant(child_2_A_1));
+
+   BOOST_CHECK_EQUAL(true, child_2_A->is_descendant(child_2_A_1));
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(can_identify_if_an_element_is_not_a_descendant, Fixture)
+{
+   BOOST_CHECK_EQUAL(false, root.is_descendant(&root));
+   BOOST_CHECK_EQUAL(false, root.is_descendant(nullptr));
+
+   BOOST_CHECK_EQUAL(false, child_1->is_descendant(&root));
+   BOOST_CHECK_EQUAL(false, child_1->is_descendant(nullptr));
+   BOOST_CHECK_EQUAL(false, child_1->is_descendant(child_1));
+   BOOST_CHECK_EQUAL(false, child_1->is_descendant(child_2));
+   BOOST_CHECK_EQUAL(false, child_1->is_descendant(child_2_A));
+   BOOST_CHECK_EQUAL(false, child_1->is_descendant(child_2_A_1));
+   BOOST_CHECK_EQUAL(false, child_1->is_descendant(child_2_B));
+
+   BOOST_CHECK_EQUAL(false, child_2->is_descendant(&root));
+   BOOST_CHECK_EQUAL(false, child_2->is_descendant(nullptr));
+   BOOST_CHECK_EQUAL(false, child_2->is_descendant(child_2));
+   BOOST_CHECK_EQUAL(false, child_2->is_descendant(child_1));
+   BOOST_CHECK_EQUAL(false, child_2->is_descendant(child_1_A));
+   BOOST_CHECK_EQUAL(false, child_2->is_descendant(child_1_B));
+}
+
+
+
+
 BOOST_FIXTURE_TEST_CASE(returns_a_list_of_children, Fixture)
 {
    std::vector<ElementID *> expected_root_children = {child_1, child_2};

@@ -278,6 +278,19 @@ bool ElementID::is_child(ElementID *child)
 
 
 
+bool ElementID::is_descendant(ElementID *descendant)
+{
+   for (auto &child : children)
+   {
+      if (child == descendant) return true;
+      if (child->is_descendant(descendant)) return true;
+   }
+   return false;
+}
+
+
+
+
 ElementID *ElementID::get_nth_child(int index)
 {
    if (index < 0 || index >= children.size()) return nullptr;
