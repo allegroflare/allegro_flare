@@ -13,6 +13,46 @@
 
 
 
+ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bmp, int scale)
+{
+   // note that the original bitmap may have been created with
+   // certain "new bitmap flags" that prevent it from being scaled
+   // without blurring (e.g. ALLEGRO_MAG_LINEAR).  For that reason,
+   // the original bitmap needs to be recreated with the appropriate flags
+   // and then it can be drawn at scale to the new surface.
+
+
+   // clone the source bitmap that we want to copy, with default flags
+
+   ALLEGRO_STATE previous_new_bitmap_state;
+   al_store_state(&previous_new_bitmap_state, ALLEGRO_STATE_BITMAP);
+   al_set_new_bitmap_flags(ALLEGRO_CONVERT_BITMAP);
+
+   ALLEGRO_BITMAP *clone = al_clone_bitmap(bmp);
+
+   al_restore_state(&previous_new_bitmap_state);
+
+
+   // now perform the regular scale
+
+   ALLEGRO_BITMAP *scaled_render = create_scaled_render(clone,
+         al_get_bitmap_width(clone) * scale,
+         al_get_bitmap_height(clone) * scale
+      );
+
+
+   // destroy our clone
+
+   al_destroy_bitmap(clone);
+
+
+   // return the scaled render
+
+   return scaled_render;
+}
+
+
+
 ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, int dest_w, int dest_h)
 {
    //if (dest_w < 1 || dest_h < 1) logger("[create_scaled_render] dest_w or dest_h too small");
