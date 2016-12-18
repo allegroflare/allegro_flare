@@ -21,6 +21,7 @@ private:
 
 public:
    ALLEGRO_BITMAP *_bitmap;
+   int _flags;
 
    static BitmapObject *get_dummy()
    {
@@ -32,6 +33,7 @@ public:
    BitmapObject(ALLEGRO_BITMAP *bitmap)
       : object2d(0,0,128,128)
       , _bitmap(bitmap)
+      , _flags(ALLEGRO_FLAGS_EMPTY)
    {
       this->bitmap(_bitmap);
    }
@@ -51,6 +53,7 @@ public:
    inline BitmapObject &scale(float s) { object2d::scale(s); return *this; }
    inline BitmapObject &opacity(float opacity) { object2d::opacity(opacity); return *this; }
    inline BitmapObject &save(std::string filename) { al_save_bitmap(filename.c_str(), _bitmap); return *this; }
+   inline BitmapObject &flags(int flags) { _flags = flags; return *this; }
    ALLEGRO_BITMAP *get_bitmap() { return _bitmap; }
    inline BitmapObject &bitmap(ALLEGRO_BITMAP *bitmap)
    {
@@ -73,8 +76,8 @@ public:
       if (_placement) _placement->start_transform();
       if (_bitmap)
       {
-         if (_appearance) al_draw_tinted_bitmap(_bitmap, color::color(_appearance->color, _appearance->opacity), 0, 0, ALLEGRO_FLAGS_EMPTY);
-         else al_draw_bitmap(_bitmap, 0, 0, ALLEGRO_FLAGS_EMPTY);
+         if (_appearance) al_draw_tinted_bitmap(_bitmap, color::color(_appearance->color, _appearance->opacity), 0, 0, _flags);
+         else al_draw_bitmap(_bitmap, 0, 0, _flags);
       }
       if (_placement) _placement->restore_transform();
       return *this;
