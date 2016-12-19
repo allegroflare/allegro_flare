@@ -73,7 +73,7 @@ public:
    }
 
    template<class T>
-   static std::vector<T *> recast_collection(std::vector<ElementID *> &collection)
+   static std::vector<T *> recast_collection(std::vector<ElementID *> collection)
    {
       std::vector<T *> recasted_collection;
       recasted_collection.reserve(collection.size());
