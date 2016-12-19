@@ -72,6 +72,15 @@ public:
       return elements;
    }
 
+   template<class T>
+   static std::vector<T *> recast_collection(std::vector<ElementID *> &collection)
+   {
+      std::vector<T *> recasted_collection;
+      recasted_collection.reserve(collection.size());
+      for (auto &element : collection) { recasted_collection.push_back(static_cast<T *>(element)); }
+      return recasted_collection;
+   }
+
 private:
    static int next_unique_id;
    static int __index_count_r;
