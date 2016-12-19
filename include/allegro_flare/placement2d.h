@@ -17,7 +17,6 @@ private:
    ALLEGRO_TRANSFORM previous_transform;
 
 public:
-   // float x, y, w, h, rotation, scale_x, scale_y, align_x, align_y, anchor_x, anchor_y;
    vec2d position, size, align, scale, anchor;
    float rotation;
 
