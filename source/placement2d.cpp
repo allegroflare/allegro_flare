@@ -82,7 +82,7 @@ void placement2d::restore_transform()
 
 
 
-void placement2d::build_transform(ALLEGRO_TRANSFORM *transform)
+void placement2d::build_transform(ALLEGRO_TRANSFORM *transform) const
 {
    al_identity_transform(transform);
 
@@ -119,7 +119,7 @@ void placement2d::draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, f
 
 
 
-void placement2d::transform_coordinates(float *xx, float *yy)
+void placement2d::transform_coordinates(float *xx, float *yy) const
 {
    ALLEGRO_TRANSFORM transform;
    this->build_transform(&transform);
@@ -131,7 +131,7 @@ void placement2d::transform_coordinates(float *xx, float *yy)
 
 
 
-void placement2d::place_coordinates(float *x, float *y)
+void placement2d::place_coordinates(float *x, float *y) const
 {
    ALLEGRO_TRANSFORM transform;
    this->build_transform(&transform);
@@ -142,7 +142,7 @@ void placement2d::place_coordinates(float *x, float *y)
 
 
 
-bool placement2d::collide(float x, float y)
+bool placement2d::collide(float x, float y) const
 {
    transform_coordinates(&x, &y);
 
@@ -156,7 +156,7 @@ bool placement2d::collide(float x, float y)
 
 
 
-bool placement2d::collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left)
+bool placement2d::collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left) const
 {
    transform_coordinates(&x, &y);
 
