@@ -18,6 +18,10 @@ placement2d::placement2d()
    , scale(1, 1)
    , anchor(0, 0)
    , rotation(0)
+   , x(position.x)
+   , y(position.y)
+   , w(size.x)
+   , h(size.y)
 {}
 
 
@@ -30,6 +34,10 @@ placement2d::placement2d(float x, float y, float w, float h)
    , scale(1, 1)
    , anchor(0, 0)
    , rotation(0)
+   , x(position.x)
+   , y(position.y)
+   , w(size.x)
+   , h(size.y)
 {}
 
 
@@ -42,6 +50,10 @@ placement2d::placement2d(float x, float y, float w, float h, float rotation, flo
    , scale(scale_x, scale_y)
    , anchor(anchor_x, anchor_y)
    , rotation(rotation)
+   , x(position.x)
+   , y(position.y)
+   , w(size.x)
+   , h(size.y)
 {}
 
 

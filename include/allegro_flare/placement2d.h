@@ -19,6 +19,7 @@ private:
 public:
    vec2d position, size, align, scale, anchor;
    float rotation;
+   float &x, &y, &w, &h;  // for convience
 
    placement2d();
    placement2d(float x, float y, float w, float h);
