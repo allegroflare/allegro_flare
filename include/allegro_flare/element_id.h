@@ -22,7 +22,7 @@ private:
 
 public:
    ElementID(ElementID *parent);
-   ~ElementID();
+   virtual ~ElementID();
 
    int get_id();
    ElementID *get_parent();
