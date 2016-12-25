@@ -26,8 +26,10 @@ public:
    placement2d(float x, float y, float w, float h, float rotation, float scale_x=1.0, float scale_y=1.0, float align_x=0.5, float align_y=0.5, float anchor_x=0.0, float anchor_y=0.0);
 
    void start_transform();
+   void start_reverse_transform();
    void restore_transform();
    void build_transform(ALLEGRO_TRANSFORM *transform) const;
+   void build_reverse_transform(ALLEGRO_TRANSFORM *transform) const;
    void draw_box(ALLEGRO_COLOR color, bool draw_origin);
    void draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, float pt, float pr, float pb, float pl);
    void draw_origin();
