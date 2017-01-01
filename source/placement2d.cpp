@@ -17,6 +17,7 @@ placement2d::placement2d()
    , align(0.5, 0.5)
    , scale(1, 1)
    , anchor(0, 0)
+   , flip(false, false)
    , rotation(0)
    , x(position.x)
    , y(position.y)
@@ -33,6 +34,7 @@ placement2d::placement2d(float x, float y, float w, float h)
    , align(0.5, 0.5)
    , scale(1, 1)
    , anchor(0, 0)
+   , flip(false, false)
    , rotation(0)
    , x(position.x)
    , y(position.y)
@@ -49,6 +51,7 @@ placement2d::placement2d(float x, float y, float w, float h, float rotation, flo
    , align(align_x, align_y)
    , scale(scale_x, scale_y)
    , anchor(anchor_x, anchor_y)
+   , flip(false, false)
    , rotation(rotation)
    , x(position.x)
    , y(position.y)
@@ -114,7 +117,7 @@ void placement2d::build_transform(ALLEGRO_TRANSFORM *transform) const
    al_identity_transform(transform);
 
    al_translate_transform(transform, -align.x*size.x, -align.y*size.y);
-   al_scale_transform(transform, scale.x, scale.y);
+   al_scale_transform(transform, scale.x * (flip.x ? -1 : 1), scale.y * (flip.y ? -1 : 1));
    al_translate_transform(transform, anchor.x, anchor.y);
    al_rotate_transform(transform, rotation);
    al_translate_transform(transform, position.x, position.y);
@@ -130,7 +133,7 @@ void placement2d::build_reverse_transform(ALLEGRO_TRANSFORM *transform) const
    al_translate_transform(transform, -position.x, -position.y);
    al_rotate_transform(transform, -rotation);
    al_translate_transform(transform, -anchor.x, -anchor.y);
-   al_scale_transform(transform, 1.0/scale.x, 1.0/scale.y);
+   al_scale_transform(transform, 1.0/scale.x * (flip.x ? -1 : 1), 1.0/scale.y * (flip.y ? -1 : 1));
    al_translate_transform(transform, align.x*size.x, align.y*size.y);
 }
 
@@ -218,6 +221,8 @@ void placement2d::clear()
    align.x = 0.5;
    align.y = 0.5;
    rotation = 0;
+   flip.x = false;
+   flip.y = false;
    scale.x = 1;
    scale.y = 1;
    size.x = 1;
@@ -247,6 +252,7 @@ placement2d& placement2d::operator+=(placement2d& other)
    scale += other.scale;
    anchor += other.anchor;
    rotation += other.rotation;
+   // flip.x and flip.y are ignored
    return *this;
 }
 

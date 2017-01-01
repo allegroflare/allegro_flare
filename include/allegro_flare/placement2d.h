@@ -6,6 +6,7 @@
 
 #include <string>
 #include <allegro5/allegro.h>
+#include <allegro_flare/vec2b.h>
 #include <allegro_flare/vec2d.h>
 
 
@@ -18,6 +19,7 @@ private:
 
 public:
    vec2d position, size, align, scale, anchor;
+   vec2b flip;
    float rotation;
    float &x, &y, &w, &h;  // for convience
 
