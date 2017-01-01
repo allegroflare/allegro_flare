@@ -99,6 +99,23 @@ object2d &object2d::appearance_on()
 
 
 
+object2d &object2d::start_transform()
+{
+   if (!_placement) transform_on();
+   _placement->start_transform();
+   return *this;
+}
+
+
+
+object2d &object2d::restore_transform()
+{
+   if (!_placement) transform_on();
+   _placement->restore_transform();
+   return *this;
+}
+
+
 
 object2d &object2d::rotation(float rotation)
 {
@@ -326,6 +343,16 @@ object2d &object2d::draw()
    al_draw_filled_rectangle(0, 0, 0+*_w, 0+*_h, _appearance->color);
    al_draw_rectangle(0, 0, 0+*_w, 0+*_h, al_color_name("dodgerblue"), 1.0);
    _placement->restore_transform();
+   return *this;
+}
+
+
+
+
+object2d &object2d::draw_raw()
+{
+   al_draw_filled_rectangle(0, 0, 0+*_w, 0+*_h, _appearance->color);
+   al_draw_rectangle(0, 0, 0+*_w, 0+*_h, al_color_name("dodgerblue"), 1.0);
    return *this;
 }
 

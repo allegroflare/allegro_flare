@@ -51,6 +51,8 @@ public:
 
    virtual object2d &transform_on();
    virtual object2d &appearance_on();
+   virtual object2d &start_transform();
+   virtual object2d &restore_transform();
    virtual object2d &rotation(float rotation);
    virtual object2d &scale(float scale);
    virtual object2d &anchor(float x, float y);
@@ -73,6 +75,7 @@ public:
    virtual object2d &move(float disp_x, float disp_y);
 
    virtual object2d &draw();
+   virtual object2d &draw_raw();
 
    virtual void draw_origin(ALLEGRO_COLOR col=al_map_rgb(255,0,0));
 
