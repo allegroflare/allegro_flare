@@ -71,14 +71,19 @@ public:
       }
       return *this;
    }
-   inline BitmapObject &draw()
+   inline BitmapObject &draw_raw()
    {
-      if (_placement) _placement->start_transform();
       if (_bitmap)
       {
          if (_appearance) al_draw_tinted_bitmap(_bitmap, color::color(_appearance->color, _appearance->opacity), 0, 0, _flags);
          else al_draw_bitmap(_bitmap, 0, 0, _flags);
       }
+      return *this;
+   }
+   inline BitmapObject &draw()
+   {
+      if (_placement) _placement->start_transform();
+      draw_raw();
       if (_placement) _placement->restore_transform();
       return *this;
    }
