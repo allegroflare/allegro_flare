@@ -35,6 +35,8 @@ float object2d::anchor_x() { return (_placement) ? _placement->anchor.x : 0.0; }
 float object2d::anchor_y() { return (_placement) ? _placement->anchor.x : 0.0; }
 float object2d::scale_x() { return (_placement) ? _placement->scale.x : 1.0; }
 float object2d::scale_y() { return (_placement) ? _placement->scale.y : 1.0; }
+bool object2d::flip_x() { return (_placement) ? _placement->flip.x : false; }
+bool object2d::flip_y() { return (_placement) ? _placement->flip.y : false; }
 float object2d::align_x() { return (_placement) ? _placement->align.x : 0.0; }
 float object2d::align_y() { return (_placement) ? _placement->align.y : 0.0; }
 float object2d::opacity() { return (_appearance) ? _appearance->opacity : 1.0; }
@@ -113,6 +115,16 @@ object2d &object2d::scale(float scale)
    if (!_placement) transform_on();
    _placement->scale.x = scale;
    _placement->scale.y = scale;
+   return *this;
+}
+
+
+
+object2d &object2d::flip(bool flip_x, bool flip_y)
+{
+   if (!_placement) transform_on();
+   _placement->flip.x = flip_x;
+   _placement->flip.y = flip_y;
    return *this;
 }
 

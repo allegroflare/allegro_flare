@@ -42,6 +42,8 @@ public:
    float scale_y();
    float align_x();
    float align_y();
+   bool flip_x();
+   bool flip_y();
    float opacity();
    ALLEGRO_COLOR color();
 
@@ -53,6 +55,7 @@ public:
    virtual object2d &scale(float scale);
    virtual object2d &anchor(float x, float y);
    virtual object2d &scale(float scale_x, float scale_y);
+   virtual object2d &flip(bool flip_x, bool flip_y);
    virtual object2d &scale_to(float w, float h);
    virtual object2d &scale_to_width(float w);
    virtual object2d &scale_to_height(float h);
