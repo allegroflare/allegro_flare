@@ -4,6 +4,7 @@
 
 #include <allegro_flare/useful_php.h>
 
+#include <algorithm>
 #include <fstream>
 #include <iomanip>
 
