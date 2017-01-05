@@ -10,7 +10,7 @@
 
 class UILayoutLoaderBase
 {
-private:
+protected:
    UIWidget *parent;
    std::string content;
 
