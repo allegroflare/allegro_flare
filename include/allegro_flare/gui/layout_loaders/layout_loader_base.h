@@ -1,6 +1,4 @@
-#ifndef __AF_LAYOUT_LOADER_BASE_HEADER
-#define __AF_LAYOUT_LOADER_BASE_HEADER
-
+#pragma once
 
 
 
@@ -12,11 +10,17 @@
 
 class UILayoutLoaderBase
 {
+private:
+   UIWidget *parent;
+   std::string filename;
+
 public:
-   virtual bool load_file(UIWidget *parent, std::string filename) = 0;
+   UILayoutLoaderBase(UIWidget *parent, std::string filename);
+   virtual ~UILayoutLoaderBase();
+
+   virtual bool load_file() = 0;
 };
 
 
 
 
-#endif
