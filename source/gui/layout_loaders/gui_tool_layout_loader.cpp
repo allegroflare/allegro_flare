@@ -7,8 +7,9 @@
 
 
 
-GUIToolLayoutLoader::GUIToolLayoutLoader(UIWidget *parent, std::string filename)
-   : UILayoutLoaderBase(parent, filename)
+
+GUIToolLayoutLoader::GUIToolLayoutLoader(UIWidget *parent, std::string content)
+   : UILayoutLoaderBase(parent, content)
 {}
 
 

@@ -7,9 +7,9 @@
 
 
 
-UILayoutLoaderBase::UILayoutLoaderBase(UIWidget *parent, std::string filename)
+UILayoutLoaderBase::UILayoutLoaderBase(UIWidget *parent, std::string content)
    : parent(parent)
-   , filename(filename)
+   , content(content)
 {}
 
 

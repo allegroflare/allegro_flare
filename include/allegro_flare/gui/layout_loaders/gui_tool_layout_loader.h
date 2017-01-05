@@ -11,7 +11,7 @@
 class GUIToolLayoutLoader : public UILayoutLoaderBase
 {
 public:
-   GUIToolLayoutLoader(UIWidget *parent, std::string filename);
+   GUIToolLayoutLoader(UIWidget *parent, std::string content);
    bool load_file();
 };
 
