@@ -350,6 +350,30 @@ ElementID *ElementID::get_previous_sibling()
 
 
 
+bool ElementID::bring_child_to_front(ElementID *child)
+{
+   int index = get_index_of_child(child);
+   if (index == -1) return false;
+   children.erase(children.begin() + index);
+   children.insert(children.begin(), child);
+   return true;
+}
+
+
+
+
+bool ElementID::send_child_to_back(ElementID *child)
+{
+   int index = get_index_of_child(child);
+   if (index == -1) return false;
+   children.erase(children.begin() + index);
+   children.push_back(child);
+   return true;
+}
+
+
+
+
 std::vector<ElementID *> ElementID::get_children()
 {
    return children;

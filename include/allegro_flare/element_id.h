@@ -53,6 +53,9 @@ public:
    ElementID *get_next_sibling();
    ElementID *get_previous_sibling();
 
+   bool bring_child_to_front(ElementID *child);
+   bool send_child_to_back(ElementID *child);
+
    template<class T> // does not have tests
    std::vector<T *> get_flat_list_of_descendants()
    {

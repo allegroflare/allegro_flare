@@ -641,6 +641,66 @@ BOOST_FIXTURE_TEST_CASE(returns_its_next_sibling, Fixture)
 
 
 
+BOOST_FIXTURE_TEST_CASE(can_bring_its_child_to_the_front, Fixture)
+{
+   root.bring_child_to_front(child_2);
+
+   BOOST_CHECK_EQUAL(child_2, root.get_children().front());
+
+   root.bring_child_to_front(child_3);
+
+   BOOST_CHECK_EQUAL(child_3, root.get_children().front());
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(can_send_its_child_to_the_back, Fixture)
+{
+   root.send_child_to_back(child_1);
+
+   BOOST_CHECK_EQUAL(child_1, root.get_children().back());
+
+   root.send_child_to_back(child_2);
+
+   BOOST_CHECK_EQUAL(child_2, root.get_children().back());
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(does_not_bring_child_to_front_if_the_element_is_not_a_child, Fixture)
+{
+   std::vector<ElementID *> expected_root_children = {child_1, child_2, child_3};
+   ElementID *not_a_child_of_root = child_1_A;
+
+   root.bring_child_to_front(not_a_child_of_root);
+
+   std::vector<ElementID *> returned_root_children = root.get_children();
+
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_root_children.begin(), expected_root_children.end(),
+         returned_root_children.begin(), returned_root_children.end());
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(does_not_send_child_to_back_if_the_element_is_not_a_child, Fixture)
+{
+   std::vector<ElementID *> expected_root_children = {child_1, child_2, child_3};
+   ElementID *not_a_child_of_root = child_1_A;
+
+   root.send_child_to_back(not_a_child_of_root);
+
+   std::vector<ElementID *> returned_root_children = root.get_children();
+
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_root_children.begin(), expected_root_children.end(),
+         returned_root_children.begin(), returned_root_children.end());
+}
+
+
+
+
 BOOST_FIXTURE_TEST_CASE(returns_its_previous_sibling, Fixture)
 {
    BOOST_CHECK_EQUAL(child_1, child_2->get_previous_sibling());
