@@ -65,6 +65,17 @@ ElementID *ElementID::get_parent()
 
 
 
+void ElementID::reassign_parent(ElementID *new_parent)
+{
+   if (new_parent == parent) return;
+   if (parent) parent->remove_child(this);
+   if (new_parent) new_parent->add_child(this);
+   parent = new_parent;
+}
+
+
+
+
 ElementID *ElementID::get_root()
 {
    if (!parent) return NULL;

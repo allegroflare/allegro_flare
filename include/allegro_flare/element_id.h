@@ -30,6 +30,7 @@ public:
    int num_children();
    bool has_children();
    int num_descendants();
+   void reassign_parent(ElementID *new_parent);
 
    ElementID *find_first(std::string attribute);
    ElementID *find_first(std::string attribute, std::string value);

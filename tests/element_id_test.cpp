@@ -135,6 +135,48 @@ BOOST_AUTO_TEST_CASE(returns_nullptr_if_it_does_not_have_a_parent)
 
 
 
+BOOST_AUTO_TEST_CASE(can_reassign_its_parent)
+{
+   ElementID *child = new ElementID(nullptr);
+   ElementID new_parent = ElementID(nullptr);
+
+   child->reassign_parent(&new_parent);
+
+   BOOST_CHECK_EQUAL(&new_parent, child->get_parent());
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(its_newly_assigned_parent_has_the_child)
+{
+   ElementID *child = new ElementID(nullptr);
+   ElementID new_parent = ElementID(nullptr);
+
+   child->reassign_parent(&new_parent);
+
+   BOOST_CHECK_EQUAL(true, new_parent.is_child(child));
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(its_previously_assigned_parent_no_longer_has_the_child)
+{
+   ElementID original_parent = ElementID(nullptr);
+   ElementID *child = new ElementID(&original_parent);
+   ElementID new_parent = ElementID(nullptr);
+
+   BOOST_CHECK_EQUAL(true, original_parent.is_child(child));
+
+   child->reassign_parent(&new_parent);
+
+   BOOST_CHECK_EQUAL(false, original_parent.is_child(child));
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_1)
 {
    ElementID root = ElementID(NULL);
