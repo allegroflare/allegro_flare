@@ -112,6 +112,18 @@ BOOST_AUTO_TEST_CASE(returns_true_if_it_has_children_otherwise_false)
 
 
 
+BOOST_AUTO_TEST_CASE(knows_if_it_has_a_parent)
+{
+   ElementID root = ElementID(nullptr);
+   ElementID child = ElementID(&root);
+
+   BOOST_CHECK_EQUAL(false, root.has_parent());
+   BOOST_CHECK_EQUAL(true, child.has_parent());
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(returns_its_parent)
 {
    ElementID root = ElementID(nullptr);

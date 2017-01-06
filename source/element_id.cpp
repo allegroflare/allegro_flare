@@ -65,6 +65,14 @@ ElementID *ElementID::get_parent()
 
 
 
+bool ElementID::has_parent()
+{
+   return parent != nullptr;
+}
+
+
+
+
 void ElementID::reassign_parent(ElementID *new_parent)
 {
    if (new_parent == parent) return;
