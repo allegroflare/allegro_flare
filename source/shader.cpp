@@ -1,6 +1,9 @@
 
 
 
+#define ALLEGRO_UNSTABLE
+
+
 
 #include <allegro_flare/shader.h>
 
