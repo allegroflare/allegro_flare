@@ -94,7 +94,7 @@ Some Examples of Features and Tools
 
 ### Motion
 - timing and movement control (`Motion`)
-- easing functions (`interpolator::fastIn`, `interpolator::trippleSlowInOut`, `interpolator::bounceIn`, etc.)
+- easing functions (`interpolator::fast_in`, `interpolator::tripple_slow_in_out`, `interpolator::bounce_in`, etc.)
 
 ### Scripting and Animation
 - Use useful clases to automate playback of your objects (`Motion`, `Timeline`, `Stage`, `Actor`, `Script`)
