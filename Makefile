@@ -81,31 +81,40 @@ endif
 #
 
 core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES) $(GUI_WIDGET_OBJ_FILES) $(GUI_SURFACE_AREA_OBJ_FILES) $(GUI_LAYOUT_LOADER_OBJ_FILES)
-	ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
+	@ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
+	@echo "building $(ALLEGROFLARE_LIB_NAME)"
 
 $(CORE_OBJ_FILES): obj/%.o : source/%.cpp
-	g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@echo "building $@"
 
 $(BIN_OBJ_FILES): obj/%.o : source/bins/%.cpp
-	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@echo "building $@"
 
 $(DI_OBJ_FILES): obj/%.o : source/drawing_interfaces/%.cpp
-	g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@echo "building $@"
 
 $(FONT_OBJ_FILES): obj/%.o : source/fonts/%.cpp
-	g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@echo "building $@"
 
 $(SCREEN_OBJ_FILES): obj/%.o : source/screens/%.cpp
-	g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@echo "building $@"
 
 $(GUI_WIDGET_OBJ_FILES): obj/%.o : source/gui/%.cpp
-	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@echo "building $@"
 
 $(GUI_SURFACE_AREA_OBJ_FILES): obj/%.o : source/gui/surface_areas/%.cpp
-	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@echo "building $@"
 
 $(GUI_LAYOUT_LOADER_OBJ_FILES): obj/%.o : source/gui/layout_loaders/%.cpp
-	g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
+	@echo "building $@"
 
 
 
@@ -123,10 +132,12 @@ ALLEGRO_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lall
 examples: $(EXAMPLE_OBJS)
 
 bin/%$(BINARY_EXTENSION): examples/gui/%.cpp
-	g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
+	@echo "compiling $@"
 
 bin/%$(BINARY_EXTENSION): examples/%.cpp
-	g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
+	@echo "compiling $@"
 
 
 
