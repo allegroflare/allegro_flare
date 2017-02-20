@@ -2,7 +2,7 @@
 
 
 
-#include "file_downloader.h"
+#include <allegro_flare/web/file_downloader.h>
 
 #include <curl/curl.h>
 #include <iostream>
