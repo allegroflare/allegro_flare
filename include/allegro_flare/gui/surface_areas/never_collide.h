@@ -3,12 +3,12 @@
 
 
 
-#include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/gui/surface_areas/surface_area_base.h>
 
 
 
 
-class UISurfaceAreaNeverCollide : public UISurfaceArea
+class UISurfaceAreaNeverCollide : public UISurfaceAreaBase
 {
 public:
    UISurfaceAreaNeverCollide(float x, float y, float w, float h);

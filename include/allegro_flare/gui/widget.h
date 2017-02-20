@@ -5,7 +5,7 @@
 
 
 #include <allegro5/allegro.h>
-#include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/gui/surface_areas/surface_area_base.h>
 #include <allegro_flare/element_id.h>
 #include <allegro_flare/bit_flags.h>
 #include <allegro_flare/color.h>
@@ -55,7 +55,7 @@ protected:
    friend class UIScreen;
    friend class UIScrollArea;
 
-   UISurfaceArea *surface_area;
+   UISurfaceAreaBase *surface_area;
 
    // TODO these might need to be implemented in a flag system
    bool mouse_over;
@@ -88,7 +88,7 @@ public:
    bool delete_me;
    placement2d &place;
 
-   UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area);
+   UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceAreaBase *surface_area);
    virtual ~UIWidget();
 
    // ordering

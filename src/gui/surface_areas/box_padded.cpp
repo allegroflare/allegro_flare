@@ -10,7 +10,7 @@
 
 
 UISurfaceAreaBoxPadded::UISurfaceAreaBoxPadded(float x, float y, float w, float h, float pt, float pr, float pb, float pl)
-   : UISurfaceArea(x, y, w, h)
+   : UISurfaceAreaBase(x, y, w, h)
    , padding_top(pt)
    , padding_right(pr)
    , padding_bottom(pb)

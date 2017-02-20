@@ -8,7 +8,7 @@
 
 
 UISurfaceAreaColumn::UISurfaceAreaColumn(float x, float w)
-   : UISurfaceArea(x, 0, w, 1)
+   : UISurfaceAreaBase(x, 0, w, 1)
 {
    placement.align = vec2d(0, 0);
 }

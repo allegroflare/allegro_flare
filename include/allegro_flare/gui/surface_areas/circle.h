@@ -4,12 +4,12 @@
 
 
 
-#include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/gui/surface_areas/surface_area_base.h>
 
 
 
 
-class UISurfaceAreaCircle : public UISurfaceArea
+class UISurfaceAreaCircle : public UISurfaceAreaBase
 {
 public:
    UISurfaceAreaCircle(float x, float y, float r);

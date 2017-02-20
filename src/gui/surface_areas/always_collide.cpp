@@ -9,7 +9,7 @@
 
 
 UISurfaceAreaAlwaysCollide::UISurfaceAreaAlwaysCollide(float x, float y, float w, float h)
-   : UISurfaceArea(x, y, w, h)
+   : UISurfaceAreaBase(x, y, w, h)
 {}
 
 

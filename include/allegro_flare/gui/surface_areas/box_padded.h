@@ -4,12 +4,12 @@
 
 
 
-#include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/gui/surface_areas/surface_area_base.h>
 
 
 
 
-class UISurfaceAreaBoxPadded : public UISurfaceArea
+class UISurfaceAreaBoxPadded : public UISurfaceAreaBase
 {
 private:
    float padding_top;

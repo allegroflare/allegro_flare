@@ -11,7 +11,7 @@
 
 
 
-UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area)
+UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceAreaBase *surface_area)
    : ElementID(parent)
    , surface_area(surface_area)
    , place(surface_area->placement)
