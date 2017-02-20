@@ -125,23 +125,14 @@ public:
       //ALLEGRO_FONT *button_font = fonts["consola.ttf 19"];
       float button_y = 140;
       presets[0] = new UIButton(this, 100, button_y+60*1, 160, 50, "Frame1");
-         presets[0]->attr.set("filename", "frame1.bfs");
       presets[1] = new UIButton(this, 100, button_y+60*2, 160, 50, "Frame2");
-         presets[1]->attr.set("filename", "frame2.bfs");
       presets[2] = new UIButton(this, 100, button_y+60*3, 160, 50, "Frame3");
-         presets[2]->attr.set("filename", "frame3.bfs");
       presets[3] = new UIButton(this, 100, button_y+60*4, 160, 50, "Frame4");
-         presets[3]->attr.set("filename", "frame4.bfs");
       presets[4] = new UIButton(this, 100, button_y+60*5, 160, 50, "Frame5");
-         presets[4]->attr.set("filename", "frame5.bfs");
       presets[5] = new UIButton(this, 100, button_y+60*6, 160, 50, "Frame6");
-         presets[5]->attr.set("filename", "frame6.bfs");
       presets[6] = new UIButton(this, 100, button_y+60*7, 160, 50, "Frame7");
-         presets[6]->attr.set("filename", "frame7.bfs");
       presets[7] = new UIButton(this, 100, button_y+60*8, 160, 50, "Frame8");
-         presets[7]->attr.set("filename", "frame8.bfs");
       presets[8] = new UIButton(this, 100, button_y+60*9, 160, 50, "Frame9");
-         presets[8]->attr.set("filename", "frame9.bfs");
    }
 
    void on_message(UIWidget *sender, std::string message) override
@@ -151,11 +142,22 @@ public:
 
       if (sender)
       {
-         std::string filename = sender->attr.get("filename");
+         std::string preset_filename = "";
+         if (sender == presets[0]) preset_filename = "frame1.bfs";
+         if (sender == presets[1]) preset_filename = "frame2.bfs";
+         if (sender == presets[2]) preset_filename = "frame3.bfs";
+         if (sender == presets[3]) preset_filename = "frame4.bfs";
+         if (sender == presets[4]) preset_filename = "frame5.bfs";
+         if (sender == presets[5]) preset_filename = "frame6.bfs";
+         if (sender == presets[6]) preset_filename = "frame7.bfs";
+         if (sender == presets[7]) preset_filename = "frame8.bfs";
+         if (sender == presets[8]) preset_filename = "frame9.bfs";
+
          SkeletonState state;
-         state.load(filename);
+         state.load(preset_filename);
+         simple_notification_screen->spawn_notification("file loaded\n\"" + preset_filename + "\"");
+
          move_skeleton_to_state(bone_test, &state, 0.5);
-         simple_notification_screen->spawn_notification("file loaded\n\"" + filename + "\"");
       }
    }
 
@@ -174,8 +176,8 @@ public:
       bone_test->draw(display->width()/2, display->height()/4, focus_bone_index);
 
       al_draw_text(fonts["DroidSans.ttf 42"], color::white, 10, 17, 0, (tostring("Skeleton Example")).c_str());
-      al_draw_text(fonts["consola.ttf 20"], color::white, 10, 60, 0, (tostring("number of bones: ") + tostring(bone_test->get_tree_size())).c_str());
-      al_draw_text(fonts["consola.ttf 20"], color::white, 10, 80, 0, (tostring("current focused bone index: ") + tostring(focus_bone_index)).c_str());
+      al_draw_text(fonts["DroidSans.ttf 20"], color::white, 10, 60, 0, (tostring("number of bones: ") + tostring(bone_test->get_tree_size())).c_str());
+      al_draw_text(fonts["DroidSans.ttf 20"], color::white, 10, 80, 0, (tostring("current focused bone index: ") + tostring(focus_bone_index)).c_str());
       //al_draw_text(fonts["consola.ttf 32"], color::white, 10, 20, 0, tostring(bone_test->get_tree_size()).c_str());
 
       // draw some nice text at the bottom
@@ -248,9 +250,8 @@ public:
          }
          else
          {
-            if (state_bank_num < 0) {}
-            else if (state_bank_num >= (int)family.children.size()) {}
-            else family.children[state_bank_num]->on_click();
+            UIWidget *child = static_cast<UIWidget *>(get_nth_child(state_bank_num));
+            if (child) child->on_click();
             //set_to_keyframe(bone_test, &frames[frame_bank_num], 0.3);
             //std::cout << "moving to bank " << frame_bank_num << std::endl;
          }

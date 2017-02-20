@@ -26,10 +26,12 @@ public:
 
    int get_id();
    ElementID *get_parent();
+   bool has_parent();
    ElementID *get_root();
    int num_children();
    bool has_children();
    int num_descendants();
+   void reassign_parent(ElementID *new_parent);
 
    ElementID *find_first(std::string attribute);
    ElementID *find_first(std::string attribute, std::string value);
@@ -50,6 +52,9 @@ public:
    bool is_descendant(ElementID *descendant);
    ElementID *get_next_sibling();
    ElementID *get_previous_sibling();
+
+   bool bring_child_to_front(ElementID *child);
+   bool send_child_to_back(ElementID *child);
 
    template<class T> // does not have tests
    std::vector<T *> get_flat_list_of_descendants()

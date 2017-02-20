@@ -23,7 +23,7 @@ public:
    {
       UIWidget::on_draw();
       ALLEGRO_FONT *font = Framework::font("DroidSans.ttf 12");
-      al_draw_text(font, color::white, place.size.x/2, place.size.y/2 - al_get_font_line_height(font)/2, ALLEGRO_ALIGN_CENTER, attr.get("id").c_str());
+      al_draw_text(font, color::white, place.size.x/2, place.size.y/2 - al_get_font_line_height(font)/2, ALLEGRO_ALIGN_CENTER, get("id").c_str());
    }
 };
 
@@ -247,8 +247,8 @@ public:
       new UIButton(this, 465, 240, 75, 30, "OK");
 
       // re-align all the elements
-      for (unsigned i=0; i<family.children.size(); i++)
-         family.children[i]->place.align = vec2d(0, 0);
+      for (auto &child : get_children<UIWidget>())
+         child->place.align = vec2d(0, 0);
    }
    void set_color(ALLEGRO_COLOR col)
    {

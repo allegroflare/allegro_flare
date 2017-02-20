@@ -65,6 +65,25 @@ ElementID *ElementID::get_parent()
 
 
 
+bool ElementID::has_parent()
+{
+   return parent != nullptr;
+}
+
+
+
+
+void ElementID::reassign_parent(ElementID *new_parent)
+{
+   if (new_parent == parent) return;
+   if (parent) parent->remove_child(this);
+   if (new_parent) new_parent->add_child(this);
+   parent = new_parent;
+}
+
+
+
+
 ElementID *ElementID::get_root()
 {
    if (!parent) return NULL;
@@ -326,6 +345,30 @@ ElementID *ElementID::get_previous_sibling()
    int index = parent->get_index_of_child(this);
    if (index == -1) return nullptr;
    return parent->get_nth_child(index-1);
+}
+
+
+
+
+bool ElementID::bring_child_to_front(ElementID *child)
+{
+   int index = get_index_of_child(child);
+   if (index == -1) return false;
+   children.erase(children.begin() + index);
+   children.insert(children.begin(), child);
+   return true;
+}
+
+
+
+
+bool ElementID::send_child_to_back(ElementID *child)
+{
+   int index = get_index_of_child(child);
+   if (index == -1) return false;
+   children.erase(children.begin() + index);
+   children.push_back(child);
+   return true;
 }
 
 

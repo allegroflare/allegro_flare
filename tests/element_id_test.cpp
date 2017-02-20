@@ -22,6 +22,7 @@ struct Fixture
          ElementID *child_2_A;
             ElementID *child_2_A_1;
          ElementID *child_2_B;
+      ElementID *child_3;
 
    Fixture()
       : root(NULL)
@@ -32,6 +33,7 @@ struct Fixture
       , child_2_A(new ElementID(child_2))
       , child_2_A_1(new ElementID(child_2_A))
       , child_2_B(new ElementID(child_2))
+      , child_3(new ElementID(&root))
    {}
 };
 
@@ -112,6 +114,18 @@ BOOST_AUTO_TEST_CASE(returns_true_if_it_has_children_otherwise_false)
 
 
 
+BOOST_AUTO_TEST_CASE(knows_if_it_has_a_parent)
+{
+   ElementID root = ElementID(nullptr);
+   ElementID child = ElementID(&root);
+
+   BOOST_CHECK_EQUAL(false, root.has_parent());
+   BOOST_CHECK_EQUAL(true, child.has_parent());
+}
+
+
+
+
 BOOST_AUTO_TEST_CASE(returns_its_parent)
 {
    ElementID root = ElementID(nullptr);
@@ -130,6 +144,66 @@ BOOST_AUTO_TEST_CASE(returns_nullptr_if_it_does_not_have_a_parent)
    ElementID root = ElementID(nullptr);
 
    BOOST_CHECK_EQUAL((ElementID *)(nullptr), root.get_parent());
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(can_reassign_its_parent)
+{
+   ElementID *child = new ElementID(nullptr);
+   ElementID new_parent = ElementID(nullptr);
+
+   child->reassign_parent(&new_parent);
+
+   BOOST_CHECK_EQUAL(&new_parent, child->get_parent());
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(can_not_reassign_itself_as_parent)
+{
+   // to be implemented
+   BOOST_CHECK_EQUAL(false, true);
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(can_not_reassign_parentage_to_a_parent_that_a_descendant)
+{
+   // to be implemented
+   BOOST_CHECK_EQUAL(false, true);
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(its_newly_assigned_parent_has_the_child)
+{
+   ElementID *child = new ElementID(nullptr);
+   ElementID new_parent = ElementID(nullptr);
+
+   child->reassign_parent(&new_parent);
+
+   BOOST_CHECK_EQUAL(true, new_parent.is_child(child));
+}
+
+
+
+
+BOOST_AUTO_TEST_CASE(its_previously_assigned_parent_no_longer_has_the_child)
+{
+   ElementID original_parent = ElementID(nullptr);
+   ElementID *child = new ElementID(&original_parent);
+   ElementID new_parent = ElementID(nullptr);
+
+   BOOST_CHECK_EQUAL(true, original_parent.is_child(child));
+
+   child->reassign_parent(&new_parent);
+
+   BOOST_CHECK_EQUAL(false, original_parent.is_child(child));
 }
 
 
@@ -463,7 +537,7 @@ BOOST_FIXTURE_TEST_CASE(returns_an_nth_descendant, Fixture)
 BOOST_FIXTURE_TEST_CASE(returns_NULL_when_an_nth_descendant_does_not_exist, Fixture)
 {
    BOOST_CHECK_EQUAL((void *)0, root.get_nth_descendant(-1));
-   BOOST_CHECK_EQUAL((void *)0, root.get_nth_descendant(7));
+   BOOST_CHECK_EQUAL((void *)0, root.get_nth_descendant(root.num_descendants()));
 
    BOOST_CHECK_EQUAL((void *)0, child_1->get_nth_descendant(2));
 
@@ -479,7 +553,7 @@ BOOST_FIXTURE_TEST_CASE(returns_NULL_when_an_nth_descendant_does_not_exist, Fixt
 BOOST_FIXTURE_TEST_CASE(returns_a_flat_list_of_descendants, Fixture)
 {
    std::vector<ElementID *> expected = {
-      child_1, child_1_A, child_1_B, child_2, child_2_A, child_2_A_1, child_2_B
+      child_1, child_1_A, child_1_B, child_2, child_2_A, child_2_A_1, child_2_B, child_3
    };
 
    std::vector<ElementID *> list_of_descendants = root.get_flat_list_of_descendants();
@@ -585,6 +659,66 @@ BOOST_FIXTURE_TEST_CASE(returns_its_next_sibling, Fixture)
 
 
 
+BOOST_FIXTURE_TEST_CASE(can_bring_its_child_to_the_front, Fixture)
+{
+   root.bring_child_to_front(child_2);
+
+   BOOST_CHECK_EQUAL(child_2, root.get_children().front());
+
+   root.bring_child_to_front(child_3);
+
+   BOOST_CHECK_EQUAL(child_3, root.get_children().front());
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(can_send_its_child_to_the_back, Fixture)
+{
+   root.send_child_to_back(child_1);
+
+   BOOST_CHECK_EQUAL(child_1, root.get_children().back());
+
+   root.send_child_to_back(child_2);
+
+   BOOST_CHECK_EQUAL(child_2, root.get_children().back());
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(does_not_bring_child_to_front_if_the_element_is_not_a_child, Fixture)
+{
+   std::vector<ElementID *> expected_root_children = {child_1, child_2, child_3};
+   ElementID *not_a_child_of_root = child_1_A;
+
+   root.bring_child_to_front(not_a_child_of_root);
+
+   std::vector<ElementID *> returned_root_children = root.get_children();
+
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_root_children.begin(), expected_root_children.end(),
+         returned_root_children.begin(), returned_root_children.end());
+}
+
+
+
+
+BOOST_FIXTURE_TEST_CASE(does_not_send_child_to_back_if_the_element_is_not_a_child, Fixture)
+{
+   std::vector<ElementID *> expected_root_children = {child_1, child_2, child_3};
+   ElementID *not_a_child_of_root = child_1_A;
+
+   root.send_child_to_back(not_a_child_of_root);
+
+   std::vector<ElementID *> returned_root_children = root.get_children();
+
+   BOOST_CHECK_EQUAL_COLLECTIONS(expected_root_children.begin(), expected_root_children.end(),
+         returned_root_children.begin(), returned_root_children.end());
+}
+
+
+
+
 BOOST_FIXTURE_TEST_CASE(returns_its_previous_sibling, Fixture)
 {
    BOOST_CHECK_EQUAL(child_1, child_2->get_previous_sibling());
@@ -659,7 +793,7 @@ BOOST_FIXTURE_TEST_CASE(can_identify_if_an_element_is_not_a_descendant, Fixture)
 
 BOOST_FIXTURE_TEST_CASE(returns_a_list_of_children, Fixture)
 {
-   std::vector<ElementID *> expected_root_children = {child_1, child_2};
+   std::vector<ElementID *> expected_root_children = {child_1, child_2, child_3};
    std::vector<ElementID *> expected_child_1_children = {child_1_A, child_1_B};
    std::vector<ElementID *> expected_child_2_children = {child_2_A, child_2_B};
    std::vector<ElementID *> expected_child_2_A_children = {child_2_A_1};

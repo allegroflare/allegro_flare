@@ -32,7 +32,15 @@ void UIWindow::on_draw()
 
 void UIWindow::on_focus()
 {
-   if (attr.has("bring_to_front_on_focus")) bring_to_front();
+   if (bring_to_front_on_focus) bring_to_front();
+}
+
+
+
+
+void UIWindow::set_bring_to_front_on_focus(bool val)
+{
+   bring_to_front_on_focus = val;
 }
 
 

@@ -5,7 +5,6 @@
 #include <allegro_flare/gui/widget.h>
 
 #include <allegro_flare/gui/gui_screen.h>
-#include <allegro_flare/gui/family.h>
 #include <allegro_flare/gui/style_assets.h>
 #include <allegro_flare/allegro_flare.h>
 
@@ -13,7 +12,7 @@
 
 
 UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area)
-   : family(parent)
+   : ElementID(parent)
    , surface_area(surface_area)
    , place(surface_area->placement)
    , mouse_down_on_over(false)
@@ -27,10 +26,9 @@ UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea 
    , local_mouse_y(0)
    , disabled(false)
 {
-   attr.set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
-   attr.set("id", widget_typename + tostring(widget_count));
+   set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
+   set("id", widget_typename + tostring(widget_count));
 
-   if (parent) parent->family.register_as_child(this);
    num_active_widgets++;
    widget_count++;
 }
@@ -40,10 +38,8 @@ UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea 
 
 UIWidget::~UIWidget()
 {
-   family.delete_all(); // from UIParent
-
    if (surface_area) delete surface_area;
-   if (family.parent) family.parent->family.unregister_as_child(this);
+
    num_active_widgets--;
 
    // std::cout << "~UIWidget() { type=" << attr.get(UI_ATTR__UI_WIDGET_TYPE) << " }" << std::endl;
@@ -62,6 +58,7 @@ UIWidget::~UIWidget()
          &surface_area->placement.scale.x, &surface_area->placement.scale.y,
          &surface_area->placement.anchor.x, &surface_area->placement.anchor.y,
          &surface_area->placement.rotation
+         // flip.x and flip.y?
       };
 
       std::vector<float*> pacement_elements (_elem, _elem + sizeof(_elem) / sizeof(float*) );
@@ -98,19 +95,8 @@ bool UIWidget::is_disabled()
 
 void UIWidget::bring_to_front()
 {
-   if (!family.parent) return;
-   // hmm.. the logic of this should be executed by the parent, not this child
-   // TODO: this function should simply call something like family->bring_to_front(this)
-   // and not all this stuff:
-   for (unsigned i=0; i<family.parent->family.children.size(); i++)
-   {
-      if (family.parent->family.children[i] == this)
-      {
-         family.parent->family.children.erase(family.parent->family.children.begin() + i);
-         family.parent->family.children.push_back(this);
-         return;
-      }
-   }
+   if (!has_parent()) return;
+   get_parent()->bring_child_to_front(this);
 }
 
 
@@ -120,7 +106,19 @@ void UIWidget::send_message_to_parent(std::string message)
 {
    if (disabled) return;
 
-   if (family.parent) family.parent->on_message(this, message);
+   UIWidget *parent = static_cast<UIWidget *>(get_parent());
+   if (parent) parent->on_message(this, message);
+}
+
+
+
+
+void UIWidget::send_message_to_parent(std::string message, UIWidget *widget)
+{
+   if (disabled) return;
+
+   UIWidget *parent = static_cast<UIWidget *>(get_parent());
+   if (parent) parent->on_message(widget, message);
 }
 
 
@@ -132,24 +130,14 @@ void UIWidget::primary_timer_func()
 
    on_timer();
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->primary_timer_func();
+   std::vector<UIWidget *> children = ElementID::recast_collection<UIWidget>(get_children());
+
+   for (auto &child : children)
+      child->primary_timer_func();
 
    // delete the widgets who request deletion
-   for (unsigned i=0; i<family.children.size(); i++)
-   {
-      if (family.children[i]->delete_me)
-      {
-         std::cout << "Deleting child object...";
-         // NOTE: when a UIWidget is deleted, it automatically
-         // removes itself from the parent, so that step
-         // does not need to be done here.  Also, widgets will
-         // automatically delete thier children as well.
-         delete family.children[i];
-         std::cout << "deleted." << std::endl;
-         i--;
-      }
-   }
+   for (auto &child : children)
+      if (child->delete_me) delete child;
 }
 
 
@@ -161,7 +149,8 @@ void UIWidget::draw_func()
 
    on_draw();
 
-   family.draw_all(); // TODO: should be renamed to draw_children();
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->draw_func();
 
    // draws the focus rectangle if it's focused
    /*
@@ -196,25 +185,28 @@ void UIWidget::mouse_axes_func(float x, float y, float dx, float dy)
    surface_area->placement.transform_coordinates(&local_mouse_x, &local_mouse_y);
    surface_area->placement.transform_coordinates(&tmdx, &tmdy);
 
-   if (family.parent && family.parent->mouse_is_blocked) mouse_is_blocked = true;
+   UIWidget *parent = static_cast<UIWidget *>(get_parent());
+   if (parent && parent->mouse_is_blocked) mouse_is_blocked = true;
    else mouse_is_blocked = false;
 
-   for (int i=(int)family.children.size()-1; i>=0; i--)
-      family.children[i]->mouse_axes_func(local_mouse_x, local_mouse_y, dx, dy);  // I'm not sure why these are dx/dy, but it works correctly this way
+   //for (int i=(int)children.size()-1; i>=0; i--)
+      //children[i]->mouse_axes_func(local_mouse_x, local_mouse_y, dx, dy);  // I'm not sure why these are dx/dy, but it works correctly this way
 
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->mouse_axes_func(local_mouse_x, local_mouse_y, dx, dy);  // I'm not sure why these are dx/dy, but it works correctly this way
 
    // then proceed with the execution of the function
 
    if (surface_area)
    {
       bool mouse_over_now = surface_area->collides(x, y);
-      if (family.parent && family.parent->mouse_is_blocked) mouse_over_now = false;
+      if (parent && parent->mouse_is_blocked) mouse_over_now = false;
 
       if (mouse_over_now && !mouse_over) on_mouse_enter();
       else if (!mouse_over_now && mouse_over) on_mouse_leave();
 
       mouse_over = mouse_over_now;
-      if (family.parent && mouse_over) family.parent->mouse_is_blocked = true;
+      if (parent && mouse_over) parent->mouse_is_blocked = true;
    }
 
    on_mouse_move(x, y, dx, dy); // TODO I think this needs to be the translated coordinates, and maybe even should be on the on_drag() call below as well
@@ -235,8 +227,8 @@ void UIWidget::mouse_down_func()
    if (disabled) return;
 
    // call this function on the children first
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->mouse_down_func();
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->mouse_down_func();
 
    // now do the execution of the function
    if (mouse_over)
@@ -264,8 +256,8 @@ void UIWidget::mouse_up_func()
    if (disabled) return;
 
    // call this function on the children first
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->mouse_up_func();
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->mouse_up_func();
 
    // then continue with the function on self
    if (mouse_over && mouse_down_on_over)
@@ -289,8 +281,8 @@ void UIWidget::key_down_func()
    if (disabled) return;
 
    // call this function on the children first
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->key_down_func();
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->key_down_func();
 
    // then call on self
    on_key_down();
@@ -303,8 +295,8 @@ void UIWidget::key_up_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->key_up_func();
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->key_up_func();
 
    on_key_up();
 }
@@ -316,8 +308,8 @@ void UIWidget::key_char_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->key_char_func();
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->key_char_func();
 
    on_key_char();
 }
@@ -329,8 +321,8 @@ void UIWidget::joy_up_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->joy_up_func();
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->joy_up_func();
 
    on_joy_up();
 }
@@ -342,8 +334,8 @@ void UIWidget::joy_axis_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->joy_axis_func();
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->joy_axis_func();
 
    on_joy_axis();
 }
@@ -355,9 +347,8 @@ void UIWidget::joy_down_func()
 {
    if (disabled) return;
 
-   for (unsigned i=0; i<family.children.size(); i++)
-      family.children[i]->joy_down_func();
-
+   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
+      child->joy_down_func();
 
    if (mouse_over && Framework::current_event->joystick.button == 0)
    {
@@ -443,8 +434,14 @@ int UIWidget::get_num_active_widgets()
 void UIWidget::set_as_focused()
 {
    if (disabled) return;
-   // todo: this might require that the superparent is iterated
-   if (family.parent) family.parent->family.set_focus_to_child(this);
+
+   // TODO: this will need to "unfocus" all other elements in the tree
+
+   if (!is_focused())
+   {
+      focused=true;
+      on_focus();
+   }
 }
 
 
@@ -481,14 +478,6 @@ void UIWidget::set_as_enabled()
    if (!disabled) return; // no change
 
    disabled = false;
-}
-
-
-
-
-UIFamily &UIWidget::get_family()
-{
-   return family;
 }
 
 

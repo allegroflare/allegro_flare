@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(adds_the_expected_number_of_children_to_the_parent)
    GUIToolLayoutLoader layout_loader(parent, layout_content);
    layout_loader.load_file();
 
-   BOOST_CHECK_EQUAL(4, parent->get_family().get_num_descendants());
+   BOOST_CHECK_EQUAL(4, parent->num_descendants());
 }
 
 

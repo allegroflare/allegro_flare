@@ -87,7 +87,7 @@ private:
    UIText *text;
    MyMediaPlayer *media_player;
 
-   DataAttr virtual_memory;
+   Attributes virtual_memory;
    std::string virtual_memory_filename;
 
    int mouse_down_x, mouse_down_y;
@@ -114,7 +114,7 @@ public:
 
       text_input = new UITextInput(this, place.size.x/2, 80, place.size.x-30, 50, "");
       text_input->set_as_focused();
-      text_input->attr.set("default_text_when_empty", "type a command");
+      text_input->set_default_text_when_empty("type a command");
 
       text = new UIText(this, 27, text_input->place.position.y + text_input->place.size.y + 4, "last:");
 
@@ -195,7 +195,7 @@ public:
          }
          else
          {
-            if (!virtual_memory.has(possible_variable_name))
+            if (!virtual_memory.exists(possible_variable_name))
             {
                std::cout << "[error] unrecognized symbol \"" << possible_variable_name << "\"" << std::endl;
                return "";

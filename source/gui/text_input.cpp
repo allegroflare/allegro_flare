@@ -16,6 +16,7 @@
 UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, std::string text)
    : UIWidget(parent, "UITextInput", new UISurfaceAreaBox(x, y, w, h))
    , text("")
+   , default_text_when_empty("")
    , cursor_pos(0)
    , cursor_end(0)
    , font(Framework::font("DroidSans.ttf 20"))
@@ -24,6 +25,7 @@ UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, s
    , font_color(color::white)
    , _text_render(NULL)
    , padding(10)
+   , select_all_on_focus(false)
 {
    set_text(text);
 
@@ -109,6 +111,22 @@ void UITextInput::clear_selection()
    _handle_erase();
    cursor_pos = cursor_min;
    cursor_end = cursor_min;
+}
+
+
+
+
+void UITextInput::set_default_text_when_empty(std::string default_text)
+{
+   default_text_when_empty = default_text;
+}
+
+
+
+
+void UITextInput::set_select_all_on_focus(bool will_select)
+{
+   select_all_on_focus = will_select;
 }
 
 
@@ -364,7 +382,7 @@ void UITextInput::_update_text_and_selection_render(float len_to_cursor, float l
    ALLEGRO_COLOR cursor_select_color = color::hex("c6e2ff");
    al_draw_filled_rectangle(padding+len_to_cursor+text_x_offset, padding, padding+len_to_cursor_end+text_x_offset, padding+al_get_font_line_height(font), focused ? cursor_select_color : color::color(cursor_select_color, 0.4));
 
-   if (text.empty() && attr.has("default_text_when_empty")) al_draw_text(font, color::color(font_color, 0.2), padding+text_x_offset, padding, ALLEGRO_FLAGS_EMPTY, attr.get("default_text_when_empty").c_str());
+   if (text.empty() && !default_text_when_empty.empty()) al_draw_text(font, color::color(font_color, 0.2), padding+text_x_offset, padding, ALLEGRO_FLAGS_EMPTY, default_text_when_empty.c_str());
    else al_draw_text(font, font_color, padding+text_x_offset, padding, ALLEGRO_FLAGS_EMPTY, text.c_str());
 
 
@@ -419,7 +437,7 @@ void UITextInput::on_draw()
 
 void UITextInput::on_focus()
 {
-   if (attr.has("select_all_on_focus"))
+   if (select_all_on_focus)
    {
       // select all
       cursor_end = 0;
@@ -432,7 +450,7 @@ void UITextInput::on_focus()
 
 void UITextInput::on_submit()
 {
-   if (family.parent) family.parent->on_message(this, "on_submit");
+   if (has_parent()) static_cast<UIWidget *>(get_parent())->on_message(this, "on_submit");
    on_change();
 }
 

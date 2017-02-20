@@ -22,7 +22,7 @@ UIScrollBar::UpButton::UpButton(UIWidget *parent, float x, float y, float w, flo
 
 void UIScrollBar::UpButton::on_click()
 {
-   static_cast<UIScrollBar *>(family.parent)->step_up();
+   static_cast<UIScrollBar *>(get_parent())->step_up();
 }
 
 
@@ -45,7 +45,7 @@ UIScrollBar::DownButton::DownButton(UIWidget *parent, float x, float y, float w,
 
 void UIScrollBar::DownButton::on_click()
 {
-   static_cast<UIScrollBar *>(family.parent)->step_down();
+   static_cast<UIScrollBar *>(get_parent())->step_down();
 }
 
 
@@ -87,7 +87,7 @@ void UIScrollBar::Rail::on_mouse_move(float x, float y, float dx, float dy)
 void UIScrollBar::Rail::on_click()
 {
    // find the direction of the jump based on the handle's position
-   UIScrollBar *slider_parent = static_cast<UIScrollBar *>(family.parent);
+   UIScrollBar *slider_parent = static_cast<UIScrollBar *>(get_parent());
    if (slider_parent->handle->place.position.y < current_mouse_y) slider_parent->jump_down();   
    else slider_parent->jump_up();   
 }
@@ -117,7 +117,7 @@ void UIScrollBar::Handle::set_min_max_coordinate_position(float min_val, float m
 void UIScrollBar::Handle::on_drag(float x, float y, float dx, float dy)
 {
    place.position.y = limit<float>(min_y+place.size.y/2, max_y-place.size.y/2, place.position.y+dy);
-   family.parent->on_change();
+   if (has_parent()) static_cast<UIWidget *>(get_parent())->on_change();
 }
 
 
@@ -150,7 +150,7 @@ void UIScrollBar::Handle::set_position(float position_in_unit_value)
    float new_pos = position_in_unit_value * (max_y - min_y - place.size.y) + (min_y + place.size.y/2.0);
    place.position.y = new_pos; 
 
-   if (place.position.y != previous_pos) family.parent->on_change();
+   if ((place.position.y != previous_pos) && (has_parent())) static_cast<UIWidget *>(get_parent())->on_change();
 }
 
 

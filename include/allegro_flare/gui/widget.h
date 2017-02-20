@@ -5,17 +5,15 @@
 
 
 #include <allegro5/allegro.h>
-#include <allegro_flare/gui/family.h>
 #include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/element_id.h>
 #include <allegro_flare/bit_flags.h>
 #include <allegro_flare/color.h>
-#include <allegro_flare/data_attr.h>
 
 
 
 
 class UIScreen;
-class UIFamily;
 class Motion;
 class FontBin;
 class SampleBin;
@@ -47,7 +45,7 @@ enum WIDGET_FLAGS
 
 
 
-class UIWidget
+class UIWidget : public ElementID
 {
 private:
    static int num_active_widgets; // holds the number of widgets that have been created but not destroyed
@@ -55,10 +53,8 @@ private:
 
 protected:
    friend class UIScreen;
-   friend class UIFamily;
    friend class UIScrollArea;
 
-   UIFamily family;
    UISurfaceArea *surface_area;
 
    // TODO these might need to be implemented in a flag system
@@ -90,7 +86,6 @@ protected:
 public:
    //BitFlags<int16_t> flags;    // << this should be added eventually
    bool delete_me;
-   DataAttr attr;
    placement2d &place;
 
    UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceArea *surface_area);
@@ -99,6 +94,7 @@ public:
    // ordering
    void bring_to_front();
    void send_message_to_parent(std::string message);
+   void send_message_to_parent(std::string message, UIWidget *sender);
 
    // retrieval
    bool is_mouse_over();
@@ -108,7 +104,6 @@ public:
    void set_as_unfocused();
    void set_as_enabled();
    void set_as_disabled();
-   UIFamily &get_family();
 
    //
    // widget behavior functions
