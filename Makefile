@@ -61,14 +61,19 @@ CURRENT_PLATFORM_SOURCES := $(shell find src/platform/$(PLATFORM_FOLDER_NAME) -n
 SOURCES := $(filter-out $(ALL_PLATFORM_SOURCES), $(ALL_SOURCES))
 SOURCES += $(CURRENT_PLATFORM_SOURCES)
 OBJECTS := $(SOURCES:src/%.cpp=obj/%.o)
-
-obj/%.o: src/%.cpp
-	g++ -c -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I./include
+REQUIRED_DIRECTORIES := $(dir $(OBJECTS))
 
 core: $(OBJECTS)
-	@ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
 	@echo "building $(ALLEGROFLARE_LIB_NAME)"
+	@ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
 
+obj/%.o: src/%.cpp | required_obj_dirs
+	@echo "building $<"
+	@g++ -c -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I./include
+
+required_obj_dirs:
+	@echo "creating required directories"
+	@mkdir -p $(REQUIRED_DIRECTORIES)
 
 
 
@@ -135,3 +140,4 @@ clean:
 	-rm $(EXAMPLE_OBJS)
 	-rm $(TEST_OBJS)
 	-rm $(OBJECTS)
+	-rm -rf $(filter-out obj/, $(wildcard obj/*))
