@@ -4,11 +4,13 @@
 
 
 
+#include <allegro_flare/gui/surface_areas/always_collide.h>
+#include <allegro_flare/gui/surface_areas/bitmap_alpha.h>
 #include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/gui/surface_areas/box_padded.h>
 #include <allegro_flare/gui/surface_areas/circle.h>
-#include <allegro_flare/gui/surface_areas/bitmap_alpha.h>
 #include <allegro_flare/gui/surface_areas/column.h>
+#include <allegro_flare/gui/surface_areas/never_collide.h>
 #include <allegro_flare/gui/surface_areas/row.h>
 #include <allegro_flare/gui/widgets/button.h>
 #include <allegro_flare/gui/widgets/camera.h>
