@@ -60,20 +60,20 @@ WEB_OBJ_FILES=$(WEB_ITEMS:%=obj/%.o)
 # Append platform-specific components to the items
 # using this technique - http://stackoverflow.com/questions/714100/os-detecting-makefile
 
+
 ifeq ($(OS), Windows_NT)
 	BINARY_EXTENSION=.exe
-	CORE_ITEMS += clipboard_win
+	PLATFORM_FOLDER_NAME = win
 else
 	BINARY_EXTENSION=
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
-		CORE_ITEMS += clipboard_generic
+		PLATFORM_FOLDER_NAME = generic
 	endif
 	ifeq ($(UNAME_S),Darwin)
-		CORE_ITEMS += clipboard_osx
+		PLATFORM_FOLDER_NAME = mac_os
 	endif
 endif
-
 
 
 
@@ -82,45 +82,20 @@ endif
 # ===============================================
 #
 
-core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES) $(GUI_WIDGET_OBJ_FILES) $(GUI_SURFACE_AREA_OBJ_FILES) $(GUI_LAYOUT_LOADER_OBJ_FILES) $(WEB_OBJ_FILES)
+ALL_SOURCES := $(shell find src -name '*.cpp')
+ALL_PLATFORM_SOURCES := $(shell find src/platform -name '*.cpp')
+CURRENT_PLATFORM_SOURCES := $(shell find src/platform/$(PLATFORM_FOLDER_NAME) -name '*.cpp')
+
+SOURCES := $(filter-out $(ALL_PLATFORM_SOURCES), $(ALL_SOURCES))
+SOURCES += $(CURRENT_PLATFORM_SOURCES)
+OBJECTS := $(SOURCES:src/%.cpp=obj/%.o)
+
+obj/%.o: src/%.cpp
+	g++ -c -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I./include
+
+core: $(OBJECTS)
 	@ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
 	@echo "building $(ALLEGROFLARE_LIB_NAME)"
-
-$(CORE_OBJ_FILES): obj/%.o : source/%.cpp
-	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(BIN_OBJ_FILES): obj/%.o : source/bins/%.cpp
-	@g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(DI_OBJ_FILES): obj/%.o : source/drawing_interfaces/%.cpp
-	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(FONT_OBJ_FILES): obj/%.o : source/fonts/%.cpp
-	@g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(SCREEN_OBJ_FILES): obj/%.o : source/screens/%.cpp
-	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(GUI_WIDGET_OBJ_FILES): obj/%.o : source/gui/%.cpp
-	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(GUI_SURFACE_AREA_OBJ_FILES): obj/%.o : source/gui/surface_areas/%.cpp
-	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(GUI_LAYOUT_LOADER_OBJ_FILES): obj/%.o : source/gui/layout_loaders/%.cpp
-	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(WEB_OBJ_FILES): obj/%.o : source/web/%.cpp
-	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
 
 
 
@@ -187,4 +162,4 @@ clean:
 	-rm ./lib/*.a
 	-rm $(EXAMPLE_OBJS)
 	-rm $(TEST_OBJS)
-
+	-rm $(OBJECTS)
