@@ -112,13 +112,13 @@ documentation:
 #
 
 TESTS=$(wildcard tests/*.cpp)
-TEST_OBJS=$(TESTS:tests/%.cpp=bin/%$(BINARY_EXTENSION))
+TEST_OBJS=$(TESTS:tests/%.cpp=bin/tests/%$(BINARY_EXTENSION))
 
 ALLEGRO_TEST_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro
 
 tests: $(TEST_OBJS)
 
-bin/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGROFLARE_LIB_NAME).a
+bin/tests/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGROFLARE_LIB_NAME).a
 	g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_TEST_LIBS) -lboost_unit_test_framework -lcurl
 
 
