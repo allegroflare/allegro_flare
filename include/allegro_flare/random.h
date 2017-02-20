@@ -32,6 +32,9 @@ public:
    // Returns a random floating point number.
    float get_random_float(float min, float max);
 
+   // Returns a random double.
+   double get_random_double(double min, double max);
+
    // Returns true if the random number is one in chance (inclusive).
    bool get_one_in_chance(int chance);
 

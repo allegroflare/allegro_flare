@@ -51,6 +51,15 @@ float Random::get_random_float(float min, float max)
 
 
 
+double Random::get_random_double(double min, double max)
+{
+   std::uniform_real_distribution<double> dist(min, max);
+   return dist(random_number_generator);
+}
+
+
+
+
 bool Random::get_one_in_chance(int chance)
 {
    if (get_random_int(0, chance - 1) == 0)
