@@ -15,6 +15,7 @@ FileDownloader::FileHandle::FileHandle(std::string file_url, std::string local_f
    , status(NONE)
    , download_size(0.0)
    , percentage(0.0)
+   , abort(false)
    , file_url(file_url)
    , local_filename(local_filename)
    , error("")
