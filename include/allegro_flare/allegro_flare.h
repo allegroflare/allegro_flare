@@ -29,6 +29,7 @@
 #include <allegro_flare/objects/sound_object.h>
 #include <allegro_flare/objects/text_object.h>
 #include <allegro_flare/objects/bitmap_object.h>
+#include <allegro_flare/web/file_downloader.h>
 #include <allegro_flare/attributes.h>
 #include <allegro_flare/bin.h>
 #include <allegro_flare/bit_flags.h>
