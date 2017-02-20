@@ -32,96 +32,48 @@ INCLUDE_FLAGS=-I$(ALLEGRO_DIR)/include -I$(ALLEGROFLARE_DIR)/include
 
 
 #
-# Core components
+# Library Targets
 # ===============================================
 #
-
-CORE_ITEMS=appearance2d attributes automation bitmap_object blender camera2d camera3d color config cubemap decorated_cout display drawing_interface file_path file_path_object filesys_watcher framework frustum generate_textures grid2d element_id i18n image_processing interpolators json md5 model3d motion random render_cache render_music_notation object2d path2d placement2d placement3d profile_timer programming_language render_sample screen sha2 shader shadow_mask skeleton sound_object text_object timeline useful useful_php vec2b vec2d vec3d
-BIN_ITEMS=font_bin sample_bin bitmap_bin model_bin
-DI_ITEMS=drawing_interface_allegro5 drawing_interface_html_canvas drawing_interface_svg
-FONT_ITEMS=font_bravura font_font_awesome font_segoe_ui_symbol
-SCREEN_ITEMS=simple_notification_screen gamer_input_screen
-GUI_WIDGET_ITEMS=style_assets button camera checkbox dial draggable_region float_spinner framed_window image int_spinner labeled_checkbox list_spinner music_notation picking_buffer progress_bar scaled_text scroll_area scrollbar slider spinner_base surface_area text text_area text_box text_input text_list toggle_button widget gui_screen window xy_controller
-GUI_SURFACE_AREA_ITEMS=always_collide bitmap_alpha box box_padded circle column never_collide row
-GUI_LAYOUT_LOADER_ITEMS=layout_loader_base gui_tool_layout_loader
-WEB_ITEMS=file_downloader
-
-CORE_OBJ_FILES=$(CORE_ITEMS:%=obj/%.o)
-BIN_OBJ_FILES=$(BIN_ITEMS:%=obj/%.o)
-DI_OBJ_FILES=$(DI_ITEMS:%=obj/%.o)
-FONT_OBJ_FILES=$(FONT_ITEMS:%=obj/%.o)
-SCREEN_OBJ_FILES=$(SCREEN_ITEMS:%=obj/%.o)
-GUI_WIDGET_OBJ_FILES=$(GUI_WIDGET_ITEMS:%=obj/%.o)
-GUI_SURFACE_AREA_OBJ_FILES=$(GUI_SURFACE_AREA_ITEMS:%=obj/%.o)
-GUI_LAYOUT_LOADER_OBJ_FILES=$(GUI_LAYOUT_LOADER_ITEMS:%=obj/%.o)
-WEB_OBJ_FILES=$(WEB_ITEMS:%=obj/%.o)
-
 
 # Append platform-specific components to the items
 # using this technique - http://stackoverflow.com/questions/714100/os-detecting-makefile
 
 ifeq ($(OS), Windows_NT)
 	BINARY_EXTENSION=.exe
-	CORE_ITEMS += clipboard_win
+	PLATFORM_FOLDER_NAME = win
 else
 	BINARY_EXTENSION=
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
-		CORE_ITEMS += clipboard_generic
+		PLATFORM_FOLDER_NAME = generic
 	endif
 	ifeq ($(UNAME_S),Darwin)
-		CORE_ITEMS += clipboard_osx
+		PLATFORM_FOLDER_NAME = mac_os
 	endif
 endif
 
 
+ALL_SOURCES := $(shell find src -name '*.cpp')
+ALL_PLATFORM_SOURCES := $(shell find src/platform -name '*.cpp')
+CURRENT_PLATFORM_SOURCES := $(shell find src/platform/$(PLATFORM_FOLDER_NAME) -name '*.cpp')
 
+SOURCES := $(filter-out $(ALL_PLATFORM_SOURCES), $(ALL_SOURCES))
+SOURCES += $(CURRENT_PLATFORM_SOURCES)
+OBJECTS := $(SOURCES:src/%.cpp=obj/%.o)
+REQUIRED_DIRECTORIES := $(dir $(OBJECTS))
 
-#
-# Library Targets
-# ===============================================
-#
-
-core: $(CORE_OBJ_FILES) $(BIN_OBJ_FILES) $(DI_OBJ_FILES) $(FONT_OBJ_FILES) $(SCREEN_OBJ_FILES) $(GUI_WIDGET_OBJ_FILES) $(GUI_SURFACE_AREA_OBJ_FILES) $(GUI_LAYOUT_LOADER_OBJ_FILES) $(WEB_OBJ_FILES)
-	@ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
+core: $(OBJECTS)
 	@echo "building $(ALLEGROFLARE_LIB_NAME)"
+	@ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
 
-$(CORE_OBJ_FILES): obj/%.o : source/%.cpp
-	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
+obj/%.o: src/%.cpp | required_obj_dirs
+	@echo "building $<"
+	@g++ -c -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I./include
 
-$(BIN_OBJ_FILES): obj/%.o : source/bins/%.cpp
-	@g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(DI_OBJ_FILES): obj/%.o : source/drawing_interfaces/%.cpp
-	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(FONT_OBJ_FILES): obj/%.o : source/fonts/%.cpp
-	@g++ -c -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(SCREEN_OBJ_FILES): obj/%.o : source/screens/%.cpp
-	@g++ -c -std=gnu++11 -Wall -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(GUI_WIDGET_OBJ_FILES): obj/%.o : source/gui/%.cpp
-	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(GUI_SURFACE_AREA_OBJ_FILES): obj/%.o : source/gui/surface_areas/%.cpp
-	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(GUI_LAYOUT_LOADER_OBJ_FILES): obj/%.o : source/gui/layout_loaders/%.cpp
-	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
-$(WEB_OBJ_FILES): obj/%.o : source/web/%.cpp
-	@g++ -c -std=gnu++11 -o obj/$(notdir $@) $< $(INCLUDE_FLAGS)
-	@echo "building $@"
-
+required_obj_dirs:
+	@echo "creating required directories"
+	@mkdir -p $(REQUIRED_DIRECTORIES)
 
 
 
@@ -165,14 +117,15 @@ documentation:
 #
 
 TESTS=$(wildcard tests/*.cpp)
-TEST_OBJS=$(TESTS:tests/%.cpp=bin/%$(BINARY_EXTENSION))
+TEST_OBJS=$(TESTS:tests/%.cpp=bin/tests/%$(BINARY_EXTENSION))
 
 ALLEGRO_TEST_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro
 
 tests: $(TEST_OBJS)
 
-bin/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGROFLARE_LIB_NAME).a
-	g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_TEST_LIBS) -lboost_unit_test_framework -lcurl
+bin/tests/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGROFLARE_LIB_NAME).a
+	@echo "building $<"
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_TEST_LIBS) -lboost_unit_test_framework -lcurl
 
 
 
@@ -187,4 +140,5 @@ clean:
 	-rm ./lib/*.a
 	-rm $(EXAMPLE_OBJS)
 	-rm $(TEST_OBJS)
-
+	-rm $(OBJECTS)
+	-rm -rf $(filter-out obj/, $(wildcard obj/*))
