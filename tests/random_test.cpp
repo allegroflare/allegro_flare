@@ -87,3 +87,21 @@ BOOST_AUTO_TEST_CASE(only_returns_floats_within_the_bounds_inclusive)
 
 
 
+BOOST_AUTO_TEST_CASE(returns_an_expected_sequence_of_random_numbers_given_a_seed)
+{
+   Random number_generator = Random(123456);
+   const int min_random_num = 0;
+   const int max_random_num = 10;
+   std::vector<int> expected_numbers = {1, 10, 2, 1, 8};
+
+   for (int i=0; i<expected_numbers.size(); i++)
+   {
+      int val = number_generator.get_random_int(min_random_num, max_random_num);
+
+      BOOST_CHECK_EQUAL(expected_numbers[i], val);
+   }
+}
+
+
+
+
