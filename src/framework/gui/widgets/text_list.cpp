@@ -19,9 +19,10 @@ UIListItem::UIListItem() {};
 
 UITextList::UITextList(UIWidget *parent, float x, float y, float w)
    : UIWidget(parent, "UITextList", new UISurfaceAreaBox(x, y, w, 20))
-   , currently_selected_item(0)
    , item_padding(5)
    , item_height(20)
+   , currently_selected_item(0)
+   , items()
 {}
 
 
@@ -101,7 +102,7 @@ float UITextList::get_item_height(int index)
 
 int UITextList::get_item_index_at(float x, float y)
 {
-   float padding_x = 16*2, padding_y = item_padding;
+   float padding_y = item_padding;
 
    // transform the coordin
    float cursor_y = padding_y;
@@ -189,9 +190,6 @@ void UITextList::draw_item(vec2d position, int index)
 
       float width = al_get_text_width(font, items[index].c_str());
       float height = al_get_font_line_height(font);
-
-      float text_center = position.x + width/2;
-      float text_middle = position.y + height/2;
 
       width += 22;
       height += 4;

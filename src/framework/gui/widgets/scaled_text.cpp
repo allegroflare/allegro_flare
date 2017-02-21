@@ -55,12 +55,12 @@ void UIScaledText::refresh_render()
 
 UIScaledText::UIScaledText(UIWidget *parent, float x, float y, std::string text)
    : UIWidget(parent, "UIScaledText", new UISurfaceAreaBox(x, y, 100, 100))
+   , render(NULL)
    , font_filename("DroidSans.ttf")
    , font_size(14)
    , render_scale(3.0)
-   , render(NULL)
-   , text(text)
    , font_color(color::white)
+   , text(text)
 {
    this->surface_area->placement.align.x = 0.0;
    this->no_focus = true;

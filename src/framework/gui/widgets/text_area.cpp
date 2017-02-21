@@ -97,10 +97,10 @@ bool UITextArea::Cursor::selection_active() { return head_pos != _anchor_pos; }
 
 UITextArea::UITextArea(UIWidget *parent, float x, float y, float w, float h, std::string text)
    : UIWidget(parent, "UITextArea", new UISurfaceAreaBox(x, y, w, h))
-   , cursor(0, 0)
    , full_text(text)
    , font(Framework::font("DroidSans.ttf 20"))
    , cursor_blink_counter(1)
+   , cursor(0, 0)
 {}
 
 
@@ -223,8 +223,6 @@ void UITextArea::on_draw()
    float draw_cursor_y = PADDING;
    float text_bbox_width = place.size.x - PADDING * 2;
    std::string word;
-   std::size_t pos = 0;
-   std::size_t found_pos = 0;
    int _number_of_lines = 0;
 
    bool selection_active = cursor.selection_active();
@@ -417,7 +415,6 @@ void UITextArea::on_key_char()
 
    int unichar = Framework::current_event->keyboard.unichar;
    int keycode = Framework::current_event->keyboard.keycode;
-   int modifier = Framework::current_event->keyboard.modifiers;
 
    // test cut-copy-paste
    if ((keycode == ALLEGRO_KEY_C

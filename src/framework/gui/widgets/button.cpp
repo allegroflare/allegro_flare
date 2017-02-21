@@ -18,10 +18,10 @@
 
 UIButton::UIButton(UIWidget *parent, float x, float y, float w, float h, std::string text)
    : UIWidget(parent, "UIButton", new UISurfaceAreaBox(x, y, w, h))
+   , icon(NULL)
+   , font(UIStyleAssets::get_ui_font())
    , text(text)
    , content_alignment(0.5)
-   , font(UIStyleAssets::get_ui_font())
-   , icon(NULL)
 {}
 
 

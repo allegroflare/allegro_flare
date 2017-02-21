@@ -14,8 +14,8 @@ UIScreen::UIScreen(Display *display)
    : Screen(display)
    , UIWidget(NULL, "UIScreen", new UISurfaceAreaBox(0, 0, display->width(), display->height()))
    , draw_focused_outline(true)
-   , use_joystick_as_mouse(true)
    , focused_outline_color(color::dodgerblue)
+   , use_joystick_as_mouse(true)
 {
    surface_area->placement.align.x = 0;
    surface_area->placement.align.y = 0;
