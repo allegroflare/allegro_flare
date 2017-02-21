@@ -4,12 +4,12 @@
 
 
 
-#include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/gui/surface_areas/surface_area_base.h>
 
 
 
 
-class UISurfaceAreaBitmapAlpha : public UISurfaceArea
+class UISurfaceAreaBitmapAlpha : public UISurfaceAreaBase
 {
 private:
    ALLEGRO_BITMAP *bitmap;

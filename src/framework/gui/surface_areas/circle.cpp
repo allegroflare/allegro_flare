@@ -10,7 +10,7 @@
 
 
 UISurfaceAreaCircle::UISurfaceAreaCircle(float x, float y, float r)
-   : UISurfaceArea(x, y, r*2, r*2)
+   : UISurfaceAreaBase(x, y, r*2, r*2)
 {}
 
 

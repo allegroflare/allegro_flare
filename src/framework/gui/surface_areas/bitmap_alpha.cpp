@@ -9,7 +9,7 @@
 
 
 UISurfaceAreaBitmapAlpha::UISurfaceAreaBitmapAlpha(float x, float y, ALLEGRO_BITMAP *bitmap)
-   : UISurfaceArea(x, y, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap))
+   : UISurfaceAreaBase(x, y, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap))
    , bitmap(bitmap)
    , alpha_threshold(0.001)
 {}

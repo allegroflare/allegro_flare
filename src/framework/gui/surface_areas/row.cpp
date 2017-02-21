@@ -8,7 +8,7 @@
 
 
 UISurfaceAreaRow::UISurfaceAreaRow(float y, float h)
-   : UISurfaceArea(0, y, 1, h)
+   : UISurfaceAreaBase(0, y, 1, h)
 {
    placement.align = vec2d(0, 0);
 }

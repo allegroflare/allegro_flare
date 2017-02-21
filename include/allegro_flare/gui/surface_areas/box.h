@@ -4,12 +4,12 @@
 
 
 
-#include <allegro_flare/gui/surface_area.h>
+#include <allegro_flare/gui/surface_areas/surface_area_base.h>
 
 
 
 
-class UISurfaceAreaBox : public UISurfaceArea
+class UISurfaceAreaBox : public UISurfaceAreaBase
 {
 public:
    UISurfaceAreaBox(float x, float y, float w, float h);
