@@ -14,17 +14,17 @@
 UIWidget::UIWidget(UIWidget *parent, std::string widget_typename, UISurfaceAreaBase *surface_area)
    : ElementID(parent)
    , surface_area(surface_area)
-   , place(surface_area->placement)
-   , mouse_down_on_over(false)
    , mouse_over(false)
+   , mouse_down_on_over(false)
    , focused(false)
    , dragging(false)
    , no_focus(false)
-   , delete_me(false)
    , mouse_is_blocked(false)
    , local_mouse_x(0)
    , local_mouse_y(0)
    , disabled(false)
+   , delete_me(false)
+   , place(surface_area->placement)
 {
    set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
    set("id", widget_typename + tostring(widget_count));

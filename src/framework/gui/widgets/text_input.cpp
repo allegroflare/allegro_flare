@@ -19,13 +19,13 @@ UITextInput::UITextInput(UIWidget *parent, float x, float y, float w, float h, s
    , default_text_when_empty("")
    , cursor_pos(0)
    , cursor_end(0)
-   , font(Framework::font("DroidSans.ttf 20"))
    , cursor_blink_counter(0)
+   , font(Framework::font("DroidSans.ttf 20"))
    , text_x_offset(0)
    , font_color(color::white)
-   , _text_render(NULL)
    , padding(10)
    , select_all_on_focus(false)
+   , _text_render(NULL)
 {
    set_text(text);
 

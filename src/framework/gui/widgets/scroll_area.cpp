@@ -12,8 +12,8 @@
 
 UIScrollArea::UIScrollArea(UIWidget *parent, float x, float y, float w, float h, UIWidget *content_parent)
    : UIWidget(parent, "UIScrollArea", new UISurfaceAreaBox(x, y, w, h))
-   , canvas(content_parent)
    , v_slider(NULL)
+   , canvas(content_parent)
    , canvas_render(al_create_bitmap(w, h))
 {
    if (canvas) this->reassign_parent(canvas);
