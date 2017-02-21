@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/file_path_object.h>
+#include <allegro_flare/objects/file_path_object.h>
 
 #include <algorithm>
 #include <iostream>

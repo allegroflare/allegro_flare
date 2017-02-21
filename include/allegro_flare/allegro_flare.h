@@ -29,6 +29,7 @@
 #include <allegro_flare/objects/sound_object.h>
 #include <allegro_flare/objects/text_object.h>
 #include <allegro_flare/objects/bitmap_object.h>
+#include <allegro_flare/objects/file_path_object.h>
 #include <allegro_flare/web/file_downloader.h>
 #include <allegro_flare/attributes.h>
 #include <allegro_flare/bin.h>
@@ -41,7 +42,6 @@
 #include <allegro_flare/display.h>
 #include <allegro_flare/element_id.h>
 #include <allegro_flare/file_path.h>
-#include <allegro_flare/file_path_object.h>
 #include <allegro_flare/filesys_watcher.h>
 #include <allegro_flare/framework.h>
 #include <allegro_flare/generate_textures.h>
