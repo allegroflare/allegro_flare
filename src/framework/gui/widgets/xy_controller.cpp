@@ -70,7 +70,6 @@ void UIXYController::on_draw()
    // draw the guides
    vec2d local_marker = vec2d(marker.x * place.size.x, marker.y * place.size.y);
 
-   ALLEGRO_COLOR guide_mixed_color = color::color(color::white, guide_opacity);
    al_draw_line(local_marker.x, 0, local_marker.x, place.size.y, color::color(color::white, guide_opacity), 1.0);
    al_draw_line(0, local_marker.y, place.size.x, local_marker.y, color::color(color::white, guide_opacity), 1.0);
 

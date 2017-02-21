@@ -102,7 +102,7 @@ float UITextList::get_item_height(int index)
 
 int UITextList::get_item_index_at(float x, float y)
 {
-   float padding_x = 16*2, padding_y = item_padding;
+   float padding_y = item_padding;
 
    // transform the coordin
    float cursor_y = padding_y;
@@ -190,9 +190,6 @@ void UITextList::draw_item(vec2d position, int index)
 
       float width = al_get_text_width(font, items[index].c_str());
       float height = al_get_font_line_height(font);
-
-      float text_center = position.x + width/2;
-      float text_middle = position.y + height/2;
 
       width += 22;
       height += 4;

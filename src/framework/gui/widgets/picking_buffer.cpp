@@ -116,7 +116,6 @@ int UIPickingBuffer::decode_id(ALLEGRO_COLOR color)
 
 ALLEGRO_COLOR UIPickingBuffer::encode_id(int id)
 {
-   ALLEGRO_COLOR color;
    unsigned char r = id % 256;
    unsigned char g = id / 256;
    unsigned char b = id / 65536;
