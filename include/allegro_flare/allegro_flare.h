@@ -26,6 +26,7 @@
 #include <allegro_flare/fonts/font_bravura.h>
 #include <allegro_flare/fonts/font_font_awesome.h>
 #include <allegro_flare/fonts/font_segoe_ui_symbol.h>
+#include <allegro_flare/graphics/sample_renderer.h>
 #include <allegro_flare/objects/sound_object.h>
 #include <allegro_flare/objects/text_object.h>
 #include <allegro_flare/objects/bitmap_object.h>
@@ -55,7 +56,6 @@
 #include <allegro_flare/profile_timer.h>
 #include <allegro_flare/path2d.h>
 #include <allegro_flare/render_cache.h>
-#include <allegro_flare/render_sample.h>
 #include <allegro_flare/screen.h>
 #include <allegro_flare/scriptable.h>
 #include <allegro_flare/shader.h>

@@ -5,7 +5,7 @@
 #include <allegro_flare/objects/sound_object.h>
 
 #include <allegro_flare/bins/sample_bin.h>
-#include <allegro_flare/render_sample.h>
+#include <allegro_flare/graphics/sample_renderer.h>
 
 
 	
@@ -234,7 +234,8 @@ float Sound::speed()
 ALLEGRO_BITMAP *Sound::create_render(int w, int h)
 {
    ALLEGRO_BITMAP *render = al_create_bitmap(w, h);
-   draw_wav_sample(render, al_get_sample(sample_instance));
+   SampleRenderer sample_renderer(al_get_sample(sample_instance));
+   sample_renderer.draw_wav_sample(render);
    return render;
 }
 

@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/render_sample.h>
+#include <allegro_flare/graphics/sample_renderer.h>
 
 #include <iostream>
 #include <allegro5/allegro_acodec.h>
@@ -12,31 +12,18 @@
 
 
 
-/*
-// this function returns a value between -1 and 1 of the sample located at pos
-static float inline get_f_sample_at(ALLEGRO_SAMPLE *sample, float pos, int channel_num=0)
+SampleRenderer::SampleRenderer(ALLEGRO_SAMPLE *sample)
+   : sample(sample)
+   , composite_stereo_render(true)
 {
-   if (!sample || (pos<0)) return 0;
-   if (pos >= al_get_sample_length(sample)) return 0;
-
-   //int *int16 = NULL;
-   short *short_pointer = NULL;
-
-   int sample_pos = pos;
-
-   switch(al_get_sample_depth(sample))
-   {
-   case ALLEGRO_AUDIO_DEPTH_INT16:
-      short_pointer = (short *)al_get_sample_data(sample);
-      return short_pointer[sample_pos*2+channel_num] / (float)-32768 * 2;
-      break;
-   default:
-      break;
-   }
-
-   return 0;
 }
-*/
+
+
+
+
+SampleRenderer::~SampleRenderer()
+{
+}
 
 
 
@@ -44,7 +31,7 @@ static float inline get_f_sample_at(ALLEGRO_SAMPLE *sample, float pos, int chann
 // This function returns a positive value between 0 and 1 of the maximum value between the given ranges.
 // Note that samples are normally in positive and negative values, this will return the max abs value.
 // This function is not sample-acurate, but will return usable approximate results.
-static float inline get_max_f_sample_within(ALLEGRO_SAMPLE *sample, float pos_begin, float pos_end, int channel_num=0)
+float SampleRenderer::get_max_f_sample_within(float pos_begin, float pos_end, int channel_num)
 {
    if (!sample || (pos_end<0) || (pos_begin >= al_get_sample_length(sample))) return 0;
 
@@ -84,30 +71,23 @@ static float inline get_max_f_sample_within(ALLEGRO_SAMPLE *sample, float pos_be
 
 
 
-// if true, will split stereo channels on a single line.
-// if false, will split stereo channels into seperate lines.
-static bool composite_stereo_render = true;
-
-
-
-
-void draw_wav_sample(ALLEGRO_BITMAP *dest, ALLEGRO_SAMPLE *sample)
+void SampleRenderer::draw_wav_sample(ALLEGRO_BITMAP *dest)
 {
    if (!sample) return;
-   draw_wav_sample(dest, sample, 0, al_get_sample_length(sample));
+   draw_wav_sample(dest, 0, al_get_sample_length(sample));
 }
 
 
 
 
-void draw_wav_sample(ALLEGRO_BITMAP *dest, ALLEGRO_SAMPLE *sample, float samp_start, float samp_end)
+void SampleRenderer::draw_wav_sample(ALLEGRO_BITMAP *dest, float samp_start, float samp_end)
 {
    if (!dest) { std::cout << "(!) Could not render sample: destination bitmap is invalid." << std::endl; return; }
    ALLEGRO_BITMAP *prev = al_get_target_bitmap();
    al_set_target_bitmap(dest);
    al_clear_to_color(al_color_name("black"));
 
-   draw_wav_sample(1, 1, al_get_bitmap_width(dest)-1, al_get_bitmap_height(dest)-2, samp_start, samp_end, sample);
+   draw_wav_sample(1, 1, al_get_bitmap_width(dest)-1, al_get_bitmap_height(dest)-2, samp_start, samp_end);
 
    al_set_target_bitmap(prev);
 }
@@ -115,7 +95,7 @@ void draw_wav_sample(ALLEGRO_BITMAP *dest, ALLEGRO_SAMPLE *sample, float samp_st
 
 
 
-void draw_wav_sample(float x, float y, float width, float height, float samp_start, float samp_end, ALLEGRO_SAMPLE *sample)
+void SampleRenderer::draw_wav_sample(float x, float y, float width, float height, float samp_start, float samp_end)
 {
    if (!sample) return;
 
@@ -175,11 +155,11 @@ void draw_wav_sample(float x, float y, float width, float height, float samp_sta
       float target_sample_end = (x_pos+x_pos_increment) / width * num_samples_in_range + samp_start;
 
       //left_sample_y = get_f_sample_at(sample, target_sample, 0) * signal_half_scale;
-      left_sample_y = get_max_f_sample_within(sample, target_sample_start, target_sample_end, 0) * signal_half_scale;
+      left_sample_y = get_max_f_sample_within(target_sample_start, target_sample_end, 0) * signal_half_scale;
       al_draw_line(x+x_pos, center_y-left_sample_y+left_center_y, x+x_pos, center_y+left_sample_y+left_center_y, left_channel, 0.5f);
 
       //right_sample_y = get_f_sample_at(sample, target_sample, 1) * signal_half_scale;
-      right_sample_y = get_max_f_sample_within(sample, target_sample_start, target_sample_end, 1) * signal_half_scale;
+      right_sample_y = get_max_f_sample_within(target_sample_start, target_sample_end, 1) * signal_half_scale;
       al_draw_line(x+x_pos, center_y-right_sample_y+right_center_y, x+x_pos, center_y+right_sample_y+right_center_y, right_channel, 0.5f);
    }
 
