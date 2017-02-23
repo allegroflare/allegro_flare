@@ -25,7 +25,7 @@ ALLEGROFLARE_DIR=$(LIBS_ROOT)/allegro_flare
 # ===============================================
 #
 
-ALLEGROFLARE_VERSION_STR=0.8.8
+ALLEGROFLARE_VERSION_STR=0.8.9wip
 ALLEGROFLARE_LIB_NAME=allegro_flare-$(ALLEGROFLARE_VERSION_STR)
 INCLUDE_FLAGS=-I$(ALLEGRO_DIR)/include -I$(ALLEGROFLARE_DIR)/include
 
