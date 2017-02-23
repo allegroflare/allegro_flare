@@ -39,12 +39,10 @@ function collect_widgets()
     var position = item.position();
     var widget = {
       type: 'UIWidget',
-      x: position.left,
-      y: position.top,
-      w: 0,
-      h: 0,
-      align_x: 0.5,
-      align_y: 0.5,
+      "position.x": position.left,
+      "position.y": position.top,
+      "size.x": 0,
+      "size.y": 0,
     };
     widgets.push(JSON.stringify(widget));
   });
