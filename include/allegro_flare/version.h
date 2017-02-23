@@ -4,7 +4,7 @@
 
 
 
-#define ALLEGRO_FLARE_VER "0.8.8wip"
+#define ALLEGRO_FLARE_VER "0.8.8"
 
 
 
