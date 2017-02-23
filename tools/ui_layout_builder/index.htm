@@ -29,20 +29,48 @@ span.button
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script>
+var last_widget_id = 0;
+var widgets = [];
+function collect_widgets()
+{
+  widgets = [];
+  $.each($('#canvas .widget'), function(i, v) {
+    var item = $(this);
+    var position = item.position();
+    var widget = {
+      type: 'UIWidget',
+      x: position.left,
+      y: position.top,
+      w: 0,
+      h: 0,
+      align_x: 0.5,
+      align_y: 0.5,
+    };
+    widgets.push(JSON.stringify(widget));
+  });
+  return widgets;
+}
 $(document).ready(function(){
-  $(".button").click(function(){
-    alert('hey :)!');
+  $(".export_widgets_button").click(function(){
+    widgets = collect_widgets();
+    alert(widgets);
+  });
+  $(".create_widget_button").click(function(){
+    var x = Math.random() * 600;
+    var y = Math.random() * 500;
+    last_widget_id++;
+    $("#canvas").append('<div class="box widget" style="left: ' + x + 'px; top: ' + y + 'px">Widget ' + last_widget_id + '</div>');
   });
 });
 </script>
 </head>
 
 <body>
-<div class="canvas">
-  <div class="box">Centered box!</div>
+<div id="canvas">
 </div>
 <div class="controls">
-  <span class="button">Export</span>
+  <span class="export_widgets_button button">Export</span>
+  <span class="create_widget_button button">Create</span>
 </div>
 </body>
 
