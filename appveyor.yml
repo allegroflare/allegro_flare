@@ -1,0 +1,30 @@
+version: "{branch}-ci-{build}"
+clone_depth: 5
+
+environment:
+  matrix:
+    - tbs_arch: "x86"
+      tbs_tools: "msvc14"
+      tbs_static_runtime: 0
+    
+    - tbs_arch: "x64"
+      tbs_tools: "msvc14"
+      tbs_static_runtime: 0
+
+    - tbs_arch: "x86"
+      tbs_tools: "mingw"
+      tbs_static_runtime: 1
+    
+    - tbs_arch: "x64"
+      tbs_tools: "mingw"
+      tbs_static_runtime: 1
+
+install:
+  - ps: Install-Package boost -force
+  - ps: Install-Package Allegro -force
+  - ps: Install-Package Cygwin -force
+
+build_script:
+  - make
+  - make tests
+  - make examples
