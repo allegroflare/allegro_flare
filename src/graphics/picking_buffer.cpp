@@ -97,3 +97,19 @@ ALLEGRO_BITMAP *PickingBuffer::get_surface_render()
 
 
 
+int PickingBuffer::get_surface_width()
+{
+   return w;
+}
+
+
+
+
+int PickingBuffer::get_surface_height()
+{
+   return h;
+}
+
+
+
+
