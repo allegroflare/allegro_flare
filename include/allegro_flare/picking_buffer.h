@@ -16,6 +16,8 @@ private:
    int w, h;
 
    void create_new_surface(int w, int h, int depth);
+   static int decode_id(ALLEGRO_COLOR color);
+   static ALLEGRO_COLOR encode_id(int id);
 
 public:
    static const int ID_MAX = 16777216;
@@ -24,9 +26,6 @@ public:
    ~PickingBuffer();
 
    void clear_surface();
-
-   static int decode_id(ALLEGRO_COLOR color);
-   static ALLEGRO_COLOR encode_id(int id);
 
    ALLEGRO_BITMAP *get_surface_render();
    int get_surface_width();
