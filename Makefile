@@ -68,7 +68,7 @@ core: $(OBJECTS)
 	@ar rs lib/lib$(ALLEGROFLARE_LIB_NAME).a $^
 
 obj/%.o: src/%.cpp | required_obj_dirs
-	@echo "building $<"
+	@echo "compiling $< -> $@"
 	@g++ -c -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I./include
 
 required_obj_dirs:
@@ -91,11 +91,11 @@ examples: $(EXAMPLE_OBJS)
 
 bin/%$(BINARY_EXTENSION): examples/gui/%.cpp
 	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
-	@echo "compiling $@"
+	@echo "compiling $< -> $@"
 
 bin/%$(BINARY_EXTENSION): examples/%.cpp
 	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
-	@echo "compiling $@"
+	@echo "compiling $< -> $@"
 
 
 
@@ -124,7 +124,7 @@ ALLEGRO_TEST_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog 
 tests: $(TEST_OBJS)
 
 bin/tests/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGROFLARE_LIB_NAME).a
-	@echo "building $<"
+	@echo "compiling $< -> $@"
 	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_TEST_LIBS) -lboost_unit_test_framework -lcurl
 
 
