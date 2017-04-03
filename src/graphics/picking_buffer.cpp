@@ -113,3 +113,18 @@ int PickingBuffer::get_surface_height()
 
 
 
+int PickingBuffer::get_id(int x, int y)
+{
+   if (surface_render)
+   {
+      if (x < 0 || x > get_surface_width()) return 0;
+      if (y < 0 || y > get_surface_height()) return 0;
+
+      return decode_id(al_get_pixel(surface_render, x, y));
+   }
+   return 0;
+}
+
+
+
+

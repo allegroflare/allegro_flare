@@ -30,6 +30,7 @@ public:
    ALLEGRO_BITMAP *get_surface_render();
    int get_surface_width();
    int get_surface_height();
+   int get_id(int x, int y);
 };
 
 
