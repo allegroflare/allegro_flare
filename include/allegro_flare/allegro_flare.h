@@ -51,6 +51,7 @@
 #include <allegro_flare/interpolators.h>
 #include <allegro_flare/model3d.h>
 #include <allegro_flare/motion.h>
+#include <allegro_flare/picking_buffer.h>
 #include <allegro_flare/placement2d.h>
 #include <allegro_flare/placement3d.h>
 #include <allegro_flare/profile_timer.h>
