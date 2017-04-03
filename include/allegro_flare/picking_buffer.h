@@ -26,7 +26,6 @@ public:
    ~PickingBuffer();
 
    void clear_surface();
-
    ALLEGRO_BITMAP *get_surface_render();
    int get_surface_width();
    int get_surface_height();
