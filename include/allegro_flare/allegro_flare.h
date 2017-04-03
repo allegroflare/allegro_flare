@@ -50,6 +50,7 @@
 #include <allegro_flare/gui.h>
 #include <allegro_flare/image_processing.h>
 #include <allegro_flare/interpolators.h>
+#include <allegro_flare/inventory.h>
 #include <allegro_flare/model3d.h>
 #include <allegro_flare/motion.h>
 #include <allegro_flare/picking_buffer.h>
