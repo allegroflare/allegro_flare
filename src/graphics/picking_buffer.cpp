@@ -25,6 +25,14 @@ PickingBuffer::PickingBuffer(int w, int h, int depth)
 
 
 
+PickingBuffer::~PickingBuffer()
+{
+   al_destroy_bitmap(surface_render);
+}
+
+
+
+
 void PickingBuffer::create_new_surface(int w, int h, int depth)
 {
    if (surface_render) al_destroy_bitmap(surface_render);

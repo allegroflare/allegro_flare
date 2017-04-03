@@ -18,6 +18,8 @@ public:
    int w, h, depth;
 
    PickingBuffer(int w, int h, int depth);
+   ~PickingBuffer();
+
    void create_new_surface(int w, int h, int depth);
    void clear_surface();
 
