@@ -90,3 +90,11 @@ ALLEGRO_COLOR PickingBuffer::encode_id(int id)
 
 
 
+ALLEGRO_BITMAP *PickingBuffer::get_surface_render()
+{
+   return surface_render;
+}
+
+
+
+
