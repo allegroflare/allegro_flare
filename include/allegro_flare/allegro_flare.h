@@ -23,6 +23,7 @@
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/model_bin.h>
 #include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/converters/color_id_converter.h>
 #include <allegro_flare/fonts/font_bravura.h>
 #include <allegro_flare/fonts/font_font_awesome.h>
 #include <allegro_flare/fonts/font_segoe_ui_symbol.h>
