@@ -13,11 +13,10 @@ class PickingBuffer
 {
 private:
    ALLEGRO_BITMAP *surface_render;
+   int w, h;
 
 public:
    static const int ID_MAX = 16777216;
-
-   int w, h, depth;
 
    PickingBuffer(int w, int h, int depth);
    ~PickingBuffer();

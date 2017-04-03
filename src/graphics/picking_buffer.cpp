@@ -16,7 +16,6 @@ PickingBuffer::PickingBuffer(int w, int h, int depth)
    : surface_render(nullptr)
    , w(w)
    , h(h)
-   , depth(depth)
 {
    create_new_surface(w, h, depth);
    clear_surface();
