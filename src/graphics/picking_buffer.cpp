@@ -6,6 +6,7 @@
 
 #include <allegro_flare/picking_buffer.h>
 
+#include <stdexcept>
 #include <sstream>
 #include <allegro_flare/useful.h> // for to_string
 
@@ -18,6 +19,7 @@ PickingBuffer::PickingBuffer(int w, int h, int depth)
    , h(h)
 {
    surface_render = create_new_surface(w, h, depth);
+   if (!surface_render) throw std::runtime_error("surface_render not created");
    clear_surface();
 }
 
@@ -115,14 +117,10 @@ int PickingBuffer::get_surface_height()
 
 int PickingBuffer::get_id(int x, int y)
 {
-   if (surface_render)
-   {
-      if (x < 0 || x > get_surface_width()) return 0;
-      if (y < 0 || y > get_surface_height()) return 0;
+   if (x < 0 || x > get_surface_width()) return 0;
+   if (y < 0 || y > get_surface_height()) return 0;
 
-      return decode_id(al_get_pixel(surface_render, x, y));
-   }
-   return 0;
+   return decode_id(al_get_pixel(surface_render, x, y));
 }
 
 
