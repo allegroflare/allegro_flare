@@ -25,8 +25,8 @@ public:
 
    void clear_surface();
 
-   static ALLEGRO_COLOR encode_id(int id);
    static int decode_id(ALLEGRO_COLOR color);
+   static ALLEGRO_COLOR encode_id(int id);
 
    ALLEGRO_BITMAP *get_surface_render();
    int get_surface_width();
