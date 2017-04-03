@@ -4,31 +4,23 @@
 
 #define ALLEGRO_UNSTABLE
 
-#include <allegro_flare/gui/widgets/picking_buffer.h>
+#include <allegro_flare/picking_buffer.h>
 
 #include <sstream>
-#include <allegro5/allegro_primitives.h>
-#include <allegro_flare/gui/surface_areas/box.h>
 #include <allegro_flare/useful.h> // for to_string
 
 
 
 
-PickingBuffer::PickingBuffer(UIWidget *parent, float x, float y, int w, int h, int depth)
-   : UIWidget(parent, "PickingBuffer", new UISurfaceAreaBox(x, y, w, h))
-   , surface_render(NULL)
-   , mouse_x(0)
-   , mouse_y(0)
-   , draw_surface_render(true)
+PickingBuffer::PickingBuffer(int w, int h, int depth)
+   : surface_render(nullptr)
+   , w(w)
+   , h(h)
+   , depth(depth)
 {
-   create_new_surface(place.size.x, place.size.y, depth);
+   create_new_surface(w, h, depth);
    clear_surface();
 }
-
-
-
-
-std::string PickingBuffer::MESSAGE_HEADER = "on_click_id ";
 
 
 
@@ -66,43 +58,6 @@ void PickingBuffer::clear_surface()
 
 
 
-void PickingBuffer::on_mouse_move(float x, float y, float dx, float dy)
-{
-   place.transform_coordinates(&x, &y);
-   mouse_x = x;
-   mouse_y = y;
-}
-
-
-
-
-void PickingBuffer::on_click()
-{
-   if (surface_render)
-   {
-      if (mouse_x < 0 || mouse_x > al_get_bitmap_width(surface_render)) return;
-      if (mouse_y < 0 || mouse_y > al_get_bitmap_height(surface_render)) return;
-
-      int clicked_id = decode_id(al_get_pixel(surface_render, mouse_x, mouse_y));
-      send_message_to_parent(PickingBuffer::compose_on_click_id_message(clicked_id));
-   }
-}
-
-
-
-
-void PickingBuffer::on_draw()
-{
-   if (draw_surface_render)
-   {
-      al_draw_rectangle(0, 0, place.size.x, place.size.y, color::green, 8);
-      al_draw_bitmap(surface_render, 0, 0, 0);
-   }
-}
-
-
-
-
 int PickingBuffer::decode_id(ALLEGRO_COLOR color)
 {
    unsigned char r, g, b, a;
@@ -122,37 +77,6 @@ ALLEGRO_COLOR PickingBuffer::encode_id(int id)
    unsigned char a = (id == 0) ? 0 : 255;
 
    return al_map_rgba(r, g, b, a);
-}
-
-
-
-
-std::string PickingBuffer::compose_on_click_id_message(int id)
-{
-   std::stringstream ss;
-   ss << MESSAGE_HEADER << id;
-   return ss.str();
-}
-
-
-
-
-int PickingBuffer::extract_on_click_id(std::string message)
-{
-   if (strncmp(message.c_str(), MESSAGE_HEADER.c_str(), MESSAGE_HEADER.size()) == 0)
-   {
-      int extracted_id = atoi(message.substr(MESSAGE_HEADER.size()).c_str());
-      return extracted_id;
-   }
-   return 0;
-}
-
-
-
-
-bool PickingBuffer::is_on_click_id_message(std::string message)
-{
-   return strncmp(message.c_str(), MESSAGE_HEADER.c_str(), MESSAGE_HEADER.size()) == 0;
 }
 
 
