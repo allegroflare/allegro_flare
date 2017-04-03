@@ -1,5 +1,5 @@
-#ifndef __UI_PICKING_BUFFER_HEADER
-#define __UI_PICKING_BUFFER_HEADER
+#ifndef __PICKING_BUFFER_HEADER
+#define __PICKING_BUFFER_HEADER
 
 
 
@@ -9,7 +9,7 @@
 
 
 
-class UIPickingBuffer : public UIWidget
+class PickingBuffer : public UIWidget
 {
 public:
    static const int ID_MAX = 16777216;
@@ -19,7 +19,7 @@ public:
    int depth;
    bool draw_surface_render;
 
-   UIPickingBuffer(UIWidget *parent, float x, float y, int w, int h, int depth);
+   PickingBuffer(UIWidget *parent, float x, float y, int w, int h, int depth);
    void create_new_surface(int w, int h, int depth);
    void clear_surface();
    void on_mouse_move(float x, float y, float dx, float dy) override;
