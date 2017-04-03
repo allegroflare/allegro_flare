@@ -17,7 +17,7 @@ PickingBuffer::PickingBuffer(int w, int h, int depth)
    , w(w)
    , h(h)
 {
-   create_new_surface(w, h, depth);
+   surface_render = create_new_surface(w, h, depth);
    clear_surface();
 }
 
@@ -32,10 +32,8 @@ PickingBuffer::~PickingBuffer()
 
 
 
-void PickingBuffer::create_new_surface(int w, int h, int depth)
+ALLEGRO_BITMAP *PickingBuffer::create_new_surface(int w, int h, int depth)
 {
-   if (surface_render) al_destroy_bitmap(surface_render);
-
    int previous_depth = al_get_new_bitmap_depth();
    int previous_samples = al_get_new_bitmap_samples();
    ALLEGRO_STATE previous_state;
@@ -43,11 +41,13 @@ void PickingBuffer::create_new_surface(int w, int h, int depth)
 
    al_set_new_bitmap_depth(depth);
    al_set_new_bitmap_samples(0);
-   surface_render = al_create_bitmap(w, h);
+   ALLEGRO_BITMAP *bmp = al_create_bitmap(w, h);
 
    al_restore_state(&previous_state);
    al_set_new_bitmap_depth(previous_depth);
    al_set_new_bitmap_samples(previous_samples);
+
+   return bmp;
 }
 
 
