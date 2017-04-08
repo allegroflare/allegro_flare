@@ -149,8 +149,10 @@ void UIWidget::draw_func()
 
    on_draw();
 
-   for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))
-      child->draw_func();
+   std::vector<UIWidget *> elements = ElementID::recast_collection<UIWidget>(get_children());
+   std::reverse(elements.begin(), elements.end());
+
+   for (auto &child : elements) child->draw_func();
 
    // draws the focus rectangle if it's focused
    /*
