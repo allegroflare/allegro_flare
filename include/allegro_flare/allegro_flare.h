@@ -64,6 +64,7 @@
 #include <allegro_flare/shader.h>
 #include <allegro_flare/shadow_mask.h>
 #include <allegro_flare/useful.h>
+#include <allegro_flare/user_event_emitter.h>
 #include <allegro_flare/version.h>
 
 
