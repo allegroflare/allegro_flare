@@ -86,6 +86,17 @@ EXAMPLES=$(wildcard examples/*.cpp)
 EXAMPLE_OBJS=$(EXAMPLES:examples/%.cpp=bin/%$(BINARY_EXTENSION))
 
 ALLEGRO_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro_main -lallegro
+ifeq ($(OS), Windows_NT)
+	OPENGL_LIB=-lopengl32
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		OPENGL_LIB=[ERROR:OPENGL_LIBS_NOT_DEFINED_FOR_LINUX]
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		OPENGL_LIB=-framework OpenGL
+	endif
+endif
 
 examples: $(EXAMPLE_OBJS)
 
@@ -94,7 +105,7 @@ bin/%$(BINARY_EXTENSION): examples/gui/%.cpp
 	@echo "compiling $< -> $@"
 
 bin/%$(BINARY_EXTENSION): examples/%.cpp
-	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS) $(OPENGL_LIB)
 	@echo "compiling $< -> $@"
 
 
