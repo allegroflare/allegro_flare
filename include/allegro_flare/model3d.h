@@ -35,6 +35,8 @@ public:
    };
 
 private:
+   friend class Model3DObjLoader;
+
    struct vt_coord
    {
    public:
