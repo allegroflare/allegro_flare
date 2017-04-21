@@ -4,12 +4,12 @@
 
 #include <allegro_flare/model3d.h>
 
-#include <cstdio>
-#include <iostream>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro_flare/console_color.h>
 #include <allegro_flare/vec3d.h>
+#include <cstdio>
+#include <iostream>
 
 
 
