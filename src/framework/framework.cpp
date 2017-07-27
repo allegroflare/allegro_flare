@@ -267,6 +267,10 @@ Display *Framework::create_display(Display::resolution_t resolution)
       w = 1280;
       h = 720;
       break;
+   case Display::RESOLUTION_RETINA:
+      w = 2880;
+      h = 1800;
+      break;
    case Display::FULLSCREEN_AUTO:
       {
          ALLEGRO_MONITOR_INFO monitor_info;
