@@ -20,7 +20,7 @@ Display *Display::find_display(ALLEGRO_DISPLAY *al_display)
 
 
 Display::Display(int width, int height, int display_flags)
-   : _background_color(color::hex("abc788"))
+   : _background_color(color::hex(Framework::get_config().get_or_default_str("ALLEGRO_FLARE", "background_color_hex", "#abc788").c_str()))
    , _width(width)
    , _height(height)
    , al_display(NULL)
