@@ -59,6 +59,7 @@ void Path::_recursive_traverse_dir(ALLEGRO_FS_ENTRY *folder)
 
 Path::Path()
 {
+   if (!al_is_system_installed()) std::runtime_error("Cannot create Path object: Allegro is not initialized");
    ALLEGRO_FS_ENTRY *folder = al_create_fs_entry(".");
    _recursive_traverse_dir(folder);
    std::sort(path.begin(), path.end(), path_filename_comp);
