@@ -165,7 +165,6 @@ unsigned char random_letter_or_number();
 
 // Generates a string of the size length consisting of randomly selected characters [A-Za-z0-0].
 // This is useful for generating random strings for identifiers or unique instances.
-// TODO: aaaagggghhh ;[ this is not funny tested
 std::string random_string(unsigned int length);
 
 // Returns a randomly selected element from the vector.
