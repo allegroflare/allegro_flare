@@ -12,10 +12,11 @@
 
 class Config
 {
-public:
+private:
    std::string filename;
    ALLEGRO_CONFIG *config_file;
 
+public:
    Config(std::string filename);
 
    bool has_value(std::string section, std::string key);
