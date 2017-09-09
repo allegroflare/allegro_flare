@@ -1,12 +1,8 @@
-#ifndef __AF_CONFIG_HEADER
-#define __AF_CONFIG_HEADER
-
-
+#pragma once
 
 
 #include <string>
 #include <allegro5/allegro.h>
-
 
 
 
@@ -31,5 +27,3 @@ public:
 
 
 
-
-#endif
