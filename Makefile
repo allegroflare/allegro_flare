@@ -69,7 +69,7 @@ core: $(OBJECTS)
 
 obj/%.o: src/%.cpp | required_obj_dirs
 	@echo "compiling $< -> $@"
-	@g++ -c -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I./include
+	@g++ -c -Wnon-virtual-dtor -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I./include
 
 required_obj_dirs:
 	@echo "creating required directories"
