@@ -28,6 +28,12 @@ UITextList::UITextList(UIWidget *parent, float x, float y, float w)
 
 
 
+UITextList::~UITextList()
+{}
+
+
+
+
 void UITextList::add_item(std::string item)
 {
    // TODO: insert()

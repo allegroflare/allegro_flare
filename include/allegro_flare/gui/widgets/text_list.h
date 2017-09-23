@@ -36,6 +36,7 @@ public:
 
 public:
    UITextList(UIWidget *parent, float x, float y, float w);
+   virtual ~UITextList();
 
    void add_item(std::string item);
    void select_item(int index);
