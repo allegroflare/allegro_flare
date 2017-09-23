@@ -59,6 +59,13 @@ object2d::object2d(float x, float y, float w, float h)
 
 
 
+object2d::~object2d()
+{
+}
+
+
+
+
 object2d &object2d::transform_on()
 {
    if (!_placement)
