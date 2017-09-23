@@ -68,6 +68,13 @@ namespace automation
 
 
 
+   Actor::~Actor()
+   {
+   }
+
+
+
+
    Timeline::Track *Actor::get_param_by_id(const char *id)
    {
       for (unsigned i=0; i<params.size(); i++)
