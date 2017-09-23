@@ -17,6 +17,11 @@ UIListItem::UIListItem() {};
 
 
 
+UIListItem::~UIListItem() {};
+
+
+
+
 UITextList::UITextList(UIWidget *parent, float x, float y, float w)
    : UIWidget(parent, "UITextList", new UISurfaceAreaBox(x, y, w, 20))
    , item_padding(5)

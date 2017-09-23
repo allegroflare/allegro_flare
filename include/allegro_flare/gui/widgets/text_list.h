@@ -20,6 +20,8 @@ protected:
 
 public:
    UIListItem();
+   virtual ~UIListItem();
+
    virtual vec2d draw_item(vec2d position) = 0; // returns the width/height of the item
 };
 
