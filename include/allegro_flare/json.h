@@ -21,6 +21,9 @@ namespace JSON
    class Value
    {
    public:
+      Value();
+      virtual ~Value();
+
       std::string value;
       virtual std::string toString(void);
 
@@ -35,6 +38,9 @@ namespace JSON
    class Object : public Value
    {
    public:
+      Object();
+      virtual ~Object();
+
       std::map<std::string, Value *> values;
 
       virtual std::string toString(void);
@@ -46,6 +52,9 @@ namespace JSON
    class Array : public Value
    {
    public:
+      Array();
+      virtual ~Array();
+
       std::vector<Value *> values;
       void push(Value *value);
 
@@ -56,6 +65,9 @@ namespace JSON
    class String : public Value
    {
    public:
+      String();
+      virtual ~String();
+
       virtual std::string toString(void);
       std::string stringValue() const;
    };
