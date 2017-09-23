@@ -34,6 +34,7 @@ private:
 
 public:
    Display(int width, int height, int display_flags); // you must use AllegroFlare::create_display
+   virtual ~Display();
 
    ALLEGRO_DISPLAY *al_display;
    virtual void display_close_func();
