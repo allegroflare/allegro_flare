@@ -85,7 +85,7 @@ public:
    void set_on_display(Display *display);
    static int get_num_screens();
    Screen(Display *display=nullptr);
-   ~Screen();
+   virtual ~Screen();
 };
 
 

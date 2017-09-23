@@ -40,7 +40,10 @@ namespace automation
       std::string identifier;
       std::vector<Timeline::Track *> params;
 
+
       Actor(std::string identifier, actor_t type);
+      virtual ~Actor();
+
       Timeline::Track *get_param_by_id(const char *id);
 
       virtual void load_script(std::string script_filename);
@@ -78,6 +81,8 @@ namespace automation
       ALLEGRO_BITMAP *bitmap;
 
       Actor2D(std::string identifier, ALLEGRO_BITMAP *bitmap);
+      ~Actor2D();
+
       // IMPORTANT
       void register_params();
       void render(double time);

@@ -20,6 +20,8 @@ protected:
 
 public:
    UIListItem();
+   virtual ~UIListItem();
+
    virtual vec2d draw_item(vec2d position) = 0; // returns the width/height of the item
 };
 
@@ -36,6 +38,7 @@ public:
 
 public:
    UITextList(UIWidget *parent, float x, float y, float w);
+   virtual ~UITextList();
 
    void add_item(std::string item);
    void select_item(int index);

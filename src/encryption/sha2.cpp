@@ -46,7 +46,11 @@
  
 class SHA2
 {
+
 public:
+    SHA2();
+    virtual ~SHA2();
+
     virtual void init() = 0;
     virtual void update(const unsigned char *message, unsigned int len) = 0;
     virtual void final(unsigned char *digest) = 0;

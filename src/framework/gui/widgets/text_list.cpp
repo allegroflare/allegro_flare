@@ -17,12 +17,23 @@ UIListItem::UIListItem() {};
 
 
 
+UIListItem::~UIListItem() {};
+
+
+
+
 UITextList::UITextList(UIWidget *parent, float x, float y, float w)
    : UIWidget(parent, "UITextList", new UISurfaceAreaBox(x, y, w, 20))
    , item_padding(5)
    , item_height(20)
    , currently_selected_item(0)
    , items()
+{}
+
+
+
+
+UITextList::~UITextList()
 {}
 
 

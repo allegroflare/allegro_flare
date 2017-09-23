@@ -40,6 +40,11 @@ Display::Display(int width, int height, int display_flags)
 
 
 
+Display::~Display()
+{
+}
+
+
 
 void Display::display_close_func()
 {

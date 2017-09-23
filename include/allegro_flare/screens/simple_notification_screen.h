@@ -44,6 +44,8 @@ private:
 
 public:
    SimpleNotificationScreen(Display *display, ALLEGRO_FONT *font);
+   virtual ~SimpleNotificationScreen();
+
    void primary_timer_func() override;
    void spawn_notification(std::string text);
 };

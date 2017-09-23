@@ -48,6 +48,7 @@ public:
    ALLEGRO_COLOR color();
 
    object2d(float x, float y, float w, float h);
+   virtual ~object2d();
 
    virtual object2d &transform_on();
    virtual object2d &appearance_on();
