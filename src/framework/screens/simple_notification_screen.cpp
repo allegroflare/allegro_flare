@@ -34,6 +34,13 @@ SimpleNotificationScreen::SimpleNotification::SimpleNotification(std::string tex
 
 
 
+SimpleNotificationScreen::~SimpleNotificationScreen()
+{
+}
+
+
+
+
 void SimpleNotificationScreen::SimpleNotification::draw(float x_cursor, float y_cursor)
 {
    if (can_die) return;
