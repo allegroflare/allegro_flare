@@ -81,6 +81,8 @@ namespace automation
       ALLEGRO_BITMAP *bitmap;
 
       Actor2D(std::string identifier, ALLEGRO_BITMAP *bitmap);
+      ~Actor2D();
+
       // IMPORTANT
       void register_params();
       void render(double time);

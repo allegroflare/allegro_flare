@@ -128,6 +128,13 @@ namespace automation
 
 
 
+   Actor2D::~Actor2D()
+   {
+   }
+
+
+
+
    void Actor2D::register_params()
    {
       //std::cout << "Here";
