@@ -15,6 +15,20 @@ namespace JSON
 
    // Value
 
+
+
+   Value::Value()
+   {
+   }
+
+
+
+   Value::~Value()
+   {
+   }
+
+
+
    std::string Value::toString(void)
    {
       return value;
@@ -81,7 +95,22 @@ namespace JSON
 
    // Object
 
+
+
+   Object::Object()
+   {
+   }
+
+
+
+   Object::~Object()
+   {
+   }
+
+
+
    std::string Object::toString(void)
+
    {
       value = "{";
 
@@ -124,6 +153,20 @@ namespace JSON
 
    // Array
 
+
+
+   Array::Array()
+   {
+   }
+
+
+
+   Array::~Array()
+   {
+   }
+
+
+
    void Array::push(Value *value)
    {
       values.push_back(value);
@@ -164,6 +207,20 @@ namespace JSON
 
 
    // String
+
+
+
+   String::String()
+   {
+   }
+
+
+
+   String::~String()
+   {
+   }
+
+
 
    std::string String::toString()
    {
