@@ -68,7 +68,11 @@ public:
 class InterpreterInterface
 {
 public:
+   InterpreterInterface();
+   virtual ~InterpreterInterface();
+
    VirtualMemory memory;
+
    virtual void interpret(std::string val) = 0;
 };
 
