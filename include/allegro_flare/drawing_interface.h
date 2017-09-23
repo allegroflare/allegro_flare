@@ -19,7 +19,7 @@ private:
 
 public:
 	DrawingInterface(std::string drawing_mode_name);
-	~DrawingInterface();
+	virtual ~DrawingInterface();
 	std::string get_mode_name();
 
 	// preparation and content
