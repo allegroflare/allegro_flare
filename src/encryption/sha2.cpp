@@ -291,6 +291,22 @@ std::string get_sha512_hash_of_file(std::string filename)
 }
 
 
+
+
+SHA2::SHA2()
+{
+}
+
+
+
+
+SHA2::~SHA2()
+{
+}
+
+
+
+
 // original author code continues below:
 
 
