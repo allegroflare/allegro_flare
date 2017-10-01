@@ -10,6 +10,8 @@
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/bins/model_bin.h>
 #include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/allegro_color_attribute_datatype.h>
+#include <allegro_flare/attributes.h>
 #include <allegro_flare/motion.h>
 #include <allegro_flare/useful.h>
 #include <allegro_flare/version.h>
@@ -155,6 +157,12 @@ bool Framework::initialize(std::string config_filename)
    else std::cerr << "no joystick(s) detected" << std::endl;
 
    instance = new Framework(config_filename);
+
+   Attributes::create_datatype_definition(
+      AllegroColorAttributeDatatype::IDENTIFIER,
+      AllegroColorAttributeDatatype::to_val_func,
+      AllegroColorAttributeDatatype::to_str_func
+   );
 
    initialized = true;
 
