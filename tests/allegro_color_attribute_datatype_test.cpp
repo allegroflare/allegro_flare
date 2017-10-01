@@ -14,13 +14,13 @@
 
 BOOST_AUTO_TEST_CASE(allegro_color_custom_attribute_can_set_and_get_an_allegro_color)
 {
-   Attributes attributes;
-
-   attributes.create_datatype_definition(
+   Attributes::create_datatype_definition(
       AllegroColorAttributeDatatype::IDENTIFIER,
       AllegroColorAttributeDatatype::to_val_func,
       AllegroColorAttributeDatatype::to_str_func
    );
+
+   Attributes attributes;
 
    ALLEGRO_COLOR color_1 = al_map_rgba_f(0.123, 0.357, 0.876, 0.926);
    ALLEGRO_COLOR color_2 = al_map_rgb(0, 0, 0);
