@@ -29,3 +29,7 @@ std::string AllegroColorAttributeDatatype::to_str_func(void *val)
 
 
 
+const std::string AllegroColorAttributeDatatype::IDENTIFIER = "ALLEGRO_COLOR";
+
+
+
