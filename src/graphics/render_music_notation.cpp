@@ -389,7 +389,7 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
          x_cursor += get_music_symbol_width(62692);
          continue;
       }
-      case '@': // 2/4 or shift 3
+      case '@': // 2/4 or shift 2
       {
          draw_music_symbol(62689, start_x+x_cursor, y + staff_line_distance*2, color);
          draw_music_symbol(62692, start_x+x_cursor, y + staff_line_distance*2, color);
