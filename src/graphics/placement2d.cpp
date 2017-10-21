@@ -253,7 +253,24 @@ placement2d& placement2d::operator+=(placement2d& other)
    anchor += other.anchor;
    rotation += other.rotation;
    // flip.x and flip.y are ignored
+   // however, they should flip whatever value is currently present if other.flip.x == true, or otherwise
    return *this;
+}
+
+
+
+
+placement2d placement2d::operator*(float f)
+{
+   placement2d place = *this;
+   position *= f;
+   size *= f;
+   align *= f;
+   scale *= f;
+   anchor *= f;
+   rotation *= f;
+   // flip.x and flip.y are ignored
+   return place;
 }
 
 

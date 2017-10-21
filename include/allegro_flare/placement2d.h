@@ -43,6 +43,7 @@ public:
    std::string get_string();
 
    placement2d& operator+=(placement2d &other);
+   placement2d operator*(float f); // mostly used when placement2d represents a velocity
 };
 
 
