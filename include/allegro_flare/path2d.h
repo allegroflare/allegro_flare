@@ -50,7 +50,7 @@ public:
 
    // generators
    path2d *create_copy();
-   path2d *create_extrapolation(float radian, float theta); // extracts a new path with segments who's normals are within the angles
+   path2d *create_extrapolation(float radian, float theta); // extracts a new path with segments whose normals are within the angles
    // Copy constructor
    path2d(const path2d &source);
 
