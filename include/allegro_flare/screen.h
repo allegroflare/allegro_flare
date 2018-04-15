@@ -45,6 +45,8 @@ public:
    ALLEGRO_BITMAP *backbuffer_sub_bitmap;
    Display *display;
 
+   void create_and_use_backbuffer_sub_bitmap_of(ALLEGRO_BITMAP *new_target);
+
    static void send_signal(int signal, void *data); // experimental
    static void send_signal(std::string const &signal, void *data); // I'm likin it
    // TODO!! signal should no longer be a reference, just a const std::string
@@ -79,7 +81,6 @@ public:
    //bool drawing;
    //bool updating;
    //bool input_active;
-
 
    static void bring_to_front(Screen *s);
    void set_on_display(Display *display);
