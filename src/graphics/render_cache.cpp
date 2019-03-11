@@ -100,4 +100,10 @@ bool RenderCache::is_dirty()
 
 
 
+ALLEGRO_BITMAP *RenderCache::get_surface_bitmap()
+{
+   return render;
+}
+
+
 

@@ -29,6 +29,8 @@ public:
    void mark_as_dirty();
    void mark_as_clean();
    bool is_dirty();
+
+   ALLEGRO_BITMAP *get_surface_bitmap();
 };
 
 
