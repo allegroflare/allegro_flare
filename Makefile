@@ -120,7 +120,8 @@ bin/%$(BINARY_EXTENSION): examples/%.cpp
 #
 
 documentation:
-	python docs/compile_docs.py
+	python2 docs/build_scripts/parse_source.py
+	python2 docs/build_scripts/compile_docs.py
 
 
 
