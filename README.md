@@ -1,7 +1,9 @@
 ![Allegro Flare](bin/data/bitmaps/allegro_flare_logo-04.png?raw=true) AllegroFlare
 =============
 
-Current version - v0.8.9wip
+* Current in-development version - v0.9.0wip at HEAD
+* Latest stable version - [v0.8.9 - Sassy
+Seadragon](https://github.com/allegroflare/allegro_flare/releases/tag/v0.8.9)
 
 
 AllegroFlare is a game programming library in C++.  It's built on top of the [Allegro 5 Game Programming Library](http://liballeg.org), extending it with new features to make your game development expreience all the more enjoyable.
