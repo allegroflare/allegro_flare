@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <string>
 
+#include <AllegroFlare/UsefulPHP.hpp>
+
 
 
 
@@ -73,8 +75,8 @@ RubyScriptResult run_ruby_script(std::string script_filename, std::string args)
 
 
 #include <allegro_flare/allegro_flare.h>
-#include <allegro_flare/gui/widgets/music_notation.h>
-#include <allegro_flare/drawing_interfaces/drawing_interface_allegro5.h>
+#include <allegro_flare/music_notation.h>
+#include <allegro_flare/drawing_interface_allegro5.h>
 
 #include <algorithm>
 

@@ -4,7 +4,8 @@
 
 #include <allegro_flare/allegro_flare.h>
 
-#include <allegro_flare/gui/layout_loaders/gui_tool_layout_loader.h>
+#include <allegro_flare/gui_tool_layout_loader.h>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 
 

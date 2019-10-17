@@ -5,9 +5,9 @@
 
 
 #include <allegro_flare/allegro_flare.h>
-#include <allegro_flare/color.h>
-#include <allegro_flare/gui/widget.h>
-#include <allegro_flare/gui/surface_areas/box.h>
+#include <AllegroFlare/Color.hpp>
+#include <allegro_flare/widget.h>
+#include <allegro_flare/box.h>
 
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>

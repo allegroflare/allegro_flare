@@ -40,7 +40,7 @@ namespace TransitionFX
 
 //#include <models/transition_fx/base.hpp>
 
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 
 
 namespace TransitionFX

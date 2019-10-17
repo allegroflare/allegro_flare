@@ -17,8 +17,8 @@
 
 
 #include <allegro_flare/allegro_flare.h>
-#include <allegro_flare/screens/gamer_input_screen.h>
-#include <allegro_flare/screens/simple_notification_screen.h>
+#include <allegro_flare/gamer_input_screen.h>
+#include <allegro_flare/simple_notification_screen.h>
 
 
 
