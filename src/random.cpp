@@ -1,11 +1,4 @@
-
-
-
-
 #include <allegro_flare/random.h>
-
-
-
 
 Random::Random(unsigned int seed)
    : seed(seed)

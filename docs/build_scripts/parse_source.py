@@ -1,3 +1,5 @@
+#!/bin/env python2
+
 import os
 import sys
 import glob
@@ -11,6 +13,7 @@ from pygccxml import parser
 # Set the path to the path of this script
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
+allegro_flare_base_dir = os.path.join(os.getcwd(), "../../")
 
 from terminal_color_output import *
 from extract_in_source_documentation import *
@@ -69,7 +72,7 @@ def parse_file(filename):
     xml_generator_config = parser.xml_generator_configuration_t(
         # cflags="-std=gnu++11",
         cflags="-Wno-c++11-extensions",
-        include_paths=["/Users/markoates/Repos/allegro_flare/include"],
+        include_paths=[os.path.join(allegro_flare_base_dir, "include")],
         xml_generator_path=generator_path,
         compiler="g++",
         xml_generator=generator_name)
@@ -98,7 +101,8 @@ def parse_file(filename):
     count = 0
     for item in found_items:
         count = count + 1 
-        cleaned_filename = re.match(r'/Users/markoates/Repos/allegro_flare/(.*)', item.location.file_name).group(1)
+        # Use a more standard way to get the file basename...
+        cleaned_filename = os.path.basename(item.location.file_name)
 
         # create `declaration_type`
         declaration_type = item.__class__.__name__
