@@ -4,6 +4,8 @@
 
 #include <allegro_flare/allegro_flare.h>
 
+#include <AllegroFlare/UsefulPHP.hpp>
+
 
 
 

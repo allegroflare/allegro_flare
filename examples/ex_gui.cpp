@@ -4,6 +4,8 @@
 
 #include <allegro_flare/allegro_flare.h>
 
+#include <AllegroFlare/UsefulPHP.hpp>
+
 
 
 
@@ -341,7 +343,7 @@ int main(int argc, char *argv[])
    Display *display = new Display(800, 720, ALLEGRO_NOFRAME);
    al_register_event_source(Framework::event_queue, al_get_display_event_source(display->al_display));
 
-   ExGUI *main = new ExGUI(display);
+   ExGUI *ex_gui = new ExGUI(display);
    Framework::run_loop();
 
    return 0;

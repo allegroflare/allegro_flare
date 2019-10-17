@@ -5,7 +5,7 @@
 #include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/screen.h>
 #include <allegro5/allegro_font.h>
-#include <allegro_flare/bins/font_bin.h>
+#include <AllegroFlare/FontBin.hpp>
 
 
 
@@ -32,12 +32,17 @@ public:
 
 UnicodeFontViewerExample::UnicodeFontViewerExample(Display *display, std::string font_identifier_str)
    : Screen(display)
-   , fonts("data/fonts")
+   , fonts()
    , unicode_font(fonts[font_identifier_str])
-   , ui_font(fonts["DroidSans.ttf 20"])
-   , ui_font_mini(fonts["DroidSans.ttf 9"])
+   , ui_font(nullptr)
+   , ui_font_mini(nullptr)
    , unicode_range_start(0x1D000)
-{}
+{
+   fonts.set_path("data/fonts");
+
+   ui_font = fonts["DroidSans.ttf 20"];
+   ui_font_mini = fonts["DroidSans.ttf 9"];
+}
 
 
 

@@ -13,6 +13,8 @@
 
 #include <allegro_flare/allegro_flare.h>
 
+#include <AllegroFlare/UsefulPHP.hpp>
+
 
 
 
@@ -766,9 +768,11 @@ public:
    std::vector<StrippedTexture *> textures;
 
    TextureBank()
-      : bitmaps("data/raycast_demo/bitmaps")
+      : bitmaps()
       , textures()
-   {}
+   {
+      bitmaps.set_path("data/raycast_demo/bitmaps");
+   }
 
    bool load_texture(int index, std::string filename)
    {
@@ -1198,9 +1202,9 @@ public:
       , viewport_height((int)(viewport_width * (float)display->height()/display->width()-frame_width + 100))
       , viewport_render(al_create_bitmap(viewport_width, viewport_height))
       , viewport(viewport_render)
-      , bitmaps("data/raycast_demo/bitmaps")
+      , bitmaps()
       , player_num_card_keys(0)
-      , samples("data/raycast_demo/samples")
+      , samples()
       , debug(false)
       , motion(50)
       , gun_flash_a(bitmaps["gun_flash_a.png"])
@@ -1209,6 +1213,10 @@ public:
       , magazine_capacity(8)
       , bullets_in_magazine(magazine_capacity)
    {
+      bitmaps.set_path("data/raycast_demo/bitmaps");
+      samples.set_path("data/raycast_demo/samples");
+
+
       direction = vec2d(-1, 0);
       dirX = -1;
       dirY = 0;

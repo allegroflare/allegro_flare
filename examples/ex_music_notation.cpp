@@ -4,7 +4,7 @@
 
 #include <allegro_flare/allegro_flare.h>
 
-#include <allegro_flare/drawing_interfaces/drawing_interface_allegro5.h>
+#include <allegro_flare/drawing_interface_allegro5.h>
 
 
 

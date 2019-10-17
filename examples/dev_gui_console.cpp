@@ -2,9 +2,10 @@
 
 
 
-#include <allegro_flare/gui/gui_screen.h>
-#include <allegro_flare/gui/widgets/text_input.h>
+#include <allegro_flare/gui_screen.h>
+#include <allegro_flare/text_input.h>
 #include <allegro_flare/framework.h>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 
 
