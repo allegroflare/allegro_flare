@@ -1,8 +1,6 @@
 
 
-
-
-#include <allegro_flare/vec2d.h>
+#include <allegro_flare/Vec2D.hpp>
 
 #include <cmath>
 #include <sstream>
@@ -200,7 +198,5 @@ bool is_counter_clockwise(const vec2d first, const vec2d second, const vec2d thi
 
    return dy1*dx2 < dy2*dx1;
 }
-
-
 
 

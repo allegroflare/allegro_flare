@@ -1,12 +1,7 @@
-#ifndef __AF_VEC_2D_HEADER
-#define __AF_VEC_2D_HEADER
-
-
+#pragma once
 
 
 #include <string>
-
-
 
 
 class vec2d
@@ -43,8 +38,6 @@ public:
 };
 
 
-
-
 // add two vectors
 vec2d operator+(vec2d first, vec2d second);
 
@@ -71,6 +64,3 @@ vec2d operator~(vec2d vec);
 bool is_counter_clockwise(const vec2d first, const vec2d second, const vec2d third);
 
 
-
-
-#endif

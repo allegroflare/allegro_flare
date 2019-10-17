@@ -12,7 +12,7 @@
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/object2d.h>
 #include <allegro_flare/useful.h>
-#include <allegro_flare/vec2d.h>
+#include <allegro_flare/Vec2D.hpp>
 
 
 

@@ -7,7 +7,7 @@
 #include <string>
 #include <allegro5/allegro.h>
 #include <allegro_flare/vec2b.h>
-#include <allegro_flare/vec2d.h>
+#include <allegro_flare/Vec2D.hpp>
 
 
 

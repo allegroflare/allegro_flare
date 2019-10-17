@@ -8,7 +8,7 @@
 #include <vector>
 #include <allegro_flare/bins/font_bin.h>
 #include <allegro_flare/gui/widget.h>
-#include <allegro_flare/vec2d.h>
+#include <allegro_flare/Vec2D.hpp>
 
 
 

@@ -11,7 +11,7 @@
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_native_dialog.h>
-#include <allegro_flare/vec2d.h>
+#include <allegro_flare/Vec2D.hpp>
 #include <allegro_flare/vec3d.h>
 #include <allegro_flare/color.h>
 
