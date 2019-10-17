@@ -4,8 +4,8 @@
 
 #include <allegro_flare/image.h>
 #include <allegro_flare/box.h>
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h> // for tostring
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp> // for tostring
 
 
 

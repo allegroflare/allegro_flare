@@ -4,7 +4,9 @@
 
 #include <allegro_flare/automation.h>
 
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/UsefulPHP.hpp>
+#include <AllegroFlare/Useful.hpp>
+//#include <allegro_flare/useful.h>
 
 
 

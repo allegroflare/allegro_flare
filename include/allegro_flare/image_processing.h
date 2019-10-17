@@ -5,7 +5,7 @@
 
 
 #include <allegro5/allegro.h>
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 
 
 

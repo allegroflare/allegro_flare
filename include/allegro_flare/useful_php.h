@@ -6,7 +6,7 @@
 
 #include <string>
 #include <vector>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Useful.hpp>
 
 
 

@@ -5,7 +5,7 @@
 
 
 #include <vector>
-#include <allegro_flare/Vec2D.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 
 
 

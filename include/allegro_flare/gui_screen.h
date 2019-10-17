@@ -4,11 +4,11 @@
 
 
 
-#include <allegro_flare/bitmap_bin.h>
-#include <allegro_flare/font_bin.h>
-#include <allegro_flare/sample_bin.h>
+#include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/SampleBin.hpp>
 #include <allegro_flare/widget.h>
-#include <allegro_flare/motion.h>
+#include <AllegroFlare/Motion.hpp>
 #include <allegro_flare/screen.h>
 
 

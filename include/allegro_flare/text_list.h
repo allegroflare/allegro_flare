@@ -6,9 +6,9 @@
 
 #include <string>
 #include <vector>
-#include <allegro_flare/font_bin.h>
+#include <AllegroFlare/FontBin.hpp>
 #include <allegro_flare/widget.h>
-#include <allegro_flare/Vec2D.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 
 
 

@@ -4,7 +4,7 @@
 
 #include <allegro_flare/sound_object.h>
 
-#include <allegro_flare/sample_bin.h>
+#include <AllegroFlare/SampleBin.hpp>
 #include <allegro_flare/sample_renderer.h>
 
 

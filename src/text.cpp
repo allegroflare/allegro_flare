@@ -6,8 +6,8 @@
 
 #include <allegro_flare/box.h>
 #include <allegro_flare/allegro_flare.h> // for fonts
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp>
 
 
 

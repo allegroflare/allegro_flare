@@ -8,7 +8,6 @@
 #include <string>
 #include <allegro_flare/appearance2d.h>
 #include <allegro_flare/placement2d.h>
-#include <allegro_flare/useful.h>
 
 
 

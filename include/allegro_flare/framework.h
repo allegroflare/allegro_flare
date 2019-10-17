@@ -9,13 +9,13 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_native_dialog.h>
-#include <allegro_flare/bitmap_bin.h>
-#include <allegro_flare/font_bin.h>
-#include <allegro_flare/model_bin.h>
-#include <allegro_flare/sample_bin.h>
+#include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/ModelBin.hpp>
+#include <AllegroFlare/SampleBin.hpp>
 #include <allegro_flare/config.h>
 #include <allegro_flare/display.h>
-#include <allegro_flare/motion.h>
+#include <AllegroFlare/Motion.hpp>
 #include <allegro_flare/screen.h>
 
 

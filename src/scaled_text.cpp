@@ -9,7 +9,7 @@
 #include <allegro_flare/gui_screen.h> // < TODO: don't think this is needed
 #include <allegro_flare/allegro_flare.h> // for bins
 #include <allegro_flare/gui.h>
-#include <allegro_flare/useful.h> // for tostring
+#include <AllegroFlare/Useful.hpp> // for tostring
 
 
 

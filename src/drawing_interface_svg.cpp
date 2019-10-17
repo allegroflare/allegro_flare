@@ -4,8 +4,8 @@
 
 #include <allegro_flare/drawing_interface_svg.h>
 
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h> // for escape_xml_chars(), as_hex()
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp> // for escape_xml_chars(), as_hex()
 #include <allegro_flare/useful_php.h>
 
 

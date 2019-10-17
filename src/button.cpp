@@ -11,7 +11,7 @@
 #include <allegro_flare/box.h>
 #include <allegro_flare/widget.h>
 #include <allegro_flare/allegro_flare.h> // for Framework::time_now
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 
 
 
