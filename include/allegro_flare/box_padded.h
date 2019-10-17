@@ -1,5 +1,4 @@
-#ifndef __UI_COLLISION_BOX_PADDED_HEADER
-#define __UI_COLLISION_BOX_PADDED_HEADER
+#pragma once
 
 
 

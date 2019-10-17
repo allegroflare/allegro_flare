@@ -1,5 +1,4 @@
-#ifndef __AF_CAMERA_2D_HEADER
-#define __AF_CAMERA_2D_HEADER
+#pragma once
 
 
 

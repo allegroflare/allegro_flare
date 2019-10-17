@@ -1,5 +1,4 @@
-#ifndef __AF_APPEARANCE_HEADER
-#define __AF_APPEARANCE_HEADER
+#pragma once
 
 
 

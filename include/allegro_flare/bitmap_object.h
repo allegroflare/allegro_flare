@@ -1,5 +1,4 @@
-#ifndef ___AF_BITMAP_OBJECT_HEADER
-#define ___AF_BITMAP_OBJECT_HEADER
+#pragma once
 
 
 

@@ -1,5 +1,4 @@
-#ifndef __UI_COLLISION_BITMAP_ALPHA_HEADER
-#define __UI_COLLISION_BITMAP_ALPHA_HEADER
+#pragma once
 
 
 

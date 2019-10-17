@@ -1,5 +1,4 @@
-#ifndef __UI_BUTTON_HEADER
-#define __UI_BUTTON_HEADER
+#pragma once
 
 
 

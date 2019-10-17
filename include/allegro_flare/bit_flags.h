@@ -1,5 +1,4 @@
-#ifndef __AF_FLAGS_HEADER
-#define __AF_FLAGS_HEADER
+#pragma once
 
 
 

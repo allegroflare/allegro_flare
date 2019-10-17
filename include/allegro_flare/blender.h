@@ -1,5 +1,4 @@
-#ifndef __AF_BLENDER_HEADER
-#define __AF_BLENDER_HEADER
+#pragma once
 
 
 

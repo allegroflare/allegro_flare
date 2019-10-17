@@ -1,5 +1,4 @@
-#ifndef __AF_CORE_HEADER
-#define __AF_CORE_HEADER
+#pragma once
 
 
 

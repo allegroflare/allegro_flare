@@ -1,5 +1,4 @@
-#ifndef __AF_BIN_TEMPLATE
-#define __AF_BIN_TEMPLATE
+#pragma once
 
 
 

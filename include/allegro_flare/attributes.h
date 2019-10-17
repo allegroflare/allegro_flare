@@ -1,5 +1,4 @@
-#ifndef __AF_ATTRIBUTES_HEADER
-#define __AF_ATTRIBUTES_HEADER
+#pragma once
 
 
 

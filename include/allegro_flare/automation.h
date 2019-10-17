@@ -1,5 +1,4 @@
-#ifndef __AF_AUTOMATION_HEADER
-#define __AF_AUTOMATION_HEADER
+#pragma once
 
 
 
