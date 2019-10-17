@@ -3,7 +3,7 @@
 
 
 #include <iostream>
-#include <allegro_flare/gui/surface_areas/box_padded.h>
+#include <allegro_flare/box_padded.h>
 #include <allegro_flare/color.h>
 
 

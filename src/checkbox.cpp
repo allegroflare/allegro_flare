@@ -2,13 +2,13 @@
 
 
 
-#include <allegro_flare/gui/widgets/checkbox.h>
+#include <allegro_flare/checkbox.h>
 
 #include <allegro5/allegro_primitives.h>
-#include <allegro_flare/fonts/font_font_awesome.h>
-#include <allegro_flare/gui/gui_screen.h>
-#include <allegro_flare/gui/style_assets.h>
-#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/font_font_awesome.h>
+#include <allegro_flare/gui_screen.h>
+#include <allegro_flare/style_assets.h>
+#include <allegro_flare/box.h>
 #include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/color.h>
 

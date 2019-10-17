@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/graphics/sample_renderer.h>
+#include <allegro_flare/sample_renderer.h>
 
 #include <iostream>
 #include <allegro5/allegro_acodec.h>

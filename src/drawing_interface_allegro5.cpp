@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/drawing_interfaces/drawing_interface_allegro5.h>
+#include <allegro_flare/drawing_interface_allegro5.h>
 
 #include <allegro_flare/drawing_interface.h>
 #include <allegro_flare/useful.h>

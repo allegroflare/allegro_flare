@@ -3,7 +3,7 @@
 
 
 #include <iostream>
-#include <allegro_flare/gui/surface_areas/never_collide.h>
+#include <allegro_flare/never_collide.h>
 
 
 

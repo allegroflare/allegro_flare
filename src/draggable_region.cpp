@@ -2,10 +2,10 @@
 
 
 
-#include <allegro_flare/gui/widgets/draggable_region.h>
+#include <allegro_flare/draggable_region.h>
 
 #include <allegro5/allegro_primitives.h>
-#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/box.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>
 

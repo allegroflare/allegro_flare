@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/gui/surface_areas/row.h>
+#include <allegro_flare/row.h>
 
 
 

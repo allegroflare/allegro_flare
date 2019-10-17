@@ -2,10 +2,10 @@
 
 
 
-#include <allegro_flare/gui/widget.h>
+#include <allegro_flare/widget.h>
 
-#include <allegro_flare/gui/gui_screen.h>
-#include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/gui_screen.h>
+#include <allegro_flare/style_assets.h>
 #include <allegro_flare/allegro_flare.h>
 
 

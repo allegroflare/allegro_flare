@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/bins/bitmap_bin.h>
+#include <allegro_flare/bitmap_bin.h>
 
 
 

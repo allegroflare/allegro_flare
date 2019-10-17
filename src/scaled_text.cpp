@@ -2,11 +2,11 @@
 
 
 
-#include <allegro_flare/gui/widgets/scaled_text.h>
+#include <allegro_flare/scaled_text.h>
 
 #include <allegro5/allegro_font.h>
-#include <allegro_flare/gui/surface_areas/box.h>
-#include <allegro_flare/gui/gui_screen.h> // < TODO: don't think this is needed
+#include <allegro_flare/box.h>
+#include <allegro_flare/gui_screen.h> // < TODO: don't think this is needed
 #include <allegro_flare/allegro_flare.h> // for bins
 #include <allegro_flare/gui.h>
 #include <allegro_flare/useful.h> // for tostring

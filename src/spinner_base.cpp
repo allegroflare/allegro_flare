@@ -2,11 +2,11 @@
 
 
 
-#include <allegro_flare/gui/widgets/spinner_base.h>
+#include <allegro_flare/spinner_base.h>
 
-#include <allegro_flare/gui/surface_areas/box.h>
-#include <allegro_flare/gui/widgets/button.h>
-#include <allegro_flare/gui/widgets/text_input.h>
+#include <allegro_flare/box.h>
+#include <allegro_flare/button.h>
+#include <allegro_flare/text_input.h>
 #include <allegro_flare/framework.h> // for Framework::current_event 
 
 

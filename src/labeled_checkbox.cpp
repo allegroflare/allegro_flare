@@ -2,12 +2,12 @@
 
 
 
-#include <allegro_flare/gui/widgets/labeled_checkbox.h>
+#include <allegro_flare/labeled_checkbox.h>
 
 #include <allegro5/allegro_primitives.h>
-#include <allegro_flare/gui/surface_areas/box.h>
-#include <allegro_flare/gui/widgets/checkbox.h>
-#include <allegro_flare/gui/widgets/text.h>
+#include <allegro_flare/box.h>
+#include <allegro_flare/checkbox.h>
+#include <allegro_flare/text.h>
 #include <allegro_flare/useful.h> // for to_string
 
 

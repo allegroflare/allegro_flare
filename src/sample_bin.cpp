@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/sample_bin.h>
 
 #include <allegro5/allegro_acodec.h>
 

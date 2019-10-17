@@ -2,10 +2,10 @@
 
 
 
-#include <allegro_flare/objects/sound_object.h>
+#include <allegro_flare/sound_object.h>
 
-#include <allegro_flare/bins/sample_bin.h>
-#include <allegro_flare/graphics/sample_renderer.h>
+#include <allegro_flare/sample_bin.h>
+#include <allegro_flare/sample_renderer.h>
 
 
 	

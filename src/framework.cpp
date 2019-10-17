@@ -6,10 +6,10 @@
 
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_ttf.h>
-#include <allegro_flare/bins/bitmap_bin.h>
-#include <allegro_flare/bins/font_bin.h>
-#include <allegro_flare/bins/model_bin.h>
-#include <allegro_flare/bins/sample_bin.h>
+#include <allegro_flare/bitmap_bin.h>
+#include <allegro_flare/font_bin.h>
+#include <allegro_flare/model_bin.h>
+#include <allegro_flare/sample_bin.h>
 #include <allegro_flare/allegro_color_attribute_datatype.h>
 #include <allegro_flare/attributes.h>
 #include <allegro_flare/motion.h>

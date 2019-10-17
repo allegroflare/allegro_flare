@@ -2,9 +2,9 @@
 
 
 
-#include <allegro_flare/gui/widgets/camera.h>
+#include <allegro_flare/camera.h>
 
-#include <allegro_flare/gui/surface_areas/never_collide.h>
+#include <allegro_flare/never_collide.h>
 
 
 

@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/gui/surface_areas/column.h>
+#include <allegro_flare/column.h>
 
 
 

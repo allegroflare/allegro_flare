@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/gui/surface_areas/surface_area_base.h>
+#include <allegro_flare/surface_area_base.h>
 
 #include <iostream>
 

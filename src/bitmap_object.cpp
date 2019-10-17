@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/objects/bitmap_object.h>
+#include <allegro_flare/bitmap_object.h>
 
 
 

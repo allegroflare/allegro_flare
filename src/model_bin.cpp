@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/bins/model_bin.h>
+#include <allegro_flare/model_bin.h>
 
 
 

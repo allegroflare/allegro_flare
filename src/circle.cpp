@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/gui/surface_areas/circle.h>
+#include <allegro_flare/circle.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h> // for distance
 

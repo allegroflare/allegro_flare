@@ -2,10 +2,10 @@
 
 
 
-#include <allegro_flare/gui/widgets/float_spinner.h>
+#include <allegro_flare/float_spinner.h>
 
-#include <allegro_flare/gui/widgets/button.h>
-#include <allegro_flare/gui/widgets/text_input.h>
+#include <allegro_flare/button.h>
+#include <allegro_flare/text_input.h>
 #include <allegro_flare/useful.h> // for tostring
 
 

@@ -2,8 +2,8 @@
 
 
 
-#include <allegro_flare/gui/widgets/image.h>
-#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/image.h>
+#include <allegro_flare/box.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h> // for tostring
 

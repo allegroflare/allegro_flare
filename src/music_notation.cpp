@@ -2,11 +2,11 @@
 
 
 
-#include <allegro_flare/gui/widgets/music_notation.h>
+#include <allegro_flare/music_notation.h>
 
 #include <allegro5/allegro_primitives.h>
-#include <allegro_flare/gui/surface_areas/box.h>
-#include <allegro_flare/drawing_interfaces/drawing_interface_allegro5.h>
+#include <allegro_flare/box.h>
+#include <allegro_flare/drawing_interface_allegro5.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>
 

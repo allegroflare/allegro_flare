@@ -6,7 +6,7 @@
 
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
-#include <allegro_flare/fonts/font_bravura.h>
+#include <allegro_flare/font_bravura.h>
 #include <allegro_flare/blender.h>
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>

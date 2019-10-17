@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/objects/text_object.h>
+#include <allegro_flare/text_object.h>
 
 
 

@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/style_assets.h>
 
 #include <allegro_flare/generate_textures.h>
 #include <allegro_flare/image_processing.h>

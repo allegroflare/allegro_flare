@@ -2,12 +2,12 @@
 
 
 
-#include <allegro_flare/gui/widgets/text_input.h>
+#include <allegro_flare/text_input.h>
 
 #include <algorithm>
-#include <allegro_flare/gui/surface_areas/box.h>
-#include <allegro_flare/gui/style_assets.h>
-#include <allegro_flare/gui/widget.h>
+#include <allegro_flare/box.h>
+#include <allegro_flare/style_assets.h>
+#include <allegro_flare/widget.h>
 #include <allegro_flare/allegro_flare.h> // for Framework::current_event and Framework::fonts
 
 

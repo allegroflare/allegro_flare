@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/bins/font_bin.h>
+#include <allegro_flare/font_bin.h>
 
 #include <allegro_flare/useful.h>
 

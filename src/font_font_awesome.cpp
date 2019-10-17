@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/fonts/font_font_awesome.h>
+#include <allegro_flare/font_font_awesome.h>
 
 
 

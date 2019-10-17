@@ -4,7 +4,7 @@
 
 
 
-#include <allegro_flare/gui/widget.h>
+#include <allegro_flare/widget.h>
 
 
 

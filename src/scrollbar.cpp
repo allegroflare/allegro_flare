@@ -2,11 +2,11 @@
 
 
 
-#include <allegro_flare/gui/widgets/scrollbar.h>
+#include <allegro_flare/scrollbar.h>
 
 #include <allegro5/allegro_primitives.h>
-#include <allegro_flare/gui/surface_areas/box.h>
-#include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/box.h>
+#include <allegro_flare/style_assets.h>
 #include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/useful.h> // for limit
 

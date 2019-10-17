@@ -2,10 +2,10 @@
 
 
 
-#include <allegro_flare/gui/widgets/toggle_button.h>
+#include <allegro_flare/toggle_button.h>
 
-#include <allegro_flare/gui/surface_areas/box.h>
-#include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/box.h>
+#include <allegro_flare/style_assets.h>
 #include <allegro_flare/allegro_flare.h> // for af::fonts
 
 

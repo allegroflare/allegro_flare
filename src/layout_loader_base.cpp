@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/gui/layout_loaders/layout_loader_base.h>
+#include <allegro_flare/layout_loader_base.h>
 
 
 

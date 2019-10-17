@@ -2,9 +2,9 @@
 
 
 
-#include <allegro_flare/gui/widgets/text.h>
+#include <allegro_flare/text.h>
 
-#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/box.h>
 #include <allegro_flare/allegro_flare.h> // for fonts
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>

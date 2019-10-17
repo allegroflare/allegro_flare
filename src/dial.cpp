@@ -2,10 +2,10 @@
 
 
 
-#include <allegro_flare/gui/widgets/dial.h>
+#include <allegro_flare/dial.h>
 
-#include <allegro_flare/gui/surface_areas/circle.h>
-#include <allegro_flare/gui/style_assets.h>
+#include <allegro_flare/circle.h>
+#include <allegro_flare/style_assets.h>
 #include <allegro_flare/allegro_flare.h> // for bins
 #include <allegro_flare/useful.h> // for tostring
 #include <math.h>

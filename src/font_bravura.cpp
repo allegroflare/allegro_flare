@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/fonts/font_bravura.h>
+#include <allegro_flare/font_bravura.h>
 
 
 

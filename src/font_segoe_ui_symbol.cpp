@@ -2,7 +2,7 @@
 
 
 
-#include <allegro_flare/fonts/font_segoe_ui_symbol.h>
+#include <allegro_flare/font_segoe_ui_symbol.h>
 
 
 

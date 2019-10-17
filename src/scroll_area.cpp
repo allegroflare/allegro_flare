@@ -2,9 +2,9 @@
 
 
 
-#include <allegro_flare/gui/widgets/scroll_area.h>
+#include <allegro_flare/scroll_area.h>
 
-#include <allegro_flare/gui/widgets/slider.h>
+#include <allegro_flare/slider.h>
 #include <allegro_flare/allegro_flare.h> // for bins
 
 
