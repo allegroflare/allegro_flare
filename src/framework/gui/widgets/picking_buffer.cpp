@@ -4,7 +4,7 @@
 
 #define ALLEGRO_UNSTABLE
 
-#include <allegro_flare/gui/widgets/picking_buffer.h>
+#include <allegro_flare/ui_picking_buffer.h>
 
 #include <sstream>
 #include <allegro5/allegro_primitives.h>
