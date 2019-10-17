@@ -9,8 +9,8 @@
 #include <allegro_flare/style_assets.h>
 #include <allegro_flare/allegro_flare.h>
 #include <allegro_flare/clipboard.h>
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp>
 
 
 

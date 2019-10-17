@@ -4,9 +4,9 @@
 
 #include <allegro_flare/drawing_interface_html_canvas.h>
 
-#include <allegro_flare/color.h> 
-#include <allegro_flare/useful.h> 
-#include <allegro_flare/useful_php.h> 
+#include <AllegroFlare/Color.hpp> 
+#include <AllegroFlare/Useful.hpp> 
+#include <AllegroFlare/UsefulPHP.hpp> 
 
 
 

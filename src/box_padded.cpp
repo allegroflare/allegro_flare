@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <allegro_flare/box_padded.h>
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 
 
 

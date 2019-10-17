@@ -4,7 +4,7 @@
 #include <allegro_flare/model3d_obj_loader.h>
 
 #include <allegro_flare/console_color.h>
-#include <allegro_flare/model3d.h>
+#include <AllegroFlare/Model3D.hpp>
 #include <allegro5/allegro_color.h>
 #include <iostream>
 

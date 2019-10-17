@@ -5,7 +5,7 @@
 #include <allegro_flare/grid2d.h>
 
 #include <algorithm>
-#include <allegro_flare/useful.h> // to replace the issues surrounding std::sprintf
+#include <AllegroFlare/Useful.hpp> // to replace the issues surrounding std::sprintf
 #include <cmath>
 
 

@@ -8,7 +8,7 @@
 
 #include <stdexcept>
 #include <sstream>
-#include <allegro_flare/useful.h> // for to_string
+#include <AllegroFlare/Useful.hpp> // for to_string
 
 
 

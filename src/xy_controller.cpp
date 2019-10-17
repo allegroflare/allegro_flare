@@ -6,7 +6,7 @@
 
 #include <allegro_flare/box.h>
 #include <allegro_flare/style_assets.h>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Useful.hpp>
 
 
 

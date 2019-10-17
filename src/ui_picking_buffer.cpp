@@ -9,7 +9,7 @@
 #include <sstream>
 #include <allegro5/allegro_primitives.h>
 #include <allegro_flare/box.h>
-#include <allegro_flare/useful.h> // for to_string
+#include <AllegroFlare/Useful.hpp> // for to_string
 
 
 

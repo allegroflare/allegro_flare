@@ -9,9 +9,9 @@
 #include <allegro_flare/gui_screen.h>
 #include <allegro_flare/style_assets.h>
 #include <allegro_flare/allegro_flare.h>
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 #include <allegro_flare/gui.h>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Useful.hpp>
 
 
 

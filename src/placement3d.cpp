@@ -4,7 +4,7 @@
 
 #include <allegro_flare/placement3d.h>
 
-#include <allegro_flare/useful.h> // just for #define TAU
+#include <AllegroFlare/Useful.hpp> // just for #define TAU
 
 
 

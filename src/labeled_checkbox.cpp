@@ -8,7 +8,7 @@
 #include <allegro_flare/box.h>
 #include <allegro_flare/checkbox.h>
 #include <allegro_flare/text.h>
-#include <allegro_flare/useful.h> // for to_string
+#include <AllegroFlare/Useful.hpp> // for to_string
 
 
 

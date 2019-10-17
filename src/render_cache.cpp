@@ -4,7 +4,7 @@
 
 #include <allegro_flare/render_cache.h>
 
-#include <allegro_flare/color.h> // for color::transparent
+#include <AllegroFlare/Color.hpp> // for color::transparent
 
 
 

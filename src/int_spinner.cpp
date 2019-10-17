@@ -6,7 +6,7 @@
 
 #include <allegro_flare/button.h>
 #include <allegro_flare/text_input.h>
-#include <allegro_flare/useful.h> // for tostring
+#include <AllegroFlare/Useful.hpp> // for tostring
 
 
 

@@ -6,9 +6,9 @@
 
 #include <algorithm>
 #include <allegro5/allegro_primitives.h>
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h>
-#include <allegro_flare/useful_php.h>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 
 

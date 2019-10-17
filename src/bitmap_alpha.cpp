@@ -3,7 +3,7 @@
 
 
 #include <allegro_flare/bitmap_alpha.h>
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 
 
 

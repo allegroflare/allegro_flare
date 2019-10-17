@@ -6,8 +6,8 @@
 
 #include <iostream>
 //#include <allegro_flare/text_object.h>
-#include <allegro_flare/useful.h>
-#include <allegro_flare/useful_php.h>
+#include <AllegroFlare/Useful.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 
 

@@ -3,8 +3,8 @@
 
 
 #include <allegro_flare/circle.h>
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h> // for distance
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp> // for distance
 
 
 

@@ -6,9 +6,9 @@
 
 #include <math.h> // for sqrt
 #include <allegro5/allegro_primitives.h>
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 #include <allegro_flare/path2d.h>
-#include <allegro_flare/useful.h> // for only ALLEGRO_FLAGS_EMPTY
+#include <AllegroFlare/Useful.hpp> // for only ALLEGRO_FLAGS_EMPTY
 
 
 

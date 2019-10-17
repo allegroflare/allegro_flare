@@ -8,7 +8,7 @@
 #include <allegro_flare/box.h>
 #include <allegro_flare/style_assets.h>
 #include <allegro_flare/allegro_flare.h>
-#include <allegro_flare/useful.h> // for limit
+#include <AllegroFlare/Useful.hpp> // for limit
 
 
 

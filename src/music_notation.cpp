@@ -7,8 +7,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro_flare/box.h>
 #include <allegro_flare/drawing_interface_allegro5.h>
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp>
 
 
 

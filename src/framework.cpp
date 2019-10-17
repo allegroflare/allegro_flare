@@ -6,14 +6,14 @@
 
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_ttf.h>
-#include <allegro_flare/bitmap_bin.h>
-#include <allegro_flare/font_bin.h>
-#include <allegro_flare/model_bin.h>
-#include <allegro_flare/sample_bin.h>
+#include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/ModelBin.hpp>
+#include <AllegroFlare/SampleBin.hpp>
 #include <allegro_flare/allegro_color_attribute_datatype.h>
 #include <allegro_flare/attributes.h>
-#include <allegro_flare/motion.h>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Motion.hpp>
+#include <AllegroFlare/Useful.hpp>
 #include <allegro_flare/version.h>
 
 
@@ -48,12 +48,17 @@ Framework *Framework::get_instance()
 
 Framework::Framework(std::string config_filename)
    : config(config_filename)
-   , fonts("data/fonts")
-   , samples("data/samples")
-   , bitmaps("data/bitmaps")
-   , models("data/models")
+   , fonts()
+   , samples()
+   , bitmaps()
+   , models()
    , motions(200)
-{}
+{
+   fonts.set_path("data/fonts");
+   samples.set_path("data/samples");
+   bitmaps.set_path("data/bitmaps");
+   models.set_path("data/models");
+}
 
 
 

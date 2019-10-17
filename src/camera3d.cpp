@@ -4,8 +4,8 @@
 
 #include <allegro_flare/camera3d.h>
 
-#include <allegro_flare/Vec2D.hpp>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Vec2D.hpp>
+#include <AllegroFlare/Useful.hpp>
 
 
 

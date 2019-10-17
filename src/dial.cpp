@@ -7,7 +7,7 @@
 #include <allegro_flare/circle.h>
 #include <allegro_flare/style_assets.h>
 #include <allegro_flare/allegro_flare.h> // for bins
-#include <allegro_flare/useful.h> // for tostring
+#include <AllegroFlare/Useful.hpp> // for tostring
 #include <math.h>
 
 
