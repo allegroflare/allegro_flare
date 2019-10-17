@@ -5,11 +5,7 @@
 #include <boost/test/unit_test.hpp>
 
 
-
-
 #include <allegro_flare/random.h>
-
-
 
 
 BOOST_AUTO_TEST_CASE(gets_the_current_seed)

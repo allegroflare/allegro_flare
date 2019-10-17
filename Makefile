@@ -13,14 +13,13 @@
 # ===============================================
 #
 
-LIBS_ROOT=/Users/markoates/Repos
-ALLEGRO_DIR=$(LIBS_ROOT)/allegro5
-ALLEGRO_LIB_DIR=$(LIBS_ROOT)/allegro5/build/lib
-ALLEGROFLARE_DIR=$(LIBS_ROOT)/allegro_flare
-GOOGLE_TEST_DIR=$(LIBS_ROOT)/googletest
-GOOGLE_TEST_LIB_DIR=$(GOOGLE_TEST_DIR)/build/googlemock/gtest
-GOOGLE_TEST_INCLUDE_DIR=$(GOOGLE_TEST_DIR)/googletest/include
-
+LIBS_ROOT=/usr/lib/
+ALLEGRO_INCLUDE_DIR=/usr/include/allegro5
+ALLEGRO_LIB_DIR=/usr/lib
+ALLEGROFLARE_DIR=${PWD}
+GOOGLE_TEST_LIB_DIR=/usr/lib
+GOOGLE_TEST_INCLUDE_DIR=/usr/include/gtest
+CXXFLAGS=""
 
 
 #
@@ -49,10 +48,25 @@ else
 	BINARY_EXTENSION=
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
+		LIBS_ROOT=/usr/lib
+		ALLEGRO_INCLUDE_DIR=/usr/include/allegro5
+		ALLEGRO_LIB_DIR=/usr/lib
+		ALLEGROFLARE_DIR=${PWD}
+		GOOGLE_TEST_LIB_DIR=/usr/lib
+		GOOGLE_TEST_INCLUDE_DIR=/usr/include/gtest
 		PLATFORM_FOLDER_NAME = generic
 	endif
 	ifeq ($(UNAME_S),Darwin)
+		# WARNING : Non-standard lib root ! It usually is in /Library/ or /opt/lib (if user has brew or Mac Ports)
+		LIBS_ROOT=/Users/markoates/Repos
+		ALLEGRO_INCLUDE_DIR=$(LIBS_ROOT)/allegro5
+		ALLEGRO_DIR=$(LIBS_ROOT)/allegro5
+		ALLEGRO_LIB_DIR=$(LIBS_ROOT)/allegro5/build/lib
+		GOOGLE_TEST_DIR=$(LIBS_ROOT)/googletest
+		GOOGLE_TEST_LIB_DIR=$(GOOGLE_TEST_DIR)/build/googlemock/gtest
+		GOOGLE_TEST_INCLUDE_DIR=$(GOOGLE_TEST_DIR)/googletest/include
 		PLATFORM_FOLDER_NAME = mac_os
+		
 	endif
 endif
 
@@ -72,13 +86,14 @@ core: $(OBJECTS)
 
 obj/%.o: src/%.cpp | required_obj_dirs
 	@echo "compiling $< -> $@"
-	@g++ -c -Wnon-virtual-dtor -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I./include
+	@g++ -c -Wnon-virtual-dtor -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_INCLUDE_DIR)/include -I./include
+
 
 required_obj_dirs:
 	@echo "creating required directories"
 	@mkdir -p $(REQUIRED_DIRECTORIES)
-
-
+	@mkdir -p bin/tests
+	@mkdir -p lib
 
 #
 # Example Programs
@@ -104,11 +119,11 @@ endif
 examples: $(EXAMPLE_OBJS)
 
 bin/%$(BINARY_EXTENSION): examples/gui/%.cpp
-	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_INCLUDE_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
 	@echo "compiling $< -> $@"
 
 bin/%$(BINARY_EXTENSION): examples/%.cpp
-	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS) $(OPENGL_LIB)
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_INCLUDE_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS) $(OPENGL_LIB)
 	@echo "compiling $< -> $@"
 
 
@@ -120,7 +135,8 @@ bin/%$(BINARY_EXTENSION): examples/%.cpp
 #
 
 documentation:
-	python docs/compile_docs.py
+	python2 docs/build_scripts/parse_source.py
+	python2 docs/build_scripts/compile_docs.py
 
 
 
@@ -140,9 +156,7 @@ tests: $(TEST_OBJS)
 
 bin/tests/%$(BINARY_EXTENSION): tests/%.cpp lib/lib$(ALLEGROFLARE_LIB_NAME).a
 	@echo "compiling $< -> $@"
-	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_DIR)/include -I$(GOOGLE_TEST_INCLUDE_DIR) -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) -L$(GOOGLE_TEST_LIB_DIR) $(ALLEGRO_TEST_LIBS) -lboost_unit_test_framework -lcurl $(GOOGLE_TEST_LIB)
-
-
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_INCLUDE_DIR)/include -I$(GOOGLE_TEST_INCLUDE_DIR) -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) -L$(GOOGLE_TEST_LIB_DIR) $(ALLEGRO_TEST_LIBS) -lboost_unit_test_framework -lcurl $(GOOGLE_TEST_LIB)
 
 #
 # Cleanup

@@ -5,10 +5,8 @@
 #include <boost/test/unit_test.hpp>
 
 
-
-
 #include <allegro_flare/element_id.h>
-
+#include <ctime>
 
 
 
