@@ -5,7 +5,7 @@
 
 #include <allegro5/allegro_font.h>
 #include <allegro_flare/widget.h>
-#include <allegro_flare/motion.h>
+#include <AllegroFlare/Motion.hpp>
 
 
 
@@ -37,4 +37,3 @@ public:
 
 
 
-#endif

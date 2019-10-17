@@ -6,8 +6,8 @@
 
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
-#include <allegro_flare/color.h>
-#include <allegro_flare/motion.h>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Motion.hpp>
 #include <allegro_flare/screen.h>
 
 

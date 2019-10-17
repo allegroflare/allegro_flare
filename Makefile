@@ -72,8 +72,8 @@ endif
 
 
 ALL_SOURCES := $(shell find src -name '*.cpp')
-ALL_PLATFORM_SOURCES := $(shell find src/platform -name '*.cpp')
-CURRENT_PLATFORM_SOURCES := $(shell find src/platform/$(PLATFORM_FOLDER_NAME) -name '*.cpp')
+ALL_PLATFORM_SOURCES := $(shell find src/allegro_flare/platform -name '*.cpp')
+CURRENT_PLATFORM_SOURCES := $(shell find src/allegro_flare/platform/$(PLATFORM_FOLDER_NAME) -name '*.cpp')
 
 SOURCES := $(filter-out $(ALL_PLATFORM_SOURCES), $(ALL_SOURCES))
 SOURCES += $(CURRENT_PLATFORM_SOURCES)

@@ -8,7 +8,7 @@
 #include <allegro_flare/surface_area_base.h>
 #include <allegro_flare/element_id.h>
 #include <allegro_flare/bit_flags.h>
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 
 
 

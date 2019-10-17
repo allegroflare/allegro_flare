@@ -1,11 +1,10 @@
-#ifndef __AF_PLACEMENT_3D_HEADER
-#define __AF_PLACEMENT_3D_HEADER
+#pragma once
 
 
 
 
 #include <allegro5/allegro.h>
-#include <allegro_flare/vec3d.h>
+#include <AllegroFlare/Vec3D.hpp>
 
 
 
@@ -38,4 +37,3 @@ public:
 
 
 
-#endif

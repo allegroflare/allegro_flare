@@ -9,10 +9,10 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_color.h>
-#include <allegro_flare/font_bin.h>
+#include <AllegroFlare/FontBin.hpp>
 #include <allegro_flare/object2d.h>
-#include <allegro_flare/useful.h>
-#include <allegro_flare/Vec2D.hpp>
+#include <AllegroFlare/Useful.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 
 
 

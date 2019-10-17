@@ -9,6 +9,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro_flare/object2d.h>
+#include <AllegroFlare/Useful.hpp> // only for ALLEGRO_FLAGS_EMPTY
 
 
 
@@ -91,4 +92,3 @@ public:
 
 
 
-#endif

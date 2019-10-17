@@ -18,10 +18,10 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 
-#include <allegro_flare/bitmap_bin.h>
-#include <allegro_flare/font_bin.h>
-#include <allegro_flare/model_bin.h>
-#include <allegro_flare/sample_bin.h>
+#include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/ModelBin.hpp>
+#include <AllegroFlare/SampleBin.hpp>
 #include <allegro_flare/color_id_converter.h>
 #include <allegro_flare/font_bravura.h>
 #include <allegro_flare/font_font_awesome.h>
@@ -33,12 +33,12 @@
 #include <allegro_flare/file_path_object.h>
 #include <allegro_flare/file_downloader.h>
 #include <allegro_flare/attributes.h>
-#include <allegro_flare/bin.h>
+#include <AllegroFlare/Bin.hpp>
 #include <allegro_flare/bit_flags.h>
 #include <allegro_flare/camera2d.h>
 #include <allegro_flare/camera3d.h>
 #include <allegro_flare/clipboard.h>
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 #include <allegro_flare/config.h>
 #include <allegro_flare/display.h>
 #include <allegro_flare/element_id.h>
@@ -50,8 +50,8 @@
 #include <allegro_flare/image_processing.h>
 #include <allegro_flare/interpolators.h>
 #include <allegro_flare/inventory.h>
-#include <allegro_flare/model3d.h>
-#include <allegro_flare/motion.h>
+#include <AllegroFlare/Model3D.hpp>
+#include <AllegroFlare/Motion.hpp>
 #include <allegro_flare/picking_buffer.h>
 #include <allegro_flare/placement2d.h>
 #include <allegro_flare/placement3d.h>
@@ -62,11 +62,10 @@
 #include <allegro_flare/scriptable.h>
 #include <allegro_flare/shader.h>
 #include <allegro_flare/shadow_mask.h>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Useful.hpp>
 #include <allegro_flare/user_event_emitter.h>
 #include <allegro_flare/version.h>
 
 
 
 
-#endif

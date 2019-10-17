@@ -5,7 +5,7 @@
 
 #include <allegro5/allegro.h>
 #include <allegro_flare/placement2d.h>
-#include <allegro_flare/Vec2D.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 
 
 
@@ -54,4 +54,3 @@ public:
 
 
 
-#endif
