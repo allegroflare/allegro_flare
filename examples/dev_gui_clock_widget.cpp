@@ -90,7 +90,7 @@ void draw_clock(float x, float y, float radius=100, float opacity=1.0)
 
    al_draw_filled_circle(x, y, scale*1.5, color::name("black", opacity));
 
-   if (true)
+   if (false)
    {
       ALLEGRO_BITMAP *clock_overlay = Framework::bitmap("clock_overlay.png");
       float clock_overlay_scale = scale/2;
@@ -112,7 +112,7 @@ void hide_clock(void *obj, ALLEGRO_MOUSE_EVENT *ev, void *user)
 {
    Framework::motion().cmove_to(&clock_opacity, 0.0, 0.6);
    Framework::motion().cmove_to(&clock_radius, max_clock_radius*0.9, 0.6);
-   if (clock_opacity == 1.0) al_play_sample(Framework::sample("clock_hide.wav"), 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+   //if (clock_opacity == 1.0) al_play_sample(Framework::sample("clock_hide.wav"), 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 }
 
 
@@ -122,7 +122,7 @@ void show_clock(void *obj, ALLEGRO_MOUSE_EVENT *ev, void *user)
 {
    Framework::motion().cmove_to(&clock_opacity, 1.0, 0.3, interpolator::slow_in_out);
    Framework::motion().cmove_to(&clock_radius, max_clock_radius, 0.3, interpolator::slow_in_out);
-   if (clock_opacity == 0.0) al_play_sample(Framework::sample("clock_show.wav"), 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+   //if (clock_opacity == 0.0) al_play_sample(Framework::sample("clock_show.wav"), 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 }
 
 
