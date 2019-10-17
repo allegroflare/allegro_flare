@@ -28,7 +28,7 @@ GOOGLE_TEST_INCLUDE_DIR=$(GOOGLE_TEST_DIR)/googletest/include
 # ===============================================
 #
 
-ALLEGROFLARE_VERSION_STR=0.8.9
+ALLEGROFLARE_VERSION_STR=0.9.0wip
 ALLEGROFLARE_LIB_NAME=allegro_flare-$(ALLEGROFLARE_VERSION_STR)
 INCLUDE_FLAGS=-I$(ALLEGRO_DIR)/include -I$(ALLEGROFLARE_DIR)/include
 
