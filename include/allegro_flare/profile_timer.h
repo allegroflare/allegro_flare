@@ -21,71 +21,73 @@
 
 
 
-typedef char char64_t[64];
+namespace allegro_flare
+{
+   typedef char char64_t[64];
 
 
 
 
 #define PROFILE_TIMER_TIME_T double
 
-void start_profile_timer(const char64_t name);
-void stop_profile_timer(const char64_t name, PROFILE_TIMER_TIME_T at_time=al_get_time());
-PROFILE_TIMER_TIME_T get_profile_timer_length(const char64_t name);
-void draw_profile_timer_graph(float x=10, float y=10);
+   void start_profile_timer(const char64_t name);
+   void stop_profile_timer(const char64_t name, PROFILE_TIMER_TIME_T at_time=al_get_time());
+   PROFILE_TIMER_TIME_T get_profile_timer_length(const char64_t name);
+   void draw_profile_timer_graph(float x=10, float y=10);
 
 
 
 
-class ProfileTimer
-{
-public:
-   bool timing;
-   double start_time;
-   double end_time;
-
-   void start()
+   class ProfileTimer
    {
-      timing = true;
-      start_time = al_get_time();
-   }
+   public:
+      bool timing;
+      double start_time;
+      double end_time;
 
-   void stop()
+      void start()
+      {
+         timing = true;
+         start_time = al_get_time();
+      }
+
+      void stop()
+      {
+         end_time = al_get_time();
+         timing = false;
+      }
+
+      double get_time()
+      {
+         if (!timing) return end_time - start_time;
+         return 0.0;
+      }
+   };
+
+
+
+
+   class ProfilerBuilder
    {
-      end_time = al_get_time();
-      timing = false;
-   }
+   private:
+      const char *name;
+      static ProfilerBuilder *dummy;
 
-   double get_time()
+   public:
+      static ProfilerBuilder *get_dummy() { if (!dummy) dummy = new ProfilerBuilder(); return dummy; }
+      inline void start() { start_profile_timer(name); }
+      inline void stop() { stop_profile_timer(name); }
+      inline ProfilerBuilder &clear(const char *name) { this->name = name; return *this; }
+   };
+
+
+
+
+   static inline ProfilerBuilder &profiler(const char *name)
    {
-      if (!timing) return end_time - start_time;
-      return 0.0;
+      return ProfilerBuilder::get_dummy()->clear(name);
    }
-};
-
-
-
-
-class ProfilerBuilder
-{
-private:
-   const char *name;
-   static ProfilerBuilder *dummy;
-
-public:
-   static ProfilerBuilder *get_dummy() { if (!dummy) dummy = new ProfilerBuilder(); return dummy; }
-   inline void start() { start_profile_timer(name); }
-   inline void stop() { stop_profile_timer(name); }
-   inline ProfilerBuilder &clear(const char *name) { this->name = name; return *this; }
-};
-
-
-
-
-static inline ProfilerBuilder &profiler(const char *name)
-{
-   return ProfilerBuilder::get_dummy()->clear(name);
 }
-
 
 
 

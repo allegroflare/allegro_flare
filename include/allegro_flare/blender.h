@@ -3,20 +3,23 @@
 
 
 
-enum blender_t
+namespace allegro_flare
 {
-   BLENDER_UNDEF,
-   BLENDER_NORMAL,
-   BLENDER_ADDITIVE,
-   BLENDER_MULTIPLY,
-   BLENDER_SUBTRACTIVE,
-   BLENDER_SCREEN
-};
+   enum blender_t
+   {
+      BLENDER_UNDEF,
+      BLENDER_NORMAL,
+      BLENDER_ADDITIVE,
+      BLENDER_MULTIPLY,
+      BLENDER_SUBTRACTIVE,
+      BLENDER_SCREEN
+   };
 
 
 
 
-void set_blender(blender_t type);
+   void set_blender(blender_t type);
+}
 
 
 

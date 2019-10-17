@@ -10,20 +10,22 @@
 
 
 
-class UIMusicNotation : public UIWidget
+namespace allegro_flare
 {
-protected:
-   MusicNotation notation;
-   std::string val;
+   class UIMusicNotation : public UIWidget
+   {
+   protected:
+      MusicNotation notation;
+      std::string val;
 
-public:
-   UIMusicNotation(UIWidget *parent, float x, float y);
+   public:
+      UIMusicNotation(UIWidget *parent, float x, float y);
 
-   std::string get_val();
-   void set_val(std::string);
-   void on_draw() override;
-};
-
+      std::string get_val();
+      void set_val(std::string);
+      void on_draw() override;
+   };
+}
 
 
 

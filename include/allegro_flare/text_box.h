@@ -11,24 +11,27 @@
 
 
 
-class UITextBox : public UIWidget
+namespace allegro_flare
 {
-protected:
-   ALLEGRO_FONT *font;
-   ALLEGRO_COLOR text_color;
-   std::string text;
+   class UITextBox : public UIWidget
+   {
+   protected:
+      ALLEGRO_FONT *font;
+      ALLEGRO_COLOR text_color;
+      std::string text;
 
-public:
-   UITextBox(UIWidget *parent, float x, float y, float w, float h, std::string text);
+   public:
+      UITextBox(UIWidget *parent, float x, float y, float w, float h, std::string text);
 
-   void set_text(std::string text);
-   void set_font(ALLEGRO_FONT *font);
-   void set_text_color(ALLEGRO_COLOR color);
+      void set_text(std::string text);
+      void set_font(ALLEGRO_FONT *font);
+      void set_text_color(ALLEGRO_COLOR color);
 
-   std::string get_text();
+      std::string get_text();
 
-   void on_draw() override;
-};
+      void on_draw() override;
+   };
+}
 
 
 

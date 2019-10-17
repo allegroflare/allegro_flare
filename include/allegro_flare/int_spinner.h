@@ -9,20 +9,23 @@
 
 
 
-class UIIntSpinner : public UISpinnerBase
+namespace allegro_flare
 {
-private:
-   int val;
+   class UIIntSpinner : public UISpinnerBase
+   {
+   private:
+      int val;
 
-public:
-   UIIntSpinner(UIWidget *parent, float x, float y, float w, float h);
+   public:
+      UIIntSpinner(UIWidget *parent, float x, float y, float w, float h);
 
-   void set_val(std::string strval) override;
-   void increment() override;
-   void decrement() override;
+      void set_val(std::string strval) override;
+      void increment() override;
+      void decrement() override;
 
-   int get_val();
-};
+      int get_val();
+   };
+}
 
 
 

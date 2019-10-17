@@ -12,24 +12,26 @@
 
 
 
-class FileSysWatcher
+namespace allegro_flare
 {
-private:
-   static FileSysWatcher *instance;
-   ALLEGRO_EVENT_SOURCE filesys_change_event_source;
-   static FileSysWatcher *get_instance();
+   class FileSysWatcher
+   {
+   private:
+      static FileSysWatcher *instance;
+      ALLEGRO_EVENT_SOURCE filesys_change_event_source;
+      static FileSysWatcher *get_instance();
 
-   FileSysWatcher();
-   ~FileSysWatcher();
+      FileSysWatcher();
+      ~FileSysWatcher();
 
-public:
-   static void watch_directory__blocking(std::string directory);
-   static void watch_directory__in_thread(std::string directory);
-   static void emit_filesys_change(std::string dir);
-   //static void unwatch_directory(std::string directory);
-   //static std::vector<std::string> get_watched_directories();
-};
-
+   public:
+      static void watch_directory__blocking(std::string directory);
+      static void watch_directory__in_thread(std::string directory);
+      static void emit_filesys_change(std::string dir);
+      //static void unwatch_directory(std::string directory);
+      //static std::vector<std::string> get_watched_directories();
+   };
+}
 
 
 

@@ -1,12 +1,15 @@
 #pragma once
 
 
-class vec2i
+namespace allegro_flare
 {
-public:
-   int x, y;
+   class vec2i
+   {
+   public:
+      int x, y;
 
-   vec2i(int x, int y);
-};
+      vec2i(int x, int y);
+   };
+}
 
 

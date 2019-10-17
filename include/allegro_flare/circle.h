@@ -9,14 +9,17 @@
 
 
 
-class UISurfaceAreaCircle : public UISurfaceAreaBase
+namespace allegro_flare
 {
-public:
-   UISurfaceAreaCircle(float x, float y, float r);
+   class UISurfaceAreaCircle : public UISurfaceAreaBase
+   {
+   public:
+      UISurfaceAreaCircle(float x, float y, float r);
 
-   void draw_bounding_area();
-   bool collides(float x, float y);
-};
+      void draw_bounding_area();
+      bool collides(float x, float y);
+   };
+}
 
 
 

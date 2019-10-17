@@ -13,53 +13,55 @@
 
 
 
-class UIListItem // TODO: maybe.. abstract UITextList into a UIList<T> template 
+namespace allegro_flare
 {
-protected:
-   std::string item;
+   class UIListItem // TODO: maybe.. abstract UITextList into a UIList<T> template 
+   {
+   protected:
+      std::string item;
 
-public:
-   UIListItem();
-   virtual ~UIListItem();
+   public:
+      UIListItem();
+      virtual ~UIListItem();
 
-   virtual vec2d draw_item(vec2d position) = 0; // returns the width/height of the item
-};
-
-
+      virtual vec2d draw_item(vec2d position) = 0; // returns the width/height of the item
+   };
 
 
-class UITextList : public UIWidget
-{
-public:
-   float item_padding;
-   float item_height;
-   int currently_selected_item;
-   std::vector<std::string> items;
 
-public:
-   UITextList(UIWidget *parent, float x, float y, float w);
-   virtual ~UITextList();
 
-   void add_item(std::string item);
-   void select_item(int index);
-   std::string *get_item(int index);
-   std::string *get_selected_item();
-   void move_selected_item(int delta);
-   float get_item_height(int index);
-   int get_item_index_at(float x, float y);
-   bool select_at(float x, float y);
-   bool select_at_mouse_cursor();
-   void draw_item(vec2d position, int index);
+   class UITextList : public UIWidget
+   {
+   public:
+      float item_padding;
+      float item_height;
+      int currently_selected_item;
+      std::vector<std::string> items;
 
-   void joy_down_func() override;
-   void mouse_down_func() override;
+   public:
+      UITextList(UIWidget *parent, float x, float y, float w);
+      virtual ~UITextList();
 
-   virtual void on_select();
+      void add_item(std::string item);
+      void select_item(int index);
+      std::string *get_item(int index);
+      std::string *get_selected_item();
+      void move_selected_item(int delta);
+      float get_item_height(int index);
+      int get_item_index_at(float x, float y);
+      bool select_at(float x, float y);
+      bool select_at_mouse_cursor();
+      void draw_item(vec2d position, int index);
 
-   void on_key_char() override;
-   void on_draw() override;
-};
+      void joy_down_func() override;
+      void mouse_down_func() override;
 
+      virtual void on_select();
+
+      void on_key_char() override;
+      void on_draw() override;
+   };
+}
 
 
 

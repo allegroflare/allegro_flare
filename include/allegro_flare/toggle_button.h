@@ -10,30 +10,32 @@
 
 
 
-class UIToggleButton : public UIWidget
+namespace allegro_flare
 {
-protected:
-   bool pressed;
-   std::string text;
+   class UIToggleButton : public UIWidget
+   {
+   protected:
+      bool pressed;
+      std::string text;
 
-public:
-   UIToggleButton(UIWidget *parent, float x, float y, float w, float h, std::string _text="");
+   public:
+      UIToggleButton(UIWidget *parent, float x, float y, float w, float h, std::string _text="");
 
-   void set_text(std::string text);
+      void set_text(std::string text);
 
-   bool toggle();
-   bool set_as_pressed();
-   bool set_as_unpressed();
-   void silently_set_as_pressed();
-   void silently_set_as_unpressed();
+      bool toggle();
+      bool set_as_pressed();
+      bool set_as_unpressed();
+      void silently_set_as_pressed();
+      void silently_set_as_unpressed();
 
-   bool is_pressed();
+      bool is_pressed();
 
-   void on_draw() override;
-   void on_click() override;
-   void on_change() override;
-};
-
+      void on_draw() override;
+      void on_click() override;
+      void on_change() override;
+   };
+}
 
 
 

@@ -8,16 +8,18 @@
 
 
 
-class UISurfaceAreaBox : public UISurfaceAreaBase
+namespace allegro_flare
 {
-public:
-   UISurfaceAreaBox(float x, float y, float w, float h);
-   ~UISurfaceAreaBox();
+   class UISurfaceAreaBox : public UISurfaceAreaBase
+   {
+   public:
+      UISurfaceAreaBox(float x, float y, float w, float h);
+      ~UISurfaceAreaBox();
 
-   void draw_bounding_area();
-   bool collides(float x, float y);
-};
-
+      void draw_bounding_area();
+      bool collides(float x, float y);
+   };
+}
 
 
 

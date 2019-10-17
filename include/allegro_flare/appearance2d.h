@@ -9,18 +9,20 @@
 
 
 
-class appearance2d
+namespace allegro_flare
 {
-public:
-   ALLEGRO_COLOR color;
-   blender_t blender;
-   float opacity;
-   // ALLEGRO_SHADER *shader; //< coming soon :o
+   class appearance2d
+   {
+   public:
+      ALLEGRO_COLOR color;
+      blender_t blender;
+      float opacity;
+      // ALLEGRO_SHADER *shader; //< coming soon :o
 
-   appearance2d();
-   void clear();
-};
-
+      appearance2d();
+      void clear();
+   };
+}
 
 
 

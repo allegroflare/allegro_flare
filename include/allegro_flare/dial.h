@@ -9,25 +9,28 @@
 
 
 
-class UIDial : public UIWidget
+namespace allegro_flare
 {
-protected:
-   float val;
-   float radius;
-   float sensitivity;
+   class UIDial : public UIWidget
+   {
+   protected:
+      float val;
+      float radius;
+      float sensitivity;
 
-public:
-   UIDial(UIWidget *parent, float x, float y, float size);
+   public:
+      UIDial(UIWidget *parent, float x, float y, float size);
 
-   void set_value(float unit_val);
-   float get_value();
+      void set_value(float unit_val);
+      float get_value();
 
-   void on_draw() override;
-   void on_drag(float x, float y, float dx, float dy) override;
-   void on_change() override;
-   void on_mouse_down() override;
-   void on_mouse_up() override;
-};
+      void on_draw() override;
+      void on_drag(float x, float y, float dx, float dy) override;
+      void on_change() override;
+      void on_mouse_down() override;
+      void on_mouse_up() override;
+   };
+}
 
 
 

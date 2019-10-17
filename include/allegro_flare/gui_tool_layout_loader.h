@@ -8,13 +8,15 @@
 
 
 
-class GUIToolLayoutLoader : public UILayoutLoaderBase
+namespace allegro_flare
 {
-public:
-   GUIToolLayoutLoader(UIWidget *parent, std::string content);
-   bool load_file();
-};
-
+   class GUIToolLayoutLoader : public UILayoutLoaderBase
+   {
+   public:
+      GUIToolLayoutLoader(UIWidget *parent, std::string content);
+      bool load_file();
+   };
+}
 
 
 

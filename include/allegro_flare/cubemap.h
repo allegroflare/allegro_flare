@@ -10,17 +10,22 @@
 
 
 
-struct ALLEGRO_FLARE_CUBEMAP_TEXTURE
+namespace allegro_flare
 {
-   GLuint id;
-};
+
+   struct ALLEGRO_FLARE_CUBEMAP_TEXTURE
+   {
+      GLuint id;
+   };
 
 
 
 
-bool glsl_destroy_cubemap_texture(ALLEGRO_FLARE_CUBEMAP_TEXTURE *texture);
+   bool glsl_destroy_cubemap_texture(ALLEGRO_FLARE_CUBEMAP_TEXTURE *texture);
 
-ALLEGRO_FLARE_CUBEMAP_TEXTURE *glsl_create_cubemap_from_vertical_strip(const char *filename);
+   ALLEGRO_FLARE_CUBEMAP_TEXTURE *glsl_create_cubemap_from_vertical_strip(const char *filename);
+
+}
 
 
 

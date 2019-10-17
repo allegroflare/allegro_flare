@@ -9,20 +9,23 @@
 
 
 
-class UIImage : public UIWidget
+namespace allegro_flare
 {
-protected:
-   ALLEGRO_COLOR color;
-   ALLEGRO_BITMAP *bitmap;
+   class UIImage : public UIWidget
+   {
+   protected:
+      ALLEGRO_COLOR color;
+      ALLEGRO_BITMAP *bitmap;
 
-public:
-   UIImage(UIWidget *parent, float x, float y, ALLEGRO_BITMAP *bitmap);
+   public:
+      UIImage(UIWidget *parent, float x, float y, ALLEGRO_BITMAP *bitmap);
 
-   void set_bitmap(ALLEGRO_BITMAP *bitmap);
-   void set_color(ALLEGRO_COLOR color);
+      void set_bitmap(ALLEGRO_BITMAP *bitmap);
+      void set_color(ALLEGRO_COLOR color);
 
-   void on_draw() override;
-};
+      void on_draw() override;
+   };
+}
 
 
 
