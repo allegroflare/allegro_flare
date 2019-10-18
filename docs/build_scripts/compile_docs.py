@@ -39,22 +39,27 @@ column_names = list(map(lambda x: x[0], cursor.description))
 # Create an .html file to write to
 
 f = open('../index.html', 'w')
-f.write('<head><link rel="stylesheet" type="text/css" href="docstyle.css"></head>')
 
+f.write('<!doctype html>\n')
+f.write('<head><link rel="stylesheet" type="text/css" href="docstyle.css"></head>\n')
+
+f.write('<div id="left-nav">\n')
 f.write('<ul>\n')
 for parent_name in parent_names:
-    f.write('  <li>' + parent_name[0] + '</li>\n')
+    f.write('  <li><a href="#' + parent_name[0] + '">' + parent_name[0] + '</a></li>\n')
 f.write('</ul>\n')
+f.write('</div>\n')
 
 
 
 # write the individual entries by sections
 
+f.write('<div id="page-content">\n')
 for parent_name in parent_names:
 
     parent_name_str = str(parent_name['parent_name'])
 
-    f.write('<h2>' + parent_name_str + '</h2>\n')
+    f.write('<h2 id="' + parent_name_str + '">' + parent_name_str + '</h2>\n')
 
     cursor = c.execute('SELECT * FROM parsed_declarations WHERE parent_name=?', (parent_name_str,))
     entries = c.fetchall()
@@ -81,6 +86,7 @@ for parent_name in parent_names:
             f.write('<tr><td>' + column_name + '</td><td>' + column_value + '</td></tr>\n')
         f.write('</table>\n')
         f.write('\n')
+f.write('</div>\n')
 
 
 

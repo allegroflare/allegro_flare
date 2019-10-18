@@ -9,6 +9,13 @@ body
 }
 
 
+div#left-nav ul li a
+{
+  text-decoration: none;
+  color: #db0f53;
+}
+
+
 pre.code
 {
 	font-family: Consolas;
