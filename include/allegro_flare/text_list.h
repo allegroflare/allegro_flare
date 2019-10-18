@@ -24,7 +24,7 @@ namespace allegro_flare
       UIListItem();
       virtual ~UIListItem();
 
-      virtual vec2d draw_item(vec2d position) = 0; // returns the width/height of the item
+      virtual AllegroFlare::vec2d draw_item(AllegroFlare::vec2d position) = 0; // returns the width/height of the item
    };
 
 
@@ -51,7 +51,7 @@ namespace allegro_flare
       int get_item_index_at(float x, float y);
       bool select_at(float x, float y);
       bool select_at_mouse_cursor();
-      void draw_item(vec2d position, int index);
+      void draw_item(AllegroFlare::vec2d position, int index);
 
       void joy_down_func() override;
       void mouse_down_func() override;

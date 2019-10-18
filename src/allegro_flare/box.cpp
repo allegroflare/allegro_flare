@@ -34,7 +34,7 @@ namespace allegro_flare
 
    void UISurfaceAreaBox::draw_bounding_area()
    {
-      placement.draw_box(color::color(color::aliceblue, 0.2), true);
+      placement.draw_box(AllegroFlare::color::color(AllegroFlare::color::aliceblue, 0.2), true);
    }
 }
 

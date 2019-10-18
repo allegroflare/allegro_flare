@@ -22,7 +22,7 @@ namespace allegro_flare
 
 
    Display::Display(int width, int height, int display_flags)
-      : _background_color(color::hex(Framework::get_config().get_or_default_str("ALLEGRO_FLARE", "background_color_hex", "#abc788").c_str()))
+      : _background_color(AllegroFlare::color::hex(Framework::get_config().get_or_default_str("ALLEGRO_FLARE", "background_color_hex", "#abc788").c_str()))
       , _width(width)
       , _height(height)
       , al_display(NULL)
@@ -103,7 +103,7 @@ namespace allegro_flare
       // "messed up" by any existing state
 
       ALLEGRO_BITMAP *bbuffer = al_get_backbuffer(al_display);
-      ALLEGRO_COLOR lightened = color::mix(_background_color, color::white, 0.25);
+      ALLEGRO_COLOR lightened = AllegroFlare::color::mix(_background_color, AllegroFlare::color::white, 0.25);
       float w = al_get_bitmap_width(bbuffer);
       float h = al_get_bitmap_height(bbuffer);
 

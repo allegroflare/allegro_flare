@@ -61,7 +61,7 @@ namespace allegro_flare
       ALLEGRO_STATE state;
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
       al_set_target_bitmap(surface_render);
-      al_clear_to_color(color::transparent);
+      al_clear_to_color(AllegroFlare::color::transparent);
       al_restore_state(&state);
    }
 
@@ -97,7 +97,7 @@ namespace allegro_flare
    {
       if (draw_surface_render)
       {
-         al_draw_rectangle(0, 0, place.size.x, place.size.y, color::green, 8);
+         al_draw_rectangle(0, 0, place.size.x, place.size.y, AllegroFlare::color::green, 8);
          al_draw_bitmap(surface_render, 0, 0, 0);
       }
    }

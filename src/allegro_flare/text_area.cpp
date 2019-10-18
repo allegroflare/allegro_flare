@@ -214,8 +214,8 @@ namespace allegro_flare
       //al_draw_rectangle(0, 0, place.size.x, place.size.y, color::color(color::white, 0.3), 1.0);
 
 
-      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
-      if (focused) al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3, color::dodgerblue, 2.0);   
+      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, AllegroFlare::color::color(AllegroFlare::color::black, 0.1));
+      if (focused) al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3, AllegroFlare::color::dodgerblue, 2.0);   
 
 
       if ((cursor_blink_counter -= 0.025) < 0) cursor_blink_counter = 1;
@@ -260,7 +260,7 @@ namespace allegro_flare
          {
             // proceed with the drawing
 
-            std::string text_packet_to_draw = tostring(full_text[i]).c_str();
+            std::string text_packet_to_draw = AllegroFlare::tostring(full_text[i]).c_str();
             float text_width = al_get_text_width(font, text_packet_to_draw.c_str()); // < this is the process that should be cached
 
             if (draw_cursor_x + text_width > text_bbox_width)
@@ -274,7 +274,7 @@ namespace allegro_flare
             if (selection_active && cursor.anchor_pos() == i)
             {
                // draw the anchor
-               if (focused) al_draw_line(draw_cursor_x, draw_cursor_y, draw_cursor_x, draw_cursor_y+line_height, color::color(color::aliceblue, 0.5), 2.0);
+               if (focused) al_draw_line(draw_cursor_x, draw_cursor_y, draw_cursor_x, draw_cursor_y+line_height, AllegroFlare::color::color(AllegroFlare::color::aliceblue, 0.5), 2.0);
                selection_x_start = draw_cursor_x;
                selection_line_start = _number_of_lines;
             }
@@ -288,7 +288,7 @@ namespace allegro_flare
                selection_line_end = _number_of_lines;
             }
 
-            al_draw_text(font, color::white, draw_cursor_x, draw_cursor_y, ALLEGRO_FLAGS_EMPTY, text_packet_to_draw.c_str());
+            al_draw_text(font, AllegroFlare::color::white, draw_cursor_x, draw_cursor_y, ALLEGRO_FLAGS_EMPTY, text_packet_to_draw.c_str());
             draw_cursor_x += text_width;
          }
       }
@@ -336,7 +336,7 @@ namespace allegro_flare
       {
          al_draw_line(cursor_draw_pos_x, cursor_draw_pos_y,
                cursor_draw_pos_x, cursor_draw_pos_y+line_height,
-               color::color(color::aliceblue, 0.5), 2.0);
+               AllegroFlare::color::color(AllegroFlare::color::aliceblue, 0.5), 2.0);
       }
 
 
@@ -346,7 +346,7 @@ namespace allegro_flare
       {
          float line_height = al_get_font_line_height(font);
 
-         ALLEGRO_COLOR selection_color = color::color(color::aliceblue, 0.2);
+         ALLEGRO_COLOR selection_color = AllegroFlare::color::color(AllegroFlare::color::aliceblue, 0.2);
          if (selection_line_start == selection_line_end)
          {
             al_draw_filled_rectangle(selection_x_start, selection_line_start*line_height+PADDING, selection_x_end, (selection_line_end+1)*line_height+PADDING, selection_color);
@@ -454,7 +454,7 @@ namespace allegro_flare
       else if ((unichar >= ' ') && (unichar <= '~'))
       {
          if (cursor.selection_active()) erase_selection();
-         full_text.insert(cursor.pos(), tostring((char)unichar));
+         full_text.insert(cursor.pos(), AllegroFlare::tostring((char)unichar));
          move_cursor(1);
          cursor.move_anchor_to_cursor();
       }

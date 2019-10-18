@@ -10,10 +10,6 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 namespace allegro_flare
 {
    class UIStyleAssets
@@ -51,9 +47,9 @@ namespace allegro_flare
       static ALLEGRO_FONT *get_mini_font();
       static ALLEGRO_FONT *get_micro_font();
 
-      static void draw_inset(float x, float y, float w, float h, ALLEGRO_COLOR col=color::hex("575962"), float roundness=2);
-      static void draw_outset(float x, float y, float w, float h, ALLEGRO_COLOR col=color::hex("575962"), float roundness=2);
-      static void draw_flatset(float x, float y, float w, float h, ALLEGRO_COLOR col=color::hex("575962"), float roundness=2);
+      static void draw_inset(float x, float y, float w, float h, ALLEGRO_COLOR col=AllegroFlare::color::hex("575962"), float roundness=2);
+      static void draw_outset(float x, float y, float w, float h, ALLEGRO_COLOR col=AllegroFlare::color::hex("575962"), float roundness=2);
+      static void draw_flatset(float x, float y, float w, float h, ALLEGRO_COLOR col=AllegroFlare::color::hex("575962"), float roundness=2);
 
       static void draw_styled_text(std::string style, float x, float y, float align_x, float align_y, std::string text);
 

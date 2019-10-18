@@ -165,17 +165,17 @@ namespace allegro_flare
 
 
 
-   vec2d grid2d::get_closest_coordinates(float x, float y, float threshold)
+   AllegroFlare::vec2d grid2d::get_closest_coordinates(float x, float y, float threshold)
    {
       int hgi = get_closest_horizontal_guide_index(x);
       int vgi = get_closest_vertical_guide_index(y);
-      return vec2d(get_horizontal_guide_pos(hgi), get_vertical_guide_pos(vgi));
+      return AllegroFlare::vec2d(get_horizontal_guide_pos(hgi), get_vertical_guide_pos(vgi));
    }
 
 
 
 
-   vec2d grid2d::get_closest_left_coordinate(float x, float y)
+   AllegroFlare::vec2d grid2d::get_closest_left_coordinate(float x, float y)
    {
       int index = 0;
       bool found = false;
@@ -204,10 +204,10 @@ namespace allegro_flare
          }
       }
 
-      if (!found) return vec2d(0, 0);
+      if (!found) return AllegroFlare::vec2d(0, 0);
 
       int vgi = get_closest_vertical_guide_index(y);
-      return vec2d(get_horizontal_guide_pos(index), get_vertical_guide_pos(vgi));
+      return AllegroFlare::vec2d(get_horizontal_guide_pos(index), get_vertical_guide_pos(vgi));
    }
 
 
@@ -252,7 +252,7 @@ namespace allegro_flare
       for (unsigned i=0; i<horizontal_guide.size(); i++)
       {
          //std::sprintf(str, "%d", i);
-         str_ = tostring(i);
+         str_ = AllegroFlare::tostring(i);
          //al_draw_line(horizontal_guide[i], top, horizontal_guide[i], height, color::black, 1.0);
          al_draw_text(font, color, horizontal_guide[i], top - padding - al_get_font_ascent(font), ALLEGRO_ALIGN_CENTER, str_.c_str());
       }
@@ -261,7 +261,7 @@ namespace allegro_flare
       for (unsigned i=0; i<vertical_guide.size(); i++)
       {
          //std::sprintf(str, "%d", i);
-         str_ = tostring(i);
+         str_ = AllegroFlare::tostring(i);
          //al_draw_line(left, vertical_guide[i], width, vertical_guide[i], color::black, 1.0);
          al_draw_text(font, color, left - padding, vertical_guide[i] - al_get_font_ascent(font)/2, ALLEGRO_ALIGN_RIGHT, str_.c_str());
       }
@@ -292,9 +292,9 @@ namespace allegro_flare
 
 
 
-   vec2d grid2d::get_guide_pos(int x_index, int y_index)
+   AllegroFlare::vec2d grid2d::get_guide_pos(int x_index, int y_index)
    {
-      return vec2d(get_horizontal_guide_pos(x_index), get_vertical_guide_pos(y_index));
+      return AllegroFlare::vec2d(get_horizontal_guide_pos(x_index), get_vertical_guide_pos(y_index));
    }
 }
 

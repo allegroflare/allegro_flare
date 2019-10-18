@@ -49,7 +49,7 @@ namespace allegro_flare
    void UIButton::on_draw()
    {
       bool is_depressed = mouse_over && mouse_down_on_over;
-      if (is_disabled()) UIStyleAssets::draw_flatset(0, 0, place.size.x, place.size.y, color::color(UIStyleAssets::get_surface_color(), 0.5));
+      if (is_disabled()) UIStyleAssets::draw_flatset(0, 0, place.size.x, place.size.y, AllegroFlare::color::color(UIStyleAssets::get_surface_color(), 0.5));
       else if (is_depressed) UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y);
       else UIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
 
@@ -59,7 +59,7 @@ namespace allegro_flare
       // draw a soft hilight over the button if the mouse is over it
       if (!disabled)
          al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 5, 5,
-               color::mix(color::transparent, UIStyleAssets::get_hilight_color(), mouse_over * 0.1));
+               AllegroFlare::color::mix(AllegroFlare::color::transparent, UIStyleAssets::get_hilight_color(), mouse_over * 0.1));
 
 
       // draw the icon and/or the text
@@ -95,7 +95,7 @@ namespace allegro_flare
 
       if (is_disabled())
       {
-         draw_textured_rectangle(1, 1, place.size.x-2, place.size.y-2, UIStyleAssets::get_pixel_pattern_3(), color::color(color::white, 0.2));
+         AllegroFlare::draw_textured_rectangle(1, 1, place.size.x-2, place.size.y-2, UIStyleAssets::get_pixel_pattern_3(), AllegroFlare::color::color(AllegroFlare::color::white, 0.2));
          //al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3,
          //   color::mix(color::gray, color::transparent, 0.5));
       }

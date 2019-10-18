@@ -15,7 +15,7 @@ namespace allegro_flare
 {
    UIWindow::UIWindow(UIWidget *parent, float x, float y, float w, float h)
       : UIWidget(parent, "UIWindow", new UISurfaceAreaBox(x, y, w, h))
-      , background_color(color::hex("3a3c47"))
+      , background_color(AllegroFlare::color::hex("3a3c47"))
    {
       no_focus = true;
    }
@@ -26,7 +26,7 @@ namespace allegro_flare
    void UIWindow::on_draw()
    {
       UIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
-      draw_textured_rectangle(1, 1, place.size.x-1, place.size.y-1, Framework::bitmap("rough.jpg"), color::color(color::white, 0.1));
+      AllegroFlare::draw_textured_rectangle(1, 1, place.size.x-1, place.size.y-1, Framework::bitmap("rough.jpg"), AllegroFlare::color::color(AllegroFlare::color::white, 0.1));
    }
 
 

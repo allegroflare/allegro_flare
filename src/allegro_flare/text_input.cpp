@@ -24,7 +24,7 @@ namespace allegro_flare
       , cursor_blink_counter(0)
       , font(Framework::font("DroidSans.ttf 20"))
       , text_x_offset(0)
-      , font_color(color::white)
+      , font_color(AllegroFlare::color::white)
       , padding(10)
       , select_all_on_focus(false)
       , _text_render(NULL)
@@ -185,7 +185,7 @@ namespace allegro_flare
       {
          // these are 'printable' characters
          if (selection_active()) clear_selection();
-         _insert_text(tostring((char)unichar).c_str());
+         _insert_text(AllegroFlare::tostring((char)unichar).c_str());
          //if (unichar == ' ') _play(keypress_light);
          //else _play(keypress);
 
@@ -377,14 +377,14 @@ namespace allegro_flare
          _text_render = al_create_bitmap(place.size.x, place.size.y);
       }
       al_set_target_bitmap(_text_render);
-      al_clear_to_color(color::transparent);
+      al_clear_to_color(AllegroFlare::color::transparent);
 
 
       // draw the text hilight
-      ALLEGRO_COLOR cursor_select_color = color::hex("c6e2ff");
-      al_draw_filled_rectangle(padding+len_to_cursor+text_x_offset, padding, padding+len_to_cursor_end+text_x_offset, padding+al_get_font_line_height(font), focused ? cursor_select_color : color::color(cursor_select_color, 0.4));
+      ALLEGRO_COLOR cursor_select_color = AllegroFlare::color::hex("c6e2ff");
+      al_draw_filled_rectangle(padding+len_to_cursor+text_x_offset, padding, padding+len_to_cursor_end+text_x_offset, padding+al_get_font_line_height(font), focused ? cursor_select_color : AllegroFlare::color::color(cursor_select_color, 0.4));
 
-      if (text.empty() && !default_text_when_empty.empty()) al_draw_text(font, color::color(font_color, 0.2), padding+text_x_offset, padding, ALLEGRO_FLAGS_EMPTY, default_text_when_empty.c_str());
+      if (text.empty() && !default_text_when_empty.empty()) al_draw_text(font, AllegroFlare::color::color(font_color, 0.2), padding+text_x_offset, padding, ALLEGRO_FLAGS_EMPTY, default_text_when_empty.c_str());
       else al_draw_text(font, font_color, padding+text_x_offset, padding, ALLEGRO_FLAGS_EMPTY, text.c_str());
 
 
@@ -412,9 +412,9 @@ namespace allegro_flare
       //float padding = 10;
 
 
-      UIStyleAssets::draw_inset(0, 0, placement.size.x, placement.size.y, color::color(color::black, 0.1));
+      UIStyleAssets::draw_inset(0, 0, placement.size.x, placement.size.y, AllegroFlare::color::color(AllegroFlare::color::black, 0.1));
       // draw the border-box
-      if (focused) al_draw_rounded_rectangle(0, 0, placement.size.x, placement.size.y, 3, 3, color::dodgerblue, 2.0);   
+      if (focused) al_draw_rounded_rectangle(0, 0, placement.size.x, placement.size.y, 3, 3, AllegroFlare::color::dodgerblue, 2.0);   
 
 
       text_x_offset = 0;
@@ -427,10 +427,10 @@ namespace allegro_flare
       al_draw_bitmap(_text_render, 0, 0, ALLEGRO_FLAGS_EMPTY);
 
       // draw the cursor
-      if (focused) al_draw_line(len_to_cursor+padding+text_x_offset, padding-padding*0.25, len_to_cursor+padding+text_x_offset, padding+padding*0.25+font_height, color::color(color::dodgerblue, cursor_blink_counter), 2.0);
+      if (focused) al_draw_line(len_to_cursor+padding+text_x_offset, padding-padding*0.25, len_to_cursor+padding+text_x_offset, padding+padding*0.25+font_height, AllegroFlare::color::color(AllegroFlare::color::dodgerblue, cursor_blink_counter), 2.0);
 
       // draw the inner mouse position
-      if (mouse_over) al_draw_line(local_mouse_x, 3, local_mouse_x, place.size.y-3, color::color(color::white, 0.4), 1.0);
+      if (mouse_over) al_draw_line(local_mouse_x, 3, local_mouse_x, place.size.y-3, AllegroFlare::color::color(AllegroFlare::color::white, 0.4), 1.0);
    }
 
 

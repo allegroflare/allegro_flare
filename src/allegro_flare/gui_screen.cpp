@@ -16,7 +16,7 @@ namespace allegro_flare
       : Screen(display)
       , UIWidget(NULL, "UIScreen", new UISurfaceAreaBox(0, 0, display->width(), display->height()))
       , draw_focused_outline(true)
-      , focused_outline_color(color::dodgerblue)
+      , focused_outline_color(AllegroFlare::color::dodgerblue)
       , use_joystick_as_mouse(true)
    {
       surface_area->placement.align.x = 0;

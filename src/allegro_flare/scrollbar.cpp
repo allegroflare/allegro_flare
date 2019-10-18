@@ -71,8 +71,8 @@ namespace allegro_flare
 
    void UIScrollBar::Rail::on_draw()
    {
-      al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, color::mix(color::transparent, color::hex("3a3c47"), 0.4));
-      al_draw_rectangle(0.5, 0.5, place.size.x-0.5, place.size.y-0.5, color::color(color::black, 0.2), 1.0);
+      al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, AllegroFlare::color::mix(AllegroFlare::color::transparent, AllegroFlare::color::hex("3a3c47"), 0.4));
+      al_draw_rectangle(0.5, 0.5, place.size.x-0.5, place.size.y-0.5, AllegroFlare::color::color(AllegroFlare::color::black, 0.2), 1.0);
    }
 
 
@@ -118,7 +118,7 @@ namespace allegro_flare
 
    void UIScrollBar::Handle::on_drag(float x, float y, float dx, float dy)
    {
-      place.position.y = limit<float>(min_y+place.size.y/2, max_y-place.size.y/2, place.position.y+dy);
+      place.position.y = AllegroFlare::limit<float>(min_y+place.size.y/2, max_y-place.size.y/2, place.position.y+dy);
       if (has_parent()) static_cast<UIWidget *>(get_parent())->on_change();
    }
 
@@ -148,7 +148,7 @@ namespace allegro_flare
 
       float previous_pos = place.position.y;
 
-      position_in_unit_value = limit<float>(0.0, 1.0, position_in_unit_value);
+      position_in_unit_value = AllegroFlare::limit<float>(0.0, 1.0, position_in_unit_value);
       float new_pos = position_in_unit_value * (max_y - min_y - place.size.y) + (min_y + place.size.y/2.0);
       place.position.y = new_pos; 
 
@@ -167,7 +167,7 @@ namespace allegro_flare
    {
       // create the rail
       rail = new UIScrollBar::Rail(this, 0, 0, w, h);
-      rail->place.align = vec2d(0, 0);
+      rail->place.align = AllegroFlare::vec2d(0, 0);
 
       // create the up and down buttons
       up_button = new UIScrollBar::UpButton(this, w/2, w/2, w, w);

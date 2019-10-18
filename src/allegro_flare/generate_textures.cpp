@@ -20,7 +20,7 @@ namespace allegro_flare
 
       // start drawing on the bitmap
       al_set_target_bitmap(surface);
-      al_clear_to_color(color::transparent);
+      al_clear_to_color(AllegroFlare::color::transparent);
       al_draw_filled_circle(w/2, h/2, w/2 - padding*2, col);
 
       // restore everything back to where it was
@@ -43,14 +43,14 @@ namespace allegro_flare
       ALLEGRO_BITMAP *surface = al_create_bitmap(max_x, max_y);
       ALLEGRO_STATE state;
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
-      al_clear_to_color(color::transparent);
+      al_clear_to_color(AllegroFlare::color::transparent);
       al_set_target_bitmap(surface);
 
       // build our triangle
       ALLEGRO_VERTEX v[3];
-      v[0] = build_vertex(x1, y1, 0, col, 0, 0);
-      v[1] = build_vertex(x2, y2, 0, col, 0, 0);
-      v[2] = build_vertex(x3, y3, 0, col, 0, 0);
+      v[0] = AllegroFlare::build_vertex(x1, y1, 0, col, 0, 0);
+      v[1] = AllegroFlare::build_vertex(x2, y2, 0, col, 0, 0);
+      v[2] = AllegroFlare::build_vertex(x3, y3, 0, col, 0, 0);
 
       // draw the triangle
       al_draw_prim(v, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_LIST);
@@ -74,14 +74,14 @@ namespace allegro_flare
 
       // start drawing on the bitmap
       al_set_target_bitmap(surface);
-      al_clear_to_color(color::transparent);
+      al_clear_to_color(AllegroFlare::color::transparent);
 
       // build the gradient as a primitive
       ALLEGRO_VERTEX v[4];
-      v[0] = build_vertex(0+padding, 0+padding, 0, top_color, 0, 0);
-      v[1] = build_vertex(w-padding, 0+padding, 0, top_color, 0, 0);
-      v[2] = build_vertex(w-padding, h-padding, 0, bottom_color, 0, 0);
-      v[3] = build_vertex(0+padding, h-padding, 0, bottom_color, 0, 0);
+      v[0] = AllegroFlare::build_vertex(0+padding, 0+padding, 0, top_color, 0, 0);
+      v[1] = AllegroFlare::build_vertex(w-padding, 0+padding, 0, top_color, 0, 0);
+      v[2] = AllegroFlare::build_vertex(w-padding, h-padding, 0, bottom_color, 0, 0);
+      v[3] = AllegroFlare::build_vertex(0+padding, h-padding, 0, bottom_color, 0, 0);
 
       // draw it to the surface
       al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
@@ -125,7 +125,7 @@ namespace allegro_flare
       {
          for (int y=0; y<h; y++)
          {
-            float val = random_float(min_intensity, max_intensity);
+            float val = AllegroFlare::random_float(min_intensity, max_intensity);
             al_put_pixel(x, y, al_map_rgba_f(val, val, val, 1.0));
          }
       }
@@ -159,14 +159,14 @@ namespace allegro_flare
       // draw the wood grain (should clean this up a little bit)
       al_set_separate_blender(ALLEGRO_DEST_MINUS_SRC, ALLEGRO_ONE, ALLEGRO_ONE, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE); // subtraction blender
 
-      al_draw_tinted_scaled_bitmap(noise_texture, color::color("white", 1.0), -300, -300, al_get_bitmap_width(noise_texture), al_get_bitmap_height(noise_texture),
+      al_draw_tinted_scaled_bitmap(noise_texture, AllegroFlare::color::color("white", 1.0), -300, -300, al_get_bitmap_width(noise_texture), al_get_bitmap_height(noise_texture),
             0, 0, al_get_bitmap_width(noise_texture)*h_stretch*1.736, al_get_bitmap_height(noise_texture)*2, ALLEGRO_FLAGS_EMPTY);
 
-      al_draw_tinted_bitmap(noise_texture, color::color("white", 0.2), -200, -200, ALLEGRO_FLAGS_EMPTY);
+      al_draw_tinted_bitmap(noise_texture, AllegroFlare::color::color("white", 0.2), -200, -200, ALLEGRO_FLAGS_EMPTY);
 
       al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE); // normal blender (default blending)
 
-      al_draw_tinted_scaled_bitmap(noise_texture, color::color("white", 0.3), 0, 0, al_get_bitmap_width(noise_texture), al_get_bitmap_height(noise_texture),
+      al_draw_tinted_scaled_bitmap(noise_texture, AllegroFlare::color::color("white", 0.3), 0, 0, al_get_bitmap_width(noise_texture), al_get_bitmap_height(noise_texture),
             0, 0, al_get_bitmap_width(noise_texture)*h_stretch, al_get_bitmap_height(noise_texture), ALLEGRO_FLAGS_EMPTY);
 
       // erase the other assets
@@ -204,14 +204,14 @@ namespace allegro_flare
       //
       al_clear_to_color(base_color);
 
-      al_draw_tinted_bitmap(gradient_texture, color::name("white", 0.1), 0, 0, ALLEGRO_FLAGS_EMPTY);
+      al_draw_tinted_bitmap(gradient_texture, AllegroFlare::color::name("white", 0.1), 0, 0, ALLEGRO_FLAGS_EMPTY);
 
       al_set_separate_blender(ALLEGRO_DEST_MINUS_SRC, ALLEGRO_ONE, ALLEGRO_ONE, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
 
-      al_draw_tinted_scaled_bitmap(noise_texture, color::name("white", 0.3), 0, 0, al_get_bitmap_width(noise_texture), al_get_bitmap_height(noise_texture),
+      al_draw_tinted_scaled_bitmap(noise_texture, AllegroFlare::color::name("white", 0.3), 0, 0, al_get_bitmap_width(noise_texture), al_get_bitmap_height(noise_texture),
             0, 0, al_get_bitmap_width(noise_texture)*h_stretch, al_get_bitmap_height(noise_texture)*v_stretch, ALLEGRO_FLAGS_EMPTY);
 
-      al_draw_tinted_bitmap(noise_texture, color::name("white", 0.1), -200, -200, ALLEGRO_FLAGS_EMPTY);
+      al_draw_tinted_bitmap(noise_texture, AllegroFlare::color::name("white", 0.1), -200, -200, ALLEGRO_FLAGS_EMPTY);
 
 
 
@@ -234,7 +234,7 @@ namespace allegro_flare
       ALLEGRO_STATE state;
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
       al_set_target_bitmap(surface);
-      al_clear_to_color(color::transparent);
+      al_clear_to_color(AllegroFlare::color::transparent);
 
 
       //
@@ -257,7 +257,7 @@ namespace allegro_flare
 
       int num_points = 50;
 
-      vec2d previous_point(0, 1);
+      AllegroFlare::vec2d previous_point(0, 1);
       for (int i=0; i<=(num_points-1); i++)
       {
          float point_x = (float)i/(num_points-1);

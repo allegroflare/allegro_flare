@@ -6,7 +6,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Useful.hpp> // for escape_xml_chars(), as_hex()
-#include <allegro_flare/useful_php.h>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 
 // SVG

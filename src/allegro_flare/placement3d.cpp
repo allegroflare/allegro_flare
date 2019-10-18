@@ -35,7 +35,7 @@ namespace allegro_flare
 
 
 
-   placement3d::placement3d(vec3d position)
+   placement3d::placement3d(AllegroFlare::vec3d position)
       : position(position.x, position.y, position.z)
       , size(0, 0, 0)
       , align(0.5, 0.5, 0.5)
@@ -82,9 +82,9 @@ namespace allegro_flare
       al_translate_transform_3d(transform, anchor.x, anchor.y, anchor.z);
 
       // rotate
-      al_rotate_transform_3d(transform, 0, 1, 0, rotation.y * TAU); // <-- uuhh... not sure how this should work
-      al_rotate_transform_3d(transform, 1, 0, 0, rotation.x * TAU); // <-- uuhh... not sure how this should work
-      al_rotate_transform_3d(transform, 0, 0, 1, rotation.z * TAU); // <-- uuhh... not sure how this should work
+      al_rotate_transform_3d(transform, 0, 1, 0, rotation.y * AllegroFlare::TAU); // <-- uuhh... not sure how this should work
+      al_rotate_transform_3d(transform, 1, 0, 0, rotation.x * AllegroFlare::TAU); // <-- uuhh... not sure how this should work
+      al_rotate_transform_3d(transform, 0, 0, 1, rotation.z * AllegroFlare::TAU); // <-- uuhh... not sure how this should work
 
       // translate
       al_translate_transform_3d(transform, position.x, position.y, position.z);
@@ -101,9 +101,9 @@ namespace allegro_flare
       al_translate_transform_3d(transform, -position.x, -position.y, -position.z);
 
       // rotate
-      al_rotate_transform_3d(transform, 0, 0, -1, rotation.z * TAU);
-      al_rotate_transform_3d(transform, -1, 0, 0, rotation.x * TAU);
-      al_rotate_transform_3d(transform, 0, -1, 0, rotation.y * TAU);
+      al_rotate_transform_3d(transform, 0, 0, -1, rotation.z * AllegroFlare::TAU);
+      al_rotate_transform_3d(transform, -1, 0, 0, rotation.x * AllegroFlare::TAU);
+      al_rotate_transform_3d(transform, 0, -1, 0, rotation.y * AllegroFlare::TAU);
 
       // offset for alignment and anchors
       al_translate_transform_3d(transform, -anchor.x, -anchor.y, -anchor.z);
@@ -114,9 +114,9 @@ namespace allegro_flare
 
 
 
-   vec3d placement3d::get_real_position()
+   AllegroFlare::vec3d placement3d::get_real_position()
    {
-      vec3d real_position(0, 0, 0);
+      AllegroFlare::vec3d real_position(0, 0, 0);
       ALLEGRO_TRANSFORM t;
       build_transform(&t);
 

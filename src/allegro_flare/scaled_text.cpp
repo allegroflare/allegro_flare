@@ -18,7 +18,7 @@ namespace allegro_flare
 {
    std::string UIScaledText::_get_font_index_str()
    {
-      return font_filename + " " + tostring((int)(font_size * render_scale));
+      return font_filename + " " + AllegroFlare::tostring((int)(font_size * render_scale));
    }
 
 
@@ -41,8 +41,8 @@ namespace allegro_flare
       al_set_target_bitmap(render);
 
       // clear and draw the text
-      al_clear_to_color(color::transparent);
-      al_draw_text(scaled_font, color::white, 0, 0, ALLEGRO_ALIGN_LEFT, text.c_str());
+      al_clear_to_color(AllegroFlare::color::transparent);
+      al_draw_text(scaled_font, AllegroFlare::color::white, 0, 0, ALLEGRO_ALIGN_LEFT, text.c_str());
 
       // restore the state
       al_restore_state(&previous_state);
@@ -61,7 +61,7 @@ namespace allegro_flare
       , font_filename("DroidSans.ttf")
       , font_size(14)
       , render_scale(3.0)
-      , font_color(color::white)
+      , font_color(AllegroFlare::color::white)
       , text(text)
    {
       this->surface_area->placement.align.x = 0.0;

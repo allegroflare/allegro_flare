@@ -208,7 +208,7 @@ namespace allegro_flare
 
 
 
-   bool Shader::set_vec3(const char *name, const vec3d vec)
+   bool Shader::set_vec3(const char *name, const AllegroFlare::vec3d vec)
    {
       return set_vec3(name, vec.x, vec.y, vec.z);
    }

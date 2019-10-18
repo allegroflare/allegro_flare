@@ -8,10 +8,6 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 namespace allegro_flare
 {
    class placement3d
@@ -20,11 +16,11 @@ namespace allegro_flare
       ALLEGRO_TRANSFORM previous_transform;
 
    public:
-      vec3d position, size, align, scale, anchor, rotation;
+      AllegroFlare::vec3d position, size, align, scale, anchor, rotation;
 
       placement3d();
       placement3d(float x, float y, float z);
-      placement3d(vec3d position);
+      placement3d(AllegroFlare::vec3d position);
 
       void start_transform();
       void restore_transform();
@@ -33,7 +29,7 @@ namespace allegro_flare
 
       placement3d& operator+=(const placement3d& other);
 
-      vec3d get_real_position();
+      AllegroFlare::vec3d get_real_position();
 
       bool collide(float x, float y, float z); // not implemented
       bool fcollide(float x, float y, float z, float d); // not implemented

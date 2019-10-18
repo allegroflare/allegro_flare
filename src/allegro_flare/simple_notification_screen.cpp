@@ -25,7 +25,7 @@ namespace allegro_flare
       , box_color(box_color)
       , text_color(text_color)
    {
-      std::vector<std::string> lines = php::explode("\n", text);
+      std::vector<std::string> lines = AllegroFlare::php::explode("\n", text);
       text_width = al_get_text_width(font, lines[0].c_str());
       for (unsigned i=0; i<lines.size(); i++)
       {
@@ -48,11 +48,11 @@ namespace allegro_flare
    {
       if (can_die) return;
 
-      std::vector<std::string> lines = php::explode("\n", text);
+      std::vector<std::string> lines = AllegroFlare::php::explode("\n", text);
 
       for (unsigned i=0; i<lines.size(); i++)
       {
-         al_draw_text(font, color::color(text_color, limit<float>(0, 1, lifespan)), x_cursor, y_cursor-text_height+al_get_font_line_height(font)*i, ALLEGRO_ALIGN_RIGHT, lines[i].c_str());
+         al_draw_text(font, AllegroFlare::color::color(text_color, AllegroFlare::limit<float>(0, 1, lifespan)), x_cursor, y_cursor-text_height+al_get_font_line_height(font)*i, ALLEGRO_ALIGN_RIGHT, lines[i].c_str());
       }
    }
 
@@ -103,7 +103,7 @@ namespace allegro_flare
                   y_cursor,
                   border_radius,
                   border_radius,
-                  color::color(notifications[i].box_color, limit<float>(0.0, 1.0, notifications[i].lifespan) * 0.2));
+                  AllegroFlare::color::color(notifications[i].box_color, AllegroFlare::limit<float>(0.0, 1.0, notifications[i].lifespan) * 0.2));
 
             float line_width = 3.0;
             float h_line_width = line_width/2;
@@ -114,7 +114,7 @@ namespace allegro_flare
                   y_cursor - h_line_width,
                   border_radius,
                   border_radius,
-                  color::color(notifications[i].box_color,  0.15),
+                  AllegroFlare::color::color(notifications[i].box_color,  0.15),
                   h_line_width);
 
             notifications[i].draw(x_cursor - padding_x, y_cursor - padding_y);

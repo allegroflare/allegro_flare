@@ -18,7 +18,7 @@ namespace allegro_flare
       , val(0.0)
       , increment_amount(0.1)
    {
-      text_input->set_text(tostring(val));
+      text_input->set_text(AllegroFlare::tostring(val));
    }
 
 
@@ -27,7 +27,7 @@ namespace allegro_flare
    void UIFloatSpinner::set_val(std::string strval)
    {
       val = atof(strval.c_str());
-      text_input->set_text(tostring(val));
+      text_input->set_text(AllegroFlare::tostring(val));
       on_change();
    }
 
@@ -53,7 +53,7 @@ namespace allegro_flare
    void UIFloatSpinner::increment()
    {
       val += increment_amount;
-      text_input->set_text(tostring(val));
+      text_input->set_text(AllegroFlare::tostring(val));
       on_change();
    }
 
@@ -63,7 +63,7 @@ namespace allegro_flare
    void UIFloatSpinner::decrement()
    {
       val -= increment_amount;
-      text_input->set_text(tostring(val));
+      text_input->set_text(AllegroFlare::tostring(val));
       on_change();
    }
 }

@@ -64,7 +64,7 @@ namespace allegro_flare
       ALLEGRO_BITMAP *surface = al_create_bitmap(dest_w, dest_h);
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
       al_set_target_bitmap(surface);
-      al_clear_to_color(color::transparent);
+      al_clear_to_color(AllegroFlare::color::transparent);
       al_draw_scaled_bitmap(bmp, 0, 0, al_get_bitmap_width(bmp), al_get_bitmap_height(bmp), 0, 0, dest_w, dest_h, ALLEGRO_FLAGS_EMPTY);
 
       al_restore_state(&state);
@@ -91,7 +91,7 @@ namespace allegro_flare
       ALLEGRO_STATE state;
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
       al_set_target_bitmap(surface);
-      al_clear_to_color(color::transparent);
+      al_clear_to_color(AllegroFlare::color::transparent);
       al_draw_bitmap(original, padding_left, padding_top, 0);
       al_restore_state(&state);
 
@@ -138,7 +138,7 @@ namespace allegro_flare
          for (int x=0; x<al_get_bitmap_width(bmp); x++)
          {
             ALLEGRO_COLOR this_color = al_get_pixel(bmp, x, y);
-            if (!color::basically_equal(this_color, top_left_color))
+            if (!AllegroFlare::color::basically_equal(this_color, top_left_color))
             {
                if (x < left_most) left_most = x; 
                if (y < top_most) top_most = y; 
@@ -156,7 +156,7 @@ namespace allegro_flare
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
 
       al_set_target_bitmap(bmp);
-      al_draw_rectangle(left_most, top_most, right_most, bottom_most, color::green, 1.0);
+      al_draw_rectangle(left_most, top_most, right_most, bottom_most, AllegroFlare::color::green, 1.0);
 
       al_restore_state(&state);
    }
@@ -173,7 +173,7 @@ namespace allegro_flare
       al_store_state(&previous_drawing_state, ALLEGRO_STATE_TARGET_BITMAP);
 
       al_set_target_bitmap(bitmap);
-      al_clear_to_color(color::black);  // clearing is not necessiary, don't know why this is here.
+      al_clear_to_color(AllegroFlare::color::black);  // clearing is not necessiary, don't know why this is here.
       // why don't you take it out then? instead of writing
       // this commment, huh?  You're wierd, mark.
 
@@ -447,7 +447,7 @@ namespace allegro_flare
             ALLEGRO_COLOR col = al_get_pixel(img, pixel_x, pixel_y);
 
             // this is the actual color manipulation function
-            float brightness = color::get_lightness(col); // << this is the heart of the function that measures the value of the pixel
+            float brightness = AllegroFlare::color::get_lightness(col); // << this is the heart of the function that measures the value of the pixel
 
             int brightness_index = (int)(brightness*255);
             histogram[brightness_index] += 1;

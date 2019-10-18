@@ -17,7 +17,7 @@ namespace allegro_flare
       , mouse_y(0)
       , num_notches(0)
       , wheel_sensitivity(0.1)
-      , slider_color(color::dodgerblue)
+      , slider_color(AllegroFlare::color::dodgerblue)
    {}
 
 
@@ -25,15 +25,15 @@ namespace allegro_flare
 
    void UIVerticalSlider::on_draw()
    {
-      al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3, color::color(color::black, 0.2));
+      al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3, AllegroFlare::color::color(AllegroFlare::color::black, 0.2));
 
       float hilight_inset = 1;
       al_draw_filled_rounded_rectangle(0+hilight_inset, place.size.y*(1.0-val)+hilight_inset,
          place.size.x-hilight_inset, place.size.y-hilight_inset, 3, 3, slider_color);
-      al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3, color::color(color::black, 0.2), 2);
+      al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, 3, 3, AllegroFlare::color::color(AllegroFlare::color::black, 0.2), 2);
 
       // draw the dividing line
-      al_draw_line(0, place.size.y*(1-val), place.size.x, place.size.y*(1-val), color::color(color::black, 0.2), 1.0);
+      al_draw_line(0, place.size.y*(1-val), place.size.x, place.size.y*(1-val), AllegroFlare::color::color(AllegroFlare::color::black, 0.2), 1.0);
    }
 
 
@@ -57,9 +57,9 @@ namespace allegro_flare
 
    void UIVerticalSlider::set_val(float val)
    {
-      val = limit<float>(0.0, 1.0, val);
-      if (num_notches >= 3) val = (round_up(val * num_notches)) / (float)num_notches;
-      this->val = limit<float>(0.0, 1.0, val);
+      val = AllegroFlare::limit<float>(0.0, 1.0, val);
+      if (num_notches >= 3) val = (AllegroFlare::round_up(val * num_notches)) / (float)num_notches;
+      this->val = AllegroFlare::limit<float>(0.0, 1.0, val);
       on_change();
    }
 

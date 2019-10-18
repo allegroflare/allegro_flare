@@ -18,7 +18,7 @@ namespace allegro_flare
       : UIWidget(parent, "UIText", new UISurfaceAreaBox(x, y, 200, 20)) // just set arbitrary width and height
       , text(text)
       , font(Framework::font("DroidSans.ttf 20"))
-      , font_color(color::white)
+      , font_color(AllegroFlare::color::white)
    {
       // text elements do not recieve focus when ALLEGRO_KEY_TABbing
       no_focus = true;

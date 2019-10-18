@@ -108,7 +108,7 @@ namespace allegro_flare
 
 
 
-   void Camera2D::translate_screen_to_world(vec2d *vec)
+   void Camera2D::translate_screen_to_world(AllegroFlare::vec2d *vec)
    {
       translate_screen_to_world(&vec->x, &vec->y);
    }
@@ -137,7 +137,7 @@ namespace allegro_flare
 
 
    // has not been tested
-   void Camera2D::translate_world_to_screen(vec2d *vec)
+   void Camera2D::translate_world_to_screen(AllegroFlare::vec2d *vec)
    {
       //*
       this->start_transform();

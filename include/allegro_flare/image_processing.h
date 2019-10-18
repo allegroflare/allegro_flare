@@ -9,10 +9,6 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 namespace allegro_flare
 {
    ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bmp, int scale);
@@ -46,7 +42,7 @@ namespace allegro_flare
 
    // draws a histogram of luminance
 
-   void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALLEGRO_COLOR hist_col=color::white);
+   void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALLEGRO_COLOR hist_col=AllegroFlare::color::white);
 
 
 

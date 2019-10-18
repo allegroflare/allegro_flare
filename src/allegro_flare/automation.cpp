@@ -32,7 +32,7 @@ namespace allegro_flare
       BasicScriptReader::BasicScriptReader(std::string script)
          : current_line_index(0)
       {
-         lines = php::explode("\n", script);
+         lines = AllegroFlare::php::explode("\n", script);
       };
 
 
@@ -95,10 +95,10 @@ namespace allegro_flare
          for (unsigned i=0; i<params.size(); i++)
             params[i]->keyframe.clear();
 
-         BasicScriptReader script_reader(php::file_get_contents(script_filename));
+         BasicScriptReader script_reader(AllegroFlare::php::file_get_contents(script_filename));
          while (!script_reader.at_end())
          {
-            std::vector<std::string> tokens = php::explode(" ", script_reader.get_next_line());
+            std::vector<std::string> tokens = AllegroFlare::php::explode(" ", script_reader.get_next_line());
             // oh, let's go with this format:
             // [time_sec] [param] [value] [!interpoltor]
 
@@ -160,7 +160,7 @@ namespace allegro_flare
       {
          al_draw_tinted_scaled_rotated_bitmap(
                bitmap,
-               color::color(color::white, get_param_by_id("opacity")->get(time)),
+               AllegroFlare::color::color(AllegroFlare::color::white, get_param_by_id("opacity")->get(time)),
                al_get_bitmap_width(bitmap) * get_param_by_id("align_x")->get(time),
                al_get_bitmap_height(bitmap) * get_param_by_id("align_y")->get(time),
                get_param_by_id("x")->get(time),

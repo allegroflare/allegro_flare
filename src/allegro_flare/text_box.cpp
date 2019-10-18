@@ -15,7 +15,7 @@ namespace allegro_flare
    UITextBox::UITextBox(UIWidget *parent, float x, float y, float w, float h, std::string text)
       : UIWidget(parent, "UITextBox", new UISurfaceAreaBox(x, y, w, h))
       , font(Framework::font("DroidSans.ttf 20"))
-      , text_color(color::black)
+      , text_color(AllegroFlare::color::black)
       , text(text)
    {
       no_focus = true;

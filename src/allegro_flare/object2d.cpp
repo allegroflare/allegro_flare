@@ -259,11 +259,11 @@ namespace allegro_flare
    {
       // function parses a markup string in the form of
       // x=4.2 y=40 opacity=0.2 rotation=0.1
-      std::vector<std::string> parts = php::explode(" ", str);
+      std::vector<std::string> parts = AllegroFlare::php::explode(" ", str);
 
       for (std::vector<std::string>::iterator it=parts.begin(); it!=parts.end(); it++)
       {
-         std::vector<std::string> lval_rval_pair = php::explode("=", (*it));
+         std::vector<std::string> lval_rval_pair = AllegroFlare::php::explode("=", (*it));
          if (lval_rval_pair.size() != 2)
          {
             std::cout << "[" << __FUNCTION__ << "] lval=rval format not found in token." << std::endl;
@@ -370,7 +370,7 @@ namespace allegro_flare
 
    void object2d::draw_origin(ALLEGRO_COLOR col)
    {
-      draw_crosshair(*_x, *_y, col);
+      AllegroFlare::draw_crosshair(*_x, *_y, col);
    }
 
 

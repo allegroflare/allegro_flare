@@ -76,7 +76,7 @@ namespace allegro_flare
       {
          if (_bitmap)
          {
-            if (_appearance) al_draw_tinted_bitmap(_bitmap, color::color(_appearance->color, _appearance->opacity), 0, 0, _flags);
+            if (_appearance) al_draw_tinted_bitmap(_bitmap, AllegroFlare::color::color(_appearance->color, _appearance->opacity), 0, 0, _flags);
             else al_draw_bitmap(_bitmap, 0, 0, _flags);
          }
          return *this;

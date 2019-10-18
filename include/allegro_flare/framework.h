@@ -21,10 +21,6 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 namespace allegro_flare
 {
    class Framework
@@ -37,11 +33,11 @@ namespace allegro_flare
       ~Framework();
 
       Config config;
-      FontBin fonts;
-      SampleBin samples;
-      BitmapBin bitmaps;
-      ModelBin models;
-      Motion motions;
+      AllegroFlare::FontBin fonts;
+      AllegroFlare::SampleBin samples;
+      AllegroFlare::BitmapBin bitmaps;
+      AllegroFlare::ModelBin models;
+      AllegroFlare::Motion motions;
 
    public:
       static ALLEGRO_TEXTLOG *textlog;
@@ -60,8 +56,8 @@ namespace allegro_flare
       static ALLEGRO_FONT *font(std::string identifier);
       static ALLEGRO_BITMAP *bitmap(std::string identifier);
       static ALLEGRO_SAMPLE *sample(std::string identifier);
-      static Model3D *model(std::string identifier);
-      static Motion &motion(); // we'll do this for now
+      static AllegroFlare::Model3D *model(std::string identifier);
+      static AllegroFlare::Motion &motion(); // we'll do this for now
       static Config &get_config();
 
       static bool initialize(std::string config_filename="data/config/config.cfg");

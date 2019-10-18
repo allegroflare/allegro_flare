@@ -14,7 +14,7 @@ namespace allegro_flare
 {
    UIImage::UIImage(UIWidget *parent, float x, float y, ALLEGRO_BITMAP *_bitmap)
       : UIWidget(parent, "UIImage", new UISurfaceAreaBox(x, y, _bitmap ? al_get_bitmap_width(_bitmap) : 0, _bitmap ? al_get_bitmap_height(_bitmap) : 0))
-      , color(color::white)
+      , color(AllegroFlare::color::white)
       , bitmap(_bitmap)
    {}
 

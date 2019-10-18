@@ -14,17 +14,13 @@
 
 namespace allegro_flare
 {
-   using namespace AllegroFlare;
-
-
-
    class placement2d
    {
    private:
       ALLEGRO_TRANSFORM previous_transform;
 
    public:
-      vec2d position, size, align, scale, anchor;
+      AllegroFlare::vec2d position, size, align, scale, anchor;
       vec2b flip;
       float rotation;
       float &x, &y, &w, &h;  // for convience

@@ -42,13 +42,13 @@ namespace allegro_flare
 
 
 
-   Bone::Bone(vec2d dir_vec, float length, float tau_range)
+   Bone::Bone(AllegroFlare::vec2d dir_vec, float length, float tau_range)
       : parent(NULL)
       , children()
       , midpoint_direction(dir_vec.normalized())
       , length(length)
       , position(0.5)
-      , range(tau_range * TAU)
+      , range(tau_range * AllegroFlare::TAU)
    {}
 
 
@@ -78,9 +78,9 @@ namespace allegro_flare
 
 
 
-   vec2d Bone::get_direction()
+   AllegroFlare::vec2d Bone::get_direction()
    {
-      return vec2d::polar_coords(get_angle(), 1.0);
+      return AllegroFlare::vec2d::polar_coords(get_angle(), 1.0);
    }
 
 
@@ -118,10 +118,10 @@ namespace allegro_flare
    void Bone::draw(float x, float y, int index_to_hilight)
    {
       _index_count = 0;
-      vec2d end_pos = get_direction() * length;
-      al_draw_line(x, y, x+end_pos.x, y+end_pos.y, color::white, 2.0);
-      __draw_recursive(this, get_direction(), vec2d(x, y) + end_pos, index_to_hilight);
-      al_draw_rectangle(x-5, y-5, x+5, y+5, color::yellowgreen, 2.0);
+      AllegroFlare::vec2d end_pos = get_direction() * length;
+      al_draw_line(x, y, x+end_pos.x, y+end_pos.y, AllegroFlare::color::white, 2.0);
+      __draw_recursive(this, get_direction(), AllegroFlare::vec2d(x, y) + end_pos, index_to_hilight);
+      al_draw_rectangle(x-5, y-5, x+5, y+5, AllegroFlare::color::yellowgreen, 2.0);
    }
 
 
@@ -129,7 +129,7 @@ namespace allegro_flare
 
    // note: _direction is the direction of the central point of rotation
    // tau_range is a value from 0 to 1, denominating the unit value of TAU which is the range of the rotation
-   Bone *Bone::add_child(vec2d _direction, float _length, float _tau_range)
+   Bone *Bone::add_child(AllegroFlare::vec2d _direction, float _length, float _tau_range)
    {
       children.push_back(Bone(_direction, _length, _tau_range));
       return &children.back();
@@ -138,11 +138,11 @@ namespace allegro_flare
 
 
 
-   void Bone::__draw_recursive(Bone *bone, vec2d last_direction, vec2d pos, int index_to_hilight)
+   void Bone::__draw_recursive(Bone *bone, AllegroFlare::vec2d last_direction, AllegroFlare::vec2d pos, int index_to_hilight)
    {
       unsigned i = 0;
       Bone *child = NULL;
-      vec2d direction = 0;
+      AllegroFlare::vec2d direction = 0;
 
       for (i=0; i<bone->children.size(); i++)
       {
@@ -151,20 +151,20 @@ namespace allegro_flare
          child = &bone->children[i];
 
          float direction_ang = last_direction.get_angle() + child->get_angle();
-         direction = vec2d::polar_coords(direction_ang, 1);
+         direction = AllegroFlare::vec2d::polar_coords(direction_ang, 1);
 
-         vec2d start = pos;
-         vec2d end = pos + direction * child->length;
+         AllegroFlare::vec2d start = pos;
+         AllegroFlare::vec2d end = pos + direction * child->length;
          //direction = (end - start).normalized();
 
          // draw the bone and the endpoints
-         if (_index_count == index_to_hilight) al_draw_line(start.x, start.y, end.x, end.y, color::pink, 8.0);
-         al_draw_line(start.x, start.y, end.x, end.y, color::white, 2.0);
-         al_draw_circle(start.x, start.y, 4, color::dodgerblue, 2.0);
-         al_draw_circle(end.x, end.y, 6, color::orange, 2.0);
+         if (_index_count == index_to_hilight) al_draw_line(start.x, start.y, end.x, end.y, AllegroFlare::color::pink, 8.0);
+         al_draw_line(start.x, start.y, end.x, end.y, AllegroFlare::color::white, 2.0);
+         al_draw_circle(start.x, start.y, 4, AllegroFlare::color::dodgerblue, 2.0);
+         al_draw_circle(end.x, end.y, 6, AllegroFlare::color::orange, 2.0);
 
          // draw the angle bounds
-         al_draw_arc(start.x, start.y, 18, direction_ang-child->range/2, child->range, color::color(color::dodgerblue, 0.4), 9);
+         al_draw_arc(start.x, start.y, 18, direction_ang-child->range/2, child->range, AllegroFlare::color::color(AllegroFlare::color::dodgerblue, 0.4), 9);
 
          __draw_recursive(child, direction, end, index_to_hilight);
       }
@@ -241,7 +241,7 @@ namespace allegro_flare
       {
          content << bone_positions[i].index << " " << bone_positions[i].position << std::endl;
       }
-      php::file_put_contents(filename, content.str());
+      AllegroFlare::php::file_put_contents(filename, content.str());
    }
 
 
@@ -249,16 +249,16 @@ namespace allegro_flare
 
    void SkeletonState::load(std::string filename)
    {
-      if (!php::file_exists(filename))
+      if (!AllegroFlare::php::file_exists(filename))
       {
          std::cout << "file not found." << std::endl;
          return;
       }
       bone_positions.clear();
-      std::vector<std::string> lines = php::explode("\n", php::file_get_contents(filename));
+      std::vector<std::string> lines = AllegroFlare::php::explode("\n", AllegroFlare::php::file_get_contents(filename));
       for (unsigned i=0; i<lines.size(); i++)
       {
-         std::vector<std::string> tokens = php::explode(" ", lines[i]);
+         std::vector<std::string> tokens = AllegroFlare::php::explode(" ", lines[i]);
          if (tokens.size() != 2) continue;
 
          int index = atoi(tokens[0].c_str());

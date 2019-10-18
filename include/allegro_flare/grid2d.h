@@ -13,10 +13,6 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 //"If I hadn't tried, the cost would have been my soul." - Kirk
 
 
@@ -47,16 +43,16 @@ namespace allegro_flare
       float get_horizontal_guide_pos(int index);
       float get_vertical_guide_pos(int index);
 
-      vec2d get_guide_pos(int x_index, int y_index);
+      AllegroFlare::vec2d get_guide_pos(int x_index, int y_index);
 
-      vec2d get_closest_coordinates(float x, float y, float threshold = 15);
-      vec2d get_closest_left_coordinate(float x, float y);
+      AllegroFlare::vec2d get_closest_coordinates(float x, float y, float threshold = 15);
+      AllegroFlare::vec2d get_closest_left_coordinate(float x, float y);
 
       int get_closest_coordinate_index_to_the_left(float x); // maybe rename these two to something nicer, also returns -1 if not found
       int get_closest_coordinate_index_above(float y);
 
-      void draw_guides(ALLEGRO_COLOR color=color::black);
-      void draw_guide_numbers(ALLEGRO_FONT *font, float padding=10, ALLEGRO_COLOR color=color::black);
+      void draw_guides(ALLEGRO_COLOR color=AllegroFlare::color::black);
+      void draw_guide_numbers(ALLEGRO_FONT *font, float padding=10, ALLEGRO_COLOR color=AllegroFlare::color::black);
    };
 }
 

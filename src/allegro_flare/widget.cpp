@@ -29,7 +29,7 @@ namespace allegro_flare
       , place(surface_area->placement)
    {
       set(UI_ATTR__UI_WIDGET_TYPE, widget_typename);
-      set("id", widget_typename + tostring(widget_count));
+      set("id", widget_typename + AllegroFlare::tostring(widget_count));
 
       num_active_widgets++;
       widget_count++;
@@ -391,9 +391,9 @@ namespace allegro_flare
    {
       if (surface_area)
       {
-         al_draw_rounded_rectangle(0, 0, surface_area->placement.size.x, surface_area->placement.size.y, 4, 4, color::color(color::aliceblue, 0.2), 2.0);
+         al_draw_rounded_rectangle(0, 0, surface_area->placement.size.x, surface_area->placement.size.y, 4, 4, AllegroFlare::color::color(AllegroFlare::color::aliceblue, 0.2), 2.0);
          ALLEGRO_BITMAP *widget_icon = UIStyleAssets::get_widget_icon();
-         al_draw_tinted_bitmap(widget_icon, color::color(color::white, 0.1), place.size.x/2-al_get_bitmap_width(widget_icon)/2, place.size.y/2-al_get_bitmap_height(widget_icon)/2, 0);
+         al_draw_tinted_bitmap(widget_icon, AllegroFlare::color::color(AllegroFlare::color::white, 0.1), place.size.x/2-al_get_bitmap_width(widget_icon)/2, place.size.y/2-al_get_bitmap_height(widget_icon)/2, 0);
       }
    }
 

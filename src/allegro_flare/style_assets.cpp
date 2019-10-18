@@ -84,7 +84,7 @@ namespace allegro_flare
    {
       UIStyleAssets *inst = get_instance();
       if (!inst->widget_icon)
-         inst->widget_icon = generate_widget_icon(64, color::white, color::transparent);
+         inst->widget_icon = generate_widget_icon(64, AllegroFlare::color::white, AllegroFlare::color::transparent);
       return inst->widget_icon;
    }
 
@@ -95,7 +95,7 @@ namespace allegro_flare
    {
       UIStyleAssets *inst = get_instance();
       if (!inst->pixel_pattern_3)
-         inst->pixel_pattern_3 = create_pixel_pattern_3(color::black, color::transparent);
+         inst->pixel_pattern_3 = create_pixel_pattern_3(AllegroFlare::color::black, AllegroFlare::color::transparent);
       return inst->pixel_pattern_3;
    }
 
@@ -212,30 +212,30 @@ namespace allegro_flare
       float texture_inset = border_thickness/2;
 
       // the button face
-      al_draw_filled_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, color::mix(color::black, col, 0.95));
+      al_draw_filled_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, AllegroFlare::color::mix(AllegroFlare::color::black, col, 0.95));
 
       // the button outline
-      al_draw_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, color::color(color::black, 0.2), border_thickness);
+      al_draw_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, AllegroFlare::color::color(AllegroFlare::color::black, 0.2), border_thickness);
 
       // draw the top line shadow
-      al_draw_line(x+roundness, y+0.5, x+w-roundness, y+0.5, color::color(color::black, 0.3), 1.0);
+      al_draw_line(x+roundness, y+0.5, x+w-roundness, y+0.5, AllegroFlare::color::color(AllegroFlare::color::black, 0.3), 1.0);
 
       // draw the bottom line hilight
-      ALLEGRO_COLOR hilight_color = color::mix(color::white, color::transparent, 0.6);
+      ALLEGRO_COLOR hilight_color = AllegroFlare::color::mix(AllegroFlare::color::white, AllegroFlare::color::transparent, 0.6);
       al_draw_line(x+roundness, y+h+1.5, x+w-roundness, y+h+1.5, hilight_color, 1.0);
       // left arc
       float arc_unit_amount = 0.8;
       float arc_roundness = roundness + 0.5;
-      al_draw_arc(x+arc_roundness/2 + 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, FULL_ROTATION*0.25, FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
-      al_draw_arc(x+w-arc_roundness/2 - 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, FULL_ROTATION*0.25, -FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
+      al_draw_arc(x+arc_roundness/2 + 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, AllegroFlare::FULL_ROTATION*0.25, AllegroFlare::FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
+      al_draw_arc(x+w-arc_roundness/2 - 0.75, y+h+1-arc_roundness/2-0.75, arc_roundness, AllegroFlare::FULL_ROTATION*0.25, -AllegroFlare::FULL_ROTATION*0.25*arc_unit_amount, hilight_color, 1.0);
 
       // draw the shaded bitmap
       ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
-      draw_stretched_bitmap(x+texture_inset, y+texture_inset, w-texture_inset*2, std::min(20.0f, h-texture_inset*2), shade_down, ALLEGRO_FLIP_VERTICAL, color::color(color::white, 0.05));
+      AllegroFlare::draw_stretched_bitmap(x+texture_inset, y+texture_inset, w-texture_inset*2, std::min(20.0f, h-texture_inset*2), shade_down, ALLEGRO_FLIP_VERTICAL, AllegroFlare::color::color(AllegroFlare::color::white, 0.05));
 
       // draw the shade at the top of the button
       int shade_height = 8;
-      draw_stretched_bitmap(x+texture_inset, y+texture_inset, w-texture_inset*2, shade_height, shade_down, ALLEGRO_FLIP_VERTICAL, color::color(color::white, 0.1));
+      AllegroFlare::draw_stretched_bitmap(x+texture_inset, y+texture_inset, w-texture_inset*2, shade_height, shade_down, ALLEGRO_FLIP_VERTICAL, AllegroFlare::color::color(AllegroFlare::color::white, 0.1));
    }
 
 
@@ -249,19 +249,19 @@ namespace allegro_flare
 
       // draw the shade cast by the button
       int shade_height = 8;
-      draw_stretched_bitmap(x+texture_inset, y+h, w-texture_inset*2, shade_height, shade_down, ALLEGRO_FLIP_VERTICAL, color::color(color::white, 0.2));
+      AllegroFlare::draw_stretched_bitmap(x+texture_inset, y+h, w-texture_inset*2, shade_height, shade_down, ALLEGRO_FLIP_VERTICAL, AllegroFlare::color::color(AllegroFlare::color::white, 0.2));
 
       // the button face
-      al_draw_filled_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, color::mix(color::white, col, 0.93));//color::hex("575962"));
+      al_draw_filled_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, AllegroFlare::color::mix(AllegroFlare::color::white, col, 0.93));//color::hex("575962"));
 
       // draw a hilight along the top
-      al_draw_line(x+1, y+1.5, x+w-1, y+1.5, color::color(color::white, 0.1), 1.0);
+      al_draw_line(x+1, y+1.5, x+w-1, y+1.5, AllegroFlare::color::color(AllegroFlare::color::white, 0.1), 1.0);
 
       // the button outline
-      al_draw_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, color::color(color::black, 0.2), border_thickness);
+      al_draw_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, AllegroFlare::color::color(AllegroFlare::color::black, 0.2), border_thickness);
 
       // draw the shaded bitmap
-      draw_stretched_bitmap(x+texture_inset, y+texture_inset, w-texture_inset*2, h-texture_inset*2, shade_down, 0, color::color(color::white, 0.2));
+      AllegroFlare::draw_stretched_bitmap(x+texture_inset, y+texture_inset, w-texture_inset*2, h-texture_inset*2, shade_down, 0, AllegroFlare::color::color(AllegroFlare::color::white, 0.2));
    }
 
 
@@ -271,7 +271,7 @@ namespace allegro_flare
    {
       float border_thickness = 2.0;
       al_draw_filled_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, col);
-      al_draw_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, color::color(color::black, 0.1), border_thickness);
+      al_draw_rounded_rectangle(x, y, x+w, y+h, roundness, roundness, AllegroFlare::color::color(AllegroFlare::color::black, 0.1), border_thickness);
    }
 
 
@@ -297,10 +297,10 @@ namespace allegro_flare
 
          // draw the dropshadow
          if (style!="ui_disabled")
-            al_draw_text(font, color::color(color::black, 0.4), x-w*align_x, y-h*align_y-1+2, 0, text.c_str());
+            al_draw_text(font, AllegroFlare::color::color(AllegroFlare::color::black, 0.4), x-w*align_x, y-h*align_y-1+2, 0, text.c_str());
 
          // and finally draw the text
-         al_draw_text(font, color::mix(color::hex("EFEFEF"), color::transparent, (style=="ui_disabled") ? 0.6 : 0.0),
+         al_draw_text(font, AllegroFlare::color::mix(AllegroFlare::color::hex("EFEFEF"), AllegroFlare::color::transparent, (style=="ui_disabled") ? 0.6 : 0.0),
                x-w*align_x, y-h*align_y-1, 0, text.c_str());
       }
       else
@@ -312,7 +312,7 @@ namespace allegro_flare
          //   consider some alternatives.
          float h = al_get_font_line_height(font);
 
-         al_draw_text(font, color::white, x-w*align_x, y-h*align_y-1, 0, text.c_str());
+         al_draw_text(font, AllegroFlare::color::white, x-w*align_x, y-h*align_y-1, 0, text.c_str());
       }
    }
 
@@ -328,7 +328,7 @@ namespace allegro_flare
 
    ALLEGRO_COLOR UIStyleAssets::get_surface_color()
    {
-      return color::hex("575962");
+      return AllegroFlare::color::hex("575962");
    }
 
 
@@ -336,7 +336,7 @@ namespace allegro_flare
 
    ALLEGRO_COLOR UIStyleAssets::get_hilight_color()
    {
-      return color::dodgerblue;
+      return AllegroFlare::color::dodgerblue;
    }
 
 
@@ -370,8 +370,8 @@ namespace allegro_flare
       int num_gears = 9;
 
       placement2d gear_place;
-      gear_place.position = vec2d(size/2, size/2);
-      gear_place.anchor = vec2d(0, gear_radius);
+      gear_place.position = AllegroFlare::vec2d(size/2, size/2);
+      gear_place.anchor = AllegroFlare::vec2d(0, gear_radius);
 
       al_draw_circle(size/2, size/2, gear_radius-hh*2-inner_gear_thickness/2, front_color, inner_gear_thickness);
       for (auto i=0; i<num_gears; i++)
@@ -379,7 +379,7 @@ namespace allegro_flare
          gear_place.start_transform();
          al_draw_filled_rectangle(-hw, -hh*2-inner_gear_thickness*0.05, hw, 0, front_color);
          gear_place.restore_transform();
-         gear_place.rotation += TAU/num_gears;
+         gear_place.rotation += AllegroFlare::TAU/num_gears;
       }
 
       al_restore_state(&state);
