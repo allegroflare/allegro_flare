@@ -21,7 +21,7 @@ namespace allegro_flare
 
    UIDraggableRegion::UIDraggableRegion(UIWidget *parent, float x, float y, float w, float h)
       : UIWidget(parent, "UIDraggableRegion", new UISurfaceAreaBox(x, y, w, h))
-      , background_color(color::color(color::black, 0.1))
+      , background_color(AllegroFlare::color::color(AllegroFlare::color::black, 0.1))
    {}
 
 

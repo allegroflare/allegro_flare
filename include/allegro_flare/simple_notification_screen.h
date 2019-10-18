@@ -12,16 +12,12 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 namespace allegro_flare
 {
    class SimpleNotificationScreen : public Screen
    {
    private:
-      Motion motion;
+      AllegroFlare::Motion motion;
       ALLEGRO_FONT *font;
       static SimpleNotificationScreen *instance;
 
@@ -40,7 +36,7 @@ namespace allegro_flare
          float text_height;
          ALLEGRO_COLOR box_color, text_color;
 
-         SimpleNotification(std::string text, ALLEGRO_FONT *font, ALLEGRO_COLOR box_color = color::aliceblue, ALLEGRO_COLOR text_color = color::black);
+         SimpleNotification(std::string text, ALLEGRO_FONT *font, ALLEGRO_COLOR box_color = AllegroFlare::color::aliceblue, ALLEGRO_COLOR text_color = AllegroFlare::color::black);
          void draw(float x_cursor, float y_cursor);
          bool update();
       };

@@ -43,7 +43,7 @@ namespace allegro_flare
    void UIMusicNotation::on_draw()
    {
       placement2d &place = this->surface_area->placement;
-      al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, color::color(color::white, mouse_over ? 0.2 : 0.1));
+      al_draw_filled_rectangle(0, 0, place.size.x, place.size.y, AllegroFlare::color::color(AllegroFlare::color::white, mouse_over ? 0.2 : 0.1));
       place.size.x = std::max(10, notation.draw(0, place.size.y/2, val));
    }
 }

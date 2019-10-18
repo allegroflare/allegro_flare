@@ -8,6 +8,69 @@
 
 
 
+inline ALLEGRO_COLOR operator+(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
+{
+   ALLEGRO_COLOR result;
+   result.a = lhs.a + rhs.a;
+   result.r = lhs.r + rhs.r;
+   result.g = lhs.g + rhs.g;
+   result.b = lhs.b + rhs.b;
+   return result;
+}
+
+
+
+
+inline ALLEGRO_COLOR operator-(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
+{
+   ALLEGRO_COLOR result;
+   result.a = lhs.a - rhs.a;
+   result.r = lhs.r - rhs.r;
+   result.g = lhs.g - rhs.g;
+   result.b = lhs.b - rhs.b;
+   return result;
+}
+
+
+
+
+inline ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
+{
+   ALLEGRO_COLOR result;
+   result.a = lhs.a * rhs.a;
+   result.r = lhs.r * rhs.r;
+   result.g = lhs.g * rhs.g;
+   result.b = lhs.b * rhs.b;
+   return result;
+}
+
+
+
+
+inline ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& lhs, float rhs)
+{
+   ALLEGRO_COLOR result;
+   result.a = lhs.a * rhs;
+   result.r = lhs.r * rhs;
+   result.g = lhs.g * rhs;
+   result.b = lhs.b * rhs;
+   return result;
+}
+
+
+
+
+inline ALLEGRO_COLOR operator*(float lhs, const ALLEGRO_COLOR& rhs)
+{
+   ALLEGRO_COLOR result;
+   result.a = lhs * rhs.a;
+   result.r = lhs * rhs.r;
+   result.g = lhs * rhs.g;
+   result.b = lhs * rhs.b;
+   return result;
+}
+
+
 
 namespace AllegroFlare
 {
@@ -244,67 +307,6 @@ namespace AllegroFlare
 
 
 
-   inline ALLEGRO_COLOR operator+(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
-   {
-      ALLEGRO_COLOR result;
-      result.a = lhs.a + rhs.a;
-      result.r = lhs.r + rhs.r;
-      result.g = lhs.g + rhs.g;
-      result.b = lhs.b + rhs.b;
-      return result;
-   }
-
-
-
-
-   inline ALLEGRO_COLOR operator-(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
-   {
-      ALLEGRO_COLOR result;
-      result.a = lhs.a - rhs.a;
-      result.r = lhs.r - rhs.r;
-      result.g = lhs.g - rhs.g;
-      result.b = lhs.b - rhs.b;
-      return result;
-   }
-
-
-
-
-   inline ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
-   {
-      ALLEGRO_COLOR result;
-      result.a = lhs.a * rhs.a;
-      result.r = lhs.r * rhs.r;
-      result.g = lhs.g * rhs.g;
-      result.b = lhs.b * rhs.b;
-      return result;
-   }
-
-
-
-
-   inline ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& lhs, float rhs)
-   {
-      ALLEGRO_COLOR result;
-      result.a = lhs.a * rhs;
-      result.r = lhs.r * rhs;
-      result.g = lhs.g * rhs;
-      result.b = lhs.b * rhs;
-      return result;
-   }
-
-
-
-
-   inline ALLEGRO_COLOR operator*(float lhs, const ALLEGRO_COLOR& rhs)
-   {
-      ALLEGRO_COLOR result;
-      result.a = lhs * rhs.a;
-      result.r = lhs * rhs.r;
-      result.g = lhs * rhs.g;
-      result.b = lhs * rhs.b;
-      return result;
-   }
 }
 
 

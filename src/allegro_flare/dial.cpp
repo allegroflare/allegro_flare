@@ -28,8 +28,8 @@ namespace allegro_flare
    void UIDial::set_value(float unit_val)
    {
       float prev_val = val;
-      val = limit<float>(0, 1, unit_val);
-      if (basically_equal(prev_val, val)) on_change();
+      val = AllegroFlare::limit<float>(0, 1, unit_val);
+      if (AllegroFlare::basically_equal(prev_val, val)) on_change();
    }
 
 
@@ -77,14 +77,14 @@ namespace allegro_flare
       // some visual styling
       ALLEGRO_COLOR button_color = al_color_html("575962");
       ALLEGRO_COLOR back_color = al_color_html("404040");
-      ALLEGRO_COLOR front_color = color::dodgerblue;
+      ALLEGRO_COLOR front_color = AllegroFlare::color::dodgerblue;
       float bar_thickness = 7;
       float inner_radius = radius - bar_thickness*2;
       float wideness = 0.74; // value from [0 - 1].  default is 0.74
 
       // calculate the positions of the arcs and arc points
-      float min_theta = -FULL_ROTATION/4 - FULL_ROTATION*(wideness/2);
-      float max_theta = -FULL_ROTATION/4 + FULL_ROTATION*(wideness/2);
+      float min_theta = -AllegroFlare::FULL_ROTATION/4 - AllegroFlare::FULL_ROTATION*(wideness/2);
+      float max_theta = -AllegroFlare::FULL_ROTATION/4 + AllegroFlare::FULL_ROTATION*(wideness/2);
       float full_theta = max_theta - min_theta;
       // get a vector pointing from the center to the value on this dial 
       float dial_point_x = cos(min_theta+val*full_theta);
@@ -123,12 +123,12 @@ namespace allegro_flare
       //al_draw_circle(radius, radius,
       //   inner_radius-1, al_color_name("white"), 1.0);
       al_draw_circle(radius, radius,
-            inner_radius, color::color(color::black, 0.2), 2);
+            inner_radius, AllegroFlare::color::color(AllegroFlare::color::black, 0.2), 2);
 
       // draw the shade down
       float shade_inset = 3;
       ALLEGRO_BITMAP *shade = UIStyleAssets::get_shade_down_circle_gradient();
-      al_draw_tinted_scaled_bitmap(shade, color::color(color::white, 0.2),
+      al_draw_tinted_scaled_bitmap(shade, AllegroFlare::color::color(AllegroFlare::color::white, 0.2),
             0, 0, al_get_bitmap_width(shade), al_get_bitmap_height(shade),
             shade_inset + radius-inner_radius, shade_inset + radius-inner_radius,
             inner_radius*2 - shade_inset*2, inner_radius*2 - shade_inset*2, 0);
@@ -137,7 +137,7 @@ namespace allegro_flare
       //al_draw_rectangle(0, 0, place.size.x, place.size.y, color::dodgerblue, 1.0);
 
       // draw bounding circle
-      al_draw_circle(radius, radius, radius, color::color(color::black, 0.2), 2.0);
+      al_draw_circle(radius, radius, radius, AllegroFlare::color::color(AllegroFlare::color::black, 0.2), 2.0);
    }
 
 

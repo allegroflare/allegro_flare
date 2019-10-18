@@ -21,7 +21,7 @@ namespace allegro_flare
       : UIWidget(parent, "UICheckbox", new UISurfaceAreaBox(x, y, size, size))
       , checked(false)
       , check_placement(0, 0, size, size, -0.4, 0.0, 0.0, 0.45, 0.75)
-      , check_color(color::mix(UIStyleAssets::get_hilight_color(), color::white, 0.6))
+      , check_color(AllegroFlare::color::mix(UIStyleAssets::get_hilight_color(), AllegroFlare::color::white, 0.6))
       , check_opacity(0)
    {}
 
@@ -52,18 +52,18 @@ namespace allegro_flare
       if (checked)
       {
          // check reveals
-         Framework::motion().cmove_to(&check_opacity, 1.0, speed * 0.5, interpolator::double_fast_in);
-         Framework::motion().cmove_to(&check_placement.scale.x, 1.0, speed*0.85, interpolator::fast_out);
-         Framework::motion().cmove_to(&check_placement.scale.y, 1.0, speed*0.85, interpolator::fast_out);
-         Framework::motion().cmove_to(&check_placement.rotation, -0.1, speed, interpolator::fast_out);
+         Framework::motion().cmove_to(&check_opacity, 1.0, speed * 0.5, AllegroFlare::interpolator::double_fast_in);
+         Framework::motion().cmove_to(&check_placement.scale.x, 1.0, speed*0.85, AllegroFlare::interpolator::fast_out);
+         Framework::motion().cmove_to(&check_placement.scale.y, 1.0, speed*0.85, AllegroFlare::interpolator::fast_out);
+         Framework::motion().cmove_to(&check_placement.rotation, -0.1, speed, AllegroFlare::interpolator::fast_out);
       }
       else
       {
          // check removes
-         Framework::motion().cmove_to(&check_opacity, 0.0, speed, interpolator::double_fast_out);
-         Framework::motion().cmove_to(&check_placement.scale.x, 0.0, speed, interpolator::slow_in);
-         Framework::motion().cmove_to(&check_placement.scale.y, 0.0, speed, interpolator::slow_in);
-         Framework::motion().cmove_to(&check_placement.rotation, -0.4, speed, interpolator::linear);
+         Framework::motion().cmove_to(&check_opacity, 0.0, speed, AllegroFlare::interpolator::double_fast_out);
+         Framework::motion().cmove_to(&check_placement.scale.x, 0.0, speed, AllegroFlare::interpolator::slow_in);
+         Framework::motion().cmove_to(&check_placement.scale.y, 0.0, speed, AllegroFlare::interpolator::slow_in);
+         Framework::motion().cmove_to(&check_placement.rotation, -0.4, speed, AllegroFlare::interpolator::linear);
       }
 
       on_change();
@@ -138,17 +138,17 @@ namespace allegro_flare
 
 
       // draw the background shape
-      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
+      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, AllegroFlare::color::color(AllegroFlare::color::black, 0.1));
 
 
       // draw the gradient
       ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
-      al_draw_tinted_scaled_bitmap(shade_down, color::color(color::white, 0.3), 0, 0, al_get_bitmap_width(shade_down), al_get_bitmap_height(shade_down),
+      al_draw_tinted_scaled_bitmap(shade_down, AllegroFlare::color::color(AllegroFlare::color::white, 0.3), 0, 0, al_get_bitmap_width(shade_down), al_get_bitmap_height(shade_down),
             check_inset, check_inset, place.size.x-check_inset*2, place.size.y-check_inset*2, ALLEGRO_FLIP_VERTICAL);
 
 
       // draw the check
-      ALLEGRO_FONT *font_awesome = Framework::font("FontAwesome.otf " + tostring(((int)(place.size.x*1.75))));
+      ALLEGRO_FONT *font_awesome = Framework::font("FontAwesome.otf " + AllegroFlare::tostring(((int)(place.size.x*1.75))));
 
       static ALLEGRO_USTR *ustr = al_ustr_new("");
       al_ustr_set_chr(ustr, 0, font_awesome::ok);
@@ -160,11 +160,11 @@ namespace allegro_flare
       if (checked)
       {
          float boxfade_opacity = 1.0 - check_opacity;
-         al_draw_filled_rectangle(check_inset, check_inset, place.size.x-check_inset, place.size.y-check_inset, color::color(check_color, boxfade_opacity));
+         al_draw_filled_rectangle(check_inset, check_inset, place.size.x-check_inset, place.size.y-check_inset, AllegroFlare::color::color(check_color, boxfade_opacity));
       }
       check_placement.start_transform();
 
-      al_draw_ustr(font_awesome, color::color(color::black, 0.3), 0, 3, ALLEGRO_FLAGS_EMPTY, ustr);
+      al_draw_ustr(font_awesome, AllegroFlare::color::color(AllegroFlare::color::black, 0.3), 0, 3, ALLEGRO_FLAGS_EMPTY, ustr);
       al_draw_ustr(font_awesome, check_color, 0, 0, ALLEGRO_FLAGS_EMPTY, ustr);
 
       check_placement.restore_transform();

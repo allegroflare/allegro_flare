@@ -25,8 +25,8 @@ namespace allegro_flare
       // is derived from UIWindow (or any other widget for that matter, actually.)
 
       titlebar_dragger = new UIDraggableRegion(this, 0, -titlebar_height, place.size.x, titlebar_height);
-      titlebar_dragger->place.align = vec2d(0, 0);
-      titlebar_dragger->set_color(color::transparent);
+      titlebar_dragger->place.align = AllegroFlare::vec2d(0, 0);
+      titlebar_dragger->set_color(AllegroFlare::color::transparent);
 
       // create the close button in the top right of the window
       float close_button_width = 16;
@@ -40,7 +40,7 @@ namespace allegro_flare
    void UIFramedWindow::draw_window_frame_around(float x1, float y1, float x2, float y2)
    {
       ALLEGRO_COLOR frame_base_color = UIStyleAssets::get_hilight_color();
-      ALLEGRO_COLOR frame_color = color::color(frame_base_color, 0.8);
+      ALLEGRO_COLOR frame_color = AllegroFlare::color::color(frame_base_color, 0.8);
 
       // titlebar
       al_draw_filled_rectangle(x1-frame_thickness, y1-frame_thickness-titlebar_height, x2+frame_thickness, y1, frame_color);
@@ -78,8 +78,8 @@ namespace allegro_flare
       draw_window_frame_around(0, 0, place.size.x, place.size.y);
 
       // draw the title text
-      al_draw_text(Framework::font("DroidSans.ttf 16"), color::black, 6+1, -25+2, 0, window_title.c_str());
-      al_draw_text(Framework::font("DroidSans.ttf 16"), color::white, 6, -25, 0, window_title.c_str());
+      al_draw_text(Framework::font("DroidSans.ttf 16"), AllegroFlare::color::black, 6+1, -25+2, 0, window_title.c_str());
+      al_draw_text(Framework::font("DroidSans.ttf 16"), AllegroFlare::color::white, 6, -25, 0, window_title.c_str());
    }
 
 

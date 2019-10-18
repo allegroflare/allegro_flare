@@ -22,7 +22,7 @@ namespace allegro_flare
       : UIWidget(parent, "UIProgressBar", new UISurfaceAreaBox(x, y, w, h))
       , unit_val(0)
       , update_speed(0.4)
-      , bar_color(color::dodgerblue)
+      , bar_color(AllegroFlare::color::dodgerblue)
    {}
 
 
@@ -30,8 +30,8 @@ namespace allegro_flare
 
    void UIProgressBar::set_val(float unit_val)
    {
-      unit_val = limit<float>(0, 1, unit_val);
-      Framework::motion().cmove_to(&this->unit_val, unit_val, update_speed, interpolator::double_fast_in);
+      unit_val = AllegroFlare::limit<float>(0, 1, unit_val);
+      Framework::motion().cmove_to(&this->unit_val, unit_val, update_speed, AllegroFlare::interpolator::double_fast_in);
    }
 
 
@@ -52,10 +52,10 @@ namespace allegro_flare
       float inset_padding = 3;
 
       // draw the background
-      al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, roundness, roundness, color::color(color::black, 0.2));
+      al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, roundness, roundness, AllegroFlare::color::color(AllegroFlare::color::black, 0.2));
 
       // draw the background outline
-      al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, roundness, roundness, color::color(color::black, 0.2), 2.0);
+      al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, roundness, roundness, AllegroFlare::color::color(AllegroFlare::color::black, 0.2), 2.0);
 
       // because of the rounded corners, the min drawing
       // width of the bar
@@ -70,7 +70,7 @@ namespace allegro_flare
 
       // draw the shaded bitmap
       ALLEGRO_BITMAP *shade_down = UIStyleAssets::get_shade_down_gradient();
-      draw_stretched_bitmap(3, 3, place.size.x-6, place.size.y-6, shade_down, 0, color::color(color::white, 0.2));
+      AllegroFlare::draw_stretched_bitmap(3, 3, place.size.x-6, place.size.y-6, shade_down, 0, AllegroFlare::color::color(AllegroFlare::color::white, 0.2));
    }
 }
 

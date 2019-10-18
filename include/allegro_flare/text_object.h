@@ -102,7 +102,7 @@ namespace allegro_flare
          al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
          al_set_target_bitmap(img);
          al_clear_to_color(al_map_rgba_f(0,0,0,0));
-         al_draw_text(_font, (_appearance)?color::color(_appearance->color, _appearance->opacity):al_map_rgba_f(1,1,1,1), 0, 0, ALLEGRO_FLAGS_EMPTY, str.c_str());
+         al_draw_text(_font, (_appearance)?AllegroFlare::color::color(_appearance->color, _appearance->opacity):al_map_rgba_f(1,1,1,1), 0, 0, ALLEGRO_FLAGS_EMPTY, str.c_str());
          al_restore_state(&state);
          return img;
       }
@@ -110,7 +110,7 @@ namespace allegro_flare
       inline TextObject &draw() override
       {
          if (_placement) _placement->start_transform();
-         if (_font) al_draw_text(_font, (_appearance)?color::color(_appearance->color, _appearance->opacity):al_map_rgba_f(1,1,1,1), 0, 0, ALLEGRO_FLAGS_EMPTY, str.c_str());
+         if (_font) al_draw_text(_font, (_appearance)?AllegroFlare::color::color(_appearance->color, _appearance->opacity):al_map_rgba_f(1,1,1,1), 0, 0, ALLEGRO_FLAGS_EMPTY, str.c_str());
          if (_placement) _placement->restore_transform();
          return *this;
       }

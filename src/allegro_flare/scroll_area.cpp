@@ -21,7 +21,7 @@ namespace allegro_flare
       if (canvas) this->reassign_parent(canvas);
 
       v_slider = new UIScrollBar(this, w, 0, 16, h);
-      v_slider->place.align = vec2d(1, 0);
+      v_slider->place.align = AllegroFlare::vec2d(1, 0);
    }
 
 
@@ -45,7 +45,7 @@ namespace allegro_flare
       al_use_transform(&ident);
 
       al_set_target_bitmap(canvas_render);
-      al_clear_to_color(color::mix(color::coral, color::transparent, 1.0));
+      al_clear_to_color(AllegroFlare::color::mix(AllegroFlare::color::coral, AllegroFlare::color::transparent, 1.0));
 
 
       canvas->draw_func();
@@ -108,7 +108,7 @@ namespace allegro_flare
       // draw the inset, canvas_render, and children, but do not draw the canvas child widget;
       place.start_transform();
 
-      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
+      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, AllegroFlare::color::color(AllegroFlare::color::black, 0.1));
       if (canvas) al_draw_bitmap(canvas_render, 0, 0, ALLEGRO_FLAGS_EMPTY);
 
       for (auto &child : ElementID::recast_collection<UIWidget>(get_children()))

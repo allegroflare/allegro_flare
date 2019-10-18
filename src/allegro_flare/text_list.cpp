@@ -187,7 +187,7 @@ namespace allegro_flare
 
 
 
-   void UITextList::draw_item(vec2d position, int index)
+   void UITextList::draw_item(AllegroFlare::vec2d position, int index)
       // returns the height of this item in the list
    {
       if (index < 0 || index >= (int)items.size()) return;
@@ -208,8 +208,8 @@ namespace allegro_flare
          height += 4;
       }
 
-      al_draw_text(font, color::color(color::black, item_is_selected ? 1.0 : 0.3), position.x, position.y+2, ALLEGRO_FLAGS_EMPTY, items[index].c_str());
-      al_draw_text(font, item_is_selected ? color::mix(color::white, color::yellow, 0.0) : color::white, position.x, position.y, ALLEGRO_FLAGS_EMPTY, items[index].c_str());
+      al_draw_text(font, AllegroFlare::color::color(AllegroFlare::color::black, item_is_selected ? 1.0 : 0.3), position.x, position.y+2, ALLEGRO_FLAGS_EMPTY, items[index].c_str());
+      al_draw_text(font, item_is_selected ? AllegroFlare::color::mix(AllegroFlare::color::white, AllegroFlare::color::yellow, 0.0) : AllegroFlare::color::white, position.x, position.y, ALLEGRO_FLAGS_EMPTY, items[index].c_str());
    }
 
 
@@ -217,10 +217,10 @@ namespace allegro_flare
 
    void UITextList::on_draw()
    {
-      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, color::color(color::black, 0.1));
+      UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y, AllegroFlare::color::color(AllegroFlare::color::black, 0.1));
       float padding_x = 16*2, padding_y = item_padding;
 
-      vec2d cursor = vec2d(padding_x, padding_y);
+      AllegroFlare::vec2d cursor = AllegroFlare::vec2d(padding_x, padding_y);
       //al_draw_line(0, cursor.y, place.size.x, cursor.y, color::white, 1.0);
       for (unsigned i=0; i<items.size(); i++)
       {
@@ -228,14 +228,14 @@ namespace allegro_flare
 
          if (item_is_selected)
             al_draw_filled_rounded_rectangle(item_padding, cursor.y,
-                  place.size.x-item_padding, cursor.y+item_height+item_padding*2, 3, 3, color::color(color::dodgerblue, 0.2));
+                  place.size.x-item_padding, cursor.y+item_height+item_padding*2, 3, 3, AllegroFlare::color::color(AllegroFlare::color::dodgerblue, 0.2));
 
          draw_item(cursor, i);
          cursor.y += get_item_height(i);
          //al_draw_line(0, cursor.y, place.size.x, cursor.y, color::color(color::white, 0.4), 1.0);
       }
 
-      cursor += vec2d(padding_x, padding_y);
+      cursor += AllegroFlare::vec2d(padding_x, padding_y);
       place.size.y = cursor.y;
    }
 }

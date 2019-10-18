@@ -23,10 +23,10 @@ namespace allegro_flare
       text_input->place.align = 0;
 
       up_button = new UIButton(this, w-button_width/2, h/4, button_width, h/2, "-");
-      up_button->place.align = vec2d(0.5, 0.5);
+      up_button->place.align = AllegroFlare::vec2d(0.5, 0.5);
 
       down_button = new UIButton(this, w-button_width/2, h/4*3, button_width, h/2, "-");
-      down_button->place.align = vec2d(0.5, 0.5);
+      down_button->place.align = AllegroFlare::vec2d(0.5, 0.5);
    }
 
 

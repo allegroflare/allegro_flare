@@ -17,7 +17,7 @@ namespace allegro_flare
       : UISpinnerBase(parent, "UIIntSpinner", x, y, w, h)
       , val(0)
    {
-      text_input->set_text(tostring(val));
+      text_input->set_text(AllegroFlare::tostring(val));
    }
 
 
@@ -26,7 +26,7 @@ namespace allegro_flare
    void UIIntSpinner::set_val(std::string strval)
    {
       val = atoi(strval.c_str());
-      text_input->set_text(tostring(val));
+      text_input->set_text(AllegroFlare::tostring(val));
       on_change();
    }
 
@@ -44,7 +44,7 @@ namespace allegro_flare
    void UIIntSpinner::increment()
    {
       val++;
-      text_input->set_text(tostring(val));
+      text_input->set_text(AllegroFlare::tostring(val));
       on_change();
    }
 
@@ -54,7 +54,7 @@ namespace allegro_flare
    void UIIntSpinner::decrement()
    {
       val--;
-      text_input->set_text(tostring(val));
+      text_input->set_text(AllegroFlare::tostring(val));
       on_change();
    }
 }

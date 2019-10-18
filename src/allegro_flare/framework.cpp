@@ -95,7 +95,7 @@ namespace allegro_flare
 
 
 
-   Model3D *Framework::model(std::string identifier)
+   AllegroFlare::Model3D *Framework::model(std::string identifier)
    {
       return get_instance()->models[identifier];
    }
@@ -103,7 +103,7 @@ namespace allegro_flare
 
 
 
-   Motion &Framework::motion()
+   AllegroFlare::Motion &Framework::motion()
    {
       return get_instance()->motions;
    }

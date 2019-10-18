@@ -13,8 +13,8 @@ namespace allegro_flare
    class UIXYController : public UIWidget
    {
    protected:
-      vec2d mouse_pos;
-      vec2d marker;
+      AllegroFlare::vec2d mouse_pos;
+      AllegroFlare::vec2d marker;
       ALLEGRO_COLOR guide_color;
       float guide_opacity;
 
@@ -22,7 +22,7 @@ namespace allegro_flare
       UIXYController(UIWidget *parent, float x, float y, float w, float h);
 
       void set_point(float x, float y);
-      vec2d get_point();
+      AllegroFlare::vec2d get_point();
 
       void on_mouse_down() override;
       void on_mouse_move(float x, float y, float dx, float dy) override;

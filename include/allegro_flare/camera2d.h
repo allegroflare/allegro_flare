@@ -46,8 +46,8 @@ namespace allegro_flare
       //void target(float x, float y); // just set the placement.position
 
       void translate_screen_to_world(float *x, float *y);
-      void translate_screen_to_world(vec2d *vec);
-      void translate_world_to_screen(vec2d *vec); // has not been tested
+      void translate_screen_to_world(AllegroFlare::vec2d *vec);
+      void translate_world_to_screen(AllegroFlare::vec2d *vec); // has not been tested
 
       float get_scale(float world_z);
       projected_point_data get_projected_point(float world_x, float world_y, float world_z);

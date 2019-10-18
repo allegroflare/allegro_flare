@@ -38,7 +38,7 @@ namespace allegro_flare
 
    void UILabeledCheckbox::on_draw()
    {
-      al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, 2, 2, color::color(color::white, 0.2), 2.0);
+      al_draw_rounded_rectangle(0, 0, place.size.x, place.size.y, 2, 2, AllegroFlare::color::color(AllegroFlare::color::white, 0.2), 2.0);
    }
 
 

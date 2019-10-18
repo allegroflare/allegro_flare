@@ -9,10 +9,6 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 namespace allegro_flare
 {
    struct camera_tracking_setting // TODO: <-this
@@ -46,23 +42,23 @@ namespace allegro_flare
 
       int camera_tracking_mode;
 
-      vec3d position;
-      vec3d view_vector;
-      vec3d up_vector;
+      AllegroFlare::vec3d position;
+      AllegroFlare::vec3d view_vector;
+      AllegroFlare::vec3d up_vector;
       float pitch;
 
       //camera_tracking_mode_t camera_tracking_mode;
 
       // hmm, these I think might crave to be implemented in a better way:
-      vec3d stepback;
+      AllegroFlare::vec3d stepback;
       float stepback_pitch;
-      vec3d stepback_rotation;
+      AllegroFlare::vec3d stepback_rotation;
 
-      Camera3D(vec3d position, vec3d view_vector=vec3d(0, 0, 1), vec3d up_vector=vec3d(0, 1, 0)); // yea, up vector should be positive
+      Camera3D(AllegroFlare::vec3d position, AllegroFlare::vec3d view_vector=AllegroFlare::vec3d(0, 0, 1), AllegroFlare::vec3d up_vector=AllegroFlare::vec3d(0, 1, 0)); // yea, up vector should be positive
       void set_frustum_as_camera(ALLEGRO_DISPLAY *d);
 
-      void look_at(vec3d target);
-      void update_camera_tracking(vec3d targets_position, vec3d targets_view_vector);
+      void look_at(AllegroFlare::vec3d target);
+      void update_camera_tracking(AllegroFlare::vec3d targets_position, AllegroFlare::vec3d targets_view_vector);
 
       Frustum get_frustum(ALLEGRO_DISPLAY *d);
    };

@@ -9,10 +9,6 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 namespace allegro_flare
 {
    class Bone
@@ -27,23 +23,23 @@ namespace allegro_flare
       Bone *parent;
       std::vector<Bone> children;
 
-      vec2d midpoint_direction; // TODO: this should be changed to the "0" position, not the midpoint
+      AllegroFlare::vec2d midpoint_direction; // TODO: this should be changed to the "0" position, not the midpoint
       float length;
 
       float position; // a unit value from 0 to 1 where 1 is fully rotated
       float range;
 
-      Bone(vec2d dir_vec, float length, float tau_range=0.25);
+      Bone(AllegroFlare::vec2d dir_vec, float length, float tau_range=0.25);
       float get_min_angle();
       float get_max_angle();
       float get_angle();
-      vec2d get_direction();
+      AllegroFlare::vec2d get_direction();
       void set_position(float unit_val);
       int get_tree_size();
       Bone *get_nth_child(int n);
       void draw(float x, float y, int index_to_hilight=-1);
-      Bone *add_child(vec2d _direction, float _length, float _tau_range=0.25);
-      static void __draw_recursive(Bone *bone, vec2d last_direction, vec2d pos, int index_to_hilight=-1);
+      Bone *add_child(AllegroFlare::vec2d _direction, float _length, float _tau_range=0.25);
+      static void __draw_recursive(Bone *bone, AllegroFlare::vec2d last_direction, AllegroFlare::vec2d pos, int index_to_hilight=-1);
 
       // transformations
       void scale(float amount);

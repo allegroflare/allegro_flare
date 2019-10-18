@@ -12,7 +12,7 @@ namespace allegro_flare
    UISurfaceAreaRow::UISurfaceAreaRow(float y, float h)
       : UISurfaceAreaBase(0, y, 1, h)
    {
-      placement.align = vec2d(0, 0);
+      placement.align = AllegroFlare::vec2d(0, 0);
    }
 
 

@@ -10,26 +10,22 @@
 
 
 
-using namespace AllegroFlare;
-
-
-
 namespace allegro_flare
 {
    class SegmentInfo
    {
    public:
-      vec2d start;
-      vec2d end;
-      vec2d from_start;
-      vec2d perpendicular;
-      vec2d normal;
-      vec2d middle;
+      AllegroFlare::vec2d start;
+      AllegroFlare::vec2d end;
+      AllegroFlare::vec2d from_start;
+      AllegroFlare::vec2d perpendicular;
+      AllegroFlare::vec2d normal;
+      AllegroFlare::vec2d middle;
       float radius;
       float length;
 
       SegmentInfo() {}
-      SegmentInfo(vec2d &start, vec2d &end);
+      SegmentInfo(AllegroFlare::vec2d &start, AllegroFlare::vec2d &end);
    };
 
 
@@ -45,9 +41,9 @@ namespace allegro_flare
       float length();
       float length_along(int first_index, int last_index);
       float length_to(int index);
-      vec2d at(int index);
-      vec2d &get_point(int index);
-      vec2d coordinate_at(float dist); // returns the point along the line, after traveling a distance of dist
+      AllegroFlare::vec2d at(int index);
+      AllegroFlare::vec2d &get_point(int index);
+      AllegroFlare::vec2d coordinate_at(float dist); // returns the point along the line, after traveling a distance of dist
 
       // filesys
       bool load(std::string filename);
@@ -68,7 +64,7 @@ namespace allegro_flare
       path2d &insert_point(unsigned at, float x, float y, bool refresh=true);
       path2d &rotate(float angle);
       path2d &rotate(float angle, float anchor_x, float anchor_y);
-      path2d &rotate(float angle, vec2d pivot);
+      path2d &rotate(float angle, AllegroFlare::vec2d pivot);
       path2d &flip_h();
       path2d &flip_v();
       path2d &soften();
@@ -92,8 +88,8 @@ namespace allegro_flare
       bool within_range(float x);
       float get_y(float x);
 
-      vec2d top_left();
-      vec2d bottom_right();
+      AllegroFlare::vec2d top_left();
+      AllegroFlare::vec2d bottom_right();
       float width();
       float height();
 
@@ -104,10 +100,10 @@ namespace allegro_flare
       void set_shape_color(ALLEGRO_COLOR col);
 
       // all of these things should be considered internal
-      vec2d _top_left;
-      vec2d _bottom_right;
+      AllegroFlare::vec2d _top_left;
+      AllegroFlare::vec2d _bottom_right;
       std::vector<SegmentInfo *> segment;
-      std::vector<vec2d> point;
+      std::vector<AllegroFlare::vec2d> point;
       float _length;
 
       void update_vertexs();

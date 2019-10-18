@@ -14,7 +14,7 @@
 
 namespace allegro_flare
 {
-   SegmentInfo::SegmentInfo(vec2d &start, vec2d &end)
+   SegmentInfo::SegmentInfo(AllegroFlare::vec2d &start, AllegroFlare::vec2d &end)
    {
       this->start = start;
       this->end = end;
@@ -22,7 +22,7 @@ namespace allegro_flare
       middle = from_start/2 + start;
       length = distance(start, end);
       radius = length/2;
-      perpendicular = vec2d(-from_start.y, from_start.x);
+      perpendicular = AllegroFlare::vec2d(-from_start.y, from_start.x);
       normal = ~-perpendicular;
    }
 
@@ -55,7 +55,7 @@ namespace allegro_flare
 
    path2d &path2d::add_point(float x, float y, bool refresh)
    {
-      point.push_back(vec2d(x, y));
+      point.push_back(AllegroFlare::vec2d(x, y));
       if (point.size() == 1) _length = 0.0f;
       else
       {
@@ -99,7 +99,7 @@ namespace allegro_flare
 
       num_segments++;
 
-      vec2d arc_center = (point[first_index+1] + point[first_index]) / 2;
+      AllegroFlare::vec2d arc_center = (point[first_index+1] + point[first_index]) / 2;
       float radius = distance(point[first_index+1], point[first_index]) / 2;
       float start_theta = (point[first_index+1] - arc_center).get_angle();
       float end_theta = (point[first_index] - arc_center).get_angle();
@@ -134,9 +134,9 @@ namespace allegro_flare
 
    path2d &path2d::concat(path2d &path)
    {
-      if (this == &path) { std::cout << "[path2d::concat] cannot concat to self (line " + tostring(__LINE__) + ")"; return *this; } // prevent self-appending
+      if (this == &path) { std::cout << "[path2d::concat] cannot concat to self (line " + AllegroFlare::tostring(__LINE__) + ")"; return *this; } // prevent self-appending
 
-      vec2d displacement = point.back() - path.point.front();
+      AllegroFlare::vec2d displacement = point.back() - path.point.front();
       for (int i=0; i<(int)path.point.size(); i++)
          point.push_back(path.point[i] + displacement);
       _length += path._length;
@@ -149,12 +149,12 @@ namespace allegro_flare
 
 
 
-   vec2d path2d::top_left() { return _top_left; }
+   AllegroFlare::vec2d path2d::top_left() { return _top_left; }
 
 
 
 
-   vec2d path2d::bottom_right() { return _bottom_right; }
+   AllegroFlare::vec2d path2d::bottom_right() { return _bottom_right; }
 
 
 
@@ -171,7 +171,7 @@ namespace allegro_flare
 
    path2d &path2d::top_left(float x, float y)
    {
-      vec2d disp = vec2d(x, y) - _top_left;
+      AllegroFlare::vec2d disp = AllegroFlare::vec2d(x, y) - _top_left;
       return move(disp.x, disp.y);
    }
 
@@ -181,7 +181,7 @@ namespace allegro_flare
    // math might be wrong
    path2d &path2d::bottom_right(float x, float y)
    {
-      vec2d disp = _bottom_right - vec2d(x, y);
+      AllegroFlare::vec2d disp = _bottom_right - AllegroFlare::vec2d(x, y);
       return move(disp.x, disp.y);
    }
 
@@ -193,7 +193,7 @@ namespace allegro_flare
    {
       if (point.size() <= at) { std::cout << "[path2d::insert] could not insert point at index " << at << " - point.size() is " << point.size(); return *this; }
 
-      point.insert(point.begin()+at, vec2d(x, y));
+      point.insert(point.begin()+at, AllegroFlare::vec2d(x, y));
       if (refresh) refresh_segment_info();
 
       return *this;
@@ -215,7 +215,7 @@ namespace allegro_flare
 
    path2d &path2d::append(path2d &path)
    {
-      if (this == &path) { std::cout << "[path2d::append] cannot append to self (line " + tostring(__LINE__) + ")"; return *this; } // prevent self-appending
+      if (this == &path) { std::cout << "[path2d::append] cannot append to self (line " + AllegroFlare::tostring(__LINE__) + ")"; return *this; } // prevent self-appending
 
       for (int i=0; i<(int)path.point.size(); i++)
          point.push_back(path.point[i]);
@@ -229,12 +229,12 @@ namespace allegro_flare
 
 
 
-   vec2d path2d::coordinate_at(float dist)
+   AllegroFlare::vec2d path2d::coordinate_at(float dist)
    {
       // this can be optimized
       float len = 0.0f;
 
-      if (point.empty()) return vec2d(0, 0);
+      if (point.empty()) return AllegroFlare::vec2d(0, 0);
       if (dist < 0) return point.front();
       if (dist >= _length) return point.back();
 
@@ -248,7 +248,7 @@ namespace allegro_flare
          }
       }
 
-      return vec2d(0, 0);
+      return AllegroFlare::vec2d(0, 0);
    }
 
 
@@ -270,7 +270,7 @@ namespace allegro_flare
 
 
 
-   path2d &path2d::rotate(float angle, vec2d pivot)
+   path2d &path2d::rotate(float angle, AllegroFlare::vec2d pivot)
    {
       return rotate(angle, pivot.x, pivot.y);
    }
@@ -290,7 +290,7 @@ namespace allegro_flare
    {
       // this can be optimized
       // one possibility is to add an "off switch" for update_segment_info, so it can be done at the end, instead of at each step
-      vec2d pos = this->_top_left;
+      AllegroFlare::vec2d pos = this->_top_left;
 
       this->to_origin();
 
@@ -311,7 +311,7 @@ namespace allegro_flare
    {
       // this can be optimized
       // one possibility is to add an "off switch" for update_segment_info, so it can be done at the end, instead of at each step
-      vec2d pos = this->_top_left;
+      AllegroFlare::vec2d pos = this->_top_left;
 
       this->to_origin();
 
@@ -332,7 +332,7 @@ namespace allegro_flare
    {
       if (point.size() <= 1) return *this;
 
-      std::vector<vec2d> *newpoints = new std::vector<vec2d>;
+      std::vector<AllegroFlare::vec2d> *newpoints = new std::vector<AllegroFlare::vec2d>;
 
       for (int i=point.size()-1; i>=0; i--)
       {
@@ -390,15 +390,15 @@ namespace allegro_flare
    {
       if (point.size() <= 1) return *this;
 
-      std::vector<vec2d> *newpoints = new std::vector<vec2d>;
+      std::vector<AllegroFlare::vec2d> *newpoints = new std::vector<AllegroFlare::vec2d>;
 
       // break each segment into 4 seperate segments
       for (int i=1; i<(int)point.size(); i++)
       {
-         newpoints->push_back(vec2d((point[i]-point[i-1])*0.0 + point[i-1]));
-         newpoints->push_back(vec2d((point[i]-point[i-1])*0.25 + point[i-1]));
-         newpoints->push_back(vec2d((point[i]-point[i-1])*0.5 + point[i-1]));
-         newpoints->push_back(vec2d((point[i]-point[i-1])*0.75 + point[i-1]));
+         newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.0 + point[i-1]));
+         newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.25 + point[i-1]));
+         newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.5 + point[i-1]));
+         newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.75 + point[i-1]));
       }
       newpoints->push_back(point[point.size()-1]);
 
@@ -416,7 +416,7 @@ namespace allegro_flare
          }
          keep = !keep;
       }
-      newpoints->push_back(vec2d(point[point.size()-1]));
+      newpoints->push_back(AllegroFlare::vec2d(point[point.size()-1]));
 
       //delete newpoints->at(1);
       newpoints->erase(newpoints->begin()+1);
@@ -530,14 +530,14 @@ namespace allegro_flare
    {
       if (num_segments <= 1) return *this;
 
-      std::vector<vec2d> *newpoints = new std::vector<vec2d>;
+      std::vector<AllegroFlare::vec2d> *newpoints = new std::vector<AllegroFlare::vec2d>;
 
       //vec2d p;
       for (int seg = 0; seg <= num_segments; seg++)
       {
          //std::cout << std::endl << _length * ((float)seg / num_segments);
 
-         newpoints->push_back(vec2d(
+         newpoints->push_back(AllegroFlare::vec2d(
                   coordinate_at(_length * ((float)seg / num_segments))
                   ));
       }
@@ -632,9 +632,9 @@ namespace allegro_flare
 
 
 
-   vec2d path2d::at(int index)
+   AllegroFlare::vec2d path2d::at(int index)
    {
-      if (index < 0 || index >= (int)point.size()) return vec2d(0,0);
+      if (index < 0 || index >= (int)point.size()) return AllegroFlare::vec2d(0,0);
       return point.at(index);
    }
 
@@ -683,15 +683,15 @@ namespace allegro_flare
    bool path2d::load(std::string filename)
    {
       clear();
-      if (!php::file_exists(filename))
+      if (!AllegroFlare::php::file_exists(filename))
       {
          std::cout << "[path2d::load] file not found."; return false;
       }
-      std::vector<std::string> parts = php::explode("\n", php::file_get_contents(filename));
+      std::vector<std::string> parts = AllegroFlare::php::explode("\n", AllegroFlare::php::file_get_contents(filename));
       for (int i=0; i<(int)parts.size(); i++)
       {
          //std::cout << parts[i] << std::endl;
-         std::vector<std::string> coord_string = php::explode(" ", parts[i]);
+         std::vector<std::string> coord_string = AllegroFlare::php::explode(" ", parts[i]);
          add_point(atof(coord_string[0].c_str()), atof(coord_string[1].c_str()), false);
       }
 
@@ -707,10 +707,10 @@ namespace allegro_flare
       std::string output = "";
       for (int i=0; i<(int)point.size(); i++)
       {
-         output += tostring(point[i].x) + " " + tostring(point[i].y);
+         output += AllegroFlare::tostring(point[i].x) + " " + AllegroFlare::tostring(point[i].y);
          if (i!=((int)point.size()-1)) output += "\n";
       }
-      php::file_put_contents(filename, output);
+      AllegroFlare::php::file_put_contents(filename, output);
 
       return true;
    }
@@ -774,8 +774,8 @@ namespace allegro_flare
    void path2d::draw_outline(const ALLEGRO_COLOR &color, float thickness)
    {
       if (point.empty()) return;
-      std::vector<vec2d>::iterator previous_it = point.begin();
-      for (std::vector<vec2d>::iterator it=point.begin()+1; it!=point.end(); it++)
+      std::vector<AllegroFlare::vec2d>::iterator previous_it = point.begin();
+      for (std::vector<AllegroFlare::vec2d>::iterator it=point.begin()+1; it!=point.end(); it++)
       {
          al_draw_line(it->x, it->y, previous_it->x, previous_it->y, color, thickness);
          previous_it = it;
@@ -834,8 +834,8 @@ namespace allegro_flare
       disp_range_y *= 0.5;
       for (int i=0; i<(int)point.size(); i++)
       {
-         point[i].x += random_float(-disp_range_x, disp_range_x);
-         point[i].y += random_float(-disp_range_y, disp_range_y);
+         point[i].x += AllegroFlare::random_float(-disp_range_x, disp_range_x);
+         point[i].y += AllegroFlare::random_float(-disp_range_y, disp_range_y);
       }
 
       refresh_segment_info();
@@ -862,8 +862,8 @@ namespace allegro_flare
    float path2d::get_y(float x)
    {
       int lpoint_index = 0;
-      vec2d lpoint = point[lpoint_index];
-      vec2d rpoint;
+      AllegroFlare::vec2d lpoint = point[lpoint_index];
+      AllegroFlare::vec2d rpoint;
 
       for (unsigned i=0; i<point.size(); i++)
       {
@@ -876,7 +876,7 @@ namespace allegro_flare
       else rpoint = point[lpoint_index+1];
 
       float percentage_between = (x - lpoint.x) / (rpoint.x - lpoint.x);
-      vec2d point = (rpoint - lpoint) * percentage_between + lpoint;
+      AllegroFlare::vec2d point = (rpoint - lpoint) * percentage_between + lpoint;
       return point.y;
    }
 }

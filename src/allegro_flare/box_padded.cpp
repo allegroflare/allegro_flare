@@ -40,7 +40,7 @@ namespace allegro_flare
 
    void UISurfaceAreaBoxPadded::draw_bounding_area()
    {
-      placement.draw_box_with_padding(color::color(color::aliceblue, 0.2), true,
+      placement.draw_box_with_padding(AllegroFlare::color::color(AllegroFlare::color::aliceblue, 0.2), true,
             padding_top, padding_right, padding_bottom, padding_left);
    }
 
