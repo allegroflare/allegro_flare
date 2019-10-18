@@ -9,6 +9,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class ExMusicNotation : public UIScreen
 {
 private:

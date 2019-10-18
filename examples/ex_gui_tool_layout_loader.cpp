@@ -10,6 +10,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class ExGUIToolLayoutLoader : public UIScreen
 {
 public:

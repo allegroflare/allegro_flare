@@ -5,6 +5,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class UITimerWidget : public UIWidget
 {
 private:

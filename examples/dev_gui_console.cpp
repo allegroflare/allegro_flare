@@ -10,6 +10,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 // come back to this, Mark, this is a cool idea.
 
 class IgnoreBackquoteTextInput : public UITextInput

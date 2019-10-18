@@ -9,6 +9,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class GridHelper : public grid2d
 {
 public:

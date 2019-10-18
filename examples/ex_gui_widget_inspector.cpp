@@ -7,6 +7,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 template <class T>
 class incrementer
 {

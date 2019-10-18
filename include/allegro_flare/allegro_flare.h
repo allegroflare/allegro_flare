@@ -48,7 +48,7 @@
 #include <allegro_flare/generate_textures.h>
 #include <allegro_flare/gui.h>
 #include <allegro_flare/image_processing.h>
-#include <allegro_flare/interpolators.h>
+#include <AllegroFlare/Interpolators.hpp>
 #include <allegro_flare/inventory.h>
 #include <AllegroFlare/Model3D.hpp>
 #include <AllegroFlare/Motion.hpp>

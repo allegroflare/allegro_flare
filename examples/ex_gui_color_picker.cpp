@@ -13,6 +13,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class UINullWidget : public UIWidget
 {
 public:

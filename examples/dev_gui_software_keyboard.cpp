@@ -7,6 +7,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 enum
 {
    SIGNAL_NONE = 0,

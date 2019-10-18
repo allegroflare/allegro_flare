@@ -10,6 +10,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 #define FOR(container) for (unsigned i=0; i<container.size(); i++)
 
 

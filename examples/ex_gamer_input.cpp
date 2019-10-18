@@ -23,6 +23,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class MyProject : public Screen
 {
 public:

@@ -9,6 +9,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 #define SCREEN_W (1920/3*2)
 #define SCREEN_H (1080/3*2)
 
