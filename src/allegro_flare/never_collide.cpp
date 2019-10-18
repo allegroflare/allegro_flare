@@ -8,32 +8,34 @@
 
 
 
-UISurfaceAreaNeverCollide::UISurfaceAreaNeverCollide(float x, float y, float w, float h)
-   : UISurfaceAreaBase(x, y, w, h)
-{}
-
-
-
-
-UISurfaceAreaNeverCollide::~UISurfaceAreaNeverCollide()
-{}
-
-
-
-
-bool UISurfaceAreaNeverCollide::collides(float x, float y)
+namespace allegro_flare
 {
-   (void)x;
-   (void)y;
-   return false;
+   UISurfaceAreaNeverCollide::UISurfaceAreaNeverCollide(float x, float y, float w, float h)
+      : UISurfaceAreaBase(x, y, w, h)
+   {}
+
+
+
+
+   UISurfaceAreaNeverCollide::~UISurfaceAreaNeverCollide()
+   {}
+
+
+
+
+   bool UISurfaceAreaNeverCollide::collides(float x, float y)
+   {
+      (void)x;
+      (void)y;
+      return false;
+   }
+
+
+
+
+   void UISurfaceAreaNeverCollide::draw_bounding_area()
+   {}
 }
-
-
-
-
-void UISurfaceAreaNeverCollide::draw_bounding_area()
-{}
-
 
 
 

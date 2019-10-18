@@ -12,69 +12,71 @@
 
 
 
-
-Clipboard *Clipboard::instance = NULL;
-
-
-
-
-Clipboard::Clipboard()
-   : __text("")
-{}
-
-
-
-
-static std::string __OSX_exec(const char* cmd)
+namespace allegro_flare
 {
-   FILE* pipe = popen(cmd, "r");
-   if (!pipe) return "ERROR";
-   char buffer[128];
-   std::string result = "";
-   while(!feof(pipe))
+
+   Clipboard *Clipboard::instance = NULL;
+
+
+
+
+   Clipboard::Clipboard()
+      : __text("")
+   {}
+
+
+
+
+   static std::string __OSX_exec(const char* cmd)
    {
-      if(fgets(buffer, 128, pipe) != NULL)
+      FILE* pipe = popen(cmd, "r");
+      if (!pipe) return "ERROR";
+      char buffer[128];
+      std::string result = "";
+      while(!feof(pipe))
       {
-         result += buffer;
+         if(fgets(buffer, 128, pipe) != NULL)
+         {
+            result += buffer;
+         }
       }
+      pclose(pipe);
+      return result;
    }
-   pclose(pipe);
-   return result;
+
+
+
+
+   Clipboard *Clipboard::get_instance()
+   {
+      if (!instance) instance = new Clipboard();
+      return instance;
+   }
+
+
+
+
+   void Clipboard::set(std::string text)
+   {
+      std::stringstream cmd;
+      cmd << "printf \"" << text << "\" | pbcopy";
+      __OSX_exec(cmd.str().c_str());
+
+      get_instance()->__text = text;
+   }
+
+
+
+
+   std::string Clipboard::get()
+   {
+      std::string text = __OSX_exec("pbpaste");
+
+      get_instance()->__text = text;
+
+      return text;
+   }
 }
-
-
-
-
-Clipboard *Clipboard::get_instance()
-{
-   if (!instance) instance = new Clipboard();
-   return instance;
-}
-
-
-
-
-void Clipboard::set(std::string text)
-{
-   std::stringstream cmd;
-   cmd << "printf \"" << text << "\" | pbcopy";
-   __OSX_exec(cmd.str().c_str());
-
-   get_instance()->__text = text;
-}
-
-
-
-
-std::string Clipboard::get()
-{
-   std::string text = __OSX_exec("pbpaste");
-
-   get_instance()->__text = text;
-
-   return text;
-}
-
 
 
 

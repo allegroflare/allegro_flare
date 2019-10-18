@@ -11,14 +11,14 @@
 #include <AllegroFlare/Color.hpp>
 
 
+class Motion;
+class FontBin;
+class SampleBin;
 
 
 namespace allegro_flare
 {
    class UIScreen;
-   class Motion;
-   class FontBin;
-   class SampleBin;
 
 
 

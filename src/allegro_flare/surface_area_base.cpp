@@ -9,15 +9,18 @@
 
 
 
-UISurfaceAreaBase::UISurfaceAreaBase(float x, float y, float w, float h)
-   : placement(x, y, w, h)
-{}
+namespace allegro_flare
+{
+   UISurfaceAreaBase::UISurfaceAreaBase(float x, float y, float w, float h)
+      : placement(x, y, w, h)
+   {}
 
 
 
 
-UISurfaceAreaBase::~UISurfaceAreaBase()
-{}
+   UISurfaceAreaBase::~UISurfaceAreaBase()
+   {}
+}
 
 
 

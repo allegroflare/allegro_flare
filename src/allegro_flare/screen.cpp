@@ -14,393 +14,396 @@
 
 
 
-void Screen::on_events(ALLEGRO_EVENT *ev)
+namespace allegro_flare
 {
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->active && instance[i]->timer_func)
-      screens[i]->on_event(ev);
-}
-
-
-
-
-void Screen::primary_timer_funcs()
-{
-   // humm... this should be rethought but it works for now.
-
-   // do screens with NULL displays first
-   for (unsigned i=0; i<screens.size(); i++)
+   void Screen::on_events(ALLEGRO_EVENT *ev)
    {
-      if (screens[i]->display == NULL) screens[i]->primary_timer_func();
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->active && instance[i]->timer_func)
+         screens[i]->on_event(ev);
    }
 
-   // then do screens in order sorted by displays.
-   for (unsigned d=0; d<Display::displays.size(); d++)
+
+
+
+   void Screen::primary_timer_funcs()
    {
-      Display::displays[d]->clear();
+      // humm... this should be rethought but it works for now.
+
+      // do screens with NULL displays first
       for (unsigned i=0; i<screens.size(); i++)
       {
-         if (screens[i]->display == Display::displays[d])
+         if (screens[i]->display == NULL) screens[i]->primary_timer_func();
+      }
+
+      // then do screens in order sorted by displays.
+      for (unsigned d=0; d<Display::displays.size(); d++)
+      {
+         Display::displays[d]->clear();
+         for (unsigned i=0; i<screens.size(); i++)
          {
-            screens[i]->prepare_drawing_state();
-            screens[i]->primary_timer_func();
+            if (screens[i]->display == Display::displays[d])
+            {
+               screens[i]->prepare_drawing_state();
+               screens[i]->primary_timer_func();
+            }
+         }
+         stop_profile_timer("Full Cycle");
+         //if (af::drawing_profiler_graph) draw_profile_timer_graph();
+         Display::displays[d]->flip();
+         start_profile_timer("Full Cycle");
+      }
+   }
+
+
+
+
+   void Screen::timer_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         screens[i]->timer_func();
+   }
+
+
+
+
+   void Screen::display_switch_in_funcs()
+   {
+      for (unsigned d=0; d<Display::displays.size(); d++)
+      {
+         for (unsigned i=0; i<screens.size(); i++)
+         {
+            if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
+               screens[i]->display_switch_in_func();
          }
       }
-      stop_profile_timer("Full Cycle");
-      //if (af::drawing_profiler_graph) draw_profile_timer_graph();
-      Display::displays[d]->flip();
-      start_profile_timer("Full Cycle");
    }
-}
 
 
 
 
-void Screen::timer_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->timer_func();
-}
+   void Screen::display_switch_out_funcs()
+   {
+      for (unsigned d=0; d<Display::displays.size(); d++)
+      {
+         for (unsigned i=0; i<screens.size(); i++)
+         {
+            if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
+               screens[i]->display_switch_out_func();
+         }
+      }
+   }
 
 
 
 
-void Screen::display_switch_in_funcs()
-{
-   for (unsigned d=0; d<Display::displays.size(); d++)
+   void Screen::key_down_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)
-      {
-         if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
-            screens[i]->display_switch_in_func();
-      }
+         //if (instance[i]->input_active)
+         screens[i]->key_down_func();
    }
-}
 
 
 
 
-void Screen::display_switch_out_funcs()
-{
-   for (unsigned d=0; d<Display::displays.size(); d++)
+   void Screen::key_up_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->key_up_func();
+   }
+
+
+
+
+   void Screen::key_char_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->key_char_func();
+   }
+
+
+
+
+   void Screen::mouse_axes_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->mouse_axes_func();
+   }
+
+
+
+
+   void Screen::mouse_warp_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->mouse_warp_func();
+   }
+
+
+
+
+   void Screen::mouse_down_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->mouse_down_func();
+   }
+
+
+
+
+   void Screen::mouse_up_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->mouse_up_func();
+   }
+
+
+
+
+   void Screen::joy_axis_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->joy_axis_func();
+   }
+
+
+
+
+   void Screen::joy_button_up_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->joy_button_up_func();
+   }
+
+
+
+
+   void Screen::joy_button_down_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->joy_button_down_func();
+   }
+
+
+
+
+   void Screen::joy_config_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         screens[i]->joy_config_func();
+   }
+
+
+
+
+   void Screen::user_event_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->user_event_func();
+   }
+
+
+
+
+   void Screen::native_menu_click_funcs()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         //if (instance[i]->input_active)
+         screens[i]->native_menu_click_func();
+   }
+
+
+
+
+   void Screen::create_and_use_backbuffer_sub_bitmap_of(ALLEGRO_BITMAP *new_target)
+   {
+      // calling al_get_parent_bitmap on a nullptr causes a crash
+      if (backbuffer_sub_bitmap != nullptr && new_target == al_get_parent_bitmap(backbuffer_sub_bitmap)) return;
+
+      if (backbuffer_sub_bitmap == nullptr) al_destroy_bitmap(backbuffer_sub_bitmap);
+
+      backbuffer_sub_bitmap = al_create_sub_bitmap(new_target,
+            0, 0, al_get_bitmap_width(new_target), al_get_bitmap_height(new_target));
+
+      if (!backbuffer_sub_bitmap) std::cout << "[Screen::Screen()] there was an error creating the backbuffer_sub_bitmap" << std::endl;
+   }
+
+
+
+
+   void Screen::send_signal(int signal, void *data)
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         screens[i]->receive_signal(signal, data);
+   }
+
+
+
+
+   void Screen::send_signal(std::string const &signal, void *data)
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         screens[i]->receive_signal(signal, data);
+   }
+
+
+
+
+   Screen::Screen(Display *display)
+      //: background_color(al_color_name("darkolivegreen"))
+      //, updating(true)
+      //, input_active(true)
+      //, drawing(true)
+      : backbuffer_sub_bitmap(nullptr)
+      , display(display)
+   {
+      if (!Framework::is_initialized())
       {
-         if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
-            screens[i]->display_switch_out_func();
+         std::cout << CONSOLE_COLOR_YELLOW << "[Screen::Screen()] auto-initializing with default config" << CONSOLE_COLOR_DEFAULT << std::endl;
+         Framework::initialize();
+         if (!this->display)
+         {
+            std::cout << CONSOLE_COLOR_YELLOW << "[Screen::Screen()] auto-creating display" << CONSOLE_COLOR_DEFAULT << std::endl;
+            int display_width = Framework::get_config().get_or_default_int("", "screen_width", 1280);
+            int display_height = Framework::get_config().get_or_default_int("", "screen_height", 720);
+            this->display = Framework::create_display(display_width, display_height);
+         }
+      }
+
+      if (!display)
+      {
+         std::cout << "[Screen::Screen()] display is NULL, cannot create backbuffer_sub_bitmap" << std::endl;
+      }
+      else
+      {
+         ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display->al_display);
+         create_and_use_backbuffer_sub_bitmap_of(backbuffer);
+      }
+
+      screens.push_back(this);
+   }
+
+
+
+
+   Screen::~Screen()
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         if (screens[i] == this)
+         {
+            screens.erase(screens.begin() + i);
+            i--;
+         }
+   }
+
+
+
+
+   void Screen::prepare_drawing_state(bool prepare_3d)
+   {
+      if (backbuffer_sub_bitmap) al_set_target_bitmap(backbuffer_sub_bitmap);
+      else al_set_target_bitmap(al_get_backbuffer(display->al_display));
+
+      if (prepare_3d)
+      {
+         al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+         al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+         al_clear_depth_buffer(1);
+      }
+      else
+      {
+         al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
       }
    }
-}
 
 
 
 
-void Screen::key_down_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->key_down_func();
-}
-
-
-
-
-void Screen::key_up_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->key_up_func();
-}
-
-
-
-
-void Screen::key_char_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->key_char_func();
-}
-
-
-
-
-void Screen::mouse_axes_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->mouse_axes_func();
-}
-
-
-
-
-void Screen::mouse_warp_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->mouse_warp_func();
-}
-
-
-
-
-void Screen::mouse_down_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->mouse_down_func();
-}
-
-
-
-
-void Screen::mouse_up_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->mouse_up_func();
-}
-
-
-
-
-void Screen::joy_axis_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->joy_axis_func();
-}
-
-
-
-
-void Screen::joy_button_up_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->joy_button_up_func();
-}
-
-
-
-
-void Screen::joy_button_down_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->joy_button_down_func();
-}
-
-
-
-
-void Screen::joy_config_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->joy_config_func();
-}
-
-
-
-
-void Screen::user_event_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->user_event_func();
-}
-
-
-
-
-void Screen::native_menu_click_funcs()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      //if (instance[i]->input_active)
-      screens[i]->native_menu_click_func();
-}
-
-
-
-
-void Screen::create_and_use_backbuffer_sub_bitmap_of(ALLEGRO_BITMAP *new_target)
-{
-   // calling al_get_parent_bitmap on a nullptr causes a crash
-   if (backbuffer_sub_bitmap != nullptr && new_target == al_get_parent_bitmap(backbuffer_sub_bitmap)) return;
-
-   if (backbuffer_sub_bitmap == nullptr) al_destroy_bitmap(backbuffer_sub_bitmap);
-
-   backbuffer_sub_bitmap = al_create_sub_bitmap(new_target,
-         0, 0, al_get_bitmap_width(new_target), al_get_bitmap_height(new_target));
-
-   if (!backbuffer_sub_bitmap) std::cout << "[Screen::Screen()] there was an error creating the backbuffer_sub_bitmap" << std::endl;
-}
-
-
-
-
-void Screen::send_signal(int signal, void *data)
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->receive_signal(signal, data);
-}
-
-
-
-
-void Screen::send_signal(std::string const &signal, void *data)
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->receive_signal(signal, data);
-}
-
-
-
-
-Screen::Screen(Display *display)
-   //: background_color(al_color_name("darkolivegreen"))
-   //, updating(true)
-   //, input_active(true)
-   //, drawing(true)
-   : backbuffer_sub_bitmap(nullptr)
-   , display(display)
-{
-   if (!Framework::is_initialized())
+   void Screen::bring_to_front(Screen *s)
    {
-      std::cout << CONSOLE_COLOR_YELLOW << "[Screen::Screen()] auto-initializing with default config" << CONSOLE_COLOR_DEFAULT << std::endl;
-      Framework::initialize();
-      if (!this->display)
-      {
-         std::cout << CONSOLE_COLOR_YELLOW << "[Screen::Screen()] auto-creating display" << CONSOLE_COLOR_DEFAULT << std::endl;
-         int display_width = Framework::get_config().get_or_default_int("", "screen_width", 1280);
-         int display_height = Framework::get_config().get_or_default_int("", "screen_height", 720);
-         this->display = Framework::create_display(display_width, display_height);
-      }
+      if (!s) return;
+
+      for (unsigned i=0; i<screens.size(); i++)
+         if (screens[i] == s)
+         {
+            screens.erase(screens.begin()+i);
+            break;
+         }
+      screens.push_back(s);
    }
 
-   if (!display)
+
+
+
+   void Screen::set_on_display(Display *display)
    {
-      std::cout << "[Screen::Screen()] display is NULL, cannot create backbuffer_sub_bitmap" << std::endl;
-   }
-   else
-   {
-      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display->al_display);
-      create_and_use_backbuffer_sub_bitmap_of(backbuffer);
+      this->display = display;
    }
 
-   screens.push_back(this);
-}
 
 
 
-
-Screen::~Screen()
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      if (screens[i] == this)
-      {
-         screens.erase(screens.begin() + i);
-         i--;
-      }
-}
-
-
-
-
-void Screen::prepare_drawing_state(bool prepare_3d)
-{
-   if (backbuffer_sub_bitmap) al_set_target_bitmap(backbuffer_sub_bitmap);
-   else al_set_target_bitmap(al_get_backbuffer(display->al_display));
-
-   if (prepare_3d)
+   int Screen::get_num_screens()
    {
-      al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-      al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-      al_clear_depth_buffer(1);
+      return screens.size();
    }
-   else
+
+
+
+
+   void Screen::on_event(ALLEGRO_EVENT *ev) {}
+   void Screen::primary_timer_func() {}
+   void Screen::timer_func() {}
+   void Screen::mouse_axes_func() {}
+   void Screen::mouse_warp_func() {}
+   void Screen::display_switch_in_func() {}
+   void Screen::display_switch_out_func() {}
+   void Screen::mouse_down_func() {}
+   void Screen::mouse_up_func() {}
+   void Screen::key_down_func() {}
+   void Screen::key_up_func() {}
+   void Screen::key_char_func() {}
+   void Screen::joy_button_down_func() {}
+   void Screen::joy_button_up_func() {}
+   void Screen::joy_axis_func() {}
+   void Screen::joy_config_func() {}
+   void Screen::user_event_func() {}
+   void Screen::native_menu_click_func() {}
+   void Screen::receive_signal(int signal, void *data) {}
+   void Screen::receive_signal(std::string const &signal, void *data) {}
+
+
+
+
+   std::vector<Screen *> Screen::screens;
+
+
+
+
+   bool Screen::signal_has_header(std::string header, std::string signal)
    {
-      al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+      return (signal.substr(0, header.length()) == header);
    }
-}
 
 
 
 
-void Screen::bring_to_front(Screen *s)
-{
-   if (!s) return;
-
-   for (unsigned i=0; i<screens.size(); i++)
-      if (screens[i] == s)
-      {
-         screens.erase(screens.begin()+i);
-         break;
-      }
-   screens.push_back(s);
-}
-
-
-
-
-void Screen::set_on_display(Display *display)
-{
-   this->display = display;
-}
-
-
-
-
-int Screen::get_num_screens()
-{
-   return screens.size();
-}
-
-
-
-
-void Screen::on_event(ALLEGRO_EVENT *ev) {}
-void Screen::primary_timer_func() {}
-void Screen::timer_func() {}
-void Screen::mouse_axes_func() {}
-void Screen::mouse_warp_func() {}
-void Screen::display_switch_in_func() {}
-void Screen::display_switch_out_func() {}
-void Screen::mouse_down_func() {}
-void Screen::mouse_up_func() {}
-void Screen::key_down_func() {}
-void Screen::key_up_func() {}
-void Screen::key_char_func() {}
-void Screen::joy_button_down_func() {}
-void Screen::joy_button_up_func() {}
-void Screen::joy_axis_func() {}
-void Screen::joy_config_func() {}
-void Screen::user_event_func() {}
-void Screen::native_menu_click_func() {}
-void Screen::receive_signal(int signal, void *data) {}
-void Screen::receive_signal(std::string const &signal, void *data) {}
-
-
-
-
-std::vector<Screen *> Screen::screens;
-
-
-
-
-bool Screen::signal_has_header(std::string header, std::string signal)
-{
-   return (signal.substr(0, header.length()) == header);
-}
-
-
-
-
-std::string Screen::strip_signal_header(std::string header, std::string signal)
-{
-   return signal.substr(header.length(), signal.length()-header.length());
-   return "";
+   std::string Screen::strip_signal_header(std::string header, std::string signal)
+   {
+      return signal.substr(header.length(), signal.length()-header.length());
+      return "";
+   }
 }
 
 

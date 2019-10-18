@@ -5,7 +5,7 @@
 
 
 #include <vector>
-#include <allegro_flare/attributes.h>
+#include <AllegroFlare/Attributes.hpp>
 
 
 

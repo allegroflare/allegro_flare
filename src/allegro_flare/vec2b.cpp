@@ -5,10 +5,13 @@
 
 
 
-vec2b::vec2b(bool x, bool y)
-   : x(x)
-   , y(y)
+namespace allegro_flare
 {
+   vec2b::vec2b(bool x, bool y)
+      : x(x)
+      , y(y)
+   {
+   }
 }
 
 

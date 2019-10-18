@@ -11,108 +11,111 @@
 
 
 
-UIToggleButton::UIToggleButton(UIWidget *parent, float x, float y, float w, float h, std::string _text)
-   : UIWidget(parent, "UIToggleButton", new UISurfaceAreaBox(x, y, w, h))
-   , pressed(false)
-   , text(_text)
-{}
-
-
-
-
-void UIToggleButton::set_text(std::string text)
+namespace allegro_flare
 {
-   this->text = text;
-}
+   UIToggleButton::UIToggleButton(UIWidget *parent, float x, float y, float w, float h, std::string _text)
+      : UIWidget(parent, "UIToggleButton", new UISurfaceAreaBox(x, y, w, h))
+      , pressed(false)
+      , text(_text)
+   {}
 
 
 
 
-// returns true if the button is pressed
-bool UIToggleButton::toggle()
-{
-   pressed = !pressed;
-   on_change();
-   return pressed;
-}
-
-
-
-
-// returns true if the state was changed,
-// returns false if it stayed the same
-bool UIToggleButton::set_as_pressed()
-{
-   if (!pressed)
+   void UIToggleButton::set_text(std::string text)
    {
-      toggle();
-      return true;
+      this->text = text;
    }
-   return false;
-}
 
 
 
 
-// returns true if the state was changed,
-// returns false if it stayed the same
-bool UIToggleButton::set_as_unpressed()
-{
-   if (pressed)
+   // returns true if the button is pressed
+   bool UIToggleButton::toggle()
    {
-      toggle();
-      return true;
+      pressed = !pressed;
+      on_change();
+      return pressed;
    }
-   return false;
-}
 
 
 
 
-void UIToggleButton::silently_set_as_pressed()
-{
-   pressed = true;
-}
+   // returns true if the state was changed,
+   // returns false if it stayed the same
+   bool UIToggleButton::set_as_pressed()
+   {
+      if (!pressed)
+      {
+         toggle();
+         return true;
+      }
+      return false;
+   }
 
 
 
 
-void UIToggleButton::silently_set_as_unpressed()
-{
-   pressed = false;
-}
+   // returns true if the state was changed,
+   // returns false if it stayed the same
+   bool UIToggleButton::set_as_unpressed()
+   {
+      if (pressed)
+      {
+         toggle();
+         return true;
+      }
+      return false;
+   }
 
 
 
 
-bool UIToggleButton::is_pressed()
-{
-   return pressed;
-}
+   void UIToggleButton::silently_set_as_pressed()
+   {
+      pressed = true;
+   }
 
 
 
 
-void UIToggleButton::on_draw()
-{
-   if (pressed) UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y);
-   else UIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
-
-   UIStyleAssets::draw_styled_text("ui", place.size.x/2, place.size.y/2 + (pressed ? 1 : 0),
-         0.5, 0.5, text.c_str());
-}
+   void UIToggleButton::silently_set_as_unpressed()
+   {
+      pressed = false;
+   }
 
 
 
 
-void UIToggleButton::on_click() { toggle(); }
+   bool UIToggleButton::is_pressed()
+   {
+      return pressed;
+   }
 
 
 
 
-void UIToggleButton::on_change()
-{
-   send_message_to_parent("on_change");
+   void UIToggleButton::on_draw()
+   {
+      if (pressed) UIStyleAssets::draw_inset(0, 0, place.size.x, place.size.y);
+      else UIStyleAssets::draw_outset(0, 0, place.size.x, place.size.y);
+
+      UIStyleAssets::draw_styled_text("ui", place.size.x/2, place.size.y/2 + (pressed ? 1 : 0),
+            0.5, 0.5, text.c_str());
+   }
+
+
+
+
+   void UIToggleButton::on_click() { toggle(); }
+
+
+
+
+   void UIToggleButton::on_change()
+   {
+      send_message_to_parent("on_change");
+   }
 }
 
 

@@ -10,35 +10,37 @@
 
 
 
-GUIToolLayoutLoader::GUIToolLayoutLoader(UIWidget *parent, std::string content)
-   : UILayoutLoaderBase(parent, content)
-{}
-
-
-
-
-bool GUIToolLayoutLoader::load_file()
+namespace allegro_flare
 {
-   if (!parent) return false;
+   GUIToolLayoutLoader::GUIToolLayoutLoader(UIWidget *parent, std::string content)
+      : UILayoutLoaderBase(parent, content)
+   {}
 
-   JSON::Value &val = JSON::decode(content);
 
-   JSON::Array widgets = val.as_object()["widgets"].as_array();
 
-   for (auto &_widget : widgets.values)
+
+   bool GUIToolLayoutLoader::load_file()
    {
-      JSON::Object widget = _widget->as_object();
-      float x = widget.values["position.x"]->as_float();
-      float y = widget.values["position.y"]->as_float();
-      float w = widget.values["size.x"]->as_float();
-      float h = widget.values["size.y"]->as_float();
-      new UIWidget(parent, "UIWidget", new UISurfaceAreaBox(x, y, w, h));
+      if (!parent) return false;
+
+      JSON::Value &val = JSON::decode(content);
+
+      JSON::Array widgets = val.as_object()["widgets"].as_array();
+
+      for (auto &_widget : widgets.values)
+      {
+         JSON::Object widget = _widget->as_object();
+         float x = widget.values["position.x"]->as_float();
+         float y = widget.values["position.y"]->as_float();
+         float w = widget.values["size.x"]->as_float();
+         float h = widget.values["size.y"]->as_float();
+         new UIWidget(parent, "UIWidget", new UISurfaceAreaBox(x, y, w, h));
+      }
+
+      // todo
+      return false;
    }
-
-   // todo
-   return false;
 }
-
 
 
 

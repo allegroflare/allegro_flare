@@ -7,7 +7,10 @@
 
 
 
-BitmapObject *BitmapObject::dummy = NULL;
+namespace allegro_flare
+{
+   BitmapObject *BitmapObject::dummy = NULL;
+}
 
 
 
