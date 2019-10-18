@@ -3,7 +3,7 @@
 
 body
 {
-	width: 600px;
+	width: 800px;
 	margin: auto;
 	font-family: 'Droid Sans';
 }
@@ -73,5 +73,6 @@ p.todo
 
 table.comprehensive
 {
+  display: none;
   font-size: 8px;
 }
