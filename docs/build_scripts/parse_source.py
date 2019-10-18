@@ -70,8 +70,7 @@ def parse_file(filename):
 
     # Configure the xml generator
     xml_generator_config = parser.xml_generator_configuration_t(
-        # cflags="-std=gnu++11",
-        cflags="-Wno-c++11-extensions",
+        cflags="-std=gnu++11",
         include_paths=[os.path.join(allegro_flare_base_dir, "include")],
         xml_generator_path=generator_path,
         compiler="g++",

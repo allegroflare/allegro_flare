@@ -4,8 +4,8 @@
 
 
 
-#include "useful.h"
-#include "color.h"
+#include <AllegroFlare/Useful.hpp>
+#include <AllegroFlare/Color.hpp>
 #include <math.h> // for fabs
 
 
@@ -40,12 +40,12 @@ namespace allegro_flare
    // p0 is a point on the plane
    // n is the plane normal
    // THIS HAS NOT BEEN USED, YET:
-   static bool intersectPlane(const vec3d &n, const vec3d &p0, const vec3d& l0, const vec3d &l, float &d)
+   static bool intersectPlane(const AllegroFlare::vec3d &n, const AllegroFlare::vec3d &p0, const AllegroFlare::vec3d& l0, const AllegroFlare::vec3d &l, float &d)
    {
       // assuming vectors are all normalized
       float denom = dot_product(n, l);
       if (denom > 1e-6) {
-         vec3d p0l0 = p0 - l0;
+         AllegroFlare::vec3d p0l0 = p0 - l0;
          d = dot_product(p0l0, n) / denom;
          return (d >= 0);
       }
@@ -58,9 +58,9 @@ namespace allegro_flare
    class Ray // TODO: rename this to Ray3D and make an alternative Ray2D
    {
    public:
-      vec3d orig;
-      vec3d dir;
-      Ray(vec3d orig, vec3d dir)
+      AllegroFlare::vec3d orig;
+      AllegroFlare::vec3d dir;
+      Ray(AllegroFlare::vec3d orig, AllegroFlare::vec3d dir)
          : orig(orig)
          , dir(dir)
       {}
@@ -88,9 +88,9 @@ namespace allegro_flare
    class Triangle
    {
    public:
-      vec3d v0, v1, v2;
+      AllegroFlare::vec3d v0, v1, v2;
 
-      Triangle(vec3d v0, vec3d v1, vec3d v2)
+      Triangle(AllegroFlare::vec3d v0, AllegroFlare::vec3d v1, AllegroFlare::vec3d v2)
          : v0(v0)
          , v1(v1)
          , v2(v2)
@@ -100,16 +100,16 @@ namespace allegro_flare
       {
          //http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
          //#ifdef MOLLER_TRUMBORE
-         vec3d edge1 = v1 - v0;
-         vec3d edge2 = v2 - v0;
-         vec3d pvec = cross_product(r.dir, edge2);
+         AllegroFlare::vec3d edge1 = v1 - v0;
+         AllegroFlare::vec3d edge2 = v2 - v0;
+         AllegroFlare::vec3d pvec = cross_product(r.dir, edge2);
          float det = dot_product(edge1, pvec);
          if (det == 0) return false;
          float invDet = 1 / det;
-         vec3d tvec = r.orig - v0;
+         AllegroFlare::vec3d tvec = r.orig - v0;
          isectData.u = dot_product(tvec, pvec) * invDet;
          if (isectData.u < 0 || isectData.u > 1) return false;
-         vec3d qvec = cross_product(tvec, edge1);
+         AllegroFlare::vec3d qvec = cross_product(tvec, edge1);
          isectData.v = dot_product(r.dir, qvec) * invDet;
          if (isectData.v < 0 || isectData.u + isectData.v > 1) return false;
          isectData.t = dot_product(edge2, qvec) * invDet;
@@ -119,12 +119,12 @@ namespace allegro_flare
          return true;
       }
 
-      ALLEGRO_VERTEX _create_vtx(vec3d vec, ALLEGRO_COLOR col)
+      ALLEGRO_VERTEX _create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
       {
-         return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
+         return AllegroFlare::build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
       }
 
-      void draw(ALLEGRO_COLOR col = color::orange)
+      void draw(ALLEGRO_COLOR col = AllegroFlare::color::orange)
       {
          ALLEGRO_VERTEX vtx[3];
          vtx[0] = _create_vtx(v0, col);
@@ -137,26 +137,26 @@ namespace allegro_flare
 
 
 
-   static void draw_3d_line(vec3d start, vec3d end, ALLEGRO_COLOR col=color::red)
+   static void draw_3d_line(AllegroFlare::vec3d start, AllegroFlare::vec3d end, ALLEGRO_COLOR col=AllegroFlare::color::red)
    {
       ALLEGRO_VERTEX vtx[2];
-      vtx[0] = build_vertex(start.x, start.y, start.z, col, 0, 0);
-      vtx[1] = build_vertex(end.x, end.y, end.z, col, 0, 0);
+      vtx[0] = AllegroFlare::build_vertex(start.x, start.y, start.z, col, 0, 0);
+      vtx[1] = AllegroFlare::build_vertex(end.x, end.y, end.z, col, 0, 0);
       al_draw_prim(&vtx[0], NULL, NULL, 0, 2, ALLEGRO_PRIM_LINE_LIST);
    }
 
 
 
 
-   static ALLEGRO_VERTEX create_vtx(vec3d vec, ALLEGRO_COLOR col)
+   static ALLEGRO_VERTEX create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
    {
-      return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
+      return AllegroFlare::build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
    }
 
 
 
 
-   static vec3d centroid(vec3d v1, vec3d v2, vec3d v3)
+   static AllegroFlare::vec3d centroid(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3)
    {
       return (v1 + v2 + v3) / 3;
    }
@@ -164,15 +164,15 @@ namespace allegro_flare
 
 
 
-   static vec3d tovec3d(ALLEGRO_VERTEX v1)
+   static AllegroFlare::vec3d tovec3d(ALLEGRO_VERTEX v1)
    {
-      return vec3d(v1.x, v1.y, v1.z);
+      return AllegroFlare::vec3d(v1.x, v1.y, v1.z);
    }
 
 
 
 
-   static vec3d centroid(vec3d v1, vec3d v2, vec3d v3, vec3d v4)
+   static AllegroFlare::vec3d centroid(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3, AllegroFlare::vec3d v4)
    {
       return (v1 + v2 + v3 + v4) / 4;
    }
@@ -180,7 +180,7 @@ namespace allegro_flare
 
 
 
-   static void draw_3d_triangle(vec3d v1, vec3d v2, vec3d v3, ALLEGRO_COLOR col)
+   static void draw_3d_triangle(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3, ALLEGRO_COLOR col)
    {
       ALLEGRO_VERTEX vtx[3];
       vtx[0] = create_vtx(v1, col);
@@ -192,7 +192,7 @@ namespace allegro_flare
 
 
 
-   static bool basically_equal(const vec3d &first, const vec3d &other, float threshold)
+   static bool basically_equal(const AllegroFlare::vec3d &first, const AllegroFlare::vec3d &other, float threshold)
    {
       return fabs(first.x - other.x) < threshold && fabs(first.y - other.y) < threshold && fabs(first.z - other.z) < threshold;
    }
