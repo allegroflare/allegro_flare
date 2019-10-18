@@ -11,9 +11,12 @@
 #include <AllegroFlare/Color.hpp>
 
 
-class Motion;
-class FontBin;
-class SampleBin;
+namespace AllegroFlare
+{
+   class Motion;
+   class FontBin;
+   class SampleBin;
+}
 
 
 namespace allegro_flare

@@ -6,35 +6,38 @@
 #include <iostream>
 
 
-Achievements::Achievements()
-   : all_achievements({})
-{}
-
-
-Achievements::~Achievements()
+namespace AllegroFlare
 {
-   for (auto &achievement : all_achievements)
-      delete achievement.second.first;
-   all_achievements.clear();
-}
+   Achievements::Achievements()
+      : all_achievements({})
+   {}
 
 
-void Achievements::add(std::string name, Achievement *achievement)
-{
-   all_achievements[name].first = achievement;
-   all_achievements[name].second = false;
-}
-
-
-void Achievements::check_all()
-{
-   for (auto &achievement : all_achievements)
+   Achievements::~Achievements()
    {
-      bool achievement_already_unlocked = achievement.second.second;
-      if (!achievement_already_unlocked && achievement.second.first->test_condition())
+      for (auto &achievement : all_achievements)
+         delete achievement.second.first;
+      all_achievements.clear();
+   }
+
+
+   void Achievements::add(std::string name, Achievement *achievement)
+   {
+      all_achievements[name].first = achievement;
+      all_achievements[name].second = false;
+   }
+
+
+   void Achievements::check_all()
+   {
+      for (auto &achievement : all_achievements)
       {
-         achievement.second.first->on_achieved();
-         achievement.second.second = true;
+         bool achievement_already_unlocked = achievement.second.second;
+         if (!achievement_already_unlocked && achievement.second.first->test_condition())
+         {
+            achievement.second.first->on_achieved();
+            achievement.second.second = true;
+         }
       }
    }
 }

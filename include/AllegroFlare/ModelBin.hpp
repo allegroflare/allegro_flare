@@ -7,13 +7,16 @@
 #include <AllegroFlare/Model3D.hpp>
 
 
-class ModelBin : public Bin<std::string, Model3D *>
+namespace AllegroFlare
 {
-public:
-   ModelBin();
-   ~ModelBin();
-   Model3D *load_data(std::string identifier);
-   void destroy_data(Model3D *bmp);
-};
+   class ModelBin : public Bin<std::string, Model3D *>
+   {
+   public:
+      ModelBin();
+      ~ModelBin();
+      Model3D *load_data(std::string identifier);
+      void destroy_data(Model3D *bmp);
+   };
+}
 
 

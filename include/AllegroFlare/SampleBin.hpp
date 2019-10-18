@@ -5,13 +5,16 @@
 #include <AllegroFlare/Bin.hpp>
 
 
-class SampleBin : public Bin<std::string, ALLEGRO_SAMPLE *>
+namespace AllegroFlare
 {
-public:
-   SampleBin();
-   ~SampleBin();
-   ALLEGRO_SAMPLE *load_data(std::string identifier);
-   void destroy_data(ALLEGRO_SAMPLE *sample);
-};
+   class SampleBin : public Bin<std::string, ALLEGRO_SAMPLE *>
+   {
+   public:
+      SampleBin();
+      ~SampleBin();
+      ALLEGRO_SAMPLE *load_data(std::string identifier);
+      void destroy_data(ALLEGRO_SAMPLE *sample);
+   };
+}
 
 

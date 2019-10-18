@@ -10,6 +10,11 @@
 
 
 
+using namespace AllegroFlare;
+
+
+
+
 namespace allegro_flare
 {
    struct ALLEGRO_FLARE_CUBEMAP_TEXTURE;

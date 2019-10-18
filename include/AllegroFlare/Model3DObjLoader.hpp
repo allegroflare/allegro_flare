@@ -1,19 +1,22 @@
 #pragma once
 
 
-class Model3D;
-
-
-class Model3DObjLoader
+namespace AllegroFlare
 {
-private:
-   Model3D *model;
-   const char *filename;
-   float scale;
+   class Model3D;
 
-public:
-   Model3DObjLoader(Model3D *model, const char *filename, float scale=1.0);
-   bool load();
-};
+
+   class Model3DObjLoader
+   {
+   private:
+      Model3D *model;
+      const char *filename;
+      float scale;
+
+   public:
+      Model3DObjLoader(Model3D *model, const char *filename, float scale=1.0);
+      bool load();
+   };
+}
 
 

@@ -9,6 +9,10 @@
 
 
 
+using namespace AllegroFlare;
+
+
+
 namespace allegro_flare
 {
    ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bmp, int scale);

@@ -10,6 +10,9 @@
 
 
 
+using namespace AllegroFlare;
+
+
 
 namespace allegro_flare
 {
