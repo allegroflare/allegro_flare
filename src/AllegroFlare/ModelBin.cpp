@@ -3,30 +3,33 @@
 #include <AllegroFlare/ModelBin.hpp>
 
 
-ModelBin::ModelBin()
-   : Bin<std::string, Model3D *>()
-{}
-
-
-ModelBin::~ModelBin()
+namespace AllegroFlare
 {
-   clear();
-}
+   ModelBin::ModelBin()
+      : Bin<std::string, Model3D *>()
+   {}
 
 
-Model3D *ModelBin::load_data(std::string identifier)
-{
-   Model3D *m = new Model3D();
-   if (m->load_obj_file(identifier.c_str(), 1.0f)) return m;
-   delete m;
-   return NULL;
-}
+   ModelBin::~ModelBin()
+   {
+      clear();
+   }
 
 
-void ModelBin::destroy_data(Model3D *mdl)
-{
-   if (!mdl) return;
-   delete mdl;
+   Model3D *ModelBin::load_data(std::string identifier)
+   {
+      Model3D *m = new Model3D();
+      if (m->load_obj_file(identifier.c_str(), 1.0f)) return m;
+      delete m;
+      return NULL;
+   }
+
+
+   void ModelBin::destroy_data(Model3D *mdl)
+   {
+      if (!mdl) return;
+      delete mdl;
+   }
 }
 
 

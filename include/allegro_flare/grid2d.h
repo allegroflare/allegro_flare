@@ -13,6 +13,10 @@
 
 
 
+using namespace AllegroFlare;
+
+
+
 //"If I hadn't tried, the cost would have been my soul." - Kirk
 
 

@@ -14,6 +14,10 @@
 
 namespace allegro_flare
 {
+   using namespace AllegroFlare;
+
+
+
    class placement2d
    {
    private:

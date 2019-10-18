@@ -5,26 +5,29 @@
 #include <allegro5/allegro_acodec.h>
 
 
-SampleBin::SampleBin()
-   : Bin<std::string, ALLEGRO_SAMPLE *>()
-{}
-
-
-SampleBin::~SampleBin()
+namespace AllegroFlare
 {
-   clear();
-}
+   SampleBin::SampleBin()
+      : Bin<std::string, ALLEGRO_SAMPLE *>()
+   {}
 
 
-ALLEGRO_SAMPLE *SampleBin::load_data(std::string identifier)
-{
-   return al_load_sample(identifier.c_str());
-}
+   SampleBin::~SampleBin()
+   {
+      clear();
+   }
 
 
-void SampleBin::destroy_data(ALLEGRO_SAMPLE *sample)
-{
-   al_destroy_sample(sample);
+   ALLEGRO_SAMPLE *SampleBin::load_data(std::string identifier)
+   {
+      return al_load_sample(identifier.c_str());
+   }
+
+
+   void SampleBin::destroy_data(ALLEGRO_SAMPLE *sample)
+   {
+      al_destroy_sample(sample);
+   }
 }
 
 

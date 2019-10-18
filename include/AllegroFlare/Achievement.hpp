@@ -1,18 +1,21 @@
 #pragma once
 
 
-class Achievement
+namespace AllegroFlare
 {
-private:
-	bool achieved;
+   class Achievement
+   {
+   private:
+      bool achieved;
 
-public:
-   Achievement();
-   virtual ~Achievement();
+   public:
+      Achievement();
+      virtual ~Achievement();
 
-	bool is_achieved();
-	bool virtual test_condition();
-	void virtual on_achieved();
-};
+      bool is_achieved();
+      bool virtual test_condition();
+      void virtual on_achieved();
+   };
+}
 
 

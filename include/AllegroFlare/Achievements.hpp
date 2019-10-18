@@ -6,17 +6,20 @@
 #include <map>
 
 
-class Achievements
+namespace AllegroFlare
 {
-private:
-   std::map<std::string, std::pair<Achievement *, bool>> all_achievements;
+   class Achievements
+   {
+   private:
+      std::map<std::string, std::pair<Achievement *, bool>> all_achievements;
 
-public:
-   Achievements();
-   ~Achievements();
+   public:
+      Achievements();
+      ~Achievements();
 
-   void add(std::string name, Achievement *achievement);
-   void check_all();
-};
+      void add(std::string name, Achievement *achievement);
+      void check_all();
+   };
+}
 
 

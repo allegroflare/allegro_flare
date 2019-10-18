@@ -2,21 +2,24 @@
 #include <AllegroFlare/Achievement.hpp>
 
 
-Achievement::Achievement()
-   : achieved(false)
-{}
+namespace AllegroFlare
+{
+   Achievement::Achievement()
+      : achieved(false)
+   {}
 
 
-Achievement::~Achievement()
-{}
+   Achievement::~Achievement()
+   {}
 
 
-bool Achievement::is_achieved() { return achieved; }
+   bool Achievement::is_achieved() { return achieved; }
 
 
-bool Achievement::test_condition() { return false; }
+   bool Achievement::test_condition() { return false; }
 
 
-void Achievement::on_achieved() {}
+   void Achievement::on_achieved() {}
+}
 
 
