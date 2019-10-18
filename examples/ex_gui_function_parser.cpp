@@ -9,6 +9,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 int WIDTH = 700;
 int PADDING = 20;
 

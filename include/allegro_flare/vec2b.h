@@ -3,14 +3,16 @@
 
 
 
-class vec2b
+namespace allegro_flare
 {
-public:
-   bool x, y;
+   class vec2b
+   {
+   public:
+      bool x, y;
 
-   vec2b(bool x=false, bool y=false);
-};
-
+      vec2b(bool x=false, bool y=false);
+   };
+}
 
 
 

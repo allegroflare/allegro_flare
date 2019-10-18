@@ -15,6 +15,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class UINotificationBubble : public UIWidget
 {
 private:

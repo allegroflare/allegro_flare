@@ -6,19 +6,22 @@
 
 
 
-class UserEventEmitter
+namespace allegro_flare
 {
-private:
-   ALLEGRO_EVENT_SOURCE event_source;
-   static UserEventEmitter *instance;
-   static UserEventEmitter *get_instance();
+   class UserEventEmitter
+   {
+   private:
+      ALLEGRO_EVENT_SOURCE event_source;
+      static UserEventEmitter *instance;
+      static UserEventEmitter *get_instance();
 
-   UserEventEmitter();
-   ~UserEventEmitter();
+      UserEventEmitter();
+      ~UserEventEmitter();
 
-public:
-   static void emit_event(int32_t event_type, intptr_t data1=0, intptr_t data2=0);
-};
+   public:
+      static void emit_event(int32_t event_type, intptr_t data1=0, intptr_t data2=0);
+   };
+}
 
 
 

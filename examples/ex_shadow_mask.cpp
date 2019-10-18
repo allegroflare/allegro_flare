@@ -7,6 +7,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class ExShadowMask : public Screen
 {
 public:

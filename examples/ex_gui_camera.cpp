@@ -7,6 +7,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class ExGUICamera : public UIScreen
 {
 public:

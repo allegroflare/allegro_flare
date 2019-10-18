@@ -4,6 +4,10 @@
 #include <cmath>
 
 
+using namespace allegro_flare;
+
+
+
 class ElementIDGraph : UIWidget
 {
 public:

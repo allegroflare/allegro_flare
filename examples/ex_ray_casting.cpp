@@ -18,6 +18,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 #define mapWidth (100)
 #define mapHeight (100)
 

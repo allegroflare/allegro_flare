@@ -27,25 +27,27 @@
 //      do_stuff(i);
 //   }
 
-
-template <typename T, T begin_val, T end_val>
-class EnumIterator
+namespace allegro_flare
 {
-private:
-   typedef typename std::underlying_type<T>::type val_t;
-   int val;
+   template <typename T, T begin_val, T end_val>
+   class EnumIterator
+   {
+   private:
+      typedef typename std::underlying_type<T>::type val_t;
+      int val;
 
-public:
-   EnumIterator(const T & f) : val(static_cast<val_t>(f)) {}
-   EnumIterator() : val(static_cast<val_t>(begin_val)) {}
+   public:
+      EnumIterator(const T & f) : val(static_cast<val_t>(f)) {}
+      EnumIterator() : val(static_cast<val_t>(begin_val)) {}
 
-   EnumIterator operator++ () { ++val; return *this; }
-   T operator* () { return static_cast<T>(val); }
-   bool operator!= (const EnumIterator& i) { return val != i.val; }
+      EnumIterator operator++ () { ++val; return *this; }
+      T operator* () { return static_cast<T>(val); }
+      bool operator!= (const EnumIterator& i) { return val != i.val; }
 
-   EnumIterator begin() { return *this; }
-   EnumIterator end() { static const EnumIterator end_iter = ++EnumIterator(end_val); return end_iter; }
-};
+      EnumIterator begin() { return *this; }
+      EnumIterator end() { static const EnumIterator end_iter = ++EnumIterator(end_val); return end_iter; }
+   };
+}
 
 
 

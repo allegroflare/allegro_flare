@@ -8,15 +8,17 @@
 
 
 
-class UICamera : public UIWidget
+namespace allegro_flare
 {
-public:
-   UICamera(UIWidget *parent, float x, float y, float w, float h);
+   class UICamera : public UIWidget
+   {
+   public:
+      UICamera(UIWidget *parent, float x, float y, float w, float h);
 
-   // will simply pass message up through to the above parent
-   void on_message(UIWidget *sender, std::string message) override;
-};
-
+      // will simply pass message up through to the above parent
+      void on_message(UIWidget *sender, std::string message) override;
+   };
+}
 
 
 

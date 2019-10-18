@@ -7,8 +7,10 @@
 
 
 
-TextObject *TextObject::dummy = NULL;
-
+namespace allegro_flare
+{
+   TextObject *TextObject::dummy = NULL;
+}
 
 
 

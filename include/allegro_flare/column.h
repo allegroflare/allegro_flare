@@ -9,14 +9,17 @@
 
 
 
-class UISurfaceAreaColumn : public UISurfaceAreaBase
+namespace allegro_flare
 {
-public:
-   UISurfaceAreaColumn(float x, float w);
+   class UISurfaceAreaColumn : public UISurfaceAreaBase
+   {
+   public:
+      UISurfaceAreaColumn(float x, float w);
 
-   void draw_bounding_area();
-   bool collides(float x, float y);
-};
+      void draw_bounding_area();
+      bool collides(float x, float y);
+   };
+}
 
 
 

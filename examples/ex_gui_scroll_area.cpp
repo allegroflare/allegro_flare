@@ -7,6 +7,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 //S("target", UISignalSlot)->game();
 
 class UISignalSlot

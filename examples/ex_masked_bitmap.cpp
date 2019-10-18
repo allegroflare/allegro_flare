@@ -19,6 +19,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class MaskedBitmapExampleProgram : public Screen
 {
 private:

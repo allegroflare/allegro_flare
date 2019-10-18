@@ -8,27 +8,30 @@
 
 
 
-
-class UICheckbox;
-class UIText;
-
-
-
-
-class UILabeledCheckbox : public UIWidget
+namespace allegro_flare
 {
-private:
-   float padding;
-   UICheckbox *checkbox;
-   UIText *label;
 
-public:
-   UILabeledCheckbox(UIWidget *parent, float x, float y, std::string label_text);
+   class UICheckbox;
+   class UIText;
 
-   void on_click() override;
-   void on_draw() override;
-   void on_message(UIWidget *sender, std::string message) override;
-};
+
+
+
+   class UILabeledCheckbox : public UIWidget
+   {
+   private:
+      float padding;
+      UICheckbox *checkbox;
+      UIText *label;
+
+   public:
+      UILabeledCheckbox(UIWidget *parent, float x, float y, std::string label_text);
+
+      void on_click() override;
+      void on_draw() override;
+      void on_message(UIWidget *sender, std::string message) override;
+   };
+}
 
 
 

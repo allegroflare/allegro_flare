@@ -9,20 +9,22 @@
 
 
 
-class UIWindow : public UIWidget
+namespace allegro_flare
 {
-protected:
-   ALLEGRO_COLOR background_color;
-   bool bring_to_front_on_focus;
+   class UIWindow : public UIWidget
+   {
+   protected:
+      ALLEGRO_COLOR background_color;
+      bool bring_to_front_on_focus;
 
-public:
-   UIWindow(UIWidget *parent, float x, float y, float w, float h);
-   void set_bring_to_front_on_focus(bool val=false);
+   public:
+      UIWindow(UIWidget *parent, float x, float y, float w, float h);
+      void set_bring_to_front_on_focus(bool val=false);
 
-   void on_draw() override;
-   void on_focus() override;
-};
-
+      void on_draw() override;
+      void on_focus() override;
+   };
+}
 
 
 

@@ -22,6 +22,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 float max_clock_radius = 80;
 float clock_radius = max_clock_radius*0.9;
 float clock_opacity = 0.0;

@@ -8,16 +8,18 @@
 
 
 
-class UISurfaceAreaNeverCollide : public UISurfaceAreaBase
+namespace allegro_flare
 {
-public:
-   UISurfaceAreaNeverCollide(float x, float y, float w, float h);
-   ~UISurfaceAreaNeverCollide();
+   class UISurfaceAreaNeverCollide : public UISurfaceAreaBase
+   {
+   public:
+      UISurfaceAreaNeverCollide(float x, float y, float w, float h);
+      ~UISurfaceAreaNeverCollide();
 
-   void draw_bounding_area();
-   bool collides(float x, float y);
-};
-
+      void draw_bounding_area();
+      bool collides(float x, float y);
+   };
+}
 
 
 

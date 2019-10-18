@@ -13,157 +13,160 @@
 
 
 
-namespace JSON
+namespace allegro_flare
 {
-   class Array;
-   class Object;
-
-   class Value
+   namespace JSON
    {
-   public:
-      Value();
-      virtual ~Value();
+      class Array;
+      class Object;
 
-      std::string value;
-      virtual std::string toString(void);
+      class Value
+      {
+      public:
+         Value();
+         virtual ~Value();
 
-      std::string as_string();
-      JSON::Object as_object();
-      JSON::Array as_array();
-      int as_integer();
-      float as_float();
-      bool as_bool();
-   };
+         std::string value;
+         virtual std::string toString(void);
 
-   class Object : public Value
-   {
-   public:
-      Object();
-      virtual ~Object();
+         std::string as_string();
+         JSON::Object as_object();
+         JSON::Array as_array();
+         int as_integer();
+         float as_float();
+         bool as_bool();
+      };
 
-      std::map<std::string, Value *> values;
+      class Object : public Value
+      {
+      public:
+         Object();
+         virtual ~Object();
 
-      virtual std::string toString(void);
+         std::map<std::string, Value *> values;
 
-      Value& operator[](std::string const &key);
-      bool exists(std::string const &key);
-   };
+         virtual std::string toString(void);
 
-   class Array : public Value
-   {
-   public:
-      Array();
-      virtual ~Array();
+         Value& operator[](std::string const &key);
+         bool exists(std::string const &key);
+      };
 
-      std::vector<Value *> values;
-      void push(Value *value);
+      class Array : public Value
+      {
+      public:
+         Array();
+         virtual ~Array();
 
-      virtual std::string toString(void);
-      Value &operator[](size_t i) const;
-   };
+         std::vector<Value *> values;
+         void push(Value *value);
 
-   class String : public Value
-   {
-   public:
-      String();
-      virtual ~String();
+         virtual std::string toString(void);
+         Value &operator[](size_t i) const;
+      };
 
-      virtual std::string toString(void);
-      std::string stringValue() const;
-   };
+      class String : public Value
+      {
+      public:
+         String();
+         virtual ~String();
 
-   class Integer : public Value
-   {
-   public :
-      int intValue() const;
-   };
+         virtual std::string toString(void);
+         std::string stringValue() const;
+      };
 
-   class Float : public Value
-   {
-   public:
-      float floatValue() const;
-   };
+      class Integer : public Value
+      {
+      public :
+         int intValue() const;
+      };
 
-   class Boolean : public Value
-   {
-   public:
-      Boolean(bool b);
-      bool boolValue() const;
-   };
+      class Float : public Value
+      {
+      public:
+         float floatValue() const;
+      };
 
-   class Null : public Value
-   {
-   public:
-      Null();
-   };
+      class Boolean : public Value
+      {
+      public:
+         Boolean(bool b);
+         bool boolValue() const;
+      };
 
-   /* private */
-   class Token
-   {
-   public:
-      enum {
-         ENDOF = 0,
-         INTEGER,
-         FLOAT,
-         STRING,
-         COMMA,
-         KEYWORD,
-         COLON,
-         BRACE_OPEN,
-         BRACE_CLOSE,
-         BRACKET_OPEN,
-         BRACKET_CLOSE
-      } type;
-      std::string value;
-   };
+      class Null : public Value
+      {
+      public:
+         Null();
+      };
 
-   class Parser
-   {
-   private:
-      std::string json;
-      int i;
-      Token current, prev;
+      /* private */
+      class Token
+      {
+      public:
+         enum {
+            ENDOF = 0,
+            INTEGER,
+            FLOAT,
+            STRING,
+            COMMA,
+            KEYWORD,
+            COLON,
+            BRACE_OPEN,
+            BRACE_CLOSE,
+            BRACKET_OPEN,
+            BRACKET_CLOSE
+         } type;
+         std::string value;
+      };
 
-      void nextToken();
+      class Parser
+      {
+      private:
+         std::string json;
+         int i;
+         Token current, prev;
 
-   public:
-      Parser(const std::string &json);
+         void nextToken();
 
-      bool accept(int type);
-      void expect(int type);
+      public:
+         Parser(const std::string &json);
 
-      Value *acceptArray();
-      Value *acceptObject();
-      Value *acceptInteger();
-      Value *acceptFloat();
-      Value *acceptString();
-      Value *acceptNumber();
-      Value *acceptBoolean();
-      Value *acceptNull();
-      Value *acceptValue();
-      Value *expectValue();
-      Value *parse();
-   };
+         bool accept(int type);
+         void expect(int type);
 
-   Value &decode(const std::string &json);
+         Value *acceptArray();
+         Value *acceptObject();
+         Value *acceptInteger();
+         Value *acceptFloat();
+         Value *acceptString();
+         Value *acceptNumber();
+         Value *acceptBoolean();
+         Value *acceptNull();
+         Value *acceptValue();
+         Value *expectValue();
+         Value *parse();
+      };
+
+      Value &decode(const std::string &json);
+   }
+
+
+
+
+   JSON::String json_string(std::string str);
+
+   JSON::Integer json_int(std::string str);
+
+   JSON::Float json_float(std::string str);
+
+   JSON::Boolean json_bool(std::string str);
+
+   JSON::Array json_array(std::string str);
+
+   JSON::Object json_object(std::string str);
+
+   JSON::Null json_null(std::string str);
 }
-
-
-
-
-JSON::String json_string(std::string str);
-
-JSON::Integer json_int(std::string str);
-
-JSON::Float json_float(std::string str);
-
-JSON::Boolean json_bool(std::string str);
-
-JSON::Array json_array(std::string str);
-
-JSON::Object json_object(std::string str);
-
-JSON::Null json_null(std::string str);
 
 
 

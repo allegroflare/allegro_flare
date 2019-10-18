@@ -9,19 +9,22 @@
 
 
 
-class UIDraggableRegion : public UIWidget
+namespace allegro_flare
 {
-protected:
-   ALLEGRO_COLOR background_color;
+   class UIDraggableRegion : public UIWidget
+   {
+   protected:
+      ALLEGRO_COLOR background_color;
 
-public:
-   UIDraggableRegion(UIWidget *parent, float x, float y, float w, float h);
+   public:
+      UIDraggableRegion(UIWidget *parent, float x, float y, float w, float h);
 
-   void set_color(ALLEGRO_COLOR col);
+      void set_color(ALLEGRO_COLOR col);
 
-   void on_draw() override;
-   void on_drag(float x, float y, float dx, float dy) override;
-};
+      void on_draw() override;
+      void on_drag(float x, float y, float dx, float dy) override;
+   };
+}
 
 
 

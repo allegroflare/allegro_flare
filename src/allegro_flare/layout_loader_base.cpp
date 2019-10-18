@@ -7,17 +7,19 @@
 
 
 
-UILayoutLoaderBase::UILayoutLoaderBase(UIWidget *parent, std::string content)
-   : parent(parent)
-   , content(content)
-{}
+namespace allegro_flare
+{
+   UILayoutLoaderBase::UILayoutLoaderBase(UIWidget *parent, std::string content)
+      : parent(parent)
+      , content(content)
+   {}
 
 
 
 
-UILayoutLoaderBase::~UILayoutLoaderBase()
-{}
-
+   UILayoutLoaderBase::~UILayoutLoaderBase()
+   {}
+}
 
 
 

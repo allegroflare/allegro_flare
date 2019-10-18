@@ -7,20 +7,21 @@
 
 
 
-
-class UILayoutLoaderBase
+namespace allegro_flare
 {
-protected:
-   UIWidget *parent;
-   std::string content;
+   class UILayoutLoaderBase
+   {
+   protected:
+      UIWidget *parent;
+      std::string content;
 
-public:
-   UILayoutLoaderBase(UIWidget *parent, std::string content);
-   virtual ~UILayoutLoaderBase();
+   public:
+      UILayoutLoaderBase(UIWidget *parent, std::string content);
+      virtual ~UILayoutLoaderBase();
 
-   virtual bool load_file() = 0;
-};
-
+      virtual bool load_file() = 0;
+   };
+}
 
 
 

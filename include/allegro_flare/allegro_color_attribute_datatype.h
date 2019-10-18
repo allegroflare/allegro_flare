@@ -7,16 +7,19 @@
 
 
 
-struct AllegroColorAttributeDatatype
+namespace allegro_flare
 {
-public:
-   static const std::string IDENTIFIER;
+   struct AllegroColorAttributeDatatype
+   {
+   public:
+      static const std::string IDENTIFIER;
 
-   ALLEGRO_COLOR color;
+      ALLEGRO_COLOR color;
 
-   static bool to_val_func(void *val, std::string str);
-   static std::string to_str_func(void *val);
-};
+      static bool to_val_func(void *val, std::string str);
+      static std::string to_str_func(void *val);
+   };
+}
 
 
 

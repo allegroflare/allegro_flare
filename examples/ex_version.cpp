@@ -7,6 +7,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 class ExVersionProject : public Screen
 {
 public:
