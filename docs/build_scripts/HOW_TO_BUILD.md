@@ -6,17 +6,19 @@ Documentation is generated with a few python scripts in the `docs/` folder.  To 
 
 ### Process
 
-The first script will parse through all of the AllegroFlare source code and generate a `~TEMP.db` file.  This is a database file with nicely broken down class names, function names, line info, and a bunch of other useful deconstructions of the AllegroFlare source code.  Run the script by entering the following command in the terminal (it can take a few minutes to complete):
+The first script will parse through all of the AllegroFlare source code and generate a `~TEMP.db` file.  This is a relatively lengthly process and can take a cocuple of minutes, so this is something to prepare for.  The `~TEMP.db` database is an SQL file with nicely broken down class names, function names, line info, and a bunch of other useful deconstructions of the AllegroFlare source code.  Run the script by entering the following command in the terminal:
 
 ```
-$ python docs/parse_source.py
+$ python docs/build_scripts/parse_source.py
 ```
 
 Once the `~TEMP.db` file has been created, you can generate a more friendly HTML document with the `compile_docs.py` script.  Use the following command:
 
 ```
-$ python docs/compile_docs.py
+$ python docs/build_scripts/compile_docs.py
 ```
+
+This will generate the acutal HTML documentation files from the content that exists in `~TEMP.db`.
 
 ### In the future
 
