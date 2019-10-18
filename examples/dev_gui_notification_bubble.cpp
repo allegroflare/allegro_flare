@@ -16,6 +16,7 @@
 
 
 using namespace allegro_flare;
+using namespace AllegroFlare;
 
 
 

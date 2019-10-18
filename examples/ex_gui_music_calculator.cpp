@@ -83,6 +83,7 @@ RubyScriptResult run_ruby_script(std::string script_filename, std::string args)
 
 
 using namespace allegro_flare;
+using namespace AllegroFlare;
 
 
 
