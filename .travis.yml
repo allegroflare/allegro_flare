@@ -39,6 +39,13 @@ before_install:
       fi
 
 script:
+  - make
+  - if [ `uname` = "Darwin" ]; then
+      make tests;
+    fi
+  - if [ `uname` = "Darwin" ]; then
+      make examples;
+    fi
   - if [ `uname` = "Darwin" ]; then
       make documentation;
     fi
