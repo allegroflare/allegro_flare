@@ -149,3 +149,8 @@ and execute all the test executables in `bin/tests/` with something like:
 ```
 find bin/tests -type f -perm -u+x -exec {} \;
 ```
+
+For a more verbose output, you can set the `BOOST_TEST_LOG_LEVEL` env var:
+```
+BOOST_TEST_LOG_LEVEL=test_suite find bin/tests -type f -perm -u+x -exec {} \;
+```
