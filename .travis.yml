@@ -16,9 +16,6 @@ before_install:
          sudo apt-get update -q;
          sudo apt-get install -y liballegro5-dev;
       elif [ `uname` = "Darwin" ]; then
-         brew install opusfile libvorbis freetype flac physfs;
-         brew install allegro;
-         brew install boost;
          git clone https://github.com/google/googletest
          cd googletest
          mkdir build
@@ -26,6 +23,8 @@ before_install:
          cmake ..
          make
          make install
+         brew install opusfile libvorbis freetype flac physfs;
+         brew install allegro;
       fi
 
 script:
