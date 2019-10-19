@@ -1,4 +1,4 @@
-//#include <allegro_flare/allegro_flare.h>
+#include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Screen.hpp>
 
 using namespace AllegroFlare;
@@ -6,17 +6,21 @@ using namespace AllegroFlare;
 class SimpleExample : public Screen
 {
 public:
-    SimpleExample(Display *display) : Screen(display) {}
+    SimpleExample(Framework &framework, Screens &screens, Display *display) : Screen(framework, screens, display) {}
     void primary_timer_func() override
     {
         al_draw_filled_rectangle(300, 400, 200, 100, color::chartreuse);
     }
-}
+};
 
 int main(int argc, char **argv)
 {
-    Framework::initialize(); // initialize all things AllegroFlare
-    Display *display = Framework::create_display(800, 600); // creates a new Window
-    SimpleExample *simple_example = new SimpleExample(display); // creates a new instance of your app
-    Framework::run_loop(); // run the AllegroFlare framework
+   Screens screens;
+   Framework framework(screens);
+   framework.initialize();
+   Display *display = framework.create_display(800, 600);
+
+   SimpleExample simple_example(framework, screens, display);
+
+   framework.run_loop();
 }
