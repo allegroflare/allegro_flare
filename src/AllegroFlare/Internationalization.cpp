@@ -2,16 +2,16 @@
 
 
 
-#include <allegro_flare/i18n.h>
+#include <AllegroFlare/Internationalization.hpp>
 
 #include <iostream>
 #include <allegro5/allegro.h>
-#include <allegro_flare/console_color.h>
+#include <AllegroFlare/ConsoleColor.hpp>
 
 
 
 
-namespace allegro_flare
+namespace AllegroFlare
 {
    Internationalization *Internationalization::instance = nullptr;
 
