@@ -22,7 +22,7 @@ before_install:
       fi
     - if [ `uname` = "Darwin" ]; then
         brew install castxml;
-        git clone git@github.com:gccxml/pygccxml.git;
+        git clone https://github.com/gccxml/pygccxml.git;
         cd pygccxml;
         python setup.py install;
         cd ..;
