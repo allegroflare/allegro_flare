@@ -135,8 +135,8 @@ bin/%$(BINARY_EXTENSION): examples/%.cpp
 #
 
 documentation:
-	python2 docs/build_scripts/parse_source.py
-	python2 docs/build_scripts/compile_docs.py
+	python docs/build_scripts/parse_source.py
+	python docs/build_scripts/compile_docs.py
 
 
 
