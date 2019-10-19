@@ -7,6 +7,7 @@ msvc-*/
 
 docs/build_scripts/~TEMP.db
 docs/*.html
+docs/**/*.pyc
 
 
 # vim swap files
