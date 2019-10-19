@@ -8,7 +8,12 @@
 
 
 #include <allegro_flare/framework.h>
-#include <allegro_flare/gui/widgets/button.h>
+#include <allegro_flare/button.h>
+
+
+
+
+using namespace allegro_flare;
 
 
 

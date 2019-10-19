@@ -18,8 +18,10 @@ before_install:
       elif [ `uname` = "Darwin" ]; then
          brew install opusfile libvorbis freetype flac physfs;
          brew install allegro;
+         brew install boost;
       fi
 
 script:
   - make
   - make examples
+  - make tests

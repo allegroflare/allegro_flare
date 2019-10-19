@@ -18,6 +18,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 struct SetupWithDisplay
 {
    ALLEGRO_DISPLAY *display;

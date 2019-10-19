@@ -7,12 +7,15 @@
 
 
 
-#include <allegro_flare/attributes.h>
+#include <AllegroFlare/Attributes.hpp>
 
 #include <fstream>
 #include <sstream>
 #include <unistd.h>
 
+
+
+using namespace AllegroFlare;
 
 
 

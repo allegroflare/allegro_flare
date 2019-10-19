@@ -7,10 +7,15 @@
 
 
 
-#include <allegro_flare/gui/layout_loaders/gui_tool_layout_loader.h>
-#include <allegro_flare/gui/surface_areas/box.h>
+#include <allegro_flare/gui_tool_layout_loader.h>
+#include <allegro_flare/box.h>
 #include <iostream>
 #include <fstream>
+
+
+
+
+using namespace allegro_flare;
 
 
 

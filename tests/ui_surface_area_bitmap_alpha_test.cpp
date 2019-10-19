@@ -7,12 +7,18 @@
 
 
 
-#include <allegro_flare/gui/surface_areas/bitmap_alpha.h>
+#include <allegro_flare/bitmap_alpha.h>
 
-#include <allegro_flare/gui/widget.h>
+#include <allegro_flare/widget.h>
 #include <allegro5/allegro_image.h>
 #include <allegro_flare/framework.h>
 #include <fstream>
+
+
+
+
+using namespace allegro_flare;
+using namespace AllegroFlare; // for vec2d
 
 
 

@@ -7,7 +7,12 @@
 
 
 
-#include <allegro_flare/converters/color_id_converter.h>
+#include <allegro_flare/color_id_converter.h>
+
+
+
+
+using namespace allegro_flare;
 
 
 

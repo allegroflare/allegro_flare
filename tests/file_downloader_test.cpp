@@ -9,9 +9,14 @@
 
 
 
-#include <allegro_flare/web/file_downloader.h>
+#include <allegro_flare/file_downloader.h>
 
 #include <fstream>
+
+
+
+
+using namespace allegro_flare;
 
 
 
