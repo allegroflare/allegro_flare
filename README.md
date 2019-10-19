@@ -104,7 +104,7 @@ Some Examples of Features and Tools
 - Add attributes to your classes for scripting, saving, and loading (`Attributes`, `ElementID`)
 
 ### Internationalization
- - Support multiple languages with `I18n`
+ - Support multiple languages with `Internationalization`
 
 ### Color
 - Color creation and manipulation (`mix()`, `change_hue()`, `change_lightness()`, etc.)
