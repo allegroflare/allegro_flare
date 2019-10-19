@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_CASE(can_reassign_its_parent)
 
 
 
-BOOST_AUTO_TEST_CASE(can_not_reassign_itself_as_parent)
+BOOST_AUTO_TEST_CASE(can_not_reassign_itself_as_parent, * boost::unit_test::disabled())
 {
    // to be implemented
    BOOST_CHECK_EQUAL(false, true);
@@ -174,7 +174,7 @@ BOOST_AUTO_TEST_CASE(can_not_reassign_itself_as_parent)
 
 
 
-BOOST_AUTO_TEST_CASE(can_not_reassign_parentage_to_a_parent_that_a_descendant)
+BOOST_AUTO_TEST_CASE(can_not_reassign_parentage_to_a_parent_that_a_descendant, * boost::unit_test::disabled())
 {
    // to be implemented
    BOOST_CHECK_EQUAL(false, true);
