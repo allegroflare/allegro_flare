@@ -2,20 +2,20 @@
 
 ### Technologies
 
-Documentation is generated with a few python scripts in the `docs/` folder.  To run them, you will need `Python`, `pygccxml` (with a `CASTXML` backend), and `sqlite`.
+Documentation is generated with a few python scripts in the `documentation/` folder.  To run them, you will need `Python`, `pygccxml` (with a `CASTXML` backend), and `sqlite`.
 
 ### Process
 
 The first script will parse through all of the AllegroFlare source code and generate a `~TEMP.db` file.  This is a relatively lengthly process and can take a cocuple of minutes, so this is something to prepare for.  The `~TEMP.db` database is an SQL file with nicely broken down class names, function names, line info, and a bunch of other useful deconstructions of the AllegroFlare source code.  Run the script by entering the following command in the terminal:
 
 ```
-$ python docs/build_scripts/parse_source.py
+$ python documentation/build_scripts/parse_source.py
 ```
 
-Once the `~TEMP.db` file has been created, you can generate a more friendly HTML document with the `compile_docs.py` script.  Use the following command:
+Once the `~TEMP.db` file has been created, you can generate a more friendly HTML document with the `compile_documentation.py` script.  Use the following command:
 
 ```
-$ python docs/build_scripts/compile_docs.py
+$ python documentation/build_scripts/compile_documentation.py
 ```
 
 This will generate the acutal HTML documentation files from the content that exists in `~TEMP.db`.
