@@ -47,5 +47,5 @@ script:
       make examples;
     fi
   - if [ `uname` = "Darwin" ]; then
-      make documentation;
+      make build_documentation;
     fi
