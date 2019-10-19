@@ -31,14 +31,6 @@ namespace AllegroFlare
 
 
 
-   bool Internationalization::initialize(std::string folder)
-   {
-      return set_languages_folder(folder);
-   }
-
-
-
-
    bool Internationalization::set_languages_folder(std::string folder)
    {
       if (!al_filename_exists(folder.c_str()))

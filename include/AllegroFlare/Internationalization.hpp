@@ -24,7 +24,6 @@ namespace AllegroFlare
       Internationalization();
       ~Internationalization();
 
-      bool initialize(std::string folder="data/languages/");
       bool set_languages_folder(std::string folder="data/languages/");
       std::string get_languages_folder();
       bool set_language(std::string language_code);
