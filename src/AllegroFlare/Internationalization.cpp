@@ -13,20 +13,6 @@
 
 namespace AllegroFlare
 {
-   Internationalization *Internationalization::instance = nullptr;
-
-
-
-
-   Internationalization *Internationalization::get_instance()
-   {
-      if (instance == nullptr) instance = new Internationalization();
-      return instance;
-   }
-
-
-
-
    Internationalization::Internationalization()
       : languages_folder("")
       , current_language_code("")
@@ -47,22 +33,7 @@ namespace AllegroFlare
 
    bool Internationalization::initialize(std::string folder)
    {
-      get_instance();
       return set_languages_folder(folder);
-   }
-
-
-
-
-   bool Internationalization::destruct()
-   {
-      if (instance)
-      {
-         delete instance;
-         instance = nullptr;
-         return true;
-      }
-      return false;
    }
 
 
@@ -78,7 +49,7 @@ namespace AllegroFlare
          std::cout << std::endl;
          return false;
       }
-      get_instance()->languages_folder = folder;
+      languages_folder = folder;
       return true;
    }
 
@@ -87,7 +58,7 @@ namespace AllegroFlare
 
    std::string Internationalization::get_languages_folder()
    {
-      return get_instance()->languages_folder;
+      return languages_folder;
    }
 
 
@@ -97,12 +68,12 @@ namespace AllegroFlare
    {
       if (language_code.empty()) return "";
 
-      std::vector<std::string> filenames = get_instance()->get_language_filenames();
+      std::vector<std::string> filenames = get_language_filenames();
 
       for (auto &filename : filenames)
       {
          if (strncmp(language_code.c_str(), filename.c_str(), language_code.size()) == 0)
-            return get_instance()->languages_folder + filename;
+            return languages_folder + filename;
       }
 
       return "";
@@ -125,8 +96,8 @@ namespace AllegroFlare
 
       if (!load_language_file(language_code, language_code, filename)) return false;
 
-      get_instance()->current_language_code = language_code;
-      get_instance()->current_language_filename = filename;
+      current_language_code = language_code;
+      current_language_filename = filename;
       return true;
    }
 
@@ -135,7 +106,7 @@ namespace AllegroFlare
 
    std::string Internationalization::get_language()
    {
-      return get_instance()->current_language_code;
+      return current_language_code;
    }
 
 
@@ -155,20 +126,20 @@ namespace AllegroFlare
       ALLEGRO_CONFIG *config_file = al_load_config_file(filename.c_str());
       if (config_file)
       {
-         get_instance()->lines.clear();
+         lines.clear();
          ALLEGRO_CONFIG_ENTRY *iterator = NULL;
          const char *key = al_get_first_config_entry(config_file, NULL, &iterator);
          while (iterator)
          {
-            get_instance()->lines[key] = al_get_config_value(config_file, NULL, key);
+            lines[key] = al_get_config_value(config_file, NULL, key);
             key = al_get_next_config_entry(&iterator);
          }
 
          al_destroy_config(config_file);
 
-         get_instance()->current_language_code = as_language_code;
-         get_instance()->current_language_name = as_language_name;
-         get_instance()->current_language_filename = filename;
+         current_language_code = as_language_code;
+         current_language_name = as_language_name;
+         current_language_filename = filename;
       }
       else
       {
@@ -188,7 +159,7 @@ namespace AllegroFlare
 
    std::string Internationalization::get_language_name()
    {
-      return get_instance()->current_language_name;
+      return current_language_name;
    }
 
 
@@ -196,7 +167,7 @@ namespace AllegroFlare
 
    bool Internationalization::t_exists(std::string label)
    {
-      return get_instance()->lines.find(label) != get_instance()->lines.end();
+      return lines.find(label) != lines.end();
    }
 
 
@@ -204,7 +175,7 @@ namespace AllegroFlare
 
    std::string Internationalization::t(std::string text_label)
    {
-      return get_instance()->lines[text_label];
+      return lines[text_label];
    }
 
 
@@ -212,7 +183,7 @@ namespace AllegroFlare
 
    std::string Internationalization::tf(std::string text_label, ...)
    {
-      std::string format = get_instance()->lines[text_label];
+      std::string format = lines[text_label];
       char buff[512];
 
       va_list args;
@@ -234,7 +205,7 @@ namespace AllegroFlare
    std::vector<std::string> Internationalization::get_language_filenames()
    {
       std::vector<std::string> results;
-      ALLEGRO_FS_ENTRY* dir = al_create_fs_entry(get_instance()->languages_folder.c_str());
+      ALLEGRO_FS_ENTRY* dir = al_create_fs_entry(languages_folder.c_str());
       ALLEGRO_FS_ENTRY* entry = nullptr;
       ALLEGRO_PATH *path = nullptr;
 

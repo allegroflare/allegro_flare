@@ -14,12 +14,6 @@ namespace AllegroFlare
    class Internationalization
    {
    private:
-      Internationalization();
-      ~Internationalization();
-
-      static Internationalization *get_instance();
-      static Internationalization *instance;
-
       std::string languages_folder;
       std::string current_language_code;
       std::string current_language_name;
@@ -27,8 +21,10 @@ namespace AllegroFlare
       std::map<std::string, std::string> lines;
 
    public:
+      Internationalization();
+      ~Internationalization();
+
       bool initialize(std::string folder="data/languages/");
-      bool destruct();
       bool set_languages_folder(std::string folder="data/languages/");
       std::string get_languages_folder();
       bool set_language(std::string language_code);
