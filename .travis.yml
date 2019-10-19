@@ -36,7 +36,6 @@ before_install:
       elif [ `uname` = "Darwin" ]; then
          brew install opusfile libvorbis freetype flac physfs;
          brew install allegro;
-         pip install pygccxml;
       fi
 
 script:
