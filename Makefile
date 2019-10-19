@@ -33,6 +33,10 @@ INCLUDE_FLAGS=-I$(ALLEGRO_DIR)/include -I$(ALLEGROFLARE_DIR)/include
 
 
 
+.PHONY: documentation
+
+
+
 #
 # Library Targets
 # ===============================================
@@ -135,8 +139,8 @@ bin/%$(BINARY_EXTENSION): examples/%.cpp
 #
 
 documentation:
-	python docs/build_scripts/parse_source.py
-	python docs/build_scripts/compile_docs.py
+	python documentation/build_scripts/parse_source.py
+	python documentation/build_scripts/compile_documentation.py
 
 
 
