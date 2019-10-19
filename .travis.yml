@@ -41,6 +41,12 @@ before_install:
 
 script:
   - make
-  - make tests
-  - make examples
-  - make documentation
+  - if [ `uname` = "Darwin" ]; then
+      make tests;
+    fi
+  - if [ `uname` = "Darwin" ]; then
+      make examples;
+    fi
+  - if [ `uname` = "Darwin" ]; then
+      make documentation
+    fi
