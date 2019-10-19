@@ -148,7 +148,7 @@ def parse_file(filename):
         docs_c.execute('SELECT * FROM entries WHERE decl=?', (item, ))
         entries = docs_c.fetchall()
         if len(entries) == 0:
-            print item
+            print(item)
             unfound_items += 1
         else:
             print_green(item + " - FOUND")
@@ -181,5 +181,5 @@ count = 0
 num_header_files = len(header_files) 
 for f in header_files:
     count = count + 1
-    print "===== parsing " + str(count) + " of " + str(num_header_files) + " ====="
+    print("===== parsing " + str(count) + " of " + str(num_header_files) + " =====")
     parse_file(f)
