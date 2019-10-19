@@ -1,6 +1,4 @@
-#ifndef __AF_I18N_HEADER
-#define __AF_I18N_HEADER
-
+#pragma once
 
 
 
@@ -13,14 +11,14 @@
 
 namespace allegro_flare
 {
-   class I18n
+   class Internationalization
    {
    private:
-      I18n();
-      ~I18n();
+      Internationalization();
+      ~Internationalization();
 
-      static I18n *get_instance();
-      static I18n *instance;
+      static Internationalization *get_instance();
+      static Internationalization *instance;
 
       std::string languages_folder;
       std::string current_language_code;
@@ -47,4 +45,3 @@ namespace allegro_flare
 
 
 
-#endif
