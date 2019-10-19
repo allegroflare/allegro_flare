@@ -1,31 +1,45 @@
-#include <allegro_flare/inventory.h>
-#include <allegro_flare/achievement.h>
-#include <allegro_flare/achievements.h>
+#include <AllegroFlare/Screen.hpp>
+#include <AllegroFlare/Inventory.hpp>
+#include <AllegroFlare/Achievement.hpp>
+#include <AllegroFlare/Achievements.hpp>
 
 
-class MyCollectedTenBarleyAchievement : public Achievement
+#include <iostream>
+
+
+using namespace AllegroFlare;
+
+
+enum item_t
+{
+   ITEM_NONE = 0,
+   ITEM_BARLEY,
+};
+
+
+class CollectedTenBarleyAchievement : public Achievement
 {
 private:
    Inventory &player_inventory;
    
 public:
-   MyCollectedTenBarleyAchievement(Inventory &player_inventory)
+   CollectedTenBarleyAchievement(Inventory &player_inventory)
       : player_inventory(player_inventory)
    {}
 
-   void test_condition() override
+   bool test_condition() override
    {
-      return player_inventory.get_item_count(ITEM_BARLEY) >= 10;
+      return player_inventory.get_item_count(ITEM_BARLEY) >= 2;
    }
 
-   void on_achived() override
+   void on_achieved() override
    {
       std::cout << "Congratulations! You've got 10 bundles of barley! Epic!" << std::endl;
    }
 };
 
 
-class MyGame : public Game
+class MyGame : public Screen
 {
 public:
    Inventory player_inventory;
@@ -35,19 +49,23 @@ public:
       ITEM_BARLEY,
    };
 
+   MyGame(Framework &framework, Screens &screens, Display *display)
+      : Screen(framework, screens, display)
+   {}
+
    void initialize()
    {
-      MyCollectedTenBarleyAchievement my_collected_ten_barley_achievement(player_inventory);
-      achievments.add(my_collected_ten_barley_achievement);
+      CollectedTenBarleyAchievement *achievement = new CollectedTenBarleyAchievement(player_inventory);
+      achievements.add("my_collected_ten_barley_achievement", achievement);
    }
    
-   void on_key_press() override
+   void key_down_func() override
    {
-      my_player_inventory.add_item(ITEM_BARLEY);
+      player_inventory.add_item(ITEM_BARLEY);
       std::cout << "1 Barley added." << std::endl;   // <-- *** NEW
    }
 
-   void timer_loop() override
+   void primary_timer_func() override
    {
       achievements.check_all();
    }
@@ -56,12 +74,13 @@ public:
 
 int main(int argc, char **argv)
 {
-   Framework framework;
+   Screens screens;
+
+   Framework framework(screens);
    framework.initialize();
-   
-   MyGame my_game;
-   framework.set_game(my_game);
+   Display *display = framework.create_display(800, 600);
+
+   MyGame my_game(framework, screens, display);
    
    framework.run_loop();
 }
-
