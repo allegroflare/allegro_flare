@@ -7,7 +7,12 @@
 
 
 
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Useful.hpp>
+
+
+
+
+using namespace AllegroFlare;
 
 
 

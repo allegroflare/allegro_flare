@@ -10,6 +10,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 struct Fixture
 {
    ElementID root;

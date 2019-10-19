@@ -8,6 +8,13 @@
 #include <allegro_flare/random.h>
 
 
+
+
+using namespace allegro_flare;
+
+
+
+
 BOOST_AUTO_TEST_CASE(gets_the_current_seed)
 {
    Random number_generator = Random(123);

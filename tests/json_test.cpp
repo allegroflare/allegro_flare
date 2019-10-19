@@ -14,6 +14,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 BOOST_AUTO_TEST_CASE(decodes_a_string_value)
 {
    BOOST_CHECK_EQUAL("Alex", json_string("\"Alex\"").stringValue());

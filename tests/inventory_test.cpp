@@ -12,6 +12,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 enum item_enums
 {
    ITEM_1,

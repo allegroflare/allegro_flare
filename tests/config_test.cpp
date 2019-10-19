@@ -14,6 +14,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 #define TEST_FILENAME "data/tests/config.cfg"
 
 

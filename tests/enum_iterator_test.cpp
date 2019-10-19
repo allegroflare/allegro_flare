@@ -10,6 +10,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 BOOST_AUTO_TEST_CASE(iteratesOverEnumValues)
 {
    enum foo

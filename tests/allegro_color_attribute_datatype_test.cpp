@@ -12,6 +12,10 @@
 
 
 
+using namespace allegro_flare;
+
+
+
 BOOST_AUTO_TEST_CASE(allegro_color_custom_attribute_can_set_and_get_an_allegro_color)
 {
    Attributes::create_datatype_definition(

@@ -12,6 +12,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 BOOST_AUTO_TEST_CASE(can_get_and_set_a_string)
 {
    std::string testing_text_A = "This is some content for the clipboard";

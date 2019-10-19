@@ -14,6 +14,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 struct Fixture
 {
    const char *TEST_FOLDER = "data/languages/tests/";

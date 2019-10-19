@@ -17,6 +17,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 struct Setup
 {
    Setup()

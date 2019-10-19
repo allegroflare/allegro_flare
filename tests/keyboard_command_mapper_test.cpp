@@ -7,6 +7,11 @@
 
 
 
+using namespace allegro_flare;
+
+
+
+
 TEST(KeyboardCommandMapperTest, can_get_and_set_mappings)
 {
    KeyboardCommandMapper mapper;
