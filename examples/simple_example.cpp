@@ -1,3 +1,4 @@
+#include <allegro5/allegro.h>
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Screen.hpp>
 
