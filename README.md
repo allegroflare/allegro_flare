@@ -125,3 +125,27 @@ Some Examples of Features and Tools
 - Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc.
 
 
+
+Development
+-----------------------------------
+
+At the time of this writing, tests are written using the [Boost Unit Test
+Framework](https://www.boost.org/doc/libs/1_71_0/libs/test/doc/html/index.html).  You'll need to install it on your computer to build and run the tests.
+
+On MacOS, you can install Boost with Homebrew:
+
+```
+$ brew install boost
+```
+
+You should now be able to build the tests with:
+
+```
+$ make tests
+```
+
+Tests should now be in the `bin/tests/`.  You can run them individually or find
+and execute all the test executables in `bin/tests/` with something like:
+```
+find bin/tests -type f -perm -u+x -exec {} \;
+```
