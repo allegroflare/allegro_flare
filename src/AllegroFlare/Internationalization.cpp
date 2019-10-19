@@ -13,8 +13,8 @@
 
 namespace AllegroFlare
 {
-   Internationalization::Internationalization()
-      : languages_folder("")
+   Internationalization::Internationalization(std::string languages_folder)
+      : languages_folder(languages_folder)
       , current_language_code("")
       , current_language_name("")
       , current_language_filename("")

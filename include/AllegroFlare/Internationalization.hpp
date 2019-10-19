@@ -21,7 +21,7 @@ namespace AllegroFlare
       std::map<std::string, std::string> lines;
 
    public:
-      Internationalization();
+      Internationalization(std::string folder="data/languages/");
       ~Internationalization();
 
       bool set_languages_folder(std::string folder="data/languages/");
