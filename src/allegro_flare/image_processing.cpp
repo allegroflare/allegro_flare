@@ -11,6 +11,7 @@
 #include <AllegroFlare/Useful.hpp> // for only ALLEGRO_FLAGS_EMPTY
 
 
+using namespace AllegroFlare;
 
 
 namespace allegro_flare
