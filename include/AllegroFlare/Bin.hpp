@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 #include <allegro5/allegro5.h> // for ALLEGRO_PATH
 #include <AllegroFlare/ConsoleColor.hpp>
 

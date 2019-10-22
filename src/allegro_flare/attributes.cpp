@@ -569,7 +569,7 @@ namespace allegro_flare
 
    int Attributes::__find_attribute_index(std::string key)
    {
-      for (int i=0; i<attributes.size(); i++)
+      for (long unsigned int i=0; i<attributes.size(); i++)
          if (strcmp(key.c_str(), attributes[i].key.c_str()) == 0) return i;
       return -1;
    }
@@ -579,7 +579,7 @@ namespace allegro_flare
 
    int Attributes::__find_attribute_index(std::string key, std::string value)
    {
-      for (int i=0; i<attributes.size(); i++)
+      for (long unsigned int i=0; i<attributes.size(); i++)
          if ((strcmp(key.c_str(), attributes[i].key.c_str()) == 0)
              && (strcmp(value.c_str(), attributes[i].value.c_str()) == 0))
             return i;
@@ -591,7 +591,7 @@ namespace allegro_flare
 
    int Attributes::__find_or_create_attribute_index(std::string key)
    {
-      for (int i=0; i<attributes.size(); i++)
+      for (long unsigned int i=0; i<attributes.size(); i++)
          if (strcmp(key.c_str(), attributes[i].key.c_str()) == 0) return i;
       attributes.push_back(AttributeRecord(key));
       return attributes.size()-1;

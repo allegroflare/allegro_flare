@@ -128,7 +128,7 @@ namespace allegro_flare
 
    void UITextArea::move_cursor_to_next_of(std::string chars)
    {
-      int cursor_pos = full_text.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", cursor.pos());
+      unsigned cursor_pos = full_text.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", cursor.pos());
       if (cursor_pos == std::string::npos)
       {
          cursor_pos = full_text.length();
@@ -142,7 +142,7 @@ namespace allegro_flare
 
    void UITextArea::move_cursor_to_previous_not_of(std::string chars)
    {
-      int cursor_pos = full_text.find_last_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'\"", std::max(0, cursor.pos()-1));
+      unsigned cursor_pos = full_text.find_last_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'\"", std::max(0, cursor.pos()-1));
       if (cursor_pos == std::string::npos) { cursor_pos = 0; }
       cursor.move_to(cursor_pos);
    }
@@ -237,8 +237,7 @@ namespace allegro_flare
       float cursor_draw_pos_x = 0; // the actual x,y location where the input cursor is to be drawn
       float cursor_draw_pos_y = 0;
 
-      unsigned i=0;
-      for (i=0; i<full_text.length(); i++)
+      for (int i=0; i<(signed)full_text.length(); i++)
       {
          if (full_text[i] == '\n')
          {
@@ -295,14 +294,14 @@ namespace allegro_flare
 
 
       // just the one exception where the cursor is in the last place
-      if (cursor.pos() == full_text.length())
+      if (cursor.pos() == (signed)full_text.length())
       {
          cursor_draw_pos_x = draw_cursor_x;
          cursor_draw_pos_y = draw_cursor_y;
          selection_x_end = draw_cursor_x;
          selection_line_end = _number_of_lines;
       }
-      if (selection_active && cursor.anchor_pos() == full_text.length())
+      if (selection_active && cursor.anchor_pos() == (signed)full_text.length())
       {
          // draw the anchor
          cursor_draw_pos_x = draw_cursor_x;
