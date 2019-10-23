@@ -17,7 +17,7 @@ AllegroFlare works on Windows, Linux, and OSX.  Before compiling, you'll need to
 
 #### Step 1: Clone the repo
 ```
-$ git clone https://github.com/MarkOates/allegro_flare.git
+$ git clone https://github.com/allegroflare/allegro_flare.git
 ```
 
 #### Step 2: Set your directories in `Makefile`
@@ -42,6 +42,9 @@ Simple Example
 
 ```cpp
 #include <allegro_flare/allegro_flare.h>
+using namespace allegro_flare;
+using namespace AllegroFlare;
+
 
 class MyApp : public Screen
 {
