@@ -66,7 +66,7 @@ namespace AllegroFlare
 
 
 
-   inline ALLEGRO_COLOR operator*(float lhs, const ALLEGRO_COLOR& rhs)
+   ALLEGRO_COLOR operator*(float lhs, const ALLEGRO_COLOR& rhs)
    {
       ALLEGRO_COLOR result;
       result.a = lhs * rhs.a;
