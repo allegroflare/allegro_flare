@@ -567,7 +567,7 @@ namespace allegro_flare
          if (multi_note.empty())
             draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(staff_pos), color);
          else
-            for (int i=0; i<multi_note.size(); i++)
+            for (unsigned i=0; i<multi_note.size(); i++)
                draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(multi_note[i]), color);
 
          // draw the dots

@@ -405,7 +405,7 @@ namespace allegro_flare
             else if (json[i] == '"')
             {
                std::string s;
-               for (int j = i + 1; j < (int)json.length(); ++j)
+               for (unsigned j = i + 1; j < (int)json.length(); ++j)
                {
                   if (json[j] == '\\')
                   {

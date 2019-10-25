@@ -283,7 +283,7 @@ namespace allegro_flare
 
    int ElementID::get_index_of_child(ElementID *child)
    {
-      for (int i=0; i<children.size(); i++)
+      for (long unsigned i=0; i<children.size(); i++)
          if (children[i] == child) return i;
       return -1;
    }
@@ -314,7 +314,7 @@ namespace allegro_flare
 
    ElementID *ElementID::get_nth_child(int index)
    {
-      if (index < 0 || index >= children.size()) return nullptr;
+      if (index < 0 || (unsigned)index >= children.size()) return nullptr;
       return children[index];
    }
 

@@ -2,6 +2,7 @@
 
 
 #include <allegro5/allegro.h>
+#include <string>
 #include <vector>
 
 
