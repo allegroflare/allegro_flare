@@ -24,6 +24,9 @@ namespace allegro_flare
    DrawingInterfaceHTMLCanvas::DrawingInterfaceHTMLCanvas()
       : DrawingInterface("html5 canvas")
    {}
+   
+   // Has to be defined even if pure virtual, see https://stackoverflow.com/a/15113814
+   DrawingInterfaceHTMLCanvas::~DrawingInterfaceHTMLCanvas() {};
 
 
 
