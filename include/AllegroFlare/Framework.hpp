@@ -20,7 +20,14 @@ namespace AllegroFlare
 {
    class Screen;
 
-
+   /**
+    * @class Framework
+    * @author Mark Oates
+    * @file Framework.hpp
+    * @brief Main Allegro Flare class.
+    * 
+    * Use this class to initialize Allegro Flare, create windows, etc. 
+    */
    class Framework
    {
    private:
@@ -34,6 +41,12 @@ namespace AllegroFlare
       Motion motions;
 
    public:
+   
+      /**
+      * @param screens Pass a screen object
+      * @brief Main Allegro Flare class.
+      * Use this class to initialize Allegro Flare, create windows, etc. 
+      */
       Framework(Screens &screens);
       ~Framework();
 
@@ -67,6 +80,9 @@ namespace AllegroFlare
       Display *create_display(int width, int height, bool fullscreen, int adapter);
       Display *create_display(Display::resolution_t resolution);
 
+      /**
+       * @brief Starts event loop. Must be placed at the end of your main function.
+       */
       void run_loop();
 
       std::string get_allegro_version();

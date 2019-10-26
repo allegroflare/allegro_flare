@@ -9,7 +9,12 @@ namespace AllegroFlare
 {
    class Framework;
 
-
+   /**
+    * @class Display
+    * @author Mark Oates
+    * @file Display.hpp
+    * @brief Holds an ALLEGRO_DISPLAY object.
+    */
    class Display
    {
    public:
@@ -33,6 +38,10 @@ namespace AllegroFlare
       int _width, _height;
 
    public:
+      
+      /**
+      * @brief Do not use directly, use through Framework::create_display
+      */
       Display(int width, int height, int display_flags); // you must use AllegroFlare::create_display
       virtual ~Display();
 
@@ -41,12 +50,28 @@ namespace AllegroFlare
 
       void set_as_target_bitmap(); // untested
 
+      /**
+       * @brief 
+       * @return Returns the screen width 
+       */
       int width();
+      /**
+       * @brief 
+       * @return Returns the screen height 
+       */
       int height();
       float middle();
       float center();
 
+      /**
+       * @brief Force buffer to be actually drawn on screen
+       */
       void flip();
+      
+      /**
+       * @brief Sets default background color (when nothing is being drawn on the Display)
+       * @param color The color used to fill the window
+       */
       void background_color(const ALLEGRO_COLOR &color);
       void clear();
    };
