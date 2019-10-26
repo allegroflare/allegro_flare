@@ -1,4 +1,0 @@
-#!/bin/bash
-executable_filename=~/Repos/blast/bin/programs/quintessence_from_yaml
-[ -f $executable_filename ] || echo "The needed executable $executable_filename was not found"
-find quintessence -name '*.q.yml' | xargs $executable_filename
