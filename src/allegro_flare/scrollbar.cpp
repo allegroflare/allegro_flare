@@ -118,7 +118,7 @@ namespace allegro_flare
 
    void UIScrollBar::Handle::on_drag(float x, float y, float dx, float dy)
    {
-      place.position.y = AllegroFlare::limit<float>(min_y+place.size.y/2, max_y-place.size.y/2, place.position.y+dy);
+      place.position.y = AllegroFlare::clamp<float>(min_y+place.size.y/2, max_y-place.size.y/2, place.position.y+dy);
       if (has_parent()) static_cast<UIWidget *>(get_parent())->on_change();
    }
 
@@ -148,7 +148,7 @@ namespace allegro_flare
 
       float previous_pos = place.position.y;
 
-      position_in_unit_value = AllegroFlare::limit<float>(0.0, 1.0, position_in_unit_value);
+      position_in_unit_value = AllegroFlare::clamp<float>(0.0, 1.0, position_in_unit_value);
       float new_pos = position_in_unit_value * (max_y - min_y - place.size.y) + (min_y + place.size.y/2.0);
       place.position.y = new_pos; 
 

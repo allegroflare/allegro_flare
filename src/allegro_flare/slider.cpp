@@ -57,9 +57,9 @@ namespace allegro_flare
 
    void UIVerticalSlider::set_val(float val)
    {
-      val = AllegroFlare::limit<float>(0.0, 1.0, val);
+      val = AllegroFlare::clamp<float>(0.0, 1.0, val);
       if (num_notches >= 3) val = (AllegroFlare::round_up(val * num_notches)) / (float)num_notches;
-      this->val = AllegroFlare::limit<float>(0.0, 1.0, val);
+      this->val = AllegroFlare::clamp<float>(0.0, 1.0, val);
       on_change();
    }
 

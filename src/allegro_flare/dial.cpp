@@ -28,7 +28,7 @@ namespace allegro_flare
    void UIDial::set_value(float unit_val)
    {
       float prev_val = val;
-      val = AllegroFlare::limit<float>(0, 1, unit_val);
+      val = AllegroFlare::clamp<float>(0, 1, unit_val);
       if (AllegroFlare::basically_equal(prev_val, val)) on_change();
    }
 

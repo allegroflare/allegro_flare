@@ -27,7 +27,7 @@ namespace allegro_flare
    void UIXYController::set_point(float x, float y)
    {
       AllegroFlare::vec2d prev_marker = marker;
-      marker = AllegroFlare::vec2d(AllegroFlare::limit<float>(0.0f, 1.0f, x), AllegroFlare::limit<float>(0.0f, 1.0f, y));
+      marker = AllegroFlare::vec2d(AllegroFlare::clamp<float>(0.0f, 1.0f, x), AllegroFlare::clamp<float>(0.0f, 1.0f, y));
 
       // check if there was a change
       if (AllegroFlare::basically_equal(marker.x, prev_marker.x) || !AllegroFlare::basically_equal(marker.y, prev_marker.y))
