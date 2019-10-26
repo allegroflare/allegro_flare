@@ -53,7 +53,7 @@ namespace AllegroFlare
 
    // Returns a number whose value has been limited to be within (non-inclusive) a range.
    template<class T>
-   T limit(const T &range1, const T &range2, const T &val)
+   T clamp(const T &range1, const T &range2, const T &val)
    {
       float min = (range1 < range2) ? range1 : range2;
       float max = (range1 > range2) ? range1 : range2;

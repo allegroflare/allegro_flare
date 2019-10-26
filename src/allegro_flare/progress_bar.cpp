@@ -30,7 +30,7 @@ namespace allegro_flare
 
    void UIProgressBar::set_val(float unit_val)
    {
-      unit_val = AllegroFlare::limit<float>(0, 1, unit_val);
+      unit_val = AllegroFlare::clamp<float>(0, 1, unit_val);
       Framework::motion().cmove_to(&this->unit_val, unit_val, update_speed, AllegroFlare::interpolator::double_fast_in);
    }
 
