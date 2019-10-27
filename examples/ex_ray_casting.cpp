@@ -1814,7 +1814,7 @@ public:
             //min_distance = 0;
 
             distance_normal = (max_distance - depth_caches_z_sorted[x]->distance) / max_distance;
-            distance_normal = limit<float>(0.0f, 1.0f, 1.0f - distance_normal);
+            distance_normal = clamp<float>(0.0f, 1.0f, 1.0f - distance_normal);
 
 
 
