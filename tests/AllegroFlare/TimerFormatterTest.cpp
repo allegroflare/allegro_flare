@@ -27,6 +27,17 @@ TEST(AllegroFlare_TimerFormatterTest, format__formats_the_milliseconds_to_the_ex
 }
 
 
+TEST(AllegroFlare_TimerFormatterTest, format__with_no_hours_passed__formats_to_the_expected_format)
+{
+   TimerFormatter formatter(0);
+
+   std::string expected_format = "00:00.000";
+   std::string actual_format = formatter.format();
+
+   ASSERT_EQ(expected_format, actual_format);
+}
+
+
 int main(int argc, char **argv)
 {
    ::testing::InitGoogleTest(&argc, argv);
