@@ -40,15 +40,6 @@ namespace AllegroFlare
    }
 
 
-   void Timer::reset()
-   {
-      end_time = std::chrono::high_resolution_clock::time_point();
-      start_time = std::chrono::high_resolution_clock::time_point();
-      elappsed_time = std::chrono::duration<double, std::milli>(0.0);
-      running = false;
-   }
-
-
    int Timer::get_elappsed_time_msec()
    {
       if (!running)

@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -21,7 +22,6 @@ namespace AllegroFlare
 
       void start();
       void pause();
-      void reset();
 
       int get_elappsed_time_msec();
    };
