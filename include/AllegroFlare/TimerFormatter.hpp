@@ -12,7 +12,7 @@ namespace AllegroFlare
       int milliseconds;
 
    public:
-      TimerFormatter(int milliseconds);
+      TimerFormatter(int milliseconds=0);
       ~TimerFormatter();
 
       std::string format();
