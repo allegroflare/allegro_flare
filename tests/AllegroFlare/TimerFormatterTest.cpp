@@ -38,6 +38,18 @@ TEST(AllegroFlare_TimerFormatterTest, format__with_no_hours_passed__formats_to_t
 }
 
 
+TEST(AllegroFlare_TimerFormatterTest, infer_hours_fragment__will_return_the_expected_hours_component)
+{
+   int milliseconds = 107289418;
+   TimerFormatter formatter(milliseconds);
+
+   std::string expected_hours_fragment = "29";
+   std::string actual_hours_fragment = formatter.infer_hours_fragment();
+
+   ASSERT_EQ(expected_hours_fragment, actual_hours_fragment);
+}
+
+
 int main(int argc, char **argv)
 {
    ::testing::InitGoogleTest(&argc, argv);

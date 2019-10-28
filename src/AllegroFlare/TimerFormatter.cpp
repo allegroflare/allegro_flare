@@ -42,6 +42,15 @@ namespace AllegroFlare
 
       return ss.str();
    }
+
+
+   std::string TimerFormatter::infer_hours_fragment()
+   {
+      std::stringstream ss;
+      int hours_fragment = milliseconds / 3600000;
+      ss << std::setw(2) << std::setfill('0') << hours_fragment;
+      return ss.str();
+   }
 }
 
 

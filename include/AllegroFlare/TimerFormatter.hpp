@@ -16,6 +16,8 @@ namespace AllegroFlare
       ~TimerFormatter();
 
       std::string format();
+
+      std::string infer_hours_fragment();
    };
 }
 
