@@ -74,6 +74,30 @@ TEST(AllegroFlare_TimerFormatterTest, infer_seconds_fragment__will_return_the_ex
 }
 
 
+TEST(AllegroFlare_TimerFormatterTest, infer_milliseconds_fragment__will_return_the_expected_milliseconds_component)
+{
+   int milliseconds = 107289418;
+   TimerFormatter formatter(milliseconds);
+
+   std::string expected_milliseconds_fragment = "418";
+   std::string actual_milliseconds_fragment = formatter.infer_milliseconds_fragment();
+
+   ASSERT_EQ(expected_milliseconds_fragment, actual_milliseconds_fragment);
+}
+
+
+TEST(AllegroFlare_TimerFormatterTest, infer_milliseconds_fragment__with_a_number_value_less_than_three_digits__will_padd_as_expected_with_zeros)
+{
+   int milliseconds = 1;
+   TimerFormatter formatter(milliseconds);
+
+   std::string expected_milliseconds_fragment = "001";
+   std::string actual_milliseconds_fragment = formatter.infer_milliseconds_fragment();
+
+   ASSERT_EQ(expected_milliseconds_fragment, actual_milliseconds_fragment);
+}
+
+
 int main(int argc, char **argv)
 {
    ::testing::InitGoogleTest(&argc, argv);

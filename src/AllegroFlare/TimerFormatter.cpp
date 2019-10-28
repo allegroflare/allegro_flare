@@ -69,6 +69,15 @@ namespace AllegroFlare
       ss << std::setw(2) << std::setfill('0') << seconds_fragment;
       return ss.str();
    }
+
+
+   std::string TimerFormatter::infer_milliseconds_fragment()
+   {
+      std::stringstream ss;
+      int milliseconds_partial = milliseconds % 1000;
+      ss << std::setfill('0') << std::setw(3) << milliseconds_partial;
+      return ss.str();
+   }
 }
 
 
