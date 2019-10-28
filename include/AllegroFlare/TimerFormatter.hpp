@@ -18,6 +18,7 @@ namespace AllegroFlare
       std::string format();
 
       std::string infer_hours_fragment();
+      std::string infer_minutes_fragment();
    };
 }
 

@@ -50,6 +50,18 @@ TEST(AllegroFlare_TimerFormatterTest, infer_hours_fragment__will_return_the_expe
 }
 
 
+TEST(AllegroFlare_TimerFormatterTest, infer_minutes_fragment__will_return_the_expected_minutes_component)
+{
+   int milliseconds = 107289418;
+   TimerFormatter formatter(milliseconds);
+
+   std::string expected_minutes_fragment = "48";
+   std::string actual_minutes_fragment = formatter.infer_minutes_fragment();
+
+   ASSERT_EQ(expected_minutes_fragment, actual_minutes_fragment);
+}
+
+
 int main(int argc, char **argv)
 {
    ::testing::InitGoogleTest(&argc, argv);
