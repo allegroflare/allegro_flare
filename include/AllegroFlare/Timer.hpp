@@ -20,7 +20,8 @@ namespace AllegroFlare
       ~Timer();
 
       void start();
-      void stop();
+      void pause();
+      void reset();
 
       int get_elappsed_time_msec();
    };

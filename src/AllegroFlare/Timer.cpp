@@ -30,7 +30,7 @@ namespace AllegroFlare
    }
 
 
-   void Timer::stop()
+   void Timer::pause()
    {
       if (!running) return;
 
@@ -40,10 +40,26 @@ namespace AllegroFlare
    }
 
 
+   void Timer::reset()
+   {
+      end_time = std::chrono::high_resolution_clock::time_point();
+      start_time = std::chrono::high_resolution_clock::time_point();
+      elappsed_time = std::chrono::duration<double, std::milli>(0.0);
+      running = false;
+   }
+
+
    int Timer::get_elappsed_time_msec()
    {
-      std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
-      return std::chrono::duration_cast<std::chrono::milliseconds>(elappsed_time + (current_time - start_time)).count();
+      if (!running)
+      {
+         return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::duration<double, std::milli>(elappsed_time)).count();
+      }
+      else
+      {
+         std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
+         return std::chrono::duration_cast<std::chrono::milliseconds>(elappsed_time + (current_time - start_time)).count();
+      }
    }
 }
 
