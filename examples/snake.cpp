@@ -124,7 +124,7 @@ private:
    int player_score;
 
 public:
-   Gameboard(Display *display)
+   Gameboard()
       : width(700)
       , height(600)
       , fruits()
@@ -258,7 +258,7 @@ public:
 
    SnakeGame(Framework &framework, Screens &screens, Display *display)
       : Screen(framework, screens, display)
-      , gameboard(display)
+      , gameboard()
       , hud()
    {}
 
@@ -310,7 +310,7 @@ int main(int argc, char **argv)
    Screens screens;
    Framework framework(screens);
    framework.initialize();
-   Display *display = framework.create_display(800, 600);
+   Display *display = framework.create_display(1920, 1080);
 
    SnakeGame snake(framework, screens, display);
    snake.initialize();
