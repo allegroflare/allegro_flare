@@ -136,7 +136,9 @@ public:
    {
       float new_fruit_x = random_float(0, width);
       float new_fruit_y = random_float(0, height);
-      Fruit::fruit_t new_fruit_type = Fruit::CHERRY;
+      std::vector<Fruit::fruit_t> possible_fruits = { Fruit::APPLE, Fruit::GRAPE, Fruit::CHERRY, Fruit::ORANGE, Fruit::PEAR, Fruit::PINEAPPLE, };
+      Fruit::fruit_t new_fruit_type = random_element<Fruit::fruit_t>(possible_fruits);
+
       fruits.push_back(std::pair<bool, Fruit>(true, { new_fruit_x, new_fruit_y, new_fruit_type }));
    }
 
