@@ -137,7 +137,7 @@ public:
       float new_fruit_x = random_float(0, width);
       float new_fruit_y = random_float(0, height);
       Fruit::fruit_t new_fruit_type = Fruit::CHERRY;
-      fruits.push_back(std::pair<bool, Fruit>(false, { new_fruit_x, new_fruit_y, new_fruit_type }));
+      fruits.push_back(std::pair<bool, Fruit>(true, { new_fruit_x, new_fruit_y, new_fruit_type }));
    }
 
    void draw()
@@ -148,6 +148,11 @@ public:
       for (auto &fruit : fruits) fruit.second.draw();
 
       snake.draw();
+   }
+
+   int get_player_score()
+   {
+      return player_score;
    }
 
    void point_snake_up()
@@ -170,18 +175,19 @@ public:
       snake.move_right();
    }
 
-   void update_collisions()
+   void update_positions_and_check_collisions()
    {
       snake.x += snake.velocity_x;
       snake.y += snake.velocity_y;
 
-      float min_distance_for_collision = 10;
+      float min_distance_for_collision = 20;
 
       for (auto &fruit : fruits)
       {
-         if (manhattan_distance(snake.x, snake.y, fruit.second.x, fruit.second.y) <= min_distance_for_collision)
+         if (distance(snake.x, snake.y, fruit.second.x, fruit.second.y) <= min_distance_for_collision)
          {
             fruit.first = false;
+            player_score += 1;
          }
       }
    }
@@ -191,7 +197,7 @@ public:
       for (unsigned i=0; i<fruits.size(); i++)
       {
          bool fruit_marked_for_deletion = fruits[i].first;
-         if (fruit_marked_for_deletion)
+         if (fruit_marked_for_deletion == false)
          {
             fruits.erase(fruits.begin() + i);
             i--;
@@ -210,26 +216,72 @@ public:
 };
 
 
-class SnakeGame : public Screen
+class HUD
 {
 public:
-   Gameboard gameboard;
+   int player_score;
+   FontBin fonts;
 
-   SnakeGame(Framework &framework, Screens &screens, Display *display)
-      : Screen(framework, screens, display)
-      , gameboard(display)
+   HUD()
+      : player_score(0)
+      , fonts()
    {}
 
    void initialize()
    {
+      fonts.set_path("data/fonts");
+   }
+
+   void set_player_score(int new_score)
+   {
+      player_score = new_score;
+   }
+
+   void draw()
+   {
+      ALLEGRO_FONT *font = fonts["DroidSans.ttf 26"];
+      ALLEGRO_COLOR color = al_color_name("white");
+
+      std::stringstream player_score_text;
+      player_score_text << player_score;
+
+      al_draw_text(font, color, 20, 10, 0, player_score_text.str().c_str());
+   }
+};
+
+
+class SnakeGame : public Screen
+{
+public:
+   Gameboard gameboard;
+   HUD hud;
+
+   SnakeGame(Framework &framework, Screens &screens, Display *display)
+      : Screen(framework, screens, display)
+      , gameboard(display)
+      , hud()
+   {}
+
+   void initialize()
+   {
+      hud.initialize();
       gameboard.spawn_random_fruit();
+   }
+
+   void refresh_player_score_on_hud()
+   {
+      hud.set_player_score(gameboard.get_player_score());
    }
 
    void primary_timer_func() override
    {
-      gameboard.update_collisions();
+      gameboard.update_positions_and_check_collisions();
       gameboard.remove_dead_elements();
+
+      refresh_player_score_on_hud();
+
       gameboard.draw();
+      hud.draw();
    }
 
    void key_down_func() override
