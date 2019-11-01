@@ -78,30 +78,30 @@ public:
       , y(y)
       , velocity_x(0)
       , velocity_y(0)
-      , speed(1.0)
+      , speed(5.0)
    {}
 
    void move_up()
    {
       velocity_x = 0;
-      velocity_y = -1;
+      velocity_y = -speed;
    }
 
    void move_down()
    {
       velocity_x = 0;
-      velocity_y = 1;
+      velocity_y = speed;
    }
 
    void move_left()
    {
-      velocity_x = -1;
+      velocity_x = -speed;
       velocity_y = 0;
    }
 
    void move_right()
    {
-      velocity_x = 1;
+      velocity_x = speed;
       velocity_y = 0;
    }
 
@@ -124,9 +124,9 @@ private:
    int player_score;
 
 public:
-   Gameboard()
-      : width(700)
-      , height(600)
+   Gameboard(int width, int height)
+      : width(width)
+      , height(height)
       , fruits()
       , snake(0, 0)
       , player_score(0)
@@ -258,7 +258,7 @@ public:
 
    SnakeGame(Framework &framework, Screens &screens, Display *display)
       : Screen(framework, screens, display)
-      , gameboard()
+      , gameboard(1920, 1080)
       , hud()
    {}
 
