@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -11,10 +12,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <AllegroFlare/Color.hpp>
-
-
 #include <AllegroFlare/Motion.hpp>
-#include <iostream>
 
 
 namespace AllegroFlare
