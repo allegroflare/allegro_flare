@@ -46,6 +46,8 @@ namespace AllegroFlare
       // TODO: virtual T clone(T2 existing_identifier, T2 new_clone_identifier);
 
    private:
+      bool initialized;
+      void ensure_initialization_or_output_error_message(std::string calling_function_name);
       ALLEGRO_PATH *directory;
       std::vector<Record *> record;
       std::vector<std::string> explode(const std::string &delimiter, const std::string &str);
@@ -61,7 +63,8 @@ namespace AllegroFlare
 
    template<class T2, class T>
    Bin<T2, T>::Bin()
-      : directory(nullptr)
+      : initialized(false)
+      , directory(nullptr)
       , record()
    {}
 
@@ -99,6 +102,7 @@ namespace AllegroFlare
       {
          al_append_path_component(directory, it->c_str());
       }
+      initialized = true;
    }
 
 
@@ -107,12 +111,15 @@ namespace AllegroFlare
    {
       if (directory) al_destroy_path(directory);
       directory = al_create_path_for_directory(path.c_str());
+      initialized = true;
    }
 
 
    template<class T2, class T>
    typename Bin<T2, T>::Record *Bin<T2, T>::get_record(T2 identifier)
    {
+      ensure_initialization_or_output_error_message(__FUNCTION__);
+
       int first, last, mid, comp;
 
       if (record.empty()) return NULL;
@@ -256,6 +263,28 @@ namespace AllegroFlare
    T Bin<T2, T>::operator[](const T2 &identifier)
    {
       return auto_get(identifier);
+   }
+
+
+   template<class T2, class T>
+   void Bin<T2, T>::ensure_initialization_or_output_error_message(std::string calling_function_name)
+   {
+      if (!initialized)
+      {
+         std::string classname = typeid(*this).name();
+         std::cout
+            << CONSOLE_COLOR_RED
+            << "["
+            << classname
+            << ":"
+            << calling_function_name
+            << "] "
+            << "This function is being called prior to the initialization of the bin.  " \
+               "This will likely result in a crash.  To remedy this, be sure to set the path " \
+               "with \"set_path\" or \"set_full_path\" before use."
+            << CONSOLE_COLOR_DEFAULT
+            << std::endl;
+      }
    }
 
 
