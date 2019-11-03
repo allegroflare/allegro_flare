@@ -275,6 +275,8 @@ public:
 		, shadow_map_depth_pass_surface(NULL)
 		, texture_offset(0, 0)
 	{
+      initialize();
+
 		al_identity_transform(&shadow_map_depth_pass_transform);
 
 		//camera.stepout = vec3d(0, 1.5, 8);
@@ -303,6 +305,12 @@ public:
 
 		construct_scene();
 	}
+
+
+   void initialize()
+   {
+      bitmaps.set_path("data/bitmaps");
+   }
 
 
 	void construct_scene()
