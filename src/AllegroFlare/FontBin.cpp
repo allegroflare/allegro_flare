@@ -2,9 +2,6 @@
 
 #include <AllegroFlare/FontBin.hpp>
 
-#include <AllegroFlare/Useful.hpp>
-
-
 
 namespace AllegroFlare
 {
@@ -46,7 +43,9 @@ namespace AllegroFlare
          font_size = _get_valid_font_size(identifier.substr(pos+0));
       }
 
-      return al_load_font(actual_font_filename.c_str(), font_size, ALLEGRO_FLAGS_EMPTY);
+      static int EMPTY_FLAGS = 0;
+
+      return al_load_font(actual_font_filename.c_str(), font_size, EMPTY_FLAGS);
    }
 
 
