@@ -673,14 +673,12 @@ public:
 int main(int argc, char **argv)
 {
 	Framework::initialize();
-	Display *display = Framework::create_display(960*2, 600*2, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+	Display *display = Framework::create_display(1920, 1080, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
 	My3DProject *proj = new My3DProject(display);
 	MyGUIScreen *gui = new MyGUIScreen(display, proj);
 	Framework::run_loop();
 	return 0;
 }
-
-
 
 
 
