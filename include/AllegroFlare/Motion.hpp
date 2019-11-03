@@ -49,12 +49,12 @@ namespace AllegroFlare
       void clear_all();
 
       // simple motion
-      void animate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float), void (*callback_func)(void *)=nullptr, void *callback_data=nullptr);
+      void animate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float)=interpolator::double_fast_in, void (*callback_func)(void *)=nullptr, void *callback_data=nullptr);
       void move(float *val, float displacement, float duration=0.4, float (*interpolator_func)(float)=interpolator::fast_in, void (*callback_func)(void *)=nullptr, void *callback_data=nullptr);
       void move_to(float *val, float dest_val, float duration=0.4, float (*interpolator_func)(float)=interpolator::fast_in, void (*callback_func)(void *)=nullptr, void *callback_data=nullptr);
 
       // same as above, but clears any existing animations on *val beforehand.
-      void canimate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float), void (*callback_func)(void *), void *callback_data);
+      void canimate(float *val, float start_val, float end_val, float start_time, float end_time, float (*interpolator_func)(float)=interpolator::double_fast_in, void (*callback_func)(void *)=nullptr, void *callback_data=nullptr);
       void cmove(float *val, float displacement, float duration=0.4, float (*interpolator_func)(float)=interpolator::fast_in, void (*callback_func)(void *)=nullptr, void *callback_data=nullptr);
       void cmove_to(float *val, float dest_val, float duration=0.4, float (*interpolator_func)(float)=interpolator::fast_in, void (*callback_func)(void *)=nullptr, void *callback_data=nullptr);
    };
