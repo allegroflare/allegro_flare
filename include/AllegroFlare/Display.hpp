@@ -39,7 +39,7 @@ namespace AllegroFlare
       ALLEGRO_DISPLAY *al_display;
       virtual void display_close_func();
 
-      void set_as_target_bitmap(); // untested
+      void set_as_target_bitmap();
 
       int width();
       int height();

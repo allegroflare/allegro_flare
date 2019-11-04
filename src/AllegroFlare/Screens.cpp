@@ -49,7 +49,7 @@ namespace AllegroFlare
       // then do screens in order sorted by displays.
       for (unsigned d=0; d<Display::displays.size(); d++)
       {
-         Display::displays[d]->clear();
+         Display::displays[d]->set_as_target_bitmap();
          for (unsigned i=0; i<screens.size(); i++)
          {
             if (screens[i]->display == Display::displays[d])
