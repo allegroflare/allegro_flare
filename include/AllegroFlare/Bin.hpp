@@ -240,6 +240,7 @@ namespace AllegroFlare
       // from the derived class.
       for (typename std::vector<Bin<T2, T>::Record *>::iterator it=record.begin(); it!=record.end(); it++)
       {
+         std::cout << CONSOLE_COLOR_YELLOW << "[clear] Destroying record \"" << (*it)->identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
          destroy_data((*it)->data);
          delete (*it);
       }
