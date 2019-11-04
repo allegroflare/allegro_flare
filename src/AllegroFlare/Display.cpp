@@ -10,6 +10,15 @@
 
 namespace AllegroFlare
 {
+   // in theory, a user would never interface with the backbuffer,
+   // they would only draw to sub-bitmaps of the backbuffer, each
+   // sub-bitmap belonging to a Screen.  In this way, no transforms
+   // or other projections would (should) ever be applied to the
+   // backbuffer bitmap.  Clearing and drawing a quad would not be
+   // "messed up" by any existing state
+
+
+
    Display *Display::find_display(ALLEGRO_DISPLAY *al_display)
    {
       for (unsigned i=0; i<displays.size(); i++)
@@ -80,26 +89,6 @@ namespace AllegroFlare
    void Display::background_color(const ALLEGRO_COLOR &color)
    {
       _background_color = color;
-   }
-
-
-   void Display::clear()
-   {
-      // in theory, a user would never interface with the backbuffer,
-      // they would only draw to sub-bitmaps of the backbuffer, each
-      // sub-bitmap belonging to a Screen.  In this way, no transforms
-      // or other projections would (should) ever be applied to the
-      // backbuffer bitmap.  Clearing and drawing a quad would not be
-      // "messed up" by any existing state
-
-      ALLEGRO_BITMAP *bbuffer = al_get_backbuffer(al_display);
-      //ALLEGRO_COLOR lightened = color::mix(_background_color, color::white, 0.25);
-      float w = al_get_bitmap_width(bbuffer);
-      float h = al_get_bitmap_height(bbuffer);
-
-      al_set_target_bitmap(bbuffer);
-
-      al_clear_to_color(_background_color);
    }
 }
 
