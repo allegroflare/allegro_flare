@@ -20,6 +20,8 @@ namespace AllegroFlare
       Timer();
       ~Timer();
 
+      bool is_running();
+
       void start();
       void pause();
 

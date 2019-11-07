@@ -20,6 +20,12 @@ namespace AllegroFlare
    }
 
 
+   bool Timer::is_running()
+   {
+      return running;
+   }
+
+
    void Timer::start()
    {
       if (running) return;
