@@ -150,7 +150,8 @@ namespace AllegroFlare
 
       primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
 
-      al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
+
+      al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
       //	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
       builtin_font = al_create_builtin_font();
