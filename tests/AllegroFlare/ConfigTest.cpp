@@ -1,9 +1,12 @@
 
 
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE Config
-#include <boost/test/unit_test.hpp>
 
+#define REQUIRES_LINKING_ALLEGRO_MAIN
+
+
+
+#include <gtest/gtest.h>
+#include <allegro5/allegro.h>
 
 
 
@@ -24,81 +27,88 @@ using namespace AllegroFlare;
 
 
 
-BOOST_AUTO_TEST_CASE(necessairy_test_file_exists)
+TEST(AllegroFlare_Config, necessairy_test_file_exists)
 {
    std::ifstream ifile(TEST_FILENAME);
-   BOOST_CHECK_EQUAL(true, (bool)ifile);
+   ASSERT_EQ(true, (bool)ifile);
 }
 
 
 
 
-BOOST_AUTO_TEST_CASE(retrieves_if_the_config_key_exists_in_the_global_space)
+TEST(AllegroFlare_Config, retrieves_if_the_config_key_exists_in_the_global_space)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
-   BOOST_CHECK_EQUAL(true, config.has_value("", "name"));
-   BOOST_CHECK_EQUAL(true, config.has_value("", "width"));
-   BOOST_CHECK_EQUAL(true, config.has_value("", "height"));
-   BOOST_CHECK_EQUAL(true, config.has_value("", "pi"));
-   BOOST_CHECK_EQUAL(false, config.has_value("", "foo"));
-   BOOST_CHECK_EQUAL(false, config.has_value("", "bar"));
-   BOOST_CHECK_EQUAL(false, config.has_value("", "baz"));
+   ASSERT_EQ(true, config.has_value("", "name"));
+   ASSERT_EQ(true, config.has_value("", "width"));
+   ASSERT_EQ(true, config.has_value("", "height"));
+   ASSERT_EQ(true, config.has_value("", "pi"));
+   ASSERT_EQ(false, config.has_value("", "foo"));
+   ASSERT_EQ(false, config.has_value("", "bar"));
+   ASSERT_EQ(false, config.has_value("", "baz"));
 }
 
 
 
 
-BOOST_AUTO_TEST_CASE(retrieves_a_string_value)
+TEST(AllegroFlare_Config, retrieves_a_string_value)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
-   BOOST_CHECK_EQUAL("Jordan", config.get_value_str("", "name"));
+   ASSERT_EQ("Jordan", config.get_value_str("", "name"));
 }
 
 
 
 
-BOOST_AUTO_TEST_CASE(retrieves_an_int_value)
+TEST(AllegroFlare_Config, retrieves_an_int_value)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
-   BOOST_CHECK_EQUAL(1080, config.get_value_int("", "width"));
-   BOOST_CHECK_EQUAL(320, config.get_value_int("", "height"));
+   ASSERT_EQ(1080, config.get_value_int("", "width"));
+   ASSERT_EQ(320, config.get_value_int("", "height"));
 }
 
 
 
 
-BOOST_AUTO_TEST_CASE(retrieves_a_float_value_within_a_margin_of_error)
+TEST(AllegroFlare_Config, retrieves_a_float_value_within_a_margin_of_error)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
-   BOOST_CHECK_CLOSE(3.14, config.get_value_float("", "pi"), 0.00001);
+   ASSERT_NEAR(3.14, config.get_value_float("", "pi"), 0.00001);
 }
 
 
 
 
-BOOST_AUTO_TEST_CASE(returns_a_default_value_if_a_section_and_key_does_not_exist)
+TEST(AllegroFlare_Config, returns_a_default_value_if_a_section_and_key_does_not_exist)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
-   BOOST_CHECK_EQUAL("Beary", config.get_or_default_str("", "hero", "Beary"));
-   BOOST_CHECK_EQUAL(42, config.get_or_default_int("", "speed", 42));
-   BOOST_CHECK_CLOSE(6.28, config.get_or_default_float("", "tau", 6.28), 0.00001);
+   ASSERT_EQ("Beary", config.get_or_default_str("", "hero", "Beary"));
+   ASSERT_EQ(42, config.get_or_default_int("", "speed", 42));
+   ASSERT_NEAR(6.28, config.get_or_default_float("", "tau", 6.28), 0.00001);
 }
 
+
+
+int main(int argc, char **argv)
+{
+   ::testing::InitGoogleTest(&argc, argv);
+   return RUN_ALL_TESTS();
+}
 
 
 
