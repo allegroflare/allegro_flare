@@ -146,7 +146,8 @@ namespace AllegroFlare
    {
       Bin<T2, T>::Record *r = get_record(identifier);
       if (r) return r->data;
-      std::cout << CONSOLE_COLOR_RED << "[" << __FUNCTION__ << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
+      std::string class_name = typeid(*this).name();
+      std::cout << CONSOLE_COLOR_RED << "[" << class_name << "::" << __FUNCTION__ << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
       return NULL;
    }
 
@@ -159,11 +160,13 @@ namespace AllegroFlare
 
       if (load(identifier, identifier))
       {
-         std::cout << CONSOLE_COLOR_YELLOW << "["  << __FUNCTION__  << "] Record \"" << identifier << "\" auto-created" << CONSOLE_COLOR_DEFAULT << std::endl;
+         std::string class_name = typeid(*this).name();
+         std::cout << CONSOLE_COLOR_YELLOW << "[" << class_name << "::" << __FUNCTION__  << "] Record \"" << identifier << "\" auto-created" << CONSOLE_COLOR_DEFAULT << std::endl;
          return get(identifier);
       }
 
-      std::cout << CONSOLE_COLOR_RED << "["  << __FUNCTION__  << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
+      std::string class_name = typeid(*this).name();
+      std::cout << CONSOLE_COLOR_RED << "[" << class_name << "::" << __FUNCTION__  << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
       return NULL;
    }
 
