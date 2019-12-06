@@ -12,6 +12,7 @@ namespace AllegroFlare
    private:
       std::string filename;
       ALLEGRO_CONFIG *config_file;
+      void ensure_initialized_allegro();
 
    public:
       Config(std::string filename);

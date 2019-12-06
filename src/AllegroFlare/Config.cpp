@@ -6,8 +6,6 @@
 #include <iostream>
 
 
-
-
 namespace AllegroFlare
 {
    Config::Config(std::string filename)
@@ -18,8 +16,20 @@ namespace AllegroFlare
 
 
 
+   void Config::ensure_initialized_allegro()
+   {
+      if (!al_is_system_installed()) throw std::runtime_error("[Config]: attempting to use AllegroFlare/Config but allegro is not initialized.  You must call al_init() before using any of the AllegroFlare/Config functions.");
+   }
+
+
+
    bool Config::load()
    {
+      ensure_initialized_allegro();
+
+      if (config_file) al_destroy_config(config_file);
+      config_file = al_load_config_file(filename.c_str());
+
       if (!config_file)
       {
          std::cerr << "[" << __FUNCTION__ << "] the file \"" << filename << "\" could not be found." << std::endl;
@@ -33,7 +43,7 @@ namespace AllegroFlare
 
    bool Config::has_value(std::string section, std::string key)
    {
-      if (!config_file) return false;
+      ensure_initialized_allegro();
       const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
       if (!val) return false;
       return true;
@@ -44,7 +54,7 @@ namespace AllegroFlare
 
    std::string Config::get_value_str(std::string section, std::string key)
    {
-      if (!config_file) return "";
+      ensure_initialized_allegro();
       const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
       if (!val) return "";
       return val;
@@ -55,7 +65,7 @@ namespace AllegroFlare
 
    int Config::get_value_int(std::string section, std::string key)
    {
-      if (!config_file) return 0;
+      ensure_initialized_allegro();
       const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
       if (!val) return 0;
       return atoi(val);
@@ -66,7 +76,7 @@ namespace AllegroFlare
 
    float Config::get_value_float(std::string section, std::string key)
    {
-      if (!config_file) return 0;
+      ensure_initialized_allegro();
       const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
       if (!val) return 0;
       return atof(val);
@@ -77,6 +87,7 @@ namespace AllegroFlare
 
    std::string Config::get_or_default_str(std::string section, std::string key, std::string _default)
    {
+      ensure_initialized_allegro();
       if (has_value(section, key)) return get_value_str(section, key);
       return _default;
    }
@@ -86,6 +97,7 @@ namespace AllegroFlare
 
    int Config::get_or_default_int(std::string section, std::string key, int _default)
    {
+      ensure_initialized_allegro();
       if (has_value(section, key)) return get_value_int(section, key);
       return _default;
    }
@@ -95,6 +107,7 @@ namespace AllegroFlare
 
    float Config::get_or_default_float(std::string section, std::string key, float _default)
    {
+      ensure_initialized_allegro();
       if (has_value(section, key)) return get_value_float(section, key);
       return _default;
    }
