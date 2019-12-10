@@ -1030,7 +1030,7 @@ public:
    ALLEGRO_COLOR text_color;
    float hide_counter;
 
-   TextNotification(Motion *motion, ALLEGRO_FONT *little_font, ALLEGRO_FONT *big_font, std::string text, float x, float y)
+   TextNotification(Motion *motion, std::string text, float x, float y)
       : lines(php::explode("\n", text))
       , center_x(x)
       , center_y(y)
@@ -1038,12 +1038,18 @@ public:
       , isd_it_visdible(false)
       , background_color(color::midnightblue)
       , text_color(color::white)
-      , little_font(little_font)
-      , big_font(big_font)
+      , little_font(nullptr)
+      , big_font(nullptr)
       , font(little_font)
       , hide_counter(0)
    {
       set_style(STYLE_INSTRUCTION);
+   }
+
+   void set_fonts(ALLEGRO_FONT *little_font, ALLEGRO_FONT *big_font)
+   {
+      this->little_font = little_font;
+      this->big_font = big_font;
    }
 
    void set_text(std::string text, int style=STYLE_INSTRUCTION)
@@ -1201,7 +1207,7 @@ public:
       , trigger_down(false)
       , refire_counter(0)
       , gun_fired(false)
-      , text_notification(&motion, fonts["DroidSans.ttf 30"], fonts["DroidSans.ttf 40"], "", display->width()/2, display->height()/3*2)
+      , text_notification(&motion, "", display->width()/2, display->height()/3*2)
       , frame_width(20)
       , viewport_width(1024/2-frame_width)
       , viewport_height((int)(viewport_width * (float)display->height()/display->width()-frame_width + 100))
@@ -1212,14 +1218,22 @@ public:
       , samples()
       , debug(false)
       , motion(50)
-      , gun_flash_a(bitmaps["gun_flash_a.png"])
-      , gun_sprite(bitmaps["gun_sprite3.png"])
+      , gun_flash_a(nullptr)
+      , gun_sprite(nullptr)
       , frame_color(color::black)
       , magazine_capacity(8)
       , bullets_in_magazine(magazine_capacity)
    {
       bitmaps.set_path("data/raycast_demo/bitmaps");
       samples.set_path("data/raycast_demo/samples");
+      fonts.set_path("data/fonts");
+
+
+      text_notification.set_fonts(fonts["DroidSans.ttf 30"], fonts["DroidSans.ttf 40"]);
+
+
+      gun_flash_a.bitmap(bitmaps["gun_flash_a.png"]);
+      gun_sprite.bitmap(bitmaps["gun_sprite3.png"]);
 
 
       direction = vec2d(-1, 0);
