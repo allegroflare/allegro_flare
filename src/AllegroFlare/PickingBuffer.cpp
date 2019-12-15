@@ -30,13 +30,14 @@ namespace AllegroFlare
 
    PickingBuffer::~PickingBuffer()
    {
-      al_destroy_bitmap(surface_render);
+      if (surface_render) al_destroy_bitmap(surface_render);
    }
 
 
 
    void PickingBuffer::initialize()
    {
+      if (surface_render) al_destroy_bitmap(surface_render);
       surface_render = create_new_surface(w, h, depth);
       if (!surface_render) throw std::runtime_error("surface_render not created");
       clear_surface();
