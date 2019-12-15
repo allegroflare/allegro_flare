@@ -37,6 +37,7 @@ TEST(AllegroFlare_PickingBufferTest, creates_a_render_surface_with_or_without_a_
    ASSERT_EQ(32, al_get_bitmap_depth(id_picker_2->get_surface_render()));
 
 
+   al_destroy_display(display);
    al_uninstall_system();
 }
 
@@ -59,6 +60,7 @@ TEST(AllegroFlare_PickingBufferTest, creates_a_render_surface_without_multisampl
    ASSERT_EQ(32, al_get_new_bitmap_samples());
 
 
+   al_destroy_display(display);
    al_uninstall_system();
 }
 
