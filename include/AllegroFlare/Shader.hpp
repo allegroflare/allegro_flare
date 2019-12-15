@@ -27,10 +27,6 @@ namespace AllegroFlare
       // initialize
       void initialize();
 
-      // activate and deactivate
-      void activate();
-      static void stop();
-
       // set uniforms and attributes
       // (these apply only to the /currently active/ shader, and not necessairly
       // this Shader object)
@@ -42,6 +38,10 @@ namespace AllegroFlare
       static bool set_vec3(const char *name, float x, float y, float z);
       static bool set_vec3(const char *name, const AllegroFlare::vec3d vec);
       static bool set_vec4(const char *name, float x, float y, float z, float a);
+
+      // activate and deactivate
+      void activate();
+      static void deactivate();
    };
 }
 

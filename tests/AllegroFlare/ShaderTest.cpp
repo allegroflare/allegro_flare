@@ -42,9 +42,9 @@ protected:
 };
 
 
-TEST_F(AllegroFlare_ShaderTest, can_be_created_without_blowing_up)
-{
-   AllegroFlare::Shader shader;
-}
+//TEST_F(AllegroFlare_ShaderTest, can_be_created_without_blowing_up)
+//{
+   //AllegroFlare::Shader shader;
+//}
 
 

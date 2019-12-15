@@ -11,11 +11,13 @@
 
 namespace AllegroFlare
 {
-   Shader::Shader(std::string vertex_source_filename, std::string fragment_source_filename)
-      : vertex_source_filename(vertex_source_filename)
-      , fragment_source_filename(fragment_source_filename)
-      , shader(nullptr)
+   void Shader::build()
    {
+      if (!al_build_shader(shader))
+      {
+         std::cerr << "There were errors when building the shader:" << std::endl;
+         std::cerr << al_get_shader_log(shader) << std::endl;
+      }
    }
 
 
@@ -66,12 +68,11 @@ namespace AllegroFlare
 
 
 
-   void Shader::initialize()
+   Shader::Shader(std::string vertex_source_filename, std::string fragment_source_filename)
+      : vertex_source_filename(vertex_source_filename)
+      , fragment_source_filename(fragment_source_filename)
+      , shader(nullptr)
    {
-      shader = al_create_shader(ALLEGRO_SHADER_GLSL);
-      if (!shader) throw std::runtime_error("Could not create Shader");
-
-      attach_source_files(vertex_source_filename.c_str(), fragment_source_filename.c_str());
    }
 
 
@@ -83,27 +84,12 @@ namespace AllegroFlare
 
 
 
-   void Shader::activate()
+   void Shader::initialize()
    {
-      al_use_shader(shader);
-   }
+      shader = al_create_shader(ALLEGRO_SHADER_GLSL);
+      if (!shader) throw std::runtime_error("Could not create Shader");
 
-
-
-   void Shader::build()
-   {
-      if (!al_build_shader(shader))
-      {
-         std::cerr << "There were errors when building the shader:" << std::endl;
-         std::cerr << al_get_shader_log(shader) << std::endl;
-      }
-   }
-
-
-
-   void Shader::stop()
-   {
-      al_use_shader(NULL);
+      attach_source_files(vertex_source_filename.c_str(), fragment_source_filename.c_str());
    }
 
 
@@ -162,6 +148,20 @@ namespace AllegroFlare
    {
       float vec4[4] = {x, y, z, a};
       return al_set_shader_float_vector(name, 4, &vec4[0], 1);
+   }
+
+
+
+   void Shader::activate()
+   {
+      al_use_shader(shader);
+   }
+
+
+
+   void Shader::deactivate()
+   {
+      al_use_shader(nullptr);
    }
 }
 
