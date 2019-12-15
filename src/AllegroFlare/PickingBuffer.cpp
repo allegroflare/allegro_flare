@@ -21,10 +21,8 @@ namespace AllegroFlare
       : surface_render(nullptr)
       , w(w)
       , h(h)
+      , depth(depth)
    {
-      surface_render = create_new_surface(w, h, depth);
-      if (!surface_render) throw std::runtime_error("surface_render not created");
-      clear_surface();
    }
 
 
@@ -36,6 +34,13 @@ namespace AllegroFlare
    }
 
 
+
+   void PickingBuffer::initialize()
+   {
+      surface_render = create_new_surface(w, h, depth);
+      if (!surface_render) throw std::runtime_error("surface_render not created");
+      clear_surface();
+   }
 
 
    ALLEGRO_BITMAP *PickingBuffer::create_new_surface(int w, int h, int depth)

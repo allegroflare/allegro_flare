@@ -11,6 +11,7 @@ namespace AllegroFlare
    private:
       ALLEGRO_BITMAP *surface_render;
       int w, h;
+      int depth;
 
       ALLEGRO_BITMAP *create_new_surface(int w, int h, int depth);
       static int decode_id(ALLEGRO_COLOR color);
@@ -21,6 +22,8 @@ namespace AllegroFlare
 
       PickingBuffer(int w, int h, int depth);
       ~PickingBuffer();
+
+      void initialize();
 
       void clear_surface();
       ALLEGRO_BITMAP *get_surface_render();
