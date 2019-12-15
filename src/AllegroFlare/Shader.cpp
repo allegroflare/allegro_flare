@@ -11,7 +11,6 @@
 
 namespace AllegroFlare
 {
-   // for now, shaders will be GLSL in AllegroFlare.  This should eventually change in the future
    Shader::Shader(std::string vertex_source_filename, std::string fragment_source_filename)
       : vertex_source_filename(vertex_source_filename)
       , fragment_source_filename(fragment_source_filename)
