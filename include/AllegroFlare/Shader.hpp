@@ -24,6 +24,8 @@ namespace AllegroFlare
       Shader(std::string vertex_source_filename="", std::string fragment_source_filename="");
       ~Shader();
 
+      void initialize();
+
       // initialize
       void attach_source_files(const char *vertex_source_filename, const char *fragment_source_filename);
       void attach_source_code(const char *vertex_source_code, const char *fragment_source_code);

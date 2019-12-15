@@ -20,6 +20,13 @@ namespace AllegroFlare
       , fragment_source_filename(fragment_source_filename)
       , shader(nullptr)
    {
+   }
+
+
+
+
+   void Shader::initialize()
+   {
       shader = al_create_shader(ALLEGRO_SHADER_GLSL);
       if (!shader) std::cerr << "There was a problem creating a shader." << std::endl;
 
