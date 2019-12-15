@@ -15,12 +15,13 @@ namespace AllegroFlare
    class Shader
    {
    private:
+      std::string vertex_source_filename;
+      std::string fragment_source_filename;
       ALLEGRO_SHADER *shader;
       void build();
 
    public:
-      Shader(const char *vertex_source_filename, const char *fragment_source_filename);
-      Shader();
+      Shader(std::string vertex_source_filename="", std::string fragment_source_filename="");
       ~Shader();
 
       // initialize

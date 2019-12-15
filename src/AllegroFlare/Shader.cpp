@@ -5,7 +5,7 @@
 
 
 
-#include <allegro_flare/shader.h>
+#include <AllegroFlare/Shader.hpp>
 
 #include <iostream>
 
@@ -15,21 +15,15 @@
 namespace AllegroFlare
 {
    // for now, shaders will be GLSL in AllegroFlare.  This should eventually change in the future
-   Shader::Shader(const char *vertex_source_filename, const char *fragment_source_filename)
-      : shader(al_create_shader(ALLEGRO_SHADER_GLSL))
+   Shader::Shader(std::string vertex_source_filename, std::string fragment_source_filename)
+      : vertex_source_filename(vertex_source_filename)
+      , fragment_source_filename(fragment_source_filename)
+      , shader(nullptr)
    {
+      shader = al_create_shader(ALLEGRO_SHADER_GLSL);
       if (!shader) std::cerr << "There was a problem creating a shader." << std::endl;
 
-      attach_source_files(vertex_source_filename, fragment_source_filename);
-   }
-
-
-
-
-   Shader::Shader()
-      : shader(al_create_shader(ALLEGRO_SHADER_GLSL))
-   {
-      if (!shader) std::cerr << "There was a problem creating a shader." << std::endl;
+      attach_source_files(vertex_source_filename.c_str(), fragment_source_filename.c_str());
    }
 
 
