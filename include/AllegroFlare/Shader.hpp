@@ -28,7 +28,7 @@ namespace AllegroFlare
       void initialize();
 
       // activate and deactivate
-      void use();
+      void activate();
       static void stop();
 
       // set uniforms and attributes

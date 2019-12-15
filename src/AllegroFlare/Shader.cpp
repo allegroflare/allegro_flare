@@ -83,7 +83,7 @@ namespace AllegroFlare
 
 
 
-   void Shader::use()
+   void Shader::activate()
    {
       al_use_shader(shader);
    }
