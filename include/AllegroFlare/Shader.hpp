@@ -1,12 +1,9 @@
-#ifndef __AF_SHADER_HEADER
-#define __AF_SHADER_HEADER
-
+#pragma once
 
 
 
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Vec3D.hpp>
-
 
 
 
@@ -49,7 +46,4 @@ namespace AllegroFlare
 }
 
 
-
-
-#endif
 

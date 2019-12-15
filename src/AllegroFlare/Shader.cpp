@@ -1,14 +1,11 @@
 
 
-
 #define ALLEGRO_UNSTABLE
-
 
 
 #include <AllegroFlare/Shader.hpp>
 
 #include <iostream>
-
 
 
 
@@ -24,7 +21,6 @@ namespace AllegroFlare
 
 
 
-
    void Shader::initialize()
    {
       shader = al_create_shader(ALLEGRO_SHADER_GLSL);
@@ -35,7 +31,6 @@ namespace AllegroFlare
 
 
 
-
    Shader::~Shader()
    {
       al_destroy_shader(shader);
@@ -43,12 +38,10 @@ namespace AllegroFlare
 
 
 
-
    void Shader::use()
    {
       al_use_shader(shader);
    }
-
 
 
 
@@ -75,7 +68,6 @@ namespace AllegroFlare
 
 
 
-
    void Shader::attach_source_code(const char *vertex_source_code, const char *fragment_source_code)
    {
       if (vertex_source_code)
@@ -99,7 +91,6 @@ namespace AllegroFlare
 
 
 
-
    void Shader::build()
    {
       if (!al_build_shader(shader))
@@ -111,12 +102,10 @@ namespace AllegroFlare
 
 
 
-
    void Shader::stop()
    {
       al_use_shader(NULL);
    }
-
 
 
 
@@ -127,12 +116,10 @@ namespace AllegroFlare
 
 
 
-
    bool Shader::set_mat4(const char *name, ALLEGRO_TRANSFORM *t)
    {
       return al_set_shader_matrix(name, t);
    }
-
 
 
 
@@ -143,7 +130,6 @@ namespace AllegroFlare
 
 
 
-
    bool Shader::set_float(const char *name, float f)
    {
       return al_set_shader_float(name, f);
@@ -151,12 +137,10 @@ namespace AllegroFlare
 
 
 
-
    bool Shader::set_bool(const char *name, bool b)
    {
       return al_set_shader_bool(name, b);
    }
-
 
 
 
@@ -168,12 +152,10 @@ namespace AllegroFlare
 
 
 
-
    bool Shader::set_vec3(const char *name, const AllegroFlare::vec3d vec)
    {
       return set_vec3(name, vec.x, vec.y, vec.z);
    }
-
 
 
 
