@@ -60,20 +60,3 @@ TEST(AllegroFlare_PickingBufferTest, creates_a_render_surface_without_multisampl
 }
 
 
-TEST(AllegroFlare_PickingBufferTest, when_unable_to_create_a_surface_area_raises_an_exception)
-{
-   ASSERT_EQ(false, al_is_system_installed());
-   ASSERT_EQ(true, al_init());
-
-   ALLEGRO_DISPLAY *display = al_create_display(800, 600);
-   ASSERT_NE(nullptr, display);
-
-
-   ASSERT_THROW_WITH_MESSAGE(new PickingBuffer(-1, -1, 0), std::runtime_error, "");
-
-
-   al_uninstall_system();
-}
-
-
-
