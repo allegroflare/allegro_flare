@@ -20,7 +20,7 @@ namespace AllegroFlare
    public:
       static const int ID_MAX = 16777216;
 
-      PickingBuffer(int w, int h, int depth);
+      PickingBuffer(int w=1, int h=1, int depth=0);
       ~PickingBuffer();
 
       void initialize();
