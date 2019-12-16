@@ -100,3 +100,22 @@ TEST_F(AllegroFlare_ShaderTest, initialize__creates_the_shader)
 }
 
 
+TEST_F(AllegroFlare_ShaderTest, initialize__with_invalid_vertex_code_raises_an_exception)
+{
+   std::string invalid_vertex_source_code = R"DELIM(
+      attribute vec4 al_color;
+      attribute vec4 al_pos;
+      varying vec4 varying_color;
+      void main()
+      {
+         varying_color = al_color;
+         gl_Position = al_projview_matrix * al_pos;
+      }
+   )DELIM";
+
+   AllegroFlare::Shader shader(invalid_vertex_source_code, FRAGMENT_SHADER_SOURCE);
+   std::string expected_error_message = "There was an error attaching the VERTEX shader source code:\nERROR: 0:8: Use of undeclared identifier 'al_projview_matrix'\n";
+   ASSERT_THROW_WITH_MESSAGE(shader.initialize(), std::runtime_error, expected_error_message);
+}
+
+
