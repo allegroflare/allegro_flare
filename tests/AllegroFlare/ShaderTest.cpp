@@ -119,3 +119,21 @@ TEST_F(AllegroFlare_ShaderTest, initialize__with_invalid_vertex_code_raises_an_e
 }
 
 
+TEST_F(AllegroFlare_ShaderTest, initialize__with_invalid_fragment_code_raises_an_exception)
+{
+   std::string invalid_fragment_source_code = R"DELIM(
+      uniform sampler2D al_tex;
+      varying vec2 varying_texcoord;
+      void main()
+      {
+         vec4 tmp = texture2D(al_tex, varying_texcoord);
+         gl_FURAHgColor = tmp;
+      }
+   )DELIM";
+
+   AllegroFlare::Shader shader(VERTEX_SHADER_SOURCE, invalid_fragment_source_code);
+   std::string expected_error_message = "There was an error attaching the FRAGMENT shader source code:\nERROR: 0:7: Use of undeclared identifier 'gl_FURAHgColor'\n";
+   ASSERT_THROW_WITH_MESSAGE(shader.initialize(), std::runtime_error, expected_error_message);
+}
+
+

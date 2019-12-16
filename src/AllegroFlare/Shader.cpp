@@ -35,9 +35,10 @@ namespace AllegroFlare
 
       if (!al_attach_shader_source(shader, ALLEGRO_PIXEL_SHADER, fragment_source_code.c_str()))
       {
-         std::cerr << "There was an error attaching the FRAGMENT shader source code:"
-            << std::endl << al_get_shader_log(shader)
-            << std::endl;
+         std::stringstream error_message;
+         error_message << "There was an error attaching the FRAGMENT shader source code:"
+            << std::endl << al_get_shader_log(shader);
+         throw std::runtime_error(error_message.str());
       }
    }
 
