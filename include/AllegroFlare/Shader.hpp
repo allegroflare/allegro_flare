@@ -14,16 +14,16 @@ namespace AllegroFlare
    private:
       std::string vertex_source_code;
       std::string fragment_source_code;
-      std::string vertex_source_filename;
-      std::string fragment_source_filename;
+      //std::string vertex_source_filename;
+      //std::string fragment_source_filename;
       ALLEGRO_SHADER *shader;
       void build();
-      void attach_source_files(const char *vertex_source_filename, const char *fragment_source_filename);
+      //void attach_source_files(const char *vertex_source_filename, const char *fragment_source_filename);
       void attach_source_code();
 
 
    public:
-      Shader(std::string vertex_source_filename="", std::string fragment_source_filename="");
+      Shader(std::string vertex_source_code="", std::string fragment_source_code="");
       ~Shader();
 
       // initialize

@@ -23,30 +23,30 @@ namespace AllegroFlare
 
 
 
-   void Shader::attach_source_files(const char *vertex_source_filename, const char *fragment_source_filename)
-   {
-      if (!al_attach_shader_source_file(shader, ALLEGRO_VERTEX_SHADER, vertex_source_filename))
-      {
-         std::stringstream error_message;
-         error_message << "There was an error attaching the VERTEX shader source from file:"
-            << std::endl << "\"" << vertex_source_filename << "\""
-            << std::endl << al_get_shader_log(shader)
-            << std::endl;
-         throw std::runtime_error(error_message.str());
-      }
+   //void Shader::attach_source_files(const char *vertex_source_filename, const char *fragment_source_filename)
+   //{
+      //if (!al_attach_shader_source_file(shader, ALLEGRO_VERTEX_SHADER, vertex_source_filename))
+      //{
+         //std::stringstream error_message;
+         //error_message << "There was an error attaching the VERTEX shader source from file:"
+            //<< std::endl << "\"" << vertex_source_filename << "\""
+            //<< std::endl << al_get_shader_log(shader)
+            //<< std::endl;
+         //throw std::runtime_error(error_message.str());
+      //}
 
-      if (!al_attach_shader_source_file(shader, ALLEGRO_PIXEL_SHADER, fragment_source_filename))
-      {
-         std::stringstream error_message;
-         error_message << "There was an error attaching the FRAGMENT shader source from file:"
-            << std::endl << "\"" << fragment_source_filename << "\""
-            << std::endl << al_get_shader_log(shader)
-            << std::endl;
-         throw std::runtime_error(error_message.str());
-      }
+      //if (!al_attach_shader_source_file(shader, ALLEGRO_PIXEL_SHADER, fragment_source_filename))
+      //{
+         //std::stringstream error_message;
+         //error_message << "There was an error attaching the FRAGMENT shader source from file:"
+            //<< std::endl << "\"" << fragment_source_filename << "\""
+            //<< std::endl << al_get_shader_log(shader)
+            //<< std::endl;
+         //throw std::runtime_error(error_message.str());
+      //}
 
-      build();
-   }
+      //build();
+   //}
 
 
 
@@ -61,15 +61,13 @@ namespace AllegroFlare
          std::cerr << "There was an error attaching the FRAGMENT shader source code:"
             << std::endl << al_get_shader_log(shader)
             << std::endl;
-
-      build();
    }
 
 
 
-   Shader::Shader(std::string vertex_source_filename, std::string fragment_source_filename)
-      : vertex_source_filename(vertex_source_filename)
-      , fragment_source_filename(fragment_source_filename)
+   Shader::Shader(std::string vertex_source_code, std::string fragment_source_code)
+      : vertex_source_code(vertex_source_code)
+      , fragment_source_code(fragment_source_code)
       , shader(nullptr)
    {
    }
@@ -88,7 +86,9 @@ namespace AllegroFlare
       shader = al_create_shader(ALLEGRO_SHADER_GLSL);
       if (!shader) throw std::runtime_error("Could not create Shader");
 
-      attach_source_files(vertex_source_filename.c_str(), fragment_source_filename.c_str());
+      attach_source_code();
+
+      build();
    }
 
 

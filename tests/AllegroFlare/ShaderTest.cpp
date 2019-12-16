@@ -35,7 +35,6 @@ void main()
 
 
 const std::string FRAGMENT_SHADER_SOURCE = R"DELIM(
-attribute vec4 al_pos;
 uniform sampler2D al_tex;
 uniform float tint_intensity;
 uniform vec3 tint;
@@ -95,15 +94,8 @@ TEST_F(AllegroFlare_ShaderTest, can_be_created_without_blowing_up)
 
 TEST_F(AllegroFlare_ShaderTest, initialize__creates_the_shader)
 {
-   std::string path = "/Users/markoates/Repos/allegro_flare/";
-
-   AllegroFlare::Shader shader(
-         path + "bin/tests/AllegroFlare/data/shaders/" + "flat_color_shader.vertex.glsl",
-         path + "bin/tests/AllegroFlare/data/shaders/" + "flat_color_shader.fragment.glsl"
-      );
-
+   AllegroFlare::Shader shader(VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
    shader.initialize();
-
    SUCCEED();
 }
 
