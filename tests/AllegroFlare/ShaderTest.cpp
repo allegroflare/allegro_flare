@@ -15,6 +15,47 @@
 #include <AllegroFlare/Shader.hpp>
 
 
+
+const std::string VERTEX_SHADER_SOURCE = R"DELIM(
+attribute vec4 al_pos;
+attribute vec4 al_color;
+attribute vec2 al_texcoord;
+uniform mat4 al_projview_matrix;
+varying vec4 varying_color;
+varying vec2 varying_texcoord;
+
+void main()
+{
+   varying_color = al_color;
+   varying_texcoord = al_texcoord;
+   gl_Position = al_projview_matrix * al_pos;
+}
+)DELIM";
+
+
+
+const std::string FRAGMENT_SHADER_SOURCE = R"DELIM(
+attribute vec4 al_pos;
+uniform sampler2D al_tex;
+uniform float tint_intensity;
+uniform vec3 tint;
+varying vec4 varying_color;
+varying vec2 varying_texcoord;
+
+void main()
+{
+   vec4 tmp = texture2D(al_tex, varying_texcoord);
+   float inverse_tint_intensity = 1.0 - tint_intensity;
+   tmp.r = (tmp.r * inverse_tint_intensity + tint.r * tint_intensity) * tmp.a;
+   tmp.g = (tmp.g * inverse_tint_intensity + tint.g * tint_intensity) * tmp.a;
+   tmp.b = (tmp.b * inverse_tint_intensity + tint.b * tint_intensity) * tmp.a;
+   tmp.a = tmp.a;
+   gl_FragColor = tmp;
+}
+)DELIM";
+
+
+
 class AllegroFlare_ShaderTest : public ::testing::Test
 {
 protected:
