@@ -40,7 +40,7 @@ namespace AllegroFlare
 
       // activate and deactivate
       void activate();
-      static void deactivate();
+      void deactivate();
    };
 }
 
