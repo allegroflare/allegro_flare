@@ -23,33 +23,6 @@ namespace AllegroFlare
 
 
 
-   //void Shader::attach_source_files(const char *vertex_source_filename, const char *fragment_source_filename)
-   //{
-      //if (!al_attach_shader_source_file(shader, ALLEGRO_VERTEX_SHADER, vertex_source_filename))
-      //{
-         //std::stringstream error_message;
-         //error_message << "There was an error attaching the VERTEX shader source from file:"
-            //<< std::endl << "\"" << vertex_source_filename << "\""
-            //<< std::endl << al_get_shader_log(shader)
-            //<< std::endl;
-         //throw std::runtime_error(error_message.str());
-      //}
-
-      //if (!al_attach_shader_source_file(shader, ALLEGRO_PIXEL_SHADER, fragment_source_filename))
-      //{
-         //std::stringstream error_message;
-         //error_message << "There was an error attaching the FRAGMENT shader source from file:"
-            //<< std::endl << "\"" << fragment_source_filename << "\""
-            //<< std::endl << al_get_shader_log(shader)
-            //<< std::endl;
-         //throw std::runtime_error(error_message.str());
-      //}
-
-      //build();
-   //}
-
-
-
    void Shader::attach_source_code()
    {
       if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
