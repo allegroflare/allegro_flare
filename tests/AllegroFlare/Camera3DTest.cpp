@@ -14,6 +14,7 @@
 
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/Model3D.hpp>
 
 
 class AllegroFlare_Camera3DTest : public ::testing::Test
@@ -48,7 +49,11 @@ protected:
 
 TEST_F(AllegroFlare_Camera3DTest, can_be_created_without_blowing_up)
 {
-   //AllegroFlare::Camera3D camera;
+   AllegroFlare::vec3d position(0, 0, 0);
+   AllegroFlare::vec3d view_vector(0, 0, 1);
+   AllegroFlare::vec3d up_vector(0, 1, 0);
+
+   AllegroFlare::Camera3D camera(position, view_vector, up_vector);
 }
 
 
