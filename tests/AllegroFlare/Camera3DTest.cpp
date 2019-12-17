@@ -54,6 +54,7 @@ TEST_F(AllegroFlare_Camera3DTest, can_be_created_without_blowing_up)
    AllegroFlare::vec3d up_vector(0, 1, 0);
 
    AllegroFlare::Camera3D camera(position, view_vector, up_vector);
+   SUCCEED();
 }
 
 
