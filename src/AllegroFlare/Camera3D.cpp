@@ -4,6 +4,7 @@
 #include <AllegroFlare/Camera3D.hpp>
 
 #include <AllegroFlare/Vec2D.hpp>
+#include <AllegroFlare/Frustum.hpp>
 #include <AllegroFlare/Useful.hpp>
 
 
@@ -114,8 +115,8 @@ namespace AllegroFlare
 
 
 
-
-      Frustum frustum = get_frustum(d);
+      Frustum frustum(al_get_display_width(d), al_get_display_height(d), 500, 0.0001);
+      //Frustum frustum = get_frustum(d);
 
 
 
@@ -174,14 +175,6 @@ namespace AllegroFlare
    void Camera3D::look_at(AllegroFlare::vec3d target)
    {
       view_vector = (target - position).normalized();
-   }
-
-
-
-
-   Frustum Camera3D::get_frustum(ALLEGRO_DISPLAY *d)
-   {
-      return Frustum(al_get_display_width(d), al_get_display_height(d), 500, 0.0001);
    }
 }
 

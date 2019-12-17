@@ -3,7 +3,6 @@
 
 
 #include <allegro5/allegro.h>
-#include <AllegroFlare/Frustum.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 
 
@@ -58,8 +57,6 @@ namespace AllegroFlare
 
       void look_at(AllegroFlare::vec3d target);
       void update_camera_tracking(AllegroFlare::vec3d targets_position, AllegroFlare::vec3d targets_view_vector);
-
-      Frustum get_frustum(ALLEGRO_DISPLAY *d);
    };
 }
 
