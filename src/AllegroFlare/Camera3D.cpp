@@ -115,56 +115,31 @@ namespace AllegroFlare
 
 
 
-      Frustum frustum(al_get_display_width(d), al_get_display_height(d), 500, 0.0001);
-      //Frustum frustum = get_frustum(d);
-
-
+      // assemble the appropriate transform
 
 
       ALLEGRO_TRANSFORM transform;
 
       al_identity_transform(&transform);
 
-      // ... ok... I don't know why this transform requires a (+0.5, +0.5, 0) but if it's not there,
-      // then the camera does not stick on the point 0, 0.  maybe it has something to do with
-      // the view vector, maybe something with ALLEGRO doing pixel coordinates,
-      // but I'm a little unsure, hopefully this line will be resolved properly somewherre else and
-      // not needed in the future: 
-      //al_translate_transform_3d(&transform, 0.5, 0.5, 0); // HHHHAAAAAALLLLLEEELULAAHH! o:D
-
-      al_translate_transform_3d(&transform, -position.x-stepback.x, -position.y-stepback.y, -position.z-stepback.z); // hmm, using negatives is new
-      //al_translate_transform_3d(&transform, , , ); // hmm, using negatives is new
-
+      al_translate_transform_3d(&transform, -position.x-stepback.x, -position.y-stepback.y, -position.z-stepback.z);
 
       AllegroFlare::vec2d thing(view_vector.x, view_vector.z);
-      // HEY, so rotation.y == thing.GetAngle()
-      // TODO: figure out these rotations:
-      // This one is not correct:
-      // al_rotate_transform_3d(&transform, 0, 0, 1, 0.1 * TAU); //  tilt the camera to look downward slightly
-      // I believe this one is correct:
-
-      al_rotate_transform_3d(&transform, 0, 1, 0, thing.get_angle() + AllegroFlare::TAU/4);//(al_get_time()*0.2));
-
-      // This one, *might* be correct:
-      //al_rotate_transform_3d(&transform, 1, 0, 0, vec2d(view_vector.y, view_vector.z).get_angle() - TAU/4);
-
-
-
-      // this is the vector for roll
-      //al_rotate_transform_3d(&transform, 0, 0, 1, (TAU/2)); // flip the world ... ? // maybe this messes with the strafe and up vectors
-
-
-
+      al_rotate_transform_3d(&transform, 0, 1, 0, thing.get_angle() + AllegroFlare::TAU/4);
       al_rotate_transform_3d(&transform, 0, 1, 0, stepback_rotation.y); //  tilt the camera to look downward slightly
-      //al_rotate_transform_3d(&transform, 1, 0, 0, pitch); //  tilt the camera to look downward slightly			
-      //al_translate_transform_3d(&transform, stepback.x, stepback.y, stepback.z); // hmm, using negatives is new
       al_rotate_transform_3d(&transform, -1, 0, 0, stepback_pitch + pitch); //  the up-down tilt of the camera
 
 
 
+      // setup projection
+
+
+      Frustum frustum(al_get_display_width(d), al_get_display_height(d), 500, 0.0001);
+
       al_perspective_transform(&transform,
             frustum.left, frustum.top, frustum.znear,
             frustum.right, frustum.bottom, frustum.zfar);
+
 
       al_use_projection_transform(&transform);
    }
