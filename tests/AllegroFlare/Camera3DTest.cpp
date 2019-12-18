@@ -58,3 +58,16 @@ TEST_F(AllegroFlare_Camera3DTest, can_be_created_without_blowing_up)
 }
 
 
+TEST_F(AllegroFlare_Camera3DTest, clear_screen_and_start_transform__with_reasonable_argument_works)
+{
+   AllegroFlare::vec3d position(0, 0, 0);
+   AllegroFlare::vec3d view_vector(0, 0, 1);
+   AllegroFlare::vec3d up_vector(0, 1, 0);
+   ALLEGRO_DISPLAY *display = al_get_current_display();
+
+   AllegroFlare::Camera3D camera(position, view_vector, up_vector);
+   camera.clear_screen_and_start_transform(display);
+   SUCCEED();
+}
+
+
