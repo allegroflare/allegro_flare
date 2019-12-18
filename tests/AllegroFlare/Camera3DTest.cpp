@@ -16,6 +16,7 @@
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/Model3D.hpp>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_color.h>
 
 
 class AllegroFlare_Camera3DTest : public ::testing::Test
@@ -72,6 +73,60 @@ TEST_F(AllegroFlare_Camera3DTest, clear_screen_and_start_transform_on_current_bi
 
    al_init_image_addon();
    al_save_bitmap("tmp/hello_world.png", al_get_backbuffer(current_display));
+
+   al_flip_display();
+
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Camera3DTest, with_stepback__renders_the_expected_output)
+{
+   AllegroFlare::vec3d position(0, 0, -5);
+   AllegroFlare::vec3d view_vector(0, 0, 1);
+   AllegroFlare::vec3d up_vector(0, 1, 0);
+
+   AllegroFlare::Camera3D camera(position, view_vector, up_vector);
+   camera.clear_screen_and_start_transform_on_current_bitmap();
+
+   ALLEGRO_DISPLAY *current_display = al_get_current_display();
+
+   al_init_image_addon();
+   al_save_bitmap("tmp/hello_world.png", al_get_backbuffer(current_display));
+
+   al_draw_filled_rectangle(-0.1, -0.1, 0.1, 0.1, al_color_name("white"));
+
+   al_flip_display();
+
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Camera3DTest, with_stepback__renders_the_expected_output_2)
+{
+   AllegroFlare::vec3d position(0, 0, -4);
+   AllegroFlare::vec3d view_vector(0, 0, 1);
+   AllegroFlare::vec3d up_vector(0, 1, 0);
+
+   AllegroFlare::Camera3D camera(position, view_vector, up_vector);
+   camera.clear_screen_and_start_transform_on_current_bitmap();
+
+   ALLEGRO_DISPLAY *current_display = al_get_current_display();
+
+   al_init_image_addon();
+   al_save_bitmap("tmp/hello_world.png", al_get_backbuffer(current_display));
+
+   float x, y = 0;
+   al_draw_filled_rectangle(-0.1+x, -0.1+y, 0.1+x, 0.1+y, al_color_name("white"));
+
+   x = 1; y = 1;
+   al_draw_filled_rectangle(-0.1+x, -0.1+y, 0.1+x, 0.1+y, al_color_name("yellow"));
+
+   x = -2; y = -1;
+   al_draw_filled_rectangle(-0.1+x, -0.1+y, 0.1+x, 0.1+y, al_color_name("orange"));
+
+   al_flip_display();
+   sleep(3);
 
    SUCCEED();
 }
