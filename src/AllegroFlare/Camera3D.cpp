@@ -22,7 +22,7 @@ namespace AllegroFlare
    {}
 
 
-   void Camera3D::start_transform(ALLEGRO_DISPLAY *d)
+   void Camera3D::start_transform()
    {
       // create the view transform
       ALLEGRO_TRANSFORM transform;
@@ -34,9 +34,18 @@ namespace AllegroFlare
       al_rotate_transform_3d(&transform, -1, 0, 0, stepback_pitch + pitch); //  the up-down tilt of the camera
 
 
+      ALLEGRO_BITMAP *target_bitmap = al_get_target_bitmap();
+      if (!target_bitmap) throw std::runtime_error("[Camera3D:start_transform]: cannot set on a nullptr target_bitmap");
+
+
+
+      int width = al_get_bitmap_width(target_bitmap);
+      int height = al_get_bitmap_height(target_bitmap);
+
+
 
       // setup projection
-      Frustum frustum(al_get_display_width(d), al_get_display_height(d), 500, 0.0001);
+      Frustum frustum(width, height, 500, 0.0001);
       al_perspective_transform(&transform,
             frustum.left, frustum.top, frustum.znear,
             frustum.right, frustum.bottom, frustum.zfar);
@@ -45,22 +54,20 @@ namespace AllegroFlare
 
 
    // might want to rename this function to something else
-   void Camera3D::clear_screen_and_start_transform(ALLEGRO_DISPLAY *d)
+   void Camera3D::clear_screen_and_start_transform_on_current_bitmap()
    {
-      if (!d) return;
-
-
-
-
       /// hrmkay...
       al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
       al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
       al_clear_depth_buffer(1); 
 
 
+      al_clear_to_color(al_color_name("maroon"));
+
+
 
       // assemble the appropriate transform
-      start_transform(d);
+      start_transform();
    }
 
 

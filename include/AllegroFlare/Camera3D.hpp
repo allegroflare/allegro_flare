@@ -23,8 +23,8 @@ namespace AllegroFlare
       AllegroFlare::vec3d stepback_rotation;
 
       Camera3D(AllegroFlare::vec3d position, AllegroFlare::vec3d view_vector=AllegroFlare::vec3d(0, 0, 1), AllegroFlare::vec3d up_vector=AllegroFlare::vec3d(0, 1, 0)); // yea, up vector should be positive
-      void start_transform(ALLEGRO_DISPLAY *d);
-      void clear_screen_and_start_transform(ALLEGRO_DISPLAY *d);
+      void start_transform();
+      void clear_screen_and_start_transform_on_current_bitmap();
 
       void look_at(AllegroFlare::vec3d target);
    };
