@@ -79,7 +79,7 @@ protected:
 
    virtual void TearDown() override
    {
-      if (display) al_destroy_display(display);
+      if (al_get_current_display()) al_destroy_display(al_get_current_display());
       al_uninstall_system();
    }
 };
