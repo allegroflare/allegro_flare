@@ -20,6 +20,8 @@ namespace AllegroFlare
       int get_item_count(int item_type);
       bool remove_item(int item_type);
 
+      std::vector<int> &get_items_ref();
+
       std::string get_str();
    };
 }

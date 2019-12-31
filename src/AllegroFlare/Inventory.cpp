@@ -37,6 +37,12 @@ namespace AllegroFlare
    }
 
 
+   std::vector<int> &Inventory::get_items_ref()
+   {
+      return items;
+   }
+
+
    int Inventory::get_item_count(int item_type)
    {
       int count = 0;
