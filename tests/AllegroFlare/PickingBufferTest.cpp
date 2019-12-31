@@ -21,7 +21,8 @@ using namespace AllegroFlare;
 
 TEST(AllegroFlare_PickingBufferTest, creates_a_render_surface_with_or_without_a_depth_buffer)
 {
-   ASSERT_EQ(false, al_is_system_installed());
+   //ASSERT_EQ(false, al_is_system_installed());
+   if (al_is_system_installed()) al_uninstall_system();
    ASSERT_EQ(true, al_init());
 
    ALLEGRO_DISPLAY *display = al_create_display(800, 600);
@@ -44,7 +45,8 @@ TEST(AllegroFlare_PickingBufferTest, creates_a_render_surface_with_or_without_a_
 
 TEST(AllegroFlare_PickingBufferTest, creates_a_render_surface_without_multisampling_and_restores_previous_bitmap_samples)
 {
-   ASSERT_EQ(false, al_is_system_installed());
+   //ASSERT_EQ(false, al_is_system_installed());
+   if (al_is_system_installed()) al_uninstall_system();
    ASSERT_EQ(true, al_init());
 
    ALLEGRO_DISPLAY *display = al_create_display(800, 600);
