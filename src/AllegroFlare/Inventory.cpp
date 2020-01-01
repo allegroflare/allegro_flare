@@ -12,6 +12,12 @@ namespace AllegroFlare
    {}
 
 
+   int Inventory::size()
+   {
+      return items.size();
+   }
+
+
    void Inventory::add_item(int item_type)
    {
       items.push_back(item_type);

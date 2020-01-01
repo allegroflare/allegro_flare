@@ -15,6 +15,8 @@ namespace AllegroFlare
    public:
       Inventory();
 
+      int size();
+
       void add_item(int item_type);
       bool has_item(int item_type);
       int get_item_count(int item_type);
