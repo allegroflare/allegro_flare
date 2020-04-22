@@ -24,9 +24,6 @@ namespace allegro_flare
       class SimpleNotification
       {
       public:
-         // note: order is important here,
-         // the initialization list requires some variables
-         // to be declared first
          std::string text;
          ALLEGRO_FONT *font;
          float lifespan;
