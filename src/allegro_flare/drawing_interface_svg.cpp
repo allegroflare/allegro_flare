@@ -27,7 +27,8 @@ namespace allegro_flare
    {}
 
 
-
+    // Has to be defined even if pure virtual, see https://stackoverflow.com/a/15113814
+   DrawingInterfaceSVG::~DrawingInterfaceSVG() {};
 
    /*
    std::string DrawingInterfaceSVG::get_xml_encoded_ustr(ALLEGRO_USTR *ustr)
