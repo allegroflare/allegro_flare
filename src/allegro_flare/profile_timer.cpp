@@ -112,7 +112,7 @@ namespace allegro_flare
 
       int linear_search(const char64_t name)
       {
-         for (int i=0; i<num_timers; i++)
+         for (int i=0; i<timer.size(); i++)
             if (strcmp(timer[i]->name, name)==0) return i;
          return -1;
       }
@@ -144,7 +144,7 @@ namespace allegro_flare
          */
       }
 
-      int get_timer_index(const char64_t name)
+      int get_or_create_timer_index(const char64_t name)
       {
          int index = 0;
 
@@ -177,7 +177,7 @@ namespace allegro_flare
       {
          PROFILE_TIMER_TIME_T time = (PROFILE_TIMER_TIME_T)al_get_time();
 
-         int index = get_timer_index(name);
+         int index = get_or_create_timer_index(name);
 
          // set the start time
          timer[index]->start_time = time;
@@ -187,12 +187,12 @@ namespace allegro_flare
       void stop_timer(const char64_t name, PROFILE_TIMER_TIME_T time_at)
       {
          // set the end time
-         timer[get_timer_index(name)]->stop_time = time_at;
+         timer[get_or_create_timer_index(name)]->stop_time = time_at;
       }
 
       double get_duration(const char64_t name)
       {
-         int index = get_timer_index(name);
+         int index = get_or_create_timer_index(name);
          return timer[index]->stop_time - timer[index]->start_time;
       }
 
