@@ -77,7 +77,7 @@ namespace AllegroFlare
       //std::vector<profile_timer_class *>::iterator it = Profiler::get_instance()->timer.begin();
       for (auto &timer : timers)
       {
-         float duration = timer.second.get_elappsed_time_msec() * 0.0001f;//(*it)->stop_time - (*it)->start_time;
+         float duration = timer.second.get_elappsed_time_msec() * 0.00001f;//(*it)->stop_time - (*it)->start_time;
          al_draw_filled_rectangle(x, y+pad+line_height*i+15, x+duration*10000, y+pad+line_height*i+20, bar_color);
          al_draw_text(font, font_color, x+pad, y+pad+line_height*i, 0, timer.first.c_str());
          sprintf(time, "%f", duration*100);
@@ -85,7 +85,7 @@ namespace AllegroFlare
          i++;
       }
       al_draw_line(x+ALLEGRO_BPS_TO_SECS(60)*10000, y, x+ALLEGRO_BPS_TO_SECS(60)*10000, y+h, limit_bar_color, 1.0);
-      al_draw_line(x+ALLEGRO_BPS_TO_SECS(72)*10000, y, x+ALLEGRO_BPS_TO_SECS(72)*10000, y+h, limit_bar_color, 1.0);
+      //al_draw_line(x+ALLEGRO_BPS_TO_SECS(72)*10000, y, x+ALLEGRO_BPS_TO_SECS(72)*10000, y+h, limit_bar_color, 1.0);
    }
 }
 
