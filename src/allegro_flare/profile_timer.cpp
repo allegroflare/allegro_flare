@@ -169,7 +169,7 @@ namespace allegro_flare
 
       void clear_timers()
       {
-         for (int i=0; i<(int)timer.size(); i++) delete timer[i];
+         for (auto &t : timer) delete t;
          timer.clear();
       }
 
