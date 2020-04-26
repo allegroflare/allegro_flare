@@ -20,6 +20,8 @@ documentation/**/*.pyc
 
 build/tmp*
 
+tmp/**/*
+
 
 # compiled object files and any executable files
 
