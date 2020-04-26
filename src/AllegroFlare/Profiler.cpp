@@ -77,7 +77,8 @@ namespace AllegroFlare
       //std::vector<profile_timer_class *>::iterator it = Profiler::get_instance()->timer.begin();
       for (auto &timer : timers)
       {
-         float duration = timer.second.get_elappsed_time_msec() * 0.00001f;//(*it)->stop_time - (*it)->start_time;
+         // multipliers are off.  for reference, 1 sec = 1000 msec
+         float duration = timer.second.get_elappsed_time_msec() * 0.001f;//(*it)->stop_time - (*it)->start_time;
          al_draw_filled_rectangle(x, y+pad+line_height*i+15, x+duration*10000, y+pad+line_height*i+20, bar_color);
          al_draw_text(font, font_color, x+pad, y+pad+line_height*i, 0, timer.first.c_str());
          sprintf(time, "%f", duration*100);
