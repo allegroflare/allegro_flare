@@ -32,6 +32,7 @@ namespace allegro_flare
 
    void start_profile_timer(const char64_t name);
    void stop_profile_timer(const char64_t name, PROFILE_TIMER_TIME_T at_time=al_get_time());
+   void clear_all_profile_timers();
    PROFILE_TIMER_TIME_T get_profile_timer_length(const char64_t name);
    void draw_profile_timer_graph(float x=10, float y=10);
 

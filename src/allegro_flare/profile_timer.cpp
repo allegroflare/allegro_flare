@@ -248,6 +248,14 @@ namespace allegro_flare
 
 
 
+   void clear_all_profile_timers()
+   {
+      Profiler::get_instance()->clear_timers();
+   }
+
+
+
+
    PROFILE_TIMER_TIME_T get_profile_timer_length(const char64_t name)
    {
       return Profiler::get_instance()->get_duration(name);
