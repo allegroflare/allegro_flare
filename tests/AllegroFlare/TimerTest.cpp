@@ -21,7 +21,7 @@ TEST(AllegroFlare_TimerTest, get_ellapsed_time_msec__will_be_zero_before_started
 }
 
 
-TEST(AllegroFlare_TimerTest, get_ellapsed_time_msec__will_not_be_zero_after_the_starting)
+TEST(AllegroFlare_TimerTest, get_ellapsed_time_msec__will_return_the_elapsed_time)
 {
    Timer timer;
    timer.start();
