@@ -30,10 +30,17 @@ TEST(AllegroFlare_TimerTest, get_ellapsed_time_msec__will_return_the_elapsed_tim
 }
 
 
-int main(int argc, char **argv)
+TEST(AllegroFlare_TimerTest, pause__will_prevent_stop_the_timer_from_incrementing)
 {
-   ::testing::InitGoogleTest(&argc, argv);
-   return RUN_ALL_TESTS();
+   Timer timer;
+   timer.start();
+   usleep(6000);
+   timer.pause();
+
+   EXPECT_EQ(6, timer.get_elappsed_time_msec());
+
+   usleep(20000);
+   EXPECT_EQ(6, timer.get_elappsed_time_msec());
 }
 
 
