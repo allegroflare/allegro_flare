@@ -6,6 +6,7 @@
 
 #include <AllegroFlare/Timer.hpp>
 
+#include <allegro5/allegro_font.h>
 
 namespace AllegroFlare
 {
@@ -23,6 +24,8 @@ namespace AllegroFlare
       void start(std::string name);
       void pause(std::string name);
       void clear();
+
+      void draw(float x, float y, ALLEGRO_FONT *font);
    };
 }
 
