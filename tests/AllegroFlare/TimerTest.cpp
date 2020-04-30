@@ -4,6 +4,8 @@
 
 #include <AllegroFlare/Timer.hpp>
 
+#include <unistd.h> // for usleep
+
 
 using namespace AllegroFlare;
 
