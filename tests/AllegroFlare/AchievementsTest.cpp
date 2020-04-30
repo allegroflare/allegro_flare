@@ -18,11 +18,3 @@ TEST(AchievementsTest, can_be_created_without_arguments)
 
 
 
-int main(int argc, char **argv)
-{
-   ::testing::InitGoogleTest(&argc, argv);
-   return RUN_ALL_TESTS();
-}
-
-
-

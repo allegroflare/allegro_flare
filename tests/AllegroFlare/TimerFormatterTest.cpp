@@ -98,10 +98,3 @@ TEST(AllegroFlare_TimerFormatterTest, infer_milliseconds_fragment__with_a_number
 }
 
 
-int main(int argc, char **argv)
-{
-   ::testing::InitGoogleTest(&argc, argv);
-   return RUN_ALL_TESTS();
-}
-
-

@@ -104,11 +104,3 @@ TEST(AllegroFlare_Config, returns_a_default_value_if_a_section_and_key_does_not_
 
 
 
-int main(int argc, char **argv)
-{
-   ::testing::InitGoogleTest(&argc, argv);
-   return RUN_ALL_TESTS();
-}
-
-
-

@@ -48,11 +48,3 @@ TEST(KeyboardCommandMapperTest, returns_an_empty_vector_if_identifier_is_not_fou
 
 
 
-int main(int argc, char **argv)
-{
-   ::testing::InitGoogleTest(&argc, argv);
-   return RUN_ALL_TESTS();
-}
-
-
-
