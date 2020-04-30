@@ -9,7 +9,7 @@ properties:
     constructor_arg: true
 functions:
   - name: intersection
-    type: std::vector<std::string> 
+    type: std::vector<std::string>
     body: |
       std::vector<std::string> result;
       result.resize(v1.size() + v2.size());
@@ -27,7 +27,7 @@ functions:
       - std::set_intersection
       - std::sort
 dependencies:
-  - symbol: std::vector<std::string> 
+  - symbol: std::vector<std::string>
     headers: [ 'vector', 'string' ]
   - symbol: std::sort
     headers: [ 'algorithm' ]
