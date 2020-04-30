@@ -17,6 +17,7 @@ LIBS_ROOT=/usr/lib/
 ALLEGRO_INCLUDE_DIR=/usr/include/allegro5
 ALLEGRO_LIB_DIR=/usr/lib
 ALLEGROFLARE_DIR=${PWD}
+ASIO_INCLUDE_DIR=/usr/include/asio/asio
 GOOGLE_TEST_LIB_DIR=/usr/lib
 GOOGLE_TEST_INCLUDE_DIR=/usr/include/gtest
 CXXFLAGS=""
@@ -65,6 +66,7 @@ else
 		GOOGLE_TEST_DIR=$(LIBS_ROOT)/googletest
 		GOOGLE_TEST_LIB_DIR=$(GOOGLE_TEST_DIR)/build/googlemock/gtest
 		GOOGLE_TEST_INCLUDE_DIR=$(GOOGLE_TEST_DIR)/googletest/include
+		ASIO_INCLUDE_DIR=$(LIBS_ROOT)/asio/asio/include
 		PLATFORM_FOLDER_NAME = mac_os
 		
 	endif
@@ -86,7 +88,7 @@ core: $(OBJECTS)
 
 obj/%.o: src/%.cpp | required_obj_dirs
 	@echo "compiling $< -> $@"
-	@g++ -c -Wnon-virtual-dtor -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ALLEGRO_INCLUDE_DIR)/include -I./include
+	@g++ -c -Wnon-virtual-dtor -std=gnu++11 -Wall $< -o $@ -I$(ALLEGRO_FLARE_DIR)/include -I$(ASIO_INCLUDE_DIR) -I$(ALLEGRO_INCLUDE_DIR)/include -I./include
 
 
 required_obj_dirs:
@@ -119,11 +121,11 @@ endif
 examples: $(EXAMPLE_OBJS)
 
 bin/%$(BINARY_EXTENSION): examples/gui/%.cpp
-	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_INCLUDE_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ASIO_INCLUDE_DIR) -I$(ALLEGRO_INCLUDE_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS)
 	@echo "compiling $< -> $@"
 
 bin/%$(BINARY_EXTENSION): examples/%.cpp
-	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ALLEGRO_INCLUDE_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS) $(OPENGL_LIB)
+	@g++ -std=gnu++11 $< -o $@ -I$(ALLEGROFLARE_DIR)/include -I$(ASIO_INCLUDE_DIR) -I$(ALLEGRO_INCLUDE_DIR)/include -L$(ALLEGROFLARE_DIR)/lib -l$(ALLEGROFLARE_LIB_NAME) -L$(ALLEGRO_LIB_DIR) $(ALLEGRO_LIBS) $(OPENGL_LIB)
 	@echo "compiling $< -> $@"
 
 
