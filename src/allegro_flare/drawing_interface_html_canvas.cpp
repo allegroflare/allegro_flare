@@ -27,6 +27,10 @@ namespace allegro_flare
 
 
 
+   DrawingInterfaceHTMLCanvas::~DrawingInterfaceHTMLCanvas()
+   {}
+
+
 
    std::string DrawingInterfaceHTMLCanvas::get_canvas_id()
    {

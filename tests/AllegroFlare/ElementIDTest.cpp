@@ -7,6 +7,7 @@
 
 #include <AllegroFlare/ElementID.hpp>
 #include <ctime>
+#include <random> // for rng and shuffle
 
 
 
@@ -236,8 +237,11 @@ BOOST_AUTO_TEST_CASE(parent_removes_child_when_child_is_deleted__test_2)
    std::vector<ElementID *> children(100, nullptr);
    for (auto &c : children) c = new ElementID(&root);
 
-   std::srand(unsigned(std::time(0)));
-   std::random_shuffle(children.begin(), children.end());
+   //std::srand(unsigned(std::time(0)));
+
+   std::random_device rng;
+   std::mt19937 urng(rng()); 
+   std::shuffle(children.begin(), children.end(), urng);
 
    for (unsigned i=0; i<children.size(); i++)
    {

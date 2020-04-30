@@ -28,6 +28,10 @@ namespace allegro_flare
 
 
 
+   DrawingInterfaceSVG::~DrawingInterfaceSVG()
+   {}
+
+
 
    /*
    std::string DrawingInterfaceSVG::get_xml_encoded_ustr(ALLEGRO_USTR *ustr)
