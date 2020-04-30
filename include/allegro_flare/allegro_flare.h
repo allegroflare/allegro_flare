@@ -31,7 +31,7 @@
 #include <allegro_flare/text_object.h>
 #include <allegro_flare/bitmap_object.h>
 #include <allegro_flare/file_path_object.h>
-#include <allegro_flare/file_downloader.h>
+//#include <allegro_flare/file_downloader.h>
 #include <allegro_flare/attributes.h>
 #include <AllegroFlare/Bin.hpp>
 #include <allegro_flare/bit_flags.h>
