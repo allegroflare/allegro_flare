@@ -14,7 +14,7 @@ tmp/*
 
 obj/**
 bin/**
-!bin/data
+!bin/data/**
 *.a
 
 
