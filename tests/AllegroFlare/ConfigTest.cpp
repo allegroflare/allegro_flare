@@ -6,6 +6,14 @@
 
 
 #include <gtest/gtest.h>
+
+#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
+   try { code; FAIL() << "Expected " # raised_exception_type; } \
+   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
+   catch (...) { FAIL() << "Expected " # raised_exception_type; }
+
+
+
 #include <allegro5/allegro.h>
 
 
@@ -111,6 +119,28 @@ TEST_F(AllegroFlare_ConfigTest, returns_a_default_value_if_a_section_and_key_doe
    ASSERT_EQ("Beary", config.get_or_default_str("", "hero", "Beary"));
    ASSERT_EQ(42, config.get_or_default_int("", "speed", 42));
    ASSERT_NEAR(6.28, config.get_or_default_float("", "tau", 6.28), 0.00001);
+}
+
+
+
+
+TEST_F(AllegroFlare_ConfigTest, when_allegro_is_not_initialized_all_member_functions_will_raise_an_exception)
+{
+   al_uninstall_system();
+
+   Config config = Config(TEST_FILENAME);
+   std::string expected_error_message = "[Config]: attempting to use AllegroFlare/Config but allegro is not " \
+                                        "initialized.  You must call al_init() before using any of the " \
+                                        "AllegroFlare/Config functions.";
+
+   ASSERT_THROW_WITH_MESSAGE(config.load(), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(config.has_value("foo", "bar"), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(config.get_value_str("foo", "bar"), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(config.get_value_int("foo", "bar"), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(config.get_value_float("foo", "bar"), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(config.get_or_default_str("foo", "bar", "baz"), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(config.get_or_default_int("foo", "bar", 0), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(config.get_or_default_float("foo", "bar", 0.0), std::runtime_error, expected_error_message);
 }
 
 
