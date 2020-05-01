@@ -50,7 +50,9 @@ namespace AllegroFlare
    {
       if (!running)
       {
-         return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::duration<double, std::milli>(elappsed_time)).count();
+         return std::chrono::duration_cast<std::chrono::milliseconds>(
+               std::chrono::duration<double, std::milli>(elappsed_time)
+            ).count();
       }
       else
       {
