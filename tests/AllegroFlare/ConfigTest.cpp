@@ -21,13 +21,29 @@ using namespace AllegroFlare;
 
 
 
+class AllegroFlare_ConfigTest : public ::testing::Test
+{
+protected:
+   virtual void SetUp() override
+   {
+      ASSERT_EQ(false, al_is_system_installed());
+      ASSERT_EQ(true, al_init());
+   }
+
+   virtual void TearDown() override
+   {
+      al_uninstall_system();
+   }
+};
+
+
 
 #define TEST_FILENAME "bin/data/tests/config.cfg"
 
 
 
 
-TEST(AllegroFlare_ConfigTest, necessairy_test_file_exists)
+TEST_F(AllegroFlare_ConfigTest, necessairy_test_file_exists)
 {
    std::ifstream ifile(TEST_FILENAME);
    ASSERT_EQ(true, (bool)ifile);
@@ -36,9 +52,8 @@ TEST(AllegroFlare_ConfigTest, necessairy_test_file_exists)
 
 
 
-TEST(AllegroFlare_ConfigTest, retrieves_if_the_config_key_exists_in_the_global_space)
+TEST_F(AllegroFlare_ConfigTest, retrieves_if_the_config_key_exists_in_the_global_space)
 {
-   al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
@@ -54,9 +69,8 @@ TEST(AllegroFlare_ConfigTest, retrieves_if_the_config_key_exists_in_the_global_s
 
 
 
-TEST(AllegroFlare_ConfigTest, retrieves_a_string_value)
+TEST_F(AllegroFlare_ConfigTest, retrieves_a_string_value)
 {
-   al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
@@ -66,9 +80,8 @@ TEST(AllegroFlare_ConfigTest, retrieves_a_string_value)
 
 
 
-TEST(AllegroFlare_ConfigTest, retrieves_an_int_value)
+TEST_F(AllegroFlare_ConfigTest, retrieves_an_int_value)
 {
-   al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
@@ -79,9 +92,8 @@ TEST(AllegroFlare_ConfigTest, retrieves_an_int_value)
 
 
 
-TEST(AllegroFlare_ConfigTest, retrieves_a_float_value_within_a_margin_of_error)
+TEST_F(AllegroFlare_ConfigTest, retrieves_a_float_value_within_a_margin_of_error)
 {
-   al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
@@ -91,9 +103,8 @@ TEST(AllegroFlare_ConfigTest, retrieves_a_float_value_within_a_margin_of_error)
 
 
 
-TEST(AllegroFlare_ConfigTest, returns_a_default_value_if_a_section_and_key_does_not_exist)
+TEST_F(AllegroFlare_ConfigTest, returns_a_default_value_if_a_section_and_key_does_not_exist)
 {
-   al_init();
    Config config = Config(TEST_FILENAME);
    config.load();
 
