@@ -27,7 +27,7 @@ using namespace AllegroFlare;
 
 
 
-TEST(AllegroFlare_Config, necessairy_test_file_exists)
+TEST(AllegroFlare_ConfigTest, necessairy_test_file_exists)
 {
    std::ifstream ifile(TEST_FILENAME);
    ASSERT_EQ(true, (bool)ifile);
@@ -36,7 +36,7 @@ TEST(AllegroFlare_Config, necessairy_test_file_exists)
 
 
 
-TEST(AllegroFlare_Config, retrieves_if_the_config_key_exists_in_the_global_space)
+TEST(AllegroFlare_ConfigTest, retrieves_if_the_config_key_exists_in_the_global_space)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
@@ -54,7 +54,7 @@ TEST(AllegroFlare_Config, retrieves_if_the_config_key_exists_in_the_global_space
 
 
 
-TEST(AllegroFlare_Config, retrieves_a_string_value)
+TEST(AllegroFlare_ConfigTest, retrieves_a_string_value)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
@@ -66,7 +66,7 @@ TEST(AllegroFlare_Config, retrieves_a_string_value)
 
 
 
-TEST(AllegroFlare_Config, retrieves_an_int_value)
+TEST(AllegroFlare_ConfigTest, retrieves_an_int_value)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
@@ -79,7 +79,7 @@ TEST(AllegroFlare_Config, retrieves_an_int_value)
 
 
 
-TEST(AllegroFlare_Config, retrieves_a_float_value_within_a_margin_of_error)
+TEST(AllegroFlare_ConfigTest, retrieves_a_float_value_within_a_margin_of_error)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
@@ -91,7 +91,7 @@ TEST(AllegroFlare_Config, retrieves_a_float_value_within_a_margin_of_error)
 
 
 
-TEST(AllegroFlare_Config, returns_a_default_value_if_a_section_and_key_does_not_exist)
+TEST(AllegroFlare_ConfigTest, returns_a_default_value_if_a_section_and_key_does_not_exist)
 {
    al_init();
    Config config = Config(TEST_FILENAME);
