@@ -1,56 +1,66 @@
 
 
-//#define BOOST_TEST_DYN_LINK
-//#define BOOST_TEST_MODULE ElementID
-//#include <boost/test/unit_test.hpp>
+#include <gtest/gtest.h>
 
-
-//#include <AllegroFlare/ElementID.hpp>
-//#include <ctime>
-//#include <random> // for rng and shuffle
+#include <AllegroFlare/ElementID.hpp>
 
 
 
-//using namespace AllegroFlare;
+#include <ctime>
+#include <random> // for rng and shuffle
+
+
+
+using namespace AllegroFlare;
+
+
+
+class ElementIDTestWithFixture : public ::testing::Test
+{
+protected:
+   ElementID root;
+      ElementID *child_1;
+         ElementID *child_1_A;
+         ElementID *child_1_B;
+      ElementID *child_2;
+         ElementID *child_2_A;
+            ElementID *child_2_A_1;
+         ElementID *child_2_B;
+      ElementID *child_3;
+
+   ElementIDTestWithFixture()
+      : root(NULL)
+      , child_1(new ElementID(&root))
+      , child_1_A(new ElementID(child_1))
+      , child_1_B(new ElementID(child_1))
+      , child_2(new ElementID(&root))
+      , child_2_A(new ElementID(child_2))
+      , child_2_A_1(new ElementID(child_2_A))
+      , child_2_B(new ElementID(child_2))
+      , child_3(new ElementID(&root))
+   {}
+};
 
 
 
 
-//struct Fixture
-//{
-   //ElementID root;
-      //ElementID *child_1;
-         //ElementID *child_1_A;
-         //ElementID *child_1_B;
-      //ElementID *child_2;
-         //ElementID *child_2_A;
-            //ElementID *child_2_A_1;
-         //ElementID *child_2_B;
-      //ElementID *child_3;
-
-   //Fixture()
-      //: root(NULL)
-      //, child_1(new ElementID(&root))
-      //, child_1_A(new ElementID(child_1))
-      //, child_1_B(new ElementID(child_1))
-      //, child_2(new ElementID(&root))
-      //, child_2_A(new ElementID(child_2))
-      //, child_2_A_1(new ElementID(child_2_A))
-      //, child_2_B(new ElementID(child_2))
-      //, child_3(new ElementID(&root))
-   //{}
-//};
+TEST(Fixture, _try_to_has_a_first_element_with_id_1)
+{
+   ElementID element1 = ElementID(NULL);
+   ElementID element2 = ElementID(NULL);
+   ASSERT_EQ(element1.get_id(), 1);
+   ASSERT_EQ(element2.get_id(), 2);
+}
 
 
 
-
-//BOOST_AUTO_TEST_CASE(has_a_first_element_with_id_1)
-//{
+TEST_F(ElementIDTestWithFixture, has_a_first_element_with_id_1)
+{
    //ElementID element1 = ElementID(NULL);
    //ElementID element2 = ElementID(NULL);
-   //BOOST_CHECK_EQUAL(element1.get_id(), 1);
-   //BOOST_CHECK_EQUAL(element2.get_id(), 2);
-//}
+   //ASSERT_EQ(element1.get_id(), 1);
+   //ASSERT_EQ(element2.get_id(), 2);
+}
 
 
 
@@ -523,20 +533,20 @@
 
 
 
-//BOOST_FIXTURE_TEST_CASE(returns_an_nth_descendant, Fixture)
-//{
-   //BOOST_CHECK_EQUAL(child_1, root.get_nth_descendant(0));
-   //BOOST_CHECK_EQUAL(child_1_A, root.get_nth_descendant(1));
-   //BOOST_CHECK_EQUAL(child_1_B, root.get_nth_descendant(2));
-   //BOOST_CHECK_EQUAL(child_2, root.get_nth_descendant(3));
-   //BOOST_CHECK_EQUAL(child_2_A, root.get_nth_descendant(4));
-   //BOOST_CHECK_EQUAL(child_2_A_1, root.get_nth_descendant(5));
-   //BOOST_CHECK_EQUAL(child_2_B, root.get_nth_descendant(6));
+TEST_F(ElementIDTestWithFixture, returns_an_nth_descendant)
+{
+   ASSERT_EQ(child_1, root.get_nth_descendant(0));
+   ASSERT_EQ(child_1_A, root.get_nth_descendant(1));
+   ASSERT_EQ(child_1_B, root.get_nth_descendant(2));
+   ASSERT_EQ(child_2, root.get_nth_descendant(3));
+   ASSERT_EQ(child_2_A, root.get_nth_descendant(4));
+   ASSERT_EQ(child_2_A_1, root.get_nth_descendant(5));
+   ASSERT_EQ(child_2_B, root.get_nth_descendant(6));
 
-   //BOOST_CHECK_EQUAL(child_2_A, child_2->get_nth_descendant(0));
-   //BOOST_CHECK_EQUAL(child_2_A_1, child_2->get_nth_descendant(1));
-   //BOOST_CHECK_EQUAL(child_2_B, child_2->get_nth_descendant(2));
-//}
+   ASSERT_EQ(child_2_A, child_2->get_nth_descendant(0));
+   ASSERT_EQ(child_2_A_1, child_2->get_nth_descendant(1));
+   ASSERT_EQ(child_2_B, child_2->get_nth_descendant(2));
+}
 
 
 
