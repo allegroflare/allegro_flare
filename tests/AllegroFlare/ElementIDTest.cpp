@@ -65,27 +65,27 @@ TEST_F(ElementIDTestWithFixture, has_a_first_element_with_id_1)
 
 
 
-//BOOST_AUTO_TEST_CASE(returns_its_root)
-//{
-   //ElementID root = ElementID(NULL);
-      //ElementID *child_1 = new ElementID(&root);
-         //ElementID *child_1_A = new ElementID(child_1);
-         //ElementID *child_1_B = new ElementID(child_1);
-      //ElementID *child_2 = new ElementID(&root);
-         //ElementID *child_2_A = new ElementID(child_2);
-         //ElementID *child_2_B = new ElementID(child_2);
-            //ElementID *child_2_B_1 = new ElementID(child_2_B);
-         //ElementID *child_2_C = new ElementID(child_2);
+TEST(AllegroFlare_ElementIDTest, returns_its_root)
+{
+   ElementID root = ElementID(NULL);
+      ElementID *child_1 = new ElementID(&root);
+         ElementID *child_1_A = new ElementID(child_1);
+         ElementID *child_1_B = new ElementID(child_1);
+      ElementID *child_2 = new ElementID(&root);
+         ElementID *child_2_A = new ElementID(child_2);
+         ElementID *child_2_B = new ElementID(child_2);
+            ElementID *child_2_B_1 = new ElementID(child_2_B);
+         ElementID *child_2_C = new ElementID(child_2);
 
-   //BOOST_CHECK_EQUAL(&root, child_1->get_root());
-      //BOOST_CHECK_EQUAL(&root, child_1_A->get_root());
-      //BOOST_CHECK_EQUAL(&root, child_1_B->get_root());
-   //BOOST_CHECK_EQUAL(&root, child_2->get_root());
-      //BOOST_CHECK_EQUAL(&root, child_2_A->get_root());
-      //BOOST_CHECK_EQUAL(&root, child_2_B->get_root());
-         //BOOST_CHECK_EQUAL(&root, child_2_B_1->get_root());
-      //BOOST_CHECK_EQUAL(&root, child_2_C->get_root());
-//}
+   ASSERT_EQ(&root, child_1->get_root());
+      ASSERT_EQ(&root, child_1_A->get_root());
+      ASSERT_EQ(&root, child_1_B->get_root());
+   ASSERT_EQ(&root, child_2->get_root());
+      ASSERT_EQ(&root, child_2_A->get_root());
+      ASSERT_EQ(&root, child_2_B->get_root());
+         ASSERT_EQ(&root, child_2_B_1->get_root());
+      ASSERT_EQ(&root, child_2_C->get_root());
+}
 
 
 
