@@ -240,7 +240,7 @@ TEST(AllegroFlare_ElementIDTest, parent_removes_child_when_child_is_deleted__tes
    //std::srand(unsigned(std::time(0)));
 
    std::random_device rng;
-   std::mt19937 urng(rng()); 
+   std::mt19937 urng(rng());
    std::shuffle(children.begin(), children.end(), urng);
 
    for (unsigned i=0; i<children.size(); i++)
