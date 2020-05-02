@@ -1,11 +1,12 @@
 
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <AllegroFlare/Internationalization.hpp>
 
+using ::testing::UnorderedElementsAreArray;
 
-using namespace AllegroFlare;
 
 #include <allegro5/allegro.h>
 
@@ -14,7 +15,7 @@ using namespace AllegroFlare;
 struct AllegroFlare_InternationalizationTest : public ::testing::Test
 {
    const char *TEST_FOLDER = "./data/languages/tests/";
-   static Internationalization internationalization;
+   static AllegroFlare::Internationalization internationalization;
 
    virtual void SetUp() override
    {
@@ -34,7 +35,7 @@ struct AllegroFlare_InternationalizationTest : public ::testing::Test
    }
 };
 
-Internationalization AllegroFlare_InternationalizationTest::internationalization;
+AllegroFlare::Internationalization AllegroFlare_InternationalizationTest::internationalization;
 
 
 
@@ -60,7 +61,7 @@ TEST_F(AllegroFlare_InternationalizationTest, can_set_a_languages_folder)
 
 TEST_F(AllegroFlare_InternationalizationTest, initialized_its_languages_folder_to__data_slash_languages__by_default)
 {
-   Internationalization internationalization;
+   AllegroFlare::Internationalization internationalization;
    ASSERT_EQ("data/languages/", internationalization.get_languages_folder());
 }
 
@@ -74,9 +75,6 @@ TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_trying_to_set_a
 }
 
 
-
-#include <gmock/gmock.h>
-using ::testing::UnorderedElementsAreArray;
 
 
 TEST_F(AllegroFlare_InternationalizationTest, returns_a_list_of_language_files_in_the_languages_folder)
