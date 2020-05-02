@@ -1,261 +1,254 @@
 
 
-//#define BOOST_TEST_DYN_LINK
-//#define BOOST_TEST_MODULE Internationalization
-//#include <boost/test/unit_test.hpp>
+#include <gtest/gtest.h>
 
+#include <AllegroFlare/Internationalization.hpp>
 
 
+using namespace AllegroFlare;
 
-//#include <AllegroFlare/Internationalization.hpp>
+#include <allegro5/allegro.h>
 
-//#include <allegro5/allegro.h>
 
 
+struct AllegroFlare_InternationalizationTest : public ::testing::Test
+{
+   const char *TEST_FOLDER = "./data/languages/tests/";
+   static Internationalization internationalization;
 
+   virtual void SetUp() override
+   {
+      ASSERT_EQ(false, al_is_system_installed());
+      ASSERT_EQ(true, al_init());
 
-//using namespace AllegroFlare;
+      ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+      al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
+      al_destroy_path(resource_path);
 
+      internationalization.set_languages_folder(TEST_FOLDER);
+   }
 
+   virtual void TearDown() override
+   {
+      al_uninstall_system();
+   }
+};
 
+Internationalization AllegroFlare_InternationalizationTest::internationalization;
 
-//struct Fixture
-//{
-   //const char *TEST_FOLDER = "../../data/languages/tests/";
-   //static Internationalization internationalization;
 
-   //Fixture()
-   //{
-      //BOOST_REQUIRE_EQUAL(false, al_is_system_installed());
-      //BOOST_REQUIRE_EQUAL(true, al_init());
 
-      //ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
-      //al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
-      //al_destroy_path(resource_path);
 
-      //internationalization.set_languages_folder(TEST_FOLDER);
-   //}
+TEST_F(AllegroFlare_InternationalizationTest, expected_test_files_and_folders_exist)
+{
+   ASSERT_EQ(true, al_filename_exists("./data/languages/"));
+   ASSERT_EQ(true, al_filename_exists("./data/languages/tests/en.txt"));
+   ASSERT_EQ(true, al_filename_exists("./data/languages/tests/fr.txt"));
+   ASSERT_EQ(true, al_filename_exists("./data/languages/tests/it.txt"));
+}
 
-   //~Fixture()
-   //{
-      //al_uninstall_system();
-   //}
-//};
 
-//Internationalization Fixture::internationalization;
 
 
+TEST_F(AllegroFlare_InternationalizationTest, can_set_a_languages_folder)
+{
+   ASSERT_EQ(TEST_FOLDER, internationalization.get_languages_folder());
+}
 
 
-//BOOST_FIXTURE_TEST_CASE(has_the_proper_files_and_folders_for_testing, Fixture)
-//{
-   //BOOST_REQUIRE_EQUAL(true, al_filename_exists("../../data/languages/"));
-   //BOOST_REQUIRE_EQUAL(true, al_filename_exists("../../data/languages/tests/en.txt"));
-   //BOOST_REQUIRE_EQUAL(true, al_filename_exists("../../data/languages/tests/fr.txt"));
-   //BOOST_REQUIRE_EQUAL(true, al_filename_exists("../../data/languages/tests/it.txt"));
-//}
 
 
+TEST_F(AllegroFlare_InternationalizationTest, initialized_its_languages_folder_to__data_slash_languages__by_default)
+{
+   Internationalization internationalization;
+   ASSERT_EQ("data/languages/", internationalization.get_languages_folder());
+}
 
 
-//BOOST_FIXTURE_TEST_CASE(can_set_a_languages_folder, Fixture)
-//{
-   //BOOST_CHECK_EQUAL(true, Fixture::internationalization.set_languages_folder(TEST_FOLDER));
-   //BOOST_CHECK_EQUAL(TEST_FOLDER, Fixture::internationalization.get_languages_folder());
-//}
 
 
+TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_trying_to_set_a_languages_folder_that_does_not_exist)
+{
+   std::string fake_folder = "foo/dir/that/doesnt/exist/";
+   ASSERT_EQ(false, internationalization.set_languages_folder(fake_folder));
+}
 
 
-//BOOST_AUTO_TEST_CASE(initialized_its_languages_folder_to__data_slash_languages__by_default)
-//{
-   //Internationalization internationalization;
-   //BOOST_CHECK_EQUAL("data/languages/", internationalization.get_languages_folder());
-//}
 
+#include <gmock/gmock.h>
+using ::testing::UnorderedElementsAreArray;
 
 
+TEST_F(AllegroFlare_InternationalizationTest, returns_a_list_of_language_files_in_the_languages_folder)
+{
+   std::vector<std::string> expected_files = {"en.txt", "fr.txt", "it.txt"};
+   std::vector<std::string> returned_files = internationalization.get_language_filenames();
 
-//BOOST_FIXTURE_TEST_CASE(returns_false_when_trying_to_set_a_languages_folder_that_does_not_exist, Fixture)
-//{
-   //std::string fake_folder = "foo/dir/that/doesnt/exist/";
-   //BOOST_CHECK_EQUAL(false, Fixture::internationalization.set_languages_folder(fake_folder));
-//}
+   ASSERT_THAT(returned_files, UnorderedElementsAreArray(expected_files.begin(), expected_files.end()));
+}
 
 
 
 
-//BOOST_FIXTURE_TEST_CASE(returns_a_list_of_language_files_in_the_languages_folder, Fixture)
-//{
-   //std::vector<std::string> expected_files = {"en.txt", "fr.txt", "it.txt"};
-   //std::vector<std::string> returned_files = internationalization.get_language_filenames();
+TEST_F(AllegroFlare_InternationalizationTest, finds_a_language_file_by_language_designator)
+{
+   std::string expected_filename = "";
 
-   //BOOST_CHECK_EQUAL_COLLECTIONS(expected_files.begin(), expected_files.end(),
-      //returned_files.begin(), returned_files.end());
-//}
+   expected_filename = "./data/languages/tests/en.txt";
+   ASSERT_EQ(expected_filename, internationalization.find_language_file("en"));
 
+   expected_filename = "./data/languages/tests/fr.txt";
+   ASSERT_EQ(expected_filename, internationalization.find_language_file("fr"));
 
+   expected_filename = "./data/languages/tests/it.txt";
+   ASSERT_EQ(expected_filename, internationalization.find_language_file("it"));
+}
 
 
-//BOOST_FIXTURE_TEST_CASE(finds_a_language_file_by_language_designator, Fixture)
-//{
-   //std::string expected_filename = "";
 
-   //expected_filename = "../../data/languages/tests/en.txt";
-   //BOOST_CHECK_EQUAL(expected_filename, internationalization.find_language_file("en"));
 
-   //expected_filename = "../../data/languages/tests/fr.txt";
-   //BOOST_CHECK_EQUAL(expected_filename, internationalization.find_language_file("fr"));
+TEST_F(AllegroFlare_InternationalizationTest, returns_an_empty_string_when_a_language_file_cannot_be_found)
+{
+   ASSERT_EQ("", internationalization.find_language_file("language_designator_that_doesnt_exist"));
+}
 
-   //expected_filename = "../../data/languages/tests/it.txt";
-   //BOOST_CHECK_EQUAL(expected_filename, internationalization.find_language_file("it"));
-//}
 
 
 
+TEST_F(AllegroFlare_InternationalizationTest, returns_true_when_a_language_file_loads_successfully)
+{
+   ASSERT_EQ(true, internationalization.load_language_file("en", "English", "./data/languages/tests/en.txt"));
+   ASSERT_EQ(true, internationalization.load_language_file("fr", "French", "./data/languages/tests/fr.txt"));
+   ASSERT_EQ(true, internationalization.load_language_file("it", "Italian", "./data/languages/tests/it.txt"));
+}
 
-//BOOST_FIXTURE_TEST_CASE(returns_an_empty_string_when_a_language_file_cannot_be_found, Fixture)
-//{
-   //BOOST_CHECK_EQUAL("", internationalization.find_language_file("language_designator_that_doesnt_exist"));
-//}
 
 
 
+TEST_F(AllegroFlare_InternationalizationTest, sets_the_language_designator_and_language_name_when_loading_a_language_file)
+{
+   internationalization.load_language_file("en", "English", "./data/languages/tests/en.txt");
+   ASSERT_EQ("en", internationalization.get_language());
+   ASSERT_EQ("English", internationalization.get_language_name());
 
-//BOOST_FIXTURE_TEST_CASE(returns_true_when_a_language_file_loads_successfully, Fixture)
-//{
-   //BOOST_CHECK_EQUAL(true, internationalization.load_language_file("en", "English", "../../data/languages/tests/en.txt"));
-   //BOOST_CHECK_EQUAL(true, internationalization.load_language_file("fr", "French", "../../data/languages/tests/fr.txt"));
-   //BOOST_CHECK_EQUAL(true, internationalization.load_language_file("it", "Italian", "../../data/languages/tests/it.txt"));
-//}
+   internationalization.load_language_file("fr", "French", "./data/languages/tests/fr.txt");
+   ASSERT_EQ("fr", internationalization.get_language());
+   ASSERT_EQ("French", internationalization.get_language_name());
 
+   internationalization.load_language_file("it", "Italian", "./data/languages/tests/it.txt");
+   ASSERT_EQ("it", internationalization.get_language());
+   ASSERT_EQ("Italian", internationalization.get_language_name());
+}
 
 
 
-//BOOST_FIXTURE_TEST_CASE(sets_the_language_designator_and_language_name_when_loading_a_language_file, Fixture)
-//{
-   //internationalization.load_language_file("en", "English", "../../data/languages/tests/en.txt");
-   //BOOST_CHECK_EQUAL("en", internationalization.get_language());
-   //BOOST_CHECK_EQUAL("English", internationalization.get_language_name());
 
-   //internationalization.load_language_file("fr", "French", "../../data/languages/tests/fr.txt");
-   //BOOST_CHECK_EQUAL("fr", internationalization.get_language());
-   //BOOST_CHECK_EQUAL("French", internationalization.get_language_name());
+TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_unable_to_load_a_language_file)
+{
+   ASSERT_EQ(false, internationalization.load_language_file("foo", "Fooanese", "foo/folder/file_that_doesnt_exist.txt"));
+}
 
-   //internationalization.load_language_file("it", "Italian", "../../data/languages/tests/it.txt");
-   //BOOST_CHECK_EQUAL("it", internationalization.get_language());
-   //BOOST_CHECK_EQUAL("Italian", internationalization.get_language_name());
-//}
 
 
 
+TEST_F(AllegroFlare_InternationalizationTest, successfully_populates_labels_when_loading_a_language_file)
+{
+   EXPECT_EQ(true, internationalization.load_language_file("en", "English", "./data/languages/tests/en.txt"));
 
-//BOOST_FIXTURE_TEST_CASE(returns_false_when_unable_to_load_a_language_file, Fixture)
-//{
-   //BOOST_CHECK_EQUAL(false, internationalization.load_language_file("foo", "Fooanese", "foo/folder/file_that_doesnt_exist.txt"));
-//}
+   ASSERT_EQ("Welcome to Allegro!", internationalization.t("welcome_message"));
+   ASSERT_EQ("start", internationalization.t("start_button"));
+}
 
 
 
 
-//BOOST_FIXTURE_TEST_CASE(successfully_populates_labels_when_loading_a_language_file, Fixture)
-//{
-   //BOOST_REQUIRE_EQUAL(true, internationalization.load_language_file("en", "English", "../../data/languages/tests/en.txt"));
+TEST_F(AllegroFlare_InternationalizationTest, can_set_a_language)
+{
+   ASSERT_EQ(true, internationalization.set_language("en"));
+   ASSERT_EQ(true, internationalization.set_language("fr"));
+   ASSERT_EQ(true, internationalization.set_language("it"));
+}
 
-   //BOOST_CHECK_EQUAL("Welcome to Allegro!", internationalization.t("welcome_message"));
-   //BOOST_CHECK_EQUAL("start", internationalization.t("start_button"));
-//}
 
 
 
+TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_unable_to_set_a_language)
+{
+   ASSERT_EQ(false, internationalization.set_language("not_a_language"));
+}
 
-//BOOST_FIXTURE_TEST_CASE(can_set_a_language, Fixture)
-//{
-   //BOOST_CHECK_EQUAL(true, internationalization.set_language("en"));
-   //BOOST_CHECK_EQUAL(true, internationalization.set_language("fr"));
-   //BOOST_CHECK_EQUAL(true, internationalization.set_language("it"));
-//}
 
 
 
+TEST_F(AllegroFlare_InternationalizationTest, can_retrieve_the_current_language_designator)
+{
+   internationalization.set_language("en");
+   ASSERT_EQ("en", internationalization.get_language());
 
-//BOOST_FIXTURE_TEST_CASE(returns_false_when_unable_to_set_a_language, Fixture)
-//{
-   //BOOST_CHECK_EQUAL(false, internationalization.set_language("not_a_language"));
-//}
+   internationalization.set_language("fr");
+   ASSERT_EQ("fr", internationalization.get_language());
 
+   internationalization.set_language("it");
+   ASSERT_EQ("it", internationalization.get_language());
+}
 
 
 
-//BOOST_FIXTURE_TEST_CASE(can_retrieve_the_current_language_designator, Fixture)
-//{
-   //internationalization.set_language("en");
-   //BOOST_CHECK_EQUAL("en", internationalization.get_language());
 
-   //internationalization.set_language("fr");
-   //BOOST_CHECK_EQUAL("fr", internationalization.get_language());
+TEST_F(AllegroFlare_InternationalizationTest, loads_translations_when_a_language_designator_is_set)
+{
+   internationalization.set_language("en");
+   ASSERT_EQ("Welcome to Allegro!", internationalization.t("welcome_message"));
+   ASSERT_EQ("start", internationalization.t("start_button"));
 
-   //internationalization.set_language("it");
-   //BOOST_CHECK_EQUAL("it", internationalization.get_language());
-//}
+   internationalization.set_language("fr");
+   ASSERT_EQ("Bienvenue à Allegro!", internationalization.t("welcome_message"));
+   ASSERT_EQ("démarrer", internationalization.t("start_button"));
 
+   internationalization.set_language("it");
+   ASSERT_EQ("Benvenuti a Allegro!", internationalization.t("welcome_message"));
+   ASSERT_EQ("inizio", internationalization.t("start_button"));
+}
 
 
 
-//BOOST_FIXTURE_TEST_CASE(loads_translations_when_a_language_designator_is_set, Fixture)
-//{
-   //internationalization.set_language("en");
-   //BOOST_CHECK_EQUAL("Welcome to Allegro!", internationalization.t("welcome_message"));
-   //BOOST_CHECK_EQUAL("start", internationalization.t("start_button"));
 
-   //internationalization.set_language("fr");
-   //BOOST_CHECK_EQUAL("Bienvenue à Allegro!", internationalization.t("welcome_message"));
-   //BOOST_CHECK_EQUAL("démarrer", internationalization.t("start_button"));
+TEST_F(AllegroFlare_InternationalizationTest, knows_if_a_translation_label_exists_or_not)
+{
+   internationalization.set_language("en");
 
-   //internationalization.set_language("it");
-   //BOOST_CHECK_EQUAL("Benvenuti a Allegro!", internationalization.t("welcome_message"));
-   //BOOST_CHECK_EQUAL("inizio", internationalization.t("start_button"));
-//}
+   ASSERT_EQ(true, internationalization.t_exists("blank_content"));
+   ASSERT_EQ(false, internationalization.t_exists("label_that_does_not_exist"));
+}
 
 
 
 
-//BOOST_FIXTURE_TEST_CASE(knows_if_a_translation_label_exists_or_not, Fixture)
-//{
-   //internationalization.set_language("en");
+TEST_F(AllegroFlare_InternationalizationTest, returns_an_empty_string_when_a_translation_is_blank_or_does_not_exist_for_that_label)
+{
+   internationalization.set_language("en");
 
-   //BOOST_CHECK_EQUAL(true, internationalization.t_exists("blank_content"));
-   //BOOST_CHECK_EQUAL(false, internationalization.t_exists("label_that_does_not_exist"));
-//}
+   ASSERT_EQ("", internationalization.t("blank_content"));
+   ASSERT_EQ("", internationalization.t("label_that_does_not_exist"));
+}
 
 
 
 
-//BOOST_FIXTURE_TEST_CASE(returns_an_empty_string_when_a_translation_is_blank_or_does_not_exist_for_that_label, Fixture)
-//{
-   //internationalization.set_language("en");
+TEST_F(AllegroFlare_InternationalizationTest, formats_a_translation_with_variable_args)
+{
+   internationalization.set_language("en");
+   ASSERT_EQ("Travel time is 6 hours and 45 minutes.", internationalization.tf("travel_time", 6, 45));
+   ASSERT_EQ("Nice to meet you, Alex.", internationalization.tf("greeting", "Alex"));
 
-   //BOOST_CHECK_EQUAL("", internationalization.t("blank_content"));
-   //BOOST_CHECK_EQUAL("", internationalization.t("label_that_does_not_exist"));
-//}
+   internationalization.set_language("fr");
+   ASSERT_EQ("Voyage de temps est de 6 heures et 45 minutes.", internationalization.tf("travel_time", 6, 45));
+   ASSERT_EQ("Ravi de vous rencontrer, Alex.", internationalization.tf("greeting", "Alex"));
 
-
-
-
-//BOOST_FIXTURE_TEST_CASE(formats_a_translation_with_variable_args, Fixture)
-//{
-   //internationalization.set_language("en");
-   //BOOST_CHECK_EQUAL("Travel time is 6 hours and 45 minutes.", internationalization.tf("travel_time", 6, 45));
-   //BOOST_CHECK_EQUAL("Nice to meet you, Alex.", internationalization.tf("greeting", "Alex"));
-
-   //internationalization.set_language("fr");
-   //BOOST_CHECK_EQUAL("Voyage de temps est de 6 heures et 45 minutes.", internationalization.tf("travel_time", 6, 45));
-   //BOOST_CHECK_EQUAL("Ravi de vous rencontrer, Alex.", internationalization.tf("greeting", "Alex"));
-
-   //internationalization.set_language("it");
-   //BOOST_CHECK_EQUAL("Il tempo di percorrenza è di 6 ore e 45 minuti.", internationalization.tf("travel_time", 6, 45));
-   //BOOST_CHECK_EQUAL("Piacere di conoscerti, Alex.", internationalization.tf("greeting", "Alex"));
-//}
+   internationalization.set_language("it");
+   ASSERT_EQ("Il tempo di percorrenza è di 6 ore e 45 minuti.", internationalization.tf("travel_time", 6, 45));
+   ASSERT_EQ("Piacere di conoscerti, Alex.", internationalization.tf("greeting", "Alex"));
+}
 
 
 
