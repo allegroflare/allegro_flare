@@ -73,6 +73,21 @@ TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_trying_to_set_a
 
 
 
+TEST_F(AllegroFlare_InternationalizationTest,
+   set_languages_folder__when_trying_to_set_a_languages_folder_that_does_not_exist__outputs_an_error_message_to_cout)
+{
+   std::string fake_folder = "foo/dir/that/doesnt/exist/";
+   ASSERT_EQ(false, internationalization.set_languages_folder(fake_folder));
+
+   testing::internal::CaptureStdout();
+   ASSERT_EQ(false, internationalization.set_languages_folder(fake_folder));
+   std::string output = testing::internal::GetCapturedStdout();
+   std::string expected_cerr_output = "\x1B[1;31mCould not open folder \"foo/dir/that/doesnt/exist/\" " \
+                                      "to find language files.\x1B[0m\n";
+   ASSERT_EQ(expected_cerr_output, output);
+}
+
+
 
 TEST_F(AllegroFlare_InternationalizationTest, returns_a_list_of_language_files_in_the_languages_folder)
 {
