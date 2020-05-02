@@ -5,9 +5,6 @@
 
 #include <AllegroFlare/Internationalization.hpp>
 
-using ::testing::UnorderedElementsAreArray;
-
-
 #include <allegro5/allegro.h>
 
 
@@ -82,7 +79,7 @@ TEST_F(AllegroFlare_InternationalizationTest, returns_a_list_of_language_files_i
    std::vector<std::string> expected_files = {"en.txt", "fr.txt", "it.txt"};
    std::vector<std::string> returned_files = internationalization.get_language_filenames();
 
-   ASSERT_THAT(returned_files, UnorderedElementsAreArray(expected_files.begin(), expected_files.end()));
+   ASSERT_THAT(returned_files, ::testing::UnorderedElementsAreArray(expected_files.begin(), expected_files.end()));
 }
 
 
