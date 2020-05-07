@@ -46,7 +46,7 @@ protected:
 
 
 
-#define TEST_FILENAME "bin/tests/AllegroFlare/data/config.cfg"
+#define TEST_FILENAME "bin/tests/AllegroFlare/data/config/config.cfg"
 
 
 
