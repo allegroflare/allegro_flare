@@ -80,7 +80,7 @@ private:
 		if (standard_compound_shader) return standard_compound_shader;
 
 		std::cout << "Building Entity::standard_compound_shader." << std::endl;
-		standard_compound_shader = new Shader("data/shaders/standard_compound_vertex.glsl", "data/shaders/standard_compound_fragment.glsl");
+		standard_compound_shader = new Shader("../data/shaders/standard_compound_vertex.glsl", "../data/shaders/standard_compound_fragment.glsl");
 		if (!standard_compound_shader)
 		{
 			std::cout << "There was a problem creating the compound shader for Entity" << std::endl;
@@ -263,10 +263,10 @@ public:
 		, casting_light()
 		//, metalic_shader("data/shaders/metalic_vertex.glsl", "data/shaders/metalic_fragment.glsl")
 		//, fresnel_shader("data/shaders/fresnel_vertex.glsl", "data/shaders/fresnel_fragment.glsl")
-		, cubemap_shader("data/shaders/cube_vertex.glsl", "data/shaders/cube_fragment.glsl")
+		, cubemap_shader("../data/shaders/cube_vertex.glsl", "../data/shaders/cube_fragment.glsl")
 		//, multi_shader("data/shaders/multi_vertex.glsl", "data/shaders/multi_fragment.glsl")
-		, depth_shader("data/shaders/depth_vertex.glsl", "data/shaders/depth_fragment.glsl")
-		, simple_map_shader("data/shaders/simple_map_vertex_with_light.glsl", "data/shaders/simple_map_fragment_with_light.glsl")
+		, depth_shader("../data/shaders/depth_vertex.glsl", "../data/shaders/depth_fragment.glsl")
+		, simple_map_shader("../data/shaders/simple_map_vertex_with_light.glsl", "../data/shaders/simple_map_fragment_with_light.glsl")
 		, light(4, 4, 3)
 		, cube_map_A(NULL)
 		, cube_map_B(NULL)
@@ -290,12 +290,12 @@ public:
 		//casting_light.stepout = vec3d(0, 1.5, 8);
 		casting_light.tilt = 0.8;
 
-		cube_map_A = glsl_create_cubemap_from_vertical_strip("data/bitmaps/sky4.png");
-		cube_map_B = glsl_create_cubemap_from_vertical_strip("data/bitmaps/sky5_with_grid.png");
+		cube_map_A = glsl_create_cubemap_from_vertical_strip("../data/bitmaps/sky4.png");
+		cube_map_B = glsl_create_cubemap_from_vertical_strip("../data/bitmaps/sky5_with_grid.png");
 
 		skybox = new Entity();
 		skybox->model = new Model3D();
-		skybox->model->load_obj_file("data/models/skybox-01.obj", 30.0/3.0);
+		skybox->model->load_obj_file("../data/models/skybox-01.obj", 30.0/3.0);
 		skybox->shader = &cubemap_shader;
 		skybox->cube_map_A = cube_map_B;
 		skybox->cube_map_B = cube_map_B;
@@ -309,7 +309,7 @@ public:
 
    void initialize()
    {
-      bitmaps.set_path("data/bitmaps");
+      bitmaps.set_path("../data/bitmaps");
    }
 
 
@@ -321,8 +321,8 @@ public:
 		Model3D *a_nice_model = new Model3D();
 		Model3D *coin_ring = new Model3D();
 		//a_nice_model->load_obj_file("data/models/allegro_flare_logo-03b.obj", 1.25);
-		a_nice_model->load_obj_file("data/models/rounded_unit_cube-01.obj", 1.0);
-		coin_ring->load_obj_file("data/models/coin_ring-01.obj", 1.0);
+		a_nice_model->load_obj_file("../data/models/rounded_unit_cube-01.obj", 1.0);
+		coin_ring->load_obj_file("../data/models/coin_ring-01.obj", 1.0);
 
 		for (unsigned i=0; i<10; i++)
 		{
@@ -358,7 +358,7 @@ public:
 			entity = new Entity();
 			entity->shader = &simple_map_shader;
 			entity->model = new Model3D();
-				entity->model->load_obj_file("data/models/flat_stage-01.obj");
+				entity->model->load_obj_file("../data/models/flat_stage-01.obj");
 				//entity->model->load_obj_file("data/models/scene_for_lighting-03.obj");
 				//entity->model->set_texture(bitmaps["uv.png"]);
 				//entity->diffuse_texture = bitmaps["grass_grass_0118_02_preview.jpg"];//tex_grass_002.jpg"];
@@ -370,9 +370,9 @@ public:
 	
 		//archway
 		Model3D *archway = new Model3D();
-		archway->load_obj_file("data/models/archway-01.obj", 0.5);
+		archway->load_obj_file("../data/models/archway-01.obj", 0.5);
 		Model3D *stone_fence = new Model3D();
-		stone_fence->load_obj_file("data/models/unit_stone_fence-02.obj", 2.0);
+		stone_fence->load_obj_file("../data/models/unit_stone_fence-02.obj", 2.0);
 		for (int i=0; i<2; i++)
 		{
 			entity = new Entity();
