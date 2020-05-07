@@ -8,6 +8,22 @@
 #include <allegro_flare/console_color.h>
 
 
+#ifndef GL_CLAMP_TO_EDGE
+  #define GL_CLAMP_TO_EDGE 0x812F
+#endif
+
+#ifndef GL_TEXTURE_CUBE_MAP
+  #define GL_TEXTURE_CUBE_MAP 0x8513
+#endif
+
+#ifndef GL_TEXTURE_WRAP_R
+  #define GL_TEXTURE_WRAP_R 0x8072
+#endif
+
+#ifndef GL_TEXTURE_CUBE_MAP_POSITIVE_X
+  #define GL_TEXTURE_CUBE_MAP_POSITIVE_X 0x8515
+#endif
+
 
 
 namespace allegro_flare
