@@ -8,6 +8,14 @@
 #include <allegro_flare/console_color.h>
 
 
+
+// The define values listed below are missing from the Windows headers
+// solution is taken from here:
+//    https://stackoverflow.com/questions/5617250/gl-clamp-to-edge-was-not-declared-in-this-scope
+// The remaining constants and valuse are derived from this list:
+//    https://www.khronos.org/registry/OpenGL/api/GL/glext.h
+
+
 #ifndef GL_CLAMP_TO_EDGE
   #define GL_CLAMP_TO_EDGE 0x812F
 #endif
