@@ -9,41 +9,41 @@
 
 
 
-//struct AllegroFlare_InternationalizationTest : public ::testing::Test
-//{
-   //const char *TEST_FOLDER = "./data/languages/";
-   //static AllegroFlare::Internationalization internationalization;
+struct AllegroFlare_InternationalizationTest : public ::testing::Test
+{
+   const char *TEST_FOLDER = "./data/languages/";
+   static AllegroFlare::Internationalization internationalization;
 
-   //virtual void SetUp() override
-   //{
-      //ASSERT_EQ(false, al_is_system_installed());
-      //ASSERT_EQ(true, al_init());
+   virtual void SetUp() override
+   {
+      ASSERT_EQ(false, al_is_system_installed());
+      ASSERT_EQ(true, al_init());
 
-      //ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
-      //al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
-      //al_destroy_path(resource_path);
+      ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+      al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
+      al_destroy_path(resource_path);
 
-      //internationalization.set_languages_folder(TEST_FOLDER);
-   //}
+      internationalization.set_languages_folder(TEST_FOLDER);
+   }
 
-   //virtual void TearDown() override
-   //{
-      //al_uninstall_system();
-   //}
-//};
+   virtual void TearDown() override
+   {
+      al_uninstall_system();
+   }
+};
 
-//AllegroFlare::Internationalization AllegroFlare_InternationalizationTest::internationalization;
-
-
+AllegroFlare::Internationalization AllegroFlare_InternationalizationTest::internationalization;
 
 
-//TEST_F(AllegroFlare_InternationalizationTest, expected_test_files_and_folders_exist)
-//{
-   //ASSERT_EQ(true, al_filename_exists("./data/languages/"));
-   //ASSERT_EQ(true, al_filename_exists("./data/languages/en.txt"));
-   //ASSERT_EQ(true, al_filename_exists("./data/languages/fr.txt"));
-   //ASSERT_EQ(true, al_filename_exists("./data/languages/it.txt"));
-//}
+
+
+TEST_F(AllegroFlare_InternationalizationTest, expected_test_files_and_folders_exist)
+{
+   ASSERT_EQ(true, al_filename_exists("./data/languages/"));
+   ASSERT_EQ(true, al_filename_exists("./data/languages/en.txt"));
+   ASSERT_EQ(true, al_filename_exists("./data/languages/fr.txt"));
+   ASSERT_EQ(true, al_filename_exists("./data/languages/it.txt"));
+}
 
 
 
