@@ -73,6 +73,14 @@ namespace AllegroFlare
          result += get_random_int(sides, 1);
       return result;
    }
+
+
+
+
+   ALLEGRO_COLOR Random::get_random_color()
+   {
+      return al_map_rgb(get_random_int(0, 255), get_random_int(0, 255), get_random_int(0, 255));
+   }
 }
 
 

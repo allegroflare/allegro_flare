@@ -69,7 +69,9 @@ namespace AllegroFlare
 
 
    Framework::~Framework()
-   {}
+   {
+      destruct();
+   }
 
 
 
@@ -354,7 +356,7 @@ namespace AllegroFlare
                   || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Framework::key_ctrl++;
             if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
                drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
-            screens.key_down_funcs();
+            screens.key_down_funcs(&this_event);
             break;
          case ALLEGRO_EVENT_KEY_UP:
             if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
@@ -366,7 +368,7 @@ namespace AllegroFlare
             screens.key_up_funcs();
             break;
          case ALLEGRO_EVENT_KEY_CHAR:
-            screens.key_char_funcs();
+            screens.key_char_funcs(&this_event);
             break;
          case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
             screens.mouse_up_funcs();

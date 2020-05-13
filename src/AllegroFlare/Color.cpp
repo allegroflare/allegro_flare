@@ -174,7 +174,7 @@ namespace AllegroFlare
          col.r = (col2.r - col1.r) * scale + col1.r;
          col.g = (col2.g - col1.g) * scale + col1.g;
          col.b = (col2.b - col1.b) * scale + col1.b;
-         col.a = (col2.a - col1.a) * scale + col1.a;
+         //col.a = (col2.a - col1.a) * scale + col1.a; // causing break
          return col;
       }
 

@@ -1,9 +1,11 @@
-#pragma once 
+#pragma once
 
 
 
 #include <random>
 #include <ctime>
+
+#include <allegro5/allegro.h>
 
 
 
@@ -40,6 +42,9 @@ namespace AllegroFlare
 
       // Returns the result of rolling dice with a number of sides.
       int roll_dice(int number_of_die, int sides);
+
+      // Returns a random color
+      ALLEGRO_COLOR get_random_color();
    };
 }
 

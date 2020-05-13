@@ -4,6 +4,8 @@
 
 #include <AllegroFlare/Screen.hpp>
 
+#include <algorithm>
+
 
 namespace AllegroFlare
 {
@@ -96,10 +98,10 @@ namespace AllegroFlare
    }
 
 
-   void Screens::key_down_funcs()
+   void Screens::key_down_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
-         screens[i]->key_down_func();
+         screens[i]->key_down_func(ev);
    }
 
 
@@ -110,10 +112,10 @@ namespace AllegroFlare
    }
 
 
-   void Screens::key_char_funcs()
+   void Screens::key_char_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
-         screens[i]->key_char_func();
+         screens[i]->key_char_func(ev);
    }
 
 
