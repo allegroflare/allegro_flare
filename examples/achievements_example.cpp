@@ -2,6 +2,7 @@
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Achievement.hpp>
 #include <AllegroFlare/Achievements.hpp>
+#include <AllegroFlare/Framework.hpp>
 
 
 #include <iostream>
@@ -50,7 +51,7 @@ public:
    };
 
    MyGame(Framework &framework, Screens &screens, Display *display)
-      : Screen(framework, screens, display)
+      : Screen(display)
    {}
 
    void initialize()
@@ -59,7 +60,7 @@ public:
       achievements.add("my_collected_ten_barley_achievement", achievement);
    }
    
-   void key_down_func() override
+   void key_down_func(ALLEGRO_EVENT *ev) override
    {
       player_inventory.add_item(ITEM_BARLEY);
       std::cout << "1 Barley added." << std::endl;   // <-- *** NEW

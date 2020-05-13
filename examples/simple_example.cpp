@@ -1,13 +1,14 @@
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Screen.hpp>
+#include <AllegroFlare/Framework.hpp>
 
 using namespace AllegroFlare;
 
 class SimpleExample : public Screen
 {
 public:
-    SimpleExample(Framework &framework, Screens &screens, Display *display) : Screen(framework, screens, display) {}
+    SimpleExample(Framework &framework, Screens &screens, Display *display) : Screen(display) {}
     void primary_timer_func() override
     {
         al_draw_filled_rectangle(300, 400, 200, 100, color::chartreuse);

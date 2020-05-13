@@ -2,6 +2,8 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Screen.hpp>
 #include <AllegroFlare/Useful.hpp> // for distance()
+#include <AllegroFlare/FontBin.hpp> // for distance()
+#include <AllegroFlare/Framework.hpp> // for distance()
 
 #include <allegro5/allegro_primitives.h>
 
@@ -259,7 +261,7 @@ public:
    HUD hud;
 
    SnakeGame(Framework &framework, Screens &screens, Display *display)
-      : Screen(framework, screens, display)
+      : Screen(display)
       , gameboard(1920, 1080)
       , hud()
    {}
@@ -286,9 +288,9 @@ public:
       hud.draw();
    }
 
-   void key_down_func() override
+   void key_down_func(ALLEGRO_EVENT *ev) override
    {
-      switch(framework.current_event->keyboard.keycode)
+      switch(ev->keyboard.keycode)
       {
       case ALLEGRO_KEY_UP:
          gameboard.point_snake_up();
