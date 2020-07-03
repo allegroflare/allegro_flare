@@ -86,6 +86,15 @@ namespace AllegroFlare
 
 
 
+   bool Config::get_value_bool(std::string section, std::string key)
+   {
+      ensure_initialized_allegro();
+      const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
+      if (!val) return false;
+      return std::string(val) == BOOL_STRING_FOR_TRUE;
+   }
+
+
 
    std::string Config::get_or_default_str(std::string section, std::string key, std::string _default)
    {
@@ -113,6 +122,19 @@ namespace AllegroFlare
       if (has_value(section, key)) return get_value_float(section, key);
       return _default;
    }
+
+
+
+   bool Config::get_or_default_bool(std::string section, std::string key, bool _default)
+   {
+      ensure_initialized_allegro();
+      if (has_value(section, key)) return get_value_bool(section, key);
+      return _default;
+   }
+
+
+
+   const std::string Config::BOOL_STRING_FOR_TRUE = "true";
 }
 
 

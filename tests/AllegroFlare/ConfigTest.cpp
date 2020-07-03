@@ -114,6 +114,17 @@ TEST_F(AllegroFlare_ConfigTest, retrieves_an_int_value)
 
 
 
+TEST_F(AllegroFlare_ConfigTest, retrieves_an_bool_value)
+{
+   Config config = Config(TEST_FILENAME);
+   config.load();
+
+   ASSERT_EQ(true, config.get_value_bool("", "squatting"));
+}
+
+
+
+
 TEST_F(AllegroFlare_ConfigTest, retrieves_a_float_value_within_a_margin_of_error)
 {
    Config config = Config(TEST_FILENAME);
@@ -131,7 +142,23 @@ TEST_F(AllegroFlare_ConfigTest, returns_a_default_value_if_a_section_and_key_doe
    config.load();
 
    ASSERT_EQ("Beary", config.get_or_default_str("", "hero", "Beary"));
+   ASSERT_EQ(false, config.get_value_bool("", "a_key_that_does_not_exist"));
    ASSERT_EQ(42, config.get_or_default_int("", "speed", 42));
+   ASSERT_NEAR(6.28, config.get_or_default_float("", "tau", 6.28), 0.00001);
+}
+
+
+
+
+TEST_F(AllegroFlare_ConfigTest, get_value_bool__returns_a_default_value_if_a_section_and_key_does_not_exist)
+{
+   Config config = Config(TEST_FILENAME);
+   config.load();
+
+   ASSERT_EQ("Beary", config.get_or_default_str("", "hero", "Beary"));
+   ASSERT_EQ(42, config.get_or_default_int("", "speed", 42));
+   ASSERT_EQ(false, config.get_or_default_bool("", "invisibility", false));
+   ASSERT_EQ(true, config.get_or_default_bool("", "blitz_mode", true));
    ASSERT_NEAR(6.28, config.get_or_default_float("", "tau", 6.28), 0.00001);
 }
 
