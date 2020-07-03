@@ -38,6 +38,7 @@ namespace AllegroFlare
       bool include(T2 identifier, T data);
       bool rename(T2 identifier, T2 new_identifer);
       void clear(); //< doesn't work as a base class function in the destructor
+      int size();
       virtual T load_data(T2 identifier) = 0;
       virtual void destroy_data(T) = 0;
       std::string get_str();
@@ -249,6 +250,13 @@ namespace AllegroFlare
       }
       //record.clear();
       record.clear();
+   }
+
+
+   template<class T2, class T>
+   int Bin<T2, T>::size()
+   {
+      return record.size();
    }
 
 
