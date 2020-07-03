@@ -4,6 +4,7 @@
 #include <AllegroFlare/Config.hpp>
 
 #include <iostream>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -32,8 +33,9 @@ namespace AllegroFlare
 
       if (!config_file)
       {
-         std::cerr << "[" << __FUNCTION__ << "] the file \"" << filename << "\" could not be found." << std::endl;
-         return false;
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Config::" << __FUNCTION__ << "] the file \"" << filename << "\" could not be found." << std::endl;
+         throw std::runtime_error(error_message.str());
       }
       return true;
    }

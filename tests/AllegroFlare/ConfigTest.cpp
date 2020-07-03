@@ -60,6 +60,20 @@ TEST_F(AllegroFlare_ConfigTest, necessairy_test_file_exists)
 
 
 
+TEST_F(AllegroFlare_ConfigTest, load__with_a_filename_that_does_not_exist__raises_an_error)
+{
+   std::string filename_that_does_not_exist = "/Some/file/that/does_not_exist.txt";
+   Config config = Config(filename_that_does_not_exist);
+
+   std::stringstream expected_error_message;
+   expected_error_message << "[AllegroFlare::Config::load] the file \"" << filename_that_does_not_exist << "\" could not be found." << std::endl;
+
+   ASSERT_THROW_WITH_MESSAGE(config.load(), std::runtime_error, expected_error_message.str());
+}
+
+
+
+
 TEST_F(AllegroFlare_ConfigTest, retrieves_if_the_config_key_exists_in_the_global_space)
 {
    Config config = Config(TEST_FILENAME);
