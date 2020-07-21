@@ -138,6 +138,21 @@ namespace allegro_flare
       rotation += other.rotation;
       return *this;
    }
+
+
+
+
+   bool placement3d::operator==(const placement3d& other)
+   {
+      return (
+         position == other.position
+         && size == other.size
+         && align == other.align
+         && scale == other.scale
+         && anchor == other.anchor
+         && rotation == other.rotation
+         );
+   }
 }
 
 

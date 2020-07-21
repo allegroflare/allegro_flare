@@ -28,6 +28,7 @@ namespace allegro_flare
       void build_reverse_transform(ALLEGRO_TRANSFORM *transform);
 
       placement3d& operator+=(const placement3d& other);
+      bool operator==(const placement3d& other);
 
       AllegroFlare::vec3d get_real_position();
 
