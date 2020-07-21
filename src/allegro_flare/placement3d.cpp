@@ -142,7 +142,7 @@ namespace allegro_flare
 
 
 
-   bool placement3d::operator==(const placement3d& other)
+   bool placement3d::operator==(const placement3d& other) const
    {
       return (
          position == other.position
