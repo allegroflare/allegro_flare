@@ -13,20 +13,20 @@ class __NetworkServiceINTERNAL;
 class NetworkService
 {
 private:
-	__NetworkServiceINTERNAL *_service;
+   __NetworkServiceINTERNAL *_service;
 
 public:
-	enum { max_message_length = 512 };
-	
-	NetworkService();
-	virtual ~NetworkService();
+   enum { max_message_length = 512 };
+   
+   NetworkService();
+   virtual ~NetworkService();
 
-	bool connect(std::string domain_or_ip_address, std::string port_num);
-	bool disconnect();
-	bool is_connected();
+   bool connect(std::string domain_or_ip_address, std::string port_num);
+   bool disconnect();
+   bool is_connected();
 
-	bool send_message(std::string message);
-	virtual void on_message_receive(std::string message);
+   bool send_message(std::string message);
+   virtual void on_message_receive(std::string message);
 };
 
 
