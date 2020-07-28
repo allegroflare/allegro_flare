@@ -227,6 +227,9 @@ private:
 
 int main(int argc, char* argv[])
 {
+   std::cout << "Note: that this server will not output messages to the console. "
+             << "It will only relay messages between clients."
+             << std::endl;
   try
   {
     if (argc < 2)
