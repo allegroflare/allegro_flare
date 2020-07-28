@@ -17,11 +17,11 @@ static int num_new_messages = 0;
 
 static void write_log_message(std::string message)
 {
-	message_log.push_back(message);
-	num_new_messages++;
-	//if (_on_recieve_message_callback_func)
-	//	_on_recieve_message_callback_func(message);
-	_on_recieve_message_callback_func(message);
+   message_log.push_back(message);
+   num_new_messages++;
+   //if (_on_recieve_message_callback_func)
+   //   _on_recieve_message_callback_func(message);
+   _on_recieve_message_callback_func(message);
 }
 
 
