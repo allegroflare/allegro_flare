@@ -10,7 +10,7 @@ namespace AllegroFlare
    Timer::Timer()
       : start_time()
       , end_time()
-      , elappsed_time(0.0)
+      , elapsed_time(0.0)
       , running(false)
    {}
 
@@ -30,7 +30,7 @@ namespace AllegroFlare
    {
       if (running) return;
 
-      elappsed_time += end_time - start_time;
+      elapsed_time += end_time - start_time;
       start_time = std::chrono::high_resolution_clock::now();
       running = true;
    }
@@ -41,39 +41,39 @@ namespace AllegroFlare
       if (!running) return;
 
       end_time = std::chrono::high_resolution_clock::now();
-      elappsed_time += end_time - start_time;
+      elapsed_time += end_time - start_time;
       running = false;
    }
 
 
-   int Timer::get_elappsed_time_msec()
+   int Timer::get_elapsed_time_msec()
    {
       if (!running)
       {
          return std::chrono::duration_cast<std::chrono::milliseconds>(
-               std::chrono::duration<double, std::milli>(elappsed_time)
+               std::chrono::duration<double, std::milli>(elapsed_time)
             ).count();
       }
       else
       {
          std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
-         return std::chrono::duration_cast<std::chrono::milliseconds>(elappsed_time + (current_time - start_time)).count();
+         return std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_time + (current_time - start_time)).count();
       }
    }
 
-   int Timer::get_elappsed_time_nanoseconds()
+   int Timer::get_elapsed_time_nanoseconds()
    {
       if (!running)
       {
          return std::chrono::duration_cast<std::chrono::nanoseconds>(
-               std::chrono::duration<double, std::nano>(elappsed_time)
+               std::chrono::duration<double, std::nano>(elapsed_time)
             ).count();
       }
       else
       {
          std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
          return std::chrono::duration_cast<std::chrono::nanoseconds>(
-               elappsed_time + (current_time - start_time)
+               elapsed_time + (current_time - start_time)
             ).count();
       }
    }

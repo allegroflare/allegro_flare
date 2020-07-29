@@ -13,7 +13,7 @@ namespace AllegroFlare
    private:
       std::chrono::high_resolution_clock::time_point start_time;
       std::chrono::high_resolution_clock::time_point end_time;
-      std::chrono::duration<double, std::milli> elappsed_time;
+      std::chrono::duration<double, std::milli> elapsed_time;
       bool running;
 
    public:
@@ -25,8 +25,8 @@ namespace AllegroFlare
       void start();
       void pause();
 
-      int get_elappsed_time_msec();
-      int get_elappsed_time_nanoseconds();
+      int get_elapsed_time_msec();
+      int get_elapsed_time_nanoseconds();
    };
 }
 
