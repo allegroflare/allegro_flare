@@ -34,6 +34,8 @@ NetworkClient::NetworkClient(asio::io_service& io_service, asio::ip::tcp::resolv
    do_connect(endpoint_iterator);
 }
 
+
+
 void NetworkClient::write(const NetworkMessage& msg)
 {
  io_service_.post(
@@ -48,10 +50,14 @@ void NetworkClient::write(const NetworkMessage& msg)
      });
 }
 
+
+
 void NetworkClient::close()
 {
    io_service_.post([this]() { socket_.close(); });
 }
+
+
 
 void NetworkClient::do_connect(asio::ip::tcp::resolver::iterator endpoint_iterator)
 {
@@ -64,6 +70,8 @@ void NetworkClient::do_connect(asio::ip::tcp::resolver::iterator endpoint_iterat
        }
      });
 }
+
+
 
 void NetworkClient::do_read_header()
 {
@@ -81,6 +89,8 @@ void NetworkClient::do_read_header()
        }
      });
 }
+
+
 
 void NetworkClient::do_read_body()
 {
@@ -107,6 +117,8 @@ void NetworkClient::do_read_body()
        }
      });
 }
+
+
 
 void NetworkClient::do_write()
 {
