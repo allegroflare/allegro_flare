@@ -19,19 +19,19 @@ TEST(AllegroFlare_TimerTest, can_be_created_without_arguments)
 }
 
 
-TEST(AllegroFlare_TimerTest, get_ellapsed_time_msec__will_be_zero_before_started)
+TEST(AllegroFlare_TimerTest, get_ellapsed_time_milliseconds__will_be_zero_before_started)
 {
    Timer timer;
-   ASSERT_EQ(0, timer.get_elapsed_time_msec());
+   ASSERT_EQ(0, timer.get_elapsed_time_milliseconds());
 }
 
 
-TEST(AllegroFlare_TimerTest, get_ellapsed_time_msec__will_return_the_elapsed_time)
+TEST(AllegroFlare_TimerTest, get_ellapsed_time_milliseconds__will_return_the_elapsed_time)
 {
    Timer timer;
    timer.start();
    usleep(1000);
-   ASSERT_EQ(1, timer.get_elapsed_time_msec());
+   ASSERT_EQ(1, timer.get_elapsed_time_milliseconds());
 
    //EXPECT_THAT(x, AllOf(Ge(1),Le(3)));
 }
@@ -44,15 +44,15 @@ TEST(AllegroFlare_TimerTest, pause__will_prevent_stop_the_timer_from_incrementin
    usleep(60000);
    timer.pause();
 
-   int ellapsed_time_msec = timer.get_elapsed_time_msec();
+   int ellapsed_time_milliseconds = timer.get_elapsed_time_milliseconds();
 
-   EXPECT_GE(ellapsed_time_msec, 60);
+   EXPECT_GE(ellapsed_time_milliseconds, 60);
 
    usleep(20000);
 
-   int after_sleep_ellapsed_time_msec = timer.get_elapsed_time_msec();
+   int after_sleep_ellapsed_time_milliseconds = timer.get_elapsed_time_milliseconds();
 
-   EXPECT_GE(ellapsed_time_msec, after_sleep_ellapsed_time_msec);
+   EXPECT_GE(ellapsed_time_milliseconds, after_sleep_ellapsed_time_milliseconds);
 }
 
 

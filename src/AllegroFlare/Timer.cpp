@@ -46,7 +46,7 @@ namespace AllegroFlare
    }
 
 
-   int Timer::get_elapsed_time_msec()
+   int Timer::get_elapsed_time_milliseconds()
    {
       if (!running)
       {
