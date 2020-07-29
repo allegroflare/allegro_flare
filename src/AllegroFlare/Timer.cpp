@@ -60,6 +60,23 @@ namespace AllegroFlare
          return std::chrono::duration_cast<std::chrono::milliseconds>(elappsed_time + (current_time - start_time)).count();
       }
    }
+
+   int Timer::get_elappsed_time_nanoseconds()
+   {
+      if (!running)
+      {
+         return std::chrono::duration_cast<std::chrono::nanoseconds>(
+               std::chrono::duration<double, std::nano>(elappsed_time)
+            ).count();
+      }
+      else
+      {
+         std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
+         return std::chrono::duration_cast<std::chrono::nanoseconds>(
+               elappsed_time + (current_time - start_time)
+            ).count();
+      }
+   }
 }
 
 

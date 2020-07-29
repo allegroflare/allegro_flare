@@ -56,3 +56,14 @@ TEST(AllegroFlare_TimerTest, pause__will_prevent_stop_the_timer_from_incrementin
 }
 
 
+TEST(AllegroFlare_TimerTest, get_ellapsed_time_nonseconds__will_return_the_elapsed_time)
+{
+   Timer timer;
+   timer.start();
+   usleep(1000);
+   ASSERT_EQ(1, (timer.get_elappsed_time_nanoseconds() / 1000000));
+
+   //EXPECT_THAT(x, AllOf(Ge(1),Le(3)));
+}
+
+
