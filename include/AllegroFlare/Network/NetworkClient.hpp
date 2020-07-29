@@ -2,7 +2,7 @@
 
 
 #include <string>
-#include "AllegroFlare/Network/NetworkMessage.hpp"
+#include <AllegroFlare/Network/NetworkMessage.hpp>
 
 
 #include <asio.hpp>
