@@ -7,8 +7,7 @@ class __NetworkServiceINTERNAL;
 
 
 
-// Though not implemented, 
-// only one instance of NetworkService should be used
+// Though not implemented, only one instance of NetworkService should be used
 
 class NetworkService
 {
@@ -17,7 +16,7 @@ private:
 
 public:
    enum { max_message_length = 512 };
-   
+
    NetworkService();
    virtual ~NetworkService();
 
