@@ -22,6 +22,7 @@ namespace AllegroFlare
 
       bool is_running();
 
+      void reset();
       void start();
       void pause();
 

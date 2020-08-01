@@ -78,3 +78,16 @@ TEST(AllegroFlare_TimerTest, get_ellapsed_time_nanoseconds__will_return_the_elap
 }
 
 
+TEST(AllegroFlare_TimerTest, reset__will_clear_the_values_and_stop_the_timer_if_it_is_running)
+{
+   Timer timer;
+   timer.start();
+   usleep(1000);
+   ASSERT_EQ(1, (timer.get_elapsed_time_nanoseconds() / 1000000));
+
+   timer.reset();
+
+   EXPECT_EQ(0, timer.get_elapsed_time_nanoseconds());
+   EXPECT_EQ(false, timer.is_running());
+}
+
