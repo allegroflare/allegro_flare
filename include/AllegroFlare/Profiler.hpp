@@ -21,6 +21,8 @@ namespace AllegroFlare
       Profiler();
       ~Profiler();
 
+      std::map<std::string, AllegroFlare::Timer> get_timers();
+
       void start(std::string name);
       void pause(std::string name);
       void clear();

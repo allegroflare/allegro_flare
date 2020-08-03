@@ -30,6 +30,12 @@ namespace AllegroFlare
    }
 
 
+   std::map<std::string, AllegroFlare::Timer> Profiler::get_timers()
+   {
+      return this->timers;
+   }
+
+
    void Profiler::start(std::string name)
    {
       find_or_create(name)->start();
