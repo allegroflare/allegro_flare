@@ -37,7 +37,7 @@ namespace AllegroFlare
    }
 
 
-   std::vector<std::tuple<std::string, std::chrono::high_resolution_clock::time_point>> Profiler::get_events()
+   std::map<std::string, std::vector<std::chrono::high_resolution_clock::time_point>> Profiler::get_events()
    {
       return this->events;
    }
@@ -64,7 +64,7 @@ namespace AllegroFlare
    void Profiler::emit(std::string name)
    {
       std::chrono::high_resolution_clock::time_point event_time = std::chrono::high_resolution_clock::now();
-      events.push_back({name, event_time});
+      events[name].push_back(event_time);
    }
 
 
@@ -121,19 +121,6 @@ namespace AllegroFlare
          sprintf(time, "%d", duration_microseconds);
          al_draw_text(font, font_color, x+pad+300, y+pad+line_height*i, ALLEGRO_ALIGN_RIGHT, time);
          i++;
-      }
-
-      if (events.size() >= 2)
-      {
-         std::chrono::high_resolution_clock::time_point first_event_time = std::get<1>(events[0]);
-
-         std::chrono::high_resolution_clock::time_point event_time = std::get<1>(events[events.size()-1]);
-
-         auto event_time_since_start = std::chrono::duration_cast<std::chrono::microseconds>(
-               (event_time - first_event_time)
-            ).count();
-
-         //al_draw_line(
       }
 
       al_draw_line(
