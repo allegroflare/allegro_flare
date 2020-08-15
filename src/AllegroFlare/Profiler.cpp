@@ -65,6 +65,22 @@ namespace AllegroFlare
    {
       std::chrono::high_resolution_clock::time_point event_time = std::chrono::high_resolution_clock::now();
       events[name].push_back(event_time);
+      std::cout << " -- " << name << " " << std::endl;
+   }
+
+
+   std::vector<std::chrono::high_resolution_clock::time_point> Profiler::get_event_samples(
+      std::string name,
+      int max_samples
+   )
+   {
+      std::vector<std::chrono::high_resolution_clock::time_point> &events_for_this_bucket = events[name];
+      if (max_samples < 0) max_samples = 0;
+      if (max_samples > events_for_this_bucket.size()) max_samples = events_for_this_bucket.size();
+
+      std::vector<std::chrono::high_resolution_clock::time_point> events_to_return
+         (events_for_this_bucket.end() - max_samples, events_for_this_bucket.end());
+      return events_to_return;
    }
 
 
