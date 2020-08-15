@@ -71,6 +71,7 @@ namespace AllegroFlare
    void Profiler::clear()
    {
       timers.clear();
+      events.clear();
    }
 
 
