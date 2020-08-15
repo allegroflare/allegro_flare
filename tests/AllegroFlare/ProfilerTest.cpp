@@ -19,7 +19,7 @@ TEST(AllegroFlare_ProfilerTest, emit__will_add_an_event_time_to_that_event_bucke
       usleep(10000);
    }
 
-   ASSERT_EQ(1, profiler.get_events().size());
+   ASSERT_EQ(1, profiler.get_event_buckets().size());
    ASSERT_EQ(10, profiler.get_event_samples(EVENT_IDENTIFIER, 10).size());
    ASSERT_EQ(6, profiler.get_event_samples(EVENT_IDENTIFIER, 6).size());
 }

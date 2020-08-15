@@ -37,9 +37,9 @@ namespace AllegroFlare
    }
 
 
-   std::map<std::string, std::vector<std::chrono::high_resolution_clock::time_point>> Profiler::get_events()
+   std::map<std::string, std::vector<std::chrono::high_resolution_clock::time_point>> Profiler::get_event_buckets()
    {
-      return this->events;
+      return this->event_buckets;
    }
 
 
@@ -64,7 +64,7 @@ namespace AllegroFlare
    void Profiler::emit(std::string name)
    {
       std::chrono::high_resolution_clock::time_point event_time = std::chrono::high_resolution_clock::now();
-      events[name].push_back(event_time);
+      event_buckets[name].push_back(event_time);
       std::cout << " -- " << name << " " << std::endl;
    }
 
@@ -74,7 +74,7 @@ namespace AllegroFlare
       int max_samples
    )
    {
-      std::vector<std::chrono::high_resolution_clock::time_point> &events_for_this_bucket = events[name];
+      std::vector<std::chrono::high_resolution_clock::time_point> &events_for_this_bucket = event_buckets[name];
       if (max_samples < 0) max_samples = 0;
       if (max_samples > events_for_this_bucket.size()) max_samples = events_for_this_bucket.size();
 
@@ -87,7 +87,7 @@ namespace AllegroFlare
    void Profiler::clear()
    {
       timers.clear();
-      events.clear();
+      event_buckets.clear();
    }
 
 

@@ -14,7 +14,7 @@ namespace AllegroFlare
    {
    private:
       std::map<std::string, AllegroFlare::Timer> timers;
-      std::map<std::string, std::vector<std::chrono::high_resolution_clock::time_point>> events;
+      std::map<std::string, std::vector<std::chrono::high_resolution_clock::time_point>> event_buckets;
 
       AllegroFlare::Timer *find_or_create(std::string name);
 
@@ -23,7 +23,7 @@ namespace AllegroFlare
       ~Profiler();
 
       std::map<std::string, AllegroFlare::Timer> get_timers();
-      std::map<std::string, std::vector<std::chrono::high_resolution_clock::time_point>> get_events();
+      std::map<std::string, std::vector<std::chrono::high_resolution_clock::time_point>> get_event_buckets();
 
       void start(std::string name);
       void pause(std::string name);
