@@ -30,7 +30,7 @@ namespace AllegroFlare
       void reset(std::string name);
       void clear();
 
-      void occur(std::string name);
+      void emit(std::string name);
 
       void draw(float x, float y, ALLEGRO_FONT *font);
    };

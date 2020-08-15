@@ -61,7 +61,7 @@ namespace AllegroFlare
    }
 
 
-   void Profiler::occur(std::string name)
+   void Profiler::emit(std::string name)
    {
       std::chrono::high_resolution_clock::time_point event_time = std::chrono::high_resolution_clock::now();
       events.push_back({name, event_time});
