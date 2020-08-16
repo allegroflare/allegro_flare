@@ -43,6 +43,40 @@ namespace AllegroFlare
    }
 
 
+   std::list<std::string> Profiler::get_event_bucket_names()
+   {
+      std::list<std::string> result;
+      for (auto &event_bucket : event_buckets)
+      {
+         result.push_back(event_bucket.first);
+      }
+      return result;
+   }
+
+
+   int Profiler::get_event_bucket_num_samples(std::string event_bucket_name)
+   {
+      if (event_buckets.find(event_bucket_name) == event_buckets.end()) return 0;
+      return event_buckets[event_bucket_name].size();
+   }
+
+
+   int Profiler::get_event_bucket_duration_between_last_two_samples(std::string event_bucket_name)
+   {
+      if (event_buckets.find(event_bucket_name) == event_buckets.end()) return 0;
+
+      std::vector<std::chrono::high_resolution_clock::time_point> &bucket = event_buckets[event_bucket_name];
+      if (bucket.size() <= 1) return 0;
+
+      std::chrono::high_resolution_clock::time_point &most_recent_event_time = bucket[bucket.size() - 1];
+      std::chrono::high_resolution_clock::time_point &second_most_recent_event_time = bucket[bucket.size() - 2];
+
+      return std::chrono::duration_cast<std::chrono::microseconds>(
+            most_recent_event_time - second_most_recent_event_time
+         ).count();
+   }
+
+
    void Profiler::start(std::string name)
    {
       find_or_create(name)->start();
@@ -65,7 +99,6 @@ namespace AllegroFlare
    {
       std::chrono::high_resolution_clock::time_point event_time = std::chrono::high_resolution_clock::now();
       event_buckets[name].push_back(event_time);
-      std::cout << " -- " << name << " " << std::endl;
    }
 
 
