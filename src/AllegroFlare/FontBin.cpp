@@ -22,7 +22,6 @@ namespace AllegroFlare
 
    FontBin::~FontBin()
    {
-      clear();
    }
 
 
