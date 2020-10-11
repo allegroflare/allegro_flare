@@ -148,7 +148,16 @@ namespace AllegroFlare
       Bin<T2, T>::Record *r = get_record(identifier);
       if (r) return r->data;
       std::string class_name = typeid(*this).name();
-      std::cout << CONSOLE_COLOR_RED << "[" << class_name << "::" << __FUNCTION__ << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
+      std::cout << CONSOLE_COLOR_RED
+                << "["
+                << class_name
+                << "::"
+                << __FUNCTION__
+                << "] could not load \""
+                << identifier
+                << "\""
+                << CONSOLE_COLOR_DEFAULT
+                << std::endl;
       return NULL;
    }
 
