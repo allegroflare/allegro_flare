@@ -13,58 +13,8 @@ AllegroFlare is a game programming library in C++.  It's built on top of the [Al
 Build Instructions
 -----------------------------------
 
-AllegroFlare works on Windows, Linux, and OSX.  Before compiling, you'll need to have [Allegro 5.2.0](http://liballeg.org/) or greater on your system.  If you're using `gcc` or `clang`, the process for building is the same on all systems.
-
-#### Step 1: Clone the repo
-```
-$ git clone https://github.com/allegroflare/allegro_flare.git
-```
-
-#### Step 2: Set your directories in `Makefile`
-At the top of the `Makefile` are 4 variables.  Edit them to point to the locations where you have Allegro and AllegroFlare on your computer.  If you're on Windows, your `LIBS_ROOT` might be something like `C:/Users/Repos/`.
-```makefile
-LIBS_ROOT=/Users/markoates/Repos
-ALLEGRO_DIR=$(LIBS_ROOT)/allegro5
-ALLEGRO_LIB_DIR=$(LIBS_ROOT)/allegro5/build/lib
-ALLEGROFLARE_DIR=$(LIBS_ROOT)/allegro_flare
-```
-
-#### Step 3: Run Make
-```
-$ make
-```
-Success!  The only thing left to do is `#include <allegro_flare/allegro_flare.h>` in your program, and link with the AllegroFlare lib and the Allegro libs when compiling.  Optionally, you can build the example programs with `make examples`.
-
-If you run into any problems or have questions, ask on the [allegro.cc forums](http://www.allegro.cc/forums/recent).
-
-Simple Example
---------------
-
-```cpp
-#include <allegro_flare/allegro_flare.h>
-using namespace allegro_flare;
-using namespace AllegroFlare;
-
-
-class MyApp : public Screen
-{
-public:
-    MyApp(Display *display) : Screen(display) {}
-    void primary_timer_func() override
-    {
-        al_draw_filled_rectangle(300, 400, 200, 100, color::chartreuse);
-    }
-}
-
-int main(int argc, char **argv)
-{
-    Framework::initialize(); // initialize all things AllegroFlare
-    Display *display = Framework::create_display(800, 600); // creates a new Window
-    MyApp *my_app = new MyApp(display); // creates a new instance of your app
-    Framework::run_loop(); // run the AllegroFlare framework
-}
-```
-
+[Build instructions have been removed because they are out of date.  Current
+build is based on the https://github.com/MarkOates/union Makefile.
 
 
 Some Examples of Features and Tools
@@ -127,33 +77,3 @@ Some Examples of Features and Tools
 ### And More
 - Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc.
 
-
-
-Development
------------------------------------
-
-At the time of this writing, tests are written using the [Boost Unit Test
-Framework](https://www.boost.org/doc/libs/1_71_0/libs/test/doc/html/index.html).  You'll need to install it on your computer to build and run the tests.
-
-On MacOS, you can install Boost with Homebrew:
-
-```
-$ brew install boost
-```
-
-You should now be able to build the tests with:
-
-```
-$ make tests
-```
-
-Tests should now be in the `bin/tests/`.  You can run them individually or find
-and execute all the test executables in `bin/tests/` with something like:
-```
-find bin/tests -type f -perm -u+x -exec {} \;
-```
-
-For a more verbose output, you can set the `BOOST_TEST_LOG_LEVEL` env var:
-```
-BOOST_TEST_LOG_LEVEL=test_suite find bin/tests -type f -perm -u+x -exec {} \;
-```
