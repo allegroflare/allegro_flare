@@ -5,7 +5,6 @@
 
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
-#include <AllegroFlare/ConsoleColor.hpp>
 #include <AllegroFlare/Model3DObjLoader.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <cstdio>
