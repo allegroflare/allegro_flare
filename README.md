@@ -9,14 +9,6 @@ Seadragon](https://github.com/allegroflare/allegro_flare/releases/tag/v0.8.9)
 AllegroFlare is a game programming library in C++.  It's built on top of the [Allegro 5 Game Programming Library](http://liballeg.org), extending it with new features to make your game development expreience all the more enjoyable.
 
 
-
-Build Instructions
------------------------------------
-
-[Build instructions have been removed because they are out of date.  Current
-build is based on the https://github.com/MarkOates/union Makefile.
-
-
 Some Examples of Features and Tools
 -----------------------------------
 
@@ -77,3 +69,9 @@ Some Examples of Features and Tools
 ### And More
 - Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc.
 
+
+Build Instructions
+-----------------------------------
+
+(Build instructions have been removed because they are out of date.  Current
+build is based on the https://github.com/MarkOates/union Makefile.)
