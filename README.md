@@ -59,13 +59,6 @@ Some Examples of Features and Tools
 ### Encryption
 - md5 and sha2 functions
 
-### Other cool stuff (requires dependencies)
-- Interprocess and Shared Memory (boost)
-- Text-to-speech API (windows)
-- Download a file in a thread (curl)
-- Webcam access (OpenCV)
-- MIDI control (windows)
-
 ### And More
 - Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc.
 
