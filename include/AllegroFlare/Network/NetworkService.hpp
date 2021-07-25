@@ -7,7 +7,10 @@ class __NetworkServiceINTERNAL;
 
 
 
-// Though not implemented, only one instance of NetworkService should be used
+// Though not implemented, only one instance of NetworkService should be used.  This is because
+// the internal implementation currently uses a global static asio::io_service. This can be
+// modified in the future, but for now this shortcut was put in place to move the development
+// along more quickly.
 
 class NetworkService
 {
