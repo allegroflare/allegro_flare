@@ -23,19 +23,18 @@ StringVectorIntersection::~StringVectorIntersection()
 
 std::vector<std::string> StringVectorIntersection::intersection()
 {
-std::vector<std::string> result;
-result.resize(v1.size() + v2.size());
-std::vector<std::string>::iterator it;
+   std::vector<std::string> result;
+   result.resize(v1.size() + v2.size());
+   std::vector<std::string>::iterator it;
 
-std::sort(v1.begin(), v1.end());
-std::sort(v2.begin(), v2.end());
+   std::sort(v1.begin(), v1.end());
+   std::sort(v2.begin(), v2.end());
 
-it = std::set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), result.begin());
+   it = std::set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), result.begin());
 
-result.resize(it - result.begin());
+   result.resize(it - result.begin());
 
-return result;
-
+   return result;
 }
 } // namespace NcursesArt
 

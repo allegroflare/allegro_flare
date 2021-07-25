@@ -17,8 +17,7 @@ namespace NcursesArt
       StringVectorIntersection(std::vector<std::string> v1={}, std::vector<std::string> v2={});
       ~StringVectorIntersection();
 
-
-   std::vector<std::string> intersection();
+      std::vector<std::string> intersection();
    };
 }
 
