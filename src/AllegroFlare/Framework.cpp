@@ -425,7 +425,7 @@ namespace AllegroFlare
             }
             break;
          default:
-            if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type)) screens.user_event_funcs();
+            if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type)) screens.user_event_funcs(&this_event);
             else std::cout << "uncaught event [" << this_event.type << "]" << std::endl;
             break;
          }

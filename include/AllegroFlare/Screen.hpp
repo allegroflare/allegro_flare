@@ -50,7 +50,7 @@ namespace AllegroFlare
       virtual void joy_button_up_func();
       virtual void joy_axis_func();
       virtual void joy_config_func();
-      virtual void user_event_func();
+      virtual void user_event_func(ALLEGRO_EVENT *ev);
       virtual void native_menu_click_func();
       virtual void receive_signal(int signal, void *data);
       virtual void receive_signal(std::string const signal, void *data);
