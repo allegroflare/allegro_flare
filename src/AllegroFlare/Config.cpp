@@ -24,6 +24,31 @@ namespace AllegroFlare
 
 
 
+   bool Config::load_or_create_empty()
+   {
+      ensure_initialized_allegro();
+
+      if (config_file) al_destroy_config(config_file);
+      config_file = al_load_config_file(filename.c_str());
+
+      if (!config_file)
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Config::"
+                       << __FUNCTION__
+                       << "] the file \""
+                       << filename
+                       << "\" could not be found. Now creating an empty config to use in its place...";
+         std::cerr << error_message.str();
+         //throw std::runtime_error(error_message.str());
+         config_file = al_create_config();
+         std::cerr << " Done: empty config created." << std::endl;
+      }
+      return true;
+   }
+
+
+
    bool Config::load()
    {
       ensure_initialized_allegro();

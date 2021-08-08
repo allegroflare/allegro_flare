@@ -74,6 +74,30 @@ TEST_F(AllegroFlare_ConfigTest, load__with_a_filename_that_does_not_exist__raise
 
 
 
+TEST_F(AllegroFlare_ConfigTest,
+   load_or_create_empty__with_a_filename_that_does_not_exist__outputs_an_error_message_to_stderr)
+{
+   std::string filename_that_does_not_exist = "/Some/file/that/does_not_exist.txt";
+   Config config = Config(filename_that_does_not_exist);
+
+   std::stringstream expected_error_message;
+   expected_error_message
+      << "[AllegroFlare::Config::load_or_create_empty] the file \""
+      << filename_that_does_not_exist
+      << "\" could not be found."
+      << " Now creating an empty config to use in its place... Done: empty config created."
+      << std::endl;
+
+   testing::internal::CaptureStderr();
+   config.load_or_create_empty();
+   std::string output = testing::internal::GetCapturedStderr();
+
+   ASSERT_EQ(expected_error_message.str(), output);
+}
+
+
+
+
 TEST_F(AllegroFlare_ConfigTest, retrieves_if_the_config_key_exists_in_the_global_space)
 {
    Config config = Config(TEST_FILENAME);

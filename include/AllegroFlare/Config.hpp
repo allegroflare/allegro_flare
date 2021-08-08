@@ -19,6 +19,7 @@ namespace AllegroFlare
       Config(std::string filename);
 
       bool load();
+      bool load_or_create_empty();
 
       bool has_value(std::string section, std::string key);
       std::string get_value_str(std::string section, std::string key);
