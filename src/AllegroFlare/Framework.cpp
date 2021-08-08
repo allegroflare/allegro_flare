@@ -175,7 +175,7 @@ namespace AllegroFlare
       samples.set_path("data/samples");
       bitmaps.set_path("data/bitmaps");
       models.set_path("data/models");
-      config.load();
+      config.load_or_create_empty();
 
       Attributes::create_datatype_definition(
          AllegroColorAttributeDatatype::IDENTIFIER,
