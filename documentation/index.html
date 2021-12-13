@@ -122,10 +122,16 @@ table td
   <td class="method">set_global_volume(1)</td>
 </tr>
 <tr>
+  <td class="method">play_sound_effect_by_identifier(1)</td>
+</tr>
+<tr>
   <td class="method">play_music_track_by_identifier(1)</td>
 </tr>
 <tr>
-  <td class="method">play_sound_effect_by_identifier(1)</td>
+  <td class="private_method">find_sound_effect_by_identifier(1)</td>
+</tr>
+<tr>
+  <td class="private_method">find_music_track_by_identifier(1)</td>
 </tr>
     </table>
      <table>
@@ -140,6 +146,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Sound*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/Sound.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Sound*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Sound.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -241,6 +250,9 @@ table td
     "AllegroFlare/AudioController"
   ],
   "std/map<std/string, AllegroFlare/Sound>": [
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/Sound": [
     "AllegroFlare/AudioController"
   ],
   "AllegroFlare/Framework": [

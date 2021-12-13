@@ -1,7 +1,14 @@
 
 
 #include <AllegroFlare/AudioController.hpp>
-
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -46,6 +53,12 @@ AllegroFlare::SampleBin &AudioController::get_dummy_sample_bin_ref()
 
 void AudioController::initialize()
 {
+   if (!((!initialized)))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
    if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
    for (auto &sound_effect_element : sound_effect_elements)
@@ -94,6 +107,12 @@ void AudioController::initialize()
 
 void AudioController::destruct()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "destruct" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    stop_all();
    for (auto &sound_effect : sound_effects) delete sound_effect.second;
    for (auto &music_track : music_tracks) delete music_track.second;
@@ -102,26 +121,75 @@ void AudioController::destruct()
 
 void AudioController::stop_all()
 {
-   // TODO
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "stop_all" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   for (auto &sound_effect : sound_effects) sound_effect.second->stop();
+   for (auto &music_track : music_tracks) music_track.second->stop();
+   current_music_track_identifier = "";
    return;
 }
 
 void AudioController::set_global_volume(float volume)
 {
-   // TODO
-   return;
-}
-
-void AudioController::play_music_track_by_identifier(std::string identifier)
-{
-   // TODO
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "set_global_volume" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   for (auto &sound_effect : sound_effects) sound_effect.second->volume(global_volume);
+   for (auto &music_track : music_tracks) music_track.second->volume(global_volume);
    return;
 }
 
 void AudioController::play_sound_effect_by_identifier(std::string identifier)
 {
-   // TODO
+   Sound *sound = find_sound_effect_by_identifier(identifier);
+   if (sound) sound->play();
    return;
+}
+
+void AudioController::play_music_track_by_identifier(std::string identifier)
+{
+   if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
+   stop_all();
+   Sound *sound = find_music_track_by_identifier(identifier);
+   if (sound) sound->play();
+   return;
+}
+
+AllegroFlare::Sound* AudioController::find_sound_effect_by_identifier(std::string identifier)
+{
+   std::map<std::string, AllegroFlare::Sound*>::iterator it = sound_effects.find(identifier);
+   if (it == sound_effects.end())
+   {
+      std::cout << "AudioController::play_sound_effect_by_identifier() error: "
+         << "unable to find element with identifier \""
+         << identifier
+         << "\""
+         << std::endl;
+      return nullptr;
+   }
+   return it->second;
+}
+
+AllegroFlare::Sound* AudioController::find_music_track_by_identifier(std::string identifier)
+{
+   std::map<std::string, Sound*>::iterator it = music_tracks.find(identifier);
+   if (it == sound_effects.end())
+   {
+      std::cout << "AudioController::play_music_track_by_identifier() error: "
+         << "unable to find element with identifier \""
+         << identifier
+         << "\""
+         << std::endl;
+      return nullptr;
+   }
+   return it->second;
 }
 } // namespace AllegroFlare
 

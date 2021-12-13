@@ -70,6 +70,7 @@ functions:
 
 
   - name: initialize
+    guards: [ (!initialized) ]
     body: |
       if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
       if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
@@ -118,6 +119,7 @@ functions:
 
 
   - name: destruct
+    guards: [ initialized ]
     body: |
       stop_all();
       for (auto &sound_effect : sound_effects) delete sound_effect.second;
@@ -126,28 +128,23 @@ functions:
 
 
   - name: stop_all
+    guards: [ initialized ]
     body: |
-      // TODO
+      for (auto &sound_effect : sound_effects) sound_effect.second->stop();
+      for (auto &music_track : music_tracks) music_track.second->stop();
+      current_music_track_identifier = "";
       return;
 
 
   - name: set_global_volume
+    guards: [ initialized ]
     parameters:
       - name: volume
         type: float
         default_argument: 0.1
     body: |
-      // TODO
-      return;
-
-
-  - name: play_music_track_by_identifier
-    parameters:
-      - name: identifier
-        type: std::string
-        default_argument: '"a-music-track-identifier-that-is-not-set"'
-    body: |
-      // TODO
+      for (auto &sound_effect : sound_effects) sound_effect.second->volume(global_volume);
+      for (auto &music_track : music_tracks) music_track.second->volume(global_volume);
       return;
 
 
@@ -157,8 +154,64 @@ functions:
         type: std::string
         default_argument: '"a-sound-effect-identifier-that-is-not-set"'
     body: |
-      // TODO
+      Sound *sound = find_sound_effect_by_identifier(identifier);
+      if (sound) sound->play();
       return;
+
+
+  - name: play_music_track_by_identifier
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-music-track-identifier-that-is-not-set"'
+    body: |
+      if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
+      stop_all();
+      Sound *sound = find_music_track_by_identifier(identifier);
+      if (sound) sound->play();
+      return;
+
+
+  - name: find_sound_effect_by_identifier
+    private: true
+    type: AllegroFlare::Sound*
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-sound-effect-identifier-that-is-not-set"'
+    body: |
+      std::map<std::string, AllegroFlare::Sound*>::iterator it = sound_effects.find(identifier);
+      if (it == sound_effects.end())
+      {
+         std::cout << "AudioController::play_sound_effect_by_identifier() error: "
+            << "unable to find element with identifier \""
+            << identifier
+            << "\""
+            << std::endl;
+         return nullptr;
+      }
+      return it->second;
+
+
+  - name: find_music_track_by_identifier
+    private: true
+    type: AllegroFlare::Sound*
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-music-track-identifier-that-is-not-set"'
+    body: |
+      std::map<std::string, Sound*>::iterator it = music_tracks.find(identifier);
+      if (it == sound_effects.end())
+      {
+         std::cout << "AudioController::play_music_track_by_identifier() error: "
+            << "unable to find element with identifier \""
+            << identifier
+            << "\""
+            << std::endl;
+         return nullptr;
+      }
+      return it->second;
 
 
 dependencies:
@@ -172,5 +225,7 @@ dependencies:
     headers: [ map, string, AllegroFlare/AudioRepositoryElement.hpp ]
   - symbol: std::map<std::string, AllegroFlare::Sound*>
     headers: [ map, string, AllegroFlare/Sound.hpp ]
+  - symbol: AllegroFlare::Sound*
+    headers: [ AllegroFlare/Sound.hpp ]
 
 

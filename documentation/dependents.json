@@ -11,6 +11,9 @@
   "std/map<std/string, AllegroFlare/Sound>": [
     "AllegroFlare/AudioController"
   ],
+  "AllegroFlare/Sound": [
+    "AllegroFlare/AudioController"
+  ],
   "AllegroFlare/Framework": [
     "AllegroFlare/FrameworkScreenRegistrar"
   ],
