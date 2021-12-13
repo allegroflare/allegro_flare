@@ -60,13 +60,56 @@ properties:
     getter_ref: true
     init_with: '{}'
 
+  - name: initialized
+    type: bool
+    getter: true
+    init_with: false
+
 
 functions:
 
 
-  - name: run
-    type: std::string
-    body: return "Hello World!";
+  - name: initialize
+    body: |
+      // TODO
+      initialized = true;
+      return;
+
+
+  - name: stop_all
+    body: |
+      // TODO
+      return;
+
+
+  - name: set_global_volume
+    parameters:
+      - name: volume
+        type: float
+        default_argument: 0.1
+    body: |
+      // TODO
+      return;
+
+
+  - name: play_music_track_by_identifier
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-music-track-identifier-that-is-not-set"'
+    body: |
+      // TODO
+      return;
+
+
+  - name: play_sound_effect_by_identifier
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-sound-effect-identifier-that-is-not-set"'
+    body: |
+      // TODO
+      return;
 
 
 dependencies:

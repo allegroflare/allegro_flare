@@ -24,13 +24,19 @@ namespace AllegroFlare
       float global_volume;
       bool output_loading_debug_to_cout;
       static AllegroFlare::SampleBin dummy_sample_bin;
+      bool initialized;
 
    public:
       AudioController(AllegroFlare::SampleBin& sample_bin=get_dummy_sample_bin_ref(), std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements={}, std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});
       ~AudioController();
 
+      bool get_initialized();
       static AllegroFlare::SampleBin &get_dummy_sample_bin_ref();
-      std::string run();
+      void initialize();
+      void stop_all();
+      void set_global_volume(float volume=0.1);
+      void play_music_track_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");
+      void play_sound_effect_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
    };
 }
 

@@ -22,6 +22,7 @@ AudioController::AudioController(AllegroFlare::SampleBin& sample_bin, std::map<s
    , current_music_track_identifier("")
    , global_volume(0.1)
    , output_loading_debug_to_cout(false)
+   , initialized(false)
 {
 }
 
@@ -31,15 +32,47 @@ AudioController::~AudioController()
 }
 
 
+bool AudioController::get_initialized()
+{
+   return initialized;
+}
+
+
 AllegroFlare::SampleBin &AudioController::get_dummy_sample_bin_ref()
 {
    return dummy_sample_bin;
 }
 
 
-std::string AudioController::run()
+void AudioController::initialize()
 {
-   return "Hello World!";
+   // TODO
+   initialized = true;
+   return;
+}
+
+void AudioController::stop_all()
+{
+   // TODO
+   return;
+}
+
+void AudioController::set_global_volume(float volume)
+{
+   // TODO
+   return;
+}
+
+void AudioController::play_music_track_by_identifier(std::string identifier)
+{
+   // TODO
+   return;
+}
+
+void AudioController::play_sound_effect_by_identifier(std::string identifier)
+{
+   // TODO
+   return;
 }
 } // namespace AllegroFlare
 
