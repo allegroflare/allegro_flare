@@ -1,0 +1,20 @@
+{
+  "AllegroFlare/Framework": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "AllegroFlare/Screens": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "AllegroFlare/Screen": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "std/vector<std/string>": [
+    "NcursesArt/StringVectorIntersection"
+  ],
+  "std/sort": [
+    "NcursesArt/StringVectorIntersection"
+  ],
+  "std/set_intersection": [
+    "NcursesArt/StringVectorIntersection"
+  ]
+}

@@ -1,0 +1,16 @@
+properties:
+
+
+  - name: filename
+    type: std::string
+    constructor_arg: true
+    init_with: '"unset-audio-repository-filename.ogg"'
+    getter: true
+  - name: loop
+    type: bool
+    constructor_arg: true
+    init_with: false
+    getter: true
+
+
+

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <head>
 <style>
+*
+{
+  font-family: 'Arial';
+  padding: 3px 20px;
+}
 table td
 {
   padding: 3px 20px;
@@ -38,19 +43,36 @@ table td
 
 .component h3
 {
-  font-family: 'Arial';
 }
 </style>
 </head>
 <body>
 <h1>TOC</h1>
 <ul>
+  <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</a></li>
-</ul>
-<ul>
   <li><a href="#quintessence/NcursesArt/StringVectorIntersection.q.yml">quintessence/NcursesArt/StringVectorIntersection.q.yml</a></li>
 </ul>
 <h1>Components</h1>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">loop</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</h3>
@@ -116,4 +138,27 @@ table td
     </table>
   </div>
 </ul>
+<h1>Dependents</h1>
+<pre>
+{
+  "AllegroFlare/Framework": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "AllegroFlare/Screens": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "AllegroFlare/Screen": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "std/vector<std/string>": [
+    "NcursesArt/StringVectorIntersection"
+  ],
+  "std/sort": [
+    "NcursesArt/StringVectorIntersection"
+  ],
+  "std/set_intersection": [
+    "NcursesArt/StringVectorIntersection"
+  ]
+}
+</pre>
 </body>
