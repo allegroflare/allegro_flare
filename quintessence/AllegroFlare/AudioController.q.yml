@@ -1,4 +1,84 @@
+properties:
+
+  - name: sample_bin
+    type: AllegroFlare::SampleBin&
+    private: true
+    init_with: get_dummy_sample_bin_ref()
+    constructor_arg: true
+
+  - name: sound_effects_identifier_prefix
+    type: std::string
+    private: true
+    init_with: '"sound_effects/"'
+
+  - name: music_tracks_identifier_prefix
+    type: std::string
+    private: true
+    init_with: '"music_tracks/"'
+
+  - name: sound_effect_elements
+    type: std::map<std::string, AllegroFlare::AudioRepositoryElement>
+    private: true
+    constructor_arg: true
+    init_with: '{}'
+
+  - name: music_track_elements
+    type: std::map<std::string, AllegroFlare::AudioRepositoryElement>
+    private: true
+    constructor_arg: true
+    init_with: '{}'
+
+  - name: sound_effects
+    type: std::map<std::string, AllegroFlare::Sound*>
+    private: true
+    init_with: '{}'
+
+  - name: music_tracks
+    type: std::map<std::string, AllegroFlare::Sound*>
+    private: true
+    init_with: '{}'
+
+  - name: current_music_track_identifier
+    type: std::string
+    private: true
+    init_with: '""'
+
+  - name: global_volume
+    type: float
+    private: true
+    init_with: '0.1'
+
+  - name: output_loading_debug_to_cout
+    type: bool
+    private: true
+    init_with: false
+
+  - name: dummy_sample_bin
+    type: AllegroFlare::SampleBin
+    private: true
+    static: true
+    getter_ref: true
+    init_with: '{}'
+
+
 functions:
+
+
   - name: run
     type: std::string
     body: return "Hello World!";
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::SampleBin
+    headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: AllegroFlare::SampleBin&
+    headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::AudioRepositoryElement>
+    headers: [ map, string, AllegroFlare/AudioRepositoryElement.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Sound*>
+    headers: [ map, string, AllegroFlare/Sound.hpp ]
+
+

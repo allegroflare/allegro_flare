@@ -49,11 +49,82 @@ table td
 <body>
 <h1>TOC</h1>
 <ul>
+  <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</a></li>
   <li><a href="#quintessence/NcursesArt/StringVectorIntersection.q.yml">quintessence/NcursesArt/StringVectorIntersection.q.yml</a></li>
 </ul>
 <h1>Components</h1>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</h3>
+     <table>
+<tr>
+  <td class="private_property">sample_bin</td>
+  <td class="private_property">AllegroFlare::SampleBin&amp;</td>
+</tr>
+<tr>
+  <td class="private_property">sound_effects_identifier_prefix</td>
+  <td class="private_property">std::string</td>
+</tr>
+<tr>
+  <td class="private_property">music_tracks_identifier_prefix</td>
+  <td class="private_property">std::string</td>
+</tr>
+<tr>
+  <td class="private_property">sound_effect_elements</td>
+  <td class="private_property">std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt;</td>
+</tr>
+<tr>
+  <td class="private_property">music_track_elements</td>
+  <td class="private_property">std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt;</td>
+</tr>
+<tr>
+  <td class="private_property">sound_effects</td>
+  <td class="private_property">std::map&lt;std::string, AllegroFlare::Sound*&gt;</td>
+</tr>
+<tr>
+  <td class="private_property">music_tracks</td>
+  <td class="private_property">std::map&lt;std::string, AllegroFlare::Sound*&gt;</td>
+</tr>
+<tr>
+  <td class="private_property">current_music_track_identifier</td>
+  <td class="private_property">std::string</td>
+</tr>
+<tr>
+  <td class="private_property">global_volume</td>
+  <td class="private_property">float</td>
+</tr>
+<tr>
+  <td class="private_property">output_loading_debug_to_cout</td>
+  <td class="private_property">bool</td>
+</tr>
+<tr>
+  <td class="private_property">dummy_sample_bin</td>
+  <td class="private_property">AllegroFlare::SampleBin</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">run()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&amp;&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/AudioRepositoryElement.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Sound*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/Sound.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</h3>
@@ -141,6 +212,18 @@ table td
 <h1>Dependents</h1>
 <pre>
 {
+  "AllegroFlare/SampleBin": [
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/SampleBin&": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/Sound>": [
+    "AllegroFlare/AudioController"
+  ],
   "AllegroFlare/Framework": [
     "AllegroFlare/FrameworkScreenRegistrar"
   ],

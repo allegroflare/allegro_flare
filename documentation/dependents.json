@@ -1,4 +1,16 @@
 {
+  "AllegroFlare/SampleBin": [
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/SampleBin&": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/Sound>": [
+    "AllegroFlare/AudioController"
+  ],
   "AllegroFlare/Framework": [
     "AllegroFlare/FrameworkScreenRegistrar"
   ],
