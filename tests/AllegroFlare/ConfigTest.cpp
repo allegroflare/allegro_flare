@@ -46,7 +46,7 @@ protected:
 
 
 
-#define TEST_FILENAME "bin/data/tests/config.cfg"
+#define TEST_FILENAME "/Users/markoates/Repos/allegro_flare/bin/data/tests/config.cfg"
 
 
 
