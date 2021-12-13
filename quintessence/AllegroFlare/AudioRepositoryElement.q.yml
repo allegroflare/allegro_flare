@@ -4,7 +4,7 @@ properties:
   - name: filename
     type: std::string
     constructor_arg: true
-    init_with: '"unset-audio-repository-filename.ogg"'
+    init_with: '"a-default-audio-repository-filename.ogg"'
     getter: true
   - name: loop
     type: bool

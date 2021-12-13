@@ -13,7 +13,7 @@ namespace AllegroFlare
       bool loop;
 
    public:
-      AudioRepositoryElement(std::string filename="unset-audio-repository-filename.ogg", bool loop=false);
+      AudioRepositoryElement(std::string filename="a-default-audio-repository-filename.ogg", bool loop=false);
       ~AudioRepositoryElement();
 
       std::string get_filename();
