@@ -33,6 +33,7 @@ namespace AllegroFlare
       bool get_initialized();
       static AllegroFlare::SampleBin &get_dummy_sample_bin_ref();
       void initialize();
+      void destruct();
       void stop_all();
       void set_global_volume(float volume=0.1);
       void play_music_track_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");

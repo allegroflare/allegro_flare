@@ -71,8 +71,57 @@ functions:
 
   - name: initialize
     body: |
-      // TODO
+      if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
+      if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
+      for (auto &sound_effect_element : sound_effect_elements)
+      {
+         std::string identifier = sound_effect_element.first;
+         std::string filename = sound_effect_element.second.get_filename();
+         bool loop = sound_effect_element.second.get_loop();
+
+         std::string asset_key = sound_effects_identifier_prefix + filename;
+
+         if (output_loading_debug_to_cout) std::cout << "- asset_key: " << asset_key << std::endl;
+
+         ALLEGRO_SAMPLE *sample = sample_bin.auto_get(asset_key);
+         Sound *sound = new Sound(sample);
+         sound->loop(loop);
+         sound->volume(global_volume);
+
+         // TODO manage case where identifier already exists for this record
+
+         sound_effects[identifier] = sound;
+      }
+      if (output_loading_debug_to_cout) std::cout << "music_tracks:" << std::endl;
+      for (auto &music_track_element : music_track_elements)
+      {
+         std::string identifier = music_track_element.first;
+         std::string filename = music_track_element.second.get_filename();
+         bool loop = music_track_element.second.get_loop();
+
+         std::string asset_key = music_tracks_identifier_prefix + filename;
+
+         if (output_loading_debug_to_cout) std::cout << "- asset_key: " << asset_key << std::endl;
+
+         ALLEGRO_SAMPLE *sample = sample_bin.auto_get(asset_key);
+         Sound *sound = new Sound(sample);
+         sound->loop(loop);
+         sound->volume(global_volume);
+
+         // TODO manage case where identifier already exists for this record
+
+         music_tracks[identifier] = sound;
+      }
+
       initialized = true;
+      return;
+
+
+  - name: destruct
+    body: |
+      stop_all();
+      for (auto &sound_effect : sound_effects) delete sound_effect.second;
+      for (auto &music_track : music_tracks) delete music_track.second;
       return;
 
 
