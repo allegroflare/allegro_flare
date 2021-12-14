@@ -142,7 +142,7 @@ TEST_F(AllegroFlare_ConfigTest, retrieves_an_int_value)
 
 
 
-TEST_F(AllegroFlare_ConfigTest, retrieves_an_bool_value)
+TEST_F(AllegroFlare_ConfigTest, retrieves_a_bool_value)
 {
    Config config = Config(TEST_FILENAME);
    config.load();
