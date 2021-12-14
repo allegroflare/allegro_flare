@@ -123,6 +123,13 @@ namespace AllegroFlare
 
 
 
+   FontBin &Framework::get_font_bin_ref()
+   {
+      return fonts;
+   }
+
+
+
 
    bool Framework::initialize()
    {
@@ -383,13 +390,13 @@ namespace AllegroFlare
             screens.mouse_axes_funcs();
             break;
          case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-            screens.joy_button_down_funcs();
+            screens.joy_button_down_funcs(&this_event);
             break;
          case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-            screens.joy_button_up_funcs();
+            screens.joy_button_up_funcs(&this_event);
             break;
          case ALLEGRO_EVENT_JOYSTICK_AXIS:
-            screens.joy_axis_funcs();
+            screens.joy_axis_funcs(&this_event);
             break;
          case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
          case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
@@ -413,7 +420,7 @@ namespace AllegroFlare
             // the crash from occuring, though it should be corrected in future
             // versions when this bug in allegro is fixed.
             joystick = (al_get_num_joysticks() == 0) ? NULL : al_get_joystick(0);
-            screens.joy_config_funcs();
+            screens.joy_config_funcs(&this_event);
             break;
          case ALLEGRO_EVENT_MENU_CLICK:
             screens.native_menu_click_funcs();

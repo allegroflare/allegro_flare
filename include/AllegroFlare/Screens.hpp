@@ -35,10 +35,10 @@ namespace AllegroFlare
       void mouse_down_funcs();
       void mouse_up_funcs();
       void key_char_funcs(ALLEGRO_EVENT *ev);
-      void joy_button_down_funcs();
-      void joy_button_up_funcs();
-      void joy_axis_funcs();
-      void joy_config_funcs();
+      void joy_button_down_funcs(ALLEGRO_EVENT *ev);
+      void joy_button_up_funcs(ALLEGRO_EVENT *ev);
+      void joy_axis_funcs(ALLEGRO_EVENT *ev);
+      void joy_config_funcs(ALLEGRO_EVENT *ev);
       void user_event_funcs(ALLEGRO_EVENT *ev);
       void native_menu_click_funcs();
 

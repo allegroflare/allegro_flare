@@ -147,31 +147,31 @@ namespace AllegroFlare
    }
 
 
-   void Screens::joy_axis_funcs()
+   void Screens::joy_axis_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
-         screens[i]->joy_axis_func();
+         screens[i]->joy_axis_func(ev);
    }
 
 
-   void Screens::joy_button_up_funcs()
+   void Screens::joy_button_up_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
-         screens[i]->joy_button_up_func();
+         screens[i]->joy_button_up_func(ev);
    }
 
 
-   void Screens::joy_button_down_funcs()
+   void Screens::joy_button_down_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
-         screens[i]->joy_button_down_func();
+         screens[i]->joy_button_down_func(ev);
    }
 
 
-   void Screens::joy_config_funcs()
+   void Screens::joy_config_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
-         screens[i]->joy_config_func();
+         screens[i]->joy_config_func(ev);
    }
 
 
