@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<head>
+<style>
+*
+{
+  font-family: 'Arial';
+  padding: 3px 20px;
+}
+table td
+{
+  padding: 3px 20px;
+}
+.property
+{
+  color: blue;
+}
+.private_property
+{
+  color: lightblue;
+}
+
+.method
+{
+  color: red;
+}
+
+.private_method
+{
+  color: pink;
+}
+
+.dependency
+{
+  color: green;
+}
+
+.component
+{
+  padding: 20 10 20 10;
+  margin: 20 10 20 10;
+  background-color: #dfdfdf;
+}
+
+.component h3
+{
+}
+</style>
+</head>
+<body>
+<h1>TOC</h1>
+<ul>
+  <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</a></li>
+  <li><a href="#quintessence/NcursesArt/StringVectorIntersection.q.yml">quintessence/NcursesArt/StringVectorIntersection.q.yml</a></li>
+</ul>
+<h1>Components</h1>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</h3>
+     <table>
+<tr>
+  <td class="private_property">sample_bin</td>
+  <td class="private_property">AllegroFlare::SampleBin&amp;</td>
+</tr>
+<tr>
+  <td class="private_property">sound_effects_identifier_prefix</td>
+  <td class="private_property">std::string</td>
+</tr>
+<tr>
+  <td class="private_property">music_tracks_identifier_prefix</td>
+  <td class="private_property">std::string</td>
+</tr>
+<tr>
+  <td class="private_property">sound_effect_elements</td>
+  <td class="private_property">std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt;</td>
+</tr>
+<tr>
+  <td class="private_property">music_track_elements</td>
+  <td class="private_property">std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt;</td>
+</tr>
+<tr>
+  <td class="private_property">sound_effects</td>
+  <td class="private_property">std::map&lt;std::string, AllegroFlare::Sound*&gt;</td>
+</tr>
+<tr>
+  <td class="private_property">music_tracks</td>
+  <td class="private_property">std::map&lt;std::string, AllegroFlare::Sound*&gt;</td>
+</tr>
+<tr>
+  <td class="private_property">current_music_track_identifier</td>
+  <td class="private_property">std::string</td>
+</tr>
+<tr>
+  <td class="private_property">global_volume</td>
+  <td class="private_property">float</td>
+</tr>
+<tr>
+  <td class="private_property">output_loading_debug_to_cout</td>
+  <td class="private_property">bool</td>
+</tr>
+<tr>
+  <td class="private_property">dummy_sample_bin</td>
+  <td class="private_property">AllegroFlare::SampleBin</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">destruct()</td>
+</tr>
+<tr>
+  <td class="method">stop_all()</td>
+</tr>
+<tr>
+  <td class="method">set_global_volume(1)</td>
+</tr>
+<tr>
+  <td class="method">play_sound_effect_by_identifier(1)</td>
+</tr>
+<tr>
+  <td class="method">play_music_track_by_identifier(1)</td>
+</tr>
+<tr>
+  <td class="private_method">find_sound_effect_by_identifier(1)</td>
+</tr>
+<tr>
+  <td class="private_method">find_music_track_by_identifier(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&amp;&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/AudioRepositoryElement.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Sound*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/Sound.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Sound*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Sound.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">loop</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">screens</td>
+  <td class="property">AllegroFlare::Screens*</td>
+</tr>
+<tr>
+  <td class="property">screen</td>
+  <td class="property">AllegroFlare::Screen*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">append()</td>
+</tr>
+<tr>
+  <td class="method">remove()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Framework*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Framework.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screen*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screen.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/NcursesArt/StringVectorIntersection.q.yml">quintessence/NcursesArt/StringVectorIntersection.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">v1</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">v2</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">intersection()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::sort&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::set_intersection&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<h1>Dependents</h1>
+<pre>
+{
+  "AllegroFlare/SampleBin": [
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/SampleBin&": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/Sound>": [
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/Sound": [
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/Framework": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "AllegroFlare/Screens": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "AllegroFlare/Screen": [
+    "AllegroFlare/FrameworkScreenRegistrar"
+  ],
+  "std/vector<std/string>": [
+    "NcursesArt/StringVectorIntersection"
+  ],
+  "std/sort": [
+    "NcursesArt/StringVectorIntersection"
+  ],
+  "std/set_intersection": [
+    "NcursesArt/StringVectorIntersection"
+  ]
+}
+</pre>
+</body>
