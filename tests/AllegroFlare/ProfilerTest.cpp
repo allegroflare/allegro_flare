@@ -3,6 +3,9 @@
 
 #include <AllegroFlare/Profiler.hpp>
 
+// for usleep on Windows
+#include <unistd.h>
+
 TEST(AllegroFlare_ProfilerTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Profiler profiler;
