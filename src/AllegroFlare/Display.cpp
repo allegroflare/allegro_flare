@@ -7,6 +7,8 @@
 
 //#include <allegro_flare/allegro_flare.h>
 
+#include <iostream>
+
 
 namespace AllegroFlare
 {
@@ -42,6 +44,25 @@ namespace AllegroFlare
 
       // create the actual display
       al_display = al_create_display(width, height);
+
+      // create a projection of the display
+      std::cout << "CREATING PROJECTION" << std::endl;
+      ALLEGRO_BITMAP *display_bitmap = al_get_backbuffer(al_display);
+      ALLEGRO_TRANSFORM trans;
+      al_identity_transform(&trans);
+      al_orthographic_transform(
+            &trans,
+            0,
+            0,
+            -1.0,
+            1920,
+            //al_get_bitmap_width(display_bitmap),
+            1080,
+            //al_get_bitmap_height(display_bitmap),
+            1.0
+         );
+      al_set_target_bitmap(display_bitmap);
+      al_use_projection_transform(&trans);
 
       // add the display to AllegroFlare's list of displays
       displays.push_back(this);
