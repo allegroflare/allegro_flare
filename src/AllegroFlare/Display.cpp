@@ -101,6 +101,31 @@ namespace AllegroFlare
    }
 
 
+   void Display::set_orthographic_projection(float left, float top, float right, float bottom)
+   {
+      ALLEGRO_BITMAP *display_bitmap = al_get_backbuffer(al_display);
+      ALLEGRO_TRANSFORM trans;
+      al_identity_transform(&trans);
+      al_orthographic_transform(
+            &trans,
+            left,
+            top,
+            -1.0,
+            right,
+            bottom,
+            1.0
+         );
+
+      ALLEGRO_STATE previous_target_bitmap_state;
+      al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
+
+      al_set_target_bitmap(display_bitmap);
+      al_use_projection_transform(&trans);
+
+      al_restore_state(&previous_target_bitmap_state);
+   }
+
+
    void Display::flip()
    {
       al_flip_display();

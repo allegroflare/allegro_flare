@@ -40,6 +40,7 @@ namespace AllegroFlare
       virtual void display_close_func();
 
       void set_as_target_bitmap();
+      void set_orthographic_projection(float left, float top, float right, float bottom);
 
       int width();
       int height();
