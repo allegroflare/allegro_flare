@@ -47,9 +47,9 @@ protected:
 
 
 #ifdef _WIN32
-#define TEST_FILENAME "/Users/Mark/Repos/allegro_flare/bin/data/tests/config.cfg"
+#define TEST_FILENAME "/msys64/home/Mark/Repos/allegro_flare/bin/data/config/test_config.cfg"
 #else
-#define TEST_FILENAME "/Users/markoates/Repos/allegro_flare/bin/data/tests/config.cfg"
+#define TEST_FILENAME "/Users/markoates/Repos/allegro_flare/bin/data/config/test_config.cfg"
 #endif
 
 
