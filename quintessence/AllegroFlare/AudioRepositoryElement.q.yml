@@ -6,11 +6,11 @@ properties:
     constructor_arg: true
     init_with: '"a-default-audio-repository-filename.ogg"'
     getter: true
+
   - name: loop
     type: bool
     constructor_arg: true
     init_with: false
     getter: true
-
 
 
