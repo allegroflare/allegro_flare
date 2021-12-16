@@ -9,6 +9,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -28,7 +32,7 @@ AudioController::AudioController(AllegroFlare::SampleBin& sample_bin, std::map<s
    , music_tracks({})
    , current_music_track_identifier("")
    , global_volume(0.1)
-   , output_loading_debug_to_cout(false)
+   , output_loading_debug_to_cout(true)
    , initialized(false)
 {
 }
@@ -127,9 +131,33 @@ void AudioController::stop_all()
          error_message << "AudioController" << "::" << "stop_all" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   for (auto &sound_effect : sound_effects) sound_effect.second->stop();
+   stop_all_sound_effects();
+   stop_all_music();
+   return;
+}
+
+void AudioController::stop_all_music()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "stop_all_music" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    for (auto &music_track : music_tracks) music_track.second->stop();
    current_music_track_identifier = "";
+   return;
+}
+
+void AudioController::stop_all_sound_effects()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "stop_all_sound_effects" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   for (auto &sound_effect : sound_effects) sound_effect.second->stop();
    return;
 }
 
@@ -156,7 +184,7 @@ void AudioController::play_sound_effect_by_identifier(std::string identifier)
 void AudioController::play_music_track_by_identifier(std::string identifier)
 {
    if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
-   stop_all();
+   stop_all_music();
    Sound *sound = find_music_track_by_identifier(identifier);
    if (sound) sound->play();
    return;

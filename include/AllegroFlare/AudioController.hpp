@@ -35,6 +35,8 @@ namespace AllegroFlare
       void initialize();
       void destruct();
       void stop_all();
+      void stop_all_music();
+      void stop_all_sound_effects();
       void set_global_volume(float volume=0.1);
       void play_sound_effect_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       void play_music_track_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");

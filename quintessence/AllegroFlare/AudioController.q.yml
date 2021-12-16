@@ -51,7 +51,7 @@ properties:
   - name: output_loading_debug_to_cout
     type: bool
     private: true
-    init_with: false
+    init_with: true
 
   - name: dummy_sample_bin
     type: AllegroFlare::SampleBin
@@ -130,9 +130,23 @@ functions:
   - name: stop_all
     guards: [ initialized ]
     body: |
-      for (auto &sound_effect : sound_effects) sound_effect.second->stop();
+      stop_all_sound_effects();
+      stop_all_music();
+      return;
+
+
+  - name: stop_all_music
+    guards: [ initialized ]
+    body: |
       for (auto &music_track : music_tracks) music_track.second->stop();
       current_music_track_identifier = "";
+      return;
+
+
+  - name: stop_all_sound_effects
+    guards: [ initialized ]
+    body: |
+      for (auto &sound_effect : sound_effects) sound_effect.second->stop();
       return;
 
 
@@ -166,7 +180,7 @@ functions:
         default_argument: '"a-music-track-identifier-that-is-not-set"'
     body: |
       if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
-      stop_all();
+      stop_all_music();
       Sound *sound = find_music_track_by_identifier(identifier);
       if (sound) sound->play();
       return;
