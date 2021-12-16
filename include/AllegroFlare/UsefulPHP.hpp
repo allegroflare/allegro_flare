@@ -17,6 +17,7 @@ namespace AllegroFlare
       size_t strpos(const std::string &haystack, const std::string &needle, int offset=0);
       bool file_exists(std::string filename);
       std::string file_get_contents(std::string filename);
+      std::vector<std::string> file_get_contents_split(std::string filename);
       bool file_put_contents(std::string filename, std::string contents);
       std::string ltrim(std::string &s);
       std::string rtrim(std::string &s);

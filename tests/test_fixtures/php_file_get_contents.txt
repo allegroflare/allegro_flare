@@ -1,0 +1,4 @@
+These are the lines
+that are expected to come out of this file.
+Note that there are 4 lines,
+and this is the last line.

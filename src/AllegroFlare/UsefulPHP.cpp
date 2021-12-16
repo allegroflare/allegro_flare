@@ -152,6 +152,25 @@ namespace AllegroFlare
 
 
 
+   std::vector<std::string> php::file_get_contents_split(std::string filename)
+   {
+      std::ifstream file(filename.c_str());
+      std::vector<std::string> result = {};
+      if (!file) return {};
+
+      for (std::string line; std::getline(file, line);)
+      {
+          result.push_back(line);
+      }
+      //char ch;
+      //while (file.get(ch)) input.append(1, ch);
+      //if (!file.eof()) return ""; // strange error
+      file.close();
+      return result;
+   }
+
+
+
 
    bool php::file_put_contents(std::string filename, std::string contents)
    {
