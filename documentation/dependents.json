@@ -1,8 +1,6 @@
 {
   "AllegroFlare/SampleBin": [
-    "AllegroFlare/AudioController"
-  ],
-  "AllegroFlare/SampleBin&": [
+    "AllegroFlare/AudioController",
     "AllegroFlare/AudioController"
   ],
   "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
@@ -12,6 +10,12 @@
     "AllegroFlare/AudioController"
   ],
   "AllegroFlare/Sound": [
+    "AllegroFlare/AudioController"
+  ],
+  "al_is_audio_initialized": [
+    "AllegroFlare/AudioController"
+  ],
+  "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController"
   ],
   "AllegroFlare/Framework": [

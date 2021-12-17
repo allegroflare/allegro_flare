@@ -61,7 +61,7 @@ table td
      <table>
 <tr>
   <td class="private_property">sample_bin</td>
-  <td class="private_property">AllegroFlare::SampleBin&amp;</td>
+  <td class="private_property">AllegroFlare::SampleBin*</td>
 </tr>
 <tr>
   <td class="private_property">sound_effects_identifier_prefix</td>
@@ -98,10 +98,6 @@ table td
 <tr>
   <td class="private_property">output_loading_debug_to_cout</td>
   <td class="private_property">bool</td>
-</tr>
-<tr>
-  <td class="private_property">dummy_sample_bin</td>
-  <td class="private_property">AllegroFlare::SampleBin</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -145,7 +141,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&amp;&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/AudioRepositoryElement.hpp&quot;]}</td>
@@ -155,6 +151,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Sound*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Sound.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_audio_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_acodec_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_acodec.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -247,9 +249,7 @@ table td
 <pre>
 {
   "AllegroFlare/SampleBin": [
-    "AllegroFlare/AudioController"
-  ],
-  "AllegroFlare/SampleBin&": [
+    "AllegroFlare/AudioController",
     "AllegroFlare/AudioController"
   ],
   "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
@@ -259,6 +259,12 @@ table td
     "AllegroFlare/AudioController"
   ],
   "AllegroFlare/Sound": [
+    "AllegroFlare/AudioController"
+  ],
+  "al_is_audio_initialized": [
+    "AllegroFlare/AudioController"
+  ],
+  "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController"
   ],
   "AllegroFlare/Framework": [
