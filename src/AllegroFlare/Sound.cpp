@@ -11,28 +11,46 @@
 namespace AllegroFlare
 {
    Sound::Sound(ALLEGRO_SAMPLE *sample)
-      : sample_instance(al_create_sample_instance(sample))
+      : sample_instance(nullptr)
       , mixer(al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2))
       , voice(al_create_voice(41000, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2))
       , _position(0)
       , _paused(false)
    {
-      al_attach_sample_instance_to_mixer(sample_instance, mixer);
-      al_attach_mixer_to_voice(mixer, voice);
+      if (!sample)
+      {
+         std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance becasue sample "
+                   << "is a nullptr." << std::endl;
+      }
+      else
+      {
+         sample_instance = al_create_sample_instance(sample);
+         al_attach_sample_instance_to_mixer(sample_instance, mixer);
+         al_attach_mixer_to_voice(mixer, voice);
+      }
    }
 
 
 
 
    Sound::Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice)
-      : sample_instance(al_create_sample_instance(sample))
+      : sample_instance(nullptr)
       , mixer(al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2))
       , voice(voice)
       , _position(0)
       , _paused(false)
    {
-      al_attach_sample_instance_to_mixer(sample_instance, mixer);
-      al_attach_mixer_to_voice(mixer, voice);
+      if (!sample)
+      {
+         std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance becasue sample "
+                   << "is a nullptr." << std::endl;
+      }
+      else
+      {
+         sample_instance = al_create_sample_instance(sample);
+         al_attach_sample_instance_to_mixer(sample_instance, mixer);
+         al_attach_mixer_to_voice(mixer, voice);
+      }
    }
 
 
