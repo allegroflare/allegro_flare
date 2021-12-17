@@ -1,9 +1,9 @@
 properties:
 
   - name: sample_bin
-    type: AllegroFlare::SampleBin&
+    type: AllegroFlare::SampleBin*
     private: true
-    init_with: get_dummy_sample_bin_ref()
+    init_with: nullptr
     constructor_arg: true
 
   - name: sound_effects_identifier_prefix
@@ -53,13 +53,6 @@ properties:
     private: true
     init_with: true
 
-  - name: dummy_sample_bin
-    type: AllegroFlare::SampleBin
-    private: true
-    static: true
-    getter_ref: true
-    init_with: '{}'
-
   - name: initialized
     type: bool
     getter: true
@@ -70,7 +63,7 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized) ]
+    guards: [ (!initialized), sample_bin ]
     body: |
       if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
       if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
@@ -84,7 +77,7 @@ functions:
 
          if (output_loading_debug_to_cout) std::cout << "- asset_key: " << asset_key << std::endl;
 
-         ALLEGRO_SAMPLE *sample = sample_bin.auto_get(asset_key);
+         ALLEGRO_SAMPLE *sample = sample_bin->auto_get(asset_key);
          Sound *sound = new Sound(sample);
          sound->loop(loop);
          sound->volume(global_volume);
@@ -104,7 +97,7 @@ functions:
 
          if (output_loading_debug_to_cout) std::cout << "- asset_key: " << asset_key << std::endl;
 
-         ALLEGRO_SAMPLE *sample = sample_bin.auto_get(asset_key);
+         ALLEGRO_SAMPLE *sample = sample_bin->auto_get(asset_key);
          Sound *sound = new Sound(sample);
          sound->loop(loop);
          sound->volume(global_volume);
@@ -235,7 +228,7 @@ dependencies:
 
   - symbol: AllegroFlare::SampleBin
     headers: [ AllegroFlare/SampleBin.hpp ]
-  - symbol: AllegroFlare::SampleBin&
+  - symbol: AllegroFlare::SampleBin*
     headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: std::map<std::string, AllegroFlare::AudioRepositoryElement>
     headers: [ map, string, AllegroFlare/AudioRepositoryElement.hpp ]

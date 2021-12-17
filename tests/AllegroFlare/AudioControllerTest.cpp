@@ -44,3 +44,13 @@ TEST(AllegroFlare_AudioControllerTest, play_music_track_by_identifier__without_i
 }
 
 
+TEST(AllegroFlare_AudioControllerTest, initialize__without_a_sample_bin__raises_an_exception)
+{
+   AllegroFlare::AudioController audio_controller;
+   std::string expected_error_message =
+      "AudioController::initialize: error: guard \"sample_bin\" not met";
+
+   ASSERT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
+}
+
+

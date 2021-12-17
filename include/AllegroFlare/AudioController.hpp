@@ -13,7 +13,7 @@ namespace AllegroFlare
    class AudioController
    {
    private:
-      AllegroFlare::SampleBin& sample_bin;
+      AllegroFlare::SampleBin* sample_bin;
       std::string sound_effects_identifier_prefix;
       std::string music_tracks_identifier_prefix;
       std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements;
@@ -23,15 +23,13 @@ namespace AllegroFlare
       std::string current_music_track_identifier;
       float global_volume;
       bool output_loading_debug_to_cout;
-      static AllegroFlare::SampleBin dummy_sample_bin;
       bool initialized;
 
    public:
-      AudioController(AllegroFlare::SampleBin& sample_bin=get_dummy_sample_bin_ref(), std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements={}, std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});
+      AudioController(AllegroFlare::SampleBin* sample_bin=nullptr, std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements={}, std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});
       ~AudioController();
 
       bool get_initialized();
-      static AllegroFlare::SampleBin &get_dummy_sample_bin_ref();
       void initialize();
       void destruct();
       void stop_all();

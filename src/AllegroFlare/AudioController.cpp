@@ -23,10 +23,7 @@ namespace AllegroFlare
 {
 
 
-AllegroFlare::SampleBin AudioController::dummy_sample_bin = {};
-
-
-AudioController::AudioController(AllegroFlare::SampleBin& sample_bin, std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements, std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements)
+AudioController::AudioController(AllegroFlare::SampleBin* sample_bin, std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements, std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements)
    : sample_bin(sample_bin)
    , sound_effects_identifier_prefix("sound_effects/")
    , music_tracks_identifier_prefix("music_tracks/")
@@ -53,18 +50,18 @@ bool AudioController::get_initialized()
 }
 
 
-AllegroFlare::SampleBin &AudioController::get_dummy_sample_bin_ref()
-{
-   return dummy_sample_bin;
-}
-
-
 void AudioController::initialize()
 {
    if (!((!initialized)))
       {
          std::stringstream error_message;
          error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(sample_bin))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
@@ -79,7 +76,7 @@ void AudioController::initialize()
 
       if (output_loading_debug_to_cout) std::cout << "- asset_key: " << asset_key << std::endl;
 
-      ALLEGRO_SAMPLE *sample = sample_bin.auto_get(asset_key);
+      ALLEGRO_SAMPLE *sample = sample_bin->auto_get(asset_key);
       Sound *sound = new Sound(sample);
       sound->loop(loop);
       sound->volume(global_volume);
@@ -99,7 +96,7 @@ void AudioController::initialize()
 
       if (output_loading_debug_to_cout) std::cout << "- asset_key: " << asset_key << std::endl;
 
-      ALLEGRO_SAMPLE *sample = sample_bin.auto_get(asset_key);
+      ALLEGRO_SAMPLE *sample = sample_bin->auto_get(asset_key);
       Sound *sound = new Sound(sample);
       sound->loop(loop);
       sound->volume(global_volume);
