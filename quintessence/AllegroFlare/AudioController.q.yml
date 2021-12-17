@@ -1,5 +1,6 @@
 properties:
 
+
   - name: sample_bin
     type: AllegroFlare::SampleBin*
     private: true
@@ -46,7 +47,7 @@ properties:
   - name: global_volume
     type: float
     private: true
-    init_with: '0.1'
+    init_with: '1.0'
 
   - name: output_loading_debug_to_cout
     type: bool
@@ -109,10 +110,11 @@ functions:
 
          // TODO manage case where identifier already exists for this record
 
-         //music_tracks[identifier] = sound;
+         music_tracks[identifier] = sound;
       }
 
       initialized = true;
+      std::cout << "[AllegroFlare::AudioController::initialize()] finished." << std::endl;
       return;
     body_dependency_symbols:
       - al_is_audio_initialized

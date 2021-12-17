@@ -34,7 +34,7 @@ AudioController::AudioController(AllegroFlare::SampleBin* sample_bin, std::map<s
    , sound_effects({})
    , music_tracks({})
    , current_music_track_identifier("")
-   , global_volume(0.1)
+   , global_volume(1.0)
    , output_loading_debug_to_cout(true)
    , initialized(false)
 {
@@ -123,10 +123,11 @@ void AudioController::initialize()
 
       // TODO manage case where identifier already exists for this record
 
-      //music_tracks[identifier] = sound;
+      music_tracks[identifier] = sound;
    }
 
    initialized = true;
+   std::cout << "[AllegroFlare::AudioController::initialize()] finished." << std::endl;
    return;
 }
 

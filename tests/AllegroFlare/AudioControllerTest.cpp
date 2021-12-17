@@ -11,7 +11,7 @@
 
 #include <allegro5/allegro_acodec.h>
 
-#define TEST_FIXTURE_FOLDER_NAME "/Users/markoates/Repos/allegro_flare/test_fixtures/"
+#define TEST_FIXTURE_FOLDER_NAME "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/"
 
 
 
@@ -156,7 +156,8 @@ TEST(AllegroFlare_AudioControllerTest,
 
 TEST(AllegroFlare_AudioControllerTest, DISABLED__play_music_track_by_identifier__plays_the_audio_track)
 {
-   // test is incomplete
+   // test works, but a .ogg file is needed (the .wav file fixture is a bit large in size)
+
    al_init();
    al_install_audio();
    al_init_acodec_addon();
@@ -164,15 +165,19 @@ TEST(AllegroFlare_AudioControllerTest, DISABLED__play_music_track_by_identifier_
    AllegroFlare::SampleBin sample_bin;
    sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME);
    std::string music_identifier = "music-1.wav";
+
    std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements;
    std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements = {
-      { music_identifier, music_identifier },
+      { music_identifier, { music_identifier, false } },
    };
    AllegroFlare::AudioController audio_controller(&sample_bin, sound_effect_elements, music_track_elements);
    audio_controller.initialize();
 
-   //audio_controller.play_music_track_by_identifier();
+   audio_controller.play_music_track_by_identifier(music_identifier);
 
+   sleep(2);
+
+   sample_bin.clear();
    al_uninstall_system();
 }
 
