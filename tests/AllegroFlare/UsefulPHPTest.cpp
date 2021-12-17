@@ -6,7 +6,7 @@
 
 
 #ifdef _WIN32
-#define TEST_FIXTURE_FILENAME "this/test/filename/is/not/set"
+#define TEST_FIXTURE_FILENAME "/msys64/home/Mark/Repos/allegro_flare/tests/test_fixtures/php_file_get_contents.txt"
 #else
 #define TEST_FIXTURE_FILENAME "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/php_file_get_contents.txt"
 #endif
