@@ -13,6 +13,8 @@
 
 #define TEST_FIXTURE_FOLDER_NAME "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/"
 
+// for usleep on Windows
+#include <unistd.h>
 
 
 TEST(AllegroFlare_AudioControllerTest, can_be_created_without_blowing_up)
@@ -175,7 +177,7 @@ TEST(AllegroFlare_AudioControllerTest, DISABLED__play_music_track_by_identifier_
 
    audio_controller.play_music_track_by_identifier(music_identifier);
 
-   sleep(2);
+   usleep(2000);
 
    sample_bin.clear();
    al_uninstall_system();
