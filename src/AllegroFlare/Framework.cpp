@@ -130,6 +130,12 @@ namespace AllegroFlare
 
 
 
+   SampleBin &Framework::get_sample_bin_ref()
+   {
+      return samples;
+   }
+
+
 
    bool Framework::initialize()
    {
