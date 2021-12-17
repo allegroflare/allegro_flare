@@ -40,7 +40,10 @@ namespace AllegroFlare
 
    Sound &Sound::play()
    {
-      if (!al_play_sample_instance(sample_instance)) std::cout << "[" << __FUNCTION__ << "] could not al_play_sample_instance" << std::endl;
+      if (!al_play_sample_instance(sample_instance))
+      {
+         std::cout << "[AllegroFlare::Sound::" << __FUNCTION__ << "] could not al_play_sample_instance" << std::endl;
+      }
       else _paused = false;
       return *this;
    }
