@@ -207,6 +207,7 @@ namespace AllegroFlare
    bool Framework::destruct()
    {
       // TODO autit this function
+      samples.clear();
 
       //delete instance;
       //instance = nullptr;
