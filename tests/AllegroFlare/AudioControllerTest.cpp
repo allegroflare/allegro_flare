@@ -54,3 +54,14 @@ TEST(AllegroFlare_AudioControllerTest, initialize__without_a_sample_bin__raises_
 }
 
 
+TEST(AllegroFlare_AudioControllerTest, initialize__works__and_sets_initialized_to_true)
+{
+   AllegroFlare::SampleBin sample_bin;
+   AllegroFlare::AudioController audio_controller(&sample_bin);
+
+   audio_controller.initialize();
+
+   ASSERT_EQ(true, audio_controller.get_initialized());
+}
+
+
