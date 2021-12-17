@@ -1,6 +1,8 @@
 
 
 #include <AllegroFlare/AudioController.hpp>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -52,6 +54,24 @@ bool AudioController::get_initialized()
 
 void AudioController::initialize()
 {
+   if (!(al_is_system_installed()))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(al_is_audio_installed()))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_audio_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(al_is_acodec_addon_initialized()))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_acodec_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (!((!initialized)))
       {
          std::stringstream error_message;
@@ -103,7 +123,7 @@ void AudioController::initialize()
 
       // TODO manage case where identifier already exists for this record
 
-      music_tracks[identifier] = sound;
+      //music_tracks[identifier] = sound;
    }
 
    initialized = true;

@@ -63,7 +63,12 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized), sample_bin ]
+    guards:
+      - al_is_system_installed()
+      - al_is_audio_installed()
+      - al_is_acodec_addon_initialized()
+      - (!initialized)
+      - sample_bin
     body: |
       if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
       if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
@@ -104,11 +109,14 @@ functions:
 
          // TODO manage case where identifier already exists for this record
 
-         music_tracks[identifier] = sound;
+         //music_tracks[identifier] = sound;
       }
 
       initialized = true;
       return;
+    body_dependency_symbols:
+      - al_is_audio_initialized
+      - al_is_acodec_addon_initialized
 
 
   - name: destruct
@@ -233,5 +241,9 @@ dependencies:
     headers: [ map, string, AllegroFlare/Sound.hpp ]
   - symbol: AllegroFlare::Sound*
     headers: [ AllegroFlare/Sound.hpp ]
+  - symbol: al_is_audio_initialized
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: al_is_acodec_addon_initialized
+    headers: [ allegro5/allegro_acodec.h ]
 
 
