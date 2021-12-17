@@ -13,6 +13,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -176,6 +180,12 @@ void AudioController::set_global_volume(float volume)
 
 void AudioController::play_sound_effect_by_identifier(std::string identifier)
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "play_sound_effect_by_identifier" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    Sound *sound = find_sound_effect_by_identifier(identifier);
    if (sound) sound->play();
    return;
@@ -183,6 +193,12 @@ void AudioController::play_sound_effect_by_identifier(std::string identifier)
 
 void AudioController::play_music_track_by_identifier(std::string identifier)
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "play_music_track_by_identifier" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
    stop_all_music();
    Sound *sound = find_music_track_by_identifier(identifier);

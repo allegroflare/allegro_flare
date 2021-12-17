@@ -163,6 +163,7 @@ functions:
 
 
   - name: play_sound_effect_by_identifier
+    guards: [ initialized ]
     parameters:
       - name: identifier
         type: std::string
@@ -174,6 +175,7 @@ functions:
 
 
   - name: play_music_track_by_identifier
+    guards: [ initialized ]
     parameters:
       - name: identifier
         type: std::string
