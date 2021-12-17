@@ -65,3 +65,26 @@ TEST(AllegroFlare_AudioControllerTest, initialize__works__and_sets_initialized_t
 }
 
 
+TEST(AllegroFlare_AudioControllerTest,
+   play_music_track_by_identifier__when_a_music_track_identifier_is_not_present__outputs_a_message)
+{
+   al_init();
+   al_install_audio();
+
+   AllegroFlare::SampleBin sample_bin;
+   AllegroFlare::AudioController audio_controller(&sample_bin);
+   audio_controller.initialize();
+
+   testing::internal::CaptureStdout();
+   audio_controller.play_music_track_by_identifier("music-track-identifier-that-does-not-exist");
+   std::string cout_message = testing::internal::GetCapturedStdout();
+
+   std::string expected_cout_error_message = "[AudioController::find_music_track_by_identifier] error: " \
+                                             "unable to find element with identifier " \
+                                             "\"music-track-identifier-that-does-not-exist\"";
+   ASSERT_EQ(expected_cout_error_message, cout_message);
+
+   al_uninstall_system();
+}
+
+
