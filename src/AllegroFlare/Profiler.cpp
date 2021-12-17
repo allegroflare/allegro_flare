@@ -7,6 +7,11 @@
 #include <algorithm>
 
 
+#include <allegro5/allegro_color.h> // for the profiler renderer
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_primitives.h>
+
+
 namespace AllegroFlare
 {
    Profiler::Profiler()
@@ -124,9 +129,6 @@ namespace AllegroFlare
    }
 
 
-#include <allegro5/allegro_color.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_primitives.h>
    void Profiler::draw(float x, float y, ALLEGRO_FONT *font)
    {
       if (!font) throw std::runtime_error("cannot Profiler::draw with nullptr font");
