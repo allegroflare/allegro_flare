@@ -20,7 +20,7 @@ properties:
     getter_ref: true
 
   - name: bitmap_bin
-    type: AllegroFlare::FontBin
+    type: AllegroFlare::BitmapBin
     init_with: '{}'
     getter_ref: true
 
@@ -106,6 +106,8 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: ::testing::Test
     headers: [ gtest/gtest.h ]
   - symbol: allegro_flare::placement2d

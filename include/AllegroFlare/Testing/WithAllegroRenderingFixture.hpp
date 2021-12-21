@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -17,7 +18,7 @@ namespace AllegroFlare
       private:
          ALLEGRO_DISPLAY* display;
          AllegroFlare::FontBin font_bin;
-         AllegroFlare::FontBin bitmap_bin;
+         AllegroFlare::BitmapBin bitmap_bin;
 
       public:
          WithAllegroRenderingFixture();
@@ -25,7 +26,7 @@ namespace AllegroFlare
 
          ALLEGRO_DISPLAY* get_display();
          AllegroFlare::FontBin &get_font_bin_ref();
-         AllegroFlare::FontBin &get_bitmap_bin_ref();
+         AllegroFlare::BitmapBin &get_bitmap_bin_ref();
          virtual void SetUp() override;
          virtual void TearDown() override;
          ALLEGRO_FONT* get_any_font();

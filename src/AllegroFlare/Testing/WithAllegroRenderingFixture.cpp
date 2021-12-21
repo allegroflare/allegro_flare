@@ -41,7 +41,7 @@ AllegroFlare::FontBin &WithAllegroRenderingFixture::get_font_bin_ref()
 }
 
 
-AllegroFlare::FontBin &WithAllegroRenderingFixture::get_bitmap_bin_ref()
+AllegroFlare::BitmapBin &WithAllegroRenderingFixture::get_bitmap_bin_ref()
 {
    return bitmap_bin;
 }

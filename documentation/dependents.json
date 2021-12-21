@@ -27,6 +27,36 @@
   "AllegroFlare/Screen": [
     "AllegroFlare/FrameworkScreenRegistrar"
   ],
+  "al_init_primitives_addon": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "al_init_ttf_addon": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "al_init_font_addon": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "al_init_image_addon": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_DISPLAY": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_FONT": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/FontBin": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  ":testing/Test": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "allegro_flare/placement2d": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "std/vector<std/string>": [
     "NcursesArt/StringVectorIntersection"
   ],
