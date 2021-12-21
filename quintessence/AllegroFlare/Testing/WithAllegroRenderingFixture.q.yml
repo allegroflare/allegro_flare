@@ -1,0 +1,114 @@
+parent_classes:
+
+
+  - class: ::testing::Test
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: display
+    type: ALLEGRO_DISPLAY*
+    init_with: nullptr
+    getter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin
+    init_with: '{}'
+    getter_ref: true
+
+  - name: bitmap_bin
+    type: AllegroFlare::FontBin
+    init_with: '{}'
+    getter_ref: true
+
+
+functions:
+
+
+  - name: SetUp
+    type: void
+    virtual: true
+    override: true
+    body: |
+      ASSERT_EQ(false, al_is_system_installed());
+      ASSERT_EQ(true, al_init());
+      al_init_primitives_addon();
+      al_init_font_addon();
+      al_init_ttf_addon();
+      al_init_image_addon();
+
+      font_bin.set_full_path("/Users/markoates/Repos/Krampus21/bin/programs/data/fonts");
+      bitmap_bin.set_full_path("/Users/markoates/Repos/Krampus21/bin/programs/data/bitmaps");
+
+      //display = al_create_display(1280 * 2, 720 * 2);
+      display = al_create_display(1920, 1080);
+      al_clear_to_color(ALLEGRO_COLOR{0.05f, 0.05f, 0.05f, 0.05f});
+      return;
+    body_dependency_symbols:
+      - al_init_image_addon
+      - al_init_font_addon
+      - al_init_ttf_addon
+      - al_init_primitives_addon
+
+
+  - name: TearDown
+    type: void
+    virtual: true
+    override: true
+    body: |
+      font_bin.clear();
+      bitmap_bin.clear();
+      al_destroy_display(display);
+      al_shutdown_ttf_addon(); // this is required otherwise subsequent al_init_ttf_addon will not work
+                               // this is a bug in Allegro
+      al_uninstall_system();
+      return;
+
+
+  - name: get_any_font
+    type: ALLEGRO_FONT*
+    body: |
+      return font_bin.auto_get("consolas.ttf 32");
+
+
+  - name: build_centered_placement
+    type: allegro_flare::placement2d
+    parameters:
+      - name: width
+        type: float
+        default_argument: 0.0f
+      - name: height
+        type: float
+        default_argument: 0.0f
+    guards: [ al_get_target_bitmap() ]
+    body: |
+      allegro_flare::placement2d place(al_get_display_width(display)/2, al_get_display_height(display)/2, width, height);
+      return place;
+
+
+dependencies:
+
+
+  - symbol: al_init_primitives_addon
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_init_ttf_addon
+    headers: [ allegro5/allegro_ttf.h ]
+  - symbol: al_init_font_addon
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_init_image_addon
+    headers: [ allegro5/allegro_image.h ]
+  - symbol: ALLEGRO_DISPLAY*
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ::testing::Test
+    headers: [ gtest/gtest.h ]
+  - symbol: allegro_flare::placement2d
+    headers: [ allegro_flare/placement2d.h ]
+
+
