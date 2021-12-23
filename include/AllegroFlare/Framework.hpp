@@ -57,6 +57,7 @@ namespace AllegroFlare
       Motion &motion(); // we'll do this for now
       Config &get_config();
       FontBin &get_font_bin_ref();
+      BitmapBin &get_bitmap_bin_ref();
       SampleBin &get_sample_bin_ref();
 
       bool initialize();

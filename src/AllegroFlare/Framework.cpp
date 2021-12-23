@@ -130,6 +130,13 @@ namespace AllegroFlare
 
 
 
+   BitmapBin &Framework::get_bitmap_bin_ref()
+   {
+      return bitmaps;
+   }
+
+
+
    SampleBin &Framework::get_sample_bin_ref()
    {
       return samples;
@@ -208,6 +215,8 @@ namespace AllegroFlare
    {
       // TODO autit this function
       samples.clear();
+      bitmaps.clear();
+      fonts.clear();
 
       //delete instance;
       //instance = nullptr;

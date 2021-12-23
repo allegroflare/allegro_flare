@@ -381,7 +381,7 @@ int main(int argc, char *argv[])
    Framework::initialize();
    Display *display = Framework::create_display(1100, 600);
    SoftKeyboardExample *example = new SoftKeyboardExample(display);
-   Framework::run_loop();
+   //Framework::run_loop();
    return 0;
 }
 
