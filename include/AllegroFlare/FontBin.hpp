@@ -15,8 +15,8 @@ namespace AllegroFlare
    public:
       FontBin();
       ~FontBin();
-      ALLEGRO_FONT *load_data(std::string identifier);
-      void destroy_data(ALLEGRO_FONT *f);
+      ALLEGRO_FONT *load_data(std::string identifier) override;
+      void destroy_data(ALLEGRO_FONT *f) override;
       bool validate() override;
    };
 }
