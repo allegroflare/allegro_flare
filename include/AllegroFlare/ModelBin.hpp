@@ -14,8 +14,10 @@ namespace AllegroFlare
    public:
       ModelBin();
       ~ModelBin();
-      Model3D *load_data(std::string identifier);
-      void destroy_data(Model3D *bmp);
+
+      Model3D *load_data(std::string identifier) override;
+      void destroy_data(Model3D *bmp) override;
+      bool validate() override;
    };
 }
 

@@ -12,8 +12,9 @@ namespace AllegroFlare
    public:
       SampleBin();
       ~SampleBin();
-      ALLEGRO_SAMPLE *load_data(std::string identifier);
-      void destroy_data(ALLEGRO_SAMPLE *sample);
+      ALLEGRO_SAMPLE *load_data(std::string identifier) override;
+      void destroy_data(ALLEGRO_SAMPLE *sample) override;
+      bool validate() override;
    };
 }
 

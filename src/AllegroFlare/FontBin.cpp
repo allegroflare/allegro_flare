@@ -26,11 +26,30 @@ namespace AllegroFlare
 
 
 
+   bool FontBin::validate()
+   {
+      if (!al_is_font_addon_initialized())
+      {
+         std::cout << "[FontBin::validate] not properly initialized (requires al_init_font_addon()). "
+                   << " Will crash probably crash." << std::endl;
+         return false;
+      }
+      if (!al_is_ttf_addon_initialized())
+      {
+         std::cout << "[FontBin::validate] not properly initialized (requires al_init_ttf_addon()). "
+                   << " Will crash probably crash." << std::endl;
+         return false;
+      }
+      return true;
+   }
+
+
 
    ALLEGRO_FONT *FontBin::load_data(std::string identifier)
    {
+      validate();
       std::string actual_font_filename = identifier;
-      int font_size = 16; 
+      int font_size = 16;
       size_t pos = identifier.find_last_of(' ');
       if (pos == std::string::npos)
       {

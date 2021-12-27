@@ -13,8 +13,10 @@ namespace AllegroFlare
    public:
       BitmapBin();
       ~BitmapBin();
-      ALLEGRO_BITMAP *load_data(std::string identifier);
-      void destroy_data(ALLEGRO_BITMAP *bmp);
+
+      ALLEGRO_BITMAP *load_data(std::string identifier) override;
+      void destroy_data(ALLEGRO_BITMAP *bmp) override;
+      bool validate() override;
    };
 }
 

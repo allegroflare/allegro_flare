@@ -56,6 +56,10 @@ void WithAllegroRenderingFixture::SetUp()
    al_init_ttf_addon();
    al_init_image_addon();
 
+   // dropping these comments here for later
+   //#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/fonts/"
+   //#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/fonts/"
+
    font_bin.set_full_path("/Users/markoates/Repos/Krampus21/bin/programs/data/fonts");
    bitmap_bin.set_full_path("/Users/markoates/Repos/Krampus21/bin/programs/data/bitmaps");
 

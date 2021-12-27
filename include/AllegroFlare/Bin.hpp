@@ -41,6 +41,7 @@ namespace AllegroFlare
       int size();
       virtual T load_data(T2 identifier) = 0;
       virtual void destroy_data(T) = 0;
+      virtual bool validate() = 0;
       std::string get_str();
       T operator[](const T2 &identifier); // this is equivelent to auto_get()
 
