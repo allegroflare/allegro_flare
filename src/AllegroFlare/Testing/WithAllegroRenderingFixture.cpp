@@ -5,6 +5,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
+#include <chrono>
+#include <thread>
 #include <stdexcept>
 #include <sstream>
 
@@ -83,6 +85,12 @@ void WithAllegroRenderingFixture::TearDown()
 ALLEGRO_FONT* WithAllegroRenderingFixture::get_any_font()
 {
    return font_bin.auto_get("consolas.ttf 32");
+}
+
+void WithAllegroRenderingFixture::sleep_for_frame()
+{
+   static int frame_length_in_milliseconds = 1000/60;
+   std::this_thread::sleep_for(std::chrono::milliseconds(frame_length_in_milliseconds));
 }
 
 allegro_flare::placement2d WithAllegroRenderingFixture::build_centered_placement(float width, float height)

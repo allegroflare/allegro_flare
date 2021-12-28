@@ -30,6 +30,7 @@ namespace AllegroFlare
          virtual void SetUp() override;
          virtual void TearDown() override;
          ALLEGRO_FONT* get_any_font();
+         void sleep_for_frame();
          allegro_flare::placement2d build_centered_placement(float width=0.0f, float height=0.0f);
       };
    }
