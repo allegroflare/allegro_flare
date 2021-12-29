@@ -245,7 +245,7 @@ AllegroFlare::Sound* AudioController::find_music_track_by_identifier(std::string
    if (it == music_tracks.end())
    {
       std::cout << "[AudioController::find_music_track_by_identifier] error: "
-                << "unable to find element with identifier \"" << identifier << "\"";
+                << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
       return nullptr;
    }
    return it->second;

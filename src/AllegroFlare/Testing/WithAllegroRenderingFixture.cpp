@@ -7,6 +7,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <chrono>
 #include <thread>
+#include <chrono>
+#include <thread>
 #include <stdexcept>
 #include <sstream>
 
@@ -91,6 +93,12 @@ void WithAllegroRenderingFixture::sleep_for_frame()
 {
    static int frame_length_in_milliseconds = 1000/60;
    std::this_thread::sleep_for(std::chrono::milliseconds(frame_length_in_milliseconds));
+}
+
+void WithAllegroRenderingFixture::sleep_for(float length_in_seconds)
+{
+   int length_in_milliseconds = (int)(length_in_seconds * 1000.0);
+   std::this_thread::sleep_for(std::chrono::milliseconds(length_in_milliseconds));
 }
 
 allegro_flare::placement2d WithAllegroRenderingFixture::build_centered_placement(float width, float height)
