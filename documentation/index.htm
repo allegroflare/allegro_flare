@@ -243,6 +243,12 @@ table td
   <td class="method">get_any_font()</td>
 </tr>
 <tr>
+  <td class="method">sleep_for_frame()</td>
+</tr>
+<tr>
+  <td class="method">sleep_for(1)</td>
+</tr>
+<tr>
   <td class="method">build_centered_placement(2)</td>
 </tr>
     </table>
@@ -276,6 +282,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;allegro_flare::placement2d&quot;, &quot;headers&quot;=&gt;[&quot;allegro_flare/placement2d.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::chrono::milliseconds&quot;, &quot;headers&quot;=&gt;[&quot;chrono&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::this_thread::sleep_for&quot;, &quot;headers&quot;=&gt;[&quot;thread&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -370,6 +382,12 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "allegro_flare/placement2d": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "std/chrono/milliseconds": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/vector<std/string>": [

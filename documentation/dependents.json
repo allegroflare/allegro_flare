@@ -57,6 +57,12 @@
   "allegro_flare/placement2d": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "std/chrono/milliseconds": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "std/this_thread/sleep_for": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "std/vector<std/string>": [
     "NcursesArt/StringVectorIntersection"
   ],
