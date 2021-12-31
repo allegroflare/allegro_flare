@@ -60,12 +60,16 @@ void WithAllegroRenderingFixture::SetUp()
    al_init_ttf_addon();
    al_init_image_addon();
 
-   // dropping these comments here for later
-   //#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/fonts/"
-   //#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/fonts/"
+   #ifdef _WIN32
+   #define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/fonts/"
+   #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/bitmaps/"
+   #else
+   #define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/fonts/"
+   #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/bitmaps/"
+   #endif
 
-   font_bin.set_full_path("/Users/markoates/Repos/Krampus21/bin/programs/data/fonts");
-   bitmap_bin.set_full_path("/Users/markoates/Repos/Krampus21/bin/programs/data/bitmaps");
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
    //display = al_create_display(1280 * 2, 720 * 2);
    display = al_create_display(1920, 1080);
