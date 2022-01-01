@@ -22,8 +22,11 @@ TEST(AllegroFlare_BitmapBinTest, validate__without_the_image_addon_initialized__
    testing::internal::CaptureStdout();
    sample_bin.validate();
    std::string output = testing::internal::GetCapturedStdout();
-   std::string expected_cerr_output = "[BitmapBin::validate] not properly initialized "
-                                      "(requires al_init_image_addon()).  Will crash probably crash.\n";
+   std::string expected_cerr_output = "\x1B[1;31m"
+                                      "[BitmapBin::validate] not properly initialized "
+                                      "(requires al_init_image_addon()).  Will crash probably crash."
+                                      "\x1B[0m"
+                                      "\n";
    ASSERT_EQ(expected_cerr_output, output);
 }
 

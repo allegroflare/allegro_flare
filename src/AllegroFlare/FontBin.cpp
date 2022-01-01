@@ -30,14 +30,20 @@ namespace AllegroFlare
    {
       if (!al_is_font_addon_initialized())
       {
-         std::cout << "[FontBin::validate] not properly initialized (requires al_init_font_addon()). "
-                   << " Will crash probably crash." << std::endl;
+         std::cout << CONSOLE_COLOR_RED
+                   << "[FontBin::validate] not properly initialized (requires al_init_font_addon()). "
+                   << " Will crash probably crash."
+                   << CONSOLE_COLOR_DEFAULT
+                   << std::endl;
          return false;
       }
       if (!al_is_ttf_addon_initialized())
       {
-         std::cout << "[FontBin::validate] not properly initialized (requires al_init_ttf_addon()). "
-                   << " Will crash probably crash." << std::endl;
+         std::cout << CONSOLE_COLOR_RED
+                   << "[FontBin::validate] not properly initialized (requires al_init_ttf_addon()). "
+                   << " Will crash probably crash."
+                   << CONSOLE_COLOR_DEFAULT
+                   << std::endl;
          return false;
       }
       return true;

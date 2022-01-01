@@ -20,8 +20,11 @@ namespace AllegroFlare
    {
       if (!al_is_image_addon_initialized())
       {
-         std::cout << "[BitmapBin::validate] not properly initialized (requires al_init_image_addon()). "
-                   << " Will crash probably crash." << std::endl;
+         std::cout << CONSOLE_COLOR_RED
+                   << "[BitmapBin::validate] not properly initialized (requires al_init_image_addon()). "
+                   << " Will crash probably crash."
+                   << CONSOLE_COLOR_DEFAULT
+                   << std::endl;
          return false;
       }
       return true;

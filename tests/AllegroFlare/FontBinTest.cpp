@@ -22,9 +22,12 @@ TEST(AllegroFlare_FontBinTest, validate__without_the_font_addon_initialized__out
    testing::internal::CaptureStdout();
    sample_bin.validate();
    std::string output = testing::internal::GetCapturedStdout();
-   std::string expected_cerr_output = "[FontBin::validate] not properly initialized "
-                                      "(requires al_init_font_addon()).  Will crash probably crash.\n";
-   ASSERT_EQ(expected_cerr_output, output);
+   std::string expected_cout_output = "\x1B[1;31m"
+                                      "[FontBin::validate] not properly initialized "
+                                      "(requires al_init_font_addon()).  Will crash probably crash."
+                                      "\x1B[0m"
+                                      "\n";
+   ASSERT_EQ(expected_cout_output, output);
 }
 
 
@@ -37,9 +40,12 @@ TEST(AllegroFlare_FontBinTest, validate__without_the_ttf_addon_initialized__outp
    testing::internal::CaptureStdout();
    sample_bin.validate();
    std::string output = testing::internal::GetCapturedStdout();
-   std::string expected_cerr_output = "[FontBin::validate] not properly initialized "
-                                      "(requires al_init_ttf_addon()).  Will crash probably crash.\n";
-   ASSERT_EQ(expected_cerr_output, output);
+   std::string expected_cout_output ="\x1B[1;31m"
+                                      "[FontBin::validate] not properly initialized "
+                                      "(requires al_init_ttf_addon()).  Will crash probably crash."
+                                      "\x1B[0m"
+                                      "\n";
+   ASSERT_EQ(expected_cout_output, output);
    al_uninstall_system();
 }
 
