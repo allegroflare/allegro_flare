@@ -776,7 +776,7 @@ public:
       : bitmaps()
       , textures()
    {
-      bitmaps.set_path("data/raycast_demo/bitmaps");
+      bitmaps.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/raycast_demo/bitmaps");
    }
 
    bool load_texture(int index, std::string filename)
@@ -1203,7 +1203,7 @@ public:
       , player_ammo_reserve(12)
       , num_z_buffered_objects(0)
       , profiler()
-      , crosshair(al_load_bitmap("data/raycast_demo/bitmaps/crosshair4.png"))
+      , crosshair(al_load_bitmap("/Users/markoates/Repos/allegro_flare/bin/data/raycast_demo/bitmaps/crosshair4.png"))
       , trigger_down(false)
       , refire_counter(0)
       , gun_fired(false)
@@ -1224,8 +1224,10 @@ public:
       , magazine_capacity(8)
       , bullets_in_magazine(magazine_capacity)
    {
-      bitmaps.set_path("data/raycast_demo/bitmaps");
-      samples.set_path("data/raycast_demo/samples");
+      //bitmaps.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/raycast_demo/bitmaps");
+
+      bitmaps.set_path("/Users/markoates/Repos/allegro_flare/bin/data/raycast_demo/bitmaps");
+      samples.set_path("/Users/markoates/Repos/allegro_flare/bin/data/raycast_demo/samples");
       fonts.set_path("data/fonts");
 
 
