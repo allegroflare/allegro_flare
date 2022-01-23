@@ -233,26 +233,15 @@ public:
 	// assets
 	Camera3 camera;
 	Camera3 casting_light;
-	//Model3D construct;
-	//Model3D model;
-	//Model3D *current_model;
-	//Model3D unit_sphere;
-	//Shader metalic_shader;
-	//Shader fresnel_shader;
 	Shader cubemap_shader;
 	Shader depth_shader;
 	Shader simple_map_shader;
-	//Shader multi_shader;
-	//Shader *current_shader;
 	ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_A;
 	ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_B;
-	Light light;
-
-  vec2d texture_offset;
-
-  ALLEGRO_TRANSFORM shadow_map_depth_pass_transform;
-  ALLEGRO_BITMAP *shadow_map_depth_pass_surface;
-
+   Light light;
+   vec2d texture_offset;
+   ALLEGRO_TRANSFORM shadow_map_depth_pass_transform;
+   ALLEGRO_BITMAP *shadow_map_depth_pass_surface;
 	std::vector<Entity *> entities;
    Entity *skybox;
 
@@ -261,22 +250,18 @@ public:
 		, bitmaps()
 		, camera()
 		, casting_light()
-		//, metalic_shader("data/shaders/metalic_vertex.glsl", "data/shaders/metalic_fragment.glsl")
-		//, fresnel_shader("data/shaders/fresnel_vertex.glsl", "data/shaders/fresnel_fragment.glsl")
 		, cubemap_shader("../data/shaders/cube_vertex.glsl", "../data/shaders/cube_fragment.glsl")
-		//, multi_shader("data/shaders/multi_vertex.glsl", "data/shaders/multi_fragment.glsl")
 		, depth_shader("../data/shaders/depth_vertex.glsl", "../data/shaders/depth_fragment.glsl")
 		, simple_map_shader("../data/shaders/simple_map_vertex_with_light.glsl", "../data/shaders/simple_map_fragment_with_light.glsl")
+		, cube_map_A(nullptr)
+		, cube_map_B(nullptr)
 		, light(4, 4, 3)
-		, cube_map_A(NULL)
-		, cube_map_B(NULL)
-		, skybox(NULL)
-		, shadow_map_depth_pass_transform()
-		, shadow_map_depth_pass_surface(NULL)
 		, texture_offset(0, 0)
-	{
-	}
-
+		, shadow_map_depth_pass_transform()
+		, shadow_map_depth_pass_surface(nullptr)
+      , entities()
+		, skybox(nullptr)
+	{}
 
    void initialize()
    {
@@ -350,8 +335,6 @@ public:
 
 		for (unsigned i=0; i<2; i++)
 		{
-			int r = i / 3;
-			int c = i % 3;
 			// add the Construct(s)
 			entity = new Entity();
 			entity->shader = &simple_map_shader;
@@ -402,30 +385,34 @@ public:
 
 	void setup_projection_SHADOW(Camera3 &camera_to_use, ALLEGRO_TRANSFORM *transform_to_fill=NULL)
 	{
-		// setup the render settings
-		al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-		al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-		al_clear_depth_buffer(1);
+      // setup the render settings
+      al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+      al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+      al_clear_depth_buffer(1);
 
+      ALLEGRO_TRANSFORM shadow_map_projection;
 
-		ALLEGRO_TRANSFORM t;
+      camera_to_use.reverse_position_transform(&shadow_map_projection);
 
-		camera_to_use.reverse_position_transform(&t);
-	
-		float aspect_ratio = (float)al_get_bitmap_height(backbuffer_sub_bitmap) / al_get_bitmap_width(backbuffer_sub_bitmap);
-		float w = al_get_bitmap_width(backbuffer_sub_bitmap);
-		ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
-		al_scale_transform_3d(&t, 150, 150, 1); 
-		
-al_orthographic_transform(&t, -al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), 30.0, al_get_bitmap_width(bitmap),
-                          -al_get_bitmap_height(bitmap), -30.0);
+      ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
+      al_scale_transform_3d(&shadow_map_projection, 150, 150, 1); 
 
-		if (transform_to_fill != NULL)
-		{
-			al_copy_transform(transform_to_fill, &t);
-		}
+      al_orthographic_transform(
+         &shadow_map_projection,
+         -al_get_bitmap_width(bitmap),
+         al_get_bitmap_height(bitmap),
+         30.0,
+         al_get_bitmap_width(bitmap),
+         -al_get_bitmap_height(bitmap),
+         -30.0
+      );
 
-		al_use_projection_transform(&t);
+      if (transform_to_fill != NULL)
+      {
+         al_copy_transform(transform_to_fill, &shadow_map_projection);
+      }
+
+      al_use_projection_transform(&shadow_map_projection);
 	}
 
 	void setup_projection_SCENE(Camera3 &camera_to_use, ALLEGRO_TRANSFORM *transform_to_fill=NULL)
