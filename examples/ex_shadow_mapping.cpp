@@ -5,7 +5,9 @@
 
 #include <allegro_flare/cubemap.h>
 
-
+// NOTE:
+// this is a great article providing tips on improving shadow mapping appearance and processing
+// https://docs.microsoft.com/en-us/windows/win32/dxtecharts/common-techniques-to-improve-shadow-depth-maps
 
 using namespace allegro_flare;
 using namespace AllegroFlare;
