@@ -275,8 +275,12 @@ public:
 		, shadow_map_depth_pass_surface(NULL)
 		, texture_offset(0, 0)
 	{
-      initialize();
+	}
 
+
+   void initialize()
+   {
+      bitmaps.set_path("../data/bitmaps");
 		al_identity_transform(&shadow_map_depth_pass_transform);
 
 		//camera.stepout = vec3d(0, 1.5, 8);
@@ -304,12 +308,6 @@ public:
 		shadow_map_depth_pass_surface = al_create_bitmap(display->width(), display->height());
 
 		construct_scene();
-	}
-
-
-   void initialize()
-   {
-      bitmaps.set_path("../data/bitmaps");
    }
 
 
@@ -415,15 +413,8 @@ public:
 		camera_to_use.reverse_position_transform(&t);
 	
 		float aspect_ratio = (float)al_get_bitmap_height(backbuffer_sub_bitmap) / al_get_bitmap_width(backbuffer_sub_bitmap);
-	//	al_perspective_transform(&t, -1, aspect_ratio, 1, 1, -aspect_ratio, 100);
-	//	al_perspective_transform(&t, -1, aspect_ratio, 4, 1, -aspect_ratio, 100);
 		float w = al_get_bitmap_width(backbuffer_sub_bitmap);
-//	   al_orthographic_transform(&t, -1*w, aspect_ratio*w, -100, -1*w, -aspect_ratio*w, 1000);
 		ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
-//al_orthographic_transform(&t, -al_get_bitmap_width(bitmap), -al_get_bitmap_height(bitmap), -100.0, al_get_bitmap_width(bitmap),
-                          //al_get_bitmap_height(bitmap), 100.0);
-
-		//al_scale_transform_3d(&t, al_display_width(bitmap), al_display_height(bitmap));
 		al_scale_transform_3d(&t, 150, 150, 1); 
 		
 al_orthographic_transform(&t, -al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), 30.0, al_get_bitmap_width(bitmap),
@@ -434,7 +425,6 @@ al_orthographic_transform(&t, -al_get_bitmap_width(bitmap), al_get_bitmap_height
 			al_copy_transform(transform_to_fill, &t);
 		}
 
-		//al_set_target_bitmap(backbuffer_sub_bitmap); << I don't think this is necessairy, it also occours just prior to this function
 		al_use_projection_transform(&t);
 	}
 
@@ -452,27 +442,11 @@ al_orthographic_transform(&t, -al_get_bitmap_width(bitmap), al_get_bitmap_height
 	
 		float aspect_ratio = (float)al_get_bitmap_height(backbuffer_sub_bitmap) / al_get_bitmap_width(backbuffer_sub_bitmap);
 		al_perspective_transform(&t, -1, aspect_ratio, 1, 1, -aspect_ratio, 100);
-	//	al_perspective_transform(&t, -1, aspect_ratio, 4, 1, -aspect_ratio, 100);
-/*
-		float w = al_get_bitmap_width(backbuffer_sub_bitmap);
-//	   al_orthographic_transform(&t, -1*w, aspect_ratio*w, -100, -1*w, -aspect_ratio*w, 1000);
-		ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
-//al_orthographic_transform(&t, -al_get_bitmap_width(bitmap), -al_get_bitmap_height(bitmap), -100.0, al_get_bitmap_width(bitmap),
-                          //al_get_bitmap_height(bitmap), 100.0);
-
-		//al_scale_transform_3d(&t, al_display_width(bitmap), al_display_height(bitmap));
-		al_scale_transform_3d(&t, 150, 150, 1); 
-*/		
-/*
- al_orthographic_transform(&t, -al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), 30.0, al_get_bitmap_width(bitmap),
-                          -al_get_bitmap_height(bitmap), -30.0);
-*/
 		if (transform_to_fill != NULL)
 		{
 			al_copy_transform(transform_to_fill, &t);
 		}
 
-		//al_set_target_bitmap(backbuffer_sub_bitmap); << I don't think this is necessairy, it also occours just prior to this function
 		al_use_projection_transform(&t);
 	}
 	void draw_the_shadow_map_depth_pass()
@@ -517,8 +491,6 @@ al_orthographic_transform(&t, -al_get_bitmap_width(bitmap), al_get_bitmap_height
 		glCullFace(GL_FRONT); 
 
 		al_set_target_bitmap(backbuffer_sub_bitmap);
-		//al_set_target_bitmap(depth_pass_surface);
-		//al_set_target_bitmap(depth_pass_surface);
 		draw_the_shadow_map_depth_pass();
 
 		al_set_target_bitmap(shadow_map_depth_pass_surface);
@@ -673,8 +645,10 @@ public:
 int main(int argc, char **argv)
 {
 	Framework::initialize();
+	//Display *display = Framework::create_display(1920, 1080, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
 	Display *display = Framework::create_display(1920, 1080, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
 	My3DProject *proj = new My3DProject(display);
+   proj->initialize();
 	MyGUIScreen *gui = new MyGUIScreen(display, proj);
 	Framework::run_loop();
 	return 0;
