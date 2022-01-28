@@ -3,12 +3,17 @@
 
 
 #include <allegro_flare/allegro_flare.h>
+#include <AllegroFlare/FontBin.hpp>
 
 
 
 
 using namespace allegro_flare;
 using namespace AllegroFlare;
+
+
+
+AllegroFlare::FontBin fonts;
 
 
 
@@ -29,16 +34,16 @@ private:
    static ALLEGRO_FONT *small_font;
    static ALLEGRO_COLOR key_color;
    static ALLEGRO_COLOR alt_key_color;
-   static ALLEGRO_SAMPLE *keypress_sound, *keyhover_sound;
+   //static ALLEGRO_SAMPLE *keypress_sound, *keyhover_sound;
    static float key_roundness;
 
    void initialize()
    {
       if (initialized) return;
-      large_font = al_load_font("data/fonts/DroidSans.ttf", -32, ALLEGRO_FLAGS_EMPTY);
-      small_font = al_load_font("data/fonts/DroidSans.ttf", -18, ALLEGRO_FLAGS_EMPTY);
-      keyhover_sound = al_load_sample("data/samples/click.wav");
-      keypress_sound = al_load_sample("data/samples/keypress_light.wav");
+      large_font = fonts["DroidSans.ttf -32"]; //, ALLEGRO_FLAGS_EMPTY);
+      small_font = fonts["DroidSans.ttf -18"]; //, ALLEGRO_FLAGS_EMPTY);
+      //keyhover_sound = al_load_sample("data/samples/click.wav");
+      //keypress_sound = al_load_sample("data/samples/keypress_light.wav");
       key_color = color::hex("646873");
       alt_key_color = color::hex("363d47");
       initialized = true;
@@ -96,7 +101,7 @@ public:
 
    void trigger()
    {
-      al_play_sample(keypress_sound, 0.6, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+      //al_play_sample(keypress_sound, 0.6, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
       if (allegro_key_code != ALLEGRO_KEY_MAX) std::cout << allegro_key_code << " ";
       pressed_counter = 1.0;
    }
@@ -129,7 +134,7 @@ public:
 
    void on_mouse_enter()
    {
-      al_play_sample(keyhover_sound, 0.2, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+      //al_play_sample(keyhover_sound, 0.2, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
    }
 
    void on_mouse_move(float mouse_x, float mouse_y)
@@ -160,8 +165,8 @@ ALLEGRO_FONT *SoftKeyKey::large_font = NULL;
 ALLEGRO_FONT *SoftKeyKey::small_font = NULL;
 ALLEGRO_COLOR SoftKeyKey::key_color = color::black;
 ALLEGRO_COLOR SoftKeyKey::alt_key_color = color::black;
-ALLEGRO_SAMPLE *SoftKeyKey::keypress_sound = NULL;
-ALLEGRO_SAMPLE *SoftKeyKey::keyhover_sound = NULL;
+//ALLEGRO_SAMPLE *SoftKeyKey::keypress_sound = NULL;
+//ALLEGRO_SAMPLE *SoftKeyKey::keyhover_sound = NULL;
 float SoftKeyKey::key_roundness = 0.0;
 
 
@@ -379,9 +384,12 @@ public:
 int main(int argc, char *argv[])
 {
    Framework::initialize();
+
+   fonts.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
+
    Display *display = Framework::create_display(1100, 600);
    SoftKeyboardExample *example = new SoftKeyboardExample(display);
-   //Framework::run_loop();
+   Framework::run_loop();
    return 0;
 }
 
