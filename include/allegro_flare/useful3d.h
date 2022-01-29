@@ -96,21 +96,21 @@ namespace allegro_flare
          , v2(v2)
       {}
 
-      bool intersect(const Ray &r, IsectData &isectData) const
+      bool intersect(const Ray &ray, IsectData &isectData) const
       {
          //http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
          //#ifdef MOLLER_TRUMBORE
          AllegroFlare::vec3d edge1 = v1 - v0;
          AllegroFlare::vec3d edge2 = v2 - v0;
-         AllegroFlare::vec3d pvec = cross_product(r.dir, edge2);
+         AllegroFlare::vec3d pvec = cross_product(ray.dir, edge2);
          float det = dot_product(edge1, pvec);
          if (det == 0) return false;
          float invDet = 1 / det;
-         AllegroFlare::vec3d tvec = r.orig - v0;
+         AllegroFlare::vec3d tvec = ray.orig - v0;
          isectData.u = dot_product(tvec, pvec) * invDet;
          if (isectData.u < 0 || isectData.u > 1) return false;
          AllegroFlare::vec3d qvec = cross_product(tvec, edge1);
-         isectData.v = dot_product(r.dir, qvec) * invDet;
+         isectData.v = dot_product(ray.dir, qvec) * invDet;
          if (isectData.v < 0 || isectData.u + isectData.v > 1) return false;
          isectData.t = dot_product(edge2, qvec) * invDet;
          //#else
