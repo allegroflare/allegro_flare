@@ -317,6 +317,7 @@ namespace allegro_flare
 
    void Framework::run_loop()
    {
+      al_flip_display();
       al_start_timer(primary_timer);
 
       while(!shutdown_program || Display::displays.empty())
