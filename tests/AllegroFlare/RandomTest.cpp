@@ -70,8 +70,11 @@ TEST(AllegroFlare_RandomTest, only_returns_floats_within_the_bounds_inclusive)
 }
 
 
-TEST(RandomTest, returns_an_expected_sequence_of_random_numbers_given_a_seed)
+TEST(RandomTest, DISABLED_returns_an_expected_sequence_of_random_numbers_given_a_seed)
 {
+   // TODO, these results are different, depending on platform (MacOS, Win).
+   // It's *possible* the results could be different on different devices of the
+   // same OS, too, (but this has not been tested)
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
    const int min_random_num = 0;
    const int max_random_num = 10;
