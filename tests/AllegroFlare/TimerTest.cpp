@@ -30,7 +30,7 @@ TEST(AllegroFlare_TimerTest, get_ellapsed_time_milliseconds__will_be_zero_before
 }
 
 
-TEST(AllegroFlare_TimerTest, get_ellapsed_time_milliseconds__will_return_the_elapsed_time)
+TEST(AllegroFlare_TimerTest, DISABLED_FOR_WIN__get_ellapsed_time_milliseconds__will_return_the_elapsed_time)
 {
    Timer timer;
    timer.start();
@@ -60,7 +60,7 @@ TEST(AllegroFlare_TimerTest, pause__will_prevent_stop_the_timer_from_incrementin
 }
 
 
-TEST(AllegroFlare_TimerTest, get_ellapsed_time_microeconds__will_return_the_elapsed_time)
+TEST(AllegroFlare_TimerTest, DISABLED_FOR_WIN__get_ellapsed_time_microeconds__will_return_the_elapsed_time)
 {
    Timer timer;
    timer.start();
@@ -71,7 +71,7 @@ TEST(AllegroFlare_TimerTest, get_ellapsed_time_microeconds__will_return_the_elap
 }
 
 
-TEST(AllegroFlare_TimerTest, get_ellapsed_time_nanoseconds__will_return_the_elapsed_time)
+TEST(AllegroFlare_TimerTest, DISABLED_FOR_WIN__get_ellapsed_time_nanoseconds__will_return_the_elapsed_time)
 {
    Timer timer;
    timer.start();
@@ -82,7 +82,7 @@ TEST(AllegroFlare_TimerTest, get_ellapsed_time_nanoseconds__will_return_the_elap
 }
 
 
-TEST(AllegroFlare_TimerTest, reset__will_clear_the_values_and_stop_the_timer_if_it_is_running)
+TEST(AllegroFlare_TimerTest, DISABLED_FOR_WIN__reset__will_clear_the_values_and_stop_the_timer_if_it_is_running)
 {
    Timer timer;
    timer.start();
