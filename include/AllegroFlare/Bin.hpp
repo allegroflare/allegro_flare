@@ -175,7 +175,7 @@ namespace AllegroFlare
       Bin<T2, T>::Record *r = get_record(identifier);
       if (r) return r->data;
 
-      if (load(identifier, identifier))
+      if (load(identifier, identifier, "auto_get"))
       {
          std::string class_name = type; //typeid(*this).name();
          std::cout << CONSOLE_COLOR_YELLOW << "[" << class_name << "::" << __FUNCTION__  << "] Record \"" << identifier << "\" auto-created" << CONSOLE_COLOR_DEFAULT << std::endl;
