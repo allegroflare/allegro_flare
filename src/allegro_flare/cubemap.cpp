@@ -94,7 +94,7 @@ namespace allegro_flare
       glGenTextures(1, &texture->id);
       glBindTexture(GL_TEXTURE_CUBE_MAP, texture->id);
 
-      std::cout << "Generated OpenGL Cubemap Texture with ID: " << texture->id << std::endl;
+      //std::cout << "Generated OpenGL Cubemap Texture with ID: " << texture->id << std::endl;
 
       glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
       glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
