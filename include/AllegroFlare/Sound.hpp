@@ -1,6 +1,4 @@
-#ifndef ___AF_SOUND_OBJECT_HEADER
-#define ___AF_SOUND_OBJECT_HEADER
-
+#pragma once
 
 
 
@@ -103,5 +101,4 @@ namespace AllegroFlare
 
 
 
-#endif
 
