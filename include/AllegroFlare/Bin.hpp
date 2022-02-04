@@ -300,8 +300,8 @@ namespace AllegroFlare
       int current_record_num = 1;
       for (typename std::vector<Bin<T2, T>::Record *>::iterator it=record.begin(); it!=record.end(); it++)
       {
-         std::cout << CONSOLE_COLOR_YELLOW
-                   << "[" << type << "::" << __FUNCTION__  << "] "
+         std::cout //<< CONSOLE_COLOR_YELLOW
+                   << "[" << type << "::" << __FUNCTION__  << "] Info: "
                    << "Destroying record (" << current_record_num << "/" << num_records << ") "
                    << "\"" << (*it)->identifier << "\"" 
                    << CONSOLE_COLOR_DEFAULT << std::endl;

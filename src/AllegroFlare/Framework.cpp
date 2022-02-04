@@ -189,7 +189,7 @@ namespace AllegroFlare
       if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
       else
       {
-         std::cerr << "[AllegroFlare::Framework::initialize] Notice: No joystick(s) detected." << std::endl;
+         std::cout << "[AllegroFlare::Framework::initialize] Info: No joystick(s) detected." << std::endl;
       }
 
       //instance = new Framework(config_filename);
