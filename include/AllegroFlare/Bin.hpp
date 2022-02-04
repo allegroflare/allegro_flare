@@ -35,7 +35,7 @@ namespace AllegroFlare
       T get(T2 identifier);
       T auto_get(T2 identifier);
       bool preload(T2 identifier_and_filename);
-      bool load(T2 identifier, std::string filename, std:::string called_through="load");
+      bool load(T2 identifier, std::string filename, std::string called_through="load");
       bool include(T2 identifier, T data);
       bool rename(T2 identifier, T2 new_identifer);
       void clear(); //< doesn't work as a base class function in the destructor
