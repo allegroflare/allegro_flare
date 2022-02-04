@@ -198,7 +198,7 @@ namespace AllegroFlare
 
       if (!vertex_normals_found) std::cout << "Vertex normals not found when loading \"" << filename << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)." << std::endl;
       if (!vertex_textures_found) std::cout << "Vertex textures not found when loading \"" << filename << "\".  Unexpected results may occour." << std::endl;
-      std::cout << model->named_objects.size() << " named objects found" << std::endl;
+      //std::cout << model->named_objects.size() << " named objects found" << std::endl;
 
       al_fclose(file);
       return true;
