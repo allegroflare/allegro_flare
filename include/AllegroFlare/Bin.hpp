@@ -22,6 +22,7 @@ namespace AllegroFlare
          T2 identifier;
          ALLEGRO_PATH *file_path;
          T data;
+         bool preloaded;
 
          Record(T2 identifier, ALLEGRO_PATH *file_path, T data);
          ~Record();
@@ -35,6 +36,7 @@ namespace AllegroFlare
       T get(T2 identifier);
       T auto_get(T2 identifier);
       bool preload(T2 identifier_and_filename);
+      bool preload(T2 identifier, std::string filename);
       bool load(T2 identifier, std::string filename, std::string called_through="load");
       bool include(T2 identifier, T data);
       bool rename(T2 identifier, T2 new_identifer);
@@ -84,6 +86,7 @@ namespace AllegroFlare
       : identifier(identifier)
       , file_path(file_path)
       , data(data)
+      , preloaded(false)
    {
       //std::cout << "Bin::Record created -> " << identifier << std::endl;
    }
@@ -188,13 +191,33 @@ namespace AllegroFlare
    template<class T2, class T>
    bool Bin<T2, T>::preload(T2 identifier_and_filename)
    {
-      return load(identifier_and_filename, identifier_and_filename, __FUNCTION__);
+      return preload(identifier_and_filename, identifier_and_filename);
+   }
+
+
+   template<class T2, class T>
+   bool Bin<T2, T>::preload(T2 identifier, std::string filename)
+   {
+      bool result = load(identifier, filename, __FUNCTION__);
+      Record *r = get_record(identifier);
+      if (r) r->preloaded = true;
+      return result;
    }
 
 
    template<class T2, class T>
    bool Bin<T2, T>::load(T2 identifier, std::string filename, std::string called_through)
    {
+      if (called_through == "load")
+      {
+         std::cout << CONSOLE_COLOR_CYAN // TODO change this to light blue
+                   << "[" << type << "::load] Deprecation Warning: Calling \"load\" directly is deprecated on call "
+                   << "load(\"" << identifier << "\",\"" << filename << "\"). "
+                   << "Please use "
+                   << "\"preload\" instead with the same arguments." << CONSOLE_COLOR_DEFAULT
+                   << std::endl;
+      }
+
       ALLEGRO_PATH *path = NULL;
       Bin<T2, T>::Record *r = get_record(identifier);
       if (r) return false;
