@@ -161,7 +161,10 @@ namespace allegro_flare
       al_register_event_source(event_queue, al_get_default_menu_event_source());
 
       if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
-      else std::cerr << "no joystick(s) detected" << std::endl;
+      else
+      {
+         std::cerr << "[allegro_flare::Framework::initialize] notice: no joystick(s) detected." << std::endl;
+      }
 
       instance = new Framework(config_filename);
 
