@@ -14,7 +14,7 @@ namespace AllegroFlare
 
 
    FontBin::FontBin()
-      : Bin<std::string, ALLEGRO_FONT *>()
+      : Bin<std::string, ALLEGRO_FONT *>("FontBin")
    {}
 
 

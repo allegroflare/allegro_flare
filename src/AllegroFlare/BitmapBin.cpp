@@ -6,7 +6,7 @@
 namespace AllegroFlare
 {
    BitmapBin::BitmapBin()
-      : Bin<std::string, ALLEGRO_BITMAP *>()
+      : Bin<std::string, ALLEGRO_BITMAP *>("BitmapBin")
    {}
 
 

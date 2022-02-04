@@ -27,7 +27,7 @@ namespace AllegroFlare
          ~Record();
       };
 
-      Bin();
+      Bin(std::string type="Bin");
       void set_path(std::string directory); // <- hmm
       void set_full_path(std::string directory); // <- hmm
       virtual ~Bin(); // < should this be a pure virtual funcion that requires clear()?
@@ -48,6 +48,7 @@ namespace AllegroFlare
       // TODO: virtual T clone(T2 existing_identifier, T2 new_clone_identifier);
 
    private:
+      std::string type;
       bool initialized;
       void ensure_initialization_or_output_error_message(std::string calling_function_name);
       ALLEGRO_PATH *directory;
@@ -64,8 +65,9 @@ namespace AllegroFlare
 
 
    template<class T2, class T>
-   Bin<T2, T>::Bin()
-      : initialized(false)
+   Bin<T2, T>::Bin(std::string type)
+      : type(type)
+      , initialized(false)
       , directory(nullptr)
       , record()
    {}
@@ -148,7 +150,7 @@ namespace AllegroFlare
    {
       Bin<T2, T>::Record *r = get_record(identifier);
       if (r) return r->data;
-      std::string class_name = typeid(*this).name();
+      std::string class_name = type; //typeid(*this).name();
       std::cout << CONSOLE_COLOR_RED
                 << "["
                 << class_name
@@ -171,12 +173,12 @@ namespace AllegroFlare
 
       if (load(identifier, identifier))
       {
-         std::string class_name = typeid(*this).name();
+         std::string class_name = type; //typeid(*this).name();
          std::cout << CONSOLE_COLOR_YELLOW << "[" << class_name << "::" << __FUNCTION__  << "] Record \"" << identifier << "\" auto-created" << CONSOLE_COLOR_DEFAULT << std::endl;
          return get(identifier);
       }
 
-      std::string class_name = typeid(*this).name();
+      std::string class_name = type; //typeid(*this).name();
       std::cout << CONSOLE_COLOR_RED << "[" << class_name << "::" << __FUNCTION__  << "] could not load \"" << identifier << "\"" << CONSOLE_COLOR_DEFAULT << std::endl;
       return NULL;
    }
@@ -202,6 +204,17 @@ namespace AllegroFlare
       //r->data = load_data(al_path_cstr(r->file_path, ALLEGRO_NATIVE_PATH_SEP));
 
       //std::cout << "4";
+
+      if (!r->data)
+      {
+         std::string class_name = type; //typeid(*this).name();
+         std::cout << CONSOLE_COLOR_RED
+                   << "[" << class_name << "::" << __FUNCTION__  << "] "
+                   << "could not load \"" << identifier << "\". "
+                   << "Continuing with process."
+                   << CONSOLE_COLOR_DEFAULT << std::endl;
+         //return NULL;
+      }
 
       record.push_back(r);
       std::sort(record.begin(), record.end(), bin_record_comp<T2, T>);
@@ -293,7 +306,7 @@ namespace AllegroFlare
    {
       if (!initialized)
       {
-         std::string classname = typeid(*this).name();
+         std::string classname = type; //typeid(*this).name();
          std::cout
             << CONSOLE_COLOR_RED
             << "["

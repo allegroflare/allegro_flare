@@ -8,7 +8,7 @@
 namespace AllegroFlare
 {
    SampleBin::SampleBin()
-      : Bin<std::string, ALLEGRO_SAMPLE *>()
+      : Bin<std::string, ALLEGRO_SAMPLE *>("SampleBin")
    {}
 
 

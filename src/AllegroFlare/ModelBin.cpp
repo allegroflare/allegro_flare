@@ -6,7 +6,7 @@
 namespace AllegroFlare
 {
    ModelBin::ModelBin()
-      : Bin<std::string, Model3D *>()
+      : Bin<std::string, Model3D *>("ModelBin")
    {}
 
 
