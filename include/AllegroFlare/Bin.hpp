@@ -34,7 +34,8 @@ namespace AllegroFlare
       Record *get_record(T2 identifier);
       T get(T2 identifier);
       T auto_get(T2 identifier);
-      bool load(T2 identifier, std::string filename);
+      bool preload(T2 identifier_and_filename);
+      bool load(T2 identifier, std::string filename, std:::string called_through="load");
       bool include(T2 identifier, T data);
       bool rename(T2 identifier, T2 new_identifer);
       void clear(); //< doesn't work as a base class function in the destructor
@@ -185,7 +186,14 @@ namespace AllegroFlare
 
 
    template<class T2, class T>
-   bool Bin<T2, T>::load(T2 identifier, std::string filename)
+   bool Bin<T2, T>::preload(T2 identifier_and_filename)
+   {
+      return load(identifier_and_filename, identifier_and_filename, __FUNCTION__);
+   }
+
+
+   template<class T2, class T>
+   bool Bin<T2, T>::load(T2 identifier, std::string filename, std::string called_through)
    {
       ALLEGRO_PATH *path = NULL;
       Bin<T2, T>::Record *r = get_record(identifier);
@@ -209,7 +217,7 @@ namespace AllegroFlare
       {
          std::string class_name = type; //typeid(*this).name();
          std::cout << CONSOLE_COLOR_RED
-                   << "[" << class_name << "::" << __FUNCTION__  << "] "
+                   << "[" << class_name << "::" << called_through << "] "
                    << "could not load \"" << identifier << "\". "
                    << "Continuing with process."
                    << CONSOLE_COLOR_DEFAULT << std::endl;
