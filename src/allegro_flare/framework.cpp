@@ -16,6 +16,9 @@
 #include <AllegroFlare/Useful.hpp>
 #include <allegro_flare/version.h>
 
+#include <thread> // for offset_primary_timer
+#include <chrono> // for offset_primary_timer
+
 
 
 
@@ -315,6 +318,20 @@ namespace allegro_flare
       //current_screen = screen;
    }
 
+
+
+   bool Framework::offset_primary_timer(int microseconds)
+   {
+      if (!primary_timer) throw std::runtime_error("Framework: offset_primary_timer: primary_timer cannot be nullptr");
+      if (!al_get_timer_started(primary_timer)) return false;
+
+      // TODO, profile this delay offset and output the actual offset to cout
+      al_stop_timer(primary_timer);
+      std::this_thread::sleep_for(std::chrono::microseconds(microseconds));
+      al_start_timer(primary_timer);
+
+      return true;
+   }
 
 
 

@@ -72,6 +72,8 @@ namespace AllegroFlare
 
       void run_loop();
 
+      bool offset_primary_timer(int microseconds); // 16670 microseconds per frame
+
       std::string get_allegro_version();
       std::string get_version();
       void open_log_window();

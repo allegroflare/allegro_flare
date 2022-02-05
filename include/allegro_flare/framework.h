@@ -73,6 +73,7 @@ namespace allegro_flare
       static void use_screen(Screen *screen);
       static void run_loop();
 
+      static bool offset_primary_timer(int microseconds); // 16670 microseconds per frame
       static std::string get_allegro_version();
       static std::string get_version();
       static void open_log_window();
