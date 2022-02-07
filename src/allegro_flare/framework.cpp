@@ -335,9 +335,21 @@ namespace allegro_flare
 
 
 
+   void Framework::append_tick(std::vector<float> &ticker, float tick)
+   {
+      ticker.push_back(tick);
+      //if (ticker.size() > bucket_max_sizes) ticker.pop_back();
+      if (ticker.size() > bucket_max_sizes) { ticker.erase(ticker.begin()); }
+   }
+
+
+
    void Framework::run_loop()
    {
+      append_tick(screen_flip_start_times, al_get_time());
       al_flip_display();
+      append_tick(screen_flip_end_times, al_get_time());
+
       al_start_timer(primary_timer);
 
       while(!shutdown_program || Display::displays.empty())
@@ -345,6 +357,9 @@ namespace allegro_flare
          ALLEGRO_EVENT this_event, next_event;
 
          al_wait_for_event(event_queue, &this_event);
+
+         // snag the timer_tick_time
+         append_tick(timer_tick_times, this_event.any.timestamp);
 
          current_event = &this_event;
          time_now = this_event.any.timestamp;
@@ -506,4 +521,8 @@ namespace allegro_flare
 }
 
 
+int allegro_flare::Framework::bucket_max_sizes = 100;
+std::vector<float> allegro_flare::Framework::timer_tick_times;
+std::vector<float> allegro_flare::Framework::screen_flip_start_times;
+std::vector<float> allegro_flare::Framework::screen_flip_end_times;
 

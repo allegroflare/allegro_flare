@@ -79,6 +79,13 @@ namespace allegro_flare
       static void open_log_window();
       static void close_log_window();
       static void log(std::string message);
+
+   public: // should be private
+      static void append_tick(std::vector<float> &ticker, float tick);
+      static int bucket_max_sizes; 
+      static std::vector<float> timer_tick_times;
+      static std::vector<float> screen_flip_start_times;
+      static std::vector<float> screen_flip_end_times;
    };
 }
 

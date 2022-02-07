@@ -79,7 +79,10 @@ namespace allegro_flare
 
    void Display::flip()
    {
+      allegro_flare::Framework::append_tick(allegro_flare::Framework::screen_flip_start_times, al_get_time());
       al_flip_display();
+      allegro_flare::Framework::append_tick(allegro_flare::Framework::screen_flip_end_times, al_get_time());
+      //al_flip_display();
    }
 
 
