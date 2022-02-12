@@ -297,18 +297,18 @@ namespace AllegroFlare
       // the derived class is destructed before this base class.  destroy_data is a pure virtual function
       // from the derived class.
       int num_records = record.size();
-      int current_record_num = 1;
+      //int current_record_num = 1;
+
+      std::cout << "[" << type << "::" << __FUNCTION__  << "] Info: Destroying " << num_records << " records (";
       for (typename std::vector<Bin<T2, T>::Record *>::iterator it=record.begin(); it!=record.end(); it++)
       {
-         std::cout //<< CONSOLE_COLOR_YELLOW
-                   << "[" << type << "::" << __FUNCTION__  << "] Info: "
-                   << "Destroying record (" << current_record_num << "/" << num_records << ") "
-                   << "\"" << (*it)->identifier << "\"" 
-                   << CONSOLE_COLOR_DEFAULT << std::endl;
+         std::cout << "\"" << (*it)->identifier << "\", " << std::flush;
          destroy_data((*it)->data);
          delete (*it);
-         current_record_num++;
+         //current_record_num++;
       }
+      std::cout << ")" << std::endl << std::flush;
+
       //record.clear();
       record.clear();
    }
