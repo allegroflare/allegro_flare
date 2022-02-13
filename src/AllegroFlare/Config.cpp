@@ -67,6 +67,12 @@ namespace AllegroFlare
 
 
 
+   bool Config::reload()
+   {
+      return load();
+   }
+
+
 
    bool Config::has_value(std::string section, std::string key)
    {

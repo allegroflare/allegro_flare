@@ -20,6 +20,7 @@ namespace AllegroFlare
 
       bool load();
       bool load_or_create_empty();
+      bool reload();
 
       bool has_value(std::string section, std::string key);
       std::string get_value_str(std::string section, std::string key);

@@ -101,6 +101,12 @@ TEST_F(AllegroFlare_ConfigTest,
 
 
 
+TEST_F(AllegroFlare_ConfigTest, reload__will_load_reload_the_config_file)
+{
+   // TODO
+}
+
+
 
 TEST_F(AllegroFlare_ConfigTest, retrieves_if_the_config_key_exists_in_the_global_space)
 {
