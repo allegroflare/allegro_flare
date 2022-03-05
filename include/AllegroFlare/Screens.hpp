@@ -29,7 +29,7 @@ namespace AllegroFlare
       void display_switch_in_funcs();
       void display_switch_out_funcs();
       void key_down_funcs(ALLEGRO_EVENT *ev);
-      void key_up_funcs();
+      void key_up_funcs(ALLEGRO_EVENT *ev);
       void mouse_axes_funcs();
       void mouse_warp_funcs();
       void mouse_down_funcs();

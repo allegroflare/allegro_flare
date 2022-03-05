@@ -406,7 +406,7 @@ namespace AllegroFlare
                   || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Framework::key_alt--;
             if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
                   || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Framework::key_ctrl--;
-            screens.key_up_funcs();
+            screens.key_up_funcs(&this_event);
             break;
          case ALLEGRO_EVENT_KEY_CHAR:
             screens.key_char_funcs(&this_event);

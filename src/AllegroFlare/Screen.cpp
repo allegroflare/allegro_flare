@@ -92,7 +92,7 @@ namespace AllegroFlare
    void Screen::mouse_down_func() {}
    void Screen::mouse_up_func() {}
    void Screen::key_down_func(ALLEGRO_EVENT *ev) {}
-   void Screen::key_up_func() {}
+   void Screen::key_up_func(ALLEGRO_EVENT *ev) {}
    void Screen::key_char_func(ALLEGRO_EVENT *ev) {}
    void Screen::joy_button_down_func(ALLEGRO_EVENT *ev) {}
    void Screen::joy_button_up_func(ALLEGRO_EVENT *ev) {}
