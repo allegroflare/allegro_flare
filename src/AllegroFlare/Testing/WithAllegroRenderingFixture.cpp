@@ -105,6 +105,18 @@ void WithAllegroRenderingFixture::sleep_for(float length_in_seconds)
    std::this_thread::sleep_for(std::chrono::milliseconds(length_in_milliseconds));
 }
 
+std::string WithAllegroRenderingFixture::get_test_name()
+{
+   const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
+   return test_info->name();
+}
+
+std::string WithAllegroRenderingFixture::get_test_suite_name()
+{
+   const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
+   return test_info->test_suite_name();
+}
+
 allegro_flare::placement2d WithAllegroRenderingFixture::build_centered_placement(float width, float height)
 {
    if (!(al_get_target_bitmap()))

@@ -106,6 +106,20 @@ functions:
       - std::this_thread::sleep_for
 
 
+  - name: get_test_name
+    type: std::string
+    body: |
+      const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
+      return test_info->name();
+
+
+  - name: get_test_suite_name
+    type: std::string
+    body: |
+      const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
+      return test_info->test_suite_name();
+
+
   - name: build_centered_placement
     type: allegro_flare::placement2d
     parameters:
