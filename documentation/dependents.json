@@ -27,6 +27,9 @@
   "AllegroFlare/Screen": [
     "AllegroFlare/FrameworkScreenRegistrar"
   ],
+  "AllegroFlare/Testing/CustomComparison": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "al_init_primitives_addon": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

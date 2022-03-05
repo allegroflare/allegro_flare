@@ -124,6 +124,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::Testing::CustomComparison
+    headers: [ AllegroFlare/Testing/CustomComparison.hpp ]
   - symbol: al_init_primitives_addon
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_init_ttf_addon
