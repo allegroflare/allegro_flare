@@ -27,7 +27,7 @@ namespace AllegroFlare
 {
    void PrintTo(const AllegroFlare::vec2d& vec, ::std::ostream* os)
    {
-      *os << "AllegroFlare::vec2d(" << vec.x << ", " << vec.y << "}";
+      *os << "AllegroFlare::vec2d(" << vec.x << ", " << vec.y << ")";
    }
 }
 
