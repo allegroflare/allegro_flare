@@ -43,15 +43,43 @@ protected:
 
 
 
-
-TEST(AllegroFlare_ElementIDTest, _try_to_has_a_first_element_with_id_1)
+TEST(AllegroFlare_ElementIDTest, get_next_unique_id__will_return_the_next_unique_id)
 {
+   // NOTE: This cannot be tested because the unique ids are static
+}
+
+
+
+TEST(AllegroFlare_ElementIDTest, get_id__will_return_unique_ids_for_each_element_that_is_created)
+{
+   int next_unique_id = ElementID::get_next_unique_id();
+   int next_expected_id = next_unique_id;
+
+   ElementID element1 = ElementID(NULL);
+   ASSERT_EQ(element1.get_id(), next_expected_id);
+
+   next_expected_id++;
+
+   ElementID element2 = ElementID(NULL);
+   ASSERT_EQ(element2.get_id(), next_expected_id);
+
+   next_expected_id++;
+
+   ElementID element3 = ElementID(NULL);
+   ASSERT_EQ(element3.get_id(), next_expected_id);
+}
+
+
+
+TEST(AllegroFlare_ElementIDTest, reset_next_unique_id_counter__will_cause_element_ids_to_restart_at_1)
+{
+   ElementID::__reset_next_unique_id_counter(); // this is used because the next_unique_id counter is
+
    ElementID element1 = ElementID(NULL);
    ElementID element2 = ElementID(NULL);
    ASSERT_EQ(element1.get_id(), 1);
    ASSERT_EQ(element2.get_id(), 2);
 }
-
 
 
 

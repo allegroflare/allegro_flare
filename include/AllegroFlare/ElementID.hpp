@@ -34,6 +34,7 @@ namespace AllegroFlare
       bool has_children();
       int num_descendants();
       void reassign_parent(ElementID *new_parent);
+      static int get_next_unique_id();
 
       ElementID *find_first(std::string attribute);
       ElementID *find_first(std::string attribute, std::string value);
@@ -87,6 +88,8 @@ namespace AllegroFlare
          for (auto &element : collection) { recasted_collection.push_back(static_cast<T *>(element)); }
          return recasted_collection;
       }
+
+      static void __reset_next_unique_id_counter();
 
    private:
       static int next_unique_id;

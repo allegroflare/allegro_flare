@@ -383,6 +383,19 @@ namespace AllegroFlare
 
 
 
+   void ElementID::__reset_next_unique_id_counter()
+   {
+      ElementID::next_unique_id = 1;
+   }
+
+
+
+   int ElementID::get_next_unique_id()
+   {
+      return ElementID::next_unique_id;
+   }
+
+
 
    int ElementID::next_unique_id = 1;
 }
