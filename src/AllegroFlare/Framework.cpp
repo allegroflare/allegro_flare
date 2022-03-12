@@ -362,6 +362,7 @@ namespace AllegroFlare
 
    void Framework::run_loop()
    {
+      al_wait_for_vsync();
       al_start_timer(primary_timer);
 
       while(!shutdown_program || Display::displays.empty())
