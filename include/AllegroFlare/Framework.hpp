@@ -25,7 +25,6 @@ namespace AllegroFlare
    {
    private:
       Screens *screens_ptr;
-      Screens &screens;
       bool initialized;
       Config config;
       FontBin fonts;
@@ -35,7 +34,7 @@ namespace AllegroFlare
       Motion motions;
 
    public:
-      Framework(Screens &screens, Screens *screens_ptr=nullptr);
+      Framework(Screens *screens_ptr=nullptr);
       ~Framework();
 
       ALLEGRO_TEXTLOG *textlog;
@@ -62,7 +61,7 @@ namespace AllegroFlare
       SampleBin &get_sample_bin_ref();
 
       bool initialize();
-      bool destruct();
+      bool destruct(); // should be privarte, is called in the destructor
       bool is_initialized();
       Display *create_display(int width=1280, int height=720);
       Display *create_display(int width, int height, int display_flags);

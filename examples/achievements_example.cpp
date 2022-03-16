@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 {
    Screens screens;
 
-   Framework framework(screens);
+   Framework framework(&screens);
    framework.initialize();
    Display *display = framework.create_display(800, 600);
 

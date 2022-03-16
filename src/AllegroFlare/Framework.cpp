@@ -42,9 +42,8 @@ namespace AllegroFlare
 
 
 
-   Framework::Framework(Screens &screens, Screens *screens_ptr)
+   Framework::Framework(Screens *screens_ptr)
       : screens_ptr(screens_ptr)
-      , screens(screens)
       , initialized(false)
       , config("data/config/config.cfg")
       , fonts()
@@ -363,10 +362,17 @@ namespace AllegroFlare
 
    void Framework::run_loop()
    {
+      if (!screens_ptr)
+      {
+         std::stringstream error_message;
+         error_message << "Framework::run_loop: error: screens cannot be nullptr";
+         throw std::runtime_error(error_message.str());
+      }
+
       al_wait_for_vsync();
       al_start_timer(primary_timer);
 
-      //AllegroFlare::Screens &screens = (*screens_ptr);
+      AllegroFlare::Screens &screens = (*screens_ptr);
 
       while(!shutdown_program || Display::displays.empty())
       {
