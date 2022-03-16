@@ -42,8 +42,9 @@ namespace AllegroFlare
 
 
 
-   Framework::Framework(Screens &screens)
-      : screens(screens)
+   Framework::Framework(Screens &screens, Screens *screens_ptr)
+      : screens_ptr(screens_ptr)
+      , screens(screens)
       , initialized(false)
       , config("data/config/config.cfg")
       , fonts()
@@ -364,6 +365,8 @@ namespace AllegroFlare
    {
       al_wait_for_vsync();
       al_start_timer(primary_timer);
+
+      //AllegroFlare::Screens &screens = (*screens_ptr);
 
       while(!shutdown_program || Display::displays.empty())
       {

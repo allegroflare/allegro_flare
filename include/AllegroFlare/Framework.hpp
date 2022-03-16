@@ -24,6 +24,7 @@ namespace AllegroFlare
    class Framework
    {
    private:
+      Screens *screens_ptr;
       Screens &screens;
       bool initialized;
       Config config;
@@ -34,7 +35,7 @@ namespace AllegroFlare
       Motion motions;
 
    public:
-      Framework(Screens &screens);
+      Framework(Screens &screens, Screens *screens_ptr=nullptr);
       ~Framework();
 
       ALLEGRO_TEXTLOG *textlog;
