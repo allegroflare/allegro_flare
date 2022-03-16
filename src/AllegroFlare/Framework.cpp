@@ -187,11 +187,11 @@ namespace AllegroFlare
       al_register_event_source(event_queue, al_get_joystick_event_source());
       al_register_event_source(event_queue, al_get_default_menu_event_source());
 
-      if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
-      else
-      {
-         std::cout << "[AllegroFlare::Framework::initialize] Info: No joystick(s) detected." << std::endl;
-      }
+      //if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
+      //else
+      //{
+         //std::cout << "[AllegroFlare::Framework::initialize] Info: No joystick(s) detected." << std::endl;
+      //}
 
       //instance = new Framework(config_filename);
 
