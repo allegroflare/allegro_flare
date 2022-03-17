@@ -38,8 +38,11 @@ namespace AllegroFlare
       void clear();
       void transform_coordinates(float *x, float *y) const;
       void place_coordinates(float *x, float *y) const;
+
+      bool in_range(float x, float y, float distance) const;
       bool collide(float x, float y) const;
       bool collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left) const;
+
       std::string get_string();
 
       Placement2D& operator+=(Placement2D &other);

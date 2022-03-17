@@ -187,6 +187,12 @@ namespace AllegroFlare
 
 
 
+   bool Placement2D::in_range(float x, float y, float distance) const
+   {
+      return (x-position.x) * (x-position.x) + (y-position.y) * (y-position.y) < (distance * distance);
+   }
+
+
 
    bool Placement2D::collide(float x, float y) const
    {
