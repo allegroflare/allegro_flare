@@ -107,6 +107,13 @@ namespace AllegroFlare
 
 
 
+   bool Shader::set_vec2(const char *name, float x, float y)
+   {
+      float vec2[2] = {x, y};
+      return al_set_shader_float_vector(name, 2, &vec2[0], 1);
+   }
+
+
    bool Shader::set_vec3(const char *name, float x, float y, float z)
    {
       float vec3[3] = {x, y, z};

@@ -34,6 +34,7 @@ namespace AllegroFlare
       static bool set_int(const char *name, int i);
       static bool set_float(const char *name, float f);
       static bool set_bool(const char *name, bool b);
+      static bool set_vec2(const char *name, float x, float y);
       static bool set_vec3(const char *name, float x, float y, float z);
       static bool set_vec3(const char *name, const AllegroFlare::vec3d vec);
       static bool set_vec4(const char *name, float x, float y, float z, float a);
