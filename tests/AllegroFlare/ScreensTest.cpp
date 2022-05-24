@@ -1,0 +1,17 @@
+
+#include <gtest/gtest.h>
+
+#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
+   try { code; FAIL() << "Expected " # raised_exception_type; } \
+   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
+   catch (...) { FAIL() << "Expected " # raised_exception_type; }
+
+#include <AllegroFlare/Screens.hpp>
+
+
+TEST(AllegroFlare_ScreensTest, can_be_crated_without_blowing_up)
+{
+   AllegroFlare::Screens screens;
+}
+
+
