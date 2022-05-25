@@ -10,13 +10,13 @@ namespace AllegroFlare
    {
       class Keyframe
       {
-      private:
-
       public:
-         Keyframe();
-         ~Keyframe();
+         float time;
+         float val;
+         float (*interpolator_func)(float);
 
-         std::string run();
+         Keyframe(float time, float val, float (*interpolator_func)(float)=nullptr); // TODO: default interp to linear
+         ~Keyframe();
       };
    }
 }

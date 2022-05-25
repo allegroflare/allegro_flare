@@ -1,7 +1,9 @@
 #pragma once
 
 
+#include <vector>
 #include <string>
+#include <AllegroFlare/Timeline/Keyframe.hpp>
 
 
 namespace AllegroFlare
@@ -10,16 +12,21 @@ namespace AllegroFlare
    {
       class Track
       {
-      private:
+      public: // TODO: make private
+         std::string label;
+         std::vector<AllegroFlare::Timeline::Keyframe *> keyframe;
+         float start_val;
 
       public:
-         Track();
-         ~Track();
+         Track(float start_val=0, std::string label="");
 
-         std::string run();
+         void add(AllegroFlare::Timeline::Keyframe *k);
+         void add(float time, float val, float (*interpolator_func)(float)=nullptr);
+         float get_displacement(float t1, float t2);
+         float get(float time);
+         std::string get_str();
       };
    }
 }
-
 
 

@@ -10,9 +10,13 @@ namespace Timeline
 {
 
 
-Keyframe::Keyframe()
-{
-}
+
+Timeline::Keyframe::Keyframe(float time, float val, float (*interpolator_func)(float))
+   : time(time)
+   , val(val)
+   , interpolator_func(interpolator_func)
+{}
+
 
 
 Keyframe::~Keyframe()
@@ -20,10 +24,7 @@ Keyframe::~Keyframe()
 }
 
 
-std::string Keyframe::run()
-{
-   return "Hello World!";
-}
+
 } // namespace Timeline
 } // namespace AllegroFlare
 
