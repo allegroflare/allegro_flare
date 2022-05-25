@@ -1,0 +1,18 @@
+properties:
+
+
+  - name: x
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+

@@ -1,0 +1,18 @@
+properties:
+
+
+  - name: x
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
