@@ -2,6 +2,8 @@
 
 
 #include <string>
+#include <vector>
+#include <AllegroFlare/Timeline/Actor.hpp>
 
 
 namespace AllegroFlare
@@ -10,13 +12,18 @@ namespace AllegroFlare
    {
       class ActorManager
       {
-      private:
+      protected:
+         std::vector<Actor *> actors;
 
       public:
          ActorManager();
-         ~ActorManager();
 
-         std::string run();
+         //Actor *create_actor2d(std::string identifier, ALLEGRO_BITMAP *bitmap);
+         bool register_actor(Actor *actor);
+         bool unregister_actor(Actor *actor);
+
+         Actor *get_actor_by_id(const char *id);
+         void render(double time);
       };
    }
 }
