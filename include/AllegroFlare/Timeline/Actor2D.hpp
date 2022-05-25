@@ -2,21 +2,25 @@
 
 
 #include <string>
+#include <AllegroFlare/Timeline/Actor.hpp>
+#include <allegro5/allegro.h>
 
 
 namespace AllegroFlare
 {
    namespace Timeline
    {
-      class Actor2D
+      class Actor2D : public Actor
       {
-      private:
-
       public:
-         Actor2D();
+         ALLEGRO_BITMAP *bitmap;
+
+         Actor2D(std::string identifier="[unidentified-Actor2D]", ALLEGRO_BITMAP *bitmap=nullptr);
          ~Actor2D();
 
-         std::string run();
+         // IMPORTANT
+         void register_params();
+         void render(double time);
       };
    }
 }
