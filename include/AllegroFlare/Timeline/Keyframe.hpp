@@ -15,7 +15,7 @@ namespace AllegroFlare
          float val;
          float (*interpolator_func)(float);
 
-         Keyframe(float time, float val, float (*interpolator_func)(float)=nullptr); // TODO: default interp to linear
+         Keyframe(float time=0, float val=0, float (*interpolator_func)(float)=nullptr); // TODO: default interp to linear
          ~Keyframe();
       };
    }
