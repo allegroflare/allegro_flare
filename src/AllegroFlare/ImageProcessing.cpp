@@ -13,12 +13,20 @@
 
 namespace AllegroFlare
 {
-namespace ImageProcessing
-{
+   ImageProcessing::ImageProcessing(ALLEGRO_BITMAP *bitmap)
+      : bitmap(bitmap)
+   {
+   }
 
 
 
-   ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bmp, int scale)
+   ImageProcessing::~ImageProcessing()
+   {
+   }
+
+
+
+   ALLEGRO_BITMAP *ImageProcessing::create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bmp, int scale)
    {
       // note that the original bitmap may have been created with
       // certain "new bitmap flags" that prevent it from being scaled
@@ -58,7 +66,7 @@ namespace ImageProcessing
 
 
 
-   ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, int dest_w, int dest_h)
+   ALLEGRO_BITMAP *ImageProcessing::create_scaled_render(ALLEGRO_BITMAP *bmp, int dest_w, int dest_h)
    {
       //if (dest_w < 1 || dest_h < 1) logger("[create_scaled_render] dest_w or dest_h too small");
       //if (!bmp) logger("[create_scaled_render] invalid bitmap given");
@@ -77,7 +85,7 @@ namespace ImageProcessing
 
 
 
-   ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, float scale)
+   ALLEGRO_BITMAP *ImageProcessing::create_scaled_render(ALLEGRO_BITMAP *bmp, float scale)
    {
       //if (!bmp) logger("[create_scaled_render] invalid bitmap given");
 
@@ -87,7 +95,7 @@ namespace ImageProcessing
 
 
 
-   ALLEGRO_BITMAP *create_padded_bitmap(ALLEGRO_BITMAP *original, int padding_top, int padding_right, int padding_bottom, int padding_left)
+   ALLEGRO_BITMAP *ImageProcessing::create_padded_bitmap(ALLEGRO_BITMAP *original, int padding_top, int padding_right, int padding_bottom, int padding_left)
    {
       ALLEGRO_BITMAP *surface = al_create_bitmap(al_get_bitmap_width(original)+padding_left+padding_right, al_get_bitmap_height(original)+padding_top+padding_bottom);
 
@@ -104,7 +112,7 @@ namespace ImageProcessing
 
 
 
-   void invert(ALLEGRO_BITMAP *img)
+   void ImageProcessing::invert(ALLEGRO_BITMAP *img)
    {
       //if (!img) return;
       int w = al_get_bitmap_width(img);
@@ -127,7 +135,7 @@ namespace ImageProcessing
 
 
 
-   void trim(ALLEGRO_BITMAP *bmp)
+   void ImageProcessing::trim(ALLEGRO_BITMAP *bmp)
    {
       int top_most = al_get_bitmap_height(bmp);
       int right_most = 0;
@@ -167,7 +175,7 @@ namespace ImageProcessing
 
 
 
-   ALLEGRO_BITMAP *create_color_overlay(ALLEGRO_BITMAP *original, ALLEGRO_COLOR color)
+   ALLEGRO_BITMAP *ImageProcessing::create_color_overlay(ALLEGRO_BITMAP *original, ALLEGRO_COLOR color)
    {
       if (!original) return NULL;
 
@@ -201,7 +209,7 @@ namespace ImageProcessing
 
 
 
-   void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float))
+   void ImageProcessing::color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float))
    {
       // set everything up
       ALLEGRO_STATE state;
@@ -290,7 +298,7 @@ namespace ImageProcessing
 
 
    // this is IvanK's boxBlurH_4 algorithm 
-   void horizontal_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
+   void ImageProcessing::horizontal_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
    {
       al_set_target_bitmap(tcl);
 
@@ -342,7 +350,7 @@ namespace ImageProcessing
 
 
    // this is IvanK's boxBlurT_4 algorithm 
-   void vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
+   void ImageProcessing::vertical_box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
    {
       float iarr = 1.0 / (r+r+1);
 
@@ -401,7 +409,7 @@ namespace ImageProcessing
 
 
    // this is IvanK's boxBlur_4 algorithm
-   void box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
+   void ImageProcessing::box_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
    {
       ALLEGRO_STATE state;
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
@@ -418,7 +426,7 @@ namespace ImageProcessing
 
 
    // this is IvanK's gaussBlur_4 algorithm
-   void gaussian_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
+   void ImageProcessing::gaussian_blur(ALLEGRO_BITMAP *scl, ALLEGRO_BITMAP *tcl, int w, int h, int r)
    {
       // TODO: these algos (and the other blurs) could be optimized for locks
       std::vector<float> bxs = __boxesForGauss(r, 3);
@@ -430,7 +438,7 @@ namespace ImageProcessing
 
 
 
-   void draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALLEGRO_COLOR hist_col)
+   void ImageProcessing::draw_histogram(ALLEGRO_BITMAP *img, float x, float y, float w, float h, ALLEGRO_COLOR hist_col)
    {
       if (!img) return;
 
@@ -482,7 +490,7 @@ namespace ImageProcessing
 
 
 
-   ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, int op, int src, int dst, int alpha_op, int alpha_src, int alpha_dst, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
+   ALLEGRO_BITMAP *ImageProcessing::create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, int op, int src, int dst, int alpha_op, int alpha_src, int alpha_dst, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
    {
       ALLEGRO_TRANSFORM identity_transform;
       al_identity_transform(&identity_transform);
@@ -512,7 +520,7 @@ namespace ImageProcessing
 
 
 
-   ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image)
+   ALLEGRO_BITMAP *ImageProcessing::create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image)
    {
       return create_masked_bitmap(top_image, bottom_image, 0, 0, 2, 2, 0, 2, NULL, NULL);
    }
@@ -520,7 +528,7 @@ namespace ImageProcessing
 
 
 
-   ALLEGRO_BITMAP *create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
+   ALLEGRO_BITMAP *ImageProcessing::create_masked_bitmap(ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
    {
       return create_masked_bitmap(top_image, bottom_image, 0, 0, 2, 2, 0, 2, top_transform, bottom_transform);
    }
@@ -528,7 +536,7 @@ namespace ImageProcessing
 
 
 
-   void draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, int op, int src, int dst, int alpha_op, int alpha_src, int alpha_dst, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
+   void ImageProcessing::draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, int op, int src, int dst, int alpha_op, int alpha_src, int alpha_dst, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
    {
       ALLEGRO_TRANSFORM identity_transform;
       al_identity_transform(&identity_transform);
@@ -558,7 +566,7 @@ namespace ImageProcessing
 
 
 
-   void draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image)
+   void ImageProcessing::draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image)
    {
       draw_masked_bitmap(destination, top_image, bottom_image, 0, 0, 2, 2, 0, 2, NULL, NULL);
    }
@@ -566,7 +574,7 @@ namespace ImageProcessing
 
 
 
-   void draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
+   void ImageProcessing::draw_masked_bitmap(ALLEGRO_BITMAP *destination, ALLEGRO_BITMAP *top_image, ALLEGRO_BITMAP *bottom_image, ALLEGRO_TRANSFORM *top_transform, ALLEGRO_TRANSFORM *bottom_transform)
    {
       draw_masked_bitmap(destination, top_image, bottom_image, 0, 0, 2, 2, 0, 2, top_transform, bottom_transform);
    }
@@ -574,7 +582,6 @@ namespace ImageProcessing
 
 
 
-} // namespace ImageProcessing
 } // namespace AllegroFlare
 
 
