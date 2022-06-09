@@ -57,6 +57,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
   <li><a href="#quintessence/NcursesArt/StringVectorIntersection.q.yml">quintessence/NcursesArt/StringVectorIntersection.q.yml</a></li>
 </ul>
 <h1>Components</h1>
@@ -518,6 +519,90 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">keyboard_button_map</td>
+  <td class="property">std::map&lt;int, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">joystick_button_map</td>
+  <td class="property">std::map&lt;int, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">build_sensible_joystick_button_map()</td>
+</tr>
+<tr>
+  <td class="method">build_sensible_keyboard_button_map()</td>
+</tr>
+<tr>
+  <td class="method">handle_raw_keyboard_key_down_event(1)</td>
+</tr>
+<tr>
+  <td class="method">handle_raw_keyboard_key_up_event(1)</td>
+</tr>
+<tr>
+  <td class="method">handle_raw_joystick_button_down_event(1)</td>
+</tr>
+<tr>
+  <td class="method">handle_raw_joystick_button_up_event(1)</td>
+</tr>
+<tr>
+  <td class="method">handle_raw_joystick_axis_change_event(1)</td>
+</tr>
+<tr>
+  <td class="private_method">get_joystick_mapped_virtual_button(1)</td>
+</tr>
+<tr>
+  <td class="private_method">get_keyboard_mapped_virtual_button(1)</td>
+</tr>
+<tr>
+  <td class="method">emit_virtual_controls_button_up_event(1)</td>
+</tr>
+<tr>
+  <td class="method">emit_virtual_controls_button_down_event(1)</td>
+</tr>
+<tr>
+  <td class="method">emit_virtual_controls_axis_change_event(3)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_KEY_*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/NcursesArt/StringVectorIntersection.q.yml">quintessence/NcursesArt/StringVectorIntersection.q.yml</h3>
      <table>
 <tr>
@@ -628,6 +713,24 @@ table td
   ],
   "AllegroFlare/vec2d": [
     "AllegroFlare/VirtualControls"
+  ],
+  "AllegroFlare/EventNames": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_EVENT": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_KEY_": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/VirtualControls": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/map<int, int>": [
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/vector<std/string>": [
     "NcursesArt/StringVectorIntersection"

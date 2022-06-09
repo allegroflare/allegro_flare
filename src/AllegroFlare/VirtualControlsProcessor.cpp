@@ -90,7 +90,7 @@ void VirtualControlsProcessor::initialize()
 std::map<int, int> VirtualControlsProcessor::build_sensible_joystick_button_map()
 {
    std::map<int, int> result_button_map = {
-     { 1, AllegroFlare::VirtualControls::get_BUTTON_A() }, // for x-box controller, but buttons named like snes layout
+     { 1, AllegroFlare::VirtualControls::get_BUTTON_A() }, // for x-box controller, but buttons named like SNES layout
      { 0, AllegroFlare::VirtualControls::get_BUTTON_B() },
      { 4, AllegroFlare::VirtualControls::get_BUTTON_X() },
      { 3, AllegroFlare::VirtualControls::get_BUTTON_Y() },

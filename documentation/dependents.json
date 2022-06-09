@@ -78,6 +78,24 @@
   "AllegroFlare/vec2d": [
     "AllegroFlare/VirtualControls"
   ],
+  "AllegroFlare/EventNames": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_EVENT": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_KEY_": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/VirtualControls": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/map<int, int>": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "std/vector<std/string>": [
     "NcursesArt/StringVectorIntersection"
   ],
