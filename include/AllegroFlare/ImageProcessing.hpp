@@ -18,10 +18,10 @@ namespace AllegroFlare
       ~ImageProcessing();
 
 
-      ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bmp, int scale);
-      ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, int dest_w, int dest_h);
-      ALLEGRO_BITMAP *create_scaled_render(ALLEGRO_BITMAP *bmp, float scale);
-      ALLEGRO_BITMAP *create_padded_bitmap(ALLEGRO_BITMAP *original, int padding_top, int padding_right, int padding_bottom, int padding_left);
+      ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(int scale);
+      ALLEGRO_BITMAP *create_scaled_render(int dest_w, int dest_h);
+      ALLEGRO_BITMAP *create_scaled_render(float scale);
+      ALLEGRO_BITMAP *create_padded_bitmap(int padding_top, int padding_right, int padding_bottom, int padding_left);
 
       void invert(ALLEGRO_BITMAP *img); // does not properly invert the alpha
       void trim(ALLEGRO_BITMAP *img); // doesn't actually trim, yet, just draws rectangle around the trimmed region 

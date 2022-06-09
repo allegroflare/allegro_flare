@@ -26,8 +26,9 @@ namespace AllegroFlare
 
 
 
-   ALLEGRO_BITMAP *ImageProcessing::create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bmp, int scale)
+   ALLEGRO_BITMAP *ImageProcessing::create_pixel_perfect_scaled_render(int scale)
    {
+      ALLEGRO_BITMAP *bmp = this->bitmap;
       // note that the original bitmap may have been created with
       // certain "new bitmap flags" that prevent it from being scaled
       // without blurring (e.g. ALLEGRO_MAG_LINEAR).  For that reason,
@@ -48,7 +49,9 @@ namespace AllegroFlare
 
       // now perform the regular scale
 
-      ALLEGRO_BITMAP *scaled_render = create_scaled_render(clone,
+
+      AllegroFlare::ImageProcessing image_processor(clone);
+      ALLEGRO_BITMAP *scaled_render = image_processor.create_scaled_render(
             al_get_bitmap_width(clone) * scale,
             al_get_bitmap_height(clone) * scale
          );
@@ -66,8 +69,10 @@ namespace AllegroFlare
 
 
 
-   ALLEGRO_BITMAP *ImageProcessing::create_scaled_render(ALLEGRO_BITMAP *bmp, int dest_w, int dest_h)
+   ALLEGRO_BITMAP *ImageProcessing::create_scaled_render(int dest_w, int dest_h)
    {
+      ALLEGRO_BITMAP *bmp = this->bitmap;
+
       //if (dest_w < 1 || dest_h < 1) logger("[create_scaled_render] dest_w or dest_h too small");
       //if (!bmp) logger("[create_scaled_render] invalid bitmap given");
 
@@ -85,18 +90,22 @@ namespace AllegroFlare
 
 
 
-   ALLEGRO_BITMAP *ImageProcessing::create_scaled_render(ALLEGRO_BITMAP *bmp, float scale)
+   ALLEGRO_BITMAP *ImageProcessing::create_scaled_render(float scale)
    {
+      ALLEGRO_BITMAP *bmp = this->bitmap;
+
       //if (!bmp) logger("[create_scaled_render] invalid bitmap given");
 
-      return create_scaled_render(bmp, (int)(al_get_bitmap_width(bmp)*scale), (int)(al_get_bitmap_height(bmp)*scale));
+      return create_scaled_render((int)(al_get_bitmap_width(bmp)*scale), (int)(al_get_bitmap_height(bmp)*scale));
    }
 
 
 
 
-   ALLEGRO_BITMAP *ImageProcessing::create_padded_bitmap(ALLEGRO_BITMAP *original, int padding_top, int padding_right, int padding_bottom, int padding_left)
+   ALLEGRO_BITMAP *ImageProcessing::create_padded_bitmap(int padding_top, int padding_right, int padding_bottom, int padding_left)
    {
+      ALLEGRO_BITMAP *original = this->bitmap;
+
       ALLEGRO_BITMAP *surface = al_create_bitmap(al_get_bitmap_width(original)+padding_left+padding_right, al_get_bitmap_height(original)+padding_top+padding_bottom);
 
       ALLEGRO_STATE state;
