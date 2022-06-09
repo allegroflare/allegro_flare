@@ -182,6 +182,13 @@ namespace AllegroFlare
    }
 
 
+   void Screens::event_emitter_event_funcs(ALLEGRO_EVENT *ev)
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         screens[i]->event_emitter_event_func(ev);
+   }
+
+
    void Screens::native_menu_click_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)

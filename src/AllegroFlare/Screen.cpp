@@ -99,6 +99,7 @@ namespace AllegroFlare
    void Screen::joy_axis_func(ALLEGRO_EVENT *ev) {}
    void Screen::joy_config_func(ALLEGRO_EVENT *ev) {}
    void Screen::user_event_func(ALLEGRO_EVENT *ev) {}
+   void Screen::event_emitter_event_func(ALLEGRO_EVENT *ev) {}
    void Screen::native_menu_click_func() {}
    void Screen::receive_signal(int signal, void *data) {}
    void Screen::receive_signal(std::string const signal, void *data) {}

@@ -40,6 +40,7 @@ namespace AllegroFlare
       void joy_axis_funcs(ALLEGRO_EVENT *ev);
       void joy_config_funcs(ALLEGRO_EVENT *ev);
       void user_event_funcs(ALLEGRO_EVENT *ev);
+      void event_emitter_event_funcs(ALLEGRO_EVENT *ev);
       void native_menu_click_funcs();
 
       void send_signal(int signal, void *data);
