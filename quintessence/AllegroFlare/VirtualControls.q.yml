@@ -1,0 +1,181 @@
+properties:
+
+  - name: BUTTON_UP
+    type: int
+    init_with: 1
+    static: true
+    getter: true
+
+  - name: BUTTON_DOWN
+    type: int
+    init_with: 2
+    static: true
+    getter: true
+
+  - name: BUTTON_LEFT
+    type: int
+    init_with: 3
+    static: true
+    getter: true
+
+  - name: BUTTON_RIGHT
+    type: int
+    init_with: 4
+    static: true
+    getter: true
+
+  - name: BUTTON_A
+    type: int
+    init_with: 5
+    static: true
+    getter: true
+
+  - name: BUTTON_B
+    type: int
+    init_with: 6
+    static: true
+    getter: true
+
+  - name: BUTTON_X
+    type: int
+    init_with: 7
+    static: true
+    getter: true
+
+  - name: BUTTON_Y
+    type: int
+    init_with: 8
+    static: true
+    getter: true
+
+  - name: BUTTON_START
+    type: int
+    init_with: 9
+    static: true
+    getter: true
+
+  - name: BUTTON_RIGHT_BUMPER
+    type: int
+    init_with: 10
+    static: true
+    getter: true
+
+  - name: BUTTON_LEFT_BUMPER
+    type: int
+    init_with: 11
+    static: true
+    getter: true
+
+  - name: PRIMARY_STICK
+    type: int
+    init_with: 0
+    static: true
+    getter: true
+
+  - name: SECONDARY_STICK
+    type: int
+    init_with: 1
+    static: true
+    getter: true
+
+  - name: right_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+    
+  - name: left_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: up_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: down_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: a_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: b_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: x_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: y_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: left_bumper_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+    
+  - name: right_bumper_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: start_button_pressed
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: primary_stick_position
+    type: AllegroFlare::vec2d
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: secondary_stick_position
+    type: AllegroFlare::vec2d
+    init_with: ''
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: clear
+    body: |
+      right_button_pressed = false;
+      left_button_pressed = false;
+      up_button_pressed = false;
+      down_button_pressed = false;
+      a_button_pressed = false;
+      b_button_pressed = false;
+      start_button_pressed = false;
+      return;
+    
+
+dependencies:
+
+
+  - symbol: AllegroFlare::vec2d
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+
