@@ -51,6 +51,7 @@ table td
 <ul>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
@@ -180,6 +181,58 @@ table td
      <table>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_source</td>
+  <td class="property">ALLEGRO_EVENT_SOURCE</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">emit_event(5)</td>
+</tr>
+<tr>
+  <td class="method">emit_screen_switch_event(1)</td>
+</tr>
+<tr>
+  <td class="method">emit_exit_game_event()</td>
+</tr>
+<tr>
+  <td class="method">emit_virtual_controls_button_up_event(1)</td>
+</tr>
+<tr>
+  <td class="method">emit_virtual_controls_button_down_event(1)</td>
+</tr>
+<tr>
+  <td class="method">emit_virtual_controls_axis_change_event(3)</td>
+</tr>
+<tr>
+  <td class="method">TODO()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_SOURCE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_EXIT_GAME&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_SCREEN_SWITCH_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -393,6 +446,15 @@ table td
   ],
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController"
+  ],
+  "ALLEGRO_EVENT_SOURCE": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_EXIT_GAME": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_SCREEN_SWITCH_EVENT": [
+    "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/Framework": [
     "AllegroFlare/FrameworkScreenRegistrar"

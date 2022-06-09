@@ -18,6 +18,15 @@
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController"
   ],
+  "ALLEGRO_EVENT_SOURCE": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_EXIT_GAME": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_SCREEN_SWITCH_EVENT": [
+    "AllegroFlare/EventEmitter"
+  ],
   "AllegroFlare/Framework": [
     "AllegroFlare/FrameworkScreenRegistrar"
   ],

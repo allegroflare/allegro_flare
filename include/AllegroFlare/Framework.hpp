@@ -14,6 +14,7 @@
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Motion.hpp>
 #include <AllegroFlare/Screens.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 
 
 namespace AllegroFlare
@@ -32,6 +33,7 @@ namespace AllegroFlare
       BitmapBin bitmaps;
       ModelBin models;
       Motion motions;
+      EventEmitter event_emitter;
 
    public:
       Framework(Screens *screens_ptr=nullptr);

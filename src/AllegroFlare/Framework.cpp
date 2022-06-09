@@ -51,6 +51,7 @@ namespace AllegroFlare
       , bitmaps()
       , models()
       , motions(200)
+      , event_emitter()
       , textlog(nullptr)
       , joystick(nullptr)
       , event_queue(nullptr)
@@ -187,6 +188,10 @@ namespace AllegroFlare
       al_register_event_source(event_queue, al_get_joystick_event_source());
       al_register_event_source(event_queue, al_get_default_menu_event_source());
 
+      event_emitter.initialize();
+      al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+
+
       //if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
       //else
       //{
@@ -221,6 +226,10 @@ namespace AllegroFlare
       samples.clear();
       bitmaps.clear();
       fonts.clear();
+
+      // TODO: this next line only works if event_emitter has been initialized
+      //al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+      // TODO: unregister all event sources
 
       //delete instance;
       //instance = nullptr;
