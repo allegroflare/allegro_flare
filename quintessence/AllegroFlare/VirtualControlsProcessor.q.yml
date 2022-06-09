@@ -1,0 +1,243 @@
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: keyboard_button_map
+    type: std::map<int, int>
+    init_with: ''
+    getter: true
+
+  - name: joystick_button_map
+    type: std::map<int, int>
+    init_with: ''
+    getter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      keyboard_button_map = build_sensible_keyboard_button_map();
+      joystick_button_map = build_sensible_joystick_button_map();
+      initialized = true;
+      return;
+
+
+  - name: build_sensible_joystick_button_map
+    type: std::map<int, int>
+    body: |
+      std::map<int, int> result_button_map = {
+        { 1, AllegroFlare::VirtualControls::get_BUTTON_A() }, // for x-box controller, but buttons named like snes layout
+        { 0, AllegroFlare::VirtualControls::get_BUTTON_B() },
+        { 4, AllegroFlare::VirtualControls::get_BUTTON_X() },
+        { 3, AllegroFlare::VirtualControls::get_BUTTON_Y() },
+
+        { 6, AllegroFlare::VirtualControls::get_BUTTON_LEFT_BUMPER() },
+        { 7, AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER() },
+
+        { 11, AllegroFlare::VirtualControls::get_BUTTON_START() },
+      };
+      return result_button_map;
+
+
+  - name: build_sensible_keyboard_button_map
+    type: std::map<int, int>
+    body: |
+      std::map<int, int> result_button_map = {
+        { ALLEGRO_KEY_ENTER, AllegroFlare::VirtualControls::get_BUTTON_START() },
+        { ALLEGRO_KEY_SPACE, AllegroFlare::VirtualControls::get_BUTTON_B() },
+        { ALLEGRO_KEY_A, AllegroFlare::VirtualControls::get_BUTTON_A() },
+        { ALLEGRO_KEY_B, AllegroFlare::VirtualControls::get_BUTTON_B() },
+        { ALLEGRO_KEY_X, AllegroFlare::VirtualControls::get_BUTTON_X() },
+        { ALLEGRO_KEY_Y, AllegroFlare::VirtualControls::get_BUTTON_Y() },
+        { ALLEGRO_KEY_UP, AllegroFlare::VirtualControls::get_BUTTON_UP() },
+        { ALLEGRO_KEY_DOWN, AllegroFlare::VirtualControls::get_BUTTON_DOWN() },
+        { ALLEGRO_KEY_LEFT, AllegroFlare::VirtualControls::get_BUTTON_LEFT() },
+        { ALLEGRO_KEY_RIGHT, AllegroFlare::VirtualControls::get_BUTTON_RIGHT() },
+        { ALLEGRO_KEY_R, AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER() },
+        { ALLEGRO_KEY_E, AllegroFlare::VirtualControls::get_BUTTON_LEFT_BUMPER() },
+      };
+      return result_button_map;
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControls
+      - ALLEGRO_KEY_*
+
+
+  - name: handle_raw_keyboard_key_down_event
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event_emitter, event ]
+    body: |
+      int virtual_button = get_keyboard_mapped_virtual_button(event->keyboard.keycode);
+      if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+      emit_virtual_controls_button_down_event(virtual_button);
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
+  - name: handle_raw_keyboard_key_up_event
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event_emitter, event ]
+    body: |
+      int virtual_button = get_keyboard_mapped_virtual_button(event->keyboard.keycode);
+      if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+      emit_virtual_controls_button_up_event(virtual_button);
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
+  - name: handle_raw_joystick_button_down_event
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event_emitter, event ]
+    body: |
+      int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
+      if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+      emit_virtual_controls_button_down_event(virtual_button);
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
+  - name: handle_raw_joystick_button_up_event
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event_emitter, event ]
+    body: |
+      int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
+      if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+      emit_virtual_controls_button_up_event(virtual_button);
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
+  - name: handle_raw_joystick_axis_change_event
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event_emitter, event ]
+    body: |
+      emit_virtual_controls_axis_change_event(event->joystick.stick, event->joystick.axis, event->joystick.pos);
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
+  - name: get_joystick_mapped_virtual_button
+    type: int
+    private: true
+    parameters:
+      - name: native_button_num
+        type: int
+        default_argument: -1
+    body: |
+      bool map_value_exists = joystick_button_map.find(native_button_num) != joystick_button_map.end();
+      if (!map_value_exists) return -1;
+      int virtual_button = joystick_button_map[native_button_num];
+      return virtual_button;
+
+
+  - name: get_keyboard_mapped_virtual_button
+    type: int
+    private: true
+    parameters:
+      - name: native_key_num
+        type: int
+        default_argument: -1
+    body: |
+      bool map_value_exists = keyboard_button_map.find(native_key_num) != keyboard_button_map.end();
+      if (!map_value_exists) return -1;
+      int virtual_button = keyboard_button_map[native_key_num];
+      return virtual_button;
+
+
+  - name: emit_virtual_controls_button_up_event
+    parameters:
+      - name: virtual_button_num
+        type: int
+        default_argument: 0
+    guards: [ initialized, event_emitter ]
+    body: |
+      // TODO: consider using non-global event names for these types, or a better design for this scope
+      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, virtual_button_num);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+ 
+
+  - name: emit_virtual_controls_button_down_event
+    parameters:
+      - name: virtual_button_num
+        type: int
+        default_argument: 0
+    guards: [ initialized, event_emitter ]
+    body: |
+      // TODO: consider using non-global event names for these types, or a better design for this scope
+      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, virtual_button_num);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+ 
+
+  - name: emit_virtual_controls_axis_change_event
+    parameters:
+      - name: stick
+        type: int
+        default_argument: 0
+      - name: axis
+        type: int
+        default_argument: 0
+      - name: position
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized, event_emitter ]
+    body: |
+      // TODO: consider using non-global event names for these types, or a better design for this scope
+      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, stick, axis, (int)(position * 255));
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::EventNames
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: ALLEGRO_EVENT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_KEY_*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::VirtualControls
+    headers: [ AllegroFlare/VirtualControls.hpp ]
+  - symbol: std::map<int, int>
+    headers: [ map ]
+
+

@@ -56,6 +56,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</a></li>
   <li><a href="#quintessence/NcursesArt/StringVectorIntersection.q.yml">quintessence/NcursesArt/StringVectorIntersection.q.yml</a></li>
 </ul>
 <h1>Components</h1>
@@ -396,6 +397,127 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">BUTTON_UP</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_DOWN</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_LEFT</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_RIGHT</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_A</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_B</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_X</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_Y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_START</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_RIGHT_BUMPER</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">BUTTON_LEFT_BUMPER</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">PRIMARY_STICK</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">SECONDARY_STICK</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">right_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">left_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">up_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">down_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">a_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">b_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">x_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">y_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">left_bumper_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">right_bumper_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">start_button_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">primary_stick_position</td>
+  <td class="property">AllegroFlare::vec2d</td>
+</tr>
+<tr>
+  <td class="property">secondary_stick_position</td>
+  <td class="property">AllegroFlare::vec2d</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">clear()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::vec2d&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/NcursesArt/StringVectorIntersection.q.yml">quintessence/NcursesArt/StringVectorIntersection.q.yml</h3>
      <table>
 <tr>
@@ -503,6 +625,9 @@ table td
   ],
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/vec2d": [
+    "AllegroFlare/VirtualControls"
   ],
   "std/vector<std/string>": [
     "NcursesArt/StringVectorIntersection"

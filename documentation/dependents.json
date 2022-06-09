@@ -75,6 +75,9 @@
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "AllegroFlare/vec2d": [
+    "AllegroFlare/VirtualControls"
+  ],
   "std/vector<std/string>": [
     "NcursesArt/StringVectorIntersection"
   ],
