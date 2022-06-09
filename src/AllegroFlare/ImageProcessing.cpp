@@ -184,8 +184,9 @@ namespace AllegroFlare
 
 
 
-   ALLEGRO_BITMAP *ImageProcessing::create_color_overlay(ALLEGRO_BITMAP *original, ALLEGRO_COLOR color)
+   ALLEGRO_BITMAP *ImageProcessing::create_color_overlay(ALLEGRO_COLOR color)
    {
+      ALLEGRO_BITMAP *original = this->bitmap;
       if (!original) return NULL;
 
       ALLEGRO_BITMAP *bitmap = al_clone_bitmap(original);
@@ -218,8 +219,10 @@ namespace AllegroFlare
 
 
 
-   void ImageProcessing::color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float))
+   void ImageProcessing::color_curve(float(* interpolator_func)(float))
    {
+      ALLEGRO_BITMAP *img = this->bitmap;
+
       // set everything up
       ALLEGRO_STATE state;
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);

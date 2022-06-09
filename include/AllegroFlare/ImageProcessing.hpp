@@ -25,8 +25,8 @@ namespace AllegroFlare
 
       void invert(ALLEGRO_BITMAP *img); // does not properly invert the alpha
       void trim(ALLEGRO_BITMAP *img); // doesn't actually trim, yet, just draws rectangle around the trimmed region 
-      ALLEGRO_BITMAP *create_color_overlay(ALLEGRO_BITMAP *bmp, ALLEGRO_COLOR color);
-      void color_curve(ALLEGRO_BITMAP *img, float(* interpolator_func)(float));
+      ALLEGRO_BITMAP *create_color_overlay(ALLEGRO_COLOR color);
+      void color_curve(float(* interpolator_func)(float));
 
       // blurs
       // TODO: make better api for using these functions, for example:
