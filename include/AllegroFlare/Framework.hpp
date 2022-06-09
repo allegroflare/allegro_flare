@@ -15,6 +15,7 @@
 #include <AllegroFlare/Motion.hpp>
 #include <AllegroFlare/Screens.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/VirtualControlsProcessor.hpp>
 
 
 namespace AllegroFlare
@@ -34,6 +35,7 @@ namespace AllegroFlare
       ModelBin models;
       Motion motions;
       EventEmitter event_emitter;
+      VirtualControlsProcessor virtual_controls_processor;
 
    public:
       Framework(Screens *screens_ptr=nullptr);

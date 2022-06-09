@@ -189,6 +189,27 @@ namespace AllegroFlare
    }
 
 
+   void Screens::virtual_control_button_up_funcs(ALLEGRO_EVENT *ev)
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         screens[i]->virtual_control_button_up_func(ev);
+   }
+
+
+   void Screens::virtual_control_button_down_funcs(ALLEGRO_EVENT *ev)
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         screens[i]->virtual_control_button_down_func(ev);
+   }
+
+
+   void Screens::virtual_control_axis_change_funcs(ALLEGRO_EVENT *ev)
+   {
+      for (unsigned i=0; i<screens.size(); i++)
+         screens[i]->virtual_control_axis_change_func(ev);
+   }
+
+
    void Screens::native_menu_click_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)

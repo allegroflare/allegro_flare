@@ -17,6 +17,7 @@
 #include <AllegroFlare/Motion.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/Version.hpp>
+#include <AllegroFlare/EventNames.hpp>
 
 #include <thread> // for offset_primary_timer
 #include <chrono> // for offset_primary_timer
@@ -52,6 +53,7 @@ namespace AllegroFlare
       , models()
       , motions(200)
       , event_emitter()
+      , virtual_controls_processor()
       , textlog(nullptr)
       , joystick(nullptr)
       , event_queue(nullptr)
@@ -191,6 +193,8 @@ namespace AllegroFlare
       event_emitter.initialize();
       al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
+      virtual_controls_processor.set_event_emitter(&event_emitter);
+      virtual_controls_processor.initialize();
 
       //if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
       //else
@@ -417,6 +421,7 @@ namespace AllegroFlare
             if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
                drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
             screens.key_down_funcs(&this_event);
+            virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
             break;
          case ALLEGRO_EVENT_KEY_UP:
             if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
@@ -426,6 +431,7 @@ namespace AllegroFlare
             if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
                   || Framework::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Framework::key_ctrl--;
             screens.key_up_funcs(&this_event);
+            virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
             break;
          case ALLEGRO_EVENT_KEY_CHAR:
             screens.key_char_funcs(&this_event);
@@ -444,12 +450,15 @@ namespace AllegroFlare
             break;
          case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
             screens.joy_button_down_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
             break;
          case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
             screens.joy_button_up_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
             break;
          case ALLEGRO_EVENT_JOYSTICK_AXIS:
             screens.joy_axis_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
             break;
          case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
          case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
@@ -489,8 +498,22 @@ namespace AllegroFlare
             {
                if (this_event.any.source == &event_emitter.get_event_source_ref())
                {
-                  // special branching for "event_emitter" events goes here
                   screens.event_emitter_event_funcs(&this_event);
+
+                  switch(this_event.type)
+                  {
+                     case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
+                       screens.virtual_control_button_up_funcs(&this_event);
+                     break;
+
+                     case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
+                       screens.virtual_control_button_down_funcs(&this_event);
+                     break;
+
+                     case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
+                       screens.virtual_control_axis_change_funcs(&this_event);
+                     break;
+                  }
                }
                else
                {
