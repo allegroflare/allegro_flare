@@ -18,6 +18,36 @@
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController"
   ],
+  "AllegroFlare/Placement3D": [
+    "AllegroFlare/Bone3D"
+  ],
+  "std/vector<AllegroFlare/Bone3D>": [
+    "AllegroFlare/Bone3D"
+  ],
+  "AllegroFlare/Bone3D": [
+    "AllegroFlare/Bone3D",
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
+  "AllegroFlare/FontBin": [
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_FONT": [
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "al_is_system_installed": [
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
+  "al_is_primitives_addon_initialized": [
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
+  "al_is_font_addon_initialized": [
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
+  "allegro_flare/draw_3d_line": [
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D"
   ],
@@ -61,12 +91,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_DISPLAY": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "ALLEGRO_FONT": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "AllegroFlare/FontBin": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/BitmapBin": [

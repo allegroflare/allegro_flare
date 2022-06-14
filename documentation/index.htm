@@ -51,6 +51,8 @@ table td
 <ul>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Bone3D.q.yml">quintessence/AllegroFlare/Bone3D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Camera2D.q.yml">quintessence/AllegroFlare/Camera2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Cubemap.q.yml">quintessence/AllegroFlare/Cubemap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
@@ -186,6 +188,82 @@ table td
      <table>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Bone3D.q.yml">quintessence/AllegroFlare/Bone3D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">children</td>
+  <td class="property">std::vector&lt;AllegroFlare::Bone3D*&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">add_child(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Bone3D*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Bone3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Bone3D*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Bone3D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">root_bone</td>
+  <td class="property">AllegroFlare::Bone3D*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">render_recursive(1)</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Bone3D*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Bone3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_font_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;allegro_flare::draw_3d_line&quot;, &quot;headers&quot;=&gt;[&quot;allegro_flare/useful3d.h&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -749,6 +827,36 @@ table td
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController"
   ],
+  "AllegroFlare/Placement3D": [
+    "AllegroFlare/Bone3D"
+  ],
+  "std/vector<AllegroFlare/Bone3D>": [
+    "AllegroFlare/Bone3D"
+  ],
+  "AllegroFlare/Bone3D": [
+    "AllegroFlare/Bone3D",
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
+  "AllegroFlare/FontBin": [
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_FONT": [
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "al_is_system_installed": [
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
+  "al_is_primitives_addon_initialized": [
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
+  "al_is_font_addon_initialized": [
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
+  "allegro_flare/draw_3d_line": [
+    "AllegroFlare/Bone3DGraphRenderer"
+  ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D"
   ],
@@ -792,12 +900,6 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_DISPLAY": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "ALLEGRO_FONT": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "AllegroFlare/FontBin": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/BitmapBin": [
