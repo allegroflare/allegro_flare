@@ -58,6 +58,15 @@ namespace AllegroFlare
 
    // normalize
    vec3d operator~(vec3d vec);
+
+
+
+
+   // allow using "AllegroFlare::vec3d" instead of "AllegroFlare::Vec3D"
+   typedef vec3d Vec3D;
 }
+
+
+
 
 
