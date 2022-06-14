@@ -45,8 +45,8 @@ R"({
     "z": 2.0
   },
   "stepout": {
-    "x": -2.0,
-    "y": -5.0,
+    "x": -2.125,
+    "y": -5.4,
     "z": 0.0
   },
   "spin": 123.0,
@@ -59,7 +59,7 @@ R"({
    parsed_json.get_to(camera3d);
 
    AllegroFlare::vec3d expected_position = {2.34, 5.8, 2.0};
-   AllegroFlare::vec3d expected_stepout = {-2.0, -5.0, 0.0};  // TODO <- change these test values
+   AllegroFlare::vec3d expected_stepout = {-2.125, -5.4, 0.0};
    float expected_spin = 123.0f;
    float expected_tilt = 4.5f;
    float expected_zoom = 67.8f;
