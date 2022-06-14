@@ -115,7 +115,8 @@ ImageGenerator::~ImageGenerator()
    {
       ALLEGRO_BITMAP *circle = generate_circle_bitmap(size);
       ALLEGRO_BITMAP *gradient = generate_gradient_bitmap(size);
-      ALLEGRO_BITMAP *circle_gradient = ImageProcessing::create_masked_bitmap(circle, gradient);
+      ImageProcessing image_processing;
+      ALLEGRO_BITMAP *circle_gradient = image_processing.create_masked_bitmap(circle, gradient);
       al_destroy_bitmap(circle);
       al_destroy_bitmap(gradient);
       return circle_gradient;
