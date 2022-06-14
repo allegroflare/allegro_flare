@@ -1,0 +1,17 @@
+properties:
+
+
+  - name: id
+    type: GLuint
+    init_with: 0
+    getter: true
+    constructor_arg: true
+
+
+dependencies:
+
+
+  - symbol: GLuint
+    headers: [ allegro5/allegro_opengl.h ]
+
+
