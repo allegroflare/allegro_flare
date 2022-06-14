@@ -36,12 +36,11 @@ R"({
 })";
 
    nlohmann::json parsed_json = nlohmann::json::parse(json);
-
    parsed_json.get_to(vec3d);
 
-   EXPECT_EQ(2.34f, vec3d.x);
-   EXPECT_EQ(5.8f, vec3d.y);
-   EXPECT_EQ(2.0f, vec3d.z);
+   AllegroFlare::Vec3D expected_vec3d(2.34, 5.8, 2.0);
+
+   EXPECT_EQ(expected_vec3d, vec3d);
 }
 
 
