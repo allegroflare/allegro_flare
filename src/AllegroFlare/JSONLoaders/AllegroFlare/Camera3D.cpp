@@ -11,7 +11,7 @@ namespace AllegroFlare
 {
 
 
-
+// JSON loader for Camera3D
 void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera)
 {
    j = nlohmann::json{
@@ -24,6 +24,7 @@ void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera)
 }
 
 
+// JSON loader for Camera3D
 void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera)
 {
    j.at("position").get_to(camera.position);

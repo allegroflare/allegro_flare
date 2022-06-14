@@ -33,7 +33,7 @@ R"({
 
 
 
-TEST(AllegroFlare_JSONLoaders_AllegroFlare_Vec3D, from_json__loads_json_data_into_a_vec3d)
+TEST(AllegroFlare_JSONLoaders_AllegroFlare_Camera3D, from_json__loads_json_data_into_a_vec3d)
 {
    AllegroFlare::Camera3D camera3d;
 
