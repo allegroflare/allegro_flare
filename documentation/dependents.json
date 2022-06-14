@@ -75,6 +75,24 @@
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "cross_product": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/vec3d": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "ALLEGRO_COLOR": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Useful3D/build_vertex": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Useful3D/Ray": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Useful3D/IntersectData": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
   "AllegroFlare/vec2d": [
     "AllegroFlare/VirtualControls"
   ],

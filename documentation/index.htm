@@ -54,6 +54,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</a></li>
@@ -354,6 +355,53 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::this_thread::sleep_for&quot;, &quot;headers&quot;=&gt;[&quot;thread&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">v0</td>
+  <td class="property">AllegroFlare::vec3d</td>
+</tr>
+<tr>
+  <td class="property">v1</td>
+  <td class="property">AllegroFlare::vec3d</td>
+</tr>
+<tr>
+  <td class="property">v2</td>
+  <td class="property">AllegroFlare::vec3d</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">intersect(2)</td>
+</tr>
+<tr>
+  <td class="method">draw(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;cross_product&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::vec3d&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D::build_vertex&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D::Ray*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful3D/Ray.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D::IntersectData*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful3D/IntersectData.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -710,6 +758,24 @@ table td
   ],
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "cross_product": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/vec3d": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "ALLEGRO_COLOR": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Useful3D/build_vertex": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Useful3D/Ray": [
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Useful3D/IntersectData": [
+    "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/vec2d": [
     "AllegroFlare/VirtualControls"
