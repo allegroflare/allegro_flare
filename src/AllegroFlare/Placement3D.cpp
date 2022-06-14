@@ -35,7 +35,7 @@ namespace AllegroFlare
 
 
 
-   Placement3D::Placement3D(AllegroFlare::vec3d position)
+   Placement3D::Placement3D(AllegroFlare::Vec3D position)
       : position(position.x, position.y, position.z)
       , size(0, 0, 0)
       , align(0.5, 0.5, 0.5)
@@ -114,9 +114,9 @@ namespace AllegroFlare
 
 
 
-   AllegroFlare::vec3d Placement3D::get_real_position()
+   AllegroFlare::Vec3D Placement3D::get_real_position()
    {
-      AllegroFlare::vec3d real_position(0, 0, 0);
+      AllegroFlare::Vec3D real_position(0, 0, 0);
       ALLEGRO_TRANSFORM t;
       build_transform(&t);
 

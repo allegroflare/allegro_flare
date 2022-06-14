@@ -9,7 +9,7 @@ namespace AllegroFlare
 
 
 // JSON loader for Vec3D
-void to_json(nlohmann::json& j, const vec3d& v)
+void to_json(nlohmann::json& j, const AllegroFlare::Vec3D& v)
 {
    j = nlohmann::json{
       {"x", v.x},
@@ -19,7 +19,7 @@ void to_json(nlohmann::json& j, const vec3d& v)
 }
 
 // JSON loader for Vec3D
-void from_json(const nlohmann::json& j, vec3d& v)
+void from_json(const nlohmann::json& j, AllegroFlare::Vec3D& v)
 {
    j.at("x").get_to(v.x);
    j.at("y").get_to(v.y);
