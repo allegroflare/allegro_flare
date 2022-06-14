@@ -98,12 +98,10 @@ namespace AllegroFlare
 
 
 
-
-   DirectoryUtility::DirectoryUtility(std::string root_directory)
-      : root(NULL)
-      , path()
-      , sorted(false)
+   void DirectoryUtility::initialize()
    {
+      initialized = true;
+
       // store the current directory
       std::string current_directory = al_get_current_directory();
 
@@ -133,6 +131,16 @@ namespace AllegroFlare
       // restore the directory before this constructor
       al_change_directory(current_directory.c_str());
    }
+
+
+
+   DirectoryUtility::DirectoryUtility(std::string root_directory)
+      : initialized(false)
+      , root_directory(root_directory)
+      , root(NULL)
+      , path()
+      , sorted(false)
+   {}
 
 
 
@@ -390,14 +398,14 @@ namespace AllegroFlare
 
 
 
-   void DirectoryUtility::str_out()
+   std::string DirectoryUtility::dump()
    {
-      //get_instance();
-
+      std::stringstream result;
       for (unsigned i=0; i<path.size(); i++)
       {
-         std::cout << al_path_cstr(path[i], ALLEGRO_NATIVE_PATH_SEP) << std::endl;
+         result << al_path_cstr(path[i], ALLEGRO_NATIVE_PATH_SEP) << std::endl;
       }
+      return result.str();
    }
 
 

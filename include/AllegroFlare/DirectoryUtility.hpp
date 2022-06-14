@@ -34,35 +34,31 @@ namespace AllegroFlare
    class DirectoryUtility
    {
    private:
-      //private:
-      //static PathObject *instance;
-
-      void _recursive_traverse_dir(ALLEGRO_FS_ENTRY *folder);
-      int _bfind(std::string filename); // find with a binary search.  This will find *only* by the raw filename, and returns the index.
-
-      //PathObject *get_instance();
+      bool initialized;
+      std::string root_directory;
       ALLEGRO_PATH *root;
       std::vector<ALLEGRO_PATH *> path;
       bool sorted;
+
+      void _recursive_traverse_dir(ALLEGRO_FS_ENTRY *folder);
+      int _bfind(std::string filename); // find with a binary search.  This will find *only* by the raw filename, and returns the index.
 
    public:
       DirectoryUtility(std::string root_directory="[directory-not-set]");
       ~DirectoryUtility();
 
+      void initialize();
       const char *find(std::string filename);
       //TODO:: THIS FUNCTION find_all_versions WAS NEVER TESTED:
       std::vector<std::string> find_all_versions(std::string filename_pattern); // e.g. find_all_versions("this_is_my_filename - ##.txt");
       const char *bfind(std::string filename);
-      const char *find_latest(std::string filename);	// e.g. find_latest("this_is_my_filename - ##.txt");
+      const char *find_latest(std::string filename); // e.g. find_latest("this_is_my_filename - ##.txt");
       const char *bfind_latest(std::string filename_pattern); // under construction
-      void str_out();
+      std::string dump();
       void rescan(); // untested
       int get_num_items();
       ALLEGRO_PATH *get_item(int index_num); // assumed read only, mkay? ;)
       std::string get_listing();
-
-      // static functions
-
       std::string get_exe_path();
       std::string find_from(std::string absolute_base_folder, std::string filename_to_find); // does not use an instance, only realtime recursive search.  Creates and destroys the whole file list each time.  //TODO make this more ideal
    };
