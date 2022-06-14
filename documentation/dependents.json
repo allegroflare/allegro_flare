@@ -24,6 +24,9 @@
   "tan": [
     "AllegroFlare/Camera2D"
   ],
+  "GLuint": [
+    "AllegroFlare/Cubemap"
+  ],
   "ALLEGRO_EVENT_SOURCE": [
     "AllegroFlare/EventEmitter"
   ],
