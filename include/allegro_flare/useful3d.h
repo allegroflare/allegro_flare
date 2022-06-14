@@ -69,13 +69,13 @@ namespace allegro_flare
 
 
 
-   class IsectData
+   class IntersectData
    {
    public:
       float t;
       float u;
       float v;
-      IsectData()
+      IntersectData()
          : t(0)
          , u(0)
          , v(0)
@@ -96,7 +96,7 @@ namespace allegro_flare
          , v2(v2)
       {}
 
-      bool intersect(const Ray &ray, IsectData &isectData) const
+      bool intersect(const Ray &ray, IntersectData &isectData) const
       {
          //http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
          //#ifdef MOLLER_TRUMBORE
