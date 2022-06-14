@@ -7,7 +7,6 @@
 
 #include <allegro5/allegro_primitives.h>
 
-using namespace AllegroFlare;
 
 
 class Fruit
@@ -69,6 +68,7 @@ public:
 };
 
 
+
 class Snake
 {
 public:
@@ -117,6 +117,7 @@ public:
 };
 
 
+
 class Gameboard
 {
 private:
@@ -136,10 +137,10 @@ public:
 
    void create_fruit()
    {
-      float new_fruit_x = random_float(0, width);
-      float new_fruit_y = random_float(0, height);
+      float new_fruit_x = AllegroFlare::random_float(0, width);
+      float new_fruit_y = AllegroFlare::random_float(0, height);
       std::vector<Fruit::fruit_t> possible_fruits = { Fruit::APPLE, Fruit::GRAPE, Fruit::CHERRY, Fruit::ORANGE, Fruit::PEAR, Fruit::PINEAPPLE, };
-      Fruit::fruit_t new_fruit_type = random_element<Fruit::fruit_t>(possible_fruits);
+      Fruit::fruit_t new_fruit_type = AllegroFlare::random_element<Fruit::fruit_t>(possible_fruits);
 
       fruits.push_back(std::pair<bool, Fruit>(true, { new_fruit_x, new_fruit_y, new_fruit_type }));
    }
@@ -188,7 +189,7 @@ public:
 
       for (auto &fruit : fruits)
       {
-         if (distance(snake.x, snake.y, fruit.second.x, fruit.second.y) <= min_distance_for_collision)
+         if (AllegroFlare::distance(snake.x, snake.y, fruit.second.x, fruit.second.y) <= min_distance_for_collision)
          {
             fruit.first = false;
             player_score += 1;
@@ -220,11 +221,12 @@ public:
 };
 
 
+
 class HUD
 {
 public:
    int player_score;
-   FontBin fonts;
+   AllegroFlare::FontBin fonts;
 
    HUD()
       : player_score(0)
@@ -233,7 +235,7 @@ public:
 
    void initialize()
    {
-      fonts.set_path("data/fonts");
+      fonts.set_path("../data/fonts");
    }
 
    void set_player_score(int new_score)
@@ -254,14 +256,17 @@ public:
 };
 
 
-class SnakeGame : public Screen
+
+class SnakeGame : public AllegroFlare::Screen
 {
 public:
+   AllegroFlare::Framework &framework;
    Gameboard gameboard;
    HUD hud;
 
-   SnakeGame(Framework &framework, Screens &screens, Display *display)
-      : Screen(display)
+   SnakeGame(AllegroFlare::Framework &framework, AllegroFlare::Display *display)
+      : AllegroFlare::Screen(display)
+      , framework(framework)
       , gameboard(1920, 1080)
       , hud()
    {}
@@ -279,11 +284,13 @@ public:
 
    void primary_timer_func() override
    {
+      // update
       gameboard.update_positions_and_check_collisions();
       gameboard.remove_dead_elements();
-
       refresh_player_score_on_hud();
 
+      // draw
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       gameboard.draw();
       hud.draw();
    }
@@ -304,22 +311,29 @@ public:
       case ALLEGRO_KEY_RIGHT:
          gameboard.point_snake_right();
          break;
+      case ALLEGRO_KEY_ESCAPE:
+         framework.shutdown_program = true;
+         break;
       }
    }
 };
 
 
+
 int main(int argc, char **argv)
 {
-   Screens screens;
-   Framework framework(&screens);
+   AllegroFlare::Screens screens;
+   AllegroFlare::Framework framework(&screens);
    framework.initialize();
-   Display *display = framework.create_display(1920, 1080);
+   AllegroFlare::Display *display = framework.create_display(1920, 1080);
 
-   SnakeGame snake(framework, screens, display);
+   SnakeGame snake(framework, display);
    snake.initialize();
+
+   screens.add(&snake);
 
    framework.run_loop();
 }
+
 
 
