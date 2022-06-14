@@ -12,7 +12,7 @@
 
 namespace AllegroFlare
 {
-   vec3d::vec3d(float x, float y, float z)
+   Vec3D::Vec3D(float x, float y, float z)
       : x( x )
       , y( y )
       , z( z )
@@ -21,7 +21,7 @@ namespace AllegroFlare
 
 
 
-   float vec3d::get_magnitude() const
+   float Vec3D::get_magnitude() const
    {
       return std::sqrt(get_magnitude_squared());
    }
@@ -29,7 +29,7 @@ namespace AllegroFlare
 
 
 
-   float vec3d::get_magnitude_squared() const
+   float Vec3D::get_magnitude_squared() const
    {
       return x * x + y * y + z * z;
    }
@@ -37,17 +37,17 @@ namespace AllegroFlare
 
 
 
-   vec3d vec3d::normalized() const
+   Vec3D Vec3D::normalized() const
    {
       float magnitude = get_magnitude();
       // what if magnitude is 0?
-      return vec3d( x / magnitude, y / magnitude, z / magnitude);
+      return Vec3D( x / magnitude, y / magnitude, z / magnitude);
    }
 
 
 
 
-   void vec3d::operator+=(const vec3d &other)
+   void Vec3D::operator+=(const Vec3D &other)
    {
       x += other.x;
       y += other.y;
@@ -57,7 +57,7 @@ namespace AllegroFlare
 
 
 
-   void vec3d::operator-=(const vec3d &other)
+   void Vec3D::operator-=(const Vec3D &other)
    {
       x -= other.x;
       y -= other.y;
@@ -67,7 +67,7 @@ namespace AllegroFlare
 
 
 
-   void vec3d::operator*=(float factor)
+   void Vec3D::operator*=(float factor)
    {
       x *= factor;
       y *= factor;
@@ -77,7 +77,7 @@ namespace AllegroFlare
 
 
 
-   void vec3d::operator/=(float divisor)
+   void Vec3D::operator/=(float divisor)
    {
       x /= divisor;
       y /= divisor;
@@ -87,7 +87,7 @@ namespace AllegroFlare
 
 
 
-   bool vec3d::operator==(const vec3d &other) const
+   bool Vec3D::operator==(const Vec3D &other) const
    {
       return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01 && fabs(z - other.z) < 0.01;
    }
@@ -95,7 +95,7 @@ namespace AllegroFlare
 
 
 
-   bool vec3d::operator!=(const vec3d &other) const
+   bool Vec3D::operator!=(const Vec3D &other) const
    {
       return !(*this == other);
    }
@@ -103,7 +103,7 @@ namespace AllegroFlare
 
 
 
-   std::string vec3d::to_string(int precision) const
+   std::string Vec3D::to_string(int precision) const
    {
       std::ostringstream str;
       str.precision(precision);
@@ -114,7 +114,7 @@ namespace AllegroFlare
 
 
 
-   std::string vec3d::get_string() const
+   std::string Vec3D::get_string() const
    {
       return to_string();
    }
@@ -122,48 +122,48 @@ namespace AllegroFlare
 
 
 
-   vec3d operator+(vec3d first, vec3d second)
+   Vec3D operator+(Vec3D first, Vec3D second)
    {
-      return vec3d(first.x + second.x, first.y + second.y, first.z + second.z);
+      return Vec3D(first.x + second.x, first.y + second.y, first.z + second.z);
    }
 
 
 
 
-   vec3d operator-(vec3d first, vec3d second)
+   Vec3D operator-(Vec3D first, Vec3D second)
    {
-      return vec3d(first.x - second.x, first.y - second.y, first.z - second.z);
+      return Vec3D(first.x - second.x, first.y - second.y, first.z - second.z);
    }
 
 
 
 
-   vec3d operator*(vec3d vec, float factor)
+   Vec3D operator*(Vec3D vec, float factor)
    {
-      return vec3d(factor * vec.x, factor * vec.y, factor * vec.z);
+      return Vec3D(factor * vec.x, factor * vec.y, factor * vec.z);
    }
 
 
 
 
-   vec3d operator*(float factor, vec3d vec)
+   Vec3D operator*(float factor, Vec3D vec)
    {
-      return vec3d(factor * vec.x, factor * vec.y, factor * vec.z);
+      return Vec3D(factor * vec.x, factor * vec.y, factor * vec.z);
    }
 
 
 
 
-   vec3d operator/(vec3d vec, float divisor)
+   Vec3D operator/(Vec3D vec, float divisor)
    {
-      return vec3d(vec.x / divisor, vec.y / divisor, vec.z / divisor);
+      return Vec3D(vec.x / divisor, vec.y / divisor, vec.z / divisor);
    }
 
 
 
 
    // dot product
-   float operator*(vec3d first, vec3d second)
+   float operator*(Vec3D first, Vec3D second)
    {
       return first.x * second.x + first.y * second.y + first.z * second.z;
    }
@@ -172,16 +172,16 @@ namespace AllegroFlare
 
 
    // change the sign
-   vec3d operator-(vec3d vec)
+   Vec3D operator-(Vec3D vec)
    {
-      return vec3d( -vec.x, -vec.y, -vec.z );
+      return Vec3D( -vec.x, -vec.y, -vec.z );
    }
 
 
 
 
    // normalize
-   vec3d operator~(vec3d vec)
+   Vec3D operator~(Vec3D vec)
    {
       return vec.normalized();
    }

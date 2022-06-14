@@ -6,12 +6,12 @@
 
 namespace AllegroFlare
 {
-   class vec3d
+   class Vec3D
    {
    public:
       float x, y, z;
 
-      vec3d(float x=0.0, float y=0.0, float z=0.0);
+      Vec3D(float x=0.0, float y=0.0, float z=0.0);
 
       // return the magnitude, or length, of the vector
       float get_magnitude() const;
@@ -20,14 +20,14 @@ namespace AllegroFlare
       float get_magnitude_squared() const;
 
       // returns the normalized value of the vector where the length = 1
-      vec3d normalized() const;
+      Vec3D normalized() const;
 
-      void operator+=(const vec3d &other);
-      void operator-=(const vec3d &other);
+      void operator+=(const Vec3D &other);
+      void operator-=(const Vec3D &other);
       void operator*=(float factor);
       void operator/=(float divisor);
-      bool operator==(const vec3d &other) const;
-      bool operator!=(const vec3d &other) const;
+      bool operator==(const Vec3D &other) const;
+      bool operator!=(const Vec3D &other) const;
 
       // returns the vector formatted as a string
       std::string to_string(int precision=5) const;
@@ -38,32 +38,33 @@ namespace AllegroFlare
 
 
    // add two vectors
-   vec3d operator+(vec3d first, vec3d second);
+   Vec3D operator+(Vec3D first, Vec3D second);
 
    // subtract two vectors
-   vec3d operator-(vec3d first, vec3d second);
+   Vec3D operator-(Vec3D first, Vec3D second);
 
    // multiply a vector by a factor
-   vec3d operator*(vec3d vec, float factor);
-   vec3d operator*(float factor, vec3d vec);
+   Vec3D operator*(Vec3D vec, float factor);
+   Vec3D operator*(float factor, Vec3D vec);
 
    // divide a vector by a factor
-   vec3d operator/(vec3d vec, float divisor);
+   Vec3D operator/(Vec3D vec, float divisor);
 
    // dot product
-   float operator*(vec3d first, vec3d second);
+   float operator*(Vec3D first, Vec3D second);
 
    // change the sign
-   vec3d operator-(vec3d vec);
+   Vec3D operator-(Vec3D vec);
 
    // normalize
-   vec3d operator~(vec3d vec);
+   Vec3D operator~(Vec3D vec);
 
 
 
 
-   // allow using "AllegroFlare::vec3d" instead of "AllegroFlare::Vec3D"
-   typedef vec3d Vec3D;
+   // allow legacy usage of "AllegroFlare::vec3d" instead of "AllegroFlare::Vec3D"
+   // TODO: consider depreciating
+   typedef Vec3D vec3d;
 }
 
 
