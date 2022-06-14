@@ -10,7 +10,7 @@
 
 namespace AllegroFlare
 {
-   vec2d::vec2d(float x, float y)
+   Vec2D::Vec2D(float x, float y)
       : x(x)
       , y(y)
    {}
@@ -18,15 +18,15 @@ namespace AllegroFlare
 
 
 
-   vec2d vec2d::polar_coords(float angle, float magnitude)
+   Vec2D Vec2D::polar_coords(float angle, float magnitude)
    {
-      return vec2d(magnitude * std::cos(angle), magnitude * std::sin(angle));
+      return Vec2D(magnitude * std::cos(angle), magnitude * std::sin(angle));
    }
 
 
 
 
-   float vec2d::get_angle() const
+   float Vec2D::get_angle() const
    {
       return std::atan2(y, x);
    }
@@ -34,7 +34,7 @@ namespace AllegroFlare
 
 
 
-   float vec2d::get_magnitude() const
+   float Vec2D::get_magnitude() const
    {
       return std::sqrt(get_magnitude_squared());
    }
@@ -42,7 +42,7 @@ namespace AllegroFlare
 
 
 
-   float vec2d::get_magnitude_squared() const
+   float Vec2D::get_magnitude_squared() const
    {
       return x*x + y*y;
    }
@@ -50,16 +50,16 @@ namespace AllegroFlare
 
 
 
-   vec2d vec2d::normalized() const
+   Vec2D Vec2D::normalized() const
    {
       float magnitude = get_magnitude();
-      return vec2d(x/magnitude, y/magnitude);
+      return Vec2D(x/magnitude, y/magnitude);
    }
 
 
 
 
-   void vec2d::operator+=(const vec2d &other)
+   void Vec2D::operator+=(const Vec2D &other)
    {
       x += other.x;
       y += other.y;
@@ -68,7 +68,7 @@ namespace AllegroFlare
 
 
 
-   void vec2d::operator-=(const vec2d &other)
+   void Vec2D::operator-=(const Vec2D &other)
    {
       x -= other.x;
       y -= other.y;
@@ -77,7 +77,7 @@ namespace AllegroFlare
 
 
 
-   void vec2d::operator*=(float factor)
+   void Vec2D::operator*=(float factor)
    {
       x *= factor;
       y *= factor;
@@ -86,7 +86,7 @@ namespace AllegroFlare
 
 
 
-   void vec2d::operator/=(float divisor)
+   void Vec2D::operator/=(float divisor)
    {
       x /= divisor;
       y /= divisor;
@@ -95,7 +95,7 @@ namespace AllegroFlare
 
 
 
-   bool vec2d::operator==(const vec2d &other) const
+   bool Vec2D::operator==(const Vec2D &other) const
    {
       return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01;
    }
@@ -103,7 +103,7 @@ namespace AllegroFlare
 
 
 
-   bool vec2d::operator!=(const vec2d &other) const
+   bool Vec2D::operator!=(const Vec2D &other) const
    {
       return !(*this == other);
    }
@@ -111,7 +111,7 @@ namespace AllegroFlare
 
 
 
-   std::string vec2d::get_string() const
+   std::string Vec2D::get_string() const
    {
       std::ostringstream str;
       str << "(" << x << ", " << y << ")";
@@ -121,48 +121,48 @@ namespace AllegroFlare
 
 
 
-   vec2d operator+(vec2d first, vec2d second)
+   Vec2D operator+(Vec2D first, Vec2D second)
    {
-      return vec2d(first.x + second.x, first.y + second.y);
+      return Vec2D(first.x + second.x, first.y + second.y);
    }
 
 
 
 
-   vec2d operator-(vec2d first, vec2d second)
+   Vec2D operator-(Vec2D first, Vec2D second)
    {
-      return vec2d(first.x - second.x, first.y - second.y);
+      return Vec2D(first.x - second.x, first.y - second.y);
    }
 
 
 
 
-   vec2d operator*(vec2d vec, float factor)
+   Vec2D operator*(Vec2D vec, float factor)
    {
-      return vec2d(factor * vec.x, factor * vec.y);
+      return Vec2D(factor * vec.x, factor * vec.y);
    }
 
 
 
 
-   vec2d operator*(float factor, vec2d vec)
+   Vec2D operator*(float factor, Vec2D vec)
    {
-      return vec2d(factor * vec.x, factor * vec.y);
+      return Vec2D(factor * vec.x, factor * vec.y);
    }
 
 
 
 
-   vec2d operator/(vec2d vec, float divisor)
+   Vec2D operator/(Vec2D vec, float divisor)
    {
-      return vec2d(vec.x / divisor, vec.y / divisor);
+      return Vec2D(vec.x / divisor, vec.y / divisor);
    }
 
 
 
 
    // dot product
-   float operator*(vec2d first, vec2d second)
+   float operator*(Vec2D first, Vec2D second)
    {
       return first.x * second.x + first.y * second.y;
    }
@@ -171,16 +171,16 @@ namespace AllegroFlare
 
 
    // change the sign
-   vec2d operator-(vec2d vec)
+   Vec2D operator-(Vec2D vec)
    {
-      return vec2d(-vec.x, -vec.y);
+      return Vec2D(-vec.x, -vec.y);
    }
 
 
 
 
    // normalize
-   vec2d operator~(vec2d vec)
+   Vec2D operator~(Vec2D vec)
    {
       return vec.normalized();
    }
@@ -189,7 +189,7 @@ namespace AllegroFlare
 
 
    // Check if the points are in counter clockwise order
-   bool is_counter_clockwise(const vec2d first, const vec2d second, const vec2d third)
+   bool is_counter_clockwise(const Vec2D first, const Vec2D second, const Vec2D third)
    {
       float dx1, dx2, dy1, dy2;
 

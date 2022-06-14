@@ -6,15 +6,15 @@
 
 namespace AllegroFlare
 {
-   class vec2d
+   class Vec2D
    {
    public:
       float x, y;
 
-      vec2d(float x=0.0, float y=0.0);
+      Vec2D(float x=0.0, float y=0.0);
 
       // returns the polar coordinates of an angle (in radians?) and magnitude
-      static vec2d polar_coords(float angle, float magnitude);
+      static Vec2D polar_coords(float angle, float magnitude);
 
       // return the arctangent(2) for the current vector
       float get_angle() const;
@@ -26,14 +26,14 @@ namespace AllegroFlare
       float get_magnitude_squared() const;
 
       // returns the normalized value of the vector where the length = 1
-      vec2d normalized() const;
+      Vec2D normalized() const;
 
-      void operator+=(const vec2d &other);
-      void operator-=(const vec2d &other);
+      void operator+=(const Vec2D &other);
+      void operator-=(const Vec2D &other);
       void operator*=(float factor);
       void operator/=(float divisor);
-      bool operator==(const vec2d &other) const;
-      bool operator!=(const vec2d &other) const;
+      bool operator==(const Vec2D &other) const;
+      bool operator!=(const Vec2D &other) const;
 
       // returns the vector formatted as a string
       std::string get_string() const;
@@ -41,29 +41,33 @@ namespace AllegroFlare
 
 
    // add two vectors
-   vec2d operator+(vec2d first, vec2d second);
+   Vec2D operator+(Vec2D first, Vec2D second);
 
    // subtract two vectors
-   vec2d operator-(vec2d first, vec2d second);
+   Vec2D operator-(Vec2D first, Vec2D second);
 
    // multiply a vector by a factor
-   vec2d operator*(vec2d vec, float factor);
-   vec2d operator*(float factor, vec2d vec);
+   Vec2D operator*(Vec2D vec, float factor);
+   Vec2D operator*(float factor, Vec2D vec);
 
    // divide a vector by a factor
-   vec2d operator/(vec2d vec, float divisor);
+   Vec2D operator/(Vec2D vec, float divisor);
 
    // dot product
-   float operator*(vec2d first, vec2d second);
+   float operator*(Vec2D first, Vec2D second);
 
    // change the sign
-   vec2d operator-(vec2d vec);
+   Vec2D operator-(Vec2D vec);
 
    // normalize
-   vec2d operator~(vec2d vec);
+   Vec2D operator~(Vec2D vec);
 
    // Check if the points are in counter clockwise order
-   bool is_counter_clockwise(const vec2d first, const vec2d second, const vec2d third);
+   bool is_counter_clockwise(const Vec2D first, const Vec2D second, const Vec2D third);
+
+   // allow legacy usage of "AllegroFlare::vec2d" instead of "AllegroFlare::Vec2D"
+   // TODO: consider depreciating
+   typedef Vec2D vec2d;
 }
 
 
