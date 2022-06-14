@@ -18,6 +18,12 @@
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController"
   ],
+  "AllegroFlare/Placement2D": [
+    "AllegroFlare/Camera2D"
+  ],
+  "tan": [
+    "AllegroFlare/Camera2D"
+  ],
   "ALLEGRO_EVENT_SOURCE": [
     "AllegroFlare/EventEmitter"
   ],
