@@ -22,20 +22,19 @@ TEST(AllegroFlare_MD5Test, necessairy_test_file_exists)
 }
 
 
-TEST(AllegroFlare_MD5Test, get_md5_has_from_file__produces_the_expected_hash)
-{
-   std::string expected = "f1c73dc3227a2a558cebb00716cb8fdc";
-   EXPECT_EQ(expected, AllegroFlare::MD5::get_md5_hash_from_file(TEST_FILENAME));
-}
-
-
-TEST(AllegroFlare_MD5Test, md5_produces_correct_hash_from_file)
+TEST(AllegroFlare_MD5Test, generate_hash__produces_correct_hash)
 {
    std::string source_string = "This is the source string!";
    std::string expected = "d76c41b0b9df7f52fb6dab8607a3ad70";
 
-   EXPECT_EQ(expected, AllegroFlare::MD5::get_md5_hash(source_string));
+   EXPECT_EQ(expected, AllegroFlare::MD5::generate_hash(source_string));
 }
 
+
+TEST(AllegroFlare_MD5Test, generate_hash_from_file__produces_the_expected_hash)
+{
+   std::string expected = "f1c73dc3227a2a558cebb00716cb8fdc";
+   EXPECT_EQ(expected, AllegroFlare::MD5::generate_hash_from_file(TEST_FILENAME));
+}
 
 

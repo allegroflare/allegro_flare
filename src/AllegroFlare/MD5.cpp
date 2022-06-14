@@ -493,7 +493,7 @@ namespace MD5
    // my code is below (Mark Oates)
 
 
-   std::string get_md5_hash(const std::string str)
+   std::string generate_hash(const std::string str)
    {
       MD5 md5 = MD5(str);
 
@@ -502,7 +502,7 @@ namespace MD5
 
 
 
-   std::string get_md5_hash_from_file(std::string filename)
+   std::string generate_hash_from_file(std::string filename)
    {
       std::string data;
       std::ifstream input_file( filename.c_str(), std::ios::binary | std::ios::in );
