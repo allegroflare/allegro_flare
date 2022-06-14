@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Placement3D
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: children
+    type: std::vector<AllegroFlare::Bone3D*>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+
+functions:
+
+
+  - name: add_child
+    parameters:
+      - name: bone
+        type: AllegroFlare::Bone3D*
+        default_argument: '{}'
+    body: |
+      children.push_back(bone);
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: std::vector<AllegroFlare::Bone3D*>
+    headers: [ vector, AllegroFlare/Bone3D.hpp ]
+  - symbol: AllegroFlare::Bone3D*
+    headers: [ AllegroFlare/Bone3D.hpp ]
+
+

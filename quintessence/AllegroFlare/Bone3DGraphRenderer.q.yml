@@ -1,0 +1,83 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: root_bone
+    type: AllegroFlare::Bone3D*
+    init_with: '{}'
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: render
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), root_bone ]
+    body: |
+      render_recursive(root_bone);
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - al_is_primitives_addon_initialized
+      - al_is_font_addon_initialized
+
+
+  - name: render_recursive
+    parameters:
+      - name: bone
+        type: AllegroFlare::Bone3D*
+        default_argument: nullptr
+    guards: [ bone ]
+    body: |
+      //allegro_flare::draw_3d_line(AllegroFlare::vec3d(0, 0, 0), bone->position);
+      //al_draw_circle(0, 0, 8, ALLEGRO_COLOR{0.6, 0.7, 0.9, 0.9}, 2.0);
+
+      bone->start_transform();
+
+      al_draw_circle(0, 0, 13, ALLEGRO_COLOR{0.9, 0.65, 0.5, 0.9}, 1.0);
+
+      // render self
+      //al_draw_line(0, 0, 100, 100, ALLEGRO_COLOR{0.1, 0.1, 0.9, 1.0}, 2.0);
+
+      // render children
+      for (auto &child_bone : bone->get_children_ref())
+      {
+        render_recursive(child_bone);
+      }
+      bone->restore_transform();
+      return;
+    body_dependency_symbols:
+      - allegro_flare::draw_3d_line
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Purista Medium.otf -32");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::Bone3D*
+    headers: [ AllegroFlare/Bone3D.hpp ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_is_font_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: allegro_flare::draw_3d_line
+    headers: [ allegro_flare/useful3d.h ]
+
+
