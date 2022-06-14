@@ -1,7 +1,10 @@
 
 
-#include <AllegroFlare/Useful.hpp> // for dot_product (and likely other things)
 #include <AllegroFlare/Useful3D/Useful3D.hpp>
+
+
+#include <AllegroFlare/Useful.hpp> // for dot_product (and likely other things)
+#include <math.h> // for fabs
 
 
 namespace AllegroFlare
@@ -20,6 +23,68 @@ namespace Useful3D
       }
       return false;
    }
+
+
+   static void draw_3d_line(AllegroFlare::vec3d start, AllegroFlare::vec3d end, ALLEGRO_COLOR col)
+   {
+      ALLEGRO_VERTEX vtx[2];
+      vtx[0] = AllegroFlare::build_vertex(start.x, start.y, start.z, col, 0, 0);
+      vtx[1] = AllegroFlare::build_vertex(end.x, end.y, end.z, col, 0, 0);
+      al_draw_prim(&vtx[0], NULL, NULL, 0, 2, ALLEGRO_PRIM_LINE_LIST);
+   }
+
+
+
+
+   static ALLEGRO_VERTEX create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
+   {
+      return AllegroFlare::build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
+   }
+
+
+
+
+   static AllegroFlare::vec3d centroid(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3)
+   {
+      return (v1 + v2 + v3) / 3;
+   }
+
+
+
+
+   static AllegroFlare::vec3d tovec3d(ALLEGRO_VERTEX v1)
+   {
+      return AllegroFlare::vec3d(v1.x, v1.y, v1.z);
+   }
+
+
+
+
+   static AllegroFlare::vec3d centroid(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3, AllegroFlare::vec3d v4)
+   {
+      return (v1 + v2 + v3 + v4) / 4;
+   }
+
+
+
+
+   static void draw_3d_triangle(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3, ALLEGRO_COLOR col)
+   {
+      ALLEGRO_VERTEX vtx[3];
+      vtx[0] = create_vtx(v1, col);
+      vtx[1] = create_vtx(v2, col);
+      vtx[2] = create_vtx(v3, col);
+      al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
+   }
+
+
+
+
+   static bool basically_equal(const AllegroFlare::vec3d &first, const AllegroFlare::vec3d &other, float threshold)
+   {
+      return fabs(first.x - other.x) < threshold && fabs(first.y - other.y) < threshold && fabs(first.z - other.z) < threshold;
+   }
+
 
 
 }
