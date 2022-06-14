@@ -12,7 +12,13 @@ namespace AllegroFlare
 namespace Useful3D
 {
 
-   static bool intersectPlane(const AllegroFlare::vec3d &n, const AllegroFlare::vec3d &p0, const AllegroFlare::vec3d& l0, const AllegroFlare::vec3d &l, float &d)
+   static bool intersectPlane(
+         const AllegroFlare::vec3d &n,
+         const AllegroFlare::vec3d &p0,
+         const AllegroFlare::vec3d& l0,
+         const AllegroFlare::vec3d &l,
+         float &d
+      )
    {
       // assuming vectors are all normalized
       float denom = dot_product(n, l);
@@ -60,7 +66,12 @@ namespace Useful3D
 
 
 
-   static AllegroFlare::vec3d centroid(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3, AllegroFlare::vec3d v4)
+   static AllegroFlare::vec3d centroid(
+         AllegroFlare::vec3d v1,
+         AllegroFlare::vec3d v2,
+         AllegroFlare::vec3d v3,
+         AllegroFlare::vec3d v4
+      )
    {
       return (v1 + v2 + v3 + v4) / 4;
    }
@@ -68,7 +79,12 @@ namespace Useful3D
 
 
 
-   static void draw_3d_triangle(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3, ALLEGRO_COLOR col)
+   static void draw_3d_triangle(
+         AllegroFlare::vec3d v1,
+         AllegroFlare::vec3d v2,
+         AllegroFlare::vec3d v3,
+         ALLEGRO_COLOR col
+      )
    {
       ALLEGRO_VERTEX vtx[3];
       vtx[0] = create_vtx(v1, col);
@@ -82,7 +98,9 @@ namespace Useful3D
 
    static bool basically_equal(const AllegroFlare::vec3d &first, const AllegroFlare::vec3d &other, float threshold)
    {
-      return fabs(first.x - other.x) < threshold && fabs(first.y - other.y) < threshold && fabs(first.z - other.z) < threshold;
+      return fabs(first.x - other.x) < threshold
+          && fabs(first.y - other.y) < threshold
+          && fabs(first.z - other.z) < threshold;
    }
 
 
