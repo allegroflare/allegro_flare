@@ -1,6 +1,6 @@
 ## Achievements
 
-Achievements happen when your gamer has reached some goal, collected some number of items, or done anything that unlocks a feature or reward.  The kind of achievements you might have can vary depending on your game, but they all inherently follow the same shape:
+Achievements happen when your gamer has reached some goal, collected some number of items, or done anything that unlocks a feature or reward.  Each achievement inherently follows the same shape:
 
 ```cpp
 
@@ -9,7 +9,7 @@ class Achievement
 public:
    Achievement();
    
-   void achieved();
+   bool is_achieved();
    virtual bool test_condition();
    virtual void on_achieved();
 }
