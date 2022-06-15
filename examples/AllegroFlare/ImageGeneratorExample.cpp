@@ -24,6 +24,7 @@
 class ExampleProgram : public AllegroFlare::Screen
 {
 private:
+   AllegroFlare::Framework *framework;
    AllegroFlare::ImageGenerator image_generator;
    ALLEGRO_BITMAP *circle_render;
    ALLEGRO_BITMAP *gradient_render;
@@ -34,8 +35,9 @@ private:
    bool initialized;
 
 public:
-   ExampleProgram(AllegroFlare::Display *display)
+   ExampleProgram(AllegroFlare::Framework *framework, AllegroFlare::Display *display)
       : AllegroFlare::Screen(display)
+      , framework(framework)
       , image_generator()
       , circle_render(NULL)
       , gradient_render(NULL)
@@ -69,6 +71,11 @@ public:
       al_draw_bitmap(wood_texture, 400, 300, 0);
       al_draw_bitmap(brush_metal_texture, 600, 300, 0);
    }
+
+   void key_down_func(ALLEGRO_EVENT *ev) override
+   {
+      framework->shutdown_program = true;
+   }
 };
 
 
@@ -83,7 +90,7 @@ int main(int argc, char **argv)
    AllegroFlare::Display *display = framework.create_display(1920, 1080);
 
    // create the screen where our example program exists
-   ExampleProgram example_program(display);
+   ExampleProgram example_program(&framework, display);
    example_program.initialize();
 
    // register the screen to the system
