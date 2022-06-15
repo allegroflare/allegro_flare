@@ -1,10 +1,20 @@
 #pragma once
 
 
+#include <string>
+
+
+#define ALLEGRO_FLARE_VERSION "0.8.9wip"
+
+
 namespace AllegroFlare
 {
-   // this should be updated, and probably moved to a string constant
-#define ALLEGRO_FLARE_VER "0.8.9wip"
-}
+   class Version
+   {
+   public:
+      std::string get_allegro_version_string();
+      std::string get_allegro_flare_version_string();
+   };
+} // namespace AllegroFlare
 
 
