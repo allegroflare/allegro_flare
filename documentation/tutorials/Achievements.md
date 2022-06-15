@@ -1,6 +1,6 @@
 ## Achievements
 
-Achievements happen when your gamer has reached some goal, collected some number of items, or done anything that unlocks a feature or reward.  These achievements can vary based on a bunch of stuff in your game, but they all inherently follow the same shape:
+Achievements happen when your gamer has reached some goal, collected some number of items, or done anything that unlocks a feature or reward.  The kind of achievements you might have can vary depending on your game, but they all inherently follow the same shape:
 
 ```cpp
 
@@ -15,11 +15,13 @@ public:
 }
 ```
 
-When you create your own custom achievements, you should inherit from this `AllegroFlare::Achievement` class and override `test_condition()` and `on_achieved()` functions with your custom logic. 
+When you create your own custom achievements, you should inherit from the [https://github.com/allegroflare/allegro_flare/blob/master/include/AllegroFlare/Achievement.hpp](`AllegroFlare::Achievement`[ class and override `test_condition()` and `on_achieved()` functions with your custom logic. 
 
-The `test_condition()` function is where you put the logic to check if the requirements of the achievement has been met.
+The `test_condition()` function is where you put your logic to check if the requirements of the achievement has been met.
 
-The `on_achieved()` function is where the logic goes that will happen after the achievement is actually met for the first time.  Maybe you want to notify the user that they reached an achievement, or maybe you want update the gamer's stats and level them up!  Note that the achievement will have already been marked as being met before the `on_achieved()` is call, so you don't need to modify the status of the achievement.
+The `on_achieved()` function is where you put the logic for what will happen after the achievement is actually met for the first time.  Maybe you want to notify the user that they reached the achievement, or maybe you want update the gamer's stats, or level them up and unlock new parts of the game!  Note that the achievement will have already been met and marked as completed before `on_achieved()` is called, so you don't need to modify the status of the achievement.
+
+Each `Achivement` you create should be registed with an `AllegroFlare::Achievements` (plural), which is a container used to evaluate and maintain the list of all the achievements that have been met, and check that unmet achievements might have been completed.
 
 Also, when you write your custom achievement class, you may want to create a custom constructor and pass along whatever dependencies you need into your class.  That way, you can use those dependencies in your logic for `test_condition()` or `on_achieved()`.
 
