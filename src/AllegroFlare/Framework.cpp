@@ -532,25 +532,19 @@ namespace AllegroFlare
 
 
 
-   std::string Framework::get_allegro_version()
+   std::string Framework::get_allegro_version_string()
    {
-      uint32_t version = al_get_allegro_version();
-      int major = version >> 24;
-      int minor = (version >> 16) & 255;
-      int revision = (version >> 8) & 255;
-      int release = version & 255;
-
-      std::stringstream str;
-      str << major << '.' << minor << '.' << revision << " - release " << release;
-      return str.str();
+      AllegroFlare::Version version;
+      return version.get_allegro_version_string();
    }
 
 
 
 
-   std::string Framework::get_version()
+   std::string Framework::get_allegro_flare_version_string()
    {
-      return ALLEGRO_FLARE_VER;
+      AllegroFlare::Version version;
+      return version.get_allegro_flare_version_string();
    }
 
 
