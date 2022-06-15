@@ -17,11 +17,11 @@ public:
 
 When you create your own custom achievements, you should inherit from the [`AllegroFlare::Achievement`](https://github.com/allegroflare/allegro_flare/blob/master/include/AllegroFlare/Achievement.hpp) class and override the `test_condition()` and `on_achieved()` functions with your custom logic.
 
-The `test_condition()` function is where you put your logic to check if the requirements of the achievement has been met.
+The `test_condition()` function is where you put your logic to check if the requirements of the achievement have been met.
 
-The `on_achieved()` function is where you put the logic for what will happen after the achievement is actually met for the first time.  Maybe you want to notify the user that they reached the achievement, or maybe you want update the gamer's stats, or level them up and unlock new parts of the game!  Note that the achievement will have already been met and marked as completed before `on_achieved()` is called, so you don't need to modify the status of the achievement.
+The `on_achieved()` function is where you put the logic for what will happen after the achievement is actually met for the first time.  Maybe you want to notify the user that they reached the achievement, or maybe you want update the gamer's stats, or level them up and unlock new parts of the game.
 
-Each `Achivement` you create should be registed with an `AllegroFlare::Achievements` (plural), which is a container used to evaluate and maintain the list of all the achievements that have been met, and check that unmet achievements might have been completed.
+Each custom `Achivement` that you create should be registed with an `AllegroFlare::Achievements` (plural), which is a container used to evaluate and maintain the list of all the achievements, checking which achievements might have been recently completed.  Note that an achievement will have already been met and marked as completed in the achievements list before `on_achieved()` is called on the achievement itself.  You don't need to modify the completion status of the achievement in the achievement itself, or in the achievements list.  That is done for you automatically.
 
 Also, when you write your custom achievement class, you may want to create a custom constructor and pass along whatever dependencies you need into your class.  That way, you can use those dependencies in your logic for `test_condition()` or `on_achieved()`.
 
