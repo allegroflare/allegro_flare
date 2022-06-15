@@ -4,10 +4,10 @@ Achievements happen when your gamer has reached some goal, collected some number
 
 ```cpp
 
-class AllegroFlare::Achievement
+class Achievement
 {
 public:
-   AllegroFlare::Achievement();
+   Achievement();
    
    void achieved();
    virtual bool test_condition();
