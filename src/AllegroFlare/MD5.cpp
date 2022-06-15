@@ -147,7 +147,7 @@ namespace MD5
    */
 
    /* interface header */
-#include <allegro_flare/md5.h>
+//#include <allegro_flare/md5.h>
 
    /* system implementation headers */
 #include <cstdio>

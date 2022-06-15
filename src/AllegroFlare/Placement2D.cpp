@@ -114,12 +114,12 @@ namespace AllegroFlare
 
 
 
-   void Placement2D::build_transform(ALLEGRO_TRANSFORM *transform) const
+   void Placement2D::build_transform(ALLEGRO_TRANSFORM *transform)
    {
       al_identity_transform(transform);
 
       al_translate_transform(transform, -align.x*size.x, -align.y*size.y);
-      al_scale_transform(transform, scale.x * (flip.x ? -1 : 1), scale.y * (flip.y ? -1 : 1));
+      al_scale_transform(transform, scale.x * (flip.get_x() ? -1 : 1), scale.y * (flip.get_y() ? -1 : 1));
       al_translate_transform(transform, anchor.x, anchor.y);
       al_rotate_transform(transform, rotation);
       al_translate_transform(transform, position.x, position.y);
@@ -128,14 +128,14 @@ namespace AllegroFlare
 
 
 
-   void Placement2D::build_reverse_transform(ALLEGRO_TRANSFORM *transform) const
+   void Placement2D::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
    {
       al_identity_transform(transform);
 
       al_translate_transform(transform, -position.x, -position.y);
       al_rotate_transform(transform, -rotation);
       al_translate_transform(transform, -anchor.x, -anchor.y);
-      al_scale_transform(transform, 1.0/scale.x * (flip.x ? -1 : 1), 1.0/scale.y * (flip.y ? -1 : 1));
+      al_scale_transform(transform, 1.0/scale.x * (flip.get_x() ? -1 : 1), 1.0/scale.y * (flip.get_y() ? -1 : 1));
       al_translate_transform(transform, align.x*size.x, align.y*size.y);
    }
 
@@ -165,7 +165,7 @@ namespace AllegroFlare
 
 
 
-   void Placement2D::transform_coordinates(float *xx, float *yy) const
+   void Placement2D::transform_coordinates(float *xx, float *yy)
    {
       ALLEGRO_TRANSFORM transform;
       this->build_transform(&transform);
@@ -177,7 +177,7 @@ namespace AllegroFlare
 
 
 
-   void Placement2D::place_coordinates(float *x, float *y) const
+   void Placement2D::place_coordinates(float *x, float *y)
    {
       ALLEGRO_TRANSFORM transform;
       this->build_transform(&transform);
@@ -194,7 +194,7 @@ namespace AllegroFlare
 
 
 
-   bool Placement2D::collide(float x, float y) const
+   bool Placement2D::collide(float x, float y)
    {
       transform_coordinates(&x, &y);
 
@@ -208,7 +208,7 @@ namespace AllegroFlare
 
 
 
-   bool Placement2D::collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left) const
+   bool Placement2D::collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left)
    {
       transform_coordinates(&x, &y);
 
@@ -229,8 +229,8 @@ namespace AllegroFlare
       align.x = 0.5;
       align.y = 0.5;
       rotation = 0;
-      flip.x = false;
-      flip.y = false;
+      flip.set_x(false);
+      flip.set_y(false);
       scale.x = 1;
       scale.y = 1;
       size.x = 1;

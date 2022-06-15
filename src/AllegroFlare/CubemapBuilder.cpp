@@ -6,7 +6,8 @@
 
 #include <iostream>
 #include <allegro5/allegro.h>
-#include <allegro_flare/console_color.h>
+//#include <allegro_flare/console_color.h>
+#include <AllegroFlare/TerminalColors.hpp>
 #include <allegro5/allegro_opengl.h>
 
 
@@ -53,9 +54,13 @@ namespace AllegroFlare
    //+x -x +y -y +z -z
    AllegroFlare::Cubemap *CubemapBuilder::glsl_create_cubemap_from_vertical_strip(const char *filename)
    {
+      auto &RED = AllegroFlare::TerminalColors::RED;
+      auto &DEFAULT = AllegroFlare::TerminalColors::DEFAULT;
+      auto &YELLOW = AllegroFlare::TerminalColors::YELLOW;
+
       if (!filename)
       {
-         std::cout << CONSOLE_COLOR_RED << "Could not load a NULL filename when creating cubemap" << CONSOLE_COLOR_DEFAULT << std::endl;
+         std::cout << RED << "Could not load a NULL filename when creating cubemap" << DEFAULT << std::endl;
          return NULL;
       }
 
@@ -69,7 +74,7 @@ namespace AllegroFlare
 
       if (!strip_of_cube_face_bitmaps)
       {
-         std::cout << CONSOLE_COLOR_RED << "Could not load \"" << filename << "\" when creating cubemap" << CONSOLE_COLOR_DEFAULT << std::endl;
+         std::cout << RED << "Could not load \"" << filename << "\" when creating cubemap" << DEFAULT << std::endl;
          return NULL;
       }
 
@@ -79,7 +84,11 @@ namespace AllegroFlare
       // if the height of the strip is not w*6, then the image is invalid
       if (al_get_bitmap_height(strip_of_cube_face_bitmaps) != w*6)
       {
-         std::cout << CONSOLE_COLOR_YELLOW << "Cannot create cubemap from strip. The height of the image strip must be width*6." << CONSOLE_COLOR_YELLOW << std::endl;
+         std::cout
+            << YELLOW
+            << "Cannot create cubemap from strip. The height of the image strip must be width*6."
+            << DEFAULT
+            << std::endl;
          al_destroy_bitmap(strip_of_cube_face_bitmaps);
          return NULL;
       }

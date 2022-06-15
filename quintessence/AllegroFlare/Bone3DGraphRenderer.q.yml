@@ -51,7 +51,7 @@ functions:
       bone->restore_transform();
       return;
     body_dependency_symbols:
-      - allegro_flare::draw_3d_line
+      - AllegroFlare::draw_3d_line
 
 
   - name: obtain_font
@@ -77,7 +77,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_is_font_addon_initialized
     headers: [ allegro5/allegro_font.h ]
-  - symbol: allegro_flare::draw_3d_line
-    headers: [ allegro_flare/useful3d.h ]
+  - symbol: AllegroFlare::draw_3d_line
+    headers: [ AllegroFlare/Useful3D/Useful3D.hpp ]
 
 

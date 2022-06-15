@@ -6,7 +6,7 @@
 #include <allegro5/allegro_font.h>
 #include <stdexcept>
 #include <sstream>
-#include <allegro_flare/useful3d.h>
+#include <AllegroFlare/Useful3D/Useful3D.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>

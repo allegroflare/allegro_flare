@@ -4,7 +4,7 @@
 
 #include <string>
 #include <allegro5/allegro.h>
-#include <allegro_flare/vec2b.h> // TODO replace this
+#include <AllegroFlare/Vec2B.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 
 
@@ -18,10 +18,9 @@ namespace AllegroFlare
       ALLEGRO_TRANSFORM previous_transform;
 
    public:
-      AllegroFlare::vec2d position, size, align, scale, anchor;
-      allegro_flare::vec2b flip; // TODO: replace this
+      AllegroFlare::Vec2D position, size, align, scale, anchor;
+      AllegroFlare::Vec2B flip;
       float rotation;
-      //float &x, &y, &w, &h;  // for convience
 
       Placement2D();
       Placement2D(float x, float y, float w, float h);
@@ -30,18 +29,18 @@ namespace AllegroFlare
       void start_transform();
       void start_reverse_transform();
       void restore_transform();
-      void build_transform(ALLEGRO_TRANSFORM *transform) const;
-      void build_reverse_transform(ALLEGRO_TRANSFORM *transform) const;
+      void build_transform(ALLEGRO_TRANSFORM *transform);
+      void build_reverse_transform(ALLEGRO_TRANSFORM *transform);
       void draw_box(ALLEGRO_COLOR color, bool draw_origin);
       void draw_box_with_padding(ALLEGRO_COLOR color, bool draw_origin, float pt, float pr, float pb, float pl);
       void draw_origin();
       void clear();
-      void transform_coordinates(float *x, float *y) const;
-      void place_coordinates(float *x, float *y) const;
+      void transform_coordinates(float *x, float *y);
+      void place_coordinates(float *x, float *y);
 
       bool in_range(float x, float y, float distance) const;
-      bool collide(float x, float y) const;
-      bool collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left) const;
+      bool collide(float x, float y);
+      bool collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left);
 
       std::string get_string();
 

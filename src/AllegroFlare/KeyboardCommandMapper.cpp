@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/KeyboardCommandMapper.hpp>
 
-#include <allegro_flare/bit_flags.h>
+#include <AllegroFlare/BitFlags.hpp>
 
 
 KeyboardCommandMapper::KeyboardCommandMapper()
@@ -33,14 +33,14 @@ std::vector<std::string> KeyboardCommandMapper::get_mapping(int al_keycode, bool
 
 bool KeyboardCommandMapper::set_mapping(int al_keycode, int modifiers, std::vector<std::string> command_identifier)
 {
-   allegro_flare::BitFlags flags(modifiers);
+   AllegroFlare::BitFlags flags(modifiers);
    return set_mapping(al_keycode, flags.has(SHIFT), flags.has(CTRL), flags.has(ALT), flags.has(COMMAND), command_identifier);
 }
 
 
 std::vector<std::string> KeyboardCommandMapper::get_mapping(int al_keycode, int modifiers)
 {
-   allegro_flare::BitFlags flags(modifiers);
+   AllegroFlare::BitFlags flags(modifiers);
    return get_mapping(al_keycode, flags.has(SHIFT), flags.has(CTRL), flags.has(ALT), flags.has(COMMAND));
 }
 

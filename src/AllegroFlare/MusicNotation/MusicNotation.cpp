@@ -8,7 +8,7 @@
 #include <allegro5/allegro_ttf.h>
 //#include <allegro_flare/font_bravura.h>
 #include <AllegroFlare/FontBravura.hpp>
-#include <allegro_flare/blender.h> // ?
+//#include <allegro_flare/blender.h> // ?
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>

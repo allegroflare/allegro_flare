@@ -117,7 +117,7 @@ std::string WithAllegroRenderingFixture::get_test_suite_name()
    return test_info->test_suite_name();
 }
 
-allegro_flare::placement2d WithAllegroRenderingFixture::build_centered_placement(float width, float height)
+AllegroFlare::Placement2D WithAllegroRenderingFixture::build_centered_placement(float width, float height)
 {
    if (!(al_get_target_bitmap()))
       {
@@ -125,7 +125,7 @@ allegro_flare::placement2d WithAllegroRenderingFixture::build_centered_placement
          error_message << "WithAllegroRenderingFixture" << "::" << "build_centered_placement" << ": error: " << "guard \"al_get_target_bitmap()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   allegro_flare::placement2d place(al_get_display_width(display)/2, al_get_display_height(display)/2, width, height);
+   AllegroFlare::Placement2D place(al_get_display_width(display)/2, al_get_display_height(display)/2, width, height);
    return place;
 }
 } // namespace Testing

@@ -45,11 +45,12 @@
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
-  "allegro_flare/draw_3d_line": [
+  "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
   "AllegroFlare/Placement2D": [
-    "AllegroFlare/Camera2D"
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "tan": [
     "AllegroFlare/Camera2D"
@@ -97,9 +98,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   ":testing/Test": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "allegro_flare/placement2d": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/chrono/milliseconds": [
