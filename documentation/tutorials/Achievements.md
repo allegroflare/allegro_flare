@@ -15,7 +15,7 @@ public:
 }
 ```
 
-When you create your own custom achievements, you should inherit from the [https://github.com/allegroflare/allegro_flare/blob/master/include/AllegroFlare/Achievement.hpp](`AllegroFlare::Achievement`[ class and override `test_condition()` and `on_achieved()` functions with your custom logic. 
+When you create your own custom achievements, you should inherit from the [`AllegroFlare::Achievement`](https://github.com/allegroflare/allegro_flare/blob/master/include/AllegroFlare/Achievement.hpp) class and override `test_condition()` and `on_achieved()` functions with your custom logic.
 
 The `test_condition()` function is where you put your logic to check if the requirements of the achievement has been met.
 
