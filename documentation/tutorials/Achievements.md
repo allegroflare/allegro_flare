@@ -3,10 +3,11 @@
 Achievements happen when your gamer has reached some goal, collected some number of items, or done anything that unlocks a feature or reward.  These achievements can vary based on a bunch of stuff in your game, but they all inherently follow the same shape:
 
 ```cpp
-class Achievement
+
+class AllegroFlare::Achievement
 {
 public:
-   Achievement();
+   AllegroFlare::Achievement();
    
    void achieved();
    virtual bool test_condition();
@@ -14,17 +15,24 @@ public:
 }
 ```
 
-When you create your own custom achievements for the gamer, you should inherit from this `Achievement` class and override the `test_condition()` and `on_achieved()` functions with your own custom logic. 
+When you create your own custom achievements, you should inherit from this `AllegroFlare::Achievement` class and override `test_condition()` and `on_achieved()` functions with your custom logic. 
 
-The `test_condition()` function is where you'll put the logic to check if the requirements of the achievement has been met.
+The `test_condition()` function is where you put the logic to check if the requirements of the achievement has been met.
 
-The `on_achieved()` function is where the logic goes that will happen _after_ the achievement is actually met for the first time.  Maybe you want to notify the user that they reached an achievement, or maybe you want update the gamer's stats and level them up!
+The `on_achieved()` function is where the logic goes that will happen after the achievement is actually met for the first time.  Maybe you want to notify the user that they reached an achievement, or maybe you want update the gamer's stats and level them up!  Note that the achievement will have already been marked as being met before the `on_achieved()` is call, so you don't need to modify the status of the achievement.
 
-Also, when you write your custom achievement class, you should also create a custom constructor and **pass along whatever dependencies you need into your class's constructor**.  That way, you can use those dependencies in your logic for `test_condition()` or `on_achieved()`.  More on that next.
+Also, when you write your custom achievement class, you may want to create a custom constructor and pass along whatever dependencies you need into your class.  That way, you can use those dependencies in your logic for `test_condition()` or `on_achieved()`.
 
 ### Example
 
-Let's say you want your gamer to get an achievement when they have accumulated 10 bundles of barley.  Let's say, too, that when they make that achievement we'll output a special "congratulations" message of some kind.  I'll assume we already know about the `Inventory` class, and we have an `ITEM_BARLEY`  defined in our `MyGame` (from the previous chapter (cough cough)).
+Let's say you want your player to get an achievement when they have accumulated 10 bundles of barley.  Let's say, too, that when they make that achievement, we'll output a special "congratulations" message of some kind.  I'm assuming you already know about the `Inventory` class.  Also, we'll need to have an `ITEM_BARLEY`  defined in our program.
+
+```cpp
+   enum items {
+      ITEM_NONE = 0,
+      ITEM_BARLEY,
+   };
+```
 
 Here's what a `MyCollectedTenBarleyAchievement` would look like:
 
@@ -60,7 +68,7 @@ Also, we've filled in the `on_achieved()` function, which now contains `std::cou
 
 ### Adding Achievements to Your Game
 
-This is awesome.  We've created our custom achievement.  Now, in order to actually get it to work, we're going to have to 1) install `Achievements` into our main game and then 2) add the `MyCollectedTenBarleyAchievement` to the list of achievements that our game is checking for.  Lucky for us, these are both really easy.
+We've created our custom achievement.  Now, in order to actually get it to work, we're going to have to 1) install `Achievements` into our main game and then 2) add the `MyCollectedTenBarleyAchievement` to the list of achievements that our game is checking for.  Lucky for us, these are both really easy.
 
 ### 1) Install `Achievements`
 
@@ -110,7 +118,7 @@ public:
 
 ### Awesome! Let's See Achievements It In Action
 
-For the sake of brevity, we'll add an item to the user's inventory after the user presses a key.  Once the user has added 10 of these items, then the achievement should fire off.  Note that in reality, rather than using a keystroke, we'd probably add a piece of barley to their inventory after 1) the players bounding box collided with the bounding box of the barley item, 2) we safely destroy that item instance from the map, and 3) we spawned a fancy `VisualFX` for style points.  _Then_, we would add it.  But for now, let's keep things simple.
+To keep things simple, we'll add an item to the user's inventory when they press a key.  Once the user has added 10 of these items, then the achievement should fire off.
 
 In your game, let's add some logic to override the `on_key_press()` so we can catch that gamer's action and translate it into the acquisition of some sweet barley:
 
@@ -219,3 +227,10 @@ Now... if I press any key 10 times...
 1 Barley added.
 Congratulations! You've got 10 bundles of barley! Epic!
 ```
+
+## Moving Forward
+
+Note that in reality, rather than using a keystroke, we'd probably add a piece of barley to their inventory after 1) the players bounding box collided with the bounding box of the barley item, 2) we safely destroy that item instance from the map, and 3) we spawned a fancy `VisualFX` for style points.  _Then_, we would add it.
+
+You might also want to have all the achievements checked periodically rather
+than on each timer click.
