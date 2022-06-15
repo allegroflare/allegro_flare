@@ -21,9 +21,9 @@ The `test_condition()` function is where you put your logic to check if the requ
 
 The `on_achieved()` function is where you put the logic for what will happen after the achievement is actually met for the first time.  Maybe you want to notify the user that they reached the achievement, or maybe you want update the gamer's stats, or level them up and unlock new parts of the game.
 
-Each custom `Achivement` that you create should be registed with an `AllegroFlare::Achievements` (plural), which is a container used to evaluate and maintain the list of all the achievements, checking which achievements might have been recently completed.  Note that an achievement will have already been met and marked as completed in the achievements list before `on_achieved()` is called on the achievement itself.  You don't need to modify the completion status of the achievement in the achievement itself, or in the achievements list.  That is done for you automatically.
+Each custom `Achivement` that you create should be registed with an [`AllegroFlare::Achievements`](https://github.com/allegroflare/allegro_flare/blob/master/include/AllegroFlare/Achievements.hpp) (plural), which is a container used to evaluate and maintain the list of all the achievements, checking which might have been recently completed.  Note that before the achievement's `on_achieved()` is called, it will have already been marked as completed in `Achievements` list.  You don't need to modify the completion status of your achievement, or its status in the achievements list.  That is done for you automatically.
 
-Also, when you write your custom achievement class, you may want to create a custom constructor and pass along whatever dependencies you need into your class.  That way, you can use those dependencies in your logic for `test_condition()` or `on_achieved()`.
+Also, when you write your custom achievement class, you may want to create a custom constructor and pass along whatever dependencies you need into your class in order to evaluate them in the `test_condition()` logic.  You might use those dependencies for `on_achieved()` as well.
 
 ### Example
 
