@@ -156,6 +156,11 @@ namespace AllegroFlare
    }
 
 
+   EventEmitter &Framework::get_event_emitter_ref()
+   {
+      return event_emitter;
+   }
+
 
    Display *Framework::get_primary_display()
    {
