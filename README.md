@@ -8,7 +8,7 @@ Seadragon](https://github.com/allegroflare/allegro_flare/releases/tag/v0.8.9)
 
 AllegroFlare is set of complementary classes for the [Allegro 5 Game Programming Library](http://liballeg.org) written in C++.
 
-The goal of AllegroFlare is add new higher level features that are not otherwise a part of Allegro 5's low level design intention.  Hopefully, you may find some AllegroFlare components that make an otherwise complicated game programming task much easier to do.
+The goal of AllegroFlare is add new higher level features that are not otherwise a part of Allegro 5's low level design.  Hopefully, you may find some AllegroFlare components that make an otherwise complicated game programming task much easier to do.
 
 ## Some Examples
 
