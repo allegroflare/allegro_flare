@@ -67,6 +67,7 @@ namespace AllegroFlare
       BitmapBin &get_bitmap_bin_ref();
       SampleBin &get_sample_bin_ref();
       AudioController &get_audio_controller_ref();
+      Display *get_primary_display();
 
       bool initialize();
       bool initialize_with_display();

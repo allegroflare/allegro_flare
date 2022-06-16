@@ -37,3 +37,19 @@ TEST(AllegroFlare_FrameworkTest, initialize__will_initialize_the_audio_controlle
 }
 
 
+TEST(AllegroFlare_FrameworkTest, initialize_with_display__will_initialize_the_framework_and_create_a_display)
+{
+   AllegroFlare::Framework framework;
+
+   framework.initialize_with_display();
+
+   ALLEGRO_DISPLAY *current_al_display = al_get_current_display();
+   ASSERT_NE(nullptr, current_al_display);
+
+   AllegroFlare::Display *primary_framework_display = framework.get_primary_display();
+   ASSERT_NE(nullptr, primary_framework_display);
+
+   EXPECT_EQ(current_al_display, primary_framework_display->al_display);
+}
+
+

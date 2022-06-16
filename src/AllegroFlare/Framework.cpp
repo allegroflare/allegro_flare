@@ -157,6 +157,13 @@ namespace AllegroFlare
 
 
 
+   Display *Framework::get_primary_display()
+   {
+      return primary_display;
+   }
+
+
+
    bool Framework::initialize()
    {
       if (initialized) return false;
@@ -253,13 +260,6 @@ namespace AllegroFlare
       samples.clear();
       bitmaps.clear();
       fonts.clear();
-
-      // TODO: this next line only works if event_emitter has been initialized
-      //al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
-      // TODO: unregister all event sources
-
-      //delete instance;
-      //instance = nullptr;
 
       initialized = false;
 
