@@ -2,69 +2,126 @@
 =============
 
 * Current in-development version - v0.9.0wip on `master`
-* Latest stable version - [v0.8.9 - Sassy
-Seadragon](https://github.com/allegroflare/allegro_flare/releases/tag/v0.8.9)
+* Latest release - [v0.8.10 - Sassy
+Seadragon](https://github.com/allegroflare/allegro_flare/releases/tag/v0.8.10)
 
 
-AllegroFlare is a game programming library in C++.  It's built on top of the [Allegro 5 Game Programming Library](http://liballeg.org), extending it with new features to make your game development expreience all the more enjoyable.
+AllegroFlare is set of complementary classes for the [Allegro 5 Game Programming Library](http://liballeg.org) written in C++.
+
+The goal of AllegroFlare is add new higher level features that are not otherwise a part of Allegro 5's low level design intention.  Hopefully, you may find some AllegroFlare components that make an otherwise complicated game programming task much easier to do.
+
+## Some Examples
+
+- `Framework` for managing initialization and screen management (title screen, gameplay screen, etc)
+- Build individual game screens into `Screen`s.
+- Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`) that make loading and managing missing assets easier
+- Support multiple languages with `Internationalization`
+- Manage multiple player-optional inputs (keyboards, joysticks) as a single input event source with `VirtualControls`
+- Manage names, attributes, and ids of multiple objects in a scene graph with `Attributes` and `ElementID`
+- Convert different datatypes to and from `JSON` for easier loading / saving
+- Place and position objects in a scene with `Placement2D` and `Placement3D`
+- Manage complex motion graphics effects with `Timeline/*` classes and/or the `Motion` class
+- Profile code with `Profiler`
+- And more...
+
+Knowledge of Allegro 5 is expected, as you will still have direct access to all of Allegro 5 primitives and operations when using AllegroFlare.  However, you won't have to manage them as much.
+
+Note: AllegroFlare is currently in *pre-alpha*.  That is, the overall design is still maturing.  Many years of code are contained in the codebase, work perfectly well, and are well-tested.  Most if not all components work well in isolation and are perfectly usable *at your own risk* in your own software.  However, the build system for the library as a whole is currently locked to core developer(s). The library in its entirety will not reach alpha until `v0.9`.
+
+## Projected Development Versions
+
+- `v0.8.x` - (current) Product is in pre-alpha. Its build system is local, components are being added and accumulated, and design concepts are being formalized.
+- `v0.9.xalpha` - Product is in alpha. Its concepts and intentions are considered mostly complete and it is currently being tested and/or prepared for public release.
+- `v0.9.xbeta` - Product is in beta. Build system and documentation is available for public use.
+- `v1.0.0` - Product is released to the public, has formalized guidelines, for use and open developer contribution.
 
 
-Some Examples of Features and Tools
------------------------------------
+## A Simple Example Program
 
-### Framework
-- Initialize (basically) everything with one function (`Framework::initialize()`)
-- Interface with the system through a parent class (`Screen`)
-- Use virtual member functions to grab events (`primary_timer_func()`, `mouse_axes_func()`, `joy_button_down_func()`, `key_char_func()`, etc.)
-- Get any asset by filename (`Framework::bitmap("mypic.jpg")`, `Framework::font("Times.ttf 16")`, etc.)
+```cpp
+#include <AllegroFlare/Framework.hpp>
+#include <AllegroFlare/Screen.hpp>
+#include <AllegroFlare/Screens.hpp>
 
-### Resource Management
-- Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`)
-- Use any image, sample, or font by filename
+class ExampleProgram : public AllegroFlare::Screen
+{
+public:
+   AllegroFlare::FontBin *font_bin;
+   ExampleProgram(AllegroFlare::Display *display, AllegroFlare::FontBin *font_bin)
+     : AllegroFlare::Screen(display)
+     , font_bin(font_bin)
+   {}
 
-### Graphics
-- Easily position, size, rotate and draw images with (`BitmapObject`)
-- Draw to offscreen bitmaps / Cache expensive renders (`RenderCache`)
-- Use 3D models (`Model3D`)
-- Use cameras for better placement/views (`Camera2D`, `Camera3D`)
-- Use shaders (`Shader`)
-- Easily place objects in 2D and 3D space (`vec2d`, `vec3d`, `placement2d`, `placement3d`)
-- Modify images with filters (`gaussian_blur()`, `color_overlay()`, `trim()`, `color_curve()`, `invert()`, etc.)
-- Generate images from data (`draw_wav_sample()`, `draw_histogram()`, `create_gradient_bitmap()`, etc.)
-- Create paths (`path2d`)
-- Create music notation (`MusicNotation`)
+   void primary_timer_func() override
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
 
-### GUI
-- Interface with the GUI through the parent class `UIScreen`
-- Use from a list of usefull widgets `UIButton`, `UICheckbox`, `UIDial`, `UIFramedWindow`, `UIImage`, `UIIntSpinner`, `UILabeledCheckbox`, `UIListSpinner`, `UIMusicNotation`, `UIPickingBuffer`, `UIProgressBar`, `UIScaledText`, `UIScreen`, `UIScrollArea`, `UIScrollBar`, `UISpinner`, `UIVerticalSlider`, `UIText`, `UITextArea`, `UITextBox`, `UITextInput`, `UITextList`, `UIToggleButton`, `UIXYController`, `UIWidget`, `UIWindow`
-- Easily create your own widget by inheriting from `UIWidget`
+      ALLEGRO_FONT *font = font_bin->auto_get("Courier.ttf 16");
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 100, 100, 0, "Hello AllegroFlare!");
+   }
+};
 
-### Motion
-- timing and movement control (`Motion`)
-- easing functions (`interpolator::fast_in`, `interpolator::tripple_slow_in_out`, `interpolator::bounce_in`, etc.)
+int main(int argc, char **argv)
+{
+   // setup the system
+   AllegroFlare::Screens screens;
+   AllegroFlare::Framework framework(&screens);
+   framework.initialize();
+   AllegroFlare::Display *display = framework.create_display(1920, 1080);
 
-### Scripting and Animation
-- Use useful clases to automate playback of your objects (`Motion`, `Timeline`, `Stage`, `Actor`, `Script`)
-- Use any member function from your classes in a script (`Scriptable`)
-- Add attributes to your classes for scripting, saving, and loading (`Attributes`, `ElementID`)
+   // create the screen where our example program exists
+   ExampleProgram example_program(display);
 
-### Internationalization
- - Support multiple languages with `Internationalization`
+   // register the screen to the system
+   screens.add(&example_program);
 
-### Color
-- Color creation and manipulation (`mix()`, `change_hue()`, `change_lightness()`, etc.)
-- Operators for ALLEGRO_COLORs (`+`, `-`, `*`, `==`)
-- Many color definitions (`color::yellowgreen`, `color::blue`, `color::plum`, `color::floralwhite`, etc.)
+   // run the loop
+   framework.run_loop();
+}
+```
 
-### Encryption
-- md5 and sha2 functions
+## Components
 
-### And More
-- Bone trees, profiling timers, file path access, php-like functions, chainable media objects, etc.
+At its core, `AllegroFlare` is a collection of individual classes, each called a _component_.  Each component has multiple files:
+
+1. Header file (located in `include/` folder)
+2. Source file (located in `src/` folder)
+3. Documentation file (located in `docs/` folder)
+4. Test file (located in `tests/` folder)
+4. Example file (located in `examples/` folder)
+5. Sometimes, a quintessence file, (located in `quintessence/` folder)
 
 
-Build Instructions
------------------------------------
+Each component has a filename that corresponds with a file in the same folder structure in each folder.  For example, if the component was `AllegroFlare/Timeline/Actor2D` (corresponding to the namespaced class `AllegroFlare::Timeline::Actor2D`), then the following files should be present:
 
-(Build instructions have been removed because they are out of date.  Current
-build is based on the https://github.com/MarkOates/union Makefile.)
+1. Header file `include/AllegroFlare/Timeline/Actor2D.hpp`
+2. Source file `src/AllegroFlare/Timeline/Actor2D.cpp`
+3. Documentation file  `docs/AllegroFlare/Timeline/Actor2D.md`
+4. Test file `tests/AllegroFlare/Timeline/Actor2DTest.cpp`
+4. Example file `examples/AllegroFlare/Timeline/Actor2DExample.cpp`
+5. a quintessence file `quintessence/AllegroFlare/Timeline/Actor2D.q.yml`
+
+## In The Repo
+
+```
+bin/             <- binary files that have been compiled during build
+demos/           <- source files for games made using AllegroFlare
+docs/            <- individual `.md` documentation files, each correlating to a specific component
+documentation/   <- The documentation
+examples/        <- example program for each component
+include/         <- header `.hpp` files for each component
+legacy/          <- folder containing old dead code that might be of interest for future reference
+lib/             <- compiled `.lib` files of `allegro_flare-x.x.x` files
+quintessence/    <- quintessence file `.q.yml` for each component
+src/             <- source `.cpp` file for each component
+tests/           <- test file for each component
+  test_fixtures/ <- fixture files for tests
+tools/           <- catch-all folder for some helper scripts or random tools
+```
+
+## Contributing
+
+For now, create an issue and mention the changes you'd like to make.  Otherwise, you might create a fork and then submit a pull request.
+
+
+
