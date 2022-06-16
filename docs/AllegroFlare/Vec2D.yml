@@ -1,0 +1,54 @@
+class_methods:
+
+
+  - name: polar_coords
+    description: returns the polar coordinates of an angle (in radians?) and magnitude
+
+  - name: get_angle
+    description: return the arctangent(2) for the current vector
+
+  - name: get_magnitude
+    description: return the magnitude, or length, of the vector
+
+  - name: get_magnitude_squared
+    description: return the magnitude squared of the vector
+
+  - name: normalized
+    description: returns the normalized value of the vector where the length = 1
+
+  - name: get_string
+    description: returns the vector formatted as a string
+
+  - names: operator+=, operator-=, operator*=, operator/=, operator==, operator!=
+    description:
+
+
+global_methods:
+
+
+  - name: operator+(Vec2D first, Vec2D second)
+    description: add two vectors
+
+  - name: Vec2D operator-(Vec2D first, Vec2D second)
+    description: subtract two vectors
+
+  - names:
+      - Vec2D operator*(Vec2D vec, float factor)
+      - Vec2D operator*(float factor, Vec2D vec)
+    description: multiply a vector by a factor
+
+  - name: Vec2D operator/(Vec2D vec, float divisor)
+    description: divide a vector by a factor
+
+  - name: float operator*(Vec2D first, Vec2D second)
+    description: dot product
+
+  - name: Vec2D operator-(Vec2D vec)
+    description: change the sign
+
+  - name: Vec2D operator~(Vec2D vec);
+    description: normalize
+
+  - name: bool is_counter_clockwise(const Vec2D first, const Vec2D second, const Vec2D third)
+    description: Check if the points are in counter clockwise order
+
