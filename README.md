@@ -121,7 +121,9 @@ tools/           <- catch-all folder for some helper scripts or random tools
 
 ## Contributing
 
-For now, create an issue and mention the changes you'd like to make.  Otherwise, you might create a fork and then submit a pull request.
+- For now, create an issue and mention the changes you'd like to make.
+- Otherwise, you might create a fork and then submit a pull request.  Note that a lot of components are generated from the quintessence files so modifying the `hpp` and `cpp` files directly may not be ideal.  Best to ask in an issue first how to proceed at this point.
+- Consider the [style guide](https://github.com/allegroflare/allegro_flare/blob/master/documentation/style_guide.md)
 
 
 
