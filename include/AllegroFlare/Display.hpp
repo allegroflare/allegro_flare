@@ -33,7 +33,7 @@ namespace AllegroFlare
       int _width, _height;
 
    public:
-      Display(int width, int height, int display_flags); // you must use AllegroFlare::create_display
+      Display(int width=1920, int height=1080, int display_flags=0);
       virtual ~Display();
 
       ALLEGRO_DISPLAY *al_display;
