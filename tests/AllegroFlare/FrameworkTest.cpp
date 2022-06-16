@@ -37,7 +37,7 @@ TEST(AllegroFlare_FrameworkTest, initialize__will_initialize_the_audio_controlle
 }
 
 
-TEST(AllegroFlare_FrameworkTest, initialize_with_display__will_initialize_the_framework_and_create_a_display)
+TEST(AllegroFlare_FrameworkTest, initialize_with_display__will_create_a_display_with_the_expected_dimentions)
 {
    AllegroFlare::Framework framework;
 
@@ -50,6 +50,8 @@ TEST(AllegroFlare_FrameworkTest, initialize_with_display__will_initialize_the_fr
    ASSERT_NE(nullptr, primary_framework_display);
 
    EXPECT_EQ(current_al_display, primary_framework_display->al_display);
+   EXPECT_EQ(1920, primary_framework_display->get_width());
+   EXPECT_EQ(1080, primary_framework_display->get_height());
 }
 
 

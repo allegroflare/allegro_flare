@@ -42,10 +42,10 @@ namespace AllegroFlare
       void set_as_target_bitmap();
       void set_orthographic_projection(float left, float top, float right, float bottom);
 
-      int width();
-      int height();
-      float middle();
-      float center();
+      int get_width();
+      int get_height();
+      float get_middle();
+      float get_center();
 
       void flip();
       void background_color(const ALLEGRO_COLOR &color);

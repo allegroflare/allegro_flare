@@ -64,16 +64,16 @@ namespace AllegroFlare
    std::vector<Display *> Display::displays;
 
 
-   int Display::width() { return _width; }
+   int Display::get_width() { return _width; }
 
 
-   int Display::height() { return _height; }
+   int Display::get_height() { return _height; }
 
 
-   float Display::middle() { return _height/2; }
+   float Display::get_middle() { return _height/2; }
 
 
-   float Display::center() { return _width/2; }
+   float Display::get_center() { return _width/2; }
 
 
    void Display::set_as_target_bitmap()
