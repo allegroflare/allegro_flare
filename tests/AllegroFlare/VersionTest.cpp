@@ -22,7 +22,7 @@ TEST(AllegroFlare_VersionTest, get_allegro_version_string__returns_the_expected_
 TEST(AllegroFlare_VersionTest, get_allegro_flare_version_string__returns_the_expected_result)
 {
    AllegroFlare::Version version;
-   EXPECT_EQ("0.8.9wip", version.get_allegro_flare_version_string());
+   EXPECT_EQ("0.8.10", version.get_allegro_flare_version_string());
 }
 
 

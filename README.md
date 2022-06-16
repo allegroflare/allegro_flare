@@ -2,8 +2,7 @@
 =============
 
 * Current in-development version - v0.9.0wip on `master`
-* Latest release - [v0.8.9 - Sassy
-Seadragon](https://github.com/allegroflare/allegro_flare/releases/tag/v0.8.9)
+* Latest release - [v0.8.10 - Diligent Discus](https://github.com/allegroflare/allegro_flare/releases/tag/v0.8.10)
 
 
 AllegroFlare is set of complementary classes for the [Allegro 5 Game Programming Library](http://liballeg.org) written in C++.
@@ -32,7 +31,7 @@ Note: AllegroFlare is currently in *pre-alpha*.  That is, the overall design is 
 
 - `v0.8.x` - (current) Product is in pre-alpha. Its build system is local, components are being added and accumulated, and design concepts are being formalized.
 - `v0.9.xalpha` - Product is in alpha. Its concepts and intentions are considered mostly complete and it is currently being tested and/or prepared for public release.
-- `v0.9.xbeta` - Product is in beta. Build system and documentation is available for public use.
+- `v0.9.x` - Product is in beta. Build system and documentation is available for public use.
 - `v1.0.0` - Product is released to the public, has formalized guidelines, for use and open developer contribution.
 
 
