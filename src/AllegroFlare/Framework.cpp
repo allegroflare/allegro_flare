@@ -150,6 +150,13 @@ namespace AllegroFlare
 
 
 
+   AudioController &Framework::get_audio_controller_ref()
+   {
+      return audio_controller;
+   }
+
+
+
    bool Framework::initialize()
    {
       if (initialized) return false;

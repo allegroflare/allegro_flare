@@ -25,3 +25,15 @@ TEST(AllegroFlare_FrameworkTest, run_loop__without_screens__will_throw_an_error)
 }
 
 
+TEST(AllegroFlare_FrameworkTest, initialize__will_initialize_the_audio_controller)
+{
+   AllegroFlare::Framework framework;
+   AllegroFlare::AudioController &audio_controller = framework.get_audio_controller_ref();
+   ASSERT_EQ(false, audio_controller.get_initialized());
+
+   framework.initialize();
+
+   ASSERT_EQ(true, audio_controller.get_initialized());
+}
+
+
