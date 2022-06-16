@@ -59,6 +59,7 @@ functions:
         default_argument: 0
     guards: [ initialized ]
     body: |
+      // should be "disable screen", "enable screen", "shutdown screen", etc...
       // TODO: implement this:
       // std::string *data_to_pass = new std::string(screen_identifier_to_switch_to);
       //emit_event(SCREEN_MANAGER_SWITCH_SCREEN_EVENT, data_to_pass);
@@ -76,30 +77,57 @@ functions:
       - ALLEGRO_FLARE_EVENT_EXIT_GAME
 
 
-  - name: emit_virtual_controls_button_up_event
+  - name: emit_play_sound_effect_event
+    parameters:
+      - name: sound_effect_identifier
+        type: std::string
+        default_argument: '"[unset-sound-effect-identifier]"'
     guards: [ initialized ]
+    body: |
+      intptr_t data_to_pass = (intptr_t)(void *)(new std::string(sound_effect_identifier));
+      emit_event(ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT, data_to_pass);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_EXIT_GAME
+
+
+  - name: emit_play_music_track_event
+    parameters:
+      - name: music_track_identifier
+        type: std::string
+        default_argument: '"[unset-music-track-identifier]"'
+    guards: [ initialized ]
+    body: |
+      //std::string *data_to_pass = new std::string(music_track_identifier);
+      //emit_event(ALLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK, (intptr_t)data_to_pass);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_EXIT_GAME
+
+
+  - name: emit_virtual_controls_button_up_event
     parameters:
       - name: virtual_button_num
         type: int
         default_argument: 0
+    guards: [ initialized ]
     body: |
       emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, virtual_button_num);
       return;
  
 
   - name: emit_virtual_controls_button_down_event
-    guards: [ initialized ]
     parameters:
       - name: virtual_button_num
         type: int
         default_argument: 0
+    guards: [ initialized ]
     body: |
       emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, virtual_button_num);
       return;
  
 
   - name: emit_virtual_controls_axis_change_event
-    guards: [ initialized ]
     parameters:
       - name: stick
         type: int
@@ -110,6 +138,7 @@ functions:
       - name: position
         type: float
         default_argument: 0.0f
+    guards: [ initialized ]
     body: |
       // TODO: not implemented (not tested!)
       emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, stick, axis, (int)(position * 255));

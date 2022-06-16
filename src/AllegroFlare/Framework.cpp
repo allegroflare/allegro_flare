@@ -52,12 +52,14 @@ namespace AllegroFlare
       , bitmaps()
       , models()
       , motions(200)
+      , audio_controller(&samples)
       , event_emitter()
       , virtual_controls_processor()
       , textlog(nullptr)
       , joystick(nullptr)
       , event_queue(nullptr)
       , builtin_font(nullptr)
+      , primary_display(nullptr)
       , primary_timer(nullptr)
       , shutdown_program(false)
       , current_screen(nullptr)
@@ -150,7 +152,7 @@ namespace AllegroFlare
 
    bool Framework::initialize()
    {
-      if (initialized) return initialized;
+      if (initialized) return false;
 
       if (!al_init()) std::cerr << "al_init() failed" << std::endl;
 
@@ -216,12 +218,26 @@ namespace AllegroFlare
          AllegroColorAttributeDatatype::to_str_func
       );
 
+      audio_controller.initialize();
+
       initialized = true;
 
       return true;
    }
 
 
+   bool Framework::initialize_with_display()
+   {
+      if (initialized) return false;
+
+      initialize();
+
+      primary_display = create_display(
+            1920,
+            1080,
+            ALLEGRO_FULLSCREEN_WINDOW | ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE
+         );
+   }
 
 
    bool Framework::destruct()
@@ -512,6 +528,36 @@ namespace AllegroFlare
 
                      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
                        screens.virtual_control_axis_change_funcs(&this_event);
+                     break;
+
+                     case ALLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK:
+                       {
+                          std::string *data = (std::string *)this_event.user.data1;
+                          if (!data)
+                          {
+                             // TODO: add an error message
+                          }
+                          else
+                          {
+                             audio_controller.play_music_track_by_identifier(*data);
+                             delete data;
+                          }
+                       }
+                     break;
+
+                     case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+                       {
+                          std::string *data = (std::string *)this_event.user.data1;
+                          if (!data)
+                          {
+                             // TODO: add an error message
+                          }
+                          else
+                          {
+                             audio_controller.play_sound_effect_by_identifier(*data);
+                             delete data;
+                          }
+                       }
                      break;
                   }
                }
