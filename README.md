@@ -1,7 +1,7 @@
 ![Allegro Flare](bin/data/bitmaps/allegro_flare_logo-04.png?raw=true) AllegroFlare
 =============
 
-* Current in-development version - v0.9.0wip on `master`
+* Current in-development version - v0.8.11wip on `master`
 * Latest release - [v0.8.10 - Diligent Discus](https://github.com/allegroflare/allegro_flare/releases/tag/v0.8.10)
 
 

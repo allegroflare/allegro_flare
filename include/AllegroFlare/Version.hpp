@@ -4,7 +4,7 @@
 #include <string>
 
 
-#define ALLEGRO_FLARE_VERSION "0.8.10"
+#define ALLEGRO_FLARE_VERSION "0.8.11wip"
 
 
 namespace AllegroFlare
