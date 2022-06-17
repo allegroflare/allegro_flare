@@ -239,7 +239,11 @@ bool Full::destruct()
 
    initialized = false;
 
-   al_uninstall_system(); // ok - this should be done automatiacally
+   audio_controller.destruct();
+
+   al_uninstall_system(); // ok - this should be done automatiacally, not necessarily here.
+                          // There's risk of a crash at shutdown if assets have been created outside the
+                          // lifecycle of the Framework
    return true;
 }
 
@@ -247,6 +251,18 @@ bool Full::destruct()
 bool Full::is_initialized()
 {
    return initialized;
+}
+
+
+void Full::load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements)
+{
+   audio_controller.set_and_load_sound_effect_elements(elements);
+}
+
+
+void Full::load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements)
+{
+   audio_controller.set_and_load_music_track_elements(elements);
 }
 
 

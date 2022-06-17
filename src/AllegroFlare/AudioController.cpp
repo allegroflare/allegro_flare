@@ -17,8 +17,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
+#include <AllegroFlare/TerminalColors.hpp>
 
 
 namespace AllegroFlare
@@ -37,6 +36,8 @@ AudioController::AudioController(AllegroFlare::SampleBin* sample_bin, std::map<s
    , global_volume(1.0)
    , output_loading_debug_to_cout(true)
    , initialized(false)
+   , music_tracks_loaded(false)
+   , sound_effects_loaded(false)
 {
 }
 
@@ -49,6 +50,18 @@ AudioController::~AudioController()
 bool AudioController::get_initialized()
 {
    return initialized;
+}
+
+
+bool AudioController::get_music_tracks_loaded()
+{
+   return music_tracks_loaded;
+}
+
+
+bool AudioController::get_sound_effects_loaded()
+{
+   return sound_effects_loaded;
 }
 
 
@@ -86,6 +99,53 @@ void AudioController::initialize()
       }
    if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
    if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
+
+   destruct_all_sound_effects();
+   load_sound_effects();
+
+   if (output_loading_debug_to_cout) std::cout << "music_tracks:" << std::endl;
+
+   destruct_all_music_tracks();
+   load_music_tracks();
+
+   std::cout << "[AllegroFlare::AudioController::load()] finished." << std::endl;
+
+   initialized = true;
+   return;
+}
+
+void AudioController::set_and_load_sound_effect_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "set_and_load_sound_effect_elements" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   destruct_all_sound_effects();
+
+   this->sound_effect_elements = sound_effect_elements;
+   load_sound_effects();
+   return;
+}
+
+void AudioController::set_and_load_music_track_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "AudioController" << "::" << "set_and_load_music_track_elements" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   destruct_all_music_tracks();
+
+   this->music_track_elements = music_track_elements;
+   load_music_tracks();
+   return;
+}
+
+void AudioController::load_sound_effects()
+{
    for (auto &sound_effect_element : sound_effect_elements)
    {
       std::string identifier = sound_effect_element.first;
@@ -105,7 +165,14 @@ void AudioController::initialize()
 
       sound_effects[identifier] = sound;
    }
-   if (output_loading_debug_to_cout) std::cout << "music_tracks:" << std::endl;
+
+   return;
+}
+
+void AudioController::load_music_tracks()
+{
+   destruct_all_music_tracks();
+
    for (auto &music_track_element : music_track_elements)
    {
       std::string identifier = music_track_element.first;
@@ -126,21 +193,33 @@ void AudioController::initialize()
       music_tracks[identifier] = sound;
    }
 
-   initialized = true;
-   std::cout << "[AllegroFlare::AudioController::initialize()] finished." << std::endl;
    return;
 }
 
 void AudioController::destruct()
 {
-   if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "destruct" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   stop_all();
+   destruct_all_sound_effects();
+   destruct_all_music_tracks();
+   return;
+}
+
+void AudioController::destruct_all()
+{
+   destruct_all_sound_effects();
+   destruct_all_music_tracks();
+   return;
+}
+
+void AudioController::destruct_all_sound_effects()
+{
+   stop_all_sound_effects();
    for (auto &sound_effect : sound_effects) delete sound_effect.second;
+   return;
+}
+
+void AudioController::destruct_all_music_tracks()
+{
+   stop_all_music_tracks();
    for (auto &music_track : music_tracks) delete music_track.second;
    return;
 }
@@ -154,18 +233,12 @@ void AudioController::stop_all()
          throw std::runtime_error(error_message.str());
       }
    stop_all_sound_effects();
-   stop_all_music();
+   stop_all_music_tracks();
    return;
 }
 
-void AudioController::stop_all_music()
+void AudioController::stop_all_music_tracks()
 {
-   if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "stop_all_music" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
    for (auto &music_track : music_tracks) music_track.second->stop();
    current_music_track_identifier = "";
    return;
@@ -173,12 +246,6 @@ void AudioController::stop_all_music()
 
 void AudioController::stop_all_sound_effects()
 {
-   if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "stop_all_sound_effects" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
    for (auto &sound_effect : sound_effects) sound_effect.second->stop();
    return;
 }
@@ -218,7 +285,7 @@ void AudioController::play_music_track_by_identifier(std::string identifier)
          throw std::runtime_error(error_message.str());
       }
    if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
-   stop_all_music();
+   stop_all_music_tracks();
    Sound *sound = find_music_track_by_identifier(identifier);
    if (sound) sound->play();
    return;
@@ -229,10 +296,13 @@ AllegroFlare::Sound* AudioController::find_sound_effect_by_identifier(std::strin
    std::map<std::string, AllegroFlare::Sound*>::iterator it = sound_effects.find(identifier);
    if (it == sound_effects.end())
    {
-      std::cout << "AudioController::find_sound_effect_by_identifier() error: "
+      std::cout
+         << AllegroFlare::TerminalColors::RED
+         << "AudioController::find_sound_effect_by_identifier() error: "
          << "unable to find element with identifier \""
          << identifier
          << "\""
+         << AllegroFlare::TerminalColors::DEFAULT
          << std::endl;
       return nullptr;
    }
@@ -249,6 +319,26 @@ AllegroFlare::Sound* AudioController::find_music_track_by_identifier(std::string
       return nullptr;
    }
    return it->second;
+}
+
+void AudioController::dump_to_cout()
+{
+   for (auto &sound_effect_element : sound_effect_elements)
+   {
+      std::string identifier = sound_effect_element.first;
+      std::string filename = sound_effect_element.second.get_filename();
+      bool loop = sound_effect_element.second.get_loop();
+      
+      std::cout << "{ identifier: \"" << identifier << "\", source: \"" << filename << "\" }" << std::endl;
+   }
+   for (auto &music_track_element : music_track_elements)
+   {
+      std::string identifier = music_track_element.first;
+      std::string filename = music_track_element.second.get_filename();
+      bool loop = music_track_element.second.get_loop();
+      
+      std::cout << "{ identifier: \"" << identifier << "\", source: \"" << filename << "\" }" << std::endl;
+   }
 }
 } // namespace AllegroFlare
 

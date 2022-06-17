@@ -1,4 +1,7 @@
 {
+  "AllegroFlare/TerminalColors": [
+    "AllegroFlare/AudioController"
+  ],
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController"

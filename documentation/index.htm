@@ -113,22 +113,51 @@ table td
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">music_tracks_loaded</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">sound_effects_loaded</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">destruct()</td>
+  <td class="method">set_and_load_sound_effect_elements(1)</td>
+</tr>
+<tr>
+  <td class="method">set_and_load_music_track_elements(1)</td>
+</tr>
+<tr>
+  <td class="private_method">load_sound_effects()</td>
+</tr>
+<tr>
+  <td class="private_method">load_music_tracks()</td>
+</tr>
+<tr>
+  <td class="private_method">destruct()</td>
+</tr>
+<tr>
+  <td class="private_method">destruct_all()</td>
+</tr>
+<tr>
+  <td class="private_method">destruct_all_sound_effects()</td>
+</tr>
+<tr>
+  <td class="private_method">destruct_all_music_tracks()</td>
 </tr>
 <tr>
   <td class="method">stop_all()</td>
 </tr>
 <tr>
-  <td class="method">stop_all_music()</td>
+  <td class="private_method">stop_all_music_tracks()</td>
 </tr>
 <tr>
-  <td class="method">stop_all_sound_effects()</td>
+  <td class="private_method">stop_all_sound_effects()</td>
 </tr>
 <tr>
   <td class="method">set_global_volume(1)</td>
@@ -145,8 +174,14 @@ table td
 <tr>
   <td class="private_method">find_music_track_by_identifier(1)</td>
 </tr>
+<tr>
+  <td class="method">dump_to_cout()</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TerminalColors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TerminalColors.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
 </tr>
@@ -782,6 +817,9 @@ table td
 <h1>Dependents</h1>
 <pre>
 {
+  "AllegroFlare/TerminalColors": [
+    "AllegroFlare/AudioController"
+  ],
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController"

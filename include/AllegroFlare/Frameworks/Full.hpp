@@ -16,6 +16,7 @@
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
+#include <AllegroFlare/AudioRepositoryElement.hpp>
 
 
 namespace AllegroFlare
@@ -43,6 +44,8 @@ namespace AllegroFlare
 
          bool initialize(); // only use initialize_with_display() publically from now on
          bool destruct(); // should be privarte, is called in the destructor
+
+         friend class AllegroFlare_Frameworks_FullTest;
 
       public:
          Full();
@@ -75,6 +78,8 @@ namespace AllegroFlare
          bool initialize_with_display();
          bool is_initialized();
 
+         void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
+         void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
 
          void register_screen(AllegroFlare::Screen *screen);
          void unregister_screen(AllegroFlare::Screen *screen);
@@ -98,4 +103,5 @@ namespace AllegroFlare
       };
    } // namespace Frameworks
 } // namespace AllegroFlare
+
 

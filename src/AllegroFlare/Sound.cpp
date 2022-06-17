@@ -19,7 +19,7 @@ namespace AllegroFlare
    {
       if (!sample)
       {
-         std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance becasue sample "
+         std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
                    << "is a nullptr." << std::endl;
       }
       else
@@ -42,7 +42,7 @@ namespace AllegroFlare
    {
       if (!sample)
       {
-         std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance becasue sample "
+         std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
                    << "is a nullptr." << std::endl;
       }
       else

@@ -179,6 +179,36 @@ TEST(AllegroFlare_AudioControllerTest, DISABLED__play_music_track_by_identifier_
 
    usleep(2000);
 
+   audio_controller.destruct();
+
+   sample_bin.clear();
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_AudioControllerTest,
+   DISABLED__set_and_load_sound_effect_elements__will_load_the_sound_effects_into_the_directory)
+{
+   al_init();
+   al_install_audio();
+   al_init_acodec_addon();
+
+   AllegroFlare::SampleBin sample_bin;
+   sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME);
+   AllegroFlare::AudioController audio_controller(&sample_bin);
+   audio_controller.initialize();
+
+   std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements = {
+      { "pickup_health", { "pickup_health-01.ogg", false } },
+   };
+
+   audio_controller.set_and_load_sound_effect_elements(sound_effect_elements);
+
+   // audio_controller.play_sound_effect_by_identifier("pickup_health"); // works, but disabled for annoyance
+   // sleep(2);
+
+   audio_controller.destruct();
+
    sample_bin.clear();
    al_uninstall_system();
 }

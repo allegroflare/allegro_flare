@@ -5,6 +5,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Screen.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 
 #include <allegro5/allegro_primitives.h>
 
@@ -122,14 +123,16 @@ public:
 class Gameboard
 {
 private:
+   AllegroFlare::EventEmitter &event_emitter;
    float width, height; 
    std::vector<std::pair<bool, Fruit>> fruits;
    Snake snake;
    int player_score;
 
 public:
-   Gameboard(int width, int height)
-      : width(width)
+   Gameboard(int width, int height, AllegroFlare::EventEmitter &event_emitter)
+      : event_emitter(event_emitter)
+      , width(width)
       , height(height)
       , fruits()
       , snake(0, 0)
@@ -194,6 +197,7 @@ public:
          {
             fruit.first = false;
             player_score += 1;
+            event_emitter.emit_play_sound_effect_event("pickup_fruit");
          }
       }
    }
@@ -261,18 +265,23 @@ public:
 class SnakeGame : public AllegroFlare::Screen
 {
 public:
+   AllegroFlare::Frameworks::Full &framework;
    Gameboard gameboard;
    HUD hud;
 
-   SnakeGame()
+   SnakeGame(AllegroFlare::Frameworks::Full &framework)
       : AllegroFlare::Screen()
-      , gameboard(1920, 1080)
+      , framework(framework)
+      , gameboard(1920, 1080, framework.get_event_emitter_ref())
       , hud()
    {}
 
    void initialize()
    {
       hud.initialize();
+      framework.load_jukebox_sound_effects({
+            { "pickup_fruit", { "pickup_health-01.ogg", false } }
+         });
       gameboard.spawn_random_fruit();
    }
 
@@ -321,7 +330,7 @@ int main(int argc, char **argv)
    AllegroFlare::Frameworks::Full framework;
    framework.initialize_with_display();
 
-   SnakeGame snake;
+   SnakeGame snake(framework);
    snake.initialize();
 
    framework.register_screen(&snake);
