@@ -1,0 +1,64 @@
+#pragma once
+
+
+#include <allegro5/allegro.h>
+#include <string>
+#include <vector>
+
+
+namespace AllegroFlare
+{
+   namespace Screens
+   {
+      class Basic;
+   };
+
+   namespace ScreenManagers
+   {
+      class Registry
+      {
+      private:
+         std::vector<Screens::Basic *> screens;
+
+      public:
+         Registry();
+         ~Registry();
+
+         void add(Screens::Basic *screen);
+         void remove(Screens::Basic *screen);
+
+         void on_events(ALLEGRO_EVENT *ev);
+         void primary_timer_funcs();
+         void timer_funcs();
+         void display_switch_in_funcs();
+         void display_switch_out_funcs();
+         void key_down_funcs(ALLEGRO_EVENT *ev);
+         void key_up_funcs(ALLEGRO_EVENT *ev);
+         void mouse_axes_funcs();
+         void mouse_warp_funcs();
+         void mouse_down_funcs();
+         void mouse_up_funcs();
+         void key_char_funcs(ALLEGRO_EVENT *ev);
+         void joy_button_down_funcs(ALLEGRO_EVENT *ev);
+         void joy_button_up_funcs(ALLEGRO_EVENT *ev);
+         void joy_axis_funcs(ALLEGRO_EVENT *ev);
+         void joy_config_funcs(ALLEGRO_EVENT *ev);
+         void user_event_funcs(ALLEGRO_EVENT *ev);
+         void event_emitter_event_funcs(ALLEGRO_EVENT *ev);
+         void virtual_control_button_up_funcs(ALLEGRO_EVENT *ev);
+         void virtual_control_button_down_funcs(ALLEGRO_EVENT *ev);
+         void virtual_control_axis_change_funcs(ALLEGRO_EVENT *ev);
+         void native_menu_click_funcs();
+
+         void send_signal(int signal, void *data);
+         void send_signal(std::string const signal, void *data);
+         bool signal_has_header(std::string header, std::string signal);
+         std::string strip_signal_header(std::string header, std::string signal);
+         void bring_to_front(Screens::Basic *s);
+         int get_num_screens();
+      };
+   }
+}
+
+
+
