@@ -34,7 +34,6 @@ namespace AllegroFlare
       //void prepare_drawing_state(bool prepare_3d=false);
 
       virtual void on_event(ALLEGRO_EVENT *ev);
-
       virtual void primary_timer_func();
       virtual void timer_func();
       virtual void display_switch_in_func();
