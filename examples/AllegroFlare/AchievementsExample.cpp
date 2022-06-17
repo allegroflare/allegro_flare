@@ -83,18 +83,18 @@ public:
 
 int main(int argc, char **argv)
 {
-   AllegroFlare::Frameworks::Full framework;
-   framework.initialize();
+   AllegroFlare::Frameworks::Full full_framework;
+   full_framework.initialize();
 
    // create the screen where our example program exists
    ExampleProgram example_program;
    example_program.initialize();
 
    // register the screen to the system
-   framework.register_screen(&example_program);
+   full_framework.register_screen(&example_program);
 
    // run the loop
-   framework.run_loop();
+   full_framework.run_loop();
 }
 
 
