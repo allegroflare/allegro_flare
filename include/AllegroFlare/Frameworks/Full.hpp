@@ -12,7 +12,7 @@
 #include <AllegroFlare/Config.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Motion.hpp>
-#include <AllegroFlare/Screens.hpp>
+#include <AllegroFlare/ScreenManager.hpp>
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
@@ -26,7 +26,7 @@ namespace AllegroFlare
       class Full
       {
       private:
-         Screens screens;
+         ScreenManager screens;
          bool initialized;
          Config config;
          FontBin fonts;
@@ -70,7 +70,7 @@ namespace AllegroFlare
          FontBin &get_font_bin_ref();
          BitmapBin &get_bitmap_bin_ref();
          SampleBin &get_sample_bin_ref();
-         Screens &get_screens_ref();
+         ScreenManager &get_screens_ref();
          AudioController &get_audio_controller_ref();
          EventEmitter &get_event_emitter_ref();
          Display *get_primary_display();

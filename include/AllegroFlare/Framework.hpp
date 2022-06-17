@@ -13,7 +13,7 @@
 #include <AllegroFlare/Config.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Motion.hpp>
-#include <AllegroFlare/Screens.hpp>
+#include <AllegroFlare/ScreenManager.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
 
@@ -26,7 +26,7 @@ namespace AllegroFlare
    class Framework
    {
    private:
-      Screens *screens_ptr;
+      ScreenManager *screens_ptr;
       bool initialized;
       Config config;
       FontBin fonts;
@@ -38,7 +38,7 @@ namespace AllegroFlare
       VirtualControlsProcessor virtual_controls_processor;
 
    public:
-      Framework(Screens *screens_ptr=nullptr);
+      Framework(ScreenManager *screens_ptr=nullptr);
       ~Framework();
 
       ALLEGRO_TEXTLOG *textlog;

@@ -73,7 +73,7 @@
   "AllegroFlare/Framework": [
     "AllegroFlare/FrameworkScreenRegistrar"
   ],
-  "AllegroFlare/Screens": [
+  "AllegroFlare/ScreenManager": [
     "AllegroFlare/FrameworkScreenRegistrar"
   ],
   "AllegroFlare/Screen": [

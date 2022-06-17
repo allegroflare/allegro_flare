@@ -1,6 +1,6 @@
 properties:
   - name: screens
-    type: AllegroFlare::Screens*
+    type: AllegroFlare::ScreenManager*
     init_with: nullptr
     constructor_arg: true
   - name: screen
@@ -23,7 +23,7 @@ functions:
 dependencies:
   - symbol: AllegroFlare::Framework*
     headers: [ AllegroFlare/Framework.hpp ]
-  - symbol: AllegroFlare::Screens*
-    headers: [ AllegroFlare/Screens.hpp ]
+  - symbol: AllegroFlare::ScreenManager*
+    headers: [ AllegroFlare/ScreenManager.hpp ]
   - symbol: AllegroFlare::Screen*
     headers: [ AllegroFlare/Screen.hpp ]

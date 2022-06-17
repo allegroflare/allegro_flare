@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Screens.hpp>
+#include <AllegroFlare/ScreenManager.hpp>
 
 #include <AllegroFlare/Screen.hpp>
 
@@ -9,38 +9,38 @@
 
 namespace AllegroFlare
 {
-   Screens::Screens()
+   ScreenManager::ScreenManager()
       : screens({})
    {
    }
 
 
-   Screens::~Screens()
+   ScreenManager::~ScreenManager()
    {
    }
 
 
-   void Screens::add(Screen *screen)
+   void ScreenManager::add(Screen *screen)
    {
       screens.push_back(screen);
    }
 
 
-   void Screens::remove(Screen *screen) // should probably test this
+   void ScreenManager::remove(Screen *screen) // should probably test this
    {
       std::vector<Screen *>::iterator it = std::find(screens.begin(), screens.end(), screen);
       screens.erase(it);
    }
 
 
-   void Screens::on_events(ALLEGRO_EVENT *ev)
+   void ScreenManager::on_events(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->on_event(ev);
    }
 
 
-   void Screens::primary_timer_funcs()
+   void ScreenManager::primary_timer_funcs()
    {
       // do screens with NULL displays first
       for (unsigned i=0; i<screens.size(); i++)
@@ -66,14 +66,14 @@ namespace AllegroFlare
    }
 
 
-   void Screens::timer_funcs()
+   void ScreenManager::timer_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->timer_func();
    }
 
 
-   void Screens::display_switch_in_funcs()
+   void ScreenManager::display_switch_in_funcs()
    {
       //for (unsigned d=0; d<Display::displays.size(); d++)
       //{
@@ -86,7 +86,7 @@ namespace AllegroFlare
    }
 
 
-   void Screens::display_switch_out_funcs()
+   void ScreenManager::display_switch_out_funcs()
    {
       //for (unsigned d=0; d<Display::displays.size(); d++)
       //{
@@ -99,153 +99,153 @@ namespace AllegroFlare
    }
 
 
-   void Screens::key_down_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::key_down_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->key_down_func(ev);
    }
 
 
-   void Screens::key_up_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::key_up_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->key_up_func(ev);
    }
 
 
-   void Screens::key_char_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::key_char_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->key_char_func(ev);
    }
 
 
-   void Screens::mouse_axes_funcs()
+   void ScreenManager::mouse_axes_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->mouse_axes_func();
    }
 
 
-   void Screens::mouse_warp_funcs()
+   void ScreenManager::mouse_warp_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->mouse_warp_func();
    }
 
 
-   void Screens::mouse_down_funcs()
+   void ScreenManager::mouse_down_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->mouse_down_func();
    }
 
 
-   void Screens::mouse_up_funcs()
+   void ScreenManager::mouse_up_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->mouse_up_func();
    }
 
 
-   void Screens::joy_axis_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::joy_axis_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->joy_axis_func(ev);
    }
 
 
-   void Screens::joy_button_up_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::joy_button_up_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->joy_button_up_func(ev);
    }
 
 
-   void Screens::joy_button_down_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::joy_button_down_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->joy_button_down_func(ev);
    }
 
 
-   void Screens::joy_config_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::joy_config_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->joy_config_func(ev);
    }
 
 
-   void Screens::user_event_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::user_event_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->user_event_func(ev);
    }
 
 
-   void Screens::event_emitter_event_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::event_emitter_event_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->event_emitter_event_func(ev);
    }
 
 
-   void Screens::virtual_control_button_up_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::virtual_control_button_up_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->virtual_control_button_up_func(ev);
    }
 
 
-   void Screens::virtual_control_button_down_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::virtual_control_button_down_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->virtual_control_button_down_func(ev);
    }
 
 
-   void Screens::virtual_control_axis_change_funcs(ALLEGRO_EVENT *ev)
+   void ScreenManager::virtual_control_axis_change_funcs(ALLEGRO_EVENT *ev)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->virtual_control_axis_change_func(ev);
    }
 
 
-   void Screens::native_menu_click_funcs()
+   void ScreenManager::native_menu_click_funcs()
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->native_menu_click_func();
    }
 
 
-   void Screens::send_signal(int signal, void *data)
+   void ScreenManager::send_signal(int signal, void *data)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->receive_signal(signal, data);
    }
 
 
-   void Screens::send_signal(std::string const signal, void *data)
+   void ScreenManager::send_signal(std::string const signal, void *data)
    {
       for (unsigned i=0; i<screens.size(); i++)
          screens[i]->receive_signal(signal, data);
    }
 
 
-   bool Screens::signal_has_header(std::string header, std::string signal)
+   bool ScreenManager::signal_has_header(std::string header, std::string signal)
    {
       return (signal.substr(0, header.length()) == header);
    }
 
 
-   std::string Screens::strip_signal_header(std::string header, std::string signal)
+   std::string ScreenManager::strip_signal_header(std::string header, std::string signal)
    {
       return signal.substr(header.length(), signal.length()-header.length());
       return "";
    }
 
 
-   void Screens::bring_to_front(Screen *s)
+   void ScreenManager::bring_to_front(Screen *s)
    {
       if (!s) return;
 
@@ -261,7 +261,7 @@ namespace AllegroFlare
    }
 
 
-   int Screens::get_num_screens()
+   int ScreenManager::get_num_screens()
    {
       return screens.size();
    }
