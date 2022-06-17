@@ -14,7 +14,6 @@
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Motion.hpp>
 #include <AllegroFlare/Screens.hpp>
-#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
 
@@ -35,11 +34,8 @@ namespace AllegroFlare
       BitmapBin bitmaps;
       ModelBin models;
       Motion motions;
-      AudioController audio_controller;
       EventEmitter event_emitter;
       VirtualControlsProcessor virtual_controls_processor;
-      Display *primary_display;
-      ALLEGRO_TIMER *primary_timer;
 
    public:
       Framework(Screens *screens_ptr=nullptr);
@@ -49,6 +45,7 @@ namespace AllegroFlare
       ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
       ALLEGRO_EVENT_QUEUE *event_queue;
       ALLEGRO_FONT *builtin_font;
+      ALLEGRO_TIMER *primary_timer;
       bool shutdown_program; // set this to true at any time to shutdown the program
       Screen *current_screen;
       ALLEGRO_EVENT *current_event;
@@ -66,12 +63,8 @@ namespace AllegroFlare
       FontBin &get_font_bin_ref();
       BitmapBin &get_bitmap_bin_ref();
       SampleBin &get_sample_bin_ref();
-      AudioController &get_audio_controller_ref();
-      EventEmitter &get_event_emitter_ref();
-      Display *get_primary_display();
 
       bool initialize();
-      bool initialize_with_display();
       bool destruct(); // should be privarte, is called in the destructor
       bool is_initialized();
       Display *create_display(int width=1280, int height=720);
