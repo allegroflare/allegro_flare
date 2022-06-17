@@ -75,7 +75,7 @@ public:
 int main(int argc, char **argv)
 {
    AllegroFlare::Frameworks::Full framework;
-   framework.initialize_with_display();
+   framework.initialize();
 
    // create the screen where our example program exists
    ImageGeneratorExample image_generator_example;

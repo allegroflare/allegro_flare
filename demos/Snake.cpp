@@ -323,7 +323,7 @@ public:
 int main(int argc, char **argv)
 {
    AllegroFlare::Frameworks::Full framework;
-   framework.initialize_with_display();
+   framework.initialize();
 
    framework.load_jukebox_sound_effects({
          { "pickup_fruit", { "pickup_health-01.ogg", false } }

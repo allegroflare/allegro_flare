@@ -138,7 +138,7 @@ Display *Full::get_primary_display()
 
 
 
-bool Full::initialize()
+bool Full::initialize_without_display()
 {
    if (initialized) return false;
 
@@ -214,11 +214,11 @@ bool Full::initialize()
 }
 
 
-bool Full::initialize_with_display()
+bool Full::initialize()
 {
    if (initialized) return false;
 
-   initialize();
+   initialize_without_display();
 
    primary_display = create_display(
          1920,

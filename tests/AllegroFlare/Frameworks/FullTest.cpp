@@ -25,23 +25,23 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__run_loop__without_screens__will
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, DISABLED__initialize_with_display__will_initialize_the_audio_controller)
+TEST(AllegroFlare_Frameworks_FullTest, DISABLED__initialize__will_initialize_the_audio_controller)
 {
    AllegroFlare::Frameworks::Full framework;
    AllegroFlare::AudioController &audio_controller = framework.get_audio_controller_ref();
    ASSERT_EQ(false, audio_controller.get_initialized());
 
-   framework.initialize_with_display();
+   framework.initialize();
 
    ASSERT_EQ(true, audio_controller.get_initialized());
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, DISABLED__initialize_with_display__will_create_a_display_with_the_expected_dimentions)
+TEST(AllegroFlare_Frameworks_FullTest, DISABLED__initialize__will_create_a_display_with_the_expected_dimentions)
 {
    AllegroFlare::Frameworks::Full framework;
 
-   framework.initialize_with_display();
+   framework.initialize();
 
    ALLEGRO_DISPLAY *current_al_display = al_get_current_display();
    ASSERT_NE(nullptr, current_al_display);
@@ -60,7 +60,7 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT
    AllegroFlare::Frameworks::Full framework;
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
-   framework.initialize_with_display();
+   framework.initialize();
 
    //event_emitter.emit_play_sound_effect_event("my-sound-identifier");
 

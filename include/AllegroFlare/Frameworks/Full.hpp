@@ -42,7 +42,7 @@ namespace AllegroFlare
          Display *primary_display;
          ALLEGRO_TIMER *primary_timer;
 
-         bool initialize(); // only use initialize_with_display() publically from now on
+         bool initialize_without_display(); // only use initialize_with_display() publically from now on
          bool destruct(); // should be privarte, is called in the destructor
 
          friend class AllegroFlare_Frameworks_FullTest;
@@ -75,7 +75,7 @@ namespace AllegroFlare
          EventEmitter &get_event_emitter_ref();
          Display *get_primary_display();
 
-         bool initialize_with_display();
+         bool initialize();
          bool is_initialized();
 
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
