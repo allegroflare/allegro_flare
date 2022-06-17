@@ -31,7 +31,7 @@ namespace AllegroFlare
    private:
       friend class Framework;
       friend class Frameworks::Full;
-      friend class Screens; // <- eh for now, because of the display <-> screen relationship
+      friend class ScreenManager; // <- eh for now, because of the display <-> screen relationship
       static std::vector<Display *> displays; // used to be "instance"
       static Display *find_display(ALLEGRO_DISPLAY *display);
       ALLEGRO_COLOR _background_color;
