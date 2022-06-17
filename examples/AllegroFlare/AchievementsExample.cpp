@@ -1,8 +1,9 @@
+
+#include <AllegroFlare/Frameworks/Full.hpp>
+
 #include <AllegroFlare/Screen.hpp>
 #include <AllegroFlare/Inventory.hpp>
-#include <AllegroFlare/Achievement.hpp>
 #include <AllegroFlare/Achievements.hpp>
-#include <AllegroFlare/Framework.hpp>
 
 
 #include <iostream>
@@ -48,8 +49,8 @@ public:
    AllegroFlare::Achievements achievements;
    bool initialized;
 
-   ExampleProgram(AllegroFlare::Display *display)
-      : AllegroFlare::Screen(display)
+   ExampleProgram()
+      : AllegroFlare::Screen()
       , player_inventory()
       , achievements()
       , initialized(false)
@@ -82,18 +83,15 @@ public:
 
 int main(int argc, char **argv)
 {
-   // setup the system
-   AllegroFlare::Screens screens;
-   AllegroFlare::Framework framework(&screens);
-   framework.initialize();
-   AllegroFlare::Display *display = framework.create_display(800, 600);
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize_with_display();
 
    // create the screen where our example program exists
-   ExampleProgram example_program(display);
+   ExampleProgram example_program;
    example_program.initialize();
 
    // register the screen to the system
-   screens.add(&example_program);
+   framework.register_screen(&example_program);
 
    // run the loop
    framework.run_loop();

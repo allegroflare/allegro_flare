@@ -41,6 +41,9 @@ namespace AllegroFlare
          Display *primary_display;
          ALLEGRO_TIMER *primary_timer;
 
+         bool initialize(); // only use initialize_with_display() publically from now on
+         bool destruct(); // should be privarte, is called in the destructor
+
       public:
          Full();
          ~Full();
@@ -69,9 +72,7 @@ namespace AllegroFlare
          EventEmitter &get_event_emitter_ref();
          Display *get_primary_display();
 
-         bool initialize();
          bool initialize_with_display();
-         bool destruct(); // should be privarte, is called in the destructor
          bool is_initialized();
 
 

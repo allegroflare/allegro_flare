@@ -12,31 +12,31 @@
 
 namespace AllegroFlare
 {
-   void Screen::create_and_use_backbuffer_sub_bitmap_of(ALLEGRO_BITMAP *new_target)
-   {
-      // calling al_get_parent_bitmap on a nullptr causes a crash
-      if (backbuffer_sub_bitmap != nullptr && new_target == al_get_parent_bitmap(backbuffer_sub_bitmap)) return;
+   //void Screen::create_and_use_backbuffer_sub_bitmap_of(ALLEGRO_BITMAP *new_target)
+   //{
+      //// calling al_get_parent_bitmap on a nullptr causes a crash
+      //if (backbuffer_sub_bitmap != nullptr && new_target == al_get_parent_bitmap(backbuffer_sub_bitmap)) return;
 
-      if (backbuffer_sub_bitmap == nullptr) al_destroy_bitmap(backbuffer_sub_bitmap);
+      //if (backbuffer_sub_bitmap == nullptr) al_destroy_bitmap(backbuffer_sub_bitmap);
 
-      backbuffer_sub_bitmap = al_create_sub_bitmap(new_target,
-            0, 0, al_get_bitmap_width(new_target), al_get_bitmap_height(new_target));
+      //backbuffer_sub_bitmap = al_create_sub_bitmap(new_target,
+            //0, 0, al_get_bitmap_width(new_target), al_get_bitmap_height(new_target));
 
-      if (!backbuffer_sub_bitmap) std::cout << "[Screen::Screen()] there was an error creating the backbuffer_sub_bitmap" << std::endl;
-   }
+      //if (!backbuffer_sub_bitmap) std::cout << "[Screen::Screen()] there was an error creating the backbuffer_sub_bitmap" << std::endl;
+   //}
 
 
-   Screen::Screen(Display *display)
+   Screen::Screen()
       : type("")
-      , display(display)
-      , backbuffer_sub_bitmap(nullptr)
+      //, display(display)
+      //, backbuffer_sub_bitmap(nullptr)
    {
    }
 
 
    Screen::~Screen()
    {
-      if (backbuffer_sub_bitmap) al_destroy_bitmap(backbuffer_sub_bitmap);
+      //if (backbuffer_sub_bitmap) al_destroy_bitmap(backbuffer_sub_bitmap);
    }
 
 
@@ -58,28 +58,28 @@ namespace AllegroFlare
    }
 
 
-   void Screen::prepare_drawing_state(bool prepare_3d)
-   {
-      if (backbuffer_sub_bitmap) al_set_target_bitmap(backbuffer_sub_bitmap);
-      else al_set_target_bitmap(al_get_backbuffer(display->al_display));
+   //void Screen::prepare_drawing_state(bool prepare_3d)
+   //{
+      //if (backbuffer_sub_bitmap) al_set_target_bitmap(backbuffer_sub_bitmap);
+      //else al_set_target_bitmap(al_get_backbuffer(display->al_display));
 
-      if (prepare_3d)
-      {
-         al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-         al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-         al_clear_depth_buffer(1);
-      }
-      else
-      {
-         al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
-      }
-   }
+      //if (prepare_3d)
+      //{
+         //al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+         //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+         //al_clear_depth_buffer(1);
+      //}
+      //else
+      //{
+         //al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+      //}
+   //}
 
 
-   void Screen::set_on_display(Display *display)
-   {
-      this->display = display;
-   }
+   //void Screen::set_on_display(Display *display)
+   //{
+      //this->display = display;
+   //}
 
 
    void Screen::on_event(ALLEGRO_EVENT *ev) {}

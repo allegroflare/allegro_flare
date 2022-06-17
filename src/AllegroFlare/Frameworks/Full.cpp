@@ -225,6 +225,8 @@ bool Full::initialize_with_display()
          1080,
          ALLEGRO_FULLSCREEN_WINDOW | ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE
       );
+
+   return true;
 }
 
 
@@ -390,15 +392,24 @@ void Full::run_loop()
       {
       case ALLEGRO_EVENT_TIMER:
          if (this_event.timer.source == primary_timer)
+         {
+            al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
             screens.primary_timer_funcs();
+            al_flip_display();
+         }
          else
+         {
             screens.timer_funcs();
+         }
          while (al_peek_next_event(event_queue, &next_event)
                && next_event.type == ALLEGRO_EVENT_TIMER
                && next_event.timer.source == this_event.timer.source)
+         {
             al_drop_next_event(event_queue);
+         }
          break;
       case ALLEGRO_EVENT_KEY_DOWN:
+         if (this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) shutdown_program = true;
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift++;
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT

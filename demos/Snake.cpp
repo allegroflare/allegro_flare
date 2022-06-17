@@ -2,8 +2,9 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Screen.hpp>
 #include <AllegroFlare/Useful.hpp> // for distance()
-#include <AllegroFlare/FontBin.hpp> // for distance()
-#include <AllegroFlare/Framework.hpp> // for distance()
+#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Screen.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
 
 #include <allegro5/allegro_primitives.h>
 
@@ -260,13 +261,11 @@ public:
 class SnakeGame : public AllegroFlare::Screen
 {
 public:
-   AllegroFlare::Framework &framework;
    Gameboard gameboard;
    HUD hud;
 
-   SnakeGame(AllegroFlare::Framework &framework, AllegroFlare::Display *display)
-      : AllegroFlare::Screen(display)
-      , framework(framework)
+   SnakeGame()
+      : AllegroFlare::Screen()
       , gameboard(1920, 1080)
       , hud()
    {}
@@ -311,9 +310,6 @@ public:
       case ALLEGRO_KEY_RIGHT:
          gameboard.point_snake_right();
          break;
-      case ALLEGRO_KEY_ESCAPE:
-         framework.shutdown_program = true;
-         break;
       }
    }
 };
@@ -322,15 +318,13 @@ public:
 
 int main(int argc, char **argv)
 {
-   AllegroFlare::Screens screens;
-   AllegroFlare::Framework framework(&screens);
-   framework.initialize();
-   AllegroFlare::Display *display = framework.create_display(1920, 1080);
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize_with_display();
 
-   SnakeGame snake(framework, display);
+   SnakeGame snake;
    snake.initialize();
 
-   screens.add(&snake);
+   framework.register_screen(&snake);
 
    framework.run_loop();
 }

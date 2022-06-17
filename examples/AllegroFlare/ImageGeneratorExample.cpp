@@ -13,18 +13,17 @@
 
 
 
-#include <AllegroFlare/Framework.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
+
 #include <AllegroFlare/Screen.hpp>
-#include <AllegroFlare/Screens.hpp>
 #include <AllegroFlare/ImageGenerator.hpp>
 
 
 
 
-class ExampleProgram : public AllegroFlare::Screen
+class ImageGeneratorExample : public AllegroFlare::Screen
 {
 private:
-   AllegroFlare::Framework *framework;
    AllegroFlare::ImageGenerator image_generator;
    ALLEGRO_BITMAP *circle_render;
    ALLEGRO_BITMAP *gradient_render;
@@ -35,9 +34,8 @@ private:
    bool initialized;
 
 public:
-   ExampleProgram(AllegroFlare::Framework *framework, AllegroFlare::Display *display)
-      : AllegroFlare::Screen(display)
-      , framework(framework)
+   ImageGeneratorExample()
+      : AllegroFlare::Screen()
       , image_generator()
       , circle_render(NULL)
       , gradient_render(NULL)
@@ -50,7 +48,7 @@ public:
 
    void initialize()
    {
-      al_set_window_title(display->al_display, "Generated Images Test");
+      //al_set_window_title(display->al_display, "Generated Images Test");
 
       circle_render = image_generator.generate_circle_bitmap(128);
       gradient_render = image_generator.generate_gradient_bitmap(128, AllegroFlare::color::springgreen, AllegroFlare::color::deeppink);
@@ -62,19 +60,12 @@ public:
 
    void primary_timer_func() override
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-
       al_draw_bitmap(circle_render, 200, 100, 0);
       al_draw_bitmap(gradient_render, 400, 100, 0);
       al_draw_bitmap(circle_gradient, 600, 100, 0); // appears to not be working as expected
       al_draw_bitmap(noise_texture, 200, 300, 0);
       al_draw_bitmap(wood_texture, 400, 300, 0);
       al_draw_bitmap(brush_metal_texture, 600, 300, 0);
-   }
-
-   void key_down_func(ALLEGRO_EVENT *ev) override
-   {
-      framework->shutdown_program = true;
    }
 };
 
@@ -83,18 +74,15 @@ public:
 
 int main(int argc, char **argv)
 {
-   // setup the system
-   AllegroFlare::Screens screens;
-   AllegroFlare::Framework framework(&screens);
-   framework.initialize();
-   AllegroFlare::Display *display = framework.create_display(1920, 1080);
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize_with_display();
 
    // create the screen where our example program exists
-   ExampleProgram example_program(&framework, display);
-   example_program.initialize();
+   ImageGeneratorExample image_generator_example;
+   image_generator_example.initialize();
 
    // register the screen to the system
-   screens.add(&example_program);
+   framework.register_screen(&image_generator_example);
 
    // run the loop
    framework.run_loop();

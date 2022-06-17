@@ -45,23 +45,24 @@ namespace AllegroFlare
       // do screens with NULL displays first
       for (unsigned i=0; i<screens.size(); i++)
       {
-         if (screens[i]->display == NULL) screens[i]->primary_timer_func();
+         //if (screens[i]->display == NULL)
+         screens[i]->primary_timer_func();
       }
 
-      // then do screens in order sorted by displays.
-      for (unsigned d=0; d<Display::displays.size(); d++)
-      {
-         Display::displays[d]->set_as_target_bitmap();
-         for (unsigned i=0; i<screens.size(); i++)
-         {
-            if (screens[i]->display == Display::displays[d])
-            {
-               screens[i]->prepare_drawing_state();
-               screens[i]->primary_timer_func();
-            }
-         }
-         Display::displays[d]->flip();
-      }
+      //// then do screens in order sorted by displays.
+      //for (unsigned d=0; d<Display::displays.size(); d++)
+      //{
+         //Display::displays[d]->set_as_target_bitmap();
+         //for (unsigned i=0; i<screens.size(); i++)
+         //{
+            //if (screens[i]->display == Display::displays[d])
+            //{
+               //screens[i]->prepare_drawing_state();
+               //screens[i]->primary_timer_func();
+            //}
+         //}
+         //Display::displays[d]->flip();
+      //}
    }
 
 
@@ -74,27 +75,27 @@ namespace AllegroFlare
 
    void Screens::display_switch_in_funcs()
    {
-      for (unsigned d=0; d<Display::displays.size(); d++)
-      {
+      //for (unsigned d=0; d<Display::displays.size(); d++)
+      //{
          for (unsigned i=0; i<screens.size(); i++)
          {
-            if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
+            //if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
                screens[i]->display_switch_in_func();
          }
-      }
+      //}
    }
 
 
    void Screens::display_switch_out_funcs()
    {
-      for (unsigned d=0; d<Display::displays.size(); d++)
-      {
+      //for (unsigned d=0; d<Display::displays.size(); d++)
+      //{
          for (unsigned i=0; i<screens.size(); i++)
          {
-            if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
+            //if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
                screens[i]->display_switch_out_func();
          }
-      }
+      //}
    }
 
 

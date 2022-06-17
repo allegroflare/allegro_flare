@@ -18,10 +18,10 @@ namespace AllegroFlare
       std::string type;
 
    public:
-      Display *display;
-      ALLEGRO_BITMAP *backbuffer_sub_bitmap;
+      //Display *display;
+      //ALLEGRO_BITMAP *backbuffer_sub_bitmap;
 
-      Screen(Display *display=nullptr);
+      Screen();
       virtual ~Screen();
 
       void set_type(std::string type);
@@ -29,9 +29,9 @@ namespace AllegroFlare
       bool is_type(std::string possible_type);
 
       // expecting target to be bitmap of ALLEGRO_DISPLAY, e.g. al_get_backbuffer(display->al_display);
-      void create_and_use_backbuffer_sub_bitmap_of(ALLEGRO_BITMAP *new_target);
-      void set_on_display(Display *display);
-      void prepare_drawing_state(bool prepare_3d=false);
+      //void create_and_use_backbuffer_sub_bitmap_of(ALLEGRO_BITMAP *new_target);
+      //void set_on_display(Display *display);
+      //void prepare_drawing_state(bool prepare_3d=false);
 
       virtual void on_event(ALLEGRO_EVENT *ev);
 

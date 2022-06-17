@@ -17,7 +17,7 @@ TEST(AllegroFlare_FrameworkTest, can_be_created_without_blowing_up)
 }
 
 
-TEST(AllegroFlare_FrameworkTest, run_loop__without_screens__will_throw_an_error)
+TEST(AllegroFlare_FrameworkTest, DISABLED__run_loop__without_screens__will_throw_an_error)
 {
    AllegroFlare::Framework framework;
    std::string expected_error_message = "Framework::run_loop: error: screens cannot be nullptr";
@@ -25,7 +25,7 @@ TEST(AllegroFlare_FrameworkTest, run_loop__without_screens__will_throw_an_error)
 }
 
 
-TEST(AllegroFlare_FrameworkTest, initialize__will_initialize_the_audio_controller)
+TEST(AllegroFlare_FrameworkTest, DISABLED__initialize__will_initialize_the_audio_controller)
 {
    AllegroFlare::Framework framework;
    AllegroFlare::AudioController &audio_controller = framework.get_audio_controller_ref();
@@ -37,7 +37,7 @@ TEST(AllegroFlare_FrameworkTest, initialize__will_initialize_the_audio_controlle
 }
 
 
-TEST(AllegroFlare_FrameworkTest, initialize_with_display__will_create_a_display_with_the_expected_dimentions)
+TEST(AllegroFlare_FrameworkTest, DISABLED__initialize_with_display__will_create_a_display_with_the_expected_dimentions)
 {
    AllegroFlare::Framework framework;
 
@@ -55,7 +55,7 @@ TEST(AllegroFlare_FrameworkTest, initialize_with_display__will_create_a_display_
 }
 
 
-TEST(AllegroFlare_FrameworkTest, emitting_an_ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT_will_cause_the_audio_to_play)
+TEST(AllegroFlare_FrameworkTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT_will_cause_the_audio_to_play)
 {
    AllegroFlare::Framework framework;
    framework.initialize();
