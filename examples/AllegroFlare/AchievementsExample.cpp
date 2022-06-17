@@ -1,7 +1,7 @@
 
 #include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Screens/Basic.hpp>
 
-#include <AllegroFlare/Screen.hpp>
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Achievements.hpp>
 
@@ -42,7 +42,7 @@ public:
 
 
 
-class ExampleProgram : public AllegroFlare::Screen
+class ExampleProgram : public AllegroFlare::Screens::Basic
 {
 public:
    AllegroFlare::Inventory player_inventory;
@@ -50,7 +50,7 @@ public:
    bool initialized;
 
    ExampleProgram()
-      : AllegroFlare::Screen()
+      : AllegroFlare::Screens::Basic()
       , player_inventory()
       , achievements()
       , initialized(false)

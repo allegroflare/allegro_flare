@@ -1,9 +1,8 @@
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Screen.hpp>
 #include <AllegroFlare/Useful.hpp> // for distance()
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/Screen.hpp>
+#include <AllegroFlare/Screens/Basic.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 
@@ -262,14 +261,14 @@ public:
 
 
 
-class SnakeGame : public AllegroFlare::Screen
+class SnakeGame : public AllegroFlare::Screens::Basic
 {
 public:
    Gameboard gameboard;
    HUD hud;
 
    SnakeGame(AllegroFlare::EventEmitter &event_emitter)
-      : AllegroFlare::Screen()
+      : AllegroFlare::Screens::Basic()
       , gameboard(1920, 1080, event_emitter)
       , hud()
    {}

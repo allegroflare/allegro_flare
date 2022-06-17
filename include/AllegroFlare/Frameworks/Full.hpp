@@ -12,7 +12,7 @@
 #include <AllegroFlare/Config.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Motion.hpp>
-#include <AllegroFlare/ScreenManager.hpp>
+#include <AllegroFlare/ScreenManagers/Registry.hpp>
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
@@ -26,7 +26,7 @@ namespace AllegroFlare
       class Full
       {
       private:
-         ScreenManager screens;
+         ScreenManagers::Registry screens;
          bool initialized;
          Config config;
          FontBin fonts;
@@ -54,7 +54,7 @@ namespace AllegroFlare
          ALLEGRO_EVENT_QUEUE *event_queue;
          ALLEGRO_FONT *builtin_font;
          bool shutdown_program; // set this to true at any time to shutdown the program
-         Screen *current_screen;
+         Screens::Basic *current_screen;
          ALLEGRO_EVENT *current_event;
          double time_now; // used to be current_event_time
 
@@ -70,7 +70,7 @@ namespace AllegroFlare
          FontBin &get_font_bin_ref();
          BitmapBin &get_bitmap_bin_ref();
          SampleBin &get_sample_bin_ref();
-         ScreenManager &get_screens_ref();
+         ScreenManagers::Registry &get_screens_ref();
          AudioController &get_audio_controller_ref();
          EventEmitter &get_event_emitter_ref();
          Display *get_primary_display();
@@ -81,8 +81,8 @@ namespace AllegroFlare
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
 
-         void register_screen(AllegroFlare::Screen *screen);
-         void unregister_screen(AllegroFlare::Screen *screen);
+         void register_screen(AllegroFlare::Screens::Basic *screen);
+         void unregister_screen(AllegroFlare::Screens::Basic *screen);
 
          Display *create_display(int width=1280, int height=720);
          Display *create_display(int width, int height, int display_flags);

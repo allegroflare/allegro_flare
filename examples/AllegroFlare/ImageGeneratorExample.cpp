@@ -15,13 +15,13 @@
 
 #include <AllegroFlare/Frameworks/Full.hpp>
 
-#include <AllegroFlare/Screen.hpp>
+#include <AllegroFlare/Screens/Basic.hpp>
 #include <AllegroFlare/ImageGenerator.hpp>
 
 
 
 
-class ImageGeneratorExample : public AllegroFlare::Screen
+class ImageGeneratorExample : public AllegroFlare::Screens::Basic
 {
 private:
    AllegroFlare::ImageGenerator image_generator;
@@ -35,7 +35,7 @@ private:
 
 public:
    ImageGeneratorExample()
-      : AllegroFlare::Screen()
+      : AllegroFlare::Screens::Basic()
       , image_generator()
       , circle_render(NULL)
       , gradient_render(NULL)
