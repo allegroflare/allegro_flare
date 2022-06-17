@@ -265,23 +265,18 @@ public:
 class SnakeGame : public AllegroFlare::Screen
 {
 public:
-   AllegroFlare::Frameworks::Full &framework;
    Gameboard gameboard;
    HUD hud;
 
-   SnakeGame(AllegroFlare::Frameworks::Full &framework)
+   SnakeGame(AllegroFlare::EventEmitter &event_emitter)
       : AllegroFlare::Screen()
-      , framework(framework)
-      , gameboard(1920, 1080, framework.get_event_emitter_ref())
+      , gameboard(1920, 1080, event_emitter)
       , hud()
    {}
 
    void initialize()
    {
       hud.initialize();
-      framework.load_jukebox_sound_effects({
-            { "pickup_fruit", { "pickup_health-01.ogg", false } }
-         });
       gameboard.spawn_random_fruit();
    }
 
@@ -330,7 +325,11 @@ int main(int argc, char **argv)
    AllegroFlare::Frameworks::Full framework;
    framework.initialize_with_display();
 
-   SnakeGame snake(framework);
+   framework.load_jukebox_sound_effects({
+         { "pickup_fruit", { "pickup_health-01.ogg", false } }
+      });
+
+   SnakeGame snake(framework.get_event_emitter_ref());
    snake.initialize();
 
    framework.register_screen(&snake);
