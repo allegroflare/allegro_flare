@@ -30,6 +30,34 @@ properties:
     getter: true
     setter: true
 
+  - name: bar_width
+    type: float
+    init_with: 16
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bar_spacing
+    type: float
+    init_with: 24
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bar_height
+    type: float
+    init_with: 36
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bar_thickness
+    type: float
+    init_with: 3.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -38,16 +66,30 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
-      int bar_width = 4*8;
-      int bar_spacing = 8*8;
-      int bar_height = 9*8;
-      int bar_thickness = 3.0f;
+      float h_thickness = bar_thickness * 0.5;
       ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{1, 0, 0, 1};
+      ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.86, 0.08, 0.24, 1}; // crimson
 
       get_placement_ref().start_transform();
-      al_draw_filled_rectangle(0, 0, bar_spacing * value, bar_height, fill_color);
-      al_draw_rectangle(0, 0, bar_spacing * max, bar_height, outline_color, bar_thickness);
+
+      for (int i=0; i<max; i++)
+      {
+         if (i <= value)
+         {
+            al_draw_filled_rectangle(i*bar_spacing, 0, i*bar_spacing+bar_width, bar_height, fill_color);
+         }
+         else
+         {
+            al_draw_rectangle(
+                  i*bar_spacing + h_thickness,
+                  0 + h_thickness,
+                  i*bar_spacing+bar_width - h_thickness,
+                  bar_height - h_thickness,
+                  outline_color,
+                  bar_thickness
+               );
+         }
+      }
       get_placement_ref().restore_transform();
       return;
     body_dependency_symbols:
