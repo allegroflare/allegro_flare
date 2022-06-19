@@ -138,6 +138,17 @@ namespace AllegroFlare
 
 
       //
+      // Comparison operators
+      //
+
+      // Returns true if the compared attribute has equvalent values
+      bool operator==(const Attributes &other) const; // WARNING: THIS IS NOT IMPLEMENTED
+
+      // Returns true if the compared attribute does not have equvalent values
+      bool operator!=(const Attributes &other) const;
+
+
+      //
       // Binding to a custom datatype
       //
 

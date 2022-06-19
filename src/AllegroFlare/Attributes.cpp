@@ -526,6 +526,20 @@ namespace AllegroFlare
 
 
 
+   bool Attributes::operator==(const Attributes &other) const
+   {
+      // WARNING: THIS IS NOT IMPLEMENTED
+      return true;
+   }
+
+
+
+   bool Attributes::operator!=(const Attributes &other) const
+   {
+      return !(*this == other);
+   }
+
+
 
    bool Attributes::create_datatype_definition(
          std::string identifier,
