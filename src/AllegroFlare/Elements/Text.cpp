@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Elements/HealthBars/Classic.hpp>
+#include <AllegroFlare/Elements/Text.hpp>
 #include <allegro5/allegro.h>
 #include <stdexcept>
 #include <sstream>
@@ -12,34 +12,32 @@ namespace AllegroFlare
 {
 namespace Elements
 {
-namespace HealthBars
-{
 
 
-Classic::Classic(AllegroFlare::FontBin* font_bin)
+Text::Text(AllegroFlare::FontBin* font_bin)
    : font_bin(font_bin)
    , quote({})
 {
 }
 
 
-Classic::~Classic()
+Text::~Text()
 {
 }
 
 
-void Classic::render()
+void Text::render()
 {
    if (!(al_is_system_installed()))
       {
          std::stringstream error_message;
-         error_message << "Classic" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         error_message << "Text" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (!(al_is_font_addon_initialized()))
       {
          std::stringstream error_message;
-         error_message << "Classic" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         error_message << "Text" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
    ALLEGRO_COLOR color = ALLEGRO_COLOR{1, 1, 1, 1};
@@ -50,17 +48,16 @@ void Classic::render()
    return;
 }
 
-ALLEGRO_FONT* Classic::obtain_font()
+ALLEGRO_FONT* Text::obtain_font()
 {
    if (!(font_bin))
       {
          std::stringstream error_message;
-         error_message << "Classic" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+         error_message << "Text" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("DroidSans.ttf -48");
 }
-} // namespace HealthBars
 } // namespace Elements
 } // namespace AllegroFlare
 
