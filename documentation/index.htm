@@ -355,8 +355,16 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
-  <td class="property">quote</td>
+  <td class="property">text</td>
   <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
 </tr>
     </table>
      <table>
@@ -364,15 +372,27 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
+  <td class="private_method">fit_placement_width_and_height_to_text()</td>
+</tr>
+<tr>
   <td class="private_method">obtain_font()</td>
 </tr>
     </table>
      <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -873,6 +893,7 @@ table td
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "tan": [
@@ -880,6 +901,13 @@ table td
   ],
   "GLuint": [
     "AllegroFlare/Cubemap"
+  ],
+  "AllegroFlare/ElementID": [
+    "AllegroFlare/Elements/Text"
+  ],
+  "ALLEGRO_COLOR": [
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/Useful3D/Triangle"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"
@@ -927,9 +955,6 @@ table td
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/vec3d": [
-    "AllegroFlare/Useful3D/Triangle"
-  ],
-  "ALLEGRO_COLOR": [
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Useful3D/build_vertex": [

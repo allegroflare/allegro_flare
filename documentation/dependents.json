@@ -55,6 +55,7 @@
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "tan": [
@@ -62,6 +63,13 @@
   ],
   "GLuint": [
     "AllegroFlare/Cubemap"
+  ],
+  "AllegroFlare/ElementID": [
+    "AllegroFlare/Elements/Text"
+  ],
+  "ALLEGRO_COLOR": [
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/Useful3D/Triangle"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"
@@ -109,9 +117,6 @@
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/vec3d": [
-    "AllegroFlare/Useful3D/Triangle"
-  ],
-  "ALLEGRO_COLOR": [
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Useful3D/build_vertex": [

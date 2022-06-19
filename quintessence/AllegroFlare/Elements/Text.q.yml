@@ -1,3 +1,11 @@
+parent_classes:
+
+
+  - class: AllegroFlare::ElementID
+    scope: public
+    init_with: ''
+
+
 properties:
 
 
@@ -6,9 +14,26 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: quote
+  - name: text
     type: std::string
+    init_with: '"Hello Text"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: placement
+    type: AllegroFlare::Placement2D
     init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
 
 
 functions:
@@ -18,14 +43,25 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      ALLEGRO_COLOR color = ALLEGRO_COLOR{1, 1, 1, 1};
-      float x = 20;
-      float y = 20;
-      int flags = 0;
-      al_draw_text(obtain_font(), color, x, y, flags, "Hello Text");
+      fit_placement_width_and_height_to_text();
+
+      placement.start_transform();
+      al_draw_text(obtain_font(), color, 0, 0, 0, text.c_str());
+      placement.restore_transform();
       return;
     body_dependency_symbols:
       - al_draw_text
+
+
+  - name: fit_placement_width_and_height_to_text
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    private: true
+    body: |
+      float width = al_get_text_width(obtain_font(), text.c_str());
+      float height = al_get_font_line_height(obtain_font());
+      placement.size.x = width;
+      placement.size.y = height;
+      return;
 
 
   - name: obtain_font
@@ -39,10 +75,16 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::ElementID
+    headers: [ AllegroFlare/ElementID.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro.h ]
 

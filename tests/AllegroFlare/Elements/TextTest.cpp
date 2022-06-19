@@ -55,3 +55,15 @@ TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
+   fit_placement_width_and_height_to_text__will_set_the_placement_width_and_height_to_the_dimentions_of_the_text)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   AllegroFlare::Elements::Text text(&font_bin);
+   text.fit_placement_width_and_height_to_text();
+
+   EXPECT_EQ(186, text.get_placement().size.x);
+   EXPECT_EQ(48, text.get_placement().size.y);
+}
+
+
