@@ -363,7 +363,6 @@ namespace AllegroFlare
 
 
 
-
    bool ElementID::send_child_to_back(ElementID *child)
    {
       int index = get_index_of_child(child);
@@ -372,7 +371,6 @@ namespace AllegroFlare
       children.push_back(child);
       return true;
    }
-
 
 
 

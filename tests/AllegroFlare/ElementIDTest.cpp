@@ -29,7 +29,7 @@ protected:
       ElementID *child_3;
 
    AllegroFlare_ElementIDTestWithFixture()
-      : root(NULL)
+      : root()
       , child_1(new ElementID(&root))
       , child_1_A(new ElementID(child_1))
       , child_1_B(new ElementID(child_1))
@@ -40,6 +40,13 @@ protected:
       , child_3(new ElementID(&root))
    {}
 };
+
+
+
+TEST(AllegroFlare_ElementIDTest, can_be_created_without_blowing_up)
+{
+   AllegroFlare::ElementID element_id;
+}
 
 
 

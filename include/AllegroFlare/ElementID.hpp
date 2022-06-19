@@ -23,7 +23,7 @@ namespace AllegroFlare
       bool remove_child(ElementID *child);
 
    public:
-      ElementID(ElementID *parent);
+      ElementID(ElementID *parent=nullptr);
       virtual ~ElementID();
 
       int get_id();
@@ -33,7 +33,7 @@ namespace AllegroFlare
       int num_children();
       bool has_children();
       int num_descendants();
-      void reassign_parent(ElementID *new_parent);
+      void reassign_parent(ElementID *new_parent=nullptr);
       static int get_next_unique_id();
 
       ElementID *find_first(std::string attribute);
@@ -90,6 +90,7 @@ namespace AllegroFlare
       }
 
       static void __reset_next_unique_id_counter();
+
 
    private:
       static int next_unique_id;
