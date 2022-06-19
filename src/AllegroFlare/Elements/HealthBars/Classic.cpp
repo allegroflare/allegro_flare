@@ -82,9 +82,12 @@ void Classic::render()
    int bar_spacing = 8*8;
    int bar_height = 9*8;
    int bar_thickness = 3.0f;
+   ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{1, 0, 0, 1};
 
    get_placement_ref().start_transform();
-   al_draw_rectangle(0, 0, bar_spacing * max, bar_height, ALLEGRO_COLOR{1, 1, 1, 1}, bar_thickness);
+   al_draw_filled_rectangle(0, 0, bar_spacing * value, bar_height, fill_color);
+   al_draw_rectangle(0, 0, bar_spacing * max, bar_height, outline_color, bar_thickness);
    get_placement_ref().restore_transform();
    return;
 }
