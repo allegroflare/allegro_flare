@@ -55,6 +55,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Camera2D.q.yml">quintessence/AllegroFlare/Camera2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Cubemap.q.yml">quintessence/AllegroFlare/Cubemap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
@@ -342,6 +343,30 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;GLuint&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_opengl.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -893,6 +918,7 @@ table td
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -903,6 +929,7 @@ table td
     "AllegroFlare/Cubemap"
   ],
   "AllegroFlare/ElementID": [
+    "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Text"
   ],
   "ALLEGRO_COLOR": [

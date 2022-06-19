@@ -1,27 +1,26 @@
 #pragma once
 
 
-#include <AllegroFlare/FontBin.hpp>
-#include <allegro5/allegro_font.h>
-#include <string>
+#include <AllegroFlare/ElementID.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 
 
 namespace AllegroFlare
 {
    namespace Elements
    {
-      class Base
+      class Base : public AllegroFlare::ElementID
       {
       private:
-         AllegroFlare::FontBin* font_bin;
-         std::string quote;
+         AllegroFlare::Placement2D placement;
 
       public:
-         Base(AllegroFlare::FontBin* font_bin=nullptr);
+         Base(AllegroFlare::Placement2D placement={});
          ~Base();
 
+         void set_placement(AllegroFlare::Placement2D placement);
+         AllegroFlare::Placement2D get_placement();
          void render();
-         ALLEGRO_FONT* obtain_font();
       };
    }
 }
