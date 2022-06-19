@@ -15,12 +15,13 @@ namespace AllegroFlare
          AllegroFlare::Placement2D placement;
 
       public:
-         Base(AllegroFlare::Placement2D placement={});
-         ~Base();
+         Base();
+         virtual ~Base();
 
          void set_placement(AllegroFlare::Placement2D placement);
          AllegroFlare::Placement2D get_placement();
-         void render();
+         AllegroFlare::Placement2D &get_placement_ref();
+         virtual void render();
       };
    }
 }

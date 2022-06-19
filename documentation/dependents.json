@@ -56,7 +56,6 @@
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
-    "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "tan": [
@@ -66,7 +65,9 @@
     "AllegroFlare/Cubemap"
   ],
   "AllegroFlare/ElementID": [
-    "AllegroFlare/Elements/Base",
+    "AllegroFlare/Elements/Base"
+  ],
+  "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/Text"
   ],
   "ALLEGRO_COLOR": [

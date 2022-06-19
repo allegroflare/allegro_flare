@@ -11,9 +11,9 @@ namespace Elements
 {
 
 
-Base::Base(AllegroFlare::Placement2D placement)
+Base::Base()
    : AllegroFlare::ElementID()
-   , placement(placement)
+   , placement({})
 {
 }
 
@@ -30,6 +30,12 @@ void Base::set_placement(AllegroFlare::Placement2D placement)
 
 
 AllegroFlare::Placement2D Base::get_placement()
+{
+   return placement;
+}
+
+
+AllegroFlare::Placement2D &Base::get_placement_ref()
 {
    return placement;
 }

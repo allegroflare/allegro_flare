@@ -1,7 +1,7 @@
 parent_classes:
 
 
-  - class: AllegroFlare::ElementID
+  - class: AllegroFlare::Elements::Base
     scope: public
     init_with: ''
 
@@ -28,13 +28,6 @@ properties:
     getter: true
     setter: true
 
-  - name: placement
-    type: AllegroFlare::Placement2D
-    init_with: '{}'
-    constructor_arg: true
-    getter: true
-    setter: true
-
 
 functions:
 
@@ -45,9 +38,9 @@ functions:
     body: |
       fit_placement_width_and_height_to_text();
 
-      placement.start_transform();
+      get_placement_ref().start_transform();
       al_draw_text(obtain_font(), color, 0, 0, 0, text.c_str());
-      placement.restore_transform();
+      get_placement_ref().restore_transform();
       return;
     body_dependency_symbols:
       - al_draw_text
@@ -59,8 +52,8 @@ functions:
     body: |
       float width = al_get_text_width(obtain_font(), text.c_str());
       float height = al_get_font_line_height(obtain_font());
-      placement.size.x = width;
-      placement.size.y = height;
+      get_placement_ref().size.x = width;
+      get_placement_ref().size.y = height;
       return;
 
 
@@ -75,10 +68,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::ElementID
-    headers: [ AllegroFlare/ElementID.hpp ]
-  - symbol: AllegroFlare::Placement2D
-    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Elements::Base
+    headers: [ AllegroFlare/Elements/Base.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT*

@@ -387,10 +387,6 @@ table td
   <td class="property">color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
-<tr>
-  <td class="property">placement</td>
-  <td class="property">AllegroFlare::Placement2D</td>
-</tr>
     </table>
      <table>
 <tr>
@@ -405,10 +401,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Base.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
@@ -919,7 +912,6 @@ table td
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
-    "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "tan": [
@@ -929,7 +921,9 @@ table td
     "AllegroFlare/Cubemap"
   ],
   "AllegroFlare/ElementID": [
-    "AllegroFlare/Elements/Base",
+    "AllegroFlare/Elements/Base"
+  ],
+  "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/Text"
   ],
   "ALLEGRO_COLOR": [

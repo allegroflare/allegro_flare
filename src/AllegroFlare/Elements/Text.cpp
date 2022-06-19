@@ -16,12 +16,11 @@ namespace Elements
 {
 
 
-Text::Text(AllegroFlare::FontBin* font_bin, std::string text, ALLEGRO_COLOR color, AllegroFlare::Placement2D placement)
-   : AllegroFlare::ElementID()
+Text::Text(AllegroFlare::FontBin* font_bin, std::string text, ALLEGRO_COLOR color)
+   : AllegroFlare::Elements::Base()
    , font_bin(font_bin)
    , text(text)
    , color(color)
-   , placement(placement)
 {
 }
 
@@ -43,12 +42,6 @@ void Text::set_color(ALLEGRO_COLOR color)
 }
 
 
-void Text::set_placement(AllegroFlare::Placement2D placement)
-{
-   this->placement = placement;
-}
-
-
 std::string Text::get_text()
 {
    return text;
@@ -58,12 +51,6 @@ std::string Text::get_text()
 ALLEGRO_COLOR Text::get_color()
 {
    return color;
-}
-
-
-AllegroFlare::Placement2D Text::get_placement()
-{
-   return placement;
 }
 
 
@@ -83,9 +70,9 @@ void Text::render()
       }
    fit_placement_width_and_height_to_text();
 
-   placement.start_transform();
+   get_placement_ref().start_transform();
    al_draw_text(obtain_font(), color, 0, 0, 0, text.c_str());
-   placement.restore_transform();
+   get_placement_ref().restore_transform();
    return;
 }
 
@@ -105,8 +92,8 @@ void Text::fit_placement_width_and_height_to_text()
       }
    float width = al_get_text_width(obtain_font(), text.c_str());
    float height = al_get_font_line_height(obtain_font());
-   placement.size.x = width;
-   placement.size.y = height;
+   get_placement_ref().size.x = width;
+   get_placement_ref().size.y = height;
    return;
 }
 

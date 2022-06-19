@@ -12,8 +12,8 @@ properties:
   - name: placement
     type: AllegroFlare::Placement2D
     init_with: '{}'
-    constructor_arg: true
     getter: true
+    getter_ref: true
     setter: true
 
 
@@ -21,6 +21,7 @@ functions:
 
 
   - name: render
+    virtual: true
     type: void
     guards: [ al_is_system_installed() ]
     body: |
