@@ -82,7 +82,10 @@ void WithAllegroRenderingFixture::SetUp()
 
    // set the window title to the current test name
    std::string current_test_name = ::testing::UnitTest::GetInstance()->current_test_info()->name();
-   al_set_window_title(display, current_test_name.c_str());
+   std::string current_test_suite_name = ::testing::UnitTest::GetInstance()->current_test_info()->test_suite_name();
+   std::string new_window_title = current_test_suite_name + " - " + current_test_name;
+
+   al_set_window_title(display, new_window_title.c_str());
 
    return;
 }
