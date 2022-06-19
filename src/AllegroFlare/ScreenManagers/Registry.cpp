@@ -47,27 +47,8 @@ void Registry::on_events(ALLEGRO_EVENT *ev)
 
 void Registry::primary_timer_funcs()
 {
-   // do screens with NULL displays first
    for (unsigned i=0; i<screens.size(); i++)
-   {
-      //if (screens[i]->display == NULL)
       screens[i]->primary_timer_func();
-   }
-
-   //// then do screens in order sorted by displays.
-   //for (unsigned d=0; d<Display::displays.size(); d++)
-   //{
-      //Display::displays[d]->set_as_target_bitmap();
-      //for (unsigned i=0; i<screens.size(); i++)
-      //{
-         //if (screens[i]->display == Display::displays[d])
-         //{
-            //screens[i]->prepare_drawing_state();
-            //screens[i]->primary_timer_func();
-         //}
-      //}
-      //Display::displays[d]->flip();
-   //}
 }
 
 
@@ -80,27 +61,15 @@ void Registry::timer_funcs()
 
 void Registry::display_switch_in_funcs()
 {
-   //for (unsigned d=0; d<Display::displays.size(); d++)
-   //{
-      for (unsigned i=0; i<screens.size(); i++)
-      {
-         //if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
-            screens[i]->display_switch_in_func();
-      }
-   //}
+   for (unsigned i=0; i<screens.size(); i++)
+      screens[i]->display_switch_in_func();
 }
 
 
 void Registry::display_switch_out_funcs()
 {
-   //for (unsigned d=0; d<Display::displays.size(); d++)
-   //{
-      for (unsigned i=0; i<screens.size(); i++)
-      {
-         //if (screens[i]->display == NULL || screens[i]->display == Display::displays[d])
-            screens[i]->display_switch_out_func();
-      }
-   //}
+   for (unsigned i=0; i<screens.size(); i++)
+      screens[i]->display_switch_out_func();
 }
 
 
@@ -220,33 +189,6 @@ void Registry::native_menu_click_funcs()
 {
    for (unsigned i=0; i<screens.size(); i++)
       screens[i]->native_menu_click_func();
-}
-
-
-void Registry::send_signal(int signal, void *data)
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->receive_signal(signal, data);
-}
-
-
-void Registry::send_signal(std::string const signal, void *data)
-{
-   for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->receive_signal(signal, data);
-}
-
-
-bool Registry::signal_has_header(std::string header, std::string signal)
-{
-   return (signal.substr(0, header.length()) == header);
-}
-
-
-std::string Registry::strip_signal_header(std::string header, std::string signal)
-{
-   return signal.substr(header.length(), signal.length()-header.length());
-   return "";
 }
 
 

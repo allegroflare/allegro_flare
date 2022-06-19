@@ -8,8 +8,6 @@
 #include <AllegroFlare/ElementID.hpp>
 
 
-
-
 namespace AllegroFlare
 {
    namespace Screens
@@ -49,8 +47,6 @@ namespace AllegroFlare
          virtual void virtual_control_button_down_func(ALLEGRO_EVENT *ev);
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT *ev);
          virtual void native_menu_click_func();
-         virtual void receive_signal(int signal, void *data);
-         virtual void receive_signal(std::string const signal, void *data);
       };
    } // namespace Screens
 } // namespace AllegroFlare

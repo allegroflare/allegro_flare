@@ -24,9 +24,13 @@ namespace AllegroFlare
          Registry();
          ~Registry();
 
+         // management
          void add(Screens::Basic *screen);
          void remove(Screens::Basic *screen);
+         void bring_to_front(Screens::Basic *s);
+         int get_num_screens();
 
+         // for processing
          void on_events(ALLEGRO_EVENT *ev);
          void primary_timer_funcs();
          void timer_funcs();
@@ -49,13 +53,6 @@ namespace AllegroFlare
          void virtual_control_button_down_funcs(ALLEGRO_EVENT *ev);
          void virtual_control_axis_change_funcs(ALLEGRO_EVENT *ev);
          void native_menu_click_funcs();
-
-         void send_signal(int signal, void *data);
-         void send_signal(std::string const signal, void *data);
-         bool signal_has_header(std::string header, std::string signal);
-         std::string strip_signal_header(std::string header, std::string signal);
-         void bring_to_front(Screens::Basic *s);
-         int get_num_screens();
       };
    }
 }
