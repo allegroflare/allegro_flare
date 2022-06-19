@@ -45,7 +45,8 @@
     "AllegroFlare/Bone3DGraphRenderer"
   ],
   "al_is_primitives_addon_initialized": [
-    "AllegroFlare/Bone3DGraphRenderer"
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/HealthBars/Classic"
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer"
@@ -68,9 +69,11 @@
     "AllegroFlare/Elements/Base"
   ],
   "AllegroFlare/Elements/Base": [
+    "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/Text"
   ],
   "ALLEGRO_COLOR": [
+    "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Useful3D/Triangle"
   ],
