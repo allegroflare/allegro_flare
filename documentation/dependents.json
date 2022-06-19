@@ -70,15 +70,6 @@
   "ALLEGRO_FLARE_SCREEN_SWITCH_EVENT": [
     "AllegroFlare/EventEmitter"
   ],
-  "AllegroFlare/Framework": [
-    "AllegroFlare/FrameworkScreenRegistrar"
-  ],
-  "AllegroFlare/ScreenManager": [
-    "AllegroFlare/FrameworkScreenRegistrar"
-  ],
-  "AllegroFlare/Screen": [
-    "AllegroFlare/FrameworkScreenRegistrar"
-  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

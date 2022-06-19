@@ -56,7 +56,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/Camera2D.q.yml">quintessence/AllegroFlare/Camera2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Cubemap.q.yml">quintessence/AllegroFlare/Cubemap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
@@ -400,40 +399,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_SCREEN_SWITCH_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml">quintessence/AllegroFlare/FrameworkScreenRegistrar.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">screens</td>
-  <td class="property">AllegroFlare::ScreenManager*</td>
-</tr>
-<tr>
-  <td class="property">screen</td>
-  <td class="property">AllegroFlare::Screen*</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="method">append()</td>
-</tr>
-<tr>
-  <td class="method">remove()</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Framework*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Framework.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ScreenManager*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ScreenManager.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screen*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screen.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -887,15 +852,6 @@ table td
   ],
   "ALLEGRO_FLARE_SCREEN_SWITCH_EVENT": [
     "AllegroFlare/EventEmitter"
-  ],
-  "AllegroFlare/Framework": [
-    "AllegroFlare/FrameworkScreenRegistrar"
-  ],
-  "AllegroFlare/ScreenManager": [
-    "AllegroFlare/FrameworkScreenRegistrar"
-  ],
-  "AllegroFlare/Screen": [
-    "AllegroFlare/FrameworkScreenRegistrar"
   ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
