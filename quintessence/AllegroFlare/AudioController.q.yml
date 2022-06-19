@@ -59,6 +59,16 @@ properties:
     getter: true
     init_with: false
 
+  - name: music_tracks_loaded
+    type: bool
+    getter: true
+    init_with: false
+
+  - name: sound_effects_loaded
+    type: bool
+    getter: true
+    init_with: false
+
 
 functions:
 
@@ -73,6 +83,55 @@ functions:
     body: |
       if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
       if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
+
+      destruct_all_sound_effects();
+      load_sound_effects();
+
+      if (output_loading_debug_to_cout) std::cout << "music_tracks:" << std::endl;
+
+      destruct_all_music_tracks();
+      load_music_tracks();
+
+      std::cout << "[AllegroFlare::AudioController::load()] finished." << std::endl;
+
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - al_is_audio_initialized
+      - al_is_acodec_addon_initialized
+
+
+  - name: set_and_load_sound_effect_elements
+    guards: [ initialized ]
+    parameters:
+      - name: sound_effect_elements
+        type: std::map<std::string, AllegroFlare::AudioRepositoryElement>
+        default_argument: '{}'
+    body: |
+      destruct_all_sound_effects();
+
+      this->sound_effect_elements = sound_effect_elements;
+      load_sound_effects();
+      return;
+
+
+  - name: set_and_load_music_track_elements
+    guards: [ initialized ]
+    parameters:
+      - name: music_track_elements
+        type: std::map<std::string, AllegroFlare::AudioRepositoryElement>
+        default_argument: '{}'
+    body: |
+      destruct_all_music_tracks();
+
+      this->music_track_elements = music_track_elements;
+      load_music_tracks();
+      return;
+
+
+  - name: load_sound_effects
+    private: true
+    body: |
       for (auto &sound_effect_element : sound_effect_elements)
       {
          std::string identifier = sound_effect_element.first;
@@ -92,7 +151,15 @@ functions:
 
          sound_effects[identifier] = sound;
       }
-      if (output_loading_debug_to_cout) std::cout << "music_tracks:" << std::endl;
+
+      return;
+
+
+  - name: load_music_tracks
+    private: true
+    body: |
+      destruct_all_music_tracks();
+
       for (auto &music_track_element : music_track_elements)
       {
          std::string identifier = music_track_element.first;
@@ -113,19 +180,37 @@ functions:
          music_tracks[identifier] = sound;
       }
 
-      initialized = true;
-      std::cout << "[AllegroFlare::AudioController::initialize()] finished." << std::endl;
       return;
-    body_dependency_symbols:
-      - al_is_audio_initialized
-      - al_is_acodec_addon_initialized
 
 
   - name: destruct
-    guards: [ initialized ]
+    private: true
     body: |
-      stop_all();
+      destruct_all_sound_effects();
+      destruct_all_music_tracks();
+      return;
+
+
+  - name: destruct_all
+    private: true
+    body: |
+      destruct_all_sound_effects();
+      destruct_all_music_tracks();
+      return;
+
+
+  - name: destruct_all_sound_effects
+    private: true
+    body: |
+      stop_all_sound_effects();
       for (auto &sound_effect : sound_effects) delete sound_effect.second;
+      return;
+
+
+  - name: destruct_all_music_tracks
+    private: true
+    body: |
+      stop_all_music_tracks();
       for (auto &music_track : music_tracks) delete music_track.second;
       return;
 
@@ -134,12 +219,12 @@ functions:
     guards: [ initialized ]
     body: |
       stop_all_sound_effects();
-      stop_all_music();
+      stop_all_music_tracks();
       return;
 
 
-  - name: stop_all_music
-    guards: [ initialized ]
+  - name: stop_all_music_tracks
+    private: true
     body: |
       for (auto &music_track : music_tracks) music_track.second->stop();
       current_music_track_identifier = "";
@@ -147,7 +232,7 @@ functions:
 
 
   - name: stop_all_sound_effects
-    guards: [ initialized ]
+    private: true
     body: |
       for (auto &sound_effect : sound_effects) sound_effect.second->stop();
       return;
@@ -185,7 +270,7 @@ functions:
         default_argument: '"a-music-track-identifier-that-is-not-set"'
     body: |
       if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
-      stop_all_music();
+      stop_all_music_tracks();
       Sound *sound = find_music_track_by_identifier(identifier);
       if (sound) sound->play();
       return;
@@ -202,14 +287,19 @@ functions:
       std::map<std::string, AllegroFlare::Sound*>::iterator it = sound_effects.find(identifier);
       if (it == sound_effects.end())
       {
-         std::cout << "AudioController::find_sound_effect_by_identifier() error: "
+         std::cout
+            << AllegroFlare::TerminalColors::RED
+            << "AudioController::find_sound_effect_by_identifier() error: "
             << "unable to find element with identifier \""
             << identifier
             << "\""
+            << AllegroFlare::TerminalColors::DEFAULT
             << std::endl;
          return nullptr;
       }
       return it->second;
+    body_dependency_symbols:
+      - AllegroFlare::TerminalColors
 
 
   - name: find_music_track_by_identifier
@@ -230,9 +320,32 @@ functions:
       return it->second;
 
 
+  - name: dump_to_cout
+    body: |
+      for (auto &sound_effect_element : sound_effect_elements)
+      {
+         std::string identifier = sound_effect_element.first;
+         std::string filename = sound_effect_element.second.get_filename();
+         bool loop = sound_effect_element.second.get_loop();
+         
+         std::cout << "{ identifier: \"" << identifier << "\", source: \"" << filename << "\" }" << std::endl;
+      }
+      for (auto &music_track_element : music_track_elements)
+      {
+         std::string identifier = music_track_element.first;
+         std::string filename = music_track_element.second.get_filename();
+         bool loop = music_track_element.second.get_loop();
+         
+         std::cout << "{ identifier: \"" << identifier << "\", source: \"" << filename << "\" }" << std::endl;
+      }
+      
+
+
 dependencies:
 
 
+  - symbol: AllegroFlare::TerminalColors
+    headers: [ AllegroFlare/TerminalColors.hpp ]
   - symbol: AllegroFlare::SampleBin
     headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: AllegroFlare::SampleBin*

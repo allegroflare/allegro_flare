@@ -6,12 +6,12 @@
    catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
-#include <AllegroFlare/Screens.hpp>
+#include <AllegroFlare/ScreenManager.hpp>
 
 
-TEST(AllegroFlare_ScreensTest, can_be_crated_without_blowing_up)
+TEST(AllegroFlare_ScreenManagerTest, can_be_crated_without_blowing_up)
 {
-   AllegroFlare::Screens screens;
+   AllegroFlare::ScreenManager screens;
 }
 
 

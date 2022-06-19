@@ -11,7 +11,7 @@ namespace AllegroFlare
 {
 
 
-FrameworkScreenRegistrar::FrameworkScreenRegistrar(AllegroFlare::Screens* screens, AllegroFlare::Screen* screen)
+FrameworkScreenRegistrar::FrameworkScreenRegistrar(AllegroFlare::ScreenManager* screens, AllegroFlare::Screen* screen)
    : screens(screens)
    , screen(screen)
 {

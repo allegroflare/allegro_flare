@@ -1,0 +1,57 @@
+#pragma once
+
+
+#include <string>
+#include <vector>
+#include <allegro5/allegro.h>
+#include <AllegroFlare/Display.hpp>
+
+
+
+
+namespace AllegroFlare
+{
+   namespace Screens
+   {
+      class Basic
+      {
+      private:
+         std::string type;
+
+      public:
+         Basic();
+         virtual ~Basic();
+
+         void set_type(std::string type);
+         std::string get_type();
+         bool is_type(std::string possible_type);
+
+         virtual void on_event(ALLEGRO_EVENT *ev);
+         virtual void primary_timer_func();
+         virtual void timer_func();
+         virtual void display_switch_in_func();
+         virtual void display_switch_out_func();
+         virtual void mouse_axes_func();
+         virtual void mouse_warp_func();
+         virtual void mouse_down_func();
+         virtual void mouse_up_func();
+         virtual void key_down_func(ALLEGRO_EVENT *ev);
+         virtual void key_up_func(ALLEGRO_EVENT *ev);
+         virtual void key_char_func(ALLEGRO_EVENT *ev);
+         virtual void joy_button_down_func(ALLEGRO_EVENT *ev);
+         virtual void joy_button_up_func(ALLEGRO_EVENT *ev);
+         virtual void joy_axis_func(ALLEGRO_EVENT *ev);
+         virtual void joy_config_func(ALLEGRO_EVENT *ev);
+         virtual void user_event_func(ALLEGRO_EVENT *ev);
+         virtual void event_emitter_event_func(ALLEGRO_EVENT *ev);
+         virtual void virtual_control_button_up_func(ALLEGRO_EVENT *ev);
+         virtual void virtual_control_button_down_func(ALLEGRO_EVENT *ev);
+         virtual void virtual_control_axis_change_func(ALLEGRO_EVENT *ev);
+         virtual void native_menu_click_func();
+         virtual void receive_signal(int signal, void *data);
+         virtual void receive_signal(std::string const signal, void *data);
+      };
+   } // namespace Screens
+} // namespace AllegroFlare
+
+

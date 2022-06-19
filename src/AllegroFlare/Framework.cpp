@@ -43,7 +43,7 @@ namespace AllegroFlare
 
 
 
-   Framework::Framework(Screens *screens_ptr)
+   Framework::Framework(ScreenManager *screens_ptr)
       : screens_ptr(screens_ptr)
       , initialized(false)
       , config("data/config/config.cfg")
@@ -385,7 +385,7 @@ namespace AllegroFlare
       al_wait_for_vsync();
       al_start_timer(primary_timer);
 
-      AllegroFlare::Screens &screens = (*screens_ptr);
+      AllegroFlare::ScreenManager &screens = (*screens_ptr);
 
       while(!shutdown_program || Display::displays.empty())
       {

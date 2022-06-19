@@ -40,7 +40,7 @@ Note: AllegroFlare is currently in *pre-alpha*.  That is, the overall design is 
 ```cpp
 #include <AllegroFlare/Framework.hpp>
 #include <AllegroFlare/Screen.hpp>
-#include <AllegroFlare/Screens.hpp>
+#include <AllegroFlare/ScreenManager.hpp>
 
 class ExampleProgram : public AllegroFlare::Screen
 {
@@ -63,7 +63,7 @@ public:
 int main(int argc, char **argv)
 {
    // setup the system
-   AllegroFlare::Screens screens;
+   AllegroFlare::ScreenManager screens;
    AllegroFlare::Framework framework(&screens);
    framework.initialize();
    AllegroFlare::Display *display = framework.create_display(1920, 1080);

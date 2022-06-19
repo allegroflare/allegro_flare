@@ -8,6 +8,10 @@
 namespace AllegroFlare
 {
    class Framework;
+   namespace Frameworks
+   {
+      class Full;
+   }
 
 
    class Display
@@ -26,7 +30,8 @@ namespace AllegroFlare
 
    private:
       friend class Framework;
-      friend class Screens; // <- eh for now, because of the display <-> screen relationship
+      friend class Frameworks::Full;
+      friend class ScreenManager; // <- eh for now, because of the display <-> screen relationship
       static std::vector<Display *> displays; // used to be "instance"
       static Display *find_display(ALLEGRO_DISPLAY *display);
       ALLEGRO_COLOR _background_color;
@@ -42,10 +47,10 @@ namespace AllegroFlare
       void set_as_target_bitmap();
       void set_orthographic_projection(float left, float top, float right, float bottom);
 
-      int width();
-      int height();
-      float middle();
-      float center();
+      int get_width();
+      int get_height();
+      float get_middle();
+      float get_center();
 
       void flip();
       void background_color(const ALLEGRO_COLOR &color);

@@ -11,14 +11,14 @@ namespace AllegroFlare
    class Screen;
 
 
-   class Screens
+   class ScreenManager
    {
    private:
       std::vector<Screen *> screens;
 
    public:
-      Screens();
-      ~Screens();
+      ScreenManager();
+      ~ScreenManager();
 
       void add(Screen *screen);
       void remove(Screen *screen);

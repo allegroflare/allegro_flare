@@ -11,6 +11,12 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/EventNames.hpp>
+#include <stdexcept>
+#include <sstream>
+#include <AllegroFlare/EventNames.hpp>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -92,6 +98,7 @@ void EventEmitter::emit_screen_switch_event(std::string screen_identifier_to_swi
          error_message << "EventEmitter" << "::" << "emit_screen_switch_event" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   // should be "disable screen", "enable screen", "shutdown screen", etc...
    // TODO: implement this:
    // std::string *data_to_pass = new std::string(screen_identifier_to_switch_to);
    //emit_event(SCREEN_MANAGER_SWITCH_SCREEN_EVENT, data_to_pass);
@@ -107,6 +114,32 @@ void EventEmitter::emit_exit_game_event()
          throw std::runtime_error(error_message.str());
       }
    emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+   return;
+}
+
+void EventEmitter::emit_play_sound_effect_event(std::string sound_effect_identifier)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "EventEmitter" << "::" << "emit_play_sound_effect_event" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   intptr_t data_to_pass = (intptr_t)(void *)(new std::string(sound_effect_identifier));
+   emit_event(ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT, data_to_pass);
+   return;
+}
+
+void EventEmitter::emit_play_music_track_event(std::string music_track_identifier)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "EventEmitter" << "::" << "emit_play_music_track_event" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   //std::string *data_to_pass = new std::string(music_track_identifier);
+   //emit_event(ALLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK, (intptr_t)data_to_pass);
    return;
 }
 

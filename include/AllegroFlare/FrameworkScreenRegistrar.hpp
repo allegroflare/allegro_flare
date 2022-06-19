@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/Screen.hpp>
-#include <AllegroFlare/Screens.hpp>
+#include <AllegroFlare/ScreenManager.hpp>
 
 
 namespace AllegroFlare
@@ -10,11 +10,11 @@ namespace AllegroFlare
    class FrameworkScreenRegistrar
    {
    private:
-      AllegroFlare::Screens* screens;
+      AllegroFlare::ScreenManager* screens;
       AllegroFlare::Screen* screen;
 
    public:
-      FrameworkScreenRegistrar(AllegroFlare::Screens* screens=nullptr, AllegroFlare::Screen* screen=nullptr);
+      FrameworkScreenRegistrar(AllegroFlare::ScreenManager* screens=nullptr, AllegroFlare::Screen* screen=nullptr);
       ~FrameworkScreenRegistrar();
 
       bool append();

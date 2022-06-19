@@ -24,22 +24,34 @@ namespace AllegroFlare
       float global_volume;
       bool output_loading_debug_to_cout;
       bool initialized;
+      bool music_tracks_loaded;
+      bool sound_effects_loaded;
 
    public:
       AudioController(AllegroFlare::SampleBin* sample_bin=nullptr, std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements={}, std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});
       ~AudioController();
 
       bool get_initialized();
+      bool get_music_tracks_loaded();
+      bool get_sound_effects_loaded();
       void initialize();
+      void set_and_load_sound_effect_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements={});
+      void set_and_load_music_track_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});
+      void load_sound_effects();
+      void load_music_tracks();
       void destruct();
+      void destruct_all();
+      void destruct_all_sound_effects();
+      void destruct_all_music_tracks();
       void stop_all();
-      void stop_all_music();
+      void stop_all_music_tracks();
       void stop_all_sound_effects();
       void set_global_volume(float volume=0.1);
       void play_sound_effect_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       void play_music_track_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");
       AllegroFlare::Sound* find_sound_effect_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       AllegroFlare::Sound* find_music_track_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");
+      void dump_to_cout();
    };
 }
 

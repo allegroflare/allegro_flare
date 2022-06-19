@@ -241,7 +241,8 @@ namespace AllegroFlare
          std::string class_name = type; //typeid(*this).name();
          std::cout << CONSOLE_COLOR_RED
                    << "[" << class_name << "::" << called_through << "] "
-                   << "could not load \"" << identifier << "\". "
+                   << "could not load \"" << identifier << "\" "
+                   << "while looking in \"" << al_path_cstr(path, ALLEGRO_NATIVE_PATH_SEP) << "\""
                    << "Continuing with process."
                    << CONSOLE_COLOR_DEFAULT << std::endl;
          //return NULL;
