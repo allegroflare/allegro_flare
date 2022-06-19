@@ -54,7 +54,16 @@ functions:
 
       //display = al_create_display(1280 * 2, 720 * 2);
       display = al_create_display(1920, 1080);
-      al_clear_to_color(ALLEGRO_COLOR{0.05f, 0.05f, 0.05f, 0.05f});
+
+      ASSERT_NE(nullptr, display);
+
+      // clear the display to a slightly gray black color
+      al_clear_to_color(ALLEGRO_COLOR{0.05f, 0.05f, 0.05f, 1.0f});
+
+      // set the window title to the current test name
+      std::string current_test_name = ::testing::UnitTest::GetInstance()->current_test_info()->name();
+      al_set_window_title(display, current_test_name.c_str());
+
       return;
     body_dependency_symbols:
       - al_init_image_addon
