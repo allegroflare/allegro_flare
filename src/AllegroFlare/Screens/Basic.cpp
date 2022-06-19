@@ -31,8 +31,9 @@ namespace Screens
 //}
 
 
-Basic::Basic()
-   : type("")
+Basic::Basic(std::string type)
+   : AllegroFlare::ElementID(nullptr)
+   , type(type)
    //, display(display)
    //, backbuffer_sub_bitmap(nullptr)
 {

@@ -5,6 +5,7 @@
 #include <vector>
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Display.hpp>
+#include <AllegroFlare/ElementID.hpp>
 
 
 
@@ -13,13 +14,13 @@ namespace AllegroFlare
 {
    namespace Screens
    {
-      class Basic
+      class Basic : public ElementID
       {
       private:
          std::string type;
 
       public:
-         Basic();
+         Basic(std::string type="Basic");
          virtual ~Basic();
 
          void set_type(std::string type);
