@@ -41,11 +41,12 @@ functions:
       al_init_image_addon();
 
       #ifdef _WIN32
-      #define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/fonts/"
-      #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/bitmaps/"
+      // NOTE  was in  Repos/Krampus21
+      #define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
+      #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
       #else
-      #define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/fonts/"
-      #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/bitmaps/"
+      #define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
+      #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
       #endif
 
       font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);

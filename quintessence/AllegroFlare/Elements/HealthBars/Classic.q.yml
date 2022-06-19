@@ -1,0 +1,48 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: quote
+    type: std::string
+    init_with: '{}'
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      ALLEGRO_COLOR color = ALLEGRO_COLOR{1, 1, 1, 1};
+      float x = 20;
+      float y = 20;
+      int flags = 0;
+      al_draw_text(obtain_font(), color, x, y, flags, "Hello Text");
+      return;
+    body_dependency_symbols:
+      - al_draw_text
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("DroidSans.ttf -48");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro.h ]
+

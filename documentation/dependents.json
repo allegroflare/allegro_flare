@@ -33,10 +33,12 @@
   ],
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "al_is_system_installed": [
@@ -60,6 +62,9 @@
   ],
   "GLuint": [
     "AllegroFlare/Cubemap"
+  ],
+  "al_draw_text": [
+    "AllegroFlare/Elements/HealthBars/Classic"
   ],
   "ALLEGRO_EVENT_SOURCE": [
     "AllegroFlare/EventEmitter"
