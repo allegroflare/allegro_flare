@@ -17,6 +17,7 @@ namespace Screens
 Basic::Basic(std::string type)
    : AllegroFlare::ElementID(nullptr)
    , type(type)
+   , active(true)
 {
 }
 
@@ -41,6 +42,12 @@ std::string Basic::get_type()
 bool Basic::is_type(std::string possible_type)
 {
    return type == possible_type;
+}
+
+
+bool Basic::is_active()
+{
+   return this->active;
 }
 
 

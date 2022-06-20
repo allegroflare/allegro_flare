@@ -16,6 +16,7 @@ namespace AllegroFlare
       {
       private:
          std::string type;
+         bool active;
 
       public:
          Basic(std::string type="Basic");
@@ -24,6 +25,8 @@ namespace AllegroFlare
          void set_type(std::string type);
          std::string get_type();
          bool is_type(std::string possible_type);
+
+         bool is_active();
 
          virtual void on_event(ALLEGRO_EVENT *ev);
          virtual void primary_timer_func();
