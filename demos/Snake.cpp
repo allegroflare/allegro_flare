@@ -332,6 +332,7 @@ int main(int argc, char **argv)
    snake.initialize();
 
    framework.register_screen("main", &snake);
+   framework.activate_screen("main");
 
    framework.run_loop();
 }

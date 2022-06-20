@@ -28,6 +28,7 @@ namespace AllegroFlare
 
      private:
          std::map<std::string, Listing> screens;
+         Listing *find_listing(std::string identifier);
 
       public:
          Dictionary();
@@ -45,7 +46,8 @@ namespace AllegroFlare
          //void bring_to_front(Screens::Basic *s);
          //void bring_to_front(std::string name);
          bool activate(std::string name);
-         bool deactivate(std::string name);
+         //bool deactivate(std::string name); // not to be implemented; screens will be deactivated implicitly
+                                              // when a screen is activated through activate();
          //void show(std::string name);
          //void hide(std::string name);
          int get_num_screens();

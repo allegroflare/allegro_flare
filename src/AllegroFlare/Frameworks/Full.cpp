@@ -278,6 +278,12 @@ void Full::unregister_screen(AllegroFlare::Screens::Basic *screen)
 }
 
 
+void Full::activate_screen(std::string name)
+{
+   screens.activate(name);
+}
+
+
 Display *Full::create_display(int width, int height)
 {
    return create_display(width, height, false, -1);

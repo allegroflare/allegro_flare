@@ -83,6 +83,7 @@ namespace AllegroFlare
 
          void register_screen(std::string name, AllegroFlare::Screens::Basic *screen);
          void unregister_screen(AllegroFlare::Screens::Basic *screen);
+         void activate_screen(std::string name);
 
          Display *create_display(int width=1280, int height=720);
          Display *create_display(int width, int height, int display_flags);

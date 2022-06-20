@@ -44,6 +44,8 @@ bool Basic::is_type(std::string possible_type)
 }
 
 
+void Basic::on_activate() {}
+void Basic::on_deactivate() {}
 void Basic::on_event(ALLEGRO_EVENT *ev) {}
 void Basic::primary_timer_func() {}
 void Basic::timer_func() {}

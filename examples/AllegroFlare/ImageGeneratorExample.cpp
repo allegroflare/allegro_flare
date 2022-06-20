@@ -83,6 +83,7 @@ int main(int argc, char **argv)
 
    // register the screen to the system
    full_framework.register_screen("main", &image_generator_example);
+   full_framework.activate_screen("main");
 
    // run the loop
    full_framework.run_loop();
