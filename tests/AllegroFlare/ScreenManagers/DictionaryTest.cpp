@@ -16,11 +16,12 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest,
 {
    AllegroFlare::Screens::Basic screen;
    AllegroFlare::ScreenManagers::Dictionary dictionary;
+   typedef AllegroFlare::ScreenManagers::Dictionary::Listing Listing;
 
    EXPECT_EQ(true, dictionary.add("foobar", &screen));
 
-   std::map<std::string, AllegroFlare::Screens::Basic *> expected_dictionary = { { "foobar", &screen } };
-   std::map<std::string, AllegroFlare::Screens::Basic *> actual_dictionary = dictionary.get_dictionary_copy();
+   std::map<std::string, Listing> expected_dictionary = { { "foobar", { &screen, false } } };
+   std::map<std::string, Listing> actual_dictionary = dictionary.get_dictionary_copy();
 
    EXPECT_EQ(expected_dictionary, actual_dictionary);
 }

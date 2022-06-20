@@ -17,8 +17,17 @@ namespace AllegroFlare
    {
       class Dictionary
       {
-      private:
-         std::map<std::string, Screens::Basic *> screens;
+      public:
+         class Listing
+         {
+         public:
+            Screens::Basic* screen;
+            bool active;
+            bool operator==(const Listing &other) const;
+         };
+
+     private:
+         std::map<std::string, Listing> screens;
 
       public:
          Dictionary();
@@ -26,6 +35,8 @@ namespace AllegroFlare
 
          // management
          Screens::Basic *find(std::string identifier);
+         std::string find_name(Screens::Basic *screen);
+         bool exists(Screens::Basic *screen);
          bool exists(std::string identifier);
 
          bool add(std::string name, Screens::Basic *screen);
@@ -33,12 +44,12 @@ namespace AllegroFlare
          bool remove(std::string identifier);
          //void bring_to_front(Screens::Basic *s);
          //void bring_to_front(std::string name);
-         //void activate(std::string name);
-         //void deactivate(std::string name);
+         bool activate(std::string name);
+         bool deactivate(std::string name);
          //void show(std::string name);
          //void hide(std::string name);
          int get_num_screens();
-         std::map<std::string, Screens::Basic *> get_dictionary_copy();
+         std::map<std::string, Listing> get_dictionary_copy();
 
          // for processing
          void on_events(ALLEGRO_EVENT *ev);
