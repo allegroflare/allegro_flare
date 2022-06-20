@@ -266,9 +266,9 @@ void Full::load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRe
 }
 
 
-void Full::register_screen(AllegroFlare::Screens::Basic *screen)
+void Full::register_screen(std::string name, AllegroFlare::Screens::Basic *screen)
 {
-   screens.add(screen);
+   screens.add(name, screen);
 }
 
 

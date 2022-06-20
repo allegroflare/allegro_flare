@@ -91,7 +91,7 @@ int main(int argc, char **argv)
    example_program.initialize();
 
    // register the screen to the system
-   full_framework.register_screen(&example_program);
+   full_framework.register_screen("main", &example_program);
 
    // run the loop
    full_framework.run_loop();

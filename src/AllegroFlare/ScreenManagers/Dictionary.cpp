@@ -44,11 +44,12 @@ bool Dictionary::exists(std::string identifier)
 
 bool Dictionary::add(std::string name, Screens::Basic *screen)
 {
-   if (!exists(name))
+   if (exists(name))
    {
-      std::stringstream ss;
-      ss << "[ScreenManagers::Dictionary::add] warning: A screen listed under the identifier \""
-         << name << "\" already exists." << std::endl;
+      std::stringstream error_message;
+      error_message << "[ScreenManagers::Dictionary::add] warning: A screen listed under the identifier \""
+         << name << "\" already exists.";
+      std::cout << error_message.str() << std::endl;
       return false;
    }
 
@@ -102,6 +103,12 @@ bool Dictionary::remove(std::string identifier)
 
    screens.erase(it);
    return true;
+}
+
+
+std::map<std::string, Screens::Basic *> Dictionary::get_dictionary_copy()
+{
+   return screens;
 }
 
 

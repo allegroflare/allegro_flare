@@ -38,6 +38,7 @@ namespace AllegroFlare
          //void show(std::string name);
          //void hide(std::string name);
          int get_num_screens();
+         std::map<std::string, Screens::Basic *> get_dictionary_copy();
 
          // for processing
          void on_events(ALLEGRO_EVENT *ev);

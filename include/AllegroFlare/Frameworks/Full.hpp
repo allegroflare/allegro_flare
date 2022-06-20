@@ -12,7 +12,7 @@
 #include <AllegroFlare/Config.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Motion.hpp>
-#include <AllegroFlare/ScreenManagers/Registry.hpp>
+#include <AllegroFlare/ScreenManagers/Dictionary.hpp>
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
@@ -26,7 +26,7 @@ namespace AllegroFlare
       class Full
       {
       private:
-         ScreenManagers::Registry screens;
+         ScreenManagers::Dictionary screens;
          bool initialized;
          Config config;
          FontBin fonts;
@@ -70,7 +70,7 @@ namespace AllegroFlare
          FontBin &get_font_bin_ref();
          BitmapBin &get_bitmap_bin_ref();
          SampleBin &get_sample_bin_ref();
-         ScreenManagers::Registry &get_screens_ref();
+         ScreenManagers::Dictionary &get_screens_ref();
          AudioController &get_audio_controller_ref();
          EventEmitter &get_event_emitter_ref();
          Display *get_primary_display();
@@ -81,7 +81,7 @@ namespace AllegroFlare
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
 
-         void register_screen(AllegroFlare::Screens::Basic *screen);
+         void register_screen(std::string name, AllegroFlare::Screens::Basic *screen);
          void unregister_screen(AllegroFlare::Screens::Basic *screen);
 
          Display *create_display(int width=1280, int height=720);

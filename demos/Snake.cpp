@@ -331,7 +331,7 @@ int main(int argc, char **argv)
    SnakeGame snake(framework.get_event_emitter_ref());
    snake.initialize();
 
-   framework.register_screen(&snake);
+   framework.register_screen("main", &snake);
 
    framework.run_loop();
 }
