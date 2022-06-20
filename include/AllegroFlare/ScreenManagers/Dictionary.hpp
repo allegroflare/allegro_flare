@@ -19,15 +19,15 @@ namespace AllegroFlare
       {
       private:
          std::map<std::string, Screens::Basic *> screens;
-         Screens::Basic *__find_by_identifier(std::string identifier);
-         bool __exists_by_identifier(std::string identifier);
 
       public:
          Dictionary();
          ~Dictionary();
 
          // management
-         Screens::Basic *find(std::string name);
+         Screens::Basic *find(std::string identifier);
+         bool exists(std::string identifier);
+
          bool add(std::string name, Screens::Basic *screen);
          bool remove(Screens::Basic *screen);
          bool remove(std::string identifier);

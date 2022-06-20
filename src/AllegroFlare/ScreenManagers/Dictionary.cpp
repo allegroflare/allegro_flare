@@ -26,7 +26,7 @@ Dictionary::~Dictionary()
 }
 
 
-Screens::Basic *Dictionary::__find_by_identifier(std::string identifier)
+Screens::Basic *Dictionary::find(std::string identifier)
 {
    std::map<std::string, Screens::Basic *>::iterator it = screens.find(identifier);
    if (it == screens.end()) return nullptr;
@@ -34,7 +34,7 @@ Screens::Basic *Dictionary::__find_by_identifier(std::string identifier)
 }
 
 
-bool Dictionary::__exists_by_identifier(std::string identifier)
+bool Dictionary::exists(std::string identifier)
 {
    std::map<std::string, Screens::Basic *>::iterator it = screens.find(identifier);
    if (it == screens.end()) return false;
@@ -42,15 +42,9 @@ bool Dictionary::__exists_by_identifier(std::string identifier)
 }
 
 
-Screens::Basic *Dictionary::find(std::string name)
-{
-   return __find_by_identifier(name);
-}
-
-
 bool Dictionary::add(std::string name, Screens::Basic *screen)
 {
-   if (!__exists_by_identifier(name))
+   if (!exists(name))
    {
       std::stringstream ss;
       ss << "[ScreenManagers::Dictionary::add] warning: A screen listed under the identifier \""
