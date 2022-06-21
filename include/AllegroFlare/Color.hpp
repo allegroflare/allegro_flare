@@ -36,6 +36,11 @@ namespace AllegroFlare
       friend std::ostream& operator<<(std::ostream& os, const Color& c);
       
       float r, g, b, a;
+
+      // consts
+      // TODO: begin defining color constants in this way
+      static const ALLEGRO_COLOR Eigengrau;
+      static const ALLEGRO_COLOR Nothing;
    };
    
    Color operator*(const Color &c, float k);

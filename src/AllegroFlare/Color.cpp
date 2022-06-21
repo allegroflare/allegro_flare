@@ -74,6 +74,12 @@ namespace AllegroFlare
    
    Color::~Color()
    {}
+
+
+   const ALLEGRO_COLOR Color::Eigengrau = al_map_rgba_f(0.086f, 0.086f, 0.114f, 1.0f);
+   const ALLEGRO_COLOR Color::Nothing = Eigengrau;
+
+
    
    Color Color::operator+(const Color &c2){
       return Color(
