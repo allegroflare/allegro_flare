@@ -16,7 +16,7 @@ bool operator==(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
    return true;
 }
 
-bool operator==(const AllegroFlare::vec2d& vec, const AllegroFlare::vec2d& other_vec)
+bool operator==(const AllegroFlare::Vec2D& vec, const AllegroFlare::Vec2D& other_vec)
 {
    if (vec.x != other_vec.x) return false;
    if (vec.y != other_vec.y) return false;
@@ -25,9 +25,9 @@ bool operator==(const AllegroFlare::vec2d& vec, const AllegroFlare::vec2d& other
 
 namespace AllegroFlare
 {
-   void PrintTo(const AllegroFlare::vec2d& vec, ::std::ostream* os)
+   void PrintTo(const AllegroFlare::Vec2D& vec, ::std::ostream* os)
    {
-      *os << "AllegroFlare::vec2d(" << vec.x << ", " << vec.y << ")";
+      *os << "AllegroFlare::Vec2D(" << vec.x << ", " << vec.y << ")";
    }
 }
 
