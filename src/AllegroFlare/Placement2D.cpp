@@ -439,7 +439,18 @@ namespace AllegroFlare
             other_coordinates[3].x, other_coordinates[3].y, other_coordinates[0].x, other_coordinates[0].y)
          ;
 
-      return collides_by_top_line || collides_by_right_line || collides_by_bottom_line || collides_by_left_line;
+      if (collides_by_top_line || collides_by_right_line || collides_by_bottom_line || collides_by_left_line)
+      {
+         return true;
+      }
+
+      bool other_vertex_is_inside = collide(other_coordinates[0].x, other_coordinates[0].y);
+      if (other_vertex_is_inside) return true;
+
+      bool self_vertex_is_inside_other = other.collide(self_coordinates[0].x, self_coordinates[0].y);
+      if (self_vertex_is_inside_other) return true;
+
+      return false;
    }
 
 
