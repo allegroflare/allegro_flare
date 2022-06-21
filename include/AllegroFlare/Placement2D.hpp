@@ -3,6 +3,7 @@
 
 
 #include <string>
+#include <vector>
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Vec2B.hpp>
 #include <AllegroFlare/Vec2D.hpp>
@@ -36,6 +37,7 @@ namespace AllegroFlare
       void draw_origin();
       void clear();
       void transform_coordinates(float *x, float *y);
+      void transform_coordinates(std::vector<AllegroFlare::Vec2D> *coordinates);
       void place_coordinates(float *x, float *y);
 
       bool in_range(float x, float y, float distance) const;

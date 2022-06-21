@@ -10,7 +10,6 @@
 
 
 
-
 namespace AllegroFlare
 {
    Placement2D::Placement2D()
@@ -174,6 +173,23 @@ namespace AllegroFlare
       al_transform_coordinates(&transform, xx, yy);
    }
 
+
+
+   void Placement2D::transform_coordinates(std::vector<AllegroFlare::Vec2D> *coordinates)
+   {
+      if (!coordinates)
+      {
+         throw std::runtime_error("Placement2D:transform_coordinates: error: coordinates cannot be null");
+      }
+      ALLEGRO_TRANSFORM transform;
+      this->build_transform(&transform);
+
+      al_invert_transform(&transform);
+      for (auto &coordinate : *coordinates)
+      {
+         al_transform_coordinates(&transform, &coordinate.x, &coordinate.y);
+      }
+   }
 
 
 
