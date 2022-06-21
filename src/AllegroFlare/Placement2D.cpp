@@ -394,6 +394,8 @@ namespace AllegroFlare
             other_coordinates[3].x, other_coordinates[3].y, other_coordinates[0].x, other_coordinates[0].y)
          ;
 
+      if (collides_by_top_line) return true;
+
       bool collides_by_right_line
          = line_line_collision2d(
             self_coordinates[1].x, self_coordinates[1].y, self_coordinates[2].x, self_coordinates[2].y,
@@ -408,6 +410,8 @@ namespace AllegroFlare
             self_coordinates[1].x, self_coordinates[1].y, self_coordinates[2].x, self_coordinates[2].y,
             other_coordinates[3].x, other_coordinates[3].y, other_coordinates[0].x, other_coordinates[0].y)
          ;
+
+      if (collides_by_right_line) return true;
 
       bool collides_by_bottom_line
          = line_line_collision2d(
@@ -424,6 +428,8 @@ namespace AllegroFlare
             other_coordinates[3].x, other_coordinates[3].y, other_coordinates[0].x, other_coordinates[0].y)
          ;
 
+      if (collides_by_bottom_line) return true;
+
       bool collides_by_left_line
          = line_line_collision2d(
             self_coordinates[3].x, self_coordinates[3].y, self_coordinates[0].x, self_coordinates[0].y,
@@ -439,10 +445,7 @@ namespace AllegroFlare
             other_coordinates[3].x, other_coordinates[3].y, other_coordinates[0].x, other_coordinates[0].y)
          ;
 
-      if (collides_by_top_line || collides_by_right_line || collides_by_bottom_line || collides_by_left_line)
-      {
-         return true;
-      }
+      if (collides_by_left_line) return true;
 
       bool other_vertex_is_inside = collide(other_coordinates[0].x, other_coordinates[0].y);
       if (other_vertex_is_inside) return true;
