@@ -56,7 +56,7 @@ TEST_F(AllegroFlare_Placement2DTest,
 
 
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
-   collides__will_return_true_if_the_placement_collides_with_another_placement)
+   DISABLED__collides__will_return_true_if_the_placement_collides_with_another_placement)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
    placement_a.rotation = 0.01f;
