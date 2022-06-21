@@ -43,6 +43,7 @@ namespace AllegroFlare
       bool in_range(float x, float y, float distance) const;
       bool collide(float x, float y);
       bool collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left);
+      bool collide(AllegroFlare::Placement2D &other); // should revise to a const &other
 
       std::string get_string();
 

@@ -10,6 +10,50 @@
 
 
 
+static float cross2d(float ax, float ay, float bx, float by)
+{
+    return ax * by - ay * bx;
+}
+
+
+
+static bool line_line_collision2d(
+      float l1x1, float l1y1, float l1x2, float l1y2, float l2x1, float l2y1, float l2x2, float l2y2
+   )
+{
+    float ax = l1x2 - l1x1;
+    float ay = l1y2 - l1y1;
+    float bx = l2x2 - l2x1;
+    float by = l2y2 - l2y1;
+    float cx = l2x1 - l1x1;
+    float cy = l2y1 - l1y1;
+    float ab = cross2d(ax, ay, bx, by);
+    float ca = cross2d(cx, cy, ax, ay);
+    float cb = cross2d(cx, cy, bx, by);
+    if (ab == 0) {
+        return 0;
+    }
+    if (ab < 0) {
+        if (ca > 0 || cb > 0) {
+            return 0;
+        }
+        if (ca < ab || cb < ab) {
+            return 0;
+        }
+    }
+    else {
+        if (ca < 0 || cb < 0) {
+            return 0;
+        }
+        if (ca > ab || cb > ab) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
+
 namespace AllegroFlare
 {
    Placement2D::Placement2D()
@@ -235,6 +279,51 @@ namespace AllegroFlare
       return true;
    }
 
+
+
+   bool Placement2D::collide(AllegroFlare::Placement2D &other)
+   {
+      std::vector<AllegroFlare::Vec2D> self_coordinates = {
+         { 0,      0      }, // top left corner
+         { size.x, 0      }, // top right corner
+         { size.x, size.y }, // bottom right corner
+         { 0,      size.y }, // bottom left corner
+      };
+
+      std::vector<AllegroFlare::Vec2D> other_coordinates = {
+         { 0,            0            }, // top left corner
+         { other.size.x, 0            }, // top right corner
+         { other.size.x, other.size.y }, // bottom right corner
+         { 0,            other.size.y }, // bottom left corner
+      };
+
+      transform_coordinates(&self_coordinates);
+      other.transform_coordinates(&other_coordinates);
+
+      /*
+      float l1x1 = 0, l1y1 = 0, l1x2 = w, l1y2 = 0;
+      transform_coordinates(&l1x1, &l1y1);
+      transform_coordinates(&l1x2, &l1y2);
+
+      float l2x1 = 0, l2y1 = 0, l2x2 = w, l2y2 = 0;
+      other.transform_coordinates(&l2x1, &l2y1);
+      other.transform_coordinates(&l2x2, &l2y2);
+
+      bool c1 = line_line_collision2d(l1x1, l1y1, l1x2, l1y2, l2x1, l2y1, l2x2, l2y2);
+
+      // same for all other combinations of lines
+      //...
+
+      return c1 || c2 || ...;
+      */
+
+      bool collides_by_line = 
+         line_line_collision2d(
+            self_coordinates[0].x, self_coordinates[0].y, self_coordinates[1].x, self_coordinates[1].y,
+            other_coordinates[0].x, other_coordinates[0].y, other_coordinates[1].x, other_coordinates[1].y);
+
+      return collides_by_line;
+   }
 
 
 
