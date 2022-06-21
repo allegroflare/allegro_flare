@@ -39,6 +39,7 @@ namespace AllegroFlare
       void transform_coordinates(float *x, float *y);
       void transform_coordinates(std::vector<AllegroFlare::Vec2D> *coordinates);
       void place_coordinates(float *x, float *y);
+      void place_coordinates(std::vector<AllegroFlare::Vec2D> *coordinates);
 
       bool in_range(float x, float y, float distance) const;
       bool collide(float x, float y);

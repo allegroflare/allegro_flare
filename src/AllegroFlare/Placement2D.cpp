@@ -10,6 +10,42 @@
 
 
 
+#include <iostream>
+#include <AllegroFlare/Color.hpp>
+
+
+
+// from Andre LeMothe's "Tricks of the Windows Game Programming Gurus"
+
+// Returns 1 if the lines intersect, otherwise 0. In addition, if the lines 
+// intersect the intersection point may be stored in the floats i_x and i_y.
+char get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, 
+    float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
+{
+    float s1_x, s1_y, s2_x, s2_y;
+    s1_x = p1_x - p0_x;     s1_y = p1_y - p0_y;
+    s2_x = p3_x - p2_x;     s2_y = p3_y - p2_y;
+
+    float s, t;
+    s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+    t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+
+    if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+    {
+        // Collision detected
+        if (i_x != NULL)
+            *i_x = p0_x + (t * s1_x);
+        if (i_y != NULL)
+            *i_y = p0_y + (t * s1_y);
+        return 1;
+    }
+
+    return 0; // No collision
+}
+
+
+
+
 static float cross2d(float ax, float ay, float bx, float by)
 {
     return ax * by - ay * bx;
@@ -236,6 +272,22 @@ namespace AllegroFlare
    }
 
 
+   void Placement2D::place_coordinates(std::vector<AllegroFlare::Vec2D> *coordinates)
+   {
+      if (!coordinates)
+      {
+         throw std::runtime_error("Placement2D:place_coordinates: error: coordinates cannot be null");
+      }
+      ALLEGRO_TRANSFORM transform;
+      this->build_transform(&transform);
+
+      for (auto &coordinate : *coordinates)
+      {
+         al_transform_coordinates(&transform, &coordinate.x, &coordinate.y);
+      }
+   }
+
+
 
    void Placement2D::place_coordinates(float *x, float *y)
    {
@@ -297,30 +349,41 @@ namespace AllegroFlare
          { 0,            other.size.y }, // bottom left corner
       };
 
-      transform_coordinates(&self_coordinates);
-      other.transform_coordinates(&other_coordinates);
+      place_coordinates(&self_coordinates);
+      other.place_coordinates(&other_coordinates);
+      //transform_coordinates(&self_coordinates);
+      //other.transform_coordinates(&other_coordinates);
 
-      /*
-      float l1x1 = 0, l1y1 = 0, l1x2 = w, l1y2 = 0;
-      transform_coordinates(&l1x1, &l1y1);
-      transform_coordinates(&l1x2, &l1y2);
+      for (auto &coordinate : self_coordinates)
+      {
+         al_draw_rectangle(coordinate.x-3, coordinate.y-3, coordinate.x+3, coordinate.y+3, AllegroFlare::Color::MintCream, 2.0);
+      }
+      for (auto &coordinate : other_coordinates)
+      {
+         al_draw_rectangle(coordinate.x-3, coordinate.y-3, coordinate.x+3, coordinate.y+3, AllegroFlare::Color::MintCream, 2.0);
+      }
 
-      float l2x1 = 0, l2y1 = 0, l2x2 = w, l2y2 = 0;
-      other.transform_coordinates(&l2x1, &l2y1);
-      other.transform_coordinates(&l2x2, &l2y2);
+      //float l1x1 = 0, l1y1 = 0, l1x2 = w, l1y2 = 0;
+      //transform_coordinates(&l1x1, &l1y1);
+      //transform_coordinates(&l1x2, &l1y2);
 
-      bool c1 = line_line_collision2d(l1x1, l1y1, l1x2, l1y2, l2x1, l2y1, l2x2, l2y2);
+      //float l2x1 = 0, l2y1 = 0, l2x2 = w, l2y2 = 0;
+      //other.transform_coordinates(&l2x1, &l2y1);
+      //other.transform_coordinates(&l2x2, &l2y2);
 
-      // same for all other combinations of lines
-      //...
+      //bool c1 = line_line_collision2d(l1x1, l1y1, l1x2, l1y2, l2x1, l2y1, l2x2, l2y2);
 
-      return c1 || c2 || ...;
-      */
+      //// same for all other combinations of lines
+      ////...
 
-      bool collides_by_line = 
-         line_line_collision2d(
+      //return c1 || c2 || ...;
+
+      float dummy_float = 1.0;
+      bool collides_by_line
+         = line_line_collision2d(
             self_coordinates[0].x, self_coordinates[0].y, self_coordinates[1].x, self_coordinates[1].y,
-            other_coordinates[0].x, other_coordinates[0].y, other_coordinates[1].x, other_coordinates[1].y);
+            other_coordinates[0].x, other_coordinates[0].y, other_coordinates[1].x, other_coordinates[1].y)
+         ;
 
       return collides_by_line;
    }

@@ -44,6 +44,8 @@ namespace AllegroFlare
       static const ALLEGRO_COLOR Eigengrau;
       static const ALLEGRO_COLOR Nothing;
       static const ALLEGRO_COLOR Null;
+      static const ALLEGRO_COLOR Red;
+      static const ALLEGRO_COLOR MintCream;
    };
    
    Color operator*(const Color &c, float k);

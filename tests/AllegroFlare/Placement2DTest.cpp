@@ -40,14 +40,29 @@ TEST_F(AllegroFlare_Placement2DTest,
 }
 
 
+TEST_F(AllegroFlare_Placement2DTest,
+   place_coordinates__will_place_a_list_of_vec2d_coordinates_into_the_placement)
+{
+   AllegroFlare::Placement2D placement;
+   placement.position = {10, 27};
+   std::vector<AllegroFlare::Vec2D> coordinates = { { 0, 0 }, { 10, 27 }, { 32, 64 } };
+
+   placement.place_coordinates(&coordinates);
+
+   std::vector<AllegroFlare::Vec2D> expected_transformed_coordinates = { { 10, 27 }, { 20, 54 }, { 42, 91 } };
+
+   EXPECT_EQ(expected_transformed_coordinates, coordinates);
+}
+
+
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    collides__will_return_true_if_the_placement_collides_with_another_placement)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
-   placement_a.rotation = 0.2f;
+   placement_a.rotation = 0.01f;
 
    AllegroFlare::Placement2D placement_b(700, 400, 150, 140);
-   placement_b.rotation = -0.1f;
+   placement_b.rotation = 0.02f;
 
    al_install_keyboard();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -69,7 +84,7 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
          {
             al_clear_to_color(AllegroFlare::Color::Nothing);
             bool collides = placement_a.collide(placement_b);
-            ALLEGRO_COLOR collides_color = AllegroFlare::color::red;
+            ALLEGRO_COLOR collides_color = AllegroFlare::Color::Red;
             placement_a.draw_box(collides ? collides_color : AllegroFlare::color::mintcream, false);
             placement_b.draw_box(collides ? collides_color : AllegroFlare::color::lightcyan, false);
             al_flip_display();
