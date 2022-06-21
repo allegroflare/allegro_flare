@@ -11,7 +11,6 @@
 
 
 
-
 namespace AllegroFlare
 {
    inline float Color::clamp_color(float v){
@@ -31,9 +30,10 @@ namespace AllegroFlare
    
    Color::Color(int hex, float alpha)
    {
-      r = (float)(hex & 0xFF0000)/0xFF0000;
-      g = (float)(hex & 0x00FF00)/0xFF00;
-      b = (float)(hex & 0x0000FF)/0xFF;
+      r = ((float)(hex & 0xFF0000)/0xFF0000) * alpha;
+      g = ((float)(hex & 0x00FF00)/0xFF00) * alpha;
+      b = ((float)(hex & 0x0000FF)/0xFF) * alpha;
+      a = alpha;
    }
    
    Color::Color(float r, float g, float b, float a)
@@ -76,8 +76,9 @@ namespace AllegroFlare
    {}
 
 
-   const ALLEGRO_COLOR Color::Eigengrau = al_map_rgba_f(0.086f, 0.086f, 0.114f, 1.0f);
+   const ALLEGRO_COLOR Color::Eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
    const ALLEGRO_COLOR Color::Nothing = Eigengrau;
+   const ALLEGRO_COLOR Color::Null = ALLEGRO_COLOR{0, 0, 0, 1};
 
 
    
@@ -130,6 +131,13 @@ namespace AllegroFlare
       os << "rgba(" << c.r*255 << "," << c.g*255 << "," << c.b*255 << "," << c.a << ")";
       return os;
    }
+
+
+   ALLEGRO_COLOR Color::to_al()
+   {
+      return ALLEGRO_COLOR{r, g, b, a};
+   }
+
    
    ALLEGRO_COLOR operator+(const ALLEGRO_COLOR& lhs, const ALLEGRO_COLOR& rhs)
    {
@@ -192,7 +200,6 @@ namespace AllegroFlare
       result.b = lhs * rhs.b;
       return result;
    }
-
 
 
 

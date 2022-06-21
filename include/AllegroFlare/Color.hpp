@@ -9,38 +9,41 @@
 //#include <allegro_flare/color_names.h>
 
 
-
 namespace AllegroFlare
 {
    class Color
    {
-   private:
    public:
+      float r;
+      float g;
+      float b;
+      float a;
+
+      Color();
+      Color(float r, float g, float b, float a=1.0f);
+      Color(ALLEGRO_COLOR allegro_color);
+      Color(std::string color_name, float a=1.0f);
+      Color(int hex, float a=1.0f);
+      ~Color();
+      
+      static Color rgba(int r, int g, int b, float a=1.0f);
       static inline float clamp_color(float v);
       
-      Color();
-      ~Color();
-      Color(float r, float g, float b, float a = 1.0f);
-      Color(ALLEGRO_COLOR allegro_color);
-      Color(std::string color_name, float alpha = 1.0f);
-      Color(int hex, float alpha = 1.0f);
-      
-      static Color rgba(int r, int g, int b, float a = 1.0f);
-      
-      Color mix(Color &c1, Color &c2, float scale = 0.5f);
+      Color mix(Color &c1, Color &c2, float scale=0.5f);
       
       Color operator+(const Color &c2);
       Color operator-(const Color &c2);
       Color operator*(const Color &c2);
       
       friend std::ostream& operator<<(std::ostream& os, const Color& c);
-      
-      float r, g, b, a;
+
+      ALLEGRO_COLOR to_al();
 
       // consts
       // TODO: begin defining color constants in this way
       static const ALLEGRO_COLOR Eigengrau;
       static const ALLEGRO_COLOR Nothing;
+      static const ALLEGRO_COLOR Null;
    };
    
    Color operator*(const Color &c, float k);
@@ -283,6 +286,6 @@ namespace AllegroFlare
       extern const ALLEGRO_COLOR yellow;
       extern const ALLEGRO_COLOR yellowgreen;
    }
-
-
 }
+
+
