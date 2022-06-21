@@ -16,6 +16,8 @@ class AllegroFlare_Placement2DWithAllegroRenderingFixtureTest
 
 #include <AllegroFlare/Placement2D.hpp>
 
+#include <AllegroFlare/Color.hpp>
+
 
 TEST_F(AllegroFlare_Placement2DTest, can_be_created_without_blowing_up)
 {
@@ -41,7 +43,16 @@ TEST_F(AllegroFlare_Placement2DTest,
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    collides__will_return_true_if_the_placement_collides_with_another_placement)
 {
-   // TODO
+   AllegroFlare::Placement2D placement;
+   placement.position = {400, 300};
+   placement.size = {100, 100};
+   placement.rotation = 0.2f;
+
+   placement.draw_box(AllegroFlare::color::mintcream, false);
+
+   al_flip_display();
+
+   sleep_for(2);
 }
 
 
