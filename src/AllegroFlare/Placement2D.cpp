@@ -100,10 +100,10 @@ namespace AllegroFlare
       , anchor(0, 0)
       , flip(false, false)
       , rotation(0)
-      //, x(position.x)
-      //, y(position.y)
-      //, w(size.x)
-      //, h(size.y)
+      , x(position.x)
+      , y(position.y)
+      , w(size.x)
+      , h(size.y)
    {}
 
 
@@ -117,10 +117,10 @@ namespace AllegroFlare
       , anchor(0, 0)
       , flip(false, false)
       , rotation(0)
-      //, x(position.x)
-      //, y(position.y)
-      //, w(size.x)
-      //, h(size.y)
+      , x(position.x)
+      , y(position.y)
+      , w(size.x)
+      , h(size.y)
    {}
 
 
@@ -134,10 +134,10 @@ namespace AllegroFlare
       , anchor(anchor_x, anchor_y)
       , flip(false, false)
       , rotation(rotation)
-      //, x(position.x)
-      //, y(position.y)
-      //, w(size.x)
-      //, h(size.y)
+      , x(position.x)
+      , y(position.y)
+      , w(size.x)
+      , h(size.y)
    {}
 
 
@@ -351,8 +351,6 @@ namespace AllegroFlare
 
       place_coordinates(&self_coordinates);
       other.place_coordinates(&other_coordinates);
-      //transform_coordinates(&self_coordinates);
-      //other.transform_coordinates(&other_coordinates);
 
       for (auto &coordinate : self_coordinates)
       {
@@ -362,21 +360,6 @@ namespace AllegroFlare
       {
          al_draw_rectangle(coordinate.x-3, coordinate.y-3, coordinate.x+3, coordinate.y+3, AllegroFlare::Color::MintCream, 2.0);
       }
-
-      //float l1x1 = 0, l1y1 = 0, l1x2 = w, l1y2 = 0;
-      //transform_coordinates(&l1x1, &l1y1);
-      //transform_coordinates(&l1x2, &l1y2);
-
-      //float l2x1 = 0, l2y1 = 0, l2x2 = w, l2y2 = 0;
-      //other.transform_coordinates(&l2x1, &l2y1);
-      //other.transform_coordinates(&l2x2, &l2y2);
-
-      //bool c1 = line_line_collision2d(l1x1, l1y1, l1x2, l1y2, l2x1, l2y1, l2x2, l2y2);
-
-      //// same for all other combinations of lines
-      ////...
-
-      //return c1 || c2 || ...;
 
       float dummy_float = 1.0;
       bool collides_by_top_line
