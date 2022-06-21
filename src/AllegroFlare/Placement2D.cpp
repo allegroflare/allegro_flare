@@ -379,7 +379,7 @@ namespace AllegroFlare
       //return c1 || c2 || ...;
 
       float dummy_float = 1.0;
-      bool collides_by_line
+      bool collides_by_top_line
          = line_line_collision2d(
             self_coordinates[0].x, self_coordinates[0].y, self_coordinates[1].x, self_coordinates[1].y,
             other_coordinates[0].x, other_coordinates[0].y, other_coordinates[1].x, other_coordinates[1].y)
@@ -394,7 +394,22 @@ namespace AllegroFlare
             other_coordinates[3].x, other_coordinates[3].y, other_coordinates[0].x, other_coordinates[0].y)
          ;
 
-      return collides_by_line;
+      bool collides_by_right_line
+         = line_line_collision2d(
+            self_coordinates[1].x, self_coordinates[1].y, self_coordinates[2].x, self_coordinates[2].y,
+            other_coordinates[0].x, other_coordinates[0].y, other_coordinates[1].x, other_coordinates[1].y)
+         || line_line_collision2d(
+            self_coordinates[1].x, self_coordinates[1].y, self_coordinates[2].x, self_coordinates[2].y,
+            other_coordinates[1].x, other_coordinates[1].y, other_coordinates[2].x, other_coordinates[2].y)
+         || line_line_collision2d(
+            self_coordinates[1].x, self_coordinates[1].y, self_coordinates[2].x, self_coordinates[2].y,
+            other_coordinates[2].x, other_coordinates[2].y, other_coordinates[3].x, other_coordinates[3].y)
+         || line_line_collision2d(
+            self_coordinates[1].x, self_coordinates[1].y, self_coordinates[2].x, self_coordinates[2].y,
+            other_coordinates[3].x, other_coordinates[3].y, other_coordinates[0].x, other_coordinates[0].y)
+         ;
+
+      return collides_by_top_line || collides_by_right_line;
    }
 
 
