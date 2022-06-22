@@ -73,3 +73,15 @@ TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__w
    }
 }
 
+
+TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__will_display_the_timer_colored)
+{
+   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref());
+   stopwatch.get_placement_ref() = build_centered_placement();
+   stopwatch.set_color(AllegroFlare::Color::MintCream);
+
+   al_clear_to_color(AllegroFlare::Color::Eigengrau);
+   stopwatch.render();
+   al_flip_display();
+}
+

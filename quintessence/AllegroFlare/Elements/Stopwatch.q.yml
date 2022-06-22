@@ -18,6 +18,12 @@ properties:
     type: AllegroFlare::Timer
     init_with: '{}'
 
+  - name: color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -50,9 +56,8 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
     body: |
-      ALLEGRO_COLOR color = AllegroFlare::Color::White;
       ALLEGRO_FONT *font = obtain_font();
-      std::string ellapsed_time_str = AllegroFlare::TimerFormatter(timer.get_elapsed_time_milliseconds()).format();
+      std::string ellapsed_time_str = build_ellapsed_time_str();
 
       get_placement_ref().start_transform();
       al_draw_text(font, color, 0, 0, ALLEGRO_ALIGN_LEFT, ellapsed_time_str.c_str());
@@ -60,7 +65,13 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::TimerFormatter
-      - AllegroFlare::Color::White
+
+
+  - name: build_ellapsed_time_str
+    type: std::string
+    private: true
+    body: |
+      return AllegroFlare::TimerFormatter(timer.get_elapsed_time_milliseconds()).format();
 
 
   - name: obtain_font
@@ -80,11 +91,11 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::TimerFormatter
     headers: [ AllegroFlare/TimerFormatter.hpp ]
-  - symbol: AllegroFlare::Color::White
-    headers: [ AllegroFlare/Color.hpp ]
   - symbol: AllegroFlare::Timer
     headers: [ AllegroFlare/Timer.hpp ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
 
 

@@ -4,7 +4,9 @@
 #include <AllegroFlare/Elements/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Timer.hpp>
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <string>
 
 
 namespace AllegroFlare
@@ -16,16 +18,20 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::Timer timer;
+         ALLEGRO_COLOR color;
 
       public:
          Stopwatch(AllegroFlare::FontBin* font_bin=nullptr);
          ~Stopwatch();
 
+         void set_color(ALLEGRO_COLOR color);
+         ALLEGRO_COLOR get_color();
          void start();
          void pause();
          void reset();
          void is_running();
          void render();
+         std::string build_ellapsed_time_str();
          ALLEGRO_FONT* obtain_font();
       };
    }

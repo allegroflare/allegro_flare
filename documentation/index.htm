@@ -436,6 +436,10 @@ table td
   <td class="property">timer</td>
   <td class="property">AllegroFlare::Timer</td>
 </tr>
+<tr>
+  <td class="property">color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -454,6 +458,9 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
+  <td class="private_method">build_ellapsed_time_str()</td>
+</tr>
+<tr>
   <td class="private_method">obtain_font()</td>
 </tr>
     </table>
@@ -468,13 +475,13 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TimerFormatter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TimerFormatter.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color::White&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timer.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1041,13 +1048,11 @@ table td
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/TimerFormatter": [
-    "AllegroFlare/Elements/Stopwatch"
-  ],
-  "AllegroFlare/Color/White": [
     "AllegroFlare/Elements/Stopwatch"
   ],
   "AllegroFlare/Timer": [

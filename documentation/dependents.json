@@ -77,13 +77,11 @@
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/TimerFormatter": [
-    "AllegroFlare/Elements/Stopwatch"
-  ],
-  "AllegroFlare/Color/White": [
     "AllegroFlare/Elements/Stopwatch"
   ],
   "AllegroFlare/Timer": [
