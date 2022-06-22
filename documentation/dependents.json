@@ -117,6 +117,9 @@
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "al_color_name": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

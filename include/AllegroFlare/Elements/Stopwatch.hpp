@@ -30,6 +30,7 @@ namespace AllegroFlare
          void pause();
          void reset();
          void is_running();
+         void fit_placement_width_and_height_to_stopwatch();
          void render();
          std::string build_ellapsed_time_str();
          ALLEGRO_FONT* obtain_font();

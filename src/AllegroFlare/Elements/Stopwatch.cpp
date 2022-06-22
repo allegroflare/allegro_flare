@@ -1,6 +1,8 @@
 
 
 #include <AllegroFlare/Elements/Stopwatch.hpp>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/TimerFormatter.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -61,6 +63,34 @@ void Stopwatch::reset()
 void Stopwatch::is_running()
 {
    timer.is_running();
+   return;
+}
+
+void Stopwatch::fit_placement_width_and_height_to_stopwatch()
+{
+   if (!(al_is_system_installed()))
+      {
+         std::stringstream error_message;
+         error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(al_is_font_addon_initialized()))
+      {
+         std::stringstream error_message;
+         error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   std::string ellapsed_time_str = build_ellapsed_time_str();
+   float width = al_get_text_width(obtain_font(), ellapsed_time_str.c_str());
+   float height = al_get_font_line_height(obtain_font());
+   get_placement_ref().size.x = width;
+   get_placement_ref().size.y = height;
    return;
 }
 

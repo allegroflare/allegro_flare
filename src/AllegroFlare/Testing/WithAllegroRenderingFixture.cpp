@@ -11,6 +11,9 @@
 #include <thread>
 #include <stdexcept>
 #include <sstream>
+#include <allegro5/allegro_color.h>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -140,6 +143,18 @@ AllegroFlare::Placement2D WithAllegroRenderingFixture::build_centered_placement(
       }
    AllegroFlare::Placement2D place(al_get_display_width(display)/2, al_get_display_height(display)/2, width, height);
    return place;
+}
+
+void WithAllegroRenderingFixture::draw_rulers()
+{
+   if (!(al_get_target_bitmap()))
+      {
+         std::stringstream error_message;
+         error_message << "WithAllegroRenderingFixture" << "::" << "draw_rulers" << ": error: " << "guard \"al_get_target_bitmap()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   al_draw_line(1920/2, 0, 1920/2, 1080, al_color_name("gray"), 1.0); // rulers down the center
+   al_draw_line(0, 1080/2, 1920, 1080/2, al_color_name("gray"), 1.0); // rulers across the middle
 }
 } // namespace Testing
 } // namespace AllegroFlare

@@ -52,6 +52,18 @@ functions:
       return;
 
 
+  - name: fit_placement_width_and_height_to_stopwatch
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
+    private: true
+    body: |
+      std::string ellapsed_time_str = build_ellapsed_time_str();
+      float width = al_get_text_width(obtain_font(), ellapsed_time_str.c_str());
+      float height = al_get_font_line_height(obtain_font());
+      get_placement_ref().size.x = width;
+      get_placement_ref().size.y = height;
+      return;
+
+
   - name: render
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
