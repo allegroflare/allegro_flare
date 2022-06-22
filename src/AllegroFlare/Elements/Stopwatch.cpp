@@ -1,6 +1,8 @@
 
 
 #include <AllegroFlare/Elements/Stopwatch.hpp>
+#include <AllegroFlare/TimerFormatter.hpp>
+#include <AllegroFlare/Color.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -14,8 +16,9 @@ namespace Elements
 
 
 Stopwatch::Stopwatch(AllegroFlare::FontBin* font_bin)
-   : font_bin(font_bin)
-   , quote({})
+   : AllegroFlare::Elements::Base()
+   , font_bin(font_bin)
+   , timer({})
 {
 }
 
@@ -24,6 +27,30 @@ Stopwatch::~Stopwatch()
 {
 }
 
+
+void Stopwatch::start()
+{
+   timer.start();
+   return;
+}
+
+void Stopwatch::pause()
+{
+   timer.pause();
+   return;
+}
+
+void Stopwatch::reset()
+{
+   timer.reset();
+   return;
+}
+
+void Stopwatch::is_running()
+{
+   timer.is_running();
+   return;
+}
 
 void Stopwatch::render()
 {
@@ -45,6 +72,13 @@ void Stopwatch::render()
          error_message << "Stopwatch" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
+   ALLEGRO_COLOR color = AllegroFlare::Color::White;
+   ALLEGRO_FONT *font = obtain_font();
+   std::string ellapsed_time_str = AllegroFlare::TimerFormatter(timer.get_elapsed_time_milliseconds()).format();
+
+   get_placement_ref().start_transform();
+   al_draw_text(font, color, 0, 0, ALLEGRO_ALIGN_LEFT, ellapsed_time_str.c_str());
+   get_placement_ref().restore_transform();
    return;
 }
 
@@ -56,7 +90,7 @@ ALLEGRO_FONT* Stopwatch::obtain_font()
          error_message << "Stopwatch" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("Purista Medium.otf -32");
+   return font_bin->auto_get("DroidSans.ttf -74");
 }
 } // namespace Elements
 } // namespace AllegroFlare

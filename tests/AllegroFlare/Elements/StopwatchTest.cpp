@@ -7,6 +7,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Color.hpp>
 
 
 class AllegroFlare_Elements_StopwatchTest : public ::testing::Test
@@ -52,4 +53,23 @@ TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__w
    EXPECT_THROW_WITH_MESSAGE(stopwatch.render(), std::runtime_error, expected_error_message);
 }
 
+
+TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__will_display_the_time_on_the_timer)
+{
+   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref());
+
+   stopwatch.get_placement_ref() = build_centered_placement();
+
+   stopwatch.start();
+
+   float seconds = 2.0;
+   float fps = 60;
+   for (int frame=0; frame<(seconds * fps); frame++)
+   {
+      al_clear_to_color(AllegroFlare::Color::Eigengrau);
+      stopwatch.render();
+      al_flip_display();
+      sleep_for_frame();
+   }
+}
 

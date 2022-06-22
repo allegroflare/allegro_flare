@@ -80,6 +80,7 @@ namespace AllegroFlare
    const ALLEGRO_COLOR Color::Nothing = Eigengrau;
    const ALLEGRO_COLOR Color::Null = ALLEGRO_COLOR{0, 0, 0, 1};
    const ALLEGRO_COLOR Color::Red = ALLEGRO_COLOR{1, 0, 0, 1};
+   const ALLEGRO_COLOR Color::White = ALLEGRO_COLOR{1, 1, 1, 1};
    const ALLEGRO_COLOR Color::MintCream = al_color_name("mintcream");
 
 

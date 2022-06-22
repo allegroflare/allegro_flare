@@ -33,11 +33,13 @@
   ],
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -70,12 +72,22 @@
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/TimerFormatter": [
+    "AllegroFlare/Elements/Stopwatch"
+  ],
+  "AllegroFlare/Color/White": [
+    "AllegroFlare/Elements/Stopwatch"
+  ],
+  "AllegroFlare/Timer": [
+    "AllegroFlare/Elements/Stopwatch"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"
