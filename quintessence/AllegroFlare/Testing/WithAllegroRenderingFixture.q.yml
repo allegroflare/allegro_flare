@@ -148,6 +148,15 @@ functions:
       return place;
 
 
+  - name: draw_rulers
+    guards: [ al_get_target_bitmap() ]
+    body: |
+      al_draw_line(1920/2, 0, 1920/2, 1080, al_color_name("gray"), 1.0); // rulers down the center
+      al_draw_line(0, 1080/2, 1920, 1080/2, al_color_name("gray"), 1.0); // rulers across the middle
+    body_dependency_symbols:
+      - al_color_name
+
+
 dependencies:
 
 
@@ -165,6 +174,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
+  - symbol: al_color_name
+    headers: [ allegro5/allegro_color.h ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::BitmapBin

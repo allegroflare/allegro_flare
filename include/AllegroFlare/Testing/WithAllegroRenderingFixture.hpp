@@ -36,6 +36,7 @@ namespace AllegroFlare
          std::string get_test_name();
          std::string get_test_suite_name();
          AllegroFlare::Placement2D build_centered_placement(float width=0.0f, float height=0.0f);
+         void draw_rulers();
       };
    }
 }

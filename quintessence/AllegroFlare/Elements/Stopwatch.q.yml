@@ -1,0 +1,113 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: timer
+    type: AllegroFlare::Timer
+    init_with: '{}'
+
+  - name: color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: start
+    body: |
+      timer.start();
+      return;
+
+
+  - name: pause
+    body: |
+      timer.pause();
+      return;
+
+
+  - name: reset
+    body: |
+      timer.reset();
+      return;
+
+
+  - name: is_running
+    body: |
+      timer.is_running();
+      return;
+
+
+  - name: fit_placement_width_and_height_to_stopwatch
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
+    private: true
+    body: |
+      std::string ellapsed_time_str = build_ellapsed_time_str();
+      float width = al_get_text_width(obtain_font(), ellapsed_time_str.c_str());
+      float height = al_get_font_line_height(obtain_font());
+      get_placement_ref().size.x = width;
+      get_placement_ref().size.y = height;
+      return;
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
+    body: |
+      ALLEGRO_FONT *font = obtain_font();
+      std::string ellapsed_time_str = build_ellapsed_time_str();
+
+      get_placement_ref().start_transform();
+      al_draw_text(font, color, 0, 0, ALLEGRO_ALIGN_LEFT, ellapsed_time_str.c_str());
+      get_placement_ref().restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::TimerFormatter
+
+
+  - name: build_ellapsed_time_str
+    type: std::string
+    private: true
+    body: |
+      return AllegroFlare::TimerFormatter(timer.get_elapsed_time_milliseconds()).format();
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("DroidSans.ttf -74");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::Base
+    headers: [ AllegroFlare/Elements/Base.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::TimerFormatter
+    headers: [ AllegroFlare/TimerFormatter.hpp ]
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+

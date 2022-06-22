@@ -57,6 +57,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Cubemap.q.yml">quintessence/AllegroFlare/Cubemap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Stopwatch.q.yml">quintessence/AllegroFlare/Elements/Stopwatch.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
@@ -425,6 +426,71 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Stopwatch.q.yml">quintessence/AllegroFlare/Elements/Stopwatch.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">timer</td>
+  <td class="property">AllegroFlare::Timer</td>
+</tr>
+<tr>
+  <td class="property">color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">start()</td>
+</tr>
+<tr>
+  <td class="method">pause()</td>
+</tr>
+<tr>
+  <td class="method">reset()</td>
+</tr>
+<tr>
+  <td class="method">is_running()</td>
+</tr>
+<tr>
+  <td class="private_method">fit_placement_width_and_height_to_stopwatch()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">build_ellapsed_time_str()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TimerFormatter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TimerFormatter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</h3>
      <table>
 <tr>
@@ -570,6 +636,9 @@ table td
 <tr>
   <td class="method">build_centered_placement(2)</td>
 </tr>
+<tr>
+  <td class="method">draw_rulers()</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -592,6 +661,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
@@ -941,11 +1013,13 @@ table td
   ],
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -978,12 +1052,20 @@ table td
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/TimerFormatter": [
+    "AllegroFlare/Elements/Stopwatch"
+  ],
+  "AllegroFlare/Timer": [
+    "AllegroFlare/Elements/Stopwatch"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"
@@ -1013,6 +1095,9 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_DISPLAY": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "al_color_name": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/BitmapBin": [
