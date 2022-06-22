@@ -62,14 +62,14 @@ TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__w
 
    stopwatch.start();
 
-   float seconds = 0.1;
+   float seconds = 0.2;
    float fps = 60;
    for (int frame=0; frame<(seconds * fps); frame++)
    {
       al_clear_to_color(AllegroFlare::Color::Eigengrau);
       stopwatch.render();
       al_flip_display();
-      sleep_for_frame();
+      //sleep_for_frame();
    }
 }
 
