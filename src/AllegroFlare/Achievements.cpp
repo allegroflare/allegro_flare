@@ -24,6 +24,32 @@ namespace AllegroFlare
    }
 
 
+   bool Achievements::unlock(std::pair<Achievement *, bool> *achievement)
+   {
+      if (!achievement)
+      {
+         // TODO: errors
+      }
+
+      if (achievement->second == true)
+      {
+         // TODO: consider outputting a message
+         return false;
+      }
+      else
+      {
+         achievement->first->on_unlocked();
+         achievement->second = true;
+         if (event_emitter)
+         {
+            Achievement* completed_achievement = achievement->first;
+            event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
+         }
+         return true;
+      }
+   }
+
+
    void Achievements::add(std::string name, Achievement *achievement)
    {
       // TODO: check for overwrite
@@ -39,30 +65,23 @@ namespace AllegroFlare
          bool achievement_already_unlocked = achievement.second.second;
          if (!achievement_already_unlocked && achievement.second.first->test_condition())
          {
-            // TODO: clean this up a bit and add tests
-            unlock_manually(achievement.first);
-
-            //achievement.second.first->on_achieved();
-            //achievement.second.second = true;
-            //if (event_emitter)
-            //{
-               //// TODO: add test for this case
-               //Achievement* completed_achievement = achievement.second.first;
-               //event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
-            //}
+            unlock(&achievement.second);
          }
       }
    }
+
 
    int Achievements::get_num_achievements()
    {
       return all_achievements.size();
    }
 
+
    void Achievements::clear_all()
    {
       all_achievements.clear();
    }
+
 
    bool Achievements::all_unlocked()
    {
@@ -72,6 +91,7 @@ namespace AllegroFlare
       }
       return true;
    }
+
 
    bool Achievements::unlock_manually(std::string name)
    {
@@ -87,28 +107,15 @@ namespace AllegroFlare
 
       std::pair<Achievement *, bool> &achievement = it->second;
 
-      if (achievement.second == true)
-      {
-         // TODO: consider outputting a message
-         return false;
-      }
-      else
-      {
-         achievement.first->on_unlocked();
-         achievement.second = true;
-         if (event_emitter)
-         {
-            Achievement* completed_achievement = achievement.first;
-            event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
-         }
-         return true;
-      }
+      return unlock(&achievement);
    }
+
 
    void Achievements::set_event_emitter(EventEmitter *event_emitter)
    {
       this->event_emitter = event_emitter;
    }
+
 
    std::string Achievements::dump()
    {

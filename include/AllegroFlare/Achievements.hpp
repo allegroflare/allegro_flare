@@ -14,6 +14,7 @@ namespace AllegroFlare
    private:
       std::map<std::string, std::pair<Achievement *, bool>> all_achievements;
       EventEmitter *event_emitter;
+      bool unlock(std::pair<Achievement *, bool> *achievement);
 
    public:
       Achievements(EventEmitter *event_emitter=nullptr);
