@@ -588,6 +588,22 @@ void Full::run_loop()
                   case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:
                     // TODO figure out what to do here
                   break;
+
+                  case ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT:
+                     {
+                        std::string *data = (std::string *)this_event.user.data1;
+                        if (!data)
+                        {
+                           // TODO: add an error message
+                        }
+                        else
+                        {
+                           achievements.unlock_manually(*data);
+                           //audio_controller.play_music_track_by_identifier(*data);
+                           delete data;
+                        }
+                     }
+                  break;
                }
             }
             else

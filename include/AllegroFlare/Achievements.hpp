@@ -24,6 +24,7 @@ namespace AllegroFlare
       int get_num_achievements();
       void clear_all();
       bool all_achieved();
+      bool unlock_manually(std::string name);
 
       void set_event_emitter(EventEmitter *event_emitter=nullptr);
    };

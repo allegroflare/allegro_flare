@@ -13,6 +13,16 @@ namespace AllegroFlare
    {}
 
 
+
+   bool Achievement::unlock_manually()
+   {
+      if (achieved) return false;
+
+      achieved = true;
+      on_achieved();
+      return true;
+   }
+
    bool Achievement::is_achieved() { return achieved; }
 
 
