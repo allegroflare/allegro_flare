@@ -38,8 +38,8 @@ Full::Full()
    , models()
    , motions(200)
    , audio_controller(&samples)
-   , achievements()
    , event_emitter()
+   , achievements()
    , virtual_controls_processor()
    , textlog(nullptr)
    , joystick(nullptr)
@@ -186,6 +186,8 @@ bool Full::initialize_without_display()
 
    virtual_controls_processor.set_event_emitter(&event_emitter);
    virtual_controls_processor.initialize();
+
+   achievements.set_event_emitter(&event_emitter);
 
    //if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
    //else

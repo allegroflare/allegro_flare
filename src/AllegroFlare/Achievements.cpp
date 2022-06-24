@@ -3,13 +3,15 @@
 #include <AllegroFlare/Achievements.hpp>
 
 
+#include <AllegroFlare/EventNames.hpp>
 #include <iostream>
 
 
 namespace AllegroFlare
 {
-   Achievements::Achievements()
+   Achievements::Achievements(EventEmitter *event_emitter)
       : all_achievements({})
+      , event_emitter(event_emitter)
    {}
 
 
@@ -37,6 +39,12 @@ namespace AllegroFlare
          {
             achievement.second.first->on_achieved();
             achievement.second.second = true;
+            if (event_emitter)
+            {
+               // TODO: add test for this case
+               Achievement* completed_achievement = achievement.second.first;
+               event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
+            }
          }
       }
    }
@@ -58,6 +66,11 @@ namespace AllegroFlare
          if (!achievement.second.second) return false;
       }
       return true;
+   }
+
+   void Achievements::set_event_emitter(EventEmitter *event_emitter)
+   {
+      this->event_emitter = event_emitter;
    }
 }
 

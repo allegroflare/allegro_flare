@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Achievement.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 #include <string>
 #include <map>
 
@@ -12,9 +13,10 @@ namespace AllegroFlare
    {
    private:
       std::map<std::string, std::pair<Achievement *, bool>> all_achievements;
+      EventEmitter *event_emitter;
 
    public:
-      Achievements();
+      Achievements(EventEmitter *event_emitter=nullptr);
       ~Achievements();
 
       void add(std::string name, Achievement *achievement);
@@ -22,6 +24,8 @@ namespace AllegroFlare
       int get_num_achievements();
       void clear_all();
       bool all_achieved();
+
+      void set_event_emitter(EventEmitter *event_emitter=nullptr);
    };
 }
 

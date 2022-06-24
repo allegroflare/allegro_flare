@@ -12,4 +12,3 @@ TEST(AchievementsTest, can_be_created_without_arguments)
 }
 
 
-

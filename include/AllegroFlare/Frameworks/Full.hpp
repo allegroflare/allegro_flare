@@ -36,8 +36,8 @@ namespace AllegroFlare
          ModelBin models;
          Motion motions;
          AudioController audio_controller;
-         Achievements achievements;
          EventEmitter event_emitter;
+         Achievements achievements;
          VirtualControlsProcessor virtual_controls_processor;
          ALLEGRO_TEXTLOG *textlog;
          ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
