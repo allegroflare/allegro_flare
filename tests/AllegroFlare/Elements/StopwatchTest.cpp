@@ -56,11 +56,10 @@ TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__w
 
 TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__will_display_the_time_on_the_timer)
 {
-   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref());
-
+   AllegroFlare::Timer timer;
+   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref(), &timer);
    stopwatch.get_placement_ref() = build_centered_placement();
-
-   stopwatch.start();
+   timer.start();
 
    float seconds = 0.2;
    float fps = 60;
@@ -69,14 +68,15 @@ TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__w
       al_clear_to_color(AllegroFlare::Color::Eigengrau);
       stopwatch.render();
       al_flip_display();
-      //sleep_for_frame();
+      sleep_for_frame();
    }
 }
 
 
 TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__will_display_the_timer_colored)
 {
-   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref());
+   AllegroFlare::Timer timer;
+   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref(), &timer);
    stopwatch.get_placement_ref() = build_centered_placement();
    stopwatch.set_color(AllegroFlare::Color::Aquamarine);
 
@@ -91,7 +91,8 @@ TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__w
 TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture,
   fit_placement_width_and_height_to_stopwatch__will_set_the_placement_width_and_height_to_fit_the_stopwatch_text)
 {
-   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref());
+   AllegroFlare::Timer timer;
+   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref(), &timer);
    stopwatch.get_placement_ref() = build_centered_placement();
    stopwatch.fit_placement_width_and_height_to_stopwatch();
 

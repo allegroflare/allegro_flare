@@ -8,6 +8,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -16,10 +18,10 @@ namespace Elements
 {
 
 
-Stopwatch::Stopwatch(AllegroFlare::FontBin* font_bin)
+Stopwatch::Stopwatch(AllegroFlare::FontBin* font_bin, AllegroFlare::Timer* timer)
    : AllegroFlare::Elements::Base()
    , font_bin(font_bin)
-   , timer({})
+   , timer(timer)
    , color(ALLEGRO_COLOR{1, 1, 1, 1})
 {
 }
@@ -30,9 +32,21 @@ Stopwatch::~Stopwatch()
 }
 
 
+void Stopwatch::set_timer(AllegroFlare::Timer* timer)
+{
+   this->timer = timer;
+}
+
+
 void Stopwatch::set_color(ALLEGRO_COLOR color)
 {
    this->color = color;
+}
+
+
+AllegroFlare::Timer* Stopwatch::get_timer()
+{
+   return timer;
 }
 
 
@@ -41,30 +55,6 @@ ALLEGRO_COLOR Stopwatch::get_color()
    return color;
 }
 
-
-void Stopwatch::start()
-{
-   timer.start();
-   return;
-}
-
-void Stopwatch::pause()
-{
-   timer.pause();
-   return;
-}
-
-void Stopwatch::reset()
-{
-   timer.reset();
-   return;
-}
-
-void Stopwatch::is_running()
-{
-   timer.is_running();
-   return;
-}
 
 void Stopwatch::fit_placement_width_and_height_to_stopwatch()
 {
@@ -125,7 +115,13 @@ void Stopwatch::render()
 
 std::string Stopwatch::build_ellapsed_time_str()
 {
-   return AllegroFlare::TimerFormatter(timer.get_elapsed_time_milliseconds()).format();
+   if (!(timer))
+      {
+         std::stringstream error_message;
+         error_message << "Stopwatch" << "::" << "build_ellapsed_time_str" << ": error: " << "guard \"timer\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return AllegroFlare::TimerFormatter(timer->get_elapsed_time_milliseconds()).format();
 }
 
 ALLEGRO_FONT* Stopwatch::obtain_font()

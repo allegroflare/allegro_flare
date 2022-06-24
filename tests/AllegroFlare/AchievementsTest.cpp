@@ -10,7 +10,6 @@ class AchievementTestClass : public AllegroFlare::Achievement
 {};
 
 
-
 TEST(AchievementsTest, can_be_created_without_arguments)
 {
    AllegroFlare::Achievements achievements;

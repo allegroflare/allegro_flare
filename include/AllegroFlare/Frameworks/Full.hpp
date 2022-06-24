@@ -43,6 +43,8 @@ namespace AllegroFlare
          ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
          Display *primary_display;
          ALLEGRO_TIMER *primary_timer;
+         //Camera2D camera_2d; // next
+         //Camera3D camera_3d; // next
 
          bool initialize_without_display(); // only use initialize_with_display() publically from now on
          bool destruct(); // should be privarte, is called in the destructor

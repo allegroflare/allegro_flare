@@ -5,6 +5,7 @@
 #include <AllegroFlare/Screens/Basic.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/Elements/Stopwatch.hpp>
 
 #include <allegro5/allegro_primitives.h>
 
@@ -231,10 +232,14 @@ class HUD
 public:
    int player_score;
    AllegroFlare::FontBin fonts;
+   AllegroFlare::Timer *timer;
+   AllegroFlare::Elements::Stopwatch stopwatch;
 
-   HUD()
+   HUD(AllegroFlare::Timer *timer=nullptr)
       : player_score(0)
       , fonts()
+      , timer(timer)
+      , stopwatch(&fonts, timer)
    {}
 
    void initialize()
@@ -256,6 +261,8 @@ public:
       player_score_text << player_score;
 
       al_draw_text(font, color, 20, 10, 0, player_score_text.str().c_str());
+
+      stopwatch.render();
    }
 };
 
@@ -265,12 +272,14 @@ class SnakeGame : public AllegroFlare::Screens::Basic
 {
 public:
    Gameboard gameboard;
+   AllegroFlare::Timer timer;
    HUD hud;
 
    SnakeGame(AllegroFlare::EventEmitter &event_emitter)
       : AllegroFlare::Screens::Basic()
       , gameboard(1920, 1080, event_emitter)
-      , hud()
+      , timer()
+      , hud(&timer)
    {}
 
    void initialize()
@@ -295,6 +304,12 @@ public:
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       gameboard.draw();
       hud.draw();
+   }
+
+   void on_activate() override
+   {
+      timer.reset();
+      timer.start();
    }
 
    void key_down_func(ALLEGRO_EVENT *ev) override

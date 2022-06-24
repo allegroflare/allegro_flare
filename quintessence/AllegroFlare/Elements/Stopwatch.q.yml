@@ -15,8 +15,11 @@ properties:
     constructor_arg: true
 
   - name: timer
-    type: AllegroFlare::Timer
-    init_with: '{}'
+    type: AllegroFlare::Timer*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: color
     type: ALLEGRO_COLOR
@@ -28,33 +31,10 @@ properties:
 functions:
 
 
-  - name: start
-    body: |
-      timer.start();
-      return;
-
-
-  - name: pause
-    body: |
-      timer.pause();
-      return;
-
-
-  - name: reset
-    body: |
-      timer.reset();
-      return;
-
-
-  - name: is_running
-    body: |
-      timer.is_running();
-      return;
-
-
   - name: fit_placement_width_and_height_to_stopwatch
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
     private: true
+    guards: [ timer ]
     body: |
       std::string ellapsed_time_str = build_ellapsed_time_str();
       float width = al_get_text_width(obtain_font(), ellapsed_time_str.c_str());
@@ -82,8 +62,9 @@ functions:
   - name: build_ellapsed_time_str
     type: std::string
     private: true
+    guards: [ timer ]
     body: |
-      return AllegroFlare::TimerFormatter(timer.get_elapsed_time_milliseconds()).format();
+      return AllegroFlare::TimerFormatter(timer->get_elapsed_time_milliseconds()).format();
 
 
   - name: obtain_font
@@ -103,7 +84,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::TimerFormatter
     headers: [ AllegroFlare/TimerFormatter.hpp ]
-  - symbol: AllegroFlare::Timer
+  - symbol: AllegroFlare::Timer*
     headers: [ AllegroFlare/Timer.hpp ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
