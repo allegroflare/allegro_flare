@@ -20,7 +20,7 @@
 #define ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE ALLEGRO_GET_EVENT_TYPE('F','V','a','c')
 
 // TODO: rename this to WICKED_EVENT_SWITCH_SCREEN
-#define ALLEGRO_FLARE_SCREEN_SWITCH_EVENT               ALLEGRO_GET_EVENT_TYPE('F','s','m','s')
+#define ALLEGRO_FLARE_EVENT_SWITCH_SCREEN               ALLEGRO_GET_EVENT_TYPE('F','s','m','s')
 
 // User's Events in their game
 #define ALLEGRO_FLARE_EVENT_GAME_EVENT                  ALLEGRO_GET_EVENT_TYPE('F','E','G','E')

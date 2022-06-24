@@ -96,7 +96,7 @@
   "ALLEGRO_FLARE_EVENT_EXIT_GAME": [
     "AllegroFlare/EventEmitter"
   ],
-  "ALLEGRO_FLARE_SCREEN_SWITCH_EVENT": [
+  "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/Testing/CustomComparison": [

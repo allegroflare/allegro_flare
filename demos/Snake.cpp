@@ -5,6 +5,7 @@
 #include <AllegroFlare/Screens/Basic.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/Elements/Text.hpp>
 #include <AllegroFlare/Elements/Stopwatch.hpp>
 
 #include <allegro5/allegro_primitives.h>
@@ -268,6 +269,60 @@ public:
 
 
 
+class TitleScreen : public AllegroFlare::Screens::Basic
+{
+public:
+   AllegroFlare::FontBin fonts;
+   AllegroFlare::EventEmitter &event_emitter;
+   AllegroFlare::Elements::Text title_text;
+   AllegroFlare::Elements::Text instruction_text;
+
+   TitleScreen(AllegroFlare::EventEmitter &event_emitter)
+      : fonts()
+      , event_emitter(event_emitter)
+      , title_text(&fonts)
+      , instruction_text(&fonts)
+   {}
+
+   void initialize()
+   {
+      fonts.set_path("../data/fonts");
+
+      title_text.set_text("SNAKE!");
+      title_text.set_color(AllegroFlare::Color::MintCream);
+      title_text.fit_placement_width_and_height_to_text();
+      title_text.get_placement_ref().position.x = 1920/2;
+      title_text.get_placement_ref().position.y = 1080/3;
+
+      instruction_text.set_text("Press any key to start");
+      instruction_text.set_color(AllegroFlare::Color::Yellow);
+      instruction_text.fit_placement_width_and_height_to_text();
+      instruction_text.get_placement_ref().position.x = 1920/2;
+      instruction_text.get_placement_ref().position.y = 1080/3*2;
+   }
+
+   void primary_timer_func() override
+   {
+      title_text.render();
+      instruction_text.render();
+   }
+
+   void key_down_func(ALLEGRO_EVENT *ev) override
+   {
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_ESCAPE:
+            event_emitter.emit_exit_game_event();
+         break;
+
+         default:
+            event_emitter.emit_switch_screen_event("snake_game");
+         break;
+      }
+   }
+};
+
+
 class SnakeGame : public AllegroFlare::Screens::Basic
 {
 public:
@@ -338,16 +393,21 @@ int main(int argc, char **argv)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
+   //framework.disable_exit_on_esc_keypress(); // <-- TODO
 
    framework.load_jukebox_sound_effects({
          { "pickup_fruit", { "pickup_health-01.ogg", false } }
       });
 
-   SnakeGame snake(framework.get_event_emitter_ref());
-   snake.initialize();
+   TitleScreen title_screen(framework.get_event_emitter_ref());
+   title_screen.initialize();
+   framework.register_screen("title_screen", &title_screen);
 
-   framework.register_screen("main", &snake);
-   framework.activate_screen("main");
+   SnakeGame snake_game(framework.get_event_emitter_ref());
+   snake_game.initialize();
+   framework.register_screen("snake_game", &snake_game);
+
+   framework.activate_screen("title_screen");
 
    framework.run_loop();
 }

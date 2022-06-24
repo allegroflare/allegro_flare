@@ -90,18 +90,17 @@ void EventEmitter::emit_event(unsigned int type, intptr_t data1, intptr_t data2,
    return;
 }
 
-void EventEmitter::emit_screen_switch_event(std::string screen_identifier_to_switch_to)
+void EventEmitter::emit_switch_screen_event(std::string screen_identifier_to_switch_to)
 {
    if (!(initialized))
       {
          std::stringstream error_message;
-         error_message << "EventEmitter" << "::" << "emit_screen_switch_event" << ": error: " << "guard \"initialized\" not met";
+         error_message << "EventEmitter" << "::" << "emit_switch_screen_event" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   // should be "disable screen", "enable screen", "shutdown screen", etc...
-   // TODO: implement this:
-   // std::string *data_to_pass = new std::string(screen_identifier_to_switch_to);
-   //emit_event(SCREEN_MANAGER_SWITCH_SCREEN_EVENT, data_to_pass);
+   // TODO: consider "disable screen", "enable screen", "shutdown screen", etc...
+   intptr_t data_to_pass = (intptr_t)(void *)(new std::string(screen_identifier_to_switch_to));
+   emit_event(ALLEGRO_FLARE_EVENT_SWITCH_SCREEN, data_to_pass);
    return;
 }
 

@@ -52,20 +52,19 @@ functions:
       return;
 
 
-  - name: emit_screen_switch_event
+  - name: emit_switch_screen_event
     parameters:
       - name: screen_identifier_to_switch_to
         type: std::string
         default_argument: 0
     guards: [ initialized ]
     body: |
-      // should be "disable screen", "enable screen", "shutdown screen", etc...
-      // TODO: implement this:
-      // std::string *data_to_pass = new std::string(screen_identifier_to_switch_to);
-      //emit_event(SCREEN_MANAGER_SWITCH_SCREEN_EVENT, data_to_pass);
+      // TODO: consider "disable screen", "enable screen", "shutdown screen", etc...
+      intptr_t data_to_pass = (intptr_t)(void *)(new std::string(screen_identifier_to_switch_to));
+      emit_event(ALLEGRO_FLARE_EVENT_SWITCH_SCREEN, data_to_pass);
       return;
     body_dependency_symbols:
-      - ALLEGRO_FLARE_SCREEN_SWITCH_EVENT 
+      - ALLEGRO_FLARE_EVENT_SWITCH_SCREEN
 
 
   - name: emit_exit_game_event
@@ -158,7 +157,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FLARE_EVENT_EXIT_GAME 
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: ALLEGRO_FLARE_SCREEN_SWITCH_EVENT 
+  - symbol: ALLEGRO_FLARE_EVENT_SWITCH_SCREEN
     headers: [ AllegroFlare/EventNames.hpp ]
 
 
