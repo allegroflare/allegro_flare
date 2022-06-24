@@ -64,7 +64,7 @@ namespace AllegroFlare
       all_achievements.clear();
    }
 
-   bool Achievements::all_achieved()
+   bool Achievements::all_unlocked()
    {
       for (auto &achievement : all_achievements)
       {
@@ -87,7 +87,7 @@ namespace AllegroFlare
 
       std::pair<Achievement *, bool> &achievement = it->second;
 
-      achievement.first->on_achieved();
+      achievement.first->on_unlocked();
       achievement.second = true;
       if (event_emitter)
       {

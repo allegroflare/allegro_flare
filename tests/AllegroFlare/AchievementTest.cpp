@@ -12,10 +12,10 @@ TEST(AchievementTest, can_be_created_without_arguments)
 }
 
 
-TEST(AchievementTest, achieved__is_initialized_to_false)
+TEST(AchievementTest, unlocked__is_initialized_to_false)
 {
    AllegroFlare::Achievement achievements;
-   EXPECT_EQ(false, achievements.is_achieved());
+   EXPECT_EQ(false, achievements.is_unlocked());
 }
 
 
@@ -23,11 +23,11 @@ TEST(AchievementTest, unlock_manually__will_unlock_the_achievement_and_return_tr
 {
    AllegroFlare::Achievement achievements;
    EXPECT_EQ(true, achievements.unlock_manually());
-   EXPECT_EQ(true, achievements.is_achieved());
+   EXPECT_EQ(true, achievements.is_unlocked());
 }
 
 
-TEST(AchievementTest, unlock_manually__will_call_the_achievements_on_achieved_method)
+TEST(AchievementTest, unlock_manually__will_call_the_achievements_on_unlocked_method)
 {
    // TODO: this test
 }

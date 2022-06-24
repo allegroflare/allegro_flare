@@ -5,7 +5,7 @@
 namespace AllegroFlare
 {
    Achievement::Achievement()
-      : achieved(false)
+      : unlocked(false)
    {}
 
 
@@ -16,20 +16,20 @@ namespace AllegroFlare
 
    bool Achievement::unlock_manually()
    {
-      if (achieved) return false;
+      if (unlocked) return false;
 
-      achieved = true;
-      on_achieved();
+      unlocked = true;
+      on_unlocked();
       return true;
    }
 
-   bool Achievement::is_achieved() { return achieved; }
+   bool Achievement::is_unlocked() { return unlocked; }
 
 
    bool Achievement::test_condition() { return false; }
 
 
-   void Achievement::on_achieved() {}
+   void Achievement::on_unlocked() {}
 }
 
 
