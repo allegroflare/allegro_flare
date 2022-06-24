@@ -17,11 +17,7 @@ namespace AllegroFlare
 
 
    Achievements::~Achievements()
-   {
-      //for (auto &achievement : all_achievements)
-      //   delete achievement.second.first;
-      //all_achievements.clear();
-   }
+   {}
 
 
    bool Achievements::unlock(std::pair<Achievement *, bool> *achievement)
