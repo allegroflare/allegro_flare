@@ -30,13 +30,14 @@ TEST(AchievementsTest, add__will_add_the_achievement_to_the_list)
 }
 
 
-TEST(AchievementsTest, unlock_manually__will_mark_the_achievement_as_unlocked_in_the_list_and_on_the_object)
+TEST(AchievementsTest,
+   unlock_manually__will_mark_the_achievement_as_unlocked_in_the_list_and_on_the_object_and_return_true)
 {
    AllegroFlare::Achievements achievements;
    AchievementTestClass achievement;
    achievements.add("my_achievement", &achievement);
 
-   achievements.unlock_manually("my_achievement");
+   EXPECT_EQ(true, achievements.unlock_manually("my_achievement"));
 
    std::string expected_dump_string = "achievement: \"my_achievement\", unlocked: true\n";
    std::string actual_dump_string = achievements.dump();
@@ -61,7 +62,12 @@ TEST(AchievementsTest,
 
 TEST(AchievementsTest, unlock_manually__when_the_achievement_has_already_been_unlocked__does_nothing_and_returns_false)
 {
-   // TODO
+   AllegroFlare::Achievements achievements;
+   AchievementTestClass achievement;
+   achievements.add("my_achievement", &achievement);
+
+   achievements.unlock_manually("my_achievement");
+   EXPECT_EQ(false, achievements.unlock_manually("my_achievement"));
 }
 
 

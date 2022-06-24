@@ -87,13 +87,21 @@ namespace AllegroFlare
 
       std::pair<Achievement *, bool> &achievement = it->second;
 
-      achievement.first->on_unlocked();
-      achievement.second = true;
-      if (event_emitter)
+      if (achievement.second == true)
       {
-         // TODO: add test for this case
-         Achievement* completed_achievement = achievement.first;
-         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
+         // TODO: consider outputting a message
+         return false;
+      }
+      else
+      {
+         achievement.first->on_unlocked();
+         achievement.second = true;
+         if (event_emitter)
+         {
+            Achievement* completed_achievement = achievement.first;
+            event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
+         }
+         return true;
       }
    }
 
