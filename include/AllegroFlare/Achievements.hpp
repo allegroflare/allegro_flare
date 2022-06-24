@@ -27,6 +27,7 @@ namespace AllegroFlare
       bool unlock_manually(std::string name);
 
       void set_event_emitter(EventEmitter *event_emitter=nullptr);
+      std::string dump();
    };
 }
 

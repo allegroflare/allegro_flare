@@ -6,27 +6,56 @@
 #include <AllegroFlare/Achievements.hpp>
 
 
+class AchievementTestClass : public AllegroFlare::Achievement
+{};
+
+
+
 TEST(AchievementsTest, can_be_created_without_arguments)
 {
    AllegroFlare::Achievements achievements;
 }
 
 
-TEST(AchievementsTest, unlock_manually__will_mark_the_achievement_as_unlocked)
+TEST(AchievementsTest, add__will_add_the_achievement_to_the_list)
 {
-   // TODO
+   AllegroFlare::Achievements achievements;
+   AchievementTestClass achievement;
+
+   achievements.add("my_achievement", &achievement);
+
+   std::string expected_dump_string = "achievement: \"my_achievement\", unlocked: false\n";
+   std::string actual_dump_string = achievements.dump();
+   EXPECT_EQ(expected_dump_string, actual_dump_string);
 }
 
 
-TEST(AchievementsTest, unlock_manually__will_mark_____raises_an_error)
+TEST(AchievementsTest, unlock_manually__will_mark_the_achievement_as_unlocked_in_the_list_and_on_the_object)
 {
-   // TODO
+   AllegroFlare::Achievements achievements;
+   AchievementTestClass achievement;
+   achievements.add("my_achievement", &achievement);
+
+   achievements.unlock_manually("my_achievement");
+
+   std::string expected_dump_string = "achievement: \"my_achievement\", unlocked: true\n";
+   std::string actual_dump_string = achievements.dump();
+   EXPECT_EQ(expected_dump_string, actual_dump_string);
 }
 
 
-TEST(AchievementsTest, unlock_manually__when_the_named_achievement_does_not_exist__raises_an_error)
+TEST(AchievementsTest,
+   unlock_manually__when_the_named_achievement_does_not_exist__will_output_an_error_message_to_cout)
 {
-   // TODO
+   AllegroFlare::Achievements achievements;
+   testing::internal::CaptureStdout();
+
+   achievements.unlock_manually("an-achievement-name-that-does-not-exist");
+
+   std::string expected_cout_output = "[Achievements::unlock_manually] error: Could not find "
+                                      "achievement named \"an-achievement-name-that-does-not-exist\"";
+   std::string actual_cout_output = testing::internal::GetCapturedStdout();
+   EXPECT_EQ(expected_cout_output, actual_cout_output);
 }
 
 

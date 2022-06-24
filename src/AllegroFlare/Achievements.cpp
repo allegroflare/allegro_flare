@@ -18,9 +18,9 @@ namespace AllegroFlare
 
    Achievements::~Achievements()
    {
-      for (auto &achievement : all_achievements)
-         delete achievement.second.first;
-      all_achievements.clear();
+      //for (auto &achievement : all_achievements)
+      //   delete achievement.second.first;
+      //all_achievements.clear();
    }
 
 
@@ -100,6 +100,20 @@ namespace AllegroFlare
    void Achievements::set_event_emitter(EventEmitter *event_emitter)
    {
       this->event_emitter = event_emitter;
+   }
+
+   std::string Achievements::dump()
+   {
+      std::stringstream result;
+      for (auto &achievement : all_achievements)
+      {
+         result << "achievement: \""
+                << achievement.first
+                << "\", unlocked: "
+                << (achievement.second.second ? "true" : "false")
+                << std::endl;
+      }
+      return result.str();
    }
 }
 
