@@ -39,6 +39,7 @@ Full::Full()
    , motions(200)
    , audio_controller(&samples)
    , event_emitter()
+   , achievements()
    , virtual_controls_processor()
    , textlog(nullptr)
    , joystick(nullptr)
@@ -186,6 +187,8 @@ bool Full::initialize_without_display()
    virtual_controls_processor.set_event_emitter(&event_emitter);
    virtual_controls_processor.initialize();
 
+   achievements.set_event_emitter(&event_emitter);
+
    //if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
    //else
    //{
@@ -281,6 +284,19 @@ void Full::unregister_screen(AllegroFlare::Screens::Basic *screen)
 void Full::activate_screen(std::string name)
 {
    screens.activate(name);
+}
+
+
+void Full::register_achievement(std::string name, Achievement *achievement)
+{
+   achievements.add(name, achievement);
+}
+
+
+void Full::unregister_achievement(Achievement *achievement)
+{
+   throw std::runtime_error("Frameworks::Full::unregister: error: not implemented");
+   // TODO: not implemented
 }
 
 
@@ -406,7 +422,7 @@ void Full::run_loop()
 
       current_event = &this_event;
       time_now = this_event.any.timestamp;
-      motions.update(time_now);
+      //motions.update(time_now); // this was here, and has been moved to below the ALLEGRO_EVENT_TIMER event
 
       screens.on_events(current_event);
 
@@ -415,6 +431,11 @@ void Full::run_loop()
       case ALLEGRO_EVENT_TIMER:
          if (this_event.timer.source == primary_timer)
          {
+            // update
+            motions.update(time_now);
+            achievements.check_all();
+
+            // render
             al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
             screens.primary_timer_funcs();
             al_flip_display();
@@ -562,6 +583,26 @@ void Full::run_loop()
                           delete data;
                        }
                     }
+                  break;
+
+                  case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:
+                    // TODO figure out what to do here
+                  break;
+
+                  case ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT:
+                     {
+                        std::string *data = (std::string *)this_event.user.data1;
+                        if (!data)
+                        {
+                           // TODO: add an error message
+                        }
+                        else
+                        {
+                           achievements.unlock_manually(*data);
+                           //audio_controller.play_music_track_by_identifier(*data);
+                           delete data;
+                        }
+                     }
                   break;
                }
             }

@@ -13,6 +13,7 @@
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Motion.hpp>
 #include <AllegroFlare/ScreenManagers/Dictionary.hpp>
+#include <AllegroFlare/Achievements.hpp>
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
@@ -36,6 +37,7 @@ namespace AllegroFlare
          Motion motions;
          AudioController audio_controller;
          EventEmitter event_emitter;
+         Achievements achievements;
          VirtualControlsProcessor virtual_controls_processor;
          ALLEGRO_TEXTLOG *textlog;
          ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
@@ -84,6 +86,9 @@ namespace AllegroFlare
          void register_screen(std::string name, AllegroFlare::Screens::Basic *screen);
          void unregister_screen(AllegroFlare::Screens::Basic *screen);
          void activate_screen(std::string name);
+
+         void register_achievement(std::string name, Achievement *achievement);
+         void unregister_achievement(Achievement *achievement); // NOT IMPLEMENTED
 
          Display *create_display(int width=1280, int height=720);
          Display *create_display(int width, int height, int display_flags);

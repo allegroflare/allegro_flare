@@ -25,6 +25,10 @@
 // User's Events in their game
 #define ALLEGRO_FLARE_EVENT_GAME_EVENT                  ALLEGRO_GET_EVENT_TYPE('F','E','G','E')
 
+// User's Events in their game
+#define ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT          ALLEGRO_GET_EVENT_TYPE('F','U','l','A')
+#define ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED        ALLEGRO_GET_EVENT_TYPE('F','A','c','U')
+
 // Consider:
 // { 
 //    std::string event_identifier

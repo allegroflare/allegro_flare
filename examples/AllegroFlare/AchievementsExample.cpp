@@ -33,7 +33,7 @@ public:
       return player_inventory.get_item_count(ITEM_BARLEY) >= 10;
    }
 
-   void on_achieved() override
+   void on_unlocked() override
    {
       std::cout << "Congratulations! You've got 10 bundles of barley! Epic!" << std::endl;
       std::cout << std::flush;
