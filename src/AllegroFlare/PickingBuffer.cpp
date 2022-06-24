@@ -77,30 +77,6 @@ namespace AllegroFlare
 
 
 
-   ALLEGRO_COLOR PickingBuffer::encode_id(int id)
-   {
-      unsigned char r = id % 256;
-      unsigned char g = id / 256;
-      unsigned char b = id / 65536;
-      unsigned char a = (id == 0) ? 0 : 255;
-
-      return al_map_rgba(r, g, b, a);
-   }
-
-
-
-
-   int PickingBuffer::decode_id(ALLEGRO_COLOR color)
-   {
-      unsigned char r, g, b, a;
-      al_unmap_rgba(color, &r, &g, &b, &a);
-
-      return r + (g * 256) + (b * 65536);
-   }
-
-
-
-
    ALLEGRO_BITMAP *PickingBuffer::get_surface_render()
    {
       return surface_render;
@@ -130,7 +106,7 @@ namespace AllegroFlare
       if (x < 0 || x > get_surface_width()) return 0;
       if (y < 0 || y > get_surface_height()) return 0;
 
-      return decode_id(al_get_pixel(surface_render, x, y));
+      return AllegroFlare::ColorIDConverter::decode_id(al_get_pixel(surface_render, x, y));
    }
 }
 

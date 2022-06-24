@@ -2,6 +2,7 @@
 
 
 #include <allegro5/allegro.h>
+#include <AllegroFlare/ColorIDConverter.hpp>
 
 
 namespace AllegroFlare
@@ -14,11 +15,11 @@ namespace AllegroFlare
       int depth;
 
       ALLEGRO_BITMAP *create_new_surface(int w, int h, int depth);
-      static int decode_id(ALLEGRO_COLOR color);
-      static ALLEGRO_COLOR encode_id(int id);
+      //static int decode_id(ALLEGRO_COLOR color);
+      //static ALLEGRO_COLOR encode_id(int id);
 
    public:
-      static const int ID_MAX = 16777216;
+      static const int ID_MAX = ColorIDConverter::ID_MAX;
 
       PickingBuffer(int w=1, int h=1, int depth=0);
       ~PickingBuffer();

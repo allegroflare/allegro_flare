@@ -17,7 +17,6 @@ namespace AllegroFlare
 
 
 
-
    ALLEGRO_COLOR ColorIDConverter::encode_id(int id)
    {
       unsigned char r = id % 256;
