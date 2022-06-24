@@ -39,7 +39,9 @@ namespace AllegroFlare
          bool achievement_already_unlocked = achievement.second.second;
          if (!achievement_already_unlocked && achievement.second.first->test_condition())
          {
+            // TODO: clean this up a bit and add tests
             unlock_manually(achievement.first);
+
             //achievement.second.first->on_achieved();
             //achievement.second.second = true;
             //if (event_emitter)
