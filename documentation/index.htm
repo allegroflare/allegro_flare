@@ -318,12 +318,15 @@ table td
   <td class="method">set_zoom(1)</td>
 </tr>
 <tr>
-  <td class="method">setup_dimentional_projection()</td>
+  <td class="method">setup_dimentional_projection(1)</td>
 </tr>
     </table>
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;tan&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
@@ -1028,6 +1031,9 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_BITMAP": [
+    "AllegroFlare/Camera2D"
   ],
   "tan": [
     "AllegroFlare/Camera2D"

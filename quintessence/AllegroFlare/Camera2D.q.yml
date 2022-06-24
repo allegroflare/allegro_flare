@@ -29,6 +29,11 @@ functions:
 
 
   - name: setup_dimentional_projection
+    parameters:
+      - name: bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    guards: [ al_is_system_installed(), bitmap ]
     body: |
       // The goal here is to setup a projection transform that behaves as if normal 2D pixels were drawn for z=0
       // (i.e. as with the normal orthographic transform set up by Allegro), but allows some perspective effects for
@@ -64,7 +69,12 @@ functions:
       al_translate_transform_3d(&view, -w / 2 * Z_DIST_FACTOR, -h / 2 * Z_DIST_FACTOR, -z_near * Z_DIST_FACTOR);
 
       al_compose_transform(&view, &perspective);
+
+      ALLEGRO_STATE previous_bitmap_target_state;
+      al_store_state(&previous_bitmap_target_state, ALLEGRO_STATE_TARGET_BITMAP);
+      al_set_target_bitmap(bitmap);
       al_use_projection_transform(&view);
+      al_restore_state(&previous_bitmap_target_state);
       return;
     body_dependency_symbols:
       - tan
@@ -75,6 +85,8 @@ dependencies:
 
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
   - symbol: tan
     headers: [ cmath ]
 

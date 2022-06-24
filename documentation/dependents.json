@@ -61,6 +61,9 @@
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "ALLEGRO_BITMAP": [
+    "AllegroFlare/Camera2D"
+  ],
   "tan": [
     "AllegroFlare/Camera2D"
   ],

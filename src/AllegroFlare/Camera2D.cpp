@@ -2,6 +2,8 @@
 
 #include <AllegroFlare/Camera2D.hpp>
 #include <cmath>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -32,8 +34,20 @@ void Camera2D::set_zoom(float zoom)
    return;
 }
 
-void Camera2D::setup_dimentional_projection()
+void Camera2D::setup_dimentional_projection(ALLEGRO_BITMAP* bitmap)
 {
+   if (!(al_is_system_installed()))
+      {
+         std::stringstream error_message;
+         error_message << "Camera2D" << "::" << "setup_dimentional_projection" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(bitmap))
+      {
+         std::stringstream error_message;
+         error_message << "Camera2D" << "::" << "setup_dimentional_projection" << ": error: " << "guard \"bitmap\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    // The goal here is to setup a projection transform that behaves as if normal 2D pixels were drawn for z=0
    // (i.e. as with the normal orthographic transform set up by Allegro), but allows some perspective effects for
    // rotating widgets around the X and Y axes.
@@ -68,7 +82,12 @@ void Camera2D::setup_dimentional_projection()
    al_translate_transform_3d(&view, -w / 2 * Z_DIST_FACTOR, -h / 2 * Z_DIST_FACTOR, -z_near * Z_DIST_FACTOR);
 
    al_compose_transform(&view, &perspective);
+
+   ALLEGRO_STATE previous_bitmap_target_state;
+   al_store_state(&previous_bitmap_target_state, ALLEGRO_STATE_TARGET_BITMAP);
+   al_set_target_bitmap(bitmap);
    al_use_projection_transform(&view);
+   al_restore_state(&previous_bitmap_target_state);
    return;
 }
 } // namespace AllegroFlare

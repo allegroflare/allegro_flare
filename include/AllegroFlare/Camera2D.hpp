@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Placement2D.hpp>
+#include <allegro5/allegro.h>
 
 
 namespace AllegroFlare
@@ -17,7 +18,7 @@ namespace AllegroFlare
 
       float get_zoom();
       void set_zoom(float zoom=1.0f);
-      void setup_dimentional_projection();
+      void setup_dimentional_projection(ALLEGRO_BITMAP* bitmap=nullptr);
    };
 }
 

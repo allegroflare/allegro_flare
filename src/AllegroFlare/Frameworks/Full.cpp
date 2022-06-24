@@ -43,10 +43,11 @@ Full::Full()
    , virtual_controls_processor()
    , textlog(nullptr)
    , joystick(nullptr)
-   , event_queue(nullptr)
    , primary_display(nullptr)
-   , builtin_font(nullptr)
    , primary_timer(nullptr)
+   , camera_2d()
+   , event_queue(nullptr)
+   , builtin_font(nullptr)
    , shutdown_program(false)
    , current_screen(nullptr)
    , current_event(nullptr)
@@ -228,6 +229,13 @@ bool Full::initialize()
          1080,
          ALLEGRO_FULLSCREEN_WINDOW | ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE
       );
+
+   if (!primary_display || !primary_display->al_display)
+   {
+      throw std::runtime_error("Frameworks::Full::initialize(): failure: unable to create primary_display");
+   }
+
+   camera_2d.setup_dimentional_projection(al_get_backbuffer(primary_display->al_display));
 
    return true;
 }
