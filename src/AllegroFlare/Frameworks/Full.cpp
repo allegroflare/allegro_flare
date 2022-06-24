@@ -120,6 +120,12 @@ SampleBin &Full::get_sample_bin_ref()
 }
 
 
+Camera2D &Full::get_camera_2d_ref()
+{
+   return camera_2d;
+}
+
+
 
 AudioController &Full::get_audio_controller_ref()
 {

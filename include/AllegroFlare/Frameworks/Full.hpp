@@ -75,6 +75,7 @@ namespace AllegroFlare
          FontBin &get_font_bin_ref();
          BitmapBin &get_bitmap_bin_ref();
          SampleBin &get_sample_bin_ref();
+         Camera2D &get_camera_2d_ref();
          ScreenManagers::Dictionary &get_screens_ref();
          AudioController &get_audio_controller_ref();
          EventEmitter &get_event_emitter_ref();
