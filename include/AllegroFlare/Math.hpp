@@ -13,6 +13,9 @@ namespace AllegroFlare
    public:
       Math();
       ~Math();
+
+      static const float FULL_ROTATION;
+      static const float TAU;
    };
 }
 
