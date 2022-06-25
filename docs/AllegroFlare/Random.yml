@@ -1,0 +1,29 @@
+class_methods:
+
+
+  - name: get_random_int
+    description: |
+      Returns a random integer.
+
+      Note this method uses in internal implementation that will guarantee the same sequence of integer numbers across
+      platforms given the same seed.
+
+
+  - name: get_random_float
+    description: |
+      Returns a random floating point number.
+
+      Note that this method is guaranteed to return the same sequence of floating point numbers across platforms given
+      the same seed.  However, due do differences of floating point implementaitons, the method is _not_ guaranteed
+      to return the _exact same numerical values on all significant digits_ of the floating point value across platforms.
+
+
+
+  - name: get_random_double
+    description: |
+      Returns a random double number.
+
+      Note that this method is guaranteed to return the same sequence of numbers across platforms given
+      the same seed.  However, due do differences of floating point implementaitons, the method is _not_ guaranteed
+      to return the _exact same numerical values on all significant digits_ of the double value across platforms.
+
