@@ -119,3 +119,21 @@ TEST(RandomTest, get_random_int__returns_an_expected_sequence_of_random_numbers_
 }
 
 
+TEST(RandomTest, get_random_bool__returns_an_expected_sequence_of_random_booleans_given_a_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+   const int min_random_num = 0;
+   const int max_random_num = 10;
+
+   std::vector<bool> expected_repeatable_results = { true, false, false, true, false, true, true };
+   std::vector<bool> actual_results;
+
+   for (int i=0; i<expected_repeatable_results.size(); i++)
+   {
+      actual_results.push_back(number_generator.get_random_bool());
+   }
+
+   ASSERT_EQ(expected_repeatable_results, actual_results);
+}
+
+

@@ -40,7 +40,7 @@ namespace AllegroFlare
       // Returns a random double.
       double get_random_double(double min, double max);
 
-      // Returns true if the random number is one in chance (inclusive).
+      // Returns true if a one-in-n chance event occurred.
       bool get_one_in_chance(int chance);
 
       // Returns the result of rolling dice with a number of sides.
