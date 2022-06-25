@@ -149,21 +149,20 @@ TEST(RandomTest, get_random_double__returns_a_repeatable_sequence_of_random_numb
    const double max_random_num = 100.0;
 
    int num_numbers = 4;
-   // TODO: this can be converted to double rather than string now that we know how to get all significant digits
-   std::string expected_numbers = "21.427284651768225387513666646555066108703613281250 "
-                                  "56.342193034091536674168310128152370452880859375000 "
-                                  "97.004605258583225690927065443247556686401367187500 "
-                                  "90.831287952799186768970685079693794250488281250000 ";
-   std::stringstream actual_numbers;
-   actual_numbers << std::fixed << std::setprecision(48);
+   std::vector<double> expected_numbers = {
+                                            21.427284651768225387513666646555066108703613281250,
+                                            56.342193034091536674168310128152370452880859375000,
+                                            97.004605258583225690927065443247556686401367187500,
+                                            90.831287952799186768970685079693794250488281250000,
+                                          };
+   std::vector<double> actual_numbers;
 
    for (int i=0; i<num_numbers; i++)
    {
-      double value = number_generator.get_random_double(min_random_num, max_random_num);
-      actual_numbers << value << " ";
+      actual_numbers.push_back(number_generator.get_random_double(min_random_num, max_random_num));
    }
   
-   ASSERT_EQ(expected_numbers, actual_numbers.str());
+   ASSERT_EQ(expected_numbers, actual_numbers);
 }
 
 TEST(RandomTest, get_random_bool__returns_a_repeatable_sequence_of_random_booleans_given_a_seed)
