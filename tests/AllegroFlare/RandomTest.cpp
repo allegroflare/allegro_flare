@@ -128,9 +128,17 @@ TEST(RandomTest, get_random_float__returns_a_repeatable_sequence_of_random_numbe
    const float max_random_num = 5.0;
 
    int num_numbers = 5;
-   // TODO: this can be converted to float rather than string now that we know how to get all significant digits
-   std::string expected_numbers = "3.25394 4.02983 4.93344 4.79625 3.52095 ";
+   // NOTE: this test opts to coerce the floats to strings for comparison due to differences in floating point
+   // implementations across platforms.  In the test following this (get_random_double), the test is
+   // asserted on the double values themselves.  These two tests are done differently entilrely to demonstrate
+   // different techniques, in the event on technique is ultimately preferred over the other.
+   std::string expected_numbers = "3.253939628601074218750000 "
+                                  "4.029826641082763671875000 "
+                                  "4.933435440063476562500000 "
+                                  "4.796250820159912109375000 "
+                                  "3.520951986312866210937500 ";
    std::stringstream actual_numbers;
+   actual_numbers << std::fixed << std::setprecision(24);
 
    for (int i=0; i<num_numbers; i++)
    {
