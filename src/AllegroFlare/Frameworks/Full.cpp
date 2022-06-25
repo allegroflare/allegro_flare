@@ -9,7 +9,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_ttf.h>
 #include <AllegroFlare/Display.hpp>
-#include <AllegroFlare/Screens/Basic.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/ModelBin.hpp>
@@ -283,13 +283,13 @@ void Full::load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRe
 }
 
 
-void Full::register_screen(std::string name, AllegroFlare::Screens::Basic *screen)
+void Full::register_screen(std::string name, AllegroFlare::Screens::Base *screen)
 {
    screens.add(name, screen);
 }
 
 
-void Full::unregister_screen(AllegroFlare::Screens::Basic *screen)
+void Full::unregister_screen(AllegroFlare::Screens::Base *screen)
 {
    screens.remove(screen);
 }

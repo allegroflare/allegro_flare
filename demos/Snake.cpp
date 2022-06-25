@@ -2,7 +2,7 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Useful.hpp> // for distance()
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/Screens/Basic.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/Elements/Text.hpp>
@@ -269,7 +269,7 @@ public:
 
 
 
-class TitleScreen : public AllegroFlare::Screens::Basic
+class TitleScreen : public AllegroFlare::Screens::Base
 {
 public:
    AllegroFlare::FontBin fonts;
@@ -323,7 +323,7 @@ public:
 };
 
 
-class SnakeGame : public AllegroFlare::Screens::Basic
+class SnakeGame : public AllegroFlare::Screens::Base
 {
 public:
    Gameboard gameboard;
@@ -331,7 +331,7 @@ public:
    HUD hud;
 
    SnakeGame(AllegroFlare::EventEmitter &event_emitter)
-      : AllegroFlare::Screens::Basic()
+      : AllegroFlare::Screens::Base()
       , gameboard(1920, 1080, event_emitter)
       , timer()
       , hud(&timer)

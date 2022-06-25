@@ -10,7 +10,7 @@ namespace AllegroFlare
 {
    namespace Screens
    {
-      class Basic;
+      class Base;
    };
 
    namespace ScreenManagers
@@ -18,16 +18,16 @@ namespace AllegroFlare
       class Registry
       {
       private:
-         std::vector<Screens::Basic *> screens;
+         std::vector<Screens::Base *> screens;
 
       public:
          Registry();
          ~Registry();
 
          // management
-         void add(Screens::Basic *screen);
-         void remove(Screens::Basic *screen);
-         void bring_to_front(Screens::Basic *s);
+         void add(Screens::Base *screen);
+         void remove(Screens::Base *screen);
+         void bring_to_front(Screens::Base *s);
          int get_num_screens();
 
          // for processing

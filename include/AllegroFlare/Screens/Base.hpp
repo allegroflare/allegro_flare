@@ -12,14 +12,14 @@ namespace AllegroFlare
 {
    namespace Screens
    {
-      class Basic : public ElementID
+      class Base : public ElementID
       {
       private:
          std::string type;
 
       public:
-         Basic(std::string type="Basic");
-         virtual ~Basic();
+         Base(std::string type="Base");
+         virtual ~Base();
 
          void set_type(std::string type);
          std::string get_type();
