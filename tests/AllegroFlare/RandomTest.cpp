@@ -101,7 +101,7 @@ TEST(AllegroFlare_RandomTest, get_random_float__only_returns_floats_within_the_b
 }
 
 
-TEST(RandomTest, get_random_int__returns_an_expected_sequence_of_random_numbers_given_a_seed)
+TEST(RandomTest, get_random_int__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
    const int min_random_num = 0;
@@ -119,7 +119,7 @@ TEST(RandomTest, get_random_int__returns_an_expected_sequence_of_random_numbers_
 }
 
 
-TEST(RandomTest, get_random_bool__returns_an_expected_sequence_of_random_booleans_given_a_seed)
+TEST(RandomTest, get_random_bool__returns_a_repeatable_sequence_of_random_booleans_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
    const int min_random_num = 0;
