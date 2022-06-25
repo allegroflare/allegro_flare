@@ -149,3 +149,18 @@ TEST(RandomTest, roll_dice__returns_a_repeatable_sequence_of_random_rolls_given_
 }
 
 
+TEST(RandomTest, get_one_in_chance__returns_a_repeatable_sequence_of_random_rolls_given_a_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+
+   std::vector<int> expected_repeatable_results = { false, false, false, false, true, true, false };
+   std::vector<int> actual_results;
+   for (int i=0; i<expected_repeatable_results.size(); i++)
+   {
+      actual_results.push_back(number_generator.get_one_in_chance(3));
+   }
+
+   ASSERT_EQ(expected_repeatable_results, actual_results);
+}
+
+
