@@ -141,6 +141,29 @@ TEST(RandomTest, get_random_float__returns_a_repeatable_sequence_of_random_numbe
 }
 
 
+TEST(RandomTest, get_random_double__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+   const double min_random_num = 10.0;
+   const double max_random_num = 100.0;
+
+   int num_numbers = 4;
+   std::string expected_numbers = "21.427284651768225387513666646555066108703613281250 "
+                                  "56.342193034091536674168310128152370452880859375000 "
+                                  "97.004605258583225690927065443247556686401367187500 "
+                                  "90.831287952799186768970685079693794250488281250000 ";
+   std::stringstream actual_numbers;
+   actual_numbers << std::fixed << std::setprecision(48);
+
+   for (int i=0; i<num_numbers; i++)
+   {
+      double value = number_generator.get_random_double(min_random_num, max_random_num);
+      actual_numbers << value << " ";
+   }
+  
+   ASSERT_EQ(expected_numbers, actual_numbers.str());
+}
+
 TEST(RandomTest, get_random_bool__returns_a_repeatable_sequence_of_random_booleans_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);

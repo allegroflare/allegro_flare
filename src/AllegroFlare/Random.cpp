@@ -65,9 +65,11 @@ namespace AllegroFlare
 
    double Random::get_random_double(double min, double max)
    {
-      // TODO: this does not produce repeatable sequences from the same seed across different platforms/complilers
-      std::uniform_real_distribution<double> dist(min, max);
-      return dist(random_number_generator);
+      double fixed_min = std::min(min, max);
+      double fixed_max = std::max(min, max);
+      double range = fixed_max - fixed_min;
+      
+      return (random_number_generator() / (double)random_number_generator.max()) * range + fixed_min;
    }
 
 
