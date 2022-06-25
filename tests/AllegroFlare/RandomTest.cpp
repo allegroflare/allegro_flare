@@ -90,8 +90,8 @@ TEST(AllegroFlare_RandomTest, get_random_double__only_returns_doubles_within_the
 TEST(AllegroFlare_RandomTest, get_random_float__only_returns_floats_within_the_bounds_inclusive)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123);
-   const float min_random_num = 1.0;
-   const float max_random_num = 3.0;
+   const float min_random_num = 3.0;
+   const float max_random_num = 5.0;
 
    for (int i=0; i<1000; i++)
    {
@@ -118,6 +118,26 @@ TEST(RandomTest, get_random_int__returns_a_repeatable_sequence_of_random_numbers
    }
 
    ASSERT_EQ(expected_numbers, actual_numbers);
+}
+
+
+TEST(RandomTest, get_random_float__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+   const float min_random_num = 3.0;
+   const float max_random_num = 5.0;
+
+   int num_numbers = 5;
+   std::string expected_numbers = "3.25394 4.02983 4.93344 4.79625 3.52095 ";
+   std::stringstream actual_numbers;
+
+   for (int i=0; i<num_numbers; i++)
+   {
+      float value = number_generator.get_random_float(min_random_num, max_random_num);
+      actual_numbers << value << " ";
+   }
+  
+   ASSERT_EQ(expected_numbers, actual_numbers.str());
 }
 
 

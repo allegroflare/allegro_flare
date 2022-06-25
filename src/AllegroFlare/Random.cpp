@@ -53,9 +53,11 @@ namespace AllegroFlare
 
    float Random::get_random_float(float min, float max)
    {
-      // TODO: this does not produce repeatable sequences from the same seed across different platforms/complilers
-      std::uniform_real_distribution<float> dist(min, max);
-      return dist(random_number_generator);
+      float fixed_min = std::min(min, max);
+      float fixed_max = std::max(min, max);
+      float range = fixed_max - fixed_min;
+      
+      return (random_number_generator() / (float)random_number_generator.max()) * range + fixed_min;
    }
 
 
