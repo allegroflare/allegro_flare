@@ -122,15 +122,27 @@ TEST(RandomTest, get_random_int__returns_a_repeatable_sequence_of_random_numbers
 TEST(RandomTest, get_random_bool__returns_a_repeatable_sequence_of_random_booleans_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
-   const int min_random_num = 0;
-   const int max_random_num = 10;
 
    std::vector<bool> expected_repeatable_results = { true, false, false, true, false, true, true };
    std::vector<bool> actual_results;
-
    for (int i=0; i<expected_repeatable_results.size(); i++)
    {
       actual_results.push_back(number_generator.get_random_bool());
+   }
+
+   ASSERT_EQ(expected_repeatable_results, actual_results);
+}
+
+
+TEST(RandomTest, roll_dice__returns_a_repeatable_sequence_of_random_rolls_given_a_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+
+   std::vector<int> expected_repeatable_results = { 7, 11, 5, 12, 7, 11, 10 };
+   std::vector<int> actual_results;
+   for (int i=0; i<expected_repeatable_results.size(); i++)
+   {
+      actual_results.push_back(number_generator.roll_dice(2, 6));
    }
 
    ASSERT_EQ(expected_repeatable_results, actual_results);
