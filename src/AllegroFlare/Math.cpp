@@ -18,10 +18,6 @@ Math::~Math()
 }
 
 
-std::string Math::run()
-{
-   return "Hello World!";
-}
 } // namespace AllegroFlare
 
 

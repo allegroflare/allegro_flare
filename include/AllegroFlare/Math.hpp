@@ -13,8 +13,6 @@ namespace AllegroFlare
    public:
       Math();
       ~Math();
-
-      std::string run();
    };
 }
 
