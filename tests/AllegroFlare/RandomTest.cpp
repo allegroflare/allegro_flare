@@ -4,6 +4,8 @@
 
 #include <AllegroFlare/Random.hpp>
 
+#include <AllegroFlare/Testing/CustomComparison.hpp>
+
 
 TEST(AllegroFlare_RandomTest, gets_the_current_seed)
 {
@@ -142,7 +144,7 @@ TEST(RandomTest, roll_dice__returns_a_repeatable_sequence_of_random_rolls_given_
    std::vector<int> actual_results;
    for (int i=0; i<expected_repeatable_results.size(); i++)
    {
-      actual_results.push_back(number_generator.roll_dice(2, 6));
+      actual_results.push_back(number_generator.roll_dice(6, 2));
    }
 
    ASSERT_EQ(expected_repeatable_results, actual_results);
@@ -153,11 +155,31 @@ TEST(RandomTest, get_one_in_chance__returns_a_repeatable_sequence_of_random_roll
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
-   std::vector<int> expected_repeatable_results = { false, false, false, false, true, true, false };
-   std::vector<int> actual_results;
+   std::vector<bool> expected_repeatable_results = { false, false, false, false, true, true, false };
+   std::vector<bool> actual_results;
    for (int i=0; i<expected_repeatable_results.size(); i++)
    {
       actual_results.push_back(number_generator.get_one_in_chance(3));
+   }
+
+   ASSERT_EQ(expected_repeatable_results, actual_results);
+}
+
+
+TEST(RandomTest, get_random_color__returns_a_repeatable_sequence_of_random_rolls_given_a_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+
+   std::vector<ALLEGRO_COLOR> expected_repeatable_results = {
+      AllegroFlare::Color::Gray,
+      AllegroFlare::Color::SkyBlue,
+      AllegroFlare::Color::Magenta,
+      AllegroFlare::Color::DarkSeaGreen,
+   };
+   std::vector<ALLEGRO_COLOR> actual_results;
+   for (int i=0; i<expected_repeatable_results.size(); i++)
+   {
+      actual_results.push_back(number_generator.get_random_color());
    }
 
    ASSERT_EQ(expected_repeatable_results, actual_results);

@@ -44,7 +44,7 @@ namespace AllegroFlare
       bool get_one_in_chance(int chance);
 
       // Returns the result of rolling dice with a number of sides.
-      int roll_dice(int number_of_die, int sides);
+      int roll_dice(int sides=6, int number_of_die=1);
 
       // Returns a random color
       ALLEGRO_COLOR get_random_color();
