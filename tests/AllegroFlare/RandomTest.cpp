@@ -128,6 +128,7 @@ TEST(RandomTest, get_random_float__returns_a_repeatable_sequence_of_random_numbe
    const float max_random_num = 5.0;
 
    int num_numbers = 5;
+   // TODO: this can be converted to float rather than string now that we know how to get all significant digits
    std::string expected_numbers = "3.25394 4.02983 4.93344 4.79625 3.52095 ";
    std::stringstream actual_numbers;
 
@@ -148,6 +149,7 @@ TEST(RandomTest, get_random_double__returns_a_repeatable_sequence_of_random_numb
    const double max_random_num = 100.0;
 
    int num_numbers = 4;
+   // TODO: this can be converted to double rather than string now that we know how to get all significant digits
    std::string expected_numbers = "21.427284651768225387513666646555066108703613281250 "
                                   "56.342193034091536674168310128152370452880859375000 "
                                   "97.004605258583225690927065443247556686401367187500 "
