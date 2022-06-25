@@ -28,6 +28,9 @@ namespace AllegroFlare
       // Retrieve the current random number generator seed.
       unsigned int get_seed();
 
+      // Returns a random bool.
+      bool get_random_bool();
+
       // Returns a random integer.
       int get_random_int(int min, int max);
 

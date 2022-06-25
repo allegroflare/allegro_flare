@@ -1,5 +1,7 @@
 #include <AllegroFlare/Random.hpp>
 
+#include <algorithm>
+
 
 namespace AllegroFlare
 {
@@ -29,10 +31,20 @@ namespace AllegroFlare
 
 
 
+   bool Random::get_random_bool()
+   {
+      return random_number_generator() % 2;
+   }
+
+
+
+
    int Random::get_random_int(int min, int max)
    {
-      std::uniform_int_distribution<int> dist(min, max);
-      return dist(random_number_generator);
+      int fixed_min = std::min(min, max);
+      int fixed_max = std::max(min, max);
+      int range = fixed_max - fixed_min + 1;
+      return random_number_generator() % range + fixed_min;
    }
 
 
@@ -40,6 +52,7 @@ namespace AllegroFlare
 
    float Random::get_random_float(float min, float max)
    {
+      // TODO: this does not produce repeatable sequences from the same seed across different platforms/complilers
       std::uniform_real_distribution<float> dist(min, max);
       return dist(random_number_generator);
    }
@@ -49,6 +62,7 @@ namespace AllegroFlare
 
    double Random::get_random_double(double min, double max)
    {
+      // TODO: this does not produce repeatable sequences from the same seed across different platforms/complilers
       std::uniform_real_distribution<double> dist(min, max);
       return dist(random_number_generator);
    }
