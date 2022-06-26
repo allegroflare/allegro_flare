@@ -1,9 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
+#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
    try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
+   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
@@ -31,7 +31,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTest, render__without_allegro_initialized_
    AllegroFlare::Screens::Storyboard storyboard;
    std::string expected_error_message =
       "Storyboard::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(storyboard.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(storyboard.render(), std::runtime_error, expected_error_message);
 }
 
 
@@ -95,7 +95,10 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    key_down_func__without_an_event_emitter__will_throw_an_error)
 {
-   // TODO
+   AllegroFlare::Screens::Storyboard storyboard;
+   std::string expected_error_message =
+      "Storyboard::key_down_func: error: guard \"event_emitter\" not met";
+   EXPECT_THROW_WITH_MESSAGE(storyboard.key_down_func(), std::runtime_error, expected_error_message);
 }
 
 
