@@ -102,6 +102,9 @@
   "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
   ],
+  "AllegroFlare/php/str_replace": [
+    "AllegroFlare/Generators/LoremIpsumGenerator"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

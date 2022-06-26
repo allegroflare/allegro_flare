@@ -1,0 +1,400 @@
+properties:
+
+
+  - name: source_text
+    type: std::string
+    init_with: generate_source_text()
+    getter: true
+
+
+functions:
+
+
+  - name: generate_sentences
+    parameters:
+      - name: num_sentences
+        type: int
+        default_argument: 1
+    type: std::string
+    body: |
+      // remove all newline (\n) characters
+      std::string content = source_text;
+      static std::string full_text_no_paragraphs = AllegroFlare::php::str_replace("\n", " ", content);
+
+      // split to sentences
+      static std::vector<std::string> sentences = split(full_text_no_paragraphs, '.');
+
+      // trim the sentences
+      for (int i=0; i<sentences.size(); i++)
+      {
+         sentences[i] = AllegroFlare::php::trim(sentences[i]);
+      }
+
+      // accumulate the results to a string
+      std::stringstream result;
+      for (int i=0; i<num_sentences; i++)
+      {
+         result << sentences[i % sentences.size()];
+         if (i != (num_sentences-1)) result << ". ";
+      }
+      result << ".";
+
+      return result.str();
+    body_dependency_symbols:
+      - AllegroFlare::php::str_replace
+
+
+  - name: generate_paragraphs
+    parameters:
+      - name: num_paragraphs
+        type: int
+        default_argument: 1
+    type: std::string
+    body: |
+      static std::vector<std::string> paragraphs = split(source_text, '\n');
+      std::stringstream result;
+
+      for (int i=0; i<num_paragraphs; i++)
+      {
+         result << paragraphs[i % paragraphs.size()];
+         if (i != (num_paragraphs-1)) result << std::endl;
+      }
+
+      return result.str();
+
+
+  - name: generate_source_text
+    private: true
+    type: std::string
+    static: true
+    body: |
+      static std::string FULL_LOREM_IPSUM_TEXT = {
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla arcu "
+        "nec magna mattis cursus. Maecenas non justo urna. Vivamus eu augue tristique, "
+        "pharetra enim ut, sollicitudin quam. Aenean ut purus at enim elementum rhoncus. "
+        "In a finibus sapien. Donec mattis laoreet luctus. Aliquam eu accumsan sapien, "
+        "at congue massa. Phasellus consequat sapien ac scelerisque finibus. Curabitur "
+        "hendrerit, diam eget faucibus rhoncus, ante nulla mattis lorem, vitae semper "
+        "sapien sem sit amet ex. Donec sit amet dolor libero. Vestibulum ante ipsum "
+        "primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc "
+        "dignissim aliquam luctus. Sed varius odio a neque ultrices, ac pretium ligula "
+        "aliquam. Proin neque arcu, gravida et nisi non, ullamcorper fringilla ligula. "
+        "Duis laoreet sollicitudin nunc, eu ornare diam consequat ac. Duis dapibus "
+        "tellus ac mauris bibendum finibus.\n"
+
+        "Proin vitae vulputate orci, a hendrerit tellus. Etiam nec fermentum risus. "
+        "Aenean at aliquam est, et hendrerit augue. Vivamus tincidunt convallis "
+        "tristique. Nunc nunc ipsum, rutrum consectetur elit at, vulputate sollicitudin "
+        "mi. Proin quis nisi lectus. Vestibulum eget condimentum ex. Vivamus facilisis "
+        "elit urna, et lacinia velit maximus maximus. Mauris elit mi, pellentesque ut "
+        "sagittis sit amet, semper in sapien. Nullam sed lobortis nisl, ac porttitor "
+        "metus.\n"
+
+        "Nulla in turpis dui. Morbi eu purus feugiat, fermentum nisi et, accumsan "
+        "sapien. Sed vel lacus ac orci efficitur interdum. Mauris sed scelerisque velit, "
+        "eu gravida arcu. Morbi non dictum nunc. Duis iaculis nec odio a dapibus. Mauris "
+        "non scelerisque ligula. Morbi imperdiet leo ac orci sodales interdum. "
+        "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere "
+        "cubilia curae; Maecenas auctor, elit mollis dignissim bibendum, neque arcu "
+        "volutpat arcu, nec varius mi velit eget ante. Lorem ipsum dolor sit amet, "
+        "consectetur adipiscing elit. Mauris at purus lorem. Nullam finibus eget felis "
+        "in vestibulum. Vestibulum ut feugiat odio, eu dignissim dolor.\n"
+
+        "Duis vitae ultrices tortor, ac aliquet ante. Fusce ullamcorper felis sit amet "
+        "imperdiet ultricies. Praesent nec turpis porta, finibus neque et, ullamcorper "
+        "ipsum. In finibus massa sit amet nibh accumsan, id placerat enim dignissim. "
+        "Morbi lacus sem, mollis vitae nulla eu, vulputate varius ante. Vivamus "
+        "hendrerit augue mi, vel lobortis nulla tincidunt eu. Nunc nec erat non velit "
+        "dapibus tristique. Nulla pulvinar erat a porta ultricies. Curabitur varius at "
+        "urna in vestibulum. Donec sagittis arcu ut diam posuere, eget porta lacus "
+        "porttitor. Nulla ullamcorper ut diam sed porttitor. Vivamus quis hendrerit "
+        "sapien, a condimentum justo.\n"
+
+        "Praesent laoreet mi ut arcu pretium commodo. Nam id mi condimentum, tempus enim "
+        "id, posuere quam. Donec eget vestibulum urna. Nunc eu condimentum felis, id "
+        "facilisis elit. Sed maximus nec est vitae egestas. Pellentesque ac purus porta "
+        "enim efficitur vulputate ut et diam. Integer ac egestas ligula. Quisque at nisi "
+        "vitae erat luctus consequat. Phasellus semper nisi tempor massa tempor, eu "
+        "euismod justo sodales. Curabitur bibendum commodo enim, eget consequat tortor "
+        "lobortis non. Proin facilisis sem non dolor facilisis volutpat. Proin vitae "
+        "interdum ante, quis sagittis orci. Donec vitae mauris eleifend, aliquam velit "
+        "in, accumsan nisl. Class aptent taciti sociosqu ad litora torquent per conubia "
+        "nostra, per inceptos himenaeos. Praesent scelerisque mauris ex, in condimentum "
+        "ex pulvinar a.\n"
+
+        "Quisque efficitur nisl eu augue luctus lobortis. Morbi molestie, ligula vel "
+        "porttitor iaculis, leo dolor efficitur lectus, et convallis tellus ligula ac "
+        "nisi. Phasellus scelerisque eros erat, eget congue nulla facilisis ut. Nulla "
+        "scelerisque ante vel metus tincidunt efficitur eu ut mauris. Mauris at erat sit "
+        "amet tellus tincidunt viverra nec eget augue. Curabitur id molestie risus. Sed "
+        "cursus enim quis quam pharetra laoreet. Aenean eget rutrum quam, feugiat tempor "
+        "magna. Sed sit amet consequat erat. Phasellus a ante pretium, commodo risus id, "
+        "facilisis odio. Nam ornare sollicitudin mi et placerat. Suspendisse potenti. "
+        "Nullam consectetur iaculis urna a suscipit. Suspendisse aliquet sapien urna, "
+        "sit amet feugiat ipsum cursus at.\n"
+
+        "In hac habitasse platea dictumst. Proin ornare sodales tortor, in cursus nibh "
+        "pharetra et. Mauris pharetra in lectus eget blandit. Quisque varius accumsan "
+        "sagittis. Integer metus quam, molestie et hendrerit eget, finibus vitae nibh. "
+        "Aliquam bibendum porttitor nibh, a pharetra ex vulputate euismod. Vestibulum "
+        "rutrum euismod magna, sed scelerisque nisi eleifend sed. Quisque et lacinia "
+        "urna.\n"
+
+        "Vestibulum fringilla purus et urna placerat cursus. Integer elementum "
+        "scelerisque massa vitae dignissim. Mauris semper magna ut urna finibus, non "
+        "pretium neque mollis. Ut magna quam, convallis in ipsum ac, congue euismod "
+        "ligula. Sed sem metus, pretium non fermentum nec, dignissim sit amet velit. Nam "
+        "consequat justo in metus posuere, sit amet tincidunt velit faucibus. Phasellus "
+        "mattis ornare rutrum. Fusce et mi ultrices, rhoncus odio at, varius arcu. "
+        "Phasellus non tempor neque. Etiam ornare in massa non semper. Quisque accumsan "
+        "arcu nunc, id imperdiet sem faucibus et. Mauris diam sapien, pretium id mollis "
+        "aliquet, consectetur non eros. Nullam sed dignissim diam. Sed rhoncus pulvinar "
+        "mauris. Vivamus quis laoreet neque. Suspendisse potenti. "
+
+        "Donec at bibendum magna, eu ultrices sapien. Vivamus ultrices, urna non "
+        "fermentum finibus, ligula lacus feugiat augue, vitae mattis sem ex et orci. "
+        "Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed nec enim "
+        "enim. Fusce et ipsum eget velit vulputate posuere ut eu lectus. Aliquam "
+        "fermentum rutrum scelerisque. Aenean commodo eu arcu eu semper. Mauris eu mi "
+        "felis. Maecenas a vehicula justo. Proin blandit, purus volutpat tempor aliquet, "
+        "turpis nulla posuere risus, quis blandit nibh arcu ornare odio. Sed in velit ut "
+        "felis convallis egestas. Donec porttitor consectetur tortor at efficitur. Duis "
+        "dapibus sem finibus eros dictum venenatis. Donec efficitur molestie libero, "
+        "congue ultricies dui maximus id. "
+
+        "Duis et euismod justo. Suspendisse potenti. Cras a condimentum elit, quis "
+        "ultrices magna. Ut ac tincidunt enim, hendrerit porta magna. Donec et neque sed "
+        "ex lobortis suscipit quis a arcu. Maecenas at feugiat nisl. Pellentesque eu "
+        "cursus augue, eget condimentum erat. Nulla porttitor feugiat dictum. "
+        "Suspendisse molestie, elit at varius tempor, leo nunc rhoncus eros, ut tempor "
+        "est dui id est. Nam a mi maximus, laoreet odio vitae, sollicitudin nulla. Fusce "
+        "venenatis nulla est. Vestibulum ante ipsum primis in faucibus orci luctus et "
+        "ultrices posuere cubilia curae; Nullam in aliquet ante, sed eleifend nibh. "
+        "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per "
+        "inceptos himenaeos. Aenean ornare aliquam velit, et tristique leo laoreet non. "
+        "Sed pulvinar leo a elit pellentesque pretium. "
+
+        "Suspendisse et vestibulum elit, suscipit tristique neque. Cras venenatis nisl "
+        "nec magna consequat laoreet. Nullam nibh dui, malesuada quis est eu, laoreet "
+        "accumsan nisl. Suspendisse elementum ultrices quam, in suscipit augue iaculis "
+        "vitae. Nam tincidunt eros et dictum tempus. Vestibulum ante ipsum primis in "
+        "faucibus orci luctus et ultrices posuere cubilia curae; Donec pharetra posuere "
+        "magna sed iaculis. Proin interdum, sapien aliquet bibendum bibendum, justo "
+        "tortor eleifend metus, quis tristique risus dolor non dolor. Nam metus lacus, "
+        "consequat eu orci eu, elementum rhoncus turpis. Praesent commodo leo ac lectus "
+        "consequat dictum. Pellentesque pulvinar et ex sit amet placerat. Interdum et "
+        "malesuada fames ac ante ipsum primis in faucibus. Morbi venenatis faucibus "
+        "justo vitae blandit. "
+
+        "Aliquam consequat ligula at ipsum tempus, eu blandit ex sodales. Praesent quis "
+        "mi in leo consequat varius feugiat at felis. Nam eu sodales lacus. Mauris "
+        "dictum diam ac vehicula maximus. Nullam eu libero magna. Fusce dignissim diam "
+        "libero, vitae pulvinar nulla feugiat quis. Etiam elit nisi, bibendum vel "
+        "porttitor et, pretium lobortis massa. Morbi luctus dapibus vehicula. "
+
+        "Donec semper libero eget dictum lacinia. In porttitor pulvinar volutpat. Proin "
+        "tristique quam sed urna vehicula lobortis. Nullam id neque eget odio porttitor "
+        "ornare at sit amet mauris. Aenean non dictum lorem, eget pharetra mi. Sed at "
+        "tortor eleifend nunc dignissim gravida. Quisque scelerisque erat urna, vel "
+        "varius urna commodo vel. Donec volutpat tincidunt laoreet. Phasellus maximus "
+        "ipsum eu purus volutpat, non molestie dui tempus. Orci varius natoque penatibus "
+        "et magnis dis parturient montes, nascetur ridiculus mus. Donec hendrerit eros "
+        "et arcu ultrices, ut lacinia arcu dignissim. Cras vitae laoreet risus, at "
+        "vestibulum mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+        "Maecenas vitae neque non enim tincidunt rutrum non pretium arcu. Integer "
+        "accumsan, mauris at tempus aliquet, nisi lacus facilisis eros, at porttitor "
+        "dolor purus eget nulla. Vivamus sollicitudin malesuada quam faucibus efficitur. "
+
+        "Phasellus elementum nulla magna, aliquam rutrum nisi vestibulum in. Sed "
+        "consectetur, nibh id consectetur vestibulum, velit nisl tempus odio, a bibendum "
+        "turpis lectus eget nisi. Ut euismod eget sapien et porta. Quisque quis nunc id "
+        "nisl auctor sollicitudin. Pellentesque dignissim tellus sit amet lorem aliquam "
+        "facilisis. Nunc tincidunt mi arcu, a tempor erat lacinia non. Praesent auctor "
+        "semper eros, in blandit enim auctor id. Praesent interdum posuere convallis. In "
+        "vel volutpat nisi. Donec dapibus porta vulputate. In convallis enim et nisi "
+        "imperdiet, sed tincidunt risus gravida. Nunc varius felis velit. "
+
+        "Quisque cursus, orci a convallis aliquam, urna arcu interdum nunc, sit amet "
+        "blandit neque justo quis purus. Donec tristique, felis id tincidunt dapibus, "
+        "lorem metus viverra justo, porttitor lacinia nisl orci sit amet nunc. Morbi "
+        "finibus elementum nisl, nec dignissim est convallis id. Curabitur et nunc vitae "
+        "risus lacinia eleifend. Sed venenatis imperdiet nulla, a euismod massa "
+        "condimentum vel. Proin aliquam suscipit dui, vel tincidunt arcu tincidunt at. "
+        "Suspendisse blandit dapibus tellus. Mauris interdum semper velit. Mauris "
+        "tempor, leo in pharetra fermentum, eros orci eleifend orci, sit amet ornare "
+        "odio ex vitae diam. Sed et dignissim nunc, et commodo nunc. "
+
+        "Nam posuere egestas elit, sed dignissim diam semper et. Nam vestibulum enim "
+        "enim, ac blandit lectus sagittis quis. Quisque vitae quam vel velit mollis "
+        "feugiat. Pellentesque vel lectus faucibus, feugiat nulla et, blandit ligula. "
+        "Fusce rutrum eros non nibh commodo mattis. Ut nec mi porttitor, tincidunt mi "
+        "nec, cursus enim. Etiam at sapien eget massa pellentesque posuere eu vel justo. "
+        "Etiam elementum vehicula diam volutpat laoreet. Vestibulum fringilla neque vel "
+        "ex condimentum, sit amet accumsan lectus blandit. Suspendisse scelerisque eget "
+        "nulla quis placerat. Nunc et cursus velit, id tristique nibh. Vestibulum tempor "
+        "tincidunt ex, at viverra ligula luctus id. Duis tempus consequat justo, "
+        "vehicula ultrices augue sollicitudin eget. Sed neque ipsum, semper a fermentum "
+        "id, consequat quis nibh. Sed rutrum nibh vitae tempus aliquet. Orci varius "
+        "natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n"
+
+        "Curabitur ultricies nulla sit amet tortor posuere, id faucibus risus congue. "
+        "Nullam scelerisque condimentum congue. Maecenas eget mauris in lacus blandit "
+        "consequat nec quis orci. Praesent rutrum nibh sed ante tincidunt, at eleifend "
+        "dolor venenatis. Cras vulputate ipsum ac erat laoreet sodales. Curabitur mattis "
+        "orci id neque tincidunt, fringilla dictum eros laoreet. Duis auctor sem et "
+        "aliquet rhoncus. Integer vulputate massa gravida sem sagittis, nec porttitor "
+        "tellus maximus.\n"
+
+        "Phasellus vel posuere mauris, vitae laoreet lorem. Maecenas laoreet ex lacus, a "
+        "viverra leo condimentum in. Duis aliquet tincidunt bibendum. Maecenas in dui ut "
+        "metus pellentesque euismod. Nulla tempor erat sit amet iaculis consectetur. Ut "
+        "scelerisque, ligula blandit suscipit imperdiet, neque magna porttitor eros, sit "
+        "amet auctor ante nunc interdum magna. Curabitur sollicitudin, orci non placerat "
+        "egestas, lorem urna sodales enim, eu placerat magna dolor sodales nunc. Nullam "
+        "vel velit non leo viverra tincidunt in nec nisl. Sed eget sem tortor. Aliquam "
+        "at lectus est.\n"
+
+        "Nullam lacinia est lectus, molestie aliquet metus ornare a. Nunc et aliquam "
+        "tellus. Duis vel eros ut purus gravida molestie. Sed sit amet risus sed nisi "
+        "rhoncus tristique ac nec nisl. Vestibulum aliquet pellentesque euismod. Fusce "
+        "pulvinar, est id mollis tempor, nisl augue rutrum nisl, sed vehicula urna eros "
+        "ac lacus. Mauris condimentum pretium quam, a fringilla dolor aliquam ut. Mauris "
+        "gravida nunc eget ullamcorper iaculis. Integer vitae ante porta, sodales ipsum "
+        "vel, luctus enim. Suspendisse aliquet id eros in fringilla. Duis in aliquam "
+        "urna. Suspendisse ac libero justo. Suspendisse a facilisis quam. Praesent "
+        "condimentum augue quis vestibulum sagittis.\n"
+
+        "Pellentesque feugiat quam urna, eu sodales enim maximus sit amet. Donec "
+        "lobortis lorem elit, quis tristique ex malesuada sit amet. Fusce vehicula "
+        "commodo sapien eget hendrerit. Mauris eu eleifend lorem. Etiam erat elit, "
+        "sollicitudin quis tempus vitae, tincidunt nec magna. Quisque et augue arcu. "
+        "Vestibulum eget orci fringilla, gravida metus et, sagittis lectus. Nunc "
+        "imperdiet tempus mi, id varius elit aliquam a. Sed risus arcu, eleifend "
+        "pharetra pharetra non, finibus nec sapien. Nullam in porta tortor.\n"
+
+        "Nunc sit amet orci sed lectus porta venenatis eu vitae magna. In laoreet "
+        "sodales metus, in placerat augue aliquam at. Phasellus interdum, dolor non "
+        "lacinia ultrices, lorem neque posuere lectus, in pharetra turpis lacus quis "
+        "libero. Proin suscipit, massa fermentum consequat ullamcorper, mauris nisi "
+        "ullamcorper massa, ut condimentum risus purus sit amet quam. Nullam sagittis "
+        "lorem non egestas semper. Proin nisi nisl, luctus sed turpis eu, imperdiet "
+        "ultricies ipsum. Donec eget erat id augue egestas pharetra nec faucibus mauris. "
+        "Nulla purus ipsum, consectetur eget commodo non, mattis in elit. Duis "
+        "vulputate, diam sit amet lobortis molestie, nulla ex cursus turpis, a vehicula "
+        "augue metus nec ipsum. Nam id lorem mauris. Phasellus leo lectus, condimentum "
+        "viverra ullamcorper ac, auctor sodales purus. Proin vel felis eget nunc "
+        "convallis eleifend. Vivamus gravida sapien nisi, id tincidunt ligula molestie "
+        "mattis. Nam volutpat dignissim porta.\n"
+
+        "Vestibulum iaculis, arcu pretium blandit pellentesque, arcu ex lacinia nulla, "
+        "sit amet congue sapien tortor quis arcu. Nam a tellus facilisis, laoreet ex "
+        "vel, facilisis nunc. Quisque rutrum sapien dui, id suscipit dui placerat sed. "
+        "Vivamus interdum id tortor nec condimentum. Class aptent taciti sociosqu ad "
+        "litora torquent per conubia nostra, per inceptos himenaeos. Nunc eu imperdiet "
+        "lorem, efficitur blandit est. Vestibulum mollis lorem a lorem sodales auctor. "
+        "Duis luctus sit amet orci a vulputate. Vivamus hendrerit at odio sed facilisis. "
+        "Duis bibendum rutrum sapien, quis tempor lacus facilisis bibendum. Duis "
+        "ultrices erat eu erat condimentum porttitor.\n"
+
+        "Donec tempor arcu vel placerat aliquam. Proin efficitur dolor ipsum, at "
+        "tincidunt odio viverra eget. Sed urna libero, luctus ac sem ut, scelerisque "
+        "congue nisi. In vulputate mollis erat eget elementum. Vivamus commodo ex eu "
+        "nunc interdum, in faucibus risus facilisis. In pulvinar cursus purus a euismod. "
+        "Aenean fringilla, ligula non dictum volutpat, lacus leo faucibus turpis, at "
+        "iaculis dolor leo vitae massa. Maecenas maximus nunc et est egestas, in "
+        "malesuada orci auctor. Aenean sit amet ornare felis. Duis quis tellus "
+        "hendrerit, aliquet dolor feugiat, fringilla ipsum. Fusce turpis diam, aliquet "
+        "in convallis id, eleifend vel velit. Integer vel sem in nisl sodales bibendum. "
+        "In pharetra libero sit amet lacinia porta. Nullam vitae suscipit lacus. "
+        "Pellentesque rhoncus suscipit lacus vitae faucibus. Proin tempus at enim eget "
+        "dignissim.\n"
+
+        "Fusce maximus egestas purus ut faucibus. Nulla feugiat massa non imperdiet "
+        "maximus. Fusce tristique est eget lorem scelerisque, vitae mattis enim "
+        "fringilla. Integer tristique pretium laoreet. Vestibulum bibendum vitae est "
+        "venenatis malesuada. Suspendisse quis mi quis dui viverra malesuada. Sed "
+        "consequat ultricies imperdiet. Ut vestibulum nunc eros, ac vulputate risus "
+        "vehicula sed. Sed accumsan varius enim, nec consequat felis dignissim eget. "
+        "Maecenas eleifend iaculis ante id posuere. Pellentesque pellentesque nunc orci, "
+        "ut facilisis turpis venenatis at.\n"
+
+        "Proin bibendum sapien augue, tincidunt tincidunt metus bibendum et. Proin "
+        "feugiat, dui vitae molestie vestibulum, mi nunc auctor libero, ac aliquam ante "
+        "elit eu lorem. Class aptent taciti sociosqu ad litora torquent per conubia "
+        "nostra, per inceptos himenaeos. Nunc vitae aliquet mauris. Suspendisse pulvinar "
+        "tortor urna, sed vestibulum tortor placerat id. Praesent ullamcorper laoreet "
+        "pulvinar. Duis in aliquam nibh. Maecenas quis mauris faucibus, commodo mi eget, "
+        "vestibulum leo. Duis molestie, orci a elementum semper, ipsum nisi feugiat "
+        "lectus, sit amet malesuada ex risus non dolor. Sed urna est, condimentum at "
+        "nulla sit amet, vulputate placerat elit. Duis quis eros justo. Morbi gravida "
+        "magna non mauris vestibulum egestas. Suspendisse malesuada justo vestibulum "
+        "lacinia tristique.\n"
+
+        "Duis ac purus id metus dignissim congue. Donec a vestibulum diam, eu imperdiet "
+        "elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur "
+        "ridiculus mus. Vivamus blandit nec nisi eu molestie. Nunc sit amet pulvinar "
+        "velit, ac interdum neque. Aenean varius nulla ac mauris sollicitudin porta. "
+        "Curabitur eget dui in sem finibus feugiat eget non libero. Sed sollicitudin "
+        "euismod sem, a pulvinar elit dapibus vitae. Duis dictum quam id felis gravida, "
+        "ut porttitor purus sodales."
+
+      };
+
+      return FULL_LOREM_IPSUM_TEXT;
+
+
+  - name: split
+    type: std::vector<std::string>
+    private: true
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '""'
+      - name: delimiter
+        type: char
+        default_argument: "' '"
+    body: |
+      std::vector<std::string> elems;
+      auto result = std::back_inserter(elems);
+      std::stringstream ss(text);
+      std::string item;
+      while (std::getline(ss, item, delimiter)) { *(result++) = item; }
+      return elems;
+    body_dependency_symbols:
+      - std::stringstream
+      - std::vector<std::string>
+
+
+  - name: join
+    type: std::string
+    private: true
+    parameters:
+      - name: tokens
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: delimiter
+        type: std::string
+        default_argument: '", "'
+    body: |
+      std::stringstream result;
+      bool last = false;
+
+      for (unsigned i=0; i<tokens.size(); i++)
+      {
+         result << tokens[i];
+         if (i == tokens.size()-1) last = true;
+         if (!last) result << delimiter;
+      }
+
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::php::str_replace
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
+
+

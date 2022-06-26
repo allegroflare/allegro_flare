@@ -60,6 +60,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Stopwatch.q.yml">quintessence/AllegroFlare/Elements/Stopwatch.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
@@ -587,6 +588,39 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">source_text</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">generate_sentences(1)</td>
+</tr>
+<tr>
+  <td class="method">generate_paragraphs(1)</td>
+</tr>
+<tr>
+  <td class="private_method">generate_source_text()</td>
+</tr>
+<tr>
+  <td class="private_method">split(2)</td>
+</tr>
+<tr>
+  <td class="private_method">join(2)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::php::str_replace&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</h3>
      <table>
 <tr>
@@ -1072,6 +1106,9 @@ table td
   ],
   "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
+  ],
+  "AllegroFlare/php/str_replace": [
+    "AllegroFlare/Generators/LoremIpsumGenerator"
   ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
