@@ -38,8 +38,16 @@ std::string LoremIpsumGenerator::generate_words(int num_words)
 
 std::string LoremIpsumGenerator::generate_paragraphs(int num_paragraphs)
 {
-   // TODO
-   return {};
+   static std::vector<std::string> paragraphs = split(source_text, '\n');
+   std::stringstream result;
+
+   for (int i=0; i<num_paragraphs; i++)
+   {
+      result << paragraphs[i % paragraphs.size()];
+      if (i != (num_paragraphs-1)) result << std::endl;
+   }
+
+   return result.str();
 }
 
 std::string LoremIpsumGenerator::generate_characters(int num_characters)

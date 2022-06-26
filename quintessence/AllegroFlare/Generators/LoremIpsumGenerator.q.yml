@@ -29,8 +29,16 @@ functions:
         default_argument: 1
     type: std::string
     body: |
-      // TODO
-      return {};
+      static std::vector<std::string> paragraphs = split(source_text, '\n');
+      std::stringstream result;
+
+      for (int i=0; i<num_paragraphs; i++)
+      {
+         result << paragraphs[i % paragraphs.size()];
+         if (i != (num_paragraphs-1)) result << std::endl;
+      }
+
+      return result.str();
 
 
   - name: generate_characters
