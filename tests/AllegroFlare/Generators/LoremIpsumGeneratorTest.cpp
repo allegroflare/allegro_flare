@@ -40,7 +40,8 @@ TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest, generate_paragraphs__will_
 }
 
 
-TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest, generate_sentences__will_return_sentences_of_lorem_ipsum_text)
+TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest,
+   generate_sentences__will_return_sentences_of_lorem_ipsum_text_without_paragraphs)
 {
    AllegroFlare::Generators::LoremIpsumGenerator lorem_ipsum_generator;
    std::string result = lorem_ipsum_generator.generate_sentences(6);
