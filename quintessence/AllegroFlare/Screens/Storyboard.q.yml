@@ -29,10 +29,11 @@ properties:
     init_with: '""'
     constructor_arg: true
 
-  - name: current_page
+  - name: current_page_num
     type: intptr_t
     init_with: 0
     constructor_arg: true
+    getter: true
 
 
 functions:
@@ -46,7 +47,7 @@ functions:
 
       al_clear_to_color(AllegroFlare::Color::Black);
 
-      if (current_page >= pages.size()) return;
+      if (current_page_num >= pages.size()) return;
 
       float x_padding = 150;
       float y_padding = 150;
@@ -59,7 +60,7 @@ functions:
             1920 - x_padding*2,
             al_get_font_line_height(text_font)*1.75,
             0,
-            pages[current_page].c_str()
+            pages[current_page_num].c_str()
          );
       return;
     body_dependency_symbols:
@@ -70,7 +71,7 @@ functions:
   - name: reset
     type: void
     body: |
-      current_page = 0;
+      current_page_num = 0;
       return;
 
 
@@ -102,9 +103,9 @@ functions:
         default_argument: nullptr
     guards: [ event_emitter ]
     body: |
-      current_page++;
+      current_page_num++;
 
-      if (current_page >= pages.size())
+      if (current_page_num >= pages.size())
          event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);
 
       return;

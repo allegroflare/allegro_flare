@@ -17,19 +17,25 @@ namespace Screens
 {
 
 
-Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::vector<std::string> pages, std::string screen_identifier_to_switch_to_after_completing, intptr_t current_page)
+Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::vector<std::string> pages, std::string screen_identifier_to_switch_to_after_completing, intptr_t current_page_num)
    : AllegroFlare::Screens::Base()
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , pages(pages)
    , screen_identifier_to_switch_to_after_completing(screen_identifier_to_switch_to_after_completing)
-   , current_page(current_page)
+   , current_page_num(current_page_num)
 {
 }
 
 
 Storyboard::~Storyboard()
 {
+}
+
+
+intptr_t Storyboard::get_current_page_num()
+{
+   return current_page_num;
 }
 
 
@@ -51,7 +57,7 @@ void Storyboard::render()
 
    al_clear_to_color(AllegroFlare::Color::Black);
 
-   if (current_page >= pages.size()) return;
+   if (current_page_num >= pages.size()) return;
 
    float x_padding = 150;
    float y_padding = 150;
@@ -64,14 +70,14 @@ void Storyboard::render()
          1920 - x_padding*2,
          al_get_font_line_height(text_font)*1.75,
          0,
-         pages[current_page].c_str()
+         pages[current_page_num].c_str()
       );
    return;
 }
 
 void Storyboard::reset()
 {
-   current_page = 0;
+   current_page_num = 0;
    return;
 }
 
@@ -95,9 +101,9 @@ void Storyboard::key_down_func(ALLEGRO_EVENT* event)
          error_message << "Storyboard" << "::" << "key_down_func" << ": error: " << "guard \"event_emitter\" not met";
          throw std::runtime_error(error_message.str());
       }
-   current_page++;
+   current_page_num++;
 
-   if (current_page >= pages.size())
+   if (current_page_num >= pages.size())
       event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);
 
    return;
