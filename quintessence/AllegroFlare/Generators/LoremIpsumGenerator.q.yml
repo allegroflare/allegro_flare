@@ -1,9 +1,11 @@
 properties:
 
+
   - name: source_text
     type: std::string
     init_with: generate_source_text()
     getter: true
+
 
 functions:
 
@@ -323,5 +325,26 @@ functions:
 
       return FULL_LOREM_IPSUM_TEXT;
 
+
+  - name: split
+    type: std::vector<std::string>
+    private: true
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '""'
+      - name: delimiter
+        type: char
+        default_argument: "' '"
+    body: |
+      std::vector<std::string> elems;
+      auto result = std::back_inserter(elems);
+      std::stringstream ss(text);
+      std::string item;
+      while (std::getline(ss, item, delimiter)) { *(result++) = item; }
+      return elems;
+    body_dependency_symbols:
+      - std::stringstream
+      - std::vector<std::string>
 
 

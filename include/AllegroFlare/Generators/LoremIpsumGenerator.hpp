@@ -2,6 +2,7 @@
 
 
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -22,6 +23,7 @@ namespace AllegroFlare
          std::string generate_paragraphs(int num_paragraphs=1);
          std::string generate_characters(int num_characters=1);
          static std::string generate_source_text();
+         std::vector<std::string> split(std::string text="", char delimiter=' ');
       };
    }
 }

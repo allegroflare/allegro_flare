@@ -1,7 +1,9 @@
 
 
 #include <AllegroFlare/Generators/LoremIpsumGenerator.hpp>
-
+#include <sstream>
+#include <vector>
+#include <string>
 
 
 namespace AllegroFlare
@@ -321,6 +323,16 @@ std::string LoremIpsumGenerator::generate_source_text()
    };
 
    return FULL_LOREM_IPSUM_TEXT;
+}
+
+std::vector<std::string> LoremIpsumGenerator::split(std::string text, char delimiter)
+{
+   std::vector<std::string> elems;
+   auto result = std::back_inserter(elems);
+   std::stringstream ss(text);
+   std::string item;
+   while (std::getline(ss, item, delimiter)) { *(result++) = item; }
+   return elems;
 }
 } // namespace Generators
 } // namespace AllegroFlare
