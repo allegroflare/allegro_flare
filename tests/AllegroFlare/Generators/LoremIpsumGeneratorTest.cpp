@@ -40,3 +40,17 @@ TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest, generate_paragraphs__will_
 }
 
 
+TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest, generate_sentences__will_return_sentences_of_lorem_ipsum_text)
+{
+   AllegroFlare::Generators::LoremIpsumGenerator lorem_ipsum_generator;
+   std::string result = lorem_ipsum_generator.generate_sentences(6);
+   std::string expected_result = {
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla arcu "
+      "nec magna mattis cursus. Maecenas non justo urna. Vivamus eu augue tristique, "
+      "pharetra enim ut, sollicitudin quam. Aenean ut purus at enim elementum rhoncus. "
+      "In a finibus sapien."
+   };
+   EXPECT_EQ(expected_result, result);
+}
+
+

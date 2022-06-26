@@ -10,16 +10,38 @@ properties:
 functions:
 
 
-  - name: generate_words
+  - name: generate_sentences
     parameters:
-      - name: num_words
+      - name: num_sentences
         type: int
         default_argument: 1
     type: std::string
     body: |
-      // TODO
-      //static std::string words = 
-      return {};
+      // remove all newline (\n) characters
+      std::string content = source_text;
+      static std::string full_text_no_paragraphs = AllegroFlare::php::str_replace("\n", " ", content);
+
+      // split to sentences
+      static std::vector<std::string> sentences = split(full_text_no_paragraphs, '.');
+
+      // trim the sentences
+      for (int i=0; i<sentences.size(); i++)
+      {
+         sentences[i] = AllegroFlare::php::trim(sentences[i]);
+      }
+
+      // accumulate the results to a string
+      std::stringstream result;
+      for (int i=0; i<num_sentences; i++)
+      {
+         result << sentences[i % sentences.size()];
+         if (i != (num_sentences-1)) result << ". ";
+      }
+      result << ".";
+
+      return result.str();
+    body_dependency_symbols:
+      - AllegroFlare::php::str_replace
 
 
   - name: generate_paragraphs
@@ -39,19 +61,6 @@ functions:
       }
 
       return result.str();
-
-
-  - name: generate_characters
-    type: std::string
-    description: |
-      Generates the passed number of characters (may include spaces) from the lorem ipsum text.
-    parameters:
-      - name: num_characters
-        type: int
-        default_argument: 1
-    body: |
-      // TODO
-      return {};
 
 
   - name: generate_source_text
@@ -327,7 +336,7 @@ functions:
         "velit, ac interdum neque. Aenean varius nulla ac mauris sollicitudin porta. "
         "Curabitur eget dui in sem finibus feugiat eget non libero. Sed sollicitudin "
         "euismod sem, a pulvinar elit dapibus vitae. Duis dictum quam id felis gravida, "
-        "ut porttitor purus sodales.\n"
+        "ut porttitor purus sodales."
 
       };
 
@@ -354,5 +363,38 @@ functions:
     body_dependency_symbols:
       - std::stringstream
       - std::vector<std::string>
+
+
+  - name: join
+    type: std::string
+    private: true
+    parameters:
+      - name: tokens
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: delimiter
+        type: std::string
+        default_argument: '", "'
+    body: |
+      std::stringstream result;
+      bool last = false;
+
+      for (unsigned i=0; i<tokens.size(); i++)
+      {
+         result << tokens[i];
+         if (i == tokens.size()-1) last = true;
+         if (!last) result << delimiter;
+      }
+
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::php::str_replace
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
 
 

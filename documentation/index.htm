@@ -597,13 +597,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">generate_words(1)</td>
+  <td class="method">generate_sentences(1)</td>
 </tr>
 <tr>
   <td class="method">generate_paragraphs(1)</td>
-</tr>
-<tr>
-  <td class="method">generate_characters(1)</td>
 </tr>
 <tr>
   <td class="private_method">generate_source_text()</td>
@@ -611,8 +608,14 @@ table td
 <tr>
   <td class="private_method">split(2)</td>
 </tr>
+<tr>
+  <td class="private_method">join(2)</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::php::str_replace&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -1103,6 +1106,9 @@ table td
   ],
   "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
+  ],
+  "AllegroFlare/php/str_replace": [
+    "AllegroFlare/Generators/LoremIpsumGenerator"
   ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"

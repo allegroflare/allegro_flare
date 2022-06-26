@@ -1,9 +1,11 @@
 
 
 #include <AllegroFlare/Generators/LoremIpsumGenerator.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <sstream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -29,11 +31,31 @@ std::string LoremIpsumGenerator::get_source_text()
 }
 
 
-std::string LoremIpsumGenerator::generate_words(int num_words)
+std::string LoremIpsumGenerator::generate_sentences(int num_sentences)
 {
-   // TODO
-   //static std::string words = 
-   return {};
+   // remove all newline (\n) characters
+   std::string content = source_text;
+   static std::string full_text_no_paragraphs = AllegroFlare::php::str_replace("\n", " ", content);
+
+   // split to sentences
+   static std::vector<std::string> sentences = split(full_text_no_paragraphs, '.');
+
+   // trim the sentences
+   for (int i=0; i<sentences.size(); i++)
+   {
+      sentences[i] = AllegroFlare::php::trim(sentences[i]);
+   }
+
+   // accumulate the results to a string
+   std::stringstream result;
+   for (int i=0; i<num_sentences; i++)
+   {
+      result << sentences[i % sentences.size()];
+      if (i != (num_sentences-1)) result << ". ";
+   }
+   result << ".";
+
+   return result.str();
 }
 
 std::string LoremIpsumGenerator::generate_paragraphs(int num_paragraphs)
@@ -48,12 +70,6 @@ std::string LoremIpsumGenerator::generate_paragraphs(int num_paragraphs)
    }
 
    return result.str();
-}
-
-std::string LoremIpsumGenerator::generate_characters(int num_characters)
-{
-   // TODO
-   return {};
 }
 
 std::string LoremIpsumGenerator::generate_source_text()
@@ -326,7 +342,7 @@ std::string LoremIpsumGenerator::generate_source_text()
      "velit, ac interdum neque. Aenean varius nulla ac mauris sollicitudin porta. "
      "Curabitur eget dui in sem finibus feugiat eget non libero. Sed sollicitudin "
      "euismod sem, a pulvinar elit dapibus vitae. Duis dictum quam id felis gravida, "
-     "ut porttitor purus sodales.\n"
+     "ut porttitor purus sodales."
 
    };
 
@@ -341,6 +357,21 @@ std::vector<std::string> LoremIpsumGenerator::split(std::string text, char delim
    std::string item;
    while (std::getline(ss, item, delimiter)) { *(result++) = item; }
    return elems;
+}
+
+std::string LoremIpsumGenerator::join(std::vector<std::string> tokens, std::string delimiter)
+{
+   std::stringstream result;
+   bool last = false;
+
+   for (unsigned i=0; i<tokens.size(); i++)
+   {
+      result << tokens[i];
+      if (i == tokens.size()-1) last = true;
+      if (!last) result << delimiter;
+   }
+
+   return result.str();
 }
 } // namespace Generators
 } // namespace AllegroFlare
