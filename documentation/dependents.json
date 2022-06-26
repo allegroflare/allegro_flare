@@ -104,23 +104,6 @@
   "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
   ],
-  "AllegroFlare/Color": [
-    "AllegroFlare/Screens/Storyboard"
-  ],
-  "AllegroFlare/Screens/Base": [
-    "AllegroFlare/Screens/Storyboard"
-  ],
-  "AllegroFlare/EventEmitter": [
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "ALLEGRO_EVENT": [
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "al_draw_multiline_text": [
-    "AllegroFlare/Screens/Storyboard"
-  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
