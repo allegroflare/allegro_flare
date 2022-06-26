@@ -8,6 +8,18 @@ properties:
 functions:
 
 
+  - name: generate_words
+    parameters:
+      - name: num_words
+        type: int
+        default_argument: 1
+    type: std::string
+    body: |
+      // TODO
+      //static std::string words = 
+      return {};
+
+
   - name: generate_source_text
     private: true
     type: std::string
@@ -94,7 +106,7 @@ functions:
         "Phasellus non tempor neque. Etiam ornare in massa non semper. Quisque accumsan "
         "arcu nunc, id imperdiet sem faucibus et. Mauris diam sapien, pretium id mollis "
         "aliquet, consectetur non eros. Nullam sed dignissim diam. Sed rhoncus pulvinar "
-        "mauris. Vivamus quis laoreet neque. Suspendisse potenti.\n"
+        "mauris. Vivamus quis laoreet neque. Suspendisse potenti. "
 
         "Donec at bibendum magna, eu ultrices sapien. Vivamus ultrices, urna non "
         "fermentum finibus, ligula lacus feugiat augue, vitae mattis sem ex et orci. "
@@ -105,7 +117,7 @@ functions:
         "turpis nulla posuere risus, quis blandit nibh arcu ornare odio. Sed in velit ut "
         "felis convallis egestas. Donec porttitor consectetur tortor at efficitur. Duis "
         "dapibus sem finibus eros dictum venenatis. Donec efficitur molestie libero, "
-        "congue ultricies dui maximus id.\n"
+        "congue ultricies dui maximus id. "
 
         "Duis et euismod justo. Suspendisse potenti. Cras a condimentum elit, quis "
         "ultrices magna. Ut ac tincidunt enim, hendrerit porta magna. Donec et neque sed "
@@ -117,7 +129,7 @@ functions:
         "ultrices posuere cubilia curae; Nullam in aliquet ante, sed eleifend nibh. "
         "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per "
         "inceptos himenaeos. Aenean ornare aliquam velit, et tristique leo laoreet non. "
-        "Sed pulvinar leo a elit pellentesque pretium.\n"
+        "Sed pulvinar leo a elit pellentesque pretium. "
 
         "Suspendisse et vestibulum elit, suscipit tristique neque. Cras venenatis nisl "
         "nec magna consequat laoreet. Nullam nibh dui, malesuada quis est eu, laoreet "
@@ -129,13 +141,13 @@ functions:
         "consequat eu orci eu, elementum rhoncus turpis. Praesent commodo leo ac lectus "
         "consequat dictum. Pellentesque pulvinar et ex sit amet placerat. Interdum et "
         "malesuada fames ac ante ipsum primis in faucibus. Morbi venenatis faucibus "
-        "justo vitae blandit.\n"
+        "justo vitae blandit. "
 
         "Aliquam consequat ligula at ipsum tempus, eu blandit ex sodales. Praesent quis "
         "mi in leo consequat varius feugiat at felis. Nam eu sodales lacus. Mauris "
         "dictum diam ac vehicula maximus. Nullam eu libero magna. Fusce dignissim diam "
         "libero, vitae pulvinar nulla feugiat quis. Etiam elit nisi, bibendum vel "
-        "porttitor et, pretium lobortis massa. Morbi luctus dapibus vehicula.\n"
+        "porttitor et, pretium lobortis massa. Morbi luctus dapibus vehicula. "
 
         "Donec semper libero eget dictum lacinia. In porttitor pulvinar volutpat. Proin "
         "tristique quam sed urna vehicula lobortis. Nullam id neque eget odio porttitor "
@@ -148,7 +160,7 @@ functions:
         "vestibulum mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
         "Maecenas vitae neque non enim tincidunt rutrum non pretium arcu. Integer "
         "accumsan, mauris at tempus aliquet, nisi lacus facilisis eros, at porttitor "
-        "dolor purus eget nulla. Vivamus sollicitudin malesuada quam faucibus efficitur.\n"
+        "dolor purus eget nulla. Vivamus sollicitudin malesuada quam faucibus efficitur. "
 
         "Phasellus elementum nulla magna, aliquam rutrum nisi vestibulum in. Sed "
         "consectetur, nibh id consectetur vestibulum, velit nisl tempus odio, a bibendum "
@@ -157,7 +169,7 @@ functions:
         "facilisis. Nunc tincidunt mi arcu, a tempor erat lacinia non. Praesent auctor "
         "semper eros, in blandit enim auctor id. Praesent interdum posuere convallis. In "
         "vel volutpat nisi. Donec dapibus porta vulputate. In convallis enim et nisi "
-        "imperdiet, sed tincidunt risus gravida. Nunc varius felis velit.\n"
+        "imperdiet, sed tincidunt risus gravida. Nunc varius felis velit. "
 
         "Quisque cursus, orci a convallis aliquam, urna arcu interdum nunc, sit amet "
         "blandit neque justo quis purus. Donec tristique, felis id tincidunt dapibus, "
@@ -167,7 +179,7 @@ functions:
         "condimentum vel. Proin aliquam suscipit dui, vel tincidunt arcu tincidunt at. "
         "Suspendisse blandit dapibus tellus. Mauris interdum semper velit. Mauris "
         "tempor, leo in pharetra fermentum, eros orci eleifend orci, sit amet ornare "
-        "odio ex vitae diam. Sed et dignissim nunc, et commodo nunc.\n"
+        "odio ex vitae diam. Sed et dignissim nunc, et commodo nunc. "
 
         "Nam posuere egestas elit, sed dignissim diam semper et. Nam vestibulum enim "
         "enim, ac blandit lectus sagittis quis. Quisque vitae quam vel velit mollis "

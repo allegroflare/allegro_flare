@@ -27,6 +27,13 @@ std::string LoremIpsumGenerator::get_source_text()
 }
 
 
+std::string LoremIpsumGenerator::generate_words(int num_words)
+{
+   // TODO
+   //static std::string words = 
+   return {};
+}
+
 std::string LoremIpsumGenerator::generate_source_text()
 {
    static std::string FULL_LOREM_IPSUM_TEXT = {
