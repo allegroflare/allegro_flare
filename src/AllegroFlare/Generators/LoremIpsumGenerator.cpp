@@ -34,6 +34,18 @@ std::string LoremIpsumGenerator::generate_words(int num_words)
    return {};
 }
 
+std::string LoremIpsumGenerator::generate_paragraphs(int num_paragraphs)
+{
+   // TODO
+   return {};
+}
+
+std::string LoremIpsumGenerator::generate_characters(int num_characters)
+{
+   // TODO
+   return {};
+}
+
 std::string LoremIpsumGenerator::generate_source_text()
 {
    static std::string FULL_LOREM_IPSUM_TEXT = {

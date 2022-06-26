@@ -20,6 +20,30 @@ functions:
       return {};
 
 
+  - name: generate_paragraphs
+    parameters:
+      - name: num_paragraphs
+        type: int
+        default_argument: 1
+    type: std::string
+    body: |
+      // TODO
+      return {};
+
+
+  - name: generate_characters
+    type: std::string
+    description: |
+      Generates the passed number of characters (may include spaces) from the lorem ipsum text.
+    parameters:
+      - name: num_characters
+        type: int
+        default_argument: 1
+    body: |
+      // TODO
+      return {};
+
+
   - name: generate_source_text
     private: true
     type: std::string
