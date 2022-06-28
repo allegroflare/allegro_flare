@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/ScreenManagers/Registry.hpp>
 
-#include <AllegroFlare/Screens/Basic.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
 
 #include <algorithm>
 
@@ -25,15 +25,15 @@ Registry::~Registry()
 }
 
 
-void Registry::add(Screens::Basic *screen)
+void Registry::add(Screens::Base *screen)
 {
    screens.push_back(screen);
 }
 
 
-void Registry::remove(Screens::Basic *screen) // should probably test this
+void Registry::remove(Screens::Base *screen) // should probably test this
 {
-   std::vector<Screens::Basic *>::iterator it = std::find(screens.begin(), screens.end(), screen);
+   std::vector<Screens::Base *>::iterator it = std::find(screens.begin(), screens.end(), screen);
    screens.erase(it);
 }
 
@@ -192,7 +192,7 @@ void Registry::native_menu_click_funcs()
 }
 
 
-void Registry::bring_to_front(Screens::Basic *s)
+void Registry::bring_to_front(Screens::Base *s)
 {
    if (!s) return;
 

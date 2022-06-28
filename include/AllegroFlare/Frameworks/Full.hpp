@@ -59,7 +59,7 @@ namespace AllegroFlare
          ALLEGRO_EVENT_QUEUE *event_queue;
          ALLEGRO_FONT *builtin_font;
          bool shutdown_program; // set this to true at any time to shutdown the program
-         Screens::Basic *current_screen;
+         Screens::Base *current_screen;
          ALLEGRO_EVENT *current_event;
          double time_now; // used to be current_event_time
 
@@ -87,8 +87,8 @@ namespace AllegroFlare
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
 
-         void register_screen(std::string name, AllegroFlare::Screens::Basic *screen);
-         void unregister_screen(AllegroFlare::Screens::Basic *screen);
+         void register_screen(std::string name, AllegroFlare::Screens::Base *screen);
+         void unregister_screen(AllegroFlare::Screens::Base *screen);
          void activate_screen(std::string name);
 
          void register_achievement(std::string name, Achievement *achievement);

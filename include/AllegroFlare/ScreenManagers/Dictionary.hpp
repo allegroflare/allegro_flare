@@ -10,7 +10,7 @@ namespace AllegroFlare
 {
    namespace Screens
    {
-      class Basic;
+      class Base;
    };
 
    namespace ScreenManagers
@@ -21,7 +21,7 @@ namespace AllegroFlare
          class Listing
          {
          public:
-            Screens::Basic* screen;
+            Screens::Base* screen;
             bool active;
             bool operator==(const Listing &other) const;
          };
@@ -35,15 +35,15 @@ namespace AllegroFlare
          ~Dictionary();
 
          // management
-         Screens::Basic *find(std::string identifier);
-         std::string find_name(Screens::Basic *screen);
-         bool exists(Screens::Basic *screen);
+         Screens::Base *find(std::string identifier);
+         std::string find_name(Screens::Base *screen);
+         bool exists(Screens::Base *screen);
          bool exists(std::string identifier);
 
-         bool add(std::string name, Screens::Basic *screen);
-         bool remove(Screens::Basic *screen);
+         bool add(std::string name, Screens::Base *screen);
+         bool remove(Screens::Base *screen);
          bool remove(std::string identifier);
-         //void bring_to_front(Screens::Basic *s);
+         //void bring_to_front(Screens::Base *s);
          //void bring_to_front(std::string name);
          bool activate(std::string name);
          //bool deactivate(std::string name); // not to be implemented; screens will be deactivated implicitly

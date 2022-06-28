@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/ScreenManagers/Dictionary.hpp>
 
-#include <AllegroFlare/Screens/Basic.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
 
 #include <algorithm>
 #include <sstream>
@@ -47,7 +47,7 @@ Dictionary::Listing *Dictionary::find_listing(std::string identifier)
 }
 
 
-Screens::Basic *Dictionary::find(std::string identifier)
+Screens::Base *Dictionary::find(std::string identifier)
 {
    std::map<std::string, Listing>::iterator it = screens.find(identifier);
    if (it == screens.end()) return nullptr;
@@ -55,7 +55,7 @@ Screens::Basic *Dictionary::find(std::string identifier)
 }
 
 
-std::string Dictionary::find_name(Screens::Basic *screen)
+std::string Dictionary::find_name(Screens::Base *screen)
 {
    for (std::map<std::string, Listing>::iterator it=screens.begin(); it!=screens.end(); it++)
    {
@@ -73,7 +73,7 @@ bool Dictionary::exists(std::string identifier)
 }
 
 
-bool Dictionary::exists(Screens::Basic *screen)
+bool Dictionary::exists(Screens::Base *screen)
 {
    for (std::map<std::string, Listing>::iterator it=screens.begin(); it!=screens.end(); it++)
    {
@@ -83,7 +83,7 @@ bool Dictionary::exists(Screens::Basic *screen)
 }
 
 
-bool Dictionary::add(std::string name, Screens::Basic *screen)
+bool Dictionary::add(std::string name, Screens::Base *screen)
 {
    if (exists(name))
    {
@@ -99,7 +99,7 @@ bool Dictionary::add(std::string name, Screens::Basic *screen)
 }
 
 
-bool Dictionary::remove(Screens::Basic *screen)
+bool Dictionary::remove(Screens::Base *screen)
 {
    if (!exists(screen))
    {
