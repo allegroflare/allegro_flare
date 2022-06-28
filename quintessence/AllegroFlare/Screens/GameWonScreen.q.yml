@@ -1,0 +1,139 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+
+functions:
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    body: |
+      render();
+      return;
+
+
+  - name: render
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      draw_primary_text();
+      draw_instruction_text();
+      return;
+
+
+  - name: draw_primary_text
+    body: |
+      // TODO: review guards on this function
+      ALLEGRO_FONT *title_font = obtain_title_font();
+      float font_line_height = al_get_font_line_height(title_font);
+      int surface_width = 1920;
+      int surface_height = 1080;
+      al_draw_multiline_text(
+         title_font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         surface_width / 2,
+         surface_height / 2 - font_line_height,
+         surface_width,
+         font_line_height,
+         ALLEGRO_ALIGN_CENTER,
+         "Y   O   U      W   I   N"
+      );
+      return;
+
+
+  - name: draw_instruction_text
+    body: |
+      // TODO: review guards on this function
+      ALLEGRO_FONT *title_font = obtain_instruction_font();
+      float font_line_height = al_get_font_line_height(title_font);
+      int surface_width = 1920;
+      int surface_height = 1080;
+      al_draw_multiline_text(
+         title_font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         surface_width / 2,
+         surface_height / 2 + font_line_height*2,
+         surface_width,
+         font_line_height,
+         ALLEGRO_ALIGN_CENTER,
+         "Press any key"
+      );
+      return;
+
+
+  - name: return_to_title_screen
+    guards: [ event_emitter ]
+    body: |
+      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN
+
+
+  - name: obtain_title_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("DroidSans.ttf -80");
+
+
+  - name: obtain_instruction_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("DroidSans.ttf -48");
+
+
+  - name: key_char_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // on any keypress:
+      return_to_title_screen();
+      return;
+
+
+dependencies:
+
+  - symbol: ALLEGRO_EVENT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: std::vector<std::pair<std::string, std::string>>
+    headers: [ vector, utility, string ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+
+

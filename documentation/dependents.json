@@ -35,14 +35,20 @@
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "al_is_system_installed": [
@@ -107,19 +113,40 @@
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
   ],
-  "AllegroFlare/Color": [
-    "AllegroFlare/Screens/Storyboard"
+  "ALLEGRO_EVENT": [
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
-  "AllegroFlare/Screens/Base": [
-    "AllegroFlare/Screens/Storyboard"
+  "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/EventEmitter": [
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor"
   ],
-  "ALLEGRO_EVENT": [
+  "std/vector<std/pair<std/string, std/string>>": [
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Screens/Base": [
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
+    "AllegroFlare/Screens/GameWonScreen"
+  ],
+  "AllegroFlare/Color": [
+    "AllegroFlare/Screens/Storyboard"
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Screens/Storyboard"
