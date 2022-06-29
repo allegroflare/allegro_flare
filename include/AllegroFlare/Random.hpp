@@ -73,6 +73,11 @@ namespace AllegroFlare
 
       // Returns a random color
       ALLEGRO_COLOR get_random_color();
+
+      // Returns a random color and will not to repeat a color until all possible colors have been returned.
+      // Colors are selected from AllegroFlare::Color name constants, which are from the X11 color codes.
+      // There are 142 possible colors.
+      ALLEGRO_COLOR get_random_color_exhaustive();
    };
 }
 

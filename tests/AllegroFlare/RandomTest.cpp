@@ -460,3 +460,10 @@ TEST(AllegroFlare_RandomTest, get_random_color__returns_a_repeatable_sequence_of
 }
 
 
+TEST(AllegroFlare_RandomTest,
+   get_random_color_exhaustive__will_exhaust_the_full_list_of_possible_colors_before_repeating_one_again)
+{
+   // TODO add test
+}
+
+
