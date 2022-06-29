@@ -126,6 +126,39 @@ TEST(AllegroFlare_RandomTest, get_random_letter__with_lowercase_set_to_true__ret
 }
 
 
+TEST(AllegroFlare_RandomTest, get_random_letter__will_return_repeatable_values_given_the_same_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+
+   std::vector<unsigned char> randomly_generated_characters;
+   for (int i=0; i<9; i++) randomly_generated_characters.push_back(number_generator.get_random_letter());
+
+   std::vector<unsigned char> expected_randomly_generated_characters = { 'N', 'B', 'V', 'S', 'K', 'F', 'A', 'L', 'X' };
+   EXPECT_EQ(expected_randomly_generated_characters, randomly_generated_characters);
+}
+
+
+TEST(AllegroFlare_RandomTest,
+   get_random_letter__with_lowercase_set_to_true__would_return_the_same_alphabetic_character_as_uppercase)
+{
+   AllegroFlare::Random number_generator;
+
+   number_generator.set_seed(123);
+   std::vector<unsigned char> generated_uppercase_characters;
+   for (int i=0; i<9; i++) generated_uppercase_characters.push_back(number_generator.get_random_letter());
+
+   number_generator.set_seed(123);
+   std::vector<unsigned char> generated_lowercase_characters;
+   for (int i=0; i<9; i++) generated_lowercase_characters.push_back(number_generator.get_random_letter(true));
+
+   std::vector<unsigned char> expected_generated_uppercase_characters = { 'N', 'B', 'V', 'S', 'K', 'F', 'A', 'L', 'X' };
+   std::vector<unsigned char> expected_generated_lowercase_characters = { 'n', 'b', 'v', 's', 'k', 'f', 'a', 'l', 'x' };
+
+   EXPECT_EQ(expected_generated_uppercase_characters, generated_uppercase_characters);
+   EXPECT_EQ(expected_generated_lowercase_characters, generated_lowercase_characters);
+}
+
+
 TEST(AllegroFlare_RandomTest,
    get_random_letter_or_number__returns_a_random_uppercase_lowercase_or_number_character)
 {
