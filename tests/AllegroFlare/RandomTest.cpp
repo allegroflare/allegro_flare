@@ -165,6 +165,19 @@ TEST(AllegroFlare_RandomTest, get_random_string__returns_repeatable_values_given
 }
 
 
+TEST(AllegroFlare_RandomTest,
+   get_random_string__could_potentially_return_inappropriate_content_and_is_not_guaranteed_to_filter_unsafe_language)
+{
+   AllegroFlare::Random number_generator;
+
+   number_generator.set_seed(9381915);
+
+   std::string expected_unfiltered_profanity = "fuck";
+   std::string randomly_generated_string = number_generator.get_random_string(4);
+   EXPECT_EQ(expected_unfiltered_profanity, randomly_generated_string);
+}
+
+
 TEST(AllegroFlare_RandomTest, get_random_float__only_returns_floats_within_the_bounds_inclusive)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123);
