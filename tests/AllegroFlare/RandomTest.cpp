@@ -43,6 +43,36 @@ TEST(AllegroFlare_RandomTest, get_random_bool__returns_random_booleans)
 }
 
 
+TEST(AllegroFlare_RandomTest, get_random_sign__returns_the_number_1_randomly_either_positive_or_negative)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+
+   int positive_one_count = 0;
+   int negative_one_count = 0;
+   int num_checks = 1000;
+   for (int i=0; i<num_checks; i++)
+   {
+      int val = number_generator.get_random_sign();
+      (val == 1) ? positive_one_count++ : negative_one_count++;
+   }
+
+   ASSERT_GE(positive_one_count, num_checks/3); // just a sanity check
+   ASSERT_GE(negative_one_count, num_checks/3); // just a sanity check
+}
+
+
+TEST(AllegroFlare_RandomTest, get_random_sign__will_return_repeatable_values_given_the_same_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+
+   std::vector<int> randomly_generated_signs;
+   for (int i=0; i<9; i++) randomly_generated_signs.push_back(number_generator.get_random_sign());
+
+   std::vector<int> expected_randomly_generated_signs = { 1, -1, -1, 1, -1, 1, 1, 1, 1 };
+   EXPECT_EQ(expected_randomly_generated_signs, randomly_generated_signs);
+}
+
+
 TEST(AllegroFlare_RandomTest, get_random_int__only_returns_integers_within_the_bounds_inclusive)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123);

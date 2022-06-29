@@ -40,6 +40,14 @@ namespace AllegroFlare
 
 
 
+   int Random::get_random_sign()
+   {
+      return (random_number_generator() % 2) ? 1 : -1;
+   }
+
+
+
+
    int Random::get_random_int(int min, int max)
    {
       int fixed_min = std::min(min, max);

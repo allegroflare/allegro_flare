@@ -31,6 +31,9 @@ namespace AllegroFlare
       // Returns a random bool.
       bool get_random_bool();
 
+      // Returns a random sign (either 1 or -1).
+      int get_random_sign();
+
       // Returns a random integer.
       int get_random_int(int min, int max);
 
