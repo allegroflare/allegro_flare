@@ -1,6 +1,7 @@
 
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <AllegroFlare/Random.hpp>
 
@@ -84,6 +85,83 @@ TEST(AllegroFlare_RandomTest, get_random_double__only_returns_doubles_within_the
       ASSERT_TRUE(val <= max_random_num);
       ASSERT_TRUE(val >= min_random_num);
    }
+}
+
+
+TEST(AllegroFlare_RandomTest,
+   get_random_letter_or_number__returns_a_random_uppercase_lowercase_or_number_character)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+
+   std::string expected_characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+   std::vector<unsigned char> errors;
+
+   for (int i=0; i<30; i++)
+   {
+      unsigned char random_letter_or_number = number_generator.get_random_letter_or_number();
+
+      std::size_t pos = expected_characters.find(random_letter_or_number);
+      if (pos == std::string::npos) errors.push_back(random_letter_or_number);
+   }
+
+   EXPECT_THAT(errors, testing::IsEmpty());
+}
+
+
+TEST(AllegroFlare_RandomTest, get_random_letter_or_number__returns_repeatable_values_given_the_same_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+
+   std::vector<unsigned char> randomly_generated_characters;
+   for (int i=0; i<9; i++) randomly_generated_characters.push_back(number_generator.get_random_letter_or_number());
+
+   std::vector<unsigned char> expected_randomly_generated_characters = { 'g', '1', 'V', 'c', '0', 'h', '9', 'm', '5' };
+   EXPECT_EQ(expected_randomly_generated_characters, randomly_generated_characters);
+}
+
+
+TEST(AllegroFlare_RandomTest,
+   get_random_string__returns_an_string_of_the_expected_length_containing_random_letters_or_numbers)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+
+   std::string expected_characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+   std::vector<std::string> errors;
+
+   for (int i=0; i<30; i++)
+   {
+      int length = number_generator.get_random_int(1, 100);
+
+      std::string random_string = number_generator.get_random_string(length);
+
+      ASSERT_EQ(length, random_string.length());
+      std::size_t pos = random_string.find_first_not_of(expected_characters);
+      if (pos != std::string::npos)
+      {
+         std::stringstream error;
+         error << "pos " << pos << " in \"" << random_string << "\""; 
+         errors.push_back(error.str());
+      }
+   }
+
+   EXPECT_THAT(errors, testing::IsEmpty());
+}
+
+
+TEST(AllegroFlare_RandomTest, get_random_string__returns_repeatable_values_given_the_same_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+
+   std::vector<std::string> randomly_generated_strings;
+   for (int i=0; i<4; i++) randomly_generated_strings.push_back(number_generator.get_random_string(10));
+
+   std::vector<std::string> expected_randomly_generated_strings = {
+         "g1Vc0h9m5Z",
+         "A73ZdwS6lC",
+         "a07BQt3tO0",
+         "KTtawCyBuG"
+      };
+   EXPECT_EQ(expected_randomly_generated_strings, randomly_generated_strings);
 }
 
 

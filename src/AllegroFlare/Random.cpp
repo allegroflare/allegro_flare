@@ -75,6 +75,29 @@ namespace AllegroFlare
 
 
 
+   unsigned char Random::get_random_letter_or_number()
+   {
+      int num = get_random_int(0, 10+26+26); // 10 digits, 26 uppercase, 26 lowercase
+      if (num <= 10) return (unsigned char)(num%10 + '0');
+      else if ((num-10) <= 26) return (unsigned char)(num%26 + 'A');
+      else if ((num-10-26) <= 26) return (unsigned char)(num%26 + 'a');
+      return '-';
+   }
+
+
+
+
+   std::string Random::get_random_string(unsigned int length)
+   {
+      std::string return_str;
+      for (unsigned i=0; i<length; i++)
+         return_str += get_random_letter_or_number();
+      return return_str;
+   }
+
+
+
+
    bool Random::get_one_in_chance(int chance)
    {
       if (get_random_int(0, chance - 1) == 0)

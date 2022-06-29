@@ -40,6 +40,12 @@ namespace AllegroFlare
       // Returns a random double.
       double get_random_double(double min, double max);
 
+      // Returns a random character.
+      unsigned char get_random_letter_or_number();
+
+      // Returns a random string.
+      std::string get_random_string(unsigned int length);
+
       // Returns true if a one-in-n chance event occurred.
       bool get_one_in_chance(int chance);
 
