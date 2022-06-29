@@ -40,6 +40,10 @@ namespace AllegroFlare
       // Returns a random double.
       double get_random_double(double min, double max);
 
+      // Returns a random letter from A-Z.
+      // If `lowercase=true`, then the same letter would be returned but in a lowercase.
+      unsigned char get_random_letter(bool lowercase=false);
+
       // Returns a random character.
       unsigned char get_random_letter_or_number();
 

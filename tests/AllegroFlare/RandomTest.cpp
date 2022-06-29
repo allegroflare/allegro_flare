@@ -88,6 +88,44 @@ TEST(AllegroFlare_RandomTest, get_random_double__only_returns_doubles_within_the
 }
 
 
+TEST(AllegroFlare_RandomTest, get_random_letter__returns_a_random_uppercase_character)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+
+   std::string expected_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+   std::vector<unsigned char> errors;
+
+   for (int i=0; i<30; i++)
+   {
+      unsigned char random_letter = number_generator.get_random_letter();
+
+      std::size_t pos = expected_characters.find(random_letter);
+      if (pos == std::string::npos) errors.push_back(random_letter);
+   }
+
+   EXPECT_THAT(errors, testing::IsEmpty());
+}
+
+
+TEST(AllegroFlare_RandomTest, get_random_letter__with_lowercase_set_to_true__returns_a_random_uppercase_character)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+
+   std::string expected_characters = "abcdefghijklmnopqrstuvwxyz";
+   std::vector<unsigned char> errors;
+
+   for (int i=0; i<30; i++)
+   {
+      unsigned char random_letter = number_generator.get_random_letter(true);
+
+      std::size_t pos = expected_characters.find(random_letter);
+      if (pos == std::string::npos) errors.push_back(random_letter);
+   }
+
+   EXPECT_THAT(errors, testing::IsEmpty());
+}
+
+
 TEST(AllegroFlare_RandomTest,
    get_random_letter_or_number__returns_a_random_uppercase_lowercase_or_number_character)
 {

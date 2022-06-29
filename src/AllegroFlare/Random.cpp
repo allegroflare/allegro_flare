@@ -75,6 +75,16 @@ namespace AllegroFlare
 
 
 
+   unsigned char Random::get_random_letter(bool lowercase)
+   {
+      int num = get_random_int(0, 26);
+      if (lowercase) return (unsigned char)(num%26 + 'a');
+      return (unsigned char)(num%26 + 'A');
+   }
+
+
+
+
    unsigned char Random::get_random_letter_or_number()
    {
       int num = get_random_int(0, 10+26+26); // 10 digits, 26 uppercase, 26 lowercase
