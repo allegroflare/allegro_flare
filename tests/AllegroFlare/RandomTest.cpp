@@ -325,6 +325,18 @@ TEST(AllegroFlare_RandomTest, get_random_element__returns_a_repeatable_selection
 }
 
 
+TEST(AllegroFlare_RandomTest, shuffle_elements__shuffle_the_elements_into_a_random_order)
+{
+   // TODO: add test
+}
+
+
+TEST(AllegroFlare_RandomTest, shuffle_elements__will_produce_a_repeatable_shuffling_order_given_a_seed)
+{
+   // TODO: add test
+}
+
+
 TEST(AllegroFlare_RandomTest, get_random_int__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);

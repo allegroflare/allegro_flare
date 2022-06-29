@@ -65,6 +65,13 @@ namespace AllegroFlare
          return elements[get_random_int(0, elements.size()-1)];
       }
 
+      // Shuffles the elements into a random order.
+      template<class T>
+      void shuffle_elements(std::vector<T> &elements)
+      {
+         std::shuffle(elements.begin(), elements.end(), random_number_generator);
+      }
+
       // Returns true if a one-in-n chance event occurred.
       bool get_one_in_chance(int chance);
 
