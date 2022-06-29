@@ -50,6 +50,18 @@ namespace AllegroFlare
       // Returns a random string.
       std::string get_random_string(unsigned int length);
 
+      // Returns a random element from an std::vector.
+      // If the vector is empty, will throw an error.
+      template<class T>
+      T get_random_element(std::vector<T> &elements)
+      {
+         if (elements.empty())
+         {
+            throw std::runtime_error("[AllegroFlare::Random::get_random_elements] error: elements cannot be empty.");
+         }
+         return elements[get_random_int(0, elements.size()-1)];
+      }
+
       // Returns true if a one-in-n chance event occurred.
       bool get_one_in_chance(int chance);
 

@@ -265,7 +265,37 @@ TEST(AllegroFlare_RandomTest, get_random_float__only_returns_floats_within_the_b
 }
 
 
-TEST(RandomTest, get_random_int__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
+TEST(AllegroFlare_RandomTest, get_random_element__returns_a_random_element_from_the_vector)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
+   std::vector<int> elements_to_pick_from = { 18, 42, 256, 9, 11 };
+
+   for (int i=0; i<20; i++)
+   {
+      int random_element = number_generator.get_random_element(elements_to_pick_from);
+      EXPECT_THAT(elements_to_pick_from, testing::Contains(random_element));
+   }
+}
+
+
+TEST(AllegroFlare_RandomTest, get_random_element__returns_a_repeatable_selection_of_elements_given_a_seed)
+{
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+   std::vector<int> elements_to_pick_from = { 18, 42, 256, 9, 11 };
+
+   std::vector<int> expected_randomly_selected_elements = { 18, 11, 18, 9, 9, 256, 11, 256 };
+   std::vector<int> randomly_selected_elements;
+
+   for (int i=0; i<8; i++)
+   {
+      randomly_selected_elements.push_back(number_generator.get_random_element(elements_to_pick_from));
+   }
+
+   EXPECT_EQ(expected_randomly_selected_elements, randomly_selected_elements);
+}
+
+
+TEST(AllegroFlare_RandomTest, get_random_int__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
    const int min_random_num = 0;
@@ -283,7 +313,7 @@ TEST(RandomTest, get_random_int__returns_a_repeatable_sequence_of_random_numbers
 }
 
 
-TEST(RandomTest, get_random_float__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
+TEST(AllegroFlare_RandomTest, get_random_float__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
    const float min_random_num = 3.0;
@@ -312,7 +342,7 @@ TEST(RandomTest, get_random_float__returns_a_repeatable_sequence_of_random_numbe
 }
 
 
-TEST(RandomTest, get_random_double__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
+TEST(AllegroFlare_RandomTest, get_random_double__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
    const double min_random_num = 10.0;
@@ -335,7 +365,7 @@ TEST(RandomTest, get_random_double__returns_a_repeatable_sequence_of_random_numb
    ASSERT_EQ(expected_numbers, actual_numbers);
 }
 
-TEST(RandomTest, get_random_bool__returns_a_repeatable_sequence_of_random_booleans_given_a_seed)
+TEST(AllegroFlare_RandomTest, get_random_bool__returns_a_repeatable_sequence_of_random_booleans_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
@@ -350,7 +380,7 @@ TEST(RandomTest, get_random_bool__returns_a_repeatable_sequence_of_random_boolea
 }
 
 
-TEST(RandomTest, roll_dice__returns_a_repeatable_sequence_of_random_rolls_given_a_seed)
+TEST(AllegroFlare_RandomTest, roll_dice__returns_a_repeatable_sequence_of_random_rolls_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
@@ -365,7 +395,7 @@ TEST(RandomTest, roll_dice__returns_a_repeatable_sequence_of_random_rolls_given_
 }
 
 
-TEST(RandomTest, get_one_in_chance__returns_a_repeatable_sequence_of_random_values_given_a_seed)
+TEST(AllegroFlare_RandomTest, get_one_in_chance__returns_a_repeatable_sequence_of_random_values_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
@@ -380,7 +410,7 @@ TEST(RandomTest, get_one_in_chance__returns_a_repeatable_sequence_of_random_valu
 }
 
 
-TEST(RandomTest, get_random_color__returns_a_repeatable_sequence_of_random_values_given_a_seed)
+TEST(AllegroFlare_RandomTest, get_random_color__returns_a_repeatable_sequence_of_random_values_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
