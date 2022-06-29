@@ -365,7 +365,7 @@ TEST(RandomTest, roll_dice__returns_a_repeatable_sequence_of_random_rolls_given_
 }
 
 
-TEST(RandomTest, get_one_in_chance__returns_a_repeatable_sequence_of_random_rolls_given_a_seed)
+TEST(RandomTest, get_one_in_chance__returns_a_repeatable_sequence_of_random_values_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
@@ -380,7 +380,7 @@ TEST(RandomTest, get_one_in_chance__returns_a_repeatable_sequence_of_random_roll
 }
 
 
-TEST(RandomTest, get_random_color__returns_a_repeatable_sequence_of_random_rolls_given_a_seed)
+TEST(RandomTest, get_random_color__returns_a_repeatable_sequence_of_random_values_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
