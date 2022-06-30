@@ -15,8 +15,26 @@ namespace AllegroFlare
    class Random
    {
    private:
-      std::mt19937 random_number_generator;
       unsigned int primary_seed;
+      std::mt19937 random_number_generator__for_get_random_int;
+      std::mt19937 random_number_generator__for_get_random_bool;
+      std::mt19937 random_number_generator__for_get_random_sign;
+      std::mt19937 random_number_generator__for_get_random_float;
+      std::mt19937 random_number_generator__for_get_random_double;
+      std::mt19937 random_number_generator__for_get_one_in_chance;
+      std::mt19937 random_number_generator__for_get_random_letter;
+      std::mt19937 random_number_generator__for_get_random_letter_or_number;
+      std::mt19937 random_number_generator__for_get_random_string;
+      std::mt19937 random_number_generator__for_roll_dice;
+      std::mt19937 random_number_generator__for_get_random_element;
+      std::mt19937 random_number_generator__for_shuffle_elements;
+      std::mt19937 random_number_generator__for_get_random_color;
+      std::mt19937 random_number_generator__for_get_random_color_exhaustive;
+
+      int extract_random_int(int min, int max, std::mt19937 &rng);
+      unsigned char extract_random_letter(bool lowercase, std::mt19937 &rng);
+      unsigned char extract_random_letter_or_number(std::mt19937 &rng);
+      
 
    public:
       // Seeds the random number generator with the time.
@@ -58,18 +76,19 @@ namespace AllegroFlare
       template<class T>
       T get_random_element(std::vector<T> &elements)
       {
+         std::mt19937 &rng = random_number_generator__for_get_random_element;
          if (elements.empty())
          {
             throw std::runtime_error("[AllegroFlare::Random::get_random_elements] error: elements cannot be empty.");
          }
-         return elements[get_random_int(0, elements.size()-1)];
+         return elements[extract_random_int(0, elements.size()-1, rng)];
       }
 
       // Shuffles the elements into a random order.
       template<class T>
       void shuffle_elements(std::vector<T> &elements)
       {
-         std::shuffle(elements.begin(), elements.end(), random_number_generator);
+         std::shuffle(elements.begin(), elements.end(), random_number_generator__for_shuffle_elements);
       }
 
       // Returns true if a one-in-n chance event occurred.

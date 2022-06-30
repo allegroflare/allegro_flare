@@ -68,7 +68,7 @@ TEST(AllegroFlare_RandomTest, get_random_sign__will_return_repeatable_values_giv
    std::vector<int> randomly_generated_signs;
    for (int i=0; i<9; i++) randomly_generated_signs.push_back(number_generator.get_random_sign());
 
-   std::vector<int> expected_randomly_generated_signs = { 1, -1, -1, 1, -1, 1, 1, 1, 1 };
+   std::vector<int> expected_randomly_generated_signs = { -1, 1, -1, 1, -1, 1, 1, 1, 1 };
    EXPECT_EQ(expected_randomly_generated_signs, randomly_generated_signs);
 }
 
@@ -163,7 +163,7 @@ TEST(AllegroFlare_RandomTest, get_random_letter__will_return_repeatable_values_g
    std::vector<unsigned char> randomly_generated_characters;
    for (int i=0; i<9; i++) randomly_generated_characters.push_back(number_generator.get_random_letter());
 
-   std::vector<unsigned char> expected_randomly_generated_characters = { 'N', 'B', 'V', 'S', 'K', 'F', 'A', 'L', 'X' };
+   std::vector<unsigned char> expected_randomly_generated_characters = { 'A', 'O', 'J', 'Y', 'X', 'I', 'A', 'D', 'T' };
    EXPECT_EQ(expected_randomly_generated_characters, randomly_generated_characters);
 }
 
@@ -181,8 +181,8 @@ TEST(AllegroFlare_RandomTest,
    std::vector<unsigned char> generated_lowercase_characters;
    for (int i=0; i<9; i++) generated_lowercase_characters.push_back(number_generator.get_random_letter(true));
 
-   std::vector<unsigned char> expected_generated_uppercase_characters = { 'N', 'B', 'V', 'S', 'K', 'F', 'A', 'L', 'X' };
-   std::vector<unsigned char> expected_generated_lowercase_characters = { 'n', 'b', 'v', 's', 'k', 'f', 'a', 'l', 'x' };
+   std::vector<unsigned char> expected_generated_uppercase_characters = { 'A', 'O', 'J', 'Y', 'X', 'I', 'A', 'D', 'T' };
+   std::vector<unsigned char> expected_generated_lowercase_characters = { 'a', 'o', 'j', 'y', 'x', 'i', 'a', 'd', 't' };
 
    EXPECT_EQ(expected_generated_uppercase_characters, generated_uppercase_characters);
    EXPECT_EQ(expected_generated_lowercase_characters, generated_lowercase_characters);
@@ -216,7 +216,7 @@ TEST(AllegroFlare_RandomTest, get_random_letter_or_number__returns_repeatable_va
    std::vector<unsigned char> randomly_generated_characters;
    for (int i=0; i<9; i++) randomly_generated_characters.push_back(number_generator.get_random_letter_or_number());
 
-   std::vector<unsigned char> expected_randomly_generated_characters = { 'g', '1', 'V', 'c', '0', 'h', '9', 'm', '5' };
+   std::vector<unsigned char> expected_randomly_generated_characters = { 'M', 'f', 'q', '2', 'Q', 'R', 'm', 'Z', 't' };
    EXPECT_EQ(expected_randomly_generated_characters, randomly_generated_characters);
 }
 
@@ -257,10 +257,10 @@ TEST(AllegroFlare_RandomTest, get_random_string__returns_repeatable_values_given
    for (int i=0; i<4; i++) randomly_generated_strings.push_back(number_generator.get_random_string(10));
 
    std::vector<std::string> expected_randomly_generated_strings = {
-         "g1Vc0h9m5Z",
-         "A73ZdwS6lC",
-         "a07BQt3tO0",
-         "KTtawCyBuG"
+         "oO0SW2wd3J",
+         "s0okvpJjk2",
+         "OV5WiOgRV7",
+         "KY6wcooVfS"
       };
    EXPECT_EQ(expected_randomly_generated_strings, randomly_generated_strings);
 }
@@ -271,7 +271,7 @@ TEST(AllegroFlare_RandomTest,
 {
    AllegroFlare::Random number_generator;
 
-   number_generator.set_seed(9381915);
+   number_generator.set_seed(3919617);
 
    std::string expected_unfiltered_profanity = "fuck";
    std::string randomly_generated_string = number_generator.get_random_string(4);
@@ -313,10 +313,10 @@ TEST(AllegroFlare_RandomTest, get_random_element__returns_a_repeatable_selection
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
    std::vector<int> elements_to_pick_from = { 18, 42, 256, 9, 11 };
 
-   std::vector<int> expected_randomly_selected_elements = { 18, 11, 18, 9, 9, 256, 11, 256 };
+   std::vector<int> expected_randomly_selected_elements = { 11, 9, 9, 42, 9, 11, 9, 42, 18, 9, 42, 11, 11, 256 };
    std::vector<int> randomly_selected_elements;
 
-   for (int i=0; i<8; i++)
+   for (int i=0; i<expected_randomly_selected_elements.size(); i++)
    {
       randomly_selected_elements.push_back(number_generator.get_random_element(elements_to_pick_from));
    }
@@ -343,7 +343,7 @@ TEST(AllegroFlare_RandomTest, get_random_int__returns_a_repeatable_sequence_of_r
    const int min_random_num = 0;
    const int max_random_num = 10;
 
-   std::vector<int> expected_numbers = {6, 4, 1, 0, 2};
+   std::vector<int> expected_numbers = { 5, 5, 6, 3, 5 };
    std::vector<int> actual_numbers;
 
    for (int i=0; i<expected_numbers.size(); i++)
@@ -366,11 +366,11 @@ TEST(AllegroFlare_RandomTest, get_random_float__returns_a_repeatable_sequence_of
    // implementations across platforms.  In the test following this (get_random_double), the test is
    // asserted on the double values themselves.  These two tests are done differently entilrely to demonstrate
    // different techniques, in the event on technique is ultimately preferred over the other.
-   std::string expected_numbers = "3.253939628601074218750000 "
-                                  "4.029826641082763671875000 "
-                                  "4.933435440063476562500000 "
-                                  "4.796250820159912109375000 "
-                                  "3.520951986312866210937500 ";
+   std::string expected_numbers = "3.510779619216918945312500 "
+                                  "3.349828720092773437500000 "
+                                  "3.559968233108520507812500 "
+                                  "4.295793533325195312500000 "
+                                  "3.418380260467529296875000 ";
    std::stringstream actual_numbers;
    actual_numbers << std::fixed << std::setprecision(24);
 
@@ -387,31 +387,32 @@ TEST(AllegroFlare_RandomTest, get_random_float__returns_a_repeatable_sequence_of
 TEST(AllegroFlare_RandomTest, get_random_double__returns_a_repeatable_sequence_of_random_numbers_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
-   const double min_random_num = 10.0;
-   const double max_random_num = 100.0;
+   const double min_random_num = 3.0;
+   const double max_random_num = 5.0;
 
-   int num_numbers = 4;
-   std::vector<double> expected_numbers = {
-                                            21.427284651768225387513666646555066108703613281250,
-                                            56.342193034091536674168310128152370452880859375000,
-                                            97.004605258583225690927065443247556686401367187500,
-                                            90.831287952799186768970685079693794250488281250000,
-                                          };
-   std::vector<double> actual_numbers;
+   int num_numbers = 5;
+   std::string expected_numbers = "3.427699877980095344298661075299605727195739746094 "
+                                  "4.440386506132871780039295117603614926338195800781 "
+                                  "3.121539735729233377981017838465049862861633300781 "
+                                  "4.228234231757985739363903121557086706161499023438 "
+                                  "4.513077179322269927297384128905832767486572265625 ";
+   std::stringstream actual_numbers;
+   actual_numbers << std::fixed << std::setprecision(48);
 
    for (int i=0; i<num_numbers; i++)
    {
-      actual_numbers.push_back(number_generator.get_random_double(min_random_num, max_random_num));
+      double value = number_generator.get_random_double(min_random_num, max_random_num);
+      actual_numbers << value << " ";
    }
   
-   ASSERT_EQ(expected_numbers, actual_numbers);
+   ASSERT_EQ(expected_numbers, actual_numbers.str());
 }
 
 TEST(AllegroFlare_RandomTest, get_random_bool__returns_a_repeatable_sequence_of_random_booleans_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
-   std::vector<bool> expected_repeatable_results = { true, false, false, true, false, true, true };
+   std::vector<bool> expected_repeatable_results = { true, false, true, false, true, true, false };
    std::vector<bool> actual_results;
    for (int i=0; i<expected_repeatable_results.size(); i++)
    {
@@ -426,7 +427,7 @@ TEST(AllegroFlare_RandomTest, roll_dice__returns_a_repeatable_sequence_of_random
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
-   std::vector<int> expected_repeatable_results = { 7, 11, 5, 12, 7, 11, 10 };
+   std::vector<int> expected_repeatable_results = { 4, 9, 7, 12, 3, 8, 2 };
    std::vector<int> actual_results;
    for (int i=0; i<expected_repeatable_results.size(); i++)
    {
@@ -441,7 +442,7 @@ TEST(AllegroFlare_RandomTest, get_one_in_chance__returns_a_repeatable_sequence_o
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
-   std::vector<bool> expected_repeatable_results = { false, false, false, false, true, true, false };
+   std::vector<bool> expected_repeatable_results = { false, false, false, true, false, false, false, true };
    std::vector<bool> actual_results;
    for (int i=0; i<expected_repeatable_results.size(); i++)
    {
@@ -452,15 +453,16 @@ TEST(AllegroFlare_RandomTest, get_one_in_chance__returns_a_repeatable_sequence_o
 }
 
 
-TEST(AllegroFlare_RandomTest, get_random_color__returns_a_repeatable_sequence_of_random_values_given_a_seed)
+TEST(AllegroFlare_RandomTest, 
+   get_random_color__returns_a_repeatable_sequence_of_random_values_given_a_seed)
 {
    AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
 
    std::vector<ALLEGRO_COLOR> expected_repeatable_results = {
-      AllegroFlare::Color::Gray,
-      AllegroFlare::Color::SkyBlue,
-      AllegroFlare::Color::Magenta,
-      AllegroFlare::Color::DarkSeaGreen,
+      AllegroFlare::Color::DeepSkyBlue,
+      AllegroFlare::Color::Chartreuse,
+      AllegroFlare::Color::Tan,
+      AllegroFlare::Color::Salmon,
    };
    std::vector<ALLEGRO_COLOR> actual_results;
    for (int i=0; i<expected_repeatable_results.size(); i++)
