@@ -136,65 +136,6 @@ namespace AllegroFlare
 
 
    //
-   // Random generator functions
-   //
-
-   // Returns a random boolean `true` or `false`.
-   bool random_bool();
-
-   // Returns a random float between `min` and `max` (inclusive).
-   float random_float(float min, float max);
-
-   // Returns a random double between min and max (inclusive).
-   double random_double(double min, double max);
-
-   // Returns a random integer between min and max (inclusive).
-   int random_int(int min, int max);
-   int random_int(std::vector<int> vals);
-
-   // Returns either a 1 or -1, selected at random.
-   int random_sign();
-
-   // Returns a random uppercase char 'A-Z'.
-   // If `lower=true`, then a random lowercase letter 'a-z' will be returned.
-   unsigned char random_letter(bool lower);
-
-   // Returns a char that is either an uppercase character 'A-Z', a lowercase character 'a-z', or a number character from '0-9'.
-   unsigned char random_letter_or_number();
-
-   // Generates a string of the size length consisting of randomly selected characters [A-Za-z0-0].
-   // This is useful for generating random strings for identifiers or unique instances.
-   // TODO: add functions for returning specific types of "random strings", e.g. random_identifier
-   std::string random_string(unsigned int length);
-
-   // Returns a randomly selected element from the vector.
-   // If the vector is empty, unexpected things can happen and your program will most likely crash.
-   // You should ensure that your vector is not empty before calling this function.
-   template<class T>
-   T random_element(std::vector<T> &elements)
-   {
-      return elements[random_int(0, elements.size()-1)];
-   }
-
-   // Returns a random selected element from an array of elements.
-   // If the array is empty, unexpected things can happen and your program will most likely crash.
-   // You should ensure that your array is not empty before calling this function.
-   template<class T>
-   T random_element(T elements[], int size)
-   {
-      return elements[random_int(0, size-1)];
-   }
-
-   // Returns an ALLEGRO_COLOR with randomly picked RGB values.
-   // TODO: This function is more useful for tests. Since the RGB values are generated
-   // independently, the colors that are typically generated fall into the middle of the
-   // color space.  A better, more 'random' color might integrate some color theory. 
-   ALLEGRO_COLOR random_color();
-
-
-
-
-   //
    // Vector math functions (2d and 3d variants)
    //
 

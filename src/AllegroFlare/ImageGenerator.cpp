@@ -7,6 +7,7 @@
 
 #include <AllegroFlare/Useful.hpp> // for build_vertex
 #include <AllegroFlare/ImageProcessing.hpp> // for create_masked_bitmap
+#include <AllegroFlare/Random.hpp>
 
 
 
@@ -127,6 +128,7 @@ ImageGenerator::~ImageGenerator()
 
    ALLEGRO_BITMAP *ImageGenerator::generate_noise_bitmap(float w, float h, float min_intensity, float max_intensity)
    {
+      AllegroFlare::Random random_number_generator;
       // set everything up
       ALLEGRO_BITMAP *surface = al_create_bitmap(w, h);
       ALLEGRO_STATE state;
@@ -141,7 +143,7 @@ ImageGenerator::~ImageGenerator()
       {
          for (int y=0; y<h; y++)
          {
-            float val = AllegroFlare::random_float(min_intensity, max_intensity);
+            float val = random_number_generator.get_random_float(min_intensity, max_intensity);
             al_put_pixel(x, y, al_map_rgba_f(val, val, val, 1.0));
          }
       }

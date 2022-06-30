@@ -4,6 +4,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/Elements/Text.hpp>
 #include <AllegroFlare/Elements/Stopwatch.hpp>
@@ -125,6 +126,7 @@ class Gameboard
 {
 private:
    AllegroFlare::EventEmitter &event_emitter;
+   AllegroFlare::Random random_number_generator;
    float width, height; 
    std::vector<std::pair<bool, Fruit>> fruits;
    Snake snake;
@@ -133,6 +135,7 @@ private:
 public:
    Gameboard(int width, int height, AllegroFlare::EventEmitter &event_emitter)
       : event_emitter(event_emitter)
+      , random_number_generator(54321)
       , width(width)
       , height(height)
       , fruits()
@@ -142,10 +145,10 @@ public:
 
    void create_fruit()
    {
-      float new_fruit_x = AllegroFlare::random_float(0, width);
-      float new_fruit_y = AllegroFlare::random_float(0, height);
+      float new_fruit_x = random_number_generator.get_random_float(0, width);
+      float new_fruit_y = random_number_generator.get_random_float(0, height);
       std::vector<Fruit::fruit_t> possible_fruits = { Fruit::APPLE, Fruit::GRAPE, Fruit::CHERRY, Fruit::ORANGE, Fruit::PEAR, Fruit::PINEAPPLE, };
-      Fruit::fruit_t new_fruit_type = AllegroFlare::random_element<Fruit::fruit_t>(possible_fruits);
+      Fruit::fruit_t new_fruit_type = random_number_generator.get_random_element<Fruit::fruit_t>(possible_fruits);
 
       fruits.push_back(std::pair<bool, Fruit>(true, { new_fruit_x, new_fruit_y, new_fruit_type }));
    }

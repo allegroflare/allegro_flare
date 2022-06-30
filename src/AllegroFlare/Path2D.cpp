@@ -5,6 +5,7 @@
 #include <AllegroFlare/Path2D.hpp>
 
 #include <iostream>
+#include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro_primitives.h>
@@ -815,12 +816,13 @@ namespace AllegroFlare
 
    Path2D &Path2D::roughen(float disp_range_x, float disp_range_y)
    {
+      AllegroFlare::Random random_number_generator;
       disp_range_x *= 0.5;
       disp_range_y *= 0.5;
       for (int i=0; i<(int)point.size(); i++)
       {
-         point[i].x += AllegroFlare::random_float(-disp_range_x, disp_range_x);
-         point[i].y += AllegroFlare::random_float(-disp_range_y, disp_range_y);
+         point[i].x += random_number_generator.get_random_float(-disp_range_x, disp_range_x);
+         point[i].y += random_number_generator.get_random_float(-disp_range_y, disp_range_y);
       }
 
       refresh_segment_info();
