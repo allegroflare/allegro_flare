@@ -7,9 +7,9 @@
 namespace AllegroFlare
 {
    Random::Random(unsigned int seed)
-      : seed(seed)
+      : primary_seed(seed)
    {
-      set_seed(seed);
+      set_seed(primary_seed);
    }
 
 
@@ -17,8 +17,8 @@ namespace AllegroFlare
 
    void Random::set_seed(unsigned int new_seed)
    {
-      seed = new_seed;
-      random_number_generator.seed(seed);
+      primary_seed = new_seed;
+      random_number_generator.seed(primary_seed);
    }
 
 
@@ -26,7 +26,7 @@ namespace AllegroFlare
 
    unsigned int Random::get_seed()
    {
-      return seed;
+      return primary_seed;
    }
 
 

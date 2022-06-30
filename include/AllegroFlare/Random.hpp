@@ -16,7 +16,7 @@ namespace AllegroFlare
    {
    private:
       std::mt19937 random_number_generator;
-      unsigned int seed;
+      unsigned int primary_seed;
 
    public:
       // Seeds the random number generator with the time.
