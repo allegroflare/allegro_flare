@@ -390,11 +390,11 @@ namespace AllegroFlare
    ALLEGRO_COLOR Random::get_random_color_exhaustive()
    {
       static std::vector<ALLEGRO_COLOR> colors = color_palette;
+      static int next = colors.size();
 
       std::mt19937 &rng = random_number_generator__for_get_random_color_exhaustive;
 
-      static int next = colors.size();
-      if (next >= colors.size())
+      if (next >= (colors.size()-1))
       {
          std::shuffle(colors.begin(), colors.end(), rng);
          next = 0;
@@ -409,7 +409,7 @@ namespace AllegroFlare
 
 
 
-   std::vector<ALLEGRO_COLOR> Random::get_color_palette()
+   std::vector<ALLEGRO_COLOR> Random::get_source_color_palette()
    {
       return this->color_palette;
    }

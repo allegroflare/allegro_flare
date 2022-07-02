@@ -5,6 +5,7 @@
 
 #include <AllegroFlare/Random.hpp>
 
+#include <algorithm>
 #include <AllegroFlare/Testing/CustomComparison.hpp>
 
 
@@ -497,20 +498,37 @@ TEST(AllegroFlare_RandomTest,
 TEST(AllegroFlare_RandomTest,
    get_random_color_exhaustive__will_exhaust_the_full_list_of_possible_colors_before_repeating_one_again)
 {
-   // get a copy of the list
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
 
+   // get a copy of the color palette
+   std::vector<ALLEGRO_COLOR> color_palette = number_generator.get_source_color_palette();
+
+   int num_tries = 10;
+   while (num_tries > 0)
    {
-      // get_random_color
-      // find color from copy
-         // assert color found
-      // remove color from list
+      // get_random_color from the generator
+      ALLEGRO_COLOR random_color = number_generator.get_random_color_exhaustive();
+
+      // find color in our copy of the palette
+      std::vector<ALLEGRO_COLOR>::iterator found_color_position =
+         std::find(color_palette.begin(), color_palette.end(), random_color);
+      
+      // assert the color was color found
+      ASSERT_NE(color_palette.end(), found_color_position);
+
+      // remove color from our list
+      color_palette.erase(found_color_position);
 
       // if list is empty
+      if (color_palette.empty())
+      {
          // build a new copy
-         // increment num_tries
-   }
+         color_palette = number_generator.get_source_color_palette();
 
-   // do it 10 times
+         // decrement num_tries
+         num_tries--;
+      }
+   }
 }
 
 

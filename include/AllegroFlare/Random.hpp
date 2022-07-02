@@ -108,7 +108,7 @@ namespace AllegroFlare
       ALLEGRO_COLOR get_random_color_exhaustive();
 
       // Returns the color palette used for get_random_color() and get_random_color_exhaustive()
-      std::vector<ALLEGRO_COLOR> get_color_palette();
+      std::vector<ALLEGRO_COLOR> get_source_color_palette();
    };
 }
 
