@@ -497,7 +497,20 @@ TEST(AllegroFlare_RandomTest,
 TEST(AllegroFlare_RandomTest,
    get_random_color_exhaustive__will_exhaust_the_full_list_of_possible_colors_before_repeating_one_again)
 {
-   // TODO add test
+   // get a copy of the list
+
+   {
+      // get_random_color
+      // find color from copy
+         // assert color found
+      // remove color from list
+
+      // if list is empty
+         // build a new copy
+         // increment num_tries
+   }
+
+   // do it 10 times
 }
 
 

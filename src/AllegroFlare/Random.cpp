@@ -406,6 +406,13 @@ namespace AllegroFlare
 
       return colors[next];
    }
+
+
+
+   std::vector<ALLEGRO_COLOR> Random::get_color_palette()
+   {
+      return this->color_palette;
+   }
 }
 
 
