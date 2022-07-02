@@ -31,6 +31,8 @@ namespace AllegroFlare
       std::mt19937 random_number_generator__for_get_random_color;
       std::mt19937 random_number_generator__for_get_random_color_exhaustive;
 
+      const std::vector<ALLEGRO_COLOR> color_palette;
+
       int extract_random_int(int min, int max, std::mt19937 &rng);
       unsigned char extract_random_letter(bool lowercase, std::mt19937 &rng);
       unsigned char extract_random_letter_or_number(std::mt19937 &rng);
@@ -101,7 +103,7 @@ namespace AllegroFlare
       ALLEGRO_COLOR get_random_color();
 
       // Returns a random color and will not to repeat a color until all possible colors have been returned.
-      // Colors are selected from AllegroFlare::Color name constants, which are from the X11 color codes.
+      // The palette consists of the list of AllegroFlare::Color constants, which are from the X11 color codes.
       // There are 142 possible colors.
       ALLEGRO_COLOR get_random_color_exhaustive();
    };
