@@ -325,9 +325,16 @@ TEST(AllegroFlare_RandomTest, get_random_element__returns_a_repeatable_selection
 }
 
 
-TEST(AllegroFlare_RandomTest, shuffle_elements__shuffle_the_elements_into_a_random_order)
+TEST(AllegroFlare_RandomTest, shuffle_elements__will_randomize_the_order_of_the_elements_in_the_vector)
 {
-   // TODO: add test
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+   std::vector<int> elements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+   std::vector<int> sorted_elements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+
+   number_generator.shuffle_elements(elements);
+
+   EXPECT_NE(elements, sorted_elements);
+   EXPECT_THAT(elements, testing::WhenSorted(testing::ElementsAre(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)));
 }
 
 
