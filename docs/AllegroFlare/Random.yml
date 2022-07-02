@@ -4,7 +4,7 @@ description:
     `Random` relys on the C++ implementation of the https://en.wikipedia.org/wiki/Mersenne_Twister algorithm, 
     making it reliable to use for random numbers, but also for proceedural content for games.
 
-    - `Random` will produce values that are predictably repeatable if you provide the same seed.  This will be consistent across
+    - `Random` will produce values that are predictably reproducable if you provide the same seed.  This will be consistent across
       platforms, compilers, devices, and executions. Unlike other implementations of random generators (C's `rand()`), `
     - Practically, `Random` will never reach a point where its content will repeat. The Mersenne Twister algorithm has a period
       of 2^19937-1, which, to be honest, is a huge number.
