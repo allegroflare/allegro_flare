@@ -327,7 +327,7 @@ TEST(AllegroFlare_RandomTest, get_random_element__returns_a_repeatable_selection
 
 TEST(AllegroFlare_RandomTest, shuffle_elements__will_randomize_the_order_of_the_elements_in_the_vector)
 {
-   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123);
    std::vector<int> elements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
    std::vector<int> sorted_elements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
@@ -338,9 +338,22 @@ TEST(AllegroFlare_RandomTest, shuffle_elements__will_randomize_the_order_of_the_
 }
 
 
-TEST(AllegroFlare_RandomTest, shuffle_elements__will_produce_a_repeatable_shuffling_order_given_a_seed)
+TEST(AllegroFlare_RandomTest, shuffle_elements__will_produce_a_reproducable_shuffling_given_the_same_seed)
 {
-   // TODO: add test
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+   std::vector<int> elements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+   std::vector<std::vector<int>> expected_shuffles = {
+      { 6, 1, 8, 7, 4, 9, 5, 3, 10, 2 },
+      { 2, 1, 5, 10, 7, 4, 8, 9, 6, 3 },
+      { 4, 7, 5, 6, 9, 10, 2, 1, 8, 3 },
+   };
+
+   for (auto &expected_shuffle : expected_shuffles)
+   {
+      number_generator.shuffle_elements(elements);
+      EXPECT_EQ(elements, expected_shuffle);
+   }
 }
 
 
