@@ -26,12 +26,14 @@ properties:
     init_with: '"Untitled Game"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: copyright_text
     type: std::string
     init_with: '"Copyright 2022"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: menu_options
     type: std::vector<std::pair<std::string, std::string>>

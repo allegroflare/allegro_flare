@@ -49,6 +49,18 @@ void TitleScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void TitleScreen::set_title_text(std::string title_text)
+{
+   this->title_text = title_text;
+}
+
+
+void TitleScreen::set_copyright_text(std::string copyright_text)
+{
+   this->copyright_text = copyright_text;
+}
+
+
 std::string TitleScreen::get_title_text()
 {
    return title_text;

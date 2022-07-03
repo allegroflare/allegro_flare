@@ -31,6 +31,8 @@ namespace AllegroFlare
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
+         void set_title_text(std::string title_text);
+         void set_copyright_text(std::string copyright_text);
          std::string get_title_text();
          std::string get_copyright_text();
          std::vector<std::pair<std::string, std::string>> get_menu_options();
