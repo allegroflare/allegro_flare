@@ -23,7 +23,6 @@ namespace AllegroFlare
          std::string title_text;
          std::vector<std::pair<std::string, std::string>> menu_options;
          int cursor_position;
-         bool initialized;
 
       public:
          TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text="Untitled Game");
@@ -33,8 +32,6 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          std::string get_title_text();
          std::vector<std::pair<std::string, std::string>> get_menu_options();
-         bool get_initialized();
-         void initialize();
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          void move_cursor_up();
          void move_cursor_down();

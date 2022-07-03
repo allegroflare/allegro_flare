@@ -25,7 +25,6 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_text(title_text)
    , menu_options(build_default_menu_options())
    , cursor_position(0)
-   , initialized(false)
 {
 }
 
@@ -58,20 +57,6 @@ std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options()
    return menu_options;
 }
 
-
-bool TitleScreen::get_initialized()
-{
-   return initialized;
-}
-
-
-void TitleScreen::initialize()
-{
-   //menu_options = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
-   cursor_position = 0;
-   initialized = true;
-   return;
-}
 
 void TitleScreen::set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options)
 {
@@ -150,12 +135,6 @@ void TitleScreen::render()
       {
          std::stringstream error_message;
          error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (!(get_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"get_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
    draw_title_text();

@@ -36,21 +36,8 @@ properties:
     type: int
     init_with: 0
 
-  - name: initialized
-    type: bool
-    init_with: false
-    getter: true
-
 
 functions:
-
-
-  - name: initialize
-    body: |
-      //menu_options = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
-      cursor_position = 0;
-      initialized = true;
-      return;
 
 
   - name: set_menu_options
@@ -125,7 +112,7 @@ functions:
 
 
   - name: render
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), get_initialized()  ]
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       draw_title_text();
       draw_menu();
