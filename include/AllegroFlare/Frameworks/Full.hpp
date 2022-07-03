@@ -48,6 +48,7 @@ namespace AllegroFlare
          //Camera3D camera_3d; // next
 
          bool initialize_without_display(); // only use initialize() publically from now on
+         bool escape_key_will_shutdown;
 
          friend class AllegroFlare_Frameworks_FullTest;
 
@@ -83,6 +84,9 @@ namespace AllegroFlare
          bool initialize();
          bool is_initialized();
          bool shutdown();
+
+         void enable_escape_key_will_shutdown();
+         void disable_escape_key_will_shutdown();
 
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});

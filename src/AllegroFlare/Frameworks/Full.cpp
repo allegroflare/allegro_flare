@@ -46,6 +46,7 @@ Full::Full()
    , primary_display(nullptr)
    , primary_timer(nullptr)
    , camera_2d()
+   , escape_key_will_shutdown(true)
    , event_queue(nullptr)
    , builtin_font(nullptr)
    , shutdown_program(false)
@@ -282,6 +283,18 @@ bool Full::shutdown()
 }
 
 
+void Full::enable_escape_key_will_shutdown()
+{
+   this->escape_key_will_shutdown = true;
+}
+
+
+void Full::disable_escape_key_will_shutdown()
+{
+   this->escape_key_will_shutdown = false;
+}
+
+
 bool Full::is_initialized()
 {
    return initialized;
@@ -483,7 +496,11 @@ void Full::run_loop()
          }
          break;
       case ALLEGRO_EVENT_KEY_DOWN:
-         if (this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) shutdown_program = true;
+         if (this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+         {
+            if (escape_key_will_shutdown) shutdown_program = true;
+         }
+
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift++;
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
