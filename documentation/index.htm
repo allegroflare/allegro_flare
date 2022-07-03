@@ -1500,7 +1500,7 @@ table td
   <td class="private_method">get_joystick_mapped_virtual_button(1)</td>
 </tr>
 <tr>
-  <td class="private_method">get_keyboard_mapped_virtual_button(1)</td>
+  <td class="private_method">get_keyboard_mapped_player_num_and_virtual_button(1)</td>
 </tr>
 <tr>
   <td class="method">emit_virtual_controls_button_up_event(3)</td>
@@ -1530,6 +1530,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, std::pair&lt;int, int&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;utility&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::pair&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;]}</td>
@@ -1780,6 +1783,9 @@ table td
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/map<int, std/pair<int, int>>": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/pair<int, int>": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/map<int, int>": [

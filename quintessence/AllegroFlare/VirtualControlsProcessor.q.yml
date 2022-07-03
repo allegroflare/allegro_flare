@@ -84,9 +84,13 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      int virtual_button = get_keyboard_mapped_virtual_button(event->keyboard.keycode);
-      if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-      int player_num = 0; // assume player 0 for now
+      std::pair<int, int> player_num_and_virtual_button =
+         get_keyboard_mapped_player_num_and_virtual_button(event->keyboard.keycode);
+      if (player_num_and_virtual_button == std::pair<int, int>{-1, -1}) return;
+         // ^^ TODO: this behavior should be a little better; Maybe "has_mapping" first
+
+      int player_num = player_num_and_virtual_button.first;
+      int virtual_button = player_num_and_virtual_button.second;
 
       emit_virtual_controls_button_down_event(player_num, virtual_button);
       return;
@@ -101,9 +105,13 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      int virtual_button = get_keyboard_mapped_virtual_button(event->keyboard.keycode);
-      if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-      int player_num = 0; // assume player 0 for now
+      std::pair<int, int> player_num_and_virtual_button =
+         get_keyboard_mapped_player_num_and_virtual_button(event->keyboard.keycode);
+      if (player_num_and_virtual_button == std::pair<int, int>{-1, -1}) return;
+         // ^^ TODO: this behavior should be a little better; Maybe "has_mapping" first
+
+      int player_num = player_num_and_virtual_button.first;
+      int virtual_button = player_num_and_virtual_button.second;
    
       emit_virtual_controls_button_up_event(player_num, virtual_button);
       return;
@@ -172,8 +180,8 @@ functions:
       return virtual_button;
 
 
-  - name: get_keyboard_mapped_virtual_button
-    type: int
+  - name: get_keyboard_mapped_player_num_and_virtual_button
+    type: std::pair<int, int>
     private: true
     parameters:
       - name: native_key_num
@@ -181,12 +189,12 @@ functions:
         default_argument: -1
     body: |
       bool map_value_exists = keyboard_button_map.find(native_key_num) != keyboard_button_map.end();
-      if (!map_value_exists) return -1;
+      if (!map_value_exists) return { -1, -1 };
 
-      int virtual_player_num = keyboard_button_map[native_key_num].first;
-      int virtual_button = keyboard_button_map[native_key_num].second;
+      std::pair<int, int> virtual_player_num_and_virtual_button = keyboard_button_map[native_key_num];
+      //int virtual_button = keyboard_button_map[native_key_num].second;
 
-      return virtual_button;
+      return virtual_player_num_and_virtual_button;
 
 
   - name: emit_virtual_controls_button_up_event
@@ -274,6 +282,8 @@ dependencies:
     headers: [ AllegroFlare/VirtualControls.hpp ]
   - symbol: std::map<int, std::pair<int, int>>
     headers: [ map, utility ]
+  - symbol: std::pair<int, int>
+    headers: [ utility ]
   - symbol: std::map<int, int>
     headers: [ map ]
 

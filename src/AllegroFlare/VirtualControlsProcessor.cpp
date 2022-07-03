@@ -144,9 +144,13 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_down_event(ALLEGRO_EVENT*
          error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_down_event" << ": error: " << "guard \"event\" not met";
          throw std::runtime_error(error_message.str());
       }
-   int virtual_button = get_keyboard_mapped_virtual_button(event->keyboard.keycode);
-   if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-   int player_num = 0; // assume player 0 for now
+   std::pair<int, int> player_num_and_virtual_button =
+      get_keyboard_mapped_player_num_and_virtual_button(event->keyboard.keycode);
+   if (player_num_and_virtual_button == std::pair<int, int>{-1, -1}) return;
+      // ^^ TODO: this behavior should be a little better; Maybe "has_mapping" first
+
+   int player_num = player_num_and_virtual_button.first;
+   int virtual_button = player_num_and_virtual_button.second;
 
    emit_virtual_controls_button_down_event(player_num, virtual_button);
    return;
@@ -172,9 +176,13 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* e
          error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_up_event" << ": error: " << "guard \"event\" not met";
          throw std::runtime_error(error_message.str());
       }
-   int virtual_button = get_keyboard_mapped_virtual_button(event->keyboard.keycode);
-   if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-   int player_num = 0; // assume player 0 for now
+   std::pair<int, int> player_num_and_virtual_button =
+      get_keyboard_mapped_player_num_and_virtual_button(event->keyboard.keycode);
+   if (player_num_and_virtual_button == std::pair<int, int>{-1, -1}) return;
+      // ^^ TODO: this behavior should be a little better; Maybe "has_mapping" first
+
+   int player_num = player_num_and_virtual_button.first;
+   int virtual_button = player_num_and_virtual_button.second;
 
    emit_virtual_controls_button_up_event(player_num, virtual_button);
    return;
@@ -268,15 +276,15 @@ int VirtualControlsProcessor::get_joystick_mapped_virtual_button(int native_butt
    return virtual_button;
 }
 
-int VirtualControlsProcessor::get_keyboard_mapped_virtual_button(int native_key_num)
+std::pair<int, int> VirtualControlsProcessor::get_keyboard_mapped_player_num_and_virtual_button(int native_key_num)
 {
    bool map_value_exists = keyboard_button_map.find(native_key_num) != keyboard_button_map.end();
-   if (!map_value_exists) return -1;
+   if (!map_value_exists) return { -1, -1 };
 
-   int virtual_player_num = keyboard_button_map[native_key_num].first;
-   int virtual_button = keyboard_button_map[native_key_num].second;
+   std::pair<int, int> virtual_player_num_and_virtual_button = keyboard_button_map[native_key_num];
+   //int virtual_button = keyboard_button_map[native_key_num].second;
 
-   return virtual_button;
+   return virtual_player_num_and_virtual_button;
 }
 
 void VirtualControlsProcessor::emit_virtual_controls_button_up_event(int player_num, int virtual_button_num, bool is_repeat)
