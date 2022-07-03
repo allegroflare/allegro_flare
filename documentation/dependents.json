@@ -37,6 +37,7 @@
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -47,6 +48,7 @@
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -67,6 +69,7 @@
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_BITMAP": [
@@ -90,6 +93,7 @@
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/TimerFormatter": [
@@ -145,8 +149,34 @@
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
+  "AllegroFlare/Inventory": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "AllegroFlare/Screens/Inventory",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "X": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "std/map<int, std/tuple<std/string, std/string, std/string>>": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "std/vector<std/tuple<std/string, std/string, std/string>>": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "std/tuple<std/string, std/string, std/string>": [
+    "AllegroFlare/Screens/Inventory"
+  ],
   "AllegroFlare/Color": [
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "AllegroFlare/interpolator": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "fmod": [
+    "AllegroFlare/Screens/Inventory"
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Screens/Storyboard"
@@ -170,9 +200,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "al_color_name": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "AllegroFlare/BitmapBin": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   ":testing/Test": [

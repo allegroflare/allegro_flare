@@ -63,6 +63,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameOverScreen.q.yml">quintessence/AllegroFlare/Screens/GameOverScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameWonScreen.q.yml">quintessence/AllegroFlare/Screens/GameWonScreen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Inventory.q.yml">quintessence/AllegroFlare/Screens/Inventory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
@@ -780,6 +781,196 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Inventory.q.yml">quintessence/AllegroFlare/Screens/Inventory.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">af_inventory</td>
+  <td class="property">AllegroFlare::Inventory*</td>
+</tr>
+<tr>
+  <td class="property">place</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">cursor_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cursor_y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">active</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">details_reveal_counter</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">details_num_revealed_characters</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">inventory_index</td>
+  <td class="property">std::map&lt;int, std::tuple&lt;std::string, std::string, std::string&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">reveal_counter</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">item_in_details_pane</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="method">deactivate()</td>
+</tr>
+<tr>
+  <td class="method">set_details_pane()</td>
+</tr>
+<tr>
+  <td class="method">opaquify(1)</td>
+</tr>
+<tr>
+  <td class="method">change_a(2)</td>
+</tr>
+<tr>
+  <td class="method">inv_reveal_counter()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_backframe()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_inventory_title_text()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_inventory_boxes_and_elevated_item_selection()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_details_frame()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_up()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_down()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_left()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_right()</td>
+</tr>
+<tr>
+  <td class="method">show()</td>
+</tr>
+<tr>
+  <td class="method">hide()</td>
+</tr>
+<tr>
+  <td class="private_method">has_valid_size()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_item_selection_cursor(2)</td>
+</tr>
+<tr>
+  <td class="private_method">draw_inventory_item_box(3)</td>
+</tr>
+<tr>
+  <td class="method">get_item_definition(1)</td>
+</tr>
+<tr>
+  <td class="method">obtain_title_font()</td>
+</tr>
+<tr>
+  <td class="method">obtain_description_font()</td>
+</tr>
+<tr>
+  <td class="method">obtain_item_name_font()</td>
+</tr>
+<tr>
+  <td class="method">obtain_details_header_font()</td>
+</tr>
+<tr>
+  <td class="method">build_inventory_index()</td>
+</tr>
+<tr>
+  <td class="private_method">concat_text(2)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;X&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;, &quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, std::tuple&lt;std::string, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tuple&lt;std::string, std::string, std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</h3>
      <table>
 <tr>
@@ -1384,6 +1575,7 @@ table td
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -1394,6 +1586,7 @@ table td
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -1414,6 +1607,7 @@ table td
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_BITMAP": [
@@ -1437,6 +1631,7 @@ table td
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/TimerFormatter": [
@@ -1492,8 +1687,34 @@ table td
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
+  "AllegroFlare/Inventory": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "AllegroFlare/Screens/Inventory",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "X": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "std/map<int, std/tuple<std/string, std/string, std/string>>": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "std/vector<std/tuple<std/string, std/string, std/string>>": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "std/tuple<std/string, std/string, std/string>": [
+    "AllegroFlare/Screens/Inventory"
+  ],
   "AllegroFlare/Color": [
+    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "AllegroFlare/interpolator": [
+    "AllegroFlare/Screens/Inventory"
+  ],
+  "fmod": [
+    "AllegroFlare/Screens/Inventory"
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Screens/Storyboard"
@@ -1517,9 +1738,6 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "al_color_name": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "AllegroFlare/BitmapBin": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   ":testing/Test": [
