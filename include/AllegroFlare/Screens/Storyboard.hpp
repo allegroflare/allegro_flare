@@ -27,6 +27,10 @@ namespace AllegroFlare
          Storyboard(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::vector<std::string> pages={}, std::string screen_identifier_to_switch_to_after_completing="", intptr_t current_page_num=0);
          virtual ~Storyboard();
 
+         void set_font_bin(AllegroFlare::FontBin* font_bin);
+         void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+         void set_pages(std::vector<std::string> pages);
+         void set_screen_identifier_to_switch_to_after_completing(std::string screen_identifier_to_switch_to_after_completing);
          intptr_t get_current_page_num();
          void render();
          void reset();

@@ -13,21 +13,25 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: true
 
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
+    setter: true
 
   - name: pages
     type: std::vector<std::string>
     init_with: '{}'
     constructor_arg: true
+    setter: true
 
   - name: screen_identifier_to_switch_to_after_completing
     type: std::string
     init_with: '""'
     constructor_arg: true
+    setter: true
 
   - name: current_page_num
     type: intptr_t

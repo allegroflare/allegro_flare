@@ -33,6 +33,30 @@ Storyboard::~Storyboard()
 }
 
 
+void Storyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void Storyboard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
+void Storyboard::set_pages(std::vector<std::string> pages)
+{
+   this->pages = pages;
+}
+
+
+void Storyboard::set_screen_identifier_to_switch_to_after_completing(std::string screen_identifier_to_switch_to_after_completing)
+{
+   this->screen_identifier_to_switch_to_after_completing = screen_identifier_to_switch_to_after_completing;
+}
+
+
 intptr_t Storyboard::get_current_page_num()
 {
    return current_page_num;
