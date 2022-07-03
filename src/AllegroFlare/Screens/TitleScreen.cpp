@@ -10,6 +10,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -18,11 +20,12 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string copyright_text)
    : AllegroFlare::Screens::Base()
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)
+   , copyright_text(copyright_text)
    , menu_options(build_default_menu_options())
    , cursor_position(0)
 {
@@ -49,6 +52,12 @@ void TitleScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 std::string TitleScreen::get_title_text()
 {
    return title_text;
+}
+
+
+std::string TitleScreen::get_copyright_text()
+{
+   return copyright_text;
 }
 
 
@@ -138,6 +147,7 @@ void TitleScreen::render()
          throw std::runtime_error(error_message.str());
       }
    draw_title_text();
+   draw_copyright_text();
    draw_menu();
    return;
 }
@@ -155,6 +165,23 @@ void TitleScreen::draw_title_text()
       surface_height / 3,
       ALLEGRO_ALIGN_CENTER,
       get_title_text().c_str()
+   );
+   return;
+}
+
+void TitleScreen::draw_copyright_text()
+{
+   // TODO: review guards on this function
+   ALLEGRO_FONT *copyright_font = obtain_copyright_font();
+   int surface_width = 1920;
+   int surface_height = 1080;
+   al_draw_text(
+      copyright_font,
+      ALLEGRO_COLOR{1, 1, 1, 1},
+      surface_width / 2,
+      surface_height - 100,
+      ALLEGRO_ALIGN_CENTER,
+      get_copyright_text().c_str()
    );
    return;
 }
@@ -245,6 +272,17 @@ ALLEGRO_FONT* TitleScreen::obtain_menu_font()
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("DroidSans.ttf -56");
+}
+
+ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "TitleScreen" << "::" << "obtain_copyright_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return font_bin->auto_get("DroidSans.ttf -32");
 }
 
 void TitleScreen::key_char_func(ALLEGRO_EVENT* event)

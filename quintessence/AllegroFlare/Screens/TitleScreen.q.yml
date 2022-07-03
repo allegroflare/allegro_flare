@@ -27,6 +27,12 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: copyright_text
+    type: std::string
+    init_with: '"Copyright 2022"'
+    constructor_arg: true
+    getter: true
+
   - name: menu_options
     type: std::vector<std::pair<std::string, std::string>>
     init_with: 'build_default_menu_options()'
@@ -115,6 +121,7 @@ functions:
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       draw_title_text();
+      draw_copyright_text();
       draw_menu();
       return;
 
@@ -132,6 +139,23 @@ functions:
          surface_height / 3,
          ALLEGRO_ALIGN_CENTER,
          get_title_text().c_str()
+      );
+      return;
+
+
+  - name: draw_copyright_text
+    body: |
+      // TODO: review guards on this function
+      ALLEGRO_FONT *copyright_font = obtain_copyright_font();
+      int surface_width = 1920;
+      int surface_height = 1080;
+      al_draw_text(
+         copyright_font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         surface_width / 2,
+         surface_height - 100,
+         ALLEGRO_ALIGN_CENTER,
+         get_copyright_text().c_str()
       );
       return;
 
@@ -220,6 +244,14 @@ functions:
     guards: [ font_bin ]
     body: |
       return font_bin->auto_get("DroidSans.ttf -56");
+
+
+  - name: obtain_copyright_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("DroidSans.ttf -32");
 
 
   - name: key_char_func
