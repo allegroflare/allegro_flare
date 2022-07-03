@@ -636,6 +636,10 @@ void Full::run_loop()
                      }
                     //screens.activate();
                   break;
+
+                  case ALLEGRO_FLARE_EVENT_EXIT_GAME:
+                     shutdown_program = true;
+                  break;
                }
             }
             else

@@ -10,10 +10,25 @@
 
 #include <AllegroFlare/Frameworks/Full.hpp>
 
+#include <AllegroFlare/EventNames.hpp>
+
 
 TEST(AllegroFlare_Framewors_FullTest, DISABLED__can_be_created_without_blowing_up)
 {
    AllegroFlare::Frameworks::Full framework;
+}
+
+
+TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitted__will_shutdown_the_program)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize();
+   AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
+
+   event_emitter.emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+   framework.run_loop();
+
+   SUCCEED();
 }
 
 
