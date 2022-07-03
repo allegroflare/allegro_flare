@@ -325,19 +325,19 @@ void Dictionary::event_emitter_event_funcs(ALLEGRO_EVENT *ev)
 }
 
 
-void Dictionary::virtual_control_button_up_funcs(ALLEGRO_EVENT *ev)
+void Dictionary::virtual_control_button_up_funcs(int player_num, int button_num, bool is_repeat)
 {
    for (auto &screen : screens)
       if (screen.second.active)
-         screen.second.screen->virtual_control_button_up_func(ev);
+         screen.second.screen->virtual_control_button_up_func(player_num, button_num, is_repeat);
 }
 
 
-void Dictionary::virtual_control_button_down_funcs(ALLEGRO_EVENT *ev)
+void Dictionary::virtual_control_button_down_funcs(int player_num, int button_num, bool is_repeat)
 {
    for (auto &screen : screens)
       if (screen.second.active)
-         screen.second.screen->virtual_control_button_down_func(ev);
+         screen.second.screen->virtual_control_button_down_func(player_num, button_num, is_repeat);
 }
 
 

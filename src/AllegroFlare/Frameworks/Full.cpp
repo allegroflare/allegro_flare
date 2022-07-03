@@ -592,11 +592,23 @@ void Full::run_loop()
                switch(this_event.type)
                {
                   case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
-                    screens.virtual_control_button_up_funcs(&this_event);
+                     {
+                        int player_num = this_event.user.data1;
+                        int button_num = this_event.user.data2;
+                        bool is_repeat = this_event.user.data3;
+                        //screens.virtual_control_button_up_funcs(&this_event);
+                        screens.virtual_control_button_up_funcs(player_num, button_num, is_repeat);
+                     }
                   break;
 
                   case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
-                    screens.virtual_control_button_down_funcs(&this_event);
+                     {
+                        int player_num = this_event.user.data1;
+                        int button_num = this_event.user.data2;
+                        bool is_repeat = this_event.user.data3;
+                        //screens.virtual_control_button_down_funcs(&this_event);
+                        screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
+                     }
                   break;
 
                   case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:

@@ -170,6 +170,8 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* e
       }
    int virtual_button = get_keyboard_mapped_virtual_button(event->keyboard.keycode);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+   int player_num = 0; // assume player 0 for now
+
    emit_virtual_controls_button_up_event(virtual_button);
    return;
 }
@@ -266,7 +268,7 @@ int VirtualControlsProcessor::get_keyboard_mapped_virtual_button(int native_key_
    return virtual_button;
 }
 
-void VirtualControlsProcessor::emit_virtual_controls_button_up_event(int virtual_button_num)
+void VirtualControlsProcessor::emit_virtual_controls_button_up_event(int player_num, int virtual_button_num, bool is_repeat)
 {
    if (!(initialized))
       {
@@ -281,11 +283,16 @@ void VirtualControlsProcessor::emit_virtual_controls_button_up_event(int virtual
          throw std::runtime_error(error_message.str());
       }
    // TODO: consider using non-global event names for these types, or a better design for this scope
-   event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, virtual_button_num);
+   event_emitter->emit_event(
+      ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP,
+      player_num,
+      virtual_button_num,
+      is_repeat
+   );
    return;
 }
 
-void VirtualControlsProcessor::emit_virtual_controls_button_down_event(int virtual_button_num)
+void VirtualControlsProcessor::emit_virtual_controls_button_down_event(int player_num, int virtual_button_num, bool is_repeat)
 {
    if (!(initialized))
       {
@@ -300,7 +307,12 @@ void VirtualControlsProcessor::emit_virtual_controls_button_down_event(int virtu
          throw std::runtime_error(error_message.str());
       }
    // TODO: consider using non-global event names for these types, or a better design for this scope
-   event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, virtual_button_num);
+   event_emitter->emit_event(
+      ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN,
+      player_num,
+      virtual_button_num,
+      is_repeat
+   );
    return;
 }
 

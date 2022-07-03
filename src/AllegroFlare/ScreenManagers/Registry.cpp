@@ -164,17 +164,17 @@ void Registry::event_emitter_event_funcs(ALLEGRO_EVENT *ev)
 }
 
 
-void Registry::virtual_control_button_up_funcs(ALLEGRO_EVENT *ev)
+void Registry::virtual_control_button_up_funcs(int player_num, int button_num, bool is_repeat)
 {
    for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->virtual_control_button_up_func(ev);
+      screens[i]->virtual_control_button_up_func(player_num, button_num, is_repeat);
 }
 
 
-void Registry::virtual_control_button_down_funcs(ALLEGRO_EVENT *ev)
+void Registry::virtual_control_button_down_funcs(int player_num, int button_num, bool is_repeat)
 {
    for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->virtual_control_button_down_func(ev);
+      screens[i]->virtual_control_button_down_func(player_num, button_num, is_repeat);
 }
 
 
