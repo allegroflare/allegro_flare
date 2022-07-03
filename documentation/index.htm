@@ -1052,11 +1052,19 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">title_text</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">copyright_text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">background_bitmap_name</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
@@ -1091,6 +1099,9 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
+  <td class="method">draw_background()</td>
+</tr>
+<tr>
   <td class="method">draw_title_text()</td>
 </tr>
 <tr>
@@ -1113,6 +1124,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">obtain_copyright_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_background_bitmap()</td>
 </tr>
 <tr>
   <td class="method">key_char_func(1)</td>
@@ -1145,6 +1159,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
@@ -1617,7 +1637,8 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_BITMAP": [
-    "AllegroFlare/Camera2D"
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "tan": [
     "AllegroFlare/Camera2D"
@@ -1645,6 +1666,7 @@ table td
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "X": [

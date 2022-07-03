@@ -21,6 +21,12 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: title_text
     type: std::string
     init_with: '"Untitled Game"'
@@ -31,6 +37,13 @@ properties:
   - name: copyright_text
     type: std::string
     init_with: '"Copyright 2022"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: background_bitmap_name
+    type: std::string
+    init_with: '""'
     constructor_arg: true
     getter: true
     setter: true
@@ -138,9 +151,23 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      draw_background();
       draw_title_text();
       draw_copyright_text();
       draw_menu();
+      return;
+
+
+  - name: draw_background
+    body: |
+      if (background_bitmap_name.empty()) return;
+      ALLEGRO_BITMAP *background = obtain_background_bitmap();
+      if (!background) return;
+
+      al_draw_scaled_bitmap(background,
+         0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),
+         0, 0, 1920, 1080, 0);
+
       return;
 
 
@@ -272,6 +299,14 @@ functions:
       return font_bin->auto_get("DroidSans.ttf -32");
 
 
+  - name: obtain_background_bitmap
+    private: true
+    type: ALLEGRO_BITMAP*
+    guards: [ bitmap_bin ]
+    body: |
+      return bitmap_bin->auto_get(background_bitmap_name.c_str());
+
+
   - name: key_char_func
     virtual: true
     override: true
@@ -334,6 +369,10 @@ dependencies:
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
 

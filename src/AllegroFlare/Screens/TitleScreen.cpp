@@ -12,6 +12,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -20,12 +22,14 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string copyright_text)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name)
    : AllegroFlare::Screens::Base()
    , event_emitter(event_emitter)
    , font_bin(font_bin)
+   , bitmap_bin(bitmap_bin)
    , title_text(title_text)
    , copyright_text(copyright_text)
+   , background_bitmap_name(background_bitmap_name)
    , menu_options(build_default_menu_options())
    , cursor_position(0)
 {
@@ -49,6 +53,12 @@ void TitleScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void TitleScreen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
 void TitleScreen::set_title_text(std::string title_text)
 {
    this->title_text = title_text;
@@ -61,6 +71,12 @@ void TitleScreen::set_copyright_text(std::string copyright_text)
 }
 
 
+void TitleScreen::set_background_bitmap_name(std::string background_bitmap_name)
+{
+   this->background_bitmap_name = background_bitmap_name;
+}
+
+
 std::string TitleScreen::get_title_text()
 {
    return title_text;
@@ -70,6 +86,12 @@ std::string TitleScreen::get_title_text()
 std::string TitleScreen::get_copyright_text()
 {
    return copyright_text;
+}
+
+
+std::string TitleScreen::get_background_bitmap_name()
+{
+   return background_bitmap_name;
 }
 
 
@@ -169,9 +191,23 @@ void TitleScreen::render()
          error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
+   draw_background();
    draw_title_text();
    draw_copyright_text();
    draw_menu();
+   return;
+}
+
+void TitleScreen::draw_background()
+{
+   if (background_bitmap_name.empty()) return;
+   ALLEGRO_BITMAP *background = obtain_background_bitmap();
+   if (!background) return;
+
+   al_draw_scaled_bitmap(background,
+      0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),
+      0, 0, 1920, 1080, 0);
+
    return;
 }
 
@@ -306,6 +342,17 @@ ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("DroidSans.ttf -32");
+}
+
+ALLEGRO_BITMAP* TitleScreen::obtain_background_bitmap()
+{
+   if (!(bitmap_bin))
+      {
+         std::stringstream error_message;
+         error_message << "TitleScreen" << "::" << "obtain_background_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return bitmap_bin->auto_get(background_bitmap_name.c_str());
 }
 
 void TitleScreen::key_char_func(ALLEGRO_EVENT* event)

@@ -73,7 +73,8 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_BITMAP": [
-    "AllegroFlare/Camera2D"
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "tan": [
     "AllegroFlare/Camera2D"
@@ -101,6 +102,7 @@
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "X": [
