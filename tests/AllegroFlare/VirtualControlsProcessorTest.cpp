@@ -292,7 +292,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
-   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data1);
+   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
    al_uninstall_system();
 }
@@ -324,7 +324,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.user.type);
-   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data1);
+   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
    al_uninstall_system();
 }
@@ -390,7 +390,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
-   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data1);
+   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
    al_uninstall_system();
 }
@@ -422,7 +422,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.user.type);
-   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data1);
+   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
    al_uninstall_system();
 }

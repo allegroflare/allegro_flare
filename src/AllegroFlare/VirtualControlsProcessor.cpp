@@ -144,7 +144,9 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_down_event(ALLEGRO_EVENT*
       }
    int virtual_button = get_keyboard_mapped_virtual_button(event->keyboard.keycode);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-   emit_virtual_controls_button_down_event(virtual_button);
+   int player_num = 0; // assume player 0 for now
+
+   emit_virtual_controls_button_down_event(player_num, virtual_button);
    return;
 }
 
@@ -172,7 +174,7 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* e
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
    int player_num = 0; // assume player 0 for now
 
-   emit_virtual_controls_button_up_event(virtual_button);
+   emit_virtual_controls_button_up_event(player_num, virtual_button);
    return;
 }
 
@@ -198,7 +200,9 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
       }
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-   emit_virtual_controls_button_down_event(virtual_button);
+   int player_num = 0; // assume player 0 for now
+
+   emit_virtual_controls_button_down_event(player_num, virtual_button);
    return;
 }
 
@@ -224,7 +228,9 @@ void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT
       }
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-   emit_virtual_controls_button_up_event(virtual_button);
+   int player_num = 0; // assume player 0 for now
+
+   emit_virtual_controls_button_up_event(player_num, virtual_button);
    return;
 }
 
