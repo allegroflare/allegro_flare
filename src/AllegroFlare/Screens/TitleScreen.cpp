@@ -92,6 +92,27 @@ void TitleScreen::move_cursor_down()
    return;
 }
 
+void TitleScreen::activate_menu_option(std::string menu_option_name)
+{
+   if (menu_option_name == "start_new_game")
+   {
+      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
+   }
+   else if (menu_option_name == "exit_game")
+   {
+      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+   }
+   else
+   {
+      std::stringstream ss;
+      ss << "[AllegroFlare::Screens::TitleScreen::activate_menu_option()] error: There is no consequential action "
+            "assigned for the menu option value \"" << menu_option_name <<  "\".  Note this is "
+            "the value for the menu item labeled \"" << menu_option_name << "\".";
+      throw std::runtime_error(ss.str());
+   }
+   return;
+}
+
 void TitleScreen::select_menu_option()
 {
    if (!(event_emitter))
@@ -100,28 +121,18 @@ void TitleScreen::select_menu_option()
          error_message << "TitleScreen" << "::" << "select_menu_option" << ": error: " << "guard \"event_emitter\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (menu_is_empty()) return;
+   if (menu_is_empty())
+   {
+      std::cout <<
+         "[AllegroFlare::Screens::TitleScreen::select_menu_option()] error: can not select a menu item, "
+         "the menu is empty."
+         << std::endl;
+      return;
+   }
 
    std::string current_menu_option_value = infer_current_menu_option_value();
 
-   // TODO: clarify this mapping so that it can be injected into the menu
-   if (current_menu_option_value == "start_new_game")
-   {
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
-   }
-   else if (current_menu_option_value == "exit_game")
-   {
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
-   }
-   else
-   {
-      std::string current_menu_option_label = infer_current_menu_option_label();
-      std::stringstream ss;
-      ss << "[AllegroFlare::Screens::TitleScreen::select_menu_option()] error: There is no consequential action "
-            "assigned for the menu option value \"" << current_menu_option_value <<  "\".  Note this is "
-            "the value for the menu item labeled \"" << current_menu_option_label << "\".";
-      throw std::runtime_error(ss.str());
-   }
+   activate_menu_option(current_menu_option_value);
 
    return;
 }

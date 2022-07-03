@@ -37,6 +37,7 @@ namespace AllegroFlare
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          void move_cursor_up();
          void move_cursor_down();
+         virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");
          void select_menu_option();
          virtual void primary_timer_func() override;
          void render();

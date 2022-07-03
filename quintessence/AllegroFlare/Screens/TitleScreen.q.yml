@@ -77,32 +77,48 @@ functions:
       return;
 
 
-  - name: select_menu_option
-    private: true
-    guards: [ event_emitter ]
+  - name: activate_menu_option
+    virtual: true
+    parameters:
+      - name: menu_option_name
+        type: std::string
+        default_argument: '"[unset-menu-option-name]"'
     body: |
-      if (menu_is_empty()) return;
-
-      std::string current_menu_option_value = infer_current_menu_option_value();
-
-      // TODO: clarify this mapping so that it can be injected into the menu
-      if (current_menu_option_value == "start_new_game")
+      if (menu_option_name == "start_new_game")
       {
          event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
       }
-      else if (current_menu_option_value == "exit_game")
+      else if (menu_option_name == "exit_game")
       {
          event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
       }
       else
       {
-         std::string current_menu_option_label = infer_current_menu_option_label();
          std::stringstream ss;
-         ss << "[AllegroFlare::Screens::TitleScreen::select_menu_option()] error: There is no consequential action "
-               "assigned for the menu option value \"" << current_menu_option_value <<  "\".  Note this is "
-               "the value for the menu item labeled \"" << current_menu_option_label << "\".";
+         ss << "[AllegroFlare::Screens::TitleScreen::activate_menu_option()] error: There is no consequential action "
+               "assigned for the menu option value \"" << menu_option_name <<  "\".  Note this is "
+               "the value for the menu item labeled \"" << menu_option_name << "\".";
          throw std::runtime_error(ss.str());
       }
+      return;
+    
+
+  - name: select_menu_option
+    private: true
+    guards: [ event_emitter ]
+    body: |
+      if (menu_is_empty())
+      {
+         std::cout <<
+            "[AllegroFlare::Screens::TitleScreen::select_menu_option()] error: can not select a menu item, "
+            "the menu is empty."
+            << std::endl;
+         return;
+      }
+
+      std::string current_menu_option_value = infer_current_menu_option_value();
+
+      activate_menu_option(current_menu_option_value);
 
       return;
     body_dependency_symbols:
