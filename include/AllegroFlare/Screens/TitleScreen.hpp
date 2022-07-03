@@ -32,8 +32,10 @@ namespace AllegroFlare
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          std::string get_title_text();
+         std::vector<std::pair<std::string, std::string>> get_menu_options();
          bool get_initialized();
          void initialize();
+         void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          void move_cursor_up();
          void move_cursor_down();
          void select_menu_option();
@@ -46,6 +48,9 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_menu_font();
          virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
+         bool menu_is_empty();
+         bool menu_has_items();
+         static std::vector<std::pair<std::string, std::string>> build_default_menu_options();
       };
    }
 }

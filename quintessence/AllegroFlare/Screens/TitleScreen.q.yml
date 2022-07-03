@@ -29,7 +29,8 @@ properties:
 
   - name: menu_options
     type: std::vector<std::pair<std::string, std::string>>
-    init_with: '{}'
+    init_with: 'build_default_menu_options()'
+    getter: true
 
   - name: cursor_position
     type: int
@@ -46,15 +47,28 @@ functions:
 
   - name: initialize
     body: |
-      menu_options = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
+      //menu_options = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
       cursor_position = 0;
       initialized = true;
+      return;
+
+
+  - name: set_menu_options
+    parameters:
+      - name: menu_options
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+    body: |
+      this->menu_options = menu_options;
+      cursor_position = 0;
       return;
 
 
   - name: move_cursor_up
     private: true
     body: |
+      if (menu_is_empty()) return;
+
       cursor_position++;
       if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
       return;
@@ -63,6 +77,8 @@ functions:
   - name: move_cursor_down
     private: true
     body: |
+      if (menu_is_empty()) return;
+
       cursor_position--;
       if (cursor_position < 0) cursor_position += menu_options.size();
       return;
@@ -72,11 +88,19 @@ functions:
     private: true
     guards: [ event_emitter ]
     body: |
+      if (menu_is_empty()) return;
+
       std::string current_menu_option_value = infer_current_menu_option_value();
 
       // TODO: clarify this mapping so that it can be injected into the menu
-      if (current_menu_option_value == "start_new_game") event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
-      else if (current_menu_option_value == "exit_game") event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+      if (current_menu_option_value == "start_new_game")
+      {
+         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
+      }
+      else if (current_menu_option_value == "exit_game")
+      {
+         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+      }
       else
       {
          std::string current_menu_option_label = infer_current_menu_option_label();
@@ -234,6 +258,29 @@ functions:
          break;
       }
       return;
+
+
+  - name: menu_is_empty
+    type: bool
+    private: true
+    body: |
+      return menu_options.empty();
+
+
+  - name: menu_has_items
+    type: bool
+    private: true
+    body: |
+      return !menu_is_empty();
+
+
+  - name: build_default_menu_options
+    type: std::vector<std::pair<std::string, std::string>>
+    static: true
+    body: |
+      std::vector<std::pair<std::string, std::string>> result;
+      result = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
+      return result;
 
 
 dependencies:

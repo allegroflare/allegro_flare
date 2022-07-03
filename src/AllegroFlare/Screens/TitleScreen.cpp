@@ -23,7 +23,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)
-   , menu_options({})
+   , menu_options(build_default_menu_options())
    , cursor_position(0)
    , initialized(false)
 {
@@ -53,6 +53,12 @@ std::string TitleScreen::get_title_text()
 }
 
 
+std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options()
+{
+   return menu_options;
+}
+
+
 bool TitleScreen::get_initialized()
 {
    return initialized;
@@ -61,14 +67,23 @@ bool TitleScreen::get_initialized()
 
 void TitleScreen::initialize()
 {
-   menu_options = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
+   //menu_options = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
    cursor_position = 0;
    initialized = true;
    return;
 }
 
+void TitleScreen::set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options)
+{
+   this->menu_options = menu_options;
+   cursor_position = 0;
+   return;
+}
+
 void TitleScreen::move_cursor_up()
 {
+   if (menu_is_empty()) return;
+
    cursor_position++;
    if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
    return;
@@ -76,6 +91,8 @@ void TitleScreen::move_cursor_up()
 
 void TitleScreen::move_cursor_down()
 {
+   if (menu_is_empty()) return;
+
    cursor_position--;
    if (cursor_position < 0) cursor_position += menu_options.size();
    return;
@@ -89,11 +106,19 @@ void TitleScreen::select_menu_option()
          error_message << "TitleScreen" << "::" << "select_menu_option" << ": error: " << "guard \"event_emitter\" not met";
          throw std::runtime_error(error_message.str());
       }
+   if (menu_is_empty()) return;
+
    std::string current_menu_option_value = infer_current_menu_option_value();
 
    // TODO: clarify this mapping so that it can be injected into the menu
-   if (current_menu_option_value == "start_new_game") event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
-   else if (current_menu_option_value == "exit_game") event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+   if (current_menu_option_value == "start_new_game")
+   {
+      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
+   }
+   else if (current_menu_option_value == "exit_game")
+   {
+      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+   }
    else
    {
       std::string current_menu_option_label = infer_current_menu_option_label();
@@ -260,6 +285,23 @@ void TitleScreen::key_char_func(ALLEGRO_EVENT* event)
       break;
    }
    return;
+}
+
+bool TitleScreen::menu_is_empty()
+{
+   return menu_options.empty();
+}
+
+bool TitleScreen::menu_has_items()
+{
+   return !menu_is_empty();
+}
+
+std::vector<std::pair<std::string, std::string>> TitleScreen::build_default_menu_options()
+{
+   std::vector<std::pair<std::string, std::string>> result;
+   result = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
+   return result;
 }
 } // namespace Screens
 } // namespace AllegroFlare
