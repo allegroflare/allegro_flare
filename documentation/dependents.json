@@ -95,6 +95,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Inventory": [

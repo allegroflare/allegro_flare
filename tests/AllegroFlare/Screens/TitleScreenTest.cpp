@@ -73,7 +73,7 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();

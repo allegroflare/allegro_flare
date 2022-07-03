@@ -22,7 +22,7 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR copyright_text_color)
    : AllegroFlare::Screens::Base()
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -30,6 +30,10 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_text(title_text)
    , copyright_text(copyright_text)
    , background_bitmap_name(background_bitmap_name)
+   , font_name(font_name)
+   , title_text_color(title_text_color)
+   , menu_text_color(menu_text_color)
+   , copyright_text_color(copyright_text_color)
    , menu_options(build_default_menu_options())
    , cursor_position(0)
 {
@@ -77,6 +81,30 @@ void TitleScreen::set_background_bitmap_name(std::string background_bitmap_name)
 }
 
 
+void TitleScreen::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void TitleScreen::set_title_text_color(ALLEGRO_COLOR title_text_color)
+{
+   this->title_text_color = title_text_color;
+}
+
+
+void TitleScreen::set_menu_text_color(ALLEGRO_COLOR menu_text_color)
+{
+   this->menu_text_color = menu_text_color;
+}
+
+
+void TitleScreen::set_copyright_text_color(ALLEGRO_COLOR copyright_text_color)
+{
+   this->copyright_text_color = copyright_text_color;
+}
+
+
 std::string TitleScreen::get_title_text()
 {
    return title_text;
@@ -92,6 +120,30 @@ std::string TitleScreen::get_copyright_text()
 std::string TitleScreen::get_background_bitmap_name()
 {
    return background_bitmap_name;
+}
+
+
+std::string TitleScreen::get_font_name()
+{
+   return font_name;
+}
+
+
+ALLEGRO_COLOR TitleScreen::get_title_text_color()
+{
+   return title_text_color;
+}
+
+
+ALLEGRO_COLOR TitleScreen::get_menu_text_color()
+{
+   return menu_text_color;
+}
+
+
+ALLEGRO_COLOR TitleScreen::get_copyright_text_color()
+{
+   return copyright_text_color;
 }
 
 
@@ -219,7 +271,7 @@ void TitleScreen::draw_title_text()
    int surface_height = 1080;
    al_draw_text(
       title_font,
-      ALLEGRO_COLOR{1, 1, 1, 1},
+      title_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
       surface_width / 2,
       surface_height / 3,
       ALLEGRO_ALIGN_CENTER,
@@ -236,7 +288,7 @@ void TitleScreen::draw_copyright_text()
    int surface_height = 1080;
    al_draw_text(
       copyright_font,
-      ALLEGRO_COLOR{1, 1, 1, 1},
+      copyright_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
       surface_width / 2,
       surface_height - 100,
       ALLEGRO_ALIGN_CENTER,
@@ -262,7 +314,7 @@ void TitleScreen::draw_menu()
       std::string menu_item_text = std::get<0>(menu_option);
       al_draw_text(
          menu_font,
-         ALLEGRO_COLOR{1, 1, 1, 1},
+         menu_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
          surface_width / 2,
          surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
          ALLEGRO_ALIGN_CENTER,
@@ -274,7 +326,7 @@ void TitleScreen::draw_menu()
          float menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
          al_draw_text(
             menu_font,
-            ALLEGRO_COLOR{1, 1, 1, 1},
+            menu_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
             surface_width / 2 - (menu_item_text_width * 0.5),
             surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
             ALLEGRO_ALIGN_RIGHT,
@@ -319,7 +371,10 @@ ALLEGRO_FONT* TitleScreen::obtain_title_font()
          error_message << "TitleScreen" << "::" << "obtain_title_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("DroidSans.ttf -90");
+   std::stringstream composite_font_str;
+   int font_size = -90;
+   composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
 }
 
 ALLEGRO_FONT* TitleScreen::obtain_menu_font()
@@ -330,7 +385,10 @@ ALLEGRO_FONT* TitleScreen::obtain_menu_font()
          error_message << "TitleScreen" << "::" << "obtain_menu_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("DroidSans.ttf -56");
+   std::stringstream composite_font_str;
+   int font_size = -56;
+   composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
 }
 
 ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
@@ -341,7 +399,10 @@ ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
          error_message << "TitleScreen" << "::" << "obtain_copyright_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("DroidSans.ttf -32");
+   std::stringstream composite_font_str;
+   int font_size = -32;
+   composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
 }
 
 ALLEGRO_BITMAP* TitleScreen::obtain_background_bitmap()
@@ -352,7 +413,7 @@ ALLEGRO_BITMAP* TitleScreen::obtain_background_bitmap()
          error_message << "TitleScreen" << "::" << "obtain_background_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return bitmap_bin->auto_get(background_bitmap_name.c_str());
+   return bitmap_bin->auto_get(background_bitmap_name);
 }
 
 void TitleScreen::key_char_func(ALLEGRO_EVENT* event)

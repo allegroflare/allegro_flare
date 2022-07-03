@@ -48,6 +48,34 @@ properties:
     getter: true
     setter: true
 
+  - name: font_name
+    type: std::string
+    init_with: '"DroidSans.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: title_text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: menu_text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: copyright_text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: menu_options
     type: std::vector<std::pair<std::string, std::string>>
     init_with: 'build_default_menu_options()'
@@ -179,7 +207,7 @@ functions:
       int surface_height = 1080;
       al_draw_text(
          title_font,
-         ALLEGRO_COLOR{1, 1, 1, 1},
+         title_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
          surface_width / 2,
          surface_height / 3,
          ALLEGRO_ALIGN_CENTER,
@@ -196,7 +224,7 @@ functions:
       int surface_height = 1080;
       al_draw_text(
          copyright_font,
-         ALLEGRO_COLOR{1, 1, 1, 1},
+         copyright_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
          surface_width / 2,
          surface_height - 100,
          ALLEGRO_ALIGN_CENTER,
@@ -222,7 +250,7 @@ functions:
          std::string menu_item_text = std::get<0>(menu_option);
          al_draw_text(
             menu_font,
-            ALLEGRO_COLOR{1, 1, 1, 1},
+            menu_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
             surface_width / 2,
             surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
             ALLEGRO_ALIGN_CENTER,
@@ -234,7 +262,7 @@ functions:
             float menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
             al_draw_text(
                menu_font,
-               ALLEGRO_COLOR{1, 1, 1, 1},
+               menu_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
                surface_width / 2 - (menu_item_text_width * 0.5),
                surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
                ALLEGRO_ALIGN_RIGHT,
@@ -280,7 +308,10 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("DroidSans.ttf -90");
+      std::stringstream composite_font_str;
+      int font_size = -90;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
 
 
   - name: obtain_menu_font
@@ -288,7 +319,10 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("DroidSans.ttf -56");
+      std::stringstream composite_font_str;
+      int font_size = -56;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
 
 
   - name: obtain_copyright_font
@@ -296,7 +330,10 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("DroidSans.ttf -32");
+      std::stringstream composite_font_str;
+      int font_size = -32;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
 
 
   - name: obtain_background_bitmap
@@ -304,7 +341,7 @@ functions:
     type: ALLEGRO_BITMAP*
     guards: [ bitmap_bin ]
     body: |
-      return bitmap_bin->auto_get(background_bitmap_name.c_str());
+      return bitmap_bin->auto_get(background_bitmap_name);
 
 
   - name: key_char_func
@@ -375,5 +412,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
 
 
