@@ -55,19 +55,20 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible
 
    virtual_control_processor.initialize();
 
-   std::map<int, int> expected_keyboard_button_map = {
-     { ALLEGRO_KEY_ENTER, AllegroFlare::VirtualControls::get_BUTTON_START() },
-     { ALLEGRO_KEY_SPACE, AllegroFlare::VirtualControls::get_BUTTON_B() },
-     { ALLEGRO_KEY_A, AllegroFlare::VirtualControls::get_BUTTON_A() },
-     { ALLEGRO_KEY_B, AllegroFlare::VirtualControls::get_BUTTON_B() },
-     { ALLEGRO_KEY_X, AllegroFlare::VirtualControls::get_BUTTON_X() },
-     { ALLEGRO_KEY_Y, AllegroFlare::VirtualControls::get_BUTTON_Y() },
-     { ALLEGRO_KEY_UP, AllegroFlare::VirtualControls::get_BUTTON_UP() },
-     { ALLEGRO_KEY_DOWN, AllegroFlare::VirtualControls::get_BUTTON_DOWN() },
-     { ALLEGRO_KEY_LEFT, AllegroFlare::VirtualControls::get_BUTTON_LEFT() },
-     { ALLEGRO_KEY_RIGHT, AllegroFlare::VirtualControls::get_BUTTON_RIGHT() },
-     { ALLEGRO_KEY_R, AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER() },
-     { ALLEGRO_KEY_E, AllegroFlare::VirtualControls::get_BUTTON_LEFT_BUMPER() },
+   int PLAYER_0 = 0;
+   std::map<int, std::pair<int, int>> expected_keyboard_button_map = {
+     { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_START() } },
+     { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
+     { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_A() } },
+     { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
+     { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_X() } },
+     { ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_Y() } },
+     { ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_UP() } },
+     { ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_DOWN() } },
+     { ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_LEFT() } },
+     { ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_RIGHT() } },
+     { ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER() } },
+     { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_LEFT_BUMPER() } },
    };
 
    EXPECT_EQ(expected_keyboard_button_map, virtual_control_processor.get_keyboard_button_map());

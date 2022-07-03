@@ -1460,7 +1460,7 @@ table td
 </tr>
 <tr>
   <td class="property">keyboard_button_map</td>
-  <td class="property">std::map&lt;int, int&gt;</td>
+  <td class="property">std::map&lt;int, std::pair&lt;int, int&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">joystick_button_map</td>
@@ -1527,6 +1527,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, std::pair&lt;int, int&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;utility&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;]}</td>
@@ -1774,6 +1777,9 @@ table td
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/VirtualControls": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/map<int, std/pair<int, int>>": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/map<int, int>": [

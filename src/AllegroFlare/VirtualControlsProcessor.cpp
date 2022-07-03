@@ -55,7 +55,7 @@ void VirtualControlsProcessor::set_event_emitter(AllegroFlare::EventEmitter* eve
 }
 
 
-std::map<int, int> VirtualControlsProcessor::get_keyboard_button_map()
+std::map<int, std::pair<int, int>> VirtualControlsProcessor::get_keyboard_button_map()
 {
    return keyboard_button_map;
 }
@@ -103,21 +103,23 @@ std::map<int, int> VirtualControlsProcessor::build_sensible_joystick_button_map(
    return result_button_map;
 }
 
-std::map<int, int> VirtualControlsProcessor::build_sensible_keyboard_button_map()
+std::map<int, std::pair<int, int>> VirtualControlsProcessor::build_sensible_keyboard_button_map()
 {
-   std::map<int, int> result_button_map = {
-     { ALLEGRO_KEY_ENTER, AllegroFlare::VirtualControls::get_BUTTON_START() },
-     { ALLEGRO_KEY_SPACE, AllegroFlare::VirtualControls::get_BUTTON_B() },
-     { ALLEGRO_KEY_A, AllegroFlare::VirtualControls::get_BUTTON_A() },
-     { ALLEGRO_KEY_B, AllegroFlare::VirtualControls::get_BUTTON_B() },
-     { ALLEGRO_KEY_X, AllegroFlare::VirtualControls::get_BUTTON_X() },
-     { ALLEGRO_KEY_Y, AllegroFlare::VirtualControls::get_BUTTON_Y() },
-     { ALLEGRO_KEY_UP, AllegroFlare::VirtualControls::get_BUTTON_UP() },
-     { ALLEGRO_KEY_DOWN, AllegroFlare::VirtualControls::get_BUTTON_DOWN() },
-     { ALLEGRO_KEY_LEFT, AllegroFlare::VirtualControls::get_BUTTON_LEFT() },
-     { ALLEGRO_KEY_RIGHT, AllegroFlare::VirtualControls::get_BUTTON_RIGHT() },
-     { ALLEGRO_KEY_R, AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER() },
-     { ALLEGRO_KEY_E, AllegroFlare::VirtualControls::get_BUTTON_LEFT_BUMPER() },
+   static int PLAYER_0 = 0;
+          // { keyboard_key, { player_num, virtual_button } }
+   std::map<int, std::pair<int, int>> result_button_map = {
+     { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_START() } },
+     { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
+     { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_A() } },
+     { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
+     { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_X() } },
+     { ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_Y() } },
+     { ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_UP() } },
+     { ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_DOWN() } },
+     { ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_LEFT() } },
+     { ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_RIGHT() } },
+     { ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER() } },
+     { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_LEFT_BUMPER() } },
    };
    return result_button_map;
 }
@@ -270,7 +272,10 @@ int VirtualControlsProcessor::get_keyboard_mapped_virtual_button(int native_key_
 {
    bool map_value_exists = keyboard_button_map.find(native_key_num) != keyboard_button_map.end();
    if (!map_value_exists) return -1;
-   int virtual_button = keyboard_button_map[native_key_num];
+
+   int virtual_player_num = keyboard_button_map[native_key_num].first;
+   int virtual_button = keyboard_button_map[native_key_num].second;
+
    return virtual_button;
 }
 

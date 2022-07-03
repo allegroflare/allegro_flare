@@ -238,6 +238,9 @@
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
+  "std/map<int, std/pair<int, int>>": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "std/map<int, int>": [
     "AllegroFlare/VirtualControlsProcessor"
   ]
