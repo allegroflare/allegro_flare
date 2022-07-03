@@ -45,7 +45,10 @@ TEST(AllegroFlare_AudioControllerTest, initialized__without_allegro_audio_initia
 }
 
 
-TEST(AllegroFlare_AudioControllerTest, initialized__without_allegro_acodec_addon_initialized__raises_an_exception)
+TEST(AllegroFlare_AudioControllerTest,
+   DISABLED__initialized__without_allegro_acodec_addon_initialized__raises_an_exception)
+   // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
+   // to actually shutdown.
 {
    al_init();
    al_install_audio();

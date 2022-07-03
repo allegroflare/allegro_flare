@@ -61,7 +61,7 @@ Full::Full()
 
 Full::~Full()
 {
-   destruct();
+   shutdown();
 }
 
 
@@ -247,20 +247,37 @@ bool Full::initialize()
 }
 
 
-bool Full::destruct()
+bool Full::shutdown()
 {
+   if (!initialized) return false;
+
    // TODO autit this function
    samples.clear();
    bitmaps.clear();
    fonts.clear();
+   models.clear();
 
-   initialized = false;
+   if (primary_display) al_destroy_display(primary_display->al_display);
 
    audio_controller.destruct();
 
-   al_uninstall_system(); // ok - this should be done automatiacally, not necessarily here.
-                          // There's risk of a crash at shutdown if assets have been created outside the
+   al_shutdown_image_addon(); //) std::cerr << "shutdown of al_init_image_addon() failed" << std::endl;
+   al_shutdown_ttf_addon(); //) std::cerr << "shutdown al_init_ttf_addon() failed" << std::endl;
+   al_shutdown_font_addon(); //) std::cerr << "shutdown of al_init_font_addon() failed" << std::endl;
+   al_shutdown_primitives_addon(); //) std::cerr << "shutdown of al_init_primitives_addon() failed" << std::endl;
+   al_shutdown_native_dialog_addon(); // std::cerr << "shutdown of al_init_native_dialog_addon() failed" << std::endl;
+   //al_shutdown_acodec_addon(); // not a thing, possibly a bug. Causes some issues with testing
+
+   al_uninstall_audio();
+   al_uninstall_joystick();
+   al_uninstall_keyboard();
+   al_uninstall_mouse();
+
+   al_uninstall_system(); // Note that there is risk of a crash at shutdown if assets have been created outside the
                           // lifecycle of the Framework
+
+   initialized = false;
+
    return true;
 }
 

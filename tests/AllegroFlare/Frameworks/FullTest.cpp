@@ -13,9 +13,32 @@
 #include <AllegroFlare/EventNames.hpp>
 
 
-TEST(AllegroFlare_Framewors_FullTest, DISABLED__can_be_created_without_blowing_up)
+TEST(AllegroFlare_Framewors_FullTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Frameworks::Full framework;
+}
+
+
+TEST(AllegroFlare_Framewors_FullTest, initialize__will_initialize_allegro)
+{
+   AllegroFlare::Frameworks::Full framework;
+
+   ASSERT_EQ(false, al_is_system_installed());
+   framework.initialize();
+   ASSERT_EQ(true, al_is_system_installed());
+   framework.shutdown();
+}
+
+
+TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
+{
+   AllegroFlare::Frameworks::Full framework;
+
+   ASSERT_EQ(false, al_is_system_installed());
+   framework.initialize();
+   ASSERT_EQ(true, al_is_system_installed());
+   framework.shutdown();
+   ASSERT_EQ(false, al_is_system_installed());
 }
 
 
@@ -32,15 +55,7 @@ TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitte
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, DISABLED__run_loop__without_screens__will_throw_an_error)
-{
-   AllegroFlare::Frameworks::Full framework;
-   std::string expected_error_message = "Frameworks::Full::run_loop: error: screens cannot be nullptr";
-   EXPECT_THROW_WITH_MESSAGE(framework.run_loop(), std::runtime_error, expected_error_message);
-}
-
-
-TEST(AllegroFlare_Frameworks_FullTest, DISABLED__initialize__will_initialize_the_audio_controller)
+TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_the_audio_controller)
 {
    AllegroFlare::Frameworks::Full framework;
    AllegroFlare::AudioController &audio_controller = framework.get_audio_controller_ref();
@@ -52,7 +67,7 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__initialize__will_initialize_the
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, DISABLED__initialize__will_create_a_display_with_the_expected_dimentions)
+TEST(AllegroFlare_Frameworks_FullTest, initialize__will_create_a_display_with_the_expected_dimentions)
 {
    AllegroFlare::Frameworks::Full framework;
 

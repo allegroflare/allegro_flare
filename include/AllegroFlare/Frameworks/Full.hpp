@@ -47,8 +47,7 @@ namespace AllegroFlare
          Camera2D camera_2d;
          //Camera3D camera_3d; // next
 
-         bool initialize_without_display(); // only use initialize_with_display() publically from now on
-         bool destruct(); // should be privarte, is called in the destructor
+         bool initialize_without_display(); // only use initialize() publically from now on
 
          friend class AllegroFlare_Frameworks_FullTest;
 
@@ -83,6 +82,7 @@ namespace AllegroFlare
 
          bool initialize();
          bool is_initialized();
+         bool shutdown();
 
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
