@@ -33,22 +33,22 @@
   ],
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -69,7 +69,7 @@
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
-    "AllegroFlare/Screens/Inventory",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_BITMAP": [
@@ -91,10 +91,39 @@
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text",
-    "AllegroFlare/Screens/Inventory",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Inventory": [
+    "AllegroFlare/Elements/Inventory"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "X": [
+    "AllegroFlare/Elements/Inventory"
+  ],
+  "std/map<int, std/tuple<std/string, std/string, std/string>>": [
+    "AllegroFlare/Elements/Inventory"
+  ],
+  "std/vector<std/tuple<std/string, std/string, std/string>>": [
+    "AllegroFlare/Elements/Inventory"
+  ],
+  "std/tuple<std/string, std/string, std/string>": [
+    "AllegroFlare/Elements/Inventory"
+  ],
+  "AllegroFlare/Color": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Screens/Storyboard"
+  ],
+  "AllegroFlare/interpolator": [
+    "AllegroFlare/Elements/Inventory"
+  ],
+  "fmod": [
+    "AllegroFlare/Elements/Inventory"
   ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"
@@ -148,35 +177,6 @@
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
-  ],
-  "AllegroFlare/Inventory": [
-    "AllegroFlare/Screens/Inventory"
-  ],
-  "AllegroFlare/BitmapBin": [
-    "AllegroFlare/Screens/Inventory",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "X": [
-    "AllegroFlare/Screens/Inventory"
-  ],
-  "std/map<int, std/tuple<std/string, std/string, std/string>>": [
-    "AllegroFlare/Screens/Inventory"
-  ],
-  "std/vector<std/tuple<std/string, std/string, std/string>>": [
-    "AllegroFlare/Screens/Inventory"
-  ],
-  "std/tuple<std/string, std/string, std/string>": [
-    "AllegroFlare/Screens/Inventory"
-  ],
-  "AllegroFlare/Color": [
-    "AllegroFlare/Screens/Inventory",
-    "AllegroFlare/Screens/Storyboard"
-  ],
-  "AllegroFlare/interpolator": [
-    "AllegroFlare/Screens/Inventory"
-  ],
-  "fmod": [
-    "AllegroFlare/Screens/Inventory"
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Screens/Storyboard"

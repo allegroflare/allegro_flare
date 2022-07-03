@@ -14,7 +14,7 @@
 
 namespace AllegroFlare
 {
-   namespace Screens
+   namespace Elements
    {
       class Inventory
       {

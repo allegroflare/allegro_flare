@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Screens/Inventory.hpp>
+#include <AllegroFlare/Elements/Inventory.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <allegro5/allegro_primitives.h>
@@ -22,7 +22,7 @@
 
 namespace AllegroFlare
 {
-namespace Screens
+namespace Elements
 {
 
 
@@ -535,7 +535,7 @@ std::string Inventory::concat_text(std::string source_text, int length)
 {
    return source_text.substr(0, length);
 }
-} // namespace Screens
+} // namespace Elements
 } // namespace AllegroFlare
 
 
