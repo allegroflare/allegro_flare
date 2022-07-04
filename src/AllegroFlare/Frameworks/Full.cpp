@@ -686,6 +686,24 @@ void Full::run_loop()
                   case ALLEGRO_FLARE_EVENT_EXIT_GAME:
                      shutdown_program = true;
                   break;
+
+                  case ALLEGRO_FLARE_EVENT_GAME_EVENT:
+                     {
+                        AllegroFlare::GameEvent *data =
+                           static_cast<AllegroFlare::GameEvent *>((void *)this_event.user.data1);
+                        if (!data)
+                        {
+                           // TODO: add an error message
+                        }
+                        else
+                        {
+                           screens.game_event_funcs(data);
+                           //achievements.unlock_manually(*data);
+                           //audio_controller.play_music_track_by_identifier(*data);
+                           delete data;
+                        }
+                     }
+                  break;
                }
             }
             else
