@@ -7,8 +7,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -17,12 +15,10 @@ namespace Elements
 {
 
 
-Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::vector<std::string> pages, std::string screen_identifier_to_switch_to_after_completing, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding, intptr_t current_page_num)
+Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<std::string> pages, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding, intptr_t current_page_num)
    : AllegroFlare::Screens::Base()
    , font_bin(font_bin)
-   , event_emitter(event_emitter)
    , pages(pages)
-   , screen_identifier_to_switch_to_after_completing(screen_identifier_to_switch_to_after_completing)
    , font_name(font_name)
    , font_size(font_size)
    , text_color(text_color)
@@ -32,7 +28,6 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitt
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , current_page_num(current_page_num)
-   , can_go_to_next_page(true)
 {
 }
 
@@ -48,21 +43,9 @@ void Storyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void Storyboard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
-{
-   this->event_emitter = event_emitter;
-}
-
-
 void Storyboard::set_pages(std::vector<std::string> pages)
 {
    this->pages = pages;
-}
-
-
-void Storyboard::set_screen_identifier_to_switch_to_after_completing(std::string screen_identifier_to_switch_to_after_completing)
-{
-   this->screen_identifier_to_switch_to_after_completing = screen_identifier_to_switch_to_after_completing;
 }
 
 
@@ -209,33 +192,21 @@ void Storyboard::reset()
    return;
 }
 
-void Storyboard::on_activate()
+bool Storyboard::advance_page()
 {
-   reset();
-   return;
-}
-
-void Storyboard::primary_timer_func()
-{
-   render();
-   return;
-}
-
-void Storyboard::key_down_func(ALLEGRO_EVENT* event)
-{
-   if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "key_down_func" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   if (infer_at_or_past_last_page()) return false;
    current_page_num++;
-   can_go_to_next_page = true;
+   return true;
+}
 
-   if (current_page_num >= pages.size())
-      event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);
+bool Storyboard::infer_at_last_page()
+{
+   return (current_page_num == (pages.size()-1));
+}
 
-   return;
+bool Storyboard::infer_at_or_past_last_page()
+{
+   return (current_page_num >= (pages.size()-1));
 }
 
 ALLEGRO_FONT* Storyboard::obtain_font()

@@ -687,16 +687,8 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
-  <td class="property">event_emitter</td>
-  <td class="property">AllegroFlare::EventEmitter*</td>
-</tr>
-<tr>
   <td class="property">pages</td>
   <td class="property">std::vector&lt;std::string&gt;</td>
-</tr>
-<tr>
-  <td class="property">screen_identifier_to_switch_to_after_completing</td>
-  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">font_name</td>
@@ -734,10 +726,6 @@ table td
   <td class="property">current_page_num</td>
   <td class="property">intptr_t</td>
 </tr>
-<tr>
-  <td class="property">can_go_to_next_page</td>
-  <td class="property">bool</td>
-</tr>
     </table>
      <table>
 <tr>
@@ -747,13 +735,13 @@ table td
   <td class="method">reset()</td>
 </tr>
 <tr>
-  <td class="method">on_activate()</td>
+  <td class="method">advance_page()</td>
 </tr>
 <tr>
-  <td class="method">primary_timer_func()</td>
+  <td class="method">infer_at_last_page()</td>
 </tr>
 <tr>
-  <td class="method">key_down_func(1)</td>
+  <td class="method">infer_at_or_past_last_page()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>

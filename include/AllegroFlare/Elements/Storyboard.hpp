@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <allegro5/allegro.h>
@@ -18,9 +17,7 @@ namespace AllegroFlare
       {
       private:
          AllegroFlare::FontBin* font_bin;
-         AllegroFlare::EventEmitter* event_emitter;
          std::vector<std::string> pages;
-         std::string screen_identifier_to_switch_to_after_completing;
          std::string font_name;
          int font_size;
          ALLEGRO_COLOR text_color;
@@ -30,16 +27,13 @@ namespace AllegroFlare
          float line_height_multiplier;
          float line_height_padding;
          intptr_t current_page_num;
-         bool can_go_to_next_page;
 
       public:
-         Storyboard(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::vector<std::string> pages={}, std::string screen_identifier_to_switch_to_after_completing="", std::string font_name="Inter-Medium.ttf", int font_size=-60, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=200, float right_padding=200, float line_height_multiplier=1.75f, float line_height_padding=0.0f, intptr_t current_page_num=0);
-         virtual ~Storyboard();
+         Storyboard(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::string> pages={}, std::string font_name="Inter-Medium.ttf", int font_size=-60, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=200, float right_padding=200, float line_height_multiplier=1.75f, float line_height_padding=0.0f, intptr_t current_page_num=0);
+         ~Storyboard();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
-         void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_pages(std::vector<std::string> pages);
-         void set_screen_identifier_to_switch_to_after_completing(std::string screen_identifier_to_switch_to_after_completing);
          void set_font_name(std::string font_name);
          void set_font_size(int font_size);
          void set_text_color(ALLEGRO_COLOR text_color);
@@ -59,9 +53,9 @@ namespace AllegroFlare
          intptr_t get_current_page_num();
          void render();
          void reset();
-         virtual void on_activate() override;
-         virtual void primary_timer_func() override;
-         virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;
+         bool advance_page();
+         bool infer_at_last_page();
+         bool infer_at_or_past_last_page();
          ALLEGRO_FONT* obtain_font();
       };
    }
