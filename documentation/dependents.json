@@ -197,6 +197,9 @@
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
+  "AllegroFlare/Elements/Storyboard": [
+    "AllegroFlare/Screens/Storyboard"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

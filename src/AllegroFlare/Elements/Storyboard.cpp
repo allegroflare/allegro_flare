@@ -28,6 +28,7 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<std::string>
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , current_page_num(current_page_num)
+   , finished(false)
 {
 }
 
@@ -151,6 +152,12 @@ intptr_t Storyboard::get_current_page_num()
 }
 
 
+bool Storyboard::get_finished()
+{
+   return finished;
+}
+
+
 void Storyboard::render()
 {
    if (!(al_is_system_installed()))
@@ -189,14 +196,18 @@ void Storyboard::render()
 void Storyboard::reset()
 {
    current_page_num = 0;
+   finished = false;
    return;
 }
 
 bool Storyboard::advance_page()
 {
-   if (infer_at_or_past_last_page()) return false;
    current_page_num++;
-   return true;
+   if (current_page_num >= pages.size())
+   {
+      finished = true;
+   }
+   return finished;
 }
 
 bool Storyboard::infer_at_last_page()

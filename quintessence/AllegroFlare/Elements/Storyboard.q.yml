@@ -83,6 +83,11 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: finished
+    type: bool
+    init_with: false
+    getter: true
+
 
 functions:
 
@@ -119,15 +124,19 @@ functions:
     type: void
     body: |
       current_page_num = 0;
+      finished = false;
       return;
 
 
   - name: advance_page
     type: bool
     body: |
-      if (infer_at_or_past_last_page()) return false;
       current_page_num++;
-      return true;
+      if (current_page_num >= pages.size())
+      {
+         finished = true;
+      }
+      return finished;
 
 
   - name: infer_at_last_page
