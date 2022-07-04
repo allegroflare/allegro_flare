@@ -131,12 +131,14 @@ functions:
   - name: advance_page
     type: bool
     body: |
+      if (finished) return false;
+
       current_page_num++;
       if (current_page_num >= pages.size())
       {
          finished = true;
       }
-      return finished;
+      return !finished;
 
 
   - name: infer_at_last_page

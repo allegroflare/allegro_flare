@@ -326,10 +326,17 @@ void Dictionary::event_emitter_event_funcs(ALLEGRO_EVENT *ev)
 
 
 void Dictionary::game_event_funcs(AllegroFlare::GameEvent *game_event)
+   // "game events" will be sent to all screens even if they have been deactivated.
+   // "game events" needs to be renamed to something else like "system events", "global events",
+   // or something similar. They are meant to be events that the game designer themselves would use
+   // to manage the top-level global view of their game, so that other events within the AllegroFlare system
+   // should be out of view
 {
-   for (auto &screen : screens)
-      if (screen.second.active)
+   for (auto &screen : screens) //
+      //if (screen.second.active)
+      {
          screen.second.screen->game_event_func(game_event);
+      }
 }
 
 

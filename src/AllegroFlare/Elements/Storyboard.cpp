@@ -202,12 +202,14 @@ void Storyboard::reset()
 
 bool Storyboard::advance_page()
 {
+   if (finished) return false;
+
    current_page_num++;
    if (current_page_num >= pages.size())
    {
       finished = true;
    }
-   return finished;
+   return !finished;
 }
 
 bool Storyboard::infer_at_last_page()
