@@ -245,7 +245,6 @@ ALLEGRO_FONT* Storyboard::obtain_font()
          throw std::runtime_error(error_message.str());
       }
    std::stringstream composite_font_str;
-   int font_size = -60;
    composite_font_str << font_name << " " << font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
