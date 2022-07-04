@@ -35,6 +35,7 @@
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -46,6 +47,7 @@
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -95,6 +97,7 @@
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
@@ -122,6 +125,7 @@
   ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/interpolator": [
@@ -135,6 +139,33 @@
   ],
   "AllegroFlare/Timer": [
     "AllegroFlare/Elements/Stopwatch"
+  ],
+  "AllegroFlare/Screens/Base": [
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_EVENT": [
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "al_draw_multiline_text": [
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Screens/Storyboard"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"
@@ -154,40 +185,17 @@
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
   ],
-  "ALLEGRO_EVENT": [
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/EventEmitter": [
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
-  "AllegroFlare/Screens/Base": [
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
-  ],
-  "al_draw_multiline_text": [
-    "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"

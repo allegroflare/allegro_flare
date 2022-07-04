@@ -1,0 +1,209 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: pages
+    type: std::vector<std::string>
+    init_with: '{}'
+    constructor_arg: true
+    setter: true
+
+  - name: screen_identifier_to_switch_to_after_completing
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+    setter: true
+
+  - name: font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -60
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: top_padding
+    type: float
+    init_with: 400
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: left_padding
+    type: float
+    init_with: 200
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: right_padding
+    type: float
+    init_with: 200
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: line_height_multiplier
+    type: float
+    init_with: 1.75f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: line_height_padding
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: current_page_num
+    type: intptr_t
+    init_with: 0
+    constructor_arg: true
+    getter: true
+
+  - name: can_go_to_next_page
+    type: bool
+    init_with: true
+    
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      ALLEGRO_FONT *text_font = obtain_font();
+
+      al_clear_to_color(AllegroFlare::Color::Black);
+
+      if (current_page_num >= pages.size()) return;
+
+      float box_width = 1920 - (left_padding + right_padding);
+
+      al_draw_multiline_text(
+            text_font,
+            text_color, //AllegroFlare::Color(0xd0f2c5).to_al(),
+            left_padding, //x_padding,
+            top_padding, //y_padding,
+            box_width,
+            al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
+            0,
+            pages[current_page_num].c_str()
+         );
+      return;
+    body_dependency_symbols:
+      - al_draw_multiline_text
+      - AllegroFlare::Color
+
+
+  - name: reset
+    type: void
+    body: |
+      current_page_num = 0;
+      return;
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    type: void
+    body: |
+      reset();
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    type: void
+    body: |
+      render();
+      return;
+
+
+  - name: key_down_func
+    virtual: true
+    override: true
+    type: void
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ event_emitter ]
+    body: |
+      current_page_num++;
+      can_go_to_next_page = true;
+
+      if (current_page_num >= pages.size())
+         event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);
+
+      return;
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_EVENT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_draw_multiline_text
+    headers: [ allegro5/allegro_font.h ]
+
+
