@@ -8,14 +8,20 @@ namespace AllegroFlare
 {
 
 
-GameEvent::GameEvent()
-   : name("")
+GameEvent::GameEvent(std::string name)
+   : name(name)
 {
 }
 
 
 GameEvent::~GameEvent()
 {
+}
+
+
+std::string GameEvent::get_name()
+{
+   return name;
 }
 
 

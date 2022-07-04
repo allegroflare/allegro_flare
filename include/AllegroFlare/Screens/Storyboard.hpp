@@ -20,15 +20,18 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::Elements::Storyboard storyboard_element;
          std::string screen_identifier_to_switch_to_after_completing;
+         std::string game_event_name_to_emit_after_completing;
          bool initialized;
 
       public:
-         Storyboard(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::string screen_identifier_to_switch_to_after_completing="");
+         Storyboard(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::string screen_identifier_to_switch_to_after_completing="", std::string game_event_name_to_emit_after_completing="storyboard_finished");
          virtual ~Storyboard();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_screen_identifier_to_switch_to_after_completing(std::string screen_identifier_to_switch_to_after_completing);
+         void set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing);
+         std::string get_game_event_name_to_emit_after_completing();
          AllegroFlare::Elements::Storyboard &get_storyboard_element_ref();
          void initialize();
          virtual void on_activate() override;

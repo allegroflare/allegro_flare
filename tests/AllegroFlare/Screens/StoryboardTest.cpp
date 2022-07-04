@@ -10,6 +10,8 @@
 
 #include <AllegroFlare/EventNames.hpp>
 
+#include <AllegroFlare/GameEvent.hpp>
+
 
 class AllegroFlare_Screens_StoryboardTest : public ::testing::Test
 {};
@@ -94,7 +96,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   key_down_func__when_at_the_final_page__will_emit_a_screen_switch_event_with_the_expected_param)
+   key_down_func__when_at_the_final_page__will_emit_a_screen_switch_event_if_the_appropriate_param_is_set)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    AllegroFlare::EventEmitter event_emitter;
@@ -126,6 +128,44 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    ASSERT_NE(nullptr, (void *)(event.user.data1));
    std::string *data1 = (std::string *)event.user.data1;
    EXPECT_EQ(screen_identifier_to_switch_to_after_completing, *data1);
+
+   // shutdown
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+   al_destroy_event_queue(event_queue);
+}
+
+
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
+   key_down_func__when_at_the_final_page__will_emit_a_game_event_with_the_expected_values_if_the_param_is_set)
+{
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   ALLEGRO_EVENT event;
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+   std::vector<std::string> pages = { "This is page 1.", "Here is the last page." };
+
+   AllegroFlare::Screens::Storyboard storyboard(
+         &get_font_bin_ref(),
+         &event_emitter
+      );
+   storyboard.get_storyboard_element_ref().set_pages(pages);
+   storyboard.initialize();
+
+   // first page should not trigger an event
+   storyboard.key_down_func();
+   ASSERT_EQ(false, al_get_next_event(event_queue, &event));
+
+   // now at the last page, this should trigger an event
+   storyboard.key_down_func();
+   ASSERT_EQ(true, al_get_next_event(event_queue, &event));
+
+   // the generated event should have the expected values
+   EXPECT_EQ(ALLEGRO_FLARE_EVENT_GAME_EVENT, event.type);
+   ASSERT_NE(nullptr, (void *)(event.user.data1));
+   AllegroFlare::GameEvent *data1 = static_cast<AllegroFlare::GameEvent *>((void*)event.user.data1);
+   AllegroFlare::GameEvent expected_game_event("storyboard_finished");
+   EXPECT_EQ(expected_game_event.get_name(), (*data1).get_name());
 
    // shutdown
    al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());

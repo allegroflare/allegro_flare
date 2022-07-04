@@ -3,6 +3,8 @@ properties:
 
   - name: name
     type: std::string
-    body: return "[unnamed-game-event]";
+    init_with: '"[unnamed-game-event]"'
+    constructor_arg: true
+    getter: true
 
 

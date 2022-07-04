@@ -12,9 +12,10 @@ namespace AllegroFlare
       std::string name;
 
    public:
-      GameEvent();
+      GameEvent(std::string name="[unnamed-game-event]");
       ~GameEvent();
 
+      std::string get_name();
    };
 }
 

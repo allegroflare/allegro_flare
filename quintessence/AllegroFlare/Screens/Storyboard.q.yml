@@ -33,6 +33,13 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: game_event_name_to_emit_after_completing
+    type: std::string
+    init_with: '"storyboard_finished"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -52,7 +59,6 @@ functions:
   - name: on_activate
     virtual: true
     override: true
-    type: void
     guards: [ initialized ] 
     body: |
       storyboard_element.reset();
@@ -62,7 +68,6 @@ functions:
   - name: primary_timer_func
     virtual: true
     override: true
-    type: void
     guards: [ initialized ] 
     body: |
       storyboard_element.render();
@@ -72,17 +77,27 @@ functions:
   - name: key_down_func
     virtual: true
     override: true
-    type: void
     parameters:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
     guards: [ initialized, event_emitter ]
     body: |
+      if (storyboard_element.get_finished()) return;
+
       storyboard_element.advance_page();
 
       if (storyboard_element.get_finished())
-         event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);
+      {
+         if (!screen_identifier_to_switch_to_after_completing.empty())
+         {
+            event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);
+         }
+         if (!game_event_name_to_emit_after_completing.empty())
+         {
+            event_emitter->emit_game_event(AllegroFlare::GameEvent("storyboard_finished"));
+         }
+      }
 
       return;
 

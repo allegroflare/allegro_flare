@@ -129,11 +129,12 @@ functions:
   - name: emit_game_event
     parameters:
       - name: game_event
-        type: AllegroFlare::GameEvent*
-        default_argument: nullptr
+        type: AllegroFlare::GameEvent
+        default_argument: '{}'
     guards: [ initialized ]
     body: |
-      emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, (intptr_t)game_event);
+      AllegroFlare::GameEvent *game_event_copy = new AllegroFlare::GameEvent(game_event);
+      emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, (intptr_t)game_event_copy);
       return;
 
 
@@ -170,7 +171,7 @@ dependencies:
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SWITCH_SCREEN
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: AllegroFlare::GameEvent*
+  - symbol: AllegroFlare::GameEvent
     headers: [ AllegroFlare/GameEvent.hpp ]
 
 

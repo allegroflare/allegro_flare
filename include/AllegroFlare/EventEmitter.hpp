@@ -28,7 +28,7 @@ namespace AllegroFlare
       void emit_play_music_track_event(std::string music_track_identifier="[unset-music-track-identifier]");
       void emit_virtual_controls_button_up_event(int virtual_button_num=0);
       void emit_virtual_controls_button_down_event(int virtual_button_num=0);
-      void emit_game_event(AllegroFlare::GameEvent* game_event=nullptr);
+      void emit_game_event(AllegroFlare::GameEvent game_event={});
       void emit_virtual_controls_axis_change_event(int stick=0, int axis=0, float position=0.0f);
       void TODO();
    };
