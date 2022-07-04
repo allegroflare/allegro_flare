@@ -1068,6 +1068,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">title_bitmap_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">font_name</td>
   <td class="property">std::string</td>
 </tr>
@@ -1118,7 +1122,7 @@ table td
   <td class="method">draw_background()</td>
 </tr>
 <tr>
-  <td class="method">draw_title_text()</td>
+  <td class="method">draw_title()</td>
 </tr>
 <tr>
   <td class="method">draw_copyright_text()</td>
@@ -1143,6 +1147,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">obtain_background_bitmap()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_title_bitmap()</td>
 </tr>
 <tr>
   <td class="method">key_char_func(1)</td>
@@ -1187,6 +1194,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1653,6 +1663,7 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_BITMAP": [

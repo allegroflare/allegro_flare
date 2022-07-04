@@ -6,6 +6,9 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Placement2D.hpp>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -22,7 +25,7 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR copyright_text_color)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR copyright_text_color)
    : AllegroFlare::Screens::Base()
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -30,6 +33,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_text(title_text)
    , copyright_text(copyright_text)
    , background_bitmap_name(background_bitmap_name)
+   , title_bitmap_name(title_bitmap_name)
    , font_name(font_name)
    , title_text_color(title_text_color)
    , menu_text_color(menu_text_color)
@@ -81,6 +85,12 @@ void TitleScreen::set_background_bitmap_name(std::string background_bitmap_name)
 }
 
 
+void TitleScreen::set_title_bitmap_name(std::string title_bitmap_name)
+{
+   this->title_bitmap_name = title_bitmap_name;
+}
+
+
 void TitleScreen::set_font_name(std::string font_name)
 {
    this->font_name = font_name;
@@ -120,6 +130,12 @@ std::string TitleScreen::get_copyright_text()
 std::string TitleScreen::get_background_bitmap_name()
 {
    return background_bitmap_name;
+}
+
+
+std::string TitleScreen::get_title_bitmap_name()
+{
+   return title_bitmap_name;
 }
 
 
@@ -244,7 +260,7 @@ void TitleScreen::render()
          throw std::runtime_error(error_message.str());
       }
    draw_background();
-   draw_title_text();
+   draw_title();
    draw_copyright_text();
    draw_menu();
    return;
@@ -263,20 +279,35 @@ void TitleScreen::draw_background()
    return;
 }
 
-void TitleScreen::draw_title_text()
+void TitleScreen::draw_title()
 {
-   // TODO: review guards on this function
-   ALLEGRO_FONT *title_font = obtain_title_font();
-   int surface_width = 1920;
-   int surface_height = 1080;
-   al_draw_text(
-      title_font,
-      title_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-      surface_width / 2,
-      surface_height / 3,
-      ALLEGRO_ALIGN_CENTER,
-      get_title_text().c_str()
-   );
+   ALLEGRO_BITMAP *title_bitmap = obtain_title_bitmap();
+   if (title_bitmap)
+   {
+      AllegroFlare::Placement2D place;
+      place.position.x = 1920 / 2;
+      place.position.y = 1080 / 3;
+      place.size.x = al_get_bitmap_width(title_bitmap);
+      place.size.y = al_get_bitmap_height(title_bitmap);
+      place.start_transform();
+      al_draw_bitmap(title_bitmap, 0, 0, 0);
+      place.restore_transform();
+   }
+   else if (!title_text.empty())
+   {
+      // TODO: review guards on this function
+      ALLEGRO_FONT *title_font = obtain_title_font();
+      int surface_width = 1920;
+      int surface_height = 1080;
+      al_draw_text(
+         title_font,
+         title_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
+         surface_width / 2,
+         surface_height / 3,
+         ALLEGRO_ALIGN_CENTER,
+         get_title_text().c_str()
+      );
+   }
    return;
 }
 
@@ -414,6 +445,17 @@ ALLEGRO_BITMAP* TitleScreen::obtain_background_bitmap()
          throw std::runtime_error(error_message.str());
       }
    return bitmap_bin->auto_get(background_bitmap_name);
+}
+
+ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
+{
+   if (!(bitmap_bin))
+      {
+         std::stringstream error_message;
+         error_message << "TitleScreen" << "::" << "obtain_title_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return bitmap_bin->auto_get(title_bitmap_name);
 }
 
 void TitleScreen::key_char_func(ALLEGRO_EVENT* event)

@@ -42,6 +42,7 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture, render__
 
    AllegroFlare::Screens::TitleScreen title_screen;
    title_screen.set_font_bin(&get_font_bin_ref());
+   title_screen.set_bitmap_bin(&get_bitmap_bin_ref());
 
    title_screen.render();
 
@@ -94,6 +95,7 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
    // initialize test subject
    AllegroFlare::Screens::TitleScreen title_screen;
    title_screen.set_font_bin(&get_font_bin_ref());
+   title_screen.set_bitmap_bin(&get_bitmap_bin_ref());
    title_screen.set_event_emitter(&event_emitter);
 
    // run the interactive test

@@ -25,6 +25,7 @@ namespace AllegroFlare
          std::string title_text;
          std::string copyright_text;
          std::string background_bitmap_name;
+         std::string title_bitmap_name;
          std::string font_name;
          ALLEGRO_COLOR title_text_color;
          ALLEGRO_COLOR menu_text_color;
@@ -33,7 +34,7 @@ namespace AllegroFlare
          int cursor_position;
 
       public:
-         TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="Untitled Game", std::string copyright_text="Copyright 2022", std::string background_bitmap_name="", std::string font_name="DroidSans.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR copyright_text_color=ALLEGRO_COLOR{1, 1, 1, 1});
+         TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="Untitled Game", std::string copyright_text="Copyright 2022", std::string background_bitmap_name="", std::string title_bitmap_name="", std::string font_name="DroidSans.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR copyright_text_color=ALLEGRO_COLOR{1, 1, 1, 1});
          virtual ~TitleScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
@@ -42,6 +43,7 @@ namespace AllegroFlare
          void set_title_text(std::string title_text);
          void set_copyright_text(std::string copyright_text);
          void set_background_bitmap_name(std::string background_bitmap_name);
+         void set_title_bitmap_name(std::string title_bitmap_name);
          void set_font_name(std::string font_name);
          void set_title_text_color(ALLEGRO_COLOR title_text_color);
          void set_menu_text_color(ALLEGRO_COLOR menu_text_color);
@@ -49,6 +51,7 @@ namespace AllegroFlare
          std::string get_title_text();
          std::string get_copyright_text();
          std::string get_background_bitmap_name();
+         std::string get_title_bitmap_name();
          std::string get_font_name();
          ALLEGRO_COLOR get_title_text_color();
          ALLEGRO_COLOR get_menu_text_color();
@@ -62,7 +65,7 @@ namespace AllegroFlare
          virtual void primary_timer_func() override;
          void render();
          void draw_background();
-         void draw_title_text();
+         void draw_title();
          void draw_copyright_text();
          void draw_menu();
          std::string infer_current_menu_option_value();
@@ -71,6 +74,7 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_menu_font();
          ALLEGRO_FONT* obtain_copyright_font();
          ALLEGRO_BITMAP* obtain_background_bitmap();
+         ALLEGRO_BITMAP* obtain_title_bitmap();
          virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
          bool menu_is_empty();
          bool menu_has_items();

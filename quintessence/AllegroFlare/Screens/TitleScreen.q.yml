@@ -48,6 +48,13 @@ properties:
     getter: true
     setter: true
 
+  - name: title_bitmap_name
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: font_name
     type: std::string
     init_with: '"DroidSans.ttf"'
@@ -180,7 +187,7 @@ functions:
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       draw_background();
-      draw_title_text();
+      draw_title();
       draw_copyright_text();
       draw_menu();
       return;
@@ -199,21 +206,38 @@ functions:
       return;
 
 
-  - name: draw_title_text
+  - name: draw_title
     body: |
-      // TODO: review guards on this function
-      ALLEGRO_FONT *title_font = obtain_title_font();
-      int surface_width = 1920;
-      int surface_height = 1080;
-      al_draw_text(
-         title_font,
-         title_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-         surface_width / 2,
-         surface_height / 3,
-         ALLEGRO_ALIGN_CENTER,
-         get_title_text().c_str()
-      );
+      ALLEGRO_BITMAP *title_bitmap = obtain_title_bitmap();
+      if (title_bitmap)
+      {
+         AllegroFlare::Placement2D place;
+         place.position.x = 1920 / 2;
+         place.position.y = 1080 / 3;
+         place.size.x = al_get_bitmap_width(title_bitmap);
+         place.size.y = al_get_bitmap_height(title_bitmap);
+         place.start_transform();
+         al_draw_bitmap(title_bitmap, 0, 0, 0);
+         place.restore_transform();
+      }
+      else if (!title_text.empty())
+      {
+         // TODO: review guards on this function
+         ALLEGRO_FONT *title_font = obtain_title_font();
+         int surface_width = 1920;
+         int surface_height = 1080;
+         al_draw_text(
+            title_font,
+            title_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
+            surface_width / 2,
+            surface_height / 3,
+            ALLEGRO_ALIGN_CENTER,
+            get_title_text().c_str()
+         );
+      }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
 
 
   - name: draw_copyright_text
@@ -344,6 +368,14 @@ functions:
       return bitmap_bin->auto_get(background_bitmap_name);
 
 
+  - name: obtain_title_bitmap
+    private: true
+    type: ALLEGRO_BITMAP*
+    guards: [ bitmap_bin ]
+    body: |
+      return bitmap_bin->auto_get(title_bitmap_name);
+
+
   - name: key_char_func
     virtual: true
     override: true
@@ -414,5 +446,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
 
 
