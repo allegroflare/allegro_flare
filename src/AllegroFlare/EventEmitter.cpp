@@ -168,7 +168,7 @@ void EventEmitter::emit_virtual_controls_button_down_event(int virtual_button_nu
    return;
 }
 
-void EventEmitter::emit_game_event(int virtual_button_num)
+void EventEmitter::emit_game_event(AllegroFlare::GameEvent* game_event)
 {
    if (!(initialized))
       {
@@ -176,7 +176,7 @@ void EventEmitter::emit_game_event(int virtual_button_num)
          error_message << "EventEmitter" << "::" << "emit_game_event" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, virtual_button_num);
+   emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, (intptr_t)game_event);
    return;
 }
 

@@ -50,3 +50,10 @@ TEST(AllegroFlare_EventEmitterTest,
 }
 
 
+TEST(AllegroFlare_EventEmitterTest,
+   emit_game_event__will_push_a_ALLEGRO_FLARE_EVENT_GAME_EVENT_event_with_the_expected_params)
+{
+   // TODO
+}
+
+

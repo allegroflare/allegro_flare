@@ -1,0 +1,8 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    body: return "[unnamed-game-event]";
+
+

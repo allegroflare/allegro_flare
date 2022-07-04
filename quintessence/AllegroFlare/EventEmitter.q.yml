@@ -128,12 +128,12 @@ functions:
 
   - name: emit_game_event
     parameters:
-      - name: virtual_button_num
-        type: int
-        default_argument: 0
+      - name: game_event
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
     guards: [ initialized ]
     body: |
-      emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, virtual_button_num);
+      emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, (intptr_t)game_event);
       return;
 
 
@@ -170,5 +170,7 @@ dependencies:
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SWITCH_SCREEN
     headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: AllegroFlare::GameEvent*
+    headers: [ AllegroFlare/GameEvent.hpp ]
 
 

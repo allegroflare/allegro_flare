@@ -148,6 +148,9 @@
   "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
   ],
+  "AllegroFlare/GameEvent": [
+    "AllegroFlare/EventEmitter"
+  ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
   ],

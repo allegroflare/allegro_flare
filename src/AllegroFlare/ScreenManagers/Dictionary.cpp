@@ -325,6 +325,14 @@ void Dictionary::event_emitter_event_funcs(ALLEGRO_EVENT *ev)
 }
 
 
+void Dictionary::game_event_funcs(AllegroFlare::GameEvent *game_event)
+{
+   for (auto &screen : screens)
+      if (screen.second.active)
+         screen.second.screen->game_event_func(game_event);
+}
+
+
 void Dictionary::virtual_control_button_up_funcs(int player_num, int button_num, bool is_repeat)
 {
    for (auto &screen : screens)
