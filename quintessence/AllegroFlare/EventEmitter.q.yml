@@ -126,6 +126,17 @@ functions:
       return;
  
 
+  - name: emit_game_event
+    parameters:
+      - name: virtual_button_num
+        type: int
+        default_argument: 0
+    guards: [ initialized ]
+    body: |
+      emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, virtual_button_num);
+      return;
+
+
   - name: emit_virtual_controls_axis_change_event
     parameters:
       - name: stick

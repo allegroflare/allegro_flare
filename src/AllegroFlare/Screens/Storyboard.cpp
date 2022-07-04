@@ -32,6 +32,7 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitt
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , current_page_num(current_page_num)
+   , can_go_to_next_page(true)
 {
 }
 
@@ -229,6 +230,7 @@ void Storyboard::key_down_func(ALLEGRO_EVENT* event)
          throw std::runtime_error(error_message.str());
       }
    current_page_num++;
+   can_go_to_next_page = true;
 
    if (current_page_num >= pages.size())
       event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);

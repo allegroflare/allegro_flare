@@ -30,6 +30,7 @@ namespace AllegroFlare
          float line_height_multiplier;
          float line_height_padding;
          intptr_t current_page_num;
+         bool can_go_to_next_page;
 
       public:
          Storyboard(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::vector<std::string> pages={}, std::string screen_identifier_to_switch_to_after_completing="", std::string font_name="Inter-Medium.ttf", int font_size=-60, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=200, float right_padding=200, float line_height_multiplier=1.75f, float line_height_padding=0.0f, intptr_t current_page_num=0);

@@ -45,6 +45,7 @@ namespace AllegroFlare
          virtual void joy_config_func(ALLEGRO_EVENT *ev);
          virtual void user_event_func(ALLEGRO_EVENT *ev);
          virtual void event_emitter_event_func(ALLEGRO_EVENT *ev);
+         virtual void game_event_func();
          virtual void virtual_control_button_up_func(int player_num, int button_num, bool repeat=false);
          virtual void virtual_control_button_down_func(int player_num, int button_num, bool repeat=false);
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT *ev);

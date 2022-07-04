@@ -23,6 +23,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -163,6 +165,18 @@ void EventEmitter::emit_virtual_controls_button_down_event(int virtual_button_nu
          throw std::runtime_error(error_message.str());
       }
    emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, virtual_button_num);
+   return;
+}
+
+void EventEmitter::emit_game_event(int virtual_button_num)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "EventEmitter" << "::" << "emit_game_event" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, virtual_button_num);
    return;
 }
 
