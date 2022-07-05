@@ -57,7 +57,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   key_down_func__will_advance_to_the_next_page)
+   virtual_control_button_down_func__will_advance_to_the_next_page)
 {
    AllegroFlare::EventEmitter event_emitter;
    std::vector<std::string> pages = {
@@ -75,7 +75,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    EXPECT_EQ(0, storyboard.get_storyboard_element_ref().get_current_page_num()); // TODO: this line should be a separate test
    for (int i=0; i<(pages.size()-1); i++)
    {
-      storyboard.key_down_func();
+      storyboard.virtual_control_button_down_func();
       int expected_page_num = i+1;
       EXPECT_EQ(expected_page_num, storyboard.get_storyboard_element_ref().get_current_page_num());
    }
@@ -85,18 +85,18 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   key_down_func__without_an_event_emitter__will_throw_an_error)
+   virtual_control_button_down_func__without_an_event_emitter__will_throw_an_error)
 {
    AllegroFlare::Screens::Storyboard storyboard;
    storyboard.initialize();
    std::string expected_error_message =
-      "Storyboard::key_down_func: error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(storyboard.key_down_func(), std::runtime_error, expected_error_message);
+      "Storyboard::virtual_control_button_down_func: error: guard \"event_emitter\" not met";
+   EXPECT_THROW_WITH_MESSAGE(storyboard.virtual_control_button_down_func(), std::runtime_error, expected_error_message);
 }
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   key_down_func__when_at_the_final_page__will_emit_a_game_event_with_the_expected_values_if_the_param_is_set)
+   virtual_control_button_down_func__when_at_the_final_page__will_emit_a_game_event_with_the_expected_property_value)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    AllegroFlare::EventEmitter event_emitter;
@@ -113,11 +113,11 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    storyboard.initialize();
 
    // first page should not trigger an event
-   storyboard.key_down_func();
+   storyboard.virtual_control_button_down_func();
    ASSERT_EQ(false, al_get_next_event(event_queue, &event));
 
    // now at the last page, this should trigger an event
-   storyboard.key_down_func();
+   storyboard.virtual_control_button_down_func();
    ASSERT_EQ(true, al_get_next_event(event_queue, &event));
 
    // the generated event should have the expected values

@@ -58,7 +58,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible
    int PLAYER_0 = 0;
    std::map<int, std::pair<int, int>> expected_keyboard_button_map = {
      { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_START() } },
-     { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
+     { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_A() } },
      { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_A() } },
      { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
      { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_X() } },
@@ -416,7 +416,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    virtual_control_processor.handle_raw_keyboard_key_up_event(&raw_event);
 
-   int expected_mapped_button = AllegroFlare::VirtualControls::get_BUTTON_B();
+   int expected_mapped_button = AllegroFlare::VirtualControls::get_BUTTON_A();
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));

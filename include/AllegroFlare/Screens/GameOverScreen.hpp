@@ -4,7 +4,6 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
-#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
 #include <utility>
@@ -43,7 +42,7 @@ namespace AllegroFlare
          std::string infer_current_menu_option_label();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_menu_font();
-         virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
+         virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
       };
    }
 }

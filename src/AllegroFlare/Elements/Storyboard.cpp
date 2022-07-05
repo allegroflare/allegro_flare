@@ -7,6 +7,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -28,6 +30,7 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<std::string>
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , current_page_num(current_page_num)
+   , can_advance_to_next(false)
    , finished(false)
 {
 }
@@ -152,6 +155,12 @@ intptr_t Storyboard::get_current_page_num()
 }
 
 
+bool Storyboard::get_can_advance_to_next()
+{
+   return can_advance_to_next;
+}
+
+
 bool Storyboard::get_finished()
 {
    return finished;
@@ -190,6 +199,21 @@ void Storyboard::render()
          0,
          pages[current_page_num].c_str()
       );
+
+   //if (can_advance_to_next) render_next_button();
+   render_next_button();
+
+   return;
+}
+
+void Storyboard::render_next_button()
+{
+   ALLEGRO_FONT *next_button_font = obtain_next_button_font();
+   std::string text = "NEXT >>";
+   float width = al_get_text_width(next_button_font, text.c_str());
+   float height = al_get_font_line_height(next_button_font);
+   al_draw_text(next_button_font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920-400, 1080-300, 0, text.c_str());
+
    return;
 }
 
@@ -197,14 +221,19 @@ void Storyboard::reset()
 {
    current_page_num = 0;
    finished = false;
+   can_advance_to_next = true;
    return;
 }
 
 bool Storyboard::advance_page()
 {
    if (finished) return false;
+   //if (!can_advance_to_next) return false;
 
+   //can_advance_to_next = false;
    current_page_num++;
+   //can_advance_to_next = true;
+
    if (current_page_num >= pages.size())
    {
       finished = true;
@@ -232,6 +261,19 @@ ALLEGRO_FONT* Storyboard::obtain_font()
       }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
+}
+
+ALLEGRO_FONT* Storyboard::obtain_next_button_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "Storyboard" << "::" << "obtain_next_button_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   std::stringstream composite_font_str;
+   composite_font_str << font_name << " " << font_size+20;
    return font_bin->auto_get(composite_font_str.str());
 }
 } // namespace Elements

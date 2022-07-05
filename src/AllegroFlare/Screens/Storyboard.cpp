@@ -100,18 +100,18 @@ void Storyboard::primary_timer_func()
    return;
 }
 
-void Storyboard::key_down_func(ALLEGRO_EVENT* event)
+void Storyboard::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
    if (!(initialized))
       {
          std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "key_down_func" << ": error: " << "guard \"initialized\" not met";
+         error_message << "Storyboard" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (!(event_emitter))
       {
          std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "key_down_func" << ": error: " << "guard \"event_emitter\" not met";
+         error_message << "Storyboard" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"event_emitter\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (storyboard_element.get_finished()) return;
@@ -122,7 +122,9 @@ void Storyboard::key_down_func(ALLEGRO_EVENT* event)
    {
       if (!game_event_name_to_emit_after_completing.empty())
       {
-         event_emitter->emit_game_event(AllegroFlare::GameEvent("storyboard_finished"));
+         event_emitter->emit_game_event(
+            AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
+         );
       }
    }
 

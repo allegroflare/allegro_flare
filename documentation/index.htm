@@ -727,6 +727,10 @@ table td
   <td class="property">intptr_t</td>
 </tr>
 <tr>
+  <td class="property">can_advance_to_next</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">finished</td>
   <td class="property">bool</td>
 </tr>
@@ -734,6 +738,9 @@ table td
      <table>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">render_next_button()</td>
 </tr>
 <tr>
   <td class="method">reset()</td>
@@ -749,6 +756,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_next_button_font()</td>
 </tr>
     </table>
      <table>
@@ -1001,7 +1011,7 @@ table td
   <td class="private_method">obtain_menu_font()</td>
 </tr>
 <tr>
-  <td class="method">key_char_func(1)</td>
+  <td class="method">virtual_control_button_down_func(3)</td>
 </tr>
     </table>
      <table>
@@ -1022,6 +1032,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1063,7 +1076,7 @@ table td
   <td class="private_method">obtain_instruction_font()</td>
 </tr>
 <tr>
-  <td class="method">key_char_func(1)</td>
+  <td class="method">virtual_control_button_down_func(3)</td>
 </tr>
     </table>
      <table>
@@ -1087,6 +1100,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1127,7 +1143,7 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
-  <td class="method">key_down_func(1)</td>
+  <td class="method">virtual_control_button_down_func(3)</td>
 </tr>
     </table>
      <table>
@@ -1274,7 +1290,7 @@ table td
   <td class="private_method">obtain_title_bitmap()</td>
 </tr>
 <tr>
-  <td class="method">key_char_func(1)</td>
+  <td class="method">virtual_control_button_down_func(3)</td>
 </tr>
 <tr>
   <td class="private_method">menu_is_empty()</td>
@@ -1319,6 +1335,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1905,6 +1924,12 @@ table td
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "AllegroFlare/VirtualControls": [
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
@@ -1966,9 +1991,6 @@ table td
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_KEY_": [
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "AllegroFlare/VirtualControls": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/map<int, std/pair<int, int>>": [

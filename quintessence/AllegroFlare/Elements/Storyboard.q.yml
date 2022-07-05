@@ -83,6 +83,11 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: can_advance_to_next
+    type: bool
+    init_with: false
+    getter: true
+
   - name: finished
     type: bool
     init_with: false
@@ -114,10 +119,27 @@ functions:
             0,
             pages[current_page_num].c_str()
          );
+
+      //if (can_advance_to_next) render_next_button();
+      render_next_button();
+
       return;
     body_dependency_symbols:
       - al_draw_multiline_text
       - AllegroFlare::Color
+
+
+  - name: render_next_button
+    type: void
+    private: true
+    body: |
+      ALLEGRO_FONT *next_button_font = obtain_next_button_font();
+      std::string text = "NEXT >>";
+      float width = al_get_text_width(next_button_font, text.c_str());
+      float height = al_get_font_line_height(next_button_font);
+      al_draw_text(next_button_font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920-400, 1080-300, 0, text.c_str());
+
+      return;
 
 
   - name: reset
@@ -125,6 +147,7 @@ functions:
     body: |
       current_page_num = 0;
       finished = false;
+      can_advance_to_next = true;
       return;
 
 
@@ -132,8 +155,12 @@ functions:
     type: bool
     body: |
       if (finished) return false;
+      //if (!can_advance_to_next) return false;
 
+      //can_advance_to_next = false;
       current_page_num++;
+      //can_advance_to_next = true;
+
       if (current_page_num >= pages.size())
       {
          finished = true;
@@ -160,6 +187,16 @@ functions:
     body: |
       std::stringstream composite_font_str;
       composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
+
+
+  - name: obtain_next_button_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << font_size+20;
       return font_bin->auto_get(composite_font_str.str());
 
 

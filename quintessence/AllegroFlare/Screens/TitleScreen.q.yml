@@ -380,29 +380,25 @@ functions:
       return bitmap_bin->auto_get(title_bitmap_name);
 
 
-  - name: key_char_func
+  - name: virtual_control_button_down_func
     virtual: true
     override: true
     parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
+      - name: player_num
+        type: int
+        default_argument: 0
+      - name: button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: 'false'
     body: |
-      switch(event->keyboard.keycode)
-      {
-         case ALLEGRO_KEY_UP:
-           move_cursor_up();
-         break;
-
-         case ALLEGRO_KEY_DOWN:
-           move_cursor_down();
-         break;
-
-         case ALLEGRO_KEY_ENTER:
-           select_menu_option();
-         break;
-      }
-      return;
+      if (button_num == VirtualControls::get_BUTTON_UP()) move_cursor_up();
+      if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
+      if (button_num == VirtualControls::get_BUTTON_A()) select_menu_option();
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControls
 
 
   - name: menu_is_empty
@@ -452,5 +448,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::VirtualControls
+    headers: [ AllegroFlare/VirtualControls.hpp ]
 
 

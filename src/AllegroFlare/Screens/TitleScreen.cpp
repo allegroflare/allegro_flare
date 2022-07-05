@@ -17,6 +17,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/VirtualControls.hpp>
 
 
 namespace AllegroFlare
@@ -462,23 +463,11 @@ ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
    return bitmap_bin->auto_get(title_bitmap_name);
 }
 
-void TitleScreen::key_char_func(ALLEGRO_EVENT* event)
+void TitleScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
-   switch(event->keyboard.keycode)
-   {
-      case ALLEGRO_KEY_UP:
-        move_cursor_up();
-      break;
-
-      case ALLEGRO_KEY_DOWN:
-        move_cursor_down();
-      break;
-
-      case ALLEGRO_KEY_ENTER:
-        select_menu_option();
-      break;
-   }
-   return;
+   if (button_num == VirtualControls::get_BUTTON_UP()) move_cursor_up();
+   if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
+   if (button_num == VirtualControls::get_BUTTON_A()) select_menu_option();
 }
 
 bool TitleScreen::menu_is_empty()

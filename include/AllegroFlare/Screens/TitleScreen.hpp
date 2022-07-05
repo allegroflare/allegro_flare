@@ -75,7 +75,7 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_copyright_font();
          ALLEGRO_BITMAP* obtain_background_bitmap();
          ALLEGRO_BITMAP* obtain_title_bitmap();
-         virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
+         virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
          bool menu_is_empty();
          bool menu_has_items();
          static std::vector<std::pair<std::string, std::string>> build_default_menu_options();

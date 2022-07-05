@@ -526,6 +526,7 @@ void Full::run_loop()
          break;
       case ALLEGRO_EVENT_KEY_CHAR:
          screens.key_char_funcs(&this_event);
+         //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
          break;
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
          screens.mouse_up_funcs();

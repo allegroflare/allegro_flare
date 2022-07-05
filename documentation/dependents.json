@@ -190,6 +190,12 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "AllegroFlare/VirtualControls": [
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
@@ -251,9 +257,6 @@
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_KEY_": [
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "AllegroFlare/VirtualControls": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/map<int, std/pair<int, int>>": [

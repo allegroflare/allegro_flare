@@ -19,6 +19,7 @@ class AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture :
 #include <AllegroFlare/Screens/GameOverScreen.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/VirtualControls.hpp>
 
 
 TEST_F(AllegroFlare_Screens_GameOverScreenTest, can_be_created_without_blowing_up)
@@ -74,7 +75,7 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -107,7 +108,13 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
       switch(event.type)
       {
          case ALLEGRO_EVENT_KEY_CHAR:
-            game_over_screen.key_char_func(&event);
+         {
+            int button_num = 0;
+            if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::get_BUTTON_UP();
+            if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::get_BUTTON_DOWN();
+            if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualControls::get_BUTTON_A();
+            if (button_num != 0) game_over_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
+         }
          break;
 
          case ALLEGRO_EVENT_TIMER:

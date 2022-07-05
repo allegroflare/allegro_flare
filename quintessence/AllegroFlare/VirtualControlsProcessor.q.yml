@@ -59,7 +59,7 @@ functions:
              // { keyboard_key, { player_num, virtual_button } }
       std::map<int, std::pair<int, int>> result_button_map = {
         { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_START() } },
-        { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
+        { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_A() } },
         { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_A() } },
         { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
         { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_X() } },

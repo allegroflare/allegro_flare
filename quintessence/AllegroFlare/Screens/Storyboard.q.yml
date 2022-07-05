@@ -68,13 +68,19 @@ functions:
       return;
 
 
-  - name: key_down_func
+  - name: virtual_control_button_down_func
     virtual: true
     override: true
     parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
+      - name: player_num
+        type: int
+        default_argument: 0
+      - name: button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: 'false'
     guards: [ initialized, event_emitter ]
     body: |
       if (storyboard_element.get_finished()) return;
@@ -85,7 +91,9 @@ functions:
       {
          if (!game_event_name_to_emit_after_completing.empty())
          {
-            event_emitter->emit_game_event(AllegroFlare::GameEvent("storyboard_finished"));
+            event_emitter->emit_game_event(
+               AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
+            );
          }
       }
 

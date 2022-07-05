@@ -27,6 +27,7 @@ namespace AllegroFlare
          float line_height_multiplier;
          float line_height_padding;
          intptr_t current_page_num;
+         bool can_advance_to_next;
          bool finished;
 
       public:
@@ -52,13 +53,16 @@ namespace AllegroFlare
          float get_line_height_multiplier();
          float get_line_height_padding();
          intptr_t get_current_page_num();
+         bool get_can_advance_to_next();
          bool get_finished();
          void render();
+         void render_next_button();
          void reset();
          bool advance_page();
          bool infer_at_last_page();
          bool infer_at_or_past_last_page();
          ALLEGRO_FONT* obtain_font();
+         ALLEGRO_FONT* obtain_next_button_font();
       };
    }
 }

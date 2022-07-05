@@ -54,7 +54,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
    storyboard.render();
    al_flip_display();
 
-   //sleep_for(1);
+   sleep_for(1);
 
    SUCCEED();
 }

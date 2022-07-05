@@ -19,6 +19,7 @@ class AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture :
 #include <AllegroFlare/Screens/TitleScreen.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/VirtualControls.hpp>
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTest, can_be_created_without_blowing_up)
@@ -74,10 +75,11 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
+   al_install_joystick();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
    al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -107,7 +109,13 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
       switch(event.type)
       {
          case ALLEGRO_EVENT_KEY_CHAR:
-            title_screen.key_char_func(&event);
+         {
+            int button_num = 0;
+            if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::get_BUTTON_UP();
+            if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::get_BUTTON_DOWN();
+            if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualControls::get_BUTTON_A();
+            if (button_num != 0) title_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
+         }
          break;
 
          case ALLEGRO_EVENT_TIMER:

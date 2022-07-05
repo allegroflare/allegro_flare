@@ -7,8 +7,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
+#include <AllegroFlare/VirtualControls.hpp>
 
 
 namespace AllegroFlare
@@ -115,7 +114,7 @@ void GameWonScreen::draw_instruction_text()
       surface_width,
       font_line_height,
       ALLEGRO_ALIGN_CENTER,
-      "Press any key"
+      "Press any button"
    );
    return;
 }
@@ -142,16 +141,12 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
    return font_bin->auto_get("DroidSans.ttf -48");
 }
 
-void GameWonScreen::key_char_func(ALLEGRO_EVENT* event)
+void GameWonScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
-   if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "GameWonScreen" << "::" << "key_char_func" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
    event_emitter->emit_game_event(game_event_name_to_emit_on_submission);
-   return;
+   //if (button_num == VirtualControls::get_BUTTON_UP()) move_cursor_up();
+   //if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
+   //if (button_num == VirtualControls::get_BUTTON_A()) select_menu_option();
 }
 } // namespace Screens
 } // namespace AllegroFlare
