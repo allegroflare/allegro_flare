@@ -85,6 +85,13 @@ TEST(AllegroFlare_Frameworks_FullTest, initialize__will_create_a_display_with_th
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest,
+   run_loop__will_start_with_emitting_an_ALLEGRO_FLARE_EVENT_GAME_EVENT_with_the_name_parameter_value_of_initialize)
+{
+   // TODO
+}
+
+
 TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT_will_cause_the_audio_to_play)
 {
    AllegroFlare::Frameworks::Full framework;

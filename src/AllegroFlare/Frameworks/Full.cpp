@@ -456,6 +456,8 @@ bool Full::offset_primary_timer(int microseconds)
 void Full::run_loop()
 {
    al_wait_for_vsync();
+   event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
+
    al_start_timer(primary_timer);
 
    while(!shutdown_program || Display::displays.empty())
