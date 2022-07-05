@@ -73,7 +73,7 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -114,7 +114,7 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
             al_flip_display();
          break;
 
-         case ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN:
+         case ALLEGRO_FLARE_EVENT_GAME_EVENT:
             abort = true;
          break;
       }

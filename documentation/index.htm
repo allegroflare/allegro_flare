@@ -1009,9 +1009,6 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_START_NEW_GAME&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -1041,6 +1038,10 @@ table td
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
+<tr>
+  <td class="property">game_event_name_to_emit_on_submission</td>
+  <td class="property">std::string</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -1054,9 +1055,6 @@ table td
 </tr>
 <tr>
   <td class="method">draw_instruction_text()</td>
-</tr>
-<tr>
-  <td class="method">return_to_title_screen()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_title_font()</td>
@@ -1108,10 +1106,6 @@ table td
 <tr>
   <td class="property">storyboard_element</td>
   <td class="property">AllegroFlare::Elements::Storyboard</td>
-</tr>
-<tr>
-  <td class="property">screen_identifier_to_switch_to_after_completing</td>
-  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">game_event_name_to_emit_after_completing</td>
@@ -1906,10 +1900,6 @@ table td
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
   ],
-  "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -1920,6 +1910,9 @@ table td
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"

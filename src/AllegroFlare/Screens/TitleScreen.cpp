@@ -26,7 +26,7 @@ namespace Screens
 
 
 TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR copyright_text_color)
-   : AllegroFlare::Screens::Base()
+   : AllegroFlare::Screens::Base("TitleScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
@@ -196,23 +196,27 @@ void TitleScreen::move_cursor_down()
 
 void TitleScreen::activate_menu_option(std::string menu_option_name)
 {
-   if (menu_option_name == "start_new_game")
-   {
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
-   }
-   else if (menu_option_name == "exit_game")
-   {
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
-   }
-   else
-   {
-      std::stringstream ss;
-      ss << "[AllegroFlare::Screens::TitleScreen::activate_menu_option()] error: There is no consequential action "
-            "assigned for the menu option value \"" << menu_option_name <<  "\".  Note this is "
-            "the value for the menu item labeled \"" << menu_option_name << "\".";
-      throw std::runtime_error(ss.str());
-   }
-   return;
+   event_emitter->emit_game_event(menu_option_name);
+
+   //if (menu_option_name == "start_new_game")
+   //{
+      //event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
+      ////event_emitter->emit_game_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
+   //}
+   //else if (menu_option_name == "exit_game")
+   //{
+      //event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+      ////event_emitter->emit_game_event(menu_option_name);
+   //}
+   //else
+   //{
+      //std::stringstream ss;
+      //ss << "[AllegroFlare::Screens::TitleScreen::activate_menu_option()] error: There is no consequential action "
+            //"assigned for the menu option value \"" << menu_option_name <<  "\".  Note this is "
+            //"the value for the menu item labeled \"" << menu_option_name << "\".";
+      //throw std::runtime_error(ss.str());
+   //}
+   //return;
 }
 
 void TitleScreen::select_menu_option()

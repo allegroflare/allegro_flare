@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Screens::Base
     scope: public
-    init_with: ''
+    init_with: '"Storyboard"'
 
 
 properties:
@@ -26,12 +26,6 @@ properties:
     init_with: '{}'
     getter_ref: true
     setter: false
-
-  - name: screen_identifier_to_switch_to_after_completing
-    type: std::string
-    init_with: '""'
-    constructor_arg: true
-    setter: true
 
   - name: game_event_name_to_emit_after_completing
     type: std::string
@@ -89,10 +83,6 @@ functions:
 
       if (storyboard_element.get_finished())
       {
-         if (!screen_identifier_to_switch_to_after_completing.empty())
-         {
-            event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);
-         }
          if (!game_event_name_to_emit_after_completing.empty())
          {
             event_emitter->emit_game_event(AllegroFlare::GameEvent("storyboard_finished"));

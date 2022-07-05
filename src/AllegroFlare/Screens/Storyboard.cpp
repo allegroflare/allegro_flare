@@ -17,12 +17,11 @@ namespace Screens
 {
 
 
-Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string screen_identifier_to_switch_to_after_completing, std::string game_event_name_to_emit_after_completing)
-   : AllegroFlare::Screens::Base()
+Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string game_event_name_to_emit_after_completing)
+   : AllegroFlare::Screens::Base("Storyboard")
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , storyboard_element({})
-   , screen_identifier_to_switch_to_after_completing(screen_identifier_to_switch_to_after_completing)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
    , initialized(false)
 {
@@ -43,12 +42,6 @@ void Storyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
 void Storyboard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
-}
-
-
-void Storyboard::set_screen_identifier_to_switch_to_after_completing(std::string screen_identifier_to_switch_to_after_completing)
-{
-   this->screen_identifier_to_switch_to_after_completing = screen_identifier_to_switch_to_after_completing;
 }
 
 
@@ -127,10 +120,6 @@ void Storyboard::key_down_func(ALLEGRO_EVENT* event)
 
    if (storyboard_element.get_finished())
    {
-      if (!screen_identifier_to_switch_to_after_completing.empty())
-      {
-         event_emitter->emit_switch_screen_event(screen_identifier_to_switch_to_after_completing);
-      }
       if (!game_event_name_to_emit_after_completing.empty())
       {
          event_emitter->emit_game_event(AllegroFlare::GameEvent("storyboard_finished"));

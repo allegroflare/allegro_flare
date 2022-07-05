@@ -3,7 +3,6 @@
 #include <AllegroFlare/Screens/GameWonScreen.hpp>
 #include <stdexcept>
 #include <sstream>
-#include <AllegroFlare/EventNames.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -18,10 +17,11 @@ namespace Screens
 {
 
 
-GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin)
-   : AllegroFlare::Screens::Base()
+GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string game_event_name_to_emit_on_submission)
+   : AllegroFlare::Screens::Base("GameWonScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
+   , game_event_name_to_emit_on_submission(game_event_name_to_emit_on_submission)
 {
 }
 
@@ -40,6 +40,18 @@ void GameWonScreen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 void GameWonScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
+}
+
+
+void GameWonScreen::set_game_event_name_to_emit_on_submission(std::string game_event_name_to_emit_on_submission)
+{
+   this->game_event_name_to_emit_on_submission = game_event_name_to_emit_on_submission;
+}
+
+
+std::string GameWonScreen::get_game_event_name_to_emit_on_submission()
+{
+   return game_event_name_to_emit_on_submission;
 }
 
 
@@ -108,18 +120,6 @@ void GameWonScreen::draw_instruction_text()
    return;
 }
 
-void GameWonScreen::return_to_title_screen()
-{
-   if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "GameWonScreen" << "::" << "return_to_title_screen" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN);
-   return;
-}
-
 ALLEGRO_FONT* GameWonScreen::obtain_title_font()
 {
    if (!(font_bin))
@@ -144,8 +144,13 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
 
 void GameWonScreen::key_char_func(ALLEGRO_EVENT* event)
 {
-   // on any keypress:
-   return_to_title_screen();
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "GameWonScreen" << "::" << "key_char_func" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   event_emitter->emit_game_event(game_event_name_to_emit_on_submission);
    return;
 }
 } // namespace Screens

@@ -1,7 +1,6 @@
 
 
 #include <AllegroFlare/Screens/GameOverScreen.hpp>
-#include <AllegroFlare/EventNames.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -19,7 +18,7 @@ namespace Screens
 
 
 GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin)
-   : AllegroFlare::Screens::Base()
+   : AllegroFlare::Screens::Base("GameOverScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , menu_options({})
@@ -83,26 +82,7 @@ void GameOverScreen::select_menu_option()
          throw std::runtime_error(error_message.str());
       }
    std::string current_menu_option_value = infer_current_menu_option_value();
-
-   // TODO: clarify this mapping so that it can be injected into the menu
-   if (current_menu_option_value == "try_again")
-   {
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_CONTINUE_GAME);
-   }
-   else if (current_menu_option_value == "start_title_screen")
-   {
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN);
-   }
-   else
-   {
-      std::string current_menu_option_label = infer_current_menu_option_label();
-      std::stringstream ss;
-      ss << "[AllegroFlare::Screens::TitleScreen::select_menu_option()] error: There is no consequential action "
-            "assigned for the menu option value \"" << current_menu_option_value <<  "\".  Note this is "
-            "the value for the menu item labeled \"" << current_menu_option_label << "\".";
-      throw std::runtime_error(ss.str());
-   }
-
+   event_emitter->emit_game_event(current_menu_option_value);
    return;
 }
 

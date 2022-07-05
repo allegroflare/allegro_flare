@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Screens::Base
     scope: public
-    init_with: ''
+    init_with: '"GameOverScreen"'
 
 
 properties:
@@ -67,29 +67,8 @@ functions:
     guards: [ event_emitter ]
     body: |
       std::string current_menu_option_value = infer_current_menu_option_value();
-
-      // TODO: clarify this mapping so that it can be injected into the menu
-      if (current_menu_option_value == "try_again")
-      {
-         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_CONTINUE_GAME);
-      }
-      else if (current_menu_option_value == "start_title_screen")
-      {
-         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN);
-      }
-      else
-      {
-         std::string current_menu_option_label = infer_current_menu_option_label();
-         std::stringstream ss;
-         ss << "[AllegroFlare::Screens::TitleScreen::select_menu_option()] error: There is no consequential action "
-               "assigned for the menu option value \"" << current_menu_option_value <<  "\".  Note this is "
-               "the value for the menu item labeled \"" << current_menu_option_label << "\".";
-         throw std::runtime_error(ss.str());
-      }
-
+      event_emitter->emit_game_event(current_menu_option_value);
       return;
-    body_dependency_symbols:
-      - ALLEGRO_FLARE_EVENT_START_NEW_GAME
 
 
   - name: primary_timer_func
@@ -242,8 +221,6 @@ dependencies:
 
   - symbol: ALLEGRO_EVENT*
     headers: [ allegro5/allegro.h ]
-  - symbol: ALLEGRO_FLARE_EVENT_START_NEW_GAME
-    headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::EventEmitter*
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: std::vector<std::pair<std::string, std::string>>

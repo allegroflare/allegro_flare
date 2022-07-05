@@ -116,11 +116,7 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
             al_flip_display();
          break;
 
-         case ALLEGRO_FLARE_EVENT_CONTINUE_GAME:
-            abort = true;
-         break;
-
-         case ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN:
+         case ALLEGRO_FLARE_EVENT_GAME_EVENT:
             abort = true;
          break;
       }

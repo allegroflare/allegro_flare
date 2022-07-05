@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Screens::Base
     scope: public
-    init_with: ''
+    init_with: '"GameWonScreen"'
 
 
 properties:
@@ -19,6 +19,13 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: true
+
+  - name: game_event_name_to_emit_on_submission
+    type: std::string
+    init_with: '"game_won_finished"'
+    constructor_arg: true
+    getter: true
     setter: true
 
 
@@ -81,15 +88,6 @@ functions:
       return;
 
 
-  - name: return_to_title_screen
-    guards: [ event_emitter ]
-    body: |
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN);
-      return;
-    body_dependency_symbols:
-      - ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN
-
-
   - name: obtain_title_font
     private: true
     type: ALLEGRO_FONT*
@@ -113,13 +111,14 @@ functions:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
+    guards: [ event_emitter ]
     body: |
-      // on any keypress:
-      return_to_title_screen();
+      event_emitter->emit_game_event(game_event_name_to_emit_on_submission);
       return;
 
 
 dependencies:
+
 
   - symbol: ALLEGRO_EVENT*
     headers: [ allegro5/allegro.h ]
