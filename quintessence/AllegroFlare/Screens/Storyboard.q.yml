@@ -85,19 +85,26 @@ functions:
     body: |
       if (storyboard_element.get_finished()) return;
 
-      storyboard_element.advance_page();
-
-      if (storyboard_element.get_finished())
+      if (button_num == AllegroFlare::VirtualControls::get_BUTTON_A()
+        || button_num == AllegroFlare::VirtualControls::get_BUTTON_START()
+        || button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
       {
-         if (!game_event_name_to_emit_after_completing.empty())
+         storyboard_element.advance_page();
+
+         if (storyboard_element.get_finished())
          {
-            event_emitter->emit_game_event(
-               AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
-            );
+            if (!game_event_name_to_emit_after_completing.empty())
+            {
+               event_emitter->emit_game_event(
+                  AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
+               );
+            }
          }
       }
 
       return;
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControls
 
 
 dependencies:
@@ -121,5 +128,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: al_draw_multiline_text
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::VirtualControls
+    headers: [ AllegroFlare/VirtualControls.hpp ]
 
 

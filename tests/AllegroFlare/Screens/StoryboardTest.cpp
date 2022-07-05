@@ -11,6 +11,7 @@
 #include <AllegroFlare/EventNames.hpp>
 
 #include <AllegroFlare/GameEvent.hpp>
+#include <AllegroFlare/VirtualControls.hpp>
 
 
 class AllegroFlare_Screens_StoryboardTest : public ::testing::Test
@@ -75,7 +76,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    EXPECT_EQ(0, storyboard.get_storyboard_element_ref().get_current_page_num()); // TODO: this line should be a separate test
    for (int i=0; i<(pages.size()-1); i++)
    {
-      storyboard.virtual_control_button_down_func();
+      storyboard.virtual_control_button_down_func(0, AllegroFlare::VirtualControls::get_BUTTON_A(), 0);
       int expected_page_num = i+1;
       EXPECT_EQ(expected_page_num, storyboard.get_storyboard_element_ref().get_current_page_num());
    }
@@ -113,11 +114,13 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    storyboard.initialize();
 
    // first page should not trigger an event
-   storyboard.virtual_control_button_down_func();
+   storyboard.virtual_control_button_down_func(0, AllegroFlare::VirtualControls::get_BUTTON_A(), 0);
+   //storyboard.virtual_control_button_down_func();
    ASSERT_EQ(false, al_get_next_event(event_queue, &event));
 
    // now at the last page, this should trigger an event
-   storyboard.virtual_control_button_down_func();
+   storyboard.virtual_control_button_down_func(0, AllegroFlare::VirtualControls::get_BUTTON_A(), 0);
+   //storyboard.virtual_control_button_down_func();
    ASSERT_EQ(true, al_get_next_event(event_queue, &event));
 
    // the generated event should have the expected values

@@ -228,7 +228,12 @@ void GameOverScreen::virtual_control_button_down_func(int player_num, int button
 {
    if (button_num == VirtualControls::get_BUTTON_UP()) move_cursor_up();
    if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
-   if (button_num == VirtualControls::get_BUTTON_A()) select_menu_option();
+   if (button_num == VirtualControls::get_BUTTON_A()
+      || button_num == VirtualControls::get_BUTTON_START()
+      )
+   {
+      select_menu_option();
+   }
 }
 } // namespace Screens
 } // namespace AllegroFlare

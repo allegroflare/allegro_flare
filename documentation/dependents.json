@@ -193,6 +193,7 @@
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor"
   ],

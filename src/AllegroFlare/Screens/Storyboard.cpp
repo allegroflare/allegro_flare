@@ -7,6 +7,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/VirtualControls.hpp>
 #include <stdexcept>
 #include <sstream>
 
@@ -116,15 +117,20 @@ void Storyboard::virtual_control_button_down_func(int player_num, int button_num
       }
    if (storyboard_element.get_finished()) return;
 
-   storyboard_element.advance_page();
-
-   if (storyboard_element.get_finished())
+   if (button_num == AllegroFlare::VirtualControls::get_BUTTON_A()
+     || button_num == AllegroFlare::VirtualControls::get_BUTTON_START()
+     || button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
    {
-      if (!game_event_name_to_emit_after_completing.empty())
+      storyboard_element.advance_page();
+
+      if (storyboard_element.get_finished())
       {
-         event_emitter->emit_game_event(
-            AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
-         );
+         if (!game_event_name_to_emit_after_completing.empty())
+         {
+            event_emitter->emit_game_event(
+               AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
+            );
+         }
       }
    }
 
