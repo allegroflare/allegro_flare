@@ -131,7 +131,7 @@ void GameOverScreen::draw_primary_text()
       surface_width / 2,
       surface_height / 2 - font_line_height*2,
       ALLEGRO_ALIGN_CENTER,
-      "G     A     M     E         O     V     E     R"
+      "Game Over"
    );
    return;
 }
@@ -210,7 +210,7 @@ ALLEGRO_FONT* GameOverScreen::obtain_title_font()
          error_message << "GameOverScreen" << "::" << "obtain_title_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("DroidSans.ttf -56");
+   return font_bin->auto_get("Inter-Bold.ttf -60");
 }
 
 ALLEGRO_FONT* GameOverScreen::obtain_menu_font()
@@ -221,7 +221,7 @@ ALLEGRO_FONT* GameOverScreen::obtain_menu_font()
          error_message << "GameOverScreen" << "::" << "obtain_menu_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("DroidSans.ttf -48");
+   return font_bin->auto_get("Inter-Medium.ttf -38");
 }
 
 void GameOverScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)

@@ -100,7 +100,7 @@ functions:
          surface_width / 2,
          surface_height / 2 - font_line_height*2,
          ALLEGRO_ALIGN_CENTER,
-         "G     A     M     E         O     V     E     R"
+         "Game Over"
       );
       return;
 
@@ -180,7 +180,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("DroidSans.ttf -56");
+      return font_bin->auto_get("Inter-Bold.ttf -60");
 
 
   - name: obtain_menu_font
@@ -188,7 +188,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("DroidSans.ttf -48");
+      return font_bin->auto_get("Inter-Medium.ttf -38");
 
 
   - name: virtual_control_button_down_func
