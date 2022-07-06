@@ -112,7 +112,8 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "X": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/TimeStamper"
   ],
   "std/map<int, std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/Inventory"

@@ -69,6 +69,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
@@ -1439,6 +1440,23 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">generate_now_timestamp()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;X&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;, &quot;ctime&quot;, &quot;iomanip&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</h3>
      <table>
 <tr>
@@ -1849,7 +1867,8 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "X": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/TimeStamper"
   ],
   "std/map<int, std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/Inventory"

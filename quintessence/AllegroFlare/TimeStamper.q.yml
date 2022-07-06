@@ -1,0 +1,22 @@
+functions:
+
+
+  - name: generate_now_timestamp_utc
+    type: std::string
+    body: |
+      std::time_t time_now = std::time(nullptr);
+      std::stringstream result;
+      //result << std::put_time(std::localtime(&time_now), "%y%m%d%OH%OM%OS%Z");
+      result << std::put_time(std::gmtime(&time_now), "%y%m%d%OH%OM%OS%Z");
+      return result.str();
+    body_dependency_symbols:
+      - X
+
+
+dependencies:
+
+
+  - symbol: X
+    headers: [ sstream, ctime, iomanip ]
+
+
