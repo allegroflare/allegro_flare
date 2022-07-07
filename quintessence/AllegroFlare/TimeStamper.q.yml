@@ -10,13 +10,13 @@ functions:
       result << std::put_time(std::gmtime(&time_now), "%y%m%d%OH%OM%OS%Z");
       return result.str();
     body_dependency_symbols:
-      - X
+      - std::time_t
 
 
 dependencies:
 
 
-  - symbol: X
+  - symbol: std::time_t
     headers: [ sstream, ctime, iomanip ]
 
 

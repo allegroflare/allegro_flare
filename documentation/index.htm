@@ -1445,12 +1445,12 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">generate_now_timestamp()</td>
+  <td class="method">generate_now_timestamp_utc()</td>
 </tr>
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;X&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;, &quot;ctime&quot;, &quot;iomanip&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::time_t&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;, &quot;ctime&quot;, &quot;iomanip&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1867,8 +1867,7 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "X": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/TimeStamper"
+    "AllegroFlare/Elements/Inventory"
   ],
   "std/map<int, std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/Inventory"
@@ -1991,6 +1990,9 @@ table td
   ],
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "std/time_t": [
+    "AllegroFlare/TimeStamper"
   ],
   "cross_product": [
     "AllegroFlare/Useful3D/Triangle"

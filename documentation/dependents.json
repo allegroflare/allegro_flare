@@ -112,8 +112,7 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "X": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/TimeStamper"
+    "AllegroFlare/Elements/Inventory"
   ],
   "std/map<int, std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/Inventory"
@@ -236,6 +235,9 @@
   ],
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "std/time_t": [
+    "AllegroFlare/TimeStamper"
   ],
   "cross_product": [
     "AllegroFlare/Useful3D/Triangle"
