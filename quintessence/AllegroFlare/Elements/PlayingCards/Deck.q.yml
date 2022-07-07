@@ -1,0 +1,72 @@
+
+properties:
+
+
+  - name: cards
+    type: std::vector<AllegroFlare::Elements::PlayingCards::Card>
+    init_with: '{}'
+    getter: true
+    getter_ref: true
+
+
+functions:
+
+
+  - name: put_card_on_top
+    type: void
+    parameters:
+      - name: card
+        type: AllegroFlare::Elements::PlayingCards::Card
+        default_argument: '{}'
+    body: |
+      cards.push_back(card);
+      return;
+
+
+  - name: shuffle
+    body: |
+      std::random_device rd;
+      std::mt19937 g(rd());
+
+      std::shuffle(cards.begin(), cards.end(), g);
+    body_dependency_symbols:
+      - std::shuffle
+
+
+  - name: draw_card
+    type: AllegroFlare::Elements::PlayingCards::Card
+    guards: [ (!cards.empty()) ]
+    body: |
+      AllegroFlare::Elements::PlayingCards::Card card = cards.back();
+      cards.pop_back();
+      return card;
+
+
+  - name: empty
+    type: bool
+    body: return cards.empty();
+
+
+  - name: clear
+    type: bool
+    body: |
+      cards.clear();
+      return true;
+
+
+  - name: num_cards
+    type: int
+    body: return cards.size();
+
+
+dependencies:
+
+
+  - symbol: std::vector<AllegroFlare::Elements::PlayingCards::Card>
+    headers: [ vector, AllegroFlare/Elements/PlayingCards/Card.hpp ]
+  - symbol: AllegroFlare::Elements::PlayingCards::Card
+    headers: [ vector, AllegroFlare/Elements/PlayingCards/Card.hpp ]
+  - symbol: std::shuffle
+    headers: [ random, algorithm ]
+
+
