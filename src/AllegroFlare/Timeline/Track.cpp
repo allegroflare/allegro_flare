@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Timeline/Track.hpp>
 #include <sstream>
+#include <algorithm>
 
 
 

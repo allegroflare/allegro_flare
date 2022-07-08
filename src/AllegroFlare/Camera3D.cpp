@@ -2,6 +2,8 @@
 
 #include <AllegroFlare/Camera3D.hpp>
 
+#include <algorithm>
+
 
 
 namespace AllegroFlare

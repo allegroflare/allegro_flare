@@ -58,6 +58,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Stopwatch.q.yml">quintessence/AllegroFlare/Elements/Stopwatch.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Storyboard.q.yml">quintessence/AllegroFlare/Elements/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</a></li>
@@ -622,6 +625,84 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">value</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">suit</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">cards</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::PlayingCards::Card&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">put_card_on_top(1)</td>
+</tr>
+<tr>
+  <td class="method">shuffle()</td>
+</tr>
+<tr>
+  <td class="method">draw_card()</td>
+</tr>
+<tr>
+  <td class="method">empty()</td>
+</tr>
+<tr>
+  <td class="method">clear()</td>
+</tr>
+<tr>
+  <td class="method">num_cards()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::PlayingCards::Card&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/PlayingCards/Card.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::PlayingCards::Card&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/PlayingCards/Card.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::shuffle&quot;, &quot;headers&quot;=&gt;[&quot;random&quot;, &quot;algorithm&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">generate_standard_52_card_deck()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::PlayingCards::Deck&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/PlayingCards/Deck.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1888,6 +1969,18 @@ table td
   ],
   "fmod": [
     "AllegroFlare/Elements/Inventory"
+  ],
+  "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
+    "AllegroFlare/Elements/PlayingCards/Deck"
+  ],
+  "AllegroFlare/Elements/PlayingCards/Card": [
+    "AllegroFlare/Elements/PlayingCards/Deck"
+  ],
+  "std/shuffle": [
+    "AllegroFlare/Elements/PlayingCards/Deck"
+  ],
+  "AllegroFlare/Elements/PlayingCards/Deck": [
+    "AllegroFlare/Elements/PlayingCards/DeckFactory"
   ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"

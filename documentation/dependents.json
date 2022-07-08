@@ -134,6 +134,18 @@
   "fmod": [
     "AllegroFlare/Elements/Inventory"
   ],
+  "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
+    "AllegroFlare/Elements/PlayingCards/Deck"
+  ],
+  "AllegroFlare/Elements/PlayingCards/Card": [
+    "AllegroFlare/Elements/PlayingCards/Deck"
+  ],
+  "std/shuffle": [
+    "AllegroFlare/Elements/PlayingCards/Deck"
+  ],
+  "AllegroFlare/Elements/PlayingCards/Deck": [
+    "AllegroFlare/Elements/PlayingCards/DeckFactory"
+  ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"
   ],

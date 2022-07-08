@@ -4,6 +4,7 @@
 
 #include <random>
 #include <ctime>
+#include <algorithm>
 
 #include <allegro5/allegro.h>
 
