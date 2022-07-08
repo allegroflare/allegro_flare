@@ -6,19 +6,56 @@ parent_classes:
     init_with: '"Parallax"'
 
 
+properties:
+
+
+  - name: layers
+    type: std::vector<AllegroFlare::Backgrounds::ParallaxLayer>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: offset_x
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: offset_y
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
 functions:
 
 
-  - name: update
+  - name: render
     virtual: true
+    guards: [ al_is_system_installed() ]
     body: |
+      for (auto &layer : layers)
+      {
+         if (layer.get_bitmap())
+         {
+            draw_offset_textured_rectangle(
+                  0,
+                  0,
+                  1920,
+                  1080,
+                  get_offset_x() * layer.get_offset_rate() + layer.get_anchor_x(),
+                  get_offset_y() * layer.get_offset_rate() + layer.get_anchor_y(),
+                  layer.get_bitmap()
+               );
+         }
+      }
       return;
-
-
-  - name: draw
-    virtual: true
-    body: |
-      return;
+    body_dependency_symbols:
+      - AllegroFlare::draw_offset_textured_rectangle
 
 
 dependencies:
@@ -32,5 +69,9 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::draw_offset_textured_rectangle
+    headers: [ AllegroFlare/Useful.hpp ]
+  - symbol: std::vector<AllegroFlare::Backgrounds::ParallaxLayer>
+    headers: [ vector, AllegroFlare/Backgrounds/ParallaxLayer.hpp ]
 
 

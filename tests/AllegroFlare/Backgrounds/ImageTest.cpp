@@ -37,7 +37,7 @@ TEST(AllegroFlare_Backgrounds_ImageTest, has_the_expected_type)
 }
 
 
-TEST_F(AllegroFlare_Backgrounds_ImageWithAllegroRenderingFixtureTest, draw__will_render_the_image)
+TEST_F(AllegroFlare_Backgrounds_ImageWithAllegroRenderingFixtureTest, render__will_render_the_image)
 {
    get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
@@ -52,9 +52,9 @@ TEST_F(AllegroFlare_Backgrounds_ImageWithAllegroRenderingFixtureTest, draw__will
       //update
       image_background.managed_update();
 
-      // draw
+      // render
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
-      image_background.draw();
+      image_background.render();
       al_flip_display();
       sleep_for_frame();
    }

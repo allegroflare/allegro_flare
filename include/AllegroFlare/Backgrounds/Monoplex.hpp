@@ -22,7 +22,7 @@ namespace AllegroFlare
          virtual ~Monoplex();
 
          virtual void update() override;
-         virtual void draw() override;
+         virtual void render() override;
       };
    }
 }

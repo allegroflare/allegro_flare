@@ -27,7 +27,7 @@ properties:
 functions:
 
 
-  - name: draw
+  - name: render
     override: true
     guards: [ bitmap_bin ]
     body: |

@@ -1,4 +1,5 @@
 
+
 #include <gtest/gtest.h>
 
 #define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
@@ -41,4 +42,37 @@ TEST_F(AllegroFlare_Backgrounds_ParallaxTestWithAllegroRenderingFixture, render_
    parallax.render();
    SUCCEED();
 }
+
+
+TEST_F(AllegroFlare_Backgrounds_ParallaxTestWithAllegroRenderingFixture,
+   render__will_draw_the_background_layers_in_the_expected_positions)
+{
+   AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
+   AllegroFlare::Backgrounds::Parallax parallax(
+      {
+         {0, 0, 0.1, bitmap_bin["backgrounds/Sky3.png"]},
+         {0, 0, 0.4, bitmap_bin["backgrounds/Cloud3a.png"]},
+         {0, 0, 0.8, bitmap_bin["backgrounds/Cloud3b.png"]},
+      }
+   );
+
+   for (int i=0; i<60; i++)
+   {
+      // update
+      parallax.set_offset_x(i * 8);
+
+      // draw
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      parallax.render();
+      al_flip_display();
+
+      // flip
+      sleep_for_frame();
+   }
+
+   //sleep_for(1);
+
+   SUCCEED();
+}
+
 

@@ -22,7 +22,7 @@ namespace AllegroFlare
          Image(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string image_filename="[image-filename-not-set]");
          ~Image();
 
-         void draw() override;
+         void render() override;
          ALLEGRO_BITMAP* obtain_background_bitmap();
          float infer_opacity();
       };

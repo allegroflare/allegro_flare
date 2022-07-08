@@ -40,7 +40,7 @@ functions:
       return;
 
 
-  - name: draw
+  - name: render
     virtual: true
     override: true
     guards: [ bitmap_bin ]

@@ -26,12 +26,12 @@ Image::~Image()
 }
 
 
-void Image::draw()
+void Image::render()
 {
    if (!(bitmap_bin))
       {
          std::stringstream error_message;
-         error_message << "Image" << "::" << "draw" << ": error: " << "guard \"bitmap_bin\" not met";
+         error_message << "Image" << "::" << "render" << ": error: " << "guard \"bitmap_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
    float o = infer_opacity();

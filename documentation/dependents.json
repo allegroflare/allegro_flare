@@ -39,6 +39,7 @@
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Backgrounds/Image",
     "AllegroFlare/Backgrounds/Parallax",
+    "AllegroFlare/Backgrounds/ParallaxLayer",
     "AllegroFlare/Camera2D",
     "AllegroFlare/Screens/TitleScreen"
   ],
@@ -59,6 +60,12 @@
   ],
   "sin": [
     "AllegroFlare/Backgrounds/Monoplex"
+  ],
+  "AllegroFlare/draw_offset_textured_rectangle": [
+    "AllegroFlare/Backgrounds/Parallax"
+  ],
+  "std/vector<AllegroFlare/Backgrounds/ParallaxLayer>": [
+    "AllegroFlare/Backgrounds/Parallax"
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D"

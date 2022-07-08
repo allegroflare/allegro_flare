@@ -26,7 +26,7 @@ namespace AllegroFlare
          void deactivate();
          void managed_update();
          virtual void update();
-         virtual void draw();
+         virtual void render();
          void show();
          void hide();
       };

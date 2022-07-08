@@ -64,7 +64,7 @@ void Base::update()
    return;
 }
 
-void Base::draw()
+void Base::render()
 {
    return;
 }

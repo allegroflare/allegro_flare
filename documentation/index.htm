@@ -56,6 +56,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Backgrounds/Image.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Backgrounds/Monoplex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Backgrounds/Parallax.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Backgrounds/ParallaxLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3D.q.yml">quintessence/AllegroFlare/Bone3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Camera2D.q.yml">quintessence/AllegroFlare/Camera2D.q.yml</a></li>
@@ -310,7 +311,7 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">draw()</td>
+  <td class="method">render()</td>
 </tr>
 <tr>
   <td class="method">show()</td>
@@ -342,7 +343,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">draw()</td>
+  <td class="method">render()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_background_bitmap()</td>
@@ -393,7 +394,7 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">draw()</td>
+  <td class="method">render()</td>
 </tr>
     </table>
      <table>
@@ -416,13 +417,22 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Backgrounds/Parallax.q.yml</h3>
      <table>
+<tr>
+  <td class="property">layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Backgrounds::ParallaxLayer&gt;</td>
+</tr>
+<tr>
+  <td class="property">offset_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_y</td>
+  <td class="property">float</td>
+</tr>
     </table>
      <table>
 <tr>
-  <td class="method">update()</td>
-</tr>
-<tr>
-  <td class="method">draw()</td>
+  <td class="method">render()</td>
 </tr>
     </table>
      <table>
@@ -437,6 +447,42 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::draw_offset_textured_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Backgrounds::ParallaxLayer&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Backgrounds/ParallaxLayer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">anchor_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">anchor_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_rate</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2076,6 +2122,7 @@ table td
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Backgrounds/Image",
     "AllegroFlare/Backgrounds/Parallax",
+    "AllegroFlare/Backgrounds/ParallaxLayer",
     "AllegroFlare/Camera2D",
     "AllegroFlare/Screens/TitleScreen"
   ],
@@ -2096,6 +2143,12 @@ table td
   ],
   "sin": [
     "AllegroFlare/Backgrounds/Monoplex"
+  ],
+  "AllegroFlare/draw_offset_textured_rectangle": [
+    "AllegroFlare/Backgrounds/Parallax"
+  ],
+  "std/vector<AllegroFlare/Backgrounds/ParallaxLayer>": [
+    "AllegroFlare/Backgrounds/Parallax"
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D"

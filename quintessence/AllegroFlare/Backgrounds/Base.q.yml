@@ -53,7 +53,7 @@ functions:
       return;
 
 
-  - name: draw
+  - name: render
     virtual: true
     body: |
       return;
