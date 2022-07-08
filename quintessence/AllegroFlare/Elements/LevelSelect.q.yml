@@ -1,0 +1,437 @@
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    setter: true
+    constructor_arg: true
+
+  - name: levels_list
+    type: std::vector<std::pair<std::string, std::string>>
+    init_with: '{}'
+    constructor_arg: true
+    setter: true
+
+  - name: place
+    type: AllegroFlare::Placement2D
+    init_with: '{ 1920/2, 1080/2, 1300, 700 }'
+    getter: true
+
+  - name: cursor_x
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: cursor_y
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: selection_box_width
+    type: int
+    init_with: 120
+    getter: true
+
+  - name: selection_box_height
+    type: int
+    init_with: 120
+    getter: true
+
+  - name: selection_box_spacing_x
+    type: int
+    init_with: 30
+    getter: true
+
+  - name: selection_box_spacing_y
+    type: int
+    init_with: 30
+    getter: true
+
+  - name: num_columns
+    type: int
+    init_with: 5
+    getter: true
+    setter: true
+
+  - name: num_rows
+    type: int
+    init_with: 3
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: opaquify
+    type: ALLEGRO_COLOR
+    parameters:
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: '{0,0,0,0}'
+    body: |
+      return color;
+
+
+  - name: change_a
+    type: ALLEGRO_COLOR
+    parameters:
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: '{0,0,0,0}'
+      - name: alpha
+        type: float
+        default_argument: 1.0f
+    body: |
+      color.a *= alpha;
+      color.r *= color.a;
+      color.g *= color.a;
+      color.b *= color.a;
+      return color;
+
+
+  - name: render
+    guards: [ font_bin ]
+    body: |
+      place.start_transform();
+
+      draw_backfill_and_frame();
+      draw_level_select_title_text();
+      draw_level_select_boxes_and_cursor();
+
+      place.restore_transform();
+
+      return;
+    body_dependency_symbols:
+     - X
+
+
+  - name: draw_backfill_and_frame
+    private: true
+    body: |
+      ALLEGRO_COLOR backfill_color = change_a(al_color_html("909090"), 0.3);
+      ALLEGRO_COLOR border_color = change_a(al_color_html("ffffff"), 0.8);
+      float roundness = 8.0f;
+      float border_thickness = 8.0f;
+      float border_padding = border_thickness * 1.75f;
+
+      al_draw_filled_rounded_rectangle(0, 0, place.size.x, place.size.y, roundness, roundness, backfill_color);
+      al_draw_rounded_rectangle(
+         0 - border_padding,
+         0 - border_padding,
+         place.size.x + border_padding,
+         place.size.y + border_padding,
+         roundness,
+         roundness,
+         border_color,
+         border_thickness
+      );
+
+      return;
+
+
+  - name: draw_level_select_title_text
+    private: true
+    body: |
+      ALLEGRO_FONT *font = obtain_title_font();
+      ALLEGRO_COLOR color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+      al_draw_text(font, color, place.size.x/2, 50, ALLEGRO_ALIGN_CENTER, "L E V E L   S E L E C T");
+      return;
+
+
+  - name: draw_level_select_boxes_and_cursor
+    private: true
+    body: |
+      AllegroFlare::Placement2D level_select_boxes_place;
+      level_select_boxes_place.position.x = place.size.x * 0.5;
+      level_select_boxes_place.position.y = place.size.y * 0.5 + 50;
+
+      // fit the placement to the level select boxes
+      int num_column_gutters = std::max(0, (num_columns - 1));
+      int num_row_gutters = std::max(0, (num_rows - 1));
+      level_select_boxes_place.size.x = num_columns * selection_box_width
+                                      + num_column_gutters * selection_box_spacing_x;
+      level_select_boxes_place.size.y = num_rows * selection_box_height
+                                      + num_row_gutters * selection_box_spacing_y;
+
+      // start the transform
+      level_select_boxes_place.start_transform();
+
+      // draw the boxes
+      for (int column=0; column<num_columns; column++)
+      {
+         for (int row=0; row<num_rows; row++)
+         {
+            int list_item_num = row * num_columns + column;
+            std::string label = "";
+            if (list_item_num >= levels_list.size()) {}
+            else label = levels_list[list_item_num].first;
+
+            draw_level_list_item_box(
+               column * (selection_box_width + selection_box_spacing_x),
+               row * (selection_box_height + selection_box_spacing_y),
+               selection_box_width,
+               selection_box_height,
+               label
+            );
+         }
+      }
+
+      // draw the selection cursor
+      ALLEGRO_COLOR color_a = al_color_name("cyan");
+      ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
+      float speed_multiplier = 0.9;
+      float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
+      ALLEGRO_COLOR color = AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
+      float r = 6;
+      float thickness = 8.0;
+      float padding = 12.0f;
+
+      float cursor_box_x = cursor_x * (selection_box_width + selection_box_spacing_x);
+      float cursor_box_y = cursor_y * (selection_box_height + selection_box_spacing_y);
+
+      al_draw_rounded_rectangle(
+         cursor_box_x - padding,
+         cursor_box_y - padding,
+         cursor_box_x + selection_box_width + padding, //x + cursor_x*spacing + selection_box_width + padding,
+         cursor_box_y + selection_box_height + padding, //y + cursor_y*spacing + selection_box_height + padding,
+         r,
+         r,
+         color,
+         thickness
+      );
+
+      // restore the transform
+      level_select_boxes_place.restore_transform();
+
+      return;
+
+
+  - name: move_cursor_up
+    guards: [ has_valid_size() ]
+    body: |
+      cursor_y--;
+      while(cursor_y < 0) cursor_y += num_rows;
+      return;
+
+
+  - name: move_cursor_down
+    guards: [ has_valid_size() ]
+    body: |
+      cursor_y++;
+      cursor_y = cursor_y % num_rows;
+      return;
+
+
+  - name: move_cursor_left
+    guards: [ has_valid_size() ]
+    body: |
+      cursor_x--;
+      while(cursor_x < 0) cursor_x += num_columns;
+      return;
+
+
+  - name: move_cursor_right
+    guards: [ has_valid_size() ]
+    body: |
+      cursor_x++;
+      cursor_x = cursor_x % num_columns;
+      return;
+
+
+  - name: has_valid_size
+    type: bool
+    private: true
+    body: |
+      return !(num_columns == 0 || num_rows == 0);
+
+
+  - name: list_is_empty
+    type: bool
+    private: true
+    body: |
+      return levels_list.empty();
+
+
+  - name: draw_selection_cursor
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      // position
+      x = 80;
+      y = 80;
+      float spacing = selection_box_width + 20;
+
+       // color
+      ALLEGRO_COLOR color_a = al_color_name("cyan");
+      ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
+      float speed_multiplier = 0.9;
+      float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
+      ALLEGRO_COLOR color = AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
+      float r = 6;
+      float thickness = 8.0;
+      float padding = 12.0f;
+
+      al_draw_rounded_rectangle(
+         x + cursor_x*spacing - padding,
+         y + cursor_y*spacing - padding,
+         x + cursor_x*spacing + selection_box_width + padding,
+         y + cursor_y*spacing + selection_box_height + padding,
+         r,
+         r,
+         color,
+         thickness
+      );
+      return;
+    body_dependency_symbols:
+      - fmod
+      - AllegroFlare::Color
+      - AllegroFlare::interpolator
+
+
+  - name: draw_level_list_item_box
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: w
+        type: float
+        default_argument: 1.0f
+      - name: h
+        type: float
+        default_argument: 1.0f
+      - name: label
+        type: std::string
+        default_argument: '"[unlabeled]"'
+    body: |
+      ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
+      ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+      float roundness = 6.0f;
+      ALLEGRO_FONT *font = obtain_description_font();
+      float line_height = al_get_font_line_height(font);
+
+      al_draw_filled_rounded_rectangle(x+0, y+0, x+w, y+h, roundness, roundness, backfill_color);
+      al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, label.c_str());
+
+      return;
+
+
+  - name: activate_selected_menu_option
+    private: true
+    guards: [ event_emitter ]
+    body: |
+      if (list_is_empty())
+      {
+         std::cout <<
+            "[AllegroFlare::Screens::LevelSelect::activate_selected_menu_option()] error: can not select a level, "
+            "the list of levels is empty."
+            << std::endl;
+         return;
+      }
+
+      std::string current_menu_option_value = infer_current_menu_option_value();
+
+      if (current_menu_option_value.empty())
+      {
+         std::cout <<
+            "[AllegroFlare::Screens::LevelSelect::activate_selected_menu_option()] error: can not select the currently "
+            "highlighted option, it is empty." << std::endl;
+         return;
+      }
+      else
+      {
+         std::string *string_to_pass = new std::string(current_menu_option_value);
+         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_SELECT_LEVEL, (intptr_t)string_to_pass);
+      }
+
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_SELECT_LEVEL
+
+
+  - name: infer_current_menu_option_value
+    private: true
+    type: std::string
+    body: |
+      if (levels_list.empty()) return "";
+      int cursor_position = cursor_y * num_columns + cursor_x;
+
+      if (cursor_position < 0 || cursor_position >= levels_list.size())
+      {
+         throw std::runtime_error("[AllegroFlare/Screens/LevelSelect]: error: the cursor_position is not in "
+                                  "a valid position to get the current menu choice's value.");
+      }
+      std::string current_menu_option_value = std::get<1>(levels_list[cursor_position]);
+      return current_menu_option_value;
+
+
+  - name: obtain_title_font
+    type: ALLEGRO_FONT*
+    body: |
+      return font_bin->auto_get("Inter-Bold.ttf -70");
+
+
+  - name: obtain_description_font
+    type: ALLEGRO_FONT*
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf -59");
+
+
+  - name: obtain_item_name_font
+    type: ALLEGRO_FONT*
+    body: |
+      return font_bin->auto_get("Inter-Bold.ttf -46");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: X
+    headers:
+      - allegro5/allegro_primitives.h
+      - allegro5/allegro_color.h
+  - symbol: std::map<int, std::tuple<std::string, std::string, std::string>>
+    headers: [ map, utility, string ]
+  - symbol: std::vector<std::tuple<std::string, std::string, std::string>>
+    headers: [ vector, utility, string ]
+  - symbol: std::tuple<std::string, std::string, std::string>
+    headers: [ utility, string ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::interpolator
+    headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: fmod
+    headers: [ cmath ]
+  - symbol: std::vector<std::pair<std::string, std::string>>
+    headers: [ vector, utility, string ]
+  - symbol: ALLEGRO_FLARE_EVENT_SELECT_LEVEL
+    headers: [ AllegroFlare/EventNames.hpp ]
+
+

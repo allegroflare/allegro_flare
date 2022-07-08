@@ -55,6 +55,7 @@
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -80,6 +81,7 @@
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Text",
@@ -92,6 +94,7 @@
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Text",
@@ -131,6 +134,7 @@
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Text",
@@ -142,27 +146,52 @@
     "AllegroFlare/Elements/Inventory"
   ],
   "X": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
   ],
   "std/map<int, std/tuple<std/string, std/string, std/string>>": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
   ],
   "std/tuple<std/string, std/string, std/string>": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
   ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/interpolator": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
   ],
   "fmod": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/vector<std/pair<std/string, std/string>>": [
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
+    "AllegroFlare/Elements/LevelSelect"
   ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
     "AllegroFlare/Elements/PlayingCards/Deck"
@@ -188,14 +217,6 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/EventEmitter": [
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/Storyboard",
@@ -226,11 +247,6 @@
   ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
-  ],
-  "std/vector<std/pair<std/string, std/string>>": [
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",
