@@ -55,6 +55,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Backgrounds/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Backgrounds/Image.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Backgrounds/Monoplex.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Backgrounds/Parallax.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3D.q.yml">quintessence/AllegroFlare/Bone3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Camera2D.q.yml">quintessence/AllegroFlare/Camera2D.q.yml</a></li>
@@ -407,6 +408,35 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Backgrounds/Parallax.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">draw()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2032,6 +2062,7 @@ table td
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/Backgrounds/Image",
     "AllegroFlare/Backgrounds/Monoplex",
+    "AllegroFlare/Backgrounds/Parallax",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -2044,16 +2075,19 @@ table td
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Backgrounds/Image",
+    "AllegroFlare/Backgrounds/Parallax",
     "AllegroFlare/Camera2D",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Backgrounds/Base": [
     "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Monoplex"
+    "AllegroFlare/Backgrounds/Monoplex",
+    "AllegroFlare/Backgrounds/Parallax"
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Backgrounds/Image",
     "AllegroFlare/Backgrounds/Monoplex",
+    "AllegroFlare/Backgrounds/Parallax",
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Inventory",

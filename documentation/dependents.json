@@ -25,6 +25,7 @@
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/Backgrounds/Image",
     "AllegroFlare/Backgrounds/Monoplex",
+    "AllegroFlare/Backgrounds/Parallax",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -37,16 +38,19 @@
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Backgrounds/Image",
+    "AllegroFlare/Backgrounds/Parallax",
     "AllegroFlare/Camera2D",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Backgrounds/Base": [
     "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Monoplex"
+    "AllegroFlare/Backgrounds/Monoplex",
+    "AllegroFlare/Backgrounds/Parallax"
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Backgrounds/Image",
     "AllegroFlare/Backgrounds/Monoplex",
+    "AllegroFlare/Backgrounds/Parallax",
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Inventory",
