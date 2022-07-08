@@ -1,0 +1,44 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: create_monoplex
+    type: AllegroFlare::Backgrounds::Monoplex*
+    guards: [ bitmap_bin ]
+    body: |
+      AllegroFlare::Backgrounds::Monoplex* monoplex_background = new AllegroFlare::Backgrounds::Monoplex(bitmap_bin);
+      return monoplex_background;
+
+
+  - name: create_image
+    type: AllegroFlare::Backgrounds::Image*
+    guards: [ bitmap_bin ]
+    parameters:
+      - name: image_identifier
+        type: std::string
+        default_argument: '"[unset-default-image-identifer-for-background-factory]"'
+    body: |
+      AllegroFlare::Backgrounds::Image* image_background =
+         new AllegroFlare::Backgrounds::Image(bitmap_bin, image_identifier);
+      return image_background;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Backgrounds::Monoplex*
+    headers: [ AllegroFlare/Backgrounds/Monoplex.hpp ]
+  - symbol: AllegroFlare::Backgrounds::Image*
+    headers: [ AllegroFlare/Backgrounds/Image.hpp ]
+
+

@@ -1,0 +1,75 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Backgrounds::Base
+    scope: public
+    init_with: '"Image"'
+
+
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: image_filename
+    type: std::string
+    init_with: '"[image-filename-not-set]"'
+    constructor_arg: true
+
+  - name: image_file_location_prefix
+    type: std::string
+    init_with: '"backgrounds/"'
+
+
+functions:
+
+
+  - name: draw
+    override: true
+    guards: [ bitmap_bin ]
+    body: |
+      float o = infer_opacity();
+      ALLEGRO_COLOR revealing_white = ALLEGRO_COLOR{o, o, o, o};
+      AllegroFlare::Placement2D background_image_placement{1920/2, 1080/2, 1920/2, 1080/2};
+      float scale = 2.0f;
+      background_image_placement.scale.x = background_image_placement.scale.y = scale;
+
+      ALLEGRO_BITMAP *bitmap = obtain_background_bitmap();
+      background_image_placement.start_transform();
+      al_draw_tinted_bitmap(bitmap, revealing_white, 0, 0, 0);
+      background_image_placement.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
+
+
+  - name: obtain_background_bitmap
+    type: ALLEGRO_BITMAP*
+    private: true
+    body: |
+      std::string full_identifier = image_file_location_prefix + image_filename;
+      return bitmap_bin->auto_get(full_identifier);
+
+
+  - name: infer_opacity
+    type: float
+    body: |
+      return get_reveal_counter();
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Backgrounds::Base
+    headers: [ AllegroFlare/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+

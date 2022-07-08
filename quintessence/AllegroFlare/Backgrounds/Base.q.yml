@@ -1,0 +1,71 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: '"Base"'
+    constructor_arg: true
+    getter: true
+
+  - name: reveal_counter
+    type: float
+    init_with: 0
+    getter: true
+
+  - name: reveal_speed
+    type: float
+    init_with: 1.0f/60.0f
+
+  - name: active
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: activate
+    body: |
+      reveal_counter = 1.0;
+      active = true;
+      return;
+
+
+  - name: deactivate
+    body: |
+      reveal_counter = 0.0;
+      active = false;
+      return;
+
+
+  - name: managed_update
+    body: |
+      reveal_counter += reveal_speed;
+      if (reveal_counter >= 1.0) reveal_counter = 1.0f;
+      if (reveal_counter < 0.0) reveal_counter = 0.0f;
+      update();
+      return;
+
+
+  - name: update
+    virtual: true
+    body: |
+      return;
+
+
+  - name: draw
+    virtual: true
+    body: |
+      return;
+
+
+  - name: show
+    body: |
+      return;
+
+
+  - name: hide
+    body: |
+      return;
+
+

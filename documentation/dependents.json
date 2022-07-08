@@ -21,6 +21,41 @@
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController"
   ],
+  "AllegroFlare/BitmapBin": [
+    "AllegroFlare/BackgroundFactory",
+    "AllegroFlare/Backgrounds/Image",
+    "AllegroFlare/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/Backgrounds/Monoplex": [
+    "AllegroFlare/BackgroundFactory"
+  ],
+  "AllegroFlare/Backgrounds/Image": [
+    "AllegroFlare/BackgroundFactory"
+  ],
+  "ALLEGRO_BITMAP": [
+    "AllegroFlare/Backgrounds/Image",
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Backgrounds/Base": [
+    "AllegroFlare/Backgrounds/Image",
+    "AllegroFlare/Backgrounds/Monoplex"
+  ],
+  "AllegroFlare/Placement2D": [
+    "AllegroFlare/Backgrounds/Image",
+    "AllegroFlare/Backgrounds/Monoplex",
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Base",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "sin": [
+    "AllegroFlare/Backgrounds/Monoplex"
+  ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D"
   ],
@@ -68,17 +103,6 @@
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
-  "AllegroFlare/Placement2D": [
-    "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/Base",
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "ALLEGRO_BITMAP": [
-    "AllegroFlare/Camera2D",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "tan": [
     "AllegroFlare/Camera2D"
   ],
@@ -105,11 +129,6 @@
   ],
   "AllegroFlare/Inventory": [
     "AllegroFlare/Elements/Inventory"
-  ],
-  "AllegroFlare/BitmapBin": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "X": [
     "AllegroFlare/Elements/Inventory"
