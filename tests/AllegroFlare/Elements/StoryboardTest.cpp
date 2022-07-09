@@ -51,6 +51,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
    std::vector<std::string> pages = { "Hello Storyboard!" };
    AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
 
+   storyboard.reveal_all_characters();
    storyboard.render();
    al_flip_display();
 

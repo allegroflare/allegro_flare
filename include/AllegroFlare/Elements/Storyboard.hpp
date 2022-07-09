@@ -27,6 +27,7 @@ namespace AllegroFlare
          float line_height_multiplier;
          float line_height_padding;
          intptr_t current_page_num;
+         int revealed_characters_count;
          bool can_advance_to_next;
          bool finished;
 
@@ -53,9 +54,14 @@ namespace AllegroFlare
          float get_line_height_multiplier();
          float get_line_height_padding();
          intptr_t get_current_page_num();
+         int get_revealed_characters_count();
          bool get_can_advance_to_next();
          bool get_finished();
+         void update();
          void render();
+         std::string current_page_text();
+         std::string revealed_page_text();
+         void reveal_all_characters();
          void render_next_button();
          void reset();
          bool advance_page();

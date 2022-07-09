@@ -30,6 +30,7 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<std::string>
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , current_page_num(current_page_num)
+   , revealed_characters_count(9999)
    , can_advance_to_next(false)
    , finished(false)
 {
@@ -155,6 +156,12 @@ intptr_t Storyboard::get_current_page_num()
 }
 
 
+int Storyboard::get_revealed_characters_count()
+{
+   return revealed_characters_count;
+}
+
+
 bool Storyboard::get_can_advance_to_next()
 {
    return can_advance_to_next;
@@ -166,6 +173,16 @@ bool Storyboard::get_finished()
    return finished;
 }
 
+
+void Storyboard::update()
+{
+   revealed_characters_count++;
+   if (revealed_characters_count >= current_page_text().size())
+   {
+      can_advance_to_next = true;
+   }
+   return;
+}
 
 void Storyboard::render()
 {
@@ -183,27 +200,44 @@ void Storyboard::render()
       }
    ALLEGRO_FONT *text_font = obtain_font();
 
-   al_clear_to_color(AllegroFlare::Color::Black);
+   //al_clear_to_color(AllegroFlare::Color::Black);
 
-   if (current_page_num >= pages.size()) return;
-
-   float box_width = 1920 - (left_padding + right_padding);
-
-   al_draw_multiline_text(
-         text_font,
-         text_color, //AllegroFlare::Color(0xd0f2c5).to_al(),
-         left_padding, //x_padding,
-         top_padding, //y_padding,
-         box_width,
-         al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
-         0,
-         pages[current_page_num].c_str()
-      );
+   std::string text = revealed_page_text();
+   if (!text.empty())
+   {
+      float box_width = 1920 - (left_padding + right_padding);
+      al_draw_multiline_text(
+            text_font,
+            text_color, //AllegroFlare::Color(0xd0f2c5).to_al(),
+            left_padding, //x_padding,
+            top_padding, //y_padding,
+            box_width,
+            al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
+            0,
+            text.c_str() //pages[current_page_num].c_str()
+         );
+   }
 
    //if (can_advance_to_next) render_next_button();
    render_next_button();
 
    return;
+}
+
+std::string Storyboard::current_page_text()
+{
+   if (current_page_num >= pages.size()) return "";
+   return pages[current_page_num].c_str();
+}
+
+std::string Storyboard::revealed_page_text()
+{
+   return current_page_text().substr(0, revealed_characters_count);
+}
+
+void Storyboard::reveal_all_characters()
+{
+   revealed_characters_count = current_page_text().size();
 }
 
 void Storyboard::render_next_button()
@@ -220,6 +254,7 @@ void Storyboard::render_next_button()
 void Storyboard::reset()
 {
    current_page_num = 0;
+   revealed_characters_count = 0;
    finished = false;
    can_advance_to_next = true;
    return;
