@@ -30,7 +30,7 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<std::string>
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , current_page_num(current_page_num)
-   , revealed_characters_count(9999)
+   , revealed_characters_count(0)
    , can_advance_to_next(false)
    , finished(false)
 {

@@ -55,7 +55,28 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
    storyboard.render();
    al_flip_display();
 
-   sleep_for(1);
+   //sleep_for(1);
+
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   update__will_reveal_the_characters_in_the_page_one_by_one)
+{
+   std::vector<std::string> pages = { "Hello Storyboard!" };
+   AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
+
+   for (int i=0; i<18; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      storyboard.update();
+
+      storyboard.render();
+      al_flip_display();
+
+      sleep_for_frame();
+   }
 
    SUCCEED();
 }

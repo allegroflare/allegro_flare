@@ -85,7 +85,7 @@ properties:
 
   - name: revealed_characters_count
     type: int
-    init_with: 9999
+    init_with: 0
     getter: true
 
   - name: can_advance_to_next
