@@ -120,7 +120,7 @@ void Storyboard::advance()
       }
    if (storyboard_element.get_finished()) return;
 
-   storyboard_element.advance_page();
+   storyboard_element.advance();
 
    if (storyboard_element.get_finished())
    {
