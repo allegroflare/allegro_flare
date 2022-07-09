@@ -48,7 +48,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
 
-   for (int i=0; i<20; i++)
+   for (int i=0; i<18; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       storyboard.primary_timer_func();

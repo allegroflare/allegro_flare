@@ -97,7 +97,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
    AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
 
    storyboard.permit_advancing_page();
-   for (int i=0; i<120; i++)
+   for (int i=0; i<12; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       storyboard.render();
@@ -153,6 +153,32 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 
    storyboard.permit_advancing_page();
    EXPECT_EQ(true, storyboard.advance_page());
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   permit_advancing_page__will_set__can_advance_start_at__to_the_current_time)
+{
+   std::vector<std::string> pages = { "This are characters that need to be revealed one-by-one.", "Second page." };
+   AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
+
+   EXPECT_EQ(0, storyboard.get_can_advance_started_at());
+   storyboard.permit_advancing_page();
+   EXPECT_NE(0, storyboard.get_can_advance_started_at());
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   permit_advancing_page__when_already_permitted__will_not_modify__can_advance_start_at)
+{
+   std::vector<std::string> pages = { "This are characters that need to be revealed one-by-one.", "Second page." };
+   AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
+
+   storyboard.permit_advancing_page();
+   float latest_can_advance_started_at = storyboard.get_can_advance_started_at();
+   sleep_for(0.1); // to enable possible failing condition
+   storyboard.permit_advancing_page();
+   EXPECT_EQ(latest_can_advance_started_at, storyboard.get_can_advance_started_at());
 }
 
 

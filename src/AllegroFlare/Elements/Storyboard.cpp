@@ -190,8 +190,7 @@ void Storyboard::update()
    revealed_characters_count++;
    if (revealed_characters_count >= current_page_text().size())
    {
-      permit_advancing_page();
-      //can_advance_to_next = true;
+      if (!can_advance_to_next) permit_advancing_page();
    }
    return;
 }
@@ -307,6 +306,8 @@ void Storyboard::reset()
 bool Storyboard::permit_advancing_page()
 {
    if (finished) return false;
+   if (can_advance_to_next) return true;
+
    can_advance_to_next = true;
    can_advance_started_at = al_get_time();
    return true;
