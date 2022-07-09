@@ -41,6 +41,27 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture, primary_t
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
+   primary_timer_func__will_advance_the_number_of_characters_revealed_on_the_page)
+{
+   std::vector<std::string> pages = { "Hello Storyboard!" };
+   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), nullptr);
+   storyboard.get_storyboard_element_ref().set_pages(pages);
+   storyboard.initialize();
+
+   for (int i=0; i<20; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      storyboard.primary_timer_func();
+      al_flip_display();
+      sleep_for_frame();
+   }
+   //sleep_for(1);
+
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    primary_timer_func__will_draw_the_current_page_text_to_the_screen)
 {
    std::vector<std::string> pages = { "Hello Storyboard!" };
@@ -48,38 +69,11 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
 
+   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
    storyboard.primary_timer_func();
    al_flip_display();
 
-   sleep_for(1);
-
-   SUCCEED();
-}
-
-
-TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   virtual_control_button_down_func__will_advance_to_the_next_page)
-{
-   AllegroFlare::EventEmitter event_emitter;
-   std::vector<std::string> pages = {
-      "This is page 1.",
-      "The second page looks like this.",
-      "A final page is this one, indeed.",
-   };
-   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), &event_emitter); //, pages);
-   storyboard.get_storyboard_element_ref().set_pages(pages);
-   storyboard.initialize();
-
-   storyboard.primary_timer_func();
-   al_flip_display();
-
-   EXPECT_EQ(0, storyboard.get_storyboard_element_ref().get_current_page_num()); // TODO: this line should be a separate test
-   for (int i=0; i<(pages.size()-1); i++)
-   {
-      storyboard.virtual_control_button_down_func(0, AllegroFlare::VirtualControls::get_BUTTON_A(), 0);
-      int expected_page_num = i+1;
-      EXPECT_EQ(expected_page_num, storyboard.get_storyboard_element_ref().get_current_page_num());
-   }
+   //sleep_for(1);
 
    SUCCEED();
 }
@@ -97,7 +91,34 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   virtual_control_button_down_func__when_at_the_final_page__will_emit_a_game_event_with_the_expected_property_value)
+   DISABLED__virtual_control_button_down_func__with_the_expected_virtual_buttons__will_advance_the_storybard)
+   // TODO
+{
+   AllegroFlare::EventEmitter event_emitter;
+   std::vector<std::string> pages = {
+      "This is page 1.",
+      "The second page looks like this.",
+      "A final page is this one, indeed.",
+   };
+   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), &event_emitter); //, pages);
+   storyboard.get_storyboard_element_ref().set_pages(pages);
+   storyboard.initialize();
+
+   int tries_to_bail = 50;
+   int expected_advances_needed = 6;
+   while (!storyboard.get_storyboard_element_ref().get_finished())
+   {
+      storyboard.virtual_control_button_down_func(0, AllegroFlare::VirtualControls::get_BUTTON_A(), 0);
+      tries_to_bail--;
+      if (tries_to_bail < 0) FAIL();
+   }
+
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
+   DISABLED__advance__when_at_the_final_page_that_is_finished__will_emit_a_game_event_with_the_expected_property_value)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    AllegroFlare::EventEmitter event_emitter;

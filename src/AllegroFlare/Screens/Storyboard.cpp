@@ -7,6 +7,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -97,7 +99,39 @@ void Storyboard::primary_timer_func()
          error_message << "Storyboard" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   storyboard_element.update();
    storyboard_element.render();
+   return;
+}
+
+void Storyboard::advance()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (storyboard_element.get_finished()) return;
+
+   storyboard_element.advance_page();
+
+   if (storyboard_element.get_finished())
+   {
+      if (!game_event_name_to_emit_after_completing.empty())
+      {
+         event_emitter->emit_game_event(
+            AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
+         );
+      }
+   }
+
    return;
 }
 
@@ -121,17 +155,7 @@ void Storyboard::virtual_control_button_down_func(int player_num, int button_num
      || button_num == AllegroFlare::VirtualControls::get_BUTTON_START()
      || button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
    {
-      storyboard_element.advance_page();
-
-      if (storyboard_element.get_finished())
-      {
-         if (!game_event_name_to_emit_after_completing.empty())
-         {
-            event_emitter->emit_game_event(
-               AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
-            );
-         }
-      }
+      advance();
    }
 
    return;

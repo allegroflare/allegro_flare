@@ -58,14 +58,16 @@ namespace AllegroFlare
          bool get_can_advance_to_next();
          bool get_finished();
          void update();
-         void permit_advancing_page();
          void render();
          std::string current_page_text();
          std::string revealed_page_text();
          void reveal_all_characters();
          void render_next_button();
          void reset();
+         bool permit_advancing_page();
+         bool advance();
          bool advance_page();
+         bool all_characters_are_revealed();
          bool infer_at_last_page();
          bool infer_at_or_past_last_page();
          ALLEGRO_FONT* obtain_font();

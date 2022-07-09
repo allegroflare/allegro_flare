@@ -64,7 +64,28 @@ functions:
     override: true
     guards: [ initialized ] 
     body: |
+      storyboard_element.update();
       storyboard_element.render();
+      return;
+
+
+  - name: advance
+    guards: [ initialized, event_emitter ]
+    body: |
+      if (storyboard_element.get_finished()) return;
+
+      storyboard_element.advance_page();
+
+      if (storyboard_element.get_finished())
+      {
+         if (!game_event_name_to_emit_after_completing.empty())
+         {
+            event_emitter->emit_game_event(
+               AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
+            );
+         }
+      }
+
       return;
 
 
@@ -89,17 +110,7 @@ functions:
         || button_num == AllegroFlare::VirtualControls::get_BUTTON_START()
         || button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
       {
-         storyboard_element.advance_page();
-
-         if (storyboard_element.get_finished())
-         {
-            if (!game_event_name_to_emit_after_completing.empty())
-            {
-               event_emitter->emit_game_event(
-                  AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
-               );
-            }
-         }
+         advance();
       }
 
       return;

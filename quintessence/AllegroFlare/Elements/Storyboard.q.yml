@@ -112,12 +112,6 @@ functions:
       return;
 
 
-  - name: permit_advancing_page
-    body: |
-      can_advance_to_next = true;
-      return;
-
-
   - name: render
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
@@ -187,10 +181,37 @@ functions:
       current_page_num = 0;
       revealed_characters_count = 0;
       finished = false;
-      can_advance_to_next = true;
+      can_advance_to_next = false;
       return;
 
 
+  - name: permit_advancing_page
+    type: bool
+    body: |
+      if (finished) return false;
+      can_advance_to_next = true;
+      return true;
+
+
+  - name: advance
+    type: bool
+    body: |
+      if (finished) return false;
+
+      if (!can_advance_to_next)
+      {
+         can_advance_to_next = true;
+         reveal_all_characters();
+         return true;
+      }
+      else
+      {
+         return advance_page();
+      }
+
+      return false;
+
+      
   - name: advance_page
     type: bool
     body: |
@@ -198,12 +219,20 @@ functions:
       if (!can_advance_to_next) return false;
 
       current_page_num++;
+      revealed_characters_count = 0;
+      can_advance_to_next = false;
 
       if (current_page_num >= pages.size())
       {
          finished = true;
       }
       return !finished;
+
+
+  - name: all_characters_are_revealed
+    type: bool
+    body: |
+      return revealed_characters_count >= current_page_text().size();
 
 
   - name: infer_at_last_page

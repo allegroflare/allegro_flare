@@ -184,12 +184,6 @@ void Storyboard::update()
    return;
 }
 
-void Storyboard::permit_advancing_page()
-{
-   can_advance_to_next = true;
-   return;
-}
-
 void Storyboard::render()
 {
    if (!(al_is_system_installed()))
@@ -261,8 +255,33 @@ void Storyboard::reset()
    current_page_num = 0;
    revealed_characters_count = 0;
    finished = false;
-   can_advance_to_next = true;
+   can_advance_to_next = false;
    return;
+}
+
+bool Storyboard::permit_advancing_page()
+{
+   if (finished) return false;
+   can_advance_to_next = true;
+   return true;
+}
+
+bool Storyboard::advance()
+{
+   if (finished) return false;
+
+   if (!can_advance_to_next)
+   {
+      can_advance_to_next = true;
+      reveal_all_characters();
+      return true;
+   }
+   else
+   {
+      return advance_page();
+   }
+
+   return false;
 }
 
 bool Storyboard::advance_page()
@@ -271,12 +290,19 @@ bool Storyboard::advance_page()
    if (!can_advance_to_next) return false;
 
    current_page_num++;
+   revealed_characters_count = 0;
+   can_advance_to_next = false;
 
    if (current_page_num >= pages.size())
    {
       finished = true;
    }
    return !finished;
+}
+
+bool Storyboard::all_characters_are_revealed()
+{
+   return revealed_characters_count >= current_page_text().size();
 }
 
 bool Storyboard::infer_at_last_page()
