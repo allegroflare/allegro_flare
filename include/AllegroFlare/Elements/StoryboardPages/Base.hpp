@@ -13,12 +13,20 @@ namespace AllegroFlare
          class Base
          {
          private:
+            std::string type;
+            bool finished;
 
          public:
-            Base();
-            ~Base();
+            Base(std::string type="Base");
+            virtual ~Base();
 
-            std::string run();
+            void set_finished(bool finished);
+            std::string get_type();
+            bool get_finished();
+            virtual void start();
+            virtual void update();
+            virtual void render();
+            virtual void advance();
          };
       }
    }

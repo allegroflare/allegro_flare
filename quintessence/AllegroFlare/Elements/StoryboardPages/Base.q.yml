@@ -1,4 +1,44 @@
-functions:
-  - name: run
+properties:
+
+
+  - name: type
     type: std::string
-    body: return "Hello World!";
+    init_with: '"Base"'
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: finished
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+    
+
+functions:
+
+
+  - name: start
+    virtual: true
+    body: |
+      return;
+
+
+  - name: update
+    virtual: true
+    body: |
+      return;
+
+
+  - name: render
+    virtual: true
+    body: |
+      return;
+
+
+  - name: advance
+    virtual: true
+    body: |
+      return;
+
+

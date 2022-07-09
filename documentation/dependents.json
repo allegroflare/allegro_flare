@@ -85,6 +85,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -98,6 +99,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -240,6 +242,9 @@
   ],
   "std/min, std/max": [
     "AllegroFlare/Elements/Storyboard"
+  ],
+  "AllegroFlare/Elements/StoryboardPages/Base": [
+    "AllegroFlare/Elements/StoryboardPages/Text"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"

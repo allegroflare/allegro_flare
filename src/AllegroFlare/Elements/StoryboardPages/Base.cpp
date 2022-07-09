@@ -12,7 +12,9 @@ namespace StoryboardPages
 {
 
 
-Base::Base()
+Base::Base(std::string type)
+   : type(type)
+   , finished(true)
 {
 }
 
@@ -22,9 +24,42 @@ Base::~Base()
 }
 
 
-std::string Base::run()
+void Base::set_finished(bool finished)
 {
-   return "Hello World!";
+   this->finished = finished;
+}
+
+
+std::string Base::get_type()
+{
+   return type;
+}
+
+
+bool Base::get_finished()
+{
+   return finished;
+}
+
+
+void Base::start()
+{
+   return;
+}
+
+void Base::update()
+{
+   return;
+}
+
+void Base::render()
+{
+   return;
+}
+
+void Base::advance()
+{
+   return;
 }
 } // namespace StoryboardPages
 } // namespace Elements

@@ -10,10 +10,17 @@ TEST(AllegroFlare_Elements_StoryboardPages_BaseTest, can_be_created_without_blow
 }
 
 
-TEST(AllegroFlare_Elements_StoryboardPages_BaseTest, run__returns_the_expected_response)
+TEST(AllegroFlare_Elements_StoryboardPages_BaseTest, has_the_expected_type)
 {
    AllegroFlare::Elements::StoryboardPages::Base base;
-   std::string expected_string = "Hello World!";
-   EXPECT_EQ(expected_string, base.run());
+   EXPECT_EQ("Base", base.get_type());
 }
+
+
+TEST(AllegroFlare_Elements_StoryboardPages_BaseTest, finished__is_initialized_to_true)
+{
+   AllegroFlare::Elements::StoryboardPages::Base base;
+   EXPECT_EQ(true, base.get_finished());
+}
+
 

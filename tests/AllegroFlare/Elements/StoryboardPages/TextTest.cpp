@@ -10,10 +10,10 @@ TEST(AllegroFlare_Elements_StoryboardPages_TextTest, can_be_created_without_blow
 }
 
 
-TEST(AllegroFlare_Elements_StoryboardPages_TextTest, run__returns_the_expected_response)
+TEST(AllegroFlare_Elements_StoryboardPages_TextTest, has_the_expected_type)
 {
    AllegroFlare::Elements::StoryboardPages::Text text;
-   std::string expected_string = "Hello World!";
-   EXPECT_EQ(expected_string, text.run());
+   EXPECT_EQ("Text", text.get_type());
 }
+
 
