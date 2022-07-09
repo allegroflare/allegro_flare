@@ -118,7 +118,6 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
    update__when_a_page_becomes_finished__will_allow_advancing_to_the_next_page)
-   // TODO
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    StoryboardPageTestClassC *test_page_1 = new StoryboardPageTestClassC;
@@ -128,7 +127,7 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
    ASSERT_EQ(false, storyboard_player.get_can_advance_to_next());
    storyboard_player.update();
-   //ASSERT_EQ(true, storyboard_player.get_can_advance_to_next());
+   ASSERT_EQ(true, storyboard_player.get_can_advance_to_next());
 
    delete test_page_1;
    delete test_page_2;
@@ -206,8 +205,8 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
    advance__while_on_the_last_page_and_the_page_is_finished__will_become_finished)
-   // TODO
 {
+   // TODO
 }
 
 
@@ -260,6 +259,23 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
    AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
 
+   storyboard_player.permit_advancing_page();
+   storyboard_player.reset();
+   ASSERT_EQ(false, storyboard_player.get_can_advance_to_next());
+
+   delete test_page;
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   VISUAL__will_work_as_expected)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
+
+   
    storyboard_player.permit_advancing_page();
    storyboard_player.reset();
    ASSERT_EQ(false, storyboard_player.get_can_advance_to_next());
