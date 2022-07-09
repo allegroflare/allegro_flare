@@ -29,6 +29,7 @@ namespace AllegroFlare
          intptr_t current_page_num;
          int revealed_characters_count;
          bool can_advance_to_next;
+         float can_advance_started_at;
          bool finished;
 
       public:
@@ -56,6 +57,7 @@ namespace AllegroFlare
          intptr_t get_current_page_num();
          int get_revealed_characters_count();
          bool get_can_advance_to_next();
+         float get_can_advance_started_at();
          bool get_finished();
          void update();
          void render();
@@ -65,6 +67,7 @@ namespace AllegroFlare
          void render_next_button();
          void reset();
          bool permit_advancing_page();
+         bool deny_advancing_page();
          bool advance();
          bool advance_page();
          bool all_characters_are_revealed();

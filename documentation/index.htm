@@ -1223,6 +1223,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">can_advance_started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">finished</td>
   <td class="property">bool</td>
 </tr>
@@ -1251,6 +1255,9 @@ table td
 </tr>
 <tr>
   <td class="method">permit_advancing_page()</td>
+</tr>
+<tr>
+  <td class="method">deny_advancing_page()</td>
 </tr>
 <tr>
   <td class="method">advance()</td>
@@ -1304,6 +1311,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2450,7 +2460,8 @@ table td
   ],
   "fmod": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/LevelSelect",

@@ -174,7 +174,8 @@
   ],
   "fmod": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/LevelSelect",

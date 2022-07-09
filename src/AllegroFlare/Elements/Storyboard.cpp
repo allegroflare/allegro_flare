@@ -5,6 +5,7 @@
 #include <AllegroFlare/Color.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <cmath>
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro_primitives.h>
@@ -35,6 +36,7 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<std::string>
    , current_page_num(current_page_num)
    , revealed_characters_count(0)
    , can_advance_to_next(false)
+   , can_advance_started_at(0)
    , finished(false)
 {
 }
@@ -171,6 +173,12 @@ bool Storyboard::get_can_advance_to_next()
 }
 
 
+float Storyboard::get_can_advance_started_at()
+{
+   return can_advance_started_at;
+}
+
+
 bool Storyboard::get_finished()
 {
    return finished;
@@ -182,7 +190,8 @@ void Storyboard::update()
    revealed_characters_count++;
    if (revealed_characters_count >= current_page_text().size())
    {
-      can_advance_to_next = true;
+      permit_advancing_page();
+      //can_advance_to_next = true;
    }
    return;
 }
@@ -251,6 +260,10 @@ void Storyboard::render_next_button()
    float text_width = al_get_text_width(next_button_font, text.c_str());
    float text_height = al_get_font_line_height(next_button_font);
    ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
+   ALLEGRO_COLOR button_text_color = button_color;
+   float button_frame_opacity = ((1.5 - fmod(al_get_time() - can_advance_started_at, 1.5)) / 1.5) * 0.75 + 0.25;
+   ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
+         button_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
    float thickness = 4.0f;
    float roundness = thickness * 1.5;
    float padding_x = 32.0f;
@@ -270,12 +283,12 @@ void Storyboard::render_next_button()
       text_height+padding_y,
       roundness,
       roundness,
-      button_color,
+      button_frame_color,
       thickness
    );
 
    // draw the text
-   al_draw_text(next_button_font, button_color, text_width/2, 0, ALLEGRO_ALIGN_CENTER, text.c_str());
+   al_draw_text(next_button_font, button_text_color, text_width/2, 0, ALLEGRO_ALIGN_CENTER, text.c_str());
 
    button_place.restore_transform();
 
@@ -287,7 +300,7 @@ void Storyboard::reset()
    current_page_num = 0;
    revealed_characters_count = 0;
    finished = false;
-   can_advance_to_next = false;
+   deny_advancing_page();
    return;
 }
 
@@ -295,6 +308,15 @@ bool Storyboard::permit_advancing_page()
 {
    if (finished) return false;
    can_advance_to_next = true;
+   can_advance_started_at = al_get_time();
+   return true;
+}
+
+bool Storyboard::deny_advancing_page()
+{
+   if (finished) return false;
+   can_advance_to_next = false;
+   can_advance_started_at = 0;
    return true;
 }
 
@@ -304,7 +326,7 @@ bool Storyboard::advance()
 
    if (!can_advance_to_next)
    {
-      can_advance_to_next = true;
+      permit_advancing_page();
       reveal_all_characters();
       return true;
    }
@@ -323,7 +345,7 @@ bool Storyboard::advance_page()
 
    current_page_num++;
    revealed_characters_count = 0;
-   can_advance_to_next = false;
+   deny_advancing_page();
 
    if (current_page_num >= pages.size())
    {

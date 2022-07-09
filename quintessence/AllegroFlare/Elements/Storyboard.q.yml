@@ -93,6 +93,11 @@ properties:
     init_with: false
     getter: true
 
+  - name: can_advance_started_at
+    type: float
+    init_with: 0
+    getter: true
+
   - name: finished
     type: bool
     init_with: false
@@ -107,7 +112,8 @@ functions:
       revealed_characters_count++;
       if (revealed_characters_count >= current_page_text().size())
       {
-         can_advance_to_next = true;
+         permit_advancing_page();
+         //can_advance_to_next = true;
       }
       return;
 
@@ -173,6 +179,10 @@ functions:
       float text_width = al_get_text_width(next_button_font, text.c_str());
       float text_height = al_get_font_line_height(next_button_font);
       ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
+      ALLEGRO_COLOR button_text_color = button_color;
+      float button_frame_opacity = ((1.5 - fmod(al_get_time() - can_advance_started_at, 1.5)) / 1.5) * 0.75 + 0.25;
+      ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
+            button_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
       float thickness = 4.0f;
       float roundness = thickness * 1.5;
       float padding_x = 32.0f;
@@ -192,17 +202,18 @@ functions:
          text_height+padding_y,
          roundness,
          roundness,
-         button_color,
+         button_frame_color,
          thickness
       );
 
       // draw the text
-      al_draw_text(next_button_font, button_color, text_width/2, 0, ALLEGRO_ALIGN_CENTER, text.c_str());
+      al_draw_text(next_button_font, button_text_color, text_width/2, 0, ALLEGRO_ALIGN_CENTER, text.c_str());
 
       button_place.restore_transform();
 
       return;
     body_dependency_symbols:
+      - fmod
       - AllegroFlare::Color
       - AllegroFlare::Placement2D
       - al_draw_rounded_rectangle
@@ -214,7 +225,7 @@ functions:
       current_page_num = 0;
       revealed_characters_count = 0;
       finished = false;
-      can_advance_to_next = false;
+      deny_advancing_page();
       return;
 
 
@@ -223,6 +234,16 @@ functions:
     body: |
       if (finished) return false;
       can_advance_to_next = true;
+      can_advance_started_at = al_get_time();
+      return true;
+
+
+  - name: deny_advancing_page
+    type: bool
+    body: |
+      if (finished) return false;
+      can_advance_to_next = false;
+      can_advance_started_at = 0;
       return true;
 
 
@@ -233,7 +254,7 @@ functions:
 
       if (!can_advance_to_next)
       {
-         can_advance_to_next = true;
+         permit_advancing_page();
          reveal_all_characters();
          return true;
       }
@@ -253,7 +274,7 @@ functions:
 
       current_page_num++;
       revealed_characters_count = 0;
-      can_advance_to_next = false;
+      deny_advancing_page();
 
       if (current_page_num >= pages.size())
       {
@@ -323,5 +344,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_draw_rounded_rectangle
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: fmod
+    headers: [ cmath ]
 
 

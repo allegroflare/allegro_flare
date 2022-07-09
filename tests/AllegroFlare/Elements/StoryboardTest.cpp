@@ -91,16 +91,19 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
-   VISUAL__render__when_able_to_advance_to_the_next_page__will_draw_the_cursor)
+   VISUAL__render__when_able_to_advance_to_the_next_page__will_draw_the_cursor_animated)
 {
    std::vector<std::string> pages = { "Hello Storyboard!" };
    AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
 
    storyboard.permit_advancing_page();
-   storyboard.render();
-   al_flip_display();
-
-   sleep_for(1);
+   for (int i=0; i<120; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      storyboard.render();
+      al_flip_display();
+      sleep_for_frame();
+   }
 
    SUCCEED();
 }
