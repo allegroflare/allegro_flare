@@ -9,6 +9,8 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/Interpolators.hpp>
+#include <algorithm>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -211,21 +213,19 @@ void Storyboard::render()
       }
    ALLEGRO_FONT *text_font = obtain_font();
 
-   //al_clear_to_color(AllegroFlare::Color::Black);
-
    std::string text = revealed_page_text();
    if (!text.empty())
    {
       float box_width = 1920 - (left_padding + right_padding);
       al_draw_multiline_text(
             text_font,
-            text_color, //AllegroFlare::Color(0xd0f2c5).to_al(),
-            left_padding, //x_padding,
-            top_padding, //y_padding,
+            text_color,
+            left_padding,
+            top_padding,
             box_width,
             al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
             0,
-            text.c_str() //pages[current_page_num].c_str()
+            text.c_str()
          );
    }
 
@@ -254,23 +254,41 @@ void Storyboard::render_next_button()
 {
    float x = 1920-400;
    float y = 1080-300;
+   float age = al_get_time() - can_advance_started_at;
    ALLEGRO_FONT *next_button_font = obtain_next_button_font();
    std::string text = "NEXT >";
    float text_width = al_get_text_width(next_button_font, text.c_str());
    float text_height = al_get_font_line_height(next_button_font);
    ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
    ALLEGRO_COLOR button_text_color = button_color;
-   float button_frame_opacity = ((1.5 - fmod(al_get_time() - can_advance_started_at, 1.5)) / 1.5) * 0.75 + 0.25;
+   float button_frame_opacity = ((1.5 - fmod(age, 1.5)) / 1.5) * 0.75 + 0.25;
    ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
          button_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
    float thickness = 4.0f;
    float roundness = thickness * 1.5;
    float padding_x = 32.0f;
    float padding_y = 12.0f;
-
    AllegroFlare::Placement2D button_place;
    button_place.position.x = x;
    button_place.position.y = y;
+
+   float reveal_duration = 0.6f;
+   if (age < reveal_duration)
+   {
+      // modify params by the reveal animation offsets
+      float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
+      float inv_normalized_time = 1.0 - normalized_time;
+      float reveal_y_offset = 30;
+      float reveal_opacity = 0.5;
+      //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
+      ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Transparent;
+
+      button_text_color = AllegroFlare::color::mix(
+            reveal_color, button_text_color, normalized_time);
+      button_frame_color = AllegroFlare::color::mix(
+            reveal_color, button_frame_color, normalized_time);
+      button_place.position.y += reveal_y_offset * AllegroFlare::interpolator::tripple_fast_out(inv_normalized_time);
+   }
 
    button_place.start_transform();
 

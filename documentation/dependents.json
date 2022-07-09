@@ -235,6 +235,12 @@
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/Storyboard"
   ],
+  "AllegroFlare/interpolator/": [
+    "AllegroFlare/Elements/Storyboard"
+  ],
+  "std/min, std/max": [
+    "AllegroFlare/Elements/Storyboard"
+  ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"
   ],

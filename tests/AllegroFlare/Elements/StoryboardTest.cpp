@@ -54,7 +54,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
-   VISUAL__render__will_draw_the_current_page_text_to_the_screen)
+   DISABLED__VISUAL__render__will_draw_the_current_page_text_to_the_screen)
 {
    std::vector<std::string> pages = { "Hello Storyboard!" };
    AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
@@ -70,7 +70,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
-   VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
+   DISABLED__VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
 {
    std::vector<std::string> pages = { "Hello Storyboard!" };
    AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
@@ -97,7 +97,8 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
    AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
 
    storyboard.permit_advancing_page();
-   for (int i=0; i<12; i++)
+   //for (int i=0; i<12; i++)
+   for (int i=0; i<80; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       storyboard.render();
