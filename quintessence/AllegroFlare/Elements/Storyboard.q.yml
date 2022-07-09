@@ -112,6 +112,12 @@ functions:
       return;
 
 
+  - name: permit_advancing_page
+    body: |
+      can_advance_to_next = true;
+      return;
+
+
   - name: render
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
@@ -189,11 +195,9 @@ functions:
     type: bool
     body: |
       if (finished) return false;
-      //if (!can_advance_to_next) return false;
+      if (!can_advance_to_next) return false;
 
-      //can_advance_to_next = false;
       current_page_num++;
-      //can_advance_to_next = true;
 
       if (current_page_num >= pages.size())
       {

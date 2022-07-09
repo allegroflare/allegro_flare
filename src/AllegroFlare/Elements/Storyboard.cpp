@@ -184,6 +184,12 @@ void Storyboard::update()
    return;
 }
 
+void Storyboard::permit_advancing_page()
+{
+   can_advance_to_next = true;
+   return;
+}
+
 void Storyboard::render()
 {
    if (!(al_is_system_installed()))
@@ -262,11 +268,9 @@ void Storyboard::reset()
 bool Storyboard::advance_page()
 {
    if (finished) return false;
-   //if (!can_advance_to_next) return false;
+   if (!can_advance_to_next) return false;
 
-   //can_advance_to_next = false;
    current_page_num++;
-   //can_advance_to_next = true;
 
    if (current_page_num >= pages.size())
    {

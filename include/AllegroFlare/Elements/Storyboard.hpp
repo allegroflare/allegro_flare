@@ -58,6 +58,7 @@ namespace AllegroFlare
          bool get_can_advance_to_next();
          bool get_finished();
          void update();
+         void permit_advancing_page();
          void render();
          std::string current_page_text();
          std::string revealed_page_text();
