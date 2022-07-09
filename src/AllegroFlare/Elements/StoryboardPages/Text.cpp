@@ -3,6 +3,8 @@
 #include <AllegroFlare/Elements/StoryboardPages/Text.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -56,8 +58,14 @@ void Text::update()
 
 void Text::render()
 {
+   if (!(al_is_system_installed()))
+      {
+         std::stringstream error_message;
+         error_message << "Text" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    ALLEGRO_FONT* font = obtain_font();
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20, 0, "Hello StoryboardPages/Text!");
+   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20, 0, text.c_str());
    return;
 }
 
