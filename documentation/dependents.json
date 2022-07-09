@@ -94,6 +94,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -110,6 +111,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -149,6 +151,7 @@
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Useful3D/Triangle"
   ],
@@ -176,7 +179,8 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPlayer",
-    "AllegroFlare/Screens/Storyboard"
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer"
   ],
   "AllegroFlare/interpolator": [
     "AllegroFlare/Elements/Inventory",
@@ -195,6 +199,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor"
   ],
@@ -231,6 +236,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "ALLEGRO_EVENT": [
@@ -239,13 +245,15 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPlayer",
-    "AllegroFlare/Screens/Storyboard"
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer"
   ],
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/Storyboard",
@@ -290,6 +298,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor"
   ],
@@ -299,11 +308,12 @@
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
   ],
+  "AllegroFlare/Elements/StoryboardPlayer": [
+    "AllegroFlare/Screens/StoryboardPlayer",
+    "AllegroFlare/StoryboardFactory"
+  ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/Elements/StoryboardPlayer": [
-    "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Text": [
     "AllegroFlare/StoryboardFactory"
