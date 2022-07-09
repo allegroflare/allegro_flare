@@ -41,6 +41,7 @@
     "AllegroFlare/Backgrounds/Parallax",
     "AllegroFlare/Backgrounds/ParallaxLayer",
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Backgrounds/Base": [
@@ -57,6 +58,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -244,6 +246,7 @@
     "AllegroFlare/Elements/Storyboard"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text"
   ],
   "al_draw_text": [
