@@ -75,12 +75,6 @@ bool StoryboardPlayer::get_finished()
 }
 
 
-AllegroFlare::Elements::StoryboardPages::Base* StoryboardPlayer::infer_current_page()
-{
-   if (current_page_num < 0 || current_page_num >= pages.size()) return nullptr;
-   return pages[current_page_num];
-}
-
 void StoryboardPlayer::update()
 {
    AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
@@ -111,6 +105,60 @@ void StoryboardPlayer::render()
    if (can_advance_to_next) render_next_button();
 
    return;
+}
+
+void StoryboardPlayer::reset()
+{
+   current_page_num = 0;
+   finished = false;
+   deny_advancing_page();
+
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (current_page) current_page->start();
+
+   return;
+}
+
+bool StoryboardPlayer::permit_advancing_page()
+{
+   if (finished) return false;
+   if (can_advance_to_next) return true;
+
+   can_advance_to_next = true;
+   can_advance_started_at = al_get_time();
+   return true;
+}
+
+bool StoryboardPlayer::deny_advancing_page()
+{
+   if (finished) return false;
+   can_advance_to_next = false;
+   can_advance_started_at = 0;
+   return true;
+}
+
+bool StoryboardPlayer::advance()
+{
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (!current_page) return false;
+
+   if (can_advance_to_next)
+   {
+      advance_page();
+   }
+   else
+   {
+      if (!current_page->get_finished()) current_page->advance();
+   }
+
+   return false;
+}
+
+bool StoryboardPlayer::advance_page()
+{
+   if (!can_advance_to_next) return false;
+   current_page_num++;
+   return true;
 }
 
 void StoryboardPlayer::render_next_button()
@@ -175,64 +223,6 @@ void StoryboardPlayer::render_next_button()
    return;
 }
 
-void StoryboardPlayer::reset()
-{
-   current_page_num = 0;
-   finished = false;
-   deny_advancing_page();
-   return;
-}
-
-bool StoryboardPlayer::permit_advancing_page()
-{
-   if (finished) return false;
-   if (can_advance_to_next) return true;
-
-   can_advance_to_next = true;
-   can_advance_started_at = al_get_time();
-   return true;
-}
-
-bool StoryboardPlayer::deny_advancing_page()
-{
-   if (finished) return false;
-   can_advance_to_next = false;
-   can_advance_started_at = 0;
-   return true;
-}
-
-bool StoryboardPlayer::advance()
-{
-   if (finished) return false;
-
-   if (!can_advance_to_next)
-   {
-      permit_advancing_page();
-      return true;
-   }
-   else
-   {
-      return advance_page();
-   }
-
-   return false;
-}
-
-bool StoryboardPlayer::advance_page()
-{
-   if (finished) return false;
-   if (!can_advance_to_next) return false;
-
-   current_page_num++;
-   deny_advancing_page();
-
-   if (current_page_num >= pages.size())
-   {
-      finished = true;
-   }
-   return !finished;
-}
-
 bool StoryboardPlayer::infer_at_last_page()
 {
    return (current_page_num == (pages.size()-1));
@@ -241,6 +231,12 @@ bool StoryboardPlayer::infer_at_last_page()
 bool StoryboardPlayer::infer_at_or_past_last_page()
 {
    return (current_page_num >= (pages.size()-1));
+}
+
+AllegroFlare::Elements::StoryboardPages::Base* StoryboardPlayer::infer_current_page()
+{
+   if (current_page_num < 0 || current_page_num >= pages.size()) return nullptr;
+   return pages[current_page_num];
 }
 
 ALLEGRO_FONT* StoryboardPlayer::obtain_font()

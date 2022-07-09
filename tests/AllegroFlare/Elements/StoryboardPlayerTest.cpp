@@ -23,9 +23,11 @@ class AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture
 class StoryboardPageTestClassA : public AllegroFlare::Elements::StoryboardPages::Base
 {
 public:
+   int start_count = 0;
    int render_count = 0;
    int update_count = 0;
-   StoryboardPageTestClassA() {};
+   StoryboardPageTestClassA() { };
+   virtual void start() override { start_count++; }
    virtual void render() override { render_count++; }
    virtual void update() override { update_count++; }
 };
@@ -54,8 +56,10 @@ public:
 class StoryboardPageTestClassC : public AllegroFlare::Elements::StoryboardPages::Base
 {
 public:
+   int advance_count = 0;
    StoryboardPageTestClassC() { set_finished(false); };
-   virtual void advance() override { set_finished(true); }
+   virtual void update() override { set_finished(true); }
+   virtual void advance() override { advance_count++; set_finished(true); }
 };
 
 
@@ -113,6 +117,25 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   update__when_a_page_becomes_finished__will_allow_advancing_to_the_next_page)
+   // TODO
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassC *test_page_1 = new StoryboardPageTestClassC;
+   StoryboardPageTestClassC *test_page_2 = new StoryboardPageTestClassC;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page_1, test_page_2 };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
+
+   ASSERT_EQ(false, storyboard_player.get_can_advance_to_next());
+   storyboard_player.update();
+   //ASSERT_EQ(true, storyboard_player.get_can_advance_to_next());
+
+   delete test_page_1;
+   delete test_page_2;
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
    VISUAL__render__will_render_the_current_page)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
@@ -128,6 +151,118 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
       storyboard_player.render();
       al_flip_display();
    }
+
+   delete test_page;
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   permit_advancing_page__will_allow_advancing_to_the_next_page_on_the_next_advance_and_return_true)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   permit_advancing_page__if_at_the_last_page__will_not_allow_advancing_to_the_next_page)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   advance__if_the_current_page_is_not_finished__will_call_advance_on_the_current_page)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassC *test_page = new StoryboardPageTestClassC;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
+
+   storyboard_player.advance();
+   ASSERT_EQ(1, test_page->advance_count);
+
+   delete test_page;
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   advance__if_advancing_pages_is_permitted__will_advance_to_the_next_page)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassA *test_page_1 = new StoryboardPageTestClassA;
+   StoryboardPageTestClassA *test_page_2 = new StoryboardPageTestClassA;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page_1, test_page_2 };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
+
+   ASSERT_EQ(0, storyboard_player.get_current_page_num());
+   storyboard_player.permit_advancing_page();
+   storyboard_player.advance();
+   ASSERT_EQ(1, storyboard_player.get_current_page_num());
+
+   delete test_page_1;
+   delete test_page_2;
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   advance__on_a_page_that_is_finished_and_is_on_the_last_page__will_become_finished)
+   // TODO
+{
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   reset__will_set_the_current_page_number_to_zero)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassA *test_page_1 = new StoryboardPageTestClassA;
+   StoryboardPageTestClassA *test_page_2 = new StoryboardPageTestClassA;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page_1, test_page_2 };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
+
+   storyboard_player.permit_advancing_page();
+   storyboard_player.advance();
+
+   storyboard_player.reset();
+   ASSERT_EQ(0, storyboard_player.get_current_page_num());
+
+   delete test_page_1;
+   delete test_page_2;
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   reset__will_call_start_on_the_first_page)
+{
+   StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(nullptr, pages);
+
+   storyboard_player.reset();
+   ASSERT_EQ(1, test_page->start_count);
+
+   delete test_page;
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   reset__will_set_finished_to_false)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
+   reset__will_deny_advancing_to_the_next_page)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
+
+   storyboard_player.permit_advancing_page();
+   storyboard_player.reset();
+   ASSERT_EQ(false, storyboard_player.get_can_advance_to_next());
 
    delete test_page;
 }

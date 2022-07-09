@@ -37,13 +37,6 @@ properties:
 functions:
 
 
-  - name: infer_current_page
-    type: AllegroFlare::Elements::StoryboardPages::Base*
-    body: |
-      if (current_page_num < 0 || current_page_num >= pages.size()) return nullptr;
-      return pages[current_page_num];
-
-
   - name: update
     body: |
       AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
@@ -67,6 +60,65 @@ functions:
     body_dependency_symbols:
       - al_draw_multiline_text
       - AllegroFlare::Color
+
+
+  - name: reset
+    type: void
+    body: |
+      current_page_num = 0;
+      finished = false;
+      deny_advancing_page();
+
+      AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+      if (current_page) current_page->start();
+      
+      return;
+
+
+  - name: permit_advancing_page
+    type: bool
+    body: |
+      if (finished) return false;
+      if (can_advance_to_next) return true;
+
+      can_advance_to_next = true;
+      can_advance_started_at = al_get_time();
+      return true;
+
+
+  - name: deny_advancing_page
+    type: bool
+    body: |
+      if (finished) return false;
+      can_advance_to_next = false;
+      can_advance_started_at = 0;
+      return true;
+
+
+  - name: advance
+    type: bool
+    body: |
+      AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+      if (!current_page) return false;
+
+      if (can_advance_to_next)
+      {
+         advance_page();
+      }
+      else
+      {
+         if (!current_page->get_finished()) current_page->advance();
+      }
+      
+      return false;
+
+      
+  - name: advance_page
+    type: bool
+    body: |
+      if (!can_advance_to_next) return false;
+      current_page_num++;
+      return true;
 
 
   - name: render_next_button
@@ -140,69 +192,6 @@ functions:
       - std::min, std::max
 
 
-  - name: reset
-    type: void
-    body: |
-      current_page_num = 0;
-      finished = false;
-      deny_advancing_page();
-      return;
-
-
-  - name: permit_advancing_page
-    type: bool
-    body: |
-      if (finished) return false;
-      if (can_advance_to_next) return true;
-
-      can_advance_to_next = true;
-      can_advance_started_at = al_get_time();
-      return true;
-
-
-  - name: deny_advancing_page
-    type: bool
-    body: |
-      if (finished) return false;
-      can_advance_to_next = false;
-      can_advance_started_at = 0;
-      return true;
-
-
-  - name: advance
-    type: bool
-    body: |
-      if (finished) return false;
-
-      if (!can_advance_to_next)
-      {
-         permit_advancing_page();
-         return true;
-      }
-      else
-      {
-         return advance_page();
-      }
-
-      return false;
-
-      
-  - name: advance_page
-    type: bool
-    body: |
-      if (finished) return false;
-      if (!can_advance_to_next) return false;
-
-      current_page_num++;
-      deny_advancing_page();
-
-      if (current_page_num >= pages.size())
-      {
-         finished = true;
-      }
-      return !finished;
-
-
   - name: infer_at_last_page
     type: bool
     body: |
@@ -213,6 +202,13 @@ functions:
     type: bool
     body: |
       return (current_page_num >= (pages.size()-1));
+
+
+  - name: infer_current_page
+    type: AllegroFlare::Elements::StoryboardPages::Base*
+    body: |
+      if (current_page_num < 0 || current_page_num >= pages.size()) return nullptr;
+      return pages[current_page_num];
 
 
   - name: obtain_font
