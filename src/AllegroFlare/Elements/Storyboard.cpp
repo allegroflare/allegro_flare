@@ -218,8 +218,7 @@ void Storyboard::render()
          );
    }
 
-   //if (can_advance_to_next) render_next_button();
-   render_next_button();
+   if (can_advance_to_next) render_next_button();
 
    return;
 }
