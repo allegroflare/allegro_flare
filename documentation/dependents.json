@@ -56,6 +56,7 @@
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -229,6 +230,9 @@
   "al_draw_multiline_text": [
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "al_draw_rounded_rectangle": [
+    "AllegroFlare/Elements/Storyboard"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"

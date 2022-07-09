@@ -54,7 +54,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
-   render__will_draw_the_current_page_text_to_the_screen)
+   VISUAL__render__will_draw_the_current_page_text_to_the_screen)
 {
    std::vector<std::string> pages = { "Hello Storyboard!" };
    AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
@@ -70,7 +70,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
-   update__will_reveal_the_characters_in_the_page_one_by_one)
+   VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
 {
    std::vector<std::string> pages = { "Hello Storyboard!" };
    AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
@@ -83,8 +83,24 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
       storyboard.render();
       al_flip_display();
 
-      sleep_for_frame();
+      //sleep_for_frame();
    }
+
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   VISUAL__render__when_able_to_advance_to_the_next_page__will_draw_the_cursor)
+{
+   std::vector<std::string> pages = { "Hello Storyboard!" };
+   AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
+
+   storyboard.permit_advancing_page();
+   storyboard.render();
+   al_flip_display();
+
+   sleep_for(1);
 
    SUCCEED();
 }

@@ -5,6 +5,9 @@
 #include <AllegroFlare/Color.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Placement2D.hpp>
+#include <allegro5/allegro_primitives.h>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -241,11 +244,40 @@ void Storyboard::reveal_all_characters()
 
 void Storyboard::render_next_button()
 {
+   float x = 1920-400;
+   float y = 1080-300;
    ALLEGRO_FONT *next_button_font = obtain_next_button_font();
-   std::string text = "NEXT >>";
-   float width = al_get_text_width(next_button_font, text.c_str());
-   float height = al_get_font_line_height(next_button_font);
-   al_draw_text(next_button_font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920-400, 1080-300, 0, text.c_str());
+   std::string text = "NEXT >";
+   float text_width = al_get_text_width(next_button_font, text.c_str());
+   float text_height = al_get_font_line_height(next_button_font);
+   ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
+   float thickness = 4.0f;
+   float roundness = thickness * 1.5;
+   float padding_x = 32.0f;
+   float padding_y = 12.0f;
+
+   AllegroFlare::Placement2D button_place;
+   button_place.position.x = x;
+   button_place.position.y = y;
+
+   button_place.start_transform();
+
+   // draw the cursor outline
+   al_draw_rounded_rectangle(
+      -padding_x,
+      -padding_y,
+      text_width+padding_x,
+      text_height+padding_y,
+      roundness,
+      roundness,
+      button_color,
+      thickness
+   );
+
+   // draw the text
+   al_draw_text(next_button_font, button_color, text_width/2, 0, ALLEGRO_ALIGN_CENTER, text.c_str());
+
+   button_place.restore_transform();
 
    return;
 }
