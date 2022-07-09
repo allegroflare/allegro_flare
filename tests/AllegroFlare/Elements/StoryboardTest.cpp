@@ -231,3 +231,37 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   advance__when_not_all_characters_have_been_revealed__will_reveal_all_the_characters_and_return_true)
+{
+   std::vector<std::string> pages = { "In this test, there is only one page." };
+   AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
+
+   EXPECT_EQ(true, storyboard.advance());
+   EXPECT_EQ(true, storyboard.all_characters_are_revealed());
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   advance__when_not_all_characters_have_been_revealed__will_permit_advancing_to_the_next_page)
+{
+   std::vector<std::string> pages = { "In this test, there is only one page." };
+   AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
+
+   EXPECT_EQ(true, storyboard.advance());
+   EXPECT_EQ(true, storyboard.get_can_advance_to_next());
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   advance__when_advancing_to_the_next_page_is_permitted__will_advance_to_the_next_page_and_return_true)
+{
+   std::vector<std::string> pages = { "This is page 1.", "This is the second page" };
+   AllegroFlare::Elements::Storyboard storyboard(&get_font_bin_ref(), pages);
+
+   storyboard.permit_advancing_page();
+   EXPECT_EQ(true, storyboard.advance());
+   EXPECT_EQ(1, storyboard.get_current_page_num());
+}
+
+
