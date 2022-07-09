@@ -27,7 +27,7 @@ StoryboardPlayer::StoryboardPlayer(AllegroFlare::FontBin* font_bin, std::vector<
    : font_bin(font_bin)
    , pages(pages)
    , current_page_num(0)
-   , can_advance_to_next(false)
+   , can_advance_to_next_page(false)
    , can_advance_started_at(0)
    , finished(false)
 {
@@ -57,9 +57,9 @@ intptr_t StoryboardPlayer::get_current_page_num()
 }
 
 
-bool StoryboardPlayer::get_can_advance_to_next()
+bool StoryboardPlayer::get_can_advance_to_next_page()
 {
-   return can_advance_to_next;
+   return can_advance_to_next_page;
 }
 
 
@@ -80,7 +80,7 @@ void StoryboardPlayer::update()
    AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
    if (!current_page) return;
    current_page->update();
-   if (!can_advance_to_next && current_page->get_finished()) permit_advancing_page();
+   if (!can_advance_to_next_page && current_page->get_finished()) permit_advancing_page();
    return;
 }
 
@@ -102,7 +102,7 @@ void StoryboardPlayer::render()
    if (!current_page) return;
    current_page->render();
 
-   if (can_advance_to_next) render_next_button();
+   if (can_advance_to_next_page) render_next_button();
 
    return;
 }
@@ -122,9 +122,9 @@ void StoryboardPlayer::reset()
 bool StoryboardPlayer::permit_advancing_page()
 {
    if (finished) return false;
-   if (can_advance_to_next) return true;
+   if (can_advance_to_next_page) return true;
 
-   can_advance_to_next = true;
+   can_advance_to_next_page = true;
    can_advance_started_at = al_get_time();
    return true;
 }
@@ -132,7 +132,7 @@ bool StoryboardPlayer::permit_advancing_page()
 bool StoryboardPlayer::deny_advancing_page()
 {
    if (finished) return false;
-   can_advance_to_next = false;
+   can_advance_to_next_page = false;
    can_advance_started_at = 0;
    return true;
 }
@@ -141,14 +141,27 @@ bool StoryboardPlayer::advance()
 {
    AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
    if (!current_page) return false;
+   if (finished) return false;
 
-   if (can_advance_to_next)
+   if (can_advance_to_next_page)
    {
-      advance_page();
+      if (infer_at_last_page() && current_page->get_finished())
+      {
+         deny_advancing_page();
+         finished = true;
+         return true;
+      }
+      else
+      {
+         advance_page();
+         return true;
+      }
    }
    else
    {
-      if (!current_page->get_finished()) current_page->advance();
+      // advance within the current page
+      current_page->advance();
+      return true;
    }
 
    return false;
@@ -156,7 +169,7 @@ bool StoryboardPlayer::advance()
 
 bool StoryboardPlayer::advance_page()
 {
-   if (!can_advance_to_next) return false;
+   if (!can_advance_to_next_page) return false;
    current_page_num++;
    return true;
 }

@@ -69,6 +69,13 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTest, can_be_created_without_blowin
 }
 
 
+TEST_F(AllegroFlare_Elements_StoryboardPlayerTest, finished__is_initialized_to_false)
+{
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player;
+   EXPECT_EQ(false, storyboard_player.get_finished());
+}
+
+
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::StoryboardPlayer storyboard_player;
@@ -125,9 +132,9 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page_1, test_page_2 };
    AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
 
-   ASSERT_EQ(false, storyboard_player.get_can_advance_to_next());
+   ASSERT_EQ(false, storyboard_player.get_can_advance_to_next_page());
    storyboard_player.update();
-   ASSERT_EQ(true, storyboard_player.get_can_advance_to_next());
+   ASSERT_EQ(true, storyboard_player.get_can_advance_to_next_page());
 
    delete test_page_1;
    delete test_page_2;
@@ -135,37 +142,37 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
-   VISUAL__render__will_render_the_current_page)
+   permit_advancing_page__will_allow_advancing_to_the_next_page_and_return_true)
+   // TODO
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
-   StoryboardPageTestClassB *test_page = new StoryboardPageTestClassB(font, "This is the test page text.");
+   StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
    AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
 
-   for (int passes=0; passes<=20; passes++)
-   {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-      storyboard_player.update();
-      storyboard_player.render();
-      al_flip_display();
-   }
+   EXPECT_EQ(false, storyboard_player.get_can_advance_to_next_page());
+   EXPECT_EQ(true, storyboard_player.permit_advancing_page());
+   EXPECT_EQ(true, storyboard_player.get_can_advance_to_next_page());
 
    delete test_page;
 }
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
-   permit_advancing_page__will_allow_advancing_to_the_next_page_on_the_next_call_to_advance_and_return_true)
+   permit_advancing_page__if_the_storyboard_is_finished__will_not_permit_advancing_to_the_next_page_and_return_false)
 {
-   // TODO
-}
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
 
+   storyboard_player.permit_advancing_page();
+   storyboard_player.advance(); // storyboard should now be finished
 
-TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
-   permit_advancing_page__if_at_the_last_page__will_not_allow_advancing_to_the_next_page)
-{
-   // TODO
+   ASSERT_EQ(true, storyboard_player.get_finished());
+   EXPECT_EQ(false, storyboard_player.get_can_advance_to_next_page());
+
+   delete test_page;
 }
 
 
@@ -204,9 +211,18 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
-   advance__while_on_the_last_page_and_the_page_is_finished__will_become_finished)
+   advance__while_on_the_last_page__and_can_advance_to_the_next_page__will_finish_the_storyboard_and_return_true)
 {
-   // TODO
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
+
+   ASSERT_EQ(true, storyboard_player.permit_advancing_page());
+   EXPECT_EQ(true, storyboard_player.advance());
+   EXPECT_EQ(true, storyboard_player.get_finished());
+
+   delete test_page;
 }
 
 
@@ -247,7 +263,19 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
    reset__will_set_finished_to_false)
 {
-   // TODO
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
+   AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
+
+   storyboard_player.permit_advancing_page();
+   storyboard_player.advance(); // storyboard should now be finished
+   ASSERT_EQ(true, storyboard_player.get_finished());
+
+   storyboard_player.reset();
+   EXPECT_EQ(false, storyboard_player.get_finished());
+
+   delete test_page;
 }
 
 
@@ -261,23 +289,28 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
    storyboard_player.permit_advancing_page();
    storyboard_player.reset();
-   ASSERT_EQ(false, storyboard_player.get_can_advance_to_next());
+   ASSERT_EQ(false, storyboard_player.get_can_advance_to_next_page());
 
    delete test_page;
 }
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
-   VISUAL__will_work_as_expected)
+   VISUAL__render__will_render_the_current_page)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
+   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   StoryboardPageTestClassB *test_page = new StoryboardPageTestClassB(font, "This is the test page text.");
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
    AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
-   
-   storyboard_player.permit_advancing_page();
-   storyboard_player.reset();
-   ASSERT_EQ(false, storyboard_player.get_can_advance_to_next());
+
+   for (int passes=0; passes<=20; passes++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      storyboard_player.update();
+      storyboard_player.render();
+      al_flip_display();
+   }
 
    delete test_page;
 }
