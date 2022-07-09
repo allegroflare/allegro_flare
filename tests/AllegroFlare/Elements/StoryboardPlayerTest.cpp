@@ -157,7 +157,7 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
-   permit_advancing_page__will_allow_advancing_to_the_next_page_on_the_next_advance_and_return_true)
+   permit_advancing_page__will_allow_advancing_to_the_next_page_on_the_next_call_to_advance_and_return_true)
 {
    // TODO
 }
@@ -205,7 +205,7 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
-   advance__on_a_page_that_is_finished_and_is_on_the_last_page__will_become_finished)
+   advance__while_on_the_last_page_and_the_page_is_finished__will_become_finished)
    // TODO
 {
 }
