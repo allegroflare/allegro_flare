@@ -274,7 +274,6 @@ TEST_F(AllegroFlare_Elements_StoryboardPlayerTestWithAllegroRenderingFixture,
    StoryboardPageTestClassA *test_page = new StoryboardPageTestClassA;
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
    AllegroFlare::Elements::StoryboardPlayer storyboard_player(&font_bin, pages);
-
    
    storyboard_player.permit_advancing_page();
    storyboard_player.reset();
