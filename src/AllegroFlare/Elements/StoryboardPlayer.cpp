@@ -1,0 +1,278 @@
+
+
+#include <AllegroFlare/Elements/StoryboardPlayer.hpp>
+#include <allegro5/allegro_font.h>
+#include <AllegroFlare/Color.hpp>
+#include <stdexcept>
+#include <sstream>
+#include <cmath>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Placement2D.hpp>
+#include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/Interpolators.hpp>
+#include <algorithm>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+
+
+namespace AllegroFlare
+{
+namespace Elements
+{
+
+
+StoryboardPlayer::StoryboardPlayer(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages)
+   : font_bin(font_bin)
+   , pages(pages)
+   , current_page_num(0)
+   , can_advance_to_next(false)
+   , can_advance_started_at(0)
+   , finished(false)
+{
+}
+
+
+StoryboardPlayer::~StoryboardPlayer()
+{
+}
+
+
+void StoryboardPlayer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void StoryboardPlayer::set_pages(std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages)
+{
+   this->pages = pages;
+}
+
+
+intptr_t StoryboardPlayer::get_current_page_num()
+{
+   return current_page_num;
+}
+
+
+bool StoryboardPlayer::get_can_advance_to_next()
+{
+   return can_advance_to_next;
+}
+
+
+float StoryboardPlayer::get_can_advance_started_at()
+{
+   return can_advance_started_at;
+}
+
+
+bool StoryboardPlayer::get_finished()
+{
+   return finished;
+}
+
+
+AllegroFlare::Elements::StoryboardPages::Base* StoryboardPlayer::infer_current_page()
+{
+   if (current_page_num < 0 || current_page_num >= pages.size()) return nullptr;
+   return pages[current_page_num];
+}
+
+void StoryboardPlayer::update()
+{
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (!current_page) return;
+   current_page->update();
+   if (!can_advance_to_next && current_page->get_finished()) permit_advancing_page();
+   return;
+}
+
+void StoryboardPlayer::render()
+{
+   if (!(al_is_system_installed()))
+      {
+         std::stringstream error_message;
+         error_message << "StoryboardPlayer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(al_is_font_addon_initialized()))
+      {
+         std::stringstream error_message;
+         error_message << "StoryboardPlayer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (!current_page) return;
+   current_page->render();
+
+   if (can_advance_to_next) render_next_button();
+
+   return;
+}
+
+void StoryboardPlayer::render_next_button()
+{
+   float x = 1920-400;
+   float y = 1080-300;
+   float age = al_get_time() - can_advance_started_at;
+   ALLEGRO_FONT *next_button_font = obtain_next_button_font();
+   std::string text = "NEXT >";
+   float text_width = al_get_text_width(next_button_font, text.c_str());
+   float text_height = al_get_font_line_height(next_button_font);
+   ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
+   ALLEGRO_COLOR button_text_color = button_color;
+   float button_frame_opacity = ((1.5 - fmod(age, 1.5)) / 1.5) * 0.75 + 0.25;
+   ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
+         button_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
+   float thickness = 4.0f;
+   float roundness = thickness * 1.5;
+   float padding_x = 32.0f;
+   float padding_y = 12.0f;
+   AllegroFlare::Placement2D button_place;
+   button_place.position.x = x;
+   button_place.position.y = y;
+
+   float reveal_duration = 0.6f;
+   if (age < reveal_duration)
+   {
+      // modify params by the reveal animation offsets
+      float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
+      float inv_normalized_time = 1.0 - normalized_time;
+      float reveal_y_offset = 30;
+      //float reveal_opacity = 0.5;
+      //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
+      ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Transparent;
+
+      button_text_color = AllegroFlare::color::mix(
+            reveal_color, button_text_color, normalized_time);
+      button_frame_color = AllegroFlare::color::mix(
+            reveal_color, button_frame_color, normalized_time);
+      button_place.position.y += reveal_y_offset * AllegroFlare::interpolator::tripple_fast_out(inv_normalized_time);
+   }
+
+   button_place.start_transform();
+
+   // draw the cursor outline
+   al_draw_rounded_rectangle(
+      -padding_x,
+      -padding_y,
+      text_width+padding_x,
+      text_height+padding_y,
+      roundness,
+      roundness,
+      button_frame_color,
+      thickness
+   );
+
+   // draw the text
+   al_draw_text(next_button_font, button_text_color, text_width/2, 0, ALLEGRO_ALIGN_CENTER, text.c_str());
+
+   button_place.restore_transform();
+
+   return;
+}
+
+void StoryboardPlayer::reset()
+{
+   current_page_num = 0;
+   finished = false;
+   deny_advancing_page();
+   return;
+}
+
+bool StoryboardPlayer::permit_advancing_page()
+{
+   if (finished) return false;
+   if (can_advance_to_next) return true;
+
+   can_advance_to_next = true;
+   can_advance_started_at = al_get_time();
+   return true;
+}
+
+bool StoryboardPlayer::deny_advancing_page()
+{
+   if (finished) return false;
+   can_advance_to_next = false;
+   can_advance_started_at = 0;
+   return true;
+}
+
+bool StoryboardPlayer::advance()
+{
+   if (finished) return false;
+
+   if (!can_advance_to_next)
+   {
+      permit_advancing_page();
+      return true;
+   }
+   else
+   {
+      return advance_page();
+   }
+
+   return false;
+}
+
+bool StoryboardPlayer::advance_page()
+{
+   if (finished) return false;
+   if (!can_advance_to_next) return false;
+
+   current_page_num++;
+   deny_advancing_page();
+
+   if (current_page_num >= pages.size())
+   {
+      finished = true;
+   }
+   return !finished;
+}
+
+bool StoryboardPlayer::infer_at_last_page()
+{
+   return (current_page_num == (pages.size()-1));
+}
+
+bool StoryboardPlayer::infer_at_or_past_last_page()
+{
+   return (current_page_num >= (pages.size()-1));
+}
+
+ALLEGRO_FONT* StoryboardPlayer::obtain_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "StoryboardPlayer" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   std::string font_name = "Inter-Medium.ttf";
+   int font_size = -60;
+   std::stringstream composite_font_str;
+   composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
+}
+
+ALLEGRO_FONT* StoryboardPlayer::obtain_next_button_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "StoryboardPlayer" << "::" << "obtain_next_button_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   std::string font_name = "Inter-Medium.ttf";
+   int font_size = -60;
+   std::stringstream composite_font_str;
+   composite_font_str << font_name << " " << font_size+20;
+   return font_bin->auto_get(composite_font_str.str());
+}
+} // namespace Elements
+} // namespace AllegroFlare
+
+
