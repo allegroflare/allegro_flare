@@ -12,16 +12,16 @@ functions:
 
 
   - name: create_text_page
+    type: AllegroFlare::Elements::StoryboardPages::Text*
     parameters:
       - name: text
         type: std::string
         default_argument: '"[unset-text]"'
     guards: [ font_bin ]
     body: |
-      return new AllegroFlare::Elements::StoryboardPages::Text(&font_bin, text);
-      return;
+      return new AllegroFlare::Elements::StoryboardPages::Text(font_bin, text);
     body_dependency_symbols:
-      - AllegroFlare::Elements::StoryboardPages::Text
+      - AllegroFlare::Elements::StoryboardPages::Text*
 
 
 dependencies:
@@ -31,11 +31,11 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPlayer
     headers: [ AllegroFlare/Elements/StoryboardPlayer.hpp ]
-  - symbol: AllegroFlare::Elements::StoryboardPages::Text
+  - symbol: AllegroFlare::Elements::StoryboardPages::Text*
     headers: [ AllegroFlare/Elements/StoryboardPages/Text.hpp ]
-  - symbol: AllegroFlare::Elements::StoryboardPages::Base
+  - symbol: AllegroFlare::Elements::StoryboardPages::Base*
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
-  - symbol: AllegroFlare::Elements::StoryboardPages::Image
+  - symbol: AllegroFlare::Elements::StoryboardPages::Image*
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
 
 

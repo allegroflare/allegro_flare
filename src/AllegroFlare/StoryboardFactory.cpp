@@ -27,7 +27,7 @@ void StoryboardFactory::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void StoryboardFactory::create_text_page(std::string text)
+AllegroFlare::Elements::StoryboardPages::Text* StoryboardFactory::create_text_page(std::string text)
 {
    if (!(font_bin))
       {
@@ -35,8 +35,7 @@ void StoryboardFactory::create_text_page(std::string text)
          error_message << "StoryboardFactory" << "::" << "create_text_page" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return new AllegroFlare::Elements::StoryboardPages::Text(&font_bin, text);
-   return;
+   return new AllegroFlare::Elements::StoryboardPages::Text(font_bin, text);
 }
 } // namespace AllegroFlare
 

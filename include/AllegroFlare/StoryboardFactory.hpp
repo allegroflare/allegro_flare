@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/StoryboardPages/Text.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <string>
 
@@ -17,7 +18,7 @@ namespace AllegroFlare
       ~StoryboardFactory();
 
       void set_font_bin(AllegroFlare::FontBin* font_bin);
-      void create_text_page(std::string text="[unset-text]");
+      AllegroFlare::Elements::StoryboardPages::Text* create_text_page(std::string text="[unset-text]");
    };
 }
 

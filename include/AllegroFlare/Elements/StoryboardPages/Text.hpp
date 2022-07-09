@@ -25,6 +25,7 @@ namespace AllegroFlare
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_text(std::string text);
+            AllegroFlare::FontBin* get_font_bin();
             std::string get_text();
             virtual void start() override;
             virtual void update() override;

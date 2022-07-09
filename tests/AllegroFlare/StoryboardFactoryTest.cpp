@@ -26,19 +26,14 @@ TEST_F(AllegroFlare_StoryboardFactoryTest, can_be_created_without_blowing_up)
 }
 
 
-TEST_F(AllegroFlare_StoryboardFactoryTest, render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
+   create_text_page__will_create_the_text_page_with_the_expected_params)
 {
-   AllegroFlare::StoryboardFactory storyboard_factory;
-   std::string expected_error_message =
-      "StoryboardFactory::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(storyboard_factory.render(), std::runtime_error, expected_error_message);
+   AllegroFlare::StoryboardFactory storyboard_factory(&get_font_bin_ref());
+   AllegroFlare::Elements::StoryboardPages::Text* created_page = storyboard_factory.create_text_page("Hello Factory!");
+
+   EXPECT_EQ(&get_font_bin_ref(), created_page->get_font_bin());
+   EXPECT_EQ("Hello Factory!", created_page->get_text());
 }
 
-
-TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture, render__will_not_blow_up)
-{
-   AllegroFlare::StoryboardFactory storyboard_factory;
-   storyboard_factory.render();
-   SUCCEED();
-}
 

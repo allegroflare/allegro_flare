@@ -40,6 +40,12 @@ void Text::set_text(std::string text)
 }
 
 
+AllegroFlare::FontBin* Text::get_font_bin()
+{
+   return font_bin;
+}
+
+
 std::string Text::get_text()
 {
    return text;

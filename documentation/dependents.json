@@ -95,6 +95,7 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_FONT": [
@@ -261,7 +262,8 @@
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
-    "AllegroFlare/Elements/StoryboardPlayer"
+    "AllegroFlare/Elements/StoryboardPlayer",
+    "AllegroFlare/StoryboardFactory"
   ],
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/StoryboardPlayer"
@@ -299,6 +301,15 @@
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Elements/StoryboardPlayer": [
+    "AllegroFlare/StoryboardFactory"
+  ],
+  "AllegroFlare/Elements/StoryboardPages/Text": [
+    "AllegroFlare/StoryboardFactory"
+  ],
+  "AllegroFlare/Elements/StoryboardPages/Image": [
+    "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
