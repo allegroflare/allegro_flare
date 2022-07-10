@@ -73,6 +73,7 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_images_storyboard_s
 
    AllegroFlare::Elements::Storyboard &storyboard_element = result->get_storyboard_element_ref();
    storyboard_element.set_button_font_size(button_font_size);
+   storyboard_element.set_auto_advance(true);
    storyboard_element.set_pages(pages);
 
    return result;
