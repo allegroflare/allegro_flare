@@ -1,0 +1,56 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+
+functions:
+
+
+  - name: create_text_page
+    type: AllegroFlare::Elements::StoryboardPages::Text*
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    guards: [ font_bin ]
+    body: |
+      return new AllegroFlare::Elements::StoryboardPages::Text(font_bin, text);
+    body_dependency_symbols:
+      - AllegroFlare::Elements::StoryboardPages::Text*
+
+
+  - name: create_advancing_text_page
+    type: AllegroFlare::Elements::StoryboardPages::AdvancingText*
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    guards: [ font_bin ]
+    body: |
+      return new AllegroFlare::Elements::StoryboardPages::AdvancingText(font_bin, text);
+    body_dependency_symbols:
+      - AllegroFlare::Elements::StoryboardPages::Text*
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPlayer
+    headers: [ AllegroFlare/Elements/StoryboardPlayer.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::Text*
+    headers: [ AllegroFlare/Elements/StoryboardPages/Text.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::Base*
+    headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::Image*
+    headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText*
+    headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
+
+

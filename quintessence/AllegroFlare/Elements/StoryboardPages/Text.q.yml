@@ -1,0 +1,81 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::StoryboardPages::Base
+    scope: public
+    init_with: '"Text"'
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: start
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: render
+    virtual: true
+    override: true
+    guards: [ al_is_system_installed() ]
+    body: |
+      ALLEGRO_FONT* font = obtain_font();
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20, 0, text.c_str());
+      return;
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::string font_str = "Inter-Medium.ttf 48";
+      return font_bin->auto_get(font_str);
+
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::Base
+    headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
+
+

@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/Screens/Base.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
@@ -13,7 +12,7 @@ namespace AllegroFlare
 {
    namespace Elements
    {
-      class Storyboard : public AllegroFlare::Screens::Base
+      class Storyboard
       {
       private:
          AllegroFlare::FontBin* font_bin;

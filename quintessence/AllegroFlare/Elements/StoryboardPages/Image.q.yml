@@ -1,0 +1,78 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::StoryboardPages::Base
+    scope: public
+    init_with: '"Image"'
+
+
+properties:
+
+
+  - name: bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: start
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: render
+    virtual: true
+    override: true
+    guards: [ al_is_system_installed(), al_get_current_display() ]
+    body: |
+      if (!bitmap) return;
+
+      AllegroFlare::Placement2D image_place;
+      image_place.position.x = 1920/2;
+      image_place.position.y = 1080/2;
+      image_place.size.x = al_get_bitmap_width(bitmap);
+      image_place.size.y = al_get_bitmap_height(bitmap);
+
+      image_place.start_transform();
+
+      al_draw_bitmap(bitmap, 0, 0, 0);
+      
+      image_place.restore_transform();
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::Base
+    headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+

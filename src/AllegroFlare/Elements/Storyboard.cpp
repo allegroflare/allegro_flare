@@ -24,8 +24,7 @@ namespace Elements
 
 
 Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<std::string> pages, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding, intptr_t current_page_num)
-   : AllegroFlare::Screens::Base()
-   , font_bin(font_bin)
+   : font_bin(font_bin)
    , pages(pages)
    , font_name(font_name)
    , font_size(font_size)
