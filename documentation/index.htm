@@ -1458,6 +1458,18 @@ table td
   <td class="property">bitmap</td>
   <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
+<tr>
+  <td class="property">duration_to_advance_sec</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">reveal_style</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">started_at</td>
+  <td class="property">float</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -1472,8 +1484,20 @@ table td
 <tr>
   <td class="method">advance()</td>
 </tr>
+<tr>
+  <td class="method">infer_age()</td>
+</tr>
+<tr>
+  <td class="method">modify_params_for_hide(2)</td>
+</tr>
+<tr>
+  <td class="method">modify_params_for_reveal(2)</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -1482,6 +1506,21 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2615,6 +2654,7 @@ table td
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -2703,6 +2743,7 @@ table td
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
@@ -2732,6 +2773,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/interpolator": [
@@ -2742,7 +2784,8 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText"
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/LevelSelect",
@@ -2820,11 +2863,13 @@ table td
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText"
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image"
   ],
   "std/min, std/max": [
     "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText"
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/Text"

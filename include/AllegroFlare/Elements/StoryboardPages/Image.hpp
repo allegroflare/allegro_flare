@@ -2,7 +2,9 @@
 
 
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
+#include <string>
 
 
 namespace AllegroFlare
@@ -15,17 +17,28 @@ namespace AllegroFlare
          {
          private:
             ALLEGRO_BITMAP* bitmap;
+            float duration_to_advance_sec;
+            std::string reveal_style;
+            float started_at;
 
          public:
             Image(ALLEGRO_BITMAP* bitmap=nullptr);
             virtual ~Image();
 
             void set_bitmap(ALLEGRO_BITMAP* bitmap);
+            void set_duration_to_advance_sec(float duration_to_advance_sec);
+            void set_reveal_style(std::string reveal_style);
             ALLEGRO_BITMAP* get_bitmap();
+            float get_duration_to_advance_sec();
+            std::string get_reveal_style();
+            float get_started_at();
             virtual void start() override;
             virtual void update() override;
             virtual void render() override;
             virtual void advance() override;
+            float infer_age();
+            void modify_params_for_hide(AllegroFlare::Placement2D* place=nullptr, ALLEGRO_COLOR* color=nullptr);
+            void modify_params_for_reveal(AllegroFlare::Placement2D* place=nullptr, ALLEGRO_COLOR* color=nullptr);
          };
       }
    }

@@ -16,6 +16,23 @@ properties:
     getter: true
     setter: true
 
+  - name: duration_to_advance_sec
+    type: float
+    init_with: 2.0f
+    getter: true
+    setter: true
+
+  - name: reveal_style
+    type: std::string
+    init_with: '"reveal"'
+    getter: true
+    setter: true
+
+  - name: started_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
 
 functions:
 
@@ -23,7 +40,10 @@ functions:
   - name: start
     virtual: true
     override: true
+    guards: [ al_is_system_installed() ]
     body: |
+      started_at = al_get_time();
+      set_finished(false);
       return;
 
 
@@ -31,6 +51,7 @@ functions:
     virtual: true
     override: true
     body: |
+      if (infer_age() >= duration_to_advance_sec) set_finished(true);
       return;
 
 
@@ -47,10 +68,13 @@ functions:
       image_place.size.x = al_get_bitmap_width(bitmap);
       image_place.size.y = al_get_bitmap_height(bitmap);
 
-      image_place.start_transform();
+      ALLEGRO_COLOR color{1, 1, 1, 1};
 
-      al_draw_bitmap(bitmap, 0, 0, 0);
-      
+      modify_params_for_reveal(&image_place, &color);
+      modify_params_for_hide(&image_place, &color);
+
+      image_place.start_transform();
+      al_draw_tinted_bitmap(bitmap, color, 0, 0, 0);
       image_place.restore_transform();
 
       return;
@@ -62,17 +86,123 @@ functions:
     virtual: true
     override: true
     body: |
+      set_finished(true);
       return;
+
+
+  - name: infer_age
+    type: float
+    body: |
+      return al_get_time() - started_at;
+
+
+  - name: modify_params_for_hide
+    parameters:
+      - name: place
+        type: AllegroFlare::Placement2D*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR*
+        default_argument: nullptr
+    guards: [ place, color ]
+    body: |
+      float age = infer_age();
+
+      if (reveal_style == "reveal")
+      {
+         float hide_duration = 0.6f;
+         if (age > (duration_to_advance_sec - hide_duration))
+         {
+            float start_time = duration_to_advance_sec - hide_duration;
+            float end_time = duration_to_advance_sec;
+            float normalized_time = 1.0 - ((end_time - age) / hide_duration);
+
+            //float normalized_time = std::max(0.0f, std::min(1.0f, age / hide_duration));
+            //float normalized_time = 0.5;
+
+            float inv_normalized_time = 1.0 - normalized_time;
+            float hide_scale_offset = -0.1;
+
+            //float reveal_opacity = 0.5;
+            //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
+            ALLEGRO_COLOR hide_to_color = AllegroFlare::Color::Transparent;
+
+            *color = AllegroFlare::color::mix(*color, hide_to_color, normalized_time);
+            *color = AllegroFlare::color::mix(*color, hide_to_color, normalized_time);
+            //place->scale.x = 1.0 + hide_scale_offset * AllegroFlare::interpolator::slow_in(normalized_time);
+            //place->scale.y = 1.0 + hide_scale_offset * AllegroFlare::interpolator::slow_in(normalized_time);
+          }
+      }
+
+      return;
+    body_dependency_symbols:
+      - fmod
+      - AllegroFlare::Color
+      - AllegroFlare::Placement2D
+      - AllegroFlare::interpolator::*
+      - std::min, std::max
+
+
+  - name: modify_params_for_reveal
+    parameters:
+      - name: place
+        type: AllegroFlare::Placement2D*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR*
+        default_argument: nullptr
+    guards: [ place, color ]
+    body: |
+      float age = infer_age();
+
+      if (reveal_style == "reveal")
+      {
+         float reveal_duration = 0.8f;
+         if (age < reveal_duration)
+         {
+            float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
+            float inv_normalized_time = 1.0 - normalized_time;
+            float reveal_scale_offset = 0.2;
+            //float reveal_opacity = 0.5;
+            //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
+            ALLEGRO_COLOR reveal_from_color = AllegroFlare::Color::Transparent;
+
+            *color = AllegroFlare::color::mix(reveal_from_color, *color, normalized_time);
+            *color = AllegroFlare::color::mix(reveal_from_color, *color, normalized_time);
+            place->scale.x = 1.0 + reveal_scale_offset * AllegroFlare::interpolator::double_slow_in(inv_normalized_time);
+            place->scale.y = 1.0 + reveal_scale_offset * AllegroFlare::interpolator::double_slow_in(inv_normalized_time);
+          }
+      }
+
+      return;
+    body_dependency_symbols:
+      - fmod
+      - AllegroFlare::Color
+      - AllegroFlare::Placement2D
+      - AllegroFlare::interpolator::*
+      - std::min, std::max
 
 
 dependencies:
 
 
+  - symbol: ALLEGRO_COLOR*
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_BITMAP*
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Placement2D*
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::interpolator::*
+    headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: fmod
+    headers: [ cmath ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: std::min, std::max
+    headers: [ algorithm ]
 
 

@@ -1,7 +1,23 @@
 
 
 #include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/Placement2D.hpp>
+#include <stdexcept>
+#include <sstream>
+#include <cmath>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/Interpolators.hpp>
+#include <algorithm>
+#include <stdexcept>
+#include <sstream>
+#include <cmath>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/Interpolators.hpp>
+#include <algorithm>
 #include <stdexcept>
 #include <sstream>
 
@@ -17,6 +33,9 @@ namespace StoryboardPages
 Image::Image(ALLEGRO_BITMAP* bitmap)
    : AllegroFlare::Elements::StoryboardPages::Base("Image")
    , bitmap(bitmap)
+   , duration_to_advance_sec(2.0f)
+   , reveal_style("reveal")
+   , started_at(0.0f)
 {
 }
 
@@ -32,19 +51,58 @@ void Image::set_bitmap(ALLEGRO_BITMAP* bitmap)
 }
 
 
+void Image::set_duration_to_advance_sec(float duration_to_advance_sec)
+{
+   this->duration_to_advance_sec = duration_to_advance_sec;
+}
+
+
+void Image::set_reveal_style(std::string reveal_style)
+{
+   this->reveal_style = reveal_style;
+}
+
+
 ALLEGRO_BITMAP* Image::get_bitmap()
 {
    return bitmap;
 }
 
 
+float Image::get_duration_to_advance_sec()
+{
+   return duration_to_advance_sec;
+}
+
+
+std::string Image::get_reveal_style()
+{
+   return reveal_style;
+}
+
+
+float Image::get_started_at()
+{
+   return started_at;
+}
+
+
 void Image::start()
 {
+   if (!(al_is_system_installed()))
+      {
+         std::stringstream error_message;
+         error_message << "Image" << "::" << "start" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   started_at = al_get_time();
+   set_finished(false);
    return;
 }
 
 void Image::update()
 {
+   if (infer_age() >= duration_to_advance_sec) set_finished(true);
    return;
 }
 
@@ -70,10 +128,13 @@ void Image::render()
    image_place.size.x = al_get_bitmap_width(bitmap);
    image_place.size.y = al_get_bitmap_height(bitmap);
 
+   ALLEGRO_COLOR color{1, 1, 1, 1};
+
+   modify_params_for_reveal(&image_place, &color);
+   modify_params_for_hide(&image_place, &color);
+
    image_place.start_transform();
-
-   al_draw_bitmap(bitmap, 0, 0, 0);
-
+   al_draw_tinted_bitmap(bitmap, color, 0, 0, 0);
    image_place.restore_transform();
 
    return;
@@ -81,6 +142,95 @@ void Image::render()
 
 void Image::advance()
 {
+   set_finished(true);
+   return;
+}
+
+float Image::infer_age()
+{
+   return al_get_time() - started_at;
+}
+
+void Image::modify_params_for_hide(AllegroFlare::Placement2D* place, ALLEGRO_COLOR* color)
+{
+   if (!(place))
+      {
+         std::stringstream error_message;
+         error_message << "Image" << "::" << "modify_params_for_hide" << ": error: " << "guard \"place\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(color))
+      {
+         std::stringstream error_message;
+         error_message << "Image" << "::" << "modify_params_for_hide" << ": error: " << "guard \"color\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   float age = infer_age();
+
+   if (reveal_style == "reveal")
+   {
+      float hide_duration = 0.6f;
+      if (age > (duration_to_advance_sec - hide_duration))
+      {
+         float start_time = duration_to_advance_sec - hide_duration;
+         float end_time = duration_to_advance_sec;
+         float normalized_time = 1.0 - ((end_time - age) / hide_duration);
+
+         //float normalized_time = std::max(0.0f, std::min(1.0f, age / hide_duration));
+         //float normalized_time = 0.5;
+
+         float inv_normalized_time = 1.0 - normalized_time;
+         float hide_scale_offset = -0.1;
+
+         //float reveal_opacity = 0.5;
+         //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
+         ALLEGRO_COLOR hide_to_color = AllegroFlare::Color::Transparent;
+
+         *color = AllegroFlare::color::mix(*color, hide_to_color, normalized_time);
+         *color = AllegroFlare::color::mix(*color, hide_to_color, normalized_time);
+         //place->scale.x = 1.0 + hide_scale_offset * AllegroFlare::interpolator::slow_in(normalized_time);
+         //place->scale.y = 1.0 + hide_scale_offset * AllegroFlare::interpolator::slow_in(normalized_time);
+       }
+   }
+
+   return;
+}
+
+void Image::modify_params_for_reveal(AllegroFlare::Placement2D* place, ALLEGRO_COLOR* color)
+{
+   if (!(place))
+      {
+         std::stringstream error_message;
+         error_message << "Image" << "::" << "modify_params_for_reveal" << ": error: " << "guard \"place\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(color))
+      {
+         std::stringstream error_message;
+         error_message << "Image" << "::" << "modify_params_for_reveal" << ": error: " << "guard \"color\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   float age = infer_age();
+
+   if (reveal_style == "reveal")
+   {
+      float reveal_duration = 0.8f;
+      if (age < reveal_duration)
+      {
+         float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
+         float inv_normalized_time = 1.0 - normalized_time;
+         float reveal_scale_offset = 0.2;
+         //float reveal_opacity = 0.5;
+         //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
+         ALLEGRO_COLOR reveal_from_color = AllegroFlare::Color::Transparent;
+
+         *color = AllegroFlare::color::mix(reveal_from_color, *color, normalized_time);
+         *color = AllegroFlare::color::mix(reveal_from_color, *color, normalized_time);
+         place->scale.x = 1.0 + reveal_scale_offset * AllegroFlare::interpolator::double_slow_in(inv_normalized_time);
+         place->scale.y = 1.0 + reveal_scale_offset * AllegroFlare::interpolator::double_slow_in(inv_normalized_time);
+       }
+   }
+
    return;
 }
 } // namespace StoryboardPages
