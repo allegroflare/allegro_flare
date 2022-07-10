@@ -80,7 +80,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTest, render__without_allegro_initialized
 {
    AllegroFlare::Elements::Storyboard storyboard_player;
    std::string expected_error_message =
-      "StoryboardPlayer::render: error: guard \"al_is_system_installed()\" not met";
+      "Storyboard::render: error: guard \"al_is_system_installed()\" not met";
    ASSERT_THROW_WITH_MESSAGE(storyboard_player.render(), std::runtime_error, expected_error_message);
 }
 

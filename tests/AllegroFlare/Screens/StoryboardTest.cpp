@@ -51,6 +51,13 @@ TEST_F(AllegroFlare_Screens_StoryboardTest, can_be_created_without_blowing_up)
 }
 
 
+TEST_F(AllegroFlare_Screens_StoryboardTest, has_the_expected_type)
+{
+   AllegroFlare::Screens::Storyboard storyboard;
+   EXPECT_EQ("Storyboard", storyboard.get_type());
+}
+
+
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture, primary_timer_func__will_not_blow_up)
 {
    AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref());
@@ -66,7 +73,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
-      new StoryboardPageTestClass(font, "Hello StoryboardPlayer!")
+      new StoryboardPageTestClass(font, "Hello Storyboard!")
    };
    AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), nullptr);
    storyboard.get_storyboard_element_ref().set_pages(pages);
@@ -91,7 +98,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
-      new StoryboardPageTestClass(font, "Hello StoryboardPlayer!")
+      new StoryboardPageTestClass(font, "Hello Storyboard!")
    };
    AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), nullptr);
    storyboard.get_storyboard_element_ref().set_pages(pages);
@@ -113,7 +120,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    AllegroFlare::Screens::Storyboard storyboard;
    storyboard.initialize();
    std::string expected_error_message =
-      "StoryboardPlayer::virtual_control_button_down_func: error: guard \"event_emitter\" not met";
+      "Storyboard::virtual_control_button_down_func: error: guard \"event_emitter\" not met";
    EXPECT_THROW_WITH_MESSAGE(storyboard.virtual_control_button_down_func(), std::runtime_error, expected_error_message);
 }
 

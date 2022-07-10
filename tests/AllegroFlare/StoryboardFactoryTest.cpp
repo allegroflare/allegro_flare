@@ -59,7 +59,7 @@ TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
       storyboard_factory.create_advancing_text_storyboard_screen(&event_emitter, pages_text);
 
    ASSERT_NE(nullptr, screen);
-   EXPECT_EQ("StoryboardPlayer", screen->get_type());
+   EXPECT_EQ("Storyboard", screen->get_type());
    EXPECT_EQ(3, screen->get_storyboard_element_ref().get_pages().size());
    int page_num = 0;
    for (auto &page : screen->get_storyboard_element_ref().get_pages())

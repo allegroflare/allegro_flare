@@ -67,8 +67,8 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_stor
    result->initialize();
 
    // tweak the button styling
-   AllegroFlare::Elements::Storyboard &storyboard_player_element = result->get_storyboard_element_ref();
-   storyboard_player_element.set_button_font_size(button_font_size);
+   AllegroFlare::Elements::Storyboard &storyboard_element = result->get_storyboard_element_ref();
+   storyboard_element.set_button_font_size(button_font_size);
 
    // create all the pages
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages;
@@ -83,7 +83,7 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_stor
       advancing_text_page->set_line_height_multiplier(page_text_line_height_multiplier);
       pages.push_back(advancing_text_page);
    }
-   storyboard_player_element.set_pages(pages);
+   storyboard_element.set_pages(pages);
 
    // return the result
    return result;
