@@ -17,6 +17,7 @@ properties:
     type: int
     init_with: -60
     getter: true
+    setter: true
 
   - name: current_page_num
     type: intptr_t

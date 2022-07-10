@@ -28,6 +28,7 @@ namespace AllegroFlare
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_pages(std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages);
+         void set_button_font_size(int button_font_size);
          int get_button_font_size();
          intptr_t get_current_page_num();
          bool get_can_advance_to_next_page();
