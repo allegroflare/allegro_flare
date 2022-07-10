@@ -58,12 +58,12 @@ AllegroFlare::Elements::StoryboardPages::Image* StoryboardFactory::create_image_
    return new AllegroFlare::Elements::StoryboardPages::Image(image);
 }
 
-AllegroFlare::Screens::StoryboardPlayer* StoryboardFactory::create_advancing_text_storyboard_screen(AllegroFlare::EventEmitter* event_emitter, std::vector<std::string> pages_text, int button_font_size, float page_top_padding, float page_left_padding, float page_right_padding, int page_text_font_size, float page_text_line_height_multiplier)
+AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_storyboard_screen(AllegroFlare::EventEmitter* event_emitter, std::vector<std::string> pages_text, int button_font_size, float page_top_padding, float page_left_padding, float page_right_padding, int page_text_font_size, float page_text_line_height_multiplier)
 {
-   AllegroFlare::Screens::StoryboardPlayer* result;
+   AllegroFlare::Screens::Storyboard* result;
 
    // create the storyboard container
-   result = new AllegroFlare::Screens::StoryboardPlayer(font_bin, event_emitter);
+   result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
    result->initialize();
 
    // tweak the button styling

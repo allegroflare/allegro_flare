@@ -50,7 +50,7 @@ functions:
 
 
   - name: create_advancing_text_storyboard_screen
-    type: AllegroFlare::Screens::StoryboardPlayer*
+    type: AllegroFlare::Screens::Storyboard*
     parameters:
       - name: event_emitter
         type: AllegroFlare::EventEmitter*
@@ -77,10 +77,10 @@ functions:
         type: float
         default_argument: 1.5
     body: |
-      AllegroFlare::Screens::StoryboardPlayer* result;
+      AllegroFlare::Screens::Storyboard* result;
 
       // create the storyboard container
-      result = new AllegroFlare::Screens::StoryboardPlayer(font_bin, event_emitter);
+      result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
       result->initialize();
 
       // tweak the button styling
@@ -127,7 +127,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText*
     headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
-  - symbol: AllegroFlare::Screens::StoryboardPlayer*
-    headers: [ AllegroFlare/Screens/StoryboardPlayer.hpp ]
+  - symbol: AllegroFlare::Screens::Storyboard*
+    headers: [ AllegroFlare/Screens/Storyboard.hpp ]
 
 

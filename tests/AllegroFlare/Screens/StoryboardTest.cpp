@@ -14,15 +14,15 @@
 #include <AllegroFlare/VirtualControls.hpp>
 
 
-class AllegroFlare_Screens_StoryboardPlayerTest : public ::testing::Test
+class AllegroFlare_Screens_StoryboardTest : public ::testing::Test
 {};
 
-class AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture
+class AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
 
-#include <AllegroFlare/Screens/StoryboardPlayer.hpp>
+#include <AllegroFlare/Screens/Storyboard.hpp>
 
 
 class StoryboardPageTestClass : public AllegroFlare::Elements::StoryboardPages::Base
@@ -45,22 +45,22 @@ public:
 };
 
 
-TEST_F(AllegroFlare_Screens_StoryboardPlayerTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Screens_StoryboardTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Screens::StoryboardPlayer storyboard;
+   AllegroFlare::Screens::Storyboard storyboard;
 }
 
 
-TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture, primary_timer_func__will_not_blow_up)
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture, primary_timer_func__will_not_blow_up)
 {
-   AllegroFlare::Screens::StoryboardPlayer storyboard(&get_font_bin_ref());
+   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref());
    storyboard.initialize();
    storyboard.primary_timer_func();
    SUCCEED();
 }
 
 
-TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    primary_timer_func__will_advance_the_number_of_characters_revealed_on_the_page)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
@@ -68,7 +68,7 @@ TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "Hello StoryboardPlayer!")
    };
-   AllegroFlare::Screens::StoryboardPlayer storyboard(&get_font_bin_ref(), nullptr);
+   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), nullptr);
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
 
@@ -85,7 +85,7 @@ TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    primary_timer_func__will_draw_the_current_page_text_to_the_screen)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
@@ -93,7 +93,7 @@ TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "Hello StoryboardPlayer!")
    };
-   AllegroFlare::Screens::StoryboardPlayer storyboard(&get_font_bin_ref(), nullptr);
+   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), nullptr);
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
 
@@ -107,10 +107,10 @@ TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    virtual_control_button_down_func__without_an_event_emitter__will_throw_an_error)
 {
-   AllegroFlare::Screens::StoryboardPlayer storyboard;
+   AllegroFlare::Screens::Storyboard storyboard;
    storyboard.initialize();
    std::string expected_error_message =
       "StoryboardPlayer::virtual_control_button_down_func: error: guard \"event_emitter\" not met";
@@ -118,7 +118,7 @@ TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    DISABLED__virtual_control_button_down_func__with_the_expected_virtual_buttons__will_advance_the_storybard)
    // TODO
 {
@@ -130,7 +130,7 @@ TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
       new StoryboardPageTestClass(font, "This is the second page!"),
       new StoryboardPageTestClass(font, "The final page is here."),
    };
-   AllegroFlare::Screens::StoryboardPlayer storyboard(&get_font_bin_ref(), &event_emitter); //, pages);
+   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), &event_emitter); //, pages);
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
 
@@ -147,7 +147,7 @@ TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    DISABLED__advance__when_at_the_final_page_that_is_finished__will_emit_a_game_event_with_the_expected_property_value)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -162,7 +162,7 @@ TEST_F(AllegroFlare_Screens_StoryboardPlayerTestWithAllegroRenderingFixture,
       new StoryboardPageTestClass(font, "Here is the last page!"),
    };
 
-   AllegroFlare::Screens::StoryboardPlayer storyboard(
+   AllegroFlare::Screens::Storyboard storyboard(
          &get_font_bin_ref(),
          &event_emitter
       );
