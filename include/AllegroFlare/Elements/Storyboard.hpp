@@ -17,6 +17,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages;
          int button_font_size;
+         bool auto_advance;
          intptr_t current_page_num;
          bool can_advance_to_next_page;
          float can_advance_started_at;
@@ -29,8 +30,10 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_pages(std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages);
          void set_button_font_size(int button_font_size);
+         void set_auto_advance(bool auto_advance);
          std::vector<AllegroFlare::Elements::StoryboardPages::Base *> get_pages();
          int get_button_font_size();
+         bool get_auto_advance();
          intptr_t get_current_page_num();
          bool get_can_advance_to_next_page();
          float get_can_advance_started_at();

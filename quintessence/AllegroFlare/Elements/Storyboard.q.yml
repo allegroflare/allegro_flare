@@ -20,6 +20,12 @@ properties:
     getter: true
     setter: true
 
+  - name: auto_advance
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: current_page_num
     type: intptr_t
     init_with: 0
@@ -49,7 +55,11 @@ functions:
       AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
       if (!current_page) return;
       current_page->update();
-      if (!can_advance_to_next_page && current_page->get_finished()) permit_advancing_page();
+      if (!can_advance_to_next_page && current_page->get_finished())
+      {
+         permit_advancing_page();
+         if (auto_advance) advance(); // this is a new feature, there could be odd unexpected behavior involved
+      }
       return;
 
 
