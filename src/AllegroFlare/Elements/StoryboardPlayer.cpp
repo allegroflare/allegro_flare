@@ -153,7 +153,11 @@ bool StoryboardPlayer::advance()
       }
       else
       {
-         advance_page();
+         if (advance_page())
+         {
+            AllegroFlare::Elements::StoryboardPages::Base* newly_advanced_page = infer_current_page();
+            if (newly_advanced_page) newly_advanced_page->start();
+         }
          deny_advancing_page();
          return true;
       }
