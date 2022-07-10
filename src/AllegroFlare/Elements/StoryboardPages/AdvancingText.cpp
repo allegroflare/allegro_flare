@@ -5,12 +5,6 @@
 #include <AllegroFlare/Color.hpp>
 #include <stdexcept>
 #include <sstream>
-#include <cmath>
-#include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Placement2D.hpp>
-#include <allegro5/allegro_primitives.h>
-#include <AllegroFlare/Interpolators.hpp>
-#include <algorithm>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -25,9 +19,10 @@ namespace StoryboardPages
 {
 
 
-AdvancingText::AdvancingText(AllegroFlare::FontBin* font_bin, std::vector<std::string> pages, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding, intptr_t current_page_num)
-   : font_bin(font_bin)
-   , pages(pages)
+AdvancingText::AdvancingText(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding)
+   : AllegroFlare::Elements::StoryboardPages::Base()
+   , font_bin(font_bin)
+   , text(text)
    , font_name(font_name)
    , font_size(font_size)
    , text_color(text_color)
@@ -36,11 +31,7 @@ AdvancingText::AdvancingText(AllegroFlare::FontBin* font_bin, std::vector<std::s
    , right_padding(right_padding)
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
-   , current_page_num(current_page_num)
    , revealed_characters_count(0)
-   , can_advance_to_next(false)
-   , can_advance_started_at(0)
-   , finished(false)
 {
 }
 
@@ -56,9 +47,9 @@ void AdvancingText::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void AdvancingText::set_pages(std::vector<std::string> pages)
+void AdvancingText::set_text(std::string text)
 {
-   this->pages = pages;
+   this->text = text;
 }
 
 
@@ -158,43 +149,23 @@ float AdvancingText::get_line_height_padding()
 }
 
 
-intptr_t AdvancingText::get_current_page_num()
-{
-   return current_page_num;
-}
-
-
 int AdvancingText::get_revealed_characters_count()
 {
    return revealed_characters_count;
 }
 
 
-bool AdvancingText::get_can_advance_to_next()
+void AdvancingText::start()
 {
-   return can_advance_to_next;
+   revealed_characters_count = 0;
+   set_finished(false);
+   return;
 }
-
-
-float AdvancingText::get_can_advance_started_at()
-{
-   return can_advance_started_at;
-}
-
-
-bool AdvancingText::get_finished()
-{
-   return finished;
-}
-
 
 void AdvancingText::update()
 {
    revealed_characters_count++;
-   if (revealed_characters_count >= current_page_text().size())
-   {
-      if (!can_advance_to_next) permit_advancing_page();
-   }
+   if (revealed_characters_count >= text.size()) set_finished(true);
    return;
 }
 
@@ -214,8 +185,8 @@ void AdvancingText::render()
       }
    ALLEGRO_FONT *text_font = obtain_font();
 
-   std::string text = revealed_page_text();
-   if (!text.empty())
+   std::string revealed_text = generate_revealed_text();
+   if (!revealed_text.empty())
    {
       float box_width = 1920 - (left_padding + right_padding);
       al_draw_multiline_text(
@@ -226,167 +197,39 @@ void AdvancingText::render()
             box_width,
             al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
             0,
-            text.c_str()
+            revealed_text.c_str()
          );
    }
-
-   if (can_advance_to_next) render_next_button();
 
    return;
 }
 
-std::string AdvancingText::current_page_text()
+void AdvancingText::advance()
 {
-   if (current_page_num >= pages.size()) return "";
-   return pages[current_page_num].c_str();
+   if (get_finished()) return;
+   if (!all_characters_are_revealed()) reveal_all_characters();
+   else
+   {
+      set_finished(true);
+   }
+
+   // TODO - should this also finished = true?
+   return;
 }
 
-std::string AdvancingText::revealed_page_text()
+std::string AdvancingText::generate_revealed_text()
 {
-   return current_page_text().substr(0, revealed_characters_count);
+   return text.substr(0, revealed_characters_count);
 }
 
 void AdvancingText::reveal_all_characters()
 {
-   revealed_characters_count = current_page_text().size();
-}
-
-void AdvancingText::render_next_button()
-{
-   float x = 1920-400;
-   float y = 1080-300;
-   float age = al_get_time() - can_advance_started_at;
-   ALLEGRO_FONT *next_button_font = obtain_next_button_font();
-   std::string text = "NEXT >";
-   float text_width = al_get_text_width(next_button_font, text.c_str());
-   float text_height = al_get_font_line_height(next_button_font);
-   ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
-   ALLEGRO_COLOR button_text_color = button_color;
-   float button_frame_opacity = ((1.5 - fmod(age, 1.5)) / 1.5) * 0.75 + 0.25;
-   ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
-         button_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
-   float thickness = 4.0f;
-   float roundness = thickness * 1.5;
-   float padding_x = 32.0f;
-   float padding_y = 12.0f;
-   AllegroFlare::Placement2D button_place;
-   button_place.position.x = x;
-   button_place.position.y = y;
-
-   float reveal_duration = 0.6f;
-   if (age < reveal_duration)
-   {
-      // modify params by the reveal animation offsets
-      float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
-      float inv_normalized_time = 1.0 - normalized_time;
-      float reveal_y_offset = 30;
-      float reveal_opacity = 0.5;
-      //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
-      ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Transparent;
-
-      button_text_color = AllegroFlare::color::mix(
-            reveal_color, button_text_color, normalized_time);
-      button_frame_color = AllegroFlare::color::mix(
-            reveal_color, button_frame_color, normalized_time);
-      button_place.position.y += reveal_y_offset * AllegroFlare::interpolator::tripple_fast_out(inv_normalized_time);
-   }
-
-   button_place.start_transform();
-
-   // draw the cursor outline
-   al_draw_rounded_rectangle(
-      -padding_x,
-      -padding_y,
-      text_width+padding_x,
-      text_height+padding_y,
-      roundness,
-      roundness,
-      button_frame_color,
-      thickness
-   );
-
-   // draw the text
-   al_draw_text(next_button_font, button_text_color, text_width/2, 0, ALLEGRO_ALIGN_CENTER, text.c_str());
-
-   button_place.restore_transform();
-
-   return;
-}
-
-void AdvancingText::reset()
-{
-   current_page_num = 0;
-   revealed_characters_count = 0;
-   finished = false;
-   deny_advancing_page();
-   return;
-}
-
-bool AdvancingText::permit_advancing_page()
-{
-   if (finished) return false;
-   if (can_advance_to_next) return true;
-
-   can_advance_to_next = true;
-   can_advance_started_at = al_get_time();
-   return true;
-}
-
-bool AdvancingText::deny_advancing_page()
-{
-   if (finished) return false;
-   can_advance_to_next = false;
-   can_advance_started_at = 0;
-   return true;
-}
-
-bool AdvancingText::advance()
-{
-   if (finished) return false;
-
-   if (!can_advance_to_next)
-   {
-      permit_advancing_page();
-      reveal_all_characters();
-      return true;
-   }
-   else
-   {
-      return advance_page();
-   }
-
-   return false;
-}
-
-bool AdvancingText::advance_page()
-{
-   if (finished) return false;
-   if (!can_advance_to_next) return false;
-
-   current_page_num++;
-   revealed_characters_count = 0;
-   deny_advancing_page();
-
-   if (current_page_num >= pages.size())
-   {
-      finished = true;
-   }
-   return !finished;
+   revealed_characters_count = text.size();
 }
 
 bool AdvancingText::all_characters_are_revealed()
 {
-   return revealed_characters_count >= current_page_text().size();
-}
-
-bool AdvancingText::infer_at_last_page()
-{
-   return (current_page_num == (pages.size()-1));
-}
-
-bool AdvancingText::infer_at_or_past_last_page()
-{
-   return (current_page_num >= (pages.size()-1));
+   return revealed_characters_count >= text.size();
 }
 
 ALLEGRO_FONT* AdvancingText::obtain_font()

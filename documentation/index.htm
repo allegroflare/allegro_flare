@@ -70,6 +70,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Stopwatch.q.yml">quintessence/AllegroFlare/Elements/Stopwatch.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Storyboard.q.yml">quintessence/AllegroFlare/Elements/Storyboard.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/Base.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/Image.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/Image.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/Text.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/Text.q.yml</a></li>
@@ -1288,6 +1289,130 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_multiline_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">top_padding</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">left_padding</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">right_padding</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">line_height_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">line_height_padding</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">revealed_characters_count</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">start()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">advance()</td>
+</tr>
+<tr>
+  <td class="method">generate_revealed_text()</td>
+</tr>
+<tr>
+  <td class="method">reveal_all_characters()</td>
+</tr>
+<tr>
+  <td class="method">all_characters_are_revealed()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_next_button_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/Base.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
 </tr>
@@ -2694,6 +2819,7 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
@@ -2724,6 +2850,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Elements/Text",
@@ -2741,6 +2868,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Elements/Text",
@@ -2784,6 +2912,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/Storyboard",
@@ -2814,6 +2943,7 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/StoryboardPlayer"
@@ -2826,11 +2956,13 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -2868,6 +3000,7 @@ table td
   ],
   "AllegroFlare/Screens/Base": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -2877,6 +3010,7 @@ table td
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -2887,23 +3021,28 @@ table td
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/StoryboardPlayer"
   ],
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer"
   ],
   "std/min, std/max": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPlayer",

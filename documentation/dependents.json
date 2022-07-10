@@ -58,6 +58,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
@@ -88,6 +89,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Elements/Text",
@@ -105,6 +107,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Elements/Text",
@@ -148,6 +151,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/Storyboard",
@@ -178,6 +182,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/StoryboardPlayer"
@@ -190,11 +195,13 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -232,6 +239,7 @@
   ],
   "AllegroFlare/Screens/Base": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -241,6 +249,7 @@
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -251,23 +260,28 @@
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/StoryboardPlayer"
   ],
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer"
   ],
   "std/min, std/max": [
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPlayer"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPlayer",
