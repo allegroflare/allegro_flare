@@ -8,79 +8,24 @@ properties:
     setter: true
 
   - name: pages
-    type: std::vector<std::string>
+    type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
     init_with: '{}'
     constructor_arg: true
     setter: true
-
-  - name: font_name
-    type: std::string
-    init_with: '"Inter-Medium.ttf"'
-    constructor_arg: true
     getter: true
-    setter: true
 
-  - name: font_size
+  - name: button_font_size
     type: int
     init_with: -60
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: text_color
-    type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: top_padding
-    type: float
-    init_with: 400
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: left_padding
-    type: float
-    init_with: 200
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: right_padding
-    type: float
-    init_with: 200
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: line_height_multiplier
-    type: float
-    init_with: 1.75f
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: line_height_padding
-    type: float
-    init_with: 0.0f
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: current_page_num
     type: intptr_t
     init_with: 0
-    constructor_arg: true
     getter: true
 
-  - name: revealed_characters_count
-    type: int
-    init_with: 0
-    getter: true
-
-  - name: can_advance_to_next
+  - name: can_advance_to_next_page
     type: bool
     init_with: false
     getter: true
@@ -101,11 +46,10 @@ functions:
 
   - name: update
     body: |
-      revealed_characters_count++;
-      if (revealed_characters_count >= current_page_text().size())
-      {
-         if (!can_advance_to_next) permit_advancing_page();
-      }
+      AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+      if (!current_page) return;
+      current_page->update();
+      if (!can_advance_to_next_page && current_page->get_finished()) permit_advancing_page();
       return;
 
 
@@ -113,25 +57,11 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      ALLEGRO_FONT *text_font = obtain_font();
+      AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+      if (!current_page) return;
+      current_page->render();
 
-      std::string text = revealed_page_text();
-      if (!text.empty())
-      {
-         float box_width = 1920 - (left_padding + right_padding);
-         al_draw_multiline_text(
-               text_font,
-               text_color,
-               left_padding,
-               top_padding,
-               box_width,
-               al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
-               0,
-               text.c_str()
-            );
-      }
-
-      if (can_advance_to_next) render_next_button();
+      if (can_advance_to_next_page) render_next_button();
 
       return;
     body_dependency_symbols:
@@ -139,22 +69,81 @@ functions:
       - AllegroFlare::Color
 
 
-  - name: current_page_text
-    type: std::string
+  - name: reset
+    type: void
     body: |
-      if (current_page_num >= pages.size()) return "";
-      return pages[current_page_num].c_str();
+      current_page_num = 0;
+      finished = false;
+      deny_advancing_page();
+
+      AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+      if (current_page) current_page->start();
+      
+      return;
 
 
-  - name: revealed_page_text
-    type: std::string
+  - name: permit_advancing_page
+    type: bool
     body: |
-      return current_page_text().substr(0, revealed_characters_count);
+      if (finished) return false;
+      if (can_advance_to_next_page) return true;
+
+      can_advance_to_next_page = true;
+      can_advance_started_at = al_get_time();
+      return true;
 
 
-  - name: reveal_all_characters
+  - name: deny_advancing_page
+    type: bool
     body: |
-      revealed_characters_count = current_page_text().size();
+      if (finished) return false;
+      can_advance_to_next_page = false;
+      can_advance_started_at = 0;
+      return true;
+
+
+  - name: advance
+    type: bool
+    body: |
+      AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+      if (!current_page) return false;
+      if (finished) return false;
+
+      if (can_advance_to_next_page)
+      {
+         if (infer_at_last_page() && current_page->get_finished())
+         {
+            deny_advancing_page();
+            finished = true;
+            return true;
+         }
+         else
+         {
+            if (advance_page())
+            {
+               AllegroFlare::Elements::StoryboardPages::Base* newly_advanced_page = infer_current_page();
+               if (newly_advanced_page) newly_advanced_page->start();
+            }
+            deny_advancing_page();
+            return true;
+         }
+      }
+      else
+      {
+         // advance within the current page
+         current_page->advance();
+         return true;
+      }
+      
+      return false;
+
+      
+  - name: advance_page
+    type: bool
+    body: |
+      if (!can_advance_to_next_page) return false;
+      current_page_num++;
+      return true;
 
 
   - name: render_next_button
@@ -188,7 +177,7 @@ functions:
          float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
          float inv_normalized_time = 1.0 - normalized_time;
          float reveal_y_offset = 30;
-         float reveal_opacity = 0.5;
+         //float reveal_opacity = 0.5;
          //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
          ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Transparent;
 
@@ -228,78 +217,6 @@ functions:
       - std::min, std::max
 
 
-  - name: reset
-    type: void
-    body: |
-      current_page_num = 0;
-      revealed_characters_count = 0;
-      finished = false;
-      deny_advancing_page();
-      return;
-
-
-  - name: permit_advancing_page
-    type: bool
-    body: |
-      if (finished) return false;
-      if (can_advance_to_next) return true;
-
-      can_advance_to_next = true;
-      can_advance_started_at = al_get_time();
-      return true;
-
-
-  - name: deny_advancing_page
-    type: bool
-    body: |
-      if (finished) return false;
-      can_advance_to_next = false;
-      can_advance_started_at = 0;
-      return true;
-
-
-  - name: advance
-    type: bool
-    body: |
-      if (finished) return false;
-
-      if (!can_advance_to_next)
-      {
-         permit_advancing_page();
-         reveal_all_characters();
-         return true;
-      }
-      else
-      {
-         return advance_page();
-      }
-
-      return false;
-
-      
-  - name: advance_page
-    type: bool
-    body: |
-      if (finished) return false;
-      if (!can_advance_to_next) return false;
-
-      current_page_num++;
-      revealed_characters_count = 0;
-      deny_advancing_page();
-
-      if (current_page_num >= pages.size())
-      {
-         finished = true;
-      }
-      return !finished;
-
-
-  - name: all_characters_are_revealed
-    type: bool
-    body: |
-      return revealed_characters_count >= current_page_text().size();
-
-
   - name: infer_at_last_page
     type: bool
     body: |
@@ -312,14 +229,11 @@ functions:
       return (current_page_num >= (pages.size()-1));
 
 
-  - name: obtain_font
-    private: true
-    type: ALLEGRO_FONT*
-    guards: [ font_bin ]
+  - name: infer_current_page
+    type: AllegroFlare::Elements::StoryboardPages::Base*
     body: |
-      std::stringstream composite_font_str;
-      composite_font_str << font_name << " " << font_size;
-      return font_bin->auto_get(composite_font_str.str());
+      if (current_page_num < 0 || current_page_num >= pages.size()) return nullptr;
+      return pages[current_page_num];
 
 
   - name: obtain_next_button_font
@@ -327,14 +241,19 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
+      std::string font_name = "Inter-Medium.ttf";
       std::stringstream composite_font_str;
-      composite_font_str << font_name << " " << font_size+20;
+      composite_font_str << font_name << " " << button_font_size+20;
       return font_bin->auto_get(composite_font_str.str());
 
 
 dependencies:
 
 
+  - symbol: AllegroFlare::Elements::StoryboardPages::Base*
+    headers: [ vector, AllegroFlare/Elements/StoryboardPages/Base.hpp ]
+  - symbol: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
+    headers: [ vector, AllegroFlare/Elements/StoryboardPages/Base.hpp ]
   - symbol: AllegroFlare::Color
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: AllegroFlare::Placement2D

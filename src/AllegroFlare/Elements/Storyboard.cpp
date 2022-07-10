@@ -13,8 +13,6 @@
 #include <algorithm>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -23,20 +21,12 @@ namespace Elements
 {
 
 
-Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<std::string> pages, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding, intptr_t current_page_num)
+Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages)
    : font_bin(font_bin)
    , pages(pages)
-   , font_name(font_name)
-   , font_size(font_size)
-   , text_color(text_color)
-   , top_padding(top_padding)
-   , left_padding(left_padding)
-   , right_padding(right_padding)
-   , line_height_multiplier(line_height_multiplier)
-   , line_height_padding(line_height_padding)
-   , current_page_num(current_page_num)
-   , revealed_characters_count(0)
-   , can_advance_to_next(false)
+   , button_font_size(-60)
+   , current_page_num(0)
+   , can_advance_to_next_page(false)
    , can_advance_started_at(0)
    , finished(false)
 {
@@ -54,105 +44,27 @@ void Storyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void Storyboard::set_pages(std::vector<std::string> pages)
+void Storyboard::set_pages(std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages)
 {
    this->pages = pages;
 }
 
 
-void Storyboard::set_font_name(std::string font_name)
+void Storyboard::set_button_font_size(int button_font_size)
 {
-   this->font_name = font_name;
+   this->button_font_size = button_font_size;
 }
 
 
-void Storyboard::set_font_size(int font_size)
+std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Storyboard::get_pages()
 {
-   this->font_size = font_size;
+   return pages;
 }
 
 
-void Storyboard::set_text_color(ALLEGRO_COLOR text_color)
+int Storyboard::get_button_font_size()
 {
-   this->text_color = text_color;
-}
-
-
-void Storyboard::set_top_padding(float top_padding)
-{
-   this->top_padding = top_padding;
-}
-
-
-void Storyboard::set_left_padding(float left_padding)
-{
-   this->left_padding = left_padding;
-}
-
-
-void Storyboard::set_right_padding(float right_padding)
-{
-   this->right_padding = right_padding;
-}
-
-
-void Storyboard::set_line_height_multiplier(float line_height_multiplier)
-{
-   this->line_height_multiplier = line_height_multiplier;
-}
-
-
-void Storyboard::set_line_height_padding(float line_height_padding)
-{
-   this->line_height_padding = line_height_padding;
-}
-
-
-std::string Storyboard::get_font_name()
-{
-   return font_name;
-}
-
-
-int Storyboard::get_font_size()
-{
-   return font_size;
-}
-
-
-ALLEGRO_COLOR Storyboard::get_text_color()
-{
-   return text_color;
-}
-
-
-float Storyboard::get_top_padding()
-{
-   return top_padding;
-}
-
-
-float Storyboard::get_left_padding()
-{
-   return left_padding;
-}
-
-
-float Storyboard::get_right_padding()
-{
-   return right_padding;
-}
-
-
-float Storyboard::get_line_height_multiplier()
-{
-   return line_height_multiplier;
-}
-
-
-float Storyboard::get_line_height_padding()
-{
-   return line_height_padding;
+   return button_font_size;
 }
 
 
@@ -162,15 +74,9 @@ intptr_t Storyboard::get_current_page_num()
 }
 
 
-int Storyboard::get_revealed_characters_count()
+bool Storyboard::get_can_advance_to_next_page()
 {
-   return revealed_characters_count;
-}
-
-
-bool Storyboard::get_can_advance_to_next()
-{
-   return can_advance_to_next;
+   return can_advance_to_next_page;
 }
 
 
@@ -188,11 +94,10 @@ bool Storyboard::get_finished()
 
 void Storyboard::update()
 {
-   revealed_characters_count++;
-   if (revealed_characters_count >= current_page_text().size())
-   {
-      if (!can_advance_to_next) permit_advancing_page();
-   }
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (!current_page) return;
+   current_page->update();
+   if (!can_advance_to_next_page && current_page->get_finished()) permit_advancing_page();
    return;
 }
 
@@ -210,43 +115,85 @@ void Storyboard::render()
          error_message << "Storyboard" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   ALLEGRO_FONT *text_font = obtain_font();
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (!current_page) return;
+   current_page->render();
 
-   std::string text = revealed_page_text();
-   if (!text.empty())
-   {
-      float box_width = 1920 - (left_padding + right_padding);
-      al_draw_multiline_text(
-            text_font,
-            text_color,
-            left_padding,
-            top_padding,
-            box_width,
-            al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
-            0,
-            text.c_str()
-         );
-   }
-
-   if (can_advance_to_next) render_next_button();
+   if (can_advance_to_next_page) render_next_button();
 
    return;
 }
 
-std::string Storyboard::current_page_text()
+void Storyboard::reset()
 {
-   if (current_page_num >= pages.size()) return "";
-   return pages[current_page_num].c_str();
+   current_page_num = 0;
+   finished = false;
+   deny_advancing_page();
+
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (current_page) current_page->start();
+
+   return;
 }
 
-std::string Storyboard::revealed_page_text()
+bool Storyboard::permit_advancing_page()
 {
-   return current_page_text().substr(0, revealed_characters_count);
+   if (finished) return false;
+   if (can_advance_to_next_page) return true;
+
+   can_advance_to_next_page = true;
+   can_advance_started_at = al_get_time();
+   return true;
 }
 
-void Storyboard::reveal_all_characters()
+bool Storyboard::deny_advancing_page()
 {
-   revealed_characters_count = current_page_text().size();
+   if (finished) return false;
+   can_advance_to_next_page = false;
+   can_advance_started_at = 0;
+   return true;
+}
+
+bool Storyboard::advance()
+{
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (!current_page) return false;
+   if (finished) return false;
+
+   if (can_advance_to_next_page)
+   {
+      if (infer_at_last_page() && current_page->get_finished())
+      {
+         deny_advancing_page();
+         finished = true;
+         return true;
+      }
+      else
+      {
+         if (advance_page())
+         {
+            AllegroFlare::Elements::StoryboardPages::Base* newly_advanced_page = infer_current_page();
+            if (newly_advanced_page) newly_advanced_page->start();
+         }
+         deny_advancing_page();
+         return true;
+      }
+   }
+   else
+   {
+      // advance within the current page
+      current_page->advance();
+      return true;
+   }
+
+   return false;
+}
+
+bool Storyboard::advance_page()
+{
+   if (!can_advance_to_next_page) return false;
+   current_page_num++;
+   return true;
 }
 
 void Storyboard::render_next_button()
@@ -278,7 +225,7 @@ void Storyboard::render_next_button()
       float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
       float inv_normalized_time = 1.0 - normalized_time;
       float reveal_y_offset = 30;
-      float reveal_opacity = 0.5;
+      //float reveal_opacity = 0.5;
       //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
       ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Transparent;
 
@@ -311,72 +258,6 @@ void Storyboard::render_next_button()
    return;
 }
 
-void Storyboard::reset()
-{
-   current_page_num = 0;
-   revealed_characters_count = 0;
-   finished = false;
-   deny_advancing_page();
-   return;
-}
-
-bool Storyboard::permit_advancing_page()
-{
-   if (finished) return false;
-   if (can_advance_to_next) return true;
-
-   can_advance_to_next = true;
-   can_advance_started_at = al_get_time();
-   return true;
-}
-
-bool Storyboard::deny_advancing_page()
-{
-   if (finished) return false;
-   can_advance_to_next = false;
-   can_advance_started_at = 0;
-   return true;
-}
-
-bool Storyboard::advance()
-{
-   if (finished) return false;
-
-   if (!can_advance_to_next)
-   {
-      permit_advancing_page();
-      reveal_all_characters();
-      return true;
-   }
-   else
-   {
-      return advance_page();
-   }
-
-   return false;
-}
-
-bool Storyboard::advance_page()
-{
-   if (finished) return false;
-   if (!can_advance_to_next) return false;
-
-   current_page_num++;
-   revealed_characters_count = 0;
-   deny_advancing_page();
-
-   if (current_page_num >= pages.size())
-   {
-      finished = true;
-   }
-   return !finished;
-}
-
-bool Storyboard::all_characters_are_revealed()
-{
-   return revealed_characters_count >= current_page_text().size();
-}
-
 bool Storyboard::infer_at_last_page()
 {
    return (current_page_num == (pages.size()-1));
@@ -387,17 +268,10 @@ bool Storyboard::infer_at_or_past_last_page()
    return (current_page_num >= (pages.size()-1));
 }
 
-ALLEGRO_FONT* Storyboard::obtain_font()
+AllegroFlare::Elements::StoryboardPages::Base* Storyboard::infer_current_page()
 {
-   if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << font_size;
-   return font_bin->auto_get(composite_font_str.str());
+   if (current_page_num < 0 || current_page_num >= pages.size()) return nullptr;
+   return pages[current_page_num];
 }
 
 ALLEGRO_FONT* Storyboard::obtain_next_button_font()
@@ -408,8 +282,9 @@ ALLEGRO_FONT* Storyboard::obtain_next_button_font()
          error_message << "Storyboard" << "::" << "obtain_next_button_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
+   std::string font_name = "Inter-Medium.ttf";
    std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << font_size+20;
+   composite_font_str << font_name << " " << button_font_size+20;
    return font_bin->auto_get(composite_font_str.str());
 }
 } // namespace Elements

@@ -25,9 +25,36 @@ class AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture
 #include <AllegroFlare/Screens/Storyboard.hpp>
 
 
+class StoryboardPageTestClass : public AllegroFlare::Elements::StoryboardPages::Base
+{
+public:
+   ALLEGRO_FONT *font;
+   std::string text;
+   float opacity;
+   StoryboardPageTestClass(ALLEGRO_FONT *font, std::string text) : font(font), text(text), opacity(1) {};
+   virtual void render() override
+   {
+      ALLEGRO_COLOR color = ALLEGRO_COLOR{opacity, opacity, opacity, opacity};
+      al_draw_text(font, color, 1920/2, 1080/2, ALLEGRO_ALIGN_CENTER, text.c_str());
+   }
+   virtual void update() override
+   {
+      opacity += 0.05;
+      if (opacity > 1.0) opacity = 0.0f;
+   }
+};
+
+
 TEST_F(AllegroFlare_Screens_StoryboardTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Screens::Storyboard storyboard;
+}
+
+
+TEST_F(AllegroFlare_Screens_StoryboardTest, has_the_expected_type)
+{
+   AllegroFlare::Screens::Storyboard storyboard;
+   EXPECT_EQ("Storyboard", storyboard.get_type());
 }
 
 
@@ -43,7 +70,11 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture, primary_t
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    primary_timer_func__will_advance_the_number_of_characters_revealed_on_the_page)
 {
-   std::vector<std::string> pages = { "Hello Storyboard!" };
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
+      new StoryboardPageTestClass(font, "Hello Storyboard!")
+   };
    AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), nullptr);
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
@@ -64,7 +95,11 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    primary_timer_func__will_draw_the_current_page_text_to_the_screen)
 {
-   std::vector<std::string> pages = { "Hello Storyboard!" };
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
+      new StoryboardPageTestClass(font, "Hello Storyboard!")
+   };
    AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), nullptr);
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
@@ -95,10 +130,12 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    // TODO
 {
    AllegroFlare::EventEmitter event_emitter;
-   std::vector<std::string> pages = {
-      "This is page 1.",
-      "The second page looks like this.",
-      "A final page is this one, indeed.",
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
+      new StoryboardPageTestClass(font, "This is Page 1!"),
+      new StoryboardPageTestClass(font, "This is the second page!"),
+      new StoryboardPageTestClass(font, "The final page is here."),
    };
    AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), &event_emitter); //, pages);
    storyboard.get_storyboard_element_ref().set_pages(pages);
@@ -125,7 +162,12 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    event_emitter.initialize();
    ALLEGRO_EVENT event;
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
-   std::vector<std::string> pages = { "This is page 1.", "Here is the last page." };
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
+      new StoryboardPageTestClass(font, "This is page 1."),
+      new StoryboardPageTestClass(font, "Here is the last page!"),
+   };
 
    AllegroFlare::Screens::Storyboard storyboard(
          &get_font_bin_ref(),

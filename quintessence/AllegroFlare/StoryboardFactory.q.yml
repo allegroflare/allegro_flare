@@ -50,7 +50,7 @@ functions:
 
 
   - name: create_advancing_text_storyboard_screen
-    type: AllegroFlare::Screens::StoryboardPlayer*
+    type: AllegroFlare::Screens::Storyboard*
     parameters:
       - name: event_emitter
         type: AllegroFlare::EventEmitter*
@@ -77,15 +77,15 @@ functions:
         type: float
         default_argument: 1.5
     body: |
-      AllegroFlare::Screens::StoryboardPlayer* result;
+      AllegroFlare::Screens::Storyboard* result;
 
       // create the storyboard container
-      result = new AllegroFlare::Screens::StoryboardPlayer(font_bin, event_emitter);
+      result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
       result->initialize();
 
       // tweak the button styling
-      AllegroFlare::Elements::StoryboardPlayer &storyboard_player_element = result->get_storyboard_element_ref();
-      storyboard_player_element.set_button_font_size(button_font_size);
+      AllegroFlare::Elements::Storyboard &storyboard_element = result->get_storyboard_element_ref();
+      storyboard_element.set_button_font_size(button_font_size);
 
       // create all the pages
       std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages;
@@ -100,7 +100,7 @@ functions:
          advancing_text_page->set_line_height_multiplier(page_text_line_height_multiplier);
          pages.push_back(advancing_text_page);
       }
-      storyboard_player_element.set_pages(pages);
+      storyboard_element.set_pages(pages);
 
       // return the result
       return result;
@@ -117,8 +117,8 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_BITMAP*
     headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::Elements::StoryboardPlayer
-    headers: [ AllegroFlare/Elements/StoryboardPlayer.hpp ]
+  - symbol: AllegroFlare::Elements::Storyboard
+    headers: [ AllegroFlare/Elements/Storyboard.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Text*
     headers: [ AllegroFlare/Elements/StoryboardPages/Text.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base*
@@ -127,7 +127,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText*
     headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
-  - symbol: AllegroFlare::Screens::StoryboardPlayer*
-    headers: [ AllegroFlare/Screens/StoryboardPlayer.hpp ]
+  - symbol: AllegroFlare::Screens::Storyboard*
+    headers: [ AllegroFlare/Screens/Storyboard.hpp ]
 
 
