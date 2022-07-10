@@ -154,6 +154,7 @@ bool StoryboardPlayer::advance()
       else
       {
          advance_page();
+         deny_advancing_page();
          return true;
       }
    }
