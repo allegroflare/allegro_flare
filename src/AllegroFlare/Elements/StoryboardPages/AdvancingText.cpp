@@ -20,7 +20,7 @@ namespace StoryboardPages
 
 
 AdvancingText::AdvancingText(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding)
-   : AllegroFlare::Elements::StoryboardPages::Base()
+   : AllegroFlare::Elements::StoryboardPages::Base("AdvancingText")
    , font_bin(font_bin)
    , text(text)
    , font_name(font_name)
@@ -98,6 +98,18 @@ void AdvancingText::set_line_height_multiplier(float line_height_multiplier)
 void AdvancingText::set_line_height_padding(float line_height_padding)
 {
    this->line_height_padding = line_height_padding;
+}
+
+
+AllegroFlare::FontBin* AdvancingText::get_font_bin()
+{
+   return font_bin;
+}
+
+
+std::string AdvancingText::get_text()
+{
+   return text;
 }
 
 

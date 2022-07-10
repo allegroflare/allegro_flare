@@ -43,6 +43,8 @@ namespace AllegroFlare
             void set_right_padding(float right_padding);
             void set_line_height_multiplier(float line_height_multiplier);
             void set_line_height_padding(float line_height_padding);
+            AllegroFlare::FontBin* get_font_bin();
+            std::string get_text();
             std::string get_font_name();
             int get_font_size();
             ALLEGRO_COLOR get_text_color();

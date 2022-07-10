@@ -37,3 +37,15 @@ TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
+   create_advancing_text_page__will_create_the_text_page_with_the_expected_params)
+{
+   AllegroFlare::StoryboardFactory storyboard_factory(&get_font_bin_ref());
+   AllegroFlare::Elements::StoryboardPages::AdvancingText* created_page =
+      storyboard_factory.create_advancing_text_page("Hello Factory!");
+
+   EXPECT_EQ(&get_font_bin_ref(), created_page->get_font_bin());
+   EXPECT_EQ("Hello Factory!", created_page->get_text());
+}
+
+

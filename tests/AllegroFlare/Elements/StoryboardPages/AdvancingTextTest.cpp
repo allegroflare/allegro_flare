@@ -28,6 +28,13 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTest, can_be_created_w
 }
 
 
+TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTest, has_the_expected_type)
+{
+   AllegroFlare::Elements::StoryboardPages::AdvancingText advancing_text;
+   EXPECT_EQ("AdvancingText", advancing_text.get_type());
+}
+
+
 TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::StoryboardPages::AdvancingText storyboard;

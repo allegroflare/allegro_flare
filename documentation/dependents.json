@@ -335,6 +335,9 @@
   "AllegroFlare/Elements/StoryboardPages/Image": [
     "AllegroFlare/StoryboardFactory"
   ],
+  "AllegroFlare/Elements/StoryboardPages/AdvancingText": [
+    "AllegroFlare/StoryboardFactory"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

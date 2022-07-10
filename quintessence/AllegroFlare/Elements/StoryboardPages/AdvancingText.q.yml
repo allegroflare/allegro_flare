@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::StoryboardPages::Base
     scope: public
-    init_with: ''
+    init_with: '"AdvancingText"'
 
 
 properties:
@@ -13,12 +13,14 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
     setter: true
 
   - name: text
     type: std::string
     init_with: '"[text-not-set]"'
     constructor_arg: true
+    getter: true
     setter: true
 
   - name: font_name
