@@ -67,7 +67,7 @@ AllegroFlare::Screens::StoryboardPlayer* StoryboardFactory::create_advancing_tex
    result->initialize();
 
    // tweak the button styling
-   AllegroFlare::Elements::StoryboardPlayer &storyboard_player_element = result->get_storyboard_element_ref();
+   AllegroFlare::Elements::Storyboard &storyboard_player_element = result->get_storyboard_element_ref();
    storyboard_player_element.set_button_font_size(button_font_size);
 
    // create all the pages

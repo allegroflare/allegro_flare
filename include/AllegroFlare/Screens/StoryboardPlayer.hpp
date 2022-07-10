@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/Elements/StoryboardPlayer.hpp>
+#include <AllegroFlare/Elements/Storyboard.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
@@ -17,7 +17,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
-         AllegroFlare::Elements::StoryboardPlayer storyboard_element;
+         AllegroFlare::Elements::Storyboard storyboard_element;
          std::string game_event_name_to_emit_after_completing;
          bool initialized;
 
@@ -29,7 +29,7 @@ namespace AllegroFlare
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing);
          std::string get_game_event_name_to_emit_after_completing();
-         AllegroFlare::Elements::StoryboardPlayer &get_storyboard_element_ref();
+         AllegroFlare::Elements::Storyboard &get_storyboard_element_ref();
          void initialize();
          virtual void on_activate() override;
          virtual void primary_timer_func() override;

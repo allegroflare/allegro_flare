@@ -60,7 +60,7 @@ std::string StoryboardPlayer::get_game_event_name_to_emit_after_completing()
 }
 
 
-AllegroFlare::Elements::StoryboardPlayer &StoryboardPlayer::get_storyboard_element_ref()
+AllegroFlare::Elements::Storyboard &StoryboardPlayer::get_storyboard_element_ref()
 {
    return storyboard_element;
 }

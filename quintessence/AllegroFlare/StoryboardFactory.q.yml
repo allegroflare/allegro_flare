@@ -84,7 +84,7 @@ functions:
       result->initialize();
 
       // tweak the button styling
-      AllegroFlare::Elements::StoryboardPlayer &storyboard_player_element = result->get_storyboard_element_ref();
+      AllegroFlare::Elements::Storyboard &storyboard_player_element = result->get_storyboard_element_ref();
       storyboard_player_element.set_button_font_size(button_font_size);
 
       // create all the pages
@@ -117,8 +117,8 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_BITMAP*
     headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::Elements::StoryboardPlayer
-    headers: [ AllegroFlare/Elements/StoryboardPlayer.hpp ]
+  - symbol: AllegroFlare::Elements::Storyboard
+    headers: [ AllegroFlare/Elements/Storyboard.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Text*
     headers: [ AllegroFlare/Elements/StoryboardPages/Text.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base*

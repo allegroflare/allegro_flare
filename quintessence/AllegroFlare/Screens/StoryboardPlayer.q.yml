@@ -22,7 +22,7 @@ properties:
     setter: true
 
   - name: storyboard_element
-    type: AllegroFlare::Elements::StoryboardPlayer
+    type: AllegroFlare::Elements::Storyboard
     init_with: '{}'
     getter_ref: true
     setter: false
@@ -121,8 +121,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Elements::StoryboardPlayer
-    headers: [ AllegroFlare/Elements/StoryboardPlayer.hpp ]
+  - symbol: AllegroFlare::Elements::Storyboard
+    headers: [ AllegroFlare/Elements/Storyboard.hpp ]
   - symbol: AllegroFlare::Color
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: AllegroFlare::Screens::Base
