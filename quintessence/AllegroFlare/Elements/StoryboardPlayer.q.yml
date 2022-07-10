@@ -12,6 +12,7 @@ properties:
     init_with: '{}'
     constructor_arg: true
     setter: true
+    getter: true
 
   - name: button_font_size
     type: int

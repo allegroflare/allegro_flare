@@ -42,7 +42,8 @@
     "AllegroFlare/Backgrounds/ParallaxLayer",
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Backgrounds/Base": [
     "AllegroFlare/Backgrounds/Image",
@@ -98,6 +99,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -208,6 +210,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
@@ -336,6 +339,9 @@
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/AdvancingText": [
+    "AllegroFlare/StoryboardFactory"
+  ],
+  "AllegroFlare/Screens/StoryboardPlayer": [
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Testing/CustomComparison": [

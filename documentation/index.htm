@@ -2336,10 +2336,25 @@ table td
 <tr>
   <td class="method">create_advancing_text_page(1)</td>
 </tr>
+<tr>
+  <td class="method">create_image_page(1)</td>
+</tr>
+<tr>
+  <td class="method">create_advancing_text_storyboard_screen(8)</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPlayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPlayer.hpp&quot;]}</td>
@@ -2355,6 +2370,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::AdvancingText*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::StoryboardPlayer*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/StoryboardPlayer.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2810,7 +2828,8 @@ table td
     "AllegroFlare/Backgrounds/ParallaxLayer",
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Backgrounds/Base": [
     "AllegroFlare/Backgrounds/Image",
@@ -2866,6 +2885,7 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -2976,6 +2996,7 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/StoryboardPlayer",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
@@ -3104,6 +3125,9 @@ table td
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/AdvancingText": [
+    "AllegroFlare/StoryboardFactory"
+  ],
+  "AllegroFlare/Screens/StoryboardPlayer": [
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Testing/CustomComparison": [

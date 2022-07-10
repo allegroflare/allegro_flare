@@ -56,6 +56,12 @@ void StoryboardPlayer::set_button_font_size(int button_font_size)
 }
 
 
+std::vector<AllegroFlare::Elements::StoryboardPages::Base *> StoryboardPlayer::get_pages()
+{
+   return pages;
+}
+
+
 int StoryboardPlayer::get_button_font_size()
 {
    return button_font_size;

@@ -37,11 +37,86 @@ functions:
       - AllegroFlare::Elements::StoryboardPages::Text*
 
 
+  - name: create_image_page
+    type: AllegroFlare::Elements::StoryboardPages::Image*
+    parameters:
+      - name: image
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    body: |
+      return new AllegroFlare::Elements::StoryboardPages::Image(image);
+    body_dependency_symbols:
+      - AllegroFlare::Elements::StoryboardPages::Image*
+
+
+  - name: create_advancing_text_storyboard_screen
+    type: AllegroFlare::Screens::StoryboardPlayer*
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+      - name: pages_text
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: button_font_size
+        type: int
+        default_argument: -40
+      - name: page_top_padding
+        type: float
+        default_argument: 400
+      - name: page_left_padding
+        type: float
+        default_argument: 400
+      - name: page_right_padding
+        type: float
+        default_argument: 400
+      - name: page_text_font_size
+        type: int
+        default_argument: -40
+      - name: page_text_line_height_multiplier
+        type: float
+        default_argument: 1.5
+    body: |
+      AllegroFlare::Screens::StoryboardPlayer* result;
+
+      // create the storyboard container
+      result = new AllegroFlare::Screens::StoryboardPlayer(font_bin, event_emitter);
+      result->initialize();
+
+      // tweak the button styling
+      AllegroFlare::Elements::StoryboardPlayer &storyboard_player_element = result->get_storyboard_element_ref();
+      storyboard_player_element.set_button_font_size(button_font_size);
+
+      // create all the pages
+      std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages;
+      for (auto &page_text : pages_text)
+      {
+         AllegroFlare::Elements::StoryboardPages::AdvancingText* advancing_text_page =
+            create_advancing_text_page(page_text);
+         advancing_text_page->set_top_padding(page_top_padding);
+         advancing_text_page->set_left_padding(page_left_padding);
+         advancing_text_page->set_right_padding(page_right_padding);
+         advancing_text_page->set_font_size(page_text_font_size);
+         advancing_text_page->set_line_height_multiplier(page_text_line_height_multiplier);
+         pages.push_back(advancing_text_page);
+      }
+      storyboard_player_element.set_pages(pages);
+
+      // return the result
+      return result;
+
+
 dependencies:
 
 
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Elements::StoryboardPlayer
     headers: [ AllegroFlare/Elements/StoryboardPlayer.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Text*
@@ -52,5 +127,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText*
     headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
+  - symbol: AllegroFlare::Screens::StoryboardPlayer*
+    headers: [ AllegroFlare/Screens/StoryboardPlayer.hpp ]
 
 
