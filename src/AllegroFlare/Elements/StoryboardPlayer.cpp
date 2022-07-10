@@ -13,8 +13,6 @@
 #include <algorithm>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -26,6 +24,7 @@ namespace Elements
 StoryboardPlayer::StoryboardPlayer(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages)
    : font_bin(font_bin)
    , pages(pages)
+   , button_font_size(-60)
    , current_page_num(0)
    , can_advance_to_next_page(false)
    , can_advance_started_at(0)
@@ -48,6 +47,12 @@ void StoryboardPlayer::set_font_bin(AllegroFlare::FontBin* font_bin)
 void StoryboardPlayer::set_pages(std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages)
 {
    this->pages = pages;
+}
+
+
+int StoryboardPlayer::get_button_font_size()
+{
+   return button_font_size;
 }
 
 
@@ -257,21 +262,6 @@ AllegroFlare::Elements::StoryboardPages::Base* StoryboardPlayer::infer_current_p
    return pages[current_page_num];
 }
 
-ALLEGRO_FONT* StoryboardPlayer::obtain_font()
-{
-   if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "StoryboardPlayer" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   std::string font_name = "Inter-Medium.ttf";
-   int font_size = -60;
-   std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << font_size;
-   return font_bin->auto_get(composite_font_str.str());
-}
-
 ALLEGRO_FONT* StoryboardPlayer::obtain_next_button_font()
 {
    if (!(font_bin))
@@ -281,9 +271,8 @@ ALLEGRO_FONT* StoryboardPlayer::obtain_next_button_font()
          throw std::runtime_error(error_message.str());
       }
    std::string font_name = "Inter-Medium.ttf";
-   int font_size = -60;
    std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << font_size+20;
+   composite_font_str << font_name << " " << button_font_size+20;
    return font_bin->auto_get(composite_font_str.str());
 }
 } // namespace Elements
