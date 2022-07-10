@@ -313,6 +313,9 @@
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "std/vector<ALLEGRO_BITMAP>": [
+    "AllegroFlare/StoryboardFactory"
+  ],
   "AllegroFlare/Elements/StoryboardPages/Text": [
     "AllegroFlare/StoryboardFactory"
   ],

@@ -75,3 +75,10 @@ TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
+   create_images_storyboard_screen__will_create_the_screen_with_the_expected_values)
+{
+   // TODO
+}
+
+

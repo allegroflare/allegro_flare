@@ -49,6 +49,38 @@ functions:
       - AllegroFlare::Elements::StoryboardPages::Image*
 
 
+  - name: create_images_storyboard_screen
+    type: AllegroFlare::Screens::Storyboard*
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+      - name: button_font_size
+        type: int
+        default_argument: -40
+      - name: source_bitmaps
+        type: std::vector<ALLEGRO_BITMAP*>
+        default_argument: '{}'
+    body: |
+      AllegroFlare::Screens::Storyboard* result;
+      result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
+      result->initialize();
+
+      std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages;
+      for (auto &source_bitmap : source_bitmaps)
+      {
+         pages.push_back(new AllegroFlare::Elements::StoryboardPages::Image(source_bitmap));
+      };
+
+      AllegroFlare::Elements::Storyboard &storyboard_element = result->get_storyboard_element_ref();
+      storyboard_element.set_button_font_size(button_font_size);
+      storyboard_element.set_pages(pages);
+
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::StoryboardPages::Image*
+
+
   - name: create_advancing_text_storyboard_screen
     type: AllegroFlare::Screens::Storyboard*
     parameters:
@@ -115,6 +147,8 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: std::vector<ALLEGRO_BITMAP*>
+    headers: [ vector, allegro5/allegro.h ]
   - symbol: ALLEGRO_BITMAP*
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Elements::Storyboard

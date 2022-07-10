@@ -2147,6 +2147,9 @@ table td
   <td class="method">create_image_page(1)</td>
 </tr>
 <tr>
+  <td class="method">create_images_storyboard_screen(3)</td>
+</tr>
+<tr>
   <td class="method">create_advancing_text_storyboard_screen(8)</td>
 </tr>
     </table>
@@ -2159,6 +2162,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;ALLEGRO_BITMAP*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -2905,6 +2911,9 @@ table td
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "std/vector<ALLEGRO_BITMAP>": [
+    "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Text": [
     "AllegroFlare/StoryboardFactory"

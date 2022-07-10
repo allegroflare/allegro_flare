@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
+#include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
 
 
 namespace AllegroFlare
@@ -56,6 +57,25 @@ AllegroFlare::Elements::StoryboardPages::AdvancingText* StoryboardFactory::creat
 AllegroFlare::Elements::StoryboardPages::Image* StoryboardFactory::create_image_page(ALLEGRO_BITMAP* image)
 {
    return new AllegroFlare::Elements::StoryboardPages::Image(image);
+}
+
+AllegroFlare::Screens::Storyboard* StoryboardFactory::create_images_storyboard_screen(AllegroFlare::EventEmitter* event_emitter, int button_font_size, std::vector<ALLEGRO_BITMAP*> source_bitmaps)
+{
+   AllegroFlare::Screens::Storyboard* result;
+   result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
+   result->initialize();
+
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages;
+   for (auto &source_bitmap : source_bitmaps)
+   {
+      pages.push_back(new AllegroFlare::Elements::StoryboardPages::Image(source_bitmap));
+   };
+
+   AllegroFlare::Elements::Storyboard &storyboard_element = result->get_storyboard_element_ref();
+   storyboard_element.set_button_font_size(button_font_size);
+   storyboard_element.set_pages(pages);
+
+   return result;
 }
 
 AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_storyboard_screen(AllegroFlare::EventEmitter* event_emitter, std::vector<std::string> pages_text, int button_font_size, float page_top_padding, float page_left_padding, float page_right_padding, int page_text_font_size, float page_text_line_height_multiplier)
