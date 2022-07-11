@@ -126,14 +126,8 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter*
     headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: std::vector<ALLEGRO_BITMAP*>
     headers: [ vector, allegro5/allegro.h ]
-  - symbol: ALLEGRO_BITMAP*
-    headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::Elements::Storyboard
-    headers: [ AllegroFlare/Elements/Storyboard.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Text*
     headers: [ AllegroFlare/Elements/StoryboardPages/Text.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base*

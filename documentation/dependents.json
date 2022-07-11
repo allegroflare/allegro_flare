@@ -43,7 +43,6 @@
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Backgrounds/Base": [
@@ -98,7 +97,6 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -309,8 +307,7 @@
     "AllegroFlare/Screens/GameWonScreen"
   ],
   "AllegroFlare/Elements/Storyboard": [
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/Screens/Storyboard"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/TitleScreen"
