@@ -27,36 +27,13 @@ TEST_F(AllegroFlare_StoryboardFactoryTest, can_be_created_without_blowing_up)
 
 
 TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
-   create_text_page__will_create_the_text_page_with_the_expected_params)
-{
-   AllegroFlare::StoryboardFactory storyboard_factory(&get_font_bin_ref());
-   AllegroFlare::Elements::StoryboardPages::Text* created_page = storyboard_factory.create_text_page("Hello Factory!");
-
-   EXPECT_EQ(&get_font_bin_ref(), created_page->get_font_bin());
-   EXPECT_EQ("Hello Factory!", created_page->get_text());
-}
-
-
-TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
-   create_advancing_text_page__will_create_the_text_page_with_the_expected_params)
-{
-   AllegroFlare::StoryboardFactory storyboard_factory(&get_font_bin_ref());
-   AllegroFlare::Elements::StoryboardPages::AdvancingText* created_page =
-      storyboard_factory.create_advancing_text_page("Hello Factory!");
-
-   EXPECT_EQ(&get_font_bin_ref(), created_page->get_font_bin());
-   EXPECT_EQ("Hello Factory!", created_page->get_text());
-}
-
-
-TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
    create_advancing_text_storyboard_screen__will_create_the_screen_with_the_expected_values)
 {
    AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::StoryboardFactory storyboard_factory(&get_font_bin_ref());
    std::vector<std::string> pages_text = { "Page one.", "Page two.", "Page three." };
    AllegroFlare::Screens::Storyboard* screen =
-      storyboard_factory.create_advancing_text_storyboard_screen(&event_emitter, pages_text);
+      storyboard_factory.create_advancing_text_storyboard_screen(pages_text);
 
    ASSERT_NE(nullptr, screen);
    EXPECT_EQ("Storyboard", screen->get_type());

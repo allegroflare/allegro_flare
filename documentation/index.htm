@@ -83,6 +83,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
@@ -2135,22 +2136,24 @@ table td
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="private_property">page_factory</td>
+  <td class="private_property">AllegroFlare::StoryboardPageFactory</td>
+</tr>
     </table>
      <table>
 <tr>
-  <td class="method">create_text_page(1)</td>
+  <td class="method">set_font_bin(1)</td>
 </tr>
 <tr>
-  <td class="method">create_advancing_text_page(1)</td>
+  <td class="method">create_images_storyboard_screen(2)</td>
 </tr>
 <tr>
-  <td class="method">create_image_page(1)</td>
-</tr>
-<tr>
-  <td class="method">create_images_storyboard_screen(3)</td>
-</tr>
-<tr>
-  <td class="method">create_advancing_text_storyboard_screen(8)</td>
+  <td class="method">create_advancing_text_storyboard_screen(7)</td>
 </tr>
     </table>
      <table>
@@ -2186,6 +2189,48 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Storyboard*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Storyboard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StoryboardPageFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StoryboardPageFactory.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">create_text_page(1)</td>
+</tr>
+<tr>
+  <td class="method">create_advancing_text_page(1)</td>
+</tr>
+<tr>
+  <td class="method">create_image_page(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Text*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/Text.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Image*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/Image.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::AdvancingText*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2642,7 +2687,8 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Backgrounds/Base": [
     "AllegroFlare/Backgrounds/Image",
@@ -2698,6 +2744,7 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_FONT": [
@@ -2916,15 +2963,21 @@ table td
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Text": [
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Image": [
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/AdvancingText": [
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Screens/Storyboard": [
+    "AllegroFlare/StoryboardFactory"
+  ],
+  "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Testing/CustomComparison": [

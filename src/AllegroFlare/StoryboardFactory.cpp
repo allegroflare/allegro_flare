@@ -1,22 +1,18 @@
 
 
 #include <AllegroFlare/StoryboardFactory.hpp>
-#include <AllegroFlare/Elements/StoryboardPages/Text.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Elements/StoryboardPages/Text.hpp>
-#include <stdexcept>
-#include <sstream>
 #include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
-#include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
+#include <AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp>
 
 
 namespace AllegroFlare
 {
 
 
-StoryboardFactory::StoryboardFactory(AllegroFlare::FontBin* font_bin)
+StoryboardFactory::StoryboardFactory(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : font_bin(font_bin)
+   , event_emitter(event_emitter)
+   , page_factory(font_bin)
 {
 }
 
@@ -26,40 +22,20 @@ StoryboardFactory::~StoryboardFactory()
 }
 
 
+void StoryboardFactory::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
 void StoryboardFactory::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
+   page_factory.set_font_bin(font_bin);
+   return;
 }
 
-
-AllegroFlare::Elements::StoryboardPages::Text* StoryboardFactory::create_text_page(std::string text)
-{
-   if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "StoryboardFactory" << "::" << "create_text_page" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   return new AllegroFlare::Elements::StoryboardPages::Text(font_bin, text);
-}
-
-AllegroFlare::Elements::StoryboardPages::AdvancingText* StoryboardFactory::create_advancing_text_page(std::string text)
-{
-   if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "StoryboardFactory" << "::" << "create_advancing_text_page" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   return new AllegroFlare::Elements::StoryboardPages::AdvancingText(font_bin, text);
-}
-
-AllegroFlare::Elements::StoryboardPages::Image* StoryboardFactory::create_image_page(ALLEGRO_BITMAP* image)
-{
-   return new AllegroFlare::Elements::StoryboardPages::Image(image);
-}
-
-AllegroFlare::Screens::Storyboard* StoryboardFactory::create_images_storyboard_screen(AllegroFlare::EventEmitter* event_emitter, int button_font_size, std::vector<ALLEGRO_BITMAP*> source_bitmaps)
+AllegroFlare::Screens::Storyboard* StoryboardFactory::create_images_storyboard_screen(std::vector<ALLEGRO_BITMAP*> source_bitmaps, int button_font_size)
 {
    AllegroFlare::Screens::Storyboard* result;
    result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
@@ -79,7 +55,7 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_images_storyboard_s
    return result;
 }
 
-AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_storyboard_screen(AllegroFlare::EventEmitter* event_emitter, std::vector<std::string> pages_text, int button_font_size, float page_top_padding, float page_left_padding, float page_right_padding, int page_text_font_size, float page_text_line_height_multiplier)
+AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_storyboard_screen(std::vector<std::string> pages_text, int button_font_size, float page_top_padding, float page_left_padding, float page_right_padding, int page_text_font_size, float page_text_line_height_multiplier)
 {
    AllegroFlare::Screens::Storyboard* result;
 
@@ -96,7 +72,7 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_stor
    for (auto &page_text : pages_text)
    {
       AllegroFlare::Elements::StoryboardPages::AdvancingText* advancing_text_page =
-         create_advancing_text_page(page_text);
+         page_factory.create_advancing_text_page(page_text);
       advancing_text_page->set_top_padding(page_top_padding);
       advancing_text_page->set_left_padding(page_left_padding);
       advancing_text_page->set_right_padding(page_right_padding);
