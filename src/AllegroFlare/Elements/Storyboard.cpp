@@ -25,7 +25,6 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare
    : font_bin(font_bin)
    , pages(pages)
    , button_font_size(-60)
-   , auto_advance(false)
    , current_page_num(0)
    , can_advance_to_next_page(false)
    , can_advance_started_at(0)
@@ -57,12 +56,6 @@ void Storyboard::set_button_font_size(int button_font_size)
 }
 
 
-void Storyboard::set_auto_advance(bool auto_advance)
-{
-   this->auto_advance = auto_advance;
-}
-
-
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Storyboard::get_pages()
 {
    return pages;
@@ -72,12 +65,6 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Storyboard::get_pag
 int Storyboard::get_button_font_size()
 {
    return button_font_size;
-}
-
-
-bool Storyboard::get_auto_advance()
-{
-   return auto_advance;
 }
 
 
@@ -113,7 +100,6 @@ void Storyboard::update()
    if (!can_advance_to_next_page && current_page->get_finished())
    {
       permit_advancing_page();
-      if (auto_advance) advance(); // this is a new feature, there could be odd unexpected behavior involved
    }
    return;
 }

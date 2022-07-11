@@ -25,6 +25,7 @@ Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitt
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , storyboard_element({})
+   , auto_advance(false)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
    , initialized(false)
 {
@@ -48,9 +49,21 @@ void Storyboard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
+void Storyboard::set_auto_advance(bool auto_advance)
+{
+   this->auto_advance = auto_advance;
+}
+
+
 void Storyboard::set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing)
 {
    this->game_event_name_to_emit_after_completing = game_event_name_to_emit_after_completing;
+}
+
+
+bool Storyboard::get_auto_advance()
+{
+   return auto_advance;
 }
 
 
@@ -100,7 +113,18 @@ void Storyboard::primary_timer_func()
          throw std::runtime_error(error_message.str());
       }
    storyboard_element.update();
+   if (storyboard_element.get_can_advance_to_next_page() && auto_advance) advance();
+
    storyboard_element.render();
+   return;
+}
+
+void Storyboard::emit_completion_event()
+{
+   if (!game_event_name_to_emit_after_completing.empty())
+   {
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+   }
    return;
 }
 
@@ -124,12 +148,7 @@ void Storyboard::advance()
 
    if (storyboard_element.get_finished())
    {
-      if (!game_event_name_to_emit_after_completing.empty())
-      {
-         event_emitter->emit_game_event(
-            AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
-         );
-      }
+      emit_completion_event();
    }
 
    return;

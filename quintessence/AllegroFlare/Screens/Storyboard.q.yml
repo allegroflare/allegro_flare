@@ -27,6 +27,12 @@ properties:
     getter_ref: true
     setter: false
 
+  - name: auto_advance
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: game_event_name_to_emit_after_completing
     type: std::string
     init_with: '"storyboard_finished"'
@@ -65,7 +71,20 @@ functions:
     guards: [ initialized ] 
     body: |
       storyboard_element.update();
+      if (storyboard_element.get_can_advance_to_next_page() && auto_advance) advance();
+
       storyboard_element.render();
+      return;
+
+
+  - name: emit_completion_event
+    private: true
+    type: void
+    body: |
+      if (!game_event_name_to_emit_after_completing.empty())
+      {
+         event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+      }
       return;
 
 
@@ -78,12 +97,7 @@ functions:
 
       if (storyboard_element.get_finished())
       {
-         if (!game_event_name_to_emit_after_completing.empty())
-         {
-            event_emitter->emit_game_event(
-               AllegroFlare::GameEvent(game_event_name_to_emit_after_completing)
-            );
-         }
+         emit_completion_event();
       }
 
       return;

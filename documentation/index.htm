@@ -1189,10 +1189,6 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
-  <td class="property">auto_advance</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
   <td class="property">current_page_num</td>
   <td class="property">intptr_t</td>
 </tr>
@@ -1904,6 +1900,10 @@ table td
   <td class="property">AllegroFlare::Elements::Storyboard</td>
 </tr>
 <tr>
+  <td class="property">auto_advance</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">game_event_name_to_emit_after_completing</td>
   <td class="property">std::string</td>
 </tr>
@@ -1921,6 +1921,9 @@ table td
 </tr>
 <tr>
   <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="private_method">emit_completion_event()</td>
 </tr>
 <tr>
   <td class="method">advance()</td>
