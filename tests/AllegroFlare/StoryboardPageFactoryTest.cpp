@@ -49,3 +49,10 @@ TEST_F(AllegroFlare_StoryboardPageFactoryTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_StoryboardPageFactoryTestWithAllegroRenderingFixture,
+   create_image_page__will_create_an_image_page_with_the_expected_params)
+{
+   // TODO
+}
+
+
