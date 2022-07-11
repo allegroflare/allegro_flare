@@ -43,7 +43,7 @@
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Backgrounds/Base": [
     "AllegroFlare/Backgrounds/Image",
@@ -98,7 +98,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_FONT": [
@@ -307,8 +307,7 @@
     "AllegroFlare/Screens/GameWonScreen"
   ],
   "AllegroFlare/Elements/Storyboard": [
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/Screens/Storyboard"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/TitleScreen"
@@ -317,15 +316,21 @@
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Text": [
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Image": [
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/AdvancingText": [
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Screens/Storyboard": [
+    "AllegroFlare/StoryboardFactory"
+  ],
+  "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Testing/CustomComparison": [
