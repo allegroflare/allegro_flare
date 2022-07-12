@@ -23,56 +23,18 @@
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
-    "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Monoplex",
-    "AllegroFlare/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
-  "AllegroFlare/Backgrounds/Monoplex": [
+  "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
   ],
-  "AllegroFlare/Backgrounds/Image": [
+  "AllegroFlare/Elements/Backgrounds/Image": [
     "AllegroFlare/BackgroundFactory"
-  ],
-  "ALLEGRO_BITMAP": [
-    "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Parallax",
-    "AllegroFlare/Backgrounds/ParallaxLayer",
-    "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/StoryboardPageFactory"
-  ],
-  "AllegroFlare/Backgrounds/Base": [
-    "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Monoplex",
-    "AllegroFlare/Backgrounds/Parallax"
-  ],
-  "AllegroFlare/Placement2D": [
-    "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Monoplex",
-    "AllegroFlare/Backgrounds/Parallax",
-    "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/Base",
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "sin": [
-    "AllegroFlare/Backgrounds/Monoplex"
-  ],
-  "AllegroFlare/draw_offset_textured_rectangle": [
-    "AllegroFlare/Backgrounds/Parallax"
-  ],
-  "std/vector<AllegroFlare/Backgrounds/ParallaxLayer>": [
-    "AllegroFlare/Backgrounds/Parallax"
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D"
@@ -129,11 +91,49 @@
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
+  "AllegroFlare/Placement2D": [
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Base",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_BITMAP": [
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardPageFactory"
+  ],
   "tan": [
     "AllegroFlare/Camera2D"
   ],
   "GLuint": [
     "AllegroFlare/Cubemap"
+  ],
+  "AllegroFlare/Elements/Backgrounds/Base": [
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
+  "sin": [
+    "AllegroFlare/Elements/Backgrounds/Monoplex"
+  ],
+  "AllegroFlare/draw_offset_textured_rectangle": [
+    "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
+  "std/vector<AllegroFlare/Elements/Backgrounds/ParallaxLayer>": [
+    "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base"

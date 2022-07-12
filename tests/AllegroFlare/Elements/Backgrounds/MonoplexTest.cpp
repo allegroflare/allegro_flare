@@ -7,7 +7,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 
-#include <AllegroFlare/Backgrounds/Monoplex.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Monoplex.hpp>
 
 #ifdef _WIN32
 #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
@@ -19,22 +19,22 @@
 #include <chrono>
 #include <thread>
 
-class AllegroFlare_Backgrounds_MonoplexTest : public ::testing::Test {};
-class AllegroFlare_Backgrounds_MonoplexWithAllegroRenderingFixtureTest
+class AllegroFlare_Elements_Backgrounds_MonoplexTest : public ::testing::Test {};
+class AllegroFlare_Elements_Backgrounds_MonoplexWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 
-TEST(AllegroFlare_Backgrounds_MonoplexTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Backgrounds::Monoplex monoplex;
+   AllegroFlare::Elements::Backgrounds::Monoplex monoplex;
 }
 
 
-TEST_F(AllegroFlare_Backgrounds_MonoplexWithAllegroRenderingFixtureTest, render__will_render_in_motion)
+TEST_F(AllegroFlare_Elements_Backgrounds_MonoplexWithAllegroRenderingFixtureTest, render__will_render_in_motion)
 {
    get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
-   AllegroFlare::Backgrounds::Monoplex monoplex(&get_bitmap_bin_ref());
+   AllegroFlare::Elements::Backgrounds::Monoplex monoplex(&get_bitmap_bin_ref());
 
    int frames = 60*1;
    for (unsigned i=0; i<frames; i++)

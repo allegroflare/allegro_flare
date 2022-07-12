@@ -1,7 +1,7 @@
 parent_classes:
 
 
-  - class: AllegroFlare::Backgrounds::Base
+  - class: AllegroFlare::Elements::Backgrounds::Base
     scope: public
     init_with: '"Monoplex"'
 
@@ -88,8 +88,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Backgrounds::Base
-    headers: [ AllegroFlare/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
   - symbol: AllegroFlare::BitmapBin*
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Placement2D

@@ -1,10 +1,12 @@
 
 
-#include <AllegroFlare/Backgrounds/ParallaxLayer.hpp>
+#include <AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp>
 
 
 
 namespace AllegroFlare
+{
+namespace Elements
 {
 namespace Backgrounds
 {
@@ -73,6 +75,7 @@ ALLEGRO_BITMAP* ParallaxLayer::get_bitmap()
 
 
 } // namespace Backgrounds
+} // namespace Elements
 } // namespace AllegroFlare
 
 

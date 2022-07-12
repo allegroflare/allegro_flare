@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Backgrounds/Monoplex.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Monoplex.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <cmath>
 #include <stdexcept>
@@ -9,12 +9,14 @@
 
 namespace AllegroFlare
 {
+namespace Elements
+{
 namespace Backgrounds
 {
 
 
 Monoplex::Monoplex(AllegroFlare::BitmapBin* bitmap_bin)
-   : AllegroFlare::Backgrounds::Base("Monoplex")
+   : AllegroFlare::Elements::Backgrounds::Base("Monoplex")
    , bitmap_bin(bitmap_bin)
    , monoplex_1_counter(0)
    , monoplex_2_counter(0)
@@ -81,6 +83,7 @@ void Monoplex::render()
    return;
 }
 } // namespace Backgrounds
+} // namespace Elements
 } // namespace AllegroFlare
 
 

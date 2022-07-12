@@ -1,10 +1,12 @@
 
 
-#include <AllegroFlare/Backgrounds/Base.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 
 
 
 namespace AllegroFlare
+{
+namespace Elements
 {
 namespace Backgrounds
 {
@@ -79,6 +81,7 @@ void Base::hide()
    return;
 }
 } // namespace Backgrounds
+} // namespace Elements
 } // namespace AllegroFlare
 
 

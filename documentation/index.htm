@@ -52,15 +52,15 @@ table td
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/BackgroundFactory.q.yml">quintessence/AllegroFlare/BackgroundFactory.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Backgrounds/Base.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Backgrounds/Image.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Backgrounds/Monoplex.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Backgrounds/Parallax.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Backgrounds/ParallaxLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3D.q.yml">quintessence/AllegroFlare/Bone3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Camera2D.q.yml">quintessence/AllegroFlare/Camera2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Cubemap.q.yml">quintessence/AllegroFlare/Cubemap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
@@ -275,221 +275,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Backgrounds::Monoplex*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Backgrounds/Monoplex.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Monoplex*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Monoplex.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Backgrounds::Image*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Backgrounds/Image.hpp&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Backgrounds/Base.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">type</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">reveal_counter</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">reveal_speed</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">active</td>
-  <td class="property">bool</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="method">activate()</td>
-</tr>
-<tr>
-  <td class="method">deactivate()</td>
-</tr>
-<tr>
-  <td class="method">managed_update()</td>
-</tr>
-<tr>
-  <td class="method">update()</td>
-</tr>
-<tr>
-  <td class="method">render()</td>
-</tr>
-<tr>
-  <td class="method">show()</td>
-</tr>
-<tr>
-  <td class="method">hide()</td>
-</tr>
-    </table>
-     <table>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Backgrounds/Image.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">bitmap_bin</td>
-  <td class="property">AllegroFlare::BitmapBin*</td>
-</tr>
-<tr>
-  <td class="property">image_filename</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">image_file_location_prefix</td>
-  <td class="property">std::string</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="method">render()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_background_bitmap()</td>
-</tr>
-<tr>
-  <td class="method">infer_opacity()</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Backgrounds/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Backgrounds/Monoplex.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">bitmap_bin</td>
-  <td class="property">AllegroFlare::BitmapBin*</td>
-</tr>
-<tr>
-  <td class="property">monoplex_1_counter</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">monoplex_2_counter</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">monoplex_3_counter</td>
-  <td class="property">float</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="method">update()</td>
-</tr>
-<tr>
-  <td class="method">render()</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Backgrounds/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Backgrounds/Parallax.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">layers</td>
-  <td class="property">std::vector&lt;AllegroFlare::Backgrounds::ParallaxLayer&gt;</td>
-</tr>
-<tr>
-  <td class="property">offset_x</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">offset_y</td>
-  <td class="property">float</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="method">render()</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Backgrounds/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::draw_offset_textured_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Backgrounds::ParallaxLayer&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Backgrounds/ParallaxLayer.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">anchor_x</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">anchor_y</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">offset_rate</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">bitmap</td>
-  <td class="property">ALLEGRO_BITMAP*</td>
-</tr>
-    </table>
-     <table>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Image*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Image.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -614,6 +403,217 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;GLuint&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_opengl.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">reveal_counter</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">reveal_speed</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">active</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="method">deactivate()</td>
+</tr>
+<tr>
+  <td class="method">managed_update()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">show()</td>
+</tr>
+<tr>
+  <td class="method">hide()</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">image_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">image_file_location_prefix</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_background_bitmap()</td>
+</tr>
+<tr>
+  <td class="method">infer_opacity()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">monoplex_1_counter</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">monoplex_2_counter</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">monoplex_3_counter</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;</td>
+</tr>
+<tr>
+  <td class="property">offset_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_y</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::draw_offset_textured_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">anchor_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">anchor_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_rate</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2661,56 +2661,18 @@ table td
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
-    "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Monoplex",
-    "AllegroFlare/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
-  "AllegroFlare/Backgrounds/Monoplex": [
+  "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
   ],
-  "AllegroFlare/Backgrounds/Image": [
+  "AllegroFlare/Elements/Backgrounds/Image": [
     "AllegroFlare/BackgroundFactory"
-  ],
-  "ALLEGRO_BITMAP": [
-    "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Parallax",
-    "AllegroFlare/Backgrounds/ParallaxLayer",
-    "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/StoryboardPageFactory"
-  ],
-  "AllegroFlare/Backgrounds/Base": [
-    "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Monoplex",
-    "AllegroFlare/Backgrounds/Parallax"
-  ],
-  "AllegroFlare/Placement2D": [
-    "AllegroFlare/Backgrounds/Image",
-    "AllegroFlare/Backgrounds/Monoplex",
-    "AllegroFlare/Backgrounds/Parallax",
-    "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/Base",
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "sin": [
-    "AllegroFlare/Backgrounds/Monoplex"
-  ],
-  "AllegroFlare/draw_offset_textured_rectangle": [
-    "AllegroFlare/Backgrounds/Parallax"
-  ],
-  "std/vector<AllegroFlare/Backgrounds/ParallaxLayer>": [
-    "AllegroFlare/Backgrounds/Parallax"
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D"
@@ -2767,11 +2729,49 @@ table td
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
+  "AllegroFlare/Placement2D": [
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Base",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_BITMAP": [
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardPageFactory"
+  ],
   "tan": [
     "AllegroFlare/Camera2D"
   ],
   "GLuint": [
     "AllegroFlare/Cubemap"
+  ],
+  "AllegroFlare/Elements/Backgrounds/Base": [
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
+  "sin": [
+    "AllegroFlare/Elements/Backgrounds/Monoplex"
+  ],
+  "AllegroFlare/draw_offset_textured_rectangle": [
+    "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
+  "std/vector<AllegroFlare/Elements/Backgrounds/ParallaxLayer>": [
+    "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base"

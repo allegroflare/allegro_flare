@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Backgrounds/Parallax.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Parallax.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -8,12 +8,14 @@
 
 namespace AllegroFlare
 {
+namespace Elements
+{
 namespace Backgrounds
 {
 
 
-Parallax::Parallax(std::vector<AllegroFlare::Backgrounds::ParallaxLayer> layers, float offset_x, float offset_y)
-   : AllegroFlare::Backgrounds::Base("Parallax")
+Parallax::Parallax(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> layers, float offset_x, float offset_y)
+   : AllegroFlare::Elements::Backgrounds::Base("Parallax")
    , layers(layers)
    , offset_x(offset_x)
    , offset_y(offset_y)
@@ -26,7 +28,7 @@ Parallax::~Parallax()
 }
 
 
-void Parallax::set_layers(std::vector<AllegroFlare::Backgrounds::ParallaxLayer> layers)
+void Parallax::set_layers(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> layers)
 {
    this->layers = layers;
 }
@@ -44,7 +46,7 @@ void Parallax::set_offset_y(float offset_y)
 }
 
 
-std::vector<AllegroFlare::Backgrounds::ParallaxLayer> Parallax::get_layers()
+std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> Parallax::get_layers()
 {
    return layers;
 }
@@ -88,6 +90,7 @@ void Parallax::render()
    return;
 }
 } // namespace Backgrounds
+} // namespace Elements
 } // namespace AllegroFlare
 
 

@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Backgrounds/Image.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Image.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -8,12 +8,14 @@
 
 namespace AllegroFlare
 {
+namespace Elements
+{
 namespace Backgrounds
 {
 
 
 Image::Image(AllegroFlare::BitmapBin* bitmap_bin, std::string image_filename)
-   : AllegroFlare::Backgrounds::Base("Image")
+   : AllegroFlare::Elements::Backgrounds::Base("Image")
    , bitmap_bin(bitmap_bin)
    , image_filename(image_filename)
    , image_file_location_prefix("backgrounds/")
@@ -58,6 +60,7 @@ float Image::infer_opacity()
    return get_reveal_counter();
 }
 } // namespace Backgrounds
+} // namespace Elements
 } // namespace AllegroFlare
 
 

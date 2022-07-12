@@ -7,7 +7,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 
-#include <AllegroFlare/Backgrounds/Image.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Image.hpp>
 
 #ifdef _WIN32
 #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
@@ -19,29 +19,29 @@
 #include <chrono>
 #include <thread>
 
-class AllegroFlare_Backgrounds_ImageTest : public ::testing::Test {};
-class AllegroFlare_Backgrounds_ImageWithAllegroRenderingFixtureTest
+class AllegroFlare_Elements_Backgrounds_ImageTest : public ::testing::Test {};
+class AllegroFlare_Elements_Backgrounds_ImageWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 
-TEST(AllegroFlare_Backgrounds_ImageTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Elements_Backgrounds_ImageTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Backgrounds::Image image_background;
+   AllegroFlare::Elements::Backgrounds::Image image_background;
 }
 
 
-TEST(AllegroFlare_Backgrounds_ImageTest, has_the_expected_type)
+TEST(AllegroFlare_Elements_Backgrounds_ImageTest, has_the_expected_type)
 {
-   AllegroFlare::Backgrounds::Image image_background;
+   AllegroFlare::Elements::Backgrounds::Image image_background;
    EXPECT_EQ("Image", image_background.get_type());
 }
 
 
-TEST_F(AllegroFlare_Backgrounds_ImageWithAllegroRenderingFixtureTest, render__will_render_the_image)
+TEST_F(AllegroFlare_Elements_Backgrounds_ImageWithAllegroRenderingFixtureTest, render__will_render_the_image)
 {
    get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
-   AllegroFlare::Backgrounds::Image image_background(
+   AllegroFlare::Elements::Backgrounds::Image image_background(
          &get_bitmap_bin_ref(),
          "deep-green-leaves-white-veins-960x540.jpg"
       );

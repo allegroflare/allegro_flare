@@ -1,7 +1,7 @@
 parent_classes:
 
 
-  - class: AllegroFlare::Backgrounds::Base
+  - class: AllegroFlare::Elements::Backgrounds::Base
     scope: public
     init_with: '"Parallax"'
 
@@ -10,7 +10,7 @@ properties:
 
 
   - name: layers
-    type: std::vector<AllegroFlare::Backgrounds::ParallaxLayer>
+    type: std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -63,15 +63,15 @@ dependencies:
 
   - symbol: ALLEGRO_BITMAP*
     headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::Backgrounds::Base
-    headers: [ AllegroFlare/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
   - symbol: AllegroFlare::BitmapBin*
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::draw_offset_textured_rectangle
     headers: [ AllegroFlare/Useful.hpp ]
-  - symbol: std::vector<AllegroFlare::Backgrounds::ParallaxLayer>
-    headers: [ vector, AllegroFlare/Backgrounds/ParallaxLayer.hpp ]
+  - symbol: std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
+    headers: [ vector, AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
 
 
