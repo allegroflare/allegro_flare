@@ -26,7 +26,7 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR copyright_text_color)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR copyright_text_color, int title_font_size, int menu_font_size, int copyright_font_size)
    : AllegroFlare::Screens::Base("TitleScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -39,6 +39,9 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_text_color(title_text_color)
    , menu_text_color(menu_text_color)
    , copyright_text_color(copyright_text_color)
+   , title_font_size(title_font_size)
+   , menu_font_size(menu_font_size)
+   , copyright_font_size(copyright_font_size)
    , menu_options(build_default_menu_options())
    , cursor_position(0)
 {
@@ -116,6 +119,24 @@ void TitleScreen::set_copyright_text_color(ALLEGRO_COLOR copyright_text_color)
 }
 
 
+void TitleScreen::set_title_font_size(int title_font_size)
+{
+   this->title_font_size = title_font_size;
+}
+
+
+void TitleScreen::set_menu_font_size(int menu_font_size)
+{
+   this->menu_font_size = menu_font_size;
+}
+
+
+void TitleScreen::set_copyright_font_size(int copyright_font_size)
+{
+   this->copyright_font_size = copyright_font_size;
+}
+
+
 std::string TitleScreen::get_title_text()
 {
    return title_text;
@@ -161,6 +182,24 @@ ALLEGRO_COLOR TitleScreen::get_menu_text_color()
 ALLEGRO_COLOR TitleScreen::get_copyright_text_color()
 {
    return copyright_text_color;
+}
+
+
+int TitleScreen::get_title_font_size()
+{
+   return title_font_size;
+}
+
+
+int TitleScreen::get_menu_font_size()
+{
+   return menu_font_size;
+}
+
+
+int TitleScreen::get_copyright_font_size()
+{
+   return copyright_font_size;
 }
 
 
@@ -411,8 +450,7 @@ ALLEGRO_FONT* TitleScreen::obtain_title_font()
          throw std::runtime_error(error_message.str());
       }
    std::stringstream composite_font_str;
-   int font_size = -90;
-   composite_font_str << font_name << " " << font_size;
+   composite_font_str << font_name << " " << title_font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
 
@@ -425,8 +463,7 @@ ALLEGRO_FONT* TitleScreen::obtain_menu_font()
          throw std::runtime_error(error_message.str());
       }
    std::stringstream composite_font_str;
-   int font_size = -56;
-   composite_font_str << font_name << " " << font_size;
+   composite_font_str << font_name << " " << menu_font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
 
@@ -439,8 +476,7 @@ ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
          throw std::runtime_error(error_message.str());
       }
    std::stringstream composite_font_str;
-   int font_size = -32;
-   composite_font_str << font_name << " " << font_size;
+   composite_font_str << font_name << " " << copyright_font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
 

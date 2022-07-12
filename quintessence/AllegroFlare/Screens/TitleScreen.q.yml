@@ -83,6 +83,29 @@ properties:
     getter: true
     setter: true
 
+  - name: title_font_size
+    type: int
+    init_with: -90
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: menu_font_size
+    type: int
+    init_with: -56
+    init_with: '"DroidSans.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: copyright_font_size
+    type: int
+    init_with: -32
+    init_with: '"DroidSans.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: menu_options
     type: std::vector<std::pair<std::string, std::string>>
     init_with: 'build_default_menu_options()'
@@ -340,8 +363,7 @@ functions:
     guards: [ font_bin ]
     body: |
       std::stringstream composite_font_str;
-      int font_size = -90;
-      composite_font_str << font_name << " " << font_size;
+      composite_font_str << font_name << " " << title_font_size;
       return font_bin->auto_get(composite_font_str.str());
 
 
@@ -351,8 +373,7 @@ functions:
     guards: [ font_bin ]
     body: |
       std::stringstream composite_font_str;
-      int font_size = -56;
-      composite_font_str << font_name << " " << font_size;
+      composite_font_str << font_name << " " << menu_font_size;
       return font_bin->auto_get(composite_font_str.str());
 
 
@@ -362,8 +383,7 @@ functions:
     guards: [ font_bin ]
     body: |
       std::stringstream composite_font_str;
-      int font_size = -32;
-      composite_font_str << font_name << " " << font_size;
+      composite_font_str << font_name << " " << copyright_font_size;
       return font_bin->auto_get(composite_font_str.str());
 
 

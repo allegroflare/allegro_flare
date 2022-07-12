@@ -30,11 +30,14 @@ namespace AllegroFlare
          ALLEGRO_COLOR title_text_color;
          ALLEGRO_COLOR menu_text_color;
          ALLEGRO_COLOR copyright_text_color;
+         int title_font_size;
+         int menu_font_size;
+         int copyright_font_size;
          std::vector<std::pair<std::string, std::string>> menu_options;
          int cursor_position;
 
       public:
-         TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="Untitled Game", std::string copyright_text="Copyright 2022", std::string background_bitmap_name="", std::string title_bitmap_name="", std::string font_name="DroidSans.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR copyright_text_color=ALLEGRO_COLOR{1, 1, 1, 1});
+         TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="Untitled Game", std::string copyright_text="Copyright 2022", std::string background_bitmap_name="", std::string title_bitmap_name="", std::string font_name="DroidSans.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR copyright_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, int title_font_size=-90, int menu_font_size=-56, int copyright_font_size=-32);
          virtual ~TitleScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
@@ -48,6 +51,9 @@ namespace AllegroFlare
          void set_title_text_color(ALLEGRO_COLOR title_text_color);
          void set_menu_text_color(ALLEGRO_COLOR menu_text_color);
          void set_copyright_text_color(ALLEGRO_COLOR copyright_text_color);
+         void set_title_font_size(int title_font_size);
+         void set_menu_font_size(int menu_font_size);
+         void set_copyright_font_size(int copyright_font_size);
          std::string get_title_text();
          std::string get_copyright_text();
          std::string get_background_bitmap_name();
@@ -56,6 +62,9 @@ namespace AllegroFlare
          ALLEGRO_COLOR get_title_text_color();
          ALLEGRO_COLOR get_menu_text_color();
          ALLEGRO_COLOR get_copyright_text_color();
+         int get_title_font_size();
+         int get_menu_font_size();
+         int get_copyright_font_size();
          std::vector<std::pair<std::string, std::string>> get_menu_options();
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          void move_cursor_up();
