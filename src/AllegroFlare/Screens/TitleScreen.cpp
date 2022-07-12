@@ -286,17 +286,20 @@ void TitleScreen::draw_background()
 
 void TitleScreen::draw_title()
 {
-   ALLEGRO_BITMAP *title_bitmap = obtain_title_bitmap();
-   if (title_bitmap)
+   if (title_bitmap_name.empty())
    {
-      AllegroFlare::Placement2D place;
-      place.position.x = 1920 / 2;
-      place.position.y = 1080 / 3;
-      place.size.x = al_get_bitmap_width(title_bitmap);
-      place.size.y = al_get_bitmap_height(title_bitmap);
-      place.start_transform();
-      al_draw_bitmap(title_bitmap, 0, 0, 0);
-      place.restore_transform();
+      ALLEGRO_BITMAP *title_bitmap = obtain_title_bitmap();
+      if (title_bitmap)
+      {
+         AllegroFlare::Placement2D place;
+         place.position.x = 1920 / 2;
+         place.position.y = 1080 / 3;
+         place.size.x = al_get_bitmap_width(title_bitmap);
+         place.size.y = al_get_bitmap_height(title_bitmap);
+         place.start_transform();
+         al_draw_bitmap(title_bitmap, 0, 0, 0);
+         place.restore_transform();
+      }
    }
    else if (!title_text.empty())
    {
