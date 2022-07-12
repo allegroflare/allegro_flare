@@ -212,7 +212,7 @@ functions:
 
   - name: draw_title
     body: |
-      if (title_bitmap_name.empty())
+      if (!title_bitmap_name.empty())
       {
          ALLEGRO_BITMAP *title_bitmap = obtain_title_bitmap();
          if (title_bitmap)

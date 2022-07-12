@@ -286,7 +286,7 @@ void TitleScreen::draw_background()
 
 void TitleScreen::draw_title()
 {
-   if (title_bitmap_name.empty())
+   if (!title_bitmap_name.empty())
    {
       ALLEGRO_BITMAP *title_bitmap = obtain_title_bitmap();
       if (title_bitmap)
