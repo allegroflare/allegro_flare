@@ -45,6 +45,7 @@ namespace AllegroFlare
          void render_next_button();
          bool infer_at_last_page();
          bool infer_at_or_past_last_page();
+         bool infer_at_last_advance();
          AllegroFlare::Elements::StoryboardPages::Base* infer_current_page();
          ALLEGRO_FONT* obtain_next_button_font();
       };

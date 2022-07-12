@@ -205,10 +205,15 @@ void Storyboard::render_next_button()
    float y = 1080-300;
    float age = al_get_time() - can_advance_started_at;
    ALLEGRO_FONT *next_button_font = obtain_next_button_font();
+   ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
    std::string text = "NEXT >";
+   if (infer_at_last_advance())
+   {
+      button_color = AllegroFlare::Color::LemonChiffon;
+      text = "FINISH";
+   }
    float text_width = al_get_text_width(next_button_font, text.c_str());
    float text_height = al_get_font_line_height(next_button_font);
-   ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
    ALLEGRO_COLOR button_text_color = button_color;
    float button_frame_opacity = ((1.5 - fmod(age, 1.5)) / 1.5) * 0.75 + 0.25;
    ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
@@ -269,6 +274,13 @@ bool Storyboard::infer_at_last_page()
 bool Storyboard::infer_at_or_past_last_page()
 {
    return (current_page_num >= (pages.size()-1));
+}
+
+bool Storyboard::infer_at_last_advance()
+{
+   AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
+   if (!current_page) return false;
+   return infer_at_last_page() && current_page->get_finished();
 }
 
 AllegroFlare::Elements::StoryboardPages::Base* Storyboard::infer_current_page()

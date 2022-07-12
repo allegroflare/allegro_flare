@@ -352,3 +352,17 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   VISUAL__render__when_advancing_is_permitted__will_display_a_NEXT_button)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   VISUAL__render__when_at_the_end_of_the_storyboard__will_display_a_FINISH_button)
+{
+   // TODO
+}
+
+
