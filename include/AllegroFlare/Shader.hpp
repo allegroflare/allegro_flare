@@ -4,6 +4,7 @@
 
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Vec3D.hpp>
+#include <AllegroFlare/Cubemap.hpp>
 
 
 
@@ -30,6 +31,7 @@ namespace AllegroFlare
       // (these apply only to the /currently active/ shader, and not necessairly
       // this Shader object)
       static bool set_sampler(const char *name, ALLEGRO_BITMAP *bitmap, int unit);
+      static bool set_sampler_cube(const char *name, AllegroFlare::Cubemap *cubemap, int unit);
       static bool set_mat4(const char *name, ALLEGRO_TRANSFORM *t);
       static bool set_int(const char *name, int i);
       static bool set_float(const char *name, float f);
