@@ -220,8 +220,8 @@ void TitleScreen::move_cursor_up()
 {
    if (menu_is_empty()) return;
 
-   cursor_position++;
-   if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
+   cursor_position--;
+   if (cursor_position < 0) cursor_position += menu_options.size();
    return;
 }
 
@@ -229,8 +229,8 @@ void TitleScreen::move_cursor_down()
 {
    if (menu_is_empty()) return;
 
-   cursor_position--;
-   if (cursor_position < 0) cursor_position += menu_options.size();
+   cursor_position++;
+   if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
    return;
 }
 
