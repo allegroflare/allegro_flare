@@ -18,7 +18,63 @@ properties:
 
   - name: text
     type: std::string
-    init_with: '""'
+    init_with: '"[text-not-set]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -60
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: top_padding
+    type: float
+    init_with: 400
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: left_padding
+    type: float
+    init_with: 200
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: right_padding
+    type: float
+    init_with: 200
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: line_height_multiplier
+    type: float
+    init_with: 1.75f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: line_height_padding
+    type: float
+    init_with: 0.0f
     constructor_arg: true
     getter: true
     setter: true
@@ -31,6 +87,7 @@ functions:
     virtual: true
     override: true
     body: |
+      set_finished(false);
       return;
 
 
@@ -38,23 +95,44 @@ functions:
     virtual: true
     override: true
     body: |
+      set_finished(true);
       return;
 
 
   - name: render
     virtual: true
     override: true
-    guards: [ al_is_system_installed() ]
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      ALLEGRO_FONT* font = obtain_font();
-      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20, 0, text.c_str());
+      ALLEGRO_FONT *text_font = obtain_font();
+
+      if (!text.empty())
+      {
+         float box_width = 1920 - (left_padding + right_padding);
+         al_draw_multiline_text(
+               text_font,
+               text_color,
+               left_padding,
+               top_padding,
+               box_width,
+               al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
+               0,
+               text.c_str()
+            );
+      }
+
       return;
+    body_dependency_symbols:
+      - al_draw_multiline_text
+      - AllegroFlare::Color
 
 
   - name: advance
     virtual: true
     override: true
     body: |
+      if (get_finished()) return;
+      else set_finished(true);
       return;
 
 
@@ -63,19 +141,25 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      std::string font_str = "Inter-Medium.ttf 48";
-      return font_bin->auto_get(font_str);
-
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
 
 
 dependencies:
 
 
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_draw_multiline_text
+    headers: [ allegro5/allegro_font.h ]
 
 
