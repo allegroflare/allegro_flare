@@ -23,6 +23,8 @@ namespace AllegroFlare
       void reverse_position_transform(ALLEGRO_TRANSFORM *t);
       AllegroFlare::vec3d get_real_position();
       void setup_projection_on(ALLEGRO_BITMAP *surface);
+
+      void strafe_xy(float displacement=0.0f);
    };
 }
 

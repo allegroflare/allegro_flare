@@ -1,8 +1,10 @@
 
 
 #include <AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 
 #include <algorithm>
+#include <cmath>
 
 
 
@@ -88,6 +90,13 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 }
 
 
+void Camera3D::strafe_xy(float displacement)
+{
+   AllegroFlare::Vec2D move_vec(cos(spin), sin(spin));
+   position.x += move_vec.x * displacement;
+   position.y += 0;
+   position.z += move_vec.y * displacement;
+}
 
 
 
