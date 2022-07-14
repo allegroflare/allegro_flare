@@ -1,0 +1,78 @@
+properties:
+
+
+  - name: display_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: surface_A
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+
+  - name: surface_B
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+
+  - name: duration
+    type: float
+    init_with: 2.0f
+
+  - name: position
+    type: float
+    init_with: 0.0f
+
+  - name: finished
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: set_display_bitmap
+    guards: [ initialized ]
+    parameters:
+      - name: display_bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    body: |
+      this->display_bitmap = display_bitmap;
+      return;
+    
+
+  - name: initialize
+    guards: [ (!initialized), display_bitmap ]
+    body: |
+      surface_A = al_create_bitmap(al_get_bitmap_width(display_bitmap), al_get_bitmap_height(display_bitmap));
+      surface_B = al_create_bitmap(al_get_bitmap_width(display_bitmap), al_get_bitmap_height(display_bitmap));
+      initialized = true;
+      return;
+
+
+  - name: update
+    virtual: true
+    body: |
+      return;
+
+
+  - name: draw
+    virtual: true
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
+ 
+
