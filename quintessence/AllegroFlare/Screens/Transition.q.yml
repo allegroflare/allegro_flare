@@ -10,6 +10,12 @@ parent_classes:
 properties:
 
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: from_screen
     type: AllegroFlare::Screens::Base*
     init_with: nullptr
@@ -25,14 +31,16 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: duration_sec
-    type: float
-    init_with: 2.0f
+  - name: game_event_name_to_emit_after_completing
+    type: std::string
+    init_with: '"transition_finished"'
     constructor_arg: true
+    getter: true
+    setter: true
 
-  - name: position
-    type: float
-    init_with: 0.0f
+  - name: target
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
 
   - name: finished
     type: bool
@@ -48,8 +56,12 @@ functions:
 
 
   - name: initialize
-    guards: [ al_is_system_installed(), (!initialized) ]
+    guards: [ al_is_system_installed(), (!initialized), al_get_current_display() ]
     body: |
+      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+
+      target = al_create_sub_bitmap(
+         backbuffer, 0, 0, al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
       initialized = true;
       return;
 
@@ -61,20 +73,31 @@ functions:
     body: |
       if (to_screen)
       {
-         al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+         //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
          to_screen->primary_timer_func();
          draw_backbuffer_to_pasteboard_a_bitmap();
       }
 
       if (from_screen)
       {
-         al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+         //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
          from_screen->primary_timer_func();
          draw_backbuffer_to_pasteboard_b_bitmap();
       }
       
       transition_fx->update();
+      ALLEGRO_STATE previous_render_state;
+      al_store_state(&previous_render_state, ALLEGRO_STATE_TARGET_BITMAP);
+      al_set_target_bitmap(target);
+      al_clear_to_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
       transition_fx->render();
+      al_restore_state(&previous_render_state);
+
+      if (!finished && transition_fx->get_finished())
+      {
+         finished = true;
+         emit_completion_event();
+      }
 
       return;
 
@@ -109,6 +132,17 @@ functions:
       return;
 
 
+  - name: emit_completion_event
+    private: true
+    type: void
+    body: |
+      if (!game_event_name_to_emit_after_completing.empty())
+      {
+         //event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+      }
+      return;
+
+
 dependencies:
 
 
@@ -120,5 +154,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::TransitionFX::Base*
     headers: [ AllegroFlare/TransitionFX/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 
 

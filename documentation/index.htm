@@ -2199,6 +2199,10 @@ table td
     <h3 id="quintessence/AllegroFlare/Screens/Transition.q.yml">quintessence/AllegroFlare/Screens/Transition.q.yml</h3>
      <table>
 <tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
   <td class="property">from_screen</td>
   <td class="property">AllegroFlare::Screens::Base*</td>
 </tr>
@@ -2211,12 +2215,12 @@ table td
   <td class="property">AllegroFlare::TransitionFX::Base*</td>
 </tr>
 <tr>
-  <td class="property">duration_sec</td>
-  <td class="property">float</td>
+  <td class="property">game_event_name_to_emit_after_completing</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">position</td>
-  <td class="property">float</td>
+  <td class="property">target</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
 <tr>
   <td class="property">finished</td>
@@ -2240,6 +2244,9 @@ table td
 <tr>
   <td class="private_method">draw_backbuffer_to_pasteboard_b_bitmap()</td>
 </tr>
+<tr>
+  <td class="private_method">emit_completion_event()</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -2253,6 +2260,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TransitionFX::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TransitionFX/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -3023,6 +3033,7 @@ table td
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/VirtualControlsProcessor"
   ],

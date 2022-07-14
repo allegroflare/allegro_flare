@@ -206,6 +206,7 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/VirtualControlsProcessor"
   ],

@@ -49,8 +49,11 @@ void Base::initialize()
          error_message << "Base" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
          throw std::runtime_error(error_message.str());
       }
-   pasteboard_a = al_create_bitmap(1920, 1080);
-   pasteboard_b = al_create_bitmap(1920, 1080);
+   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+
+   pasteboard_a = al_create_bitmap(al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
+   pasteboard_b = al_create_bitmap(al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
+
    initialized = true;
    return;
 }
@@ -99,6 +102,8 @@ void Base::render()
          throw std::runtime_error(error_message.str());
       }
    float alpha = 1.0 - (duration_sec - position) / duration_sec;
+   if (alpha >= 1.0) alpha = 1.0f;
+   if (alpha <= 0.0) alpha = 0.0f;
    al_draw_bitmap(pasteboard_a, 0, 0, 0);
    al_draw_tinted_bitmap(pasteboard_b, ALLEGRO_COLOR{alpha, alpha, alpha, alpha}, 0, 0, 0);
    return;

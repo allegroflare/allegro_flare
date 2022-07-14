@@ -63,15 +63,16 @@ TEST_F(AllegroFlare_Screens_TransitionTestWithAllegroRenderingFixture, initializ
 
 TEST_F(AllegroFlare_Screens_TransitionTestWithAllegroRenderingFixture, primary_timer_func__will_not_blow_up)
 {
+   AllegroFlare::EventEmitter event_emitter;
    TestScreenA *test_screen_a = new TestScreenA;
    TestScreenB *test_screen_b = new TestScreenB;
    TestTransitionFX *test_transition_fx = new TestTransitionFX;
    test_transition_fx->initialize();
    
-   AllegroFlare::Screens::Transition transition(test_screen_a, test_screen_b, test_transition_fx);
+   AllegroFlare::Screens::Transition transition(&event_emitter, test_screen_a, test_screen_b, test_transition_fx);
    transition.initialize();
 
-   for (int i=0; i<60; i++)
+   for (int i=0; i<120; i++)
    {
       transition.primary_timer_func();
       al_flip_display();
@@ -80,6 +81,20 @@ TEST_F(AllegroFlare_Screens_TransitionTestWithAllegroRenderingFixture, primary_t
    delete test_transition_fx;
    delete test_screen_b;
    delete test_screen_a;
+}
+
+
+TEST_F(AllegroFlare_Screens_TransitionTestWithAllegroRenderingFixture,
+   primary_timer_func__when_the_transition_fx_becomes_finished__marks_the_transition_as_finished)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_TransitionTestWithAllegroRenderingFixture,
+   primary_timer_func__when_the_transition_fx_becomes_finished__emit_an_event_with_the_expected_param_value)
+{
+   // TODO
 }
 
 
