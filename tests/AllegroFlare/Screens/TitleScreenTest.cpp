@@ -75,6 +75,13 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
+   on_activate__will_reset_the_cursor_to_the_top_of_the_menu)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system

@@ -66,6 +66,8 @@ namespace AllegroFlare
          int get_menu_font_size();
          int get_copyright_font_size();
          std::vector<std::pair<std::string, std::string>> get_menu_options();
+         int get_cursor_position();
+         virtual void on_activate() override;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          void move_cursor_up();
          void move_cursor_down();

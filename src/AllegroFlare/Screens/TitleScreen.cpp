@@ -209,6 +209,18 @@ std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options()
 }
 
 
+int TitleScreen::get_cursor_position()
+{
+   return cursor_position;
+}
+
+
+void TitleScreen::on_activate()
+{
+   cursor_position = 0;
+   return;
+}
+
 void TitleScreen::set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options)
 {
    this->menu_options = menu_options;

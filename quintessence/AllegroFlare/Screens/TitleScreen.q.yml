@@ -114,9 +114,18 @@ properties:
   - name: cursor_position
     type: int
     init_with: 0
+    getter: true
 
 
 functions:
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    body: |
+      cursor_position = 0;
+      return;
 
 
   - name: set_menu_options
