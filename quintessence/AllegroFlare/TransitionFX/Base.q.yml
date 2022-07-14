@@ -1,11 +1,6 @@
 properties:
 
 
-  - name: display_bitmap
-    type: ALLEGRO_BITMAP*
-    init_with: nullptr
-    constructor_arg: true
-
   - name: surface_A
     type: ALLEGRO_BITMAP*
     init_with: nullptr
@@ -37,35 +32,20 @@ properties:
 functions:
 
 
-  - name: set_display_bitmap
-    guards: [ initialized ]
-    parameters:
-      - name: display_bitmap
-        type: ALLEGRO_BITMAP*
-        default_argument: nullptr
-    body: |
-      this->display_bitmap = display_bitmap;
-      return;
-    
-
-  - name: initialize
-    guards: [ (!initialized), display_bitmap ]
-    body: |
-      surface_A = al_create_bitmap(al_get_bitmap_width(display_bitmap), al_get_bitmap_height(display_bitmap));
-      surface_B = al_create_bitmap(al_get_bitmap_width(display_bitmap), al_get_bitmap_height(display_bitmap));
-      initialized = true;
-      return;
-
-
   - name: update
     virtual: true
     body: |
+      position += 1.0 / 60.0;
+      if (position >= duration) finished = true;
       return;
 
 
   - name: draw
     virtual: true
     body: |
+      float alpha = 1.0 - (duration - position) / duration;
+      al_draw_bitmap(surface_A, 0, 0, 0);
+      al_draw_tinted_bitmap(surface_B, ALLEGRO_COLOR{alpha, alpha, alpha, alpha}, 0, 0, 0);
       return;
 
 

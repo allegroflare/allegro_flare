@@ -1,10 +1,7 @@
 
 
 #include <AllegroFlare/TransitionFX/Base.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 
 
 namespace AllegroFlare
@@ -13,9 +10,8 @@ namespace TransitionFX
 {
 
 
-Base::Base(ALLEGRO_BITMAP* display_bitmap)
-   : display_bitmap(display_bitmap)
-   , surface_A(nullptr)
+Base::Base()
+   : surface_A(nullptr)
    , surface_B(nullptr)
    , duration(2.0f)
    , position(0.0f)
@@ -48,45 +44,18 @@ bool Base::get_finished()
 }
 
 
-void Base::set_display_bitmap(ALLEGRO_BITMAP* display_bitmap)
-{
-   if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Base" << "::" << "set_display_bitmap" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   this->display_bitmap = display_bitmap;
-   return;
-}
-
-void Base::initialize()
-{
-   if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "Base" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (!(display_bitmap))
-      {
-         std::stringstream error_message;
-         error_message << "Base" << "::" << "initialize" << ": error: " << "guard \"display_bitmap\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   surface_A = al_create_bitmap(al_get_bitmap_width(display_bitmap), al_get_bitmap_height(display_bitmap));
-   surface_B = al_create_bitmap(al_get_bitmap_width(display_bitmap), al_get_bitmap_height(display_bitmap));
-   initialized = true;
-   return;
-}
-
 void Base::update()
 {
+   position += 1.0 / 60.0;
+   if (position >= duration) finished = true;
    return;
 }
 
 void Base::draw()
 {
+   float alpha = 1.0 - (duration - position) / duration;
+   al_draw_bitmap(surface_A, 0, 0, 0);
+   al_draw_tinted_bitmap(surface_B, ALLEGRO_COLOR{alpha, alpha, alpha, alpha}, 0, 0, 0);
    return;
 }
 } // namespace TransitionFX

@@ -113,7 +113,8 @@
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/StoryboardPageFactory"
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/TransitionFX/Base"
   ],
   "tan": [
     "AllegroFlare/Camera2D"
