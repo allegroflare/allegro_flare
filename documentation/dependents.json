@@ -113,6 +113,7 @@
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/TransitionFX/Base"
   ],
@@ -251,7 +252,9 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
+    "AllegroFlare/Screens/Transition"
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/Storyboard",

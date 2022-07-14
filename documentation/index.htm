@@ -82,6 +82,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/GameWonScreen.q.yml">quintessence/AllegroFlare/Screens/GameWonScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Transition.q.yml">quintessence/AllegroFlare/Screens/Transition.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
@@ -2195,6 +2196,58 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Transition.q.yml">quintessence/AllegroFlare/Screens/Transition.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">from_screen</td>
+  <td class="property">AllegroFlare::Screens::Base*</td>
+</tr>
+<tr>
+  <td class="property">to_screen</td>
+  <td class="property">AllegroFlare::Screens::Base*</td>
+</tr>
+<tr>
+  <td class="property">pasteboard_a</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">pasteboard_b</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_backbuffer_to_pasteboard_a_bitmap()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_backbuffer_to_pasteboard_b_bitmap()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</h3>
      <table>
 <tr>
@@ -2857,6 +2910,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/TransitionFX/Base"
   ],
@@ -2995,7 +3049,9 @@ table td
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
+    "AllegroFlare/Screens/Transition"
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/Storyboard",
