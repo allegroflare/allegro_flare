@@ -121,6 +121,12 @@ SampleBin &Full::get_sample_bin_ref()
 }
 
 
+ModelBin &Full::get_model_bin_ref()
+{
+   return models;
+}
+
+
 Camera2D &Full::get_camera_2d_ref()
 {
    return camera_2d;

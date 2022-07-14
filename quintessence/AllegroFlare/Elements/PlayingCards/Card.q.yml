@@ -5,6 +5,7 @@ properties:
     type: int
     init_with: 0
     constructor_arg: true
+
   - name: suit
     type: int
     init_with: 0
