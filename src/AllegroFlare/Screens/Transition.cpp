@@ -13,12 +13,14 @@ namespace Screens
 {
 
 
-Transition::Transition(AllegroFlare::Screens::Base* from_screen, AllegroFlare::Screens::Base* to_screen)
+Transition::Transition(AllegroFlare::Screens::Base* from_screen, AllegroFlare::Screens::Base* to_screen, AllegroFlare::TransitionFX::Base* transition_fx, float duration_sec)
    : AllegroFlare::Screens::Base("TitleScreen")
    , from_screen(from_screen)
    , to_screen(to_screen)
-   , pasteboard_a(nullptr)
-   , pasteboard_b(nullptr)
+   , transition_fx(transition_fx)
+   , duration_sec(duration_sec)
+   , position(0.0f)
+   , finished(false)
    , initialized(false)
 {
 }
@@ -26,6 +28,12 @@ Transition::Transition(AllegroFlare::Screens::Base* from_screen, AllegroFlare::S
 
 Transition::~Transition()
 {
+}
+
+
+bool Transition::get_finished()
+{
+   return finished;
 }
 
 
@@ -43,8 +51,6 @@ void Transition::initialize()
          error_message << "Transition" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
          throw std::runtime_error(error_message.str());
       }
-   pasteboard_a = al_create_bitmap(1920, 1080);
-   pasteboard_b = al_create_bitmap(1920, 1080);
    initialized = true;
    return;
 }
@@ -57,14 +63,28 @@ void Transition::primary_timer_func()
          error_message << "Transition" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (to_screen) to_screen->primary_timer_func();
-   draw_backbuffer_to_pasteboard_a_bitmap();
+   if (!(transition_fx))
+      {
+         std::stringstream error_message;
+         error_message << "Transition" << "::" << "primary_timer_func" << ": error: " << "guard \"transition_fx\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (to_screen)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      to_screen->primary_timer_func();
+      draw_backbuffer_to_pasteboard_a_bitmap();
+   }
 
-   if (from_screen) from_screen->primary_timer_func();
-   draw_backbuffer_to_pasteboard_b_bitmap();
+   if (from_screen)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      from_screen->primary_timer_func();
+      draw_backbuffer_to_pasteboard_b_bitmap();
+   }
 
-   al_draw_bitmap(pasteboard_a, 0, 0, 0);
-   al_draw_tinted_bitmap(pasteboard_b, ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5}, 0, 0, 0);
+   transition_fx->update();
+   transition_fx->render();
 
    return;
 }
@@ -75,7 +95,7 @@ void Transition::draw_backbuffer_to_pasteboard_a_bitmap()
    ALLEGRO_STATE previous_state;
    al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
 
-   al_set_target_bitmap(pasteboard_a);
+   al_set_target_bitmap(transition_fx->get_pasteboard_a());
 
    al_draw_bitmap(source_bitmap, 0, 0, 0);
 
@@ -89,7 +109,7 @@ void Transition::draw_backbuffer_to_pasteboard_b_bitmap()
    ALLEGRO_STATE previous_state;
    al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
 
-   al_set_target_bitmap(pasteboard_b);
+   al_set_target_bitmap(transition_fx->get_pasteboard_b());
 
    al_draw_bitmap(source_bitmap, 0, 0, 0);
 

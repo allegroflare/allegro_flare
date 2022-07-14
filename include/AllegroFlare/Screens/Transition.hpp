@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/Screens/Base.hpp>
-#include <allegro5/allegro.h>
+#include <AllegroFlare/TransitionFX/Base.hpp>
 
 
 namespace AllegroFlare
@@ -14,14 +14,17 @@ namespace AllegroFlare
       private:
          AllegroFlare::Screens::Base* from_screen;
          AllegroFlare::Screens::Base* to_screen;
-         ALLEGRO_BITMAP* pasteboard_a;
-         ALLEGRO_BITMAP* pasteboard_b;
+         AllegroFlare::TransitionFX::Base* transition_fx;
+         float duration_sec;
+         float position;
+         bool finished;
          bool initialized;
 
       public:
-         Transition(AllegroFlare::Screens::Base* from_screen=nullptr, AllegroFlare::Screens::Base* to_screen=nullptr);
+         Transition(AllegroFlare::Screens::Base* from_screen=nullptr, AllegroFlare::Screens::Base* to_screen=nullptr, AllegroFlare::TransitionFX::Base* transition_fx=nullptr, float duration_sec=2.0f);
          virtual ~Transition();
 
+         bool get_finished();
          void initialize();
          virtual void primary_timer_func() override;
          void draw_backbuffer_to_pasteboard_a_bitmap();

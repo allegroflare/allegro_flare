@@ -2207,12 +2207,20 @@ table td
   <td class="property">AllegroFlare::Screens::Base*</td>
 </tr>
 <tr>
-  <td class="property">pasteboard_a</td>
-  <td class="property">ALLEGRO_BITMAP*</td>
+  <td class="property">transition_fx</td>
+  <td class="property">AllegroFlare::TransitionFX::Base*</td>
 </tr>
 <tr>
-  <td class="property">pasteboard_b</td>
-  <td class="property">ALLEGRO_BITMAP*</td>
+  <td class="property">duration_sec</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">position</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">finished</td>
+  <td class="property">bool</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -2242,6 +2250,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TransitionFX::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TransitionFX/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2458,15 +2469,15 @@ table td
     <h3 id="quintessence/AllegroFlare/TransitionFX/Base.q.yml">quintessence/AllegroFlare/TransitionFX/Base.q.yml</h3>
      <table>
 <tr>
-  <td class="property">surface_A</td>
+  <td class="property">pasteboard_a</td>
   <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
 <tr>
-  <td class="property">surface_B</td>
+  <td class="property">pasteboard_b</td>
   <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
 <tr>
-  <td class="property">duration</td>
+  <td class="property">duration_sec</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -2484,10 +2495,19 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">get_pasteboard_a()</td>
+</tr>
+<tr>
+  <td class="method">get_pasteboard_b()</td>
+</tr>
+<tr>
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">draw()</td>
+  <td class="method">render()</td>
 </tr>
     </table>
      <table>
@@ -3115,6 +3135,9 @@ table td
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/TransitionFX/Base": [
+    "AllegroFlare/Screens/Transition"
   ],
   "std/vector<ALLEGRO_BITMAP>": [
     "AllegroFlare/StoryboardFactory"

@@ -11,22 +11,23 @@ namespace AllegroFlare
       class Base
       {
       private:
-         ALLEGRO_BITMAP* surface_A;
-         ALLEGRO_BITMAP* surface_B;
-         float duration;
+         ALLEGRO_BITMAP* pasteboard_a;
+         ALLEGRO_BITMAP* pasteboard_b;
+         float duration_sec;
          float position;
          bool finished;
          bool initialized;
 
       public:
-         Base();
+         Base(float duration_sec=1.0f);
          virtual ~Base();
 
-         ALLEGRO_BITMAP* get_surface_A();
-         ALLEGRO_BITMAP* get_surface_B();
          bool get_finished();
+         void initialize();
+         ALLEGRO_BITMAP* get_pasteboard_a();
+         ALLEGRO_BITMAP* get_pasteboard_b();
          virtual void update();
-         virtual void draw();
+         virtual void render();
       };
    }
 }

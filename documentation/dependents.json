@@ -319,6 +319,9 @@
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "AllegroFlare/TransitionFX/Base": [
+    "AllegroFlare/Screens/Transition"
+  ],
   "std/vector<ALLEGRO_BITMAP>": [
     "AllegroFlare/StoryboardFactory"
   ],

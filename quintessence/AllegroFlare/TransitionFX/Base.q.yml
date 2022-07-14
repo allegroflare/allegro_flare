@@ -1,19 +1,20 @@
 properties:
 
 
-  - name: surface_A
+  - name: pasteboard_a
     type: ALLEGRO_BITMAP*
     init_with: nullptr
-    getter: true
+    getter: explicit
 
-  - name: surface_B
+  - name: pasteboard_b
     type: ALLEGRO_BITMAP*
     init_with: nullptr
-    getter: true
+    getter: explicit
 
-  - name: duration
+  - name: duration_sec
     type: float
-    init_with: 2.0f
+    init_with: 1.0f
+    constructor_arg: true
 
   - name: position
     type: float
@@ -32,20 +33,45 @@ properties:
 functions:
 
 
-  - name: update
-    virtual: true
+  - name: initialize
+    guards: [ (!initialized) ]
     body: |
-      position += 1.0 / 60.0;
-      if (position >= duration) finished = true;
+      pasteboard_a = al_create_bitmap(1920, 1080);
+      pasteboard_b = al_create_bitmap(1920, 1080);
+      initialized = true;
       return;
 
 
-  - name: draw
-    virtual: true
+  - name: get_pasteboard_a
+    type: ALLEGRO_BITMAP*
+    guards: [ initialized ]
     body: |
-      float alpha = 1.0 - (duration - position) / duration;
-      al_draw_bitmap(surface_A, 0, 0, 0);
-      al_draw_tinted_bitmap(surface_B, ALLEGRO_COLOR{alpha, alpha, alpha, alpha}, 0, 0, 0);
+      return pasteboard_a;
+
+
+  - name: get_pasteboard_b
+    type: ALLEGRO_BITMAP*
+    guards: [ initialized ]
+    body: |
+      return pasteboard_b;
+
+
+  - name: update
+    virtual: true
+    guards: [ initialized ]
+    body: |
+      position += 1.0 / 60.0;
+      if (position >= duration_sec) finished = true;
+      return;
+
+
+  - name: render
+    virtual: true
+    guards: [ initialized ]
+    body: |
+      float alpha = 1.0 - (duration_sec - position) / duration_sec;
+      al_draw_bitmap(pasteboard_a, 0, 0, 0);
+      al_draw_tinted_bitmap(pasteboard_b, ALLEGRO_COLOR{alpha, alpha, alpha, alpha}, 0, 0, 0);
       return;
 
 
