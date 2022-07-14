@@ -30,6 +30,13 @@ TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, can_be_created_without_blow
 }
 
 
+TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, has_the_expected_type)
+{
+   AllegroFlare::Elements::Backgrounds::Monoplex monoplex_background;
+   EXPECT_EQ("Monoplex", monoplex_background.get_type());
+}
+
+
 TEST_F(AllegroFlare_Elements_Backgrounds_MonoplexWithAllegroRenderingFixtureTest, render__will_render_in_motion)
 {
    get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
@@ -40,7 +47,7 @@ TEST_F(AllegroFlare_Elements_Backgrounds_MonoplexWithAllegroRenderingFixtureTest
    for (unsigned i=0; i<frames; i++)
    {
       //update
-      monoplex.managed_update();
+      monoplex.update();
 
       // render
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});

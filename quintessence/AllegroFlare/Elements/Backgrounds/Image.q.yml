@@ -23,6 +23,15 @@ properties:
     type: std::string
     init_with: '"backgrounds/"'
 
+  - name: reveal_counter
+    type: float
+    init_with: 0
+    getter: true
+
+  - name: reveal_speed
+    type: float
+    init_with: 1.0f/60.0f
+
 
 functions:
 
@@ -52,6 +61,32 @@ functions:
     body: |
       std::string full_identifier = image_file_location_prefix + image_filename;
       return bitmap_bin->auto_get(full_identifier);
+
+
+  - name: activate
+    virtual: true
+    override: true
+    body: |
+      reveal_counter = 1.0;
+      return;
+
+
+  - name: deactivate
+    virtual: true
+    override: true
+    body: |
+      reveal_counter = 0.0;
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      reveal_counter += reveal_speed;
+      if (reveal_counter >= 1.0) reveal_counter = 1.0f;
+      if (reveal_counter < 0.0) reveal_counter = 0.0f;
+      return;
 
 
   - name: infer_opacity

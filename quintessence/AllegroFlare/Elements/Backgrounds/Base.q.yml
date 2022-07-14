@@ -7,43 +7,19 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: reveal_counter
-    type: float
-    init_with: 0
-    getter: true
-
-  - name: reveal_speed
-    type: float
-    init_with: 1.0f/60.0f
-
-  - name: active
-    type: bool
-    init_with: false
-
 
 functions:
 
 
   - name: activate
+    virtual: true
     body: |
-      reveal_counter = 1.0;
-      active = true;
       return;
 
 
   - name: deactivate
+    virtual: true
     body: |
-      reveal_counter = 0.0;
-      active = false;
-      return;
-
-
-  - name: managed_update
-    body: |
-      reveal_counter += reveal_speed;
-      if (reveal_counter >= 1.0) reveal_counter = 1.0f;
-      if (reveal_counter < 0.0) reveal_counter = 0.0f;
-      update();
       return;
 
 
@@ -60,11 +36,13 @@ functions:
 
 
   - name: show
+    virtual: true
     body: |
       return;
 
 
   - name: hide
+    virtual: true
     body: |
       return;
 

@@ -14,23 +14,18 @@ namespace AllegroFlare
          {
          private:
             std::string type;
-            float reveal_counter;
-            float reveal_speed;
-            bool active;
 
          public:
             Base(std::string type="Base");
             virtual ~Base();
 
             std::string get_type();
-            float get_reveal_counter();
-            void activate();
-            void deactivate();
-            void managed_update();
+            virtual void activate();
+            virtual void deactivate();
             virtual void update();
             virtual void render();
-            void show();
-            void hide();
+            virtual void show();
+            virtual void hide();
          };
       }
    }

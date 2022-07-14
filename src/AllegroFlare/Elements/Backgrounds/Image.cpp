@@ -19,12 +19,20 @@ Image::Image(AllegroFlare::BitmapBin* bitmap_bin, std::string image_filename)
    , bitmap_bin(bitmap_bin)
    , image_filename(image_filename)
    , image_file_location_prefix("backgrounds/")
+   , reveal_counter(0)
+   , reveal_speed(1.0f/60.0f)
 {
 }
 
 
 Image::~Image()
 {
+}
+
+
+float Image::get_reveal_counter()
+{
+   return reveal_counter;
 }
 
 
@@ -53,6 +61,26 @@ ALLEGRO_BITMAP* Image::obtain_background_bitmap()
 {
    std::string full_identifier = image_file_location_prefix + image_filename;
    return bitmap_bin->auto_get(full_identifier);
+}
+
+void Image::activate()
+{
+   reveal_counter = 1.0;
+   return;
+}
+
+void Image::deactivate()
+{
+   reveal_counter = 0.0;
+   return;
+}
+
+void Image::update()
+{
+   reveal_counter += reveal_speed;
+   if (reveal_counter >= 1.0) reveal_counter = 1.0f;
+   if (reveal_counter < 0.0) reveal_counter = 0.0f;
+   return;
 }
 
 float Image::infer_opacity()

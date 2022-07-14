@@ -50,7 +50,7 @@ TEST_F(AllegroFlare_Elements_Backgrounds_ImageWithAllegroRenderingFixtureTest, r
    for (unsigned i=0; i<frames; i++)
    {
       //update
-      image_background.managed_update();
+      image_background.update();
 
       // render
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
