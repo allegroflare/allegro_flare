@@ -1,0 +1,160 @@
+properties:
+
+
+  - name: random
+    type: AllegroFlare::Random
+    init_with: ''
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: victorian_boy_names
+    type: std::vector<std::string>
+    init_with: 'build_victorian_boy_name_list()'
+
+  - name: victorian_girl_names
+    type: std::vector<std::string>
+    init_with: 'build_victorian_girl_name_list()'
+
+  - name: next_boy_name_index
+    type: int
+    init_with: 0
+    
+  - name: next_girl_name_index
+    type: int
+    init_with: 0
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      random.set_seed(927492);
+      random.shuffle_elements(victorian_boy_names);
+      random.shuffle_elements(victorian_girl_names);
+      initialized = true;
+      return;
+
+
+  - name: generate_boy_name
+    type: std::string
+    guards: [ initialized ]
+    body:
+      if (next_boy_name_index >= victorian_boy_names.size()) return "";
+      return victorian_boy_names[next_boy_name_index++];
+
+
+  - name: generate_girl_name
+    type: std::string
+    guards: [ initialized ]
+    body:
+      if (next_girl_name_index >= victorian_girl_names.size()) return "";
+      return victorian_girl_names[next_girl_name_index++];
+
+
+  - name: build_victorian_boy_name_list
+    static: true
+    type: std::vector<std::string>
+    body:
+      return
+         { "Adam"
+         , "Billy"
+         , "Bruce"
+         , "Chris"
+         , "Christopher"
+         , "David"
+         , "Donald"
+         , "Donny"
+         , "Frankie"
+         , "George"
+         , "Gorby"
+         , "Greg"
+         , "Hamilton"
+         , "Homer"
+         , "Hugo"
+         , "Jack"
+         , "James"
+         , "Jeremy"
+         , "Johnathan"
+         , "Johnny"
+         , "Jules"
+         , "Kirk"
+         , "Luther"
+         , "Matt"
+         , "Michael"
+         , "Nick"
+         , "Norman"
+         , "Patrick"
+         , "Paul"
+         , "Peter"
+         , "Richard"
+         , "Robert"
+         , "Sam"
+         , "Thomas"
+         , "Tim"
+         , "Timmy"
+         , "Toby"
+         , "Tommy"
+         , "Walter"
+         , "Edward"
+         };
+
+
+  - name: build_victorian_girl_name_list
+    type: std::vector<std::string>
+    static: true
+    body:
+      return
+         { "Abigail"
+         , "Annabelle"
+         , "Audrey"
+         , "Beth"
+         , "Caren"
+         , "Caroline"
+         , "Christine"
+         , "Claire"
+         , "Doris"
+         , "Elise"
+         , "Elizabeth"
+         , "Ella"
+         , "Emily"
+         , "Erica"
+         , "Florence"
+         , "Gloria"
+         , "Grace"
+         , "Hannah"
+         , "Hellen"
+         , "Ingrid"
+         , "Jill"
+         , "Kelly"
+         , "Lily"
+         , "Lisa"
+         , "Madelyn"
+         , "Mary"
+         , "Natalie"
+         , "Nichole"
+         , "Noel"
+         , "Olga"
+         , "Penelope"
+         , "Penny"
+         , "Sarah"
+         , "Scarlett"
+         , "Sally"
+         , "Stacy"
+         , "Tanya"
+         , "Tara"
+         , "Vivian"
+         , "Wendy"
+        };
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Random
+    headers: [ AllegroFlare/Random.hpp ]
+
+
