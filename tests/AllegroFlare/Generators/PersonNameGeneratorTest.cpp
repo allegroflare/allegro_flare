@@ -75,3 +75,25 @@ TEST(AllegroFlare_Generators_PersonNameGeneratorTest, the_source_of_victorian_gi
 }
 
 
+TEST(AllegroFlare_Generators_PersonNameGeneratorTest, the_source_of_victorian_boy_names_contains_unique_elements)
+{
+   AllegroFlare::Generators::PersonNameGenerator person_name_generator;
+   std::vector<std::string> provided_source_names = person_name_generator.build_victorian_boy_name_list();
+   std::set<std::string> unique_names;
+   for (auto &element : provided_source_names) unique_names.insert(element);
+   
+   EXPECT_EQ(unique_names.size(), provided_source_names.size());
+}
+
+
+TEST(AllegroFlare_Generators_PersonNameGeneratorTest, the_source_of_victorian_girl_names_contains_unique_elements)
+{
+   AllegroFlare::Generators::PersonNameGenerator person_name_generator;
+   std::vector<std::string> provided_source_names = person_name_generator.build_victorian_girl_name_list();
+   std::set<std::string> unique_names;
+   for (auto &element : provided_source_names) unique_names.insert(element);
+   
+   EXPECT_EQ(unique_names.size(), provided_source_names.size());
+}
+
+
