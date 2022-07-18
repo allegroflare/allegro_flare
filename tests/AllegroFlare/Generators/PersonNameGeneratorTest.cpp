@@ -47,7 +47,7 @@ TEST(AllegroFlare_Generators_PersonNameGeneratorTest, generate_boy_name__will_re
 {
    AllegroFlare::Generators::PersonNameGenerator person_name_generator;
    person_name_generator.initialize();
-   person_name_generator.set_seed_and_randomize(927492);
+   person_name_generator.randomize(927492);
    EXPECT_EQ("Thomas", person_name_generator.generate_boy_name());
 }
 
@@ -56,7 +56,7 @@ TEST(AllegroFlare_Generators_PersonNameGeneratorTest, generate_girl_name__will_r
 {
    AllegroFlare::Generators::PersonNameGenerator person_name_generator;
    person_name_generator.initialize();
-   person_name_generator.set_seed_and_randomize(927492);
+   person_name_generator.randomize(927492);
    EXPECT_EQ("Stacy", person_name_generator.generate_girl_name());
 }
 

@@ -32,12 +32,12 @@ functions:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
-      set_seed_and_randomize();
+      randomize();
       initialized = true;
       return;
 
 
-  - name: set_seed_and_randomize
+  - name: randomize
     parameters:
       - name: seed
         type: unsigned int

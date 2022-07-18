@@ -39,12 +39,12 @@ void PersonNameGenerator::initialize()
          error_message << "PersonNameGenerator" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
          throw std::runtime_error(error_message.str());
       }
-   set_seed_and_randomize();
+   randomize();
    initialized = true;
    return;
 }
 
-void PersonNameGenerator::set_seed_and_randomize(unsigned int seed)
+void PersonNameGenerator::randomize(unsigned int seed)
 {
    random.set_seed(seed);
 
