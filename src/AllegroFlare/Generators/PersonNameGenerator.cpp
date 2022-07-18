@@ -18,8 +18,8 @@ namespace Generators
 PersonNameGenerator::PersonNameGenerator()
    : random()
    , initialized(false)
-   , victorian_boy_names(build_victorian_boy_name_list())
-   , victorian_girl_names(build_victorian_girl_name_list())
+   , victorian_boy_names({})
+   , victorian_girl_names({})
    , next_boy_name_index(0)
    , next_girl_name_index(0)
 {
@@ -39,10 +39,20 @@ void PersonNameGenerator::initialize()
          error_message << "PersonNameGenerator" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
          throw std::runtime_error(error_message.str());
       }
-   random.set_seed(927492);
+   set_seed_and_randomize();
+   initialized = true;
+   return;
+}
+
+void PersonNameGenerator::set_seed_and_randomize(unsigned int seed)
+{
+   random.set_seed(seed);
+
+   victorian_boy_names = build_victorian_boy_name_list();
+   victorian_girl_names = build_victorian_girl_name_list();
+
    random.shuffle_elements(victorian_boy_names);
    random.shuffle_elements(victorian_girl_names);
-   initialized = true;
    return;
 }
 

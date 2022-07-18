@@ -11,11 +11,11 @@ properties:
 
   - name: victorian_boy_names
     type: std::vector<std::string>
-    init_with: 'build_victorian_boy_name_list()'
+    init_with: '{}'
 
   - name: victorian_girl_names
     type: std::vector<std::string>
-    init_with: 'build_victorian_girl_name_list()'
+    init_with: '{}'
 
   - name: next_boy_name_index
     type: int
@@ -32,12 +32,26 @@ functions:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
-      random.set_seed(927492);
-      random.shuffle_elements(victorian_boy_names);
-      random.shuffle_elements(victorian_girl_names);
+      set_seed_and_randomize();
       initialized = true;
       return;
 
+
+  - name: set_seed_and_randomize
+    parameters:
+      - name: seed
+        type: unsigned int
+        default_argument: '(unsigned int)time(0)'
+    body: |
+      random.set_seed(seed);
+
+      victorian_boy_names = build_victorian_boy_name_list();
+      victorian_girl_names = build_victorian_girl_name_list();
+
+      random.shuffle_elements(victorian_boy_names);
+      random.shuffle_elements(victorian_girl_names);
+      return;
+    
 
   - name: generate_boy_name
     type: std::string

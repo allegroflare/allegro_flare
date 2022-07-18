@@ -299,6 +299,9 @@
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
   ],
+  "AllegroFlare/Random": [
+    "AllegroFlare/Generators/PersonNameGenerator"
+  ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
