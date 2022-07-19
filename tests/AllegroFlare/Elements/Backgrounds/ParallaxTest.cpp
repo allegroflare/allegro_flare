@@ -21,6 +21,9 @@ class AllegroFlare_Elements_Backgrounds_ParallaxTestWithAllegroRenderingFixture
 #include <AllegroFlare/Elements/Backgrounds/Parallax.hpp>
 
 
+#include <cmath>
+
+
 TEST_F(AllegroFlare_Elements_Backgrounds_ParallaxTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::Backgrounds::Parallax parallax;
@@ -56,10 +59,12 @@ TEST_F(AllegroFlare_Elements_Backgrounds_ParallaxTestWithAllegroRenderingFixture
       }
    );
 
-   for (int i=0; i<60; i++)
+   int passes = 60;
+   for (int i=0; i<passes; i++)
    {
       // update
       parallax.set_offset_x(i * 8);
+      parallax.set_offset_y(sin((float)i/passes * 6.28) * 100);
 
       // draw
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
