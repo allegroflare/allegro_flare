@@ -1,4 +1,149 @@
-functions:
-  - name: run
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: max
+    type: int
+    init_with: 10
+    constructor_arg: true
+    getter: true
+    setter: true
+  
+  - name: value
+    type: int
+    init_with: 10
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: fill_color
+    type: ALLEGRO_COLOR
+    init_with: '(ALLEGRO_COLOR{0.86, 0.08, 0.24, 1} /*crimson*/)'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: empty_color
+    type: ALLEGRO_COLOR
+    init_with: '(ALLEGRO_COLOR{0.25, 0.1, 0.25, 1})'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: heart_size
+    type: float
+    init_with: 44
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: heart_spacing
+    type: float
+    init_with: 52
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_awesome_font_name
     type: std::string
-    body: return "Hello World!";
+    init_with: '"fa-solid-900.ttf"'
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_ttf_addon_initialized() ]
+    body: |
+      ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      ALLEGRO_FONT *font_awesome_font = obtain_font_awesome_font();
+
+      get_placement_ref().start_transform();
+
+      for (int i=0; i<max; i++)
+      {
+         if (i <= value)
+         {
+            // draw filled heart
+            draw_unicode_character(font_awesome_font, fill_color, 61444, ALLEGRO_ALIGN_CENTRE, i*heart_spacing);
+         }
+         else
+         {
+            // draw empty heart
+            draw_unicode_character(font_awesome_font, empty_color, 61444, ALLEGRO_ALIGN_CENTRE, i*heart_spacing);
+         }
+      }
+      get_placement_ref().restore_transform();
+      return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+
+
+  - name: draw_unicode_character
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: icon
+        type: int32_t
+        default_argument: 61444
+      - name: flags
+        type: int
+        default_argument: 0
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      al_draw_ustr(font, color, x, y, flags, ustr);
+      return;
+
+
+  - name: obtain_font_awesome_font
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream font_identifier_and_size;
+      font_identifier_and_size << font_awesome_font_name << " " << heart_size;
+      return font_bin->auto_get(font_identifier_and_size.str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Elements::Base
+    headers: [ AllegroFlare/Elements/Base.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: int32_t
+    headers: [ cstdint ]
+
+

@@ -63,6 +63,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml</a></li>
@@ -692,6 +693,76 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">max</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">value</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">fill_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">empty_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">heart_size</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">heart_spacing</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">font_awesome_font_name</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">draw_unicode_character(6)</td>
+</tr>
+<tr>
+  <td class="method">obtain_font_awesome_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;int32_t&quot;, &quot;headers&quot;=&gt;[&quot;cstdint&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2804,6 +2875,7 @@ table td
   ],
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
@@ -2821,6 +2893,7 @@ table td
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
@@ -2839,7 +2912,8 @@ table td
   ],
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
-    "AllegroFlare/Elements/HealthBars/Classic"
+    "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/HealthBars/Hearts"
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer"
@@ -2896,11 +2970,13 @@ table td
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Stopwatch",
@@ -2912,6 +2988,9 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "int32_t": [
+    "AllegroFlare/Elements/HealthBars/Hearts"
   ],
   "AllegroFlare/Inventory": [
     "AllegroFlare/Elements/Inventory"
