@@ -14,15 +14,15 @@ namespace HealthBars
 {
 
 
-Classic::Classic(int max, int value, ALLEGRO_COLOR color, float bar_width, float bar_spacing, float bar_height, float bar_thickness)
+Classic::Classic(int max, int value, ALLEGRO_COLOR fill_color, float bar_width, float bar_spacing, float bar_height, float bar_stroke_thickness)
    : AllegroFlare::Elements::Base()
    , max(max)
    , value(value)
-   , color(color)
+   , fill_color(fill_color)
    , bar_width(bar_width)
    , bar_spacing(bar_spacing)
    , bar_height(bar_height)
-   , bar_thickness(bar_thickness)
+   , bar_stroke_thickness(bar_stroke_thickness)
 {
 }
 
@@ -44,9 +44,9 @@ void Classic::set_value(int value)
 }
 
 
-void Classic::set_color(ALLEGRO_COLOR color)
+void Classic::set_fill_color(ALLEGRO_COLOR fill_color)
 {
-   this->color = color;
+   this->fill_color = fill_color;
 }
 
 
@@ -68,9 +68,9 @@ void Classic::set_bar_height(float bar_height)
 }
 
 
-void Classic::set_bar_thickness(float bar_thickness)
+void Classic::set_bar_stroke_thickness(float bar_stroke_thickness)
 {
-   this->bar_thickness = bar_thickness;
+   this->bar_stroke_thickness = bar_stroke_thickness;
 }
 
 
@@ -86,9 +86,9 @@ int Classic::get_value()
 }
 
 
-ALLEGRO_COLOR Classic::get_color()
+ALLEGRO_COLOR Classic::get_fill_color()
 {
-   return color;
+   return fill_color;
 }
 
 
@@ -110,9 +110,9 @@ float Classic::get_bar_height()
 }
 
 
-float Classic::get_bar_thickness()
+float Classic::get_bar_stroke_thickness()
 {
-   return bar_thickness;
+   return bar_stroke_thickness;
 }
 
 
@@ -130,9 +130,8 @@ void Classic::render()
          error_message << "Classic" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   float h_thickness = bar_thickness * 0.5;
+   float h_thickness = bar_stroke_thickness * 0.5;
    ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
-   ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.86, 0.08, 0.24, 1}; // crimson
 
    get_placement_ref().start_transform();
 
@@ -150,7 +149,7 @@ void Classic::render()
                i*bar_spacing+bar_width - h_thickness,
                bar_height - h_thickness,
                outline_color,
-               bar_thickness
+               bar_stroke_thickness
             );
       }
    }

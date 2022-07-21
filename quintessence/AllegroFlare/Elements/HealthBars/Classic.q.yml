@@ -23,9 +23,9 @@ properties:
     getter: true
     setter: true
 
-  - name: color
+  - name: fill_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    init_with: '(ALLEGRO_COLOR{0.86, 0.08, 0.24, 1} /*crimson*/)'
     constructor_arg: true
     getter: true
     setter: true
@@ -51,7 +51,7 @@ properties:
     getter: true
     setter: true
 
-  - name: bar_thickness
+  - name: bar_stroke_thickness
     type: float
     init_with: 3.0f
     constructor_arg: true
@@ -66,9 +66,8 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
-      float h_thickness = bar_thickness * 0.5;
+      float h_thickness = bar_stroke_thickness * 0.5;
       ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.86, 0.08, 0.24, 1}; // crimson
 
       get_placement_ref().start_transform();
 
@@ -86,7 +85,7 @@ functions:
                   i*bar_spacing+bar_width - h_thickness,
                   bar_height - h_thickness,
                   outline_color,
-                  bar_thickness
+                  bar_stroke_thickness
                );
          }
       }
