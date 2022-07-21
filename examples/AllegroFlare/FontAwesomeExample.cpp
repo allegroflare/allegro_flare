@@ -99,7 +99,7 @@ int main(int argc, char **argv)
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
 
-   UnicodeFontViewerExample unicode_font_viewer_example("Bravura.otf 40");
+   UnicodeFontViewerExample unicode_font_viewer_example("fa-solid-900.ttf 40");
    unicode_font_viewer_example.init();
    framework.register_screen("unicode_font_viewer_example", &unicode_font_viewer_example);
 
