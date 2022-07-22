@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/HealthBars/Hearts.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/FontAwesome.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -16,7 +17,7 @@ namespace HealthBars
 {
 
 
-Hearts::Hearts(AllegroFlare::FontBin* font_bin, int max, int value, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR empty_color, float heart_size, float heart_spacing)
+Hearts::Hearts(AllegroFlare::FontBin* font_bin, int max, int value, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR empty_color, int heart_size, float heart_spacing)
    : AllegroFlare::Elements::Base()
    , font_bin(font_bin)
    , max(max)
@@ -65,7 +66,7 @@ void Hearts::set_empty_color(ALLEGRO_COLOR empty_color)
 }
 
 
-void Hearts::set_heart_size(float heart_size)
+void Hearts::set_heart_size(int heart_size)
 {
    this->heart_size = heart_size;
 }
@@ -101,7 +102,7 @@ ALLEGRO_COLOR Hearts::get_empty_color()
 }
 
 
-float Hearts::get_heart_size()
+int Hearts::get_heart_size()
 {
    return heart_size;
 }
@@ -135,6 +136,8 @@ void Hearts::render()
       }
    ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_FONT *font_awesome_font = obtain_font_awesome_font();
+   const uint32_t heart_glyph = AllegroFlare::FontAwesome::heart;
+   const uint32_t heart_empty_glyph = AllegroFlare::FontAwesome::heart;
 
    get_placement_ref().start_transform();
 
@@ -143,12 +146,12 @@ void Hearts::render()
       if (i <= value)
       {
          // draw filled heart
-         draw_unicode_character(font_awesome_font, fill_color, 61444, ALLEGRO_ALIGN_CENTRE, i*heart_spacing);
+         draw_unicode_character(font_awesome_font, fill_color, heart_glyph, ALLEGRO_ALIGN_CENTRE, i*heart_spacing);
       }
       else
       {
          // draw empty heart
-         draw_unicode_character(font_awesome_font, empty_color, 61444, ALLEGRO_ALIGN_CENTRE, i*heart_spacing);
+         draw_unicode_character(font_awesome_font, empty_color, heart_glyph, ALLEGRO_ALIGN_CENTRE, i*heart_spacing);
       }
    }
    get_placement_ref().restore_transform();
