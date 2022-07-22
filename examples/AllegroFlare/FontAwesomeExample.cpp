@@ -13,7 +13,7 @@ private:
 public:
    FontAwesomeExample(AllegroFlare::FontBin *font_bin)
       : AllegroFlare::Screens::Base()
-      , unicode_font_viewer(font_bin, "fa-solid-900.ttf", 0xF000)
+      , unicode_font_viewer(font_bin, "fa-solid-900.ttf", 0xF000) // FontAwesome characters start in the 0xF000 range
    {}
 
    void primary_timer_func() override
