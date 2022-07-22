@@ -7,9 +7,19 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: font_identifier
+    type: std::string
+    init_with: '"fa-solid-900.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: unicode_range_start
     type: int32_t
     init_with: 0x1D100
+    constructor_arg: true
+    getter: true
+    setter: true
 
 
 functions:
@@ -18,7 +28,7 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
     body: |
-      int32_t unicode_range_end = unicode_range_start+0x00ff;
+      int32_t unicode_range_end = unicode_range_start+0x00ff; // unicode_range_start to unicode_range_start+255
       ALLEGRO_FONT *ui_font = obtain_ui_font();
       ALLEGRO_FONT *ui_font_mini = obtain_ui_font_mini();
       ALLEGRO_FONT *unicode_font = obtain_unicode_font();
@@ -31,22 +41,29 @@ functions:
       al_draw_text(ui_font, white, 20, 20, 0, "Press the RIGHT ARROW and LEFT ARROW keys to flip through the pages");
       al_draw_text(ui_font, white, 20, 60, 0, range_string.str().c_str());
 
-      //int y=90;
+      int table_y = 180;
+      int table_x = 100;
       int line = 0;
-      int num_rows = 30;
+      int num_columns = 32;
+
       int line_height = 80;
-      int row_width = 45;
+      int column_width = 52;
+
       int row = 0;
       for (int32_t character=unicode_range_start; character<=unicode_range_end; character++)
       {
-         int x = 100 + row*row_width;
-         int y = 100 + line*line_height;
+         int x = table_x + row*column_width;
+         int y = table_y + line*line_height;
+         float column_middle_int = (int)(x + column_width*0.5);
+
          draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_CENTER, x, y);
+
          std::stringstream character_number_as_str;
          character_number_as_str << character;
-         al_draw_text(ui_font_mini, white, x, y, 0, character_number_as_str.str().c_str());
+         al_draw_text(ui_font_mini, white, column_middle_int, y, 0, character_number_as_str.str().c_str());
+
          row += 1;
-         if (row > num_rows) { row = 0; line++; }
+         if (row > num_columns) { row = 0; line++; }
       }
     body_dependency_symbols:
       - AllegroFlare::Color
@@ -56,7 +73,7 @@ functions:
 
   - name: previous_page
     body: |
-      unicode_range_start -= 0x0100;
+      unicode_range_start -= 0x0100; // 256 characters per page
       return;
 
 
@@ -100,7 +117,9 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("fa-solid-900.ttf 40");
+      std::stringstream font_identifier_and_size;
+      font_identifier_and_size << font_identifier << " 42";
+      return font_bin->auto_get(font_identifier_and_size.str().c_str());
 
 
   - name: obtain_ui_font

@@ -4,6 +4,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <cstdint>
+#include <string>
 
 
 namespace AllegroFlare
@@ -12,13 +13,18 @@ namespace AllegroFlare
    {
    private:
       AllegroFlare::FontBin* font_bin;
+      std::string font_identifier;
       int32_t unicode_range_start;
 
    public:
-      UnicodeFontViewer(AllegroFlare::FontBin* font_bin=nullptr);
+      UnicodeFontViewer(AllegroFlare::FontBin* font_bin=nullptr, std::string font_identifier="fa-solid-900.ttf", int32_t unicode_range_start=0x1D100);
       ~UnicodeFontViewer();
 
       void set_font_bin(AllegroFlare::FontBin* font_bin);
+      void set_font_identifier(std::string font_identifier);
+      void set_unicode_range_start(int32_t unicode_range_start);
+      std::string get_font_identifier();
+      int32_t get_unicode_range_start();
       void render();
       void previous_page();
       void next_page();
