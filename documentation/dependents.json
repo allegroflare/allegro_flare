@@ -162,6 +162,9 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Useful3D/Triangle"
   ],
+  "AllegroFlare/FontAwesome": [
+    "AllegroFlare/Elements/HealthBars/Hearts"
+  ],
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
