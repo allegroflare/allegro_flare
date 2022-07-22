@@ -1,0 +1,101 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: value
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: max
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: fill_color
+    type: ALLEGRO_COLOR
+    init_with: '(ALLEGRO_COLOR{0.0, 0.75, 1.0, 1} /*deep sky blue*/)'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: backfill_color
+    type: ALLEGRO_COLOR
+    init_with: '(ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.9})'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bar_width
+    type: float
+    init_with: 200
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bar_height
+    type: float
+    init_with: 16
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: min_render_threshold
+    type: float
+    init_with: 0.0001
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      get_placement_ref().start_transform();
+
+      al_draw_filled_rectangle(0, 0, bar_width, bar_height, backfill_color);
+      if (value > min_render_threshold)
+      {
+         float normalized_value = max / value;
+         float limited_normalized_value = std::min(1.0f, std::max(0.0f, value));
+         al_draw_filled_rectangle(0, 0, bar_width*limited_normalized_value, bar_height, fill_color);
+      }
+
+      get_placement_ref().restore_transform();
+      return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+      - std::min
+      - std::max
+
+
+dependencies:
+
+
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Elements::Base
+    headers: [ AllegroFlare/Elements/Base.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: std::min
+    headers: [ algorithm ]
+  - symbol: std::max
+    headers: [ algorithm ]
+
+
