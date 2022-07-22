@@ -1,4 +1,139 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: unicode_range_start
+    type: int32_t
+    init_with: 0x1D100
+
+
 functions:
-  - name: run
-    type: std::string
-    body: return "Hello World!";
+
+
+  - name: render
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
+    body: |
+      int32_t unicode_range_end = unicode_range_start+0x00ff;
+      ALLEGRO_FONT *ui_font = obtain_ui_font();
+      ALLEGRO_FONT *ui_font_mini = obtain_ui_font_mini();
+      ALLEGRO_FONT *unicode_font = obtain_unicode_font();
+      ALLEGRO_COLOR white = AllegroFlare::Color::White;
+      ALLEGRO_COLOR black = AllegroFlare::Color::Black;
+      std::stringstream range_string;
+
+      range_string << "you are currently viewing the range " << unicode_range_start << "-" << unicode_range_end;
+
+      al_draw_text(ui_font, white, 20, 20, 0, "Press the RIGHT ARROW and LEFT ARROW keys to flip through the pages");
+      al_draw_text(ui_font, white, 20, 60, 0, range_string.str().c_str());
+
+      //int y=90;
+      int line = 0;
+      int num_rows = 30;
+      int line_height = 80;
+      int row_width = 45;
+      int row = 0;
+      for (int32_t character=unicode_range_start; character<=unicode_range_end; character++)
+      {
+         int x = 100 + row*row_width;
+         int y = 100 + line*line_height;
+         draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_CENTER, x, y);
+         std::stringstream character_number_as_str;
+         character_number_as_str << character;
+         al_draw_text(ui_font_mini, white, x, y, 0, character_number_as_str.str().c_str());
+         row += 1;
+         if (row > num_rows) { row = 0; line++; }
+      }
+    body_dependency_symbols:
+      - AllegroFlare::Color
+      - al_is_font_addon_initialized
+      - al_is_ttf_addon_initialized
+
+
+  - name: previous_page
+    body: |
+      unicode_range_start -= 0x0100;
+      return;
+
+
+  - name: next_page
+    body: |
+      unicode_range_start += 0x0100;
+      return;
+
+
+  - name: draw_unicode_character
+    private: true
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: icon
+        type: int32_t
+        default_argument: 61444
+      - name: flags
+        type: int
+        default_argument: 0
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      al_draw_ustr(font, color, x, y, flags, ustr);
+      return;
+
+
+  - name: obtain_unicode_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("fa-solid-900.ttf 40");
+
+
+  - name: obtain_ui_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf 20");
+
+
+  - name: obtain_ui_font_mini
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf 9");
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: al_is_font_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_is_ttf_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+
+
+
