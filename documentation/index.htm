@@ -88,6 +88,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/UnicodeFontViewer.q.yml">quintessence/AllegroFlare/UnicodeFontViewer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
@@ -2529,6 +2530,83 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/UnicodeFontViewer.q.yml">quintessence/AllegroFlare/UnicodeFontViewer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">font_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">unicode_range_start</td>
+  <td class="property">uint32_t</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">previous_page()</td>
+</tr>
+<tr>
+  <td class="method">next_page()</td>
+</tr>
+<tr>
+  <td class="method">as_hex(2)</td>
+</tr>
+<tr>
+  <td class="method">as_int(1)</td>
+</tr>
+<tr>
+  <td class="private_method">draw_unicode_character(6)</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_unicode_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_ui_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_ui_font_mini()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::setfill&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_font_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_ttf_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</h3>
      <table>
 <tr>
@@ -2889,7 +2967,8 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -2905,7 +2984,8 @@ table td
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_system_installed": [
     "AllegroFlare/Bone3DGraphRenderer"
@@ -2913,10 +2993,12 @@ table td
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/HealthBars/Classic",
-    "AllegroFlare/Elements/HealthBars/Hearts"
+    "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_font_addon_initialized": [
-    "AllegroFlare/Bone3DGraphRenderer"
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
@@ -2987,6 +3069,7 @@ table td
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "int32_t": [
@@ -3018,7 +3101,8 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
-    "AllegroFlare/Screens/Storyboard"
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/interpolator": [
     "AllegroFlare/Elements/Inventory",
@@ -3206,6 +3290,15 @@ table td
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"
+  ],
+  "std/setfill": [
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "al_is_ttf_addon_initialized": [
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "al_draw_rectangle": [
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "cross_product": [
     "AllegroFlare/Useful3D/Triangle"

@@ -1,0 +1,228 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: font_identifier
+    type: std::string
+    init_with: '"fa-solid-900.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: unicode_range_start
+    type: uint32_t
+    init_with: 0x1D100
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    guards:
+      - al_is_system_installed()
+      - al_is_font_addon_initialized()
+      - al_is_ttf_addon_initialized()
+      - al_is_primitives_addon_initialized()
+      - font_bin
+    body: |
+      uint32_t unicode_range_end = unicode_range_start+0x00ff; // unicode_range_start to unicode_range_start+255
+      ALLEGRO_FONT *ui_font = obtain_ui_font();
+      ALLEGRO_FONT *ui_font_mini = obtain_ui_font_mini();
+      ALLEGRO_FONT *unicode_font = obtain_unicode_font();
+      ALLEGRO_COLOR white = AllegroFlare::Color::White;
+      ALLEGRO_COLOR black = AllegroFlare::Color::Black;
+      std::stringstream range_string;
+      int font_line_height = al_get_font_line_height(unicode_font);
+      int h_font_line_height_int = (int)(font_line_height * 0.5);
+      int ui_font_mini_line_height = al_get_font_line_height(ui_font_mini);
+
+      range_string << "you are currently viewing the range "
+                   << as_hex(unicode_range_start)
+                   << "-"
+                   << as_hex(unicode_range_end)
+                   ;
+
+      al_draw_text(ui_font, white, 20, 20, 0, "Press the RIGHT ARROW and LEFT ARROW keys to flip through the pages");
+      al_draw_text(ui_font, white, 20, 60, 0, range_string.str().c_str());
+
+      int table_y = 120;
+      int table_x = 100;
+      int line = 0;
+      int num_columns = 32;
+
+      int row_height = 112;
+      int column_width = 54;
+
+      int column = 0;
+      for (uint32_t character=unicode_range_start; character<=unicode_range_end; character++)
+      {
+         int x = table_x + column*column_width;
+         int y = table_y + line*row_height;
+         float column_middle_int = (int)(x + column_width*0.5);
+
+         al_draw_rectangle(x, y, x+column_width, y+row_height, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 1.0);
+
+         draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_CENTER, column_middle_int, y);
+
+         // draw hex number
+         al_draw_text(
+            ui_font_mini,
+            white,
+            column_middle_int,
+            y+row_height-ui_font_mini_line_height - 4,
+            ALLEGRO_ALIGN_CENTER,
+            as_hex(character).c_str()
+         );
+
+         // draw int number
+         al_draw_text(
+            ui_font_mini,
+            white,
+            column_middle_int,
+            y+row_height-(ui_font_mini_line_height*2) - 4,
+            ALLEGRO_ALIGN_CENTER,
+            as_int(character).c_str()
+         );
+
+         column += 1;
+         if (column >= num_columns) { column = 0; line++; }
+      }
+    body_dependency_symbols:
+      - AllegroFlare::Color
+      - al_is_font_addon_initialized
+      - al_is_ttf_addon_initialized
+      - al_draw_rectangle
+
+
+  - name: previous_page
+    body: |
+      unicode_range_start -= 0x0100; // 256 characters per page
+      return;
+
+
+  - name: next_page
+    body: |
+      unicode_range_start += 0x0100;
+      return;
+
+
+  - name: as_hex
+    parameters:
+      - name: value
+        type: uint32_t
+        default_argument: 0
+      - name: zero_fill_width
+        type: int
+        default_argument: 6
+    type: std::string
+    body: |
+       std::stringstream ss;
+       ss << "0x" << std::uppercase << std::setfill('0') << std::setw(zero_fill_width) << std::hex << value;
+       return ss.str();
+    body_dependency_symbols:
+      - std::stringstream
+      - std::setfill
+
+
+  - name: as_int
+    parameters:
+      - name: value
+        type: uint32_t
+        default_argument: 0
+    type: std::string
+    body: |
+       std::stringstream ss;
+       ss << value;
+       return ss.str();
+    body_dependency_symbols:
+      - std::stringstream
+      - std::setfill
+
+
+  - name: draw_unicode_character
+    private: true
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: icon
+        type: uint32_t
+        default_argument: 61444
+      - name: flags
+        type: int
+        default_argument: 0
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      al_draw_ustr(font, color, x, y, flags, ustr);
+      return;
+
+
+  - name: obtain_unicode_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream font_identifier_and_size;
+      font_identifier_and_size << font_identifier << " 42";
+      return font_bin->auto_get(font_identifier_and_size.str().c_str());
+
+
+  - name: obtain_ui_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf 20");
+
+
+  - name: obtain_ui_font_mini
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf 10");
+
+
+dependencies:
+
+
+  - symbol: std::setfill
+    headers: [ iomanip ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: al_is_font_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_is_ttf_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+
+
+

@@ -62,7 +62,8 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -78,7 +79,8 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_system_installed": [
     "AllegroFlare/Bone3DGraphRenderer"
@@ -86,10 +88,12 @@
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/HealthBars/Classic",
-    "AllegroFlare/Elements/HealthBars/Hearts"
+    "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_font_addon_initialized": [
-    "AllegroFlare/Bone3DGraphRenderer"
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
@@ -160,6 +164,7 @@
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "int32_t": [
@@ -191,7 +196,8 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
-    "AllegroFlare/Screens/Storyboard"
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/interpolator": [
     "AllegroFlare/Elements/Inventory",
@@ -379,6 +385,15 @@
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"
+  ],
+  "std/setfill": [
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "al_is_ttf_addon_initialized": [
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "al_draw_rectangle": [
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "cross_product": [
     "AllegroFlare/Useful3D/Triangle"
