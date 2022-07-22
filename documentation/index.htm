@@ -2542,7 +2542,7 @@ table td
 </tr>
 <tr>
   <td class="property">unicode_range_start</td>
-  <td class="property">int32_t</td>
+  <td class="property">uint32_t</td>
 </tr>
     </table>
      <table>
@@ -2554,6 +2554,12 @@ table td
 </tr>
 <tr>
   <td class="method">next_page()</td>
+</tr>
+<tr>
+  <td class="method">as_hex(2)</td>
+</tr>
+<tr>
+  <td class="method">as_int(1)</td>
 </tr>
 <tr>
   <td class="private_method">draw_unicode_character(6)</td>
@@ -2569,6 +2575,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::setfill&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -2586,6 +2595,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_ttf_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2978,7 +2993,8 @@ table td
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/HealthBars/Classic",
-    "AllegroFlare/Elements/HealthBars/Hearts"
+    "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -3275,7 +3291,13 @@ table td
   "std/time_t": [
     "AllegroFlare/TimeStamper"
   ],
+  "std/setfill": [
+    "AllegroFlare/UnicodeFontViewer"
+  ],
   "al_is_ttf_addon_initialized": [
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "al_draw_rectangle": [
     "AllegroFlare/UnicodeFontViewer"
   ],
   "cross_product": [

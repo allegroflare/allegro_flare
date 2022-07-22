@@ -88,7 +88,8 @@
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/HealthBars/Classic",
-    "AllegroFlare/Elements/HealthBars/Hearts"
+    "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -385,7 +386,13 @@
   "std/time_t": [
     "AllegroFlare/TimeStamper"
   ],
+  "std/setfill": [
+    "AllegroFlare/UnicodeFontViewer"
+  ],
   "al_is_ttf_addon_initialized": [
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "al_draw_rectangle": [
     "AllegroFlare/UnicodeFontViewer"
   ],
   "cross_product": [

@@ -14,21 +14,23 @@ namespace AllegroFlare
    private:
       AllegroFlare::FontBin* font_bin;
       std::string font_identifier;
-      int32_t unicode_range_start;
+      uint32_t unicode_range_start;
 
    public:
-      UnicodeFontViewer(AllegroFlare::FontBin* font_bin=nullptr, std::string font_identifier="fa-solid-900.ttf", int32_t unicode_range_start=0x1D100);
+      UnicodeFontViewer(AllegroFlare::FontBin* font_bin=nullptr, std::string font_identifier="fa-solid-900.ttf", uint32_t unicode_range_start=0x1D100);
       ~UnicodeFontViewer();
 
       void set_font_bin(AllegroFlare::FontBin* font_bin);
       void set_font_identifier(std::string font_identifier);
-      void set_unicode_range_start(int32_t unicode_range_start);
+      void set_unicode_range_start(uint32_t unicode_range_start);
       std::string get_font_identifier();
-      int32_t get_unicode_range_start();
+      uint32_t get_unicode_range_start();
       void render();
       void previous_page();
       void next_page();
-      void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
+      std::string as_hex(uint32_t value=0, int zero_fill_width=6);
+      std::string as_int(uint32_t value=0);
+      void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
       ALLEGRO_FONT* obtain_unicode_font();
       ALLEGRO_FONT* obtain_ui_font();
       ALLEGRO_FONT* obtain_ui_font_mini();
