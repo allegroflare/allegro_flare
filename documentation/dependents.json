@@ -456,6 +456,12 @@
   ],
   "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper"
+  ],
+  "std/map<int, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper"
+  ],
+  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -473,6 +479,9 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D": [

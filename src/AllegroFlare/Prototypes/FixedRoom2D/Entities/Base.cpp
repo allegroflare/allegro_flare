@@ -19,6 +19,8 @@ Base::Base(ALLEGRO_BITMAP* bitmap, AllegroFlare::Placement2D placement)
    , bitmap(bitmap)
    , placement(placement)
    , cursor_is_over(false)
+   , cursor_entered_at(0.0f)
+   , cursor_exited_at(0.0f)
 {
 }
 
@@ -40,12 +42,6 @@ void Base::set_placement(AllegroFlare::Placement2D placement)
 }
 
 
-void Base::set_cursor_is_over(bool cursor_is_over)
-{
-   this->cursor_is_over = cursor_is_over;
-}
-
-
 ALLEGRO_BITMAP* Base::get_bitmap()
 {
    return bitmap;
@@ -61,6 +57,18 @@ AllegroFlare::Placement2D Base::get_placement()
 bool Base::get_cursor_is_over()
 {
    return cursor_is_over;
+}
+
+
+float Base::get_cursor_entered_at()
+{
+   return cursor_entered_at;
+}
+
+
+float Base::get_cursor_exited_at()
+{
+   return cursor_exited_at;
 }
 
 
@@ -87,11 +95,17 @@ void Base::update()
 
 void Base::on_cursor_enter()
 {
+   cursor_is_over = true;
+   cursor_entered_at = al_get_time();
+   cursor_exited_at = 0;
    return;
 }
 
 void Base::on_cursor_leave()
 {
+   cursor_is_over = false;
+   cursor_entered_at = 0;
+   cursor_exited_at = al_get_time();
    return;
 }
 

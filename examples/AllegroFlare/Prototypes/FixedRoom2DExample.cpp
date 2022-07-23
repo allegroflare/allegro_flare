@@ -22,6 +22,7 @@ int main(int argc, char **argv)
 
    framework.run_loop();
 
+   framework.shutdown();
    return 0;
 }
 

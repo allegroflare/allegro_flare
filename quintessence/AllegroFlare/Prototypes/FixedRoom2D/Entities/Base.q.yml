@@ -28,7 +28,16 @@ properties:
     type: bool
     init_with: false
     getter: true
-    setter: true
+
+  - name: cursor_entered_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: cursor_exited_at
+    type: float
+    init_with: 0.0f
+    getter: true
 
 
 functions:
@@ -54,12 +63,18 @@ functions:
   - name: on_cursor_enter
     virtual: true
     body: |
+      cursor_is_over = true;
+      cursor_entered_at = al_get_time();
+      cursor_exited_at = 0;
       return;
 
 
   - name: on_cursor_leave
     virtual: true
     body: |
+      cursor_is_over = false;
+      cursor_entered_at = 0;
+      cursor_exited_at = al_get_time();
       return;
 
 

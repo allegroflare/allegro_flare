@@ -5,8 +5,8 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp>
-#include <vector>
 
 
 namespace AllegroFlare
@@ -21,7 +21,8 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary room_dictionary;
-            std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities;
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entity_dictionary;
+            AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper entity_collection_helper;
             AllegroFlare::Prototypes::FixedRoom2D::Cursor cursor;
             bool initialized;
 

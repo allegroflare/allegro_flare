@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 
 
 namespace AllegroFlare
@@ -19,7 +20,8 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , room_dictionary({})
-   , entities({})
+   , entity_dictionary({})
+   , entity_collection_helper(&entity_dictionary)
    , cursor({})
    , initialized(false)
 {
@@ -72,8 +74,13 @@ void FixedRoom2D::initialize()
    AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
    cursor.set_font_bin(font_bin);
 
-   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* created = entity_factory.create_chair_entity();
-   entities.push_back(created);
+   //AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* created = entity_factory.create_chair_entity();
+   entity_dictionary = {
+      { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
+      { "chair", entity_factory.create_entity("wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168) },
+      { "table", entity_factory.create_entity("download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4) },
+      { "keys", entity_factory.create_entity("key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05) },
+   };
 
    cursor.set_cursor_to_pointer();
    cursor.clear_info_text();
@@ -85,7 +92,7 @@ void FixedRoom2D::initialize()
 void FixedRoom2D::update()
 {
    // update the entities
-   for (auto &entity : entities)
+   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
    {
       entity->update();
    }
@@ -99,10 +106,10 @@ void FixedRoom2D::update()
 void FixedRoom2D::render()
 {
    // draw the entities
-   for (auto &entity : entities)
+   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
    {
       entity->render();
-      entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
+      //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
    }
 
    // draw the cursor
@@ -122,7 +129,7 @@ void FixedRoom2D::move_cursor(float distance_x, float distance_y)
    int cursor_y = cursor.get_y();
 
    // update the state of the entities
-   for (auto &entity : entities)
+   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
    {
       if (entity->get_cursor_is_over()) entity_cursor_was_over = entity;
       if (entity->get_placement_ref().collide(cursor_x, cursor_y)) entity_cursor_is_now_over = entity;
@@ -133,13 +140,11 @@ void FixedRoom2D::move_cursor(float distance_x, float distance_y)
    {
       if (entity_cursor_was_over)
       {
-         entity_cursor_was_over->set_cursor_is_over(false);
          entity_cursor_was_over->on_cursor_leave();
       }
 
       if (entity_cursor_is_now_over)
       {
-         entity_cursor_is_now_over->set_cursor_is_over(true);
          entity_cursor_is_now_over->on_cursor_enter();
          cursor.set_cursor_to_pointer();
          cursor.set_info_text("inspect");

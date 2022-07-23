@@ -1,8 +1,8 @@
 properties:
 
 
-  - name: entities
-    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+  - name: entity_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
     init_with: nullptr
     constructor_arg: true
     getter: true
@@ -18,14 +18,39 @@ functions:
       - name: room_name
         type: std::string
         default_argument: '"[unset-room_name]"'
-    guards: [ entities ]
+    guards: [ entity_dictionary ]
     body: |
       std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
-      for (auto &entity : *entities)
+      for (auto &entity : *entity_dictionary)
       {
          // if entity has the attribute, include it in the result
       }
       return result;
+
+
+  - name: select_all_ordered_by_id
+    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    parameters:
+      - name: room_name
+        type: std::string
+        default_argument: '"[unset-room_name]"'
+    guards: [ entity_dictionary ]
+    body: |
+      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+      std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> as_ids;
+
+      for (auto &entity : *entity_dictionary)
+      {
+         as_ids[entity.second->get_id()] = entity.second;
+      }
+
+      for (auto &entity : as_ids)
+      {
+         result.push_back(entity.second);
+      }
+      return result;
+    body_dependency_symbols:
+      - std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
 
 
 dependencies:
@@ -35,5 +60,9 @@ dependencies:
     headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
   - symbol: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
     headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    headers: [ string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
 
 

@@ -53,7 +53,7 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_ent
    AllegroFlare::Placement2D &placement = result->get_placement_ref();
 
    placement.position = {x, y};
-   placement.scale = {0.1, 0.1};
+   placement.scale = {scale, scale};
    placement.align = {0.5, 1.0};
    if (bitmap) placement.size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
 
