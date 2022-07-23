@@ -22,8 +22,9 @@ Cursor::Cursor(AllegroFlare::FontBin* font_bin)
    , x(1920/2)
    , y(1920/2)
    , icon_offset_placement({})
-   , info_text_offset_placement({})
+   , info_text_offset_placement(40, 0, 0, 0)
    , info_text("[unset-info_text]")
+   , info_text_flags(0)
    , icon_character_num(62042)
 {
 }
@@ -84,6 +85,9 @@ void Cursor::draw()
          error_message << "Cursor" << "::" << "draw" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
+   AllegroFlare::Placement2D placement(x, y, 0, 0);
+   placement.start_transform();
+
    icon_offset_placement.start_transform();
    draw_cursor();
    icon_offset_placement.restore_transform();
@@ -91,6 +95,8 @@ void Cursor::draw()
    info_text_offset_placement.start_transform();
    draw_info_text();
    info_text_offset_placement.restore_transform();
+
+   placement.restore_transform();
    return;
 }
 
@@ -125,12 +131,12 @@ void Cursor::set_cursor_to_grab()
    return;
 }
 
-void Cursor::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, uint32_t icon, float x, float y, int flags)
+void Cursor::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, uint32_t icon, int flags)
 {
    static ALLEGRO_USTR *ustr = NULL;
    if (!ustr) ustr = al_ustr_new("");
    al_ustr_set_chr(ustr, 0, icon);
-   al_draw_ustr(font, color, x, y, flags, ustr);
+   al_draw_ustr(font, color, 0, 0, flags, ustr);
    return;
 }
 
@@ -164,14 +170,14 @@ ALLEGRO_FONT* Cursor::obtain_info_text_font()
 void Cursor::draw_cursor()
 {
    ALLEGRO_FONT *cursor_font = obtain_cursor_font();
-   draw_unicode_character(cursor_font, ALLEGRO_COLOR{1, 1, 1, 1}, icon_character_num, x, y, 0);
+   draw_unicode_character(cursor_font, ALLEGRO_COLOR{1, 1, 1, 1}, icon_character_num, 0);
    return;
 }
 
 void Cursor::draw_info_text()
 {
    ALLEGRO_FONT* info_text_font = obtain_info_text_font();
-   al_draw_text(info_text_font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, 0, info_text.c_str());
+   al_draw_text(info_text_font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, info_text_flags, info_text.c_str());
    return;
 }
 } // namespace FixedRoom2D

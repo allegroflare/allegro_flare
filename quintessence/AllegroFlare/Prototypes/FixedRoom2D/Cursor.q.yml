@@ -25,13 +25,17 @@ properties:
 
   - name: info_text_offset_placement
     type: AllegroFlare::Placement2D
-    init_with: '{}'
+    init_with: '40, 0, 0, 0'
 
   - name: info_text
     type: std::string
     init_with: '"[unset-info_text]"'
     getter: true
     setter: true
+
+  - name: info_text_flags
+    type: int
+    init_with: 0
 
   - name: icon_character_num
     type: uint32_t
@@ -44,6 +48,9 @@ functions:
   - name: draw
     guards: [ font_bin ]
     body: |
+      AllegroFlare::Placement2D placement(x, y, 0, 0);
+      placement.start_transform();
+
       icon_offset_placement.start_transform();
       draw_cursor();
       icon_offset_placement.restore_transform();
@@ -51,6 +58,8 @@ functions:
       info_text_offset_placement.start_transform();
       draw_info_text();
       info_text_offset_placement.restore_transform();
+
+      placement.restore_transform();
       return;
 
 
@@ -104,12 +113,6 @@ functions:
       - name: icon
         type: uint32_t
         default_argument: 61444
-      - name: x
-        type: float
-        default_argument: 0.0f
-      - name: y
-        type: float
-        default_argument: 0.0f
       - name: flags
         type: int
         default_argument: 0
@@ -117,7 +120,7 @@ functions:
       static ALLEGRO_USTR *ustr = NULL;
       if (!ustr) ustr = al_ustr_new("");
       al_ustr_set_chr(ustr, 0, icon);
-      al_draw_ustr(font, color, x, y, flags, ustr);
+      al_draw_ustr(font, color, 0, 0, flags, ustr);
       return;
 
 
@@ -146,7 +149,7 @@ functions:
     private: true
     body: |
       ALLEGRO_FONT *cursor_font = obtain_cursor_font();
-      draw_unicode_character(cursor_font, ALLEGRO_COLOR{1, 1, 1, 1}, icon_character_num, x, y, 0);
+      draw_unicode_character(cursor_font, ALLEGRO_COLOR{1, 1, 1, 1}, icon_character_num, 0);
       return;
 
       
@@ -154,7 +157,7 @@ functions:
     private: true
     body: |
       ALLEGRO_FONT* info_text_font = obtain_info_text_font();
-      al_draw_text(info_text_font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, 0, info_text.c_str());
+      al_draw_text(info_text_font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, info_text_flags, info_text.c_str());
       return;
       
 

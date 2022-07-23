@@ -76,7 +76,8 @@ void FixedRoom2D::initialize()
    entities.push_back(created);
 
    cursor.set_cursor_to_pointer();
-   cursor.clear_info_text();
+   cursor.set_info_text("collect");
+   //cursor.clear_info_text();
 
    initialized = true;
    return;

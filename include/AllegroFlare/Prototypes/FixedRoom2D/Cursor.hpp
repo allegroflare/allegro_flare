@@ -23,6 +23,7 @@ namespace AllegroFlare
             AllegroFlare::Placement2D icon_offset_placement;
             AllegroFlare::Placement2D info_text_offset_placement;
             std::string info_text;
+            int info_text_flags;
             uint32_t icon_character_num;
 
          public:
@@ -42,7 +43,7 @@ namespace AllegroFlare
             void clear_info_text();
             void set_cursor_to_pointer();
             void set_cursor_to_grab();
-            void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, float x=0.0f, float y=0.0f, int flags=0);
+            void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0);
             ALLEGRO_FONT* obtain_cursor_font();
             ALLEGRO_FONT* obtain_info_text_font();
             void draw_cursor();
