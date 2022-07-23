@@ -26,6 +26,7 @@ Cursor::Cursor(AllegroFlare::FontBin* font_bin)
    , info_text("[unset-info_text]")
    , info_text_flags(0)
    , icon_character_num(62042)
+   , cursor_last_set_at(0)
 {
 }
 
@@ -115,18 +116,21 @@ void Cursor::move(float distance_x, float distance_y)
 
 void Cursor::clear_info_text()
 {
+   cursor_last_set_at = 0;
    info_text.clear();
    return;
 }
 
 void Cursor::set_cursor_to_pointer()
 {
+   cursor_last_set_at = 0;
    icon_character_num = 62042;
    return;
 }
 
 void Cursor::set_cursor_to_grab()
 {
+   cursor_last_set_at = 0;
    icon_character_num = 62038;
    return;
 }

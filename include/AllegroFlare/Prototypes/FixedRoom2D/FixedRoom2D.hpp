@@ -34,8 +34,8 @@ namespace AllegroFlare
             void set_room_dictionary(AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary room_dictionary);
             AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary get_room_dictionary();
             void initialize();
-            void render();
             void update();
+            void render();
             void move_cursor(float distance_x=0.0, float distance_y=0.0);
          };
       }

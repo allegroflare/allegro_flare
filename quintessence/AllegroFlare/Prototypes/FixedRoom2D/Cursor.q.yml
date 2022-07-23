@@ -41,6 +41,10 @@ properties:
     type: uint32_t
     init_with: 62042
 
+  - name: cursor_last_set_at
+    type: float
+    init_with: 0
+
 
 functions:
 
@@ -85,18 +89,21 @@ functions:
 
   - name: clear_info_text
     body: |
+      cursor_last_set_at = 0;
       info_text.clear();
       return;
       
 
   - name: set_cursor_to_pointer
     body: |
+      cursor_last_set_at = 0;
       icon_character_num = 62042;
       return;
       
 
   - name: set_cursor_to_grab
     body: |
+      cursor_last_set_at = 0;
       icon_character_num = 62038;
       return;
       

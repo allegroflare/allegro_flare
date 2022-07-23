@@ -25,6 +25,7 @@ namespace AllegroFlare
             std::string info_text;
             int info_text_flags;
             uint32_t icon_character_num;
+            float cursor_last_set_at;
 
          public:
             Cursor(AllegroFlare::FontBin* font_bin=nullptr);
