@@ -64,6 +64,12 @@ bool Base::get_cursor_is_over()
 }
 
 
+AllegroFlare::Placement2D &Base::get_placement_ref()
+{
+   return placement;
+}
+
+
 void Base::render()
 {
    if (!bitmap) return;

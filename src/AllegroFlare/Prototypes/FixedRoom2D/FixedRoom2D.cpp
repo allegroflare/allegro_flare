@@ -4,6 +4,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Color.hpp>
 
 
 namespace AllegroFlare
@@ -36,6 +37,18 @@ void FixedRoom2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 }
 
 
+void FixedRoom2D::set_room_dictionary(AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary room_dictionary)
+{
+   this->room_dictionary = room_dictionary;
+}
+
+
+AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary FixedRoom2D::get_room_dictionary()
+{
+   return room_dictionary;
+}
+
+
 void FixedRoom2D::initialize()
 {
    if (!((!initialized)))
@@ -64,6 +77,7 @@ void FixedRoom2D::render()
    for (auto &entity : entities)
    {
       entity->render();
+      entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
    }
    return;
 }

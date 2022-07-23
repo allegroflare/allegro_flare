@@ -10,6 +10,8 @@ properties:
   - name: room_dictionary
     type: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary
     init_with: '{}'
+    getter: true
+    setter: true
 
   - name: entities
     type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
@@ -50,8 +52,11 @@ functions:
       for (auto &entity : entities)
       {
          entity->render();
+         entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Color::*
 
 
   - name: update
@@ -91,6 +96,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::Color::*
+    headers: [ AllegroFlare/Color.hpp ]
   - symbol: AllegroFlare::BitmapBin*
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary

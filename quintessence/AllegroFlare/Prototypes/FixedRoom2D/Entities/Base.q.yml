@@ -20,6 +20,7 @@ properties:
     type: AllegroFlare::Placement2D
     init_with: '{}'
     constructor_arg: true
+    getter_ref: true
     getter: true
     setter: true
 
@@ -45,21 +46,25 @@ functions:
 
 
   - name: update
+    virtual: true
     body: |
       return;
 
 
   - name: on_cursor_enter
+    virtual: true
     body: |
       return;
 
 
   - name: on_cursor_leave
+    virtual: true
     body: |
       return;
 
 
   - name: on_cursor_interact
+    virtual: true
     body: |
       return;
 

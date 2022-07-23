@@ -28,6 +28,8 @@ namespace AllegroFlare
             ~FixedRoom2D();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+            void set_room_dictionary(AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary room_dictionary);
+            AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary get_room_dictionary();
             void initialize();
             void render();
             void update();

@@ -454,6 +454,9 @@
   "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory"
   ],
+  "AllegroFlare/Color/": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"

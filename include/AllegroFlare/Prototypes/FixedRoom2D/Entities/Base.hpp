@@ -31,11 +31,12 @@ namespace AllegroFlare
                ALLEGRO_BITMAP* get_bitmap();
                AllegroFlare::Placement2D get_placement();
                bool get_cursor_is_over();
+               AllegroFlare::Placement2D &get_placement_ref();
                virtual void render();
-               void update();
-               void on_cursor_enter();
-               void on_cursor_leave();
-               void on_cursor_interact();
+               virtual void update();
+               virtual void on_cursor_enter();
+               virtual void on_cursor_leave();
+               virtual void on_cursor_interact();
             };
          }
       }
