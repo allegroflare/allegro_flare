@@ -1,0 +1,27 @@
+
+
+#include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/Screen.hpp>
+
+
+int main(int argc, char **argv)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize();
+
+   AllegroFlare::BitmapBin &bitmap_bin = framework.get_bitmap_bin_ref();
+   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+
+   AllegroFlare::Prototypes::FixedRoom2D::Screen example(&bitmap_bin);
+   example.initialize();
+   framework.register_screen("example", &example);
+
+   framework.activate_screen("example");
+
+   framework.run_loop();
+
+   return 0;
+}
+
+
+

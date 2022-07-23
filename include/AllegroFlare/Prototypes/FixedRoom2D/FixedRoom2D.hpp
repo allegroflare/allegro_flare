@@ -27,6 +27,7 @@ namespace AllegroFlare
             FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             ~FixedRoom2D();
 
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void initialize();
             void render();
             void update();

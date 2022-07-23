@@ -30,6 +30,12 @@ FixedRoom2D::~FixedRoom2D()
 }
 
 
+void FixedRoom2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
 void FixedRoom2D::initialize()
 {
    if (!((!initialized)))
