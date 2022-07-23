@@ -37,6 +37,12 @@ TEST_F(AllegroFlare_Screens_TitleScreenTest, render__without_allegro_initialized
 }
 
 
+TEST_F(AllegroFlare_Screens_TitleScreenTest, render__without_primitives_addon_initialized__raises_an_error)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    //get_font_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/fonts");
@@ -48,7 +54,7 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture, render__
    title_screen.render();
 
    al_flip_display();
-   //sleep_for(2);
+   sleep_for(2);
    SUCCEED();
 }
 

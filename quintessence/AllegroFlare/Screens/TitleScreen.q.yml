@@ -76,6 +76,13 @@ properties:
     getter: true
     setter: true
 
+  - name: menu_selector_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: copyright_text_color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{1, 1, 1, 1}
@@ -297,45 +304,64 @@ functions:
 
 
   - name: draw_menu
+    guards: [ al_is_primitives_addon_initialized() ]
     body: |
       // TODO: review guards on this function
       ALLEGRO_FONT *menu_font = obtain_menu_font();
       int surface_width = 1920;
       int surface_height = 1080;
+      float h_font_line_height = (int)(al_get_font_line_height(menu_font) * 0.5f);
       float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
+      float h_menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
       int menu_item_num = 0;
 
+      // get longest menu option text length
+      int longest_menu_option_text_width = 0;
+      for (auto &menu_option : menu_options)
+      {
+         std::string menu_item_text = std::get<0>(menu_option);
+         int this_menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
+         if (this_menu_item_text_width > longest_menu_option_text_width)
+            longest_menu_option_text_width = this_menu_item_text_width;
+      }
+
+      // render each menu item
       for (auto &menu_option : menu_options)
       {
          bool showing_cursor_on_this_option = false;
          if (menu_item_num == cursor_position) showing_cursor_on_this_option = true;
-
          std::string menu_item_text = std::get<0>(menu_option);
+
+         ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
+            ? ALLEGRO_COLOR{0, 0, 0, 1.0} : menu_text_color;
+
+         float x = surface_width / 2;
+         float y = surface_height / 2 + menu_item_vertical_spacing * menu_item_num;
+
+         if (showing_cursor_on_this_option)
+         {
+            float box_width = longest_menu_option_text_width + 148;
+            float box_height = al_get_font_line_height(menu_font) + 6;
+            float h_box_width = box_width * 0.5;
+            float h_box_height = box_height * 0.5;
+            al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_text_color);
+         }
+
          al_draw_text(
             menu_font,
-            menu_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-            surface_width / 2,
-            surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
+            this_menu_text_color,
+            (int)x,
+            (int)(y-h_font_line_height),
             ALLEGRO_ALIGN_CENTER,
             menu_item_text.c_str()
          );
 
-         if (showing_cursor_on_this_option)
-         {
-            float menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
-            al_draw_text(
-               menu_font,
-               menu_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-               surface_width / 2 - (menu_item_text_width * 0.5),
-               surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
-               ALLEGRO_ALIGN_RIGHT,
-               ">  "
-            );
-         }
-
          menu_item_num++;
       }
       return;
+    body_dependency_symbols:
+      - al_draw_filled_rectangle
+      - al_is_primitives_addon_initialized
 
 
   - name: infer_current_menu_option_value
@@ -487,5 +513,9 @@ dependencies:
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::VirtualControls
     headers: [ AllegroFlare/VirtualControls.hpp ]
+  - symbol: al_draw_filled_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
 
 

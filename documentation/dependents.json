@@ -87,8 +87,10 @@
   ],
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_font_addon_initialized": [
@@ -146,12 +148,14 @@
     "AllegroFlare/Elements/Base"
   ],
   "AllegroFlare/Elements/Base": [
+    "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
   ],
   "ALLEGRO_COLOR": [
+    "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Inventory",
@@ -166,6 +170,12 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "std/min": [
+    "AllegroFlare/Elements/HealthBars/Basic"
+  ],
+  "std/max": [
+    "AllegroFlare/Elements/HealthBars/Basic"
   ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
@@ -333,6 +343,9 @@
     "AllegroFlare/Screens/Storyboard"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "al_draw_filled_rectangle": [
     "AllegroFlare/Screens/TitleScreen"
   ],
   "std/vector<ALLEGRO_BITMAP>": [

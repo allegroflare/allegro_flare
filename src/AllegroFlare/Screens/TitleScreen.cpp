@@ -7,6 +7,10 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Placement2D.hpp>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_primitives.h>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -26,7 +30,7 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR copyright_text_color, int title_font_size, int menu_font_size, int copyright_font_size)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR copyright_text_color, int title_font_size, int menu_font_size, int copyright_font_size)
    : AllegroFlare::Screens::Base("TitleScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -38,6 +42,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , font_name(font_name)
    , title_text_color(title_text_color)
    , menu_text_color(menu_text_color)
+   , menu_selector_color(menu_selector_color)
    , copyright_text_color(copyright_text_color)
    , title_font_size(title_font_size)
    , menu_font_size(menu_font_size)
@@ -113,6 +118,12 @@ void TitleScreen::set_menu_text_color(ALLEGRO_COLOR menu_text_color)
 }
 
 
+void TitleScreen::set_menu_selector_color(ALLEGRO_COLOR menu_selector_color)
+{
+   this->menu_selector_color = menu_selector_color;
+}
+
+
 void TitleScreen::set_copyright_text_color(ALLEGRO_COLOR copyright_text_color)
 {
    this->copyright_text_color = copyright_text_color;
@@ -176,6 +187,12 @@ ALLEGRO_COLOR TitleScreen::get_title_text_color()
 ALLEGRO_COLOR TitleScreen::get_menu_text_color()
 {
    return menu_text_color;
+}
+
+
+ALLEGRO_COLOR TitleScreen::get_menu_selector_color()
+{
+   return menu_selector_color;
 }
 
 
@@ -389,40 +406,61 @@ void TitleScreen::draw_copyright_text()
 
 void TitleScreen::draw_menu()
 {
+   if (!(al_is_primitives_addon_initialized()))
+      {
+         std::stringstream error_message;
+         error_message << "TitleScreen" << "::" << "draw_menu" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
    int surface_width = 1920;
    int surface_height = 1080;
+   float h_font_line_height = (int)(al_get_font_line_height(menu_font) * 0.5f);
    float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
+   float h_menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
    int menu_item_num = 0;
 
+   // get longest menu option text length
+   int longest_menu_option_text_width = 0;
+   for (auto &menu_option : menu_options)
+   {
+      std::string menu_item_text = std::get<0>(menu_option);
+      int this_menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
+      if (this_menu_item_text_width > longest_menu_option_text_width)
+         longest_menu_option_text_width = this_menu_item_text_width;
+   }
+
+   // render each menu item
    for (auto &menu_option : menu_options)
    {
       bool showing_cursor_on_this_option = false;
       if (menu_item_num == cursor_position) showing_cursor_on_this_option = true;
-
       std::string menu_item_text = std::get<0>(menu_option);
-      al_draw_text(
-         menu_font,
-         menu_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-         surface_width / 2,
-         surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
-         ALLEGRO_ALIGN_CENTER,
-         menu_item_text.c_str()
-      );
+
+      ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
+         ? ALLEGRO_COLOR{0, 0, 0, 1.0} : menu_text_color;
+
+      float x = surface_width / 2;
+      float y = surface_height / 2 + menu_item_vertical_spacing * menu_item_num;
 
       if (showing_cursor_on_this_option)
       {
-         float menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
-         al_draw_text(
-            menu_font,
-            menu_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-            surface_width / 2 - (menu_item_text_width * 0.5),
-            surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
-            ALLEGRO_ALIGN_RIGHT,
-            ">  "
-         );
+         float box_width = longest_menu_option_text_width + 148;
+         float box_height = al_get_font_line_height(menu_font) + 6;
+         float h_box_width = box_width * 0.5;
+         float h_box_height = box_height * 0.5;
+         al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_text_color);
       }
+
+      al_draw_text(
+         menu_font,
+         this_menu_text_color,
+         (int)x,
+         (int)(y-h_font_line_height),
+         ALLEGRO_ALIGN_CENTER,
+         menu_item_text.c_str()
+      );
 
       menu_item_num++;
    }
