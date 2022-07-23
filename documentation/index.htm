@@ -91,6 +91,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameEvent.q.yml">quintessence/AllegroFlare/GameEvent.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml">quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Room.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Room.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.q.yml</a></li>
@@ -2607,6 +2608,93 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">icon_offset_placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">info_text_offset_placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">info_text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">icon_character_num</td>
+  <td class="property">uint32_t</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">draw()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">move(2)</td>
+</tr>
+<tr>
+  <td class="method">clear_info_text()</td>
+</tr>
+<tr>
+  <td class="method">set_cursor_to_pointer()</td>
+</tr>
+<tr>
+  <td class="method">set_cursor_to_grab()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_unicode_character(6)</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_cursor_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_info_text_font()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_cursor()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_info_text()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml</h3>
      <table>
 <tr>
@@ -2703,6 +2791,9 @@ table td
 <tr>
   <td class="method">create_chair_entity(2)</td>
 </tr>
+<tr>
+  <td class="method">create_entity(5)</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -2723,6 +2814,10 @@ table td
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
 <tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
   <td class="property">room_dictionary</td>
   <td class="property">AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary</td>
 </tr>
@@ -2731,12 +2826,8 @@ table td
   <td class="property">std::vector&lt;AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;</td>
 </tr>
 <tr>
-  <td class="property">cursor_x</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">cursor_y</td>
-  <td class="property">float</td>
+  <td class="property">cursor</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Cursor</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -2754,21 +2845,21 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">draw_cursor()</td>
-</tr>
-<tr>
-  <td class="method">move_cursor_x(1)</td>
-</tr>
-<tr>
-  <td class="method">move_cursor_y(1)</td>
+  <td class="method">move_cursor(2)</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Cursor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp&quot;]}</td>
@@ -2805,6 +2896,10 @@ table td
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
 <tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
   <td class="property">fixed_room_2d</td>
   <td class="property">AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D</td>
 </tr>
@@ -2826,10 +2921,19 @@ table td
 <tr>
   <td class="method">primary_timer_func()</td>
 </tr>
+<tr>
+  <td class="method">key_char_func(1)</td>
+</tr>
     </table>
      <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
@@ -3925,6 +4029,10 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -3948,6 +4056,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -3995,6 +4104,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -4050,6 +4160,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer",
@@ -4261,6 +4372,7 @@ table td
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -4312,6 +4424,9 @@ table td
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Cursor": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Color/": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"

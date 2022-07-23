@@ -14,6 +14,11 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
   - name: fixed_room_2d
     type: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
     init_with: '{}'
@@ -30,6 +35,7 @@ functions:
     guards: [ (!initialized) ]
     body: |
       fixed_room_2d.set_bitmap_bin(bitmap_bin);
+      fixed_room_2d.set_font_bin(font_bin);
       fixed_room_2d.initialize();
       initialized = true;
       return;
@@ -61,11 +67,46 @@ functions:
       return;
 
 
+  - name: key_char_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      float cursor_speed = 10.0f;
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+            fixed_room_2d.move_cursor(0, -cursor_speed);
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            fixed_room_2d.move_cursor(0, cursor_speed);
+         break;
+
+         case ALLEGRO_KEY_LEFT:
+            fixed_room_2d.move_cursor(-cursor_speed, 0);
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+            fixed_room_2d.move_cursor(cursor_speed, 0);
+         break;
+      }
+      return;
+
+
 dependencies:
 
 
+  - symbol: ALLEGRO_EVENT*
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::BitmapBin*
     headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary

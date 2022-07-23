@@ -15,12 +15,12 @@ namespace FixedRoom2D
 {
 
 
-FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin)
+FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
    : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
    , room_dictionary({})
    , entities({})
-   , cursor_x(1920/2)
-   , cursor_y(1080/2)
+   , cursor({})
    , initialized(false)
 {
 }
@@ -34,6 +34,12 @@ FixedRoom2D::~FixedRoom2D()
 void FixedRoom2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    this->bitmap_bin = bitmap_bin;
+}
+
+
+void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
 }
 
 
@@ -64,9 +70,13 @@ void FixedRoom2D::initialize()
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
+   cursor.set_font_bin(font_bin);
 
    AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* created = entity_factory.create_chair_entity();
    entities.push_back(created);
+
+   cursor.set_cursor_to_pointer();
+   cursor.clear_info_text();
 
    initialized = true;
    return;
@@ -74,37 +84,43 @@ void FixedRoom2D::initialize()
 
 void FixedRoom2D::render()
 {
+   // draw the entities
    for (auto &entity : entities)
    {
       entity->render();
       entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
    }
+
+   // draw the cursor
+   cursor.draw();
+
    return;
 }
 
 void FixedRoom2D::update()
 {
+   // update the entities
    for (auto &entity : entities)
    {
       entity->update();
    }
+
+   // update the cursor
+   cursor.update();
+
    return;
 }
 
-void FixedRoom2D::draw_cursor()
+void FixedRoom2D::move_cursor(float distance_x, float distance_y)
 {
-   return;
-}
+   cursor.move(distance_x, distance_y);
 
-void FixedRoom2D::move_cursor_x(float distance)
-{
-   cursor_x += distance;
-   return;
-}
+   // update the state of the entities
+   for (auto &entity : entities)
+   {
+      entity->update();
+   }
 
-void FixedRoom2D::move_cursor_y(float distance)
-{
-   cursor_y += distance;
    return;
 }
 } // namespace FixedRoom2D

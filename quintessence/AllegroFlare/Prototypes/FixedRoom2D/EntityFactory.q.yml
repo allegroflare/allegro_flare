@@ -21,7 +21,29 @@ functions:
         default_argument: 1080/2
     guards: [ bitmap_bin ]
     body: |
-      std::string bitmap_image_identifier = "wooden-chair-png-transparent-image-pngpix-0.png";
+      return create_entity("wooden-chair-png-transparent-image-pngpix-0.png", x, y, 0.1, "chair");
+
+
+  - name: create_entity
+    type: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    parameters:
+      - name: bitmap_image_identifier
+        type: std::string
+        default_argument: '"[unset-bitmap_identifier]"'
+      - name: x
+        type: float
+        default_argument: 1920/2
+      - name: y
+        type: float
+        default_argument: 1080/2
+      - name: scale
+        type: float
+        default_argument: 1.0f
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ bitmap_bin ]
+    body: |
       ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get(bitmap_image_identifier);
 
       AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* result = new
@@ -33,6 +55,8 @@ functions:
       placement.scale = {0.1, 0.1};
       placement.align = {0.5, 1.0};
       if (bitmap) placement.size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
+
+      result->set("name", name);
 
       return result;
 

@@ -10,9 +10,11 @@ int main(int argc, char **argv)
    framework.initialize();
 
    AllegroFlare::BitmapBin &bitmap_bin = framework.get_bitmap_bin_ref();
+   AllegroFlare::FontBin &font_bin = framework.get_font_bin_ref();
    bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+   font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
 
-   AllegroFlare::Prototypes::FixedRoom2D::Screen example(&bitmap_bin);
+   AllegroFlare::Prototypes::FixedRoom2D::Screen example(&bitmap_bin, &font_bin);
    example.initialize();
    framework.register_screen("example", &example);
 

@@ -66,6 +66,10 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -89,6 +93,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -136,6 +141,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -191,6 +197,7 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer",
@@ -402,6 +409,7 @@
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -453,6 +461,9 @@
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Cursor": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Color/": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
