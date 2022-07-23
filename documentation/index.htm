@@ -2784,10 +2784,22 @@ table td
   <td class="method">select_all_in_room(1)</td>
 </tr>
 <tr>
+  <td class="method">select_all_unordered()</td>
+</tr>
+<tr>
+  <td class="method">find_dictionary_name_of_entity_that_cursor_is_now_over()</td>
+</tr>
+<tr>
+  <td class="method">find_by_dictionary_listing_name(1)</td>
+</tr>
+<tr>
   <td class="method">select_all_ordered_by_id(1)</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
 </tr>
@@ -2872,6 +2884,9 @@ table td
 </tr>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">interact_cursor()</td>
 </tr>
 <tr>
   <td class="method">move_cursor(2)</td>
@@ -4449,6 +4464,10 @@ table td
   "AllegroFlare/Random": [
     "AllegroFlare/Generators/PersonNameGenerator"
   ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory"
+  ],
   "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper"
@@ -4459,9 +4478,6 @@ table td
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
-    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Cursor": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"

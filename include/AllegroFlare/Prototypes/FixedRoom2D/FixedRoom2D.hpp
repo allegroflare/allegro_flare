@@ -37,6 +37,7 @@ namespace AllegroFlare
             void initialize();
             void update();
             void render();
+            void interact_cursor();
             void move_cursor(float distance_x=0.0, float distance_y=0.0);
          };
       }

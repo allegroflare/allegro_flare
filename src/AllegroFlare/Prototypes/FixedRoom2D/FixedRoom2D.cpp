@@ -118,6 +118,15 @@ void FixedRoom2D::render()
    return;
 }
 
+void FixedRoom2D::interact_cursor()
+{
+   // TODO: ellaborate here
+   std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+   if (name.empty()) cursor.set_info_text("there is nothing here");
+   cursor.set_info_text(name);
+   return;
+}
+
 void FixedRoom2D::move_cursor(float distance_x, float distance_y)
 {
    cursor.move(distance_x, distance_y);

@@ -112,6 +112,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       case ALLEGRO_KEY_RIGHT:
          fixed_room_2d.move_cursor(cursor_speed, 0);
       break;
+
+      case ALLEGRO_KEY_ENTER:
+         fixed_room_2d.interact_cursor();
+      break;
    }
    return;
 }

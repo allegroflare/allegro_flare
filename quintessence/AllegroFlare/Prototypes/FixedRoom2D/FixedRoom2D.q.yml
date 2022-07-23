@@ -94,6 +94,15 @@ functions:
       - AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
 
 
+  - name: interact_cursor
+    body: |
+      // TODO: ellaborate here
+      std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+      if (name.empty()) cursor.set_info_text("there is nothing here");
+      cursor.set_info_text(name);
+      return;
+
+
   - name: move_cursor
     parameters:
       - name: distance_x
