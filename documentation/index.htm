@@ -99,6 +99,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Screen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Script.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Script.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameOverScreen.q.yml">quintessence/AllegroFlare/Screens/GameOverScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameWonScreen.q.yml">quintessence/AllegroFlare/Screens/GameWonScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
@@ -2863,6 +2864,10 @@ table td
   <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;</td>
 </tr>
 <tr>
+  <td class="property">script_dictionary</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;</td>
+</tr>
+<tr>
   <td class="property">entity_collection_helper</td>
   <td class="property">AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper</td>
 </tr>
@@ -2916,6 +2921,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -2991,6 +2999,21 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp&quot;]}</td>
 </tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/Script.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Script.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">lines</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
     </table>
   </div>
 </ul>
@@ -4493,6 +4516,9 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D": [

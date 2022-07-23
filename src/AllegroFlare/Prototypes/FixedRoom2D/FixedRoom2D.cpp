@@ -21,6 +21,7 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , font_bin(font_bin)
    , room_dictionary({})
    , entity_dictionary({})
+   , script_dictionary({})
    , entity_collection_helper(&entity_dictionary)
    , cursor({})
    , initialized(false)
@@ -79,6 +80,10 @@ void FixedRoom2D::initialize()
       { "chair", entity_factory.create_entity("wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168) },
       { "table", entity_factory.create_entity("download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4) },
       { "keys", entity_factory.create_entity("key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05) },
+   };
+
+   script_dictionary = {
+      { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG Hello!"}) },
    };
 
    cursor.set_cursor_to_pointer();
