@@ -74,7 +74,6 @@ void FixedRoom2D::initialize()
    AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
    cursor.set_font_bin(font_bin);
 
-   //AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* created = entity_factory.create_chair_entity();
    entity_dictionary = {
       { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
       { "chair", entity_factory.create_entity("wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168) },
@@ -118,12 +117,12 @@ void FixedRoom2D::render()
    return;
 }
 
-void FixedRoom2D::interact_cursor()
+void FixedRoom2D::interact_with_item_under_cursor()
 {
    // TODO: ellaborate here
    std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
    if (name.empty()) cursor.set_info_text("there is nothing here");
-   cursor.set_info_text(name);
+   else cursor.set_info_text(name);
    return;
 }
 

@@ -96,7 +96,7 @@ functions:
          break;
 
          case ALLEGRO_KEY_ENTER:
-            fixed_room_2d.interact_cursor();
+            fixed_room_2d.interact_with_item_under_cursor();
          break;
       }
       return;
