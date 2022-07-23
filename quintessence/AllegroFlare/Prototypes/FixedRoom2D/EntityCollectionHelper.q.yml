@@ -1,0 +1,39 @@
+properties:
+
+
+  - name: entities
+    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: select_all_in_room
+    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    parameters:
+      - name: room_name
+        type: std::string
+        default_argument: '"[unset-room_name]"'
+    guards: [ entities ]
+    body: |
+      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+      for (auto &entity : *entities)
+      {
+         // if entity has the attribute, include it in the result
+      }
+      return result;
+
+
+dependencies:
+
+
+  - symbol: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+
+

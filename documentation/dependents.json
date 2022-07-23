@@ -133,6 +133,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -142,6 +143,7 @@
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardPageFactory"
   ],
@@ -166,7 +168,8 @@
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "AllegroFlare/ElementID": [
-    "AllegroFlare/Elements/Base"
+    "AllegroFlare/Elements/Base",
+    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
@@ -387,6 +390,7 @@
   "AllegroFlare/Screens/Base": [
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -438,6 +442,16 @@
   ],
   "AllegroFlare/Random": [
     "AllegroFlare/Generators/PersonNameGenerator"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
+  ],
+  "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",

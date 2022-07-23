@@ -1,0 +1,77 @@
+parent_classes:
+
+
+  - class: AllegroFlare::ElementID
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: placement
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: cursor_is_over
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    virtual: true
+    body: |
+      if (!bitmap) return;
+      placement.start_transform();
+      if (cursor_is_over) al_draw_tinted_bitmap(bitmap, ALLEGRO_COLOR{0.12, 0.56, 1.0, 1.0}, 0, 0, 0);
+      else al_draw_bitmap(bitmap, 0, 0, 0);
+      placement.restore_transform();
+      return;
+
+
+  - name: update
+    body: |
+      return;
+
+
+  - name: on_cursor_enter
+    body: |
+      return;
+
+
+  - name: on_cursor_leave
+    body: |
+      return;
+
+
+  - name: on_cursor_interact
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::ElementID
+    headers: [ AllegroFlare/ElementID.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
+
+

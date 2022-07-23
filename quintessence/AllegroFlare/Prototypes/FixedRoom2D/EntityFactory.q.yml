@@ -1,0 +1,42 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: create_chair_entity
+    type: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    parameters:
+      - name: x
+        type: float
+        default_argument: 1920/2
+      - name: y
+        type: float
+        default_argument: 1080/2
+    guards: [ bitmap_bin ]
+    body: |
+      std::string bitmap_image_identifier = "wooden-chair-png-transparent-image-pngpix-0.png";
+      ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get(bitmap_image_identifier);
+
+      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* result = new
+         AllegroFlare::Prototypes::FixedRoom2D::Entities::Base(bitmap);
+
+      return result;
+
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+
+

@@ -1,0 +1,53 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: '"Prototypes::FixedRoom2D::Screen"'
+
+
+properties:
+
+
+  - name: fixed_room_2d
+    type: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
+    init_with: '{}'
+
+
+functions:
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    body: |
+      fixed_room_2d.update();
+      fixed_room_2d.render();
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp ]
+
+
