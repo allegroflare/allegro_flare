@@ -128,7 +128,6 @@ functions:
 
   - name: parse_command_and_argument
     static: true
-    private: true
     type: std::pair<std::string, std::string>
     parameters:
       - name: script_line
@@ -142,7 +141,7 @@ functions:
 
       if (pos == std::string::npos)
       {
-         result.first = "DIALOG";
+         result.first = "";
          std::string _intermed = script_line;
          result.second = AllegroFlare::php::trim(_intermed);
          //result.second = Blast::String::Trimmer(script_line).trim();
@@ -168,7 +167,6 @@ functions:
 
 
   - name: build_markers_index
-    private: true
     static: true
     type: std::map<std::string, int>
     parameters:

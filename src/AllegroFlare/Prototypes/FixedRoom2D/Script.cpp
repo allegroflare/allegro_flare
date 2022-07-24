@@ -172,7 +172,7 @@ std::pair<std::string, std::string> Script::parse_command_and_argument(std::stri
 
    if (pos == std::string::npos)
    {
-      result.first = "DIALOG";
+      result.first = "";
       std::string _intermed = script_line;
       result.second = AllegroFlare::php::trim(_intermed);
       //result.second = Blast::String::Trimmer(script_line).trim();
