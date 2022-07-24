@@ -10,55 +10,55 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest, can_be_created_withou
 }
 
 
-//TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
-   //parse_command_and_argument__will_not_blow_up_on_an_empty_line)
-   //// note this is a private method test
-//{
-   //std::string script_line = "";
-   //std::pair<std::string, std::string> parsed_command_argument_pair;
-   //AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_loader;
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   parse_command_and_argument__will_not_blow_up_on_an_empty_line)
+   // note this is a private method test
+{
+   std::string script_line = "";
+   std::pair<std::string, std::string> parsed_command_argument_pair;
+   AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_loader;
 
-   //parsed_command_argument_pair = script_loader.parse_command_and_argument(script_line);
+   parsed_command_argument_pair = script_loader.parse_command_and_argument(script_line);
 
-   //std::pair<std::string, std::string> expected_command_argument_pair = {"DIALOG", ""};
+   std::pair<std::string, std::string> expected_command_argument_pair = {"", ""};
 
-   //EXPECT_EQ(expected_command_argument_pair, parsed_command_argument_pair);
-//}
-
-
-//TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
-   //parse_command_and_argument__will_parse_a_script_line_into_an_expected_set_of_elements)
-   //// note this is a private method test
-//{
-   //std::string script_line = "DIALOG: This is the most basic dialog.";
-   //std::pair<std::string, std::string> parsed_command_argument_pair;
-   //AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_loader;
-
-   //parsed_command_argument_pair = script_loader.parse_command_and_argument(script_line);
-
-   //std::pair<std::string, std::string> expected_command_argument_pair = {"DIALOG", "This is the most basic dialog."};
-
-   //EXPECT_EQ(expected_command_argument_pair, parsed_command_argument_pair);
-//}
+   EXPECT_EQ(expected_command_argument_pair, parsed_command_argument_pair);
+}
 
 
-//TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
-   //parse_command_and_argument__on_a_line_with_no_command__will_parse_to_a_DIALOG_and_trim_the_text)
-   //// note this is a private method test
-//{
-   //std::string script_line = "  \tThis line will automatically become dialog, and will be trimmed. \n ";
-   //std::pair<std::string, std::string> parsed_command_argument_pair;
-   //AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_loader;
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   parse_command_and_argument__will_parse_a_script_line_into_an_expected_set_of_elements)
+   // note this is a private method test
+{
+   std::string script_line = "DIALOG: This is the most basic dialog.";
+   std::pair<std::string, std::string> parsed_command_argument_pair;
+   AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_loader;
 
-   //parsed_command_argument_pair = script_loader.parse_command_and_argument(script_line);
+   parsed_command_argument_pair = script_loader.parse_command_and_argument(script_line);
 
-   //std::pair<std::string, std::string> expected_command_argument_pair = {
-      //"DIALOG",
-      //"This line will automatically become dialog, and will be trimmed."
-   //};
+   std::pair<std::string, std::string> expected_command_argument_pair = {"DIALOG", "This is the most basic dialog."};
 
-   //EXPECT_EQ(expected_command_argument_pair, parsed_command_argument_pair);
-//}
+   EXPECT_EQ(expected_command_argument_pair, parsed_command_argument_pair);
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   parse_command_and_argument__on_a_line_with_no_command__will_parse_to_a_DIALOG_and_trim_the_text)
+   // note this is a private method test
+{
+   std::string script_line = "  \tThis line will not include a command, and will be trimmed. \n ";
+   std::pair<std::string, std::string> parsed_command_argument_pair;
+   AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_loader;
+
+   parsed_command_argument_pair = script_loader.parse_command_and_argument(script_line);
+
+   std::pair<std::string, std::string> expected_command_argument_pair = {
+      "",
+      "This line will not include a command, and will be trimmed."
+   };
+
+   EXPECT_EQ(expected_command_argument_pair, parsed_command_argument_pair);
+}
 
 
 //TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest, parse_and_run_line__will_parse_a_DIALOG_command)
