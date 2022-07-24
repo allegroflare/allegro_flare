@@ -45,13 +45,6 @@ bool ScriptRunner::get_script_freshly_loaded_via_OPEN_SCRIPT()
 }
 
 
-bool ScriptRunner::load_current_script_lines(std::vector<std::string> script_lines)
-{
-   current_script = AllegroFlare::Prototypes::FixedRoom2D::Script(script_lines);
-   current_script.initialize();
-   return true;
-}
-
 bool ScriptRunner::load_script_by_dictionary_name(std::string script_dictionary_name)
 {
    if (!(script_dictionary))
@@ -73,9 +66,17 @@ bool ScriptRunner::load_script_by_dictionary_name(std::string script_dictionary_
       return false;
    }
 
-   std::vector<std::string> lines_from_dictionary_listing = script_dictionary->at(script_dictionary_name).get_lines();
+   std::vector<std::string> lines_from_dictionary_listing =
+      script_dictionary->at(script_dictionary_name).get_lines();
    load_current_script_lines(lines_from_dictionary_listing);
 
+   return true;
+}
+
+bool ScriptRunner::load_current_script_lines(std::vector<std::string> script_lines)
+{
+   current_script = AllegroFlare::Prototypes::FixedRoom2D::Script(script_lines);
+   current_script.initialize();
    return true;
 }
 
@@ -239,23 +240,24 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       std::string script_to_load = script_auto_prefix + argument;
 
       //Disabled:: bool successful = load_script(script_to_load);
+      bool successful = load_script_by_dictionary_name(script_to_load);
 
-      //Disabled:: if (successful)
-      //Disabled:: {
+      if (successful)
+      {
          //Disabled:: if (current_dialog)
          //Disabled:: {
             //Disabled:: delete current_dialog;
             //Disabled:: current_dialog = nullptr;
-         //Disabled:: }
+         //Disabled::}
          // consider stopping music? I think not.  The opening script should start, stop, or change the music
          // if needed.  Also, if the same music is already playing from the previous script...
          // it wont' stop it then start it... instead it will keep playing seamlessly
-         //Disabled:: continue_directly_to_next_script_line = true;
+         continue_directly_to_next_script_line = true;
 
          // setting this flag is required so that the advancer does not automatically move to the next
          // line after oening the new script file
-         //Disabled:: set_script_freshly_loaded_via_OPEN_SCRIPT(true);
-      //Disabled}
+         set_script_freshly_loaded_via_OPEN_SCRIPT(true);
+      }
    }
    else if (command == IF_IN_INVENTORY)
    {
