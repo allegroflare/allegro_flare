@@ -193,7 +193,6 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
    std::string IF_IN_INVENTORY = "IF_IN_INVENTORY";
    std::string ADD_FLAG = "ADD_FLAG";
    std::string IF_FLAG = "IF_FLAG";
-   std::string PHONE = "PHONE";
    std::string OPEN_SCRIPT = "OPEN_SCRIPT";
    std::string SET_BACKGROUND = "SET_BACKGROUND";
    std::string SET_TITLE = "SET_TITLE";
