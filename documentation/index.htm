@@ -3091,8 +3091,12 @@ table td
   <td class="property">AllegroFlare::Elements::Inventory*</td>
 </tr>
 <tr>
-  <td class="property">script</td>
-  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Script*</td>
+  <td class="property">script_dictionary</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;*</td>
+</tr>
+<tr>
+  <td class="property">current_script</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Script</td>
 </tr>
 <tr>
   <td class="property">flags</td>
@@ -3104,6 +3108,12 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">load_current_script_lines(1)</td>
+</tr>
+<tr>
+  <td class="method">load_script_by_dictionary_name(1)</td>
+</tr>
 <tr>
   <td class="private_method">parse_and_run_line(2)</td>
 </tr>
@@ -3146,7 +3156,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Inventory*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Inventory.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Script*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Script&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4654,7 +4667,8 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D": [
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"

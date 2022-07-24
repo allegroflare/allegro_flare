@@ -11,6 +11,13 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest, can_be_created_withou
 
 
 TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   load_current_script_lines__will_set_the_current_script_lines)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
    parse_command_and_argument__will_not_blow_up_on_an_empty_line)
    // note this is a private method test
 {

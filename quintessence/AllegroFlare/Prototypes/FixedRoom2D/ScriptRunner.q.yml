@@ -13,8 +13,12 @@ properties:
     type: AllegroFlare::Elements::Inventory*
     init_with: nullptr
 
-  - name: script
-    type: AllegroFlare::Prototypes::FixedRoom2D::Script*
+  - name: script_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>*
+    init_with: nullptr
+
+  - name: current_script
+    type: AllegroFlare::Prototypes::FixedRoom2D::Script
     init_with: ''
 
   - name: flags
@@ -31,6 +35,45 @@ properties:
 functions:
 
 
+  - name: load_current_script_lines
+    type: bool
+    parameters:
+      - name: script_lines
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      current_script = AllegroFlare::Prototypes::FixedRoom2D::Script(script_lines);
+      current_script.initialize();
+      return true;
+
+
+  - name: load_script_by_dictionary_name
+    type: bool
+    parameters:
+      - name: script_dictionary_name
+        type: std::string
+        default_argument: '"[unset-script_dictionary_name]"'
+    guards: [ script_dictionary ]
+    body: |
+      if (script_dictionary->count(script_dictionary_name) == 0)
+      {
+         std::stringstream available_script_names;
+         available_script_names << "listing-available-item-names-not-yet-implemented";
+         std::cout << "[.../FixedRoom/ScriptRunner::load_script_by_dictionary_name] error: could not load "
+                   << "item from the dictionary with the name \"" << script_dictionary_name << "\". It does not exist."
+                   << "The following names are listed in the dictionary: ["
+                   << available_script_names.str()
+                   << "]."
+                   << std::endl;
+         return false;
+      }
+
+      std::vector<std::string> lines_from_dictionary_listing = script_dictionary->at(script_dictionary_name).get_lines();
+      load_current_script_lines(lines_from_dictionary_listing);
+
+      return true;
+      
+
   - name: parse_and_run_line
     private: true
     type: bool
@@ -41,7 +84,7 @@ functions:
       - name: line_num
         type: int
         default_argument: 0
-    guards: [ audio_controller, af_inventory, flags, inventory_window, script ]
+    guards: [ audio_controller, af_inventory, flags, inventory_window, script_dictionary ]
     body: |
       std::string DIALOG = "DIALOG";
       std::string GOTO_MARKER = "GOTO_MARKER";
@@ -62,7 +105,7 @@ functions:
       std::string OPEN_SCRIPT = "OPEN_SCRIPT";
       std::string SET_BACKGROUND = "SET_BACKGROUND";
       std::string SET_TITLE = "SET_TITLE";
-      std::string CLEAR_DIALOGS = "CLEAR_DIALOGS";
+      //Disabled:: std::string CLEAR_DIALOGS = "CLEAR_DIALOGS";
 
       bool continue_directly_to_next_script_line = false;
       //Disabled:: Krampus21::DialogBoxes::Base* created_dialog = nullptr;
@@ -115,16 +158,16 @@ functions:
 
          continue_directly_to_next_script_line = true;
       }
-      else if (command == CLEAR_DIALOGS)
-      {
+      //Disabled:: else if (command == CLEAR_DIALOGS)
+      //{
          //Disabled:: if (current_dialog)
          //Disabled::{
             //Disabled:: if (current_dialog) delete current_dialog;
             //Disabled:: current_dialog = nullptr;
          //Disabled:: }
 
-         continue_directly_to_next_script_line = true;
-      }
+         //continue_directly_to_next_script_line = true;
+      //}
       else if (command == SET_BACKGROUND)
       {
          // parse tokens
@@ -382,7 +425,7 @@ functions:
       }
       else if (command == GOTO_MARKER)
       {
-         bool successful = script->goto_marker(argument);
+         bool successful = current_script.goto_marker(argument);
          if (!successful)
          {
             std::cout << "WARNING: Attempted to GOTO_MARKER a marker named \"" << argument << "\" "
@@ -451,21 +494,21 @@ functions:
 
       do
       {
-         std::string script_line = script->get_current_line_text();
-         int script_current_line_num = script->get_current_line_num();
+         std::string script_line = current_script.get_current_line_text();
+         int script_current_line_num = current_script.get_current_line_num();
          continue_directly_to_next_script_line = parse_and_run_line(script_line, script_current_line_num);
 
          if (continue_directly_to_next_script_line)
          {
             if (!get_script_freshly_loaded_via_OPEN_SCRIPT())
             {
-               script->goto_next_line();
+               current_script.goto_next_line();
             }
             else
             {
                set_script_freshly_loaded_via_OPEN_SCRIPT(false);
             }
-            if (script->get_finished()) break;
+            if (current_script.get_finished()) break;
             continue_count++;
          }
          if (continue_count > 500)
@@ -591,7 +634,9 @@ dependencies:
     headers: [ AllegroFlare/Inventory.hpp ]
   - symbol: AllegroFlare::Elements::Inventory*
     headers: [ AllegroFlare/Elements/Inventory.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script*
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>*
+    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
 
 

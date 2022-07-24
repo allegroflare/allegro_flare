@@ -40,6 +40,12 @@ Script::~Script()
 }
 
 
+std::vector<std::string> Script::get_lines()
+{
+   return lines;
+}
+
+
 int Script::get_current_line_num()
 {
    return current_line_num;

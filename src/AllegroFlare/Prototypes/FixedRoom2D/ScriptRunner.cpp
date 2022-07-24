@@ -3,6 +3,8 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <iostream>
 
 
@@ -18,7 +20,8 @@ ScriptRunner::ScriptRunner()
    : audio_controller(nullptr)
    , af_inventory(nullptr)
    , inventory_window(nullptr)
-   , script()
+   , script_dictionary(nullptr)
+   , current_script()
    , flags(nullptr)
    , script_freshly_loaded_via_OPEN_SCRIPT(false)
 {
@@ -41,6 +44,40 @@ bool ScriptRunner::get_script_freshly_loaded_via_OPEN_SCRIPT()
    return script_freshly_loaded_via_OPEN_SCRIPT;
 }
 
+
+bool ScriptRunner::load_current_script_lines(std::vector<std::string> script_lines)
+{
+   current_script = AllegroFlare::Prototypes::FixedRoom2D::Script(script_lines);
+   current_script.initialize();
+   return true;
+}
+
+bool ScriptRunner::load_script_by_dictionary_name(std::string script_dictionary_name)
+{
+   if (!(script_dictionary))
+      {
+         std::stringstream error_message;
+         error_message << "ScriptRunner" << "::" << "load_script_by_dictionary_name" << ": error: " << "guard \"script_dictionary\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (script_dictionary->count(script_dictionary_name) == 0)
+   {
+      std::stringstream available_script_names;
+      available_script_names << "listing-available-item-names-not-yet-implemented";
+      std::cout << "[.../FixedRoom/ScriptRunner::load_script_by_dictionary_name] error: could not load "
+                << "item from the dictionary with the name \"" << script_dictionary_name << "\". It does not exist."
+                << "The following names are listed in the dictionary: ["
+                << available_script_names.str()
+                << "]."
+                << std::endl;
+      return false;
+   }
+
+   std::vector<std::string> lines_from_dictionary_listing = script_dictionary->at(script_dictionary_name).get_lines();
+   load_current_script_lines(lines_from_dictionary_listing);
+
+   return true;
+}
 
 bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
 {
@@ -68,10 +105,10 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
          error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"inventory_window\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!(script))
+   if (!(script_dictionary))
       {
          std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"script\" not met";
+         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"script_dictionary\" not met";
          throw std::runtime_error(error_message.str());
       }
    std::string DIALOG = "DIALOG";
@@ -93,7 +130,7 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
    std::string OPEN_SCRIPT = "OPEN_SCRIPT";
    std::string SET_BACKGROUND = "SET_BACKGROUND";
    std::string SET_TITLE = "SET_TITLE";
-   std::string CLEAR_DIALOGS = "CLEAR_DIALOGS";
+   //Disabled:: std::string CLEAR_DIALOGS = "CLEAR_DIALOGS";
 
    bool continue_directly_to_next_script_line = false;
    //Disabled:: Krampus21::DialogBoxes::Base* created_dialog = nullptr;
@@ -146,16 +183,16 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
 
       continue_directly_to_next_script_line = true;
    }
-   else if (command == CLEAR_DIALOGS)
-   {
+   //Disabled:: else if (command == CLEAR_DIALOGS)
+   //{
       //Disabled:: if (current_dialog)
       //Disabled::{
          //Disabled:: if (current_dialog) delete current_dialog;
          //Disabled:: current_dialog = nullptr;
       //Disabled:: }
 
-      continue_directly_to_next_script_line = true;
-   }
+      //continue_directly_to_next_script_line = true;
+   //}
    else if (command == SET_BACKGROUND)
    {
       // parse tokens
@@ -413,7 +450,7 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
    }
    else if (command == GOTO_MARKER)
    {
-      bool successful = script->goto_marker(argument);
+      bool successful = current_script.goto_marker(argument);
       if (!successful)
       {
          std::cout << "WARNING: Attempted to GOTO_MARKER a marker named \"" << argument << "\" "
@@ -476,21 +513,21 @@ void ScriptRunner::play_current_script_line()
 
    do
    {
-      std::string script_line = script->get_current_line_text();
-      int script_current_line_num = script->get_current_line_num();
+      std::string script_line = current_script.get_current_line_text();
+      int script_current_line_num = current_script.get_current_line_num();
       continue_directly_to_next_script_line = parse_and_run_line(script_line, script_current_line_num);
 
       if (continue_directly_to_next_script_line)
       {
          if (!get_script_freshly_loaded_via_OPEN_SCRIPT())
          {
-            script->goto_next_line();
+            current_script.goto_next_line();
          }
          else
          {
             set_script_freshly_loaded_via_OPEN_SCRIPT(false);
          }
-         if (script->get_finished()) break;
+         if (current_script.get_finished()) break;
          continue_count++;
       }
       if (continue_count > 500)

@@ -5,6 +5,7 @@ properties:
     type: std::vector<std::string>
     init_with: '{}'
     constructor_arg: true
+    getter: true
 
   - name: current_line_num
     type: int
