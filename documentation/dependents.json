@@ -316,7 +316,8 @@
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
   "AllegroFlare/Inventory": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "X": [
     "AllegroFlare/Elements/Inventory",
@@ -492,13 +493,23 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "std/pair<std/string, std/string>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/Script"
+    "AllegroFlare/Prototypes/FixedRoom2D/Script",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/php/trim": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
   ],
   "std/map<std/string, int>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
+  ],
+  "AllegroFlare/AudioController": [
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Elements/Inventory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Script": [
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",

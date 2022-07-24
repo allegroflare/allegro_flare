@@ -16,8 +16,6 @@ properties:
   - name: room_dictionary
     type: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary
     init_with: '{}'
-    getter: true
-    setter: true
 
   - name: entity_dictionary
     type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
@@ -57,7 +55,7 @@ functions:
       };
 
       script_dictionary = {
-         { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG Hello!"}) },
+         { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG: Hello!"}) },
       };
 
       cursor.set_cursor_to_pointer();

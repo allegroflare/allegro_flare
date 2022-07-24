@@ -100,6 +100,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Script.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Script.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameOverScreen.q.yml">quintessence/AllegroFlare/Screens/GameOverScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameWonScreen.q.yml">quintessence/AllegroFlare/Screens/GameWonScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
@@ -2719,6 +2720,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">on_cursor_interact_script</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">cursor_entered_at</td>
   <td class="property">float</td>
 </tr>
@@ -2739,9 +2744,6 @@ table td
 </tr>
 <tr>
   <td class="method">on_cursor_leave()</td>
-</tr>
-<tr>
-  <td class="method">on_cursor_interact()</td>
 </tr>
     </table>
      <table>
@@ -3068,6 +3070,83 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">audio_controller</td>
+  <td class="property">AllegroFlare::AudioController*</td>
+</tr>
+<tr>
+  <td class="property">af_inventory</td>
+  <td class="property">AllegroFlare::Inventory*</td>
+</tr>
+<tr>
+  <td class="property">inventory_window</td>
+  <td class="property">AllegroFlare::Elements::Inventory*</td>
+</tr>
+<tr>
+  <td class="property">script</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Script*</td>
+</tr>
+<tr>
+  <td class="property">flags</td>
+  <td class="property">AllegroFlare::Inventory*</td>
+</tr>
+<tr>
+  <td class="property">script_freshly_loaded_via_OPEN_SCRIPT</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="private_method">parse_and_run_line(2)</td>
+</tr>
+<tr>
+  <td class="method">parse_command_and_argument(1)</td>
+</tr>
+<tr>
+  <td class="method">play_current_script_line()</td>
+</tr>
+<tr>
+  <td class="private_method">split(2)</td>
+</tr>
+<tr>
+  <td class="private_method">tokenize(2)</td>
+</tr>
+<tr>
+  <td class="private_method">assert_min_token_count(2)</td>
+</tr>
+<tr>
+  <td class="private_method">assert_token_count_eq(2)</td>
+</tr>
+<tr>
+  <td class="private_method">assert_odd_token_count(2)</td>
+</tr>
+<tr>
+  <td class="private_method">trim(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::pair&lt;std::string, std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Inventory*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Script*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4404,7 +4483,8 @@ table td
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
   "AllegroFlare/Inventory": [
-    "AllegroFlare/Elements/Inventory"
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "X": [
     "AllegroFlare/Elements/Inventory",
@@ -4580,13 +4660,23 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "std/pair<std/string, std/string>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/Script"
+    "AllegroFlare/Prototypes/FixedRoom2D/Script",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/php/trim": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
   ],
   "std/map<std/string, int>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
+  ],
+  "AllegroFlare/AudioController": [
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Elements/Inventory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Script": [
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",

@@ -19,6 +19,7 @@ Base::Base(ALLEGRO_BITMAP* bitmap, AllegroFlare::Placement2D placement)
    , bitmap(bitmap)
    , placement(placement)
    , cursor_is_over(false)
+   , on_cursor_interact_script("[unset-on_cursor_interact_script]")
    , cursor_entered_at(0.0f)
    , cursor_exited_at(0.0f)
 {
@@ -42,6 +43,12 @@ void Base::set_placement(AllegroFlare::Placement2D placement)
 }
 
 
+void Base::set_on_cursor_interact_script(std::string on_cursor_interact_script)
+{
+   this->on_cursor_interact_script = on_cursor_interact_script;
+}
+
+
 ALLEGRO_BITMAP* Base::get_bitmap()
 {
    return bitmap;
@@ -57,6 +64,12 @@ AllegroFlare::Placement2D Base::get_placement()
 bool Base::get_cursor_is_over()
 {
    return cursor_is_over;
+}
+
+
+std::string Base::get_on_cursor_interact_script()
+{
+   return on_cursor_interact_script;
 }
 
 
@@ -106,11 +119,6 @@ void Base::on_cursor_leave()
    cursor_is_over = false;
    cursor_entered_at = 0;
    cursor_exited_at = al_get_time();
-   return;
-}
-
-void Base::on_cursor_interact()
-{
    return;
 }
 } // namespace Entities

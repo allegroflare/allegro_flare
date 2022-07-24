@@ -46,18 +46,6 @@ void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void FixedRoom2D::set_room_dictionary(AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary room_dictionary)
-{
-   this->room_dictionary = room_dictionary;
-}
-
-
-AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary FixedRoom2D::get_room_dictionary()
-{
-   return room_dictionary;
-}
-
-
 void FixedRoom2D::initialize()
 {
    if (!((!initialized)))
@@ -83,7 +71,7 @@ void FixedRoom2D::initialize()
    };
 
    script_dictionary = {
-      { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG Hello!"}) },
+      { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG: Hello!"}) },
    };
 
    cursor.set_cursor_to_pointer();

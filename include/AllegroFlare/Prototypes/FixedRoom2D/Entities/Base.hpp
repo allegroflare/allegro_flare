@@ -4,6 +4,7 @@
 #include <AllegroFlare/ElementID.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
+#include <string>
 
 
 namespace AllegroFlare
@@ -20,6 +21,7 @@ namespace AllegroFlare
                ALLEGRO_BITMAP* bitmap;
                AllegroFlare::Placement2D placement;
                bool cursor_is_over;
+               std::string on_cursor_interact_script;
                float cursor_entered_at;
                float cursor_exited_at;
 
@@ -29,9 +31,11 @@ namespace AllegroFlare
 
                void set_bitmap(ALLEGRO_BITMAP* bitmap);
                void set_placement(AllegroFlare::Placement2D placement);
+               void set_on_cursor_interact_script(std::string on_cursor_interact_script);
                ALLEGRO_BITMAP* get_bitmap();
                AllegroFlare::Placement2D get_placement();
                bool get_cursor_is_over();
+               std::string get_on_cursor_interact_script();
                float get_cursor_entered_at();
                float get_cursor_exited_at();
                AllegroFlare::Placement2D &get_placement_ref();
@@ -39,7 +43,6 @@ namespace AllegroFlare
                virtual void update();
                virtual void on_cursor_enter();
                virtual void on_cursor_leave();
-               virtual void on_cursor_interact();
             };
          }
       }

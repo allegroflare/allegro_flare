@@ -35,8 +35,6 @@ namespace AllegroFlare
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
-            void set_room_dictionary(AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary room_dictionary);
-            AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary get_room_dictionary();
             void initialize();
             void update();
             void render();

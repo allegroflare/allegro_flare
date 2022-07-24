@@ -29,6 +29,12 @@ properties:
     init_with: false
     getter: true
 
+  - name: on_cursor_interact_script
+    type: std::string
+    init_with: '"[unset-on_cursor_interact_script]"'
+    getter: true
+    setter: true
+
   - name: cursor_entered_at
     type: float
     init_with: 0.0f
@@ -75,12 +81,6 @@ functions:
       cursor_is_over = false;
       cursor_entered_at = 0;
       cursor_exited_at = al_get_time();
-      return;
-
-
-  - name: on_cursor_interact
-    virtual: true
-    body: |
       return;
 
 
