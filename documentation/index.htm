@@ -3010,10 +3010,65 @@ table td
   <td class="property">lines</td>
   <td class="property">std::vector&lt;std::string&gt;</td>
 </tr>
+<tr>
+  <td class="property">current_line_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">markers_index</td>
+  <td class="property">std::map&lt;std::string, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">finished</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">get_current_line_text()</td>
+</tr>
+<tr>
+  <td class="method">goto_next_line()</td>
+</tr>
+<tr>
+  <td class="method">goto_marker(1)</td>
+</tr>
+<tr>
+  <td class="method">goto_line_num(1)</td>
+</tr>
+<tr>
+  <td class="method">at_last_line()</td>
+</tr>
+<tr>
+  <td class="private_method">at_valid_line()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_current_line_index_num()</td>
+</tr>
+<tr>
+  <td class="private_method">parse_command_and_argument(1)</td>
+</tr>
+<tr>
+  <td class="private_method">build_markers_index(1)</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::pair&lt;std::string, std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::php::trim&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -4523,6 +4578,15 @@ table td
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D": [
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
+  ],
+  "std/pair<std/string, std/string>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Script"
+  ],
+  "AllegroFlare/php/trim": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Script"
+  ],
+  "std/map<std/string, int>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Script"
   ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",

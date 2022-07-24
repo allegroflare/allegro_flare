@@ -491,6 +491,15 @@
   "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D": [
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
+  "std/pair<std/string, std/string>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Script"
+  ],
+  "AllegroFlare/php/trim": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Script"
+  ],
+  "std/map<std/string, int>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Script"
+  ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
