@@ -490,6 +490,9 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D": [
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],

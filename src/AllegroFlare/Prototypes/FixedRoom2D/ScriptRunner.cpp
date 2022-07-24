@@ -3,9 +3,9 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <iostream>
 #include <stdexcept>
 #include <sstream>
-#include <iostream>
 
 
 namespace AllegroFlare
@@ -21,8 +21,8 @@ ScriptRunner::ScriptRunner()
    , af_inventory(nullptr)
    , inventory_window(nullptr)
    , script_dictionary(nullptr)
-   , current_script()
    , flags(nullptr)
+   , current_script()
    , script_freshly_loaded_via_OPEN_SCRIPT(false)
 {
 }
@@ -30,6 +30,36 @@ ScriptRunner::ScriptRunner()
 
 ScriptRunner::~ScriptRunner()
 {
+}
+
+
+void ScriptRunner::set_audio_controller(AllegroFlare::AudioController* audio_controller)
+{
+   this->audio_controller = audio_controller;
+}
+
+
+void ScriptRunner::set_af_inventory(AllegroFlare::Inventory* af_inventory)
+{
+   this->af_inventory = af_inventory;
+}
+
+
+void ScriptRunner::set_inventory_window(AllegroFlare::Elements::Inventory* inventory_window)
+{
+   this->inventory_window = inventory_window;
+}
+
+
+void ScriptRunner::set_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary)
+{
+   this->script_dictionary = script_dictionary;
+}
+
+
+void ScriptRunner::set_flags(AllegroFlare::Inventory* flags)
+{
+   this->flags = flags;
 }
 
 
@@ -78,6 +108,42 @@ bool ScriptRunner::load_current_script_lines(std::vector<std::string> script_lin
    current_script = AllegroFlare::Prototypes::FixedRoom2D::Script(script_lines);
    current_script.initialize();
    return true;
+}
+
+void ScriptRunner::play_current_script_line()
+{
+   bool continue_directly_to_next_script_line = false;
+   int continue_count = 0;
+
+   do
+   {
+      std::string script_line = current_script.get_current_line_text();
+      int script_current_line_num = current_script.get_current_line_num();
+      continue_directly_to_next_script_line = parse_and_run_line(script_line, script_current_line_num);
+
+      if (continue_directly_to_next_script_line)
+      {
+         if (!get_script_freshly_loaded_via_OPEN_SCRIPT())
+         {
+            current_script.goto_next_line();
+         }
+         else
+         {
+            set_script_freshly_loaded_via_OPEN_SCRIPT(false);
+         }
+         if (current_script.get_finished()) break;
+         continue_count++;
+      }
+      if (continue_count > 500)
+      {
+         continue_directly_to_next_script_line = false;
+         std::cout << "ApplicationController::play_current_script_line: continued unstopped playing more than "
+                   << "500 script lines without a stop. Assuming error and halting to avoid infinite loop."
+                   << " That line was \"" << script_line << "\" which is on line ["
+                   << script_current_line_num << "]" << std::endl;
+      }
+   } while (continue_directly_to_next_script_line);
+   return;
 }
 
 bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
@@ -506,42 +572,6 @@ std::pair<std::string, std::string> ScriptRunner::parse_command_and_argument(std
    }
 
    return result;
-}
-
-void ScriptRunner::play_current_script_line()
-{
-   bool continue_directly_to_next_script_line = false;
-   int continue_count = 0;
-
-   do
-   {
-      std::string script_line = current_script.get_current_line_text();
-      int script_current_line_num = current_script.get_current_line_num();
-      continue_directly_to_next_script_line = parse_and_run_line(script_line, script_current_line_num);
-
-      if (continue_directly_to_next_script_line)
-      {
-         if (!get_script_freshly_loaded_via_OPEN_SCRIPT())
-         {
-            current_script.goto_next_line();
-         }
-         else
-         {
-            set_script_freshly_loaded_via_OPEN_SCRIPT(false);
-         }
-         if (current_script.get_finished()) break;
-         continue_count++;
-      }
-      if (continue_count > 500)
-      {
-         continue_directly_to_next_script_line = false;
-         std::cout << "ApplicationController::play_current_script_line: continued unstopped playing more than "
-                   << "500 script lines without a stop. Assuming error and halting to avoid infinite loop."
-                   << " That line was \"" << script_line << "\" which is on line ["
-                   << script_current_line_num << "]" << std::endl;
-      }
-   } while (continue_directly_to_next_script_line);
-   return;
 }
 
 std::vector<std::string> ScriptRunner::split(std::string string, char delimiter)

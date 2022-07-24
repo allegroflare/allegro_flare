@@ -37,7 +37,7 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_cha
    return create_entity("wooden-chair-png-transparent-image-pngpix-0.png", x, y, 0.1, "chair");
 }
 
-AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_entity(std::string bitmap_image_identifier, float x, float y, float scale, std::string name)
+AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_entity(std::string bitmap_image_identifier, float x, float y, float scale, std::string name, std::string on_interact_script_name)
 {
    if (!(bitmap_bin))
       {
@@ -51,6 +51,7 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_ent
       AllegroFlare::Prototypes::FixedRoom2D::Entities::Base(bitmap);
 
    AllegroFlare::Placement2D &placement = result->get_placement_ref();
+   result->set_on_cursor_interact_script_name(on_interact_script_name);
 
    placement.position = {x, y};
    placement.scale = {scale, scale};

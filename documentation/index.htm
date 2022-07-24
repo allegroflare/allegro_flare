@@ -2716,12 +2716,12 @@ table td
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
 <tr>
-  <td class="property">cursor_is_over</td>
-  <td class="property">bool</td>
+  <td class="property">on_cursor_interact_script_name</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">on_cursor_interact_script</td>
-  <td class="property">std::string</td>
+  <td class="property">cursor_is_over</td>
+  <td class="property">bool</td>
 </tr>
 <tr>
   <td class="property">cursor_entered_at</td>
@@ -2832,7 +2832,7 @@ table td
   <td class="method">create_chair_entity(2)</td>
 </tr>
 <tr>
-  <td class="method">create_entity(5)</td>
+  <td class="method">create_entity(6)</td>
 </tr>
     </table>
      <table>
@@ -2868,6 +2868,10 @@ table td
 <tr>
   <td class="property">script_dictionary</td>
   <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;</td>
+</tr>
+<tr>
+  <td class="property">script_runner</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner</td>
 </tr>
 <tr>
   <td class="property">entity_collection_helper</td>
@@ -2926,6 +2930,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -3095,12 +3102,12 @@ table td
   <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;*</td>
 </tr>
 <tr>
-  <td class="property">current_script</td>
-  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Script</td>
-</tr>
-<tr>
   <td class="property">flags</td>
   <td class="property">AllegroFlare::Inventory*</td>
+</tr>
+<tr>
+  <td class="property">current_script</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Script</td>
 </tr>
 <tr>
   <td class="property">script_freshly_loaded_via_OPEN_SCRIPT</td>
@@ -3115,13 +3122,13 @@ table td
   <td class="private_method">load_current_script_lines(1)</td>
 </tr>
 <tr>
+  <td class="method">play_current_script_line()</td>
+</tr>
+<tr>
   <td class="private_method">parse_and_run_line(2)</td>
 </tr>
 <tr>
   <td class="method">parse_command_and_argument(1)</td>
-</tr>
-<tr>
-  <td class="method">play_current_script_line()</td>
 </tr>
 <tr>
   <td class="private_method">split(2)</td>
@@ -4669,6 +4676,9 @@ table td
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D": [
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"

@@ -24,16 +24,17 @@ properties:
     getter: true
     setter: true
 
+  - name: on_cursor_interact_script_name
+    type: std::string
+    init_with: '"[unset-on_cursor_interact_script_name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: cursor_is_over
     type: bool
     init_with: false
     getter: true
-
-  - name: on_cursor_interact_script
-    type: std::string
-    init_with: '"[unset-on_cursor_interact_script]"'
-    getter: true
-    setter: true
 
   - name: cursor_entered_at
     type: float

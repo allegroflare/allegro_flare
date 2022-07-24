@@ -22,6 +22,7 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , room_dictionary({})
    , entity_dictionary({})
    , script_dictionary({})
+   , script_runner({})
    , entity_collection_helper(&entity_dictionary)
    , cursor({})
    , initialized(false)
@@ -67,15 +68,24 @@ void FixedRoom2D::initialize()
       { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
       { "chair", entity_factory.create_entity("wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168) },
       { "table", entity_factory.create_entity("download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4) },
-      { "keys", entity_factory.create_entity("key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05) },
+      { "keys", entity_factory.create_entity(
+            "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "say_hello") },
    };
 
    script_dictionary = {
-      { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG: Hello!"}) },
+      { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"SIGNAL: Hello!"}) },
    };
 
    cursor.set_cursor_to_pointer();
    cursor.clear_info_text();
+
+   script_runner.set_audio_controller(nullptr); // TODO
+   script_runner.set_af_inventory(nullptr); // TODO
+   script_runner.set_inventory_window(nullptr); // TODO
+   script_runner.set_script_dictionary(&script_dictionary);
+   script_runner.set_flags(nullptr); // TODO
+
+   //script_runner.set
 
    initialized = true;
    return;
@@ -112,10 +122,22 @@ void FixedRoom2D::render()
 
 void FixedRoom2D::interact_with_item_under_cursor()
 {
-   // TODO: ellaborate here
    std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
-   if (name.empty()) cursor.set_info_text("there is nothing here");
-   else cursor.set_info_text(name);
+   if (name.empty())
+   {
+      cursor.set_info_text("there is nothing here");
+   }
+   else
+   {
+      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
+      std::string script = interacting_entity->get_on_cursor_interact_script_name();
+      
+      script_runner.load_script_by_dictionary_name(script);
+
+      script_runner.play_current_script_line();
+      
+      //cursor.set_info_text(name);
+   }
    return;
 }
 
