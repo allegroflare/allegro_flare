@@ -62,13 +62,15 @@ AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialo
 
 AllegroFlare::Elements::DialogBoxes::TitleText* DialogBoxFactory::create_title_text_dialog(std::string title_text)
 {
-   AllegroFlare::Elements::DialogBoxes::TitleText* title_text_dialog_box = new AllegroFlare::Elements::DialogBoxes::TitleText(title_text);
+   AllegroFlare::Elements::DialogBoxes::TitleText* title_text_dialog_box
+      = new AllegroFlare::Elements::DialogBoxes::TitleText(title_text);
    return title_text_dialog_box;
 }
 
 AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dialog(std::string prompt, std::vector<std::pair<std::string, std::string>> options)
 {
-   AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
+   AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box
+      = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
    choice_dialog_box->initialize();
    //basic_dialog_box->set_pages(pages); // ??? hmm
    return choice_dialog_box;
@@ -77,7 +79,7 @@ AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dia
 AllegroFlare::Elements::DialogBoxes::YouGotAnItem* DialogBoxFactory::create_you_got_an_item_dialog(int item_num, std::string item_name, std::string item_bitmap_identifier)
 {
    AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =
-   new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
+      new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
    you_got_an_item_dialog_box->set_created_at(al_get_time());
    you_got_an_item_dialog_box->show();
    //choice_dialog_box->initialize(); // doesn't seem to require initialization

@@ -62,7 +62,8 @@ functions:
         type: std::string
         default_argument: '"[title-text-that-is-not-set]"'
     body: |
-      AllegroFlare::Elements::DialogBoxes::TitleText* title_text_dialog_box = new AllegroFlare::Elements::DialogBoxes::TitleText(title_text);
+      AllegroFlare::Elements::DialogBoxes::TitleText* title_text_dialog_box
+         = new AllegroFlare::Elements::DialogBoxes::TitleText(title_text);
       return title_text_dialog_box;
 
 
@@ -76,7 +77,8 @@ functions:
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
     body: |
-      AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
+      AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box
+         = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
       choice_dialog_box->initialize();
       //basic_dialog_box->set_pages(pages); // ??? hmm
       return choice_dialog_box;
@@ -96,7 +98,7 @@ functions:
         default_argument: '"[unset-item-bitmap-identifier]"'
     body: |
       AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =
-      new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
+         new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
       you_got_an_item_dialog_box->set_created_at(al_get_time());
       you_got_an_item_dialog_box->show();
       //choice_dialog_box->initialize(); // doesn't seem to require initialization
