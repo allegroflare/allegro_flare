@@ -1,0 +1,108 @@
+properties:
+
+
+  - name: width
+    type: float
+    init_with: '1920/5*3'
+    constructor_arg: true
+    getter: true
+
+  - name: height
+    type: float
+    init_with: '1080/4'
+    constructor_arg: true
+    getter: true
+
+  - name: opacity
+    type: float
+    init_with: 0.8
+    setter: true
+
+  - name: fill_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f}
+    setter: true
+
+  - name: border_color
+    type: ALLEGRO_COLOR
+    init_with: al_color_html("909090")
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_get_current_display()
+    body: |
+      float roundness = 13.0f;
+      float border_thickness = 6.0f;
+      float border_inner_padding = border_thickness * 2.5;
+      //ALLEGRO_COLOR fill_color = al_color_html("162428");
+      //ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.02f*opacity, 0.0f*opacity, 0.1f*opacity, opacity};
+      //ALLEGRO_COLOR border_color = al_color_html("244751");
+      ALLEGRO_COLOR fill_color_with_opacity = AllegroFlare::color::color(fill_color, opacity);
+
+      // draw backfill
+      al_draw_filled_rounded_rectangle(
+         0,
+         0,
+         width,
+         height,
+         roundness * 1.0,
+         roundness * 1.0,
+         fill_color_with_opacity
+      );
+      // draw "inner" backfill
+      al_draw_filled_rounded_rectangle(
+         0 + border_inner_padding,
+         0 + border_inner_padding,
+         width - border_inner_padding,
+         height - border_inner_padding,
+         roundness * 0.5,
+         roundness * 0.5,
+         fill_color_with_opacity
+      );
+      // draw border
+      al_draw_rounded_rectangle(
+         0,
+         0,
+         width,
+         height,
+         roundness,
+         roundness,
+         border_color,
+         border_thickness
+      );
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::color::color
+      - al_is_system_installed
+      - al_is_primitives_addon_initialized
+      - al_draw_filled_rounded_rectangle
+      - al_color_html
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::color::color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_get_current_display
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_color_html
+    headers: [ allegro5/allegro_color.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_draw_filled_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+
+
