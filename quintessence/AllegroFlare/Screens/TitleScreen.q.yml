@@ -57,7 +57,7 @@ properties:
 
   - name: font_name
     type: std::string
-    init_with: '"DroidSans.ttf"'
+    init_with: '"Inter-Medium.ttf"'
     constructor_arg: true
     getter: true
     setter: true
@@ -100,7 +100,6 @@ properties:
   - name: menu_font_size
     type: int
     init_with: -56
-    init_with: '"DroidSans.ttf"'
     constructor_arg: true
     getter: true
     setter: true
@@ -108,7 +107,6 @@ properties:
   - name: copyright_font_size
     type: int
     init_with: -32
-    init_with: '"DroidSans.ttf"'
     constructor_arg: true
     getter: true
     setter: true
@@ -483,7 +481,7 @@ functions:
     static: true
     body: |
       std::vector<std::pair<std::string, std::string>> result;
-      result = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
+      result = { { "Start new game", "start_new_game" }, { "Credits", "show_credits" }, { "Exit", "exit_game" } };
       return result;
 
 

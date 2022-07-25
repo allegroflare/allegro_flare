@@ -577,7 +577,7 @@ bool TitleScreen::menu_has_items()
 std::vector<std::pair<std::string, std::string>> TitleScreen::build_default_menu_options()
 {
    std::vector<std::pair<std::string, std::string>> result;
-   result = { { "Start new game", "start_new_game" }, { "Exit", "exit_game" } };
+   result = { { "Start new game", "start_new_game" }, { "Credits", "show_credits" }, { "Exit", "exit_game" } };
    return result;
 }
 } // namespace Screens
