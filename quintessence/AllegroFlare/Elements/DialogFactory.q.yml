@@ -2,9 +2,9 @@ functions:
 
 
   - name: build_basic_test_dialog
-    type: Krampus21::DialogBoxes::Basic
+    type: AllegroFlare::Elements::DialogBoxes::Basic
     body: |
-      Krampus21::DialogBoxes::Basic basic_dialog_box;
+      AllegroFlare::Elements::DialogBoxes::Basic basic_dialog_box;
       basic_dialog_box.set_pages({
          { "Interesting.  I'm just sitting here working." },
          { "Oh well. I guess I'll just have to keep grinding." },
@@ -13,13 +13,13 @@ functions:
 
       return basic_dialog_box;
     body_dependency_symbols:
-      - Krampus21::DialogBoxes::Basic
+      - AllegroFlare::Elements::DialogBoxes::Basic
 
 
   - name: create_basic_test_dialog
-    type: Krampus21::DialogBoxes::Basic*
+    type: AllegroFlare::Elements::DialogBoxes::Basic*
     body: |
-      Krampus21::DialogBoxes::Basic *basic_dialog_box = new Krampus21::DialogBoxes::Basic;
+      AllegroFlare::Elements::DialogBoxes::Basic *basic_dialog_box = new AllegroFlare::Elements::DialogBoxes::Basic;
       basic_dialog_box->set_pages({
          { "Interesting.  I'm just sitting here working." },
          { "Oh well. I guess I'll just have to keep grinding." },
@@ -28,59 +28,46 @@ functions:
 
       return basic_dialog_box;
     body_dependency_symbols:
-      - Krampus21::DialogBoxes::Basic
+      - AllegroFlare::Elements::DialogBoxes::Basic
 
 
   - name: build_basic_dialog
-    type: Krampus21::DialogBoxes::Basic
+    type: AllegroFlare::Elements::DialogBoxes::Basic
     parameters:
       - name: pages
         type: std::vector<std::string>
         default_argument: '{}'
     body: |
-      Krampus21::DialogBoxes::Basic basic_dialog_box;
+      AllegroFlare::Elements::DialogBoxes::Basic basic_dialog_box;
       basic_dialog_box.set_pages(pages);
       return basic_dialog_box;
 
 
-  - name: create_smart_phone_dialog
-    type: Krampus21::DialogBoxes::SmartPhone*
-    parameters:
-      - name: pages
-        type: std::vector<std::string>
-        default_argument: '{}'
-    body: |
-      Krampus21::DialogBoxes::SmartPhone *smart_phone_dialog_box = new Krampus21::DialogBoxes::SmartPhone(pages);
-      smart_phone_dialog_box->set_created_at(al_get_time());
-      //smart_phone_dialog_box.set_pages(pages);
-      return smart_phone_dialog_box;
-
-
   - name: create_basic_dialog
-    type: Krampus21::DialogBoxes::Basic*
+    type: AllegroFlare::Elements::DialogBoxes::Basic*
     parameters:
       - name: pages
         type: std::vector<std::string>
         default_argument: '{}'
     body: |
-      Krampus21::DialogBoxes::Basic* basic_dialog_box = new Krampus21::DialogBoxes::Basic();
+      AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box = new AllegroFlare::Elements::DialogBoxes::Basic();
       basic_dialog_box->set_pages(pages);
       return basic_dialog_box;
 
 
   - name: create_title_text_dialog
-    type: Krampus21::DialogBoxes::TitleText*
+    type: AllegroFlare::Elements::DialogBoxes::TitleText*
     parameters:
       - name: title_text
         type: std::string
         default_argument: '"[title-text-that-is-not-set]"'
     body: |
-      Krampus21::DialogBoxes::TitleText* title_text_dialog_box = new Krampus21::DialogBoxes::TitleText(title_text);
+      AllegroFlare::Elements::DialogBoxes::TitleText* title_text_dialog_box = new AllegroFlare::Elements::DialogBoxes::TitleText(title_text);
       return title_text_dialog_box;
 
 
   - name: create_choice_dialog
-    type: Krampus21::DialogBoxes::Choice*
+    type: AllegroFlare::Elements::DialogBoxes::Choice*
     parameters:
       - name: prompt
         type: std::string
@@ -89,14 +76,14 @@ functions:
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
     body: |
-      Krampus21::DialogBoxes::Choice* choice_dialog_box = new Krampus21::DialogBoxes::Choice(prompt, options);
+      AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
       choice_dialog_box->initialize();
       //basic_dialog_box->set_pages(pages); // ??? hmm
       return choice_dialog_box;
 
 
   - name: create_you_got_an_item_dialog
-    type: Krampus21::DialogBoxes::YouGotAnItem*
+    type: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
     parameters:
       - name: item_num
         type: int
@@ -108,63 +95,32 @@ functions:
         type: std::string
         default_argument: '"[unset-item-bitmap-identifier]"'
     body: |
-      Krampus21::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =
-         new Krampus21::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
+      AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =
+      new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
       you_got_an_item_dialog_box->set_created_at(al_get_time());
       you_got_an_item_dialog_box->show();
       //choice_dialog_box->initialize(); // doesn't seem to require initialization
       return you_got_an_item_dialog_box;
-
-
-  - name: build_basic_dialog_from_file
-    type: Krampus21::DialogBoxes::Basic
-    parameters:
-      - name: filename
-        type: std::string
-        default_argument: '"no-filename-set.txt"'
-    body: |
-      Krampus21::DialogBoxes::Basic basic_dialog_box;
-      Blast::FileExistenceChecker file_existence_checker(filename);
-      if (!file_existence_checker.exists())
-      {
-         std::stringstream error_message;
-         error_message << "[DialogFactory:build_basic_dialog_from_file]: error: "
-                       << "the file \"" << filename << "\" is not present.";
-         throw std::runtime_error(error_message.str());
-      }
-
-      std::vector<std::string> file_lines = AllegroFlare::php::file_get_contents_split(filename);
-
-      basic_dialog_box.set_pages(file_lines);
-
-      return basic_dialog_box;
     body_dependency_symbols:
-      - std::stringstream
-      - Krampus21::DialogBoxes::Basic
-      - Blast::FileExistenceChecker
-      - AllegroFlare::php::file_get_contents_split
+      - al_get_time
 
 
 dependencies:
 
 
-  - symbol: Krampus21::DialogBoxes::YouGotAnItem*
-    headers: [ Krampus21/DialogBoxes/YouGotAnItem.hpp ]
-  - symbol: Krampus21::DialogBoxes::Choice*
-    headers: [ Krampus21/DialogBoxes/Choice.hpp ]
-  - symbol: Krampus21::DialogBoxes::SmartPhone*
-    headers: [ Krampus21/DialogBoxes/SmartPhone.hpp ]
-  - symbol: Krampus21::DialogBoxes::Basic*
-    headers: [ Krampus21/DialogBoxes/Basic.hpp ]
-  - symbol: Krampus21::DialogBoxes::Basic
-    headers: [ Krampus21/DialogBoxes/Basic.hpp ]
-  - symbol: Blast::FileExistenceChecker
-    headers: [ Blast/FileExistenceChecker.hpp ]
-  - symbol: AllegroFlare::php::file_get_contents_split
-    headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Choice*
+    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Basic*
+    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Basic
+    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
-  - symbol: Krampus21::DialogBoxes::TitleText*
-    headers: [ Krampus21/DialogBoxes/TitleText.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::TitleText*
+    headers: [ AllegroFlare/Elements/DialogBoxes/TitleText.hpp ]
 
 

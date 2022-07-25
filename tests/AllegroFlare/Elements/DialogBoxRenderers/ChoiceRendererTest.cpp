@@ -7,39 +7,39 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 
-#include <Krampus21/DialogBoxRenderers/ChoiceRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 #ifdef _WIN32
-#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/fonts/"
+#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
 #else
-#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/fonts/"
+#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
 #endif
 
 
-class Krampus21_DialogBoxRenderers_ChoiceRendererTest : public ::testing::Test {};
-class Krampus21_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest
+class AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest : public ::testing::Test {};
+class AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 
-TEST_F(Krampus21_DialogBoxRenderers_ChoiceRendererTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest, can_be_created_without_blowing_up)
 {
-   Krampus21::DialogBoxRenderers::ChoiceRenderer choice_renderer;
+   AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer;
 }
 
 
-TEST_F(Krampus21_DialogBoxRenderers_ChoiceRendererTest, render__without_a_choice_dialog_box__throws_an_exception)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest, render__without_a_choice_dialog_box__throws_an_exception)
 {
    al_init();
-   Krampus21::DialogBoxRenderers::ChoiceRenderer choice_renderer;
+   AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer;
    std::string expected_error_message = "ChoiceRenderer::render: error: guard \"choice_dialog_box\" not met";
    ASSERT_THROW_WITH_MESSAGE(choice_renderer.render(), std::runtime_error, expected_error_message);
    al_uninstall_system();
 }
 
 
-TEST_F(Krampus21_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
    render__renders_the_elements)
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
@@ -51,9 +51,9 @@ TEST_F(Krampus21_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTes
      { "I hope so", "GOTO B" },
      { "I think I am", "GOTO C" },
    };
-   Krampus21::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
+   AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
    choice_dialog_box.initialize();
-   Krampus21::DialogBoxRenderers::ChoiceRenderer choice_renderer(
+   AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer(
       &get_font_bin_ref(),
       &get_bitmap_bin_ref(),
       &choice_dialog_box,

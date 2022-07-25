@@ -132,8 +132,8 @@ functions:
 dependencies:
 
 
-  - symbol: Krampus21::DialogBoxes::Base
-    headers: [ Krampus21/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
   - symbol: std::vector<std::vector<std::string>>
     headers: [ vector, string ]
 

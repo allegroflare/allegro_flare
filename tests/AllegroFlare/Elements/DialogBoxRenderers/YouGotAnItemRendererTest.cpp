@@ -7,30 +7,30 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #ifdef _WIN32
-#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/fonts/"
-#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/bitmaps/"
+#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
+#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
 #else
-#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/fonts/"
-#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/bitmaps/"
+#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
+#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
 #endif
 
-#include <Krampus21/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <chrono>
 #include <thread>
 
-class Krampus21_DialogBoxRenderers_YouGotAnItemRendererTest : public ::testing::Test {};
-class Krampus21_DialogBoxRenderers_YouGotAnItemRendererWithAllegroRenderingFixtureTest
+class AllegroFlare_Elements_DialogBoxRenderers_YouGotAnItemRendererTest : public ::testing::Test {};
+class AllegroFlare_Elements_DialogBoxRenderers_YouGotAnItemRendererWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 
-TEST_F(Krampus21_DialogBoxRenderers_YouGotAnItemRendererTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotAnItemRendererTest, can_be_created_without_blowing_up)
 {
-   Krampus21::DialogBoxRenderers::YouGotAnItemRenderer you_got_an_item_renderer;
+   AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer you_got_an_item_renderer;
 }
 
-TEST_F(Krampus21_DialogBoxRenderers_YouGotAnItemRendererWithAllegroRenderingFixtureTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotAnItemRendererWithAllegroRenderingFixtureTest,
    render__renders_the_dialog_box)
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
@@ -46,7 +46,7 @@ TEST_F(Krampus21_DialogBoxRenderers_YouGotAnItemRendererWithAllegroRenderingFixt
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       place.start_transform();
-      Krampus21::DialogBoxRenderers::YouGotAnItemRenderer you_got_an_item_renderer(
+      AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer you_got_an_item_renderer(
          &get_font_bin_ref(),
          &get_bitmap_bin_ref(),
          item_name,

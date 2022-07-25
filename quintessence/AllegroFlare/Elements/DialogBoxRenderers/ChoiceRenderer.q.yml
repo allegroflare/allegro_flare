@@ -12,7 +12,7 @@ properties:
     constructor_arg: true
 
   - name: choice_dialog_box
-    type: Krampus21::DialogBoxes::Choice*
+    type: AllegroFlare::Elements::DialogBoxes::Choice*
     init_with: nullptr
     constructor_arg: true
 
@@ -33,12 +33,12 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), choice_dialog_box ]
     body: |
-      Krampus21::Elements::DialogBoxFrame(width, height).render();
+      AllegroFlare::Elements::DialogBoxFrame(width, height).render();
       draw_prompt_text();
       draw_choices_with_cursor_and_current_selection(85);
       return;
     body_dependency_symbols:
-      - Krampus21::Elements::DialogBoxFrame
+      - AllegroFlare::Elements::DialogBoxFrame
 
 
   - name: draw_prompt_text
@@ -120,7 +120,7 @@ functions:
     private: true
     type: ALLEGRO_FONT*
     body: |
-      static const std::string FONT_IDENTIFIER = "Purista Medium.ttf -50";
+      static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
       ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
       return result_font;
 
@@ -171,8 +171,8 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: Krampus21::DialogBoxes::Choice*
-    headers: [ Krampus21/DialogBoxes/Choice.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Choice*
+    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro.h ]
   - symbol: al_is_system_installed
@@ -191,7 +191,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
-  - symbol: Krampus21::Elements::DialogBoxFrame
-    headers: [ Krampus21/Elements/DialogBoxFrame.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxFrame
+    headers: [ AllegroFlare/Elements/DialogBoxFrame.hpp ]
 
 

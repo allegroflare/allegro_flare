@@ -1,7 +1,7 @@
 parent_classes:
 
 
-  - class: Krampus21::DialogBoxes::Base
+  - class: AllegroFlare::Elements::DialogBoxes::Base
     scope: public
     init_with: '"Basic"'
 
@@ -9,7 +9,7 @@ parent_classes:
 dependencies:
 
 
-  - symbol: Krampus21::DialogBoxes::Base
-    headers: [ Krampus21/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
 
 

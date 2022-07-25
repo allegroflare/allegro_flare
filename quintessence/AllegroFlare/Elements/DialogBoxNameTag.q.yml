@@ -34,7 +34,7 @@ functions:
       - al_is_primitives_addon_initialized()
       - al_get_current_display()
     body: |
-      Krampus21::Elements::DialogBoxFrame(width, height).render();
+      AllegroFlare::Elements::DialogBoxFrame(width, height).render();
       draw_text();
       return;
     body_dependency_symbols:
@@ -42,7 +42,7 @@ functions:
       - al_is_primitives_addon_initialized
       - al_draw_filled_rounded_rectangle
       - al_color_html
-      - Krampus21::Elements::DialogBoxFrame
+      - AllegroFlare::Elements::DialogBoxFrame
 
 
   - name: draw_text
@@ -68,7 +68,7 @@ functions:
     private: true
     type: ALLEGRO_FONT*
     body: |
-      static const std::string FONT_IDENTIFIER = "Purista Medium.ttf -50";
+      static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
       ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
       return result_font;
 
@@ -94,7 +94,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_color_html
     headers: [ allegro5/allegro_color.h ]
-  - symbol: Krampus21::Elements::DialogBoxFrame
-    headers: [ Krampus21/Elements/DialogBoxFrame.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxFrame
+    headers: [ AllegroFlare/Elements/DialogBoxFrame.hpp ]
 
 

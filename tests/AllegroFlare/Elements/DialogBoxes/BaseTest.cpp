@@ -1,31 +1,31 @@
 
 #include <gtest/gtest.h>
 
-#include <Krampus21/DialogBoxes/Base.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 
 
-class MyTestDialogBox : public Krampus21::DialogBoxes::Base
+class MyTestDialogBox : public AllegroFlare::Elements::DialogBoxes::Base
 {
 public:
-   MyTestDialogBox() : Krampus21::DialogBoxes::Base("MyTestDialogBox") {}
+   MyTestDialogBox() : AllegroFlare::Elements::DialogBoxes::Base("MyTestDialogBox") {}
 };
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, type__when_not_from_a_derived_class__is_the_expected_default)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, type__when_not_from_a_derived_class__is_the_expected_default)
 {
    std::string expected_type = "Base";
-   Krampus21::DialogBoxes::Base base_dialog_box;
+   AllegroFlare::Elements::DialogBoxes::Base base_dialog_box;
    ASSERT_EQ(expected_type, base_dialog_box.get_type());
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, can_be_created_without_blowing_up)
 {
-   Krampus21::DialogBoxes::Base base;
+   AllegroFlare::Elements::DialogBoxes::Base base;
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, when_derived_the_type_of_the_derived_class_is_set)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, when_derived_the_type_of_the_derived_class_is_set)
 {
    std::string expected_type = "MyTestDialogBox";
    MyTestDialogBox dialog_box;
@@ -33,7 +33,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, when_derived_the_type_of_the_derived_class_
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, is_type__returns_true_if_the_type_matches_the_current_type)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, is_type__returns_true_if_the_type_matches_the_current_type)
 {
    std::string the_type_that_it_is = "MyTestDialogBox";
    MyTestDialogBox dialog_box;
@@ -41,7 +41,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, is_type__returns_true_if_the_type_matches_t
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, is_type__returns_false_if_the_type_does_not_matches_the_current_type)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, is_type__returns_false_if_the_type_does_not_matches_the_current_type)
 {
    std::string some_type_that_it_is_not = "SomeTypeThatItIsNot";
    MyTestDialogBox dialog_box;
@@ -49,7 +49,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, is_type__returns_false_if_the_type_does_not
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, set_pages__sets_the_pages_with_the_passed_value)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, set_pages__sets_the_pages_with_the_passed_value)
 {
    std::vector<std::string> pages = {
       "Page 1 has this test",
@@ -64,7 +64,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, set_pages__sets_the_pages_with_the_passed_v
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, at_last_page__will_return_true_if_the_dialog_is_at_the_very_last_page)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, at_last_page__will_return_true_if_the_dialog_is_at_the_very_last_page)
 {
    std::vector<std::string> pages = {
       "Page 1 has this test",
@@ -81,7 +81,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, at_last_page__will_return_true_if_the_dialo
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, at_last_page__will_false_ff_the_dialog_is_anywhere_but_at_the_very_last_page)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, at_last_page__will_false_ff_the_dialog_is_anywhere_but_at_the_very_last_page)
 {
    std::vector<std::string> pages = {
       "Page 1 has this test",
@@ -103,7 +103,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, at_last_page__will_false_ff_the_dialog_is_a
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, next_page__will_increment_the_page_number)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, next_page__will_increment_the_page_number)
 {
    std::vector<std::string> pages = {
       "Page 1 has this test",
@@ -122,14 +122,14 @@ TEST(Krampus21_DialogBoxes_BaseTest, next_page__will_increment_the_page_number)
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, has_no_pages__will_true_if_there_are_no_pages)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, has_no_pages__will_true_if_there_are_no_pages)
 {
    MyTestDialogBox dialog_box;
    ASSERT_EQ(true, dialog_box.has_no_pages());
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, get_current_page_text__will_return_a_special_empty_text_when_not_on_a_page)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, get_current_page_text__will_return_a_special_empty_text_when_not_on_a_page)
 {
    MyTestDialogBox dialog_box;
    dialog_box.next_page();
@@ -140,7 +140,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, get_current_page_text__will_return_a_specia
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, next_page__when_at_the_last_page__will_mark_the_dialog_box_as_finished)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, next_page__when_at_the_last_page__will_mark_the_dialog_box_as_finished)
 {
    MyTestDialogBox dialog_box;
 
@@ -151,7 +151,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, next_page__when_at_the_last_page__will_mark
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, next_page__will_increment_the_page_text)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, next_page__will_increment_the_page_text)
 {
    std::vector<std::string> pages = {
       "Page 1 has this test",
@@ -168,7 +168,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, next_page__will_increment_the_page_text)
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, update__will_increment_the_num_revealed_characters)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, update__will_increment_the_num_revealed_characters)
 {
    std::vector<std::string> pages = {
       "This is text who's characters will reveal over time.",
@@ -182,7 +182,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, update__will_increment_the_num_revealed_cha
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, reset__will_set_the_num_revealed_characters_to_0)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, reset__will_set_the_num_revealed_characters_to_0)
 {
    std::vector<std::string> pages = {
       "This is text who's characters will reveal over time.",
@@ -198,7 +198,7 @@ TEST(Krampus21_DialogBoxes_BaseTest, reset__will_set_the_num_revealed_characters
 }
 
 
-TEST(Krampus21_DialogBoxes_BaseTest, next_page__will_set_the_num_revealed_characters_to_0)
+TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, next_page__will_set_the_num_revealed_characters_to_0)
 {
    std::vector<std::string> pages = {
       "This is text who's characters will reveal over time.",
