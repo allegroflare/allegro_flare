@@ -14,13 +14,13 @@ namespace AllegroFlare
 {
    namespace Elements
    {
-      class DialogFactory
+      class DialogBoxFactory
       {
       private:
 
       public:
-         DialogFactory();
-         ~DialogFactory();
+         DialogBoxFactory();
+         ~DialogBoxFactory();
 
          AllegroFlare::Elements::DialogBoxes::Basic build_basic_test_dialog();
          AllegroFlare::Elements::DialogBoxes::Basic* create_basic_test_dialog();

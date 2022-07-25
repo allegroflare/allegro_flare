@@ -62,6 +62,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxFrame.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFrame.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxNameTag.q.yml">quintessence/AllegroFlare/Elements/DialogBoxNameTag.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxRenderer.q.yml">quintessence/AllegroFlare/Elements/DialogBoxRenderer.q.yml</a></li>
@@ -71,7 +72,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Choice.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Choice.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/TitleText.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/TitleText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Elements/DialogFactory.q.yml">quintessence/AllegroFlare/Elements/DialogFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
@@ -670,6 +670,59 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">build_basic_test_dialog()</td>
+</tr>
+<tr>
+  <td class="method">create_basic_test_dialog()</td>
+</tr>
+<tr>
+  <td class="method">build_basic_dialog(1)</td>
+</tr>
+<tr>
+  <td class="method">create_basic_dialog(1)</td>
+</tr>
+<tr>
+  <td class="method">create_title_text_dialog(1)</td>
+</tr>
+<tr>
+  <td class="method">create_choice_dialog(2)</td>
+</tr>
+<tr>
+  <td class="method">create_you_got_an_item_dialog(3)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotAnItem*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Basic*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::TitleText*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/TitleText.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/DialogBoxFrame.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFrame.q.yml</h3>
      <table>
 <tr>
@@ -1239,59 +1292,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Elements/DialogFactory.q.yml">quintessence/AllegroFlare/Elements/DialogFactory.q.yml</h3>
-     <table>
-    </table>
-     <table>
-<tr>
-  <td class="method">build_basic_test_dialog()</td>
-</tr>
-<tr>
-  <td class="method">create_basic_test_dialog()</td>
-</tr>
-<tr>
-  <td class="method">build_basic_dialog(1)</td>
-</tr>
-<tr>
-  <td class="method">create_basic_dialog(1)</td>
-</tr>
-<tr>
-  <td class="method">create_title_text_dialog(1)</td>
-</tr>
-<tr>
-  <td class="method">create_choice_dialog(2)</td>
-</tr>
-<tr>
-  <td class="method">create_you_got_an_item_dialog(3)</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotAnItem*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Basic*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Basic.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Basic.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::TitleText*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/TitleText.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4367,6 +4367,36 @@ table td
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base"
   ],
+  "al_get_time": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Choice": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Basic": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxFactory"
+  ],
+  "std/vector<std/pair<std/string, std/string>>": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxes/Choice",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/TitleText": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -4429,24 +4459,11 @@ table td
     "AllegroFlare/Elements/DialogBoxes/TitleText",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
   ],
-  "AllegroFlare/Elements/DialogBoxes/Choice": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogFactory"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogFactory"
-  ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/TitleText": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogFactory"
   ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -4460,28 +4477,11 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Screens/TitleScreen"
   ],
-  "std/vector<std/pair<std/string, std/string>>": [
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxes/Choice",
-    "AllegroFlare/Elements/DialogFactory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "AllegroFlare/Interpolators/": [
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer"
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base"
-  ],
-  "al_get_time": [
-    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
-    "AllegroFlare/Elements/DialogFactory"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/Basic": [
-    "AllegroFlare/Elements/DialogFactory",
-    "AllegroFlare/Elements/DialogFactory"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/HealthBars/Basic",

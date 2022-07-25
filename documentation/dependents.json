@@ -180,6 +180,36 @@
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base"
   ],
+  "al_get_time": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Choice": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Basic": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxFactory"
+  ],
+  "std/vector<std/pair<std/string, std/string>>": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxes/Choice",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/TitleText": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -242,24 +272,11 @@
     "AllegroFlare/Elements/DialogBoxes/TitleText",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
   ],
-  "AllegroFlare/Elements/DialogBoxes/Choice": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogFactory"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogFactory"
-  ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/TitleText": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogFactory"
   ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -273,28 +290,11 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Screens/TitleScreen"
   ],
-  "std/vector<std/pair<std/string, std/string>>": [
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxes/Choice",
-    "AllegroFlare/Elements/DialogFactory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "AllegroFlare/Interpolators/": [
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer"
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base"
-  ],
-  "al_get_time": [
-    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
-    "AllegroFlare/Elements/DialogFactory"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/Basic": [
-    "AllegroFlare/Elements/DialogFactory",
-    "AllegroFlare/Elements/DialogFactory"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/HealthBars/Basic",
