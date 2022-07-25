@@ -67,11 +67,12 @@ void ChoiceRenderer::draw_prompt_text()
    int dialog_box_num_revealed_characters = 999;
    std::string text = obtain_choice_dialog_box_prompt();
    float text_padding_x = 40.0f;
-   float text_padding_y = 30.0f;
+   float text_padding_y = 25.0f;
    float text_box_max_width = width - (text_padding_x * 2);
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    float line_height = al_get_font_line_height(text_font);
-   ALLEGRO_COLOR text_color = al_color_html("66a9bc");
+   ALLEGRO_COLOR text_color = al_color_html("ffffff");
+   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
 
    al_draw_multiline_text(
       text_font,
@@ -92,9 +93,11 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection(float start_
    std::vector<std::pair<std::string, std::string>> options = obtain_choice_dialog_box_options();
    int current_selection_num = obtain_choice_dialog_box_cursor_position();
    float line_height = al_get_font_line_height(text_font);
-   ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   ALLEGRO_COLOR selection_hilight_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
-   float selection_box_x_padding = 18;
+   ALLEGRO_COLOR text_color_not_selected = al_color_html("dfdfdf");
+   ALLEGRO_COLOR text_color_selected = al_color_html("000000");
+   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
+   ALLEGRO_COLOR selection_hilight_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+   float selection_box_x_padding = 24;
    float selection_box_y_padding = 0;
    float x = 200;
 
@@ -116,7 +119,7 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection(float start_
       }
       al_draw_text(
          text_font,
-         text_color,
+         this_option_is_currently_selected ? text_color_selected : text_color_not_selected,
          x,
          start_y + line_height*option_num,
          ALLEGRO_ALIGN_LEFT,

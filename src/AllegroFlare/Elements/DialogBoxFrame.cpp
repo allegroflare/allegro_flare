@@ -20,8 +20,8 @@ DialogBoxFrame::DialogBoxFrame(float width, float height)
    : width(width)
    , height(height)
    , opacity(0.8)
-   , fill_color(ALLEGRO_COLOR{0.05f, 0.02f, 0.12f, 1.0f})
-   , border_color(al_color_html("345761"))
+   , fill_color(ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f})
+   , border_color(al_color_html("909090"))
 {
 }
 
@@ -81,7 +81,7 @@ void DialogBoxFrame::render()
          error_message << "DialogBoxFrame" << "::" << "render" << ": error: " << "guard \"al_get_current_display()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   float roundness = 18.0f;
+   float roundness = 13.0f;
    float border_thickness = 6.0f;
    float border_inner_padding = border_thickness * 2.5;
    //ALLEGRO_COLOR fill_color = al_color_html("162428");

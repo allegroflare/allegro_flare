@@ -68,7 +68,8 @@ void YouGotAnItemRenderer::render()
    ALLEGRO_FONT* item_name_text_font = obtain_item_name_text_font();
    float notification_text_font_line_heigt = al_get_font_line_height(notification_text_font);
    float item_name_text_font_line_heigt = al_get_font_line_height(item_name_text_font);
-   ALLEGRO_COLOR text_color = opaquify(al_color_html("fbedc3"));
+   //ALLEGRO_COLOR text_color = opaquify(al_color_html("fbedc3"));
+   ALLEGRO_COLOR text_color = opaquify(al_color_html("ffffff"));
    ALLEGRO_COLOR item_name_text_color = opaquify(al_color_html("ffffff"));
    ALLEGRO_COLOR item_name_text_dropshadow_color = opaquify(al_color_html("770000"));
    std::string notification_text = "You got an item!";
@@ -76,8 +77,9 @@ void YouGotAnItemRenderer::render()
    std::string item_bitmap_identifier = get_item_bitmap_identifier(); //"watch-01.png";
    ALLEGRO_BITMAP* item_bitmap = bitmap_bin->auto_get(item_bitmap_identifier);
    AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
-   dialog_box_frame.set_fill_color(opaquify(al_color_html("2a2104")));
-   dialog_box_frame.set_border_color(opaquify(al_color_html("c49505")));
+   //dialog_box_frame.set_fill_color(opaquify(al_color_html("2a2104")));
+   //dialog_box_frame.set_border_color(opaquify(al_color_html("c49505")));
+   dialog_box_frame.set_border_color(opaquify(ALLEGRO_COLOR{1.0, .65, 0.0, 1.0}));
    AllegroFlare::Placement2D item_place(width/2, height/2, 800, 800);
    item_place.scale.x = 0.55;
    item_place.scale.y = 0.55;
@@ -97,7 +99,8 @@ void YouGotAnItemRenderer::render()
       notification_text_font,
       text_color,
       width/2,
-      height/2 - 180,
+      30, //height/2 - 180,
+      //height - 180,
       ALLEGRO_ALIGN_CENTER,
       notification_text.c_str()
    );
@@ -109,7 +112,7 @@ void YouGotAnItemRenderer::render()
 
    // the collected item name
    // draw a nice little drop shadow :)
-   float item_name_text_y_position = height/2 + 120;
+   float item_name_text_y_position = height - 80;//height/2 + 120;
    al_draw_text(
       item_name_text_font,
       item_name_text_dropshadow_color,

@@ -79,7 +79,7 @@ void DialogBoxNameTag::render()
 void DialogBoxNameTag::draw_text()
 {
    ALLEGRO_FONT* font = obtain_dialog_font();
-   ALLEGRO_COLOR text_color = al_color_html("66a9bc");
+   ALLEGRO_COLOR text_color = al_color_html("ffffff");
    al_draw_text(
       font,
       text_color,
