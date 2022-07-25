@@ -1,0 +1,26 @@
+parent_classes:
+
+
+  - class: Krampus21::DialogBoxes::Base
+    scope: public
+    init_with: '"TitleText"'
+
+
+properties:
+
+
+  - name: primary_text
+    type: std::string
+    init_with: '"[unset-title-text]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: Krampus21::DialogBoxes::Base
+    headers: [ Krampus21/DialogBoxes/Base.hpp ]
+
+

@@ -1,0 +1,15 @@
+parent_classes:
+
+
+  - class: Krampus21::DialogBoxes::Base
+    scope: public
+    init_with: '"Basic"'
+
+
+dependencies:
+
+
+  - symbol: Krampus21::DialogBoxes::Base
+    headers: [ Krampus21/DialogBoxes/Base.hpp ]
+
+

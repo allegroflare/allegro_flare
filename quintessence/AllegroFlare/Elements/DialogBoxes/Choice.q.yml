@@ -1,0 +1,115 @@
+parent_classes:
+
+
+  - class: Krampus21::DialogBoxes::Base
+    scope: public
+    init_with: '"Choice"'
+
+
+properties:
+
+
+  - name: prompt
+    type: std::string
+    init_with: '"[prompt-question-not-set]"'
+    constructor_arg: true
+
+  - name: options
+    type: std::vector<std::pair<std::string, std::string>>
+    init_with: '{}'
+    constructor_arg: true
+
+  - name: cursor_position
+    type: int
+    init_with: -1
+    getter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      if (options.empty())
+      {
+         // do nothing
+      }
+      else
+      {
+         cursor_position = 0;
+      }
+      initialized = true;
+      return;
+
+
+  - name: get_prompt
+    type: std::string
+    guards: [ initialized ]
+    body: return prompt;
+
+
+  - name: get_options
+    type: std::vector<std::pair<std::string, std::string>>
+    guards: [ initialized ]
+    body: return options;
+
+
+  - name: get_current_selection_text
+    type: std::string
+    guards: [ initialized ]
+    body: |
+      if (!has_valid_cursor_position()) return "";
+      return options[cursor_position].first;
+
+
+  - name: get_current_selection_value
+    type: std::string
+    guards: [ initialized ]
+    body: |
+      if (!has_valid_cursor_position()) return "";
+      return options[cursor_position].second;
+
+
+  - name: move_cursor_position_down
+    type: void
+    guards: [ initialized ]
+    body: |
+      if (!has_valid_cursor_position()) return;
+
+      cursor_position++;
+      if (cursor_position >= options.size()) cursor_position = cursor_position % options.size();
+      return;
+
+
+  - name: move_cursor_position_up
+    type: void
+    guards: [ initialized ]
+    body: |
+      if (!has_valid_cursor_position()) return;
+
+      cursor_position--;
+      if (cursor_position < 0) cursor_position = (cursor_position + (options.size() * 100)) % options.size();
+      return;
+
+
+  - name: has_valid_cursor_position
+    private: true
+    type: bool
+    body: |
+      return (cursor_position != -1);
+
+
+dependencies:
+
+
+  - symbol: Krampus21::DialogBoxes::Base
+    headers: [ Krampus21/DialogBoxes/Base.hpp ]
+  - symbol: std::vector<std::pair<std::string, std::string>>
+    headers: [ vector, utility, string ]
+
+
