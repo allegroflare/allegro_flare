@@ -99,7 +99,7 @@ properties:
 
   - name: menu_font_size
     type: int
-    init_with: -56
+    init_with: -48
     constructor_arg: true
     getter: true
     setter: true
