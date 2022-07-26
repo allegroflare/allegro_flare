@@ -20,12 +20,14 @@ namespace DialogBoxRenderers
 {
 
 
-BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, float width, float height, std::string current_page_text, int num_revealed_characters, bool is_finished)
+BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, float width, float height, std::string current_page_text, int num_revealed_characters, float text_padding_x, float text_padding_y, bool is_finished)
    : font_bin(font_bin)
    , width(width)
    , height(height)
    , current_page_text(current_page_text)
    , num_revealed_characters(num_revealed_characters)
+   , text_padding_x(text_padding_x)
+   , text_padding_y(text_padding_y)
    , is_finished(is_finished)
 {
 }
@@ -33,6 +35,102 @@ BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, float width, float
 
 BasicRenderer::~BasicRenderer()
 {
+}
+
+
+void BasicRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void BasicRenderer::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void BasicRenderer::set_height(float height)
+{
+   this->height = height;
+}
+
+
+void BasicRenderer::set_current_page_text(std::string current_page_text)
+{
+   this->current_page_text = current_page_text;
+}
+
+
+void BasicRenderer::set_num_revealed_characters(int num_revealed_characters)
+{
+   this->num_revealed_characters = num_revealed_characters;
+}
+
+
+void BasicRenderer::set_text_padding_x(float text_padding_x)
+{
+   this->text_padding_x = text_padding_x;
+}
+
+
+void BasicRenderer::set_text_padding_y(float text_padding_y)
+{
+   this->text_padding_y = text_padding_y;
+}
+
+
+void BasicRenderer::set_is_finished(bool is_finished)
+{
+   this->is_finished = is_finished;
+}
+
+
+AllegroFlare::FontBin* BasicRenderer::get_font_bin()
+{
+   return font_bin;
+}
+
+
+float BasicRenderer::get_width()
+{
+   return width;
+}
+
+
+float BasicRenderer::get_height()
+{
+   return height;
+}
+
+
+std::string BasicRenderer::get_current_page_text()
+{
+   return current_page_text;
+}
+
+
+int BasicRenderer::get_num_revealed_characters()
+{
+   return num_revealed_characters;
+}
+
+
+float BasicRenderer::get_text_padding_x()
+{
+   return text_padding_x;
+}
+
+
+float BasicRenderer::get_text_padding_y()
+{
+   return text_padding_y;
+}
+
+
+bool BasicRenderer::get_is_finished()
+{
+   return is_finished;
 }
 
 
@@ -94,8 +192,8 @@ void BasicRenderer::draw_action_text(std::string text, float width, float height
 
 void BasicRenderer::draw_styled_revealed_text(float max_width, std::string text, int num_revealed_characters)
 {
-   float text_padding_x = 40.0f;
-   float text_padding_y = 30.0f;
+   //float text_padding_x = 40.0f;
+   //float text_padding_y = 30.0f;
    float text_box_max_width = max_width - (text_padding_x * 2);
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    float line_height = al_get_font_line_height(text_font);

@@ -5,31 +5,57 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: width
     type: float
     init_with: 1.0f
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: height
     type: float
     init_with: 1.0f
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: current_page_text
     type: std::string
     init_with: '"[unset-current_page_text]"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: num_revealed_characters
     type: int
     init_with: 999
     constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text_padding_x
+    type: float
+    init_with: 40.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text_padding_y
+    type: float
+    init_with: 30.0f
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: is_finished
     type: bool
     init_with: false
     constructor_arg: true
+    getter: true
+    setter: true
 
 
 functions:
@@ -130,8 +156,8 @@ functions:
         type: int
         default_argument: 999
     body: |
-      float text_padding_x = 40.0f;
-      float text_padding_y = 30.0f;
+      //float text_padding_x = 40.0f;
+      //float text_padding_y = 30.0f;
       float text_box_max_width = max_width - (text_padding_x * 2);
       ALLEGRO_FONT* text_font = obtain_dialog_font();
       float line_height = al_get_font_line_height(text_font);

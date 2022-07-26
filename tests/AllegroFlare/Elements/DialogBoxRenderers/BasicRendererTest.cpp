@@ -42,10 +42,9 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
       &font_bin,
       place.size.x,
       place.size.y,
-      "",
-      999,
-      true
+      "This dialog box is finished."
    );
+   dialog_box_renderer.set_is_finished(true);
    
    al_clear_to_color(ALLEGRO_COLOR{0});
    place.start_transform();
