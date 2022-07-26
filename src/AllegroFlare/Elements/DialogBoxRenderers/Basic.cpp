@@ -107,7 +107,7 @@ void Basic::draw_styled_revealed_text(float max_width, std::string text, int num
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    float line_height = al_get_font_line_height(text_font);
    //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   ALLEGRO_COLOR text_color = al_color_name("skyblue");
+   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
    //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
 
    al_draw_multiline_text(
