@@ -10,7 +10,6 @@
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/TitleText.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
@@ -144,11 +143,6 @@ void DialogBoxRenderer::render()
       place.start_transform();
       basic_dialog_box_renderer.render();
       place.restore_transform();
-   }
-   else if (dialog_box->is_type("TitleText"))
-   {
-      std::cout << "Currently unsuported rendering for dialog box of type:: " + dialog_box->get_type();
-      throw std::runtime_error("Currently unsupported rendering for dialog box of type:: " + dialog_box->get_type());
    }
    else
    {

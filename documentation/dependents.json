@@ -314,11 +314,6 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
-  "AllegroFlare/Elements/DialogBoxes/TitleText": [
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
-  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -365,7 +360,6 @@
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
-    "AllegroFlare/Elements/DialogBoxes/TitleText",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [

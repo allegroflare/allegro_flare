@@ -60,13 +60,6 @@ AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialo
    return basic_dialog_box;
 }
 
-AllegroFlare::Elements::DialogBoxes::TitleText* DialogBoxFactory::create_title_text_dialog(std::string title_text)
-{
-   AllegroFlare::Elements::DialogBoxes::TitleText* title_text_dialog_box
-      = new AllegroFlare::Elements::DialogBoxes::TitleText(title_text);
-   return title_text_dialog_box;
-}
-
 AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dialog(std::string prompt, std::vector<std::pair<std::string, std::string>> options)
 {
    AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box

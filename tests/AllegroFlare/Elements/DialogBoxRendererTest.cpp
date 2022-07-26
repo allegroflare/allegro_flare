@@ -23,7 +23,6 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/TitleText.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 
 

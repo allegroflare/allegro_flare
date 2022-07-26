@@ -73,7 +73,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Base.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Basic.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Choice.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Choice.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/TitleText.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/TitleText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
@@ -804,9 +803,6 @@ table td
   <td class="method">create_basic_dialog(1)</td>
 </tr>
 <tr>
-  <td class="method">create_title_text_dialog(1)</td>
-</tr>
-<tr>
   <td class="method">create_choice_dialog(2)</td>
 </tr>
 <tr>
@@ -831,9 +827,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::TitleText*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/TitleText.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1051,9 +1044,6 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp&quot;]}</td>
 </tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::TitleText*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/TitleText.hpp&quot;]}</td>
-</tr>
     </table>
   </div>
 </ul>
@@ -1145,9 +1135,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxFrame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxFrame.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::TitleText*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/TitleText.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -1468,24 +1455,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Elements/DialogBoxes/TitleText.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/TitleText.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">primary_text</td>
-  <td class="property">std::string</td>
-</tr>
-    </table>
-     <table>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4730,11 +4699,6 @@ table td
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
-  "AllegroFlare/Elements/DialogBoxes/TitleText": [
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
-  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -4781,7 +4745,6 @@ table td
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
-    "AllegroFlare/Elements/DialogBoxes/TitleText",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [

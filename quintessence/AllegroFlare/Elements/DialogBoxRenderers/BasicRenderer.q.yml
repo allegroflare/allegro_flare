@@ -205,7 +205,5 @@ dependencies:
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFrame
     headers: [ AllegroFlare/Elements/DialogBoxFrame.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::TitleText*
-    headers: [ AllegroFlare/Elements/DialogBoxes/TitleText.hpp ]
 
 

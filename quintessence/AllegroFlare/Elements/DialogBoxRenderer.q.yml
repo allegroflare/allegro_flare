@@ -90,11 +90,6 @@ functions:
          basic_dialog_box_renderer.render();
          place.restore_transform();
       }
-      else if (dialog_box->is_type("TitleText"))
-      {
-         std::cout << "Currently unsuported rendering for dialog box of type:: " + dialog_box->get_type();
-         throw std::runtime_error("Currently unsupported rendering for dialog box of type:: " + dialog_box->get_type());
-      }
       else
       {
          // TODO include this:
@@ -113,7 +108,6 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::Basic*
       - AllegroFlare::Elements::DialogBoxes::Choice*
       - AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
-      - AllegroFlare::Elements::DialogBoxes::TitleText*
       - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer
@@ -266,8 +260,6 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::TitleText*
-    headers: [ AllegroFlare/Elements/DialogBoxes/TitleText.hpp ]
 
 
 
