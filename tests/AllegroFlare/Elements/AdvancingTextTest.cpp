@@ -165,6 +165,24 @@ TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
+   DISABLED__VISUAL__render__will_respect__width)
+{
+   std::string text = "Hello AdvancingText!  This text should fit to the width of 800 pixels.";
+   AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
+
+   advancing_text.set_width(1000);
+
+   advancing_text.reveal_all_characters();
+   advancing_text.render();
+   al_flip_display();
+
+   sleep_for(1);
+
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
    DISABLED__VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
 {
    std::string text = "Hello AdvancingText!";

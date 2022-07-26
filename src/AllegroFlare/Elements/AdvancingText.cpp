@@ -17,15 +17,13 @@ namespace Elements
 {
 
 
-AdvancingText::AdvancingText(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding)
+AdvancingText::AdvancingText(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float width, float line_height_multiplier, float line_height_padding)
    : font_bin(font_bin)
    , text(text)
    , font_name(font_name)
    , font_size(font_size)
    , text_color(text_color)
-   , top_padding(top_padding)
-   , left_padding(left_padding)
-   , right_padding(right_padding)
+   , width(width)
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , revealed_characters_count(0)
@@ -69,21 +67,9 @@ void AdvancingText::set_text_color(ALLEGRO_COLOR text_color)
 }
 
 
-void AdvancingText::set_top_padding(float top_padding)
+void AdvancingText::set_width(float width)
 {
-   this->top_padding = top_padding;
-}
-
-
-void AdvancingText::set_left_padding(float left_padding)
-{
-   this->left_padding = left_padding;
-}
-
-
-void AdvancingText::set_right_padding(float right_padding)
-{
-   this->right_padding = right_padding;
+   this->width = width;
 }
 
 
@@ -135,21 +121,9 @@ ALLEGRO_COLOR AdvancingText::get_text_color()
 }
 
 
-float AdvancingText::get_top_padding()
+float AdvancingText::get_width()
 {
-   return top_padding;
-}
-
-
-float AdvancingText::get_left_padding()
-{
-   return left_padding;
-}
-
-
-float AdvancingText::get_right_padding()
-{
-   return right_padding;
+   return width;
 }
 
 
@@ -210,13 +184,12 @@ void AdvancingText::render()
    std::string revealed_text = generate_revealed_text();
    if (!revealed_text.empty())
    {
-      float box_width = 1920 - (left_padding + right_padding);
       al_draw_multiline_text(
             text_font,
             text_color,
-            left_padding,
-            top_padding,
-            box_width,
+            0,
+            0,
+            width,
             al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
             0,
             revealed_text.c_str()

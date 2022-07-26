@@ -19,16 +19,14 @@ namespace AllegroFlare
          std::string font_name;
          int font_size;
          ALLEGRO_COLOR text_color;
-         float top_padding;
-         float left_padding;
-         float right_padding;
+         float width;
          float line_height_multiplier;
          float line_height_padding;
          int revealed_characters_count;
          bool finished;
 
       public:
-         AdvancingText(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name="Inter-Medium.ttf", int font_size=-60, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=200, float right_padding=200, float line_height_multiplier=1.75f, float line_height_padding=0.0f);
+         AdvancingText(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name="Inter-Medium.ttf", int font_size=-60, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float width=900.0f, float line_height_multiplier=1.25f, float line_height_padding=0.0f);
          ~AdvancingText();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -36,9 +34,7 @@ namespace AllegroFlare
          void set_font_name(std::string font_name);
          void set_font_size(int font_size);
          void set_text_color(ALLEGRO_COLOR text_color);
-         void set_top_padding(float top_padding);
-         void set_left_padding(float left_padding);
-         void set_right_padding(float right_padding);
+         void set_width(float width);
          void set_line_height_multiplier(float line_height_multiplier);
          void set_line_height_padding(float line_height_padding);
          void set_finished(bool finished);
@@ -47,9 +43,7 @@ namespace AllegroFlare
          std::string get_font_name();
          int get_font_size();
          ALLEGRO_COLOR get_text_color();
-         float get_top_padding();
-         float get_left_padding();
-         float get_right_padding();
+         float get_width();
          float get_line_height_multiplier();
          float get_line_height_padding();
          int get_revealed_characters_count();

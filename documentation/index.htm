@@ -56,6 +56,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Camera2D.q.yml">quintessence/AllegroFlare/Camera2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Cubemap.q.yml">quintessence/AllegroFlare/Cubemap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml</a></li>
@@ -429,6 +430,123 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;GLuint&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_opengl.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">line_height_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">line_height_padding</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">revealed_characters_count</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">finished</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">start()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">jump_to_end()</td>
+</tr>
+<tr>
+  <td class="method">generate_revealed_text()</td>
+</tr>
+<tr>
+  <td class="method">reveal_all_characters()</td>
+</tr>
+<tr>
+  <td class="method">all_characters_are_revealed()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_next_button_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_multiline_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4356,6 +4474,7 @@ table td
   ],
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
@@ -4384,6 +4503,7 @@ table td
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
@@ -4435,6 +4555,7 @@ table td
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
@@ -4468,6 +4589,103 @@ table td
   ],
   "GLuint": [
     "AllegroFlare/Cubemap"
+  ],
+  "AllegroFlare/Color": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "AllegroFlare/Screens/Base": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_EVENT": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_COLOR": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogBoxFrame",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/HealthBars/Basic",
+    "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/UnicodeFontViewer",
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "al_draw_multiline_text": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Screens/Storyboard"
+  ],
+  "al_draw_rounded_rectangle": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText"
+  ],
+  "AllegroFlare/interpolator/": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image"
+  ],
+  "fmod": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image"
+  ],
+  "std/min, std/max": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
     "AllegroFlare/Elements/Backgrounds/Image",
@@ -4522,26 +4740,6 @@ table td
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
-  ],
-  "ALLEGRO_COLOR": [
-    "AllegroFlare/Elements/DialogBoxFrame",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
-    "AllegroFlare/Elements/HealthBars/Basic",
-    "AllegroFlare/Elements/HealthBars/Classic",
-    "AllegroFlare/Elements/HealthBars/Hearts",
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Stopwatch",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Elements/StoryboardPages/Text",
-    "AllegroFlare/Elements/Text",
-    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/UnicodeFontViewer",
-    "AllegroFlare/Useful3D/Triangle"
   ],
   "al_get_current_display": [
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -4655,37 +4853,9 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect"
   ],
-  "AllegroFlare/Color": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Elements/StoryboardPages/Text",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/UnicodeFontViewer"
-  ],
   "AllegroFlare/interpolator": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect"
-  ],
-  "fmod": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image"
-  ],
-  "AllegroFlare/EventEmitter": [
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -4717,45 +4887,6 @@ table td
   ],
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
-  ],
-  "AllegroFlare/Screens/Base": [
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
-  "ALLEGRO_EVENT": [
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "al_draw_multiline_text": [
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Text",
-    "AllegroFlare/Screens/Storyboard"
-  ],
-  "al_draw_rounded_rectangle": [
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText"
-  ],
-  "AllegroFlare/interpolator/": [
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image"
-  ],
-  "std/min, std/max": [
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image"
   ],
   "ALLEGRO_EVENT_SOURCE": [
     "AllegroFlare/EventEmitter"
