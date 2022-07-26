@@ -56,7 +56,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest, render__draws_multiline_dialog)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
+   render__draws_multiline_dialog)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
