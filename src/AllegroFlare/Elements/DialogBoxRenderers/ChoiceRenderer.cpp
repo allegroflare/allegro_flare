@@ -15,8 +15,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -190,12 +188,6 @@ int ChoiceRenderer::obtain_choice_dialog_box_cursor_position()
 
 std::string ChoiceRenderer::concat_text(std::string source_text, int length)
 {
-   if (!(choice_dialog_box))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "concat_text" << ": error: " << "guard \"choice_dialog_box\" not met";
-         throw std::runtime_error(error_message.str());
-      }
    return source_text.substr(0, length);
 }
 } // namespace DialogBoxRenderers

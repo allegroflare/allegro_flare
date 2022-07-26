@@ -155,7 +155,6 @@ functions:
   - name: concat_text
     type: std::string
     private: true
-    guards: [ choice_dialog_box ]
     parameters:
       - name: source_text
         type: std::string
