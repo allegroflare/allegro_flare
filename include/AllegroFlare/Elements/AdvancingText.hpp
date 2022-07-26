@@ -52,11 +52,10 @@ namespace AllegroFlare
          void update();
          void render();
          void jump_to_end();
-         std::string generate_revealed_text();
          void reveal_all_characters();
          bool all_characters_are_revealed();
+         std::string generate_revealed_text();
          ALLEGRO_FONT* obtain_font();
-         ALLEGRO_FONT* obtain_next_button_font();
       };
    }
 }

@@ -7,8 +7,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -209,11 +207,6 @@ void AdvancingText::jump_to_end()
    return;
 }
 
-std::string AdvancingText::generate_revealed_text()
-{
-   return text.substr(0, revealed_characters_count);
-}
-
 void AdvancingText::reveal_all_characters()
 {
    revealed_characters_count = text.size();
@@ -222,6 +215,11 @@ void AdvancingText::reveal_all_characters()
 bool AdvancingText::all_characters_are_revealed()
 {
    return revealed_characters_count >= text.size();
+}
+
+std::string AdvancingText::generate_revealed_text()
+{
+   return text.substr(0, revealed_characters_count);
 }
 
 ALLEGRO_FONT* AdvancingText::obtain_font()
@@ -234,19 +232,6 @@ ALLEGRO_FONT* AdvancingText::obtain_font()
       }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
-   return font_bin->auto_get(composite_font_str.str());
-}
-
-ALLEGRO_FONT* AdvancingText::obtain_next_button_font()
-{
-   if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "AdvancingText" << "::" << "obtain_next_button_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << font_size+20;
    return font_bin->auto_get(composite_font_str.str());
 }
 } // namespace Elements

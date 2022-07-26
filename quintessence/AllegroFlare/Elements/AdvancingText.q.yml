@@ -122,12 +122,6 @@ functions:
       return;
 
 
-  - name: generate_revealed_text
-    type: std::string
-    body: |
-      return text.substr(0, revealed_characters_count);
-
-
   - name: reveal_all_characters
     body: |
       revealed_characters_count = text.size();
@@ -139,6 +133,13 @@ functions:
       return revealed_characters_count >= text.size();
 
 
+  - name: generate_revealed_text
+    private: true
+    type: std::string
+    body: |
+      return text.substr(0, revealed_characters_count);
+
+
   - name: obtain_font
     private: true
     type: ALLEGRO_FONT*
@@ -146,16 +147,6 @@ functions:
     body: |
       std::stringstream composite_font_str;
       composite_font_str << font_name << " " << font_size;
-      return font_bin->auto_get(composite_font_str.str());
-
-
-  - name: obtain_next_button_font
-    private: true
-    type: ALLEGRO_FONT*
-    guards: [ font_bin ]
-    body: |
-      std::stringstream composite_font_str;
-      composite_font_str << font_name << " " << font_size+20;
       return font_bin->auto_get(composite_font_str.str());
 
 
