@@ -119,6 +119,11 @@ void DialogBoxRenderer::render()
       you_got_an_item_dialog_box_renderer.render();
       place.restore_transform();
    }
+   else if (dialog_box->is_type("TitleText"))
+   {
+      std::cout << "Currently unsuported rendering for dialog box of type:: " + dialog_box->get_type();
+      throw std::runtime_error("Currently unsupported rendering for dialog box of type:: " + dialog_box->get_type());
+   }
    else if (dialog_box->is_type("Basic"))
    {
    //   // Note: BasicRenderer does not exist
@@ -173,7 +178,7 @@ void DialogBoxRenderer::render()
 void DialogBoxRenderer::draw_special_state_empty_text(float width, float height)
 {
    ALLEGRO_FONT* text_font = obtain_dialog_font();
-   ALLEGRO_COLOR text_color = al_color_name("darkslategray");
+   ALLEGRO_COLOR text_color = al_color_html("303030");
    float line_height = al_get_font_line_height(text_font);
    std::string text = "[dialog finished]";
    al_draw_text(

@@ -23,6 +23,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/TitleText.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 
 
@@ -40,7 +41,8 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_allegro_is_not_in
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_allegro_primitives_are_not_installed__raises_an_exception)
+TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+   render__when_allegro_primitives_are_not_installed__raises_an_exception)
 {
    al_init();
 
@@ -67,7 +69,8 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_alleg
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_the_allegro_font_addon_has_not_been_initialized__raises_an_exception)
+TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+   render__when_the_allegro_font_addon_has_not_been_initialized__raises_an_exception)
 {
    al_init();
    al_init_primitives_addon();
@@ -86,7 +89,8 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_the_allegro_font_
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_the_allegro_ttf_addon_has_not_been_initialized__raises_an_exception)
+TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+   render__when_the_allegro_ttf_addon_has_not_been_initialized__raises_an_exception)
 {
    al_init();
    al_init_primitives_addon();
@@ -264,7 +268,8 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_multiline_dialog
    AllegroFlare::BitmapBin bitmap_bin;
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
-   dialog_box.set_pages({ "Some test dialog text. There's actually a lot of text that will need to fit." });
+   dialog_box.set_pages({
+      "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines." });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &dialog_box);
 
    dialog_box.reveal_all_characters();
