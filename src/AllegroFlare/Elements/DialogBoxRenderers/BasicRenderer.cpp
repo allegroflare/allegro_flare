@@ -40,27 +40,19 @@ void BasicRenderer::render()
 {
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
 
-   //AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
-     // dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
-
    if (is_finished)
    {
       draw_special_state_empty_text(width, height);
    }
    else
    {
-      //std::string dialog_current_page_text = basic_dialog_box->get_current_page_text();
-      //int num_revealed_characters = basic_dialog_box->get_num_revealed_characters();
-
       draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
 
-      // draw the player's action cursor thing at the bottom
+      // draw the "next" cursor
       int current_dialog_box_page_character_count = current_page_text.length();
-      //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
       if (num_revealed_characters >= current_dialog_box_page_character_count)
       {
-         //if (dialog_box->at_last_page()) draw_action_text("[close]", place.size.x, place.size.y);
-         draw_action_text(">>", width, height);
+         draw_action_text("next >", width, height);
       }
    }
    return;
