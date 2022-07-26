@@ -17,6 +17,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/Basic.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <allegro5/allegro_primitives.h>
 #include <chrono>
 #include <thread>
 
@@ -34,6 +35,88 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicTest, can_be_created_withou
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixtureTest,
    render__renders_the_dialog_box)
 {
+}
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicTest,
+   render__when_the_dialog_box_is_finished__renders_special_empty_text)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   //AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   //AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
+   //dialog_box.next_page();
+   AllegroFlare::Elements::DialogBoxRenderers::Basic dialog_box_renderer(&font_bin);
+
+   //dialog_box.reveal_all_characters();
+
+   dialog_box_renderer.render();
+   al_flip_display();
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
+
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicTest, render__draws_multiline_dialog)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   //AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
+   std::string dialog_box_page_text =
+      "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
+   AllegroFlare::Elements::DialogBoxRenderers::Basic dialog_box_renderer(&font_bin);
+
+   //dialog_box.reveal_all_characters();
+
+   dialog_box_renderer.render();
+   al_flip_display();
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
+
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicTest, render__will_propertly_render_revealing_text)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   //AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
+   std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
+   //dialog_box.set_pages({ page_text });
+   AllegroFlare::Elements::DialogBoxRenderers::Basic dialog_box_renderer(&font_bin);
+
+   int num_revealed_characters = 0;
+   for (unsigned i=0; i<page_text.size(); i++)
+   {
+      num_revealed_characters++;
+      //dialog_box.update();
+      dialog_box_renderer.render();
+      //al_flip_display();
+      //std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
+   }
+   //std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+   al_destroy_display(display);
+   al_uninstall_system();
 }
 
 
