@@ -11,6 +11,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/TitleText.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 #include <stdexcept>
@@ -136,33 +137,20 @@ void DialogBoxRenderer::render()
    // draw frame
       AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
 
-      place.start_transform();
-      AllegroFlare::Elements::DialogBoxFrame(place.size.x, place.size.y).render();
-
       AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
-         dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
+         static_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
 
-      if (basic_dialog_box->get_finished())
-      {
-         draw_special_state_empty_text(place.size.x, place.size.y);
-      }
-      else
-      {
-         std::string dialog_current_page_text = basic_dialog_box->get_current_page_text();
-         int num_revealed_characters = basic_dialog_box->get_num_revealed_characters();
-
-         draw_styled_revealed_text(place.size.x, dialog_current_page_text, num_revealed_characters);
-
-         // draw the player's action cursor thing at the bottom
-         int current_dialog_box_page_character_count = dialog_current_page_text.length();
-         //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
-         if (num_revealed_characters >= current_dialog_box_page_character_count)
-         {
-            //if (dialog_box->at_last_page()) draw_action_text("[close]", place.size.x, place.size.y);
-            draw_action_text(">>", place.size.x, place.size.y);
-         }
-      }
-
+      AllegroFlare::Elements::DialogBoxRenderers::Basic basic_dialog_box_renderer(
+         font_bin,
+         place.size.x,
+         place.size.y,
+         basic_dialog_box->get_current_page_text(),
+         basic_dialog_box->get_num_revealed_characters(),
+         basic_dialog_box->get_finished()
+      );
+      
+      place.start_transform();
+      basic_dialog_box_renderer.render();
       place.restore_transform();
    }
    else

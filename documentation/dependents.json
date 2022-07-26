@@ -280,6 +280,9 @@
   "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/Elements/DialogBoxRenderers/Basic": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
