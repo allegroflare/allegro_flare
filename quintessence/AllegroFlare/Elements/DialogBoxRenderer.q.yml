@@ -37,7 +37,8 @@ functions:
          float width = place.size.x;
          float height = place.size.y;
          place.start_transform();
-         AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box = static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(dialog_box);
+         AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box =
+            static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(dialog_box);
          AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer(font_bin, bitmap_bin, choice_dialog_box, width, height).render();
          place.restore_transform();
       }
@@ -79,17 +80,23 @@ functions:
          place.start_transform();
          AllegroFlare::Elements::DialogBoxFrame(place.size.x, place.size.y).render();
 
-         if (dialog_box->get_finished())
+         AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
+            dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
+
+         if (basic_dialog_box->get_finished())
          {
             draw_special_state_empty_text(place.size.x, place.size.y);
          }
          else
          {
-            draw_styled_revealed_text(place.size.x);
+            std::string dialog_current_page_text = basic_dialog_box->get_current_page_text();
+            int num_revealed_characters = basic_dialog_box->get_num_revealed_characters();
+
+            draw_styled_revealed_text(place.size.x, dialog_current_page_text, num_revealed_characters);
 
             // draw the player's action cursor thing at the bottom
-            int current_dialog_box_page_character_count = dialog_box->get_current_page_text().length();
-            int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
+            int current_dialog_box_page_character_count = dialog_current_page_text.length();
+            //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
             if (num_revealed_characters >= current_dialog_box_page_character_count)
             {
                //if (dialog_box->at_last_page()) draw_action_text("[close]", place.size.x, place.size.y);
@@ -114,6 +121,7 @@ functions:
       - al_draw_filled_rounded_rectangle
       - al_color_html
       - AllegroFlare::Elements::DialogBoxFrame
+      - AllegroFlare::Elements::DialogBoxes::Basic*
       - AllegroFlare::Elements::DialogBoxes::Choice*
       - AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
       - AllegroFlare::Elements::DialogBoxes::TitleText*
@@ -176,8 +184,13 @@ functions:
       - name: max_width
         type: float
         default_argument: 1
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+      - name: num_revealed_characters
+        type: int
+        default_argument: 999
     body: |
-      std::string text = obtain_dialog_box_text();
       float text_padding_x = 40.0f;
       float text_padding_y = 30.0f;
       float text_box_max_width = max_width - (text_padding_x * 2);
@@ -185,7 +198,7 @@ functions:
       float line_height = al_get_font_line_height(text_font);
       //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
       ALLEGRO_COLOR text_color = al_color_name("skyblue");
-      int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
+      //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
 
       al_draw_multiline_text(
          text_font,
@@ -198,20 +211,6 @@ functions:
          concat_text(text, num_revealed_characters).c_str()
       );
       return;
-
-
-  - name: obtain_dialog_box_text
-    type: std::string
-    guards: [ dialog_box ]
-    body: |
-      return dialog_box->get_current_page_text();
-
-
-  - name: obtain_dialog_box_num_revealed_characters
-    type: int
-    guards: [ dialog_box ]
-    body: |
-      return dialog_box->get_num_revealed_characters();
 
 
   - name: concat_text
@@ -261,6 +260,8 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Base*
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Basic*
+    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFrame

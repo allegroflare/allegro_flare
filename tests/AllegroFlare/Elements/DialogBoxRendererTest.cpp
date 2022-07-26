@@ -21,6 +21,7 @@
 #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps"
 #endif
 
+#include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 
@@ -72,7 +73,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_the_allegro_font_
    al_init_primitives_addon();
    al_init_ttf_addon();
    ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
-   AllegroFlare::Elements::DialogBoxes::Base dialog_box;
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    dialog_box.set_pages({ { "Some test dialog text." } });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(nullptr, nullptr, &dialog_box);
 
@@ -92,7 +93,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_the_allegro_ttf_a
    al_init_font_addon();
    al_init_ttf_addon();
    ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
-   AllegroFlare::Elements::DialogBoxes::Base dialog_box;
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    dialog_box.set_pages({ { "Some test dialog text." } });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(nullptr, nullptr, &dialog_box);
 
@@ -112,7 +113,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_font_
    al_init_font_addon();
    al_init_ttf_addon();
    ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
-   AllegroFlare::Elements::DialogBoxes::Base dialog_box;
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    dialog_box.set_pages({ { "Some test dialog text." } });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(nullptr, nullptr, &dialog_box);
 
@@ -155,7 +156,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_the_dialog_box)
    AllegroFlare::FontBin font_bin;
    AllegroFlare::BitmapBin bitmap_bin;
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
-   AllegroFlare::Elements::DialogBoxes::Base dialog_box;
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    dialog_box.set_pages({ "Some test dialog text with multiple pages.", "Here's the second page." });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &dialog_box);
 
@@ -237,7 +238,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_the_dialog_box_is
    AllegroFlare::FontBin font_bin;
    AllegroFlare::BitmapBin bitmap_bin;
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
-   AllegroFlare::Elements::DialogBoxes::Base dialog_box;
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    dialog_box.next_page();
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &dialog_box);
 
@@ -262,7 +263,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_multiline_dialog
    AllegroFlare::FontBin font_bin;
    AllegroFlare::BitmapBin bitmap_bin;
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
-   AllegroFlare::Elements::DialogBoxes::Base dialog_box;
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    dialog_box.set_pages({ "Some test dialog text. There's actually a lot of text that will need to fit." });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &dialog_box);
 
@@ -287,7 +288,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__will_propertly_render_
    AllegroFlare::FontBin font_bin;
    AllegroFlare::BitmapBin bitmap_bin;
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
-   AllegroFlare::Elements::DialogBoxes::Base dialog_box;
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
    dialog_box.set_pages({ page_text });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &dialog_box);
