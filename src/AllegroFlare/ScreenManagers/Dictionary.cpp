@@ -40,13 +40,13 @@ Dictionary::~Dictionary()
 }
 
 
-bool Dictionary::allow_disabled_screens_to_receive_events()
+void Dictionary::allow_disabled_screens_to_receive_events()
 {
    disabled_screens_receive_events = true;
 }
 
 
-bool Dictionary::prevent_disabled_screens_from_receiving_events()
+void Dictionary::prevent_disabled_screens_from_receiving_events()
 {
    disabled_screens_receive_events = false;
 }

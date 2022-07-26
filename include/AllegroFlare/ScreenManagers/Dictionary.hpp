@@ -37,8 +37,8 @@ namespace AllegroFlare
          ~Dictionary();
 
          // states
-         bool allow_disabled_screens_to_receive_events();
-         bool prevent_disabled_screens_from_receiving_events();
+         void allow_disabled_screens_to_receive_events();
+         void prevent_disabled_screens_from_receiving_events();
 
          // management
          Screens::Base *find(std::string identifier);
