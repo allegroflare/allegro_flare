@@ -33,7 +33,7 @@ namespace AllegroFlare
          bool disabled_screens_receive_events;
 
       public:
-         Dictionary();
+         Dictionary(bool disabled_screens_receive_events=false);
          ~Dictionary();
 
          // states

@@ -28,9 +28,9 @@ bool Dictionary::Listing::operator==(const Listing &other) const
 }
 
 
-Dictionary::Dictionary()
+Dictionary::Dictionary(bool disabled_screens_receive_events=false)
    : screens({})
-   , disabled_screens_receive_events(false)
+   , disabled_screens_receive_events(disabled_screens_receive_events)
 {
 }
 
