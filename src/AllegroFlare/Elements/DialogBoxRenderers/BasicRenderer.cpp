@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Elements/DialogBoxRenderers/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -20,7 +20,7 @@ namespace DialogBoxRenderers
 {
 
 
-Basic::Basic(AllegroFlare::FontBin* font_bin, float width, float height, std::string current_page_text, int num_revealed_characters, bool is_finished)
+BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, float width, float height, std::string current_page_text, int num_revealed_characters, bool is_finished)
    : font_bin(font_bin)
    , width(width)
    , height(height)
@@ -31,12 +31,12 @@ Basic::Basic(AllegroFlare::FontBin* font_bin, float width, float height, std::st
 }
 
 
-Basic::~Basic()
+BasicRenderer::~BasicRenderer()
 {
 }
 
 
-void Basic::render()
+void BasicRenderer::render()
 {
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
 
@@ -66,7 +66,7 @@ void Basic::render()
    return;
 }
 
-void Basic::draw_special_state_empty_text(float width, float height)
+void BasicRenderer::draw_special_state_empty_text(float width, float height)
 {
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    ALLEGRO_COLOR text_color = al_color_html("303030");
@@ -83,10 +83,11 @@ void Basic::draw_special_state_empty_text(float width, float height)
    return;
 }
 
-void Basic::draw_action_text(std::string text, float width, float height)
+void BasicRenderer::draw_action_text(std::string text, float width, float height)
 {
    ALLEGRO_FONT* text_font = obtain_dialog_font();
-   ALLEGRO_COLOR text_color = al_color_html("66a9bc");
+   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
+   ALLEGRO_COLOR text_color = al_color_html("ffffff");
    float line_height = al_get_font_line_height(text_font);
    al_draw_text(
       text_font,
@@ -99,7 +100,7 @@ void Basic::draw_action_text(std::string text, float width, float height)
    return;
 }
 
-void Basic::draw_styled_revealed_text(float max_width, std::string text, int num_revealed_characters)
+void BasicRenderer::draw_styled_revealed_text(float max_width, std::string text, int num_revealed_characters)
 {
    float text_padding_x = 40.0f;
    float text_padding_y = 30.0f;
@@ -123,29 +124,29 @@ void Basic::draw_styled_revealed_text(float max_width, std::string text, int num
    return;
 }
 
-std::string Basic::concat_text(std::string source_text, int length)
+std::string BasicRenderer::concat_text(std::string source_text, int length)
 {
    return source_text.substr(0, length);
 }
 
-ALLEGRO_FONT* Basic::obtain_dialog_font()
+ALLEGRO_FONT* BasicRenderer::obtain_dialog_font()
 {
    if (!(al_is_font_addon_initialized()))
       {
          std::stringstream error_message;
-         error_message << "Basic" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         error_message << "BasicRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (!(al_is_ttf_addon_initialized()))
       {
          std::stringstream error_message;
-         error_message << "Basic" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
+         error_message << "BasicRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (!(font_bin))
       {
          std::stringstream error_message;
-         error_message << "Basic" << "::" << "obtain_dialog_font" << ": error: " << "guard \"font_bin\" not met";
+         error_message << "BasicRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -50";

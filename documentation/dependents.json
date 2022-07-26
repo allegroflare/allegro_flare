@@ -27,7 +27,7 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/Inventory",
@@ -57,7 +57,7 @@
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
@@ -85,7 +85,7 @@
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
@@ -109,7 +109,7 @@
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
   "al_is_primitives_addon_initialized": [
@@ -117,7 +117,7 @@
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
@@ -139,7 +139,7 @@
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -203,7 +203,7 @@
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic"
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -217,7 +217,7 @@
   "AllegroFlare/Elements/DialogBoxes/TitleText": [
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic"
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
@@ -246,14 +246,14 @@
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic"
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
   ],
   "al_color_html": [
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer"
   ],
@@ -261,7 +261,7 @@
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
   "al_draw_text": [
@@ -271,17 +271,17 @@
   "AllegroFlare/Elements/DialogBoxFrame": [
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer"
   ],
   "Blast/StringJoiner": [
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic"
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxes/Base": [
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/Basic",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
@@ -294,7 +294,7 @@
   "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
-  "AllegroFlare/Elements/DialogBoxRenderers/Basic": [
+  "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "al_color_name": [

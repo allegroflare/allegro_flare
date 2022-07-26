@@ -14,31 +14,31 @@
 #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
 #endif
 
-#include <AllegroFlare/Elements/DialogBoxRenderers/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <chrono>
 #include <thread>
 
-class AllegroFlare_Elements_DialogBoxRenderers_BasicTest : public ::testing::Test {};
-class AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixtureTest
+class AllegroFlare_Elements_DialogBoxRenderers_BasicRendererTest : public ::testing::Test {};
+class AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Elements::DialogBoxRenderers::Basic you_got_an_item_renderer;
+   AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer you_got_an_item_renderer;
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixtureTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
    render__when_the_dialog_box_is_finished__renders_special_empty_text)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
-   AllegroFlare::Elements::DialogBoxRenderers::Basic dialog_box_renderer(
+   AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(
       &font_bin,
       place.size.x,
       place.size.y,
@@ -56,7 +56,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixture
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixtureTest, render__draws_multiline_dialog)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest, render__draws_multiline_dialog)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
@@ -64,7 +64,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixture
    AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
    std::string dialog_box_page_text =
       "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
-   AllegroFlare::Elements::DialogBoxRenderers::Basic dialog_box_renderer(
+   AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(
       &font_bin,
       place.size.x,
       place.size.y,
@@ -80,7 +80,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixture
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixtureTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
    render__will_propertly_render_num_revealed_characters)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
@@ -94,7 +94,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicWithAllegroRenderingFixture
    {
       num_revealed_characters++;
 
-      AllegroFlare::Elements::DialogBoxRenderers::Basic dialog_box_renderer(
+      AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(
          &font_bin,
          place.size.x,
          place.size.y,

@@ -77,7 +77,7 @@ functions:
          AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
             dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
 
-         AllegroFlare::Elements::DialogBoxRenderers::Basic basic_dialog_box_renderer(
+         AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(
             font_bin,
             place.size.x,
             place.size.y,
@@ -114,7 +114,7 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::Choice*
       - AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
       - AllegroFlare::Elements::DialogBoxes::TitleText*
-      - AllegroFlare::Elements::DialogBoxRenderers::Basic
+      - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer
 
@@ -264,8 +264,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxRenderers::Basic
-    headers: [ AllegroFlare/Elements/DialogBoxRenderers/Basic.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::TitleText*
     headers: [ AllegroFlare/Elements/DialogBoxes/TitleText.hpp ]
 

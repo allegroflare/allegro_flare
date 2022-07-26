@@ -12,7 +12,7 @@ namespace AllegroFlare
    {
       namespace DialogBoxRenderers
       {
-         class Basic
+         class BasicRenderer
          {
          private:
             AllegroFlare::FontBin* font_bin;
@@ -23,8 +23,8 @@ namespace AllegroFlare
             bool is_finished;
 
          public:
-            Basic(AllegroFlare::FontBin* font_bin=nullptr, float width=1.0f, float height=1.0f, std::string current_page_text="[unset-current_page_text]", int num_revealed_characters=999, bool is_finished=false);
-            ~Basic();
+            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, float width=1.0f, float height=1.0f, std::string current_page_text="[unset-current_page_text]", int num_revealed_characters=999, bool is_finished=false);
+            ~BasicRenderer();
 
             void render();
             void draw_special_state_empty_text(float width=1, float height=1);

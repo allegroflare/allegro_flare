@@ -11,7 +11,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/TitleText.hpp>
-#include <AllegroFlare/Elements/DialogBoxRenderers/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 #include <stdexcept>
@@ -132,7 +132,7 @@ void DialogBoxRenderer::render()
       AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
          dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
 
-      AllegroFlare::Elements::DialogBoxRenderers::Basic basic_dialog_box_renderer(
+      AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(
          font_bin,
          place.size.x,
          place.size.y,
