@@ -55,6 +55,7 @@ functions:
 
 
   - name: suspend
+    guards: [ initialized ]
     body: |
       if (suspended) return;
       suspended = true;
@@ -63,6 +64,7 @@ functions:
 
 
   - name: resume
+    guards: [ initialized ]
     body: |
       if (!suspended) return;
       suspended = false;
@@ -71,11 +73,13 @@ functions:
 
 
   - name: show
+    guards: [ initialized ]
     body: |
       return;
 
 
   - name: hide
+    guards: [ initialized ]
     body: |
       return;
 
@@ -94,6 +98,7 @@ functions:
 
 
   - name: update
+    guards: [ initialized ]
     body: |
       if (suspended) return;
 
@@ -110,6 +115,7 @@ functions:
 
 
   - name: render
+    guards: [ initialized ]
     body: |
       // draw the entities
       for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
@@ -128,7 +134,7 @@ functions:
 
 
   - name: interact_with_item_under_cursor
-    guards: [ event_emitter ]
+    guards: [ initialized, event_emitter ]
     body: |
       std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
       emit_interaction_event(name, cursor.get_x(), cursor.get_y());
@@ -136,6 +142,7 @@ functions:
 
 
   - name: move_cursor
+    guards: [ initialized ]
     parameters:
       - name: distance_x
         type: float
@@ -185,6 +192,7 @@ functions:
 
 
   - name: emit_interaction_event
+    guards: [ initialized ]
     private: true
     parameters:
       - name: item_dictionary_name

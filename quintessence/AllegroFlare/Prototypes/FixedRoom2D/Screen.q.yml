@@ -19,6 +19,11 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
   - name: fixed_room_2d
     type: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
     init_with: '{}'
@@ -36,6 +41,7 @@ functions:
     body: |
       fixed_room_2d.set_bitmap_bin(bitmap_bin);
       fixed_room_2d.set_font_bin(font_bin);
+      fixed_room_2d.set_event_emitter(event_emitter);
       fixed_room_2d.initialize();
       initialized = true;
       return;
@@ -144,6 +150,8 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary

@@ -16,6 +16,7 @@ properties:
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
+    setter: true
 
   - name: entity_dictionary
     type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
@@ -57,7 +58,7 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized), bitmap_bin ]
+    guards: [ (!initialized), bitmap_bin, event_emitter ]
     body: |
       AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
 
@@ -78,6 +79,7 @@ functions:
       room.set_font_bin(font_bin);
       room.set_event_emitter(event_emitter);
       room.set_entity_dictionary(&entity_dictionary);
+      room.initialize();
 
       script_runner.set_audio_controller(nullptr); // TODO
       script_runner.set_af_inventory(nullptr); // TODO

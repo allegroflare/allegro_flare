@@ -3,12 +3,28 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -58,6 +74,12 @@ void Room::set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes:
 
 void Room::suspend()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "suspend" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (suspended) return;
    suspended = true;
    suspended_at = al_get_time();
@@ -66,6 +88,12 @@ void Room::suspend()
 
 void Room::resume()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "resume" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (!suspended) return;
    suspended = false;
    suspended_at = 0.0f;
@@ -74,11 +102,23 @@ void Room::resume()
 
 void Room::show()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "show" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    return;
 }
 
 void Room::hide()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "hide" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    return;
 }
 
@@ -102,6 +142,12 @@ void Room::initialize()
 
 void Room::update()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (suspended) return;
 
    // update the entities
@@ -118,6 +164,12 @@ void Room::update()
 
 void Room::render()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    // draw the entities
    for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
    {
@@ -133,6 +185,12 @@ void Room::render()
 
 void Room::interact_with_item_under_cursor()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "interact_with_item_under_cursor" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (!(event_emitter))
       {
          std::stringstream error_message;
@@ -146,6 +204,12 @@ void Room::interact_with_item_under_cursor()
 
 void Room::move_cursor(float distance_x, float distance_y)
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "move_cursor" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    cursor.move(distance_x, distance_y);
 
    AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_was_over = nullptr;
@@ -188,6 +252,12 @@ void Room::move_cursor(float distance_x, float distance_y)
 
 void Room::emit_interaction_event(std::string item_dictionary_name, float cursor_x, float cursor_y)
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "emit_interaction_event" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
       new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);
 

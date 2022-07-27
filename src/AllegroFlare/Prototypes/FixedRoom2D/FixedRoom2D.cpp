@@ -41,6 +41,12 @@ void FixedRoom2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 }
 
 
+void FixedRoom2D::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
 void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    room.set_font_bin(font_bin);
@@ -62,6 +68,12 @@ void FixedRoom2D::initialize()
          error_message << "FixedRoom2D" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "FixedRoom2D" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
 
    entity_dictionary = {
@@ -81,6 +93,7 @@ void FixedRoom2D::initialize()
    room.set_font_bin(font_bin);
    room.set_event_emitter(event_emitter);
    room.set_entity_dictionary(&entity_dictionary);
+   room.initialize();
 
    script_runner.set_audio_controller(nullptr); // TODO
    script_runner.set_af_inventory(nullptr); // TODO

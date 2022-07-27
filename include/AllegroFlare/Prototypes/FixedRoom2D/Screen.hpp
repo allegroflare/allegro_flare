@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp>
@@ -20,11 +21,12 @@ namespace AllegroFlare
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
+            AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
             bool initialized;
 
          public:
-            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
+            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
             void initialize();
