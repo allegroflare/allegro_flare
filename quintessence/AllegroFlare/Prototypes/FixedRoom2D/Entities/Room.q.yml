@@ -1,8 +1,0 @@
-functions:
-
-
-  - name: run
-    type: std::string
-    body: return "Hello World!";
-
-

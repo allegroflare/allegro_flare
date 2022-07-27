@@ -7,4 +7,18 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: data
+    type: AllegroFlare::GameEventDatas::Base*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameEventDatas::Base*
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+
 

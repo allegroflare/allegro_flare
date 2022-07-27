@@ -13,29 +13,32 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: entity_dictionary
-    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
-    init_with: '{}'
-
-  - name: room_dictionary
-    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
-    init_with: '{}'
-
-  - name: script_dictionary
-    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
-    init_with: '{}'
-
-  - name: script_runner
-    type: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
-    init_with: '{}'
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    init_with: nullptr
+    constructor_arg: true
 
   - name: entity_collection_helper
     type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
-    init_with: '&entity_dictionary'
+    init_with: entity_dictionary
 
   - name: cursor
     type: AllegroFlare::Prototypes::FixedRoom2D::Cursor
     init_with: '{}'
+
+  - name: suspended
+    type: bool
+    init_with: false
+
+  - name: suspended_at
+    type: float
+    init_with: 0.0f
 
   - name: initialized
     type: bool
@@ -45,9 +48,31 @@ properties:
 functions:
 
 
+  - name: set_entity_dictionary
+    type: void
+    parameters:
+      - name: entity_dictionary
+        type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+        default_argument: nullptr
+    body: |
+      this->entity_dictionary = entity_dictionary;
+      entity_collection_helper.set_entity_dictionary(entity_dictionary);
+      return;
+
+
   - name: suspend
     body: |
-      // equivelent to "pausing" the simulation
+      if (suspended) return;
+      suspended = true;
+      suspended_at = al_get_time();
+      return;
+
+
+  - name: resume
+    body: |
+      if (!suspended) return;
+      suspended = false;
+      suspended_at = 0.0f;
       return;
 
 
@@ -64,40 +89,20 @@ functions:
   - name: initialize
     guards: [ (!initialized), bitmap_bin ]
     body: |
-      AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
       cursor.set_font_bin(font_bin);
 
-      entity_dictionary = {
-         { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
-         { "chair", entity_factory.create_entity("wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168) },
-         { "table", entity_factory.create_entity("download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4) },
-         { "keys", entity_factory.create_entity(
-               "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "say_hello") },
-      };
-
-      script_dictionary = {
-         { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"SIGNAL: Hello!"}) },
-      };
-
+      // setup the objects to good defaults
       cursor.set_cursor_to_pointer();
       cursor.clear_info_text();
 
-      script_runner.set_audio_controller(nullptr); // TODO
-      script_runner.set_af_inventory(nullptr); // TODO
-      script_runner.set_inventory_window(nullptr); // TODO
-      script_runner.set_script_dictionary(&script_dictionary);
-      script_runner.set_flags(nullptr); // TODO
-
-      //script_runner.set
-
       initialized = true;
       return;
-    body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::EntityFactory
 
 
   - name: update
     body: |
+      if (suspended) return;
+
       // update the entities
       for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
       {
@@ -129,23 +134,10 @@ functions:
 
 
   - name: interact_with_item_under_cursor
+    guards: [ event_emitter ]
     body: |
       std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
-      if (name.empty())
-      {
-         cursor.set_info_text("there is nothing here");
-      }
-      else
-      {
-         AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
-         std::string script = interacting_entity->get_on_cursor_interact_script_name();
-         
-         script_runner.load_script_by_dictionary_name(script);
-
-         script_runner.play_current_script_line();
-         
-         //cursor.set_info_text(name);
-      }
+      emit_interaction_event(name, cursor.get_x(), cursor.get_y());
       return;
 
 
@@ -198,9 +190,35 @@ functions:
       return;
 
 
+  - name: emit_interaction_event
+    private: true
+    parameters:
+      - name: item_dictionary_name
+        type: std::string
+        default_argument: '"[unset-item_dictionary_name]"'
+      - name: cursor_x
+        type: float
+        default_argument: 0.0
+      - name: cursor_y
+        type: float
+        default_argument: 0.0
+    body: |
+      AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
+         new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);
+
+      AllegroFlare::GameEvent game_event("interact_with_item", interaction_event_data);
+      
+      event_emitter->emit_game_event(game_event);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
+
+
 dependencies:
 
 
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Cursor
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp ]
   - symbol: AllegroFlare::Color::*
@@ -209,17 +227,17 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
-    headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityFactory
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
   - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
     headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
 
   

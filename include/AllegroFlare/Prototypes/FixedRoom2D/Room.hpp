@@ -2,14 +2,11 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
-#include <map>
 #include <string>
 
 
@@ -19,26 +16,29 @@ namespace AllegroFlare
    {
       namespace FixedRoom2D
       {
-         class FixedRoom2D
+         class Room
          {
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entity_dictionary;
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*> room_dictionary;
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary;
-            AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner;
+            AllegroFlare::EventEmitter* event_emitter;
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary;
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper entity_collection_helper;
             AllegroFlare::Prototypes::FixedRoom2D::Cursor cursor;
+            bool suspended;
+            float suspended_at;
             bool initialized;
 
          public:
-            FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
-            ~FixedRoom2D();
+            Room(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary=nullptr);
+            ~Room();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
+            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+            void set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary=nullptr);
             void suspend();
+            void resume();
             void show();
             void hide();
             void initialize();
@@ -46,6 +46,7 @@ namespace AllegroFlare
             void render();
             void interact_with_item_under_cursor();
             void move_cursor(float distance_x=0.0, float distance_y=0.0);
+            void emit_interaction_event(std::string item_dictionary_name="[unset-item_dictionary_name]", float cursor_x=0.0, float cursor_y=0.0);
          };
       }
    }
