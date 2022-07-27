@@ -15,6 +15,24 @@ properties:
     setter: true
 
 
+functions:
+
+
+  - name: todo
+    body: |
+      // rename "name" to "type"
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '"[unset-possible_type]"'
+    body: |
+      return (name == possible_type);
+
+
 dependencies:
 
 

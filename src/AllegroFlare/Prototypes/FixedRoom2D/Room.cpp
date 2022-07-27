@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
 
 
 namespace AllegroFlare
@@ -18,9 +19,8 @@ namespace FixedRoom2D
 {
 
 
-Room::Room(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary)
-   : bitmap_bin(bitmap_bin)
-   , font_bin(font_bin)
+Room::Room(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary)
+   : font_bin(font_bin)
    , event_emitter(event_emitter)
    , entity_dictionary(entity_dictionary)
    , entity_collection_helper(entity_dictionary)
@@ -34,12 +34,6 @@ Room::Room(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin,
 
 Room::~Room()
 {
-}
-
-
-void Room::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
-{
-   this->bitmap_bin = bitmap_bin;
 }
 
 
@@ -94,12 +88,6 @@ void Room::initialize()
       {
          std::stringstream error_message;
          error_message << "Room" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Room" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
    cursor.set_font_bin(font_bin);
@@ -203,7 +191,10 @@ void Room::emit_interaction_event(std::string item_dictionary_name, float cursor
    AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
       new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);
 
-   AllegroFlare::GameEvent game_event("interact_with_item", interaction_event_data);
+   AllegroFlare::GameEvent game_event(
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
+      interaction_event_data
+   );
 
    event_emitter->emit_game_event(game_event);
    return;

@@ -1,12 +1,6 @@
 properties:
 
 
-  - name: bitmap_bin
-    type: AllegroFlare::BitmapBin*
-    init_with: nullptr
-    constructor_arg: true
-    setter: true
-
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
@@ -87,7 +81,7 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized), bitmap_bin ]
+    guards: [ (!initialized) ]
     body: |
       cursor.set_font_bin(font_bin);
 
@@ -206,12 +200,16 @@ functions:
       AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
          new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);
 
-      AllegroFlare::GameEvent game_event("interact_with_item", interaction_event_data);
+      AllegroFlare::GameEvent game_event(
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
+         interaction_event_data
+      );
       
       event_emitter->emit_game_event(game_event);
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
+      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
 
 
 dependencies:
@@ -239,5 +237,8 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
+
 
   

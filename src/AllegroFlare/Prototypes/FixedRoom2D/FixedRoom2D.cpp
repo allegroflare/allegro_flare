@@ -16,15 +16,15 @@ namespace FixedRoom2D
 {
 
 
-FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
+   , event_emitter(event_emitter)
    , entity_dictionary({})
-   , room_dictionary({})
    , script_dictionary({})
    , script_runner({})
-   , entity_collection_helper(&entity_dictionary)
-   , cursor({})
+   , entity_collection_helper({})
+   , room({})
    , initialized(false)
 {
 }
@@ -43,23 +43,8 @@ void FixedRoom2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 
 void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
+   room.set_font_bin(font_bin);
    this->font_bin = font_bin;
-}
-
-
-void FixedRoom2D::suspend()
-{
-   // equivelent to "pausing" the simulation
-   return;
-}
-
-void FixedRoom2D::show()
-{
-   return;
-}
-
-void FixedRoom2D::hide()
-{
    return;
 }
 
@@ -78,7 +63,6 @@ void FixedRoom2D::initialize()
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
-   cursor.set_font_bin(font_bin);
 
    entity_dictionary = {
       { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
@@ -92,8 +76,11 @@ void FixedRoom2D::initialize()
       { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"SIGNAL: Hello!"}) },
    };
 
-   cursor.set_cursor_to_pointer();
-   cursor.clear_info_text();
+   entity_collection_helper.set_entity_dictionary(&entity_dictionary);
+
+   room.set_font_bin(font_bin);
+   room.set_event_emitter(event_emitter);
+   room.set_entity_dictionary(&entity_dictionary);
 
    script_runner.set_audio_controller(nullptr); // TODO
    script_runner.set_af_inventory(nullptr); // TODO
@@ -109,39 +96,24 @@ void FixedRoom2D::initialize()
 
 void FixedRoom2D::update()
 {
-   // update the entities
-   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-   {
-      entity->update();
-   }
-
-   // update the cursor
-   cursor.update();
+   room.update();
 
    return;
 }
 
 void FixedRoom2D::render()
 {
-   // draw the entities
-   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-   {
-      entity->render();
-      //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
-   }
-
-   // draw the cursor
-   cursor.draw();
+   room.render();
 
    return;
 }
 
-void FixedRoom2D::interact_with_item_under_cursor()
+void FixedRoom2D::process_interaction_event(AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data)
 {
    std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
    if (name.empty())
    {
-      cursor.set_info_text("there is nothing here");
+      // TODO: spawn some dialog that says "there is nothing here"
    }
    else
    {
@@ -151,51 +123,19 @@ void FixedRoom2D::interact_with_item_under_cursor()
       script_runner.load_script_by_dictionary_name(script);
 
       script_runner.play_current_script_line();
-      
-      //cursor.set_info_text(name);
    }
+   return;
+}
+
+void FixedRoom2D::activate_primary_action()
+{
+   room.interact_with_item_under_cursor();
    return;
 }
 
 void FixedRoom2D::move_cursor(float distance_x, float distance_y)
 {
-   cursor.move(distance_x, distance_y);
-
-   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_was_over = nullptr;
-   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_is_now_over = nullptr;
-
-   int cursor_x = cursor.get_x();
-   int cursor_y = cursor.get_y();
-
-   // update the state of the entities
-   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-   {
-      if (entity->get_cursor_is_over()) entity_cursor_was_over = entity;
-      if (entity->get_placement_ref().collide(cursor_x, cursor_y)) entity_cursor_is_now_over = entity;
-   }
-
-   // a change has happened
-   if (entity_cursor_was_over != entity_cursor_is_now_over)
-   {
-      if (entity_cursor_was_over)
-      {
-         entity_cursor_was_over->on_cursor_leave();
-      }
-
-      if (entity_cursor_is_now_over)
-      {
-         entity_cursor_is_now_over->on_cursor_enter();
-         cursor.set_cursor_to_pointer();
-         cursor.set_info_text("inspect");
-      }
-      else
-      {
-         // cursor is now over nothing
-         cursor.set_cursor_to_pointer();
-         cursor.clear_info_text();
-      }
-   }
-
+   room.move_cursor(distance_x, distance_y);
    return;
 }
 } // namespace FixedRoom2D

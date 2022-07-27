@@ -49,6 +49,39 @@ functions:
       return;
 
 
+  - name: game_event_func
+    virtual: true
+    override: true
+    parameters:
+      - name: game_event
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
+      {
+         AllegroFlare::GameEventDatas::Base *data = game_event->get_data();
+         if (data && data->get_type() == "InteractionEventData")
+         {
+            // cast data to InteractionEventData
+            AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*>(game_event->get_data());
+
+            // have room2d process the event
+            fixed_room_2d.process_interaction_event(interaction_event_data);
+         }
+         else
+         {
+            std::cout << "Odd error" << std::endl;
+         }
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
+      - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*
+
+
   - name: on_deactivate
     virtual: true
     override: true
@@ -96,7 +129,7 @@ functions:
          break;
 
          case ALLEGRO_KEY_ENTER:
-            fixed_room_2d.interact_with_item_under_cursor();
+            fixed_room_2d.activate_primary_action();
          break;
       }
       return;
@@ -117,5 +150,11 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp ]
+  - symbol: AllegroFlare::GameEvent*
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
 
 

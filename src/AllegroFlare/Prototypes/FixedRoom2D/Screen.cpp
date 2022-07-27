@@ -5,6 +5,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -62,6 +66,35 @@ void Screen::on_activate()
    return;
 }
 
+void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "game_event_func" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
+   {
+      AllegroFlare::GameEventDatas::Base *data = game_event->get_data();
+      if (data && data->get_type() == "InteractionEventData")
+      {
+         // cast data to InteractionEventData
+         AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*>(game_event->get_data());
+
+         // have room2d process the event
+         fixed_room_2d.process_interaction_event(interaction_event_data);
+      }
+      else
+      {
+         std::cout << "Odd error" << std::endl;
+      }
+   }
+
+   return;
+}
+
 void Screen::on_deactivate()
 {
    if (!(initialized))
@@ -114,7 +147,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       break;
 
       case ALLEGRO_KEY_ENTER:
-         fixed_room_2d.interact_with_item_under_cursor();
+         fixed_room_2d.activate_primary_action();
       break;
    }
    return;

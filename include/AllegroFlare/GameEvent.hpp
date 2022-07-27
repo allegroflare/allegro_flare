@@ -20,6 +20,8 @@ namespace AllegroFlare
       void set_data(AllegroFlare::GameEventDatas::Base* data);
       std::string get_name();
       AllegroFlare::GameEventDatas::Base* get_data();
+      void todo();
+      bool is_type(std::string possible_type="[unset-possible_type]");
    };
 }
 

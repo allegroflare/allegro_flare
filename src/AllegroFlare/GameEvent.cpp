@@ -38,6 +38,15 @@ AllegroFlare::GameEventDatas::Base* GameEvent::get_data()
 }
 
 
+void GameEvent::todo()
+{
+   // rename "name" to "type"
+}
+
+bool GameEvent::is_type(std::string possible_type)
+{
+   return (name == possible_type);
+}
 } // namespace AllegroFlare
 
 
