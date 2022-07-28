@@ -117,7 +117,9 @@ void FixedRoom2D::initialize()
       { "observe_door", AllegroFlare::Prototypes::FixedRoom2D::Script({
             "DIALOG: Just a regular door. | It appears to be locked, though."
       })},
-      { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"SIGNAL: Hello!"}) },
+      { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({
+            "SIGNAL: Hello!"})
+      },
       { "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({
             "DIALOG: This was a scripted dialog!"
       })},
