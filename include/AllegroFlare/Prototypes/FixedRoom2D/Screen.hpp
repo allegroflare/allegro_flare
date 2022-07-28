@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -22,11 +23,12 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::EventEmitter* event_emitter;
+            AllegroFlare::AudioController* audio_controller;
             AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
             bool initialized;
 
          public:
-            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::AudioController* audio_controller=nullptr);
             virtual ~Screen();
 
             void initialize();

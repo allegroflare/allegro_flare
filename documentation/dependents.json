@@ -415,6 +415,7 @@
   ],
   "AllegroFlare/Inventory": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "X": [
@@ -516,6 +517,11 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room"
   ],
+  "AllegroFlare/AudioController": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Room>": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -543,6 +549,10 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
+  "AllegroFlare/Elements/Inventory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
@@ -563,12 +573,6 @@
   ],
   "std/map<std/string, int>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
-  ],
-  "AllegroFlare/AudioController": [
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "AllegroFlare/Elements/Inventory": [
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Script": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"

@@ -18,6 +18,24 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: audio_controller
+    type: AllegroFlare::AudioController*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: af_inventory
+    type: AllegroFlare::Inventory
+    init_with: '{}'
+
+  - name: inventory_window
+    type: AllegroFlare::Elements::Inventory
+    init_with: '{}'
+
+  - name: flags
+    type: AllegroFlare::Inventory
+    init_with: '{}'
+
   - name: entity_dictionary
     type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
     init_with: '{}'
@@ -58,9 +76,13 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized), bitmap_bin, event_emitter ]
+    guards: [ (!initialized), bitmap_bin, event_emitter, audio_controller ]
     body: |
       AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
+
+      inventory_window.set_font_bin(font_bin);
+      inventory_window.set_bitmap_bin(bitmap_bin);
+      inventory_window.set_af_inventory(&af_inventory);
 
       entity_dictionary = {
          { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
@@ -81,13 +103,11 @@ functions:
       room.set_entity_dictionary(&entity_dictionary);
       room.initialize();
 
-      script_runner.set_audio_controller(nullptr); // TODO
-      script_runner.set_af_inventory(nullptr); // TODO
-      script_runner.set_inventory_window(nullptr); // TODO
+      script_runner.set_audio_controller(audio_controller);
+      script_runner.set_af_inventory(&af_inventory);
+      script_runner.set_inventory_window(&inventory_window);
       script_runner.set_script_dictionary(&script_dictionary);
-      script_runner.set_flags(nullptr); // TODO
-
-      //script_runner.set
+      script_runner.set_flags(&flags);
 
       initialized = true;
       return;
@@ -167,6 +187,8 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter*
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::AudioController*
+    headers: [ AllegroFlare/AudioController.hpp ]
   - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
     headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Room
@@ -183,5 +205,9 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
+  - symbol: AllegroFlare::Elements::Inventory
+    headers: [ AllegroFlare/Elements/Inventory.hpp ]
+  - symbol: AllegroFlare::Inventory
+    headers: [ AllegroFlare/Inventory.hpp ]
 
   

@@ -24,6 +24,11 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: audio_controller
+    type: AllegroFlare::AudioController*
+    init_with: nullptr
+    constructor_arg: true
+
   - name: fixed_room_2d
     type: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
     init_with: '{}'
@@ -42,6 +47,7 @@ functions:
       fixed_room_2d.set_bitmap_bin(bitmap_bin);
       fixed_room_2d.set_font_bin(font_bin);
       fixed_room_2d.set_event_emitter(event_emitter);
+      fixed_room_2d.set_audio_controller(audio_controller);
       fixed_room_2d.initialize();
       initialized = true;
       return;
@@ -164,5 +170,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
+  - symbol: AllegroFlare::AudioController*
+    headers: [ AllegroFlare/AudioController.hpp ]
 
 

@@ -3087,6 +3087,22 @@ table td
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
 <tr>
+  <td class="property">audio_controller</td>
+  <td class="property">AllegroFlare::AudioController*</td>
+</tr>
+<tr>
+  <td class="property">af_inventory</td>
+  <td class="property">AllegroFlare::Inventory</td>
+</tr>
+<tr>
+  <td class="property">inventory_window</td>
+  <td class="property">AllegroFlare::Elements::Inventory</td>
+</tr>
+<tr>
+  <td class="property">flags</td>
+  <td class="property">AllegroFlare::Inventory</td>
+</tr>
+<tr>
   <td class="property">entity_dictionary</td>
   <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;</td>
 </tr>
@@ -3151,6 +3167,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Room.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -3173,6 +3192,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -3346,6 +3371,10 @@ table td
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
 <tr>
+  <td class="property">audio_controller</td>
+  <td class="property">AllegroFlare::AudioController*</td>
+</tr>
+<tr>
   <td class="property">fixed_room_2d</td>
   <td class="property">AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D</td>
 </tr>
@@ -3404,6 +3433,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4999,6 +5031,7 @@ table td
   ],
   "AllegroFlare/Inventory": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "X": [
@@ -5100,6 +5133,11 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room"
   ],
+  "AllegroFlare/AudioController": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Room>": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -5127,6 +5165,10 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
+  "AllegroFlare/Elements/Inventory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
@@ -5147,12 +5189,6 @@ table td
   ],
   "std/map<std/string, int>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
-  ],
-  "AllegroFlare/AudioController": [
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "AllegroFlare/Elements/Inventory": [
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Script": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"

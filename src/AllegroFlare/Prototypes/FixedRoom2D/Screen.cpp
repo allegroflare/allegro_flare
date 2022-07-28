@@ -25,11 +25,12 @@ namespace FixedRoom2D
 {
 
 
-Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
+Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::AudioController* audio_controller)
    : AllegroFlare::Screens::Base("Prototypes::FixedRoom2D::Screen")
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
+   , audio_controller(audio_controller)
    , fixed_room_2d({})
    , initialized(false)
 {
@@ -52,6 +53,7 @@ void Screen::initialize()
    fixed_room_2d.set_bitmap_bin(bitmap_bin);
    fixed_room_2d.set_font_bin(font_bin);
    fixed_room_2d.set_event_emitter(event_emitter);
+   fixed_room_2d.set_audio_controller(audio_controller);
    fixed_room_2d.initialize();
    initialized = true;
    return;

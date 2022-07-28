@@ -12,10 +12,11 @@ int main(int argc, char **argv)
    AllegroFlare::BitmapBin &bitmap_bin = framework.get_bitmap_bin_ref();
    AllegroFlare::FontBin &font_bin = framework.get_font_bin_ref();
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
+   AllegroFlare::AudioController &audio_controller = framework.get_audio_controller_ref();
    bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
    font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
 
-   AllegroFlare::Prototypes::FixedRoom2D::Screen example(&bitmap_bin, &font_bin, &event_emitter);
+   AllegroFlare::Prototypes::FixedRoom2D::Screen example(&bitmap_bin, &font_bin, &event_emitter, &audio_controller);
    example.initialize();
    framework.register_screen("example", &example);
 
@@ -26,6 +27,5 @@ int main(int argc, char **argv)
    framework.shutdown();
    return 0;
 }
-
 
 
