@@ -148,33 +148,47 @@ functions:
 
 
   - name: process_interaction_event
+    private: true
     parameters:
-      - name: interaction_event_data
-        type: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*
+      - name: game_event_data
+        type: AllegroFlare::GameEventDatas::Base*
         default_argument: nullptr
     body: |
-      std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
-      if (name.empty())
+      if (game_event_data && game_event_data->get_type() == "InteractionEventData")
       {
-         // TODO: spawn some dialog that says "there is nothing here"
+         AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*>(game_event_data);
+
+         std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+         if (name.empty())
+         {
+            // dialog "there is nothing here"
+         }
+         else
+         {
+            AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
+            std::string script = interacting_entity->get_on_cursor_interact_script_name();
+            script_runner.load_script_by_dictionary_name(script);
+            script_runner.play_current_script_line();
+         }
       }
       else
       {
-         AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
-         std::string script = interacting_entity->get_on_cursor_interact_script_name();
-         script_runner.load_script_by_dictionary_name(script);
-         script_runner.play_current_script_line();
+         std::cout << "Expecting game_event_data to be present but it is a nullptr" << std::endl;
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
 
 
   - name: process_script_event
+    private: true
     parameters:
-      - name: script_event_data
-        type: AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*
+      - name: game_event_data
+        type: AllegroFlare::GameEventDatas::Base*
         default_argument: nullptr
     body: |
-      if (!script_event_data)
+      if (!game_event_data)
       {
          // weird error;
          std::cout << "A weird error occurred. Expecting script_event_data to be valid but it is nullptr" << std::endl;
@@ -182,13 +196,21 @@ functions:
       }
       else
       {
-         spawn_dialog_box();
-         //AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
-         //std::string script = interacting_entity->get_on_cursor_interact_script_name();
-         //script_runner.load_script_by_dictionary_name(script);
-         //script_runner.play_current_script_line();
+         if (game_event_data->get_type() == "SpawnDialogEventData")
+         {
+            AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* spawn_dialog_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*>(game_event_data);
+
+            spawn_dialog_box();
+         }
+         else
+         {
+            std::cout << "Unknown event_data type for SCRIPT_EVENT_NAME" << std::endl;
+         }
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData
 
 
   - name: show_inventory
@@ -353,19 +375,21 @@ dependencies:
     headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
   - symbol: AllegroFlare::Elements::Inventory
     headers: [ AllegroFlare/Elements/Inventory.hpp ]
   - symbol: AllegroFlare::Inventory
     headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::Base*
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Base*
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFactory
     headers: [ AllegroFlare/Elements/DialogBoxFactory.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp ]
 
   

@@ -72,37 +72,11 @@ functions:
     body: |
       if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
       {
-         AllegroFlare::GameEventDatas::Base *data = game_event->get_data();
-         if (data && data->get_type() == "InteractionEventData")
-         {
-            // cast data to InteractionEventData
-            AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data =
-                static_cast<AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*>(game_event->get_data());
-
-            // have room2d process the event
-            fixed_room_2d.process_interaction_event(interaction_event_data);
-         }
-         else
-         {
-            std::cout << "Unknown event_data type for INTERACTION_EVENT_NAME" << std::endl;
-         }
+         fixed_room_2d.process_interaction_event(game_event->get_data());
       }
       else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
       {
-         AllegroFlare::GameEventDatas::Base *data = game_event->get_data();
-         if (data && data->get_type() == "SpawnDialogEventData")
-         {
-            // cast data to InteractionEventData
-            AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* spawn_dialog_event_data =
-                static_cast<AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*>(game_event->get_data());
-
-            // have room2d process the event
-            fixed_room_2d.process_script_event(spawn_dialog_event_data);
-         }
-         else
-         {
-            std::cout << "Unknown event_data type for SCRIPT_EVENT_NAME" << std::endl;
-         }
+         fixed_room_2d.process_script_event(game_event->get_data());
       }
 
       return;

@@ -179,3 +179,9 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
    ASSERT_EQ(false, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::assert_token_count_eq({ "t1", "t2", "t3", "t4", "t5", "t6" }, -1));
 }
 
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   emit_script_event__will_emit_a_game_event_with_the_expected_name_and_data)
+{
+   // TODO
+}
+

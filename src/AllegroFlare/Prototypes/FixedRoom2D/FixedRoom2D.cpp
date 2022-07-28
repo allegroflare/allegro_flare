@@ -7,6 +7,8 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 
 
@@ -152,26 +154,36 @@ void FixedRoom2D::render()
    return;
 }
 
-void FixedRoom2D::process_interaction_event(AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data)
+void FixedRoom2D::process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data)
 {
-   std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
-   if (name.empty())
+   if (game_event_data && game_event_data->get_type() == "InteractionEventData")
    {
-      // TODO: spawn some dialog that says "there is nothing here"
+      AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data =
+          static_cast<AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*>(game_event_data);
+
+      std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+      if (name.empty())
+      {
+         // dialog "there is nothing here"
+      }
+      else
+      {
+         AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
+         std::string script = interacting_entity->get_on_cursor_interact_script_name();
+         script_runner.load_script_by_dictionary_name(script);
+         script_runner.play_current_script_line();
+      }
    }
    else
    {
-      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
-      std::string script = interacting_entity->get_on_cursor_interact_script_name();
-      script_runner.load_script_by_dictionary_name(script);
-      script_runner.play_current_script_line();
+      std::cout << "Expecting game_event_data to be present but it is a nullptr" << std::endl;
    }
    return;
 }
 
-void FixedRoom2D::process_script_event(AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* script_event_data)
+void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data)
 {
-   if (!script_event_data)
+   if (!game_event_data)
    {
       // weird error;
       std::cout << "A weird error occurred. Expecting script_event_data to be valid but it is nullptr" << std::endl;
@@ -179,11 +191,17 @@ void FixedRoom2D::process_script_event(AllegroFlare::Prototypes::FixedRoom2D::Sp
    }
    else
    {
-      spawn_dialog_box();
-      //AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
-      //std::string script = interacting_entity->get_on_cursor_interact_script_name();
-      //script_runner.load_script_by_dictionary_name(script);
-      //script_runner.play_current_script_line();
+      if (game_event_data->get_type() == "SpawnDialogEventData")
+      {
+         AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* spawn_dialog_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*>(game_event_data);
+
+         spawn_dialog_box();
+      }
+      else
+      {
+         std::cout << "Unknown event_data type for SCRIPT_EVENT_NAME" << std::endl;
+      }
    }
    return;
 }

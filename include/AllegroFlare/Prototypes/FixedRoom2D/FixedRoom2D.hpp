@@ -7,14 +7,13 @@
 #include <AllegroFlare/Elements/Inventory.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
 #include <map>
 
 
@@ -53,8 +52,8 @@ namespace AllegroFlare
             void initialize();
             void update();
             void render();
-            void process_interaction_event(AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data=nullptr);
-            void process_script_event(AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* script_event_data=nullptr);
+            void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
+            void process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void show_inventory();
             void hide_inventory();
             void toggle_inventory();

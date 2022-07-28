@@ -4,6 +4,7 @@
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/Elements/Inventory.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <map>
@@ -47,13 +48,13 @@ namespace AllegroFlare
             void play_current_script_line();
             bool parse_and_run_line(std::string raw_script_line="[empty-script-line]", int line_num=0);
             static std::pair<std::string, std::string> parse_command_and_argument(std::string script_line={});
+            void emit_script_event(AllegroFlare::GameEventDatas::Base* event_data=nullptr);
             static std::vector<std::string> split(std::string string="", char delimiter=' ');
             static std::vector<std::string> tokenize(std::string str="", char delim='|');
             static bool assert_min_token_count(std::vector<std::string> tokens={}, int min=0);
             static bool assert_token_count_eq(std::vector<std::string> tokens={}, int value=0);
             static bool assert_odd_token_count(std::vector<std::string> tokens={}, int min=0);
             static std::string trim(std::string s="");
-            void emit_script_event(std::string item_dictionary_name="[unset-item_dictionary_name]", float cursor_x=0.0, float cursor_y=0.0);
          };
       }
    }

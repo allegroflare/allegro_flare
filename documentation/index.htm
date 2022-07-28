@@ -3145,10 +3145,10 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">process_interaction_event(1)</td>
+  <td class="private_method">process_interaction_event(1)</td>
 </tr>
 <tr>
-  <td class="method">process_script_event(1)</td>
+  <td class="private_method">process_script_event(1)</td>
 </tr>
 <tr>
   <td class="method">show_inventory()</td>
@@ -3231,13 +3231,16 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Inventory.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
@@ -3249,7 +3252,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxFactory.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -3616,6 +3619,9 @@ table td
   <td class="method">parse_command_and_argument(1)</td>
 </tr>
 <tr>
+  <td class="private_method">emit_script_event(1)</td>
+</tr>
+<tr>
   <td class="private_method">split(2)</td>
 </tr>
 <tr>
@@ -3633,11 +3639,11 @@ table td
 <tr>
   <td class="private_method">trim(1)</td>
 </tr>
-<tr>
-  <td class="private_method">emit_script_event(3)</td>
-</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
@@ -5171,7 +5177,9 @@ table td
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
-    "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"

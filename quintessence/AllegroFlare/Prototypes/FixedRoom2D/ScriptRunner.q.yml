@@ -172,9 +172,9 @@ functions:
          }
          else
          {
-            // TODO: emit more robust event here
-            emit_script_event(); // for now
-            //event_emitter->emit_asdf_event(
+            AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData *spawn_dialog_event_data =
+               new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData;
+            emit_script_event(spawn_dialog_event_data);
             //Disabled:: created_dialog = dialog_factory.create_basic_dialog(std::vector<std::string>{script_line});
          }
       }
@@ -540,6 +540,26 @@ functions:
       return result;
 
 
+  - name: emit_script_event
+    guards: [ event_emitter ]
+    private: true
+    parameters:
+      - name: event_data
+        type: AllegroFlare::GameEventDatas::Base*
+        default_argument: nullptr
+    body: |
+      AllegroFlare::GameEvent game_event(
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
+         event_data
+      );
+      
+      event_emitter->emit_game_event(game_event);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData
+      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME
+
+
   - name: split
     type: std::vector<std::string>
     private: true
@@ -638,38 +658,11 @@ functions:
       return s;
     
 
-  - name: emit_script_event
-    guards: [ event_emitter ]
-    private: true
-    parameters:
-      - name: item_dictionary_name
-        type: std::string
-        default_argument: '"[unset-item_dictionary_name]"'
-      - name: cursor_x
-        type: float
-        default_argument: 0.0
-      - name: cursor_y
-        type: float
-        default_argument: 0.0
-    body: |
-      AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData *spawn_dialog_event_data =
-         new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData; // for now
-
-      AllegroFlare::GameEvent game_event(
-         AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
-         spawn_dialog_event_data // for now
-      );
-      
-      event_emitter->emit_game_event(game_event);
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData
-      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME
-
-
 dependencies:
 
 
+  - symbol: AllegroFlare::GameEventDatas::Base*
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
   - symbol: AllegroFlare::EventEmitter*
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::AudioController*

@@ -231,9 +231,9 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       }
       else
       {
-         // TODO: emit more robust event here
-         emit_script_event(); // for now
-         //event_emitter->emit_asdf_event(
+         AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData *spawn_dialog_event_data =
+            new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData;
+         emit_script_event(spawn_dialog_event_data);
          //Disabled:: created_dialog = dialog_factory.create_basic_dialog(std::vector<std::string>{script_line});
       }
    }
@@ -593,6 +593,23 @@ std::pair<std::string, std::string> ScriptRunner::parse_command_and_argument(std
    return result;
 }
 
+void ScriptRunner::emit_script_event(AllegroFlare::GameEventDatas::Base* event_data)
+{
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "ScriptRunner" << "::" << "emit_script_event" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   AllegroFlare::GameEvent game_event(
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
+      event_data
+   );
+
+   event_emitter->emit_game_event(game_event);
+   return;
+}
+
 std::vector<std::string> ScriptRunner::split(std::string string, char delimiter)
 {
    std::vector<std::string> elems;
@@ -632,26 +649,6 @@ std::string ScriptRunner::trim(std::string s)
    // rtrim
    s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
    return s;
-}
-
-void ScriptRunner::emit_script_event(std::string item_dictionary_name, float cursor_x, float cursor_y)
-{
-   if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "emit_script_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData *spawn_dialog_event_data =
-      new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData; // for now
-
-   AllegroFlare::GameEvent game_event(
-      AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
-      spawn_dialog_event_data // for now
-   );
-
-   event_emitter->emit_game_event(game_event);
-   return;
 }
 } // namespace FixedRoom2D
 } // namespace Prototypes
