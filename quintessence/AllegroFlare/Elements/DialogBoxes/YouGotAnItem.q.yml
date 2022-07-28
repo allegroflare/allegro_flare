@@ -9,11 +9,6 @@ parent_classes:
 properties:
 
 
-  - name: item_num
-    type: int
-    init_with: 0
-    constructor_arg: true
-
   - name: item_name
     type: std::string
     init_with: '"[item-name-that-has-not-been-set]"'

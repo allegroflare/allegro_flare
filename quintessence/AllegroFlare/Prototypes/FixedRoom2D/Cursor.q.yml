@@ -15,7 +15,7 @@ properties:
 
   - name: y
     type: float
-    init_with: 1920/2
+    init_with: 1080/2
     getter: true
     setter: true
 

@@ -808,7 +808,7 @@ table td
   <td class="method">create_choice_dialog(2)</td>
 </tr>
 <tr>
-  <td class="method">create_you_got_an_item_dialog(3)</td>
+  <td class="method">create_you_got_an_item_dialog(2)</td>
 </tr>
     </table>
      <table>
@@ -1473,10 +1473,6 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml</h3>
      <table>
-<tr>
-  <td class="property">item_num</td>
-  <td class="property">int</td>
-</tr>
 <tr>
   <td class="property">item_name</td>
   <td class="property">std::string</td>
@@ -3254,6 +3250,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -3670,6 +3669,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -5254,6 +5256,10 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],

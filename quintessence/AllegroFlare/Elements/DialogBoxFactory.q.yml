@@ -75,9 +75,6 @@ functions:
   - name: create_you_got_an_item_dialog
     type: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
     parameters:
-      - name: item_num
-        type: int
-        default_argument: 0
       - name: item_name
         type: std::string
         default_argument: '"[unset-item-name]"'
@@ -86,7 +83,7 @@ functions:
         default_argument: '"[unset-item-bitmap-identifier]"'
     body: |
       AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =
-         new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
+         new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_name, item_bitmap_identifier);
       you_got_an_item_dialog_box->set_created_at(al_get_time());
       you_got_an_item_dialog_box->show();
       //choice_dialog_box->initialize(); // doesn't seem to require initialization

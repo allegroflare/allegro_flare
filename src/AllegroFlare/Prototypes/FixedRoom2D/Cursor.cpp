@@ -20,7 +20,7 @@ namespace FixedRoom2D
 Cursor::Cursor(AllegroFlare::FontBin* font_bin)
    : font_bin(font_bin)
    , x(1920/2)
-   , y(1920/2)
+   , y(1080/2)
    , icon_offset_placement({})
    , info_text_offset_placement(40, 0, 0, 0)
    , info_text("[unset-info_text]")

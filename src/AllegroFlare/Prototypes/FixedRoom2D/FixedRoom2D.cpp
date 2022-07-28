@@ -9,6 +9,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 
 
@@ -103,16 +104,20 @@ void FixedRoom2D::initialize()
 
    entity_dictionary = {
       { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
-      { "chair", entity_factory.create_entity("wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168) },
+      { "chair", entity_factory.create_entity(
+            "wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168, "Chair", "signal_hello") },
       { "table", entity_factory.create_entity(
             "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "spawn_dialog") },
       { "keys", entity_factory.create_entity(
-            "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "signal_hello") },
+            "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
    };
 
    script_dictionary = {
       { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"SIGNAL: Hello!"}) },
       { "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG: This was a scripted dialog!"}) },
+      { "collect_keys", AllegroFlare::Prototypes::FixedRoom2D::Script({
+            "COLLECT: keys"
+      })},
    };
 
    entity_collection_helper.set_entity_dictionary(&entity_dictionary);
@@ -183,6 +188,8 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::GameEventDatas::Base* 
 
 void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data)
 {
+   using namespace AllegroFlare::Prototypes::FixedRoom2D;
+
    if (!game_event_data)
    {
       // weird error;
@@ -197,6 +204,22 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
              static_cast<AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*>(game_event_data);
 
          spawn_dialog_box();
+      }
+      if (game_event_data->get_type() == "CollectItemEventData")
+      {
+         AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData* collect_item_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData*>(game_event_data);
+
+         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+         if (active_dialog) delete active_dialog;
+         {
+            active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
+                  "Keys",
+                  "key-keychain-house-keys-door-photo-pixabay-25.png"
+               );
+            room.suspend();
+         }
+         // TODO: spawn dialog
       }
       else
       {

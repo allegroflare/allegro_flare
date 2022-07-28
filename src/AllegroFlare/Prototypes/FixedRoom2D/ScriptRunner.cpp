@@ -4,9 +4,10 @@
 #include <stdexcept>
 #include <sstream>
 #include <iostream>
+#include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp>
 #include <stdexcept>
 #include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -497,6 +498,11 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       }
       else if (command == COLLECT)
       {
+         AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData *event_data =
+            new AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData(item_name);
+         emit_script_event(event_data);
+
+
          //Disabled:: Krampus21::DialogBoxes::YouGotAnItem* created_you_got_an_item_dialog_box =
             //Disabled:: dialog_factory.create_you_got_an_item_dialog(item_id, item_name, item_bitmap_identifier);
          //Disabled:: created_dialog = created_you_got_an_item_dialog_box;

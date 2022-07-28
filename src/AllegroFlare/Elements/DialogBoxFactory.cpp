@@ -69,10 +69,10 @@ AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dia
    return choice_dialog_box;
 }
 
-AllegroFlare::Elements::DialogBoxes::YouGotAnItem* DialogBoxFactory::create_you_got_an_item_dialog(int item_num, std::string item_name, std::string item_bitmap_identifier)
+AllegroFlare::Elements::DialogBoxes::YouGotAnItem* DialogBoxFactory::create_you_got_an_item_dialog(std::string item_name, std::string item_bitmap_identifier)
 {
    AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =
-      new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
+      new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_name, item_bitmap_identifier);
    you_got_an_item_dialog_box->set_created_at(al_get_time());
    you_got_an_item_dialog_box->show();
    //choice_dialog_box->initialize(); // doesn't seem to require initialization
