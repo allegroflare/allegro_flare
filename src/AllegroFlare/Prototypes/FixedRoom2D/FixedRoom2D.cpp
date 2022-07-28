@@ -103,20 +103,29 @@ void FixedRoom2D::initialize()
    inventory_window.set_af_inventory(&af_inventory);
 
    entity_dictionary = {
-      { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
+      { "door", entity_factory.create_entity(
+            "download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85, "Door", "observe_door") },
       { "chair", entity_factory.create_entity(
             "wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168, "Chair", "signal_hello") },
       { "table", entity_factory.create_entity(
-            "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "spawn_dialog") },
+            "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "observe_table") },
       { "keys", entity_factory.create_entity(
             "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
    };
 
    script_dictionary = {
+      { "observe_door", AllegroFlare::Prototypes::FixedRoom2D::Script({
+            "DIALOG: Just a regular door. | It appears to be locked, though."
+      })},
       { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"SIGNAL: Hello!"}) },
-      { "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG: This was a scripted dialog!"}) },
+      { "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({
+            "DIALOG: This was a scripted dialog!"
+      })},
       { "collect_keys", AllegroFlare::Prototypes::FixedRoom2D::Script({
             "COLLECT: keys"
+      })},
+      { "observe_table", AllegroFlare::Prototypes::FixedRoom2D::Script({
+            "DIALOG: Hmm. Nothing interesting on this table."
       })},
    };
 
@@ -202,8 +211,14 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
       {
          AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* spawn_dialog_event_data =
              static_cast<AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*>(game_event_data);
+         std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
 
-         spawn_dialog_box();
+         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+         if (active_dialog) delete active_dialog;
+
+         active_dialog = dialog_box_factory.create_basic_dialog(pages);
+         room.suspend();
+         //spawn_dialog_box();
       }
       if (game_event_data->get_type() == "CollectItemEventData")
       {
@@ -212,13 +227,12 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
 
          AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
          if (active_dialog) delete active_dialog;
-         {
-            active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
-                  "Keys",
-                  "key-keychain-house-keys-door-photo-pixabay-25.png"
-               );
-            room.suspend();
-         }
+
+         active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
+               "Keys",
+               "key-keychain-house-keys-door-photo-pixabay-25.png"
+            );
+         room.suspend();
          // TODO: spawn dialog
       }
       else

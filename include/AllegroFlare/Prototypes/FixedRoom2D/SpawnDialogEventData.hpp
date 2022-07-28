@@ -2,6 +2,8 @@
 
 
 #include <AllegroFlare/GameEventDatas/Base.hpp>
+#include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -13,11 +15,14 @@ namespace AllegroFlare
          class SpawnDialogEventData : public AllegroFlare::GameEventDatas::Base
          {
          private:
+            std::vector<std::string> dialog_pages;
 
          public:
-            SpawnDialogEventData();
+            SpawnDialogEventData(std::vector<std::string> dialog_pages={"[unset-dialog_pages]"});
             ~SpawnDialogEventData();
 
+            void set_dialog_pages(std::vector<std::string> dialog_pages);
+            std::vector<std::string> get_dialog_pages();
          };
       }
    }

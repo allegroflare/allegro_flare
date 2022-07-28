@@ -6,6 +6,17 @@ parent_classes:
     init_with: '"SpawnDialogEventData"'
 
 
+properties:
+
+
+  - name: dialog_pages
+    type: std::vector<std::string>
+    init_with: '{"[unset-dialog_pages]"}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
 dependencies:
 
 

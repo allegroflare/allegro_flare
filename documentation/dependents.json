@@ -487,9 +487,11 @@
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData"
   ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"

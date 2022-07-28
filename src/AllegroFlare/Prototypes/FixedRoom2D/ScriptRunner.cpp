@@ -232,8 +232,10 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       }
       else
       {
+         std::vector<std::string> tokens = tokenize(argument);
          AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData *spawn_dialog_event_data =
-            new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData;
+            new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData(tokens);
+
          emit_script_event(spawn_dialog_event_data);
          //Disabled:: created_dialog = dialog_factory.create_basic_dialog(std::vector<std::string>{script_line});
       }

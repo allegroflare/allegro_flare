@@ -218,7 +218,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_you_got_an_ite
    AllegroFlare::BitmapBin bitmap_bin;
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
    bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
-   AllegroFlare::Elements::DialogBoxes::YouGotAnItem you_got_an_item_dialog_box(1, "Watch", "watch-01.png");
+   AllegroFlare::Elements::DialogBoxes::YouGotAnItem you_got_an_item_dialog_box("Watch", "watch-01.png");
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &you_got_an_item_dialog_box);
 
    dialog_box_renderer.render();
