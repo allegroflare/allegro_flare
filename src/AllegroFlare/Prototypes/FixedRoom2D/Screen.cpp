@@ -153,6 +153,14 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       case ALLEGRO_KEY_ENTER:
          fixed_room_2d.activate_primary_action();
       break;
+
+      case ALLEGRO_KEY_S:
+         fixed_room_2d.spawn_dialog_box();
+      break;
+
+      case ALLEGRO_KEY_I:
+         fixed_room_2d.toggle_inventory();
+      break;
    }
    return;
 }

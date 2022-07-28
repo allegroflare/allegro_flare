@@ -6,6 +6,8 @@
 #include <sstream>
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 
 
 namespace AllegroFlare
@@ -30,6 +32,7 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , entity_collection_helper({})
    , room({})
    , initialized(false)
+   , active_dialog(nullptr)
 {
 }
 
@@ -128,13 +131,20 @@ void FixedRoom2D::initialize()
 void FixedRoom2D::update()
 {
    room.update();
-
+   if (active_dialog) active_dialog->update();
+   inventory_window.update();
    return;
 }
 
 void FixedRoom2D::render()
 {
    room.render();
+   if (active_dialog)
+   {
+      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
+      dialog_box_renderer.render();
+   }
+   inventory_window.render();
 
    return;
 }
@@ -158,15 +168,101 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::Prototypes::FixedRoom2
    return;
 }
 
+void FixedRoom2D::show_inventory()
+{
+   inventory_window.show();
+   room.suspend();
+   return;
+}
+
+void FixedRoom2D::hide_inventory()
+{
+   inventory_window.hide();
+   room.resume();
+   return;
+}
+
+void FixedRoom2D::toggle_inventory()
+{
+   if (inventory_window.get_active()) hide_inventory();
+   else show_inventory();
+   return;
+}
+
+void FixedRoom2D::spawn_dialog_box()
+{
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+
+   if (active_dialog) delete active_dialog;
+   {
+      active_dialog = dialog_box_factory.create_basic_test_dialog();
+      room.suspend();
+   }
+
+   return;
+}
+
+void FixedRoom2D::advance_dialog()
+{
+   // TODO
+   if (!active_dialog) return;
+   if (active_dialog->is_type("Basic"))
+   {
+      dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->next_page();
+   }
+   return;
+}
+
+bool FixedRoom2D::dialog_is_finished()
+{
+   if (!active_dialog) return true;
+   if (active_dialog->is_type("Basic"))
+   {
+      return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
+   }
+   return true;
+}
+
+bool FixedRoom2D::shutdown_dialog()
+{
+   if (!active_dialog) return false;
+   delete active_dialog;
+   active_dialog = nullptr;
+   return true;
+}
+
 void FixedRoom2D::activate_primary_action()
 {
-   room.interact_with_item_under_cursor();
+   if (inventory_window.get_active())
+   {
+      // inventory_window.select_item_currently_under_cursor();
+   }
+   else if (active_dialog)
+   {
+      advance_dialog();
+      if (dialog_is_finished())
+      {
+         shutdown_dialog();
+         room.resume();
+      }
+   }
+   else if (!room.get_suspended())
+   {
+      room.interact_with_item_under_cursor();
+   }
+
    return;
 }
 
 void FixedRoom2D::move_cursor(float distance_x, float distance_y)
 {
-   room.move_cursor(distance_x, distance_y);
+   if (inventory_window.get_active())
+   {
+   }
+   if (!room.get_suspended())
+   { 
+      room.move_cursor(distance_x, distance_y);
+   }
    return;
 }
 } // namespace FixedRoom2D

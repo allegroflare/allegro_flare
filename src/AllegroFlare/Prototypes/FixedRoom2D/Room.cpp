@@ -65,6 +65,12 @@ void Room::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
+bool Room::get_suspended()
+{
+   return suspended;
+}
+
+
 void Room::set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary)
 {
    this->entity_dictionary = entity_dictionary;

@@ -365,7 +365,8 @@
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
-    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
+    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
@@ -552,6 +553,12 @@
   "AllegroFlare/Elements/Inventory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderer": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Elements/DialogBoxFactory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",

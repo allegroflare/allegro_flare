@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/Inventory.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -38,6 +39,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper entity_collection_helper;
             AllegroFlare::Prototypes::FixedRoom2D::Room room;
             bool initialized;
+            AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
 
          public:
             FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::AudioController* audio_controller=nullptr);
@@ -51,6 +53,13 @@ namespace AllegroFlare
             void update();
             void render();
             void process_interaction_event(AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data=nullptr);
+            void show_inventory();
+            void hide_inventory();
+            void toggle_inventory();
+            void spawn_dialog_box();
+            void advance_dialog();
+            bool dialog_is_finished();
+            bool shutdown_dialog();
             void activate_primary_action();
             void move_cursor(float distance_x=0.0, float distance_y=0.0);
          };

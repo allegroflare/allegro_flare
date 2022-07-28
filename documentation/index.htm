@@ -3126,6 +3126,10 @@ table td
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">active_dialog</td>
+  <td class="property">AllegroFlare::Elements::DialogBoxes::Base*</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -3142,6 +3146,27 @@ table td
 </tr>
 <tr>
   <td class="method">process_interaction_event(1)</td>
+</tr>
+<tr>
+  <td class="method">show_inventory()</td>
+</tr>
+<tr>
+  <td class="method">hide_inventory()</td>
+</tr>
+<tr>
+  <td class="method">toggle_inventory()</td>
+</tr>
+<tr>
+  <td class="method">spawn_dialog_box()</td>
+</tr>
+<tr>
+  <td class="method">advance_dialog()</td>
+</tr>
+<tr>
+  <td class="method">dialog_is_finished()</td>
+</tr>
+<tr>
+  <td class="method">shutdown_dialog()</td>
 </tr>
 <tr>
   <td class="method">activate_primary_action()</td>
@@ -3198,6 +3223,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxFactory.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4981,7 +5015,8 @@ table td
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
-    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
+    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
@@ -5168,6 +5203,12 @@ table td
   "AllegroFlare/Elements/Inventory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderer": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Elements/DialogBoxFactory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",

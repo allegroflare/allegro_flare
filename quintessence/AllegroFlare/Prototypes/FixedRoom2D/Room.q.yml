@@ -29,6 +29,7 @@ properties:
   - name: suspended
     type: bool
     init_with: false
+    getter: true
 
   - name: suspended_at
     type: float

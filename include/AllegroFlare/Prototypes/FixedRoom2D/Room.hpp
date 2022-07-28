@@ -33,6 +33,7 @@ namespace AllegroFlare
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+            bool get_suspended();
             void set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary=nullptr);
             void suspend();
             void resume();
