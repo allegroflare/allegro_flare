@@ -102,13 +102,15 @@ void FixedRoom2D::initialize()
    entity_dictionary = {
       { "door", entity_factory.create_entity("download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85) },
       { "chair", entity_factory.create_entity("wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168) },
-      { "table", entity_factory.create_entity("download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4) },
+      { "table", entity_factory.create_entity(
+            "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "spawn_dialog") },
       { "keys", entity_factory.create_entity(
-            "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "say_hello") },
+            "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "signal_hello") },
    };
 
    script_dictionary = {
-      { "say_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"SIGNAL: Hello!"}) },
+      { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({"SIGNAL: Hello!"}) },
+      { "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({"DIALOG: This was a scripted dialog!"}) },
    };
 
    entity_collection_helper.set_entity_dictionary(&entity_dictionary);
@@ -120,6 +122,7 @@ void FixedRoom2D::initialize()
 
    script_runner.set_audio_controller(audio_controller);
    script_runner.set_af_inventory(&af_inventory);
+   script_runner.set_event_emitter(event_emitter);
    script_runner.set_inventory_window(&inventory_window);
    script_runner.set_script_dictionary(&script_dictionary);
    script_runner.set_flags(&flags);
@@ -160,10 +163,27 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::Prototypes::FixedRoom2
    {
       AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
       std::string script = interacting_entity->get_on_cursor_interact_script_name();
-      
       script_runner.load_script_by_dictionary_name(script);
-
       script_runner.play_current_script_line();
+   }
+   return;
+}
+
+void FixedRoom2D::process_script_event(AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* script_event_data)
+{
+   if (!script_event_data)
+   {
+      // weird error;
+      std::cout << "A weird error occurred. Expecting script_event_data to be valid but it is nullptr" << std::endl;
+      return;
+   }
+   else
+   {
+      spawn_dialog_box();
+      //AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
+      //std::string script = interacting_entity->get_on_cursor_interact_script_name();
+      //script_runner.load_script_by_dictionary_name(script);
+      //script_runner.play_current_script_line();
    }
    return;
 }
@@ -191,6 +211,8 @@ void FixedRoom2D::toggle_inventory()
 
 void FixedRoom2D::spawn_dialog_box()
 {
+   if (inventory_window.get_active()) return;
+
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
 
    if (active_dialog) delete active_dialog;
@@ -204,7 +226,8 @@ void FixedRoom2D::spawn_dialog_box()
 
 void FixedRoom2D::advance_dialog()
 {
-   // TODO
+   if (inventory_window.get_active()) return;
+
    if (!active_dialog) return;
    if (active_dialog->is_type("Basic"))
    {
@@ -254,11 +277,32 @@ void FixedRoom2D::activate_primary_action()
    return;
 }
 
+void FixedRoom2D::move_cursor_up()
+{
+   if (inventory_window.get_active()) inventory_window.move_cursor_up();
+   return;
+}
+
+void FixedRoom2D::move_cursor_down()
+{
+   if (inventory_window.get_active()) inventory_window.move_cursor_down();
+   return;
+}
+
+void FixedRoom2D::move_cursor_left()
+{
+   if (inventory_window.get_active()) inventory_window.move_cursor_left();
+   return;
+}
+
+void FixedRoom2D::move_cursor_right()
+{
+   if (inventory_window.get_active()) inventory_window.move_cursor_right();
+   return;
+}
+
 void FixedRoom2D::move_cursor(float distance_x, float distance_y)
 {
-   if (inventory_window.get_active())
-   {
-   }
    if (!room.get_suspended())
    { 
       room.move_cursor(distance_x, distance_y);

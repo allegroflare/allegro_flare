@@ -6,6 +6,10 @@
 #include <iostream>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -20,6 +24,7 @@ ScriptRunner::ScriptRunner()
    : audio_controller(nullptr)
    , af_inventory(nullptr)
    , inventory_window(nullptr)
+   , event_emitter(nullptr)
    , script_dictionary(nullptr)
    , flags(nullptr)
    , current_script()
@@ -48,6 +53,12 @@ void ScriptRunner::set_af_inventory(AllegroFlare::Inventory* af_inventory)
 void ScriptRunner::set_inventory_window(AllegroFlare::Elements::Inventory* inventory_window)
 {
    this->inventory_window = inventory_window;
+}
+
+
+void ScriptRunner::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
 }
 
 
@@ -178,6 +189,12 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
          error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"script_dictionary\" not met";
          throw std::runtime_error(error_message.str());
       }
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    std::string DIALOG = "DIALOG";
    std::string GOTO_MARKER = "GOTO_MARKER";
    std::string CHOICE = "CHOICE";
@@ -214,6 +231,9 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       }
       else
       {
+         // TODO: emit more robust event here
+         emit_script_event(); // for now
+         //event_emitter->emit_asdf_event(
          //Disabled:: created_dialog = dialog_factory.create_basic_dialog(std::vector<std::string>{script_line});
       }
    }
@@ -612,6 +632,26 @@ std::string ScriptRunner::trim(std::string s)
    // rtrim
    s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
    return s;
+}
+
+void ScriptRunner::emit_script_event(std::string item_dictionary_name, float cursor_x, float cursor_y)
+{
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "ScriptRunner" << "::" << "emit_script_event" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData *spawn_dialog_event_data =
+      new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData; // for now
+
+   AllegroFlare::GameEvent game_event(
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
+      spawn_dialog_event_data // for now
+   );
+
+   event_emitter->emit_game_event(game_event);
+   return;
 }
 } // namespace FixedRoom2D
 } // namespace Prototypes

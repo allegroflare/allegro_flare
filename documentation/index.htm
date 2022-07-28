@@ -3148,6 +3148,9 @@ table td
   <td class="method">process_interaction_event(1)</td>
 </tr>
 <tr>
+  <td class="method">process_script_event(1)</td>
+</tr>
+<tr>
   <td class="method">show_inventory()</td>
 </tr>
 <tr>
@@ -3170,6 +3173,18 @@ table td
 </tr>
 <tr>
   <td class="method">activate_primary_action()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_up()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_down()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_left()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_right()</td>
 </tr>
 <tr>
   <td class="method">move_cursor(2)</td>
@@ -3232,6 +3247,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -3561,6 +3579,10 @@ table td
   <td class="property">AllegroFlare::Elements::Inventory*</td>
 </tr>
 <tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
   <td class="property">script_dictionary</td>
   <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;*</td>
 </tr>
@@ -3611,8 +3633,14 @@ table td
 <tr>
   <td class="private_method">trim(1)</td>
 </tr>
+<tr>
+  <td class="private_method">emit_script_event(3)</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
@@ -3630,6 +3658,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4852,6 +4886,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -5210,6 +5245,10 @@ table td
   "AllegroFlare/Elements/DialogBoxFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
+  "AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
@@ -5232,6 +5271,9 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Script": [
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/VirtualControls": [

@@ -14,6 +14,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
 #include <map>
 
 
@@ -53,6 +54,7 @@ namespace AllegroFlare
             void update();
             void render();
             void process_interaction_event(AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data=nullptr);
+            void process_script_event(AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* script_event_data=nullptr);
             void show_inventory();
             void hide_inventory();
             void toggle_inventory();
@@ -61,6 +63,10 @@ namespace AllegroFlare
             bool dialog_is_finished();
             bool shutdown_dialog();
             void activate_primary_action();
+            void move_cursor_up();
+            void move_cursor_down();
+            void move_cursor_left();
+            void move_cursor_right();
             void move_cursor(float distance_x=0.0, float distance_y=0.0);
          };
       }

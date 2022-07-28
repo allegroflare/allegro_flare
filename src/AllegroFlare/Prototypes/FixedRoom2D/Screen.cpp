@@ -78,6 +78,12 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
          error_message << "Screen" << "::" << "game_event_func" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   if (!(game_event))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "game_event_func" << ": error: " << "guard \"game_event\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
    {
       AllegroFlare::GameEventDatas::Base *data = game_event->get_data();
@@ -92,7 +98,24 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
       }
       else
       {
-         std::cout << "Odd error" << std::endl;
+         std::cout << "Unknown event_data type for INTERACTION_EVENT_NAME" << std::endl;
+      }
+   }
+   else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
+   {
+      AllegroFlare::GameEventDatas::Base *data = game_event->get_data();
+      if (data && data->get_type() == "SpawnDialogEventData")
+      {
+         // cast data to InteractionEventData
+         AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* spawn_dialog_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*>(game_event->get_data());
+
+         // have room2d process the event
+         fixed_room_2d.process_script_event(spawn_dialog_event_data);
+      }
+      else
+      {
+         std::cout << "Unknown event_data type for SCRIPT_EVENT_NAME" << std::endl;
       }
    }
 
@@ -136,18 +159,22 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
    {
       case ALLEGRO_KEY_UP:
          fixed_room_2d.move_cursor(0, -cursor_speed);
+         fixed_room_2d.move_cursor_up();
       break;
 
       case ALLEGRO_KEY_DOWN:
          fixed_room_2d.move_cursor(0, cursor_speed);
+         fixed_room_2d.move_cursor_down();
       break;
 
       case ALLEGRO_KEY_LEFT:
          fixed_room_2d.move_cursor(-cursor_speed, 0);
+         fixed_room_2d.move_cursor_left();
       break;
 
       case ALLEGRO_KEY_RIGHT:
          fixed_room_2d.move_cursor(cursor_speed, 0);
+         fixed_room_2d.move_cursor_right();
       break;
 
       case ALLEGRO_KEY_ENTER:
