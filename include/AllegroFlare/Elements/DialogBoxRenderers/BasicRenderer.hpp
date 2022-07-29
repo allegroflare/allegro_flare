@@ -25,7 +25,7 @@ namespace AllegroFlare
             bool is_finished;
 
          public:
-            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, float width=1.0f, float height=1.0f, std::string current_page_text="[unset-current_page_text]", int num_revealed_characters=999, float text_padding_x=40.0f, float text_padding_y=30.0f, bool is_finished=false);
+            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, float width=1.0f, float height=1.0f, std::string current_page_text="[unset-current_page_text]", int num_revealed_characters=999, float text_padding_x=55.0f, float text_padding_y=45.0f, bool is_finished=false);
             ~BasicRenderer();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);

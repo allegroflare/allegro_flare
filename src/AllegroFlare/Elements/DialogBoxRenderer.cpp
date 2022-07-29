@@ -80,9 +80,19 @@ void DialogBoxRenderer::render()
          error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
+   float standard_dialog_box_x = 1920/2;
+   float standard_dialog_box_y = 1080/8*6;
+   float standard_dialog_box_width = 1920/2;
+   float standard_dialog_box_height = 1080/5;
+
    if (dialog_box->is_type("Choice"))
    {
-      AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
+      AllegroFlare::Placement2D place{
+         standard_dialog_box_x,
+         standard_dialog_box_y,
+         standard_dialog_box_width,
+         standard_dialog_box_height,
+      };
 
       AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box =
          dynamic_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(dialog_box);
@@ -122,7 +132,12 @@ void DialogBoxRenderer::render()
    }
    else if (dialog_box->is_type("Basic"))
    {
-      AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
+      AllegroFlare::Placement2D place{
+         standard_dialog_box_x,
+         standard_dialog_box_y,
+         standard_dialog_box_width,
+         standard_dialog_box_height,
+      };
 
       AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
          dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);

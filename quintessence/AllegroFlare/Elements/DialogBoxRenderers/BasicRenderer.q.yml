@@ -38,14 +38,14 @@ properties:
 
   - name: text_padding_x
     type: float
-    init_with: 40.0f
+    init_with: 55.0f
     constructor_arg: true
     getter: true
     setter: true
 
   - name: text_padding_y
     type: float
-    init_with: 30.0f
+    init_with: 45.0f
     constructor_arg: true
     getter: true
     setter: true
@@ -197,7 +197,8 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
     body: |
-      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -50";
+      //static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -50";
+      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
       ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
       return result_font;
 

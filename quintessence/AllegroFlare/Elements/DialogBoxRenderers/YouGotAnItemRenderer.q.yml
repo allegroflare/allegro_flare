@@ -138,7 +138,7 @@ functions:
     private: true
     type: ALLEGRO_FONT*
     body: |
-      static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
+      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
       ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
       return result_font;
 
@@ -146,7 +146,7 @@ functions:
   - name: obtain_item_name_text_font
     private: true
     type: ALLEGRO_FONT*
-    body: return font_bin->auto_get("Lato-Bold.ttf -46");
+    body: return font_bin->auto_get("Inter-Bold.ttf -36");
 
 
   - name: opaquify

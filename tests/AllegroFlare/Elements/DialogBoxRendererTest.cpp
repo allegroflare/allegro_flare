@@ -185,7 +185,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_choice_type_di
    AllegroFlare::BitmapBin bitmap_bin;
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(
-      "What's up!?",
+      "Hey! I'll just ask a simple question. What's up!?",
       {
          { "Not much", "NOTHING", },
          { "A lot", "EVERYTHING" },

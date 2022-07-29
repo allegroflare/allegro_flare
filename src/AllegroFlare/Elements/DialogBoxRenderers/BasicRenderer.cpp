@@ -239,7 +239,8 @@ ALLEGRO_FONT* BasicRenderer::obtain_dialog_font()
          error_message << "BasicRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -50";
+   //static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -50";
+   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }

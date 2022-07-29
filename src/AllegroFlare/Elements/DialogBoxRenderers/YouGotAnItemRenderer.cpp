@@ -163,14 +163,14 @@ ALLEGRO_FONT* YouGotAnItemRenderer::obtain_notification_text_font()
          error_message << "YouGotAnItemRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
+   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }
 
 ALLEGRO_FONT* YouGotAnItemRenderer::obtain_item_name_text_font()
 {
-   return font_bin->auto_get("Lato-Bold.ttf -46");
+   return font_bin->auto_get("Inter-Bold.ttf -36");
 }
 
 ALLEGRO_COLOR YouGotAnItemRenderer::opaquify(ALLEGRO_COLOR color)
