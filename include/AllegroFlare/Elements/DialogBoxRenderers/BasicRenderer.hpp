@@ -23,9 +23,12 @@ namespace AllegroFlare
             float text_padding_x;
             float text_padding_y;
             bool is_finished;
+            bool page_is_finished;
+            float page_finished_at;
+            bool at_last_page;
 
          public:
-            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, float width=1.0f, float height=1.0f, std::string current_page_text="[unset-current_page_text]", int num_revealed_characters=999, float text_padding_x=55.0f, float text_padding_y=45.0f, bool is_finished=false);
+            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, float width=1.0f, float height=1.0f, std::string current_page_text="[unset-current_page_text]", int num_revealed_characters=999, float text_padding_x=55.0f, float text_padding_y=45.0f, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false);
             ~BasicRenderer();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -36,6 +39,9 @@ namespace AllegroFlare
             void set_text_padding_x(float text_padding_x);
             void set_text_padding_y(float text_padding_y);
             void set_is_finished(bool is_finished);
+            void set_page_is_finished(bool page_is_finished);
+            void set_page_finished_at(float page_finished_at);
+            void set_at_last_page(bool at_last_page);
             AllegroFlare::FontBin* get_font_bin();
             float get_width();
             float get_height();
@@ -44,6 +50,9 @@ namespace AllegroFlare
             float get_text_padding_x();
             float get_text_padding_y();
             bool get_is_finished();
+            bool get_page_is_finished();
+            float get_page_finished_at();
+            bool get_at_last_page();
             void render();
             void draw_special_state_empty_text(float width=1, float height=1);
             void draw_action_text(std::string text="[unset-action-text]", float width=1, float height=1);

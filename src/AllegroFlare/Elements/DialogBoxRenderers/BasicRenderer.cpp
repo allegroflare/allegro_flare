@@ -20,7 +20,7 @@ namespace DialogBoxRenderers
 {
 
 
-BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, float width, float height, std::string current_page_text, int num_revealed_characters, float text_padding_x, float text_padding_y, bool is_finished)
+BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, float width, float height, std::string current_page_text, int num_revealed_characters, float text_padding_x, float text_padding_y, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page)
    : font_bin(font_bin)
    , width(width)
    , height(height)
@@ -29,6 +29,9 @@ BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, float width, float
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
    , is_finished(is_finished)
+   , page_is_finished(page_is_finished)
+   , page_finished_at(page_finished_at)
+   , at_last_page(at_last_page)
 {
 }
 
@@ -86,6 +89,24 @@ void BasicRenderer::set_is_finished(bool is_finished)
 }
 
 
+void BasicRenderer::set_page_is_finished(bool page_is_finished)
+{
+   this->page_is_finished = page_is_finished;
+}
+
+
+void BasicRenderer::set_page_finished_at(float page_finished_at)
+{
+   this->page_finished_at = page_finished_at;
+}
+
+
+void BasicRenderer::set_at_last_page(bool at_last_page)
+{
+   this->at_last_page = at_last_page;
+}
+
+
 AllegroFlare::FontBin* BasicRenderer::get_font_bin()
 {
    return font_bin;
@@ -134,6 +155,24 @@ bool BasicRenderer::get_is_finished()
 }
 
 
+bool BasicRenderer::get_page_is_finished()
+{
+   return page_is_finished;
+}
+
+
+float BasicRenderer::get_page_finished_at()
+{
+   return page_finished_at;
+}
+
+
+bool BasicRenderer::get_at_last_page()
+{
+   return at_last_page;
+}
+
+
 void BasicRenderer::render()
 {
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
@@ -147,10 +186,12 @@ void BasicRenderer::render()
       draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
 
       // draw the "next" cursor
-      int current_dialog_box_page_character_count = current_page_text.length();
-      if (num_revealed_characters >= current_dialog_box_page_character_count)
+      //int current_dialog_box_page_character_count = current_page_text.length();
+      //if (num_revealed_characters >= current_dialog_box_page_character_count)
       {
-         draw_action_text("next >", width, height);
+         if (page_is_finished && at_last_page) draw_action_text("x close", width, height);
+         else if (page_is_finished) draw_action_text("next >", width, height);
+         //if (page_is_finished) draw_action_text("next >", width, height);
       }
    }
    return;

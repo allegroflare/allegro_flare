@@ -57,6 +57,27 @@ properties:
     getter: true
     setter: true
 
+  - name: page_is_finished
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: page_finished_at
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: at_last_page
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -74,10 +95,12 @@ functions:
          draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
 
          // draw the "next" cursor
-         int current_dialog_box_page_character_count = current_page_text.length();
-         if (num_revealed_characters >= current_dialog_box_page_character_count)
+         //int current_dialog_box_page_character_count = current_page_text.length();
+         //if (num_revealed_characters >= current_dialog_box_page_character_count)
          {
-            draw_action_text("next >", width, height);
+            if (page_is_finished && at_last_page) draw_action_text("x close", width, height);
+            else if (page_is_finished) draw_action_text("next >", width, height);
+            //if (page_is_finished) draw_action_text("next >", width, height);
          }
       }
       return;

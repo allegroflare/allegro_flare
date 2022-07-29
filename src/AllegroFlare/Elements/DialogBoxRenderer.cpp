@@ -150,7 +150,10 @@ void DialogBoxRenderer::render()
          basic_dialog_box->get_num_revealed_characters()
       );
       basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
-      
+      basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
+      basic_dialog_box_renderer.set_page_finished_at(basic_dialog_box->get_page_finished_at());
+      basic_dialog_box_renderer.set_at_last_page(basic_dialog_box->at_last_page());
+
       place.start_transform();
       basic_dialog_box_renderer.render();
       place.restore_transform();
