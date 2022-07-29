@@ -8,6 +8,7 @@
 #include <allegro5/allegro_color.h>
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+#include <AllegroFlare/Elements/DialogButton.hpp>
 #include <stdexcept>
 #include <sstream>
 
@@ -185,13 +186,17 @@ void BasicRenderer::render()
    {
       draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
 
-      // draw the "next" cursor
-      //int current_dialog_box_page_character_count = current_page_text.length();
-      //if (num_revealed_characters >= current_dialog_box_page_character_count)
+      // draw the "next" or "finished" cursor
+      if (page_is_finished)
       {
-         if (page_is_finished && at_last_page) draw_action_text("x close", width, height);
-         else if (page_is_finished) draw_action_text("next >", width, height);
-         //if (page_is_finished) draw_action_text("next >", width, height);
+         AllegroFlare::Elements::DialogButton dialog_button(font_bin);
+         dialog_button.set_started_at(page_finished_at);
+         dialog_button.set_x(width - 160);
+         dialog_button.set_y(height - 60);
+
+         if (at_last_page) dialog_button.set_at_last_advance(true);
+
+         dialog_button.render();
       }
    }
    return;

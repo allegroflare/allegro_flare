@@ -82,7 +82,7 @@ void Basic::update()
 {
    if (finished) return;
    if (!page_finished) num_revealed_characters++;
-   if (all_characters_are_revealed())
+   if (!page_finished && all_characters_are_revealed())
    {
       page_finished = true;
       page_finished_at = al_get_time();

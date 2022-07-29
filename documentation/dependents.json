@@ -387,6 +387,9 @@
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/Elements/DialogButton": [
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
+  ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"

@@ -24,6 +24,18 @@ properties:
     getter: true
     setter: true
 
+  - name: x
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+   
+  - name: y
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -38,8 +50,9 @@ functions:
       - al_is_primitives_addon_initialized()
       - font_bin
     body: |
-      float x = 1920-400;
-      float y = 1080-300;
+      // TODO: use these positions in tests
+      //float x = 1920-400;
+      //float y = 1080-300;
       float age = al_get_time() - started_at;
       ALLEGRO_FONT *button_font = obtain_button_font();
       ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;

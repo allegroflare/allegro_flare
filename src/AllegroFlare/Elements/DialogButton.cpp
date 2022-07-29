@@ -23,6 +23,8 @@ DialogButton::DialogButton(AllegroFlare::FontBin* font_bin)
    , text_font_size(-36)
    , started_at(0)
    , at_last_advance(false)
+   , x(0)
+   , y(0)
 {
 }
 
@@ -50,6 +52,18 @@ void DialogButton::set_at_last_advance(bool at_last_advance)
 }
 
 
+void DialogButton::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void DialogButton::set_y(float y)
+{
+   this->y = y;
+}
+
+
 int DialogButton::get_text_font_size()
 {
    return text_font_size;
@@ -65,6 +79,18 @@ float DialogButton::get_started_at()
 bool DialogButton::get_at_last_advance()
 {
    return at_last_advance;
+}
+
+
+float DialogButton::get_x()
+{
+   return x;
+}
+
+
+float DialogButton::get_y()
+{
+   return y;
 }
 
 
@@ -100,8 +126,9 @@ void DialogButton::render()
          error_message << "DialogButton" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   float x = 1920-400;
-   float y = 1080-300;
+   // TODO: use these positions in tests
+   //float x = 1920-400;
+   //float y = 1080-300;
    float age = al_get_time() - started_at;
    ALLEGRO_FONT *button_font = obtain_button_font();
    ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
