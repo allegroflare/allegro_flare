@@ -15,10 +15,6 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -152,99 +148,6 @@ void DialogBoxRenderer::render()
    }
 
    return;
-}
-
-void DialogBoxRenderer::draw_special_state_empty_text(float width, float height)
-{
-   ALLEGRO_FONT* text_font = obtain_dialog_font();
-   ALLEGRO_COLOR text_color = al_color_html("303030");
-   float line_height = al_get_font_line_height(text_font);
-   std::string text = "[dialog finished]";
-   al_draw_text(
-      text_font,
-      text_color,
-      width * 0.5,
-      height * 0.5 - line_height * 0.5,
-      ALLEGRO_ALIGN_CENTER,
-      text.c_str()
-   );
-   return;
-}
-
-void DialogBoxRenderer::draw_action_text(std::string text, float width, float height)
-{
-   ALLEGRO_FONT* text_font = obtain_dialog_font();
-   ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   float line_height = al_get_font_line_height(text_font);
-   al_draw_text(
-      text_font,
-      text_color,
-      width-20,
-      height-line_height-10,
-      ALLEGRO_ALIGN_RIGHT,
-      text.c_str()
-   );
-   return;
-}
-
-void DialogBoxRenderer::draw_styled_revealed_text(float max_width, std::string text, int num_revealed_characters)
-{
-   float text_padding_x = 40.0f;
-   float text_padding_y = 30.0f;
-   float text_box_max_width = max_width - (text_padding_x * 2);
-   ALLEGRO_FONT* text_font = obtain_dialog_font();
-   float line_height = al_get_font_line_height(text_font);
-   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   ALLEGRO_COLOR text_color = al_color_name("skyblue");
-   //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
-
-   al_draw_multiline_text(
-      text_font,
-      text_color,
-      text_padding_x,
-      text_padding_y,
-      text_box_max_width,
-      line_height,
-      ALLEGRO_ALIGN_LEFT,
-      concat_text(text, num_revealed_characters).c_str()
-   );
-   return;
-}
-
-std::string DialogBoxRenderer::concat_text(std::string source_text, int length)
-{
-   if (!(dialog_box))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "concat_text" << ": error: " << "guard \"dialog_box\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   return source_text.substr(0, length);
-}
-
-ALLEGRO_FONT* DialogBoxRenderer::obtain_dialog_font()
-{
-   if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (!(al_is_ttf_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -50";
-   ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
-   return result_font;
 }
 } // namespace Elements
 } // namespace AllegroFlare
