@@ -30,6 +30,20 @@ properties:
     init_with: 9999
     getter: true
 
+  - name: finished_at
+    type: float
+    init_with: 0
+    getter: true
+
+  - name: page_finished
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: page_finished_at
+    type: float
+    init_with: 0.0f
+    getter: true
 
 functions:
 
@@ -37,8 +51,16 @@ functions:
   - name: update
     virtual: true
     body: |
-      num_revealed_characters++;
+      if (finished) return;
+      if (!page_finished) num_revealed_characters++;
+      if (all_characters_are_revealed())
+      {
+         page_finished = true;
+         page_finished_at = al_get_time();
+      }
       return;
+    body_dependency_symbols:
+      - al_get_time
 
 
   - name: set_pages
@@ -55,8 +77,9 @@ functions:
   - name: reset
     body: |
       current_page_num = 0;
-      num_revealed_characters = 0;
       finished = false;
+      finished_at = 0;
+      reset_current_page_counters();
       return;
 
 
@@ -67,19 +90,47 @@ functions:
       return pages[current_page_num];
 
 
+  - name: get_current_page_num_chars
+    type: int
+    body: |
+      if (!current_page_is_valid()) return 0;
+      return pages[current_page_num].size();
+
+
+  - name: advance
+    type: bool
+    body: |
+      // TODO, either reveal all characters or advance depending on state
+      return true;
+
+
   - name: next_page
     type: bool
+    guards: [ al_is_system_installed() ]
     body: |
       //if (at_last_page()) return false;
       if (get_finished()) return false;
+
       current_page_num++;
-      num_revealed_characters = 0;
+      reset_current_page_counters();
+
       if (current_page_num >= num_pages())
       {
          finished = true;
+         finished_at = al_get_time();
          current_page_num = -1;
       }
       return true;
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: reset_current_page_counters
+    body: |
+      page_finished = false;
+      page_finished_at = 0;
+      num_revealed_characters = 0;
+      return;
 
 
   - name: num_pages
@@ -111,8 +162,20 @@ functions:
 
 
   - name: reveal_all_characters
+    guards: [ al_is_system_installed() ]
     body: |
       num_revealed_characters = 9999;
+      page_finished = true;
+      page_finished_at = al_get_time();
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: all_characters_are_revealed
+    type: bool
+    body: |
+      if (!current_page_is_valid()) return true;
+      return num_revealed_characters >= get_current_page_num_chars();
 
 
 dependencies:
@@ -120,5 +183,7 @@ dependencies:
 
   - symbol: AllegroFlare::Elements::DialogBoxes::Base
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
 
 

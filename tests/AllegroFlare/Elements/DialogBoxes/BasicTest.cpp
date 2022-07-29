@@ -3,6 +3,9 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 
+#include <allegro5/allegro.h>
+
+
 TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::DialogBoxes::Basic basic;
@@ -30,8 +33,10 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, set_pages__sets_the_pages_with
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, at_last_page__will_return_true_if_the_dialog_is_at_the_very_last_page)
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   at_last_page__if_the_dialog_is_at_the_very_last_page__will_return_true)
 {
+   al_init();
    std::vector<std::string> pages = {
       "Page 1 has this test",
       "This is the text to page 2.\nPage 1 has two lines.",
@@ -44,11 +49,14 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, at_last_page__will_return_true
    ASSERT_EQ(true, dialog_box.next_page());
 
    ASSERT_EQ(true, dialog_box.at_last_page());
+   al_uninstall_system();
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, at_last_page__will_false_ff_the_dialog_is_anywhere_but_at_the_very_last_page)
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   at_last_page__if_the_dialog_is_anywhere_but_at_the_very_last_page__will_return_false)
 {
+   al_init();
    std::vector<std::string> pages = {
       "Page 1 has this test",
       "This is the text to page 2.\nPage 1 has two lines.",
@@ -66,11 +74,13 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, at_last_page__will_false_ff_th
 
    ASSERT_EQ(true, dialog_box.next_page());
    ASSERT_EQ(false, dialog_box.at_last_page());
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, next_page__will_increment_the_page_number)
 {
+   al_init();
    std::vector<std::string> pages = {
       "Page 1 has this test",
       "This is the text to page 2.\nPage 1 has two lines.",
@@ -85,6 +95,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, next_page__will_increment_the_
    ASSERT_EQ(1, dialog_box.get_current_page_num());
    dialog_box.next_page();
    ASSERT_EQ(2, dialog_box.get_current_page_num());
+   al_uninstall_system();
 }
 
 
@@ -95,30 +106,37 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, has_no_pages__will_true_if_the
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, get_current_page_text__will_return_a_special_empty_text_when_not_on_a_page)
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   get_current_page_text__will_return_a_special_empty_text_when_not_on_a_page)
 {
+   al_init();
    AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    dialog_box.next_page();
 
    std::string expected_page_text = "[null]";
 
    ASSERT_EQ(expected_page_text, dialog_box.get_current_page_text());
+   al_uninstall_system();
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, next_page__when_at_the_last_page__will_mark_the_dialog_box_as_finished)
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   next_page__when_at_the_last_page__will_mark_the_dialog_box_as_finished)
 {
+   al_init();
    AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
 
    EXPECT_EQ(false, dialog_box.get_finished());
    dialog_box.next_page();
 
    ASSERT_EQ(true, dialog_box.get_finished());
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, next_page__will_increment_the_page_text)
 {
+   al_init();
    std::vector<std::string> pages = {
       "Page 1 has this test",
       "This is the text to page 2.\nPage 1 has two lines.",
@@ -131,11 +149,13 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, next_page__will_increment_the_
 
    std::string expected_page_text = "This is the text to page 2.\nPage 1 has two lines.";
    ASSERT_EQ(expected_page_text, dialog_box.get_current_page_text());
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, update__will_increment_the_num_revealed_characters)
 {
+   al_init();
    std::vector<std::string> pages = {
       "This is text who's characters will reveal over time.",
    };
@@ -145,11 +165,27 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, update__will_increment_the_num
    EXPECT_EQ(0, dialog_box.get_num_revealed_characters());
    dialog_box.update();
    EXPECT_EQ(1, dialog_box.get_num_revealed_characters());
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   update__upon_all_characters_becoming_revealed__will_mark_the_page_as_finished)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   update__upon_all_characters_becoming_revealed__will_set__page_finished_at__to_the_current_time)
+{
+   // TODO
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, reset__will_set_the_num_revealed_characters_to_0)
 {
+   al_init();
    std::vector<std::string> pages = {
       "This is text who's characters will reveal over time.",
    };
@@ -161,11 +197,28 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, reset__will_set_the_num_reveal
 
    dialog_box.reset();
    EXPECT_EQ(0, dialog_box.get_num_revealed_characters());
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, reset__will_set_finished_at_to_0)
+{
+   al_init();
+   std::vector<std::string> pages = { "This is text who's characters will reveal over time.", };
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box(pages);
+
+   for (unsigned i=0; i<30; i++) dialog_box.update();
+   //EXPECT_NE(0, dialog_box.get_finished_at());
+
+   //dialog_box.reset();
+   //EXPECT_EQ(0, dialog_box.get_finished_at());
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, next_page__will_set_the_num_revealed_characters_to_0)
 {
+   al_init();
    std::vector<std::string> pages = {
       "This is text who's characters will reveal over time.",
       "This line will have 0 revealed characters when first seen.",
@@ -178,6 +231,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, next_page__will_set_the_num_re
 
    dialog_box.reset();
    EXPECT_EQ(0, dialog_box.get_num_revealed_characters());
+   al_uninstall_system();
 }
 
 

@@ -62,6 +62,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -92,6 +93,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -146,6 +148,7 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
@@ -175,6 +178,7 @@
   ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
@@ -251,17 +255,20 @@
   ],
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image"
   ],
   "fmod": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
@@ -270,6 +277,7 @@
   ],
   "std/min, std/max": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image"
@@ -294,6 +302,7 @@
   ],
   "al_get_time": [
     "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
   ],
   "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
@@ -395,6 +404,10 @@
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base"
+  ],
+  "al_is_ttf_addon_initialized": [
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/HealthBars/Basic",
@@ -672,9 +685,6 @@
     "AllegroFlare/TimeStamper"
   ],
   "std/setfill": [
-    "AllegroFlare/UnicodeFontViewer"
-  ],
-  "al_is_ttf_addon_initialized": [
     "AllegroFlare/UnicodeFontViewer"
   ],
   "cross_product": [
