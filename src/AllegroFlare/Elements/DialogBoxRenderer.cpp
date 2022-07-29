@@ -136,9 +136,9 @@ void DialogBoxRenderer::render()
          place.size.x,
          place.size.y,
          basic_dialog_box->get_current_page_text(),
-         basic_dialog_box->get_num_revealed_characters(),
-         basic_dialog_box->get_finished()
+         basic_dialog_box->get_num_revealed_characters()
       );
+      basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
       
       place.start_transform();
       basic_dialog_box_renderer.render();
