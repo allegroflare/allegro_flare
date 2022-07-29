@@ -5,8 +5,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -84,15 +82,10 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
          error_message << "Screen" << "::" << "game_event_func" << ": error: " << "guard \"game_event\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
+   if (fixed_room_2d.is_subscribed_to_game_event_name(game_event->get_name()))
    {
-      fixed_room_2d.process_interaction_event(game_event->get_data());
-   }
-   else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
-   {
-      fixed_room_2d.process_script_event(game_event->get_data());
-   }
-
+      fixed_room_2d.process_subscribed_to_game_event(game_event);
+   };
    return;
 }
 

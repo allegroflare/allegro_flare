@@ -3146,10 +3146,20 @@ table td
   <td class="property">active_dialog</td>
   <td class="property">AllegroFlare::Elements::DialogBoxes::Base*</td>
 </tr>
+<tr>
+  <td class="property">subscribed_to_game_event_names</td>
+  <td class="property">std::set&lt;std::string&gt;</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="method">set_font_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">get_subscribed_to_game_event_names()</td>
+</tr>
+<tr>
+  <td class="method">is_subscribed_to_game_event_name(1)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -3159,6 +3169,9 @@ table td
 </tr>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">process_subscribed_to_game_event(1)</td>
 </tr>
 <tr>
   <td class="private_method">process_interaction_event(1)</td>
@@ -3272,6 +3285,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EventNames::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -5212,6 +5231,7 @@ table td
   ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "AllegroFlare/GameEventDatas/Base": [
@@ -5302,6 +5322,9 @@ table td
   "AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",

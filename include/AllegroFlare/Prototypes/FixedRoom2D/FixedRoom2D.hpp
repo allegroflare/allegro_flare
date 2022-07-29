@@ -7,6 +7,7 @@
 #include <AllegroFlare/Elements/Inventory.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
@@ -15,6 +16,8 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
 #include <map>
+#include <set>
+#include <string>
 
 
 namespace AllegroFlare
@@ -40,6 +43,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::FixedRoom2D::Room room;
             bool initialized;
             AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
+            std::set<std::string> subscribed_to_game_event_names;
 
          public:
             FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::AudioController* audio_controller=nullptr);
@@ -49,9 +53,12 @@ namespace AllegroFlare
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_audio_controller(AllegroFlare::AudioController* audio_controller);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+            std::set<std::string> get_subscribed_to_game_event_names();
+            bool is_subscribed_to_game_event_name(std::string game_event_name="[unset-game_event_name]");
             void initialize();
             void update();
             void render();
+            void process_subscribed_to_game_event(AllegroFlare::GameEvent* game_event=nullptr);
             void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void show_inventory();

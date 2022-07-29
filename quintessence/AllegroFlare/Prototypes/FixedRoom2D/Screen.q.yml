@@ -70,19 +70,11 @@ functions:
         default_argument: nullptr
     guards: [ initialized, game_event ]
     body: |
-      if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
+      if (fixed_room_2d.is_subscribed_to_game_event_name(game_event->get_name()))
       {
-         fixed_room_2d.process_interaction_event(game_event->get_data());
-      }
-      else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
-      {
-         fixed_room_2d.process_script_event(game_event->get_data());
-      }
-
+         fixed_room_2d.process_subscribed_to_game_event(game_event);
+      };
       return;
-    body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
-      - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*
 
 
   - name: on_deactivate

@@ -64,6 +64,11 @@ properties:
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
 
+  - name: subscribed_to_game_event_names
+    type: std::set<std::string>
+    init_with: '{}'
+    getter: explicit
+
 
 functions:
 
@@ -79,10 +84,33 @@ functions:
       return;
 
 
+  - name: get_subscribed_to_game_event_names
+    type: std::set<std::string>
+    guards: [ initialized ]
+    body: |
+      return subscribed_to_game_event_names;
+
+
+  - name: is_subscribed_to_game_event_name
+    parameters:
+      - name: game_event_name
+        type: std::string
+        default_argument: '"[unset-game_event_name]"'
+    type: bool
+    guards: [ initialized ]
+    body: |
+      return (subscribed_to_game_event_names.count(game_event_name) != 0);
+
+
   - name: initialize
     guards: [ (!initialized), bitmap_bin, event_emitter, audio_controller ]
     body: |
       AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
+
+      subscribed_to_game_event_names = {
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
+      };
 
       inventory_window.set_font_bin(font_bin);
       inventory_window.set_bitmap_bin(bitmap_bin);
@@ -138,6 +166,7 @@ functions:
 
 
   - name: update
+    guards: [ initialized ]
     body: |
       room.update();
       if (active_dialog) active_dialog->update();
@@ -146,6 +175,7 @@ functions:
 
 
   - name: render
+    guards: [ initialized ]
     body: |
       room.render();
       if (active_dialog)
@@ -162,12 +192,41 @@ functions:
       - AllegroFlare::Elements::DialogBoxRenderer
 
 
+  - name: process_subscribed_to_game_event
+    private: true
+    parameters:
+      - name: game_event
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
+      {
+         process_interaction_event(game_event->get_data());
+      }
+      else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
+      {
+         process_script_event(game_event->get_data());
+      }
+      else
+      {
+         std::cout << "[FixedRoom2D::FixedRoom2D::process_subscribed_to_game_event]: "
+                   << "error: unexpected game_event name "
+                   << "\"" << game_event->get_name() << "\". Doing nothing (except outputting this error)."
+                   << std::endl;
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::*
+
+
   - name: process_interaction_event
     private: true
     parameters:
       - name: game_event_data
         type: AllegroFlare::GameEventDatas::Base*
         default_argument: nullptr
+    guards: [ initialized ]
     body: |
       if (game_event_data && game_event_data->get_type() == "InteractionEventData")
       {
@@ -202,6 +261,7 @@ functions:
       - name: game_event_data
         type: AllegroFlare::GameEventDatas::Base*
         default_argument: nullptr
+    guards: [ initialized ]
     body: |
       using namespace AllegroFlare::Prototypes::FixedRoom2D;
 
@@ -253,6 +313,7 @@ functions:
 
 
   - name: show_inventory
+    guards: [ initialized ]
     body: |
       inventory_window.show();
       room.suspend();
@@ -260,6 +321,7 @@ functions:
 
 
   - name: hide_inventory
+    guards: [ initialized ]
     body: |
       inventory_window.hide();
       room.resume();
@@ -267,6 +329,7 @@ functions:
 
 
   - name: toggle_inventory
+    guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) hide_inventory();
       else show_inventory();
@@ -274,6 +337,7 @@ functions:
 
 
   - name: spawn_dialog_box
+    guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) return;
 
@@ -291,6 +355,7 @@ functions:
 
 
   - name: advance_dialog
+    guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) return;
 
@@ -304,6 +369,7 @@ functions:
 
   - name: dialog_is_finished
     type: bool
+    guards: [ initialized ]
     body: |
       if (!active_dialog) return true;
       if (active_dialog->is_type("Basic"))
@@ -315,6 +381,7 @@ functions:
 
   - name: shutdown_dialog
     type: bool
+    guards: [ initialized ]
     body: |
       if (!active_dialog) return false;
       delete active_dialog;
@@ -323,6 +390,7 @@ functions:
 
 
   - name: activate_primary_action
+    guards: [ initialized ]
     body: |
       if (inventory_window.get_active())
       {
@@ -346,24 +414,28 @@ functions:
 
 
   - name: move_cursor_up
+    guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) inventory_window.move_cursor_up();
       return;
 
 
   - name: move_cursor_down
+    guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) inventory_window.move_cursor_down();
       return;
 
 
   - name: move_cursor_left
+    guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) inventory_window.move_cursor_left();
       return;
 
 
   - name: move_cursor_right
+    guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) inventory_window.move_cursor_right();
       return;
@@ -377,6 +449,7 @@ functions:
       - name: distance_y
         type: float
         default_argument: 0.0
+    guards: [ initialized ]
     body: |
       if (!room.get_suspended())
       { 
@@ -432,5 +505,9 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp ]
+  - symbol: AllegroFlare::GameEvent*
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
 
   
