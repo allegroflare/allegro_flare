@@ -10,3 +10,10 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTest, can_be_created_without
 }
 
 
+TEST(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTest,
+   process_script_event__on_a_subscribed_event_type__with_unknown_event_data_type__will_output_an_error_message_to_cout)
+{
+   // TODO
+}
+
+

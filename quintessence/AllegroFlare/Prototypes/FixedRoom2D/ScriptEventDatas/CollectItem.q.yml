@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::GameEventDatas::Base
     scope: public
-    init_with: '"CollectItemEventData"'
+    init_with: '"CollectItem"'
 
 
 properties:

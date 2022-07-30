@@ -297,6 +297,8 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::GameEventDatas::Base* 
       }
       else
       {
+         // assume the interaction is a script (for now)
+         // execute the script
          AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
          std::string script = interacting_entity->get_on_cursor_interact_script_name();
          script_runner.load_script_by_dictionary_name(script);
@@ -339,7 +341,6 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
 
          active_dialog = dialog_box_factory.create_basic_dialog(pages);
          room.suspend();
-         //spawn_dialog_box();
       }
       if (game_event_data->get_type() == "CollectItem")
       {
@@ -354,11 +355,13 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
                "key-keychain-house-keys-door-photo-pixabay-25.png"
             );
          room.suspend();
-         // TODO: spawn dialog
       }
       else
       {
-         std::cout << "Unknown event_data type for SCRIPT_EVENT_NAME" << std::endl;
+         std::cout << "[FixedRoom2D::FixedRoom2D::process_script_event]: error: "
+                   << "Unknown game_event_data type "
+                   << "\"" << game_event_data->get_type() << "\""
+                   << std::endl;
       }
    }
    return;
