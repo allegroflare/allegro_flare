@@ -1,9 +1,9 @@
 properties:
 
 
-  - name: name
+  - name: type
     type: std::string
-    init_with: '"[unnamed-game-event]"'
+    init_with: '"[unset-type]"'
     constructor_arg: true
     getter: true
 
@@ -18,9 +18,16 @@ properties:
 functions:
 
 
-  - name: todo
+  - name: get_name
+    type: std::string
     body: |
-      // rename "name" to "type"
+      // TODO: update all dependent classes to use "get_type" instead
+      std::cout << "[AllegroFlare::GameEvent::get_name]: warning: \"get_name()\" is depreciated. "
+                << "Use \"get_type()\" which is identical in use."
+                << std::endl;
+      return type;
+    body_dependency_symbols:
+      - std::cout
 
 
   - name: is_type
@@ -30,7 +37,7 @@ functions:
         type: std::string
         default_argument: '"[unset-possible_type]"'
     body: |
-      return (name == possible_type);
+      return (type == possible_type);
 
 
 dependencies:

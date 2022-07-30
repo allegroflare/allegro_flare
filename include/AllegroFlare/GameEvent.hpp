@@ -10,17 +10,17 @@ namespace AllegroFlare
    class GameEvent
    {
    private:
-      std::string name;
+      std::string type;
       AllegroFlare::GameEventDatas::Base* data;
 
    public:
-      GameEvent(std::string name="[unnamed-game-event]", AllegroFlare::GameEventDatas::Base* data=nullptr);
+      GameEvent(std::string type="[unset-type]", AllegroFlare::GameEventDatas::Base* data=nullptr);
       ~GameEvent();
 
       void set_data(AllegroFlare::GameEventDatas::Base* data);
-      std::string get_name();
+      std::string get_type();
       AllegroFlare::GameEventDatas::Base* get_data();
-      void todo();
+      std::string get_name();
       bool is_type(std::string possible_type="[unset-possible_type]");
    };
 }

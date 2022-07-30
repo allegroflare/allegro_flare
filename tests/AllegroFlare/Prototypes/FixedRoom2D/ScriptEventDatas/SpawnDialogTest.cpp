@@ -10,3 +10,10 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptEventDatas_SpawnDialogTest, can_b
 }
 
 
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptEventDatas_SpawnDialogTest, has_the_expected_type)
+{
+   AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog spawn_dialog;
+   EXPECT_EQ("SpawnDialog", spawn_dialog.get_type());
+}
+
+
