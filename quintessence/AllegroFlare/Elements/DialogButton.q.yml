@@ -8,7 +8,7 @@ properties:
 
   - name: text_font_size
     type: int
-    init_with: -36
+    init_with: -28
     getter: true
     setter: true
 

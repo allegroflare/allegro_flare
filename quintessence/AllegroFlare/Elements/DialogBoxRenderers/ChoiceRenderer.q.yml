@@ -18,13 +18,31 @@ properties:
 
   - name: width
     type: float
-    init_with: 1
+    init_with: (1920/2.0f)
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: height
     type: float
-    init_with: 1
+    init_with: (1080/5.0f)
     constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text_padding_x
+    type: float
+    init_with: 52.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text_padding_y
+    type: float
+    init_with: 40.0f
+    constructor_arg: true
+    getter: true
+    setter: true
 
 
 functions:
@@ -45,8 +63,8 @@ functions:
     body: |
       int dialog_box_num_revealed_characters = 999;
       std::string text = obtain_choice_dialog_box_prompt();
-      float text_padding_x = 40.0f;
-      float text_padding_y = 25.0f;
+      //float text_padding_x = 40.0f;
+      //float text_padding_y = 25.0f;
       float text_box_max_width = width - (text_padding_x * 2);
       ALLEGRO_FONT* text_font = obtain_dialog_font();
       float line_height = al_get_font_line_height(text_font);

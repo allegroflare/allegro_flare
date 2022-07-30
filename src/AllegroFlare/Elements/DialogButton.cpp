@@ -20,7 +20,7 @@ namespace Elements
 
 DialogButton::DialogButton(AllegroFlare::FontBin* font_bin)
    : font_bin(font_bin)
-   , text_font_size(-36)
+   , text_font_size(-28)
    , started_at(0)
    , at_last_advance(false)
    , x(0)

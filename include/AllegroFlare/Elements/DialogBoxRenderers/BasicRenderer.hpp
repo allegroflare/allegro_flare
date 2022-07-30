@@ -16,39 +16,39 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::FontBin* font_bin;
+            std::string current_page_text;
             float width;
             float height;
-            std::string current_page_text;
-            int num_revealed_characters;
             float text_padding_x;
             float text_padding_y;
+            int num_revealed_characters;
             bool is_finished;
             bool page_is_finished;
             float page_finished_at;
             bool at_last_page;
 
          public:
-            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, float width=1.0f, float height=1.0f, std::string current_page_text="[unset-current_page_text]", int num_revealed_characters=999, float text_padding_x=55.0f, float text_padding_y=45.0f, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false);
+            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text="[unset-current_page_text]", float width=(1920/2.0f), float height=(1080/5.0f), float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false);
             ~BasicRenderer();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
+            void set_current_page_text(std::string current_page_text);
             void set_width(float width);
             void set_height(float height);
-            void set_current_page_text(std::string current_page_text);
-            void set_num_revealed_characters(int num_revealed_characters);
             void set_text_padding_x(float text_padding_x);
             void set_text_padding_y(float text_padding_y);
+            void set_num_revealed_characters(int num_revealed_characters);
             void set_is_finished(bool is_finished);
             void set_page_is_finished(bool page_is_finished);
             void set_page_finished_at(float page_finished_at);
             void set_at_last_page(bool at_last_page);
             AllegroFlare::FontBin* get_font_bin();
+            std::string get_current_page_text();
             float get_width();
             float get_height();
-            std::string get_current_page_text();
-            int get_num_revealed_characters();
             float get_text_padding_x();
             float get_text_padding_y();
+            int get_num_revealed_characters();
             bool get_is_finished();
             bool get_page_is_finished();
             float get_page_finished_at();

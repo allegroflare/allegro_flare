@@ -25,18 +25,68 @@ namespace DialogBoxRenderers
 {
 
 
-ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, float width, float height)
+ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, float width, float height, float text_padding_x, float text_padding_y)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , choice_dialog_box(choice_dialog_box)
    , width(width)
    , height(height)
+   , text_padding_x(text_padding_x)
+   , text_padding_y(text_padding_y)
 {
 }
 
 
 ChoiceRenderer::~ChoiceRenderer()
 {
+}
+
+
+void ChoiceRenderer::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void ChoiceRenderer::set_height(float height)
+{
+   this->height = height;
+}
+
+
+void ChoiceRenderer::set_text_padding_x(float text_padding_x)
+{
+   this->text_padding_x = text_padding_x;
+}
+
+
+void ChoiceRenderer::set_text_padding_y(float text_padding_y)
+{
+   this->text_padding_y = text_padding_y;
+}
+
+
+float ChoiceRenderer::get_width()
+{
+   return width;
+}
+
+
+float ChoiceRenderer::get_height()
+{
+   return height;
+}
+
+
+float ChoiceRenderer::get_text_padding_x()
+{
+   return text_padding_x;
+}
+
+
+float ChoiceRenderer::get_text_padding_y()
+{
+   return text_padding_y;
 }
 
 
@@ -64,8 +114,8 @@ void ChoiceRenderer::draw_prompt_text()
 {
    int dialog_box_num_revealed_characters = 999;
    std::string text = obtain_choice_dialog_box_prompt();
-   float text_padding_x = 40.0f;
-   float text_padding_y = 25.0f;
+   //float text_padding_x = 40.0f;
+   //float text_padding_y = 25.0f;
    float text_box_max_width = width - (text_padding_x * 2);
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    float line_height = al_get_font_line_height(text_font);

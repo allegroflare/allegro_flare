@@ -92,13 +92,10 @@ functions:
          AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
             dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
 
-         AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(
-            font_bin,
-            place.size.x,
-            place.size.y,
-            basic_dialog_box->get_current_page_text(),
-            basic_dialog_box->get_num_revealed_characters()
-         );
+         AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(font_bin);
+
+         basic_dialog_box_renderer.set_current_page_text(basic_dialog_box->get_current_page_text());
+         basic_dialog_box_renderer.set_num_revealed_characters(basic_dialog_box->get_num_revealed_characters());
          basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
          basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
          basic_dialog_box_renderer.set_page_finished_at(basic_dialog_box->get_page_finished_at());

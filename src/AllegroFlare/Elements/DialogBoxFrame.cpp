@@ -83,7 +83,7 @@ void DialogBoxFrame::render()
       }
    float roundness = 13.0f;
    float border_thickness = 6.0f;
-   float border_inner_padding = border_thickness * 2.5;
+   float border_inner_padding = border_thickness * 2.25;
    //ALLEGRO_COLOR fill_color = al_color_html("162428");
    //ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.02f*opacity, 0.0f*opacity, 0.1f*opacity, opacity};
    //ALLEGRO_COLOR border_color = al_color_html("244751");

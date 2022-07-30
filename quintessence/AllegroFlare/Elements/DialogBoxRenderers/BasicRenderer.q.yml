@@ -8,20 +8,6 @@ properties:
     getter: true
     setter: true
 
-  - name: width
-    type: float
-    init_with: 1.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: height
-    type: float
-    init_with: 1.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: current_page_text
     type: std::string
     init_with: '"[unset-current_page_text]"'
@@ -29,23 +15,37 @@ properties:
     getter: true
     setter: true
 
-  - name: num_revealed_characters
-    type: int
-    init_with: 999
+  - name: width
+    type: float
+    init_with: (1920/2.0f)
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: (1080/5.0f)
     constructor_arg: true
     getter: true
     setter: true
 
   - name: text_padding_x
     type: float
-    init_with: 55.0f
+    init_with: 52.0f
     constructor_arg: true
     getter: true
     setter: true
 
   - name: text_padding_y
     type: float
-    init_with: 45.0f
+    init_with: 40.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: num_revealed_characters
+    type: int
+    init_with: 999
     constructor_arg: true
     getter: true
     setter: true

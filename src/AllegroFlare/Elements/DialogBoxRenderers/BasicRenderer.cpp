@@ -21,14 +21,14 @@ namespace DialogBoxRenderers
 {
 
 
-BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, float width, float height, std::string current_page_text, int num_revealed_characters, float text_padding_x, float text_padding_y, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page)
+BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text, float width, float height, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page)
    : font_bin(font_bin)
+   , current_page_text(current_page_text)
    , width(width)
    , height(height)
-   , current_page_text(current_page_text)
-   , num_revealed_characters(num_revealed_characters)
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
+   , num_revealed_characters(num_revealed_characters)
    , is_finished(is_finished)
    , page_is_finished(page_is_finished)
    , page_finished_at(page_finished_at)
@@ -48,6 +48,12 @@ void BasicRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void BasicRenderer::set_current_page_text(std::string current_page_text)
+{
+   this->current_page_text = current_page_text;
+}
+
+
 void BasicRenderer::set_width(float width)
 {
    this->width = width;
@@ -60,18 +66,6 @@ void BasicRenderer::set_height(float height)
 }
 
 
-void BasicRenderer::set_current_page_text(std::string current_page_text)
-{
-   this->current_page_text = current_page_text;
-}
-
-
-void BasicRenderer::set_num_revealed_characters(int num_revealed_characters)
-{
-   this->num_revealed_characters = num_revealed_characters;
-}
-
-
 void BasicRenderer::set_text_padding_x(float text_padding_x)
 {
    this->text_padding_x = text_padding_x;
@@ -81,6 +75,12 @@ void BasicRenderer::set_text_padding_x(float text_padding_x)
 void BasicRenderer::set_text_padding_y(float text_padding_y)
 {
    this->text_padding_y = text_padding_y;
+}
+
+
+void BasicRenderer::set_num_revealed_characters(int num_revealed_characters)
+{
+   this->num_revealed_characters = num_revealed_characters;
 }
 
 
@@ -114,6 +114,12 @@ AllegroFlare::FontBin* BasicRenderer::get_font_bin()
 }
 
 
+std::string BasicRenderer::get_current_page_text()
+{
+   return current_page_text;
+}
+
+
 float BasicRenderer::get_width()
 {
    return width;
@@ -126,18 +132,6 @@ float BasicRenderer::get_height()
 }
 
 
-std::string BasicRenderer::get_current_page_text()
-{
-   return current_page_text;
-}
-
-
-int BasicRenderer::get_num_revealed_characters()
-{
-   return num_revealed_characters;
-}
-
-
 float BasicRenderer::get_text_padding_x()
 {
    return text_padding_x;
@@ -147,6 +141,12 @@ float BasicRenderer::get_text_padding_x()
 float BasicRenderer::get_text_padding_y()
 {
    return text_padding_y;
+}
+
+
+int BasicRenderer::get_num_revealed_characters()
+{
+   return num_revealed_characters;
 }
 
 

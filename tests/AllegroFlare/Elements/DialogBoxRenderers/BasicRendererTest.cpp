@@ -37,15 +37,12 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
-   AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
-   AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(
-      &font_bin,
-      place.size.x,
-      place.size.y,
-      "This dialog box is finished."
-   );
+   //AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
+   AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(&font_bin);
+   dialog_box_renderer.set_current_page_text("This dialog is finished");
    dialog_box_renderer.set_is_finished(true);
    
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
    al_clear_to_color(ALLEGRO_COLOR{0});
    place.start_transform();
    dialog_box_renderer.render();
@@ -61,16 +58,12 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
-   AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
-   std::string dialog_box_page_text =
+   std::string page_text =
       "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
-   AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(
-      &font_bin,
-      place.size.x,
-      place.size.y,
-      dialog_box_page_text
-   );
+   AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(&font_bin);
+   dialog_box_renderer.set_current_page_text(page_text);
 
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
    al_clear_to_color(ALLEGRO_COLOR{0});
    place.start_transform();
    dialog_box_renderer.render();
@@ -86,7 +79,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
-   AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
    std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
 
    int num_revealed_characters = 0;
@@ -94,13 +86,13 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    {
       num_revealed_characters++;
 
-      AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(
-         &font_bin,
-         place.size.x,
-         place.size.y,
-         page_text,
-         num_revealed_characters
-      );
+      AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(&font_bin);
+      dialog_box_renderer.set_current_page_text(page_text);
+      dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
+
+      AllegroFlare::Placement2D place{
+         1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
+      };
 
       al_clear_to_color(ALLEGRO_COLOR{0});
       place.start_transform();
