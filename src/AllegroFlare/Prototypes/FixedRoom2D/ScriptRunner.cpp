@@ -4,8 +4,8 @@
 #include <stdexcept>
 #include <sstream>
 #include <iostream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
@@ -233,8 +233,8 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       else
       {
          std::vector<std::string> tokens = tokenize(argument);
-         AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData *spawn_dialog_event_data =
-            new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData(tokens);
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog *spawn_dialog_event_data =
+            new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog(tokens);
 
          emit_script_event(spawn_dialog_event_data);
          //Disabled:: created_dialog = dialog_factory.create_basic_dialog(std::vector<std::string>{script_line});
@@ -500,8 +500,8 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       }
       else if (command == COLLECT)
       {
-         AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData *event_data =
-            new AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData(item_name);
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem *event_data =
+            new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem(item_name);
          emit_script_event(event_data);
 
 

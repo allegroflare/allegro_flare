@@ -173,8 +173,8 @@ functions:
          else
          {
             std::vector<std::string> tokens = tokenize(argument);
-            AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData *spawn_dialog_event_data =
-               new AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData(tokens);
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog *spawn_dialog_event_data =
+               new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog(tokens);
 
             emit_script_event(spawn_dialog_event_data);
             //Disabled:: created_dialog = dialog_factory.create_basic_dialog(std::vector<std::string>{script_line});
@@ -440,8 +440,8 @@ functions:
          }
          else if (command == COLLECT)
          {
-            AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData *event_data =
-               new AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData(item_name);
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem *event_data =
+               new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem(item_name);
             emit_script_event(event_data);
 
 
@@ -508,8 +508,8 @@ functions:
 
       return continue_directly_to_next_script_line;
     body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData
-      - AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData
+      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
+      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
 
 
   - name: parse_command_and_argument
@@ -688,9 +688,9 @@ dependencies:
     headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp ]
 
 

@@ -273,10 +273,10 @@ functions:
       }
       else
       {
-         if (game_event_data->get_type() == "SpawnDialogEventData")
+         if (game_event_data->get_type() == "SpawnDialog")
          {
-            AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* spawn_dialog_event_data =
-                static_cast<AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*>(game_event_data);
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog* spawn_dialog_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog*>(game_event_data);
             std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
 
             AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
@@ -286,10 +286,10 @@ functions:
             room.suspend();
             //spawn_dialog_box();
          }
-         if (game_event_data->get_type() == "CollectItemEventData")
+         if (game_event_data->get_type() == "CollectItem")
          {
-            AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData* collect_item_event_data =
-                static_cast<AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData*>(game_event_data);
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
 
             AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
             if (active_dialog) delete active_dialog;
@@ -308,8 +308,8 @@ functions:
       }
       return;
     body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData
-      - AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData
+      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
+      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
 
 
   - name: show_inventory
@@ -501,10 +501,10 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFactory
     headers: [ AllegroFlare/Elements/DialogBoxFactory.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp ]
   - symbol: AllegroFlare::GameEvent*
     headers: [ AllegroFlare/GameEvent.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::*

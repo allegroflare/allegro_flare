@@ -21,8 +21,8 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <stdexcept>
 #include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/SpawnDialogEventData.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/CollectItemEventData.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -328,10 +328,10 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
    }
    else
    {
-      if (game_event_data->get_type() == "SpawnDialogEventData")
+      if (game_event_data->get_type() == "SpawnDialog")
       {
-         AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData* spawn_dialog_event_data =
-             static_cast<AllegroFlare::Prototypes::FixedRoom2D::SpawnDialogEventData*>(game_event_data);
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog* spawn_dialog_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog*>(game_event_data);
          std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
 
          AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
@@ -341,10 +341,10 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
          room.suspend();
          //spawn_dialog_box();
       }
-      if (game_event_data->get_type() == "CollectItemEventData")
+      if (game_event_data->get_type() == "CollectItem")
       {
-         AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData* collect_item_event_data =
-             static_cast<AllegroFlare::Prototypes::FixedRoom2D::CollectItemEventData*>(game_event_data);
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
 
          AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
          if (active_dialog) delete active_dialog;
