@@ -33,7 +33,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererTest, can_be_create
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
-   render__when_the_dialog_box_is_finished__renders_special_empty_text)
+   CAPTURE__render__when_the_dialog_box_is_finished__renders_special_empty_text)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
@@ -43,17 +43,17 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    dialog_box_renderer.set_is_finished(true);
    
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
-   al_clear_to_color(ALLEGRO_COLOR{0});
+   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
    place.start_transform();
    dialog_box_renderer.render();
    place.restore_transform();
    al_flip_display();
-   std::this_thread::sleep_for(std::chrono::seconds(1));
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
-   render__draws_multiline_dialog)
+   CAPTURE__render__draws_multiline_dialog)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
@@ -64,17 +64,17 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    dialog_box_renderer.set_current_page_text(page_text);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
-   al_clear_to_color(ALLEGRO_COLOR{0});
+   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
    place.start_transform();
    dialog_box_renderer.render();
    place.restore_transform();
    al_flip_display();
-   std::this_thread::sleep_for(std::chrono::seconds(1));
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
-   render__will_propertly_render_num_revealed_characters)
+   CAPTURE__render__will_propertly_render_num_revealed_characters)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
@@ -94,13 +94,13 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
       };
 
-      al_clear_to_color(ALLEGRO_COLOR{0});
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       place.start_transform();
       dialog_box_renderer.render();
       place.restore_transform();
 
       al_flip_display();
-      std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
+      //std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
    }
    //std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }

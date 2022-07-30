@@ -14,6 +14,8 @@
 #include <allegro5/allegro_color.h>
 #include <stdexcept>
 #include <sstream>
+#include <chrono>
+#include <thread>
 
 
 namespace AllegroFlare
@@ -67,9 +69,11 @@ void WithAllegroRenderingFixture::SetUp()
    // NOTE  was in  Repos/Krampus21
    #define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
    #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
+   #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
    #else
    #define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
    #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
+   #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
    #endif
 
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
@@ -81,12 +85,10 @@ void WithAllegroRenderingFixture::SetUp()
    ASSERT_NE(nullptr, display);
 
    // clear the display to a slightly gray black color
-   al_clear_to_color(ALLEGRO_COLOR{0.05f, 0.05f, 0.05f, 1.0f});
+   al_clear_to_color(ALLEGRO_COLOR{0.05f, 0.05f, 0.055f, 1.0f});
 
    // set the window title to the current test name
-   std::string current_test_name = ::testing::UnitTest::GetInstance()->current_test_info()->name();
-   std::string current_test_suite_name = ::testing::UnitTest::GetInstance()->current_test_info()->test_suite_name();
-   std::string new_window_title = current_test_suite_name + " - " + current_test_name;
+   std::string new_window_title = build_full_test_name_str();
 
    al_set_window_title(display, new_window_title.c_str());
 
@@ -95,6 +97,11 @@ void WithAllegroRenderingFixture::SetUp()
 
 void WithAllegroRenderingFixture::TearDown()
 {
+   if (test_name_indicates_it_wants_a_screenshot())
+   {
+      capture_screenshot(build_full_test_name_str() + ".png");
+   }
+
    font_bin.clear();
    bitmap_bin.clear();
    al_destroy_display(display);
@@ -133,6 +140,11 @@ std::string WithAllegroRenderingFixture::get_test_suite_name()
    return test_info->test_suite_name();
 }
 
+std::string WithAllegroRenderingFixture::build_full_test_name_str()
+{
+   return get_test_suite_name() + " - " + get_test_name();
+}
+
 AllegroFlare::Placement2D WithAllegroRenderingFixture::build_centered_placement(float width, float height)
 {
    if (!(al_get_target_bitmap()))
@@ -155,6 +167,34 @@ void WithAllegroRenderingFixture::draw_rulers()
       }
    al_draw_line(1920/2, 0, 1920/2, 1080, al_color_name("gray"), 1.0); // rulers down the center
    al_draw_line(0, 1080/2, 1920, 1080/2, al_color_name("gray"), 1.0); // rulers across the middle
+}
+
+bool WithAllegroRenderingFixture::test_name_indicates_it_wants_a_screenshot()
+{
+   return (get_test_name().substr(0, 9) == "CAPTURE__");
+}
+
+void WithAllegroRenderingFixture::capture_screenshot(std::string base_filename)
+{
+   std::string full_file_save_location = TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER + base_filename;
+
+   al_flip_display(); // this capture_screenshot technique assumes the pixels to capture are currently being
+                      // shown on the display.  This al_flip_display is added here in order to flip the
+                      // front-buffer *back* to the backbuffer so it can be used to capture the screenshot
+
+   bool screenshot_successful = al_save_bitmap(full_file_save_location.c_str(), al_get_backbuffer(display));
+   if (screenshot_successful)
+   {
+      std::cout << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: info: screenshot saved to "
+                << "\"" << full_file_save_location << "\""
+                << std::endl;
+   }
+   else
+   {
+      std::cout << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: ERROR: screenshot "
+                << "CAPTURE was not successful when trying to saving to \"" << full_file_save_location << "\""
+                << std::endl;
+   }
 }
 } // namespace Testing
 } // namespace AllegroFlare
