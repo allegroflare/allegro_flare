@@ -48,7 +48,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    dialog_box_renderer.render();
    place.restore_transform();
    al_flip_display();
-   //std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 
@@ -69,7 +68,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    dialog_box_renderer.render();
    place.restore_transform();
    al_flip_display();
-   //std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 
@@ -102,7 +100,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
       al_flip_display();
       //std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
    }
-   //std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }
 
 
