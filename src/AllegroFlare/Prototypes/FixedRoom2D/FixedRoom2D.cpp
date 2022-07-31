@@ -270,8 +270,8 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
    else
    {
       std::cout << "[FixedRoom2D::FixedRoom2D::process_subscribed_to_game_event]: "
-                << "error: unexpected game_event name "
-                << "\"" << game_event->get_name() << "\". Doing nothing (except outputting this error)."
+                << "error: unexpected game_event type "
+                << "\"" << game_event->get_type() << "\". Doing nothing (except outputting this error)."
                 << std::endl;
    }
    return;

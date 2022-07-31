@@ -70,7 +70,7 @@ functions:
         default_argument: nullptr
     guards: [ initialized, game_event ]
     body: |
-      if (fixed_room_2d.is_subscribed_to_game_event_name(game_event->get_name()))
+      if (fixed_room_2d.is_subscribed_to_game_event_name(game_event->get_type()))
       {
          fixed_room_2d.process_subscribed_to_game_event(game_event);
       };

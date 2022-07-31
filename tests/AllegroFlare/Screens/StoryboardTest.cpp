@@ -191,7 +191,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    ASSERT_NE(nullptr, (void *)(event.user.data1));
    AllegroFlare::GameEvent *data1 = static_cast<AllegroFlare::GameEvent *>((void*)event.user.data1);
    AllegroFlare::GameEvent expected_game_event("storyboard_finished");
-   EXPECT_EQ(expected_game_event.get_name(), (*data1).get_name());
+   EXPECT_EQ(expected_game_event.get_type(), (*data1).get_type());
 
    // shutdown
    al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());

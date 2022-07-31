@@ -82,7 +82,7 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
          error_message << "Screen" << "::" << "game_event_func" << ": error: " << "guard \"game_event\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (fixed_room_2d.is_subscribed_to_game_event_name(game_event->get_name()))
+   if (fixed_room_2d.is_subscribed_to_game_event_name(game_event->get_type()))
    {
       fixed_room_2d.process_subscribed_to_game_event(game_event);
    };
