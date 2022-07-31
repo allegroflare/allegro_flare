@@ -1,0 +1,30 @@
+properties:
+
+
+  - name: started_at
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: now
+    type: float
+    guards: [ al_is_system_installed() ]
+    body: |
+      return al_get_time();
+    body_dependency_symbols:
+      - al_is_system_installed
+
+
+dependencies:
+
+
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+
+
