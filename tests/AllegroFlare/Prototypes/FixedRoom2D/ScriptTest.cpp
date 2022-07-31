@@ -298,9 +298,9 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptTest,
    std::map<std::string, int> built_index = AllegroFlare::Prototypes::FixedRoom2D::Script::build_markers_index(lines);
    std::string cout_output = testing::internal::GetCapturedStdout();
 
-   std::string expected_warning_message = "FixedRoom2D::Script::build_markers_index: WARNING: "
+   std::string expected_warning_message = "[FixedRoom2D::Script::build_markers_index]: WARNING: "
       "the marker \"*A_MARKER_THAT_EXISTS_IN_TWO_PLACES*\"is being set on line 3 but was already declared earlier "
-      "on line 1. Note that the marker will be overwritten to this new line number (3).";
+      "on line 1. Note that the previous marker will be overwritten to this new line number (3).";
 
    ASSERT_EQ(expected_warning_message, cout_output);
 }

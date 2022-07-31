@@ -211,14 +211,13 @@ std::map<std::string, int> Script::build_markers_index(std::vector<std::string> 
 
       if (command == "MARKER")
       {
-         // TODO ensure symbols don't appear multiple times
          if (result.find(argument) != result.end())
          {
-            std::cout << "FixedRoom2D::Script::build_markers_index: WARNING: the marker "
+            std::cout << "[FixedRoom2D::Script::build_markers_index]: WARNING: the marker "
                       << "\"" << argument << "\""
                       << "is being set on line " << line_num
                       << " but was already declared earlier on line " << result[argument] << ". "
-                      << "Note that the marker will be overwritten to this new line number ("
+                      << "Note that the previous marker will be overwritten to this new line number ("
                       << line_num << ").";
          }
 
