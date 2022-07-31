@@ -35,8 +35,11 @@ namespace AllegroFlare
          void sleep_for(float length_in_seconds=0.0f);
          std::string get_test_name();
          std::string get_test_suite_name();
+         std::string build_full_test_name_str();
          AllegroFlare::Placement2D build_centered_placement(float width=0.0f, float height=0.0f);
          void draw_rulers();
+         bool test_name_indicates_it_wants_a_screenshot();
+         void capture_screenshot(std::string base_filename="WithAllegroRenderingFixture-screenshot.png");
       };
    }
 }

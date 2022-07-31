@@ -13,12 +13,12 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: opacity
+  - name: backfill_opacity
     type: float
     init_with: 0.8
     setter: true
 
-  - name: fill_color
+  - name: backfill_color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f}
     setter: true
@@ -26,6 +26,12 @@ properties:
   - name: border_color
     type: ALLEGRO_COLOR
     init_with: al_color_html("909090")
+    setter: true
+
+  - name: opacity
+    type: float
+    init_with: 1.0f
+    getter: true
     setter: true
 
 
@@ -40,11 +46,9 @@ functions:
     body: |
       float roundness = 13.0f;
       float border_thickness = 6.0f;
-      float border_inner_padding = border_thickness * 2.5;
-      //ALLEGRO_COLOR fill_color = al_color_html("162428");
-      //ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.02f*opacity, 0.0f*opacity, 0.1f*opacity, opacity};
-      //ALLEGRO_COLOR border_color = al_color_html("244751");
-      ALLEGRO_COLOR fill_color_with_opacity = AllegroFlare::color::color(fill_color, opacity);
+      float border_inner_padding = border_thickness * 2.25;
+      ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
+      ALLEGRO_COLOR border_color_with_opacity = AllegroFlare::color::color(border_color, opacity);
 
       // draw backfill
       al_draw_filled_rounded_rectangle(
@@ -54,8 +58,9 @@ functions:
          height,
          roundness * 1.0,
          roundness * 1.0,
-         fill_color_with_opacity
+         backfill_color_with_opacity
       );
+
       // draw "inner" backfill
       al_draw_filled_rounded_rectangle(
          0 + border_inner_padding,
@@ -64,8 +69,9 @@ functions:
          height - border_inner_padding,
          roundness * 0.5,
          roundness * 0.5,
-         fill_color_with_opacity
+         backfill_color_with_opacity
       );
+
       // draw border
       al_draw_rounded_rectangle(
          0,
@@ -74,7 +80,7 @@ functions:
          height,
          roundness,
          roundness,
-         border_color,
+         border_color_with_opacity,
          border_thickness
       );
 

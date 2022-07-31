@@ -1,0 +1,34 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GameEventDatas::Base
+    scope: public
+    init_with: '"InteractionEventData"'
+
+
+properties:
+
+
+  - name: item_interacted_with
+    type: std::string
+    init_with: '"[unset-item_interacted_with]"'
+    constructor_arg: true
+
+  - name: cursor_x
+    type: float
+    init_with: 0.0
+    constructor_arg: true
+
+  - name: cursor_y
+    type: float
+    init_with: 0.0
+    constructor_arg: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+
+

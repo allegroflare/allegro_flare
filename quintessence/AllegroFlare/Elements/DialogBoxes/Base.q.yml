@@ -7,27 +7,6 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: pages
-    type: std::vector<std::string>
-    init_with: '{}'
-    constructor_arg: true
-    getter: true
-
-  - name: current_page_num
-    type: int
-    init_with: -1
-    getter: true
-
-  - name: finished
-    type: bool
-    init_with: false
-    getter: true
-
-  - name: num_revealed_characters
-    type: int
-    init_with: 9999
-    getter: true
-
   - name: created_at
     type: float
     init_with: 0
@@ -38,80 +17,19 @@ properties:
 functions:
 
 
-  - name: set_pages
-    parameters:
-      - name: pages
-        type: std::vector<std::string>
-        default_argument: '{}'
-    body: |
-      this->pages = pages;
-      reset();
-      return;
-
-
-  - name: reset
-    body: |
-      current_page_num = 0;
-      num_revealed_characters = 0;
-      finished = false;
-      return;
-
-
   - name: update
     virtual: true
     body: |
-      num_revealed_characters++;
       return;
 
 
-  - name: get_current_page_text
-    type: std::string
+  - name: infer_age
+    type: float
+    guards: [ al_is_system_installed() ]
     body: |
-      if (!current_page_is_valid()) return "[null]";
-      return pages[current_page_num];
-
-
-  - name: next_page
-    type: bool
-    body: |
-      //if (at_last_page()) return false;
-      if (get_finished()) return false;
-      current_page_num++;
-      num_revealed_characters = 0;
-      if (current_page_num >= num_pages())
-      {
-         finished = true;
-         current_page_num = -1;
-      }
-      return true;
-
-
-  - name: num_pages
-    type: int
-    body: |
-      return pages.size();
-
-
-  - name: has_no_pages
-    type: bool
-    body: |
-      return pages.empty();
-
-
-  - name: at_last_page
-    type: bool
-    body: |
-      return (current_page_num == (num_pages() - 1));
-
-
-  - name: current_page_is_valid
-    private: true
-    type: bool
-    body: |
-      if (pages.empty()) return false;
-      if (current_page_num < 0) return false;
-      if (current_page_num >= pages.size()) return false;
-      return true;
+      return al_get_time() - get_created_at();
+    body_dependency_symbols:
+      - al_get_time
 
 
   - name: is_type
@@ -124,11 +42,6 @@ functions:
       return (possible_type == get_type());
 
 
-  - name: reveal_all_characters
-    body: |
-      num_revealed_characters = 9999;
-
-
 dependencies:
 
 
@@ -136,5 +49,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
   - symbol: std::vector<std::vector<std::string>>
     headers: [ vector, string ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
 
 

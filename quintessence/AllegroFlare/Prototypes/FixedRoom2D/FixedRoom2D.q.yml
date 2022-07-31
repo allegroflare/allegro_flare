@@ -1,0 +1,516 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: audio_controller
+    type: AllegroFlare::AudioController*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: af_inventory
+    type: AllegroFlare::Inventory
+    init_with: '{}'
+
+  - name: inventory_window
+    type: AllegroFlare::Elements::Inventory
+    init_with: '{}'
+
+  - name: flags
+    type: AllegroFlare::Inventory
+    init_with: '{}'
+
+  - name: entity_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    init_with: '{}'
+
+  - name: script_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
+    init_with: '{}'
+
+  - name: script_runner
+    type: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
+    init_with: '{}'
+
+  - name: entity_collection_helper
+    type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+    init_with: '{}'
+
+  - name: room
+    type: AllegroFlare::Prototypes::FixedRoom2D::Room
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: active_dialog
+    type: AllegroFlare::Elements::DialogBoxes::Base*
+    init_with: nullptr
+
+  - name: subscribed_to_game_event_names
+    type: std::set<std::string>
+    init_with: '{}'
+    getter: explicit
+
+
+functions:
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    body: |
+      room.set_font_bin(font_bin);
+      this->font_bin = font_bin;
+      return;
+
+
+  - name: get_subscribed_to_game_event_names
+    type: std::set<std::string>
+    guards: [ initialized ]
+    body: |
+      return subscribed_to_game_event_names;
+
+
+  - name: is_subscribed_to_game_event_name
+    parameters:
+      - name: game_event_name
+        type: std::string
+        default_argument: '"[unset-game_event_name]"'
+    type: bool
+    guards: [ initialized ]
+    body: |
+      return (subscribed_to_game_event_names.count(game_event_name) != 0);
+
+
+  - name: initialize
+    guards: [ (!initialized), bitmap_bin, event_emitter, audio_controller ]
+    body: |
+      AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
+
+      subscribed_to_game_event_names = {
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
+      };
+
+      inventory_window.set_font_bin(font_bin);
+      inventory_window.set_bitmap_bin(bitmap_bin);
+      inventory_window.set_af_inventory(&af_inventory);
+
+      entity_dictionary = {
+         { "door", entity_factory.create_entity(
+               "download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85, "Door", "observe_door") },
+         { "chair", entity_factory.create_entity(
+               "wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168, "Chair", "signal_hello") },
+         { "table", entity_factory.create_entity(
+               "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "observe_table") },
+         { "keys", entity_factory.create_entity(
+               "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
+      };
+
+      script_dictionary = {
+         { "observe_door", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               "DIALOG: Just a regular door. | It appears to be locked, though."
+         })},
+         { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               "SIGNAL: Hello!"})
+         },
+         { "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               "DIALOG: This was a scripted dialog!"
+         })},
+         { "collect_keys", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               "COLLECT: keys"
+         })},
+         { "observe_table", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               "DIALOG: Hmm. Nothing interesting on this table."
+         })},
+      };
+
+      entity_collection_helper.set_entity_dictionary(&entity_dictionary);
+
+      room.set_font_bin(font_bin);
+      room.set_event_emitter(event_emitter);
+      room.set_entity_dictionary(&entity_dictionary);
+      room.initialize();
+
+      script_runner.set_audio_controller(audio_controller);
+      script_runner.set_af_inventory(&af_inventory);
+      script_runner.set_event_emitter(event_emitter);
+      script_runner.set_inventory_window(&inventory_window);
+      script_runner.set_script_dictionary(&script_dictionary);
+      script_runner.set_flags(&flags);
+
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::EntityFactory
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      room.update();
+      if (active_dialog) active_dialog->update();
+      inventory_window.update();
+      return;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      room.render();
+      if (active_dialog)
+      {
+         AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
+         dialog_box_renderer.render();
+      }
+      inventory_window.render();
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Color::*
+      - AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+      - AllegroFlare::Elements::DialogBoxRenderer
+
+
+  - name: process_subscribed_to_game_event
+    private: true
+    parameters:
+      - name: game_event
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
+      {
+         process_interaction_event(game_event->get_data());
+      }
+      else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
+      {
+         process_script_event(game_event->get_data());
+      }
+      else
+      {
+         std::cout << "[FixedRoom2D::FixedRoom2D::process_subscribed_to_game_event]: "
+                   << "error: unexpected game_event type "
+                   << "\"" << game_event->get_type() << "\". Doing nothing (except outputting this error)."
+                   << std::endl;
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::*
+
+
+  - name: process_interaction_event
+    private: true
+    parameters:
+      - name: game_event_data
+        type: AllegroFlare::GameEventDatas::Base*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      if (game_event_data && game_event_data->get_type() == "InteractionEventData")
+      {
+         AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData* interaction_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*>(game_event_data);
+
+         std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+         if (name.empty())
+         {
+            // dialog "there is nothing here"
+         }
+         else
+         {
+            // assume the interaction is a script (for now)
+            // execute the script
+            AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
+            std::string script = interacting_entity->get_on_cursor_interact_script_name();
+            script_runner.load_script_by_dictionary_name(script);
+            script_runner.play_current_script_line();
+         }
+      }
+      else
+      {
+         std::cout << "Expecting game_event_data to be present but it is a nullptr" << std::endl;
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
+
+
+  - name: process_script_event
+    private: true
+    parameters:
+      - name: game_event_data
+        type: AllegroFlare::GameEventDatas::Base*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      using namespace AllegroFlare::Prototypes::FixedRoom2D;
+
+      if (!game_event_data)
+      {
+         // weird error;
+         std::cout << "A weird error occurred. Expecting script_event_data to be valid but it is nullptr" << std::endl;
+         return;
+      }
+      else
+      {
+         if (game_event_data->get_type() == "SpawnDialog")
+         {
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog* spawn_dialog_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog*>(game_event_data);
+            std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
+
+            AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+            if (active_dialog) delete active_dialog;
+
+            active_dialog = dialog_box_factory.create_basic_dialog(pages);
+            room.suspend();
+         }
+         if (game_event_data->get_type() == "CollectItem")
+         {
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
+
+            AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+            if (active_dialog) delete active_dialog;
+
+            active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
+                  "Keys",
+                  "key-keychain-house-keys-door-photo-pixabay-25.png"
+               );
+            room.suspend();
+         }
+         else
+         {
+            std::cout << "[FixedRoom2D::FixedRoom2D::process_script_event]: error: "
+                      << "Unknown game_event_data type "
+                      << "\"" << game_event_data->get_type() << "\""
+                      << std::endl;
+         }
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
+      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
+
+
+  - name: show_inventory
+    guards: [ initialized ]
+    body: |
+      inventory_window.show();
+      room.suspend();
+      return;
+
+
+  - name: hide_inventory
+    guards: [ initialized ]
+    body: |
+      inventory_window.hide();
+      room.resume();
+      return;
+
+
+  - name: toggle_inventory
+    guards: [ initialized ]
+    body: |
+      if (inventory_window.get_active()) hide_inventory();
+      else show_inventory();
+      return;
+
+
+  - name: spawn_dialog_box
+    guards: [ initialized ]
+    body: |
+      if (inventory_window.get_active()) return;
+
+      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+
+      if (active_dialog) delete active_dialog;
+      {
+         active_dialog = dialog_box_factory.create_basic_test_dialog();
+         room.suspend();
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxFactory
+
+
+  - name: advance_dialog
+    guards: [ initialized ]
+    body: |
+      if (inventory_window.get_active()) return;
+
+      if (!active_dialog) return;
+      if (active_dialog->is_type("Basic"))
+      {
+         dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
+      }
+      return;
+
+
+  - name: dialog_is_finished
+    type: bool
+    guards: [ initialized ]
+    body: |
+      if (!active_dialog) return true;
+      if (active_dialog->is_type("Basic"))
+      {
+         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
+      }
+      return true;
+
+
+  - name: shutdown_dialog
+    type: bool
+    guards: [ initialized ]
+    body: |
+      if (!active_dialog) return false;
+      delete active_dialog;
+      active_dialog = nullptr;
+      return true;
+
+
+  - name: activate_primary_action
+    guards: [ initialized ]
+    body: |
+      if (inventory_window.get_active())
+      {
+         // inventory_window.select_item_currently_under_cursor();
+      }
+      else if (active_dialog)
+      {
+         advance_dialog();
+         if (dialog_is_finished())
+         {
+            shutdown_dialog();
+            room.resume();
+         }
+      }
+      else if (!room.get_suspended())
+      {
+         room.interact_with_item_under_cursor();
+      }
+
+      return;
+
+
+  - name: move_cursor_up
+    guards: [ initialized ]
+    body: |
+      if (inventory_window.get_active()) inventory_window.move_cursor_up();
+      return;
+
+
+  - name: move_cursor_down
+    guards: [ initialized ]
+    body: |
+      if (inventory_window.get_active()) inventory_window.move_cursor_down();
+      return;
+
+
+  - name: move_cursor_left
+    guards: [ initialized ]
+    body: |
+      if (inventory_window.get_active()) inventory_window.move_cursor_left();
+      return;
+
+
+  - name: move_cursor_right
+    guards: [ initialized ]
+    body: |
+      if (inventory_window.get_active()) inventory_window.move_cursor_right();
+      return;
+
+
+  - name: move_cursor
+    parameters:
+      - name: distance_x
+        type: float
+        default_argument: 0.0
+      - name: distance_y
+        type: float
+        default_argument: 0.0
+    guards: [ initialized ]
+    body: |
+      if (!room.get_suspended())
+      { 
+         room.move_cursor(distance_x, distance_y);
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Cursor
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp ]
+  - symbol: AllegroFlare::Color::*
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::AudioController*
+    headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
+    headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Room
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityFactory
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
+    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
+  - symbol: AllegroFlare::Elements::Inventory
+    headers: [ AllegroFlare/Elements/Inventory.hpp ]
+  - symbol: AllegroFlare::Inventory
+    headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::Base*
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base*
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderer.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxFactory
+    headers: [ AllegroFlare/Elements/DialogBoxFactory.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp ]
+  - symbol: AllegroFlare::GameEvent*
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
+
+  

@@ -9,48 +9,25 @@ parent_classes:
 properties:
 
 
-  - name: item_num
-    type: int
-    init_with: 0
-    constructor_arg: true
-
   - name: item_name
     type: std::string
-    init_with: '"[item-name-that-has-not-been-set]"'
+    init_with: '"[unset-item_name]"'
     constructor_arg: true
     getter: true
 
   - name: item_bitmap_identifier
     type: std::string
-    init_with: '"[item-bitmap-identifier-has-not-been-set]"'
+    init_with: '"[unset-item_bitmap_identifier]"'
     constructor_arg: true
     getter: true
-
-
-functions:
-
-
-  - name: infer_age
-    type: float
-    body: |
-      return al_get_time() - get_created_at();
-    body_dependency_symbols:
-      - al_get_time
-
-
-  - name: show
-    body: |
-      set_created_at(al_get_time());
-    body_dependency_symbols:
-      - al_get_time
 
 
 dependencies:
 
 
-  - symbol: al_get_time
-    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Base
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
 
 

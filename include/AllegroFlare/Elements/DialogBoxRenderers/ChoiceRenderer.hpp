@@ -24,11 +24,21 @@ namespace AllegroFlare
             AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box;
             float width;
             float height;
+            float text_padding_x;
+            float text_padding_y;
 
          public:
-            ChoiceRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box=nullptr, float width=1, float height=1);
+            ChoiceRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box=nullptr, float width=(1920/2.0f), float height=(1080/5.0f), float text_padding_x=52.0f, float text_padding_y=40.0f);
             ~ChoiceRenderer();
 
+            void set_width(float width);
+            void set_height(float height);
+            void set_text_padding_x(float text_padding_x);
+            void set_text_padding_y(float text_padding_y);
+            float get_width();
+            float get_height();
+            float get_text_padding_x();
+            float get_text_padding_y();
             void render();
             void draw_prompt_text();
             void draw_choices_with_cursor_and_current_selection(float start_y=0);

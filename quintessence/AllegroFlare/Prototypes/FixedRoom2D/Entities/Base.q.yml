@@ -1,0 +1,98 @@
+parent_classes:
+
+
+  - class: AllegroFlare::ElementID
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: placement
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
+    constructor_arg: true
+    getter_ref: true
+    getter: true
+    setter: true
+
+  - name: on_cursor_interact_script_name
+    type: std::string
+    init_with: '"[unset-on_cursor_interact_script_name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: cursor_is_over
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: cursor_entered_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: cursor_exited_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+
+functions:
+
+
+  - name: render
+    virtual: true
+    body: |
+      if (!bitmap) return;
+      placement.start_transform();
+      if (cursor_is_over) al_draw_tinted_bitmap(bitmap, ALLEGRO_COLOR{0.12, 0.56, 1.0, 1.0}, 0, 0, 0);
+      else al_draw_bitmap(bitmap, 0, 0, 0);
+      placement.restore_transform();
+      return;
+
+
+  - name: update
+    virtual: true
+    body: |
+      return;
+
+
+  - name: on_cursor_enter
+    virtual: true
+    body: |
+      cursor_is_over = true;
+      cursor_entered_at = al_get_time();
+      cursor_exited_at = 0;
+      return;
+
+
+  - name: on_cursor_leave
+    virtual: true
+    body: |
+      cursor_is_over = false;
+      cursor_entered_at = 0;
+      cursor_exited_at = al_get_time();
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::ElementID
+    headers: [ AllegroFlare/ElementID.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
+
+

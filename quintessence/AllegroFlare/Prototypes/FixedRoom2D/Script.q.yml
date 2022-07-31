@@ -1,0 +1,218 @@
+properties:
+
+
+  - name: lines
+    type: std::vector<std::string>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+
+  - name: current_line_num
+    type: int
+    init_with: -1
+    getter: true
+
+  - name: markers_index
+    type: std::map<std::string, int>
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: finished
+    type: bool
+    init_with: false
+    getter: true
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      markers_index = build_markers_index(lines);
+
+      if (!lines.empty())
+      {
+         current_line_num = 1;
+         finished = false;
+      }
+      else
+      {
+         finished = true;
+      }
+      initialized = true;
+      return;
+
+
+  - name: get_current_line_text
+    guards: [ initialized ]
+    type: std::string
+    body: |
+      if (!at_valid_line()) return "";
+      return lines[infer_current_line_index_num()];
+
+
+  - name: goto_next_line
+    guards: [ initialized ]
+    type: bool
+    body: |
+      if (at_last_line())
+      {
+         current_line_num = -1;
+         finished = true;
+         return true;
+      }
+      else
+      {
+         if (!at_valid_line()) return false;
+         current_line_num++;
+      }
+      return !finished;
+
+
+  - name: goto_marker
+    guards: [ initialized ]
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-marker-to-goto]"'
+    type: bool
+    body: |
+      if (markers_index.find(identifier) == markers_index.end()) return false;
+      int line_num_to_go_to = markers_index[identifier];
+      goto_line_num(line_num_to_go_to);
+      return true;
+
+
+  - name: goto_line_num
+    guards: [ initialized ]
+    parameters:
+      - name: line_num
+        type: int
+        default_argument: 0
+    type: bool
+    body: |
+      int line_index_num = line_num - 1;
+
+      if (line_index_num < 0) return false;
+      if (line_index_num >= lines.size()) return false;
+      current_line_num = line_num;
+      return true;
+
+
+  - name: at_last_line
+    guards: [ initialized ]
+    type: bool
+    body: |
+      return (!lines.empty() && (current_line_num == lines.size()));
+
+
+  - name: at_valid_line
+    private: true
+    type: bool
+    body: |
+      if (lines.empty()) return false;
+      if (infer_current_line_index_num() < 0) return false;
+      if (infer_current_line_index_num() >= lines.size()) return false;
+      return true;
+
+
+  - name: infer_current_line_index_num
+    private: true
+    type: int
+    body: |
+      return current_line_num - 1;
+
+
+  - name: parse_command_and_argument
+    static: true
+    type: std::pair<std::string, std::string>
+    parameters:
+      - name: script_line
+        type: std::string
+        default_argument: '{}'
+    body: |
+      std::pair<std::string, std::string> result{"", ""};
+      std::string DELIMETER = ": ";
+
+      std::size_t pos = script_line.find(DELIMETER);
+
+      if (pos == std::string::npos)
+      {
+         result.first = "";
+         std::string _intermed = script_line;
+         result.second = AllegroFlare::php::trim(_intermed);
+         //result.second = Blast::String::Trimmer(script_line).trim();
+      }
+      else
+      {
+         std::string command_fragment_unsanitized = script_line.substr(0, pos);
+
+         // TODO validate format of command (all caps, underscore, no spaces)
+         // here
+
+         std::string _intermed = command_fragment_unsanitized;
+         result.first = AllegroFlare::php::trim(_intermed);
+         std::string _intermed2 = script_line.substr(pos+DELIMETER.size());
+         result.second = AllegroFlare::php::trim(_intermed2);
+         //result.first = Blast::String::Trimmer(command_fragment_unsanitized).trim();
+         //result.second = Blast::String::Trimmer(script_line.substr(pos+DELIMETER.size())).trim();
+      }
+
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::php::trim
+
+
+  - name: build_markers_index
+    static: true
+    type: std::map<std::string, int>
+    parameters:
+      - name: script_lines
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      std::map<std::string, int> result;
+      for (unsigned i=0; i<script_lines.size(); i++)
+      {
+         std::string script_line = script_lines[i];
+         std::pair<std::string, std::string> command_and_argument = parse_command_and_argument(script_line);
+         std::string command = command_and_argument.first;
+         std::string argument = command_and_argument.second;
+         int line_num = i+1;
+
+         if (command == "MARKER")
+         {
+            // TODO ensure symbols don't appear multiple times
+            if (result.find(argument) != result.end())
+            {
+               std::cout << "FixedRoom2D::Script::build_markers_index: WARNING: the marker "
+                         << "\"" << argument << "\""
+                         << "is being set on line " << line_num
+                         << " but was already declared earlier on line " << result[argument] << ". "
+                         << "Note that the marker will be overwritten to this new line number ("
+                         << line_num << ").";
+            }
+
+            result[argument] = line_num;
+         }
+      }
+      return result;
+    body_dependency_symbols:
+      - std::cout
+
+
+dependencies:
+
+
+  - symbol: std::pair<std::string, std::string>
+    headers: [ utility, string ]
+  - symbol: AllegroFlare::php::trim
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: std::map<std::string, int>
+    headers: [ map, string ]
+
+

@@ -1,0 +1,110 @@
+properties:
+
+
+  - name: entity_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: select_all_in_room
+    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    parameters:
+      - name: room_name
+        type: std::string
+        default_argument: '"[unset-room_name]"'
+    guards: [ entity_dictionary ]
+    body: |
+      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+      for (auto &entity : *entity_dictionary)
+      {
+         // if entity has the attribute, include it in the result
+      }
+      return result;
+
+
+  - name: select_all_unordered
+    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    guards: [ entity_dictionary ]
+    body: |
+      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+      for (auto &entity : *entity_dictionary)
+      {
+         result.push_back(entity.second);
+      }
+      return result;
+    body_dependency_symbols:
+      - std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+
+
+  - name: find_dictionary_name_of_entity_that_cursor_is_now_over
+    type: std::string
+    guards: [ entity_dictionary ]
+    body: |
+      for (auto &entity : *entity_dictionary)
+      {
+         if (entity.second->get_cursor_is_over()) return entity.first;
+      }
+      return "";
+
+
+  - name: find_by_dictionary_listing_name
+    type: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    parameters:
+      - name: dictionary_listing_name
+        type: std::string
+        default_argument: nullptr
+    type: std::string
+    guards: [ entity_dictionary ]
+    body: |
+      std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>::iterator it =
+         entity_dictionary->find(dictionary_listing_name);
+      if (it == entity_dictionary->end()) return nullptr;
+      return it->second;
+
+
+  - name: select_all_ordered_by_id
+    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    parameters:
+      - name: room_name
+        type: std::string
+        default_argument: '"[unset-room_name]"'
+    guards: [ entity_dictionary ]
+    body: |
+      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+      std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> as_ids;
+
+      for (auto &entity : *entity_dictionary)
+      {
+         as_ids[entity.second->get_id()] = entity.second;
+      }
+
+      for (auto &entity : as_ids)
+      {
+         result.push_back(entity.second);
+      }
+      return result;
+    body_dependency_symbols:
+      - std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    headers: [ string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+
+

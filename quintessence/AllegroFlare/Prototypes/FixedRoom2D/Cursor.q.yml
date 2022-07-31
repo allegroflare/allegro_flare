@@ -1,0 +1,185 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: x
+    type: float
+    init_with: 1920/2
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 1080/2
+    getter: true
+    setter: true
+
+  - name: icon_offset_placement
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
+
+  - name: info_text_offset_placement
+    type: AllegroFlare::Placement2D
+    init_with: '40, 0, 0, 0'
+
+  - name: info_text
+    type: std::string
+    init_with: '"[unset-info_text]"'
+    getter: true
+    setter: true
+
+  - name: info_text_flags
+    type: int
+    init_with: 0
+
+  - name: icon_character_num
+    type: uint32_t
+    init_with: 62042
+
+  - name: cursor_last_set_at
+    type: float
+    init_with: 0
+
+
+functions:
+
+
+  - name: draw
+    guards: [ font_bin ]
+    body: |
+      AllegroFlare::Placement2D placement(x, y, 0, 0);
+      placement.start_transform();
+
+      icon_offset_placement.start_transform();
+      draw_cursor();
+      icon_offset_placement.restore_transform();
+
+      info_text_offset_placement.start_transform();
+      draw_info_text();
+      info_text_offset_placement.restore_transform();
+
+      placement.restore_transform();
+      return;
+
+
+  - name: update
+    body: |
+      // currently empty
+      return;
+
+
+  - name: move
+    parameters:
+      - name: distance_x
+        type: float
+        default_argument: 0.0f
+      - name: distance_y
+        type: float
+        default_argument: 0.0f
+    body: |
+      x += distance_x;
+      y += distance_y;
+      return;
+
+
+  - name: clear_info_text
+    body: |
+      cursor_last_set_at = 0;
+      info_text.clear();
+      return;
+      
+
+  - name: set_cursor_to_pointer
+    body: |
+      cursor_last_set_at = 0;
+      icon_character_num = 62042;
+      return;
+      
+
+  - name: set_cursor_to_grab
+    body: |
+      cursor_last_set_at = 0;
+      icon_character_num = 62038;
+      return;
+      
+
+  - name: draw_unicode_character
+    private: true
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: icon
+        type: uint32_t
+        default_argument: 61444
+      - name: flags
+        type: int
+        default_argument: 0
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      al_draw_ustr(font, color, 0, 0, flags, ustr);
+      return;
+
+
+  - name: obtain_cursor_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::string font_name = "fa-solid-900.ttf";
+      int cursor_font_size = 30;
+
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << cursor_font_size;
+      return font_bin->auto_get(composite_font_str.str());
+
+
+  - name: obtain_info_text_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf 20");
+
+
+  - name: draw_cursor
+    private: true
+    body: |
+      ALLEGRO_FONT *cursor_font = obtain_cursor_font();
+      draw_unicode_character(cursor_font, ALLEGRO_COLOR{1, 1, 1, 1}, icon_character_num, 0);
+      return;
+
+      
+  - name: draw_info_text
+    private: true
+    body: |
+      ALLEGRO_FONT* info_text_font = obtain_info_text_font();
+      al_draw_text(info_text_font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, info_text_flags, info_text.c_str());
+      return;
+      
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+

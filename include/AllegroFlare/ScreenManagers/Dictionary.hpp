@@ -30,10 +30,15 @@ namespace AllegroFlare
      private:
          std::map<std::string, Listing> screens;
          Listing *find_listing(std::string identifier);
+         bool disabled_screens_receive_events;
 
       public:
-         Dictionary();
+         Dictionary(bool disabled_screens_receive_events=false);
          ~Dictionary();
+
+         // states
+         void allow_disabled_screens_to_receive_events();
+         void prevent_disabled_screens_from_receiving_events();
 
          // management
          Screens::Base *find(std::string identifier);

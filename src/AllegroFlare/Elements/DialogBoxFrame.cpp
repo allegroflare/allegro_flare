@@ -19,9 +19,10 @@ namespace Elements
 DialogBoxFrame::DialogBoxFrame(float width, float height)
    : width(width)
    , height(height)
-   , opacity(0.8)
-   , fill_color(ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f})
+   , backfill_opacity(0.8)
+   , backfill_color(ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f})
    , border_color(al_color_html("909090"))
+   , opacity(1.0f)
 {
 }
 
@@ -31,21 +32,27 @@ DialogBoxFrame::~DialogBoxFrame()
 }
 
 
-void DialogBoxFrame::set_opacity(float opacity)
+void DialogBoxFrame::set_backfill_opacity(float backfill_opacity)
 {
-   this->opacity = opacity;
+   this->backfill_opacity = backfill_opacity;
 }
 
 
-void DialogBoxFrame::set_fill_color(ALLEGRO_COLOR fill_color)
+void DialogBoxFrame::set_backfill_color(ALLEGRO_COLOR backfill_color)
 {
-   this->fill_color = fill_color;
+   this->backfill_color = backfill_color;
 }
 
 
 void DialogBoxFrame::set_border_color(ALLEGRO_COLOR border_color)
 {
    this->border_color = border_color;
+}
+
+
+void DialogBoxFrame::set_opacity(float opacity)
+{
+   this->opacity = opacity;
 }
 
 
@@ -58,6 +65,12 @@ float DialogBoxFrame::get_width()
 float DialogBoxFrame::get_height()
 {
    return height;
+}
+
+
+float DialogBoxFrame::get_opacity()
+{
+   return opacity;
 }
 
 
@@ -83,11 +96,9 @@ void DialogBoxFrame::render()
       }
    float roundness = 13.0f;
    float border_thickness = 6.0f;
-   float border_inner_padding = border_thickness * 2.5;
-   //ALLEGRO_COLOR fill_color = al_color_html("162428");
-   //ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.02f*opacity, 0.0f*opacity, 0.1f*opacity, opacity};
-   //ALLEGRO_COLOR border_color = al_color_html("244751");
-   ALLEGRO_COLOR fill_color_with_opacity = AllegroFlare::color::color(fill_color, opacity);
+   float border_inner_padding = border_thickness * 2.25;
+   ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
+   ALLEGRO_COLOR border_color_with_opacity = AllegroFlare::color::color(border_color, opacity);
 
    // draw backfill
    al_draw_filled_rounded_rectangle(
@@ -97,8 +108,9 @@ void DialogBoxFrame::render()
       height,
       roundness * 1.0,
       roundness * 1.0,
-      fill_color_with_opacity
+      backfill_color_with_opacity
    );
+
    // draw "inner" backfill
    al_draw_filled_rounded_rectangle(
       0 + border_inner_padding,
@@ -107,8 +119,9 @@ void DialogBoxFrame::render()
       height - border_inner_padding,
       roundness * 0.5,
       roundness * 0.5,
-      fill_color_with_opacity
+      backfill_color_with_opacity
    );
+
    // draw border
    al_draw_rounded_rectangle(
       0,
@@ -117,7 +130,7 @@ void DialogBoxFrame::render()
       height,
       roundness,
       roundness,
-      border_color,
+      border_color_with_opacity,
       border_thickness
    );
 

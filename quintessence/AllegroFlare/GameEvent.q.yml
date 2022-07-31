@@ -1,10 +1,49 @@
 properties:
 
 
-  - name: name
+  - name: type
     type: std::string
-    init_with: '"[unnamed-game-event]"'
+    init_with: '"[unset-type]"'
     constructor_arg: true
     getter: true
+
+  - name: data
+    type: AllegroFlare::GameEventDatas::Base*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: get_name
+    type: std::string
+    body: |
+      // TODO: update all dependent classes to use "get_type" instead
+      std::cout << "[AllegroFlare::GameEvent::get_name]: warning: \"get_name()\" is depreciated. "
+                << "Use \"get_type()\" which is identical in use."
+                << std::endl;
+      return type;
+    body_dependency_symbols:
+      - std::cout
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '"[unset-possible_type]"'
+    body: |
+      return (type == possible_type);
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameEventDatas::Base*
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
 
 

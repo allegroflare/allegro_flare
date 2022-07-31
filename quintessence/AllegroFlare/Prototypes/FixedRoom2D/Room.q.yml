@@ -1,0 +1,253 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: entity_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: entity_collection_helper
+    type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+    init_with: entity_dictionary
+
+  - name: cursor
+    type: AllegroFlare::Prototypes::FixedRoom2D::Cursor
+    init_with: '{}'
+
+  - name: suspended
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: suspended_at
+    type: float
+    init_with: 0.0f
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: set_entity_dictionary
+    type: void
+    parameters:
+      - name: entity_dictionary
+        type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+        default_argument: nullptr
+    body: |
+      this->entity_dictionary = entity_dictionary;
+      entity_collection_helper.set_entity_dictionary(entity_dictionary);
+      return;
+
+
+  - name: suspend
+    guards: [ initialized ]
+    body: |
+      if (suspended) return;
+      suspended = true;
+      suspended_at = al_get_time();
+      return;
+
+
+  - name: resume
+    guards: [ initialized ]
+    body: |
+      if (!suspended) return;
+      suspended = false;
+      suspended_at = 0.0f;
+      return;
+
+
+  - name: show
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: hide
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      cursor.set_font_bin(font_bin);
+
+      // setup the objects to good defaults
+      cursor.set_cursor_to_pointer();
+      cursor.clear_info_text();
+
+      initialized = true;
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      if (suspended) return;
+
+      // update the entities
+      for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+      {
+         entity->update();
+      }
+
+      // update the cursor
+      cursor.update();
+
+      return;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      // draw the entities
+      for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+      {
+         entity->render();
+         //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
+      }
+
+      // draw the cursor
+      cursor.draw();
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Color::*
+      - AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+
+
+  - name: interact_with_item_under_cursor
+    guards: [ initialized, event_emitter ]
+    body: |
+      std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+      emit_interaction_event(name, cursor.get_x(), cursor.get_y());
+      return;
+
+
+  - name: move_cursor
+    guards: [ initialized ]
+    parameters:
+      - name: distance_x
+        type: float
+        default_argument: 0.0
+      - name: distance_y
+        type: float
+        default_argument: 0.0
+    body: |
+      cursor.move(distance_x, distance_y);
+
+      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_was_over = nullptr;
+      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_is_now_over = nullptr;
+
+      int cursor_x = cursor.get_x();
+      int cursor_y = cursor.get_y();
+
+      // update the state of the entities
+      for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+      {
+         if (entity->get_cursor_is_over()) entity_cursor_was_over = entity;
+         if (entity->get_placement_ref().collide(cursor_x, cursor_y)) entity_cursor_is_now_over = entity;
+      }
+
+      // a change has happened
+      if (entity_cursor_was_over != entity_cursor_is_now_over)
+      {
+         if (entity_cursor_was_over)
+         {
+            entity_cursor_was_over->on_cursor_leave();
+         }
+
+         if (entity_cursor_is_now_over)
+         {
+            entity_cursor_is_now_over->on_cursor_enter();
+            cursor.set_cursor_to_pointer();
+            cursor.set_info_text("inspect");
+         }
+         else
+         {
+            // cursor is now over nothing
+            cursor.set_cursor_to_pointer();
+            cursor.clear_info_text();
+         }
+      }
+
+      return;
+
+
+  - name: emit_interaction_event
+    guards: [ initialized ]
+    private: true
+    parameters:
+      - name: item_dictionary_name
+        type: std::string
+        default_argument: '"[unset-item_dictionary_name]"'
+      - name: cursor_x
+        type: float
+        default_argument: 0.0
+      - name: cursor_y
+        type: float
+        default_argument: 0.0
+    body: |
+      AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
+         new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);
+
+      AllegroFlare::GameEvent game_event(
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
+         interaction_event_data
+      );
+      
+      event_emitter->emit_game_event(game_event);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
+      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Cursor
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp ]
+  - symbol: AllegroFlare::Color::*
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
+    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
+
+
+  

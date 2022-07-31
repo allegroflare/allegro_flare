@@ -3,6 +3,7 @@ functions:
 
   - name: build_basic_test_dialog
     type: AllegroFlare::Elements::DialogBoxes::Basic
+    guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::Basic basic_dialog_box;
       basic_dialog_box.set_pages({
@@ -14,10 +15,12 @@ functions:
       return basic_dialog_box;
     body_dependency_symbols:
       - AllegroFlare::Elements::DialogBoxes::Basic
+      - al_get_time
 
 
   - name: create_basic_test_dialog
     type: AllegroFlare::Elements::DialogBoxes::Basic*
+    guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::Basic *basic_dialog_box = new AllegroFlare::Elements::DialogBoxes::Basic;
       basic_dialog_box->set_pages({
@@ -29,6 +32,7 @@ functions:
       return basic_dialog_box;
     body_dependency_symbols:
       - AllegroFlare::Elements::DialogBoxes::Basic
+      - al_get_time
 
 
   - name: build_basic_dialog
@@ -37,10 +41,14 @@ functions:
       - name: pages
         type: std::vector<std::string>
         default_argument: '{}'
+    guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::Basic basic_dialog_box;
       basic_dialog_box.set_pages(pages);
+      basic_dialog_box.set_created_at(al_get_time());
       return basic_dialog_box;
+    body_dependency_symbols:
+      - al_get_time
 
 
   - name: create_basic_dialog
@@ -49,21 +57,14 @@ functions:
       - name: pages
         type: std::vector<std::string>
         default_argument: '{}'
+    guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box = new AllegroFlare::Elements::DialogBoxes::Basic();
       basic_dialog_box->set_pages(pages);
+      basic_dialog_box->set_created_at(al_get_time());
       return basic_dialog_box;
-
-
-  - name: create_title_text_dialog
-    type: AllegroFlare::Elements::DialogBoxes::TitleText*
-    parameters:
-      - name: title_text
-        type: std::string
-        default_argument: '"[title-text-that-is-not-set]"'
-    body: |
-      AllegroFlare::Elements::DialogBoxes::TitleText* title_text_dialog_box = new AllegroFlare::Elements::DialogBoxes::TitleText(title_text);
-      return title_text_dialog_box;
+    body_dependency_symbols:
+      - al_get_time
 
 
   - name: create_choice_dialog
@@ -71,35 +72,37 @@ functions:
     parameters:
       - name: prompt
         type: std::string
-        default_argument: '"[prompt-argument-set-as-default]"'
+        default_argument: '"[unset-prompt]"'
       - name: options
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
+    guards: [ al_is_system_installed() ]
     body: |
-      AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
+      AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box
+         = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
+      choice_dialog_box->set_created_at(al_get_time());
       choice_dialog_box->initialize();
-      //basic_dialog_box->set_pages(pages); // ??? hmm
+
       return choice_dialog_box;
+    body_dependency_symbols:
+      - al_get_time
 
 
   - name: create_you_got_an_item_dialog
     type: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
     parameters:
-      - name: item_num
-        type: int
-        default_argument: 0
       - name: item_name
         type: std::string
         default_argument: '"[unset-item-name]"'
       - name: item_bitmap_identifier
         type: std::string
         default_argument: '"[unset-item-bitmap-identifier]"'
+    guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =
-      new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_num, item_name, item_bitmap_identifier);
+         new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_name, item_bitmap_identifier);
       you_got_an_item_dialog_box->set_created_at(al_get_time());
-      you_got_an_item_dialog_box->show();
-      //choice_dialog_box->initialize(); // doesn't seem to require initialization
+
       return you_got_an_item_dialog_box;
     body_dependency_symbols:
       - al_get_time
@@ -120,7 +123,5 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::TitleText*
-    headers: [ AllegroFlare/Elements/DialogBoxes/TitleText.hpp ]
 
 

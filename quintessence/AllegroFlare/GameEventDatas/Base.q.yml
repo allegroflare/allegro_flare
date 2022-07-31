@@ -1,0 +1,11 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: '"Base"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+    

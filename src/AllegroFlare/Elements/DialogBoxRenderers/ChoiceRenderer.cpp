@@ -15,8 +15,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -27,18 +25,68 @@ namespace DialogBoxRenderers
 {
 
 
-ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, float width, float height)
+ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, float width, float height, float text_padding_x, float text_padding_y)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , choice_dialog_box(choice_dialog_box)
    , width(width)
    , height(height)
+   , text_padding_x(text_padding_x)
+   , text_padding_y(text_padding_y)
 {
 }
 
 
 ChoiceRenderer::~ChoiceRenderer()
 {
+}
+
+
+void ChoiceRenderer::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void ChoiceRenderer::set_height(float height)
+{
+   this->height = height;
+}
+
+
+void ChoiceRenderer::set_text_padding_x(float text_padding_x)
+{
+   this->text_padding_x = text_padding_x;
+}
+
+
+void ChoiceRenderer::set_text_padding_y(float text_padding_y)
+{
+   this->text_padding_y = text_padding_y;
+}
+
+
+float ChoiceRenderer::get_width()
+{
+   return width;
+}
+
+
+float ChoiceRenderer::get_height()
+{
+   return height;
+}
+
+
+float ChoiceRenderer::get_text_padding_x()
+{
+   return text_padding_x;
+}
+
+
+float ChoiceRenderer::get_text_padding_y()
+{
+   return text_padding_y;
 }
 
 
@@ -66,8 +114,8 @@ void ChoiceRenderer::draw_prompt_text()
 {
    int dialog_box_num_revealed_characters = 999;
    std::string text = obtain_choice_dialog_box_prompt();
-   float text_padding_x = 40.0f;
-   float text_padding_y = 25.0f;
+   //float text_padding_x = 40.0f;
+   //float text_padding_y = 25.0f;
    float text_box_max_width = width - (text_padding_x * 2);
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    float line_height = al_get_font_line_height(text_font);
@@ -150,7 +198,8 @@ ALLEGRO_FONT* ChoiceRenderer::obtain_dialog_font()
          error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
+   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
+   //static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }
@@ -190,12 +239,6 @@ int ChoiceRenderer::obtain_choice_dialog_box_cursor_position()
 
 std::string ChoiceRenderer::concat_text(std::string source_text, int length)
 {
-   if (!(choice_dialog_box))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "concat_text" << ": error: " << "guard \"choice_dialog_box\" not met";
-         throw std::runtime_error(error_message.str());
-      }
    return source_text.substr(0, length);
 }
 } // namespace DialogBoxRenderers

@@ -173,5 +173,7 @@ dependencies:
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::GameEvent
     headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::Base*
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
 
 

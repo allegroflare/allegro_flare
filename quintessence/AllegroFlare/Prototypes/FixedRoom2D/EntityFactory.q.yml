@@ -1,0 +1,76 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: create_chair_entity
+    type: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    parameters:
+      - name: x
+        type: float
+        default_argument: 1920/2
+      - name: y
+        type: float
+        default_argument: 1080/2
+    guards: [ bitmap_bin ]
+    body: |
+      return create_entity("wooden-chair-png-transparent-image-pngpix-0.png", x, y, 0.1, "chair");
+
+
+  - name: create_entity
+    type: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    parameters:
+      - name: bitmap_image_identifier
+        type: std::string
+        default_argument: '"[unset-bitmap_identifier]"'
+      - name: x
+        type: float
+        default_argument: 1920/2
+      - name: y
+        type: float
+        default_argument: 1080/2
+      - name: scale
+        type: float
+        default_argument: 1.0f
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: on_interact_script_name
+        type: std::string
+        default_argument: '"[unset-on_interact_script_name]"'
+    guards: [ bitmap_bin ]
+    body: |
+      ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get(bitmap_image_identifier);
+
+      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* result = new
+         AllegroFlare::Prototypes::FixedRoom2D::Entities::Base(bitmap);
+
+      AllegroFlare::Placement2D &placement = result->get_placement_ref();
+      result->set_on_cursor_interact_script_name(on_interact_script_name);
+
+      placement.position = {x, y};
+      placement.scale = {scale, scale};
+      placement.align = {0.5, 1.0};
+      if (bitmap) placement.size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
+
+      result->set("name", name);
+
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+
+

@@ -1,0 +1,171 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: '"Prototypes::FixedRoom2D::Screen"'
+
+
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: audio_controller
+    type: AllegroFlare::AudioController*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: fixed_room_2d
+    type: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      fixed_room_2d.set_bitmap_bin(bitmap_bin);
+      fixed_room_2d.set_font_bin(font_bin);
+      fixed_room_2d.set_event_emitter(event_emitter);
+      fixed_room_2d.set_audio_controller(audio_controller);
+      fixed_room_2d.initialize();
+      initialized = true;
+      return;
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: game_event_func
+    virtual: true
+    override: true
+    parameters:
+      - name: game_event
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
+    guards: [ initialized, game_event ]
+    body: |
+      if (fixed_room_2d.is_subscribed_to_game_event_name(game_event->get_type()))
+      {
+         fixed_room_2d.process_subscribed_to_game_event(game_event);
+      };
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      fixed_room_2d.update();
+      fixed_room_2d.render();
+      return;
+
+
+  - name: key_char_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      float cursor_speed = 10.0f;
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+            fixed_room_2d.move_cursor(0, -cursor_speed);
+            fixed_room_2d.move_cursor_up();
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            fixed_room_2d.move_cursor(0, cursor_speed);
+            fixed_room_2d.move_cursor_down();
+         break;
+
+         case ALLEGRO_KEY_LEFT:
+            fixed_room_2d.move_cursor(-cursor_speed, 0);
+            fixed_room_2d.move_cursor_left();
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+            fixed_room_2d.move_cursor(cursor_speed, 0);
+            fixed_room_2d.move_cursor_right();
+         break;
+
+         case ALLEGRO_KEY_ENTER:
+            fixed_room_2d.activate_primary_action();
+         break;
+
+         case ALLEGRO_KEY_S:
+            fixed_room_2d.spawn_dialog_box();
+         break;
+
+         case ALLEGRO_KEY_I:
+            fixed_room_2d.toggle_inventory();
+         break;
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_EVENT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp ]
+  - symbol: AllegroFlare::GameEvent*
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
+  - symbol: AllegroFlare::AudioController*
+    headers: [ AllegroFlare/AudioController.hpp ]
+
+
