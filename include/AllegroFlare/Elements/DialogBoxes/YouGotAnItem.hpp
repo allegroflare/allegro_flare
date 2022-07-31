@@ -23,7 +23,6 @@ namespace AllegroFlare
 
             std::string get_item_name();
             std::string get_item_bitmap_identifier();
-            void show();
          };
       }
    }

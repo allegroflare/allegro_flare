@@ -130,7 +130,6 @@ AllegroFlare::Elements::DialogBoxes::YouGotAnItem* DialogBoxFactory::create_you_
    AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =
       new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(item_name, item_bitmap_identifier);
    you_got_an_item_dialog_box->set_created_at(al_get_time());
-   you_got_an_item_dialog_box->show();
 
    return you_got_an_item_dialog_box;
 }

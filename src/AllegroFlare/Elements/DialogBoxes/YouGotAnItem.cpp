@@ -1,7 +1,7 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
-#include <allegro5/allegro.h>
+
 
 
 namespace AllegroFlare
@@ -37,10 +37,6 @@ std::string YouGotAnItem::get_item_bitmap_identifier()
 }
 
 
-void YouGotAnItem::show()
-{
-   set_created_at(al_get_time());
-}
 } // namespace DialogBoxes
 } // namespace Elements
 } // namespace AllegroFlare
