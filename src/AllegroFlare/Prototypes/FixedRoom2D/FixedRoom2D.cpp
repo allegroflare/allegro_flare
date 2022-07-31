@@ -440,7 +440,7 @@ void FixedRoom2D::advance_dialog()
    if (!active_dialog) return;
    if (active_dialog->is_type("Basic"))
    {
-      dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->next_page();
+      dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
    }
    return;
 }

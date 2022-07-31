@@ -78,6 +78,27 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   advance__when_the_current_page_is_not_finished__will_finish_the_current_page_and_return_true)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   advance__when_the_current_page_is_finished__will_go_to_the_next_page)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
+   advance__when_the_dialog_box_is_finished__will_return_false)
+{
+   // TODO
+}
+
+
 TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, next_page__will_increment_the_page_number)
 {
    al_init();

@@ -120,7 +120,9 @@ int Basic::get_current_page_num_chars()
 
 bool Basic::advance()
 {
-   // TODO, either reveal all characters or advance depending on state
+   if (finished) return false;
+   if (!page_finished) reveal_all_characters();
+   else next_page();
    return true;
 }
 
