@@ -21,7 +21,7 @@ namespace DialogBoxRenderers
 {
 
 
-BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text, float width, float height, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page)
+BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text, float width, float height, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age)
    : font_bin(font_bin)
    , current_page_text(current_page_text)
    , width(width)
@@ -33,6 +33,7 @@ BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string curren
    , page_is_finished(page_is_finished)
    , page_finished_at(page_finished_at)
    , at_last_page(at_last_page)
+   , age(age)
 {
 }
 
@@ -108,6 +109,12 @@ void BasicRenderer::set_at_last_page(bool at_last_page)
 }
 
 
+void BasicRenderer::set_age(float age)
+{
+   this->age = age;
+}
+
+
 AllegroFlare::FontBin* BasicRenderer::get_font_bin()
 {
    return font_bin;
@@ -171,6 +178,12 @@ float BasicRenderer::get_page_finished_at()
 bool BasicRenderer::get_at_last_page()
 {
    return at_last_page;
+}
+
+
+float BasicRenderer::get_age()
+{
+   return age;
 }
 
 

@@ -78,6 +78,13 @@ properties:
     getter: true
     setter: true
 
+  - name: age
+    type: float
+    init_with: 999.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
