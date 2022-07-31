@@ -181,7 +181,6 @@ std::pair<std::string, std::string> Script::parse_command_and_argument(std::stri
       result.first = "";
       std::string _intermed = script_line;
       result.second = AllegroFlare::php::trim(_intermed);
-      //result.second = Blast::String::Trimmer(script_line).trim();
    }
    else
    {
@@ -194,8 +193,6 @@ std::pair<std::string, std::string> Script::parse_command_and_argument(std::stri
       result.first = AllegroFlare::php::trim(_intermed);
       std::string _intermed2 = script_line.substr(pos+DELIMETER.size());
       result.second = AllegroFlare::php::trim(_intermed2);
-      //result.first = Blast::String::Trimmer(command_fragment_unsanitized).trim();
-      //result.second = Blast::String::Trimmer(script_line.substr(pos+DELIMETER.size())).trim();
    }
 
    return result;
@@ -229,6 +226,23 @@ std::map<std::string, int> Script::build_markers_index(std::vector<std::string> 
       }
    }
    return result;
+}
+
+bool Script::is_valid_command_string(std::string command)
+{
+   static std::string VALID_FIRST_CHARACTER_CHARACTERS = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+   static std::string VALID_SUBSEQUENT_CHARACTERS = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+   // cannot be empty
+   if (command.empty()) return false;
+
+   // first character must be alpha-in-caps or underscore
+   bool first_character_is_alpha_or_underscore =
+      VALID_FIRST_CHARACTER_CHARACTERS.find(command[0]) != std::string::npos;
+   if (!first_character_is_alpha_or_underscore) return false;
+
+   // remaining characters must be alpha-in-caps, numeric, or underscore
+   return command.find_first_not_of(VALID_SUBSEQUENT_CHARACTERS) == std::string::npos;
 }
 } // namespace FixedRoom2D
 } // namespace Prototypes

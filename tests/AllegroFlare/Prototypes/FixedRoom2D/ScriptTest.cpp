@@ -324,3 +324,42 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptTest,
 }
 
 
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptTest,
+   is_valid_command_string__returns_true_if_the_string_is_in_a_valid_uppercase_identifier_format)
+{
+   std::vector<std::string> command_formats = {
+      "IS_NOT_BLANK",
+      "IS_ALL_UPPERCASE",
+      "CONTAINS_NO_SPACES",
+      "CAN_CONTAIN_NUMBERS_CHARACTERS_LIKE_0123456789",
+      "DOES_N0T_ST4RT_W1TH_A_NUM8ER",
+   };
+
+   for (auto &command_string : command_formats)
+   {
+      EXPECT_EQ(true, AllegroFlare::Prototypes::FixedRoom2D::Script::is_valid_command_string(command_string));
+   }
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptTest,
+   is_valid_command_string__returns_false_if_the_command_is_not_all_uppercase_or_underscores)
+{
+   std::vector<std::string> invalid_command_formats = {
+      "",  // is blank
+      "\n", // has invalid characters
+      " CONTAINS_A_SPACE_AT_START",
+      "CONTAINS_A_SPACE_AT_END ",
+      "CONTAINS_A SPACE_IN_THE_MIDDLE",
+      "CONTAINS_lowercase",
+      "0STARTS_WITH_A_NUMBER",
+   };
+
+   for (auto &invalid_command_string : invalid_command_formats)
+   {
+      EXPECT_EQ(false, AllegroFlare::Prototypes::FixedRoom2D::Script::is_valid_command_string(invalid_command_string));
+   }
+}
+
+

@@ -39,6 +39,7 @@ namespace AllegroFlare
             int infer_current_line_index_num();
             static std::pair<std::string, std::string> parse_command_and_argument(std::string script_line={});
             static std::map<std::string, int> build_markers_index(std::vector<std::string> script_lines={});
+            static bool is_valid_command_string(std::string command="[unset-command]");
          };
       }
    }

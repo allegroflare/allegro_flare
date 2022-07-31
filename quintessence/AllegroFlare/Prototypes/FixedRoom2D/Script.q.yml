@@ -202,6 +202,29 @@ functions:
       - std::cout
 
 
+  - name: is_valid_command_string
+    static: true
+    type: bool
+    parameters:
+      - name: command
+        type: std::string
+        default_argument: '"[unset-command]"'
+    body: |
+      static std::string VALID_FIRST_CHARACTER_CHARACTERS = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      static std::string VALID_SUBSEQUENT_CHARACTERS = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+      // cannot be empty
+      if (command.empty()) return false;
+
+      // first character must be alpha-in-caps or underscore
+      bool first_character_is_alpha_or_underscore =
+         VALID_FIRST_CHARACTER_CHARACTERS.find(command[0]) != std::string::npos;
+      if (!first_character_is_alpha_or_underscore) return false;
+
+      // remaining characters must be alpha-in-caps, numeric, or underscore
+      return command.find_first_not_of(VALID_SUBSEQUENT_CHARACTERS) == std::string::npos;
+
+
 dependencies:
 
 
