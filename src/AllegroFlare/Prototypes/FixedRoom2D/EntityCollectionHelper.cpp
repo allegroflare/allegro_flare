@@ -15,6 +15,8 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -25,8 +27,9 @@ namespace FixedRoom2D
 {
 
 
-EntityCollectionHelper::EntityCollectionHelper(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary)
+EntityCollectionHelper::EntityCollectionHelper(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary, std::map<std::string, std::string>* entity_room_associations)
    : entity_dictionary(entity_dictionary)
+   , entity_room_associations(entity_room_associations)
 {
 }
 
@@ -42,9 +45,21 @@ void EntityCollectionHelper::set_entity_dictionary(std::map<std::string, Allegro
 }
 
 
+void EntityCollectionHelper::set_entity_room_associations(std::map<std::string, std::string>* entity_room_associations)
+{
+   this->entity_room_associations = entity_room_associations;
+}
+
+
 std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* EntityCollectionHelper::get_entity_dictionary()
 {
    return entity_dictionary;
+}
+
+
+std::map<std::string, std::string>* EntityCollectionHelper::get_entity_room_associations()
+{
+   return entity_room_associations;
 }
 
 
@@ -128,6 +143,22 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
    for (auto &entity : as_ids)
    {
       result.push_back(entity.second);
+   }
+   return result;
+}
+
+std::vector<std::string> EntityCollectionHelper::select_all_entity_names_in_room_name(std::string room_name)
+{
+   if (!(entity_room_associations))
+      {
+         std::stringstream error_message;
+         error_message << "EntityCollectionHelper" << "::" << "select_all_entity_names_in_room_name" << ": error: " << "guard \"entity_room_associations\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   std::vector<std::string> result;
+   for (auto &entity_room_association : (*entity_room_associations))
+   {
+      if (entity_room_association.second == room_name) result.push_back(entity_room_association.first);
    }
    return result;
 }
