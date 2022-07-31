@@ -60,7 +60,7 @@ functions:
       return "";
 
 
-  - name: find_by_dictionary_listing_name
+  - name: find_entity_by_dictionary_name
     type: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
     parameters:
       - name: dictionary_listing_name
@@ -98,6 +98,19 @@ functions:
       return result;
     body_dependency_symbols:
       - std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+
+
+  - name: get_entities_from_entity_names
+    parameters:
+      - name: entity_names
+        type: std::vector<std::string>
+        default_argument: '{}'
+    guards: [ entity_dictionary ]
+    body: |
+      {
+         
+      }
+      return;
 
 
   - name: select_all_entity_names_in_room_name

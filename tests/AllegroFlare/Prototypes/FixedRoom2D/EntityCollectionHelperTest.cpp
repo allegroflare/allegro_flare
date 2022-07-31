@@ -47,3 +47,27 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_EntityCollectionHelperTest,
 }
 
 
+TEST(AllegroFlare_Prototypes_FixedRoom2D_EntityCollectionHelperTest,
+   find_entity_by_dictionary_name__will_return_the_entity_listed_under_the_name)
+{
+   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base gameboy;
+   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base ball_of_yarn;
+   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base chair;
+   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base persian_rug;
+
+   std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entity_dictionary = {
+      { "gameboy",       &gameboy },
+      { "ball_of_yarn",  &ball_of_yarn },
+      { "chair",         &chair },
+      { "persian_rug",   &persian_rug },
+   };
+
+   AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper entity_collection_helper(&entity_dictionary);
+
+   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base *found_entity =
+      entity_collection_helper.find_entity_by_dictionary_name("ball_of_yarn");
+
+   EXPECT_EQ(&ball_of_yarn, found_entity);
+}
+
+
