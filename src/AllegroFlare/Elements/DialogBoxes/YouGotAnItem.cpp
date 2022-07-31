@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <allegro5/allegro.h>
-#include <allegro5/allegro.h>
 
 
 namespace AllegroFlare
@@ -37,11 +36,6 @@ std::string YouGotAnItem::get_item_bitmap_identifier()
    return item_bitmap_identifier;
 }
 
-
-float YouGotAnItem::infer_age()
-{
-   return al_get_time() - get_created_at();
-}
 
 void YouGotAnItem::show()
 {

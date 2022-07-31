@@ -302,6 +302,7 @@
   ],
   "al_get_time": [
     "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
   ],

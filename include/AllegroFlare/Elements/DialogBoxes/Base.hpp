@@ -24,6 +24,7 @@ namespace AllegroFlare
             std::string get_type();
             float get_created_at();
             virtual void update();
+            float infer_age();
             bool is_type(std::string possible_type="");
          };
       }

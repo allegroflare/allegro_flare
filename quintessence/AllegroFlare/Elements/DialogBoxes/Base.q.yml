@@ -23,6 +23,15 @@ functions:
       return;
 
 
+  - name: infer_age
+    type: float
+    guards: [ al_is_system_installed() ]
+    body: |
+      return al_get_time() - get_created_at();
+    body_dependency_symbols:
+      - al_get_time
+
+
   - name: is_type
     type: bool
     parameters:
@@ -40,5 +49,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
   - symbol: std::vector<std::vector<std::string>>
     headers: [ vector, string ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
 
 
