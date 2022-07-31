@@ -266,7 +266,8 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptTest,
 }
 
 
-TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptTest, build_markers_index__indexes_markers_at_the_beginning_and_the_end)
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptTest,
+   build_markers_index__will_include_markers_at_the_beginning_and_the_end)
 {
    std::vector<std::string> lines = {
       { "MARKER: *A_MARKER_AT_THE_FIRST_LINE*" },

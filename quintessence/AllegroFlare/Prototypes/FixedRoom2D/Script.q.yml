@@ -145,7 +145,6 @@ functions:
          result.first = "";
          std::string _intermed = script_line;
          result.second = AllegroFlare::php::trim(_intermed);
-         //result.second = Blast::String::Trimmer(script_line).trim();
       }
       else
       {
@@ -158,8 +157,6 @@ functions:
          result.first = AllegroFlare::php::trim(_intermed);
          std::string _intermed2 = script_line.substr(pos+DELIMETER.size());
          result.second = AllegroFlare::php::trim(_intermed2);
-         //result.first = Blast::String::Trimmer(command_fragment_unsanitized).trim();
-         //result.second = Blast::String::Trimmer(script_line.substr(pos+DELIMETER.size())).trim();
       }
 
       return result;
