@@ -13,6 +13,8 @@
 #include <sstream>
 #include <map>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
+#include <map>
+#include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -126,6 +128,24 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityCollectionHelper::f
    return it->second;
 }
 
+std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollectionHelper::order_by_id(std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_to_order)
+{
+   std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+   std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> as_ids;
+
+   for (auto &entity : entities_to_order)
+   {
+      if (!entity) continue;
+      as_ids[entity->get_id()] = entity;
+   }
+
+   for (auto &entity : as_ids)
+   {
+      result.push_back(entity.second);
+   }
+   return result;
+}
+
 std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollectionHelper::select_all_ordered_by_id(std::string room_name)
 {
    if (!(entity_dictionary))
@@ -149,18 +169,32 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
    return result;
 }
 
-void EntityCollectionHelper::get_entities_from_entity_names(std::vector<std::string> entity_names)
+std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollectionHelper::get_entities_by_entity_names(std::vector<std::string> entity_dictionary_names)
 {
    if (!(entity_dictionary))
       {
          std::stringstream error_message;
-         error_message << "EntityCollectionHelper" << "::" << "get_entities_from_entity_names" << ": error: " << "guard \"entity_dictionary\" not met";
+         error_message << "EntityCollectionHelper" << "::" << "get_entities_by_entity_names" << ": error: " << "guard \"entity_dictionary\" not met";
          throw std::runtime_error(error_message.str());
       }
+   std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+   for (auto &entity_dictionary_name : entity_dictionary_names)
    {
-      
+      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* found_entity =
+         find_entity_by_dictionary_name(entity_dictionary_name);
+
+      if (!found_entity)
+      {
+         std::cout << "[FixedRoom2D::EntityCollectionHelper::get_entities_from_entity_names]: warning: The provided "
+                   << "entity name \"" << entity_dictionary_name << "\" does not have a listing. Ignoring."
+                   << std::endl;
+      }
+      else
+      {
+         result.push_back(found_entity);
+      }
    }
-   return;
+   return result;
 }
 
 std::vector<std::string> EntityCollectionHelper::select_all_entity_names_in_room_name(std::string room_name)

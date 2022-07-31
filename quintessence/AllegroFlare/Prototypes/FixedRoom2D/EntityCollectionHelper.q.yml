@@ -75,6 +75,31 @@ functions:
       return it->second;
 
 
+  - name: order_by_id
+    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    parameters:
+      - name: entities_to_order
+        type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+        default_argument: '{}'
+    body: |
+      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+      std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> as_ids;
+
+      for (auto &entity : entities_to_order)
+      {
+         if (!entity) continue;
+         as_ids[entity->get_id()] = entity;
+      }
+
+      for (auto &entity : as_ids)
+      {
+         result.push_back(entity.second);
+      }
+      return result;
+    body_dependency_symbols:
+      - std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+
+
   - name: select_all_ordered_by_id
     type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
     parameters:
@@ -100,17 +125,32 @@ functions:
       - std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
 
 
-  - name: get_entities_from_entity_names
+  - name: get_entities_by_entity_names
     parameters:
-      - name: entity_names
+      - name: entity_dictionary_names
         type: std::vector<std::string>
         default_argument: '{}'
     guards: [ entity_dictionary ]
+    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
     body: |
+      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
+      for (auto &entity_dictionary_name : entity_dictionary_names)
       {
-         
+         AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* found_entity =
+            find_entity_by_dictionary_name(entity_dictionary_name);
+
+         if (!found_entity)
+         {
+            std::cout << "[FixedRoom2D::EntityCollectionHelper::get_entities_from_entity_names]: warning: The provided "
+                      << "entity name \"" << entity_dictionary_name << "\" does not have a listing. Ignoring."
+                      << std::endl;
+         }
+         else
+         {
+            result.push_back(found_entity);
+         }
       }
-      return;
+      return result;
 
 
   - name: select_all_entity_names_in_room_name
