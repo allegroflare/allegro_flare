@@ -203,7 +203,6 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
    std::string MARKER = "MARKER";
    std::string SIGNAL = "SIGNAL"; // outputs text to the terminal
    std::string SET_CHARACTER_ART = "SET_CHARACTER_ART";
-   std::string SET_CHARACTER_FRAMING = "SET_CHARACTER_FRAMING";
    std::string BEAT = "BEAT";
    std::string WAIT = "WAIT";
    std::string COLLECT = "COLLECT";
@@ -526,18 +525,6 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
    {
       //Disabled:: character.set_sprite_record_identifier(argument);
       //Disabled:: continue_directly_to_next_script_line = true;
-   }
-   else if (command == SET_CHARACTER_FRAMING)
-   {
-      //Disabled:: if (argument == "wide") character.frame_wide();
-      //Disabled:: else if (argument == "mid") character.frame_mid();
-      //Disabled:: else if (argument == "close-up") character.frame_closeup();
-      //Disabled:: else
-      //Disabled:: {
-         //Disabled:: std::cout << "WARNING: Unrecognized argument \"" << argument << "\" "
-                   //Disabled:: << "for command \"" << command << "\"" << std::endl;
-      //Disabled:: }
-      continue_directly_to_next_script_line = true;
    }
    else if (command == MARKER)
    {
