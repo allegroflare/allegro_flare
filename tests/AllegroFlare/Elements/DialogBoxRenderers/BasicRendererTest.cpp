@@ -72,6 +72,30 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
+   render__will_show_a_reveal_animation_respecting_age)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+
+   std::string page_text =
+      "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
+   AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(&font_bin);
+   dialog_box_renderer.set_current_page_text(page_text);
+
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
+   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+
+   for (int passes=0; i<60; i++)
+   {
+      place.start_transform();
+      dialog_box_renderer.render();
+      place.restore_transform();
+      al_flip_display();
+   }
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__will_propertly_render_num_revealed_characters)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
