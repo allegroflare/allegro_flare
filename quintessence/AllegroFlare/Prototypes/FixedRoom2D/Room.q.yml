@@ -55,6 +55,18 @@ functions:
       return;
 
 
+  - name: set_entity_room_associations
+    type: void
+    parameters:
+      - name: entity_room_associations
+        type: std::map<std::string, std::string>*
+        default_argument: nullptr
+    body: |
+      //this->entity_dictionary = entity_dictionary;
+      //entity_collection_helper.set_entity_room_associations(entity_dictionary);
+      return;
+
+
   - name: suspend
     guards: [ initialized ]
     body: |
@@ -104,10 +116,10 @@ functions:
       if (suspended) return;
 
       // update the entities
-      for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-      {
-         entity->update();
-      }
+      //for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+      //{
+         //entity->update();
+      //}
 
       // update the cursor
       cursor.update();
@@ -117,13 +129,18 @@ functions:
 
   - name: render
     guards: [ initialized ]
+    parameters:
+      - name: this_rooms_dictionary_name__this_injection_is_temporary_measure
+        type: std::string
+        default_argument: '"[unset-this_rooms_dictionary_name__this_injection_is_temporary_measure]"'
     body: |
       // draw the entities
-      for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-      {
-         entity->render();
+      //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
+      //   this_rooms_dictionary_name__this_injection_is_temporary_measure))
+      //{
+         //entity->render();
          //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
-      }
+      //}
 
       // draw the cursor
       cursor.draw();
@@ -248,6 +265,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
-
+  - symbol: std::map<std::string, std::string>*
+    headers: [ map, string ]
 
   

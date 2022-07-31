@@ -18,6 +18,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -65,6 +66,9 @@ namespace AllegroFlare
             void process_subscribed_to_game_event(AllegroFlare::GameEvent* game_event=nullptr);
             void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
+            void render_entities_in_current_room();
+            std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> get_entities_in_current_room();
+            std::string get_dictionary_name_of_current_room();
             void update_all_rooms();
             void suspend_all_rooms();
             void resume_all_rooms();

@@ -78,6 +78,13 @@ void Room::set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes:
    return;
 }
 
+void Room::set_entity_room_associations(std::map<std::string, std::string>* entity_room_associations)
+{
+   //this->entity_dictionary = entity_dictionary;
+   //entity_collection_helper.set_entity_room_associations(entity_dictionary);
+   return;
+}
+
 void Room::suspend()
 {
    if (!(initialized))
@@ -157,10 +164,10 @@ void Room::update()
    if (suspended) return;
 
    // update the entities
-   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-   {
-      entity->update();
-   }
+   //for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+   //{
+      //entity->update();
+   //}
 
    // update the cursor
    cursor.update();
@@ -168,7 +175,7 @@ void Room::update()
    return;
 }
 
-void Room::render()
+void Room::render(std::string this_rooms_dictionary_name__this_injection_is_temporary_measure)
 {
    if (!(initialized))
       {
@@ -177,11 +184,12 @@ void Room::render()
          throw std::runtime_error(error_message.str());
       }
    // draw the entities
-   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-   {
-      entity->render();
+   //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
+   //   this_rooms_dictionary_name__this_injection_is_temporary_measure))
+   //{
+      //entity->render();
       //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
-   }
+   //}
 
    // draw the cursor
    cursor.draw();

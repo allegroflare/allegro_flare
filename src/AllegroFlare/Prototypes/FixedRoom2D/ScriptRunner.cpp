@@ -6,6 +6,7 @@
 #include <iostream>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
@@ -198,14 +199,17 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       }
    std::string DIALOG = "DIALOG";
    std::string GOTO_MARKER = "GOTO_MARKER";
-   std::string CHOICE = "CHOICE";
-   std::string PLAY_MUSIC = "PLAY_MUSIC";
+   std::string ENTER_ROOM = "ENTER_ROOM";
    std::string MARKER = "MARKER";
    std::string SIGNAL = "SIGNAL"; // outputs text to the terminal
+   std::string COLLECT = "COLLECT";
+
+
+   std::string CHOICE = "CHOICE";
+   std::string PLAY_MUSIC = "PLAY_MUSIC";
    std::string SET_CHARACTER_ART = "SET_CHARACTER_ART";
    std::string BEAT = "BEAT";
    std::string WAIT = "WAIT";
-   std::string COLLECT = "COLLECT";
    std::string COLLECT_SILENTLY = "COLLECT_SILENTLY";
    std::string IF_IN_INVENTORY = "IF_IN_INVENTORY";
    std::string ADD_FLAG = "ADD_FLAG";
@@ -238,6 +242,25 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
          emit_script_event(spawn_dialog_event_data);
          //Disabled:: created_dialog = dialog_factory.create_basic_dialog(std::vector<std::string>{script_line});
       }
+   }
+   else if (command == ENTER_ROOM)
+   {
+      std::cout << "processing ENTER_ROOM" << std::endl;
+      std::vector<std::string> tokens = tokenize(argument);
+      if (!assert_token_count_eq(tokens, 1))
+      {
+         std::cout << "ENTER_ROOM - expecting 1 and only 1 argument on line " << line_num << std::endl;
+         return false;
+      }
+      std::cout << "processing ENTER_ROOM BBB" << std::endl;
+
+      std::string room_name = tokens[0];
+      std::cout << "processing ENTER_ROOM CCC" << std::endl;
+
+      AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom *enter_room_event_datas =
+         new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom(room_name);
+      emit_script_event(enter_room_event_datas);
+      std::cout << "processing ENTER_ROOM DDD" << std::endl;
    }
    else if (command == PLAY_MUSIC)
    {

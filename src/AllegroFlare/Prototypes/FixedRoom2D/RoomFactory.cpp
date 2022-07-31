@@ -13,11 +13,12 @@ namespace FixedRoom2D
 {
 
 
-RoomFactory::RoomFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary)
+RoomFactory::RoomFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary, std::map<std::string, std::string>* entity_room_associations)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , entity_dictionary(entity_dictionary)
+   , entity_room_associations(entity_room_associations)
 {
 }
 
@@ -53,10 +54,17 @@ AllegroFlare::Prototypes::FixedRoom2D::Room* RoomFactory::create_room(float widt
          error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"entity_dictionary\" not met";
          throw std::runtime_error(error_message.str());
       }
+   if (!(entity_room_associations))
+      {
+         std::stringstream error_message;
+         error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"entity_room_associations\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    AllegroFlare::Prototypes::FixedRoom2D::Room* result =
       new AllegroFlare::Prototypes::FixedRoom2D::Room(font_bin, event_emitter);
 
    result->set_entity_dictionary(entity_dictionary);
+   result->set_entity_room_associations(entity_room_associations);
    result->initialize();
 
    return result;
