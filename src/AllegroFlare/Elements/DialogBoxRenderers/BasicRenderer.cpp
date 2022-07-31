@@ -210,7 +210,7 @@ void BasicRenderer::render()
    {
       draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
 
-      // draw the "next" or "finished" cursor
+      // draw the "next" or "finished" cursor (depending on context)
       if (page_is_finished)
       {
          AllegroFlare::Elements::DialogButton dialog_button(font_bin);

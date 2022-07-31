@@ -37,7 +37,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
-   //AllegroFlare::Placement2D place{ 1920/2, 1080/5*4, 1920/5*3, 1080/4 };
    AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(&font_bin);
    dialog_box_renderer.set_current_page_text("This dialog is finished");
    dialog_box_renderer.set_is_finished(true);
@@ -87,10 +86,12 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    float started_at = al_get_time();
    for (int passes=0; passes<60; passes++)
    {
+      float age = al_get_time() - started_at;
+      dialog_box_renderer.set_age(age);
+
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
 
       place.start_transform();
-      dialog_box_renderer.set_age(al_get_time() - started_at);
       dialog_box_renderer.render();
       place.restore_transform();
       al_flip_display();
