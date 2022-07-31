@@ -1,0 +1,62 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: entity_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    init_with: nullptr
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: create_room
+    type: AllegroFlare::Prototypes::FixedRoom2D::Room*
+    parameters:
+      - name: width
+        type: float
+        default_argument: (1920-200)
+      - name: height
+        type: float
+        default_argument: (1080-200)
+    guards: [ bitmap_bin, font_bin, event_emitter, entity_dictionary ]
+    body: |
+      AllegroFlare::Prototypes::FixedRoom2D::Room* result =
+         new AllegroFlare::Prototypes::FixedRoom2D::Room(font_bin, event_emitter);
+
+      result->set_entity_dictionary(entity_dictionary);
+      result->initialize();
+
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Room*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+
+

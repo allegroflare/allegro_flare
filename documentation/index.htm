@@ -103,6 +103,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Room.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Room.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Script.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Script.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.q.yml</a></li>
@@ -115,6 +116,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/UnicodeFontViewer.q.yml">quintessence/AllegroFlare/UnicodeFontViewer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
@@ -3220,6 +3222,14 @@ table td
   <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;</td>
 </tr>
 <tr>
+  <td class="property">room_dictionary</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*&gt;</td>
+</tr>
+<tr>
+  <td class="property">entity_room_associations</td>
+  <td class="property">std::map&lt;std::string, std::string&gt;</td>
+</tr>
+<tr>
   <td class="property">script_dictionary</td>
   <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;</td>
 </tr>
@@ -3232,8 +3242,8 @@ table td
   <td class="property">AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper</td>
 </tr>
 <tr>
-  <td class="property">room</td>
-  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Room</td>
+  <td class="property">current_room</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Room*</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -3262,7 +3272,13 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
+  <td class="method">load_story_and_start()</td>
+</tr>
+<tr>
   <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">enter_room(1)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -3275,6 +3291,15 @@ table td
 </tr>
 <tr>
   <td class="private_method">process_script_event(1)</td>
+</tr>
+<tr>
+  <td class="method">update_all_rooms()</td>
+</tr>
+<tr>
+  <td class="method">suspend_all_rooms()</td>
+</tr>
+<tr>
+  <td class="method">resume_all_rooms()</td>
 </tr>
 <tr>
   <td class="method">show_inventory()</td>
@@ -3339,7 +3364,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Room.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Room&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Room.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Room*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Room.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
@@ -3388,6 +3413,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EventNames::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::RoomFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -3541,6 +3569,51 @@ table td
 </tr>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">entity_dictionary</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">create_room(2)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Room*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Room.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -4484,6 +4557,27 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">started_at</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">now()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</h3>
      <table>
     </table>
@@ -4910,6 +5004,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -4951,6 +5046,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -4992,7 +5088,8 @@ table td
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Time"
   ],
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -5081,6 +5178,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Screens/GameOverScreen",
@@ -5408,7 +5506,8 @@ table td
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room"
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Cursor": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -5427,7 +5526,8 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Room": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
@@ -5469,6 +5569,9 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [

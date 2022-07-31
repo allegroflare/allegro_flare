@@ -6,6 +6,11 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -71,10 +76,12 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , inventory_window({})
    , flags({})
    , entity_dictionary({})
+   , room_dictionary({})
+   , entity_room_associations({})
    , script_dictionary({})
    , script_runner({})
    , entity_collection_helper({})
-   , room({})
+   , current_room(nullptr)
    , initialized(false)
    , active_dialog(nullptr)
    , subscribed_to_game_event_names({})
@@ -107,8 +114,22 @@ void FixedRoom2D::set_audio_controller(AllegroFlare::AudioController* audio_cont
 
 void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
-   room.set_font_bin(font_bin);
    this->font_bin = font_bin;
+
+   inventory_window.set_font_bin(font_bin);
+
+   // set the font_bin in each of the rooms (likely the font_bin dependency should be moved to a RoomRenderer)
+   for (auto &room_dictionary_listing : room_dictionary)
+   {
+      AllegroFlare::Prototypes::FixedRoom2D::Room* room = room_dictionary_listing.second;
+      if (room) room->set_font_bin(font_bin);
+      else
+      {
+         std::string room_name = room_dictionary_listing.first;
+         std::cout << "Weird error, could not set_font_bin in room \"" << room_name << "\" because "
+                   << "it is nullptr." << std::endl;
+      }
+   }
    return;
 }
 
@@ -161,6 +182,9 @@ void FixedRoom2D::initialize()
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
+   AllegroFlare::Prototypes::FixedRoom2D::RoomFactory room_factory(
+      bitmap_bin, font_bin, event_emitter, &entity_dictionary
+   );
 
    subscribed_to_game_event_names = {
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
@@ -171,6 +195,38 @@ void FixedRoom2D::initialize()
    inventory_window.set_bitmap_bin(bitmap_bin);
    inventory_window.set_af_inventory(&af_inventory);
 
+   entity_collection_helper.set_entity_dictionary(&entity_dictionary);
+
+   script_runner.set_audio_controller(audio_controller);
+   script_runner.set_af_inventory(&af_inventory);
+   script_runner.set_event_emitter(event_emitter);
+   script_runner.set_inventory_window(&inventory_window);
+   script_runner.set_script_dictionary(&script_dictionary);
+   script_runner.set_flags(&flags);
+
+   initialized = true;
+
+   return;
+}
+
+void FixedRoom2D::load_story_and_start()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "FixedRoom2D" << "::" << "load_story_and_start" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
+   AllegroFlare::Prototypes::FixedRoom2D::RoomFactory room_factory(
+      bitmap_bin, font_bin, event_emitter, &entity_dictionary
+   );
+
+   room_dictionary = {
+      { "front_hall", room_factory.create_room() },
+      //{ "study", room_factory.create_room() },
+   };
+
    entity_dictionary = {
       { "door", entity_factory.create_entity(
             "download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85, "Door", "observe_door") },
@@ -180,6 +236,13 @@ void FixedRoom2D::initialize()
             "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "observe_table") },
       { "keys", entity_factory.create_entity(
             "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
+   };
+
+   entity_room_associations = {
+      { "door", "front_hall" },
+      { "chair", "front_hall" },
+      { "table", "front_hall" },
+      { "keys", "front_hall" },
    };
 
    script_dictionary = {
@@ -200,21 +263,8 @@ void FixedRoom2D::initialize()
       })},
    };
 
-   entity_collection_helper.set_entity_dictionary(&entity_dictionary);
+   enter_room("front_hall");
 
-   room.set_font_bin(font_bin);
-   room.set_event_emitter(event_emitter);
-   room.set_entity_dictionary(&entity_dictionary);
-   room.initialize();
-
-   script_runner.set_audio_controller(audio_controller);
-   script_runner.set_af_inventory(&af_inventory);
-   script_runner.set_event_emitter(event_emitter);
-   script_runner.set_inventory_window(&inventory_window);
-   script_runner.set_script_dictionary(&script_dictionary);
-   script_runner.set_flags(&flags);
-
-   initialized = true;
    return;
 }
 
@@ -226,10 +276,32 @@ void FixedRoom2D::update()
          error_message << "FixedRoom2D" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   room.update();
+   //room.update();
+   update_all_rooms();
+
    if (active_dialog) active_dialog->update();
+
    inventory_window.update();
    return;
+}
+
+bool FixedRoom2D::enter_room(std::string room_name)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "FixedRoom2D" << "::" << "enter_room" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>::iterator it =
+      room_dictionary.find(room_name);
+   if (it == room_dictionary.end())
+   {
+      // TODO error message, "attempted to enter room named ... did not exist"
+      return false;
+   }
+   current_room = it->second;
+   return true;
 }
 
 void FixedRoom2D::render()
@@ -240,12 +312,21 @@ void FixedRoom2D::render()
          error_message << "FixedRoom2D" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   room.render();
+   // render the current room
+   if (current_room) current_room->render();
+   else
+   {
+      // TODO render_void_room();
+   }
+
+   // render the active dialog
    if (active_dialog)
    {
       AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
       dialog_box_renderer.render();
    }
+
+   // render the inventory window
    inventory_window.render();
 
    return;
@@ -340,7 +421,8 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
          if (active_dialog) delete active_dialog;
 
          active_dialog = dialog_box_factory.create_basic_dialog(pages);
-         room.suspend();
+         //room.suspend();
+         suspend_all_rooms();
       }
       if (game_event_data->get_type() == "CollectItem")
       {
@@ -354,7 +436,8 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
                "Keys",
                "key-keychain-house-keys-door-photo-pixabay-25.png"
             );
-         room.suspend();
+         //room.suspend();
+         suspend_all_rooms();
       }
       else
       {
@@ -362,6 +445,50 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
                    << "Unknown game_event_data type "
                    << "\"" << game_event_data->get_type() << "\""
                    << std::endl;
+      }
+   }
+   return;
+}
+
+void FixedRoom2D::update_all_rooms()
+{
+   for (auto &room_dictionary_listing : room_dictionary)
+   {
+      AllegroFlare::Prototypes::FixedRoom2D::Room* room = room_dictionary_listing.second;
+      if (room) room->update();
+      else
+      {
+         std::string room_name = room_dictionary_listing.first;
+         std::cout << "Weird error, could not update room at \"" << room_name << "\", it is nullptr." << std::endl;
+      }
+   }
+}
+
+void FixedRoom2D::suspend_all_rooms()
+{
+   for (auto &room_dictionary_listing : room_dictionary)
+   {
+      AllegroFlare::Prototypes::FixedRoom2D::Room* room = room_dictionary_listing.second;
+      if (room) room->suspend();
+      else
+      {
+         std::string room_name = room_dictionary_listing.first;
+         std::cout << "Weird error, could not suspend room at \"" << room_name << "\", it is nullptr." << std::endl;
+      }
+   }
+   return;
+}
+
+void FixedRoom2D::resume_all_rooms()
+{
+   for (auto &room_dictionary_listing : room_dictionary)
+   {
+      AllegroFlare::Prototypes::FixedRoom2D::Room* room = room_dictionary_listing.second;
+      if (room) room->resume();
+      else
+      {
+         std::string room_name = room_dictionary_listing.first;
+         std::cout << "Weird error, could not resume room at \"" << room_name << "\", it is nullptr." << std::endl;
       }
    }
    return;
@@ -376,7 +503,8 @@ void FixedRoom2D::show_inventory()
          throw std::runtime_error(error_message.str());
       }
    inventory_window.show();
-   room.suspend();
+   //room.suspend();
+   suspend_all_rooms();
    return;
 }
 
@@ -389,7 +517,8 @@ void FixedRoom2D::hide_inventory()
          throw std::runtime_error(error_message.str());
       }
    inventory_window.hide();
-   room.resume();
+   //room.resume();
+   resume_all_rooms();
    return;
 }
 
@@ -421,7 +550,8 @@ void FixedRoom2D::spawn_dialog_box()
    if (active_dialog) delete active_dialog;
    {
       active_dialog = dialog_box_factory.create_basic_test_dialog();
-      room.suspend();
+      //room.suspend();
+      suspend_all_rooms();
    }
 
    return;
@@ -493,12 +623,13 @@ void FixedRoom2D::activate_primary_action()
       if (dialog_is_finished())
       {
          shutdown_dialog();
-         room.resume();
+         resume_all_rooms();
+         //room.resume();
       }
    }
-   else if (!room.get_suspended())
+   else if (current_room && !current_room->get_suspended())
    {
-      room.interact_with_item_under_cursor();
+      current_room->interact_with_item_under_cursor();
    }
 
    return;
@@ -560,9 +691,9 @@ void FixedRoom2D::move_cursor(float distance_x, float distance_y)
          error_message << "FixedRoom2D" << "::" << "move_cursor" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!room.get_suspended())
+   if (current_room && !current_room->get_suspended())
    { 
-      room.move_cursor(distance_x, distance_y);
+      current_room->move_cursor(distance_x, distance_y);
    }
    return;
 }

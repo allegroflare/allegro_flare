@@ -49,6 +49,9 @@ functions:
       fixed_room_2d.set_event_emitter(event_emitter);
       fixed_room_2d.set_audio_controller(audio_controller);
       fixed_room_2d.initialize();
+
+      fixed_room_2d.load_story_and_start();
+
       initialized = true;
       return;
 
