@@ -860,6 +860,10 @@ table td
   <td class="property">border_color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
+<tr>
+  <td class="property">opacity</td>
+  <td class="property">float</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -1152,6 +1156,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogButton&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogButton.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -5260,6 +5267,10 @@ table td
   "AllegroFlare/Elements/DialogButton": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
   ],
+  "AllegroFlare/Interpolators/": [
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer"
+  ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -5271,9 +5282,6 @@ table td
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/Interpolators/": [
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer"
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base"

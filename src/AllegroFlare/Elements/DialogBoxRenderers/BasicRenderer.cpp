@@ -9,6 +9,7 @@
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogButton.hpp>
+#include <AllegroFlare/Interpolators.hpp>
 #include <stdexcept>
 #include <sstream>
 
@@ -189,7 +190,17 @@ float BasicRenderer::get_age()
 
 void BasicRenderer::render()
 {
-   AllegroFlare::Elements::DialogBoxFrame(width, height).render();
+   float normalized_age = std::max(std::min(1.0f, age), 0.0f);
+   float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
+   float inv_curved_time = 1.0 - curved_time;
+
+   AllegroFlare::Placement2D frame_place = { width/2, height/2, width, height, };
+   frame_place.position.y += 10 * inv_curved_time;
+   frame_place.start_transform();
+   AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
+   dialog_box_frame.set_opacity(curved_time);
+   dialog_box_frame.render();
+   frame_place.restore_transform();
 
    if (is_finished)
    {

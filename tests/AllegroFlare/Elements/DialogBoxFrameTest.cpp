@@ -72,6 +72,25 @@ TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__draws_the_dialog_box)
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__respects_opacity)
+{
+   al_init();
+   al_init_primitives_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
+
+   dialog_box_renderer.set_opacity(0.5);
+
+   al_clear_to_color(ALLEGRO_COLOR{0.05, 0.05, 0.055, 1.0});
+   dialog_box_renderer.render();
+   al_flip_display();
+   std::this_thread::sleep_for(std::chrono::seconds(1));
+
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
 TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__when_the_dialog_box_is_finish__renders_special_empty_text)
 {
    al_init();

@@ -28,6 +28,12 @@ properties:
     init_with: al_color_html("909090")
     setter: true
 
+  - name: opacity
+    type: float
+    init_with: 1.0f
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -44,7 +50,8 @@ functions:
       //ALLEGRO_COLOR backfill_color = al_color_html("162428");
       //ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.02f*opacity, 0.0f*opacity, 0.1f*opacity, opacity};
       //ALLEGRO_COLOR border_color = al_color_html("244751");
-      ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity);
+      ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
+      ALLEGRO_COLOR border_color_with_opacity = AllegroFlare::color::color(border_color, opacity);
 
       // draw backfill
       al_draw_filled_rounded_rectangle(
@@ -74,7 +81,7 @@ functions:
          height,
          roundness,
          roundness,
-         border_color,
+         border_color_with_opacity,
          border_thickness
       );
 

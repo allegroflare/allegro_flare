@@ -57,6 +57,7 @@ AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialo
 {
    AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box = new AllegroFlare::Elements::DialogBoxes::Basic();
    basic_dialog_box->set_pages(pages);
+   basic_dialog_box->set_created_at(al_get_time());
    return basic_dialog_box;
 }
 
