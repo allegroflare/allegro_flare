@@ -33,17 +33,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, render__d
 }
 
 
-TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, render__displays_the_inventory_window)
-{
-   AllegroFlare::Inventory af_inventory;
-   AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory);
-   inventory.render();
-   SHOW_RENDER();
-}
-
-
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
-   render__when_an_item_is_selected__renders_the_details_pane)
+   CAPTURE__render__when_an_item_is_selected__renders_the_details_pane)
 {
    AllegroFlare::Inventory af_inventory;
    af_inventory.add_item(2);
@@ -52,7 +43,10 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    inventory.move_cursor_right();
    inventory.move_cursor_down();
    inventory.render();
-   SHOW_RENDER();
+
+   al_flip_display();
+   //sleep_for(1);
+   //SHOW_RENDER();
 }
 
 
@@ -62,14 +56,14 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    AllegroFlare::Inventory af_inventory;
    af_inventory.add_item(2);
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory);
-   int passes = 60 * 2;
-   //int passes = 0;
+   //int passes = 60 * 2;
+   int passes = 1;
    for (unsigned i=0; i<passes; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0});
       inventory.draw_item_selection_cursor(1920/2, 1080/2);
       al_flip_display();
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+      //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
 }
 
@@ -78,8 +72,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, show__doe
    AllegroFlare::Inventory af_inventory;
    af_inventory.add_item(2);
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory);
-   int passes = 60 * 1;
-   //int passes = 0;
+   //int passes = 60 * 1;
+   int passes = 1;
    inventory.show();
    for (unsigned i=0; i<passes; i++)
    {
@@ -89,7 +83,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, show__doe
       //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       inventory.render();
       al_flip_display();
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+      //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
 }
 
@@ -98,8 +92,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, hide__doe
    AllegroFlare::Inventory af_inventory;
    af_inventory.add_item(2);
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory);
-   int passes = 60 * 1;
-   //int passes = 0;
+   //int passes = 60 * 1;
+   int passes = 1;
    inventory.activate();
    inventory.hide();
    for (unsigned i=0; i<passes; i++)
@@ -110,18 +104,19 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, hide__doe
       //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       inventory.render();
       al_flip_display();
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+      //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
 }
 
-TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, moving_the_cursor__animates_the_details_pane)
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   CAPTURE__moving_the_cursor__animates_the_details_pane)
 {
    AllegroFlare::Inventory af_inventory;
    af_inventory.add_item(2);
    af_inventory.add_item(1);
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory);
-   int passes = 60 * 3;
-   //int passes = 0;
+   //int passes = 60 * 3;
+   int passes = 1;
    inventory.activate();
    float passes_to_move_cursor = 20;
    for (unsigned i=0; i<passes; i++)
@@ -134,11 +129,10 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, moving_th
       }
       inventory.update();
 
-      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0});
-      //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.11, 1.0});
       inventory.render();
       al_flip_display();
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+      //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
 }
 
