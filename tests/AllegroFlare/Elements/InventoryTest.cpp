@@ -13,10 +13,11 @@
 
 #include <chrono>
 #include <thread>
-static void SHOW_RENDER(int seconds=1) { al_flip_display(); std::this_thread::sleep_for(std::chrono::seconds(seconds)); }
 
 class AllegroFlare_Elements_InventoryTest : public ::testing::Test {};
-class AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
+class AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{};
 
 
 TEST_F(AllegroFlare_Elements_InventoryTest, can_be_created_without_blowing_up)
@@ -46,7 +47,6 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
    al_flip_display();
    //sleep_for(1);
-   //SHOW_RENDER();
 }
 
 
@@ -66,6 +66,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
 }
+
 
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, show__does_a_cool_animation)
 {
@@ -87,6 +88,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, show__doe
    }
 }
 
+
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, hide__does_a_cool_animation)
 {
    AllegroFlare::Inventory af_inventory;
@@ -107,6 +109,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, hide__doe
       //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
 }
+
 
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    CAPTURE__moving_the_cursor__animates_the_details_pane)
@@ -136,6 +139,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    }
 }
 
+
 TEST_F(AllegroFlare_Elements_InventoryTest,
    the_move_cursor_functions_do_not_modify_anything_if_the_inventory_is_inactive)
 {
@@ -150,6 +154,7 @@ TEST_F(AllegroFlare_Elements_InventoryTest,
    EXPECT_EQ(0, inventory.get_cursor_y());
 }
 
+
 TEST_F(AllegroFlare_Elements_InventoryTest, move_cursor_left__wraps_the_cursor_when_at_the_edge)
 {
    AllegroFlare::Elements::Inventory inventory;
@@ -157,6 +162,7 @@ TEST_F(AllegroFlare_Elements_InventoryTest, move_cursor_left__wraps_the_cursor_w
    inventory.move_cursor_left();
    EXPECT_EQ(3, inventory.get_cursor_x());
 }
+
 
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    move_cursor_right__wraps_the_cursor_when_at_the_edge)
@@ -171,13 +177,16 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    EXPECT_EQ(0, inventory.get_cursor_x());
 }
 
-TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, move_cursor_up__wraps_the_cursor_when_at_the_edge)
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   move_cursor_up__wraps_the_cursor_when_at_the_edge)
 {
    AllegroFlare::Elements::Inventory inventory;
    inventory.activate();
    inventory.move_cursor_up();
    EXPECT_EQ(2, inventory.get_cursor_y());
 }
+
 
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    move_cursor_down__wraps_the_cursor_when_at_the_edge)
