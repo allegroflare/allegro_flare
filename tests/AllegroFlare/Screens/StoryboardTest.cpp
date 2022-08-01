@@ -39,8 +39,9 @@ public:
    }
    virtual void update() override
    {
-      opacity += 0.05;
-      if (opacity > 1.0) opacity = 0.0f;
+      // nothing to do really
+      //opacity += 0.05;
+      //if (opacity > 1.0) opacity = 0.0f;
    }
 };
 
@@ -68,32 +69,28 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture, primary_t
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   primary_timer_func__will_advance_the_number_of_characters_revealed_on_the_page)
+   DISABLED__primary_timer_func__will_update_the_storyboard_element)
 {
-   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
-   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
-      new StoryboardPageTestClass(font, "Hello Storyboard!")
-   };
-   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), nullptr);
-   storyboard.get_storyboard_element_ref().set_pages(pages);
-   storyboard.initialize();
-
-   for (int i=0; i<18; i++)
-   {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
-      storyboard.primary_timer_func();
-      al_flip_display();
-      sleep_for_frame();
-   }
-   //sleep_for(1);
-
-   SUCCEED();
+   // TODO
 }
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   primary_timer_func__will_draw_the_current_page_text_to_the_screen)
+   DISABLED__primary_timer_func__with_auto_advance_on__and_the_storyboard_element_can_go_to_the_next_page__will_advance)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
+   DISABLED__primary_timer_func__will_render_the_storyboard_element)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
+   CAPTURE__primary_timer_func__will_draw_the_current_page_text_to_the_screen)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
@@ -108,7 +105,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    storyboard.primary_timer_func();
    al_flip_display();
 
-   //sleep_for(1);
+   //sleep_for(1)
 
    SUCCEED();
 }

@@ -43,10 +43,8 @@ TEST_F(AllegroFlare_Screens_TitleScreenTest, render__without_primitives_addon_in
 }
 
 
-TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture, render__will_not_blow_up)
+TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   //get_font_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/fonts");
-
    AllegroFlare::Screens::TitleScreen title_screen;
    title_screen.set_font_bin(&get_font_bin_ref());
    title_screen.set_bitmap_bin(&get_bitmap_bin_ref());
@@ -54,7 +52,6 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture, render__
    title_screen.render();
 
    al_flip_display();
-   sleep_for(2);
    SUCCEED();
 }
 
