@@ -55,7 +55,8 @@ namespace AllegroFlare
          void render();
          void draw_backframe();
          void draw_inventory_title_text();
-         void draw_inventory_boxes_and_elevated_item_selection();
+         void draw_inventory_items();
+         void draw_inventory_boxes();
          void draw_details_frame();
          void move_cursor_up();
          void move_cursor_down();

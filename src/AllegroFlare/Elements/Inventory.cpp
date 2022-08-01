@@ -212,7 +212,8 @@ void Inventory::render()
    draw_backframe();
    draw_inventory_title_text();
    draw_item_selection_cursor();
-   draw_inventory_boxes_and_elevated_item_selection();
+   draw_inventory_boxes();
+   draw_inventory_items();
    draw_details_frame();
 
    time_based_place.restore_transform();
@@ -247,13 +248,40 @@ void Inventory::draw_inventory_title_text()
    return;
 }
 
-void Inventory::draw_inventory_boxes_and_elevated_item_selection()
+void Inventory::draw_inventory_items()
 {
    std::vector<int> items_in_inventory = af_inventory->get_items_ref();
 
    float x = 80;
    float y = 80;
    float spacing = 150 + 20;
+
+   int inventory_position = 0;
+   for (unsigned row=0; row<3; row++)
+   {
+      for (unsigned column=0; column<4; column++)
+      {
+         int item_to_draw = 0;
+         if (inventory_position >= items_in_inventory.size()) {}
+         else { item_to_draw = items_in_inventory[inventory_position]; }
+
+         //draw_inventory_box(x + column * spacing, y + row * spacing);
+         draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
+         inventory_position++;
+      }
+      inventory_position++;
+   }
+   return;
+}
+
+void Inventory::draw_inventory_boxes()
+{
+   std::vector<int> items_in_inventory = af_inventory->get_items_ref();
+
+   float x = 80;
+   float y = 80;
+   float spacing = 150 + 20;
+
    int inventory_position = 0;
    for (unsigned row=0; row<3; row++)
    {
@@ -264,7 +292,7 @@ void Inventory::draw_inventory_boxes_and_elevated_item_selection()
          else { item_to_draw = items_in_inventory[inventory_position]; }
 
          draw_inventory_box(x + column * spacing, y + row * spacing);
-         draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
+         //draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
          inventory_position++;
       }
       inventory_position++;
