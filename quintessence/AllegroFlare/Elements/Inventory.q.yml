@@ -56,8 +56,8 @@ properties:
     init_with: 999
 
   - name: inventory_index
-    type: std::map<int, std::tuple<std::string, std::string, std::string>>
-    init_with: 'build_inventory_index()'
+    type: std::map<int, std::tuple<std::string, std::string, std::string>>*
+    init_with: 'create_placeholder_inventory_index()'
 
   - name: reveal_counter
     type: float
@@ -542,8 +542,9 @@ functions:
         type: int
         default_argument: 0
     body: |
-      if (inventory_index.find(index) == inventory_index.end()) return {};
-      return inventory_index[index];
+      if (!inventory_index) return {};
+      if (inventory_index->find(index) == inventory_index->end()) return {};
+      return inventory_index->operator[](index);
 
 
   - name: obtain_title_font
@@ -570,14 +571,15 @@ functions:
       return font_bin->auto_get("Inter-Bold.ttf -48");
 
 
-  - name: build_inventory_index
-    type: std::map<int, std::tuple<std::string, std::string, std::string>>
+  - name: create_placeholder_inventory_index
+    type: std::map<int, std::tuple<std::string, std::string, std::string>>*
     static: true
     body: |
-      std::map<int, std::tuple<std::string, std::string, std::string>> result = {
-         { 1, { "Pack of Gum", "elm_circle.png", "Refreshing and long-lasting." } },
-         { 2, { "Watch", "elm_circle.png", "Not a smartwatch, but has all the features that matter." } },
-      };
+      std::map<int, std::tuple<std::string, std::string, std::string>> *result =
+         new std::map<int, std::tuple<std::string, std::string, std::string>>{
+            { 1, { "Pack of Gum", "elm_circle.png", "Refreshing and long-lasting." } },
+            { 2, { "Watch", "elm_circle.png", "Not a smartwatch, but has all the features that matter." } },
+         };
       return result;
 
 
@@ -614,7 +616,7 @@ dependencies:
     headers:
       - allegro5/allegro_primitives.h
       - allegro5/allegro_color.h
-  - symbol: std::map<int, std::tuple<std::string, std::string, std::string>>
+  - symbol: std::map<int, std::tuple<std::string, std::string, std::string>>*
     headers: [ map, utility, string ]
   - symbol: std::vector<std::tuple<std::string, std::string, std::string>>
     headers: [ vector, utility, string ]

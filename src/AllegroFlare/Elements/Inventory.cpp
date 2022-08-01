@@ -38,7 +38,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , active(false)
    , details_reveal_counter(0.0f)
    , details_num_revealed_characters(999)
-   , inventory_index(build_inventory_index())
+   , inventory_index(create_placeholder_inventory_index())
    , reveal_counter(0)
    , item_in_details_pane(0)
    , inventory_items_left_padding(80.0f)
@@ -544,8 +544,9 @@ void Inventory::draw_inventory_item(float x, float y, int item)
 
 std::tuple<std::string, std::string, std::string> Inventory::get_item_definition(int index)
 {
-   if (inventory_index.find(index) == inventory_index.end()) return {};
-   return inventory_index[index];
+   if (!inventory_index) return {};
+   if (inventory_index->find(index) == inventory_index->end()) return {};
+   return inventory_index->operator[](index);
 }
 
 ALLEGRO_FONT* Inventory::obtain_title_font()
@@ -568,12 +569,13 @@ ALLEGRO_FONT* Inventory::obtain_details_header_font()
    return font_bin->auto_get("Inter-Bold.ttf -48");
 }
 
-std::map<int, std::tuple<std::string, std::string, std::string>> Inventory::build_inventory_index()
+std::map<int, std::tuple<std::string, std::string, std::string>>* Inventory::create_placeholder_inventory_index()
 {
-   std::map<int, std::tuple<std::string, std::string, std::string>> result = {
-      { 1, { "Pack of Gum", "elm_circle.png", "Refreshing and long-lasting." } },
-      { 2, { "Watch", "elm_circle.png", "Not a smartwatch, but has all the features that matter." } },
-   };
+   std::map<int, std::tuple<std::string, std::string, std::string>> *result =
+      new std::map<int, std::tuple<std::string, std::string, std::string>>{
+         { 1, { "Pack of Gum", "elm_circle.png", "Refreshing and long-lasting." } },
+         { 2, { "Watch", "elm_circle.png", "Not a smartwatch, but has all the features that matter." } },
+      };
    return result;
 }
 

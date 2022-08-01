@@ -30,7 +30,7 @@ namespace AllegroFlare
          bool active;
          float details_reveal_counter;
          int details_num_revealed_characters;
-         std::map<int, std::tuple<std::string, std::string, std::string>> inventory_index;
+         std::map<int, std::tuple<std::string, std::string, std::string>>* inventory_index;
          float reveal_counter;
          int item_in_details_pane;
          float inventory_items_left_padding;
@@ -77,7 +77,7 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_description_font();
          ALLEGRO_FONT* obtain_item_name_font();
          ALLEGRO_FONT* obtain_details_header_font();
-         static std::map<int, std::tuple<std::string, std::string, std::string>> build_inventory_index();
+         static std::map<int, std::tuple<std::string, std::string, std::string>>* create_placeholder_inventory_index();
          std::string concat_text(std::string source_text="", int length=0);
       };
    }
