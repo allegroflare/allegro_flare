@@ -569,6 +569,8 @@ functions:
          new std::map<int, std::tuple<std::string, std::string, std::string>>{
             { 1, { "Pack of Gum", "elm_circle.png", "Refreshing and long-lasting." } },
             { 2, { "Watch", "elm_circle.png", "Not a smartwatch, but has all the features that matter." } },
+            { 3, { "Blaster", "blaster-01.png", "Standard issue weaponry." } },
+            { 4, { "Walkie-Talkie", "walkie-01.png", "A small portable radio to communicate with someone far away." } },
          };
       return result;
 
