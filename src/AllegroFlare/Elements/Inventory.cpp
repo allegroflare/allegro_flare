@@ -269,7 +269,6 @@ void Inventory::draw_inventory_items()
          if (inventory_position >= items_in_inventory.size()) {}
          else { item_to_draw = items_in_inventory[inventory_position]; }
 
-         //draw_inventory_box(x + column * spacing, y + row * spacing);
          draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
          inventory_position++;
       }
@@ -285,18 +284,11 @@ void Inventory::draw_inventory_boxes()
    float y = inventory_items_top_padding;
    float spacing = inventory_items_box_spacing;
 
-   int inventory_position = 0;
    for (unsigned row=0; row<3; row++)
    {
       for (unsigned column=0; column<4; column++)
       {
-         int item_to_draw = 0;
-         if (inventory_position >= items_in_inventory.size()) {}
-         else { item_to_draw = items_in_inventory[inventory_position]; }
-
          draw_inventory_box(x + column * spacing, y + row * spacing);
-         //draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
-         inventory_position++;
       }
    }
    return;
