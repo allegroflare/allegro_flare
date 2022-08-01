@@ -301,12 +301,49 @@ void Inventory::draw_details_frame()
    std::tuple<std::string, std::string, std::string> item_definition = get_item_definition(item_in_details_pane);
    bool contains_item = !std::get<0>(item_definition).empty();
    if (!contains_item) return;
+
    std::string item_name = std::get<0>(item_definition);
    std::string item_bitmap_identifier = std::get<1>(item_definition);
    std::string item_description = std::get<2>(item_definition);
-   ALLEGRO_BITMAP *item_bitmap = bitmap_bin->auto_get(item_bitmap_identifier);
 
-   // draw label
+
+   // draw the item
+   //
+
+   ALLEGRO_BITMAP *item_bitmap = bitmap_bin->auto_get(item_bitmap_identifier);
+   if (!item_bitmap) {} // TODO: draw missing item graphic
+
+   // setup the graphic positioning and scale
+   AllegroFlare::Placement2D box_place;
+   box_place.position.x = 1025;
+   box_place.position.y = 290;
+   box_place.size.x = al_get_bitmap_width(item_bitmap);
+   box_place.size.y = al_get_bitmap_height(item_bitmap);
+   box_place.scale.x = 1.0f;
+   box_place.scale.y = 1.0f;
+
+   // stretch the position to fit the intended width/height
+   float intended_width = 380.0f;
+   float fit_scale = intended_width / al_get_bitmap_width(item_bitmap);
+   box_place.scale.x = fit_scale;
+   box_place.scale.y = fit_scale;
+
+   // filter the dimentions for animation
+   box_place.position.y = box_place.position.y +
+      50 * (1.0 - AllegroFlare::interpolator::fast_in(details_reveal_counter));
+   float scale_reveal_multiplier = 0.94 + 0.06 * (AllegroFlare::interpolator::fast_in(details_reveal_counter));
+   box_place.scale.x = box_place.scale.x * scale_reveal_multiplier;
+   box_place.scale.y = box_place.scale.y * scale_reveal_multiplier;
+
+   // draw the bitmap
+   box_place.start_transform();
+   al_draw_tinted_bitmap(item_bitmap, revealed_white, 0, 0, 0);
+   box_place.restore_transform();
+
+
+   // draw the item name
+   //
+
    ALLEGRO_FONT* font = obtain_details_header_font();
    float details_header_reveal_offset = 60 * (1.0 - AllegroFlare::interpolator::fast_in(details_reveal_counter));
    al_draw_text(
@@ -318,27 +355,10 @@ void Inventory::draw_details_frame()
       item_name.c_str()
    );
 
-   // draw graphic
-   ALLEGRO_BITMAP *bitmap = item_bitmap; //bitmap_bin->auto_get("watch-01.png");
-   AllegroFlare::Placement2D box_place;
-   box_place.position.x = 1025;
-   box_place.position.y = 290;
-   box_place.size.x = 800;
-   box_place.size.y = 800;
-   box_place.scale.x = 0.6;
-   box_place.scale.y = 0.6;
-
-   box_place.position.y = box_place.position.y +
-      50 * (1.0 - AllegroFlare::interpolator::fast_in(details_reveal_counter));
-   float scale_reveal_multiplier = 0.94 + 0.06 * (AllegroFlare::interpolator::fast_in(details_reveal_counter));
-   box_place.scale.x = box_place.scale.x * scale_reveal_multiplier;
-   box_place.scale.y = box_place.scale.y * scale_reveal_multiplier;
-
-   box_place.start_transform();
-   al_draw_tinted_bitmap(bitmap, revealed_white, 0, 0, 0);
-   box_place.restore_transform();
 
    // draw multiline description
+   //
+
    float x = 820;
    float y = 430;
    float width = 1300 - 800- 50 + 5;
@@ -573,8 +593,8 @@ std::map<int, std::tuple<std::string, std::string, std::string>>* Inventory::cre
       new std::map<int, std::tuple<std::string, std::string, std::string>>{
          { 1, { "Pack of Gum", "elm_circle.png", "Refreshing and long-lasting." } },
          { 2, { "Watch", "elm_circle.png", "Not a smartwatch, but has all the features that matter." } },
-         { 3, { "Blaster", "blaster-01.png", "Standard issue weaponry." } },
-         { 4, { "Walkie-Talkie", "walkie-01.png", "A small portable radio to communicate with someone far away." } },
+         { 3, { "Blaster", "blaster-02.png", "Standard issue weaponry." } },
+         { 4, { "Walkie-Talkie", "walkie-02.png", "A small portable radio to communicate with someone far away." } },
       };
    return result;
 }
