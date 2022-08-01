@@ -591,8 +591,8 @@ std::map<int, std::tuple<std::string, std::string, std::string>>* Inventory::cre
 {
    std::map<int, std::tuple<std::string, std::string, std::string>> *result =
       new std::map<int, std::tuple<std::string, std::string, std::string>>{
-         { 1, { "Pack of Gum", "elm_circle.png", "Refreshing and long-lasting." } },
-         { 2, { "Watch", "elm_circle.png", "Not a smartwatch, but has all the features that matter." } },
+         { 1, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
+         { 2, { "Metal Pipe", "metal-pipe-01.png", "Made of galvanized metal, this pipe is very sturdy." } },
          { 3, { "Blaster", "blaster-02.png", "Standard issue weaponry." } },
          { 4, { "Walkie-Talkie", "walkie-02.png", "A small portable radio to communicate with someone far away." } },
       };
