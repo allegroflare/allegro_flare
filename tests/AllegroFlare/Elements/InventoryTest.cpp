@@ -115,8 +115,11 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    CAPTURE__moving_the_cursor__animates_the_details_pane)
 {
    AllegroFlare::Inventory af_inventory;
-   af_inventory.add_item(2);
    af_inventory.add_item(1);
+   af_inventory.add_item(2);
+   af_inventory.add_item(2);
+   af_inventory.add_item(2);
+   af_inventory.add_item(2);
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory);
    int passes = 60 * 2;
    //int passes = 1;

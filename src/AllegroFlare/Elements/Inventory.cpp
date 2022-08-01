@@ -273,7 +273,6 @@ void Inventory::draw_inventory_items()
          draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
          inventory_position++;
       }
-      inventory_position++;
    }
    return;
 }
@@ -299,7 +298,6 @@ void Inventory::draw_inventory_boxes()
          //draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
          inventory_position++;
       }
-      inventory_position++;
    }
    return;
 }
