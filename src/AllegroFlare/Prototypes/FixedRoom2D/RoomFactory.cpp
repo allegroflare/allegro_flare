@@ -13,12 +13,11 @@ namespace FixedRoom2D
 {
 
 
-RoomFactory::RoomFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary, std::map<std::string, std::string>* entity_room_associations)
+RoomFactory::RoomFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
-   , entity_dictionary(entity_dictionary)
-   , entity_room_associations(entity_room_associations)
+   , entity_collection_helper(entity_collection_helper)
 {
 }
 
@@ -48,23 +47,14 @@ AllegroFlare::Prototypes::FixedRoom2D::Room* RoomFactory::create_room(float widt
          error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"event_emitter\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!(entity_dictionary))
+   if (!(entity_collection_helper))
       {
          std::stringstream error_message;
-         error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"entity_dictionary\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (!(entity_room_associations))
-      {
-         std::stringstream error_message;
-         error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"entity_room_associations\" not met";
+         error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"entity_collection_helper\" not met";
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::Prototypes::FixedRoom2D::Room* result =
-      new AllegroFlare::Prototypes::FixedRoom2D::Room(font_bin, event_emitter);
-
-   result->set_entity_dictionary(entity_dictionary);
-   result->set_entity_room_associations(entity_room_associations);
+      new AllegroFlare::Prototypes::FixedRoom2D::Room(font_bin, event_emitter, entity_collection_helper);
    result->initialize();
 
    return result;

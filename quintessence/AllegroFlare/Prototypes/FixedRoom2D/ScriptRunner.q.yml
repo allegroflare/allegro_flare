@@ -184,22 +184,18 @@ functions:
       }
       else if (command == ENTER_ROOM)
       {
-         std::cout << "processing ENTER_ROOM" << std::endl;
          std::vector<std::string> tokens = tokenize(argument);
          if (!assert_token_count_eq(tokens, 1))
          {
             std::cout << "ENTER_ROOM - expecting 1 and only 1 argument on line " << line_num << std::endl;
             return false;
          }
-         std::cout << "processing ENTER_ROOM BBB" << std::endl;
 
          std::string room_name = tokens[0];
-         std::cout << "processing ENTER_ROOM CCC" << std::endl;
 
          AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom *enter_room_event_datas =
             new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom(room_name);
          emit_script_event(enter_room_event_datas);
-         std::cout << "processing ENTER_ROOM DDD" << std::endl;
       }
       else if (command == PLAY_MUSIC)
       {

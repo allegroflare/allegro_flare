@@ -3129,10 +3129,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">select_all_in_room(1)</td>
+  <td class="method">select_all_in_room_ordered_by_id(1)</td>
 </tr>
 <tr>
-  <td class="method">select_all_unordered()</td>
+  <td class="method">select_all()</td>
 </tr>
 <tr>
   <td class="method">find_dictionary_name_of_entity_that_cursor_is_now_over()</td>
@@ -3142,9 +3142,6 @@ table td
 </tr>
 <tr>
   <td class="method">order_by_id(1)</td>
-</tr>
-<tr>
-  <td class="method">select_all_ordered_by_id(1)</td>
 </tr>
 <tr>
   <td class="method">get_entities_by_entity_names(1)</td>
@@ -3296,6 +3293,15 @@ table td
 </tr>
 <tr>
   <td class="method">enter_room(1)</td>
+</tr>
+<tr>
+  <td class="method">unhover_any_and_all_entities()</td>
+</tr>
+<tr>
+  <td class="method">reset_cursors_to_default_in_all_rooms()</td>
+</tr>
+<tr>
+  <td class="method">get_current_room_dictionary_name(1)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -3491,12 +3497,8 @@ table td
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
 <tr>
-  <td class="property">entity_dictionary</td>
-  <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;*</td>
-</tr>
-<tr>
   <td class="property">entity_collection_helper</td>
-  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*</td>
 </tr>
 <tr>
   <td class="property">cursor</td>
@@ -3516,12 +3518,6 @@ table td
 </tr>
     </table>
      <table>
-<tr>
-  <td class="method">set_entity_dictionary(1)</td>
-</tr>
-<tr>
-  <td class="method">set_entity_room_associations(1)</td>
-</tr>
 <tr>
   <td class="method">suspend()</td>
 </tr>
@@ -3547,7 +3543,10 @@ table td
   <td class="method">interact_with_item_under_cursor()</td>
 </tr>
 <tr>
-  <td class="method">move_cursor(2)</td>
+  <td class="method">move_cursor(3)</td>
+</tr>
+<tr>
+  <td class="method">reset_cursor_to_default()</td>
 </tr>
 <tr>
   <td class="private_method">emit_interaction_event(3)</td>
@@ -3576,7 +3575,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
@@ -3592,6 +3591,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, std::string&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -3627,12 +3629,8 @@ table td
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
 <tr>
-  <td class="property">entity_dictionary</td>
-  <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;*</td>
-</tr>
-<tr>
-  <td class="property">entity_room_associations</td>
-  <td class="property">std::map&lt;std::string, std::string&gt;*</td>
+  <td class="property">entity_collection_helper</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*</td>
 </tr>
     </table>
      <table>
@@ -3658,6 +3656,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, std::string&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -5566,7 +5567,8 @@ table td
   "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room"
   ],
   "std/map<int, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper"
@@ -5607,7 +5609,8 @@ table td
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room"
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",

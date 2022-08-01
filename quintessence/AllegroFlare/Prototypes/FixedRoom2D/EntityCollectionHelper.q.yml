@@ -19,7 +19,7 @@ properties:
 functions:
 
 
-  - name: select_all_in_room
+  - name: select_all_in_room_ordered_by_id
     type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
     parameters:
       - name: room_name
@@ -27,23 +27,18 @@ functions:
         default_argument: '"[unset-room_name]"'
     guards: [ entity_dictionary ]
     body: |
-      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
-      for (auto &entity : *entity_dictionary)
-      {
-         // if entity has the attribute, include it in the result
-      }
-      return result;
+      std::vector<std::string> entity_names_in_room = select_all_entity_names_in_room_name(room_name);
+      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities =
+         get_entities_by_entity_names(entity_names_in_room);
+      return order_by_id(entities);
 
 
-  - name: select_all_unordered
+  - name: select_all
     type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
     guards: [ entity_dictionary ]
     body: |
       std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
-      for (auto &entity : *entity_dictionary)
-      {
-         result.push_back(entity.second);
-      }
+      for (auto &entity : *entity_dictionary) { result.push_back(entity.second); }
       return result;
     body_dependency_symbols:
       - std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
@@ -89,31 +84,6 @@ functions:
       {
          if (!entity) continue;
          as_ids[entity->get_id()] = entity;
-      }
-
-      for (auto &entity : as_ids)
-      {
-         result.push_back(entity.second);
-      }
-      return result;
-    body_dependency_symbols:
-      - std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
-
-
-  - name: select_all_ordered_by_id
-    type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
-    parameters:
-      - name: room_name
-        type: std::string
-        default_argument: '"[unset-room_name]"'
-    guards: [ entity_dictionary ]
-    body: |
-      std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
-      std::map<int, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> as_ids;
-
-      for (auto &entity : *entity_dictionary)
-      {
-         as_ids[entity.second->get_id()] = entity.second;
       }
 
       for (auto &entity : as_ids)

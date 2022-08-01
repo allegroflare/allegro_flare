@@ -62,6 +62,9 @@ namespace AllegroFlare
             void load_story_and_start();
             void update();
             bool enter_room(std::string room_name="[unset-room_name]");
+            void unhover_any_and_all_entities();
+            void reset_cursors_to_default_in_all_rooms();
+            std::string get_current_room_dictionary_name(AllegroFlare::Prototypes::FixedRoom2D::Room* room=nullptr);
             void render();
             void process_subscribed_to_game_event(AllegroFlare::GameEvent* game_event=nullptr);
             void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);

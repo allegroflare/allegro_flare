@@ -16,15 +16,11 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: entity_dictionary
-    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+  - name: entity_collection_helper
+    type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
     init_with: nullptr
     constructor_arg: true
 
-  - name: entity_room_associations
-    type: std::map<std::string, std::string>*
-    init_with: nullptr
-    constructor_arg: true
 
 functions:
 
@@ -38,13 +34,10 @@ functions:
       - name: height
         type: float
         default_argument: (1080-200)
-    guards: [ bitmap_bin, font_bin, event_emitter, entity_dictionary, entity_room_associations ]
+    guards: [ bitmap_bin, font_bin, event_emitter, entity_collection_helper ]
     body: |
       AllegroFlare::Prototypes::FixedRoom2D::Room* result =
-         new AllegroFlare::Prototypes::FixedRoom2D::Room(font_bin, event_emitter);
-
-      result->set_entity_dictionary(entity_dictionary);
-      result->set_entity_room_associations(entity_room_associations);
+         new AllegroFlare::Prototypes::FixedRoom2D::Room(font_bin, event_emitter, entity_collection_helper);
       result->initialize();
 
       return result;
@@ -65,5 +58,7 @@ dependencies:
     headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
   - symbol: std::map<std::string, std::string>*
     headers: [ map, string ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
 
 
