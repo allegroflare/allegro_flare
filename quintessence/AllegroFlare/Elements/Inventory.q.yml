@@ -75,6 +75,14 @@ properties:
     type: float
     init_with: 80.0f
 
+  - name: inventory_items_box_size
+    type: float
+    init_with: 150.0
+
+  - name: inventory_items_box_spacing
+    type: float
+    init_with: (inventory_items_box_size + 20.0f)
+
 
 functions:
 
@@ -226,7 +234,7 @@ functions:
 
       float x = inventory_items_left_padding;
       float y = inventory_items_top_padding;
-      float spacing = 150 + 20;
+      float spacing = inventory_items_box_spacing;
 
       int inventory_position = 0;
       for (unsigned row=0; row<3; row++)
@@ -253,7 +261,7 @@ functions:
 
       float x = inventory_items_left_padding;
       float y = inventory_items_top_padding;
-      float spacing = 150 + 20;
+      float spacing = inventory_items_box_spacing;
 
       int inventory_position = 0;
       for (unsigned row=0; row<3; row++)
@@ -431,7 +439,7 @@ functions:
       // position
       x = inventory_items_left_padding;
       y = inventory_items_top_padding;
-      float spacing = 150 + 20;
+      float spacing = inventory_items_box_spacing;
 
        // color
       ALLEGRO_COLOR color_a = al_color_name("aquamarine");
@@ -445,8 +453,8 @@ functions:
       al_draw_rounded_rectangle(
          x + cursor_x*spacing,
          y + cursor_y*spacing,
-         x + cursor_x*spacing + 150,
-         y + cursor_y*spacing + 150,
+         x + cursor_x*spacing + inventory_items_box_size,
+         y + cursor_y*spacing + inventory_items_box_size,
          r,
          r,
          color,
@@ -473,7 +481,15 @@ functions:
       float roundness = 6.0f;
 
       // draw frame
-      al_draw_filled_rounded_rectangle(x+0, y+0, x+150, y+150, roundness, roundness, backfill_color);
+      al_draw_filled_rounded_rectangle(
+            x+0,
+            y+0,
+            x+inventory_items_box_size,
+            y+inventory_items_box_size,
+            roundness,
+            roundness,
+            backfill_color
+         );
       return;
 
 
@@ -505,8 +521,8 @@ functions:
          //al_draw_text(font, color, x, y + 150 - 20, ALLEGRO_ALIGN_LEFT, item_name.c_str());
 
          AllegroFlare::Placement2D box_place;
-         box_place.position.x = x + 150/2;
-         box_place.position.y = y + 150/2;
+         box_place.position.x = x + inventory_items_box_size * 0.5f;
+         box_place.position.y = y + inventory_items_box_size * 0.5f;
          box_place.size.x = 800;
          box_place.size.y = 800;
          box_place.scale.x = 0.25;

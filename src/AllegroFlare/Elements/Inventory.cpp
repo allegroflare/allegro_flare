@@ -43,6 +43,8 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , item_in_details_pane(0)
    , inventory_items_left_padding(80.0f)
    , inventory_items_top_padding(80.0f)
+   , inventory_items_box_size(150.0)
+   , inventory_items_box_spacing((inventory_items_box_size + 20.0f))
 {
 }
 
@@ -256,7 +258,7 @@ void Inventory::draw_inventory_items()
 
    float x = inventory_items_left_padding;
    float y = inventory_items_top_padding;
-   float spacing = 150 + 20;
+   float spacing = inventory_items_box_spacing;
 
    int inventory_position = 0;
    for (unsigned row=0; row<3; row++)
@@ -282,7 +284,7 @@ void Inventory::draw_inventory_boxes()
 
    float x = inventory_items_left_padding;
    float y = inventory_items_top_padding;
-   float spacing = 150 + 20;
+   float spacing = inventory_items_box_spacing;
 
    int inventory_position = 0;
    for (unsigned row=0; row<3; row++)
@@ -467,7 +469,7 @@ void Inventory::draw_item_selection_cursor(float x, float y)
    // position
    x = inventory_items_left_padding;
    y = inventory_items_top_padding;
-   float spacing = 150 + 20;
+   float spacing = inventory_items_box_spacing;
 
     // color
    ALLEGRO_COLOR color_a = al_color_name("aquamarine");
@@ -481,8 +483,8 @@ void Inventory::draw_item_selection_cursor(float x, float y)
    al_draw_rounded_rectangle(
       x + cursor_x*spacing,
       y + cursor_y*spacing,
-      x + cursor_x*spacing + 150,
-      y + cursor_y*spacing + 150,
+      x + cursor_x*spacing + inventory_items_box_size,
+      y + cursor_y*spacing + inventory_items_box_size,
       r,
       r,
       color,
@@ -497,7 +499,15 @@ void Inventory::draw_inventory_box(float x, float y)
    float roundness = 6.0f;
 
    // draw frame
-   al_draw_filled_rounded_rectangle(x+0, y+0, x+150, y+150, roundness, roundness, backfill_color);
+   al_draw_filled_rounded_rectangle(
+         x+0,
+         y+0,
+         x+inventory_items_box_size,
+         y+inventory_items_box_size,
+         roundness,
+         roundness,
+         backfill_color
+      );
    return;
 }
 
@@ -518,8 +528,8 @@ void Inventory::draw_inventory_item(float x, float y, int item)
       //al_draw_text(font, color, x, y + 150 - 20, ALLEGRO_ALIGN_LEFT, item_name.c_str());
 
       AllegroFlare::Placement2D box_place;
-      box_place.position.x = x + 150/2;
-      box_place.position.y = y + 150/2;
+      box_place.position.x = x + inventory_items_box_size * 0.5f;
+      box_place.position.y = y + inventory_items_box_size * 0.5f;
       box_place.size.x = 800;
       box_place.size.y = 800;
       box_place.scale.x = 0.25;
