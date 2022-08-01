@@ -78,7 +78,6 @@ namespace AllegroFlare
             void show_inventory();
             void hide_inventory();
             void toggle_inventory();
-            void spawn_dialog_box();
             void advance_dialog();
             bool dialog_is_finished();
             bool shutdown_dialog();

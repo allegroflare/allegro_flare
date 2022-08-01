@@ -31,7 +31,7 @@ properties:
     init_with: nullptr
     setter: true
 
-  - name: current_script
+  - name: current_internally_running_script
     type: AllegroFlare::Prototypes::FixedRoom2D::Script
     init_with: ''
 
@@ -74,12 +74,12 @@ functions:
 
       std::vector<std::string> lines_from_dictionary_listing =
          script_dictionary->at(script_dictionary_name).get_lines();
-      load_current_script_lines(lines_from_dictionary_listing);
+      load_script_lines(lines_from_dictionary_listing);
 
       return true;
 
 
-  - name: load_current_script_lines
+  - name: load_script_lines
     type: bool
     private: true
     parameters:
@@ -87,36 +87,36 @@ functions:
         type: std::vector<std::string>
         default_argument: '{}'
     body: |
-      current_script = AllegroFlare::Prototypes::FixedRoom2D::Script(script_lines);
-      current_script.initialize();
+      current_internally_running_script = AllegroFlare::Prototypes::FixedRoom2D::Script(script_lines);
+      current_internally_running_script.initialize();
       return true;
 
 
   - name: play_or_resume
     body: |
       paused_for_dialog_to_finish = false;
-      if (current_script.get_finished()) return;
+      if (current_internally_running_script.get_finished()) return;
 
       bool continue_directly_to_next_script_line = false;
       int continue_count = 0;
 
       do
       {
-         std::string script_line = current_script.get_current_line_text();
-         int script_current_line_num = current_script.get_current_line_num();
+         std::string script_line = current_internally_running_script.get_current_line_text();
+         int script_current_line_num = current_internally_running_script.get_current_line_num();
          continue_directly_to_next_script_line = parse_and_run_line(script_line, script_current_line_num);
 
          if (continue_directly_to_next_script_line)
          {
             if (!get_script_freshly_loaded_via_OPEN_SCRIPT())
             {
-               current_script.goto_next_line();
+               current_internally_running_script.goto_next_line();
             }
             else
             {
                set_script_freshly_loaded_via_OPEN_SCRIPT(false);
             }
-            if (current_script.get_finished()) break;
+            if (current_internally_running_script.get_finished()) break;
             continue_count++;
          }
          if (continue_count > 500)
@@ -172,7 +172,7 @@ functions:
          AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog *spawn_dialog_event_data =
             new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog(tokens);
 
-         current_script.goto_next_line();
+         current_internally_running_script.goto_next_line();
          paused_for_dialog_to_finish = true; // should this be in the event processing?
 
          emit_script_event(spawn_dialog_event_data);
@@ -248,7 +248,7 @@ functions:
       }
       else if (command == GOTO_MARKER)
       {
-         bool successful = current_script.goto_marker(argument);
+         bool successful = current_internally_running_script.goto_marker(argument);
          if (!successful)
          {
             std::cout << "WARNING: Attempted to GOTO_MARKER a marker named \"" << argument << "\" "

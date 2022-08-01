@@ -31,15 +31,13 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -448,7 +446,8 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::GameEventDatas::Base* 
       std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
       if (name.empty())
       {
-         // dialog "there is nothing here"
+         script_runner.load_script_lines({"DIALOG: There's nothing here."});
+         script_runner.play_or_resume();
       }
       else
       {
@@ -479,7 +478,6 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
 
    if (!game_event_data)
    {
-      // weird error;
       std::cout << "A weird error occurred. Expecting script_event_data to be valid but it is nullptr" << std::endl;
       return;
    }
@@ -495,23 +493,15 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
          if (active_dialog) delete active_dialog;
 
          active_dialog = dialog_box_factory.create_basic_dialog(pages);
-         //room.suspend();
          suspend_all_rooms();
       }
       else if (game_event_data->get_type() == "EnterRoom")
       {
          AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom* enter_room_event_data =
              static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom*>(game_event_data);
-         //std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
          std::string room_name_to_enter = enter_room_event_data->get_room_dictionary_name_to_enter();
 
          enter_room(room_name_to_enter);
-         //AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-         //if (active_dialog) delete active_dialog;
-
-         //active_dialog = dialog_box_factory.create_basic_dialog(pages);
-         //room.suspend();
-         //suspend_all_rooms();
       }
       else if (game_event_data->get_type() == "CollectItem")
       {
@@ -525,7 +515,6 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
                "Keys",
                "key-keychain-house-keys-door-photo-pixabay-25.png"
             );
-         //room.suspend();
          suspend_all_rooms();
       }
       else
@@ -541,50 +530,22 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
 
 void FixedRoom2D::render_entities_in_current_room()
 {
-   std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities =
-       get_entities_in_current_room();
-   // TODO: check
+   std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities = get_entities_in_current_room();
    for (auto &entity : entities)
    {
       if (entity) entity->render();
    }
-
    return;
 }
 
 std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> FixedRoom2D::get_entities_in_current_room()
 {
    return entity_collection_helper.select_all_in_room_ordered_by_id(get_dictionary_name_of_current_room());
-
-   // nothing here now...
-   std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
-   std::vector<std::string> entity_names_in_current_room;
-   std::string current_room_name = get_dictionary_name_of_current_room();
-
-   for (auto &entity_room_association : entity_room_associations)
-   {
-      if (entity_room_association.second == current_room_name)
-      {
-         entity_names_in_current_room.push_back(entity_room_association.first);
-      }
-      //if (current_room == room_dictionary_listing.second) return room_dictionary_listing.first;
-   }
-
-   for (auto &entity_name_in_current_room : entity_names_in_current_room)
-   {
-      if (entity_dictionary.find(entity_name_in_current_room) != entity_dictionary.end())
-      {
-         result.push_back(entity_dictionary.at(entity_name_in_current_room));
-      }
-   }
-
-   return result;
 }
 
 std::string FixedRoom2D::get_dictionary_name_of_current_room()
 {
    if (!current_room) return "";
-   //if (current_room->empty()) return "";
    for (auto &room_dictionary_listing : room_dictionary)
    {
       if (current_room == room_dictionary_listing.second) return room_dictionary_listing.first;
@@ -645,7 +606,6 @@ void FixedRoom2D::show_inventory()
          throw std::runtime_error(error_message.str());
       }
    inventory_window.show();
-   //room.suspend();
    suspend_all_rooms();
    return;
 }
@@ -659,7 +619,6 @@ void FixedRoom2D::hide_inventory()
          throw std::runtime_error(error_message.str());
       }
    inventory_window.hide();
-   //room.resume();
    resume_all_rooms();
    return;
 }
@@ -674,28 +633,6 @@ void FixedRoom2D::toggle_inventory()
       }
    if (inventory_window.get_active()) hide_inventory();
    else show_inventory();
-   return;
-}
-
-void FixedRoom2D::spawn_dialog_box()
-{
-   if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "FixedRoom2D" << "::" << "spawn_dialog_box" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (inventory_window.get_active()) return;
-
-   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-
-   if (active_dialog) delete active_dialog;
-   {
-      active_dialog = dialog_box_factory.create_basic_test_dialog();
-      //room.suspend();
-      suspend_all_rooms();
-   }
-
    return;
 }
 
@@ -758,7 +695,7 @@ void FixedRoom2D::activate_primary_action()
       }
    if (inventory_window.get_active())
    {
-      // inventory_window.select_item_currently_under_cursor();
+      // IDEA: inventory_window.select_item_currently_under_cursor();
    }
    else if (active_dialog)
    {
@@ -767,7 +704,6 @@ void FixedRoom2D::activate_primary_action()
       {
          shutdown_dialog();
          resume_all_rooms();
-         //room.resume();
       }
    }
    else if (current_room && !current_room->get_suspended())
@@ -838,7 +774,6 @@ void FixedRoom2D::move_cursor(float distance_x, float distance_y)
    { 
       std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_current_room =
           get_entities_in_current_room();
-      //std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room = 
       current_room->move_cursor(distance_x, distance_y, entities_in_current_room);
    }
    return;
