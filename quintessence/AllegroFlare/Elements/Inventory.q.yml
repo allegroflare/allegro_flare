@@ -67,6 +67,14 @@ properties:
     type: int
     init_with: 0
 
+  - name: inventory_items_left_padding
+    type: float
+    init_with: 80.0f
+
+  - name: inventory_items_top_padding
+    type: float
+    init_with: 80.0f
+
 
 functions:
 
@@ -170,7 +178,6 @@ functions:
 
       draw_backframe();
       draw_inventory_title_text();
-      draw_item_selection_cursor();
       draw_inventory_boxes();
       draw_item_selection_cursor();
       draw_inventory_items();
@@ -217,8 +224,8 @@ functions:
     body: |
       std::vector<int> items_in_inventory = af_inventory->get_items_ref();
 
-      float x = 80;
-      float y = 80;
+      float x = inventory_items_left_padding;
+      float y = inventory_items_top_padding;
       float spacing = 150 + 20;
 
       int inventory_position = 0;
@@ -244,8 +251,8 @@ functions:
     body: |
       std::vector<int> items_in_inventory = af_inventory->get_items_ref();
 
-      float x = 80;
-      float y = 80;
+      float x = inventory_items_left_padding;
+      float y = inventory_items_top_padding;
       float spacing = 150 + 20;
 
       int inventory_position = 0;
@@ -422,8 +429,8 @@ functions:
         default_argument: 0.0f
     body: |
       // position
-      x = 80;
-      y = 80;
+      x = inventory_items_left_padding;
+      y = inventory_items_top_padding;
       float spacing = 150 + 20;
 
        // color

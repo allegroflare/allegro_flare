@@ -41,6 +41,8 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , inventory_index(build_inventory_index())
    , reveal_counter(0)
    , item_in_details_pane(0)
+   , inventory_items_left_padding(80.0f)
+   , inventory_items_top_padding(80.0f)
 {
 }
 
@@ -211,7 +213,6 @@ void Inventory::render()
 
    draw_backframe();
    draw_inventory_title_text();
-   draw_item_selection_cursor();
    draw_inventory_boxes();
    draw_item_selection_cursor();
    draw_inventory_items();
@@ -253,8 +254,8 @@ void Inventory::draw_inventory_items()
 {
    std::vector<int> items_in_inventory = af_inventory->get_items_ref();
 
-   float x = 80;
-   float y = 80;
+   float x = inventory_items_left_padding;
+   float y = inventory_items_top_padding;
    float spacing = 150 + 20;
 
    int inventory_position = 0;
@@ -279,8 +280,8 @@ void Inventory::draw_inventory_boxes()
 {
    std::vector<int> items_in_inventory = af_inventory->get_items_ref();
 
-   float x = 80;
-   float y = 80;
+   float x = inventory_items_left_padding;
+   float y = inventory_items_top_padding;
    float spacing = 150 + 20;
 
    int inventory_position = 0;
@@ -464,8 +465,8 @@ bool Inventory::has_valid_size()
 void Inventory::draw_item_selection_cursor(float x, float y)
 {
    // position
-   x = 80;
-   y = 80;
+   x = inventory_items_left_padding;
+   y = inventory_items_top_padding;
    float spacing = 150 + 20;
 
     // color

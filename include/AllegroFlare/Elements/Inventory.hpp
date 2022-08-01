@@ -33,6 +33,8 @@ namespace AllegroFlare
          std::map<int, std::tuple<std::string, std::string, std::string>> inventory_index;
          float reveal_counter;
          int item_in_details_pane;
+         float inventory_items_left_padding;
+         float inventory_items_top_padding;
 
       public:
          Inventory(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Inventory* af_inventory=nullptr);
