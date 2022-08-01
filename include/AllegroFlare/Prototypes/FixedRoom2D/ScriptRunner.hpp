@@ -30,6 +30,7 @@ namespace AllegroFlare
             AllegroFlare::Inventory* flags;
             AllegroFlare::Prototypes::FixedRoom2D::Script current_script;
             bool script_freshly_loaded_via_OPEN_SCRIPT;
+            bool paused_for_dialog_to_finish;
 
          public:
             ScriptRunner();
@@ -42,10 +43,12 @@ namespace AllegroFlare
             void set_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary);
             void set_flags(AllegroFlare::Inventory* flags);
             void set_script_freshly_loaded_via_OPEN_SCRIPT(bool script_freshly_loaded_via_OPEN_SCRIPT);
+            void set_paused_for_dialog_to_finish(bool paused_for_dialog_to_finish);
             bool get_script_freshly_loaded_via_OPEN_SCRIPT();
+            bool get_paused_for_dialog_to_finish();
             bool load_script_by_dictionary_name(std::string script_dictionary_name="[unset-script_dictionary_name]");
             bool load_current_script_lines(std::vector<std::string> script_lines={});
-            void play_current_script_line();
+            void play_or_resume();
             bool parse_and_run_line(std::string raw_script_line="[empty-script-line]", int line_num=0, bool auto_assume_uncommanded_line_is_dialog=true);
             static std::pair<std::string, std::string> parse_command_and_argument(std::string script_line={});
             void emit_script_event(AllegroFlare::GameEventDatas::Base* event_data=nullptr);

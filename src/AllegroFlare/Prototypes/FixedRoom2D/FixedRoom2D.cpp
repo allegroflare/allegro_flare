@@ -457,7 +457,7 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::GameEventDatas::Base* 
          AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* interacting_entity = entity_dictionary.at(name);
          std::string script = interacting_entity->get_on_cursor_interact_script_name();
          script_runner.load_script_by_dictionary_name(script);
-         script_runner.play_current_script_line();
+         script_runner.play_or_resume();
       }
    }
    else
@@ -741,6 +741,7 @@ bool FixedRoom2D::shutdown_dialog()
    if (!active_dialog) return false;
    delete active_dialog;
    active_dialog = nullptr;
+   if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
    return true;
 }
 

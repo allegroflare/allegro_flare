@@ -31,6 +31,7 @@ ScriptRunner::ScriptRunner()
    , flags(nullptr)
    , current_script()
    , script_freshly_loaded_via_OPEN_SCRIPT(false)
+   , paused_for_dialog_to_finish(false)
 {
 }
 
@@ -82,9 +83,21 @@ void ScriptRunner::set_script_freshly_loaded_via_OPEN_SCRIPT(bool script_freshly
 }
 
 
+void ScriptRunner::set_paused_for_dialog_to_finish(bool paused_for_dialog_to_finish)
+{
+   this->paused_for_dialog_to_finish = paused_for_dialog_to_finish;
+}
+
+
 bool ScriptRunner::get_script_freshly_loaded_via_OPEN_SCRIPT()
 {
    return script_freshly_loaded_via_OPEN_SCRIPT;
+}
+
+
+bool ScriptRunner::get_paused_for_dialog_to_finish()
+{
+   return paused_for_dialog_to_finish;
 }
 
 
@@ -123,8 +136,11 @@ bool ScriptRunner::load_current_script_lines(std::vector<std::string> script_lin
    return true;
 }
 
-void ScriptRunner::play_current_script_line()
+void ScriptRunner::play_or_resume()
 {
+   paused_for_dialog_to_finish = false;
+   if (current_script.get_finished()) return;
+
    bool continue_directly_to_next_script_line = false;
    int continue_count = 0;
 
@@ -150,7 +166,7 @@ void ScriptRunner::play_current_script_line()
       if (continue_count > 500)
       {
          continue_directly_to_next_script_line = false;
-         std::cout << "ApplicationController::play_current_script_line: continued unstopped playing more than "
+         std::cout << "ApplicationController::play_or_resume: continued unstopped playing more than "
                    << "500 script lines without a stop. Assuming error and halting to avoid infinite loop."
                    << " That line was \"" << script_line << "\" which is on line ["
                    << script_current_line_num << "]" << std::endl;
@@ -217,19 +233,14 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
 
    if (command == DIALOG)
    {
-      if (script_line.empty())
-      {
-         continue_directly_to_next_script_line = true;
-      }
-      else
-      {
-         std::vector<std::string> tokens = tokenize(argument);
-         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog *spawn_dialog_event_data =
-            new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog(tokens);
+      std::vector<std::string> tokens = tokenize(argument);
+      AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog *spawn_dialog_event_data =
+         new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog(tokens);
 
-         emit_script_event(spawn_dialog_event_data);
-         //Disabled:: created_dialog = dialog_factory.create_basic_dialog(std::vector<std::string>{script_line});
-      }
+      current_script.goto_next_line();
+      paused_for_dialog_to_finish = true; // should this be in the event processing?
+
+      emit_script_event(spawn_dialog_event_data);
    }
    else if (command == ENTER_ROOM)
    {

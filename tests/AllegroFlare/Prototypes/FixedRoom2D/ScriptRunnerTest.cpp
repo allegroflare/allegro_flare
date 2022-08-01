@@ -185,3 +185,10 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
    // TODO
 }
 
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   play_or_resume__command_and_argument__will_trim_the_argument_fragment)
+{
+   // note this is a private method test
+}
+
