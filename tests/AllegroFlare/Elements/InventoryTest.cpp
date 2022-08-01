@@ -118,8 +118,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    af_inventory.add_item(2);
    af_inventory.add_item(1);
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory);
-   //int passes = 60 * 3;
-   int passes = 1;
+   int passes = 60 * 2;
+   //int passes = 1;
    inventory.activate();
    float passes_to_move_cursor = 20;
    for (unsigned i=0; i<passes; i++)
@@ -127,7 +127,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       passes_to_move_cursor--;
       if (passes_to_move_cursor < 0)
       {
-         passes_to_move_cursor = 70;
+         passes_to_move_cursor = 40;
          inventory.move_cursor_right();
       }
       inventory.update();
@@ -135,7 +135,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.11, 1.0});
       inventory.render();
       al_flip_display();
-      //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
 }
 

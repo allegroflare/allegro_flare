@@ -263,7 +263,8 @@ void Inventory::draw_inventory_boxes_and_elevated_item_selection()
          if (inventory_position >= items_in_inventory.size()) {}
          else { item_to_draw = items_in_inventory[inventory_position]; }
 
-         draw_inventory_item_box(x + column * spacing, y + row * spacing, item_to_draw);
+         draw_inventory_box(x + column * spacing, y + row * spacing);
+         draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
          inventory_position++;
       }
       inventory_position++;
@@ -460,14 +461,19 @@ void Inventory::draw_item_selection_cursor(float x, float y)
    return;
 }
 
-void Inventory::draw_inventory_item_box(float x, float y, int item)
+void Inventory::draw_inventory_box(float x, float y)
 {
-   ALLEGRO_COLOR revealed_white = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
    ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
    float roundness = 6.0f;
 
    // draw frame
    al_draw_filled_rounded_rectangle(x+0, y+0, x+150, y+150, roundness, roundness, backfill_color);
+   return;
+}
+
+void Inventory::draw_inventory_item(float x, float y, int item)
+{
+   ALLEGRO_COLOR revealed_white = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
 
    std::tuple<std::string, std::string, std::string> item_definition = get_item_definition(item);
    bool contains_item = !std::get<0>(item_definition).empty();

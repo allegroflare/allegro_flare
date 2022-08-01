@@ -227,7 +227,8 @@ functions:
             if (inventory_position >= items_in_inventory.size()) {}
             else { item_to_draw = items_in_inventory[inventory_position]; }
 
-            draw_inventory_item_box(x + column * spacing, y + row * spacing, item_to_draw);
+            draw_inventory_box(x + column * spacing, y + row * spacing);
+            draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
             inventory_position++;
          }
          inventory_position++;
@@ -421,7 +422,25 @@ functions:
       - AllegroFlare::interpolator
 
 
-  - name: draw_inventory_item_box
+  - name: draw_inventory_box
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
+      float roundness = 6.0f;
+
+      // draw frame
+      al_draw_filled_rounded_rectangle(x+0, y+0, x+150, y+150, roundness, roundness, backfill_color);
+      return;
+
+
+  - name: draw_inventory_item
     private: true
     parameters:
       - name: x
@@ -435,11 +454,6 @@ functions:
         default_argument: 0
     body: |
       ALLEGRO_COLOR revealed_white = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
-      ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
-      float roundness = 6.0f;
-
-      // draw frame
-      al_draw_filled_rounded_rectangle(x+0, y+0, x+150, y+150, roundness, roundness, backfill_color);
 
       std::tuple<std::string, std::string, std::string> item_definition = get_item_definition(item);
       bool contains_item = !std::get<0>(item_definition).empty();

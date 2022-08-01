@@ -65,7 +65,8 @@ namespace AllegroFlare
          bool hide();
          bool has_valid_size();
          void draw_item_selection_cursor(float x=0.0f, float y=0.0f);
-         void draw_inventory_item_box(float x=0.0f, float y=0.0f, int item=0);
+         void draw_inventory_box(float x=0.0f, float y=0.0f);
+         void draw_inventory_item(float x=0.0f, float y=0.0f, int item=0);
          std::tuple<std::string, std::string, std::string> get_item_definition(int index=0);
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_description_font();
