@@ -342,7 +342,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 
    for (int passes=0; passes<=20; passes++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      al_clear_to_color(ALLEGRO_COLOR{0.05, 0.05, 0.055, 1});
       storyboard_player.update();
       storyboard_player.render();
       al_flip_display();
