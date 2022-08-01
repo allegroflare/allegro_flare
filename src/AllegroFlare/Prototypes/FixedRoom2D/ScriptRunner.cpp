@@ -159,7 +159,7 @@ void ScriptRunner::play_current_script_line()
    return;
 }
 
-bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
+bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num, bool auto_assume_uncommanded_line_is_dialog)
 {
    if (!(audio_controller))
       {
@@ -203,31 +203,19 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
    std::string MARKER = "MARKER";
    std::string SIGNAL = "SIGNAL"; // outputs text to the terminal
    std::string COLLECT = "COLLECT";
-
-
-   std::string CHOICE = "CHOICE";
-   std::string PLAY_MUSIC = "PLAY_MUSIC";
-   std::string SET_CHARACTER_ART = "SET_CHARACTER_ART";
-   std::string BEAT = "BEAT";
-   std::string WAIT = "WAIT";
-   std::string COLLECT_SILENTLY = "COLLECT_SILENTLY";
-   std::string IF_IN_INVENTORY = "IF_IN_INVENTORY";
-   std::string ADD_FLAG = "ADD_FLAG";
-   std::string IF_FLAG = "IF_FLAG";
    std::string OPEN_SCRIPT = "OPEN_SCRIPT";
-   std::string SET_BACKGROUND = "SET_BACKGROUND";
-   std::string SET_TITLE = "SET_TITLE";
-   //Disabled:: std::string CLEAR_DIALOGS = "CLEAR_DIALOGS";
 
    bool continue_directly_to_next_script_line = false;
-   //Disabled:: Krampus21::DialogBoxes::Base* created_dialog = nullptr;
-   std::string script_line = trim(raw_script_line);
 
+   std::string script_line = trim(raw_script_line);
    std::pair<std::string, std::string> command_and_argument = parse_command_and_argument(script_line);
    std::string command = command_and_argument.first;
    std::string argument = command_and_argument.second;
 
-   if (command.empty() || command == DIALOG)
+
+   if (auto_assume_uncommanded_line_is_dialog && command.empty()) command = DIALOG;
+
+   if (command == DIALOG)
    {
       if (script_line.empty())
       {
@@ -258,94 +246,10 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
          new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom(room_name);
       emit_script_event(enter_room_event_datas);
    }
-   else if (command == PLAY_MUSIC)
-   {
-      // parse tokens
-      std::vector<std::string> tokens = tokenize(argument);
-
-      if (!assert_min_token_count(tokens, 1))
-      {
-         std::cout << "tokens must be at least 1 on line " << line_num << std::endl;
-         return false;
-      }
-      std::string music_filename_identifier = tokens[0]; //"etherial-ambience-01.wav";
-
-      audio_controller->play_music_track_by_identifier(music_filename_identifier);
-
-      continue_directly_to_next_script_line = true;
-   }
-   else if (command == SET_TITLE)
-   {
-      // parse tokens
-      std::vector<std::string> tokens = tokenize(argument);
-
-      if (!assert_min_token_count(tokens, 1))
-      {
-         std::cout << "tokens must be at least 1 on line " << line_num << std::endl;
-         return false;
-      }
-
-      std::string text = tokens[0];
-      //Disabled:: created_dialog = dialog_factory.create_title_text_dialog(text);
-
-      continue_directly_to_next_script_line = true;
-   }
-   //Disabled:: else if (command == CLEAR_DIALOGS)
-   //{
-      //Disabled:: if (current_dialog)
-      //Disabled::{
-         //Disabled:: if (current_dialog) delete current_dialog;
-         //Disabled:: current_dialog = nullptr;
-      //Disabled:: }
-
-      //continue_directly_to_next_script_line = true;
-   //}
-   else if (command == SET_BACKGROUND)
-   {
-      // parse tokens
-      std::vector<std::string> tokens = tokenize(argument);
-
-      if (!assert_min_token_count(tokens, 1))
-      {
-         std::cout << "tokens must be at least 1 on line " << line_num << std::endl;
-         return false;
-      }
-
-      //Disabled:: Krampus21::Backgrounds::Base* created_background = nullptr;
-      //Disabled:: Krampus21::BackgroundFactory background_factory(obtain_bitmap_bin());
-
-      if (tokens[0] == "none")
-      {
-         //Disabled:: if (current_background) delete current_background;
-         //Disabled:: current_background = nullptr;
-      }
-      else if (tokens[0] == "monoplex")
-      {
-         // Disabled:: created_background = background_factory.create_monoplex();
-      }
-      else
-      {
-         std::string background_bitmap_filename_identifier = tokens[0];
-         // Disabled:: created_background = background_factory.create_image(background_bitmap_filename_identifier);
-
-         // TODO create a simple background with a good-ole image
-      }
-
-      //Disabled:: if (created_background)
-      {
-         //Disabled:: if (current_background) delete current_background;
-         //Disabled:: current_background = created_background;
-      }
-
-      continue_directly_to_next_script_line = true;
-   }
    else if (command == OPEN_SCRIPT)
    {
-      //std::string script_auto_prefix = "scripts/";
-      std::string script_auto_prefix = "";
-      std::string script_to_load = script_auto_prefix + argument;
+      std::string script_to_load = argument;
 
-      //Disabled:: bool successful = load_script(script_to_load);
       bool successful = load_script_by_dictionary_name(script_to_load);
 
       if (successful)
@@ -365,140 +269,12 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
          set_script_freshly_loaded_via_OPEN_SCRIPT(true);
       }
    }
-   else if (command == IF_IN_INVENTORY)
-   {
-      // tokenize
-      std::vector<std::string> tokens = tokenize(argument);
-
-      // validate
-      // expect exactly 2 params
-      if (!assert_token_count_eq(tokens, 2))
-      {
-         std::cout << "tokens must be equal to 2 on line " << line_num << std::endl;
-         return false;
-      }
-
-      // get arguments
-      int item_id = atoi(tokens[0].c_str());
-      std::string consequence = tokens[1];
-
-      // bonus:
-      std::pair<std::string, std::string> consequence_command_and_argument = parse_command_and_argument(consequence);
-      std::string consequence_command = consequence_command_and_argument.first;
-      std::string consequence_argument = consequence_command_and_argument.second;
-      // eval only GOTO
-      if (consequence_command != "GOTO_MARKER")
-      {
-         std::cout << "IF_IN_INVENTORY consequence argument must be a GOTO_MARKER (line ["
-                   << line_num
-                   << "])"
-                   << std::endl;
-      }
-      // TODO: eval MARKER target exists
-
-      if (af_inventory->has_item(item_id))
-      {
-         parse_and_run_line(consequence, line_num);
-      }
-      continue_directly_to_next_script_line = true;
-   }
-   else if (command == IF_FLAG)
-   {
-      // tokenize
-      std::vector<std::string> tokens = tokenize(argument);
-
-      // validate
-      // expect exactly 2 params
-      if (!assert_token_count_eq(tokens, 2))
-      {
-         std::cout << "tokens must be equal to 2 on line " << line_num << std::endl;
-         return false;
-      }
-
-      // get arguments
-      int flag_id = atoi(tokens[0].c_str());
-      std::string consequence = tokens[1];
-
-      // bonus:
-      std::pair<std::string, std::string> consequence_command_and_argument = parse_command_and_argument(consequence);
-      std::string consequence_command = consequence_command_and_argument.first;
-      std::string consequence_argument = consequence_command_and_argument.second;
-      // eval only GOTO
-      if (consequence_command != "GOTO_MARKER")
-      {
-         std::cout << "IF_IN_INVENTORY consequence argument must be a GOTO_MARKER (line ["
-                   << line_num
-                   << "])"
-                   << std::endl;
-      }
-      // TODO: eval MARKER target exists
-
-      if (flags->has_item(flag_id))
-      {
-         parse_and_run_line(consequence, line_num);
-      }
-      continue_directly_to_next_script_line = true;
-   }
    else if (command == SIGNAL)
    {
       std::cout << argument << std::endl;
       continue_directly_to_next_script_line = true;
    }
-   else if (command == CHOICE)
-   {
-      std::string choice_prompt = "[coice-prompt-text-not-extracted]";
-      std::vector<std::pair<std::string, std::string>> choice_options = {};
-
-      // tokenize
-      std::vector<std::string> tokens = tokenize(argument);
-
-      // validate
-      // expect at least 3 tokens
-      assert_min_token_count(tokens, 3);
-      // expect an odd number of tokens
-      assert_odd_token_count(tokens);
-
-      // first token is the prompt
-      choice_prompt = tokens[0];
-      // next consecutive tokens are (choice_text, choice_value) pairs
-      for (unsigned i=2; i<tokens.size(); i+=2)
-      {
-         if (tokens[i-1].empty() || tokens[i].empty())
-         {
-            std::cout << "WARNING: CHOICE argument on line [" << line_num << "] contains arguments that are empty. "
-                      << "The full argument is \"" << argument << "\"" << std::endl;
-         }
-         choice_options.push_back({ tokens[i-1], tokens[i] });
-      }
-
-      //choice_options = { { "Boobar", "boobruhh" }, { "Zoozaz", "zazzle" } };
-      //Disabled:: created_dialog = dialog_factory.create_choice_dialog(choice_prompt, choice_options);
-   }
-   else if (command == WAIT)
-   {
-      // this will prevent the next line from executing until after a delay
-      int num_sec_to_wait = 2.0;
-      if (!argument.empty())
-      {
-         num_sec_to_wait = atoi(argument.c_str());
-      }
-
-      //Disabled:: on_hold_for_wait_delay = true;
-      //Disabled:: wait_delay_countdown_sec = num_sec_to_wait;
-   }
-   else if (command == BEAT)
-   {
-      // essentially, this will add a pause or "beat" to the story.
-      //std::string identifier = "etherial-ambience-01.wav";
-      //audio_controller.play_music_track_by_identifier(identifier);
-      //continue_directly_to_next_script_line = true;
-      //Disabled:: if (current_dialog)
-      //Disabled::{
-         //Disabled:: delete current_dialog;
-         //Disabled:: current_dialog = nullptr;
-      //Disabled::}
-   }
-   else if (command == COLLECT_SILENTLY || command == COLLECT)
+   else if (command == COLLECT)
    {
       int item_id = atoi(argument.c_str());
       std::tuple<std::string, std::string, std::string> item_definition = inventory_window->get_item_definition(item_id);
@@ -512,38 +288,13 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       std::cout << "You got an item " << argument << std::endl;
 
       // construct the dialog
-      if (command == COLLECT_SILENTLY)
-      {
-         continue_directly_to_next_script_line = true;
-      }
-      else if (command == COLLECT)
-      {
-         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem *event_data =
-            new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem(item_name);
-         emit_script_event(event_data);
-
-
-         //Disabled:: Krampus21::DialogBoxes::YouGotAnItem* created_you_got_an_item_dialog_box =
-            //Disabled:: dialog_factory.create_you_got_an_item_dialog(item_id, item_name, item_bitmap_identifier);
-         //Disabled:: created_dialog = created_you_got_an_item_dialog_box;
-      }
-   }
-   else if (command == ADD_FLAG)
-   {
-      int flag_id = atoi(argument.c_str());
-
-      // add the item to the inventory
-      flags->add_item(flag_id);
-
-      // cout for debugging
-      std::cout << "A flag was set on the flag num " << argument << std::endl;
-
-      continue_directly_to_next_script_line = true;
-   }
-   else if (command == SET_CHARACTER_ART)
-   {
-      //Disabled:: character.set_sprite_record_identifier(argument);
-      //Disabled:: continue_directly_to_next_script_line = true;
+      //if (command == COLLECT_SILENTLY)
+      //{
+         //continue_directly_to_next_script_line = true;
+      //}
+      AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem *event_data =
+         new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem(item_name);
+      emit_script_event(event_data);
    }
    else if (command == MARKER)
    {
@@ -566,12 +317,6 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num)
       continue_directly_to_next_script_line = true;
    }
 
-   //Disabled:: if (created_dialog)
-   //Disabled:: {
-      //Disabled:: if (current_dialog) delete current_dialog;
-      //Disabled:: current_dialog = created_dialog;
-   //Disabled:: }
-
    return continue_directly_to_next_script_line;
 }
 
@@ -587,7 +332,6 @@ std::pair<std::string, std::string> ScriptRunner::parse_command_and_argument(std
       result.first = "";
       std::string _intermed = script_line;
       result.second = trim(_intermed);
-      //result.second = Blast::String::Trimmer(script_line).trim();
    }
    else
    {
@@ -600,8 +344,6 @@ std::pair<std::string, std::string> ScriptRunner::parse_command_and_argument(std
       result.first = trim(_intermed);
       std::string _intermed2 = script_line.substr(pos+DELIMETER.size());
       result.second = trim(_intermed2);
-      //result.first = Blast::String::Trimmer(command_fragment_unsanitized).trim();
-      //result.second = Blast::String::Trimmer(script_line.substr(pos+DELIMETER.size())).trim();
    }
 
    return result;

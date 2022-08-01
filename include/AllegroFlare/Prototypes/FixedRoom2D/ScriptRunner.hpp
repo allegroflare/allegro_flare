@@ -46,7 +46,7 @@ namespace AllegroFlare
             bool load_script_by_dictionary_name(std::string script_dictionary_name="[unset-script_dictionary_name]");
             bool load_current_script_lines(std::vector<std::string> script_lines={});
             void play_current_script_line();
-            bool parse_and_run_line(std::string raw_script_line="[empty-script-line]", int line_num=0);
+            bool parse_and_run_line(std::string raw_script_line="[empty-script-line]", int line_num=0, bool auto_assume_uncommanded_line_is_dialog=true);
             static std::pair<std::string, std::string> parse_command_and_argument(std::string script_line={});
             void emit_script_event(AllegroFlare::GameEventDatas::Base* event_data=nullptr);
             static std::vector<std::string> split(std::string string="", char delimiter=' ');

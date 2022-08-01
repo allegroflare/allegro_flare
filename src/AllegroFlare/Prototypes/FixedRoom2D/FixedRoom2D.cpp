@@ -249,11 +249,11 @@ void FixedRoom2D::load_story_and_start()
 
    script_dictionary = {
       { "observe_door1", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            //"DIALOG: Just a regular door. | I'm going to step through it.",
+            "DIALOG: Just a regular door. | I'm going to step through it.",
             "ENTER_ROOM: study",
       })},
       { "observe_door2", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            //"DIALOG: A regular door. | I'll to in.",
+            "DIALOG: A regular door. | I'll to in.",
             "ENTER_ROOM: front_hall",
       })},
       { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({
