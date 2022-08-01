@@ -506,6 +506,8 @@ functions:
          std::string item_bitmap_identifier = std::get<1>(item_definition); //"watch-01.png";
          ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(item_bitmap_identifier);
 
+         if (!bitmap) return; // TODO: draw a [?] placeholder graphic
+
          //ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
          //ALLEGRO_FONT *font = obtain_item_name_font();
          //al_draw_text(font, color, x, y + 150 - 20, ALLEGRO_ALIGN_LEFT, item_name.c_str());
@@ -513,10 +515,16 @@ functions:
          AllegroFlare::Placement2D box_place;
          box_place.position.x = x + inventory_items_box_size * 0.5f;
          box_place.position.y = y + inventory_items_box_size * 0.5f;
-         box_place.size.x = 800;
-         box_place.size.y = 800;
-         box_place.scale.x = 0.25;
-         box_place.scale.y = 0.25;
+         box_place.size.x = al_get_bitmap_width(bitmap);
+         box_place.size.y = al_get_bitmap_height(bitmap);
+         box_place.scale.x = 1.0f;
+         box_place.scale.y = 1.0f;
+
+         // scale the bitmap to fit the dimentions of the box
+         float fit_padding = 3.0f; // extra pixels of padding so the bitmap does not stretch to the whole box
+         float fit_scale = (inventory_items_box_size-fit_padding*2) / al_get_bitmap_width(bitmap);
+         box_place.scale.x = fit_scale;
+         box_place.scale.y = fit_scale;
 
          box_place.start_transform();
          al_draw_tinted_bitmap(bitmap, revealed_white, 0, 0, 0);
