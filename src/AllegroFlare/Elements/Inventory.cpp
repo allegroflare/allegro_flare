@@ -213,6 +213,7 @@ void Inventory::render()
    draw_inventory_title_text();
    draw_item_selection_cursor();
    draw_inventory_boxes();
+   draw_item_selection_cursor();
    draw_inventory_items();
    draw_details_frame();
 
