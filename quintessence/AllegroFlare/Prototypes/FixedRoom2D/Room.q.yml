@@ -13,14 +13,11 @@ properties:
     constructor_arg: true
     setter: true
 
-  - name: entity_dictionary
-    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+  - name: entity_collection_helper
+    type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
     init_with: nullptr
     constructor_arg: true
-
-  - name: entity_collection_helper
-    type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
-    init_with: entity_dictionary
+    setter: true
 
   - name: cursor
     type: AllegroFlare::Prototypes::FixedRoom2D::Cursor
@@ -41,18 +38,6 @@ properties:
 
 
 functions:
-
-
-  - name: set_entity_dictionary
-    type: void
-    parameters:
-      - name: entity_dictionary
-        type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
-        default_argument: nullptr
-    body: |
-      this->entity_dictionary = entity_dictionary;
-      entity_collection_helper.set_entity_dictionary(entity_dictionary);
-      return;
 
 
   - name: suspend
@@ -104,10 +89,10 @@ functions:
       if (suspended) return;
 
       // update the entities
-      for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-      {
-         entity->update();
-      }
+      //for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+      //{
+         //entity->update();
+      //}
 
       // update the cursor
       cursor.update();
@@ -117,13 +102,18 @@ functions:
 
   - name: render
     guards: [ initialized ]
+    parameters:
+      - name: this_rooms_dictionary_name__this_injection_is_temporary_measure
+        type: std::string
+        default_argument: '"[unset-this_rooms_dictionary_name__this_injection_is_temporary_measure]"'
     body: |
       // draw the entities
-      for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-      {
-         entity->render();
+      //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
+      //   this_rooms_dictionary_name__this_injection_is_temporary_measure))
+      //{
+         //entity->render();
          //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
-      }
+      //}
 
       // draw the cursor
       cursor.draw();
@@ -131,13 +121,13 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Color::*
-      - AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+      - AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
 
 
   - name: interact_with_item_under_cursor
-    guards: [ initialized, event_emitter ]
+    guards: [ initialized, event_emitter, entity_collection_helper ]
     body: |
-      std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+      std::string name = entity_collection_helper->find_dictionary_name_of_entity_that_cursor_is_now_over();
       emit_interaction_event(name, cursor.get_x(), cursor.get_y());
       return;
 
@@ -151,6 +141,10 @@ functions:
       - name: distance_y
         type: float
         default_argument: 0.0
+      - name: entities_in_this_room
+        type: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+        default_argument: '{}'
+    guards: [ entity_collection_helper ]
     body: |
       cursor.move(distance_x, distance_y);
 
@@ -161,7 +155,7 @@ functions:
       int cursor_y = cursor.get_y();
 
       // update the state of the entities
-      for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+      for (auto &entity : entities_in_this_room)
       {
          if (entity->get_cursor_is_over()) entity_cursor_was_over = entity;
          if (entity->get_placement_ref().collide(cursor_x, cursor_y)) entity_cursor_is_now_over = entity;
@@ -184,11 +178,17 @@ functions:
          else
          {
             // cursor is now over nothing
-            cursor.set_cursor_to_pointer();
-            cursor.clear_info_text();
+            reset_cursor_to_default();
          }
       }
 
+      return;
+
+
+  - name: reset_cursor_to_default
+    body: |
+      cursor.set_cursor_to_pointer();
+      cursor.clear_info_text();
       return;
 
 
@@ -238,7 +238,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp ]
   - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
   - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
     headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
@@ -248,6 +248,9 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
-
+  - symbol: std::map<std::string, std::string>*
+    headers: [ map, string ]
+  - symbol: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
 
   

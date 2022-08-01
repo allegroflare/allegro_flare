@@ -35,11 +35,10 @@ namespace FixedRoom2D
 {
 
 
-Room::Room(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary)
+Room::Room(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
    : font_bin(font_bin)
    , event_emitter(event_emitter)
-   , entity_dictionary(entity_dictionary)
-   , entity_collection_helper(entity_dictionary)
+   , entity_collection_helper(entity_collection_helper)
    , cursor({})
    , suspended(false)
    , suspended_at(0.0f)
@@ -65,18 +64,17 @@ void Room::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
+void Room::set_entity_collection_helper(AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
+{
+   this->entity_collection_helper = entity_collection_helper;
+}
+
+
 bool Room::get_suspended()
 {
    return suspended;
 }
 
-
-void Room::set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary)
-{
-   this->entity_dictionary = entity_dictionary;
-   entity_collection_helper.set_entity_dictionary(entity_dictionary);
-   return;
-}
 
 void Room::suspend()
 {
@@ -157,10 +155,10 @@ void Room::update()
    if (suspended) return;
 
    // update the entities
-   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-   {
-      entity->update();
-   }
+   //for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+   //{
+      //entity->update();
+   //}
 
    // update the cursor
    cursor.update();
@@ -168,7 +166,7 @@ void Room::update()
    return;
 }
 
-void Room::render()
+void Room::render(std::string this_rooms_dictionary_name__this_injection_is_temporary_measure)
 {
    if (!(initialized))
       {
@@ -177,11 +175,12 @@ void Room::render()
          throw std::runtime_error(error_message.str());
       }
    // draw the entities
-   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-   {
-      entity->render();
+   //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
+   //   this_rooms_dictionary_name__this_injection_is_temporary_measure))
+   //{
+      //entity->render();
       //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
-   }
+   //}
 
    // draw the cursor
    cursor.draw();
@@ -203,12 +202,18 @@ void Room::interact_with_item_under_cursor()
          error_message << "Room" << "::" << "interact_with_item_under_cursor" << ": error: " << "guard \"event_emitter\" not met";
          throw std::runtime_error(error_message.str());
       }
-   std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+   if (!(entity_collection_helper))
+      {
+         std::stringstream error_message;
+         error_message << "Room" << "::" << "interact_with_item_under_cursor" << ": error: " << "guard \"entity_collection_helper\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   std::string name = entity_collection_helper->find_dictionary_name_of_entity_that_cursor_is_now_over();
    emit_interaction_event(name, cursor.get_x(), cursor.get_y());
    return;
 }
 
-void Room::move_cursor(float distance_x, float distance_y)
+void Room::move_cursor(float distance_x, float distance_y, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room)
 {
    if (!(initialized))
       {
@@ -225,7 +230,7 @@ void Room::move_cursor(float distance_x, float distance_y)
    int cursor_y = cursor.get_y();
 
    // update the state of the entities
-   for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
+   for (auto &entity : entities_in_this_room)
    {
       if (entity->get_cursor_is_over()) entity_cursor_was_over = entity;
       if (entity->get_placement_ref().collide(cursor_x, cursor_y)) entity_cursor_is_now_over = entity;
@@ -248,11 +253,17 @@ void Room::move_cursor(float distance_x, float distance_y)
       else
       {
          // cursor is now over nothing
-         cursor.set_cursor_to_pointer();
-         cursor.clear_info_text();
+         reset_cursor_to_default();
       }
    }
 
+   return;
+}
+
+void Room::reset_cursor_to_default()
+{
+   cursor.set_cursor_to_pointer();
+   cursor.clear_info_text();
    return;
 }
 
