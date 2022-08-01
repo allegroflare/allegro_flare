@@ -232,7 +232,7 @@ void FixedRoom2D::load_story_and_start()
       { "door2", entity_factory.create_entity(
             "download-door-png-transparent-image-and-clipart-3.png", 500, 800, 0.85, "Door 2", "observe_door2") },
       { "chair", entity_factory.create_entity(
-            "wooden-chair-png-transparent-image-pngpix-0.png", 600, 800, 0.168, "Chair", "signal_hello") },
+            "wooden-chair-png-transparent-image-pngpix-0.png", 700, 800, 0.168, "Chair", "signal_hello") },
       { "table", entity_factory.create_entity(
             "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "observe_table") },
       { "keys", entity_factory.create_entity(
@@ -554,6 +554,9 @@ void FixedRoom2D::render_entities_in_current_room()
 
 std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> FixedRoom2D::get_entities_in_current_room()
 {
+   return entity_collection_helper.select_all_in_room_ordered_by_id(get_dictionary_name_of_current_room());
+
+   // nothing here now...
    std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
    std::vector<std::string> entity_names_in_current_room;
    std::string current_room_name = get_dictionary_name_of_current_room();
