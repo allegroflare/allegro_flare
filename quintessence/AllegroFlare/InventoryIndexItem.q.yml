@@ -1,0 +1,25 @@
+properties:
+
+
+  - name: title
+    type: std::string
+    init_with: '"[unset-title]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bitmap_filename
+    type: std::string
+    init_with: '"[unset-bitmap_filename]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: description
+    type: std::string
+    init_with: '"[unset-description]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
