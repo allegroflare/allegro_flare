@@ -31,6 +31,16 @@ std::map<int, AllegroFlare::InventoryIndexItem> InventoryIndex::get_index()
 }
 
 
+bool InventoryIndex::exists(int id)
+{
+   return index.find(id) != index.end();
+}
+
+AllegroFlare::InventoryIndexItem InventoryIndex::at(int id)
+{
+   if (!exists()) return AllegroFlare::InventoryIndexItem("", "", "");
+   return index.at(id);
+}
 } // namespace AllegroFlare
 
 

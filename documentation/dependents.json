@@ -523,6 +523,12 @@
   "AllegroFlare/Random": [
     "AllegroFlare/Generators/PersonNameGenerator"
   ],
+  "std/map<int, AllegroFlare/InventoryIndexItem>": [
+    "AllegroFlare/InventoryIndex"
+  ],
+  "AllegroFlare/InventoryIndexItem": [
+    "AllegroFlare/InventoryIndex"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory"

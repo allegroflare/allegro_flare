@@ -9,10 +9,36 @@ properties:
     setter: true
 
 
+functions:
+
+
+  - name: exists
+    type: bool
+    parameters:
+      - name: id
+        type: int
+        default_argument: 0
+    body: |
+      return index.find(id) != index.end();
+
+
+  - name: at
+    type: AllegroFlare::InventoryIndexItem
+    parameters:
+      - name: id
+        type: int
+        default_argument: 0
+    body: |
+      if (!exists()) return AllegroFlare::InventoryIndexItem("", "", "");
+      return index.at(id);
+
+
 dependencies:
 
 
   - symbol: std::map<int, AllegroFlare::InventoryIndexItem>
     headers: [ map, AllegroFlare/InventoryIndexItem.hpp ]
+  - symbol: AllegroFlare::InventoryIndexItem
+    headers: [ AllegroFlare/InventoryIndexItem.hpp ]
 
 
