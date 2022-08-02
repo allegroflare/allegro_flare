@@ -7,13 +7,11 @@
 #include <ostream>
 
 #include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec2D.hpp>
 
-
-bool operator==(const AllegroFlare::Vec2D& vec, const AllegroFlare::Vec2D& other_vec);
 
 namespace AllegroFlare
 {
-   void PrintTo(const AllegroFlare::Vec2D& vec, ::std::ostream* os);
    void PrintTo(const AllegroFlare::Color& color, ::std::ostream* os);
 }
 
