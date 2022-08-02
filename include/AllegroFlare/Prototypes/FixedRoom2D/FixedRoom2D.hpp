@@ -10,6 +10,7 @@
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <AllegroFlare/Inventory.hpp>
+#include <AllegroFlare/InventoryIndex.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
@@ -34,6 +35,7 @@ namespace AllegroFlare
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::AudioController* audio_controller;
+            AllegroFlare::InventoryIndex inventory_index;
             AllegroFlare::Inventory af_inventory;
             AllegroFlare::Elements::Inventory inventory_window;
             AllegroFlare::Inventory flags;

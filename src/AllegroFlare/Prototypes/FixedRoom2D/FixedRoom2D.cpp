@@ -73,6 +73,7 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , audio_controller(audio_controller)
+   , inventory_index()
    , af_inventory({})
    , inventory_window({})
    , flags({})
@@ -186,6 +187,8 @@ void FixedRoom2D::initialize()
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
    };
+
+   inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
 
    inventory_window.set_font_bin(font_bin);
    inventory_window.set_bitmap_bin(bitmap_bin);

@@ -444,7 +444,8 @@
   ],
   "AllegroFlare/InventoryIndex": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/InventoryIndex"
+    "AllegroFlare/InventoryIndex",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "X": [
     "AllegroFlare/Elements/Inventory",
