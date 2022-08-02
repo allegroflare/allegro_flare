@@ -39,14 +39,13 @@ namespace AllegroFlare
          float inventory_items_box_spacing;
 
       public:
-         Inventory(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Inventory* af_inventory=nullptr);
+         Inventory(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Inventory* af_inventory=nullptr, AllegroFlare::InventoryIndex* inventory_index=nullptr);
          ~Inventory();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_af_inventory(AllegroFlare::Inventory* af_inventory);
          void set_inventory_index(AllegroFlare::InventoryIndex* inventory_index);
-         AllegroFlare::InventoryIndex* get_inventory_index();
          AllegroFlare::Placement2D get_place();
          int get_cursor_x();
          int get_cursor_y();

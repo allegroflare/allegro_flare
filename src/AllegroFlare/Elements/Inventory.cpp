@@ -26,11 +26,11 @@ namespace Elements
 {
 
 
-Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Inventory* af_inventory)
+Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Inventory* af_inventory, AllegroFlare::InventoryIndex* inventory_index)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , af_inventory(af_inventory)
-   , inventory_index(create_placeholder_inventory_index())
+   , inventory_index(inventory_index)
    , place({ 1920/2, 1080/2, 1300, 700 })
    , cursor_x(0)
    , cursor_y(0)
@@ -75,12 +75,6 @@ void Inventory::set_af_inventory(AllegroFlare::Inventory* af_inventory)
 void Inventory::set_inventory_index(AllegroFlare::InventoryIndex* inventory_index)
 {
    this->inventory_index = inventory_index;
-}
-
-
-AllegroFlare::InventoryIndex* Inventory::get_inventory_index()
-{
-   return inventory_index;
 }
 
 

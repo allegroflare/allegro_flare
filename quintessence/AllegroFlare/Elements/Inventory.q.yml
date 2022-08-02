@@ -21,8 +21,8 @@ properties:
 
   - name: inventory_index
     type: AllegroFlare::InventoryIndex*
-    init_with: 'create_placeholder_inventory_index()'
-    getter: true
+    init_with: nullptr
+    constructor_arg: true
     setter: true
 
   - name: place
