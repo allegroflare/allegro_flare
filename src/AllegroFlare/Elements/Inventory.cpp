@@ -30,6 +30,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , af_inventory(af_inventory)
+   , inventory_index(create_placeholder_inventory_index())
    , place({ 1920/2, 1080/2, 1300, 700 })
    , cursor_x(0)
    , cursor_y(0)
@@ -38,7 +39,6 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , active(false)
    , details_reveal_counter(0.0f)
    , details_num_revealed_characters(999)
-   , inventory_index(create_placeholder_inventory_index())
    , reveal_counter(0)
    , item_in_details_pane(0)
    , inventory_items_left_padding(80.0f)
@@ -69,6 +69,18 @@ void Inventory::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 void Inventory::set_af_inventory(AllegroFlare::Inventory* af_inventory)
 {
    this->af_inventory = af_inventory;
+}
+
+
+void Inventory::set_inventory_index(AllegroFlare::InventoryIndex* inventory_index)
+{
+   this->inventory_index = inventory_index;
+}
+
+
+AllegroFlare::InventoryIndex* Inventory::get_inventory_index()
+{
+   return inventory_index;
 }
 
 

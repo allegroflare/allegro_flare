@@ -121,8 +121,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    af_inventory.add_item(3);
    //af_inventory.add_item(4);
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory);
-   int passes = 60 * 2;
-   //int passes = 1;
+   //int passes = 60 * 2;
+   int passes = 1;
    inventory.activate();
    float passes_to_move_cursor = 20;
    for (unsigned i=0; i<passes; i++)

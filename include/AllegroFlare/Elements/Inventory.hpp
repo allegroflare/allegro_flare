@@ -22,6 +22,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::Inventory* af_inventory;
+         AllegroFlare::InventoryIndex* inventory_index;
          AllegroFlare::Placement2D place;
          int cursor_x;
          int cursor_y;
@@ -30,7 +31,6 @@ namespace AllegroFlare
          bool active;
          float details_reveal_counter;
          int details_num_revealed_characters;
-         AllegroFlare::InventoryIndex* inventory_index;
          float reveal_counter;
          int item_in_details_pane;
          float inventory_items_left_padding;
@@ -45,6 +45,8 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_af_inventory(AllegroFlare::Inventory* af_inventory);
+         void set_inventory_index(AllegroFlare::InventoryIndex* inventory_index);
+         AllegroFlare::InventoryIndex* get_inventory_index();
          AllegroFlare::Placement2D get_place();
          int get_cursor_x();
          int get_cursor_y();
