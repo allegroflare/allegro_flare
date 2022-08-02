@@ -4,7 +4,8 @@
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec2D.hpp>
 
 
-TEST(AllegroFlare_Testing_CustomComparisonTest, PrintTo__with_an_AllegroFlare_Vec2D__will_output_as_expected)
+TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Vec2DTest,
+   PrintTo__with_an_AllegroFlare_Vec2D__will_output_as_expected)
 {
    std::stringstream ss;
    AllegroFlare::Vec2D vec = {0.1, 0.2};
@@ -17,7 +18,8 @@ TEST(AllegroFlare_Testing_CustomComparisonTest, PrintTo__with_an_AllegroFlare_Ve
 }
 
 
-TEST(AllegroFlare_Testing_CustomComparisonTest, equality_operator__works_with_google_test_EXPECT_statement)
+TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Vec2DTest,
+   equality_operator__works_with_google_test_EXPECT_statement)
 {
    AllegroFlare::Vec2D vec;
    AllegroFlare::Vec2D other_vec;
