@@ -43,3 +43,12 @@ TEST(AllegroFlare_Testing_CustomComparisonTest, PrintTo__with_an_AllegroFlare_Co
 }
 
 
+TEST(AllegroFlare_Testing_CustomComparisonTest, equality_operator__works_with_google_test_EXPECT_statement)
+{
+   AllegroFlare::Vec2D vec;
+   AllegroFlare::Vec2D other_vec;
+
+   EXPECT_EQ(vec, other_vec);
+}
+
+
