@@ -579,7 +579,7 @@ bool PauseScreen::menu_has_items()
 std::vector<std::pair<std::string, std::string>> PauseScreen::build_default_menu_options()
 {
    std::vector<std::pair<std::string, std::string>> result;
-   result = { { "Resume", "unpause" }, { "Exit to title screen", "go_to_title_screen" }, { "Quit", "exit_game" } };
+   result = { { "Resume", "unpause_game" }, { "Exit to title screen", "go_to_title_screen" }, { "Quit", "exit_game" } };
    return result;
 }
 } // namespace Screens

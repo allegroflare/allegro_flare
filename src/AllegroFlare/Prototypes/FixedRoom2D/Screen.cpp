@@ -186,11 +186,13 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       break;
 
       case ALLEGRO_KEY_P:
-         fixed_room_2d.pause_game();
+         event_emitter->emit_game_event(AllegroFlare::GameEvent("pause_game"));
+         //fixed_room_2d.pause_game();
       break;
 
       case ALLEGRO_KEY_U:
-         fixed_room_2d.unpause_game();
+         event_emitter->emit_game_event(AllegroFlare::GameEvent("unpause_game"));
+         //fixed_room_2d.unpause_game();
       break;
    }
    return;

@@ -458,7 +458,11 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
    }
    else if (game_event->is_type("unpause_game"))
    {
-      resume_all_rooms();
+      unpause_game();
+   }
+   else if (game_event->is_type("pause_game"))
+   {
+      pause_game();
    }
    else
    {

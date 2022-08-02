@@ -476,7 +476,7 @@ functions:
     static: true
     body: |
       std::vector<std::pair<std::string, std::string>> result;
-      result = { { "Resume", "unpause" }, { "Exit to title screen", "go_to_title_screen" }, { "Quit", "exit_game" } };
+      result = { { "Resume", "unpause_game" }, { "Exit to title screen", "go_to_title_screen" }, { "Quit", "exit_game" } };
       return result;
 
 
