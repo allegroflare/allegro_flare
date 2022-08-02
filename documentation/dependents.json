@@ -526,6 +526,9 @@
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],
+  "AllegroFlare/InventoryIndex": [
+    "AllegroFlare/InventoryIndex"
+  ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
   ],

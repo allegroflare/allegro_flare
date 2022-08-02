@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/InventoryIndex.hpp>
 #include <AllegroFlare/InventoryIndexItem.hpp>
 #include <map>
 
@@ -20,6 +21,7 @@ namespace AllegroFlare
       std::map<int, AllegroFlare::InventoryIndexItem> get_index();
       bool exists(int id=0);
       AllegroFlare::InventoryIndexItem at(int id=0);
+      static AllegroFlare::InventoryIndex create_placeholder_inventory_index();
    };
 }
 

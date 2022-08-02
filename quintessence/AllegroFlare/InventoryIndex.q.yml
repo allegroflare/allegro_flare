@@ -33,11 +33,25 @@ functions:
       return index.at(id);
 
 
+  - name: create_placeholder_inventory_index
+    type: AllegroFlare::InventoryIndex
+    static: true
+    body: |
+      return AllegroFlare::InventoryIndex({
+            { 1, { "Walkie-Talkie", "walkie-02.png", "A small portable radio to communicate with someone far away." } },
+            { 2, { "Blaster", "blaster-02.png", "Standard issue weaponry." } },
+            { 3, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
+            { 4, { "Metal Pipe", "metal-pipe-01.png", "Made of galvanized metal, this pipe is very sturdy." } },
+         });
+
+
 dependencies:
 
 
   - symbol: std::map<int, AllegroFlare::InventoryIndexItem>
     headers: [ map, AllegroFlare/InventoryIndexItem.hpp ]
+  - symbol: AllegroFlare::InventoryIndex
+    headers: [ AllegroFlare/InventoryIndex.hpp ]
   - symbol: AllegroFlare::InventoryIndexItem
     headers: [ AllegroFlare/InventoryIndexItem.hpp ]
 
