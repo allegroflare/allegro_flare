@@ -12,6 +12,12 @@ properties:
 functions:
 
 
+  - name: size
+    type: int
+    body: |
+      return index.size();
+
+
   - name: exists
     type: bool
     parameters:
@@ -19,7 +25,7 @@ functions:
         type: int
         default_argument: 0
     body: |
-      return index.find(id) != index.end();
+      return (index.count(id) > 0);
 
 
   - name: at
@@ -29,11 +35,11 @@ functions:
         type: int
         default_argument: 0
     body: |
-      if (!exists()) return AllegroFlare::InventoryIndexItem("", "", "");
+      if (!exists(id)) return AllegroFlare::InventoryIndexItem("", "", "");
       return index.at(id);
 
 
-  - name: create_placeholder_inventory_index
+  - name: build_placeholder_inventory_index
     type: AllegroFlare::InventoryIndex
     static: true
     body: |

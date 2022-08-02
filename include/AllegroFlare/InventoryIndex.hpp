@@ -19,9 +19,10 @@ namespace AllegroFlare
 
       void set_index(std::map<int, AllegroFlare::InventoryIndexItem> index);
       std::map<int, AllegroFlare::InventoryIndexItem> get_index();
+      int size();
       bool exists(int id=0);
       AllegroFlare::InventoryIndexItem at(int id=0);
-      static AllegroFlare::InventoryIndex create_placeholder_inventory_index();
+      static AllegroFlare::InventoryIndex build_placeholder_inventory_index();
    };
 }
 

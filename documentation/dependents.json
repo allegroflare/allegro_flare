@@ -442,6 +442,10 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/InventoryIndex": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/InventoryIndex"
+  ],
   "X": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect"
@@ -456,7 +460,8 @@
   ],
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/InventoryIndexItem"
   ],
   "AllegroFlare/interpolator": [
     "AllegroFlare/Elements/Inventory",
@@ -524,9 +529,6 @@
     "AllegroFlare/Generators/PersonNameGenerator"
   ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
-    "AllegroFlare/InventoryIndex"
-  ],
-  "AllegroFlare/InventoryIndex": [
     "AllegroFlare/InventoryIndex"
   ],
   "AllegroFlare/InventoryIndexItem": [

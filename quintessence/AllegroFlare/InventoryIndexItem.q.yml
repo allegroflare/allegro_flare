@@ -23,3 +23,19 @@ properties:
     setter: true
 
 
+functions:
+
+
+  - name: to_tuple
+    type: std::tuple<std::string, std::string, std::string>
+    body: |
+      return std::tuple<std::string, std::string, std::string>(title, bitmap_filename, description);
+
+
+dependencies:
+
+
+  - symbol: std::tuple<std::string, std::string, std::string>
+    headers: [ tuple, string ]
+
+

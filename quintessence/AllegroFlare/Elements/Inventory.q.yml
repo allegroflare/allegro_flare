@@ -56,7 +56,7 @@ properties:
     init_with: 999
 
   - name: inventory_index
-    type: std::map<int, std::tuple<std::string, std::string, std::string>>*
+    type: AllegroFlare::InventoryIndex*
     init_with: 'create_placeholder_inventory_index()'
 
   - name: reveal_counter
@@ -561,8 +561,8 @@ functions:
         default_argument: 0
     body: |
       if (!inventory_index) return {};
-      if (inventory_index->find(index) == inventory_index->end()) return {};
-      return inventory_index->operator[](index);
+      if (!inventory_index->exists(index)) return {};
+      return inventory_index->at(index).to_tuple();
 
 
   - name: obtain_title_font
@@ -590,16 +590,11 @@ functions:
 
 
   - name: create_placeholder_inventory_index
-    type: std::map<int, std::tuple<std::string, std::string, std::string>>*
+    type: AllegroFlare::InventoryIndex*
     static: true
     body: |
-      std::map<int, std::tuple<std::string, std::string, std::string>> *result =
-         new std::map<int, std::tuple<std::string, std::string, std::string>>{
-            { 1, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
-            { 2, { "Metal Pipe", "metal-pipe-01.png", "Made of galvanized metal, this pipe is very sturdy." } },
-            { 3, { "Blaster", "blaster-02.png", "Standard issue weaponry." } },
-            { 4, { "Walkie-Talkie", "walkie-02.png", "A small portable radio to communicate with someone far away." } },
-         };
+      AllegroFlare::InventoryIndex *result = new AllegroFlare::InventoryIndex;
+      *result = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
       return result;
 
 
@@ -622,6 +617,8 @@ dependencies:
 
   - symbol: AllegroFlare::Inventory*
     headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::InventoryIndex*
+    headers: [ AllegroFlare/InventoryIndex.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::BitmapBin*

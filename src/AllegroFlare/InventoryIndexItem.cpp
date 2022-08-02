@@ -57,6 +57,10 @@ std::string InventoryIndexItem::get_description()
 }
 
 
+std::tuple<std::string, std::string, std::string> InventoryIndexItem::to_tuple()
+{
+   return std::tuple<std::string, std::string, std::string>(title, bitmap_filename, description);
+}
 } // namespace AllegroFlare
 
 

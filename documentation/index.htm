@@ -1853,7 +1853,7 @@ table td
 </tr>
 <tr>
   <td class="property">inventory_index</td>
-  <td class="property">std::map&lt;int, std::tuple&lt;std::string, std::string, std::string&gt;&gt;*</td>
+  <td class="property">AllegroFlare::InventoryIndex*</td>
 </tr>
 <tr>
   <td class="property">reveal_counter</td>
@@ -1975,6 +1975,9 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryIndex*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryIndex.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
@@ -2998,13 +3001,16 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">size()</td>
+</tr>
+<tr>
   <td class="method">exists(1)</td>
 </tr>
 <tr>
   <td class="method">at(1)</td>
 </tr>
 <tr>
-  <td class="method">create_placeholder_inventory_index()</td>
+  <td class="method">build_placeholder_inventory_index()</td>
 </tr>
     </table>
      <table>
@@ -3038,8 +3044,14 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">to_tuple()</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tuple&lt;std::string, std::string, std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;tuple&quot;, &quot;string&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -5560,6 +5572,10 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/InventoryIndex": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/InventoryIndex"
+  ],
   "X": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect"
@@ -5574,7 +5590,8 @@ table td
   ],
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/InventoryIndexItem"
   ],
   "AllegroFlare/interpolator": [
     "AllegroFlare/Elements/Inventory",
@@ -5642,9 +5659,6 @@ table td
     "AllegroFlare/Generators/PersonNameGenerator"
   ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
-    "AllegroFlare/InventoryIndex"
-  ],
-  "AllegroFlare/InventoryIndex": [
     "AllegroFlare/InventoryIndex"
   ],
   "AllegroFlare/InventoryIndexItem": [

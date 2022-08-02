@@ -31,18 +31,23 @@ std::map<int, AllegroFlare::InventoryIndexItem> InventoryIndex::get_index()
 }
 
 
+int InventoryIndex::size()
+{
+   return index.size();
+}
+
 bool InventoryIndex::exists(int id)
 {
-   return index.find(id) != index.end();
+   return (index.count(id) > 0);
 }
 
 AllegroFlare::InventoryIndexItem InventoryIndex::at(int id)
 {
-   if (!exists()) return AllegroFlare::InventoryIndexItem("", "", "");
+   if (!exists(id)) return AllegroFlare::InventoryIndexItem("", "", "");
    return index.at(id);
 }
 
-AllegroFlare::InventoryIndex InventoryIndex::create_placeholder_inventory_index()
+AllegroFlare::InventoryIndex InventoryIndex::build_placeholder_inventory_index()
 {
    return AllegroFlare::InventoryIndex({
          { 1, { "Walkie-Talkie", "walkie-02.png", "A small portable radio to communicate with someone far away." } },
