@@ -17,6 +17,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
@@ -32,6 +34,10 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -86,6 +92,7 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , current_room(nullptr)
    , initialized(false)
    , active_dialog(nullptr)
+   , paused(false)
    , subscribed_to_game_event_names({})
 {
 }
@@ -186,6 +193,8 @@ void FixedRoom2D::initialize()
    subscribed_to_game_event_names = {
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
+      "pause_game",
+      "unpause_game",
    };
 
    inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
@@ -207,6 +216,17 @@ void FixedRoom2D::initialize()
 
    initialized = true;
 
+   return;
+}
+
+void FixedRoom2D::load()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "FixedRoom2D" << "::" << "load" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    return;
 }
 
@@ -405,6 +425,18 @@ void FixedRoom2D::render()
    // render the inventory window
    inventory_window.render();
 
+   // render paused notification
+   if (paused)
+   {
+      AllegroFlare::Elements::DialogBoxFactory factory;
+      AllegroFlare::Elements::DialogBoxes::Basic pause_dialog_box = factory.build_basic_dialog(
+         {"Paused."});
+      pause_dialog_box.set_created_at(0); // so it will show
+      pause_dialog_box.reveal_all_characters(); // so it will show
+      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, &pause_dialog_box);
+      dialog_box_renderer.render();
+   }
+
    return;
 }
 
@@ -423,6 +455,10 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
    else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
    {
       process_script_event(game_event->get_data());
+   }
+   else if (game_event->is_type("unpause_game"))
+   {
+      resume_all_rooms();
    }
    else
    {
@@ -598,6 +634,34 @@ void FixedRoom2D::resume_all_rooms()
          std::cout << "Weird error, could not resume room at \"" << room_name << "\", it is nullptr." << std::endl;
       }
    }
+   return;
+}
+
+void FixedRoom2D::pause_game()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "FixedRoom2D" << "::" << "pause_game" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (paused) return;
+   suspend_all_rooms();
+   paused = true;
+   return;
+}
+
+void FixedRoom2D::unpause_game()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "FixedRoom2D" << "::" << "unpause_game" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!paused) return;
+   resume_all_rooms();
+   paused = false;
    return;
 }
 

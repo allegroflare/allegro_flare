@@ -32,6 +32,7 @@ properties:
   - name: fixed_room_2d
     type: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
     init_with: '{}'
+    getter_ref: true
 
   - name: initialized
     type: bool
@@ -42,7 +43,7 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized) ]
+    guards: [ (!initialized), bitmap_bin, font_bin, event_emitter, audio_controller ]
     body: |
       fixed_room_2d.set_bitmap_bin(bitmap_bin);
       fixed_room_2d.set_font_bin(font_bin);
@@ -134,9 +135,16 @@ functions:
             fixed_room_2d.activate_primary_action();
          break;
 
-
          case ALLEGRO_KEY_I:
             fixed_room_2d.toggle_inventory();
+         break;
+
+         case ALLEGRO_KEY_P:
+            fixed_room_2d.pause_game();
+         break;
+
+         case ALLEGRO_KEY_U:
+            fixed_room_2d.unpause_game();
          break;
       }
       return;

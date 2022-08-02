@@ -40,12 +40,42 @@ Screen::~Screen()
 }
 
 
+AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D &Screen::get_fixed_room_2d_ref()
+{
+   return fixed_room_2d;
+}
+
+
 void Screen::initialize()
 {
    if (!((!initialized)))
       {
          std::stringstream error_message;
          error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(bitmap_bin))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(audio_controller))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"audio_controller\" not met";
          throw std::runtime_error(error_message.str());
       }
    fixed_room_2d.set_bitmap_bin(bitmap_bin);
@@ -151,9 +181,16 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
          fixed_room_2d.activate_primary_action();
       break;
 
-
       case ALLEGRO_KEY_I:
          fixed_room_2d.toggle_inventory();
+      break;
+
+      case ALLEGRO_KEY_P:
+         fixed_room_2d.pause_game();
+      break;
+
+      case ALLEGRO_KEY_U:
+         fixed_room_2d.unpause_game();
       break;
    }
    return;

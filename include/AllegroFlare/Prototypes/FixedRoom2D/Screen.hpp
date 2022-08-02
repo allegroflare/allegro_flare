@@ -31,6 +31,7 @@ namespace AllegroFlare
             Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::AudioController* audio_controller=nullptr);
             virtual ~Screen();
 
+            AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D &get_fixed_room_2d_ref();
             void initialize();
             virtual void on_activate() override;
             virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;

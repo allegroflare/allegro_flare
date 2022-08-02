@@ -48,6 +48,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::FixedRoom2D::Room* current_room;
             bool initialized;
             AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
+            bool paused;
             std::set<std::string> subscribed_to_game_event_names;
 
          public:
@@ -61,6 +62,7 @@ namespace AllegroFlare
             std::set<std::string> get_subscribed_to_game_event_names();
             bool is_subscribed_to_game_event_name(std::string game_event_name="[unset-game_event_name]");
             void initialize();
+            void load();
             void load_story_and_start();
             void update();
             bool enter_room(std::string room_name="[unset-room_name]");
@@ -77,6 +79,8 @@ namespace AllegroFlare
             void update_all_rooms();
             void suspend_all_rooms();
             void resume_all_rooms();
+            void pause_game();
+            void unpause_game();
             void show_inventory();
             void hide_inventory();
             void toggle_inventory();
