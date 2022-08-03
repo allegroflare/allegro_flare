@@ -27,7 +27,7 @@ functions:
       
       // draw inputs
       float height = 60;
-      float hud_opacity = 0.4;
+      float hud_opacity = 0.35;
       ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, hud_opacity};
       al_draw_filled_rectangle(0, surface_height-height, surface_width, surface_height, backfill_color);
 
@@ -46,7 +46,7 @@ functions:
          font,
          ALLEGRO_COLOR{1, 1, 1, 1},
          surface_width/2,
-         surface_height-text_height/2-height/2,
+         (int)(surface_height-text_height/2-height/2),
          ALLEGRO_ALIGN_CENTER,
          inputs.c_str()
       );

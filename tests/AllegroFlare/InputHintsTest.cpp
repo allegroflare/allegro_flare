@@ -38,6 +38,7 @@ TEST_F(AllegroFlare_InputHintsTest, render__without_allegro_initialized__raises_
 TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::InputHints input_hints(&get_font_bin_ref());
+   al_clear_to_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
    input_hints.render();
    al_flip_display();
 }
