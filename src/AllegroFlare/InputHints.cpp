@@ -15,19 +15,37 @@ namespace AllegroFlare
 {
 
 
-InputHints::InputHints(AllegroFlare::FontBin* font_bin)
+InputHints::InputHints(AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> input_hints)
    : font_bin(font_bin)
-   , input_hints({})
+   , input_hints(input_hints)
+   , bar_height(60)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , surface_width(1920)
    , surface_height(1080)
-   , bar_height(60)
 {
 }
 
 
 InputHints::~InputHints()
 {
+}
+
+
+void InputHints::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void InputHints::set_input_hints(std::vector<std::pair<std::string, std::string>> input_hints)
+{
+   this->input_hints = input_hints;
+}
+
+
+void InputHints::set_bar_height(int bar_height)
+{
+   this->bar_height = bar_height;
 }
 
 
@@ -49,9 +67,21 @@ void InputHints::set_surface_height(int surface_height)
 }
 
 
-void InputHints::set_bar_height(int bar_height)
+AllegroFlare::FontBin* InputHints::get_font_bin()
 {
-   this->bar_height = bar_height;
+   return font_bin;
+}
+
+
+std::vector<std::pair<std::string, std::string>> InputHints::get_input_hints()
+{
+   return input_hints;
+}
+
+
+int InputHints::get_bar_height()
+{
+   return bar_height;
 }
 
 
@@ -70,12 +100,6 @@ int InputHints::get_surface_width()
 int InputHints::get_surface_height()
 {
    return surface_height;
-}
-
-
-int InputHints::get_bar_height()
-{
-   return bar_height;
 }
 
 

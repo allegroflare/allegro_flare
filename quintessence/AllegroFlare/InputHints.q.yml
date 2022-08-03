@@ -5,10 +5,21 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: input_hints
     type: std::vector<std::pair<std::string, std::string>>
     init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bar_height
+    type: int
+    init_with: 60
+    getter: true
+    setter: true
 
   - name: text_color
     type: ALLEGRO_COLOR
@@ -25,12 +36,6 @@ properties:
   - name: surface_height
     type: int
     init_with: 1080
-    getter: true
-    setter: true
-
-  - name: bar_height
-    type: int
-    init_with: 60
     getter: true
     setter: true
 
