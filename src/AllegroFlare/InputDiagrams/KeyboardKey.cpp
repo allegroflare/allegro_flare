@@ -19,10 +19,12 @@ namespace InputDiagrams
 {
 
 
-KeyboardKey::KeyboardKey(AllegroFlare::FontBin* font_bin, std::string keyboard_key_str, ALLEGRO_COLOR color, float keyboard_key_box_height, float keyboard_key_box_min_width)
+KeyboardKey::KeyboardKey(AllegroFlare::FontBin* font_bin, std::string keyboard_key_str, ALLEGRO_COLOR color, float x, float y, float keyboard_key_box_height, float keyboard_key_box_min_width)
    : font_bin(font_bin)
    , keyboard_key_str(keyboard_key_str)
    , color(color)
+   , x(x)
+   , y(y)
    , keyboard_key_box_height(keyboard_key_box_height)
    , keyboard_key_box_min_width(keyboard_key_box_min_width)
 {
@@ -49,6 +51,18 @@ void KeyboardKey::set_keyboard_key_str(std::string keyboard_key_str)
 void KeyboardKey::set_color(ALLEGRO_COLOR color)
 {
    this->color = color;
+}
+
+
+void KeyboardKey::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void KeyboardKey::set_y(float y)
+{
+   this->y = y;
 }
 
 
@@ -79,6 +93,18 @@ std::string KeyboardKey::get_keyboard_key_str()
 ALLEGRO_COLOR KeyboardKey::get_color()
 {
    return color;
+}
+
+
+float KeyboardKey::get_x()
+{
+   return x;
+}
+
+
+float KeyboardKey::get_y()
+{
+   return y;
 }
 
 
@@ -129,12 +155,21 @@ float KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
    float line_thickness = 1.5;
    float font_ascent_height = al_get_font_line_height(font);
 
-   al_draw_rounded_rectangle(0, 0, box_width, get_keyboard_key_box_height(), roundness, roundness, color, line_thickness);
+   al_draw_rounded_rectangle(
+      x + 0,
+      y + 0,
+      box_width,
+      get_keyboard_key_box_height(),
+      roundness,
+      roundness,
+      color,
+      line_thickness
+   );
    al_draw_text(
       font,
       color,
-      (int)(box_width / 2),
-      (int)(keyboard_key_box_height / 2 - font_ascent_height / 2),
+      (int)(x + box_width / 2),
+      (int)(y + keyboard_key_box_height / 2 - font_ascent_height / 2),
       ALLEGRO_ALIGN_CENTER,
       keyboard_key_str.c_str()
    );

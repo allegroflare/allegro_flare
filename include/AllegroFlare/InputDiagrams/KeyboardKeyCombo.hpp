@@ -29,6 +29,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* get_font_bin();
          std::vector<std::string> get_keyboard_combo_tokens();
          ALLEGRO_COLOR get_color();
+         float get_keyboard_key_box_height();
          void render();
          ALLEGRO_FONT* obtain_font();
       };

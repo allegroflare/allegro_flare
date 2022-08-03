@@ -7,6 +7,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
+#include <AllegroFlare/InputDiagrams/KeyboardKey.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -68,6 +69,12 @@ ALLEGRO_COLOR KeyboardKeyCombo::get_color()
 }
 
 
+float KeyboardKeyCombo::get_keyboard_key_box_height()
+{
+   AllegroFlare::InputDiagrams::KeyboardKey keyboard_key;
+   return keyboard_key.get_keyboard_key_box_height();
+}
+
 void KeyboardKeyCombo::render()
 {
    if (!(al_is_system_installed()))
@@ -94,6 +101,15 @@ void KeyboardKeyCombo::render()
          error_message << "KeyboardKeyCombo" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
+   AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
+   //float box_height = keyboard_key.get_keyboard_key_box_height();
+
+   for (auto &keyboard_combo_token : keyboard_combo_tokens)
+   {
+      keyboard_key.set_keyboard_key_str(keyboard_combo_token);
+      //keyboard_key.set_x = 
+      keyboard_key.render();
+   }
    return;
 }
 

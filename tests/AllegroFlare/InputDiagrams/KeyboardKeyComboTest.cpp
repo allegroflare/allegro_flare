@@ -47,9 +47,32 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixtur
 
 
 TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixture,
-   CAPTURE__render__will_render_the_keyboard_key_str)
+   CAPTURE__render__will_render_the_keyboard_combo_tokens)
 {
-   // TODO
+   std::vector<std::vector<std::string>> test_keyboard_input_key_combos = {
+      { { "SHIFT", "N" } },
+      { { "A" } },
+   };
+
+   AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(&get_font_bin_ref());
+
+   for (int i=0; i<test_keyboard_input_key_combos.size(); i++)
+   {
+      std::vector<std::string> test_keyboard_input_key_combo = test_keyboard_input_key_combos[i];
+      keyboard_key_combo.set_keyboard_combo_tokens(test_keyboard_input_key_combo);
+      float keyboard_key_box_height = keyboard_key_combo.get_keyboard_key_box_height();
+      AllegroFlare::Placement2D placement = build_centered_placement(0, 0);
+      placement.position.y += (i * keyboard_key_box_height * 1.5)
+                           - (test_keyboard_input_key_combos.size() * keyboard_key_box_height / 2)
+                           ;
+      placement.start_transform();
+
+      keyboard_key_combo.render();
+
+      placement.restore_transform();
+   }
+
+   al_flip_display();
 }
 
 

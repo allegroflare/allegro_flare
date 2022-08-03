@@ -26,6 +26,13 @@ properties:
 functions:
 
 
+  - name: get_keyboard_key_box_height
+    type: float
+    body: |
+      AllegroFlare::InputDiagrams::KeyboardKey keyboard_key;
+      return keyboard_key.get_keyboard_key_box_height();
+      
+
   - name: render
     guards:
       - al_is_system_installed()
@@ -33,6 +40,15 @@ functions:
       - al_is_ttf_addon_initialized()
       - al_is_primitives_addon_initialized()
     body: |
+      AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
+      //float box_height = keyboard_key.get_keyboard_key_box_height();
+
+      for (auto &keyboard_combo_token : keyboard_combo_tokens)
+      {
+         keyboard_key.set_keyboard_key_str(keyboard_combo_token);
+         //keyboard_key.set_x = 
+         keyboard_key.render();
+      }
       return;
     body_dependency_symbols:
       - al_is_system_installed
@@ -41,6 +57,7 @@ functions:
       - al_is_primitives_addon_initialized
       - al_draw_rounded_rectangle
       - al_draw_text
+      - AllegroFlare::InputDiagrams::KeyboardKey
 
 
   - name: obtain_font
@@ -77,5 +94,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::InputDiagrams::KeyboardKey
+    headers: [ AllegroFlare/InputDiagrams/KeyboardKey.hpp ]
 
 

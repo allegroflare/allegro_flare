@@ -22,6 +22,20 @@ properties:
     getter: true
     setter: true
 
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: keyboard_key_box_height
     type: float
     init_with: 42
@@ -61,12 +75,21 @@ functions:
       float line_thickness = 1.5;
       float font_ascent_height = al_get_font_line_height(font);
 
-      al_draw_rounded_rectangle(0, 0, box_width, get_keyboard_key_box_height(), roundness, roundness, color, line_thickness);
+      al_draw_rounded_rectangle(
+         x + 0,
+         y + 0,
+         box_width,
+         get_keyboard_key_box_height(),
+         roundness,
+         roundness,
+         color,
+         line_thickness
+      );
       al_draw_text(
          font,
          color,
-         (int)(box_width / 2),
-         (int)(keyboard_key_box_height / 2 - font_ascent_height / 2),
+         (int)(x + box_width / 2),
+         (int)(y + keyboard_key_box_height / 2 - font_ascent_height / 2),
          ALLEGRO_ALIGN_CENTER,
          keyboard_key_str.c_str()
       );
