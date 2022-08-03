@@ -20,12 +20,12 @@ namespace AllegroFlare
    Color::Color() : r(0.0f), g(0.0f), b(0.0f), a(0.0f)
    {}
    
-   Color::Color(ALLEGRO_COLOR allegro_color)
+   Color::Color(ALLEGRO_COLOR allegro_color, float alpha)
    {
-      r = allegro_color.r;
-      g = allegro_color.g;
-      b = allegro_color.b;
-      a = allegro_color.a;
+      r = allegro_color.r * alpha;
+      g = allegro_color.g * alpha;
+      b = allegro_color.b * alpha;
+      a = allegro_color.a * alpha;
    }
    
    Color::Color(int hex, float alpha)

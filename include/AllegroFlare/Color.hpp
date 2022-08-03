@@ -21,7 +21,7 @@ namespace AllegroFlare
 
       Color();
       Color(float r, float g, float b, float a=1.0f);
-      Color(ALLEGRO_COLOR allegro_color);
+      Color(ALLEGRO_COLOR allegro_color, float a=1.0f);
       Color(std::string color_name, float a=1.0f);
       Color(int hex, float a=1.0f);
       ~Color();
