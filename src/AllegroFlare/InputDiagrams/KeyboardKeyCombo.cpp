@@ -104,7 +104,7 @@ void KeyboardKeyCombo::render()
    AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
    float box_height = get_keyboard_key_box_height();
    float token_space_width = 10;
-   float token_big_space_width = 14;
+   float token_spacer_width = 24;
    float token_separator_width = 60;
    bool next_token_is_raw_text = false;
 
@@ -132,13 +132,9 @@ void KeyboardKeyCombo::render()
       {
          cursor_x += token_space_width;
       }
-      else if (keyboard_combo_token == "%BIGSPACE")
-      {
-         cursor_x += token_big_space_width;
-      }
       else if (keyboard_combo_token == "%SPACER")
       {
-         cursor_x += (token_big_space_width + token_space_width);
+         cursor_x += token_spacer_width;
       }
       else if (keyboard_combo_token == "%SEPARATOR")
       {
@@ -157,9 +153,11 @@ void KeyboardKeyCombo::render()
             color,
             (int)(cursor_x),
             (int)(box_height/ 2 - font_ascent_height / 2),
-            ALLEGRO_ALIGN_CENTER,
+            ALLEGRO_ALIGN_LEFT,
             "+"
          );
+
+         cursor_x += al_get_text_width(font, "+");
       }
       else if (keyboard_combo_token == "%SLASH")
       {
@@ -170,9 +168,11 @@ void KeyboardKeyCombo::render()
             color,
             (int)(cursor_x),
             (int)(box_height/ 2 - font_ascent_height / 2),
-            ALLEGRO_ALIGN_CENTER,
+            ALLEGRO_ALIGN_LEFT,
             "/"
          );
+
+         cursor_x += al_get_text_width(font, "/");
       }
       else // is a regular interpreted-as-text token
       {
