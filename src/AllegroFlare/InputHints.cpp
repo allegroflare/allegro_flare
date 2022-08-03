@@ -148,12 +148,19 @@ void InputHints::draw_inputs_text()
    // draw inputs text
    ALLEGRO_FONT *font = obtain_font();
    std::string SPACER = "         ";
-   std::string inputs = "[W/A/S/D]  Move cursor"
-                      + SPACER + "[N/P]  Next/Previous entity"
-                      + SPACER + "[Shift+8]  Capture screenshot"
-                      + SPACER + "[PAD +/-]  Zoom"
-                      + SPACER + "[ESC]  Toggle Inventory"
-                      + SPACER + "[-/+]  Change time of day";
+
+   std::stringstream inputs_composite_str;
+   for (int i=0; i<input_hints.size(); i++)
+   {
+      auto &input_hint = input_hints[i];
+      std::string input_hint_key = input_hint.first;
+      std::string input_hint_description = input_hint.second;
+      bool is_last_input_hint = (i == input_hints.size()-1);
+
+      inputs_composite_str << input_hint_key << "  " << input_hint_description;
+      if (!is_last_input_hint) inputs_composite_str << SPACER;
+   }
+
    float text_height = al_get_font_line_height(font);
    al_draw_text(
       font,
@@ -161,7 +168,7 @@ void InputHints::draw_inputs_text()
       surface_width/2,
       (int)(surface_height-text_height/2-bar_height/2),
       ALLEGRO_ALIGN_CENTER,
-      inputs.c_str()
+      inputs_composite_str.str().c_str()
    );
    return;
 }

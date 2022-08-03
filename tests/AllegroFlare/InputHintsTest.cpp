@@ -35,7 +35,7 @@ TEST_F(AllegroFlare_InputHintsTest, render__without_allegro_initialized__raises_
 }
 
 
-TEST_F(AllegroFlare_InputHintsTest, text_color__has_the_expected_default)
+TEST_F(AllegroFlare_InputHintsTest, render__respects_text_color)
 {
    // TODO
 }

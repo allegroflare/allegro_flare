@@ -22,7 +22,7 @@ namespace AllegroFlare
       int surface_height;
 
    public:
-      InputHints(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> input_hints={});
+      InputHints(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> input_hints=build_placeholder_input_hints());
       ~InputHints();
 
       void set_font_bin(AllegroFlare::FontBin* font_bin);
