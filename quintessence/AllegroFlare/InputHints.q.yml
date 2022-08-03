@@ -8,9 +8,16 @@ properties:
     getter: true
     setter: true
 
-  - name: input_hints
+  - name: input_hints_tokens
     type: std::vector<std::pair<std::string, std::string>>
-    init_with: 'build_placeholder_input_hints()'
+    init_with: 'build_placeholder_input_hints_tokens()'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: keyboard_combo_tokens
+    type: std::vector<std::string>
+    init_with: '{}'
     constructor_arg: true
     getter: true
     setter: true
@@ -52,7 +59,7 @@ functions:
       - al_is_primitives_addon_initialized()
     body: |
       draw_inputs_bar();
-      draw_inputs_text();
+      draw_inputs_hints_tokens();
       return;
     body_dependency_symbols:
       - al_is_system_installed
@@ -70,19 +77,25 @@ functions:
       return;
 
 
-  - name: draw_inputs_text
+  - name: draw_keyboard_combo_tokens
+    body: |
+      // TODO
+      return;
+
+
+  - name: draw_inputs_hints_tokens
     body: |
       // draw inputs text
       ALLEGRO_FONT *font = obtain_font();
       std::string SPACER = "         ";
 
       std::stringstream inputs_composite_str;
-      for (int i=0; i<input_hints.size(); i++)
+      for (int i=0; i<input_hints_tokens.size(); i++)
       {
-         auto &input_hint = input_hints[i];
+         auto &input_hint = input_hints_tokens[i];
          std::string input_hint_key = input_hint.first;
          std::string input_hint_description = input_hint.second;
-         bool is_last_input_hint = (i == input_hints.size()-1);
+         bool is_last_input_hint = (i == input_hints_tokens.size()-1);
  
          inputs_composite_str << input_hint_key << "  " << input_hint_description;
          if (!is_last_input_hint) inputs_composite_str << SPACER;
@@ -100,7 +113,7 @@ functions:
       return;
 
 
-  - name: build_placeholder_input_hints
+  - name: build_placeholder_input_hints_tokens
     static: true
     type: std::vector<std::pair<std::string, std::string>>
     body: |

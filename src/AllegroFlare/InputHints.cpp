@@ -15,9 +15,10 @@ namespace AllegroFlare
 {
 
 
-InputHints::InputHints(AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> input_hints)
+InputHints::InputHints(AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> input_hints_tokens, std::vector<std::string> keyboard_combo_tokens)
    : font_bin(font_bin)
-   , input_hints(input_hints)
+   , input_hints_tokens(input_hints_tokens)
+   , keyboard_combo_tokens(keyboard_combo_tokens)
    , bar_height(60)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , surface_width(1920)
@@ -37,9 +38,15 @@ void InputHints::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void InputHints::set_input_hints(std::vector<std::pair<std::string, std::string>> input_hints)
+void InputHints::set_input_hints_tokens(std::vector<std::pair<std::string, std::string>> input_hints_tokens)
 {
-   this->input_hints = input_hints;
+   this->input_hints_tokens = input_hints_tokens;
+}
+
+
+void InputHints::set_keyboard_combo_tokens(std::vector<std::string> keyboard_combo_tokens)
+{
+   this->keyboard_combo_tokens = keyboard_combo_tokens;
 }
 
 
@@ -73,9 +80,15 @@ AllegroFlare::FontBin* InputHints::get_font_bin()
 }
 
 
-std::vector<std::pair<std::string, std::string>> InputHints::get_input_hints()
+std::vector<std::pair<std::string, std::string>> InputHints::get_input_hints_tokens()
 {
-   return input_hints;
+   return input_hints_tokens;
+}
+
+
+std::vector<std::string> InputHints::get_keyboard_combo_tokens()
+{
+   return keyboard_combo_tokens;
 }
 
 
@@ -130,7 +143,7 @@ void InputHints::render()
          throw std::runtime_error(error_message.str());
       }
    draw_inputs_bar();
-   draw_inputs_text();
+   draw_inputs_hints_tokens();
    return;
 }
 
@@ -143,19 +156,25 @@ void InputHints::draw_inputs_bar()
    return;
 }
 
-void InputHints::draw_inputs_text()
+void InputHints::draw_keyboard_combo_tokens()
+{
+   // TODO
+   return;
+}
+
+void InputHints::draw_inputs_hints_tokens()
 {
    // draw inputs text
    ALLEGRO_FONT *font = obtain_font();
    std::string SPACER = "         ";
 
    std::stringstream inputs_composite_str;
-   for (int i=0; i<input_hints.size(); i++)
+   for (int i=0; i<input_hints_tokens.size(); i++)
    {
-      auto &input_hint = input_hints[i];
+      auto &input_hint = input_hints_tokens[i];
       std::string input_hint_key = input_hint.first;
       std::string input_hint_description = input_hint.second;
-      bool is_last_input_hint = (i == input_hints.size()-1);
+      bool is_last_input_hint = (i == input_hints_tokens.size()-1);
 
       inputs_composite_str << input_hint_key << "  " << input_hint_description;
       if (!is_last_input_hint) inputs_composite_str << SPACER;
@@ -173,7 +192,7 @@ void InputHints::draw_inputs_text()
    return;
 }
 
-std::vector<std::pair<std::string, std::string>> InputHints::build_placeholder_input_hints()
+std::vector<std::pair<std::string, std::string>> InputHints::build_placeholder_input_hints_tokens()
 {
    return std::vector<std::pair<std::string, std::string>>{
       { "[W/A/S/D]", "Move cursor" },
