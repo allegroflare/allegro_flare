@@ -50,7 +50,7 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixtur
    CAPTURE__render__will_render_the_keyboard_combo_tokens)
 {
    std::vector<std::vector<std::string>> test_keyboard_input_key_combos = {
-      { { "SHIFT", "+", "N" } },
+      { { "SHIFT", "%SPACE", "N" } },
       { { "A" } },
    };
 

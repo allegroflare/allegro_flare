@@ -103,15 +103,23 @@ void KeyboardKeyCombo::render()
       }
    AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
    float box_height = get_keyboard_key_box_height();
+   float token_spacing = 10;
 
    float cursor_x = 0;
    for (auto &keyboard_combo_token : keyboard_combo_tokens)
    {
-      keyboard_key.set_keyboard_key_str(keyboard_combo_token);
-      keyboard_key.set_x(cursor_x);
-      //keyboard_key.set_x = 
-      float key_width = keyboard_key.render();
-      cursor_x += key_width;
+      if (keyboard_combo_token == "%SPACE")
+      {
+         cursor_x += token_spacing;
+      }
+      else // is a regular interpreted-as-text token
+      {
+         keyboard_key.set_keyboard_key_str(keyboard_combo_token);
+         keyboard_key.set_x(cursor_x);
+         //keyboard_key.set_x = 
+         float key_width = keyboard_key.render();
+         cursor_x += key_width;
+      }
    }
    return;
 }
