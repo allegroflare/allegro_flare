@@ -105,13 +105,17 @@ void InputHints::render()
          error_message << "InputHints" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   // draw inputs
-   float height = bar_height;
-   float hud_opacity = 0.35;
-   ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, hud_opacity};
-   al_draw_filled_rectangle(0, surface_height-height, surface_width, surface_height, backfill_color);
-
+   draw_inputs_bar();
    draw_inputs_text();
+   return;
+}
+
+void InputHints::draw_inputs_bar()
+{
+   // draw inputs
+   float backfill_opacity = 0.35;
+   ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, backfill_opacity};
+   al_draw_filled_rectangle(0, surface_height-bar_height, surface_width, surface_height, backfill_color);
    return;
 }
 

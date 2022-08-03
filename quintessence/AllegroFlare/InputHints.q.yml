@@ -46,12 +46,7 @@ functions:
       - al_is_ttf_addon_initialized()
       - al_is_primitives_addon_initialized()
     body: |
-      // draw inputs
-      float height = bar_height;
-      float hud_opacity = 0.35;
-      ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, hud_opacity};
-      al_draw_filled_rectangle(0, surface_height-height, surface_width, surface_height, backfill_color);
-
+      draw_inputs_bar();
       draw_inputs_text();
       return;
     body_dependency_symbols:
@@ -59,6 +54,15 @@ functions:
       - al_is_font_addon_initialized
       - al_is_ttf_addon_initialized
       - al_is_primitives_addon_initialized
+
+
+  - name: draw_inputs_bar
+    body: |
+      // draw inputs
+      float backfill_opacity = 0.35;
+      ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, backfill_opacity};
+      al_draw_filled_rectangle(0, surface_height-bar_height, surface_width, surface_height, backfill_color);
+      return;
 
 
   - name: draw_inputs_text

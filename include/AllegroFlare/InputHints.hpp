@@ -34,6 +34,7 @@ namespace AllegroFlare
       int get_surface_height();
       int get_bar_height();
       void render();
+      void draw_inputs_bar();
       void draw_inputs_text();
       static std::vector<std::pair<std::string, std::string>> build_placeholder_input_hints();
       ALLEGRO_FONT* obtain_font();
