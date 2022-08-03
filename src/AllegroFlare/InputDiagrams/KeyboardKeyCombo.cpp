@@ -103,14 +103,38 @@ void KeyboardKeyCombo::render()
       }
    AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
    float box_height = get_keyboard_key_box_height();
-   float token_spacing = 10;
+   float token_space_width = 10;
+   float token_big_space_width = 16;
+   bool next_token_is_raw_text = false;
 
    float cursor_x = 0;
    for (auto &keyboard_combo_token : keyboard_combo_tokens)
    {
-      if (keyboard_combo_token == "%SPACE")
+      if (next_token_is_raw_text)
       {
-         cursor_x += token_spacing;
+         bool next_token_is_raw_text = false;
+         ALLEGRO_FONT *font = obtain_font();
+         float font_ascent_height = al_get_font_line_height(font);
+         al_draw_text(
+            font,
+            color,
+            (int)(cursor_x),
+            (int)(box_height/ 2 - font_ascent_height / 2),
+            ALLEGRO_ALIGN_LEFT,
+            keyboard_combo_token.c_str()
+         );
+      }
+      else if (keyboard_combo_token == "%SPACE")
+      {
+         cursor_x += token_space_width;
+      }
+      else if (keyboard_combo_token == "%BIGSPACE")
+      {
+         cursor_x += token_big_space_width;
+      }
+      else if (keyboard_combo_token == "LABEL>>")
+      {
+         next_token_is_raw_text = true;
       }
       else if (keyboard_combo_token == "%PLUS")
       {
@@ -146,7 +170,7 @@ ALLEGRO_FONT* KeyboardKeyCombo::obtain_font()
          throw std::runtime_error(error_message.str());
       }
    std::string font_name = "Inter-Medium.ttf";
-   int font_size = -24;
+   int font_size = -26;
 
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
