@@ -1,0 +1,81 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: keyboard_combo_tokens
+    type: std::vector<std::string>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    guards:
+      - al_is_system_installed()
+      - al_is_font_addon_initialized()
+      - al_is_ttf_addon_initialized()
+      - al_is_primitives_addon_initialized()
+    body: |
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - al_is_font_addon_initialized
+      - al_is_ttf_addon_initialized
+      - al_is_primitives_addon_initialized
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::string font_name = "Inter-Medium.ttf";
+      int font_size = -20;
+
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_font_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_is_ttf_addon_initialized
+    headers: [ allegro5/allegro_ttf.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+
+
