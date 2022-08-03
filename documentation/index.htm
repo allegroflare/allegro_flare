@@ -3085,6 +3085,14 @@ table td
   <td class="property">color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -3147,7 +3155,7 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
-  <td class="property">keyboard_combo_tokens</td>
+  <td class="property">keyboard_key_combo_tokens</td>
   <td class="property">std::vector&lt;std::string&gt;</td>
 </tr>
 <tr>
@@ -3175,7 +3183,7 @@ table td
   <td class="method">draw_inputs_bar()</td>
 </tr>
 <tr>
-  <td class="method">draw_keyboard_combo_tokens()</td>
+  <td class="method">draw_keyboard_key_combo_tokens()</td>
 </tr>
 <tr>
   <td class="method">draw_inputs_hints_tokens()</td>
@@ -3213,7 +3221,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InputDiagrams::KeyboardKey&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InputDiagrams/KeyboardKey.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InputDiagrams::KeyboardKeyCombo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InputDiagrams/KeyboardKeyCombo.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -6148,7 +6156,9 @@ table td
     "AllegroFlare/Generators/PersonNameGenerator"
   ],
   "AllegroFlare/InputDiagrams/KeyboardKey": [
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
+  ],
+  "AllegroFlare/InputDiagrams/KeyboardKeyCombo": [
     "AllegroFlare/InputHints"
   ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [

@@ -568,7 +568,9 @@
     "AllegroFlare/Generators/PersonNameGenerator"
   ],
   "AllegroFlare/InputDiagrams/KeyboardKey": [
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
+  ],
+  "AllegroFlare/InputDiagrams/KeyboardKeyCombo": [
     "AllegroFlare/InputHints"
   ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [

@@ -69,3 +69,22 @@ TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render__keyboard_key_combo_tokens__when_they_are_present)
+{
+   std::vector<std::string> keyboard_key_combo_tokens = {
+      "I", "%SPACER", "LABEL>>", "Toggle inventory", 
+      "%SEPARATOR",
+      "X", "%SPACER", "LABEL>>", "Exit", 
+      "%SEPARATOR",
+      "P", "%SPACER", "LABEL>>", "Pause", 
+   };
+
+   AllegroFlare::InputHints input_hints(&get_font_bin_ref());
+   input_hints.set_keyboard_key_combo_tokens(keyboard_key_combo_tokens);
+   al_clear_to_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
+   input_hints.render();
+   al_flip_display();
+}
+
+

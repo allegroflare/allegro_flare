@@ -7,6 +7,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/InputDiagrams/KeyboardKeyCombo.hpp>
 #include <stdexcept>
 #include <sstream>
 
@@ -15,10 +16,10 @@ namespace AllegroFlare
 {
 
 
-InputHints::InputHints(AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> input_hints_tokens, std::vector<std::string> keyboard_combo_tokens)
+InputHints::InputHints(AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> input_hints_tokens, std::vector<std::string> keyboard_key_combo_tokens)
    : font_bin(font_bin)
    , input_hints_tokens(input_hints_tokens)
-   , keyboard_combo_tokens(keyboard_combo_tokens)
+   , keyboard_key_combo_tokens(keyboard_key_combo_tokens)
    , bar_height(60)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , surface_width(1920)
@@ -44,9 +45,9 @@ void InputHints::set_input_hints_tokens(std::vector<std::pair<std::string, std::
 }
 
 
-void InputHints::set_keyboard_combo_tokens(std::vector<std::string> keyboard_combo_tokens)
+void InputHints::set_keyboard_key_combo_tokens(std::vector<std::string> keyboard_key_combo_tokens)
 {
-   this->keyboard_combo_tokens = keyboard_combo_tokens;
+   this->keyboard_key_combo_tokens = keyboard_key_combo_tokens;
 }
 
 
@@ -86,9 +87,9 @@ std::vector<std::pair<std::string, std::string>> InputHints::get_input_hints_tok
 }
 
 
-std::vector<std::string> InputHints::get_keyboard_combo_tokens()
+std::vector<std::string> InputHints::get_keyboard_key_combo_tokens()
 {
-   return keyboard_combo_tokens;
+   return keyboard_key_combo_tokens;
 }
 
 
@@ -143,7 +144,8 @@ void InputHints::render()
          throw std::runtime_error(error_message.str());
       }
    draw_inputs_bar();
-   draw_inputs_hints_tokens();
+   if (!keyboard_key_combo_tokens.empty()) draw_keyboard_key_combo_tokens();
+   else draw_inputs_hints_tokens();
    return;
 }
 
@@ -156,9 +158,15 @@ void InputHints::draw_inputs_bar()
    return;
 }
 
-void InputHints::draw_keyboard_combo_tokens()
+void InputHints::draw_keyboard_key_combo_tokens()
 {
-   // TODO
+   AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(font_bin, keyboard_key_combo_tokens);
+   float width = keyboard_key_combo.calculate_width();
+   float height = keyboard_key_combo.get_keyboard_key_box_height();
+
+   keyboard_key_combo.set_x(surface_width/2 - width/2);
+   keyboard_key_combo.set_y((int)(surface_height - bar_height/2 - height/2));
+   keyboard_key_combo.render();
    return;
 }
 

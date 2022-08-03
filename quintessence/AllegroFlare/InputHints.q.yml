@@ -15,7 +15,7 @@ properties:
     getter: true
     setter: true
 
-  - name: keyboard_combo_tokens
+  - name: keyboard_key_combo_tokens
     type: std::vector<std::string>
     init_with: '{}'
     constructor_arg: true
@@ -59,7 +59,8 @@ functions:
       - al_is_primitives_addon_initialized()
     body: |
       draw_inputs_bar();
-      draw_inputs_hints_tokens();
+      if (!keyboard_key_combo_tokens.empty()) draw_keyboard_key_combo_tokens();
+      else draw_inputs_hints_tokens();
       return;
     body_dependency_symbols:
       - al_is_system_installed
@@ -77,10 +78,18 @@ functions:
       return;
 
 
-  - name: draw_keyboard_combo_tokens
+  - name: draw_keyboard_key_combo_tokens
     body: |
-      // TODO
+      AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(font_bin, keyboard_key_combo_tokens);
+      float width = keyboard_key_combo.calculate_width();
+      float height = keyboard_key_combo.get_keyboard_key_box_height();
+
+      keyboard_key_combo.set_x(surface_width/2 - width/2);
+      keyboard_key_combo.set_y((int)(surface_height - bar_height/2 - height/2));
+      keyboard_key_combo.render();
       return;
+    body_dependency_symbols:
+      - AllegroFlare::InputDiagrams::KeyboardKeyCombo
 
 
   - name: draw_inputs_hints_tokens
@@ -159,7 +168,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
-  - symbol: AllegroFlare::InputDiagrams::KeyboardKey
-    headers: [ AllegroFlare/InputDiagrams/KeyboardKey.hpp ]
+  - symbol: AllegroFlare::InputDiagrams::KeyboardKeyCombo
+    headers: [ AllegroFlare/InputDiagrams/KeyboardKeyCombo.hpp ]
 
 

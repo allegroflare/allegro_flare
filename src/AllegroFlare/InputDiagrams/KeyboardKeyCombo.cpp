@@ -20,10 +20,12 @@ namespace InputDiagrams
 {
 
 
-KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<std::string> keyboard_combo_tokens, ALLEGRO_COLOR color)
+KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<std::string> keyboard_combo_tokens, ALLEGRO_COLOR color, float x, float y)
    : font_bin(font_bin)
    , keyboard_combo_tokens(keyboard_combo_tokens)
    , color(color)
+   , x(x)
+   , y(y)
 {
 }
 
@@ -51,6 +53,18 @@ void KeyboardKeyCombo::set_color(ALLEGRO_COLOR color)
 }
 
 
+void KeyboardKeyCombo::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void KeyboardKeyCombo::set_y(float y)
+{
+   this->y = y;
+}
+
+
 AllegroFlare::FontBin* KeyboardKeyCombo::get_font_bin()
 {
    return font_bin;
@@ -66,6 +80,18 @@ std::vector<std::string> KeyboardKeyCombo::get_keyboard_combo_tokens()
 ALLEGRO_COLOR KeyboardKeyCombo::get_color()
 {
    return color;
+}
+
+
+float KeyboardKeyCombo::get_x()
+{
+   return x;
+}
+
+
+float KeyboardKeyCombo::get_y()
+{
+   return y;
 }
 
 
@@ -123,8 +149,8 @@ float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
             al_draw_text(
                font,
                color,
-               (int)(cursor_x),
-               (int)(box_height/ 2 - font_ascent_height / 2),
+               (int)(x + cursor_x),
+               (int)(y + box_height/ 2 - font_ascent_height / 2),
                ALLEGRO_ALIGN_LEFT,
                keyboard_combo_token.c_str()
             );
@@ -157,8 +183,8 @@ float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
             al_draw_text(
                font,
                color,
-               (int)(cursor_x),
-               (int)(box_height/ 2 - font_ascent_height / 2),
+               (int)(x + cursor_x),
+               (int)(y + box_height/ 2 - font_ascent_height / 2),
                ALLEGRO_ALIGN_LEFT,
                "+"
             );
@@ -176,8 +202,8 @@ float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
             al_draw_text(
                font,
                color,
-               (int)(cursor_x),
-               (int)(box_height/ 2 - font_ascent_height / 2),
+               (int)(x + cursor_x),
+               (int)(y + box_height/ 2 - font_ascent_height / 2),
                ALLEGRO_ALIGN_LEFT,
                "/"
             );
@@ -188,15 +214,14 @@ float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
       else // is a regular interpreted-as-text token
       {
          keyboard_key.set_keyboard_key_str(keyboard_combo_token);
-         keyboard_key.set_x(cursor_x);
+         keyboard_key.set_x(x + cursor_x);
+         keyboard_key.set_y(y + cursor_x);
          //keyboard_key.set_x = 
          float key_width = 0;
          if (do_actually_draw) key_width = keyboard_key.render();
          cursor_x += key_width;
       }
-      std::cout << "=== " << cursor_x << std::endl;
    }
-      std::cout << "++++++= " << cursor_x << std::endl;
 
    return cursor_x;
 }

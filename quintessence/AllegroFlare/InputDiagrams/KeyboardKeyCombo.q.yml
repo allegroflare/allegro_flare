@@ -22,6 +22,20 @@ properties:
     getter: true
     setter: true
 
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -67,8 +81,8 @@ functions:
                al_draw_text(
                   font,
                   color,
-                  (int)(cursor_x),
-                  (int)(box_height/ 2 - font_ascent_height / 2),
+                  (int)(x + cursor_x),
+                  (int)(y + box_height/ 2 - font_ascent_height / 2),
                   ALLEGRO_ALIGN_LEFT,
                   keyboard_combo_token.c_str()
                );
@@ -101,8 +115,8 @@ functions:
                al_draw_text(
                   font,
                   color,
-                  (int)(cursor_x),
-                  (int)(box_height/ 2 - font_ascent_height / 2),
+                  (int)(x + cursor_x),
+                  (int)(y + box_height/ 2 - font_ascent_height / 2),
                   ALLEGRO_ALIGN_LEFT,
                   "+"
                );
@@ -120,8 +134,8 @@ functions:
                al_draw_text(
                   font,
                   color,
-                  (int)(cursor_x),
-                  (int)(box_height/ 2 - font_ascent_height / 2),
+                  (int)(x + cursor_x),
+                  (int)(y + box_height/ 2 - font_ascent_height / 2),
                   ALLEGRO_ALIGN_LEFT,
                   "/"
                );
@@ -132,15 +146,14 @@ functions:
          else // is a regular interpreted-as-text token
          {
             keyboard_key.set_keyboard_key_str(keyboard_combo_token);
-            keyboard_key.set_x(cursor_x);
+            keyboard_key.set_x(x + cursor_x);
+            keyboard_key.set_y(y + cursor_x);
             //keyboard_key.set_x = 
             float key_width = 0;
             if (do_actually_draw) key_width = keyboard_key.render();
             cursor_x += key_width;
          }
-         std::cout << "=== " << cursor_x << std::endl;
       }
-         std::cout << "++++++= " << cursor_x << std::endl;
 
       return cursor_x;
     body_dependency_symbols:
