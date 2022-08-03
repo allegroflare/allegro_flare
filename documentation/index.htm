@@ -95,6 +95,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/Base.q.yml">quintessence/AllegroFlare/GameEventDatas/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml">quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/InputHints.q.yml">quintessence/AllegroFlare/InputHints.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml</a></li>
@@ -2993,6 +2994,49 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/InputHints.q.yml">quintessence/AllegroFlare/InputHints.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">quote</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_font_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_ttf_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_ttf.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</h3>
      <table>
 <tr>
@@ -5426,6 +5470,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -5459,6 +5504,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -5475,6 +5521,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Time"
   ],
   "al_is_primitives_addon_initialized": [
@@ -5487,12 +5534,14 @@ table td
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/InputHints",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/draw_3d_line": [
@@ -5781,6 +5830,7 @@ table td
   ],
   "al_is_ttf_addon_initialized": [
     "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/InputHints",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/Elements/Base": [

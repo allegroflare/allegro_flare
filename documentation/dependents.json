@@ -73,6 +73,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -106,6 +107,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -122,6 +124,7 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Time"
   ],
   "al_is_primitives_addon_initialized": [
@@ -134,12 +137,14 @@
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/InputHints",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/draw_3d_line": [
@@ -428,6 +433,7 @@
   ],
   "al_is_ttf_addon_initialized": [
     "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/InputHints",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/Elements/Base": [
