@@ -104,7 +104,8 @@ void KeyboardKeyCombo::render()
    AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
    float box_height = get_keyboard_key_box_height();
    float token_space_width = 10;
-   float token_big_space_width = 16;
+   float token_big_space_width = 14;
+   float token_separator_width = 60;
    bool next_token_is_raw_text = false;
 
    float cursor_x = 0;
@@ -124,6 +125,8 @@ void KeyboardKeyCombo::render()
             ALLEGRO_ALIGN_LEFT,
             keyboard_combo_token.c_str()
          );
+
+         cursor_x += al_get_text_width(font, keyboard_combo_token.c_str());
       }
       else if (keyboard_combo_token == "%SPACE")
       {
@@ -132,6 +135,14 @@ void KeyboardKeyCombo::render()
       else if (keyboard_combo_token == "%BIGSPACE")
       {
          cursor_x += token_big_space_width;
+      }
+      else if (keyboard_combo_token == "%SPACER")
+      {
+         cursor_x += (token_big_space_width + token_space_width);
+      }
+      else if (keyboard_combo_token == "%SEPARATOR")
+      {
+         cursor_x += token_separator_width;
       }
       else if (keyboard_combo_token == "LABEL>>")
       {
@@ -148,6 +159,19 @@ void KeyboardKeyCombo::render()
             (int)(box_height/ 2 - font_ascent_height / 2),
             ALLEGRO_ALIGN_CENTER,
             "+"
+         );
+      }
+      else if (keyboard_combo_token == "%SLASH")
+      {
+         ALLEGRO_FONT *font = obtain_font();
+         float font_ascent_height = al_get_font_line_height(font);
+         al_draw_text(
+            font,
+            color,
+            (int)(cursor_x),
+            (int)(box_height/ 2 - font_ascent_height / 2),
+            ALLEGRO_ALIGN_CENTER,
+            "/"
          );
       }
       else // is a regular interpreted-as-text token
@@ -171,7 +195,7 @@ ALLEGRO_FONT* KeyboardKeyCombo::obtain_font()
          throw std::runtime_error(error_message.str());
       }
    std::string font_name = "Inter-Medium.ttf";
-   int font_size = -26;
+   int font_size = -28;
 
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;

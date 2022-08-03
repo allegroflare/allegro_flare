@@ -52,6 +52,15 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixtur
    std::vector<std::vector<std::string>> test_keyboard_input_key_combos = {
       { { "SHIFT", "%BIGSPACE", "%PLUS", "%BIGSPACE", "N", "%BIGSPACE", "%SPACE", "LABEL>>", "Create new" } },
       { { "W", "%SPACE", "A", "%SPACE", "S", "%SPACE", "D", "%BIGSPACE", "%SPACE", "LABEL>>", "Move player" } },
+      { { "PAGE UP", "%SPACE", "%SLASH", "%SPACE", "PAGE DOWN" } },
+      { { "CTRL", "%BIGSPACE", "%PLUS", "%BIGSPACE", "Z", "%SPACE", "%SLASH", "%SPACE", "Y",
+          "%BIGSPACE", "%SPACE", "LABEL>>", "Undo / Redo" } },
+      { { "I", "%SPACER", "LABEL>>", "Toggle inventory", 
+          "%SEPARATOR",
+          "X", "%SPACER", "LABEL>>", "Exit", 
+          "%SEPARATOR",
+          "P", "%SPACER", "LABEL>>", "Pause", 
+          } },
    };
 
    AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(&get_font_bin_ref());
