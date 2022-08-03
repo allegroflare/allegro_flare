@@ -75,7 +75,7 @@ float KeyboardKeyCombo::get_keyboard_key_box_height()
    return keyboard_key.get_keyboard_key_box_height();
 }
 
-void KeyboardKeyCombo::render()
+float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
 {
    if (!(al_is_system_installed()))
       {
@@ -107,6 +107,7 @@ void KeyboardKeyCombo::render()
    float token_spacer_width = 24;
    float token_separator_width = 60;
    bool next_token_is_raw_text = false;
+   bool do_actually_draw = !calculate_width_only_and_do_not_draw;
 
    float cursor_x = 0;
    for (auto &keyboard_combo_token : keyboard_combo_tokens)
@@ -116,15 +117,18 @@ void KeyboardKeyCombo::render()
          next_token_is_raw_text = false;
 
          ALLEGRO_FONT *font = obtain_font();
-         float font_ascent_height = al_get_font_line_height(font);
-         al_draw_text(
-            font,
-            color,
-            (int)(cursor_x),
-            (int)(box_height/ 2 - font_ascent_height / 2),
-            ALLEGRO_ALIGN_LEFT,
-            keyboard_combo_token.c_str()
-         );
+         if (do_actually_draw)
+         {
+            float font_ascent_height = al_get_font_line_height(font);
+            al_draw_text(
+               font,
+               color,
+               (int)(cursor_x),
+               (int)(box_height/ 2 - font_ascent_height / 2),
+               ALLEGRO_ALIGN_LEFT,
+               keyboard_combo_token.c_str()
+            );
+         }
 
          cursor_x += al_get_text_width(font, keyboard_combo_token.c_str());
       }
@@ -147,30 +151,37 @@ void KeyboardKeyCombo::render()
       else if (keyboard_combo_token == "%PLUS")
       {
          ALLEGRO_FONT *font = obtain_font();
-         float font_ascent_height = al_get_font_line_height(font);
-         al_draw_text(
-            font,
-            color,
-            (int)(cursor_x),
-            (int)(box_height/ 2 - font_ascent_height / 2),
-            ALLEGRO_ALIGN_LEFT,
-            "+"
-         );
+         if (do_actually_draw)
+         {
+            float font_ascent_height = al_get_font_line_height(font);
+            al_draw_text(
+               font,
+               color,
+               (int)(cursor_x),
+               (int)(box_height/ 2 - font_ascent_height / 2),
+               ALLEGRO_ALIGN_LEFT,
+               "+"
+            );
+         }
 
          cursor_x += al_get_text_width(font, "+");
       }
       else if (keyboard_combo_token == "%SLASH")
       {
          ALLEGRO_FONT *font = obtain_font();
-         float font_ascent_height = al_get_font_line_height(font);
-         al_draw_text(
-            font,
-            color,
-            (int)(cursor_x),
-            (int)(box_height/ 2 - font_ascent_height / 2),
-            ALLEGRO_ALIGN_LEFT,
-            "/"
-         );
+
+         if (do_actually_draw)
+         {
+            float font_ascent_height = al_get_font_line_height(font);
+            al_draw_text(
+               font,
+               color,
+               (int)(cursor_x),
+               (int)(box_height/ 2 - font_ascent_height / 2),
+               ALLEGRO_ALIGN_LEFT,
+               "/"
+            );
+         }
 
          cursor_x += al_get_text_width(font, "/");
       }
@@ -179,11 +190,20 @@ void KeyboardKeyCombo::render()
          keyboard_key.set_keyboard_key_str(keyboard_combo_token);
          keyboard_key.set_x(cursor_x);
          //keyboard_key.set_x = 
-         float key_width = keyboard_key.render();
+         float key_width = 0;
+         if (do_actually_draw) key_width = keyboard_key.render();
          cursor_x += key_width;
       }
+      std::cout << "=== " << cursor_x << std::endl;
    }
-   return;
+      std::cout << "++++++= " << cursor_x << std::endl;
+
+   return cursor_x;
+}
+
+float KeyboardKeyCombo::calculate_width()
+{
+   return render(true);
 }
 
 ALLEGRO_FONT* KeyboardKeyCombo::obtain_font()

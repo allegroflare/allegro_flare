@@ -34,6 +34,11 @@ functions:
       
 
   - name: render
+    type: float
+    parameters:
+      - name: calculate_width_only_and_do_not_draw
+        type: bool
+        default_argument: false
     guards:
       - al_is_system_installed()
       - al_is_font_addon_initialized()
@@ -46,6 +51,7 @@ functions:
       float token_spacer_width = 24;
       float token_separator_width = 60;
       bool next_token_is_raw_text = false;
+      bool do_actually_draw = !calculate_width_only_and_do_not_draw;
 
       float cursor_x = 0;
       for (auto &keyboard_combo_token : keyboard_combo_tokens)
@@ -55,15 +61,18 @@ functions:
             next_token_is_raw_text = false;
 
             ALLEGRO_FONT *font = obtain_font();
-            float font_ascent_height = al_get_font_line_height(font);
-            al_draw_text(
-               font,
-               color,
-               (int)(cursor_x),
-               (int)(box_height/ 2 - font_ascent_height / 2),
-               ALLEGRO_ALIGN_LEFT,
-               keyboard_combo_token.c_str()
-            );
+            if (do_actually_draw)
+            {
+               float font_ascent_height = al_get_font_line_height(font);
+               al_draw_text(
+                  font,
+                  color,
+                  (int)(cursor_x),
+                  (int)(box_height/ 2 - font_ascent_height / 2),
+                  ALLEGRO_ALIGN_LEFT,
+                  keyboard_combo_token.c_str()
+               );
+            }
 
             cursor_x += al_get_text_width(font, keyboard_combo_token.c_str());
          }
@@ -86,30 +95,37 @@ functions:
          else if (keyboard_combo_token == "%PLUS")
          {
             ALLEGRO_FONT *font = obtain_font();
-            float font_ascent_height = al_get_font_line_height(font);
-            al_draw_text(
-               font,
-               color,
-               (int)(cursor_x),
-               (int)(box_height/ 2 - font_ascent_height / 2),
-               ALLEGRO_ALIGN_LEFT,
-               "+"
-            );
+            if (do_actually_draw)
+            {
+               float font_ascent_height = al_get_font_line_height(font);
+               al_draw_text(
+                  font,
+                  color,
+                  (int)(cursor_x),
+                  (int)(box_height/ 2 - font_ascent_height / 2),
+                  ALLEGRO_ALIGN_LEFT,
+                  "+"
+               );
+            }
 
             cursor_x += al_get_text_width(font, "+");
          }
          else if (keyboard_combo_token == "%SLASH")
          {
             ALLEGRO_FONT *font = obtain_font();
-            float font_ascent_height = al_get_font_line_height(font);
-            al_draw_text(
-               font,
-               color,
-               (int)(cursor_x),
-               (int)(box_height/ 2 - font_ascent_height / 2),
-               ALLEGRO_ALIGN_LEFT,
-               "/"
-            );
+
+            if (do_actually_draw)
+            {
+               float font_ascent_height = al_get_font_line_height(font);
+               al_draw_text(
+                  font,
+                  color,
+                  (int)(cursor_x),
+                  (int)(box_height/ 2 - font_ascent_height / 2),
+                  ALLEGRO_ALIGN_LEFT,
+                  "/"
+               );
+            }
 
             cursor_x += al_get_text_width(font, "/");
          }
@@ -118,11 +134,15 @@ functions:
             keyboard_key.set_keyboard_key_str(keyboard_combo_token);
             keyboard_key.set_x(cursor_x);
             //keyboard_key.set_x = 
-            float key_width = keyboard_key.render();
+            float key_width = 0;
+            if (do_actually_draw) key_width = keyboard_key.render();
             cursor_x += key_width;
          }
+         std::cout << "=== " << cursor_x << std::endl;
       }
-      return;
+         std::cout << "++++++= " << cursor_x << std::endl;
+
+      return cursor_x;
     body_dependency_symbols:
       - al_is_system_installed
       - al_is_font_addon_initialized
@@ -131,6 +151,12 @@ functions:
       - al_draw_rounded_rectangle
       - al_draw_text
       - AllegroFlare::InputDiagrams::KeyboardKey
+
+
+  - name: calculate_width
+    type: float
+    body: |
+      return render(true);
 
 
   - name: obtain_font

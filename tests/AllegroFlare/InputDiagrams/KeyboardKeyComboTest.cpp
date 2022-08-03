@@ -95,7 +95,20 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixtur
 TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixture,
    calculate_width__will_return_the_width_of_the_diagram)
 {
-   // TODO
+   std::vector<std::tuple<std::vector<std::string>, int>> keyboard_input_key_combos_and_expected_widths = {
+      { { "A" }, 42 },
+      { { "." }, 42 },
+      { { "SHIFT", "%SPACE", "%PLUS", "%SPACE", "A" }, 151 },
+   };
+
+   for (auto &keyboard_input_key_combo_and_expected_width : keyboard_input_key_combos_and_expected_widths)
+   {
+      std::vector<std::string> keyboard_input_key_tokens = std::get<0>(keyboard_input_key_combo_and_expected_width);
+      float expected_diagram_width = std::get<1>(keyboard_input_key_combo_and_expected_width);
+      AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(&get_font_bin_ref(), keyboard_input_key_tokens);
+
+      EXPECT_EQ(expected_diagram_width, keyboard_key_combo.render(false));
+   }
 }
 
 

@@ -30,7 +30,8 @@ namespace AllegroFlare
          std::vector<std::string> get_keyboard_combo_tokens();
          ALLEGRO_COLOR get_color();
          float get_keyboard_key_box_height();
-         void render();
+         float render(bool calculate_width_only_and_do_not_draw=false);
+         float calculate_width();
          ALLEGRO_FONT* obtain_font();
       };
    }
