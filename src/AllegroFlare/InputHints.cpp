@@ -17,7 +17,7 @@ namespace AllegroFlare
 
 InputHints::InputHints(AllegroFlare::FontBin* font_bin)
    : font_bin(font_bin)
-   , quote({})
+   , input_hints({})
 {
 }
 
@@ -82,6 +82,18 @@ void InputHints::render()
       inputs.c_str()
    );
    return;
+}
+
+std::vector<std::pair<std::string, std::string>> InputHints::build_placeholder_input_hints()
+{
+   return std::vector<std::pair<std::string, std::string>>{
+      { "[W/A/S/D]", "Move cursor" },
+      { "[N/P]",     "Next/Previous entity" },
+      { "[Shift+8]", "Capture screenshot" },
+      { "[PAD +/-]", "Zoom" },
+      { "[ESC]",     "Toggle Inventory" },
+      { "[-/+]",     "Change time of day" },
+   };
 }
 
 ALLEGRO_FONT* InputHints::obtain_font()

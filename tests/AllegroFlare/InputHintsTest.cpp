@@ -43,3 +43,23 @@ TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture, CAPTURE__render__
    al_flip_display();
 }
 
+
+TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture,
+   build_placeholder_input_hints__builds_a_list_of_expected_hints)
+{
+   std::vector<std::pair<std::string, std::string>> expected_placeholder_hints = {
+      { "[W/A/S/D]", "Move cursor" },
+      { "[N/P]",     "Next/Previous entity" },
+      { "[Shift+8]", "Capture screenshot" },
+      { "[PAD +/-]", "Zoom" },
+      { "[ESC]",     "Toggle Inventory" },
+      { "[-/+]",     "Change time of day" },
+   };
+
+   std::vector<std::pair<std::string, std::string>> actual_placeholder_hints =
+      AllegroFlare::InputHints::build_placeholder_input_hints();
+
+   EXPECT_EQ(expected_placeholder_hints, actual_placeholder_hints);
+}
+
+

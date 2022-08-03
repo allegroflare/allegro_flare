@@ -3001,13 +3001,16 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
-  <td class="property">quote</td>
-  <td class="property">std::string</td>
+  <td class="property">input_hints</td>
+  <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
     </table>
      <table>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">build_placeholder_input_hints()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -3031,6 +3034,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -5742,6 +5748,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",

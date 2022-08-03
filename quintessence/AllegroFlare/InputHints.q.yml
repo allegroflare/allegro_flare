@@ -6,8 +6,8 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: quote
-    type: std::string
+  - name: input_hints
+    type: std::vector<std::pair<std::string, std::string>>
     init_with: '{}'
 
 
@@ -58,6 +58,19 @@ functions:
       - al_is_primitives_addon_initialized
 
 
+  - name: build_placeholder_input_hints
+    static: true
+    type: std::vector<std::pair<std::string, std::string>>
+    body: |
+      return std::vector<std::pair<std::string, std::string>>{
+         { "[W/A/S/D]", "Move cursor" },
+         { "[N/P]",     "Next/Previous entity" },
+         { "[Shift+8]", "Capture screenshot" },
+         { "[PAD +/-]", "Zoom" },
+         { "[ESC]",     "Toggle Inventory" },
+         { "[-/+]",     "Change time of day" },
+      };
+
 
   - name: obtain_font
     private: true
@@ -87,5 +100,7 @@ dependencies:
     headers: [ allegro5/allegro_ttf.h ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: std::vector<std::pair<std::string, std::string>>
+    headers: [ vector, utility, string ]
 
 
