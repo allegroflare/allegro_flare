@@ -307,6 +307,21 @@ namespace AllegroFlare
 
 
 
+   bool Placement2D::collide_as_if(ALLEGRO_BITMAP *bitmap, float x, float y)
+   {
+      // TODO: this function that will check pixel-perfect collision as if the subject under placement is a bitmap
+      // escape if bitmap==nullptr
+      // reverse transform x, y
+      // sample the bitmap at x, y
+      // if alpha return false
+      // return true
+      // add alpha threshold
+      // consider more ellaborate anchor, scale, transforms on the bitmap
+      std::cout << "[AllegroFlare/Placement2D::collide_as_if]: error: not implemented. Returning false.";
+      return false;
+   }
+
+
 
    bool Placement2D::collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left)
    {

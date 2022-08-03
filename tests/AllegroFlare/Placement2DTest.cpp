@@ -55,8 +55,15 @@ TEST_F(AllegroFlare_Placement2DTest,
 }
 
 
+TEST_F(AllegroFlare_Placement2DTest,
+   collide_as_if__will_check_pixel_perfect_collision_as_if_the_subject_under_placement_is_a_bitmap)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
-   DISABLED__collides__will_return_true_if_the_placement_collides_with_another_placement)
+   DISABLED__INTERACTIVE__collides__will_return_true_if_the_placement_collides_with_another_placement)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
    placement_a.rotation = 0.01f;
