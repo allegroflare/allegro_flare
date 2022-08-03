@@ -290,11 +290,18 @@ functions:
       ALLEGRO_FONT *copyright_font = obtain_copyright_font();
       int surface_width = 1920;
       int surface_height = 1080;
-      al_draw_text(
+      float line_height = al_get_font_line_height(copyright_font);
+
+      int number_of_lines = 1;
+      for (int i = 0; i < copyright_text.size(); i++) if (copyright_text[i] == '\n') number_of_lines++;
+
+      al_draw_multiline_text(
          copyright_font,
-         copyright_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-         surface_width / 2,
-         surface_height - 100,
+         copyright_text_color,
+         surface_width/2,
+         surface_height - 80 - (int)(number_of_lines * line_height / 2),
+         surface_width,
+         line_height,
          ALLEGRO_ALIGN_CENTER,
          get_copyright_text().c_str()
       );

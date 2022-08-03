@@ -57,6 +57,21 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture, CAPTURE_
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_support_copyright_text_as_multiple_lines)
+{
+   AllegroFlare::Screens::TitleScreen title_screen;
+   title_screen.set_font_bin(&get_font_bin_ref());
+   title_screen.set_bitmap_bin(&get_bitmap_bin_ref());
+   title_screen.set_copyright_text("Copyright 2022 - Gametastic Games\nALL RIGHTS RESERVED\nVersion 0.1alpha");
+
+   title_screen.render();
+
+   al_flip_display();
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
    select_menu_option__without_an_event_emitter__will_raise_an_exception)
 {
    // TODO
