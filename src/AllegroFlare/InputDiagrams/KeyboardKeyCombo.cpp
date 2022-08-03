@@ -102,13 +102,16 @@ void KeyboardKeyCombo::render()
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
-   //float box_height = keyboard_key.get_keyboard_key_box_height();
+   float box_height = get_keyboard_key_box_height();
 
+   float cursor_x = 0;
    for (auto &keyboard_combo_token : keyboard_combo_tokens)
    {
       keyboard_key.set_keyboard_key_str(keyboard_combo_token);
+      keyboard_key.set_x(cursor_x);
       //keyboard_key.set_x = 
-      keyboard_key.render();
+      float key_width = keyboard_key.render();
+      cursor_x += key_width;
    }
    return;
 }

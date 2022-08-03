@@ -158,8 +158,8 @@ float KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
    al_draw_rounded_rectangle(
       x + 0,
       y + 0,
-      box_width,
-      get_keyboard_key_box_height(),
+      x + box_width,
+      y + get_keyboard_key_box_height(),
       roundness,
       roundness,
       color,

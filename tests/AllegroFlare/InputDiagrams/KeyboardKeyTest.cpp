@@ -47,6 +47,20 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture, CA
 
 
 TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_position_the_diagrams_x_and_y)
+{
+   AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(&get_font_bin_ref(), "300, 200");
+   keyboard_key.set_x(300);
+   keyboard_key.set_y(200);
+   AllegroFlare::Placement2D placement = build_centered_placement();
+   placement.start_transform();
+   keyboard_key.render();
+   placement.restore_transform();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture,
    CAPTURE__render__will_render_the_keyboard_key_str)
 {
    AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(&get_font_bin_ref(), "SHIFT");
