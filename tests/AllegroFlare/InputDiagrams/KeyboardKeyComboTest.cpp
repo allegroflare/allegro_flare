@@ -50,8 +50,8 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixtur
    CAPTURE__render__will_render_the_keyboard_combo_tokens)
 {
    std::vector<std::vector<std::string>> test_keyboard_input_key_combos = {
-      { { "SHIFT", "%BIGSPACE", "%PLUS", "%BIGSPACE", "N", "%BIGSPACE", "%SPACE", "LABEL>>", "Thing that you do" } },
-      { { "W", "%SPACE", "A", "%SPACE", "S", "%SPACE", "D" } },
+      { { "SHIFT", "%BIGSPACE", "%PLUS", "%BIGSPACE", "N", "%BIGSPACE", "%SPACE", "LABEL>>", "Create new" } },
+      { { "W", "%SPACE", "A", "%SPACE", "S", "%SPACE", "D", "%BIGSPACE", "%SPACE", "LABEL>>", "Move player" } },
    };
 
    AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(&get_font_bin_ref());

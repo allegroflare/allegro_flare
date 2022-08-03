@@ -112,7 +112,8 @@ void KeyboardKeyCombo::render()
    {
       if (next_token_is_raw_text)
       {
-         bool next_token_is_raw_text = false;
+         next_token_is_raw_text = false;
+
          ALLEGRO_FONT *font = obtain_font();
          float font_ascent_height = al_get_font_line_height(font);
          al_draw_text(
