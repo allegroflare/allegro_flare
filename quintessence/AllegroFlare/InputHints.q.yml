@@ -32,7 +32,7 @@ functions:
       al_draw_filled_rectangle(0, surface_height-height, surface_width, surface_height, backfill_color);
 
       // draw inputs text
-      ALLEGRO_FONT *font = obtain_font(); //font_bin["SourceSerif4_18pt-SemiBoldItalic.ttf -30"];
+      ALLEGRO_FONT *font = obtain_font();
       std::string SPACER = "         ";
       std::string inputs = "[W/A/S/D]  Move cursor"
                          + SPACER + "[N/P]  Next/Previous entity"
@@ -40,7 +40,6 @@ functions:
                          + SPACER + "[PAD +/-]  Zoom"
                          + SPACER + "[ESC]  Toggle Inventory"
                          + SPACER + "[-/+]  Change time of day";
-      //float text_width = al_get_text_width(font, inputs.str());
       float text_height = al_get_font_line_height(font);
       al_draw_text(
          font,
