@@ -48,6 +48,8 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_font_size(menu_font_size)
    , copyright_font_size(copyright_font_size)
    , menu_options(build_default_menu_options())
+   , menu_position_x(1920 / 2)
+   , menu_position_y(1080 / 2)
    , cursor_position(0)
 {
 }
@@ -148,6 +150,18 @@ void TitleScreen::set_copyright_font_size(int copyright_font_size)
 }
 
 
+void TitleScreen::set_menu_position_x(float menu_position_x)
+{
+   this->menu_position_x = menu_position_x;
+}
+
+
+void TitleScreen::set_menu_position_y(float menu_position_y)
+{
+   this->menu_position_y = menu_position_y;
+}
+
+
 std::string TitleScreen::get_title_text()
 {
    return title_text;
@@ -223,6 +237,18 @@ int TitleScreen::get_copyright_font_size()
 std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options()
 {
    return menu_options;
+}
+
+
+float TitleScreen::get_menu_position_x()
+{
+   return menu_position_x;
+}
+
+
+float TitleScreen::get_menu_position_y()
+{
+   return menu_position_y;
 }
 
 
@@ -324,6 +350,12 @@ void TitleScreen::render()
       {
          std::stringstream error_message;
          error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(al_is_primitives_addon_initialized()))
+      {
+         std::stringstream error_message;
+         error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (!(al_is_font_addon_initialized()))
@@ -448,8 +480,8 @@ void TitleScreen::draw_menu()
       ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
          ? ALLEGRO_COLOR{0, 0, 0, 1.0} : menu_text_color;
 
-      float x = surface_width / 2;
-      float y = surface_height / 2 + menu_item_vertical_spacing * menu_item_num;
+      float x = menu_position_x;
+      float y = menu_position_y + menu_item_vertical_spacing * menu_item_num;
 
       if (showing_cursor_on_this_option)
       {

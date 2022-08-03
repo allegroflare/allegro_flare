@@ -35,6 +35,8 @@ namespace AllegroFlare
          int menu_font_size;
          int copyright_font_size;
          std::vector<std::pair<std::string, std::string>> menu_options;
+         float menu_position_x;
+         float menu_position_y;
          int cursor_position;
 
       public:
@@ -56,6 +58,8 @@ namespace AllegroFlare
          void set_title_font_size(int title_font_size);
          void set_menu_font_size(int menu_font_size);
          void set_copyright_font_size(int copyright_font_size);
+         void set_menu_position_x(float menu_position_x);
+         void set_menu_position_y(float menu_position_y);
          std::string get_title_text();
          std::string get_copyright_text();
          std::string get_background_bitmap_name();
@@ -69,6 +73,8 @@ namespace AllegroFlare
          int get_menu_font_size();
          int get_copyright_font_size();
          std::vector<std::pair<std::string, std::string>> get_menu_options();
+         float get_menu_position_x();
+         float get_menu_position_y();
          int get_cursor_position();
          virtual void on_activate() override;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});

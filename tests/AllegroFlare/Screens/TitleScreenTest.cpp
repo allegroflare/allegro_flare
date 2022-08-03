@@ -39,7 +39,12 @@ TEST_F(AllegroFlare_Screens_TitleScreenTest, render__without_allegro_initialized
 
 TEST_F(AllegroFlare_Screens_TitleScreenTest, render__without_primitives_addon_initialized__raises_an_error)
 {
-   // TODO
+   al_init();
+   AllegroFlare::Screens::TitleScreen title_screen;
+   std::string expected_error_message =
+      "TitleScreen::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
+   ASSERT_THROW_WITH_MESSAGE(title_screen.render(), std::runtime_error, expected_error_message);
+   al_uninstall_system();
 }
 
 

@@ -116,6 +116,18 @@ properties:
     init_with: 'build_default_menu_options()'
     getter: true
 
+  - name: menu_position_x
+    type: float
+    init_with: 1920 / 2
+    getter: true
+    setter: true
+
+  - name: menu_position_y
+    type: float
+    init_with: 1080 / 2
+    getter: true
+    setter: true
+
   - name: cursor_position
     type: int
     init_with: 0
@@ -225,7 +237,7 @@ functions:
 
 
   - name: render
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized() ]
     body: |
       draw_background();
       draw_title();
@@ -340,8 +352,8 @@ functions:
          ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
             ? ALLEGRO_COLOR{0, 0, 0, 1.0} : menu_text_color;
 
-         float x = surface_width / 2;
-         float y = surface_height / 2 + menu_item_vertical_spacing * menu_item_num;
+         float x = menu_position_x;
+         float y = menu_position_y + menu_item_vertical_spacing * menu_item_num;
 
          if (showing_cursor_on_this_option)
          {
