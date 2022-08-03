@@ -146,5 +146,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
+  - symbol: AllegroFlare::InputDiagrams::KeyboardKey
+    headers: [ AllegroFlare/InputDiagrams/KeyboardKey.hpp ]
 
 

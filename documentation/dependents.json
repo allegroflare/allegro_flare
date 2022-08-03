@@ -558,6 +558,9 @@
   "AllegroFlare/Random": [
     "AllegroFlare/Generators/PersonNameGenerator"
   ],
+  "AllegroFlare/InputDiagrams/KeyboardKey": [
+    "AllegroFlare/InputHints"
+  ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],
