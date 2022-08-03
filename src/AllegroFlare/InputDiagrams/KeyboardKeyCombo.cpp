@@ -112,6 +112,19 @@ void KeyboardKeyCombo::render()
       {
          cursor_x += token_spacing;
       }
+      else if (keyboard_combo_token == "%PLUS")
+      {
+         ALLEGRO_FONT *font = obtain_font();
+         float font_ascent_height = al_get_font_line_height(font);
+         al_draw_text(
+            font,
+            color,
+            (int)(cursor_x),
+            (int)(box_height/ 2 - font_ascent_height / 2),
+            ALLEGRO_ALIGN_CENTER,
+            "+"
+         );
+      }
       else // is a regular interpreted-as-text token
       {
          keyboard_key.set_keyboard_key_str(keyboard_combo_token);
@@ -133,7 +146,7 @@ ALLEGRO_FONT* KeyboardKeyCombo::obtain_font()
          throw std::runtime_error(error_message.str());
       }
    std::string font_name = "Inter-Medium.ttf";
-   int font_size = -20;
+   int font_size = -24;
 
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
