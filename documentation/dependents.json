@@ -258,6 +258,7 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",

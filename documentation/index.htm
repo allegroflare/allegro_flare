@@ -3004,10 +3004,29 @@ table td
   <td class="property">input_hints</td>
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">bar_height</td>
+  <td class="property">int</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">draw_inputs_text()</td>
 </tr>
 <tr>
   <td class="method">build_placeholder_input_hints()</td>
@@ -3019,6 +3038,9 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
@@ -5661,6 +5683,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputHints",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",

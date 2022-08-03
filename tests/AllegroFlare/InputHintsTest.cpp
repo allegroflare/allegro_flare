@@ -35,6 +35,12 @@ TEST_F(AllegroFlare_InputHintsTest, render__without_allegro_initialized__raises_
 }
 
 
+TEST_F(AllegroFlare_InputHintsTest, text_color__has_the_expected_default)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::InputHints input_hints(&get_font_bin_ref());

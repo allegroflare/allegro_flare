@@ -10,6 +10,30 @@ properties:
     type: std::vector<std::pair<std::string, std::string>>
     init_with: '{}'
 
+  - name: text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: surface_width
+    type: int
+    init_with: 1920
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: int
+    init_with: 1080
+    getter: true
+    setter: true
+
+  - name: bar_height
+    type: int
+    init_with: 60
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -22,15 +46,23 @@ functions:
       - al_is_ttf_addon_initialized()
       - al_is_primitives_addon_initialized()
     body: |
-      int surface_width = 1920;
-      int surface_height = 1080;
-      
       // draw inputs
-      float height = 60;
+      float height = bar_height;
       float hud_opacity = 0.35;
       ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, hud_opacity};
       al_draw_filled_rectangle(0, surface_height-height, surface_width, surface_height, backfill_color);
 
+      draw_inputs_text();
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - al_is_font_addon_initialized
+      - al_is_ttf_addon_initialized
+      - al_is_primitives_addon_initialized
+
+
+  - name: draw_inputs_text
+    body: |
       // draw inputs text
       ALLEGRO_FONT *font = obtain_font();
       std::string SPACER = "         ";
@@ -43,18 +75,13 @@ functions:
       float text_height = al_get_font_line_height(font);
       al_draw_text(
          font,
-         ALLEGRO_COLOR{1, 1, 1, 1},
+         text_color,
          surface_width/2,
-         (int)(surface_height-text_height/2-height/2),
+         (int)(surface_height-text_height/2-bar_height/2),
          ALLEGRO_ALIGN_CENTER,
          inputs.c_str()
       );
       return;
-    body_dependency_symbols:
-      - al_is_system_installed
-      - al_is_font_addon_initialized
-      - al_is_ttf_addon_initialized
-      - al_is_primitives_addon_initialized
 
 
   - name: build_placeholder_input_hints
@@ -89,6 +116,8 @@ dependencies:
 
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_is_system_installed
