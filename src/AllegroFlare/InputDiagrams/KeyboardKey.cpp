@@ -19,10 +19,12 @@ namespace InputDiagrams
 {
 
 
-KeyboardKey::KeyboardKey(AllegroFlare::FontBin* font_bin, std::string keyboard_key_str, ALLEGRO_COLOR color)
+KeyboardKey::KeyboardKey(AllegroFlare::FontBin* font_bin, std::string keyboard_key_str, ALLEGRO_COLOR color, float keyboard_key_box_height, float keyboard_key_box_min_width)
    : font_bin(font_bin)
    , keyboard_key_str(keyboard_key_str)
    , color(color)
+   , keyboard_key_box_height(keyboard_key_box_height)
+   , keyboard_key_box_min_width(keyboard_key_box_min_width)
 {
 }
 
@@ -50,6 +52,18 @@ void KeyboardKey::set_color(ALLEGRO_COLOR color)
 }
 
 
+void KeyboardKey::set_keyboard_key_box_height(float keyboard_key_box_height)
+{
+   this->keyboard_key_box_height = keyboard_key_box_height;
+}
+
+
+void KeyboardKey::set_keyboard_key_box_min_width(float keyboard_key_box_min_width)
+{
+   this->keyboard_key_box_min_width = keyboard_key_box_min_width;
+}
+
+
 AllegroFlare::FontBin* KeyboardKey::get_font_bin()
 {
    return font_bin;
@@ -68,7 +82,19 @@ ALLEGRO_COLOR KeyboardKey::get_color()
 }
 
 
-void KeyboardKey::render()
+float KeyboardKey::get_keyboard_key_box_height()
+{
+   return keyboard_key_box_height;
+}
+
+
+float KeyboardKey::get_keyboard_key_box_min_width()
+{
+   return keyboard_key_box_min_width;
+}
+
+
+float KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
 {
    if (!(al_is_system_installed()))
       {
@@ -95,15 +121,30 @@ void KeyboardKey::render()
          throw std::runtime_error(error_message.str());
       }
    ALLEGRO_FONT *font = obtain_font();
-   float padding_x = 6;
-   float padding_y = 5;
-   float roundness = 6;
+   float padding_x = 12;
+   float text_width = al_get_text_width(font, keyboard_key_str.c_str());
+   float box_width = std::max(keyboard_key_box_min_width, text_width + padding_x*2);
+   if (calculate_width_only_and_do_not_draw) return box_width;
+   float roundness = 4;
    float line_thickness = 1.5;
+   float font_ascent_height = al_get_font_line_height(font);
 
-   al_draw_rounded_rectangle(0, 0, 100, 40, roundness, roundness, color, line_thickness);
-   al_draw_text(font, color, padding_x, padding_y, 0, keyboard_key_str.c_str());
+   al_draw_rounded_rectangle(0, 0, box_width, get_keyboard_key_box_height(), roundness, roundness, color, line_thickness);
+   al_draw_text(
+      font,
+      color,
+      (int)(box_width / 2),
+      (int)(keyboard_key_box_height / 2 - font_ascent_height / 2),
+      ALLEGRO_ALIGN_CENTER,
+      keyboard_key_str.c_str()
+   );
 
-   return;
+   return box_width;
+}
+
+float KeyboardKey::calculate_width()
+{
+   return render(true);
 }
 
 ALLEGRO_FONT* KeyboardKey::obtain_font()

@@ -58,3 +58,50 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture,
+   CAPTURE__various_examples)
+{
+   std::vector<std::string> test_keyboard_input_keys = { "SHIFT", "A", ".", "/", "PGUP" };
+
+   for (int i=0; i<test_keyboard_input_keys.size(); i++)
+   {
+      std::string test_keyboard_input_key = test_keyboard_input_keys[i];
+      AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(&get_font_bin_ref(), test_keyboard_input_key);
+      float keyboard_key_box_height = keyboard_key.get_keyboard_key_box_height();
+      AllegroFlare::Placement2D placement = build_centered_placement(0, 0);
+      placement.position.y += (i * keyboard_key_box_height * 1.5)
+                           - (test_keyboard_input_keys.size() * keyboard_key_box_height / 2)
+                           ;
+      placement.start_transform();
+
+      keyboard_key.render();
+
+      placement.restore_transform();
+   }
+
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture,
+   calculate_width__will_return_the_width_of_the_diagram)
+{
+   std::vector<std::tuple<std::string, int>> keyboard_input_keys_and_expected_widths = {
+      { "SHIFT", 74 },
+      { "A", 42 },
+      { ".", 42 },
+      { "/", 42 },
+      { "PGUP", 72 },
+   };
+
+   for (auto &keyboard_input_key_and_expected_width : keyboard_input_keys_and_expected_widths)
+   {
+      std::string keyboard_input_key = std::get<0>(keyboard_input_key_and_expected_width);
+      float expected_diagram_width= std::get<1>(keyboard_input_key_and_expected_width);
+      AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(&get_font_bin_ref(), keyboard_input_key);
+
+      EXPECT_EQ(expected_diagram_width, keyboard_key.calculate_width());
+   }
+}
+
+
