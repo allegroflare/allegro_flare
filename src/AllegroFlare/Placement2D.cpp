@@ -317,6 +317,7 @@ namespace AllegroFlare
       // return true
       // add alpha threshold
       // consider more ellaborate anchor, scale, transforms on the bitmap
+      // consider that size of the placement may not be considered in this context, and still include checking bitmap
       std::cout << "[AllegroFlare/Placement2D::collide_as_if]: error: not implemented. Returning false.";
       return false;
    }
