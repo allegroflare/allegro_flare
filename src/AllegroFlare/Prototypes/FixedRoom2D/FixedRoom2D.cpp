@@ -197,7 +197,7 @@ void FixedRoom2D::initialize()
       "unpause_game",
    };
 
-   inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   //inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
 
    inventory_window.set_font_bin(font_bin);
    inventory_window.set_bitmap_bin(bitmap_bin);
@@ -243,6 +243,12 @@ void FixedRoom2D::load_story_and_start()
    AllegroFlare::Prototypes::FixedRoom2D::RoomFactory room_factory(
       bitmap_bin, font_bin, event_emitter, &entity_collection_helper
    );
+
+   inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+
+   af_inventory.add_item(1);
+   af_inventory.add_item(4);
+   af_inventory.add_item(3);
 
    room_dictionary = {
       { "front_hall", room_factory.create_room() },
