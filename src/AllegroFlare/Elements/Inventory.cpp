@@ -705,11 +705,15 @@ void Inventory::play_sound(std::string sound_identifier)
    if (sound_identifier.empty()) return;
    if (!event_emitter)
    {
-      std::cout << "[AllegroFlare::Elements::Inventory::play_sound]: WARNING: expecting an event_emitter "
-                << "but it is nullptr. Cannot play \"" << sound_identifier << "\""
+      std::cout << "[AllegroFlare::Elements::Inventory::play_sound]: ERROR: expecting an event_emitter "
+                << "but it is nullptr (when attempting to play \"" << sound_identifier << "\"). You can "
+                << "disable sounds with disable_sound() or pass in an event_emitter with set_event_emitter()."
                 << std::endl;
    }
-   event_emitter->emit_play_sound_effect_event(sound_identifier);
+   else
+   {
+      event_emitter->emit_play_sound_effect_event(sound_identifier);
+   }
    return;
 }
 
