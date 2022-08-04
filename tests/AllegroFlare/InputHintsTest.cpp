@@ -78,6 +78,8 @@ TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture,
       "X", "%SPACER", "LABEL>>", "Exit", 
       "%SEPARATOR",
       "P", "%SPACER", "LABEL>>", "Pause", 
+      "%SEPARATOR",
+      "SHIFT", "%SPACE", "%PLUS", "%SPACE", "ESC", "%SPACER", "LABEL>>", "Exit program", 
    };
 
    AllegroFlare::InputHints input_hints(&get_font_bin_ref());

@@ -68,18 +68,6 @@ void KeyboardKey::set_y(float y)
 }
 
 
-void KeyboardKey::set_keyboard_key_box_height(float keyboard_key_box_height)
-{
-   this->keyboard_key_box_height = keyboard_key_box_height;
-}
-
-
-void KeyboardKey::set_keyboard_key_box_min_width(float keyboard_key_box_min_width)
-{
-   this->keyboard_key_box_min_width = keyboard_key_box_min_width;
-}
-
-
 void KeyboardKey::set_font_name(std::string font_name)
 {
    this->font_name = font_name;
@@ -145,6 +133,13 @@ int KeyboardKey::get_font_size()
    return font_size;
 }
 
+
+void KeyboardKey::set_keyboard_key_box_height(float keyboard_key_box_height)
+{
+   this->keyboard_key_box_height = keyboard_key_box_height;
+   this->keyboard_key_box_min_width = keyboard_key_box_height;
+   return;
+}
 
 int KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
 {

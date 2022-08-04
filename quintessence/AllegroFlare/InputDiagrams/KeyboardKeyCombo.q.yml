@@ -64,16 +64,34 @@ properties:
     getter: true
     setter: true
 
+  - name: keyboard_key_box_height
+    type: float
+    init_with: 42
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: keyboard_key_box_min_width
+    type: float
+    init_with: 42
+    constructor_arg: true
+    getter: true
+    setter: false
+
 
 functions:
 
 
-  - name: get_keyboard_key_box_height
-    type: float
+  - name: set_keyboard_key_box_height
+    parameters:
+      - name: keyboard_key_box_height
+        type: float
+        default_argument: 42
     body: |
-      AllegroFlare::InputDiagrams::KeyboardKey keyboard_key;
-      return keyboard_key.get_keyboard_key_box_height();
-      
+      this->keyboard_key_box_height = keyboard_key_box_height;
+      this->keyboard_key_box_min_width = keyboard_key_box_height;
+      return;
+
 
   - name: render
     type: int
@@ -88,7 +106,6 @@ functions:
       - al_is_primitives_addon_initialized()
     body: |
       AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
-      float box_height = get_keyboard_key_box_height();
       float token_space_width = 10;
       float token_spacer_width = 24;
       float token_separator_width = 60;
@@ -110,7 +127,7 @@ functions:
                   font,
                   color,
                   (int)(x + cursor_x),
-                  (int)(y + box_height/ 2 - font_ascent_height / 2),
+                  (int)(y + keyboard_key_box_height/ 2 - font_ascent_height / 2),
                   ALLEGRO_ALIGN_LEFT,
                   keyboard_combo_token.c_str()
                );
@@ -144,7 +161,7 @@ functions:
                   font,
                   color,
                   (int)(x + cursor_x),
-                  (int)(y + box_height/ 2 - font_ascent_height / 2),
+                  (int)(y + keyboard_key_box_height/ 2 - font_ascent_height / 2),
                   ALLEGRO_ALIGN_LEFT,
                   "+"
                );
@@ -163,7 +180,7 @@ functions:
                   font,
                   color,
                   (int)(x + cursor_x),
-                  (int)(y + box_height/ 2 - font_ascent_height / 2),
+                  (int)(y + keyboard_key_box_height/ 2 - font_ascent_height / 2),
                   ALLEGRO_ALIGN_LEFT,
                   "/"
                );
@@ -179,6 +196,7 @@ functions:
             keyboard_key.set_color(color);
             keyboard_key.set_font_name(keyboard_key_font_name);
             keyboard_key.set_font_size(keyboard_key_font_size);
+            keyboard_key.set_keyboard_key_box_height(keyboard_key_box_height);
             //keyboard_key.set_x = 
             float key_width = 0;
             key_width = keyboard_key.render(calculate_width_only_and_do_not_draw);

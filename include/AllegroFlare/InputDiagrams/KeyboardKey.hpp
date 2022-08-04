@@ -33,8 +33,6 @@ namespace AllegroFlare
          void set_color(ALLEGRO_COLOR color);
          void set_x(float x);
          void set_y(float y);
-         void set_keyboard_key_box_height(float keyboard_key_box_height);
-         void set_keyboard_key_box_min_width(float keyboard_key_box_min_width);
          void set_font_name(std::string font_name);
          void set_font_size(int font_size);
          AllegroFlare::FontBin* get_font_bin();
@@ -46,6 +44,7 @@ namespace AllegroFlare
          float get_keyboard_key_box_min_width();
          std::string get_font_name();
          int get_font_size();
+         void set_keyboard_key_box_height(float keyboard_key_box_height=42);
          int render(bool calculate_width_only_and_do_not_draw=false);
          int calculate_width();
          int guarantee_even_number(int potentially_odd_number=0);

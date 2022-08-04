@@ -41,14 +41,14 @@ properties:
     init_with: 42
     constructor_arg: true
     getter: true
-    setter: true
+    setter: false
 
   - name: keyboard_key_box_min_width
     type: float
     init_with: 42
     constructor_arg: true
     getter: true
-    setter: true
+    setter: false
 
   - name: font_name
     type: std::string
@@ -66,6 +66,17 @@ properties:
 
 
 functions:
+
+
+  - name: set_keyboard_key_box_height
+    parameters:
+      - name: keyboard_key_box_height
+        type: float
+        default_argument: 42
+    body: |
+      this->keyboard_key_box_height = keyboard_key_box_height;
+      this->keyboard_key_box_min_width = keyboard_key_box_height;
+      return;
 
 
   - name: render

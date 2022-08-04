@@ -20,7 +20,7 @@ namespace InputDiagrams
 {
 
 
-KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<std::string> keyboard_combo_tokens, ALLEGRO_COLOR color, float x, float y, std::string font_name, int font_size, std::string keyboard_key_font_name, int keyboard_key_font_size)
+KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<std::string> keyboard_combo_tokens, ALLEGRO_COLOR color, float x, float y, std::string font_name, int font_size, std::string keyboard_key_font_name, int keyboard_key_font_size, float keyboard_key_box_height, float keyboard_key_box_min_width)
    : font_bin(font_bin)
    , keyboard_combo_tokens(keyboard_combo_tokens)
    , color(color)
@@ -30,6 +30,8 @@ KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<
    , font_size(font_size)
    , keyboard_key_font_name(keyboard_key_font_name)
    , keyboard_key_font_size(keyboard_key_font_size)
+   , keyboard_key_box_height(keyboard_key_box_height)
+   , keyboard_key_box_min_width(keyboard_key_box_min_width)
 {
 }
 
@@ -149,8 +151,21 @@ int KeyboardKeyCombo::get_keyboard_key_font_size()
 
 float KeyboardKeyCombo::get_keyboard_key_box_height()
 {
-   AllegroFlare::InputDiagrams::KeyboardKey keyboard_key;
-   return keyboard_key.get_keyboard_key_box_height();
+   return keyboard_key_box_height;
+}
+
+
+float KeyboardKeyCombo::get_keyboard_key_box_min_width()
+{
+   return keyboard_key_box_min_width;
+}
+
+
+void KeyboardKeyCombo::set_keyboard_key_box_height(float keyboard_key_box_height)
+{
+   this->keyboard_key_box_height = keyboard_key_box_height;
+   this->keyboard_key_box_min_width = keyboard_key_box_height;
+   return;
 }
 
 int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
@@ -180,7 +195,6 @@ int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
-   float box_height = get_keyboard_key_box_height();
    float token_space_width = 10;
    float token_spacer_width = 24;
    float token_separator_width = 60;
@@ -202,7 +216,7 @@ int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
                font,
                color,
                (int)(x + cursor_x),
-               (int)(y + box_height/ 2 - font_ascent_height / 2),
+               (int)(y + keyboard_key_box_height/ 2 - font_ascent_height / 2),
                ALLEGRO_ALIGN_LEFT,
                keyboard_combo_token.c_str()
             );
@@ -236,7 +250,7 @@ int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
                font,
                color,
                (int)(x + cursor_x),
-               (int)(y + box_height/ 2 - font_ascent_height / 2),
+               (int)(y + keyboard_key_box_height/ 2 - font_ascent_height / 2),
                ALLEGRO_ALIGN_LEFT,
                "+"
             );
@@ -255,7 +269,7 @@ int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
                font,
                color,
                (int)(x + cursor_x),
-               (int)(y + box_height/ 2 - font_ascent_height / 2),
+               (int)(y + keyboard_key_box_height/ 2 - font_ascent_height / 2),
                ALLEGRO_ALIGN_LEFT,
                "/"
             );
@@ -271,6 +285,7 @@ int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
          keyboard_key.set_color(color);
          keyboard_key.set_font_name(keyboard_key_font_name);
          keyboard_key.set_font_size(keyboard_key_font_size);
+         keyboard_key.set_keyboard_key_box_height(keyboard_key_box_height);
          //keyboard_key.set_x = 
          float key_width = 0;
          key_width = keyboard_key.render(calculate_width_only_and_do_not_draw);

@@ -161,11 +161,13 @@ void InputHints::draw_inputs_bar()
 void InputHints::draw_keyboard_key_combo_tokens()
 {
    AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(font_bin, keyboard_key_combo_tokens);
+   float box_height = 36;
+   keyboard_key_combo.set_keyboard_key_box_height(box_height);
+
    float width = keyboard_key_combo.calculate_width();
-   float height = keyboard_key_combo.get_keyboard_key_box_height();
 
    keyboard_key_combo.set_x(surface_width/2 - (width)/2);
-   keyboard_key_combo.set_y((int)(surface_height - bar_height/2 - height/2));
+   keyboard_key_combo.set_y((int)(surface_height - bar_height/2 - box_height/2));
    keyboard_key_combo.set_keyboard_key_font_size(-18);
    keyboard_key_combo.set_font_size(18);
    keyboard_key_combo.render();
