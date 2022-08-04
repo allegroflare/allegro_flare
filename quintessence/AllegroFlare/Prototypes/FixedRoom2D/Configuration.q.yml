@@ -1,0 +1,85 @@
+properties:
+
+
+  - name: inventory_index
+    type: AllegroFlare::InventoryIndex
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: af_inventory
+    type: AllegroFlare::Inventory
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: flags
+    type: AllegroFlare::Inventory
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: entity_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: room_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: entity_room_associations
+    type: std::map<std::string, std::string>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: script_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: starting_in_room_identifier
+    type: std::string
+    init_with: '"[unset-starting_in_room_identifier]"'
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Inventory
+    headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::InventoryIndex
+    headers: [ AllegroFlare/InventoryIndex.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
+    headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
+    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+  - symbol: std::map<std::string, std::string>
+    headers: [ map, string ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
+
+
