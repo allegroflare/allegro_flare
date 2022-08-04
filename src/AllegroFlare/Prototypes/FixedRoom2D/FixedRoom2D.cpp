@@ -11,7 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -240,16 +240,16 @@ void FixedRoom2D::load_story_and_start()
          error_message << "FixedRoom2D" << "::" << "load_story_and_start" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration;
-   configuration.set_inventory_index(&inventory_index);
-   configuration.set_af_inventory(&af_inventory);
-   configuration.set_flags(&flags);
-   configuration.set_entity_dictionary(&entity_dictionary);
-   configuration.set_room_dictionary(&room_dictionary);
-   configuration.set_entity_room_associations(&entity_room_associations);
-   configuration.set_script_dictionary(&script_dictionary);
+   AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader configuration_loader;
+   configuration_loader.set_inventory_index(&inventory_index);
+   configuration_loader.set_af_inventory(&af_inventory);
+   configuration_loader.set_flags(&flags);
+   configuration_loader.set_entity_dictionary(&entity_dictionary);
+   configuration_loader.set_room_dictionary(&room_dictionary);
+   configuration_loader.set_entity_room_associations(&entity_room_associations);
+   configuration_loader.set_script_dictionary(&script_dictionary);
 
-   bool load_was_successful = configuration.load_original_gametest_default(
+   bool load_was_successful = configuration_loader.load_original_gametest_default(
       bitmap_bin,
       font_bin,
       event_emitter,
@@ -258,7 +258,7 @@ void FixedRoom2D::load_story_and_start()
 
    if (load_was_successful)
    {
-      std::string room_to_start_in = configuration.get_starting_in_room_identifier();
+      std::string room_to_start_in = configuration_loader.get_starting_in_room_identifier();
       enter_room(room_to_start_in);
    }
    else

@@ -20,7 +20,7 @@ namespace AllegroFlare
    {
       namespace FixedRoom2D
       {
-         class Configuration
+         class ConfigurationLoader
          {
          private:
             AllegroFlare::InventoryIndex* inventory_index;
@@ -33,8 +33,8 @@ namespace AllegroFlare
             std::string starting_in_room_identifier;
 
          public:
-            Configuration(AllegroFlare::InventoryIndex* inventory_index=nullptr, AllegroFlare::Inventory* af_inventory=nullptr, AllegroFlare::Inventory* flags=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary=nullptr, std::map<std::string, std::string>* entity_room_associations=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary=nullptr);
-            ~Configuration();
+            ConfigurationLoader(AllegroFlare::InventoryIndex* inventory_index=nullptr, AllegroFlare::Inventory* af_inventory=nullptr, AllegroFlare::Inventory* flags=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary=nullptr, std::map<std::string, std::string>* entity_room_associations=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary=nullptr);
+            ~ConfigurationLoader();
 
             void set_inventory_index(AllegroFlare::InventoryIndex* inventory_index);
             void set_af_inventory(AllegroFlare::Inventory* af_inventory);
