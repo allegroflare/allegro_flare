@@ -161,15 +161,19 @@ void InputHints::draw_inputs_bar()
 void InputHints::draw_keyboard_key_combo_tokens()
 {
    AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(font_bin, keyboard_key_combo_tokens);
-   float box_height = 36;
+   float box_height = 30;
    keyboard_key_combo.set_keyboard_key_box_height(box_height);
+   keyboard_key_combo.set_token_SPACE_width(6);
+   keyboard_key_combo.set_token_SPACER_width(16);
+   keyboard_key_combo.set_token_SEPARATOR_width(60);
+   keyboard_key_combo.set_keyboard_key_font_size(-14);
+   keyboard_key_combo.set_font_size(-18);
+   keyboard_key_combo.set_color(ALLEGRO_COLOR{0.4, 0.4, 0.45, 0.6});
 
    float width = keyboard_key_combo.calculate_width();
 
    keyboard_key_combo.set_x(surface_width/2 - (width)/2);
    keyboard_key_combo.set_y((int)(surface_height - bar_height/2 - box_height/2));
-   keyboard_key_combo.set_keyboard_key_font_size(-18);
-   keyboard_key_combo.set_font_size(18);
    keyboard_key_combo.render();
    return;
 }
@@ -225,7 +229,7 @@ ALLEGRO_FONT* InputHints::obtain_font()
          throw std::runtime_error(error_message.str());
       }
    std::string font_name = "Inter-Medium.ttf";
-   int font_size = -20;
+   int font_size = -18;
 
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
