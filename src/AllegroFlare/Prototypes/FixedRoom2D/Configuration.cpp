@@ -168,6 +168,12 @@ std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> &Configurat
 }
 
 
+std::string &Configuration::get_starting_in_room_identifier_ref()
+{
+   return starting_in_room_identifier;
+}
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

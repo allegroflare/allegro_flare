@@ -62,6 +62,7 @@ properties:
     init_with: '"[unset-starting_in_room_identifier]"'
     getter: true
     setter: true
+    getter_ref: true
 
 
 dependencies:

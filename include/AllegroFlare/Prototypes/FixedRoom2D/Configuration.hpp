@@ -55,6 +55,7 @@ namespace AllegroFlare
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*> &get_room_dictionary_ref();
             std::map<std::string, std::string> &get_entity_room_associations_ref();
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> &get_script_dictionary_ref();
+            std::string &get_starting_in_room_identifier_ref();
          };
       }
    }
