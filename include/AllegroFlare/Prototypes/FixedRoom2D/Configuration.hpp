@@ -1,9 +1,13 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/InventoryIndex.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <map>
@@ -26,6 +30,7 @@ namespace AllegroFlare
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary;
             std::map<std::string, std::string>* entity_room_associations;
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary;
+            std::string starting_in_room_identifier;
 
          public:
             Configuration(AllegroFlare::InventoryIndex* inventory_index=nullptr, AllegroFlare::Inventory* af_inventory=nullptr, AllegroFlare::Inventory* flags=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary=nullptr, std::map<std::string, std::string>* entity_room_associations=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary=nullptr);
@@ -45,7 +50,8 @@ namespace AllegroFlare
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* get_room_dictionary();
             std::map<std::string, std::string>* get_entity_room_associations();
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* get_script_dictionary();
-            bool load_original_gametest_default();
+            std::string get_starting_in_room_identifier();
+            bool load_original_gametest_default(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper=nullptr);
          };
       }
    }
