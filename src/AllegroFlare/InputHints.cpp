@@ -166,6 +166,8 @@ void InputHints::draw_keyboard_key_combo_tokens()
 
    keyboard_key_combo.set_x(surface_width/2 - (width)/2);
    keyboard_key_combo.set_y((int)(surface_height - bar_height/2 - height/2));
+   keyboard_key_combo.set_keyboard_key_font_size(-18);
+   keyboard_key_combo.set_font_size(18);
    keyboard_key_combo.render();
    return;
 }

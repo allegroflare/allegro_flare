@@ -19,7 +19,7 @@ namespace InputDiagrams
 {
 
 
-KeyboardKey::KeyboardKey(AllegroFlare::FontBin* font_bin, std::string keyboard_key_str, ALLEGRO_COLOR color, float x, float y, float keyboard_key_box_height, float keyboard_key_box_min_width)
+KeyboardKey::KeyboardKey(AllegroFlare::FontBin* font_bin, std::string keyboard_key_str, ALLEGRO_COLOR color, float x, float y, float keyboard_key_box_height, float keyboard_key_box_min_width, std::string font_name, int font_size)
    : font_bin(font_bin)
    , keyboard_key_str(keyboard_key_str)
    , color(color)
@@ -27,6 +27,8 @@ KeyboardKey::KeyboardKey(AllegroFlare::FontBin* font_bin, std::string keyboard_k
    , y(y)
    , keyboard_key_box_height(keyboard_key_box_height)
    , keyboard_key_box_min_width(keyboard_key_box_min_width)
+   , font_name(font_name)
+   , font_size(font_size)
 {
 }
 
@@ -78,6 +80,18 @@ void KeyboardKey::set_keyboard_key_box_min_width(float keyboard_key_box_min_widt
 }
 
 
+void KeyboardKey::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void KeyboardKey::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
 AllegroFlare::FontBin* KeyboardKey::get_font_bin()
 {
    return font_bin;
@@ -117,6 +131,18 @@ float KeyboardKey::get_keyboard_key_box_height()
 float KeyboardKey::get_keyboard_key_box_min_width()
 {
    return keyboard_key_box_min_width;
+}
+
+
+std::string KeyboardKey::get_font_name()
+{
+   return font_name;
+}
+
+
+int KeyboardKey::get_font_size()
+{
+   return font_size;
 }
 
 
@@ -196,9 +222,6 @@ ALLEGRO_FONT* KeyboardKey::obtain_font()
          error_message << "KeyboardKey" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   std::string font_name = "Inter-Medium.ttf";
-   int font_size = -20;
-
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
    return font_bin->auto_get(composite_font_str.str());

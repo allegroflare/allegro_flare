@@ -20,12 +20,16 @@ namespace InputDiagrams
 {
 
 
-KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<std::string> keyboard_combo_tokens, ALLEGRO_COLOR color, float x, float y)
+KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<std::string> keyboard_combo_tokens, ALLEGRO_COLOR color, float x, float y, std::string font_name, int font_size, std::string keyboard_key_font_name, int keyboard_key_font_size)
    : font_bin(font_bin)
    , keyboard_combo_tokens(keyboard_combo_tokens)
    , color(color)
    , x(x)
    , y(y)
+   , font_name(font_name)
+   , font_size(font_size)
+   , keyboard_key_font_name(keyboard_key_font_name)
+   , keyboard_key_font_size(keyboard_key_font_size)
 {
 }
 
@@ -65,6 +69,30 @@ void KeyboardKeyCombo::set_y(float y)
 }
 
 
+void KeyboardKeyCombo::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void KeyboardKeyCombo::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
+void KeyboardKeyCombo::set_keyboard_key_font_name(std::string keyboard_key_font_name)
+{
+   this->keyboard_key_font_name = keyboard_key_font_name;
+}
+
+
+void KeyboardKeyCombo::set_keyboard_key_font_size(int keyboard_key_font_size)
+{
+   this->keyboard_key_font_size = keyboard_key_font_size;
+}
+
+
 AllegroFlare::FontBin* KeyboardKeyCombo::get_font_bin()
 {
    return font_bin;
@@ -92,6 +120,30 @@ float KeyboardKeyCombo::get_x()
 float KeyboardKeyCombo::get_y()
 {
    return y;
+}
+
+
+std::string KeyboardKeyCombo::get_font_name()
+{
+   return font_name;
+}
+
+
+int KeyboardKeyCombo::get_font_size()
+{
+   return font_size;
+}
+
+
+std::string KeyboardKeyCombo::get_keyboard_key_font_name()
+{
+   return keyboard_key_font_name;
+}
+
+
+int KeyboardKeyCombo::get_keyboard_key_font_size()
+{
+   return keyboard_key_font_size;
 }
 
 
@@ -216,6 +268,9 @@ int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
          keyboard_key.set_keyboard_key_str(keyboard_combo_token);
          keyboard_key.set_x(x + cursor_x);
          keyboard_key.set_y(y);
+         keyboard_key.set_color(color);
+         keyboard_key.set_font_name(keyboard_key_font_name);
+         keyboard_key.set_font_size(keyboard_key_font_size);
          //keyboard_key.set_x = 
          float key_width = 0;
          key_width = keyboard_key.render(calculate_width_only_and_do_not_draw);
@@ -245,9 +300,6 @@ ALLEGRO_FONT* KeyboardKeyCombo::obtain_font()
          error_message << "KeyboardKeyCombo" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   std::string font_name = "Inter-Medium.ttf";
-   int font_size = -28;
-
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
    return font_bin->auto_get(composite_font_str.str());

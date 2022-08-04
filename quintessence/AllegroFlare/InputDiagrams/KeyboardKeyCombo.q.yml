@@ -36,6 +36,34 @@ properties:
     getter: true
     setter: true
 
+  - name: font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -28
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: keyboard_key_font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: keyboard_key_font_size
+    type: int
+    init_with: -20
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -148,6 +176,9 @@ functions:
             keyboard_key.set_keyboard_key_str(keyboard_combo_token);
             keyboard_key.set_x(x + cursor_x);
             keyboard_key.set_y(y);
+            keyboard_key.set_color(color);
+            keyboard_key.set_font_name(keyboard_key_font_name);
+            keyboard_key.set_font_size(keyboard_key_font_size);
             //keyboard_key.set_x = 
             float key_width = 0;
             key_width = keyboard_key.render(calculate_width_only_and_do_not_draw);
@@ -188,9 +219,6 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      std::string font_name = "Inter-Medium.ttf";
-      int font_size = -28;
-
       std::stringstream composite_font_str;
       composite_font_str << font_name << " " << font_size;
       return font_bin->auto_get(composite_font_str.str());
