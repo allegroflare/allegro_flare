@@ -49,6 +49,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , cursor_move_sound_identifier("menu-click-01.wav")
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
+   , sound_is_disabled(false)
 {
 }
 
@@ -145,6 +146,12 @@ std::string Inventory::get_inventory_show_sound_identifier()
 std::string Inventory::get_inventory_hide_sound_identifier()
 {
    return inventory_hide_sound_identifier;
+}
+
+
+bool Inventory::get_sound_is_disabled()
+{
+   return sound_is_disabled;
 }
 
 
@@ -450,6 +457,7 @@ void Inventory::move_cursor_up()
    details_reveal_counter = 0.0f;
    details_num_revealed_characters = 0;
    set_details_pane();
+   play_move_cursor_sound();
    return;
 }
 
@@ -467,6 +475,7 @@ void Inventory::move_cursor_down()
    details_reveal_counter = 0.0f;
    details_num_revealed_characters = 0;
    set_details_pane();
+   play_move_cursor_sound();
    return;
 }
 
@@ -484,6 +493,7 @@ void Inventory::move_cursor_left()
    details_reveal_counter = 0.0f;
    details_num_revealed_characters = 0;
    set_details_pane();
+   play_move_cursor_sound();
    return;
 }
 
@@ -501,6 +511,7 @@ void Inventory::move_cursor_right()
    details_reveal_counter = 0.0f;
    details_num_revealed_characters = 0;
    set_details_pane();
+   play_move_cursor_sound();
    return;
 }
 
@@ -511,6 +522,7 @@ bool Inventory::show()
    details_reveal_counter = 0.0f;
    details_num_revealed_characters = 0;
    set_details_pane();
+   play_hide_inventory_sound();
    return active;
 }
 
@@ -518,25 +530,37 @@ bool Inventory::hide()
 {
    if (!active) return false;
    active = false;
+   play_hide_inventory_sound();
    return active;
 }
 
-void Inventory::play_move_cursor_sound()
+void Inventory::toggle_show_hide()
 {
-   play_sound(cursor_move_sound_identifier);
+   if (!active) show();
+   else hide();
    return;
 }
 
-void Inventory::play_hide_inventory_sound()
+void Inventory::disable_sound()
 {
-   play_sound(inventory_hide_sound_identifier);
+   sound_is_disabled = true;
    return;
 }
 
-void Inventory::play_show_inventory_sound()
+void Inventory::enable_sound()
 {
-   play_sound(inventory_show_sound_identifier);
+   sound_is_disabled = false;
    return;
+}
+
+bool Inventory::is_sound_disabled()
+{
+   return sound_is_disabled;
+}
+
+bool Inventory::is_sound_enabled()
+{
+   return !sound_is_disabled;
 }
 
 bool Inventory::has_valid_size()
@@ -657,8 +681,27 @@ ALLEGRO_FONT* Inventory::obtain_details_header_font()
    return font_bin->auto_get("Inter-Bold.ttf -48");
 }
 
+void Inventory::play_move_cursor_sound()
+{
+   play_sound(cursor_move_sound_identifier);
+   return;
+}
+
+void Inventory::play_hide_inventory_sound()
+{
+   play_sound(inventory_hide_sound_identifier);
+   return;
+}
+
+void Inventory::play_show_inventory_sound()
+{
+   play_sound(inventory_show_sound_identifier);
+   return;
+}
+
 void Inventory::play_sound(std::string sound_identifier)
 {
+   if (sound_is_disabled) return;
    if (sound_identifier.empty()) return;
    if (!event_emitter)
    {

@@ -174,6 +174,13 @@ bool WithAllegroRenderingFixture::test_name_indicates_it_wants_a_screenshot()
    return (get_test_name().substr(0, 9) == "CAPTURE__");
 }
 
+void WithAllegroRenderingFixture::clear_display()
+{
+   ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+   al_clear_to_color(eigengrau);
+   return;
+}
+
 void WithAllegroRenderingFixture::capture_screenshot(std::string base_filename)
 {
    std::string full_file_save_location = TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER + base_filename;

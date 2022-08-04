@@ -176,6 +176,7 @@ TEST_F(AllegroFlare_Elements_InventoryTest,
 TEST_F(AllegroFlare_Elements_InventoryTest, move_cursor_left__wraps_the_cursor_when_at_the_edge)
 {
    AllegroFlare::Elements::Inventory inventory;
+   inventory.disable_sound();
    inventory.activate();
    inventory.move_cursor_left();
    EXPECT_EQ(3, inventory.get_cursor_x());
@@ -186,6 +187,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    move_cursor_right__wraps_the_cursor_when_at_the_edge)
 {
    AllegroFlare::Elements::Inventory inventory;
+   inventory.disable_sound();
    inventory.activate();
    int num_rows = 4;
    for (unsigned i=0; i<(num_rows-1); i++) inventory.move_cursor_right();
@@ -200,6 +202,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    move_cursor_up__wraps_the_cursor_when_at_the_edge)
 {
    AllegroFlare::Elements::Inventory inventory;
+   inventory.disable_sound();
    inventory.activate();
    inventory.move_cursor_up();
    EXPECT_EQ(2, inventory.get_cursor_y());
@@ -210,6 +213,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    move_cursor_down__wraps_the_cursor_when_at_the_edge)
 {
    AllegroFlare::Elements::Inventory inventory;
+   inventory.disable_sound();
    inventory.activate();
    int num_columns = 3;
    for (unsigned i=0; i<(num_columns-1); i++) inventory.move_cursor_down();
@@ -219,23 +223,27 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 }
 
 
-#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/EventNames.hpp>
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
-   INTERACTIVE__collides__will_return_true_if_the_placement_collides_with_another_placement)
+   DISABLED__INTERACTIVE__collides__will_return_true_if_the_placement_collides_with_another_placement)
 {
-   AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
-   placement_a.rotation = 0.01f;
-
-   AllegroFlare::Placement2D placement_b(700, 400, 150, 140);
-   placement_b.rotation = 0.02f;
-
    al_install_keyboard();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
    al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
-   AllegroFlare::Placement2D *targeted_placement = &placement_a;
+   AllegroFlare::Inventory af_inventory;
+   AllegroFlare::InventoryIndex index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory, &index);
+
+   af_inventory.add_item(1);
+   af_inventory.add_item(2);
+   af_inventory.add_item(3);
+   af_inventory.add_item(4);
 
    al_start_timer(primary_timer);
    bool abort = false;
@@ -247,52 +255,54 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       {
          case ALLEGRO_EVENT_TIMER:
          {
-            al_clear_to_color(AllegroFlare::Color::Nothing);
-            bool collides = placement_a.collide(placement_b);
-            ALLEGRO_COLOR collides_color = AllegroFlare::Color::Red;
-            placement_a.draw_box(collides ? collides_color : AllegroFlare::color::mintcream, false);
-            placement_b.draw_box(collides ? collides_color : AllegroFlare::color::lightcyan, false);
+            clear_display();
+            inventory.update();
+            inventory.render();
             al_flip_display();
          }
          break;
+
+         { // TODO: catch case for sound effect event emission
+         }
 
          case ALLEGRO_EVENT_KEY_CHAR:
          {
             switch(current_event.keyboard.keycode)
             {
-               case ALLEGRO_KEY_TAB: // toggle between the two placements
-                  if (targeted_placement == &placement_a) targeted_placement = &placement_b;
-                  else targeted_placement = &placement_a;
+               case ALLEGRO_KEY_A:
+                  inventory.activate();
                break;
 
-               case ALLEGRO_KEY_R: // rotate the current targeted placement
-                  targeted_placement->rotation += 0.1f;
+               case ALLEGRO_KEY_D:
+                  inventory.deactivate();
                break;
 
-               case ALLEGRO_KEY_RIGHT: // move the current targeted placement to the right
-                  targeted_placement->position.x += 10.0f;
+               case ALLEGRO_KEY_S:
+                  inventory.show();
                break;
 
-               case ALLEGRO_KEY_LEFT: // move the current targeted placement to the left
-                  targeted_placement->position.x -= 10.0f;
+               case ALLEGRO_KEY_H:
+                  inventory.hide();
                break;
 
-               case ALLEGRO_KEY_UP: // move the current targeted placement up
-                  targeted_placement->position.y -= 10.0f;
+               case ALLEGRO_KEY_T:
+                  inventory.toggle_show_hide();
                break;
 
-               case ALLEGRO_KEY_DOWN: // move the current targeted placement down
-                  targeted_placement->position.y += 10.0f;
+               case ALLEGRO_KEY_UP:
+                  inventory.move_cursor_up();
                break;
 
-               case ALLEGRO_KEY_PAD_PLUS: // increase the targeted placement scale
-                  targeted_placement->scale.x += 0.1f;
-                  targeted_placement->scale.y += 0.1f;
+               case ALLEGRO_KEY_DOWN:
+                  inventory.move_cursor_down();
                break;
 
-               case ALLEGRO_KEY_PAD_MINUS: // decrease the targeted placement scale
-                  targeted_placement->scale.x -= 0.1f;
-                  targeted_placement->scale.y -= 0.1f;
+               case ALLEGRO_KEY_LEFT:
+                  inventory.move_cursor_left();
+               break;
+
+               case ALLEGRO_KEY_RIGHT:
+                  inventory.move_cursor_right();
                break;
 
                case ALLEGRO_KEY_ESCAPE:
@@ -304,8 +314,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       }
    }
 
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
    al_destroy_timer(primary_timer);
-   //al_destroy_r(timer);
 }
 
 

@@ -1899,6 +1899,10 @@ table td
   <td class="property">inventory_hide_sound_identifier</td>
   <td class="property">std::string</td>
 </tr>
+<tr>
+  <td class="property">sound_is_disabled</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -1959,13 +1963,19 @@ table td
   <td class="method">hide()</td>
 </tr>
 <tr>
-  <td class="method">play_move_cursor_sound()</td>
+  <td class="method">toggle_show_hide()</td>
 </tr>
 <tr>
-  <td class="method">play_hide_inventory_sound()</td>
+  <td class="method">disable_sound()</td>
 </tr>
 <tr>
-  <td class="method">play_show_inventory_sound()</td>
+  <td class="method">enable_sound()</td>
+</tr>
+<tr>
+  <td class="method">is_sound_disabled()</td>
+</tr>
+<tr>
+  <td class="method">is_sound_enabled()</td>
 </tr>
 <tr>
   <td class="private_method">has_valid_size()</td>
@@ -1993,6 +2003,15 @@ table td
 </tr>
 <tr>
   <td class="method">obtain_details_header_font()</td>
+</tr>
+<tr>
+  <td class="private_method">play_move_cursor_sound()</td>
+</tr>
+<tr>
+  <td class="private_method">play_hide_inventory_sound()</td>
+</tr>
+<tr>
+  <td class="private_method">play_show_inventory_sound()</td>
 </tr>
 <tr>
   <td class="method">play_sound(1)</td>
@@ -5206,6 +5225,9 @@ table td
 </tr>
 <tr>
   <td class="method">test_name_indicates_it_wants_a_screenshot()</td>
+</tr>
+<tr>
+  <td class="method">clear_display()</td>
 </tr>
 <tr>
   <td class="method">capture_screenshot(1)</td>

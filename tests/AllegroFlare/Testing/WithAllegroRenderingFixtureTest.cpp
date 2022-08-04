@@ -38,3 +38,10 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 }
 
 
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   clear_display__will_clear_the_current_target_rendering_surface_to_an_eigengrau_color)
+{
+   // TODO
+}
+
+

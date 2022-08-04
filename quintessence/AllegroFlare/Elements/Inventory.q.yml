@@ -109,6 +109,11 @@ properties:
     getter: true
     setter: true
 
+  - name: sound_is_disabled
+    type: bool
+    init_with: false
+    getter: true
+
 
 functions:
 
@@ -397,6 +402,7 @@ functions:
       details_reveal_counter = 0.0f;
       details_num_revealed_characters = 0;
       set_details_pane();
+      play_move_cursor_sound();
       return;
 
 
@@ -409,6 +415,7 @@ functions:
       details_reveal_counter = 0.0f;
       details_num_revealed_characters = 0;
       set_details_pane();
+      play_move_cursor_sound();
       return;
 
 
@@ -421,6 +428,7 @@ functions:
       details_reveal_counter = 0.0f;
       details_num_revealed_characters = 0;
       set_details_pane();
+      play_move_cursor_sound();
       return;
 
 
@@ -433,6 +441,7 @@ functions:
       details_reveal_counter = 0.0f;
       details_num_revealed_characters = 0;
       set_details_pane();
+      play_move_cursor_sound();
       return;
 
 
@@ -444,6 +453,7 @@ functions:
       details_reveal_counter = 0.0f;
       details_num_revealed_characters = 0;
       set_details_pane();
+      play_hide_inventory_sound();
       return active;
 
 
@@ -452,25 +462,39 @@ functions:
     body: |
       if (!active) return false;
       active = false;
+      play_hide_inventory_sound();
       return active;
 
 
-  - name: play_move_cursor_sound
+  - name: toggle_show_hide
     body: |
-      play_sound(cursor_move_sound_identifier);
+      if (!active) show();
+      else hide();
       return;
 
 
-  - name: play_hide_inventory_sound
+  - name: disable_sound
     body: |
-      play_sound(inventory_hide_sound_identifier);
+      sound_is_disabled = true;
       return;
 
 
-  - name: play_show_inventory_sound
+  - name: enable_sound
     body: |
-      play_sound(inventory_show_sound_identifier);
+      sound_is_disabled = false;
       return;
+
+
+  - name: is_sound_disabled
+    type: bool
+    body: |
+      return sound_is_disabled;
+
+
+  - name: is_sound_enabled
+    type: bool
+    body: |
+      return !sound_is_disabled;
 
 
   - name: has_valid_size
@@ -633,12 +657,34 @@ functions:
       return font_bin->auto_get("Inter-Bold.ttf -48");
 
 
+  - name: play_move_cursor_sound
+    private: true
+    body: |
+      play_sound(cursor_move_sound_identifier);
+      return;
+
+
+  - name: play_hide_inventory_sound
+    private: true
+    body: |
+      play_sound(inventory_hide_sound_identifier);
+      return;
+
+
+  - name: play_show_inventory_sound
+    private: true
+    body: |
+      play_sound(inventory_show_sound_identifier);
+      return;
+
+
   - name: play_sound
     parameters:
       - name: sound_identifier
         type: std::string
         default_argument: '"[unset-play_sound]"'
     body: |
+      if (sound_is_disabled) return;
       if (sound_identifier.empty()) return;
       if (!event_emitter)
       {
