@@ -26,11 +26,12 @@ namespace Elements
 {
 
 
-Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Inventory* af_inventory, AllegroFlare::InventoryIndex* inventory_index)
+Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Inventory* af_inventory, AllegroFlare::InventoryIndex* inventory_index, AllegroFlare::EventEmitter* event_emitter)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , af_inventory(af_inventory)
    , inventory_index(inventory_index)
+   , event_emitter(event_emitter)
    , place({ 1920/2, 1080/2, 1300, 700 })
    , cursor_x(0)
    , cursor_y(0)
@@ -45,6 +46,9 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , inventory_items_top_padding(80.0f)
    , inventory_items_box_size(150.0)
    , inventory_items_box_spacing((inventory_items_box_size + 20.0f))
+   , cursor_move_sound_identifier("menu-click-01.wav")
+   , inventory_show_sound_identifier("")
+   , inventory_hide_sound_identifier("")
 {
 }
 
@@ -78,6 +82,30 @@ void Inventory::set_inventory_index(AllegroFlare::InventoryIndex* inventory_inde
 }
 
 
+void Inventory::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
+void Inventory::set_cursor_move_sound_identifier(std::string cursor_move_sound_identifier)
+{
+   this->cursor_move_sound_identifier = cursor_move_sound_identifier;
+}
+
+
+void Inventory::set_inventory_show_sound_identifier(std::string inventory_show_sound_identifier)
+{
+   this->inventory_show_sound_identifier = inventory_show_sound_identifier;
+}
+
+
+void Inventory::set_inventory_hide_sound_identifier(std::string inventory_hide_sound_identifier)
+{
+   this->inventory_hide_sound_identifier = inventory_hide_sound_identifier;
+}
+
+
 AllegroFlare::Placement2D Inventory::get_place()
 {
    return place;
@@ -99,6 +127,24 @@ int Inventory::get_cursor_y()
 bool Inventory::get_active()
 {
    return active;
+}
+
+
+std::string Inventory::get_cursor_move_sound_identifier()
+{
+   return cursor_move_sound_identifier;
+}
+
+
+std::string Inventory::get_inventory_show_sound_identifier()
+{
+   return inventory_show_sound_identifier;
+}
+
+
+std::string Inventory::get_inventory_hide_sound_identifier()
+{
+   return inventory_hide_sound_identifier;
 }
 
 
@@ -475,6 +521,24 @@ bool Inventory::hide()
    return active;
 }
 
+void Inventory::play_move_cursor_sound()
+{
+   play_sound(cursor_move_sound_identifier);
+   return;
+}
+
+void Inventory::play_hide_inventory_sound()
+{
+   play_sound(inventory_hide_sound_identifier);
+   return;
+}
+
+void Inventory::play_show_inventory_sound()
+{
+   play_sound(inventory_show_sound_identifier);
+   return;
+}
+
 bool Inventory::has_valid_size()
 {
    return !(num_columns == 0 || num_rows == 0);
@@ -591,6 +655,19 @@ ALLEGRO_FONT* Inventory::obtain_item_name_font()
 ALLEGRO_FONT* Inventory::obtain_details_header_font()
 {
    return font_bin->auto_get("Inter-Bold.ttf -48");
+}
+
+void Inventory::play_sound(std::string sound_identifier)
+{
+   if (sound_identifier.empty()) return;
+   if (!event_emitter)
+   {
+      std::cout << "[AllegroFlare::Elements::Inventory::play_sound]: WARNING: expecting an event_emitter "
+                << "but it is nullptr. Cannot play \"" << sound_identifier << "\""
+                << std::endl;
+   }
+   event_emitter->emit_play_sound_effect_event(sound_identifier);
+   return;
 }
 
 AllegroFlare::InventoryIndex* Inventory::create_placeholder_inventory_index()

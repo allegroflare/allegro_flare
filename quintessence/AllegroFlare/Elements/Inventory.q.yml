@@ -25,6 +25,12 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: place
     type: AllegroFlare::Placement2D
     init_with: '{ 1920/2, 1080/2, 1300, 700 }'
@@ -84,6 +90,24 @@ properties:
   - name: inventory_items_box_spacing
     type: float
     init_with: (inventory_items_box_size + 20.0f)
+
+  - name: cursor_move_sound_identifier
+    type: std::string
+    init_with: '"menu-click-01.wav"'
+    getter: true
+    setter: true
+
+  - name: inventory_show_sound_identifier
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: true
+
+  - name: inventory_hide_sound_identifier
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: true
 
 
 functions:
@@ -431,6 +455,24 @@ functions:
       return active;
 
 
+  - name: play_move_cursor_sound
+    body: |
+      play_sound(cursor_move_sound_identifier);
+      return;
+
+
+  - name: play_hide_inventory_sound
+    body: |
+      play_sound(inventory_hide_sound_identifier);
+      return;
+
+
+  - name: play_show_inventory_sound
+    body: |
+      play_sound(inventory_show_sound_identifier);
+      return;
+
+
   - name: has_valid_size
     type: bool
     private: true
@@ -591,6 +633,23 @@ functions:
       return font_bin->auto_get("Inter-Bold.ttf -48");
 
 
+  - name: play_sound
+    parameters:
+      - name: sound_identifier
+        type: std::string
+        default_argument: '"[unset-play_sound]"'
+    body: |
+      if (sound_identifier.empty()) return;
+      if (!event_emitter)
+      {
+         std::cout << "[AllegroFlare::Elements::Inventory::play_sound]: WARNING: expecting an event_emitter "
+                   << "but it is nullptr. Cannot play \"" << sound_identifier << "\""
+                   << std::endl;
+      }
+      event_emitter->emit_play_sound_effect_event(sound_identifier);
+      return;
+
+
   - name: create_placeholder_inventory_index
     type: AllegroFlare::InventoryIndex*
     static: true
@@ -647,4 +706,7 @@ dependencies:
     headers: [ AllegroFlare/Interpolators.hpp ]
   - symbol: fmod
     headers: [ cmath ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+
 

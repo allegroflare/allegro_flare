@@ -1828,6 +1828,10 @@ table td
   <td class="property">AllegroFlare::InventoryIndex*</td>
 </tr>
 <tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
   <td class="property">place</td>
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
@@ -1882,6 +1886,18 @@ table td
 <tr>
   <td class="property">inventory_items_box_spacing</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">cursor_move_sound_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">inventory_show_sound_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">inventory_hide_sound_identifier</td>
+  <td class="property">std::string</td>
 </tr>
     </table>
      <table>
@@ -1943,6 +1959,15 @@ table td
   <td class="method">hide()</td>
 </tr>
 <tr>
+  <td class="method">play_move_cursor_sound()</td>
+</tr>
+<tr>
+  <td class="method">play_hide_inventory_sound()</td>
+</tr>
+<tr>
+  <td class="method">play_show_inventory_sound()</td>
+</tr>
+<tr>
   <td class="private_method">has_valid_size()</td>
 </tr>
 <tr>
@@ -1968,6 +1993,9 @@ table td
 </tr>
 <tr>
   <td class="method">obtain_details_header_font()</td>
+</tr>
+<tr>
+  <td class="method">play_sound(1)</td>
 </tr>
 <tr>
   <td class="method">create_placeholder_inventory_index()</td>
@@ -2018,6 +2046,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -5866,6 +5897,7 @@ table td
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",

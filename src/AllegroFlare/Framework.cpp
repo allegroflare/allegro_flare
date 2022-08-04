@@ -475,7 +475,7 @@ namespace AllegroFlare
             if (textlog) close_log_window();
             break;
          case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
-            std::cout << "a joystick was added/removed" << std::endl;
+            std::cout << "[AllegroFlare::Framework::run_loop] INFO: A joystick was added/removed." << std::endl;
             al_reconfigure_joysticks();
             // note: a bug in allegro causes a crash when al_get_joystick(0) if there
             // are 0 joysticks.  So this extra check has been added to prevent
