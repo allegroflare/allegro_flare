@@ -3838,22 +3838,22 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Room.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Room*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Room.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Room.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EntityFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::Prototypes::FixedRoom2D::Script&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp&quot;]}</td>
@@ -3863,9 +3863,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Inventory.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
@@ -3899,6 +3896,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryIndex&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryIndex.hpp&quot;]}</td>
@@ -6311,12 +6311,17 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
-  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Room>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
   "AllegroFlare/Prototypes/FixedRoom2D/Room": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
+  ],
+  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Room>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
@@ -6325,11 +6330,6 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
-  ],
-  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",

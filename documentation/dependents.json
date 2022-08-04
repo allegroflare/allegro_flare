@@ -617,12 +617,17 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
-  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Room>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
   "AllegroFlare/Prototypes/FixedRoom2D/Room": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
+  ],
+  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Room>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
@@ -631,11 +636,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
-  ],
-  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",

@@ -1,0 +1,87 @@
+properties:
+
+
+  - name: inventory_index
+    type: AllegroFlare::InventoryIndex*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: af_inventory
+    type: AllegroFlare::Inventory*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: flags
+    type: AllegroFlare::Inventory*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: entity_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: room_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: entity_room_associations
+    type: std::map<std::string, std::string>*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: script_dictionary
+    type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: load_original_gametest_default
+    type: bool
+    guards:
+      - inventory_index
+      - af_inventory
+      - flags
+      - entity_dictionary
+      - room_dictionary
+      - entity_room_associations
+      - script_dictionary
+    body: |
+      return true;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Inventory*
+    headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::InventoryIndex*
+    headers: [ AllegroFlare/InventoryIndex.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>*
+    headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>*
+    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+  - symbol: std::map<std::string, std::string>*
+    headers: [ map, string ]
+
+

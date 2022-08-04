@@ -756,26 +756,24 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::AudioController*
     headers: [ AllegroFlare/AudioController.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
-    headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Room*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
   - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
+    headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
+    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityFactory
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
-    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
   - symbol: AllegroFlare::Elements::Inventory
     headers: [ AllegroFlare/Elements/Inventory.hpp ]
-  - symbol: AllegroFlare::Inventory
-    headers: [ AllegroFlare/Inventory.hpp ]
   - symbol: AllegroFlare::GameEventDatas::Base*
     headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Base*
@@ -798,6 +796,8 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp ]
   - symbol: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
     headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Inventory
+    headers: [ AllegroFlare/Inventory.hpp ]
   - symbol: AllegroFlare::InventoryIndex
     headers: [ AllegroFlare/InventoryIndex.hpp ]
 
