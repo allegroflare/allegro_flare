@@ -686,6 +686,9 @@
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Configuration": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"

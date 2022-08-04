@@ -247,7 +247,7 @@ bool Configuration::load_original_gametest_default(AllegroFlare::BitmapBin* bitm
             "COLLECT: keys"
       })},
       { "observe_table", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            "DIALOG: Hmm. Nothing interesting on this table."
+            "DIALOG: Hmm. Interesting, there's a key on this table."
       })},
    };
 

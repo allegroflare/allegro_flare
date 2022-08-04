@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -239,6 +240,31 @@ void FixedRoom2D::load_story_and_start()
          error_message << "FixedRoom2D" << "::" << "load_story_and_start" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration;
+   configuration.set_inventory_index(&inventory_index);
+   configuration.set_af_inventory(&af_inventory);
+   configuration.set_flags(&flags);
+   configuration.set_entity_dictionary(&entity_dictionary);
+   configuration.set_room_dictionary(&room_dictionary);
+   configuration.set_entity_room_associations(&entity_room_associations);
+   configuration.set_script_dictionary(&script_dictionary);
+
+   bool load_was_successful = configuration.load_original_gametest_default(
+      bitmap_bin,
+      font_bin,
+      event_emitter,
+      &entity_collection_helper // don't think this is needed, can be created in the configuration class
+   );
+
+   if (load_was_successful)
+   {
+      std::string room_to_start_in = configuration.get_starting_in_room_identifier();
+      enter_room(room_to_start_in);
+   }
+
+   return;
+
+
    AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
    AllegroFlare::Prototypes::FixedRoom2D::RoomFactory room_factory(
       bitmap_bin, font_bin, event_emitter, &entity_collection_helper
