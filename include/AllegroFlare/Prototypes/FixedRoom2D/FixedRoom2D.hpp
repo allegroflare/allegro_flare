@@ -11,6 +11,7 @@
 #include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/InventoryIndex.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
@@ -62,8 +63,8 @@ namespace AllegroFlare
             std::set<std::string> get_subscribed_to_game_event_names();
             bool is_subscribed_to_game_event_name(std::string game_event_name="[unset-game_event_name]");
             void initialize();
-            void load();
-            void load_story_and_start();
+            void load_from_configuration_and_start(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={});
+            void load_gametest_configuration_and_start();
             void update();
             bool enter_room(std::string room_name="[unset-room_name]");
             void unhover_any_and_all_entities();

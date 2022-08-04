@@ -13,6 +13,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -84,9 +88,31 @@ void Screen::initialize()
    fixed_room_2d.set_audio_controller(audio_controller);
    fixed_room_2d.initialize();
 
-   fixed_room_2d.load_story_and_start();
-
    initialized = true;
+   return;
+}
+
+void Screen::load_gametest_configuration_and_start()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "load_gametest_configuration_and_start" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   fixed_room_2d.load_gametest_configuration_and_start();
+   return;
+}
+
+void Screen::load_game_configuration_and_start(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "load_game_configuration_and_start" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   fixed_room_2d.load_from_configuration_and_start(configuration);
    return;
 }
 

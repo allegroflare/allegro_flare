@@ -9,11 +9,11 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -223,26 +223,16 @@ void FixedRoom2D::initialize()
    return;
 }
 
-void FixedRoom2D::load()
+void FixedRoom2D::load_from_configuration_and_start(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration)
 {
    if (!(initialized))
       {
          std::stringstream error_message;
-         error_message << "FixedRoom2D" << "::" << "load" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   return;
-}
-
-void FixedRoom2D::load_story_and_start()
-{
-   if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "FixedRoom2D" << "::" << "load_story_and_start" << ": error: " << "guard \"initialized\" not met";
+         error_message << "FixedRoom2D" << "::" << "load_from_configuration_and_start" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader configuration_loader;
+   configuration_loader.set_source_configuration(&configuration);
    configuration_loader.set_destination_inventory_index(&inventory_index);
    configuration_loader.set_destination_af_inventory(&af_inventory);
    configuration_loader.set_destination_flags(&flags);
@@ -250,11 +240,6 @@ void FixedRoom2D::load_story_and_start()
    configuration_loader.set_destination_room_dictionary(&room_dictionary);
    configuration_loader.set_destination_entity_room_associations(&entity_room_associations);
    configuration_loader.set_destination_script_dictionary(&script_dictionary);
-
-   AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
-   AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
-     configuration_factory.load_original_gametest_default(
-       bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
 
    bool load_was_successful = configuration_loader.load_from_source_configuration();
 
@@ -271,6 +256,22 @@ void FixedRoom2D::load_story_and_start()
    }
 
    return;
+}
+
+void FixedRoom2D::load_gametest_configuration_and_start()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "FixedRoom2D" << "::" << "load_gametest_configuration_and_start" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
+   AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
+     configuration_factory.load_original_gametest_default(
+       bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
+
+   return load_from_configuration_and_start(source_configuration);
 }
 
 void FixedRoom2D::update()

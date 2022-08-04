@@ -168,16 +168,15 @@ functions:
       - AllegroFlare::Prototypes::FixedRoom2D::RoomFactory
 
 
-  - name: load
+  - name: load_from_configuration_and_start
     guards: [ initialized ]
-    body:
-      return;
-
-
-  - name: load_story_and_start
-    guards: [ initialized ]
+    parameters:
+      - name: configuration
+        type: AllegroFlare::Prototypes::FixedRoom2D::Configuration
+        default_argument: '{}'
     body: |
       AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader configuration_loader;
+      configuration_loader.set_source_configuration(&configuration);
       configuration_loader.set_destination_inventory_index(&inventory_index);
       configuration_loader.set_destination_af_inventory(&af_inventory);
       configuration_loader.set_destination_flags(&flags);
@@ -185,11 +184,6 @@ functions:
       configuration_loader.set_destination_room_dictionary(&room_dictionary);
       configuration_loader.set_destination_entity_room_associations(&entity_room_associations);
       configuration_loader.set_destination_script_dictionary(&script_dictionary);
-
-      AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
-      AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
-        configuration_factory.load_original_gametest_default(
-          bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
 
       bool load_was_successful = configuration_loader.load_from_source_configuration();
 
@@ -207,9 +201,21 @@ functions:
 
       return;
     body_dependency_symbols:
+     - AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader
+
+
+  - name: load_gametest_configuration_and_start
+    guards: [ initialized ]
+    body: |
+      AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
+      AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
+        configuration_factory.load_original_gametest_default(
+          bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
+
+      return load_from_configuration_and_start(source_configuration);
+    body_dependency_symbols:
      - AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory
      - AllegroFlare::Prototypes::FixedRoom2D::Configuration
-     - AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader
 
 
   - name: update

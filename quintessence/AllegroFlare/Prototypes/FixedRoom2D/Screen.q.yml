@@ -51,9 +51,25 @@ functions:
       fixed_room_2d.set_audio_controller(audio_controller);
       fixed_room_2d.initialize();
 
-      fixed_room_2d.load_story_and_start();
-
       initialized = true;
+      return;
+
+
+  - name: load_gametest_configuration_and_start
+    guards: [ initialized ]
+    body: |
+      fixed_room_2d.load_gametest_configuration_and_start();
+      return;
+
+
+  - name: load_game_configuration_and_start
+    parameters:
+      - name: configuration
+        type: AllegroFlare::Prototypes::FixedRoom2D::Configuration
+        default_argument: '{}'
+    guards: [ initialized ]
+    body: |
+      fixed_room_2d.load_from_configuration_and_start(configuration);
       return;
 
 
@@ -177,5 +193,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
   - symbol: AllegroFlare::AudioController*
     headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Configuration
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp ]
 
 

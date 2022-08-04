@@ -3934,10 +3934,10 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">load()</td>
+  <td class="method">load_from_configuration_and_start(1)</td>
 </tr>
 <tr>
-  <td class="method">load_story_and_start()</td>
+  <td class="method">load_gametest_configuration_and_start()</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -4363,6 +4363,12 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
+  <td class="method">load_gametest_configuration_and_start()</td>
+</tr>
+<tr>
+  <td class="method">load_game_configuration_and_start(1)</td>
+</tr>
+<tr>
   <td class="method">on_activate()</td>
 </tr>
 <tr>
@@ -4411,6 +4417,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Configuration&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -6556,7 +6565,8 @@ table td
   "AllegroFlare/Prototypes/FixedRoom2D/Configuration": [
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
