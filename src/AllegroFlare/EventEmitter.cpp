@@ -139,8 +139,8 @@ void EventEmitter::emit_play_music_track_event(std::string music_track_identifie
          error_message << "EventEmitter" << "::" << "emit_play_music_track_event" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   //std::string *data_to_pass = new std::string(music_track_identifier);
-   //emit_event(ALLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK, (intptr_t)data_to_pass);
+   std::string *data_to_pass = new std::string(music_track_identifier);
+   emit_event(ALLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK, (intptr_t)data_to_pass);
    return;
 }
 

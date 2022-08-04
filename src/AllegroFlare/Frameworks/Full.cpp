@@ -630,9 +630,14 @@ void Full::run_loop()
                        if (!data)
                        {
                           // TODO: add an error message
+                          std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: ERROR: music track data is nullptr."
+                                    << std::endl;
                        }
                        else
                        {
+                          std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: INFO: playing music track identifer"
+                                    << " \"" << (*data) << "\""
+                                    << std::endl;
                           audio_controller.play_music_track_by_identifier(*data);
                           delete data;
                        }

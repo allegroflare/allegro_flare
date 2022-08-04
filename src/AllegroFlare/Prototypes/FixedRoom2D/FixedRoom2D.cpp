@@ -201,6 +201,7 @@ void FixedRoom2D::initialize()
 
    inventory_window.set_font_bin(font_bin);
    inventory_window.set_bitmap_bin(bitmap_bin);
+   inventory_window.set_event_emitter(event_emitter);
    inventory_window.set_af_inventory(&af_inventory);
    inventory_window.set_inventory_index(&inventory_index);
 
