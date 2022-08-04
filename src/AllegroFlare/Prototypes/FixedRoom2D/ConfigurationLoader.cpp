@@ -15,14 +15,14 @@ namespace FixedRoom2D
 {
 
 
-ConfigurationLoader::ConfigurationLoader(AllegroFlare::InventoryIndex* inventory_index, AllegroFlare::Inventory* af_inventory, AllegroFlare::Inventory* flags, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary, std::map<std::string, std::string>* entity_room_associations, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary)
-   : inventory_index(inventory_index)
-   , af_inventory(af_inventory)
-   , flags(flags)
-   , entity_dictionary(entity_dictionary)
-   , room_dictionary(room_dictionary)
-   , entity_room_associations(entity_room_associations)
-   , script_dictionary(script_dictionary)
+ConfigurationLoader::ConfigurationLoader(AllegroFlare::InventoryIndex* destination_inventory_index, AllegroFlare::Inventory* destination_af_inventory, AllegroFlare::Inventory* destination_flags, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* destination_entity_dictionary, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary, std::map<std::string, std::string>* destination_entity_room_associations, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary)
+   : destination_inventory_index(destination_inventory_index)
+   , destination_af_inventory(destination_af_inventory)
+   , destination_flags(destination_flags)
+   , destination_entity_dictionary(destination_entity_dictionary)
+   , destination_room_dictionary(destination_room_dictionary)
+   , destination_entity_room_associations(destination_entity_room_associations)
+   , destination_script_dictionary(destination_script_dictionary)
    , starting_in_room_identifier("[unset-starting_in_room_identifier]")
 {
 }
@@ -33,87 +33,87 @@ ConfigurationLoader::~ConfigurationLoader()
 }
 
 
-void ConfigurationLoader::set_inventory_index(AllegroFlare::InventoryIndex* inventory_index)
+void ConfigurationLoader::set_destination_inventory_index(AllegroFlare::InventoryIndex* destination_inventory_index)
 {
-   this->inventory_index = inventory_index;
+   this->destination_inventory_index = destination_inventory_index;
 }
 
 
-void ConfigurationLoader::set_af_inventory(AllegroFlare::Inventory* af_inventory)
+void ConfigurationLoader::set_destination_af_inventory(AllegroFlare::Inventory* destination_af_inventory)
 {
-   this->af_inventory = af_inventory;
+   this->destination_af_inventory = destination_af_inventory;
 }
 
 
-void ConfigurationLoader::set_flags(AllegroFlare::Inventory* flags)
+void ConfigurationLoader::set_destination_flags(AllegroFlare::Inventory* destination_flags)
 {
-   this->flags = flags;
+   this->destination_flags = destination_flags;
 }
 
 
-void ConfigurationLoader::set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary)
+void ConfigurationLoader::set_destination_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* destination_entity_dictionary)
 {
-   this->entity_dictionary = entity_dictionary;
+   this->destination_entity_dictionary = destination_entity_dictionary;
 }
 
 
-void ConfigurationLoader::set_room_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary)
+void ConfigurationLoader::set_destination_room_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary)
 {
-   this->room_dictionary = room_dictionary;
+   this->destination_room_dictionary = destination_room_dictionary;
 }
 
 
-void ConfigurationLoader::set_entity_room_associations(std::map<std::string, std::string>* entity_room_associations)
+void ConfigurationLoader::set_destination_entity_room_associations(std::map<std::string, std::string>* destination_entity_room_associations)
 {
-   this->entity_room_associations = entity_room_associations;
+   this->destination_entity_room_associations = destination_entity_room_associations;
 }
 
 
-void ConfigurationLoader::set_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary)
+void ConfigurationLoader::set_destination_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary)
 {
-   this->script_dictionary = script_dictionary;
+   this->destination_script_dictionary = destination_script_dictionary;
 }
 
 
-AllegroFlare::InventoryIndex* ConfigurationLoader::get_inventory_index()
+AllegroFlare::InventoryIndex* ConfigurationLoader::get_destination_inventory_index()
 {
-   return inventory_index;
+   return destination_inventory_index;
 }
 
 
-AllegroFlare::Inventory* ConfigurationLoader::get_af_inventory()
+AllegroFlare::Inventory* ConfigurationLoader::get_destination_af_inventory()
 {
-   return af_inventory;
+   return destination_af_inventory;
 }
 
 
-AllegroFlare::Inventory* ConfigurationLoader::get_flags()
+AllegroFlare::Inventory* ConfigurationLoader::get_destination_flags()
 {
-   return flags;
+   return destination_flags;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* ConfigurationLoader::get_entity_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* ConfigurationLoader::get_destination_entity_dictionary()
 {
-   return entity_dictionary;
+   return destination_entity_dictionary;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* ConfigurationLoader::get_room_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* ConfigurationLoader::get_destination_room_dictionary()
 {
-   return room_dictionary;
+   return destination_room_dictionary;
 }
 
 
-std::map<std::string, std::string>* ConfigurationLoader::get_entity_room_associations()
+std::map<std::string, std::string>* ConfigurationLoader::get_destination_entity_room_associations()
 {
-   return entity_room_associations;
+   return destination_entity_room_associations;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* ConfigurationLoader::get_script_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* ConfigurationLoader::get_destination_script_dictionary()
 {
-   return script_dictionary;
+   return destination_script_dictionary;
 }
 
 
@@ -125,46 +125,46 @@ std::string ConfigurationLoader::get_starting_in_room_identifier()
 
 bool ConfigurationLoader::load_original_gametest_default(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
 {
-   if (!(inventory_index))
+   if (!(destination_inventory_index))
       {
          std::stringstream error_message;
-         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"inventory_index\" not met";
+         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"destination_inventory_index\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!(af_inventory))
+   if (!(destination_af_inventory))
       {
          std::stringstream error_message;
-         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"af_inventory\" not met";
+         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"destination_af_inventory\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!(flags))
+   if (!(destination_flags))
       {
          std::stringstream error_message;
-         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"flags\" not met";
+         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"destination_flags\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!(entity_dictionary))
+   if (!(destination_entity_dictionary))
       {
          std::stringstream error_message;
-         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"entity_dictionary\" not met";
+         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"destination_entity_dictionary\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!(room_dictionary))
+   if (!(destination_room_dictionary))
       {
          std::stringstream error_message;
-         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"room_dictionary\" not met";
+         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"destination_room_dictionary\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!(entity_room_associations))
+   if (!(destination_entity_room_associations))
       {
          std::stringstream error_message;
-         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"entity_room_associations\" not met";
+         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"destination_entity_room_associations\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (!(script_dictionary))
+   if (!(destination_script_dictionary))
       {
          std::stringstream error_message;
-         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"script_dictionary\" not met";
+         error_message << "ConfigurationLoader" << "::" << "load_original_gametest_default" << ": error: " << "guard \"destination_script_dictionary\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (!(bitmap_bin))
@@ -196,18 +196,18 @@ bool ConfigurationLoader::load_original_gametest_default(AllegroFlare::BitmapBin
       bitmap_bin, font_bin, event_emitter, entity_collection_helper
    );
 
-   *inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   *destination_inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
 
-   af_inventory->add_item(1);
-   af_inventory->add_item(4);
-   af_inventory->add_item(3);
+   destination_af_inventory->add_item(1);
+   destination_af_inventory->add_item(4);
+   destination_af_inventory->add_item(3);
 
-   *room_dictionary = {
+   *destination_room_dictionary = {
       { "front_hall", room_factory.create_room() },
       { "study", room_factory.create_room() },
    };
 
-   *entity_dictionary = {
+   *destination_entity_dictionary = {
       { "door1", entity_factory.create_entity(
             "download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85, "Door 1", "observe_door1") },
       { "door2", entity_factory.create_entity(
@@ -220,7 +220,7 @@ bool ConfigurationLoader::load_original_gametest_default(AllegroFlare::BitmapBin
             "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
    };
 
-   *entity_room_associations = {
+   *destination_entity_room_associations = {
       { "door1", "front_hall" },
       { "door2", "study" },
       { "chair", "front_hall" },
@@ -228,7 +228,7 @@ bool ConfigurationLoader::load_original_gametest_default(AllegroFlare::BitmapBin
       { "keys", "front_hall" },
    };
 
-   *script_dictionary = {
+   *destination_script_dictionary = {
       { "observe_door1", AllegroFlare::Prototypes::FixedRoom2D::Script({
             "DIALOG: Just a regular door. | I'm going to step through it.",
             "ENTER_ROOM: study",

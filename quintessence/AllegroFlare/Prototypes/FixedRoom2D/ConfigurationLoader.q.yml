@@ -1,49 +1,49 @@
 properties:
 
 
-  - name: inventory_index
+  - name: destination_inventory_index
     type: AllegroFlare::InventoryIndex*
     init_with: nullptr
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: af_inventory
+  - name: destination_af_inventory
     type: AllegroFlare::Inventory*
     init_with: nullptr
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: flags
+  - name: destination_flags
     type: AllegroFlare::Inventory*
     init_with: nullptr
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: entity_dictionary
+  - name: destination_entity_dictionary
     type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
     init_with: nullptr
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: room_dictionary
+  - name: destination_room_dictionary
     type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>*
     init_with: nullptr
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: entity_room_associations
+  - name: destination_entity_room_associations
     type: std::map<std::string, std::string>*
     init_with: nullptr
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: script_dictionary
+  - name: destination_script_dictionary
     type: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>*
     init_with: nullptr
     constructor_arg: true
@@ -75,13 +75,13 @@ functions:
         type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
         default_argument: nullptr
     guards:
-      - inventory_index
-      - af_inventory
-      - flags
-      - entity_dictionary
-      - room_dictionary
-      - entity_room_associations
-      - script_dictionary
+      - destination_inventory_index
+      - destination_af_inventory
+      - destination_flags
+      - destination_entity_dictionary
+      - destination_room_dictionary
+      - destination_entity_room_associations
+      - destination_script_dictionary
       - bitmap_bin
       - font_bin
       - event_emitter
@@ -92,18 +92,18 @@ functions:
          bitmap_bin, font_bin, event_emitter, entity_collection_helper
       );
 
-      *inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+      *destination_inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
 
-      af_inventory->add_item(1);
-      af_inventory->add_item(4);
-      af_inventory->add_item(3);
+      destination_af_inventory->add_item(1);
+      destination_af_inventory->add_item(4);
+      destination_af_inventory->add_item(3);
 
-      *room_dictionary = {
+      *destination_room_dictionary = {
          { "front_hall", room_factory.create_room() },
          { "study", room_factory.create_room() },
       };
 
-      *entity_dictionary = {
+      *destination_entity_dictionary = {
          { "door1", entity_factory.create_entity(
                "download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85, "Door 1", "observe_door1") },
          { "door2", entity_factory.create_entity(
@@ -116,7 +116,7 @@ functions:
                "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
       };
 
-      *entity_room_associations = {
+      *destination_entity_room_associations = {
          { "door1", "front_hall" },
          { "door2", "study" },
          { "chair", "front_hall" },
@@ -124,7 +124,7 @@ functions:
          { "keys", "front_hall" },
       };
 
-      *script_dictionary = {
+      *destination_script_dictionary = {
          { "observe_door1", AllegroFlare::Prototypes::FixedRoom2D::Script({
                "DIALOG: Just a regular door. | I'm going to step through it.",
                "ENTER_ROOM: study",

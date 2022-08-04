@@ -23,33 +23,33 @@ namespace AllegroFlare
          class ConfigurationLoader
          {
          private:
-            AllegroFlare::InventoryIndex* inventory_index;
-            AllegroFlare::Inventory* af_inventory;
-            AllegroFlare::Inventory* flags;
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary;
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary;
-            std::map<std::string, std::string>* entity_room_associations;
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary;
+            AllegroFlare::InventoryIndex* destination_inventory_index;
+            AllegroFlare::Inventory* destination_af_inventory;
+            AllegroFlare::Inventory* destination_flags;
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* destination_entity_dictionary;
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary;
+            std::map<std::string, std::string>* destination_entity_room_associations;
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary;
             std::string starting_in_room_identifier;
 
          public:
-            ConfigurationLoader(AllegroFlare::InventoryIndex* inventory_index=nullptr, AllegroFlare::Inventory* af_inventory=nullptr, AllegroFlare::Inventory* flags=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary=nullptr, std::map<std::string, std::string>* entity_room_associations=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary=nullptr);
+            ConfigurationLoader(AllegroFlare::InventoryIndex* destination_inventory_index=nullptr, AllegroFlare::Inventory* destination_af_inventory=nullptr, AllegroFlare::Inventory* destination_flags=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* destination_entity_dictionary=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary=nullptr, std::map<std::string, std::string>* destination_entity_room_associations=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary=nullptr);
             ~ConfigurationLoader();
 
-            void set_inventory_index(AllegroFlare::InventoryIndex* inventory_index);
-            void set_af_inventory(AllegroFlare::Inventory* af_inventory);
-            void set_flags(AllegroFlare::Inventory* flags);
-            void set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary);
-            void set_room_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* room_dictionary);
-            void set_entity_room_associations(std::map<std::string, std::string>* entity_room_associations);
-            void set_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary);
-            AllegroFlare::InventoryIndex* get_inventory_index();
-            AllegroFlare::Inventory* get_af_inventory();
-            AllegroFlare::Inventory* get_flags();
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* get_entity_dictionary();
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* get_room_dictionary();
-            std::map<std::string, std::string>* get_entity_room_associations();
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* get_script_dictionary();
+            void set_destination_inventory_index(AllegroFlare::InventoryIndex* destination_inventory_index);
+            void set_destination_af_inventory(AllegroFlare::Inventory* destination_af_inventory);
+            void set_destination_flags(AllegroFlare::Inventory* destination_flags);
+            void set_destination_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* destination_entity_dictionary);
+            void set_destination_room_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary);
+            void set_destination_entity_room_associations(std::map<std::string, std::string>* destination_entity_room_associations);
+            void set_destination_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary);
+            AllegroFlare::InventoryIndex* get_destination_inventory_index();
+            AllegroFlare::Inventory* get_destination_af_inventory();
+            AllegroFlare::Inventory* get_destination_flags();
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* get_destination_entity_dictionary();
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* get_destination_room_dictionary();
+            std::map<std::string, std::string>* get_destination_entity_room_associations();
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* get_destination_script_dictionary();
             std::string get_starting_in_room_identifier();
             bool load_original_gametest_default(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper=nullptr);
          };

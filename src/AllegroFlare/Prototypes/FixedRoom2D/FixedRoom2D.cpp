@@ -241,13 +241,13 @@ void FixedRoom2D::load_story_and_start()
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader configuration_loader;
-   configuration_loader.set_inventory_index(&inventory_index);
-   configuration_loader.set_af_inventory(&af_inventory);
-   configuration_loader.set_flags(&flags);
-   configuration_loader.set_entity_dictionary(&entity_dictionary);
-   configuration_loader.set_room_dictionary(&room_dictionary);
-   configuration_loader.set_entity_room_associations(&entity_room_associations);
-   configuration_loader.set_script_dictionary(&script_dictionary);
+   configuration_loader.set_destination_inventory_index(&inventory_index);
+   configuration_loader.set_destination_af_inventory(&af_inventory);
+   configuration_loader.set_destination_flags(&flags);
+   configuration_loader.set_destination_entity_dictionary(&entity_dictionary);
+   configuration_loader.set_destination_room_dictionary(&room_dictionary);
+   configuration_loader.set_destination_entity_room_associations(&entity_room_associations);
+   configuration_loader.set_destination_script_dictionary(&script_dictionary);
 
    bool load_was_successful = configuration_loader.load_original_gametest_default(
       bitmap_bin,
