@@ -55,7 +55,7 @@ functions:
 
 
   - name: render
-    type: float
+    type: int
     parameters:
       - name: calculate_width_only_and_do_not_draw
         type: bool
@@ -69,7 +69,7 @@ functions:
       ALLEGRO_FONT *font = obtain_font();
       float padding_x = 12;
       float text_width = al_get_text_width(font, keyboard_key_str.c_str());
-      float box_width = std::max(keyboard_key_box_min_width, text_width + padding_x*2);
+      float box_width = guarantee_even_number(std::max(keyboard_key_box_min_width, text_width + padding_x*2));
       if (calculate_width_only_and_do_not_draw) return box_width;
       float roundness = 4;
       float line_thickness = 1.5;
@@ -105,9 +105,20 @@ functions:
 
 
   - name: calculate_width
-    type: float
+    type: int
     body: |
       return render(true);
+
+
+  - name: guarantee_even_number
+    type: int
+    parameters:
+      - name: potentially_odd_number
+        type: int
+        default_argument: 0
+    body: |
+      if (potentially_odd_number % 2 == 1) return potentially_odd_number + 1;
+      return potentially_odd_number;
 
 
   - name: obtain_font

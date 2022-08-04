@@ -120,7 +120,7 @@ float KeyboardKey::get_keyboard_key_box_min_width()
 }
 
 
-float KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
+int KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
 {
    if (!(al_is_system_installed()))
       {
@@ -149,7 +149,7 @@ float KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
    ALLEGRO_FONT *font = obtain_font();
    float padding_x = 12;
    float text_width = al_get_text_width(font, keyboard_key_str.c_str());
-   float box_width = std::max(keyboard_key_box_min_width, text_width + padding_x*2);
+   float box_width = guarantee_even_number(std::max(keyboard_key_box_min_width, text_width + padding_x*2));
    if (calculate_width_only_and_do_not_draw) return box_width;
    float roundness = 4;
    float line_thickness = 1.5;
@@ -177,9 +177,15 @@ float KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
    return box_width;
 }
 
-float KeyboardKey::calculate_width()
+int KeyboardKey::calculate_width()
 {
    return render(true);
+}
+
+int KeyboardKey::guarantee_even_number(int potentially_odd_number)
+{
+   if (potentially_odd_number % 2 == 1) return potentially_odd_number + 1;
+   return potentially_odd_number;
 }
 
 ALLEGRO_FONT* KeyboardKey::obtain_font()

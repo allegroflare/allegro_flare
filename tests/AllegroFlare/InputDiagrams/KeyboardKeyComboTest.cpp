@@ -1,5 +1,6 @@
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
    try { code; FAIL() << "Expected " # raised_exception_type; } \
@@ -16,6 +17,7 @@ class AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
+MATCHER(IsEven, "") { return (arg % 2) == 0; }
 
 #include <AllegroFlare/InputDiagrams/KeyboardKeyCombo.hpp>
 
@@ -98,7 +100,7 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixtur
    std::vector<std::tuple<std::vector<std::string>, int>> keyboard_input_key_combos_and_expected_widths = {
       { { "A" }, 42 },
       { { "." }, 42 },
-      { { "SHIFT", "%SPACE", "%PLUS", "%SPACE", "A" }, 151 },
+      { { "SHIFT", "%SPACE", "%PLUS", "%SPACE", "A" }, 152 },
    };
 
    for (auto &keyboard_input_key_combo_and_expected_width : keyboard_input_key_combos_and_expected_widths)
@@ -108,6 +110,25 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixtur
       AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(&get_font_bin_ref(), keyboard_input_key_tokens);
 
       EXPECT_EQ(expected_diagram_width, keyboard_key_combo.render(false));
+   }
+}
+
+
+TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixture,
+   calculate_width__will_guarantee_the_width_is_calculated_as_an_even_number)
+{
+   std::vector<std::vector<std::string>> keyboard_key_combos_to_test = {
+      { "." },
+      { "A" },
+      { "%PLUS", },
+      { "SHIFT", "%SPACE", "%PLUS", "%SPACE", "A" },
+      { "SHIFT", "%SPACER", "%SLASH", "A" },
+   };
+
+   for (auto &keyboard_key_combo_to_test : keyboard_key_combos_to_test)
+   {
+      AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key_combo(&get_font_bin_ref(), keyboard_key_combo_to_test);
+      EXPECT_THAT(keyboard_key_combo.calculate_width(), IsEven());
    }
 }
 

@@ -1,0 +1,11 @@
+class_methods:
+
+
+  - name: render
+    description: returns the polar coordinates of an angle (in radians?) and magnitude
+
+  - name: get_angle
+    description: return the arctangent(2) for the current vector
+
+  - name: get_magnitude
+

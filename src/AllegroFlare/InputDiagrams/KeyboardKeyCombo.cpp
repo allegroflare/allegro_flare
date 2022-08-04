@@ -101,7 +101,7 @@ float KeyboardKeyCombo::get_keyboard_key_box_height()
    return keyboard_key.get_keyboard_key_box_height();
 }
 
-float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
+int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
 {
    if (!(al_is_system_installed()))
       {
@@ -135,7 +135,7 @@ float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
    bool next_token_is_raw_text = false;
    bool do_actually_draw = !calculate_width_only_and_do_not_draw;
 
-   float cursor_x = 0;
+   int cursor_x = 0;
    for (auto &keyboard_combo_token : keyboard_combo_tokens)
    {
       if (next_token_is_raw_text)
@@ -218,17 +218,23 @@ float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
          keyboard_key.set_y(y);
          //keyboard_key.set_x = 
          float key_width = 0;
-         if (do_actually_draw) key_width = keyboard_key.render();
+         key_width = keyboard_key.render(calculate_width_only_and_do_not_draw);
          cursor_x += key_width;
       }
    }
 
-   return cursor_x;
+   return guarantee_even_number(cursor_x);
 }
 
-float KeyboardKeyCombo::calculate_width()
+int KeyboardKeyCombo::calculate_width()
 {
    return render(true);
+}
+
+int KeyboardKeyCombo::guarantee_even_number(int potentially_odd_number)
+{
+   if (potentially_odd_number % 2 == 1) return potentially_odd_number + 1;
+   return potentially_odd_number;
 }
 
 ALLEGRO_FONT* KeyboardKeyCombo::obtain_font()

@@ -48,7 +48,7 @@ functions:
       
 
   - name: render
-    type: float
+    type: int
     parameters:
       - name: calculate_width_only_and_do_not_draw
         type: bool
@@ -67,7 +67,7 @@ functions:
       bool next_token_is_raw_text = false;
       bool do_actually_draw = !calculate_width_only_and_do_not_draw;
 
-      float cursor_x = 0;
+      int cursor_x = 0;
       for (auto &keyboard_combo_token : keyboard_combo_tokens)
       {
          if (next_token_is_raw_text)
@@ -150,12 +150,12 @@ functions:
             keyboard_key.set_y(y);
             //keyboard_key.set_x = 
             float key_width = 0;
-            if (do_actually_draw) key_width = keyboard_key.render();
+            key_width = keyboard_key.render(calculate_width_only_and_do_not_draw);
             cursor_x += key_width;
          }
       }
 
-      return cursor_x;
+      return guarantee_even_number(cursor_x);
     body_dependency_symbols:
       - al_is_system_installed
       - al_is_font_addon_initialized
@@ -167,9 +167,20 @@ functions:
 
 
   - name: calculate_width
-    type: float
+    type: int
     body: |
       return render(true);
+
+
+  - name: guarantee_even_number
+    type: int
+    parameters:
+      - name: potentially_odd_number
+        type: int
+        default_argument: 0
+    body: |
+      if (potentially_odd_number % 2 == 1) return potentially_odd_number + 1;
+      return potentially_odd_number;
 
 
   - name: obtain_font

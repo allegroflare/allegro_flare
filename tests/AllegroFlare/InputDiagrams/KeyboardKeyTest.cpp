@@ -1,5 +1,6 @@
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
    try { code; FAIL() << "Expected " # raised_exception_type; } \
@@ -16,6 +17,7 @@ class AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
+MATCHER(IsEven, "") { return (arg % 2) == 0; }
 
 #include <AllegroFlare/InputDiagrams/KeyboardKey.hpp>
 
@@ -115,6 +117,21 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture,
       AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(&get_font_bin_ref(), keyboard_input_key);
 
       EXPECT_EQ(expected_diagram_width, keyboard_key.calculate_width());
+   }
+}
+
+
+TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyTestWithAllegroRenderingFixture,
+   calculate_width__will_guarantee_a_width_that_is_even)
+{
+   std::vector<std::string> keyboard_input_keys_to_test = {
+      ".", "A", "SHIFT", "CTRL", "PAGE UP",
+   };
+
+   for (auto &keyboard_input_key_to_test : keyboard_input_keys_to_test)
+   {
+      AllegroFlare::InputDiagrams::KeyboardKey keyboard_input_key(&get_font_bin_ref(), keyboard_input_key_to_test);
+      EXPECT_THAT(keyboard_input_key.calculate_width(), IsEven());
    }
 }
 

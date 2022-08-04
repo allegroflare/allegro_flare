@@ -40,8 +40,9 @@ namespace AllegroFlare
          float get_y();
          float get_keyboard_key_box_height();
          float get_keyboard_key_box_min_width();
-         float render(bool calculate_width_only_and_do_not_draw=false);
-         float calculate_width();
+         int render(bool calculate_width_only_and_do_not_draw=false);
+         int calculate_width();
+         int guarantee_even_number(int potentially_odd_number=0);
          ALLEGRO_FONT* obtain_font();
       };
    }

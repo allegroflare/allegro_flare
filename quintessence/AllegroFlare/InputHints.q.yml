@@ -84,7 +84,7 @@ functions:
       float width = keyboard_key_combo.calculate_width();
       float height = keyboard_key_combo.get_keyboard_key_box_height();
 
-      keyboard_key_combo.set_x(surface_width/2 - width/2);
+      keyboard_key_combo.set_x(surface_width/2 - (width)/2);
       keyboard_key_combo.set_y((int)(surface_height - bar_height/2 - height/2));
       keyboard_key_combo.render();
       return;
