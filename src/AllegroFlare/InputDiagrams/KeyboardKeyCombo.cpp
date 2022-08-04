@@ -215,7 +215,7 @@ float KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
       {
          keyboard_key.set_keyboard_key_str(keyboard_combo_token);
          keyboard_key.set_x(x + cursor_x);
-         keyboard_key.set_y(y + cursor_x);
+         keyboard_key.set_y(y);
          //keyboard_key.set_x = 
          float key_width = 0;
          if (do_actually_draw) key_width = keyboard_key.render();
