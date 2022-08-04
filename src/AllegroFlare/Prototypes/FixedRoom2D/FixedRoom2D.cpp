@@ -11,6 +11,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -249,12 +251,12 @@ void FixedRoom2D::load_story_and_start()
    configuration_loader.set_destination_entity_room_associations(&entity_room_associations);
    configuration_loader.set_destination_script_dictionary(&script_dictionary);
 
-   bool load_was_successful = configuration_loader.load_original_gametest_default(
-      bitmap_bin,
-      font_bin,
-      event_emitter,
-      &entity_collection_helper // don't think this is needed, can be created in the configuration class
-   );
+   AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
+   AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
+     configuration_factory.load_original_gametest_default(
+       bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
+
+   bool load_was_successful = configuration_loader.load_from_source_configuration();
 
    if (load_was_successful)
    {

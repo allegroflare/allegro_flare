@@ -186,12 +186,12 @@ functions:
       configuration_loader.set_destination_entity_room_associations(&entity_room_associations);
       configuration_loader.set_destination_script_dictionary(&script_dictionary);
 
-      bool load_was_successful = configuration_loader.load_original_gametest_default(
-         bitmap_bin,
-         font_bin,
-         event_emitter,
-         &entity_collection_helper // don't think this is needed, can be created in the configuration class
-      );
+      AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
+      AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
+        configuration_factory.load_original_gametest_default(
+          bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
+
+      bool load_was_successful = configuration_loader.load_from_source_configuration();
 
       if (load_was_successful)
       {
@@ -207,6 +207,8 @@ functions:
 
       return;
     body_dependency_symbols:
+     - AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory
+     - AllegroFlare::Prototypes::FixedRoom2D::Configuration
      - AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader
 
 
@@ -769,5 +771,9 @@ dependencies:
     headers: [ AllegroFlare/InventoryIndex.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Configuration
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp ]
 
   

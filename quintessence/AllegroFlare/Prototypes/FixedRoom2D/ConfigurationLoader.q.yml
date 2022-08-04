@@ -1,6 +1,13 @@
 properties:
 
 
+  - name: source_configuration
+    type: AllegroFlare::Prototypes::FixedRoom2D::Configuration*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: destination_inventory_index
     type: AllegroFlare::InventoryIndex*
     init_with: nullptr
@@ -59,103 +66,18 @@ properties:
 functions:
 
 
-  - name: load_original_gametest_default
+  - name: load_from_source_configuration
     type: bool
-    parameters:
-      - name: bitmap_bin
-        type: AllegroFlare::BitmapBin*
-        default_argument: nullptr
-      - name: font_bin
-        type: AllegroFlare::FontBin*
-        default_argument: nullptr
-      - name: event_emitter
-        type: AllegroFlare::EventEmitter*
-        default_argument: nullptr
-      - name: entity_collection_helper
-        type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
-        default_argument: nullptr
-    guards:
-      - destination_inventory_index
-      - destination_af_inventory
-      - destination_flags
-      - destination_entity_dictionary
-      - destination_room_dictionary
-      - destination_entity_room_associations
-      - destination_script_dictionary
-      - bitmap_bin
-      - font_bin
-      - event_emitter
-      - entity_collection_helper
+    guards: [ source_configuration ]
     body: |
-      AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
-      AllegroFlare::Prototypes::FixedRoom2D::RoomFactory room_factory(
-         bitmap_bin, font_bin, event_emitter, entity_collection_helper
-      );
-
-      *destination_inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
-
-      destination_af_inventory->add_item(1);
-      destination_af_inventory->add_item(4);
-      destination_af_inventory->add_item(3);
-
-      *destination_room_dictionary = {
-         { "front_hall", room_factory.create_room() },
-         { "study", room_factory.create_room() },
-      };
-
-      *destination_entity_dictionary = {
-         { "door1", entity_factory.create_entity(
-               "download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85, "Door 1", "observe_door1") },
-         { "door2", entity_factory.create_entity(
-               "download-door-png-transparent-image-and-clipart-3.png", 500, 800, 0.85, "Door 2", "observe_door2") },
-         { "chair", entity_factory.create_entity(
-               "wooden-chair-png-transparent-image-pngpix-0.png", 700, 800, 0.168, "Chair", "signal_hello") },
-         { "table", entity_factory.create_entity(
-               "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "observe_table") },
-         { "keys", entity_factory.create_entity(
-               "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
-      };
-
-      *destination_entity_room_associations = {
-         { "door1", "front_hall" },
-         { "door2", "study" },
-         { "chair", "front_hall" },
-         { "table", "front_hall" },
-         { "keys", "front_hall" },
-      };
-
-      *destination_script_dictionary = {
-         { "observe_door1", AllegroFlare::Prototypes::FixedRoom2D::Script({
-               "DIALOG: Just a regular door. | I'm going to step through it.",
-               "ENTER_ROOM: study",
-         })},
-         { "observe_door2", AllegroFlare::Prototypes::FixedRoom2D::Script({
-               "DIALOG: A regular door. | I'll to in.",
-               "ENTER_ROOM: front_hall",
-         })},
-         { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({
-               "SIGNAL: Hello!"})
-         },
-         { "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({
-               "DIALOG: This was a scripted dialog!"
-         })},
-         { "collect_keys", AllegroFlare::Prototypes::FixedRoom2D::Script({
-               "COLLECT: keys"
-         })},
-         { "observe_table", AllegroFlare::Prototypes::FixedRoom2D::Script({
-               "DIALOG: Hmm. Interesting, there's a key on this table."
-         })},
-      };
-
-      starting_in_room_identifier = "front_hall";
-       
-      //enter_room("front_hall");
-      //enter_room("study");
-
+      *destination_inventory_index = source_configuration->get_inventory_index_ref();
+      *destination_af_inventory = source_configuration->get_af_inventory();
+      *destination_room_dictionary = source_configuration->get_room_dictionary();
+      *destination_entity_dictionary = source_configuration->get_entity_dictionary();
+      *destination_entity_room_associations = source_configuration->get_entity_room_associations();
+      *destination_script_dictionary = source_configuration->get_script_dictionary();
+      starting_in_room_identifier = source_configuration->get_starting_in_room_identifier();
       return true;
-    body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::EntityFactory
-      - AllegroFlare::Prototypes::FixedRoom2D::RoomFactory
 
 
 dependencies:
@@ -185,5 +107,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Configuration*
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp ]
 
 
