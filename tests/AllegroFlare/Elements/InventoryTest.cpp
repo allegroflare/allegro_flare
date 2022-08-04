@@ -238,7 +238,13 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
    AllegroFlare::Inventory af_inventory;
    AllegroFlare::InventoryIndex index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
-   AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory, &index);
+   AllegroFlare::Elements::Inventory inventory(
+      &get_font_bin_ref(),
+      &get_bitmap_bin_ref(),
+      &af_inventory,
+      &index,
+      &event_emitter
+   );
 
    af_inventory.add_item(1);
    af_inventory.add_item(2);
@@ -262,7 +268,11 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
          }
          break;
 
-         { // TODO: catch case for sound effect event emission
+         case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+         {
+            std::cout << "[AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest]: INFO: "
+                      << "Play sound effect event was emitted. "
+                      << std::endl;
          }
 
          case ALLEGRO_EVENT_KEY_CHAR:
