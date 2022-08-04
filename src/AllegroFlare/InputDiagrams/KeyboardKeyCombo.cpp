@@ -20,7 +20,7 @@ namespace InputDiagrams
 {
 
 
-KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<std::string> keyboard_combo_tokens, ALLEGRO_COLOR color, float x, float y, std::string font_name, int font_size, std::string keyboard_key_font_name, int keyboard_key_font_size, float keyboard_key_box_height, float keyboard_key_box_min_width)
+KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<std::string> keyboard_combo_tokens, ALLEGRO_COLOR color, float x, float y, std::string font_name, int font_size, std::string keyboard_key_font_name, int keyboard_key_font_size, float keyboard_key_box_height, float keyboard_key_box_min_width, float token_SPACE_width, float token_SPACER_width, float token_SEPARATOR_width)
    : font_bin(font_bin)
    , keyboard_combo_tokens(keyboard_combo_tokens)
    , color(color)
@@ -32,6 +32,9 @@ KeyboardKeyCombo::KeyboardKeyCombo(AllegroFlare::FontBin* font_bin, std::vector<
    , keyboard_key_font_size(keyboard_key_font_size)
    , keyboard_key_box_height(keyboard_key_box_height)
    , keyboard_key_box_min_width(keyboard_key_box_min_width)
+   , token_SPACE_width(token_SPACE_width)
+   , token_SPACER_width(token_SPACER_width)
+   , token_SEPARATOR_width(token_SEPARATOR_width)
 {
 }
 
@@ -92,6 +95,24 @@ void KeyboardKeyCombo::set_keyboard_key_font_name(std::string keyboard_key_font_
 void KeyboardKeyCombo::set_keyboard_key_font_size(int keyboard_key_font_size)
 {
    this->keyboard_key_font_size = keyboard_key_font_size;
+}
+
+
+void KeyboardKeyCombo::set_token_SPACE_width(float token_SPACE_width)
+{
+   this->token_SPACE_width = token_SPACE_width;
+}
+
+
+void KeyboardKeyCombo::set_token_SPACER_width(float token_SPACER_width)
+{
+   this->token_SPACER_width = token_SPACER_width;
+}
+
+
+void KeyboardKeyCombo::set_token_SEPARATOR_width(float token_SEPARATOR_width)
+{
+   this->token_SEPARATOR_width = token_SEPARATOR_width;
 }
 
 
@@ -161,6 +182,24 @@ float KeyboardKeyCombo::get_keyboard_key_box_min_width()
 }
 
 
+float KeyboardKeyCombo::get_token_SPACE_width()
+{
+   return token_SPACE_width;
+}
+
+
+float KeyboardKeyCombo::get_token_SPACER_width()
+{
+   return token_SPACER_width;
+}
+
+
+float KeyboardKeyCombo::get_token_SEPARATOR_width()
+{
+   return token_SEPARATOR_width;
+}
+
+
 void KeyboardKeyCombo::set_keyboard_key_box_height(float keyboard_key_box_height)
 {
    this->keyboard_key_box_height = keyboard_key_box_height;
@@ -195,9 +234,6 @@ int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
          throw std::runtime_error(error_message.str());
       }
    AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
-   float token_space_width = 10;
-   float token_spacer_width = 24;
-   float token_separator_width = 60;
    bool next_token_is_raw_text = false;
    bool do_actually_draw = !calculate_width_only_and_do_not_draw;
 
@@ -226,15 +262,15 @@ int KeyboardKeyCombo::render(bool calculate_width_only_and_do_not_draw)
       }
       else if (keyboard_combo_token == "%SPACE")
       {
-         cursor_x += token_space_width;
+         cursor_x += token_SPACE_width;
       }
       else if (keyboard_combo_token == "%SPACER")
       {
-         cursor_x += token_spacer_width;
+         cursor_x += token_SPACER_width;
       }
       else if (keyboard_combo_token == "%SEPARATOR")
       {
-         cursor_x += token_separator_width;
+         cursor_x += token_SEPARATOR_width;
       }
       else if (keyboard_combo_token == "LABEL>>")
       {

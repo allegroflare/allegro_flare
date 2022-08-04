@@ -78,6 +78,27 @@ properties:
     getter: true
     setter: false
 
+  - name: token_SPACE_width
+    type: float
+    init_with: 10.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: token_SPACER_width
+    type: float
+    init_with: 24.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: token_SEPARATOR_width
+    type: float
+    init_with: 60.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -106,9 +127,6 @@ functions:
       - al_is_primitives_addon_initialized()
     body: |
       AllegroFlare::InputDiagrams::KeyboardKey keyboard_key(font_bin);
-      float token_space_width = 10;
-      float token_spacer_width = 24;
-      float token_separator_width = 60;
       bool next_token_is_raw_text = false;
       bool do_actually_draw = !calculate_width_only_and_do_not_draw;
 
@@ -137,15 +155,15 @@ functions:
          }
          else if (keyboard_combo_token == "%SPACE")
          {
-            cursor_x += token_space_width;
+            cursor_x += token_SPACE_width;
          }
          else if (keyboard_combo_token == "%SPACER")
          {
-            cursor_x += token_spacer_width;
+            cursor_x += token_SPACER_width;
          }
          else if (keyboard_combo_token == "%SEPARATOR")
          {
-            cursor_x += token_separator_width;
+            cursor_x += token_SEPARATOR_width;
          }
          else if (keyboard_combo_token == "LABEL>>")
          {
