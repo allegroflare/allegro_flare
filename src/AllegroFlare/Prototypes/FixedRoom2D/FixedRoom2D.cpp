@@ -261,72 +261,12 @@ void FixedRoom2D::load_story_and_start()
       std::string room_to_start_in = configuration.get_starting_in_room_identifier();
       enter_room(room_to_start_in);
    }
-
-   return;
-
-
-   AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(bitmap_bin);
-   AllegroFlare::Prototypes::FixedRoom2D::RoomFactory room_factory(
-      bitmap_bin, font_bin, event_emitter, &entity_collection_helper
-   );
-
-   inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
-
-   af_inventory.add_item(1);
-   af_inventory.add_item(4);
-   af_inventory.add_item(3);
-
-   room_dictionary = {
-      { "front_hall", room_factory.create_room() },
-      { "study", room_factory.create_room() },
-   };
-
-   entity_dictionary = {
-      { "door1", entity_factory.create_entity(
-            "download-door-png-transparent-image-and-clipart-3.png", 1400, 800, 0.85, "Door 1", "observe_door1") },
-      { "door2", entity_factory.create_entity(
-            "download-door-png-transparent-image-and-clipart-3.png", 500, 800, 0.85, "Door 2", "observe_door2") },
-      { "chair", entity_factory.create_entity(
-            "wooden-chair-png-transparent-image-pngpix-0.png", 700, 800, 0.168, "Chair", "signal_hello") },
-      { "table", entity_factory.create_entity(
-            "download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "observe_table") },
-      { "keys", entity_factory.create_entity(
-            "key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
-   };
-
-   entity_room_associations = {
-      { "door1", "front_hall" },
-      { "door2", "study" },
-      { "chair", "front_hall" },
-      { "table", "front_hall" },
-      { "keys", "front_hall" },
-   };
-
-   script_dictionary = {
-      { "observe_door1", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            "DIALOG: Just a regular door. | I'm going to step through it.",
-            "ENTER_ROOM: study",
-      })},
-      { "observe_door2", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            "DIALOG: A regular door. | I'll to in.",
-            "ENTER_ROOM: front_hall",
-      })},
-      { "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            "SIGNAL: Hello!"})
-      },
-      { "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            "DIALOG: This was a scripted dialog!"
-      })},
-      { "collect_keys", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            "COLLECT: keys"
-      })},
-      { "observe_table", AllegroFlare::Prototypes::FixedRoom2D::Script({
-            "DIALOG: Hmm. Nothing interesting on this table."
-      })},
-   };
-
-   enter_room("front_hall");
-   //enter_room("study");
+   else
+   {
+      std::cout << "[FixedRoom2D::FixedRoom2D::load_story_and_start]: ERROR: there was an error loading the "
+                << "configuration."
+                << std::endl;
+   }
 
    return;
 }
