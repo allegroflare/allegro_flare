@@ -22,6 +22,7 @@ Base::Base(ALLEGRO_BITMAP* bitmap, AllegroFlare::Placement2D placement, std::str
    , cursor_is_over(false)
    , cursor_entered_at(0.0f)
    , cursor_exited_at(0.0f)
+   , disable_cursor_insights(false)
 {
 }
 
@@ -46,6 +47,12 @@ void Base::set_placement(AllegroFlare::Placement2D placement)
 void Base::set_on_cursor_interact_script_name(std::string on_cursor_interact_script_name)
 {
    this->on_cursor_interact_script_name = on_cursor_interact_script_name;
+}
+
+
+void Base::set_disable_cursor_insights(bool disable_cursor_insights)
+{
+   this->disable_cursor_insights = disable_cursor_insights;
 }
 
 
@@ -82,6 +89,12 @@ float Base::get_cursor_entered_at()
 float Base::get_cursor_exited_at()
 {
    return cursor_exited_at;
+}
+
+
+bool Base::get_disable_cursor_insights()
+{
+   return disable_cursor_insights;
 }
 
 

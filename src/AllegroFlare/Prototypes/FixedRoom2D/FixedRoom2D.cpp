@@ -124,6 +124,12 @@ void FixedRoom2D::set_audio_controller(AllegroFlare::AudioController* audio_cont
 }
 
 
+AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &FixedRoom2D::get_entity_collection_helper_ref()
+{
+   return entity_collection_helper;
+}
+
+
 void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;

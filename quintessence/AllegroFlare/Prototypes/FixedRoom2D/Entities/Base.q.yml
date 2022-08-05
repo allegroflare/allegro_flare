@@ -46,6 +46,12 @@ properties:
     init_with: 0.0f
     getter: true
 
+  - name: disable_cursor_insights
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
 
 functions:
 

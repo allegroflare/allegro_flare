@@ -63,6 +63,7 @@ properties:
   - name: entity_collection_helper
     type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
     init_with: '{}'
+    getter_ref: true
 
   - name: current_room
     type: AllegroFlare::Prototypes::FixedRoom2D::Room*

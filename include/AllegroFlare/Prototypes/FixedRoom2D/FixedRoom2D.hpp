@@ -59,6 +59,7 @@ namespace AllegroFlare
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_audio_controller(AllegroFlare::AudioController* audio_controller);
+            AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &get_entity_collection_helper_ref();
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             std::set<std::string> get_subscribed_to_game_event_names();
             bool is_subscribed_to_game_event_name(std::string game_event_name="[unset-game_event_name]");

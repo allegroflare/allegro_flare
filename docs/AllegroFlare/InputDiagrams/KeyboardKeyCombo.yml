@@ -2,4 +2,9 @@ class_methods:
 
 
   - name: render
-    description: returns the polar coordinates of an angle (in radians?) and magnitude
+    description: |
+      Renders the key combo tokens.  The return value is the width of the diagram that was rendered.
+
+  - name: calculate_width
+    description: |
+      Calculates the width of the tokens when rendered.  Note the function will return
