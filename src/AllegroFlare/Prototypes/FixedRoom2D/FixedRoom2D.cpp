@@ -93,6 +93,7 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , script_runner({})
    , entity_collection_helper({})
    , current_room(nullptr)
+   , room_shader(nullptr)
    , initialized(false)
    , active_dialog(nullptr)
    , paused(false)
@@ -121,6 +122,18 @@ void FixedRoom2D::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 void FixedRoom2D::set_audio_controller(AllegroFlare::AudioController* audio_controller)
 {
    this->audio_controller = audio_controller;
+}
+
+
+void FixedRoom2D::set_room_shader(AllegroFlare::Shader* room_shader)
+{
+   this->room_shader = room_shader;
+}
+
+
+AllegroFlare::Shader* FixedRoom2D::get_room_shader()
+{
+   return room_shader;
 }
 
 
@@ -389,7 +402,10 @@ void FixedRoom2D::render()
    // render the current room
    if (current_room)
    {
+      if (room_shader) room_shader->activate();
       render_entities_in_current_room();
+      if (room_shader) room_shader->deactivate();
+
       current_room->render(); // for now, only renders the cursor
    }
    else

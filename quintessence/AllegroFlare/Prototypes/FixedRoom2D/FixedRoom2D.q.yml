@@ -69,6 +69,12 @@ properties:
     type: AllegroFlare::Prototypes::FixedRoom2D::Room*
     init_with: nullptr
 
+  - name: room_shader
+    type: AllegroFlare::Shader*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -318,7 +324,10 @@ functions:
       // render the current room
       if (current_room)
       {
+         if (room_shader) room_shader->activate();
          render_entities_in_current_room();
+         if (room_shader) room_shader->deactivate();
+
          current_room->render(); // for now, only renders the cursor
       }
       else
@@ -782,5 +791,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Configuration
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp ]
+  - symbol: AllegroFlare::Shader*
+    headers: [ AllegroFlare/Shader.hpp ]
 
   

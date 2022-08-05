@@ -717,6 +717,9 @@
   "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
+  "AllegroFlare/Shader": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
