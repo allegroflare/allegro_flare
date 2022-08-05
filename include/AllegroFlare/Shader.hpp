@@ -22,7 +22,7 @@ namespace AllegroFlare
 
    public:
       Shader(std::string vertex_source_code="", std::string fragment_source_code="");
-      ~Shader();
+      virtual ~Shader();
 
       // initialize
       void initialize();
@@ -42,8 +42,8 @@ namespace AllegroFlare
       static bool set_vec4(const char *name, float x, float y, float z, float a);
 
       // activate and deactivate
-      void activate();
-      void deactivate();
+      virtual void activate();
+      virtual void deactivate();
    };
 }
 
