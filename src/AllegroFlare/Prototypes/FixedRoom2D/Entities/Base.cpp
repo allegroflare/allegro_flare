@@ -23,6 +23,7 @@ Base::Base(ALLEGRO_BITMAP* bitmap, AllegroFlare::Placement2D placement, std::str
    , cursor_entered_at(0.0f)
    , cursor_exited_at(0.0f)
    , cursor_insights_are_hidden(false)
+   , show_hover_as_hue_change(false)
 {
 }
 
@@ -53,6 +54,12 @@ void Base::set_on_cursor_interact_script_name(std::string on_cursor_interact_scr
 void Base::set_cursor_insights_are_hidden(bool cursor_insights_are_hidden)
 {
    this->cursor_insights_are_hidden = cursor_insights_are_hidden;
+}
+
+
+void Base::set_show_hover_as_hue_change(bool show_hover_as_hue_change)
+{
+   this->show_hover_as_hue_change = show_hover_as_hue_change;
 }
 
 
@@ -98,6 +105,12 @@ bool Base::get_cursor_insights_are_hidden()
 }
 
 
+bool Base::get_show_hover_as_hue_change()
+{
+   return show_hover_as_hue_change;
+}
+
+
 AllegroFlare::Placement2D &Base::get_placement_ref()
 {
    return placement;
@@ -107,9 +120,18 @@ AllegroFlare::Placement2D &Base::get_placement_ref()
 void Base::render()
 {
    if (!bitmap) return;
+
    placement.start_transform();
-   if (cursor_is_over) al_draw_tinted_bitmap(bitmap, ALLEGRO_COLOR{0.12, 0.56, 1.0, 1.0}, 0, 0, 0);
-   else al_draw_bitmap(bitmap, 0, 0, 0);
+
+   if (show_hover_as_hue_change && cursor_is_over)
+   {
+      al_draw_tinted_bitmap(bitmap, ALLEGRO_COLOR{0.12, 0.56, 1.0, 1.0}, 0, 0, 0);
+   }
+   else
+   {
+      al_draw_bitmap(bitmap, 0, 0, 0);
+   }
+
    placement.restore_transform();
    return;
 }

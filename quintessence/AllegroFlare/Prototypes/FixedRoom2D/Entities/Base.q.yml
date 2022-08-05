@@ -52,6 +52,12 @@ properties:
     getter: true
     setter: true
 
+  - name: show_hover_as_hue_change
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -60,9 +66,18 @@ functions:
     virtual: true
     body: |
       if (!bitmap) return;
+
       placement.start_transform();
-      if (cursor_is_over) al_draw_tinted_bitmap(bitmap, ALLEGRO_COLOR{0.12, 0.56, 1.0, 1.0}, 0, 0, 0);
-      else al_draw_bitmap(bitmap, 0, 0, 0);
+
+      if (show_hover_as_hue_change && cursor_is_over)
+      {
+         al_draw_tinted_bitmap(bitmap, ALLEGRO_COLOR{0.12, 0.56, 1.0, 1.0}, 0, 0, 0);
+      }
+      else
+      {
+         al_draw_bitmap(bitmap, 0, 0, 0);
+      }
+
       placement.restore_transform();
       return;
 
