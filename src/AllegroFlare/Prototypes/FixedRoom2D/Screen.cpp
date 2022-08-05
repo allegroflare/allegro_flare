@@ -50,6 +50,34 @@ AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D &Screen::get_fixed_room_2d_re
 }
 
 
+void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+   fixed_room_2d.set_bitmap_bin(bitmap_bin);
+   return;
+}
+
+void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+   fixed_room_2d.set_font_bin(font_bin);
+   return;
+}
+
+void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+   fixed_room_2d.set_event_emitter(event_emitter);
+   return;
+}
+
+void Screen::set_audio_controller(AllegroFlare::AudioController* audio_controller)
+{
+   this->audio_controller = audio_controller;
+   fixed_room_2d.set_audio_controller(audio_controller);
+   return;
+}
+
 void Screen::initialize()
 {
    if (!((!initialized)))
