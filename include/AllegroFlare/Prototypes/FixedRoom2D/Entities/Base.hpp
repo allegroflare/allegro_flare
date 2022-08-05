@@ -26,6 +26,7 @@ namespace AllegroFlare
                float cursor_exited_at;
                bool cursor_insights_are_hidden;
                bool show_hover_as_hue_change;
+               bool hidden;
 
             public:
                Base(ALLEGRO_BITMAP* bitmap=nullptr, AllegroFlare::Placement2D placement={}, std::string on_cursor_interact_script_name="[unset-on_cursor_interact_script_name]");
@@ -36,6 +37,7 @@ namespace AllegroFlare
                void set_on_cursor_interact_script_name(std::string on_cursor_interact_script_name);
                void set_cursor_insights_are_hidden(bool cursor_insights_are_hidden);
                void set_show_hover_as_hue_change(bool show_hover_as_hue_change);
+               void set_hidden(bool hidden);
                ALLEGRO_BITMAP* get_bitmap();
                AllegroFlare::Placement2D get_placement();
                std::string get_on_cursor_interact_script_name();
@@ -44,6 +46,7 @@ namespace AllegroFlare
                float get_cursor_exited_at();
                bool get_cursor_insights_are_hidden();
                bool get_show_hover_as_hue_change();
+               bool get_hidden();
                AllegroFlare::Placement2D &get_placement_ref();
                virtual void render();
                virtual void update();

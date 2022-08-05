@@ -575,6 +575,7 @@ void FixedRoom2D::render_entities_in_current_room()
    std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities = get_entities_in_current_room();
    for (auto &entity : entities)
    {
+      // NOTE: some entities are set to "hidden=-true" and they will not actually render if called to
       if (entity) entity->render();
    }
    return;
