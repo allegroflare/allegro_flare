@@ -46,7 +46,7 @@ properties:
     init_with: 0.0f
     getter: true
 
-  - name: disable_cursor_insights
+  - name: cursor_insights_are_hidden
     type: bool
     init_with: false
     getter: true

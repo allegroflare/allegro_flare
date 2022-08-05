@@ -24,7 +24,7 @@ namespace AllegroFlare
                bool cursor_is_over;
                float cursor_entered_at;
                float cursor_exited_at;
-               bool disable_cursor_insights;
+               bool cursor_insights_are_hidden;
 
             public:
                Base(ALLEGRO_BITMAP* bitmap=nullptr, AllegroFlare::Placement2D placement={}, std::string on_cursor_interact_script_name="[unset-on_cursor_interact_script_name]");
@@ -33,14 +33,14 @@ namespace AllegroFlare
                void set_bitmap(ALLEGRO_BITMAP* bitmap);
                void set_placement(AllegroFlare::Placement2D placement);
                void set_on_cursor_interact_script_name(std::string on_cursor_interact_script_name);
-               void set_disable_cursor_insights(bool disable_cursor_insights);
+               void set_cursor_insights_are_hidden(bool cursor_insights_are_hidden);
                ALLEGRO_BITMAP* get_bitmap();
                AllegroFlare::Placement2D get_placement();
                std::string get_on_cursor_interact_script_name();
                bool get_cursor_is_over();
                float get_cursor_entered_at();
                float get_cursor_exited_at();
-               bool get_disable_cursor_insights();
+               bool get_cursor_insights_are_hidden();
                AllegroFlare::Placement2D &get_placement_ref();
                virtual void render();
                virtual void update();

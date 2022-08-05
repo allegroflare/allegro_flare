@@ -247,7 +247,7 @@ void Room::move_cursor(float distance_x, float distance_y, std::vector<AllegroFl
       if (entity_cursor_is_now_over)
       {
          entity_cursor_is_now_over->on_cursor_enter();
-         if (entity_cursor_is_now_over->get_disable_cursor_insights())
+         if (entity_cursor_is_now_over->get_cursor_insights_are_hidden())
          {
             reset_cursor_to_default();
          }
