@@ -21,7 +21,7 @@ properties:
 
   - name: icon_offset_placement
     type: AllegroFlare::Placement2D
-    init_with: '{}'
+    init_with: '-9, -2, 0, 0'
 
   - name: info_text_offset_placement
     type: AllegroFlare::Placement2D
@@ -87,6 +87,20 @@ functions:
       return;
 
 
+  - name: move_to
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      this->x = x;
+      this->y = y;
+      return;
+
+
   - name: clear_info_text
     body: |
       cursor_last_set_at = 0;
@@ -98,6 +112,7 @@ functions:
     body: |
       cursor_last_set_at = 0;
       icon_character_num = 62042;
+      icon_offset_placement = Placement2D(-9, -2, 0, 0);
       return;
       
 
@@ -105,6 +120,7 @@ functions:
     body: |
       cursor_last_set_at = 0;
       icon_character_num = 62038;
+      icon_offset_placement = Placement2D(-16, -4, 0, 0);
       return;
       
 

@@ -21,7 +21,7 @@ Cursor::Cursor(AllegroFlare::FontBin* font_bin)
    : font_bin(font_bin)
    , x(1920/2)
    , y(1080/2)
-   , icon_offset_placement({})
+   , icon_offset_placement(-9, -2, 0, 0)
    , info_text_offset_placement(40, 0, 0, 0)
    , info_text("[unset-info_text]")
    , info_text_flags(0)
@@ -114,6 +114,13 @@ void Cursor::move(float distance_x, float distance_y)
    return;
 }
 
+void Cursor::move_to(float x, float y)
+{
+   this->x = x;
+   this->y = y;
+   return;
+}
+
 void Cursor::clear_info_text()
 {
    cursor_last_set_at = 0;
@@ -125,6 +132,7 @@ void Cursor::set_cursor_to_pointer()
 {
    cursor_last_set_at = 0;
    icon_character_num = 62042;
+   icon_offset_placement = Placement2D(-9, -2, 0, 0);
    return;
 }
 
@@ -132,6 +140,7 @@ void Cursor::set_cursor_to_grab()
 {
    cursor_last_set_at = 0;
    icon_character_num = 62038;
+   icon_offset_placement = Placement2D(-16, -4, 0, 0);
    return;
 }
 

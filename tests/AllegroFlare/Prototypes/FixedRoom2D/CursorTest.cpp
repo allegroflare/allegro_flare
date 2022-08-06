@@ -8,6 +8,8 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+#include <allegro5/allegro_primitives.h>
+
 
 class AllegroFlare_Prototypes_FixedRoom2D_CursorTest : public ::testing::Test
 {};
@@ -41,4 +43,26 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture
    cursor.draw();
    SUCCEED();
 }
+
+
+TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture,
+   CAPTURE__draw__will_have_a_properly_offset_pointer_icon_that_points_to_the_cursor_x_y)
+{
+   AllegroFlare::Prototypes::FixedRoom2D::Cursor cursor(&get_font_bin_ref());
+   cursor.clear_info_text();
+
+   cursor.draw();
+   draw_crosshair(cursor.get_x(), cursor.get_y());
+
+   cursor.move(200, 100);
+
+   cursor.set_cursor_to_grab();
+   cursor.draw();
+   draw_crosshair(cursor.get_x(), cursor.get_y());
+
+   al_flip_display();
+   sleep(1);
+   SUCCEED();
+}
+
 

@@ -168,6 +168,31 @@ functions:
       - al_color_name
 
 
+  - name: draw_crosshair
+    guards: [ al_get_target_bitmap() ]
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
+      - name: size
+        type: float
+        default_argument: 200.0f
+    body: |
+      float h_size = size * 0.5;
+      // draw horizontal line
+      al_draw_line(x-h_size, y, x+h_size, y, color, 1.0);
+      // draw vertical line
+      al_draw_line(x, y-h_size, x, y+h_size, color, 1.0);
+    body_dependency_symbols:
+      - al_color_name
+
+
   - name: test_name_indicates_it_wants_a_screenshot
     type: bool
     body: |
@@ -179,6 +204,8 @@ functions:
       ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
       al_clear_to_color(eigengrau);
       return;
+    body_dependency_symbols:
+      - ALLEGRO_COLOR
 
 
   - name: capture_screenshot
@@ -228,6 +255,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: al_color_name
     headers: [ allegro5/allegro_color.h ]
   - symbol: AllegroFlare::FontBin
