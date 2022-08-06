@@ -5,21 +5,29 @@ properties:
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: entity_collection_helper
     type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
 
 functions:
