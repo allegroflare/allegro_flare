@@ -489,7 +489,7 @@ void TitleScreen::draw_menu()
          float box_height = al_get_font_line_height(menu_font) + 6;
          float h_box_width = box_width * 0.5;
          float h_box_height = box_height * 0.5;
-         al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_text_color);
+         al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
       }
 
       al_draw_text(
