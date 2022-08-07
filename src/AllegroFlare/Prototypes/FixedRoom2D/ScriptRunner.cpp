@@ -356,7 +356,8 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    }
    else
    {
-      std::cout << "WARNING: Unrecognized command \"" << command << "\"" << std::endl;
+      std::cout << "[AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::parse_and_run_line]: WARNING: "
+                << "Unrecognized command \"" << command << "\"" << std::endl;
       continue_directly_to_next_script_line = true;
    }
 
