@@ -220,6 +220,7 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    std::string SIGNAL = "SIGNAL"; // outputs text to the terminal
    std::string COLLECT = "COLLECT";
    std::string OPEN_SCRIPT = "OPEN_SCRIPT";
+   std::string PLAY_SOUND_EFFECT = "PLAY_SOUND_EFFECT";
 
    bool continue_directly_to_next_script_line = false;
 
@@ -320,6 +321,21 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
                    << "but that marker does not exist. This is from line ["
                    << line_num << "], which is \"" << script_line << "\"" << std::endl;
       }
+      continue_directly_to_next_script_line = true;
+   }
+   else if (command == PLAY_SOUND_EFFECT)
+   {
+      std::vector<std::string> tokens = tokenize(argument);
+      if (!assert_token_count_eq(tokens, 1))
+      {
+         std::cout << "ENTER_ROOM - expecting 1 and only 1 argument on line " << line_num << std::endl;
+         return false;
+      }
+
+      std::string sound_effect_name_to_play = tokens[0];
+
+      event_emitter->emit_play_sound_effect_event(sound_effect_name_to_play);
+
       continue_directly_to_next_script_line = true;
    }
    else
