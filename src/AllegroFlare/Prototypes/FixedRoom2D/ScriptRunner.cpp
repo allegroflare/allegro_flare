@@ -221,6 +221,7 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    std::string COLLECT = "COLLECT";
    std::string OPEN_SCRIPT = "OPEN_SCRIPT";
    std::string PLAY_SOUND_EFFECT = "PLAY_SOUND_EFFECT";
+   std::string PLAY_MUSIC_TRACK = "PLAY_MUSIC_TRACK";
 
    bool continue_directly_to_next_script_line = false;
 
@@ -328,13 +329,28 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       std::vector<std::string> tokens = tokenize(argument);
       if (!assert_token_count_eq(tokens, 1))
       {
-         std::cout << "ENTER_ROOM - expecting 1 and only 1 argument on line " << line_num << std::endl;
+         std::cout << "PLAY_SOUND_EFFECT - expecting 1 and only 1 argument on line " << line_num << std::endl;
          return false;
       }
 
       std::string sound_effect_name_to_play = tokens[0];
 
       event_emitter->emit_play_sound_effect_event(sound_effect_name_to_play);
+
+      continue_directly_to_next_script_line = true;
+   }
+   else if (command == PLAY_MUSIC_TRACK)
+   {
+      std::vector<std::string> tokens = tokenize(argument);
+      if (!assert_token_count_eq(tokens, 1))
+      {
+         std::cout << "PLAY_MUSIC_TRACK - expecting 1 and only 1 argument on line " << line_num << std::endl;
+         return false;
+      }
+
+      std::string music_track_name_to_play = tokens[0];
+
+      event_emitter->emit_play_music_track_event(music_track_name_to_play);
 
       continue_directly_to_next_script_line = true;
    }
