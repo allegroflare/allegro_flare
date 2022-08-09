@@ -187,6 +187,22 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
 
 
 TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   parse_and_run_line__will_parse_a_PLAY_SOUND_EFFECT_command_and_emit_an_ALLEGRO_FLARE_PLAY_SOUND_EFFECT_event)
+   // note this is a private method test
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   parse_and_run_line__will_parse_a_PLAY_MUSIC_TRACK_command_and_emit_an_ALLEGRO_FLARE_PLAY_MUSIC_TRACK_event)
+   // note this is a private method test
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
    play_or_resume__command_and_argument__will_trim_the_argument_fragment)
 {
    // note this is a private method test

@@ -17,6 +17,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
+#include <AllegroFlare/Shader.hpp>
 #include <map>
 #include <set>
 #include <string>
@@ -47,6 +48,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner;
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper entity_collection_helper;
             AllegroFlare::Prototypes::FixedRoom2D::Room* current_room;
+            AllegroFlare::Shader* room_shader;
             bool initialized;
             AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
             bool paused;
@@ -59,6 +61,8 @@ namespace AllegroFlare
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_audio_controller(AllegroFlare::AudioController* audio_controller);
+            void set_room_shader(AllegroFlare::Shader* room_shader);
+            AllegroFlare::Shader* get_room_shader();
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &get_entity_collection_helper_ref();
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             std::set<std::string> get_subscribed_to_game_event_names();

@@ -27,6 +27,54 @@ RoomFactory::~RoomFactory()
 }
 
 
+void RoomFactory::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void RoomFactory::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void RoomFactory::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
+void RoomFactory::set_entity_collection_helper(AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
+{
+   this->entity_collection_helper = entity_collection_helper;
+}
+
+
+AllegroFlare::BitmapBin* RoomFactory::get_bitmap_bin()
+{
+   return bitmap_bin;
+}
+
+
+AllegroFlare::FontBin* RoomFactory::get_font_bin()
+{
+   return font_bin;
+}
+
+
+AllegroFlare::EventEmitter* RoomFactory::get_event_emitter()
+{
+   return event_emitter;
+}
+
+
+AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* RoomFactory::get_entity_collection_helper()
+{
+   return entity_collection_helper;
+}
+
+
 AllegroFlare::Prototypes::FixedRoom2D::Room* RoomFactory::create_room(float width, float height)
 {
    if (!(bitmap_bin))

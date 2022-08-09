@@ -24,6 +24,7 @@ Base::Base(ALLEGRO_BITMAP* bitmap, AllegroFlare::Placement2D placement, std::str
    , cursor_exited_at(0.0f)
    , cursor_insights_are_hidden(false)
    , show_hover_as_hue_change(false)
+   , hidden(false)
 {
 }
 
@@ -60,6 +61,12 @@ void Base::set_cursor_insights_are_hidden(bool cursor_insights_are_hidden)
 void Base::set_show_hover_as_hue_change(bool show_hover_as_hue_change)
 {
    this->show_hover_as_hue_change = show_hover_as_hue_change;
+}
+
+
+void Base::set_hidden(bool hidden)
+{
+   this->hidden = hidden;
 }
 
 
@@ -111,6 +118,12 @@ bool Base::get_show_hover_as_hue_change()
 }
 
 
+bool Base::get_hidden()
+{
+   return hidden;
+}
+
+
 AllegroFlare::Placement2D &Base::get_placement_ref()
 {
    return placement;
@@ -119,7 +132,7 @@ AllegroFlare::Placement2D &Base::get_placement_ref()
 
 void Base::render()
 {
-   if (!bitmap) return;
+   if (!bitmap || get_hidden()) return;
 
    placement.start_transform();
 

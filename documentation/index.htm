@@ -3655,6 +3655,9 @@ table td
   <td class="method">move(2)</td>
 </tr>
 <tr>
+  <td class="method">move_to(2)</td>
+</tr>
+<tr>
   <td class="method">clear_info_text()</td>
 </tr>
 <tr>
@@ -3732,6 +3735,10 @@ table td
 </tr>
 <tr>
   <td class="property">show_hover_as_hue_change</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">hidden</td>
   <td class="property">bool</td>
 </tr>
     </table>
@@ -3910,6 +3917,10 @@ table td
 <tr>
   <td class="property">current_room</td>
   <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Room*</td>
+</tr>
+<tr>
+  <td class="property">room_shader</td>
+  <td class="property">AllegroFlare::Shader*</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -4128,6 +4139,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Configuration&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4367,6 +4381,18 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">set_bitmap_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">set_event_emitter(1)</td>
+</tr>
+<tr>
+  <td class="method">set_audio_controller(1)</td>
+</tr>
 <tr>
   <td class="method">initialize()</td>
 </tr>
@@ -5163,6 +5189,10 @@ table td
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
+  <td class="property">menu_selected_text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">copyright_text_color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
@@ -5459,6 +5489,9 @@ table td
   <td class="method">draw_rulers()</td>
 </tr>
 <tr>
+  <td class="method">draw_crosshair(4)</td>
+</tr>
+<tr>
   <td class="method">test_name_indicates_it_wants_a_screenshot()</td>
 </tr>
 <tr>
@@ -5489,6 +5522,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
@@ -6211,6 +6247,7 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle"
   ],
@@ -6644,6 +6681,9 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Shader": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [

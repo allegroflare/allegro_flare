@@ -33,6 +33,10 @@ namespace AllegroFlare
             virtual ~Screen();
 
             AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D &get_fixed_room_2d_ref();
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
+            void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
+            void set_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr);
             void initialize();
             void load_gametest_configuration_and_start();
             void load_game_configuration_and_start(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={});

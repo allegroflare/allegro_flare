@@ -41,6 +41,7 @@ namespace AllegroFlare
             void draw();
             void update();
             void move(float distance_x=0.0f, float distance_y=0.0f);
+            void move_to(float x=0.0f, float y=0.0f);
             void clear_info_text();
             void set_cursor_to_pointer();
             void set_cursor_to_grab();

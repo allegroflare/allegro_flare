@@ -83,6 +83,13 @@ properties:
     getter: true
     setter: true
 
+  - name: menu_selected_text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0, 0, 0, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: copyright_text_color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{1, 1, 1, 1}
@@ -350,7 +357,7 @@ functions:
          std::string menu_item_text = std::get<0>(menu_option);
 
          ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
-            ? ALLEGRO_COLOR{0, 0, 0, 1.0} : menu_text_color;
+            ? menu_selected_text_color : menu_text_color;
 
          float x = menu_position_x;
          float y = menu_position_y + menu_item_vertical_spacing * menu_item_num;
@@ -361,7 +368,7 @@ functions:
             float box_height = al_get_font_line_height(menu_font) + 6;
             float h_box_width = box_width * 0.5;
             float h_box_height = box_height * 0.5;
-            al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_text_color);
+            al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
          }
 
          al_draw_text(

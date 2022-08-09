@@ -13,21 +13,25 @@ properties:
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: audio_controller
     type: AllegroFlare::AudioController*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: fixed_room_2d
     type: AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D
@@ -40,6 +44,50 @@ properties:
 
 
 functions:
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      fixed_room_2d.set_bitmap_bin(bitmap_bin);
+      return;
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    body: |
+      this->font_bin = font_bin;
+      fixed_room_2d.set_font_bin(font_bin);
+      return;
+
+
+  - name: set_event_emitter
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    body: |
+      this->event_emitter = event_emitter;
+      fixed_room_2d.set_event_emitter(event_emitter);
+      return;
+
+
+  - name: set_audio_controller
+    parameters:
+      - name: audio_controller
+        type: AllegroFlare::AudioController*
+        default_argument: nullptr
+    body: |
+      this->audio_controller = audio_controller;
+      fixed_room_2d.set_audio_controller(audio_controller);
+      return;
 
 
   - name: initialize

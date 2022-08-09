@@ -30,7 +30,7 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR copyright_text_color, int title_font_size, int menu_font_size, int copyright_font_size)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, int title_font_size, int menu_font_size, int copyright_font_size)
    : AllegroFlare::Screens::Base("TitleScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -43,6 +43,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_text_color(title_text_color)
    , menu_text_color(menu_text_color)
    , menu_selector_color(menu_selector_color)
+   , menu_selected_text_color(menu_selected_text_color)
    , copyright_text_color(copyright_text_color)
    , title_font_size(title_font_size)
    , menu_font_size(menu_font_size)
@@ -123,6 +124,12 @@ void TitleScreen::set_menu_text_color(ALLEGRO_COLOR menu_text_color)
 void TitleScreen::set_menu_selector_color(ALLEGRO_COLOR menu_selector_color)
 {
    this->menu_selector_color = menu_selector_color;
+}
+
+
+void TitleScreen::set_menu_selected_text_color(ALLEGRO_COLOR menu_selected_text_color)
+{
+   this->menu_selected_text_color = menu_selected_text_color;
 }
 
 
@@ -207,6 +214,12 @@ ALLEGRO_COLOR TitleScreen::get_menu_text_color()
 ALLEGRO_COLOR TitleScreen::get_menu_selector_color()
 {
    return menu_selector_color;
+}
+
+
+ALLEGRO_COLOR TitleScreen::get_menu_selected_text_color()
+{
+   return menu_selected_text_color;
 }
 
 
@@ -478,7 +491,7 @@ void TitleScreen::draw_menu()
       std::string menu_item_text = std::get<0>(menu_option);
 
       ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
-         ? ALLEGRO_COLOR{0, 0, 0, 1.0} : menu_text_color;
+         ? menu_selected_text_color : menu_text_color;
 
       float x = menu_position_x;
       float y = menu_position_y + menu_item_vertical_spacing * menu_item_num;
@@ -489,7 +502,7 @@ void TitleScreen::draw_menu()
          float box_height = al_get_font_line_height(menu_font) + 6;
          float h_box_width = box_width * 0.5;
          float h_box_height = box_height * 0.5;
-         al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_text_color);
+         al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
       }
 
       al_draw_text(
