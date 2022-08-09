@@ -535,16 +535,16 @@ void Full::run_loop()
          //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
          break;
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-         screens.mouse_up_funcs();
+         screens.mouse_up_funcs(&this_event);
          break;
       case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-         screens.mouse_down_funcs();
+         screens.mouse_down_funcs(&this_event);
          break;
       case ALLEGRO_EVENT_MOUSE_WARPED:
-         screens.mouse_warp_funcs();
+         screens.mouse_warp_funcs(&this_event);
          break;
       case ALLEGRO_EVENT_MOUSE_AXES:
-         screens.mouse_axes_funcs();
+         screens.mouse_axes_funcs(&this_event);
          break;
       case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
          screens.joy_button_down_funcs(&this_event);

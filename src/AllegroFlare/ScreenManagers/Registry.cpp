@@ -94,31 +94,31 @@ void Registry::key_char_funcs(ALLEGRO_EVENT *ev)
 }
 
 
-void Registry::mouse_axes_funcs()
+void Registry::mouse_axes_funcs(ALLEGRO_EVENT *ev)
 {
    for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->mouse_axes_func();
+      screens[i]->mouse_axes_func(ev);
 }
 
 
-void Registry::mouse_warp_funcs()
+void Registry::mouse_warp_funcs(ALLEGRO_EVENT *ev)
 {
    for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->mouse_warp_func();
+      screens[i]->mouse_warp_func(ev);
 }
 
 
-void Registry::mouse_down_funcs()
+void Registry::mouse_down_funcs(ALLEGRO_EVENT *ev)
 {
    for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->mouse_down_func();
+      screens[i]->mouse_down_func(ev);
 }
 
 
-void Registry::mouse_up_funcs()
+void Registry::mouse_up_funcs(ALLEGRO_EVENT *ev)
 {
    for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->mouse_up_func();
+      screens[i]->mouse_up_func(ev);
 }
 
 

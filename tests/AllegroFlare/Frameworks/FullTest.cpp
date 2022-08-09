@@ -92,6 +92,18 @@ TEST(AllegroFlare_Frameworks_FullTest,
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest,
+   run_loop__will_send_ALLEGRO_EVENT_MOUSE_BUTTON_DOWN_events_to_the_screen_manager)
+{
+   // TODO
+
+   // TODO also for:
+   //   case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+   //   case ALLEGRO_EVENT_MOUSE_WARPED:
+   //   case ALLEGRO_EVENT_MOUSE_AXES:
+}
+
+
 TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT_will_cause_the_audio_to_play)
 {
    AllegroFlare::Frameworks::Full framework;

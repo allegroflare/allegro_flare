@@ -49,12 +49,12 @@ void Base::on_deactivate() {}
 void Base::on_event(ALLEGRO_EVENT *ev) {}
 void Base::primary_timer_func() {}
 void Base::timer_func() {}
-void Base::mouse_axes_func() {}
-void Base::mouse_warp_func() {}
+void Base::mouse_axes_func(ALLEGRO_EVENT *ev) {}
+void Base::mouse_warp_func(ALLEGRO_EVENT *ev) {}
 void Base::display_switch_in_func() {}
 void Base::display_switch_out_func() {}
-void Base::mouse_down_func() {}
-void Base::mouse_up_func() {}
+void Base::mouse_down_func(ALLEGRO_EVENT *ev) {}
+void Base::mouse_up_func(ALLEGRO_EVENT *ev) {}
 void Base::key_down_func(ALLEGRO_EVENT *ev) {}
 void Base::key_up_func(ALLEGRO_EVENT *ev) {}
 void Base::key_char_func(ALLEGRO_EVENT *ev) {}

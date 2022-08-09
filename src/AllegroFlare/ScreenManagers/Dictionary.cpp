@@ -258,35 +258,35 @@ void Dictionary::key_char_funcs(ALLEGRO_EVENT *ev)
 }
 
 
-void Dictionary::mouse_axes_funcs()
+void Dictionary::mouse_axes_funcs(ALLEGRO_EVENT *ev)
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
-         screen.second.screen->mouse_axes_func();
+         screen.second.screen->mouse_axes_func(ev);
 }
 
 
-void Dictionary::mouse_warp_funcs()
+void Dictionary::mouse_warp_funcs(ALLEGRO_EVENT *ev)
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
-         screen.second.screen->mouse_warp_func();
+         screen.second.screen->mouse_warp_func(ev);
 }
 
 
-void Dictionary::mouse_down_funcs()
+void Dictionary::mouse_down_funcs(ALLEGRO_EVENT *ev)
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
-         screen.second.screen->mouse_down_func();
+         screen.second.screen->mouse_down_func(ev);
 }
 
 
-void Dictionary::mouse_up_funcs()
+void Dictionary::mouse_up_funcs(ALLEGRO_EVENT *ev)
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
-         screen.second.screen->mouse_up_func();
+         screen.second.screen->mouse_up_func(ev);
 }
 
 
