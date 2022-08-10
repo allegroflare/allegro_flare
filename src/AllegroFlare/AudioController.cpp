@@ -291,6 +291,11 @@ void AudioController::play_music_track_by_identifier(std::string identifier)
    return;
 }
 
+bool AudioController::sound_effect_element_exists(std::string identifier)
+{
+   return (sound_effect_elements.count(identifier) > 0);
+}
+
 AllegroFlare::Sound* AudioController::find_sound_effect_by_identifier(std::string identifier)
 {
    std::map<std::string, AllegroFlare::Sound*>::iterator it = sound_effects.find(identifier);

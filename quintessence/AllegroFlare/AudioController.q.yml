@@ -276,6 +276,17 @@ functions:
       return;
 
 
+  - name: sound_effect_element_exists
+    private: true
+    type: bool
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-sound-effect-identifier-that-is-not-set"'
+    body: |
+      return (sound_effect_elements.count(identifier) > 0);
+
+
   - name: find_sound_effect_by_identifier
     private: true
     type: AllegroFlare::Sound*

@@ -49,6 +49,7 @@ namespace AllegroFlare
       void set_global_volume(float volume=0.1);
       void play_sound_effect_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       void play_music_track_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");
+      bool sound_effect_element_exists(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       AllegroFlare::Sound* find_sound_effect_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       AllegroFlare::Sound* find_music_track_sound_object_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");
       bool music_track_element_exists(std::string identifier="a-music-track-identifier-that-is-not-set");

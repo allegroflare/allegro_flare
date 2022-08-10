@@ -173,6 +173,20 @@ TEST(AllegroFlare_AudioControllerTest,
 }
 
 
+TEST(AllegroFlare_AudioControllerTest,
+   sound_effect_element_exists__when_a_sound_effect_identifier_is_present__returns_true)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_AudioControllerTest,
+   sound_effect_element_exists__when_a_sound_effect_identifier_is_not_present__returns_false)
+{
+   // TODO
+}
+
+
 TEST(AllegroFlare_AudioControllerTest, DISABLED__play_music_track_by_identifier__plays_the_audio_track)
 {
    // test works, but a .ogg file is needed (the .wav file fixture is a bit large in size)
