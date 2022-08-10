@@ -314,6 +314,26 @@ functions:
       - AllegroFlare::TerminalColors
 
 
+  - name: find_sound_effect_element_by_identifier
+    private: true
+    type: AllegroFlare::AudioRepositoryElement
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-sound-effect-identifier-that-is-not-set"'
+    body: |
+      std::map<std::string, AudioRepositoryElement>::iterator it = sound_effect_elements.find(identifier);
+      if (it == sound_effect_elements.end())
+      {
+         std::cout << "[AudioController::find_sound_effect_element_by_identifier] error: "
+                   << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
+         return {};
+      }
+      return it->second;
+    body_dependency_symbols:
+      - AllegroFlare::TerminalColors
+
+
   - name: find_music_track_sound_object_by_identifier
     private: true
     type: AllegroFlare::Sound*

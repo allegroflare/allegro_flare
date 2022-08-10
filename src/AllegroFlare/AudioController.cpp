@@ -18,6 +18,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/TerminalColors.hpp>
+#include <AllegroFlare/TerminalColors.hpp>
 
 
 namespace AllegroFlare
@@ -311,6 +312,18 @@ AllegroFlare::Sound* AudioController::find_sound_effect_sound_object_by_identifi
          << AllegroFlare::TerminalColors::DEFAULT
          << std::endl;
       return nullptr;
+   }
+   return it->second;
+}
+
+AllegroFlare::AudioRepositoryElement AudioController::find_sound_effect_element_by_identifier(std::string identifier)
+{
+   std::map<std::string, AudioRepositoryElement>::iterator it = sound_effect_elements.find(identifier);
+   if (it == sound_effect_elements.end())
+   {
+      std::cout << "[AudioController::find_sound_effect_element_by_identifier] error: "
+                << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
+      return {};
    }
    return it->second;
 }
