@@ -61,7 +61,7 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture
    draw_crosshair(cursor.get_x(), cursor.get_y());
 
    al_flip_display();
-   sleep(1);
+   sleep_for(1);
    SUCCEED();
 }
 
