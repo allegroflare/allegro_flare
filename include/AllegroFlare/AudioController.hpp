@@ -52,7 +52,7 @@ namespace AllegroFlare
       AllegroFlare::Sound* find_sound_effect_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       AllegroFlare::Sound* find_music_track_sound_object_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");
       bool music_track_element_exists(std::string identifier="a-music-track-identifier-that-is-not-set");
-      AllegroFlare::AudioRepositoryElement find_music_track_repository_element_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");
+      AllegroFlare::AudioRepositoryElement find_music_track_element_by_identifier(std::string identifier="a-music-track-identifier-that-is-not-set");
       void dump_to_cout();
    };
 }

@@ -13,4 +13,10 @@ properties:
     init_with: false
     getter: true
 
+  - name: overplay_strategy
+    type: std::string
+    constructor_arg: true
+    init_with: '"ignore"'
+    getter: true
+
 

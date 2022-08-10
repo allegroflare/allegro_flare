@@ -331,7 +331,7 @@ functions:
       return (music_track_elements.count(identifier) > 0);
 
 
-  - name: find_music_track_repository_element_by_identifier
+  - name: find_music_track_element_by_identifier
     private: true
     type: AllegroFlare::AudioRepositoryElement
     parameters:
@@ -342,7 +342,7 @@ functions:
       std::map<std::string, AudioRepositoryElement>::iterator it = music_track_elements.find(identifier);
       if (it == music_track_elements.end())
       {
-         std::cout << "[AudioController::find_music_track_repository_element_by_identifier] error: "
+         std::cout << "[AudioController::find_music_track_element_by_identifier] error: "
                    << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
          return {};
       }

@@ -8,9 +8,10 @@ namespace AllegroFlare
 {
 
 
-AudioRepositoryElement::AudioRepositoryElement(std::string filename, bool loop)
+AudioRepositoryElement::AudioRepositoryElement(std::string filename, bool loop, std::string overplay_strategy)
    : filename(filename)
    , loop(loop)
+   , overplay_strategy(overplay_strategy)
 {
 }
 
@@ -29,6 +30,12 @@ std::string AudioRepositoryElement::get_filename()
 bool AudioRepositoryElement::get_loop()
 {
    return loop;
+}
+
+
+std::string AudioRepositoryElement::get_overplay_strategy()
+{
+   return overplay_strategy;
 }
 
 
