@@ -150,7 +150,7 @@ TEST(AllegroFlare_AudioControllerTest,
    audio_controller.play_music_track_by_identifier("music-track-identifier-that-does-not-exist");
    std::string cout_message = testing::internal::GetCapturedStdout();
 
-   std::string expected_cout_error_message = "[AudioController::find_music_track_by_identifier] error: " \
+   std::string expected_cout_error_message = "[AudioController::find_music_track_sound_object_by_identifier] error: " \
                                              "unable to find element with identifier " \
                                              "\"music-track-identifier-that-does-not-exist\"\n";
    ASSERT_EQ(expected_cout_error_message, cout_message);

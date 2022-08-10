@@ -286,7 +286,7 @@ void AudioController::play_music_track_by_identifier(std::string identifier)
       }
    if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
    stop_all_music_tracks();
-   Sound *sound = find_music_track_by_identifier(identifier);
+   Sound *sound = find_music_track_sound_object_by_identifier(identifier);
    if (sound) sound->play();
    return;
 }
@@ -309,12 +309,12 @@ AllegroFlare::Sound* AudioController::find_sound_effect_by_identifier(std::strin
    return it->second;
 }
 
-AllegroFlare::Sound* AudioController::find_music_track_by_identifier(std::string identifier)
+AllegroFlare::Sound* AudioController::find_music_track_sound_object_by_identifier(std::string identifier)
 {
    std::map<std::string, Sound*>::iterator it = music_tracks.find(identifier);
    if (it == music_tracks.end())
    {
-      std::cout << "[AudioController::find_music_track_by_identifier] error: "
+      std::cout << "[AudioController::find_music_track_sound_object_by_identifier] error: "
                 << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
       return nullptr;
    }
