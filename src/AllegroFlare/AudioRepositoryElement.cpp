@@ -39,6 +39,15 @@ std::string AudioRepositoryElement::get_overplay_strategy()
 }
 
 
+bool AudioRepositoryElement::overplay_strategy_is_ignore()
+{
+   return overplay_strategy == "ignore";
+}
+
+bool AudioRepositoryElement::overplay_strategy_is_restart()
+{
+   return overplay_strategy == "restart";
+}
 } // namespace AllegroFlare
 
 

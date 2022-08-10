@@ -20,6 +20,8 @@ namespace AllegroFlare
       std::string get_filename();
       bool get_loop();
       std::string get_overplay_strategy();
+      bool overplay_strategy_is_ignore();
+      bool overplay_strategy_is_restart();
    };
 }
 

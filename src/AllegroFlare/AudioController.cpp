@@ -274,7 +274,26 @@ void AudioController::play_sound_effect(std::string identifier)
          throw std::runtime_error(error_message.str());
       }
    Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
-   if (sound) sound->play();
+   AudioRepositoryElement element = find_sound_effect_element_by_identifier(identifier);
+   if (sound)
+   {
+      if (!sound->is_playing())
+      {
+         sound->play();
+      }
+      else // sound is currently playing, do some logic depending on what the configuration is
+      {
+         if (element.overplay_strategy_is_ignore())
+         {
+            // do nothing
+         }
+         else if (element.overplay_strategy_is_restart())
+         {
+            sound->stop();
+            sound->play();
+         }
+      }
+   }
    return;
 }
 

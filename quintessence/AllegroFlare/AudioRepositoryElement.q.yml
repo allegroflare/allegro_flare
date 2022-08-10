@@ -20,3 +20,19 @@ properties:
     getter: true
 
 
+functions:
+
+
+  - name: overplay_strategy_is_ignore
+    type: bool
+    body: |
+      return overplay_strategy == "ignore";
+ 
+
+  - name: overplay_strategy_is_restart
+    type: bool
+    body: |
+      return overplay_strategy == "restart";
+ 
+
+
