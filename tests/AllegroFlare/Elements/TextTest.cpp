@@ -50,7 +50,7 @@ TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
    AllegroFlare::Elements::Text text(&font_bin);
    text.render();
    al_flip_display();
-   sleep(1);
+   sleep_for(1);
    SUCCEED();
 }
 
