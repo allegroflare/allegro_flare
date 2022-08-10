@@ -81,6 +81,7 @@ functions:
       - (!initialized)
       - sample_bin
     body: |
+      // TODO: improve these couts
       if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
       if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
 

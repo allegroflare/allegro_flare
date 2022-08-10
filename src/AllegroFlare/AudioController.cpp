@@ -97,6 +97,7 @@ void AudioController::initialize()
          error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
+   // TODO: improve these couts
    if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
    if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
 
