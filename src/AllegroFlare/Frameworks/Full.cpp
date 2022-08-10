@@ -638,7 +638,7 @@ void Full::run_loop()
                           std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: INFO: playing music track identifer"
                                     << " \"" << (*data) << "\""
                                     << std::endl;
-                          audio_controller.play_music_track_by_identifier(*data);
+                          audio_controller.play_music_track(*data);
                           delete data;
                        }
                     }
@@ -653,7 +653,7 @@ void Full::run_loop()
                        }
                        else
                        {
-                          audio_controller.play_sound_effect_by_identifier(*data);
+                          audio_controller.play_sound_effect(*data);
                           delete data;
                        }
                     }

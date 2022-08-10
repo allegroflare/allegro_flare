@@ -62,7 +62,7 @@ TEST(AllegroFlare_AudioControllerTest,
 }
 
 
-TEST(AllegroFlare_AudioControllerTest, play_sound_effect_by_identifier__without_initialization__raises_an_exception)
+TEST(AllegroFlare_AudioControllerTest, play_sound_effect__without_initialization__raises_an_exception)
 {
    al_init();
    al_install_audio();
@@ -70,10 +70,10 @@ TEST(AllegroFlare_AudioControllerTest, play_sound_effect_by_identifier__without_
 
    AllegroFlare::AudioController audio_controller;
    std::string expected_error_message =
-      "AudioController::play_sound_effect_by_identifier: error: guard \"initialized\" not met";
+      "AudioController::play_sound_effect: error: guard \"initialized\" not met";
 
    ASSERT_THROW_WITH_MESSAGE(
-      audio_controller.play_sound_effect_by_identifier(),
+      audio_controller.play_sound_effect(),
       std::runtime_error,
       expected_error_message
    );
@@ -82,7 +82,7 @@ TEST(AllegroFlare_AudioControllerTest, play_sound_effect_by_identifier__without_
 }
 
 
-TEST(AllegroFlare_AudioControllerTest, play_music_track_by_identifier__without_initialization__raises_an_exception)
+TEST(AllegroFlare_AudioControllerTest, play_music_track__without_initialization__raises_an_exception)
 {
    al_init();
    al_install_audio();
@@ -90,10 +90,10 @@ TEST(AllegroFlare_AudioControllerTest, play_music_track_by_identifier__without_i
 
    AllegroFlare::AudioController audio_controller;
    std::string expected_error_message =
-      "AudioController::play_music_track_by_identifier: error: guard \"initialized\" not met";
+      "AudioController::play_music_track: error: guard \"initialized\" not met";
 
    ASSERT_THROW_WITH_MESSAGE(
-      audio_controller.play_music_track_by_identifier(),
+      audio_controller.play_music_track(),
       std::runtime_error,
       expected_error_message
    );
@@ -136,7 +136,7 @@ TEST(AllegroFlare_AudioControllerTest, initialize__works__and_sets_initialized_t
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   play_music_track_by_identifier__when_a_music_track_identifier_is_not_present__outputs_a_message)
+   play_music_track__when_a_music_track_identifier_is_not_present__outputs_a_message)
 {
    al_init();
    al_install_audio();
@@ -147,7 +147,7 @@ TEST(AllegroFlare_AudioControllerTest,
    audio_controller.initialize();
 
    testing::internal::CaptureStdout();
-   audio_controller.play_music_track_by_identifier("music-track-identifier-that-does-not-exist");
+   audio_controller.play_music_track("music-track-identifier-that-does-not-exist");
    std::string cout_message = testing::internal::GetCapturedStdout();
 
    std::string expected_cout_error_message = "[AudioController::find_music_track_sound_object_by_identifier] error: " \
@@ -187,7 +187,7 @@ TEST(AllegroFlare_AudioControllerTest,
 }
 
 
-TEST(AllegroFlare_AudioControllerTest, DISABLED__AUDIBLE__play_music_track_by_identifier__plays_the_audio_track)
+TEST(AllegroFlare_AudioControllerTest, DISABLED__AUDIBLE__play_music_track__plays_the_audio_track)
 {
    // test works, but a .ogg file is needed (the .wav file fixture is a bit large in size)
 
@@ -206,7 +206,7 @@ TEST(AllegroFlare_AudioControllerTest, DISABLED__AUDIBLE__play_music_track_by_id
    AllegroFlare::AudioController audio_controller(&sample_bin, sound_effect_elements, music_track_elements);
    audio_controller.initialize();
 
-   audio_controller.play_music_track_by_identifier(music_identifier);
+   audio_controller.play_music_track(music_identifier);
 
    //usleep(2000);
    sleep(2);

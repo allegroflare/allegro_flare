@@ -264,12 +264,12 @@ void AudioController::set_global_volume(float volume)
    return;
 }
 
-void AudioController::play_sound_effect_by_identifier(std::string identifier)
+void AudioController::play_sound_effect(std::string identifier)
 {
    if (!(initialized))
       {
          std::stringstream error_message;
-         error_message << "AudioController" << "::" << "play_sound_effect_by_identifier" << ": error: " << "guard \"initialized\" not met";
+         error_message << "AudioController" << "::" << "play_sound_effect" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
@@ -277,12 +277,12 @@ void AudioController::play_sound_effect_by_identifier(std::string identifier)
    return;
 }
 
-void AudioController::play_music_track_by_identifier(std::string identifier)
+void AudioController::play_music_track(std::string identifier)
 {
    if (!(initialized))
       {
          std::stringstream error_message;
-         error_message << "AudioController" << "::" << "play_music_track_by_identifier" << ": error: " << "guard \"initialized\" not met";
+         error_message << "AudioController" << "::" << "play_music_track" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED

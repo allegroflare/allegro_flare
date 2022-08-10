@@ -251,7 +251,7 @@ functions:
       return;
 
 
-  - name: play_sound_effect_by_identifier
+  - name: play_sound_effect
     guards: [ initialized ]
     parameters:
       - name: identifier
@@ -263,7 +263,7 @@ functions:
       return;
 
 
-  - name: play_music_track_by_identifier
+  - name: play_music_track
     guards: [ initialized ]
     parameters:
       - name: identifier
