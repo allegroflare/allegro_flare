@@ -306,6 +306,7 @@ void AudioController::play_music_track(std::string identifier)
          throw std::runtime_error(error_message.str());
       }
    if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
+   // TODO: implement "overplay_strategy" here
    stop_all_music_tracks();
    Sound *sound = find_music_track_sound_object_by_identifier(identifier);
    if (sound) sound->play();
