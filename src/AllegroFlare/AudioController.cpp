@@ -272,7 +272,7 @@ void AudioController::play_sound_effect_by_identifier(std::string identifier)
          error_message << "AudioController" << "::" << "play_sound_effect_by_identifier" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   Sound *sound = find_sound_effect_by_identifier(identifier);
+   Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
    if (sound) sound->play();
    return;
 }
@@ -297,14 +297,14 @@ bool AudioController::sound_effect_element_exists(std::string identifier)
    return (sound_effect_elements.count(identifier) > 0);
 }
 
-AllegroFlare::Sound* AudioController::find_sound_effect_by_identifier(std::string identifier)
+AllegroFlare::Sound* AudioController::find_sound_effect_sound_object_by_identifier(std::string identifier)
 {
    std::map<std::string, AllegroFlare::Sound*>::iterator it = sound_effects.find(identifier);
    if (it == sound_effects.end())
    {
       std::cout
          << AllegroFlare::TerminalColors::RED
-         << "AudioController::find_sound_effect_by_identifier() error: "
+         << "AudioController::find_sound_effect_sound_object_by_identifier() error: "
          << "unable to find element with identifier \""
          << identifier
          << "\""

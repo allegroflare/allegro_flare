@@ -258,7 +258,7 @@ functions:
         type: std::string
         default_argument: '"a-sound-effect-identifier-that-is-not-set"'
     body: |
-      Sound *sound = find_sound_effect_by_identifier(identifier);
+      Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
       if (sound) sound->play();
       return;
 
@@ -288,7 +288,7 @@ functions:
       return (sound_effect_elements.count(identifier) > 0);
 
 
-  - name: find_sound_effect_by_identifier
+  - name: find_sound_effect_sound_object_by_identifier
     private: true
     type: AllegroFlare::Sound*
     parameters:
@@ -301,7 +301,7 @@ functions:
       {
          std::cout
             << AllegroFlare::TerminalColors::RED
-            << "AudioController::find_sound_effect_by_identifier() error: "
+            << "AudioController::find_sound_effect_sound_object_by_identifier() error: "
             << "unable to find element with identifier \""
             << identifier
             << "\""
