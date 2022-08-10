@@ -115,7 +115,7 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT
 
    //framework.run_loop();
 
-   sleep(3);
+   //sleep(3);
 }
 
 
