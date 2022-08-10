@@ -187,7 +187,7 @@ TEST(AllegroFlare_AudioControllerTest,
 }
 
 
-TEST(AllegroFlare_AudioControllerTest, DISABLED__play_music_track_by_identifier__plays_the_audio_track)
+TEST(AllegroFlare_AudioControllerTest, DISABLED__AUDIBLE__play_music_track_by_identifier__plays_the_audio_track)
 {
    // test works, but a .ogg file is needed (the .wav file fixture is a bit large in size)
 
@@ -197,7 +197,7 @@ TEST(AllegroFlare_AudioControllerTest, DISABLED__play_music_track_by_identifier_
 
    AllegroFlare::SampleBin sample_bin;
    sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME);
-   std::string music_identifier = "music-1.wav";
+   std::string music_identifier = "music-01.ogg";
 
    std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements;
    std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements = {
@@ -208,7 +208,8 @@ TEST(AllegroFlare_AudioControllerTest, DISABLED__play_music_track_by_identifier_
 
    audio_controller.play_music_track_by_identifier(music_identifier);
 
-   usleep(2000);
+   //usleep(2000);
+   sleep(2);
 
    audio_controller.destruct();
 
