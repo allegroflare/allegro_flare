@@ -41,7 +41,7 @@ TEST_F(AllegroFlare_Elements_HealthBars_BasicTestWithAllegroRenderingFixture,
    health_bar.get_placement_ref().position = {200, 300};
    health_bar.render();
    al_flip_display();
-   sleep(1);
+   sleep_for(1);
    SUCCEED();
 }
 
