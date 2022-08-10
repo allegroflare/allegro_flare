@@ -320,6 +320,35 @@ functions:
       return it->second;
 
 
+  - name: music_track_element_exists
+    private: true
+    type: bool
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-music-track-identifier-that-is-not-set"'
+    body: |
+      return (music_track_elements.count(identifier) > 0);
+
+
+  - name: find_music_track_repository_element_by_identifier
+    private: true
+    type: AllegroFlare::AudioRepositoryElement
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"a-music-track-identifier-that-is-not-set"'
+    body: |
+      std::map<std::string, AudioRepositoryElement>::iterator it = music_track_elements.find(identifier);
+      if (it == music_track_elements.end())
+      {
+         std::cout << "[AudioController::find_music_track_repository_element_by_identifier] error: "
+                   << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
+         return {};
+      }
+      return it->second;
+
+
   - name: dump_to_cout
     body: |
       for (auto &sound_effect_element : sound_effect_elements)
@@ -350,6 +379,8 @@ dependencies:
     headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: AllegroFlare::SampleBin*
     headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: AllegroFlare::AudioRepositoryElement
+    headers: [ AllegroFlare/AudioRepositoryElement.hpp ]
   - symbol: std::map<std::string, AllegroFlare::AudioRepositoryElement>
     headers: [ map, string, AllegroFlare/AudioRepositoryElement.hpp ]
   - symbol: std::map<std::string, AllegroFlare::Sound*>

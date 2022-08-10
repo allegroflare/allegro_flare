@@ -321,6 +321,23 @@ AllegroFlare::Sound* AudioController::find_music_track_sound_object_by_identifie
    return it->second;
 }
 
+bool AudioController::music_track_element_exists(std::string identifier)
+{
+   return (music_track_elements.count(identifier) > 0);
+}
+
+AllegroFlare::AudioRepositoryElement AudioController::find_music_track_repository_element_by_identifier(std::string identifier)
+{
+   std::map<std::string, AudioRepositoryElement>::iterator it = music_track_elements.find(identifier);
+   if (it == music_track_elements.end())
+   {
+      std::cout << "[AudioController::find_music_track_repository_element_by_identifier] error: "
+                << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
+      return {};
+   }
+   return it->second;
+}
+
 void AudioController::dump_to_cout()
 {
    for (auto &sound_effect_element : sound_effect_elements)

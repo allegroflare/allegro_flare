@@ -6,6 +6,9 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController"
   ],
+  "AllegroFlare/AudioRepositoryElement": [
+    "AllegroFlare/AudioController"
+  ],
   "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
     "AllegroFlare/AudioController"
   ],

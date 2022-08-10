@@ -246,6 +246,12 @@ table td
   <td class="private_method">find_music_track_sound_object_by_identifier(1)</td>
 </tr>
 <tr>
+  <td class="private_method">music_track_element_exists(1)</td>
+</tr>
+<tr>
+  <td class="private_method">find_music_track_repository_element_by_identifier(1)</td>
+</tr>
+<tr>
   <td class="method">dump_to_cout()</td>
 </tr>
     </table>
@@ -258,6 +264,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioRepositoryElement&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioRepositoryElement.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;string&quot;, &quot;AllegroFlare/AudioRepositoryElement.hpp&quot;]}</td>
@@ -5969,6 +5978,9 @@ table td
   ],
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/AudioRepositoryElement": [
     "AllegroFlare/AudioController"
   ],
   "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
