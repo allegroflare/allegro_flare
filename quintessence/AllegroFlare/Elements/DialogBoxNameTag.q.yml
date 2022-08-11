@@ -64,11 +64,11 @@ functions:
 
 
   - name: obtain_dialog_font
-    guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
     private: true
     type: ALLEGRO_FONT*
+    guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
     body: |
-      static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
+      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
       ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
       return result_font;
 
