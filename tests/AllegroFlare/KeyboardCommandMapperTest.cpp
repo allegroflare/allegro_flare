@@ -5,9 +5,9 @@
 #include <AllegroFlare/KeyboardCommandMapper.hpp>
 
 
-TEST(KeyboardCommandMapperTest, can_get_and_set_mappings)
+TEST(AllegroFlare_KeyboardCommandMapperTest, can_get_and_set_mappings)
 {
-   KeyboardCommandMapper mapper;
+   AllegroFlare::KeyboardCommandMapper mapper;
 
    std::vector<std::string> command_identifiers = {"this_is_the_command"};
 
@@ -16,9 +16,9 @@ TEST(KeyboardCommandMapperTest, can_get_and_set_mappings)
 }
 
 
-TEST(KeyboardCommandMapperTest, can_get_and_set_all_valid_allegro_keycodes)
+TEST(AllegroFlare_KeyboardCommandMapperTest, can_get_and_set_all_valid_allegro_keycodes)
 {
-   KeyboardCommandMapper mapper;
+   AllegroFlare::KeyboardCommandMapper mapper;
 
    for (unsigned k=0 /*ALLEGRO_KEY_A*/; k<215/*ALLEGRO_KEY_MODIFIERS*/; k++)
    {
@@ -36,9 +36,9 @@ TEST(KeyboardCommandMapperTest, can_get_and_set_all_valid_allegro_keycodes)
 }
 
 
-TEST(KeyboardCommandMapperTest, get_mapping__returns_an_empty_vector_if_identifier_is_not_found)
+TEST(AllegroFlare_KeyboardCommandMapperTest, get_mapping__returns_an_empty_vector_if_identifier_is_not_found)
 {
-   KeyboardCommandMapper mapper;
+   AllegroFlare::KeyboardCommandMapper mapper;
    std::vector<std::string> expected_return_value = {};
 
    EXPECT_EQ(expected_return_value, mapper.get_mapping(16, true, false, false, false));
@@ -47,17 +47,17 @@ TEST(KeyboardCommandMapperTest, get_mapping__returns_an_empty_vector_if_identifi
 }
 
 
-TEST(KeyboardCommandMapperTest, has_overloads_for_getting_and_setting_mappings_with_bigflags)
+TEST(AllegroFlare_KeyboardCommandMapperTest, has_overloads_for_getting_and_setting_mappings_with_bigflags)
 {
-   constexpr auto SHIFT = KeyboardCommandMapper::SHIFT;
-   constexpr auto CTRL = KeyboardCommandMapper::CTRL;
-   constexpr auto ALT = KeyboardCommandMapper::ALT;
-   constexpr auto COMMAND = KeyboardCommandMapper::COMMAND;
-   constexpr auto OPTION = KeyboardCommandMapper::OPTION;
+   constexpr auto SHIFT = AllegroFlare::KeyboardCommandMapper::SHIFT;
+   constexpr auto CTRL = AllegroFlare::KeyboardCommandMapper::CTRL;
+   constexpr auto ALT = AllegroFlare::KeyboardCommandMapper::ALT;
+   constexpr auto COMMAND = AllegroFlare::KeyboardCommandMapper::COMMAND;
+   constexpr auto OPTION = AllegroFlare::KeyboardCommandMapper::OPTION;
 
    for (unsigned k=0 /*ALLEGRO_KEY_A*/; k<215/*ALLEGRO_KEY_MODIFIERS*/; k++)
    {
-      KeyboardCommandMapper mapper;
+      AllegroFlare::KeyboardCommandMapper mapper;
       std::vector<std::string> commands = { "foo" };
 
       // bigflags for assignment

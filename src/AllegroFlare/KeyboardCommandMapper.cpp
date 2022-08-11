@@ -5,6 +5,12 @@
 #include <AllegroFlare/BitFlags.hpp>
 
 
+
+namespace AllegroFlare
+{
+
+
+
 KeyboardCommandMapper::KeyboardCommandMapper()
 {}
 
@@ -43,5 +49,10 @@ std::vector<std::string> KeyboardCommandMapper::get_mapping(int al_keycode, int 
    AllegroFlare::BitFlags flags(modifiers);
    return get_mapping(al_keycode, flags.has(SHIFT), flags.has(CTRL), flags.has(ALT), flags.has(COMMAND));
 }
+
+
+
+} // namespace AllegroFlare
+
 
 
