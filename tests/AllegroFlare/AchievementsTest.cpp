@@ -10,13 +10,13 @@ class AchievementTestClass : public AllegroFlare::Achievement
 {};
 
 
-TEST(AchievementsTest, can_be_created_without_arguments)
+TEST(AllegroFlare_AchievementsTest, can_be_created_without_arguments)
 {
    AllegroFlare::Achievements achievements;
 }
 
 
-TEST(AchievementsTest, add__will_add_the_achievement_to_the_list)
+TEST(AllegroFlare_AchievementsTest, add__will_add_the_achievement_to_the_list)
 {
    AllegroFlare::Achievements achievements;
    AchievementTestClass achievement;
@@ -29,7 +29,7 @@ TEST(AchievementsTest, add__will_add_the_achievement_to_the_list)
 }
 
 
-TEST(AchievementsTest,
+TEST(AllegroFlare_AchievementsTest,
    unlock_manually__will_mark_the_achievement_as_unlocked_in_the_list_and_on_the_object_and_return_true)
 {
    AllegroFlare::Achievements achievements;
@@ -44,7 +44,7 @@ TEST(AchievementsTest,
 }
 
 
-TEST(AchievementsTest,
+TEST(AllegroFlare_AchievementsTest,
    unlock_manually__when_the_named_achievement_does_not_exist__will_output_an_error_message_to_cout)
 {
    AllegroFlare::Achievements achievements;
@@ -59,7 +59,7 @@ TEST(AchievementsTest,
 }
 
 
-TEST(AchievementsTest, unlock_manually__when_the_achievement_has_already_been_unlocked__does_nothing_and_returns_false)
+TEST(AllegroFlare_AchievementsTest, unlock_manually__when_the_achievement_has_already_been_unlocked__does_nothing_and_returns_false)
 {
    AllegroFlare::Achievements achievements;
    AchievementTestClass achievement;
