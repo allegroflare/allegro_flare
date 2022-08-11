@@ -3,12 +3,12 @@
 
 #include <AllegroFlare/Elements/PlayingCards/DeckFactory.hpp>
 
-TEST(DeckFactoryTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Elements_PlayingCards_DeckFactoryTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::PlayingCards::DeckFactory deck_factory;
 }
 
-TEST(DeckFactoryTest, generate_standard_52_card_deck)
+TEST(AllegroFlare_Elements_PlayingCards_DeckFactoryTest, generate_standard_52_card_deck)
 {
    AllegroFlare::Elements::PlayingCards::Deck deck =
       AllegroFlare::Elements::PlayingCards::DeckFactory::generate_standard_52_card_deck();
