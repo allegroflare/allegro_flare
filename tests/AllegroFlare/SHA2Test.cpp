@@ -4,7 +4,14 @@
 #include <AllegroFlare/SHA2.hpp>
 
 
-#define TEST_FILENAME "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/pun_dog.jpg"
+#ifdef _WIN32
+#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
+#else
+#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
+#endif
+
+
+#define TEST_FILENAME (TEST_FIXTURE_BITMAP_FOLDER "pun_dog.jpg")
 
 
 
