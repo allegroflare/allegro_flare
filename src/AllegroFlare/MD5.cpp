@@ -50,8 +50,8 @@ documentation and/or software.
 
 namespace AllegroFlare
 {
-namespace MD5
-{
+//class MD5
+//{
 
 #ifndef BZF_MD5_Internal_H
 #define BZF_MD5_Internal_H
@@ -496,10 +496,19 @@ namespace MD5
 
 
 
-   // my code is below (Mark Oates)
+   // AllegroFlare code is below
 
 
-   std::string generate_hash(const std::string str)
+
+   MD5::MD5() {}
+
+
+
+   MD5::~MD5() {}
+
+
+
+   std::string MD5::generate_hash(const std::string str)
    {
       MD5_Internal md5 = MD5_Internal(str);
 
@@ -508,7 +517,7 @@ namespace MD5
 
 
 
-   std::string generate_hash_from_file(std::string filename)
+   std::string MD5::generate_hash_from_file(std::string filename)
    {
       std::string data;
       std::ifstream input_file( filename.c_str(), std::ios::binary | std::ios::in );
@@ -534,7 +543,6 @@ namespace MD5
 
 
 
-} // namespace MD5
 } // namespace AllegroFlare
 
 

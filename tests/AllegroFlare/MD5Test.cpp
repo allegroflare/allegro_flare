@@ -15,10 +15,9 @@
 #include <fstream>
 
 
-TEST(AllegroFlare_MD5Test, DISABLED__can_be_created_without_blowing_up)
+TEST(AllegroFlare_MD5Test, can_be_created_without_blowing_up)
 {
-   // MD5 is a namespace, can not be tested
-   //AllegroFlare::MD5 md5;
+   AllegroFlare::MD5 md5;
 }
 
 
