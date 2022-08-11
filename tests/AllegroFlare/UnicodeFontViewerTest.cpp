@@ -105,7 +105,7 @@ TEST_F(AllegroFlare_UnicodeFontViewerTestWithAllegroRenderingFixture, render__wi
    unicode_font_viewer.render();
 
    al_flip_display();
-   sleep(3);
+   sleep_for(3);
 
    SUCCEED();
 }
