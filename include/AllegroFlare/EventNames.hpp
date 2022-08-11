@@ -21,7 +21,7 @@
 
 #define ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR              ALLEGRO_GET_EVENT_TYPE('F','S','I','h')
 #define ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR              ALLEGRO_GET_EVENT_TYPE('F','H','I','h')
-#define ALLEGRO_FLARE_SET_INPUT_HINTS_TOKENS            ALLEGRO_GET_EVENT_TYPE('F','S','I','h')
+#define ALLEGRO_FLARE_SET_INPUT_HINTS_BAR               ALLEGRO_GET_EVENT_TYPE('F','S','I','h')
 
 // User's Events in their game
 #define ALLEGRO_FLARE_EVENT_GAME_EVENT                  ALLEGRO_GET_EVENT_TYPE('F','E','G','E')

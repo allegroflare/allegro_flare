@@ -76,6 +76,27 @@ functions:
       - ALLEGRO_FLARE_EVENT_EXIT_GAME
 
 
+  - name: emit_show_input_hints_bar_event
+    body: |
+      // TODO
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR
+
+
+  - name: emit_hide_input_hints_bar_event
+    body: |
+      // TODO
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR
+
+
+  - name: emit_set_input_hints_bar_event
+    body: |
+      // TODO
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_SET_INPUT_HINTS_BAR
+
+
   - name: emit_play_sound_effect_event
     parameters:
       - name: sound_effect_identifier
@@ -165,6 +186,12 @@ functions:
 dependencies:
 
 
+  - symbol: ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_SET_INPUT_HINTS_BAR
+    headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_EVENT_SOURCE
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FLARE_EVENT_EXIT_GAME 

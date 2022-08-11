@@ -2897,6 +2897,15 @@ table td
   <td class="method">emit_exit_game_event()</td>
 </tr>
 <tr>
+  <td class="method">emit_show_input_hints_bar_event()</td>
+</tr>
+<tr>
+  <td class="method">emit_hide_input_hints_bar_event()</td>
+</tr>
+<tr>
+  <td class="method">emit_set_input_hints_bar_event()</td>
+</tr>
+<tr>
   <td class="method">emit_play_sound_effect_event(1)</td>
 </tr>
 <tr>
@@ -2919,6 +2928,15 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_SET_INPUT_HINTS_BAR&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_SOURCE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -6540,6 +6558,15 @@ table td
   ],
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
+  ],
+  "ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_SET_INPUT_HINTS_BAR": [
+    "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_EVENT_SOURCE": [
     "AllegroFlare/EventEmitter"

@@ -12,6 +12,9 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/EventNames.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/EventNames.hpp>
@@ -116,6 +119,21 @@ void EventEmitter::emit_exit_game_event()
       }
    emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
    return;
+}
+
+void EventEmitter::emit_show_input_hints_bar_event()
+{
+   // TODO
+}
+
+void EventEmitter::emit_hide_input_hints_bar_event()
+{
+   // TODO
+}
+
+void EventEmitter::emit_set_input_hints_bar_event()
+{
+   // TODO
 }
 
 void EventEmitter::emit_play_sound_effect_event(std::string sound_effect_identifier)
