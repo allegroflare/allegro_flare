@@ -44,6 +44,7 @@ Full::Full()
    , textlog(nullptr)
    , joystick(nullptr)
    , primary_display(nullptr)
+   , primary_sub_bitmap(nullptr)
    , primary_timer(nullptr)
    , camera_2d()
    , escape_key_will_shutdown(true)
@@ -57,6 +58,7 @@ Full::Full()
    , key_shift(0)
    , key_ctrl(0)
    , drawing_profiler_graph(false)
+   , drawing_inputs_bar_overlay(true)
 {}
 
 
@@ -245,10 +247,23 @@ bool Full::initialize()
 
    if (!primary_display || !primary_display->al_display)
    {
-      throw std::runtime_error("Frameworks::Full::initialize(): failure: unable to create primary_display");
+      throw std::runtime_error("[Frameworks::Full::initialize]: FAILURE: unable to create primary_display.");
    }
 
-   camera_2d.setup_dimentional_projection(al_get_backbuffer(primary_display->al_display));
+   ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
+   primary_sub_bitmap = al_create_sub_bitmap(
+      backbuffer_bitmap,
+      0,
+      0,
+      al_get_bitmap_width(backbuffer_bitmap),
+      al_get_bitmap_height(backbuffer_bitmap)
+   );
+
+   camera_2d.setup_dimentional_projection(primary_sub_bitmap); // this should remain the same throughout
+                                                               // the whole program
+
+   camera_2d.setup_dimentional_projection(backbuffer_bitmap); // this could potentially change depending on the
+                                                              // needs of the game
 
    return true;
 }
@@ -264,6 +279,7 @@ bool Full::shutdown()
    fonts.clear();
    models.clear();
 
+   if (primary_sub_bitmap) al_destroy_bitmap(primary_sub_bitmap);
    if (primary_display) al_destroy_display(primary_display->al_display);
 
    audio_controller.destruct();
@@ -347,6 +363,30 @@ void Full::unregister_achievement(Achievement *achievement)
 {
    throw std::runtime_error("Frameworks::Full::unregister: error: not implemented");
    // TODO: not implemented
+}
+
+
+void Full::enable_drawing_inputs_bar_overlay()
+{
+   drawing_inputs_bar_overlay = true;
+}
+
+
+void Full::disable_drawing_inputs_bar_overlay()
+{
+   drawing_inputs_bar_overlay = false;
+}
+
+
+void Full::set_drawing_inputs_bar_overlay(bool drawing_inputs_bar_overlay)
+{
+   this->drawing_inputs_bar_overlay = drawing_inputs_bar_overlay;
+}
+
+
+bool Full::get_drawing_inputs_bar_overlay()
+{
+   return drawing_inputs_bar_overlay;
 }
 
 
@@ -491,6 +531,7 @@ void Full::run_loop()
             al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
             screens.primary_timer_funcs();
             al_flip_display();
+            draw_overlay();
          }
          else
          {
@@ -753,6 +794,16 @@ std::string Full::get_allegro_flare_version_string()
 {
    AllegroFlare::Version version;
    return version.get_allegro_flare_version_string();
+}
+
+
+
+void Full::draw_overlay()
+{
+   if (drawing_inputs_bar_overlay)
+   {
+      // TODO
+   }
 }
 
 

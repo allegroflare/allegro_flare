@@ -43,12 +43,17 @@ namespace AllegroFlare
          ALLEGRO_TEXTLOG *textlog;
          ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
          Display *primary_display;
+         ALLEGRO_BITMAP *primary_sub_bitmap;
          ALLEGRO_TIMER *primary_timer;
          Camera2D camera_2d;
          //Camera3D camera_3d; // next
+         bool drawing_inputs_bar_overlay;
 
          bool initialize_without_display(); // only use initialize() publically from now on
          bool escape_key_will_shutdown;
+
+         void draw_overlay();
+        
 
          friend class AllegroFlare_Frameworks_FullTest;
 
@@ -98,6 +103,11 @@ namespace AllegroFlare
 
          void register_achievement(std::string name, Achievement *achievement);
          void unregister_achievement(Achievement *achievement); // NOT IMPLEMENTED
+
+         void enable_drawing_inputs_bar_overlay();
+         void disable_drawing_inputs_bar_overlay();
+         void set_drawing_inputs_bar_overlay(bool drawing_inputs_bar_overlay);
+         bool get_drawing_inputs_bar_overlay();
 
          Display *create_display(int width=1280, int height=720);
          Display *create_display(int width, int height, int display_flags);
