@@ -25,21 +25,21 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
-   will_set_the_window_title_to_the_test_suite_name_and_test_name)
+   DISABLED__will_set_the_window_title_to_the_test_suite_name_and_test_name)
 {
    // NOTE: cannot currently test this, Allegro5 does not currently have a al_get_window_title() feature
 }
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
-   with_a_test_name_prefixed_with_CAPTURE__will_save_a_screenshot_of_the_backbuffer_during_teardown)
+   DISABLED__with_a_test_name_prefixed_with_CAPTURE__will_save_a_screenshot_of_the_backbuffer_during_teardown)
 {
    // NOTE: cannot currently test this, assertion would need to happen after teardown
 }
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
-   clear_display__will_clear_the_current_target_rendering_surface_to_an_eigengrau_color)
+   DISABLED__clear_display__will_clear_the_current_target_rendering_surface_to_an_eigengrau_color)
 {
    // TODO
 }
