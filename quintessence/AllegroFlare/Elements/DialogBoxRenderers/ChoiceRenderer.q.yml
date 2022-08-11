@@ -142,7 +142,6 @@ functions:
     type: ALLEGRO_FONT*
     body: |
       static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
-      //static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
       ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
       return result_font;
 

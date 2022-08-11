@@ -199,7 +199,6 @@ ALLEGRO_FONT* ChoiceRenderer::obtain_dialog_font()
          throw std::runtime_error(error_message.str());
       }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
-   //static const std::string FONT_IDENTIFIER = "Purista Medium.otf -50";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }
