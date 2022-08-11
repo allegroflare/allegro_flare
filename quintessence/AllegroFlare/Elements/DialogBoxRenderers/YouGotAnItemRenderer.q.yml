@@ -58,13 +58,15 @@ functions:
       ALLEGRO_COLOR item_name_text_dropshadow_color = opaquify(al_color_html("770000"));
       std::string notification_text = "You got an item!";
       std::string item_name_text = get_item_name(); // "Watch";
-      std::string item_bitmap_identifier = get_item_bitmap_identifier(); //"watch-01.png";
+      std::string item_bitmap_identifier = get_item_bitmap_identifier();
       ALLEGRO_BITMAP* item_bitmap = bitmap_bin->auto_get(item_bitmap_identifier);
+      int item_bitmap_width = al_get_bitmap_width(item_bitmap);
+      int item_bitmap_height = al_get_bitmap_height(item_bitmap);
       AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
       //dialog_box_frame.set_fill_color(opaquify(al_color_html("2a2104")));
       //dialog_box_frame.set_border_color(opaquify(al_color_html("c49505")));
       dialog_box_frame.set_border_color(opaquify(ALLEGRO_COLOR{1.0, .65, 0.0, 1.0}));
-      AllegroFlare::Placement2D item_place(width/2, height/2, 800, 800);
+      AllegroFlare::Placement2D item_place(width/2, height/2, item_bitmap_width, item_bitmap_height);
       item_place.scale.x = 0.55;
       item_place.scale.y = 0.55;
 
