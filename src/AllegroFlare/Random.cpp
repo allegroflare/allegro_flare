@@ -33,6 +33,7 @@ namespace AllegroFlare
       , random_number_generator__for_shuffle_elements()
       , random_number_generator__for_get_random_color()
       , random_number_generator__for_get_random_color_exhaustive()
+      , shuffle_elements_seed_increment(0)
       , color_palette({
          AllegroFlare::Color::AliceBlue,
          AllegroFlare::Color::AntiqueWhite,
@@ -247,6 +248,7 @@ namespace AllegroFlare
       random_number_generator__for_shuffle_elements.seed(
             primary_seed + basic_multiply_hash("for_shuffle_elements")
          );
+      shuffle_elements_seed_increment = 0;
       std::mt19937 random_number_generator__for_get_random_color( // <- bug here in this declaration
             primary_seed + basic_multiply_hash("for_get_random_color")
          );
@@ -387,6 +389,8 @@ namespace AllegroFlare
 
 
 
+   // WARNING: TODO:
+   // This function will not produce reliable random shuffles given a seed
    ALLEGRO_COLOR Random::get_random_color_exhaustive()
    {
       static std::vector<ALLEGRO_COLOR> colors = color_palette;

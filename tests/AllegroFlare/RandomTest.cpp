@@ -345,9 +345,9 @@ TEST(AllegroFlare_RandomTest, shuffle_elements__will_produce_a_reproducable_shuf
    std::vector<int> elements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
    std::vector<std::vector<int>> expected_shuffles = {
-      { 6, 1, 8, 7, 4, 9, 5, 3, 10, 2 },
-      { 2, 1, 5, 10, 7, 4, 8, 9, 6, 3 },
-      { 4, 7, 5, 6, 9, 10, 2, 1, 8, 3 },
+      { 1, 9, 8, 2, 10, 4, 6, 5, 7, 3 },
+      { 3, 1, 5, 8, 7, 2, 10, 9, 4, 6 },
+      { 8, 1, 3, 7, 2, 5, 9, 6, 4, 10 },
    };
 
    for (auto &expected_shuffle : expected_shuffles)

@@ -31,6 +31,7 @@ namespace AllegroFlare
       std::mt19937 random_number_generator__for_shuffle_elements;
       std::mt19937 random_number_generator__for_get_random_color;
       std::mt19937 random_number_generator__for_get_random_color_exhaustive;
+      int shuffle_elements_seed_increment;
 
       const std::vector<ALLEGRO_COLOR> color_palette;
 
@@ -38,6 +39,21 @@ namespace AllegroFlare
       unsigned char extract_random_letter(bool lowercase, std::mt19937 &rng);
       unsigned char extract_random_letter_or_number(std::mt19937 &rng);
       
+      template<class RandomIt, class URBG>
+      void shuffle_internal(RandomIt first, RandomIt last, URBG&& g)
+      {
+          typedef typename std::iterator_traits<RandomIt>::difference_type diff_t;
+          //typedef std::uniform_int_distribution<diff_t> distr_t;
+          //typedef typename distr_t::param_type param_t;
+
+          //distr_t D;
+          diff_t n = last - first;
+          for (diff_t i = n-1; i > 0; --i)
+          {
+              using std::swap;
+              swap(first[i], first[extract_random_int(0, n-1, g)]);
+          }
+      }
 
    public:
       // Seeds the random number generator with the time.
@@ -91,7 +107,13 @@ namespace AllegroFlare
       template<class T>
       void shuffle_elements(std::vector<T> &elements)
       {
-         std::shuffle(elements.begin(), elements.end(), random_number_generator__for_shuffle_elements);
+         // WARNING: this shuffle DOES NOT create reproducable results across platforms.  See this stack overflow:
+         // WARNING: this shuffle DOES NOT create reproducable results across platforms.  See this stack overflow:
+         // https://stackoverflow.com/questions/51929085/cross-platform-random-reproducibility
+         shuffle_elements_seed_increment++; // this should be a (predictably) randomly new seed 
+         random_number_generator__for_shuffle_elements.seed(shuffle_elements_seed_increment);
+
+         shuffle_internal(elements.begin(), elements.end(), random_number_generator__for_shuffle_elements);
       }
 
       // Returns true if a one-in-n chance event occurred.
