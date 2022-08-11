@@ -35,7 +35,7 @@ AudioController::AudioController(AllegroFlare::SampleBin* sample_bin, std::map<s
    , music_tracks({})
    , current_music_track_identifier("")
    , global_volume(1.0)
-   , output_loading_debug_to_cout(true)
+   , output_loading_debug_to_cout(false)
    , initialized(false)
    , music_tracks_loaded(false)
    , sound_effects_loaded(false)

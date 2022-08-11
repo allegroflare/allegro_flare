@@ -52,7 +52,7 @@ properties:
   - name: output_loading_debug_to_cout
     type: bool
     private: true
-    init_with: true
+    init_with: false
 
   - name: initialized
     type: bool
