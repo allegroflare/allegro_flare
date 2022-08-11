@@ -247,10 +247,10 @@ namespace AllegroFlare
       random_number_generator__for_shuffle_elements.seed(
             primary_seed + basic_multiply_hash("for_shuffle_elements")
          );
-      std::mt19937 random_number_generator__for_get_random_color(
+      std::mt19937 random_number_generator__for_get_random_color( // <- bug here in this declaration
             primary_seed + basic_multiply_hash("for_get_random_color")
          );
-      std::mt19937 random_number_generator__for_get_random_color_exhaustive(
+      std::mt19937 random_number_generator__for_get_random_color_exhaustive( // <- bug here in this declaration
             primary_seed + basic_multiply_hash("for_get_random_color_exhaustive")
          );
    }
