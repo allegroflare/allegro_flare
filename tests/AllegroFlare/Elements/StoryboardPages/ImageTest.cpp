@@ -110,8 +110,10 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageTestWithAllegroRenderingFixtur
       image.update();
       image.render();
       al_flip_display();
+      sleep_for_frame();
+
       attempts--;
-      if (attempts < 0) FAIL();
+      if (attempts < 0) FAIL() << "Too many attempts while expecting auto-close; aborting.";
    }
    SUCCEED();
 }
