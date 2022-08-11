@@ -17,7 +17,7 @@ namespace AllegroFlare
 
       // takes a file and returns the corresponding md5 hash of the file
       std::string generate_hash_from_file(std::string filename);
-   }
+   };
 }
 
 

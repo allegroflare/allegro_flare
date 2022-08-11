@@ -3,6 +3,12 @@
 #include <AllegroFlare/MD5.hpp>
 
 
+// AllegroFlare library author's note: This class uses code by Frank Thilo under
+// the hood.  Frank Thilo's original class name is MD5, however it has been renamed
+// to MD5_Internal in all instances as not to conflict with the AllegroFlare::MD5
+// class name.
+
+
 /* MD5
 
 converted to C++ class by Frank Thilo (thilo@unix-ag.org)
@@ -47,8 +53,8 @@ namespace AllegroFlare
 namespace MD5
 {
 
-#ifndef BZF_MD5_H
-#define BZF_MD5_H
+#ifndef BZF_MD5_Internal_H
+#define BZF_MD5_Internal_H
 
 
 
@@ -59,21 +65,21 @@ namespace MD5
    //      2) finalize()
    //      3) get hexdigest() string
    //      or
-   //      MD5(std::string).hexdigest()
+   //      MD5_Internal(std::string).hexdigest()
    //
    // assumes that char is 8 bit and int is 32 bit
-   class MD5
+   class MD5_Internal
    {
    public:
       typedef unsigned int size_type; // must be 32bit
 
-      MD5();
-      MD5(const std::string& text);
+      MD5_Internal();
+      MD5_Internal(const std::string& text);
       void update(const unsigned char *buf, size_type length);
       void update(const char *buf, size_type length);
-      MD5& finalize();
+      MD5_Internal& finalize();
       std::string hexdigest() const;
-      friend std::ostream& operator<<(std::ostream&, MD5 md5);
+      friend std::ostream& operator<<(std::ostream&, MD5_Internal md5);
 
    private:
       void init();
@@ -114,7 +120,7 @@ namespace MD5
 
 
 
-   /* MD5
+   /* MD5_Internal
       converted to C++ class by Frank Thilo (thilo@unix-ag.org)
       for bzflag (http://www.bzflag.org)
 
@@ -174,49 +180,49 @@ namespace MD5
    ///////////////////////////////////////////////
 
    // F, G, H and I are basic MD5 functions.
-   inline MD5::uint4 MD5::F(uint4 x, uint4 y, uint4 z) {
+   inline MD5_Internal::uint4 MD5_Internal::F(uint4 x, uint4 y, uint4 z) {
       return (x&y) | (~x&z);
    }
 
-   inline MD5::uint4 MD5::G(uint4 x, uint4 y, uint4 z) {
+   inline MD5_Internal::uint4 MD5_Internal::G(uint4 x, uint4 y, uint4 z) {
       return (x&z) | (y&~z);
    }
 
-   inline MD5::uint4 MD5::H(uint4 x, uint4 y, uint4 z) {
+   inline MD5_Internal::uint4 MD5_Internal::H(uint4 x, uint4 y, uint4 z) {
       return x^y^z;
    }
 
-   inline MD5::uint4 MD5::I(uint4 x, uint4 y, uint4 z) {
+   inline MD5_Internal::uint4 MD5_Internal::I(uint4 x, uint4 y, uint4 z) {
       return y ^ (x | ~z);
    }
 
    // rotate_left rotates x left n bits.
-   inline MD5::uint4 MD5::rotate_left(uint4 x, int n) {
+   inline MD5_Internal::uint4 MD5_Internal::rotate_left(uint4 x, int n) {
       return (x << n) | (x >> (32-n));
    }
 
    // FF, GG, HH, and II transformations for rounds 1, 2, 3, and 4.
    // Rotation is separate from addition to prevent recomputation.
-   inline void MD5::FF(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {
+   inline void MD5_Internal::FF(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {
       a = rotate_left(a+ F(b,c,d) + x + ac, s) + b;
    }
 
-   inline void MD5::GG(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {
+   inline void MD5_Internal::GG(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {
       a = rotate_left(a + G(b,c,d) + x + ac, s) + b;
    }
 
-   inline void MD5::HH(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {
+   inline void MD5_Internal::HH(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {
       a = rotate_left(a + H(b,c,d) + x + ac, s) + b;
    }
 
-   inline void MD5::II(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {
+   inline void MD5_Internal::II(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac) {
       a = rotate_left(a + I(b,c,d) + x + ac, s) + b;
    }
 
    //////////////////////////////////////////////
 
    // default ctor, just initailize
-   MD5::MD5()
+   MD5_Internal::MD5_Internal()
    {
       init();
    }
@@ -224,7 +230,7 @@ namespace MD5
    //////////////////////////////////////////////
 
    // nifty shortcut ctor, compute MD5 for string and finalize it right away
-   MD5::MD5(const std::string &text)
+   MD5_Internal::MD5_Internal(const std::string &text)
    {
       init();
       update(text.c_str(), text.length());
@@ -233,7 +239,7 @@ namespace MD5
 
    //////////////////////////////
 
-   void MD5::init()
+   void MD5_Internal::init()
    {
       finalized=false;
 
@@ -250,7 +256,7 @@ namespace MD5
    //////////////////////////////
 
    // decodes input (unsigned char) into output (uint4). Assumes len is a multiple of 4.
-   void MD5::decode(uint4 output[], const uint1 input[], size_type len)
+   void MD5_Internal::decode(uint4 output[], const uint1 input[], size_type len)
    {
       for (unsigned int i = 0, j = 0; j < len; i++, j += 4)
          output[i] = ((uint4)input[j]) | (((uint4)input[j+1]) << 8) |
@@ -261,7 +267,7 @@ namespace MD5
 
    // encodes input (uint4) into output (unsigned char). Assumes len is
    // a multiple of 4.
-   void MD5::encode(uint1 output[], const uint4 input[], size_type len)
+   void MD5_Internal::encode(uint1 output[], const uint4 input[], size_type len)
    {
       for (size_type i = 0, j = 0; j < len; i++, j += 4) {
          output[j] = input[i] & 0xff;
@@ -274,7 +280,7 @@ namespace MD5
    //////////////////////////////
 
    // apply MD5 algo on a block
-   void MD5::transform(const uint1 block[blocksize])
+   void MD5_Internal::transform(const uint1 block[blocksize])
    {
       uint4 a = state[0], b = state[1], c = state[2], d = state[3], x[16];
       decode (x, block, blocksize);
@@ -364,7 +370,7 @@ namespace MD5
 
    // MD5 block update operation. Continues an MD5 message-digest
    // operation, processing another message block
-   void MD5::update(const unsigned char input[], size_type length)
+   void MD5_Internal::update(const unsigned char input[], size_type length)
    {
       // compute number of bytes mod 64
       size_type index = count[0] / 8 % blocksize;
@@ -402,7 +408,7 @@ namespace MD5
    //////////////////////////////
 
    // for convenience provide a verson with signed char
-   void MD5::update(const char input[], size_type length)
+   void MD5_Internal::update(const char input[], size_type length)
    {
       update((const unsigned char*)input, length);
    }
@@ -411,7 +417,7 @@ namespace MD5
 
    // MD5 finalization. Ends an MD5 message-digest operation, writing the
    // the message digest and zeroizing the context.
-   MD5& MD5::finalize()
+   MD5_Internal& MD5_Internal::finalize()
    {
       static unsigned char padding[64] = {
          0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -448,7 +454,7 @@ namespace MD5
    //////////////////////////////
 
    // return hex representation of digest as string
-   std::string MD5::hexdigest() const
+   std::string MD5_Internal::hexdigest() const
    {
       if (!finalized)
          return "";
@@ -472,7 +478,7 @@ namespace MD5
 
    //////////////////////////////
 
-   std::ostream& operator<<(std::ostream& out, MD5 md5)
+   std::ostream& operator<<(std::ostream& out, MD5_Internal md5)
    {
       return out << md5.hexdigest(); // <- not my (Mark's) code, but I get a compile warning C4717 in msvc 10
    }
@@ -495,7 +501,7 @@ namespace MD5
 
    std::string generate_hash(const std::string str)
    {
-      MD5 md5 = MD5(str);
+      MD5_Internal md5 = MD5_Internal(str);
 
       return md5.hexdigest();
    }
@@ -518,7 +524,7 @@ namespace MD5
       data = ss.str();
 
 
-      MD5 md5 = MD5(data);
+      MD5_Internal md5 = MD5_Internal(data);
 
 
       input_file .close();
