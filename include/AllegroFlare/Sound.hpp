@@ -44,59 +44,6 @@ namespace AllegroFlare
       Sound &loop(bool yes=true);
       Sound &bidir();
    };
-
-
-
-
-   /*
-   ALLEGRO_SAMPLE *get_sample(std::string identifier);
-
-
-   class Sound
-   {
-   private:
-      ALLEGRO_SAMPLE *smpl;
-      ALLEGRO_SAMPLE_ID *sid;
-      ALLEGRO_SAMPLE_INSTANCE *instance;
-      float _vol, _pan, _speed;
-      ALLEGRO_PLAYMODE _playmode;
-      static float master_volume;
-
-   public:
-      Sound()
-         : smpl(NULL)
-         , _vol(1.0)
-         , _pan(ALLEGRO_AUDIO_PAN_NONE)
-         , _speed(1.0)
-         , _playmode(ALLEGRO_PLAYMODE_ONCE)
-         , sid(NULL)
-      { }
-      inline Sound &reset()
-      {
-         smpl=NULL;
-         _vol = 1.0;
-         _pan = ALLEGRO_AUDIO_PAN_NONE;
-         _speed = 1.0;
-         _playmode = ALLEGRO_PLAYMODE_ONCE;
-         sid = NULL;
-         return *this;
-      }
-      inline Sound &sample(ALLEGRO_SAMPLE *s) { smpl = s; return *this; }
-      inline Sound &sample(const char *identifier) { smpl = get_sample(identifier); return *this; }
-      inline Sound &volume(float val) { _vol = val; return *this; }
-      inline Sound &pan(float val) { _pan = val; return *this; }
-      inline Sound &playmode(float val) { _pan = val; return *this; }
-      inline Sound &speed(float val) { _speed = val; return *this; }
-      //inline void play() { al_play_sample(smpl, _vol*master_volume, _pan, _speed, ALLEGRO_PLAYMODE_ONCE, NULL); }
-      inline void play() { al_play_sample(smpl, _vol*master_volume, _pan, _speed, ALLEGRO_PLAYMODE_ONCE, sid); }
-      inline void stop() { if (sid) al_stop_sample(sid); }
-      //inline void is_playing() { if
-   };
-
-
-   Sound &sound(const char *identifier);
-   Sound &sound(ALLEGRO_SAMPLE *sample);
-   */
 }
 
 

@@ -251,38 +251,6 @@ namespace AllegroFlare
 
 
 
-
-   /*
-
-   static Sound *_current_soundbuilder = new Sound();
-
-   Sound &sound(const char *identifier) { _current_soundbuilder->reset().sample(identifier); return *_current_soundbuilder; }
-   Sound &sound(ALLEGRO_SAMPLE *sample) { _current_soundbuilder->reset().sample(sample); return *_current_soundbuilder; }
-
-   float Sound::master_volume = 0.3;
-
-
-
-
-   static SampleBin *master_sample_bin = NULL;
-
-   ALLEGRO_SAMPLE *get_sample(std::string filename)
-   {
-      // create the bin if it doesn't exist
-      if (master_sample_bin==NULL) { master_sample_bin = new SampleBin; }
-
-      // find it
-      SampleBin::Record *record = master_sample_bin->get_record(filename);
-      if (record) return record->data;
-
-      // if it wasn't found, load it
-      master_sample_bin->load(filename, filename);
-      std::cout << "(!) " << filename << " was loaded real-time.  Be sure to load it manually first." << std::endl;
-      record = master_sample_bin->get_record(filename);
-      return record->data;
-   }
-
-   */
 }
 
 
