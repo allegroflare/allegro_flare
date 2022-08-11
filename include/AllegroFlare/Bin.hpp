@@ -28,6 +28,8 @@ namespace AllegroFlare
          ~Record();
       };
 
+      bool set_cout_record_names_on_clear(bool cout_record_names_on_clear=false);
+
       Bin(std::string type="Bin");
       void set_path(std::string directory); // <- hmm
       void set_full_path(std::string directory); // <- hmm
@@ -57,6 +59,7 @@ namespace AllegroFlare
       ALLEGRO_PATH *directory;
       std::vector<Record *> record;
       std::vector<std::string> explode(const std::string &delimiter, const std::string &str);
+      bool cout_record_names_on_clear;
    };
 
 
@@ -73,6 +76,7 @@ namespace AllegroFlare
       , initialized(false)
       , directory(nullptr)
       , record()
+      , cout_record_names_on_clear(false)
    {}
 
 
@@ -257,6 +261,13 @@ namespace AllegroFlare
 
 
    template<class T2, class T>
+   bool Bin<T2, T>::set_cout_record_names_on_clear(bool cout_record_names_on_clear)
+   {
+      this->cout_record_names_on_clear = cout_record_names_on_clear;
+   }
+
+
+   template<class T2, class T>
    bool Bin<T2, T>::include(T2 identifier, T data)
    {
       // check if the record already exists
@@ -300,15 +311,22 @@ namespace AllegroFlare
       int num_records = record.size();
       //int current_record_num = 1;
 
-      std::cout << "[" << type << "::" << __FUNCTION__  << "] Info: Destroying " << num_records << " records (";
+      
+      if (cout_record_names_on_clear)
+      {
+         std::cout << "[" << type << "::" << __FUNCTION__  << "] Info: Destroying " << num_records << " records (";
+      }
       for (typename std::vector<Bin<T2, T>::Record *>::iterator it=record.begin(); it!=record.end(); it++)
       {
-         std::cout << "\"" << (*it)->identifier << "\", " << std::flush;
+         if (cout_record_names_on_clear) std::cout << "\"" << (*it)->identifier << "\", " << std::flush;
          destroy_data((*it)->data);
          delete (*it);
          //current_record_num++;
       }
-      std::cout << ")" << std::endl << std::flush;
+      if (cout_record_names_on_clear)
+      {
+         std::cout << ")" << std::endl << std::flush;
+      }
 
       //record.clear();
       record.clear();
