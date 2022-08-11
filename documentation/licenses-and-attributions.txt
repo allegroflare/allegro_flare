@@ -1,0 +1,4 @@
+licenses:
+
+- Embedded fonts under OTF via Google Font
+
