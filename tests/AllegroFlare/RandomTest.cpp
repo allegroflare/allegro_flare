@@ -383,10 +383,6 @@ TEST(AllegroFlare_RandomTest, get_random_float__returns_a_repeatable_sequence_of
    const float max_random_num = 5.0;
 
    int num_numbers = 5;
-   // NOTE: this test opts to coerce the floats to strings for comparison due to differences in floating point
-   // implementations across platforms.  In the test following this (get_random_double), the test is
-   // asserted on the double values themselves.  These two tests are done differently entilrely to demonstrate
-   // different techniques, in the event on technique is ultimately preferred over the other.
    std::string expected_numbers = "3.510779619216918945312500 "
                                   "3.349828720092773437500000 "
                                   "3.559968233108520507812500 "

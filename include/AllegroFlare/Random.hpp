@@ -42,16 +42,13 @@ namespace AllegroFlare
       template<class RandomIt, class URBG>
       void shuffle_internal(RandomIt first, RandomIt last, URBG&& g)
       {
+          // note that std::shuffle will vary across platforms, even if the random_number_generator is reliable
+          // across platforms.  See https://stackoverflow.com/questions/51929085/cross-platform-random-reproducibility
           typedef typename std::iterator_traits<RandomIt>::difference_type diff_t;
-          //typedef std::uniform_int_distribution<diff_t> distr_t;
-          //typedef typename distr_t::param_type param_t;
-
-          //distr_t D;
-          diff_t n = last - first;
-          for (diff_t i = n-1; i > 0; --i)
+          diff_t num_elements = last - first;
+          for (diff_t i = num_elements-1; i > 0; --i)
           {
-              using std::swap;
-              swap(first[i], first[extract_random_int(0, n-1, g)]);
+              std::swap(first[i], first[extract_random_int(0, num_elements-1, g)]);
           }
       }
 
@@ -107,12 +104,8 @@ namespace AllegroFlare
       template<class T>
       void shuffle_elements(std::vector<T> &elements)
       {
-         // WARNING: this shuffle DOES NOT create reproducable results across platforms.  See this stack overflow:
-         // WARNING: this shuffle DOES NOT create reproducable results across platforms.  See this stack overflow:
-         // https://stackoverflow.com/questions/51929085/cross-platform-random-reproducibility
-         shuffle_elements_seed_increment++; // this should be a (predictably) randomly new seed 
+         shuffle_elements_seed_increment++; // TODO this should be a (predictably) randomly new seed 
          random_number_generator__for_shuffle_elements.seed(shuffle_elements_seed_increment);
-
          shuffle_internal(elements.begin(), elements.end(), random_number_generator__for_shuffle_elements);
       }
 
