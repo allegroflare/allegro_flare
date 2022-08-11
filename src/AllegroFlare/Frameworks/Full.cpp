@@ -49,6 +49,7 @@ Full::Full()
    , primary_timer(nullptr)
    , camera_2d()
    , drawing_inputs_bar_overlay(true)
+   , input_hints_tokens({})
    , escape_key_will_shutdown(true)
    , event_queue(nullptr)
    , builtin_font(nullptr)
@@ -506,9 +507,9 @@ bool Full::offset_primary_timer(int microseconds)
 
 void Full::run_loop()
 {
-   al_wait_for_vsync();
    event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
 
+   al_wait_for_vsync();
    al_start_timer(primary_timer);
 
    while(!shutdown_program || Display::displays.empty())
@@ -813,12 +814,33 @@ void Full::draw_overlay()
 {
    if (drawing_inputs_bar_overlay)
    {
-      std::vector<std::string> tokens = { "ESC", "%SPACER", "LABEL>>", "Quit game" };
       AllegroFlare::InputHints input_hints(&fonts);
-      input_hints.set_keyboard_key_combo_tokens(tokens);
+      input_hints.set_keyboard_key_combo_tokens(input_hints_tokens);
       input_hints.render();
    }
 }
+
+
+
+void Full::set_input_hints_tokens(std::vector<std::string> input_hints_tokens)
+{
+   this->input_hints_tokens = input_hints_tokens;
+}
+
+
+
+void Full::clear_input_hints_tokens()
+{
+   set_input_hints_tokens({});
+}
+
+
+
+std::vector<std::string> Full::get_input_hints_tokens()
+{
+   return input_hints_tokens;
+}
+
 
 
 void Full::open_log_window()

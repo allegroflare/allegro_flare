@@ -48,7 +48,7 @@ namespace AllegroFlare
          Camera2D camera_2d;
          //Camera3D camera_3d; // next
          bool drawing_inputs_bar_overlay;
-
+         std::vector<std::string> input_hints_tokens;
          bool initialize_without_display(); // only use initialize() publically from now on
          bool escape_key_will_shutdown;
 
@@ -108,6 +108,10 @@ namespace AllegroFlare
          void disable_drawing_inputs_bar_overlay();
          void set_drawing_inputs_bar_overlay(bool drawing_inputs_bar_overlay);
          bool get_drawing_inputs_bar_overlay();
+
+         void set_input_hints_tokens(std::vector<std::string> input_hints_tokens={});
+         void clear_input_hints_tokens();
+         std::vector<std::string> get_input_hints_tokens();
 
          Display *create_display(int width=1280, int height=720);
          Display *create_display(int width, int height, int display_flags);
