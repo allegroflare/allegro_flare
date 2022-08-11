@@ -20,6 +20,7 @@
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/Version.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/InputHints.hpp>
 
 
 namespace AllegroFlare
@@ -47,6 +48,7 @@ Full::Full()
    , primary_sub_bitmap(nullptr)
    , primary_timer(nullptr)
    , camera_2d()
+   , drawing_inputs_bar_overlay(true)
    , escape_key_will_shutdown(true)
    , event_queue(nullptr)
    , builtin_font(nullptr)
@@ -58,7 +60,6 @@ Full::Full()
    , key_shift(0)
    , key_ctrl(0)
    , drawing_profiler_graph(false)
-   , drawing_inputs_bar_overlay(true)
 {}
 
 
@@ -259,6 +260,10 @@ bool Full::initialize()
       al_get_bitmap_height(backbuffer_bitmap)
    );
 
+   if (!primary_sub_bitmap)
+   {
+      std::cout << "[AllegroFlare::Frameworks::Full::initialize]: ERROR: could not create primary_sub_bitmap" << std::endl;
+   }
    camera_2d.setup_dimentional_projection(primary_sub_bitmap); // this should remain the same throughout
                                                                // the whole program
 
@@ -528,10 +533,16 @@ void Full::run_loop()
             achievements.check_all();
 
             // render
+            ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
+            al_set_target_bitmap(backbuffer_bitmap);
+
             al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
             screens.primary_timer_funcs();
-            al_flip_display();
+
+            al_set_target_bitmap(primary_sub_bitmap);
             draw_overlay();
+
+            al_flip_display();
          }
          else
          {
@@ -802,7 +813,10 @@ void Full::draw_overlay()
 {
    if (drawing_inputs_bar_overlay)
    {
-      // TODO
+      std::vector<std::string> tokens = { "ESC", "%SPACER", "LABEL>>", "Quit game" };
+      AllegroFlare::InputHints input_hints(&fonts);
+      input_hints.set_keyboard_key_combo_tokens(tokens);
+      input_hints.render();
    }
 }
 
