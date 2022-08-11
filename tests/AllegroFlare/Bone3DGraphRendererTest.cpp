@@ -43,7 +43,7 @@ TEST_F(AllegroFlare_Bone3DGraphRendererTestWithAllegroRenderingFixture, render__
 }
 
 
-TEST_F(AllegroFlare_Bone3DGraphRendererTestWithAllegroRenderingFixture, DISABLED__render__will_not_blow_up)
+TEST_F(AllegroFlare_Bone3DGraphRendererTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    // TODO
    AllegroFlare::Bone3D *root_bone = new AllegroFlare::Bone3D;
@@ -67,7 +67,8 @@ TEST_F(AllegroFlare_Bone3DGraphRendererTestWithAllegroRenderingFixture, DISABLED
    centered_placement.position.x = 1920/2;
    centered_placement.position.y = 1080/2;
 
-   for (unsigned i=0; i<60*5; i++)
+   float num_seconds= 0.2;
+   for (unsigned i=0; i<60*num_seconds; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
 

@@ -9,8 +9,6 @@
 #include <AllegroFlare/Useful3D/Useful3D.hpp>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -84,17 +82,6 @@ void Bone3DGraphRenderer::render_recursive(AllegroFlare::Bone3D* bone)
    }
    bone->restore_transform();
    return;
-}
-
-ALLEGRO_FONT* Bone3DGraphRenderer::obtain_font()
-{
-   if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Bone3DGraphRenderer" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   return font_bin->auto_get("Purista Medium.otf -32");
 }
 } // namespace AllegroFlare
 

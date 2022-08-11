@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/Bone3D.hpp>
 #include <AllegroFlare/FontBin.hpp>
-#include <allegro5/allegro_font.h>
 
 
 namespace AllegroFlare
@@ -20,7 +19,6 @@ namespace AllegroFlare
 
       void render();
       void render_recursive(AllegroFlare::Bone3D* bone=nullptr);
-      ALLEGRO_FONT* obtain_font();
    };
 }
 
