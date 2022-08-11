@@ -96,13 +96,13 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageTestWithAllegroRenderingFixtur
 TEST_F(AllegroFlare_Elements_StoryboardPages_ImageTestWithAllegroRenderingFixture,
    VISUAL__render__will_display_as_expected)
 {
-   ALLEGRO_BITMAP *bitmap = get_bitmap_bin_ref()["allegro5-logo-gray.png"];
+   ALLEGRO_BITMAP *bitmap = get_bitmap_bin_ref()["monoplex-1.png"];
 
    AllegroFlare::Elements::StoryboardPages::Image image(bitmap);
    AllegroFlare::Elements::StoryboardPages::Base *image_as_base =
       dynamic_cast<AllegroFlare::Elements::StoryboardPages::Base*>(&image);
    
-   int attempts = 60*6;
+   int attempts = 60*3;
    image.start();
    while (!image_as_base->get_finished())
    {
