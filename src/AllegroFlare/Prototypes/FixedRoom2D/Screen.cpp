@@ -17,6 +17,12 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -152,6 +158,7 @@ void Screen::on_activate()
          error_message << "Screen" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   emit_event_to_set_input_hints();
    return;
 }
 
@@ -208,6 +215,9 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
          error_message << "Screen" << "::" << "key_char_func" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   event_emitter->emit_set_input_hints_bar_event({ "BAR" });
+   return;
+
    float cursor_speed = 10.0f;
    switch(ev->keyboard.keycode)
    {
@@ -237,6 +247,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
 
       case ALLEGRO_KEY_I:
          fixed_room_2d.toggle_inventory();
+         emit_event_to_set_input_hints();
       break;
 
       case ALLEGRO_KEY_P:
@@ -249,6 +260,44 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
          //fixed_room_2d.unpause_game();
       break;
    }
+   return;
+}
+
+void Screen::emit_event_to_set_input_hints()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   // TODO: logic to decide if it should emit hints for inventory controls or room controls
+   return;
+}
+
+void Screen::emit_event_to_set_input_hints_bar_to_inventory_controls()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "emit_event_to_set_input_hints_bar_to_inventory_controls" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   // TODO: update the tokens for the inventory controls
+   event_emitter->emit_set_input_hints_bar_event({ "FOO" });
+   return;
+}
+
+void Screen::emit_event_to_set_input_hints_bar_to_room_controls()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "emit_event_to_set_input_hints_bar_to_room_controls" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   // TODO: update the tokens for the inventory controls
+   event_emitter->emit_set_input_hints_bar_event({ "BAR" });
    return;
 }
 } // namespace FixedRoom2D

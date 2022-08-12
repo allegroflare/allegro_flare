@@ -126,6 +126,7 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
+      emit_event_to_set_input_hints();
       return;
 
 
@@ -172,6 +173,9 @@ functions:
         default_argument: nullptr
     guards: [ initialized ]
     body: |
+      event_emitter->emit_set_input_hints_bar_event({ "BAR" });
+      return;
+
       float cursor_speed = 10.0f;
       switch(ev->keyboard.keycode)
       {
@@ -201,6 +205,7 @@ functions:
 
          case ALLEGRO_KEY_I:
             fixed_room_2d.toggle_inventory();
+            emit_event_to_set_input_hints();
          break;
 
          case ALLEGRO_KEY_P:
@@ -213,6 +218,32 @@ functions:
             //fixed_room_2d.unpause_game();
          break;
       }
+      return;
+
+
+  - name: emit_event_to_set_input_hints
+    private: true
+    guards: [ initialized ]
+    body: |
+      // TODO: logic to decide if it should emit hints for inventory controls or room controls
+      return;
+
+
+  - name: emit_event_to_set_input_hints_bar_to_inventory_controls
+    private: true
+    guards: [ initialized ]
+    body: |
+      // TODO: update the tokens for the inventory controls
+      event_emitter->emit_set_input_hints_bar_event({ "FOO" });
+      return;
+
+
+  - name: emit_event_to_set_input_hints_bar_to_room_controls
+    private: true
+    guards: [ initialized ]
+    body: |
+      // TODO: update the tokens for the inventory controls
+      event_emitter->emit_set_input_hints_bar_event({ "BAR" });
       return;
 
 

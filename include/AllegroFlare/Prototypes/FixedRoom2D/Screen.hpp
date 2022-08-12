@@ -45,6 +45,9 @@ namespace AllegroFlare
             virtual void on_deactivate() override;
             virtual void primary_timer_func() override;
             virtual void key_char_func(ALLEGRO_EVENT* ev=nullptr) override;
+            void emit_event_to_set_input_hints();
+            void emit_event_to_set_input_hints_bar_to_inventory_controls();
+            void emit_event_to_set_input_hints_bar_to_room_controls();
          };
       }
    }
