@@ -37,14 +37,11 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTest, render__without_allegro_
 }
 
 
-TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key(&get_font_bin_ref());
-   AllegroFlare::Placement2D placement = build_centered_placement(100, 80);
-   placement.start_transform();
    keyboard_key.render();
-   placement.restore_transform();
-   al_flip_display();
+   SUCCEED();
 }
 
 
