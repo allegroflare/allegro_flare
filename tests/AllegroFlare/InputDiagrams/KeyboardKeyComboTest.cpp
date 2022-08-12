@@ -85,13 +85,6 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixtur
 
 
 TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixture,
-   CAPTURE__various_examples)
-{
-   // TODO
-}
-
-
-TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTestWithAllegroRenderingFixture,
    calculate_width__will_return_the_width_of_the_diagram)
 {
    std::vector<std::tuple<std::vector<std::string>, int>> keyboard_input_key_combos_and_expected_widths = {
