@@ -555,7 +555,8 @@ void Full::run_loop()
          {
             al_drop_next_event(event_queue);
          }
-         break;
+      break;
+
       case ALLEGRO_EVENT_KEY_DOWN:
          if (this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
          {
@@ -572,7 +573,8 @@ void Full::run_loop()
             drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
          screens.key_down_funcs(&this_event);
          virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_KEY_UP:
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift--;
@@ -582,49 +584,62 @@ void Full::run_loop()
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
          screens.key_up_funcs(&this_event);
          virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_KEY_CHAR:
          screens.key_char_funcs(&this_event);
          //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
-         break;
+      break;
+
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
          screens.mouse_up_funcs(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
          screens.mouse_down_funcs(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_MOUSE_WARPED:
          screens.mouse_warp_funcs(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_MOUSE_AXES:
          screens.mouse_axes_funcs(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
          screens.joy_button_down_funcs(&this_event);
          virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
          screens.joy_button_up_funcs(&this_event);
          virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_JOYSTICK_AXIS:
          screens.joy_axis_funcs(&this_event);
          virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
       case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
          // currently ignored
-         break;
+      break;
+
       case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
          screens.display_switch_out_funcs();
-         break;
+      break;
+
       case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
          screens.display_switch_in_funcs();
-         break;
+      break;
+
       case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
          //screens.display_switch_in_funcs();
          if (textlog) close_log_window();
-         break;
+      break;
+
       case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
          std::cout << "a joystick was added/removed" << std::endl;
          al_reconfigure_joysticks();
@@ -634,31 +649,35 @@ void Full::run_loop()
          // versions when this bug in allegro is fixed.
          joystick = (al_get_num_joysticks() == 0) ? NULL : al_get_joystick(0);
          screens.joy_config_funcs(&this_event);
-         break;
+      break;
+
       case ALLEGRO_EVENT_MENU_CLICK:
          screens.native_menu_click_funcs();
-         break;
+      break;
+
       case ALLEGRO_EVENT_DISPLAY_CLOSE:
          {
             Display *this_display = Display::find_display(this_event.display.source);
             if (this_display) this_display->display_close_func();
          }
-         break;
+      break;
+
+      case ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR:
+         disable_drawing_inputs_bar_overlay();
+      break;
+
+      case ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR:
+         enable_drawing_inputs_bar_overlay();
+      break;
+
       case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR:
          {
-            //intptr_t passed_data;
-            //= (intptr_t)(void *)(new std::vector<std::string>(tokens));
             std::vector<std::string> *data = (std::vector<std::string> *)this_event.user.data1;
-            //std::vector<std::string> passed_data = *static_cast<std::vector<std::string>*>((void *)(passed_data));
-            //emit_event(ALLEGRO_FLARE_SET_INPUT_HINTS_BAR, data_to_pass);
             set_input_hints_tokens(*data);
             delete data;
-
-
-            //Display *this_display = Display::find_display(this_event.display.source);
-            //if (this_display) this_display->display_close_func();
          }
-         break;
+      break;
+
       default:
          if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
          {
