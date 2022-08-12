@@ -282,7 +282,13 @@ void Screen::emit_event_to_set_input_hints_bar_to_inventory_controls()
          throw std::runtime_error(error_message.str());
       }
    // TODO: update the tokens for the inventory controls
-   event_emitter->emit_set_input_hints_bar_event({ "FOO" });
+   event_emitter->emit_set_input_hints_bar_event({
+      "UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move cursor",
+      "%SEPARATOR",
+      "I", "%SPACER", "LABEL>>", "Toggle inventory",
+      "%SEPARATOR",
+      "P", "%SPACER", "LABEL>>", "Toggle pause",
+   });
    return;
 }
 
