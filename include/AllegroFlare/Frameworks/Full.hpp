@@ -51,6 +51,8 @@ namespace AllegroFlare
          std::vector<std::string> input_hints_tokens;
          bool initialize_without_display(); // only use initialize() publically from now on
          bool escape_key_will_shutdown;
+         ALLEGRO_COLOR input_hints_text_color;
+         float input_hints_text_opacity;
 
          void draw_overlay();
         

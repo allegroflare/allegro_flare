@@ -51,6 +51,8 @@ Full::Full()
    , drawing_inputs_bar_overlay(false)
    , input_hints_tokens({})
    , escape_key_will_shutdown(true)
+   , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , input_hints_text_opacity(0.4)
    , event_queue(nullptr)
    , builtin_font(nullptr)
    , shutdown_program(false)
@@ -228,6 +230,7 @@ bool Full::initialize_without_display()
    );
 
    audio_controller.initialize();
+ 
 
    initialized = true;
 
@@ -851,7 +854,13 @@ void Full::draw_overlay()
       //if (!input_hints_tokens.empty() || show_input_hints_bar_when_empty) // this feature has not been requested
       {
          AllegroFlare::InputHints input_hints(&fonts);
+         ALLEGRO_COLOR text_color = input_hints_text_color;
+         text_color.r *= input_hints_text_opacity;
+         text_color.g *= input_hints_text_opacity;
+         text_color.b *= input_hints_text_opacity;
+         text_color.a *= input_hints_text_opacity;
          input_hints.set_keyboard_key_combo_tokens(input_hints_tokens);
+         input_hints.set_text_color(text_color);
          input_hints.render();
       }
    }
