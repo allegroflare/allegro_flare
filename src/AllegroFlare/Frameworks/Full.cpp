@@ -531,22 +531,10 @@ void Full::primary_render()
 }
 
 
-void Full::run_loop()
+void Full::primary_process_event(ALLEGRO_EVENT *ev)
 {
-   event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
-
-   al_wait_for_vsync();
-   al_start_timer(primary_timer);
-
-   while(!shutdown_program || Display::displays.empty())
-   {
-      ALLEGRO_EVENT this_event, next_event;
-
-      al_wait_for_event(event_queue, &this_event);
-
-      current_event = &this_event;
-      time_now = this_event.any.timestamp;
-      //motions.update(time_now); // this was here, and has been moved to below the ALLEGRO_EVENT_TIMER event
+      ALLEGRO_EVENT &this_event = *ev;
+      ALLEGRO_EVENT next_event;
 
       screens.on_events(current_event);
 
@@ -853,6 +841,27 @@ void Full::run_loop()
          }
          break;
       }
+}
+
+
+void Full::run_loop()
+{
+   event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
+
+   al_wait_for_vsync();
+   al_start_timer(primary_timer);
+
+   while(!shutdown_program || Display::displays.empty())
+   {
+      ALLEGRO_EVENT this_event, next_event;
+
+      al_wait_for_event(event_queue, &this_event);
+
+      current_event = &this_event;
+      time_now = this_event.any.timestamp;
+      //motions.update(time_now); // this was here, and has been moved to below the ALLEGRO_EVENT_TIMER event
+
+      primary_process_event(current_event);
    }
 }
 
