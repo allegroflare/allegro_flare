@@ -114,6 +114,7 @@ namespace AllegroFlare
          void set_input_hints_tokens(std::vector<std::string> input_hints_tokens={});
          void clear_input_hints_tokens();
          std::vector<std::string> get_input_hints_tokens();
+         float get_input_hints_text_opacity();
 
          Display *create_display(int width=1280, int height=720);
          Display *create_display(int width, int height, int display_flags);

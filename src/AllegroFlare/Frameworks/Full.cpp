@@ -700,6 +700,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      enable_drawing_inputs_bar_overlay();
                   break;
 
+                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY: {
+                     float *data = (float *)this_event.user.data1;
+                     input_hints_text_opacity = *data;
+                     delete data;
+                  } break;
+
                   case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR: {
                      std::vector<std::string> *data = (std::vector<std::string> *)this_event.user.data1;
                      set_input_hints_tokens(*data);
@@ -934,6 +940,13 @@ void Full::clear_input_hints_tokens()
 std::vector<std::string> Full::get_input_hints_tokens()
 {
    return input_hints_tokens;
+}
+
+
+
+float Full::get_input_hints_text_opacity()
+{
+   return input_hints_text_opacity;
 }
 
 

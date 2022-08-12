@@ -102,6 +102,18 @@ functions:
       - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR
 
 
+  - name: emit_set_input_hints_bar_opacity_event
+    parameters:
+      - name: opacity
+        type: float
+        default_argument: 1.0f
+    body: |
+      intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
+      emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY, data_to_pass);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY
+
+
   - name: emit_play_sound_effect_event
     parameters:
       - name: sound_effect_identifier
@@ -196,6 +208,8 @@ dependencies:
   - symbol: ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_EVENT_SOURCE
     headers: [ allegro5/allegro.h ]

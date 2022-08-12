@@ -15,6 +15,7 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/EventNames.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/EventNames.hpp>
@@ -135,6 +136,12 @@ void EventEmitter::emit_set_input_hints_bar_event(std::vector<std::string> token
 {
    intptr_t data_to_pass = (intptr_t)(void *)(new std::vector<std::string>(tokens));
    emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR, data_to_pass);
+}
+
+void EventEmitter::emit_set_input_hints_bar_opacity_event(float opacity)
+{
+   intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
+   emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY, data_to_pass);
 }
 
 void EventEmitter::emit_play_sound_effect_event(std::string sound_effect_identifier)

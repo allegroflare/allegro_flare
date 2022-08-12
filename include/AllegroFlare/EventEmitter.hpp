@@ -28,6 +28,7 @@ namespace AllegroFlare
       void emit_show_input_hints_bar_event();
       void emit_hide_input_hints_bar_event();
       void emit_set_input_hints_bar_event(std::vector<std::string> tokens={});
+      void emit_set_input_hints_bar_opacity_event(float opacity=1.0f);
       void emit_play_sound_effect_event(std::string sound_effect_identifier="[unset-sound-effect-identifier]");
       void emit_play_music_track_event(std::string music_track_identifier="[unset-music-track-identifier]");
       void emit_virtual_controls_button_up_event(int virtual_button_num=0);
