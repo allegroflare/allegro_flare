@@ -96,6 +96,24 @@ TEST(AllegroFlare_Framewors_FullTest,
 }
 
 
+TEST(AllegroFlare_Framewors_FullTest,
+   ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR__when_emitted__will_set_the_tokens_for_the_input_hints)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize();
+   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
+
+   std::vector<std::string> tokens = { "ENTER", "%SPACE", "LABEL>>", "Do the thing" };
+
+   event_emitter.emit_set_input_hints_bar_event(tokens);
+   framework.process_events_in_queue();
+
+   std::vector<std::string> actual_tokens = framework.get_input_hints_tokens();
+   EXPECT_EQ(tokens, actual_tokens);
+}
+
+
 TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_the_audio_controller)
 {
    AllegroFlare::Frameworks::Full framework;
