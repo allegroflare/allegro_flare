@@ -89,6 +89,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -120,6 +121,7 @@
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -224,6 +226,7 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -454,6 +457,7 @@
   ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
@@ -762,6 +766,9 @@
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "std/vector<std/tuple<bool, std/string, std/string>>": [
+    "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",

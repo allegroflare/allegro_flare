@@ -43,3 +43,13 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, render_
 }
 
 
+TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, CAPTURE__render__will_render_as_expected)
+{
+   AllegroFlare::Screens::Achievements achievements;
+   achievements.render();
+   al_flip_display();
+   sleep_for(1);
+   SUCCEED();
+}
+
+
