@@ -620,6 +620,13 @@ functions:
       return;
 
 
+  - name: inventory_is_open
+    type: bool
+    guards: [ initialized ]
+    body: |
+      return inventory_window.get_active();
+
+
   - name: advance_dialog
     guards: [ initialized ]
     body: |

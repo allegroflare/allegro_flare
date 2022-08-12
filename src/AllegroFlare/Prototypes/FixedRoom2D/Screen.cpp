@@ -215,9 +215,6 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
          error_message << "Screen" << "::" << "key_char_func" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   event_emitter->emit_set_input_hints_bar_event({ "BAR" });
-   return;
-
    float cursor_speed = 10.0f;
    switch(ev->keyboard.keycode)
    {
@@ -271,7 +268,8 @@ void Screen::emit_event_to_set_input_hints()
          error_message << "Screen" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   // TODO: logic to decide if it should emit hints for inventory controls or room controls
+   if (fixed_room_2d.inventory_is_open()) emit_event_to_set_input_hints_bar_to_inventory_controls();
+   else emit_event_to_set_input_hints_bar_to_room_controls();
    return;
 }
 

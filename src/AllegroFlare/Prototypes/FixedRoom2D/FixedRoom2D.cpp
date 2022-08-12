@@ -67,6 +67,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -705,6 +707,17 @@ void FixedRoom2D::toggle_inventory()
    if (inventory_window.get_active()) hide_inventory();
    else show_inventory();
    return;
+}
+
+bool FixedRoom2D::inventory_is_open()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "FixedRoom2D" << "::" << "inventory_is_open" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return inventory_window.get_active();
 }
 
 void FixedRoom2D::advance_dialog()
