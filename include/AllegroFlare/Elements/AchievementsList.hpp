@@ -37,7 +37,7 @@ namespace AllegroFlare
          int get_surface_width();
          int get_surface_height();
          void render();
-         void draw_achievement_box(float x=0.0f, float y=0.0f);
+         void draw_achievement_box(float x=0.0f, float y=0.0f, bool is_achieved=false, std::string title="[unset-title]", std::string description="[unset-description]");
          static std::vector<std::tuple<bool, std::string, std::string>> build_placeholder_achievements();
          ALLEGRO_FONT* obtain_font();
       };

@@ -57,9 +57,9 @@ functions:
       for (int i=0; i<achievements.size(); i++)
       {
          bool is_achieved = std::get<0>(achievements[i]);
-         std::string name = std::get<1>(achievements[i]);
+         std::string title = std::get<1>(achievements[i]);
          std::string description = std::get<2>(achievements[i]);
-         draw_achievement_box(x, y + i * y_spacing);
+         draw_achievement_box(x, y + i * y_spacing, is_achieved, title, description);
       }
       place.restore_transform();
       return;
@@ -76,6 +76,15 @@ functions:
       - name: y
         type: float
         default_argument: 0.0f
+      - name: is_achieved
+        type: bool
+        default_argument: false
+      - name: title
+        type: std::string
+        default_argument: '"[unset-title]"'
+      - name: description
+        type: std::string
+        default_argument: '"[unset-description]"'
     body: |
       float achievements_box_width = 300.0f;
       float achievements_box_height = 80.0f;

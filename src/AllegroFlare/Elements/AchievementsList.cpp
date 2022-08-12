@@ -115,15 +115,15 @@ void AchievementsList::render()
    for (int i=0; i<achievements.size(); i++)
    {
       bool is_achieved = std::get<0>(achievements[i]);
-      std::string name = std::get<1>(achievements[i]);
+      std::string title = std::get<1>(achievements[i]);
       std::string description = std::get<2>(achievements[i]);
-      draw_achievement_box(x, y + i * y_spacing);
+      draw_achievement_box(x, y + i * y_spacing, is_achieved, title, description);
    }
    place.restore_transform();
    return;
 }
 
-void AchievementsList::draw_achievement_box(float x, float y)
+void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, std::string title, std::string description)
 {
    float achievements_box_width = 300.0f;
    float achievements_box_height = 80.0f;
