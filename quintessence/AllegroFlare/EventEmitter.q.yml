@@ -78,23 +78,28 @@ functions:
 
   - name: emit_show_input_hints_bar_event
     body: |
-      // TODO
+      emit_event(ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR);
     body_dependency_symbols:
-      - ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR
+      - ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR
 
 
   - name: emit_hide_input_hints_bar_event
     body: |
-      // TODO
+      emit_event(ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR);
     body_dependency_symbols:
-      - ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR
+      - ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR
 
 
   - name: emit_set_input_hints_bar_event
+    parameters:
+      - name: tokens
+        type: std::vector<std::string>
+        default_argument: '{}'
     body: |
-      // TODO
+      intptr_t data_to_pass = (intptr_t)(void *)(new std::vector<std::string>(tokens));
+      emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR, data_to_pass);
     body_dependency_symbols:
-      - ALLEGRO_FLARE_SET_INPUT_HINTS_BAR
+      - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR
 
 
   - name: emit_play_sound_effect_event
@@ -186,11 +191,11 @@ functions:
 dependencies:
 
 
-  - symbol: ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR
+  - symbol: ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR
+  - symbol: ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: ALLEGRO_FLARE_SET_INPUT_HINTS_BAR
+  - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_EVENT_SOURCE
     headers: [ allegro5/allegro.h ]

@@ -644,6 +644,21 @@ void Full::run_loop()
             if (this_display) this_display->display_close_func();
          }
          break;
+      case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR:
+         {
+            //intptr_t passed_data;
+            //= (intptr_t)(void *)(new std::vector<std::string>(tokens));
+            std::vector<std::string> *data = (std::vector<std::string> *)this_event.user.data1;
+            //std::vector<std::string> passed_data = *static_cast<std::vector<std::string>*>((void *)(passed_data));
+            //emit_event(ALLEGRO_FLARE_SET_INPUT_HINTS_BAR, data_to_pass);
+            set_input_hints_tokens(*data);
+            delete data;
+
+
+            //Display *this_display = Display::find_display(this_event.display.source);
+            //if (this_display) this_display->display_close_func();
+         }
+         break;
       default:
          if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
          {

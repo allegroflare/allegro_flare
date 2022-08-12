@@ -554,13 +554,13 @@
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
   ],
-  "ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR": [
+  "ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR": [
     "AllegroFlare/EventEmitter"
   ],
-  "ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR": [
+  "ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR": [
     "AllegroFlare/EventEmitter"
   ],
-  "ALLEGRO_FLARE_SET_INPUT_HINTS_BAR": [
+  "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR": [
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_EVENT_SOURCE": [
