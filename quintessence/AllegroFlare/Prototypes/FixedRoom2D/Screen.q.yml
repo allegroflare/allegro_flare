@@ -231,9 +231,8 @@ functions:
     private: true
     guards: [ initialized ]
     body: |
-      // TODO: update the tokens for the inventory controls
       event_emitter->emit_set_input_hints_bar_event({
-         "UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move cursor",
+         "UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move selector",
          "%SEPARATOR",
          "I", "%SPACER", "LABEL>>", "Toggle inventory",
          "%SEPARATOR",
@@ -246,8 +245,15 @@ functions:
     private: true
     guards: [ initialized ]
     body: |
-      // TODO: update the tokens for the inventory controls
-      event_emitter->emit_set_input_hints_bar_event({ "BAR" });
+      event_emitter->emit_set_input_hints_bar_event({
+         "UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move pointer",
+         "%SEPARATOR",
+         "ENTER", "%SPACER", "LABEL>>", "Inspect object",
+         "%SEPARATOR",
+         "I", "%SPACER", "LABEL>>", "Toggle Inventory",
+         "%SEPARATOR",
+         "P", "%SPACER", "LABEL>>", "Toggle pause",
+      });
       return;
 
 

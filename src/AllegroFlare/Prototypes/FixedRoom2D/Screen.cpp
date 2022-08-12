@@ -281,9 +281,8 @@ void Screen::emit_event_to_set_input_hints_bar_to_inventory_controls()
          error_message << "Screen" << "::" << "emit_event_to_set_input_hints_bar_to_inventory_controls" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   // TODO: update the tokens for the inventory controls
    event_emitter->emit_set_input_hints_bar_event({
-      "UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move cursor",
+      "UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move selector",
       "%SEPARATOR",
       "I", "%SPACER", "LABEL>>", "Toggle inventory",
       "%SEPARATOR",
@@ -300,8 +299,15 @@ void Screen::emit_event_to_set_input_hints_bar_to_room_controls()
          error_message << "Screen" << "::" << "emit_event_to_set_input_hints_bar_to_room_controls" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   // TODO: update the tokens for the inventory controls
-   event_emitter->emit_set_input_hints_bar_event({ "BAR" });
+   event_emitter->emit_set_input_hints_bar_event({
+      "UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move pointer",
+      "%SEPARATOR",
+      "ENTER", "%SPACER", "LABEL>>", "Inspect object",
+      "%SEPARATOR",
+      "I", "%SPACER", "LABEL>>", "Toggle Inventory",
+      "%SEPARATOR",
+      "P", "%SPACER", "LABEL>>", "Toggle pause",
+   });
    return;
 }
 } // namespace FixedRoom2D
