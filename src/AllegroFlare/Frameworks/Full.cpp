@@ -849,6 +849,19 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 }
 
 
+int Full::process_events_in_queue()
+{
+   int count = 0;
+   ALLEGRO_EVENT this_event;
+   while (al_get_next_event(event_queue, &this_event))
+   {
+      count++;
+      primary_process_event(&this_event);
+   }
+   return count;
+}
+
+
 void Full::run_loop()
 {
    event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
@@ -867,6 +880,8 @@ void Full::run_loop()
 
       primary_process_event(current_event);
    }
+
+   al_stop_timer(primary_timer);
 }
 
 

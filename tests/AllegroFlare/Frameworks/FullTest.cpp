@@ -7,6 +7,13 @@
    catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
+#ifdef _WIN32
+#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
+#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
+#else
+#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
+#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
+#endif
 
 #include <AllegroFlare/Frameworks/Full.hpp>
 
@@ -55,19 +62,19 @@ TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitte
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest, CAPTURE__ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR__will_enable_drawing_the_hints)
+TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR__when_emitted__will_enable_drawing_the_hints)
 {
-   // WERE HERE
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
+   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
-   event_emitter.emit_show_input_hints_bar_event();
-   //event_emitter.process_event();
-   //event_emitter.emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
-   //framework.run_loop();
+   EXPECT_EQ(false, framework.get_drawing_inputs_bar_overlay());
 
-   SUCCEED();
+   event_emitter.emit_show_input_hints_bar_event();
+   framework.process_events_in_queue();
+
+   EXPECT_EQ(true, framework.get_drawing_inputs_bar_overlay());
 }
 
 
