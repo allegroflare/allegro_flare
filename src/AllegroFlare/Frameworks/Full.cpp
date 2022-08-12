@@ -683,22 +683,6 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          }
       break;
 
-      case ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR:
-         disable_drawing_inputs_bar_overlay();
-      break;
-
-      case ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR:
-         enable_drawing_inputs_bar_overlay();
-      break;
-
-      case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR:
-         {
-            std::vector<std::string> *data = (std::vector<std::string> *)this_event.user.data1;
-            set_input_hints_tokens(*data);
-            delete data;
-         }
-      break;
-
       default:
          if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
          {
@@ -708,15 +692,27 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
                switch(this_event.type)
                {
-                  case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
-                     {
-                        int player_num = this_event.user.data1;
-                        int button_num = this_event.user.data2;
-                        bool is_repeat = this_event.user.data3;
-                        //screens.virtual_control_button_up_funcs(&this_event);
-                        screens.virtual_control_button_up_funcs(player_num, button_num, is_repeat);
-                     }
+                  case ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR:
+                     disable_drawing_inputs_bar_overlay();
                   break;
+
+                  case ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR:
+                     enable_drawing_inputs_bar_overlay();
+                  break;
+
+                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR: {
+                     std::vector<std::string> *data = (std::vector<std::string> *)this_event.user.data1;
+                     set_input_hints_tokens(*data);
+                     delete data;
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP: {
+                     int player_num = this_event.user.data1;
+                     int button_num = this_event.user.data2;
+                     bool is_repeat = this_event.user.data3;
+                      //screens.virtual_control_button_up_funcs(&this_event);
+                     screens.virtual_control_button_up_funcs(player_num, button_num, is_repeat);
+                  } break;
 
                   case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
                      {
