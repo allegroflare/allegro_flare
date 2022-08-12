@@ -122,6 +122,8 @@ namespace AllegroFlare
          Display *create_display(int width, int height, bool fullscreen, int adapter);
          Display *create_display(Display::resolution_t resolution);
 
+         void primary_update();
+         void primary_render();
          void run_loop();
 
          bool offset_primary_timer(int microseconds); // 16670 microseconds per frame

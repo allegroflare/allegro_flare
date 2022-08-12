@@ -508,6 +508,29 @@ bool Full::offset_primary_timer(int microseconds)
 }
 
 
+void Full::primary_update()
+{
+   // update
+   motions.update(time_now);
+   achievements.check_all();
+}
+
+
+void Full::primary_render()
+{
+   ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
+   al_set_target_bitmap(backbuffer_bitmap);
+
+   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+   screens.primary_timer_funcs();
+
+   al_set_target_bitmap(primary_sub_bitmap);
+   draw_overlay();
+
+   al_flip_display();
+}
+
+
 void Full::run_loop()
 {
    event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
@@ -532,21 +555,23 @@ void Full::run_loop()
       case ALLEGRO_EVENT_TIMER:
          if (this_event.timer.source == primary_timer)
          {
-            // update
-            motions.update(time_now);
-            achievements.check_all();
+            primary_update();
+            //// update
+            //motions.update(time_now);
+            //achievements.check_all();
 
-            // render
-            ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
-            al_set_target_bitmap(backbuffer_bitmap);
-
-            al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-            screens.primary_timer_funcs();
-
-            al_set_target_bitmap(primary_sub_bitmap);
-            draw_overlay();
-
-            al_flip_display();
+            primary_render();
+            //// render
+            //ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
+            //al_set_target_bitmap(backbuffer_bitmap);
+            //
+            //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+            //screens.primary_timer_funcs();
+            //
+            //al_set_target_bitmap(primary_sub_bitmap);
+            //draw_overlay();
+            //
+            //al_flip_display();
          }
          else
          {

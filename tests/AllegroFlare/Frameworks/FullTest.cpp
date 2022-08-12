@@ -55,6 +55,22 @@ TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitte
 }
 
 
+TEST(AllegroFlare_Framewors_FullTest, CAPTURE__ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR__will_enable_drawing_the_hints)
+{
+   // WERE HERE
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize();
+   AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
+
+   event_emitter.emit_show_input_hints_bar_event();
+   //event_emitter.process_event();
+   //event_emitter.emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
+   //framework.run_loop();
+
+   SUCCEED();
+}
+
+
 TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_the_audio_controller)
 {
    AllegroFlare::Frameworks::Full framework;
