@@ -1,0 +1,101 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: '"TitleScreen"'
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: achievements
+    type: std::vector<std::tuple<bool, std::string, std::string>>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: achievements_box_height
+    type: float
+    init_with: 80.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: achievements_box_width
+    type: float
+    init_with: 300.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      float x = 0;
+      float y = 0;
+      float y_spacing = 30;
+      for (int i=0; i<achievements.size(); i++)
+      {
+         bool is_achieved = std::get<0>(achievements[i]);
+         std::string name = std::get<1>(achievements[i]);
+         std::string description = std::get<2>(achievements[i]);
+         draw_achievement_box(x, y + i * y_spacing);
+      }
+      return;
+
+
+  - name: draw_achievement_box
+    type: void
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      float achievements_box_width = 300.0f;
+      float achievements_box_height = 80.0f;
+      ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
+      al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
+      return;
+    body_dependency_symbols:
+      - al_draw_filled_rectangle
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf -32");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_filled_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: std::vector<std::tuple<bool, std::string, std::string>>
+    headers: [ vector, tuple, string ]
+
+
+
