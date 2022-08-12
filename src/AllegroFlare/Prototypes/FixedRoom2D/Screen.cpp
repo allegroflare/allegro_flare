@@ -158,6 +158,7 @@ void Screen::on_activate()
          error_message << "Screen" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   event_emitter->emit_show_input_hints_bar_event();
    emit_event_to_set_input_hints();
    return;
 }
@@ -191,6 +192,7 @@ void Screen::on_deactivate()
          error_message << "Screen" << "::" << "on_deactivate" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   event_emitter->emit_hide_input_hints_bar_event();
    return;
 }
 

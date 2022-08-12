@@ -41,9 +41,19 @@ TEST_F(AllegroFlare_InputHintsTest, render__respects_text_color)
 }
 
 
-TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::InputHints input_hints(&get_font_bin_ref());
+   al_clear_to_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
+   input_hints.render();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_InputHintsTestWithAllegroRenderingFixture, render__with_the_placeholder_tokens__will_not_blow_up)
+{
+   AllegroFlare::InputHints input_hints(&get_font_bin_ref());
+   input_hints.set_input_hints_tokens(AllegroFlare::InputHints::build_placeholder_input_hints_tokens());
    al_clear_to_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
    input_hints.render();
    al_flip_display();

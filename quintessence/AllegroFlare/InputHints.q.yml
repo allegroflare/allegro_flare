@@ -10,7 +10,7 @@ properties:
 
   - name: input_hints_tokens
     type: std::vector<std::pair<std::string, std::string>>
-    init_with: 'build_placeholder_input_hints_tokens()'
+    init_with: '{}'
     constructor_arg: true
     getter: true
     setter: true

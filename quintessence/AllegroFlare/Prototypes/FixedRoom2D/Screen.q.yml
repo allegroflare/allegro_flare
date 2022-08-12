@@ -126,6 +126,7 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
+      event_emitter->emit_show_input_hints_bar_event();
       emit_event_to_set_input_hints();
       return;
 
@@ -151,6 +152,7 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
+      event_emitter->emit_hide_input_hints_bar_event();
       return;
 
 
