@@ -63,7 +63,7 @@ TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitte
 
 
 TEST(AllegroFlare_Framewors_FullTest,
-   ALLEGRO_FLARE_SHOW_INPUT_HINTS_BAR__when_emitted__will_enable_drawing_input_hints)
+   ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR__when_emitted__will_enable_drawing_input_hints)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
@@ -80,7 +80,7 @@ TEST(AllegroFlare_Framewors_FullTest,
 
 
 TEST(AllegroFlare_Framewors_FullTest,
-   ALLEGRO_FLARE_HIDE_INPUT_HINTS_BAR__when_emitted__will_disable_drawing_input_hints)
+   ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR__when_emitted__will_disable_drawing_input_hints)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
