@@ -493,6 +493,14 @@ table td
   <td class="property">achievements_box_width</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -500,6 +508,9 @@ table td
 </tr>
 <tr>
   <td class="method">draw_achievement_box(2)</td>
+</tr>
+<tr>
+  <td class="method">build_placeholder_achievements()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -517,6 +528,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;bool, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -6243,6 +6257,7 @@ table td
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",

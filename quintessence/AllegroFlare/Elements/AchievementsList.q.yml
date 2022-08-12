@@ -27,6 +27,18 @@ properties:
     getter: true
     setter: true
 
+  - name: surface_width
+    type: int
+    init_with: 1920
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: int
+    init_with: 1080
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -35,9 +47,13 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      AllegroFlare::Placement2D place(surface_width/2, surface_height/2, 800, 700);
+
       float x = 0;
       float y = 0;
       float y_spacing = 30;
+
+      place.start_transform();
       for (int i=0; i<achievements.size(); i++)
       {
          bool is_achieved = std::get<0>(achievements[i]);
@@ -45,7 +61,10 @@ functions:
          std::string description = std::get<2>(achievements[i]);
          draw_achievement_box(x, y + i * y_spacing);
       }
+      place.restore_transform();
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
 
 
   - name: draw_achievement_box
@@ -67,6 +86,17 @@ functions:
       - al_draw_filled_rectangle
 
 
+  - name: build_placeholder_achievements
+    type: std::vector<std::tuple<bool, std::string, std::string>>
+    static: true
+    body: |
+      return {
+         { false, "Save the Cat", "Define the hero and make the audience like them." },
+         { false, "All is Lost", "Make the hero lose everything that is important." },
+         { true, "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
+      };
+
+
   - name: obtain_font
     private: true
     type: ALLEGRO_FONT*
@@ -86,6 +116,8 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: std::vector<std::tuple<bool, std::string, std::string>>
     headers: [ vector, tuple, string ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
 
 
 
