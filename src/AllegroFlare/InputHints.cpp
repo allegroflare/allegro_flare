@@ -21,7 +21,7 @@ InputHints::InputHints(AllegroFlare::FontBin* font_bin, std::vector<std::pair<st
    , input_hints_tokens(input_hints_tokens)
    , keyboard_key_combo_tokens(keyboard_key_combo_tokens)
    , bar_height(60)
-   , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , text_color(ALLEGRO_COLOR{0.4, 0.4, 0.45, 0.6})
    , surface_width(1920)
    , surface_height(1080)
 {
@@ -168,7 +168,7 @@ void InputHints::draw_keyboard_key_combo_tokens()
    keyboard_key_combo.set_token_SEPARATOR_width(60);
    keyboard_key_combo.set_keyboard_key_font_size(-14);
    keyboard_key_combo.set_font_size(-18);
-   keyboard_key_combo.set_color(ALLEGRO_COLOR{0.4, 0.4, 0.45, 0.6});
+   keyboard_key_combo.set_color(text_color);
 
    float width = keyboard_key_combo.calculate_width();
 
