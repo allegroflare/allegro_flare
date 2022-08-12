@@ -531,7 +531,7 @@ void Full::primary_render()
 }
 
 
-void Full::primary_process_event(ALLEGRO_EVENT *ev)
+void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events)
 {
       ALLEGRO_EVENT &this_event = *ev;
       ALLEGRO_EVENT next_event;
@@ -565,11 +565,16 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev)
          {
             screens.timer_funcs();
          }
-         while (al_peek_next_event(event_queue, &next_event)
+
+         if (drain_sequential_timer_events)
+         {
+            ALLEGRO_EVENT next_event;
+            while (al_peek_next_event(event_queue, &next_event)
                && next_event.type == ALLEGRO_EVENT_TIMER
                && next_event.timer.source == this_event.timer.source)
-         {
-            al_drop_next_event(event_queue);
+            {
+               al_drop_next_event(event_queue);
+            }
          }
       break;
 
@@ -853,8 +858,7 @@ void Full::run_loop()
 
    while(!shutdown_program || Display::displays.empty())
    {
-      ALLEGRO_EVENT this_event, next_event;
-
+      ALLEGRO_EVENT this_event;
       al_wait_for_event(event_queue, &this_event);
 
       current_event = &this_event;
