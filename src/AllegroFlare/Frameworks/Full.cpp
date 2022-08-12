@@ -848,9 +848,12 @@ void Full::draw_overlay()
 {
    if (drawing_inputs_bar_overlay)
    {
-      AllegroFlare::InputHints input_hints(&fonts);
-      input_hints.set_keyboard_key_combo_tokens(input_hints_tokens);
-      input_hints.render();
+      //if (!input_hints_tokens.empty() || show_input_hints_bar_when_empty) // this feature has not been requested
+      {
+         AllegroFlare::InputHints input_hints(&fonts);
+         input_hints.set_keyboard_key_combo_tokens(input_hints_tokens);
+         input_hints.render();
+      }
    }
 }
 
