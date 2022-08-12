@@ -15,8 +15,7 @@ namespace Elements
 
 
 AchievementsList::AchievementsList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<bool, std::string, std::string>> achievements, float achievements_box_height, float achievements_box_width)
-   : AllegroFlare::Screens::Base("TitleScreen")
-   , font_bin(font_bin)
+   : font_bin(font_bin)
    , achievements(achievements)
    , achievements_box_height(achievements_box_height)
    , achievements_box_width(achievements_box_width)

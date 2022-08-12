@@ -1,11 +1,3 @@
-parent_classes:
-
-
-  - class: AllegroFlare::Screens::Base
-    scope: public
-    init_with: '"TitleScreen"'
-
-
 properties:
 
 
@@ -86,8 +78,6 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Screens::Base
-    headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT*

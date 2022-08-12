@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/Screens/Base.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
 #include <tuple>
@@ -13,7 +12,7 @@ namespace AllegroFlare
 {
    namespace Elements
    {
-      class AchievementsList : public AllegroFlare::Screens::Base
+      class AchievementsList
       {
       private:
          AllegroFlare::FontBin* font_bin;

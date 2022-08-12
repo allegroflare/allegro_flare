@@ -209,18 +209,6 @@
   "GLuint": [
     "AllegroFlare/Cubemap"
   ],
-  "AllegroFlare/Screens/Base": [
-    "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -241,6 +229,17 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/UnicodeFontViewer"
+  ],
+  "AllegroFlare/Screens/Base": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/AdvancingText",
