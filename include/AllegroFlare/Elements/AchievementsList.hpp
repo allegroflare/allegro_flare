@@ -11,9 +11,9 @@
 
 namespace AllegroFlare
 {
-   namespace Screens
+   namespace Elements
    {
-      class Achievements : public AllegroFlare::Screens::Base
+      class AchievementsList : public AllegroFlare::Screens::Base
       {
       private:
          AllegroFlare::FontBin* font_bin;
@@ -22,8 +22,8 @@ namespace AllegroFlare
          float achievements_box_width;
 
       public:
-         Achievements(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<bool, std::string, std::string>> achievements={}, float achievements_box_height=80.0f, float achievements_box_width=300.0f);
-         ~Achievements();
+         AchievementsList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<bool, std::string, std::string>> achievements={}, float achievements_box_height=80.0f, float achievements_box_width=300.0f);
+         ~AchievementsList();
 
          void set_achievements(std::vector<std::tuple<bool, std::string, std::string>> achievements);
          void set_achievements_box_height(float achievements_box_height);

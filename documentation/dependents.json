@@ -63,6 +63,7 @@
   ],
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -89,7 +90,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -102,6 +102,7 @@
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -121,7 +122,6 @@
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
-    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -209,6 +209,27 @@
   "GLuint": [
     "AllegroFlare/Cubemap"
   ],
+  "AllegroFlare/Screens/Base": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "al_draw_filled_rectangle": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "std/vector<std/tuple<bool, std/string, std/string>>": [
+    "AllegroFlare/Elements/AchievementsList"
+  ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",
@@ -220,18 +241,6 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/UnicodeFontViewer"
-  ],
-  "AllegroFlare/Screens/Base": [
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/AdvancingText",
@@ -454,12 +463,6 @@
   "al_draw_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/UnicodeFontViewer"
-  ],
-  "al_draw_filled_rectangle": [
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen"
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base"
@@ -766,9 +769,6 @@
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "std/vector<std/tuple<bool, std/string, std/string>>": [
-    "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/VirtualControls": [
     "AllegroFlare/Screens/GameOverScreen",

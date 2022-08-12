@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Screens/Achievements.hpp>
+#include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <allegro5/allegro_primitives.h>
@@ -10,11 +10,11 @@
 
 namespace AllegroFlare
 {
-namespace Screens
+namespace Elements
 {
 
 
-Achievements::Achievements(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<bool, std::string, std::string>> achievements, float achievements_box_height, float achievements_box_width)
+AchievementsList::AchievementsList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<bool, std::string, std::string>> achievements, float achievements_box_height, float achievements_box_width)
    : AllegroFlare::Screens::Base("TitleScreen")
    , font_bin(font_bin)
    , achievements(achievements)
@@ -24,59 +24,59 @@ Achievements::Achievements(AllegroFlare::FontBin* font_bin, std::vector<std::tup
 }
 
 
-Achievements::~Achievements()
+AchievementsList::~AchievementsList()
 {
 }
 
 
-void Achievements::set_achievements(std::vector<std::tuple<bool, std::string, std::string>> achievements)
+void AchievementsList::set_achievements(std::vector<std::tuple<bool, std::string, std::string>> achievements)
 {
    this->achievements = achievements;
 }
 
 
-void Achievements::set_achievements_box_height(float achievements_box_height)
+void AchievementsList::set_achievements_box_height(float achievements_box_height)
 {
    this->achievements_box_height = achievements_box_height;
 }
 
 
-void Achievements::set_achievements_box_width(float achievements_box_width)
+void AchievementsList::set_achievements_box_width(float achievements_box_width)
 {
    this->achievements_box_width = achievements_box_width;
 }
 
 
-std::vector<std::tuple<bool, std::string, std::string>> Achievements::get_achievements()
+std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::get_achievements()
 {
    return achievements;
 }
 
 
-float Achievements::get_achievements_box_height()
+float AchievementsList::get_achievements_box_height()
 {
    return achievements_box_height;
 }
 
 
-float Achievements::get_achievements_box_width()
+float AchievementsList::get_achievements_box_width()
 {
    return achievements_box_width;
 }
 
 
-void Achievements::render()
+void AchievementsList::render()
 {
    if (!(al_is_system_installed()))
       {
          std::stringstream error_message;
-         error_message << "Achievements" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         error_message << "AchievementsList" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
          throw std::runtime_error(error_message.str());
       }
    if (!(al_is_font_addon_initialized()))
       {
          std::stringstream error_message;
-         error_message << "Achievements" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         error_message << "AchievementsList" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
    float x = 0;
@@ -92,7 +92,7 @@ void Achievements::render()
    return;
 }
 
-void Achievements::draw_achievement_box(float x, float y)
+void AchievementsList::draw_achievement_box(float x, float y)
 {
    float achievements_box_width = 300.0f;
    float achievements_box_height = 80.0f;
@@ -101,17 +101,17 @@ void Achievements::draw_achievement_box(float x, float y)
    return;
 }
 
-ALLEGRO_FONT* Achievements::obtain_font()
+ALLEGRO_FONT* AchievementsList::obtain_font()
 {
    if (!(font_bin))
       {
          std::stringstream error_message;
-         error_message << "Achievements" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+         error_message << "AchievementsList" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("Inter-Medium.ttf -32");
 }
-} // namespace Screens
+} // namespace Elements
 } // namespace AllegroFlare
 
 
