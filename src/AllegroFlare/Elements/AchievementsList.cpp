@@ -224,17 +224,17 @@ void AchievementsList::draw_achievements_list_items()
       );
    }
 
-   // draw the frame
-   al_draw_rounded_rectangle(
-      0 - frame_outset,
-      0 - frame_outset,
-      achievements_list_width + frame_outset,
-      achievements_list_height + frame_outset, 
-      5.0,
-      5.0,
-      achievements_list_frame_color,
-      frame_thickness
-   );
+   //// draw the frame
+   //al_draw_rounded_rectangle(
+   //   0 - frame_outset,
+   //   0 - frame_outset,
+   //   achievements_list_width + frame_outset,
+   //   achievements_list_height + frame_outset, 
+   //   5.0,
+   //   5.0,
+   //   achievements_list_frame_color,
+   //   frame_thickness
+   //);
 
    place.restore_transform();
    return;
@@ -339,7 +339,7 @@ std::string AchievementsList::filter_item_description_through_status(std::string
 std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::build_placeholder_achievements()
 {
    return {
-      { "locked",   "Fade In", "Start out in the world." },
+      { "unlocked",   "Fade In", "Start out in the world." },
       { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
       { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
