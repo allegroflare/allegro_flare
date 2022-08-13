@@ -137,17 +137,29 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    float title_padding_y = 20;
    ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
+   ALLEGRO_COLOR icon_container_box_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    float title_font_line_height = al_get_font_line_height(title_font);
    float description_font_line_height = al_get_font_line_height(description_font);
+   float icon_container_box_size = achievements_box_height - box_padding_x*2;
+   float text_x_offset = 140;
 
    // draw the filled rectangle
    al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
+
+   // draw the icon container box rectangle
+   al_draw_filled_rectangle(
+      x + box_padding_x,
+      y + box_padding_y,
+      x + box_padding_x + icon_container_box_size,
+      y + box_padding_y + icon_container_box_size,
+      icon_container_box_color
+   );
 
    // draw the title text
    al_draw_text(
       title_font,
       text_color,
-      x + box_padding_x,
+      x + box_padding_x + text_x_offset,
       y + box_padding_y,
       ALLEGRO_ALIGN_LEFT,
       title.c_str()
@@ -157,12 +169,12 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    al_draw_multiline_text(
       description_font,
       text_color,
-      x + box_padding_x,
+      x + box_padding_x + text_x_offset,
       y + box_padding_y + title_font_line_height + title_padding_y,
       500,
       description_font_line_height,
       ALLEGRO_ALIGN_LEFT,
-      title.c_str()
+      description.c_str()
    );
 
    return;
