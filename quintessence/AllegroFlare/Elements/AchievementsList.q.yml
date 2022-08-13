@@ -15,14 +15,14 @@ properties:
 
   - name: achievements_box_width
     type: float
-    init_with: 900.0f
+    init_with: 940.0f
     constructor_arg: true
     getter: true
     setter: true
 
   - name: achievements_box_height
     type: float
-    init_with: 150.0f
+    init_with: 130.0f
     constructor_arg: true
     getter: true
     setter: true
@@ -47,32 +47,106 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      draw_achievements_list_title_text();
+      draw_achievements_list_title_text_and_completed_title_text();
       draw_achievements_list_items();
       return;
     body_dependency_symbols:
       - AllegroFlare::Placement2D
 
 
-  - name: draw_achievements_list_title_text
+  - name: count_num_achievements_completed
+    type: int
+    private: true
+    body: |
+      int count = 0;
+      for (int i=0; i<achievements.size(); i++)
+      {
+         bool is_achieved = std::get<0>(achievements[i]);
+         if (is_achieved) count++;
+      }
+      return count;
+     
+
+  - name: count_num_achievements
+    type: int
+    private: true
+    body: |
+      return achievements.size();
+
+
+  - name: build_achievements_count_string
+    type: std::string
+    body: |
+      std::stringstream result;
+      result << count_num_achievements_completed() << " of " << count_num_achievements()
+             << " achieved";
+      return result.str();
+     
+
+  - name: draw_achievements_list_title_text_and_completed_title_text
     private: true
     body: |
       ALLEGRO_FONT *font = obtain_title_font();
       ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
-      al_draw_text(font, color, 200, 100, ALLEGRO_ALIGN_LEFT, "A C H I E V E M E N T S");
+      float surface_padding_x = 300;
+      al_draw_text(
+         font,
+         color,
+         surface_padding_x,
+         100,
+         ALLEGRO_ALIGN_LEFT,
+         "A C H I E V E M E N T S"
+      );
+      al_draw_text(
+         font,
+         color,
+         1920-surface_padding_x,
+         100,
+         ALLEGRO_ALIGN_RIGHT,
+         build_achievements_count_string().c_str()
+      );
       return;
 
 
   - name: draw_achievements_list_items
     private: true
     body: |
-      AllegroFlare::Placement2D place(surface_width/2, surface_height/2, achievements_box_width, 800);
-
+      float achievements_list_x = surface_width/2;
+      float achievements_list_y = surface_height/2 + 40;
+      float achievements_list_width = achievements_box_width;
+      float box_gutter_y = 10;
+      float achievements_list_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
+      ALLEGRO_COLOR achievements_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       float achievements_box_list_x = 0;
-      float achievements_box_list_y = 80;
-      float y_spacing = 150 + 10;
+      float achievements_box_list_y = 0;
+      //float box_gutter_y = 10;
+      float y_spacing = achievements_box_height + box_gutter_y;
+      float frame_thickness = 6.0;
+      float frame_outset = box_gutter_y + 2;
+      //float frame_thickness = 6.0;
+
+      AllegroFlare::Placement2D place(
+         achievements_list_x,
+         achievements_list_y,
+         achievements_list_width,
+         achievements_list_height
+      );
 
       place.start_transform();
+
+      // draw the frame
+      al_draw_rounded_rectangle(
+         0 - frame_outset,
+         0 - frame_outset,
+         achievements_list_width + frame_outset,
+         achievements_list_height + frame_outset, 
+         5.0,
+         5.0,
+         achievements_list_frame_color,
+         frame_thickness
+      );
+
+      // draw the items in the list
       for (int i=0; i<achievements.size(); i++)
       {
          bool is_achieved = std::get<0>(achievements[i]);
@@ -213,7 +287,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Bold.ttf -36");
+      return font_bin->auto_get("Inter-Bold.ttf -34");
 
 
   - name: obtain_item_description_font
@@ -221,7 +295,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -28");
+      return font_bin->auto_get("Inter-Medium.ttf -26");
 
 
   - name: obtain_icon_font

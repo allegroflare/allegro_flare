@@ -25,7 +25,7 @@ namespace AllegroFlare
          int surface_height;
 
       public:
-         AchievementsList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<bool, std::string, std::string>> achievements={}, float achievements_box_width=900.0f, float achievements_box_height=150.0f);
+         AchievementsList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<bool, std::string, std::string>> achievements={}, float achievements_box_width=940.0f, float achievements_box_height=130.0f);
          ~AchievementsList();
 
          void set_achievements(std::vector<std::tuple<bool, std::string, std::string>> achievements);
@@ -39,7 +39,10 @@ namespace AllegroFlare
          int get_surface_width();
          int get_surface_height();
          void render();
-         void draw_achievements_list_title_text();
+         int count_num_achievements_completed();
+         int count_num_achievements();
+         std::string build_achievements_count_string();
+         void draw_achievements_list_title_text_and_completed_title_text();
          void draw_achievements_list_items();
          void draw_achievement_box(float x=0.0f, float y=0.0f, bool is_achieved=false, std::string title="[unset-title]", std::string description="[unset-description]");
          static std::vector<std::tuple<bool, std::string, std::string>> build_placeholder_achievements();
