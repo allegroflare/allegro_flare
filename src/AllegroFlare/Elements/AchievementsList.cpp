@@ -22,7 +22,7 @@ namespace Elements
 {
 
 
-AchievementsList::AchievementsList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<bool, std::string, std::string>> achievements, float achievements_box_width, float achievements_box_height)
+AchievementsList::AchievementsList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<std::string, std::string, std::string>> achievements, float achievements_box_width, float achievements_box_height)
    : font_bin(font_bin)
    , achievements(achievements)
    , achievements_box_width(achievements_box_width)
@@ -39,7 +39,7 @@ AchievementsList::~AchievementsList()
 }
 
 
-void AchievementsList::set_achievements(std::vector<std::tuple<bool, std::string, std::string>> achievements)
+void AchievementsList::set_achievements(std::vector<std::tuple<std::string, std::string, std::string>> achievements)
 {
    this->achievements = achievements;
 }
@@ -75,7 +75,7 @@ void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
 }
 
 
-std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::get_achievements()
+std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::get_achievements()
 {
    return achievements;
 }
@@ -141,7 +141,7 @@ int AchievementsList::count_num_achievements_completed()
    int count = 0;
    for (int i=0; i<achievements.size(); i++)
    {
-      bool is_achieved = std::get<0>(achievements[i]);
+      bool is_achieved = (std::get<0>(achievements[i]) == "unlocked");
       if (is_achieved) count++;
    }
    return count;
@@ -212,13 +212,13 @@ void AchievementsList::draw_achievements_list_items()
    // draw the items in the list
    for (int i=0; i<achievements.size(); i++)
    {
-      bool is_achieved = std::get<0>(achievements[i]);
+      std::string status = std::get<0>(achievements[i]);
       std::string title = std::get<1>(achievements[i]);
       std::string description = std::get<2>(achievements[i]);
       draw_achievement_box(
          achievements_box_list_x,
          achievements_box_list_y + i * y_spacing - scroll_offset_y,
-         is_achieved,
+         status,
          title,
          description
       );
@@ -240,7 +240,7 @@ void AchievementsList::draw_achievements_list_items()
    return;
 }
 
-void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, std::string title, std::string description)
+void AchievementsList::draw_achievement_box(float x, float y, std::string status, std::string title, std::string description)
 {
    ALLEGRO_FONT *item_title_font = obtain_item_title_font();
    ALLEGRO_FONT *description_font = obtain_item_description_font();
@@ -266,8 +266,8 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
 
    float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
    float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
-   int32_t icon_character = is_achieved ? 0xf091 : 0xf023;
-   ALLEGRO_COLOR icon_color = is_achieved ? icon_achieved_color : icon_locked_color;
+   int32_t icon_character = (status == "unlocked") ? 0xf091 : 0xf023;
+   ALLEGRO_COLOR icon_color = (status == "unlocked") ? icon_achieved_color : icon_locked_color;
 
    // draw the filled rectangle
    al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
@@ -316,18 +316,18 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    return;
 }
 
-std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::build_placeholder_achievements()
+std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::build_placeholder_achievements()
 {
    return {
-      { false, "Fade In", "Start out in the world." },
-      { false, "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
-      { false, "Save the Cat", "Define the hero and make the audience like them." },
-      { true, "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
-      { false, "", "Hidden Achievement" },
-      { false, "I'm Lovin' It", "Complete the AchievementsList feature." },
-      { true, "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
-      { false, "", "Hidden Achievement" },
-      { false, "", "Hidden Achievement" },
+      { "locked",   "Fade In", "Start out in the world." },
+      { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
+      { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
+      { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
+      { "hidden",   "", "Hidden Achievement" },
+      { "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
+      { "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
+      { "hidden",   "", "Hidden Achievement" },
+      { "hidden",   "", "Hidden Achievement" },
    };
 }
 

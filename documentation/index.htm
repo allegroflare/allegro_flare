@@ -483,7 +483,7 @@ table td
 </tr>
 <tr>
   <td class="property">achievements</td>
-  <td class="property">std::vector&lt;std::tuple&lt;bool, std::string, std::string&gt;&gt;</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">achievements_box_width</td>
@@ -564,7 +564,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;bool, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
@@ -6376,8 +6376,10 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
   ],
-  "std/vector<std/tuple<bool, std/string, std/string>>": [
-    "AllegroFlare/Elements/AchievementsList"
+  "std/vector<std/tuple<std/string, std/string, std/string>>": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
   ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
@@ -6642,10 +6644,6 @@ table td
     "AllegroFlare/Elements/LevelSelect"
   ],
   "std/map<int, std/tuple<std/string, std/string, std/string>>": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
-  ],
-  "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect"
   ],

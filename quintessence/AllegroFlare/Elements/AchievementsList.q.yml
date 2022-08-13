@@ -7,7 +7,7 @@ properties:
     constructor_arg: true
 
   - name: achievements
-    type: std::vector<std::tuple<bool, std::string, std::string>>
+    type: std::vector<std::tuple<std::string, std::string, std::string>>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -68,7 +68,7 @@ functions:
       int count = 0;
       for (int i=0; i<achievements.size(); i++)
       {
-         bool is_achieved = std::get<0>(achievements[i]);
+         bool is_achieved = (std::get<0>(achievements[i]) == "unlocked");
          if (is_achieved) count++;
       }
       return count;
@@ -144,13 +144,13 @@ functions:
       // draw the items in the list
       for (int i=0; i<achievements.size(); i++)
       {
-         bool is_achieved = std::get<0>(achievements[i]);
+         std::string status = std::get<0>(achievements[i]);
          std::string title = std::get<1>(achievements[i]);
          std::string description = std::get<2>(achievements[i]);
          draw_achievement_box(
             achievements_box_list_x,
             achievements_box_list_y + i * y_spacing - scroll_offset_y,
-            is_achieved,
+            status,
             title,
             description
          );
@@ -181,9 +181,9 @@ functions:
       - name: y
         type: float
         default_argument: 0.0f
-      - name: is_achieved
-        type: bool
-        default_argument: false
+      - name: status
+        type: std::string
+        default_argument: '"[unset-status]"'
       - name: title
         type: std::string
         default_argument: '"[unset-title]"'
@@ -215,8 +215,8 @@ functions:
  
       float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
       float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
-      int32_t icon_character = is_achieved ? 0xf091 : 0xf023;
-      ALLEGRO_COLOR icon_color = is_achieved ? icon_achieved_color : icon_locked_color;
+      int32_t icon_character = (status == "unlocked") ? 0xf091 : 0xf023;
+      ALLEGRO_COLOR icon_color = (status == "unlocked") ? icon_achieved_color : icon_locked_color;
 
       // draw the filled rectangle
       al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
@@ -269,19 +269,19 @@ functions:
 
 
   - name: build_placeholder_achievements
-    type: std::vector<std::tuple<bool, std::string, std::string>>
+    type: std::vector<std::tuple<std::string, std::string, std::string>>
     static: true
     body: |
       return {
-         { false, "Fade In", "Start out in the world." },
-         { false, "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
-         { false, "Save the Cat", "Define the hero and make the audience like them." },
-         { true, "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
-         { false, "", "Hidden Achievement" },
-         { false, "I'm Lovin' It", "Complete the AchievementsList feature." },
-         { true, "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
-         { false, "", "Hidden Achievement" },
-         { false, "", "Hidden Achievement" },
+         { "locked",   "Fade In", "Start out in the world." },
+         { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
+         { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
+         { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
+         { "hidden",   "", "Hidden Achievement" },
+         { "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
+         { "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
+         { "hidden",   "", "Hidden Achievement" },
+         { "hidden",   "", "Hidden Achievement" },
       };
 
 
@@ -359,7 +359,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
-  - symbol: std::vector<std::tuple<bool, std::string, std::string>>
+  - symbol: std::vector<std::tuple<std::string, std::string, std::string>>
     headers: [ vector, tuple, string ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]

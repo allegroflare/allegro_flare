@@ -18,7 +18,7 @@ namespace AllegroFlare
       {
       private:
          AllegroFlare::FontBin* font_bin;
-         std::vector<std::tuple<bool, std::string, std::string>> achievements;
+         std::vector<std::tuple<std::string, std::string, std::string>> achievements;
          float achievements_box_width;
          float achievements_box_height;
          int surface_width;
@@ -26,16 +26,16 @@ namespace AllegroFlare
          float scroll_offset_y;
 
       public:
-         AchievementsList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<bool, std::string, std::string>> achievements={}, float achievements_box_width=940.0f, float achievements_box_height=130.0f);
+         AchievementsList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string, std::string>> achievements={}, float achievements_box_width=940.0f, float achievements_box_height=130.0f);
          ~AchievementsList();
 
-         void set_achievements(std::vector<std::tuple<bool, std::string, std::string>> achievements);
+         void set_achievements(std::vector<std::tuple<std::string, std::string, std::string>> achievements);
          void set_achievements_box_width(float achievements_box_width);
          void set_achievements_box_height(float achievements_box_height);
          void set_surface_width(int surface_width);
          void set_surface_height(int surface_height);
          void set_scroll_offset_y(float scroll_offset_y);
-         std::vector<std::tuple<bool, std::string, std::string>> get_achievements();
+         std::vector<std::tuple<std::string, std::string, std::string>> get_achievements();
          float get_achievements_box_width();
          float get_achievements_box_height();
          int get_surface_width();
@@ -48,8 +48,8 @@ namespace AllegroFlare
          std::string build_achievements_count_string();
          void draw_achievements_list_title_text_and_completed_title_text();
          void draw_achievements_list_items();
-         void draw_achievement_box(float x=0.0f, float y=0.0f, bool is_achieved=false, std::string title="[unset-title]", std::string description="[unset-description]");
-         static std::vector<std::tuple<bool, std::string, std::string>> build_placeholder_achievements();
+         void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
+         static std::vector<std::tuple<std::string, std::string, std::string>> build_placeholder_achievements();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_item_title_font();
          ALLEGRO_FONT* obtain_item_description_font();
