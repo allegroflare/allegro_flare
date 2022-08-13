@@ -147,6 +147,16 @@ int AchievementsList::count_num_achievements_completed()
    return count;
 }
 
+void AchievementsList::draw_header_title_backfill()
+{
+   // draw inputs
+   float backfill_opacity = 0.35;
+   float bar_height = 160;
+   ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, backfill_opacity};
+   al_draw_filled_rectangle(0, 0, surface_width, bar_height, backfill_color);
+   return;
+}
+
 int AchievementsList::count_num_achievements()
 {
    return achievements.size();
@@ -165,6 +175,11 @@ void AchievementsList::draw_achievements_list_title_text_and_completed_title_tex
    ALLEGRO_FONT *font = obtain_title_font();
    ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
    float surface_padding_x = 300;
+
+   // draw the backfill
+   draw_header_title_backfill();
+
+   // draw the title text
    al_draw_text(
       font,
       color,
@@ -173,6 +188,8 @@ void AchievementsList::draw_achievements_list_title_text_and_completed_title_tex
       ALLEGRO_ALIGN_LEFT,
       "A C H I E V E M E N T S"
    );
+
+   // draw the number achieved
    al_draw_text(
       font,
       color,
@@ -273,7 +290,23 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
    ALLEGRO_COLOR icon_color = (status == "unlocked") ? icon_achieved_color : icon_locked_color;
 
    // draw the filled rectangle
-   al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
+   if (status == "hidden")
+   {
+      float hidden_box_stroke_thickness = 4.0f;
+      float h_thickness = hidden_box_stroke_thickness * 0.5;
+      al_draw_rectangle(
+         x + h_thickness,
+         y + h_thickness,
+         x + achievements_box_width - h_thickness,
+         y + achievements_box_height - h_thickness,
+         box_color,
+         hidden_box_stroke_thickness
+      );
+   }
+   else
+   {
+      al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
+   }
 
    // draw the icon container box rectangle
    if (status == "hidden")

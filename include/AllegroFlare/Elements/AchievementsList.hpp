@@ -44,6 +44,7 @@ namespace AllegroFlare
          float &get_scroll_offset_y_ref();
          void render();
          int count_num_achievements_completed();
+         void draw_header_title_backfill();
          int count_num_achievements();
          std::string build_achievements_count_string();
          void draw_achievements_list_title_text_and_completed_title_text();
