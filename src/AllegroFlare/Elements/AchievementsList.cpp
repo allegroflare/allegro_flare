@@ -320,7 +320,6 @@ std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::build_
 {
    return {
       { false, "Save the Cat", "Define the hero and make the audience like them." },
-      { false, "All is Lost", "Make the hero lose everything that is important." },
       { true, "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
       { false, "I'm Lovin' It", "Complete the AchievementsList feature." },
       { true, "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },

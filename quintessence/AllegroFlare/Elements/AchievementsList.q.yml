@@ -88,7 +88,7 @@ functions:
       result << count_num_achievements_completed() << " of " << count_num_achievements()
              << " achieved";
       return result.str();
-     
+
 
   - name: draw_achievements_list_title_text_and_completed_title_text
     private: true
@@ -274,7 +274,6 @@ functions:
     body: |
       return {
          { false, "Save the Cat", "Define the hero and make the audience like them." },
-         { false, "All is Lost", "Make the hero lose everything that is important." },
          { true, "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
          { false, "I'm Lovin' It", "Complete the AchievementsList feature." },
          { true, "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
