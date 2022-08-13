@@ -138,7 +138,8 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    float box_padding_x = 20;
    float box_padding_y = 20;
    float title_padding_y = 10;
-   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_COLOR title_text_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_COLOR description_text_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
    ALLEGRO_COLOR icon_container_box_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR icon_locked_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1};
@@ -180,7 +181,7 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    // draw the title text
    al_draw_text(
       title_font,
-      text_color,
+      title_text_color,
       x + box_padding_x + text_x_offset,
       y + box_padding_y + text_y_offset,
       ALLEGRO_ALIGN_LEFT,
@@ -190,7 +191,7 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    // draw the description text
    al_draw_multiline_text(
       description_font,
-      text_color,
+      description_text_color,
       x + box_padding_x + text_x_offset,
       y + box_padding_y + title_font_line_height + title_padding_y + text_y_offset,
       500,
@@ -208,6 +209,7 @@ std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::build_
       { false, "Save the Cat", "Define the hero and make the audience like them." },
       { false, "All is Lost", "Make the hero lose everything that is important." },
       { true, "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
+      { false, "I'm Lovin' It", "Complete the AchievementsList feature." },
    };
 }
 
