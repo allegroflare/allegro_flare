@@ -266,7 +266,7 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
 
    float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
    float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
-   int32_t icon_character = (status == "unlocked") ? 0xf091 : 0xf023;
+   int32_t icon_character = infer_icon_character_from_status(status);
    ALLEGRO_COLOR icon_color = (status == "unlocked") ? icon_achieved_color : icon_locked_color;
 
    // draw the filled rectangle
@@ -314,6 +314,14 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
    );
 
    return;
+}
+
+int32_t AchievementsList::infer_icon_character_from_status(std::string status)
+{
+   if (status == "unlocked") return 0xf091;
+   else if (status == "locked") return 0xf023;
+   else if (status == "hidden") return 0x3f;
+   return 0xe1fe;
 }
 
 std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::build_placeholder_achievements()

@@ -215,7 +215,7 @@ functions:
  
       float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
       float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
-      int32_t icon_character = (status == "unlocked") ? 0xf091 : 0xf023;
+      int32_t icon_character = infer_icon_character_from_status(status);
       ALLEGRO_COLOR icon_color = (status == "unlocked") ? icon_achieved_color : icon_locked_color;
 
       // draw the filled rectangle
@@ -266,6 +266,19 @@ functions:
     body_dependency_symbols:
       - al_draw_filled_rectangle
       - al_draw_text
+
+
+  - name: infer_icon_character_from_status
+    type: int32_t
+    parameters:
+      - name: status
+        type: std::string
+        default_argument: '"[unset-status]"'
+    body: |
+      if (status == "unlocked") return 0xf091;
+      else if (status == "locked") return 0xf023;
+      else if (status == "hidden") return 0x3f;
+      return 0xe1fe;
 
 
   - name: build_placeholder_achievements
