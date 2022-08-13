@@ -277,6 +277,7 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
    ALLEGRO_COLOR icon_container_box_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR icon_locked_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1};
+   ALLEGRO_COLOR icon_hidden_color = icon_container_box_color;
    ALLEGRO_COLOR icon_achieved_color = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_COLOR title_text_color_hidden = icon_locked_color;
    float item_title_font_line_height = al_get_font_line_height(item_title_font);
@@ -292,7 +293,12 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
    float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
    float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
    int32_t icon_character = infer_icon_character_by_status(status);
-   ALLEGRO_COLOR icon_color = (status == "unlocked") ? icon_achieved_color : icon_locked_color;
+   ALLEGRO_COLOR icon_color = infer_icon_color_by_status(
+      status,
+      icon_locked_color,
+      icon_hidden_color,
+      icon_achieved_color
+   );
 
    // draw the filled rectangle
    if (status == "hidden")
@@ -379,6 +385,14 @@ int32_t AchievementsList::infer_icon_character_by_status(std::string status)
    else if (status == "locked") return 0xf023;
    else if (status == "hidden") return 0x3f;
    return 0xe1fe;
+}
+
+ALLEGRO_COLOR AchievementsList::infer_icon_color_by_status(std::string status, ALLEGRO_COLOR icon_locked_color, ALLEGRO_COLOR icon_hidden_color, ALLEGRO_COLOR icon_achieved_color)
+{
+   if (status == "unlocked") return icon_achieved_color;
+   else if (status == "locked") return icon_locked_color;
+   else if (status == "hidden") return icon_hidden_color;
+   return ALLEGRO_COLOR{1, 0, 0, 1};
 }
 
 std::string AchievementsList::filter_item_title_through_status(std::string title, std::string status)
