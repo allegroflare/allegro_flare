@@ -49,7 +49,8 @@ namespace AllegroFlare
          void draw_achievements_list_title_text_and_completed_title_text();
          void draw_achievements_list_items();
          void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
-         int32_t infer_icon_character_from_status(std::string status="[unset-status]");
+         int32_t infer_icon_character_by_status(std::string status="[unset-status]");
+         std::string filter_item_title_through_status(std::string title="[unset-title]", std::string status="[unset-status]");
          static std::vector<std::tuple<std::string, std::string, std::string>> build_placeholder_achievements();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_item_title_font();

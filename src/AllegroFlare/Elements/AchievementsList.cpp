@@ -266,7 +266,7 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
 
    float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
    float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
-   int32_t icon_character = infer_icon_character_from_status(status);
+   int32_t icon_character = infer_icon_character_by_status(status);
    ALLEGRO_COLOR icon_color = (status == "unlocked") ? icon_achieved_color : icon_locked_color;
 
    // draw the filled rectangle
@@ -298,7 +298,7 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
       x + box_padding_x + text_x_offset,
       y + box_padding_y + text_y_offset,
       ALLEGRO_ALIGN_LEFT,
-      title.c_str()
+      filter_item_title_through_status(title, status).c_str()
    );
 
    // draw the description text
@@ -316,12 +316,18 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
    return;
 }
 
-int32_t AchievementsList::infer_icon_character_from_status(std::string status)
+int32_t AchievementsList::infer_icon_character_by_status(std::string status)
 {
    if (status == "unlocked") return 0xf091;
    else if (status == "locked") return 0xf023;
    else if (status == "hidden") return 0x3f;
    return 0xe1fe;
+}
+
+std::string AchievementsList::filter_item_title_through_status(std::string title, std::string status)
+{
+   if (status == "hidden") return "Hidden Achievement";
+   return title;
 }
 
 std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::build_placeholder_achievements()
@@ -331,11 +337,10 @@ std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList:
       { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
       { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
-      { "hidden",   "", "Hidden Achievement" },
+      { "hidden",   "Top Secrets", "Find the box of secrets in the 2nd act." },
       { "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
       { "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
-      { "hidden",   "", "Hidden Achievement" },
-      { "hidden",   "", "Hidden Achievement" },
+      { "hidden",   "Save the Best for Last", "Find out the most important part in the very end." },
    };
 }
 
