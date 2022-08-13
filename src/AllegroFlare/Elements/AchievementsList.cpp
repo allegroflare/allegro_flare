@@ -149,7 +149,8 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    float icon_font_line_height = al_get_font_line_height(icon_font);
    float icon_container_box_size = achievements_box_height - box_padding_x*2;
    float text_y_offset = 2;
-   float text_x_offset = 140;
+   float icon_container_box_text_x_padding = 30;
+   float text_x_offset = icon_container_box_size + icon_container_box_text_x_padding;
 
    float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
    float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
@@ -194,7 +195,7 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
       description_text_color,
       x + box_padding_x + text_x_offset,
       y + box_padding_y + title_font_line_height + title_padding_y + text_y_offset,
-      500,
+      achievements_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
       description_font_line_height,
       ALLEGRO_ALIGN_LEFT,
       description.c_str()
@@ -210,6 +211,7 @@ std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::build_
       { false, "All is Lost", "Make the hero lose everything that is important." },
       { true, "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
       { false, "I'm Lovin' It", "Complete the AchievementsList feature." },
+      { true, "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
    };
 }
 
