@@ -54,8 +54,8 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      draw_achievements_list_title_text_and_completed_title_text();
       draw_achievements_list_items();
+      draw_achievements_list_title_text_and_completed_title_text();
       return;
     body_dependency_symbols:
       - AllegroFlare::Placement2D
@@ -141,18 +141,6 @@ functions:
 
       place.start_transform();
 
-      // draw the frame
-      al_draw_rounded_rectangle(
-         0 - frame_outset,
-         0 - frame_outset,
-         achievements_list_width + frame_outset,
-         achievements_list_height + frame_outset, 
-         5.0,
-         5.0,
-         achievements_list_frame_color,
-         frame_thickness
-      );
-
       // draw the items in the list
       for (int i=0; i<achievements.size(); i++)
       {
@@ -167,6 +155,18 @@ functions:
             description
          );
       }
+
+      // draw the frame
+      al_draw_rounded_rectangle(
+         0 - frame_outset,
+         0 - frame_outset,
+         achievements_list_width + frame_outset,
+         achievements_list_height + frame_outset, 
+         5.0,
+         5.0,
+         achievements_list_frame_color,
+         frame_thickness
+      );
 
       place.restore_transform();
       return;

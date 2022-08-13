@@ -131,8 +131,8 @@ void AchievementsList::render()
          error_message << "AchievementsList" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   draw_achievements_list_title_text_and_completed_title_text();
    draw_achievements_list_items();
+   draw_achievements_list_title_text_and_completed_title_text();
    return;
 }
 
@@ -209,18 +209,6 @@ void AchievementsList::draw_achievements_list_items()
 
    place.start_transform();
 
-   // draw the frame
-   al_draw_rounded_rectangle(
-      0 - frame_outset,
-      0 - frame_outset,
-      achievements_list_width + frame_outset,
-      achievements_list_height + frame_outset, 
-      5.0,
-      5.0,
-      achievements_list_frame_color,
-      frame_thickness
-   );
-
    // draw the items in the list
    for (int i=0; i<achievements.size(); i++)
    {
@@ -235,6 +223,18 @@ void AchievementsList::draw_achievements_list_items()
          description
       );
    }
+
+   // draw the frame
+   al_draw_rounded_rectangle(
+      0 - frame_outset,
+      0 - frame_outset,
+      achievements_list_width + frame_outset,
+      achievements_list_height + frame_outset, 
+      5.0,
+      5.0,
+      achievements_list_frame_color,
+      frame_thickness
+   );
 
    place.restore_transform();
    return;
