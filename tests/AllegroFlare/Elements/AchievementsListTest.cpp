@@ -37,7 +37,7 @@ TEST_F(AllegroFlare_Elements_AchievementsListTest, render__without_allegro_initi
 
 TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
-   AllegroFlare::Elements::AchievementsList achievements;
+   AllegroFlare::Elements::AchievementsList achievements(&get_font_bin_ref());
    achievements.render();
    SUCCEED();
 }

@@ -12,6 +12,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -110,10 +112,25 @@ void AchievementsList::render()
          error_message << "AchievementsList" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   AllegroFlare::Placement2D place(surface_width/2, surface_height/2, achievements_box_width, 900);
+   draw_achievements_list_title_text();
+   draw_achievements_list_items();
+   return;
+}
 
-   float x = 0;
-   float y = 0;
+void AchievementsList::draw_achievements_list_title_text()
+{
+   ALLEGRO_FONT *font = obtain_title_font();
+   ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+   al_draw_text(font, color, 200, 100, ALLEGRO_ALIGN_LEFT, "A C H I E V E M E N T S");
+   return;
+}
+
+void AchievementsList::draw_achievements_list_items()
+{
+   AllegroFlare::Placement2D place(surface_width/2, surface_height/2, achievements_box_width, 800);
+
+   float achievements_box_list_x = 0;
+   float achievements_box_list_y = 80;
    float y_spacing = 150 + 10;
 
    place.start_transform();
@@ -122,19 +139,26 @@ void AchievementsList::render()
       bool is_achieved = std::get<0>(achievements[i]);
       std::string title = std::get<1>(achievements[i]);
       std::string description = std::get<2>(achievements[i]);
-      draw_achievement_box(x, y + i * y_spacing, is_achieved, title, description);
+      draw_achievement_box(
+         achievements_box_list_x,
+         achievements_box_list_y + i * y_spacing,
+         is_achieved,
+         title,
+         description
+      );
    }
+
    place.restore_transform();
    return;
 }
 
 void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, std::string title, std::string description)
 {
-   ALLEGRO_FONT *title_font = obtain_title_font();
-   ALLEGRO_FONT *description_font = obtain_description_font();
+   ALLEGRO_FONT *item_title_font = obtain_item_title_font();
+   ALLEGRO_FONT *description_font = obtain_item_description_font();
    ALLEGRO_FONT *icon_font = obtain_icon_font();
-   float achievements_box_width = 800.0f;
-   float achievements_box_height = 150.0f;
+   //float achievements_box_width = 800.0f;
+   //float achievements_box_height = 150.0f;
    float box_padding_x = 20;
    float box_padding_y = 20;
    float title_padding_y = 10;
@@ -144,7 +168,7 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    ALLEGRO_COLOR icon_container_box_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR icon_locked_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1};
    ALLEGRO_COLOR icon_achieved_color = ALLEGRO_COLOR{1, 1, 1, 1};
-   float title_font_line_height = al_get_font_line_height(title_font);
+   float item_title_font_line_height = al_get_font_line_height(item_title_font);
    float description_font_line_height = al_get_font_line_height(description_font);
    float icon_font_line_height = al_get_font_line_height(icon_font);
    float icon_container_box_size = achievements_box_height - box_padding_x*2;
@@ -181,7 +205,7 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
 
    // draw the title text
    al_draw_text(
-      title_font,
+      item_title_font,
       title_text_color,
       x + box_padding_x + text_x_offset,
       y + box_padding_y + text_y_offset,
@@ -194,7 +218,7 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
       description_font,
       description_text_color,
       x + box_padding_x + text_x_offset,
-      y + box_padding_y + title_font_line_height + title_padding_y + text_y_offset,
+      y + box_padding_y + item_title_font_line_height + title_padding_y + text_y_offset,
       achievements_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
       description_font_line_height,
       ALLEGRO_ALIGN_LEFT,
@@ -223,15 +247,26 @@ ALLEGRO_FONT* AchievementsList::obtain_title_font()
          error_message << "AchievementsList" << "::" << "obtain_title_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("Inter-Bold.ttf -36");
+   return font_bin->auto_get("Inter-Bold.ttf -40");
 }
 
-ALLEGRO_FONT* AchievementsList::obtain_description_font()
+ALLEGRO_FONT* AchievementsList::obtain_item_title_font()
 {
    if (!(font_bin))
       {
          std::stringstream error_message;
-         error_message << "AchievementsList" << "::" << "obtain_description_font" << ": error: " << "guard \"font_bin\" not met";
+         error_message << "AchievementsList" << "::" << "obtain_item_title_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return font_bin->auto_get("Inter-Bold.ttf -36");
+}
+
+ALLEGRO_FONT* AchievementsList::obtain_item_description_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "AchievementsList" << "::" << "obtain_item_description_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("Inter-Medium.ttf -28");
