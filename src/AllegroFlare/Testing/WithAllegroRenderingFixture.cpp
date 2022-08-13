@@ -18,6 +18,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro.h>
 #include <chrono>
 #include <thread>
 
@@ -194,6 +195,13 @@ bool WithAllegroRenderingFixture::test_name_indicates_it_wants_a_screenshot()
 }
 
 void WithAllegroRenderingFixture::clear_display()
+{
+   // depreciated, please use clear();
+   clear();
+   return;
+}
+
+void WithAllegroRenderingFixture::clear()
 {
    ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
    al_clear_to_color(eigengrau);

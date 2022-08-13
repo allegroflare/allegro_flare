@@ -29,6 +29,7 @@ AchievementsList::AchievementsList(AllegroFlare::FontBin* font_bin, std::vector<
    , achievements_box_height(achievements_box_height)
    , surface_width(1920)
    , surface_height(1080)
+   , scroll_offset_y(0.0f)
 {
 }
 
@@ -68,6 +69,12 @@ void AchievementsList::set_surface_height(int surface_height)
 }
 
 
+void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
+{
+   this->scroll_offset_y = scroll_offset_y;
+}
+
+
 std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::get_achievements()
 {
    return achievements;
@@ -95,6 +102,18 @@ int AchievementsList::get_surface_width()
 int AchievementsList::get_surface_height()
 {
    return surface_height;
+}
+
+
+float AchievementsList::get_scroll_offset_y()
+{
+   return scroll_offset_y;
+}
+
+
+float &AchievementsList::get_scroll_offset_y_ref()
+{
+   return scroll_offset_y;
 }
 
 
@@ -210,7 +229,7 @@ void AchievementsList::draw_achievements_list_items()
       std::string description = std::get<2>(achievements[i]);
       draw_achievement_box(
          achievements_box_list_x,
-         achievements_box_list_y + i * y_spacing,
+         achievements_box_list_y + i * y_spacing - scroll_offset_y,
          is_achieved,
          title,
          description

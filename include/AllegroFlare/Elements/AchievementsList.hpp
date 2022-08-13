@@ -23,6 +23,7 @@ namespace AllegroFlare
          float achievements_box_height;
          int surface_width;
          int surface_height;
+         float scroll_offset_y;
 
       public:
          AchievementsList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<bool, std::string, std::string>> achievements={}, float achievements_box_width=940.0f, float achievements_box_height=130.0f);
@@ -33,11 +34,14 @@ namespace AllegroFlare
          void set_achievements_box_height(float achievements_box_height);
          void set_surface_width(int surface_width);
          void set_surface_height(int surface_height);
+         void set_scroll_offset_y(float scroll_offset_y);
          std::vector<std::tuple<bool, std::string, std::string>> get_achievements();
          float get_achievements_box_width();
          float get_achievements_box_height();
          int get_surface_width();
          int get_surface_height();
+         float get_scroll_offset_y();
+         float &get_scroll_offset_y_ref();
          void render();
          int count_num_achievements_completed();
          int count_num_achievements();

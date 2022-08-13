@@ -41,6 +41,7 @@ namespace AllegroFlare
          void draw_crosshair(float x=0.0f, float y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 0, 0, 1}, float size=200.0f);
          bool test_name_indicates_it_wants_a_screenshot();
          void clear_display();
+         void clear();
          void capture_screenshot(std::string base_filename="WithAllegroRenderingFixture-screenshot.png");
       };
    }

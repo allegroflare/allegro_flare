@@ -201,6 +201,15 @@ functions:
 
   - name: clear_display
     body: |
+      // depreciated, please use clear();
+      clear();
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_COLOR
+
+
+  - name: clear
+    body: |
       ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
       al_clear_to_color(eigengrau);
       return;

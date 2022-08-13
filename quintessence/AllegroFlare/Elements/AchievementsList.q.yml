@@ -39,6 +39,13 @@ properties:
     getter: true
     setter: true
 
+  - name: scroll_offset_y
+    type: float
+    init_with: 0.0f
+    getter: true
+    getter_ref: true
+    setter: true
+
 
 functions:
 
@@ -154,7 +161,7 @@ functions:
          std::string description = std::get<2>(achievements[i]);
          draw_achievement_box(
             achievements_box_list_x,
-            achievements_box_list_y + i * y_spacing,
+            achievements_box_list_y + i * y_spacing - scroll_offset_y,
             is_achieved,
             title,
             description

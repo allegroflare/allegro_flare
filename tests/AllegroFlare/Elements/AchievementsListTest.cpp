@@ -53,4 +53,22 @@ TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture, CA
    SUCCEED();
 }
 
+TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_offset_the_list_of_items_by__scroll_offset_y)
+{
+   AllegroFlare::Elements::AchievementsList achievements(&get_font_bin_ref());
+   achievements.set_achievements(AllegroFlare::Elements::AchievementsList::build_placeholder_achievements());
+
+   int num_scrolls = 120;
+   float amount_per_scroll = 2.6;
+   for (int i=0; i<num_scrolls; i++)
+   {
+      achievements.set_scroll_offset_y(i * amount_per_scroll);
+
+      clear();
+      achievements.render();
+      al_flip_display();
+   }
+}
+
 
