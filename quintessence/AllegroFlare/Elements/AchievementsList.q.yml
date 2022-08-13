@@ -259,7 +259,7 @@ functions:
          achievements_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
          description_font_line_height,
          ALLEGRO_ALIGN_LEFT,
-         description.c_str()
+         filter_item_description_through_status(description, status).c_str()
       );
 
       return;
@@ -293,6 +293,20 @@ functions:
     body: |
       if (status == "hidden") return "Hidden Achievement";
       return title;
+
+
+  - name: filter_item_description_through_status
+    type: std::string
+    parameters:
+      - name: description
+        type: std::string
+        default_argument: '"[unset-title]"'
+      - name: status
+        type: std::string
+        default_argument: '"[unset-status]"'
+    body: |
+      if (status == "hidden") return "";
+      return description;
 
 
   - name: build_placeholder_achievements

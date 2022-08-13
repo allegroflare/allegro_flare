@@ -310,7 +310,7 @@ void AchievementsList::draw_achievement_box(float x, float y, std::string status
       achievements_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
       description_font_line_height,
       ALLEGRO_ALIGN_LEFT,
-      description.c_str()
+      filter_item_description_through_status(description, status).c_str()
    );
 
    return;
@@ -328,6 +328,12 @@ std::string AchievementsList::filter_item_title_through_status(std::string title
 {
    if (status == "hidden") return "Hidden Achievement";
    return title;
+}
+
+std::string AchievementsList::filter_item_description_through_status(std::string description, std::string status)
+{
+   if (status == "hidden") return "";
+   return description;
 }
 
 std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::build_placeholder_achievements()
