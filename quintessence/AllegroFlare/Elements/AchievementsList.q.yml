@@ -132,6 +132,16 @@ functions:
       return;
 
 
+  - name: move_scroll_offset_y
+    parameters:
+      - name: distance_y
+        type: float
+        default_argument: 0.0f
+    body: |
+      scroll_offset_y += distance_y;
+      return;
+
+
   - name: draw_achievements_list_items
     private: true
     body: |
@@ -147,7 +157,6 @@ functions:
       float y_spacing = achievements_box_height + box_gutter_y;
       float frame_thickness = 6.0;
       float frame_outset = box_gutter_y + 2;
-      //float frame_thickness = 6.0;
 
       AllegroFlare::Placement2D place(
          achievements_list_x,

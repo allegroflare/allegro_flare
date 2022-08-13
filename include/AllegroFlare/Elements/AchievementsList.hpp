@@ -48,6 +48,7 @@ namespace AllegroFlare
          int count_num_achievements();
          std::string build_achievements_count_string();
          void draw_achievements_list_title_text_and_completed_title_text();
+         void move_scroll_offset_y(float distance_y=0.0f);
          void draw_achievements_list_items();
          void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
          int32_t infer_icon_character_by_status(std::string status="[unset-status]");

@@ -201,6 +201,12 @@ void AchievementsList::draw_achievements_list_title_text_and_completed_title_tex
    return;
 }
 
+void AchievementsList::move_scroll_offset_y(float distance_y)
+{
+   scroll_offset_y += distance_y;
+   return;
+}
+
 void AchievementsList::draw_achievements_list_items()
 {
    float achievements_list_x = surface_width/2;
@@ -215,7 +221,6 @@ void AchievementsList::draw_achievements_list_items()
    float y_spacing = achievements_box_height + box_gutter_y;
    float frame_thickness = 6.0;
    float frame_outset = box_gutter_y + 2;
-   //float frame_thickness = 6.0;
 
    AllegroFlare::Placement2D place(
       achievements_list_x,
