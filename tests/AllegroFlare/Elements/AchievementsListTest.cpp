@@ -45,7 +45,7 @@ TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture, re
 
 TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture, CAPTURE__render__will_render_as_expected)
 {
-   AllegroFlare::Elements::AchievementsList achievements;
+   AllegroFlare::Elements::AchievementsList achievements(&get_font_bin_ref());
    achievements.set_achievements(AllegroFlare::Elements::AchievementsList::build_placeholder_achievements());
    achievements.render();
    al_flip_display();

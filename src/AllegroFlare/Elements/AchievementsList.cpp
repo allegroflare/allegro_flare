@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
 #include <stdexcept>
 #include <sstream>
 
@@ -15,11 +16,11 @@ namespace Elements
 {
 
 
-AchievementsList::AchievementsList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<bool, std::string, std::string>> achievements, float achievements_box_height, float achievements_box_width)
+AchievementsList::AchievementsList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<bool, std::string, std::string>> achievements, float achievements_box_width, float achievements_box_height)
    : font_bin(font_bin)
    , achievements(achievements)
-   , achievements_box_height(achievements_box_height)
    , achievements_box_width(achievements_box_width)
+   , achievements_box_height(achievements_box_height)
    , surface_width(1920)
    , surface_height(1080)
 {
@@ -37,15 +38,15 @@ void AchievementsList::set_achievements(std::vector<std::tuple<bool, std::string
 }
 
 
-void AchievementsList::set_achievements_box_height(float achievements_box_height)
-{
-   this->achievements_box_height = achievements_box_height;
-}
-
-
 void AchievementsList::set_achievements_box_width(float achievements_box_width)
 {
    this->achievements_box_width = achievements_box_width;
+}
+
+
+void AchievementsList::set_achievements_box_height(float achievements_box_height)
+{
+   this->achievements_box_height = achievements_box_height;
 }
 
 
@@ -67,15 +68,15 @@ std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::get_ac
 }
 
 
-float AchievementsList::get_achievements_box_height()
-{
-   return achievements_box_height;
-}
-
-
 float AchievementsList::get_achievements_box_width()
 {
    return achievements_box_width;
+}
+
+
+float AchievementsList::get_achievements_box_height()
+{
+   return achievements_box_height;
 }
 
 
@@ -105,11 +106,11 @@ void AchievementsList::render()
          error_message << "AchievementsList" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   AllegroFlare::Placement2D place(surface_width/2, surface_height/2, 800, 700);
+   AllegroFlare::Placement2D place(surface_width/2, surface_height/2, achievements_box_width, 900);
 
    float x = 0;
    float y = 0;
-   float y_spacing = 30;
+   float y_spacing = 190 + 10;
 
    place.start_transform();
    for (int i=0; i<achievements.size(); i++)
@@ -125,10 +126,20 @@ void AchievementsList::render()
 
 void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, std::string title, std::string description)
 {
-   float achievements_box_width = 300.0f;
-   float achievements_box_height = 80.0f;
+   ALLEGRO_FONT *title_font = obtain_title_font();
+   float achievements_box_width = 800.0f;
+   float achievements_box_height = 190.0f;
+   float box_padding_x = 20;
+   float box_padding_y = 20;
+   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
+
+   // draw the filled rectangle
    al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
+
+   // draw the title text
+   al_draw_text(title_font, text_color, x + box_padding_x, y + box_padding_y, ALLEGRO_ALIGN_LEFT, title.c_str());
+
    return;
 }
 
@@ -141,12 +152,12 @@ std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::build_
    };
 }
 
-ALLEGRO_FONT* AchievementsList::obtain_font()
+ALLEGRO_FONT* AchievementsList::obtain_title_font()
 {
    if (!(font_bin))
       {
          std::stringstream error_message;
-         error_message << "AchievementsList" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+         error_message << "AchievementsList" << "::" << "obtain_title_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("Inter-Medium.ttf -32");

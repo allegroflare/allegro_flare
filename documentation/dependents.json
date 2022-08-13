@@ -216,6 +216,13 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "al_draw_text": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
+  ],
   "std/vector<std/tuple<bool, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList"
   ],
@@ -413,12 +420,6 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
-  ],
-  "al_draw_text": [
-    "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/Text",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
   ],
   "AllegroFlare/Elements/DialogBoxFrame": [
     "AllegroFlare/Elements/DialogBoxNameTag",

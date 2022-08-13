@@ -486,11 +486,11 @@ table td
   <td class="property">std::vector&lt;std::tuple&lt;bool, std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
-  <td class="property">achievements_box_height</td>
+  <td class="property">achievements_box_width</td>
   <td class="property">float</td>
 </tr>
 <tr>
-  <td class="property">achievements_box_width</td>
+  <td class="property">achievements_box_height</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -513,7 +513,7 @@ table td
   <td class="method">build_placeholder_achievements()</td>
 </tr>
 <tr>
-  <td class="private_method">obtain_font()</td>
+  <td class="private_method">obtain_title_font()</td>
 </tr>
     </table>
      <table>
@@ -525,6 +525,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;bool, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
@@ -6302,6 +6305,13 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "al_draw_text": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
+  ],
   "std/vector<std/tuple<bool, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList"
   ],
@@ -6499,12 +6509,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
-  ],
-  "al_draw_text": [
-    "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/Text",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
   ],
   "AllegroFlare/Elements/DialogBoxFrame": [
     "AllegroFlare/Elements/DialogBoxNameTag",
