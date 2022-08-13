@@ -319,10 +319,15 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
 std::vector<std::tuple<bool, std::string, std::string>> AchievementsList::build_placeholder_achievements()
 {
    return {
+      { false, "Fade In", "Start out in the world." },
+      { false, "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       { false, "Save the Cat", "Define the hero and make the audience like them." },
       { true, "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
+      { false, "", "Hidden Achievement" },
       { false, "I'm Lovin' It", "Complete the AchievementsList feature." },
       { true, "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
+      { false, "", "Hidden Achievement" },
+      { false, "", "Hidden Achievement" },
    };
 }
 
