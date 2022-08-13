@@ -2,7 +2,9 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <cstdint>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -41,6 +43,8 @@ namespace AllegroFlare
          static std::vector<std::tuple<bool, std::string, std::string>> build_placeholder_achievements();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_description_font();
+         ALLEGRO_FONT* obtain_icon_font();
+         void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0);
       };
    }
 }

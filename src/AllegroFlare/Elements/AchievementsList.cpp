@@ -10,6 +10,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -130,6 +132,7 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
 {
    ALLEGRO_FONT *title_font = obtain_title_font();
    ALLEGRO_FONT *description_font = obtain_description_font();
+   ALLEGRO_FONT *icon_font = obtain_icon_font();
    float achievements_box_width = 800.0f;
    float achievements_box_height = 150.0f;
    float box_padding_x = 20;
@@ -138,11 +141,19 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
    ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
    ALLEGRO_COLOR icon_container_box_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+   ALLEGRO_COLOR icon_locked_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1};
+   ALLEGRO_COLOR icon_achieved_color = ALLEGRO_COLOR{1, 1, 1, 1};
    float title_font_line_height = al_get_font_line_height(title_font);
    float description_font_line_height = al_get_font_line_height(description_font);
+   float icon_font_line_height = al_get_font_line_height(icon_font);
    float icon_container_box_size = achievements_box_height - box_padding_x*2;
    float text_y_offset = 2;
    float text_x_offset = 140;
+
+   float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
+   float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
+   int32_t icon_character = is_achieved ? 0xf091 : 0xf023;
+   ALLEGRO_COLOR icon_color = is_achieved ? icon_achieved_color : icon_locked_color;
 
    // draw the filled rectangle
    al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
@@ -154,6 +165,16 @@ void AchievementsList::draw_achievement_box(float x, float y, bool is_achieved, 
       x + box_padding_x + icon_container_box_size,
       y + box_padding_y + icon_container_box_size,
       icon_container_box_color
+   );
+
+   // draw the icon
+   draw_unicode_character(
+      icon_font,
+      icon_color,
+      icon_box_center_x,
+      icon_box_center_y - icon_font_line_height / 2,
+      icon_character,
+      ALLEGRO_ALIGN_CENTER
    );
 
    // draw the title text
@@ -210,6 +231,26 @@ ALLEGRO_FONT* AchievementsList::obtain_description_font()
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("Inter-Medium.ttf -28");
+}
+
+ALLEGRO_FONT* AchievementsList::obtain_icon_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "AchievementsList" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return font_bin->auto_get("fa-solid-900.ttf -50");
+}
+
+void AchievementsList::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, int x, int y, uint32_t icon, int flags)
+{
+   static ALLEGRO_USTR *ustr = NULL;
+   if (!ustr) ustr = al_ustr_new("");
+   al_ustr_set_chr(ustr, 0, icon);
+   al_draw_ustr(font, color, x, y, flags, ustr);
+   return;
 }
 } // namespace Elements
 } // namespace AllegroFlare

@@ -518,10 +518,19 @@ table td
 <tr>
   <td class="private_method">obtain_description_font()</td>
 </tr>
+<tr>
+  <td class="private_method">obtain_icon_font()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_unicode_character(6)</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
@@ -6302,6 +6311,33 @@ table td
   "GLuint": [
     "AllegroFlare/Cubemap"
   ],
+  "ALLEGRO_COLOR": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogBoxFrame",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/HealthBars/Basic",
+    "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/UnicodeFontViewer",
+    "AllegroFlare/Useful3D/Triangle"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -6373,32 +6409,6 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "ALLEGRO_COLOR": [
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/DialogBoxFrame",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
-    "AllegroFlare/Elements/HealthBars/Basic",
-    "AllegroFlare/Elements/HealthBars/Classic",
-    "AllegroFlare/Elements/HealthBars/Hearts",
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Stopwatch",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Elements/StoryboardPages/Text",
-    "AllegroFlare/Elements/Text",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/UnicodeFontViewer",
-    "AllegroFlare/Useful3D/Triangle"
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Elements/AdvancingText",
