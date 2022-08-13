@@ -199,12 +199,13 @@ functions:
       float box_padding_x = 20;
       float box_padding_y = 20;
       float title_padding_y = 10;
-      ALLEGRO_COLOR title_text_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      ALLEGRO_COLOR title_text_color_normal = ALLEGRO_COLOR{1, 1, 1, 1};
       ALLEGRO_COLOR description_text_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
       ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
       ALLEGRO_COLOR icon_container_box_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       ALLEGRO_COLOR icon_locked_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1};
       ALLEGRO_COLOR icon_achieved_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      ALLEGRO_COLOR title_text_color_hidden = icon_locked_color;
       float item_title_font_line_height = al_get_font_line_height(item_title_font);
       float description_font_line_height = al_get_font_line_height(description_font);
       float icon_font_line_height = al_get_font_line_height(icon_font);
@@ -212,6 +213,8 @@ functions:
       float text_y_offset = 2;
       float icon_container_box_text_x_padding = 30;
       float text_x_offset = icon_container_box_size + icon_container_box_text_x_padding;
+
+      ALLEGRO_COLOR title_text_color = (status == "hidden") ? title_text_color_hidden : title_text_color_normal;
  
       float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
       float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
@@ -222,13 +225,29 @@ functions:
       al_draw_filled_rectangle(x, y, x + achievements_box_width, y + achievements_box_height, box_color);
 
       // draw the icon container box rectangle
-      al_draw_filled_rectangle(
-         x + box_padding_x,
-         y + box_padding_y,
-         x + box_padding_x + icon_container_box_size,
-         y + box_padding_y + icon_container_box_size,
-         icon_container_box_color
-      );
+      if (status == "hidden")
+      {
+         float hidden_icon_box_stroke_thickness = 4.0f;
+         float h_thickness = hidden_icon_box_stroke_thickness * 0.5;
+         al_draw_rectangle(
+            x + box_padding_x + h_thickness,
+            y + box_padding_y + h_thickness,
+            x + box_padding_x + icon_container_box_size - h_thickness,
+            y + box_padding_y + icon_container_box_size - h_thickness,
+            icon_container_box_color,
+            hidden_icon_box_stroke_thickness
+         );
+      }
+      else
+      {
+         al_draw_filled_rectangle(
+            x + box_padding_x,
+            y + box_padding_y,
+            x + box_padding_x + icon_container_box_size,
+            y + box_padding_y + icon_container_box_size,
+            icon_container_box_color
+         );
+      }
 
       // draw the icon
       draw_unicode_character(
