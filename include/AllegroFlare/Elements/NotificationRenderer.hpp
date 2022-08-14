@@ -15,12 +15,24 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::Elements::Notifications::Base* notification;
+         float x;
+         float y;
+         float width;
+         float height;
 
       public:
-         NotificationRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Elements::Notifications::Base* notification=nullptr);
+         NotificationRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Elements::Notifications::Base* notification=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f);
          ~NotificationRenderer();
 
          void set_notification(AllegroFlare::Elements::Notifications::Base* notification);
+         void set_x(float x);
+         void set_y(float y);
+         void set_width(float width);
+         void set_height(float height);
+         float get_x();
+         float get_y();
+         float get_width();
+         float get_height();
          void render();
          void draw_box();
          ALLEGRO_FONT* obtain_font();

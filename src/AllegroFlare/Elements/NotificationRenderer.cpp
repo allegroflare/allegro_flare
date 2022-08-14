@@ -2,6 +2,8 @@
 
 #include <AllegroFlare/Elements/NotificationRenderer.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
+#include <AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp>
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
@@ -15,9 +17,13 @@ namespace Elements
 {
 
 
-NotificationRenderer::NotificationRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::Notifications::Base* notification)
+NotificationRenderer::NotificationRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::Notifications::Base* notification, float x, float y, float width, float height)
    : font_bin(font_bin)
    , notification(notification)
+   , x(x)
+   , y(y)
+   , width(width)
+   , height(height)
 {
 }
 
@@ -30,6 +36,54 @@ NotificationRenderer::~NotificationRenderer()
 void NotificationRenderer::set_notification(AllegroFlare::Elements::Notifications::Base* notification)
 {
    this->notification = notification;
+}
+
+
+void NotificationRenderer::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void NotificationRenderer::set_y(float y)
+{
+   this->y = y;
+}
+
+
+void NotificationRenderer::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void NotificationRenderer::set_height(float height)
+{
+   this->height = height;
+}
+
+
+float NotificationRenderer::get_x()
+{
+   return x;
+}
+
+
+float NotificationRenderer::get_y()
+{
+   return y;
+}
+
+
+float NotificationRenderer::get_width()
+{
+   return width;
+}
+
+
+float NotificationRenderer::get_height()
+{
+   return height;
 }
 
 
@@ -67,7 +121,18 @@ void NotificationRenderer::render()
       }
    if (notification->is_type("AchievementUnlocked"))
    {
-      draw_box();
+      AllegroFlare::Elements::Notifications::AchievementUnlocked *achievement_unlocked_notification =
+         dynamic_cast<AllegroFlare::Elements::Notifications::AchievementUnlocked*>(notification);
+      std::string notification_name = achievement_unlocked_notification->get_name();
+      AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked_renderer(
+         font_bin,
+         x,
+         y,
+         width,
+         height,
+         notification_name
+      );
+      achievement_unlocked_renderer.render();
    }
    else
    {

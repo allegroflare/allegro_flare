@@ -559,6 +559,12 @@
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked"
   ],
+  "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked": [
+    "AllegroFlare/Elements/NotificationRenderer"
+  ],
+  "AllegroFlare/Elements/Notifications/AchievementUnlocked": [
+    "AllegroFlare/Elements/NotificationRenderer"
+  ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
     "AllegroFlare/Elements/PlayingCards/Deck"
   ],

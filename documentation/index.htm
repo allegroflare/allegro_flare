@@ -2425,6 +2425,22 @@ table td
   <td class="property">notification</td>
   <td class="property">AllegroFlare::Elements::Notifications::Base*</td>
 </tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -2449,6 +2465,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::AchievementUnlocked&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7067,6 +7089,12 @@ table td
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked"
+  ],
+  "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked": [
+    "AllegroFlare/Elements/NotificationRenderer"
+  ],
+  "AllegroFlare/Elements/Notifications/AchievementUnlocked": [
+    "AllegroFlare/Elements/NotificationRenderer"
   ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
     "AllegroFlare/Elements/PlayingCards/Deck"

@@ -12,6 +12,34 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: 560.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: 130.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -27,7 +55,18 @@ functions:
     body: |
       if (notification->is_type("AchievementUnlocked"))
       {
-         draw_box();
+         AllegroFlare::Elements::Notifications::AchievementUnlocked *achievement_unlocked_notification =
+            dynamic_cast<AllegroFlare::Elements::Notifications::AchievementUnlocked*>(notification);
+         std::string notification_name = achievement_unlocked_notification->get_name();
+         AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked_renderer(
+            font_bin,
+            x,
+            y,
+            width,
+            height,
+            notification_name
+         );
+         achievement_unlocked_renderer.render();
       }
       else
       {
@@ -40,6 +79,8 @@ functions:
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
+      - AllegroFlare::Elements::Notifications::AchievementUnlocked
+      - AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked
       - std::stringstream
 
 
@@ -73,5 +114,9 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Elements::Notifications::Base*
     headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
+  - symbol: AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked
+    headers: [ AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp ]
+  - symbol: AllegroFlare::Elements::Notifications::AchievementUnlocked
+    headers: [ AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp ]
 
 
