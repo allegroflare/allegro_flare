@@ -13,6 +13,7 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: cursor_dest_position
     type: float
@@ -30,6 +31,17 @@ properties:
     
 
 functions:
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    body: |
+      this->font_bin = font_bin;
+      achievements_list.set_font_bin(font_bin);
+      return;
 
 
   - name: initialize

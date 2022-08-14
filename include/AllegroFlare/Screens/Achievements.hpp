@@ -26,6 +26,7 @@ namespace AllegroFlare
          virtual ~Achievements();
 
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
+         void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void initialize();
          virtual void primary_timer_func() override;
          void update();

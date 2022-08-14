@@ -39,6 +39,13 @@ AllegroFlare::Elements::AchievementsList &Achievements::get_achievements_list_re
 }
 
 
+void Achievements::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+   achievements_list.set_font_bin(font_bin);
+   return;
+}
+
 void Achievements::initialize()
 {
    if (!((!initialized)))
