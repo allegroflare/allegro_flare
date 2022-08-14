@@ -37,10 +37,12 @@ TEST_F(AllegroFlare_Elements_NotificationRenderers_AchievementUnlockedTest,
 
 
 TEST_F(AllegroFlare_Elements_NotificationRenderers_AchievementUnlockedTestWithAllegroRenderingFixture,
-   render__will_not_blow_up)
+   CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked;
+   AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked(&get_font_bin_ref());
    achievement_unlocked.render();
+   al_flip_display();
+   sleep(1);
 }
 
 

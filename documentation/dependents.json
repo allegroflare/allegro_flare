@@ -75,6 +75,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -116,6 +117,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -226,6 +228,7 @@
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/ScrollBar",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -247,12 +250,14 @@
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo"

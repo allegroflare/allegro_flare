@@ -18,13 +18,28 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::FontBin* font_bin;
+            float x;
+            float y;
+            float width;
+            float height;
+            std::string name;
 
          public:
-            AchievementUnlocked(AllegroFlare::FontBin* font_bin=nullptr);
+            AchievementUnlocked(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f, std::string name="[unset-name]");
             ~AchievementUnlocked();
 
+            void set_x(float x);
+            void set_y(float y);
+            void set_width(float width);
+            void set_height(float height);
+            void set_name(std::string name);
+            float get_x();
+            float get_y();
+            float get_width();
+            float get_height();
+            std::string get_name();
             void render();
-            void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
+            void draw_achievement_box(std::string title="[unset-title]", std::string description="[unset-description]");
             int32_t infer_icon_character_by_status(std::string status="[unset-status]");
             ALLEGRO_COLOR infer_icon_color_by_status(std::string status="[unset-status]", ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1});
             std::string filter_item_title_through_status(std::string title="[unset-title]", std::string status="[unset-status]");

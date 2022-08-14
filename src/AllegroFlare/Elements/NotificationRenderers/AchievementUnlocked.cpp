@@ -21,14 +21,79 @@ namespace NotificationRenderers
 {
 
 
-AchievementUnlocked::AchievementUnlocked(AllegroFlare::FontBin* font_bin)
+AchievementUnlocked::AchievementUnlocked(AllegroFlare::FontBin* font_bin, float x, float y, float width, float height, std::string name)
    : font_bin(font_bin)
+   , x(x)
+   , y(y)
+   , width(width)
+   , height(height)
+   , name(name)
 {
 }
 
 
 AchievementUnlocked::~AchievementUnlocked()
 {
+}
+
+
+void AchievementUnlocked::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void AchievementUnlocked::set_y(float y)
+{
+   this->y = y;
+}
+
+
+void AchievementUnlocked::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void AchievementUnlocked::set_height(float height)
+{
+   this->height = height;
+}
+
+
+void AchievementUnlocked::set_name(std::string name)
+{
+   this->name = name;
+}
+
+
+float AchievementUnlocked::get_x()
+{
+   return x;
+}
+
+
+float AchievementUnlocked::get_y()
+{
+   return y;
+}
+
+
+float AchievementUnlocked::get_width()
+{
+   return width;
+}
+
+
+float AchievementUnlocked::get_height()
+{
+   return height;
+}
+
+
+std::string AchievementUnlocked::get_name()
+{
+   return name;
 }
 
 
@@ -46,16 +111,18 @@ void AchievementUnlocked::render()
          error_message << "AchievementUnlocked" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
+   draw_achievement_box("Achievement Unlocked", name);
    return;
 }
 
-void AchievementUnlocked::draw_achievement_box(float x, float y, std::string status, std::string title, std::string description)
+void AchievementUnlocked::draw_achievement_box(std::string title, std::string description)
 {
+   std::string status = "unlocked";
    ALLEGRO_FONT *item_title_font = obtain_item_title_font();
    ALLEGRO_FONT *description_font = obtain_item_description_font();
    ALLEGRO_FONT *icon_font = obtain_icon_font();
-   float achievements_box_width = 940.0f;
-   float achievements_box_height = 130.0f;
+   float achievements_box_width = width; //560.0f;
+   float achievements_box_height = height; //130.0f;
    float box_padding_x = 20;
    float box_padding_y = 20;
    float title_padding_y = 10;

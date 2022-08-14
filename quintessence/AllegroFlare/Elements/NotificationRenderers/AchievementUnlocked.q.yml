@@ -6,6 +6,41 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: 560.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: 130.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -14,6 +49,7 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      draw_achievement_box("Achievement Unlocked", name);
       return;
 
 
@@ -21,15 +57,6 @@ functions:
     type: void
     private: true
     parameters:
-      - name: x
-        type: float
-        default_argument: 0.0f
-      - name: y
-        type: float
-        default_argument: 0.0f
-      - name: status
-        type: std::string
-        default_argument: '"[unset-status]"'
       - name: title
         type: std::string
         default_argument: '"[unset-title]"'
@@ -37,11 +64,12 @@ functions:
         type: std::string
         default_argument: '"[unset-description]"'
     body: |
+      std::string status = "unlocked";
       ALLEGRO_FONT *item_title_font = obtain_item_title_font();
       ALLEGRO_FONT *description_font = obtain_item_description_font();
       ALLEGRO_FONT *icon_font = obtain_icon_font();
-      float achievements_box_width = 940.0f;
-      float achievements_box_height = 130.0f;
+      float achievements_box_width = width; //560.0f;
+      float achievements_box_height = height; //130.0f;
       float box_padding_x = 20;
       float box_padding_y = 20;
       float title_padding_y = 10;
