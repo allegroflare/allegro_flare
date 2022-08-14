@@ -7,8 +7,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -154,17 +152,6 @@ void NotificationRenderer::draw_box()
    ALLEGRO_COLOR background_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    al_draw_filled_rectangle(x, y, x+box_width, y+box_height, background_color);
    return;
-}
-
-ALLEGRO_FONT* NotificationRenderer::obtain_font()
-{
-   if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "NotificationRenderer" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   return font_bin->auto_get("Purista Medium.otf -32");
 }
 } // namespace Elements
 } // namespace AllegroFlare

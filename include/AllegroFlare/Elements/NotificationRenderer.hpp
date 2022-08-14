@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/Elements/Notifications/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
-#include <allegro5/allegro_font.h>
 
 
 namespace AllegroFlare
@@ -35,7 +34,6 @@ namespace AllegroFlare
          float get_height();
          void render();
          void draw_box();
-         ALLEGRO_FONT* obtain_font();
       };
    }
 }
