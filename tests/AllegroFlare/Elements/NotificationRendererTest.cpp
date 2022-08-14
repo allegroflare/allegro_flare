@@ -19,6 +19,7 @@ class AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture
 
 #include <AllegroFlare/Elements/NotificationRenderer.hpp>
 
+#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
 
 TEST_F(AllegroFlare_Elements_NotificationRendererTest, can_be_created_without_blowing_up)
 {
@@ -47,17 +48,14 @@ TEST_F(AllegroFlare_Elements_NotificationRendererTest, render__without_primitive
 }
 
 
-TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture, render__will_not_blow_up)
-{
-   AllegroFlare::Elements::NotificationRenderer notification_renderer;
-   notification_renderer.render();
-}
-
-
 TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture,
-   CAPTURE__render__will_render_as_expected)
+   CAPTURE__render__will_render_an_AchievementUnlocked_type_notification)
 {
-   AllegroFlare::Elements::NotificationRenderer notification_renderer;
+   AllegroFlare::Elements::Notifications::AchievementUnlocked achievement_unlocked_notification;
+   AllegroFlare::Elements::NotificationRenderer notification_renderer(
+      &get_font_bin_ref(),
+      &achievement_unlocked_notification
+   );
    notification_renderer.render();
    al_flip_display();
    sleep(1);

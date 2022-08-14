@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/NotificationRenderer.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -14,15 +15,21 @@ namespace Elements
 {
 
 
-NotificationRenderer::NotificationRenderer(AllegroFlare::FontBin* font_bin)
+NotificationRenderer::NotificationRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::Notifications::Base* notification)
    : font_bin(font_bin)
-   , quote({})
+   , notification(notification)
 {
 }
 
 
 NotificationRenderer::~NotificationRenderer()
 {
+}
+
+
+void NotificationRenderer::set_notification(AllegroFlare::Elements::Notifications::Base* notification)
+{
+   this->notification = notification;
 }
 
 
@@ -46,7 +53,30 @@ void NotificationRenderer::render()
          error_message << "NotificationRenderer" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   draw_box();
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "NotificationRenderer" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(notification))
+      {
+         std::stringstream error_message;
+         error_message << "NotificationRenderer" << "::" << "render" << ": error: " << "guard \"notification\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (notification->is_type("AchievementUnlocked"))
+   {
+      draw_box();
+   }
+   else
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::NotificationRenderer::render]: ERROR: "
+                    << "Could not render notification of type \"" << notification->get_type()
+                    << "\" because it is not a recognized type to render.";
+      throw std::runtime_error(error_message.str());
+   }
    return;
 }
 

@@ -6,9 +6,11 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: quote
-    type: std::string
-    init_with: '{}'
+  - name: notification
+    type: AllegroFlare::Elements::Notifications::Base*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
 
 
 functions:
@@ -16,12 +18,29 @@ functions:
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_primitives_addon_initialized() ]
+    guards: 
+      - al_is_system_installed()
+      - al_is_font_addon_initialized()
+      - al_is_primitives_addon_initialized()
+      - font_bin
+      - notification
     body: |
-      draw_box();
+      if (notification->is_type("AchievementUnlocked"))
+      {
+         draw_box();
+      }
+      else
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Elements::NotificationRenderer::render]: ERROR: "
+                       << "Could not render notification of type \"" << notification->get_type()
+                       << "\" because it is not a recognized type to render.";
+         throw std::runtime_error(error_message.str());
+      }
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
+      - std::stringstream
 
 
   - name: draw_box
@@ -52,5 +71,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Elements::Notifications::Base*
+    headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
 
 

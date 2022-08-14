@@ -551,6 +551,7 @@
     "AllegroFlare/Elements/LevelSelect"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
+    "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked"
   ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [

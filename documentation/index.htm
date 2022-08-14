@@ -2421,8 +2421,8 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
-  <td class="property">quote</td>
-  <td class="property">std::string</td>
+  <td class="property">notification</td>
+  <td class="property">AllegroFlare::Elements::Notifications::Base*</td>
 </tr>
     </table>
      <table>
@@ -2445,6 +2445,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -6976,6 +6979,7 @@ table td
     "AllegroFlare/Elements/LevelSelect"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
+    "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked"
   ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
