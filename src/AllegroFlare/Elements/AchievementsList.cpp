@@ -220,7 +220,8 @@ void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
 
 float AchievementsList::infer_container_height()
 {
-   return (achievements_box_height + box_gutter_y) * 5.5;
+   return 800;
+   //return (achievements_box_height + box_gutter_y) * 5.5;
 }
 
 float AchievementsList::infer_container_contents_height()

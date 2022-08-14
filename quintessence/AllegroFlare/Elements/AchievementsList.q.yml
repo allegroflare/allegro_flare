@@ -161,7 +161,9 @@ functions:
 
   - name: infer_container_height
     type: float
-    body: return (achievements_box_height + box_gutter_y) * 5.5;
+    body: |
+      return 800;
+      //return (achievements_box_height + box_gutter_y) * 5.5;
 
 
   - name: infer_container_contents_height
