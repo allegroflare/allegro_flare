@@ -1,0 +1,86 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: notifications
+    type: std::vector<AllegroFlare::Elements::Notifications::Base*>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: notification_box_width
+    type: float
+    init_with: 560.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: notification_box_height
+    type: float
+    init_with: 130.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      AllegroFlare::Placement2D place;
+
+      place.start_transform();
+      for (int i=0; i<notifications.size(); i++)
+      {
+         AllegroFlare::Elements::NotificationRenderer renderer(
+            font_bin,
+            notifications[i],
+            x,
+            y,
+            notification_box_width,
+            notification_box_height
+         );
+         renderer.render();
+      }
+      place.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
+      - AllegroFlare::Elements::NotificationRenderer
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: std::vector<AllegroFlare::Elements::Notifications::Base*>
+    headers: [ vector, AllegroFlare/Elements/Notifications/Base.hpp ]
+  - symbol: AllegroFlare::Elements::NotificationRenderer
+    headers: [ AllegroFlare/Elements/NotificationRenderer.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+
