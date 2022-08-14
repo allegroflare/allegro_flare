@@ -85,6 +85,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Notifications/Base.q.yml">quintessence/AllegroFlare/Elements/Notifications/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/NotificationsRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationsRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml</a></li>
@@ -2607,6 +2608,60 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/NotificationsRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationsRenderer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">notifications</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::Notifications::Base*&gt;</td>
+</tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">notification_box_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">notification_box_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">notification_vertical_gutter</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::Notifications::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::NotificationRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/NotificationRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -6611,6 +6666,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -6726,6 +6782,7 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -7099,6 +7156,12 @@ table td
   ],
   "AllegroFlare/Elements/Notifications/AchievementUnlocked": [
     "AllegroFlare/Elements/NotificationRenderer"
+  ],
+  "std/vector<AllegroFlare/Elements/Notifications/Base>": [
+    "AllegroFlare/Elements/NotificationsRenderer"
+  ],
+  "AllegroFlare/Elements/NotificationRenderer": [
+    "AllegroFlare/Elements/NotificationsRenderer"
   ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
     "AllegroFlare/Elements/PlayingCards/Deck"

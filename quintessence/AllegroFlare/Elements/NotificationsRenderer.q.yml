@@ -13,16 +13,16 @@ properties:
     getter: true
     setter: true
 
-  - name: x
-    type: float
-    init_with: 0.0f
+  - name: surface_width
+    type: int
+    init_with: 1920
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: y
-    type: float
-    init_with: 0.0f
+  - name: surface_height
+    type: int
+    init_with: 1080
     constructor_arg: true
     getter: true
     setter: true
@@ -41,6 +41,13 @@ properties:
     getter: true
     setter: true
 
+  - name: notification_vertical_gutter
+    type: float
+    init_with: 16.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -49,7 +56,18 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      AllegroFlare::Placement2D place;
+      float surface_padding_x = 20;
+      float surface_padding_y = 60;
+      AllegroFlare::Placement2D place(
+         surface_width-surface_padding_x*2,
+         surface_padding_y*2,
+         notification_box_width,
+         100
+      );
+      place.align.x = 1.0;
+      place.align.y = 0.0f;
+
+      float cursor_y = 0;
 
       place.start_transform();
       for (int i=0; i<notifications.size(); i++)
@@ -57,12 +75,14 @@ functions:
          AllegroFlare::Elements::NotificationRenderer renderer(
             font_bin,
             notifications[i],
-            x,
-            y,
+            0,
+            cursor_y,
             notification_box_width,
             notification_box_height
          );
          renderer.render();
+
+         cursor_y += notification_box_height + notification_vertical_gutter;
       }
       place.restore_transform();
       return;

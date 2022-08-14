@@ -76,6 +76,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -191,6 +192,7 @@
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -564,6 +566,12 @@
   ],
   "AllegroFlare/Elements/Notifications/AchievementUnlocked": [
     "AllegroFlare/Elements/NotificationRenderer"
+  ],
+  "std/vector<AllegroFlare/Elements/Notifications/Base>": [
+    "AllegroFlare/Elements/NotificationsRenderer"
+  ],
+  "AllegroFlare/Elements/NotificationRenderer": [
+    "AllegroFlare/Elements/NotificationsRenderer"
   ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
     "AllegroFlare/Elements/PlayingCards/Deck"

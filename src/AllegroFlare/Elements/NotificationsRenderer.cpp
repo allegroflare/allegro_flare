@@ -13,13 +13,14 @@ namespace Elements
 {
 
 
-NotificationsRenderer::NotificationsRenderer(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::Notifications::Base*> notifications, float x, float y, float notification_box_width, float notification_box_height)
+NotificationsRenderer::NotificationsRenderer(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::Notifications::Base*> notifications, int surface_width, int surface_height, float notification_box_width, float notification_box_height, float notification_vertical_gutter)
    : font_bin(font_bin)
    , notifications(notifications)
-   , x(x)
-   , y(y)
+   , surface_width(surface_width)
+   , surface_height(surface_height)
    , notification_box_width(notification_box_width)
    , notification_box_height(notification_box_height)
+   , notification_vertical_gutter(notification_vertical_gutter)
 {
 }
 
@@ -35,15 +36,15 @@ void NotificationsRenderer::set_notifications(std::vector<AllegroFlare::Elements
 }
 
 
-void NotificationsRenderer::set_x(float x)
+void NotificationsRenderer::set_surface_width(int surface_width)
 {
-   this->x = x;
+   this->surface_width = surface_width;
 }
 
 
-void NotificationsRenderer::set_y(float y)
+void NotificationsRenderer::set_surface_height(int surface_height)
 {
-   this->y = y;
+   this->surface_height = surface_height;
 }
 
 
@@ -59,21 +60,27 @@ void NotificationsRenderer::set_notification_box_height(float notification_box_h
 }
 
 
+void NotificationsRenderer::set_notification_vertical_gutter(float notification_vertical_gutter)
+{
+   this->notification_vertical_gutter = notification_vertical_gutter;
+}
+
+
 std::vector<AllegroFlare::Elements::Notifications::Base*> NotificationsRenderer::get_notifications()
 {
    return notifications;
 }
 
 
-float NotificationsRenderer::get_x()
+int NotificationsRenderer::get_surface_width()
 {
-   return x;
+   return surface_width;
 }
 
 
-float NotificationsRenderer::get_y()
+int NotificationsRenderer::get_surface_height()
 {
-   return y;
+   return surface_height;
 }
 
 
@@ -86,6 +93,12 @@ float NotificationsRenderer::get_notification_box_width()
 float NotificationsRenderer::get_notification_box_height()
 {
    return notification_box_height;
+}
+
+
+float NotificationsRenderer::get_notification_vertical_gutter()
+{
+   return notification_vertical_gutter;
 }
 
 
@@ -103,7 +116,18 @@ void NotificationsRenderer::render()
          error_message << "NotificationsRenderer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   AllegroFlare::Placement2D place;
+   float surface_padding_x = 20;
+   float surface_padding_y = 60;
+   AllegroFlare::Placement2D place(
+      surface_width-surface_padding_x*2,
+      surface_padding_y*2,
+      notification_box_width,
+      100
+   );
+   place.align.x = 1.0;
+   place.align.y = 0.0f;
+
+   float cursor_y = 0;
 
    place.start_transform();
    for (int i=0; i<notifications.size(); i++)
@@ -111,12 +135,14 @@ void NotificationsRenderer::render()
       AllegroFlare::Elements::NotificationRenderer renderer(
          font_bin,
          notifications[i],
-         x,
-         y,
+         0,
+         cursor_y,
          notification_box_width,
          notification_box_height
       );
       renderer.render();
+
+      cursor_y += notification_box_height + notification_vertical_gutter;
    }
    place.restore_transform();
    return;

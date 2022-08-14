@@ -42,6 +42,8 @@ TEST_F(AllegroFlare_Elements_NotificationsRendererTestWithAllegroRenderingFixtur
 {
    std::vector<AllegroFlare::Elements::Notifications::Base*> notifications({
       new AllegroFlare::Elements::Notifications::AchievementUnlocked("Bite the Bullet"),
+      new AllegroFlare::Elements::Notifications::AchievementUnlocked("Work Hard"),
+      new AllegroFlare::Elements::Notifications::AchievementUnlocked("Win the Prize"),
    });
 
    AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&get_font_bin_ref(), notifications);
@@ -49,8 +51,8 @@ TEST_F(AllegroFlare_Elements_NotificationsRendererTestWithAllegroRenderingFixtur
    al_flip_display();
    sleep(1);
 
-   // TODO
-   // delete the notifications
+   // clean up the notifications
+   for (auto &notification : notifications) delete notification;
 }
 
 
