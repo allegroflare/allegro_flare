@@ -43,8 +43,8 @@ properties:
     type: float
     init_with: 0.0f
     getter: true
-    getter_ref: true
-    setter: true
+    getter_ref: false
+    setter: false
 
 
 functions:
@@ -139,6 +139,35 @@ functions:
         default_argument: 0.0f
     body: |
       scroll_offset_y += distance_y;
+      limit_scroll_offset_y();
+      return;
+
+
+  - name: set_scroll_offset_y
+    parameters:
+      - name: scroll_offset_y
+        type: float
+        default_argument: 0.0f
+    body: |
+      this->scroll_offset_y = scroll_offset_y;
+      limit_scroll_offset_y();
+      return;
+
+
+  - name: limit_scroll_offset_y
+    body: |
+      float box_gutter_y = 10;
+      float y_spacing = achievements_box_height + box_gutter_y;
+      float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
+      float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
+                                                                                            // to take into account
+                                                                                            // lists of size 0; E.g.
+                                                                                            // Box gutter y should not
+                                                                                            // be subtracted in that
+                                                                                            // case
+      float container_scroll_range = container_contents_height - container_height;
+      float range_capped_scroll_offset_y = std::max(0.0f, std::min(container_scroll_range, scroll_offset_y));
+      scroll_offset_y = range_capped_scroll_offset_y;
       return;
 
 

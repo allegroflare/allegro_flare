@@ -71,12 +71,6 @@ void AchievementsList::set_surface_height(int surface_height)
 }
 
 
-void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
-{
-   this->scroll_offset_y = scroll_offset_y;
-}
-
-
 std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::get_achievements()
 {
    return achievements;
@@ -108,12 +102,6 @@ int AchievementsList::get_surface_height()
 
 
 float AchievementsList::get_scroll_offset_y()
-{
-   return scroll_offset_y;
-}
-
-
-float &AchievementsList::get_scroll_offset_y_ref()
 {
    return scroll_offset_y;
 }
@@ -206,6 +194,31 @@ void AchievementsList::draw_achievements_list_title_text_and_completed_title_tex
 void AchievementsList::move_scroll_offset_y(float distance_y)
 {
    scroll_offset_y += distance_y;
+   limit_scroll_offset_y();
+   return;
+}
+
+void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
+{
+   this->scroll_offset_y = scroll_offset_y;
+   limit_scroll_offset_y();
+   return;
+}
+
+void AchievementsList::limit_scroll_offset_y()
+{
+   float box_gutter_y = 10;
+   float y_spacing = achievements_box_height + box_gutter_y;
+   float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
+   float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
+                                                                                         // to take into account
+                                                                                         // lists of size 0; E.g.
+                                                                                         // Box gutter y should not
+                                                                                         // be subtracted in that
+                                                                                         // case
+   float container_scroll_range = container_contents_height - container_height;
+   float range_capped_scroll_offset_y = std::max(0.0f, std::min(container_scroll_range, scroll_offset_y));
+   scroll_offset_y = range_capped_scroll_offset_y;
    return;
 }
 

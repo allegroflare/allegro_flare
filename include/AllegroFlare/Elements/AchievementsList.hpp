@@ -34,14 +34,12 @@ namespace AllegroFlare
          void set_achievements_box_height(float achievements_box_height);
          void set_surface_width(int surface_width);
          void set_surface_height(int surface_height);
-         void set_scroll_offset_y(float scroll_offset_y);
          std::vector<std::tuple<std::string, std::string, std::string>> get_achievements();
          float get_achievements_box_width();
          float get_achievements_box_height();
          int get_surface_width();
          int get_surface_height();
          float get_scroll_offset_y();
-         float &get_scroll_offset_y_ref();
          void render();
          int count_num_achievements_completed();
          void draw_header_title_backfill();
@@ -49,6 +47,8 @@ namespace AllegroFlare
          std::string build_achievements_count_string();
          void draw_achievements_list_title_text_and_completed_title_text();
          void move_scroll_offset_y(float distance_y=0.0f);
+         void set_scroll_offset_y(float scroll_offset_y=0.0f);
+         void limit_scroll_offset_y();
          void draw_achievements_list_items_and_scrollbar();
          void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
          int32_t infer_icon_character_by_status(std::string status="[unset-status]");
