@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Elements/Scrollbar.hpp>
+#include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <stdexcept>
@@ -214,9 +215,11 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    float achievements_list_y = surface_height/2 + 40;
    float achievements_list_width = achievements_box_width;
    float box_gutter_y = 10;
-   float scrollbar_x_padding = 20;
-   float achievements_list_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
+   float scrollbar_x_padding = 70;
+   float scrollbar_y_padding = 26;
    ALLEGRO_COLOR achievements_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+   ALLEGRO_COLOR scrollbar_bar_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+   ALLEGRO_COLOR scrollbar_handle_color = ALLEGRO_COLOR{0.5, 0.505, 0.51, 1.0};
    float achievements_box_list_x = 0;
    float achievements_box_list_y = 0;
    //float box_gutter_y = 10;
@@ -224,11 +227,23 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    float frame_thickness = 6.0;
    float frame_outset = box_gutter_y + 2;
 
+   float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
+   float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
+                                                                                         // to take into account
+                                                                                         // lists of size 0; E.g.
+                                                                                         // Box gutter y should not
+                                                                                         // be subtracted in that
+                                                                                         // case
+   float container_scroll_range = container_contents_height - container_height;
+   float normalized_scroll_offset_y = scroll_offset_y / container_scroll_range;
+   float range_capped_scroll_offset_y = std::max(0.0f, std::min(container_scroll_range, scroll_offset_y));
+   float range_capped_normalized_scroll_offset_y = std::max(0.0f, std::min(1.0f, normalized_scroll_offset_y));
+
    AllegroFlare::Placement2D place(
       achievements_list_x,
       achievements_list_y,
       achievements_list_width,
-      achievements_list_height
+      container_height
    );
 
    place.start_transform();
@@ -241,7 +256,7 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
       std::string description = std::get<2>(achievements[i]);
       draw_achievement_box(
          achievements_box_list_x,
-         achievements_box_list_y + i * y_spacing - scroll_offset_y,
+         achievements_box_list_y + i * y_spacing - range_capped_scroll_offset_y,
          status,
          title,
          description
@@ -253,7 +268,7 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    //   0 - frame_outset,
    //   0 - frame_outset,
    //   achievements_list_width + frame_outset,
-   //   achievements_list_height + frame_outset, 
+   //   achievements_list_container_height + frame_outset,
    //   5.0,
    //   5.0,
    //   achievements_list_frame_color,
@@ -261,7 +276,14 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    //);
 
    // draw the scrollbar
-   AllegroFlare::Elements::Scrollbar scrollbar(achievements_list_width + scrollbar_x_padding);
+   AllegroFlare::Elements::Scrollbar scrollbar(
+      achievements_list_width + scrollbar_x_padding,
+      scrollbar_y_padding,
+      container_height - scrollbar_y_padding * 2,
+      range_capped_normalized_scroll_offset_y,
+      scrollbar_bar_color,
+      scrollbar_handle_color
+   );
    scrollbar.render();
 
    place.restore_transform();

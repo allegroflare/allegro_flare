@@ -261,6 +261,14 @@
   "AllegroFlare/Elements/Scrollbar": [
     "AllegroFlare/Elements/AchievementsList"
   ],
+  "std/min, std/max": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image"
+  ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",
@@ -344,13 +352,6 @@
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image"
-  ],
-  "std/min, std/max": [
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image"
