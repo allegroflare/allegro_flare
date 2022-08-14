@@ -11,6 +11,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <stdexcept>
@@ -48,6 +50,13 @@ void Achievements::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
    achievements_list.set_font_bin(font_bin);
+   return;
+}
+
+void Achievements::on_activate()
+{
+   achievements_list.set_scrollbar_position_to_max();
+   move_scrollbar_position_to(0);
    return;
 }
 
@@ -114,12 +123,25 @@ void Achievements::update()
    return;
 }
 
-void Achievements::move_cursor_up()
+void Achievements::move_scrollbar_position_to(float position)
 {
    if (!(initialized))
       {
          std::stringstream error_message;
-         error_message << "Achievements" << "::" << "move_cursor_up" << ": error: " << "guard \"initialized\" not met";
+         error_message << "Achievements" << "::" << "move_scrollbar_position_to" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   scrollbar_dest_position = position;
+   limit_scrollbar_dest_position();
+   return;
+}
+
+void Achievements::move_scrollbar_position_up()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "move_scrollbar_position_up" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    scrollbar_dest_position -= 36.0f;
@@ -127,12 +149,12 @@ void Achievements::move_cursor_up()
    return;
 }
 
-void Achievements::move_cursor_down()
+void Achievements::move_scrollbar_position_down()
 {
    if (!(initialized))
       {
          std::stringstream error_message;
-         error_message << "Achievements" << "::" << "move_cursor_down" << ": error: " << "guard \"initialized\" not met";
+         error_message << "Achievements" << "::" << "move_scrollbar_position_down" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    scrollbar_dest_position += 36.0f;
@@ -142,8 +164,8 @@ void Achievements::move_cursor_down()
 
 void Achievements::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
-   if (button_num == VirtualControls::get_BUTTON_UP()) move_cursor_up();
-   if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
+   if (button_num == VirtualControls::get_BUTTON_UP()) move_scrollbar_position_up();
+   if (button_num == VirtualControls::get_BUTTON_DOWN()) move_scrollbar_position_down();
 }
 
 void Achievements::render()

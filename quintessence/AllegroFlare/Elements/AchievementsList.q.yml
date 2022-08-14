@@ -89,6 +89,12 @@ functions:
       return;
 
 
+  - name: set_scrollbar_position_to_max
+    body: |
+      this->scrollbar_position = infer_container_scroll_range();
+      return;
+
+
   - name: infer_scrollbar_max_position
     type: float
     body: |

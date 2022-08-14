@@ -27,11 +27,13 @@ namespace AllegroFlare
 
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+         virtual void on_activate() override;
          void initialize();
          virtual void primary_timer_func() override;
          void update();
-         void move_cursor_up();
-         void move_cursor_down();
+         void move_scrollbar_position_to(float position=0.0f);
+         void move_scrollbar_position_up();
+         void move_scrollbar_position_down();
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
          void render();
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();

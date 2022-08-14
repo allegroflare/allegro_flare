@@ -95,6 +95,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
 
    // run the interactive test
    al_start_timer(primary_timer);
+   achievements_screen.on_activate();
    while(!abort)
    {
       al_wait_for_event(event_queue, &event);

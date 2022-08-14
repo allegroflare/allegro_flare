@@ -159,6 +159,12 @@ void AchievementsList::set_scrollbar_position(float scrollbar_position)
    return;
 }
 
+void AchievementsList::set_scrollbar_position_to_max()
+{
+   this->scrollbar_position = infer_container_scroll_range();
+   return;
+}
+
 float AchievementsList::infer_scrollbar_max_position()
 {
    return infer_container_scroll_range();
