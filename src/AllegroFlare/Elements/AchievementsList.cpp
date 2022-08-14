@@ -234,6 +234,11 @@ float AchievementsList::infer_container_contents_height()
                                                           // case
 }
 
+bool AchievementsList::scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()
+{
+   return infer_container_scroll_range() <= 0;
+}
+
 float AchievementsList::infer_container_scroll_range()
 {
    return infer_container_contents_height() - infer_container_height();
@@ -306,15 +311,18 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    //);
 
    // draw the scrollbar
-   AllegroFlare::Elements::Scrollbar scrollbar(
-      achievements_list_width + scrollbar_x_padding,
-      scrollbar_y_padding,
-      container_height - scrollbar_y_padding * 2,
-      normalized_scroll_offset_y,
-      scrollbar_bar_color,
-      scrollbar_handle_color
-   );
-   scrollbar.render();
+   if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
+   {
+      AllegroFlare::Elements::Scrollbar scrollbar(
+         achievements_list_width + scrollbar_x_padding,
+         scrollbar_y_padding,
+         container_height - scrollbar_y_padding * 2,
+         normalized_scroll_offset_y,
+         scrollbar_bar_color,
+         scrollbar_handle_color
+      );
+      scrollbar.render();
+   }
 
    place.restore_transform();
    return;

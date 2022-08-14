@@ -176,6 +176,12 @@ functions:
                                                              // case
 
 
+  - name: scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container
+    type: bool
+    body: |
+      return infer_container_scroll_range() <= 0;
+
+
   - name: infer_container_scroll_range
     type: float
     body: |
@@ -250,15 +256,18 @@ functions:
       //);
 
       // draw the scrollbar
-      AllegroFlare::Elements::Scrollbar scrollbar(
-         achievements_list_width + scrollbar_x_padding,
-         scrollbar_y_padding,
-         container_height - scrollbar_y_padding * 2,
-         normalized_scroll_offset_y,
-         scrollbar_bar_color,
-         scrollbar_handle_color
-      );
-      scrollbar.render();
+      if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
+      {
+         AllegroFlare::Elements::Scrollbar scrollbar(
+            achievements_list_width + scrollbar_x_padding,
+            scrollbar_y_padding,
+            container_height - scrollbar_y_padding * 2,
+            normalized_scroll_offset_y,
+            scrollbar_bar_color,
+            scrollbar_handle_color
+         );
+         scrollbar.render();
+      }
 
       place.restore_transform();
       return;

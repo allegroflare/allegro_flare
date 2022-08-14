@@ -53,6 +53,7 @@ namespace AllegroFlare
          void set_scroll_offset_y(float scroll_offset_y=0.0f);
          float infer_container_height();
          float infer_container_contents_height();
+         bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
          float infer_container_scroll_range();
          void limit_scroll_offset_y();
          void draw_achievements_list_items_and_scrollbar();

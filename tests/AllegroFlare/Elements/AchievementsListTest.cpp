@@ -75,7 +75,21 @@ TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture,
-   INTERACTIVE__will_work_as_expected)
+   CAPTURE__render__will_hide_the_scrollbar_if_the_height_of_items_in_the_list_is_smaller_than_the_container_height)
+{
+   std::vector<std::tuple<std::string, std::string, std::string>> achievements =
+      AllegroFlare::Elements::AchievementsList::build_placeholder_achievements();
+   achievements.resize(4);
+   AllegroFlare::Elements::AchievementsList achievements_list(&get_font_bin_ref(), achievements);
+
+   clear();
+   achievements_list.render();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture,
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
