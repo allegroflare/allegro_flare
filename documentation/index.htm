@@ -504,7 +504,7 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
-  <td class="property">scroll_offset_y</td>
+  <td class="property">scrollbar_position</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -517,10 +517,10 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">move_scroll_offset_y(1)</td>
+  <td class="method">move_scrollbar_position(1)</td>
 </tr>
 <tr>
-  <td class="method">set_scroll_offset_y(1)</td>
+  <td class="method">set_scrollbar_position(1)</td>
 </tr>
 <tr>
   <td class="method">scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()</td>
@@ -553,7 +553,7 @@ table td
   <td class="private_method">infer_container_scroll_range()</td>
 </tr>
 <tr>
-  <td class="private_method">limit_scroll_offset_y()</td>
+  <td class="private_method">limit_scrollbar_position()</td>
 </tr>
 <tr>
   <td class="private_method">draw_achievements_list_items_and_scrollbar()</td>
@@ -4978,7 +4978,7 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
-  <td class="property">cursor_dest_position</td>
+  <td class="property">scrollbar_dest_position</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -5004,6 +5004,15 @@ table td
   <td class="private_method">update()</td>
 </tr>
 <tr>
+  <td class="private_method">move_cursor_up()</td>
+</tr>
+<tr>
+  <td class="private_method">move_cursor_down()</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_button_down_func(3)</td>
+</tr>
+<tr>
   <td class="private_method">render()</td>
 </tr>
 <tr>
@@ -5022,6 +5031,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7074,6 +7086,7 @@ table td
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/VirtualControls": [
+    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",

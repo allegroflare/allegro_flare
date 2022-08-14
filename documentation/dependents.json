@@ -784,6 +784,7 @@
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/VirtualControls": [
+    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",

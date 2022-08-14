@@ -17,12 +17,12 @@ namespace AllegroFlare
       {
       private:
          AllegroFlare::FontBin* font_bin;
-         float cursor_dest_position;
+         float scrollbar_dest_position;
          AllegroFlare::Elements::AchievementsList achievements_list;
          bool initialized;
 
       public:
-         Achievements(AllegroFlare::FontBin* font_bin=nullptr, float cursor_dest_position=0.0f);
+         Achievements(AllegroFlare::FontBin* font_bin=nullptr, float scrollbar_dest_position=0.0f);
          virtual ~Achievements();
 
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
@@ -30,6 +30,9 @@ namespace AllegroFlare
          void initialize();
          virtual void primary_timer_func() override;
          void update();
+         void move_cursor_up();
+         void move_cursor_down();
+         virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
          void render();
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();
       };

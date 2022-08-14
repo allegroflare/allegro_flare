@@ -23,7 +23,7 @@ namespace AllegroFlare
          float achievements_box_height;
          int surface_width;
          int surface_height;
-         float scroll_offset_y;
+         float scrollbar_position;
          float box_gutter_y;
 
       public:
@@ -42,11 +42,11 @@ namespace AllegroFlare
          float get_achievements_box_height();
          int get_surface_width();
          int get_surface_height();
-         float get_scroll_offset_y();
+         float get_scrollbar_position();
          float get_box_gutter_y();
          void render();
-         void move_scroll_offset_y(float distance_y=0.0f);
-         void set_scroll_offset_y(float scroll_offset_y=0.0f);
+         void move_scrollbar_position(float distance_y=0.0f);
+         void set_scrollbar_position(float scrollbar_position=0.0f);
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
          static std::vector<std::tuple<std::string, std::string, std::string>> build_placeholder_achievements();
          int count_num_achievements_completed();
@@ -57,7 +57,7 @@ namespace AllegroFlare
          float infer_container_height();
          float infer_container_contents_height();
          float infer_container_scroll_range();
-         void limit_scroll_offset_y();
+         void limit_scrollbar_position();
          void draw_achievements_list_items_and_scrollbar();
          void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
          int32_t infer_icon_character_by_status(std::string status="[unset-status]");

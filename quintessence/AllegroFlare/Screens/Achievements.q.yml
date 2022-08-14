@@ -15,7 +15,7 @@ properties:
     constructor_arg: true
     setter: false
 
-  - name: cursor_dest_position
+  - name: scrollbar_dest_position
     type: float
     init_with: 0.0f
     constructor_arg: true
@@ -67,7 +67,50 @@ functions:
     private: true
     guards: [ initialized ]
     body: |
+      float scrollbar_position = achievements_list.get_scrollbar_position();
+      if (scrollbar_position != scrollbar_dest_position)
+      {
+         float update_rate = 0.2f;
+         scrollbar_position += (scrollbar_dest_position - scrollbar_position) * update_rate;
+         achievements_list.set_scrollbar_position(scrollbar_position);
+      }
       return;
+
+
+  - name: move_cursor_up
+    private: true
+    guards: [ initialized ]
+    body: |
+      scrollbar_dest_position -= 36.0f;
+      return;
+
+
+  - name: move_cursor_down
+    private: true
+    guards: [ initialized ]
+    body: |
+      scrollbar_dest_position += 36.0f;
+      return;
+
+
+  - name: virtual_control_button_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player_num
+        type: int
+        default_argument: 0
+      - name: button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: 'false'
+    body: |
+      if (button_num == VirtualControls::get_BUTTON_UP()) move_cursor_up();
+      if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControls
 
 
   - name: render
@@ -98,5 +141,7 @@ dependencies:
     headers: [ vector, tuple, string ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::VirtualControls
+    headers: [ AllegroFlare/VirtualControls.hpp ]
 
 

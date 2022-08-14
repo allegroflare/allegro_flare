@@ -7,6 +7,11 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -18,10 +23,10 @@ namespace Screens
 {
 
 
-Achievements::Achievements(AllegroFlare::FontBin* font_bin, float cursor_dest_position)
+Achievements::Achievements(AllegroFlare::FontBin* font_bin, float scrollbar_dest_position)
    : AllegroFlare::Screens::Base("Achievements")
    , font_bin(font_bin)
-   , cursor_dest_position(cursor_dest_position)
+   , scrollbar_dest_position(scrollbar_dest_position)
    , achievements_list({})
    , initialized(false)
 {
@@ -99,7 +104,44 @@ void Achievements::update()
          error_message << "Achievements" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   float scrollbar_position = achievements_list.get_scrollbar_position();
+   if (scrollbar_position != scrollbar_dest_position)
+   {
+      float update_rate = 0.2f;
+      scrollbar_position += (scrollbar_dest_position - scrollbar_position) * update_rate;
+      achievements_list.set_scrollbar_position(scrollbar_position);
+   }
    return;
+}
+
+void Achievements::move_cursor_up()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "move_cursor_up" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   scrollbar_dest_position -= 36.0f;
+   return;
+}
+
+void Achievements::move_cursor_down()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "move_cursor_down" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   scrollbar_dest_position += 36.0f;
+   return;
+}
+
+void Achievements::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+{
+   if (button_num == VirtualControls::get_BUTTON_UP()) move_cursor_up();
+   if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
 }
 
 void Achievements::render()

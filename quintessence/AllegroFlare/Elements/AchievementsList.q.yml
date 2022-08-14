@@ -40,7 +40,7 @@ properties:
     getter: true
     setter: true
 
-  - name: scroll_offset_y
+  - name: scrollbar_position
     type: float
     init_with: 0.0f
     getter: true
@@ -67,25 +67,25 @@ functions:
       - AllegroFlare::Placement2D
 
 
-  - name: move_scroll_offset_y
+  - name: move_scrollbar_position
     parameters:
       - name: distance_y
         type: float
         default_argument: 0.0f
     body: |
-      scroll_offset_y += distance_y;
-      limit_scroll_offset_y();
+      scrollbar_position += distance_y;
+      limit_scrollbar_position();
       return;
 
 
-  - name: set_scroll_offset_y
+  - name: set_scrollbar_position
     parameters:
-      - name: scroll_offset_y
+      - name: scrollbar_position
         type: float
         default_argument: 0.0f
     body: |
-      this->scroll_offset_y = scroll_offset_y;
-      limit_scroll_offset_y();
+      this->scrollbar_position = scrollbar_position;
+      limit_scrollbar_position();
       return;
 
 
@@ -212,14 +212,14 @@ functions:
       return infer_container_contents_height() - infer_container_height();
 
 
-  - name: limit_scroll_offset_y
+  - name: limit_scrollbar_position
     private: true
     body: |
       float y_spacing = achievements_box_height + box_gutter_y;
       float container_height = infer_container_height();
       float container_contents_height = infer_container_contents_height();
       float container_scroll_range = infer_container_scroll_range();
-      scroll_offset_y = std::max(0.0f, std::min(container_scroll_range, scroll_offset_y));
+      scrollbar_position = std::max(0.0f, std::min(container_scroll_range, scrollbar_position));
       return;
 
 
@@ -242,7 +242,7 @@ functions:
       float container_height = infer_container_height();
       float container_contents_height = infer_container_contents_height();
       float container_scroll_range = infer_container_scroll_range();
-      float normalized_scroll_offset_y = scroll_offset_y / container_scroll_range;
+      float normalized_scrollbar_position = scrollbar_position / container_scroll_range;
 
       AllegroFlare::Placement2D place(
          achievements_list_x,
@@ -261,7 +261,7 @@ functions:
          std::string description = std::get<2>(achievements[i]);
          draw_achievement_box(
             achievements_box_list_x,
-            achievements_box_list_y + i * y_spacing - scroll_offset_y,
+            achievements_box_list_y + i * y_spacing - scrollbar_position,
             status,
             title,
             description
@@ -287,7 +287,7 @@ functions:
             achievements_list_width + scrollbar_x_padding,
             scrollbar_y_padding,
             container_height - scrollbar_y_padding * 2,
-            normalized_scroll_offset_y,
+            normalized_scrollbar_position,
             scrollbar_bar_color,
             scrollbar_handle_color
          );

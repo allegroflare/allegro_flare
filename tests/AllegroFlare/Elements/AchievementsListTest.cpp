@@ -56,7 +56,7 @@ TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture, CA
 }
 
 TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture,
-   CAPTURE__render__will_offset_the_list_of_items_by__scroll_offset_y)
+   CAPTURE__render__will_offset_the_list_of_items_by__scrollbar_position)
 {
    AllegroFlare::Elements::AchievementsList achievements(&get_font_bin_ref());
    achievements.set_achievements(AllegroFlare::Elements::AchievementsList::build_placeholder_achievements());
@@ -65,7 +65,7 @@ TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture,
    float amount_per_scroll = 2.6;
    for (int i=0; i<num_scrolls; i++)
    {
-      achievements.set_scroll_offset_y(i * amount_per_scroll);
+      achievements.set_scrollbar_position(i * amount_per_scroll);
 
       clear();
       achievements.render();
@@ -126,12 +126,12 @@ TEST_F(AllegroFlare_Elements_AchievementsListTestWithAllegroRenderingFixture,
             {
                case ALLEGRO_KEY_UP:
                case ALLEGRO_KEY_PGUP:
-                  achievements_list.move_scroll_offset_y(-20.0);
+                  achievements_list.move_scrollbar_position(-20.0);
                break;
 
                case ALLEGRO_KEY_DOWN:
                case ALLEGRO_KEY_PGDN:
-                  achievements_list.move_scroll_offset_y(20.0);
+                  achievements_list.move_scrollbar_position(20.0);
                break;
             }
          }
