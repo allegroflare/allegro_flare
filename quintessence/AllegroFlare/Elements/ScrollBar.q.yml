@@ -1,0 +1,34 @@
+properties:
+
+
+  - name: quote
+    type: std::string
+    init_with: '{}'
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - al_is_primitives_addon_initialized
+
+
+dependencies:
+
+
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+
+
