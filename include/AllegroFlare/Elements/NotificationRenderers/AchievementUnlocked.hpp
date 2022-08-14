@@ -22,21 +22,24 @@ namespace AllegroFlare
             float y;
             float width;
             float height;
+            float created_at;
             std::string name;
 
          public:
-            AchievementUnlocked(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f, std::string name="[unset-name]");
+            AchievementUnlocked(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f, float created_at=0.0f, std::string name="[unset-name]");
             ~AchievementUnlocked();
 
             void set_x(float x);
             void set_y(float y);
             void set_width(float width);
             void set_height(float height);
+            void set_created_at(float created_at);
             void set_name(std::string name);
             float get_x();
             float get_y();
             float get_width();
             float get_height();
+            float get_created_at();
             std::string get_name();
             void render();
             void draw_achievement_box(std::string title="[unset-title]", std::string description="[unset-description]");

@@ -123,14 +123,14 @@ void NotificationRenderer::render()
    {
       AllegroFlare::Elements::Notifications::AchievementUnlocked *achievement_unlocked_notification =
          dynamic_cast<AllegroFlare::Elements::Notifications::AchievementUnlocked*>(notification);
-      std::string notification_name = achievement_unlocked_notification->get_name();
       AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked_renderer(
          font_bin,
          x,
          y,
          width,
          height,
-         notification_name
+         achievement_unlocked_notification->get_created_at(),
+         achievement_unlocked_notification->get_name()
       );
       achievement_unlocked_renderer.render();
    }

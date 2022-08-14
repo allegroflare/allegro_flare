@@ -21,12 +21,13 @@ namespace NotificationRenderers
 {
 
 
-AchievementUnlocked::AchievementUnlocked(AllegroFlare::FontBin* font_bin, float x, float y, float width, float height, std::string name)
+AchievementUnlocked::AchievementUnlocked(AllegroFlare::FontBin* font_bin, float x, float y, float width, float height, float created_at, std::string name)
    : font_bin(font_bin)
    , x(x)
    , y(y)
    , width(width)
    , height(height)
+   , created_at(created_at)
    , name(name)
 {
 }
@@ -61,6 +62,12 @@ void AchievementUnlocked::set_height(float height)
 }
 
 
+void AchievementUnlocked::set_created_at(float created_at)
+{
+   this->created_at = created_at;
+}
+
+
 void AchievementUnlocked::set_name(std::string name)
 {
    this->name = name;
@@ -88,6 +95,12 @@ float AchievementUnlocked::get_width()
 float AchievementUnlocked::get_height()
 {
    return height;
+}
+
+
+float AchievementUnlocked::get_created_at()
+{
+   return created_at;
 }
 
 

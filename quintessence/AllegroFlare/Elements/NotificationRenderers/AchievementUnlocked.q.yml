@@ -34,6 +34,13 @@ properties:
     getter: true
     setter: true
 
+  - name: created_at
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: name
     type: std::string
     init_with: '"[unset-name]"'
