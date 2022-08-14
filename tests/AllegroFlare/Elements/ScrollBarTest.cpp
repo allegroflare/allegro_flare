@@ -9,55 +9,55 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
-class AllegroFlare_Elements_ScrollBarTest : public ::testing::Test
+class AllegroFlare_Elements_ScrollbarTest : public ::testing::Test
 {};
 
-class AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture
+class AllegroFlare_Elements_ScrollbarTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
 
-#include <AllegroFlare/Elements/ScrollBar.hpp>
+#include <AllegroFlare/Elements/Scrollbar.hpp>
 
 
-TEST_F(AllegroFlare_Elements_ScrollBarTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Elements_ScrollbarTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Elements::ScrollBar scroll_bar;
+   AllegroFlare::Elements::Scrollbar scroll_bar;
 }
 
 
-TEST_F(AllegroFlare_Elements_ScrollBarTest, render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Elements_ScrollbarTest, render__without_allegro_initialized__raises_an_error)
 {
-   AllegroFlare::Elements::ScrollBar scroll_bar;
+   AllegroFlare::Elements::Scrollbar scroll_bar;
    std::string expected_error_message =
-      "ScrollBar::render: error: guard \"al_is_system_installed()\" not met";
+      "Scrollbar::render: error: guard \"al_is_system_installed()\" not met";
    EXPECT_THROW_WITH_MESSAGE(scroll_bar.render(), std::runtime_error, expected_error_message);
 }
 
 
-TEST_F(AllegroFlare_Elements_ScrollBarTest, render__without_the_primitives_addon_initialized__raises_an_error)
+TEST_F(AllegroFlare_Elements_ScrollbarTest, render__without_the_primitives_addon_initialized__raises_an_error)
 {
    al_init();
-   AllegroFlare::Elements::ScrollBar scroll_bar;
+   AllegroFlare::Elements::Scrollbar scroll_bar;
    std::string expected_error_message =
-      "ScrollBar::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
+      "Scrollbar::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
    EXPECT_THROW_WITH_MESSAGE(scroll_bar.render(), std::runtime_error, expected_error_message);
    al_uninstall_system();
 }
 
 
-TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture, render__will_not_blow_up)
+TEST_F(AllegroFlare_Elements_ScrollbarTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
-   AllegroFlare::Elements::ScrollBar scroll_bar;
+   AllegroFlare::Elements::Scrollbar scroll_bar;
    scroll_bar.render();
 }
 
 
-TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_ScrollbarTestWithAllegroRenderingFixture,
    CAPTURE__render__will_draw_the_bar_as_expected)
 {
    AllegroFlare::Placement2D place = build_centered_placement(10, 300);
-   AllegroFlare::Elements::ScrollBar scroll_bar;
+   AllegroFlare::Elements::Scrollbar scroll_bar;
 
    place.start_transform();
    scroll_bar.render();
@@ -66,16 +66,16 @@ TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_ScrollbarTestWithAllegroRenderingFixture,
    CAPTURE__various_examples_will_render_as_expected)
 {
    AllegroFlare::Placement2D place = build_centered_placement(10, 300);
 
    place.start_transform();
 
-   AllegroFlare::Elements::ScrollBar(-300, 0, 200, 0.0).render();
-   AllegroFlare::Elements::ScrollBar(0, 0, 300, 1.0 - 0.618033).render();
-   AllegroFlare::Elements::ScrollBar(300, 0, 180, 1.0).render();
+   AllegroFlare::Elements::Scrollbar(-300, 0, 200, 0.0).render();
+   AllegroFlare::Elements::Scrollbar(0, 0, 300, 1.0 - 0.618033).render();
+   AllegroFlare::Elements::Scrollbar(300, 0, 180, 1.0).render();
 
    draw_crosshair(-300, 0);
    draw_crosshair(0, 0);

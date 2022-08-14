@@ -4,7 +4,7 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <stdexcept>
 #include <sstream>
-#include <AllegroFlare/Elements/ScrollBar.hpp>
+#include <AllegroFlare/Elements/Scrollbar.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <stdexcept>
@@ -261,7 +261,7 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    //);
 
    // draw the scrollbar
-   AllegroFlare::Elements::ScrollBar scrollbar(achievements_list_width + scrollbar_x_padding);
+   AllegroFlare::Elements::Scrollbar scrollbar(achievements_list_width + scrollbar_x_padding);
    scrollbar.render();
 
    place.restore_transform();

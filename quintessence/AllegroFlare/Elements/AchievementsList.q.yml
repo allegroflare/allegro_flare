@@ -196,13 +196,13 @@ functions:
       //);
 
       // draw the scrollbar
-      AllegroFlare::Elements::ScrollBar scrollbar(achievements_list_width + scrollbar_x_padding);
+      AllegroFlare::Elements::Scrollbar scrollbar(achievements_list_width + scrollbar_x_padding);
       scrollbar.render();
 
       place.restore_transform();
       return;
     body_dependency_symbols:
-      - AllegroFlare::Elements::ScrollBar
+      - AllegroFlare::Elements::Scrollbar
 
 
   - name: draw_achievement_box
@@ -499,7 +499,7 @@ dependencies:
     headers: [ vector, tuple, string ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
-  - symbol: AllegroFlare::Elements::ScrollBar
-    headers: [ AllegroFlare/Elements/ScrollBar.hpp ]
+  - symbol: AllegroFlare::Elements::Scrollbar
+    headers: [ AllegroFlare/Elements/Scrollbar.hpp ]
 
 
