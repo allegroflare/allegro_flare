@@ -232,7 +232,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Bold.ttf -34");
+      return font_bin->auto_get("Inter-Medium.ttf -32");
 
 
   - name: obtain_item_description_font
@@ -240,7 +240,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -26");
+      return font_bin->auto_get("Inter-Bold.ttf -26");
 
 
   - name: obtain_icon_font

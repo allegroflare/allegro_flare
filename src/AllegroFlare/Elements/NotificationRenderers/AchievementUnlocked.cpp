@@ -270,7 +270,7 @@ ALLEGRO_FONT* AchievementUnlocked::obtain_item_title_font()
          error_message << "AchievementUnlocked" << "::" << "obtain_item_title_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("Inter-Bold.ttf -34");
+   return font_bin->auto_get("Inter-Medium.ttf -32");
 }
 
 ALLEGRO_FONT* AchievementUnlocked::obtain_item_description_font()
@@ -281,7 +281,7 @@ ALLEGRO_FONT* AchievementUnlocked::obtain_item_description_font()
          error_message << "AchievementUnlocked" << "::" << "obtain_item_description_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("Inter-Medium.ttf -26");
+   return font_bin->auto_get("Inter-Bold.ttf -26");
 }
 
 ALLEGRO_FONT* AchievementUnlocked::obtain_icon_font()

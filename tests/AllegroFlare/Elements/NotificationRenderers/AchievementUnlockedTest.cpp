@@ -40,6 +40,7 @@ TEST_F(AllegroFlare_Elements_NotificationRenderers_AchievementUnlockedTestWithAl
    CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked(&get_font_bin_ref());
+   achievement_unlocked.set_name("Know Notifications");
    achievement_unlocked.render();
    al_flip_display();
    sleep(1);
