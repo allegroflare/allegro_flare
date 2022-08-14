@@ -22,16 +22,16 @@ properties:
     getter: true
     setter: true
 
-  - name: handle_height
+  - name: position
     type: float
-    init_with: 50.0f
+    init_with: 0.0f
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: position
+  - name: handle_height
     type: float
-    init_with: 0.0f
+    init_with: 50.0f
     constructor_arg: true
     getter: true
     setter: true

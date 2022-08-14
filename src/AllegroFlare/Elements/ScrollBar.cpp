@@ -13,12 +13,12 @@ namespace Elements
 {
 
 
-ScrollBar::ScrollBar(float x, float y, float height, float handle_height, float position, float rail_thickness, float handle_thickness)
+ScrollBar::ScrollBar(float x, float y, float height, float position, float handle_height, float rail_thickness, float handle_thickness)
    : x(x)
    , y(y)
    , height(height)
-   , handle_height(handle_height)
    , position(position)
+   , handle_height(handle_height)
    , rail_thickness(rail_thickness)
    , handle_thickness(handle_thickness)
 {
@@ -48,15 +48,15 @@ void ScrollBar::set_height(float height)
 }
 
 
-void ScrollBar::set_handle_height(float handle_height)
-{
-   this->handle_height = handle_height;
-}
-
-
 void ScrollBar::set_position(float position)
 {
    this->position = position;
+}
+
+
+void ScrollBar::set_handle_height(float handle_height)
+{
+   this->handle_height = handle_height;
 }
 
 
@@ -90,15 +90,15 @@ float ScrollBar::get_height()
 }
 
 
-float ScrollBar::get_handle_height()
-{
-   return handle_height;
-}
-
-
 float ScrollBar::get_position()
 {
    return position;
+}
+
+
+float ScrollBar::get_handle_height()
+{
+   return handle_height;
 }
 
 
