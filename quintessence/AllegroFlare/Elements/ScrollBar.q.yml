@@ -29,6 +29,20 @@ properties:
     getter: true
     setter: true
 
+  - name: bar_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.4, 0.405, 0.41, 1.0}
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: handle_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0}
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: handle_height
     type: float
     init_with: 50.0f
@@ -46,20 +60,6 @@ properties:
   - name: handle_thickness
     type: float
     init_with: 16.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: bar_color
-    type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{0.4, 0.405, 0.41, 1.0}
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: handle_color
-    type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0}
     constructor_arg: true
     getter: true
     setter: true

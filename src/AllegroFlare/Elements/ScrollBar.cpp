@@ -13,16 +13,16 @@ namespace Elements
 {
 
 
-ScrollBar::ScrollBar(float x, float y, float height, float position, float handle_height, float rail_thickness, float handle_thickness, ALLEGRO_COLOR bar_color, ALLEGRO_COLOR handle_color)
+ScrollBar::ScrollBar(float x, float y, float height, float position, ALLEGRO_COLOR bar_color, ALLEGRO_COLOR handle_color, float handle_height, float rail_thickness, float handle_thickness)
    : x(x)
    , y(y)
    , height(height)
    , position(position)
+   , bar_color(bar_color)
+   , handle_color(handle_color)
    , handle_height(handle_height)
    , rail_thickness(rail_thickness)
    , handle_thickness(handle_thickness)
-   , bar_color(bar_color)
-   , handle_color(handle_color)
 {
 }
 
@@ -56,6 +56,18 @@ void ScrollBar::set_position(float position)
 }
 
 
+void ScrollBar::set_bar_color(ALLEGRO_COLOR bar_color)
+{
+   this->bar_color = bar_color;
+}
+
+
+void ScrollBar::set_handle_color(ALLEGRO_COLOR handle_color)
+{
+   this->handle_color = handle_color;
+}
+
+
 void ScrollBar::set_handle_height(float handle_height)
 {
    this->handle_height = handle_height;
@@ -71,18 +83,6 @@ void ScrollBar::set_rail_thickness(float rail_thickness)
 void ScrollBar::set_handle_thickness(float handle_thickness)
 {
    this->handle_thickness = handle_thickness;
-}
-
-
-void ScrollBar::set_bar_color(ALLEGRO_COLOR bar_color)
-{
-   this->bar_color = bar_color;
-}
-
-
-void ScrollBar::set_handle_color(ALLEGRO_COLOR handle_color)
-{
-   this->handle_color = handle_color;
 }
 
 
@@ -110,6 +110,18 @@ float ScrollBar::get_position()
 }
 
 
+ALLEGRO_COLOR ScrollBar::get_bar_color()
+{
+   return bar_color;
+}
+
+
+ALLEGRO_COLOR ScrollBar::get_handle_color()
+{
+   return handle_color;
+}
+
+
 float ScrollBar::get_handle_height()
 {
    return handle_height;
@@ -125,18 +137,6 @@ float ScrollBar::get_rail_thickness()
 float ScrollBar::get_handle_thickness()
 {
    return handle_thickness;
-}
-
-
-ALLEGRO_COLOR ScrollBar::get_bar_color()
-{
-   return bar_color;
-}
-
-
-ALLEGRO_COLOR ScrollBar::get_handle_color()
-{
-   return handle_color;
 }
 
 
