@@ -220,13 +220,13 @@ void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
 
 float AchievementsList::infer_container_height()
 {
-   return achievements_box_height + box_gutter_y * 5.5;
+   return (achievements_box_height + box_gutter_y) * 5.5;
 }
 
 void AchievementsList::limit_scroll_offset_y()
 {
    float y_spacing = achievements_box_height + box_gutter_y;
-   float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
+   float container_height = infer_container_height();
    float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
                                                                                          // to take into account
                                                                                          // lists of size 0; E.g.
@@ -254,7 +254,7 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    float y_spacing = achievements_box_height + box_gutter_y;
    float frame_thickness = 6.0;
    float frame_outset = box_gutter_y + 2;
-   float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
+   float container_height = infer_container_height();
    float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
                                                                                          // to take into account
                                                                                          // lists of size 0; E.g.
