@@ -136,9 +136,9 @@ void AchievementUnlocked::draw_achievement_box(std::string title, std::string de
    ALLEGRO_FONT *icon_font = obtain_icon_font();
    float achievements_box_width = width; //560.0f;
    float achievements_box_height = height; //130.0f;
-   float box_padding_x = 20;
-   float box_padding_y = 20;
-   float title_padding_y = 10;
+   float box_padding_x = 16;
+   float box_padding_y = 16;
+   float title_to_description_gutter = 6;
    ALLEGRO_COLOR title_text_color_normal = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_COLOR description_text_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
@@ -151,7 +151,7 @@ void AchievementUnlocked::draw_achievement_box(std::string title, std::string de
    float description_font_line_height = al_get_font_line_height(description_font);
    float icon_font_line_height = al_get_font_line_height(icon_font);
    float icon_container_box_size = achievements_box_height - box_padding_x*2;
-   float text_y_offset = 2;
+   float text_y_offset = 14;
    float icon_container_box_text_x_padding = 30;
    float text_x_offset = icon_container_box_size + icon_container_box_text_x_padding;
 
@@ -228,7 +228,7 @@ void AchievementUnlocked::draw_achievement_box(std::string title, std::string de
       x + box_padding_x + text_x_offset,
       y + box_padding_y + text_y_offset,
       ALLEGRO_ALIGN_LEFT,
-      filter_item_title_through_status(title, status).c_str()
+      title.c_str()
    );
 
    // draw the description text
@@ -236,11 +236,11 @@ void AchievementUnlocked::draw_achievement_box(std::string title, std::string de
       description_font,
       description_text_color,
       x + box_padding_x + text_x_offset,
-      y + box_padding_y + item_title_font_line_height + title_padding_y + text_y_offset,
+      y + box_padding_y + item_title_font_line_height + title_to_description_gutter + text_y_offset,
       achievements_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
       description_font_line_height,
       ALLEGRO_ALIGN_LEFT,
-      filter_item_description_through_status(description, status).c_str()
+      description.c_str()
    );
 
    return;
@@ -262,18 +262,6 @@ ALLEGRO_COLOR AchievementUnlocked::infer_icon_color_by_status(std::string status
    return ALLEGRO_COLOR{1, 0, 0, 1};
 }
 
-std::string AchievementUnlocked::filter_item_title_through_status(std::string title, std::string status)
-{
-   if (status == "hidden") return "Hidden Achievement";
-   return title;
-}
-
-std::string AchievementUnlocked::filter_item_description_through_status(std::string description, std::string status)
-{
-   if (status == "hidden") return "";
-   return description;
-}
-
 ALLEGRO_FONT* AchievementUnlocked::obtain_item_title_font()
 {
    if (!(font_bin))
@@ -282,7 +270,7 @@ ALLEGRO_FONT* AchievementUnlocked::obtain_item_title_font()
          error_message << "AchievementUnlocked" << "::" << "obtain_item_title_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("Purista Medium.otf -32");
+   return font_bin->auto_get("Inter-Bold.ttf -34");
 }
 
 ALLEGRO_FONT* AchievementUnlocked::obtain_item_description_font()
