@@ -13,8 +13,12 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 
@@ -25,9 +29,10 @@ namespace Screens
 {
 
 
-Achievements::Achievements(AllegroFlare::FontBin* font_bin, float scrollbar_dest_position)
+Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, float scrollbar_dest_position)
    : AllegroFlare::Screens::Base("Achievements")
    , font_bin(font_bin)
+   , event_emitter(event_emitter)
    , scrollbar_dest_position(scrollbar_dest_position)
    , achievements_list({})
    , initialized(false)
@@ -55,8 +60,19 @@ void Achievements::set_font_bin(AllegroFlare::FontBin* font_bin)
 
 void Achievements::on_activate()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   // position cursor such that it will scroll to the top
    achievements_list.set_scrollbar_position_to_max();
    move_scrollbar_position_to(0);
+
+   // emit events to show and set the input hints
+   emit_event_to_set_input_hints();
+   event_emitter->emit_show_input_hints_bar_event();
    return;
 }
 
@@ -84,6 +100,12 @@ void Achievements::initialize()
       {
          std::stringstream error_message;
          error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
          throw std::runtime_error(error_message.str());
       }
    achievements_list.set_font_bin(font_bin);
@@ -189,6 +211,28 @@ void Achievements::limit_scrollbar_dest_position()
 {
    float scrollbar_max_position = achievements_list.infer_scrollbar_max_position();
    scrollbar_dest_position = std::max(0.0f, std::min(scrollbar_dest_position, scrollbar_max_position));
+   return;
+}
+
+void Achievements::emit_event_to_set_input_hints()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(event_emitter))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   event_emitter->emit_set_input_hints_bar_event({
+      "UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Scroll up/down",
+      "%SEPARATOR",
+      "ESC", "%SPACER", "LABEL>>", "Return",
+   });
    return;
 }
 } // namespace Screens

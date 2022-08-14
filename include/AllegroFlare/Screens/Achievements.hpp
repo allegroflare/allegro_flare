@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Elements/AchievementsList.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <string>
@@ -17,12 +18,13 @@ namespace AllegroFlare
       {
       private:
          AllegroFlare::FontBin* font_bin;
+         AllegroFlare::EventEmitter* event_emitter;
          float scrollbar_dest_position;
          AllegroFlare::Elements::AchievementsList achievements_list;
          bool initialized;
 
       public:
-         Achievements(AllegroFlare::FontBin* font_bin=nullptr, float scrollbar_dest_position=0.0f);
+         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, float scrollbar_dest_position=0.0f);
          virtual ~Achievements();
 
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
@@ -38,6 +40,7 @@ namespace AllegroFlare
          void render();
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();
          void limit_scrollbar_dest_position();
+         void emit_event_to_set_input_hints();
       };
    }
 }

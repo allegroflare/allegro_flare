@@ -41,7 +41,8 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest, render_
 }
 
 
-TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest, render__displays_the_level_select_window)
+TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
+   CAPTURE__render__displays_the_level_select_window)
 {
    AllegroFlare::EventEmitter event_emitter;
    std::vector<std::pair<std::string, std::string>> levels_list = {
@@ -56,8 +57,10 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest, render_
       { "9", "9" },
    };
    AllegroFlare::Elements::LevelSelect level_select(&event_emitter, &get_font_bin_ref(), levels_list);
+
+   clear();
    level_select.render();
-   //SHOW_RENDER();
+   al_flip_display();
 }
 
 

@@ -15,6 +15,12 @@ properties:
     constructor_arg: true
     setter: false
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: false
+
   - name: scrollbar_dest_position
     type: float
     init_with: 0.0f
@@ -47,14 +53,20 @@ functions:
   - name: on_activate
     virtual: true
     override: true
+    guards: [ initialized ]
     body: |
+      // position cursor such that it will scroll to the top
       achievements_list.set_scrollbar_position_to_max();
       move_scrollbar_position_to(0);
+
+      // emit events to show and set the input hints
+      emit_event_to_set_input_hints();
+      event_emitter->emit_show_input_hints_bar_event();
       return;
 
 
   - name: initialize
-    guards: [ (!initialized), al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
+    guards: [ (!initialized), al_is_system_installed(), al_is_font_addon_initialized(), font_bin, event_emitter ]
     body: |
       achievements_list.set_font_bin(font_bin);
       achievements_list.set_achievements(build_achievements());
@@ -162,6 +174,18 @@ functions:
       return;
 
 
+  - name: emit_event_to_set_input_hints
+    private: true
+    guards: [ initialized, event_emitter ]
+    body: |
+      event_emitter->emit_set_input_hints_bar_event({
+         "UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Scroll up/down",
+         "%SEPARATOR",
+         "ESC", "%SPACER", "LABEL>>", "Return",
+      });
+      return;
+
+
 dependencies:
 
 
@@ -177,5 +201,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControls.hpp ]
   - symbol: std::min, std::max
     headers: [ algorithm ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 
 
