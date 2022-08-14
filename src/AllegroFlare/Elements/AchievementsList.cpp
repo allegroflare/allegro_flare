@@ -4,6 +4,7 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/Elements/ScrollBar.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <stdexcept>
@@ -133,6 +134,14 @@ void AchievementsList::render()
       }
    draw_achievements_list_items();
    draw_achievements_list_title_text_and_completed_title_text();
+   draw_scrollbar();
+   return;
+}
+
+void AchievementsList::draw_scrollbar()
+{
+   AllegroFlare::Elements::ScrollBar scrollbar;
+   scrollbar.render();
    return;
 }
 

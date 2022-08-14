@@ -43,6 +43,7 @@ namespace AllegroFlare
          float get_scroll_offset_y();
          float &get_scroll_offset_y_ref();
          void render();
+         void draw_scrollbar();
          int count_num_achievements_completed();
          void draw_header_title_backfill();
          int count_num_achievements();

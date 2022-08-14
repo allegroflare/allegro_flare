@@ -258,6 +258,9 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect"
   ],
+  "AllegroFlare/Elements/ScrollBar": [
+    "AllegroFlare/Elements/AchievementsList"
+  ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",

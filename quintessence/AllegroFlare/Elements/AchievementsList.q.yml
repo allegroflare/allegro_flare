@@ -56,9 +56,19 @@ functions:
     body: |
       draw_achievements_list_items();
       draw_achievements_list_title_text_and_completed_title_text();
+      draw_scrollbar();
       return;
     body_dependency_symbols:
       - AllegroFlare::Placement2D
+
+
+  - name: draw_scrollbar
+    body: |
+      AllegroFlare::Elements::ScrollBar scrollbar;
+      scrollbar.render();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::ScrollBar
 
 
   - name: count_num_achievements_completed
@@ -492,6 +502,7 @@ dependencies:
     headers: [ vector, tuple, string ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
-
+  - symbol: AllegroFlare::Elements::ScrollBar
+    headers: [ AllegroFlare/Elements/ScrollBar.hpp ]
 
 
