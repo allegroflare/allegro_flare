@@ -83,7 +83,6 @@ TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture,
    draw_crosshair(300, 180, ALLEGRO_COLOR{0, 1, 0, 1});
 
    al_flip_display();
-   sleep(1);
    place.restore_transform();
 }
 
