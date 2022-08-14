@@ -21,6 +21,7 @@ namespace AllegroFlare
          ~NotificationRenderer();
 
          void render();
+         void draw_box();
          ALLEGRO_FONT* obtain_font();
       };
    }

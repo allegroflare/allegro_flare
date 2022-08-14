@@ -18,6 +18,14 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_primitives_addon_initialized() ]
     body: |
+      draw_box();
+      return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+
+
+  - name: draw_box
+    body: |
       float x = 200;
       float y = 100;
       float box_width = 200;
@@ -25,8 +33,6 @@ functions:
       ALLEGRO_COLOR background_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       al_draw_filled_rectangle(x, y, x+box_width, y+box_height, background_color);
       return;
-    body_dependency_symbols:
-      - al_is_primitives_addon_initialized
 
 
   - name: obtain_font

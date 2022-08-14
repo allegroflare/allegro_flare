@@ -46,6 +46,12 @@ void NotificationRenderer::render()
          error_message << "NotificationRenderer" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
+   draw_box();
+   return;
+}
+
+void NotificationRenderer::draw_box()
+{
    float x = 200;
    float y = 100;
    float box_width = 200;
