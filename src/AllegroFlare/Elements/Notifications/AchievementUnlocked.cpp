@@ -12,14 +12,27 @@ namespace Notifications
 {
 
 
-AchievementUnlocked::AchievementUnlocked()
+AchievementUnlocked::AchievementUnlocked(std::string name)
    : AllegroFlare::Elements::Notifications::Base("AchievementUnlocked")
+   , name(name)
 {
 }
 
 
 AchievementUnlocked::~AchievementUnlocked()
 {
+}
+
+
+void AchievementUnlocked::set_name(std::string name)
+{
+   this->name = name;
+}
+
+
+std::string AchievementUnlocked::get_name()
+{
+   return name;
 }
 
 

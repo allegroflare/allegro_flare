@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Elements/Notifications/Base.hpp>
+#include <string>
 
 
 namespace AllegroFlare
@@ -13,11 +14,14 @@ namespace AllegroFlare
          class AchievementUnlocked : public AllegroFlare::Elements::Notifications::Base
          {
          private:
+            std::string name;
 
          public:
-            AchievementUnlocked();
+            AchievementUnlocked(std::string name="[unset-name]");
             ~AchievementUnlocked();
 
+            void set_name(std::string name);
+            std::string get_name();
          };
       }
    }

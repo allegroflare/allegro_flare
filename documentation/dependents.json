@@ -383,7 +383,8 @@
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
-    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
+    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Elements/Notifications/Base"
   ],
   "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -481,7 +482,8 @@
     "AllegroFlare/UnicodeFontViewer"
   ],
   "std/vector<std/vector<std/string>>": [
-    "AllegroFlare/Elements/DialogBoxes/Base"
+    "AllegroFlare/Elements/DialogBoxes/Base",
+    "AllegroFlare/Elements/Notifications/Base"
   ],
   "al_is_ttf_addon_initialized": [
     "AllegroFlare/Elements/DialogButton",
@@ -544,6 +546,9 @@
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
+  ],
+  "AllegroFlare/Elements/Notifications/Base": [
+    "AllegroFlare/Elements/Notifications/AchievementUnlocked"
   ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
     "AllegroFlare/Elements/PlayingCards/Deck"

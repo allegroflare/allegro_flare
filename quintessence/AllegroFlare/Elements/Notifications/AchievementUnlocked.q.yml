@@ -6,6 +6,17 @@ parent_classes:
     init_with: '"AchievementUnlocked"'
 
 
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
 dependencies:
 
 

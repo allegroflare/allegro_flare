@@ -81,6 +81,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Notifications/Base.q.yml">quintessence/AllegroFlare/Elements/Notifications/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml</a></li>
@@ -2405,6 +2407,58 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SELECT_LEVEL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Notifications/Base.q.yml">quintessence/AllegroFlare/Elements/Notifications/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">created_at</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">infer_age()</td>
+</tr>
+<tr>
+  <td class="method">is_type(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::vector&lt;std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -6716,7 +6770,8 @@ table td
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
-    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem"
+    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Elements/Notifications/Base"
   ],
   "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -6814,7 +6869,8 @@ table td
     "AllegroFlare/UnicodeFontViewer"
   ],
   "std/vector<std/vector<std/string>>": [
-    "AllegroFlare/Elements/DialogBoxes/Base"
+    "AllegroFlare/Elements/DialogBoxes/Base",
+    "AllegroFlare/Elements/Notifications/Base"
   ],
   "al_is_ttf_addon_initialized": [
     "AllegroFlare/Elements/DialogButton",
@@ -6877,6 +6933,9 @@ table td
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
+  ],
+  "AllegroFlare/Elements/Notifications/Base": [
+    "AllegroFlare/Elements/Notifications/AchievementUnlocked"
   ],
   "std/vector<AllegroFlare/Elements/PlayingCards/Card>": [
     "AllegroFlare/Elements/PlayingCards/Deck"
