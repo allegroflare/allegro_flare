@@ -1,0 +1,40 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
+    body: |
+      AllegroFlare::Elements::AchievementsList achievements_list(font_bin, build_achievements());
+      achievements_list.render();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::AchievementsList
+
+
+  - name: build_achievements
+    type: std::vector<std::tuple<std::string, std::string, std::string>>
+    body: |
+      return AllegroFlare::Elements::AchievementsList::build_placeholder_achievements();
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Elements::AchievementsList
+    headers: [ AllegroFlare/Elements/AchievementsList.hpp ]
+  - symbol: std::vector<std::tuple<std::string, std::string, std::string>>
+    headers: [ vector, tuple, string ]
+
+
