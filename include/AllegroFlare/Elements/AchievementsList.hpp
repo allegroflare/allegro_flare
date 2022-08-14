@@ -44,16 +44,17 @@ namespace AllegroFlare
          float get_scroll_offset_y();
          float get_box_gutter_y();
          void render();
+         void move_scroll_offset_y(float distance_y=0.0f);
+         void set_scroll_offset_y(float scroll_offset_y=0.0f);
+         bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
+         static std::vector<std::tuple<std::string, std::string, std::string>> build_placeholder_achievements();
          int count_num_achievements_completed();
          void draw_header_title_backfill();
          int count_num_achievements();
          std::string build_achievements_count_string();
          void draw_achievements_list_title_text_and_completed_title_text();
-         void move_scroll_offset_y(float distance_y=0.0f);
-         void set_scroll_offset_y(float scroll_offset_y=0.0f);
          float infer_container_height();
          float infer_container_contents_height();
-         bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
          float infer_container_scroll_range();
          void limit_scroll_offset_y();
          void draw_achievements_list_items_and_scrollbar();
@@ -62,7 +63,6 @@ namespace AllegroFlare
          ALLEGRO_COLOR infer_icon_color_by_status(std::string status="[unset-status]", ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1});
          std::string filter_item_title_through_status(std::string title="[unset-title]", std::string status="[unset-status]");
          std::string filter_item_description_through_status(std::string description="[unset-title]", std::string status="[unset-status]");
-         static std::vector<std::tuple<std::string, std::string, std::string>> build_placeholder_achievements();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_item_title_font();
          ALLEGRO_FONT* obtain_item_description_font();

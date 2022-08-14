@@ -139,6 +139,39 @@ void AchievementsList::render()
    return;
 }
 
+void AchievementsList::move_scroll_offset_y(float distance_y)
+{
+   scroll_offset_y += distance_y;
+   limit_scroll_offset_y();
+   return;
+}
+
+void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
+{
+   this->scroll_offset_y = scroll_offset_y;
+   limit_scroll_offset_y();
+   return;
+}
+
+bool AchievementsList::scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()
+{
+   return infer_container_scroll_range() <= 0;
+}
+
+std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::build_placeholder_achievements()
+{
+   return {
+      { "unlocked",   "Fade In", "Start out in the world." },
+      { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
+      { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
+      { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
+      { "hidden",   "Top Secrets", "Find the box of secrets in the 2nd act." },
+      { "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
+      { "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
+      { "hidden",   "Save the Best for Last", "Find out the most important part in the very end." },
+   };
+}
+
 int AchievementsList::count_num_achievements_completed()
 {
    int count = 0;
@@ -204,20 +237,6 @@ void AchievementsList::draw_achievements_list_title_text_and_completed_title_tex
    return;
 }
 
-void AchievementsList::move_scroll_offset_y(float distance_y)
-{
-   scroll_offset_y += distance_y;
-   limit_scroll_offset_y();
-   return;
-}
-
-void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
-{
-   this->scroll_offset_y = scroll_offset_y;
-   limit_scroll_offset_y();
-   return;
-}
-
 float AchievementsList::infer_container_height()
 {
    return 800;
@@ -233,11 +252,6 @@ float AchievementsList::infer_container_contents_height()
                                                           // Box gutter y should not
                                                           // be subtracted in that
                                                           // case
-}
-
-bool AchievementsList::scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()
-{
-   return infer_container_scroll_range() <= 0;
 }
 
 float AchievementsList::infer_container_scroll_range()
@@ -472,20 +486,6 @@ std::string AchievementsList::filter_item_description_through_status(std::string
 {
    if (status == "hidden") return "";
    return description;
-}
-
-std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::build_placeholder_achievements()
-{
-   return {
-      { "unlocked",   "Fade In", "Start out in the world." },
-      { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
-      { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
-      { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
-      { "hidden",   "Top Secrets", "Find the box of secrets in the 2nd act." },
-      { "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
-      { "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
-      { "hidden",   "Save the Best for Last", "Find out the most important part in the very end." },
-   };
 }
 
 ALLEGRO_FONT* AchievementsList::obtain_title_font()

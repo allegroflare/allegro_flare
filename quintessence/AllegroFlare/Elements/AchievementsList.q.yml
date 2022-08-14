@@ -66,6 +66,50 @@ functions:
       - AllegroFlare::Placement2D
 
 
+  - name: move_scroll_offset_y
+    parameters:
+      - name: distance_y
+        type: float
+        default_argument: 0.0f
+    body: |
+      scroll_offset_y += distance_y;
+      limit_scroll_offset_y();
+      return;
+
+
+  - name: set_scroll_offset_y
+    parameters:
+      - name: scroll_offset_y
+        type: float
+        default_argument: 0.0f
+    body: |
+      this->scroll_offset_y = scroll_offset_y;
+      limit_scroll_offset_y();
+      return;
+
+
+  - name: scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container
+    type: bool
+    body: |
+      return infer_container_scroll_range() <= 0;
+
+
+  - name: build_placeholder_achievements
+    type: std::vector<std::tuple<std::string, std::string, std::string>>
+    static: true
+    body: |
+      return {
+         { "unlocked",   "Fade In", "Start out in the world." },
+         { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
+         { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
+         { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
+         { "hidden",   "Top Secrets", "Find the box of secrets in the 2nd act." },
+         { "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
+         { "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
+         { "hidden",   "Save the Best for Last", "Find out the most important part in the very end." },
+      };
+
+
   - name: count_num_achievements_completed
     type: int
     private: true
@@ -80,6 +124,7 @@ functions:
 
 
   - name: draw_header_title_backfill
+    private: true
     body: |
       // draw inputs
       float backfill_opacity = 0.35;
@@ -98,6 +143,7 @@ functions:
 
   - name: build_achievements_count_string
     type: std::string
+    private: true
     body: |
       std::stringstream result;
       result << count_num_achievements_completed() << " of " << count_num_achievements()
@@ -137,30 +183,9 @@ functions:
       return;
 
 
-  - name: move_scroll_offset_y
-    parameters:
-      - name: distance_y
-        type: float
-        default_argument: 0.0f
-    body: |
-      scroll_offset_y += distance_y;
-      limit_scroll_offset_y();
-      return;
-
-
-  - name: set_scroll_offset_y
-    parameters:
-      - name: scroll_offset_y
-        type: float
-        default_argument: 0.0f
-    body: |
-      this->scroll_offset_y = scroll_offset_y;
-      limit_scroll_offset_y();
-      return;
-
-
   - name: infer_container_height
     type: float
+    private: true
     body: |
       return 800;
       //return (achievements_box_height + box_gutter_y) * 5.5;
@@ -168,6 +193,7 @@ functions:
 
   - name: infer_container_contents_height
     type: float
+    private: true
     body: |
       float y_spacing = achievements_box_height + box_gutter_y;
       return achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
@@ -178,19 +204,15 @@ functions:
                                                              // case
 
 
-  - name: scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container
-    type: bool
-    body: |
-      return infer_container_scroll_range() <= 0;
-
-
   - name: infer_container_scroll_range
     type: float
+    private: true
     body: |
       return infer_container_contents_height() - infer_container_height();
 
 
   - name: limit_scroll_offset_y
+    private: true
     body: |
       float y_spacing = achievements_box_height + box_gutter_y;
       float container_height = infer_container_height();
@@ -280,6 +302,7 @@ functions:
 
   - name: draw_achievement_box
     type: void
+    private: true
     parameters:
       - name: x
         type: float
@@ -417,6 +440,7 @@ functions:
 
   - name: infer_icon_character_by_status
     type: int32_t
+    private: true
     parameters:
       - name: status
         type: std::string
@@ -430,6 +454,7 @@ functions:
 
   - name: infer_icon_color_by_status
     type: ALLEGRO_COLOR
+    private: true
     parameters:
       - name: status
         type: std::string
@@ -452,6 +477,7 @@ functions:
 
   - name: filter_item_title_through_status
     type: std::string
+    private: true
     parameters:
       - name: title
         type: std::string
@@ -466,6 +492,7 @@ functions:
 
   - name: filter_item_description_through_status
     type: std::string
+    private: true
     parameters:
       - name: description
         type: std::string
@@ -476,22 +503,6 @@ functions:
     body: |
       if (status == "hidden") return "";
       return description;
-
-
-  - name: build_placeholder_achievements
-    type: std::vector<std::tuple<std::string, std::string, std::string>>
-    static: true
-    body: |
-      return {
-         { "unlocked",   "Fade In", "Start out in the world." },
-         { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
-         { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
-         { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
-         { "hidden",   "Top Secrets", "Find the box of secrets in the 2nd act." },
-         { "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
-         { "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
-         { "hidden",   "Save the Best for Last", "Find out the most important part in the very end." },
-      };
 
 
   - name: obtain_title_font
