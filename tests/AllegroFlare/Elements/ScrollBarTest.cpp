@@ -50,7 +50,19 @@ TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture, render__w
 {
    AllegroFlare::Elements::ScrollBar scroll_bar;
    scroll_bar.render();
-   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture, CAPTURE__render__will_draw_the_bar_as_expected)
+{
+   AllegroFlare::Placement2D place = build_centered_placement(10, 300);
+   AllegroFlare::Elements::ScrollBar scroll_bar;
+
+   place.start_transform();
+   scroll_bar.render();
+   al_flip_display();
+   sleep(1);
+   place.restore_transform();
 }
 
 

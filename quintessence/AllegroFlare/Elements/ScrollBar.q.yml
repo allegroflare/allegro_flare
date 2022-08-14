@@ -1,9 +1,47 @@
 properties:
 
 
-  - name: quote
-    type: std::string
-    init_with: '{}'
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: 100.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: handle_height
+    type: float
+    init_with: 50.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: scroll_bar_position
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bar_thickness
+    type: float
+    init_with: 8.0f
+    constructor_arg: true
+    getter: true
+    setter: true
 
 
 functions:
@@ -13,6 +51,32 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
+      float h_thickness = bar_thickness * 0.5;
+      ALLEGRO_COLOR bar_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1.0};
+      ALLEGRO_COLOR handle_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
+      float denormalized_handle_position = scroll_bar_position * height;
+
+      // draw the rail
+      al_draw_filled_rounded_rectangle(
+         x-bar_thickness,
+         y,
+         x+bar_thickness,
+         y+height,
+         bar_thickness,
+         bar_thickness,
+         bar_color
+      );
+
+      // draw the handle
+      al_draw_filled_rounded_rectangle(
+         x-bar_thickness,
+         y+denormalized_handle_position - handle_height * 0.5,
+         x+bar_thickness,
+         y+denormalized_handle_position + handle_height * 0.5,
+         bar_thickness,
+         bar_thickness,
+         handle_color
+      );
       return;
     body_dependency_symbols:
       - al_is_system_installed
