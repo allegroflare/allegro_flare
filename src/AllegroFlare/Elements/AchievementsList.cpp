@@ -32,6 +32,7 @@ AchievementsList::AchievementsList(AllegroFlare::FontBin* font_bin, std::vector<
    , surface_width(1920)
    , surface_height(1080)
    , scroll_offset_y(0.0f)
+   , box_gutter_y(10.0f)
 {
 }
 
@@ -71,6 +72,12 @@ void AchievementsList::set_surface_height(int surface_height)
 }
 
 
+void AchievementsList::set_box_gutter_y(float box_gutter_y)
+{
+   this->box_gutter_y = box_gutter_y;
+}
+
+
 std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::get_achievements()
 {
    return achievements;
@@ -104,6 +111,12 @@ int AchievementsList::get_surface_height()
 float AchievementsList::get_scroll_offset_y()
 {
    return scroll_offset_y;
+}
+
+
+float AchievementsList::get_box_gutter_y()
+{
+   return box_gutter_y;
 }
 
 
@@ -205,9 +218,14 @@ void AchievementsList::set_scroll_offset_y(float scroll_offset_y)
    return;
 }
 
+float AchievementsList::infer_container_height()
+{
+   return achievements_box_height + box_gutter_y * 5.5;
+}
+
 void AchievementsList::limit_scroll_offset_y()
 {
-   float box_gutter_y = 10;
+   //float box_gutter_y = 10;
    float y_spacing = achievements_box_height + box_gutter_y;
    float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
    float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
@@ -227,7 +245,7 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    float achievements_list_x = surface_width/2;
    float achievements_list_y = surface_height/2 + 40;
    float achievements_list_width = achievements_box_width;
-   float box_gutter_y = 10;
+   //float box_gutter_y = 10;
    float scrollbar_x_padding = 70;
    float scrollbar_y_padding = 26;
    ALLEGRO_COLOR achievements_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
@@ -239,7 +257,6 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    float y_spacing = achievements_box_height + box_gutter_y;
    float frame_thickness = 6.0;
    float frame_outset = box_gutter_y + 2;
-
    float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
    float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
                                                                                          // to take into account

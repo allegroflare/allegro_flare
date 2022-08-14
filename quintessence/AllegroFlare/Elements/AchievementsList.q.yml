@@ -46,6 +46,11 @@ properties:
     getter_ref: false
     setter: false
 
+  - name: box_gutter_y
+    type: float
+    init_with: 10.0f
+    getter: true
+    setter: true
 
 functions:
 
@@ -154,9 +159,14 @@ functions:
       return;
 
 
+  - name: infer_container_height
+    type: float
+    body: return achievements_box_height + box_gutter_y * 5.5;
+
+
   - name: limit_scroll_offset_y
     body: |
-      float box_gutter_y = 10;
+      //float box_gutter_y = 10;
       float y_spacing = achievements_box_height + box_gutter_y;
       float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
       float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
@@ -177,7 +187,7 @@ functions:
       float achievements_list_x = surface_width/2;
       float achievements_list_y = surface_height/2 + 40;
       float achievements_list_width = achievements_box_width;
-      float box_gutter_y = 10;
+      //float box_gutter_y = 10;
       float scrollbar_x_padding = 70;
       float scrollbar_y_padding = 26;
       ALLEGRO_COLOR achievements_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
@@ -189,7 +199,6 @@ functions:
       float y_spacing = achievements_box_height + box_gutter_y;
       float frame_thickness = 6.0;
       float frame_outset = box_gutter_y + 2;
-
       float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
       float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
                                                                                             // to take into account

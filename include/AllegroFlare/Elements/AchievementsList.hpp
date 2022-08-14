@@ -24,6 +24,7 @@ namespace AllegroFlare
          int surface_width;
          int surface_height;
          float scroll_offset_y;
+         float box_gutter_y;
 
       public:
          AchievementsList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string, std::string>> achievements={}, float achievements_box_width=940.0f, float achievements_box_height=130.0f);
@@ -34,12 +35,14 @@ namespace AllegroFlare
          void set_achievements_box_height(float achievements_box_height);
          void set_surface_width(int surface_width);
          void set_surface_height(int surface_height);
+         void set_box_gutter_y(float box_gutter_y);
          std::vector<std::tuple<std::string, std::string, std::string>> get_achievements();
          float get_achievements_box_width();
          float get_achievements_box_height();
          int get_surface_width();
          int get_surface_height();
          float get_scroll_offset_y();
+         float get_box_gutter_y();
          void render();
          int count_num_achievements_completed();
          void draw_header_title_backfill();
@@ -48,6 +51,7 @@ namespace AllegroFlare
          void draw_achievements_list_title_text_and_completed_title_text();
          void move_scroll_offset_y(float distance_y=0.0f);
          void set_scroll_offset_y(float scroll_offset_y=0.0f);
+         float infer_container_height();
          void limit_scroll_offset_y();
          void draw_achievements_list_items_and_scrollbar();
          void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
