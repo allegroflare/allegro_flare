@@ -161,9 +161,9 @@ void Scrollbar::render()
    // draw the rail
    al_draw_filled_rounded_rectangle(
       x-h_rail_thickness,
-      y,
+      y-h_rail_thickness,
       x+h_rail_thickness,
-      y+height,
+      y+h_rail_thickness + height,
       h_rail_thickness,
       h_rail_thickness,
       bar_color
