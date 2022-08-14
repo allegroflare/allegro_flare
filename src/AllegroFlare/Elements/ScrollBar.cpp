@@ -13,7 +13,7 @@ namespace Elements
 {
 
 
-ScrollBar::ScrollBar(float x, float y, float height, float position, float handle_height, float rail_thickness, float handle_thickness)
+ScrollBar::ScrollBar(float x, float y, float height, float position, float handle_height, float rail_thickness, float handle_thickness, ALLEGRO_COLOR bar_color, ALLEGRO_COLOR handle_color)
    : x(x)
    , y(y)
    , height(height)
@@ -21,6 +21,8 @@ ScrollBar::ScrollBar(float x, float y, float height, float position, float handl
    , handle_height(handle_height)
    , rail_thickness(rail_thickness)
    , handle_thickness(handle_thickness)
+   , bar_color(bar_color)
+   , handle_color(handle_color)
 {
 }
 
@@ -72,6 +74,18 @@ void ScrollBar::set_handle_thickness(float handle_thickness)
 }
 
 
+void ScrollBar::set_bar_color(ALLEGRO_COLOR bar_color)
+{
+   this->bar_color = bar_color;
+}
+
+
+void ScrollBar::set_handle_color(ALLEGRO_COLOR handle_color)
+{
+   this->handle_color = handle_color;
+}
+
+
 float ScrollBar::get_x()
 {
    return x;
@@ -114,6 +128,18 @@ float ScrollBar::get_handle_thickness()
 }
 
 
+ALLEGRO_COLOR ScrollBar::get_bar_color()
+{
+   return bar_color;
+}
+
+
+ALLEGRO_COLOR ScrollBar::get_handle_color()
+{
+   return handle_color;
+}
+
+
 void ScrollBar::render()
 {
    if (!(al_is_system_installed()))
@@ -130,8 +156,6 @@ void ScrollBar::render()
       }
    float h_rail_thickness = rail_thickness * 0.5;
    float h_handle_thickness = handle_thickness * 0.5;
-   ALLEGRO_COLOR bar_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1.0};
-   ALLEGRO_COLOR handle_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
    float denormalized_handle_position = position * height;
 
    // draw the rail
