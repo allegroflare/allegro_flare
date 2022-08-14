@@ -47,6 +47,7 @@ namespace AllegroFlare
          void render();
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);
+         float infer_scrollbar_max_position();
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
          static std::vector<std::tuple<std::string, std::string, std::string>> build_placeholder_achievements();
          int count_num_achievements_completed();

@@ -523,6 +523,9 @@ table td
   <td class="method">set_scrollbar_position(1)</td>
 </tr>
 <tr>
+  <td class="method">infer_scrollbar_max_position()</td>
+</tr>
+<tr>
   <td class="method">scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()</td>
 </tr>
 <tr>
@@ -5018,6 +5021,9 @@ table td
 <tr>
   <td class="method">build_achievements()</td>
 </tr>
+<tr>
+  <td class="private_method">limit_scrollbar_dest_position()</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -5034,6 +5040,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -6571,7 +6580,8 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image"
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",

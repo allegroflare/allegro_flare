@@ -35,6 +35,7 @@ namespace AllegroFlare
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
          void render();
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();
+         void limit_scrollbar_dest_position();
       };
    }
 }

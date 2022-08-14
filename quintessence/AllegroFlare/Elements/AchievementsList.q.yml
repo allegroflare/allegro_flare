@@ -89,6 +89,12 @@ functions:
       return;
 
 
+  - name: infer_scrollbar_max_position
+    type: float
+    body: |
+      return infer_container_scroll_range();
+
+
   - name: scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container
     type: bool
     body: |

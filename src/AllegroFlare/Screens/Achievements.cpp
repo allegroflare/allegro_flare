@@ -123,6 +123,7 @@ void Achievements::move_cursor_up()
          throw std::runtime_error(error_message.str());
       }
    scrollbar_dest_position -= 36.0f;
+   limit_scrollbar_dest_position();
    return;
 }
 
@@ -135,6 +136,7 @@ void Achievements::move_cursor_down()
          throw std::runtime_error(error_message.str());
       }
    scrollbar_dest_position += 36.0f;
+   limit_scrollbar_dest_position();
    return;
 }
 
@@ -159,6 +161,13 @@ void Achievements::render()
 std::vector<std::tuple<std::string, std::string, std::string>> Achievements::build_achievements()
 {
    return AllegroFlare::Elements::AchievementsList::build_placeholder_achievements();
+}
+
+void Achievements::limit_scrollbar_dest_position()
+{
+   float scrollbar_max_position = achievements_list.infer_scrollbar_max_position();
+   scrollbar_dest_position = std::max(0.0f, std::min(scrollbar_dest_position, scrollbar_max_position));
+   return;
 }
 } // namespace Screens
 } // namespace AllegroFlare

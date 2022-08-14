@@ -159,6 +159,11 @@ void AchievementsList::set_scrollbar_position(float scrollbar_position)
    return;
 }
 
+float AchievementsList::infer_scrollbar_max_position()
+{
+   return infer_container_scroll_range();
+}
+
 bool AchievementsList::scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()
 {
    return infer_container_scroll_range() <= 0;

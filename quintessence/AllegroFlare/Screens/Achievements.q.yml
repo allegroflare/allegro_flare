@@ -82,6 +82,7 @@ functions:
     guards: [ initialized ]
     body: |
       scrollbar_dest_position -= 36.0f;
+      limit_scrollbar_dest_position();
       return;
 
 
@@ -90,6 +91,7 @@ functions:
     guards: [ initialized ]
     body: |
       scrollbar_dest_position += 36.0f;
+      limit_scrollbar_dest_position();
       return;
 
 
@@ -130,6 +132,14 @@ functions:
       return AllegroFlare::Elements::AchievementsList::build_placeholder_achievements();
 
 
+  - name: limit_scrollbar_dest_position
+    private: true
+    body: |
+      float scrollbar_max_position = achievements_list.infer_scrollbar_max_position();
+      scrollbar_dest_position = std::max(0.0f, std::min(scrollbar_dest_position, scrollbar_max_position));
+      return;
+
+
 dependencies:
 
 
@@ -143,5 +153,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::VirtualControls
     headers: [ AllegroFlare/VirtualControls.hpp ]
+  - symbol: std::min, std::max
+    headers: [ algorithm ]
 
 

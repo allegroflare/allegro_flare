@@ -269,7 +269,8 @@
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image"
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
