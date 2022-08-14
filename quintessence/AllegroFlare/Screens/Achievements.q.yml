@@ -50,6 +50,17 @@ functions:
       return;
 
 
+  - name: set_event_emitter
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->event_emitter = event_emitter;
+      return;
+
+
   - name: on_activate
     virtual: true
     override: true

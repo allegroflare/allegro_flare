@@ -57,6 +57,13 @@ TEST_F(AllegroFlare_Screens_AchievementsTest, DISABLED__initialize__without_an_e
 }
 
 
+TEST_F(AllegroFlare_Screens_AchievementsTest,
+   DISABLED__after_initialization__setting_the_event_emitter_will_raise_an_exception)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    primary_timer_func__before_initialization__will_raise_an_exception)
 {

@@ -15,6 +15,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <stdexcept>
@@ -55,6 +57,18 @@ void Achievements::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
    achievements_list.set_font_bin(font_bin);
+   return;
+}
+
+void Achievements::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (!((!initialized)))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "set_event_emitter" << ": error: " << "guard \"(!initialized)\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   this->event_emitter = event_emitter;
    return;
 }
 
