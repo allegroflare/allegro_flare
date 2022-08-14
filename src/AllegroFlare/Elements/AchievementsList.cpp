@@ -225,7 +225,6 @@ float AchievementsList::infer_container_height()
 
 void AchievementsList::limit_scroll_offset_y()
 {
-   //float box_gutter_y = 10;
    float y_spacing = achievements_box_height + box_gutter_y;
    float container_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
    float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
@@ -245,7 +244,6 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    float achievements_list_x = surface_width/2;
    float achievements_list_y = surface_height/2 + 40;
    float achievements_list_width = achievements_box_width;
-   //float box_gutter_y = 10;
    float scrollbar_x_padding = 70;
    float scrollbar_y_padding = 26;
    ALLEGRO_COLOR achievements_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
@@ -253,7 +251,6 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    ALLEGRO_COLOR scrollbar_handle_color = ALLEGRO_COLOR{0.5, 0.505, 0.51, 1.0};
    float achievements_box_list_x = 0;
    float achievements_box_list_y = 0;
-   //float box_gutter_y = 10;
    float y_spacing = achievements_box_height + box_gutter_y;
    float frame_thickness = 6.0;
    float frame_outset = box_gutter_y + 2;
