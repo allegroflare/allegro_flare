@@ -1,0 +1,50 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: quote
+    type: std::string
+    init_with: '{}'
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_primitives_addon_initialized() ]
+    body: |
+      float x = 200;
+      float y = 100;
+      float box_width = 200;
+      float box_height = 90;
+      ALLEGRO_COLOR background_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+      al_draw_filled_rectangle(x, y, x+box_width, y+box_height, background_color);
+      return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Purista Medium.otf -32");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+
+
