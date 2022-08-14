@@ -1,0 +1,15 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Notifications::Base
+    scope: public
+    init_with: '"AchievementUnlocked"'
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::Notifications::Base
+    headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
+
+
