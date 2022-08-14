@@ -29,7 +29,7 @@ properties:
     getter: true
     setter: true
 
-  - name: scroll_bar_position
+  - name: position
     type: float
     init_with: 0.0f
     constructor_arg: true
@@ -37,6 +37,13 @@ properties:
     setter: true
 
   - name: rail_thickness
+    type: float
+    init_with: 8.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: handle_thickness
     type: float
     init_with: 16.0f
     constructor_arg: true
@@ -52,9 +59,10 @@ functions:
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
       float h_rail_thickness = rail_thickness * 0.5;
+      float h_handle_thickness = handle_thickness * 0.5;
       ALLEGRO_COLOR bar_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1.0};
       ALLEGRO_COLOR handle_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
-      float denormalized_handle_position = scroll_bar_position * height;
+      float denormalized_handle_position = position * height;
 
       // draw the rail
       al_draw_filled_rounded_rectangle(
@@ -69,12 +77,12 @@ functions:
 
       // draw the handle
       al_draw_filled_rounded_rectangle(
-         x-h_rail_thickness,
+         x-h_handle_thickness,
          y+denormalized_handle_position - handle_height * 0.5,
-         x+h_rail_thickness,
+         x+h_handle_thickness,
          y+denormalized_handle_position + handle_height * 0.5,
-         h_rail_thickness,
-         h_rail_thickness,
+         h_handle_thickness,
+         h_handle_thickness,
          handle_color
       );
       return;

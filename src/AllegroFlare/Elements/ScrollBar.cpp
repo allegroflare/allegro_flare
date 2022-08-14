@@ -13,13 +13,14 @@ namespace Elements
 {
 
 
-ScrollBar::ScrollBar(float x, float y, float height, float handle_height, float scroll_bar_position, float rail_thickness)
+ScrollBar::ScrollBar(float x, float y, float height, float handle_height, float position, float rail_thickness, float handle_thickness)
    : x(x)
    , y(y)
    , height(height)
    , handle_height(handle_height)
-   , scroll_bar_position(scroll_bar_position)
+   , position(position)
    , rail_thickness(rail_thickness)
+   , handle_thickness(handle_thickness)
 {
 }
 
@@ -53,15 +54,21 @@ void ScrollBar::set_handle_height(float handle_height)
 }
 
 
-void ScrollBar::set_scroll_bar_position(float scroll_bar_position)
+void ScrollBar::set_position(float position)
 {
-   this->scroll_bar_position = scroll_bar_position;
+   this->position = position;
 }
 
 
 void ScrollBar::set_rail_thickness(float rail_thickness)
 {
    this->rail_thickness = rail_thickness;
+}
+
+
+void ScrollBar::set_handle_thickness(float handle_thickness)
+{
+   this->handle_thickness = handle_thickness;
 }
 
 
@@ -89,15 +96,21 @@ float ScrollBar::get_handle_height()
 }
 
 
-float ScrollBar::get_scroll_bar_position()
+float ScrollBar::get_position()
 {
-   return scroll_bar_position;
+   return position;
 }
 
 
 float ScrollBar::get_rail_thickness()
 {
    return rail_thickness;
+}
+
+
+float ScrollBar::get_handle_thickness()
+{
+   return handle_thickness;
 }
 
 
@@ -116,9 +129,10 @@ void ScrollBar::render()
          throw std::runtime_error(error_message.str());
       }
    float h_rail_thickness = rail_thickness * 0.5;
+   float h_handle_thickness = handle_thickness * 0.5;
    ALLEGRO_COLOR bar_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1.0};
    ALLEGRO_COLOR handle_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
-   float denormalized_handle_position = scroll_bar_position * height;
+   float denormalized_handle_position = position * height;
 
    // draw the rail
    al_draw_filled_rounded_rectangle(
@@ -133,12 +147,12 @@ void ScrollBar::render()
 
    // draw the handle
    al_draw_filled_rounded_rectangle(
-      x-h_rail_thickness,
+      x-h_handle_thickness,
       y+denormalized_handle_position - handle_height * 0.5,
-      x+h_rail_thickness,
+      x+h_handle_thickness,
       y+denormalized_handle_position + handle_height * 0.5,
-      h_rail_thickness,
-      h_rail_thickness,
+      h_handle_thickness,
+      h_handle_thickness,
       handle_color
    );
    return;

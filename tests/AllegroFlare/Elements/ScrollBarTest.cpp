@@ -53,7 +53,8 @@ TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture, render__w
 }
 
 
-TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture, CAPTURE__render__will_draw_the_bar_as_expected)
+TEST_F(AllegroFlare_Elements_ScrollBarTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_as_expected)
 {
    AllegroFlare::Placement2D place = build_centered_placement(10, 300);
    AllegroFlare::Elements::ScrollBar scroll_bar;
