@@ -223,19 +223,29 @@ float AchievementsList::infer_container_height()
    return (achievements_box_height + box_gutter_y) * 5.5;
 }
 
+float AchievementsList::infer_container_contents_height()
+{
+   float y_spacing = achievements_box_height + box_gutter_y;
+   return achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
+                                                          // to take into account
+                                                          // lists of size 0; E.g.
+                                                          // Box gutter y should not
+                                                          // be subtracted in that
+                                                          // case
+}
+
+float AchievementsList::infer_container_scroll_range()
+{
+   return infer_container_contents_height() - infer_container_height();
+}
+
 void AchievementsList::limit_scroll_offset_y()
 {
    float y_spacing = achievements_box_height + box_gutter_y;
    float container_height = infer_container_height();
-   float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
-                                                                                         // to take into account
-                                                                                         // lists of size 0; E.g.
-                                                                                         // Box gutter y should not
-                                                                                         // be subtracted in that
-                                                                                         // case
-   float container_scroll_range = container_contents_height - container_height;
-   float range_capped_scroll_offset_y = std::max(0.0f, std::min(container_scroll_range, scroll_offset_y));
-   scroll_offset_y = range_capped_scroll_offset_y;
+   float container_contents_height = infer_container_contents_height();
+   float container_scroll_range = infer_container_scroll_range();
+   scroll_offset_y = std::max(0.0f, std::min(container_scroll_range, scroll_offset_y));
    return;
 }
 
@@ -255,13 +265,8 @@ void AchievementsList::draw_achievements_list_items_and_scrollbar()
    float frame_thickness = 6.0;
    float frame_outset = box_gutter_y + 2;
    float container_height = infer_container_height();
-   float container_contents_height = achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
-                                                                                         // to take into account
-                                                                                         // lists of size 0; E.g.
-                                                                                         // Box gutter y should not
-                                                                                         // be subtracted in that
-                                                                                         // case
-   float container_scroll_range = container_contents_height - container_height;
+   float container_contents_height = infer_container_contents_height();
+   float container_scroll_range = infer_container_scroll_range();
    float normalized_scroll_offset_y = scroll_offset_y / container_scroll_range;
 
    AllegroFlare::Placement2D place(

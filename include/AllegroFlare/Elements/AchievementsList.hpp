@@ -52,6 +52,8 @@ namespace AllegroFlare
          void move_scroll_offset_y(float distance_y=0.0f);
          void set_scroll_offset_y(float scroll_offset_y=0.0f);
          float infer_container_height();
+         float infer_container_contents_height();
+         float infer_container_scroll_range();
          void limit_scroll_offset_y();
          void draw_achievements_list_items_and_scrollbar();
          void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
