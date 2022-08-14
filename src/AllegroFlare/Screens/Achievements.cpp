@@ -13,7 +13,8 @@ namespace Screens
 
 
 Achievements::Achievements(AllegroFlare::FontBin* font_bin)
-   : font_bin(font_bin)
+   : AllegroFlare::Screens::Base("Achievements")
+   , font_bin(font_bin)
 {
 }
 
@@ -22,6 +23,18 @@ Achievements::~Achievements()
 {
 }
 
+
+void Achievements::primary_timer_func()
+{
+   update();
+   render();
+   return;
+}
+
+void Achievements::update()
+{
+   return;
+}
 
 void Achievements::render()
 {
