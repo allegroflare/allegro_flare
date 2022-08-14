@@ -54,21 +54,11 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      draw_achievements_list_items();
+      draw_achievements_list_items_and_scrollbar();
       draw_achievements_list_title_text_and_completed_title_text();
-      draw_scrollbar();
       return;
     body_dependency_symbols:
       - AllegroFlare::Placement2D
-
-
-  - name: draw_scrollbar
-    body: |
-      AllegroFlare::Elements::ScrollBar scrollbar;
-      scrollbar.render();
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::ScrollBar
 
 
   - name: count_num_achievements_completed
@@ -152,13 +142,14 @@ functions:
       return;
 
 
-  - name: draw_achievements_list_items
+  - name: draw_achievements_list_items_and_scrollbar
     private: true
     body: |
       float achievements_list_x = surface_width/2;
       float achievements_list_y = surface_height/2 + 40;
       float achievements_list_width = achievements_box_width;
       float box_gutter_y = 10;
+      float scrollbar_x_padding = 20;
       float achievements_list_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
       ALLEGRO_COLOR achievements_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       float achievements_box_list_x = 0;
@@ -204,8 +195,14 @@ functions:
       //   frame_thickness
       //);
 
+      // draw the scrollbar
+      AllegroFlare::Elements::ScrollBar scrollbar(achievements_list_width + scrollbar_x_padding);
+      scrollbar.render();
+
       place.restore_transform();
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::ScrollBar
 
 
   - name: draw_achievement_box

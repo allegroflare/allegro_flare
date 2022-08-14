@@ -132,16 +132,8 @@ void AchievementsList::render()
          error_message << "AchievementsList" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   draw_achievements_list_items();
+   draw_achievements_list_items_and_scrollbar();
    draw_achievements_list_title_text_and_completed_title_text();
-   draw_scrollbar();
-   return;
-}
-
-void AchievementsList::draw_scrollbar()
-{
-   AllegroFlare::Elements::ScrollBar scrollbar;
-   scrollbar.render();
    return;
 }
 
@@ -216,12 +208,13 @@ void AchievementsList::move_scroll_offset_y(float distance_y)
    return;
 }
 
-void AchievementsList::draw_achievements_list_items()
+void AchievementsList::draw_achievements_list_items_and_scrollbar()
 {
    float achievements_list_x = surface_width/2;
    float achievements_list_y = surface_height/2 + 40;
    float achievements_list_width = achievements_box_width;
    float box_gutter_y = 10;
+   float scrollbar_x_padding = 20;
    float achievements_list_height = (achievements_box_height + box_gutter_y) * 5.5; // previously 800;
    ALLEGRO_COLOR achievements_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    float achievements_box_list_x = 0;
@@ -266,6 +259,10 @@ void AchievementsList::draw_achievements_list_items()
    //   achievements_list_frame_color,
    //   frame_thickness
    //);
+
+   // draw the scrollbar
+   AllegroFlare::Elements::ScrollBar scrollbar(achievements_list_width + scrollbar_x_padding);
+   scrollbar.render();
 
    place.restore_transform();
    return;
