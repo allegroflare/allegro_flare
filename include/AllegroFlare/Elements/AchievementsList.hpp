@@ -30,6 +30,7 @@ namespace AllegroFlare
          AchievementsList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string, std::string>> achievements={}, float achievements_box_width=940.0f, float achievements_box_height=130.0f);
          ~AchievementsList();
 
+         void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_achievements(std::vector<std::tuple<std::string, std::string, std::string>> achievements);
          void set_achievements_box_width(float achievements_box_width);
          void set_achievements_box_height(float achievements_box_height);

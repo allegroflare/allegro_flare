@@ -42,6 +42,12 @@ AchievementsList::~AchievementsList()
 }
 
 
+void AchievementsList::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
 void AchievementsList::set_achievements(std::vector<std::tuple<std::string, std::string, std::string>> achievements)
 {
    this->achievements = achievements;

@@ -14,13 +14,37 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: cursor_dest_position
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+
+  - name: achievements_list
+    type: AllegroFlare::Elements::AchievementsList
+    init_with: '{}'
+    getter_ref: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    
 
 functions:
+
+
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
+    body: |
+      achievements_list.set_font_bin(font_bin);
+      achievements_list.set_achievements(build_achievements());
+      initialized = true;
+      return;
 
 
   - name: primary_timer_func
     virtual: true
     override: true
+    guards: [ initialized ]
     body: |
       update();
       render();
@@ -28,15 +52,17 @@ functions:
 
 
   - name: update
+    private: true
+    guards: [ initialized ]
     body: |
       return;
 
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
+    private: true
+    guards: [ initialized ]
     body: |
-      AllegroFlare::Elements::AchievementsList achievements_list(font_bin, build_achievements());
       achievements_list.render();
       return;
     body_dependency_symbols:
