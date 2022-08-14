@@ -84,7 +84,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, render_
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
-   INTERACTIVE__will_work_as_expected)
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -102,9 +102,9 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
-   AllegroFlare::Screens::Achievements achievements_screen(&get_font_bin_ref(), &event_emitter);
-   //achievements_screen.set_font_bin(&get_font_bin_ref());
-   //achievements_screen.set_event_emitter(&event_emitter);
+   AllegroFlare::Screens::Achievements achievements_screen;
+   achievements_screen.set_font_bin(&get_font_bin_ref());
+   achievements_screen.set_event_emitter(&event_emitter);
    achievements_screen.initialize();
 
    // run the interactive test
