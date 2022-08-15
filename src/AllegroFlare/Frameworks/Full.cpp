@@ -21,6 +21,7 @@
 #include <AllegroFlare/Version.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/InputHints.hpp>
+#include <AllegroFlare/Elements/NotificationsRenderer.hpp>
 
 
 namespace AllegroFlare
@@ -41,6 +42,7 @@ Full::Full()
    , audio_controller(&samples)
    , event_emitter()
    , achievements()
+   , notifications()
    , virtual_controls_processor()
    , textlog(nullptr)
    , joystick(nullptr)
@@ -49,6 +51,7 @@ Full::Full()
    , primary_timer(nullptr)
    , camera_2d()
    , drawing_inputs_bar_overlay(false)
+   , drawing_notifications(true)
    , input_hints_tokens({})
    , escape_key_will_shutdown(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
@@ -918,6 +921,14 @@ void Full::draw_overlay()
          input_hints.set_text_color(text_color);
          input_hints.render();
       }
+   }
+
+   if (drawing_notifications)
+   {
+      // TODO HERE:
+      // convert notifications to format for renderer
+      //AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&fonts, &notifications);
+      //notifications_renderer.render();
    }
 }
 

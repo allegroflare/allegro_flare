@@ -29,11 +29,33 @@ functions:
       return;
 
 
+  - name: select_all_order_by_created_at_desc
+    type: std::vector<AllegroFlare::Elements::Notifications::Base*>
+    body: |
+      std::vector<AllegroFlare::Elements::Notifications::Base*> result = notifications;
+      std::sort(result.begin(), result.end(), sort_by_created_at_desc_func);
+      return result;
+
+
   - name: destroy_all
     body: |
       for (auto &notification : notifications) delete notification;
       notifications.clear();
       return;
+
+
+  - name: sort_by_created_at_desc_func
+    static: true
+    type: bool
+    parameters:
+      - name: a
+        type: AllegroFlare::Elements::Notifications::Base*
+        default_argument: nullptr
+      - name: b
+        type: AllegroFlare::Elements::Notifications::Base*
+        default_argument: nullptr
+    body: |
+      return a->get_created_at() > b->get_created_at();
 
 
 dependencies:

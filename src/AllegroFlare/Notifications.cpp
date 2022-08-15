@@ -49,11 +49,23 @@ void Notifications::add(AllegroFlare::Elements::Notifications::Base* notificatio
    return;
 }
 
+std::vector<AllegroFlare::Elements::Notifications::Base*> Notifications::select_all_order_by_created_at_desc()
+{
+   std::vector<AllegroFlare::Elements::Notifications::Base*> result = notifications;
+   std::sort(result.begin(), result.end(), sort_by_created_at_desc_func);
+   return result;
+}
+
 void Notifications::destroy_all()
 {
    for (auto &notification : notifications) delete notification;
    notifications.clear();
    return;
+}
+
+bool Notifications::sort_by_created_at_desc_func(AllegroFlare::Elements::Notifications::Base* a, AllegroFlare::Elements::Notifications::Base* b)
+{
+   return a->get_created_at() > b->get_created_at();
 }
 } // namespace AllegroFlare
 

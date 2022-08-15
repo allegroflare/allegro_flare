@@ -14,6 +14,7 @@
 #include <AllegroFlare/Motion.hpp>
 #include <AllegroFlare/ScreenManagers/Dictionary.hpp>
 #include <AllegroFlare/Achievements.hpp>
+#include <AllegroFlare/Notifications.hpp>
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
@@ -39,6 +40,7 @@ namespace AllegroFlare
          AudioController audio_controller;
          EventEmitter event_emitter;
          Achievements achievements;
+         Notifications notifications;
          VirtualControlsProcessor virtual_controls_processor;
          ALLEGRO_TEXTLOG *textlog;
          ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
@@ -48,6 +50,7 @@ namespace AllegroFlare
          Camera2D camera_2d;
          //Camera3D camera_3d; // next
          bool drawing_inputs_bar_overlay;
+         bool drawing_notifications;
          std::vector<std::string> input_hints_tokens;
          bool initialize_without_display(); // only use initialize() publically from now on
          bool escape_key_will_shutdown;
