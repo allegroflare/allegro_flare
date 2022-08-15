@@ -58,8 +58,17 @@ std::vector<AllegroFlare::Elements::Notifications::Base*> Notifications::select_
 
 std::vector<AllegroFlare::Elements::Notifications::Base*> Notifications::select_most_recent(float age)
 {
+   float min_created_at = 4.0f;
+
    std::vector<AllegroFlare::Elements::Notifications::Base*> result;
-   std::copy_if(notifications.begin(), notifications.end(), std::back_inserter(result), notification_not_older_than);
+   std::copy_if(
+      notifications.begin(),
+      notifications.end(),
+      std::back_inserter(result),
+      [min_created_at](AllegroFlare::Elements::Notifications::Base* notification) {
+         return notification && notification->get_created_at() >= min_created_at;
+      }
+   );
    std::sort(result.begin(), result.end(), sort_by_created_at_desc_func);
    return result;
 }
