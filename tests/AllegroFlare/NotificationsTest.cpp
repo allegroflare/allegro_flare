@@ -80,7 +80,7 @@ TEST(AllegroFlare_NotificationsTest,
 
 
 TEST(AllegroFlare_NotificationsTest,
-   select_created_at_since__will_select_notifications_that_have_been_created_on_or_after_the_created_at_argument_time)
+   select_created_at_since_order_by_created_at__will_select_notifications_that_have_been_created_on_or_after_created_at)
 {
    NotificationTestClass *notification_a_2 = new NotificationTestClass(2);
    NotificationTestClass *notification_b_4 = new NotificationTestClass(4);
@@ -104,7 +104,41 @@ TEST(AllegroFlare_NotificationsTest,
    };
 
    std::vector<AllegroFlare::Elements::Notifications::Base*> actual_notifications =
-      notifications.select_created_at_since(4.0f);
+      notifications.select_created_at_since_order_by_created_at(4.0f);
+
+   EXPECT_EQ(expected_notifications, actual_notifications);
+}
+
+
+TEST(AllegroFlare_NotificationsTest,
+   select_created_at_since_order_by_created_at__will_sort_the_items_by_created_at)
+{
+   NotificationTestClass *notification_a_2 = new NotificationTestClass(2);
+   NotificationTestClass *notification_b_4 = new NotificationTestClass(4);
+   NotificationTestClass *notification_c_3 = new NotificationTestClass(3);
+   NotificationTestClass *notification_d_1 = new NotificationTestClass(1);
+   NotificationTestClass *notification_e_5 = new NotificationTestClass(5);
+   NotificationTestClass *notification_f_6 = new NotificationTestClass(6);
+   AllegroFlare::Notifications notifications({
+      notification_a_2,
+      notification_b_4,
+      notification_c_3,
+      notification_d_1,
+      notification_e_5,
+      notification_f_6,
+   });
+
+   std::vector<AllegroFlare::Elements::Notifications::Base*> expected_notifications = {
+      notification_f_6,
+      notification_e_5,
+      notification_b_4,
+      notification_c_3,
+      notification_a_2,
+      notification_d_1,
+   };
+
+   std::vector<AllegroFlare::Elements::Notifications::Base*> actual_notifications =
+      notifications.select_created_at_since_order_by_created_at(0.0f);
 
    EXPECT_EQ(expected_notifications, actual_notifications);
 }

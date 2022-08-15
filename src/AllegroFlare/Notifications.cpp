@@ -56,7 +56,7 @@ std::vector<AllegroFlare::Elements::Notifications::Base*> Notifications::select_
    return result;
 }
 
-std::vector<AllegroFlare::Elements::Notifications::Base*> Notifications::select_created_at_since(float min_created_at)
+std::vector<AllegroFlare::Elements::Notifications::Base*> Notifications::select_created_at_since_order_by_created_at(float min_created_at)
 {
    std::vector<AllegroFlare::Elements::Notifications::Base*> result;
    std::copy_if(

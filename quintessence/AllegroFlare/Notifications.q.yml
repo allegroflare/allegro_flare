@@ -37,7 +37,7 @@ functions:
       return result;
 
 
-  - name: select_created_at_since
+  - name: select_created_at_since_order_by_created_at
     type: std::vector<AllegroFlare::Elements::Notifications::Base*>
     parameters:
       - name: min_created_at
