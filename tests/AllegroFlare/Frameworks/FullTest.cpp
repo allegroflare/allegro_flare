@@ -20,6 +20,27 @@
 #include <AllegroFlare/EventNames.hpp>
 
 
+#include <AllegroFlare/Screens/Base.hpp>
+class ScreenTestClass : public AllegroFlare::Screens::Base
+{
+private:
+   AllegroFlare::EventEmitter *event_emitter;
+public:
+   ScreenTestClass(AllegroFlare::EventEmitter *event_emitter)
+      : AllegroFlare::Screens::Base("ScreenTestClass")
+      , event_emitter(event_emitter)
+   {}
+   virtual void on_activate() override
+   {
+      std::vector<std::string> tokens = { "ESC", "%SPACER", "LABEL>>", "Exit test" };
+      event_emitter->emit_set_input_hints_bar_event(tokens);
+      event_emitter->emit_show_input_hints_bar_event();
+   }
+   virtual void primary_timer_func() override {}
+   virtual void key_down_func(ALLEGRO_EVENT *ev) override {}
+};
+
+
 TEST(AllegroFlare_Framewors_FullTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Frameworks::Full framework;
@@ -215,6 +236,22 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT
    //framework.run_loop();
 
    //sleep(3);
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest, INTERACTIVE__will_work_as_expected)
+{
+   AllegroFlare::Frameworks::Full framework;
+   ScreenTestClass screen_test_class(&framework.get_event_emitter_ref());
+
+   framework.initialize();
+   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER); // NOTE: have to set path after init (for now)
+   framework.get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER); // NOTE: have to set path after init (for now)
+
+   framework.register_screen("screen_test_class", &screen_test_class);
+   framework.activate_screen("screen_test_class");
+
+   framework.run_loop();
 }
 
 
