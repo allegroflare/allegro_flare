@@ -559,7 +559,8 @@
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
-    "AllegroFlare/Elements/Notifications/AchievementUnlocked"
+    "AllegroFlare/Elements/Notifications/AchievementUnlocked",
+    "AllegroFlare/Notifications"
   ],
   "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked": [
     "AllegroFlare/Elements/NotificationRenderer"
@@ -568,7 +569,8 @@
     "AllegroFlare/Elements/NotificationRenderer"
   ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
-    "AllegroFlare/Elements/NotificationsRenderer"
+    "AllegroFlare/Elements/NotificationsRenderer",
+    "AllegroFlare/Notifications"
   ],
   "AllegroFlare/Elements/NotificationRenderer": [
     "AllegroFlare/Elements/NotificationsRenderer"

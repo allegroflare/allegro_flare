@@ -18,6 +18,9 @@ namespace AllegroFlare
 
       void set_notifications(std::vector<AllegroFlare::Elements::Notifications::Base*> notifications);
       std::vector<AllegroFlare::Elements::Notifications::Base*> get_notifications();
+      int size();
+      void add(AllegroFlare::Elements::Notifications::Base* notification=nullptr);
+      void destroy_all();
    };
 }
 

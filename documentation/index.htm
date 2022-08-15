@@ -107,6 +107,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/InputHints.q.yml">quintessence/AllegroFlare/InputHints.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml</a></li>
@@ -3906,6 +3907,36 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">notifications</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::Notifications::Base*&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">size()</td>
+</tr>
+<tr>
+  <td class="method">add(1)</td>
+</tr>
+<tr>
+  <td class="method">destroy_all()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::Notifications::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</h3>
      <table>
 <tr>
@@ -7140,7 +7171,8 @@ table td
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
-    "AllegroFlare/Elements/Notifications/AchievementUnlocked"
+    "AllegroFlare/Elements/Notifications/AchievementUnlocked",
+    "AllegroFlare/Notifications"
   ],
   "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked": [
     "AllegroFlare/Elements/NotificationRenderer"
@@ -7149,7 +7181,8 @@ table td
     "AllegroFlare/Elements/NotificationRenderer"
   ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
-    "AllegroFlare/Elements/NotificationsRenderer"
+    "AllegroFlare/Elements/NotificationsRenderer",
+    "AllegroFlare/Notifications"
   ],
   "AllegroFlare/Elements/NotificationRenderer": [
     "AllegroFlare/Elements/NotificationsRenderer"

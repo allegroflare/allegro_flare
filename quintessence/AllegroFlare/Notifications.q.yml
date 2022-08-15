@@ -9,10 +9,39 @@ properties:
     setter: true
 
 
+functions:
+
+
+  - name: size
+    type: int
+    body: |
+      return notifications.size();
+
+
+  - name: add
+    parameters:
+      - name: notification
+        type: AllegroFlare::Elements::Notifications::Base*
+        default_argument: nullptr
+    guards: [ notification ]
+    body: |
+      notifications.push_back(notification);
+      return;
+
+
+  - name: destroy_all
+    body: |
+      for (auto &notification : notifications) delete notification;
+      notifications.clear();
+      return;
+
+
 dependencies:
 
 
   - symbol: std::vector<AllegroFlare::Elements::Notifications::Base*>
     headers: [ vector, AllegroFlare/Elements/Notifications/Base.hpp ]
+  - symbol: AllegroFlare::Elements::Notifications::Base*
+    headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
 
 
