@@ -52,6 +52,8 @@ public:
    }
 };
 
+#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
+
 
 TEST(AllegroFlare_Framewors_FullTest, can_be_created_without_blowing_up)
 {
@@ -173,18 +175,26 @@ TEST(AllegroFlare_Framewors_FullTest,
 
 
 TEST(AllegroFlare_Framewors_FullTest,
-   DISABLED__ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION__when_emitted__will_append_a_new_notification)
-   // TODO: update this test
+   when_emitting_an_unlocked_achievement_notification_event__a_notification_will_be_added_with_the_expected_value)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
    AllegroFlare::Notifications &notifications = framework.get_notifications_ref();
 
-   event_emitter.emit_event(ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION);
+   std::string achievement_name_to_emit = "Unlock an achievement notification";
+   event_emitter.emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
    framework.process_events_in_queue();
 
-   EXPECT_EQ(1, notifications.size());
+   ASSERT_EQ(1, notifications.size());
+   ASSERT_NE(nullptr, notifications.get_notifications()[0]);
+   ASSERT_EQ("AchievementUnlocked", notifications.get_notifications()[0]->get_type());
+
+   AllegroFlare::Elements::Notifications::AchievementUnlocked *achievement_notification =
+      static_cast<AllegroFlare::Elements::Notifications::AchievementUnlocked*>(
+         notifications.get_notifications()[0]);
+
+   EXPECT_EQ(achievement_name_to_emit, achievement_notification->get_name());
 }
 
 
