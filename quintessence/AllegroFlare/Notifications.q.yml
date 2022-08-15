@@ -55,6 +55,7 @@ functions:
         type: AllegroFlare::Elements::Notifications::Base*
         default_argument: nullptr
     body: |
+      if (a->get_created_at() == b->get_created_at()) return a; // TODO: return by ID
       return a->get_created_at() > b->get_created_at();
 
 

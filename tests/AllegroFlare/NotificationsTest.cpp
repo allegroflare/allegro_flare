@@ -52,3 +52,30 @@ TEST(AllegroFlare_NotificationsTest, destroy_all__will_destroy_the_notifications
 }
 
 
+TEST(AllegroFlare_NotificationsTest,
+   select_all_order_by_created_at__will_return_the_notifications_ordered_by_created_at)
+{
+   NotificationTestClass *notification_a_2 = new NotificationTestClass(2);
+   NotificationTestClass *notification_b_4 = new NotificationTestClass(4);
+   NotificationTestClass *notification_c_3 = new NotificationTestClass(3);
+   NotificationTestClass *notification_d_1 = new NotificationTestClass(1);
+   AllegroFlare::Notifications notifications({
+      notification_a_2,
+      notification_b_4,
+      notification_c_3,
+      notification_d_1,
+   });
+
+   std::vector<AllegroFlare::Elements::Notifications::Base*> expected_sorted_ordering = {
+      notification_b_4,
+      notification_c_3,
+      notification_a_2,
+      notification_d_1,
+   };
+   std::vector<AllegroFlare::Elements::Notifications::Base*> actual_ordering =
+      notifications.select_all_order_by_created_at_desc();
+
+   EXPECT_EQ(expected_sorted_ordering, actual_ordering);
+}
+
+

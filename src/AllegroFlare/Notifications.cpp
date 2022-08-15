@@ -65,6 +65,7 @@ void Notifications::destroy_all()
 
 bool Notifications::sort_by_created_at_desc_func(AllegroFlare::Elements::Notifications::Base* a, AllegroFlare::Elements::Notifications::Base* b)
 {
+   if (a->get_created_at() == b->get_created_at()) return a; // TODO: return by ID
    return a->get_created_at() > b->get_created_at();
 }
 } // namespace AllegroFlare
