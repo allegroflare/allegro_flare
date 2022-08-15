@@ -1,0 +1,32 @@
+functions:
+
+
+  - name: create_achievement_unlocked_notification
+    type: AllegroFlare::Elements::Notifications::AchievementUnlocked*
+    parameters:
+      - name: achievement_name
+        type: std::string
+        default_argument: '"[unset-achievement_name]"'
+    guards: [ al_is_system_installed() ]
+    body: |
+      AllegroFlare::Elements::Notifications::AchievementUnlocked *result =
+         new AllegroFlare::Elements::Notifications::AchievementUnlocked(achievement_name);
+      result->set_created_at(al_get_time());
+      return result;
+    body_dependency_symbols:
+      - al_is_system_installed
+
+
+dependencies:
+
+
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::Notifications::Base
+    headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
+  - symbol: AllegroFlare::Elements::Notifications::AchievementUnlocked
+    headers: [ AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp ]
+  - symbol: AllegroFlare::Elements::Notifications::AchievementUnlocked*
+    headers: [ AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp ]
+
+

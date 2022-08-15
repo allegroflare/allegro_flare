@@ -22,7 +22,7 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/InputHints.hpp>
 #include <AllegroFlare/Elements/NotificationsRenderer.hpp>
-#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
+#include <AllegroFlare/NotificationsFactory.hpp>
 
 
 namespace AllegroFlare
@@ -767,9 +767,10 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   case ALLEGRO_FLARE_EVENT_POST_NOTIFICATION:
                     {
                        // TODO: handle other types and pass data on event
+                       AllegroFlare::NotificationsFactory notifications_factory;
 
                        notifications.add(
-                          new AllegroFlare::Elements::Notifications::AchievementUnlocked("Posted an Achievement")
+                           notifications_factory.create_achievement_unlocked_notification("Posted an Achievement")
                        );
                     }
                   break;
