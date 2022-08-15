@@ -607,6 +607,9 @@
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
   ],
+  "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
+    "AllegroFlare/EventEmitter"
+  ],
   "ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR": [
     "AllegroFlare/EventEmitter"
   ],

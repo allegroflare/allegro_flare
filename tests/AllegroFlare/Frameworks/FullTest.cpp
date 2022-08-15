@@ -44,7 +44,7 @@ public:
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
       if (ev->keyboard.keycode == ALLEGRO_KEY_N)
-         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_POST_UNLOCK_ACHIEVEMENT_NOTIFICATION);
+         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION);
    }
 };
 
@@ -169,14 +169,14 @@ TEST(AllegroFlare_Framewors_FullTest,
 
 
 TEST(AllegroFlare_Framewors_FullTest,
-   ALLEGRO_FLARE_EVENT_POST_UNLOCK_ACHIEVEMENT_NOTIFICATION__when_emitted__will_append_a_new_notification)
+   ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION__when_emitted__will_append_a_new_notification)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
    AllegroFlare::Notifications &notifications = framework.get_notifications_ref();
 
-   event_emitter.emit_event(ALLEGRO_FLARE_EVENT_POST_UNLOCK_ACHIEVEMENT_NOTIFICATION);
+   event_emitter.emit_event(ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION);
    framework.process_events_in_queue();
 
    EXPECT_EQ(1, notifications.size());

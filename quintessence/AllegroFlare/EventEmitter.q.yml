@@ -114,6 +114,19 @@ functions:
       - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY
 
 
+  - name: emit_post_unlocked_achievement_notification_event
+    parameters:
+      - name: achievement_name
+        type: std::string
+        default_argument: '"[unset-achievement_name]"'
+    guards: [ initialized ]
+    body: |
+      intptr_t data_to_pass = (intptr_t)(void *)(new std::string(achievement_name));
+      emit_event(ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION, data_to_pass);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION
+
+
   - name: emit_play_sound_effect_event
     parameters:
       - name: sound_effect_identifier
@@ -203,6 +216,8 @@ functions:
 dependencies:
 
 
+  - symbol: ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION
+    headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR

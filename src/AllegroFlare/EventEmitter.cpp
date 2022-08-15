@@ -21,6 +21,9 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/EventNames.hpp>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -142,6 +145,18 @@ void EventEmitter::emit_set_input_hints_bar_opacity_event(float opacity)
 {
    intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
    emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY, data_to_pass);
+}
+
+void EventEmitter::emit_post_unlocked_achievement_notification_event(std::string achievement_name)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "EventEmitter" << "::" << "emit_post_unlocked_achievement_notification_event" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   intptr_t data_to_pass = (intptr_t)(void *)(new std::string(achievement_name));
+   emit_event(ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION, data_to_pass);
 }
 
 void EventEmitter::emit_play_sound_effect_event(std::string sound_effect_identifier)

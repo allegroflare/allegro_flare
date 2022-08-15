@@ -764,7 +764,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                     }
                   break;
 
-                  case ALLEGRO_FLARE_EVENT_POST_ULOCK_ACHIEVEMENT_NOTIFICATION:
+                  case ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION:
                     {
                        // TODO: handle other types and pass data on event
                        AllegroFlare::NotificationsFactory notifications_factory;
