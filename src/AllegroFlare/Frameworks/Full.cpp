@@ -772,6 +772,10 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                     }
                   break;
 
+                  case ALLEGRO_FLARE_EVENT_POST_NOTIFICATION:
+                    // TODO figure out what to do here
+                  break;
+
                   case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:
                     // TODO figure out what to do here
                   break;
