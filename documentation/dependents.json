@@ -147,6 +147,7 @@
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/NotificationsFactory",
     "AllegroFlare/Time"
   ],
   "al_is_primitives_addon_initialized": [
@@ -560,13 +561,16 @@
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked",
-    "AllegroFlare/Notifications"
+    "AllegroFlare/Notifications",
+    "AllegroFlare/NotificationsFactory"
   ],
   "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked": [
     "AllegroFlare/Elements/NotificationRenderer"
   ],
   "AllegroFlare/Elements/Notifications/AchievementUnlocked": [
-    "AllegroFlare/Elements/NotificationRenderer"
+    "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/NotificationsFactory"
   ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
     "AllegroFlare/Elements/NotificationsRenderer",

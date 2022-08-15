@@ -108,6 +108,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml</a></li>
@@ -3946,6 +3947,32 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">create_achievement_unlocked_notification(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::AchievementUnlocked&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::AchievementUnlocked*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</h3>
      <table>
 <tr>
@@ -6768,6 +6795,7 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/NotificationsFactory",
     "AllegroFlare/Time"
   ],
   "al_is_primitives_addon_initialized": [
@@ -7181,13 +7209,16 @@ table td
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked",
-    "AllegroFlare/Notifications"
+    "AllegroFlare/Notifications",
+    "AllegroFlare/NotificationsFactory"
   ],
   "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked": [
     "AllegroFlare/Elements/NotificationRenderer"
   ],
   "AllegroFlare/Elements/Notifications/AchievementUnlocked": [
-    "AllegroFlare/Elements/NotificationRenderer"
+    "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/NotificationsFactory"
   ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
     "AllegroFlare/Elements/NotificationsRenderer",

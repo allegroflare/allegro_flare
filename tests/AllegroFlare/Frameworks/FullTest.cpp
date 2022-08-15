@@ -32,14 +32,18 @@ public:
    {}
    virtual void on_activate() override
    {
-      std::vector<std::string> tokens = { "ESC", "%SPACER", "LABEL>>", "Exit test" };
+      std::vector<std::string> tokens = {
+         "ESC", "%SPACER", "LABEL>>", "Exit test",
+         "%SEPARATOR",
+         "N", "%SPACER", "LABEL>>", "Post a notification"
+      };
       event_emitter->emit_set_input_hints_bar_event(tokens);
       event_emitter->emit_show_input_hints_bar_event();
    }
    virtual void primary_timer_func() override {}
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_POST_NOTIFICATION);
+      if (ev->keyboard.keycode == ALLEGRO_KEY_N) event_emitter->emit_event(ALLEGRO_FLARE_EVENT_POST_NOTIFICATION);
    }
 };
 
@@ -242,7 +246,7 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, FOCUS__INTERACTIVE__will_work_as_expected)
+TEST(AllegroFlare_Frameworks_FullTest, DISABLED__INTERACTIVE__will_work_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    ScreenTestClass screen_test_class(&framework.get_event_emitter_ref());
