@@ -43,8 +43,12 @@ public:
    virtual void primary_timer_func() override {}
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
+      static int i=0; i++;
+      std::vector<std::string> achievement_names = {
+         "Win the game", "Finish the feature", "Save the day", "Take home the trophy", };
+      std::string achievement_name_to_emit = achievement_names[i % achievement_names.size()];
       if (ev->keyboard.keycode == ALLEGRO_KEY_N)
-         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION);
+         event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
    }
 };
 
@@ -247,7 +251,7 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, DISABLED__INTERACTIVE__will_work_as_expected)
+TEST(AllegroFlare_Frameworks_FullTest, FOCUS__INTERACTIVE__will_work_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    ScreenTestClass screen_test_class(&framework.get_event_emitter_ref());
