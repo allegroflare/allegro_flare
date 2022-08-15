@@ -251,7 +251,7 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, FOCUS__INTERACTIVE__will_work_as_expected)
+TEST(AllegroFlare_Frameworks_FullTest, DISABLED__INTERACTIVE__will_work_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    ScreenTestClass screen_test_class(&framework.get_event_emitter_ref());

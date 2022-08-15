@@ -767,11 +767,19 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   case ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION:
                     {
                        // TODO: handle other types and pass data on event
-                       AllegroFlare::NotificationsFactory notifications_factory;
-
-                       notifications.add(
-                           notifications_factory.create_achievement_unlocked_notification("Posted an Achievement")
-                       );
+                       std::string *data = (std::string *)this_event.user.data1;
+                       if (!data)
+                       {
+                          // TODO: add an error message
+                       }
+                       else
+                       {
+                          AllegroFlare::NotificationsFactory notifications_factory;
+                          notifications.add(
+                             notifications_factory.create_achievement_unlocked_notification(*data)
+                          );
+                          delete data;
+                       }
                     }
                   break;
 
