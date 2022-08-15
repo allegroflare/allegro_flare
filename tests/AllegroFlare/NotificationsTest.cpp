@@ -80,7 +80,7 @@ TEST(AllegroFlare_NotificationsTest,
 
 
 TEST(AllegroFlare_NotificationsTest,
-   select_most_recent__will_select_notifications_)
+   select_created_at_since__will_select_notifications_that_have_been_created_on_or_after_the_created_at_argument_time)
 {
    NotificationTestClass *notification_a_2 = new NotificationTestClass(2);
    NotificationTestClass *notification_b_4 = new NotificationTestClass(4);
@@ -104,7 +104,7 @@ TEST(AllegroFlare_NotificationsTest,
    };
 
    std::vector<AllegroFlare::Elements::Notifications::Base*> actual_notifications =
-      notifications.select_most_recent();
+      notifications.select_created_at_since(4.0f);
 
    EXPECT_EQ(expected_notifications, actual_notifications);
 }

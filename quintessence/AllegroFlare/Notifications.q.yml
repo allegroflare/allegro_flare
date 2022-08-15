@@ -37,15 +37,13 @@ functions:
       return result;
 
 
-  - name: select_most_recent
+  - name: select_created_at_since
     type: std::vector<AllegroFlare::Elements::Notifications::Base*>
     parameters:
-      - name: age
+      - name: min_created_at
         type: float
-        default_argument: 10.0f
+        default_argument: 0.0f
     body: |
-      float min_created_at = 4.0f;
-
       std::vector<AllegroFlare::Elements::Notifications::Base*> result;
       std::copy_if(
          notifications.begin(),
@@ -64,18 +62,6 @@ functions:
       for (auto &notification : notifications) delete notification;
       notifications.clear();
       return;
-
-
-  - name: notification_not_older_than
-    static: true
-    type: bool
-    parameters:
-      - name: notification
-        type: AllegroFlare::Elements::Notifications::Base*
-        default_argument: nullptr
-    body: |
-      float min_created_at = 4.0f;
-      return notification->get_created_at() >= min_created_at;
 
 
   - name: sort_by_created_at_desc_func
