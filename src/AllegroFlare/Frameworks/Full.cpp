@@ -925,10 +925,13 @@ void Full::draw_overlay()
 
    if (drawing_notifications)
    {
-      // TODO HERE:
-      // convert notifications to format for renderer
-      //AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&fonts, &notifications);
-      //notifications_renderer.render();
+      float num_seconds_to_show_notifications = 6.0f;
+      float min_created_at_notification_to_show = al_get_time() - num_seconds_to_show_notifications;
+
+      std::vector<AllegroFlare::Elements::Notifications::Base*> notifications_to_render =
+         notifications.select_created_at_since_order_by_created_at(min_created_at_notification_to_show);
+      AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&fonts, notifications_to_render);
+      notifications_renderer.render();
    }
 }
 
