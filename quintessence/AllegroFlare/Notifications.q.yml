@@ -1,0 +1,18 @@
+properties:
+
+
+  - name: notifications
+    type: std::vector<AllegroFlare::Elements::Notifications::Base*>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: std::vector<AllegroFlare::Elements::Notifications::Base*>
+    headers: [ vector, AllegroFlare/Elements/Notifications/Base.hpp ]
+
+
