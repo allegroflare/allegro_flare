@@ -22,7 +22,7 @@ TEST(AllegroFlare_AchievementTest, unlocked__is_initialized_to_false)
 TEST(AllegroFlare_AchievementTest, title__has_the_expected_default_value)
 {
    AllegroFlare::Achievement achievement;
-   EXPECT_EQ("Base", achievement.get_title());
+   EXPECT_EQ("Achievement", achievement.get_title());
 }
 
 

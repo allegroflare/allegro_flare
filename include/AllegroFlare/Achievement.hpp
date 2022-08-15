@@ -13,7 +13,7 @@ namespace AllegroFlare
       bool unlocked;
 
    public:
-      Achievement(std::string title="Base");
+      Achievement(std::string title="Achievement");
       virtual ~Achievement();
 
       bool virtual unlock_manually() final;
