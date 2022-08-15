@@ -19,25 +19,25 @@ TEST(AllegroFlare_AchievementTest, unlocked__is_initialized_to_false)
 }
 
 
-TEST(AllegroFlare_AchievementTest, name__has_the_expected_default_value)
+TEST(AllegroFlare_AchievementTest, title__has_the_expected_default_value)
 {
    AllegroFlare::Achievement achievement;
-   EXPECT_EQ("Base", achievement.get_name());
+   EXPECT_EQ("Base", achievement.get_title());
 }
 
 
-TEST(AllegroFlare_AchievementTest, name__has_getters_and_setters_with_the_expected_behavior)
+TEST(AllegroFlare_AchievementTest, title__has_getters_and_setters_with_the_expected_behavior)
 {
    AllegroFlare::Achievement achievement;
-   achievement.set_name("My Achievement");
-   EXPECT_EQ("My Achievement", achievement.get_name());
+   achievement.set_title("My Achievement");
+   EXPECT_EQ("My Achievement", achievement.get_title());
 }
 
 
-TEST(AllegroFlare_AchievementTest, name__is_set_on_construction)
+TEST(AllegroFlare_AchievementTest, title__is_set_on_construction)
 {
    AllegroFlare::Achievement achievement("My Achievement");
-   EXPECT_EQ("My Achievement", achievement.get_name());
+   EXPECT_EQ("My Achievement", achievement.get_title());
 }
 
 

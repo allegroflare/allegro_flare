@@ -4,8 +4,8 @@
 
 namespace AllegroFlare
 {
-   Achievement::Achievement(std::string name)
-      : name(name)
+   Achievement::Achievement(std::string title)
+      : title(title)
       , unlocked(false)
    {}
 
@@ -33,15 +33,15 @@ namespace AllegroFlare
    void Achievement::on_unlocked() {}
 
 
-   bool Achievement::set_name(std::string name)
+   bool Achievement::set_title(std::string title)
    {
-      this->name = name;
+      this->title = title;
    }
 
 
-   std::string Achievement::get_name()
+   std::string Achievement::get_title()
    {
-      return name;
+      return title;
    }
 }
 
