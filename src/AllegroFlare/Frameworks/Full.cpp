@@ -784,7 +784,21 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   break;
 
                   case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:
-                    // TODO figure out what to do here
+                     {
+                        AllegroFlare::Achievement *data = (AllegroFlare::Achievement *)this_event.user.data1;
+                        if (!data)
+                        {
+                           // TODO: add an error message
+                        }
+                        else
+                        {
+                           // HERE:
+                           // TODO: extract data from data and create an event
+                           std::string achievement_title = data->get_title();
+                           event_emitter.emit_post_unlocked_achievement_notification_event(achievement_title);
+                           // delete data; // NOTE: do NOT delete the data here
+                        }
+                     }
                   break;
 
                   case ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT:
