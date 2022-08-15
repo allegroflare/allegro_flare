@@ -9,7 +9,11 @@ class NotificationTestClass : public AllegroFlare::Elements::Notifications::Base
 private:
    static int destroyed_count;
 public:
-   NotificationTestClass() : AllegroFlare::Elements::Notifications::Base("NotificationTestClass") {}
+   NotificationTestClass(float _created_at=0)
+      : AllegroFlare::Elements::Notifications::Base("NotificationTestClass")
+   {
+      set_created_at(_created_at);
+   }
    ~NotificationTestClass() { destroyed_count++; }
    static int get_destroyed_count() { return destroyed_count; }
 };
