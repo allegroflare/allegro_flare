@@ -79,3 +79,34 @@ TEST(AllegroFlare_NotificationsTest,
 }
 
 
+TEST(AllegroFlare_NotificationsTest,
+   select_most_recent__will_select_notifications_)
+{
+   NotificationTestClass *notification_a_2 = new NotificationTestClass(2);
+   NotificationTestClass *notification_b_4 = new NotificationTestClass(4);
+   NotificationTestClass *notification_c_3 = new NotificationTestClass(3);
+   NotificationTestClass *notification_d_1 = new NotificationTestClass(1);
+   NotificationTestClass *notification_e_5 = new NotificationTestClass(5);
+   NotificationTestClass *notification_f_6 = new NotificationTestClass(6);
+   AllegroFlare::Notifications notifications({
+      notification_a_2,
+      notification_b_4,
+      notification_c_3,
+      notification_d_1,
+      notification_e_5,
+      notification_f_6,
+   });
+
+   std::vector<AllegroFlare::Elements::Notifications::Base*> expected_notifications = {
+      notification_f_6,
+      notification_e_5,
+      notification_b_4,
+   };
+
+   std::vector<AllegroFlare::Elements::Notifications::Base*> actual_notifications =
+      notifications.select_most_recent();
+
+   EXPECT_EQ(expected_notifications, actual_notifications);
+}
+
+

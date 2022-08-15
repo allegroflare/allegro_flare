@@ -37,11 +37,36 @@ functions:
       return result;
 
 
+  - name: select_most_recent
+    type: std::vector<AllegroFlare::Elements::Notifications::Base*>
+    parameters:
+      - name: age
+        type: float
+        default_argument: 10.0f
+    body: |
+      std::vector<AllegroFlare::Elements::Notifications::Base*> result;
+      std::copy_if(notifications.begin(), notifications.end(), std::back_inserter(result), notification_not_older_than);
+      std::sort(result.begin(), result.end(), sort_by_created_at_desc_func);
+      return result;
+
+
   - name: destroy_all
     body: |
       for (auto &notification : notifications) delete notification;
       notifications.clear();
       return;
+
+
+  - name: notification_not_older_than
+    static: true
+    type: bool
+    parameters:
+      - name: notification
+        type: AllegroFlare::Elements::Notifications::Base*
+        default_argument: nullptr
+    body: |
+      float min_created_at = 4.0f;
+      return notification->get_created_at() >= min_created_at;
 
 
   - name: sort_by_created_at_desc_func
