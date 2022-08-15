@@ -22,6 +22,7 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/InputHints.hpp>
 #include <AllegroFlare/Elements/NotificationsRenderer.hpp>
+#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
 
 
 namespace AllegroFlare
@@ -152,6 +153,12 @@ AudioController &Full::get_audio_controller_ref()
 EventEmitter &Full::get_event_emitter_ref()
 {
    return event_emitter;
+}
+
+
+Notifications &Full::get_notifications_ref()
+{
+   return notifications;
 }
 
 
@@ -773,7 +780,13 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   break;
 
                   case ALLEGRO_FLARE_EVENT_POST_NOTIFICATION:
-                    // TODO figure out what to do here
+                    {
+                       // TODO: handle other types and pass data on event
+
+                       notifications.add(
+                          new AllegroFlare::Elements::Notifications::AchievementUnlocked("Posted an Achievement")
+                       );
+                    }
                   break;
 
                   case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:

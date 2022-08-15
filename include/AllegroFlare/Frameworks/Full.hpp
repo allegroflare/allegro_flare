@@ -90,7 +90,9 @@ namespace AllegroFlare
          ScreenManagers::Dictionary &get_screens_ref();
          AudioController &get_audio_controller_ref();
          EventEmitter &get_event_emitter_ref();
+         Notifications &get_notifications_ref();
          Display *get_primary_display();
+
 
          bool initialize();
          bool is_initialized();
