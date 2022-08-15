@@ -554,22 +554,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          if (this_event.timer.source == primary_timer)
          {
             primary_update();
-            //// update
-            //motions.update(time_now);
-            //achievements.check_all();
-
             primary_render();
-            //// render
-            //ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
-            //al_set_target_bitmap(backbuffer_bitmap);
-            //
-            //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-            //screens.primary_timer_funcs();
-            //
-            //al_set_target_bitmap(primary_sub_bitmap);
-            //draw_overlay();
-            //
-            //al_flip_display();
          }
          else
          {
