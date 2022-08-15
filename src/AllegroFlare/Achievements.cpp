@@ -46,11 +46,11 @@ namespace AllegroFlare
    }
 
 
-   void Achievements::add(std::string name, Achievement *achievement)
+   void Achievements::add(std::string identifier, Achievement *achievement)
    {
       // TODO: check for overwrite
-      all_achievements[name].first = achievement;
-      all_achievements[name].second = false;
+      all_achievements[identifier].first = achievement;
+      all_achievements[identifier].second = false;
    }
 
 
@@ -89,14 +89,14 @@ namespace AllegroFlare
    }
 
 
-   bool Achievements::unlock_manually(std::string name)
+   bool Achievements::unlock_manually(std::string identifier)
    {
-      std::map<std::string, std::pair<Achievement *, bool>>::iterator it = all_achievements.find(name);
+      std::map<std::string, std::pair<Achievement *, bool>>::iterator it = all_achievements.find(identifier);
       if (it == all_achievements.end())
       {
          std::stringstream ss;
-         ss << "[Achievements::unlock_manually] error: Could not find achievement named \""
-            << name << "\"";
+         ss << "[Achievements::unlock_manually] error: Could not find achievement with identifier \""
+            << identifier << "\"";
          std::cout << ss.str();
          return false;
       }

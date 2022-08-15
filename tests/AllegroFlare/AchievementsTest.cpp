@@ -45,15 +45,15 @@ TEST(AllegroFlare_AchievementsTest,
 
 
 TEST(AllegroFlare_AchievementsTest,
-   unlock_manually__when_the_named_achievement_does_not_exist__will_output_an_error_message_to_cout)
+   unlock_manually__when_the_achievement_identifier_does_not_exist__will_output_an_error_message_to_cout)
 {
    AllegroFlare::Achievements achievements;
    testing::internal::CaptureStdout();
 
-   achievements.unlock_manually("an-achievement-name-that-does-not-exist");
+   achievements.unlock_manually("an-achievement-identifier-that-does-not-exist");
 
    std::string expected_cout_output = "[Achievements::unlock_manually] error: Could not find "
-                                      "achievement named \"an-achievement-name-that-does-not-exist\"";
+                                      "achievement identifier \"an-achievement-identifier-that-does-not-exist\"";
    std::string actual_cout_output = testing::internal::GetCapturedStdout();
    EXPECT_EQ(expected_cout_output, actual_cout_output);
 }

@@ -766,7 +766,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
                   case ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION:
                     {
-                       // TODO: handle other types and pass data on event
+                       // TODO: handle other types of notifications and pass data on event
                        std::string *data = (std::string *)this_event.user.data1;
                        if (!data)
                        {
