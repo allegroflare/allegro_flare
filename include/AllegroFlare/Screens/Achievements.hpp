@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Achievements.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -19,19 +20,22 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
+         AllegroFlare::Achievements* achievements;
          float scrollbar_dest_position;
          AllegroFlare::Elements::AchievementsList achievements_list;
          std::string game_event_name_to_emit_on_return;
          bool initialized;
 
       public:
-         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_return="achievements_screen_finished");
+         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Achievements* achievements=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_return="achievements_screen_finished");
          virtual ~Achievements();
 
+         void set_achievements(AllegroFlare::Achievements* achievements);
          void set_game_event_name_to_emit_on_return(std::string game_event_name_to_emit_on_return);
          std::string get_game_event_name_to_emit_on_return();
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+         void refresh_achievements_list();
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          virtual void on_activate() override;
          virtual void on_deactivate() override;

@@ -5309,6 +5309,10 @@ table td
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
 <tr>
+  <td class="property">achievements</td>
+  <td class="property">AllegroFlare::Achievements*</td>
+</tr>
+<tr>
   <td class="property">scrollbar_dest_position</td>
   <td class="property">float</td>
 </tr>
@@ -5328,6 +5332,9 @@ table td
      <table>
 <tr>
   <td class="method">set_font_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">refresh_achievements_list()</td>
 </tr>
 <tr>
   <td class="method">set_event_emitter(1)</td>
@@ -5373,6 +5380,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Achievements*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Achievements.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
@@ -7479,6 +7489,9 @@ table td
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Achievements": [
+    "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"

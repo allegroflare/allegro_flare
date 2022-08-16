@@ -18,6 +18,7 @@ class AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture
 
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/Achievements.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
 
 
@@ -26,16 +27,16 @@ class AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture
 
 TEST_F(AllegroFlare_Screens_AchievementsTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Screens::Achievements achievements;
+   AllegroFlare::Screens::Achievements achievements_screen;
 }
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTest, initialize__without_allegro_initialized__raises_an_error)
 {
-   AllegroFlare::Screens::Achievements achievements;
+   AllegroFlare::Screens::Achievements achievements_screen;
    std::string expected_error_message =
       "Achievements::initialize: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(achievements.initialize(), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(achievements_screen.initialize(), std::runtime_error, expected_error_message);
 }
 
 
@@ -57,6 +58,12 @@ TEST_F(AllegroFlare_Screens_AchievementsTest, DISABLED__initialize__without_an_e
 }
 
 
+TEST_F(AllegroFlare_Screens_AchievementsTest, DISABLED__initialize__without_an_achievements__raises_an_error)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_Screens_AchievementsTest,
    DISABLED__after_initialization__setting_the_event_emitter_will_raise_an_exception)
 {
@@ -67,19 +74,20 @@ TEST_F(AllegroFlare_Screens_AchievementsTest,
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    primary_timer_func__before_initialization__will_raise_an_exception)
 {
-   AllegroFlare::Screens::Achievements achievements;
+   AllegroFlare::Screens::Achievements achievements_screen;
    std::string expected_error_message =
       "Achievements::primary_timer_func: error: guard \"initialized\" not met";
-   ASSERT_THROW_WITH_MESSAGE(achievements.primary_timer_func(), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(achievements_screen.primary_timer_func(), std::runtime_error, expected_error_message);
 }
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::EventEmitter event_emitter;
-   AllegroFlare::Screens::Achievements achievements(&get_font_bin_ref(), &event_emitter);
-   achievements.initialize();
-   achievements.render();
+   AllegroFlare::Achievements achievements;
+   AllegroFlare::Screens::Achievements achievements_screen(&get_font_bin_ref(), &event_emitter, &achievements);
+   achievements_screen.initialize();
+   achievements_screen.render();
 }
 
 
@@ -97,12 +105,14 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    ALLEGRO_EVENT event;
 
    // setup environment
+   AllegroFlare::Achievements achievements;
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
    AllegroFlare::Screens::Achievements achievements_screen;
+   achievements_screen.set_achievements(&achievements);
    achievements_screen.set_font_bin(&get_font_bin_ref());
    achievements_screen.set_event_emitter(&event_emitter);
    achievements_screen.initialize();

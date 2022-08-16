@@ -819,6 +819,9 @@
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/Achievements": [
+    "AllegroFlare/Screens/Achievements"
+  ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],

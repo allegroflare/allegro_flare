@@ -19,6 +19,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <stdexcept>
@@ -33,10 +35,11 @@ namespace Screens
 {
 
 
-Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, float scrollbar_dest_position, std::string game_event_name_to_emit_on_return)
+Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Achievements* achievements, float scrollbar_dest_position, std::string game_event_name_to_emit_on_return)
    : AllegroFlare::Screens::Base("Achievements")
    , font_bin(font_bin)
    , event_emitter(event_emitter)
+   , achievements(achievements)
    , scrollbar_dest_position(scrollbar_dest_position)
    , achievements_list({})
    , game_event_name_to_emit_on_return(game_event_name_to_emit_on_return)
@@ -47,6 +50,12 @@ Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventE
 
 Achievements::~Achievements()
 {
+}
+
+
+void Achievements::set_achievements(AllegroFlare::Achievements* achievements)
+{
+   this->achievements = achievements;
 }
 
 
@@ -72,6 +81,18 @@ void Achievements::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
    achievements_list.set_font_bin(font_bin);
+   return;
+}
+
+void Achievements::refresh_achievements_list()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "refresh_achievements_list" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   // TODO
    return;
 }
 
@@ -150,6 +171,12 @@ void Achievements::initialize()
       {
          std::stringstream error_message;
          error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(achievements))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"achievements\" not met";
          throw std::runtime_error(error_message.str());
       }
    achievements_list.set_font_bin(font_bin);
