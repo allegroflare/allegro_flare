@@ -6,10 +6,6 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: quote
-    type: std::string
-    init_with: '{}'
-
   - name: created_at
     type: float
     init_with: 0

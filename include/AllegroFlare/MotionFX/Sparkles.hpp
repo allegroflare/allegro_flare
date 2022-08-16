@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro_font.h>
-#include <string>
 
 
 namespace AllegroFlare
@@ -14,7 +13,6 @@ namespace AllegroFlare
       {
       private:
          AllegroFlare::FontBin* font_bin;
-         std::string quote;
          float created_at;
 
       public:

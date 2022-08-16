@@ -15,7 +15,6 @@ namespace MotionFX
 
 Sparkles::Sparkles(AllegroFlare::FontBin* font_bin)
    : font_bin(font_bin)
-   , quote({})
    , created_at(0)
 {
 }
