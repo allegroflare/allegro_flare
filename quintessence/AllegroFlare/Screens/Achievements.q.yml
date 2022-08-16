@@ -31,6 +31,13 @@ properties:
     init_with: '{}'
     getter_ref: true
 
+  - name: game_event_name_to_emit_on_return
+    type: std::string
+    init_with: '"achievements_screen_finished"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -156,6 +163,7 @@ functions:
     body: |
       if (button_num == VirtualControls::get_BUTTON_UP()) move_scrollbar_position_up();
       if (button_num == VirtualControls::get_BUTTON_DOWN()) move_scrollbar_position_down();
+      else event_emitter->emit_game_event(game_event_name_to_emit_on_return);
     body_dependency_symbols:
       - AllegroFlare::VirtualControls
 
@@ -192,7 +200,7 @@ functions:
       event_emitter->emit_set_input_hints_bar_event({
          "UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Scroll up/down",
          "%SEPARATOR",
-         "ESC", "%SPACER", "LABEL>>", "Return",
+         "ANY KEY", "%SPACER", "LABEL>>", "Return",
       });
       return;
 

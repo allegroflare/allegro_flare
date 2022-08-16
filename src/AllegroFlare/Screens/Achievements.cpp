@@ -31,12 +31,13 @@ namespace Screens
 {
 
 
-Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, float scrollbar_dest_position)
+Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, float scrollbar_dest_position, std::string game_event_name_to_emit_on_return)
    : AllegroFlare::Screens::Base("Achievements")
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , scrollbar_dest_position(scrollbar_dest_position)
    , achievements_list({})
+   , game_event_name_to_emit_on_return(game_event_name_to_emit_on_return)
    , initialized(false)
 {
 }
@@ -44,6 +45,18 @@ Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventE
 
 Achievements::~Achievements()
 {
+}
+
+
+void Achievements::set_game_event_name_to_emit_on_return(std::string game_event_name_to_emit_on_return)
+{
+   this->game_event_name_to_emit_on_return = game_event_name_to_emit_on_return;
+}
+
+
+std::string Achievements::get_game_event_name_to_emit_on_return()
+{
+   return game_event_name_to_emit_on_return;
 }
 
 
@@ -202,6 +215,7 @@ void Achievements::virtual_control_button_down_func(int player_num, int button_n
 {
    if (button_num == VirtualControls::get_BUTTON_UP()) move_scrollbar_position_up();
    if (button_num == VirtualControls::get_BUTTON_DOWN()) move_scrollbar_position_down();
+   else event_emitter->emit_game_event(game_event_name_to_emit_on_return);
 }
 
 void Achievements::render()
@@ -245,7 +259,7 @@ void Achievements::emit_event_to_set_input_hints()
    event_emitter->emit_set_input_hints_bar_event({
       "UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Scroll up/down",
       "%SEPARATOR",
-      "ESC", "%SPACER", "LABEL>>", "Return",
+      "ANY KEY", "%SPACER", "LABEL>>", "Return",
    });
    return;
 }

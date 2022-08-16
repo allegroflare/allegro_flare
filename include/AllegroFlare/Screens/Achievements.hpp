@@ -21,12 +21,15 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          float scrollbar_dest_position;
          AllegroFlare::Elements::AchievementsList achievements_list;
+         std::string game_event_name_to_emit_on_return;
          bool initialized;
 
       public:
-         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, float scrollbar_dest_position=0.0f);
+         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_return="achievements_screen_finished");
          virtual ~Achievements();
 
+         void set_game_event_name_to_emit_on_return(std::string game_event_name_to_emit_on_return);
+         std::string get_game_event_name_to_emit_on_return();
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
