@@ -162,6 +162,12 @@ Notifications &Full::get_notifications_ref()
 }
 
 
+Achievements &Full::get_achievements_ref()
+{
+   return achievements;
+}
+
+
 Display *Full::get_primary_display()
 {
    return primary_display;

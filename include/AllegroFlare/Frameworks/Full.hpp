@@ -91,6 +91,7 @@ namespace AllegroFlare
          AudioController &get_audio_controller_ref();
          EventEmitter &get_event_emitter_ref();
          Notifications &get_notifications_ref();
+         Achievements &get_achievements_ref();
          Display *get_primary_display();
 
 
