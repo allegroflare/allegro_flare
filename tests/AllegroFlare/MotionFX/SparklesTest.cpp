@@ -60,7 +60,7 @@ TEST_F(AllegroFlare_MotionFX_SparklesTestWithAllegroRenderingFixture, VISUAL__re
 
       clear();
       sparkles.render();
-      draw_crosshair(1920/2, 1080/2);
+      //draw_crosshair(1920/2, 1080/2);
       al_flip_display();
    }
 }

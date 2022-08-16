@@ -104,7 +104,7 @@ void Sparkles::initialize()
       { distance, TAU / 7.0 * 6, 1.0, AllegroFlare::Color::Gold },
    };
 
-   main_star_placement = Placement2D(0, 0, 0, 0);
+   main_star_placement = Placement2D(x, y, 0, 0);
 
    initialized = true;
    return;
@@ -118,8 +118,12 @@ void Sparkles::update()
          error_message << "Sparkles" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   // update the particles
    float rotation_speed = -0.04;
+
+   // update the main star
+   main_star_placement.rotation += (rotation_speed * 0.5);
+
+   // update the particles
    for (auto &particle : particles)
    {
       float &particle_rotation = std::get<1>(particle);
@@ -152,7 +156,7 @@ void Sparkles::render()
 
    // draw the main star
    main_star_placement.start_transform();
-   draw_centered_unicode_character(obtain_icon_font(), star_color, x, y);
+   draw_centered_unicode_character(obtain_icon_font(), star_color, 0, 0);
    main_star_placement.restore_transform();
 
    // draw the particle stars
