@@ -17,6 +17,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <stdexcept>
@@ -100,6 +102,21 @@ void Achievements::on_activate()
    // emit events to show and set the input hints
    emit_event_to_set_input_hints();
    event_emitter->emit_show_input_hints_bar_event();
+   return;
+}
+
+void Achievements::on_deactivate()
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Achievements" << "::" << "on_deactivate" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   // emit events to show and set the input hints
+   // TODO: add ALLEGRO_FLARE_EVENT_CLEAR_INPUT_HINTS_BAR
+   event_emitter->emit_set_input_hints_bar_event({});
+   event_emitter->emit_hide_input_hints_bar_event();
    return;
 }
 

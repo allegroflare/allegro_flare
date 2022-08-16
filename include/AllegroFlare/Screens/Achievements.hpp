@@ -34,6 +34,7 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          virtual void on_activate() override;
+         virtual void on_deactivate() override;
          void initialize();
          virtual void primary_timer_func() override;
          void update();
