@@ -259,7 +259,7 @@ void Achievements::emit_event_to_set_input_hints()
    event_emitter->emit_set_input_hints_bar_event({
       "UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Scroll up/down",
       "%SEPARATOR",
-      "ANY KEY", "%SPACER", "LABEL>>", "Return",
+      "X", "%SPACER", "LABEL>>", "Return",
    });
    return;
 }
