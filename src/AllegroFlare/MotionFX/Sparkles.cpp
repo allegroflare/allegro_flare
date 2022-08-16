@@ -6,6 +6,10 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Color.hpp>
+#include <cmath>
+#include <cmath>
+#include <stdexcept>
+#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -86,9 +90,16 @@ void Sparkles::initialize()
       }
    static const float TAU = 6.28318531;
    float num_particles = 7;
+   float distance = 80;
           // distance,   rotation,   opacity,    color
    particles = {
-      { 20, TAU / 7.0, 1.0, AllegroFlare::Color::Gold }
+      { distance, TAU / 7.0 * 0, 1.0, AllegroFlare::Color::Gold },
+      { distance, TAU / 7.0 * 1, 1.0, AllegroFlare::Color::Gold },
+      { distance, TAU / 7.0 * 2, 1.0, AllegroFlare::Color::Gold },
+      { distance, TAU / 7.0 * 3, 1.0, AllegroFlare::Color::Gold },
+      { distance, TAU / 7.0 * 4, 1.0, AllegroFlare::Color::Gold },
+      { distance, TAU / 7.0 * 5, 1.0, AllegroFlare::Color::Gold },
+      { distance, TAU / 7.0 * 6, 1.0, AllegroFlare::Color::Gold },
    };
    initialized = true;
    return;
@@ -103,7 +114,7 @@ void Sparkles::update()
          throw std::runtime_error(error_message.str());
       }
    // update the particles
-   float rotation_speed = 0.02;
+   float rotation_speed = -0.04;
    for (auto &particle : particles)
    {
       float &particle_rotation = std::get<1>(particle);
@@ -133,7 +144,24 @@ void Sparkles::render()
          throw std::runtime_error(error_message.str());
       }
    ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;
+
+   // draw the main star
    draw_centered_unicode_character(obtain_icon_font(), star_color, x, y);
+
+   // draw the particle stars
+   for (auto &particle : particles)
+   {
+      float distance = std::get<0>(particle);
+      float rotation = std::get<1>(particle);
+      float opacity = std::get<2>(particle);
+      ALLEGRO_COLOR color = std::get<3>(particle);
+
+      float final_x = sin(rotation) * distance;
+      float final_y = cos(rotation) * distance;
+
+      draw_centered_unicode_character(obtain_mini_icon_font(), color, x + final_x, y + final_y);
+   }
+
    return;
 }
 
@@ -156,6 +184,17 @@ ALLEGRO_FONT* Sparkles::obtain_icon_font()
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("fa-solid-900.ttf -50");
+}
+
+ALLEGRO_FONT* Sparkles::obtain_mini_icon_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "Sparkles" << "::" << "obtain_mini_icon_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return font_bin->auto_get("fa-solid-900.ttf -30");
 }
 
 void Sparkles::draw_centered_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, int x, int y, uint32_t icon, int flags)

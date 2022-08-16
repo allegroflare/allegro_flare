@@ -44,9 +44,16 @@ functions:
     body: |
       static const float TAU = 6.28318531;
       float num_particles = 7;
+      float distance = 80;
              // distance,   rotation,   opacity,    color
       particles = {
-         { 20, TAU / 7.0, 1.0, AllegroFlare::Color::Gold }
+         { distance, TAU / 7.0 * 0, 1.0, AllegroFlare::Color::Gold },
+         { distance, TAU / 7.0 * 1, 1.0, AllegroFlare::Color::Gold },
+         { distance, TAU / 7.0 * 2, 1.0, AllegroFlare::Color::Gold },
+         { distance, TAU / 7.0 * 3, 1.0, AllegroFlare::Color::Gold },
+         { distance, TAU / 7.0 * 4, 1.0, AllegroFlare::Color::Gold },
+         { distance, TAU / 7.0 * 5, 1.0, AllegroFlare::Color::Gold },
+         { distance, TAU / 7.0 * 6, 1.0, AllegroFlare::Color::Gold },
       };
       initialized = true;
       return;
@@ -56,7 +63,7 @@ functions:
     guards: [ initialized ]
     body: |
       // update the particles
-      float rotation_speed = 0.02;
+      float rotation_speed = -0.04;
       for (auto &particle : particles)
       {
          float &particle_rotation = std::get<1>(particle);
@@ -70,10 +77,29 @@ functions:
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), initialized ]
     body: |
       ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;
+
+      // draw the main star
       draw_centered_unicode_character(obtain_icon_font(), star_color, x, y);
+
+      // draw the particle stars
+      for (auto &particle : particles)
+      {
+         float distance = std::get<0>(particle);
+         float rotation = std::get<1>(particle);
+         float opacity = std::get<2>(particle);
+         ALLEGRO_COLOR color = std::get<3>(particle);
+
+         float final_x = sin(rotation) * distance;
+         float final_y = cos(rotation) * distance;
+
+         draw_centered_unicode_character(obtain_mini_icon_font(), color, x + final_x, y + final_y);
+      }
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Color::Gold
+      - sin
+      - cos
 
 
   - name: is_finished
@@ -93,6 +119,14 @@ functions:
     guards: [ font_bin ]
     body: |
       return font_bin->auto_get("fa-solid-900.ttf -50");
+
+
+  - name: obtain_mini_icon_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("fa-solid-900.ttf -30");
 
 
   - name: draw_centered_unicode_character
@@ -139,5 +173,9 @@ dependencies:
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: std::vector<std::tuple<float, float, float, ALLEGRO_COLOR>>
     headers: [ vector, tuple, allegro5/allegro.h ]
+  - symbol: sin
+    headers: [ cmath ]
+  - symbol: cos
+    headers: [ cmath ]
 
 

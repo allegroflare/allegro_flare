@@ -40,6 +40,7 @@ namespace AllegroFlare
          void is_finished();
          float infer_age();
          ALLEGRO_FONT* obtain_icon_font();
+         ALLEGRO_FONT* obtain_mini_icon_font();
          void draw_centered_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=0xf005, int flags=0);
       };
    }

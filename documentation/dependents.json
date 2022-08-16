@@ -381,7 +381,8 @@
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "sin": [
-    "AllegroFlare/Elements/Backgrounds/Monoplex"
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/MotionFX/Sparkles"
   ],
   "AllegroFlare/draw_offset_textured_rectangle": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
@@ -671,6 +672,9 @@
     "AllegroFlare/MotionFX/Sparkles"
   ],
   "std/vector<std/tuple<float, float, float, ALLEGRO_COLOR>>": [
+    "AllegroFlare/MotionFX/Sparkles"
+  ],
+  "cos": [
     "AllegroFlare/MotionFX/Sparkles"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
