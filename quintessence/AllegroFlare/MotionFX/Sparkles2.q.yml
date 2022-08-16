@@ -63,9 +63,13 @@ functions:
          "0.7 scale_x 1.2 bounce_out",
          "0.7 scale_y 1.2 bounce_out",
 
-         "0 color_r 1.0 linear",
-         "0 color_g 0.84 linear",
-         "0 color_b 0.0 linear",
+         //"0 color_r 0. linear",
+         //"0 color_g 0.84 linear",
+         //"0 color_b 0.0 linear",
+
+         "0 color_r 0.91 linear",
+         "0 color_g 0.875 linear",
+         "0 color_b 0.537 linear",
 
          // fade out
          "1.9 opacity 1.0 linear",
