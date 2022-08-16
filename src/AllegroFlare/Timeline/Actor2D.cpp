@@ -40,6 +40,10 @@ namespace Timeline
          params.push_back(new Timeline::Track(1, "scale_y"));
          params.push_back(new Timeline::Track(0, "rotation"));
          params.push_back(new Timeline::Track(1, "opacity"));
+         params.push_back(new Timeline::Track(1.0, "color_r"));
+         params.push_back(new Timeline::Track(1.0, "color_g"));
+         params.push_back(new Timeline::Track(1.0, "color_b"));
+         //params.push_back(new Timeline::Track(1, "color_a"));
       }
 
 
@@ -48,10 +52,16 @@ namespace Timeline
       void Actor2D::render(double time)
       {
          static int ALLEGRO_FLAGS_EMPTY = 0;
+         ALLEGRO_COLOR color{
+            get_param_by_id("color_r")->get(time),
+            get_param_by_id("color_g")->get(time),
+            get_param_by_id("color_b")->get(time),
+            1.0
+         };
 
          al_draw_tinted_scaled_rotated_bitmap(
                bitmap,
-               AllegroFlare::color::color(AllegroFlare::color::white, get_param_by_id("opacity")->get(time)),
+               AllegroFlare::color::color(color, get_param_by_id("opacity")->get(time)),
                al_get_bitmap_width(bitmap) * get_param_by_id("align_x")->get(time),
                al_get_bitmap_height(bitmap) * get_param_by_id("align_y")->get(time),
                get_param_by_id("x")->get(time),

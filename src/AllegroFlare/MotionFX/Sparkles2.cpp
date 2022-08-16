@@ -70,12 +70,20 @@ void Sparkles2::initialize()
          throw std::runtime_error(error_message.str());
       }
    // create the actor
-   Timeline::Actor2D *actor = new Timeline::Actor2D("foo", obtain_star_bitmap());
+   Timeline::Actor *main_star_actor = new Timeline::Actor2D("foo", obtain_star_bitmap());
+   std::vector<Timeline::Actor*> friend_stars = {
+      new Timeline::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actor2D("foo", obtain_star_bitmap()),
+   };
+
+   std::vector<Timeline::Actor*> all_actors = { main_star_actor };
+   all_actors.insert(all_actors.end(), friend_stars.begin(), friend_stars.end());
 
    // add the actors to the manager
-   actor_manager.set_actors({
-      actor
-   });
+   actor_manager.set_actors(all_actors);
 
    // one way
    ///AllegroFlare::Timeline::Track *actor_rotation_track = actor->get_param_by_id("rotation");
@@ -95,7 +103,7 @@ void Sparkles2::initialize()
       "0.7 scale_x 1.2 bounce_out",
       "0.7 scale_y 1.2 bounce_out",
    };
-   actor->load_script(script_lines);
+   main_star_actor->load_script(script_lines);
 
    initialized = true;
    return;
@@ -161,7 +169,7 @@ ALLEGRO_BITMAP* Sparkles2::obtain_star_bitmap()
          error_message << "Sparkles2" << "::" << "obtain_star_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return bitmap_bin->auto_get("star-a.png");
+   return bitmap_bin->auto_get("star-b.png");
 }
 } // namespace MotionFX
 } // namespace AllegroFlare
