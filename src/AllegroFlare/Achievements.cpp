@@ -12,7 +12,7 @@ namespace AllegroFlare
 {
    Achievements::Achievements(
       EventEmitter *event_emitter,
-      std::map<std::string, std::pair<Achievement *, bool>> all_achievements
+      std::map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements
    )
       : event_emitter(event_emitter)
       , all_achievements(all_achievements)
@@ -23,25 +23,25 @@ namespace AllegroFlare
    {}
 
 
-   bool Achievements::unlock(std::pair<Achievement *, bool> *achievement)
+   bool Achievements::unlock(std::tuple<Achievement *, bool, bool> *achievement)
    {
       if (!achievement)
       {
          // TODO: errors
       }
 
-      if (achievement->second == true)
+      if (std::get<1>(*achievement) == true)
       {
          // TODO: consider outputting a message
          return false;
       }
       else
       {
-         achievement->first->on_unlocked();
-         achievement->second = true;
+         std::get<0>(*achievement)->on_unlocked();
+         std::get<1>(*achievement) = true;
          if (event_emitter)
          {
-            Achievement* completed_achievement = achievement->first;
+            Achievement* completed_achievement = std::get<0>(*achievement);
             event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
          }
          return true;
@@ -52,18 +52,18 @@ namespace AllegroFlare
    void Achievements::add(std::string identifier, Achievement *achievement)
    {
       // TODO: check for overwrite
-      all_achievements[identifier].first = achievement;
-      all_achievements[identifier].second = false;
+      std::get<0>(all_achievements[identifier]) = achievement;
+      std::get<1>(all_achievements[identifier]) = false;
    }
 
 
-   void Achievements::set_achievements(std::map<std::string, std::pair<Achievement *, bool>> all_achievements)
+   void Achievements::set_achievements(std::map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements)
    {
       this->all_achievements = all_achievements;
    }
 
 
-   std::map<std::string, std::pair<Achievement *, bool>> Achievements::get_achievements()
+   std::map<std::string, std::tuple<Achievement *, bool, bool>> Achievements::get_achievements()
    {
       return all_achievements;
    }
@@ -73,8 +73,8 @@ namespace AllegroFlare
    {
       for (auto &achievement : all_achievements)
       {
-         bool achievement_already_unlocked = achievement.second.second;
-         if (!achievement_already_unlocked && achievement.second.first->test_condition())
+         bool achievement_already_unlocked = std::get<1>(achievement.second);
+         if (!achievement_already_unlocked && std::get<0>(achievement.second)->test_condition())
          {
             unlock(&achievement.second);
          }
@@ -98,7 +98,7 @@ namespace AllegroFlare
    {
       for (auto &achievement : all_achievements)
       {
-         if (!achievement.second.second) return false;
+         if (!std::get<1>(achievement.second)) return false;
       }
       return true;
    }
@@ -106,7 +106,7 @@ namespace AllegroFlare
 
    bool Achievements::unlock_manually(std::string identifier)
    {
-      std::map<std::string, std::pair<Achievement *, bool>>::iterator it = all_achievements.find(identifier);
+      std::map<std::string, std::tuple<Achievement *, bool, bool>>::iterator it = all_achievements.find(identifier);
       if (it == all_achievements.end())
       {
          std::stringstream ss;
@@ -116,7 +116,7 @@ namespace AllegroFlare
          return false;
       }
 
-      std::pair<Achievement *, bool> &achievement = it->second;
+      std::tuple<Achievement *, bool, bool> &achievement = it->second;
 
       return unlock(&achievement);
    }
@@ -134,9 +134,9 @@ namespace AllegroFlare
       for (auto &achievement : all_achievements)
       {
          result << "achievement: \""
-                << achievement.first
+                << std::get<0>(achievement)    //.first
                 << "\", unlocked: "
-                << (achievement.second.second ? "true" : "false")
+                << (std::get<1>(achievement.second) ? "true" : "false")
                 << std::endl;
       }
       return result.str();
