@@ -680,6 +680,9 @@
   "cos": [
     "AllegroFlare/MotionFX/Sparkles"
   ],
+  "AllegroFlare/Timeline/ActorManager": [
+    "AllegroFlare/MotionFX/Sparkles2"
+  ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",

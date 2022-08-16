@@ -4017,8 +4017,19 @@ table td
   <td class="property">y</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">manager</td>
+  <td class="property">AllegroFlare::Timeline::ActorManager</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
 <tr>
   <td class="method">update()</td>
 </tr>
@@ -4032,6 +4043,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timeline::ActorManager&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timeline/ActorManager.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7484,6 +7498,9 @@ table td
   ],
   "cos": [
     "AllegroFlare/MotionFX/Sparkles"
+  ],
+  "AllegroFlare/Timeline/ActorManager": [
+    "AllegroFlare/MotionFX/Sparkles2"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",

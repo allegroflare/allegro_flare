@@ -20,20 +20,35 @@ properties:
     getter: true
     setter: true
 
+  - name: manager
+    type: AllegroFlare::Timeline::ActorManager
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
 
 functions:
 
 
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      initialized = true;
+      return;
+
+
   - name: update
     type: void
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), initialized ]
     body: |
       return;
 
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), initialized ]
     body: |
       return;
 
@@ -45,5 +60,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::Timeline::ActorManager
+    headers: [ AllegroFlare/Timeline/ActorManager.hpp ]
 
 

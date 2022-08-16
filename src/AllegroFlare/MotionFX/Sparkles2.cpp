@@ -5,6 +5,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -17,6 +19,8 @@ Sparkles2::Sparkles2(AllegroFlare::FontBin* font_bin, float x, float y)
    : font_bin(font_bin)
    , x(x)
    , y(y)
+   , manager({})
+   , initialized(false)
 {
 }
 
@@ -50,6 +54,18 @@ float Sparkles2::get_y()
 }
 
 
+void Sparkles2::initialize()
+{
+   if (!((!initialized)))
+      {
+         std::stringstream error_message;
+         error_message << "Sparkles2" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   initialized = true;
+   return;
+}
+
 void Sparkles2::update()
 {
    if (!(al_is_system_installed()))
@@ -62,6 +78,12 @@ void Sparkles2::update()
       {
          std::stringstream error_message;
          error_message << "Sparkles2" << "::" << "update" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Sparkles2" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    return;
@@ -79,6 +101,12 @@ void Sparkles2::render()
       {
          std::stringstream error_message;
          error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    return;

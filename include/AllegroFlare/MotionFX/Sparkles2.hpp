@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Timeline/ActorManager.hpp>
 
 
 namespace AllegroFlare
@@ -14,6 +15,8 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          float x;
          float y;
+         AllegroFlare::Timeline::ActorManager manager;
+         bool initialized;
 
       public:
          Sparkles2(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f);
@@ -23,6 +26,7 @@ namespace AllegroFlare
          void set_y(float y);
          float get_x();
          float get_y();
+         void initialize();
          void update();
          void render();
       };
