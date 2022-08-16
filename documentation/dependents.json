@@ -683,6 +683,9 @@
   "AllegroFlare/Timeline/ActorManager": [
     "AllegroFlare/MotionFX/Sparkles2"
   ],
+  "AllegroFlare/Timeline/Actor2D": [
+    "AllegroFlare/MotionFX/Sparkles2"
+  ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",

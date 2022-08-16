@@ -20,7 +20,7 @@ properties:
     getter: true
     setter: true
 
-  - name: manager
+  - name: actor_manager
     type: AllegroFlare::Timeline::ActorManager
     init_with: '{}'
 
@@ -35,8 +35,12 @@ functions:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
+      Timeline::Actor2D actor;
+
       initialized = true;
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Timeline::Actor2D
 
 
   - name: update
@@ -62,5 +66,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::Timeline::ActorManager
     headers: [ AllegroFlare/Timeline/ActorManager.hpp ]
+  - symbol: AllegroFlare::Timeline::Actor2D
+    headers: [ AllegroFlare/Timeline/Actor2D.hpp ]
 
 

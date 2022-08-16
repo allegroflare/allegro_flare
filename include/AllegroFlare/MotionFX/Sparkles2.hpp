@@ -15,7 +15,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          float x;
          float y;
-         AllegroFlare::Timeline::ActorManager manager;
+         AllegroFlare::Timeline::ActorManager actor_manager;
          bool initialized;
 
       public:

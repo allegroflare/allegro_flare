@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/MotionFX/Sparkles2.hpp>
+#include <AllegroFlare/Timeline/Actor2D.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -19,7 +20,7 @@ Sparkles2::Sparkles2(AllegroFlare::FontBin* font_bin, float x, float y)
    : font_bin(font_bin)
    , x(x)
    , y(y)
-   , manager({})
+   , actor_manager({})
    , initialized(false)
 {
 }
@@ -62,6 +63,8 @@ void Sparkles2::initialize()
          error_message << "Sparkles2" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
          throw std::runtime_error(error_message.str());
       }
+   Timeline::Actor2D actor;
+
    initialized = true;
    return;
 }
