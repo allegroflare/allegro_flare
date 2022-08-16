@@ -30,7 +30,7 @@ namespace Screens
 {
 
 
-PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string footer_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR footer_text_color, int title_font_size, int menu_font_size, int footer_font_size)
+PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string footer_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR footer_text_color, int title_font_size, int menu_font_size, int footer_font_size, bool show_footer_text)
    : AllegroFlare::Screens::Base("PauseScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -47,6 +47,7 @@ PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_font_size(title_font_size)
    , menu_font_size(menu_font_size)
    , footer_font_size(footer_font_size)
+   , show_footer_text(show_footer_text)
    , menu_options(build_default_menu_options())
    , cursor_position(0)
    , title_menu_gutter(80)
@@ -149,6 +150,12 @@ void PauseScreen::set_footer_font_size(int footer_font_size)
 }
 
 
+void PauseScreen::set_show_footer_text(bool show_footer_text)
+{
+   this->show_footer_text = show_footer_text;
+}
+
+
 void PauseScreen::set_title_menu_gutter(float title_menu_gutter)
 {
    this->title_menu_gutter = title_menu_gutter;
@@ -224,6 +231,12 @@ int PauseScreen::get_menu_font_size()
 int PauseScreen::get_footer_font_size()
 {
    return footer_font_size;
+}
+
+
+bool PauseScreen::get_show_footer_text()
+{
+   return show_footer_text;
 }
 
 
@@ -327,7 +340,7 @@ void PauseScreen::render()
       }
    draw_background();
    draw_title();
-   draw_footer_text();
+   if (show_footer_text) draw_footer_text();
    draw_menu();
    return;
 }

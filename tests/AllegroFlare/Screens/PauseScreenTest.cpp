@@ -95,6 +95,20 @@ TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
+   render__when_show_footer_text_is_true__will_render_the_footer_text)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
+   render__when_show_footer_text_is_false__will_not_render_the_footer_text)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
