@@ -561,6 +561,9 @@ namespace AllegroFlare
       else if (name == "quadruple_slow_out") return quadruple_slow_out;
       else if (name == "quadruple_slow_in_out") return quadruple_slow_in_out;
 
+      else if (name == "bounce_out") return bounce_out;
+      else if (name == "bounce_in") return bounce_in;
+      else if (name == "bounce_in_out") return bounce_in_out;
       return NULL;
    }
 
