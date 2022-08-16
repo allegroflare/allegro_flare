@@ -4,6 +4,8 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Timeline/ActorManager.hpp>
 #include <allegro5/allegro_font.h>
+#include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -29,6 +31,7 @@ namespace AllegroFlare
          float get_y();
          void initialize();
          void update();
+         std::vector<std::string> build_friend_star_script_lines(float rotation=0.0f);
          void render();
          ALLEGRO_BITMAP* obtain_star_bitmap();
       };

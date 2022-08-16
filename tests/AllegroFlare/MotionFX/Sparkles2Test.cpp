@@ -50,7 +50,7 @@ TEST_F(AllegroFlare_MotionFX_Sparkles2TestWithAllegroRenderingFixture,
    AllegroFlare::MotionFX::Sparkles2 sparkles2(&get_bitmap_bin_ref(), 1920/2, 1080/2);
    sparkles2.initialize();
 
-   int passes = 60 * 2;
+   int passes = 60 * 2.5;
    for (int i=0; i<passes; i++)
    {
       sparkles2.update();
