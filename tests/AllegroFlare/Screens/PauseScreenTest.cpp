@@ -102,9 +102,14 @@ TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
-   render__when_show_footer_text_is_false__will_not_render_the_footer_text)
+   CAPTURE__render__when_show_footer_text_is_false__will_not_render_the_footer_text)
 {
-   // TODO
+   AllegroFlare::Screens::PauseScreen pause_screen(nullptr, &get_font_bin_ref(), &get_bitmap_bin_ref());
+   pause_screen.set_show_footer_text(false);
+
+   pause_screen.render();
+
+   al_flip_display();
 }
 
 
