@@ -64,9 +64,15 @@ functions:
 
 
   - name: refresh_achievements_list
-    guards: [ initialized ]
     body: |
-      // TODO
+      std::vector<std::tuple<std::string, std::string, std::string>> result;
+      for (auto &achievement : achievements->get_achievements())
+      {
+         AllegroFlare::Achievement *ach = std::get<0>(achievement.second);
+         std::string status = "locked";
+         result.push_back({ status, ach->get_title(), ach->get_description() });
+      }
+      achievements_list.set_achievements(result);
       return;
 
 
@@ -93,6 +99,9 @@ functions:
       // emit events to show and set the input hints
       emit_event_to_set_input_hints();
       event_emitter->emit_show_input_hints_bar_event();
+
+      // refresh the achievements from the actual list of achievements
+      refresh_achievements_list();
       return;
 
 
@@ -118,7 +127,8 @@ functions:
       - achievements
     body: |
       achievements_list.set_font_bin(font_bin);
-      achievements_list.set_achievements(build_achievements());
+      refresh_achievements_list();
+      //achievements_list.set_achievements(build_achievements());
       initialized = true;
       return;
 
@@ -208,6 +218,11 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::AchievementsList
+
+
+  - name: set_placeholder_achievements
+    body: |
+      return achievements_list.set_achievements(build_achievements());
 
 
   - name: build_achievements

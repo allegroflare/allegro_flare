@@ -19,8 +19,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <stdexcept>
@@ -86,13 +84,14 @@ void Achievements::set_font_bin(AllegroFlare::FontBin* font_bin)
 
 void Achievements::refresh_achievements_list()
 {
-   if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "refresh_achievements_list" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   // TODO
+   std::vector<std::tuple<std::string, std::string, std::string>> result;
+   for (auto &achievement : achievements->get_achievements())
+   {
+      AllegroFlare::Achievement *ach = std::get<0>(achievement.second);
+      std::string status = "locked";
+      result.push_back({ status, ach->get_title(), ach->get_description() });
+   }
+   achievements_list.set_achievements(result);
    return;
 }
 
@@ -123,6 +122,9 @@ void Achievements::on_activate()
    // emit events to show and set the input hints
    emit_event_to_set_input_hints();
    event_emitter->emit_show_input_hints_bar_event();
+
+   // refresh the achievements from the actual list of achievements
+   refresh_achievements_list();
    return;
 }
 
@@ -180,7 +182,8 @@ void Achievements::initialize()
          throw std::runtime_error(error_message.str());
       }
    achievements_list.set_font_bin(font_bin);
-   achievements_list.set_achievements(build_achievements());
+   refresh_achievements_list();
+   //achievements_list.set_achievements(build_achievements());
    initialized = true;
    return;
 }
@@ -272,6 +275,11 @@ void Achievements::render()
       }
    achievements_list.render();
    return;
+}
+
+void Achievements::set_placeholder_achievements()
+{
+   return achievements_list.set_achievements(build_achievements());
 }
 
 std::vector<std::tuple<std::string, std::string, std::string>> Achievements::build_achievements()

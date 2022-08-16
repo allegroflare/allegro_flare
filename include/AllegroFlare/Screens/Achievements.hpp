@@ -47,6 +47,7 @@ namespace AllegroFlare
          void move_scrollbar_position_down();
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
          void render();
+         void set_placeholder_achievements();
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();
          void limit_scrollbar_dest_position();
          void emit_event_to_set_input_hints();

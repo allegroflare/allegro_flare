@@ -92,6 +92,26 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, render_
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
+   refresh_achievements_list__will_refresh_the_list_from_the_source_achievements)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::Achievements achievements;
+   AllegroFlare::Screens::Achievements achievements_screen(&get_font_bin_ref(), &event_emitter, &achievements);
+   achievements_screen.initialize();
+
+   EXPECT_EQ(0, achievements_screen.get_achievements_list_ref().get_achievements().size());
+   achievements.set_achievements({
+      { "win_the_day", {
+         new AllegroFlare::Achievement("Win the Day", "Accomplish the task you set out to do"), false, false } },
+      { "add_several_achievements", {
+         new AllegroFlare::Achievement("And Another One", "Add another achievement to the test data"), false, false } },
+   });
+   achievements_screen.refresh_achievements_list();
+   EXPECT_EQ(2, achievements_screen.get_achievements_list_ref().get_achievements().size());
+}
+
+
+TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
