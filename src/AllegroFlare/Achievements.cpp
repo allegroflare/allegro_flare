@@ -12,7 +12,7 @@ namespace AllegroFlare
 {
    Achievements::Achievements(
       EventEmitter *event_emitter,
-      std::map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements
+      std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements
    )
       : event_emitter(event_emitter)
       , all_achievements(all_achievements)
@@ -57,13 +57,13 @@ namespace AllegroFlare
    }
 
 
-   void Achievements::set_achievements(std::map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements)
+   void Achievements::set_achievements(std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements)
    {
       this->all_achievements = all_achievements;
    }
 
 
-   std::map<std::string, std::tuple<Achievement *, bool, bool>> Achievements::get_achievements()
+   std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> Achievements::get_achievements()
    {
       return all_achievements;
    }
@@ -106,7 +106,7 @@ namespace AllegroFlare
 
    bool Achievements::unlock_manually(std::string identifier)
    {
-      std::map<std::string, std::tuple<Achievement *, bool, bool>>::iterator it = all_achievements.find(identifier);
+      std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>>::iterator it = all_achievements.find(identifier);
       if (it == all_achievements.end())
       {
          std::stringstream ss;
