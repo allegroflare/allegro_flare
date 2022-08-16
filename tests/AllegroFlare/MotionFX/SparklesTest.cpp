@@ -35,9 +35,15 @@ TEST_F(AllegroFlare_MotionFX_SparklesTest, render__without_allegro_initialized__
 }
 
 
+TEST_F(AllegroFlare_MotionFX_SparklesTest, render__before_initialization__raises_an_error)
+{
+}
+
+
 TEST_F(AllegroFlare_MotionFX_SparklesTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
-   AllegroFlare::MotionFX::Sparkles sparkles;
+   AllegroFlare::MotionFX::Sparkles sparkles(&get_font_bin_ref());
+   sparkles.initialize();
    sparkles.render();
 }
 
@@ -45,6 +51,7 @@ TEST_F(AllegroFlare_MotionFX_SparklesTestWithAllegroRenderingFixture, render__wi
 TEST_F(AllegroFlare_MotionFX_SparklesTestWithAllegroRenderingFixture, VISUAL__render__will_render_an_animated_effect)
 {
    AllegroFlare::MotionFX::Sparkles sparkles(&get_font_bin_ref(), 1920/2, 1080/2);
+   sparkles.initialize();
 
    int passes = 60 * 3;
    for (int i=0; i<passes; i++)

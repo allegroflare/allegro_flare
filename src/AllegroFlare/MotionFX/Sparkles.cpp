@@ -1,6 +1,10 @@
 
 
 #include <AllegroFlare/MotionFX/Sparkles.hpp>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/Color.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -18,7 +22,9 @@ Sparkles::Sparkles(AllegroFlare::FontBin* font_bin, float x, float y)
    : font_bin(font_bin)
    , x(x)
    , y(y)
+   , particles({})
    , created_at(0)
+   , initialized(false)
 {
 }
 
@@ -64,8 +70,45 @@ float Sparkles::get_created_at()
 }
 
 
+bool Sparkles::get_initialized()
+{
+   return initialized;
+}
+
+
+void Sparkles::initialize()
+{
+   if (!((!initialized)))
+      {
+         std::stringstream error_message;
+         error_message << "Sparkles" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   static const float TAU = 6.28318531;
+   float num_particles = 7;
+          // distance,   rotation,   opacity,    color
+   particles = {
+      { 20, TAU / 7.0, 1.0, AllegroFlare::Color::Gold }
+   };
+   initialized = true;
+   return;
+}
+
 void Sparkles::update()
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Sparkles" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   // update the particles
+   float rotation_speed = 0.02;
+   for (auto &particle : particles)
+   {
+      float &particle_rotation = std::get<1>(particle);
+      particle_rotation += rotation_speed;
+   }
    return;
 }
 
@@ -81,6 +124,12 @@ void Sparkles::render()
       {
          std::stringstream error_message;
          error_message << "Sparkles" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Sparkles" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;

@@ -3922,11 +3922,30 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">particles</td>
+  <td class="property">std::vector&lt;std::tuple&lt;float, float, float, ALLEGRO_COLOR&gt;&gt;</td>
+</tr>
+<tr>
   <td class="property">created_at</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
 <tr>
   <td class="method">update()</td>
 </tr>
@@ -3935,6 +3954,9 @@ table td
 </tr>
 <tr>
   <td class="method">is_finished()</td>
+</tr>
+<tr>
+  <td class="method">infer_age()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_icon_font()</td>
@@ -3952,6 +3974,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color::Gold&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;float, float, float, ALLEGRO_COLOR&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7391,6 +7419,12 @@ table td
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
+  ],
+  "AllegroFlare/Color/Gold": [
+    "AllegroFlare/MotionFX/Sparkles"
+  ],
+  "std/vector<std/tuple<float, float, float, ALLEGRO_COLOR>>": [
+    "AllegroFlare/MotionFX/Sparkles"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",

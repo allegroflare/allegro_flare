@@ -20,24 +20,54 @@ properties:
     getter: true
     setter: true
 
+  - name: particles
+    type: std::vector<std::tuple<float, float, float, ALLEGRO_COLOR>>
+    init_with: '{}'
+
   - name: created_at
     type: float
     init_with: 0
     getter: true
     setter: true
 
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
 
 functions:
 
 
-  - name: update
+  - name: initialize
+    guards: [ (!initialized) ]
     body: |
+      static const float TAU = 6.28318531;
+      float num_particles = 7;
+             // distance,   rotation,   opacity,    color
+      particles = {
+         { 20, TAU / 7.0, 1.0, AllegroFlare::Color::Gold }
+      };
+      initialized = true;
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      // update the particles
+      float rotation_speed = 0.02;
+      for (auto &particle : particles)
+      {
+         float &particle_rotation = std::get<1>(particle);
+         particle_rotation += rotation_speed;
+      }
       return;
 
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), initialized ]
     body: |
       ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;
       draw_centered_unicode_character(obtain_icon_font(), star_color, x, y);
@@ -107,5 +137,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Color::Gold
     headers: [ AllegroFlare/Color.hpp ]
+  - symbol: std::vector<std::tuple<float, float, float, ALLEGRO_COLOR>>
+    headers: [ vector, tuple, allegro5/allegro.h ]
 
 

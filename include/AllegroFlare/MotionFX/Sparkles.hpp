@@ -5,6 +5,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstdint>
+#include <tuple>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -17,7 +19,9 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          float x;
          float y;
+         std::vector<std::tuple<float, float, float, ALLEGRO_COLOR>> particles;
          float created_at;
+         bool initialized;
 
       public:
          Sparkles(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f);
@@ -29,6 +33,8 @@ namespace AllegroFlare
          float get_x();
          float get_y();
          float get_created_at();
+         bool get_initialized();
+         void initialize();
          void update();
          void render();
          void is_finished();
