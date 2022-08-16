@@ -35,6 +35,10 @@ properties:
     init_with: false
     getter: true
 
+  - name: main_star_placement
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
+
 
 functions:
 
@@ -55,6 +59,9 @@ functions:
          { distance, TAU / 7.0 * 5, 1.0, AllegroFlare::Color::Gold },
          { distance, TAU / 7.0 * 6, 1.0, AllegroFlare::Color::Gold },
       };
+
+      main_star_placement = Placement2D(0, 0, 0, 0);
+
       initialized = true;
       return;
 
@@ -79,7 +86,9 @@ functions:
       ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;
 
       // draw the main star
+      main_star_placement.start_transform();
       draw_centered_unicode_character(obtain_icon_font(), star_color, x, y);
+      main_star_placement.restore_transform();
 
       // draw the particle stars
       for (auto &particle : particles)
@@ -98,6 +107,7 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Color::Gold
+      - AllegroFlare::Placement2D
       - sin
       - cos
 
@@ -177,5 +187,7 @@ dependencies:
     headers: [ cmath ]
   - symbol: cos
     headers: [ cmath ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
 
 

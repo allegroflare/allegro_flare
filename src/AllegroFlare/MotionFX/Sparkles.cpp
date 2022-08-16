@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <cmath>
 #include <cmath>
 #include <stdexcept>
@@ -29,6 +30,7 @@ Sparkles::Sparkles(AllegroFlare::FontBin* font_bin, float x, float y)
    , particles({})
    , created_at(0)
    , initialized(false)
+   , main_star_placement({})
 {
 }
 
@@ -101,6 +103,9 @@ void Sparkles::initialize()
       { distance, TAU / 7.0 * 5, 1.0, AllegroFlare::Color::Gold },
       { distance, TAU / 7.0 * 6, 1.0, AllegroFlare::Color::Gold },
    };
+
+   main_star_placement = Placement2D(0, 0, 0, 0);
+
    initialized = true;
    return;
 }
@@ -146,7 +151,9 @@ void Sparkles::render()
    ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;
 
    // draw the main star
+   main_star_placement.start_transform();
    draw_centered_unicode_character(obtain_icon_font(), star_color, x, y);
+   main_star_placement.restore_transform();
 
    // draw the particle stars
    for (auto &particle : particles)

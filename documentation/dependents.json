@@ -200,6 +200,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/PauseScreen",

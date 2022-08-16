@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstdint>
@@ -22,6 +23,7 @@ namespace AllegroFlare
          std::vector<std::tuple<float, float, float, ALLEGRO_COLOR>> particles;
          float created_at;
          bool initialized;
+         AllegroFlare::Placement2D main_star_placement;
 
       public:
          Sparkles(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f);
