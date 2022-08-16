@@ -51,6 +51,7 @@ namespace AllegroFlare
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();
          void limit_scrollbar_dest_position();
          void emit_event_to_set_input_hints();
+         bool infer_scrollbar_is_showing();
       };
    }
 }

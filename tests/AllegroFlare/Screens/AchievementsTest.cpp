@@ -71,6 +71,20 @@ TEST_F(AllegroFlare_Screens_AchievementsTest,
 }
 
 
+TEST_F(AllegroFlare_Screens_AchievementsTest,
+   on_activate__when_the_scrollbar_will_be_showing__sets_the_input_hints_to_include_scrollbar_control_hints)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_AchievementsTest,
+   on_activate__when_the_scrollbar_will_not_be_showing__sets_the_input_hints_without_scrollbar_control_hints)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    primary_timer_func__before_initialization__will_raise_an_exception)
 {

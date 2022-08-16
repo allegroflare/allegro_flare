@@ -118,6 +118,9 @@ void Achievements::on_activate()
          error_message << "Achievements" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
+   // refresh the achievements from the actual list of achievements
+   refresh_achievements_list();
+
    // position cursor such that it will scroll to the top
    achievements_list.set_scrollbar_position_to_max();
    move_scrollbar_position_to(0);
@@ -125,9 +128,6 @@ void Achievements::on_activate()
    // emit events to show and set the input hints
    emit_event_to_set_input_hints();
    event_emitter->emit_show_input_hints_bar_event();
-
-   // refresh the achievements from the actual list of achievements
-   refresh_achievements_list();
    return;
 }
 
@@ -311,12 +311,26 @@ void Achievements::emit_event_to_set_input_hints()
          error_message << "Achievements" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"event_emitter\" not met";
          throw std::runtime_error(error_message.str());
       }
-   event_emitter->emit_set_input_hints_bar_event({
-      "UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Scroll up/down",
-      "%SEPARATOR",
-      "X", "%SPACER", "LABEL>>", "Return",
-   });
+   std::vector<std::string> scrollbar_tokens = { "UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Scroll up/down", };
+   std::vector<std::string> return_tokens = { "X", "%SPACER", "LABEL>>", "Return", };
+   std::vector<std::string> separator_tokens = { "%SEPARATOR" };
+   std::vector<std::string> result_tokens;
+
+   if (infer_scrollbar_is_showing())
+   {
+      result_tokens.insert(result_tokens.end(), scrollbar_tokens.begin(), scrollbar_tokens.end());
+      result_tokens.insert(result_tokens.end(), separator_tokens.begin(), separator_tokens.end());
+   }
+
+   result_tokens.insert(result_tokens.end(), return_tokens.begin(), return_tokens.end());
+
+   event_emitter->emit_set_input_hints_bar_event(result_tokens);
    return;
+}
+
+bool Achievements::infer_scrollbar_is_showing()
+{
+   return !achievements_list.scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
 }
 } // namespace Screens
 } // namespace AllegroFlare
