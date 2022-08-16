@@ -88,10 +88,10 @@ void Achievements::refresh_achievements_list()
    for (auto &achievement : achievements->get_achievements())
    {
       AllegroFlare::Achievement *ach = std::get<0>(achievement.second);
-      bool locked = std::get<1>(achievement.second);
+      bool unlocked = std::get<1>(achievement.second);
       bool hidden = std::get<2>(achievement.second);
       // TODO: test this
-      std::string status = hidden ? "hidden" : (locked ? "locked" : "unlocked" );
+      std::string status = unlocked ? "unlocked" : (hidden ? "hidden" : "locked" );
       result.push_back({ status, ach->get_title(), ach->get_description() });
    }
    achievements_list.set_achievements(result);
