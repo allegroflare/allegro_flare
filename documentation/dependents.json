@@ -244,6 +244,7 @@
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",

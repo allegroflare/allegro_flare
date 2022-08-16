@@ -6,6 +6,20 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: created_at
     type: float
     init_with: 0
@@ -25,7 +39,11 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;
+      draw_centered_unicode_character(obtain_icon_font(), star_color, x, y);
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Color::Gold
 
 
   - name: is_finished
@@ -33,12 +51,49 @@ functions:
       return;
 
 
-  - name: obtain_font
+  - name: infer_age
+    type: float
+    body: |
+      return al_get_time() - created_at;
+
+
+  - name: obtain_icon_font
     private: true
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Purista Medium.otf -32");
+      return font_bin->auto_get("fa-solid-900.ttf -50");
+
+
+  - name: draw_centered_unicode_character
+    private: true
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: icon
+        type: uint32_t
+        default_argument: 0xf005
+      - name: flags
+        type: int
+        default_argument: 0
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      float width = al_get_ustr_width(font, ustr);
+      float height = al_get_font_line_height(font);
+      al_draw_ustr(font, color, x-width*0.5, y-height*0.5, flags, ustr);
+      return;
 
 
 dependencies:
@@ -48,5 +103,9 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Color::Gold
+    headers: [ AllegroFlare/Color.hpp ]
 
 
