@@ -75,6 +75,7 @@ ScriptLoader::ScriptLoader(std::string script)
 
 int ScriptLoader::get_current_line_num()
 {
+   if (at_end()) return -1;
    return current_line_index+1;
 }
 

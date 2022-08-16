@@ -26,7 +26,8 @@ namespace AllegroFlare
 
          AllegroFlare::Timeline::Track *get_param_by_id(const char *id);
 
-         virtual void load_script(std::string script_filename);
+         virtual void load_script(std::string script);
+         virtual void load_script(std::vector<std::string> script_lines);
          virtual void render(double time) = 0;
          virtual void register_params() = 0;
       };

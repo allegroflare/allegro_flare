@@ -21,4 +21,10 @@ TEST(AllegroFlare_Timeline_ActorTest, derived_class_can_be_created_without_blowi
 }
 
 
+TEST(AllegroFlare_Timeline_ActorTest, load_script__will_create_keyframes_on_the_tracks)
+{
+   ActorTestClass actor;
+}
+
+
 

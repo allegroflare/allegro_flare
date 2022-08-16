@@ -8,6 +8,22 @@
 #include <sstream>
 
 
+static std::string join(std::vector<std::string> tokens, std::string delimiter)
+{
+   std::stringstream result;
+   bool last = false;
+
+   for (unsigned i=0; i<tokens.size(); i++)
+   {
+      result << tokens[i];
+      if (i == tokens.size()-1) last = true;
+      if (!last) result << delimiter;
+   }
+
+   return result.str();
+}
+
+
 
 namespace AllegroFlare
 {
@@ -36,21 +52,30 @@ Timeline::Track *Actor::get_param_by_id(const char *id)
 {
    for (unsigned i=0; i<params.size(); i++)
       if (params[i]->label == id) return params[i];
-   std::cout << "cannot find param \"" << identifier << "." << id << "\"" << std::endl;
+   std::cout << "cannot find param \"" << id << "\" on actor identifier \"" << identifier << "\"" << std::endl;
    return NULL;
 }
 
 
 
 
-void Actor::load_script(std::string script_filename)
+void Actor::load_script(std::vector<std::string> script_lines)
+{
+   std::string script = join(script_lines, "\n");
+   load_script(script);
+}
+
+
+
+
+void Actor::load_script(std::string script)
 {
    for (unsigned i=0; i<params.size(); i++)
    {
       params[i]->keyframe.clear();
    }
 
-   ScriptLoader script_reader(AllegroFlare::php::file_get_contents(script_filename));
+   ScriptLoader script_reader(script); //AllegroFlare::php::file_get_contents(script_filename));
    
    while (!script_reader.at_end())
    {

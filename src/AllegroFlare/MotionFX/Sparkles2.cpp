@@ -3,6 +3,8 @@
 #include <AllegroFlare/MotionFX/Sparkles2.hpp>
 #include <AllegroFlare/Timeline/Actor2D.hpp>
 #include <AllegroFlare/Interpolators.hpp>
+#include <vector>
+#include <string>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -80,13 +82,17 @@ void Sparkles2::initialize()
    //actor_rotation_track->add_keyframe(1.0, 2.0, interpolator::linear);
    //actor_rotation_track->add_keyframe(2.0, -2.0, interpolator::fast_in);
 
+
    // another way
-   std::stringstream script;
-   script
-      << "rotation 1.0 2.0 linear" << std::endl
-      << "x 3.0 10.0 linear" << std::endl
-      ;
-   actor->load_script(script.str());
+   // [time_sec] [param] [value] [!interpoltor]
+   std::vector<std::string> script_lines = {
+      "1.0 x 100.0 linear",
+      "2.0 rotation 10.0 tripple_fast_in",
+
+      "0.0 opacity 0.0 linear",
+      "0.2 opacity 1.0 linear",
+   };
+   actor->load_script(script_lines);
 
    initialized = true;
    return;
