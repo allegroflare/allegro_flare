@@ -10,9 +10,12 @@
 
 namespace AllegroFlare
 {
-   Achievements::Achievements(EventEmitter *event_emitter)
-      : all_achievements({})
-      , event_emitter(event_emitter)
+   Achievements::Achievements(
+      EventEmitter *event_emitter,
+      std::map<std::string, std::pair<Achievement *, bool>> all_achievements
+   )
+      : event_emitter(event_emitter)
+      , all_achievements(all_achievements)
    {}
 
 
@@ -51,6 +54,18 @@ namespace AllegroFlare
       // TODO: check for overwrite
       all_achievements[identifier].first = achievement;
       all_achievements[identifier].second = false;
+   }
+
+
+   void Achievements::set_achievements(std::map<std::string, std::pair<Achievement *, bool>> all_achievements)
+   {
+      this->all_achievements = all_achievements;
+   }
+
+
+   std::map<std::string, std::pair<Achievement *, bool>> Achievements::get_achievements()
+   {
+      return all_achievements;
    }
 
 

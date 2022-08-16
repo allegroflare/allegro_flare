@@ -53,7 +53,7 @@ TEST(AllegroFlare_AchievementsTest,
    achievements.unlock_manually("an-achievement-identifier-that-does-not-exist");
 
    std::string expected_cout_output = "[Achievements::unlock_manually] error: Could not find "
-                                      "achievement identifier \"an-achievement-identifier-that-does-not-exist\"";
+                                      "achievement with identifier \"an-achievement-identifier-that-does-not-exist\"";
    std::string actual_cout_output = testing::internal::GetCapturedStdout();
    EXPECT_EQ(expected_cout_output, actual_cout_output);
 }
