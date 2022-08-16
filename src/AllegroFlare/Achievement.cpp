@@ -4,8 +4,9 @@
 
 namespace AllegroFlare
 {
-   Achievement::Achievement(std::string title)
+   Achievement::Achievement(std::string title, std::string description)
       : title(title)
+      , description(description)
       , unlocked(false)
    {}
 
@@ -42,6 +43,18 @@ namespace AllegroFlare
    std::string Achievement::get_title()
    {
       return title;
+   }
+
+
+   bool Achievement::set_description(std::string description)
+   {
+      this->description = description;
+   }
+
+
+   std::string Achievement::get_description()
+   {
+      return description;
    }
 }
 

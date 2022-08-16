@@ -10,10 +10,11 @@ namespace AllegroFlare
    {
    private:
       std::string title;
+      std::string description;
       bool unlocked;
 
    public:
-      Achievement(std::string title="Achievement");
+      Achievement(std::string title="Achievement", std::string description="Unset description");
       virtual ~Achievement();
 
       bool virtual unlock_manually() final;
@@ -23,6 +24,8 @@ namespace AllegroFlare
 
       bool set_title(std::string title);
       std::string get_title();
+      bool set_description(std::string description);
+      std::string get_description();
    };
 }
 
