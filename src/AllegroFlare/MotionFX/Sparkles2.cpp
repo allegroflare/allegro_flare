@@ -88,7 +88,7 @@ void Sparkles2::initialize()
    // main star
    // [time_sec] [param] [value] [!interpoltor]
    std::vector<std::string> script_lines = {
-      "0.0 rotation -4.0 linear",
+      "0.0 rotation 4.0 linear",
       "2.0 rotation 0.0 tripple_fast_in",
       "0.0 opacity 0.0 linear",
       "0.2 opacity 1.0 linear",
@@ -100,6 +100,10 @@ void Sparkles2::initialize()
       "0 color_r 1.0 linear",
       "0 color_g 0.84 linear",
       "0 color_b 0.0 linear",
+
+      // fade out
+      "1.9 opacity 1.0 linear",
+      "2.2 opacity 0.0 fast_out",
    };
    main_star_actor->load_script(script_lines);
 
@@ -172,8 +176,8 @@ std::vector<std::string> Sparkles2::build_friend_star_script_lines(float rotatio
       "1.8 scale_x 0.55 double_slow_in",
       "1.8 scale_y 0.55 double_slow_in",
 
-      "1.2 opacity 1.0 linear",
-      "1.6 opacity 0.0 linear",
+      "1.5 opacity 1.0 linear",
+      "1.8 opacity 0.0 linear",
    };
    return result;
 }
