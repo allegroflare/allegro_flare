@@ -20,8 +20,8 @@ namespace AllegroFlare
       public:
          Track(float start_val=0, std::string label="");
 
-         void add(AllegroFlare::Timeline::Keyframe *k);
-         void add(float time, float val, float (*interpolator_func)(float)=nullptr);
+         void add_keyframe(AllegroFlare::Timeline::Keyframe *k);
+         void add_keyframe(float time, float val, float (*interpolator_func)(float)=nullptr);
          float get_displacement(float t1, float t2);
          float get(float time);
          std::string get_str();

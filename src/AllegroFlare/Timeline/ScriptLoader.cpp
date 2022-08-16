@@ -73,6 +73,12 @@ ScriptLoader::ScriptLoader(std::string script)
 
 
 
+int ScriptLoader::get_current_line_num()
+{
+   return current_line_index+1;
+}
+
+
 
 bool ScriptLoader::at_end()
 {

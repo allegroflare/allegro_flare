@@ -1,8 +1,9 @@
 #pragma once
 
 
-#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Timeline/ActorManager.hpp>
+#include <allegro5/allegro_font.h>
 
 
 namespace AllegroFlare
@@ -12,14 +13,14 @@ namespace AllegroFlare
       class Sparkles2
       {
       private:
-         AllegroFlare::FontBin* font_bin;
+         AllegroFlare::BitmapBin* bitmap_bin;
          float x;
          float y;
          AllegroFlare::Timeline::ActorManager actor_manager;
          bool initialized;
 
       public:
-         Sparkles2(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f);
+         Sparkles2(AllegroFlare::BitmapBin* bitmap_bin=nullptr, float x=0.0f, float y=0.0f);
          ~Sparkles2();
 
          void set_x(float x);
@@ -29,6 +30,7 @@ namespace AllegroFlare
          void initialize();
          void update();
          void render();
+         ALLEGRO_BITMAP* obtain_star_bitmap();
       };
    }
 }
