@@ -43,6 +43,20 @@ properties:
     getter: true
     setter: true
 
+  - name: value_min
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: value_max
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 

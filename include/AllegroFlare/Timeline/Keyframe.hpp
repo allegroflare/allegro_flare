@@ -2,6 +2,7 @@
 
 
 #include <string>
+#include <AllegroFlare/Interpolators.hpp>
 
 
 namespace AllegroFlare
@@ -15,7 +16,7 @@ namespace AllegroFlare
          float val;
          float (*interpolator_func)(float);
 
-         Keyframe(float time=0, float val=0, float (*interpolator_func)(float)=nullptr); // TODO: default interp to linear
+         Keyframe(float time=0, float val=0, float (*interpolator_func)(float)=interpolator::linear);
          ~Keyframe();
       };
    }

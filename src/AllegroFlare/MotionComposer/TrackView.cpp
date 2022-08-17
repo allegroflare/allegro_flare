@@ -17,13 +17,15 @@ namespace MotionComposer
 {
 
 
-TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track, float x, float y, float width, float height)
+TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track, float x, float y, float width, float height, float value_min, float value_max)
    : font_bin(font_bin)
    , track(track)
    , x(x)
    , y(y)
    , width(width)
    , height(height)
+   , value_min(value_min)
+   , value_max(value_max)
 {
 }
 
@@ -69,6 +71,18 @@ void TrackView::set_height(float height)
 }
 
 
+void TrackView::set_value_min(float value_min)
+{
+   this->value_min = value_min;
+}
+
+
+void TrackView::set_value_max(float value_max)
+{
+   this->value_max = value_max;
+}
+
+
 AllegroFlare::FontBin* TrackView::get_font_bin()
 {
    return font_bin;
@@ -102,6 +116,18 @@ float TrackView::get_width()
 float TrackView::get_height()
 {
    return height;
+}
+
+
+float TrackView::get_value_min()
+{
+   return value_min;
+}
+
+
+float TrackView::get_value_max()
+{
+   return value_max;
 }
 
 

@@ -15,10 +15,10 @@ namespace AllegroFlare
       public: // TODO: make private
          std::string label;
          float start_val;
-         std::vector<AllegroFlare::Timeline::Keyframe *> keyframe;
+         std::vector<AllegroFlare::Timeline::Keyframe *> keyframes;
 
       public:
-         Track(std::string label="", float start_val=0);
+         Track(std::string label="", float start_val=0, std::vector<AllegroFlare::Timeline::Keyframe *> keyframes={});
 
          std::vector<AllegroFlare::Timeline::Keyframe *> get_keyframes();
          void set_keyframes(std::vector<AllegroFlare::Timeline::Keyframe *> keyframes);

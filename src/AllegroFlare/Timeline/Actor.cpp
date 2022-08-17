@@ -72,7 +72,7 @@ void Actor::load_script(std::string script)
 {
    for (unsigned i=0; i<params.size(); i++)
    {
-      params[i]->keyframe.clear();
+      params[i]->keyframes.clear();
    }
 
    ScriptLoader script_reader(script); //AllegroFlare::php::file_get_contents(script_filename));
