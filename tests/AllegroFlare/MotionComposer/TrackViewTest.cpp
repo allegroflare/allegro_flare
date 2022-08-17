@@ -45,7 +45,7 @@ TEST_F(AllegroFlare_MotionComposer_TrackViewTestWithAllegroRenderingFixture, DIS
 TEST_F(AllegroFlare_MotionComposer_TrackViewTestWithAllegroRenderingFixture,
    CAPTURE__render__will_render_the_track_as_expected)
 {
-   AllegroFlare::Timeline::Track track;
+   AllegroFlare::Timeline::Track track("opacity", 1.0);
    AllegroFlare::MotionComposer::TrackView track_view(&get_font_bin_ref(), &track);
 
    clear();

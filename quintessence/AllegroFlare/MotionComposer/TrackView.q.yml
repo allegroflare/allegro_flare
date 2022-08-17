@@ -81,6 +81,14 @@ functions:
       return font_bin->auto_get("fa-solid-900.ttf -30");
 
 
+  - name: obtain_track_values_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf -20");
+
+
 dependencies:
 
 

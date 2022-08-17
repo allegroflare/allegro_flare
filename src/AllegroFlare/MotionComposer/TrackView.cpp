@@ -6,6 +6,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -102,6 +104,17 @@ ALLEGRO_FONT* TrackView::obtain_icon_font()
          throw std::runtime_error(error_message.str());
       }
    return font_bin->auto_get("fa-solid-900.ttf -30");
+}
+
+ALLEGRO_FONT* TrackView::obtain_track_values_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "TrackView" << "::" << "obtain_track_values_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return font_bin->auto_get("Inter-Medium.ttf -20");
 }
 } // namespace MotionComposer
 } // namespace AllegroFlare
