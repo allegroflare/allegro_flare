@@ -54,16 +54,20 @@ functions:
       int count = 0;
 
       ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+      ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
+
       al_draw_filled_rectangle(x, y, width, height, backfill_color);
+      float x_scale = 100;
 
       for (auto &keyframe : track->get_keyframes())
       {
-         float x_scale = 100;
          float keyframe_x = keyframe->time * x_scale;
+
+         al_draw_line(keyframe_x, y, keyframe_x, y+height, line_color, 1.0);
 
          int32_t diamond = 0xf219;
          ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
-         draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
+         //draw_centered_unicode_character(icon_font, color, x+keyframe_x, y+keyframe_y, diamond, 0);
          count++;
       }
       return;
