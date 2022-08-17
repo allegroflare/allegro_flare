@@ -152,23 +152,27 @@ void TrackView::render()
          throw std::runtime_error(error_message.str());
       }
    ALLEGRO_FONT *icon_font = obtain_icon_font();
-   int count = 0;
-
    ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
 
    al_draw_filled_rectangle(x, y, width, height, backfill_color);
    float x_scale = 100;
+   float y_scale = height;
 
+   int count = 0;
    for (auto &keyframe : track->get_keyframes())
    {
+      float capped_normalized_y = keyframe->val;
       float keyframe_x = keyframe->time * x_scale;
+      float keyframe_y = capped_normalized_y * y_scale;
 
+      // draw a line demarcating where keyframes are
       al_draw_line(keyframe_x, y, keyframe_x, y+height, line_color, 1.0);
 
+      // draw a graphic on the node
       int32_t diamond = 0xf219;
       ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
-      //draw_centered_unicode_character(icon_font, color, x+keyframe_x, y+keyframe_y, diamond, 0);
+      draw_centered_unicode_character(icon_font, color, x+keyframe_x, y+keyframe_y, diamond, 0);
       count++;
    }
    return;
@@ -193,7 +197,7 @@ ALLEGRO_FONT* TrackView::obtain_icon_font()
          error_message << "TrackView" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("fa-solid-900.ttf -30");
+   return font_bin->auto_get("fa-solid-900.ttf -24");
 }
 
 ALLEGRO_FONT* TrackView::obtain_track_values_font()
