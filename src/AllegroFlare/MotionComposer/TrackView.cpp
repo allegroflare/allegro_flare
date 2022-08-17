@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/MotionComposer/TrackView.hpp>
+#include <AllegroFlare/Color.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -13,8 +14,8 @@ namespace MotionComposer
 {
 
 
-TrackView::TrackView()
-   : font_bin(nullptr)
+TrackView::TrackView(AllegroFlare::FontBin* font_bin)
+   : font_bin(font_bin)
    , track(nullptr)
 {
 }
@@ -22,6 +23,18 @@ TrackView::TrackView()
 
 TrackView::~TrackView()
 {
+}
+
+
+void TrackView::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+AllegroFlare::FontBin* TrackView::get_font_bin()
+{
+   return font_bin;
 }
 
 
@@ -40,9 +53,19 @@ void TrackView::render()
          throw std::runtime_error(error_message.str());
       }
    ALLEGRO_FONT *icon_font = obtain_icon_font();
-   //std::vector<AllegroFlare::Timeline::Keyframe *> get_keyframes();
+   int count = 0;
+   float track_x = 100;
+   float track_y = 100;
    for (auto &keyframe : track->get_keyframes())
    {
+      float x_scale = 100;
+      float keyframe_x = keyframe->time * x_scale;
+      //draw_centered_unicode_character(icon_font, 
+
+      int32_t diamond = 0xf219;
+      ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
+      draw_centered_unicode_character(icon_font, color, track_x, track_y, diamond, 0);
+      count++;
    }
    return;
 }

@@ -4,6 +4,9 @@ properties:
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: track
     type: AllegroFlare::Timeline::Track*
@@ -17,11 +20,23 @@ functions:
     guards: [ font_bin, track ]
     body: |
       ALLEGRO_FONT *icon_font = obtain_icon_font();
-      //std::vector<AllegroFlare::Timeline::Keyframe *> get_keyframes();
+      int count = 0;
+      float track_x = 100;
+      float track_y = 100;
       for (auto &keyframe : track->get_keyframes())
       {
+         float x_scale = 100;
+         float keyframe_x = keyframe->time * x_scale;
+         //draw_centered_unicode_character(icon_font, 
+
+         int32_t diamond = 0xf219;
+         ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
+         draw_centered_unicode_character(icon_font, color, track_x, track_y, diamond, 0);
+         count++;
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Color::*
 
 
   - name: draw_centered_unicode_character
@@ -76,5 +91,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Color::*
+    headers: [ AllegroFlare/Color.hpp ]
 
 
