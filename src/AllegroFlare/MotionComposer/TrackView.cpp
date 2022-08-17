@@ -17,7 +17,7 @@ namespace MotionComposer
 {
 
 
-TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track, float x, float y, float width, float height, float value_min, float value_max)
+TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track, float x, float y, float width, float height, float value_min, float value_max, int selection_on_cursor_num)
    : font_bin(font_bin)
    , track(track)
    , x(x)
@@ -26,6 +26,7 @@ TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Tr
    , height(height)
    , value_min(value_min)
    , value_max(value_max)
+   , selection_on_cursor_num(selection_on_cursor_num)
 {
 }
 
@@ -83,6 +84,12 @@ void TrackView::set_value_max(float value_max)
 }
 
 
+void TrackView::set_selection_on_cursor_num(int selection_on_cursor_num)
+{
+   this->selection_on_cursor_num = selection_on_cursor_num;
+}
+
+
 AllegroFlare::FontBin* TrackView::get_font_bin()
 {
    return font_bin;
@@ -131,6 +138,12 @@ float TrackView::get_value_max()
 }
 
 
+int TrackView::get_selection_on_cursor_num()
+{
+   return selection_on_cursor_num;
+}
+
+
 void TrackView::render()
 {
    if (!(al_is_primitives_addon_initialized()))
@@ -151,7 +164,6 @@ void TrackView::render()
          error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"track\" not met";
          throw std::runtime_error(error_message.str());
       }
-   ALLEGRO_FONT *icon_font = obtain_icon_font();
    ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
 
@@ -170,11 +182,20 @@ void TrackView::render()
       al_draw_line(keyframe_x, y, keyframe_x, y+height, line_color, 1.0);
 
       // draw a graphic on the node
-      int32_t diamond = 0xf219;
-      ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
-      draw_centered_unicode_character(icon_font, color, x+keyframe_x, y+keyframe_y, diamond, 0);
+      draw_node_icon(x+keyframe_x, y+keyframe_y);
+
+      // increment our count
       count++;
    }
+   return;
+}
+
+void TrackView::draw_node_icon(float x, float y)
+{
+   ALLEGRO_FONT *icon_font = obtain_icon_font();
+   int32_t diamond = 0xf219;
+   ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
+   draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
    return;
 }
 

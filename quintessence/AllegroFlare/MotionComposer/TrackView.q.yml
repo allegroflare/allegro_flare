@@ -57,6 +57,13 @@ properties:
     getter: true
     setter: true
 
+  - name: selection_on_cursor_num
+    type: int
+    init_with: -1
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -64,7 +71,6 @@ functions:
   - name: render
     guards: [ al_is_primitives_addon_initialized(), font_bin, track ]
     body: |
-      ALLEGRO_FONT *icon_font = obtain_icon_font();
       ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
 
@@ -83,15 +89,32 @@ functions:
          al_draw_line(keyframe_x, y, keyframe_x, y+height, line_color, 1.0);
 
          // draw a graphic on the node
-         int32_t diamond = 0xf219;
-         ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
-         draw_centered_unicode_character(icon_font, color, x+keyframe_x, y+keyframe_y, diamond, 0);
+         draw_node_icon(x+keyframe_x, y+keyframe_y);
+
+         // increment our count
          count++;
       }
       return;
     body_dependency_symbols:
       - AllegroFlare::Color::*
       - al_is_primitives_addon_initialized
+
+
+  - name: draw_node_icon
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      ALLEGRO_FONT *icon_font = obtain_icon_font();
+      int32_t diamond = 0xf219;
+      ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
+      draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
+      return;
 
 
   - name: draw_centered_unicode_character

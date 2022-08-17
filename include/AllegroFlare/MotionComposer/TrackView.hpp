@@ -22,9 +22,10 @@ namespace AllegroFlare
          float height;
          float value_min;
          float value_max;
+         int selection_on_cursor_num;
 
       public:
-         TrackView(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Timeline::Track* track=nullptr, float x=0.0f, float y=0.0f, float width=600.0f, float height=120.0f, float value_min=0.0f, float value_max=1.0f);
+         TrackView(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Timeline::Track* track=nullptr, float x=0.0f, float y=0.0f, float width=600.0f, float height=120.0f, float value_min=0.0f, float value_max=1.0f, int selection_on_cursor_num=-1);
          ~TrackView();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -35,6 +36,7 @@ namespace AllegroFlare
          void set_height(float height);
          void set_value_min(float value_min);
          void set_value_max(float value_max);
+         void set_selection_on_cursor_num(int selection_on_cursor_num);
          AllegroFlare::FontBin* get_font_bin();
          AllegroFlare::Timeline::Track* get_track();
          float get_x();
@@ -43,7 +45,9 @@ namespace AllegroFlare
          float get_height();
          float get_value_min();
          float get_value_max();
+         int get_selection_on_cursor_num();
          void render();
+         void draw_node_icon(float x=0.0f, float y=0.0f);
          void draw_centered_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=0xf005, int flags=0);
          ALLEGRO_FONT* obtain_icon_font();
          ALLEGRO_FONT* obtain_track_values_font();
