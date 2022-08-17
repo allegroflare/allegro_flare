@@ -14,9 +14,9 @@ namespace MotionComposer
 {
 
 
-TrackView::TrackView(AllegroFlare::FontBin* font_bin)
+TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track)
    : font_bin(font_bin)
-   , track(nullptr)
+   , track(track)
 {
 }
 
@@ -32,9 +32,21 @@ void TrackView::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void TrackView::set_track(AllegroFlare::Timeline::Track* track)
+{
+   this->track = track;
+}
+
+
 AllegroFlare::FontBin* TrackView::get_font_bin()
 {
    return font_bin;
+}
+
+
+AllegroFlare::Timeline::Track* TrackView::get_track()
+{
+   return track;
 }
 
 

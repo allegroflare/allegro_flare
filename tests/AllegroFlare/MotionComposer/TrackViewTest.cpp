@@ -43,9 +43,12 @@ TEST_F(AllegroFlare_MotionComposer_TrackViewTestWithAllegroRenderingFixture, DIS
 
 
 TEST_F(AllegroFlare_MotionComposer_TrackViewTestWithAllegroRenderingFixture,
-   DISABLED__CAPTURE__render__will_render_the_track_as_expected)
+   CAPTURE__render__will_render_the_track_as_expected)
 {
-   AllegroFlare::MotionComposer::TrackView track_view;
+   AllegroFlare::Timeline::Track track;
+   AllegroFlare::MotionComposer::TrackView track_view(&get_font_bin_ref(), &track);
+
+   clear();
    track_view.render();
    al_flip_display();
    sleep(1);

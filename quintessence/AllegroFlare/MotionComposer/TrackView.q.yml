@@ -11,6 +11,9 @@ properties:
   - name: track
     type: AllegroFlare::Timeline::Track*
     init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
 
 
 functions:
