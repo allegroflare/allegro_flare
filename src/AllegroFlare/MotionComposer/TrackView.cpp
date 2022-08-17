@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/MotionComposer/TrackView.hpp>
 #include <AllegroFlare/Color.hpp>
+#include <allegro5/allegro_primitives.h>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -16,9 +17,13 @@ namespace MotionComposer
 {
 
 
-TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track)
+TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track, float x, float y, float width, float height)
    : font_bin(font_bin)
    , track(track)
+   , x(x)
+   , y(y)
+   , width(width)
+   , height(height)
 {
 }
 
@@ -40,6 +45,30 @@ void TrackView::set_track(AllegroFlare::Timeline::Track* track)
 }
 
 
+void TrackView::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void TrackView::set_y(float y)
+{
+   this->y = y;
+}
+
+
+void TrackView::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void TrackView::set_height(float height)
+{
+   this->height = height;
+}
+
+
 AllegroFlare::FontBin* TrackView::get_font_bin()
 {
    return font_bin;
@@ -52,8 +81,38 @@ AllegroFlare::Timeline::Track* TrackView::get_track()
 }
 
 
+float TrackView::get_x()
+{
+   return x;
+}
+
+
+float TrackView::get_y()
+{
+   return y;
+}
+
+
+float TrackView::get_width()
+{
+   return width;
+}
+
+
+float TrackView::get_height()
+{
+   return height;
+}
+
+
 void TrackView::render()
 {
+   if (!(al_is_primitives_addon_initialized()))
+      {
+         std::stringstream error_message;
+         error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    if (!(font_bin))
       {
          std::stringstream error_message;
@@ -68,17 +127,18 @@ void TrackView::render()
       }
    ALLEGRO_FONT *icon_font = obtain_icon_font();
    int count = 0;
-   float track_x = 100;
-   float track_y = 100;
+
+   ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+   al_draw_filled_rectangle(x, y, width, height, backfill_color);
+
    for (auto &keyframe : track->get_keyframes())
    {
       float x_scale = 100;
       float keyframe_x = keyframe->time * x_scale;
-      //draw_centered_unicode_character(icon_font, 
 
       int32_t diamond = 0xf219;
       ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
-      draw_centered_unicode_character(icon_font, color, track_x, track_y, diamond, 0);
+      draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
       count++;
    }
    return;

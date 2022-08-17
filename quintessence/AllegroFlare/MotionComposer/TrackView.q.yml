@@ -15,31 +15,61 @@ properties:
     getter: true
     setter: true
 
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: 600.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: 120.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 functions:
 
 
   - name: render
-    guards: [ font_bin, track ]
+    guards: [ al_is_primitives_addon_initialized(), font_bin, track ]
     body: |
       ALLEGRO_FONT *icon_font = obtain_icon_font();
       int count = 0;
-      float track_x = 100;
-      float track_y = 100;
+
+      ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+      al_draw_filled_rectangle(x, y, width, height, backfill_color);
+
       for (auto &keyframe : track->get_keyframes())
       {
          float x_scale = 100;
          float keyframe_x = keyframe->time * x_scale;
-         //draw_centered_unicode_character(icon_font, 
 
          int32_t diamond = 0xf219;
          ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
-         draw_centered_unicode_character(icon_font, color, track_x, track_y, diamond, 0);
+         draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
          count++;
       }
       return;
     body_dependency_symbols:
       - AllegroFlare::Color::*
+      - al_is_primitives_addon_initialized
 
 
   - name: draw_centered_unicode_character
@@ -92,6 +122,8 @@ functions:
 dependencies:
 
 
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Timeline::Track*
     headers: [ AllegroFlare/Timeline/Track.hpp ]
   - symbol: AllegroFlare::FontBin

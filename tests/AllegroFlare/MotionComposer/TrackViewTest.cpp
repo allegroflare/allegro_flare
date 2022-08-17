@@ -48,8 +48,12 @@ TEST_F(AllegroFlare_MotionComposer_TrackViewTestWithAllegroRenderingFixture,
    AllegroFlare::Timeline::Track track("opacity", 1.0);
    AllegroFlare::MotionComposer::TrackView track_view(&get_font_bin_ref(), &track);
 
+   AllegroFlare::Placement2D place = build_centered_placement(track_view.get_width(), track_view.get_height());
+
    clear();
+   place.start_transform();
    track_view.render();
+   place.restore_transform();
    al_flip_display();
    sleep(1);
 }
