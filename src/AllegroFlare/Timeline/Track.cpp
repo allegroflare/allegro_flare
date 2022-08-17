@@ -27,6 +27,12 @@ namespace Timeline
 
 
 
+   std::vector<AllegroFlare::Timeline::Keyframe *> Track::get_keyframes()
+   {
+      return keyframe;
+   }
+
+
 
    void Track::add_keyframe(AllegroFlare::Timeline::Keyframe *k)
    {
