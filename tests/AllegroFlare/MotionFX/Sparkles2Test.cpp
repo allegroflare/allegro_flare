@@ -62,3 +62,4 @@ TEST_F(AllegroFlare_MotionFX_Sparkles2TestWithAllegroRenderingFixture,
    }
 }
 
+
