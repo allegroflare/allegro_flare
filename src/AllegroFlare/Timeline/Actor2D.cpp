@@ -32,17 +32,17 @@ namespace Timeline
       {
          //std::cout << "Here";
          params.clear();
-         params.push_back(new Timeline::Track(0, "x"));
-         params.push_back(new Timeline::Track(0, "y"));
-         params.push_back(new Timeline::Track(0.5, "align_x"));
-         params.push_back(new Timeline::Track(0.5, "align_y"));
-         params.push_back(new Timeline::Track(1, "scale_x"));
-         params.push_back(new Timeline::Track(1, "scale_y"));
-         params.push_back(new Timeline::Track(0, "rotation"));
-         params.push_back(new Timeline::Track(1, "opacity"));
-         params.push_back(new Timeline::Track(1.0, "color_r"));
-         params.push_back(new Timeline::Track(1.0, "color_g"));
-         params.push_back(new Timeline::Track(1.0, "color_b"));
+         params.push_back(new Timeline::Track("x", 0.0));
+         params.push_back(new Timeline::Track("y", 0.0));
+         params.push_back(new Timeline::Track("align_x", 0.5));
+         params.push_back(new Timeline::Track("align_y", 0.5));
+         params.push_back(new Timeline::Track("scale_x", 0.5));
+         params.push_back(new Timeline::Track("scale_y", 1));
+         params.push_back(new Timeline::Track("rotation", 0));
+         params.push_back(new Timeline::Track("opacity", 1));
+         params.push_back(new Timeline::Track("color_r", 1.0));
+         params.push_back(new Timeline::Track("color_g", 1.0));
+         params.push_back(new Timeline::Track("color_b", 1.0));
          //params.push_back(new Timeline::Track(1, "color_a"));
       }
 

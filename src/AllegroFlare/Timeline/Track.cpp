@@ -20,7 +20,7 @@ namespace Timeline
 
 
 
-   Track::Track(float start_val, std::string label)
+   Track::Track(std::string label, float start_value)
       : label(label)
       , start_val(start_val)
    {}
@@ -30,6 +30,13 @@ namespace Timeline
    std::vector<AllegroFlare::Timeline::Keyframe *> Track::get_keyframes()
    {
       return keyframe;
+   }
+
+
+
+   void Track::set_keyframes(std::vector<AllegroFlare::Timeline::Keyframe *> keyframes)
+   {
+      this->keyframe = keyframes;
    }
 
 
