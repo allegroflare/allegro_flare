@@ -1,0 +1,80 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+
+  - name: track
+    type: AllegroFlare::Timeline::Track*
+    init_with: nullptr
+
+
+functions:
+
+
+  - name: render
+    guards: [ font_bin, track ]
+    body: |
+      ALLEGRO_FONT *icon_font = obtain_icon_font();
+      //std::vector<AllegroFlare::Timeline::Keyframe *> get_keyframes();
+      for (auto &keyframe : track->get_keyframes())
+      {
+      }
+      return;
+
+
+  - name: draw_centered_unicode_character
+    private: true
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: icon
+        type: uint32_t
+        default_argument: 0xf005
+      - name: flags
+        type: int
+        default_argument: 0
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      float width = al_get_ustr_width(font, ustr);
+      float height = al_get_font_line_height(font);
+      al_draw_ustr(font, color, x-width*0.5, y-height*0.5, flags, ustr);
+      return;
+
+
+  - name: obtain_icon_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("fa-solid-900.ttf -30");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Timeline::Track*
+    headers: [ AllegroFlare/Timeline/Track.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro.h ]
+
+
