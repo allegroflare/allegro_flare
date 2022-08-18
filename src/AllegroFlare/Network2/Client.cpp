@@ -153,13 +153,24 @@ static void client_runner(std::string host="localhost", std::string port="5432")
       //return 1;
     //}
 
+    bool abort = false;
+
     asio::io_context io_context;
 
     tcp::resolver resolver(io_context);
     auto endpoints = resolver.resolve(host, port);
     chat_client c(io_context, endpoints);
 
-    std::thread t([&io_context](){ io_context.run(); });
+    std::thread t([&io_context, abort](){
+       int counts = 0;
+       bool local_abort = abort;
+       while(!local_abort)
+       {
+          io_context.run_for(std::chrono::milliseconds(100)); // 1000 milliseconds = 1 second
+          counts++;
+          if (counts > 30) local_abort = true;
+       };
+    });
 
     char line[chat_message::max_body_length + 1];
     while (std::cin.getline(line, chat_message::max_body_length + 1))
