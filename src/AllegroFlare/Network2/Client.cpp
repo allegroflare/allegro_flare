@@ -145,6 +145,8 @@ private:
 
 static void client_runner(
       std::atomic<bool> *global_abort=nullptr,
+      std::vector<std::string> *messages_queue=nullptr,
+      std::mutex *messages_queue_mutex=nullptr,
       std::string host="localhost",
       std::string port="5432"
    )
@@ -281,7 +283,7 @@ void Client::run_blocking_while_awaiting_abort()
                                "messages_queue_mutex cannot be nullptr.");
    }
 
-   client_runner(global_abort);
+   client_runner(global_abort, messages_queue, messages_queue_mutex);
    return;
 }
 } // namespace Network2
