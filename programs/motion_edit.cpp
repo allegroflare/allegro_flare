@@ -12,6 +12,8 @@
 #include <string>
 #include <iostream>
 
+#include "motion_edit.hpp"
+
 
 
 class MotionEdit : public AllegroFlare::Screens::Base
@@ -56,13 +58,13 @@ void network_main()
    NetworkService *network_service = new NetworkService();
    network_service->connect(ip_or_url, port_num);
 
-   char line[NetworkService::max_message_length + 1];
-   bool abort = false;
+   //char line[NetworkService::max_message_length + 1];
    for (unsigned i=0; i<5; i++)
    {
       std::cout << "NETWORK_MAIN() count: " << i << std::endl;
       sleep(1);
    }
+   bool abort = false;
    //while (!abort)
    //{
       //std::cin.getline(line, NetworkService::max_message_length + 1);
@@ -86,6 +88,7 @@ int main(int argc, char **argv)
    second.join();
 
    std::cout << "executed_expectedly." << std::endl;
+   return 0;
 }
 
 
