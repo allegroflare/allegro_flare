@@ -8,8 +8,10 @@
 #include <AllegroFlare/Timeline/Track.hpp>
 #include <AllegroFlare/Color.hpp>
 
+#include <AllegroFlare/Network/NetworkService.hpp>
+#include <string>
+#include <iostream>
 
-ALLEGRO_FONT *icon_font = nullptr;
 
 
 class MotionEdit : public AllegroFlare::Screens::Base
@@ -38,8 +40,6 @@ void framework_main()
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
 
-   icon_font = framework.get_font_bin_ref()[""];
-
    MotionEdit motion_edit;
    framework.register_screen("motion_edit", &motion_edit);
    framework.activate_screen("motion_edit");
@@ -50,11 +50,29 @@ void framework_main()
 
 void network_main()
 {
+   std::string ip_or_url = "localhost";
+   std::string port_num = "54321";
+
+   NetworkService *network_service = new NetworkService();
+   network_service->connect(ip_or_url, port_num);
+
+   char line[NetworkService::max_message_length + 1];
+   bool abort = false;
    for (unsigned i=0; i<5; i++)
    {
       std::cout << "NETWORK_MAIN() count: " << i << std::endl;
       sleep(1);
    }
+   //while (!abort)
+   //{
+      //std::cin.getline(line, NetworkService::max_message_length + 1);
+      //if (line[0] == 'q') abort = true;
+      //else network_service->send_message(line);
+   //}
+
+   // after it's over, disconnect from the service
+
+   network_service->disconnect();
 }
 
 
