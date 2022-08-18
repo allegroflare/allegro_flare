@@ -173,13 +173,35 @@ static void client_runner(std::string host="localhost", std::string port="5432")
     });
 
     char line[chat_message::max_body_length + 1];
-    while (std::cin.getline(line, chat_message::max_body_length + 1))
+
+    std::vector<std::string> messages_to_post = {
+      "This is the first message.",
+      "Another message is written here.",
+      "I have a third and final message.",
+    };
+
+    //while (std::cin.getline(line, chat_message::max_body_length + 1))
+    std::string message_to_post = "";
+    while (!abort)
     {
-      chat_message msg;
-      msg.body_length(std::strlen(line));
-      std::memcpy(msg.body(), line, msg.body_length());
-      msg.encode_header();
-      c.write(msg);
+      message_to_post = "";
+
+      if (!messages_to_post.empty())
+      {
+         message_to_post = messages_to_post.back();
+         messages_to_post.pop_back();
+      }
+
+      if (!message_to_post.empty())
+      {
+         chat_message msg;
+         //msg.body_length(std::strlen(line));
+         //std::memcpy(msg.body(), line, msg.body_length());
+         msg.body_length(message_to_post.size());
+         std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
+         msg.encode_header();
+         c.write(msg);
+       }
     }
 
     c.close();
