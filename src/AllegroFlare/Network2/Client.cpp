@@ -196,30 +196,91 @@ static void client_runner(
        std::thread t([&io_context](){
           bool active = true;
           int counts = 10;
-          while(active)
+          while (active)
           {
              io_context.run_for(std::chrono::milliseconds(1000)); // 1000 milliseconds = 1 second
-             std::cout << " - will timeout in " << counts << std::endl;
+             //sleep(1);
+             std::cout << " - will timeout in " << counts << std::endl << std::flush;
              counts--;
              if (counts < 0) active = false;
+             //io_context.run();
           }
        });
 
        char line[chat_message::max_body_length + 1];
        while (std::cin.getline(line, chat_message::max_body_length + 1))
        {
-         std::string a_message = "This is a placeholder message";
          chat_message msg;
-         //msg.body_length(std::strlen(line));
-         //std::memcpy(msg.body(), line, msg.body_length());
-         msg.body_length(a_message.size());
-         std::memcpy(msg.body(), a_message.c_str(), msg.body_length());
+         msg.body_length(std::strlen(line));
+         std::memcpy(msg.body(), line, msg.body_length());
          msg.encode_header();
          c.write(msg);
        }
 
        c.close();
        t.join();
+/*
+       asio::io_context io_context;
+
+       tcp::resolver resolver(io_context);
+       auto endpoints = resolver.resolve(host, port);
+       chat_client c(io_context, endpoints);
+
+       std::thread t([&io_context](){
+          bool active = true;
+          int counts = 10;
+          while(active)
+          {
+             io_context.run_for(std::chrono::milliseconds(1000)); // 1000 milliseconds = 1 second
+             std::cout << " - will timeout in " << counts << std::endl << std::flush;
+             counts--;
+             if (counts < 0) active = false;
+          }
+       });
+
+       //char line[chat_message::max_body_length + 1];
+       //while (std::cin.getline(line, chat_message::max_body_length + 1))
+       std::vector<std::string> messages_to_post = {};
+       std::string message_to_post = "";
+       bool abort = false;
+       while (!abort)
+       {
+          //message_to_post = "";
+          if (!messages_to_post.empty())
+          {
+             //std::string a_message = message_to_post; //"This is a placeholder message";
+             std::string message_to_post = messages_to_post.back(); // ME
+             messages_to_post.pop_back(); // ME
+
+
+             //
+             std::string a_message = message_to_post;
+             chat_message msg;
+             //msg.body_length(std::strlen(line));
+             //std::memcpy(msg.body(), line, msg.body_length());
+             msg.body_length(a_message.size());
+             std::memcpy(msg.body(), a_message.c_str(), msg.body_length());
+             msg.encode_header();
+             c.write(msg);
+             //message_to_post = "";
+          }
+
+          if (messages_to_post.empty())
+          {
+             messages_queue_mutex->lock();
+             if (!messages_queue->empty())
+             {
+                messages_to_post = *messages_queue;
+                messages_queue->clear();
+                // TODO: take a small break here for the processor to chill a min
+             }
+             messages_queue_mutex->unlock();
+          }
+       }
+
+       c.close();
+       t.join();
+*/
     }
     else
     {
