@@ -249,6 +249,7 @@ static void server_runner(std::string port="5432")
        std::cout << "couts: " << abort_counts << std::endl;
        abort_counts++;
        if (abort_counts > 10) abort = true;
+       //if (*global_abort == true) abort = true;
     }
   }
   catch (std::exception& e)
@@ -318,7 +319,58 @@ Server::~Server()
 
 void Server::run_blocking_while_awaiting_abort()
 {
-   server_runner();
+   if (!global_abort)
+   {
+      throw std::runtime_error("AllegroFlare/Network2/Server::run_blocking_while_awaiting_abort: error "
+                               "global_abort cannot be nullptr.");
+   }
+   //server_runner();
+
+   std::string port = "5432";
+
+
+
+  try
+  {
+    //if (argc < 2)
+    //{
+      //std::cerr << "Usage: chat_server <port> [<port> ...]\n";
+      //return 1;
+    //}
+
+    asio::io_context io_context;
+
+    std::list<chat_server> servers;
+    //for (int i = 1; i < argc; ++i)
+    //{
+      //tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
+      tcp::endpoint endpoint(tcp::v4(), std::atoi(port.c_str()));
+      servers.emplace_back(io_context, endpoint, "some_of_my_foobar_data");
+    //}
+
+    bool abort = false;
+    int abort_counts = 0;
+    while(!abort)
+    {
+       io_context.run_for(std::chrono::milliseconds(100)); // 1000 milliseconds = 1 second
+
+       std::cout << "couts: " << abort_counts << std::endl;
+       abort_counts++;
+
+       if (abort_counts > 10) abort = true;
+       if (*global_abort == true) abort = true;
+    }
+  }
+  catch (std::exception& e)
+  {
+    std::cerr << "Exception: " << e.what() << "\n";
+  }
+
+  //return 0;
+
+
+
+
    return;
 }
 } // namespace Network2
