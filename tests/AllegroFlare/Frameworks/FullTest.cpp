@@ -278,3 +278,17 @@ TEST(AllegroFlare_Frameworks_FullTest, DISABLED__INTERACTIVE__will_work_as_expec
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest,
+   disable_fullscreen__will_cause_initialize_to_not_create_the_display_in_fullscreen_mode)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
+   initialize__will_create_a_fullscreen_display)
+{
+   // TODO
+}
+
+
