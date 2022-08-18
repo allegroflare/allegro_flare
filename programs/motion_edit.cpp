@@ -108,6 +108,9 @@ void network_main()
       //sleep(1);
    //}
 
+   // TODO: figure out why this:
+   //network_service->send_message("foobar_message");
+
    while (!shutdown)
    {
       global_shutdown_mutex.lock();

@@ -53,13 +53,13 @@ public:
 	    for (auto msg: recent_msgs_)
 	      participant->deliver(msg);
 		*/
-		std::cout << "Participant (" << user << ") joined!" << std::endl;
+		std::cout << "Participant (" << user << ") joined!" << std::endl << std::flush;
 	}
 
 	void leave(NetworkUser_ptr user)
 	{
 		users.erase(user);
-		std::cout << "Participant (" << user << ") left" << std::endl;
+		std::cout << "Participant (" << user << ") left" << std::endl << std::flush;
 	}
 
 	void deliver(const NetworkMessage& msg)
@@ -71,6 +71,9 @@ public:
 
 		for (auto user : users)
 		{
+         // cout the message
+         std::cout << "(" << user << ") " << msg.body() << std::endl << std::flush;
+
 			// only deliver the message if the recipient id matches
 			if ((msg.get_recipient_id() == 0) || user->get_user_id() == msg.get_recipient_id())
 			{

@@ -27,6 +27,7 @@ public:
 
    virtual void primary_timer_func() override
    {
+      al_clear_to_color(ALLEGRO_COLOR{0.2, 0.21, 0.205, 1.0});
       for (auto &actor : actors)
       {
          //TrackView track_view(actor);
@@ -66,7 +67,7 @@ void network_main()
    std::string ip_or_url = "localhost";
    std::string port_num = "54321";
 
-   MyNetworkService *network_service = new MyNetworkService();
+   NetworkService *network_service = new NetworkService();
    network_service->initialize();
    network_service->connect(ip_or_url, port_num);
 
