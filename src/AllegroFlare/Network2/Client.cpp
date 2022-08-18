@@ -160,7 +160,7 @@ static void client_runner(
       //return 1;
     //}
 
-    bool option_a = true;
+    bool option_a = false;
     if (option_a)
     {
 
@@ -194,7 +194,15 @@ static void client_runner(
        chat_client c(io_context, endpoints);
 
        std::thread t([&io_context](){
-          io_context.run_for(std::chrono::milliseconds(100)); // 1000 milliseconds = 1 second
+          bool active = true;
+          int counts = 10;
+          while(active)
+          {
+             io_context.run_for(std::chrono::milliseconds(1000)); // 1000 milliseconds = 1 second
+             std::cout << " - will timeout in " << counts << std::endl;
+             counts--;
+             if (counts < 0) active = false;
+          }
        });
 
        char line[chat_message::max_body_length + 1];
