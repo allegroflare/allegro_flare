@@ -207,7 +207,7 @@ private:
             std::make_shared<chat_session>(std::move(socket), room_)->start();
           }
 
-          std::cout << some_of_my_data << std::endl; // <--- I added this
+          //std::cout << some_of_my_data << std::endl; // <--- I added this
           do_accept();
         });
   }

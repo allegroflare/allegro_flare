@@ -37,8 +37,8 @@ class chat_client
 public:
   chat_client(asio::io_context& io_context,
       const tcp::resolver::results_type& endpoints)
-    : io_context_(io_context),
-      socket_(io_context)
+    : io_context_(io_context)
+    , socket_(io_context)
   {
     do_connect(endpoints);
   }
@@ -124,6 +124,7 @@ private:
             if (!write_msgs_.empty())
             {
               do_write();
+               std::cout << "--chat_client : write\"" << std::endl;
             }
           }
           else
@@ -200,7 +201,8 @@ static void client_runner(
          //msg.body_length(std::strlen(line));
          //std::memcpy(msg.body(), line, msg.body_length());
          msg.body_length(message_to_post.size());
-         std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
+         //std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
+         std::memcpy(msg.body(), "this is a messag to copy via memcpy", msg.body_length());
          msg.encode_header();
          c.write(msg);
 

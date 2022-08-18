@@ -17,6 +17,7 @@ namespace AllegroFlare
          std::atomic<bool> *global_abort;
          std::vector<std::string> *messages_queue;
          std::mutex *messages_queue_mutex;
+         void (*callback)(std::string body);
 
       public:
          Client(

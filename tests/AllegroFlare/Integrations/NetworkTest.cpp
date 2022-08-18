@@ -37,3 +37,34 @@ TEST_F(AllegroFlare_Integrations_NetworkTest, can_be_created_without_blowing_up)
 }
 
 
+TEST_F(AllegroFlare_Integrations_NetworkTest,
+   client_will_receive_messages_sent_by_another_client)
+{
+   // TODO
+   std::vector<std::string> messages_queue;
+   std::mutex messages_queue_mutex;
+   std::thread server(run_server_blocking, get_global_abort_ptr());
+
+   std::thread client_that_will_send(
+      run_client_blocking,
+      get_global_abort_ptr(),
+      &messages_queue,
+      &messages_queue_mutex
+   );
+   std::thread client_that_will_receive(
+      run_client_blocking,
+      get_global_abort_ptr(),
+      &messages_queue,
+      &messages_queue_mutex
+   );
+   std::thread aborter(emit_abort_signal_after_1_sec, get_global_abort_ptr());
+
+   server.join();
+   client_that_will_send.join();
+   client_that_will_receive.join();
+   aborter.join();
+
+   SUCCEED();
+}
+
+
