@@ -143,7 +143,11 @@ private:
 
 
 
-static void client_runner(std::string host="localhost", std::string port="5432")
+static void client_runner(
+      std::atomic<bool> *global_abort=nullptr,
+      std::string host="localhost",
+      std::string port="5432"
+   )
 {
   try
   {
@@ -202,6 +206,8 @@ static void client_runner(std::string host="localhost", std::string port="5432")
          msg.encode_header();
          c.write(msg);
        }
+
+       if (*global_abort) abort = true;
     }
 
     c.close();
@@ -240,7 +246,8 @@ namespace Network2
 {
 
 
-Client::Client()
+Client::Client(std::atomic<bool> *global_abort)
+   : global_abort(global_abort)
 {
 }
 
@@ -250,9 +257,15 @@ Client::~Client()
 }
 
 
-void Client::run_blocking()
+void Client::run_blocking_while_awaiting_abort()
 {
-   client_runner();
+   if (!global_abort)
+   {
+      throw std::runtime_error("AllegroFlare/Network2/Client::run_blocking_while_awaiting_abort: error "
+                               "global_abort cannot be nullptr.");
+   }
+
+   client_runner(global_abort);
    return;
 }
 } // namespace Network2

@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <atomic>
 
 
 namespace AllegroFlare
@@ -10,12 +11,13 @@ namespace AllegroFlare
       class Client
       {
       private:
+         std::atomic<bool> *global_abort;
 
       public:
-         Client();
+         Client(std::atomic<bool> *global_abort=nullptr);
          ~Client();
 
-         void run_blocking();
+         void run_blocking_while_awaiting_abort();
       };
    }
 }
