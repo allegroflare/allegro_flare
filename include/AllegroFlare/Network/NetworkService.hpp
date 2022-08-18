@@ -16,12 +16,15 @@ class NetworkService
 {
 private:
    __NetworkServiceINTERNAL *_service;
+   bool initialized;
 
 public:
    enum { max_message_length = 512 };
 
    NetworkService();
    virtual ~NetworkService();
+
+   void initialize();
 
    bool connect(std::string domain_or_ip_address, std::string port_num);
    bool disconnect();

@@ -105,6 +105,7 @@ public:
 
 NetworkService::NetworkService()
    : _service(0)
+   , initialized(false)
 {
    _service = new __NetworkServiceINTERNAL();
    //_on_recieve_message_callback_func = callback_func_ex;
@@ -120,8 +121,24 @@ NetworkService::~NetworkService()
 
 bool NetworkService::connect(std::string url_or_ip, std::string port_num)
 {
+   if (!initialized) throw std::runtime_error("AllegroFlare::Network::NetworkService::connect: error: "
+                                              "must be initialized first.");
+
    return _service->connect(url_or_ip, port_num);
 }
+
+
+void NetworkService::initialize()
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::Network::NetworkService::initialize: error: "
+                                             "initialize was already called, it cannot be called more than once.");
+
+   _service = new __NetworkServiceINTERNAL();
+   //_on_recieve_message_callback_func = callback_func_ex;
+   _on_recieve_message_callback_func = std::bind(&NetworkService::on_message_receive, this, std::placeholders::_1);
+   initialized = true;
+}
+
 
 
 bool NetworkService::disconnect()
@@ -138,6 +155,9 @@ bool NetworkService::is_connected()
 
 bool NetworkService::send_message(std::string message)
 {
+   if (!initialized) throw std::runtime_error("AllegroFlare::Network::NetworkService::send_message: error: "
+                                              "must be initialized first.");
+
    if (message.length() < NetworkMessage::max_body_length)
       message.resize(NetworkMessage::max_body_length);
    char *argv1 = new char[message.length() + 1];
