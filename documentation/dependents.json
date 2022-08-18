@@ -673,6 +673,12 @@
   "AllegroFlare/InputDiagrams/KeyboardKeyCombo": [
     "AllegroFlare/InputHints"
   ],
+  "std/mutex": [
+    "AllegroFlare/Integrations/Network"
+  ],
+  "std/vector<std/string>": [
+    "AllegroFlare/Integrations/Network"
+  ],
   "std/atomic<bool>": [
     "AllegroFlare/Integrations/Network",
     "AllegroFlare/Integrations/Network"

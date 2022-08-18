@@ -3884,10 +3884,16 @@ table td
   <td class="method">run_server_blocking(1)</td>
 </tr>
 <tr>
-  <td class="method">run_client_blocking(1)</td>
+  <td class="method">run_client_blocking(3)</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::mutex*&quot;, &quot;headers&quot;=&gt;[&quot;mutex&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::string&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;string&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::atomic&lt;bool&gt;&quot;, &quot;headers&quot;=&gt;[&quot;atomic&quot;]}</td>
 </tr>
@@ -7676,6 +7682,12 @@ table td
   ],
   "AllegroFlare/InputDiagrams/KeyboardKeyCombo": [
     "AllegroFlare/InputHints"
+  ],
+  "std/mutex": [
+    "AllegroFlare/Integrations/Network"
+  ],
+  "std/vector<std/string>": [
+    "AllegroFlare/Integrations/Network"
   ],
   "std/atomic<bool>": [
     "AllegroFlare/Integrations/Network",

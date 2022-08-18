@@ -62,10 +62,14 @@ functions:
       - name: global_abort
         type: std::atomic<bool>*
         default_argument: nullptr
+      - name: messages_queue
+        type: std::vector<std::string>*
+        default_argument: nullptr
+      - name: messages_queue_mutex
+        type: std::mutex*
+        default_argument: '{}'
     body: |
-      std::vector<std::string> messages_queue;
-      std::mutex messages_queue_mutex;
-      AllegroFlare::Network2::Client client(global_abort, &messages_queue, &messages_queue_mutex);
+      AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex);
       client.run_blocking_while_awaiting_abort();
       return;
     body_dependency_symbols:
@@ -75,6 +79,10 @@ functions:
 dependencies:
 
 
+  - symbol: std::mutex*
+    headers: [ mutex ]
+  - symbol: std::vector<std::string>*
+    headers: [ vector, string ]
   - symbol: std::atomic<bool>
     headers: [ atomic ]
   - symbol: std::atomic<bool>*

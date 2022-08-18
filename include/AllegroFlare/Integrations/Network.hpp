@@ -3,6 +3,9 @@
 
 #include <atomic>
 #include <gtest/gtest.h>
+#include <mutex>
+#include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -22,7 +25,7 @@ namespace AllegroFlare
          virtual void SetUp() override;
          virtual void TearDown() override;
          static void run_server_blocking(std::atomic<bool>* global_abort=nullptr);
-         static void run_client_blocking(std::atomic<bool>* global_abort=nullptr);
+         static void run_client_blocking(std::atomic<bool>* global_abort=nullptr, std::vector<std::string>* messages_queue=nullptr, std::mutex* messages_queue_mutex={});
       };
    }
 }

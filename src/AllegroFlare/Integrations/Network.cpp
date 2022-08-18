@@ -45,11 +45,9 @@ void Network::run_server_blocking(std::atomic<bool>* global_abort)
    return;
 }
 
-void Network::run_client_blocking(std::atomic<bool>* global_abort)
+void Network::run_client_blocking(std::atomic<bool>* global_abort, std::vector<std::string>* messages_queue, std::mutex* messages_queue_mutex)
 {
-   std::vector<std::string> messages_queue;
-   std::mutex messages_queue_mutex;
-   AllegroFlare::Network2::Client client(global_abort, &messages_queue, &messages_queue_mutex);
+   AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex);
    client.run_blocking_while_awaiting_abort();
    return;
 }
