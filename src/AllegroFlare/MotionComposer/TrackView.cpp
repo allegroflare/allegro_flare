@@ -9,6 +9,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -17,7 +19,7 @@ namespace MotionComposer
 {
 
 
-TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track, float x, float y, float width, float height, float value_min, float value_max, int selection_on_cursor_num)
+TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Track* track, float x, float y, float width, float height, float value_min, float value_max, int selection_cursor_x)
    : font_bin(font_bin)
    , track(track)
    , x(x)
@@ -26,7 +28,8 @@ TrackView::TrackView(AllegroFlare::FontBin* font_bin, AllegroFlare::Timeline::Tr
    , height(height)
    , value_min(value_min)
    , value_max(value_max)
-   , selection_on_cursor_num(selection_on_cursor_num)
+   , selection_cursor_x(selection_cursor_x)
+   , icon_font_size(-22)
 {
 }
 
@@ -84,9 +87,15 @@ void TrackView::set_value_max(float value_max)
 }
 
 
-void TrackView::set_selection_on_cursor_num(int selection_on_cursor_num)
+void TrackView::set_selection_cursor_x(int selection_cursor_x)
 {
-   this->selection_on_cursor_num = selection_on_cursor_num;
+   this->selection_cursor_x = selection_cursor_x;
+}
+
+
+void TrackView::set_icon_font_size(int icon_font_size)
+{
+   this->icon_font_size = icon_font_size;
 }
 
 
@@ -138,9 +147,15 @@ float TrackView::get_value_max()
 }
 
 
-int TrackView::get_selection_on_cursor_num()
+int TrackView::get_selection_cursor_x()
 {
-   return selection_on_cursor_num;
+   return selection_cursor_x;
+}
+
+
+int TrackView::get_icon_font_size()
+{
+   return icon_font_size;
 }
 
 
@@ -182,11 +197,24 @@ void TrackView::render()
       al_draw_line(keyframe_x, y, keyframe_x, y+height, line_color, 1.0);
 
       // draw a graphic on the node
-      draw_node_icon(x+keyframe_x, y+keyframe_y);
+      if (count == selection_cursor_x) draw_selected_node_icon(x+keyframe_x, y+keyframe_y);
+      else draw_node_icon(x+keyframe_x, y+keyframe_y);
 
       // increment our count
       count++;
    }
+   return;
+}
+
+void TrackView::draw_selected_node_icon(float x, float y)
+{
+   ALLEGRO_FONT *bigger_icon_font = obtain_bigger_icon_font();
+   ALLEGRO_FONT *icon_font = obtain_icon_font();
+   int32_t diamond = 0xf219;
+   ALLEGRO_COLOR bigger_color = AllegroFlare::Color::DeepSkyBlue;
+   ALLEGRO_COLOR color = AllegroFlare::Color::Eigengrau;
+   draw_centered_unicode_character(bigger_icon_font, bigger_color, x, y, diamond, 0);
+   draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
    return;
 }
 
@@ -218,7 +246,22 @@ ALLEGRO_FONT* TrackView::obtain_icon_font()
          error_message << "TrackView" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   return font_bin->auto_get("fa-solid-900.ttf -24");
+   std::stringstream ss;
+   ss << "fa-solid-900.ttf " << icon_font_size;
+   return font_bin->auto_get(ss.str());
+}
+
+ALLEGRO_FONT* TrackView::obtain_bigger_icon_font()
+{
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "TrackView" << "::" << "obtain_bigger_icon_font" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   std::stringstream ss;
+   ss << "fa-solid-900.ttf " << icon_font_size - 8;
+   return font_bin->auto_get(ss.str());
 }
 
 ALLEGRO_FONT* TrackView::obtain_track_values_font()
