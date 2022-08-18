@@ -39,8 +39,8 @@ TEST(AllegroFlare_Network2_ServerTest,
 }
 
 
-TEST(AllegroFlare_Network2_ServerTest, run_blocking__will_run_the_client_program_while_blocking_the_current_thread)
-   // TODO
+TEST(AllegroFlare_Network2_ServerTest,
+   run_blocking__can_be_aborted_by_setting_the_global_abort_to_true)
 {
    std::atomic<bool> global_abort = false;
 
