@@ -354,8 +354,8 @@ void Server::run_blocking_while_awaiting_abort()
     {
        io_context.run_for(std::chrono::milliseconds(100)); // 1000 milliseconds = 1 second
 
-       std::cout << "couts: " << abort_counts << std::endl;
-       abort_counts++;
+       //std::cout << "couts: " << abort_counts << std::endl;
+       //abort_counts++;
 
        if (abort_counts > 10) abort = true;
        if (*global_abort == true) abort = true;
