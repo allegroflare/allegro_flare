@@ -241,14 +241,14 @@ static void server_runner(std::string port="5432")
     //}
 
     bool abort = false;
-    int abort_counts = 0;
+    //int abort_counts = 0;
     while(!abort)
     {
        io_context.run_for(std::chrono::milliseconds(100)); // 1000 milliseconds = 1 second
 
-       std::cout << "couts: " << abort_counts << std::endl;
-       abort_counts++;
-       if (abort_counts > 10) abort = true;
+       //std::cout << "couts: " << abort_counts << std::endl;
+       //abort_counts++;
+       //if (abort_counts > 10) abort = true;
        //if (*global_abort == true) abort = true;
     }
   }
@@ -349,7 +349,7 @@ void Server::run_blocking_while_awaiting_abort()
     //}
 
     bool abort = false;
-    int abort_counts = 0;
+    //int abort_counts = 0;
     while(!abort)
     {
        io_context.run_for(std::chrono::milliseconds(100)); // 1000 milliseconds = 1 second
@@ -357,7 +357,7 @@ void Server::run_blocking_while_awaiting_abort()
        //std::cout << "couts: " << abort_counts << std::endl;
        //abort_counts++;
 
-       if (abort_counts > 10) abort = true;
+       //if (abort_counts > 10) abort = true;
        if (*global_abort == true) abort = true;
     }
   }
