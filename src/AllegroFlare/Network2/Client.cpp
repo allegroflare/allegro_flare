@@ -208,7 +208,9 @@ static void client_runner(
        });
 
        std::vector<std::string> messages_to_post = {
-
+          "This is the first placeholder message.",
+          "This is a second placeholder message.",
+          "This is a final message.",
        };
        char line[chat_message::max_body_length + 1];
        bool abort = false;
@@ -232,7 +234,7 @@ static void client_runner(
              //std::string message_to_post = messages_to_post.back(); // ME
              //messages_to_post.pop_back(); // ME
 
-             std::string final_message = "This is a placeholder message.";
+             std::string final_message = line; //"This is a placeholder message.";
              chat_message msg;
              //msg.body_length(std::strlen(line));
              //std::memcpy(msg.body(), line, msg.body_length());
