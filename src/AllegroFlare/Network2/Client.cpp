@@ -246,8 +246,14 @@ namespace Network2
 {
 
 
-Client::Client(std::atomic<bool> *global_abort)
+Client::Client(
+      std::atomic<bool> *global_abort,
+      std::vector<std::string> *messages_queue,
+      std::mutex *messages_queue_mutex
+)
    : global_abort(global_abort)
+   , messages_queue(messages_queue)
+   , messages_queue_mutex(messages_queue_mutex)
 {
 }
 
@@ -263,6 +269,16 @@ void Client::run_blocking_while_awaiting_abort()
    {
       throw std::runtime_error("AllegroFlare/Network2/Client::run_blocking_while_awaiting_abort: error "
                                "global_abort cannot be nullptr.");
+   }
+   if (!messages_queue)
+   {
+      throw std::runtime_error("AllegroFlare/Network2/Client::run_blocking_while_awaiting_abort: error "
+                               "messages_queue cannot be nullptr.");
+   }
+   if (!messages_queue_mutex)
+   {
+      throw std::runtime_error("AllegroFlare/Network2/Client::run_blocking_while_awaiting_abort: error "
+                               "messages_queue_mutex cannot be nullptr.");
    }
 
    client_runner(global_abort);
