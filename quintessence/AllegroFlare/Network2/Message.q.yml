@@ -1,0 +1,17 @@
+functions:
+
+
+  - name: ignore
+    body: |
+      return;
+    body_dependency_symbols:
+      - chat_message
+
+
+dependencies:
+
+
+  - symbol: chat_message
+    headers: [ AllegroFlare/Network2/inc/chat_message.hpp ]
+
+

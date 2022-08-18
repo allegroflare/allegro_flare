@@ -1,0 +1,86 @@
+parent_classes:
+
+
+  - class: ::testing::Test
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: server
+    type: AllegroFlare::Network2::Server
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: global_abort
+    type: std::atomic<bool>
+    init_with: false
+
+
+functions:
+
+
+  - name: get_global_abort_ptr
+    type: std::atomic<bool>*
+    body: |
+      return &global_abort;
+
+
+  - name: SetUp
+    type: void
+    virtual: true
+    override: true
+    body: |
+      return;
+    body_dependency_symbols: []
+
+
+  - name: TearDown
+    type: void
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: run_server_blocking
+    static: true
+    type: void
+    parameters:
+      - name: global_abort
+        type: std::atomic<bool>*
+        default_argument: nullptr
+    body: |
+      //sleep(2);
+      AllegroFlare::Network2::Server server(global_abort);
+      //server.run_blocking();
+      return;
+
+
+  - name: run_client_blocking
+    static: true
+    type: void
+    body: |
+      sleep(1);
+      //AllegroFlare::Network2::Client client(&global_abort);
+      //server.run_blocking();
+      return;
+
+
+dependencies:
+
+
+  - symbol: std::atomic<bool>
+    headers: [ atomic ]
+  - symbol: std::atomic<bool>*
+    headers: [ atomic ]
+  - symbol: ::testing::Test
+    headers: [ gtest/gtest.h ]
+  - symbol: AllegroFlare::Network2::Server
+    headers: [ AllegroFlare/Network2/Server.hpp ]
+
+

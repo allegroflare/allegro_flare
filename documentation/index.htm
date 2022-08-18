@@ -105,11 +105,13 @@ table td
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputHints.q.yml">quintessence/AllegroFlare/InputHints.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/TrackView.q.yml">quintessence/AllegroFlare/MotionComposer/TrackView.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</a></li>
@@ -3861,6 +3863,52 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">server</td>
+  <td class="property">AllegroFlare::Network2::Server</td>
+</tr>
+<tr>
+  <td class="property">global_abort</td>
+  <td class="property">std::atomic&lt;bool&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_global_abort_ptr()</td>
+</tr>
+<tr>
+  <td class="method">SetUp()</td>
+</tr>
+<tr>
+  <td class="method">TearDown()</td>
+</tr>
+<tr>
+  <td class="method">run_server_blocking(1)</td>
+</tr>
+<tr>
+  <td class="method">run_client_blocking()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::atomic&lt;bool&gt;&quot;, &quot;headers&quot;=&gt;[&quot;atomic&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::atomic&lt;bool&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;atomic&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;:&quot;:testing::Test&quot;, &quot;headers&quot;=&gt;[&quot;gtest/gtest.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Network2::Server&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Network2/Server.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</h3>
      <table>
 <tr>
@@ -4167,6 +4215,23 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">ignore()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;chat_message&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Network2/inc/chat_message.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7613,6 +7678,17 @@ table td
   "AllegroFlare/InputDiagrams/KeyboardKeyCombo": [
     "AllegroFlare/InputHints"
   ],
+  "std/atomic<bool>": [
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/Integrations/Network"
+  ],
+  ":testing/Test": [
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/Network2/Server": [
+    "AllegroFlare/Integrations/Network"
+  ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],
@@ -7641,6 +7717,9 @@ table td
   ],
   "AllegroFlare/Timeline/Actor2D": [
     "AllegroFlare/MotionFX/Sparkles2"
+  ],
+  "chat_message": [
+    "AllegroFlare/Network2/Message"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
@@ -7855,9 +7934,6 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_DISPLAY": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  ":testing/Test": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/chrono/milliseconds": [

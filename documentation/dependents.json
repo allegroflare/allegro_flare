@@ -673,6 +673,17 @@
   "AllegroFlare/InputDiagrams/KeyboardKeyCombo": [
     "AllegroFlare/InputHints"
   ],
+  "std/atomic<bool>": [
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/Integrations/Network"
+  ],
+  ":testing/Test": [
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/Network2/Server": [
+    "AllegroFlare/Integrations/Network"
+  ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],
@@ -701,6 +712,9 @@
   ],
   "AllegroFlare/Timeline/Actor2D": [
     "AllegroFlare/MotionFX/Sparkles2"
+  ],
+  "chat_message": [
+    "AllegroFlare/Network2/Message"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
@@ -915,9 +929,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_DISPLAY": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  ":testing/Test": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/chrono/milliseconds": [
