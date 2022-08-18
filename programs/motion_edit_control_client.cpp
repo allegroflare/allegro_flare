@@ -15,34 +15,18 @@
 
 
 
-std::string current_message = "[message-unset]";
-
-
-
-
 class MotionEdit : public AllegroFlare::Screens::Base
 {
 private:
    std::vector<AllegroFlare::Timeline::Actor*> actors;
-   AllegroFlare::FontBin *font_bin;
-
 public:
-   MotionEdit(AllegroFlare::FontBin *font_bin)
+   MotionEdit()
       : AllegroFlare::Screens::Base()
-      , actors()
-      , font_bin(font_bin)
    {}
    ~MotionEdit() {}
 
    virtual void primary_timer_func() override
    {
-      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
-      AllegroFlare::Placement2D place(1920/2, 1080/2, 800, 600);
-
-      place.start_transform();
-      al_draw_multiline_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, 300, 30, 0, current_message.c_str());
-      place.restore_transform();
-
       for (auto &actor : actors)
       {
          //TrackView track_view(actor);
@@ -50,7 +34,6 @@ public:
    }
 };
 
-#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
 
 
 void framework_main()
@@ -59,9 +42,7 @@ void framework_main()
    framework.disable_fullscreen();
    framework.initialize();
 
-   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
-
-   MotionEdit motion_edit(&framework.get_font_bin_ref());
+   MotionEdit motion_edit;
    framework.register_screen("motion_edit", &motion_edit);
    framework.activate_screen("motion_edit");
 
@@ -93,7 +74,7 @@ void network_main()
    for (unsigned i=0; i<5; i++)
    {
       std::cout << "NETWORK_MAIN() count: " << i << std::endl;
-      //network_service->send_message("foobar_message");
+      network_service->send_message("foobar_message");
       sleep(1);
    }
    //bool abort = false;
@@ -125,6 +106,7 @@ int main(int argc, char **argv)
    std::cout << "executed_expectedly." << std::endl;
    return 0;
 }
+
 
 
 
