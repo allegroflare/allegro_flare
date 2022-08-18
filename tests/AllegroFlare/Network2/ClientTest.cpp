@@ -52,3 +52,22 @@ TEST(AllegroFlare_Network2_ClientTest,
 }
 
 
+TEST(AllegroFlare_Network2_ClientTest,
+   run_blocking__will_process_messages_in_the_messages_queue)
+{
+   std::atomic<bool> global_abort = false;
+   std::vector<std::string> messages_queue = {
+      "This is the first message.",
+      "Another message is written here.",
+      "I have a third and final message.",
+   };
+   std::mutex messages_queue_mutex;
+
+   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex);
+   std::thread exit_signal_emitter(emit_abort_signal_after_1_sec, &global_abort);
+
+   client.join();
+   exit_signal_emitter.join();
+}
+
+

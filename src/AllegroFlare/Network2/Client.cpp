@@ -180,11 +180,7 @@ static void client_runner(
 
     char line[chat_message::max_body_length + 1];
 
-    std::vector<std::string> messages_to_post = {
-      "This is the first message.",
-      "Another message is written here.",
-      "I have a third and final message.",
-    };
+    std::vector<std::string> messages_to_post; 
 
     //while (std::cin.getline(line, chat_message::max_body_length + 1))
     std::string message_to_post = "";
@@ -196,10 +192,10 @@ static void client_runner(
       {
          message_to_post = messages_to_post.back();
          messages_to_post.pop_back();
-      }
+      //}
 
-      if (!message_to_post.empty())
-      {
+      //if (!message_to_post.empty())
+      //{
          chat_message msg;
          //msg.body_length(std::strlen(line));
          //std::memcpy(msg.body(), line, msg.body_length());
@@ -207,7 +203,23 @@ static void client_runner(
          std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
          msg.encode_header();
          c.write(msg);
+
+         std::cout << "--client_runner() processed message: \"" << message_to_post << "\"" << std::endl;
        }
+       else
+       {
+          messages_queue_mutex->lock();
+          if (!messages_queue->empty())
+          {
+             messages_to_post = *messages_queue;
+             messages_queue->clear();
+          }
+          messages_queue_mutex->unlock();
+       }
+
+       //messages_queue_mutex->lock();
+       //messages_queue
+       //messages_queue_mutex->unlock();
 
        if (*global_abort) abort = true;
     }
