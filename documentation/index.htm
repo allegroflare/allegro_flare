@@ -3866,10 +3866,6 @@ table td
     <h3 id="quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</h3>
      <table>
 <tr>
-  <td class="property">server</td>
-  <td class="property">AllegroFlare::Network2::Server</td>
-</tr>
-<tr>
   <td class="property">global_abort</td>
   <td class="property">std::atomic&lt;bool&gt;</td>
 </tr>
@@ -3888,7 +3884,7 @@ table td
   <td class="method">run_server_blocking(1)</td>
 </tr>
 <tr>
-  <td class="method">run_client_blocking()</td>
+  <td class="method">run_client_blocking(1)</td>
 </tr>
     </table>
      <table>
@@ -3900,6 +3896,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;:&quot;:testing::Test&quot;, &quot;headers&quot;=&gt;[&quot;gtest/gtest.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Network2::Client&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Network2/Client.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Network2::Server&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Network2/Server.hpp&quot;]}</td>
@@ -7685,6 +7684,9 @@ table td
   ":testing/Test": [
     "AllegroFlare/Integrations/Network",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/Network2/Client": [
+    "AllegroFlare/Integrations/Network"
   ],
   "AllegroFlare/Network2/Server": [
     "AllegroFlare/Integrations/Network"

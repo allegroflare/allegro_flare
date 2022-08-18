@@ -1,7 +1,8 @@
 
 
 #include <AllegroFlare/Integrations/Network.hpp>
-
+#include <AllegroFlare/Network2/Server.hpp>
+#include <AllegroFlare/Network2/Client.hpp>
 
 
 namespace AllegroFlare
@@ -10,9 +11,8 @@ namespace Integrations
 {
 
 
-Network::Network(AllegroFlare::Network2::Server server)
+Network::Network()
    : ::testing::Test()
-   , server(server)
    , global_abort(false)
 {
 }
@@ -20,18 +20,6 @@ Network::Network(AllegroFlare::Network2::Server server)
 
 Network::~Network()
 {
-}
-
-
-void Network::set_server(AllegroFlare::Network2::Server server)
-{
-   this->server = server;
-}
-
-
-AllegroFlare::Network2::Server Network::get_server()
-{
-   return server;
 }
 
 
@@ -52,17 +40,15 @@ void Network::TearDown()
 
 void Network::run_server_blocking(std::atomic<bool>* global_abort)
 {
-   //sleep(2);
    AllegroFlare::Network2::Server server(global_abort);
-   //server.run_blocking();
+   server.run_blocking_while_awaiting_abort();
    return;
 }
 
-void Network::run_client_blocking()
+void Network::run_client_blocking(std::atomic<bool>* global_abort)
 {
-   sleep(1);
-   //AllegroFlare::Network2::Client client(&global_abort);
-   //server.run_blocking();
+   AllegroFlare::Network2::Client client(global_abort);
+   client.run_blocking_while_awaiting_abort();
    return;
 }
 } // namespace Integrations

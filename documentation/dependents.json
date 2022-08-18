@@ -681,6 +681,9 @@
     "AllegroFlare/Integrations/Network",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "AllegroFlare/Network2/Client": [
+    "AllegroFlare/Integrations/Network"
+  ],
   "AllegroFlare/Network2/Server": [
     "AllegroFlare/Integrations/Network"
   ],

@@ -4,6 +4,7 @@
 #include <AllegroFlare/Integrations/Network.hpp>
 
 #include <AllegroFlare/Network2/Client.hpp>
+#include <AllegroFlare/Network2/Server.hpp>
 
 
 #include <thread>
