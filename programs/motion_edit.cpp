@@ -50,12 +50,14 @@ void framework_main()
 
 
 
+
 void network_main()
 {
    std::string ip_or_url = "localhost";
    std::string port_num = "54321";
 
    NetworkService *network_service = new NetworkService();
+   network_service->initialize();
    network_service->connect(ip_or_url, port_num);
 
    //char line[NetworkService::max_message_length + 1];
