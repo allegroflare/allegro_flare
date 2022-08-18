@@ -75,7 +75,7 @@ void network_main()
    {
       std::cout << "NETWORK_MAIN() count: " << i << std::endl;
       network_service->send_message("foobar_message");
-      sleep(1);
+      //sleep(1);
    }
    //bool abort = false;
    //while (!abort)

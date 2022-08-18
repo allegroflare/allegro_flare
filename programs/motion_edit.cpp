@@ -16,6 +16,10 @@
 
 
 std::string current_message = "[message-unset]";
+std::mutex current_message_mutex;
+
+bool global_shutdown = false;
+std::mutex global_shutdown_mutex;
 
 
 
@@ -55,6 +59,8 @@ public:
 
 void framework_main()
 {
+   bool shutdown = false;
+
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
    framework.initialize();
@@ -66,6 +72,10 @@ void framework_main()
    framework.activate_screen("motion_edit");
 
    framework.run_loop();
+
+   global_shutdown_mutex.lock();
+   global_shutdown = true;
+   global_shutdown_mutex.unlock();
 }
 
 
@@ -82,6 +92,7 @@ public:
 
 void network_main()
 {
+   bool shutdown = false;
    std::string ip_or_url = "localhost";
    std::string port_num = "54321";
 
@@ -90,12 +101,20 @@ void network_main()
    network_service->connect(ip_or_url, port_num);
 
    //char line[NetworkService::max_message_length + 1];
-   for (unsigned i=0; i<5; i++)
-   {
-      std::cout << "NETWORK_MAIN() count: " << i << std::endl;
+   //for (unsigned i=0; i<5; i++)
+   //{
+      //std::cout << "NETWORK_MAIN() count: " << i << std::endl;
       //network_service->send_message("foobar_message");
-      sleep(1);
+      //sleep(1);
+   //}
+
+   while (!shutdown)
+   {
+      global_shutdown_mutex.lock();
+      if (global_shutdown) shutdown = true;
+      global_shutdown_mutex.unlock();
    }
+
    //bool abort = false;
    //while (!abort)
    //{
