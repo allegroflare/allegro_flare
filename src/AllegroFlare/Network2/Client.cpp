@@ -207,14 +207,40 @@ static void client_runner(
           }
        });
 
+       std::vector<std::string> messages_to_post = {
+
+       };
        char line[chat_message::max_body_length + 1];
+       bool abort = false;
        while (std::cin.getline(line, chat_message::max_body_length + 1))
+       //while (!abort)
        {
-         chat_message msg;
-         msg.body_length(std::strlen(line));
-         std::memcpy(msg.body(), line, msg.body_length());
-         msg.encode_header();
-         c.write(msg);
+          //if (messages_to_post.empty())
+          //{
+             //messages_queue_mutex->lock();
+             //if (!messages_queue->empty())
+             //{
+                //messages_to_post = *messages_queue;
+                //messages_queue->clear();
+                //// TODO: take a small break here for the processor to chill a min
+             //}
+             //messages_queue_mutex->unlock();
+          //}
+
+          //if (!messages_to_post.empty())
+          //{
+             //std::string message_to_post = messages_to_post.back(); // ME
+             //messages_to_post.pop_back(); // ME
+
+             std::string final_message = "This is a placeholder message.";
+             chat_message msg;
+             //msg.body_length(std::strlen(line));
+             //std::memcpy(msg.body(), line, msg.body_length());
+             msg.body_length(final_message.size());
+             std::memcpy(msg.body(), final_message.c_str(), msg.body_length());
+             msg.encode_header();
+             c.write(msg);
+          //}
        }
 
        c.close();
@@ -410,6 +436,8 @@ Client::~Client()
 
 void Client::run_blocking_while_awaiting_abort()
 {
+   // TODO: throw error when server is not running and cannot connect
+
    if (!global_abort)
    {
       throw std::runtime_error("AllegroFlare/Network2/Client::run_blocking_while_awaiting_abort: error "
