@@ -227,23 +227,25 @@ private:
 
 int main(int argc, char* argv[])
 {
+   std::string port_num = "54321";
+
    std::cout << "Note: that this server will not output messages to the console. "
              << "It will only relay messages between clients."
              << std::endl;
   try
   {
-    if (argc < 2)
-    {
-      std::cerr << "Usage: NetworkServer <port1> [<port2> ...]\n";
-      return 1;
-    }
+    //if (argc < 2)
+    //{
+      //std::cerr << "Usage: NetworkServer <port1> [<port2> ...]\n";
+      //return 1;
+    //}
 
     asio::io_service io_service;
 
     std::list<NetworkServer> servers;
-    for (int i = 1; i < argc; ++i)
+    //for (int i = 1; i < argc; ++i)
     {
-      asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(), std::atoi(argv[i]));
+      asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(), std::atoi(port_num.c_str()));
       servers.emplace_back(io_service, endpoint);
     }
 

@@ -12,7 +12,6 @@
 #include <string>
 #include <iostream>
 
-#include "motion_edit.hpp"
 
 
 
@@ -76,6 +75,9 @@ void network_main()
 
    network_service->disconnect();
 }
+
+
+
 
 
 
