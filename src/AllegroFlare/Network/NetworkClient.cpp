@@ -4,6 +4,7 @@
 
 
 #include <AllegroFlare/Network/globals.hpp>
+#include <iostream>
 
 
 
@@ -38,6 +39,7 @@ NetworkClient::NetworkClient(asio::io_service& io_service, asio::ip::tcp::resolv
 
 void NetworkClient::write(const NetworkMessage& msg)
 {
+     std::cout << "checkpoint: NetworkClient::write (A)" << std::endl << std::flush;
  io_service_.post(
      [this, msg]()
      {
@@ -48,6 +50,8 @@ void NetworkClient::write(const NetworkMessage& msg)
          do_write();
        }
      });
+
+     std::cout << "checkpoint: NetworkClient::write (B)" << std::endl << std::flush;
 }
 
 
@@ -119,27 +123,35 @@ void NetworkClient::do_read_body()
 }
 
 
-
 void NetworkClient::do_write()
 {
- asio::async_write(socket_,
-     asio::buffer(write_msgs_.front().data(),
-       write_msgs_.front().length()),
-     [this](std::error_code ec, std::size_t /*length*/)
-     {
-       if (!ec)
-       {
-         write_msgs_.pop_front();
-         if (!write_msgs_.empty())
-         {
-           do_write();
-         }
-       }
-       else
-       {
-         socket_.close();
-       }
-     });
+   std::cout << "checkpoint: NetworkClient::do_write (A)" << std::endl << std::flush;
+
+   asio::async_write(
+      socket_,
+      asio::buffer(write_msgs_.front().data(), write_msgs_.front().length()),
+      [this](std::error_code error_code, std::size_t /*length*/)
+      {
+          if (!error_code)
+          {
+             std::cout << "checkpoint: NetworkClient::do_write(LAMBDA)[] (A)" << std::endl << std::flush;
+
+             write_msgs_.pop_front();
+             if (!write_msgs_.empty())
+             {
+                do_write();
+             }
+          }
+          else
+          {
+             std::cout << "NetworkClient::do_write: an error code was posted: " << error_code
+                       << std::endl << std::flush;
+             socket_.close();
+          }
+     }
+  );
+
+  std::cout << "checkpoint: NetworkClient::do_write (B)" << std::endl << std::flush;
 }
 
 

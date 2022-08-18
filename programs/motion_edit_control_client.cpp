@@ -15,19 +15,40 @@
 
 
 
+std::string current_message = "[message-unset]";
+std::mutex current_message_mutex;
+
+bool global_shutdown = false;
+std::mutex global_shutdown_mutex;
+
+
+
+
 class MotionEdit : public AllegroFlare::Screens::Base
 {
 private:
    std::vector<AllegroFlare::Timeline::Actor*> actors;
+   AllegroFlare::FontBin *font_bin;
+
 public:
-   MotionEdit()
+   MotionEdit(AllegroFlare::FontBin *font_bin)
       : AllegroFlare::Screens::Base()
+      , actors()
+      , font_bin(font_bin)
    {}
    ~MotionEdit() {}
 
    virtual void primary_timer_func() override
    {
+      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
+      AllegroFlare::Placement2D place(1920/2, 1080/2, 800, 600);
+
       al_clear_to_color(ALLEGRO_COLOR{0.2, 0.21, 0.205, 1.0});
+
+      place.start_transform();
+      al_draw_multiline_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, 300, 30, 0, current_message.c_str());
+      place.restore_transform();
+
       for (auto &actor : actors)
       {
          //TrackView track_view(actor);
@@ -35,19 +56,28 @@ public:
    }
 };
 
+#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
 
 
 void framework_main()
 {
+   bool shutdown = false;
+
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
    framework.initialize();
 
-   MotionEdit motion_edit;
+   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
+
+   MotionEdit motion_edit(&framework.get_font_bin_ref());
    framework.register_screen("motion_edit", &motion_edit);
    framework.activate_screen("motion_edit");
 
    framework.run_loop();
+
+   global_shutdown_mutex.lock();
+   global_shutdown = true;
+   global_shutdown_mutex.unlock();
 }
 
 
@@ -64,29 +94,23 @@ public:
 
 void network_main()
 {
+   bool shutdown = false;
    std::string ip_or_url = "localhost";
    std::string port_num = "54321";
 
-   NetworkService *network_service = new NetworkService();
+   MyNetworkService *network_service = new MyNetworkService();
    network_service->initialize();
    network_service->connect(ip_or_url, port_num);
 
-   //char line[NetworkService::max_message_length + 1];
-   for (unsigned i=0; i<5; i++)
-   {
-      std::cout << "NETWORK_MAIN() count: " << i << std::endl;
-      network_service->send_message("foobar_message");
-      //sleep(1);
-   }
-   //bool abort = false;
-   //while (!abort)
-   //{
-      //std::cin.getline(line, NetworkService::max_message_length + 1);
-      //if (line[0] == 'q') abort = true;
-      //else network_service->send_message(line);
-   //}
+   network_service->send_message("sending message!");
 
-   // after it's over, disconnect from the service
+
+   while (!shutdown)
+   {
+      global_shutdown_mutex.lock();
+      if (global_shutdown) shutdown = true;
+      global_shutdown_mutex.unlock();
+   }
 
    network_service->disconnect();
 }

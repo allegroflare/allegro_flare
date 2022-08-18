@@ -100,33 +100,12 @@ void network_main()
    network_service->initialize();
    network_service->connect(ip_or_url, port_num);
 
-   //char line[NetworkService::max_message_length + 1];
-   //for (unsigned i=0; i<5; i++)
-   //{
-      //std::cout << "NETWORK_MAIN() count: " << i << std::endl;
-      //network_service->send_message("foobar_message");
-      //sleep(1);
-   //}
-
-   // TODO: figure out why this:
-   //network_service->send_message("foobar_message");
-
    while (!shutdown)
    {
       global_shutdown_mutex.lock();
       if (global_shutdown) shutdown = true;
       global_shutdown_mutex.unlock();
    }
-
-   //bool abort = false;
-   //while (!abort)
-   //{
-      //std::cin.getline(line, NetworkService::max_message_length + 1);
-      //if (line[0] == 'q') abort = true;
-      //else network_service->send_message(line);
-   //}
-
-   // after it's over, disconnect from the service
 
    network_service->disconnect();
 }

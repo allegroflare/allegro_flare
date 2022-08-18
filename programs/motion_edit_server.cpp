@@ -99,7 +99,7 @@ public:
 		, socket_(std::move(socket))
 		, room_(room)
 	{
-		std::cout << "starting session" << std::endl;
+		std::cout << "starting new user session." << std::endl;
 	}
 
 	void start()
