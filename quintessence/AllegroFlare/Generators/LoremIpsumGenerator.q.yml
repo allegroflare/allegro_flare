@@ -10,6 +10,41 @@ properties:
 functions:
 
 
+  - name: generate_characters
+    parameters:
+      - name: num_characters
+        type: int
+        default_argument: 1
+    body: |
+      // TODO
+      throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_characters: error: "
+                             "not implemented.");
+      return;
+
+
+  - name: generate_characters_about
+    parameters:
+      - name: num_characters
+        type: int
+        default_argument: 1
+    body: |
+      // TODO
+      throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_characters_about: error: "
+                             "not implemented.");
+      return;
+
+
+  - name: generate_words
+    parameters:
+      - name: num_words
+        type: int
+        default_argument: 1
+    body: |
+      // TODO
+      throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_words: error: not implemented.");
+      return;
+
+
   - name: generate_sentences
     parameters:
       - name: num_sentences
