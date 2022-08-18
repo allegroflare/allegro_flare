@@ -40,6 +40,9 @@ void Network::TearDown()
 
 void Network::run_server_blocking(std::atomic<bool>* global_abort)
 {
+   // TODO: bind this testing server to a proper testing port
+   //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
+
    AllegroFlare::Network2::Server server(global_abort);
    server.run_blocking_while_awaiting_abort();
    return;
@@ -47,6 +50,9 @@ void Network::run_server_blocking(std::atomic<bool>* global_abort)
 
 void Network::run_client_blocking(std::atomic<bool>* global_abort, std::vector<std::string>* messages_queue, std::mutex* messages_queue_mutex)
 {
+   // TODO: bind this testing client to a proper testing port
+   //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
+
    AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex);
    client.run_blocking_while_awaiting_abort();
    return;
