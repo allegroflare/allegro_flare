@@ -7,7 +7,7 @@
 static void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
 {
    sleep(5);
-   std::cout << "EMITTING GLOBAL ABORT" << std::endl;
+   //std::cout << "EMITTING GLOBAL ABORT" << std::endl;
    *global_abort = true;
 }
 
@@ -15,7 +15,7 @@ static void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullpt
 int main(int argc, char **argv)
 {
    std::atomic<bool> global_abort = false;
-   std::vector<std::string> messages_queue = { "This is test message A", };
+   std::vector<std::string> messages_queue; // = { "This is test message A", };
    std::mutex messages_queue_mutex;
 
    AllegroFlare::Network2::Client client(&global_abort, &messages_queue, &messages_queue_mutex);

@@ -3,12 +3,24 @@
 
 #include <AllegroFlare/Network2/Client.hpp>
 
+
+
+#include <chrono>
+#include <thread>
+static void sleep_for(float length_in_seconds)
+{
+   int length_in_milliseconds = (int)(length_in_seconds * 1000.0);
+   std::this_thread::sleep_for(std::chrono::milliseconds(length_in_milliseconds));
+}
+
+
+
 #include <thread>
 
 #include <atomic>
-static void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
+static void emit_abort_signal_after_n_sec(std::atomic<bool>* global_abort=nullptr, int sec=1)
 {
-   sleep(6);
+   sleep(sec);
    *global_abort = true;
 }
 
@@ -22,6 +34,7 @@ static void run_client(
    client.run_blocking_while_awaiting_abort();
 }
 
+
 #include <atomic>
 static void publish_messages_every_second_for_6_seconds(
       std::vector<std::string> *message_queue=nullptr,
@@ -31,25 +44,25 @@ static void publish_messages_every_second_for_6_seconds(
    int count = 6;
    while (count>0)
    {
-      sleep(1);
+      sleep_for(0.2);
 
       std::stringstream ss;
          ss << "hey, this is message " << count << ".";
 
-      std::cout << "BUILDING 1 message" << std::endl;
+      //std::cout << "BUILDING 1 message" << std::endl;
       messages_queue_mutex->lock();
-         std::cout << "  - Building message \"" << ss.str() << "\"" << std::endl;
-         std::cout << "  - message_queue->size() (before): " << message_queue->size() << std::endl;
-               for (auto &messages_queue_message : (*message_queue))
-               {
-                  std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
-               }
+         //std::cout << "  - Building message \"" << ss.str() << "\"" << std::endl;
+         //std::cout << "  - message_queue->size() (before): " << message_queue->size() << std::endl;
+               //for (auto &messages_queue_message : (*message_queue))
+               //{
+                  //std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
+               //}
          message_queue->push_back(ss.str());
-         std::cout << "  - message_queue->size() (after): " << message_queue->size() << std::endl;
-               for (auto &messages_queue_message : (*message_queue))
-               {
-                  std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
-               }
+         //std::cout << "  - message_queue->size() (after): " << message_queue->size() << std::endl;
+               //for (auto &messages_queue_message : (*message_queue))
+               //{
+                  //std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
+               //}
       messages_queue_mutex->unlock();
 
       count--;
@@ -80,7 +93,7 @@ TEST(AllegroFlare_Network2_ClientTest,
    std::mutex messages_queue_mutex;
 
    std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex);
-   std::thread exit_signal_emitter(emit_abort_signal_after_1_sec, &global_abort);
+   std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 1);
 
    client.join();
    exit_signal_emitter.join();
@@ -96,7 +109,7 @@ TEST(AllegroFlare_Network2_ClientTest,
    std::mutex messages_queue_mutex;
 
    std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex);
-   std::thread exit_signal_emitter(emit_abort_signal_after_1_sec, &global_abort);
+   std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 3);
    std::thread message_emitter(publish_messages_every_second_for_6_seconds, &messages_queue, &messages_queue_mutex);
 
    client.join();
