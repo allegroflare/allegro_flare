@@ -9,6 +9,39 @@
 
 
 
+/*
+  - name: sleep_for
+    type: void
+    parameters:
+      - name: length_in_seconds
+        type: float
+        default_argument: 0.0f
+    body: |
+      int length_in_milliseconds = (int)(length_in_seconds * 1000.0);
+      std::this_thread::sleep_for(std::chrono::milliseconds(length_in_milliseconds));
+    body_dependency_symbols:
+      - std::chrono::milliseconds
+      - std::this_thread::sleep_for
+
+  - symbol: std::chrono::milliseconds
+    headers: [ chrono ]
+  - symbol: std::this_thread::sleep_for
+    headers: [ thread ]
+*/
+
+
+
+#include <chrono>
+#include <thread>
+static void sleep_for(float length_in_seconds)
+{
+   int length_in_milliseconds = (int)(length_in_seconds * 1000.0);
+   std::this_thread::sleep_for(std::chrono::milliseconds(length_in_milliseconds));
+}
+
+
+
+
 //
 // chat_client.cpp
 // ~~~~~~~~~~~~~~~
@@ -189,8 +222,8 @@ static void client_runner(
     {
        std::vector<std::string> messages_to_post = {
           "This is the first placeholder message.",
-          "This is a second placeholder message.",
-          "This is a final message.",
+          //"This is a second placeholder message.",
+          //"This is a final message.",
        };
 
        asio::io_context io_context;
@@ -199,7 +232,16 @@ static void client_runner(
        auto endpoints = resolver.resolve(host, port);
        chat_client c(io_context, endpoints);
 
-       std::thread t([&io_context](){ io_context.run(); });
+       std::thread t([&io_context](){
+          std::cout << "t() thread start" << std::endl << std::flush;
+          bool abort = false;
+          while (!abort)
+          {
+             io_context.run_for(std::chrono::seconds(1));
+             std::cout << "t() thread mid" << std::endl << std::flush;
+          }
+          std::cout << "t() thread end" << std::endl << std::flush;
+       });
 
        char line[chat_message::max_body_length + 1];
        //while (std::cin.getline(line, chat_message::max_body_length + 1))
@@ -207,7 +249,7 @@ static void client_runner(
        int counts = 10;
        while (!abort)
        {
-         sleep(1);
+         sleep_for(0.5);
     
          for (auto &message_to_post : messages_to_post)
          {
