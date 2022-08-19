@@ -141,7 +141,7 @@ private:
             std::cout.write(read_msg_.body(), read_msg_.body_length());
             std::cout << "\n";
             std::string message_body = read_msg_.body();
-            //if (my_injected_callback) (*my_injected_callback)(message_body);
+            if (my_injected_callback) (*my_injected_callback)(message_body);
             do_read_header();
           }
           else
@@ -210,7 +210,7 @@ static void client_runner(
 
        tcp::resolver resolver(io_context);
        auto endpoints = resolver.resolve(host, port);
-       chat_client c(io_context, endpoints, callback);
+       chat_client c(io_context, endpoints);
 
        std::thread t([&io_context](){ io_context.run(); });
 
@@ -239,7 +239,7 @@ static void client_runner(
 
        tcp::resolver resolver(io_context);
        auto endpoints = resolver.resolve(host, port);
-       chat_client c(io_context, endpoints);
+       chat_client c(io_context, endpoints, callback);
 
        std::thread t([&io_context, global_abort](){
           //std::cout << "t() thread start" << std::endl << std::flush;

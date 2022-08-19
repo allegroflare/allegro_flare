@@ -24,13 +24,21 @@ static void emit_abort_signal_after_n_sec(std::atomic<bool>* global_abort=nullpt
    *global_abort = true;
 }
 
+
+void yay_callback(std::string message)
+{
+   std::cout << "HOLLY BONKERS: \"" << message << "\"" << std::endl;
+}
+
+
 static void run_client(
       std::atomic<bool>* global_abort=nullptr,
       std::vector<std::string> *messages_queue=nullptr,
       std::mutex *messages_queue_mutex=nullptr
+      //void (*callback)(std::string body)=nullptr
    )
 {
-   AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex);
+   AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, yay_callback);
    client.run_blocking_while_awaiting_abort();
 }
 
@@ -71,12 +79,6 @@ static void publish_messages_every_second_for_6_seconds(
    //*global_abort = true;
 }
 
-
-
-void yay_callback(std::string message)
-{
-   std::cout << "HOLLY BONKERS: \"" << message << "\"" << std::endl;
-}
 
 
 TEST(AllegroFlare_Network2_ClientTest, can_be_created_without_blowing_up)
