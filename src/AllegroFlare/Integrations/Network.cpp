@@ -58,17 +58,17 @@ void Network::run_server_blocking(std::atomic<bool>* global_abort)
    return;
 }
 
-void Network::run_client_blocking(std::atomic<bool>* global_abort, std::vector<std::string>* messages_queue, std::mutex* messages_queue_mutex, void (*callback)(std::string))
+void Network::run_client_blocking(std::atomic<bool>* global_abort, std::vector<std::string>* messages_queue, std::mutex* messages_queue_mutex, void (*callback)(std::string, void*), void* callback_data)
 {
    // TODO: bind this testing client to a proper testing port
    //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
 
-   AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback);
+   AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback, callback_data);
    client.run_blocking_while_awaiting_abort();
    return;
 }
 
-void Network::simple_capture_callback(std::string message)
+void Network::simple_capture_callback(std::string message, void* data)
 {
    captured_callback_messages.push_back(message);
    return;

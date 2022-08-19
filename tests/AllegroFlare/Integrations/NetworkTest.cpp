@@ -67,7 +67,7 @@ TEST_F(AllegroFlare_Integrations_NetworkTest, client__can_be_created_and_aborted
    std::vector<std::string> messages_queue;
    std::mutex messages_queue_mutex;
    //std::thread server(run_server_blocking, get_global_abort_ptr());
-   std::thread client(run_client_blocking, get_global_abort_ptr(), &messages_queue, &messages_queue_mutex, nullptr);
+   std::thread client(run_client_blocking, get_global_abort_ptr(), &messages_queue, &messages_queue_mutex, nullptr, nullptr);
    std::thread aborter(emit_abort_signal_after_n_sec, get_global_abort_ptr(), 1);
 
    //server.join();
@@ -91,6 +91,7 @@ TEST_F(AllegroFlare_Integrations_NetworkTest,
       get_global_abort_ptr(),
       &sending_messages_queue,
       &sending_messages_queue_mutex,
+      nullptr,
       nullptr
    );
    std::thread client_that_will_receive(
@@ -98,7 +99,8 @@ TEST_F(AllegroFlare_Integrations_NetworkTest,
       get_global_abort_ptr(),
       &receiving_messages_queue,
       &receiving_messages_queue_mutex,
-      AllegroFlare::Integrations::Network::simple_capture_callback
+      AllegroFlare::Integrations::Network::simple_capture_callback,
+      nullptr
    );
    std::thread aborter(emit_abort_signal_after_n_sec, get_global_abort_ptr(), 1);
    std::thread publisher(

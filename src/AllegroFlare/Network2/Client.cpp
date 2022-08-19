@@ -71,12 +71,14 @@ public:
   chat_client(
       asio::io_context& io_context,
       const tcp::resolver::results_type& endpoints,
-      void (*my_injected_callback)(std::string)=nullptr
- 
+      void (*my_injected_callback)(std::string, void*)=nullptr,
+      void *my_callback_passed_data=nullptr
    )
        : io_context_(io_context)
        , socket_(io_context)
        , my_injected_callback(my_injected_callback)
+       , my_callback_passed_data(my_callback_passed_data)
+
   {
     do_connect(endpoints);
   }
@@ -141,7 +143,7 @@ private:
             std::cout.write(read_msg_.body(), read_msg_.body_length());
             std::cout << "\n";
             std::string message_body = read_msg_.body();
-            if (my_injected_callback) (*my_injected_callback)(message_body);
+            if (my_injected_callback) (*my_injected_callback)(message_body, my_callback_passed_data);
             do_read_header();
           }
           else
@@ -179,7 +181,8 @@ private:
   tcp::socket socket_;
   chat_message read_msg_;
   chat_message_queue write_msgs_;
-  void (*my_injected_callback)(std::string);
+  void (*my_injected_callback)(std::string, void*);
+  void *my_callback_passed_data;
 };
 
 
@@ -189,7 +192,8 @@ static void client_runner(
       std::atomic<bool> *global_abort=nullptr,
       std::vector<std::string> *messages_queue=nullptr,
       std::mutex *messages_queue_mutex=nullptr,
-      void (*callback)(std::string)=nullptr,
+      void (*callback)(std::string, void*)=nullptr,
+      void *callback_passed_data=nullptr,
       std::string host="localhost",
       std::string port="5432"
    )
@@ -239,7 +243,7 @@ static void client_runner(
 
        tcp::resolver resolver(io_context);
        auto endpoints = resolver.resolve(host, port);
-       chat_client c(io_context, endpoints, callback);
+       chat_client c(io_context, endpoints, callback, callback_passed_data);
 
        std::thread t([&io_context, global_abort](){
           //std::cout << "t() thread start" << std::endl << std::flush;
@@ -343,12 +347,15 @@ Client::Client(
       std::atomic<bool> *global_abort,
       std::vector<std::string> *messages_queue,
       std::mutex *messages_queue_mutex,
-      void (*callback)(std::string body)
+      void (*callback)(std::string body, void*),
+      void *callback_passed_data
 )
    : global_abort(global_abort)
    , messages_queue(messages_queue)
    , messages_queue_mutex(messages_queue_mutex)
    , callback(callback)
+   , callback_passed_data(callback_passed_data)
+
 {
 }
 
@@ -378,7 +385,7 @@ void Client::run_blocking_while_awaiting_abort()
                                "messages_queue_mutex cannot be nullptr.");
    }
 
-   client_runner(global_abort, messages_queue, messages_queue_mutex, callback);
+   client_runner(global_abort, messages_queue, messages_queue_mutex, callback, callback_passed_data);
    return;
 }
 } // namespace Network2

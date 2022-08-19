@@ -27,8 +27,8 @@ namespace AllegroFlare
          virtual void SetUp() override;
          virtual void TearDown() override;
          static void run_server_blocking(std::atomic<bool>* global_abort=nullptr);
-         static void run_client_blocking(std::atomic<bool>* global_abort=nullptr, std::vector<std::string>* messages_queue=nullptr, std::mutex* messages_queue_mutex=nullptr, void (*callback)(std::string)=nullptr);
-         static void simple_capture_callback(std::string message="[unset-message]");
+         static void run_client_blocking(std::atomic<bool>* global_abort=nullptr, std::vector<std::string>* messages_queue=nullptr, std::mutex* messages_queue_mutex=nullptr, void (*callback)(std::string, void*)=nullptr, void* callback_data=nullptr);
+         static void simple_capture_callback(std::string message="[unset-message]", void* data=nullptr);
       };
    }
 }

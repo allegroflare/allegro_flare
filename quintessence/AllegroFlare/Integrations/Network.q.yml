@@ -78,14 +78,17 @@ functions:
       - name: messages_queue_mutex
         type: std::mutex*
         default_argument: nullptr
-      - name: (*callback)(std::string)
+      - name: (*callback)(std::string, void*)
         type: void
+        default_argument: nullptr
+      - name: callback_data
+        type: void*
         default_argument: nullptr
     body: |
       // TODO: bind this testing client to a proper testing port
       //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
  
-      AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback);
+      AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback, callback_data);
       client.run_blocking_while_awaiting_abort();
       return;
     body_dependency_symbols:
@@ -99,6 +102,9 @@ functions:
       - name: message
         type: std::string
         default_argument: '"[unset-message]"'
+      - name: data
+        type: void*
+        default_argument: nullptr
     body: |
       captured_callback_messages.push_back(message);
       return;
@@ -107,6 +113,8 @@ functions:
 dependencies:
 
 
+  - symbol: void*
+    headers: [ ]
   - symbol: std::mutex*
     headers: [ mutex ]
   - symbol: std::vector<std::string>*
