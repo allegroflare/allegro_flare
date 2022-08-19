@@ -13,6 +13,12 @@ properties:
     type: std::atomic<bool>
     init_with: false
 
+  - name: captured_callback_messages
+    type: std::vector<std::string>
+    init_with: '{}'
+    static: true
+    getter: true
+
 
 functions:
 
@@ -28,6 +34,7 @@ functions:
     virtual: true
     override: true
     body: |
+      captured_callback_messages.clear();
       return;
     body_dependency_symbols: []
 
@@ -70,16 +77,31 @@ functions:
         default_argument: nullptr
       - name: messages_queue_mutex
         type: std::mutex*
-        default_argument: '{}'
+        default_argument: nullptr
+      - name: (*callback)(std::string)
+        type: void
+        default_argument: nullptr
     body: |
       // TODO: bind this testing client to a proper testing port
       //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
  
-      AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex);
+      AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback);
       client.run_blocking_while_awaiting_abort();
       return;
     body_dependency_symbols:
       - AllegroFlare::Network2::Client
+
+
+  - name: simple_capture_callback
+    static: true
+    type: void
+    parameters:
+      - name: message
+        type: std::string
+        default_argument: '"[unset-message]"'
+    body: |
+      captured_callback_messages.push_back(message);
+      return;
 
 
 dependencies:
@@ -99,5 +121,7 @@ dependencies:
     headers: [ AllegroFlare/Network2/Client.hpp ]
   - symbol: AllegroFlare::Network2::Server
     headers: [ AllegroFlare/Network2/Server.hpp ]
+  - symbol: (void (*callback)(std::string))
+    headers: [ string ]
 
 

@@ -17,6 +17,7 @@ void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
 }
 
 
+
 class AllegroFlare_Integrations_NetworkTest : public AllegroFlare::Integrations::Network {};
 
 
@@ -26,7 +27,7 @@ TEST_F(AllegroFlare_Integrations_NetworkTest, can_be_created_without_blowing_up)
    std::mutex messages_queue_mutex;
 
    std::thread server(run_server_blocking, get_global_abort_ptr());
-   std::thread client(run_client_blocking, get_global_abort_ptr(), &messages_queue, &messages_queue_mutex);
+   std::thread client(run_client_blocking, get_global_abort_ptr(), &messages_queue, &messages_queue_mutex, nullptr);
    std::thread aborter(emit_abort_signal_after_1_sec, get_global_abort_ptr());
 
    server.join();
@@ -49,13 +50,15 @@ TEST_F(AllegroFlare_Integrations_NetworkTest,
       run_client_blocking,
       get_global_abort_ptr(),
       &messages_queue,
-      &messages_queue_mutex
+      &messages_queue_mutex,
+      AllegroFlare::Integrations::Network::simple_capture_callback
    );
    std::thread client_that_will_receive(
       run_client_blocking,
       get_global_abort_ptr(),
       &messages_queue,
-      &messages_queue_mutex
+      &messages_queue_mutex,
+      AllegroFlare::Integrations::Network::simple_capture_callback
    );
    std::thread aborter(emit_abort_signal_after_1_sec, get_global_abort_ptr());
 

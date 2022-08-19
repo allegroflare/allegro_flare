@@ -693,6 +693,9 @@
   "AllegroFlare/Network2/Server": [
     "AllegroFlare/Integrations/Network"
   ],
+  "(void (callback)(std/string))": [
+    "AllegroFlare/Integrations/Network"
+  ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],

@@ -35,7 +35,7 @@ static void run_client(
       std::atomic<bool>* global_abort=nullptr,
       std::vector<std::string> *messages_queue=nullptr,
       std::mutex *messages_queue_mutex=nullptr,
-      void (*callback)(std::string body)=nullptr
+      void (*callback)(std::string)=nullptr
    )
 {
    AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback);

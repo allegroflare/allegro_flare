@@ -71,7 +71,7 @@ public:
   chat_client(
       asio::io_context& io_context,
       const tcp::resolver::results_type& endpoints,
-      void (*my_injected_callback)(std::string body)=nullptr
+      void (*my_injected_callback)(std::string)=nullptr
  
    )
        : io_context_(io_context)
@@ -179,7 +179,7 @@ private:
   tcp::socket socket_;
   chat_message read_msg_;
   chat_message_queue write_msgs_;
-  void (*my_injected_callback)(std::string body);
+  void (*my_injected_callback)(std::string);
 };
 
 
@@ -189,7 +189,7 @@ static void client_runner(
       std::atomic<bool> *global_abort=nullptr,
       std::vector<std::string> *messages_queue=nullptr,
       std::mutex *messages_queue_mutex=nullptr,
-      void (*callback)(std::string body)=nullptr,
+      void (*callback)(std::string)=nullptr,
       std::string host="localhost",
       std::string port="5432"
    )
