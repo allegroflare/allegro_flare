@@ -572,11 +572,13 @@ namespace Network2
 Client::Client(
       std::atomic<bool> *global_abort,
       std::vector<std::string> *messages_queue,
-      std::mutex *messages_queue_mutex
+      std::mutex *messages_queue_mutex,
+      void (*callback)(std::string body)
 )
    : global_abort(global_abort)
    , messages_queue(messages_queue)
    , messages_queue_mutex(messages_queue_mutex)
+   , callback(callback)
 {
 }
 
