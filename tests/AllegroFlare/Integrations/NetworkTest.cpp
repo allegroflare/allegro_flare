@@ -39,7 +39,7 @@ static void publish_n_messages_every_m_seconds_for_j_seconds(
       sleep_for(0.2);
 
       std::stringstream ss;
-         ss << "hey, this is message " << count << ".";
+      ss << "hey, this is message " << count << ".";
 
       messages_queue_mutex->lock();
       message_queue->push_back(ss.str());
@@ -62,19 +62,17 @@ TEST_F(AllegroFlare_Integrations_NetworkTest, server__can_be_created_and_aborted
 }
 
 
-TEST_F(AllegroFlare_Integrations_NetworkTest, DISABLED__client__can_be_created_and_aborted_without_blowing_up)
+TEST_F(AllegroFlare_Integrations_NetworkTest, client__can_be_created_and_aborted_without_blowing_up)
 {
    std::vector<std::string> messages_queue;
    std::mutex messages_queue_mutex;
-   std::thread server(run_server_blocking, get_global_abort_ptr());
+   //std::thread server(run_server_blocking, get_global_abort_ptr());
    std::thread client(run_client_blocking, get_global_abort_ptr(), &messages_queue, &messages_queue_mutex, nullptr);
    std::thread aborter(emit_abort_signal_after_n_sec, get_global_abort_ptr(), 1);
 
-   server.join();
+   //server.join();
    client.join();
    aborter.join();
-
-   SUCCEED();
 }
 
 
@@ -118,7 +116,9 @@ TEST_F(AllegroFlare_Integrations_NetworkTest,
    std::vector<std::string> expected_captured_messages = {
       "hey, this is message 6.",
       "hey, this is message 5.",
-      "hey, this is message 4.",
+      "hey, this is message 4.", // This test is flakey
+      //"hey, this is message 3.",
+      //"hey, this is message 2.",
    };
 
    std::vector<std::string> actual_captured_callback_messages = get_captured_callback_messages();

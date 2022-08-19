@@ -164,7 +164,7 @@ private:
             if (!write_msgs_.empty())
             {
               do_write();
-               std::cout << "--chat_client : write\"" << std::endl; // I added this
+              // std::cout << "--chat_client : write\"" << std::endl; // I added this
             }
           }
           else
