@@ -250,6 +250,26 @@ static void client_runner(
        int counts = 10;
        while (!abort)
        {
+         if (messages_to_post.empty())
+         {
+            messages_queue_mutex->lock();
+            if (!messages_queue->empty())
+            {
+               std::cout << "GRABBING " << (*messages_queue).size() << " messages" << std::endl;
+               messages_to_post = *messages_queue;
+               std::cout << "  - messages_to_post.size(): " << messages_to_post.size() << std::endl;
+               for (auto &messages_queue_message : (*messages_queue))
+               {
+                  std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
+               }
+               std::cout << "  - messages_queue.size() (before): " << messages_to_post.size() << std::endl;
+               messages_queue->clear();
+               std::cout << "  - messages_queue.size() (after): " << messages_queue->size() << std::endl;
+               // TODO: take a small break here for the processor to chill a min
+            }
+            messages_queue_mutex->unlock();
+         }
+
          sleep_for(0.5);
 
          if (*global_abort) abort = true;
@@ -264,6 +284,7 @@ static void client_runner(
             msg.encode_header();
             c.write(msg);
          }
+         messages_to_post.clear();
 
          std::cout << "Counts: " << counts << std::endl << std::flush;
          counts--;

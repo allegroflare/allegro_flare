@@ -8,7 +8,7 @@
 #include <atomic>
 static void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
 {
-   sleep(1);
+   sleep(6);
    *global_abort = true;
 }
 
@@ -24,21 +24,34 @@ static void run_client(
 
 #include <atomic>
 static void publish_messages_every_second_for_6_seconds(
-      std::vector<std::string> *messages_queue=nullptr,
+      std::vector<std::string> *message_queue=nullptr,
       std::mutex *messages_queue_mutex=nullptr
    )
 {
    int count = 6;
    while (count>0)
    {
+      sleep(1);
+
       std::stringstream ss;
          ss << "hey, this is message " << count << ".";
+
+      std::cout << "BUILDING 1 message" << std::endl;
       messages_queue_mutex->lock();
-      messages_queue->push_back(ss.str());
-      //messages_to_post = *messages_queue;
-      //messages_queue->clear();
+         std::cout << "  - Building message \"" << ss.str() << "\"" << std::endl;
+         std::cout << "  - message_queue->size() (before): " << message_queue->size() << std::endl;
+               for (auto &messages_queue_message : (*message_queue))
+               {
+                  std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
+               }
+         message_queue->push_back(ss.str());
+         std::cout << "  - message_queue->size() (after): " << message_queue->size() << std::endl;
+               for (auto &messages_queue_message : (*message_queue))
+               {
+                  std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
+               }
       messages_queue_mutex->unlock();
-      sleep(1);
+
       count--;
    }
    
@@ -58,6 +71,7 @@ TEST(AllegroFlare_Network2_ClientTest, run_blocking__will_run_the_client_program
 }
 
 
+/*
 TEST(AllegroFlare_Network2_ClientTest,
    run_blocking__will_abort_the_blocking_function_if_the_abort_signal_is_set)
 {
@@ -71,6 +85,7 @@ TEST(AllegroFlare_Network2_ClientTest,
    client.join();
    exit_signal_emitter.join();
 }
+*/
 
 
 TEST(AllegroFlare_Network2_ClientTest,
