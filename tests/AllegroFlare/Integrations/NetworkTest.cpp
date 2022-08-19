@@ -20,9 +20,9 @@ static void sleep_for(float length_in_seconds)
 #include <thread>
 
 #include <atomic>
-void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
+void emit_abort_signal_after_n_sec(std::atomic<bool>* global_abort=nullptr, int num_seconds=1)
 {
-   sleep(1);
+   sleep(num_seconds);
    *global_abort = true;
 }
 
@@ -53,14 +53,22 @@ static void publish_n_messages_every_m_seconds_for_j_seconds(
 class AllegroFlare_Integrations_NetworkTest : public AllegroFlare::Integrations::Network {};
 
 
-TEST_F(AllegroFlare_Integrations_NetworkTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Integrations_NetworkTest, server__can_be_created_and_aborted_without_blowing_up)
+{
+   std::thread server(run_server_blocking, get_global_abort_ptr());
+   std::thread aborter(emit_abort_signal_after_n_sec, get_global_abort_ptr(), 1);
+   server.join();
+   aborter.join();
+}
+
+
+TEST_F(AllegroFlare_Integrations_NetworkTest, DISABLED__client__can_be_created_and_aborted_without_blowing_up)
 {
    std::vector<std::string> messages_queue;
    std::mutex messages_queue_mutex;
-
    std::thread server(run_server_blocking, get_global_abort_ptr());
    std::thread client(run_client_blocking, get_global_abort_ptr(), &messages_queue, &messages_queue_mutex, nullptr);
-   std::thread aborter(emit_abort_signal_after_1_sec, get_global_abort_ptr());
+   std::thread aborter(emit_abort_signal_after_n_sec, get_global_abort_ptr(), 1);
 
    server.join();
    client.join();
@@ -94,7 +102,7 @@ TEST_F(AllegroFlare_Integrations_NetworkTest,
       &receiving_messages_queue_mutex,
       AllegroFlare::Integrations::Network::simple_capture_callback
    );
-   std::thread aborter(emit_abort_signal_after_1_sec, get_global_abort_ptr());
+   std::thread aborter(emit_abort_signal_after_n_sec, get_global_abort_ptr(), 1);
    std::thread publisher(
       publish_n_messages_every_m_seconds_for_j_seconds,
       &sending_messages_queue,
