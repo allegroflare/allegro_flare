@@ -34,11 +34,11 @@ void yay_callback(std::string message)
 static void run_client(
       std::atomic<bool>* global_abort=nullptr,
       std::vector<std::string> *messages_queue=nullptr,
-      std::mutex *messages_queue_mutex=nullptr
-      //void (*callback)(std::string body)=nullptr
+      std::mutex *messages_queue_mutex=nullptr,
+      void (*callback)(std::string body)=nullptr
    )
 {
-   AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, yay_callback);
+   AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback);
    client.run_blocking_while_awaiting_abort();
 }
 
@@ -117,7 +117,7 @@ TEST(AllegroFlare_Network2_ClientTest,
    std::vector<std::string> messages_queue = {};
    std::mutex messages_queue_mutex;
 
-   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex);//, yay_callback);
+   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex, yay_callback);
    std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 3);
    std::thread message_emitter(publish_messages_every_second_for_6_seconds, &messages_queue, &messages_queue_mutex);
 
