@@ -68,10 +68,15 @@ typedef std::deque<chat_message> chat_message_queue;
 class chat_client
 {
 public:
-  chat_client(asio::io_context& io_context,
-      const tcp::resolver::results_type& endpoints)
-    : io_context_(io_context)
-    , socket_(io_context)
+  chat_client(
+      asio::io_context& io_context,
+      const tcp::resolver::results_type& endpoints,
+      void (*my_injected_callback)(std::string body)=nullptr
+ 
+   )
+       : io_context_(io_context)
+       , socket_(io_context)
+       , my_injected_callback(my_injected_callback)
   {
     do_connect(endpoints);
   }
@@ -135,6 +140,8 @@ private:
           {
             std::cout.write(read_msg_.body(), read_msg_.body_length());
             std::cout << "\n";
+            std::string message_body = read_msg_.body();
+            //if (my_injected_callback) (*my_injected_callback)(message_body);
             do_read_header();
           }
           else
@@ -172,6 +179,7 @@ private:
   tcp::socket socket_;
   chat_message read_msg_;
   chat_message_queue write_msgs_;
+  void (*my_injected_callback)(std::string body);
 };
 
 
@@ -181,6 +189,7 @@ static void client_runner(
       std::atomic<bool> *global_abort=nullptr,
       std::vector<std::string> *messages_queue=nullptr,
       std::mutex *messages_queue_mutex=nullptr,
+      void (*callback)(std::string body)=nullptr,
       std::string host="localhost",
       std::string port="5432"
    )
@@ -201,7 +210,7 @@ static void client_runner(
 
        tcp::resolver resolver(io_context);
        auto endpoints = resolver.resolve(host, port);
-       chat_client c(io_context, endpoints);
+       chat_client c(io_context, endpoints, callback);
 
        std::thread t([&io_context](){ io_context.run(); });
 
@@ -608,7 +617,7 @@ void Client::run_blocking_while_awaiting_abort()
                                "messages_queue_mutex cannot be nullptr.");
    }
 
-   client_runner(global_abort, messages_queue, messages_queue_mutex);
+   client_runner(global_abort, messages_queue, messages_queue_mutex, callback);
    return;
 }
 } // namespace Network2

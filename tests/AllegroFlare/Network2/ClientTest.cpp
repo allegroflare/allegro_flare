@@ -72,6 +72,13 @@ static void publish_messages_every_second_for_6_seconds(
 }
 
 
+
+void yay_callback(std::string message)
+{
+   std::cout << "HOLLY BONKERS: \"" << message << "\"" << std::endl;
+}
+
+
 TEST(AllegroFlare_Network2_ClientTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Network2::Client client;
@@ -108,7 +115,7 @@ TEST(AllegroFlare_Network2_ClientTest,
    std::vector<std::string> messages_queue = {};
    std::mutex messages_queue_mutex;
 
-   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex);
+   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex);//, yay_callback);
    std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 3);
    std::thread message_emitter(publish_messages_every_second_for_6_seconds, &messages_queue, &messages_queue_mutex);
 
