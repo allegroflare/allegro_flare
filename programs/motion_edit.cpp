@@ -15,7 +15,7 @@
 
 
 
-std::string current_message = "[message-unset]";
+std::vector<std::string> message_queue = {};
 //std::mutex current_message_mutex;
 
 //bool global_shutdown = false;
@@ -41,16 +41,45 @@ public:
    virtual void primary_timer_func() override
    {
       ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
-      AllegroFlare::Placement2D place(1920/2, 1080/2, 800, 600);
+      float width = 1100;
+      AllegroFlare::Placement2D place(1920/2, 1080/2, width, 600);
+      float line_height= 30;
 
       place.start_transform();
-      al_draw_multiline_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, 300, 30, 0, current_message.c_str());
+      al_draw_multiline_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, width, line_height, 0, most_recent_message().c_str());
+
+      float cursor_y = 100;
+      for (auto &message : last_n_messages_excluding_first_message(5))
+      {
+         al_draw_multiline_text(font, ALLEGRO_COLOR{0.8, 0.805, 0.81, 1.0}, 0, cursor_y, width, line_height, 0, message.c_str());
+         cursor_y += line_height+20;
+      }
+
       place.restore_transform();
 
       for (auto &actor : actors)
       {
          //TrackView track_view(actor);
       }
+   }
+
+   std::string most_recent_message()
+   {
+      if (message_queue.empty()) return "[empty]";
+      return message_queue.back();
+   }
+
+   std::vector<std::string> last_n_messages_excluding_first_message(int n)
+   {
+      std::vector<std::string> result;
+      if (message_queue.empty()) return result;
+
+      for (int i=1; i<message_queue.size() && i<n; i++)
+      {
+         result.push_back(message_queue[message_queue.size()-1 - i]);
+      }
+
+      return result;
    }
 };
 
@@ -83,8 +112,8 @@ void framework_main(std::atomic<bool>* global_abort=nullptr)
 
 static void receive_message_callback(std::string message, void *data)
 {
-   std::cout << "MyNetworkService::on_message_receive: \"" << message << "\"" << std::endl;
-   current_message = message;
+   //std::cout << "MyNetworkService::on_message_receive: \"" << message << "\"" << std::endl;
+   message_queue.push_back(message);
 }
 
 

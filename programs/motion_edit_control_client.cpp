@@ -80,15 +80,15 @@ public:
       switch(ev->keyboard.keycode)
       {
       case ALLEGRO_KEY_A: 
-         std::cout << "A" << std::endl;
+         //std::cout << "A" << std::endl;
          post_message("(A) This is the A message.");
          break;
       case ALLEGRO_KEY_B: 
-         std::cout << "B" << std::endl;
+         //std::cout << "B" << std::endl;
          post_message("(B) The B messages is here.");
          break;
       case ALLEGRO_KEY_C: 
-         std::cout << "C" << std::endl;
+         //std::cout << "C" << std::endl;
          post_message("(C) I see what you did there in this message C.");
          break;
       }
