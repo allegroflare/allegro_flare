@@ -221,7 +221,7 @@ static void client_runner(
     else if (true)
     {
        std::vector<std::string> messages_to_post = {
-          "This is the first placeholder message.",
+          //"This is the first placeholder message.",
           //"This is a second placeholder message.",
           //"This is a final message.",
        };
@@ -232,13 +232,14 @@ static void client_runner(
        auto endpoints = resolver.resolve(host, port);
        chat_client c(io_context, endpoints);
 
-       std::thread t([&io_context](){
+       std::thread t([&io_context, global_abort](){
           std::cout << "t() thread start" << std::endl << std::flush;
           bool abort = false;
           while (!abort)
           {
              io_context.run_for(std::chrono::seconds(1));
              std::cout << "t() thread mid" << std::endl << std::flush;
+             if (*global_abort) abort = true;
           }
           std::cout << "t() thread end" << std::endl << std::flush;
        });
@@ -250,6 +251,8 @@ static void client_runner(
        while (!abort)
        {
          sleep_for(0.5);
+
+         if (*global_abort) abort = true;
     
          for (auto &message_to_post : messages_to_post)
          {

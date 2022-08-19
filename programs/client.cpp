@@ -1,6 +1,17 @@
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Network2/Client.hpp>
 
+
+
+#include <atomic>
+static void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
+{
+   sleep(5);
+   std::cout << "EMITTING GLOBAL ABORT" << std::endl;
+   *global_abort = true;
+}
+
+
 int main(int argc, char **argv)
 {
    std::atomic<bool> global_abort = false;
@@ -12,3 +23,5 @@ int main(int argc, char **argv)
 
    return 0;
 }
+
+
