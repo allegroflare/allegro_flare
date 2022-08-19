@@ -187,6 +187,51 @@ static void client_runner(
     }
     else if (true)
     {
+       std::vector<std::string> messages_to_post = {
+          "This is the first placeholder message.",
+          "This is a second placeholder message.",
+          "This is a final message.",
+       };
+
+       asio::io_context io_context;
+
+       tcp::resolver resolver(io_context);
+       auto endpoints = resolver.resolve(host, port);
+       chat_client c(io_context, endpoints);
+
+       std::thread t([&io_context](){ io_context.run(); });
+
+       char line[chat_message::max_body_length + 1];
+       //while (std::cin.getline(line, chat_message::max_body_length + 1))
+       bool abort = false;
+       int counts = 10;
+       while (!abort)
+       {
+         sleep(1);
+    
+         for (auto &message_to_post : messages_to_post)
+         {
+            chat_message msg;
+            //msg.body_length(std::strlen(line));
+            //std::memcpy(msg.body(), line, msg.body_length());
+            msg.body_length(message_to_post.size());
+            std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
+            msg.encode_header();
+            c.write(msg);
+         }
+
+         std::cout << "Counts: " << counts << std::endl << std::flush;
+         counts--;
+         //std::cout << "Message: " << msg.body() << std::endl;
+         //std::string body = msg.body();
+         //if (body == "EXIT") break;
+       }
+
+       c.close();
+       t.join();
+    }
+    else if (true)
+    {
        asio::io_context io_context;
 
        tcp::resolver resolver(io_context);
@@ -232,10 +277,10 @@ static void client_runner(
                 //}
 
              //while(!messages_to_post.empty())
-             while(std::cin.getline(line, chat_message::max_body_length + 1))
+             //while(std::cin.getline(line, chat_message::max_body_length + 1))
              //while (!abort)
-             //bool should_post_a_message = true;
-             //if (should_post_a_message)
+             bool should_post_a_message = true;
+             if (should_post_a_message)
              {
                 //if (messages_to_post.empty())
                 //{
@@ -259,9 +304,10 @@ static void client_runner(
 
                    //std::string final_message = message_to_post; //"This is a placeholder message.";
                    //std::string final_message = "This is a placeholder message.";
+             char myline[] = "Hello World!";
              chat_message msg;
-             msg.body_length(std::strlen(line));
-             std::memcpy(msg.body(), line, msg.body_length());
+             msg.body_length(std::strlen(myline));
+             std::memcpy(msg.body(), myline, msg.body_length());
                    //msg.body_length(message_to_post.size());
                    //std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
              msg.encode_header();

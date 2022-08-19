@@ -6,13 +6,13 @@
 
 
 #include <atomic>
-void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
+static void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
 {
    sleep(1);
    *global_abort = true;
 }
 
-void run_server(std::atomic<bool>* global_abort=nullptr)
+static void run_server(std::atomic<bool>* global_abort=nullptr)
 {
    AllegroFlare::Network2::Server server(global_abort);
    server.run_blocking_while_awaiting_abort();

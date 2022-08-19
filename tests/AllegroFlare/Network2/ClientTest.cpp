@@ -6,13 +6,13 @@
 #include <thread>
 
 #include <atomic>
-void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
+static void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
 {
    sleep(1);
    *global_abort = true;
 }
 
-void run_client(
+static void run_client(
       std::atomic<bool>* global_abort=nullptr,
       std::vector<std::string> *messages_queue=nullptr,
       std::mutex *messages_queue_mutex=nullptr
