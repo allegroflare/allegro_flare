@@ -35,13 +35,13 @@ TEST_F(AllegroFlare_Elements_HealthBars_BasicTest, render__without_allegro_initi
 
 
 TEST_F(AllegroFlare_Elements_HealthBars_BasicTestWithAllegroRenderingFixture,
-   render__will_draw_the_health_bar_to_the_screen)
+   CAPTURE__render__will_draw_the_health_bar_to_the_screen)
 {
    AllegroFlare::Elements::HealthBars::Basic health_bar(0.6);
    health_bar.get_placement_ref().position = {200, 300};
    health_bar.render();
    al_flip_display();
-   sleep_for(1);
+   //sleep_for(1);
    SUCCEED();
 }
 
