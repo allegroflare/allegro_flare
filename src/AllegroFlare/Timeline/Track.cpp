@@ -20,27 +20,41 @@ namespace Timeline
 
 
 
-   Track::Track(float start_val, std::string label)
+   Track::Track(std::string label, float start_val, std::vector<AllegroFlare::Timeline::Keyframe *> keyframes)
       : label(label)
       , start_val(start_val)
+      , keyframes(keyframes)
    {}
 
 
 
-
-   void Track::add(AllegroFlare::Timeline::Keyframe *k)
+   std::vector<AllegroFlare::Timeline::Keyframe *> Track::get_keyframes()
    {
-      keyframe.push_back(k);
-      std::sort(keyframe.begin(), keyframe.end(), keyframe_sort_func);
+      return keyframes;
+   }
+
+
+
+   void Track::set_keyframes(std::vector<AllegroFlare::Timeline::Keyframe *> keyframes)
+   {
+      this->keyframes = keyframes;
+   }
+
+
+
+   void Track::add_keyframe(AllegroFlare::Timeline::Keyframe *k)
+   {
+      keyframes.push_back(k);
+      std::sort(keyframes.begin(), keyframes.end(), keyframe_sort_func);
    }
 
 
 
 
-   void Track::add(float time, float val, float (*interpolator_func)(float))
+   void Track::add_keyframe(float time, float val, float (*interpolator_func)(float))
    {
-      keyframe.push_back(new AllegroFlare::Timeline::Keyframe(time, val, interpolator_func));
-      std::sort(keyframe.begin(), keyframe.end(), keyframe_sort_func);
+      keyframes.push_back(new AllegroFlare::Timeline::Keyframe(time, val, interpolator_func));
+      std::sort(keyframes.begin(), keyframes.end(), keyframe_sort_func);
    }
 
 
@@ -60,21 +74,21 @@ namespace Timeline
       float left_time = 0;
       float *left_val = &start_val;
 
-      if (keyframe.empty() || time < 0) return start_val;
-      else if (time >= keyframe.back()->time) return keyframe.back()->val;
-      else if (time <= keyframe.front()->time)
+      if (keyframes.empty() || time < 0) return start_val;
+      else if (time >= keyframes.back()->time) return keyframes.back()->val;
+      else if (time <= keyframes.front()->time)
       {
-         right = keyframe.front();
+         right = keyframes.front();
       }
       else
       {
          // would probably be faster in a binary search?
-         for (unsigned i=1; i<keyframe.size(); i++)
-            if (keyframe[i-1]->time < time && time < keyframe[i]->time)
+         for (unsigned i=1; i<keyframes.size(); i++)
+            if (keyframes[i-1]->time < time && time < keyframes[i]->time)
             {
-               left_val = &keyframe[i-1]->val;
-               left_time = keyframe[i-1]->time;
-               right = keyframe[i];
+               left_val = &keyframes[i-1]->val;
+               left_time = keyframes[i-1]->time;
+               right = keyframes[i];
                break;
             }
       }
@@ -95,8 +109,8 @@ namespace Timeline
    {
       std::ostringstream ss;
       ss << "timeline: " << label << std::endl;
-      for (unsigned i=0; i<keyframe.size(); i++)
-         ss << "  frame " << i << ": (" << keyframe[i]->time << ", " << keyframe[i]->val << ", " << keyframe[i]->interpolator_func << ")" << std::endl;
+      for (unsigned i=0; i<keyframes.size(); i++)
+         ss << "  frame " << i << ": (" << keyframes[i]->time << ", " << keyframes[i]->val << ", " << keyframes[i]->interpolator_func << ")" << std::endl;
 
       return ss.str();
    }

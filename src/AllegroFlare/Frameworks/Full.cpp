@@ -57,6 +57,7 @@ Full::Full()
    , escape_key_will_shutdown(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
+   , fullscreen(true)
    , event_queue(nullptr)
    , builtin_font(nullptr)
    , shutdown_program(false)
@@ -260,10 +261,14 @@ bool Full::initialize()
 
    initialize_without_display();
 
+   int display_flags = ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE;
+   if (fullscreen) display_flags |= ALLEGRO_FULLSCREEN_WINDOW;
+
    primary_display = create_display(
          1920,
          1080,
-         ALLEGRO_FULLSCREEN_WINDOW | ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE
+         display_flags
+         //ALLEGRO_FULLSCREEN_WINDOW | ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE
       );
 
    if (!primary_display || !primary_display->al_display)
@@ -291,6 +296,20 @@ bool Full::initialize()
                                                               // needs of the game
 
    return true;
+}
+
+
+
+void Full::disable_fullscreen()
+{
+   if (initialized)
+   {
+      std::cout << "[AllegroFlare::Frameworks::Full::disable_fullscreen]: WARNING: "
+                << "could not disable because the framework has already been initialized.  "
+                << "For now, you must disable the fullscreen before initializing the framework for it to take effect."
+                << std::endl;
+   }
+   if (!initialized) fullscreen = false;
 }
 
 

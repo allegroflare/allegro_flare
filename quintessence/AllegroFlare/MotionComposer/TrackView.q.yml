@@ -1,0 +1,224 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: track
+    type: AllegroFlare::Timeline::Track*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: 600.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: 120.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: value_min
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: value_max
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: selection_cursor_x
+    type: int
+    init_with: -1
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: icon_font_size
+    type: int
+    init_with: -22
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    guards: [ al_is_primitives_addon_initialized(), font_bin, track ]
+    body: |
+      ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+      ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
+
+      al_draw_filled_rectangle(x, y, width, height, backfill_color);
+      float x_scale = 100;
+      float y_scale = height;
+
+      int count = 0;
+      for (auto &keyframe : track->get_keyframes())
+      {
+         float capped_normalized_y = keyframe->val;
+         float keyframe_x = keyframe->time * x_scale;
+         float keyframe_y = capped_normalized_y * y_scale;
+
+         // draw a line demarcating where keyframes are
+         al_draw_line(keyframe_x, y, keyframe_x, y+height, line_color, 1.0);
+
+         // draw a graphic on the node
+         if (count == selection_cursor_x) draw_selected_node_icon(x+keyframe_x, y+keyframe_y);
+         else draw_node_icon(x+keyframe_x, y+keyframe_y);
+
+         // increment our count
+         count++;
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Color::*
+      - al_is_primitives_addon_initialized
+
+
+  - name: draw_selected_node_icon
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      ALLEGRO_FONT *bigger_icon_font = obtain_bigger_icon_font();
+      ALLEGRO_FONT *icon_font = obtain_icon_font();
+      int32_t diamond = 0xf219;
+      ALLEGRO_COLOR bigger_color = AllegroFlare::Color::DeepSkyBlue;
+      ALLEGRO_COLOR color = AllegroFlare::Color::Eigengrau;
+      draw_centered_unicode_character(bigger_icon_font, bigger_color, x, y, diamond, 0);
+      draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
+      return;
+
+
+  - name: draw_node_icon
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      ALLEGRO_FONT *icon_font = obtain_icon_font();
+      int32_t diamond = 0xf219;
+      ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
+      draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
+      return;
+
+
+  - name: draw_centered_unicode_character
+    private: true
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: icon
+        type: uint32_t
+        default_argument: 0xf005
+      - name: flags
+        type: int
+        default_argument: 0
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      float width = al_get_ustr_width(font, ustr);
+      float height = al_get_font_line_height(font);
+      al_draw_ustr(font, color, x-width*0.5, y-height*0.5, flags, ustr);
+      return;
+
+
+  - name: obtain_icon_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream ss;
+      ss << "fa-solid-900.ttf " << icon_font_size;
+      return font_bin->auto_get(ss.str());
+
+
+  - name: obtain_bigger_icon_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream ss;
+      ss << "fa-solid-900.ttf " << icon_font_size - 8;
+      return font_bin->auto_get(ss.str());
+
+
+  - name: obtain_track_values_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf -20");
+
+
+dependencies:
+
+
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Timeline::Track*
+    headers: [ AllegroFlare/Timeline/Track.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Color::*
+    headers: [ AllegroFlare/Color.hpp ]
+
+

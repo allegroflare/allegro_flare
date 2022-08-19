@@ -12,10 +12,29 @@ static asio::io_service GLOBAL__io_service;
 
 static void send_network_message(NetworkClient &c, char* line)
 {
+   std::cout << "checkpoint: send_network_message (A)" << std::endl << std::flush;
+
    NetworkMessage message;
+
+   std::cout << "checkpoint: send_network_message (B)" << std::endl << std::flush;
+   //return;
+
    message.set_body_length(std::strlen(line));
+
+   std::cout << "checkpoint: send_network_message (C)" << std::endl << std::flush;
+   //return;
+
    std::memcpy(message.body(), line, message.get_body_length());
+
+   std::cout << "checkpoint: send_network_message (D)" << std::endl << std::flush;
+   //return;
+
+   std::cout << "  - MESSAGE: " << line << std::endl << std::flush;
+
    message.encode_header();
+
+   std::cout << "checkpoint: send_network_message (E)" << std::endl << std::flush;
+   //return;
 
    c.write(message);
 }
@@ -45,7 +64,11 @@ public:
    }
    bool send_message(char* line)
    {
+      std::cout << "checkpoint: __NetworkServiceINTERNAL::send_message (A)" << std::endl << std::flush;
+
       if (!connected) return false;
+      std::cout << "checkpoint: __NetworkServiceINTERNAL::send_message (B)" << std::endl << std::flush;
+
       send_network_message(*client, line);
       return true;
    }
@@ -105,10 +128,12 @@ public:
 
 NetworkService::NetworkService()
    : _service(0)
+   , initialized(false)
 {
-   _service = new __NetworkServiceINTERNAL();
+   //_service = new __NetworkServiceINTERNAL();
    //_on_recieve_message_callback_func = callback_func_ex;
-   _on_recieve_message_callback_func = std::bind(&NetworkService::on_message_receive, this, std::placeholders::_1);
+   //_on_recieve_message_callback_func = std::bind(&NetworkService::on_message_receive, this, std::placeholders::_1);
+   //initialized = true;
 }
 
 
@@ -120,8 +145,24 @@ NetworkService::~NetworkService()
 
 bool NetworkService::connect(std::string url_or_ip, std::string port_num)
 {
+   if (!initialized) throw std::runtime_error("AllegroFlare::Network::NetworkService::connect: error: "
+                                              "must be initialized first.");
+
    return _service->connect(url_or_ip, port_num);
 }
+
+
+void NetworkService::initialize()
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::Network::NetworkService::initialize: error: "
+                                             "initialize was already called, it cannot be called more than once.");
+
+   _service = new __NetworkServiceINTERNAL();
+   //_on_recieve_message_callback_func = callback_func_ex;
+   _on_recieve_message_callback_func = std::bind(&NetworkService::on_message_receive, this, std::placeholders::_1);
+   initialized = true;
+}
+
 
 
 bool NetworkService::disconnect()
@@ -138,14 +179,36 @@ bool NetworkService::is_connected()
 
 bool NetworkService::send_message(std::string message)
 {
+   std::cout << "checkpoint: NetworkService::send_message (A)" << std::endl << std::flush;
+
+   if (!initialized) throw std::runtime_error("AllegroFlare::Network::NetworkService::send_message: error: "
+                                              "must be initialized first.");
+
+   std::cout << "checkpoint: NetworkService::send_message (B)" << std::endl << std::flush;
+
    if (message.length() < NetworkMessage::max_body_length)
       message.resize(NetworkMessage::max_body_length);
+
+   //std::cout << "checkpoint: NetworkService::send_message (C)" << std::endl << std::flush;
+   //return false;
+
+   std::cout << "checkpoint: NetworkService::send_message (C)" << std::endl << std::flush;
+
    char *argv1 = new char[message.length() + 1];
    strcpy(argv1, message.c_str());
 
-   bool ret_val = _service->send_message(argv1);
+   std::cout << "checkpoint: NetworkService::send_message (D)" << std::endl << std::flush;
+   //return false;
+
+   // TWEAK
+   bool ret_val = _service->send_message("Hello"); // argv1;
+
+   std::cout << "checkpoint: NetworkService::send_message (E)" << std::endl << std::flush;
+   //return false;
 
    delete[] argv1;
+
+   std::cout << "checkpoint: NetworkService::send_message (F)" << std::endl << std::flush;
 
    return ret_val;
 }

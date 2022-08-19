@@ -56,6 +56,7 @@ namespace AllegroFlare
          bool escape_key_will_shutdown;
          ALLEGRO_COLOR input_hints_text_color;
          float input_hints_text_opacity;
+         bool fullscreen;
 
          void draw_overlay();
         
@@ -98,6 +99,7 @@ namespace AllegroFlare
          bool initialize();
          bool is_initialized();
          bool shutdown();
+         void disable_fullscreen();
 
          void enable_escape_key_will_shutdown();
          void disable_escape_key_will_shutdown();

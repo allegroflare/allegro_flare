@@ -15,6 +15,18 @@ namespace Timeline
 
 
 
+      void ActorManager::set_actors(std::vector<Actor *> actors)
+      {
+         this->actors = actors;
+      }
+
+
+
+      std::vector<Actor *> ActorManager::get_actors()
+      {
+         return actors;
+      }
+
 
       //Actor *ActorManager::create_actor2d(std::string identifier, ALLEGRO_BITMAP *bitmap)
       //{

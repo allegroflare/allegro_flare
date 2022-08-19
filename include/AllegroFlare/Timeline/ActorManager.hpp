@@ -18,6 +18,9 @@ namespace AllegroFlare
       public:
          ActorManager();
 
+         void set_actors(std::vector<Actor *> actors={});
+         std::vector<Actor *> get_actors();
+
          //Actor *create_actor2d(std::string identifier, ALLEGRO_BITMAP *bitmap);
          bool register_actor(Actor *actor);
          bool unregister_actor(Actor *actor);

@@ -34,6 +34,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
@@ -85,6 +86,9 @@
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
@@ -127,6 +131,9 @@
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -165,6 +172,7 @@
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer"
@@ -198,6 +206,8 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/PauseScreen",
@@ -210,6 +220,7 @@
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -242,6 +253,8 @@
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -378,7 +391,8 @@
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "sin": [
-    "AllegroFlare/Elements/Backgrounds/Monoplex"
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/MotionFX/Sparkles"
   ],
   "AllegroFlare/draw_offset_textured_rectangle": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
@@ -482,7 +496,8 @@
   ],
   "AllegroFlare/Interpolators/": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/MotionFX/Sparkles2"
   ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -658,11 +673,63 @@
   "AllegroFlare/InputDiagrams/KeyboardKeyCombo": [
     "AllegroFlare/InputHints"
   ],
+  "void": [
+    "AllegroFlare/Integrations/Network"
+  ],
+  "std/mutex": [
+    "AllegroFlare/Integrations/Network"
+  ],
+  "std/vector<std/string>": [
+    "AllegroFlare/Integrations/Network"
+  ],
+  "std/atomic<bool>": [
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/Integrations/Network"
+  ],
+  ":testing/Test": [
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/Network2/Client": [
+    "AllegroFlare/Integrations/Network"
+  ],
+  "AllegroFlare/Network2/Server": [
+    "AllegroFlare/Integrations/Network"
+  ],
+  "(void (callback)(std/string))": [
+    "AllegroFlare/Integrations/Network"
+  ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
+  ],
+  "AllegroFlare/Timeline/Track": [
+    "AllegroFlare/MotionComposer/TrackView"
+  ],
+  "AllegroFlare/Color/": [
+    "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room"
+  ],
+  "AllegroFlare/Color/Gold": [
+    "AllegroFlare/MotionFX/Sparkles"
+  ],
+  "std/vector<std/tuple<float, float, float, ALLEGRO_COLOR>>": [
+    "AllegroFlare/MotionFX/Sparkles"
+  ],
+  "cos": [
+    "AllegroFlare/MotionFX/Sparkles"
+  ],
+  "AllegroFlare/Timeline/ActorManager": [
+    "AllegroFlare/MotionFX/Sparkles2"
+  ],
+  "AllegroFlare/Timeline/Actor2D": [
+    "AllegroFlare/MotionFX/Sparkles2"
+  ],
+  "chat_message": [
+    "AllegroFlare/Network2/Message"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
@@ -733,10 +800,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/Cursor": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room"
-  ],
-  "AllegroFlare/Color/": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room"
   ],
@@ -881,9 +944,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_DISPLAY": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  ":testing/Test": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/chrono/milliseconds": [
