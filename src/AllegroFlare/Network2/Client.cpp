@@ -207,46 +207,84 @@ static void client_runner(
           }
        });
 
-       std::vector<std::string> messages_to_post = {
-          "This is the first placeholder message.",
-          "This is a second placeholder message.",
-          "This is a final message.",
-       };
-       char line[chat_message::max_body_length + 1];
-       bool abort = false;
-       while (std::cin.getline(line, chat_message::max_body_length + 1))
-       //while (!abort)
-       {
-          //if (messages_to_post.empty())
-          //{
-             //messages_queue_mutex->lock();
-             //if (!messages_queue->empty())
-             //{
-                //messages_to_post = *messages_queue;
-                //messages_queue->clear();
-                //// TODO: take a small break here for the processor to chill a min
-             //}
-             //messages_queue_mutex->unlock();
-          //}
+       //std::thread t2([&c, messages_queue, messages_queue_mutex](){
+          std::vector<std::string> messages_to_post = {
+             "This is the first placeholder message.",
+             "This is a second placeholder message.",
+             "This is a final message.",
+          };
+          char line[chat_message::max_body_length + 1];
+          bool abort = false;
 
-          //if (!messages_to_post.empty())
-          //{
-             //std::string message_to_post = messages_to_post.back(); // ME
-             //messages_to_post.pop_back(); // ME
+          int counts = 10;
+          while(!abort)
+          {
+                //if (messages_to_post.empty())
+                //{
+                   //messages_queue_mutex->lock();
+                   //if (!messages_queue->empty())
+                   //{
+                      //messages_to_post = *messages_queue;
+                      //messages_queue->clear();
+                      //// TODO: take a small break here for the processor to chill a min
+                   //}
+                   //messages_queue_mutex->unlock();
+                //}
 
-             std::string final_message = line; //"This is a placeholder message.";
+             //while(!messages_to_post.empty())
+             while(std::cin.getline(line, chat_message::max_body_length + 1))
+             //while (!abort)
+             //bool should_post_a_message = true;
+             //if (should_post_a_message)
+             {
+                //if (messages_to_post.empty())
+                //{
+                   //messages_queue_mutex->lock();
+                   //if (!messages_queue->empty())
+                   //{
+                      //messages_to_post = *messages_queue;
+                      //messages_queue->clear();
+                      //// TODO: take a small break here for the processor to chill a min
+                   //}
+                   //messages_queue_mutex->unlock();
+                //}
+
+                //if (!messages_to_post.empty())
+                //{
+                   //line[0] = 'H';
+                   //line[1] = 'i';
+                   //std::string message_to_post = "This is a message to post.";
+                   //std::string message_to_post = messages_to_post.back(); // ME
+                   //messages_to_post.pop_back(); // ME
+
+                   //std::string final_message = message_to_post; //"This is a placeholder message.";
+                   //std::string final_message = "This is a placeholder message.";
              chat_message msg;
-             //msg.body_length(std::strlen(line));
-             //std::memcpy(msg.body(), line, msg.body_length());
-             msg.body_length(final_message.size());
-             std::memcpy(msg.body(), final_message.c_str(), msg.body_length());
+             msg.body_length(std::strlen(line));
+             std::memcpy(msg.body(), line, msg.body_length());
+                   //msg.body_length(message_to_post.size());
+                   //std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
              msg.encode_header();
              c.write(msg);
-          //}
-       }
+                //}
+                //abort = true;
+             }
 
+             std::cout << " - message polling will time out in " << counts << std::endl << std::flush;
+             counts--;
+             sleep(1);
+             if (counts < 0) abort = true;
+            
+             //abort = true;
+          }
+       //});
+
+       //t2.join();
+       std::cout << "AAAAAAAAAA" << std::endl << std::flush;
        c.close();
+       std::cout << "BBBBBBBBBB" << std::endl << std::flush;
        t.join();
+       std::cout << "CCCCCCCCCC" << std::endl << std::flush;
 /*
        asio::io_context io_context;
 
