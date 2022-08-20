@@ -3,14 +3,23 @@ properties:
 
   - name: HEADER_LENGTH
     static: true
+    const: true
     type: std::size_t
     init_with: 16
     getter: true
     
   - name: MAX_BODY_LENGTH
     static: true
+    const: true
     type: std::size_t
     init_with: 512
+    getter: true
+
+  - name: MAGIC_HEADER_CHUNK
+    static: true
+    const: true
+    type: std::string
+    init_with: '"AFNM"'
     getter: true
 
   - name: data
@@ -26,6 +35,12 @@ properties:
 
 
 functions:
+
+
+  - name: todo
+    body: |
+      // set guards for unexpected acces when header has not been encoded
+      return;
 
 
   - name: data_ptr
@@ -75,13 +90,18 @@ functions:
 
        char header[16 + 1] = ""; // eeks, here "16" is used rather than HEADER_LENGTH because constexpr is not
                                  // supported in quintessence
-       std::sprintf(header,    "AFNM");
+
+       std::string first_8 = MAGIC_HEADER_CHUNK + body_size_base62();
+
+       std::sprintf(header,    MAGIC_HEADER_CHUNK.c_str());
        std::sprintf(header+4,  body_size_base62().c_str());
-       std::sprintf(header+8,  first_4_chars_hash_of().c_str());
+       std::sprintf(header+8,  first_4_chars_hash_of(first_8).c_str());
        std::sprintf(header+12, first_4_chars_hash_of().c_str());
 
        std::memcpy(data_ptr(), header, HEADER_LENGTH);
        return;
+    body_dependency_symbols:
+      - std::cout
 
 
   - name: first_4_chars_hash_of
@@ -91,7 +111,10 @@ functions:
         type: std::string
         default_argument: '""'
     body: |
-      return "TODO";
+      AllegroFlare::SHA2 sha2;
+      return sha2.generate_sha224_hash(string_to_hash).substr(0, 4);
+    body_dependency_symbols:
+      - AllegroFlare::SHA2
 
 
   - name: body_size_base62
@@ -100,7 +123,7 @@ functions:
       AllegroFlare::EncoderDecoders::Base62 base62_encoder;
       return base62_encoder.encode(body_length, 4);
     body_dependency_symbols:
-     - AllegroFlare::EncoderDecoders::Base62
+      - AllegroFlare::EncoderDecoders::Base62
 
 
   - name: ignore
@@ -123,5 +146,7 @@ dependencies:
     headers: [ cstddef ]
   - symbol: AllegroFlare::EncoderDecoders::Base62
     headers: [ AllegroFlare/EncoderDecoders/Base62.hpp ]
+  - symbol: AllegroFlare::SHA2
+    headers: [ AllegroFlare/SHA2.hpp ]
 
 

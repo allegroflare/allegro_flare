@@ -15,6 +15,13 @@ TEST(AllegroFlare_Network2_MessageTest, can_be_created_without_blowing_up)
 }
 
 
+TEST(AllegroFlare_Network2_MessageTest, MAGIC_HEADER_CHUNK___has_the_expected_value_of_AFNM)
+{
+   AllegroFlare::Network2::Message message;
+   EXPECT_EQ("AFNM", AllegroFlare::Network2::Message::get_MAGIC_HEADER_CHUNK());
+}
+
+
 TEST(AllegroFlare_Network2_MessageTest,
    data___has_the_expected_size_which_is_the_sum_of_HEADER_LENGTH_and_MAX_BODY_LENGTH)
 {
@@ -64,12 +71,40 @@ TEST(AllegroFlare_Network2_MessageTest,
 
 
 TEST(AllegroFlare_Network2_MessageTest,
-   encode_header__will_set_the_header_to_the_proper_format)
+   encode_header__with_an_empty_body__will_set_the_header_with_the_expected_format)
 {
    AllegroFlare::Network2::Message message;
    message.encode_header();
-   std::string expected_data = "AFNM0000TODOTODO";
+   std::string expected_data = "AFNM0000a93dd14a";
    EXPECT_EQ(expected_data, message.get_header());
+}
+
+
+TEST(AllegroFlare_Network2_MessageTest,
+   encode_header__with_different_body_sizes__will_set_the_second_header_chunk_to_an_expected_value)
+{
+   AllegroFlare::Network2::Message message;
+
+   std::vector<std::tuple<std::string, std::size_t>> size_datas_to_test = {
+      { "0000", 0 },
+      { "000a", 10 },
+      { "0048", 256 },
+      { "001O", 112 },
+      { "000b", 11 },
+      { "008g", message.get_MAX_BODY_LENGTH() },
+   };
+
+   for (auto &size_datum_to_test : size_datas_to_test)
+   {
+      std::size_t size_to_test = std::get<1>(size_datum_to_test);
+      std::string expected_second_header_chunk = std::get<0>(size_datum_to_test);
+
+      message.set_body_length(size_to_test);
+      message.encode_header();
+
+      std::string second_header_chunk = message.get_header().substr(4, 4);
+      EXPECT_EQ(expected_second_header_chunk, second_header_chunk);
+   }
 }
 
 

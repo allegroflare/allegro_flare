@@ -3,6 +3,8 @@
 #include <AllegroFlare/Network2/Message.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <iostream>
+#include <AllegroFlare/SHA2.hpp>
 #include <AllegroFlare/EncoderDecoders/Base62.hpp>
 #include <AllegroFlare/Network2/inc/chat_message.hpp>
 
@@ -17,6 +19,9 @@ std::size_t Message::HEADER_LENGTH = 16;
 
 
 std::size_t Message::MAX_BODY_LENGTH = 512;
+
+
+std::string Message::MAGIC_HEADER_CHUNK = "AFNM";
 
 
 Message::Message()
@@ -43,6 +48,12 @@ std::size_t Message::get_MAX_BODY_LENGTH()
 }
 
 
+std::string Message::get_MAGIC_HEADER_CHUNK()
+{
+   return MAGIC_HEADER_CHUNK;
+}
+
+
 std::string Message::get_data()
 {
    return data;
@@ -54,6 +65,12 @@ std::size_t Message::get_body_length()
    return body_length;
 }
 
+
+void Message::todo()
+{
+   // set guards for unexpected acces when header has not been encoded
+   return;
+}
 
 char* Message::data_ptr()
 {
@@ -97,9 +114,12 @@ void Message::encode_header()
 
    char header[16 + 1] = ""; // eeks, here "16" is used rather than HEADER_LENGTH because constexpr is not
                              // supported in quintessence
-   std::sprintf(header,    "AFNM");
+
+   std::string first_8 = MAGIC_HEADER_CHUNK + body_size_base62();
+
+   std::sprintf(header,    MAGIC_HEADER_CHUNK.c_str());
    std::sprintf(header+4,  body_size_base62().c_str());
-   std::sprintf(header+8,  first_4_chars_hash_of().c_str());
+   std::sprintf(header+8,  first_4_chars_hash_of(first_8).c_str());
    std::sprintf(header+12, first_4_chars_hash_of().c_str());
 
    std::memcpy(data_ptr(), header, HEADER_LENGTH);
@@ -108,7 +128,8 @@ void Message::encode_header()
 
 std::string Message::first_4_chars_hash_of(std::string string_to_hash)
 {
-   return "TODO";
+   AllegroFlare::SHA2 sha2;
+   return sha2.generate_sha224_hash(string_to_hash).substr(0, 4);
 }
 
 std::string Message::body_size_base62()
