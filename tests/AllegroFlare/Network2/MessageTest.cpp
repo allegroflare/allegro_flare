@@ -64,11 +64,11 @@ TEST(AllegroFlare_Network2_MessageTest,
 
 
 TEST(AllegroFlare_Network2_MessageTest,
-   DISABLED__encode_header__will_set_the_header_to_the_proper_format)
+   encode_header__will_set_the_header_to_the_proper_format)
 {
    AllegroFlare::Network2::Message message;
    message.encode_header();
-   std::string expected_data = "AFNM   0TODOTODO";
+   std::string expected_data = "AFNM0000TODOTODO";
    EXPECT_EQ(expected_data, message.get_header());
 }
 
