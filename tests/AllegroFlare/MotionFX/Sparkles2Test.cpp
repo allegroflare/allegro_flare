@@ -53,7 +53,7 @@ TEST_F(AllegroFlare_MotionFX_Sparkles2TestWithAllegroRenderingFixture,
    int passes = 60 * 2.5;
    for (int i=0; i<passes; i++)
    {
-      sparkles2.update();
+      sparkles2.set_time(al_get_time());
 
       clear();
       sparkles2.render();

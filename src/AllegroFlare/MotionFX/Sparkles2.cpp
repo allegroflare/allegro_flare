@@ -7,8 +7,6 @@
 #include <string>
 #include <stdexcept>
 #include <sstream>
-#include <stdexcept>
-#include <sstream>
 #include <AllegroFlare/Placement2D.hpp>
 #include <stdexcept>
 #include <sstream>
@@ -22,12 +20,13 @@ namespace MotionFX
 {
 
 
-Sparkles2::Sparkles2(AllegroFlare::BitmapBin* bitmap_bin, float x, float y)
+Sparkles2::Sparkles2(AllegroFlare::BitmapBin* bitmap_bin, float x, float y, float time)
    : bitmap_bin(bitmap_bin)
    , x(x)
    , y(y)
    , actor_manager({})
    , initialized(false)
+   , time(time)
 {
 }
 
@@ -49,6 +48,12 @@ void Sparkles2::set_y(float y)
 }
 
 
+void Sparkles2::set_time(float time)
+{
+   this->time = time;
+}
+
+
 float Sparkles2::get_x()
 {
    return x;
@@ -58,6 +63,12 @@ float Sparkles2::get_x()
 float Sparkles2::get_y()
 {
    return y;
+}
+
+
+float Sparkles2::get_time()
+{
+   return time;
 }
 
 
@@ -126,29 +137,6 @@ void Sparkles2::initialize()
    return;
 }
 
-void Sparkles2::update()
-{
-   if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles2" << "::" << "update" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles2" << "::" << "update" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles2" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
-   return;
-}
-
 std::vector<std::string> Sparkles2::build_friend_star_script_lines(float rotation)
 {
    std::stringstream rotation_start_line;
@@ -212,7 +200,7 @@ void Sparkles2::render()
    place.scale.x = 0.5;
    place.scale.y = 0.5;
    place.start_transform();
-   actor_manager.render(al_get_time());
+   actor_manager.render(time);
    place.restore_transform();
    return;
 }
