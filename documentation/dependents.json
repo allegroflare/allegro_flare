@@ -713,6 +713,7 @@
   ],
   "AllegroFlare/MotionComposer/Messages/Base": [
     "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition",
     "AllegroFlare/MotionComposer/Messages/SetScript"
   ],
   "std/vector<AllegroFlare/MotionComposer/Messages/Base>": [

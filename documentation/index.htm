@@ -111,6 +111,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml">quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/TrackView.q.yml">quintessence/AllegroFlare/MotionComposer/TrackView.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles.q.yml</a></li>
@@ -4075,6 +4076,27 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">position</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_position()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml</h3>
      <table>
 <tr>
@@ -7918,6 +7940,7 @@ table td
   ],
   "AllegroFlare/MotionComposer/Messages/Base": [
     "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition",
     "AllegroFlare/MotionComposer/Messages/SetScript"
   ],
   "std/vector<AllegroFlare/MotionComposer/Messages/Base>": [

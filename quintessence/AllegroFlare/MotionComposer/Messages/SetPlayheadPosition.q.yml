@@ -1,0 +1,37 @@
+parent_classes:
+
+
+  - class: AllegroFlare::MotionComposer::Messages::Base
+    scope: public
+    init_with: '"SetPlayheadPosition"'
+
+
+properties:
+
+
+  - name: position
+    type: float
+    constructor_arg: true
+    init_with: 0.0f
+    getter_ref: true
+    getter: explicit
+    setter: true
+
+
+functions:
+
+
+  - name: get_position
+    type: float
+    const: true
+    body: |
+      return position;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MotionComposer::Messages::Base
+    headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
+
+
