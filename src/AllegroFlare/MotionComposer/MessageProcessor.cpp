@@ -67,7 +67,11 @@ void MessageProcessor::convert_one()
 
 AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_from_json(std::string json_as_string)
 {
-   AllegroFlare::MotionComposer::Messages::Base* result = nullptr;
+   // TODO
+   //if (message_type == "AllegroFlare::MotionComposer::Messages::Base");
+   AllegroFlare::MotionComposer::Messages::Base *result = nullptr;
+   //nlohmann::json parsed_json = nlohmann::json::parse(json);
+   //parsed_json.get_to(set_playhead_position);
    return result;
 }
 } // namespace MotionComposer

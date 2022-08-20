@@ -47,7 +47,11 @@ functions:
         type: std::string
         default_argument: '"{}"'
     body: |
-      AllegroFlare::MotionComposer::Messages::Base* result = nullptr;
+      // TODO
+      //if (message_type == "AllegroFlare::MotionComposer::Messages::Base");
+      AllegroFlare::MotionComposer::Messages::Base *result = nullptr;
+      //nlohmann::json parsed_json = nlohmann::json::parse(json);
+      //parsed_json.get_to(set_playhead_position);
       return result;
 
 
