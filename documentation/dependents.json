@@ -509,7 +509,8 @@
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
-    "AllegroFlare/Elements/Notifications/Base"
+    "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/MotionComposer/Messages/Base"
   ],
   "al_is_ttf_addon_initialized": [
     "AllegroFlare/Elements/DialogButton",
@@ -709,6 +710,9 @@
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
+  ],
+  "AllegroFlare/MotionComposer/Messages/Base": [
+    "AllegroFlare/MotionComposer/Messages/SetScript"
   ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView"

@@ -109,6 +109,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/TrackView.q.yml">quintessence/AllegroFlare/MotionComposer/TrackView.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml</a></li>
@@ -4020,6 +4022,45 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::vector&lt;std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">script_lines</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/MotionComposer/TrackView.q.yml">quintessence/AllegroFlare/MotionComposer/TrackView.q.yml</h3>
      <table>
 <tr>
@@ -7641,7 +7682,8 @@ table td
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
-    "AllegroFlare/Elements/Notifications/Base"
+    "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/MotionComposer/Messages/Base"
   ],
   "al_is_ttf_addon_initialized": [
     "AllegroFlare/Elements/DialogButton",
@@ -7841,6 +7883,9 @@ table td
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
+  ],
+  "AllegroFlare/MotionComposer/Messages/Base": [
+    "AllegroFlare/MotionComposer/Messages/SetScript"
   ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView"

@@ -1,0 +1,30 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: '"Base"'
+    constructor_arg: true
+    getter: true
+
+
+functions:
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: std::vector<std::vector<std::string>>
+    headers: [ vector, string ]
+
+
