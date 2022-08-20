@@ -1,0 +1,62 @@
+properties:
+
+
+  - name: messages_json
+    type: std::vector<std::string>
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: messages
+    type: std::vector<AllegroFlare::MotionComposer::Messages::Base*>
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: convert_one
+    body: |
+      if (messages_json.empty()) return;
+      AllegroFlare::MotionComposer::Messages::Base* message = build_message_from_json(messages_json.front());
+      if (!message)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::MotionComposer::MessageProcessor: error: "
+                       << "could not parse message." << std::endl;
+         throw std::runtime_error(error_message.str());
+      }
+      else
+      {
+         // TODO: message->process();
+         delete message;
+      }
+      return;
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: build_message_from_json
+    type: AllegroFlare::MotionComposer::Messages::Base*
+    parameters:
+      - name: json_as_string
+        type: std::string
+        default_argument: '"{}"'
+    body: |
+      AllegroFlare::MotionComposer::Messages::Base* result = nullptr;
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MotionComposer::Messages::Base*
+    headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
+  - symbol: std::vector<AllegroFlare::MotionComposer::Messages::Base*>
+    headers: [ vector, AllegroFlare/MotionComposer/Messages/Base.hpp ]
+
+

@@ -712,7 +712,11 @@
     "AllegroFlare/InventoryIndex"
   ],
   "AllegroFlare/MotionComposer/Messages/Base": [
+    "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/MotionComposer/Messages/SetScript"
+  ],
+  "std/vector<AllegroFlare/MotionComposer/Messages/Base>": [
+    "AllegroFlare/MotionComposer/MessageProcessor"
   ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView"

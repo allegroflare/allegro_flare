@@ -109,6 +109,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml">quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/SetScript.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/TrackView.q.yml">quintessence/AllegroFlare/MotionComposer/TrackView.q.yml</a></li>
@@ -4022,6 +4023,37 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml">quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">messages_json</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">messages</td>
+  <td class="property">std::vector&lt;AllegroFlare::MotionComposer::Messages::Base*&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">convert_one()</td>
+</tr>
+<tr>
+  <td class="method">build_message_from_json(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::MotionComposer::Messages::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/MotionComposer/Messages/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml</h3>
      <table>
 <tr>
@@ -7885,7 +7917,11 @@ table td
     "AllegroFlare/InventoryIndex"
   ],
   "AllegroFlare/MotionComposer/Messages/Base": [
+    "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/MotionComposer/Messages/SetScript"
+  ],
+  "std/vector<AllegroFlare/MotionComposer/Messages/Base>": [
+    "AllegroFlare/MotionComposer/MessageProcessor"
   ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView"
