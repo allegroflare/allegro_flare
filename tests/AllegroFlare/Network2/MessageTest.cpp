@@ -155,3 +155,30 @@ TEST(AllegroFlare_Network2_MessageTest,
    }
 }
 
+
+TEST(AllegroFlare_Network2_MessageTest,
+   encode_header__with_various_body_content__will_set_the_4th_header_chunk_with_the_expected_value)
+{
+   AllegroFlare::Network2::Message message;
+
+   std::vector<std::tuple<std::string, std::string>> expected_header_chunk_and_content_data = {
+      { "d14a", "" },
+      { "61c6", "This is the content that will be hashed." },
+      { "ddd1", "Content can be short" },
+      { "05d8", std::string(message.get_MAX_BODY_LENGTH(), 'x') }, // content can be long
+   };
+
+   for (auto &expected_header_chunk_and_content_datum : expected_header_chunk_and_content_data)
+   {
+      std::string content = std::get<1>(expected_header_chunk_and_content_datum);
+      std::string expected_fourth_header_chunk = std::get<0>(expected_header_chunk_and_content_datum);
+
+      message.set_body(content);
+      message.encode_header();
+      std::string actual_fourth_header_chunk = message.get_header().substr(12, 4);
+
+      EXPECT_EQ(expected_fourth_header_chunk, actual_fourth_header_chunk);
+   }
+}
+
+
