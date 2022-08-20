@@ -98,7 +98,9 @@ functions:
     type: std::string
     body: |
       AllegroFlare::EncoderDecoders::Base62 base62_encoder;
-      return base62_encoder.encode(body_length);
+      std::stringstream ss;
+         //ss << std::setfill('0') << std::setw(4) << base62_encoder.encode(body_length);
+      return ss.str();
     body_dependency_symbols:
      - AllegroFlare::EncoderDecoders::Base62
 

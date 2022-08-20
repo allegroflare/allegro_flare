@@ -48,6 +48,30 @@ TEST(AllegroFlare_EncoderDecoders_Base62Test, encode__will_encode_an_integer_num
 }
 
 
+TEST(AllegroFlare_EncoderDecoders_Base62Test, encode__will_format_with_zerfills)
+{
+   AllegroFlare::EncoderDecoders::Base62 base62_encoder;
+
+   static std::vector<std::tuple<int, std::size_t, std::string>> test_data = {
+      { 0,     0,      "0" },
+      { 0,     4,   "0000" },
+      { 1,     5,  "00001" },
+      { 62,    3,    "010" },
+      { 3844,  2,    "100" },
+      { 65535, 6, "000h31" },
+   };
+
+   for (auto &test_datum : test_data)
+   {
+      int int_value = std::get<0>(test_datum);
+      std::size_t num_zerofills = std::get<1>(test_datum);
+      std::string expected_base62_encoding = std::get<2>(test_datum);
+
+      EXPECT_EQ(expected_base62_encoding, base62_encoder.encode(int_value, num_zerofills));
+   }
+}
+
+
 TEST(AllegroFlare_EncoderDecoders_Base62Test, decode__will_decode_an_base62_representation_of_a_number_into_an_int)
 {
    AllegroFlare::EncoderDecoders::Base62 base62_encoder;

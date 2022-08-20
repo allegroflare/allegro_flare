@@ -1,7 +1,7 @@
 
 
 #include <AllegroFlare/EncoderDecoders/Base62.hpp>
-
+#include <algorithm>
 
 
 namespace AllegroFlare
@@ -23,7 +23,7 @@ Base62::~Base62()
 }
 
 
-std::string Base62::encode(int value)
+std::string Base62::encode(int value, std::size_t zerofill_count)
 {
    std::string str;
 
@@ -33,6 +33,11 @@ std::string Base62::encode(int value)
       value /= 62;
    }
    while (value > 0);
+
+   if (zerofill_count != 0)
+   {
+      str = std::string(zerofill_count - std::min(zerofill_count, str.length()), '0') + str;
+   }
 
    return str;
 }

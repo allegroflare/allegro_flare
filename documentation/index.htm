@@ -3350,13 +3350,19 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">encode(1)</td>
+  <td class="method">encode(2)</td>
 </tr>
 <tr>
   <td class="method">decode(1)</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -7623,7 +7629,8 @@ table td
     "AllegroFlare/Elements/Text"
   ],
   "std/min": [
-    "AllegroFlare/Elements/HealthBars/Basic"
+    "AllegroFlare/Elements/HealthBars/Basic",
+    "AllegroFlare/EncoderDecoders/Base62"
   ],
   "std/max": [
     "AllegroFlare/Elements/HealthBars/Basic"
@@ -7718,6 +7725,10 @@ table td
   ],
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
+  ],
+  "std/size_t": [
+    "AllegroFlare/EncoderDecoders/Base62",
+    "AllegroFlare/Network2/Message"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
@@ -7832,9 +7843,6 @@ table td
     "AllegroFlare/Network2/Message"
   ],
   "char[16 + 512]": [
-    "AllegroFlare/Network2/Message"
-  ],
-  "std/size_t": [
     "AllegroFlare/Network2/Message"
   ],
   "AllegroFlare/EncoderDecoders/Base62": [

@@ -18,6 +18,9 @@ functions:
       - name: value
         type: int
         default_argument: 0
+      - name: zerofill_count
+        type: std::size_t
+        default_argument: 0
     body: |
        std::string str;
 
@@ -28,7 +31,14 @@ functions:
        }
        while (value > 0);
 
+       if (zerofill_count != 0)
+       {
+          str = std::string(zerofill_count - std::min(zerofill_count, str.length()), '0') + str;
+       }
+
        return str;
+    body_dependency_symbols:
+      - std::min
 
 
   - name: decode
@@ -49,5 +59,14 @@ functions:
        }
 
        return ret;
+
+
+dependencies:
+
+
+  - symbol: std::min
+    headers: [ algorithm ]
+  - symbol: std::size_t
+    headers: [ cstddef ]
 
 

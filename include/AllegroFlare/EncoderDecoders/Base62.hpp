@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <cstddef>
 #include <string>
 
 
@@ -17,7 +18,7 @@ namespace AllegroFlare
          Base62();
          ~Base62();
 
-         std::string encode(int value=0);
+         std::string encode(int value=0, std::size_t zerofill_count=0);
          int decode(std::string value="0");
       };
    }

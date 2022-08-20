@@ -114,7 +114,9 @@ std::string Message::first_4_chars_hash_of(std::string string_to_hash)
 std::string Message::body_size_base62()
 {
    AllegroFlare::EncoderDecoders::Base62 base62_encoder;
-   return base62_encoder.encode(body_length);
+   std::stringstream ss;
+      //ss << std::setfill('0') << std::setw(4) << base62_encoder.encode(body_length);
+   return ss.str();
 }
 
 void Message::ignore()
