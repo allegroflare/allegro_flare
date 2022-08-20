@@ -17,3 +17,13 @@ TEST(AllegroFlare_Testing_Comparison_ALLEGRO_COLORTest, PrintTo__with_an_ALLEGRO
 }
 
 
+TEST(AllegroFlare_Testing_Comparison_ALLEGRO_COLORTest,
+   equality_operator__works_with_google_test_EXPECT_statement)
+{
+   ALLEGRO_COLOR vec{1, 1, 1, 1};
+   ALLEGRO_COLOR other_vec{1, 1, 1, 1};
+
+   EXPECT_EQ(vec, other_vec);
+}
+
+
