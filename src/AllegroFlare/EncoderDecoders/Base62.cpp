@@ -44,6 +44,7 @@ std::string Base62::encode(int value, std::size_t zerofill_count)
 
 int Base62::decode(std::string value)
 {
+   // TODO: validate only contains valid characters
    std::reverse(value.begin(), value.end());
 
    int ret = 0;

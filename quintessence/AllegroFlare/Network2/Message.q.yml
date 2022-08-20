@@ -98,6 +98,25 @@ functions:
       return data.substr(HEADER_LENGTH, body_length);
 
 
+  - name: decode_header_and_validate
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> error_messages;
+      std::string header = get_header();
+
+      // validate magic header chunk matches
+      if (header.substr(0, 4) != MAGIC_HEADER_CHUNK) error_messages.push_back("Magic header chunk does not match.");
+
+      // TODO: validate the second chunk does decode
+
+      // TODO: validate the second chunk value not larger than MAX_BODY_SIZE
+
+      // TODO: generate the third chunk and ensure it matches the existing one
+
+      // TODO: generate the fourth chunk and ensure is matches the existing one
+      return error_messages;
+
+
   - name: encode_header
     type: void
     body: |
@@ -143,6 +162,25 @@ functions:
       return base62_encoder.encode(body_length, 4);
     body_dependency_symbols:
       - AllegroFlare::EncoderDecoders::Base62
+
+
+  - name: decode_body_size_chunk
+    type: int
+    body: |
+      AllegroFlare::EncoderDecoders::Base62 base62_encoder;
+      return base62_encoder.decode(extract_nth_header_chunk(1));
+    body_dependency_symbols:
+      - AllegroFlare::EncoderDecoders::Base62
+
+
+  - name: extract_nth_header_chunk
+    type: std::string
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+    body: |
+      return data.substr(position * 4, 4);
 
 
   - name: ignore

@@ -48,6 +48,7 @@ functions:
         type: std::string
         default_argument: '"0"'
     body: |
+       // TODO: validate only contains valid characters
        std::reverse(value.begin(), value.end());
 
        int ret = 0;

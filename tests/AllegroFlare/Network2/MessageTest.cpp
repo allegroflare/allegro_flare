@@ -1,5 +1,6 @@
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
    try { code; FAIL() << "Expected " # raised_exception_type; } \
@@ -203,6 +204,25 @@ TEST(AllegroFlare_Network2_MessageTest,
 
       EXPECT_EQ(expected_fourth_header_chunk, actual_fourth_header_chunk);
    }
+}
+
+
+TEST(AllegroFlare_Network2_MessageTest,
+   decode_header_and_validate__when_the_header_is_properly_formed__will_return_an_empty_set_of_error_messages)
+{
+   AllegroFlare::Network2::Message message;
+   message.encode_header();
+   std::vector<std::string> validate_response = message.decode_header_and_validate();
+   EXPECT_EQ(true, validate_response.empty());
+}
+
+
+TEST(AllegroFlare_Network2_MessageTest,
+   decode_header_and_validate__with_a_malformed_header__will_return_error_messages)
+{
+   AllegroFlare::Network2::Message message;
+   std::vector<std::string> validate_response = message.decode_header_and_validate();
+   EXPECT_THAT(validate_response, testing::Contains("Magic header chunk does not match."));
 }
 
 

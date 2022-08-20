@@ -8,6 +8,7 @@
 #include <iostream>
 #include <AllegroFlare/SHA2.hpp>
 #include <AllegroFlare/EncoderDecoders/Base62.hpp>
+#include <AllegroFlare/EncoderDecoders/Base62.hpp>
 #include <AllegroFlare/Network2/inc/chat_message.hpp>
 
 
@@ -124,6 +125,24 @@ std::string Message::get_body()
    return data.substr(HEADER_LENGTH, body_length);
 }
 
+std::vector<std::string> Message::decode_header_and_validate()
+{
+   std::vector<std::string> error_messages;
+   std::string header = get_header();
+
+   // validate magic header chunk matches
+   if (header.substr(0, 4) != MAGIC_HEADER_CHUNK) error_messages.push_back("Magic header chunk does not match.");
+
+   // TODO: validate the second chunk does decode
+
+   // TODO: validate the second chunk value not larger than MAX_BODY_SIZE
+
+   // TODO: generate the third chunk and ensure it matches the existing one
+
+   // TODO: generate the fourth chunk and ensure is matches the existing one
+   return error_messages;
+}
+
 void Message::encode_header()
 {
    // header is in the following format:
@@ -156,6 +175,17 @@ std::string Message::body_size_base62()
 {
    AllegroFlare::EncoderDecoders::Base62 base62_encoder;
    return base62_encoder.encode(body_length, 4);
+}
+
+int Message::decode_body_size_chunk()
+{
+   AllegroFlare::EncoderDecoders::Base62 base62_encoder;
+   return base62_encoder.decode(extract_nth_header_chunk(1));
+}
+
+std::string Message::extract_nth_header_chunk(int position)
+{
+   return data.substr(position * 4, 4);
 }
 
 void Message::ignore()

@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -35,9 +36,12 @@ namespace AllegroFlare
          void set_body(std::string content="");
          std::string get_header();
          std::string get_body();
+         std::vector<std::string> decode_header_and_validate();
          void encode_header();
          std::string first_4_chars_hash_of(std::string string_to_hash="");
          std::string body_size_base62();
+         int decode_body_size_chunk();
+         std::string extract_nth_header_chunk(int position=0);
          void ignore();
       };
    }
