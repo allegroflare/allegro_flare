@@ -4265,20 +4265,33 @@ table td
      <table>
 <tr>
   <td class="property">HEADER_LENGTH</td>
-  <td class="property">int</td>
+  <td class="property">std::size_t</td>
 </tr>
 <tr>
   <td class="property">MAX_BODY_LENGTH</td>
-  <td class="property">int</td>
+  <td class="property">std::size_t</td>
 </tr>
 <tr>
   <td class="property">data</td>
   <td class="property">std::string</td>
 </tr>
+<tr>
+  <td class="property">body_length</td>
+  <td class="property">std::size_t</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="method">data_ptr()</td>
+</tr>
+<tr>
+  <td class="method">set_body_length(1)</td>
+</tr>
+<tr>
+  <td class="method">body_ptr()</td>
+</tr>
+<tr>
+  <td class="method">length()</td>
 </tr>
 <tr>
   <td class="method">ignore()</td>
@@ -4293,6 +4306,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;char[16 + 512]&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7801,6 +7817,9 @@ table td
     "AllegroFlare/Network2/Message"
   ],
   "char[16 + 512]": [
+    "AllegroFlare/Network2/Message"
+  ],
+  "std/size_t": [
     "AllegroFlare/Network2/Message"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [

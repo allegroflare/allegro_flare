@@ -737,6 +737,9 @@
   "char[16 + 512]": [
     "AllegroFlare/Network2/Message"
   ],
+  "std/size_t": [
+    "AllegroFlare/Network2/Message"
+  ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",

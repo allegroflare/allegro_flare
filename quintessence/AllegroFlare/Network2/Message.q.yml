@@ -3,20 +3,26 @@ properties:
 
   - name: HEADER_LENGTH
     static: true
-    type: int
+    type: std::size_t
     init_with: 16
     getter: true
     
   - name: MAX_BODY_LENGTH
     static: true
-    type: int
+    type: std::size_t
     init_with: 512
     getter: true
 
   - name: data
     type: std::string
     getter: true
-    init_with: "16+512, '\0'"
+    init_with: "16+512, ' '"
+
+  - name: body_length
+    type: std::size_t
+    getter: true
+    setter: false
+    init_with: 0
  
 
 functions:
@@ -26,6 +32,30 @@ functions:
     type: char*
     body: |
       return data.data();
+
+
+  - name: set_body_length
+    type: void
+    parameters:
+      - name: new_length
+        type: std::size_t
+        default_argument: 0
+    guards: [ (!(new_length > MAX_BODY_LENGTH)) ]
+    body: |
+      body_length = new_length;
+      return;
+
+
+  - name: body_ptr
+    type: char*
+    body: |
+      return data.data() + HEADER_LENGTH;
+
+
+  - name: length
+    type: std::size_t
+    body: |
+       return HEADER_LENGTH + body_length;
 
 
   - name: ignore
@@ -44,5 +74,7 @@ dependencies:
     headers: [ ]
   - symbol: char[16 + 512]
     headers: [ ]
+  - symbol: std::size_t
+    headers: [ cstddef ]
 
 
