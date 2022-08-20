@@ -59,6 +59,16 @@ char* Message::data_ptr()
    return data.data();
 }
 
+char* Message::body_ptr()
+{
+   return data.data() + HEADER_LENGTH;
+}
+
+std::size_t Message::length()
+{
+   return HEADER_LENGTH + body_length;
+}
+
 void Message::set_body_length(std::size_t new_length)
 {
    if (!((!(new_length > MAX_BODY_LENGTH))))
@@ -71,14 +81,33 @@ void Message::set_body_length(std::size_t new_length)
    return;
 }
 
-char* Message::body_ptr()
+std::string Message::get_header()
 {
-   return data.data() + HEADER_LENGTH;
+   return data.substr(0, HEADER_LENGTH);
 }
 
-std::size_t Message::length()
+void Message::encode_header()
 {
-   return HEADER_LENGTH + body_length;
+   // header is in the following format:
+   // 4 chars, special block with the characters "AFNM" for "AllegroFlare network message"
+   // 4 chars, size of the data block in base62 (not base64) (with the lowercase first)
+   // 4 chars, the first 4 characters of a hash. This hash is of the first 8 characters of the header
+   // 4 chars, the first 4 characters of a hash of the whole body
+
+   char header[16 + 1] = ""; // eeks, here "16" is used rather than HEADER_LENGTH because constexpr is not
+                             // supported in quintessence
+   std::sprintf(header,    "AFNM");
+   std::sprintf(header+4,  "%4d", static_cast<int>(body_length));
+   std::sprintf(header+8,  first_4_chars_hash_of().c_str());
+   std::sprintf(header+12, first_4_chars_hash_of().c_str());
+
+   std::memcpy(data_ptr(), header, HEADER_LENGTH);
+   return;
+}
+
+std::string Message::first_4_chars_hash_of(std::string string_to_hash)
+{
+   return "TODO";
 }
 
 void Message::ignore()

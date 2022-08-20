@@ -26,9 +26,12 @@ namespace AllegroFlare
          std::string get_data();
          std::size_t get_body_length();
          char* data_ptr();
-         void set_body_length(std::size_t new_length=0);
          char* body_ptr();
          std::size_t length();
+         void set_body_length(std::size_t new_length=0);
+         std::string get_header();
+         void encode_header();
+         std::string first_4_chars_hash_of(std::string string_to_hash="");
          void ignore();
       };
    }
