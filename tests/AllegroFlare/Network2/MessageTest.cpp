@@ -108,3 +108,17 @@ TEST(AllegroFlare_Network2_MessageTest,
 }
 
 
+TEST(AllegroFlare_Network2_MessageTest,
+   set_body__will_raise_an_error_if_asked_to_set_the_content_to_a_length_larger_than_MAX_BODY_LENGTH)
+{
+   AllegroFlare::Network2::Message message;
+
+   std::size_t size_too_big = AllegroFlare::Network2::Message::get_MAX_BODY_LENGTH() + 1;
+   std::string content_too_big(size_too_big, 'x');
+
+   std::string expected_error_message = "Message::set_body: error: "
+                                        "guard \"(!(content.size() > MAX_BODY_LENGTH))\" not met";
+   EXPECT_THROW_WITH_MESSAGE(message.set_body(content_too_big), std::runtime_error, expected_error_message);
+}
+
+

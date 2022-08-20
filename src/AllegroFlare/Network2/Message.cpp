@@ -3,6 +3,8 @@
 #include <AllegroFlare/Network2/Message.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <iostream>
 #include <AllegroFlare/SHA2.hpp>
 #include <AllegroFlare/EncoderDecoders/Base62.hpp>
@@ -99,6 +101,19 @@ void Message::set_body_length(std::size_t new_length)
    return;
 }
 
+void Message::set_body(std::string content)
+{
+   if (!((!(content.size() > MAX_BODY_LENGTH))))
+      {
+         std::stringstream error_message;
+         error_message << "Message" << "::" << "set_body" << ": error: " << "guard \"(!(content.size() > MAX_BODY_LENGTH))\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   set_body_length(content.size());
+   std::memcpy(data_ptr() + HEADER_LENGTH, content.c_str(), body_length);
+   return;
+}
+
 std::string Message::get_header()
 {
    return data.substr(0, HEADER_LENGTH);
@@ -120,6 +135,7 @@ void Message::encode_header()
    std::sprintf(header,    MAGIC_HEADER_CHUNK.c_str());
    std::sprintf(header+4,  body_size_base62().c_str());
    std::sprintf(header+8,  first_4_chars_hash_of(first_8).c_str());
+   // TODO: add hash of body content
    std::sprintf(header+12, first_4_chars_hash_of().c_str());
 
    std::memcpy(data_ptr(), header, HEADER_LENGTH);

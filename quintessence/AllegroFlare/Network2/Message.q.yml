@@ -73,6 +73,19 @@ functions:
       return;
 
 
+  - name: set_body
+    type: void
+    parameters:
+      - name: content
+        type: std::string
+        default_argument: '""'
+    guards: [ (!(content.size() > MAX_BODY_LENGTH)) ]
+    body: |
+      set_body_length(content.size());
+      std::memcpy(data_ptr() + HEADER_LENGTH, content.c_str(), body_length);
+      return;
+
+
   - name: get_header
     type: std::string
     body: |
@@ -96,6 +109,7 @@ functions:
        std::sprintf(header,    MAGIC_HEADER_CHUNK.c_str());
        std::sprintf(header+4,  body_size_base62().c_str());
        std::sprintf(header+8,  first_4_chars_hash_of(first_8).c_str());
+       // TODO: add hash of body content
        std::sprintf(header+12, first_4_chars_hash_of().c_str());
 
        std::memcpy(data_ptr(), header, HEADER_LENGTH);
