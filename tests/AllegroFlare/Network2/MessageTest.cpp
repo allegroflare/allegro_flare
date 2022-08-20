@@ -157,7 +157,14 @@ TEST(AllegroFlare_Network2_MessageTest,
 
 
 TEST(AllegroFlare_Network2_MessageTest,
-   encode_header__with_various_body_content__will_set_the_4th_header_chunk_with_the_expected_value)
+   encode_header__with_various_body_content__will_set_the_third_header_chunk_with_the_expected_value)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Network2_MessageTest,
+   encode_header__with_various_body_content__will_set_the_fouth_header_chunk_with_the_expected_value)
 {
    AllegroFlare::Network2::Message message;
 
@@ -180,5 +187,15 @@ TEST(AllegroFlare_Network2_MessageTest,
       EXPECT_EQ(expected_fourth_header_chunk, actual_fourth_header_chunk);
    }
 }
+
+
+// TODO: add "validate" message
+   // when MAGIC_HEADER_CHUNK is not present
+   // when second chunk does not decode
+   // when second chunk value is larger than max_body_size
+   // when second chunk does not match body_size
+   // when third chunk does not match hash of first 4 characters
+   // when length chunk exceeds the max-body-size
+   // other stuff...
 
 
