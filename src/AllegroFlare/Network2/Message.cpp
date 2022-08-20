@@ -3,6 +3,7 @@
 #include <AllegroFlare/Network2/Message.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <AllegroFlare/EncoderDecoders/Base62.hpp>
 #include <AllegroFlare/Network2/inc/chat_message.hpp>
 
 
@@ -97,7 +98,7 @@ void Message::encode_header()
    char header[16 + 1] = ""; // eeks, here "16" is used rather than HEADER_LENGTH because constexpr is not
                              // supported in quintessence
    std::sprintf(header,    "AFNM");
-   std::sprintf(header+4,  "%4d", static_cast<int>(body_length));
+   std::sprintf(header+4,  body_size_base62().c_str());
    std::sprintf(header+8,  first_4_chars_hash_of().c_str());
    std::sprintf(header+12, first_4_chars_hash_of().c_str());
 
@@ -108,6 +109,12 @@ void Message::encode_header()
 std::string Message::first_4_chars_hash_of(std::string string_to_hash)
 {
    return "TODO";
+}
+
+std::string Message::body_size_base62()
+{
+   AllegroFlare::EncoderDecoders::Base62 base62_encoder;
+   return base62_encoder.encode(body_length);
 }
 
 void Message::ignore()

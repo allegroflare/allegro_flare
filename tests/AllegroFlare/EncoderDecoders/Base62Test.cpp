@@ -60,3 +60,23 @@ TEST(AllegroFlare_EncoderDecoders_Base62Test, decode__will_decode_an_base62_repr
 }
 
 
+TEST(AllegroFlare_EncoderDecoders_Base62Test, decode__will_properly_handle_zero_fills)
+{
+   AllegroFlare::EncoderDecoders::Base62 base62_encoder;
+   static std::vector<std::pair<int, std::string>> test_data = {
+      { 0,     "0000" },
+      { 1,     "0001" },
+      { 62,    "0010" },
+      { 3844,  "0100" },
+
+      { 65535, "0h31" },
+   };
+   for (auto &test_datum : test_data)
+   {
+      int expected_int_value = std::get<0>(test_datum);
+      std::string base62_encoding = std::get<1>(test_datum);
+      EXPECT_EQ(expected_int_value, base62_encoder.decode(base62_encoding));
+   }
+}
+
+

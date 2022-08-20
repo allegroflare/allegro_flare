@@ -64,7 +64,7 @@ TEST(AllegroFlare_Network2_MessageTest,
 
 
 TEST(AllegroFlare_Network2_MessageTest,
-   encode_header__will_set_the_header_to_the_proper_format)
+   DISABLED__encode_header__will_set_the_header_to_the_proper_format)
 {
    AllegroFlare::Network2::Message message;
    message.encode_header();

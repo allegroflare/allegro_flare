@@ -76,7 +76,7 @@ functions:
        char header[16 + 1] = ""; // eeks, here "16" is used rather than HEADER_LENGTH because constexpr is not
                                  // supported in quintessence
        std::sprintf(header,    "AFNM");
-       std::sprintf(header+4,  "%4d", static_cast<int>(body_length));
+       std::sprintf(header+4,  body_size_base62().c_str());
        std::sprintf(header+8,  first_4_chars_hash_of().c_str());
        std::sprintf(header+12, first_4_chars_hash_of().c_str());
 
@@ -92,6 +92,15 @@ functions:
         default_argument: '""'
     body: |
       return "TODO";
+
+
+  - name: body_size_base62
+    type: std::string
+    body: |
+      AllegroFlare::EncoderDecoders::Base62 base62_encoder;
+      return base62_encoder.encode(body_length);
+    body_dependency_symbols:
+     - AllegroFlare::EncoderDecoders::Base62
 
 
   - name: ignore
@@ -112,5 +121,7 @@ dependencies:
     headers: [ ]
   - symbol: std::size_t
     headers: [ cstddef ]
+  - symbol: AllegroFlare::EncoderDecoders::Base62
+    headers: [ AllegroFlare/EncoderDecoders/Base62.hpp ]
 
 
