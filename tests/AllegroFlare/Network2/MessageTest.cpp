@@ -157,9 +157,26 @@ TEST(AllegroFlare_Network2_MessageTest,
 
 
 TEST(AllegroFlare_Network2_MessageTest,
-   encode_header__with_various_body_content__will_set_the_third_header_chunk_with_the_expected_value)
+   encode_header__with_various_body_sizes__will_set_the_third_header_chunk_with_the_expected_value)
 {
-   // TODO
+   AllegroFlare::Network2::Message message;
+
+   std::vector<std::tuple<std::string, std::size_t>> size_datas_to_test = {
+      { "a738", 256 },
+      { "2d99", message.get_MAX_BODY_LENGTH() },
+   };
+
+   for (auto &size_datum_to_test : size_datas_to_test)
+   {
+      std::size_t size_to_test = std::get<1>(size_datum_to_test);
+      std::string expected_second_header_chunk = std::get<0>(size_datum_to_test);
+
+      message.set_body_length(size_to_test);
+      message.encode_header();
+
+      std::string second_header_chunk = message.get_header().substr(8, 4);
+      EXPECT_EQ(expected_second_header_chunk, second_header_chunk);
+   }
 }
 
 
