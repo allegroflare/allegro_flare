@@ -140,7 +140,6 @@ void Message::encode_header()
    std::sprintf(header,    MAGIC_HEADER_CHUNK.c_str());
    std::sprintf(header+4,  body_size_base62().c_str());
    std::sprintf(header+8,  first_4_chars_hash_of(first_8).c_str());
-   // TODO: add hash of body content
    std::sprintf(header+12, first_4_chars_hash_of(get_body()).c_str());
 
    std::memcpy(data_ptr(), header, HEADER_LENGTH);
