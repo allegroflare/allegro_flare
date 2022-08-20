@@ -105,15 +105,40 @@ functions:
       std::string header = get_header();
 
       // validate magic header chunk matches
+      // TODO: test this condition
       if (header.substr(0, 4) != MAGIC_HEADER_CHUNK) error_messages.push_back("Magic header chunk does not match.");
 
       // TODO: validate the second chunk does decode
+      // TODO: test this condition
+      int decoded_body_size = decode_body_size_chunk();
 
-      // TODO: validate the second chunk value not larger than MAX_BODY_SIZE
+      // Validate the second chunk value not larger than MAX_BODY_SIZE
+      // TODO: test this condition
+      if (decoded_body_size > MAX_BODY_LENGTH) error_messages.push_back("Body size value in header is too large");
 
-      // TODO: generate the third chunk and ensure it matches the existing one
+      // Generate the expected value of the third chunk and ensure it matches the existing one
+      // TODO: test this condition
+      std::string first_8 = extract_nth_header_chunk(0) + extract_nth_header_chunk(1);
+      std::string expected_third_chunk_value = first_4_chars_hash_of(first_8);
+      if (expected_third_chunk_value != extract_nth_header_chunk(2))
+          error_messages.push_back("Third chunk does not match an expected hash.");
 
-      // TODO: generate the fourth chunk and ensure is matches the existing one
+      if (!error_messages.empty()) return error_messages;
+
+      // set the body size to mach the header body size
+      // TODO: test this new body size is a size matching the header
+      set_body_length(decoded_body_size);
+
+      return error_messages;
+
+
+  - name: validate_body_hash
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> error_messages;
+      std::string expected_fourth_chunk_value = first_4_chars_hash_of(get_body());
+      if (expected_fourth_chunk_value != extract_nth_header_chunk(3))
+          error_messages.push_back("Fourth chunk does not match the expected hash of the body.");
       return error_messages;
 
 

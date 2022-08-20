@@ -226,6 +226,25 @@ TEST(AllegroFlare_Network2_MessageTest,
 }
 
 
+TEST(AllegroFlare_Network2_MessageTest,
+   validate_body_hash__when_the_header_is_properly_formed__will_return_an_empty_set_of_error_messages)
+{
+   AllegroFlare::Network2::Message message;
+   message.encode_header();
+   std::vector<std::string> validate_response = message.validate_body_hash();
+   EXPECT_EQ(true, validate_response.empty());
+}
+
+
+TEST(AllegroFlare_Network2_MessageTest,
+   validate_body_hash__when_the_header_body_hash_does_not_match_the_body_hash__will_return_the_expected_error_messages)
+{
+   AllegroFlare::Network2::Message message;
+   std::vector<std::string> validate_response = message.validate_body_hash();
+   EXPECT_THAT(validate_response, testing::Contains("Fourth chunk does not match the expected hash of the body."));
+}
+
+
 // TODO: add "validate" message
    // when MAGIC_HEADER_CHUNK is not present
    // when second chunk does not decode

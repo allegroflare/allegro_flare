@@ -37,6 +37,7 @@ namespace AllegroFlare
          std::string get_header();
          std::string get_body();
          std::vector<std::string> decode_header_and_validate();
+         std::vector<std::string> validate_body_hash();
          void encode_header();
          std::string first_4_chars_hash_of(std::string string_to_hash="");
          std::string body_size_base62();
