@@ -5,18 +5,10 @@
 #include <ostream>
 
 
-bool operator==(
-   const AllegroFlare::MotionComposer::Messages::SetPlayheadPosition& vec,
-   const AllegroFlare::MotionComposer::Messages::SetPlayheadPosition& other_vec
-);
-
-
 namespace AllegroFlare::MotionComposer::Messages
 {
-   void PrintTo(
-      const AllegroFlare::MotionComposer::Messages::SetPlayheadPosition& vec,
-      ::std::ostream* os
-   );
+   bool operator==(const SetPlayheadPosition& vec, const SetPlayheadPosition& other_vec);
+   void PrintTo(const SetPlayheadPosition& vec, ::std::ostream* os);
 }
 
 

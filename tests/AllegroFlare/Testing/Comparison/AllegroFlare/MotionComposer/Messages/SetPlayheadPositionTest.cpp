@@ -12,7 +12,7 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_MotionComposer_Messages_SetPla
 
    PrintTo(vec, &ss);
 
-   std::string expected_output = "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition(3.5)";
+   std::string expected_output = "SetPlayheadPosition(3.5)";
    std::string actual_output = ss.str();
    EXPECT_EQ(expected_output, actual_output);
 }
@@ -24,8 +24,7 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_MotionComposer_Messages_SetPla
    AllegroFlare::MotionComposer::Messages::SetPlayheadPosition vec(0.5);
    AllegroFlare::MotionComposer::Messages::SetPlayheadPosition other_vec(0.5);
 
-   // TODO: for some reason this is not working as expected
-   //EXPECT_EQ(vec, other_vec);
+   EXPECT_EQ(vec, other_vec);
 }
 
 
