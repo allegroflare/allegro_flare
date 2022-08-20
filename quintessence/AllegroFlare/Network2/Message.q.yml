@@ -1,4 +1,31 @@
+properties:
+
+
+  - name: HEADER_LENGTH
+    static: true
+    type: int
+    init_with: 16
+    getter: true
+    
+  - name: MAX_BODY_LENGTH
+    static: true
+    type: int
+    init_with: 512
+    getter: true
+
+  - name: data
+    type: std::string
+    getter: true
+    init_with: "16+512, '\0'"
+ 
+
 functions:
+
+
+  - name: data_ptr
+    type: char*
+    body: |
+      return data.data();
 
 
   - name: ignore
@@ -13,5 +40,9 @@ dependencies:
 
   - symbol: chat_message
     headers: [ AllegroFlare/Network2/inc/chat_message.hpp ]
+  - symbol: char*
+    headers: [ ]
+  - symbol: char[16 + 512]
+    headers: [ ]
 
 
