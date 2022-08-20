@@ -122,3 +122,30 @@ TEST(AllegroFlare_Network2_MessageTest,
 }
 
 
+TEST(AllegroFlare_Network2_MessageTest, set_body__will_set_the_body_length_to_match_the_size)
+{
+   AllegroFlare::Network2::Message message;
+   std::vector<std::size_t> sizes_to_test = { 0, 10, 256, 112, 11, message.get_MAX_BODY_LENGTH() };
+
+   for (auto &size_to_test : sizes_to_test)
+   {
+      message.set_body(std::string(size_to_test, 'x'));
+      EXPECT_EQ(size_to_test, message.get_body_length());
+   }
+}
+
+
+TEST(AllegroFlare_Network2_MessageTest, set_body__will_set_the_body)
+{
+   AllegroFlare::Network2::Message message;
+   message.set_body("My Foobar Message Body");
+   EXPECT_EQ("My Foobar Message Body", message.get_body());
+}
+
+
+TEST(AllegroFlare_Network2_MessageTest, set_body__will_set_the_expected_body_data_chunk_to_the_content_of_the_body)
+{
+   // TODO
+}
+
+

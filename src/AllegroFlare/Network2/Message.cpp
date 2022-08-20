@@ -119,6 +119,11 @@ std::string Message::get_header()
    return data.substr(0, HEADER_LENGTH);
 }
 
+std::string Message::get_body()
+{
+   return data.substr(HEADER_LENGTH, body_length);
+}
+
 void Message::encode_header()
 {
    // header is in the following format:
