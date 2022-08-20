@@ -138,14 +138,21 @@ TEST(AllegroFlare_Network2_MessageTest, set_body__will_set_the_body_length_to_ma
 TEST(AllegroFlare_Network2_MessageTest, set_body__will_set_the_body)
 {
    AllegroFlare::Network2::Message message;
-   message.set_body("My Foobar Message Body");
-   EXPECT_EQ("My Foobar Message Body", message.get_body());
+   std::string message_body_content = "My Foobar Message Body";
+   message.set_body(message_body_content);
+   EXPECT_EQ(message_body_content, message.get_body());
 }
 
 
 TEST(AllegroFlare_Network2_MessageTest, set_body__will_set_the_expected_body_data_chunk_to_the_content_of_the_body)
 {
-   // TODO
+   AllegroFlare::Network2::Message message;
+   std::string message_body_content = "My Foobar Message Body";
+
+   message.set_body(message_body_content);
+
+   std::string expected_data_chunk = message.get_data().substr(message.get_HEADER_LENGTH(), message.get_body_length());
+   EXPECT_EQ(message_body_content, expected_data_chunk);
 }
 
 
