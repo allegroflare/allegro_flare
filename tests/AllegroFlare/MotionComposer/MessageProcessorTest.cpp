@@ -9,6 +9,9 @@
 #include <AllegroFlare/MotionComposer/MessageProcessor.hpp>
 
 
+#include <AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp>
+
+
 TEST(AllegroFlare_MotionComposer_MessageProcessorTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::MotionComposer::MessageProcessor message_processor;
@@ -57,6 +60,49 @@ R"({
          std::runtime_error,
          expected_message
    );
+}
+
+
+TEST(AllegroFlare_MotionComposer_MessageProcessorTest,
+   build_message_from_json__when_attempting_to_parse_an_unknown_message_type__will_throw_an_error)
+{
+   AllegroFlare::MotionComposer::MessageProcessor message_processor;
+   std::string message_json =
+R"({
+  "message": {
+    "type": "AnUnknownType"
+  }
+})";
+   std::string expected_message = "AllegroFlare::MotionComposer::MessageProcessor::build_message_from_json: error: "
+                                  "Unknown message type \"AnUnknownType\". Cannot parse.";
+
+   EXPECT_THROW_WITH_MESSAGE(message_processor.build_message_from_json(
+         message_json),
+         std::runtime_error,
+         expected_message
+   );
+}
+
+
+TEST(AllegroFlare_MotionComposer_MessageProcessorTest,
+   build_message_from_json__will_be_able_to_parse_a_SetPlayheadPosition_message)
+{
+   AllegroFlare::MotionComposer::MessageProcessor message_processor;
+   std::string message_json =
+R"({
+  "message": {
+    "type": "SetPlayheadPosition",
+    "position": 8.0
+  }
+})";
+
+   AllegroFlare::MotionComposer::Messages::SetPlayheadPosition* result =
+      static_cast<AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*>(
+         message_processor.build_message_from_json(message_json)
+      );
+   ASSERT_NE(nullptr, result);
+   ASSERT_EQ("SetPlayheadPosition", result->get_type());
+   EXPECT_EQ(8.0, result->get_position());
 }
 
 

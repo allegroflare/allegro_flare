@@ -722,6 +722,9 @@
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageProcessor"
   ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition": [
+    "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView"
   ],
