@@ -75,7 +75,7 @@ AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_fr
    {
        std::stringstream error_message;
        error_message << "AllegroFlare::MotionComposer::MessageProcessor::build_message_from_json: error: "
-                     << "Expecting JSON to have a \"messages\" property but it does not.  JSON:"
+                     << "Expecting JSON to have a \"message\" property but it does not.  JSON:"
                      << std::endl
                      << std::endl
                      << parsed_json.dump(2);
@@ -83,6 +83,20 @@ AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_fr
    }
    else
    {
+      if (!parsed_json["message"].contains("type"))
+      {
+          std::stringstream error_message;
+          error_message << "AllegroFlare::MotionComposer::MessageProcessor::build_message_from_json: error: "
+                        << "Expecting JSON to have a [\"message\"][\"type\"] property but it does not.  JSON:"
+                        << std::endl
+                        << std::endl
+                        << parsed_json.dump(2);
+          throw std::runtime_error(error_message.str());
+      }
+      else
+      {
+          // TODO, grab the data from the message
+      }
    }
 
    // TODO
