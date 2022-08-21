@@ -49,7 +49,7 @@ public:
       // grab a message from the message queue
       if (message_queue.empty()) return;
 
-      std::cout << "Processing 1 message" << std::endl;
+      //std::cout << "Processing 1 message" << std::endl;
 
       // grab a raw message off our local queue, put it into the processor
       message_processor.push_one(message_queue.back());
@@ -173,8 +173,8 @@ void framework_main(std::atomic<bool>* global_abort=nullptr)
 
 static void receive_message_callback(std::string message, void *data)
 {
-   std::cout << "MyNetworkService::on_message_receive: \"" << message << "\"" << std::endl;
-   std::cout << std::endl;
+   //std::cout << "MyNetworkService::on_message_receive: \"" << message << "\"" << std::endl;
+   //std::cout << std::endl;
    //message_queue.push_back(message);
    message_queue.push_back(
 std::string(R"({
@@ -234,7 +234,7 @@ int main(int argc, char **argv)
    first.join();
    second.join();
 
-   std::cout << "executed_expectedly." << std::endl;
+   std::cout << "✅ All threads executed expectedly. Shutting down \"motion_edit\"." << std::endl;
    return 0;
 }
 
