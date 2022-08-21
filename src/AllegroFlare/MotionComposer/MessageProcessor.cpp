@@ -48,6 +48,14 @@ std::vector<AllegroFlare::MotionComposer::Messages::Base*> MessageProcessor::get
 }
 
 
+AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::get_one_message_and_pop()
+{
+   if (messages.empty()) return nullptr;
+   AllegroFlare::MotionComposer::Messages::Base* result = messages.front();
+   messages.erase(messages.begin()); // (equivelent to .pop_front())
+   return result;
+}
+
 void MessageProcessor::convert_one()
 {
    if (messages_json.empty()) return;

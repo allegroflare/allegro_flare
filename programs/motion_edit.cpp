@@ -13,6 +13,9 @@
 #include <iostream>
 
 
+#include <AllegroFlare/MotionComposer/MessageProcessor.hpp>
+
+#include <AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp>
 
 
 std::vector<std::string> message_queue = {};
@@ -27,19 +30,44 @@ std::vector<std::string> message_queue = {};
 class MotionEdit : public AllegroFlare::Screens::Base
 {
 private:
+   float playhead;
    std::vector<AllegroFlare::Timeline::Actor*> actors;
+   AllegroFlare::MotionComposer::MessageProcessor message_processor;
    AllegroFlare::FontBin *font_bin;
 
 public:
    MotionEdit(AllegroFlare::FontBin *font_bin)
       : AllegroFlare::Screens::Base()
       , actors()
+      , message_processor()
       , font_bin(font_bin)
    {}
    ~MotionEdit() {}
 
-   virtual void primary_timer_func() override
+   void update()
    {
+      message_processor.convert_one();
+      AllegroFlare::MotionComposer::Messages::Base* message_to_execute = message_processor.get_one_message_and_pop();
+      if (message_to_execute != nullptr)
+      {
+         // TODO
+         if (message_to_execute->is_type("SetPlayheadPosition"))
+         {
+            AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *typed_message = 
+               static_cast<AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*>(message_to_execute);
+            set_playhead(typed_message->get_position());
+         }
+      }
+   }
+
+   void set_playhead(float position=0.0)
+   {
+      playhead = position;
+   }
+
+   void draw()
+   {
+      // draw
       ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
       float width = 1100;
       AllegroFlare::Placement2D place(1920/2, 1080/2, width, 600);
@@ -61,6 +89,12 @@ public:
       {
          //TrackView track_view(actor);
       }
+   }
+
+   virtual void primary_timer_func() override
+   {
+      update();
+      draw();
    }
 
    std::string most_recent_message()

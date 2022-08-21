@@ -19,6 +19,15 @@ properties:
 functions:
 
 
+  - name: get_one_message_and_pop
+    type: AllegroFlare::MotionComposer::Messages::Base*
+    body: |
+      if (messages.empty()) return nullptr;
+      AllegroFlare::MotionComposer::Messages::Base* result = messages.front();
+      messages.erase(messages.begin()); // (equivelent to .pop_front())
+      return result;
+
+
   - name: convert_one
     body: |
       if (messages_json.empty()) return;
