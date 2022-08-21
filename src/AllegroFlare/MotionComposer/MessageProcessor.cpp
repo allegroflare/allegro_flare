@@ -66,6 +66,7 @@ void MessageProcessor::convert_one()
 {
    if (messages_json.empty()) return;
    AllegroFlare::MotionComposer::Messages::Base* message = build_message_from_json(messages_json.front());
+   //messages_json.erase(messages_json.begin());
    if (!message)
    {
       std::stringstream error_message;
@@ -76,6 +77,7 @@ void MessageProcessor::convert_one()
    else
    {
       messages.push_back(message);
+      messages_json.erase(messages_json.begin());
    }
    return;
 }

@@ -18,6 +18,7 @@
 #include <AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp>
 
 
+
 std::vector<std::string> message_queue = {};
 //std::mutex current_message_mutex;
 
@@ -49,16 +50,19 @@ public:
       // grab a message from the message queue
       if (message_queue.empty()) return;
 
-      //std::cout << "Processing 1 message" << std::endl;
+      std::cout << "********************" << std::endl;
+      std::cout << "Processing 1 message" << std::endl;
+      std::cout << "********************" << std::endl;
 
       // grab a raw message off our local queue, put it into the processor
-      message_processor.push_one(message_queue.back());
+      message_processor.push_one(message_queue.front());
       message_queue.erase(message_queue.begin()); // (equivelent to .pop_front())
 
       // convert the message
       message_processor.convert_one();
 
       // extract the processed the message
+      //std::cout << "message processor size: " << message_processor.size() << std::endl;
       AllegroFlare::MotionComposer::Messages::Base* message_to_execute = message_processor.get_one_message_and_pop();
 
       // execute the message
@@ -72,6 +76,8 @@ public:
             set_playhead_position(typed_message->get_position());
          }
       }
+
+      delete message_to_execute;
    }
 
    void update()
@@ -175,15 +181,20 @@ static void receive_message_callback(std::string message, void *data)
 {
    //std::cout << "MyNetworkService::on_message_receive: \"" << message << "\"" << std::endl;
    //std::cout << std::endl;
-   //message_queue.push_back(message);
-   message_queue.push_back(
-std::string(R"({
-  "message": {
-    "type": "SetPlayheadPosition",
-    "position": 8.0
-  }
-})")
-);
+   std::cout << "######################" << std::endl;
+   std::cout << "## MESSAGE RECEIVED ##" << std::endl;
+   std::cout << "######################" << std::endl;
+   std::cout << message << std::endl;
+   std::cout << "######################" << std::endl;
+   message_queue.push_back(message);
+   //message_queue.push_back(
+//std::string(R"({
+  //"message": {
+    //"type": "SetPlayheadPosition",
+    //"position": 8.0
+  //}
+//})")
+//);
 
 }
 

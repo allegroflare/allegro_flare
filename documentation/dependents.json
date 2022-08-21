@@ -711,18 +711,23 @@
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
   ],
+  "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition": [
+    "AllegroFlare/MotionComposer/MessageFactory",
+    "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
+  "nlohmann/json": [
+    "AllegroFlare/MotionComposer/MessageFactory",
+    "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
   "AllegroFlare/MotionComposer/Messages/Base": [
     "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition",
     "AllegroFlare/MotionComposer/Messages/SetScript"
   ],
   "std/vector<AllegroFlare/MotionComposer/Messages/Base>": [
-    "AllegroFlare/MotionComposer/MessageProcessor"
-  ],
-  "nlohmann/json": [
-    "AllegroFlare/MotionComposer/MessageProcessor"
-  ],
-  "AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition": [
     "AllegroFlare/MotionComposer/MessageProcessor"
   ],
   "AllegroFlare/Timeline/Track": [

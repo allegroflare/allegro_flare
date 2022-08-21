@@ -27,7 +27,9 @@ static void emit_abort_signal_after_n_sec(std::atomic<bool>* global_abort=nullpt
 
 void yay_callback(std::string message, void *data)
 {
-   std::cout << "HOLLY BONKERS: \"" << message << "\"" << std::endl;
+   std::cout << "HOLLY BONKERS:" << std::endl;
+   std::cout << message.length() << std::endl;
+   std::cout << "\"" << message << "\"" << std::endl;
 }
 
 
@@ -56,7 +58,7 @@ static void publish_messages_every_second_for_6_seconds(
       std::mutex *messages_queue_mutex=nullptr
    )
 {
-   int count = 6;
+   int count = 20;
    while (count>0)
    {
       sleep_for(0.2);

@@ -4,6 +4,10 @@
 #include <AllegroFlare/MotionComposer/MessageFactory.hpp>
 
 
+#include <AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp>
+
+
+
 TEST(AllegroFlare_MotionComposer_MessageFactoryTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::MotionComposer::MessageFactory message_factory;

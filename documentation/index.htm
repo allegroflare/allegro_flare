@@ -109,6 +109,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MotionComposer/MessageFactory.q.yml">quintessence/AllegroFlare/MotionComposer/MessageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml">quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.q.yml</a></li>
@@ -4018,6 +4019,32 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tuple&lt;std::string, std::string, std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;tuple&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/MotionComposer/MessageFactory.q.yml">quintessence/AllegroFlare/MotionComposer/MessageFactory.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">build_set_playead_position_message_json(1)</td>
+</tr>
+<tr>
+  <td class="method">create_set_playead_position_message(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7953,18 +7980,23 @@ table td
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
   ],
+  "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition": [
+    "AllegroFlare/MotionComposer/MessageFactory",
+    "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
+  "nlohmann/json": [
+    "AllegroFlare/MotionComposer/MessageFactory",
+    "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
   "AllegroFlare/MotionComposer/Messages/Base": [
     "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition",
     "AllegroFlare/MotionComposer/Messages/SetScript"
   ],
   "std/vector<AllegroFlare/MotionComposer/Messages/Base>": [
-    "AllegroFlare/MotionComposer/MessageProcessor"
-  ],
-  "nlohmann/json": [
-    "AllegroFlare/MotionComposer/MessageProcessor"
-  ],
-  "AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition": [
     "AllegroFlare/MotionComposer/MessageProcessor"
   ],
   "AllegroFlare/Timeline/Track": [

@@ -15,6 +15,10 @@
 
 
 
+#include <AllegroFlare/MotionComposer/MessageFactory.hpp>
+//#include <AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp>
+
+
 
 std::string current_message = "[message-unset]";
 std::mutex current_message_mutex;
@@ -32,6 +36,7 @@ private:
    AllegroFlare::FontBin *font_bin;
    std::vector<std::string> *messages_queue;
    std::mutex *messages_queue_mutex;
+   AllegroFlare::MotionComposer::MessageFactory message_factory;
 
 public:
    MotionEditControl(
@@ -75,7 +80,13 @@ public:
 
    void send_set_playhead(float position=0.0)
    {
+      std::string message = message_factory.build_set_playead_position_message_json(position);
+      std::cout << "-------------" << std::endl;
+      std::cout << "--MESSAGE_BUILT--" << std::endl;
+      std::cout << message << std::endl;
+      std::cout << "-------------" << std::endl;
 
+      post_message(message);
    }
 
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
@@ -85,16 +96,13 @@ public:
       switch(ev->keyboard.keycode)
       {
       case ALLEGRO_KEY_A: 
-         //std::cout << "A" << std::endl;
-         post_message("(A) This is the A message.");
+         send_set_playhead(0.0);
          break;
       case ALLEGRO_KEY_B: 
-         //std::cout << "B" << std::endl;
-         post_message("(B) The B messages is here.");
+         send_set_playhead(8.75);
          break;
       case ALLEGRO_KEY_C: 
-         //std::cout << "C" << std::endl;
-         post_message("(C) I see what you did there in this message C.");
+         send_set_playhead(128.0);
          break;
       }
    }

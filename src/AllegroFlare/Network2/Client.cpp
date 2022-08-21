@@ -142,7 +142,10 @@ private:
           {
             std::cout.write(read_msg_.body(), read_msg_.body_length());
             std::cout << "\n";
-            std::string message_body = read_msg_.body();
+
+            std::string message_body(read_msg_.body_length(), 'x');
+            memcpy(message_body.data(), read_msg_.body(), read_msg_.body_length());
+            //message_body.resize = read_msg_.body();
             if (my_injected_callback) (*my_injected_callback)(message_body, my_callback_passed_data);
             do_read_header();
           }

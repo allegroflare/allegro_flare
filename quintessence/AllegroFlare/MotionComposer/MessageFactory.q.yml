@@ -1,6 +1,24 @@
 functions:
 
 
+  - name: build_set_playead_position_message_json
+    type: std::string
+    parameters:
+      - name: position
+        type: float
+        default_argument: 0.0f
+    body: |
+       // TODO: fix typo in this position
+       AllegroFlare::MotionComposer::Messages::SetPlayheadPosition set_playhead_position(position);
+       nlohmann::json json;
+       json["message"] = set_playhead_position;
+       json["message"]["type"] = "SetPlayheadPosition";
+       return json.dump(2);
+    body_dependency_symbols:
+      - nlohmann::json
+      - AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
+
+
   - name: create_set_playead_position_message
     type: AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*
     parameters:
@@ -8,9 +26,9 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-       AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *result =
-          new AllegroFlare::MotionComposer::Messages::SetPlayheadPosition(position);
-       return result;
+       AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *set_playhead_position
+          = new AllegroFlare::MotionComposer::Messages::SetPlayheadPosition(position);
+       return set_playhead_position;
 
 
 dependencies:
@@ -18,5 +36,9 @@ dependencies:
 
   - symbol: AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*
     headers: [ AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
+    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp ]
+  - symbol: nlohmann::json
+    headers: [ lib/nlohmann/json.hpp ]
 
 
