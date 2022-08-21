@@ -73,6 +73,11 @@ public:
       messages_queue_mutex->unlock();
    }
 
+   void send_set_playhead(float position=0.0)
+   {
+
+   }
+
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
       std::cout << "Key down: " << std::endl;

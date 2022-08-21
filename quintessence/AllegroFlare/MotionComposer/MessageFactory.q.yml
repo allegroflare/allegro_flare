@@ -1,0 +1,22 @@
+functions:
+
+
+  - name: create_set_playead_position_message
+    type: AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*
+    parameters:
+      - name: position
+        type: float
+        default_argument: 0.0f
+    body: |
+       AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *result =
+          new AllegroFlare::MotionComposer::Messages::SetPlayheadPosition(position);
+       return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*
+    headers: [ AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp ]
+
+
