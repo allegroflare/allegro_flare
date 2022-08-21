@@ -61,9 +61,16 @@ void MessageProcessor::convert_one()
    }
    else
    {
-      // TODO: message->process();
-      delete message;
+      messages.push_back(message);
    }
+   return;
+}
+
+void MessageProcessor::process_one()
+{
+   // TODO
+      //message->process();
+      //delete message;
    return;
 }
 
@@ -71,8 +78,13 @@ AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_fr
 {
    AllegroFlare::MotionComposer::Messages::Base* result = nullptr;
 
-   // extract the type
+
+   // parse the json
+
    nlohmann::json parsed_json = nlohmann::json::parse(json_as_string);
+
+
+   // extract the type
 
    if (!parsed_json.contains("message"))
    {
@@ -98,6 +110,8 @@ AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_fr
       }
       else
       {
+         // process the type(s)
+
          std::string type = parsed_json["message"]["type"];
          if (type == "SetPlayheadPosition")
          //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")

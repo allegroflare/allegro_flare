@@ -32,12 +32,19 @@ functions:
       }
       else
       {
-         // TODO: message->process();
-         delete message;
+         messages.push_back(message);
       }
       return;
     body_dependency_symbols:
       - std::stringstream
+
+
+  - name: process_one
+    body: |
+      // TODO
+         //message->process();
+         //delete message;
+      return;
 
 
   - name: build_message_from_json
@@ -49,8 +56,13 @@ functions:
     body: |
       AllegroFlare::MotionComposer::Messages::Base* result = nullptr;
 
-      // extract the type
+
+      // parse the json
+
       nlohmann::json parsed_json = nlohmann::json::parse(json_as_string);
+
+
+      // extract the type
 
       if (!parsed_json.contains("message"))
       {
@@ -76,6 +88,8 @@ functions:
          }
          else
          {
+            // process the type(s)
+
             std::string type = parsed_json["message"]["type"];
             if (type == "SetPlayheadPosition")
             //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
