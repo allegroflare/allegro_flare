@@ -50,14 +50,19 @@ functions:
       // extract the type
       nlohmann::json parsed_json = nlohmann::json::parse(json_as_string);
 
-      //if (parsed_json.contains["message"])
-      //{
-      //}
-      //else
-      //{
-         // TODO: throw error message
-         //throw std::runtime_error("AllegroFlare::MotionComposer::MessageProcessor: error: 
-      //}
+      if (!parsed_json.contains("message"))
+      {
+          std::stringstream error_message;
+          error_message << "AllegroFlare::MotionComposer::MessageProcessor::build_message_from_json: error: "
+                        << "Expecting JSON to have a \"messages\" property but it does not.  JSON:"
+                        << std::endl
+                        << std::endl
+                        << parsed_json.dump(2);
+          throw std::runtime_error(error_message.str());
+      }
+      else
+      {
+      }
 
       // TODO
       //if (message_type == "AllegroFlare::MotionComposer::Messages::Base");
