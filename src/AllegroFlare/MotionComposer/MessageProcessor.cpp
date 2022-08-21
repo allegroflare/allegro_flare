@@ -48,6 +48,12 @@ std::vector<AllegroFlare::MotionComposer::Messages::Base*> MessageProcessor::get
 }
 
 
+void MessageProcessor::push_one(std::string message_json_as_string)
+{
+   messages_json.push_back(message_json_as_string);
+   return;
+}
+
 AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::get_one_message_and_pop()
 {
    if (messages.empty()) return nullptr;

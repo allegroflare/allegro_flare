@@ -30,7 +30,7 @@ std::vector<std::string> message_queue = {};
 class MotionEdit : public AllegroFlare::Screens::Base
 {
 private:
-   float playhead;
+   float playhead_position;
    std::vector<AllegroFlare::Timeline::Actor*> actors;
    AllegroFlare::MotionComposer::MessageProcessor message_processor;
    AllegroFlare::FontBin *font_bin;
@@ -44,10 +44,24 @@ public:
    {}
    ~MotionEdit() {}
 
-   void update()
+   void process_message()
    {
+      // grab a message from the message queue
+      if (message_queue.empty()) return;
+
+      std::cout << "Processing 1 message" << std::endl;
+
+      // grab a raw message off our local queue, put it into the processor
+      message_processor.push_one(message_queue.back());
+      message_queue.erase(message_queue.begin()); // (equivelent to .pop_front())
+
+      // convert the message
       message_processor.convert_one();
+
+      // extract the processed the message
       AllegroFlare::MotionComposer::Messages::Base* message_to_execute = message_processor.get_one_message_and_pop();
+
+      // execute the message
       if (message_to_execute != nullptr)
       {
          // TODO
@@ -55,14 +69,19 @@ public:
          {
             AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *typed_message = 
                static_cast<AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*>(message_to_execute);
-            set_playhead(typed_message->get_position());
+            set_playhead_position(typed_message->get_position());
          }
       }
    }
 
-   void set_playhead(float position=0.0)
+   void update()
    {
-      playhead = position;
+      process_message();
+   }
+
+   void set_playhead_position(float position=0.0)
+   {
+      playhead_position = position;
    }
 
    void draw()
@@ -89,6 +108,14 @@ public:
       {
          //TrackView track_view(actor);
       }
+
+      draw_playhead_position();
+   }
+
+   void draw_playhead_position()
+   {
+      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 100, 20, 0, "position %f", playhead_position);
    }
 
    virtual void primary_timer_func() override
@@ -146,8 +173,18 @@ void framework_main(std::atomic<bool>* global_abort=nullptr)
 
 static void receive_message_callback(std::string message, void *data)
 {
-   //std::cout << "MyNetworkService::on_message_receive: \"" << message << "\"" << std::endl;
-   message_queue.push_back(message);
+   std::cout << "MyNetworkService::on_message_receive: \"" << message << "\"" << std::endl;
+   std::cout << std::endl;
+   //message_queue.push_back(message);
+   message_queue.push_back(
+std::string(R"({
+  "message": {
+    "type": "SetPlayheadPosition",
+    "position": 8.0
+  }
+})")
+);
+
 }
 
 

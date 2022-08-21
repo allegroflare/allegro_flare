@@ -19,6 +19,16 @@ properties:
 functions:
 
 
+  - name: push_one
+    parameters:
+      - name: message_json_as_string
+        type: std::string
+        default_argument: '"{}"'
+    body: |
+      messages_json.push_back(message_json_as_string);
+      return;
+
+
   - name: get_one_message_and_pop
     type: AllegroFlare::MotionComposer::Messages::Base*
     body: |

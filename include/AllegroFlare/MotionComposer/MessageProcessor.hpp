@@ -24,6 +24,7 @@ namespace AllegroFlare
          void set_messages(std::vector<AllegroFlare::MotionComposer::Messages::Base*> messages);
          std::vector<std::string> get_messages_json();
          std::vector<AllegroFlare::MotionComposer::Messages::Base*> get_messages();
+         void push_one(std::string message_json_as_string="{}");
          AllegroFlare::MotionComposer::Messages::Base* get_one_message_and_pop();
          void convert_one();
          void process_one();
