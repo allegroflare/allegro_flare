@@ -25,10 +25,8 @@ R"({
 })";
    std::string expected_message = "AllegroFlare::MotionComposer::MessageProcessor::build_message_from_json: error: "
                                   "Expecting JSON to have a \"message\" property but it does not.  JSON:\n"
-                                  "\n"
-                                  "{\n"
-                                  "  \"a_key_but_not_the_message_key\": 1.5\n"
-                                  "}";
+                                  "\n";
+               expected_message += message_json;
 
 
    EXPECT_THROW_WITH_MESSAGE(message_processor.build_message_from_json(
@@ -53,9 +51,6 @@ R"({
                                   "Expecting JSON to have a [\"message\"][\"type\"] property but it does not.  JSON:\n"
                                   "\n";
                expected_message += message_json;
-                                  //"{\n"
-                                  //"  \"a_key_but_not_the_message_key\": 1.5\n"
-                                  //"}";
 
    EXPECT_THROW_WITH_MESSAGE(message_processor.build_message_from_json(
          message_json),
