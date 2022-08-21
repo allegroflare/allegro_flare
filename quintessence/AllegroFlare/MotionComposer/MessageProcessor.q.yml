@@ -47,12 +47,26 @@ functions:
         type: std::string
         default_argument: '"{}"'
     body: |
+      // extract the type
+      nlohmann::json parsed_json = nlohmann::json::parse(json_as_string);
+
+      //if (parsed_json.contains["message"])
+      //{
+      //}
+      //else
+      //{
+         // TODO: throw error message
+         //throw std::runtime_error("AllegroFlare::MotionComposer::MessageProcessor: error: 
+      //}
+
       // TODO
       //if (message_type == "AllegroFlare::MotionComposer::Messages::Base");
       AllegroFlare::MotionComposer::Messages::Base *result = nullptr;
       //nlohmann::json parsed_json = nlohmann::json::parse(json);
       //parsed_json.get_to(set_playhead_position);
       return result;
+    body_dependency_symbols:
+      - nlohmann::json
 
 
 dependencies:
@@ -62,5 +76,7 @@ dependencies:
     headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
   - symbol: std::vector<AllegroFlare::MotionComposer::Messages::Base*>
     headers: [ vector, AllegroFlare/MotionComposer/Messages/Base.hpp ]
+  - symbol: nlohmann::json
+    headers: [ lib/nlohmann/json.hpp ]
 
 

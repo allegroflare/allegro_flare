@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/MotionComposer/MessageProcessor.hpp>
 #include <sstream>
+#include <lib/nlohmann/json.hpp>
 
 
 namespace AllegroFlare
@@ -67,6 +68,18 @@ void MessageProcessor::convert_one()
 
 AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_from_json(std::string json_as_string)
 {
+   // extract the type
+   nlohmann::json parsed_json = nlohmann::json::parse(json_as_string);
+
+   //if (parsed_json.contains["message"])
+   //{
+   //}
+   //else
+   //{
+      // TODO: throw error message
+      //throw std::runtime_error("AllegroFlare::MotionComposer::MessageProcessor: error: 
+   //}
+
    // TODO
    //if (message_type == "AllegroFlare::MotionComposer::Messages::Base");
    AllegroFlare::MotionComposer::Messages::Base *result = nullptr;

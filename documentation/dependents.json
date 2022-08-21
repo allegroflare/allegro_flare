@@ -719,6 +719,9 @@
   "std/vector<AllegroFlare/MotionComposer/Messages/Base>": [
     "AllegroFlare/MotionComposer/MessageProcessor"
   ],
+  "nlohmann/json": [
+    "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView"
   ],
