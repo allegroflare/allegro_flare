@@ -91,7 +91,7 @@ public:
 
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
-      std::cout << "Key down: " << std::endl;
+      //std::cout << "Key down: " << std::endl;
 
       switch(ev->keyboard.keycode)
       {

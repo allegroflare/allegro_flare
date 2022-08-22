@@ -6,6 +6,7 @@
 
 #include <AllegroFlare/Timeline/Actor.hpp>
 #include <AllegroFlare/Timeline/Track.hpp>
+#include <AllegroFlare/Timeline/Actor2D.hpp>
 #include <AllegroFlare/Color.hpp>
 
 #include <AllegroFlare/Network2/Client.hpp>
@@ -28,22 +29,52 @@ std::vector<std::string> message_queue = {};
 
 
 
+
 class MotionEdit : public AllegroFlare::Screens::Base
 {
 private:
    float playhead_position;
    std::vector<AllegroFlare::Timeline::Actor*> actors;
    AllegroFlare::MotionComposer::MessageProcessor message_processor;
+   int messages_processed;
    AllegroFlare::FontBin *font_bin;
+   AllegroFlare::BitmapBin *bitmap_bin;
 
 public:
-   MotionEdit(AllegroFlare::FontBin *font_bin)
+   MotionEdit(AllegroFlare::FontBin *font_bin, AllegroFlare::BitmapBin *bitmap_bin)
       : AllegroFlare::Screens::Base()
       , actors()
       , message_processor()
+      , messages_processed(0)
       , font_bin(font_bin)
+      , bitmap_bin(bitmap_bin)
    {}
    ~MotionEdit() {}
+
+   void initialize()
+   {
+      //actors = {
+      actors = {
+         new AllegroFlare::Timeline::Actor2D("star1", obtain_star_bitmap()),
+         new AllegroFlare::Timeline::Actor2D("star2", obtain_star_bitmap()),
+         new AllegroFlare::Timeline::Actor2D("star3", obtain_star_bitmap()),
+         new AllegroFlare::Timeline::Actor2D("star4", obtain_star_bitmap()),
+         new AllegroFlare::Timeline::Actor2D("star5", obtain_star_bitmap()),
+      };
+      //   new AllegroFlare::Timeline::Actor2D(),
+      //}
+   }
+
+   ALLEGRO_BITMAP* obtain_star_bitmap()
+   {
+      if (!(bitmap_bin))
+         {
+            std::stringstream error_message;
+            error_message << "MotionEdit" << "::" << "obtain_star_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+            throw std::runtime_error(error_message.str());
+         }
+      return bitmap_bin->auto_get("star-b.png");
+   }
 
    void process_message()
    {
@@ -75,6 +106,14 @@ public:
                static_cast<AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*>(message_to_execute);
             set_playhead_position(typed_message->get_position());
          }
+         else
+         {
+            std::stringstream error_message;
+            error_message << "motion_edit::MotionEdit error: "
+                          << "Unable to execute message of type \"" << message_to_execute->get_type() << "\".";
+            throw std::runtime_error(error_message.str());
+         }
+         messages_processed++;
       }
 
       delete message_to_execute;
@@ -116,12 +155,20 @@ public:
       }
 
       draw_playhead_position();
+
+      draw_messages_processed();
    }
 
    void draw_playhead_position()
    {
       ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 100, 20, 0, "position %f", playhead_position);
+   }
+
+   void draw_messages_processed()
+   {
+      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 100, 50, 0, "messages processed: %d", messages_processed);
    }
 
    virtual void primary_timer_func() override
@@ -151,6 +198,7 @@ public:
 };
 
 #define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
+#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
 
 
 void framework_main(std::atomic<bool>* global_abort=nullptr)
@@ -162,8 +210,10 @@ void framework_main(std::atomic<bool>* global_abort=nullptr)
    framework.initialize();
 
    framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   framework.get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
-   MotionEdit motion_edit(&framework.get_font_bin_ref());
+   MotionEdit motion_edit(&framework.get_font_bin_ref(), &framework.get_bitmap_bin_ref());
+   motion_edit.initialize();
    framework.register_screen("motion_edit", &motion_edit);
    framework.activate_screen("motion_edit");
 
