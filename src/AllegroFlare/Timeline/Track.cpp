@@ -79,7 +79,7 @@ namespace Timeline
    {
       AllegroFlare::Timeline::Keyframe *global_right_keyframe = nullptr;
       float left_time = 0;
-      float *left_val = &start_val;
+      float left_val = 0; //&start_val;
 
       if (keyframes.empty()) return start_val;
       if (keyframes.size() == 1) return keyframes[0]->val;
@@ -91,14 +91,15 @@ namespace Timeline
       {
          AllegroFlare::Timeline::Keyframe &left_keyframe = *keyframes[i-1];
          AllegroFlare::Timeline::Keyframe &right_keyframe = *keyframes[1];
-         
-         //if (left_keyframe.time < time && time < right_keyframe.time)
-         if (keyframes[i-1]->time < time && time < keyframes[i]->time)
+
+         if (right_keyframe.time == time) return right_keyframe.val;
+         if (left_keyframe.time == time) return left_keyframe.val;
+
+         if (left_keyframe.time < time && right_keyframe.time > time)
          {
-            left_val = &keyframes[i-1]->val;
-            left_time = keyframes[i-1]->time;
-            global_right_keyframe = keyframes[i];
-            break;
+            left_val = left_keyframe.val;
+            left_time = left_keyframe.time;
+            global_right_keyframe = &right_keyframe;
          }
       }
 
@@ -106,9 +107,9 @@ namespace Timeline
 
       float time_in = time - left_time;
       float time_normal = time_in / time_width;
-      float val_delta = global_right_keyframe->val - *left_val;
+      float val_delta = global_right_keyframe->val - left_val;
 
-      return global_right_keyframe->interpolator_func(time_normal) * val_delta + *left_val;
+      return global_right_keyframe->interpolator_func(time_normal) * val_delta + left_val;
    }
 
 

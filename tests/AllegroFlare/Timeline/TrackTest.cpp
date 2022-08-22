@@ -81,7 +81,7 @@ TEST(AllegroFlare_Timeline_TrackTest,
       new AllegroFlare::Timeline::Keyframe(2.0, 300.0),
       new AllegroFlare::Timeline::Keyframe(3.0, 400.0),
    });
-   //EXPECT_EQ(200.0f, track.get(2.0));
+   EXPECT_EQ(300.0f, track.get(2.0));
 }
 
 
@@ -99,7 +99,7 @@ TEST(AllegroFlare_Timeline_TrackTest, get__will_return_the_expected_value_interp
    EXPECT_EQ(10.0f, track.get(0.1));
    EXPECT_EQ(20.0f, track.get(0.2));
 
-   //EXPECT_EQ(100.0f, track.get(1.0));
+   EXPECT_EQ(100.0f, track.get(1.0));
 }
 
 
