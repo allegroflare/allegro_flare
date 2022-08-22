@@ -15,14 +15,14 @@ namespace AllegroFlare
       {
          namespace Sections
          {
-            class StandardColumn : public AllegroFlare::Elements::RollingCredits::Sections::Base
+            class ColumnWithLabels : public AllegroFlare::Elements::RollingCredits::Sections::Base
             {
             private:
                std::vector<std::tuple<std::string, std::string>> elements;
 
             public:
-               StandardColumn(std::vector<std::tuple<std::string, std::string>> elements={});
-               ~StandardColumn();
+               ColumnWithLabels(std::vector<std::tuple<std::string, std::string>> elements={});
+               ~ColumnWithLabels();
 
                void set_elements(std::vector<std::tuple<std::string, std::string>> elements);
                std::vector<std::tuple<std::string, std::string>> get_elements();

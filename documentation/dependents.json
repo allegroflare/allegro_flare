@@ -624,16 +624,16 @@
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits"
   ],
-  "AllegroFlare/Elements/RollingCredits/Sections/StandardColumn": [
+  "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
   "std/vector<std/tuple<std/string, std/string>>": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory",
-    "AllegroFlare/Elements/RollingCredits/Sections/StandardColumn"
+    "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
-    "AllegroFlare/Elements/RollingCredits/Sections/Header",
-    "AllegroFlare/Elements/RollingCredits/Sections/StandardColumn"
+    "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/Sections/Header"
   ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"

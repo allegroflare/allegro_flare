@@ -2,13 +2,13 @@ functions:
 
 
   - name: build_standard_column_section
-    type: AllegroFlare::Elements::RollingCredits::Sections::StandardColumn
+    type: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
     parameters:
       - name: sections
         type: std::vector<std::tuple<std::string, std::string>>
         default_argument: '{}'
     body: |
-      return AllegroFlare::Elements::RollingCredits::Sections::StandardColumn(sections);
+      return AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels(sections);
 
 
   - name: build_header_section
@@ -24,8 +24,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Elements::RollingCredits::Sections::StandardColumn
-    headers: [ AllegroFlare/Elements/RollingCredits/Sections/StandardColumn.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
   - symbol: std::vector<std::tuple<std::string, std::string>>

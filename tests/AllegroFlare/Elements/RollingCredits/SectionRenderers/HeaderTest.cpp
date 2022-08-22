@@ -26,7 +26,8 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTest, can_be_
 }
 
 
-TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTest, render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTest,
+   render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::Header header;
    std::string expected_error_message =
@@ -35,10 +36,12 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTest, render_
 }
 
 
-TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTestWithAllegroRenderingFixture, render__will_not_blow_up)
+TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTestWithAllegroRenderingFixture,
+   render__will_not_blow_up)
 {
-   AllegroFlare::Elements::RollingCredits::SectionRenderers::Header header;
+   AllegroFlare::Elements::RollingCredits::SectionRenderers::Header header(&get_font_bin_ref());
    header.render();
    SUCCEED();
 }
+
 
