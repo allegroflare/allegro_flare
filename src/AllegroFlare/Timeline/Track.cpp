@@ -17,6 +17,10 @@ namespace AllegroFlare
 {
 namespace Timeline
 {
+   void Track::sort_keyframes()
+   {
+      std::sort(keyframes.begin(), keyframes.end(), keyframe_sort_func);
+   }
 
 
 
@@ -24,7 +28,9 @@ namespace Timeline
       : label(label)
       , start_val(start_val)
       , keyframes(keyframes)
-   {}
+   {
+      sort_keyframes();
+   }
 
 
 
@@ -38,6 +44,7 @@ namespace Timeline
    void Track::set_keyframes(std::vector<AllegroFlare::Timeline::Keyframe *> keyframes)
    {
       this->keyframes = keyframes;
+      sort_keyframes();
    }
 
 
@@ -45,7 +52,7 @@ namespace Timeline
    void Track::add_keyframe(AllegroFlare::Timeline::Keyframe *k)
    {
       keyframes.push_back(k);
-      std::sort(keyframes.begin(), keyframes.end(), keyframe_sort_func);
+      sort_keyframes();
    }
 
 
@@ -54,7 +61,7 @@ namespace Timeline
    void Track::add_keyframe(float time, float val, float (*interpolator_func)(float))
    {
       keyframes.push_back(new AllegroFlare::Timeline::Keyframe(time, val, interpolator_func));
-      std::sort(keyframes.begin(), keyframes.end(), keyframe_sort_func);
+      sort_keyframes();
    }
 
 

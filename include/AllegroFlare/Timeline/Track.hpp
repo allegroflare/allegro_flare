@@ -12,6 +12,9 @@ namespace AllegroFlare
    {
       class Track
       {
+      private:
+         void sort_keyframes();
+
       public: // TODO: make private
          std::string label;
          float start_val;
