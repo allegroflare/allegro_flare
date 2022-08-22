@@ -134,7 +134,6 @@ float RollingCredits::render()
       if (!at_last_section) cursor_y += section_separator_margin;
    }
 
-   //al_draw_line(surface_center - 200, cursor_y, surface_center + 200, cursor_y, ALLEGRO_COLOR{1, 1, 0, 1}, 1.0);
    return cursor_y;
 }
 
