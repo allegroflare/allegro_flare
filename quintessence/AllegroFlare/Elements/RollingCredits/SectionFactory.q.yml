@@ -1,7 +1,7 @@
 functions:
 
 
-  - name: build_standard_column_section
+  - name: build_column_with_labels_section
     type: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
     parameters:
       - name: sections

@@ -22,7 +22,7 @@ SectionFactory::~SectionFactory()
 }
 
 
-AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels SectionFactory::build_standard_column_section(std::vector<std::tuple<std::string, std::string>> sections)
+AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels SectionFactory::build_column_with_labels_section(std::vector<std::tuple<std::string, std::string>> sections)
 {
    return AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels(sections);
 }
