@@ -58,6 +58,7 @@ TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest,
 TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest,
    generate_characters__will_return_characters_and_spaces_of_lorem_ipsum_text_without_newlines)
 {
+   // TODO: test newlines
    AllegroFlare::Generators::LoremIpsumGenerator lorem_ipsum_generator;
 
    std::vector<std::pair<int, std::string>> num_characters_and_expected_source_texts = {
