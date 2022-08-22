@@ -15,7 +15,7 @@ namespace Sections
 
 
 ColumnWithLabels::ColumnWithLabels(std::vector<std::tuple<std::string, std::string>> elements)
-   : AllegroFlare::Elements::RollingCredits::Sections::Base("StandardColumn")
+   : AllegroFlare::Elements::RollingCredits::Sections::Base("ColumnWithLabels")
    , elements(elements)
 {
 }

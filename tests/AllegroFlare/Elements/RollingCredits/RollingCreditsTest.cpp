@@ -10,6 +10,7 @@
 
 
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
 
 
 class AllegroFlare_Elements_RollingCredits_RollingCreditsTest : public ::testing::Test
@@ -66,6 +67,47 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
    rolling_credits.set_sections({
       new AllegroFlare::Elements::RollingCredits::Sections::Header("This is the header text"),
+   });
+
+   rolling_credits.render();
+   al_flip_display();
+   //sleep_for(1);
+
+   // TODO: destroy sections
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
+   render__will_render_a_ColumnWithLabels_section)
+{
+   //using namespace AllegroFlare::Elements::RollingCredits::Sections;
+
+   AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
+   rolling_credits.set_sections({
+      new AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels({ { "Producer", "Mark Oates" } }),
+   });
+
+   rolling_credits.render();
+   al_flip_display();
+   //sleep_for(1);
+
+   // TODO: destroy sections
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_multiple_sections_with_a_divider)
+{
+   using namespace AllegroFlare::Elements::RollingCredits::Sections;
+
+   AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
+   rolling_credits.set_sections({
+      new Header("Section Header"),
+      new ColumnWithLabels({
+         { "Producer", "Turtle McShell" },
+         { "Line Producer", "Zeebra Stripe" },
+         { "Lead Programmer", "Selma Sloth" },
+      }),
    });
 
    rolling_credits.render();

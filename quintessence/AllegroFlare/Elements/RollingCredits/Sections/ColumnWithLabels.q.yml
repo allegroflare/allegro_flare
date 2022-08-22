@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::RollingCredits::Sections::Base
     scope: public
-    init_with: '"StandardColumn"'
+    init_with: '"ColumnWithLabels"'
 
 
 properties:

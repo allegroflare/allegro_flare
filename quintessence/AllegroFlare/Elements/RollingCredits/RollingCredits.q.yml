@@ -55,8 +55,10 @@ functions:
 
       float cursor_y = 0;
       float this_section_height = 0;
+      float section_separator_margin = 30;
       for (auto &section : sections)
       {
+         // render the section(s)
          if (section->is_type("Header"))
          {
             Sections::Header *typed_section = static_cast<Sections::Header*>(section);
@@ -65,14 +67,37 @@ functions:
                   typed_section->get_text()
                );
             renderer.set_x(surface_width/2);
+            renderer.set_y(cursor_y);
             this_section_height = renderer.render();
          }
-         // TODO
+         else if (section->is_type("ColumnWithLabels"))
+         {
+            Sections::ColumnWithLabels *typed_section = static_cast<Sections::ColumnWithLabels *>(section);
+            SectionRenderers::ColumnWithLabels renderer(
+                  font_bin,
+                  typed_section->get_elements()
+               );
+            renderer.set_x(surface_width/2);
+            renderer.set_y(cursor_y);
+            this_section_height = renderer.render();
+         }
+         else
+         {
+            std::stringstream error_message;
+            error_message << "AllegroFlare::Elements::RollingCredits::RollingCredits::render error: "
+                          << "Cannot render section of the unknown type \"" << section->get_type() << "\".";
+            throw std::runtime_error(error_message.str());
+         }
+
+         // increment the y_cursor
+         cursor_y += this_section_height + section_separator_margin;
       }
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::RollingCredits::Sections::Header
       - AllegroFlare::Elements::RollingCredits::SectionRenderers::Header
+      - AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
+      - AllegroFlare::Elements::RollingCredits::SectionRenderers::ColumnWithLabels
 
 
   - name: obtain_font
@@ -96,5 +121,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Header
     headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::ColumnWithLabels
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.hpp ]
 
 

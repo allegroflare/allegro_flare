@@ -3,6 +3,8 @@
 #include <AllegroFlare/Elements/RollingCredits/RollingCredits.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -87,8 +89,10 @@ void RollingCredits::render()
 
    float cursor_y = 0;
    float this_section_height = 0;
+   float section_separator_margin = 30;
    for (auto &section : sections)
    {
+      // render the section(s)
       if (section->is_type("Header"))
       {
          Sections::Header *typed_section = static_cast<Sections::Header*>(section);
@@ -97,9 +101,30 @@ void RollingCredits::render()
                typed_section->get_text()
             );
          renderer.set_x(surface_width/2);
+         renderer.set_y(cursor_y);
          this_section_height = renderer.render();
       }
-      // TODO
+      else if (section->is_type("ColumnWithLabels"))
+      {
+         Sections::ColumnWithLabels *typed_section = static_cast<Sections::ColumnWithLabels *>(section);
+         SectionRenderers::ColumnWithLabels renderer(
+               font_bin,
+               typed_section->get_elements()
+            );
+         renderer.set_x(surface_width/2);
+         renderer.set_y(cursor_y);
+         this_section_height = renderer.render();
+      }
+      else
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Elements::RollingCredits::RollingCredits::render error: "
+                       << "Cannot render section of the unknown type \"" << section->get_type() << "\".";
+         throw std::runtime_error(error_message.str());
+      }
+
+      // increment the y_cursor
+      cursor_y += this_section_height + section_separator_margin;
    }
    return;
 }
