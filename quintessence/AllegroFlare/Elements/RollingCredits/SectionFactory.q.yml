@@ -1,0 +1,34 @@
+functions:
+
+
+  - name: build_standard_column_section
+    type: AllegroFlare::Elements::RollingCredits::Sections::StandardColumn
+    parameters:
+      - name: sections
+        type: std::vector<std::tuple<std::string, std::string>>
+        default_argument: '{}'
+    body: |
+      return AllegroFlare::Elements::RollingCredits::Sections::StandardColumn(sections);
+
+
+  - name: build_header_section
+    type: AllegroFlare::Elements::RollingCredits::Sections::Header
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    body: |
+      return AllegroFlare::Elements::RollingCredits::Sections::Header(text);
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::StandardColumn
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/StandardColumn.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
+  - symbol: std::vector<std::tuple<std::string, std::string>>
+    headers: [ vector, tuple, string ]
+
+

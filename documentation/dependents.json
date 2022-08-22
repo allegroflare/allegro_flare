@@ -78,6 +78,7 @@
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -123,6 +124,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -510,6 +512,7 @@
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/RollingCredits/Sections/Base",
     "AllegroFlare/MotionComposer/Messages/Base"
   ],
   "al_is_ttf_addon_initialized": [
@@ -607,6 +610,23 @@
   ],
   "AllegroFlare/Elements/PlayingCards/Deck": [
     "AllegroFlare/Elements/PlayingCards/DeckFactory"
+  ],
+  "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/StandardColumn": [
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Header": [
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "std/vector<std/tuple<std/string, std/string>>": [
+    "AllegroFlare/Elements/RollingCredits/SectionFactory",
+    "AllegroFlare/Elements/RollingCredits/Sections/StandardColumn"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Base": [
+    "AllegroFlare/Elements/RollingCredits/Sections/Header",
+    "AllegroFlare/Elements/RollingCredits/Sections/StandardColumn"
   ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"

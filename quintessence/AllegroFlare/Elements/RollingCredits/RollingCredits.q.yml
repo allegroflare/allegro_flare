@@ -1,0 +1,76 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: sections
+    type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: y_offset
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+
+  - name: surface_width
+    type: float
+    init_with: 1920
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: float
+    init_with: 1080
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: set_sections
+    body: |
+      // TODO
+      // also set y_offset = 0
+      return;
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      float cursor_y = 0;
+      for (auto &section : sections)
+      {
+         // TODO
+      }
+      return;
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ftf -32");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
+    headers: [ vector, AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+
+
