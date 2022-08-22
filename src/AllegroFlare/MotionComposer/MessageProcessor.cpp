@@ -4,6 +4,7 @@
 #include <sstream>
 #include <lib/nlohmann/json.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp>
+#include <AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp>
 
 
 namespace AllegroFlare
@@ -134,6 +135,14 @@ AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_fr
          {
             AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *typed_result =
                new AllegroFlare::MotionComposer::Messages::SetPlayheadPosition();
+            parsed_json["message"].get_to(*typed_result);
+            result = typed_result;
+         }
+         else if (type == "TogglePlayback")
+         //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
+         {
+            AllegroFlare::MotionComposer::Messages::TogglePlayback *typed_result =
+               new AllegroFlare::MotionComposer::Messages::TogglePlayback();
             parsed_json["message"].get_to(*typed_result);
             result = typed_result;
          }

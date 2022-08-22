@@ -120,6 +120,14 @@ functions:
                parsed_json["message"].get_to(*typed_result);
                result = typed_result;
             }
+            else if (type == "TogglePlayback")
+            //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
+            {
+               AllegroFlare::MotionComposer::Messages::TogglePlayback *typed_result =
+                  new AllegroFlare::MotionComposer::Messages::TogglePlayback();
+               parsed_json["message"].get_to(*typed_result);
+               result = typed_result;
+            }
             else
             {
                std::stringstream error_message;
@@ -134,6 +142,7 @@ functions:
     body_dependency_symbols:
       - nlohmann::json
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
+      - AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
 
 
 dependencies:
@@ -147,5 +156,7 @@ dependencies:
     headers: [ lib/nlohmann/json.hpp ]
   - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
     headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
+    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp ]
 
 
