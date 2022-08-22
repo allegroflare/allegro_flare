@@ -77,7 +77,7 @@ namespace Timeline
 
    float Track::get(float time)
    {
-      AllegroFlare::Timeline::Keyframe *right=NULL;
+      AllegroFlare::Timeline::Keyframe *global_right_keyframe = nullptr;
       float left_time = 0;
       float *left_val = &start_val;
 
@@ -89,22 +89,26 @@ namespace Timeline
 
       for (unsigned i=1; i<keyframes.size(); i++)
       {
+         AllegroFlare::Timeline::Keyframe &left_keyframe = *keyframes[i-1];
+         AllegroFlare::Timeline::Keyframe &right_keyframe = *keyframes[1];
+         
+         //if (left_keyframe.time < time && time < right_keyframe.time)
          if (keyframes[i-1]->time < time && time < keyframes[i]->time)
          {
             left_val = &keyframes[i-1]->val;
             left_time = keyframes[i-1]->time;
-            right = keyframes[i];
+            global_right_keyframe = keyframes[i];
             break;
          }
       }
 
-      float time_width = right->time - left_time;
+      float time_width = global_right_keyframe->time - left_time;
 
       float time_in = time - left_time;
       float time_normal = time_in / time_width;
-      float val_delta = right->val - *left_val;
+      float val_delta = global_right_keyframe->val - *left_val;
 
-      return right->interpolator_func(time_normal) * val_delta + *left_val;
+      return global_right_keyframe->interpolator_func(time_normal) * val_delta + *left_val;
    }
 
 
