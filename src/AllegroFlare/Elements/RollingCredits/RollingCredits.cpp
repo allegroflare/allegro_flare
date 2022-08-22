@@ -71,7 +71,7 @@ void RollingCredits::set_sections(std::vector<AllegroFlare::Elements::RollingCre
    return;
 }
 
-void RollingCredits::render()
+float RollingCredits::render()
 {
    if (!(al_is_system_installed()))
       {
@@ -90,6 +90,9 @@ void RollingCredits::render()
    float cursor_y = 0;
    float this_section_height = 0;
    float section_separator_margin = 30;
+   int section_count = 0;
+   int num_sections = sections.size();
+   float surface_center = surface_width/2;
    for (auto &section : sections)
    {
       // render the section(s)
@@ -100,7 +103,7 @@ void RollingCredits::render()
                font_bin,
                typed_section->get_text()
             );
-         renderer.set_x(surface_width/2);
+         renderer.set_x(surface_center);
          renderer.set_y(cursor_y);
          this_section_height = renderer.render();
       }
@@ -111,7 +114,7 @@ void RollingCredits::render()
                font_bin,
                typed_section->get_elements()
             );
-         renderer.set_x(surface_width/2);
+         renderer.set_x(surface_center);
          renderer.set_y(cursor_y);
          this_section_height = renderer.render();
       }
@@ -124,9 +127,15 @@ void RollingCredits::render()
       }
 
       // increment the y_cursor
-      cursor_y += this_section_height + section_separator_margin;
+      cursor_y += this_section_height;
+
+      section_count++;
+      bool at_last_section = (section_count == num_sections);
+      if (!at_last_section) cursor_y += section_separator_margin;
    }
-   return;
+
+   //al_draw_line(surface_center - 200, cursor_y, surface_center + 200, cursor_y, ALLEGRO_COLOR{1, 1, 0, 1}, 1.0);
+   return cursor_y;
 }
 
 ALLEGRO_FONT* RollingCredits::obtain_font()

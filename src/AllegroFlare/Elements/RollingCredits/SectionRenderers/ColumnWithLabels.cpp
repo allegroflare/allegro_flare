@@ -163,7 +163,7 @@ float ColumnWithLabels::render()
 
       cursor_y += y_spacing;
    }
-   return al_get_font_line_height(font);
+   return cursor_y;
 }
 
 ALLEGRO_FONT* ColumnWithLabels::obtain_font()

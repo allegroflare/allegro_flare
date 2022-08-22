@@ -112,6 +112,32 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
 
    rolling_credits.render();
    al_flip_display();
+   //sleep_for(1);
+
+   // TODO: destroy sections
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_return_the_height_of_the_entire_credits)
+{
+   using namespace AllegroFlare::Elements::RollingCredits::Sections;
+
+   AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
+   rolling_credits.set_sections({
+      new Header("Section Header"),
+      new ColumnWithLabels({
+         { "Producer", "Turtle McShell" },
+         { "Line Producer", "Zeebra Stripe" },
+         { "Lead Programmer", "Selma Sloth" },
+      }),
+   });
+
+   float height = rolling_credits.render();
+   float surface_center = rolling_credits.get_surface_width() / 2;
+   draw_horizontal_crosshair(surface_center, height);
+
+   al_flip_display();
    sleep_for(1);
 
    // TODO: destroy sections

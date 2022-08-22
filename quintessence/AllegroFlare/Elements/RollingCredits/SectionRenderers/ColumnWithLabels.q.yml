@@ -80,7 +80,7 @@ functions:
 
          cursor_y += y_spacing;
       }
-      return al_get_font_line_height(font);
+      return cursor_y;
 
 
   - name: obtain_font

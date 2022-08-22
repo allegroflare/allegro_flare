@@ -91,6 +91,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/RollingCredits.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/RollingCredits.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionFactory.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Base.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.q.yml</a></li>
@@ -2834,6 +2835,67 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Header&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Header.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">elements</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">gutter_width</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
@@ -7000,6 +7062,9 @@ table td
   <td class="method">draw_crosshair(4)</td>
 </tr>
 <tr>
+  <td class="method">draw_horizontal_crosshair(5)</td>
+</tr>
+<tr>
   <td class="method">test_name_indicates_it_wants_a_screenshot()</td>
 </tr>
 <tr>
@@ -7555,6 +7620,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -7602,6 +7668,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -7723,6 +7790,7 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/ScrollBar",
     "AllegroFlare/Elements/Stopwatch",
@@ -8109,6 +8177,7 @@ table td
   ],
   "std/vector<std/tuple<std/string, std/string>>": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [

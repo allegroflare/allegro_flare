@@ -32,7 +32,7 @@ namespace AllegroFlare
             float get_surface_width();
             float get_surface_height();
             void set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={});
-            void render();
+            float render();
             ALLEGRO_FONT* obtain_font();
          };
       }

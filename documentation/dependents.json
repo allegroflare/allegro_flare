@@ -79,6 +79,7 @@
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -126,6 +127,7 @@
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -247,6 +249,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/ScrollBar",
     "AllegroFlare/Elements/Stopwatch",
@@ -633,6 +636,7 @@
   ],
   "std/vector<std/tuple<std/string, std/string>>": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
