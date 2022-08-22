@@ -80,7 +80,7 @@ TEST(AllegroFlare_Timeline_TrackTest,
       new AllegroFlare::Timeline::Keyframe(0.2, 1.0),
       new AllegroFlare::Timeline::Keyframe(1.9, 1.0),
    });
-   EXPECT_EQ(1.5f, track.get(1.0));
+   EXPECT_EQ(1.0f, track.get(1.0));
 }
 
 
@@ -113,6 +113,29 @@ TEST(AllegroFlare_Timeline_TrackTest, get__will_return_the_expected_value_interp
    EXPECT_EQ(20.0f, track.get(0.2));
 
    EXPECT_EQ(100.0f, track.get(1.0));
+}
+
+
+TEST(AllegroFlare_Timeline_TrackTest, get__will_return_expected_values_under_multiple_test_cases)
+{
+   // TODO: clear and manage keyframes, maybe copy them by value
+   AllegroFlare::Timeline::Track track;
+   track.set_keyframes({
+      new AllegroFlare::Timeline::Keyframe(-10.0, 10.0),
+      new AllegroFlare::Timeline::Keyframe(0.0, 0.0),
+      new AllegroFlare::Timeline::Keyframe(1.0, 100.0),
+      new AllegroFlare::Timeline::Keyframe(2.0, 0.0),
+      new AllegroFlare::Timeline::Keyframe(4.4, 200.0),
+      new AllegroFlare::Timeline::Keyframe(999999.0, 0.00001),
+   });
+
+   EXPECT_EQ(5.0f, track.get(-5.0));
+   EXPECT_EQ(0.0f, track.get(0.0));
+   EXPECT_EQ(10.0f, track.get(0.1));
+   EXPECT_EQ(20.0f, track.get(0.2));
+   EXPECT_EQ(50.0f, track.get(0.5));
+
+   EXPECT_EQ(0.00001f, track.get(1000000.0f));
 }
 
 
