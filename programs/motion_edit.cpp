@@ -40,6 +40,8 @@ private:
    AllegroFlare::FontBin *font_bin;
    AllegroFlare::BitmapBin *bitmap_bin;
 
+   bool playing;
+
 public:
    MotionEdit(AllegroFlare::FontBin *font_bin, AllegroFlare::BitmapBin *bitmap_bin)
       : AllegroFlare::Screens::Base()
@@ -48,6 +50,7 @@ public:
       , messages_processed(0)
       , font_bin(font_bin)
       , bitmap_bin(bitmap_bin)
+      , playing(false)
    {}
    ~MotionEdit() {}
 
@@ -99,12 +102,17 @@ public:
       // execute the message
       if (message_to_execute != nullptr)
       {
+         using namespace AllegroFlare::MotionComposer;
          // TODO
          if (message_to_execute->is_type("SetPlayheadPosition"))
          {
-            AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *typed_message = 
-               static_cast<AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*>(message_to_execute);
+            Messages::SetPlayheadPosition *typed_message = static_cast<Messages::SetPlayheadPosition*>(message_to_execute);
             set_playhead_position(typed_message->get_position());
+         }
+         if (message_to_execute->is_type("TogglePlaying"))
+         {
+            Messages::TogglePlaying *typed_message = static_cast<Messages::TogglePlaying*>(message_to_execute);
+            toggle_playing();
          }
          else
          {
@@ -127,6 +135,12 @@ public:
    void set_playhead_position(float position=0.0)
    {
       playhead_position = position;
+   }
+
+   void toggle_playing()
+   {
+      if (playing) playing = false;
+      else playing = true;
    }
 
    void draw()

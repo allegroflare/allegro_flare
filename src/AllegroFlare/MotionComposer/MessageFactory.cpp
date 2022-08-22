@@ -3,6 +3,8 @@
 #include <AllegroFlare/MotionComposer/MessageFactory.hpp>
 #include <lib/nlohmann/json.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp>
+#include <lib/nlohmann/json.hpp>
+#include <AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp>
 
 
 namespace AllegroFlare
@@ -30,11 +32,13 @@ std::string MessageFactory::build_set_playhead_position_message_json(float posit
    return json.dump(2);
 }
 
-AllegroFlare::MotionComposer::Messages::SetPlayheadPosition* MessageFactory::create_set_playhead_position_message(float position)
+std::string MessageFactory::build_toggle_playing_message_json(float position)
 {
-   AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *set_playhead_position
-      = new AllegroFlare::MotionComposer::Messages::SetPlayheadPosition(position);
-   return set_playhead_position;
+   AllegroFlare::MotionComposer::Messages::TogglePlaying message;
+   nlohmann::json json;
+   json["message"] = message;
+   json["message"]["type"] = message.get_type();
+   return json.dump(2);
 }
 } // namespace MotionComposer
 } // namespace AllegroFlare
