@@ -78,6 +78,7 @@ namespace Timeline
    float Track::get(float time)
    {
       AllegroFlare::Timeline::Keyframe *global_right_keyframe = nullptr;
+
       float left_time = 0;
       float left_val = 0; //&start_val;
 
@@ -92,14 +93,17 @@ namespace Timeline
          AllegroFlare::Timeline::Keyframe &left_keyframe = *keyframes[i-1];
          AllegroFlare::Timeline::Keyframe &right_keyframe = *keyframes[1];
 
+         // time is exactly on one of the keyframe times
          if (right_keyframe.time == time) return right_keyframe.val;
          if (left_keyframe.time == time) return left_keyframe.val;
 
+         // time is between keyframes
          if (left_keyframe.time < time && right_keyframe.time > time)
          {
             left_val = left_keyframe.val;
             left_time = left_keyframe.time;
             global_right_keyframe = &right_keyframe;
+            break;
          }
       }
 
