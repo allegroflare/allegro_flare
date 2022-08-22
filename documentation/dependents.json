@@ -79,6 +79,7 @@
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -125,6 +126,7 @@
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -245,6 +247,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/ScrollBar",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -614,10 +617,14 @@
   "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits"
   ],
-  "AllegroFlare/Elements/RollingCredits/Sections/StandardColumn": [
+  "AllegroFlare/Elements/RollingCredits/Sections/Header": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
-  "AllegroFlare/Elements/RollingCredits/Sections/Header": [
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/StandardColumn": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
   "std/vector<std/tuple<std/string, std/string>>": [

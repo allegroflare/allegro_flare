@@ -9,6 +9,9 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
+#include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
+
+
 class AllegroFlare_Elements_RollingCredits_RollingCreditsTest : public ::testing::Test
 {};
 
@@ -40,6 +43,36 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits;
    rolling_credits.render();
    SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTest, set_sections__will_set_the_sections)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTest, set_sections__will_reset_the_y_offset_to_0)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
+   render__will_render_a_Header_section)
+{
+   //using namespace AllegroFlare::Elements::RollingCredits::Sections;
+
+   AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
+   rolling_credits.set_sections({
+      new AllegroFlare::Elements::RollingCredits::Sections::Header("This is the header text"),
+   });
+
+   rolling_credits.render();
+   al_flip_display();
+   sleep_for(1);
+
+   // TODO: destroy sections
 }
 
 

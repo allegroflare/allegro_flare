@@ -1,0 +1,84 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text
+    type: std::string
+    init_with: '"[unset-text]"'
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -32
+    getter: true
+    setter: true
+
+  - name: text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    type: float
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      ALLEGRO_FONT *font = obtain_font();
+      if (!text.empty())
+      {
+         al_draw_text(font, text_color, x, y, ALLEGRO_ALIGN_CENTER, text.c_str());
+      }
+      return al_get_font_line_height(font);
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream font_identifier;
+      font_identifier << font_name << " " << font_size;
+      return font_bin->auto_get(font_identifier.str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+

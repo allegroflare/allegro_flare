@@ -1,6 +1,8 @@
 
 
 #include <AllegroFlare/Elements/RollingCredits/RollingCredits.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>
@@ -60,10 +62,10 @@ float RollingCredits::get_surface_height()
 }
 
 
-void RollingCredits::set_sections()
+void RollingCredits::set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections)
 {
-   // TODO
-   // also set y_offset = 0
+   this->sections = sections;
+   y_offset = 0;
    return;
 }
 
@@ -81,9 +83,22 @@ void RollingCredits::render()
          error_message << "RollingCredits" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
+   using namespace AllegroFlare::Elements::RollingCredits;
+
    float cursor_y = 0;
+   float this_section_height = 0;
    for (auto &section : sections)
    {
+      if (section->is_type("Header"))
+      {
+         Sections::Header *typed_section = static_cast<Sections::Header*>(section);
+         SectionRenderers::Header renderer(
+               font_bin,
+               typed_section->get_text()
+            );
+         renderer.set_x(surface_width/2);
+         this_section_height = renderer.render();
+      }
       // TODO
    }
    return;

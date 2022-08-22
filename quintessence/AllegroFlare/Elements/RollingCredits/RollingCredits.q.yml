@@ -37,9 +37,13 @@ functions:
 
 
   - name: set_sections
+    parameters:
+      - name: sections
+        type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
+        default_argument: '{}'
     body: |
-      // TODO
-      // also set y_offset = 0
+      this->sections = sections;
+      y_offset = 0;
       return;
 
 
@@ -47,12 +51,28 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      using namespace AllegroFlare::Elements::RollingCredits;
+
       float cursor_y = 0;
+      float this_section_height = 0;
       for (auto &section : sections)
       {
+         if (section->is_type("Header"))
+         {
+            Sections::Header *typed_section = static_cast<Sections::Header*>(section);
+            SectionRenderers::Header renderer(
+                  font_bin,
+                  typed_section->get_text()
+               );
+            renderer.set_x(surface_width/2);
+            this_section_height = renderer.render();
+         }
          // TODO
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::RollingCredits::Sections::Header
+      - AllegroFlare::Elements::RollingCredits::SectionRenderers::Header
 
 
   - name: obtain_font
@@ -72,5 +92,9 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
     headers: [ vector, AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Header
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp ]
 
 
