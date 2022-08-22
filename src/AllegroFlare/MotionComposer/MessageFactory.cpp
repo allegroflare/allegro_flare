@@ -21,9 +21,8 @@ MessageFactory::~MessageFactory()
 }
 
 
-std::string MessageFactory::build_set_playead_position_message_json(float position)
+std::string MessageFactory::build_set_playhead_position_message_json(float position)
 {
-   // TODO: fix typo in this position
    AllegroFlare::MotionComposer::Messages::SetPlayheadPosition set_playhead_position(position);
    nlohmann::json json;
    json["message"] = set_playhead_position;
@@ -31,7 +30,7 @@ std::string MessageFactory::build_set_playead_position_message_json(float positi
    return json.dump(2);
 }
 
-AllegroFlare::MotionComposer::Messages::SetPlayheadPosition* MessageFactory::create_set_playead_position_message(float position)
+AllegroFlare::MotionComposer::Messages::SetPlayheadPosition* MessageFactory::create_set_playhead_position_message(float position)
 {
    AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *set_playhead_position
       = new AllegroFlare::MotionComposer::Messages::SetPlayheadPosition(position);

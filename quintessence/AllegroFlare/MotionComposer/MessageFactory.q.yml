@@ -1,14 +1,13 @@
 functions:
 
 
-  - name: build_set_playead_position_message_json
+  - name: build_set_playhead_position_message_json
     type: std::string
     parameters:
       - name: position
         type: float
         default_argument: 0.0f
     body: |
-       // TODO: fix typo in this position
        AllegroFlare::MotionComposer::Messages::SetPlayheadPosition set_playhead_position(position);
        nlohmann::json json;
        json["message"] = set_playhead_position;
@@ -19,7 +18,7 @@ functions:
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
 
 
-  - name: create_set_playead_position_message
+  - name: create_set_playhead_position_message
     type: AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*
     parameters:
       - name: position

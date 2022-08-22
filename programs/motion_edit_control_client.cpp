@@ -80,7 +80,7 @@ public:
 
    void send_set_playhead(float position=0.0)
    {
-      std::string message = message_factory.build_set_playead_position_message_json(position);
+      std::string message = message_factory.build_set_playhead_position_message_json(position);
       std::cout << "-------------" << std::endl;
       std::cout << "--MESSAGE_BUILT--" << std::endl;
       std::cout << message << std::endl;
