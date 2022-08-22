@@ -18,28 +18,24 @@ functions:
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
 
 
-  - name: build_toggle_playing_message_json
+  - name: build_toggle_playback_message_json
     type: std::string
-    parameters:
-      - name: position
-        type: float
-        default_argument: 0.0f
     body: |
-       AllegroFlare::MotionComposer::Messages::TogglePlaying message;
+       //AllegroFlare::MotionComposer::Messages::TogglePlayback message;
        nlohmann::json json;
-       json["message"] = message;
-       json["message"]["type"] = message.get_type();
+       //json["message"] = message;
+       //json["message"]["type"] = message.get_type();
+       //- AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
        return json.dump(2);
     body_dependency_symbols:
       - nlohmann::json
-      - AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlaying
 
 
 dependencies:
 
 
-  - symbol: AllegroFlare::MotionComposer::Messages::TogglePlaying
-    headers: [ AllegroFlare/MotionComposer/Messages/TogglePlaying.hpp ]
+  - symbol: AllegroFlare::MotionComposer::Messages::TogglePlayback
+    headers: [ AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp ]
   - symbol: AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*
     headers: [ AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp ]
   - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition

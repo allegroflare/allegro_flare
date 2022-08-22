@@ -10,13 +10,13 @@ namespace AllegroFlare
    {
       namespace Messages
       {
-         class TogglePlaying : public AllegroFlare::MotionComposer::Messages::Base
+         class TogglePlayback : public AllegroFlare::MotionComposer::Messages::Base
          {
          private:
 
          public:
-            TogglePlaying();
-            ~TogglePlaying();
+            TogglePlayback();
+            ~TogglePlayback();
 
          };
       }

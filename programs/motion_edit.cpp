@@ -17,6 +17,7 @@
 #include <AllegroFlare/MotionComposer/MessageProcessor.hpp>
 
 #include <AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp>
+#include <AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp>
 
 
 
@@ -109,9 +110,9 @@ public:
             Messages::SetPlayheadPosition *typed_message = static_cast<Messages::SetPlayheadPosition*>(message_to_execute);
             set_playhead_position(typed_message->get_position());
          }
-         if (message_to_execute->is_type("TogglePlaying"))
+         if (message_to_execute->is_type("TogglePlayback"))
          {
-            Messages::TogglePlaying *typed_message = static_cast<Messages::TogglePlaying*>(message_to_execute);
+            Messages::TogglePlayback *typed_message = static_cast<Messages::TogglePlayback*>(message_to_execute);
             toggle_playing();
          }
          else

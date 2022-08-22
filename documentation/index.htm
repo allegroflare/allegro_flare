@@ -4033,10 +4033,13 @@ table td
   <td class="method">build_set_playhead_position_message_json(1)</td>
 </tr>
 <tr>
-  <td class="method">create_set_playhead_position_message(1)</td>
+  <td class="method">build_toggle_playback_message_json()</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::TogglePlayback&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp&quot;]}</td>
 </tr>
@@ -7979,6 +7982,9 @@ table td
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
+  ],
+  "AllegroFlare/MotionComposer/Messages/TogglePlayback": [
+    "AllegroFlare/MotionComposer/MessageFactory"
   ],
   "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition": [
     "AllegroFlare/MotionComposer/MessageFactory"

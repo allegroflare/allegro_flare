@@ -711,6 +711,9 @@
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
   ],
+  "AllegroFlare/MotionComposer/Messages/TogglePlayback": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
   "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition": [
     "AllegroFlare/MotionComposer/MessageFactory"
   ],
