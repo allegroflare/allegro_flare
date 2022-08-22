@@ -31,12 +31,23 @@ std::string LoremIpsumGenerator::get_source_text()
 }
 
 
-void LoremIpsumGenerator::generate_characters(int num_characters)
+std::string LoremIpsumGenerator::generate_characters(int num_characters)
 {
-   // TODO
-   throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_characters: error: "
-                          "not implemented.");
-   return;
+   // TODO convert the arg type to size_t
+
+   if (num_characters > source_text.size())
+   {
+      // TODO: add this feature
+      throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_characters: error: "
+                             "requesting num_characters larger than source text not implemented.");
+   }
+
+   // remove all newline (\n) characters
+   std::string content = source_text;
+   std::string full_text_no_newlines = AllegroFlare::php::str_replace("\n", " ", content);
+
+   full_text_no_newlines.resize(num_characters);
+   return full_text_no_newlines;
 }
 
 void LoremIpsumGenerator::generate_characters_about(int num_characters)
@@ -366,7 +377,6 @@ std::string LoremIpsumGenerator::generate_source_text()
      "Curabitur eget dui in sem finibus feugiat eget non libero. Sed sollicitudin "
      "euismod sem, a pulvinar elit dapibus vitae. Duis dictum quam id felis gravida, "
      "ut porttitor purus sodales."
-
    };
 
    return FULL_LOREM_IPSUM_TEXT;

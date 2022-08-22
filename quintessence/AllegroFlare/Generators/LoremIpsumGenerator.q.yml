@@ -11,15 +11,27 @@ functions:
 
 
   - name: generate_characters
+    type: std::string
     parameters:
       - name: num_characters
         type: int
         default_argument: 1
     body: |
-      // TODO
-      throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_characters: error: "
-                             "not implemented.");
-      return;
+      // TODO convert the arg type to size_t
+
+      if (num_characters > source_text.size())
+      {
+         // TODO: add this feature
+         throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_characters: error: "
+                                "requesting num_characters larger than source text not implemented.");
+      }
+
+      // remove all newline (\n) characters
+      std::string content = source_text;
+      std::string full_text_no_newlines = AllegroFlare::php::str_replace("\n", " ", content);
+
+      full_text_no_newlines.resize(num_characters);
+      return full_text_no_newlines;
 
 
   - name: generate_characters_about
@@ -46,11 +58,11 @@ functions:
 
 
   - name: generate_sentences
+    type: std::string
     parameters:
       - name: num_sentences
         type: int
         default_argument: 1
-    type: std::string
     body: |
       // remove all newline (\n) characters
       std::string content = source_text;
@@ -80,11 +92,11 @@ functions:
 
 
   - name: generate_paragraphs
+    type: std::string
     parameters:
       - name: num_paragraphs
         type: int
         default_argument: 1
-    type: std::string
     body: |
       static std::vector<std::string> paragraphs = split(source_text, '\n');
       std::stringstream result;
@@ -99,8 +111,8 @@ functions:
 
 
   - name: generate_source_text
-    private: true
     type: std::string
+    private: true
     static: true
     body: |
       static std::string FULL_LOREM_IPSUM_TEXT = {
@@ -372,7 +384,6 @@ functions:
         "Curabitur eget dui in sem finibus feugiat eget non libero. Sed sollicitudin "
         "euismod sem, a pulvinar elit dapibus vitae. Duis dictum quam id felis gravida, "
         "ut porttitor purus sodales."
-
       };
 
       return FULL_LOREM_IPSUM_TEXT;

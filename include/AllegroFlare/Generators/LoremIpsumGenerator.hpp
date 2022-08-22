@@ -19,7 +19,7 @@ namespace AllegroFlare
          ~LoremIpsumGenerator();
 
          std::string get_source_text();
-         void generate_characters(int num_characters=1);
+         std::string generate_characters(int num_characters=1);
          void generate_characters_about(int num_characters=1);
          void generate_words(int num_words=1);
          std::string generate_sentences(int num_sentences=1);

@@ -55,3 +55,29 @@ TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest,
 }
 
 
+TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest,
+   generate_characters__will_return_characters_and_spaces_of_lorem_ipsum_text_without_newlines)
+{
+   AllegroFlare::Generators::LoremIpsumGenerator lorem_ipsum_generator;
+
+   std::vector<std::pair<int, std::string>> num_characters_and_expected_source_texts = {
+      { 6,   "Lorem " },
+      { 78,  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla arcu " },
+      { 78,  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla arcu " },
+      { 256, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla arcu "
+             "nec magna mattis cursus. Maecenas non justo urna. Vivamus eu augue tristique, "
+             "pharetra enim ut, sollicitudin quam. Aenean ut purus at enim elementum rhoncus. "
+             "In a finibus sapien." },
+   };
+
+   for (auto &num_characters_and_expected_source_text : num_characters_and_expected_source_texts)
+   {
+      int num_characters = num_characters_and_expected_source_text.first;
+      std::string expected_source_texts = num_characters_and_expected_source_text.second;
+
+      ASSERT_EQ(num_characters, expected_source_texts.size());
+      EXPECT_EQ(expected_source_texts, lorem_ipsum_generator.generate_characters(num_characters));
+   }
+}
+
+
