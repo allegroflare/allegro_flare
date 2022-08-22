@@ -7,7 +7,6 @@
 #include <AllegroFlare/Network2/Server.hpp>
 
 
-
 #include <chrono>
 #include <thread>
 static void sleep_for(float length_in_seconds)

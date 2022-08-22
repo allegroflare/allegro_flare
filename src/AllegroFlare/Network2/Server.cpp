@@ -308,12 +308,19 @@ namespace Network2
 
 Server::Server(std::atomic<bool> *global_abort)
    : global_abort(global_abort)
+   , port("5432")
 {
 }
 
 
 Server::~Server()
 {
+}
+
+
+void Server::set_port(std::string port)
+{
+   this->port = port;
 }
 
 
@@ -326,7 +333,7 @@ void Server::run_blocking_while_awaiting_abort()
    }
    //server_runner();
 
-   std::string port = "5432";
+   //std::string port = "5432";
 
 
 

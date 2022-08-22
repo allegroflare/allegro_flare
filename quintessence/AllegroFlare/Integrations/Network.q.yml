@@ -13,6 +13,18 @@ properties:
     type: std::atomic<bool>
     init_with: false
 
+  - name: TEST_HOST_NAME
+    type: std::string
+    static: true
+    const: true
+    init_with: '"localhost"'
+
+  - name: TEST_PORT_NUM
+    type: std::string
+    static: true
+    const: true
+    init_with: '"5433"'
+
   - name: captured_callback_messages
     type: std::vector<std::string>
     init_with: '{}'
@@ -59,6 +71,7 @@ functions:
       //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
 
       AllegroFlare::Network2::Server server(global_abort);
+      server.set_port(TEST_PORT_NUM);
       server.run_blocking_while_awaiting_abort();
       return;
     body_dependency_symbols:
@@ -89,6 +102,8 @@ functions:
       //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
  
       AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback, callback_data);
+      client.set_host(TEST_HOST_NAME);
+      client.set_port(TEST_PORT_NUM);
       client.run_blocking_while_awaiting_abort();
       return;
     body_dependency_symbols:

@@ -20,6 +20,8 @@
 #include <AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp>
 
 
+#include <AllegroFlare/MotionFX/Sparkles2.hpp>
+
 
 std::vector<std::string> message_queue = {};
 //std::mutex current_message_mutex;
@@ -41,6 +43,9 @@ private:
    AllegroFlare::FontBin *font_bin;
    AllegroFlare::BitmapBin *bitmap_bin;
 
+   AllegroFlare::MotionFX::Sparkles2 sparkles2;
+
+
    bool playing;
 
 public:
@@ -51,34 +56,36 @@ public:
       , messages_processed(0)
       , font_bin(font_bin)
       , bitmap_bin(bitmap_bin)
+      , sparkles2(bitmap_bin, 1920/2, 1080/2)
       , playing(false)
    {}
    ~MotionEdit() {}
 
    void initialize()
    {
+      sparkles2.initialize();
       //actors = {
-      actors = {
-         new AllegroFlare::Timeline::Actor2D("star1", obtain_star_bitmap()),
-         new AllegroFlare::Timeline::Actor2D("star2", obtain_star_bitmap()),
-         new AllegroFlare::Timeline::Actor2D("star3", obtain_star_bitmap()),
-         new AllegroFlare::Timeline::Actor2D("star4", obtain_star_bitmap()),
-         new AllegroFlare::Timeline::Actor2D("star5", obtain_star_bitmap()),
-      };
+      //actors = {
+         //new AllegroFlare::Timeline::Actor2D("star1", obtain_star_bitmap()),
+         //new AllegroFlare::Timeline::Actor2D("star2", obtain_star_bitmap()),
+         //new AllegroFlare::Timeline::Actor2D("star3", obtain_star_bitmap()),
+         //new AllegroFlare::Timeline::Actor2D("star4", obtain_star_bitmap()),
+         //new AllegroFlare::Timeline::Actor2D("star5", obtain_star_bitmap()),
+      //};
       //   new AllegroFlare::Timeline::Actor2D(),
       //}
    }
 
-   ALLEGRO_BITMAP* obtain_star_bitmap()
-   {
-      if (!(bitmap_bin))
-         {
-            std::stringstream error_message;
-            error_message << "MotionEdit" << "::" << "obtain_star_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
-            throw std::runtime_error(error_message.str());
-         }
-      return bitmap_bin->auto_get("star-b.png");
-   }
+   //ALLEGRO_BITMAP* obtain_star_bitmap()
+   //{
+      //if (!(bitmap_bin))
+         //{
+            //std::stringstream error_message;
+            //error_message << "MotionEdit" << "::" << "obtain_star_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+            //throw std::runtime_error(error_message.str());
+         //}
+      //return bitmap_bin->auto_get("star-b.png");
+   //}
 
    void process_message()
    {
@@ -89,16 +96,20 @@ public:
       std::cout << "Processing 1 message" << std::endl;
       std::cout << "********************" << std::endl;
 
+            std::cout << "AAAAAAAAA" << std::endl << std::flush;
       // grab a raw message off our local queue, put it into the processor
       message_processor.push_one(message_queue.front());
       message_queue.erase(message_queue.begin()); // (equivelent to .pop_front())
+            std::cout << "BBBBBBBBB" << std::endl << std::flush;
 
       // convert the message
       message_processor.convert_one();
 
+            std::cout << "CCCCCCCC" << std::endl << std::flush;
       // extract the processed the message
       //std::cout << "message processor size: " << message_processor.size() << std::endl;
       AllegroFlare::MotionComposer::Messages::Base* message_to_execute = message_processor.get_one_message_and_pop();
+            std::cout << "DDDDDDDD" << std::endl << std::flush;
 
       // execute the message
       if (message_to_execute != nullptr)
@@ -112,8 +123,10 @@ public:
          }
          else if (message_to_execute->is_type("TogglePlayback"))
          {
+            std::cout << "EEEEEEEE" << std::endl << std::flush;
             Messages::TogglePlayback *typed_message = static_cast<Messages::TogglePlayback*>(message_to_execute);
             toggle_playing();
+            std::cout << "FFFFFFF" << std::endl << std::flush;
          }
          else
          {
@@ -123,14 +136,19 @@ public:
             throw std::runtime_error(error_message.str());
          }
          messages_processed++;
-      }
 
-      delete message_to_execute;
+         delete message_to_execute;
+      }
    }
 
    void update()
    {
       process_message();
+      if (playing)
+      {
+         playhead_position += (1/60.0f) * 0.501;
+      }
+      sparkles2.set_time(playhead_position);
    }
 
    void set_playhead_position(float position=0.0)
@@ -146,10 +164,32 @@ public:
 
    void draw()
    {
+            std::cout << "GGGGGGGGg" << std::endl << std::flush;
+
+      draw_message_queue();
+
+            std::cout << "HHHHHHHh" << std::endl << std::flush;
+      sparkles2.render();
+            std::cout << "IIIIIII" << std::endl << std::flush;
+
+      //for (auto &actor : actors)
+      //{
+         ////TrackView track_view(actor);
+      //}
+
+      draw_playhead_position();
+
+      draw_messages_processed();
+   }
+
+   void draw_message_queue()
+   {
       // draw
       ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
       float width = 1100;
-      AllegroFlare::Placement2D place(1920/2, 1080/2, width, 600);
+      AllegroFlare::Placement2D place(10, 10, width, 600);
+      place.scale.x = 0.25;
+      place.scale.y = 0.25;
       float line_height= 30;
 
       place.start_transform();
@@ -163,15 +203,6 @@ public:
       }
 
       place.restore_transform();
-
-      for (auto &actor : actors)
-      {
-         //TrackView track_view(actor);
-      }
-
-      draw_playhead_position();
-
-      draw_messages_processed();
    }
 
    void draw_playhead_position()

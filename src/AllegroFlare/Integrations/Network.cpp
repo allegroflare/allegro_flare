@@ -11,6 +11,12 @@ namespace Integrations
 {
 
 
+std::string Network::TEST_HOST_NAME = "localhost";
+
+
+std::string Network::TEST_PORT_NUM = "5433";
+
+
 std::vector<std::string> Network::captured_callback_messages = {};
 
 
@@ -54,6 +60,7 @@ void Network::run_server_blocking(std::atomic<bool>* global_abort)
    //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
 
    AllegroFlare::Network2::Server server(global_abort);
+   server.set_port(TEST_PORT_NUM);
    server.run_blocking_while_awaiting_abort();
    return;
 }
@@ -64,6 +71,8 @@ void Network::run_client_blocking(std::atomic<bool>* global_abort, std::vector<s
    //https://stackoverflow.com/questions/18183174/how-do-i-correctly-randomly-assign-a-port-to-a-test-http-server-using-boost-asio
 
    AllegroFlare::Network2::Client client(global_abort, messages_queue, messages_queue_mutex, callback, callback_data);
+   client.set_host(TEST_HOST_NAME);
+   client.set_port(TEST_PORT_NUM);
    client.run_blocking_while_awaiting_abort();
    return;
 }

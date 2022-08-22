@@ -19,6 +19,8 @@ namespace AllegroFlare
          std::mutex *messages_queue_mutex;
          void (*callback)(std::string, void*);
          void *callback_passed_data;
+         std::string host;
+         std::string port;
 
       public:
          Client(
@@ -30,6 +32,9 @@ namespace AllegroFlare
          );
 
          ~Client();
+
+         void set_host(std::string host="localhost");
+         void set_port(std::string port="5432");
 
          void run_blocking_while_awaiting_abort();
       };

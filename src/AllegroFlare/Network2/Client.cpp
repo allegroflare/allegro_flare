@@ -358,13 +358,26 @@ Client::Client(
    , messages_queue_mutex(messages_queue_mutex)
    , callback(callback)
    , callback_passed_data(callback_passed_data)
-
+   , host("localhost")
+   , port("5432")
 {
 }
 
 
 Client::~Client()
 {
+}
+
+
+void Client::set_port(std::string port)
+{
+   this->port = port;
+}
+
+
+void Client::set_host(std::string host)
+{
+   this->host = host;
 }
 
 
@@ -388,7 +401,7 @@ void Client::run_blocking_while_awaiting_abort()
                                "messages_queue_mutex cannot be nullptr.");
    }
 
-   client_runner(global_abort, messages_queue, messages_queue_mutex, callback, callback_passed_data);
+   client_runner(global_abort, messages_queue, messages_queue_mutex, callback, callback_passed_data, host, port);
    return;
 }
 } // namespace Network2

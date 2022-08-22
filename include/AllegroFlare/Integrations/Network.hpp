@@ -16,6 +16,8 @@ namespace AllegroFlare
       {
       private:
          std::atomic<bool> global_abort;
+         static std::string TEST_HOST_NAME;
+         static std::string TEST_PORT_NUM;
          static std::vector<std::string> captured_callback_messages;
 
       public:
