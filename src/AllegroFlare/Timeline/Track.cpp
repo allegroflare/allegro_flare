@@ -88,10 +88,12 @@ namespace Timeline
       if (time <= keyframes.front()->time) return keyframes.front()->val;
       if (time >= keyframes.back()->time) return keyframes.back()->val;
 
+      
+
       for (unsigned i=1; i<keyframes.size(); i++)
       {
          AllegroFlare::Timeline::Keyframe &left_keyframe = *keyframes[i-1];
-         AllegroFlare::Timeline::Keyframe &right_keyframe = *keyframes[1];
+         AllegroFlare::Timeline::Keyframe &right_keyframe = *keyframes[i];
 
          // time is exactly on one of the keyframe times
          if (right_keyframe.time == time) return right_keyframe.val;

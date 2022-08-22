@@ -72,6 +72,19 @@ TEST(AllegroFlare_Timeline_TrackTest,
 
 
 TEST(AllegroFlare_Timeline_TrackTest,
+   get__with_this_particular_set_of_for_some_reason_buggy_keyframes__will_interpolate_as_expected)
+{
+   AllegroFlare::Timeline::Track track;
+   track.set_keyframes({
+      new AllegroFlare::Timeline::Keyframe(0.0, 0.0),
+      new AllegroFlare::Timeline::Keyframe(0.2, 1.0),
+      new AllegroFlare::Timeline::Keyframe(1.9, 1.0),
+   });
+   EXPECT_EQ(1.5f, track.get(1.0));
+}
+
+
+TEST(AllegroFlare_Timeline_TrackTest,
    get__with_a_time_on_a_keyframe__will_return_the_value_of_the_keyframe)
 {
    AllegroFlare::Timeline::Track track;

@@ -101,8 +101,12 @@ void Sparkles2::initialize()
    std::vector<std::string> script_lines = {
       "0.0 rotation 4.0 linear",
       "2.0 rotation 0.0 tripple_fast_in",
+
       "0.0 opacity 0.0 linear",
       "0.2 opacity 1.0 linear",
+      "1.9 opacity 1.0 linear",
+      "2.2 opacity 0.0 fast_out",
+
       "0.0 scale_x 0 linear",
       "0.0 scale_y 0 linear",
       "0.1 scale_x 0 linear",
@@ -117,10 +121,6 @@ void Sparkles2::initialize()
       "0 color_r 0.91 linear",
       "0 color_g 0.875 linear",
       "0 color_b 0.537 linear",
-
-      // fade out
-      "1.9 opacity 1.0 linear",
-      "2.2 opacity 0.0 fast_out",
    };
    main_star_actor->load_script(script_lines);
 
