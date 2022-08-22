@@ -721,6 +721,9 @@
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor"
   ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor"

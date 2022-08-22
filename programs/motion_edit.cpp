@@ -110,7 +110,7 @@ public:
             Messages::SetPlayheadPosition *typed_message = static_cast<Messages::SetPlayheadPosition*>(message_to_execute);
             set_playhead_position(typed_message->get_position());
          }
-         if (message_to_execute->is_type("TogglePlayback"))
+         else if (message_to_execute->is_type("TogglePlayback"))
          {
             Messages::TogglePlayback *typed_message = static_cast<Messages::TogglePlayback*>(message_to_execute);
             toggle_playing();

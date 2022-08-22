@@ -21,14 +21,14 @@ functions:
   - name: build_toggle_playback_message_json
     type: std::string
     body: |
-       //AllegroFlare::MotionComposer::Messages::TogglePlayback message;
+       AllegroFlare::MotionComposer::Messages::TogglePlayback message;
        nlohmann::json json;
-       //json["message"] = message;
-       //json["message"]["type"] = message.get_type();
-       //- AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
+       json["message"] = message;
+       json["message"]["type"] = message.get_type();
        return json.dump(2);
     body_dependency_symbols:
       - nlohmann::json
+      - AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
 
 
 dependencies:
@@ -40,6 +40,8 @@ dependencies:
     headers: [ AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp ]
   - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
     headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
+    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp ]
   - symbol: nlohmann::json
     headers: [ lib/nlohmann/json.hpp ]
 
