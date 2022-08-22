@@ -81,29 +81,27 @@ namespace Timeline
       float left_time = 0;
       float *left_val = &start_val;
 
-      if (keyframes.empty() || time < 0) return start_val;
-      else if (time >= keyframes.back()->time) return keyframes.back()->val;
-      else if (time <= keyframes.front()->time)
+      if (keyframes.empty()) return start_val;
+      if (keyframes.size() == 1) return keyframes[0]->val;
+
+      if (time <= keyframes.front()->time) return keyframes.front()->val;
+      if (time >= keyframes.back()->time) return keyframes.back()->val;
+
+      for (unsigned i=1; i<keyframes.size(); i++)
       {
-         right = keyframes.front();
-      }
-      else
-      {
-         // would probably be faster in a binary search?
-         for (unsigned i=1; i<keyframes.size(); i++)
-            if (keyframes[i-1]->time < time && time < keyframes[i]->time)
-            {
-               left_val = &keyframes[i-1]->val;
-               left_time = keyframes[i-1]->time;
-               right = keyframes[i];
-               break;
-            }
+         if (keyframes[i-1]->time < time && time < keyframes[i]->time)
+         {
+            left_val = &keyframes[i-1]->val;
+            left_time = keyframes[i-1]->time;
+            right = keyframes[i];
+            break;
+         }
       }
 
       float time_width = right->time - left_time;
+
       float time_in = time - left_time;
       float time_normal = time_in / time_width;
-
       float val_delta = right->val - *left_val;
 
       return right->interpolator_func(time_normal) * val_delta + *left_val;
