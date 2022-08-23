@@ -67,6 +67,11 @@ properties:
     getter: true
     setter: true
 
+  - name: scroll_is_past_end
+    type: bool
+    init_with: false
+    getter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -80,16 +85,9 @@ functions:
     override: true
     guards: [ initialized ] 
     body: |
-      y_offset = surface_height;
+      y_offset = -surface_height;
+      scroll_is_past_end = false;
       return;
-
-
-  - name: scroll_is_past_end
-    type: bool
-    body: |
-      // TODO: emit event when scroll is past end
-      return false;
-      //TODO: return y_offset > cached_calculated_height;
 
 
   - name: set_font_bin
@@ -122,6 +120,7 @@ functions:
       rolling_credits_component.set_font_bin(font_bin);
       rolling_credits_component.initialize();
       //rolling_credits_component.set_y_offset(y_offset);
+      cached_calculated_height = rolling_credits_component.calculate_height();
       initialized = true;
       return;
 
@@ -129,14 +128,32 @@ functions:
   - name: update
     type: void
     body: |
-      y_offset -= y_speed;
+      if (scroll_is_past_end) return;
+
+      y_offset += y_speed;
+      if (y_offset > cached_calculated_height)
+      {
+         scroll_is_past_end = true;
+         emit_completion_event();
+      }
+      return;
+
+
+  - name: emit_completion_event
+    private: true
+    type: void
+    body: |
+      if (!game_event_name_to_emit_after_completing.empty())
+      {
+         event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+      }
       return;
 
 
   - name: render
     type: void
     body: |
-      rolling_credits_component.set_y_offset(y_offset);
+      rolling_credits_component.set_y_offset(-y_offset);
       rolling_credits_component.render();
       return;
 

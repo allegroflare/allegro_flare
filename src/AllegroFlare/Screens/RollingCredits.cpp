@@ -28,6 +28,7 @@ RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::Ev
    , y_speed(2.0f)
    , cached_calculated_height(0.0f)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
+   , scroll_is_past_end(false)
    , initialized(false)
 {
 }
@@ -116,6 +117,12 @@ std::string RollingCredits::get_game_event_name_to_emit_after_completing()
 }
 
 
+bool RollingCredits::get_scroll_is_past_end()
+{
+   return scroll_is_past_end;
+}
+
+
 AllegroFlare::Elements::RollingCredits::RollingCredits &RollingCredits::get_rolling_credits_component_ref()
 {
    return rolling_credits_component;
@@ -142,15 +149,9 @@ void RollingCredits::on_activate()
          error_message << "RollingCredits" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   y_offset = surface_height;
+   y_offset = -surface_height;
+   scroll_is_past_end = false;
    return;
-}
-
-bool RollingCredits::scroll_is_past_end()
-{
-   // TODO: emit event when scroll is past end
-   return false;
-   //TODO: return y_offset > cached_calculated_height;
 }
 
 void RollingCredits::set_font_bin(AllegroFlare::FontBin* font_bin)
@@ -190,19 +191,36 @@ void RollingCredits::initialize()
    rolling_credits_component.set_font_bin(font_bin);
    rolling_credits_component.initialize();
    //rolling_credits_component.set_y_offset(y_offset);
+   cached_calculated_height = rolling_credits_component.calculate_height();
    initialized = true;
    return;
 }
 
 void RollingCredits::update()
 {
-   y_offset -= y_speed;
+   if (scroll_is_past_end) return;
+
+   y_offset += y_speed;
+   if (y_offset > cached_calculated_height)
+   {
+      scroll_is_past_end = true;
+      emit_completion_event();
+   }
+   return;
+}
+
+void RollingCredits::emit_completion_event()
+{
+   if (!game_event_name_to_emit_after_completing.empty())
+   {
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+   }
    return;
 }
 
 void RollingCredits::render()
 {
-   rolling_credits_component.set_y_offset(y_offset);
+   rolling_credits_component.set_y_offset(-y_offset);
    rolling_credits_component.render();
    return;
 }

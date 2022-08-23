@@ -26,6 +26,7 @@ namespace AllegroFlare
          float y_speed;
          float cached_calculated_height;
          std::string game_event_name_to_emit_after_completing;
+         bool scroll_is_past_end;
          bool initialized;
 
       public:
@@ -45,15 +46,16 @@ namespace AllegroFlare
          float get_y_speed();
          float get_cached_calculated_height();
          std::string get_game_event_name_to_emit_after_completing();
+         bool get_scroll_is_past_end();
          AllegroFlare::Elements::RollingCredits::RollingCredits &get_rolling_credits_component_ref();
          float &get_y_offset_ref();
          float &get_y_speed_ref();
          virtual void on_activate() override;
-         bool scroll_is_past_end();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={});
          void initialize();
          void update();
+         void emit_completion_event();
          void render();
          virtual void primary_timer_func() override;
       };
