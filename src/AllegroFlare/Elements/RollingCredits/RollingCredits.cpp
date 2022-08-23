@@ -29,7 +29,7 @@ RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, std::vector<Alle
    , surface_width(surface_width)
    , surface_height(surface_height)
    , y_offset(0.0f)
-   , section_separator_margin(30.0f)
+   , section_separator_margin(36.0f)
    , height_calculated(0)
    , initialized(false)
 {

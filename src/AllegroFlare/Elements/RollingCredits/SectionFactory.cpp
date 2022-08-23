@@ -22,14 +22,18 @@ SectionFactory::~SectionFactory()
 }
 
 
-AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels SectionFactory::build_column_with_labels_section(std::vector<std::tuple<std::string, std::string>> sections)
+AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels* SectionFactory::create_column_with_labels(std::vector<std::tuple<std::string, std::string>> elements)
 {
-   return AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels(sections);
+   AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels* section =
+     new AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels(elements);
+   return section;
 }
 
-AllegroFlare::Elements::RollingCredits::Sections::Header SectionFactory::build_header_section(std::string text)
+AllegroFlare::Elements::RollingCredits::Sections::Header* SectionFactory::create_header(std::string text)
 {
-   return AllegroFlare::Elements::RollingCredits::Sections::Header(text);
+   AllegroFlare::Elements::RollingCredits::Sections::Header* section =
+     new AllegroFlare::Elements::RollingCredits::Sections::Header(text);
+   return section;
 }
 } // namespace RollingCredits
 } // namespace Elements

@@ -36,7 +36,7 @@ properties:
 
   - name: section_separator_margin
     type: float
-    init_with: 30.0f
+    init_with: 36.0f
     getter: true
     setter: true
 

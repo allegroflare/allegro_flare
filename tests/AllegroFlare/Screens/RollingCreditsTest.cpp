@@ -16,6 +16,7 @@ class AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
+#include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 
 #include <AllegroFlare/Screens/RollingCredits.hpp>
 
@@ -62,12 +63,27 @@ TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture,
    //al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
+   AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
    AllegroFlare::Screens::RollingCredits rolling_credits_screen;
    rolling_credits_screen.set_font_bin(&get_font_bin_ref());
    rolling_credits_screen.set_sections({
+      section_factory.create_header("This is the Header"),
+      section_factory.create_column_with_labels({
+         { "Producer", "Robyn Kendall" },
+         { "Production Design", "Tayyibah Samuels" },
+         { "Music", "Ryker Odling" },
+         { "Sound Design", "Aiza Rivera" },
+         { "Lead Programming", "Annaliese Bauer" },
+         { "Programming", "Anya Schofield" },
+         { "Motion Design", "Ellenor Cote" },
+         { "Element Design", "Katy Swanson" },
+         { "Marketing Manager", "Melina Kelly" },
+         { "Set Design", "Abby Burton" },
+      }),
    });
    //rolling_credits_screen.set_event_emitter(&event_emitter);
    rolling_credits_screen.initialize();
+   rolling_credits_screen.on_activate();
 
    // run the interactive test
    al_start_timer(primary_timer);

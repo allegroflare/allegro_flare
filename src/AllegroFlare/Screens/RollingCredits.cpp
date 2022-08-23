@@ -115,7 +115,7 @@ void RollingCredits::on_activate()
          error_message << "RollingCredits" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   y_offset = 0;
+   y_offset = surface_height;
    return;
 }
 
@@ -151,14 +151,18 @@ void RollingCredits::initialize()
          error_message << "RollingCredits" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
+   rolling_credits_component.set_surface_height(surface_height);
+   rolling_credits_component.set_surface_width(surface_width);
    rolling_credits_component.set_font_bin(font_bin);
    rolling_credits_component.initialize();
+   //rolling_credits_component.set_y_offset(y_offset);
+   initialized = true;
    return;
 }
 
 void RollingCredits::update()
 {
-   y_offset += y_speed;
+   y_offset -= y_speed;
    return;
 }
 

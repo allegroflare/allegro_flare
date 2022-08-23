@@ -22,8 +22,8 @@ namespace AllegroFlare
             SectionFactory();
             ~SectionFactory();
 
-            AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels build_column_with_labels_section(std::vector<std::tuple<std::string, std::string>> sections={});
-            AllegroFlare::Elements::RollingCredits::Sections::Header build_header_section(std::string text="[unset-text]");
+            AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels* create_column_with_labels(std::vector<std::tuple<std::string, std::string>> elements={});
+            AllegroFlare::Elements::RollingCredits::Sections::Header* create_header(std::string text={});
          };
       }
    }

@@ -1,33 +1,37 @@
 functions:
 
 
-  - name: build_column_with_labels_section
-    type: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
+  - name: create_column_with_labels
+    type: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels*
     parameters:
-      - name: sections
+      - name: elements
         type: std::vector<std::tuple<std::string, std::string>>
         default_argument: '{}'
     body: |
-      return AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels(sections);
+      AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels* section =
+        new AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels(elements);
+      return section;
 
 
-  - name: build_header_section
-    type: AllegroFlare::Elements::RollingCredits::Sections::Header
+  - name: create_header
+    type: AllegroFlare::Elements::RollingCredits::Sections::Header*
     parameters:
       - name: text
         type: std::string
-        default_argument: '"[unset-text]"'
+        default_argument: '{}'
     body: |
-      return AllegroFlare::Elements::RollingCredits::Sections::Header(text);
-
+      AllegroFlare::Elements::RollingCredits::Sections::Header* section =
+        new AllegroFlare::Elements::RollingCredits::Sections::Header(text);
+      return section;
+    
 
 dependencies:
 
 
-  - symbol: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
-    headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
-  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header*
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels*
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
   - symbol: std::vector<std::tuple<std::string, std::string>>
     headers: [ vector, tuple, string ]
 

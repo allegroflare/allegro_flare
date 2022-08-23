@@ -10,17 +10,3 @@ TEST(AllegroFlare_Elements_RollingCredits_SectionFactoryTest, can_be_created_wit
 }
 
 
-TEST(AllegroFlare_Elements_RollingCredits_SectionFactoryTest,
-   build_column_with_labels_section__builds_the_object_with_the_expected_properties)
-{
-   // TODO
-}
-
-
-TEST(AllegroFlare_Elements_RollingCredits_SectionFactoryTest,
-   build_header_section__builds_the_object_with_the_expected_properties)
-{
-   // TODO
-}
-
-
