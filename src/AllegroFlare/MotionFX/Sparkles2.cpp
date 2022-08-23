@@ -103,7 +103,7 @@ void Sparkles2::initialize()
       "2.0 rotation 0.0 tripple_fast_in",
 
       "0.0 opacity 0.0 linear",
-      "0.2 opacity 1.0 linear",
+      "0.4 opacity 1.0 linear",
       "1.9 opacity 1.0 linear",
       "2.2 opacity 0.0 fast_out",
 
@@ -153,7 +153,7 @@ std::vector<std::string> Sparkles2::build_friend_star_script_lines(float rotatio
       rotation_end_line.str(),
 
       "0.0 opacity 0.0 linear",
-      "0.2 opacity 1.0 linear",
+      "0.3 opacity 1.0 linear",
 
       "0.0 scale_x 0 linear",
       "0.0 scale_y 0 linear",
