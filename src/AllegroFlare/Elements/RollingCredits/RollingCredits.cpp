@@ -5,6 +5,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
@@ -36,6 +38,12 @@ RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, std::vector<Alle
 
 RollingCredits::~RollingCredits()
 {
+}
+
+
+void RollingCredits::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
 }
 
 
@@ -101,6 +109,12 @@ float RollingCredits::get_height_calculated()
 
 void RollingCredits::initialize()
 {
+   if (!(font_bin))
+      {
+         std::stringstream error_message;
+         error_message << "RollingCredits" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    height_calculated = calculate_height();
    initialized = true;
    return;

@@ -104,6 +104,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
@@ -144,6 +145,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -325,6 +327,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen"
   ],
@@ -619,7 +622,8 @@
     "AllegroFlare/Elements/PlayingCards/DeckFactory"
   ],
   "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
-    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Screens/RollingCredits"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Header": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -980,6 +984,9 @@
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Elements/RollingCredits/RollingCredits": [
+    "AllegroFlare/Screens/RollingCredits"
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
