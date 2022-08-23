@@ -19,6 +19,7 @@ class AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 
 #include <AllegroFlare/Screens/RollingCredits.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 
 
 TEST_F(AllegroFlare_Screens_RollingCreditsTest, can_be_created_without_blowing_up)
@@ -58,14 +59,15 @@ TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture,
    ALLEGRO_EVENT event;
 
    // setup environment
-   //AllegroFlare::EventEmitter event_emitter;
-   //event_emitter.initialize();
-   //al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
    AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
    AllegroFlare::Screens::RollingCredits rolling_credits_screen;
    rolling_credits_screen.set_font_bin(&get_font_bin_ref());
+   rolling_credits_screen.set_event_emitter(&event_emitter);
    rolling_credits_screen.set_sections({
       section_factory.create_header("This is the Header"),
       section_factory.create_column_with_labels({
@@ -81,7 +83,6 @@ TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture,
          { "Set Design", "Abby Burton" },
       }),
    });
-   //rolling_credits_screen.set_event_emitter(&event_emitter);
    rolling_credits_screen.initialize();
    rolling_credits_screen.on_activate();
 

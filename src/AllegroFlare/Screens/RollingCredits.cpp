@@ -17,14 +17,17 @@ namespace Screens
 {
 
 
-RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits_component, float surface_width, float surface_height)
+RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits_component, float surface_width, float surface_height, std::string game_event_name_to_emit_after_completing)
    : AllegroFlare::Screens::Base("RollingCredits")
    , font_bin(font_bin)
+   , event_emitter(event_emitter)
    , rolling_credits_component(rolling_credits_component)
    , surface_width(surface_width)
    , surface_height(surface_height)
    , y_offset(0.0f)
    , y_speed(2.0f)
+   , cached_calculated_height(0.0f)
+   , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
    , initialized(false)
 {
 }
@@ -32,6 +35,12 @@ RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::El
 
 RollingCredits::~RollingCredits()
 {
+}
+
+
+void RollingCredits::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
 }
 
 
@@ -56,6 +65,12 @@ void RollingCredits::set_y_offset(float y_offset)
 void RollingCredits::set_y_speed(float y_speed)
 {
    this->y_speed = y_speed;
+}
+
+
+void RollingCredits::set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing)
+{
+   this->game_event_name_to_emit_after_completing = game_event_name_to_emit_after_completing;
 }
 
 
@@ -89,6 +104,18 @@ float RollingCredits::get_y_speed()
 }
 
 
+float RollingCredits::get_cached_calculated_height()
+{
+   return cached_calculated_height;
+}
+
+
+std::string RollingCredits::get_game_event_name_to_emit_after_completing()
+{
+   return game_event_name_to_emit_after_completing;
+}
+
+
 AllegroFlare::Elements::RollingCredits::RollingCredits &RollingCredits::get_rolling_credits_component_ref()
 {
    return rolling_credits_component;
@@ -117,6 +144,13 @@ void RollingCredits::on_activate()
       }
    y_offset = surface_height;
    return;
+}
+
+bool RollingCredits::scroll_is_past_end()
+{
+   // TODO: emit event when scroll is past end
+   return false;
+   //TODO: return y_offset > cached_calculated_height;
 }
 
 void RollingCredits::set_font_bin(AllegroFlare::FontBin* font_bin)

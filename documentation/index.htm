@@ -6689,6 +6689,10 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
   <td class="property">rolling_credits_component</td>
   <td class="property">AllegroFlare::Elements::RollingCredits::RollingCredits</td>
 </tr>
@@ -6709,6 +6713,14 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">cached_calculated_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">game_event_name_to_emit_after_completing</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -6716,6 +6728,9 @@ table td
      <table>
 <tr>
   <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">scroll_is_past_end()</td>
 </tr>
 <tr>
   <td class="method">set_font_bin(1)</td>
@@ -6751,6 +6766,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::RollingCredits::Sections::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/RollingCredits/Sections/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -8017,6 +8035,7 @@ table td
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",

@@ -14,6 +14,12 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: rolling_credits_component
     type: AllegroFlare::Elements::RollingCredits::RollingCredits
     init_with: '{}'
@@ -49,6 +55,18 @@ properties:
     getter_ref: true
     setter: true
 
+  - name: cached_calculated_height
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: game_event_name_to_emit_after_completing
+    type: std::string
+    init_with: '"rolling_credits_finished"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -64,6 +82,14 @@ functions:
     body: |
       y_offset = surface_height;
       return;
+
+
+  - name: scroll_is_past_end
+    type: bool
+    body: |
+      // TODO: emit event when scroll is past end
+      return false;
+      //TODO: return y_offset > cached_calculated_height;
 
 
   - name: set_font_bin
@@ -138,5 +164,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/RollingCredits.hpp ]
   - symbol: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
     headers: [ vector, AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 
 
