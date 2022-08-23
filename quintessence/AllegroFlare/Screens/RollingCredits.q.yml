@@ -1,0 +1,187 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: '"RollingCredits"'
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: rolling_credits_component
+    type: AllegroFlare::Elements::RollingCredits::RollingCredits
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+
+  - name: surface_width
+    type: float
+    init_with: 1920
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: float
+    init_with: 1080
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y_offset
+    type: float
+    init_with: 0.0f
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: y_speed
+    type: float
+    init_with: 2.0f
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: cached_calculated_height
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: game_event_name_to_emit_after_completing
+    type: std::string
+    init_with: '"rolling_credits_finished"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: scroll_is_past_end
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    guards: [ initialized ] 
+    body: |
+      y_offset = -surface_height;
+      scroll_is_past_end = false;
+      return;
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->font_bin = font_bin;
+      return;
+
+
+  - name: set_sections
+    parameters:
+      - name: sections
+        type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
+        default_argument: '{}'
+    body: |
+      rolling_credits_component.set_sections(sections);
+      return;
+
+
+  - name: initialize
+    type: void
+    guards: [ (!initialized), font_bin ]
+    body: |
+      rolling_credits_component.set_surface_height(surface_height);
+      rolling_credits_component.set_surface_width(surface_width);
+      rolling_credits_component.set_font_bin(font_bin);
+      rolling_credits_component.initialize();
+      //rolling_credits_component.set_y_offset(y_offset);
+      cached_calculated_height = rolling_credits_component.calculate_height();
+      initialized = true;
+      return;
+
+
+  - name: update
+    type: void
+    body: |
+      if (scroll_is_past_end) return;
+
+      y_offset += y_speed;
+      if (y_offset > cached_calculated_height)
+      {
+         scroll_is_past_end = true;
+         emit_completion_event();
+      }
+      return;
+
+
+  - name: emit_completion_event
+    private: true
+    type: void
+    body: |
+      if (!game_event_name_to_emit_after_completing.empty())
+      {
+         event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+      }
+      return;
+
+
+  - name: render
+    type: void
+    body: |
+      rolling_credits_component.set_y_offset(-y_offset);
+      rolling_credits_component.render();
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      update();
+      render();
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::Elements::RollingCredits::RollingCredits
+    headers: [ AllegroFlare/Elements/RollingCredits/RollingCredits.hpp ]
+  - symbol: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
+    headers: [ vector, AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+
+

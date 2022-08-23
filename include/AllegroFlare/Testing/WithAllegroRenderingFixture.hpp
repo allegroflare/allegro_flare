@@ -39,6 +39,7 @@ namespace AllegroFlare
          AllegroFlare::Placement2D build_centered_placement(float width=0.0f, float height=0.0f);
          void draw_rulers();
          void draw_crosshair(float x=0.0f, float y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 0, 0, 1}, float size=200.0f);
+         void draw_horizontal_crosshair(float x=0.0f, float y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 0, 1}, float size_v=30.0f, float size_h=500.0f);
          bool test_name_indicates_it_wants_a_screenshot();
          void clear_display();
          void clear();

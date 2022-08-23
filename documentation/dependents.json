@@ -78,6 +78,9 @@
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -101,6 +104,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
@@ -123,6 +127,9 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -138,6 +145,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -243,6 +251,8 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/ScrollBar",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -317,6 +327,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen"
   ],
@@ -337,6 +348,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
@@ -510,6 +522,8 @@
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base",
+    "AllegroFlare/Elements/RollingCredits/Sections/Base",
     "AllegroFlare/MotionComposer/Messages/Base"
   ],
   "al_is_ttf_addon_initialized": [
@@ -607,6 +621,37 @@
   ],
   "AllegroFlare/Elements/PlayingCards/Deck": [
     "AllegroFlare/Elements/PlayingCards/DeckFactory"
+  ],
+  "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Screens/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Header": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "std/vector<std/tuple<std/string, std/string>>": [
+    "AllegroFlare/Elements/RollingCredits/SectionFactory",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base": [
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Base": [
+    "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/Sections/Header"
   ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"
@@ -947,6 +992,9 @@
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Elements/RollingCredits/RollingCredits": [
+    "AllegroFlare/Screens/RollingCredits"
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"

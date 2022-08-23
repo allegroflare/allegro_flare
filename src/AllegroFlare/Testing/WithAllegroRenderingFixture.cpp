@@ -17,6 +17,9 @@
 #include <allegro5/allegro_color.h>
 #include <stdexcept>
 #include <sstream>
+#include <allegro5/allegro_color.h>
+#include <stdexcept>
+#include <sstream>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro.h>
 #include <chrono>
@@ -187,6 +190,22 @@ void WithAllegroRenderingFixture::draw_crosshair(float x, float y, ALLEGRO_COLOR
    al_draw_line(x-h_size, y, x+h_size, y, color, 1.0);
    // draw vertical line
    al_draw_line(x, y-h_size, x, y+h_size, color, 1.0);
+}
+
+void WithAllegroRenderingFixture::draw_horizontal_crosshair(float x, float y, ALLEGRO_COLOR color, float size_v, float size_h)
+{
+   if (!(al_get_target_bitmap()))
+      {
+         std::stringstream error_message;
+         error_message << "WithAllegroRenderingFixture" << "::" << "draw_horizontal_crosshair" << ": error: " << "guard \"al_get_target_bitmap()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   float h_size_h = size_h * 0.5;
+   float h_size_v = size_v * 0.5;
+   // draw horizontal line
+   al_draw_line(x-h_size_h, y, x+h_size_h, y, color, 1.0);
+   // draw vertical line
+   al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
 }
 
 bool WithAllegroRenderingFixture::test_name_indicates_it_wants_a_screenshot()
