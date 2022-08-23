@@ -9,6 +9,15 @@
 
 
 
+#include <chrono>
+#include <thread>
+static void sleep_for(float length_in_seconds)
+{
+   int length_in_milliseconds = (int)(length_in_seconds * 1000.0);
+   std::this_thread::sleep_for(std::chrono::milliseconds(length_in_milliseconds));
+}
+
+
 
 
 
@@ -63,8 +72,8 @@ public:
   void join(chat_participant_ptr participant)
   {
     participants_.insert(participant);
-    for (auto msg: recent_msgs_)
-      participant->deliver(msg);
+    //for (auto msg: recent_msgs_) // deliver last n messages on start
+      //participant->deliver(msg);
   }
 
   void leave(chat_participant_ptr participant)
@@ -189,9 +198,9 @@ private:
 class chat_server
 {
 public:
-  chat_server(asio::io_context& io_context, const tcp::endpoint& endpoint, std::string some_of_my_data)
+  chat_server(asio::io_context& io_context, const tcp::endpoint& endpoint)//, std::string some_of_my_data)
     : acceptor_(io_context, endpoint)
-    , some_of_my_data(some_of_my_data)
+    //, some_of_my_data(some_of_my_data)
   {
     do_accept();
   }
@@ -214,7 +223,7 @@ private:
 
   tcp::acceptor acceptor_;
   chat_room room_;
-  std::string some_of_my_data;
+  //std::string some_of_my_data;
 };
 
 //----------------------------------------------------------------------
@@ -237,7 +246,7 @@ static void server_runner(std::string port="5432")
     //{
       //tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
       tcp::endpoint endpoint(tcp::v4(), std::atoi(port.c_str()));
-      servers.emplace_back(io_context, endpoint, "some_of_my_foobar_data");
+      servers.emplace_back(io_context, endpoint); //, "some_of_my_foobar_data");
     //}
 
     bool abort = false;
@@ -352,7 +361,7 @@ void Server::run_blocking_while_awaiting_abort()
     //{
       //tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
       tcp::endpoint endpoint(tcp::v4(), std::atoi(port.c_str()));
-      servers.emplace_back(io_context, endpoint, "some_of_my_foobar_data");
+      servers.emplace_back(io_context, endpoint); //, "some_of_my_foobar_data");
     //}
 
     bool abort = false;
