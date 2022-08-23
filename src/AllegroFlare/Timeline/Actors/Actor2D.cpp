@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Timeline/Actor2D.hpp>
+#include <AllegroFlare/Timeline/Actors/Actor2D.hpp>
 #include <AllegroFlare/Color.hpp>
 
 
@@ -9,10 +9,12 @@ namespace AllegroFlare
 {
 namespace Timeline
 {
+namespace Actors
+{
 
 
       Actor2D::Actor2D(std::string identifier, ALLEGRO_BITMAP *bitmap)
-         : Actor("Actor2D", identifier)
+         : Base("Actor2D", identifier)
          , bitmap(bitmap)
       {
          register_params();
@@ -73,6 +75,8 @@ namespace Timeline
                ALLEGRO_FLAGS_EMPTY);
       }
 
+
+} // namespace Actors
 } // namespace Timeline
 } // namespace AllegroFlare
 

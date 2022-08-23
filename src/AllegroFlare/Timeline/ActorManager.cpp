@@ -15,14 +15,14 @@ namespace Timeline
 
 
 
-      void ActorManager::set_actors(std::vector<Actor *> actors)
+      void ActorManager::set_actors(std::vector<Actors::Base *> actors)
       {
          this->actors = actors;
       }
 
 
 
-      std::vector<Actor *> ActorManager::get_actors()
+      std::vector<Actors::Base *> ActorManager::get_actors()
       {
          return actors;
       }
@@ -37,7 +37,7 @@ namespace Timeline
 
 
 
-      bool ActorManager::register_actor(Actor *actor)
+      bool ActorManager::register_actor(Actors::Base *actor)
       {
          if (get_actor_by_id(actor->identifier.c_str())) return false;
 
@@ -48,7 +48,7 @@ namespace Timeline
 
 
 
-      bool ActorManager::unregister_actor(Actor *actor)
+      bool ActorManager::unregister_actor(Actors::Base *actor)
       {
          // this could be optimized
          for (unsigned i=0; i<actors.size(); i++)
@@ -63,7 +63,7 @@ namespace Timeline
 
 
 
-      Actor *ActorManager::get_actor_by_id(const char *id)
+      Actors::Base *ActorManager::get_actor_by_id(const char *id)
       {
          for (unsigned i=0; i<actors.size(); i++)
             if (actors[i]->identifier == id) return actors[i];

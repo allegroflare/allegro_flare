@@ -790,8 +790,7 @@
     "AllegroFlare/MotionComposer/MessageProcessor"
   ],
   "AllegroFlare/Timeline/Actor2D": [
-    "AllegroFlare/MotionComposer/Messages/AddActor2D",
-    "AllegroFlare/MotionFX/Sparkles2"
+    "AllegroFlare/MotionComposer/Messages/AddActor2D"
   ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView"
@@ -811,6 +810,9 @@
     "AllegroFlare/MotionFX/Sparkles"
   ],
   "AllegroFlare/Timeline/ActorManager": [
+    "AllegroFlare/MotionFX/Sparkles2"
+  ],
+  "AllegroFlare/Timeline/Actors/Actor2D": [
     "AllegroFlare/MotionFX/Sparkles2"
   ],
   "chat_message": [

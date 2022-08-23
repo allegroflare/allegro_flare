@@ -1,7 +1,7 @@
 
 
 #include <AllegroFlare/MotionFX/Sparkles2.hpp>
-#include <AllegroFlare/Timeline/Actor2D.hpp>
+#include <AllegroFlare/Timeline/Actors/Actor2D.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <vector>
 #include <string>
@@ -81,16 +81,16 @@ void Sparkles2::initialize()
          throw std::runtime_error(error_message.str());
       }
    // create the actor
-   Timeline::Actor *main_star_actor = new Timeline::Actor2D("foo", obtain_star_bitmap());
-   std::vector<Timeline::Actor*> friend_stars = {
-      new Timeline::Actor2D("foo", obtain_star_bitmap()),
-      new Timeline::Actor2D("foo", obtain_star_bitmap()),
-      new Timeline::Actor2D("foo", obtain_star_bitmap()),
-      new Timeline::Actor2D("foo", obtain_star_bitmap()),
-      new Timeline::Actor2D("foo", obtain_star_bitmap()),
+   Timeline::Actors::Base *main_star_actor = new Timeline::Actors::Actor2D("foo", obtain_star_bitmap());
+   std::vector<Timeline::Actors::Base*> friend_stars = {
+      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
    };
 
-   std::vector<Timeline::Actor*> all_actors = { main_star_actor };
+   std::vector<Timeline::Actors::Base*> all_actors = { main_star_actor };
    all_actors.insert(all_actors.end(), friend_stars.begin(), friend_stars.end());
 
    // add the actors to the manager

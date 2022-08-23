@@ -4,7 +4,7 @@
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 
-#include <AllegroFlare/Timeline/Actor.hpp>
+#include <AllegroFlare/Timeline/Actors/Base.hpp>
 #include <AllegroFlare/Timeline/Track.hpp>
 #include <AllegroFlare/Color.hpp>
 
@@ -32,7 +32,7 @@ std::mutex current_message_mutex;
 class MotionEditControl : public AllegroFlare::Screens::Base
 {
 private:
-   std::vector<AllegroFlare::Timeline::Actor*> actors;
+   std::vector<AllegroFlare::Timeline::Actors::Base *> actors;
    AllegroFlare::FontBin *font_bin;
    std::vector<std::string> *messages_queue;
    std::mutex *messages_queue_mutex;
