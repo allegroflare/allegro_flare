@@ -5,6 +5,10 @@
 
 
 
+#define TEST_HOST_NAME "localhost"
+#define TEST_PORT_NUM "5433"
+
+
 #include <chrono>
 #include <thread>
 static void sleep_for(float length_in_seconds)
@@ -48,6 +52,8 @@ static void run_client(
          callback,
          callback_passed_data
    );
+   client.set_host(TEST_HOST_NAME);
+   client.set_port(TEST_PORT_NUM);
    client.run_blocking_while_awaiting_abort();
 }
 
