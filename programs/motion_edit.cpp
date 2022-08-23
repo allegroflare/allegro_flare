@@ -143,7 +143,13 @@ public:
 
    void update()
    {
-      process_message();
+      int messages_left_to_process = 10;
+      while(!message_queue.empty() && messages_left_to_process > 0)
+      {
+         process_message();
+         messages_left_to_process--;
+      }
+
       if (playing)
       {
          playhead_position += (1/60.0f); // * 0.501;
