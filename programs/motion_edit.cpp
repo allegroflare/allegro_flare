@@ -146,7 +146,7 @@ public:
       process_message();
       if (playing)
       {
-         playhead_position += (1/60.0f) * 0.501;
+         playhead_position += (1/60.0f); // * 0.501;
       }
       sparkles2.set_time(playhead_position);
    }
