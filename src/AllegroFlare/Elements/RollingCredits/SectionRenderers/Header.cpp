@@ -18,7 +18,8 @@ namespace SectionRenderers
 
 
 Header::Header(AllegroFlare::FontBin* font_bin, std::string text)
-   : font_bin(font_bin)
+   : AllegroFlare::Elements::RollingCredits::SectionRenderers::Base("Header")
+   , font_bin(font_bin)
    , text(text)
    , x(0.0f)
    , y(0.0f)

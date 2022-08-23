@@ -1,3 +1,11 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+    scope: public
+    init_with: '"Header"'
+
+
 properties:
 
 
@@ -74,6 +82,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT*

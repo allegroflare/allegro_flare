@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -15,7 +16,7 @@ namespace AllegroFlare
       {
          namespace SectionRenderers
          {
-            class Header
+            class Header : public AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
             {
             private:
                AllegroFlare::FontBin* font_bin;

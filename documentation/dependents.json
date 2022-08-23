@@ -639,6 +639,10 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
   ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base": [
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header"
+  ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/Sections/Header"

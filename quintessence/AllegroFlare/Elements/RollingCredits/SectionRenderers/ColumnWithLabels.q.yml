@@ -1,3 +1,11 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+    scope: public
+    init_with: '"ColumnWithLabels"'
+
+
 properties:
 
 
@@ -58,6 +66,13 @@ properties:
 functions:
 
 
+  - name: calculate_height
+    type: float
+    virtual: true
+    body: |
+      return 0.0f;
+
+
   - name: render
     type: float
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
@@ -96,6 +111,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT*

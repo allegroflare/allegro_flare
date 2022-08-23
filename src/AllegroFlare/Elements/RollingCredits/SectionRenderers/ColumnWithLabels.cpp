@@ -18,7 +18,8 @@ namespace SectionRenderers
 
 
 ColumnWithLabels::ColumnWithLabels(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<std::string, std::string>> elements, float x, float y, float gutter_width)
-   : font_bin(font_bin)
+   : AllegroFlare::Elements::RollingCredits::SectionRenderers::Base("ColumnWithLabels")
+   , font_bin(font_bin)
    , elements(elements)
    , x(x)
    , y(y)
@@ -130,6 +131,11 @@ float ColumnWithLabels::get_gutter_width()
    return gutter_width;
 }
 
+
+float ColumnWithLabels::calculate_height()
+{
+   return 0.0f;
+}
 
 float ColumnWithLabels::render()
 {

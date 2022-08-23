@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -17,7 +18,7 @@ namespace AllegroFlare
       {
          namespace SectionRenderers
          {
-            class ColumnWithLabels
+            class ColumnWithLabels : public AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
             {
             private:
                AllegroFlare::FontBin* font_bin;
@@ -31,7 +32,7 @@ namespace AllegroFlare
 
             public:
                ColumnWithLabels(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string>> elements={}, float x=0.0f, float y=0.0f, float gutter_width=40.0f);
-               ~ColumnWithLabels();
+               virtual ~ColumnWithLabels();
 
                void set_font_bin(AllegroFlare::FontBin* font_bin);
                void set_elements(std::vector<std::tuple<std::string, std::string>> elements);
@@ -49,6 +50,7 @@ namespace AllegroFlare
                int get_font_size();
                ALLEGRO_COLOR get_text_color();
                float get_gutter_width();
+               virtual float calculate_height();
                float render();
                ALLEGRO_FONT* obtain_font();
             };
