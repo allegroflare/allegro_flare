@@ -17,6 +17,8 @@ properties:
     type: float
     init_with: 0.0f
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: surface_width
     type: float
@@ -53,7 +55,7 @@ functions:
     body: |
       using namespace AllegroFlare::Elements::RollingCredits;
 
-      float cursor_y = 0;
+      float cursor_y = y_offset;
       float this_section_height = 0;
       float section_separator_margin = 30;
       int section_count = 0;

@@ -138,7 +138,43 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    draw_horizontal_crosshair(surface_center, height);
 
    al_flip_display();
-   sleep_for(1);
+   //sleep_for(1);
+
+   // TODO: destroy sections
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_offset_vertically_by_the_y_offset)
+{
+   using namespace AllegroFlare::Elements::RollingCredits::Sections;
+
+   AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
+   rolling_credits.set_sections({
+      new Header("Section Header"),
+      new ColumnWithLabels({
+         { "Producer", "Turtle McShell" },
+         { "Line Producer", "Zeebra Stripe" },
+         { "Lead Programmer", "Selma Sloth" },
+      }),
+   });
+
+   int passes = 60 * 2;
+   float surface_center = rolling_credits.get_surface_width() / 2;
+   for (int pass=0; pass<passes; pass++)
+   {
+      clear();
+
+      float y_offset = pass * 3.0f;
+
+      draw_horizontal_crosshair(surface_center, y_offset);
+      rolling_credits.set_y_offset(y_offset);
+
+      rolling_credits.render();
+      
+      al_flip_display();
+      //sleep_for_frame();
+   }
 
    // TODO: destroy sections
 }

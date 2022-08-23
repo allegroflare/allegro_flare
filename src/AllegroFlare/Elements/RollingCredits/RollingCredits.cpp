@@ -34,6 +34,12 @@ RollingCredits::~RollingCredits()
 }
 
 
+void RollingCredits::set_y_offset(float y_offset)
+{
+   this->y_offset = y_offset;
+}
+
+
 void RollingCredits::set_surface_width(float surface_width)
 {
    this->surface_width = surface_width;
@@ -49,6 +55,12 @@ void RollingCredits::set_surface_height(float surface_height)
 std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> RollingCredits::get_sections()
 {
    return sections;
+}
+
+
+float RollingCredits::get_y_offset()
+{
+   return y_offset;
 }
 
 
@@ -87,7 +99,7 @@ float RollingCredits::render()
       }
    using namespace AllegroFlare::Elements::RollingCredits;
 
-   float cursor_y = 0;
+   float cursor_y = y_offset;
    float this_section_height = 0;
    float section_separator_margin = 30;
    int section_count = 0;
