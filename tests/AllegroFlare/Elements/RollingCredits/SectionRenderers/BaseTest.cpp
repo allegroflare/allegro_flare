@@ -4,11 +4,11 @@
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp>
 
 
-class BaseTestClass : public AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+class SectionRenderersBaseTestClass : public AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
 {
 public:
-   BaseTestClass()
-      : AllegroFlare::Elements::RollingCredits::SectionRenderers::Base("BaseTestClass")
+   SectionRenderersBaseTestClass()
+      : AllegroFlare::Elements::RollingCredits::SectionRenderers::Base("SectionRenderersBaseTestClass")
    {}
 };
 
@@ -28,8 +28,8 @@ TEST(AllegroFlare_Elements_RollingCredits_SectionRenderers_BaseTest, has_the_exp
 
 TEST(AllegroFlare_Elements_RollingCredits_SectionRenderers_BaseTest, derived_classes_will_have_the_expected_type)
 {
-   BaseTestClass test_class;
-   EXPECT_EQ("BaseTestClass", test_class.get_type());
+   SectionRenderersBaseTestClass test_class;
+   EXPECT_EQ("SectionRenderersBaseTestClass", test_class.get_type());
 }
 
 

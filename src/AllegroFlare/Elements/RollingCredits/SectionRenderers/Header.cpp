@@ -119,7 +119,7 @@ ALLEGRO_COLOR Header::get_text_color()
 }
 
 
-float Header::render()
+float Header::render(bool only_calculate_height_dont_render)
 {
    if (!(al_is_system_installed()))
       {
@@ -136,7 +136,10 @@ float Header::render()
    ALLEGRO_FONT *font = obtain_font();
    if (!text.empty())
    {
-      al_draw_text(font, text_color, x, y, ALLEGRO_ALIGN_CENTER, text.c_str());
+      if (!only_calculate_height_dont_render)
+      {
+         al_draw_text(font, text_color, x, y, ALLEGRO_ALIGN_CENTER, text.c_str());
+      }
    }
    return al_get_font_line_height(font);
 }

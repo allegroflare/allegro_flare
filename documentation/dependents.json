@@ -518,6 +518,7 @@
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base",
     "AllegroFlare/Elements/RollingCredits/Sections/Base",
     "AllegroFlare/MotionComposer/Messages/Base"
   ],

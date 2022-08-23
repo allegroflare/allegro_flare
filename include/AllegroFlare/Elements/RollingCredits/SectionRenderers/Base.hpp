@@ -22,7 +22,7 @@ namespace AllegroFlare
                virtual ~Base();
 
                std::string get_type();
-               virtual float calculate_height();
+               virtual float render(bool only_calculate_height_dont_render=false);
                bool is_type(std::string possible_type="");
             };
          }

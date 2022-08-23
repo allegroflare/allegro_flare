@@ -13,13 +13,6 @@ properties:
     getter: true
     setter: false
 
-  - name: y_offset
-    type: float
-    init_with: 0.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: surface_width
     type: float
     init_with: 1920
@@ -34,6 +27,23 @@ properties:
     getter: true
     setter: true
 
+  - name: y_offset
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: section_separator_margin
+    type: float
+    init_with: 30.0f
+    getter: true
+    setter: true
+
+  - name: height_calculated
+    type: float
+    init_with: 0
+    getter: true
+
 
 functions:
 
@@ -46,18 +56,24 @@ functions:
     body: |
       this->sections = sections;
       y_offset = 0;
+      height_calculated = render(true);
+      // TODO: refresh calculating height here
       return;
 
 
   - name: render
     type: float
+    parameters:
+      - name: only_calculate_height_dont_render
+        type: bool
+        default_argument: false
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       using namespace AllegroFlare::Elements::RollingCredits;
 
       float cursor_y = y_offset;
       float this_section_height = 0;
-      float section_separator_margin = 30;
+      //float section_separator_margin = 30;
       int section_count = 0;
       int num_sections = sections.size();
       float surface_center = surface_width/2;
@@ -73,7 +89,7 @@ functions:
                );
             renderer.set_x(surface_center);
             renderer.set_y(cursor_y);
-            this_section_height = renderer.render();
+            this_section_height = renderer.render(only_calculate_height_dont_render);
          }
          else if (section->is_type("ColumnWithLabels"))
          {
@@ -84,7 +100,7 @@ functions:
                );
             renderer.set_x(surface_center);
             renderer.set_y(cursor_y);
-            this_section_height = renderer.render();
+            this_section_height = renderer.render(only_calculate_height_dont_render);
          }
          else
          {

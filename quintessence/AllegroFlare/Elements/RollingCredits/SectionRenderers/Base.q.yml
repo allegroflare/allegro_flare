@@ -11,9 +11,13 @@ properties:
 functions:
 
 
-  - name: calculate_height
+  - name: render
     type: float
     virtual: true
+    parameters:
+      - name: only_calculate_height_dont_render
+        type: bool
+        default_argument: false
     body: |
       return 0.0f;
 

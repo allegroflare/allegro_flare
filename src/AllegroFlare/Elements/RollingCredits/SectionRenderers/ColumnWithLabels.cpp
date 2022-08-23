@@ -132,12 +132,7 @@ float ColumnWithLabels::get_gutter_width()
 }
 
 
-float ColumnWithLabels::calculate_height()
-{
-   return 0.0f;
-}
-
-float ColumnWithLabels::render()
+float ColumnWithLabels::render(bool only_calculate_height_dont_render)
 {
    if (!(al_is_system_installed()))
       {
@@ -158,14 +153,17 @@ float ColumnWithLabels::render()
    // float line_height = al_get_font_line_height(font); // for multiline-text
    for (auto &element : elements)
    {
-      std::string label = std::get<0>(element);
-      std::string value = std::get<1>(element);
+      if (!only_calculate_height_dont_render)
+      {
+         std::string label = std::get<0>(element);
+         std::string value = std::get<1>(element);
 
-      // draw the label
-      al_draw_text(font, text_color, x - h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_RIGHT, label.c_str());
+         // draw the label
+         al_draw_text(font, text_color, x - h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_RIGHT, label.c_str());
 
-      // draw the value
-      al_draw_text(font, text_color, x + h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_LEFT, value.c_str());
+         // draw the value
+         al_draw_text(font, text_color, x + h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_LEFT, value.c_str());
+      }
 
       cursor_y += y_spacing;
    }

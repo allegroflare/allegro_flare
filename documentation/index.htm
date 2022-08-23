@@ -91,6 +91,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/RollingCredits.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/RollingCredits.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionFactory.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Base.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Base.q.yml</a></li>
@@ -2768,15 +2769,23 @@ table td
   <td class="property">std::vector&lt;AllegroFlare::Elements::RollingCredits::Sections::Base*&gt;</td>
 </tr>
 <tr>
-  <td class="property">y_offset</td>
-  <td class="property">float</td>
-</tr>
-<tr>
   <td class="property">surface_width</td>
   <td class="property">float</td>
 </tr>
 <tr>
   <td class="property">surface_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y_offset</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">section_separator_margin</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height_calculated</td>
   <td class="property">float</td>
 </tr>
     </table>
@@ -2785,7 +2794,7 @@ table td
   <td class="method">set_sections(1)</td>
 </tr>
 <tr>
-  <td class="method">render()</td>
+  <td class="method">render(1)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -2844,6 +2853,30 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render(1)</td>
+</tr>
+<tr>
+  <td class="method">is_type(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::vector&lt;std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml</h3>
      <table>
 <tr>
@@ -2881,10 +2914,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">calculate_height()</td>
-</tr>
-<tr>
-  <td class="method">render()</td>
+  <td class="method">render(1)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -2944,7 +2974,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">render()</td>
+  <td class="method">render(1)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -8068,6 +8098,7 @@ table td
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base",
     "AllegroFlare/Elements/RollingCredits/Sections/Base",
     "AllegroFlare/MotionComposer/Messages/Base"
   ],

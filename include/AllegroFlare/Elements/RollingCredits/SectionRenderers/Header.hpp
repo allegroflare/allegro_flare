@@ -29,7 +29,7 @@ namespace AllegroFlare
 
             public:
                Header(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[unset-text]");
-               ~Header();
+               virtual ~Header();
 
                void set_font_bin(AllegroFlare::FontBin* font_bin);
                void set_text(std::string text);
@@ -45,7 +45,7 @@ namespace AllegroFlare
                std::string get_font_name();
                int get_font_size();
                ALLEGRO_COLOR get_text_color();
-               float render();
+               virtual float render(bool only_calculate_height_dont_render=false) override;
                ALLEGRO_FONT* obtain_font();
             };
          }

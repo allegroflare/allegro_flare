@@ -19,24 +19,20 @@ namespace RollingCredits
 {
 
 
-RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections, float y_offset, float surface_width, float surface_height)
+RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections, float surface_width, float surface_height)
    : font_bin(font_bin)
    , sections(sections)
-   , y_offset(y_offset)
    , surface_width(surface_width)
    , surface_height(surface_height)
+   , y_offset(0.0f)
+   , section_separator_margin(30.0f)
+   , height_calculated(0)
 {
 }
 
 
 RollingCredits::~RollingCredits()
 {
-}
-
-
-void RollingCredits::set_y_offset(float y_offset)
-{
-   this->y_offset = y_offset;
 }
 
 
@@ -52,15 +48,21 @@ void RollingCredits::set_surface_height(float surface_height)
 }
 
 
-std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> RollingCredits::get_sections()
+void RollingCredits::set_y_offset(float y_offset)
 {
-   return sections;
+   this->y_offset = y_offset;
 }
 
 
-float RollingCredits::get_y_offset()
+void RollingCredits::set_section_separator_margin(float section_separator_margin)
 {
-   return y_offset;
+   this->section_separator_margin = section_separator_margin;
+}
+
+
+std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> RollingCredits::get_sections()
+{
+   return sections;
 }
 
 
@@ -76,14 +78,34 @@ float RollingCredits::get_surface_height()
 }
 
 
+float RollingCredits::get_y_offset()
+{
+   return y_offset;
+}
+
+
+float RollingCredits::get_section_separator_margin()
+{
+   return section_separator_margin;
+}
+
+
+float RollingCredits::get_height_calculated()
+{
+   return height_calculated;
+}
+
+
 void RollingCredits::set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections)
 {
    this->sections = sections;
    y_offset = 0;
+   height_calculated = render(true);
+   // TODO: refresh calculating height here
    return;
 }
 
-float RollingCredits::render()
+float RollingCredits::render(bool only_calculate_height_dont_render)
 {
    if (!(al_is_system_installed()))
       {
@@ -101,7 +123,7 @@ float RollingCredits::render()
 
    float cursor_y = y_offset;
    float this_section_height = 0;
-   float section_separator_margin = 30;
+   //float section_separator_margin = 30;
    int section_count = 0;
    int num_sections = sections.size();
    float surface_center = surface_width/2;
@@ -117,7 +139,7 @@ float RollingCredits::render()
             );
          renderer.set_x(surface_center);
          renderer.set_y(cursor_y);
-         this_section_height = renderer.render();
+         this_section_height = renderer.render(only_calculate_height_dont_render);
       }
       else if (section->is_type("ColumnWithLabels"))
       {
@@ -128,7 +150,7 @@ float RollingCredits::render()
             );
          renderer.set_x(surface_center);
          renderer.set_y(cursor_y);
-         this_section_height = renderer.render();
+         this_section_height = renderer.render(only_calculate_height_dont_render);
       }
       else
       {

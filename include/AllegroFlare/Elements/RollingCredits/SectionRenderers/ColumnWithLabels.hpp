@@ -50,8 +50,7 @@ namespace AllegroFlare
                int get_font_size();
                ALLEGRO_COLOR get_text_color();
                float get_gutter_width();
-               virtual float calculate_height();
-               float render();
+               virtual float render(bool only_calculate_height_dont_render=false) override;
                ALLEGRO_FONT* obtain_font();
             };
          }

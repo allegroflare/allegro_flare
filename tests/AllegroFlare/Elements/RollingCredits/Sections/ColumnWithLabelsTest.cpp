@@ -13,7 +13,7 @@ TEST(AllegroFlare_Elements_RollingCredits_Sections_ColumnWithLabelsTest, can_be_
 TEST(AllegroFlare_Elements_RollingCredits_Sections_ColumnWithLabelsTest, has_the_expected_type)
 {
    AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels column_with_labels_section;
-   EXPECT_EQ("StandardColumn", column_with_labels_section.get_type());
+   EXPECT_EQ("ColumnWithLabels", column_with_labels_section.get_type());
 }
 
 

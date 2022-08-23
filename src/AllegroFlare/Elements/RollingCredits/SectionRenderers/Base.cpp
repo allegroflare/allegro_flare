@@ -31,7 +31,7 @@ std::string Base::get_type()
 }
 
 
-float Base::calculate_height()
+float Base::render(bool only_calculate_height_dont_render)
 {
    return 0.0f;
 }
