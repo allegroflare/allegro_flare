@@ -4365,8 +4365,14 @@ table td
 <tr>
   <td class="method">build_toggle_playback_message_json()</td>
 </tr>
+<tr>
+  <td class="method">build_clear_message_json()</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::Clear&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/Clear.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::TogglePlayback&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp&quot;]}</td>
 </tr>
@@ -4378,6 +4384,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::MotionComposer::Messages::Clear&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
@@ -8464,6 +8473,9 @@ table td
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
   ],
+  "AllegroFlare/MotionComposer/Messages/Clear": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
   "AllegroFlare/MotionComposer/Messages/TogglePlayback": [
     "AllegroFlare/MotionComposer/MessageFactory"
   ],
@@ -8477,6 +8489,9 @@ table td
   "AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear": [
+    "AllegroFlare/MotionComposer/MessageFactory"
   ],
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",

@@ -5,6 +5,8 @@
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp>
 #include <lib/nlohmann/json.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp>
+#include <lib/nlohmann/json.hpp>
+#include <AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp>
 
 
 namespace AllegroFlare
@@ -35,6 +37,15 @@ std::string MessageFactory::build_set_playhead_position_message_json(float posit
 std::string MessageFactory::build_toggle_playback_message_json()
 {
    AllegroFlare::MotionComposer::Messages::TogglePlayback message;
+   nlohmann::json json;
+   json["message"] = message;
+   json["message"]["type"] = message.get_type();
+   return json.dump(2);
+}
+
+std::string MessageFactory::build_clear_message_json()
+{
+   AllegroFlare::MotionComposer::Messages::Clear message;
    nlohmann::json json;
    json["message"] = message;
    json["message"]["type"] = message.get_type();

@@ -756,6 +756,9 @@
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
   ],
+  "AllegroFlare/MotionComposer/Messages/Clear": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
   "AllegroFlare/MotionComposer/Messages/TogglePlayback": [
     "AllegroFlare/MotionComposer/MessageFactory"
   ],
@@ -769,6 +772,9 @@
   "AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear": [
+    "AllegroFlare/MotionComposer/MessageFactory"
   ],
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",

@@ -18,6 +18,7 @@
 
 #include <AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp>
 #include <AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp>
+#include <AllegroFlare/MotionComposer/Messages/Clear.hpp>
 
 
 #include <AllegroFlare/MotionFX/Sparkles2.hpp>
@@ -160,6 +161,12 @@ public:
    void set_playhead_position(float position=0.0)
    {
       playhead_position = position;
+   }
+
+   void clear()
+   {
+      for (auto &actor : actors) delete actor;
+      actors.clear();
    }
 
    void toggle_playing()

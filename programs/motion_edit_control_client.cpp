@@ -81,16 +81,18 @@ public:
    void send_set_playhead(float position=0.0)
    {
       std::string message = message_factory.build_set_playhead_position_message_json(position);
-      //std::cout << "-------------" << std::endl;
-      //std::cout << "--MESSAGE_BUILT--" << std::endl;
-      //std::cout << message << std::endl;
-      //std::cout << "-------------" << std::endl;
       post_message(message);
    }
 
    void send_toggle_playback()
    {
       std::string message = message_factory.build_toggle_playback_message_json();
+      post_message(message);
+   }
+
+   void send_clear()
+   {
+      std::string message = message_factory.build_clear_message_json();
       post_message(message);
    }
 
