@@ -97,20 +97,15 @@ public:
       std::cout << "Processing 1 message" << std::endl;
       std::cout << "********************" << std::endl;
 
-            //std::cout << "AAAAAAAAA" << std::endl << std::flush;
       // grab a raw message off our local queue, put it into the processor
       message_processor.push_one(message_queue.front());
       message_queue.erase(message_queue.begin()); // (equivelent to .pop_front())
-            //std::cout << "BBBBBBBBB" << std::endl << std::flush;
 
       // convert the message
       message_processor.convert_one();
 
-            //std::cout << "CCCCCCCC" << std::endl << std::flush;
       // extract the processed the message
-      //std::cout << "message processor size: " << message_processor.size() << std::endl;
       AllegroFlare::MotionComposer::Messages::Base* message_to_execute = message_processor.get_one_message_and_pop();
-            //std::cout << "DDDDDDDD" << std::endl << std::flush;
 
       // execute the message
       if (message_to_execute != nullptr)
@@ -124,10 +119,13 @@ public:
          }
          else if (message_to_execute->is_type("TogglePlayback"))
          {
-            //std::cout << "EEEEEEEE" << std::endl << std::flush;
-            Messages::TogglePlayback *typed_message = static_cast<Messages::TogglePlayback*>(message_to_execute);
+            //Messages::TogglePlayback *typed_message = static_cast<Messages::TogglePlayback*>(message_to_execute);
             toggle_playing();
-            //std::cout << "FFFFFFF" << std::endl << std::flush;
+         }
+         else if (message_to_execute->is_type("Clear"))
+         {
+            //Messages::Clear *typed_message = static_cast<Messages::Clear*>(message_to_execute);
+            clear();
          }
          else
          {
