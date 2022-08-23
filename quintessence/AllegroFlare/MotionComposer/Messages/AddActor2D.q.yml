@@ -1,0 +1,25 @@
+parent_classes:
+
+
+  - class: AllegroFlare::MotionComposer::Messages::Base
+    scope: public
+    init_with: '"AddActor2D"'
+
+
+properties:
+
+
+  - name: property
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MotionComposer::Messages::Base
+    headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
+
+

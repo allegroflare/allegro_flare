@@ -23,6 +23,7 @@ namespace Timeline
 
       Actor2D::~Actor2D()
       {
+         std::cout << "YIKES! ~Actor2D() without deleting objects." << std::endl;
       }
 
 
