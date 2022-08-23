@@ -119,7 +119,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
 
 
 TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
-   CAPTURE__render__will_return_the_height_of_the_entire_credits)
+   calculate_height__will_return_the_height_of_the_entire_credits)
 {
    using namespace AllegroFlare::Elements::RollingCredits::Sections;
 
@@ -133,12 +133,40 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
       }),
    });
 
-   float height = rolling_credits.render();
+   float calculated_height = rolling_credits.calculate_height();
    float surface_center = rolling_credits.get_surface_width() / 2;
-   draw_horizontal_crosshair(surface_center, height);
+
+   EXPECT_EQ(170, calculated_height);
+
+   // TODO: destroy sections
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
+   CAPTURE__calculate_height__will_match_the_height_of_the_entire_credits)
+{
+   using namespace AllegroFlare::Elements::RollingCredits::Sections;
+
+   AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
+   rolling_credits.set_sections({
+      new Header("Section Header"),
+      new ColumnWithLabels({
+         { "Producer", "Turtle McShell" },
+         { "Line Producer", "Zeebra Stripe" },
+         { "Lead Programmer", "Selma Sloth" },
+      }),
+   });
+
+   float calculated_height = rolling_credits.calculate_height();
+   float surface_center = rolling_credits.get_surface_width() / 2;
+
+   // render the test capture
+   clear();
+   rolling_credits.render();
+   draw_horizontal_crosshair(surface_center, calculated_height);
 
    al_flip_display();
-   //sleep_for(1);
+   sleep_for(1);
 
    // TODO: destroy sections
 }

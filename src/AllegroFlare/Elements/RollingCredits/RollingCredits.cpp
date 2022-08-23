@@ -1,12 +1,14 @@
 
 
 #include <AllegroFlare/Elements/RollingCredits/RollingCredits.hpp>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.hpp>
-#include <stdexcept>
-#include <sstream>
 #include <stdexcept>
 #include <sstream>
 
@@ -27,6 +29,7 @@ RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, std::vector<Alle
    , y_offset(0.0f)
    , section_separator_margin(30.0f)
    , height_calculated(0)
+   , initialized(false)
 {
 }
 
@@ -96,16 +99,40 @@ float RollingCredits::get_height_calculated()
 }
 
 
+void RollingCredits::initialize()
+{
+   height_calculated = calculate_height();
+   initialized = true;
+   return;
+}
+
 void RollingCredits::set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections)
 {
    this->sections = sections;
    y_offset = 0;
-   height_calculated = render(true);
-   // TODO: refresh calculating height here
+   if (initialized) height_calculated = calculate_height(); // only refresh the height calculation if the
+                                                            // component has already been initialized
    return;
 }
 
-float RollingCredits::render(bool only_calculate_height_dont_render)
+float RollingCredits::calculate_height()
+{
+   if (!(al_is_system_installed()))
+      {
+         std::stringstream error_message;
+         error_message << "RollingCredits" << "::" << "calculate_height" << ": error: " << "guard \"al_is_system_installed()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(al_is_font_addon_initialized()))
+      {
+         std::stringstream error_message;
+         error_message << "RollingCredits" << "::" << "calculate_height" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   return render_or_calculate_height(true);
+}
+
+void RollingCredits::render()
 {
    if (!(al_is_system_installed()))
       {
@@ -119,6 +146,12 @@ float RollingCredits::render(bool only_calculate_height_dont_render)
          error_message << "RollingCredits" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
+   render_or_calculate_height(false);
+   return;
+}
+
+float RollingCredits::render_or_calculate_height(bool only_calculate_height_dont_render)
+{
    using namespace AllegroFlare::Elements::RollingCredits;
 
    float cursor_y = y_offset;

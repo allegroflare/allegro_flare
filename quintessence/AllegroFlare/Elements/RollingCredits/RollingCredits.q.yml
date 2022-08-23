@@ -44,8 +44,19 @@ properties:
     init_with: 0
     getter: true
 
+  - name: initialized
+    type: bool
+    init_with: false
+
 
 functions:
+
+
+  - name: initialize
+    body: |
+      height_calculated = calculate_height();
+      initialized = true;
+      return;
 
 
   - name: set_sections
@@ -56,18 +67,31 @@ functions:
     body: |
       this->sections = sections;
       y_offset = 0;
-      height_calculated = render(true);
-      // TODO: refresh calculating height here
+      if (initialized) height_calculated = calculate_height(); // only refresh the height calculation if the
+                                                               // component has already been initialized
       return;
 
 
+  - name: calculate_height
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    type: float
+    body: |
+      return render_or_calculate_height(true);
+
+
   - name: render
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      render_or_calculate_height(false);
+      return;
+
+
+  - name: render_or_calculate_height
     type: float
     parameters:
       - name: only_calculate_height_dont_render
         type: bool
         default_argument: false
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       using namespace AllegroFlare::Elements::RollingCredits;
 

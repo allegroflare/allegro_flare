@@ -23,6 +23,7 @@ namespace AllegroFlare
             float y_offset;
             float section_separator_margin;
             float height_calculated;
+            bool initialized;
 
          public:
             RollingCredits(AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={}, float surface_width=1920, float surface_height=1080);
@@ -38,8 +39,11 @@ namespace AllegroFlare
             float get_y_offset();
             float get_section_separator_margin();
             float get_height_calculated();
+            void initialize();
             void set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={});
-            float render(bool only_calculate_height_dont_render=false);
+            float calculate_height();
+            void render();
+            float render_or_calculate_height(bool only_calculate_height_dont_render=false);
             ALLEGRO_FONT* obtain_font();
          };
       }
