@@ -286,7 +286,7 @@ static void client_runner(
             messages_queue_mutex->unlock();
          }
 
-         sleep_for(0.2);
+         sleep_for(0.005);
 
          if (*global_abort) abort = true;
     
