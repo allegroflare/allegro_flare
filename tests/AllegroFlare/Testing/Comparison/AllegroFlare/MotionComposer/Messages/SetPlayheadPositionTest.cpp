@@ -19,7 +19,7 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_MotionComposer_Messages_SetPla
 
 
 TEST(AllegroFlare_Testing_Comparison_AllegroFlare_MotionComposer_Messages_SetPlayheadPositionTest,
-   DISABLED__equality_operator__works_with_google_test_EXPECT_statement)
+   equality_operator__works_with_google_test_EXPECT_statement)
 {
    AllegroFlare::MotionComposer::Messages::SetPlayheadPosition vec(0.5);
    AllegroFlare::MotionComposer::Messages::SetPlayheadPosition other_vec(0.5);

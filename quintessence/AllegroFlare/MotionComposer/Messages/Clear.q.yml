@@ -1,0 +1,15 @@
+parent_classes:
+
+
+  - class: AllegroFlare::MotionComposer::Messages::Base
+    scope: public
+    init_with: '"Clear"'
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MotionComposer::Messages::Base
+    headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
+
+
