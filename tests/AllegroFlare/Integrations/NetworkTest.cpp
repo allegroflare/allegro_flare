@@ -118,7 +118,7 @@ TEST_F(AllegroFlare_Integrations_NetworkTest,
       "hey, this is message 6.",
       "hey, this is message 5.",
       "hey, this is message 4.", // This test is flakey
-      //"hey, this is message 3.",
+      "hey, this is message 3.",
       //"hey, this is message 2.",
    };
 
