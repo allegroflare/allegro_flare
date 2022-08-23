@@ -31,9 +31,9 @@ namespace Timeline
 {
 
 
-Actor::Actor(std::string identifier, actor_t type)
+Actor::Actor(std::string type, std::string identifier)
    : type(type)
-     , identifier(identifier)
+   , identifier(identifier)
 {
    //register_params();
 }

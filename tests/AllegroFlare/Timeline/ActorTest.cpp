@@ -8,7 +8,7 @@ class ActorTestClass : public AllegroFlare::Timeline::Actor
 {
 public:
    ActorTestClass()
-     : Actor("ActorTestClass", 1)
+     : Actor("ActorTestClass")
    {}
    virtual void render(double time) override {}
    virtual void register_params() override {}

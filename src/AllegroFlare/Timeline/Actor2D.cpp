@@ -12,7 +12,7 @@ namespace Timeline
 
 
       Actor2D::Actor2D(std::string identifier, ALLEGRO_BITMAP *bitmap)
-         : Actor(identifier, 1)
+         : Actor("Actor2D", identifier)
          , bitmap(bitmap)
       {
          register_params();

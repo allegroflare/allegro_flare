@@ -6,9 +6,6 @@
 #include <AllegroFlare/Timeline/Track.hpp>
 
 
-typedef int actor_t;
-
-
 namespace AllegroFlare
 {
    namespace Timeline
@@ -16,12 +13,12 @@ namespace AllegroFlare
       class Actor
       {
       public:
-         actor_t type;
+         std::string type;
          std::string identifier;
          std::vector<AllegroFlare::Timeline::Track *> params;
 
 
-         Actor(std::string identifier, actor_t type);
+         Actor(std::string type="Actor", std::string identifier="[unset-identifier]");
          virtual ~Actor();
 
          AllegroFlare::Timeline::Track *get_param_by_id(const char *id);
