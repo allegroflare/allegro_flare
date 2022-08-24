@@ -10,14 +10,16 @@ namespace AllegroFlare::MotionComposer::Messages
 
 void to_json(nlohmann::json& j, const AddActor2D& v)
 {
-   //j = nlohmann::json{
-      //{ "position", v.get_position() },
-   //};
+   j = nlohmann::json{
+      { "identifier", v.get_identifier() },
+      { "script", v.get_script() },
+   };
 }
 
 void from_json(const nlohmann::json& j, AddActor2D& v)
 {
-   //j.at("position").get_to(v.get_position_ref());
+   j.at("identifier").get_to(v.get_identifier_ref());
+   j.at("script").get_to(v.get_script_ref());
 }
 
 
