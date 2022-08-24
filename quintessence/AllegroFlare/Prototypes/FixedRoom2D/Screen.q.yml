@@ -166,6 +166,41 @@ functions:
       return;
 
 
+  - name: mouse_axes_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, ev ]
+    body: |
+      fixed_room_2d.move_cursor(ev->mouse.dx, ev->mouse.dy);
+      return;
+
+
+  - name: mouse_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, ev ]
+    body: |
+      switch(ev->mouse.button)
+      {
+         case 1: // left mouse button
+            fixed_room_2d.activate_primary_action();
+         break;
+
+         case 2: // right mouse button
+            fixed_room_2d.toggle_inventory();
+         break;
+      }
+      return;
+
+
   - name: key_char_func
     virtual: true
     override: true

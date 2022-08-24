@@ -23,6 +23,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -206,6 +210,51 @@ void Screen::primary_timer_func()
       }
    fixed_room_2d.update();
    fixed_room_2d.render();
+   return;
+}
+
+void Screen::mouse_axes_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "mouse_axes_func" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(ev))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "mouse_axes_func" << ": error: " << "guard \"ev\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   fixed_room_2d.move_cursor(ev->mouse.dx, ev->mouse.dy);
+   return;
+}
+
+void Screen::mouse_down_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "mouse_down_func" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   if (!(ev))
+      {
+         std::stringstream error_message;
+         error_message << "Screen" << "::" << "mouse_down_func" << ": error: " << "guard \"ev\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   switch(ev->mouse.button)
+   {
+      case 1: // left mouse button
+         fixed_room_2d.activate_primary_action();
+      break;
+
+      case 2: // right mouse button
+         fixed_room_2d.toggle_inventory();
+      break;
+   }
    return;
 }
 
