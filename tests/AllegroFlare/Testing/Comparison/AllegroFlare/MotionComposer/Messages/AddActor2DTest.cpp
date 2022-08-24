@@ -7,28 +7,34 @@
 TEST(AllegroFlare_Testing_Comparison_AllegroFlare_MotionComposer_Messages_AddActor2DTest,
    PrintTo__with_an_AllegroFlare_MotionComposer_Messages_AddActor2D__will_output_as_expected)
 {
-   // TODO
+   std::stringstream ss;
+   AllegroFlare::MotionComposer::Messages::AddActor2D object("identifier", "script");
 
-   //std::stringstream ss;
-   //AllegroFlare::Vec2D vec = {0.1, 0.2};
+   PrintTo(object, &ss);
 
-   //PrintTo(vec, &ss);
-
-   //std::string expected_output = "AllegroFlare::Vec2D(0.1, 0.2)";
-   //std::string actual_output = ss.str();
-   //EXPECT_EQ(expected_output, actual_output);
+   std::string expected_output = "AddActor2D(\"identifier\", \"script\")";
+   std::string actual_output = ss.str();
+   EXPECT_EQ(expected_output, actual_output);
 }
 
 
 TEST(AllegroFlare_Testing_Comparison_AllegroFlare_MotionComposer_Messages_AddActor2DTest,
-   equality_operator__works_with_google_test_EXPECT_statement)
+   equality_operator__works_with_google_test_EXPECT_EQ_statement)
 {
-   // TODO
+   AllegroFlare::MotionComposer::Messages::AddActor2D object("identifier", "script");
+   AllegroFlare::MotionComposer::Messages::AddActor2D other_object("identifier", "script");
 
-   //AllegroFlare::Vec2D vec;
-   //AllegroFlare::Vec2D other_vec;
+   EXPECT_EQ(object, other_object);
+}
 
-   //EXPECT_EQ(vec, other_vec);
+
+TEST(AllegroFlare_Testing_Comparison_AllegroFlare_MotionComposer_Messages_AddActor2DTest,
+   equality_operator__works_with_google_test_EXPECT_NE_statement)
+{
+   AllegroFlare::MotionComposer::Messages::AddActor2D object("identifier", "script");
+   AllegroFlare::MotionComposer::Messages::AddActor2D other_object("other-identifier", "script");
+
+   EXPECT_NE(object, other_object);
 }
 
 

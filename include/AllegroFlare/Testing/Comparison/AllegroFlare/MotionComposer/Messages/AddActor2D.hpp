@@ -8,6 +8,7 @@
 namespace AllegroFlare::MotionComposer::Messages
 {
    bool operator==(const AddActor2D& object, const AddActor2D& other_object);
+   bool operator!=(const AddActor2D& object, const AddActor2D& other_object);
    void PrintTo(const AddActor2D& object, ::std::ostream* os);
 }
 
