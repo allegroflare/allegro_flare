@@ -17,7 +17,7 @@ namespace AllegroFlare::MotionComposer::Messages
 
   void PrintTo(const Clear& object, ::std::ostream* os)
   {
-     //*os << "Vec2D(" << object.x << ", " << object.y << ")";
+     *os << "Clear()";
   }
 
 

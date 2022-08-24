@@ -4,9 +4,9 @@
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 
-#include <AllegroFlare/Timeline/Actor.hpp>
+#include <AllegroFlare/Timeline/Actors/Base.hpp>
 #include <AllegroFlare/Timeline/Track.hpp>
-#include <AllegroFlare/Timeline/Actor2D.hpp>
+#include <AllegroFlare/Timeline/Actors/Actor2D.hpp>
 #include <AllegroFlare/Color.hpp>
 
 #include <AllegroFlare/Network2/Client.hpp>
@@ -38,7 +38,7 @@ class MotionEdit : public AllegroFlare::Screens::Base
 {
 private:
    float playhead_position;
-   std::vector<AllegroFlare::Timeline::Actor*> actors;
+   std::vector<AllegroFlare::Timeline::Actors::Base*> actors;
    AllegroFlare::MotionComposer::MessageProcessor message_processor;
    int messages_processed;
    AllegroFlare::FontBin *font_bin;

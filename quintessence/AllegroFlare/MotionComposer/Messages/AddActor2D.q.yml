@@ -9,11 +9,23 @@ parent_classes:
 properties:
 
 
-  - name: property
+  - name: identifier
     type: std::string
-    init_with: '"[unset-property]"'
     constructor_arg: true
-    getter: true
+    init_with: '"[unset-identifier]"'
+    getter_ref: true
+    getter: explicit
+    setter: true
+
+
+functions:
+
+
+  - name: get_identifier
+    type: std::string
+    const: true
+    body: |
+      return identifier;
 
 
 dependencies:
@@ -21,5 +33,7 @@ dependencies:
 
   - symbol: AllegroFlare::MotionComposer::Messages::Base
     headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
+  - symbol: AllegroFlare::Timeline::Actor2D*
+    headers: [ AllegroFlare/Timeline/Actor2D.hpp ]
 
 

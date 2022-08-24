@@ -782,11 +782,15 @@
   ],
   "AllegroFlare/MotionComposer/Messages/Base": [
     "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/MotionComposer/Messages/AddActor2D",
     "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition",
     "AllegroFlare/MotionComposer/Messages/SetScript"
   ],
   "std/vector<AllegroFlare/MotionComposer/Messages/Base>": [
     "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
+  "AllegroFlare/Timeline/Actor2D": [
+    "AllegroFlare/MotionComposer/Messages/AddActor2D"
   ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView"
@@ -808,7 +812,7 @@
   "AllegroFlare/Timeline/ActorManager": [
     "AllegroFlare/MotionFX/Sparkles2"
   ],
-  "AllegroFlare/Timeline/Actor2D": [
+  "AllegroFlare/Timeline/Actors/Actor2D": [
     "AllegroFlare/MotionFX/Sparkles2"
   ],
   "chat_message": [

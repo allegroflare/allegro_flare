@@ -43,16 +43,16 @@ functions:
     guards: [ (!initialized) ]
     body: |
       // create the actor
-      Timeline::Actor *main_star_actor = new Timeline::Actor2D("foo", obtain_star_bitmap());
-      std::vector<Timeline::Actor*> friend_stars = {
-         new Timeline::Actor2D("foo", obtain_star_bitmap()),
-         new Timeline::Actor2D("foo", obtain_star_bitmap()),
-         new Timeline::Actor2D("foo", obtain_star_bitmap()),
-         new Timeline::Actor2D("foo", obtain_star_bitmap()),
-         new Timeline::Actor2D("foo", obtain_star_bitmap()),
+      Timeline::Actors::Base *main_star_actor = new Timeline::Actors::Actor2D("foo", obtain_star_bitmap());
+      std::vector<Timeline::Actors::Base*> friend_stars = {
+         new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+         new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+         new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+         new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+         new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
       };
 
-      std::vector<Timeline::Actor*> all_actors = { main_star_actor };
+      std::vector<Timeline::Actors::Base*> all_actors = { main_star_actor };
       all_actors.insert(all_actors.end(), friend_stars.begin(), friend_stars.end());
 
       // add the actors to the manager
@@ -98,7 +98,7 @@ functions:
       initialized = true;
       return;
     body_dependency_symbols:
-      - AllegroFlare::Timeline::Actor2D
+      - AllegroFlare::Timeline::Actors::Actor2D
       - AllegroFlare::Interpolators::*
       - std::vector<std::string>
 
@@ -181,8 +181,8 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::Timeline::ActorManager
     headers: [ AllegroFlare/Timeline/ActorManager.hpp ]
-  - symbol: AllegroFlare::Timeline::Actor2D
-    headers: [ AllegroFlare/Timeline/Actor2D.hpp ]
+  - symbol: AllegroFlare::Timeline::Actors::Actor2D
+    headers: [ AllegroFlare/Timeline/Actors/Actor2D.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Interpolators::*

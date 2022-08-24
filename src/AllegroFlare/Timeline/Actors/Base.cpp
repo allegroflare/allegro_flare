@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Timeline/Actor.hpp>
+#include <AllegroFlare/Timeline/Actors/Base.hpp>
 
 #include <iostream> // for cout. TODO: replace
 #include <AllegroFlare/Timeline/ScriptLoader.hpp>
@@ -29,11 +29,14 @@ namespace AllegroFlare
 {
 namespace Timeline
 {
+namespace Actors
+{
 
 
-Actor::Actor(std::string identifier, actor_t type)
+
+Base::Base(std::string type, std::string identifier)
    : type(type)
-     , identifier(identifier)
+   , identifier(identifier)
 {
    //register_params();
 }
@@ -41,14 +44,14 @@ Actor::Actor(std::string identifier, actor_t type)
 
 
 
-Actor::~Actor()
+Base::~Base()
 {
 }
 
 
 
 
-Timeline::Track *Actor::get_param_by_id(const char *id)
+Timeline::Track *Base::get_param_by_id(const char *id)
 {
    for (unsigned i=0; i<params.size(); i++)
       if (params[i]->label == id) return params[i];
@@ -59,7 +62,7 @@ Timeline::Track *Actor::get_param_by_id(const char *id)
 
 
 
-void Actor::load_script(std::vector<std::string> script_lines)
+void Base::load_script(std::vector<std::string> script_lines)
 {
    std::string script = join(script_lines, "\n");
    load_script(script);
@@ -68,7 +71,7 @@ void Actor::load_script(std::vector<std::string> script_lines)
 
 
 
-void Actor::load_script(std::string script)
+void Base::load_script(std::string script)
 {
    for (unsigned i=0; i<params.size(); i++)
    {
@@ -101,6 +104,7 @@ void Actor::load_script(std::string script)
 
 
 
+} // namespace Actors
 } // namespace Timeline
 } // namespace AllegroFlare
 

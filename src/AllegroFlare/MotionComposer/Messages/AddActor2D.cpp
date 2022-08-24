@@ -12,9 +12,9 @@ namespace Messages
 {
 
 
-AddActor2D::AddActor2D(std::string property)
+AddActor2D::AddActor2D(std::string identifier)
    : AllegroFlare::MotionComposer::Messages::Base("AddActor2D")
-   , property(property)
+   , identifier(identifier)
 {
 }
 
@@ -24,12 +24,22 @@ AddActor2D::~AddActor2D()
 }
 
 
-std::string AddActor2D::get_property()
+void AddActor2D::set_identifier(std::string identifier)
 {
-   return property;
+   this->identifier = identifier;
 }
 
 
+std::string &AddActor2D::get_identifier_ref()
+{
+   return identifier;
+}
+
+
+std::string AddActor2D::get_identifier() const
+{
+   return identifier;
+}
 } // namespace Messages
 } // namespace MotionComposer
 } // namespace AllegroFlare

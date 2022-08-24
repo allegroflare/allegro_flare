@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <AllegroFlare/Timeline/Actor.hpp>
+#include <AllegroFlare/Timeline/Actors/Base.hpp>
 
 
 namespace AllegroFlare
@@ -13,19 +13,19 @@ namespace AllegroFlare
       class ActorManager
       {
       protected:
-         std::vector<Actor *> actors;
+         std::vector<Actors::Base *> actors;
 
       public:
          ActorManager();
 
-         void set_actors(std::vector<Actor *> actors={});
-         std::vector<Actor *> get_actors();
+         void set_actors(std::vector<Actors::Base *> actors={});
+         std::vector<Actors::Base *> get_actors();
 
          //Actor *create_actor2d(std::string identifier, ALLEGRO_BITMAP *bitmap);
-         bool register_actor(Actor *actor);
-         bool unregister_actor(Actor *actor);
+         bool register_actor(Actors::Base *actor);
+         bool unregister_actor(Actors::Base *actor);
 
-         Actor *get_actor_by_id(const char *id);
+         Actors::Base *get_actor_by_id(const char *id);
          void render(double time);
       };
    }
