@@ -72,20 +72,8 @@ static void publish_messages_every_second_for_6_seconds(
       std::stringstream ss;
          ss << "hey, this is message " << count << ".";
 
-      //std::cout << "BUILDING 1 message" << std::endl;
       messages_queue_mutex->lock();
-         //std::cout << "  - Building message \"" << ss.str() << "\"" << std::endl;
-         //std::cout << "  - message_queue->size() (before): " << message_queue->size() << std::endl;
-               //for (auto &messages_queue_message : (*message_queue))
-               //{
-                  //std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
-               //}
-         message_queue->push_back(ss.str());
-         //std::cout << "  - message_queue->size() (after): " << message_queue->size() << std::endl;
-               //for (auto &messages_queue_message : (*message_queue))
-               //{
-                  //std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
-               //}
+      message_queue->push_back(ss.str());
       messages_queue_mutex->unlock();
 
       count--;

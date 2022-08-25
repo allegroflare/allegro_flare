@@ -239,19 +239,15 @@ static void client_runner(
     chat_client c(io_context, endpoints, callback, callback_passed_data);
 
     std::thread t([&io_context, global_abort](){
-       //std::cout << "t() thread start" << std::endl << std::flush;
        bool abort = false;
        while (!abort)
        {
           io_context.run_for(std::chrono::seconds(1));
-          //std::cout << "t() thread mid" << std::endl << std::flush;
           if (*global_abort) abort = true;
        }
-       //std::cout << "t() thread end" << std::endl << std::flush;
     });
 
     char line[chat_message::max_body_length + 1];
-    //while (std::cin.getline(line, chat_message::max_body_length + 1))
     bool abort = false;
     int counts = 10;
     while (!abort)
@@ -261,17 +257,8 @@ static void client_runner(
          messages_queue_mutex->lock();
          if (!messages_queue->empty())
          {
-            //std::cout << "GRABBING " << (*messages_queue).size() << " messages" << std::endl;
             messages_to_post = *messages_queue;
-            //std::cout << "  - messages_to_post.size(): " << messages_to_post.size() << std::endl;
-            //for (auto &messages_queue_message : (*messages_queue))
-            //{
-               //std::cout << "      \"" << messages_queue_message << "\"" << std::endl;
-            //}
-            //std::cout << "  - messages_queue.size() (before): " << messages_to_post.size() << std::endl;
             messages_queue->clear();
-            //std::cout << "  - messages_queue.size() (after): " << messages_queue->size() << std::endl;
-            // TODO: take a small break here for the processor to chill a min
          }
          messages_queue_mutex->unlock();
       }
@@ -283,20 +270,12 @@ static void client_runner(
       for (auto &message_to_post : messages_to_post)
       {
          chat_message msg;
-         //msg.body_length(std::strlen(line));
-         //std::memcpy(msg.body(), line, msg.body_length());
          msg.body_length(message_to_post.size());
          std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
          msg.encode_header();
          c.write(msg);
       }
       messages_to_post.clear();
-
-      //std::cout << "Counts: " << counts << std::endl << std::flush;
-      //counts--;
-      //std::cout << "Message: " << msg.body() << std::endl;
-      //std::string body = msg.body();
-      //if (body == "EXIT") break;
     }
 
     c.close();
