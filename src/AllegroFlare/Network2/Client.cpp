@@ -405,7 +405,8 @@ void Client::run_blocking_while_awaiting_abort()
        }
     });
 
-    //char line[chat_message::max_body_length + 1];
+    // NOTE:
+    // Messages are currently delivered 1 message at a time with a delay of 0.005 seconds between each.
     bool abort = false;
     int counts = 10;
     while (!abort)

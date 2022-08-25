@@ -22,9 +22,9 @@ static void sleep_for(float length_in_seconds)
 #include <thread>
 
 #include <atomic>
-static void emit_abort_signal_after_n_sec(std::atomic<bool>* global_abort=nullptr, int sec=1)
+static void emit_abort_signal_after_n_sec(std::atomic<bool>* global_abort=nullptr, float sec=1.0f)
 {
-   sleep(sec);
+   sleep_for(sec);
    *global_abort = true;
 }
 
@@ -114,9 +114,26 @@ TEST(AllegroFlare_Network2_ClientTest,
 
 
 TEST(AllegroFlare_Network2_ClientTest,
-   run_blocking__with_a_message_posted_that_is_too_large__will_cout_an_error_message__and__will_not_send_the_message)
+   run_blocking__will_post_message_sizes_up_to_MESSAGE_BODY_LENGTH_MAX)
 {
    // TODO
+}
+
+
+TEST(AllegroFlare_Network2_ClientTest,
+   run_blocking__with_a_posted_message_that_is_too_large__will_cout_an_error_message__and__will_not_send_the_message)
+{
+   std::string message_that_is_too_big = std::string(AllegroFlare::Network2::Client::MESSAGE_BODY_LENGTH_MAX+1, 'x');
+
+   std::atomic<bool> global_abort = false;
+   std::vector<std::string> messages_queue = { message_that_is_too_big };
+   std::mutex messages_queue_mutex;
+
+   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex, yay_callback, nullptr);
+   std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 0.2);
+
+   client.join();
+   exit_signal_emitter.join();
 }
 
 
@@ -128,7 +145,7 @@ TEST(AllegroFlare_Network2_ClientTest,
    std::mutex messages_queue_mutex;
 
    std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex, yay_callback, nullptr);
-   std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 3);
+   std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 1);
    std::thread message_emitter(publish_messages_every_second_for_6_seconds, &messages_queue, &messages_queue_mutex);
 
    client.join();
