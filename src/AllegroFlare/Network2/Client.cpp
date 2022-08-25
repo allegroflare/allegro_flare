@@ -361,7 +361,7 @@ void Client::run_blocking_while_awaiting_abort()
       messages_queue_mutex,
       callback,
       callback_passed_data,
-      BODY_LENGTH_MAX,
+      MESSAGE_BODY_LENGTH_MAX,
       host,
       port);
    return;

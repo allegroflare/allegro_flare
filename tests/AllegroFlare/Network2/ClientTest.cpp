@@ -114,6 +114,13 @@ TEST(AllegroFlare_Network2_ClientTest,
 
 
 TEST(AllegroFlare_Network2_ClientTest,
+   run_blocking__with_a_message_posted_that_is_too_large__will_cout_an_error_message__and__will_not_send_the_message)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Network2_ClientTest,
    run_blocking__will_detect_changes_to_the_messages_queue_and_post_them_to_the_network)
 {
    std::atomic<bool> global_abort = false;
