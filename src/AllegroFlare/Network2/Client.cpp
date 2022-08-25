@@ -176,6 +176,7 @@ static void client_runner(
       std::mutex *messages_queue_mutex=nullptr,
       void (*callback)(std::string, void*)=nullptr,
       void *callback_passed_data=nullptr,
+      std::size_t MESSAGE_BODY_LENGTH_MAX=512,
       std::string host="localhost",
       std::string port="5432"
    )
@@ -226,7 +227,7 @@ static void client_runner(
        }
     });
 
-    char line[chat_message::max_body_length + 1];
+    //char line[chat_message::max_body_length + 1];
     bool abort = false;
     int counts = 10;
     while (!abort)
@@ -248,11 +249,21 @@ static void client_runner(
  
       for (auto &message_to_post : messages_to_post)
       {
-         chat_message msg;
-         msg.body_length(message_to_post.size());
-         std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
-         msg.encode_header();
-         c.write(msg);
+         if (message_to_post.size() > MESSAGE_BODY_LENGTH_MAX)
+         {
+            std::stringstream error_message;
+            std::cout << "AllegroFlare::Network2::Client: error: Cannot send message. The message body is too large ("
+                      << message_to_post.size() << " bytes) which cannot be larger than MESSAGE_BODY_LENGTH_MAX ("
+                      << MESSAGE_BODY_LENGTH_MAX << " bytes).";
+         }
+         else
+         {
+            chat_message msg;
+            msg.body_length(message_to_post.size());
+            std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
+            msg.encode_header();
+            c.write(msg);
+         }
       }
       messages_to_post.clear();
     }
@@ -344,7 +355,15 @@ void Client::run_blocking_while_awaiting_abort()
                                "messages_queue_mutex cannot be nullptr.");
    }
 
-   client_runner(global_abort, messages_queue, messages_queue_mutex, callback, callback_passed_data, host, port);
+   client_runner(
+      global_abort,
+      messages_queue,
+      messages_queue_mutex,
+      callback,
+      callback_passed_data,
+      BODY_LENGTH_MAX,
+      host,
+      port);
    return;
 }
 } // namespace Network2
