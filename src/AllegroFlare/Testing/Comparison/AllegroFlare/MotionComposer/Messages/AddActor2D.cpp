@@ -23,7 +23,7 @@ namespace AllegroFlare::MotionComposer::Messages
 
   void PrintTo(const AddActor2D& object, ::std::ostream* os)
   {
-     *os << "AddActor2D(\"" << object.get_identifier() << "\", \"" << object.get_script() << "\")";
+     *os << "AddActor2D(\"" << object.get_identifier() << "\", \"" << object.get_bitmap_identifier() << "\", \"" << object.get_script() << "\")";
   }
 
 
