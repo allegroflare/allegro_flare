@@ -35,6 +35,7 @@ functions:
 
 
   - name: generate_characters_about
+    type: std::string
     parameters:
       - name: num_characters
         type: int
@@ -43,18 +44,32 @@ functions:
       // TODO
       throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_characters_about: error: "
                              "not implemented.");
-      return;
+      return "";
 
 
   - name: generate_words
+    type: std::string
     parameters:
       - name: num_words
         type: int
         default_argument: 1
     body: |
-      // TODO
-      throw std::logic_error("AllegroFlare::Generators::LoremIpsumGenerator::generate_words: error: not implemented.");
-      return;
+      if (num_words <= 0) return "";
+      std::stringstream result_ss;
+      std::string content = source_text;
+      static std::string full_text_no_paragraphs = AllegroFlare::php::str_replace("\n", " ", content);
+      std::vector<std::string> words = split(full_text_no_paragraphs);
+
+      // TODO: this could be improved with .resize() and .join()
+      for (int word=0; word<num_words; word++)
+      {
+         result_ss << words[word % words.size()] << " ";
+      }
+
+      std::string result = result_ss.str();
+      result.pop_back(); // remove the last blank space
+
+      return result;
 
 
   - name: generate_sentences

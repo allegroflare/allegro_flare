@@ -56,6 +56,16 @@ TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest,
 
 
 TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest,
+   generate_words__will_return_words_from_the_lorem_ipsum_text_including_puncuation)
+{
+   AllegroFlare::Generators::LoremIpsumGenerator lorem_ipsum_generator;
+   std::string result = lorem_ipsum_generator.generate_words(12);
+   std::string expected_result = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla arcu nec";
+   EXPECT_EQ(expected_result, result);
+}
+
+
+TEST(AllegroFlare_Generators_LoremIpsumGeneratorTest,
    generate_characters__will_return_characters_and_spaces_of_lorem_ipsum_text_without_newlines)
 {
    // TODO: test newlines
