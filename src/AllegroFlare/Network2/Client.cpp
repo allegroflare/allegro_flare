@@ -283,10 +283,6 @@ static void client_runner(
 
 
 
-
-
-
-
 namespace AllegroFlare
 {
 namespace Network2
