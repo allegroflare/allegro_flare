@@ -17,6 +17,14 @@ properties:
     getter: explicit
     setter: true
 
+  - name: bitmap_identifier
+    type: std::string
+    constructor_arg: true
+    init_with: '"[unset-bitmap_identifier]"'
+    getter_ref: true
+    getter: explicit
+    setter: true
+
   - name: script
     type: std::string
     constructor_arg: true
@@ -34,6 +42,12 @@ functions:
     const: true
     body: |
       return identifier;
+
+  - name: get_bitmap_identifier
+    type: std::string
+    const: true
+    body: |
+      return bitmap_identifier;
 
   - name: get_script
     type: std::string

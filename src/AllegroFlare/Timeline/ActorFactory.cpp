@@ -42,8 +42,12 @@ AllegroFlare::Timeline::Actors::Actor2D* ActorFactory::create_actor2d_with_scrip
          error_message << "ActorFactory" << "::" << "create_actor2d_with_script" << ": error: " << "guard \"bitmap_bin\" not met";
          throw std::runtime_error(error_message.str());
       }
-   AllegroFlare::Timeline::Actors::Actor2D* result = new AllegroFlare::Timeline::Actors::Actor2D();
-
+   AllegroFlare::Timeline::Actors::Actor2D* result = new AllegroFlare::Timeline::Actors::Actor2D(
+      identifier,
+      bitmap_identifier,
+      bitmap_bin->auto_get(bitmap_identifier)
+   );
+   result->load_script(script);
    return result;
 }
 } // namespace Timeline

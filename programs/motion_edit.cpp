@@ -25,6 +25,9 @@
 #include <AllegroFlare/MotionFX/Sparkles2.hpp>
 
 
+#include <AllegroFlare/Timeline/ActorFactory.hpp>
+
+
 std::vector<std::string> message_queue = {};
 //std::mutex current_message_mutex;
 
@@ -122,7 +125,7 @@ public:
             Messages::AddActor2D *typed_message = static_cast<Messages::AddActor2D*>(message_to_execute);
             add_actor2d_with_script(
                   typed_message->get_identifier(),
-                  "", //TODO: typed_message->get_bitmap_identifier(),
+                  typed_message->get_bitmap_identifier(),
                   typed_message->get_script()
                );
          }
@@ -172,7 +175,8 @@ public:
 
    void add_actor2d_with_script(std::string identifier, std::string bitmap_identifier, std::string script)
    {
-      // TODO, add ActorFactory, create this object
+      AllegroFlare::Timeline::ActorFactory actor_factory(bitmap_bin);
+      actors.push_back(actor_factory.create_actor2d_with_script(identifier, bitmap_identifier, script));
    }
 
    void clear()

@@ -8,11 +8,12 @@
 TEST(AllegroFlare_JSONLoaders_AllegroFlare_MotionComposer_Messages_AddActor2DTest,
    to_json__returns_the_object_as_json_with_the_expected_values)
 {
-   AllegroFlare::MotionComposer::Messages::AddActor2D add_actor2d("actor32", "script-lines");
+   AllegroFlare::MotionComposer::Messages::AddActor2D add_actor2d("actor32", "a-bitmap.png", "script-lines");
    nlohmann::json j = add_actor2d;
 
    std::string expected_values =
 R"({
+  "bitmap_identifier": "a-bitmap.png",
   "identifier": "actor32",
   "script": "script-lines"
 })";
@@ -25,20 +26,20 @@ R"({
 TEST(AllegroFlare_JSONLoaders_AllegroFlare_MotionComposer_Messages_AddActor2DTest,
    from_json__loads_json_data_into_the_object)
 {
-   AllegroFlare::MotionComposer::Messages::AddActor2D add_actor2d;
-
    std::string json =
 R"({
+  "bitmap_identifier": "a-bitmap.png",
   "identifier": "actor567",
   "script": "foobar-script"
 })";
 
    nlohmann::json parsed_json = nlohmann::json::parse(json);
-   parsed_json.get_to(add_actor2d);
 
-   AllegroFlare::MotionComposer::Messages::AddActor2D expected("actor567", "foobar-script");
+   AllegroFlare::MotionComposer::Messages::AddActor2D expected("actor567", "a-bitmap.png", "foobar-script");
+   AllegroFlare::MotionComposer::Messages::AddActor2D actual;
+   parsed_json.get_to(actual);
 
-   EXPECT_EQ(expected, add_actor2d);
+   EXPECT_EQ(expected, actual);
 }
 
 

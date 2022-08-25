@@ -12,6 +12,7 @@ void to_json(nlohmann::json& j, const AddActor2D& v)
 {
    j = nlohmann::json{
       { "identifier", v.get_identifier() },
+      { "bitmap_identifier", v.get_bitmap_identifier() },
       { "script", v.get_script() },
    };
 }
@@ -19,6 +20,7 @@ void to_json(nlohmann::json& j, const AddActor2D& v)
 void from_json(const nlohmann::json& j, AddActor2D& v)
 {
    j.at("identifier").get_to(v.get_identifier_ref());
+   j.at("bitmap_identifier").get_to(v.get_bitmap_identifier_ref());
    j.at("script").get_to(v.get_script_ref());
 }
 
