@@ -14,7 +14,7 @@ properties:
     constructor_arg: true
     init_with: '"[unset-identifier]"'
     getter_ref: true
-    getter: explicit
+    getter: true
     setter: true
 
   - name: bitmap_identifier
@@ -22,7 +22,7 @@ properties:
     constructor_arg: true
     init_with: '"[unset-bitmap_identifier]"'
     getter_ref: true
-    getter: explicit
+    getter: true
     setter: true
 
   - name: script
@@ -30,30 +30,8 @@ properties:
     constructor_arg: true
     init_with: '"[unset-script]"'
     getter_ref: true
-    getter: explicit
+    getter: true
     setter: true
-
-
-functions:
-
-
-  - name: get_identifier
-    type: std::string
-    const: true
-    body: |
-      return identifier;
-
-  - name: get_bitmap_identifier
-    type: std::string
-    const: true
-    body: |
-      return bitmap_identifier;
-
-  - name: get_script
-    type: std::string
-    const: true
-    body: |
-      return script;
 
 
 dependencies:

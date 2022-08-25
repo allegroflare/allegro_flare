@@ -44,6 +44,24 @@ void AddActor2D::set_script(std::string script)
 }
 
 
+std::string AddActor2D::get_identifier() const
+{
+   return identifier;
+}
+
+
+std::string AddActor2D::get_bitmap_identifier() const
+{
+   return bitmap_identifier;
+}
+
+
+std::string AddActor2D::get_script() const
+{
+   return script;
+}
+
+
 std::string &AddActor2D::get_identifier_ref()
 {
    return identifier;
@@ -62,20 +80,6 @@ std::string &AddActor2D::get_script_ref()
 }
 
 
-std::string AddActor2D::get_identifier() const
-{
-   return identifier;
-}
-
-std::string AddActor2D::get_bitmap_identifier() const
-{
-   return bitmap_identifier;
-}
-
-std::string AddActor2D::get_script() const
-{
-   return script;
-}
 } // namespace Messages
 } // namespace MotionComposer
 } // namespace AllegroFlare

@@ -25,12 +25,12 @@ namespace AllegroFlare
             void set_identifier(std::string identifier);
             void set_bitmap_identifier(std::string bitmap_identifier);
             void set_script(std::string script);
-            std::string &get_identifier_ref();
-            std::string &get_bitmap_identifier_ref();
-            std::string &get_script_ref();
             std::string get_identifier() const;
             std::string get_bitmap_identifier() const;
             std::string get_script() const;
+            std::string &get_identifier_ref();
+            std::string &get_bitmap_identifier_ref();
+            std::string &get_script_ref();
          };
       }
    }

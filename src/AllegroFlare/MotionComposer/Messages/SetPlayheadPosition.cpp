@@ -30,16 +30,18 @@ void SetPlayheadPosition::set_position(float position)
 }
 
 
+float SetPlayheadPosition::get_position() const
+{
+   return position;
+}
+
+
 float &SetPlayheadPosition::get_position_ref()
 {
    return position;
 }
 
 
-float SetPlayheadPosition::get_position() const
-{
-   return position;
-}
 } // namespace Messages
 } // namespace MotionComposer
 } // namespace AllegroFlare

@@ -20,8 +20,8 @@ namespace AllegroFlare
             ~SetPlayheadPosition();
 
             void set_position(float position);
-            float &get_position_ref();
             float get_position() const;
+            float &get_position_ref();
          };
       }
    }

@@ -14,18 +14,8 @@ properties:
     constructor_arg: true
     init_with: 0.0f
     getter_ref: true
-    getter: explicit
+    getter: true
     setter: true
-
-
-functions:
-
-
-  - name: get_position
-    type: float
-    const: true
-    body: |
-      return position;
 
 
 dependencies:
