@@ -434,6 +434,12 @@ void Client::run_blocking_while_awaiting_abort()
             std::cout << "AllegroFlare::Network2::Client: error: Cannot send message. The message body is too large ("
                       << message_to_post.size() << " bytes) which cannot be larger than MESSAGE_BODY_LENGTH_MAX ("
                       << MESSAGE_BODY_LENGTH_MAX << " bytes).";
+            std::cout << std::endl;
+            std::cout << std::endl;
+            std::cout << "======MESSAGE BEGIN======" << std::endl;
+            std::cout << message_to_post << std::endl;
+            std::cout << "======MESSAGE END======" << std::endl;
+            std::cout << std::endl;
          }
          else
          {
