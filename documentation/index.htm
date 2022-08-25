@@ -159,6 +159,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Timeline/ActorFactory.q.yml">quintessence/AllegroFlare/Timeline/ActorFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/UnicodeFontViewer.q.yml">quintessence/AllegroFlare/UnicodeFontViewer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
@@ -7374,6 +7375,30 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Timeline/ActorFactory.q.yml">quintessence/AllegroFlare/Timeline/ActorFactory.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">create_actor2d_with_script(3)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timeline::Actors::Actor2D*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timeline/Actors/Actor2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/UnicodeFontViewer.q.yml">quintessence/AllegroFlare/UnicodeFontViewer.q.yml</h3>
      <table>
 <tr>
@@ -7793,7 +7818,8 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Timeline/ActorFactory"
   ],
   "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
@@ -8562,7 +8588,8 @@ table td
     "AllegroFlare/MotionFX/Sparkles2"
   ],
   "AllegroFlare/Timeline/Actors/Actor2D": [
-    "AllegroFlare/MotionFX/Sparkles2"
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/Timeline/ActorFactory"
   ],
   "chat_message": [
     "AllegroFlare/Network2/Message"

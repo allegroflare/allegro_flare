@@ -1,0 +1,42 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: create_actor2d_with_script
+    type: AllegroFlare::Timeline::Actors::Actor2D*
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+      - name: bitmap_identifier
+        type: std::string
+        default_argument: '"[unset-bitmap_identifier]"'
+      - name: script
+        type: std::string
+        default_argument: '"[unset-bitmap_identifier]"'
+    guards: [ bitmap_bin ]
+    body: |
+      AllegroFlare::Timeline::Actors::Actor2D* result = new AllegroFlare::Timeline::Actors::Actor2D();
+
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin*
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Timeline::Actors::Actor2D*
+    headers: [ AllegroFlare/Timeline/Actors/Actor2D.hpp ]
+
+

@@ -81,13 +81,15 @@ void Sparkles2::initialize()
          throw std::runtime_error(error_message.str());
       }
    // create the actor
-   Timeline::Actors::Base *main_star_actor = new Timeline::Actors::Actor2D("foo", obtain_star_bitmap());
+   std::string star_bitmap_filename = "star-b.png";
+   Timeline::Actors::Base *main_star_actor =
+      new Timeline::Actors::Actor2D("foo", star_bitmap_filename, obtain_star_bitmap());
    std::vector<Timeline::Actors::Base*> friend_stars = {
-      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
-      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
-      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
-      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
-      new Timeline::Actors::Actor2D("foo", obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", star_bitmap_filename, obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", star_bitmap_filename, obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", star_bitmap_filename, obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", star_bitmap_filename, obtain_star_bitmap()),
+      new Timeline::Actors::Actor2D("foo", star_bitmap_filename, obtain_star_bitmap()),
    };
 
    std::vector<Timeline::Actors::Base*> all_actors = { main_star_actor };

@@ -13,8 +13,9 @@ namespace Actors
 {
 
 
-      Actor2D::Actor2D(std::string identifier, ALLEGRO_BITMAP *bitmap)
+      Actor2D::Actor2D(std::string identifier, std::string bitmap_identifier, ALLEGRO_BITMAP *bitmap)
          : Base("Actor2D", identifier)
+         , bitmap_identifier(bitmap_identifier)
          , bitmap(bitmap)
       {
          register_params();

@@ -44,7 +44,8 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Timeline/ActorFactory"
   ],
   "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
@@ -813,7 +814,8 @@
     "AllegroFlare/MotionFX/Sparkles2"
   ],
   "AllegroFlare/Timeline/Actors/Actor2D": [
-    "AllegroFlare/MotionFX/Sparkles2"
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/Timeline/ActorFactory"
   ],
   "chat_message": [
     "AllegroFlare/Network2/Message"
