@@ -9,27 +9,6 @@
 
 
 
-/*
-  - name: sleep_for
-    type: void
-    parameters:
-      - name: length_in_seconds
-        type: float
-        default_argument: 0.0f
-    body: |
-      int length_in_milliseconds = (int)(length_in_seconds * 1000.0);
-      std::this_thread::sleep_for(std::chrono::milliseconds(length_in_milliseconds));
-    body_dependency_symbols:
-      - std::chrono::milliseconds
-      - std::this_thread::sleep_for
-
-  - symbol: std::chrono::milliseconds
-    headers: [ chrono ]
-  - symbol: std::this_thread::sleep_for
-    headers: [ thread ]
-*/
-
-
 
 #include <chrono>
 #include <thread>
