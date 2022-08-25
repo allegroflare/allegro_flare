@@ -123,21 +123,18 @@ functions:
             else if (type == "AddActor2D")
             //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
             {
-               // TODO
-               //AllegroFlare::MotionComposer::Messages::TogglePlayback *typed_result =
-                  //new AllegroFlare::MotionComposer::Messages::TogglePlayback();
-               //parsed_json["message"].get_to(*typed_result);
-               //result = typed_result;
+               AllegroFlare::MotionComposer::Messages::AddActor2D *typed_result =
+                  new AllegroFlare::MotionComposer::Messages::AddActor2D();
+               parsed_json["message"].get_to(*typed_result);
+               result = typed_result;
             }
             else if (type == "Clear")
             //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
             {
-               // HERE
-               // TODO
-               //AllegroFlare::MotionComposer::Messages::TogglePlayback *typed_result =
-                  //new AllegroFlare::MotionComposer::Messages::TogglePlayback();
-               //parsed_json["message"].get_to(*typed_result);
-               //result = typed_result;
+               AllegroFlare::MotionComposer::Messages::Clear *typed_result =
+                  new AllegroFlare::MotionComposer::Messages::Clear();
+               parsed_json["message"].get_to(*typed_result);
+               result = typed_result;
             }
             else if (type == "TogglePlayback")
             //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
@@ -162,6 +159,8 @@ functions:
       - nlohmann::json
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
+      - AllegroFlare::JSONLoaders::MotionComposer::Messages::Clear
+      - AllegroFlare::JSONLoaders::AllegroFlare::MotionComposer::Messages::AddActor2D
 
 
 dependencies:
@@ -177,5 +176,9 @@ dependencies:
     headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp ]
   - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
     headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::Clear
+    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::AllegroFlare::MotionComposer::Messages::AddActor2D
+    headers: [ AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp ]
 
 

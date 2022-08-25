@@ -68,7 +68,7 @@ public:
 
    void initialize()
    {
-      sparkles2.initialize();
+      //sparkles2.initialize();
       //actors = {
       //actors = {
          //new AllegroFlare::Timeline::Actor2D("star1", obtain_star_bitmap()),
@@ -163,9 +163,18 @@ public:
 
       if (playing)
       {
-         playhead_position += (1/60.0f); // * 0.501;
+         playhead_position += (1/60.0f) * 0.50;
+         //playhead_position += (1/60.0f); // * 0.501;
       }
-      sparkles2.set_time(playhead_position);
+      //sparkles2.set_time(playhead_position);
+   }
+
+   void draw_actors()
+   {
+      for (auto &actor : actors)
+      {
+         actor->render(playhead_position);
+      }
    }
 
    void set_playhead_position(float position=0.0)
@@ -199,13 +208,14 @@ public:
       draw_message_queue();
 
             //std::cout << "HHHHHHHh" << std::endl << std::flush;
-      sparkles2.render();
+      //sparkles2.render();
             //std::cout << "IIIIIII" << std::endl << std::flush;
 
       //for (auto &actor : actors)
       //{
          ////TrackView track_view(actor);
       //}
+      draw_actors();
 
       draw_playhead_position();
 

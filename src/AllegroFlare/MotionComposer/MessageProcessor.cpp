@@ -5,6 +5,8 @@
 #include <lib/nlohmann/json.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp>
+#include <AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp>
+#include <AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp>
 
 
 namespace AllegroFlare
@@ -135,6 +137,22 @@ AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_fr
          {
             AllegroFlare::MotionComposer::Messages::SetPlayheadPosition *typed_result =
                new AllegroFlare::MotionComposer::Messages::SetPlayheadPosition();
+            parsed_json["message"].get_to(*typed_result);
+            result = typed_result;
+         }
+         else if (type == "AddActor2D")
+         //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
+         {
+            AllegroFlare::MotionComposer::Messages::AddActor2D *typed_result =
+               new AllegroFlare::MotionComposer::Messages::AddActor2D();
+            parsed_json["message"].get_to(*typed_result);
+            result = typed_result;
+         }
+         else if (type == "Clear")
+         //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
+         {
+            AllegroFlare::MotionComposer::Messages::Clear *typed_result =
+               new AllegroFlare::MotionComposer::Messages::Clear();
             parsed_json["message"].get_to(*typed_result);
             result = typed_result;
          }

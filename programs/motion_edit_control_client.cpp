@@ -27,6 +27,20 @@ std::mutex current_message_mutex;
 //std::mutex global_shutdown_mutex;
 
 
+static std::string join(std::vector<std::string> tokens, std::string delimiter)
+{
+   std::stringstream result;
+   bool last = false;
+
+   for (unsigned i=0; i<tokens.size(); i++)
+   {
+      result << tokens[i];
+      if (i == tokens.size()-1) last = true;
+      if (!last) result << delimiter;
+   }
+
+   return result.str();
+}
 
 
 class MotionEditControl : public AllegroFlare::Screens::Base
@@ -98,7 +112,36 @@ public:
 
    void send_create_test_actor()
    {
-      std::string script = "";
+      std::vector<std::string> script_lines = {
+         "0.0 x 960.0 linear",
+         "0.0 y 540.0 linear",
+
+         "0.0 rotation 4.0 linear",
+         "2.0 rotation 0.0 tripple_fast_in",
+
+         "0.0 opacity 0.0 linear",
+         "0.4 opacity 1.0 linear",
+         "1.9 opacity 1.0 linear",
+         "2.2 opacity 0.0 fast_out",
+
+         "0.0 scale_x 0 linear",
+         "0.0 scale_y 0 linear",
+         "0.1 scale_x 0 linear",
+         "0.1 scale_y 0 linear",
+         "0.7 scale_x 1.2 bounce_out",
+         "0.7 scale_y 1.2 bounce_out",
+
+         //"0 color_r 0. linear",
+         //"0 color_g 0.84 linear",
+         //"0 color_b 0.0 linear",
+
+         "0 color_r 0.91 linear",
+         "0 color_g 0.875 linear",
+         "0 color_b 0.537 linear",
+      };
+
+      std::string script = join(script_lines, "\n");
+
       std::string message = message_factory.build_add_actor2d_with_script_message_json(
          "actor1",
          "star-b.png",

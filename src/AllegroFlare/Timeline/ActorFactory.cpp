@@ -47,7 +47,7 @@ AllegroFlare::Timeline::Actors::Actor2D* ActorFactory::create_actor2d_with_scrip
       bitmap_identifier,
       bitmap_bin->auto_get(bitmap_identifier)
    );
-   result->load_script(script);
+   if (!script.empty()) result->load_script(script);
    return result;
 }
 } // namespace Timeline

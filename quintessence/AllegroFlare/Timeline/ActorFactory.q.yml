@@ -31,7 +31,7 @@ functions:
          bitmap_identifier,
          bitmap_bin->auto_get(bitmap_identifier)
       );
-      result->load_script(script);
+      if (!script.empty()) result->load_script(script);
       return result;
 
 
