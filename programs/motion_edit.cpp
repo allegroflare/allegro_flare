@@ -17,6 +17,7 @@
 #include <AllegroFlare/MotionComposer/MessageProcessor.hpp>
 
 #include <AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp>
+#include <AllegroFlare/MotionComposer/Messages/AddActor2D.hpp>
 #include <AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp>
 #include <AllegroFlare/MotionComposer/Messages/Clear.hpp>
 
@@ -111,11 +112,19 @@ public:
       if (message_to_execute != nullptr)
       {
          using namespace AllegroFlare::MotionComposer;
-         // TODO
          if (message_to_execute->is_type("SetPlayheadPosition"))
          {
             Messages::SetPlayheadPosition *typed_message = static_cast<Messages::SetPlayheadPosition*>(message_to_execute);
             set_playhead_position(typed_message->get_position());
+         }
+         if (message_to_execute->is_type("AddActor2D"))
+         {
+            Messages::AddActor2D *typed_message = static_cast<Messages::AddActor2D*>(message_to_execute);
+            add_actor2d_with_script(
+                  typed_message->get_identifier(),
+                  "", //TODO: typed_message->get_bitmap_identifier(),
+                  typed_message->get_script()
+               );
          }
          else if (message_to_execute->is_type("TogglePlayback"))
          {
@@ -161,8 +170,14 @@ public:
       playhead_position = position;
    }
 
+   void add_actor2d_with_script(std::string identifier, std::string bitmap_identifier, std::string script)
+   {
+      // TODO, add ActorFactory, create this object
+   }
+
    void clear()
    {
+      // TODO: have actors delete their track objects (or better, convert track objects to non-pointer)
       for (auto &actor : actors) delete actor;
       actors.clear();
    }
