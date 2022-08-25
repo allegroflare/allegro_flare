@@ -37,6 +37,7 @@ private:
    std::vector<std::string> *messages_queue;
    std::mutex *messages_queue_mutex;
    AllegroFlare::MotionComposer::MessageFactory message_factory;
+   std::string instruction;
 
 public:
    MotionEditControl(
@@ -49,6 +50,7 @@ public:
       , font_bin(font_bin)
       , messages_queue(messages_queue)
       , messages_queue_mutex(messages_queue_mutex)
+      , instruction()
    {}
    ~MotionEditControl() {}
 
@@ -58,8 +60,6 @@ public:
       AllegroFlare::Placement2D place(1920/2, 1080/2, 800, 600);
 
       al_clear_to_color(ALLEGRO_COLOR{0.2, 0.21, 0.205, 1.0});
-
-      std::string instruction = "Press A, B, or C to send messages.";
 
       place.start_transform();
       al_draw_multiline_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, 300, 30, 0, instruction.c_str());
@@ -96,20 +96,32 @@ public:
       post_message(message);
    }
 
+   void send_create_test_actor()
+   {
+      std::string script = "";
+      std::string message = message_factory.build_add_actor2d_with_script_message_json(
+         "actor1",
+         "star-b.png",
+         script
+      );
+      post_message(message);
+   }
+
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
       //std::cout << "Key down: " << std::endl;
+      std::string instruction = "R: rewind playhead\nA: create actor\nC: clear\nSPACE: toggle playback";
 
       switch(ev->keyboard.keycode)
       {
-      case ALLEGRO_KEY_A: 
+      case ALLEGRO_KEY_R: 
          send_set_playhead(0.0);
          break;
-      case ALLEGRO_KEY_B: 
-         send_set_playhead(8.75);
+      case ALLEGRO_KEY_A: 
+         send_create_test_actor();
          break;
       case ALLEGRO_KEY_C: 
-         send_set_playhead(128.0);
+         send_clear();
          break;
       case ALLEGRO_KEY_SPACE: 
          send_toggle_playback();

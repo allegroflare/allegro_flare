@@ -760,8 +760,21 @@
   "AllegroFlare/MotionComposer/Messages/Clear": [
     "AllegroFlare/MotionComposer/MessageFactory"
   ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
+  "AllegroFlare/MotionComposer/Messages/AddActor2D": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
+  "AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D": [
+    "AllegroFlare/MotionComposer/MessageFactory"
+  ],
   "AllegroFlare/MotionComposer/Messages/TogglePlayback": [
     "AllegroFlare/MotionComposer/MessageFactory"
+  ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback": [
+    "AllegroFlare/MotionComposer/MessageFactory",
+    "AllegroFlare/MotionComposer/MessageProcessor"
   ],
   "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition": [
     "AllegroFlare/MotionComposer/MessageFactory"
@@ -769,13 +782,6 @@
   "AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor"
-  ],
-  "AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback": [
-    "AllegroFlare/MotionComposer/MessageFactory",
-    "AllegroFlare/MotionComposer/MessageProcessor"
-  ],
-  "AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear": [
-    "AllegroFlare/MotionComposer/MessageFactory"
   ],
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",

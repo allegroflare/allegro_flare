@@ -7,6 +7,8 @@
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp>
 #include <lib/nlohmann/json.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp>
+#include <lib/nlohmann/json.hpp>
+#include <AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp>
 
 
 namespace AllegroFlare
@@ -46,6 +48,15 @@ std::string MessageFactory::build_toggle_playback_message_json()
 std::string MessageFactory::build_clear_message_json()
 {
    AllegroFlare::MotionComposer::Messages::Clear message;
+   nlohmann::json json;
+   json["message"] = message;
+   json["message"]["type"] = message.get_type();
+   return json.dump(2);
+}
+
+std::string MessageFactory::build_add_actor2d_with_script_message_json(std::string identifier, std::string bitmap_identifier, std::string script)
+{
+   AllegroFlare::MotionComposer::Messages::AddActor2D message(identifier, bitmap_identifier, script);
    nlohmann::json json;
    json["message"] = message;
    json["message"]["type"] = message.get_type();

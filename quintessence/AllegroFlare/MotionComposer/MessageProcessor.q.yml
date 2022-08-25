@@ -120,6 +120,25 @@ functions:
                parsed_json["message"].get_to(*typed_result);
                result = typed_result;
             }
+            else if (type == "AddActor2D")
+            //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
+            {
+               // TODO
+               //AllegroFlare::MotionComposer::Messages::TogglePlayback *typed_result =
+                  //new AllegroFlare::MotionComposer::Messages::TogglePlayback();
+               //parsed_json["message"].get_to(*typed_result);
+               //result = typed_result;
+            }
+            else if (type == "Clear")
+            //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
+            {
+               // HERE
+               // TODO
+               //AllegroFlare::MotionComposer::Messages::TogglePlayback *typed_result =
+                  //new AllegroFlare::MotionComposer::Messages::TogglePlayback();
+               //parsed_json["message"].get_to(*typed_result);
+               //result = typed_result;
+            }
             else if (type == "TogglePlayback")
             //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
             {

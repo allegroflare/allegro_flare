@@ -44,21 +44,48 @@ functions:
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::Clear
 
 
+  - name: build_add_actor2d_with_script_message_json
+    type: std::string
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+      - name: bitmap_identifier
+        type: std::string
+        default_argument: '"[unset-bitmap_identifier]"'
+      - name: script
+        type: std::string
+        default_argument: '"[unset-script]"'
+    body: |
+       AllegroFlare::MotionComposer::Messages::AddActor2D message(identifier, bitmap_identifier, script);
+       nlohmann::json json;
+       json["message"] = message;
+       json["message"]["type"] = message.get_type();
+       return json.dump(2);
+    body_dependency_symbols:
+      - nlohmann::json
+      - AllegroFlare::JSONLoaders::AllegroFlare::MotionComposer::Messages::AddActor2D
+
+
 dependencies:
 
 
   - symbol: AllegroFlare::MotionComposer::Messages::Clear
     headers: [ AllegroFlare/MotionComposer/Messages/Clear.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::Clear
+    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp ]
+  - symbol: AllegroFlare::MotionComposer::Messages::AddActor2D
+    headers: [ AllegroFlare/MotionComposer/Messages/AddActor2D.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::AllegroFlare::MotionComposer::Messages::AddActor2D
+    headers: [ AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp ]
   - symbol: AllegroFlare::MotionComposer::Messages::TogglePlayback
     headers: [ AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
+    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp ]
   - symbol: AllegroFlare::MotionComposer::Messages::SetPlayheadPosition*
     headers: [ AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp ]
   - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
     headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp ]
-  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
-    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp ]
-  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::Clear
-    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp ]
   - symbol: nlohmann::json
     headers: [ lib/nlohmann/json.hpp ]
 

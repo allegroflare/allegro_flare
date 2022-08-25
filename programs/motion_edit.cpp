@@ -120,7 +120,7 @@ public:
             Messages::SetPlayheadPosition *typed_message = static_cast<Messages::SetPlayheadPosition*>(message_to_execute);
             set_playhead_position(typed_message->get_position());
          }
-         if (message_to_execute->is_type("AddActor2D"))
+         else if (message_to_execute->is_type("AddActor2D"))
          {
             Messages::AddActor2D *typed_message = static_cast<Messages::AddActor2D*>(message_to_execute);
             add_actor2d_with_script(
