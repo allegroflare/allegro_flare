@@ -75,49 +75,49 @@ void RollingCredits::set_game_event_name_to_emit_after_completing(std::string ga
 }
 
 
-AllegroFlare::Elements::RollingCredits::RollingCredits RollingCredits::get_rolling_credits_component()
+AllegroFlare::Elements::RollingCredits::RollingCredits RollingCredits::get_rolling_credits_component() const
 {
    return rolling_credits_component;
 }
 
 
-float RollingCredits::get_surface_width()
+float RollingCredits::get_surface_width() const
 {
    return surface_width;
 }
 
 
-float RollingCredits::get_surface_height()
+float RollingCredits::get_surface_height() const
 {
    return surface_height;
 }
 
 
-float RollingCredits::get_y_offset()
+float RollingCredits::get_y_offset() const
 {
    return y_offset;
 }
 
 
-float RollingCredits::get_y_speed()
+float RollingCredits::get_y_speed() const
 {
    return y_speed;
 }
 
 
-float RollingCredits::get_cached_calculated_height()
+float RollingCredits::get_cached_calculated_height() const
 {
    return cached_calculated_height;
 }
 
 
-std::string RollingCredits::get_game_event_name_to_emit_after_completing()
+std::string RollingCredits::get_game_event_name_to_emit_after_completing() const
 {
    return game_event_name_to_emit_after_completing;
 }
 
 
-bool RollingCredits::get_scroll_is_past_end()
+bool RollingCredits::get_scroll_is_past_end() const
 {
    return scroll_is_past_end;
 }

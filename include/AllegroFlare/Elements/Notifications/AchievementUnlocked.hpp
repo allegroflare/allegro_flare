@@ -21,7 +21,7 @@ namespace AllegroFlare
             ~AchievementUnlocked();
 
             void set_name(std::string name);
-            std::string get_name();
+            std::string get_name() const;
          };
       }
    }

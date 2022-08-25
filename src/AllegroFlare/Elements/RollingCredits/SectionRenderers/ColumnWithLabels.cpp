@@ -84,49 +84,49 @@ void ColumnWithLabels::set_gutter_width(float gutter_width)
 }
 
 
-AllegroFlare::FontBin* ColumnWithLabels::get_font_bin()
+AllegroFlare::FontBin* ColumnWithLabels::get_font_bin() const
 {
    return font_bin;
 }
 
 
-std::vector<std::tuple<std::string, std::string>> ColumnWithLabels::get_elements()
+std::vector<std::tuple<std::string, std::string>> ColumnWithLabels::get_elements() const
 {
    return elements;
 }
 
 
-float ColumnWithLabels::get_x()
+float ColumnWithLabels::get_x() const
 {
    return x;
 }
 
 
-float ColumnWithLabels::get_y()
+float ColumnWithLabels::get_y() const
 {
    return y;
 }
 
 
-std::string ColumnWithLabels::get_font_name()
+std::string ColumnWithLabels::get_font_name() const
 {
    return font_name;
 }
 
 
-int ColumnWithLabels::get_font_size()
+int ColumnWithLabels::get_font_size() const
 {
    return font_size;
 }
 
 
-ALLEGRO_COLOR ColumnWithLabels::get_text_color()
+ALLEGRO_COLOR ColumnWithLabels::get_text_color() const
 {
    return text_color;
 }
 
 
-float ColumnWithLabels::get_gutter_width()
+float ColumnWithLabels::get_gutter_width() const
 {
    return gutter_width;
 }

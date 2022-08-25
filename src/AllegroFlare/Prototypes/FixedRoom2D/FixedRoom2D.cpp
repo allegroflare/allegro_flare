@@ -133,7 +133,7 @@ void FixedRoom2D::set_room_shader(AllegroFlare::Shader* room_shader)
 }
 
 
-AllegroFlare::Shader* FixedRoom2D::get_room_shader()
+AllegroFlare::Shader* FixedRoom2D::get_room_shader() const
 {
    return room_shader;
 }

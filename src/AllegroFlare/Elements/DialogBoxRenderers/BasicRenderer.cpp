@@ -116,73 +116,73 @@ void BasicRenderer::set_age(float age)
 }
 
 
-AllegroFlare::FontBin* BasicRenderer::get_font_bin()
+AllegroFlare::FontBin* BasicRenderer::get_font_bin() const
 {
    return font_bin;
 }
 
 
-std::string BasicRenderer::get_current_page_text()
+std::string BasicRenderer::get_current_page_text() const
 {
    return current_page_text;
 }
 
 
-float BasicRenderer::get_width()
+float BasicRenderer::get_width() const
 {
    return width;
 }
 
 
-float BasicRenderer::get_height()
+float BasicRenderer::get_height() const
 {
    return height;
 }
 
 
-float BasicRenderer::get_text_padding_x()
+float BasicRenderer::get_text_padding_x() const
 {
    return text_padding_x;
 }
 
 
-float BasicRenderer::get_text_padding_y()
+float BasicRenderer::get_text_padding_y() const
 {
    return text_padding_y;
 }
 
 
-int BasicRenderer::get_num_revealed_characters()
+int BasicRenderer::get_num_revealed_characters() const
 {
    return num_revealed_characters;
 }
 
 
-bool BasicRenderer::get_is_finished()
+bool BasicRenderer::get_is_finished() const
 {
    return is_finished;
 }
 
 
-bool BasicRenderer::get_page_is_finished()
+bool BasicRenderer::get_page_is_finished() const
 {
    return page_is_finished;
 }
 
 
-float BasicRenderer::get_page_finished_at()
+float BasicRenderer::get_page_finished_at() const
 {
    return page_finished_at;
 }
 
 
-bool BasicRenderer::get_at_last_page()
+bool BasicRenderer::get_at_last_page() const
 {
    return at_last_page;
 }
 
 
-float BasicRenderer::get_age()
+float BasicRenderer::get_age() const
 {
    return age;
 }

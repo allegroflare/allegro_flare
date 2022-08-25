@@ -32,7 +32,7 @@ void SpawnDialog::set_dialog_pages(std::vector<std::string> dialog_pages)
 }
 
 
-std::vector<std::string> SpawnDialog::get_dialog_pages()
+std::vector<std::string> SpawnDialog::get_dialog_pages() const
 {
    return dialog_pages;
 }

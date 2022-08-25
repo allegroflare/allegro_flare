@@ -57,13 +57,13 @@ std::string Message::get_MAGIC_HEADER_CHUNK()
 }
 
 
-std::string Message::get_data()
+std::string Message::get_data() const
 {
    return data;
 }
 
 
-std::size_t Message::get_body_length()
+std::size_t Message::get_body_length() const
 {
    return body_length;
 }

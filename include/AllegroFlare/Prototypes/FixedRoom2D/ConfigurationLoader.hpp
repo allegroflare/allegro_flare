@@ -42,15 +42,15 @@ namespace AllegroFlare
             void set_destination_room_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary);
             void set_destination_entity_room_associations(std::map<std::string, std::string>* destination_entity_room_associations);
             void set_destination_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary);
-            AllegroFlare::Prototypes::FixedRoom2D::Configuration* get_source_configuration();
-            AllegroFlare::InventoryIndex* get_destination_inventory_index();
-            AllegroFlare::Inventory* get_destination_af_inventory();
-            AllegroFlare::Inventory* get_destination_flags();
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* get_destination_entity_dictionary();
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* get_destination_room_dictionary();
-            std::map<std::string, std::string>* get_destination_entity_room_associations();
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* get_destination_script_dictionary();
-            std::string get_starting_in_room_identifier();
+            AllegroFlare::Prototypes::FixedRoom2D::Configuration* get_source_configuration() const;
+            AllegroFlare::InventoryIndex* get_destination_inventory_index() const;
+            AllegroFlare::Inventory* get_destination_af_inventory() const;
+            AllegroFlare::Inventory* get_destination_flags() const;
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* get_destination_entity_dictionary() const;
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* get_destination_room_dictionary() const;
+            std::map<std::string, std::string>* get_destination_entity_room_associations() const;
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* get_destination_script_dictionary() const;
+            std::string get_starting_in_room_identifier() const;
             bool load_from_source_configuration();
          };
       }

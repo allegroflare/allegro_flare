@@ -22,9 +22,9 @@ namespace AllegroFlare
       ~VirtualControlsProcessor();
 
       void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
-      std::map<int, std::pair<int, int>> get_keyboard_button_map();
-      std::map<int, int> get_joystick_button_map();
-      bool get_initialized();
+      std::map<int, std::pair<int, int>> get_keyboard_button_map() const;
+      std::map<int, int> get_joystick_button_map() const;
+      bool get_initialized() const;
       void initialize();
       std::map<int, int> build_sensible_joystick_button_map();
       std::map<int, std::pair<int, int>> build_sensible_keyboard_button_map();

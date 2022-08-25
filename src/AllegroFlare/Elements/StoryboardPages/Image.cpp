@@ -63,25 +63,25 @@ void Image::set_reveal_style(std::string reveal_style)
 }
 
 
-ALLEGRO_BITMAP* Image::get_bitmap()
+ALLEGRO_BITMAP* Image::get_bitmap() const
 {
    return bitmap;
 }
 
 
-float Image::get_duration_to_advance_sec()
+float Image::get_duration_to_advance_sec() const
 {
    return duration_to_advance_sec;
 }
 
 
-std::string Image::get_reveal_style()
+std::string Image::get_reveal_style() const
 {
    return reveal_style;
 }
 
 
-float Image::get_started_at()
+float Image::get_started_at() const
 {
    return started_at;
 }

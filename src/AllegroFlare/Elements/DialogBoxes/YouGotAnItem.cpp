@@ -25,13 +25,13 @@ YouGotAnItem::~YouGotAnItem()
 }
 
 
-std::string YouGotAnItem::get_item_name()
+std::string YouGotAnItem::get_item_name() const
 {
    return item_name;
 }
 
 
-std::string YouGotAnItem::get_item_bitmap_identifier()
+std::string YouGotAnItem::get_item_bitmap_identifier() const
 {
    return item_bitmap_identifier;
 }

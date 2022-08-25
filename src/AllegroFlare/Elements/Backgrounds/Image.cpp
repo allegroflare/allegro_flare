@@ -30,7 +30,7 @@ Image::~Image()
 }
 
 
-float Image::get_reveal_counter()
+float Image::get_reveal_counter() const
 {
    return reveal_counter;
 }

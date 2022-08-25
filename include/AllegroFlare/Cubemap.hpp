@@ -15,7 +15,7 @@ namespace AllegroFlare
       Cubemap(GLuint id=0);
       ~Cubemap();
 
-      GLuint get_id();
+      GLuint get_id() const;
    };
 }
 

@@ -58,25 +58,25 @@ void Sparkles::set_created_at(float created_at)
 }
 
 
-float Sparkles::get_x()
+float Sparkles::get_x() const
 {
    return x;
 }
 
 
-float Sparkles::get_y()
+float Sparkles::get_y() const
 {
    return y;
 }
 
 
-float Sparkles::get_created_at()
+float Sparkles::get_created_at() const
 {
    return created_at;
 }
 
 
-bool Sparkles::get_initialized()
+bool Sparkles::get_initialized() const
 {
    return initialized;
 }

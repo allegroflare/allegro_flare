@@ -70,55 +70,55 @@ void Base::set_hidden(bool hidden)
 }
 
 
-ALLEGRO_BITMAP* Base::get_bitmap()
+ALLEGRO_BITMAP* Base::get_bitmap() const
 {
    return bitmap;
 }
 
 
-AllegroFlare::Placement2D Base::get_placement()
+AllegroFlare::Placement2D Base::get_placement() const
 {
    return placement;
 }
 
 
-std::string Base::get_on_cursor_interact_script_name()
+std::string Base::get_on_cursor_interact_script_name() const
 {
    return on_cursor_interact_script_name;
 }
 
 
-bool Base::get_cursor_is_over()
+bool Base::get_cursor_is_over() const
 {
    return cursor_is_over;
 }
 
 
-float Base::get_cursor_entered_at()
+float Base::get_cursor_entered_at() const
 {
    return cursor_entered_at;
 }
 
 
-float Base::get_cursor_exited_at()
+float Base::get_cursor_exited_at() const
 {
    return cursor_exited_at;
 }
 
 
-bool Base::get_cursor_insights_are_hidden()
+bool Base::get_cursor_insights_are_hidden() const
 {
    return cursor_insights_are_hidden;
 }
 
 
-bool Base::get_show_hover_as_hue_change()
+bool Base::get_show_hover_as_hue_change() const
 {
    return show_hover_as_hue_change;
 }
 
 
-bool Base::get_hidden()
+bool Base::get_hidden() const
 {
    return hidden;
 }

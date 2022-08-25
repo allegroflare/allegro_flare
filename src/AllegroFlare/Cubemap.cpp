@@ -19,7 +19,7 @@ Cubemap::~Cubemap()
 }
 
 
-GLuint Cubemap::get_id()
+GLuint Cubemap::get_id() const
 {
    return id;
 }

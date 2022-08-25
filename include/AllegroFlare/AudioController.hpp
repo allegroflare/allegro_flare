@@ -31,9 +31,9 @@ namespace AllegroFlare
       AudioController(AllegroFlare::SampleBin* sample_bin=nullptr, std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements={}, std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});
       ~AudioController();
 
-      bool get_initialized();
-      bool get_music_tracks_loaded();
-      bool get_sound_effects_loaded();
+      bool get_initialized() const;
+      bool get_music_tracks_loaded() const;
+      bool get_sound_effects_loaded() const;
       void initialize();
       void set_and_load_sound_effect_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements={});
       void set_and_load_music_track_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});

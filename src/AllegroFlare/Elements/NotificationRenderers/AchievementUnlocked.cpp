@@ -74,37 +74,37 @@ void AchievementUnlocked::set_name(std::string name)
 }
 
 
-float AchievementUnlocked::get_x()
+float AchievementUnlocked::get_x() const
 {
    return x;
 }
 
 
-float AchievementUnlocked::get_y()
+float AchievementUnlocked::get_y() const
 {
    return y;
 }
 
 
-float AchievementUnlocked::get_width()
+float AchievementUnlocked::get_width() const
 {
    return width;
 }
 
 
-float AchievementUnlocked::get_height()
+float AchievementUnlocked::get_height() const
 {
    return height;
 }
 
 
-float AchievementUnlocked::get_created_at()
+float AchievementUnlocked::get_created_at() const
 {
    return created_at;
 }
 
 
-std::string AchievementUnlocked::get_name()
+std::string AchievementUnlocked::get_name() const
 {
    return name;
 }

@@ -48,19 +48,19 @@ AudioController::~AudioController()
 }
 
 
-bool AudioController::get_initialized()
+bool AudioController::get_initialized() const
 {
    return initialized;
 }
 
 
-bool AudioController::get_music_tracks_loaded()
+bool AudioController::get_music_tracks_loaded() const
 {
    return music_tracks_loaded;
 }
 
 
-bool AudioController::get_sound_effects_loaded()
+bool AudioController::get_sound_effects_loaded() const
 {
    return sound_effects_loaded;
 }

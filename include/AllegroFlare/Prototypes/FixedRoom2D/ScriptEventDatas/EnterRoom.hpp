@@ -23,7 +23,7 @@ namespace AllegroFlare
                ~EnterRoom();
 
                void set_room_dictionary_name_to_enter(std::string room_dictionary_name_to_enter);
-               std::string get_room_dictionary_name_to_enter();
+               std::string get_room_dictionary_name_to_enter() const;
             };
          }
       }

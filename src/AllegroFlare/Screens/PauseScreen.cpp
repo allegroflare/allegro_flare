@@ -162,97 +162,97 @@ void PauseScreen::set_title_menu_gutter(float title_menu_gutter)
 }
 
 
-std::string PauseScreen::get_title_text()
+std::string PauseScreen::get_title_text() const
 {
    return title_text;
 }
 
 
-std::string PauseScreen::get_footer_text()
+std::string PauseScreen::get_footer_text() const
 {
    return footer_text;
 }
 
 
-std::string PauseScreen::get_background_bitmap_name()
+std::string PauseScreen::get_background_bitmap_name() const
 {
    return background_bitmap_name;
 }
 
 
-std::string PauseScreen::get_title_bitmap_name()
+std::string PauseScreen::get_title_bitmap_name() const
 {
    return title_bitmap_name;
 }
 
 
-std::string PauseScreen::get_font_name()
+std::string PauseScreen::get_font_name() const
 {
    return font_name;
 }
 
 
-ALLEGRO_COLOR PauseScreen::get_title_text_color()
+ALLEGRO_COLOR PauseScreen::get_title_text_color() const
 {
    return title_text_color;
 }
 
 
-ALLEGRO_COLOR PauseScreen::get_menu_text_color()
+ALLEGRO_COLOR PauseScreen::get_menu_text_color() const
 {
    return menu_text_color;
 }
 
 
-ALLEGRO_COLOR PauseScreen::get_menu_selector_color()
+ALLEGRO_COLOR PauseScreen::get_menu_selector_color() const
 {
    return menu_selector_color;
 }
 
 
-ALLEGRO_COLOR PauseScreen::get_footer_text_color()
+ALLEGRO_COLOR PauseScreen::get_footer_text_color() const
 {
    return footer_text_color;
 }
 
 
-int PauseScreen::get_title_font_size()
+int PauseScreen::get_title_font_size() const
 {
    return title_font_size;
 }
 
 
-int PauseScreen::get_menu_font_size()
+int PauseScreen::get_menu_font_size() const
 {
    return menu_font_size;
 }
 
 
-int PauseScreen::get_footer_font_size()
+int PauseScreen::get_footer_font_size() const
 {
    return footer_font_size;
 }
 
 
-bool PauseScreen::get_show_footer_text()
+bool PauseScreen::get_show_footer_text() const
 {
    return show_footer_text;
 }
 
 
-std::vector<std::pair<std::string, std::string>> PauseScreen::get_menu_options()
+std::vector<std::pair<std::string, std::string>> PauseScreen::get_menu_options() const
 {
    return menu_options;
 }
 
 
-int PauseScreen::get_cursor_position()
+int PauseScreen::get_cursor_position() const
 {
    return cursor_position;
 }
 
 
-float PauseScreen::get_title_menu_gutter()
+float PauseScreen::get_title_menu_gutter() const
 {
    return title_menu_gutter;
 }

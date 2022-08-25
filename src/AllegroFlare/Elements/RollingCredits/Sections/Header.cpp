@@ -32,7 +32,7 @@ void Header::set_text(std::string text)
 }
 
 
-std::string Header::get_text()
+std::string Header::get_text() const
 {
    return text;
 }

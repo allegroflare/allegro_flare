@@ -32,13 +32,13 @@ void Base::set_created_at(float created_at)
 }
 
 
-std::string Base::get_type()
+std::string Base::get_type() const
 {
    return type;
 }
 
 
-float Base::get_created_at()
+float Base::get_created_at() const
 {
    return created_at;
 }

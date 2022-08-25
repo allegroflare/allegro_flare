@@ -29,7 +29,7 @@ void Base::set_placement(AllegroFlare::Placement2D placement)
 }
 
 
-AllegroFlare::Placement2D Base::get_placement()
+AllegroFlare::Placement2D Base::get_placement() const
 {
    return placement;
 }

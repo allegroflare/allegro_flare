@@ -19,7 +19,7 @@ namespace AllegroFlare
             Base(std::string type="Base");
             virtual ~Base();
 
-            std::string get_type();
+            std::string get_type() const;
             virtual void activate();
             virtual void deactivate();
             virtual void update();

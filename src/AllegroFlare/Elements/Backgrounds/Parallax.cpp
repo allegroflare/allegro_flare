@@ -46,19 +46,19 @@ void Parallax::set_offset_y(float offset_y)
 }
 
 
-std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> Parallax::get_layers()
+std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> Parallax::get_layers() const
 {
    return layers;
 }
 
 
-float Parallax::get_offset_x()
+float Parallax::get_offset_x() const
 {
    return offset_x;
 }
 
 
-float Parallax::get_offset_y()
+float Parallax::get_offset_y() const
 {
    return offset_y;
 }

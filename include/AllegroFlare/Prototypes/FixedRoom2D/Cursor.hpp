@@ -35,9 +35,9 @@ namespace AllegroFlare
             void set_x(float x);
             void set_y(float y);
             void set_info_text(std::string info_text);
-            float get_x();
-            float get_y();
-            std::string get_info_text();
+            float get_x() const;
+            float get_y() const;
+            std::string get_info_text() const;
             void draw();
             void update();
             void move(float distance_x=0.0f, float distance_y=0.0f);

@@ -22,7 +22,7 @@ namespace AllegroFlare
             ~SetScript();
 
             void set_script_lines(std::vector<std::string> script_lines);
-            std::vector<std::string> get_script_lines();
+            std::vector<std::string> get_script_lines() const;
          };
       }
    }

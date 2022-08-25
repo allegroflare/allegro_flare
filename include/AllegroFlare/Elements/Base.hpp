@@ -19,7 +19,7 @@ namespace AllegroFlare
          virtual ~Base();
 
          void set_placement(AllegroFlare::Placement2D placement);
-         AllegroFlare::Placement2D get_placement();
+         AllegroFlare::Placement2D get_placement() const;
          AllegroFlare::Placement2D &get_placement_ref();
          virtual void render();
       };

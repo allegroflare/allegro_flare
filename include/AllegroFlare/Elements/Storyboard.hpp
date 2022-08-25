@@ -29,12 +29,12 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_pages(std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages);
          void set_button_font_size(int button_font_size);
-         std::vector<AllegroFlare::Elements::StoryboardPages::Base *> get_pages();
-         int get_button_font_size();
-         intptr_t get_current_page_num();
-         bool get_can_advance_to_next_page();
-         float get_can_advance_started_at();
-         bool get_finished();
+         std::vector<AllegroFlare::Elements::StoryboardPages::Base *> get_pages() const;
+         int get_button_font_size() const;
+         intptr_t get_current_page_num() const;
+         bool get_can_advance_to_next_page() const;
+         float get_can_advance_started_at() const;
+         bool get_finished() const;
          void update();
          void render();
          void reset();

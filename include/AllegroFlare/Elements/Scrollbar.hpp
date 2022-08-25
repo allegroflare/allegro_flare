@@ -34,15 +34,15 @@ namespace AllegroFlare
          void set_handle_height(float handle_height);
          void set_rail_thickness(float rail_thickness);
          void set_handle_thickness(float handle_thickness);
-         float get_x();
-         float get_y();
-         float get_height();
-         float get_position();
-         ALLEGRO_COLOR get_bar_color();
-         ALLEGRO_COLOR get_handle_color();
-         float get_handle_height();
-         float get_rail_thickness();
-         float get_handle_thickness();
+         float get_x() const;
+         float get_y() const;
+         float get_height() const;
+         float get_position() const;
+         ALLEGRO_COLOR get_bar_color() const;
+         ALLEGRO_COLOR get_handle_color() const;
+         float get_handle_height() const;
+         float get_rail_thickness() const;
+         float get_handle_thickness() const;
          void render();
       };
    }

@@ -99,61 +99,61 @@ void TrackView::set_icon_font_size(int icon_font_size)
 }
 
 
-AllegroFlare::FontBin* TrackView::get_font_bin()
+AllegroFlare::FontBin* TrackView::get_font_bin() const
 {
    return font_bin;
 }
 
 
-AllegroFlare::Timeline::Track* TrackView::get_track()
+AllegroFlare::Timeline::Track* TrackView::get_track() const
 {
    return track;
 }
 
 
-float TrackView::get_x()
+float TrackView::get_x() const
 {
    return x;
 }
 
 
-float TrackView::get_y()
+float TrackView::get_y() const
 {
    return y;
 }
 
 
-float TrackView::get_width()
+float TrackView::get_width() const
 {
    return width;
 }
 
 
-float TrackView::get_height()
+float TrackView::get_height() const
 {
    return height;
 }
 
 
-float TrackView::get_value_min()
+float TrackView::get_value_min() const
 {
    return value_min;
 }
 
 
-float TrackView::get_value_max()
+float TrackView::get_value_max() const
 {
    return value_max;
 }
 
 
-int TrackView::get_selection_cursor_x()
+int TrackView::get_selection_cursor_x() const
 {
    return selection_cursor_x;
 }
 
 
-int TrackView::get_icon_font_size()
+int TrackView::get_icon_font_size() const
 {
    return icon_font_size;
 }

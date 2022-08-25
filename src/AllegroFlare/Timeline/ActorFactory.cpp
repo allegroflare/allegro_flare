@@ -28,7 +28,7 @@ void ActorFactory::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 }
 
 
-AllegroFlare::BitmapBin* ActorFactory::get_bitmap_bin()
+AllegroFlare::BitmapBin* ActorFactory::get_bitmap_bin() const
 {
    return bitmap_bin;
 }

@@ -26,9 +26,9 @@ namespace AllegroFlare
             void set_layers(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> layers);
             void set_offset_x(float offset_x);
             void set_offset_y(float offset_y);
-            std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> get_layers();
-            float get_offset_x();
-            float get_offset_y();
+            std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> get_layers() const;
+            float get_offset_x() const;
+            float get_offset_y() const;
             virtual void render();
          };
       }

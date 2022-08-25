@@ -34,7 +34,7 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_entity_collection_helper(AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper);
-            bool get_suspended();
+            bool get_suspended() const;
             void suspend();
             void resume();
             void show();

@@ -80,55 +80,55 @@ void ConfigurationLoader::set_destination_script_dictionary(std::map<std::string
 }
 
 
-AllegroFlare::Prototypes::FixedRoom2D::Configuration* ConfigurationLoader::get_source_configuration()
+AllegroFlare::Prototypes::FixedRoom2D::Configuration* ConfigurationLoader::get_source_configuration() const
 {
    return source_configuration;
 }
 
 
-AllegroFlare::InventoryIndex* ConfigurationLoader::get_destination_inventory_index()
+AllegroFlare::InventoryIndex* ConfigurationLoader::get_destination_inventory_index() const
 {
    return destination_inventory_index;
 }
 
 
-AllegroFlare::Inventory* ConfigurationLoader::get_destination_af_inventory()
+AllegroFlare::Inventory* ConfigurationLoader::get_destination_af_inventory() const
 {
    return destination_af_inventory;
 }
 
 
-AllegroFlare::Inventory* ConfigurationLoader::get_destination_flags()
+AllegroFlare::Inventory* ConfigurationLoader::get_destination_flags() const
 {
    return destination_flags;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* ConfigurationLoader::get_destination_entity_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* ConfigurationLoader::get_destination_entity_dictionary() const
 {
    return destination_entity_dictionary;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* ConfigurationLoader::get_destination_room_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* ConfigurationLoader::get_destination_room_dictionary() const
 {
    return destination_room_dictionary;
 }
 
 
-std::map<std::string, std::string>* ConfigurationLoader::get_destination_entity_room_associations()
+std::map<std::string, std::string>* ConfigurationLoader::get_destination_entity_room_associations() const
 {
    return destination_entity_room_associations;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* ConfigurationLoader::get_destination_script_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* ConfigurationLoader::get_destination_script_dictionary() const
 {
    return destination_script_dictionary;
 }
 
 
-std::string ConfigurationLoader::get_starting_in_room_identifier()
+std::string ConfigurationLoader::get_starting_in_room_identifier() const
 {
    return starting_in_room_identifier;
 }

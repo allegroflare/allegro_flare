@@ -33,13 +33,13 @@ DialogBoxNameTag::~DialogBoxNameTag()
 }
 
 
-float DialogBoxNameTag::get_width()
+float DialogBoxNameTag::get_width() const
 {
    return width;
 }
 
 
-float DialogBoxNameTag::get_height()
+float DialogBoxNameTag::get_height() const
 {
    return height;
 }

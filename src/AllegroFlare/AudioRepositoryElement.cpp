@@ -21,19 +21,19 @@ AudioRepositoryElement::~AudioRepositoryElement()
 }
 
 
-std::string AudioRepositoryElement::get_filename()
+std::string AudioRepositoryElement::get_filename() const
 {
    return filename;
 }
 
 
-bool AudioRepositoryElement::get_loop()
+bool AudioRepositoryElement::get_loop() const
 {
    return loop;
 }
 
 
-std::string AudioRepositoryElement::get_overplay_strategy()
+std::string AudioRepositoryElement::get_overplay_strategy() const
 {
    return overplay_strategy;
 }

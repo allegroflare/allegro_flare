@@ -19,7 +19,7 @@ namespace AllegroFlare
       EventEmitter();
       ~EventEmitter();
 
-      bool get_initialized();
+      bool get_initialized() const;
       ALLEGRO_EVENT_SOURCE &get_event_source_ref();
       void initialize();
       void emit_event(unsigned int type=0, intptr_t data1=0, intptr_t data2=0, intptr_t data3=0, intptr_t data4=0);

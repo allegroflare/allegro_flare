@@ -60,19 +60,19 @@ void Cursor::set_info_text(std::string info_text)
 }
 
 
-float Cursor::get_x()
+float Cursor::get_x() const
 {
    return x;
 }
 
 
-float Cursor::get_y()
+float Cursor::get_y() const
 {
    return y;
 }
 
 
-std::string Cursor::get_info_text()
+std::string Cursor::get_info_text() const
 {
    return info_text;
 }

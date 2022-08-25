@@ -36,43 +36,43 @@ Basic::~Basic()
 }
 
 
-std::vector<std::string> Basic::get_pages()
+std::vector<std::string> Basic::get_pages() const
 {
    return pages;
 }
 
 
-int Basic::get_current_page_num()
+int Basic::get_current_page_num() const
 {
    return current_page_num;
 }
 
 
-bool Basic::get_finished()
+bool Basic::get_finished() const
 {
    return finished;
 }
 
 
-int Basic::get_num_revealed_characters()
+int Basic::get_num_revealed_characters() const
 {
    return num_revealed_characters;
 }
 
 
-float Basic::get_finished_at()
+float Basic::get_finished_at() const
 {
    return finished_at;
 }
 
 
-bool Basic::get_page_finished()
+bool Basic::get_page_finished() const
 {
    return page_finished;
 }
 
 
-float Basic::get_page_finished_at()
+float Basic::get_page_finished_at() const
 {
    return page_finished_at;
 }

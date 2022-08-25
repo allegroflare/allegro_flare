@@ -25,7 +25,7 @@ namespace AllegroFlare
                ~ColumnWithLabels();
 
                void set_elements(std::vector<std::tuple<std::string, std::string>> elements);
-               std::vector<std::tuple<std::string, std::string>> get_elements();
+               std::vector<std::tuple<std::string, std::string>> get_elements() const;
             };
          }
       }

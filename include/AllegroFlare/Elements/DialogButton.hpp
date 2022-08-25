@@ -28,11 +28,11 @@ namespace AllegroFlare
          void set_at_last_advance(bool at_last_advance);
          void set_x(float x);
          void set_y(float y);
-         int get_text_font_size();
-         float get_started_at();
-         bool get_at_last_advance();
-         float get_x();
-         float get_y();
+         int get_text_font_size() const;
+         float get_started_at() const;
+         bool get_at_last_advance() const;
+         float get_x() const;
+         float get_y() const;
          void render();
          ALLEGRO_FONT* obtain_button_font();
       };

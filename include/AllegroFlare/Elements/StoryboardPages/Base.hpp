@@ -21,8 +21,8 @@ namespace AllegroFlare
             virtual ~Base();
 
             void set_finished(bool finished);
-            std::string get_type();
-            bool get_finished();
+            std::string get_type() const;
+            bool get_finished() const;
             virtual void start();
             virtual void update();
             virtual void render();

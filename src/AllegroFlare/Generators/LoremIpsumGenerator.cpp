@@ -25,7 +25,7 @@ LoremIpsumGenerator::~LoremIpsumGenerator()
 }
 
 
-std::string LoremIpsumGenerator::get_source_text()
+std::string LoremIpsumGenerator::get_source_text() const
 {
    return source_text;
 }

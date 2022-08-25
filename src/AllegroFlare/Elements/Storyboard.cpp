@@ -56,37 +56,37 @@ void Storyboard::set_button_font_size(int button_font_size)
 }
 
 
-std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Storyboard::get_pages()
+std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Storyboard::get_pages() const
 {
    return pages;
 }
 
 
-int Storyboard::get_button_font_size()
+int Storyboard::get_button_font_size() const
 {
    return button_font_size;
 }
 
 
-intptr_t Storyboard::get_current_page_num()
+intptr_t Storyboard::get_current_page_num() const
 {
    return current_page_num;
 }
 
 
-bool Storyboard::get_can_advance_to_next_page()
+bool Storyboard::get_can_advance_to_next_page() const
 {
    return can_advance_to_next_page;
 }
 
 
-float Storyboard::get_can_advance_started_at()
+float Storyboard::get_can_advance_started_at() const
 {
    return can_advance_started_at;
 }
 
 
-bool Storyboard::get_finished()
+bool Storyboard::get_finished() const
 {
    return finished;
 }

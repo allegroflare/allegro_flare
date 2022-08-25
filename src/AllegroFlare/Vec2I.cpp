@@ -32,13 +32,13 @@ void Vec2I::set_y(int y)
 }
 
 
-int Vec2I::get_x()
+int Vec2I::get_x() const
 {
    return x;
 }
 
 
-int Vec2I::get_y()
+int Vec2I::get_y() const
 {
    return y;
 }

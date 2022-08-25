@@ -26,9 +26,9 @@ namespace AllegroFlare
             Script(std::vector<std::string> lines={});
             ~Script();
 
-            std::vector<std::string> get_lines();
-            int get_current_line_num();
-            bool get_finished();
+            std::vector<std::string> get_lines() const;
+            int get_current_line_num() const;
+            bool get_finished() const;
             void initialize();
             std::string get_current_line_text();
             bool goto_next_line();

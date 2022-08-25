@@ -33,13 +33,13 @@ namespace AllegroFlare
             void set_bar_spacing(float bar_spacing);
             void set_bar_height(float bar_height);
             void set_bar_stroke_thickness(float bar_stroke_thickness);
-            int get_max();
-            int get_value();
-            ALLEGRO_COLOR get_fill_color();
-            float get_bar_width();
-            float get_bar_spacing();
-            float get_bar_height();
-            float get_bar_stroke_thickness();
+            int get_max() const;
+            int get_value() const;
+            ALLEGRO_COLOR get_fill_color() const;
+            float get_bar_width() const;
+            float get_bar_spacing() const;
+            float get_bar_height() const;
+            float get_bar_stroke_thickness() const;
             void render();
          };
       }

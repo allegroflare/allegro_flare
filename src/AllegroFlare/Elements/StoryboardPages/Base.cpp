@@ -30,13 +30,13 @@ void Base::set_finished(bool finished)
 }
 
 
-std::string Base::get_type()
+std::string Base::get_type() const
 {
    return type;
 }
 
 
-bool Base::get_finished()
+bool Base::get_finished() const
 {
    return finished;
 }

@@ -77,43 +77,43 @@ void Header::set_text_color(ALLEGRO_COLOR text_color)
 }
 
 
-AllegroFlare::FontBin* Header::get_font_bin()
+AllegroFlare::FontBin* Header::get_font_bin() const
 {
    return font_bin;
 }
 
 
-std::string Header::get_text()
+std::string Header::get_text() const
 {
    return text;
 }
 
 
-float Header::get_x()
+float Header::get_x() const
 {
    return x;
 }
 
 
-float Header::get_y()
+float Header::get_y() const
 {
    return y;
 }
 
 
-std::string Header::get_font_name()
+std::string Header::get_font_name() const
 {
    return font_name;
 }
 
 
-int Header::get_font_size()
+int Header::get_font_size() const
 {
    return font_size;
 }
 
 
-ALLEGRO_COLOR Header::get_text_color()
+ALLEGRO_COLOR Header::get_text_color() const
 {
    return text_color;
 }

@@ -26,8 +26,8 @@ namespace AllegroFlare
 
          void set_timer(AllegroFlare::Timer* timer);
          void set_color(ALLEGRO_COLOR color);
-         AllegroFlare::Timer* get_timer();
-         ALLEGRO_COLOR get_color();
+         AllegroFlare::Timer* get_timer() const;
+         ALLEGRO_COLOR get_color() const;
          void fit_placement_width_and_height_to_stopwatch();
          void render();
          std::string build_ellapsed_time_str();

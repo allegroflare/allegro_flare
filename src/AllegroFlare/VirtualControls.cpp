@@ -226,79 +226,79 @@ int VirtualControls::get_SECONDARY_STICK()
 }
 
 
-bool VirtualControls::get_right_button_pressed()
+bool VirtualControls::get_right_button_pressed() const
 {
    return right_button_pressed;
 }
 
 
-bool VirtualControls::get_left_button_pressed()
+bool VirtualControls::get_left_button_pressed() const
 {
    return left_button_pressed;
 }
 
 
-bool VirtualControls::get_up_button_pressed()
+bool VirtualControls::get_up_button_pressed() const
 {
    return up_button_pressed;
 }
 
 
-bool VirtualControls::get_down_button_pressed()
+bool VirtualControls::get_down_button_pressed() const
 {
    return down_button_pressed;
 }
 
 
-bool VirtualControls::get_a_button_pressed()
+bool VirtualControls::get_a_button_pressed() const
 {
    return a_button_pressed;
 }
 
 
-bool VirtualControls::get_b_button_pressed()
+bool VirtualControls::get_b_button_pressed() const
 {
    return b_button_pressed;
 }
 
 
-bool VirtualControls::get_x_button_pressed()
+bool VirtualControls::get_x_button_pressed() const
 {
    return x_button_pressed;
 }
 
 
-bool VirtualControls::get_y_button_pressed()
+bool VirtualControls::get_y_button_pressed() const
 {
    return y_button_pressed;
 }
 
 
-bool VirtualControls::get_left_bumper_pressed()
+bool VirtualControls::get_left_bumper_pressed() const
 {
    return left_bumper_pressed;
 }
 
 
-bool VirtualControls::get_right_bumper_pressed()
+bool VirtualControls::get_right_bumper_pressed() const
 {
    return right_bumper_pressed;
 }
 
 
-bool VirtualControls::get_start_button_pressed()
+bool VirtualControls::get_start_button_pressed() const
 {
    return start_button_pressed;
 }
 
 
-AllegroFlare::vec2d VirtualControls::get_primary_stick_position()
+AllegroFlare::vec2d VirtualControls::get_primary_stick_position() const
 {
    return primary_stick_position;
 }
 
 
-AllegroFlare::vec2d VirtualControls::get_secondary_stick_position()
+AllegroFlare::vec2d VirtualControls::get_secondary_stick_position() const
 {
    return secondary_stick_position;
 }

@@ -27,13 +27,13 @@ namespace AllegroFlare
             Basic(std::vector<std::string> pages={});
             virtual ~Basic();
 
-            std::vector<std::string> get_pages();
-            int get_current_page_num();
-            bool get_finished();
-            int get_num_revealed_characters();
-            float get_finished_at();
-            bool get_page_finished();
-            float get_page_finished_at();
+            std::vector<std::string> get_pages() const;
+            int get_current_page_num() const;
+            bool get_finished() const;
+            int get_num_revealed_characters() const;
+            float get_finished_at() const;
+            bool get_page_finished() const;
+            float get_page_finished_at() const;
             virtual void update();
             void set_pages(std::vector<std::string> pages={});
             void reset();

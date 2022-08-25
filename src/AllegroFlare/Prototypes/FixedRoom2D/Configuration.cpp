@@ -78,49 +78,49 @@ void Configuration::set_starting_in_room_identifier(std::string starting_in_room
 }
 
 
-AllegroFlare::InventoryIndex Configuration::get_inventory_index()
+AllegroFlare::InventoryIndex Configuration::get_inventory_index() const
 {
    return inventory_index;
 }
 
 
-AllegroFlare::Inventory Configuration::get_af_inventory()
+AllegroFlare::Inventory Configuration::get_af_inventory() const
 {
    return af_inventory;
 }
 
 
-AllegroFlare::Inventory Configuration::get_flags()
+AllegroFlare::Inventory Configuration::get_flags() const
 {
    return flags;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> Configuration::get_entity_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> Configuration::get_entity_dictionary() const
 {
    return entity_dictionary;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*> Configuration::get_room_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*> Configuration::get_room_dictionary() const
 {
    return room_dictionary;
 }
 
 
-std::map<std::string, std::string> Configuration::get_entity_room_associations()
+std::map<std::string, std::string> Configuration::get_entity_room_associations() const
 {
    return entity_room_associations;
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> Configuration::get_script_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> Configuration::get_script_dictionary() const
 {
    return script_dictionary;
 }
 
 
-std::string Configuration::get_starting_in_room_identifier()
+std::string Configuration::get_starting_in_room_identifier() const
 {
    return starting_in_room_identifier;
 }

@@ -26,9 +26,9 @@ namespace AllegroFlare
          void set_backfill_color(ALLEGRO_COLOR backfill_color);
          void set_border_color(ALLEGRO_COLOR border_color);
          void set_opacity(float opacity);
-         float get_width();
-         float get_height();
-         float get_opacity();
+         float get_width() const;
+         float get_height() const;
+         float get_opacity() const;
          void render();
       };
    }

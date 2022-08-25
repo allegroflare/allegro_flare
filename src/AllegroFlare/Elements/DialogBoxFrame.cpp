@@ -56,19 +56,19 @@ void DialogBoxFrame::set_opacity(float opacity)
 }
 
 
-float DialogBoxFrame::get_width()
+float DialogBoxFrame::get_width() const
 {
    return width;
 }
 
 
-float DialogBoxFrame::get_height()
+float DialogBoxFrame::get_height() const
 {
    return height;
 }
 
 
-float DialogBoxFrame::get_opacity()
+float DialogBoxFrame::get_opacity() const
 {
    return opacity;
 }

@@ -48,7 +48,7 @@ void GameWonScreen::set_game_event_name_to_emit_on_submission(std::string game_e
 }
 
 
-std::string GameWonScreen::get_game_event_name_to_emit_on_submission()
+std::string GameWonScreen::get_game_event_name_to_emit_on_submission() const
 {
    return game_event_name_to_emit_on_submission;
 }

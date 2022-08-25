@@ -169,103 +169,103 @@ void TitleScreen::set_menu_position_y(float menu_position_y)
 }
 
 
-std::string TitleScreen::get_title_text()
+std::string TitleScreen::get_title_text() const
 {
    return title_text;
 }
 
 
-std::string TitleScreen::get_copyright_text()
+std::string TitleScreen::get_copyright_text() const
 {
    return copyright_text;
 }
 
 
-std::string TitleScreen::get_background_bitmap_name()
+std::string TitleScreen::get_background_bitmap_name() const
 {
    return background_bitmap_name;
 }
 
 
-std::string TitleScreen::get_title_bitmap_name()
+std::string TitleScreen::get_title_bitmap_name() const
 {
    return title_bitmap_name;
 }
 
 
-std::string TitleScreen::get_font_name()
+std::string TitleScreen::get_font_name() const
 {
    return font_name;
 }
 
 
-ALLEGRO_COLOR TitleScreen::get_title_text_color()
+ALLEGRO_COLOR TitleScreen::get_title_text_color() const
 {
    return title_text_color;
 }
 
 
-ALLEGRO_COLOR TitleScreen::get_menu_text_color()
+ALLEGRO_COLOR TitleScreen::get_menu_text_color() const
 {
    return menu_text_color;
 }
 
 
-ALLEGRO_COLOR TitleScreen::get_menu_selector_color()
+ALLEGRO_COLOR TitleScreen::get_menu_selector_color() const
 {
    return menu_selector_color;
 }
 
 
-ALLEGRO_COLOR TitleScreen::get_menu_selected_text_color()
+ALLEGRO_COLOR TitleScreen::get_menu_selected_text_color() const
 {
    return menu_selected_text_color;
 }
 
 
-ALLEGRO_COLOR TitleScreen::get_copyright_text_color()
+ALLEGRO_COLOR TitleScreen::get_copyright_text_color() const
 {
    return copyright_text_color;
 }
 
 
-int TitleScreen::get_title_font_size()
+int TitleScreen::get_title_font_size() const
 {
    return title_font_size;
 }
 
 
-int TitleScreen::get_menu_font_size()
+int TitleScreen::get_menu_font_size() const
 {
    return menu_font_size;
 }
 
 
-int TitleScreen::get_copyright_font_size()
+int TitleScreen::get_copyright_font_size() const
 {
    return copyright_font_size;
 }
 
 
-std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options()
+std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options() const
 {
    return menu_options;
 }
 
 
-float TitleScreen::get_menu_position_x()
+float TitleScreen::get_menu_position_x() const
 {
    return menu_position_x;
 }
 
 
-float TitleScreen::get_menu_position_y()
+float TitleScreen::get_menu_position_y() const
 {
    return menu_position_y;
 }
 
 
-int TitleScreen::get_cursor_position()
+int TitleScreen::get_cursor_position() const
 {
    return cursor_position;
 }

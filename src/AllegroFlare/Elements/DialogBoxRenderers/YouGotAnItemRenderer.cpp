@@ -36,19 +36,19 @@ YouGotAnItemRenderer::~YouGotAnItemRenderer()
 }
 
 
-std::string YouGotAnItemRenderer::get_item_name()
+std::string YouGotAnItemRenderer::get_item_name() const
 {
    return item_name;
 }
 
 
-std::string YouGotAnItemRenderer::get_item_bitmap_identifier()
+std::string YouGotAnItemRenderer::get_item_bitmap_identifier() const
 {
    return item_bitmap_identifier;
 }
 
 
-float YouGotAnItemRenderer::get_age()
+float YouGotAnItemRenderer::get_age() const
 {
    return age;
 }

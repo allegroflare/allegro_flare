@@ -79,55 +79,55 @@ void LevelSelect::set_num_rows(int num_rows)
 }
 
 
-AllegroFlare::Placement2D LevelSelect::get_place()
+AllegroFlare::Placement2D LevelSelect::get_place() const
 {
    return place;
 }
 
 
-int LevelSelect::get_cursor_x()
+int LevelSelect::get_cursor_x() const
 {
    return cursor_x;
 }
 
 
-int LevelSelect::get_cursor_y()
+int LevelSelect::get_cursor_y() const
 {
    return cursor_y;
 }
 
 
-int LevelSelect::get_selection_box_width()
+int LevelSelect::get_selection_box_width() const
 {
    return selection_box_width;
 }
 
 
-int LevelSelect::get_selection_box_height()
+int LevelSelect::get_selection_box_height() const
 {
    return selection_box_height;
 }
 
 
-int LevelSelect::get_selection_box_spacing_x()
+int LevelSelect::get_selection_box_spacing_x() const
 {
    return selection_box_spacing_x;
 }
 
 
-int LevelSelect::get_selection_box_spacing_y()
+int LevelSelect::get_selection_box_spacing_y() const
 {
    return selection_box_spacing_y;
 }
 
 
-int LevelSelect::get_num_columns()
+int LevelSelect::get_num_columns() const
 {
    return num_columns;
 }
 
 
-int LevelSelect::get_num_rows()
+int LevelSelect::get_num_rows() const
 {
    return num_rows;
 }

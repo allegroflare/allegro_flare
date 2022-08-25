@@ -22,7 +22,7 @@ Camera2D::~Camera2D()
 }
 
 
-float Camera2D::get_zoom()
+float Camera2D::get_zoom() const
 {
    return zoom;
 }

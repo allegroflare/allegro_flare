@@ -39,13 +39,13 @@ void MessageProcessor::set_messages(std::vector<AllegroFlare::MotionComposer::Me
 }
 
 
-std::vector<std::string> MessageProcessor::get_messages_json()
+std::vector<std::string> MessageProcessor::get_messages_json() const
 {
    return messages_json;
 }
 
 
-std::vector<AllegroFlare::MotionComposer::Messages::Base*> MessageProcessor::get_messages()
+std::vector<AllegroFlare::MotionComposer::Messages::Base*> MessageProcessor::get_messages() const
 {
    return messages;
 }

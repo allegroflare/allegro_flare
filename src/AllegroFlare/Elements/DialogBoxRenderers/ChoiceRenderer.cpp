@@ -66,25 +66,25 @@ void ChoiceRenderer::set_text_padding_y(float text_padding_y)
 }
 
 
-float ChoiceRenderer::get_width()
+float ChoiceRenderer::get_width() const
 {
    return width;
 }
 
 
-float ChoiceRenderer::get_height()
+float ChoiceRenderer::get_height() const
 {
    return height;
 }
 
 
-float ChoiceRenderer::get_text_padding_x()
+float ChoiceRenderer::get_text_padding_x() const
 {
    return text_padding_x;
 }
 
 
-float ChoiceRenderer::get_text_padding_y()
+float ChoiceRenderer::get_text_padding_y() const
 {
    return text_padding_y;
 }

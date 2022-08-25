@@ -98,61 +98,61 @@ void Text::set_line_height_padding(float line_height_padding)
 }
 
 
-AllegroFlare::FontBin* Text::get_font_bin()
+AllegroFlare::FontBin* Text::get_font_bin() const
 {
    return font_bin;
 }
 
 
-std::string Text::get_text()
+std::string Text::get_text() const
 {
    return text;
 }
 
 
-std::string Text::get_font_name()
+std::string Text::get_font_name() const
 {
    return font_name;
 }
 
 
-int Text::get_font_size()
+int Text::get_font_size() const
 {
    return font_size;
 }
 
 
-ALLEGRO_COLOR Text::get_text_color()
+ALLEGRO_COLOR Text::get_text_color() const
 {
    return text_color;
 }
 
 
-float Text::get_top_padding()
+float Text::get_top_padding() const
 {
    return top_padding;
 }
 
 
-float Text::get_left_padding()
+float Text::get_left_padding() const
 {
    return left_padding;
 }
 
 
-float Text::get_right_padding()
+float Text::get_right_padding() const
 {
    return right_padding;
 }
 
 
-float Text::get_line_height_multiplier()
+float Text::get_line_height_multiplier() const
 {
    return line_height_multiplier;
 }
 
 
-float Text::get_line_height_padding()
+float Text::get_line_height_padding() const
 {
    return line_height_padding;
 }

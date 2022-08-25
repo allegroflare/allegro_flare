@@ -27,7 +27,7 @@ void Time::set_started_at(float started_at)
 }
 
 
-float Time::get_started_at()
+float Time::get_started_at() const
 {
    return started_at;
 }

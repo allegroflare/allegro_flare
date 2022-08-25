@@ -25,7 +25,7 @@ namespace AllegroFlare
             Choice(std::string prompt="[prompt-question-not-set]", std::vector<std::pair<std::string, std::string>> options={});
             ~Choice();
 
-            int get_cursor_position();
+            int get_cursor_position() const;
             void initialize();
             std::string get_prompt();
             std::vector<std::pair<std::string, std::string>> get_options();

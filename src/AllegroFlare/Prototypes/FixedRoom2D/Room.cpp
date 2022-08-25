@@ -70,7 +70,7 @@ void Room::set_entity_collection_helper(AllegroFlare::Prototypes::FixedRoom2D::E
 }
 
 
-bool Room::get_suspended()
+bool Room::get_suspended() const
 {
    return suspended;
 }

@@ -25,7 +25,7 @@ void InventoryIndex::set_index(std::map<int, AllegroFlare::InventoryIndexItem> i
 }
 
 
-std::map<int, AllegroFlare::InventoryIndexItem> InventoryIndex::get_index()
+std::map<int, AllegroFlare::InventoryIndexItem> InventoryIndex::get_index() const
 {
    return index;
 }

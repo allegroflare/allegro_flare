@@ -42,13 +42,13 @@ void Text::set_color(ALLEGRO_COLOR color)
 }
 
 
-std::string Text::get_text()
+std::string Text::get_text() const
 {
    return text;
 }
 
 
-ALLEGRO_COLOR Text::get_color()
+ALLEGRO_COLOR Text::get_color() const
 {
    return color;
 }

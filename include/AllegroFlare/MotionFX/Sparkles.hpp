@@ -32,10 +32,10 @@ namespace AllegroFlare
          void set_x(float x);
          void set_y(float y);
          void set_created_at(float created_at);
-         float get_x();
-         float get_y();
-         float get_created_at();
-         bool get_initialized();
+         float get_x() const;
+         float get_y() const;
+         float get_created_at() const;
+         bool get_initialized() const;
          void initialize();
          void update();
          void render();

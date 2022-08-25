@@ -21,8 +21,8 @@ namespace AllegroFlare
             virtual ~Base();
 
             void set_created_at(float created_at);
-            std::string get_type();
-            float get_created_at();
+            std::string get_type() const;
+            float get_created_at() const;
             virtual void update();
             float infer_age();
             bool is_type(std::string possible_type="");

@@ -23,7 +23,7 @@ namespace AllegroFlare
                ~CollectItem();
 
                void set_item_dictionary_name_to_collect(std::string item_dictionary_name_to_collect);
-               std::string get_item_dictionary_name_to_collect();
+               std::string get_item_dictionary_name_to_collect() const;
             };
          }
       }

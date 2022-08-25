@@ -38,12 +38,12 @@ namespace AllegroFlare
             void set_empty_color(ALLEGRO_COLOR empty_color);
             void set_heart_size(int heart_size);
             void set_heart_spacing(float heart_spacing);
-            int get_max();
-            int get_value();
-            ALLEGRO_COLOR get_fill_color();
-            ALLEGRO_COLOR get_empty_color();
-            int get_heart_size();
-            float get_heart_spacing();
+            int get_max() const;
+            int get_value() const;
+            ALLEGRO_COLOR get_fill_color() const;
+            ALLEGRO_COLOR get_empty_color() const;
+            int get_heart_size() const;
+            float get_heart_spacing() const;
             void render();
             void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
             ALLEGRO_FONT* obtain_font_awesome_font();

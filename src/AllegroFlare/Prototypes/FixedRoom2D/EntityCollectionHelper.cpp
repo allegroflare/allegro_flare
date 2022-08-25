@@ -51,13 +51,13 @@ void EntityCollectionHelper::set_entity_room_associations(std::map<std::string, 
 }
 
 
-std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* EntityCollectionHelper::get_entity_dictionary()
+std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* EntityCollectionHelper::get_entity_dictionary() const
 {
    return entity_dictionary;
 }
 
 
-std::map<std::string, std::string>* EntityCollectionHelper::get_entity_room_associations()
+std::map<std::string, std::string>* EntityCollectionHelper::get_entity_room_associations() const
 {
    return entity_room_associations;
 }

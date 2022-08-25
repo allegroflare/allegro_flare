@@ -30,7 +30,7 @@ void AchievementUnlocked::set_name(std::string name)
 }
 
 
-std::string AchievementUnlocked::get_name()
+std::string AchievementUnlocked::get_name() const
 {
    return name;
 }

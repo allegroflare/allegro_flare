@@ -26,13 +26,13 @@ void GameEvent::set_data(AllegroFlare::GameEventDatas::Base* data)
 }
 
 
-std::string GameEvent::get_type()
+std::string GameEvent::get_type() const
 {
    return type;
 }
 
 
-AllegroFlare::GameEventDatas::Base* GameEvent::get_data()
+AllegroFlare::GameEventDatas::Base* GameEvent::get_data() const
 {
    return data;
 }

@@ -35,10 +35,10 @@ namespace AllegroFlare
             void set_height(float height);
             void set_text_padding_x(float text_padding_x);
             void set_text_padding_y(float text_padding_y);
-            float get_width();
-            float get_height();
-            float get_text_padding_x();
-            float get_text_padding_y();
+            float get_width() const;
+            float get_height() const;
+            float get_text_padding_x() const;
+            float get_text_padding_y() const;
             void render();
             void draw_prompt_text();
             void draw_choices_with_cursor_and_current_selection(float start_y=0);

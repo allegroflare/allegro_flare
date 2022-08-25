@@ -26,7 +26,7 @@ namespace AllegroFlare
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_game_event_name_to_emit_on_submission(std::string game_event_name_to_emit_on_submission);
-         std::string get_game_event_name_to_emit_on_submission();
+         std::string get_game_event_name_to_emit_on_submission() const;
          virtual void primary_timer_func() override;
          void render();
          void draw_primary_text();

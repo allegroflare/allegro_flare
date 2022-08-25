@@ -80,55 +80,55 @@ void KeyboardKey::set_font_size(int font_size)
 }
 
 
-AllegroFlare::FontBin* KeyboardKey::get_font_bin()
+AllegroFlare::FontBin* KeyboardKey::get_font_bin() const
 {
    return font_bin;
 }
 
 
-std::string KeyboardKey::get_keyboard_key_str()
+std::string KeyboardKey::get_keyboard_key_str() const
 {
    return keyboard_key_str;
 }
 
 
-ALLEGRO_COLOR KeyboardKey::get_color()
+ALLEGRO_COLOR KeyboardKey::get_color() const
 {
    return color;
 }
 
 
-float KeyboardKey::get_x()
+float KeyboardKey::get_x() const
 {
    return x;
 }
 
 
-float KeyboardKey::get_y()
+float KeyboardKey::get_y() const
 {
    return y;
 }
 
 
-float KeyboardKey::get_keyboard_key_box_height()
+float KeyboardKey::get_keyboard_key_box_height() const
 {
    return keyboard_key_box_height;
 }
 
 
-float KeyboardKey::get_keyboard_key_box_min_width()
+float KeyboardKey::get_keyboard_key_box_min_width() const
 {
    return keyboard_key_box_min_width;
 }
 
 
-std::string KeyboardKey::get_font_name()
+std::string KeyboardKey::get_font_name() const
 {
    return font_name;
 }
 
 
-int KeyboardKey::get_font_size()
+int KeyboardKey::get_font_size() const
 {
    return font_size;
 }

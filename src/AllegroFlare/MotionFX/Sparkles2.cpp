@@ -54,19 +54,19 @@ void Sparkles2::set_time(float time)
 }
 
 
-float Sparkles2::get_x()
+float Sparkles2::get_x() const
 {
    return x;
 }
 
 
-float Sparkles2::get_y()
+float Sparkles2::get_y() const
 {
    return y;
 }
 
 
-float Sparkles2::get_time()
+float Sparkles2::get_time() const
 {
    return time;
 }

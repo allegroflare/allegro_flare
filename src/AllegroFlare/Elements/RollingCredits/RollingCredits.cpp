@@ -71,37 +71,37 @@ void RollingCredits::set_section_separator_margin(float section_separator_margin
 }
 
 
-std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> RollingCredits::get_sections()
+std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> RollingCredits::get_sections() const
 {
    return sections;
 }
 
 
-float RollingCredits::get_surface_width()
+float RollingCredits::get_surface_width() const
 {
    return surface_width;
 }
 
 
-float RollingCredits::get_surface_height()
+float RollingCredits::get_surface_height() const
 {
    return surface_height;
 }
 
 
-float RollingCredits::get_y_offset()
+float RollingCredits::get_y_offset() const
 {
    return y_offset;
 }
 
 
-float RollingCredits::get_section_separator_margin()
+float RollingCredits::get_section_separator_margin() const
 {
    return section_separator_margin;
 }
 
 
-float RollingCredits::get_height_calculated()
+float RollingCredits::get_height_calculated() const
 {
    return height_calculated;
 }

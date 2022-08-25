@@ -26,10 +26,10 @@ namespace AllegroFlare
             void set_anchor_y(float anchor_y);
             void set_offset_rate(float offset_rate);
             void set_bitmap(ALLEGRO_BITMAP* bitmap);
-            float get_anchor_x();
-            float get_anchor_y();
-            float get_offset_rate();
-            ALLEGRO_BITMAP* get_bitmap();
+            float get_anchor_x() const;
+            float get_anchor_y() const;
+            float get_offset_rate() const;
+            ALLEGRO_BITMAP* get_bitmap() const;
          };
       }
    }

@@ -28,10 +28,10 @@ namespace AllegroFlare
             void set_bitmap(ALLEGRO_BITMAP* bitmap);
             void set_duration_to_advance_sec(float duration_to_advance_sec);
             void set_reveal_style(std::string reveal_style);
-            ALLEGRO_BITMAP* get_bitmap();
-            float get_duration_to_advance_sec();
-            std::string get_reveal_style();
-            float get_started_at();
+            ALLEGRO_BITMAP* get_bitmap() const;
+            float get_duration_to_advance_sec() const;
+            std::string get_reveal_style() const;
+            float get_started_at() const;
             virtual void start() override;
             virtual void update() override;
             virtual void render() override;

@@ -50,7 +50,7 @@ EventEmitter::~EventEmitter()
 }
 
 
-bool EventEmitter::get_initialized()
+bool EventEmitter::get_initialized() const
 {
    return initialized;
 }

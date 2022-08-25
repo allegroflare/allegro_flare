@@ -26,7 +26,7 @@ void Notifications::set_notifications(std::vector<AllegroFlare::Elements::Notifi
 }
 
 
-std::vector<AllegroFlare::Elements::Notifications::Base*> Notifications::get_notifications()
+std::vector<AllegroFlare::Elements::Notifications::Base*> Notifications::get_notifications() const
 {
    return notifications;
 }

@@ -25,8 +25,8 @@ namespace AllegroFlare
 
             void set_entity_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary);
             void set_entity_room_associations(std::map<std::string, std::string>* entity_room_associations);
-            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* get_entity_dictionary();
-            std::map<std::string, std::string>* get_entity_room_associations();
+            std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* get_entity_dictionary() const;
+            std::map<std::string, std::string>* get_entity_room_associations() const;
             std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> select_all_in_room_ordered_by_id(std::string room_name="[unset-room_name]");
             std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> select_all();
             std::string find_dictionary_name_of_entity_that_cursor_is_now_over();

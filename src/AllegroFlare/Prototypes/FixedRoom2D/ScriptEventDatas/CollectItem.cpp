@@ -32,7 +32,7 @@ void CollectItem::set_item_dictionary_name_to_collect(std::string item_dictionar
 }
 
 
-std::string CollectItem::get_item_dictionary_name_to_collect()
+std::string CollectItem::get_item_dictionary_name_to_collect() const
 {
    return item_dictionary_name_to_collect;
 }

@@ -86,55 +86,55 @@ void Scrollbar::set_handle_thickness(float handle_thickness)
 }
 
 
-float Scrollbar::get_x()
+float Scrollbar::get_x() const
 {
    return x;
 }
 
 
-float Scrollbar::get_y()
+float Scrollbar::get_y() const
 {
    return y;
 }
 
 
-float Scrollbar::get_height()
+float Scrollbar::get_height() const
 {
    return height;
 }
 
 
-float Scrollbar::get_position()
+float Scrollbar::get_position() const
 {
    return position;
 }
 
 
-ALLEGRO_COLOR Scrollbar::get_bar_color()
+ALLEGRO_COLOR Scrollbar::get_bar_color() const
 {
    return bar_color;
 }
 
 
-ALLEGRO_COLOR Scrollbar::get_handle_color()
+ALLEGRO_COLOR Scrollbar::get_handle_color() const
 {
    return handle_color;
 }
 
 
-float Scrollbar::get_handle_height()
+float Scrollbar::get_handle_height() const
 {
    return handle_height;
 }
 
 
-float Scrollbar::get_rail_thickness()
+float Scrollbar::get_rail_thickness() const
 {
    return rail_thickness;
 }
 
 
-float Scrollbar::get_handle_thickness()
+float Scrollbar::get_handle_thickness() const
 {
    return handle_thickness;
 }

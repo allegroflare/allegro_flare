@@ -17,7 +17,7 @@ namespace AllegroFlare
       ~Notifications();
 
       void set_notifications(std::vector<AllegroFlare::Elements::Notifications::Base*> notifications);
-      std::vector<AllegroFlare::Elements::Notifications::Base*> get_notifications();
+      std::vector<AllegroFlare::Elements::Notifications::Base*> get_notifications() const;
       int size();
       void add(AllegroFlare::Elements::Notifications::Base* notification=nullptr);
       std::vector<AllegroFlare::Elements::Notifications::Base*> select_all_order_by_created_at_desc();

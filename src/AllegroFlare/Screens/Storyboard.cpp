@@ -61,13 +61,13 @@ void Storyboard::set_game_event_name_to_emit_after_completing(std::string game_e
 }
 
 
-bool Storyboard::get_auto_advance()
+bool Storyboard::get_auto_advance() const
 {
    return auto_advance;
 }
 
 
-std::string Storyboard::get_game_event_name_to_emit_after_completing()
+std::string Storyboard::get_game_event_name_to_emit_after_completing() const
 {
    return game_event_name_to_emit_after_completing;
 }

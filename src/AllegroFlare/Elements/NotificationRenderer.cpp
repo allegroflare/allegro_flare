@@ -61,25 +61,25 @@ void NotificationRenderer::set_height(float height)
 }
 
 
-float NotificationRenderer::get_x()
+float NotificationRenderer::get_x() const
 {
    return x;
 }
 
 
-float NotificationRenderer::get_y()
+float NotificationRenderer::get_y() const
 {
    return y;
 }
 
 
-float NotificationRenderer::get_width()
+float NotificationRenderer::get_width() const
 {
    return width;
 }
 
 
-float NotificationRenderer::get_height()
+float NotificationRenderer::get_height() const
 {
    return height;
 }

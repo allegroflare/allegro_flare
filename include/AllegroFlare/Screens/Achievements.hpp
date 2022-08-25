@@ -32,7 +32,7 @@ namespace AllegroFlare
 
          void set_achievements(AllegroFlare::Achievements* achievements);
          void set_game_event_name_to_emit_on_return(std::string game_event_name_to_emit_on_return);
-         std::string get_game_event_name_to_emit_on_return();
+         std::string get_game_event_name_to_emit_on_return() const;
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void refresh_achievements_list();

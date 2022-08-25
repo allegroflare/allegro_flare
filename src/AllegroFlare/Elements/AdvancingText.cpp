@@ -89,61 +89,61 @@ void AdvancingText::set_finished(bool finished)
 }
 
 
-AllegroFlare::FontBin* AdvancingText::get_font_bin()
+AllegroFlare::FontBin* AdvancingText::get_font_bin() const
 {
    return font_bin;
 }
 
 
-std::string AdvancingText::get_text()
+std::string AdvancingText::get_text() const
 {
    return text;
 }
 
 
-std::string AdvancingText::get_font_name()
+std::string AdvancingText::get_font_name() const
 {
    return font_name;
 }
 
 
-int AdvancingText::get_font_size()
+int AdvancingText::get_font_size() const
 {
    return font_size;
 }
 
 
-ALLEGRO_COLOR AdvancingText::get_text_color()
+ALLEGRO_COLOR AdvancingText::get_text_color() const
 {
    return text_color;
 }
 
 
-float AdvancingText::get_width()
+float AdvancingText::get_width() const
 {
    return width;
 }
 
 
-float AdvancingText::get_line_height_multiplier()
+float AdvancingText::get_line_height_multiplier() const
 {
    return line_height_multiplier;
 }
 
 
-float AdvancingText::get_line_height_padding()
+float AdvancingText::get_line_height_padding() const
 {
    return line_height_padding;
 }
 
 
-int AdvancingText::get_revealed_characters_count()
+int AdvancingText::get_revealed_characters_count() const
 {
    return revealed_characters_count;
 }
 
 
-bool AdvancingText::get_finished()
+bool AdvancingText::get_finished() const
 {
    return finished;
 }

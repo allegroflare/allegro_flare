@@ -107,49 +107,49 @@ void Inventory::set_inventory_hide_sound_identifier(std::string inventory_hide_s
 }
 
 
-AllegroFlare::Placement2D Inventory::get_place()
+AllegroFlare::Placement2D Inventory::get_place() const
 {
    return place;
 }
 
 
-int Inventory::get_cursor_x()
+int Inventory::get_cursor_x() const
 {
    return cursor_x;
 }
 
 
-int Inventory::get_cursor_y()
+int Inventory::get_cursor_y() const
 {
    return cursor_y;
 }
 
 
-bool Inventory::get_active()
+bool Inventory::get_active() const
 {
    return active;
 }
 
 
-std::string Inventory::get_cursor_move_sound_identifier()
+std::string Inventory::get_cursor_move_sound_identifier() const
 {
    return cursor_move_sound_identifier;
 }
 
 
-std::string Inventory::get_inventory_show_sound_identifier()
+std::string Inventory::get_inventory_show_sound_identifier() const
 {
    return inventory_show_sound_identifier;
 }
 
 
-std::string Inventory::get_inventory_hide_sound_identifier()
+std::string Inventory::get_inventory_hide_sound_identifier() const
 {
    return inventory_hide_sound_identifier;
 }
 
 
-bool Inventory::get_sound_is_disabled()
+bool Inventory::get_sound_is_disabled() const
 {
    return sound_is_disabled;
 }

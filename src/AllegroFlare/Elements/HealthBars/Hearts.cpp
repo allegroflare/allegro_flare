@@ -78,37 +78,37 @@ void Hearts::set_heart_spacing(float heart_spacing)
 }
 
 
-int Hearts::get_max()
+int Hearts::get_max() const
 {
    return max;
 }
 
 
-int Hearts::get_value()
+int Hearts::get_value() const
 {
    return value;
 }
 
 
-ALLEGRO_COLOR Hearts::get_fill_color()
+ALLEGRO_COLOR Hearts::get_fill_color() const
 {
    return fill_color;
 }
 
 
-ALLEGRO_COLOR Hearts::get_empty_color()
+ALLEGRO_COLOR Hearts::get_empty_color() const
 {
    return empty_color;
 }
 
 
-int Hearts::get_heart_size()
+int Hearts::get_heart_size() const
 {
    return heart_size;
 }
 
 
-float Hearts::get_heart_spacing()
+float Hearts::get_heart_spacing() const
 {
    return heart_spacing;
 }

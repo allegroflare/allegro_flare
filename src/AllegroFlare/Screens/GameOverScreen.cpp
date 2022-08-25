@@ -46,7 +46,7 @@ void GameOverScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-bool GameOverScreen::get_initialized()
+bool GameOverScreen::get_initialized() const
 {
    return initialized;
 }

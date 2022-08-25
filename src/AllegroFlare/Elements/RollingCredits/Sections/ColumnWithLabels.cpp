@@ -32,7 +32,7 @@ void ColumnWithLabels::set_elements(std::vector<std::tuple<std::string, std::str
 }
 
 
-std::vector<std::tuple<std::string, std::string>> ColumnWithLabels::get_elements()
+std::vector<std::tuple<std::string, std::string>> ColumnWithLabels::get_elements() const
 {
    return elements;
 }

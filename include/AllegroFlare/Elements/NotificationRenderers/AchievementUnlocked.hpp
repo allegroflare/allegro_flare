@@ -35,12 +35,12 @@ namespace AllegroFlare
             void set_height(float height);
             void set_created_at(float created_at);
             void set_name(std::string name);
-            float get_x();
-            float get_y();
-            float get_width();
-            float get_height();
-            float get_created_at();
-            std::string get_name();
+            float get_x() const;
+            float get_y() const;
+            float get_width() const;
+            float get_height() const;
+            float get_created_at() const;
+            std::string get_name() const;
             void render();
             void draw_achievement_box(std::string title="[unset-title]", std::string description="[unset-description]");
             int32_t infer_icon_character_by_status(std::string status="[unset-status]");

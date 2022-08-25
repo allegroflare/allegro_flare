@@ -84,43 +84,43 @@ void AchievementsList::set_box_gutter_y(float box_gutter_y)
 }
 
 
-std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::get_achievements()
+std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::get_achievements() const
 {
    return achievements;
 }
 
 
-float AchievementsList::get_achievements_box_width()
+float AchievementsList::get_achievements_box_width() const
 {
    return achievements_box_width;
 }
 
 
-float AchievementsList::get_achievements_box_height()
+float AchievementsList::get_achievements_box_height() const
 {
    return achievements_box_height;
 }
 
 
-int AchievementsList::get_surface_width()
+int AchievementsList::get_surface_width() const
 {
    return surface_width;
 }
 
 
-int AchievementsList::get_surface_height()
+int AchievementsList::get_surface_height() const
 {
    return surface_height;
 }
 
 
-float AchievementsList::get_scrollbar_position()
+float AchievementsList::get_scrollbar_position() const
 {
    return scrollbar_position;
 }
 
 
-float AchievementsList::get_box_gutter_y()
+float AchievementsList::get_box_gutter_y() const
 {
    return box_gutter_y;
 }

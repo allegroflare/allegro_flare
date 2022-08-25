@@ -18,7 +18,7 @@ namespace AllegroFlare
       ~Bone3D();
 
       void set_children(std::vector<AllegroFlare::Bone3D*> children);
-      std::vector<AllegroFlare::Bone3D*> get_children();
+      std::vector<AllegroFlare::Bone3D*> get_children() const;
       std::vector<AllegroFlare::Bone3D*> &get_children_ref();
       void add_child(AllegroFlare::Bone3D* bone={});
    };

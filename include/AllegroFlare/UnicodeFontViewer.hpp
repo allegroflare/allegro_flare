@@ -23,8 +23,8 @@ namespace AllegroFlare
       void set_font_bin(AllegroFlare::FontBin* font_bin);
       void set_font_identifier(std::string font_identifier);
       void set_unicode_range_start(uint32_t unicode_range_start);
-      std::string get_font_identifier();
-      uint32_t get_unicode_range_start();
+      std::string get_font_identifier() const;
+      uint32_t get_unicode_range_start() const;
       void render();
       void previous_page();
       void next_page();

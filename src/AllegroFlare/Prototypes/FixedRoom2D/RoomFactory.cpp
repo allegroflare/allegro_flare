@@ -51,25 +51,25 @@ void RoomFactory::set_entity_collection_helper(AllegroFlare::Prototypes::FixedRo
 }
 
 
-AllegroFlare::BitmapBin* RoomFactory::get_bitmap_bin()
+AllegroFlare::BitmapBin* RoomFactory::get_bitmap_bin() const
 {
    return bitmap_bin;
 }
 
 
-AllegroFlare::FontBin* RoomFactory::get_font_bin()
+AllegroFlare::FontBin* RoomFactory::get_font_bin() const
 {
    return font_bin;
 }
 
 
-AllegroFlare::EventEmitter* RoomFactory::get_event_emitter()
+AllegroFlare::EventEmitter* RoomFactory::get_event_emitter() const
 {
    return event_emitter;
 }
 
 
-AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* RoomFactory::get_entity_collection_helper()
+AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* RoomFactory::get_entity_collection_helper() const
 {
    return entity_collection_helper;
 }

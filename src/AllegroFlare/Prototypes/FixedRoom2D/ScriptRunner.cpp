@@ -89,13 +89,13 @@ void ScriptRunner::set_paused_for_dialog_to_finish(bool paused_for_dialog_to_fin
 }
 
 
-bool ScriptRunner::get_script_freshly_loaded_via_OPEN_SCRIPT()
+bool ScriptRunner::get_script_freshly_loaded_via_OPEN_SCRIPT() const
 {
    return script_freshly_loaded_via_OPEN_SCRIPT;
 }
 
 
-bool ScriptRunner::get_paused_for_dialog_to_finish()
+bool ScriptRunner::get_paused_for_dialog_to_finish() const
 {
    return paused_for_dialog_to_finish;
 }

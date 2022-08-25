@@ -29,7 +29,7 @@ namespace AllegroFlare
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
-         bool get_initialized();
+         bool get_initialized() const;
          void initialize();
          void move_cursor_up();
          void move_cursor_down();

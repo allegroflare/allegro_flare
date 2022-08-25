@@ -75,43 +75,43 @@ void InputHints::set_surface_height(int surface_height)
 }
 
 
-AllegroFlare::FontBin* InputHints::get_font_bin()
+AllegroFlare::FontBin* InputHints::get_font_bin() const
 {
    return font_bin;
 }
 
 
-std::vector<std::pair<std::string, std::string>> InputHints::get_input_hints_tokens()
+std::vector<std::pair<std::string, std::string>> InputHints::get_input_hints_tokens() const
 {
    return input_hints_tokens;
 }
 
 
-std::vector<std::string> InputHints::get_keyboard_key_combo_tokens()
+std::vector<std::string> InputHints::get_keyboard_key_combo_tokens() const
 {
    return keyboard_key_combo_tokens;
 }
 
 
-int InputHints::get_bar_height()
+int InputHints::get_bar_height() const
 {
    return bar_height;
 }
 
 
-ALLEGRO_COLOR InputHints::get_text_color()
+ALLEGRO_COLOR InputHints::get_text_color() const
 {
    return text_color;
 }
 
 
-int InputHints::get_surface_width()
+int InputHints::get_surface_width() const
 {
    return surface_width;
 }
 
 
-int InputHints::get_surface_height()
+int InputHints::get_surface_height() const
 {
    return surface_height;
 }

@@ -25,8 +25,8 @@ namespace AllegroFlare
 
          void set_text(std::string text);
          void set_color(ALLEGRO_COLOR color);
-         std::string get_text();
-         ALLEGRO_COLOR get_color();
+         std::string get_text() const;
+         ALLEGRO_COLOR get_color() const;
          void render();
          void fit_placement_width_and_height_to_text();
          ALLEGRO_FONT* obtain_font();

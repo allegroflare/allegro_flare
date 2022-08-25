@@ -66,37 +66,37 @@ void NotificationsRenderer::set_notification_vertical_gutter(float notification_
 }
 
 
-std::vector<AllegroFlare::Elements::Notifications::Base*> NotificationsRenderer::get_notifications()
+std::vector<AllegroFlare::Elements::Notifications::Base*> NotificationsRenderer::get_notifications() const
 {
    return notifications;
 }
 
 
-int NotificationsRenderer::get_surface_width()
+int NotificationsRenderer::get_surface_width() const
 {
    return surface_width;
 }
 
 
-int NotificationsRenderer::get_surface_height()
+int NotificationsRenderer::get_surface_height() const
 {
    return surface_height;
 }
 
 
-float NotificationsRenderer::get_notification_box_width()
+float NotificationsRenderer::get_notification_box_width() const
 {
    return notification_box_width;
 }
 
 
-float NotificationsRenderer::get_notification_box_height()
+float NotificationsRenderer::get_notification_box_height() const
 {
    return notification_box_height;
 }
 
 
-float NotificationsRenderer::get_notification_vertical_gutter()
+float NotificationsRenderer::get_notification_vertical_gutter() const
 {
    return notification_vertical_gutter;
 }

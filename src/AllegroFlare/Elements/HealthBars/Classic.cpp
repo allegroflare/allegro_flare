@@ -74,43 +74,43 @@ void Classic::set_bar_stroke_thickness(float bar_stroke_thickness)
 }
 
 
-int Classic::get_max()
+int Classic::get_max() const
 {
    return max;
 }
 
 
-int Classic::get_value()
+int Classic::get_value() const
 {
    return value;
 }
 
 
-ALLEGRO_COLOR Classic::get_fill_color()
+ALLEGRO_COLOR Classic::get_fill_color() const
 {
    return fill_color;
 }
 
 
-float Classic::get_bar_width()
+float Classic::get_bar_width() const
 {
    return bar_width;
 }
 
 
-float Classic::get_bar_spacing()
+float Classic::get_bar_spacing() const
 {
    return bar_spacing;
 }
 
 
-float Classic::get_bar_height()
+float Classic::get_bar_height() const
 {
    return bar_height;
 }
 
 
-float Classic::get_bar_stroke_thickness()
+float Classic::get_bar_stroke_thickness() const
 {
    return bar_stroke_thickness;
 }

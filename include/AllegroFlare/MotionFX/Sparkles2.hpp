@@ -29,9 +29,9 @@ namespace AllegroFlare
          void set_x(float x);
          void set_y(float y);
          void set_time(float time);
-         float get_x();
-         float get_y();
-         float get_time();
+         float get_x() const;
+         float get_y() const;
+         float get_time() const;
          void initialize();
          std::vector<std::string> build_friend_star_script_lines(float rotation=0.0f);
          void render();

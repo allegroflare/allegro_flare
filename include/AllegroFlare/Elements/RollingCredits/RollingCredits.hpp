@@ -34,12 +34,12 @@ namespace AllegroFlare
             void set_surface_height(float surface_height);
             void set_y_offset(float y_offset);
             void set_section_separator_margin(float section_separator_margin);
-            std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> get_sections();
-            float get_surface_width();
-            float get_surface_height();
-            float get_y_offset();
-            float get_section_separator_margin();
-            float get_height_calculated();
+            std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> get_sections() const;
+            float get_surface_width() const;
+            float get_surface_height() const;
+            float get_y_offset() const;
+            float get_section_separator_margin() const;
+            float get_height_calculated() const;
             void initialize();
             void set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={});
             float calculate_height();

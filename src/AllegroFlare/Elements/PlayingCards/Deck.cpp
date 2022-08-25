@@ -26,7 +26,7 @@ Deck::~Deck()
 }
 
 
-std::vector<AllegroFlare::Elements::PlayingCards::Card> Deck::get_cards()
+std::vector<AllegroFlare::Elements::PlayingCards::Card> Deck::get_cards() const
 {
    return cards;
 }

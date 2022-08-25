@@ -39,19 +39,19 @@ void InventoryIndexItem::set_description(std::string description)
 }
 
 
-std::string InventoryIndexItem::get_title()
+std::string InventoryIndexItem::get_title() const
 {
    return title;
 }
 
 
-std::string InventoryIndexItem::get_bitmap_filename()
+std::string InventoryIndexItem::get_bitmap_filename() const
 {
    return bitmap_filename;
 }
 
 
-std::string InventoryIndexItem::get_description()
+std::string InventoryIndexItem::get_description() const
 {
    return description;
 }

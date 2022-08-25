@@ -23,7 +23,7 @@ namespace AllegroFlare
                ~Header();
 
                void set_text(std::string text);
-               std::string get_text();
+               std::string get_text() const;
             };
          }
       }

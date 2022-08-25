@@ -64,31 +64,31 @@ void DialogButton::set_y(float y)
 }
 
 
-int DialogButton::get_text_font_size()
+int DialogButton::get_text_font_size() const
 {
    return text_font_size;
 }
 
 
-float DialogButton::get_started_at()
+float DialogButton::get_started_at() const
 {
    return started_at;
 }
 
 
-bool DialogButton::get_at_last_advance()
+bool DialogButton::get_at_last_advance() const
 {
    return at_last_advance;
 }
 
 
-float DialogButton::get_x()
+float DialogButton::get_x() const
 {
    return x;
 }
 
 
-float DialogButton::get_y()
+float DialogButton::get_y() const
 {
    return y;
 }

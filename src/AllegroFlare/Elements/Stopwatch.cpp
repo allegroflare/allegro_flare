@@ -44,13 +44,13 @@ void Stopwatch::set_color(ALLEGRO_COLOR color)
 }
 
 
-AllegroFlare::Timer* Stopwatch::get_timer()
+AllegroFlare::Timer* Stopwatch::get_timer() const
 {
    return timer;
 }
 
 
-ALLEGRO_COLOR Stopwatch::get_color()
+ALLEGRO_COLOR Stopwatch::get_color() const
 {
    return color;
 }

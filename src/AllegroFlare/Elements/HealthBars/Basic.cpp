@@ -76,43 +76,43 @@ void Basic::set_min_render_threshold(float min_render_threshold)
 }
 
 
-float Basic::get_value()
+float Basic::get_value() const
 {
    return value;
 }
 
 
-float Basic::get_max()
+float Basic::get_max() const
 {
    return max;
 }
 
 
-ALLEGRO_COLOR Basic::get_fill_color()
+ALLEGRO_COLOR Basic::get_fill_color() const
 {
    return fill_color;
 }
 
 
-ALLEGRO_COLOR Basic::get_backfill_color()
+ALLEGRO_COLOR Basic::get_backfill_color() const
 {
    return backfill_color;
 }
 
 
-float Basic::get_bar_width()
+float Basic::get_bar_width() const
 {
    return bar_width;
 }
 
 
-float Basic::get_bar_height()
+float Basic::get_bar_height() const
 {
    return bar_height;
 }
 
 
-float Basic::get_min_render_threshold()
+float Basic::get_min_render_threshold() const
 {
    return min_render_threshold;
 }

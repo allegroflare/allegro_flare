@@ -18,8 +18,8 @@ namespace AllegroFlare
       ~GameEvent();
 
       void set_data(AllegroFlare::GameEventDatas::Base* data);
-      std::string get_type();
-      AllegroFlare::GameEventDatas::Base* get_data();
+      std::string get_type() const;
+      AllegroFlare::GameEventDatas::Base* get_data() const;
       std::string get_name();
       bool is_type(std::string possible_type="[unset-possible_type]");
    };

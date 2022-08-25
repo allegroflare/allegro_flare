@@ -40,7 +40,7 @@ Choice::~Choice()
 }
 
 
-int Choice::get_cursor_position()
+int Choice::get_cursor_position() const
 {
    return cursor_position;
 }

@@ -20,7 +20,7 @@ namespace AllegroFlare
          ~ActorFactory();
 
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
-         AllegroFlare::BitmapBin* get_bitmap_bin();
+         AllegroFlare::BitmapBin* get_bitmap_bin() const;
          AllegroFlare::Timeline::Actors::Actor2D* create_actor2d_with_script(std::string identifier="[unset-identifier]", std::string bitmap_identifier="[unset-bitmap_identifier]", std::string script="[unset-bitmap_identifier]");
       };
    }

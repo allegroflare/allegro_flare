@@ -21,8 +21,8 @@ namespace AllegroFlare
             YouGotAnItem(std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]");
             ~YouGotAnItem();
 
-            std::string get_item_name();
-            std::string get_item_bitmap_identifier();
+            std::string get_item_name() const;
+            std::string get_item_bitmap_identifier() const;
          };
       }
    }

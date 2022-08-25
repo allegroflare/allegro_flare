@@ -32,13 +32,13 @@ void Vec2B::set_y(bool y)
 }
 
 
-bool Vec2B::get_x()
+bool Vec2B::get_x() const
 {
    return x;
 }
 
 
-bool Vec2B::get_y()
+bool Vec2B::get_y() const
 {
    return y;
 }

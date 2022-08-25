@@ -30,7 +30,7 @@ void SetScript::set_script_lines(std::vector<std::string> script_lines)
 }
 
 
-std::vector<std::string> SetScript::get_script_lines()
+std::vector<std::string> SetScript::get_script_lines() const
 {
    return script_lines;
 }

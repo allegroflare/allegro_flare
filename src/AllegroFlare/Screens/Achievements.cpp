@@ -63,7 +63,7 @@ void Achievements::set_game_event_name_to_emit_on_return(std::string game_event_
 }
 
 
-std::string Achievements::get_game_event_name_to_emit_on_return()
+std::string Achievements::get_game_event_name_to_emit_on_return() const
 {
    return game_event_name_to_emit_on_return;
 }

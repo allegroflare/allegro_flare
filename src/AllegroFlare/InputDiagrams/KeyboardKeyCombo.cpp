@@ -116,85 +116,85 @@ void KeyboardKeyCombo::set_token_SEPARATOR_width(float token_SEPARATOR_width)
 }
 
 
-AllegroFlare::FontBin* KeyboardKeyCombo::get_font_bin()
+AllegroFlare::FontBin* KeyboardKeyCombo::get_font_bin() const
 {
    return font_bin;
 }
 
 
-std::vector<std::string> KeyboardKeyCombo::get_keyboard_combo_tokens()
+std::vector<std::string> KeyboardKeyCombo::get_keyboard_combo_tokens() const
 {
    return keyboard_combo_tokens;
 }
 
 
-ALLEGRO_COLOR KeyboardKeyCombo::get_color()
+ALLEGRO_COLOR KeyboardKeyCombo::get_color() const
 {
    return color;
 }
 
 
-float KeyboardKeyCombo::get_x()
+float KeyboardKeyCombo::get_x() const
 {
    return x;
 }
 
 
-float KeyboardKeyCombo::get_y()
+float KeyboardKeyCombo::get_y() const
 {
    return y;
 }
 
 
-std::string KeyboardKeyCombo::get_font_name()
+std::string KeyboardKeyCombo::get_font_name() const
 {
    return font_name;
 }
 
 
-int KeyboardKeyCombo::get_font_size()
+int KeyboardKeyCombo::get_font_size() const
 {
    return font_size;
 }
 
 
-std::string KeyboardKeyCombo::get_keyboard_key_font_name()
+std::string KeyboardKeyCombo::get_keyboard_key_font_name() const
 {
    return keyboard_key_font_name;
 }
 
 
-int KeyboardKeyCombo::get_keyboard_key_font_size()
+int KeyboardKeyCombo::get_keyboard_key_font_size() const
 {
    return keyboard_key_font_size;
 }
 
 
-float KeyboardKeyCombo::get_keyboard_key_box_height()
+float KeyboardKeyCombo::get_keyboard_key_box_height() const
 {
    return keyboard_key_box_height;
 }
 
 
-float KeyboardKeyCombo::get_keyboard_key_box_min_width()
+float KeyboardKeyCombo::get_keyboard_key_box_min_width() const
 {
    return keyboard_key_box_min_width;
 }
 
 
-float KeyboardKeyCombo::get_token_SPACE_width()
+float KeyboardKeyCombo::get_token_SPACE_width() const
 {
    return token_SPACE_width;
 }
 
 
-float KeyboardKeyCombo::get_token_SPACER_width()
+float KeyboardKeyCombo::get_token_SPACER_width() const
 {
    return token_SPACER_width;
 }
 
 
-float KeyboardKeyCombo::get_token_SEPARATOR_width()
+float KeyboardKeyCombo::get_token_SEPARATOR_width() const
 {
    return token_SEPARATOR_width;
 }

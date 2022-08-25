@@ -54,13 +54,13 @@ void UnicodeFontViewer::set_unicode_range_start(uint32_t unicode_range_start)
 }
 
 
-std::string UnicodeFontViewer::get_font_identifier()
+std::string UnicodeFontViewer::get_font_identifier() const
 {
    return font_identifier;
 }
 
 
-uint32_t UnicodeFontViewer::get_unicode_range_start()
+uint32_t UnicodeFontViewer::get_unicode_range_start() const
 {
    return unicode_range_start;
 }

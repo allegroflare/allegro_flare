@@ -33,13 +33,13 @@ namespace AllegroFlare
             void set_bar_width(float bar_width);
             void set_bar_height(float bar_height);
             void set_min_render_threshold(float min_render_threshold);
-            float get_value();
-            float get_max();
-            ALLEGRO_COLOR get_fill_color();
-            ALLEGRO_COLOR get_backfill_color();
-            float get_bar_width();
-            float get_bar_height();
-            float get_min_render_threshold();
+            float get_value() const;
+            float get_max() const;
+            ALLEGRO_COLOR get_fill_color() const;
+            ALLEGRO_COLOR get_backfill_color() const;
+            float get_bar_width() const;
+            float get_bar_height() const;
+            float get_min_render_threshold() const;
             void render();
          };
       }

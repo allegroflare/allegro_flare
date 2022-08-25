@@ -44,8 +44,8 @@ namespace AllegroFlare
             void set_flags(AllegroFlare::Inventory* flags);
             void set_script_freshly_loaded_via_OPEN_SCRIPT(bool script_freshly_loaded_via_OPEN_SCRIPT);
             void set_paused_for_dialog_to_finish(bool paused_for_dialog_to_finish);
-            bool get_script_freshly_loaded_via_OPEN_SCRIPT();
-            bool get_paused_for_dialog_to_finish();
+            bool get_script_freshly_loaded_via_OPEN_SCRIPT() const;
+            bool get_paused_for_dialog_to_finish() const;
             bool load_script_by_dictionary_name(std::string script_dictionary_name="[unset-script_dictionary_name]");
             bool load_script_lines(std::vector<std::string> script_lines={});
             void play_or_resume();

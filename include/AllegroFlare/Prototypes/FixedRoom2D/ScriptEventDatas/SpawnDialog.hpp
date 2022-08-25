@@ -24,7 +24,7 @@ namespace AllegroFlare
                ~SpawnDialog();
 
                void set_dialog_pages(std::vector<std::string> dialog_pages);
-               std::vector<std::string> get_dialog_pages();
+               std::vector<std::string> get_dialog_pages() const;
             };
          }
       }

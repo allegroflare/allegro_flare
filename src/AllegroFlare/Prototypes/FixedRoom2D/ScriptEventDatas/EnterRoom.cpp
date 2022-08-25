@@ -32,7 +32,7 @@ void EnterRoom::set_room_dictionary_name_to_enter(std::string room_dictionary_na
 }
 
 
-std::string EnterRoom::get_room_dictionary_name_to_enter()
+std::string EnterRoom::get_room_dictionary_name_to_enter() const
 {
    return room_dictionary_name_to_enter;
 }

@@ -18,7 +18,7 @@ namespace AllegroFlare
          ~Base();
 
          void set_type(std::string type);
-         std::string get_type();
+         std::string get_type() const;
       };
    }
 }

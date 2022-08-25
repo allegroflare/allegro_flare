@@ -26,7 +26,7 @@ void Bone3D::set_children(std::vector<AllegroFlare::Bone3D*> children)
 }
 
 
-std::vector<AllegroFlare::Bone3D*> Bone3D::get_children()
+std::vector<AllegroFlare::Bone3D*> Bone3D::get_children() const
 {
    return children;
 }

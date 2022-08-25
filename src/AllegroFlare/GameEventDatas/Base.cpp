@@ -27,7 +27,7 @@ void Base::set_type(std::string type)
 }
 
 
-std::string Base::get_type()
+std::string Base::get_type() const
 {
    return type;
 }

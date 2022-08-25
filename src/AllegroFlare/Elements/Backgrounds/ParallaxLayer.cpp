@@ -50,25 +50,25 @@ void ParallaxLayer::set_bitmap(ALLEGRO_BITMAP* bitmap)
 }
 
 
-float ParallaxLayer::get_anchor_x()
+float ParallaxLayer::get_anchor_x() const
 {
    return anchor_x;
 }
 
 
-float ParallaxLayer::get_anchor_y()
+float ParallaxLayer::get_anchor_y() const
 {
    return anchor_y;
 }
 
 
-float ParallaxLayer::get_offset_rate()
+float ParallaxLayer::get_offset_rate() const
 {
    return offset_rate;
 }
 
 
-ALLEGRO_BITMAP* ParallaxLayer::get_bitmap()
+ALLEGRO_BITMAP* ParallaxLayer::get_bitmap() const
 {
    return bitmap;
 }

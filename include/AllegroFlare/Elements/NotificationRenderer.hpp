@@ -28,10 +28,10 @@ namespace AllegroFlare
          void set_y(float y);
          void set_width(float width);
          void set_height(float height);
-         float get_x();
-         float get_y();
-         float get_width();
-         float get_height();
+         float get_x() const;
+         float get_y() const;
+         float get_width() const;
+         float get_height() const;
          void render();
          void draw_box();
       };

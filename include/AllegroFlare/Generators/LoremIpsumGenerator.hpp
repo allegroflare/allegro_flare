@@ -18,7 +18,7 @@ namespace AllegroFlare
          LoremIpsumGenerator();
          ~LoremIpsumGenerator();
 
-         std::string get_source_text();
+         std::string get_source_text() const;
          std::string generate_characters(int num_characters=1);
          void generate_characters_about(int num_characters=1);
          void generate_words(int num_words=1);

@@ -20,7 +20,7 @@ namespace AllegroFlare
             Deck();
             ~Deck();
 
-            std::vector<AllegroFlare::Elements::PlayingCards::Card> get_cards();
+            std::vector<AllegroFlare::Elements::PlayingCards::Card> get_cards() const;
             std::vector<AllegroFlare::Elements::PlayingCards::Card> &get_cards_ref();
             void put_card_on_top(AllegroFlare::Elements::PlayingCards::Card card={});
             void shuffle();

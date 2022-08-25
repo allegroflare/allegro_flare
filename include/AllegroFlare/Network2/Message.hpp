@@ -26,8 +26,8 @@ namespace AllegroFlare
          static std::size_t get_HEADER_LENGTH();
          static std::size_t get_MAX_BODY_LENGTH();
          static std::string get_MAGIC_HEADER_CHUNK();
-         std::string get_data();
-         std::size_t get_body_length();
+         std::string get_data() const;
+         std::size_t get_body_length() const;
          void todo();
          char* data_ptr();
          char* body_ptr();

@@ -25,7 +25,7 @@ namespace AllegroFlare
          WithAllegroRenderingFixture();
          virtual ~WithAllegroRenderingFixture();
 
-         ALLEGRO_DISPLAY* get_display();
+         ALLEGRO_DISPLAY* get_display() const;
          AllegroFlare::FontBin &get_font_bin_ref();
          AllegroFlare::BitmapBin &get_bitmap_bin_ref();
          virtual void SetUp() override;

@@ -40,19 +40,19 @@ Script::~Script()
 }
 
 
-std::vector<std::string> Script::get_lines()
+std::vector<std::string> Script::get_lines() const
 {
    return lines;
 }
 
 
-int Script::get_current_line_num()
+int Script::get_current_line_num() const
 {
    return current_line_num;
 }
 
 
-bool Script::get_finished()
+bool Script::get_finished() const
 {
    return finished;
 }
