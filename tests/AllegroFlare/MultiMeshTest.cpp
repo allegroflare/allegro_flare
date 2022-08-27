@@ -45,8 +45,14 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, render__will_not_b
 
 TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, CAPTURE__render__will_render_the_mesh)
 {
+   ALLEGRO_BITMAP *texture = get_bitmap_bin_ref()["uv.png"];
    AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.set_texture(texture);
    multi_mesh.initialize();
+
+   multi_mesh.append(300, 200, 100, 100);
+   multi_mesh.append(600, 300, 100, 100);
+
    multi_mesh.render();
    al_flip_display();
 }

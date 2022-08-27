@@ -106,19 +106,18 @@ void MultiMesh::append(float x, float y, float w, float h)
          error_message << "MultiMesh" << "::" << "append" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   // TODO
-   float u1 = 0.1f;
-   float v1 = 0.1f;
-   float u2 = 0.2f;
-   float v2 = 0.2f;
+   float u1 = 100.0f; // uvs using pixel coorindates; TODO: revise
+   float v1 = 100.0f;
+   float u2 = 200.0f;
+   float v2 = 200.0f;
    ALLEGRO_COLOR color{1, 1, 1, 1};
    ALLEGRO_VERTEX item_vertexes[6] = {
       ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, color},
-      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v1, color},
-      ALLEGRO_VERTEX{x+w, y+0, 0, u1, v1, color},
-      ALLEGRO_VERTEX{x+w, y+0, 0, u1, v1, color},
-      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v1, color},
-      ALLEGRO_VERTEX{x+w, y+h, 0, u1, v1, color},
+      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, color},
+      ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, color},
+      ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, color},
+      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, color},
+      ALLEGRO_VERTEX{x+w, y+h, 0, u2, v2, color},
    };
 
    ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
@@ -163,7 +162,8 @@ void MultiMesh::render()
          throw std::runtime_error(error_message.str());
       }
    if (indexes_in_use == 0) return;
-   al_draw_indexed_buffer(vertex_buffer, texture, index_buffer, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
+   al_draw_vertex_buffer(vertex_buffer, texture, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
+   //al_draw_indexed_buffer(vertex_buffer, texture, index_buffer, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
    return;
 }
 } // namespace AllegroFlare
