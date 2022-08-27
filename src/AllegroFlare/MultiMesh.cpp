@@ -11,16 +11,19 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
 {
 
 
-MultiMesh::MultiMesh()
-   : vertex_buffer(nullptr)
+MultiMesh::MultiMesh(int num_items)
+   : num_items(num_items)
+   , vertex_buffer(nullptr)
+   , vertex_decl(nullptr)
    , texture(nullptr)
-   , num_items(50)
    , vertices_in_use(0)
    , VERTEXES_PER_ITEM(6)
    , atlas()
@@ -40,6 +43,12 @@ void MultiMesh::set_texture(ALLEGRO_BITMAP* texture)
 }
 
 
+int MultiMesh::get_num_items() const
+{
+   return num_items;
+}
+
+
 ALLEGRO_BITMAP* MultiMesh::get_texture() const
 {
    return texture;
@@ -55,6 +64,18 @@ void MultiMesh::set_atlas(AllegroFlare::MultiMeshUVAtlas atlas)
          throw std::runtime_error(error_message.str());
       }
    this->atlas = atlas;
+   return;
+}
+
+void MultiMesh::set_num_items(int num_items)
+{
+   if (!((!initialized)))
+      {
+         std::stringstream error_message;
+         error_message << "MultiMesh" << "::" << "set_num_items" << ": error: " << "guard \"(!initialized)\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   this->num_items = num_items;
    return;
 }
 
@@ -87,12 +108,12 @@ void MultiMesh::initialize()
       {ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX, color)},
       {0, 0, 0}
    };
-   ALLEGRO_VERTEX_DECL* decl = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX));
+   vertex_decl = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX));
 
    // vertex buffer, data will be uninitialized
    const void* initial_data_vb = nullptr;
    vertex_buffer = al_create_vertex_buffer(
-      decl,
+      vertex_decl,
       initial_data_vb,
       num_vertices,
       ALLEGRO_PRIM_BUFFER_READWRITE

@@ -1,8 +1,19 @@
 properties:
 
 
+  - name: num_items
+    type: int
+    init_with: 256
+    constructor_arg: true
+    getter: true
+    setter: false
+
   - name: vertex_buffer
     type: ALLEGRO_VERTEX_BUFFER*
+    init_with: nullptr
+
+  - name: vertex_decl
+    type: ALLEGRO_VERTEX_DECL*
     init_with: nullptr
 
   - name: texture
@@ -10,10 +21,6 @@ properties:
     init_with: nullptr
     getter: true
     setter: true
-
-  - name: num_items
-    type: int
-    init_with: 50
 
   - name: vertices_in_use
     type: int
@@ -48,6 +55,17 @@ functions:
       return;
 
 
+  - name: set_num_items
+    parameters:
+      - name: num_items
+        type: int
+        default_argument: 256
+    guards: [ (!initialized) ]
+    body: |
+      this->num_items = num_items;
+      return;
+
+
   - name: initialize
     guards: [ (!initialized), al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
@@ -60,12 +78,12 @@ functions:
          {ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX, color)},
          {0, 0, 0}
       };
-      ALLEGRO_VERTEX_DECL* decl = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX));
+      vertex_decl = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX));
 
       // vertex buffer, data will be uninitialized
       const void* initial_data_vb = nullptr;
       vertex_buffer = al_create_vertex_buffer(
-         decl,
+         vertex_decl,
          initial_data_vb,
          num_vertices,
          ALLEGRO_PRIM_BUFFER_READWRITE
@@ -202,6 +220,8 @@ functions:
 dependencies:
 
 
+  - symbol: ALLEGRO_VERTEX_DECL*
+    headers: [ allegro5/allegro_primitives.h ]
   - symbol: ALLEGRO_VERTEX_BUFFER*
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: ALLEGRO_INDEX_BUFFER*

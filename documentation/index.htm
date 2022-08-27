@@ -4802,16 +4802,20 @@ table td
     <h3 id="quintessence/AllegroFlare/MultiMesh.q.yml">quintessence/AllegroFlare/MultiMesh.q.yml</h3>
      <table>
 <tr>
+  <td class="property">num_items</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">vertex_buffer</td>
   <td class="property">ALLEGRO_VERTEX_BUFFER*</td>
 </tr>
 <tr>
-  <td class="property">texture</td>
-  <td class="property">ALLEGRO_BITMAP*</td>
+  <td class="property">vertex_decl</td>
+  <td class="property">ALLEGRO_VERTEX_DECL*</td>
 </tr>
 <tr>
-  <td class="property">num_items</td>
-  <td class="property">int</td>
+  <td class="property">texture</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
 <tr>
   <td class="property">vertices_in_use</td>
@@ -4835,6 +4839,9 @@ table td
   <td class="method">set_atlas(1)</td>
 </tr>
 <tr>
+  <td class="method">set_num_items(1)</td>
+</tr>
+<tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
@@ -4851,6 +4858,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX_DECL*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX_BUFFER*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
@@ -8748,6 +8758,9 @@ table td
   "AllegroFlare/Timeline/Actors/Actor2D": [
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Timeline/ActorFactory"
+  ],
+  "ALLEGRO_VERTEX_DECL": [
+    "AllegroFlare/MultiMesh"
   ],
   "ALLEGRO_VERTEX_BUFFER": [
     "AllegroFlare/MultiMesh"
