@@ -231,6 +231,7 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MultiMesh",
+    "AllegroFlare/MultiMeshUVAtlas",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
