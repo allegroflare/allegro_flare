@@ -14,6 +14,7 @@ namespace AllegroFlare
 MultiMesh::MultiMesh()
    : vertex_buffer(nullptr)
    , index_buffer(nullptr)
+   , indexes_in_use(0)
    , initialized(false)
 {
 }
@@ -79,13 +80,13 @@ void MultiMesh::initialize()
    return;
 }
 
-void MultiMesh::append()
+void MultiMesh::append(float x, float y, float w, float h)
 {
    // TODO
    return;
 }
 
-void MultiMesh::remove()
+void MultiMesh::remove(int at_index)
 {
    // TODO
    return;

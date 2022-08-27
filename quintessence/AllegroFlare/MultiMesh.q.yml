@@ -9,6 +9,10 @@ properties:
     type: ALLEGRO_INDEX_BUFFER*
     init_with: nullptr
 
+  - name: indexes_in_use
+    type: int
+    init_with: 0
+
   - name: initialized
     type: bool
     init_with: false
@@ -56,12 +60,29 @@ functions:
 
 
   - name: append
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0
+      - name: y
+        type: float
+        default_argument: 0
+      - name: w
+        type: float
+        default_argument: 1
+      - name: h
+        type: float
+        default_argument: 1
     body: |
       // TODO
       return;
 
 
   - name: remove
+    parameters:
+      - name: at_index
+        type: int
+        default_argument: 0
     body: |
       // TODO
       return;
