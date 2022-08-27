@@ -24,12 +24,28 @@ properties:
     type: int
     init_with: 6
 
+  - name: atlas
+    type: AllegroFlare::MultiMeshUVAtlas
+    init_with: '{}'
+    setter: explicit
+
   - name: initialized
     type: bool
     init_with: false
 
 
 functions:
+
+
+  - name: set_atlas
+    parameters:
+      - name: atlas
+        type: AllegroFlare::MultiMeshUVAtlas
+        default_argument: '{}'
+    guards: [ (!initialized) ]
+    body: |
+      this->atlas = atlas;
+      return;
 
 
   - name: initialize
@@ -167,5 +183,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: ALLEGRO_BITMAP*
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::MultiMeshUVAtlas
+    headers: [ AllegroFlare/MultiMeshUVAtlas.hpp ]
 
 

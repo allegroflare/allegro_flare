@@ -1,13 +1,6 @@
 properties:
 
 
-  - name: bitmap
-    type: ALLEGRO_BITMAP*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: index
     type: std::map<int, AllegroFlare::MultiMeshUV>
     init_with: '{}'
