@@ -11,6 +11,10 @@ properties:
     getter: true
     setter: true
 
+  - name: num_items
+    type: int
+    init_with: 50
+
   - name: vertices_in_use
     type: int
     init_with: 0
@@ -31,7 +35,6 @@ functions:
   - name: initialize
     guards: [ (!initialized), al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
-      int num_items = 50;
       int num_vertices = num_items * VERTEXES_PER_ITEM;
 
       // create the vertex declaration
@@ -121,10 +124,26 @@ functions:
     guards: [ initialized ]
     body: |
       // TODO
+      // validate position exists, does not overflow, etc
+      int item_start_index = item_index * VERTEXES_PER_ITEM;
+      int length = vertices_in_use - item_start_index; // all the way to the end of vertices_in_use
+
       // lock @ index to vertices_in_use
-      // copy vertexes from end into removed position (if not already at end)
-      // reduce vertices_in_use by 6
+      ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+         vertex_buffer,
+         item_start_index,
+         length,
+         ALLEGRO_LOCK_READWRITE
+      );
+
+      // copy vertexes from end (end-6) into removed position (if not already at end)
+      for (int i=0; i<6; i++) start[i] = start[i + length-6];
+
       // unlock
+      al_unlock_vertex_buffer(vertex_buffer);
+
+      // reduce vertices_in_use by 6
+      vertices_in_use -= 6;
       return;
 
 

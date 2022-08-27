@@ -58,3 +58,21 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, CAPTURE__render__w
 }
 
 
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, CAPTURE__remove__will_remove_the_item_from_the_mesh)
+{
+   ALLEGRO_BITMAP *texture = get_bitmap_bin_ref()["uv.png"];
+   AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.set_texture(texture);
+   multi_mesh.initialize();
+
+   multi_mesh.append(300, 200, 100, 100);
+   multi_mesh.append(600, 300, 100, 100);
+   multi_mesh.append(1000, 500, 100, 100);
+
+   multi_mesh.remove(1);
+
+   multi_mesh.render();
+   al_flip_display();
+}
+
+

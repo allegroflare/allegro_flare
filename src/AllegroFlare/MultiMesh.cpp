@@ -18,6 +18,7 @@ namespace AllegroFlare
 MultiMesh::MultiMesh()
    : vertex_buffer(nullptr)
    , texture(nullptr)
+   , num_items(50)
    , vertices_in_use(0)
    , VERTEXES_PER_ITEM(6)
    , initialized(false)
@@ -62,7 +63,6 @@ void MultiMesh::initialize()
          error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   int num_items = 50;
    int num_vertices = num_items * VERTEXES_PER_ITEM;
 
    // create the vertex declaration
@@ -133,10 +133,26 @@ void MultiMesh::remove(int item_index)
          throw std::runtime_error(error_message.str());
       }
    // TODO
+   // validate position exists, does not overflow, etc
+   int item_start_index = item_index * VERTEXES_PER_ITEM;
+   int length = vertices_in_use - item_start_index; // all the way to the end of vertices_in_use
+
    // lock @ index to vertices_in_use
-   // copy vertexes from end into removed position (if not already at end)
-   // reduce vertices_in_use by 6
+   ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+      vertex_buffer,
+      item_start_index,
+      length,
+      ALLEGRO_LOCK_READWRITE
+   );
+
+   // copy vertexes from end (end-6) into removed position (if not already at end)
+   for (int i=0; i<6; i++) start[i] = start[i + length-6];
+
    // unlock
+   al_unlock_vertex_buffer(vertex_buffer);
+
+   // reduce vertices_in_use by 6
+   vertices_in_use -= 6;
    return;
 }
 
