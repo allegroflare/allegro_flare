@@ -18,7 +18,7 @@ namespace AllegroFlare
 MultiMesh::MultiMesh()
    : vertex_buffer(nullptr)
    , texture(nullptr)
-   , indexes_in_use(0)
+   , vertices_in_use(0)
    , VERTEXES_PER_ITEM(6)
    , initialized(false)
 {
@@ -105,21 +105,22 @@ void MultiMesh::append(float x, float y, float w, float h, float u1, float v1, f
       ALLEGRO_VERTEX{x+w, y+h, 0, u2, v2, color},
    };
 
+   // lock the vertex buffer
    ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
       vertex_buffer,
-      indexes_in_use,
+      vertices_in_use,
       VERTEXES_PER_ITEM,
       ALLEGRO_LOCK_WRITEONLY
    );
 
-   // fill 6 vertexes @ indexs
+   // fill 6 vertexes @ ind
    for (int i=0; i<6; i++) start[i] = item_vertexes[i];
 
    // unlock
    al_unlock_vertex_buffer(vertex_buffer);
 
-   // increase indexes_in_use by 6
-   indexes_in_use += 6;
+   // increase vertices_in_use by 6
+   vertices_in_use += 6;
    return;
 }
 
@@ -132,9 +133,9 @@ void MultiMesh::remove(int at_index)
          throw std::runtime_error(error_message.str());
       }
    // TODO
-   // lock @ index to indexes_in_use
+   // lock @ index to vertices_in_use
    // copy vertexes from end into removed position (if not already at end)
-   // reduce indexes_in_use by 6
+   // reduce vertices_in_use by 6
    // unlock
    return;
 }
@@ -147,8 +148,8 @@ void MultiMesh::render()
          error_message << "MultiMesh" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   if (indexes_in_use == 0) return;
-   al_draw_vertex_buffer(vertex_buffer, texture, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
+   if (vertices_in_use == 0) return;
+   al_draw_vertex_buffer(vertex_buffer, texture, 0, vertices_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
    return;
 }
 } // namespace AllegroFlare

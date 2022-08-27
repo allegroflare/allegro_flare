@@ -11,7 +11,7 @@ properties:
     getter: true
     setter: true
 
-  - name: indexes_in_use
+  - name: vertices_in_use
     type: int
     init_with: 0
 
@@ -94,21 +94,22 @@ functions:
          ALLEGRO_VERTEX{x+w, y+h, 0, u2, v2, color},
       };
 
+      // lock the vertex buffer
       ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
          vertex_buffer,
-         indexes_in_use,
+         vertices_in_use,
          VERTEXES_PER_ITEM,
          ALLEGRO_LOCK_WRITEONLY
       );
 
-      // fill 6 vertexes @ indexs
+      // fill 6 vertexes @ ind
       for (int i=0; i<6; i++) start[i] = item_vertexes[i];
 
       // unlock
       al_unlock_vertex_buffer(vertex_buffer);
 
-      // increase indexes_in_use by 6
-      indexes_in_use += 6;
+      // increase vertices_in_use by 6
+      vertices_in_use += 6;
       return;
 
 
@@ -120,9 +121,9 @@ functions:
     guards: [ initialized ]
     body: |
       // TODO
-      // lock @ index to indexes_in_use
+      // lock @ index to vertices_in_use
       // copy vertexes from end into removed position (if not already at end)
-      // reduce indexes_in_use by 6
+      // reduce vertices_in_use by 6
       // unlock
       return;
 
@@ -130,8 +131,8 @@ functions:
   - name: render
     guards: [ initialized ]
     body: |
-      if (indexes_in_use == 0) return;
-      al_draw_vertex_buffer(vertex_buffer, texture, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
+      if (vertices_in_use == 0) return;
+      al_draw_vertex_buffer(vertex_buffer, texture, 0, vertices_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
       return;
 
 

@@ -12,7 +12,7 @@ namespace AllegroFlare
    private:
       ALLEGRO_VERTEX_BUFFER* vertex_buffer;
       ALLEGRO_BITMAP* texture;
-      int indexes_in_use;
+      int vertices_in_use;
       int VERTEXES_PER_ITEM;
       bool initialized;
 
