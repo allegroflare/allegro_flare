@@ -30,3 +30,16 @@ properties:
     constructor_arg: true
 
 
+functions:
+
+
+  - name: infer_width
+    type: float
+    body: return u2-u1;
+
+
+  - name: infer_height
+    type: float
+    body: return v2-v1;
+
+
