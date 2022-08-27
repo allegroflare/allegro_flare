@@ -5,10 +5,6 @@ properties:
     type: ALLEGRO_VERTEX_BUFFER*
     init_with: nullptr
 
-  - name: index_buffer
-    type: ALLEGRO_INDEX_BUFFER*
-    init_with: nullptr
-
   - name: texture
     type: ALLEGRO_BITMAP*
     init_with: nullptr
@@ -52,16 +48,6 @@ functions:
       vertex_buffer = al_create_vertex_buffer(
          decl,
          initial_data_vb,
-         num_vertices,
-         ALLEGRO_PRIM_BUFFER_READWRITE
-      );
-
-      // index buffer, data will be uninitialized
-      // size of the buffer is 2, which is a short, limiting the size to a certain amount (TODO, figure out amount)
-      const void* initial_data_ib = nullptr;
-      index_buffer = al_create_index_buffer(
-         sizeof(short),
-         initial_data_ib,
          num_vertices,
          ALLEGRO_PRIM_BUFFER_READWRITE
       );
@@ -146,7 +132,6 @@ functions:
     body: |
       if (indexes_in_use == 0) return;
       al_draw_vertex_buffer(vertex_buffer, texture, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
-      //al_draw_indexed_buffer(vertex_buffer, texture, index_buffer, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
       return;
 
 

@@ -17,7 +17,6 @@ namespace AllegroFlare
 
 MultiMesh::MultiMesh()
    : vertex_buffer(nullptr)
-   , index_buffer(nullptr)
    , texture(nullptr)
    , indexes_in_use(0)
    , VERTEXES_PER_ITEM(6)
@@ -80,16 +79,6 @@ void MultiMesh::initialize()
    vertex_buffer = al_create_vertex_buffer(
       decl,
       initial_data_vb,
-      num_vertices,
-      ALLEGRO_PRIM_BUFFER_READWRITE
-   );
-
-   // index buffer, data will be uninitialized
-   // size of the buffer is 2, which is a short, limiting the size to a certain amount (TODO, figure out amount)
-   const void* initial_data_ib = nullptr;
-   index_buffer = al_create_index_buffer(
-      sizeof(short),
-      initial_data_ib,
       num_vertices,
       ALLEGRO_PRIM_BUFFER_READWRITE
    );
@@ -160,7 +149,6 @@ void MultiMesh::render()
       }
    if (indexes_in_use == 0) return;
    al_draw_vertex_buffer(vertex_buffer, texture, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
-   //al_draw_indexed_buffer(vertex_buffer, texture, index_buffer, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
    return;
 }
 } // namespace AllegroFlare
