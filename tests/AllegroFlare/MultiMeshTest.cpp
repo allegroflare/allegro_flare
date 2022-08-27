@@ -93,3 +93,10 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
+   append_item_from_atlas_index__will_use_the_atlas_data_to_build_uv)
+{
+   //TODO: test atlas features
+}
+
+

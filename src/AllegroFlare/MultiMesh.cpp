@@ -163,8 +163,7 @@ int MultiMesh::remove(int item_index)
          error_message << "MultiMesh" << "::" << "remove" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   // TODO
-   // validate position exists, does not overflow, etc
+   // TODO: validate position exists, does not overflow, etc
    int item_start_index = item_index * VERTEXES_PER_ITEM;
    int length = vertices_in_use - item_start_index; // all the way to the end of vertices_in_use
    bool removed_vertex_is_at_end = (item_start_index == vertices_in_use-VERTEXES_PER_ITEM);
