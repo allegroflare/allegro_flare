@@ -18,6 +18,8 @@ namespace AllegroFlare
       ~MultiMesh();
 
       void initialize();
+      void append();
+      void remove();
       void render();
    };
 }

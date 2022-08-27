@@ -825,6 +825,12 @@
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Timeline/ActorFactory"
   ],
+  "ALLEGRO_VERTEX_BUFFER": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "ALLEGRO_INDEX_BUFFER": [
+    "AllegroFlare/MultiMesh"
+  ],
   "chat_message": [
     "AllegroFlare/Network2/Message"
   ],
