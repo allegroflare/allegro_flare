@@ -230,6 +230,7 @@
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MultiMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",

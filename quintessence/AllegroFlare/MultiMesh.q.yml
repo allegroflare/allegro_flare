@@ -9,6 +9,12 @@ properties:
     type: ALLEGRO_INDEX_BUFFER*
     init_with: nullptr
 
+  - name: texture
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: indexes_in_use
     type: int
     init_with: 0
@@ -73,8 +79,13 @@ functions:
       - name: h
         type: float
         default_argument: 1
+    guards: [ initialized ]
     body: |
       // TODO
+      // lock
+      // fill 6 vertexes @ indexs
+      // unlock
+      // increase indexes_in_use by 6
       return;
 
 
@@ -83,17 +94,21 @@ functions:
       - name: at_index
         type: int
         default_argument: 0
+    guards: [ initialized ]
     body: |
       // TODO
+      // lock @ index to indexes_in_use
+      // copy vertexes from end into removed position (if not already at end)
+      // reduce indexes_in_use by 6
+      // unlock
       return;
 
 
   - name: render
     guards: [ initialized ]
     body: |
-      //int al_draw_indexed_buffer(ALLEGRO_VERTEX_BUFFER* vertex_buffer,
-         //ALLEGRO_BITMAP* texture, ALLEGRO_INDEX_BUFFER* index_buffer,
-         //int start, int end, int type)
+      if (indexes_in_use == 0) return;
+      al_draw_indexed_buffer(vertex_buffer, texture, index_buffer, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
       return;
 
 
@@ -104,5 +119,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: ALLEGRO_INDEX_BUFFER*
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
 
 

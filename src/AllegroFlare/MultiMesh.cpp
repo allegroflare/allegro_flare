@@ -5,6 +5,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -14,6 +18,7 @@ namespace AllegroFlare
 MultiMesh::MultiMesh()
    : vertex_buffer(nullptr)
    , index_buffer(nullptr)
+   , texture(nullptr)
    , indexes_in_use(0)
    , initialized(false)
 {
@@ -22,6 +27,18 @@ MultiMesh::MultiMesh()
 
 MultiMesh::~MultiMesh()
 {
+}
+
+
+void MultiMesh::set_texture(ALLEGRO_BITMAP* texture)
+{
+   this->texture = texture;
+}
+
+
+ALLEGRO_BITMAP* MultiMesh::get_texture() const
+{
+   return texture;
 }
 
 
@@ -82,13 +99,33 @@ void MultiMesh::initialize()
 
 void MultiMesh::append(float x, float y, float w, float h)
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "MultiMesh" << "::" << "append" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    // TODO
+   // lock
+   // fill 6 vertexes @ indexs
+   // unlock
+   // increase indexes_in_use by 6
    return;
 }
 
 void MultiMesh::remove(int at_index)
 {
+   if (!(initialized))
+      {
+         std::stringstream error_message;
+         error_message << "MultiMesh" << "::" << "remove" << ": error: " << "guard \"initialized\" not met";
+         throw std::runtime_error(error_message.str());
+      }
    // TODO
+   // lock @ index to indexes_in_use
+   // copy vertexes from end into removed position (if not already at end)
+   // reduce indexes_in_use by 6
+   // unlock
    return;
 }
 
@@ -100,9 +137,8 @@ void MultiMesh::render()
          error_message << "MultiMesh" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   //int al_draw_indexed_buffer(ALLEGRO_VERTEX_BUFFER* vertex_buffer,
-      //ALLEGRO_BITMAP* texture, ALLEGRO_INDEX_BUFFER* index_buffer,
-      //int start, int end, int type)
+   if (indexes_in_use == 0) return;
+   al_draw_indexed_buffer(vertex_buffer, texture, index_buffer, 0, indexes_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
    return;
 }
 } // namespace AllegroFlare
