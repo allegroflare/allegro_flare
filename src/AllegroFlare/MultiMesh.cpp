@@ -124,7 +124,7 @@ void MultiMesh::append(float x, float y, float w, float h, float u1, float v1, f
    return;
 }
 
-void MultiMesh::remove(int item_index)
+int MultiMesh::remove(int item_index)
 {
    if (!(initialized))
       {
@@ -136,6 +136,7 @@ void MultiMesh::remove(int item_index)
    // validate position exists, does not overflow, etc
    int item_start_index = item_index * VERTEXES_PER_ITEM;
    int length = vertices_in_use - item_start_index; // all the way to the end of vertices_in_use
+   bool removed_vertex_is_at_end = (item_start_index == vertices_in_use-VERTEXES_PER_ITEM);
 
    // lock @ index to vertices_in_use
    ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
@@ -146,14 +147,15 @@ void MultiMesh::remove(int item_index)
    );
 
    // copy vertexes from end (end-6) into removed position (if not already at end)
-   for (int i=0; i<6; i++) start[i] = start[i + length-6];
+   if (!removed_vertex_is_at_end) for (int i=0; i<6; i++) start[i] = start[i + length-VERTEXES_PER_ITEM];
 
    // unlock
    al_unlock_vertex_buffer(vertex_buffer);
 
    // reduce vertices_in_use by 6
    vertices_in_use -= 6;
-   return;
+   if (removed_vertex_is_at_end) return item_index;
+   return vertices_in_use / VERTEXES_PER_ITEM;
 }
 
 void MultiMesh::render()

@@ -76,3 +76,20 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, CAPTURE__remove__w
 }
 
 
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
+   remove__will_return_the_now_obsolete_index_number_that_has_replaced_the_removed_index_index_number)
+{
+   ALLEGRO_BITMAP *texture = get_bitmap_bin_ref()["uv.png"];
+   AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.set_texture(texture);
+   multi_mesh.initialize();
+
+   multi_mesh.append(300, 200, 100, 100);
+   multi_mesh.append(600, 300, 100, 100);
+   multi_mesh.append(1000, 500, 100, 100);
+
+   int moved_index = multi_mesh.remove(1);
+   EXPECT_EQ(2, moved_index);
+}
+
+
