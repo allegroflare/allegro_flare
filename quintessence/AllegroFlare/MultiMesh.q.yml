@@ -1,0 +1,41 @@
+properties:
+
+
+  - name: vertex_buffer
+    type: ALLEGRO_VERTEX_BUFFER*
+    init_with: nullptr
+
+  - name: index_buffer
+    type: ALLEGRO_INDEX_BUFFER*
+    init_with: nullptr
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_VERTEX_BUFFER*
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_INDEX_BUFFER*
+    headers: [ allegro5/allegro_primitives.h ]
+
+
