@@ -2,7 +2,7 @@ properties:
 
 
   - name: num_items
-    type: int
+    type: std::size_t
     init_with: 256
     constructor_arg: true
     getter: true
@@ -58,7 +58,7 @@ functions:
   - name: set_num_items
     parameters:
       - name: num_items
-        type: int
+        type: std::size_t
         default_argument: 256
     guards: [ (!initialized) ]
     body: |
@@ -230,5 +230,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::MultiMeshUVAtlas
     headers: [ AllegroFlare/MultiMeshUVAtlas.hpp ]
+  - symbol: std::size_t
+    headers: [ cstddef ]
 
 

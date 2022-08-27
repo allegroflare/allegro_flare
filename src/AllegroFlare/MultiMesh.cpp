@@ -19,7 +19,7 @@ namespace AllegroFlare
 {
 
 
-MultiMesh::MultiMesh(int num_items)
+MultiMesh::MultiMesh(std::size_t num_items)
    : num_items(num_items)
    , vertex_buffer(nullptr)
    , vertex_decl(nullptr)
@@ -43,7 +43,7 @@ void MultiMesh::set_texture(ALLEGRO_BITMAP* texture)
 }
 
 
-int MultiMesh::get_num_items() const
+std::size_t MultiMesh::get_num_items() const
 {
    return num_items;
 }
@@ -67,7 +67,7 @@ void MultiMesh::set_atlas(AllegroFlare::MultiMeshUVAtlas atlas)
    return;
 }
 
-void MultiMesh::set_num_items(int num_items)
+void MultiMesh::set_num_items(std::size_t num_items)
 {
    if (!((!initialized)))
       {

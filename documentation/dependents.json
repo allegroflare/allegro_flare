@@ -674,6 +674,7 @@
   ],
   "std/size_t": [
     "AllegroFlare/EncoderDecoders/Base62",
+    "AllegroFlare/MultiMesh",
     "AllegroFlare/Network2/Message"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
