@@ -98,7 +98,7 @@ void MultiMesh::initialize()
    return;
 }
 
-void MultiMesh::append(float x, float y, float w, float h)
+void MultiMesh::append(float x, float y, float w, float h, float u1, float v1, float u2, float v2)
 {
    if (!(initialized))
       {
@@ -106,10 +106,6 @@ void MultiMesh::append(float x, float y, float w, float h)
          error_message << "MultiMesh" << "::" << "append" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
-   float u1 = 100.0f; // uvs using pixel coorindates; TODO: revise
-   float v1 = 100.0f;
-   float u2 = 200.0f;
-   float v2 = 200.0f;
    ALLEGRO_COLOR color{1, 1, 1, 1};
    ALLEGRO_VERTEX item_vertexes[6] = {
       ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, color},
@@ -132,6 +128,7 @@ void MultiMesh::append(float x, float y, float w, float h)
 
    // unlock
    al_unlock_vertex_buffer(vertex_buffer);
+
    // increase indexes_in_use by 6
    indexes_in_use += 6;
    return;

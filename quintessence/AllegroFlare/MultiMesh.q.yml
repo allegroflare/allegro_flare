@@ -84,12 +84,20 @@ functions:
       - name: h
         type: float
         default_argument: 1
+      - name: u1
+        type: float
+        default_argument: 100.0f
+      - name: v1
+        type: float
+        default_argument: 100.0f
+      - name: u2
+        type: float
+        default_argument: 200.0f
+      - name: v2
+        type: float
+        default_argument: 200.0f
     guards: [ initialized ]
     body: |
-      float u1 = 100.0f; // uvs using pixel coorindates; TODO: revise
-      float v1 = 100.0f;
-      float u2 = 200.0f;
-      float v2 = 200.0f;
       ALLEGRO_COLOR color{1, 1, 1, 1};
       ALLEGRO_VERTEX item_vertexes[6] = {
          ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, color},
@@ -112,6 +120,7 @@ functions:
 
       // unlock
       al_unlock_vertex_buffer(vertex_buffer);
+
       // increase indexes_in_use by 6
       indexes_in_use += 6;
       return;

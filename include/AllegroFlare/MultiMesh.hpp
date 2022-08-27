@@ -24,7 +24,7 @@ namespace AllegroFlare
       void set_texture(ALLEGRO_BITMAP* texture);
       ALLEGRO_BITMAP* get_texture() const;
       void initialize();
-      void append(float x=0, float y=0, float w=1, float h=1);
+      void append(float x=0, float y=0, float w=1, float h=1, float u1=100.0f, float v1=100.0f, float u2=200.0f, float v2=200.0f);
       void remove(int at_index=0);
       void render();
    };
