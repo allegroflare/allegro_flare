@@ -14,6 +14,7 @@ namespace AllegroFlare
       ALLEGRO_INDEX_BUFFER* index_buffer;
       ALLEGRO_BITMAP* texture;
       int indexes_in_use;
+      int VERTEXES_PER_ITEM;
       bool initialized;
 
    public:

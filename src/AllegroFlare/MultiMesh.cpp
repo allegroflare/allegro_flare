@@ -20,6 +20,7 @@ MultiMesh::MultiMesh()
    , index_buffer(nullptr)
    , texture(nullptr)
    , indexes_in_use(0)
+   , VERTEXES_PER_ITEM(6)
    , initialized(false)
 {
 }
@@ -62,8 +63,8 @@ void MultiMesh::initialize()
          error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   int num_elements = 50;
-   int num_vertices = num_elements * 6;
+   int num_items = 50;
+   int num_vertices = num_items * VERTEXES_PER_ITEM;
 
    // create the vertex declaration
    ALLEGRO_VERTEX_ELEMENT elems[] = {
@@ -106,10 +107,34 @@ void MultiMesh::append(float x, float y, float w, float h)
          throw std::runtime_error(error_message.str());
       }
    // TODO
-   // lock
+   float u1 = 0.1f;
+   float v1 = 0.1f;
+   float u2 = 0.2f;
+   float v2 = 0.2f;
+   ALLEGRO_COLOR color{1, 1, 1, 1};
+   ALLEGRO_VERTEX item_vertexes[6] = {
+      ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, color},
+      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v1, color},
+      ALLEGRO_VERTEX{x+w, y+0, 0, u1, v1, color},
+      ALLEGRO_VERTEX{x+w, y+0, 0, u1, v1, color},
+      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v1, color},
+      ALLEGRO_VERTEX{x+w, y+h, 0, u1, v1, color},
+   };
+
+   ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+      vertex_buffer,
+      indexes_in_use,
+      VERTEXES_PER_ITEM,
+      ALLEGRO_LOCK_WRITEONLY
+   );
+
    // fill 6 vertexes @ indexs
+   for (int i=0; i<6; i++) start[i] = item_vertexes[i];
+
    // unlock
+   al_unlock_vertex_buffer(vertex_buffer);
    // increase indexes_in_use by 6
+   indexes_in_use += 6;
    return;
 }
 
