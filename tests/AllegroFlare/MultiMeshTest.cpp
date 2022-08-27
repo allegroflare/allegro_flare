@@ -50,11 +50,25 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, CAPTURE__render__w
    multi_mesh.set_texture(texture);
    multi_mesh.initialize();
 
-   multi_mesh.append(300, 200, 100, 100);
-   multi_mesh.append(600, 300, 100, 100);
+   multi_mesh.append_raw(300, 200, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(600, 300, 100, 100, 100, 100, 200, 200);
 
    multi_mesh.render();
    al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, append_raw__will_append_an_item_to_the_mesh)
+{
+   ALLEGRO_BITMAP *texture = get_bitmap_bin_ref()["uv.png"];
+   AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.set_texture(texture);
+   multi_mesh.initialize();
+
+   multi_mesh.append_raw(300, 200, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(600, 300, 100, 100, 100, 100, 200, 200);
+
+   // TODO: assert
 }
 
 
@@ -65,9 +79,9 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, CAPTURE__remove__w
    multi_mesh.set_texture(texture);
    multi_mesh.initialize();
 
-   multi_mesh.append(300, 200, 100, 100);
-   multi_mesh.append(600, 300, 100, 100);
-   multi_mesh.append(1000, 500, 100, 100);
+   multi_mesh.append_raw(300, 200, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(600, 300, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(1000, 500, 100, 100, 100, 100, 200, 200);
 
    multi_mesh.remove(1);
 
@@ -84,19 +98,41 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
    multi_mesh.set_texture(texture);
    multi_mesh.initialize();
 
-   multi_mesh.append(300, 200, 100, 100);
-   multi_mesh.append(600, 300, 100, 100);
-   multi_mesh.append(1000, 500, 100, 100);
+   multi_mesh.append_raw(300, 200, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(600, 300, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(1000, 500, 100, 100, 100, 100, 200, 200);
 
    int moved_index = multi_mesh.remove(1);
    EXPECT_EQ(2, moved_index);
 }
 
 
-TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
-   append_item_from_atlas_index__will_use_the_atlas_data_to_build_uv)
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, append__before_initialized__will_throw_an_error)
 {
-   //TODO: test atlas features
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
+   CAPTURE__append__will_use_the_atlas_data_to_build_uv)
+{
+   ALLEGRO_BITMAP *texture = get_bitmap_bin_ref()["uv.png"];
+   AllegroFlare::MultiMeshUVAtlas atlas({
+      { 0, {    0,    0,  100,  100 } },
+      { 1, {  100,    0,  200,  100 } },
+      { 2, {  200,    0,  300,  100 } },
+      { 3, {  300,    0,  400,  100 } },
+   });
+   AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.set_texture(texture);
+   multi_mesh.set_atlas(atlas);
+   multi_mesh.initialize();
+
+   multi_mesh.append(1, 300, 600);
+   multi_mesh.append(2, 700, 550);
+   
+   multi_mesh.render();
+   al_flip_display();
 }
 
 

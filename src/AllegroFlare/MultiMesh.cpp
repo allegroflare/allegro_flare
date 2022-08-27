@@ -102,10 +102,10 @@ void MultiMesh::initialize()
    return;
 }
 
-void MultiMesh::append_item_from_atlas_index(int atlas_item_index_num, float x, float y)
+void MultiMesh::append(int atlas_item_index_num, float x, float y)
 {
    AllegroFlare::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
-   append(
+   append_raw(
       x,
       y,
       atlas_item.infer_width(),
@@ -118,12 +118,12 @@ void MultiMesh::append_item_from_atlas_index(int atlas_item_index_num, float x, 
    return;
 }
 
-void MultiMesh::append(float x, float y, float w, float h, float u1, float v1, float u2, float v2)
+void MultiMesh::append_raw(float x, float y, float w, float h, float u1, float v1, float u2, float v2)
 {
    if (!(initialized))
       {
          std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "append" << ": error: " << "guard \"initialized\" not met";
+         error_message << "MultiMesh" << "::" << "append_raw" << ": error: " << "guard \"initialized\" not met";
          throw std::runtime_error(error_message.str());
       }
    ALLEGRO_COLOR color{1, 1, 1, 1};

@@ -75,7 +75,7 @@ functions:
       return;
 
 
-  - name: append_item_from_atlas_index
+  - name: append
     parameters:
       - name: atlas_item_index_num
         type: int
@@ -88,7 +88,7 @@ functions:
         default_argument: 0
     body: |
       AllegroFlare::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
-      append(
+      append_raw(
          x,
          y,
          atlas_item.infer_width(),
@@ -101,7 +101,7 @@ functions:
       return;
 
 
-  - name: append
+  - name: append_raw
     parameters:
       - name: x
         type: float
