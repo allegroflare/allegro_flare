@@ -128,6 +128,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MultiMesh.q.yml">quintessence/AllegroFlare/MultiMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MultiMeshUV.q.yml">quintessence/AllegroFlare/MultiMeshUV.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
@@ -4881,6 +4882,36 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">index</td>
+  <td class="property">std::map&lt;int, AllegroFlare::MultiMeshUV&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">add(5)</td>
+</tr>
+<tr>
+  <td class="method">exists(1)</td>
+</tr>
+<tr>
+  <td class="method">get(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, AllegroFlare::MultiMeshUV&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/MultiMeshUV.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultiMeshUV&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultiMeshUV.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</h3>
      <table>
 <tr>
@@ -8700,6 +8731,12 @@ table td
   ],
   "ALLEGRO_INDEX_BUFFER": [
     "AllegroFlare/MultiMesh"
+  ],
+  "std/map<int, AllegroFlare/MultiMeshUV>": [
+    "AllegroFlare/MultiMeshUVAtlas"
+  ],
+  "AllegroFlare/MultiMeshUV": [
+    "AllegroFlare/MultiMeshUVAtlas"
   ],
   "chat_message": [
     "AllegroFlare/Network2/Message"

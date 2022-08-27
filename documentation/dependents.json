@@ -832,6 +832,12 @@
   "ALLEGRO_INDEX_BUFFER": [
     "AllegroFlare/MultiMesh"
   ],
+  "std/map<int, AllegroFlare/MultiMeshUV>": [
+    "AllegroFlare/MultiMeshUVAtlas"
+  ],
+  "AllegroFlare/MultiMeshUV": [
+    "AllegroFlare/MultiMeshUVAtlas"
+  ],
   "chat_message": [
     "AllegroFlare/Network2/Message"
   ],
