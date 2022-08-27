@@ -115,7 +115,7 @@ functions:
 
   - name: remove
     parameters:
-      - name: at_index
+      - name: item_index
         type: int
         default_argument: 0
     guards: [ initialized ]

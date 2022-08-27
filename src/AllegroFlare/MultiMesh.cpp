@@ -124,7 +124,7 @@ void MultiMesh::append(float x, float y, float w, float h, float u1, float v1, f
    return;
 }
 
-void MultiMesh::remove(int at_index)
+void MultiMesh::remove(int item_index)
 {
    if (!(initialized))
       {
