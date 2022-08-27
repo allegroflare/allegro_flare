@@ -833,6 +833,9 @@
   "ALLEGRO_INDEX_BUFFER": [
     "AllegroFlare/MultiMesh"
   ],
+  "AllegroFlare/MultiMeshUVAtlas": [
+    "AllegroFlare/MultiMesh"
+  ],
   "std/map<int, AllegroFlare/MultiMeshUV>": [
     "AllegroFlare/MultiMeshUVAtlas"
   ],

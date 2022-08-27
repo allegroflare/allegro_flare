@@ -70,6 +70,15 @@ float MultiMeshUV::get_v2() const
 }
 
 
+float MultiMeshUV::infer_width()
+{
+   return u2-u1;
+}
+
+float MultiMeshUV::infer_height()
+{
+   return v2-v1;
+}
 } // namespace AllegroFlare
 
 

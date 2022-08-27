@@ -25,6 +25,8 @@ namespace AllegroFlare
       float get_v1() const;
       float get_u2() const;
       float get_v2() const;
+      float infer_width();
+      float infer_height();
    };
 }
 

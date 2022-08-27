@@ -9,9 +9,8 @@ namespace AllegroFlare
 {
 
 
-MultiMeshUVAtlas::MultiMeshUVAtlas(ALLEGRO_BITMAP* bitmap, std::map<int, AllegroFlare::MultiMeshUV> index)
-   : bitmap(bitmap)
-   , index(index)
+MultiMeshUVAtlas::MultiMeshUVAtlas(std::map<int, AllegroFlare::MultiMeshUV> index)
+   : index(index)
 {
 }
 
@@ -21,21 +20,9 @@ MultiMeshUVAtlas::~MultiMeshUVAtlas()
 }
 
 
-void MultiMeshUVAtlas::set_bitmap(ALLEGRO_BITMAP* bitmap)
-{
-   this->bitmap = bitmap;
-}
-
-
 void MultiMeshUVAtlas::set_index(std::map<int, AllegroFlare::MultiMeshUV> index)
 {
    this->index = index;
-}
-
-
-ALLEGRO_BITMAP* MultiMeshUVAtlas::get_bitmap() const
-{
-   return bitmap;
 }
 
 

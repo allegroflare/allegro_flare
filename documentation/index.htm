@@ -4822,13 +4822,23 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">atlas</td>
+  <td class="property">AllegroFlare::MultiMeshUVAtlas</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
     </table>
      <table>
 <tr>
+  <td class="method">set_atlas(1)</td>
+</tr>
+<tr>
   <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">append_item_from_atlas_index(3)</td>
 </tr>
 <tr>
   <td class="method">append(8)</td>
@@ -4849,6 +4859,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultiMeshUVAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultiMeshUVAtlas.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -4875,6 +4888,12 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">infer_width()</td>
+</tr>
+<tr>
+  <td class="method">infer_height()</td>
+</tr>
     </table>
      <table>
     </table>
@@ -4884,10 +4903,6 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml</h3>
      <table>
-<tr>
-  <td class="property">bitmap</td>
-  <td class="property">ALLEGRO_BITMAP*</td>
-</tr>
 <tr>
   <td class="property">index</td>
   <td class="property">std::map&lt;int, AllegroFlare::MultiMeshUV&gt;</td>
@@ -8738,6 +8753,9 @@ table td
     "AllegroFlare/MultiMesh"
   ],
   "ALLEGRO_INDEX_BUFFER": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "AllegroFlare/MultiMeshUVAtlas": [
     "AllegroFlare/MultiMesh"
   ],
   "std/map<int, AllegroFlare/MultiMeshUV>": [

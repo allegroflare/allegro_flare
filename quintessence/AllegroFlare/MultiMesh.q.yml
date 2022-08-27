@@ -26,8 +26,8 @@ properties:
 
   - name: atlas
     type: AllegroFlare::MultiMeshUVAtlas
-    init_with: '{}'
-    setter: explicit
+    init_with: ''
+    setter: false
 
   - name: initialized
     type: bool
@@ -87,7 +87,7 @@ functions:
         type: float
         default_argument: 0
     body: |
-      AllegroFlare::MultiMeshUV atlas_uv = atlas.get(atlas_item_index_num);
+      AllegroFlare::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
       append(
          x,
          y,

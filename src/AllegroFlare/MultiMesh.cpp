@@ -9,6 +9,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -21,6 +23,7 @@ MultiMesh::MultiMesh()
    , num_items(50)
    , vertices_in_use(0)
    , VERTEXES_PER_ITEM(6)
+   , atlas()
    , initialized(false)
 {
 }
@@ -42,6 +45,18 @@ ALLEGRO_BITMAP* MultiMesh::get_texture() const
    return texture;
 }
 
+
+void MultiMesh::set_atlas(AllegroFlare::MultiMeshUVAtlas atlas)
+{
+   if (!((!initialized)))
+      {
+         std::stringstream error_message;
+         error_message << "MultiMesh" << "::" << "set_atlas" << ": error: " << "guard \"(!initialized)\" not met";
+         throw std::runtime_error(error_message.str());
+      }
+   this->atlas = atlas;
+   return;
+}
 
 void MultiMesh::initialize()
 {
@@ -84,6 +99,22 @@ void MultiMesh::initialize()
    );
 
    initialized = true;
+   return;
+}
+
+void MultiMesh::append_item_from_atlas_index(int atlas_item_index_num, float x, float y)
+{
+   AllegroFlare::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
+   append(
+      x,
+      y,
+      atlas_item.infer_width(),
+      atlas_item.infer_height(),
+      atlas_item.get_u1(),
+      atlas_item.get_v1(),
+      atlas_item.get_u2(),
+      atlas_item.get_v2()
+   );
    return;
 }
 
