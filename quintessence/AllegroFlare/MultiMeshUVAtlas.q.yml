@@ -1,0 +1,18 @@
+properties:
+
+
+  - name: index
+    type: std::map<int, AllegroFlare::MultiMeshUV>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: std::map<int, AllegroFlare::MultiMeshUV>
+    headers: [ map, AllegroFlare/MultiMeshUV.hpp ]
+ 
+
