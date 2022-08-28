@@ -121,6 +121,26 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
+   remove__will_return_the_old_index_of_the_existing_element_whos_value_was_reissued_to_the_removed_index)
+{
+   ALLEGRO_BITMAP *texture = get_bitmap_bin_ref()["uv.png"];
+   AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.set_texture(texture);
+   multi_mesh.initialize();
+
+   int index = -1;
+
+   multi_mesh.append_raw(300, 200, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(1000, 500, 100, 100, 100, 100, 200, 200);
+   index = multi_mesh.append_raw(600, 300, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(800, 500, 100, 100, 100, 100, 200, 200);
+
+   ASSERT_EQ(2, index);
+   EXPECT_EQ(3, multi_mesh.remove(index));
+}
+
+
 TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, append__before_initialized__will_throw_an_error)
 {
    // TODO
