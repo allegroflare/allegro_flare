@@ -78,6 +78,16 @@ void MultiMesh::set_num_items(std::size_t num_items)
    return;
 }
 
+int MultiMesh::infer_num_items_in_use()
+{
+   return (vertices_in_use / VERTICES_PER_ITEM);
+}
+
+int MultiMesh::infer_largest_index_num_in_use()
+{
+   return (vertices_in_use / VERTICES_PER_ITEM) - 1;
+}
+
 void MultiMesh::initialize()
 {
    if (!((!initialized)))
@@ -187,6 +197,22 @@ int MultiMesh::remove(int item_index)
          throw std::runtime_error(error_message.str());
       }
    // TODO: validate position exists, does not overflow, etc
+   if (item_index < 0)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::MultiMesh::remove() error: "
+                    << "The item_index that was passed (" << item_index << ") cannot be less than zero.";
+      throw std::runtime_error(error_message.str());
+   }
+   if (item_index > infer_largest_index_num_in_use())
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::MultiMesh::remove() error: "
+                    << "The item_index that was passed (" << item_index << ") cannot be greater than or equal to "
+                    << "the largest existing item index (" << infer_largest_index_num_in_use() << ").";
+      throw std::runtime_error(error_message.str());
+   }
+
    int item_start_index = item_index * VERTICES_PER_ITEM;
    int length = vertices_in_use - item_start_index; // all the way to the end of vertices_in_use
    bool removed_vertex_is_at_end = (item_start_index == vertices_in_use-VERTICES_PER_ITEM);

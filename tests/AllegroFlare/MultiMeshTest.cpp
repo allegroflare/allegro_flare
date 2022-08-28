@@ -1,9 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
+#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
    try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
+   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
@@ -31,7 +31,7 @@ TEST_F(AllegroFlare_MultiMeshTest, initialize__without_allegro_initialized__rais
    AllegroFlare::MultiMesh multi_mesh;
    std::string expected_error_message =
       "MultiMesh::initialize: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(multi_mesh.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(multi_mesh.initialize(), std::runtime_error, expected_error_message);
 }
 
 
@@ -138,6 +138,35 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
 
    ASSERT_EQ(2, index);
    EXPECT_EQ(3, multi_mesh.remove(index));
+}
+
+
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
+   remove__on_an_item_index_that_is_less_than_zero__will_throw_an_error)
+{
+   AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.initialize();
+
+   std::string expected_error_message = "AllegroFlare::MultiMesh::remove() error: The item_index that was passed (-1) "
+                                        "cannot be less than zero.";
+   EXPECT_THROW_WITH_MESSAGE(multi_mesh.remove(-1), std::runtime_error, expected_error_message);
+}
+
+
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
+   remove__on_an_item_index_that_is_greater_than_the_last_item_index__will_throw_an_error)
+{
+   AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.initialize();
+
+   int last_index = -1;
+   multi_mesh.append_raw(300, 200, 100, 100, 100, 100, 200, 200);
+   multi_mesh.append_raw(1000, 500, 100, 100, 100, 100, 200, 200);
+   last_index = multi_mesh.append_raw(800, 500, 100, 100, 100, 100, 200, 200);
+
+   std::string expected_error_message = "AllegroFlare::MultiMesh::remove() error: The item_index that was passed (3) "
+                                        "cannot be greater than or equal to the largest existing item index (2).";
+   EXPECT_THROW_WITH_MESSAGE(multi_mesh.remove(last_index+1), std::runtime_error, expected_error_message);
 }
 
 

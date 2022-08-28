@@ -32,6 +32,8 @@ namespace AllegroFlare
       ALLEGRO_BITMAP* get_texture() const;
       void set_atlas(AllegroFlare::MultiMeshUVAtlas atlas={});
       void set_num_items(std::size_t num_items=256);
+      int infer_num_items_in_use();
+      int infer_largest_index_num_in_use();
       void initialize();
       int append(int atlas_item_index_num=0, float x=0, float y=0);
       int append_raw(float x=0, float y=0, float w=1, float h=1, float u1=100.0f, float v1=100.0f, float u2=200.0f, float v2=200.0f);
