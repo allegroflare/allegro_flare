@@ -852,9 +852,6 @@
   "char": [
     "AllegroFlare/Network2/Message"
   ],
-  "char[16 + 512]": [
-    "AllegroFlare/Network2/Message"
-  ],
   "AllegroFlare/EncoderDecoders/Base62": [
     "AllegroFlare/Network2/Message"
   ],

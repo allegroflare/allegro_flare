@@ -18,17 +18,11 @@ namespace Network2
 {
 
 
-std::size_t Message::HEADER_LENGTH = 16;
-
-
-std::size_t Message::MAX_BODY_LENGTH = 512;
-
-
 std::string Message::MAGIC_HEADER_CHUNK = "AFNM";
 
 
 Message::Message()
-   : data(16+512, ' ')
+   : data(HEADER_LENGTH+MAX_BODY_LENGTH, ' ')
    , body_length(0)
 {
 }
@@ -36,18 +30,6 @@ Message::Message()
 
 Message::~Message()
 {
-}
-
-
-std::size_t Message::get_HEADER_LENGTH()
-{
-   return HEADER_LENGTH;
-}
-
-
-std::size_t Message::get_MAX_BODY_LENGTH()
-{
-   return MAX_BODY_LENGTH;
 }
 
 
@@ -175,8 +157,7 @@ void Message::encode_header()
    // 4 chars, the first 4 characters of a hash. This hash is of the first 8 characters of the header
    // 4 chars, the first 4 characters of a hash of the whole body
 
-   char header[16 + 1] = ""; // eeks, here "16" is used rather than HEADER_LENGTH because constexpr is not
-                             // supported in quintessence
+   char header[HEADER_LENGTH + 1] = "";
 
    std::string first_8 = MAGIC_HEADER_CHUNK + body_size_base62();
 
