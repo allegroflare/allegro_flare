@@ -144,7 +144,7 @@ private:
           {
 			  // here, I believe, is where a message would be intercepted and parsed
 			  // this is a message that has been sent BY the client TO the server, and
-			  // this app is then responding HERE by delivering the mssage to all the
+			  // this app is then responding *here* by delivering the mssage to all the
 			  // users in the room.
 			  read_msg_.set_sender_id(self->get_user_id()); // ?? should this be self->get_user_id() or this->get_user_id()?
             room_.deliver(read_msg_);
