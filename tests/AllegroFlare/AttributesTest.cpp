@@ -19,29 +19,29 @@ using namespace AllegroFlare;
 
 
 
-//struct my_custom_datatype
-//{
-//public:
-   //float x;
-   //float y;
+struct my_custom_datatype
+{
+public:
+   float x;
+   float y;
 
-   //static bool to_val_func(void *val, std::string str)
-   //{
-      //my_custom_datatype &f = *static_cast<my_custom_datatype *>(val);
-      //std::stringstream ss(str);
-      //ss >> f.x;
-      //ss >> f.y;
-      //return true;
-   //}
+   static bool to_val_func(void *val, std::string str)
+   {
+      my_custom_datatype &f = *static_cast<my_custom_datatype *>(val);
+      std::stringstream ss(str);
+      ss >> f.x;
+      ss >> f.y;
+      return true;
+   }
 
-   //static std::string to_str_func(void *val)
-   //{
-      //my_custom_datatype &f = *static_cast<my_custom_datatype *>(val);
-      //std::stringstream ss;
-      //ss << f.x << " " << f.y;
-      //return ss.str();
-   //}
-//};
+   static std::string to_str_func(void *val)
+   {
+      my_custom_datatype &f = *static_cast<my_custom_datatype *>(val);
+      std::stringstream ss;
+      ss << f.x << " " << f.y;
+      return ss.str();
+   }
+};
 
 
 
@@ -194,58 +194,58 @@ TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_standard_dataty
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_datatype_that_has_not_been_created_is_inknown)
-//{
-   //Attributes attributes;
-   //EXPECT_EQ(Attributes::datatype_is_known("my_custom_datatype"), false);
-//}
+TEST(AllegroFlare_AttributesTest, a_datatype_that_has_not_been_created_is_inknown)
+{
+   Attributes attributes;
+   EXPECT_EQ(Attributes::datatype_is_known("my_custom_datatype"), false);
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, custom_datatypes_that_have_been_created_are_known)
-//{
-   //Attributes attributes;
+TEST(AllegroFlare_AttributesTest, custom_datatypes_that_have_been_created_are_known)
+{
+   Attributes attributes;
 
-   //attributes.create_datatype_definition("my_custom_datatype",
-         //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+   attributes.create_datatype_definition("my_custom_datatype",
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //EXPECT_EQ(Attributes::datatype_is_known("my_custom_datatype"), true);
-//}
-
-
-
-
-//TEST(AllegroFlare_AttributesTest, an_attribute_can_not_be_set_as_an_unknown_datatype)
-//{
-   //Attributes attributes;
-   //my_custom_datatype custom;
-   //EXPECT_EQ(attributes.set("key", "an_unknown_datatype", (void *)&custom), false);
-//}
+   EXPECT_EQ(true, Attributes::datatype_is_known("my_custom_datatype"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_variable_cannot_be_bound_to_a_datatype_that_does_not_exist)
-//{
-   //Attributes attributes;
-   //my_custom_datatype custom;
-   //EXPECT_EQ(attributes.bind("key", "an_unknown_datatype", &custom), false);
-//}
+TEST(AllegroFlare_AttributesTest, an_attribute_can_not_be_set_as_an_unknown_datatype)
+{
+   Attributes attributes;
+   my_custom_datatype custom;
+   EXPECT_EQ(false, attributes.set("key", "an_unknown_datatype", (void *)&custom));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, custom_datatypes_can_be_bound)
-//{
-   //Attributes attributes;
-   //my_custom_datatype custom;
+TEST(AllegroFlare_AttributesTest, a_variable_cannot_be_bound_to_a_datatype_that_does_not_exist)
+{
+   Attributes attributes;
+   my_custom_datatype custom;
+   EXPECT_EQ(false, attributes.bind("key", "an_unknown_datatype", &custom));
+}
 
-   //attributes.create_datatype_definition("my_custom_datatype",
-         //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //EXPECT_EQ(attributes.bind("foo", "my_custom_datatype", &custom), true);
-//}
+
+
+TEST(AllegroFlare_AttributesTest, custom_datatypes_can_be_bound)
+{
+   Attributes attributes;
+   my_custom_datatype custom;
+
+   attributes.create_datatype_definition("my_custom_datatype",
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   EXPECT_EQ(true, attributes.bind("foo", "my_custom_datatype", &custom));
+}
 
 
 
