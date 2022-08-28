@@ -25,7 +25,6 @@ MultiMesh::MultiMesh(std::size_t num_items)
    , vertex_decl(nullptr)
    , texture(nullptr)
    , vertices_in_use(0)
-   , VERTEXES_PER_ITEM(6)
    , atlas()
    , initialized(false)
 {
@@ -99,7 +98,7 @@ void MultiMesh::initialize()
          error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
          throw std::runtime_error(error_message.str());
       }
-   int num_vertices = num_items * VERTEXES_PER_ITEM;
+   int num_vertices = num_items * VERTICES_PER_ITEM;
 
    // create the vertex declaration
    ALLEGRO_VERTEX_ELEMENT elems[] = {
@@ -123,10 +122,10 @@ void MultiMesh::initialize()
    return;
 }
 
-void MultiMesh::append(int atlas_item_index_num, float x, float y)
+int MultiMesh::append(int atlas_item_index_num, float x, float y)
 {
    AllegroFlare::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
-   append_raw(
+   return append_raw(
       x,
       y,
       atlas_item.infer_width(),
@@ -136,10 +135,9 @@ void MultiMesh::append(int atlas_item_index_num, float x, float y)
       atlas_item.get_u2(),
       atlas_item.get_v2()
    );
-   return;
 }
 
-void MultiMesh::append_raw(float x, float y, float w, float h, float u1, float v1, float u2, float v2)
+int MultiMesh::append_raw(float x, float y, float w, float h, float u1, float v1, float u2, float v2)
 {
    if (!(initialized))
       {
@@ -148,7 +146,7 @@ void MultiMesh::append_raw(float x, float y, float w, float h, float u1, float v
          throw std::runtime_error(error_message.str());
       }
    ALLEGRO_COLOR color{1, 1, 1, 1};
-   ALLEGRO_VERTEX item_vertexes[6] = {
+   ALLEGRO_VERTEX item_vertexes[VERTICES_PER_ITEM] = {
       ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, color},
       ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, color},
       ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, color},
@@ -161,19 +159,23 @@ void MultiMesh::append_raw(float x, float y, float w, float h, float u1, float v
    ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
       vertex_buffer,
       vertices_in_use,
-      VERTEXES_PER_ITEM,
+      VERTICES_PER_ITEM,
       ALLEGRO_LOCK_WRITEONLY
    );
 
    // fill 6 vertexes @ ind
-   for (int i=0; i<6; i++) start[i] = item_vertexes[i];
+   for (int i=0; i<VERTICES_PER_ITEM; i++) start[i] = item_vertexes[i];
 
    // unlock
    al_unlock_vertex_buffer(vertex_buffer);
 
+   // capture the current index of this newly appended item
+   int this_item_index = vertices_in_use / VERTICES_PER_ITEM;
+
    // increase vertices_in_use by 6
-   vertices_in_use += 6;
-   return;
+   vertices_in_use += VERTICES_PER_ITEM;
+
+   return this_item_index;
 }
 
 int MultiMesh::remove(int item_index)
@@ -185,9 +187,9 @@ int MultiMesh::remove(int item_index)
          throw std::runtime_error(error_message.str());
       }
    // TODO: validate position exists, does not overflow, etc
-   int item_start_index = item_index * VERTEXES_PER_ITEM;
+   int item_start_index = item_index * VERTICES_PER_ITEM;
    int length = vertices_in_use - item_start_index; // all the way to the end of vertices_in_use
-   bool removed_vertex_is_at_end = (item_start_index == vertices_in_use-VERTEXES_PER_ITEM);
+   bool removed_vertex_is_at_end = (item_start_index == vertices_in_use-VERTICES_PER_ITEM);
 
    // lock @ index to vertices_in_use
    ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
@@ -198,15 +200,18 @@ int MultiMesh::remove(int item_index)
    );
 
    // copy vertexes from end (end-6) into removed position (if not already at end)
-   if (!removed_vertex_is_at_end) for (int i=0; i<6; i++) start[i] = start[i + length-VERTEXES_PER_ITEM];
+   if (!removed_vertex_is_at_end) for (int i=0; i<VERTICES_PER_ITEM; i++)
+   {
+      start[i] = start[i + length-VERTICES_PER_ITEM];
+   }
 
    // unlock
    al_unlock_vertex_buffer(vertex_buffer);
 
    // reduce vertices_in_use by 6
-   vertices_in_use -= 6;
+   vertices_in_use -= VERTICES_PER_ITEM;
    if (removed_vertex_is_at_end) return item_index;
-   return vertices_in_use / VERTEXES_PER_ITEM;
+   return vertices_in_use / VERTICES_PER_ITEM;
 }
 
 void MultiMesh::render()

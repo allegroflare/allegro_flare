@@ -26,10 +26,12 @@ properties:
     type: int
     init_with: 0
 
-  - name: VERTEXES_PER_ITEM
+  - name: VERTICES_PER_ITEM
     const: true
-    type: int
+    static: true
+    type: std::size_t
     init_with: 6
+    constexpr: true
 
   - name: atlas
     type: AllegroFlare::MultiMeshUVAtlas
@@ -69,7 +71,7 @@ functions:
   - name: initialize
     guards: [ (!initialized), al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
-      int num_vertices = num_items * VERTEXES_PER_ITEM;
+      int num_vertices = num_items * VERTICES_PER_ITEM;
 
       // create the vertex declaration
       ALLEGRO_VERTEX_ELEMENT elems[] = {
@@ -94,6 +96,7 @@ functions:
 
 
   - name: append
+    type: int
     parameters:
       - name: atlas_item_index_num
         type: int
@@ -106,7 +109,7 @@ functions:
         default_argument: 0
     body: |
       AllegroFlare::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
-      append_raw(
+      return append_raw(
          x,
          y,
          atlas_item.infer_width(),
@@ -116,10 +119,10 @@ functions:
          atlas_item.get_u2(),
          atlas_item.get_v2()
       );
-      return;
 
 
   - name: append_raw
+    type: int
     parameters:
       - name: x
         type: float
@@ -148,7 +151,7 @@ functions:
     guards: [ initialized ]
     body: |
       ALLEGRO_COLOR color{1, 1, 1, 1};
-      ALLEGRO_VERTEX item_vertexes[6] = {
+      ALLEGRO_VERTEX item_vertexes[VERTICES_PER_ITEM] = {
          ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, color},
          ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, color},
          ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, color},
@@ -161,19 +164,23 @@ functions:
       ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
          vertex_buffer,
          vertices_in_use,
-         VERTEXES_PER_ITEM,
+         VERTICES_PER_ITEM,
          ALLEGRO_LOCK_WRITEONLY
       );
 
       // fill 6 vertexes @ ind
-      for (int i=0; i<6; i++) start[i] = item_vertexes[i];
+      for (int i=0; i<VERTICES_PER_ITEM; i++) start[i] = item_vertexes[i];
 
       // unlock
       al_unlock_vertex_buffer(vertex_buffer);
 
+      // capture the current index of this newly appended item
+      int this_item_index = vertices_in_use / VERTICES_PER_ITEM;
+
       // increase vertices_in_use by 6
-      vertices_in_use += 6;
-      return;
+      vertices_in_use += VERTICES_PER_ITEM;
+
+      return this_item_index;
 
 
   - name: remove
@@ -185,9 +192,9 @@ functions:
     guards: [ initialized ]
     body: |
       // TODO: validate position exists, does not overflow, etc
-      int item_start_index = item_index * VERTEXES_PER_ITEM;
+      int item_start_index = item_index * VERTICES_PER_ITEM;
       int length = vertices_in_use - item_start_index; // all the way to the end of vertices_in_use
-      bool removed_vertex_is_at_end = (item_start_index == vertices_in_use-VERTEXES_PER_ITEM);
+      bool removed_vertex_is_at_end = (item_start_index == vertices_in_use-VERTICES_PER_ITEM);
 
       // lock @ index to vertices_in_use
       ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
@@ -198,15 +205,18 @@ functions:
       );
 
       // copy vertexes from end (end-6) into removed position (if not already at end)
-      if (!removed_vertex_is_at_end) for (int i=0; i<6; i++) start[i] = start[i + length-VERTEXES_PER_ITEM];
+      if (!removed_vertex_is_at_end) for (int i=0; i<VERTICES_PER_ITEM; i++)
+      {
+         start[i] = start[i + length-VERTICES_PER_ITEM];
+      }
 
       // unlock
       al_unlock_vertex_buffer(vertex_buffer);
 
       // reduce vertices_in_use by 6
-      vertices_in_use -= 6;
+      vertices_in_use -= VERTICES_PER_ITEM;
       if (removed_vertex_is_at_end) return item_index;
-      return vertices_in_use / VERTEXES_PER_ITEM;
+      return vertices_in_use / VERTICES_PER_ITEM;
 
 
   - name: render

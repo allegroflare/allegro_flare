@@ -107,6 +107,20 @@ TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture,
+   append_raw__will_return_the_index_number_of_the_newly_added_index)
+{
+   ALLEGRO_BITMAP *texture = get_bitmap_bin_ref()["uv.png"];
+   AllegroFlare::MultiMesh multi_mesh;
+   multi_mesh.set_texture(texture);
+   multi_mesh.initialize();
+
+   EXPECT_EQ(0, multi_mesh.append_raw(300, 200, 100, 100, 100, 100, 200, 200));
+   EXPECT_EQ(1, multi_mesh.append_raw(600, 300, 100, 100, 100, 100, 200, 200));
+   EXPECT_EQ(2, multi_mesh.append_raw(1000, 500, 100, 100, 100, 100, 200, 200));
+}
+
+
 TEST_F(AllegroFlare_MultiMeshTestWithAllegroRenderingFixture, append__before_initialized__will_throw_an_error)
 {
    // TODO
