@@ -5,9 +5,9 @@
 //#include <boost/test/unit_test.hpp>
 
 
+#include <gtest/gtest.h>
 
-
-//#include <AllegroFlare/Attributes.hpp>
+#include <AllegroFlare/Attributes.hpp>
 
 //#include <fstream>
 //#include <sstream>
@@ -15,7 +15,7 @@
 
 
 
-//using namespace AllegroFlare;
+using namespace AllegroFlare;
 
 
 
@@ -46,197 +46,198 @@
 
 
 
-//BOOST_AUTO_TEST_CASE(unknown_attributes_do_not_exist)
-//{
-   //Attributes attributes;
-   //BOOST_CHECK(attributes.exists("hello") == false);
-//}
+TEST(AllegroFlare_AttributesTest, unknown_attributes_do_not_exist)
+{
+   Attributes attributes;
+   EXPECT_EQ(false, attributes.exists("hello"));
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_created)
-//{
-   //Attributes attributes;
-   //attributes.set("hello");
-   //BOOST_CHECK(attributes.exists("hello"));
-//}
+TEST(AllegroFlare_AttributesTest, attributes_can_be_created)
+{
+   Attributes attributes;
+   attributes.set("hello");
+   EXPECT_EQ(true, attributes.exists("hello"));
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(created_key_value_pairs_exist)
-//{
-   //Attributes attributes;
-   //attributes.set("size", "large");
-   //BOOST_CHECK_EQUAL(attributes.exists("size", "large"), true);
-//}
+TEST(AllegroFlare_AttributesTest, created_key_value_pairs_exist)
+{
+   Attributes attributes;
+   attributes.set("size", "large");
+   EXPECT_EQ(true, attributes.exists("size", "large"));
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(unknown_key_value_pairs_do_not_exist)
-//{
-   //Attributes attributes;
-   //attributes.set("size", "large");
-   //BOOST_CHECK_EQUAL(attributes.exists("size", "small"), false);
-//}
+TEST(AllegroFlare_AttributesTest, unknown_key_value_pairs_do_not_exist)
+{
+   Attributes attributes;
+   attributes.set("size", "large");
+   EXPECT_EQ(false, attributes.exists("size", "small"));
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attribute_values_can_be_retrieved)
-//{
-   //Attributes attributes;
-   //attributes.set("name", "Alex");
-   //BOOST_CHECK_EQUAL(attributes.get("name"), "Alex");
-//}
+TEST(AllegroFlare_AttributesTest, attribute_values_can_be_retrieved)
+{
+   Attributes attributes;
+   attributes.set("name", "Alex");
+   EXPECT_EQ("Alex", attributes.get("name"));
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_counted)
-//{
-   //Attributes attributes;
-   //attributes.set("name", "Alex");
-   //BOOST_CHECK_EQUAL(attributes.num_attributes(), 1);
-   //attributes.set("color", "green");
-   //BOOST_CHECK_EQUAL(attributes.num_attributes(), 2);
-   //attributes.set("animal", "alligator");
-   //BOOST_CHECK_EQUAL(attributes.num_attributes(), 3);
-//}
+TEST(AllegroFlare_AttributesTest, attributes_can_be_counted)
+{
+   Attributes attributes;
+   attributes.set("name", "Alex");
+   EXPECT_EQ(1, attributes.num_attributes());
+   attributes.set("color", "green");
+   EXPECT_EQ(2, attributes.num_attributes());
+   attributes.set("animal", "alligator");
+   EXPECT_EQ(3, attributes.num_attributes());
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attribute_values_can_be_changed)
-//{
-   //Attributes attributes;
-   //attributes.set("name", "Alex");
-   //attributes.set("name", "Beary");
-   //BOOST_CHECK_EQUAL(attributes.get("name"), "Beary");
-//}
+TEST(AllegroFlare_AttributesTest, attribute_values_can_be_changed)
+{
+   Attributes attributes;
+   attributes.set("name", "Alex");
+   attributes.set("name", "Beary");
+   EXPECT_EQ("Beary", attributes.get("name"));
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_removed)
-//{
-   //Attributes attributes;
-   //attributes.set("os", "OSX");
-   //attributes.remove("os");
-   //BOOST_CHECK_EQUAL(attributes.num_attributes(), 0);
-//}
+TEST(AllegroFlare_AttributesTest, attributes_can_be_removed)
+{
+   Attributes attributes;
+   attributes.set("os", "OSX");
+   attributes.remove("os");
+   EXPECT_EQ(0, attributes.num_attributes());
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_matching_key_value_can_be_removed)
-//{
-   //Attributes attributes;
-   //attributes.set("os", "Windows");
-   //attributes.remove("os", "Windows");
-   //BOOST_CHECK_EQUAL(attributes.num_attributes(), 0);
-//}
+TEST(AllegroFlare_AttributesTest, attributes_matching_key_value_can_be_removed)
+{
+   Attributes attributes;
+   attributes.set("os", "Windows");
+   attributes.remove("os", "Windows");
+   EXPECT_EQ(0, attributes.num_attributes());
+}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_set_with_standard_datatypes)
-//{
-   //Attributes attributes;
+TEST(AllegroFlare_AttributesTest, attributes_can_be_set_with_standard_datatypes)
+{
+   Attributes attributes;
 
-   //attributes.set("name", "Mark");
-   //BOOST_CHECK_EQUAL(attributes.get("name"), "Mark");
+   attributes.set("name", "Mark");
+   EXPECT_EQ("Mark", attributes.get("name"));
 
-   //attributes.set("father", std::string("Tony"));
-   //BOOST_CHECK_EQUAL(attributes.get("father"), "Tony");
+   attributes.set("father", std::string("Tony"));
+   EXPECT_EQ("Tony", attributes.get("father"));
 
-   //attributes.set("answer", 42);
-   //BOOST_CHECK_EQUAL(attributes.get("answer"), "42");
+   attributes.set("answer", 42);
+   EXPECT_EQ("42", attributes.get("answer"));
 
-   //attributes.set("pi", 3.14f);
-   //BOOST_CHECK_EQUAL(attributes.get("pi"), "3.14");
+   attributes.set("pi", 3.14f);
+   EXPECT_EQ("3.14", attributes.get("pi"));
 
-   //attributes.set("tau", 6.28);
-   //BOOST_CHECK_EQUAL(attributes.get("tau"), "6.28");
+   attributes.set("tau", 6.28);
+   EXPECT_EQ("6.28", attributes.get("tau"));
 
-   //attributes.set("happy", true);
-   //BOOST_CHECK_EQUAL(attributes.get("happy"), "true");
+   attributes.set("happy", true);
+   EXPECT_EQ("true", attributes.get("happy"));
 
-   //attributes.set("caffinated", false);
-   //BOOST_CHECK_EQUAL(attributes.get("caffinated"), "false");
-//}
-
-
+   attributes.set("caffinated", false);
+   EXPECT_EQ("false", attributes.get("caffinated"));
+}
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_standard_datatypes)
-//{
-   //Attributes attributes;
 
-   //attributes.set("value", "128");
-   //BOOST_CHECK_EQUAL(attributes.get_as_int("value"), 128);
 
+TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_standard_datatypes)
+{
+   Attributes attributes;
+
+   attributes.set("value", "128");
+   EXPECT_EQ(128, attributes.get_as_int("value"));
+
+   // TODO
    //attributes.set("phi", "1.618");
-   //BOOST_CHECK_CLOSE(attributes.get_as_float("phi"), 1.618, 0.00001);
+   //EXPECT_NEAR(1.618, attributes.get_as_float("phi"), 1.618f, 0.00001f);
 
-   //attributes.set("flavor", "sweet");
-   //BOOST_CHECK_EQUAL(attributes.get_as_string("flavor"), std::string("sweet"));
+   attributes.set("flavor", "sweet");
+   EXPECT_EQ(std::string("sweet"), attributes.get_as_string("flavor"));
 
-   //attributes.set("should_do_laundry", "true");
-   //BOOST_CHECK_EQUAL(attributes.get_as_bool("should_do_laundry"), true);
+   attributes.set("should_do_laundry", "true");
+   EXPECT_EQ(true, attributes.get_as_bool("should_do_laundry"));
 
-   //attributes.set("doing_laundry_now", "false");
-   //BOOST_CHECK_EQUAL(attributes.get_as_bool("doing_laundry_now"), false);
-//}
-
-
+   attributes.set("doing_laundry_now", "false");
+   EXPECT_EQ(false, attributes.get_as_bool("doing_laundry_now"));
+}
 
 
-//BOOST_AUTO_TEST_CASE(a_datatype_that_has_not_been_created_is_inknown)
+
+
+//TEST(AllegroFlare_AttributesTest, a_datatype_that_has_not_been_created_is_inknown)
 //{
    //Attributes attributes;
-   //BOOST_CHECK_EQUAL(Attributes::datatype_is_known("my_custom_datatype"), false);
+   //EXPECT_EQ(Attributes::datatype_is_known("my_custom_datatype"), false);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(custom_datatypes_that_have_been_created_are_known)
+//TEST(AllegroFlare_AttributesTest, custom_datatypes_that_have_been_created_are_known)
 //{
    //Attributes attributes;
 
    //attributes.create_datatype_definition("my_custom_datatype",
          //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //BOOST_CHECK_EQUAL(Attributes::datatype_is_known("my_custom_datatype"), true);
+   //EXPECT_EQ(Attributes::datatype_is_known("my_custom_datatype"), true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(an_attribute_can_not_be_set_as_an_unknown_datatype)
+//TEST(AllegroFlare_AttributesTest, an_attribute_can_not_be_set_as_an_unknown_datatype)
 //{
    //Attributes attributes;
    //my_custom_datatype custom;
-   //BOOST_CHECK_EQUAL(attributes.set("key", "an_unknown_datatype", (void *)&custom), false);
+   //EXPECT_EQ(attributes.set("key", "an_unknown_datatype", (void *)&custom), false);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_variable_cannot_be_bound_to_a_datatype_that_does_not_exist)
+//TEST(AllegroFlare_AttributesTest, a_variable_cannot_be_bound_to_a_datatype_that_does_not_exist)
 //{
    //Attributes attributes;
    //my_custom_datatype custom;
-   //BOOST_CHECK_EQUAL(attributes.bind("key", "an_unknown_datatype", &custom), false);
+   //EXPECT_EQ(attributes.bind("key", "an_unknown_datatype", &custom), false);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(custom_datatypes_can_be_bound)
+//TEST(AllegroFlare_AttributesTest, custom_datatypes_can_be_bound)
 //{
    //Attributes attributes;
    //my_custom_datatype custom;
@@ -244,13 +245,13 @@
    //attributes.create_datatype_definition("my_custom_datatype",
          //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //BOOST_CHECK_EQUAL(attributes.bind("foo", "my_custom_datatype", &custom), true);
+   //EXPECT_EQ(attributes.bind("foo", "my_custom_datatype", &custom), true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_set_using_custom_datatypes)
+//TEST(AllegroFlare_AttributesTest, attributes_can_be_set_using_custom_datatypes)
 //{
    //Attributes attributes;
    //my_custom_datatype my_2d_vector;
@@ -262,13 +263,13 @@
 
    //attributes.set("position", "my_custom_datatype", (void *)&my_2d_vector);
 
-   //BOOST_CHECK_EQUAL(attributes.get("position"), "0.35 0.01");
+   //EXPECT_EQ(attributes.get("position"), "0.35 0.01");
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_custom_attribute_is_set_to_the_value_of_the_variable_when_bound)
+//TEST(AllegroFlare_AttributesTest, a_custom_attribute_is_set_to_the_value_of_the_variable_when_bound)
 //{
    //Attributes attributes;
    //my_custom_datatype custom_var;
@@ -283,13 +284,13 @@
    //// bind it to an existing datatype with values
    //attributes.bind("custom", "my_custom_datatype", &custom_var);
 
-   //BOOST_CHECK_EQUAL(attributes.is_synced("custom"), true);
+   //EXPECT_EQ(attributes.is_synced("custom"), true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_retrieved_as_a_custom_datatype)
+//TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_a_custom_datatype)
 //{
    //Attributes attributes;
    //my_custom_datatype my_2d_vector;
@@ -307,14 +308,14 @@
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_saved_to_a_file)
+//TEST(AllegroFlare_AttributesTest, attributes_can_be_saved_to_a_file)
 //{
    //std::string test_filename = "TEST_alex_attributes_1.txt";
 
    //// remove the test file if it already exists
 
    //if (access(test_filename.c_str(), F_OK) != -1)
-      //BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
+      //ASSERT_EQ(0, remove(test_filename.c_str()));
 
    //// create and save our attributes
 
@@ -329,7 +330,7 @@
    //// validate the file was created
 
    //std::ifstream file(test_filename);
-   //BOOST_REQUIRE_EQUAL(file.fail(), false);
+   //ASSERT_EQ(file.fail(), false);
 
    //// validate the contents of the file
 
@@ -342,26 +343,26 @@
    //std::stringstream contents;
    //contents << file.rdbuf();
 
-   //BOOST_CHECK_EQUAL(expected_file_contents, contents.str());
+   //EXPECT_EQ(expected_file_contents, contents.str());
 
    //file.close();
 
    //// remove the test file if it already exists
 
-   //BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
+   //ASSERT_EQ(0, remove(test_filename.c_str()));
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(attributes_can_be_loaded_from_a_file)
+//TEST(AllegroFlare_AttributesTest, attributes_can_be_loaded_from_a_file)
 //{
    //std::string test_filename = "TEST_alex_attributes_2.txt";
 
    //// remove the test file if it already exists
 
    //if (access(test_filename.c_str(), F_OK) != -1)
-      //BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
+      //ASSERT_EQ(0, remove(test_filename.c_str()));
 
    //// create a faux file
 
@@ -378,19 +379,19 @@
    //Attributes attributes;
    //attributes.load(test_filename);
 
-   //BOOST_CHECK_EQUAL("Alex", attributes.get("name"));
-   //BOOST_CHECK_EQUAL("green", attributes.get("color"));
-   //BOOST_CHECK_EQUAL("16", attributes.get("height"));
+   //EXPECT_EQ("Alex", attributes.get("name"));
+   //EXPECT_EQ("green", attributes.get("color"));
+   //EXPECT_EQ("16", attributes.get("height"));
 
    //// cleanup our file
 
-   //BOOST_REQUIRE_EQUAL(0, remove(test_filename.c_str()));
+   //ASSERT_EQ(0, remove(test_filename.c_str()));
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_copy_of_the_key_value_pairs_can_be_retrieved)
+//TEST(AllegroFlare_AttributesTest, a_copy_of_the_key_value_pairs_can_be_retrieved)
 //{
    //Attributes attributes;
 
@@ -405,15 +406,15 @@
    //expected["color"] = "green";
    //expected["height"] = "16";
 
-   //BOOST_REQUIRE_EQUAL(values.size(), expected.size());
+   //ASSERT_EQ(values.size(), expected.size());
 
    //// p.s. I'm not a fan of this technique
    //auto itv=values.begin();
    //auto ite=expected.begin();
    //while (itv != values.end())
    //{
-      //BOOST_CHECK_EQUAL(itv->first, ite->first);
-      //BOOST_CHECK_EQUAL(itv->second, ite->second);
+      //EXPECT_EQ(itv->first, ite->first);
+      //EXPECT_EQ(itv->second, ite->second);
       //itv++;
       //ite++;
    //}
@@ -422,87 +423,87 @@
 
 
 
-//BOOST_AUTO_TEST_CASE(binding_will_create_an_attribute_if_it_did_not_exist_previously)
+//TEST(AllegroFlare_AttributesTest, binding_will_create_an_attribute_if_it_did_not_exist_previously)
 //{
    //int temperature = -40;
    //Attributes attributes;
    //attributes.bind("temperature", &temperature);
-   //BOOST_CHECK_EQUAL(attributes.exists("temperature"), true);
+   //EXPECT_EQ(attributes.exists("temperature"), true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(an_attribute_identifies_as_unbound_when_not_bounded)
+//TEST(AllegroFlare_AttributesTest, an_attribute_identifies_as_unbound_when_not_bounded)
 //{
    //Attributes attributes;
    //attributes.set("size", "32");
-   //BOOST_CHECK_EQUAL(attributes.is_bound("size"), false);
+   //EXPECT_EQ(attributes.is_bound("size"), false);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(an_attribute_identifies_as_bounded_when_bouneded)
+//TEST(AllegroFlare_AttributesTest, an_attribute_identifies_as_bounded_when_bouneded)
 //{
    //int size = 256;
    //Attributes attributes;
    //attributes.bind("size", &size);
-   //BOOST_CHECK_EQUAL(attributes.is_bound("size"), true);
+   //EXPECT_EQ(attributes.is_bound("size"), true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(an_attribute_is_set_to_the_value_of_the_variable_when_bound)
+//TEST(AllegroFlare_AttributesTest, an_attribute_is_set_to_the_value_of_the_variable_when_bound)
 //{
    //Attributes attributes;
    //attributes.set("temperature", 72);
    //int temperature = -40;
    //attributes.bind("temperature", &temperature);
-   //BOOST_CHECK_EQUAL(attributes.is_synced("temperature"), true);
+   //EXPECT_EQ(attributes.is_synced("temperature"), true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(an_attribute_is_not_synced_if_the_variable_is_modified)
+//TEST(AllegroFlare_AttributesTest, an_attribute_is_not_synced_if_the_variable_is_modified)
 //{
    //Attributes attributes;
    //int temperature = -40;
    //attributes.bind("temperature", &temperature);
    //temperature = 72;
-   //BOOST_CHECK_EQUAL(attributes.is_unsynced("temperature"), true);
+   //EXPECT_EQ(attributes.is_unsynced("temperature"), true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_retrieved)
+//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_retrieved)
 //{
    //Attributes attributes;
    //int kilometers = 1000;
    //attributes.bind("kilometers", &kilometers);
    //kilometers = 42;
-   //BOOST_CHECK_EQUAL(attributes.get("kilometers"), "42");
+   //EXPECT_EQ(attributes.get("kilometers"), "42");
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_to_the_bound_variable_when_set)
+//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_to_the_bound_variable_when_set)
 //{
    //Attributes attributes;
    //int kilometers = 1000;
    //attributes.bind("kilometers", &kilometers);
    //attributes.set("kilometers", "120");
-   //BOOST_CHECK_EQUAL(kilometers, 120);
+   //EXPECT_EQ(kilometers, 120);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(user_can_get_the_bound_datatype_for_standard_datatypes)
+//TEST(AllegroFlare_AttributesTest, user_can_get_the_bound_datatype_for_standard_datatypes)
 //{
    //Attributes attributes;
 
@@ -512,33 +513,33 @@
    //bool bool_val = true;
 
    //attributes.bind("val", &int_val);
-   //BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "int");
+   //EXPECT_EQ(attributes.get_bound_type("val"), "int");
 
    //attributes.bind("val", &float_val);
-   //BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "float");
+   //EXPECT_EQ(attributes.get_bound_type("val"), "float");
 
    //attributes.bind("val", &string_val);
-   //BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "string");
+   //EXPECT_EQ(attributes.get_bound_type("val"), "string");
 
    //attributes.bind("val", &bool_val);
-   //BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "bool");
+   //EXPECT_EQ(attributes.get_bound_type("val"), "bool");
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(an_attribute_will_identify_its_datatype_as_unbound_if_not_binded)
+//TEST(AllegroFlare_AttributesTest, an_attribute_will_identify_its_datatype_as_unbound_if_not_binded)
 //{
    //Attributes attributes;
    //attributes.set("val", "foobar");
-   //BOOST_CHECK_EQUAL(attributes.get_bound_type("val"), "unbound");
-   //BOOST_CHECK_EQUAL(attributes.is_bound_as("val", "unbound"), true);
+   //EXPECT_EQ(attributes.get_bound_type("val"), "unbound");
+   //EXPECT_EQ(attributes.is_bound_as("val", "unbound"), true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_from_all_standard_datatypes)
+//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_from_all_standard_datatypes)
 //{
    //Attributes attributes;
 
@@ -548,26 +549,26 @@
    //bool bool_val = true;
 
    //attributes.bind("val", &int_val);
-   //BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
-   //BOOST_CHECK_EQUAL(attributes.get("val"), "123");
+   //EXPECT_EQ(attributes.is_synced("val"), true);
+   //EXPECT_EQ(attributes.get("val"), "123");
 
    //attributes.bind("val", &float_val);
-   //BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
-   //BOOST_CHECK_EQUAL(attributes.get("val"), "12.34");
+   //EXPECT_EQ(attributes.is_synced("val"), true);
+   //EXPECT_EQ(attributes.get("val"), "12.34");
 
    //attributes.bind("val", &string_val);
-   //BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
-   //BOOST_CHECK_EQUAL(attributes.get("val"), "Hello World!");
+   //EXPECT_EQ(attributes.is_synced("val"), true);
+   //EXPECT_EQ(attributes.get("val"), "Hello World!");
 
    //attributes.bind("val", &bool_val);
-   //BOOST_CHECK_EQUAL(attributes.is_synced("val"), true);
-   //BOOST_CHECK_EQUAL(attributes.get("val"), "true");
+   //EXPECT_EQ(attributes.is_synced("val"), true);
+   //EXPECT_EQ(attributes.get("val"), "true");
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_all_standard_datatypes)
+//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_as_all_standard_datatypes)
 //{
    //Attributes attributes;
 
@@ -578,7 +579,7 @@
 
    //attributes.bind("val", &int_val);
    //int_val = 456;
-   //BOOST_CHECK_EQUAL(attributes.get_as_int("val"), 456);
+   //EXPECT_EQ(attributes.get_as_int("val"), 456);
 
    //attributes.bind("val", &float_val);
    //float_val = 56.78f;
@@ -586,17 +587,17 @@
 
    //attributes.bind("val", &string_val);
    //string_val = "Twas a good day, today.";
-   //BOOST_CHECK_EQUAL(attributes.get_as_string("val"), "Twas a good day, today.");
+   //EXPECT_EQ(attributes.get_as_string("val"), "Twas a good day, today.");
 
    //attributes.bind("val", &bool_val);
    //bool_val = false;
-   //BOOST_CHECK_EQUAL(attributes.get_as_bool("val"), false);
+   //EXPECT_EQ(attributes.get_as_bool("val"), false);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_bound_attribute_will_pull_when_getting_as_a_custom_datatype)
+//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_as_a_custom_datatype)
 //{
    //Attributes attributes;
    //my_custom_datatype custom_var, value_to_fill;
@@ -621,7 +622,7 @@
 
 
 
-//BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_all_standard_datatypes)
+//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_when_setting_to_all_standard_datatypes)
 //{
    //Attributes attributes;
 
@@ -632,25 +633,25 @@
 
    //attributes.bind("val", &int_val);
    //attributes.set("val", 187);
-   //BOOST_CHECK_EQUAL(int_val, 187);
+   //EXPECT_EQ(int_val, 187);
 
    //attributes.bind("val", &float_val);
    //attributes.set("val", 32.1f);
-   //BOOST_CHECK_EQUAL(float_val, 32.1f);
+   //EXPECT_EQ(float_val, 32.1f);
 
    //attributes.bind("val", &string_val);
    //attributes.set("val", "Hello, Dave.");
-   //BOOST_CHECK_EQUAL(string_val, "Hello, Dave.");
+   //EXPECT_EQ(string_val, "Hello, Dave.");
 
    //attributes.bind("val", &bool_val);
    //attributes.set("val", true);
-   //BOOST_CHECK_EQUAL(bool_val, true);
+   //EXPECT_EQ(bool_val, true);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(a_bound_attribute_will_push_when_setting_to_a_custom_datatype)
+//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_when_setting_to_a_custom_datatype)
 //{
    //Attributes attributes;
 
@@ -672,20 +673,20 @@
 
 
 
-//BOOST_AUTO_TEST_CASE(a_bound_attribute_can_be_unbound)
+//TEST(AllegroFlare_AttributesTest, a_bound_attribute_can_be_unbound)
 //{
    //Attributes attributes;
    //int value = 1234;
    //attributes.bind("val", &value);
-   //BOOST_CHECK_EQUAL(attributes.is_bound("val"), true);
+   //EXPECT_EQ(attributes.is_bound("val"), true);
    //attributes.unbind("val");
-   //BOOST_CHECK_EQUAL(attributes.is_bound("val"), false);
+   //EXPECT_EQ(attributes.is_bound("val"), false);
 //}
 
 
 
 
-//BOOST_AUTO_TEST_CASE(user_can_get_the_known_datatypes_in_alphabetical_order)
+//TEST(AllegroFlare_AttributesTest, user_can_get_the_known_datatypes_in_alphabetical_order)
 //{
    //Attributes attributes;
    //auto types = attributes.get_known_datatypes();
@@ -693,12 +694,12 @@
    //attributes.create_datatype_definition("my_custom_datatype",
          //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //BOOST_REQUIRE_EQUAL(types.size(), 5);
-   //BOOST_CHECK_EQUAL(types[0], "bool");
-   //BOOST_CHECK_EQUAL(types[1], "float");
-   //BOOST_CHECK_EQUAL(types[2], "int");
-   //BOOST_CHECK_EQUAL(types[3], "my_custom_datatype");
-   //BOOST_CHECK_EQUAL(types[4], "string");
+   //ASSERT_EQ(types.size(), 5);
+   //EXPECT_EQ(types[0], "bool");
+   //EXPECT_EQ(types[1], "float");
+   //EXPECT_EQ(types[2], "int");
+   //EXPECT_EQ(types[3], "my_custom_datatype");
+   //EXPECT_EQ(types[4], "string");
 //}
 
 
