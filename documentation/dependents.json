@@ -230,6 +230,8 @@
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MultiMesh",
+    "AllegroFlare/MultiMeshUVAtlas",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -672,6 +674,7 @@
   ],
   "std/size_t": [
     "AllegroFlare/EncoderDecoders/Base62",
+    "AllegroFlare/MultiMesh",
     "AllegroFlare/Network2/Message"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
@@ -825,13 +828,28 @@
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Timeline/ActorFactory"
   ],
+  "ALLEGRO_VERTEX_DECL": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "ALLEGRO_VERTEX_BUFFER": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "ALLEGRO_INDEX_BUFFER": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "AllegroFlare/MultiMeshUVAtlas": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "std/map<int, AllegroFlare/MultiMeshUV>": [
+    "AllegroFlare/MultiMeshUVAtlas"
+  ],
+  "AllegroFlare/MultiMeshUV": [
+    "AllegroFlare/MultiMeshUVAtlas"
+  ],
   "chat_message": [
     "AllegroFlare/Network2/Message"
   ],
   "char": [
-    "AllegroFlare/Network2/Message"
-  ],
-  "char[16 + 512]": [
     "AllegroFlare/Network2/Message"
   ],
   "AllegroFlare/EncoderDecoders/Base62": [

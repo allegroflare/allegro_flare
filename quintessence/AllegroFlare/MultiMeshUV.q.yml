@@ -1,0 +1,45 @@
+properties:
+
+
+  - name: u1
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: v1
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: u2
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: v2
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: infer_width
+    type: float
+    body: return u2-u1;
+
+
+  - name: infer_height
+    type: float
+    body: return v2-v1;
+
+

@@ -27,8 +27,8 @@ TEST(AllegroFlare_Network2_MessageTest,
    data___has_the_expected_size_which_is_the_sum_of_HEADER_LENGTH_and_MAX_BODY_LENGTH)
 {
    AllegroFlare::Network2::Message message;
-   int expected_data_size = AllegroFlare::Network2::Message::get_HEADER_LENGTH()
-                          + AllegroFlare::Network2::Message::get_MAX_BODY_LENGTH();
+   int expected_data_size = AllegroFlare::Network2::Message::HEADER_LENGTH
+                          + AllegroFlare::Network2::Message::MAX_BODY_LENGTH;
    EXPECT_EQ(expected_data_size, message.get_data().size());
 }
 
@@ -50,8 +50,8 @@ TEST(AllegroFlare_Network2_MessageTest, set_body_length__will_set_the_body_lengt
    message.set_body_length(1);
    EXPECT_EQ(1, message.get_body_length());
 
-   message.set_body_length(AllegroFlare::Network2::Message::get_MAX_BODY_LENGTH());
-   EXPECT_EQ(AllegroFlare::Network2::Message::get_MAX_BODY_LENGTH(), message.get_body_length());
+   message.set_body_length(AllegroFlare::Network2::Message::MAX_BODY_LENGTH);
+   EXPECT_EQ(AllegroFlare::Network2::Message::MAX_BODY_LENGTH, message.get_body_length());
 
    message.set_body_length(0);
    EXPECT_EQ(0, message.get_body_length());
@@ -63,7 +63,7 @@ TEST(AllegroFlare_Network2_MessageTest,
 {
    AllegroFlare::Network2::Message message;
 
-   std::size_t size_too_big = AllegroFlare::Network2::Message::get_MAX_BODY_LENGTH() + 1;
+   std::size_t size_too_big = AllegroFlare::Network2::Message::MAX_BODY_LENGTH + 1;
 
    std::string expected_error_message = "Message::set_body_length: error: "
                                         "guard \"(!(new_length > MAX_BODY_LENGTH))\" not met";
@@ -76,7 +76,7 @@ TEST(AllegroFlare_Network2_MessageTest,
 {
    AllegroFlare::Network2::Message message;
 
-   std::size_t size_too_big = AllegroFlare::Network2::Message::get_MAX_BODY_LENGTH() + 1;
+   std::size_t size_too_big = AllegroFlare::Network2::Message::MAX_BODY_LENGTH + 1;
    std::string content_too_big(size_too_big, 'x');
 
    std::string expected_error_message = "Message::set_body: error: "
@@ -88,7 +88,7 @@ TEST(AllegroFlare_Network2_MessageTest,
 TEST(AllegroFlare_Network2_MessageTest, set_body__will_set_the_body_length_to_match_the_size)
 {
    AllegroFlare::Network2::Message message;
-   std::vector<std::size_t> sizes_to_test = { 0, 10, 256, 112, 11, message.get_MAX_BODY_LENGTH() };
+   std::vector<std::size_t> sizes_to_test = { 0, 10, 256, 112, 11, AllegroFlare::Network2::Message::MAX_BODY_LENGTH };
 
    for (auto &size_to_test : sizes_to_test)
    {
@@ -114,7 +114,7 @@ TEST(AllegroFlare_Network2_MessageTest, set_body__will_set_the_expected_body_dat
 
    message.set_body(message_body_content);
 
-   std::string expected_data_chunk = message.get_data().substr(message.get_HEADER_LENGTH(), message.get_body_length());
+   std::string expected_data_chunk = message.get_data().substr(message.HEADER_LENGTH, message.get_body_length());
    EXPECT_EQ(message_body_content, expected_data_chunk);
 }
 
@@ -140,7 +140,7 @@ TEST(AllegroFlare_Network2_MessageTest,
       { "0048", 256 },
       { "001O", 112 },
       { "000b", 11 },
-      { "008g", message.get_MAX_BODY_LENGTH() },
+      { "008g", AllegroFlare::Network2::Message::MAX_BODY_LENGTH },
    };
 
    for (auto &size_datum_to_test : size_datas_to_test)
@@ -164,7 +164,7 @@ TEST(AllegroFlare_Network2_MessageTest,
 
    std::vector<std::tuple<std::string, std::size_t>> size_datas_to_test = {
       { "a738", 256 },
-      { "2d99", message.get_MAX_BODY_LENGTH() },
+      { "2d99", AllegroFlare::Network2::Message::MAX_BODY_LENGTH },
    };
 
    for (auto &size_datum_to_test : size_datas_to_test)
@@ -190,7 +190,7 @@ TEST(AllegroFlare_Network2_MessageTest,
       { "d14a", "" },
       { "61c6", "This is the content that will be hashed." },
       { "ddd1", "Content can be short" },
-      { "05d8", std::string(message.get_MAX_BODY_LENGTH(), 'x') }, // content can be long
+      { "05d8", std::string(AllegroFlare::Network2::Message::MAX_BODY_LENGTH, 'x') }, // content can be long
    };
 
    for (auto &expected_header_chunk_and_content_datum : expected_header_chunk_and_content_data)

@@ -126,6 +126,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/MotionComposer/TrackView.q.yml">quintessence/AllegroFlare/MotionComposer/TrackView.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MultiMesh.q.yml">quintessence/AllegroFlare/MultiMesh.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MultiMeshUV.q.yml">quintessence/AllegroFlare/MultiMeshUV.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
@@ -4796,6 +4799,154 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/MultiMesh.q.yml">quintessence/AllegroFlare/MultiMesh.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">num_items</td>
+  <td class="property">std::size_t</td>
+</tr>
+<tr>
+  <td class="property">vertex_buffer</td>
+  <td class="property">ALLEGRO_VERTEX_BUFFER*</td>
+</tr>
+<tr>
+  <td class="property">vertex_decl</td>
+  <td class="property">ALLEGRO_VERTEX_DECL*</td>
+</tr>
+<tr>
+  <td class="property">texture</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">vertices_in_use</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">VERTEXES_PER_ITEM</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">atlas</td>
+  <td class="property">AllegroFlare::MultiMeshUVAtlas</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_atlas(1)</td>
+</tr>
+<tr>
+  <td class="method">set_num_items(1)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">append(3)</td>
+</tr>
+<tr>
+  <td class="method">append_raw(8)</td>
+</tr>
+<tr>
+  <td class="method">remove(1)</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX_DECL*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX_BUFFER*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_INDEX_BUFFER*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultiMeshUVAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultiMeshUVAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/MultiMeshUV.q.yml">quintessence/AllegroFlare/MultiMeshUV.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">u1</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">v1</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">u2</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">v2</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">infer_width()</td>
+</tr>
+<tr>
+  <td class="method">infer_height()</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">index</td>
+  <td class="property">std::map&lt;int, AllegroFlare::MultiMeshUV&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">add(5)</td>
+</tr>
+<tr>
+  <td class="method">exists(1)</td>
+</tr>
+<tr>
+  <td class="method">get(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, AllegroFlare::MultiMeshUV&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/MultiMeshUV.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultiMeshUV&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultiMeshUV.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</h3>
      <table>
 <tr>
@@ -4875,9 +5026,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;char*&quot;, &quot;headers&quot;=&gt;[]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;char[16 + 512]&quot;, &quot;headers&quot;=&gt;[]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
@@ -8014,6 +8162,8 @@ table td
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MultiMesh",
+    "AllegroFlare/MultiMeshUVAtlas",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -8456,6 +8606,7 @@ table td
   ],
   "std/size_t": [
     "AllegroFlare/EncoderDecoders/Base62",
+    "AllegroFlare/MultiMesh",
     "AllegroFlare/Network2/Message"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
@@ -8609,13 +8760,28 @@ table td
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Timeline/ActorFactory"
   ],
+  "ALLEGRO_VERTEX_DECL": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "ALLEGRO_VERTEX_BUFFER": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "ALLEGRO_INDEX_BUFFER": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "AllegroFlare/MultiMeshUVAtlas": [
+    "AllegroFlare/MultiMesh"
+  ],
+  "std/map<int, AllegroFlare/MultiMeshUV>": [
+    "AllegroFlare/MultiMeshUVAtlas"
+  ],
+  "AllegroFlare/MultiMeshUV": [
+    "AllegroFlare/MultiMeshUVAtlas"
+  ],
   "chat_message": [
     "AllegroFlare/Network2/Message"
   ],
   "char": [
-    "AllegroFlare/Network2/Message"
-  ],
-  "char[16 + 512]": [
     "AllegroFlare/Network2/Message"
   ],
   "AllegroFlare/EncoderDecoders/Base62": [

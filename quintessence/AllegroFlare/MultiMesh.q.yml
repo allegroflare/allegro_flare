@@ -1,0 +1,236 @@
+properties:
+
+
+  - name: num_items
+    type: std::size_t
+    init_with: 256
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: vertex_buffer
+    type: ALLEGRO_VERTEX_BUFFER*
+    init_with: nullptr
+
+  - name: vertex_decl
+    type: ALLEGRO_VERTEX_DECL*
+    init_with: nullptr
+
+  - name: texture
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: vertices_in_use
+    type: int
+    init_with: 0
+
+  - name: VERTEXES_PER_ITEM
+    const: true
+    type: int
+    init_with: 6
+
+  - name: atlas
+    type: AllegroFlare::MultiMeshUVAtlas
+    init_with: ''
+    setter: false
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: set_atlas
+    parameters:
+      - name: atlas
+        type: AllegroFlare::MultiMeshUVAtlas
+        default_argument: '{}'
+    guards: [ (!initialized) ]
+    body: |
+      this->atlas = atlas;
+      return;
+
+
+  - name: set_num_items
+    parameters:
+      - name: num_items
+        type: std::size_t
+        default_argument: 256
+    guards: [ (!initialized) ]
+    body: |
+      this->num_items = num_items;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      int num_vertices = num_items * VERTEXES_PER_ITEM;
+
+      // create the vertex declaration
+      ALLEGRO_VERTEX_ELEMENT elems[] = {
+         {ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX, x)},
+         {ALLEGRO_PRIM_TEX_COORD_PIXEL, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX, u)},
+         {ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX, color)},
+         {0, 0, 0}
+      };
+      vertex_decl = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX));
+
+      // vertex buffer, data will be uninitialized
+      const void* initial_data_vb = nullptr;
+      vertex_buffer = al_create_vertex_buffer(
+         vertex_decl,
+         initial_data_vb,
+         num_vertices,
+         ALLEGRO_PRIM_BUFFER_READWRITE
+      );
+
+      initialized = true;
+      return;
+
+
+  - name: append
+    parameters:
+      - name: atlas_item_index_num
+        type: int
+        default_argument: 0
+      - name: x
+        type: float
+        default_argument: 0
+      - name: y
+        type: float
+        default_argument: 0
+    body: |
+      AllegroFlare::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
+      append_raw(
+         x,
+         y,
+         atlas_item.infer_width(),
+         atlas_item.infer_height(),
+         atlas_item.get_u1(),
+         atlas_item.get_v1(),
+         atlas_item.get_u2(),
+         atlas_item.get_v2()
+      );
+      return;
+
+
+  - name: append_raw
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0
+      - name: y
+        type: float
+        default_argument: 0
+      - name: w
+        type: float
+        default_argument: 1
+      - name: h
+        type: float
+        default_argument: 1
+      - name: u1
+        type: float
+        default_argument: 100.0f
+      - name: v1
+        type: float
+        default_argument: 100.0f
+      - name: u2
+        type: float
+        default_argument: 200.0f
+      - name: v2
+        type: float
+        default_argument: 200.0f
+    guards: [ initialized ]
+    body: |
+      ALLEGRO_COLOR color{1, 1, 1, 1};
+      ALLEGRO_VERTEX item_vertexes[6] = {
+         ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, color},
+         ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, color},
+         ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, color},
+         ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, color},
+         ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, color},
+         ALLEGRO_VERTEX{x+w, y+h, 0, u2, v2, color},
+      };
+
+      // lock the vertex buffer
+      ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+         vertex_buffer,
+         vertices_in_use,
+         VERTEXES_PER_ITEM,
+         ALLEGRO_LOCK_WRITEONLY
+      );
+
+      // fill 6 vertexes @ ind
+      for (int i=0; i<6; i++) start[i] = item_vertexes[i];
+
+      // unlock
+      al_unlock_vertex_buffer(vertex_buffer);
+
+      // increase vertices_in_use by 6
+      vertices_in_use += 6;
+      return;
+
+
+  - name: remove
+    type: int
+    parameters:
+      - name: item_index
+        type: int
+        default_argument: 0
+    guards: [ initialized ]
+    body: |
+      // TODO: validate position exists, does not overflow, etc
+      int item_start_index = item_index * VERTEXES_PER_ITEM;
+      int length = vertices_in_use - item_start_index; // all the way to the end of vertices_in_use
+      bool removed_vertex_is_at_end = (item_start_index == vertices_in_use-VERTEXES_PER_ITEM);
+
+      // lock @ index to vertices_in_use
+      ALLEGRO_VERTEX* start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+         vertex_buffer,
+         item_start_index,
+         length,
+         ALLEGRO_LOCK_READWRITE
+      );
+
+      // copy vertexes from end (end-6) into removed position (if not already at end)
+      if (!removed_vertex_is_at_end) for (int i=0; i<6; i++) start[i] = start[i + length-VERTEXES_PER_ITEM];
+
+      // unlock
+      al_unlock_vertex_buffer(vertex_buffer);
+
+      // reduce vertices_in_use by 6
+      vertices_in_use -= 6;
+      if (removed_vertex_is_at_end) return item_index;
+      return vertices_in_use / VERTEXES_PER_ITEM;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      if (vertices_in_use == 0) return;
+      al_draw_vertex_buffer(vertex_buffer, texture, 0, vertices_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_VERTEX_DECL*
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_VERTEX_BUFFER*
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_INDEX_BUFFER*
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::MultiMeshUVAtlas
+    headers: [ AllegroFlare/MultiMeshUVAtlas.hpp ]
+  - symbol: std::size_t
+    headers: [ cstddef ]
+
+
