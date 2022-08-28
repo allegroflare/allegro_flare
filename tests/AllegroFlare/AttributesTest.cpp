@@ -178,9 +178,8 @@ TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_standard_dataty
    attributes.set("value", "128");
    EXPECT_EQ(128, attributes.get_as_int("value"));
 
-   // TODO
-   //attributes.set("phi", "1.618");
-   //EXPECT_NEAR(1.618, attributes.get_as_float("phi"), 1.618f, 0.00001f);
+   attributes.set("phi", "1.618");
+   EXPECT_NEAR(1.618f, attributes.get_as_float("phi"), 0.00001f);
 
    attributes.set("flavor", "sweet");
    EXPECT_EQ(std::string("sweet"), attributes.get_as_string("flavor"));
