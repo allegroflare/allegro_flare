@@ -19,7 +19,7 @@ TEST(AllegroFlare_Network2_MessageTest, can_be_created_without_blowing_up)
 TEST(AllegroFlare_Network2_MessageTest, MAGIC_HEADER_CHUNK___has_the_expected_value_of_AFNM)
 {
    AllegroFlare::Network2::Message message;
-   EXPECT_EQ("AFNM", AllegroFlare::Network2::Message::get_MAGIC_HEADER_CHUNK());
+   EXPECT_EQ("AFNM", AllegroFlare::Network2::Message::MAGIC_HEADER_CHUNK);
 }
 
 

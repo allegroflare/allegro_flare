@@ -18,9 +18,6 @@ namespace Network2
 {
 
 
-std::string Message::MAGIC_HEADER_CHUNK = "AFNM";
-
-
 Message::Message()
    : data(HEADER_LENGTH+MAX_BODY_LENGTH, ' ')
    , body_length(0)
@@ -30,12 +27,6 @@ Message::Message()
 
 Message::~Message()
 {
-}
-
-
-std::string Message::get_MAGIC_HEADER_CHUNK()
-{
-   return MAGIC_HEADER_CHUNK;
 }
 
 
@@ -159,9 +150,9 @@ void Message::encode_header()
 
    char header[HEADER_LENGTH + 1] = "";
 
-   std::string first_8 = MAGIC_HEADER_CHUNK + body_size_base62();
+   std::string first_8 = std::string(MAGIC_HEADER_CHUNK) + body_size_base62();
 
-   std::sprintf(header,    MAGIC_HEADER_CHUNK.c_str());
+   std::sprintf(header,    MAGIC_HEADER_CHUNK); //.c_str());
    std::sprintf(header+4,  body_size_base62().c_str());
    std::sprintf(header+8,  first_4_chars_hash_of(first_8).c_str());
    std::sprintf(header+12, first_4_chars_hash_of(get_body()).c_str());
