@@ -48,8 +48,8 @@ class ChatClient
 {
 private:
   asio::io_context& io_context_;
-  tcp::socket socket_;
-  chat_message read_msg_;
+  tcp::socket socket;
+  chat_message message_being_read;
   chat_message_queue messages_to_write;
   void (*my_injected_callback)(std::string, void*);
   void *my_callback_passed_data;
@@ -63,7 +63,7 @@ public:
       void *my_callback_passed_data=nullptr
    )
        : io_context_(io_context)
-       , socket_(io_context)
+       , socket(io_context)
        , my_injected_callback(my_injected_callback)
        , my_callback_passed_data(my_callback_passed_data)
        , initialized(false)
@@ -98,13 +98,13 @@ public:
   {
     if (!initialized) throw std::runtime_error("ChatClient::close: error: must be initialized first.");
 
-    asio::post(io_context_, [this]() { socket_.close(); });
+    asio::post(io_context_, [this]() { socket.close(); });
   }
 
 private:
   void connect(const tcp::resolver::results_type& endpoints)
   {
-    asio::async_connect(socket_, endpoints,
+    asio::async_connect(socket, endpoints,
         [this](std::error_code ec, tcp::endpoint)
         {
           if (!ec)
@@ -116,48 +116,48 @@ private:
 
   void read_header()
   {
-    asio::async_read(socket_,
-        asio::buffer(read_msg_.data(), chat_message::header_length),
+    asio::async_read(socket,
+        asio::buffer(message_being_read.data(), chat_message::header_length),
         [this](std::error_code ec, std::size_t /*length*/)
         {
-          if (!ec && read_msg_.decode_header())
+          if (!ec && message_being_read.decode_header())
           {
             read_body();
           }
           else
           {
-            socket_.close();
+            socket.close();
           }
         });
   }
 
   void read_body()
   {
-    asio::async_read(socket_,
-        asio::buffer(read_msg_.body(), read_msg_.body_length()),
+    asio::async_read(socket,
+        asio::buffer(message_being_read.body(), message_being_read.body_length()),
         [this](std::error_code ec, std::size_t /*length*/)
         {
           if (!ec)
           {
-            std::cout.write(read_msg_.body(), read_msg_.body_length());
+            std::cout.write(message_being_read.body(), message_being_read.body_length());
             std::cout << "\n";
 
-            std::string message_body(read_msg_.body_length(), 'x');
-            memcpy(message_body.data(), read_msg_.body(), read_msg_.body_length());
+            std::string message_body(message_being_read.body_length(), 'x');
+            memcpy(message_body.data(), message_being_read.body(), message_being_read.body_length());
             //message_body.resize = read_msg_.body();
             if (my_injected_callback) (*my_injected_callback)(message_body, my_callback_passed_data);
             read_header();
           }
           else
           {
-            socket_.close();
+            socket.close();
           }
         });
   }
 
   void write()
   {
-    asio::async_write(socket_,
+    asio::async_write(socket,
         asio::buffer(messages_to_write.front().data(),
           messages_to_write.front().length()),
         [this](std::error_code ec, std::size_t /*length*/)
@@ -173,7 +173,7 @@ private:
           }
           else
           {
-            socket_.close();
+            socket.close();
           }
         });
   }
