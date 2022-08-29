@@ -568,139 +568,139 @@ TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_from_
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_as_all_standard_datatypes)
-//{
-   //Attributes attributes;
+TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_as_all_standard_datatypes)
+{
+   Attributes attributes;
 
-   //int int_val = 123;
-   //float float_val = 12.34f;
-   //std::string string_val = "Hello World!";
-   //bool bool_val = true;
+   int int_val = 123;
+   float float_val = 12.34f;
+   std::string string_val = "Hello World!";
+   bool bool_val = true;
 
-   //attributes.bind("val", &int_val);
-   //int_val = 456;
-   //EXPECT_EQ(attributes.get_as_int("val"), 456);
+   attributes.bind("val", &int_val);
+   int_val = 456;
+   EXPECT_EQ(456, attributes.get_as_int("val"));
 
-   //attributes.bind("val", &float_val);
-   //float_val = 56.78f;
-   //BOOST_CHECK_CLOSE(attributes.get_as_float("val"), 56.78f, 0.00001);
+   attributes.bind("val", &float_val);
+   float_val = 56.78f;
+   EXPECT_NEAR(attributes.get_as_float("val"), 56.78f, 0.00001);
 
-   //attributes.bind("val", &string_val);
-   //string_val = "Twas a good day, today.";
-   //EXPECT_EQ(attributes.get_as_string("val"), "Twas a good day, today.");
+   attributes.bind("val", &string_val);
+   string_val = "Twas a good day, today.";
+   EXPECT_EQ("Twas a good day, today.", attributes.get_as_string("val"));
 
-   //attributes.bind("val", &bool_val);
-   //bool_val = false;
-   //EXPECT_EQ(attributes.get_as_bool("val"), false);
-//}
-
-
-
-
-//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_as_a_custom_datatype)
-//{
-   //Attributes attributes;
-   //my_custom_datatype custom_var, value_to_fill;
-
-   //custom_var.x = 0.876f;
-   //custom_var.y = 6.543f;
-
-   //// create custom datatype
-   //attributes.create_datatype_definition("my_custom_datatype",
-         //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
-
-   //// bind it to an existing datatype with values
-   //attributes.bind("custom", "my_custom_datatype", &custom_var);
-
-   //attributes.get_as_custom(&value_to_fill, "my_custom_datatype", "custom");
-
-   //// check the value of the set variable
-   //BOOST_CHECK_CLOSE(value_to_fill.x, 0.876f, 0.00001);
-   //BOOST_CHECK_CLOSE(value_to_fill.y, 6.543f, 0.00001);
-//}
+   attributes.bind("val", &bool_val);
+   bool_val = false;
+   EXPECT_EQ(false, attributes.get_as_bool("val"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_when_setting_to_all_standard_datatypes)
-//{
-   //Attributes attributes;
+TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_as_a_custom_datatype)
+{
+   Attributes attributes;
+   my_custom_datatype custom_var, value_to_fill;
 
-   //int int_val = 1984;
-   //float float_val = 65.4f;
-   //std::string string_val = "Daisy, Daisy, give me your answer, do.";
-   //bool bool_val = false;
+   custom_var.x = 0.876f;
+   custom_var.y = 6.543f;
 
-   //attributes.bind("val", &int_val);
-   //attributes.set("val", 187);
-   //EXPECT_EQ(int_val, 187);
+   // create custom datatype
+   attributes.create_datatype_definition("my_custom_datatype",
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //attributes.bind("val", &float_val);
-   //attributes.set("val", 32.1f);
-   //EXPECT_EQ(float_val, 32.1f);
+   // bind it to an existing datatype with values
+   attributes.bind("custom", "my_custom_datatype", &custom_var);
 
-   //attributes.bind("val", &string_val);
-   //attributes.set("val", "Hello, Dave.");
-   //EXPECT_EQ(string_val, "Hello, Dave.");
+   attributes.get_as_custom(&value_to_fill, "my_custom_datatype", "custom");
 
-   //attributes.bind("val", &bool_val);
-   //attributes.set("val", true);
-   //EXPECT_EQ(bool_val, true);
-//}
+   // check the value of the set variable
+   EXPECT_NEAR(value_to_fill.x, 0.876f, 0.00001);
+   EXPECT_NEAR(value_to_fill.y, 6.543f, 0.00001);
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_when_setting_to_a_custom_datatype)
-//{
-   //Attributes attributes;
+TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_when_setting_to_all_standard_datatypes)
+{
+   Attributes attributes;
 
-   //attributes.create_datatype_definition("my_custom_datatype",
-         //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+   int int_val = 1984;
+   float float_val = 65.4f;
+   std::string string_val = "Daisy, Daisy, give me your answer, do.";
+   bool bool_val = false;
 
-   //my_custom_datatype custom_var;
+   attributes.bind("val", &int_val);
+   attributes.set("val", 187);
+   EXPECT_EQ(187, int_val);
 
-   //custom_var.x = 0.876f;
-   //custom_var.y = 6.543f;
+   attributes.bind("val", &float_val);
+   attributes.set("val", 32.1f);
+   EXPECT_EQ(32.1f, float_val);
 
-   //attributes.bind("custom", "my_custom_datatype", &custom_var);
-   //attributes.set("custom", "1.1 0.8");
+   attributes.bind("val", &string_val);
+   attributes.set("val", "Hello, Dave.");
+   EXPECT_EQ("Hello, Dave.", string_val);
 
-   //BOOST_CHECK_CLOSE(custom_var.x, 1.1, 0.0001);
-   //BOOST_CHECK_CLOSE(custom_var.y, 0.8, 0.0001);
-//}
-
-
-
-
-//TEST(AllegroFlare_AttributesTest, a_bound_attribute_can_be_unbound)
-//{
-   //Attributes attributes;
-   //int value = 1234;
-   //attributes.bind("val", &value);
-   //EXPECT_EQ(attributes.is_bound("val"), true);
-   //attributes.unbind("val");
-   //EXPECT_EQ(attributes.is_bound("val"), false);
-//}
+   attributes.bind("val", &bool_val);
+   attributes.set("val", true);
+   EXPECT_EQ(true, bool_val);
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, user_can_get_the_known_datatypes_in_alphabetical_order)
-//{
-   //Attributes attributes;
-   //auto types = attributes.get_known_datatypes();
+TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_when_setting_to_a_custom_datatype)
+{
+   Attributes attributes;
 
-   //attributes.create_datatype_definition("my_custom_datatype",
-         //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+   attributes.create_datatype_definition("my_custom_datatype",
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //ASSERT_EQ(types.size(), 5);
-   //EXPECT_EQ(types[0], "bool");
-   //EXPECT_EQ(types[1], "float");
-   //EXPECT_EQ(types[2], "int");
-   //EXPECT_EQ(types[3], "my_custom_datatype");
-   //EXPECT_EQ(types[4], "string");
-//}
+   my_custom_datatype custom_var;
+
+   custom_var.x = 0.876f;
+   custom_var.y = 6.543f;
+
+   attributes.bind("custom", "my_custom_datatype", &custom_var);
+   attributes.set("custom", "1.1 0.8");
+
+   EXPECT_NEAR(custom_var.x, 1.1, 0.0001);
+   EXPECT_NEAR(custom_var.y, 0.8, 0.0001);
+}
+
+
+
+
+TEST(AllegroFlare_AttributesTest, a_bound_attribute_can_be_unbound)
+{
+   Attributes attributes;
+   int value = 1234;
+   attributes.bind("val", &value);
+   EXPECT_EQ(true, attributes.is_bound("val"));
+   attributes.unbind("val");
+   EXPECT_EQ(false, attributes.is_bound("val"));
+}
+
+
+
+
+TEST(AllegroFlare_AttributesTest, user_can_get_the_known_datatypes_in_alphabetical_order)
+{
+   Attributes attributes;
+   auto types = attributes.get_known_datatypes();
+
+   attributes.create_datatype_definition("my_custom_datatype",
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   ASSERT_EQ(5, types.size());
+   EXPECT_EQ("bool", types[0]);
+   EXPECT_EQ("float", types[1]);
+   EXPECT_EQ("int", types[2]);
+   EXPECT_EQ("my_custom_datatype", types[3]);
+   EXPECT_EQ("string", types[4]);
+}
 
 
 
