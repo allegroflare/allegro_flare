@@ -289,24 +289,25 @@ TEST(AllegroFlare_AttributesTest, a_custom_attribute_is_set_to_the_value_of_the_
 
 
 
-//TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_a_custom_datatype)
-//{
-   //Attributes attributes;
-   //my_custom_datatype my_2d_vector;
+TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_a_custom_datatype)
+{
+   Attributes attributes;
+   my_custom_datatype my_2d_vector;
 
-   //attributes.create_datatype_definition("my_custom_datatype",
-         //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+   attributes.create_datatype_definition("my_custom_datatype",
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //attributes.set("position", "123.4 567.8");
-   //attributes.get_as_custom(&my_2d_vector, "my_custom_datatype", "position");
+   attributes.set("position", "123.4 567.8");
+   attributes.get_as_custom(&my_2d_vector, "my_custom_datatype", "position");
 
-   //BOOST_CHECK_CLOSE(my_2d_vector.x, 123.4f, 0.00001);
-   //BOOST_CHECK_CLOSE(my_2d_vector.y, 567.8f, 0.00001);
-//}
-
-
+   EXPECT_NEAR(my_2d_vector.x, 123.4f, 0.00001);
+   EXPECT_NEAR(my_2d_vector.y, 567.8f, 0.00001);
+}
 
 
+
+
+//TODO: this test
 //TEST(AllegroFlare_AttributesTest, attributes_can_be_saved_to_a_file)
 //{
    //std::string test_filename = "TEST_alex_attributes_1.txt";
@@ -353,7 +354,7 @@ TEST(AllegroFlare_AttributesTest, a_custom_attribute_is_set_to_the_value_of_the_
 
 
 
-
+//TODO: this test
 //TEST(AllegroFlare_AttributesTest, attributes_can_be_loaded_from_a_file)
 //{
    //std::string test_filename = "TEST_alex_attributes_2.txt";
@@ -390,179 +391,179 @@ TEST(AllegroFlare_AttributesTest, a_custom_attribute_is_set_to_the_value_of_the_
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_copy_of_the_key_value_pairs_can_be_retrieved)
-//{
-   //Attributes attributes;
+TEST(AllegroFlare_AttributesTest, a_copy_of_the_key_value_pairs_can_be_retrieved)
+{
+   Attributes attributes;
 
-   //attributes.set("name", "Alex");
-   //attributes.set("color", "green");
-   //attributes.set("height", 16);
+   attributes.set("name", "Alex");
+   attributes.set("color", "green");
+   attributes.set("height", 16);
 
-   //std::map<std::string, std::string> values = attributes.get_copy();
+   std::map<std::string, std::string> values = attributes.get_copy();
 
-   //std::map<std::string, std::string> expected;
-   //expected["name"] = "Alex";
-   //expected["color"] = "green";
-   //expected["height"] = "16";
+   std::map<std::string, std::string> expected;
+   expected["name"] = "Alex";
+   expected["color"] = "green";
+   expected["height"] = "16";
 
-   //ASSERT_EQ(values.size(), expected.size());
+   ASSERT_EQ(expected.size(), values.size());
 
-   //// p.s. I'm not a fan of this technique
-   //auto itv=values.begin();
-   //auto ite=expected.begin();
-   //while (itv != values.end())
-   //{
-      //EXPECT_EQ(itv->first, ite->first);
-      //EXPECT_EQ(itv->second, ite->second);
-      //itv++;
-      //ite++;
-   //}
-//}
-
-
-
-
-//TEST(AllegroFlare_AttributesTest, binding_will_create_an_attribute_if_it_did_not_exist_previously)
-//{
-   //int temperature = -40;
-   //Attributes attributes;
-   //attributes.bind("temperature", &temperature);
-   //EXPECT_EQ(attributes.exists("temperature"), true);
-//}
+   // p.s. I'm not a fan of this technique
+   auto itv=values.begin();
+   auto ite=expected.begin();
+   while (itv != values.end())
+   {
+      EXPECT_EQ(itv->first, ite->first);
+      EXPECT_EQ(itv->second, ite->second);
+      itv++;
+      ite++;
+   }
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, an_attribute_identifies_as_unbound_when_not_bounded)
-//{
-   //Attributes attributes;
-   //attributes.set("size", "32");
-   //EXPECT_EQ(attributes.is_bound("size"), false);
-//}
+TEST(AllegroFlare_AttributesTest, binding_will_create_an_attribute_if_it_did_not_exist_previously)
+{
+   int temperature = -40;
+   Attributes attributes;
+   attributes.bind("temperature", &temperature);
+   EXPECT_EQ(true, attributes.exists("temperature"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, an_attribute_identifies_as_bounded_when_bouneded)
-//{
-   //int size = 256;
-   //Attributes attributes;
-   //attributes.bind("size", &size);
-   //EXPECT_EQ(attributes.is_bound("size"), true);
-//}
+TEST(AllegroFlare_AttributesTest, an_attribute_identifies_as_unbound_when_not_bounded)
+{
+   Attributes attributes;
+   attributes.set("size", "32");
+   EXPECT_EQ(false, attributes.is_bound("size"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, an_attribute_is_set_to_the_value_of_the_variable_when_bound)
-//{
-   //Attributes attributes;
-   //attributes.set("temperature", 72);
-   //int temperature = -40;
-   //attributes.bind("temperature", &temperature);
-   //EXPECT_EQ(attributes.is_synced("temperature"), true);
-//}
+TEST(AllegroFlare_AttributesTest, an_attribute_identifies_as_bounded_when_bouneded)
+{
+   int size = 256;
+   Attributes attributes;
+   attributes.bind("size", &size);
+   EXPECT_EQ(true, attributes.is_bound("size"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, an_attribute_is_not_synced_if_the_variable_is_modified)
-//{
-   //Attributes attributes;
-   //int temperature = -40;
-   //attributes.bind("temperature", &temperature);
-   //temperature = 72;
-   //EXPECT_EQ(attributes.is_unsynced("temperature"), true);
-//}
+TEST(AllegroFlare_AttributesTest, an_attribute_is_set_to_the_value_of_the_variable_when_bound)
+{
+   Attributes attributes;
+   attributes.set("temperature", 72);
+   int temperature = -40;
+   attributes.bind("temperature", &temperature);
+   EXPECT_EQ(true, attributes.is_synced("temperature"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_retrieved)
-//{
-   //Attributes attributes;
-   //int kilometers = 1000;
-   //attributes.bind("kilometers", &kilometers);
-   //kilometers = 42;
-   //EXPECT_EQ(attributes.get("kilometers"), "42");
-//}
+TEST(AllegroFlare_AttributesTest, an_attribute_is_not_synced_if_the_variable_is_modified)
+{
+   Attributes attributes;
+   int temperature = -40;
+   attributes.bind("temperature", &temperature);
+   temperature = 72;
+   EXPECT_EQ(true, attributes.is_unsynced("temperature"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_to_the_bound_variable_when_set)
-//{
-   //Attributes attributes;
-   //int kilometers = 1000;
-   //attributes.bind("kilometers", &kilometers);
-   //attributes.set("kilometers", "120");
-   //EXPECT_EQ(kilometers, 120);
-//}
+TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_retrieved)
+{
+   Attributes attributes;
+   int kilometers = 1000;
+   attributes.bind("kilometers", &kilometers);
+   kilometers = 42;
+   EXPECT_EQ("42", attributes.get("kilometers"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, user_can_get_the_bound_datatype_for_standard_datatypes)
-//{
-   //Attributes attributes;
-
-   //int int_val = 123;
-   //float float_val = 12.34f;
-   //std::string string_val = "Hello World!";
-   //bool bool_val = true;
-
-   //attributes.bind("val", &int_val);
-   //EXPECT_EQ(attributes.get_bound_type("val"), "int");
-
-   //attributes.bind("val", &float_val);
-   //EXPECT_EQ(attributes.get_bound_type("val"), "float");
-
-   //attributes.bind("val", &string_val);
-   //EXPECT_EQ(attributes.get_bound_type("val"), "string");
-
-   //attributes.bind("val", &bool_val);
-   //EXPECT_EQ(attributes.get_bound_type("val"), "bool");
-//}
+TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_push_to_the_bound_variable_when_set)
+{
+   Attributes attributes;
+   int kilometers = 1000;
+   attributes.bind("kilometers", &kilometers);
+   attributes.set("kilometers", "120");
+   EXPECT_EQ(120, kilometers);
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, an_attribute_will_identify_its_datatype_as_unbound_if_not_binded)
-//{
-   //Attributes attributes;
-   //attributes.set("val", "foobar");
-   //EXPECT_EQ(attributes.get_bound_type("val"), "unbound");
-   //EXPECT_EQ(attributes.is_bound_as("val", "unbound"), true);
-//}
+TEST(AllegroFlare_AttributesTest, user_can_get_the_bound_datatype_for_standard_datatypes)
+{
+   Attributes attributes;
+
+   int int_val = 123;
+   float float_val = 12.34f;
+   std::string string_val = "Hello World!";
+   bool bool_val = true;
+
+   attributes.bind("val", &int_val);
+   EXPECT_EQ("int", attributes.get_bound_type("val"));
+
+   attributes.bind("val", &float_val);
+   EXPECT_EQ("float", attributes.get_bound_type("val"));
+
+   attributes.bind("val", &string_val);
+   EXPECT_EQ("string", attributes.get_bound_type("val"));
+
+   attributes.bind("val", &bool_val);
+   EXPECT_EQ("bool", attributes.get_bound_type("val"));
+}
 
 
 
 
-//TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_from_all_standard_datatypes)
-//{
-   //Attributes attributes;
+TEST(AllegroFlare_AttributesTest, an_attribute_will_identify_its_datatype_as_unbound_if_not_binded)
+{
+   Attributes attributes;
+   attributes.set("val", "foobar");
+   EXPECT_EQ("unbound", attributes.get_bound_type("val"));
+   EXPECT_EQ(true, attributes.is_bound_as("val", "unbound"));
+}
 
-   //int int_val = 123;
-   //float float_val = 12.34f;
-   //std::string string_val = "Hello World!";
-   //bool bool_val = true;
 
-   //attributes.bind("val", &int_val);
-   //EXPECT_EQ(attributes.is_synced("val"), true);
-   //EXPECT_EQ(attributes.get("val"), "123");
 
-   //attributes.bind("val", &float_val);
-   //EXPECT_EQ(attributes.is_synced("val"), true);
-   //EXPECT_EQ(attributes.get("val"), "12.34");
 
-   //attributes.bind("val", &string_val);
-   //EXPECT_EQ(attributes.is_synced("val"), true);
-   //EXPECT_EQ(attributes.get("val"), "Hello World!");
+TEST(AllegroFlare_AttributesTest, a_bound_attribute_will_pull_when_getting_from_all_standard_datatypes)
+{
+   Attributes attributes;
 
-   //attributes.bind("val", &bool_val);
-   //EXPECT_EQ(attributes.is_synced("val"), true);
-   //EXPECT_EQ(attributes.get("val"), "true");
-//}
+   int int_val = 123;
+   float float_val = 12.34f;
+   std::string string_val = "Hello World!";
+   bool bool_val = true;
+
+   attributes.bind("val", &int_val);
+   EXPECT_EQ(true, attributes.is_synced("val"));
+   EXPECT_EQ("123", attributes.get("val"));
+
+   attributes.bind("val", &float_val);
+   EXPECT_EQ(true, attributes.is_synced("val"));
+   EXPECT_EQ("12.34", attributes.get("val"));
+
+   attributes.bind("val", &string_val);
+   EXPECT_EQ(true, attributes.is_synced("val"));
+   EXPECT_EQ("Hello World!", attributes.get("val"));
+
+   attributes.bind("val", &bool_val);
+   EXPECT_EQ(true, attributes.is_synced("val"));
+   EXPECT_EQ("true", attributes.get("val"));
+}
 
 
 
