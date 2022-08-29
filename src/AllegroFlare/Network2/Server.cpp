@@ -1,8 +1,9 @@
 
 
 #include <AllegroFlare/Network2/Server.hpp>
-#include <AllegroFlare/Network2/inc/chat_message.hpp>
 //#include <AllegroFlare/Network2/inc/chat_message.hpp>
+//#include <AllegroFlare/Network2/inc/chat_message.hpp>
+#include <AllegroFlare/Network2/Message.hpp>
 
 
 
@@ -51,7 +52,7 @@ using asio::ip::tcp;
 
 //----------------------------------------------------------------------
 
-typedef std::deque<chat_message> chat_message_queue;
+typedef std::deque<AllegroFlare::Network2::Message> chat_message_queue;
 
 //----------------------------------------------------------------------
 
@@ -59,7 +60,7 @@ class chat_participant
 {
 public:
   virtual ~chat_participant() {}
-  virtual void deliver(const chat_message& msg) = 0;
+  virtual void deliver(const AllegroFlare::Network2::Message& msg) = 0;
 };
 
 typedef std::shared_ptr<chat_participant> chat_participant_ptr;
@@ -81,7 +82,7 @@ public:
     participants_.erase(participant);
   }
 
-  void deliver(const chat_message& msg)
+  void deliver(const AllegroFlare::Network2::Message& msg)
   {
     recent_msgs_.push_back(msg);
     while (recent_msgs_.size() > max_recent_msgs)
@@ -116,7 +117,7 @@ public:
     do_read_header();
   }
 
-  void deliver(const chat_message& msg)
+  void deliver(const AllegroFlare::Network2::Message& msg)
   {
     bool write_in_progress = !write_msgs_.empty();
     write_msgs_.push_back(msg);
@@ -131,10 +132,10 @@ private:
   {
     auto self(shared_from_this());
     asio::async_read(socket_,
-        asio::buffer(read_msg_.data(), chat_message::header_length),
+        asio::buffer(read_msg_.data_ptr(), AllegroFlare::Network2::Message::HEADER_LENGTH),
         [this, self](std::error_code ec, std::size_t /*length*/)
         {
-          if (!ec && read_msg_.decode_header())
+          if (!ec && read_msg_.decode_header_and_validate().empty())
           {
             do_read_body();
           }
@@ -149,7 +150,7 @@ private:
   {
     auto self(shared_from_this());
     asio::async_read(socket_,
-        asio::buffer(read_msg_.body(), read_msg_.body_length()),
+        asio::buffer(read_msg_.body_ptr(), read_msg_.get_body_length()),
         [this, self](std::error_code ec, std::size_t /*length*/)
         {
           if (!ec)
@@ -168,7 +169,7 @@ private:
   {
     auto self(shared_from_this());
     asio::async_write(socket_,
-        asio::buffer(write_msgs_.front().data(),
+        asio::buffer(write_msgs_.front().data_ptr(),
           write_msgs_.front().length()),
         [this, self](std::error_code ec, std::size_t /*length*/)
         {
@@ -189,7 +190,7 @@ private:
 
   tcp::socket socket_;
   chat_room& room_;
-  chat_message read_msg_;
+  AllegroFlare::Network2::Message read_msg_;
   chat_message_queue write_msgs_;
 };
 
