@@ -188,6 +188,10 @@ private:
           }
           else
           {
+            std::stringstream error_message;
+            error_message << "AllegroFlare::Network2::Client error: write() returned with an error.";
+            std::cout << error_message.str() << std::endl;
+
             socket.close();
           }
         });
