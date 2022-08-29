@@ -140,7 +140,8 @@ TEST(AllegroFlare_Network2_MessageTest,
       { "0048", 256 },
       { "001O", 112 },
       { "000b", 11 },
-      { "008g", AllegroFlare::Network2::Message::MAX_BODY_LENGTH },
+      //{ "008g", AllegroFlare::Network2::Message::MAX_BODY_LENGTH }, // when MAX_BODY_LENGTH is 512
+      { "00x2", AllegroFlare::Network2::Message::MAX_BODY_LENGTH },
    };
 
    for (auto &size_datum_to_test : size_datas_to_test)
@@ -164,7 +165,8 @@ TEST(AllegroFlare_Network2_MessageTest,
 
    std::vector<std::tuple<std::string, std::size_t>> size_datas_to_test = {
       { "a738", 256 },
-      { "2d99", AllegroFlare::Network2::Message::MAX_BODY_LENGTH },
+      //{ "2d99", AllegroFlare::Network2::Message::MAX_BODY_LENGTH }, // when MAX_BODY_LENGTH is 512
+      { "5129", AllegroFlare::Network2::Message::MAX_BODY_LENGTH },
    };
 
    for (auto &size_datum_to_test : size_datas_to_test)
@@ -190,7 +192,8 @@ TEST(AllegroFlare_Network2_MessageTest,
       { "d14a", "" },
       { "61c6", "This is the content that will be hashed." },
       { "ddd1", "Content can be short" },
-      { "05d8", std::string(AllegroFlare::Network2::Message::MAX_BODY_LENGTH, 'x') }, // content can be long
+      //{ "05d8", std::string(AllegroFlare::Network2::Message::MAX_BODY_LENGTH, 'x') }, // when MAX_BODY_LENGTH is 512
+      { "f31a", std::string(AllegroFlare::Network2::Message::MAX_BODY_LENGTH, 'x') }, // when MAX_BODY_LENGTH is 512*4
    };
 
    for (auto &expected_header_chunk_and_content_datum : expected_header_chunk_and_content_data)

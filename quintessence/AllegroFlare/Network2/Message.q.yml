@@ -12,7 +12,7 @@ properties:
     static: true
     const: true
     type: std::size_t
-    init_with: 512
+    init_with: (512*4)
     constexpr: true
 
   - name: MAGIC_HEADER_CHUNK

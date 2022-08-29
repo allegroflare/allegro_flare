@@ -105,6 +105,7 @@ TEST_F(AllegroFlare_Integrations_NetworkTest,
    std::thread publisher(
       publish_n_messages_every_m_seconds_for_j_seconds,
       &sending_messages_queue,
+
       &sending_messages_queue_mutex
    );
 
