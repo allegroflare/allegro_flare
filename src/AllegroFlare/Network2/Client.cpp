@@ -53,11 +53,12 @@ private:
   chat_message_queue messages_to_write;
   void (*my_injected_callback)(std::string, void*);
   void *my_callback_passed_data;
+  bool initialized;
 
 public:
   ChatClient(
       asio::io_context& io_context,
-      const tcp::resolver::results_type& endpoints,
+      //const tcp::resolver::results_type& endpoints,
       void (*my_injected_callback)(std::string, void*)=nullptr,
       void *my_callback_passed_data=nullptr
    )
@@ -65,13 +66,24 @@ public:
        , socket_(io_context)
        , my_injected_callback(my_injected_callback)
        , my_callback_passed_data(my_callback_passed_data)
+       , initialized(false)
 
   {
+    //do_connect(endpoints);
+  }
+
+
+  void initialize(const tcp::resolver::results_type& endpoints)
+  {
+    if (initialized) throw std::runtime_error("ChatClient already initialized; Cannot call more than once.");
     do_connect(endpoints);
+    initialized = true;
   }
 
   void write(const chat_message& msg)
   {
+    if (!initialized) throw std::runtime_error("ChatClient::write: error: must be initialized first.");
+
     asio::post(io_context_,
         [this, msg]()
         {
@@ -86,6 +98,8 @@ public:
 
   void close()
   {
+    if (!initialized) throw std::runtime_error("ChatClient::close: error: must be initialized first.");
+
     asio::post(io_context_, [this]() { socket_.close(); });
   }
 
@@ -272,7 +286,8 @@ void Client::run_blocking_while_awaiting_abort()
 
     tcp::resolver resolver(io_context);
     auto endpoints = resolver.resolve(host, port);
-    ChatClient chat_client(io_context, endpoints, callback, callback_passed_data);
+    ChatClient chat_client(io_context, callback, callback_passed_data);
+    chat_client.initialize(endpoints);
 
     std::thread t([&io_context, local_global_abort](){
        bool abort = false;
