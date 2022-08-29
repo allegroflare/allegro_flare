@@ -1,9 +1,5 @@
 
 
-//#define BOOST_TEST_DYN_LINK
-//#define BOOST_TEST_MODULE AttributesTestModule
-//#include <boost/test/unit_test.hpp>
-
 
 #include <gtest/gtest.h>
 
@@ -372,7 +368,7 @@ TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_a_custom_dataty
    //outfile << "height: 16\n";
    //outfile.close();
 
-   //BOOST_REQUIRE(-1 != access(test_filename.c_str(), F_OK));
+   //ASSERT_TRUE(-1 != access(test_filename.c_str(), F_OK));
 
    //// load the file
 
