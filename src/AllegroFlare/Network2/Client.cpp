@@ -50,7 +50,7 @@ private:
   asio::io_context& io_context_;
   tcp::socket socket_;
   chat_message read_msg_;
-  chat_message_queue write_msgs_;
+  chat_message_queue messages_to_write;
   void (*my_injected_callback)(std::string, void*);
   void *my_callback_passed_data;
 
@@ -75,8 +75,8 @@ public:
     asio::post(io_context_,
         [this, msg]()
         {
-          bool write_in_progress = !write_msgs_.empty();
-          write_msgs_.push_back(msg);
+          bool write_in_progress = !messages_to_write.empty();
+          messages_to_write.push_back(msg);
           if (!write_in_progress)
           {
             do_write();
@@ -146,14 +146,14 @@ private:
   void do_write()
   {
     asio::async_write(socket_,
-        asio::buffer(write_msgs_.front().data(),
-          write_msgs_.front().length()),
+        asio::buffer(messages_to_write.front().data(),
+          messages_to_write.front().length()),
         [this](std::error_code ec, std::size_t /*length*/)
         {
           if (!ec)
           {
-            write_msgs_.pop_front();
-            if (!write_msgs_.empty())
+            messages_to_write.pop_front();
+            if (!messages_to_write.empty())
             {
               do_write();
               // std::cout << "--chat_client : write\"" << std::endl; // I added this
