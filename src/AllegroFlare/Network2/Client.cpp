@@ -5,7 +5,8 @@
 
 
 
-#include <AllegroFlare/Network2/inc/chat_message.hpp>
+//#include <AllegroFlare/Network2/inc/chat_message.hpp>
+#include <AllegroFlare/Network2/Message.hpp>
 
 
 
@@ -42,14 +43,14 @@ static void sleep_for(float length_in_seconds)
 
 using asio::ip::tcp;
 
-typedef std::deque<chat_message> chat_message_queue;
+typedef std::deque<AllegroFlare::Network2::Message> chat_message_queue;
 
 class ChatClient
 {
 private:
   asio::io_context& io_context_;
   tcp::socket socket;
-  chat_message message_being_read;
+  AllegroFlare::Network2::Message message_being_read;
   chat_message_queue messages_to_write;
   void (*my_injected_callback)(std::string, void*);
   void *my_callback_passed_data;
@@ -78,7 +79,7 @@ public:
     initialized = true;
   }
 
-  void write(const chat_message& msg)
+  void write(const AllegroFlare::Network2::Message& msg)
   {
     if (!initialized) throw std::runtime_error("ChatClient::write: error: must be initialized first.");
 
@@ -123,10 +124,10 @@ private:
   void read_header()
   {
     asio::async_read(socket,
-        asio::buffer(message_being_read.data(), chat_message::header_length),
+        asio::buffer(message_being_read.data_ptr(), AllegroFlare::Network2::Message::HEADER_LENGTH),
         [this](std::error_code ec, std::size_t /*length*/)
         {
-          if (!ec && message_being_read.decode_header())
+          if (!ec && message_being_read.decode_header_and_validate().empty())
           {
             read_body();
           }
@@ -144,16 +145,16 @@ private:
   void read_body()
   {
     asio::async_read(socket,
-        asio::buffer(message_being_read.body(), message_being_read.body_length()),
+        asio::buffer(message_being_read.body_ptr(), message_being_read.get_body_length()),
         [this](std::error_code ec, std::size_t /*length*/)
         {
           if (!ec)
           {
-            std::cout.write(message_being_read.body(), message_being_read.body_length());
+            std::cout.write(message_being_read.body_ptr(), message_being_read.get_body_length());
             std::cout << "\n";
 
-            std::string message_body(message_being_read.body_length(), 'x');
-            memcpy(message_body.data(), message_being_read.body(), message_being_read.body_length());
+            std::string message_body(message_being_read.get_body_length(), 'x');
+            memcpy(message_body.data(), message_being_read.body_ptr(), message_being_read.get_body_length());
             //message_body.resize = read_msg_.body();
             if (my_injected_callback) (*my_injected_callback)(message_body, my_callback_passed_data);
             read_header();
@@ -173,7 +174,7 @@ private:
   void write()
   {
     asio::async_write(socket,
-        asio::buffer(messages_to_write.front().data(),
+        asio::buffer(messages_to_write.front().data_ptr(),
           messages_to_write.front().length()),
         [this](std::error_code ec, std::size_t /*length*/)
         {
@@ -353,9 +354,9 @@ void Client::run_blocking_while_awaiting_abort()
          }
          else
          {
-            chat_message msg;
-            msg.body_length(message_to_post.size());
-            std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
+            AllegroFlare::Network2::Message msg;
+            msg.set_body_length(message_to_post.size());
+            std::memcpy(msg.body_ptr(), message_to_post.c_str(), msg.get_body_length());
             msg.encode_header();
             chat_client.write(msg);
          }

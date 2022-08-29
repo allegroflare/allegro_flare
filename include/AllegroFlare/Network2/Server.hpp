@@ -6,7 +6,8 @@
 
 
 
-#include <AllegroFlare/Network2/inc/chat_message.hpp> // just for BODY_LENGTH_MAX
+//#include <AllegroFlare/Network2/inc/chat_message.hpp> // just for BODY_LENGTH_MAX
+#include <AllegroFlare/Network2/Message.hpp>
 
 
 namespace AllegroFlare
@@ -21,7 +22,7 @@ namespace AllegroFlare
          std::string port;
 
       public:
-         static constexpr std::size_t BODY_LENGTH_MAX = chat_message::max_body_length;
+         static constexpr std::size_t BODY_LENGTH_MAX = AllegroFlare::Network2::Message::MAX_BODY_LENGTH;
 
          Server(std::atomic<bool> *global_abort=nullptr);
          ~Server();
