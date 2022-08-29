@@ -111,6 +111,12 @@ private:
           {
             read_header();
           }
+          else
+          {
+            std::stringstream error_message;
+            error_message << "AllegroFlare::Network2::Client error: connect() returned with an error.";
+            std::cout << error_message.str() << std::endl;
+          }
         });
   }
 
@@ -126,6 +132,10 @@ private:
           }
           else
           {
+            std::stringstream error_message;
+            error_message << "AllegroFlare::Network2::Client error: read_header() returned with an error.";
+            std::cout << error_message.str() << std::endl;
+
             socket.close();
           }
         });
@@ -150,6 +160,11 @@ private:
           }
           else
           {
+            std::stringstream error_message;
+            error_message << "AllegroFlare::Network2::Client error: read_body() returned with an error.";
+            std::cout << error_message.str() << std::endl;
+            //throw std::runtime_error(error_message.str());
+
             socket.close();
           }
         });
