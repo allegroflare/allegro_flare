@@ -68,15 +68,13 @@ public:
        , my_callback_passed_data(my_callback_passed_data)
        , initialized(false)
 
-  {
-    //do_connect(endpoints);
-  }
+  {}
 
 
   void initialize(const tcp::resolver::results_type& endpoints)
   {
     if (initialized) throw std::runtime_error("ChatClient already initialized; Cannot call more than once.");
-    do_connect(endpoints);
+    connect(endpoints);
     initialized = true;
   }
 
@@ -91,7 +89,7 @@ public:
           messages_to_write.push_back(msg);
           if (!write_in_progress)
           {
-            do_write();
+            write();
           }
         });
   }
@@ -104,19 +102,19 @@ public:
   }
 
 private:
-  void do_connect(const tcp::resolver::results_type& endpoints)
+  void connect(const tcp::resolver::results_type& endpoints)
   {
     asio::async_connect(socket_, endpoints,
         [this](std::error_code ec, tcp::endpoint)
         {
           if (!ec)
           {
-            do_read_header();
+            read_header();
           }
         });
   }
 
-  void do_read_header()
+  void read_header()
   {
     asio::async_read(socket_,
         asio::buffer(read_msg_.data(), chat_message::header_length),
@@ -124,7 +122,7 @@ private:
         {
           if (!ec && read_msg_.decode_header())
           {
-            do_read_body();
+            read_body();
           }
           else
           {
@@ -133,7 +131,7 @@ private:
         });
   }
 
-  void do_read_body()
+  void read_body()
   {
     asio::async_read(socket_,
         asio::buffer(read_msg_.body(), read_msg_.body_length()),
@@ -148,7 +146,7 @@ private:
             memcpy(message_body.data(), read_msg_.body(), read_msg_.body_length());
             //message_body.resize = read_msg_.body();
             if (my_injected_callback) (*my_injected_callback)(message_body, my_callback_passed_data);
-            do_read_header();
+            read_header();
           }
           else
           {
@@ -157,7 +155,7 @@ private:
         });
   }
 
-  void do_write()
+  void write()
   {
     asio::async_write(socket_,
         asio::buffer(messages_to_write.front().data(),
@@ -169,7 +167,7 @@ private:
             messages_to_write.pop_front();
             if (!messages_to_write.empty())
             {
-              do_write();
+              write();
               // std::cout << "--chat_client : write\"" << std::endl; // I added this
             }
           }
