@@ -250,41 +250,41 @@ TEST(AllegroFlare_AttributesTest, custom_datatypes_can_be_bound)
 
 
 
-//TEST(AllegroFlare_AttributesTest, attributes_can_be_set_using_custom_datatypes)
-//{
-   //Attributes attributes;
-   //my_custom_datatype my_2d_vector;
-   //my_2d_vector.x = 0.35;
-   //my_2d_vector.y = 0.01;
+TEST(AllegroFlare_AttributesTest, attributes_can_be_set_using_custom_datatypes)
+{
+   Attributes attributes;
+   my_custom_datatype my_2d_vector;
+   my_2d_vector.x = 0.35;
+   my_2d_vector.y = 0.01;
 
-   //attributes.create_datatype_definition("my_custom_datatype",
-         //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+   attributes.create_datatype_definition("my_custom_datatype",
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
 
-   //attributes.set("position", "my_custom_datatype", (void *)&my_2d_vector);
+   attributes.set("position", "my_custom_datatype", (void *)&my_2d_vector);
 
-   //EXPECT_EQ(attributes.get("position"), "0.35 0.01");
-//}
-
-
+   EXPECT_EQ("0.35 0.01", attributes.get("position"));
+}
 
 
-//TEST(AllegroFlare_AttributesTest, a_custom_attribute_is_set_to_the_value_of_the_variable_when_bound)
-//{
-   //Attributes attributes;
-   //my_custom_datatype custom_var;
 
-   //custom_var.x = 0.876f;
-   //custom_var.y = 6.543f;
 
-   //// create custom datatype
-   //attributes.create_datatype_definition("my_custom_datatype",
-         //my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+TEST(AllegroFlare_AttributesTest, a_custom_attribute_is_set_to_the_value_of_the_variable_when_bound)
+{
+   Attributes attributes;
+   my_custom_datatype custom_var;
 
-   //// bind it to an existing datatype with values
-   //attributes.bind("custom", "my_custom_datatype", &custom_var);
+   custom_var.x = 0.876f;
+   custom_var.y = 6.543f;
 
-   //EXPECT_EQ(attributes.is_synced("custom"), true);
-//}
+   // create custom datatype
+   attributes.create_datatype_definition("my_custom_datatype",
+         my_custom_datatype::to_val_func, my_custom_datatype::to_str_func);
+
+   // bind it to an existing datatype with values
+   attributes.bind("custom", "my_custom_datatype", &custom_var);
+
+   EXPECT_EQ(true, attributes.is_synced("custom"));
+}
 
 
 
