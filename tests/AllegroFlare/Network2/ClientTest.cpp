@@ -96,7 +96,6 @@ TEST(AllegroFlare_Network2_ClientTest, run_blocking__will_run_the_client_program
 }
 
 
-/*
 TEST(AllegroFlare_Network2_ClientTest,
    run_blocking__will_abort_the_blocking_function_if_the_abort_signal_is_set)
 {
@@ -104,13 +103,12 @@ TEST(AllegroFlare_Network2_ClientTest,
    std::vector<std::string> messages_queue = {};
    std::mutex messages_queue_mutex;
 
-   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex);
+   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex, yay_callback, nullptr);
    std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 1);
 
    client.join();
    exit_signal_emitter.join();
 }
-*/
 
 
 TEST(AllegroFlare_Network2_ClientTest,
@@ -154,7 +152,6 @@ TEST(AllegroFlare_Network2_ClientTest,
 }
 
 
-/*
 TEST(AllegroFlare_Network2_ClientTest,
    run_blocking__will_process_messages_in_the_messages_queue)
 {
@@ -166,12 +163,11 @@ TEST(AllegroFlare_Network2_ClientTest,
    };
    std::mutex messages_queue_mutex;
 
-   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex);
-   std::thread exit_signal_emitter(emit_abort_signal_after_1_sec, &global_abort);
+   std::thread client(run_client, &global_abort, &messages_queue, &messages_queue_mutex, yay_callback, nullptr);
+   std::thread exit_signal_emitter(emit_abort_signal_after_n_sec, &global_abort, 1);
 
    client.join();
    exit_signal_emitter.join();
 }
-*/
 
 
