@@ -44,10 +44,10 @@ using asio::ip::tcp;
 
 typedef std::deque<chat_message> chat_message_queue;
 
-class chat_client
+class ChatClient
 {
 public:
-  chat_client(
+  ChatClient(
       asio::io_context& io_context,
       const tcp::resolver::results_type& endpoints,
       void (*my_injected_callback)(std::string, void*)=nullptr,
@@ -243,7 +243,7 @@ void Client::run_blocking_while_awaiting_abort()
 
     //tcp::resolver resolver(io_context);
     //auto endpoints = resolver.resolve(host, port);
-    //chat_client c(io_context, endpoints);
+    //ChatClient c(io_context, endpoints);
 
     //std::thread t([&io_context](){ io_context.run(); });
 
@@ -272,7 +272,7 @@ void Client::run_blocking_while_awaiting_abort()
 
     tcp::resolver resolver(io_context);
     auto endpoints = resolver.resolve(host, port);
-    chat_client c(io_context, endpoints, callback, callback_passed_data);
+    ChatClient chat_client(io_context, endpoints, callback, callback_passed_data);
 
     std::thread t([&io_context, local_global_abort](){
        bool abort = false;
@@ -325,13 +325,13 @@ void Client::run_blocking_while_awaiting_abort()
             msg.body_length(message_to_post.size());
             std::memcpy(msg.body(), message_to_post.c_str(), msg.body_length());
             msg.encode_header();
-            c.write(msg);
+            chat_client.write(msg);
          }
       }
       messages_to_post.clear();
     }
 
-    c.close();
+    chat_client.close();
     t.join();
   }
   catch (std::exception& e)
