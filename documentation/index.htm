@@ -159,6 +159,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
@@ -7385,6 +7386,38 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">allegro_flare_version()</td>
+</tr>
+<tr>
+  <td class="method">allegro_version()</td>
+</tr>
+<tr>
+  <td class="method">num_available_threads()</td>
+</tr>
+<tr>
+  <td class="method">num_available_threads_are_known()</td>
+</tr>
+<tr>
+  <td class="method">operating_system()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Version&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Version.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::thread::hardware_concurrency&quot;, &quot;headers&quot;=&gt;[&quot;thread&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</h3>
      <table>
 <tr>
@@ -8995,6 +9028,12 @@ table td
   ],
   "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"
+  ],
+  "AllegroFlare/Version": [
+    "AllegroFlare/SystemInfo"
+  ],
+  "std/thread/hardware_concurrency": [
+    "AllegroFlare/SystemInfo"
   ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"

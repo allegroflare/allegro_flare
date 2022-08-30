@@ -1058,6 +1058,12 @@
   "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"
   ],
+  "AllegroFlare/Version": [
+    "AllegroFlare/SystemInfo"
+  ],
+  "std/thread/hardware_concurrency": [
+    "AllegroFlare/SystemInfo"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
