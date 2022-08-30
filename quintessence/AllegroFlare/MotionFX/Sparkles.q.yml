@@ -194,4 +194,11 @@ dependencies:
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
 
+  - symbol: ALLEGRO_FONT
+    headers: [ ALLEGRO_FONT.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: std::vector<std::string>
+    headers: [ vector, string ]
+
 

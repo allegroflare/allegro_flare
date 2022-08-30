@@ -88,4 +88,8 @@ dependencies:
   - symbol: AllegroFlare::Useful3D::IntersectData*
     headers: [ AllegroFlare/Useful3D/IntersectData.hpp ]
 
+  - symbol: AllegroFlare::Useful3D::IntersectData
+    headers: [ AllegroFlare/Useful3D/IntersectData.hpp ]
+  - symbol: AllegroFlare::Useful3D::Ray
+    headers: [ AllegroFlare/Useful3D/Ray.hpp ]
 
