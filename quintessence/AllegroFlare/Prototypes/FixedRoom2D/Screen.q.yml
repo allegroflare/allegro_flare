@@ -288,4 +288,17 @@ dependencies:
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Configuration
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp ]
 
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::AudioController
+    headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: AllegroFlare::GameEvent
+    headers: [ AllegroFlare/GameEvent.hpp ]
+
 

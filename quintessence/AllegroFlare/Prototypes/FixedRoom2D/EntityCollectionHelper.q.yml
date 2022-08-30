@@ -155,4 +155,6 @@ dependencies:
   - symbol: std::map<std::string, std::string>*
     headers: [ map, string ]
 
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
 

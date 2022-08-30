@@ -181,4 +181,7 @@ dependencies:
   - symbol: AllegroFlare::JSONLoaders::AllegroFlare::MotionComposer::Messages::AddActor2D
     headers: [ AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp ]
 
+  - symbol: AllegroFlare::MotionComposer::Messages::Base
+    headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
+
 

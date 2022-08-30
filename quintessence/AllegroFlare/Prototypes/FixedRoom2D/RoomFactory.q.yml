@@ -69,4 +69,15 @@ dependencies:
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Room
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
+
 

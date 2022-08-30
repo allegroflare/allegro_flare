@@ -43,4 +43,9 @@ dependencies:
   - symbol: AllegroFlare::Timeline::Actors::Actor2D*
     headers: [ AllegroFlare/Timeline/Actors/Actor2D.hpp ]
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Timeline::Actors::Actor2D
+    headers: [ AllegroFlare/Timeline/Actors/Actor2D.hpp ]
+
 

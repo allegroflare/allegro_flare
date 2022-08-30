@@ -124,4 +124,9 @@ dependencies:
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
 
+  - symbol: AllegroFlare::Elements::DialogBoxes::Choice
+    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+
 

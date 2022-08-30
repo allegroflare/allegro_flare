@@ -90,4 +90,7 @@ dependencies:
   - symbol: tan
     headers: [ cmath ]
 
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+
 

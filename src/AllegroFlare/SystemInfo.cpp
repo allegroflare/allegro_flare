@@ -33,7 +33,7 @@ std::string SystemInfo::allegro_version()
    return version.get_allegro_version_string();
 }
 
-unsigned int SystemInfo::num_available_threads()
+uint32_t SystemInfo::num_available_threads()
 {
    return std::thread::hardware_concurrency();
 }

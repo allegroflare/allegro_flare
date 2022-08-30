@@ -72,4 +72,9 @@ dependencies:
   - symbol: AllegroFlare::draw_3d_line
     headers: [ AllegroFlare/Useful3D/Useful3D.hpp ]
 
+  - symbol: AllegroFlare::Bone3D
+    headers: [ AllegroFlare/Bone3D.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+
 

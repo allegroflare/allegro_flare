@@ -44,7 +44,7 @@ void PersonNameGenerator::initialize()
    return;
 }
 
-void PersonNameGenerator::randomize(unsigned int seed)
+void PersonNameGenerator::randomize(uint32_t seed)
 {
    random.set_seed(seed);
 

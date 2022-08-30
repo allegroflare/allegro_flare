@@ -213,6 +213,10 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Color
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: al_is_font_addon_initialized

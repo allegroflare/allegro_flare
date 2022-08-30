@@ -146,5 +146,9 @@ dependencies:
     headers: [ AllegroFlare/Network2/Server.hpp ]
   - symbol: (void (*callback)(std::string))
     headers: [ string ]
+  - symbol: std::atomic
+    headers: [ atomic ]
+  - symbol: std::mutex
+    headers: [ mutex ]
 
 

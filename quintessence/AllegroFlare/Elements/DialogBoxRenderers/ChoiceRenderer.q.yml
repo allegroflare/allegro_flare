@@ -214,3 +214,13 @@ dependencies:
   - symbol: AllegroFlare::Elements::DialogBoxFrame
     headers: [ AllegroFlare/Elements/DialogBoxFrame.hpp ]
 
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Choice
+    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+
+

@@ -310,4 +310,8 @@ dependencies:
   - symbol: std::this_thread::sleep_for
     headers: [ thread ]
 
+  - symbol: ALLEGRO_DISPLAY
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
 

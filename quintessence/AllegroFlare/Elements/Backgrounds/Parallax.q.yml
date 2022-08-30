@@ -74,4 +74,7 @@ dependencies:
   - symbol: std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
     headers: [ vector, AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
 
+  - symbol: AllegroFlare::Elements::Backgrounds::ParallaxLayer
+    headers: [ vector, AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
+
 

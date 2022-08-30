@@ -169,5 +169,11 @@ dependencies:
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp ]
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
 
 

@@ -483,4 +483,17 @@ dependencies:
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp ]
 
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::AudioController
+    headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: AllegroFlare::Inventory
+    headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::Elements::Inventory
+    headers: [ AllegroFlare/Elements/Inventory.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+
 

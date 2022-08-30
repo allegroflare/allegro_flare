@@ -184,4 +184,10 @@ dependencies:
   - symbol: AllegroFlare::EventEmitter*
     headers: [ AllegroFlare/EventEmitter.hpp ]
 
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
 

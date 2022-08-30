@@ -142,4 +142,9 @@ dependencies:
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
 
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+
 

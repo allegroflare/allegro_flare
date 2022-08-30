@@ -190,4 +190,11 @@ dependencies:
   - symbol: AllegroFlare::Interpolators::*
     headers: [ AllegroFlare/Interpolators.hpp ]
 
+  - symbol: std::vector<std::string>
+    headers: [ vector, string ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+
 

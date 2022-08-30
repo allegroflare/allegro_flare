@@ -46,4 +46,7 @@ dependencies:
   - symbol: AllegroFlare::GameEventDatas::Base*
     headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
 
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+
 

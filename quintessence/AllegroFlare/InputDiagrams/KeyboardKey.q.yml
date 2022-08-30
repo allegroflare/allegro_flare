@@ -178,4 +178,10 @@ dependencies:
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
 
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+
+
 

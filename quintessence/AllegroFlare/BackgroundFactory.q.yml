@@ -42,4 +42,11 @@ dependencies:
   - symbol: AllegroFlare::Elements::Backgrounds::Image*
     headers: [ AllegroFlare/Elements/Backgrounds/Image.hpp ]
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Image
+    headers: [ AllegroFlare/Elements/Backgrounds/Image.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Monoplex
+    headers: [ AllegroFlare/Elements/Backgrounds/Monoplex.hpp ]
+
 

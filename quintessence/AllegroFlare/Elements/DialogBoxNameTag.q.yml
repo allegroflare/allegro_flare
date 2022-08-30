@@ -97,4 +97,9 @@ dependencies:
   - symbol: AllegroFlare::Elements::DialogBoxFrame
     headers: [ AllegroFlare/Elements/DialogBoxFrame.hpp ]
 
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+
 

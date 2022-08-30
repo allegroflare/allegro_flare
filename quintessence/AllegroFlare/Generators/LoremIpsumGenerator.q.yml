@@ -457,5 +457,7 @@ dependencies:
 
   - symbol: AllegroFlare::php::str_replace
     headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: std::vector<std::string>
+    headers: [ vector, string ]
 
 
