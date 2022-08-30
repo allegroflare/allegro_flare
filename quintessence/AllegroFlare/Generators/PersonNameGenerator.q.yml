@@ -40,8 +40,8 @@ functions:
   - name: randomize
     parameters:
       - name: seed
-        type: unsigned int
-        default_argument: '(unsigned int)time(0)'
+        type: uint32_t
+        default_argument: '(unit32_t)time(0)'
     body: |
       random.set_seed(seed);
 
@@ -170,5 +170,7 @@ dependencies:
 
   - symbol: AllegroFlare::Random
     headers: [ AllegroFlare/Random.hpp ]
+  - symbol: std::vector<std::string>
+    headers: [ vector, string ]
 
 

@@ -444,4 +444,7 @@ dependencies:
   - symbol: al_is_acodec_addon_initialized
     headers: [ allegro5/allegro_acodec.h ]
 
+  - symbol: AllegroFlare::Sound
+    headers: [ AllegroFlare/Sound.hpp ]
+
 

@@ -20,7 +20,7 @@ functions:
 
 
   - name: num_available_threads
-    type: unsigned int
+    type: uint32_t
     body: |
       return std::thread::hardware_concurrency();
     body_dependency_symbols:
