@@ -129,11 +129,11 @@ bool Basic::advance()
 bool Basic::next_page()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Basic" << "::" << "next_page" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Basic" << "::" << "next_page" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    //if (at_last_page()) return false;
    if (get_finished()) return false;
 
@@ -183,11 +183,11 @@ bool Basic::current_page_is_valid()
 void Basic::reveal_all_characters()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Basic" << "::" << "reveal_all_characters" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Basic" << "::" << "reveal_all_characters" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    num_revealed_characters = 9999;
    page_finished = true;
    page_finished_at = al_get_time();

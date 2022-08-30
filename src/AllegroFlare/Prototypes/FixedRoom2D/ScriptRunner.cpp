@@ -104,11 +104,11 @@ bool ScriptRunner::get_paused_for_dialog_to_finish() const
 bool ScriptRunner::load_script_by_dictionary_name(std::string script_dictionary_name)
 {
    if (!(script_dictionary))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "load_script_by_dictionary_name" << ": error: " << "guard \"script_dictionary\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "load_script_by_dictionary_name" << ": error: " << "guard \"script_dictionary\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (script_dictionary->count(script_dictionary_name) == 0)
    {
       std::stringstream available_script_names;
@@ -178,41 +178,41 @@ void ScriptRunner::play_or_resume()
 bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num, bool auto_assume_uncommanded_line_is_dialog)
 {
    if (!(audio_controller))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"audio_controller\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"audio_controller\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(af_inventory))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"af_inventory\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"af_inventory\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(flags))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"flags\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"flags\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(inventory_window))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"inventory_window\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"inventory_window\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(script_dictionary))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"script_dictionary\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"script_dictionary\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::string DIALOG = "DIALOG";
    std::string GOTO_MARKER = "GOTO_MARKER";
    std::string ENTER_ROOM = "ENTER_ROOM";
@@ -396,11 +396,11 @@ std::pair<std::string, std::string> ScriptRunner::parse_command_and_argument(std
 void ScriptRunner::emit_script_event(AllegroFlare::GameEventDatas::Base* event_data)
 {
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "ScriptRunner" << "::" << "emit_script_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "emit_script_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    AllegroFlare::GameEvent game_event(
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
       event_data

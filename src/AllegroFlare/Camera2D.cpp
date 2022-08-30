@@ -37,17 +37,17 @@ void Camera2D::set_zoom(float zoom)
 void Camera2D::setup_dimentional_projection(ALLEGRO_BITMAP* bitmap)
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Camera2D" << "::" << "setup_dimentional_projection" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Camera2D" << "::" << "setup_dimentional_projection" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(bitmap))
-      {
-         std::stringstream error_message;
-         error_message << "Camera2D" << "::" << "setup_dimentional_projection" << ": error: " << "guard \"bitmap\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Camera2D" << "::" << "setup_dimentional_projection" << ": error: " << "guard \"bitmap\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // The goal here is to setup a projection transform that behaves as if normal 2D pixels were drawn for z=0
    // (i.e. as with the normal orthographic transform set up by Allegro), but allows some perspective effects for
    // rotating widgets around the X and Y axes.

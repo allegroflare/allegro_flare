@@ -39,47 +39,47 @@ DialogBoxRenderer::~DialogBoxRenderer()
 void DialogBoxRenderer::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_get_current_display()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_get_current_display()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_get_current_display()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(dialog_box))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"dialog_box\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"dialog_box\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_ttf_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxRenderer" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float standard_dialog_box_x = 1920/2;
    float standard_dialog_box_y = 1080/8*6;
    float standard_dialog_box_width = 1920/2;

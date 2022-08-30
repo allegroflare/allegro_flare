@@ -30,29 +30,29 @@ Bone3DGraphRenderer::~Bone3DGraphRenderer()
 void Bone3DGraphRenderer::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(root_bone))
-      {
-         std::stringstream error_message;
-         error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"root_bone\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"root_bone\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    render_recursive(root_bone);
    return;
 }
@@ -60,11 +60,11 @@ void Bone3DGraphRenderer::render()
 void Bone3DGraphRenderer::render_recursive(AllegroFlare::Bone3D* bone)
 {
    if (!(bone))
-      {
-         std::stringstream error_message;
-         error_message << "Bone3DGraphRenderer" << "::" << "render_recursive" << ": error: " << "guard \"bone\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Bone3DGraphRenderer" << "::" << "render_recursive" << ": error: " << "guard \"bone\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    //allegro_flare::draw_3d_line(AllegroFlare::vec3d(0, 0, 0), bone->position);
    //al_draw_circle(0, 0, 8, ALLEGRO_COLOR{0.6, 0.7, 0.9, 0.9}, 2.0);
 

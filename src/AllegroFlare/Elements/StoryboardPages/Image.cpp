@@ -90,11 +90,11 @@ float Image::get_started_at() const
 void Image::start()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Image" << "::" << "start" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Image" << "::" << "start" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    started_at = al_get_time();
    set_finished(false);
    return;
@@ -109,17 +109,17 @@ void Image::update()
 void Image::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Image" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Image" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_get_current_display()))
-      {
-         std::stringstream error_message;
-         error_message << "Image" << "::" << "render" << ": error: " << "guard \"al_get_current_display()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Image" << "::" << "render" << ": error: " << "guard \"al_get_current_display()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!bitmap) return;
 
    AllegroFlare::Placement2D image_place;
@@ -154,17 +154,17 @@ float Image::infer_age()
 void Image::modify_params_for_hide(AllegroFlare::Placement2D* place, ALLEGRO_COLOR* color)
 {
    if (!(place))
-      {
-         std::stringstream error_message;
-         error_message << "Image" << "::" << "modify_params_for_hide" << ": error: " << "guard \"place\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Image" << "::" << "modify_params_for_hide" << ": error: " << "guard \"place\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(color))
-      {
-         std::stringstream error_message;
-         error_message << "Image" << "::" << "modify_params_for_hide" << ": error: " << "guard \"color\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Image" << "::" << "modify_params_for_hide" << ": error: " << "guard \"color\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float age = infer_age();
 
    if (reveal_style == "reveal")
@@ -199,17 +199,17 @@ void Image::modify_params_for_hide(AllegroFlare::Placement2D* place, ALLEGRO_COL
 void Image::modify_params_for_reveal(AllegroFlare::Placement2D* place, ALLEGRO_COLOR* color)
 {
    if (!(place))
-      {
-         std::stringstream error_message;
-         error_message << "Image" << "::" << "modify_params_for_reveal" << ": error: " << "guard \"place\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Image" << "::" << "modify_params_for_reveal" << ": error: " << "guard \"place\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(color))
-      {
-         std::stringstream error_message;
-         error_message << "Image" << "::" << "modify_params_for_reveal" << ": error: " << "guard \"color\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Image" << "::" << "modify_params_for_reveal" << ": error: " << "guard \"color\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float age = infer_age();
 
    if (reveal_style == "reveal")

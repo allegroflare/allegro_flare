@@ -135,17 +135,17 @@ float ColumnWithLabels::get_gutter_width() const
 float ColumnWithLabels::render(bool only_calculate_height_dont_render)
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "ColumnWithLabels" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ColumnWithLabels" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "ColumnWithLabels" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ColumnWithLabels" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_FONT *font = obtain_font();
    float cursor_y = 0;
    float h_gutter_width = gutter_width * 0.5;
@@ -173,11 +173,11 @@ float ColumnWithLabels::render(bool only_calculate_height_dont_render)
 ALLEGRO_FONT* ColumnWithLabels::obtain_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "ColumnWithLabels" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ColumnWithLabels" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream font_identifier;
    font_identifier << font_name << " " << font_size;
    return font_bin->auto_get(font_identifier.str());

@@ -109,17 +109,17 @@ ALLEGRO_COLOR DialogRollRenderer::get_internal_dialog_color() const
 void DialogRollRenderer::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogRollRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogRollRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogRollRenderer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogRollRenderer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float y_offset = 0;
    float cursor_y = 0 + y_offset;
    ALLEGRO_FONT *text_font = obtain_font();
@@ -175,22 +175,22 @@ void DialogRollRenderer::render()
 ALLEGRO_FONT* DialogRollRenderer::obtain_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "DialogRollRenderer" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogRollRenderer" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("Lora-Medium.ttf -48");
 }
 
 ALLEGRO_FONT* DialogRollRenderer::obtain_italic_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "DialogRollRenderer" << "::" << "obtain_italic_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogRollRenderer" << "::" << "obtain_italic_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("Lora-MediumItalic.ttf -48");
 }
 } // namespace Elements

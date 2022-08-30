@@ -55,11 +55,11 @@ void Deck::shuffle()
 AllegroFlare::Elements::PlayingCards::Card Deck::draw_card()
 {
    if (!((!cards.empty())))
-      {
-         std::stringstream error_message;
-         error_message << "Deck" << "::" << "draw_card" << ": error: " << "guard \"(!cards.empty())\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Deck" << "::" << "draw_card" << ": error: " << "guard \"(!cards.empty())\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    AllegroFlare::Elements::PlayingCards::Card card = cards.back();
    cards.pop_back();
    return card;

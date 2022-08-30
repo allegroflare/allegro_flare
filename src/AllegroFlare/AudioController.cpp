@@ -69,35 +69,35 @@ bool AudioController::get_sound_effects_loaded() const
 void AudioController::initialize()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_audio_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_audio_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_audio_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_acodec_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_acodec_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"al_is_acodec_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(sample_bin))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // TODO: improve these couts
    if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
    if (output_loading_debug_to_cout) std::cout << "sound_effects:" << std::endl;
@@ -119,11 +119,11 @@ void AudioController::initialize()
 void AudioController::set_and_load_sound_effect_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "set_and_load_sound_effect_elements" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "set_and_load_sound_effect_elements" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    destruct_all_sound_effects();
 
    this->sound_effect_elements = sound_effect_elements;
@@ -134,11 +134,11 @@ void AudioController::set_and_load_sound_effect_elements(std::map<std::string, A
 void AudioController::set_and_load_music_track_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "set_and_load_music_track_elements" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "set_and_load_music_track_elements" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    destruct_all_music_tracks();
 
    this->music_track_elements = music_track_elements;
@@ -229,11 +229,11 @@ void AudioController::destruct_all_music_tracks()
 void AudioController::stop_all()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "stop_all" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "stop_all" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    stop_all_sound_effects();
    stop_all_music_tracks();
    return;
@@ -255,11 +255,11 @@ void AudioController::stop_all_sound_effects()
 void AudioController::set_global_volume(float volume)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "set_global_volume" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "set_global_volume" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    for (auto &sound_effect : sound_effects) sound_effect.second->volume(global_volume);
    for (auto &music_track : music_tracks) music_track.second->volume(global_volume);
    return;
@@ -268,11 +268,11 @@ void AudioController::set_global_volume(float volume)
 void AudioController::play_sound_effect(std::string identifier)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "play_sound_effect" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "play_sound_effect" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
    AudioRepositoryElement element = find_sound_effect_element_by_identifier(identifier);
    if (sound)
@@ -300,11 +300,11 @@ void AudioController::play_sound_effect(std::string identifier)
 void AudioController::play_music_track(std::string identifier)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AudioController" << "::" << "play_music_track" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AudioController" << "::" << "play_music_track" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
    // TODO: implement "overplay_strategy" here
    stop_all_music_tracks();

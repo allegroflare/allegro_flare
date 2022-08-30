@@ -93,17 +93,17 @@ float ChoiceRenderer::get_text_padding_y() const
 void ChoiceRenderer::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ChoiceRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(choice_dialog_box))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "render" << ": error: " << "guard \"choice_dialog_box\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ChoiceRenderer" << "::" << "render" << ": error: " << "guard \"choice_dialog_box\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
    draw_prompt_text();
    draw_choices_with_cursor_and_current_selection(85);
@@ -181,23 +181,23 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection(float start_
 ALLEGRO_FONT* ChoiceRenderer::obtain_dialog_font()
 {
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_ttf_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
@@ -206,33 +206,33 @@ ALLEGRO_FONT* ChoiceRenderer::obtain_dialog_font()
 std::string ChoiceRenderer::obtain_choice_dialog_box_prompt()
 {
    if (!(choice_dialog_box))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_prompt" << ": error: " << "guard \"choice_dialog_box\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_prompt" << ": error: " << "guard \"choice_dialog_box\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return choice_dialog_box->get_prompt();
 }
 
 std::vector<std::pair<std::string, std::string>> ChoiceRenderer::obtain_choice_dialog_box_options()
 {
    if (!(choice_dialog_box))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_options" << ": error: " << "guard \"choice_dialog_box\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_options" << ": error: " << "guard \"choice_dialog_box\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return choice_dialog_box->get_options();
 }
 
 int ChoiceRenderer::obtain_choice_dialog_box_cursor_position()
 {
    if (!(choice_dialog_box))
-      {
-         std::stringstream error_message;
-         error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_cursor_position" << ": error: " << "guard \"choice_dialog_box\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_cursor_position" << ": error: " << "guard \"choice_dialog_box\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return choice_dialog_box->get_cursor_position();
 }
 

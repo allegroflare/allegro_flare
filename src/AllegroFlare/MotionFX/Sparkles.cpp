@@ -85,11 +85,11 @@ bool Sparkles::get_initialized() const
 void Sparkles::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    static const float TAU = 6.28318531;
    float num_particles = 7;
    float distance = 80;
@@ -113,11 +113,11 @@ void Sparkles::initialize()
 void Sparkles::update()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float rotation_speed = -0.04;
 
    // update the main star
@@ -135,23 +135,23 @@ void Sparkles::update()
 void Sparkles::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;
 
    // draw the main star
@@ -189,22 +189,22 @@ float Sparkles::infer_age()
 ALLEGRO_FONT* Sparkles::obtain_icon_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("fa-solid-900.ttf -50");
 }
 
 ALLEGRO_FONT* Sparkles::obtain_mini_icon_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles" << "::" << "obtain_mini_icon_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles" << "::" << "obtain_mini_icon_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("fa-solid-900.ttf -30");
 }
 

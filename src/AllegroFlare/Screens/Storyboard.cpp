@@ -82,11 +82,11 @@ AllegroFlare::Elements::Storyboard &Storyboard::get_storyboard_element_ref()
 void Storyboard::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Storyboard" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    storyboard_element.set_font_bin(font_bin);
    initialized = true;
    return;
@@ -95,11 +95,11 @@ void Storyboard::initialize()
 void Storyboard::on_activate()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Storyboard" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    storyboard_element.reset();
    return;
 }
@@ -107,11 +107,11 @@ void Storyboard::on_activate()
 void Storyboard::primary_timer_func()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Storyboard" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    storyboard_element.update();
    if (storyboard_element.get_can_advance_to_next_page() && auto_advance) advance();
 
@@ -131,17 +131,17 @@ void Storyboard::emit_completion_event()
 void Storyboard::advance()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (storyboard_element.get_finished()) return;
 
    storyboard_element.advance();
@@ -157,17 +157,17 @@ void Storyboard::advance()
 void Storyboard::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Storyboard" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "Storyboard" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Storyboard" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (storyboard_element.get_finished()) return;
 
    if (button_num == AllegroFlare::VirtualControls::get_BUTTON_A()

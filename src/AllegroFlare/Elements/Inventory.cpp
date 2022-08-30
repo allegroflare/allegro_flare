@@ -158,23 +158,23 @@ bool Inventory::get_sound_is_disabled() const
 void Inventory::update()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "update" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "update" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "update" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "update" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(af_inventory))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "update" << ": error: " << "guard \"af_inventory\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "update" << ": error: " << "guard \"af_inventory\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float reveal_speed = (1.0f/60.0f) * 4;  // 60 fps
    if (active) reveal_counter += reveal_speed;
    else reveal_counter -= reveal_speed;
@@ -247,23 +247,23 @@ float Inventory::inv_reveal_counter()
 void Inventory::render()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "render" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "render" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(af_inventory))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "render" << ": error: " << "guard \"af_inventory\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "render" << ": error: " << "guard \"af_inventory\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (reveal_counter <= 0.001) return;
 
    AllegroFlare::Placement2D time_based_place = place;
@@ -446,11 +446,11 @@ void Inventory::draw_details_frame()
 void Inventory::move_cursor_up()
 {
    if (!(has_valid_size()))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "move_cursor_up" << ": error: " << "guard \"has_valid_size()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "move_cursor_up" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!active) return;
    cursor_y--;
    while(cursor_y < 0) cursor_y += num_rows;
@@ -464,11 +464,11 @@ void Inventory::move_cursor_up()
 void Inventory::move_cursor_down()
 {
    if (!(has_valid_size()))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "move_cursor_down" << ": error: " << "guard \"has_valid_size()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "move_cursor_down" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!active) return;
    cursor_y++;
    cursor_y = cursor_y % num_rows;
@@ -482,11 +482,11 @@ void Inventory::move_cursor_down()
 void Inventory::move_cursor_left()
 {
    if (!(has_valid_size()))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "move_cursor_left" << ": error: " << "guard \"has_valid_size()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "move_cursor_left" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!active) return;
    cursor_x--;
    while(cursor_x < 0) cursor_x += num_columns;
@@ -500,11 +500,11 @@ void Inventory::move_cursor_left()
 void Inventory::move_cursor_right()
 {
    if (!(has_valid_size()))
-      {
-         std::stringstream error_message;
-         error_message << "Inventory" << "::" << "move_cursor_right" << ": error: " << "guard \"has_valid_size()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "move_cursor_right" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!active) return;
    cursor_x++;
    cursor_x = cursor_x % num_columns;

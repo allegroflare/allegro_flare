@@ -150,11 +150,11 @@ ALLEGRO_COLOR LevelSelect::change_a(ALLEGRO_COLOR color, float alpha)
 void LevelSelect::render()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "LevelSelect" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "LevelSelect" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    place.start_transform();
 
    draw_backfill_and_frame();
@@ -267,11 +267,11 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
 void LevelSelect::move_cursor_up()
 {
    if (!(has_valid_size()))
-      {
-         std::stringstream error_message;
-         error_message << "LevelSelect" << "::" << "move_cursor_up" << ": error: " << "guard \"has_valid_size()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "LevelSelect" << "::" << "move_cursor_up" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    cursor_y--;
    while(cursor_y < 0) cursor_y += num_rows;
    return;
@@ -280,11 +280,11 @@ void LevelSelect::move_cursor_up()
 void LevelSelect::move_cursor_down()
 {
    if (!(has_valid_size()))
-      {
-         std::stringstream error_message;
-         error_message << "LevelSelect" << "::" << "move_cursor_down" << ": error: " << "guard \"has_valid_size()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "LevelSelect" << "::" << "move_cursor_down" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    cursor_y++;
    cursor_y = cursor_y % num_rows;
    return;
@@ -293,11 +293,11 @@ void LevelSelect::move_cursor_down()
 void LevelSelect::move_cursor_left()
 {
    if (!(has_valid_size()))
-      {
-         std::stringstream error_message;
-         error_message << "LevelSelect" << "::" << "move_cursor_left" << ": error: " << "guard \"has_valid_size()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "LevelSelect" << "::" << "move_cursor_left" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    cursor_x--;
    while(cursor_x < 0) cursor_x += num_columns;
    return;
@@ -306,11 +306,11 @@ void LevelSelect::move_cursor_left()
 void LevelSelect::move_cursor_right()
 {
    if (!(has_valid_size()))
-      {
-         std::stringstream error_message;
-         error_message << "LevelSelect" << "::" << "move_cursor_right" << ": error: " << "guard \"has_valid_size()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "LevelSelect" << "::" << "move_cursor_right" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    cursor_x++;
    cursor_x = cursor_x % num_columns;
    return;
@@ -373,11 +373,11 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
 void LevelSelect::activate_selected_menu_option()
 {
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "LevelSelect" << "::" << "activate_selected_menu_option" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "LevelSelect" << "::" << "activate_selected_menu_option" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (list_is_empty())
    {
       std::cout <<

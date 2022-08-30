@@ -119,17 +119,17 @@ float Classic::get_bar_stroke_thickness() const
 void Classic::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Classic" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Classic" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Classic" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Classic" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float h_thickness = bar_stroke_thickness * 0.5;
    ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
 

@@ -28,29 +28,29 @@ ConfigurationFactory::~ConfigurationFactory()
 AllegroFlare::Prototypes::FixedRoom2D::Configuration ConfigurationFactory::load_original_gametest_default(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "ConfigurationFactory" << "::" << "load_original_gametest_default" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ConfigurationFactory" << "::" << "load_original_gametest_default" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "ConfigurationFactory" << "::" << "load_original_gametest_default" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ConfigurationFactory" << "::" << "load_original_gametest_default" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "ConfigurationFactory" << "::" << "load_original_gametest_default" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ConfigurationFactory" << "::" << "load_original_gametest_default" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(entity_collection_helper))
-      {
-         std::stringstream error_message;
-         error_message << "ConfigurationFactory" << "::" << "load_original_gametest_default" << ": error: " << "guard \"entity_collection_helper\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ConfigurationFactory" << "::" << "load_original_gametest_default" << ": error: " << "guard \"entity_collection_helper\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    AllegroFlare::Prototypes::FixedRoom2D::Configuration result;
 
    AllegroFlare::InventoryIndex &inventory_index = result.get_inventory_index_ref();

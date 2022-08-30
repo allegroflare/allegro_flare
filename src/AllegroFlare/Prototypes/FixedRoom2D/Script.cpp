@@ -61,11 +61,11 @@ bool Script::get_finished() const
 void Script::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "Script" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Script" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    markers_index = build_markers_index(lines);
 
    if (!lines.empty())
@@ -84,11 +84,11 @@ void Script::initialize()
 std::string Script::get_current_line_text()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Script" << "::" << "get_current_line_text" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Script" << "::" << "get_current_line_text" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!at_valid_line()) return "";
    return lines[infer_current_line_index_num()];
 }
@@ -96,11 +96,11 @@ std::string Script::get_current_line_text()
 bool Script::goto_next_line()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Script" << "::" << "goto_next_line" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Script" << "::" << "goto_next_line" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (at_last_line())
    {
       current_line_num = -1;
@@ -118,11 +118,11 @@ bool Script::goto_next_line()
 bool Script::goto_marker(std::string identifier)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Script" << "::" << "goto_marker" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Script" << "::" << "goto_marker" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (markers_index.find(identifier) == markers_index.end()) return false;
    int line_num_to_go_to = markers_index[identifier];
    goto_line_num(line_num_to_go_to);
@@ -132,11 +132,11 @@ bool Script::goto_marker(std::string identifier)
 bool Script::goto_line_num(int line_num)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Script" << "::" << "goto_line_num" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Script" << "::" << "goto_line_num" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    int line_index_num = line_num - 1;
 
    if (line_index_num < 0) return false;
@@ -148,11 +148,11 @@ bool Script::goto_line_num(int line_num)
 bool Script::at_last_line()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Script" << "::" << "at_last_line" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Script" << "::" << "at_last_line" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return (!lines.empty() && (current_line_num == lines.size()));
 }
 

@@ -101,11 +101,11 @@ void Achievements::refresh_achievements_list()
 void Achievements::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "set_event_emitter" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "set_event_emitter" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    this->event_emitter = event_emitter;
    return;
 }
@@ -113,11 +113,11 @@ void Achievements::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 void Achievements::on_activate()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // refresh the achievements from the actual list of achievements
    refresh_achievements_list();
 
@@ -134,11 +134,11 @@ void Achievements::on_activate()
 void Achievements::on_deactivate()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "on_deactivate" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "on_deactivate" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // emit events to show and set the input hints
    // TODO: add ALLEGRO_FLARE_EVENT_CLEAR_INPUT_HINTS_BAR
    event_emitter->emit_set_input_hints_bar_event({});
@@ -149,41 +149,41 @@ void Achievements::on_deactivate()
 void Achievements::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(achievements))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"achievements\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "initialize" << ": error: " << "guard \"achievements\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    achievements_list.set_font_bin(font_bin);
    refresh_achievements_list();
    //achievements_list.set_achievements(build_achievements());
@@ -194,11 +194,11 @@ void Achievements::initialize()
 void Achievements::primary_timer_func()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    update();
    render();
    return;
@@ -207,11 +207,11 @@ void Achievements::primary_timer_func()
 void Achievements::update()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float scrollbar_position = achievements_list.get_scrollbar_position();
    if (scrollbar_position != scrollbar_dest_position)
    {
@@ -225,11 +225,11 @@ void Achievements::update()
 void Achievements::move_scrollbar_position_to(float position)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "move_scrollbar_position_to" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "move_scrollbar_position_to" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    scrollbar_dest_position = position;
    limit_scrollbar_dest_position();
    return;
@@ -238,11 +238,11 @@ void Achievements::move_scrollbar_position_to(float position)
 void Achievements::move_scrollbar_position_up()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "move_scrollbar_position_up" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "move_scrollbar_position_up" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    scrollbar_dest_position -= 36.0f;
    limit_scrollbar_dest_position();
    return;
@@ -251,11 +251,11 @@ void Achievements::move_scrollbar_position_up()
 void Achievements::move_scrollbar_position_down()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "move_scrollbar_position_down" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "move_scrollbar_position_down" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    scrollbar_dest_position += 36.0f;
    limit_scrollbar_dest_position();
    return;
@@ -271,11 +271,11 @@ void Achievements::virtual_control_button_down_func(int player_num, int button_n
 void Achievements::render()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    achievements_list.render();
    return;
 }
@@ -300,17 +300,17 @@ void Achievements::limit_scrollbar_dest_position()
 void Achievements::emit_event_to_set_input_hints()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "Achievements" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Achievements" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::vector<std::string> scrollbar_tokens = { "UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Scroll up/down", };
    std::vector<std::string> return_tokens = { "X", "%SPACER", "LABEL>>", "Return", };
    std::vector<std::string> separator_tokens = { "%SEPARATOR" };

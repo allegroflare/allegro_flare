@@ -34,11 +34,11 @@ PersonNameGenerator::~PersonNameGenerator()
 void PersonNameGenerator::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "PersonNameGenerator" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PersonNameGenerator" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    randomize();
    initialized = true;
    return;
@@ -59,22 +59,22 @@ void PersonNameGenerator::randomize(unsigned int seed)
 std::string PersonNameGenerator::generate_boy_name()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "PersonNameGenerator" << "::" << "generate_boy_name" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PersonNameGenerator" << "::" << "generate_boy_name" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (next_boy_name_index >= victorian_boy_names.size()) return ""; return victorian_boy_names[next_boy_name_index++];
 }
 
 std::string PersonNameGenerator::generate_girl_name()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "PersonNameGenerator" << "::" << "generate_girl_name" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PersonNameGenerator" << "::" << "generate_girl_name" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (next_girl_name_index >= victorian_girl_names.size()) return ""; return victorian_girl_names[next_girl_name_index++];
 }
 

@@ -330,11 +330,11 @@ void TitleScreen::activate_menu_option(std::string menu_option_name)
 void TitleScreen::select_menu_option()
 {
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "select_menu_option" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "select_menu_option" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (menu_is_empty())
    {
       std::cout <<
@@ -360,23 +360,23 @@ void TitleScreen::primary_timer_func()
 void TitleScreen::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    draw_background();
    draw_title();
    draw_copyright_text();
@@ -459,11 +459,11 @@ void TitleScreen::draw_copyright_text()
 void TitleScreen::draw_menu()
 {
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "draw_menu" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "draw_menu" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
    int surface_width = 1920;
@@ -546,11 +546,11 @@ std::string TitleScreen::infer_current_menu_option_label()
 ALLEGRO_FONT* TitleScreen::obtain_title_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "obtain_title_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "obtain_title_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << title_font_size;
    return font_bin->auto_get(composite_font_str.str());
@@ -559,11 +559,11 @@ ALLEGRO_FONT* TitleScreen::obtain_title_font()
 ALLEGRO_FONT* TitleScreen::obtain_menu_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "obtain_menu_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "obtain_menu_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << menu_font_size;
    return font_bin->auto_get(composite_font_str.str());
@@ -572,11 +572,11 @@ ALLEGRO_FONT* TitleScreen::obtain_menu_font()
 ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "obtain_copyright_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "obtain_copyright_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << copyright_font_size;
    return font_bin->auto_get(composite_font_str.str());
@@ -585,22 +585,22 @@ ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
 ALLEGRO_BITMAP* TitleScreen::obtain_background_bitmap()
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "obtain_background_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "obtain_background_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return bitmap_bin->auto_get(background_bitmap_name);
 }
 
 ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TitleScreen" << "::" << "obtain_title_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TitleScreen" << "::" << "obtain_title_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return bitmap_bin->auto_get(title_bitmap_name);
 }
 

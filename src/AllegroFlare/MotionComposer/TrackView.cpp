@@ -162,23 +162,23 @@ int TrackView::get_icon_font_size() const
 void TrackView::render()
 {
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(track))
-      {
-         std::stringstream error_message;
-         error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"track\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"track\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
 
@@ -241,11 +241,11 @@ void TrackView::draw_centered_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLO
 ALLEGRO_FONT* TrackView::obtain_icon_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TrackView" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TrackView" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream ss;
    ss << "fa-solid-900.ttf " << icon_font_size;
    return font_bin->auto_get(ss.str());
@@ -254,11 +254,11 @@ ALLEGRO_FONT* TrackView::obtain_icon_font()
 ALLEGRO_FONT* TrackView::obtain_bigger_icon_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TrackView" << "::" << "obtain_bigger_icon_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TrackView" << "::" << "obtain_bigger_icon_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream ss;
    ss << "fa-solid-900.ttf " << icon_font_size - 8;
    return font_bin->auto_get(ss.str());
@@ -267,11 +267,11 @@ ALLEGRO_FONT* TrackView::obtain_bigger_icon_font()
 ALLEGRO_FONT* TrackView::obtain_track_values_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "TrackView" << "::" << "obtain_track_values_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "TrackView" << "::" << "obtain_track_values_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("Inter-Medium.ttf -20");
 }
 } // namespace MotionComposer

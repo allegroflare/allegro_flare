@@ -66,11 +66,11 @@ std::map<std::string, std::string>* EntityCollectionHelper::get_entity_room_asso
 std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollectionHelper::select_all_in_room_ordered_by_id(std::string room_name)
 {
    if (!(entity_dictionary))
-      {
-         std::stringstream error_message;
-         error_message << "EntityCollectionHelper" << "::" << "select_all_in_room_ordered_by_id" << ": error: " << "guard \"entity_dictionary\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "EntityCollectionHelper" << "::" << "select_all_in_room_ordered_by_id" << ": error: " << "guard \"entity_dictionary\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::vector<std::string> entity_names_in_room = select_all_entity_names_in_room_name(room_name);
    std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities =
       get_entities_by_entity_names(entity_names_in_room);
@@ -80,11 +80,11 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
 std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollectionHelper::select_all()
 {
    if (!(entity_dictionary))
-      {
-         std::stringstream error_message;
-         error_message << "EntityCollectionHelper" << "::" << "select_all" << ": error: " << "guard \"entity_dictionary\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "EntityCollectionHelper" << "::" << "select_all" << ": error: " << "guard \"entity_dictionary\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
    for (auto &entity : *entity_dictionary) { result.push_back(entity.second); }
    return result;
@@ -93,11 +93,11 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
 std::string EntityCollectionHelper::find_dictionary_name_of_entity_that_cursor_is_now_over()
 {
    if (!(entity_dictionary))
-      {
-         std::stringstream error_message;
-         error_message << "EntityCollectionHelper" << "::" << "find_dictionary_name_of_entity_that_cursor_is_now_over" << ": error: " << "guard \"entity_dictionary\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "EntityCollectionHelper" << "::" << "find_dictionary_name_of_entity_that_cursor_is_now_over" << ": error: " << "guard \"entity_dictionary\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    for (auto &entity : *entity_dictionary)
    {
       if (entity.second->get_cursor_is_over()) return entity.first;
@@ -108,11 +108,11 @@ std::string EntityCollectionHelper::find_dictionary_name_of_entity_that_cursor_i
 AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityCollectionHelper::find_entity_by_dictionary_name(std::string dictionary_listing_name)
 {
    if (!(entity_dictionary))
-      {
-         std::stringstream error_message;
-         error_message << "EntityCollectionHelper" << "::" << "find_entity_by_dictionary_name" << ": error: " << "guard \"entity_dictionary\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "EntityCollectionHelper" << "::" << "find_entity_by_dictionary_name" << ": error: " << "guard \"entity_dictionary\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>::iterator it =
       entity_dictionary->find(dictionary_listing_name);
    if (it == entity_dictionary->end()) return nullptr;
@@ -140,11 +140,11 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
 std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollectionHelper::get_entities_by_entity_names(std::vector<std::string> entity_dictionary_names)
 {
    if (!(entity_dictionary))
-      {
-         std::stringstream error_message;
-         error_message << "EntityCollectionHelper" << "::" << "get_entities_by_entity_names" << ": error: " << "guard \"entity_dictionary\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "EntityCollectionHelper" << "::" << "get_entities_by_entity_names" << ": error: " << "guard \"entity_dictionary\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
    for (auto &entity_dictionary_name : entity_dictionary_names)
    {
@@ -168,11 +168,11 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
 std::vector<std::string> EntityCollectionHelper::select_all_entity_names_in_room_name(std::string room_name)
 {
    if (!(entity_room_associations))
-      {
-         std::stringstream error_message;
-         error_message << "EntityCollectionHelper" << "::" << "select_all_entity_names_in_room_name" << ": error: " << "guard \"entity_room_associations\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "EntityCollectionHelper" << "::" << "select_all_entity_names_in_room_name" << ": error: " << "guard \"entity_room_associations\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::vector<std::string> result;
    for (auto &entity_room_association : (*entity_room_associations))
    {

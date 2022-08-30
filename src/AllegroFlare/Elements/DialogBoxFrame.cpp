@@ -77,23 +77,23 @@ float DialogBoxFrame::get_opacity() const
 void DialogBoxFrame::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxFrame" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxFrame" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxFrame" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxFrame" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_get_current_display()))
-      {
-         std::stringstream error_message;
-         error_message << "DialogBoxFrame" << "::" << "render" << ": error: " << "guard \"al_get_current_display()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxFrame" << "::" << "render" << ": error: " << "guard \"al_get_current_display()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float roundness = 13.0f;
    float border_thickness = 6.0f;
    float border_inner_padding = border_thickness * 2.25;

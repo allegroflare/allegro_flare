@@ -59,23 +59,23 @@ ALLEGRO_COLOR Stopwatch::get_color() const
 void Stopwatch::fit_placement_width_and_height_to_stopwatch()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Stopwatch" << "::" << "fit_placement_width_and_height_to_stopwatch" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::string ellapsed_time_str = build_ellapsed_time_str();
    float width = al_get_text_width(obtain_font(), ellapsed_time_str.c_str());
    float height = al_get_font_line_height(obtain_font());
@@ -87,23 +87,23 @@ void Stopwatch::fit_placement_width_and_height_to_stopwatch()
 void Stopwatch::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Stopwatch" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Stopwatch" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Stopwatch" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Stopwatch" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Stopwatch" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Stopwatch" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_FONT *font = obtain_font();
    std::string ellapsed_time_str = build_ellapsed_time_str();
 
@@ -116,22 +116,22 @@ void Stopwatch::render()
 std::string Stopwatch::build_ellapsed_time_str()
 {
    if (!(timer))
-      {
-         std::stringstream error_message;
-         error_message << "Stopwatch" << "::" << "build_ellapsed_time_str" << ": error: " << "guard \"timer\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Stopwatch" << "::" << "build_ellapsed_time_str" << ": error: " << "guard \"timer\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return AllegroFlare::TimerFormatter(timer->get_elapsed_time_milliseconds()).format();
 }
 
 ALLEGRO_FONT* Stopwatch::obtain_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Stopwatch" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Stopwatch" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("DroidSans.ttf -74");
 }
 } // namespace Elements

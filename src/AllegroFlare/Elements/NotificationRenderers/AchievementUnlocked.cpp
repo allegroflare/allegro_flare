@@ -113,17 +113,17 @@ std::string AchievementUnlocked::get_name() const
 void AchievementUnlocked::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "AchievementUnlocked" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AchievementUnlocked" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "AchievementUnlocked" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AchievementUnlocked" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    draw_achievement_box("Achievement Unlocked", name);
    return;
 }
@@ -265,33 +265,33 @@ ALLEGRO_COLOR AchievementUnlocked::infer_icon_color_by_status(std::string status
 ALLEGRO_FONT* AchievementUnlocked::obtain_item_title_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "AchievementUnlocked" << "::" << "obtain_item_title_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AchievementUnlocked" << "::" << "obtain_item_title_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("Inter-Medium.ttf -32");
 }
 
 ALLEGRO_FONT* AchievementUnlocked::obtain_item_description_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "AchievementUnlocked" << "::" << "obtain_item_description_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AchievementUnlocked" << "::" << "obtain_item_description_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("Inter-Bold.ttf -26");
 }
 
 ALLEGRO_FONT* AchievementUnlocked::obtain_icon_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "AchievementUnlocked" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AchievementUnlocked" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("fa-solid-900.ttf -50");
 }
 

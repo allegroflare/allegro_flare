@@ -29,22 +29,22 @@ EntityFactory::~EntityFactory()
 AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_chair_entity(float x, float y)
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "EntityFactory" << "::" << "create_chair_entity" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "EntityFactory" << "::" << "create_chair_entity" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return create_entity("wooden-chair-png-transparent-image-pngpix-0.png", x, y, 0.1, "chair");
 }
 
 AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_entity(std::string bitmap_image_identifier, float x, float y, float scale, std::string name, std::string on_interact_script_name)
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "EntityFactory" << "::" << "create_entity" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "EntityFactory" << "::" << "create_entity" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get(bitmap_image_identifier);
 
    AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* result = new

@@ -297,11 +297,11 @@ void PauseScreen::activate_menu_option(std::string menu_option_name)
 void PauseScreen::select_menu_option()
 {
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "select_menu_option" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "select_menu_option" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (menu_is_empty())
    {
       std::cout <<
@@ -327,17 +327,17 @@ void PauseScreen::primary_timer_func()
 void PauseScreen::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    draw_background();
    draw_title();
    if (show_footer_text) draw_footer_text();
@@ -419,11 +419,11 @@ void PauseScreen::draw_footer_text()
 void PauseScreen::draw_menu()
 {
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "draw_menu" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "draw_menu" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
    int surface_width = 1920;
@@ -509,11 +509,11 @@ std::string PauseScreen::infer_current_menu_option_label()
 ALLEGRO_FONT* PauseScreen::obtain_title_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "obtain_title_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "obtain_title_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << title_font_size;
    return font_bin->auto_get(composite_font_str.str());
@@ -522,11 +522,11 @@ ALLEGRO_FONT* PauseScreen::obtain_title_font()
 ALLEGRO_FONT* PauseScreen::obtain_menu_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "obtain_menu_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "obtain_menu_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << menu_font_size;
    return font_bin->auto_get(composite_font_str.str());
@@ -535,11 +535,11 @@ ALLEGRO_FONT* PauseScreen::obtain_menu_font()
 ALLEGRO_FONT* PauseScreen::obtain_footer_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "obtain_footer_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "obtain_footer_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << footer_font_size;
    return font_bin->auto_get(composite_font_str.str());
@@ -548,22 +548,22 @@ ALLEGRO_FONT* PauseScreen::obtain_footer_font()
 ALLEGRO_BITMAP* PauseScreen::obtain_background_bitmap()
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "obtain_background_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "obtain_background_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return bitmap_bin->auto_get(background_bitmap_name);
 }
 
 ALLEGRO_BITMAP* PauseScreen::obtain_title_bitmap()
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "PauseScreen" << "::" << "obtain_title_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "PauseScreen" << "::" << "obtain_title_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return bitmap_bin->auto_get(title_bitmap_name);
 }
 

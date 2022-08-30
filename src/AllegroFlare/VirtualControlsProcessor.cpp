@@ -76,11 +76,11 @@ bool VirtualControlsProcessor::get_initialized() const
 void VirtualControlsProcessor::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    keyboard_button_map = build_sensible_keyboard_button_map();
    joystick_button_map = build_sensible_joystick_button_map();
    initialized = true;
@@ -127,23 +127,23 @@ std::map<int, std::pair<int, int>> VirtualControlsProcessor::build_sensible_keyb
 void VirtualControlsProcessor::handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_down_event" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_down_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_down_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_down_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_down_event" << ": error: " << "guard \"event\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_down_event" << ": error: " << "guard \"event\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::pair<int, int> player_num_and_virtual_button =
       get_keyboard_mapped_player_num_and_virtual_button(event->keyboard.keycode);
    if (player_num_and_virtual_button == std::pair<int, int>{-1, -1}) return;
@@ -159,23 +159,23 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_down_event(ALLEGRO_EVENT*
 void VirtualControlsProcessor::handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_up_event" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_up_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_up_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_up_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_up_event" << ": error: " << "guard \"event\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_keyboard_key_up_event" << ": error: " << "guard \"event\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::pair<int, int> player_num_and_virtual_button =
       get_keyboard_mapped_player_num_and_virtual_button(event->keyboard.keycode);
    if (player_num_and_virtual_button == std::pair<int, int>{-1, -1}) return;
@@ -191,23 +191,23 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* e
 void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_down_event" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_down_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_down_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_down_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_down_event" << ": error: " << "guard \"event\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_down_event" << ": error: " << "guard \"event\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
    int player_num = 0; // assume player 0 for now
@@ -219,23 +219,23 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
 void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_up_event" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_up_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_up_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_up_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_up_event" << ": error: " << "guard \"event\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_button_up_event" << ": error: " << "guard \"event\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
    int player_num = 0; // assume player 0 for now
@@ -247,23 +247,23 @@ void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT
 void VirtualControlsProcessor::handle_raw_joystick_axis_change_event(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_axis_change_event" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_axis_change_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_axis_change_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_axis_change_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_axis_change_event" << ": error: " << "guard \"event\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "handle_raw_joystick_axis_change_event" << ": error: " << "guard \"event\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    emit_virtual_controls_axis_change_event(event->joystick.stick, event->joystick.axis, event->joystick.pos);
    return;
 }
@@ -290,17 +290,17 @@ std::pair<int, int> VirtualControlsProcessor::get_keyboard_mapped_player_num_and
 void VirtualControlsProcessor::emit_virtual_controls_button_up_event(int player_num, int virtual_button_num, bool is_repeat)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_button_up_event" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_button_up_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_button_up_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_button_up_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // TODO: consider using non-global event names for these types, or a better design for this scope
    event_emitter->emit_event(
       ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP,
@@ -314,17 +314,17 @@ void VirtualControlsProcessor::emit_virtual_controls_button_up_event(int player_
 void VirtualControlsProcessor::emit_virtual_controls_button_down_event(int player_num, int virtual_button_num, bool is_repeat)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_button_down_event" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_button_down_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_button_down_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_button_down_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // TODO: consider using non-global event names for these types, or a better design for this scope
    event_emitter->emit_event(
       ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN,
@@ -338,17 +338,17 @@ void VirtualControlsProcessor::emit_virtual_controls_button_down_event(int playe
 void VirtualControlsProcessor::emit_virtual_controls_axis_change_event(int stick, int axis, float position)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_axis_change_event" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_axis_change_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(event_emitter))
-      {
-         std::stringstream error_message;
-         error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_axis_change_event" << ": error: " << "guard \"event_emitter\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "VirtualControlsProcessor" << "::" << "emit_virtual_controls_axis_change_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // TODO: consider using non-global event names for these types, or a better design for this scope
    event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, stick, axis, (int)(position * 255));
    return;

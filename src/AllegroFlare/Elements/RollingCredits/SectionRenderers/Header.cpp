@@ -122,17 +122,17 @@ ALLEGRO_COLOR Header::get_text_color() const
 float Header::render(bool only_calculate_height_dont_render)
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Header" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Header" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Header" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Header" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_FONT *font = obtain_font();
    if (!text.empty())
    {
@@ -147,11 +147,11 @@ float Header::render(bool only_calculate_height_dont_render)
 ALLEGRO_FONT* Header::obtain_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Header" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Header" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream font_identifier;
    font_identifier << font_name << " " << font_size;
    return font_bin->auto_get(font_identifier.str());

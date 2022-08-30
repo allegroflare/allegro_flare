@@ -144,29 +144,29 @@ void KeyboardKey::set_keyboard_key_box_height(float keyboard_key_box_height)
 int KeyboardKey::render(bool calculate_width_only_and_do_not_draw)
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "KeyboardKey" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "KeyboardKey" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "KeyboardKey" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "KeyboardKey" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_ttf_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "KeyboardKey" << "::" << "render" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "KeyboardKey" << "::" << "render" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "KeyboardKey" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "KeyboardKey" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_FONT *font = obtain_font();
    float padding_x = 12;
    float text_width = al_get_text_width(font, keyboard_key_str.c_str());
@@ -212,11 +212,11 @@ int KeyboardKey::guarantee_even_number(int potentially_odd_number)
 ALLEGRO_FONT* KeyboardKey::obtain_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "KeyboardKey" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "KeyboardKey" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
    return font_bin->auto_get(composite_font_str.str());

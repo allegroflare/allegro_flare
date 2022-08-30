@@ -137,11 +137,11 @@ std::string ConfigurationLoader::get_starting_in_room_identifier() const
 bool ConfigurationLoader::load_from_source_configuration()
 {
    if (!(source_configuration))
-      {
-         std::stringstream error_message;
-         error_message << "ConfigurationLoader" << "::" << "load_from_source_configuration" << ": error: " << "guard \"source_configuration\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ConfigurationLoader" << "::" << "load_from_source_configuration" << ": error: " << "guard \"source_configuration\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    *destination_inventory_index = source_configuration->get_inventory_index_ref();
    *destination_af_inventory = source_configuration->get_af_inventory();
    *destination_room_dictionary = source_configuration->get_room_dictionary();

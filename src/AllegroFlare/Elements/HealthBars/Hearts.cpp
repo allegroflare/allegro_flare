@@ -117,23 +117,23 @@ float Hearts::get_heart_spacing() const
 void Hearts::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Hearts" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Hearts" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Hearts" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Hearts" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_ttf_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Hearts" << "::" << "render" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Hearts" << "::" << "render" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_FONT *font_awesome_font = obtain_font_awesome_font();
    const uint32_t heart_glyph = AllegroFlare::FontAwesome::heart;
@@ -170,11 +170,11 @@ void Hearts::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, int
 ALLEGRO_FONT* Hearts::obtain_font_awesome_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Hearts" << "::" << "obtain_font_awesome_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Hearts" << "::" << "obtain_font_awesome_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::stringstream font_identifier_and_size;
    font_identifier_and_size << font_awesome_font_name << " " << heart_size;
    return font_bin->auto_get(font_identifier_and_size.str());

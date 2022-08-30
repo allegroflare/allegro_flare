@@ -40,11 +40,11 @@ int Notifications::size()
 void Notifications::add(AllegroFlare::Elements::Notifications::Base* notification)
 {
    if (!(notification))
-      {
-         std::stringstream error_message;
-         error_message << "Notifications" << "::" << "add" << ": error: " << "guard \"notification\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Notifications" << "::" << "add" << ": error: " << "guard \"notification\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    notifications.push_back(notification);
    return;
 }

@@ -57,11 +57,11 @@ ALLEGRO_BITMAP* MultiMesh::get_texture() const
 void MultiMesh::set_atlas(AllegroFlare::MultiMeshUVAtlas atlas)
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "set_atlas" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MultiMesh" << "::" << "set_atlas" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    this->atlas = atlas;
    return;
 }
@@ -69,11 +69,11 @@ void MultiMesh::set_atlas(AllegroFlare::MultiMeshUVAtlas atlas)
 void MultiMesh::set_num_items(std::size_t num_items)
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "set_num_items" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MultiMesh" << "::" << "set_num_items" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    this->num_items = num_items;
    return;
 }
@@ -91,23 +91,23 @@ int MultiMesh::infer_largest_index_num_in_use()
 void MultiMesh::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_primitives_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MultiMesh" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    int num_vertices = num_items * VERTICES_PER_ITEM;
 
    // create the vertex declaration
@@ -150,11 +150,11 @@ int MultiMesh::append(int atlas_item_index_num, float x, float y)
 int MultiMesh::append_raw(float x, float y, float w, float h, float u1, float v1, float u2, float v2)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "append_raw" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MultiMesh" << "::" << "append_raw" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    ALLEGRO_COLOR color{1, 1, 1, 1};
    ALLEGRO_VERTEX item_vertexes[VERTICES_PER_ITEM] = {
       ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, color},
@@ -191,11 +191,11 @@ int MultiMesh::append_raw(float x, float y, float w, float h, float u1, float v1
 int MultiMesh::remove(int item_index)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "remove" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MultiMesh" << "::" << "remove" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // TODO: validate position exists, does not overflow, etc
    if (item_index < 0)
    {
@@ -243,11 +243,11 @@ int MultiMesh::remove(int item_index)
 void MultiMesh::render()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "MultiMesh" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MultiMesh" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (vertices_in_use == 0) return;
    al_draw_vertex_buffer(vertex_buffer, texture, 0, vertices_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
    return;

@@ -75,11 +75,11 @@ float Sparkles2::get_time() const
 void Sparkles2::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles2" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles2" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // create the actor
    std::string star_bitmap_filename = "star-b.png";
    Timeline::Actors::Base *main_star_actor =
@@ -181,23 +181,23 @@ std::vector<std::string> Sparkles2::build_friend_star_script_lines(float rotatio
 void Sparkles2::render()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    Placement2D place(x, y, 0, 0);
    place.scale.x = 0.5;
    place.scale.y = 0.5;
@@ -210,11 +210,11 @@ void Sparkles2::render()
 ALLEGRO_BITMAP* Sparkles2::obtain_star_bitmap()
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Sparkles2" << "::" << "obtain_star_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Sparkles2" << "::" << "obtain_star_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return bitmap_bin->auto_get("star-b.png");
 }
 } // namespace MotionFX

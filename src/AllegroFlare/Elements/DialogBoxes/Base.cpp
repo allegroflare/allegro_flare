@@ -52,11 +52,11 @@ void Base::update()
 float Base::infer_age()
 {
    if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Base" << "::" << "infer_age" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Base" << "::" << "infer_age" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return al_get_time() - get_created_at();
 }
 

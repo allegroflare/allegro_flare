@@ -66,11 +66,11 @@ std::size_t Message::length()
 void Message::set_body_length(std::size_t new_length)
 {
    if (!((!(new_length > MAX_BODY_LENGTH))))
-      {
-         std::stringstream error_message;
-         error_message << "Message" << "::" << "set_body_length" << ": error: " << "guard \"(!(new_length > MAX_BODY_LENGTH))\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Message" << "::" << "set_body_length" << ": error: " << "guard \"(!(new_length > MAX_BODY_LENGTH))\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    body_length = new_length;
    return;
 }
@@ -78,11 +78,11 @@ void Message::set_body_length(std::size_t new_length)
 void Message::set_body(std::string content)
 {
    if (!((!(content.size() > MAX_BODY_LENGTH))))
-      {
-         std::stringstream error_message;
-         error_message << "Message" << "::" << "set_body" << ": error: " << "guard \"(!(content.size() > MAX_BODY_LENGTH))\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Message" << "::" << "set_body" << ": error: " << "guard \"(!(content.size() > MAX_BODY_LENGTH))\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    set_body_length(content.size());
    std::memcpy(data_ptr() + HEADER_LENGTH, content.c_str(), body_length);
    return;

@@ -57,11 +57,11 @@ float YouGotAnItemRenderer::get_age() const
 void YouGotAnItemRenderer::render()
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "YouGotAnItemRenderer" << "::" << "render" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "YouGotAnItemRenderer" << "::" << "render" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // style attributes
    ALLEGRO_COLOR fading_white = opaquify(ALLEGRO_COLOR{1, 1, 1, 1});
    ALLEGRO_FONT* notification_text_font = obtain_notification_text_font();
@@ -148,23 +148,23 @@ float YouGotAnItemRenderer::get_live_reveal_counter()
 ALLEGRO_FONT* YouGotAnItemRenderer::obtain_notification_text_font()
 {
    if (!(al_is_font_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "YouGotAnItemRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "YouGotAnItemRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(al_is_ttf_addon_initialized()))
-      {
-         std::stringstream error_message;
-         error_message << "YouGotAnItemRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "YouGotAnItemRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "YouGotAnItemRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "YouGotAnItemRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;

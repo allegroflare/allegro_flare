@@ -81,11 +81,11 @@ std::string Cursor::get_info_text() const
 void Cursor::draw()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Cursor" << "::" << "draw" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Cursor" << "::" << "draw" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    AllegroFlare::Placement2D placement(x, y, 0, 0);
    placement.start_transform();
 
@@ -156,11 +156,11 @@ void Cursor::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, uin
 ALLEGRO_FONT* Cursor::obtain_cursor_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Cursor" << "::" << "obtain_cursor_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Cursor" << "::" << "obtain_cursor_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::string font_name = "fa-solid-900.ttf";
    int cursor_font_size = 30;
 
@@ -172,11 +172,11 @@ ALLEGRO_FONT* Cursor::obtain_cursor_font()
 ALLEGRO_FONT* Cursor::obtain_info_text_font()
 {
    if (!(font_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Cursor" << "::" << "obtain_info_text_font" << ": error: " << "guard \"font_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Cursor" << "::" << "obtain_info_text_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    return font_bin->auto_get("Inter-Medium.ttf 20");
 }
 

@@ -41,11 +41,11 @@ void Monoplex::update()
 void Monoplex::render()
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "Monoplex" << "::" << "render" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "Monoplex" << "::" << "render" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    float screen_cx = 1920/2;
    float screen_cy = 1080/2;
    float time_now = al_get_time();

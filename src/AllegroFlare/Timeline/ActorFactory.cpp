@@ -37,11 +37,11 @@ AllegroFlare::BitmapBin* ActorFactory::get_bitmap_bin() const
 AllegroFlare::Timeline::Actors::Actor2D* ActorFactory::create_actor2d_with_script(std::string identifier, std::string bitmap_identifier, std::string script)
 {
    if (!(bitmap_bin))
-      {
-         std::stringstream error_message;
-         error_message << "ActorFactory" << "::" << "create_actor2d_with_script" << ": error: " << "guard \"bitmap_bin\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "ActorFactory" << "::" << "create_actor2d_with_script" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    AllegroFlare::Timeline::Actors::Actor2D* result = new AllegroFlare::Timeline::Actors::Actor2D(
       identifier,
       bitmap_identifier,
