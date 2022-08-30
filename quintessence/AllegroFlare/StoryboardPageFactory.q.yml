@@ -62,5 +62,16 @@ dependencies:
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText*
     headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::Text
+    headers: [ AllegroFlare/Elements/StoryboardPages/Text.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::Image
+    headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText
+    headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
+
 
 

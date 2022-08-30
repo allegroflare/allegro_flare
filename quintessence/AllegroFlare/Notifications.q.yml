@@ -86,5 +86,8 @@ dependencies:
     headers: [ vector, AllegroFlare/Elements/Notifications/Base.hpp ]
   - symbol: AllegroFlare::Elements::Notifications::Base*
     headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
+  - symbol: AllegroFlare::Elements::Notifications::Base
+    headers: [ vector, AllegroFlare/Elements/Notifications/Base.hpp ]
+
 
 

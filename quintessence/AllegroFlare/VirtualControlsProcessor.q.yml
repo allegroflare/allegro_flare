@@ -276,6 +276,10 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: ALLEGRO_EVENT*
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_KEY_*
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::VirtualControls

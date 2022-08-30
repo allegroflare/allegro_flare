@@ -40,5 +40,7 @@ dependencies:
     headers: [ vector, AllegroFlare/Bone3D.hpp ]
   - symbol: AllegroFlare::Bone3D*
     headers: [ AllegroFlare/Bone3D.hpp ]
+  - symbol: AllegroFlare::Bone3D
+    headers: [ AllegroFlare/Bone3D.hpp ]
 
 

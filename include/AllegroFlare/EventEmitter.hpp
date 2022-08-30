@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/GameEvent.hpp>
 #include <allegro5/allegro.h>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -22,7 +23,7 @@ namespace AllegroFlare
       bool get_initialized() const;
       ALLEGRO_EVENT_SOURCE &get_event_source_ref();
       void initialize();
-      void emit_event(unsigned int type=0, intptr_t data1=0, intptr_t data2=0, intptr_t data3=0, intptr_t data4=0);
+      void emit_event(uint32_t type=0, intptr_t data1=0, intptr_t data2=0, intptr_t data3=0, intptr_t data4=0);
       void emit_switch_screen_event(std::string screen_identifier_to_switch_to=0);
       void emit_exit_game_event();
       void emit_show_input_hints_bar_event();

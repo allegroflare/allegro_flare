@@ -179,4 +179,9 @@ dependencies:
   - symbol: AllegroFlare::InputDiagrams::KeyboardKeyCombo
     headers: [ AllegroFlare/InputDiagrams/KeyboardKeyCombo.hpp ]
 
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+
 

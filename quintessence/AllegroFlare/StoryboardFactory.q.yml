@@ -141,4 +141,12 @@ dependencies:
   - symbol: AllegroFlare::StoryboardPageFactory
     headers: [ AllegroFlare/StoryboardPageFactory.hpp ]
 
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Screens::Storyboard
+    headers: [ AllegroFlare/Screens/Storyboard.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 

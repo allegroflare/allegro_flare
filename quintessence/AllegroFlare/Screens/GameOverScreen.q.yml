@@ -235,4 +235,10 @@ dependencies:
   - symbol: AllegroFlare::VirtualControls
     headers: [ AllegroFlare/VirtualControls.hpp ]
 
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 

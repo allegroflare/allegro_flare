@@ -26,7 +26,7 @@ functions:
   - name: emit_event
     parameters:
       - name: type
-        type: unsigned int
+        type: uint32_t
         default_argument: 0
       - name: data1
         type: intptr_t

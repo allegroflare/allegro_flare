@@ -81,7 +81,7 @@ void EventEmitter::initialize()
    return;
 }
 
-void EventEmitter::emit_event(unsigned int type, intptr_t data1, intptr_t data2, intptr_t data3, intptr_t data4)
+void EventEmitter::emit_event(uint32_t type, intptr_t data1, intptr_t data2, intptr_t data3, intptr_t data4)
 {
    if (!(initialized))
    {
