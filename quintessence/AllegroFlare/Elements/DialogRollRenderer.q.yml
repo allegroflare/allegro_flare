@@ -11,13 +11,14 @@ properties:
     init_with: '{}'
     constructor_arg: true
 
+  - name: width
+    type: float
+    init_with: 1320
+    constructor_arg: true
+
   - name: gutter_x
     type: float
     init_with: 500
-
-  - name: width
-    type: float
-    init_with: 1500
 
 
 functions:
@@ -40,14 +41,17 @@ functions:
          ALLEGRO_COLOR dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
          ALLEGRO_COLOR internal_dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
+
          bool is_internal_speaker = speaker.empty() || speaker == AllegroFlare::Elements::DialogRoll::SPEAKER_INTERNAL;
 
          ALLEGRO_FONT *dialog_font = is_internal_speaker ? internal_dialog_font : text_font;
 
          if (!is_internal_speaker)
          {
-            float multiline_text_width = width - gutter_x;
+            // draw the speaker
+            float multiline_text_width = gutter_x;
             float line_height = al_get_font_line_height(text_font);
+
             al_draw_multiline_text(
                text_font,
                speaker_color,
@@ -60,7 +64,8 @@ functions:
             );
          }
 
-         float multiline_text_width = gutter_x;
+         // draw the spoken dialog
+         float multiline_text_width = width - gutter_x;
          float line_height = al_get_font_line_height(text_font);
 
          al_draw_multiline_text(

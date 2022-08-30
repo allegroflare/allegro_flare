@@ -16,11 +16,11 @@ namespace Elements
 {
 
 
-DialogRollRenderer::DialogRollRenderer(AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> roll)
+DialogRollRenderer::DialogRollRenderer(AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> roll, float width)
    : font_bin(font_bin)
    , roll(roll)
+   , width(width)
    , gutter_x(500)
-   , width(1500)
 {
 }
 
@@ -57,14 +57,17 @@ void DialogRollRenderer::render()
       ALLEGRO_COLOR dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
       ALLEGRO_COLOR internal_dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
+
       bool is_internal_speaker = speaker.empty() || speaker == AllegroFlare::Elements::DialogRoll::SPEAKER_INTERNAL;
 
       ALLEGRO_FONT *dialog_font = is_internal_speaker ? internal_dialog_font : text_font;
 
       if (!is_internal_speaker)
       {
-         float multiline_text_width = width - gutter_x;
+         // draw the speaker
+         float multiline_text_width = gutter_x;
          float line_height = al_get_font_line_height(text_font);
+
          al_draw_multiline_text(
             text_font,
             speaker_color,
@@ -77,7 +80,8 @@ void DialogRollRenderer::render()
          );
       }
 
-      float multiline_text_width = gutter_x;
+      // draw the spoken dialog
+      float multiline_text_width = width - gutter_x;
       float line_height = al_get_font_line_height(text_font);
 
       al_draw_multiline_text(

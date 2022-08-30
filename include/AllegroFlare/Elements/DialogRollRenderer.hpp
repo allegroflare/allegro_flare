@@ -17,11 +17,11 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          std::vector<std::pair<std::string, std::string>> roll;
-         float gutter_x;
          float width;
+         float gutter_x;
 
       public:
-         DialogRollRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> roll={});
+         DialogRollRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> roll={}, float width=1320);
          ~DialogRollRenderer();
 
          void render();
