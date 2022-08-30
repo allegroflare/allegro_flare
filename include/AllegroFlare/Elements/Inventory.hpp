@@ -10,7 +10,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
-#include <utility>
+#include <tuple>
 
 
 namespace AllegroFlare
