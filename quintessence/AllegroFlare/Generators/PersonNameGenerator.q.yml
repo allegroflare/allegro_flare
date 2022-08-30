@@ -41,7 +41,7 @@ functions:
     parameters:
       - name: seed
         type: uint32_t
-        default_argument: '(unit32_t)time(0)'
+        default_argument: '(uint32_t)time(0)'
     body: |
       random.set_seed(seed);
 

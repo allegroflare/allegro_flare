@@ -16,6 +16,7 @@
     "AllegroFlare/AudioController"
   ],
   "AllegroFlare/Sound": [
+    "AllegroFlare/AudioController",
     "AllegroFlare/AudioController"
   ],
   "al_is_audio_initialized": [
@@ -26,31 +27,49 @@
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
+    "AllegroFlare/BackgroundFactory",
     "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory"
   ],
   "AllegroFlare/Elements/Backgrounds/Monoplex": [
+    "AllegroFlare/BackgroundFactory",
     "AllegroFlare/BackgroundFactory"
   ],
   "AllegroFlare/Elements/Backgrounds/Image": [
+    "AllegroFlare/BackgroundFactory",
     "AllegroFlare/BackgroundFactory"
   ],
   "AllegroFlare/Placement3D": [
@@ -61,97 +80,174 @@
   ],
   "AllegroFlare/Bone3D": [
     "AllegroFlare/Bone3D",
+    "AllegroFlare/Bone3D",
+    "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Bone3DGraphRenderer"
   ],
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
     "AllegroFlare/InputHints",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
+    "AllegroFlare/Screens/RollingCredits",
+    "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
     "AllegroFlare/InputHints",
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "al_is_system_installed": [
@@ -227,16 +323,27 @@
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MultiMesh",
     "AllegroFlare/MultiMesh",
     "AllegroFlare/MultiMeshUVAtlas",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
   "tan": [
@@ -263,6 +370,7 @@
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
@@ -340,24 +448,41 @@
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_EVENT": [
@@ -365,11 +490,13 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "al_draw_multiline_text": [
@@ -418,6 +545,9 @@
   "std/vector<AllegroFlare/Elements/Backgrounds/ParallaxLayer>": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
+  "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
+    "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base"
@@ -431,11 +561,14 @@
   ],
   "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
     "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxes/Basic": [
@@ -495,11 +628,13 @@
   ],
   "AllegroFlare/Elements/DialogBoxes/Base": [
     "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
@@ -571,17 +706,22 @@
   ],
   "AllegroFlare/Inventory": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/InventoryIndex": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/InventoryIndex",
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -607,7 +747,10 @@
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationsRenderer",
+    "AllegroFlare/Notifications",
     "AllegroFlare/Notifications",
     "AllegroFlare/NotificationsFactory"
   ],
@@ -644,6 +787,7 @@
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Header": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header": [
@@ -651,10 +795,17 @@
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Base": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/Sections/Header",
+    "AllegroFlare/Screens/RollingCredits"
   ],
   "std/vector<std/tuple<std/string, std/string>>": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory",
@@ -665,17 +816,15 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header"
   ],
-  "AllegroFlare/Elements/RollingCredits/Sections/Base": [
-    "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
-    "AllegroFlare/Elements/RollingCredits/Sections/Header"
-  ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"
   ],
   "AllegroFlare/Timer": [
+    "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -717,20 +866,32 @@
   "AllegroFlare/GameEvent": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/GameEvent",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
+  ],
+  "std/vector<std/string>": [
+    "AllegroFlare/Generators/LoremIpsumGenerator",
+    "AllegroFlare/Generators/PersonNameGenerator",
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/MotionFX/Sparkles2"
   ],
   "AllegroFlare/Random": [
     "AllegroFlare/Generators/PersonNameGenerator"
@@ -745,9 +906,7 @@
     "AllegroFlare/Integrations/Network"
   ],
   "std/mutex": [
-    "AllegroFlare/Integrations/Network"
-  ],
-  "std/vector<std/string>": [
+    "AllegroFlare/Integrations/Network",
     "AllegroFlare/Integrations/Network"
   ],
   "std/atomic<bool>": [
@@ -765,6 +924,9 @@
     "AllegroFlare/Integrations/Network"
   ],
   "(void (callback)(std/string))": [
+    "AllegroFlare/Integrations/Network"
+  ],
+  "std/atomic": [
     "AllegroFlare/Integrations/Network"
   ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
@@ -807,6 +969,7 @@
   ],
   "AllegroFlare/MotionComposer/Messages/Base": [
     "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/MotionComposer/Messages/AddActor2D",
     "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition",
     "AllegroFlare/MotionComposer/Messages/SetScript"
@@ -818,6 +981,7 @@
     "AllegroFlare/MotionComposer/Messages/AddActor2D"
   ],
   "AllegroFlare/Timeline/Track": [
+    "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView"
   ],
   "AllegroFlare/Color/": [
@@ -839,15 +1003,15 @@
   ],
   "AllegroFlare/Timeline/Actors/Actor2D": [
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory"
   ],
   "ALLEGRO_VERTEX_DECL": [
+    "AllegroFlare/MultiMesh",
     "AllegroFlare/MultiMesh"
   ],
   "ALLEGRO_VERTEX_BUFFER": [
-    "AllegroFlare/MultiMesh"
-  ],
-  "ALLEGRO_INDEX_BUFFER": [
+    "AllegroFlare/MultiMesh",
     "AllegroFlare/MultiMesh"
   ],
   "AllegroFlare/MultiMeshUVAtlas": [
@@ -902,10 +1066,38 @@
   "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Room": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/Script": [
+    "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
@@ -920,12 +1112,9 @@
   "AllegroFlare/Prototypes/FixedRoom2D/Configuration": [
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
-    "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
-    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory"
   ],
   "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
@@ -942,12 +1131,11 @@
   ],
   "AllegroFlare/AudioController": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/Room": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -960,6 +1148,7 @@
   ],
   "AllegroFlare/Elements/Inventory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
@@ -990,6 +1179,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Shader": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
@@ -1013,13 +1203,11 @@
   "std/map<std/string, int>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
   ],
-  "AllegroFlare/Prototypes/FixedRoom2D/Script": [
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Achievements": [
+    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Elements/AchievementsList": [
@@ -1052,17 +1240,21 @@
   ],
   "AllegroFlare/Elements/StoryboardPages/Text": [
     "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Image": [
     "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/AdvancingText": [
     "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Screens/Storyboard": [
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/StoryboardPageFactory": [
@@ -1090,6 +1282,7 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_DISPLAY": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/chrono/milliseconds": [
@@ -1114,9 +1307,11 @@
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Useful3D/Ray": [
+    "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Useful3D/IntersectData": [
+    "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/vec2d": [

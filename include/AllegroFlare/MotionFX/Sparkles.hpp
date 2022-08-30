@@ -1,10 +1,10 @@
 #pragma once
 
 
-#include <ALLEGRO_FONT.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
 #include <cstdint>
 #include <tuple>
 #include <vector>

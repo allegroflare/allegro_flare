@@ -26,7 +26,7 @@ namespace AllegroFlare
          ~PersonNameGenerator();
 
          void initialize();
-         void randomize(uint32_t seed=(unit32_t)time(0));
+         void randomize(uint32_t seed=(uint32_t)time(0));
          std::string generate_boy_name();
          std::string generate_girl_name();
          static std::vector<std::string> build_victorian_boy_name_list();
