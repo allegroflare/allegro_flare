@@ -124,4 +124,9 @@ dependencies:
   - symbol: std::vector<std::tuple<std::string, std::string>>
     headers: [ vector, tuple, string ]
 
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+
 

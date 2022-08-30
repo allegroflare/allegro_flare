@@ -110,4 +110,17 @@ dependencies:
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Configuration*
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp ]
 
+  - symbol: AllegroFlare::Inventory
+    headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::InventoryIndex
+    headers: [ AllegroFlare/InventoryIndex.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Configuration
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Room
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+
 

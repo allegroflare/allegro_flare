@@ -601,4 +601,9 @@ dependencies:
   - symbol: std::min, std::max
     headers: [ algorithm ]
 
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+
 

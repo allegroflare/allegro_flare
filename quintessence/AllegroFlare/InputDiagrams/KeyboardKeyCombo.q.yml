@@ -284,4 +284,9 @@ dependencies:
   - symbol: AllegroFlare::InputDiagrams::KeyboardKey
     headers: [ AllegroFlare/InputDiagrams/KeyboardKey.hpp ]
 
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+
 

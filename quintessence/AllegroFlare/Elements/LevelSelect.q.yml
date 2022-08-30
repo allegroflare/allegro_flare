@@ -434,4 +434,11 @@ dependencies:
   - symbol: ALLEGRO_FLARE_EVENT_SELECT_LEVEL
     headers: [ AllegroFlare/EventNames.hpp ]
 
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+
 

@@ -4,7 +4,7 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/FontBin.hpp>
-#include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
 #include <string>
 #include <utility>
 #include <vector>

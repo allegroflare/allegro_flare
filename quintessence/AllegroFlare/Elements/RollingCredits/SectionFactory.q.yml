@@ -35,4 +35,9 @@ dependencies:
   - symbol: std::vector<std::tuple<std::string, std::string>>
     headers: [ vector, tuple, string ]
 
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
+
 

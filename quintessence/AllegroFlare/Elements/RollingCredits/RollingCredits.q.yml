@@ -178,4 +178,11 @@ dependencies:
   - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::ColumnWithLabels
     headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.hpp ]
 
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+
 

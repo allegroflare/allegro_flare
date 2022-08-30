@@ -156,4 +156,9 @@ dependencies:
   - symbol: AllegroFlare::interpolator::*
     headers: [ AllegroFlare/Interpolators.hpp ]
 
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+
 

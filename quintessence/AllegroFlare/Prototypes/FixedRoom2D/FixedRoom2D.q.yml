@@ -802,4 +802,28 @@ dependencies:
   - symbol: AllegroFlare::Shader*
     headers: [ AllegroFlare/Shader.hpp ]
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::AudioController
+    headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: AllegroFlare::GameEvent
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Room
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::Shader
+    headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+
+  
   

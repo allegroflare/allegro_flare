@@ -111,4 +111,9 @@ dependencies:
   - symbol: AllegroFlare::Elements::Notifications::AchievementUnlocked
     headers: [ AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp ]
 
+  - symbol: AllegroFlare::Elements::Notifications::Base
+    headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+
 

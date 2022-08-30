@@ -97,4 +97,7 @@ dependencies:
   - symbol: sin
     headers: [ cmath ]
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+
 
