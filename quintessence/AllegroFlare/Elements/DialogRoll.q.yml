@@ -1,0 +1,18 @@
+properties:
+
+
+  - name: log
+    type: std::vector<std::pair<std::string, std::string>>
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: std::vector<std::pair<std::string, std::string>>
+    headers: [ vector, utility, string ]
+
+

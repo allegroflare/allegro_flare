@@ -1,0 +1,50 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: dialog_roll
+    type: AllegroFlare::Elements::DialogRoll*
+    init_with: nullptr
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      return;
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Lora-Medium.ttf -28");
+
+
+  - name: obtain_italic_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Lora-MediumItalic.ttf -28");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::DialogRoll*
+    headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+
