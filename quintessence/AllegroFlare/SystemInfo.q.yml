@@ -1,0 +1,66 @@
+functions:
+
+
+  - name: allegro_flare_version
+    type: std::string
+    body: |
+      AllegroFlare::Version version;
+      return version.get_allegro_flare_version_string();
+    body_dependency_symbols:
+      - AllegroFlare::Version
+
+
+  - name: allegro_version
+    type: std::string
+    body: |
+      AllegroFlare::Version version;
+      return version.get_allegro_version_string();
+    body_dependency_symbols:
+      - AllegroFlare::Version
+
+
+  - name: num_available_threads
+    type: unsigned int
+    body: |
+      return std::thread::hardware_concurrency();
+    body_dependency_symbols:
+      - std::thread::hardware_concurrency
+
+
+  - name: num_available_threads_are_known
+    type: bool
+    body: |
+      return (std::thread::hardware_concurrency() != 0);
+    body_dependency_symbols:
+      - std::thread::hardware_concurrency
+
+
+  - name: operating_system
+    type: std::string
+    body: |
+       #ifdef _WIN32
+       return "Windows 32-bit";
+       #elif _WIN64
+       return "Windows 64-bit";
+       #elif __APPLE__ || __MACH__
+       return "MacOSX";
+       #elif __linux__
+       return "Linux";
+       #elif __FreeBSD__
+       return "FreeBSD";
+       #elif __unix || __unix__
+       return "Unix";
+       #else
+       return "Other";
+       #endif
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Version
+    headers: [ AllegroFlare/Version.hpp ]
+  - symbol: std::thread::hardware_concurrency
+    headers: [ thread ]
+
+
