@@ -54,8 +54,9 @@ TEST_F(AllegroFlare_Elements_DialogRollRendererTestWithAllegroRenderingFixture,
 {
    AllegroFlare::Elements::DialogRollRenderer dialog_roll_renderer(&get_font_bin_ref(), {
       { "Alice", "This is some dialog." },
-      { "Bob", "This is some dialog, too." },
-      { "", "I feel like I've heard this one before. Not to mention there's going to be a multiline version." },
+      { "Bob",   "This is some dialog, too." },
+      { "",      "I feel like I've heard this one before. Not to mention there's probably "
+                 "going to be a multiline version." },
    });
 
    clear();
