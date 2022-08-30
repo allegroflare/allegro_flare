@@ -59,11 +59,12 @@ TEST_F(AllegroFlare_Elements_DialogRollRendererTestWithAllegroRenderingFixture,
                  "going to be a multiline version." },
    });
 
+   AllegroFlare::Placement2D place = build_centered_placement(dialog_roll_renderer.get_width(), 500);
    clear();
+   place.start_transform();
    dialog_roll_renderer.render();
+   place.restore_transform();
    al_flip_display();
-
-   sleep(1);
 }
 
 

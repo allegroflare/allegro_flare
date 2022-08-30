@@ -20,13 +20,89 @@ DialogRollRenderer::DialogRollRenderer(AllegroFlare::FontBin* font_bin, std::vec
    : font_bin(font_bin)
    , roll(roll)
    , width(width)
-   , gutter_x(500)
+   , gutter_x(400)
+   , gutter_padding(20)
+   , speaker_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , dialog_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , internal_dialog_color(ALLEGRO_COLOR{1, 1, 1, 1})
 {
 }
 
 
 DialogRollRenderer::~DialogRollRenderer()
 {
+}
+
+
+void DialogRollRenderer::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void DialogRollRenderer::set_gutter_x(float gutter_x)
+{
+   this->gutter_x = gutter_x;
+}
+
+
+void DialogRollRenderer::set_gutter_padding(float gutter_padding)
+{
+   this->gutter_padding = gutter_padding;
+}
+
+
+void DialogRollRenderer::set_speaker_color(ALLEGRO_COLOR speaker_color)
+{
+   this->speaker_color = speaker_color;
+}
+
+
+void DialogRollRenderer::set_dialog_color(ALLEGRO_COLOR dialog_color)
+{
+   this->dialog_color = dialog_color;
+}
+
+
+void DialogRollRenderer::set_internal_dialog_color(ALLEGRO_COLOR internal_dialog_color)
+{
+   this->internal_dialog_color = internal_dialog_color;
+}
+
+
+float DialogRollRenderer::get_width() const
+{
+   return width;
+}
+
+
+float DialogRollRenderer::get_gutter_x() const
+{
+   return gutter_x;
+}
+
+
+float DialogRollRenderer::get_gutter_padding() const
+{
+   return gutter_padding;
+}
+
+
+ALLEGRO_COLOR DialogRollRenderer::get_speaker_color() const
+{
+   return speaker_color;
+}
+
+
+ALLEGRO_COLOR DialogRollRenderer::get_dialog_color() const
+{
+   return dialog_color;
+}
+
+
+ALLEGRO_COLOR DialogRollRenderer::get_internal_dialog_color() const
+{
+   return internal_dialog_color;
 }
 
 
@@ -46,17 +122,12 @@ void DialogRollRenderer::render()
       }
    float y_offset = 0;
    float cursor_y = 0 + y_offset;
-   float gutter = 20;
    ALLEGRO_FONT *text_font = obtain_font();
    ALLEGRO_FONT *internal_dialog_font = obtain_italic_font();
    for (auto &roll_item : roll)
    {
       std::string speaker = std::get<0>(roll_item);
       std::string dialog = std::get<1>(roll_item);
-      ALLEGRO_COLOR speaker_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_COLOR dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_COLOR internal_dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
-
 
       bool is_internal_speaker = speaker.empty() || speaker == AllegroFlare::Elements::DialogRoll::SPEAKER_INTERNAL;
 
@@ -71,7 +142,7 @@ void DialogRollRenderer::render()
          al_draw_multiline_text(
             text_font,
             speaker_color,
-            gutter_x-gutter,
+            gutter_x-gutter_padding,
             cursor_y,
             multiline_text_width,
             line_height,
@@ -87,7 +158,7 @@ void DialogRollRenderer::render()
       al_draw_multiline_text(
          dialog_font,
          speaker_color,
-         gutter_x+gutter,
+         gutter_x+gutter_padding,
          cursor_y,
          multiline_text_width,
          line_height,
@@ -95,6 +166,7 @@ void DialogRollRenderer::render()
          dialog.c_str()
       );
 
+      // TODO: properly increment height on each section
       cursor_y += 72;
    }
    return;

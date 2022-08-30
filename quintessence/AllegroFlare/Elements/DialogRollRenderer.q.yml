@@ -15,10 +15,38 @@ properties:
     type: float
     init_with: 1320
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: gutter_x
     type: float
-    init_with: 500
+    init_with: 400
+    getter: true
+    setter: true
+
+  - name: gutter_padding
+    type: float
+    init_with: 20
+    getter: true
+    setter: true
+
+  - name: speaker_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: dialog_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: internal_dialog_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
 
 
 functions:
@@ -30,17 +58,12 @@ functions:
     body: |
       float y_offset = 0;
       float cursor_y = 0 + y_offset;
-      float gutter = 20;
       ALLEGRO_FONT *text_font = obtain_font();
       ALLEGRO_FONT *internal_dialog_font = obtain_italic_font();
       for (auto &roll_item : roll)
       {
          std::string speaker = std::get<0>(roll_item);
          std::string dialog = std::get<1>(roll_item);
-         ALLEGRO_COLOR speaker_color = ALLEGRO_COLOR{1, 1, 1, 1};
-         ALLEGRO_COLOR dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
-         ALLEGRO_COLOR internal_dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
-
 
          bool is_internal_speaker = speaker.empty() || speaker == AllegroFlare::Elements::DialogRoll::SPEAKER_INTERNAL;
 
@@ -55,7 +78,7 @@ functions:
             al_draw_multiline_text(
                text_font,
                speaker_color,
-               gutter_x-gutter,
+               gutter_x-gutter_padding,
                cursor_y,
                multiline_text_width,
                line_height,
@@ -71,7 +94,7 @@ functions:
          al_draw_multiline_text(
             dialog_font,
             speaker_color,
-            gutter_x+gutter,
+            gutter_x+gutter_padding,
             cursor_y,
             multiline_text_width,
             line_height,
@@ -79,6 +102,7 @@ functions:
             dialog.c_str()
          );
 
+         // TODO: properly increment height on each section
          cursor_y += 72;
       }
       return;
@@ -111,6 +135,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
   - symbol: std::vector<std::pair<std::string, std::string>>
