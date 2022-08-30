@@ -8,11 +8,19 @@ properties:
     getter: true
     setter: true
 
+  - name: SPEAKER_INTERNAL
+    type: char*
+    init_with: '"internal"'
+    constexpr: true
+    static: true
+
 
 dependencies:
 
 
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
+  - symbol: char*
+    headers: [ ]
 
 

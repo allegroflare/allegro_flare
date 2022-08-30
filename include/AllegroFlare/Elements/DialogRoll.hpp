@@ -12,6 +12,9 @@ namespace AllegroFlare
    {
       class DialogRoll
       {
+      public:
+         static constexpr char* SPEAKER_INTERNAL = "internal";
+
       private:
          std::vector<std::pair<std::string, std::string>> log;
 

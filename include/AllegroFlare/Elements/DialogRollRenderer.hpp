@@ -1,9 +1,11 @@
 #pragma once
 
 
-#include <AllegroFlare/Elements/DialogRoll.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro_font.h>
+#include <string>
+#include <utility>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -14,10 +16,12 @@ namespace AllegroFlare
       {
       private:
          AllegroFlare::FontBin* font_bin;
-         AllegroFlare::Elements::DialogRoll* dialog_roll;
+         std::vector<std::pair<std::string, std::string>> roll;
+         float gutter_x;
+         float width;
 
       public:
-         DialogRollRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Elements::DialogRoll* dialog_roll=nullptr);
+         DialogRollRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> roll={});
          ~DialogRollRenderer();
 
          void render();

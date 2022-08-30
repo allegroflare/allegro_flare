@@ -6,10 +6,18 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: dialog_roll
-    type: AllegroFlare::Elements::DialogRoll*
-    init_with: nullptr
+  - name: roll
+    type: std::vector<std::pair<std::string, std::string>>
+    init_with: '{}'
     constructor_arg: true
+
+  - name: gutter_x
+    type: float
+    init_with: 500
+
+  - name: width
+    type: float
+    init_with: 1500
 
 
 functions:
@@ -19,7 +27,58 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      float y_offset = 0;
+      float cursor_y = 0 + y_offset;
+      float gutter = 20;
+      ALLEGRO_FONT *text_font = obtain_font();
+      ALLEGRO_FONT *internal_dialog_font = obtain_italic_font();
+      for (auto &roll_item : roll)
+      {
+         std::string speaker = std::get<0>(roll_item);
+         std::string dialog = std::get<1>(roll_item);
+         ALLEGRO_COLOR speaker_color = ALLEGRO_COLOR{1, 1, 1, 1};
+         ALLEGRO_COLOR dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
+         ALLEGRO_COLOR internal_dialog_color = ALLEGRO_COLOR{1, 1, 1, 1};
+
+         bool is_internal_speaker = speaker.empty() || speaker == AllegroFlare::Elements::DialogRoll::SPEAKER_INTERNAL;
+
+         ALLEGRO_FONT *dialog_font = is_internal_speaker ? internal_dialog_font : text_font;
+
+         if (!is_internal_speaker)
+         {
+            float multiline_text_width = width - gutter_x;
+            float line_height = al_get_font_line_height(text_font);
+            al_draw_multiline_text(
+               text_font,
+               speaker_color,
+               gutter_x-gutter,
+               cursor_y,
+               multiline_text_width,
+               line_height,
+               ALLEGRO_ALIGN_RIGHT,
+               speaker.c_str()
+            );
+         }
+
+         float multiline_text_width = gutter_x;
+         float line_height = al_get_font_line_height(text_font);
+
+         al_draw_multiline_text(
+            dialog_font,
+            speaker_color,
+            gutter_x+gutter,
+            cursor_y,
+            multiline_text_width,
+            line_height,
+            ALLEGRO_ALIGN_LEFT,
+            dialog.c_str()
+         );
+
+         cursor_y += 72;
+      }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogRoll
 
 
   - name: obtain_font
@@ -27,7 +86,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Lora-Medium.ttf -28");
+      return font_bin->auto_get("Lora-Medium.ttf -48");
 
 
   - name: obtain_italic_font
@@ -35,16 +94,21 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Lora-MediumItalic.ttf -28");
+      return font_bin->auto_get("Lora-MediumItalic.ttf -48");
 
 
 dependencies:
 
 
+  - symbol: AllegroFlare::Elements::DialogRoll
+    headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
   - symbol: AllegroFlare::Elements::DialogRoll*
     headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT*
     headers: [ allegro5/allegro_font.h ]
+  - symbol: std::vector<std::pair<std::string, std::string>>
+    headers: [ vector, utility, string ]
+
 

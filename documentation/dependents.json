@@ -448,6 +448,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogRoll",
+    "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/InputHints",
     "AllegroFlare/Screens/GameOverScreen",
@@ -539,7 +540,12 @@
     "AllegroFlare/InputHints",
     "AllegroFlare/UnicodeFontViewer"
   ],
+  "char": [
+    "AllegroFlare/Elements/DialogRoll",
+    "AllegroFlare/Network2/Message"
+  ],
   "AllegroFlare/Elements/DialogRoll": [
+    "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer"
   ],
   "AllegroFlare/Elements/Base": [
@@ -853,9 +859,6 @@
     "AllegroFlare/MultiMeshUVAtlas"
   ],
   "chat_message": [
-    "AllegroFlare/Network2/Message"
-  ],
-  "char": [
     "AllegroFlare/Network2/Message"
   ],
   "AllegroFlare/EncoderDecoders/Base62": [
