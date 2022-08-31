@@ -195,5 +195,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: 'AllegroFlare::Interpolators::'
+    headers: [ AllegroFlare/Interpolators.hpp ]
 
 

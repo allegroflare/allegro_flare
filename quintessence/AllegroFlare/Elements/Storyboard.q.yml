@@ -303,5 +303,11 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
+  - symbol: 'AllegroFlare::interpolator::'
+    headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: std::min
+    headers: [ algorithm ]
+  - symbol: std::max
+    headers: [ algorithm ]
 
 

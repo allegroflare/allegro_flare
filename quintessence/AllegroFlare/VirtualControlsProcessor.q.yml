@@ -74,7 +74,7 @@ functions:
       return result_button_map;
     body_dependency_symbols:
       - AllegroFlare::VirtualControls
-      - ALLEGRO_KEY_*
+      - ALLEGRO_KEY_
 
 
   - name: handle_raw_keyboard_key_down_event
@@ -280,7 +280,7 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: ALLEGRO_EVENT
     headers: [ allegro5/allegro.h ]
-  - symbol: ALLEGRO_KEY_*
+  - symbol: ALLEGRO_KEY_
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::VirtualControls
     headers: [ AllegroFlare/VirtualControls.hpp ]

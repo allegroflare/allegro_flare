@@ -268,5 +268,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
+  - symbol: 'AllegroFlare::Color::'
+    headers: [ AllegroFlare/Color.hpp ]
 
   

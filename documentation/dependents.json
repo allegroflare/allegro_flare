@@ -420,6 +420,23 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Screens/Achievements"
   ],
+  "std/min": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/HealthBars/Basic",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/EncoderDecoders/Base62"
+  ],
+  "std/max": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/HealthBars/Basic",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Image"
+  ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",
@@ -518,7 +535,10 @@
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image"
   ],
   "fmod": [
@@ -562,11 +582,13 @@
   "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
@@ -575,7 +597,10 @@
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogButton"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -651,7 +676,11 @@
   ],
   "AllegroFlare/Interpolators/": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2"
   ],
   "al_color_name": [
@@ -676,6 +705,11 @@
     "AllegroFlare/InputHints",
     "AllegroFlare/UnicodeFontViewer"
   ],
+  "AllegroFlare/interpolator": [
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
+  ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
@@ -690,13 +724,6 @@
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
-  ],
-  "std/min": [
-    "AllegroFlare/Elements/HealthBars/Basic",
-    "AllegroFlare/EncoderDecoders/Base62"
-  ],
-  "std/max": [
-    "AllegroFlare/Elements/HealthBars/Basic"
   ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
@@ -737,10 +764,6 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/InventoryIndexItem"
-  ],
-  "AllegroFlare/interpolator": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -986,7 +1009,10 @@
   ],
   "AllegroFlare/Color/": [
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Room"
   ],
   "AllegroFlare/Color/Gold": [
@@ -1170,6 +1196,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader": [
@@ -1245,10 +1272,12 @@
   ],
   "AllegroFlare/Elements/StoryboardPages/Image": [
     "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/AdvancingText": [
+    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"

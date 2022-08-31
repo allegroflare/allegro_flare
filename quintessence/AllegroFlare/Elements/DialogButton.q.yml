@@ -120,7 +120,7 @@ functions:
       - AllegroFlare::Placement2D
       - al_draw_rounded_rectangle
       - al_is_ttf_addon_initialized
-      - AllegroFlare::interpolator::*
+      - AllegroFlare::interpolator
       - std::min, std::max
 
 
@@ -160,5 +160,15 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::interpolator
+    headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: std::min
+    headers: [ algorithm ]
+  - symbol: std::max
+    headers: [ algorithm ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Basic
+    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
+  - symbol: 'AllegroFlare::Interpolators::'
+    headers: [ AllegroFlare/Interpolators.hpp ]
 
 

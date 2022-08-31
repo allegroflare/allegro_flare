@@ -11,12 +11,14 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <algorithm>
+#include <algorithm>
 #include <stdexcept>
 #include <sstream>
 #include <cmath>
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Interpolators.hpp>
+#include <algorithm>
 #include <algorithm>
 #include <stdexcept>
 #include <sstream>

@@ -175,5 +175,10 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Base
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
-
+  - symbol: AllegroFlare::Elements::DialogBoxes::Basic
+    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Choice
+    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
 

@@ -225,5 +225,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Timeline::Track
     headers: [ AllegroFlare/Timeline/Track.hpp ]
+  - symbol: 'AllegroFlare::Color::'
+    headers: [ AllegroFlare/Color.hpp ]
 
 

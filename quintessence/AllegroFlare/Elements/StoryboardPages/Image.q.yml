@@ -209,5 +209,17 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: std::min
+    headers: [ algorithm ]
+  - symbol: std::max
+    headers: [ algorithm ]
+  - symbol: std::min
+    headers: [ algorithm ]
+  - symbol: std::max
+    headers: [ algorithm ]
+  - symbol: 'AllegroFlare::interpolator::'
+    headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: 'AllegroFlare::interpolator::'
+    headers: [ AllegroFlare/Interpolators.hpp ]
 
 

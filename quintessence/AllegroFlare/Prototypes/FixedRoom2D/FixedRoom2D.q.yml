@@ -824,6 +824,9 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
-
+  - symbol: 'AllegroFlare::Color::'
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: 'AllegroFlare::Prototypes::FixedRoom2D::EventNames::'
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
   
   

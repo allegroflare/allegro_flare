@@ -286,5 +286,9 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Basic
+    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
+  - symbol: 'AllegroFlare::Interpolators::'
+    headers: [ AllegroFlare/Interpolators.hpp ]
 
 

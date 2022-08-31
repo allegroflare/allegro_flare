@@ -149,4 +149,8 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::Image
+    headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText
+    headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
 
