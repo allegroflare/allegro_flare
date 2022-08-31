@@ -1,10 +1,11 @@
 
 
 #include <AllegroFlare/Elements/PlayingCards/Deck.hpp>
-#include <random>
+
 #include <algorithm>
-#include <stdexcept>
+#include <random>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -80,6 +81,8 @@ int Deck::num_cards()
 {
    return cards.size();
 }
+
+
 } // namespace PlayingCards
 } // namespace Elements
 } // namespace AllegroFlare

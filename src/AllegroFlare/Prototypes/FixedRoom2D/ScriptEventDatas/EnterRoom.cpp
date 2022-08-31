@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Prototypes
@@ -36,6 +37,8 @@ std::string EnterRoom::get_room_dictionary_name_to_enter() const
 {
    return room_dictionary_name_to_enter;
 }
+
+
 
 
 } // namespace ScriptEventDatas

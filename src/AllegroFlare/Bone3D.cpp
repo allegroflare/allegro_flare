@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 
@@ -43,6 +44,8 @@ void Bone3D::add_child(AllegroFlare::Bone3D* bone)
    children.push_back(bone);
    return;
 }
+
+
 } // namespace AllegroFlare
 
 

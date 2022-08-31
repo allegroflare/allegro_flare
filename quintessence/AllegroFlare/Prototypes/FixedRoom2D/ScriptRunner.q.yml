@@ -378,7 +378,7 @@ functions:
 
 
   - name: tokenize
-    private: true
+    xprivate: true
     static: true
     type: std::vector<std::string>
     parameters:
@@ -396,7 +396,7 @@ functions:
 
   - name: assert_min_token_count
     type: bool
-    private: true
+    xprivate: true
     static: true
     parameters:
       - name: tokens
@@ -411,7 +411,7 @@ functions:
 
   - name: assert_token_count_eq
     type: bool
-    private: true
+    xprivate: true
     static: true
     parameters:
       - name: tokens
@@ -426,7 +426,7 @@ functions:
 
   - name: assert_odd_token_count
     type: bool
-    private: true
+    xprivate: true
     static: true
     parameters:
       - name: tokens

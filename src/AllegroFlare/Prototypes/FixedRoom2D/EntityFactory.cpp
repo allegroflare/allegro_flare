@@ -1,10 +1,9 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -62,6 +61,8 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_ent
 
    return result;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

@@ -1,74 +1,23 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
+#include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
-#include <stdexcept>
-#include <sstream>
+#include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
 #include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
-#include <AllegroFlare/Elements/DialogBoxFactory.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -862,6 +811,8 @@ void FixedRoom2D::move_cursor(float distance_x, float distance_y)
    }
    return;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

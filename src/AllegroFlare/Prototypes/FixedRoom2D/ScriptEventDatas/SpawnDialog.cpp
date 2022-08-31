@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Prototypes
@@ -36,6 +37,8 @@ std::vector<std::string> SpawnDialog::get_dialog_pages() const
 {
    return dialog_pages;
 }
+
+
 
 
 } // namespace ScriptEventDatas

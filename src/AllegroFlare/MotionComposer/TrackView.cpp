@@ -1,16 +1,11 @@
 
 
 #include <AllegroFlare/MotionComposer/TrackView.hpp>
+
 #include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro_primitives.h>
-#include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -274,6 +269,8 @@ ALLEGRO_FONT* TrackView::obtain_track_values_font()
    }
    return font_bin->auto_get("Inter-Medium.ttf -20");
 }
+
+
 } // namespace MotionComposer
 } // namespace AllegroFlare
 

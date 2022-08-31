@@ -1,12 +1,10 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+
 #include <allegro5/allegro.h>
-#include <stdexcept>
 #include <sstream>
-#include <allegro5/allegro.h>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -197,6 +195,8 @@ bool Basic::all_characters_are_revealed()
    if (!current_page_is_valid()) return true;
    return num_revealed_characters >= get_current_page_num_chars();
 }
+
+
 } // namespace DialogBoxes
 } // namespace Elements
 } // namespace AllegroFlare

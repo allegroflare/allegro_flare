@@ -1,10 +1,11 @@
 
 
 #include <AllegroFlare/Elements/NotificationsRenderer.hpp>
-#include <AllegroFlare/Placement2D.hpp>
+
 #include <AllegroFlare/Elements/NotificationRenderer.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Placement2D.hpp>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -147,6 +148,8 @@ void NotificationsRenderer::render()
    place.restore_transform();
    return;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

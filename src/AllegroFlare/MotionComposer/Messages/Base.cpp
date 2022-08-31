@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace MotionComposer
@@ -33,6 +34,8 @@ bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());
 }
+
+
 } // namespace Messages
 } // namespace MotionComposer
 } // namespace AllegroFlare

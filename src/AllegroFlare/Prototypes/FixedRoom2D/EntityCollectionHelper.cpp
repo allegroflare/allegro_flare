@@ -1,22 +1,11 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <map>
+
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 #include <map>
-#include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
-#include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -180,6 +169,8 @@ std::vector<std::string> EntityCollectionHelper::select_all_entity_names_in_room
    }
    return result;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

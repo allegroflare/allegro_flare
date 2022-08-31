@@ -1,9 +1,10 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
+
 #include <allegro5/allegro.h>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -64,6 +65,8 @@ bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());
 }
+
+
 } // namespace DialogBoxes
 } // namespace Elements
 } // namespace AllegroFlare

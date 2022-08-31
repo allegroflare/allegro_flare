@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -58,6 +59,8 @@ void Base::hide()
 {
    return;
 }
+
+
 } // namespace Backgrounds
 } // namespace Elements
 } // namespace AllegroFlare

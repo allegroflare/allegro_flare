@@ -1,8 +1,9 @@
 
 
 #include <AllegroFlare/Timeline/ActorFactory.hpp>
-#include <stdexcept>
+
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -50,6 +51,8 @@ AllegroFlare::Timeline::Actors::Actor2D* ActorFactory::create_actor2d_with_scrip
    if (!script.empty()) result->load_script(script);
    return result;
 }
+
+
 } // namespace Timeline
 } // namespace AllegroFlare
 

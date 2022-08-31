@@ -1,13 +1,10 @@
 
 
 #include <AllegroFlare/Screens/GameWonScreen.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/VirtualControls.hpp>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -148,6 +145,8 @@ void GameWonScreen::virtual_control_button_down_func(int player_num, int button_
    //if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
    //if (button_num == VirtualControls::get_BUTTON_A()) select_menu_option();
 }
+
+
 } // namespace Screens
 } // namespace AllegroFlare
 

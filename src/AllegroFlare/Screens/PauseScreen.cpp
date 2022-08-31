@@ -1,26 +1,13 @@
 
 
 #include <AllegroFlare/Screens/PauseScreen.hpp>
+
 #include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 #include <AllegroFlare/Placement2D.hpp>
-#include <allegro5/allegro_primitives.h>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 #include <AllegroFlare/VirtualControls.hpp>
+#include <allegro5/allegro_primitives.h>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -594,6 +581,8 @@ std::vector<std::pair<std::string, std::string>> PauseScreen::build_default_menu
    result = { { "Resume", "unpause_game" }, { "Exit to title screen", "go_to_title_screen" }, { "Quit", "exit_game" } };
    return result;
 }
+
+
 } // namespace Screens
 } // namespace AllegroFlare
 

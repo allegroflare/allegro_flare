@@ -1,14 +1,9 @@
 
 
 #include <AllegroFlare/Screens/RollingCredits.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -243,6 +238,8 @@ void RollingCredits::primary_timer_func()
    render();
    return;
 }
+
+
 } // namespace Screens
 } // namespace AllegroFlare
 

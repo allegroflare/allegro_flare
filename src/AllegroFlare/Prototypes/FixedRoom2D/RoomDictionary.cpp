@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Prototypes
@@ -26,6 +27,8 @@ std::string RoomDictionary::run()
 {
    return "Hello World!";
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

@@ -1,33 +1,10 @@
 
 
 #include <AllegroFlare/EventEmitter.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -236,6 +213,8 @@ void EventEmitter::TODO()
    // note this class is based on DragonWrath/UserEventEmitter
    return;
 }
+
+
 } // namespace AllegroFlare
 
 

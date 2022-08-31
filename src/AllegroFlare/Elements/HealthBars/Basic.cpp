@@ -1,10 +1,11 @@
 
 
 #include <AllegroFlare/Elements/HealthBars/Basic.hpp>
-#include <allegro5/allegro_primitives.h>
+
 #include <algorithm>
-#include <stdexcept>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -144,6 +145,8 @@ void Basic::render()
    get_placement_ref().restore_transform();
    return;
 }
+
+
 } // namespace HealthBars
 } // namespace Elements
 } // namespace AllegroFlare

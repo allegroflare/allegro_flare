@@ -1,11 +1,11 @@
 
 
 #include <AllegroFlare/Generators/LoremIpsumGenerator.hpp>
+
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <sstream>
-#include <vector>
 #include <string>
-#include <sstream>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -419,6 +419,8 @@ std::string LoremIpsumGenerator::join(std::vector<std::string> tokens, std::stri
 
    return result.str();
 }
+
+
 } // namespace Generators
 } // namespace AllegroFlare
 

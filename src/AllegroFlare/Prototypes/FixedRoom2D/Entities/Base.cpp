@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Prototypes
@@ -169,6 +170,8 @@ void Base::on_cursor_leave()
    cursor_exited_at = al_get_time();
    return;
 }
+
+
 } // namespace Entities
 } // namespace FixedRoom2D
 } // namespace Prototypes

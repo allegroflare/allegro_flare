@@ -1,19 +1,12 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
+
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
-#include <stdexcept>
-#include <sstream>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
-#include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -239,6 +232,8 @@ std::string ChoiceRenderer::concat_text(std::string source_text, int length)
 {
    return source_text.substr(0, length);
 }
+
+
 } // namespace DialogBoxRenderers
 } // namespace Elements
 } // namespace AllegroFlare

@@ -1,8 +1,9 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
-#include <stdexcept>
+
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -107,6 +108,8 @@ AllegroFlare::Prototypes::FixedRoom2D::Room* RoomFactory::create_room(float widt
 
    return result;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

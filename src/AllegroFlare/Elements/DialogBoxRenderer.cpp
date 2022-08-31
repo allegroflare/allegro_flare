@@ -1,19 +1,20 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
-#include <AllegroFlare/Placement2D.hpp>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_color.h>
+
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
+#include <AllegroFlare/Placement2D.hpp>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -164,6 +165,8 @@ void DialogBoxRenderer::render()
 
    return;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

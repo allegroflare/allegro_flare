@@ -1,9 +1,10 @@
 
 
 #include <AllegroFlare/TimeStamper.hpp>
-#include <sstream>
+
 #include <ctime>
 #include <iomanip>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -28,6 +29,8 @@ std::string TimeStamper::generate_now_timestamp_utc()
    result << std::put_time(std::gmtime(&time_now), "%y%m%d%OH%OM%OS%Z");
    return result.str();
 }
+
+
 } // namespace AllegroFlare
 
 

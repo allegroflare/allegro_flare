@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -36,6 +37,8 @@ std::string Header::get_text() const
 {
    return text;
 }
+
+
 
 
 } // namespace Sections

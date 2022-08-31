@@ -1,20 +1,13 @@
 
 
 #include <AllegroFlare/UnicodeFontViewer.hpp>
+
 #include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
-#include <stdexcept>
-#include <sstream>
 #include <iomanip>
 #include <sstream>
-#include <iomanip>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -229,6 +222,8 @@ ALLEGRO_FONT* UnicodeFontViewer::obtain_ui_font_mini()
    }
    return font_bin->auto_get("Inter-Medium.ttf 10");
 }
+
+
 } // namespace AllegroFlare
 
 

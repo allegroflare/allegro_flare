@@ -1,10 +1,9 @@
 
 
 #include <AllegroFlare/BackgroundFactory.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -47,6 +46,8 @@ AllegroFlare::Elements::Backgrounds::Image* BackgroundFactory::create_image(std:
       new AllegroFlare::Elements::Backgrounds::Image(bitmap_bin, image_identifier);
    return image_background;
 }
+
+
 } // namespace AllegroFlare
 
 

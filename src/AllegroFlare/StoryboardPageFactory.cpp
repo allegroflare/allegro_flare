@@ -1,13 +1,11 @@
 
 
 #include <AllegroFlare/StoryboardPageFactory.hpp>
-#include <AllegroFlare/Elements/StoryboardPages/Text.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Elements/StoryboardPages/Text.hpp>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
+#include <AllegroFlare/Elements/StoryboardPages/Text.hpp>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -57,6 +55,8 @@ AllegroFlare::Elements::StoryboardPages::Image* StoryboardPageFactory::create_im
 {
    return new AllegroFlare::Elements::StoryboardPages::Image(image);
 }
+
+
 } // namespace AllegroFlare
 
 

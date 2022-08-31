@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/SystemInfo.hpp>
+
 #include <AllegroFlare/Version.hpp>
 #include <thread>
 
@@ -59,6 +60,8 @@ std::string SystemInfo::operating_system()
    return "Other";
    #endif
 }
+
+
 } // namespace AllegroFlare
 
 

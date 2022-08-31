@@ -1,10 +1,9 @@
 
 
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -156,6 +155,8 @@ ALLEGRO_FONT* Header::obtain_font()
    font_identifier << font_name << " " << font_size;
    return font_bin->auto_get(font_identifier.str());
 }
+
+
 } // namespace SectionRenderers
 } // namespace RollingCredits
 } // namespace Elements

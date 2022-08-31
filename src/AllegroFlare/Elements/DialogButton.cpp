@@ -1,15 +1,16 @@
 
 
 #include <AllegroFlare/Elements/DialogButton.hpp>
-#include <cmath>
+
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Placement2D.hpp>
+#include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
-#include <AllegroFlare/Interpolators.hpp>
-#include <algorithm>
-#include <stdexcept>
+#include <cmath>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -199,6 +200,8 @@ ALLEGRO_FONT* DialogButton::obtain_button_font()
    composite_font_str << font_name << " " << text_font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

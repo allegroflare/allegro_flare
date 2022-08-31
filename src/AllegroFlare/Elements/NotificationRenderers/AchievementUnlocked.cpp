@@ -1,16 +1,11 @@
 
 
 #include <AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <allegro5/allegro_primitives.h>
+
 #include <allegro5/allegro_font.h>
-#include <stdexcept>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -303,6 +298,8 @@ void AchievementUnlocked::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COL
    al_draw_ustr(font, color, x, y, flags, ustr);
    return;
 }
+
+
 } // namespace NotificationRenderers
 } // namespace Elements
 } // namespace AllegroFlare

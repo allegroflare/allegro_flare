@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -36,6 +37,8 @@ std::vector<std::tuple<std::string, std::string>> ColumnWithLabels::get_elements
 {
    return elements;
 }
+
+
 
 
 } // namespace Sections

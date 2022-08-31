@@ -1,14 +1,13 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
-#include <allegro5/allegro_color.h>
+
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
-#include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Interpolators.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Placement2D.hpp>
+#include <allegro5/allegro_color.h>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -187,6 +186,8 @@ ALLEGRO_COLOR YouGotAnItemRenderer::opaquify(ALLEGRO_COLOR color)
       color.b *= color.a;
    return color;
 }
+
+
 } // namespace DialogBoxRenderers
 } // namespace Elements
 } // namespace AllegroFlare

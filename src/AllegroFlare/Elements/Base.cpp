@@ -1,8 +1,9 @@
 
 
 #include <AllegroFlare/Elements/Base.hpp>
-#include <stdexcept>
+
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -51,6 +52,8 @@ void Base::render()
    }
    return;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

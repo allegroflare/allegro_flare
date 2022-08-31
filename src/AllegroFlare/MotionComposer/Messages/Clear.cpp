@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace MotionComposer
@@ -21,6 +22,8 @@ Clear::Clear()
 Clear::~Clear()
 {
 }
+
+
 
 
 } // namespace Messages

@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace GameEventDatas
@@ -31,6 +32,8 @@ std::string Base::get_type() const
 {
    return type;
 }
+
+
 
 
 } // namespace GameEventDatas

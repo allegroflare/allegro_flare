@@ -1,17 +1,10 @@
 
 
 #include <AllegroFlare/Screens/Storyboard.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/VirtualControls.hpp>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -179,6 +172,8 @@ void Storyboard::virtual_control_button_down_func(int player_num, int button_num
 
    return;
 }
+
+
 } // namespace Screens
 } // namespace AllegroFlare
 

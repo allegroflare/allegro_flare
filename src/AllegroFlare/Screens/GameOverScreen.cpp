@@ -1,15 +1,10 @@
 
 
 #include <AllegroFlare/Screens/GameOverScreen.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/VirtualControls.hpp>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -235,6 +230,8 @@ void GameOverScreen::virtual_control_button_down_func(int player_num, int button
       select_menu_option();
    }
 }
+
+
 } // namespace Screens
 } // namespace AllegroFlare
 

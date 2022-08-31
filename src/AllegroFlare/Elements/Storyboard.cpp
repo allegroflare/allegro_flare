@@ -1,18 +1,16 @@
 
 
 #include <AllegroFlare/Elements/Storyboard.hpp>
-#include <allegro5/allegro_font.h>
+
 #include <AllegroFlare/Color.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <cmath>
-#include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Placement2D.hpp>
-#include <allegro5/allegro_primitives.h>
 #include <AllegroFlare/Interpolators.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <algorithm>
-#include <stdexcept>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_primitives.h>
+#include <cmath>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -302,6 +300,8 @@ ALLEGRO_FONT* Storyboard::obtain_next_button_font()
    composite_font_str << font_name << " " << button_font_size+20;
    return font_bin->auto_get(composite_font_str.str());
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

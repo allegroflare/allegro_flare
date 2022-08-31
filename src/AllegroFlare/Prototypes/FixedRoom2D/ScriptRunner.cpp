@@ -1,17 +1,14 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
+
+#include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
+#include <iostream>
 #include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -450,6 +447,8 @@ std::string ScriptRunner::trim(std::string s)
    s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
    return s;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

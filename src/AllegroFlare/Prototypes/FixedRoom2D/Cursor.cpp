@@ -1,12 +1,9 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -193,6 +190,8 @@ void Cursor::draw_info_text()
    al_draw_text(info_text_font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0, info_text_flags, info_text.c_str());
    return;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

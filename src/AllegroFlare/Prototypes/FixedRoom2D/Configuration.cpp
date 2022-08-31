@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Prototypes
@@ -172,6 +173,8 @@ std::string &Configuration::get_starting_in_room_identifier_ref()
 {
    return starting_in_room_identifier;
 }
+
+
 
 
 } // namespace FixedRoom2D

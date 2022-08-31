@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/GameEvent.hpp>
+
 #include <iostream>
 
 
@@ -51,6 +52,8 @@ bool GameEvent::is_type(std::string possible_type)
 {
    return (type == possible_type);
 }
+
+
 } // namespace AllegroFlare
 
 

@@ -1,14 +1,13 @@
 
 
 #include <AllegroFlare/Bone3DGraphRenderer.hpp>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_font.h>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/Useful3D/Useful3D.hpp>
-#include <stdexcept>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -83,6 +82,8 @@ void Bone3DGraphRenderer::render_recursive(AllegroFlare::Bone3D* bone)
    bone->restore_transform();
    return;
 }
+
+
 } // namespace AllegroFlare
 
 

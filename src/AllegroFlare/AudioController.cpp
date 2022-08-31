@@ -1,23 +1,12 @@
 
 
 #include <AllegroFlare/AudioController.hpp>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/TerminalColors.hpp>
+#include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_audio.h>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -395,6 +384,8 @@ void AudioController::dump_to_cout()
       std::cout << "{ identifier: \"" << identifier << "\", source: \"" << filename << "\" }" << std::endl;
    }
 }
+
+
 } // namespace AllegroFlare
 
 

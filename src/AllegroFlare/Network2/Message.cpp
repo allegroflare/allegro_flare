@@ -1,14 +1,13 @@
 
 
 #include <AllegroFlare/Network2/Message.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-#include <AllegroFlare/SHA2.hpp>
+
 #include <AllegroFlare/EncoderDecoders/Base62.hpp>
 #include <AllegroFlare/Network2/inc/chat_message.hpp>
+#include <AllegroFlare/SHA2.hpp>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -187,6 +186,8 @@ void Message::ignore()
 {
    return;
 }
+
+
 } // namespace Network2
 } // namespace AllegroFlare
 

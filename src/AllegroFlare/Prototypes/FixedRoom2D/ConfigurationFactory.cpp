@@ -1,10 +1,11 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
+
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -135,6 +136,8 @@ AllegroFlare::Prototypes::FixedRoom2D::Configuration ConfigurationFactory::load_
 
    return result;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

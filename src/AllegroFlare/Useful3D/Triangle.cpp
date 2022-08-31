@@ -1,12 +1,10 @@
 
 
 #include <AllegroFlare/Useful3D/Triangle.hpp>
+
 #include <AllegroFlare/Useful.hpp>
-#include <stdexcept>
 #include <sstream>
-#include <AllegroFlare/Useful.hpp>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -79,6 +77,8 @@ void Triangle::draw(ALLEGRO_COLOR color)
    al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
    return;
 }
+
+
 } // namespace Useful3D
 } // namespace AllegroFlare
 

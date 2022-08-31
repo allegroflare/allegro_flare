@@ -1,14 +1,12 @@
 
 
 #include <AllegroFlare/MotionComposer/MessageFactory.hpp>
-#include <lib/nlohmann/json.hpp>
+
+#include <AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp>
+#include <AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp>
-#include <lib/nlohmann/json.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp>
 #include <lib/nlohmann/json.hpp>
-#include <AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp>
-#include <lib/nlohmann/json.hpp>
-#include <AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp>
 
 
 namespace AllegroFlare
@@ -62,6 +60,8 @@ std::string MessageFactory::build_add_actor2d_with_script_message_json(std::stri
    json["message"]["type"] = message.get_type();
    return json.dump(2);
 }
+
+
 } // namespace MotionComposer
 } // namespace AllegroFlare
 

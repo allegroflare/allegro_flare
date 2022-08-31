@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace MotionComposer
@@ -40,6 +41,8 @@ float &SetPlayheadPosition::get_position_ref()
 {
    return position;
 }
+
+
 
 
 } // namespace Messages

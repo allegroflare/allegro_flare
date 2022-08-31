@@ -1,20 +1,11 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -243,6 +234,8 @@ bool Script::is_valid_command_string(std::string command)
    // remaining characters must be alpha-in-caps, numeric, or underscore
    return command.find_first_not_of(VALID_SUBSEQUENT_CHARACTERS) == std::string::npos;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

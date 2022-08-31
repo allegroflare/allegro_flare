@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 
@@ -315,6 +316,8 @@ void VirtualControls::clear()
    start_button_pressed = false;
    return;
 }
+
+
 } // namespace AllegroFlare
 
 

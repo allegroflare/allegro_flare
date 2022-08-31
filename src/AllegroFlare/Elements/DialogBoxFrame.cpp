@@ -1,12 +1,13 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
+
 #include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
-#include <stdexcept>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -135,6 +136,8 @@ void DialogBoxFrame::render()
 
    return;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

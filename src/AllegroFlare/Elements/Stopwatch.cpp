@@ -1,15 +1,10 @@
 
 
 #include <AllegroFlare/Elements/Stopwatch.hpp>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/TimerFormatter.hpp>
-#include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -134,6 +129,8 @@ ALLEGRO_FONT* Stopwatch::obtain_font()
    }
    return font_bin->auto_get("DroidSans.ttf -74");
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -72,6 +73,8 @@ ALLEGRO_BITMAP* ParallaxLayer::get_bitmap() const
 {
    return bitmap;
 }
+
+
 
 
 } // namespace Backgrounds

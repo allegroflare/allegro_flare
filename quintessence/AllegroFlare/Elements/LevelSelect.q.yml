@@ -261,7 +261,7 @@ functions:
 
 
   - name: draw_selection_cursor
-    private: true
+    xprivate: true
     parameters:
       - name: x
         type: float
@@ -334,7 +334,7 @@ functions:
 
 
   - name: activate_selected_menu_option
-    private: true
+    xprivate: true
     guards: [ event_emitter ]
     body: |
       if (list_is_empty())

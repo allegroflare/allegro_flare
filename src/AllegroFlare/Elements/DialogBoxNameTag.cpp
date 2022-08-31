@@ -1,15 +1,13 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxNameTag.hpp>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_color.h>
+
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
-#include <stdexcept>
-#include <sstream>
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_color.h>
-#include <stdexcept>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -114,6 +112,8 @@ ALLEGRO_FONT* DialogBoxNameTag::obtain_dialog_font()
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

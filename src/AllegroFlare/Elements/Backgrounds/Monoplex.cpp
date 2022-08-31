@@ -1,10 +1,11 @@
 
 
 #include <AllegroFlare/Elements/Backgrounds/Monoplex.hpp>
+
 #include <AllegroFlare/Placement2D.hpp>
 #include <cmath>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -82,6 +83,8 @@ void Monoplex::render()
 
    return;
 }
+
+
 } // namespace Backgrounds
 } // namespace Elements
 } // namespace AllegroFlare

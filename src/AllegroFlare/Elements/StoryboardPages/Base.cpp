@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -61,6 +62,8 @@ void Base::advance()
 {
    return;
 }
+
+
 } // namespace StoryboardPages
 } // namespace Elements
 } // namespace AllegroFlare

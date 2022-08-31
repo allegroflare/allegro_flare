@@ -1,21 +1,14 @@
 
 
 #include <AllegroFlare/Elements/AchievementsList.hpp>
-#include <AllegroFlare/Placement2D.hpp>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/Elements/Scrollbar.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <algorithm>
-#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
-#include <stdexcept>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -557,6 +550,8 @@ void AchievementsList::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR 
    al_draw_ustr(font, color, x, y, flags, ustr);
    return;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

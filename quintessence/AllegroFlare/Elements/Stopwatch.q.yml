@@ -33,7 +33,6 @@ functions:
 
   - name: fit_placement_width_and_height_to_stopwatch
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
-    private: true
     guards: [ timer ]
     body: |
       std::string ellapsed_time_str = build_ellapsed_time_str();

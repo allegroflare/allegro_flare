@@ -1,9 +1,10 @@
 
 
 #include <AllegroFlare/Elements/Backgrounds/Parallax.hpp>
+
 #include <AllegroFlare/Useful.hpp>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -89,6 +90,8 @@ void Parallax::render()
    }
    return;
 }
+
+
 } // namespace Backgrounds
 } // namespace Elements
 } // namespace AllegroFlare

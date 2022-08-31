@@ -1,8 +1,9 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
-#include <stdexcept>
+
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -151,6 +152,8 @@ bool ConfigurationLoader::load_from_source_configuration()
    starting_in_room_identifier = source_configuration->get_starting_in_room_identifier();
    return true;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

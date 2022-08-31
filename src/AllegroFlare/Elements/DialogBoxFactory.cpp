@@ -1,26 +1,11 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
+
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <allegro5/allegro.h>
-#include <stdexcept>
 #include <sstream>
-#include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
-#include <allegro5/allegro.h>
 #include <stdexcept>
-#include <sstream>
-#include <allegro5/allegro.h>
-#include <stdexcept>
-#include <sstream>
-#include <allegro5/allegro.h>
-#include <stdexcept>
-#include <sstream>
-#include <allegro5/allegro.h>
-#include <stdexcept>
-#include <sstream>
-#include <allegro5/allegro.h>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -133,6 +118,8 @@ AllegroFlare::Elements::DialogBoxes::YouGotAnItem* DialogBoxFactory::create_you_
 
    return you_got_an_item_dialog_box;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

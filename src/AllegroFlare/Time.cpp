@@ -1,9 +1,10 @@
 
 
 #include <AllegroFlare/Time.hpp>
+
 #include <allegro5/allegro.h>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -43,6 +44,8 @@ float Time::now()
    }
    return al_get_time();
 }
+
+
 } // namespace AllegroFlare
 
 

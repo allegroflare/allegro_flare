@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace MotionComposer
@@ -34,6 +35,8 @@ std::vector<std::string> SetScript::get_script_lines() const
 {
    return script_lines;
 }
+
+
 
 
 } // namespace Messages

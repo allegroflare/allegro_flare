@@ -18,7 +18,6 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          std::string text;
          ALLEGRO_COLOR color;
-         void fit_placement_width_and_height_to_text();
          ALLEGRO_FONT* obtain_font();
 
       protected:
@@ -33,6 +32,7 @@ namespace AllegroFlare
          std::string get_text() const;
          ALLEGRO_COLOR get_color() const;
          void render();
+         void fit_placement_width_and_height_to_text();
       };
    }
 }

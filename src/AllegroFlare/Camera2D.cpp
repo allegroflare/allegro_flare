@@ -1,9 +1,10 @@
 
 
 #include <AllegroFlare/Camera2D.hpp>
+
 #include <cmath>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -90,6 +91,8 @@ void Camera2D::setup_dimentional_projection(ALLEGRO_BITMAP* bitmap)
    al_restore_state(&previous_bitmap_target_state);
    return;
 }
+
+
 } // namespace AllegroFlare
 
 

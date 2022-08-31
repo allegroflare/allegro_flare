@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 
@@ -42,6 +43,8 @@ int Vec2I::get_y() const
 {
    return y;
 }
+
+
 
 
 } // namespace AllegroFlare

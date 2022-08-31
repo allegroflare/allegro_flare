@@ -1,30 +1,11 @@
 
 
 #include <AllegroFlare/Screens/Achievements.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/VirtualControls.hpp>
+
 #include <AllegroFlare/Elements/AchievementsList.hpp>
-#include <stdexcept>
+#include <AllegroFlare/VirtualControls.hpp>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -332,6 +313,8 @@ bool Achievements::infer_scrollbar_is_showing()
 {
    return !achievements_list.scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
 }
+
+
 } // namespace Screens
 } // namespace AllegroFlare
 

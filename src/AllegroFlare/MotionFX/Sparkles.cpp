@@ -1,19 +1,12 @@
 
 
 #include <AllegroFlare/MotionFX/Sparkles.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <cmath>
-#include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -217,6 +210,8 @@ void Sparkles::draw_centered_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR
    al_draw_ustr(font, color, x-width*0.5, y-height*0.5, flags, ustr);
    return;
 }
+
+
 } // namespace MotionFX
 } // namespace AllegroFlare
 

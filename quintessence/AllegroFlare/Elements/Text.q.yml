@@ -48,7 +48,6 @@ functions:
 
   - name: fit_placement_width_and_height_to_text
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
-    private: true
     body: |
       float width = al_get_text_width(obtain_font(), text.c_str());
       float height = al_get_font_line_height(obtain_font());

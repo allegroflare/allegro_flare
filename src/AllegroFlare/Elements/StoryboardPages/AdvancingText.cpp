@@ -1,14 +1,11 @@
 
 
 #include <AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp>
-#include <allegro5/allegro_font.h>
+
 #include <AllegroFlare/Color.hpp>
-#include <stdexcept>
+#include <allegro5/allegro_font.h>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -269,6 +266,8 @@ ALLEGRO_FONT* AdvancingText::obtain_next_button_font()
    composite_font_str << font_name << " " << font_size+20;
    return font_bin->auto_get(composite_font_str.str());
 }
+
+
 } // namespace StoryboardPages
 } // namespace Elements
 } // namespace AllegroFlare

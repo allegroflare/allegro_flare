@@ -1,18 +1,9 @@
 
 
 #include <AllegroFlare/MultiMesh.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -252,6 +243,8 @@ void MultiMesh::render()
    al_draw_vertex_buffer(vertex_buffer, texture, 0, vertices_in_use, ALLEGRO_PRIM_TRIANGLE_LIST);
    return;
 }
+
+
 } // namespace AllegroFlare
 
 

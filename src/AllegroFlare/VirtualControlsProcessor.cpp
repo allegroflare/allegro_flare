@@ -1,34 +1,13 @@
 
 
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
-#include <stdexcept>
-#include <sstream>
+
+#include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <allegro5/allegro.h>
 #include <iostream>
-#include <stdexcept>
 #include <sstream>
-#include <iostream>
 #include <stdexcept>
-#include <sstream>
-#include <iostream>
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -353,6 +332,8 @@ void VirtualControlsProcessor::emit_virtual_controls_axis_change_event(int stick
    event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, stick, axis, (int)(position * 255));
    return;
 }
+
+
 } // namespace AllegroFlare
 
 

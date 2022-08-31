@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -22,6 +23,8 @@ Card::Card(int value, int suit)
 Card::~Card()
 {
 }
+
+
 
 
 } // namespace PlayingCards

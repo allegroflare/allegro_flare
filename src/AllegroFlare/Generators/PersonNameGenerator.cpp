@@ -1,12 +1,9 @@
 
 
 #include <AllegroFlare/Generators/PersonNameGenerator.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -87,6 +84,8 @@ std::vector<std::string> PersonNameGenerator::build_victorian_girl_name_list()
 {
    return { "Abigail" , "Annabelle" , "Audrey" , "Beth" , "Caren" , "Caroline" , "Christine" , "Claire" , "Doris" , "Elise" , "Elizabeth" , "Ella" , "Emily" , "Erica" , "Florence" , "Gloria" , "Grace" , "Hannah" , "Hellen" , "Ingrid" , "Jill" , "Kelly" , "Lily" , "Lisa" , "Madelyn" , "Mary" , "Natalie" , "Nichole" , "Noel" , "Olga" , "Penelope" , "Penny" , "Sarah" , "Scarlett" , "Sally" , "Stacy" , "Tanya" , "Tara" , "Vivian" , "Wendy" };
 }
+
+
 } // namespace Generators
 } // namespace AllegroFlare
 

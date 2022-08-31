@@ -1,8 +1,9 @@
 
 
 #include <AllegroFlare/Notifications.hpp>
-#include <stdexcept>
+
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -83,6 +84,8 @@ bool Notifications::sort_by_created_at_desc_func(AllegroFlare::Elements::Notific
    if (a->get_created_at() == b->get_created_at()) return a; // TODO: return by ID
    return a->get_created_at() > b->get_created_at();
 }
+
+
 } // namespace AllegroFlare
 
 

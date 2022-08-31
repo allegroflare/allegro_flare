@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace MotionComposer
@@ -21,6 +22,8 @@ TogglePlayback::TogglePlayback()
 TogglePlayback::~TogglePlayback()
 {
 }
+
+
 
 
 } // namespace Messages

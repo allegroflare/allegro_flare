@@ -1,8 +1,9 @@
 
 
 #include <AllegroFlare/Integrations/Network.hpp>
-#include <AllegroFlare/Network2/Server.hpp>
+
 #include <AllegroFlare/Network2/Client.hpp>
+#include <AllegroFlare/Network2/Server.hpp>
 
 
 namespace AllegroFlare
@@ -82,6 +83,8 @@ void Network::simple_capture_callback(std::string message, void* data)
    captured_callback_messages.push_back(message);
    return;
 }
+
+
 } // namespace Integrations
 } // namespace AllegroFlare
 

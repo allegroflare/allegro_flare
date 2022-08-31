@@ -1,13 +1,10 @@
 
 
 #include <AllegroFlare/Elements/Text.hpp>
+
 #include <allegro5/allegro.h>
-#include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -107,6 +104,8 @@ ALLEGRO_FONT* Text::obtain_font()
    }
    return font_bin->auto_get("DroidSans.ttf -48");
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

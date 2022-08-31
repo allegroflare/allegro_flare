@@ -1,16 +1,17 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
-#include <AllegroFlare/Placement2D.hpp>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_color.h>
+
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogButton.hpp>
 #include <AllegroFlare/Interpolators.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Placement2D.hpp>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -312,6 +313,8 @@ ALLEGRO_FONT* BasicRenderer::obtain_dialog_font()
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }
+
+
 } // namespace DialogBoxRenderers
 } // namespace Elements
 } // namespace AllegroFlare

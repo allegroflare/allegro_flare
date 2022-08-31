@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 
@@ -48,6 +49,8 @@ bool AudioRepositoryElement::overplay_strategy_is_restart()
 {
    return overplay_strategy == "restart";
 }
+
+
 } // namespace AllegroFlare
 
 

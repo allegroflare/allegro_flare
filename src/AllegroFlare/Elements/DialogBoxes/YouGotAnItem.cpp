@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -35,6 +36,8 @@ std::string YouGotAnItem::get_item_bitmap_identifier() const
 {
    return item_bitmap_identifier;
 }
+
+
 
 
 } // namespace DialogBoxes

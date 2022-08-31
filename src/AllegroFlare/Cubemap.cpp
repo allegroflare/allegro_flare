@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 
@@ -23,6 +24,8 @@ GLuint Cubemap::get_id() const
 {
    return id;
 }
+
+
 
 
 } // namespace AllegroFlare

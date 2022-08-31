@@ -1,13 +1,10 @@
 
 
 #include <AllegroFlare/Elements/DialogRollRenderer.hpp>
+
 #include <AllegroFlare/Elements/DialogRoll.hpp>
-#include <stdexcept>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -193,6 +190,8 @@ ALLEGRO_FONT* DialogRollRenderer::obtain_italic_font()
    }
    return font_bin->auto_get("Lora-MediumItalic.ttf -48");
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

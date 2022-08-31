@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/EncoderDecoders/Base62.hpp>
+
 #include <algorithm>
 
 
@@ -57,6 +58,8 @@ int Base62::decode(std::string value)
 
    return ret;
 }
+
+
 } // namespace EncoderDecoders
 } // namespace AllegroFlare
 

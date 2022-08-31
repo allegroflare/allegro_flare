@@ -1,12 +1,12 @@
 
 
 #include <AllegroFlare/Elements/NotificationRenderer.hpp>
-#include <allegro5/allegro_primitives.h>
-#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
+
 #include <AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp>
+#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -153,6 +153,8 @@ void NotificationRenderer::draw_box()
    al_draw_filled_rectangle(x, y, x+box_width, y+box_height, background_color);
    return;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

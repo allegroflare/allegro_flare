@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 
@@ -79,6 +80,8 @@ float MultiMeshUV::infer_height()
 {
    return v2-v1;
 }
+
+
 } // namespace AllegroFlare
 
 

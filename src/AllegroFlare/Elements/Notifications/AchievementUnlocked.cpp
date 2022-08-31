@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -34,6 +35,8 @@ std::string AchievementUnlocked::get_name() const
 {
    return name;
 }
+
+
 
 
 } // namespace Notifications

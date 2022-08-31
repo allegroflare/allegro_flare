@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace MotionComposer
@@ -78,6 +79,8 @@ std::string &AddActor2D::get_script_ref()
 {
    return script;
 }
+
+
 
 
 } // namespace Messages

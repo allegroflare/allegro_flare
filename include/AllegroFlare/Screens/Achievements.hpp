@@ -29,7 +29,6 @@ namespace AllegroFlare
          void move_scrollbar_position_to(float position=0.0f);
          void move_scrollbar_position_up();
          void move_scrollbar_position_down();
-         void render();
          void limit_scrollbar_dest_position();
          void emit_event_to_set_input_hints();
 
@@ -52,6 +51,7 @@ namespace AllegroFlare
          void initialize();
          virtual void primary_timer_func() override;
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
+         void render();
          void set_placeholder_achievements();
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();
          bool infer_scrollbar_is_showing();

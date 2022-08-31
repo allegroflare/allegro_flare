@@ -1,16 +1,14 @@
 
 
 #include <AllegroFlare/InputDiagrams/KeyboardKeyCombo.hpp>
+
+#include <AllegroFlare/InputDiagrams/KeyboardKey.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_font.h>
-#include <AllegroFlare/InputDiagrams/KeyboardKey.hpp>
-#include <stdexcept>
+#include <allegro5/allegro_ttf.h>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -354,6 +352,8 @@ ALLEGRO_FONT* KeyboardKeyCombo::obtain_font()
    composite_font_str << font_name << " " << font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
+
+
 } // namespace InputDiagrams
 } // namespace AllegroFlare
 

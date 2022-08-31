@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 
@@ -56,6 +57,8 @@ AllegroFlare::InventoryIndex InventoryIndex::build_placeholder_inventory_index()
          { 4, { "Metal Pipe", "metal-pipe-01.png", "Made of galvanized metal, this pipe is very sturdy." } },
       });
 }
+
+
 } // namespace AllegroFlare
 
 

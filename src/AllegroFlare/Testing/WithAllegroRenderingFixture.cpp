@@ -1,27 +1,16 @@
 
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_primitives.h>
-#include <chrono>
-#include <thread>
-#include <chrono>
-#include <thread>
-#include <stdexcept>
-#include <sstream>
-#include <allegro5/allegro_color.h>
-#include <stdexcept>
-#include <sstream>
-#include <allegro5/allegro_color.h>
-#include <stdexcept>
-#include <sstream>
-#include <allegro5/allegro_color.h>
-#include <stdexcept>
-#include <sstream>
+
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_ttf.h>
 #include <chrono>
+#include <sstream>
+#include <stdexcept>
 #include <thread>
 
 
@@ -248,6 +237,8 @@ void WithAllegroRenderingFixture::capture_screenshot(std::string base_filename)
                 << std::endl;
    }
 }
+
+
 } // namespace Testing
 } // namespace AllegroFlare
 

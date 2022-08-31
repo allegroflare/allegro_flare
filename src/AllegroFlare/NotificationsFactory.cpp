@@ -1,9 +1,10 @@
 
 
 #include <AllegroFlare/NotificationsFactory.hpp>
+
 #include <allegro5/allegro.h>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -33,6 +34,8 @@ AllegroFlare::Elements::Notifications::AchievementUnlocked* NotificationsFactory
    result->set_created_at(al_get_time());
    return result;
 }
+
+
 } // namespace AllegroFlare
 
 

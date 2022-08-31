@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/Elements/PlayingCards/DeckFactory.hpp>
+
 #include <iostream>
 
 
@@ -63,6 +64,8 @@ AllegroFlare::Elements::PlayingCards::Deck DeckFactory::generate_standard_52_car
 
    return result;
 }
+
+
 } // namespace PlayingCards
 } // namespace Elements
 } // namespace AllegroFlare

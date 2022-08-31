@@ -1,17 +1,14 @@
 
 
 #include <AllegroFlare/MotionFX/Sparkles2.hpp>
-#include <AllegroFlare/Timeline/Actors/Actor2D.hpp>
+
 #include <AllegroFlare/Interpolators.hpp>
-#include <vector>
-#include <string>
-#include <stdexcept>
-#include <sstream>
 #include <AllegroFlare/Placement2D.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Timeline/Actors/Actor2D.hpp>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
+#include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -217,6 +214,8 @@ ALLEGRO_BITMAP* Sparkles2::obtain_star_bitmap()
    }
    return bitmap_bin->auto_get("star-b.png");
 }
+
+
 } // namespace MotionFX
 } // namespace AllegroFlare
 

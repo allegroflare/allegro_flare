@@ -1,10 +1,11 @@
 
 
 #include <AllegroFlare/Elements/Scrollbar.hpp>
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -181,6 +182,8 @@ void Scrollbar::render()
    );
    return;
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

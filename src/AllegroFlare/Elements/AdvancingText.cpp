@@ -1,12 +1,11 @@
 
 
 #include <AllegroFlare/Elements/AdvancingText.hpp>
-#include <allegro5/allegro_font.h>
+
 #include <AllegroFlare/Color.hpp>
-#include <stdexcept>
+#include <allegro5/allegro_font.h>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -234,6 +233,8 @@ ALLEGRO_FONT* AdvancingText::obtain_font()
    composite_font_str << font_name << " " << font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

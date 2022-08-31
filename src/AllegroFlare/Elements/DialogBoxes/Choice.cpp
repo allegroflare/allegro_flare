@@ -1,20 +1,9 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -146,6 +135,8 @@ bool Choice::has_valid_cursor_position()
 {
    return (cursor_position != -1);
 }
+
+
 } // namespace DialogBoxes
 } // namespace Elements
 } // namespace AllegroFlare

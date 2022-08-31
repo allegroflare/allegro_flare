@@ -1,18 +1,13 @@
 
 
 #include <AllegroFlare/Elements/RollingCredits/RollingCredits.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
+
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
-#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -228,6 +223,8 @@ ALLEGRO_FONT* RollingCredits::obtain_font()
    }
    return font_bin->auto_get("Inter-Medium.ftf -32");
 }
+
+
 } // namespace RollingCredits
 } // namespace Elements
 } // namespace AllegroFlare

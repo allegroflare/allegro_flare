@@ -1,30 +1,13 @@
 
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
+
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -293,6 +276,8 @@ void Room::emit_interaction_event(std::string item_dictionary_name, float cursor
    event_emitter->emit_game_event(game_event);
    return;
 }
+
+
 } // namespace FixedRoom2D
 } // namespace Prototypes
 } // namespace AllegroFlare

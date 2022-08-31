@@ -214,7 +214,7 @@ functions:
 
   - name: render
     type: void
-    private: true
+    xprivate: true
     guards: [ initialized ]
     body: |
       achievements_list.render();

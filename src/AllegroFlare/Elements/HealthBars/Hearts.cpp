@@ -1,12 +1,11 @@
 
 
 #include <AllegroFlare/Elements/HealthBars/Hearts.hpp>
-#include <allegro5/allegro_primitives.h>
+
 #include <AllegroFlare/FontAwesome.hpp>
-#include <stdexcept>
+#include <allegro5/allegro_primitives.h>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -179,6 +178,8 @@ ALLEGRO_FONT* Hearts::obtain_font_awesome_font()
    font_identifier_and_size << font_awesome_font_name << " " << heart_size;
    return font_bin->auto_get(font_identifier_and_size.str());
 }
+
+
 } // namespace HealthBars
 } // namespace Elements
 } // namespace AllegroFlare

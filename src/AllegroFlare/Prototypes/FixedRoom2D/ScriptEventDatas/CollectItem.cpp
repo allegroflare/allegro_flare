@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Prototypes
@@ -36,6 +37,8 @@ std::string CollectItem::get_item_dictionary_name_to_collect() const
 {
    return item_dictionary_name_to_collect;
 }
+
+
 
 
 } // namespace ScriptEventDatas

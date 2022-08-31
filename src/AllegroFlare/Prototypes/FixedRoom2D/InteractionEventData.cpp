@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Prototypes
@@ -24,6 +25,8 @@ InteractionEventData::InteractionEventData(std::string item_interacted_with, flo
 InteractionEventData::~InteractionEventData()
 {
 }
+
+
 
 
 } // namespace FixedRoom2D

@@ -1,25 +1,14 @@
 
 
 #include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <AllegroFlare/Placement2D.hpp>
-#include <stdexcept>
-#include <sstream>
-#include <cmath>
+
 #include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Interpolators.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <algorithm>
-#include <stdexcept>
-#include <sstream>
 #include <cmath>
-#include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Placement2D.hpp>
-#include <AllegroFlare/Interpolators.hpp>
-#include <algorithm>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -233,6 +222,8 @@ void Image::modify_params_for_reveal(AllegroFlare::Placement2D* place, ALLEGRO_C
 
    return;
 }
+
+
 } // namespace StoryboardPages
 } // namespace Elements
 } // namespace AllegroFlare

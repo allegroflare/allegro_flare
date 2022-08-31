@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -35,6 +36,8 @@ bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());
 }
+
+
 } // namespace Sections
 } // namespace RollingCredits
 } // namespace Elements

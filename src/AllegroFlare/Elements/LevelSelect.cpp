@@ -1,24 +1,15 @@
 
 
 #include <AllegroFlare/Elements/LevelSelect.hpp>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_color.h>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <cmath>
+
 #include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/EventNames.hpp>
-#include <stdexcept>
+#include <AllegroFlare/Interpolators.hpp>
+#include <allegro5/allegro_color.h>
+#include <allegro5/allegro_primitives.h>
+#include <cmath>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -433,6 +424,8 @@ ALLEGRO_FONT* LevelSelect::obtain_item_name_font()
 {
    return font_bin->auto_get("Inter-Bold.ttf -46");
 }
+
+
 } // namespace Elements
 } // namespace AllegroFlare
 

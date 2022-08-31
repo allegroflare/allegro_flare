@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -35,6 +36,8 @@ AllegroFlare::Elements::RollingCredits::Sections::Header* SectionFactory::create
      new AllegroFlare::Elements::RollingCredits::Sections::Header(text);
    return section;
 }
+
+
 } // namespace RollingCredits
 } // namespace Elements
 } // namespace AllegroFlare

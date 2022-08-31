@@ -505,7 +505,7 @@ functions:
 
 
   - name: draw_item_selection_cursor
-    private: true
+    xprivate: true
     parameters:
       - name: x
         type: float

@@ -4,6 +4,7 @@
 
 
 
+
 namespace AllegroFlare
 {
 namespace Elements
@@ -31,6 +32,8 @@ std::vector<std::pair<std::string, std::string>> DialogRoll::get_log() const
 {
    return log;
 }
+
+
 
 
 } // namespace Elements

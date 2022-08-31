@@ -1,8 +1,9 @@
 
 
 #include <AllegroFlare/StoryboardFactory.hpp>
-#include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
+
 #include <AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp>
+#include <AllegroFlare/Elements/StoryboardPages/Image.hpp>
 
 
 namespace AllegroFlare
@@ -85,6 +86,8 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_stor
    // return the result
    return result;
 }
+
+
 } // namespace AllegroFlare
 
 

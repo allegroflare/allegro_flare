@@ -1,9 +1,10 @@
 
 
 #include <AllegroFlare/Elements/Backgrounds/Image.hpp>
+
 #include <AllegroFlare/Placement2D.hpp>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -87,6 +88,8 @@ float Image::infer_opacity()
 {
    return get_reveal_counter();
 }
+
+
 } // namespace Backgrounds
 } // namespace Elements
 } // namespace AllegroFlare
