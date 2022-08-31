@@ -6,7 +6,6 @@
 #include <sstream>
 #include <AllegroFlare/Elements/Scrollbar.hpp>
 #include <algorithm>
-#include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <stdexcept>

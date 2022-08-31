@@ -8,7 +8,6 @@
 #include <sstream>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_primitives.h>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>

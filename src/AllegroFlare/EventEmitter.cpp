@@ -12,10 +12,6 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/EventNames.hpp>
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/EventNames.hpp>

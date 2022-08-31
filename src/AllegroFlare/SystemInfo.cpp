@@ -2,8 +2,6 @@
 
 #include <AllegroFlare/SystemInfo.hpp>
 #include <AllegroFlare/Version.hpp>
-#include <AllegroFlare/Version.hpp>
-#include <thread>
 #include <thread>
 
 

@@ -8,7 +8,6 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <cmath>
-#include <cmath>
 #include <stdexcept>
 #include <sstream>
 #include <stdexcept>

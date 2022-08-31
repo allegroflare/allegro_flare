@@ -18,7 +18,6 @@
 #include <stdexcept>
 #include <sstream>
 #include <AllegroFlare/TerminalColors.hpp>
-#include <AllegroFlare/TerminalColors.hpp>
 
 
 namespace AllegroFlare

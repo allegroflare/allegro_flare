@@ -21,7 +21,6 @@
 #include <stdexcept>
 #include <sstream>
 #include <allegro5/allegro.h>
-#include <allegro5/allegro.h>
 #include <chrono>
 #include <thread>
 

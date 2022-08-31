@@ -3,10 +3,8 @@
 #include <AllegroFlare/UnicodeFontViewer.hpp>
 #include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro_font.h>
-#include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <stdexcept>
-#include <sstream>
 #include <sstream>
 #include <iomanip>
 #include <sstream>

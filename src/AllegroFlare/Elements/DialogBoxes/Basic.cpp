@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <allegro5/allegro.h>
-#include <allegro5/allegro.h>
 #include <stdexcept>
 #include <sstream>
 #include <allegro5/allegro.h>

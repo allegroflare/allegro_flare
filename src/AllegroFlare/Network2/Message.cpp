@@ -8,7 +8,6 @@
 #include <iostream>
 #include <AllegroFlare/SHA2.hpp>
 #include <AllegroFlare/EncoderDecoders/Base62.hpp>
-#include <AllegroFlare/EncoderDecoders/Base62.hpp>
 #include <AllegroFlare/Network2/inc/chat_message.hpp>
 
 

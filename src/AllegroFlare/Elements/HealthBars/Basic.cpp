@@ -3,7 +3,6 @@
 #include <AllegroFlare/Elements/HealthBars/Basic.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <algorithm>
-#include <algorithm>
 #include <stdexcept>
 #include <sstream>
 

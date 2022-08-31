@@ -11,7 +11,6 @@
 #include <allegro5/allegro_primitives.h>
 #include <AllegroFlare/Interpolators.hpp>
 #include <algorithm>
-#include <algorithm>
 #include <stdexcept>
 #include <sstream>
 
