@@ -185,7 +185,7 @@ functions:
 
 
   - name: destruct
-    private: true
+    xprivate: true
     body: |
       destruct_all_sound_effects();
       destruct_all_music_tracks();

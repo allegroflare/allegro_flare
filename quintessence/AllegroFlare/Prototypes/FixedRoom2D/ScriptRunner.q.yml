@@ -81,7 +81,7 @@ functions:
 
   - name: load_script_lines
     type: bool
-    private: true
+    xprivate: true
     parameters:
       - name: script_lines
         type: std::vector<std::string>

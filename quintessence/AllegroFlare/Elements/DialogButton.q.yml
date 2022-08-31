@@ -42,7 +42,6 @@ functions:
 
   - name: render
     type: void
-    private: true
     guards: 
       - al_is_system_installed()
       - al_is_font_addon_initialized()

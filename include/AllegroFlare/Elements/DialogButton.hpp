@@ -18,7 +18,6 @@ namespace AllegroFlare
          bool at_last_advance;
          float x;
          float y;
-         void render();
          ALLEGRO_FONT* obtain_button_font();
 
       protected:
@@ -38,6 +37,7 @@ namespace AllegroFlare
          bool get_at_last_advance() const;
          float get_x() const;
          float get_y() const;
+         void render();
       };
    }
 }

@@ -365,7 +365,7 @@ functions:
 
 
   - name: process_subscribed_to_game_event
-    private: true
+    xprivate: true
     parameters:
       - name: game_event
         type: AllegroFlare::GameEvent*
