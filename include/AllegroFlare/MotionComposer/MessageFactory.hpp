@@ -12,6 +12,9 @@ namespace AllegroFlare
       {
       private:
 
+      protected:
+
+
       public:
          MessageFactory();
          ~MessageFactory();

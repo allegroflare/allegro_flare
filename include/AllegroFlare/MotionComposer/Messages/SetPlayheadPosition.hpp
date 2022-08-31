@@ -15,6 +15,9 @@ namespace AllegroFlare
          private:
             float position;
 
+         protected:
+
+
          public:
             SetPlayheadPosition(float position=0.0f);
             ~SetPlayheadPosition();

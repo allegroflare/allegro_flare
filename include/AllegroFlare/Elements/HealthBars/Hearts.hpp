@@ -27,6 +27,9 @@ namespace AllegroFlare
             float heart_spacing;
             std::string font_awesome_font_name;
 
+         protected:
+
+
          public:
             Hearts(AllegroFlare::FontBin* font_bin=nullptr, int max=10, int value=10, ALLEGRO_COLOR fill_color=(ALLEGRO_COLOR{0.86, 0.08, 0.24, 1} /*crimson*/), ALLEGRO_COLOR empty_color=(ALLEGRO_COLOR{0.25, 0.1, 0.25, 1}), int heart_size=44, float heart_spacing=52);
             ~Hearts();

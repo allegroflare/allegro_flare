@@ -20,6 +20,9 @@ namespace AllegroFlare
             private:
                std::vector<std::tuple<std::string, std::string>> elements;
 
+            protected:
+
+
             public:
                ColumnWithLabels(std::vector<std::tuple<std::string, std::string>> elements={});
                ~ColumnWithLabels();

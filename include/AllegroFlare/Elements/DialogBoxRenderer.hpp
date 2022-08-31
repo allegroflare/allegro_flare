@@ -17,6 +17,9 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::Elements::DialogBoxes::Base* dialog_box;
 
+      protected:
+
+
       public:
          DialogBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::DialogBoxes::Base* dialog_box=nullptr);
          ~DialogBoxRenderer();

@@ -18,6 +18,9 @@ namespace AllegroFlare
          ALLEGRO_COLOR border_color;
          float opacity;
 
+      protected:
+
+
       public:
          DialogBoxFrame(float width=1920/5*3, float height=1080/4);
          ~DialogBoxFrame();

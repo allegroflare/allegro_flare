@@ -16,6 +16,9 @@ namespace AllegroFlare
          std::vector<std::string> messages_json;
          std::vector<AllegroFlare::MotionComposer::Messages::Base*> messages;
 
+      protected:
+
+
       public:
          MessageProcessor(std::vector<std::string> messages_json={}, std::vector<AllegroFlare::MotionComposer::Messages::Base*> messages={});
          ~MessageProcessor();

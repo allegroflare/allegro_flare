@@ -12,6 +12,9 @@ namespace AllegroFlare
    private:
       std::vector<AllegroFlare::Elements::Notifications::Base*> notifications;
 
+   protected:
+
+
    public:
       Notifications(std::vector<AllegroFlare::Elements::Notifications::Base*> notifications={});
       ~Notifications();

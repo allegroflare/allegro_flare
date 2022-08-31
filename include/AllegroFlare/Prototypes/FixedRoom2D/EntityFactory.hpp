@@ -17,6 +17,9 @@ namespace AllegroFlare
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
 
+         protected:
+
+
          public:
             EntityFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             ~EntityFactory();

@@ -19,6 +19,9 @@ namespace AllegroFlare
             float monoplex_2_counter;
             float monoplex_3_counter;
 
+         protected:
+
+
          public:
             Monoplex(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             virtual ~Monoplex();

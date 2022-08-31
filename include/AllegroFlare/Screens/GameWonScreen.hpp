@@ -18,6 +18,11 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          std::string game_event_name_to_emit_on_submission;
+         ALLEGRO_FONT* obtain_title_font();
+         ALLEGRO_FONT* obtain_instruction_font();
+
+      protected:
+
 
       public:
          GameWonScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string game_event_name_to_emit_on_submission="game_won_finished");
@@ -31,8 +36,6 @@ namespace AllegroFlare
          void render();
          void draw_primary_text();
          void draw_instruction_text();
-         ALLEGRO_FONT* obtain_title_font();
-         ALLEGRO_FONT* obtain_instruction_font();
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
       };
    }

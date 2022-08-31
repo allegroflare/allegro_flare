@@ -12,6 +12,9 @@ namespace AllegroFlare
    private:
       float zoom;
 
+   protected:
+
+
    public:
       Camera2D();
       ~Camera2D();

@@ -43,6 +43,22 @@ namespace AllegroFlare
          std::string inventory_show_sound_identifier;
          std::string inventory_hide_sound_identifier;
          bool sound_is_disabled;
+         void draw_backframe();
+         void draw_inventory_title_text();
+         void draw_inventory_items();
+         void draw_inventory_boxes();
+         void draw_details_frame();
+         bool has_valid_size();
+         void draw_item_selection_cursor(float x=0.0f, float y=0.0f);
+         void draw_inventory_box(float x=0.0f, float y=0.0f);
+         void draw_inventory_item(float x=0.0f, float y=0.0f, int item=0);
+         void play_move_cursor_sound();
+         void play_hide_inventory_sound();
+         void play_show_inventory_sound();
+         std::string concat_text(std::string source_text="", int length=0);
+
+      protected:
+
 
       public:
          Inventory(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Inventory* af_inventory=nullptr, AllegroFlare::InventoryIndex* inventory_index=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
@@ -72,11 +88,6 @@ namespace AllegroFlare
          ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
          float inv_reveal_counter();
          void render();
-         void draw_backframe();
-         void draw_inventory_title_text();
-         void draw_inventory_items();
-         void draw_inventory_boxes();
-         void draw_details_frame();
          void move_cursor_up();
          void move_cursor_down();
          void move_cursor_left();
@@ -88,21 +99,13 @@ namespace AllegroFlare
          void enable_sound();
          bool is_sound_disabled();
          bool is_sound_enabled();
-         bool has_valid_size();
-         void draw_item_selection_cursor(float x=0.0f, float y=0.0f);
-         void draw_inventory_box(float x=0.0f, float y=0.0f);
-         void draw_inventory_item(float x=0.0f, float y=0.0f, int item=0);
          std::tuple<std::string, std::string, std::string> get_item_definition(int index=0);
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_description_font();
          ALLEGRO_FONT* obtain_item_name_font();
          ALLEGRO_FONT* obtain_details_header_font();
-         void play_move_cursor_sound();
-         void play_hide_inventory_sound();
-         void play_show_inventory_sound();
          void play_sound(std::string sound_identifier="[unset-play_sound]");
          static AllegroFlare::InventoryIndex* create_placeholder_inventory_index();
-         std::string concat_text(std::string source_text="", int length=0);
       };
    }
 }

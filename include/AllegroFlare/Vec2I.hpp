@@ -11,6 +11,9 @@ namespace AllegroFlare
       int x;
       int y;
 
+   protected:
+
+
    public:
       Vec2I(int x=0, int y=0);
       ~Vec2I();

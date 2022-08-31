@@ -21,6 +21,9 @@ namespace AllegroFlare
             std::string reveal_style;
             float started_at;
 
+         protected:
+
+
          public:
             Image(ALLEGRO_BITMAP* bitmap=nullptr);
             virtual ~Image();

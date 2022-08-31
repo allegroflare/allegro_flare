@@ -18,6 +18,9 @@ namespace AllegroFlare
             private:
                std::string item_dictionary_name_to_collect;
 
+            protected:
+
+
             public:
                CollectItem(std::string item_dictionary_name_to_collect="[unset-item_dictionary_name_to_collect]");
                ~CollectItem();

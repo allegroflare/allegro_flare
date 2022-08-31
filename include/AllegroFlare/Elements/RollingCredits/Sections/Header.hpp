@@ -18,6 +18,9 @@ namespace AllegroFlare
             private:
                std::string text;
 
+            protected:
+
+
             public:
                Header(std::string text="[unset-text]");
                ~Header();

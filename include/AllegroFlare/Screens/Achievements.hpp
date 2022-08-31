@@ -25,6 +25,16 @@ namespace AllegroFlare
          AllegroFlare::Elements::AchievementsList achievements_list;
          std::string game_event_name_to_emit_on_return;
          bool initialized;
+         void update();
+         void move_scrollbar_position_to(float position=0.0f);
+         void move_scrollbar_position_up();
+         void move_scrollbar_position_down();
+         void render();
+         void limit_scrollbar_dest_position();
+         void emit_event_to_set_input_hints();
+
+      protected:
+
 
       public:
          Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Achievements* achievements=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_return="achievements_screen_finished");
@@ -41,16 +51,9 @@ namespace AllegroFlare
          virtual void on_deactivate() override;
          void initialize();
          virtual void primary_timer_func() override;
-         void update();
-         void move_scrollbar_position_to(float position=0.0f);
-         void move_scrollbar_position_up();
-         void move_scrollbar_position_down();
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
-         void render();
          void set_placeholder_achievements();
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();
-         void limit_scrollbar_dest_position();
-         void emit_event_to_set_input_hints();
          bool infer_scrollbar_is_showing();
       };
    }

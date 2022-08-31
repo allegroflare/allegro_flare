@@ -17,6 +17,9 @@ namespace AllegroFlare
       {
       private:
 
+      protected:
+
+
       public:
          DialogBoxFactory();
          ~DialogBoxFactory();

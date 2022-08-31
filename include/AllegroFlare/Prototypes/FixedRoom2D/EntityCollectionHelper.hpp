@@ -19,6 +19,9 @@ namespace AllegroFlare
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary;
             std::map<std::string, std::string>* entity_room_associations;
 
+         protected:
+
+
          public:
             EntityCollectionHelper(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* entity_dictionary=nullptr, std::map<std::string, std::string>* entity_room_associations=nullptr);
             ~EntityCollectionHelper();

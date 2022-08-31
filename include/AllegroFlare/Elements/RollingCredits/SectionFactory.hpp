@@ -18,6 +18,9 @@ namespace AllegroFlare
          {
          private:
 
+         protected:
+
+
          public:
             SectionFactory();
             ~SectionFactory();

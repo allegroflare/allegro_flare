@@ -11,6 +11,9 @@ namespace AllegroFlare
    {
    private:
 
+   protected:
+
+
    public:
       NotificationsFactory();
       ~NotificationsFactory();

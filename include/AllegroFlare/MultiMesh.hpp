@@ -23,6 +23,9 @@ namespace AllegroFlare
       AllegroFlare::MultiMeshUVAtlas atlas;
       bool initialized;
 
+   protected:
+
+
    public:
       MultiMesh(std::size_t num_items=256);
       ~MultiMesh();

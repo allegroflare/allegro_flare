@@ -19,6 +19,9 @@ namespace AllegroFlare
             private:
                std::vector<std::string> dialog_pages;
 
+            protected:
+
+
             public:
                SpawnDialog(std::vector<std::string> dialog_pages={"[unset-dialog_pages]"});
                ~SpawnDialog();

@@ -22,6 +22,9 @@ namespace AllegroFlare
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper;
 
+         protected:
+
+
          public:
             RoomFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper=nullptr);
             ~RoomFactory();

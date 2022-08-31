@@ -24,6 +24,15 @@ namespace AllegroFlare
          float value_max;
          int selection_cursor_x;
          int icon_font_size;
+         void draw_selected_node_icon(float x=0.0f, float y=0.0f);
+         void draw_node_icon(float x=0.0f, float y=0.0f);
+         void draw_centered_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=0xf005, int flags=0);
+         ALLEGRO_FONT* obtain_icon_font();
+         ALLEGRO_FONT* obtain_bigger_icon_font();
+         ALLEGRO_FONT* obtain_track_values_font();
+
+      protected:
+
 
       public:
          TrackView(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Timeline::Track* track=nullptr, float x=0.0f, float y=0.0f, float width=600.0f, float height=120.0f, float value_min=0.0f, float value_max=1.0f, int selection_cursor_x=-1);
@@ -50,12 +59,6 @@ namespace AllegroFlare
          int get_selection_cursor_x() const;
          int get_icon_font_size() const;
          void render();
-         void draw_selected_node_icon(float x=0.0f, float y=0.0f);
-         void draw_node_icon(float x=0.0f, float y=0.0f);
-         void draw_centered_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=0xf005, int flags=0);
-         ALLEGRO_FONT* obtain_icon_font();
-         ALLEGRO_FONT* obtain_bigger_icon_font();
-         ALLEGRO_FONT* obtain_track_values_font();
       };
    }
 }

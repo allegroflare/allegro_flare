@@ -10,6 +10,9 @@ namespace AllegroFlare
    private:
       float started_at;
 
+   protected:
+
+
    public:
       Time(float started_at=0.0f);
       ~Time();

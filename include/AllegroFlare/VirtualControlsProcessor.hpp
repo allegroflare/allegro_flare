@@ -16,6 +16,11 @@ namespace AllegroFlare
       std::map<int, std::pair<int, int>> keyboard_button_map;
       std::map<int, int> joystick_button_map;
       bool initialized;
+      int get_joystick_mapped_virtual_button(int native_button_num=-1);
+      std::pair<int, int> get_keyboard_mapped_player_num_and_virtual_button(int native_key_num=-1);
+
+   protected:
+
 
    public:
       VirtualControlsProcessor(AllegroFlare::EventEmitter* event_emitter=nullptr);
@@ -33,8 +38,6 @@ namespace AllegroFlare
       void handle_raw_joystick_button_down_event(ALLEGRO_EVENT* event=nullptr);
       void handle_raw_joystick_button_up_event(ALLEGRO_EVENT* event=nullptr);
       void handle_raw_joystick_axis_change_event(ALLEGRO_EVENT* event=nullptr);
-      int get_joystick_mapped_virtual_button(int native_button_num=-1);
-      std::pair<int, int> get_keyboard_mapped_player_num_and_virtual_button(int native_key_num=-1);
       void emit_virtual_controls_button_up_event(int player_num=0, int virtual_button_num=0, bool is_repeat=false);
       void emit_virtual_controls_button_down_event(int player_num=0, int virtual_button_num=0, bool is_repeat=false);
       void emit_virtual_controls_axis_change_event(int stick=0, int axis=0, float position=0.0f);

@@ -17,6 +17,9 @@ namespace AllegroFlare
          private:
             std::vector<std::string> script_lines;
 
+         protected:
+
+
          public:
             SetScript(std::vector<std::string> script_lines={});
             ~SetScript();

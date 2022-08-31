@@ -16,6 +16,9 @@ namespace AllegroFlare
          private:
             std::string name;
 
+         protected:
+
+
          public:
             AchievementUnlocked(std::string name="[unset-name]");
             ~AchievementUnlocked();

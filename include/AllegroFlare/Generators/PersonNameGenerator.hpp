@@ -21,6 +21,9 @@ namespace AllegroFlare
          int next_boy_name_index;
          int next_girl_name_index;
 
+      protected:
+
+
       public:
          PersonNameGenerator();
          ~PersonNameGenerator();

@@ -18,6 +18,9 @@ namespace AllegroFlare
          AllegroFlare::vec3d v1;
          AllegroFlare::vec3d v2;
 
+      protected:
+
+
       public:
          Triangle(AllegroFlare::vec3d v0={}, AllegroFlare::vec3d v1={}, AllegroFlare::vec3d v2={});
          ~Triangle();

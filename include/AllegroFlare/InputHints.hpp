@@ -21,6 +21,10 @@ namespace AllegroFlare
       ALLEGRO_COLOR text_color;
       int surface_width;
       int surface_height;
+      ALLEGRO_FONT* obtain_font();
+
+   protected:
+
 
    public:
       InputHints(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> input_hints_tokens={}, std::vector<std::string> keyboard_key_combo_tokens={});
@@ -45,7 +49,6 @@ namespace AllegroFlare
       void draw_keyboard_key_combo_tokens();
       void draw_inputs_hints_tokens();
       static std::vector<std::pair<std::string, std::string>> build_placeholder_input_hints_tokens();
-      ALLEGRO_FONT* obtain_font();
    };
 }
 

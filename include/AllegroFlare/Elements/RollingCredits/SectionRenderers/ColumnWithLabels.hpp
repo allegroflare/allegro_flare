@@ -29,6 +29,10 @@ namespace AllegroFlare
                int font_size;
                ALLEGRO_COLOR text_color;
                float gutter_width;
+               ALLEGRO_FONT* obtain_font();
+
+            protected:
+
 
             public:
                ColumnWithLabels(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string>> elements={}, float x=0.0f, float y=0.0f, float gutter_width=40.0f);
@@ -51,7 +55,6 @@ namespace AllegroFlare
                ALLEGRO_COLOR get_text_color() const;
                float get_gutter_width() const;
                virtual float render(bool only_calculate_height_dont_render=false) override;
-               ALLEGRO_FONT* obtain_font();
             };
          }
       }

@@ -15,6 +15,9 @@ namespace AllegroFlare
       private:
          AllegroFlare::BitmapBin* bitmap_bin;
 
+      protected:
+
+
       public:
          ActorFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          ~ActorFactory();

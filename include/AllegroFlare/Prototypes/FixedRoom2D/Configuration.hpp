@@ -28,6 +28,9 @@ namespace AllegroFlare
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary;
             std::string starting_in_room_identifier;
 
+         protected:
+
+
          public:
             Configuration(AllegroFlare::InventoryIndex inventory_index={}, AllegroFlare::Inventory af_inventory={}, AllegroFlare::Inventory flags={}, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entity_dictionary={}, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*> room_dictionary={}, std::map<std::string, std::string> entity_room_associations={}, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary={});
             ~Configuration();

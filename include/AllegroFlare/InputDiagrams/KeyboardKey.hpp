@@ -23,6 +23,10 @@ namespace AllegroFlare
          float keyboard_key_box_min_width;
          std::string font_name;
          int font_size;
+         ALLEGRO_FONT* obtain_font();
+
+      protected:
+
 
       public:
          KeyboardKey(AllegroFlare::FontBin* font_bin=nullptr, std::string keyboard_key_str="[unset-keyboard_key]", ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float x=0.0f, float y=0.0f, float keyboard_key_box_height=42, float keyboard_key_box_min_width=42, std::string font_name="Inter-Medium.ttf", int font_size=-20);
@@ -48,7 +52,6 @@ namespace AllegroFlare
          int render(bool calculate_width_only_and_do_not_draw=false);
          int calculate_width();
          int guarantee_even_number(int potentially_odd_number=0);
-         ALLEGRO_FONT* obtain_font();
       };
    }
 }

@@ -28,6 +28,10 @@ namespace AllegroFlare
          std::string game_event_name_to_emit_after_completing;
          bool scroll_is_past_end;
          bool initialized;
+         void emit_completion_event();
+
+      protected:
+
 
       public:
          RollingCredits(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits_component={}, float surface_width=1920, float surface_height=1080, std::string game_event_name_to_emit_after_completing="rolling_credits_finished");
@@ -55,7 +59,6 @@ namespace AllegroFlare
          void set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={});
          void initialize();
          void update();
-         void emit_completion_event();
          void render();
          virtual void primary_timer_func() override;
       };

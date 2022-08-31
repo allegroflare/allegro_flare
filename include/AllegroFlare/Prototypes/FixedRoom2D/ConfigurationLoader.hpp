@@ -30,6 +30,9 @@ namespace AllegroFlare
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary;
             std::string starting_in_room_identifier;
 
+         protected:
+
+
          public:
             ConfigurationLoader(AllegroFlare::Prototypes::FixedRoom2D::Configuration* source_configuration=nullptr, AllegroFlare::InventoryIndex* destination_inventory_index=nullptr, AllegroFlare::Inventory* destination_af_inventory=nullptr, AllegroFlare::Inventory* destination_flags=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* destination_entity_dictionary=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary=nullptr, std::map<std::string, std::string>* destination_entity_room_associations=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary=nullptr);
             ~ConfigurationLoader();

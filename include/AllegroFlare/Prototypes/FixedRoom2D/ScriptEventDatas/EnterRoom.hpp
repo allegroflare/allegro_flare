@@ -18,6 +18,9 @@ namespace AllegroFlare
             private:
                std::string room_dictionary_name_to_enter;
 
+            protected:
+
+
             public:
                EnterRoom(std::string room_dictionary_name_to_enter="[unset-room_dictionary_name_to_enter]");
                ~EnterRoom();

@@ -21,6 +21,9 @@ namespace AllegroFlare
          float rail_thickness;
          float handle_thickness;
 
+      protected:
+
+
       public:
          Scrollbar(float x=0.0f, float y=0.0f, float height=100.0f, float position=0.0f, ALLEGRO_COLOR bar_color=ALLEGRO_COLOR{0.4, 0.405, 0.41, 1.0}, ALLEGRO_COLOR handle_color=ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0}, float handle_height=50.0f, float rail_thickness=8.0f, float handle_thickness=16.0f);
          ~Scrollbar();

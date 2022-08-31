@@ -21,6 +21,11 @@ namespace AllegroFlare
          bool can_advance_to_next_page;
          float can_advance_started_at;
          bool finished;
+         void render_next_button();
+         ALLEGRO_FONT* obtain_next_button_font();
+
+      protected:
+
 
       public:
          Storyboard(AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages={});
@@ -42,12 +47,10 @@ namespace AllegroFlare
          bool deny_advancing_page();
          bool advance();
          bool advance_page();
-         void render_next_button();
          bool infer_at_last_page();
          bool infer_at_or_past_last_page();
          bool infer_at_last_advance();
          AllegroFlare::Elements::StoryboardPages::Base* infer_current_page();
-         ALLEGRO_FONT* obtain_next_button_font();
       };
    }
 }

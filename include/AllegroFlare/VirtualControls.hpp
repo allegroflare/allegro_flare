@@ -36,6 +36,9 @@ namespace AllegroFlare
       AllegroFlare::vec2d primary_stick_position;
       AllegroFlare::vec2d secondary_stick_position;
 
+   protected:
+
+
    public:
       VirtualControls();
       ~VirtualControls();

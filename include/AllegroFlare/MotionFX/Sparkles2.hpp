@@ -21,6 +21,10 @@ namespace AllegroFlare
          AllegroFlare::Timeline::ActorManager actor_manager;
          bool initialized;
          float time;
+         ALLEGRO_BITMAP* obtain_star_bitmap();
+
+      protected:
+
 
       public:
          Sparkles2(AllegroFlare::BitmapBin* bitmap_bin=nullptr, float x=0.0f, float y=0.0f, float time=0.0);
@@ -35,7 +39,6 @@ namespace AllegroFlare
          void initialize();
          std::vector<std::string> build_friend_star_script_lines(float rotation=0.0f);
          void render();
-         ALLEGRO_BITMAP* obtain_star_bitmap();
       };
    }
 }

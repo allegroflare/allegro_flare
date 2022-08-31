@@ -14,6 +14,9 @@ namespace AllegroFlare
          {
          private:
 
+         protected:
+
+
          public:
             RoomDictionary();
             ~RoomDictionary();

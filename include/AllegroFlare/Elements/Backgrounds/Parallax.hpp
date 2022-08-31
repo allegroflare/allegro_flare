@@ -19,6 +19,9 @@ namespace AllegroFlare
             float offset_x;
             float offset_y;
 
+         protected:
+
+
          public:
             Parallax(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> layers={}, float offset_x=0, float offset_y=0);
             virtual ~Parallax();

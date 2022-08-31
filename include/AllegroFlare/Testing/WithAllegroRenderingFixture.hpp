@@ -21,6 +21,9 @@ namespace AllegroFlare
          AllegroFlare::FontBin font_bin;
          AllegroFlare::BitmapBin bitmap_bin;
 
+      protected:
+
+
       public:
          WithAllegroRenderingFixture();
          virtual ~WithAllegroRenderingFixture();

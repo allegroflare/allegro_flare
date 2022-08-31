@@ -22,6 +22,10 @@ namespace AllegroFlare
             float finished_at;
             bool page_finished;
             float page_finished_at;
+            bool current_page_is_valid();
+
+         protected:
+
 
          public:
             Basic(std::vector<std::string> pages={});
@@ -45,7 +49,6 @@ namespace AllegroFlare
             int num_pages();
             bool has_no_pages();
             bool at_last_page();
-            bool current_page_is_valid();
             void reveal_all_characters();
             bool all_characters_are_revealed();
          };

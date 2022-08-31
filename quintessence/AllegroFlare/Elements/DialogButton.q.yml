@@ -137,10 +137,6 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: fmod
     headers: [ cmath ]
   - symbol: AllegroFlare::Color
@@ -153,9 +149,8 @@ dependencies:
     headers: [ allegro5/allegro_ttf.h ]
   - symbol: std::min, std::max
     headers: [ algorithm ]
-  - symbol: AllegroFlare::interpolator::*
+  - symbol: 'AllegroFlare::interpolator::*'
     headers: [ AllegroFlare/Interpolators.hpp ]
-
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT

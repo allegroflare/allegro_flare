@@ -19,6 +19,9 @@ namespace AllegroFlare
          float width;
          float height;
 
+      protected:
+
+
       public:
          NotificationRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Elements::Notifications::Base* notification=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f);
          ~NotificationRenderer();

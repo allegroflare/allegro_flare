@@ -14,6 +14,9 @@ namespace AllegroFlare
       std::string bitmap_filename;
       std::string description;
 
+   protected:
+
+
    public:
       InventoryIndexItem(std::string title="[unset-title]", std::string bitmap_filename="[unset-bitmap_filename]", std::string description="[unset-description]");
       ~InventoryIndexItem();

@@ -21,6 +21,9 @@ namespace AllegroFlare
          float notification_box_height;
          float notification_vertical_gutter;
 
+      protected:
+
+
       public:
          NotificationsRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::Notifications::Base*> notifications={}, int surface_width=1920, int surface_height=1080, float notification_box_width=560.0f, float notification_box_height=130.0f, float notification_vertical_gutter=16.0f);
          ~NotificationsRenderer();

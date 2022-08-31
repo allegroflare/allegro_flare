@@ -12,6 +12,9 @@ namespace AllegroFlare
    private:
       std::map<int, AllegroFlare::MultiMeshUV> index;
 
+   protected:
+
+
    public:
       MultiMeshUVAtlas(std::map<int, AllegroFlare::MultiMeshUV> index={});
       ~MultiMeshUVAtlas();

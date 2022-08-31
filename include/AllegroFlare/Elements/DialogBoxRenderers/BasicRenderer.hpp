@@ -27,6 +27,13 @@ namespace AllegroFlare
             float page_finished_at;
             bool at_last_page;
             float age;
+            void draw_special_state_empty_text(float width=1, float height=1);
+            void draw_action_text(std::string text="[unset-action-text]", float width=1, float height=1);
+            std::string concat_text(std::string source_text="", int length=0);
+            ALLEGRO_FONT* obtain_dialog_font();
+
+         protected:
+
 
          public:
             BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text="[unset-current_page_text]", float width=(1920/2.0f), float height=(1080/5.0f), float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f);
@@ -57,11 +64,7 @@ namespace AllegroFlare
             bool get_at_last_page() const;
             float get_age() const;
             void render();
-            void draw_special_state_empty_text(float width=1, float height=1);
-            void draw_action_text(std::string text="[unset-action-text]", float width=1, float height=1);
             void draw_styled_revealed_text(float max_width=1, std::string text="[unset-text]", int num_revealed_characters=999);
-            std::string concat_text(std::string source_text="", int length=0);
-            ALLEGRO_FONT* obtain_dialog_font();
          };
       }
    }

@@ -28,6 +28,9 @@ namespace AllegroFlare
                bool show_hover_as_hue_change;
                bool hidden;
 
+            protected:
+
+
             public:
                Base(ALLEGRO_BITMAP* bitmap=nullptr, AllegroFlare::Placement2D placement={}, std::string on_cursor_interact_script_name="[unset-on_cursor_interact_script_name]");
                virtual ~Base();

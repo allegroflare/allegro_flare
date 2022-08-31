@@ -20,6 +20,9 @@ namespace AllegroFlare
          static std::string TEST_PORT_NUM;
          static std::vector<std::string> captured_callback_messages;
 
+      protected:
+
+
       public:
          Network();
          virtual ~Network();

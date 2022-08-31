@@ -27,6 +27,12 @@ namespace AllegroFlare
             AllegroFlare::AudioController* audio_controller;
             AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
             bool initialized;
+            void emit_event_to_set_input_hints();
+            void emit_event_to_set_input_hints_bar_to_inventory_controls();
+            void emit_event_to_set_input_hints_bar_to_room_controls();
+
+         protected:
+
 
          public:
             Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::AudioController* audio_controller=nullptr);
@@ -45,9 +51,6 @@ namespace AllegroFlare
             virtual void on_deactivate() override;
             virtual void primary_timer_func() override;
             virtual void key_char_func(ALLEGRO_EVENT* ev=nullptr) override;
-            void emit_event_to_set_input_hints();
-            void emit_event_to_set_input_hints_bar_to_inventory_controls();
-            void emit_event_to_set_input_hints_bar_to_room_controls();
          };
       }
    }

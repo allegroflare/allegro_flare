@@ -16,6 +16,9 @@ namespace AllegroFlare
          private:
             std::vector<AllegroFlare::Elements::PlayingCards::Card> cards;
 
+         protected:
+
+
          public:
             Deck();
             ~Deck();

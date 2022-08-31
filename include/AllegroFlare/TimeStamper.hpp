@@ -10,6 +10,9 @@ namespace AllegroFlare
    {
    private:
 
+   protected:
+
+
    public:
       TimeStamper();
       ~TimeStamper();

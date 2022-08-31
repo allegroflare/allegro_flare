@@ -13,6 +13,9 @@ namespace AllegroFlare
       AllegroFlare::FontBin* font_bin;
       AllegroFlare::Bone3D* root_bone;
 
+   protected:
+
+
    public:
       Bone3DGraphRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Bone3D* root_bone={});
       ~Bone3DGraphRenderer();

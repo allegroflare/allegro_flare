@@ -11,6 +11,9 @@ namespace AllegroFlare
       bool x;
       bool y;
 
+   protected:
+
+
    public:
       Vec2B(bool x=false, bool y=false);
       ~Vec2B();

@@ -24,6 +24,11 @@ namespace AllegroFlare
          ALLEGRO_COLOR speaker_color;
          ALLEGRO_COLOR dialog_color;
          ALLEGRO_COLOR internal_dialog_color;
+         ALLEGRO_FONT* obtain_font();
+         ALLEGRO_FONT* obtain_italic_font();
+
+      protected:
+
 
       public:
          DialogRollRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> roll={}, float width=1320);
@@ -42,8 +47,6 @@ namespace AllegroFlare
          ALLEGRO_COLOR get_dialog_color() const;
          ALLEGRO_COLOR get_internal_dialog_color() const;
          void render();
-         ALLEGRO_FONT* obtain_font();
-         ALLEGRO_FONT* obtain_italic_font();
       };
    }
 }

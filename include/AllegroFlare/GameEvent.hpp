@@ -13,6 +13,9 @@ namespace AllegroFlare
       std::string type;
       AllegroFlare::GameEventDatas::Base* data;
 
+   protected:
+
+
    public:
       GameEvent(std::string type="[unset-type]", AllegroFlare::GameEventDatas::Base* data=nullptr);
       ~GameEvent();

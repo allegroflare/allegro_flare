@@ -13,6 +13,9 @@ namespace AllegroFlare
    private:
       std::map<int, AllegroFlare::InventoryIndexItem> index;
 
+   protected:
+
+
    public:
       InventoryIndex(std::map<int, AllegroFlare::InventoryIndexItem> index={});
       ~InventoryIndex();

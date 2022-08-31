@@ -16,6 +16,9 @@ namespace AllegroFlare
             std::string type;
             float created_at;
 
+         protected:
+
+
          public:
             Base(std::string type="Base");
             virtual ~Base();

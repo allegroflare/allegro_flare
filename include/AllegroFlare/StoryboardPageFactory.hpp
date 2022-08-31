@@ -16,6 +16,9 @@ namespace AllegroFlare
    private:
       AllegroFlare::FontBin* font_bin;
 
+   protected:
+
+
    public:
       StoryboardPageFactory(AllegroFlare::FontBin* font_bin=nullptr);
       ~StoryboardPageFactory();

@@ -14,6 +14,9 @@ namespace AllegroFlare
       private:
          static std::string CHARACTERS_LOWERCASE_FIRST;
 
+      protected:
+
+
       public:
          Base62();
          ~Base62();

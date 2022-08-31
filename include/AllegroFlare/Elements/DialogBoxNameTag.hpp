@@ -17,6 +17,11 @@ namespace AllegroFlare
          std::string name;
          float width;
          float height;
+         void draw_text();
+         ALLEGRO_FONT* obtain_dialog_font();
+
+      protected:
+
 
       public:
          DialogBoxNameTag(AllegroFlare::FontBin* font_bin=nullptr, std::string name="[name-not-set]", float width=240, float height=70);
@@ -25,8 +30,6 @@ namespace AllegroFlare
          float get_width() const;
          float get_height() const;
          void render();
-         void draw_text();
-         ALLEGRO_FONT* obtain_dialog_font();
       };
    }
 }

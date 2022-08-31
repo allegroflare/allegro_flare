@@ -18,6 +18,9 @@ namespace AllegroFlare
             float offset_rate;
             ALLEGRO_BITMAP* bitmap;
 
+         protected:
+
+
          public:
             ParallaxLayer(float anchor_x=0.0f, float anchor_y=0.0f, float offset_rate=1.0, ALLEGRO_BITMAP* bitmap=nullptr);
             ~ParallaxLayer();

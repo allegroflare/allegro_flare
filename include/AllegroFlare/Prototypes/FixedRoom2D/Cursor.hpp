@@ -26,6 +26,14 @@ namespace AllegroFlare
             int info_text_flags;
             uint32_t icon_character_num;
             float cursor_last_set_at;
+            void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0);
+            ALLEGRO_FONT* obtain_cursor_font();
+            ALLEGRO_FONT* obtain_info_text_font();
+            void draw_cursor();
+            void draw_info_text();
+
+         protected:
+
 
          public:
             Cursor(AllegroFlare::FontBin* font_bin=nullptr);
@@ -45,11 +53,6 @@ namespace AllegroFlare
             void clear_info_text();
             void set_cursor_to_pointer();
             void set_cursor_to_grab();
-            void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0);
-            ALLEGRO_FONT* obtain_cursor_font();
-            ALLEGRO_FONT* obtain_info_text_font();
-            void draw_cursor();
-            void draw_info_text();
          };
       }
    }

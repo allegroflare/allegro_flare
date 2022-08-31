@@ -28,6 +28,11 @@ namespace AllegroFlare
             float line_height_multiplier;
             float line_height_padding;
             int revealed_characters_count;
+            ALLEGRO_FONT* obtain_font();
+            ALLEGRO_FONT* obtain_next_button_font();
+
+         protected:
+
 
          public:
             AdvancingText(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name="Inter-Medium.ttf", int font_size=-60, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=200, float right_padding=200, float line_height_multiplier=1.75f, float line_height_padding=0.0f);
@@ -61,8 +66,6 @@ namespace AllegroFlare
             std::string generate_revealed_text();
             void reveal_all_characters();
             bool all_characters_are_revealed();
-            ALLEGRO_FONT* obtain_font();
-            ALLEGRO_FONT* obtain_next_button_font();
          };
       }
    }

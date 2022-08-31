@@ -16,6 +16,9 @@ namespace AllegroFlare
             std::string type;
             bool finished;
 
+         protected:
+
+
          public:
             Base(std::string type="Base");
             virtual ~Base();

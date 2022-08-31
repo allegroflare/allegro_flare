@@ -13,6 +13,9 @@ namespace AllegroFlare
       float u2;
       float v2;
 
+   protected:
+
+
    public:
       MultiMeshUV(float u1=0, float v1=0, float u2=0, float v2=0);
       ~MultiMeshUV();

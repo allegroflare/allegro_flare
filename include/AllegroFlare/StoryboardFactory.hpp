@@ -19,6 +19,9 @@ namespace AllegroFlare
       AllegroFlare::EventEmitter* event_emitter;
       AllegroFlare::StoryboardPageFactory page_factory;
 
+   protected:
+
+
    public:
       StoryboardFactory(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
       ~StoryboardFactory();

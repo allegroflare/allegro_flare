@@ -24,6 +24,10 @@ namespace AllegroFlare
             float section_separator_margin;
             float height_calculated;
             bool initialized;
+            ALLEGRO_FONT* obtain_font();
+
+         protected:
+
 
          public:
             RollingCredits(AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={}, float surface_width=1920, float surface_height=1080);
@@ -45,7 +49,6 @@ namespace AllegroFlare
             float calculate_height();
             void render();
             float render_or_calculate_height(bool only_calculate_height_dont_render=false);
-            ALLEGRO_FONT* obtain_font();
          };
       }
    }

@@ -18,6 +18,9 @@ namespace AllegroFlare
       private:
          std::vector<std::pair<std::string, std::string>> log;
 
+      protected:
+
+
       public:
          DialogRoll(std::vector<std::pair<std::string, std::string>> log={});
          ~DialogRoll();

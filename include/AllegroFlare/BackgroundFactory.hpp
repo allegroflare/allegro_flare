@@ -14,6 +14,9 @@ namespace AllegroFlare
    private:
       AllegroFlare::BitmapBin* bitmap_bin;
 
+   protected:
+
+
    public:
       BackgroundFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
       ~BackgroundFactory();

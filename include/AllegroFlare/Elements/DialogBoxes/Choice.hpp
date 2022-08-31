@@ -20,6 +20,10 @@ namespace AllegroFlare
             std::vector<std::pair<std::string, std::string>> options;
             int cursor_position;
             bool initialized;
+            bool has_valid_cursor_position();
+
+         protected:
+
 
          public:
             Choice(std::string prompt="[prompt-question-not-set]", std::vector<std::pair<std::string, std::string>> options={});
@@ -33,7 +37,6 @@ namespace AllegroFlare
             std::string get_current_selection_value();
             void move_cursor_position_down();
             void move_cursor_position_up();
-            bool has_valid_cursor_position();
          };
       }
    }

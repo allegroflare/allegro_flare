@@ -13,6 +13,9 @@ namespace AllegroFlare
       bool loop;
       std::string overplay_strategy;
 
+   protected:
+
+
    public:
       AudioRepositoryElement(std::string filename="a-default-audio-repository-filename.ogg", bool loop=false, std::string overplay_strategy="ignore");
       ~AudioRepositoryElement();

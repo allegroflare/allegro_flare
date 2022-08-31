@@ -24,6 +24,16 @@ namespace AllegroFlare
             float height;
             float created_at;
             std::string name;
+            void draw_achievement_box(std::string title="[unset-title]", std::string description="[unset-description]");
+            int32_t infer_icon_character_by_status(std::string status="[unset-status]");
+            ALLEGRO_COLOR infer_icon_color_by_status(std::string status="[unset-status]", ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1});
+            ALLEGRO_FONT* obtain_item_title_font();
+            ALLEGRO_FONT* obtain_item_description_font();
+            ALLEGRO_FONT* obtain_icon_font();
+            void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0);
+
+         protected:
+
 
          public:
             AchievementUnlocked(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f, float created_at=0.0f, std::string name="[unset-name]");
@@ -42,13 +52,6 @@ namespace AllegroFlare
             float get_created_at() const;
             std::string get_name() const;
             void render();
-            void draw_achievement_box(std::string title="[unset-title]", std::string description="[unset-description]");
-            int32_t infer_icon_character_by_status(std::string status="[unset-status]");
-            ALLEGRO_COLOR infer_icon_color_by_status(std::string status="[unset-status]", ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1});
-            ALLEGRO_FONT* obtain_item_title_font();
-            ALLEGRO_FONT* obtain_item_description_font();
-            ALLEGRO_FONT* obtain_icon_font();
-            void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0);
          };
       }
    }

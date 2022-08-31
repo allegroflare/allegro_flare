@@ -21,6 +21,9 @@ namespace AllegroFlare
          std::string data;
          std::size_t body_length;
 
+      protected:
+
+
       public:
          Message();
          ~Message();

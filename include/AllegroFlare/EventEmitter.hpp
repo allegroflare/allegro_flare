@@ -16,6 +16,9 @@ namespace AllegroFlare
       ALLEGRO_EVENT_SOURCE event_source;
       bool initialized;
 
+   protected:
+
+
    public:
       EventEmitter();
       ~EventEmitter();

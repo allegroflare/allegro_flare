@@ -29,6 +29,10 @@ namespace AllegroFlare
          float token_SPACE_width;
          float token_SPACER_width;
          float token_SEPARATOR_width;
+         ALLEGRO_FONT* obtain_font();
+
+      protected:
+
 
       public:
          KeyboardKeyCombo(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::string> keyboard_combo_tokens={}, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float x=0.0f, float y=0.0f, std::string font_name="Inter-Medium.ttf", int font_size=-28, std::string keyboard_key_font_name="Inter-Medium.ttf", int keyboard_key_font_size=-20, float keyboard_key_box_height=42, float keyboard_key_box_min_width=42, float token_SPACE_width=10.0f, float token_SPACER_width=24.0f, float token_SEPARATOR_width=60.0f);
@@ -64,7 +68,6 @@ namespace AllegroFlare
          int render(bool calculate_width_only_and_do_not_draw=false);
          int calculate_width();
          int guarantee_even_number(int potentially_odd_number=0);
-         ALLEGRO_FONT* obtain_font();
       };
    }
 }

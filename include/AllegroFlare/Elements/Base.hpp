@@ -14,6 +14,9 @@ namespace AllegroFlare
       private:
          AllegroFlare::Placement2D placement;
 
+      protected:
+
+
       public:
          Base();
          virtual ~Base();

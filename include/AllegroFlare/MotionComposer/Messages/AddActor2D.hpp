@@ -18,6 +18,9 @@ namespace AllegroFlare
             std::string bitmap_identifier;
             std::string script;
 
+         protected:
+
+
          public:
             AddActor2D(std::string identifier="[unset-identifier]", std::string bitmap_identifier="[unset-bitmap_identifier]", std::string script="[unset-script]");
             ~AddActor2D();

@@ -22,6 +22,9 @@ namespace AllegroFlare
             float bar_height;
             float bar_stroke_thickness;
 
+         protected:
+
+
          public:
             Classic(int max=10, int value=10, ALLEGRO_COLOR fill_color=(ALLEGRO_COLOR{0.86, 0.08, 0.24, 1} /*crimson*/), float bar_width=16, float bar_spacing=24, float bar_height=36, float bar_stroke_thickness=3.0f);
             ~Classic();

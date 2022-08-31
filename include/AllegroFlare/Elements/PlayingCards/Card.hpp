@@ -15,6 +15,9 @@ namespace AllegroFlare
             int value;
             int suit;
 
+         protected:
+
+
          public:
             Card(int value=0, int suit=0);
             ~Card();

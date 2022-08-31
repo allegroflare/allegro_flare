@@ -11,6 +11,9 @@ namespace AllegroFlare
    private:
       GLuint id;
 
+   protected:
+
+
    public:
       Cubemap(GLuint id=0);
       ~Cubemap();

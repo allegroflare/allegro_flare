@@ -21,6 +21,10 @@ namespace AllegroFlare
             std::string image_file_location_prefix;
             float reveal_counter;
             float reveal_speed;
+            ALLEGRO_BITMAP* obtain_background_bitmap();
+
+         protected:
+
 
          public:
             Image(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string image_filename="[image-filename-not-set]");
@@ -28,7 +32,6 @@ namespace AllegroFlare
 
             float get_reveal_counter() const;
             void render() override;
-            ALLEGRO_BITMAP* obtain_background_bitmap();
             virtual void activate() override;
             virtual void deactivate() override;
             virtual void update() override;

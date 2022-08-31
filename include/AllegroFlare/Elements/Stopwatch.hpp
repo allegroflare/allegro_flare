@@ -19,6 +19,12 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::Timer* timer;
          ALLEGRO_COLOR color;
+         void fit_placement_width_and_height_to_stopwatch();
+         std::string build_ellapsed_time_str();
+         ALLEGRO_FONT* obtain_font();
+
+      protected:
+
 
       public:
          Stopwatch(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Timer* timer=nullptr);
@@ -28,10 +34,7 @@ namespace AllegroFlare
          void set_color(ALLEGRO_COLOR color);
          AllegroFlare::Timer* get_timer() const;
          ALLEGRO_COLOR get_color() const;
-         void fit_placement_width_and_height_to_stopwatch();
          void render();
-         std::string build_ellapsed_time_str();
-         ALLEGRO_FONT* obtain_font();
       };
    }
 }

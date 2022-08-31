@@ -27,6 +27,10 @@ namespace AllegroFlare
             float right_padding;
             float line_height_multiplier;
             float line_height_padding;
+            ALLEGRO_FONT* obtain_font();
+
+         protected:
+
 
          public:
             Text(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name="Inter-Medium.ttf", int font_size=-60, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=200, float right_padding=200, float line_height_multiplier=1.75f, float line_height_padding=0.0f);
@@ -56,7 +60,6 @@ namespace AllegroFlare
             virtual void update() override;
             virtual void render() override;
             virtual void advance() override;
-            ALLEGRO_FONT* obtain_font();
          };
       }
    }

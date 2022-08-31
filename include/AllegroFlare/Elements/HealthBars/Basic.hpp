@@ -22,6 +22,9 @@ namespace AllegroFlare
             float bar_height;
             float min_render_threshold;
 
+         protected:
+
+
          public:
             Basic(float value=1.0, float max=1.0, ALLEGRO_COLOR fill_color=(ALLEGRO_COLOR{0.0, 0.75, 1.0, 1} /*deep sky blue*/), ALLEGRO_COLOR backfill_color=(ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.9}), float bar_width=200, float bar_height=16, float min_render_threshold=0.0001);
             ~Basic();

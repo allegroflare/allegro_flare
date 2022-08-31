@@ -13,6 +13,9 @@ namespace AllegroFlare
    private:
       std::vector<AllegroFlare::Bone3D*> children;
 
+   protected:
+
+
    public:
       Bone3D(std::vector<AllegroFlare::Bone3D*> children={});
       ~Bone3D();
