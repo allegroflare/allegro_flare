@@ -40,7 +40,7 @@ std::string FontCharacterAtlasBuilder::get_font_identifier() const
 }
 
 
-void FontCharacterAtlasBuilder::create()
+ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
 {
    if (!(al_is_system_installed()))
    {
@@ -58,12 +58,15 @@ void FontCharacterAtlasBuilder::create()
    int char_width = al_get_text_width(font, "W");
    int char_height = al_get_font_line_height(font);
 
-   ALLEGRO_BITMAP* bitmap = al_create_bitmap(char_width*16, char_height*16);
+   ALLEGRO_BITMAP* bitmap = al_create_bitmap(char_width*32, char_height*16);
 
 
 
 
 
+   ALLEGRO_STATE previous_target_bitmap_state;
+   al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
+   al_set_target_bitmap(bitmap);
 
    uint32_t unicode_range_start = 0x1D100;
 
@@ -125,13 +128,14 @@ void FontCharacterAtlasBuilder::create()
 
 
 
+   al_restore_state(&previous_target_bitmap_state);
 
 
    //for (
    //type: ALLERO_BITMAP*
    //init_with: nullptr
    //getter: true
-   return;
+   return bitmap;
 }
 
 void FontCharacterAtlasBuilder::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, uint32_t icon, int flags, float x, float y)

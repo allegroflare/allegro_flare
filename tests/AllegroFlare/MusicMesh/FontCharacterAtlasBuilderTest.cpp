@@ -26,3 +26,15 @@ TEST_F(AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTest, can_be_created_with
 }
 
 
+TEST_F(AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTestWithAllegroRenderingFixture,
+   CAPTURE__create__will_not_blow_up)
+{
+   AllegroFlare::MusicMesh::FontCharacterAtlasBuilder font_character_atlas_builder(&get_font_bin_ref());
+   ALLEGRO_BITMAP *created_bitmap = font_character_atlas_builder.create();
+   ASSERT_NE(nullptr, created_bitmap);
+   al_draw_bitmap(created_bitmap, 0, 0, 0);
+   al_flip_display();
+   sleep_for(2);
+}
+
+

@@ -33,7 +33,7 @@ namespace AllegroFlare
 
          void set_font_identifier(std::string font_identifier);
          std::string get_font_identifier() const;
-         void create();
+         ALLEGRO_BITMAP* create();
          std::string as_hex(uint32_t value=0, int zero_fill_width=6);
          std::string as_int(uint32_t value=0);
       };

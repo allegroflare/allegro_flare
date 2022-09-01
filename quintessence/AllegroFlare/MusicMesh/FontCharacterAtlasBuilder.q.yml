@@ -22,19 +22,22 @@ functions:
 
 
   - name: create
-    type: void
+    type: ALLEGRO_BITMAP*
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       ALLEGRO_FONT *font = obtain_font();
       int char_width = al_get_text_width(font, "W");
       int char_height = al_get_font_line_height(font);
 
-      ALLEGRO_BITMAP* bitmap = al_create_bitmap(char_width*16, char_height*16);
+      ALLEGRO_BITMAP* bitmap = al_create_bitmap(char_width*32, char_height*16);
 
 
 
 
 
+      ALLEGRO_STATE previous_target_bitmap_state;
+      al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
+      al_set_target_bitmap(bitmap);
 
       uint32_t unicode_range_start = 0x1D100;
 
@@ -96,13 +99,14 @@ functions:
 
 
 
+      al_restore_state(&previous_target_bitmap_state);
 
 
       //for (
       //type: ALLERO_BITMAP*
       //init_with: nullptr
       //getter: true
-      return;
+      return bitmap;
     body_dependency_symbols:
       - AllegroFlare::Color
       - al_draw_rectangle
@@ -210,6 +214,8 @@ dependencies:
   - symbol: std::setfill
     headers: [ iomanip ]
   - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
