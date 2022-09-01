@@ -84,6 +84,15 @@ functions:
 
 
 
+     
+
+      bool show_frame = false;
+      bool show_hex_number = false;
+      bool show_int_number = false;
+
+
+
+
 
 
       ALLEGRO_STATE previous_target_bitmap_state;
@@ -112,29 +121,35 @@ functions:
          int y = table_y + line*row_height;
          float column_middle_int = (int)(x + column_width*0.5);
 
-         al_draw_rectangle(x, y, x+column_width, y+row_height, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 1.0);
+         if (show_frame) al_draw_rectangle(x, y, x+column_width, y+row_height, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 1.0);
 
          draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_LEFT, column_middle_int, y);
 
-         // draw hex number
-         al_draw_text(
-            ui_font_mini,
-            white,
-            column_middle_int,
-            y+row_height-ui_font_mini_line_height - 4,
-            ALLEGRO_ALIGN_CENTER,
-            as_hex(character).c_str()
-         );
+         if (show_hex_number)
+         {
+            // draw hex number
+            al_draw_text(
+               ui_font_mini,
+               white,
+               column_middle_int,
+               y+row_height-ui_font_mini_line_height - 4,
+               ALLEGRO_ALIGN_CENTER,
+               as_hex(character).c_str()
+            );
+         }
 
-         // draw int number
-         al_draw_text(
-            ui_font_mini,
-            white,
-            column_middle_int,
-            y+row_height-(ui_font_mini_line_height*2) - 4,
-            ALLEGRO_ALIGN_CENTER,
-            as_int(character).c_str()
-         );
+         if (show_int_number)
+         {
+            // draw int number
+            al_draw_text(
+               ui_font_mini,
+               white,
+               column_middle_int,
+               y+row_height-(ui_font_mini_line_height*2) - 4,
+               ALLEGRO_ALIGN_CENTER,
+               as_int(character).c_str()
+            );
+         }
 
          column += 1;
          if (column >= num_columns) { column = 0; line++; }
