@@ -14,6 +14,13 @@ properties:
     getter: true
     setter: true
 
+  - name: font_size
+    type: int
+    init_with: 48
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: UNICODE_RANGE_START
     type: uint32_t
     init_with: 0x1D100
@@ -23,7 +30,7 @@ properties:
 
   - name: row_height
     type: int
-    init_with: 112
+    init_with: 160
     getter: true
 
   - name: column_width
@@ -222,7 +229,7 @@ functions:
     guards: [ font_bin ]
     body: |
       std::stringstream font_identifier_and_size;
-      font_identifier_and_size << font_identifier << " 42";
+      font_identifier_and_size << font_identifier << " " << font_size;
       return font_bin->auto_get(font_identifier_and_size.str().c_str());
 
 

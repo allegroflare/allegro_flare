@@ -16,10 +16,11 @@ namespace MusicMesh
 {
 
 
-FontCharacterAtlasBuilder::FontCharacterAtlasBuilder(AllegroFlare::FontBin* font_bin, std::string font_identifier)
+FontCharacterAtlasBuilder::FontCharacterAtlasBuilder(AllegroFlare::FontBin* font_bin, std::string font_identifier, int font_size)
    : font_bin(font_bin)
    , font_identifier(font_identifier)
-   , row_height(112)
+   , font_size(font_size)
+   , row_height(160)
    , column_width(54)
 {
 }
@@ -42,9 +43,21 @@ void FontCharacterAtlasBuilder::set_font_identifier(std::string font_identifier)
 }
 
 
+void FontCharacterAtlasBuilder::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
 std::string FontCharacterAtlasBuilder::get_font_identifier() const
 {
    return font_identifier;
+}
+
+
+int FontCharacterAtlasBuilder::get_font_size() const
+{
+   return font_size;
 }
 
 
@@ -228,7 +241,7 @@ ALLEGRO_FONT* FontCharacterAtlasBuilder::obtain_unicode_font()
       throw std::runtime_error(error_message.str());
    }
    std::stringstream font_identifier_and_size;
-   font_identifier_and_size << font_identifier << " 42";
+   font_identifier_and_size << font_identifier << " " << font_size;
    return font_bin->auto_get(font_identifier_and_size.str().c_str());
 }
 

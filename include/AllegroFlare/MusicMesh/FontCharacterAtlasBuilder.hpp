@@ -22,6 +22,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          std::string font_identifier;
+         int font_size;
          int row_height;
          int column_width;
          void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
@@ -34,12 +35,14 @@ namespace AllegroFlare
 
 
       public:
-         FontCharacterAtlasBuilder(AllegroFlare::FontBin* font_bin=nullptr, std::string font_identifier="Bravura.otf");
+         FontCharacterAtlasBuilder(AllegroFlare::FontBin* font_bin=nullptr, std::string font_identifier="Bravura.otf", int font_size=48);
          ~FontCharacterAtlasBuilder();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_font_identifier(std::string font_identifier);
+         void set_font_size(int font_size);
          std::string get_font_identifier() const;
+         int get_font_size() const;
          int get_row_height() const;
          int get_column_width() const;
          void todo();
