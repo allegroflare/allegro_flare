@@ -47,7 +47,8 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
 
    for (int i=0; i<4096; i++)
    {
-      music_mesh.add_music_symbol(random.get_random_int(0, 1920), random.get_random_int(0, 1080), start + 32 + 2);
+      music_mesh.add_music_symbol(random.get_random_int(0, 1920), random.get_random_int(0, 1080),
+         start + random.get_random_int(0, 255));
       //music_mesh.add_music_symbol(300, 300, start + 32 - 2); // g clef
    }
 
