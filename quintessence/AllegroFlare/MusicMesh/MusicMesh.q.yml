@@ -36,7 +36,11 @@ functions:
 
   - name: initialize
     body: |
-      intialized = true;
+      // TODO:
+      // - create the atlas bitmap of music symbols from font-bravura.otf
+      // - build the atlas uv info
+      // - assign the atlas uv info to multi_mesh_uv_atlas
+      initialized = true;
       return;
 
 

@@ -54,7 +54,11 @@ AllegroFlare::MultiMeshUVAtlas MusicMesh::get_multi_mesh_uv_atlas() const
 
 void MusicMesh::initialize()
 {
-   intialized = true;
+   // TODO:
+   // - create the atlas bitmap of music symbols from font-bravura.otf
+   // - build the atlas uv info
+   // - assign the atlas uv info to multi_mesh_uv_atlas
+   initialized = true;
    return;
 }
 
