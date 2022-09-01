@@ -28,6 +28,12 @@ FontCharacterAtlasBuilder::~FontCharacterAtlasBuilder()
 }
 
 
+void FontCharacterAtlasBuilder::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
 void FontCharacterAtlasBuilder::set_font_identifier(std::string font_identifier)
 {
    this->font_identifier = font_identifier;
@@ -39,6 +45,12 @@ std::string FontCharacterAtlasBuilder::get_font_identifier() const
    return font_identifier;
 }
 
+
+void FontCharacterAtlasBuilder::todo()
+{
+   // prevent setting font_bin after init
+   return;
+}
 
 std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> FontCharacterAtlasBuilder::get_uv_for_index(uint32_t unicode_index)
 {
@@ -91,7 +103,7 @@ ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
 
    int num_rows = row_height*256/num_columns;
 
-   ALLEGRO_BITMAP* bitmap = al_create_bitmap(column_width * num_columns, row_height * num_rows);
+   ALLEGRO_BITMAP* bitmap = al_create_bitmap(column_width * num_columns, 896); // TODO fix whyrow_height * num_rows);
 
 
 

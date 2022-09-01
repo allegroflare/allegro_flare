@@ -1072,6 +1072,9 @@
   "AllegroFlare/MusicMesh/Stamp": [
     "AllegroFlare/MusicMesh/MusicMesh"
   ],
+  "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
+    "AllegroFlare/MusicMesh/MusicMesh"
+  ],
   "chat_message": [
     "AllegroFlare/Network2/Message"
   ],

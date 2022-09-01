@@ -4,6 +4,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/MultiMesh.hpp>
 #include <AllegroFlare/MultiMeshUVAtlas.hpp>
+#include <AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.hpp>
 #include <AllegroFlare/MusicMesh/Stamp.hpp>
 #include <allegro5/allegro_font.h>
 #include <cstdint>
@@ -22,6 +23,7 @@ namespace AllegroFlare
          uint32_t next_id;
          AllegroFlare::MultiMesh multi_mesh;
          AllegroFlare::MultiMeshUVAtlas multi_mesh_uv_atlas;
+         AllegroFlare::MusicMesh::FontCharacterAtlasBuilder font_character_atlas_builder;
          bool initialized;
          ALLEGRO_FONT* obtain_font();
 

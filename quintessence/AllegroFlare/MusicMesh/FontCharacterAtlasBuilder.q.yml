@@ -5,6 +5,7 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: true
 
   - name: font_identifier
     type: std::string
@@ -22,6 +23,12 @@ properties:
 
 
 functions:
+
+
+  - name: todo
+    body: |
+      // prevent setting font_bin after init
+      return;
 
 
   - name: get_uv_for_index
@@ -73,7 +80,7 @@ functions:
 
       int num_rows = row_height*256/num_columns;
 
-      ALLEGRO_BITMAP* bitmap = al_create_bitmap(column_width * num_columns, row_height * num_rows);
+      ALLEGRO_BITMAP* bitmap = al_create_bitmap(column_width * num_columns, 896); // TODO fix whyrow_height * num_rows);
 
 
 

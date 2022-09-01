@@ -35,10 +35,18 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTest, render__without_allegro_initialized
 }
 
 
-TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture, render__will_not_blow_up)
+TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::MusicMesh::MusicMesh music_mesh;
+   AllegroFlare::MusicMesh::MusicMesh music_mesh(&get_font_bin_ref());
+   music_mesh.initialize();
+
+   uint32_t start = AllegroFlare::MusicMesh::FontCharacterAtlasBuilder::UNICODE_RANGE_START;
+
+   music_mesh.add_music_symbol(300, 200, start + 0); //32 + 2);
+
    music_mesh.render();
-   SUCCEED();
+   al_flip_display();
+   sleep(2);
 }
 

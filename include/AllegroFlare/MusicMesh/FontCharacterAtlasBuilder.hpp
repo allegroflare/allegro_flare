@@ -35,8 +35,10 @@ namespace AllegroFlare
          FontCharacterAtlasBuilder(AllegroFlare::FontBin* font_bin=nullptr, std::string font_identifier="Bravura.otf");
          ~FontCharacterAtlasBuilder();
 
+         void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_font_identifier(std::string font_identifier);
          std::string get_font_identifier() const;
+         void todo();
          std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> get_uv_for_index(uint32_t unicode_index=0);
          ALLEGRO_BITMAP* create();
          std::string as_hex(uint32_t value=0, int zero_fill_width=6);

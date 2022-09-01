@@ -14,10 +14,11 @@ namespace MusicMesh
 
 MusicMesh::MusicMesh(AllegroFlare::FontBin* font_bin)
    : font_bin(font_bin)
-   , stamps({})
+   , stamps()
    , next_id(1)
-   , multi_mesh({})
+   , multi_mesh(256)
    , multi_mesh_uv_atlas()
+   , font_character_atlas_builder()
    , initialized(false)
 {
 }
@@ -54,6 +55,20 @@ AllegroFlare::MultiMeshUVAtlas MusicMesh::get_multi_mesh_uv_atlas() const
 
 void MusicMesh::initialize()
 {
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "MusicMesh" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   font_character_atlas_builder.set_font_bin(font_bin);
+   ALLEGRO_BITMAP *texture = font_character_atlas_builder.create();
+
+   //al_save_bitmap("here_too.png", texture);
+
+   multi_mesh.set_texture(texture);
+   multi_mesh.initialize();
+
    // TODO:
    // - create the atlas bitmap of music symbols from font-bravura.otf
    // - build the atlas uv info
@@ -66,8 +81,13 @@ void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stam
 {
    AllegroFlare::MusicMesh::Stamp stamp(x, y);
    stamp.set_id(next_id);
-   int atlas_index_of_symbol = find_atlas_index_for_symbol(music_symbol_to_stamp);
-   int multi_mesh_id = multi_mesh.append(x, y, atlas_index_of_symbol);
+   //int atlas_index_of_symbol = find_atlas_index_for_symbol(music_symbol_to_stamp);
+
+   // here
+   float width = 112;
+   float height = 54;
+   int multi_mesh_id = multi_mesh.append_raw(x, y, x+width, y+height, 100, 100, 400, 400); //atlas_index_of_symbol);
+
    stamp.set_multi_mesh_id(multi_mesh_id);
    stamps.push_back(stamp);
    next_id++;
@@ -108,6 +128,7 @@ void MusicMesh::render()
       error_message << "MusicMesh" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
       throw std::runtime_error(error_message.str());
    }
+   multi_mesh.render();
    return;
 }
 

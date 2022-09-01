@@ -8,7 +8,7 @@ properties:
 
   - name: stamps
     type: std::vector<AllegroFlare::MusicMesh::Stamp>
-    init_with: '{}'
+    init_with: ''
     getter: true
 
   - name: next_id
@@ -18,13 +18,17 @@ properties:
 
   - name: multi_mesh
     type: AllegroFlare::MultiMesh
-    init_with: '{}'
+    init_with: 256
 
   - name: multi_mesh_uv_atlas
     type: AllegroFlare::MultiMeshUVAtlas
     init_with: ''
     getter: true
     setter: true
+
+  - name: font_character_atlas_builder
+    type: AllegroFlare::MusicMesh::FontCharacterAtlasBuilder
+    init_with: ''
 
   - name: initialized
     type: bool
@@ -35,7 +39,16 @@ functions:
 
 
   - name: initialize
+    guards: [ (!initialized) ]
     body: |
+      font_character_atlas_builder.set_font_bin(font_bin);
+      ALLEGRO_BITMAP *texture = font_character_atlas_builder.create();
+
+      //al_save_bitmap("here_too.png", texture);
+
+      multi_mesh.set_texture(texture);
+      multi_mesh.initialize();
+
       // TODO:
       // - create the atlas bitmap of music symbols from font-bravura.otf
       // - build the atlas uv info
@@ -58,8 +71,13 @@ functions:
     body: |
       AllegroFlare::MusicMesh::Stamp stamp(x, y);
       stamp.set_id(next_id);
-      int atlas_index_of_symbol = find_atlas_index_for_symbol(music_symbol_to_stamp);
-      int multi_mesh_id = multi_mesh.append(x, y, atlas_index_of_symbol);
+      //int atlas_index_of_symbol = find_atlas_index_for_symbol(music_symbol_to_stamp);
+
+      // here
+      float width = 112;
+      float height = 54;
+      int multi_mesh_id = multi_mesh.append_raw(x, y, x+width, y+height, 100, 100, 400, 400); //atlas_index_of_symbol);
+
       stamp.set_multi_mesh_id(multi_mesh_id);
       stamps.push_back(stamp);
       next_id++;
@@ -99,6 +117,7 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      multi_mesh.render();
       return;
 
 
@@ -123,5 +142,7 @@ dependencies:
     headers: [ AllegroFlare/MultiMesh.hpp ]
   - symbol: AllegroFlare::MultiMeshUVAtlas
     headers: [ AllegroFlare/MultiMeshUVAtlas.hpp ]
+  - symbol: AllegroFlare::MusicMesh::FontCharacterAtlasBuilder
+    headers: [ AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.hpp ]
 
 
