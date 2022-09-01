@@ -22,6 +22,8 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          std::string font_identifier;
+         int row_height;
+         int column_width;
          void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
          ALLEGRO_FONT* obtain_unicode_font();
          ALLEGRO_FONT* obtain_ui_font();
@@ -38,6 +40,8 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_font_identifier(std::string font_identifier);
          std::string get_font_identifier() const;
+         int get_row_height() const;
+         int get_column_width() const;
          void todo();
          std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> get_uv_for_index(uint32_t unicode_index=0);
          int infer_font_descent();

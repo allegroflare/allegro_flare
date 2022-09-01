@@ -21,6 +21,16 @@ properties:
     static: true
     constexpr: true
 
+  - name: row_height
+    type: int
+    init_with: 112
+    getter: true
+
+  - name: column_width
+    type: int
+    init_with: 112
+    getter: true
+
 
 functions:
 
@@ -44,8 +54,8 @@ functions:
       int table_x = 0;
       int num_columns = 32;
 
-      int row_height = 112;
-      int column_width = 54;
+      //int row_height = 112;
+      //int column_width = 54;
       //int font_descent = infer_font_descent();
 
       int num_rows = row_height*256/num_columns;
@@ -82,8 +92,8 @@ functions:
       int line = 0;
       int num_columns = 32;
 
-      int row_height = 112;
-      int column_width = 54;
+      //int row_height = 112;
+      //int column_width = 54;
 
       int num_rows = row_height*256/num_columns;
 

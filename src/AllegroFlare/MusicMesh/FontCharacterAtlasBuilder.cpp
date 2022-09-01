@@ -19,6 +19,8 @@ namespace MusicMesh
 FontCharacterAtlasBuilder::FontCharacterAtlasBuilder(AllegroFlare::FontBin* font_bin, std::string font_identifier)
    : font_bin(font_bin)
    , font_identifier(font_identifier)
+   , row_height(112)
+   , column_width(112)
 {
 }
 
@@ -46,6 +48,18 @@ std::string FontCharacterAtlasBuilder::get_font_identifier() const
 }
 
 
+int FontCharacterAtlasBuilder::get_row_height() const
+{
+   return row_height;
+}
+
+
+int FontCharacterAtlasBuilder::get_column_width() const
+{
+   return column_width;
+}
+
+
 void FontCharacterAtlasBuilder::todo()
 {
    // prevent setting font_bin after init
@@ -60,8 +74,8 @@ std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> FontCharacterAtlasBuilder::g
    int table_x = 0;
    int num_columns = 32;
 
-   int row_height = 112;
-   int column_width = 54;
+   //int row_height = 112;
+   //int column_width = 54;
    //int font_descent = infer_font_descent();
 
    int num_rows = row_height*256/num_columns;
@@ -104,8 +118,8 @@ ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
    int line = 0;
    int num_columns = 32;
 
-   int row_height = 112;
-   int column_width = 54;
+   //int row_height = 112;
+   //int column_width = 54;
 
    int num_rows = row_height*256/num_columns;
 
