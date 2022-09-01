@@ -18,7 +18,7 @@ properties:
 
   - name: multi_mesh
     type: AllegroFlare::MultiMesh
-    init_with: 256
+    init_with: 256*8
 
   - name: multi_mesh_uv_atlas
     type: AllegroFlare::MultiMeshUVAtlas
