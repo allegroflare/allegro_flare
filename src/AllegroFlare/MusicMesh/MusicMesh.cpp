@@ -79,8 +79,8 @@ void MusicMesh::initialize()
 
 void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stamp)
 {
-   AllegroFlare::MusicMesh::Stamp stamp(x, y);
-   stamp.set_id(next_id);
+   //AllegroFlare::MusicMesh::Stamp stamp(next_id, x, y);
+   //stamp.set_id(next_id);
    //int atlas_index_of_symbol = find_atlas_index_for_symbol(music_symbol_to_stamp);
 
 
@@ -96,7 +96,7 @@ void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stam
    int multi_mesh_id = multi_mesh.append_raw(x, y, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
       //atlas_index_of_symbol);
 
-   stamp.set_multi_mesh_id(multi_mesh_id);
+   AllegroFlare::MusicMesh::Stamp stamp(next_id, x, y, multi_mesh_id);
    stamps.push_back(stamp);
    next_id++;
    return;
