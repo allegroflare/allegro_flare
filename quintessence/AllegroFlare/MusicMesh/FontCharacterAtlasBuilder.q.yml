@@ -28,7 +28,7 @@ properties:
 
   - name: column_width
     type: int
-    init_with: 112
+    init_with: 54
     getter: true
 
 

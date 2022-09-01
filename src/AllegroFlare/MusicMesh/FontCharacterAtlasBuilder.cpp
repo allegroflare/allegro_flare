@@ -20,7 +20,7 @@ FontCharacterAtlasBuilder::FontCharacterAtlasBuilder(AllegroFlare::FontBin* font
    : font_bin(font_bin)
    , font_identifier(font_identifier)
    , row_height(112)
-   , column_width(112)
+   , column_width(54)
 {
 }
 

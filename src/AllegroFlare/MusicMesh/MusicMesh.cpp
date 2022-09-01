@@ -91,8 +91,8 @@ void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stam
 
 
    // here
-   float width = 54;
-   float height = 112;
+   float width = font_character_atlas_builder.get_column_width();
+   float height = font_character_atlas_builder.get_row_height();
    int descent = font_character_atlas_builder.infer_font_descent();
    int multi_mesh_id = multi_mesh.append_raw(x, y-descent, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
       //atlas_index_of_symbol);
@@ -116,11 +116,6 @@ void MusicMesh::remove_stamp_at(int index_of_stamp)
          break;
       }
    }
-}
-
-int MusicMesh::find_atlas_index_for_symbol(uint32_t music_symbol_to_stamp)
-{
-   return 124;
 }
 
 void MusicMesh::render()

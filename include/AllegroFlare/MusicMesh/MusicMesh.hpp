@@ -41,7 +41,6 @@ namespace AllegroFlare
          void initialize();
          void add_music_symbol(float x=0, float y=0, uint32_t music_symbol_to_stamp=0);
          void remove_stamp_at(int index_of_stamp=0);
-         int find_atlas_index_for_symbol(uint32_t music_symbol_to_stamp=0);
          void render();
       };
    }

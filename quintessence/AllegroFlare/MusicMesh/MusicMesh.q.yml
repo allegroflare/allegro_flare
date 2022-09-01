@@ -81,8 +81,8 @@ functions:
 
 
       // here
-      float width = 54;
-      float height = 112;
+      float width = font_character_atlas_builder.get_column_width();
+      float height = font_character_atlas_builder.get_row_height();
       int descent = font_character_atlas_builder.infer_font_descent();
       int multi_mesh_id = multi_mesh.append_raw(x, y-descent, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
          //atlas_index_of_symbol);
@@ -111,16 +111,6 @@ functions:
          }
       }
       
-
-  - name: find_atlas_index_for_symbol
-    parameters:
-      - name: music_symbol_to_stamp
-        type: uint32_t
-        default_argument: 0
-    type: int
-    body: |
-      return 124;
-
 
   - name: render
     type: void
