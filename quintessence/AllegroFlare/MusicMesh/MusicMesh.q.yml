@@ -11,8 +11,74 @@ properties:
     init_with: '{}'
     getter: true
 
+  - name: next_id
+    type: uint32_t
+    init_with: 1
+    getter: true
+
+  - name: multi_mesh
+    type: AllegroFlare::MultiMesh
+    init_with: '{}'
+
+  - name: multi_mesh_uv_atlas
+    type: AllegroFlare::MultiMeshUVAtlas
+    init_with: ''
+    getter: true
+    setter: true
+
 
 functions:
+
+
+  - name: add_music_symbol
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0
+      - name: y
+        type: float
+        default_argument: 0
+      - name: music_symbol_to_stamp
+        type: uint32_t
+        default_argument: 0
+    body: |
+      AllegroFlare::MusicMesh::Stamp stamp(x, y);
+      stamp.set_id(next_id);
+      int atlas_index_of_symbol = find_atlas_index_for_symbol(music_symbol_to_stamp);
+      int multi_mesh_id = multi_mesh.append(x, y, atlas_index_of_symbol);
+      stamp.set_multi_mesh_id(multi_mesh_id);
+      stamps.push_back(stamp);
+      next_id++;
+      return;
+
+
+  - name: remove_stamp_at
+    parameters:
+      - name: index_of_stamp
+        type: int
+        default_argument: 0
+    body: |
+      // TODO bounds checking
+      uint32_t multi_mesh_id_to_remove = stamps[index_of_stamp].get_multi_mesh_id();
+      uint32_t multi_mesh_id_to_swap = multi_mesh.remove(multi_mesh_id_to_remove);
+      for (auto &stamp : stamps)
+      {
+         if (stamp.get_multi_mesh_id() == multi_mesh_id_to_swap)
+         {
+            stamp.reassign_multi_mesh_id(multi_mesh_id_to_swap);
+            break;
+         }
+      }
+      
+
+  - name: find_atlas_index_for_symbol
+    parameters:
+      - name: music_symbol_to_stamp
+        type: uint32_t
+        default_argument: 0
+    type: int
+    body: |
+      return 124;
 
 
   - name: render
@@ -20,6 +86,7 @@ functions:
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       return;
+
 
   - name: obtain_font
     private: true
@@ -38,5 +105,9 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::MusicMesh::Stamp
     headers: [ AllegroFlare/MusicMesh/Stamp.hpp ]
+  - symbol: AllegroFlare::MultiMesh
+    headers: [ AllegroFlare/MultiMesh.hpp ]
+  - symbol: AllegroFlare::MultiMeshUVAtlas
+    headers: [ AllegroFlare/MultiMeshUVAtlas.hpp ]
 
 

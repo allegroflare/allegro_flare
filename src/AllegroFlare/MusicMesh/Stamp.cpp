@@ -11,9 +11,11 @@ namespace MusicMesh
 {
 
 
-Stamp::Stamp(uint32_t id, uint32_t multimesh_id)
+Stamp::Stamp(uint32_t id, float x, float y, uint32_t multi_mesh_id)
    : id(id)
-   , multimesh_id(multimesh_id)
+   , x(x)
+   , y(y)
+   , multi_mesh_id(multi_mesh_id)
 {
 }
 
@@ -29,9 +31,21 @@ void Stamp::set_id(uint32_t id)
 }
 
 
-void Stamp::set_multimesh_id(uint32_t multimesh_id)
+void Stamp::set_x(float x)
 {
-   this->multimesh_id = multimesh_id;
+   this->x = x;
+}
+
+
+void Stamp::set_y(float y)
+{
+   this->y = y;
+}
+
+
+void Stamp::set_multi_mesh_id(uint32_t multi_mesh_id)
+{
+   this->multi_mesh_id = multi_mesh_id;
 }
 
 
@@ -41,15 +55,27 @@ uint32_t Stamp::get_id() const
 }
 
 
-uint32_t Stamp::get_multimesh_id() const
+float Stamp::get_x() const
 {
-   return multimesh_id;
+   return x;
 }
 
 
-void Stamp::reassign_multimesh_id(uint32_t new_multimesh_id)
+float Stamp::get_y() const
 {
-   multimesh_id = new_multimesh_id;
+   return y;
+}
+
+
+uint32_t Stamp::get_multi_mesh_id() const
+{
+   return multi_mesh_id;
+}
+
+
+void Stamp::reassign_multi_mesh_id(uint32_t new_multi_mesh_id)
+{
+   multi_mesh_id = new_multi_mesh_id;
    return;
 }
 

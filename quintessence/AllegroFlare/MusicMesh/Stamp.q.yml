@@ -8,24 +8,38 @@ properties:
     getter: true
     setter: true
 
-  - name: multimesh_id
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: multi_mesh_id
     type: uint32_t
     init_with: 0
     constructor_arg: true
     getter: true
     setter: true
-    
+
 
 functions:
 
 
-  - name: reassign_multimesh_id
+  - name: reassign_multi_mesh_id
     parameters:
-      - name: new_multimesh_id
+      - name: new_multi_mesh_id
         type: uint32_t
         default_argument: 0
     body: |
-      multimesh_id = new_multimesh_id;
+      multi_mesh_id = new_multi_mesh_id;
       return;
 
 
