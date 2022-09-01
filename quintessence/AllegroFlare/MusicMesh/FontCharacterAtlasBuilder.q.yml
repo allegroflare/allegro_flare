@@ -6,16 +6,19 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: quote
-    type: std::string
-    init_with: '{}'
-
   - name: font_identifier
     type: std::string
     init_with: '"Bravura.otf"'
     constructor_arg: true
     getter: true
     setter: true
+
+  - name: UNICODE_RANGE_START
+    type: uint32_t
+    init_with: 0x1D100
+    const: true
+    static: true
+    constexpr: true
 
 
 functions:
@@ -24,13 +27,14 @@ functions:
   - name: get_uv_for_index
     type: std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D>
     parameters:
-      - name: index
-        type: int
+      - name: unicode_index
+        type: uint32_t
         default_argument: 0
     body: |
+      int index = unicode_index - UNICODE_RANGE_START;
+
       int table_y = 0;
       int table_x = 0;
-      int line = 0;
       int num_columns = 32;
 
       int row_height = 112;

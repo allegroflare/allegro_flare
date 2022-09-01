@@ -18,7 +18,6 @@ namespace MusicMesh
 
 FontCharacterAtlasBuilder::FontCharacterAtlasBuilder(AllegroFlare::FontBin* font_bin, std::string font_identifier)
    : font_bin(font_bin)
-   , quote({})
    , font_identifier(font_identifier)
 {
 }
@@ -41,11 +40,12 @@ std::string FontCharacterAtlasBuilder::get_font_identifier() const
 }
 
 
-std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> FontCharacterAtlasBuilder::get_uv_for_index(int index)
+std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> FontCharacterAtlasBuilder::get_uv_for_index(uint32_t unicode_index)
 {
+   int index = unicode_index - UNICODE_RANGE_START;
+
    int table_y = 0;
    int table_x = 0;
-   int line = 0;
    int num_columns = 32;
 
    int row_height = 112;

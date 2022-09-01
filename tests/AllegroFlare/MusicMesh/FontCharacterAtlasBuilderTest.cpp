@@ -45,15 +45,18 @@ TEST_F(AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTestWithAllegroRenderingF
    AllegroFlare::MusicMesh::FontCharacterAtlasBuilder font_character_atlas_builder(&get_font_bin_ref());
    ALLEGRO_BITMAP *created_bitmap = font_character_atlas_builder.create();
    ASSERT_NE(nullptr, created_bitmap);
+   uint32_t start = AllegroFlare::MusicMesh::FontCharacterAtlasBuilder::UNICODE_RANGE_START;
 
    std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> expected_uvs = { { 108, 0 }, { 162, 112 } };
-   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> actual_uvs = font_character_atlas_builder.get_uv_for_index(2);
+   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> actual_uvs =
+      font_character_atlas_builder.get_uv_for_index(start + 2);
 
    EXPECT_EQ(expected_uvs, actual_uvs);
 
 
    std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> expected_uvs_2 = { { 108, 112 }, { 162, 224 } };
-   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> actual_uvs_2 = font_character_atlas_builder.get_uv_for_index(32+2);
+   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> actual_uvs_2 =
+      font_character_atlas_builder.get_uv_for_index(start + 32 + 2);
 
    EXPECT_EQ(expected_uvs_2, actual_uvs_2);
 }
