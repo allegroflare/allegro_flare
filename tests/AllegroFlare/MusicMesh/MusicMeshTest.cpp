@@ -43,7 +43,8 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
 
    uint32_t start = AllegroFlare::MusicMesh::FontCharacterAtlasBuilder::UNICODE_RANGE_START;
 
-   music_mesh.add_music_symbol(300, 300, start + 32 + 2);
+   music_mesh.add_music_symbol(400, 300, start + 32 + 2); // f clef
+   music_mesh.add_music_symbol(300, 300, start + 32 - 2); // g clef
 
    music_mesh.render();
    al_flip_display();
