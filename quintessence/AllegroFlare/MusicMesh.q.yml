@@ -10,6 +10,10 @@ properties:
     type: AllegroFlare::MultiMesh
     init_with: '{}'
 
+  - name: max_num_symbols
+    type: int
+    init_with: AllegroFlare::MultiMesh::DEFAULT_NUM_ITEMS
+
   - name: initialized
     type: bool
     init_with: false
@@ -22,15 +26,24 @@ functions:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
+      multi_mesh.initialize();
       initialized = true;
+      return;
+
+
+  - name: add_symbol
+    guards: [ initialized ]
+    body: |
       return;
 
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ initialized, al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      multi_mesh.render();
       return;
+
 
   - name: obtain_font
     private: true

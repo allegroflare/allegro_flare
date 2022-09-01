@@ -13,6 +13,7 @@ namespace AllegroFlare
    {
    public:
       static constexpr std::size_t VERTICES_PER_ITEM = 6;
+      static constexpr std::size_t DEFAULT_NUM_ITEMS = 256;
 
    private:
       std::size_t num_items;

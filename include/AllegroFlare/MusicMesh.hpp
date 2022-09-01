@@ -13,6 +13,7 @@ namespace AllegroFlare
    private:
       AllegroFlare::FontBin* font_bin;
       AllegroFlare::MultiMesh multi_mesh;
+      int max_num_symbols;
       bool initialized;
       ALLEGRO_FONT* obtain_font();
 
@@ -25,6 +26,7 @@ namespace AllegroFlare
 
       bool get_initialized() const;
       void initialize();
+      void add_symbol();
       void render();
    };
 }

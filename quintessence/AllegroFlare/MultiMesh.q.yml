@@ -42,6 +42,13 @@ properties:
     type: bool
     init_with: false
 
+  - name: DEFAULT_NUM_ITEMS
+    const: true
+    static: true
+    type: std::size_t
+    init_with: 256
+    constexpr: true
+
 
 functions:
 

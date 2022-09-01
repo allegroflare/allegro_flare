@@ -142,6 +142,7 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
@@ -231,6 +232,7 @@
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/GameOverScreen",
@@ -1046,6 +1048,9 @@
   ],
   "AllegroFlare/MultiMeshUV": [
     "AllegroFlare/MultiMeshUVAtlas"
+  ],
+  "AllegroFlare/MultiMesh": [
+    "AllegroFlare/MusicMesh"
   ],
   "chat_message": [
     "AllegroFlare/Network2/Message"

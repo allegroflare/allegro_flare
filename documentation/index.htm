@@ -131,6 +131,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/MultiMesh.q.yml">quintessence/AllegroFlare/MultiMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MultiMeshUV.q.yml">quintessence/AllegroFlare/MultiMeshUV.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
@@ -5288,6 +5289,10 @@ table td
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">DEFAULT_NUM_ITEMS</td>
+  <td class="property">std::size_t</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -5408,6 +5413,54 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">multi_mesh</td>
+  <td class="property">AllegroFlare::MultiMesh</td>
+</tr>
+<tr>
+  <td class="property">max_num_symbols</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">add_symbol()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultiMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultiMesh.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -8870,6 +8923,7 @@ table td
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
@@ -8959,6 +9013,7 @@ table td
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Screens/GameOverScreen",
@@ -9774,6 +9829,9 @@ table td
   ],
   "AllegroFlare/MultiMeshUV": [
     "AllegroFlare/MultiMeshUVAtlas"
+  ],
+  "AllegroFlare/MultiMesh": [
+    "AllegroFlare/MusicMesh"
   ],
   "chat_message": [
     "AllegroFlare/Network2/Message"
