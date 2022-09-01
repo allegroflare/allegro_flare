@@ -38,13 +38,6 @@ properties:
 functions:
 
 
-  - name: obtain_font_ascent
-    type: int
-    guards: [ initialized ]
-    body: |
-      return font_character_atlas_builder.infer_font_ascent();
-
-
   - name: initialize
     guards: [ (!initialized) ]
     body: |
@@ -90,7 +83,8 @@ functions:
       // here
       float width = 54;
       float height = 112;
-      int multi_mesh_id = multi_mesh.append_raw(x, y, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
+      int descent = font_character_atlas_builder.infer_font_descent();
+      int multi_mesh_id = multi_mesh.append_raw(x, y-descent, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
          //atlas_index_of_symbol);
 
       AllegroFlare::MusicMesh::Stamp stamp(next_id, x, y, multi_mesh_id);

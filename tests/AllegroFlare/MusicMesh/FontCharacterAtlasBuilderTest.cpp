@@ -40,7 +40,7 @@ TEST_F(AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTestWithAllegroRenderingF
 
 
 TEST_F(AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTestWithAllegroRenderingFixture,
-   CAPTURE__get_uv_for_index__will_return_the_uv_coordinates_for_a_glyph_at_index)
+   DISABLED__CAPTURE__get_uv_for_index__will_return_the_uv_coordinates_for_a_glyph_at_index)
 {
    AllegroFlare::MusicMesh::FontCharacterAtlasBuilder font_character_atlas_builder(&get_font_bin_ref());
    ALLEGRO_BITMAP *created_bitmap = font_character_atlas_builder.create();

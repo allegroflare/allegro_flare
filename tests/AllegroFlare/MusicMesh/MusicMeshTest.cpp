@@ -84,7 +84,7 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
    music_mesh.render();
 
    draw_crosshair(400, 300);
-   draw_crosshair(400, 300+music_mesh.obtain_font_ascent(), ALLEGRO_COLOR{1, 1, 0, 1});
+   //draw_crosshair(400, 300+music_mesh.obtain_font_ascent(), ALLEGRO_COLOR{1, 1, 0, 1});
 
    al_flip_display();
 

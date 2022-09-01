@@ -62,6 +62,7 @@ std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> FontCharacterAtlasBuilder::g
 
    int row_height = 112;
    int column_width = 54;
+   //int font_descent = infer_font_descent();
 
    int num_rows = row_height*256/num_columns;
 
@@ -74,9 +75,9 @@ std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> FontCharacterAtlasBuilder::g
    );
 }
 
-int FontCharacterAtlasBuilder::infer_font_ascent()
+int FontCharacterAtlasBuilder::infer_font_descent()
 {
-   return al_get_font_ascent(obtain_unicode_font());
+   return al_get_font_descent(obtain_unicode_font());
 }
 
 ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()

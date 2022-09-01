@@ -53,17 +53,6 @@ AllegroFlare::MultiMeshUVAtlas MusicMesh::get_multi_mesh_uv_atlas() const
 }
 
 
-int MusicMesh::obtain_font_ascent()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "MusicMesh" << "::" << "obtain_font_ascent" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   return font_character_atlas_builder.infer_font_ascent();
-}
-
 void MusicMesh::initialize()
 {
    if (!((!initialized)))
@@ -104,7 +93,8 @@ void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stam
    // here
    float width = 54;
    float height = 112;
-   int multi_mesh_id = multi_mesh.append_raw(x, y, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
+   int descent = font_character_atlas_builder.infer_font_descent();
+   int multi_mesh_id = multi_mesh.append_raw(x, y-descent, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
       //atlas_index_of_symbol);
 
    AllegroFlare::MusicMesh::Stamp stamp(next_id, x, y, multi_mesh_id);

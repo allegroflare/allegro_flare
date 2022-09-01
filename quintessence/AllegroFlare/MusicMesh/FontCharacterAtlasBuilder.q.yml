@@ -46,6 +46,7 @@ functions:
 
       int row_height = 112;
       int column_width = 54;
+      //int font_descent = infer_font_descent();
 
       int num_rows = row_height*256/num_columns;
 
@@ -61,10 +62,10 @@ functions:
       - AllegroFlare::Vec2D
 
 
-  - name: infer_font_ascent
+  - name: infer_font_descent
     type: int
     body: |
-      return al_get_font_ascent(obtain_unicode_font());
+      return al_get_font_descent(obtain_unicode_font());
 
 
   - name: create

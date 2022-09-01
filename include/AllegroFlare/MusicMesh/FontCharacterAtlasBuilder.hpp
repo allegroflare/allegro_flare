@@ -40,7 +40,7 @@ namespace AllegroFlare
          std::string get_font_identifier() const;
          void todo();
          std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> get_uv_for_index(uint32_t unicode_index=0);
-         int infer_font_ascent();
+         int infer_font_descent();
          ALLEGRO_BITMAP* create();
          std::string as_hex(uint32_t value=0, int zero_fill_width=6);
          std::string as_int(uint32_t value=0);
