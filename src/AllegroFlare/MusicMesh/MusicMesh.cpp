@@ -91,9 +91,9 @@ void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stam
 
 
    // here
-   float width = 112;
-   float height = 54;
-   int multi_mesh_id = multi_mesh.append_raw(x, y, x+width, y+height, uv1.x, uv1.y, uv2.x, uv2.y);
+   float width = 54;
+   float height = 112;
+   int multi_mesh_id = multi_mesh.append_raw(x, y, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
       //atlas_index_of_symbol);
 
    stamp.set_multi_mesh_id(multi_mesh_id);

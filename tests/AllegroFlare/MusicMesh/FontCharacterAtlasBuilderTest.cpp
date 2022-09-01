@@ -59,6 +59,13 @@ TEST_F(AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTestWithAllegroRenderingF
       font_character_atlas_builder.get_uv_for_index(start + 32 + 2);
 
    EXPECT_EQ(expected_uvs_2, actual_uvs_2);
+
+
+   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> expected_uvs_3 = { { 162, 224}, { 216, 336 } };
+   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> actual_uvs_3 =
+      font_character_atlas_builder.get_uv_for_index(start + 32*2 + 3);
+
+   EXPECT_EQ(expected_uvs_3, actual_uvs_3);
 }
 
 
