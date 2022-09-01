@@ -37,7 +37,7 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTest, render__without_allegro_initialized
 
 
 TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
-   CAPTURE__render__will_not_blow_up)
+   DISABLED__CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::MusicMesh::MusicMesh music_mesh(&get_font_bin_ref());
    music_mesh.initialize();
@@ -53,7 +53,7 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
    }
 
    AllegroFlare::Placement2D place;
-   for (int i=0; i<60*6; i++)
+   for (int i=0; i<60*0.2; i++)
    {
       clear();
       place.size = {1920, 1080};
@@ -67,5 +67,27 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
       al_flip_display();
    }
    //sleep(2);
+}
+
+
+
+TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_place_glyphs_at_the_correct_location)
+{
+   AllegroFlare::MusicMesh::MusicMesh music_mesh(&get_font_bin_ref());
+   music_mesh.initialize();
+   AllegroFlare::Random random;
+
+   uint32_t start = AllegroFlare::MusicMesh::FontCharacterAtlasBuilder::UNICODE_RANGE_START;
+
+   music_mesh.add_music_symbol(400, 300, start + 32 - 2); // g clef
+   music_mesh.render();
+
+   draw_crosshair(400, 300);
+   draw_crosshair(400, 300+music_mesh.obtain_font_ascent(), ALLEGRO_COLOR{1, 1, 0, 1});
+
+   al_flip_display();
+
+   sleep(2);
 }
 

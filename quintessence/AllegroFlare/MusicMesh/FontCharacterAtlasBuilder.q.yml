@@ -61,6 +61,12 @@ functions:
       - AllegroFlare::Vec2D
 
 
+  - name: infer_font_ascent
+    type: int
+    body: |
+      return al_get_font_ascent(obtain_unicode_font());
+
+
   - name: create
     type: ALLEGRO_BITMAP*
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
@@ -123,7 +129,7 @@ functions:
 
          if (show_frame) al_draw_rectangle(x, y, x+column_width, y+row_height, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 1.0);
 
-         draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_LEFT, column_middle_int, y);
+         draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_LEFT, x, y);
 
          if (show_hex_number)
          {

@@ -74,6 +74,11 @@ std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> FontCharacterAtlasBuilder::g
    );
 }
 
+int FontCharacterAtlasBuilder::infer_font_ascent()
+{
+   return al_get_font_ascent(obtain_unicode_font());
+}
+
 ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
 {
    if (!(al_is_system_installed()))
@@ -146,7 +151,7 @@ ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
 
       if (show_frame) al_draw_rectangle(x, y, x+column_width, y+row_height, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 1.0);
 
-      draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_LEFT, column_middle_int, y);
+      draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_LEFT, x, y);
 
       if (show_hex_number)
       {

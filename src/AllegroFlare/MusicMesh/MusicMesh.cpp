@@ -53,6 +53,17 @@ AllegroFlare::MultiMeshUVAtlas MusicMesh::get_multi_mesh_uv_atlas() const
 }
 
 
+int MusicMesh::obtain_font_ascent()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "MusicMesh" << "::" << "obtain_font_ascent" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return font_character_atlas_builder.infer_font_ascent();
+}
+
 void MusicMesh::initialize()
 {
    if (!((!initialized)))

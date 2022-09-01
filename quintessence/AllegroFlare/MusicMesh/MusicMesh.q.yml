@@ -38,6 +38,13 @@ properties:
 functions:
 
 
+  - name: obtain_font_ascent
+    type: int
+    guards: [ initialized ]
+    body: |
+      return font_character_atlas_builder.infer_font_ascent();
+
+
   - name: initialize
     guards: [ (!initialized) ]
     body: |
