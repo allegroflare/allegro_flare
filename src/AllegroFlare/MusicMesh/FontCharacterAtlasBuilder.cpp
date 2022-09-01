@@ -58,7 +58,18 @@ ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
    int char_width = al_get_text_width(font, "W");
    int char_height = al_get_font_line_height(font);
 
-   ALLEGRO_BITMAP* bitmap = al_create_bitmap(char_width*32, char_height*16);
+
+   int table_y = 0;
+   int table_x = 0;
+   int line = 0;
+   int num_columns = 32;
+
+   int row_height = 112;
+   int column_width = 54;
+
+   int num_rows = row_height*256/num_columns;
+
+   ALLEGRO_BITMAP* bitmap = al_create_bitmap(column_width * num_columns, row_height * num_rows);
 
 
 
@@ -82,14 +93,6 @@ ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
    int h_font_line_height_int = (int)(font_line_height * 0.5);
    int ui_font_mini_line_height = al_get_font_line_height(ui_font_mini);
 
-
-   int table_y = 120;
-   int table_x = 100;
-   int line = 0;
-   int num_columns = 32;
-
-   int row_height = 112;
-   int column_width = 54;
 
    int column = 0;
    for (uint32_t character=unicode_range_start; character<=unicode_range_end; character++)
