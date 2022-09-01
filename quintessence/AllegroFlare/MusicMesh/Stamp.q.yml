@@ -1,0 +1,31 @@
+properties:
+
+
+  - name: id
+    type: uint32_t
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: multimesh_id
+    type: uint32_t
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+    
+
+functions:
+
+
+  - name: reassign_multimesh_id
+    parameters:
+      - name: new_multimesh_id
+        type: uint32_t
+        default_argument: 0
+    body: |
+      multimesh_id = new_multimesh_id;
+      return;
+
+
