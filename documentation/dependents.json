@@ -1066,6 +1066,9 @@
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/UnicodeFontViewer"
   ],
+  "AllegroFlare/Vec2D": [
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder"
+  ],
   "AllegroFlare/MusicMesh/Stamp": [
     "AllegroFlare/MusicMesh/MusicMesh"
   ],

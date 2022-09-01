@@ -3,6 +3,7 @@
 #include <AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.hpp>
 
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iomanip>
 #include <sstream>
@@ -39,6 +40,27 @@ std::string FontCharacterAtlasBuilder::get_font_identifier() const
    return font_identifier;
 }
 
+
+std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> FontCharacterAtlasBuilder::get_uv_for_index(int index)
+{
+   int table_y = 0;
+   int table_x = 0;
+   int line = 0;
+   int num_columns = 32;
+
+   int row_height = 112;
+   int column_width = 54;
+
+   int num_rows = row_height*256/num_columns;
+
+   int column = index % num_columns;
+   int row = index / num_columns;
+
+   return std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D>(
+      AllegroFlare::Vec2D(column * column_width, row * row_height),
+      AllegroFlare::Vec2D((column+1) * column_width, (row+1) * row_height)
+   );
+}
 
 ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
 {
@@ -103,7 +125,7 @@ ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
 
       al_draw_rectangle(x, y, x+column_width, y+row_height, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 1.0);
 
-      draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_CENTER, column_middle_int, y);
+      draw_unicode_character(unicode_font, white, character, ALLEGRO_ALIGN_LEFT, column_middle_int, y);
 
       // draw hex number
       al_draw_text(

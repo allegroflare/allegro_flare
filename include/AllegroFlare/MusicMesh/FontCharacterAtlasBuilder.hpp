@@ -2,10 +2,12 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstdint>
 #include <string>
+#include <utility>
 
 
 namespace AllegroFlare
@@ -33,6 +35,7 @@ namespace AllegroFlare
 
          void set_font_identifier(std::string font_identifier);
          std::string get_font_identifier() const;
+         std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> get_uv_for_index(int index=0);
          ALLEGRO_BITMAP* create();
          std::string as_hex(uint32_t value=0, int zero_fill_width=6);
          std::string as_int(uint32_t value=0);

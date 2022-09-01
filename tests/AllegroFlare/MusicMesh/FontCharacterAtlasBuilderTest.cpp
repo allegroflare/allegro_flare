@@ -7,6 +7,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec2D.hpp>
 
 
 class AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTest : public ::testing::Test
@@ -34,7 +35,27 @@ TEST_F(AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTestWithAllegroRenderingF
    ASSERT_NE(nullptr, created_bitmap);
    al_draw_bitmap(created_bitmap, 0, 0, 0);
    al_flip_display();
-   sleep_for(2);
+   //sleep_for(2);
+}
+
+
+TEST_F(AllegroFlare_MusicMesh_FontCharacterAtlasBuilderTestWithAllegroRenderingFixture,
+   CAPTURE__get_uv_for_index__will_return_the_uv_coordinates_for_a_glyph_at_index)
+{
+   AllegroFlare::MusicMesh::FontCharacterAtlasBuilder font_character_atlas_builder(&get_font_bin_ref());
+   ALLEGRO_BITMAP *created_bitmap = font_character_atlas_builder.create();
+   ASSERT_NE(nullptr, created_bitmap);
+
+   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> expected_uvs = { { 108, 0 }, { 162, 112 } };
+   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> actual_uvs = font_character_atlas_builder.get_uv_for_index(2);
+
+   EXPECT_EQ(expected_uvs, actual_uvs);
+
+
+   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> expected_uvs_2 = { { 108, 112 }, { 162, 224 } };
+   std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> actual_uvs_2 = font_character_atlas_builder.get_uv_for_index(32+2);
+
+   EXPECT_EQ(expected_uvs_2, actual_uvs_2);
 }
 
 
