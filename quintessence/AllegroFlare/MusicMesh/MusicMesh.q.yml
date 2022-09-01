@@ -26,8 +26,18 @@ properties:
     getter: true
     setter: true
 
+  - name: initialized
+    type: bool
+    init_with: false
+
 
 functions:
+
+
+  - name: initialize
+    body: |
+      intialized = true;
+      return;
 
 
   - name: add_music_symbol

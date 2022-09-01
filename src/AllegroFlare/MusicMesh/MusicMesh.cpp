@@ -18,6 +18,7 @@ MusicMesh::MusicMesh(AllegroFlare::FontBin* font_bin)
    , next_id(1)
    , multi_mesh({})
    , multi_mesh_uv_atlas()
+   , initialized(false)
 {
 }
 
@@ -50,6 +51,12 @@ AllegroFlare::MultiMeshUVAtlas MusicMesh::get_multi_mesh_uv_atlas() const
    return multi_mesh_uv_atlas;
 }
 
+
+void MusicMesh::initialize()
+{
+   intialized = true;
+   return;
+}
 
 void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stamp)
 {
