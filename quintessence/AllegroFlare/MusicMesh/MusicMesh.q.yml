@@ -73,10 +73,18 @@ functions:
       stamp.set_id(next_id);
       //int atlas_index_of_symbol = find_atlas_index_for_symbol(music_symbol_to_stamp);
 
+
+      std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> uvs =
+         font_character_atlas_builder.get_uv_for_index(music_symbol_to_stamp);
+      AllegroFlare::Vec2D uv1 = uvs.first;
+      AllegroFlare::Vec2D uv2 = uvs.second;
+
+
       // here
       float width = 112;
       float height = 54;
-      int multi_mesh_id = multi_mesh.append_raw(x, y, x+width, y+height, 100, 100, 400, 400); //atlas_index_of_symbol);
+      int multi_mesh_id = multi_mesh.append_raw(x, y, x+width, y+height, uv1.x, uv1.y, uv2.x, uv2.y);
+         //atlas_index_of_symbol);
 
       stamp.set_multi_mesh_id(multi_mesh_id);
       stamps.push_back(stamp);
