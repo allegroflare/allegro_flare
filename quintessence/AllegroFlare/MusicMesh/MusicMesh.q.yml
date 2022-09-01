@@ -44,15 +44,9 @@ functions:
       font_character_atlas_builder.set_font_bin(font_bin);
       ALLEGRO_BITMAP *texture = font_character_atlas_builder.create();
 
-      //al_save_bitmap("here_too.png", texture);
-
       multi_mesh.set_texture(texture);
       multi_mesh.initialize();
 
-      // TODO:
-      // - create the atlas bitmap of music symbols from font-bravura.otf
-      // - build the atlas uv info
-      // - assign the atlas uv info to multi_mesh_uv_atlas
       initialized = true;
       return;
 
