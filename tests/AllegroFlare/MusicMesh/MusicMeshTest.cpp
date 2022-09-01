@@ -45,14 +45,26 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
 
    uint32_t start = AllegroFlare::MusicMesh::FontCharacterAtlasBuilder::UNICODE_RANGE_START;
 
-   for (int i=0; i<256*8; i++)
+   for (int i=0; i<4096; i++)
    {
       music_mesh.add_music_symbol(random.get_random_int(0, 1920), random.get_random_int(0, 1080), start + 32 + 2);
       //music_mesh.add_music_symbol(300, 300, start + 32 - 2); // g clef
    }
 
-   music_mesh.render();
-   al_flip_display();
-   sleep(2);
+   AllegroFlare::Placement2D place;
+   for (int i=0; i<60*6; i++)
+   {
+      clear();
+      place.size = {1920, 1080};
+      place.position = {1920/2, 1080/2};
+      place.rotation += 0.01;
+      place.scale = {2 * (float)sin(al_get_time()), 2 * (float)sin(al_get_time())};
+      place.start_transform();
+      music_mesh.render();
+      place.restore_transform();
+
+      al_flip_display();
+   }
+   //sleep(2);
 }
 
