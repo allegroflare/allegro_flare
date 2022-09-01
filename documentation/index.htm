@@ -131,7 +131,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/MultiMesh.q.yml">quintessence/AllegroFlare/MultiMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MultiMeshUV.q.yml">quintessence/AllegroFlare/MultiMeshUV.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/MultiMeshUVAtlas.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml">quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/Stamp.q.yml">quintessence/AllegroFlare/MusicMesh/Stamp.q.yml</a></li>
@@ -5422,54 +5421,6 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">font_bin</td>
-  <td class="property">AllegroFlare::FontBin*</td>
-</tr>
-<tr>
-  <td class="property">multi_mesh</td>
-  <td class="property">AllegroFlare::MultiMesh</td>
-</tr>
-<tr>
-  <td class="property">max_num_symbols</td>
-  <td class="property">int</td>
-</tr>
-<tr>
-  <td class="property">initialized</td>
-  <td class="property">bool</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="method">initialize()</td>
-</tr>
-<tr>
-  <td class="method">add_symbol()</td>
-</tr>
-<tr>
-  <td class="method">render()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_font()</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultiMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultiMesh.hpp&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
     <h3 id="quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml">quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml</h3>
      <table>
 <tr>
@@ -9120,7 +9071,6 @@ table td
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
-    "AllegroFlare/MusicMesh",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
@@ -9212,7 +9162,6 @@ table td
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MusicMesh",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
@@ -10036,10 +9985,6 @@ table td
   "AllegroFlare/MultiMeshUV": [
     "AllegroFlare/MultiMeshUVAtlas"
   ],
-  "AllegroFlare/MultiMesh": [
-    "AllegroFlare/MusicMesh",
-    "AllegroFlare/MusicMesh/MusicMesh"
-  ],
   "std/setfill": [
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/UnicodeFontViewer"
@@ -10048,6 +9993,9 @@ table td
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder"
   ],
   "AllegroFlare/MusicMesh/Stamp": [
+    "AllegroFlare/MusicMesh/MusicMesh"
+  ],
+  "AllegroFlare/MultiMesh": [
     "AllegroFlare/MusicMesh/MusicMesh"
   ],
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [

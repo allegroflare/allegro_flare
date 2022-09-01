@@ -63,23 +63,30 @@ functions:
         type: uint32_t
         default_argument: 0
     body: |
-      //AllegroFlare::MusicMesh::Stamp stamp(next_id, x, y);
-      //stamp.set_id(next_id);
-      //int atlas_index_of_symbol = find_atlas_index_for_symbol(music_symbol_to_stamp);
-
-
       std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> uvs =
          font_character_atlas_builder.get_uv_for_index(music_symbol_to_stamp);
       AllegroFlare::Vec2D uv1 = uvs.first;
       AllegroFlare::Vec2D uv2 = uvs.second;
 
 
+      ALLEGRO_FONT *font = obtain_font();
+      //ALLEGRO_GLYPH glyph_data; // cannot use GLYPH because it requires ALLEGRO_UNSTABLE flag
+      //bool result = al_get_glyph(font, 0, music_symbol_to_stamp, &glyph_data);
+      //if (!result)
+      //{
+         //std::cout << "could_not_obtain_glyph" std::endl;
+      //}
+   
+
       // here
       float width = font_character_atlas_builder.get_column_width();
       float height = font_character_atlas_builder.get_row_height();
       int descent = font_character_atlas_builder.infer_font_descent();
-      int multi_mesh_id = multi_mesh.append_raw(x, y-descent, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
+      float offset_x = 0;
+      float offset_y = -descent;
+      int multi_mesh_id = multi_mesh.append_raw(x+offset_x, y+offset_y, width, height, uv1.x, uv1.y, uv2.x, uv2.y);
          //atlas_index_of_symbol);
+
 
       AllegroFlare::MusicMesh::Stamp stamp(next_id, x, y, multi_mesh_id);
       stamps.push_back(stamp);

@@ -142,7 +142,6 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
-    "AllegroFlare/MusicMesh",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
@@ -234,7 +233,6 @@
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MusicMesh",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
@@ -1058,10 +1056,6 @@
   "AllegroFlare/MultiMeshUV": [
     "AllegroFlare/MultiMeshUVAtlas"
   ],
-  "AllegroFlare/MultiMesh": [
-    "AllegroFlare/MusicMesh",
-    "AllegroFlare/MusicMesh/MusicMesh"
-  ],
   "std/setfill": [
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/UnicodeFontViewer"
@@ -1070,6 +1064,9 @@
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder"
   ],
   "AllegroFlare/MusicMesh/Stamp": [
+    "AllegroFlare/MusicMesh/MusicMesh"
+  ],
+  "AllegroFlare/MultiMesh": [
     "AllegroFlare/MusicMesh/MusicMesh"
   ],
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
