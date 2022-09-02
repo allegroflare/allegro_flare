@@ -300,16 +300,18 @@ ImageGenerator::~ImageGenerator()
    }
 
 
-   ALLEGRO_BITMAP *ImageGenerator::create_pattern_x(ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color, int size)
+   ALLEGRO_BITMAP *ImageGenerator::create_pattern_x(ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color, int image_size)
    {
       if (!al_is_primitives_addon_initialized()) return nullptr;
 
-      float padding = 24;
+      int size = image_size / 2;
+
+      float padding = 24/2;
 
       ALLEGRO_STATE previous_state;
       al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
 
-      ALLEGRO_BITMAP *result = al_create_bitmap(size, size);
+      ALLEGRO_BITMAP *result = al_create_bitmap(image_size, image_size);
       al_set_target_bitmap(result);
       al_clear_to_color(back_color);
 
@@ -319,6 +321,7 @@ ImageGenerator::~ImageGenerator()
       float corner_radius = narrow_width * 0.5;
       float step = narrow_width + padding;
 
+      // draw the top left and bottom right
       float x = 0;
       for (int i=0; i<3; i++)
       {
@@ -331,6 +334,17 @@ ImageGenerator::~ImageGenerator()
             corner_radius,
             front_color
          );
+
+         al_draw_filled_rounded_rectangle(
+            size+x+h_padding,
+            size+h_padding,
+            size+x+h_padding+narrow_width,
+            size+h_padding+long_width,
+            corner_radius,
+            corner_radius,
+            front_color
+         );
+
          x += step;
       }
 

@@ -32,7 +32,7 @@ namespace AllegroFlare
       ALLEGRO_BITMAP *create_pattern_x(
          ALLEGRO_COLOR front_color=AllegroFlare::Color::White,
          ALLEGRO_COLOR back_color=AllegroFlare::Color::Black,
-         int size=256
+         int image_size=256
       );
 
       // pixel patterns
