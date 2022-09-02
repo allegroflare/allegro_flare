@@ -19,6 +19,11 @@ TEST(AllegroFlare_ImageGeneratorTest, can_be_created_without_blowing_up)
 }
 
 
+TEST(AllegroFlare_ImageGeneratorTest, create_pattern_x__without_primitives_addon_initialized__will_return_nullptr)
+{
+   // TODO
+}
+
 TEST(AllegroFlare_ImageGeneratorTest, create_pattern_x__will_create_a_bitmap_with_the_pattern)
 {
    al_init();
@@ -29,8 +34,8 @@ TEST(AllegroFlare_ImageGeneratorTest, create_pattern_x__will_create_a_bitmap_wit
    ALLEGRO_BITMAP *bitmap = image_generator.create_pattern_x(512);
 
    ASSERT_NE(nullptr, bitmap);
-   //ASSERT_EQ(256, al_get_bitmap_width(bitmap));
-   //ASSERT_EQ(256, al_get_bitmap_height(bitmap));
+   EXPECT_EQ(512, al_get_bitmap_width(bitmap));
+   EXPECT_EQ(512, al_get_bitmap_height(bitmap));
 
    al_init_image_addon();
    al_save_bitmap(SNAPSHOT_LOCATION.c_str(), bitmap);
