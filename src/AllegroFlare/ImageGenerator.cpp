@@ -2,6 +2,9 @@
 
 #include <AllegroFlare/ImageGenerator.hpp>
 
+#define ALLEGRO_UNSTABLE
+ #include <allegro5/allegro.h>
+
 #include <allegro5/allegro_primitives.h> // IMPORTANT! Some functions that render shapes will crash
                                          // if primitives are not initialized.  Guards should be added
 
@@ -306,11 +309,15 @@ ImageGenerator::~ImageGenerator()
 
       int size = image_size / 2;
 
-      float padding = 24/2;
+      float padding = 32/2;
 
+      // TODO: solve the missing samples
+      //int previous_bitmap_samples = al_get_new_bitmap_samples();
       ALLEGRO_STATE previous_state;
       al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
 
+      // TODO: solve the missing samples
+      //al_set_new_bitmap_samples(8);
       ALLEGRO_BITMAP *result = al_create_bitmap(image_size, image_size);
       al_set_target_bitmap(result);
       al_clear_to_color(back_color);
@@ -320,16 +327,18 @@ ImageGenerator::~ImageGenerator()
       float long_width = size - padding;
       float corner_radius = narrow_width * 0.5;
       float step = narrow_width + padding;
+      float outstep = padding * 0.2f; //padding * 0.25;
 
+      // verticals
       // draw the top left and bottom right
       float x = 0;
       for (int i=0; i<3; i++)
       {
          al_draw_filled_rounded_rectangle(
             x+h_padding,
-            h_padding,
+            h_padding - outstep,
             x+h_padding+narrow_width,
-            h_padding+long_width,
+            h_padding+long_width + outstep,
             corner_radius,
             corner_radius,
             front_color
@@ -337,9 +346,9 @@ ImageGenerator::~ImageGenerator()
 
          al_draw_filled_rounded_rectangle(
             size+x+h_padding,
-            size+h_padding,
+            size+h_padding - outstep,
             size+x+h_padding+narrow_width,
-            size+h_padding+long_width,
+            size+h_padding+long_width + outstep,
             corner_radius,
             corner_radius,
             front_color
@@ -348,7 +357,37 @@ ImageGenerator::~ImageGenerator()
          x += step;
       }
 
+      // horizontals
+      // draw the top right and bottom left
+      float y = 0;
+      for (int i=0; i<3; i++)
+      {
+         al_draw_filled_rounded_rectangle(
+            h_padding - outstep,
+            size+y+h_padding,
+            h_padding+long_width + outstep,
+            size+y+h_padding+narrow_width,
+            corner_radius,
+            corner_radius,
+            front_color
+         );
+
+         al_draw_filled_rounded_rectangle(
+            size+h_padding - outstep,
+            y+h_padding,
+            size+h_padding+long_width + outstep,
+            y+h_padding+narrow_width,
+            corner_radius,
+            corner_radius,
+            front_color
+         );
+
+         y += step;
+      }
+
       al_restore_state(&previous_state);
+      // TODO: solve the missing samples
+      //al_set_new_bitmap_samples(previous_bitmap_samples);
       
       return result;
    }
