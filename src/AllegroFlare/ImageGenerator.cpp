@@ -303,8 +303,9 @@ ImageGenerator::~ImageGenerator()
    }
 
 
-   ALLEGRO_BITMAP *ImageGenerator::create_pattern_x(ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color, int image_size)
+   ALLEGRO_BITMAP *ImageGenerator::create_pattern_x(int image_size, ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color)
    {
+      // TODO: fix not rendering as expected on smaller sizes
       if (!al_is_primitives_addon_initialized()) return nullptr;
 
       int size = image_size / 2;
