@@ -300,6 +300,11 @@ ImageGenerator::~ImageGenerator()
    }
 
 
+   ALLEGRO_BITMAP *ImageGenerator::create_pattern_x(ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color, int size)
+   {
+      ALLEGRO_BITMAP *result = al_create_bitmap(size, size);
+      return result;
+   }
 
 
    ALLEGRO_BITMAP *ImageGenerator::create_pixel_pattern_1(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int checker_size)

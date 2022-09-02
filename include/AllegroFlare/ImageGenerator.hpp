@@ -28,14 +28,21 @@ namespace AllegroFlare
       ALLEGRO_BITMAP *generate_wood_grain_bitmap(float w, float h, ALLEGRO_COLOR base_color=al_color_name("sienna"));
       ALLEGRO_BITMAP *generate_brush_metal_bitmap(float w, float h, ALLEGRO_COLOR base_color=al_color_name("white"));
 
-      // graphs
-      ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float (*interpolator_func)(float), float size=512, ALLEGRO_COLOR col=AllegroFlare::color::white, float thickness=5, float padding=0);
+      // patterns
+      ALLEGRO_BITMAP *create_pattern_x(
+         ALLEGRO_COLOR front_color=AllegroFlare::Color::White,
+         ALLEGRO_COLOR back_color=AllegroFlare::Color::Transparent,
+         int size=256
+      );
 
       // pixel patterns
       ALLEGRO_BITMAP *create_pixel_pattern_1(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int checker_size=4);
       ALLEGRO_BITMAP *create_pixel_pattern_2(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int dot_distance=4);
       ALLEGRO_BITMAP *create_pixel_pattern_3(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int x_distance=6, int y_distance=3);
       ALLEGRO_BITMAP *create_pixel_pattern_4(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int x_distance=5, float slope=-1);
+
+      // graphs
+      ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float (*interpolator_func)(float), float size=512, ALLEGRO_COLOR col=AllegroFlare::color::white, float thickness=5, float padding=0);
    };
 }
 
