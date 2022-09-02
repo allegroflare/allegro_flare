@@ -302,7 +302,17 @@ ImageGenerator::~ImageGenerator()
 
    ALLEGRO_BITMAP *ImageGenerator::create_pattern_x(ALLEGRO_COLOR front_color, ALLEGRO_COLOR back_color, int size)
    {
+      if (!al_is_primitives_addon_initialized()) return nullptr;
+
+      ALLEGRO_STATE previous_state;
+      al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
+
       ALLEGRO_BITMAP *result = al_create_bitmap(size, size);
+      al_set_target_bitmap(result);
+      al_clear_to_color(back_color);
+
+      al_restore_state(&previous_state);
+      
       return result;
    }
 
