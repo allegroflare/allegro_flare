@@ -304,12 +304,35 @@ ImageGenerator::~ImageGenerator()
    {
       if (!al_is_primitives_addon_initialized()) return nullptr;
 
+      float padding = 24;
+
       ALLEGRO_STATE previous_state;
       al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
 
       ALLEGRO_BITMAP *result = al_create_bitmap(size, size);
       al_set_target_bitmap(result);
       al_clear_to_color(back_color);
+
+      float h_padding = padding * 0.5f;
+      float narrow_width = (size - padding * 3) * 0.33333333;
+      float long_width = size - padding;
+      float corner_radius = narrow_width * 0.5;
+      float step = narrow_width + padding;
+
+      float x = 0;
+      for (int i=0; i<3; i++)
+      {
+         al_draw_filled_rounded_rectangle(
+            x+h_padding,
+            h_padding,
+            x+h_padding+narrow_width,
+            h_padding+long_width,
+            corner_radius,
+            corner_radius,
+            front_color
+         );
+         x += step;
+      }
 
       al_restore_state(&previous_state);
       
