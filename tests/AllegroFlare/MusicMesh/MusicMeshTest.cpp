@@ -87,6 +87,6 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
 
    al_flip_display();
 
-   sleep(2);
+   sleep_for(2);
 }
 
