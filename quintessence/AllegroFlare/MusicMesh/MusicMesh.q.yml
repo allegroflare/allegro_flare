@@ -69,7 +69,7 @@ functions:
       AllegroFlare::Vec2D uv2 = uvs.second;
 
 
-      ALLEGRO_FONT *font = obtain_font();
+      //ALLEGRO_FONT *font = obtain_font();
       //ALLEGRO_GLYPH glyph_data; // cannot use GLYPH because it requires ALLEGRO_UNSTABLE flag
       //bool result = al_get_glyph(font, 0, music_symbol_to_stamp, &glyph_data);
       //if (!result)
@@ -119,14 +119,6 @@ functions:
     body: |
       multi_mesh.render();
       return;
-
-
-  - name: obtain_font
-    private: true
-    type: ALLEGRO_FONT*
-    guards: [ font_bin ]
-    body: |
-      return font_bin->auto_get("Purista Medium.otf -32");
 
 
 dependencies:

@@ -89,9 +89,9 @@ functions:
     type: ALLEGRO_BITMAP*
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      ALLEGRO_FONT *font = obtain_font();
-      int char_width = al_get_text_width(font, "W");
-      int char_height = al_get_font_line_height(font);
+      //ALLEGRO_FONT *font = obtain_font();
+      //int char_width = al_get_text_width(font, "W");
+      //int char_height = al_get_font_line_height(font);
 
 
       int table_y = 0;
@@ -280,14 +280,6 @@ functions:
     body_dependency_symbols:
       - std::stringstream
       - std::setfill
-
-
-  - name: obtain_font
-    private: true
-    type: ALLEGRO_FONT*
-    guards: [ font_bin ]
-    body: |
-      return font_bin->auto_get("Purista Medium.otf -32");
 
 
 dependencies:

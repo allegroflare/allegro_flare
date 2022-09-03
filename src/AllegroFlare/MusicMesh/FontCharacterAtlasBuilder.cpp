@@ -121,9 +121,9 @@ ALLEGRO_BITMAP* FontCharacterAtlasBuilder::create()
       error_message << "FontCharacterAtlasBuilder" << "::" << "create" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
       throw std::runtime_error(error_message.str());
    }
-   ALLEGRO_FONT *font = obtain_font();
-   int char_width = al_get_text_width(font, "W");
-   int char_height = al_get_font_line_height(font);
+   //ALLEGRO_FONT *font = obtain_font();
+   //int char_width = al_get_text_width(font, "W");
+   //int char_height = al_get_font_line_height(font);
 
 
    int table_y = 0;
@@ -279,17 +279,6 @@ std::string FontCharacterAtlasBuilder::as_int(uint32_t value)
    std::stringstream ss;
    ss << value;
    return ss.str();
-}
-
-ALLEGRO_FONT* FontCharacterAtlasBuilder::obtain_font()
-{
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "FontCharacterAtlasBuilder" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   return font_bin->auto_get("Purista Medium.otf -32");
 }
 
 

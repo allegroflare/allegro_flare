@@ -79,7 +79,7 @@ void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stam
    AllegroFlare::Vec2D uv2 = uvs.second;
 
 
-   ALLEGRO_FONT *font = obtain_font();
+   //ALLEGRO_FONT *font = obtain_font();
    //ALLEGRO_GLYPH glyph_data; // cannot use GLYPH because it requires ALLEGRO_UNSTABLE flag
    //bool result = al_get_glyph(font, 0, music_symbol_to_stamp, &glyph_data);
    //if (!result)
@@ -135,17 +135,6 @@ void MusicMesh::render()
    }
    multi_mesh.render();
    return;
-}
-
-ALLEGRO_FONT* MusicMesh::obtain_font()
-{
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "MusicMesh" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   return font_bin->auto_get("Purista Medium.otf -32");
 }
 
 

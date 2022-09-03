@@ -29,7 +29,6 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_unicode_font();
          ALLEGRO_FONT* obtain_ui_font();
          ALLEGRO_FONT* obtain_ui_font_mini();
-         ALLEGRO_FONT* obtain_font();
 
       protected:
 

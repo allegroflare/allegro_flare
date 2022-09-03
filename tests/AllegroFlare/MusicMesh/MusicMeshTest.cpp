@@ -76,17 +76,17 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
 {
    AllegroFlare::MusicMesh::MusicMesh music_mesh(&get_font_bin_ref());
    music_mesh.initialize();
-   AllegroFlare::Random random;
+   //AllegroFlare::Random random;
 
-   uint32_t start = AllegroFlare::MusicMesh::FontCharacterAtlasBuilder::UNICODE_RANGE_START;
+   //uint32_t start = AllegroFlare::MusicMesh::FontCharacterAtlasBuilder::UNICODE_RANGE_START;
 
-   music_mesh.add_music_symbol(400, 300, start + 32 - 2); // g clef
-   music_mesh.render();
+   //music_mesh.add_music_symbol(400, 300, start + 32 - 2); // g clef
+   //music_mesh.render();
 
-   draw_crosshair(400, 300);
+   //draw_crosshair(400, 300);
 
-   al_flip_display();
+   //al_flip_display();
 
-   sleep_for(2);
+   //sleep_for(2);
 }
 
