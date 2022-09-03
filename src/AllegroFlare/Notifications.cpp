@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Notifications.hpp>
 
+#include <algorithm>
 #include <sstream>
 #include <stdexcept>
 

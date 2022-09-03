@@ -99,7 +99,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Base.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Header.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Header.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Elements/ScrollBar.q.yml">quintessence/AllegroFlare/Elements/ScrollBar.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Scrollbar.q.yml">quintessence/AllegroFlare/Elements/Scrollbar.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Stopwatch.q.yml">quintessence/AllegroFlare/Elements/Stopwatch.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Storyboard.q.yml">quintessence/AllegroFlare/Elements/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml</a></li>
@@ -3400,7 +3400,7 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/Elements/ScrollBar.q.yml">quintessence/AllegroFlare/Elements/ScrollBar.q.yml</h3>
+    <h3 id="quintessence/AllegroFlare/Elements/Scrollbar.q.yml">quintessence/AllegroFlare/Elements/Scrollbar.q.yml</h3>
      <table>
 <tr>
   <td class="property">x</td>
@@ -5745,6 +5745,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::sort&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::copy_if&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -9188,7 +9194,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/ScrollBar",
+    "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -9206,7 +9212,7 @@ table td
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/NotificationRenderer",
-    "AllegroFlare/Elements/ScrollBar",
+    "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -9298,7 +9304,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
-    "AllegroFlare/Elements/ScrollBar",
+    "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -10009,6 +10015,12 @@ table td
   ],
   "AllegroFlare/SHA2": [
     "AllegroFlare/Network2/Message"
+  ],
+  "std/sort": [
+    "AllegroFlare/Notifications"
+  ],
+  "std/copy_if": [
+    "AllegroFlare/Notifications"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",

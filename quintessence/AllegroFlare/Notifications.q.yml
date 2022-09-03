@@ -55,6 +55,9 @@ functions:
       );
       std::sort(result.begin(), result.end(), sort_by_created_at_desc_func);
       return result;
+    body_dependency_symbols:
+      - std::sort
+      - std::copy_if
 
 
   - name: destroy_all
@@ -88,6 +91,10 @@ dependencies:
     headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
   - symbol: AllegroFlare::Elements::Notifications::Base
     headers: [ vector, AllegroFlare/Elements/Notifications/Base.hpp ]
+  - symbol: std::sort
+    headers: [ algorithm ]
+  - symbol: std::copy_if
+    headers: [ algorithm ]
 
 
 
