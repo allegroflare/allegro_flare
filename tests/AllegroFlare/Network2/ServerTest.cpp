@@ -5,10 +5,19 @@
 #include <thread>
 
 
+#include <chrono>
+#include <thread>
+static void sleep_for(float length_in_seconds)
+{
+   int length_in_milliseconds = (int)(length_in_seconds * 1000.0);
+   std::this_thread::sleep_for(std::chrono::milliseconds(length_in_milliseconds));
+}
+
+
 #include <atomic>
 static void emit_abort_signal_after_1_sec(std::atomic<bool>* global_abort=nullptr)
 {
-   sleep(1);
+   sleep_for(1);
    *global_abort = true;
 }
 
