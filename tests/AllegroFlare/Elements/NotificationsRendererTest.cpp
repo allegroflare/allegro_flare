@@ -49,7 +49,7 @@ TEST_F(AllegroFlare_Elements_NotificationsRendererTestWithAllegroRenderingFixtur
    AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&get_font_bin_ref(), notifications);
    notifications_renderer.render();
    al_flip_display();
-   sleep(1);
+   sleep_for(1);
 
    // clean up the notifications
    for (auto &notification : notifications) delete notification;
