@@ -115,7 +115,8 @@ private:
           else
           {
             std::stringstream error_message;
-            error_message << "AllegroFlare::Network2::Client error: connect() returned with an error.";
+            error_message << "AllegroFlare::Network2::Client error: connect() returned with an error. "
+                          << "The error code was " << ec << ".";
             std::cout << error_message.str() << std::endl;
           }
         });
@@ -190,7 +191,8 @@ private:
           else
           {
             std::stringstream error_message;
-            error_message << "AllegroFlare::Network2::Client error: write() returned with an error.";
+            error_message << "AllegroFlare::Network2::Client error: write() returned with an error. "
+                          << "The error code was " << ec << ".";
             std::cout << error_message.str() << std::endl;
 
             socket.close();
