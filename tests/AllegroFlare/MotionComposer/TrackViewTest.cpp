@@ -61,7 +61,7 @@ TEST_F(AllegroFlare_MotionComposer_TrackViewTestWithAllegroRenderingFixture,
    track_view.render();
    place.restore_transform();
    al_flip_display();
-   sleep(1);
+   sleep_for(1);
 }
 
 
