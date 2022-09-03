@@ -58,7 +58,7 @@ TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture
    );
    notification_renderer.render();
    al_flip_display();
-   sleep(1);
+   sleep_for(1);
 }
 
 
