@@ -84,7 +84,9 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
 
    AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
    rolling_credits.set_sections({
-      new AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels({ { "Producer", "Mark Oates" } }),
+      new AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels(
+         { std::pair<std::string, std::string>("Producer", "Mark Oates") }
+      ),
    });
 
    rolling_credits.render();
@@ -104,9 +106,9 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    rolling_credits.set_sections({
       new Header("Section Header"),
       new ColumnWithLabels({
-         { "Producer", "Turtle McShell" },
-         { "Line Producer", "Zeebra Stripe" },
-         { "Lead Programmer", "Selma Sloth" },
+         std::pair<std::string, std::string>("Producer", "Turtle McShell"),
+         std::pair<std::string, std::string>("Line Producer", "Zeebra Stripe"),
+         std::pair<std::string, std::string>("Lead Programmer", "Selma Sloth"),
       }),
    });
 
@@ -127,9 +129,9 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    rolling_credits.set_sections({
       new Header("Section Header"),
       new ColumnWithLabels({
-         { "Producer", "Turtle McShell" },
-         { "Line Producer", "Zeebra Stripe" },
-         { "Lead Programmer", "Selma Sloth" },
+         std::pair<std::string, std::string>("Producer", "Turtle McShell"),
+         std::pair<std::string, std::string>("Line Producer", "Zeebra Stripe"),
+         std::pair<std::string, std::string>("Lead Programmer", "Selma Sloth"),
       }),
    });
 
@@ -151,9 +153,9 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    rolling_credits.set_sections({
       new Header("Section Header"),
       new ColumnWithLabels({
-         { "Producer", "Turtle McShell" },
-         { "Line Producer", "Zeebra Stripe" },
-         { "Lead Programmer", "Selma Sloth" },
+         std::pair<std::string, std::string>("Producer", "Turtle McShell"),
+         std::pair<std::string, std::string>("Line Producer", "Zeebra Stripe"),
+         std::pair<std::string, std::string>("Lead Programmer", "Selma Sloth"),
       }),
    });
 
@@ -181,9 +183,9 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    rolling_credits.set_sections({
       new Header("Section Header"),
       new ColumnWithLabels({
-         { "Producer", "Turtle McShell" },
-         { "Line Producer", "Zeebra Stripe" },
-         { "Lead Programmer", "Selma Sloth" },
+         std::pair<std::string, std::string>("Producer", "Turtle McShell"),
+         std::pair<std::string, std::string>("Line Producer", "Zeebra Stripe"),
+         std::pair<std::string, std::string>("Lead Programmer", "Selma Sloth"),
       }),
    });
 
