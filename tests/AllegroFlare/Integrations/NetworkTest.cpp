@@ -21,7 +21,7 @@ static void sleep_for(float length_in_seconds)
 #include <atomic>
 void emit_abort_signal_after_n_sec(std::atomic<bool>* global_abort=nullptr, int num_seconds=1)
 {
-   sleep(num_seconds);
+   sleep_for(num_seconds);
    *global_abort = true;
 }
 
