@@ -44,12 +44,14 @@ bool SystemInfo::num_available_threads_are_known()
 
 std::string SystemInfo::operating_system()
 {
+   // TODO: this might be incorrect, might be detecting WIN32 even when WIN64 is present
+
    #ifdef _WIN32
    return "Windows 32-bit";
    #elif _WIN64
    return "Windows 64-bit";
    #elif __APPLE__ || __MACH__
-   return "MacOSX";
+   return "MacOS";
    #elif __linux__
    return "Linux";
    #elif __FreeBSD__
