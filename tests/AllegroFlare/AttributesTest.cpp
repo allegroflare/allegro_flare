@@ -682,8 +682,11 @@ TEST(AllegroFlare_AttributesTest, a_bound_attribute_can_be_unbound)
 
 
 
-TEST(AllegroFlare_AttributesTest, user_can_get_the_known_datatypes_in_alphabetical_order)
+TEST(AllegroFlare_AttributesTest, DISABLED__LEAKY__user_can_get_the_known_datatypes_in_alphabetical_order)
 {
+   // TODO: THIS test is leaky because the known datatypes still seem be held from previous test runs.
+   // Interestingly, the problem only appears when running tests on Windows. Until it's fixed, will be DISABLED
+
    Attributes attributes;
    auto types = attributes.get_known_datatypes();
 
