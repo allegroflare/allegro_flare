@@ -209,8 +209,8 @@ void Sparkles2::render()
       throw std::runtime_error(error_message.str());
    }
    Placement2D place(x, y, 0, 0);
-   place.scale.x = 0.5;
-   place.scale.y = 0.5;
+   place.scale.x = scale;
+   place.scale.y = scale;
    place.start_transform();
    actor_manager.render(time);
    place.restore_transform();
