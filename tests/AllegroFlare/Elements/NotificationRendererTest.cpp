@@ -53,6 +53,7 @@ TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture
 {
    AllegroFlare::Elements::Notifications::AchievementUnlocked achievement_unlocked_notification;
    AllegroFlare::Elements::NotificationRenderer notification_renderer(
+      &get_bitmap_bin_ref(),
       &get_font_bin_ref(),
       &achievement_unlocked_notification
    );
