@@ -57,10 +57,11 @@ TEST_F(AllegroFlare_Elements_NotificationRenderers_AchievementUnlockedTestWithAl
       &get_bitmap_bin_ref(),
       &get_font_bin_ref()
    );
+   achievement_unlocked.set_name("Know Notifications");
 
    for (int frames=60*2; frames--; frames>=0)
    {
-      achievement_unlocked.set_name("Know Notifications");
+      clear();
       achievement_unlocked.render();
       al_flip_display();
       sleep_for_frame();

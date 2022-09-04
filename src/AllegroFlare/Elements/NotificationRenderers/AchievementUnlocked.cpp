@@ -241,7 +241,8 @@ void AchievementUnlocked::draw_achievement_box(std::string title, std::string de
    );
 
    // draw the sparkle effect
-   AllegroFlare::MotionFX::Sparkles2 sparkles2(bitmap_bin);
+   AllegroFlare::MotionFX::Sparkles2 sparkles2(bitmap_bin, icon_box_center_x, icon_box_center_y-2);
+   sparkles2.set_scale(0.32);
    sparkles2.initialize();
    sparkles2.set_time(al_get_time() - created_at);
    sparkles2.render();
