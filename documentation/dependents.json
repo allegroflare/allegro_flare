@@ -113,7 +113,6 @@
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
-    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -204,7 +203,6 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
-    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -790,6 +788,9 @@
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/NotificationsFactory",
     "AllegroFlare/NotificationsFactory"
+  ],
+  "AllegroFlare/MotionFX/Sparkles2": [
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked"
   ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
     "AllegroFlare/Elements/NotificationsRenderer",

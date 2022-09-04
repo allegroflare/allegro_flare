@@ -1,10 +1,17 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: true
 
   - name: notification
     type: AllegroFlare::Elements::Notifications::Base*
@@ -58,6 +65,7 @@ functions:
          AllegroFlare::Elements::Notifications::AchievementUnlocked *achievement_unlocked_notification =
             dynamic_cast<AllegroFlare::Elements::Notifications::AchievementUnlocked*>(notification);
          AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked_renderer(
+            bitmap_bin,
             font_bin,
             x,
             y,
@@ -98,10 +106,6 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Elements::Notifications::Base*
@@ -110,10 +114,11 @@ dependencies:
     headers: [ AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp ]
   - symbol: AllegroFlare::Elements::Notifications::AchievementUnlocked
     headers: [ AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp ]
-
   - symbol: AllegroFlare::Elements::Notifications::Base
     headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 

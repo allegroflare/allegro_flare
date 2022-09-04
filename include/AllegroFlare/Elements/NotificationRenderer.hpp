@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/Notifications/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
 
@@ -12,6 +13,7 @@ namespace AllegroFlare
       class NotificationRenderer
       {
       private:
+         AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::Elements::Notifications::Base* notification;
          float x;
@@ -23,9 +25,11 @@ namespace AllegroFlare
 
 
       public:
-         NotificationRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Elements::Notifications::Base* notification=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f);
+         NotificationRenderer(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Elements::Notifications::Base* notification=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f);
          ~NotificationRenderer();
 
+         void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+         void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_notification(AllegroFlare::Elements::Notifications::Base* notification);
          void set_x(float x);
          void set_y(float y);

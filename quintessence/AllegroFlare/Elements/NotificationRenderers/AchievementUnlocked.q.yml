@@ -1,6 +1,11 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
@@ -185,7 +190,9 @@ functions:
       );
 
       // draw the sparkle effect
-      AllegroFlare::MotionFX::Sparkles2 sparkles2;
+      AllegroFlare::MotionFX::Sparkles2 sparkles2(bitmap_bin);
+      sparkles2.set_time(2.0);
+      sparkles2.render();
 
       return;
     body_dependency_symbols:
@@ -299,5 +306,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::MotionFX::Sparkles2
     headers: [ AllegroFlare/MotionFX/Sparkles2.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 

@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -17,6 +18,7 @@ namespace AllegroFlare
          class AchievementUnlocked
          {
          private:
+            AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             float x;
             float y;
@@ -36,7 +38,7 @@ namespace AllegroFlare
 
 
          public:
-            AchievementUnlocked(AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f, float created_at=0.0f, std::string name="[unset-name]");
+            AchievementUnlocked(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, float x=0.0f, float y=0.0f, float width=560.0f, float height=130.0f, float created_at=0.0f, std::string name="[unset-name]");
             ~AchievementUnlocked();
 
             void set_x(float x);

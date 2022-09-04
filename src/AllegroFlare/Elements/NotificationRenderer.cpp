@@ -15,8 +15,9 @@ namespace Elements
 {
 
 
-NotificationRenderer::NotificationRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::Notifications::Base* notification, float x, float y, float width, float height)
-   : font_bin(font_bin)
+NotificationRenderer::NotificationRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::Notifications::Base* notification, float x, float y, float width, float height)
+   : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
    , notification(notification)
    , x(x)
    , y(y)
@@ -28,6 +29,18 @@ NotificationRenderer::NotificationRenderer(AllegroFlare::FontBin* font_bin, Alle
 
 NotificationRenderer::~NotificationRenderer()
 {
+}
+
+
+void NotificationRenderer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void NotificationRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
 }
 
 
@@ -122,6 +135,7 @@ void NotificationRenderer::render()
       AllegroFlare::Elements::Notifications::AchievementUnlocked *achievement_unlocked_notification =
          dynamic_cast<AllegroFlare::Elements::Notifications::AchievementUnlocked*>(notification);
       AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked_renderer(
+         bitmap_bin,
          font_bin,
          x,
          y,
