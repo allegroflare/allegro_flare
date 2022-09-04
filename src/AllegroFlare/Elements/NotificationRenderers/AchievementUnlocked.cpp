@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp>
 
+#include <AllegroFlare/MotionFX/Sparkles2.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <sstream>
@@ -237,6 +238,9 @@ void AchievementUnlocked::draw_achievement_box(std::string title, std::string de
       ALLEGRO_ALIGN_LEFT,
       description.c_str()
    );
+
+   // draw the sparkle effect
+   AllegroFlare::MotionFX::Sparkles2 sparkles2;
 
    return;
 }

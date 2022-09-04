@@ -184,8 +184,12 @@ functions:
          description.c_str()
       );
 
+      // draw the sparkle effect
+      AllegroFlare::MotionFX::Sparkles2 sparkles2;
+
       return;
     body_dependency_symbols:
+      - AllegroFlare::MotionFX::Sparkles2
       - al_draw_filled_rectangle
       - al_draw_text
 
@@ -283,20 +287,17 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
   - symbol: al_draw_filled_rectangle
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
-
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::MotionFX::Sparkles2
+    headers: [ AllegroFlare/MotionFX/Sparkles2.hpp ]
 
 
