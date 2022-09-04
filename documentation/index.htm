@@ -2724,6 +2724,10 @@ table td
     <h3 id="quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml</h3>
      <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
@@ -2758,12 +2762,6 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
@@ -2781,6 +2779,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -2788,6 +2789,10 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml</h3>
      <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
 <tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
@@ -2862,6 +2867,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionFX::Sparkles2&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionFX/Sparkles2.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -2922,6 +2930,10 @@ table td
     <h3 id="quintessence/AllegroFlare/Elements/NotificationsRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationsRenderer.q.yml</h3>
      <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
@@ -2957,12 +2969,6 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::Notifications::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::NotificationRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/NotificationRenderer.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -2973,6 +2979,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -8968,6 +8977,9 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
@@ -9037,9 +9049,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
-    "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
-    "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -9128,7 +9138,6 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -9718,10 +9727,6 @@ table td
   "AllegroFlare/MotionFX/Sparkles2": [
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked"
   ],
-  "std/vector<AllegroFlare/Elements/Notifications/Base>": [
-    "AllegroFlare/Elements/NotificationsRenderer",
-    "AllegroFlare/Notifications"
-  ],
   "AllegroFlare/Elements/NotificationRenderer": [
     "AllegroFlare/Elements/NotificationsRenderer"
   ],
@@ -10007,6 +10012,9 @@ table td
   ],
   "AllegroFlare/SHA2": [
     "AllegroFlare/Network2/Message"
+  ],
+  "std/vector<AllegroFlare/Elements/Notifications/Base>": [
+    "AllegroFlare/Notifications"
   ],
   "std/sort": [
     "AllegroFlare/Notifications"

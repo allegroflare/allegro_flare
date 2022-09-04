@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/Notifications/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <vector>
@@ -13,6 +14,7 @@ namespace AllegroFlare
       class NotificationsRenderer
       {
       private:
+         AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          std::vector<AllegroFlare::Elements::Notifications::Base*> notifications;
          int surface_width;
@@ -25,9 +27,10 @@ namespace AllegroFlare
 
 
       public:
-         NotificationsRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::Notifications::Base*> notifications={}, int surface_width=1920, int surface_height=1080, float notification_box_width=560.0f, float notification_box_height=130.0f, float notification_vertical_gutter=16.0f);
+         NotificationsRenderer(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::Notifications::Base*> notifications={}, int surface_width=1920, int surface_height=1080, float notification_box_width=560.0f, float notification_box_height=130.0f, float notification_vertical_gutter=16.0f);
          ~NotificationsRenderer();
 
+         void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_notifications(std::vector<AllegroFlare::Elements::Notifications::Base*> notifications);
          void set_surface_width(int surface_width);
          void set_surface_height(int surface_height);

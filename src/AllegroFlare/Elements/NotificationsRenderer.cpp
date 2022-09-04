@@ -14,8 +14,9 @@ namespace Elements
 {
 
 
-NotificationsRenderer::NotificationsRenderer(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::Notifications::Base*> notifications, int surface_width, int surface_height, float notification_box_width, float notification_box_height, float notification_vertical_gutter)
-   : font_bin(font_bin)
+NotificationsRenderer::NotificationsRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::Notifications::Base*> notifications, int surface_width, int surface_height, float notification_box_width, float notification_box_height, float notification_vertical_gutter)
+   : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
    , notifications(notifications)
    , surface_width(surface_width)
    , surface_height(surface_height)
@@ -28,6 +29,12 @@ NotificationsRenderer::NotificationsRenderer(AllegroFlare::FontBin* font_bin, st
 
 NotificationsRenderer::~NotificationsRenderer()
 {
+}
+
+
+void NotificationsRenderer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
 }
 
 
@@ -134,6 +141,7 @@ void NotificationsRenderer::render()
    for (int i=0; i<notifications.size(); i++)
    {
       AllegroFlare::Elements::NotificationRenderer renderer(
+         bitmap_bin,
          font_bin,
          notifications[i],
          0,

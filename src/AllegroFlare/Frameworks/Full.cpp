@@ -978,7 +978,7 @@ void Full::draw_overlay()
 
       std::vector<AllegroFlare::Elements::Notifications::Base*> notifications_to_render =
          notifications.select_created_at_since_order_by_created_at(min_created_at_notification_to_show);
-      AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&fonts, notifications_to_render);
+      AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&bitmaps, &fonts, notifications_to_render);
       notifications_renderer.render();
    }
 }

@@ -1,6 +1,12 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
@@ -73,6 +79,7 @@ functions:
       for (int i=0; i<notifications.size(); i++)
       {
          AllegroFlare::Elements::NotificationRenderer renderer(
+            bitmap_bin,
             font_bin,
             notifications[i],
             0,
@@ -94,18 +101,15 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: std::vector<AllegroFlare::Elements::Notifications::Base*>
-    headers: [ vector, AllegroFlare/Elements/Notifications/Base.hpp ]
   - symbol: AllegroFlare::Elements::NotificationRenderer
     headers: [ AllegroFlare/Elements/NotificationRenderer.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
-
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Elements::Notifications::Base
     headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 

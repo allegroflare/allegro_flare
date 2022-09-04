@@ -46,7 +46,11 @@ TEST_F(AllegroFlare_Elements_NotificationsRendererTestWithAllegroRenderingFixtur
       new AllegroFlare::Elements::Notifications::AchievementUnlocked("Win the Prize"),
    });
 
-   AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&get_font_bin_ref(), notifications);
+   AllegroFlare::Elements::NotificationsRenderer notifications_renderer(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      notifications
+   );
    notifications_renderer.render();
    al_flip_display();
    sleep_for(1);
