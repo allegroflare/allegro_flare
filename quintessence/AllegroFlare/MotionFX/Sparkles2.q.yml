@@ -20,6 +20,20 @@ properties:
     getter: true
     setter: true
 
+  - name: time
+    type: float
+    init_with: 0.0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: scale
+    type: float
+    init_with: 0.5
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: actor_manager
     type: AllegroFlare::Timeline::ActorManager
     init_with: '{}'
@@ -27,13 +41,6 @@ properties:
   - name: initialized
     type: bool
     init_with: false
-
-  - name: time
-    type: float
-    init_with: 0.0
-    constructor_arg: true
-    getter: true
-    setter: true
 
 
 functions:

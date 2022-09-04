@@ -17,13 +17,14 @@ namespace MotionFX
 {
 
 
-Sparkles2::Sparkles2(AllegroFlare::BitmapBin* bitmap_bin, float x, float y, float time)
+Sparkles2::Sparkles2(AllegroFlare::BitmapBin* bitmap_bin, float x, float y, float time, float scale)
    : bitmap_bin(bitmap_bin)
    , x(x)
    , y(y)
+   , time(time)
+   , scale(scale)
    , actor_manager({})
    , initialized(false)
-   , time(time)
 {
 }
 
@@ -51,6 +52,12 @@ void Sparkles2::set_time(float time)
 }
 
 
+void Sparkles2::set_scale(float scale)
+{
+   this->scale = scale;
+}
+
+
 float Sparkles2::get_x() const
 {
    return x;
@@ -66,6 +73,12 @@ float Sparkles2::get_y() const
 float Sparkles2::get_time() const
 {
    return time;
+}
+
+
+float Sparkles2::get_scale() const
+{
+   return scale;
 }
 
 

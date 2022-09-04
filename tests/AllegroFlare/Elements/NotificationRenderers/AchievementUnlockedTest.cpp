@@ -46,7 +46,25 @@ TEST_F(AllegroFlare_Elements_NotificationRenderers_AchievementUnlockedTestWithAl
    achievement_unlocked.set_name("Know Notifications");
    achievement_unlocked.render();
    al_flip_display();
-   sleep_for(1);
+   //sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_NotificationRenderers_AchievementUnlockedTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_an_animation_effect)
+{
+   AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref()
+   );
+
+   for (int frames=60*2; frames--; frames>=0)
+   {
+      achievement_unlocked.set_name("Know Notifications");
+      achievement_unlocked.render();
+      al_flip_display();
+      sleep_for_frame();
+   }
 }
 
 
