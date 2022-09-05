@@ -22,6 +22,7 @@ namespace AllegroFlare
       std::string allegro_version();
       uint32_t num_available_threads();
       bool num_available_threads_are_known();
+      std::string get_chip_kind();
       std::string operating_system();
    };
 }

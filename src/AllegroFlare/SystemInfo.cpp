@@ -42,6 +42,12 @@ bool SystemInfo::num_available_threads_are_known()
    return (std::thread::hardware_concurrency() != 0);
 }
 
+std::string SystemInfo::get_chip_kind()
+{
+   // TODO, for MacOS, want this function to return "Intel" or "M1"
+   return "[chip-kind-not-detected]";
+}
+
 std::string SystemInfo::operating_system()
 {
    // TODO: this might be incorrect, might be detecting WIN32 even when WIN64 is present
