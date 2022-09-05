@@ -1,5 +1,5 @@
 
-
+/*
 
 
 #include <AllegroFlare/CubemapBuilder.hpp>
@@ -146,4 +146,6 @@ namespace AllegroFlare
 
 } // namespace AllegroFlare
 
+
+*/
 

@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 
@@ -13,5 +14,6 @@ namespace AllegroFlare
       AllegroFlare::Cubemap *glsl_create_cubemap_from_vertical_strip(const char *filename);
    };
 }
+*/
 
 
