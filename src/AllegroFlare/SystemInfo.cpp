@@ -45,6 +45,9 @@ bool SystemInfo::num_available_threads_are_known()
 std::string SystemInfo::get_chip_kind()
 {
    // TODO, for MacOS, want this function to return "Intel" or "M1"
+   // shell_command: > uname -p
+   // if i386, intel
+   // if arm, M1
    return "[chip-kind-not-detected]";
 }
 

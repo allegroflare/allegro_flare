@@ -39,6 +39,9 @@ functions:
     type: std::string
     body: |
       // TODO, for MacOS, want this function to return "Intel" or "M1"
+      // shell_command: > uname -p
+      // if i386, intel
+      // if arm, M1
       return "[chip-kind-not-detected]";
 
 
