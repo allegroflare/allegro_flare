@@ -35,14 +35,58 @@ functions:
       - std::thread::hardware_concurrency
 
 
-  - name: get_chip_kind
+  - name: get_processor_type
     type: std::string
     body: |
-      // TODO, for MacOS, want this function to return "Intel" or "M1"
-      // shell_command: > uname -p
-      // if i386, intel
-      // if arm, M1
+      std::string machine = get_machine();
+      if (machine.empty()) return "[unable-to-detect]";
+      if (machine.substr(0, 3) == "arm") return "arm";
+      if (machine.substr(0, 1) == "i") return "intel";
       return "[chip-kind-not-detected]";
+
+
+  - name: get_sysname
+    type: std::string
+    body: |
+      utsname buf;
+      uname(&buf);
+      std::string sysname = buf.sysname;
+      return sysname;
+    body_dependency_symbols:
+      - uname
+
+
+  - name: get_version
+    type: std::string
+    body: |
+      utsname buf;
+      uname(&buf);
+      std::string version = buf.version;
+      return version;
+    body_dependency_symbols:
+      - uname
+
+
+  - name: get_release
+    type: std::string
+    body: |
+      utsname buf;
+      uname(&buf);
+      std::string release = buf.release;
+      return release;
+    body_dependency_symbols:
+      - uname
+
+
+  - name: get_machine
+    type: std::string
+    body: |
+      utsname buf;
+      uname(&buf);
+      std::string machine = buf.machine;
+      return machine;
+    body_dependency_symbols:
+      - uname
 
 
   - name: operating_system
@@ -74,5 +118,7 @@ dependencies:
     headers: [ AllegroFlare/Version.hpp ]
   - symbol: std::thread::hardware_concurrency
     headers: [ thread ]
+  - symbol: uname
+    headers: [ sys/utsname.h ]
 
 

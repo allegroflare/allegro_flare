@@ -35,6 +35,46 @@ TEST(AllegroFlare_SystemInfoTest, num_available_threads_are_known__when_the_syst
 }
 
 
+TEST(AllegroFlare_SystemInfoTest, get_sysname__will_return_a_string_representing_the_system)
+{
+   AllegroFlare::SystemInfo system_info;
+   EXPECT_EQ("Darwin", system_info.get_sysname());
+}
+
+
+TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing_the_system)
+{
+   AllegroFlare::SystemInfo system_info;
+   std::string expected_version = "Darwin Kernel Version 21.6.0: Sat Jun 18 17:05:47 PDT 2022; "
+                                  "root:xnu-8020.140.41~1/RELEASE_ARM64_T8101";
+   EXPECT_EQ(expected_version, system_info.get_version());
+}
+
+
+TEST(AllegroFlare_SystemInfoTest, get_release__will_return_a_string_representing_the_system)
+{
+   AllegroFlare::SystemInfo system_info;
+   std::string expected_release = "21.6.0";
+   EXPECT_EQ(expected_release, system_info.get_release());
+}
+
+
+TEST(AllegroFlare_SystemInfoTest, get_machine__will_return_a_string_representing_the_system)
+{
+   AllegroFlare::SystemInfo system_info;
+   std::string expected_machine = "arm64";
+   EXPECT_EQ(expected_machine, system_info.get_machine());
+}
+
+
+TEST(AllegroFlare_SystemInfoTest, get_chip_kind__will_return_a_string_representing_the_system)
+{
+   AllegroFlare::SystemInfo system_info;
+   std::string expected_processor_type = "arm";
+   EXPECT_EQ(expected_processor_type, system_info.get_processor_type());
+}
+
+
 TEST(AllegroFlare_SystemInfoTest, operating_system__will_return_a_string_representing_the_os)
 {
    AllegroFlare::SystemInfo system_info;

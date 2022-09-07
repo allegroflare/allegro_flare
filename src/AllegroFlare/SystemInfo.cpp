@@ -3,6 +3,7 @@
 #include <AllegroFlare/SystemInfo.hpp>
 
 #include <AllegroFlare/Version.hpp>
+#include <sys/utsname.h>
 #include <thread>
 
 
@@ -42,13 +43,45 @@ bool SystemInfo::num_available_threads_are_known()
    return (std::thread::hardware_concurrency() != 0);
 }
 
-std::string SystemInfo::get_chip_kind()
+std::string SystemInfo::get_processor_type()
 {
-   // TODO, for MacOS, want this function to return "Intel" or "M1"
-   // shell_command: > uname -p
-   // if i386, intel
-   // if arm, M1
+   std::string machine = get_machine();
+   if (machine.empty()) return "[unable-to-detect]";
+   if (machine.substr(0, 3) == "arm") return "arm";
+   if (machine.substr(0, 1) == "i") return "intel";
    return "[chip-kind-not-detected]";
+}
+
+std::string SystemInfo::get_sysname()
+{
+   utsname buf;
+   uname(&buf);
+   std::string sysname = buf.sysname;
+   return sysname;
+}
+
+std::string SystemInfo::get_version()
+{
+   utsname buf;
+   uname(&buf);
+   std::string version = buf.version;
+   return version;
+}
+
+std::string SystemInfo::get_release()
+{
+   utsname buf;
+   uname(&buf);
+   std::string release = buf.release;
+   return release;
+}
+
+std::string SystemInfo::get_machine()
+{
+   utsname buf;
+   uname(&buf);
+   std::string machine = buf.machine;
+   return machine;
 }
 
 std::string SystemInfo::operating_system()

@@ -1324,6 +1324,9 @@
   "std/thread/hardware_concurrency": [
     "AllegroFlare/SystemInfo"
   ],
+  "uname": [
+    "AllegroFlare/SystemInfo"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

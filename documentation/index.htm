@@ -8341,7 +8341,19 @@ table td
   <td class="method">num_available_threads_are_known()</td>
 </tr>
 <tr>
-  <td class="method">get_chip_kind()</td>
+  <td class="method">get_processor_type()</td>
+</tr>
+<tr>
+  <td class="method">get_sysname()</td>
+</tr>
+<tr>
+  <td class="method">get_version()</td>
+</tr>
+<tr>
+  <td class="method">get_release()</td>
+</tr>
+<tr>
+  <td class="method">get_machine()</td>
 </tr>
 <tr>
   <td class="method">operating_system()</td>
@@ -8353,6 +8365,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::thread::hardware_concurrency&quot;, &quot;headers&quot;=&gt;[&quot;thread&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;uname&quot;, &quot;headers&quot;=&gt;[&quot;sys/utsname.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -10264,6 +10279,9 @@ table td
     "AllegroFlare/SystemInfo"
   ],
   "std/thread/hardware_concurrency": [
+    "AllegroFlare/SystemInfo"
+  ],
+  "uname": [
     "AllegroFlare/SystemInfo"
   ],
   "AllegroFlare/Testing/CustomComparison": [
