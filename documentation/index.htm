@@ -8353,6 +8353,9 @@ table td
   <td class="method">get_release()</td>
 </tr>
 <tr>
+  <td class="method">get_hostname()</td>
+</tr>
+<tr>
   <td class="method">get_machine()</td>
 </tr>
 <tr>
@@ -8368,6 +8371,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;uname&quot;, &quot;headers&quot;=&gt;[&quot;sys/utsname.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;gethostname&quot;, &quot;headers&quot;=&gt;[&quot;unistd.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -10282,6 +10288,9 @@ table td
     "AllegroFlare/SystemInfo"
   ],
   "uname": [
+    "AllegroFlare/SystemInfo"
+  ],
+  "gethostname": [
     "AllegroFlare/SystemInfo"
   ],
   "AllegroFlare/Testing/CustomComparison": [

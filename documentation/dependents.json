@@ -1327,6 +1327,9 @@
   "uname": [
     "AllegroFlare/SystemInfo"
   ],
+  "gethostname": [
+    "AllegroFlare/SystemInfo"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

@@ -42,6 +42,13 @@ TEST(AllegroFlare_SystemInfoTest, get_sysname__will_return_a_string_representing
 }
 
 
+TEST(AllegroFlare_SystemInfoTest, get_hostname__will_return_a_string_representing_the_system)
+{
+   AllegroFlare::SystemInfo system_info;
+   EXPECT_EQ("Marks-13-MacBook-Pro.local", system_info.get_hostname());
+}
+
+
 TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing_the_system)
 {
    AllegroFlare::SystemInfo system_info;
