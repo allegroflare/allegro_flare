@@ -1,0 +1,222 @@
+
+properties:
+
+
+  - name: stock
+    type: Deck
+    init_with: '{}'
+    getter: true
+
+  - name: waste
+    type: Deck
+    init_with: '{}'
+    getter: true
+
+  - name: tableau
+    type: std::vector<std::vector<std::tuple<bool, Card>>>
+    init_with: '{}'
+    getter: true
+
+  - name: foundations
+    type: std::vector<std::vector<Deck>>
+    init_with: '{}'
+    getter: true
+
+  - name: state
+    type: std::string
+    init_with: '"playing"'
+
+
+functions:
+
+
+  - name: start
+    type: void
+    body: |
+      // Rules of solitare: https://bicyclecards.com/how-to-play/solitaire/
+
+      stock = DeckFactory::generate_standard_52_card_deck();
+      stock.shuffle();
+
+      tableau.clear();
+      tableau.resize(7);
+
+      waste.clear();
+
+      foundations.clear();
+      foundations.resize(4);
+
+      deal_cards();
+
+      set_state_playing();
+
+      return;
+    body_dependency_symbols:
+      - DeckFactory
+
+
+  - name: flip_topmost_card_on_tableau_column_to_face_up
+    parameters:
+      - name: tableau_column_num
+        type: int
+        default_argument: 0
+    body: |
+      // tableau_column_num must be valid
+      if (tableau_column_num < 0 || tableau_column_num >= tableau.size())
+      {
+         throw std::runtime_error("invalid tableau_column_num");
+      }
+
+      // tableau column cannot be empty
+      std::vector<std::tuple<bool, Card>> &tableau_column = tableau[tableau_column_num];
+      if (tableau_column.empty())
+      {
+         throw std::runtime_error("tableau_column is empty");
+      }
+
+      // if topmost card is already flipped up, just return
+      std::tuple<bool, Card> &topmost_card = tableau_column.back();
+
+      // if topmost card is already flipped up, just return
+      if (std::get<0>(topmost_card) == true) return;
+
+      // flip the to face up
+      std::get<0>(topmost_card) = true;
+
+      return;
+
+
+  - name: place_top_stock_card_on_waste
+    body: |
+      // if stock is empty, raise exception
+
+      // TODO
+      return;
+
+
+  - name: place_top_waste_card_on_foundation
+    parameters:
+      - name: foundation_index_num
+        type: int
+        default_argument: 0
+    body: |
+      // if waste is empty, raise exception
+      // if top waste card does not fit onto any foundations, raise exception
+
+      // TODO
+      return;
+
+
+  - name: replenish_stock_with_waste
+    body: |
+      // stock must be empty
+      // waste must not be empty
+
+      // TODO
+      return;
+
+
+  - name: move_cards_from_tableau_column_to_other_tableau_column
+    parameters:
+      - name: source_tableau_column_num
+        type: int
+        default_argument: 0
+      - name: destination_tableau_column_num
+        type: int
+        default_argument: 0
+      - name: num_cards_from_topmost_card
+        type: int
+        default_argument: 0
+    body: |
+      // source_tableau_column_num must be valid
+      // destination_tableau_column_num must be valid
+      // num_cards_from_topmost_card must not exceed size of cards in tableau column
+      // num_cards_from_topmost_card must be face up
+
+      // TODO
+      return;
+
+
+  - name: move_topmost_tableau_column_card_to_foundation
+    parameters:
+      - name: tableau_column_num
+        type: int
+        default_argument: 0
+    body: |
+      // tableau_column_num must be valid
+      // tableau_column_num must not be empty
+      // the topmost card in the tableau_column_num must be face-up
+
+      // TODO
+      return;
+
+
+  - name: deal_cards
+    private: true
+    body: |
+      // deal the cards to all the columns
+      for (unsigned column=0; column<tableau.size(); column++)
+      {
+         std::vector<std::tuple<bool, Card>> &tableau_column = tableau[column];
+         for (unsigned i=0; i<(column+1); i++)
+         {
+            Card card_to_place_on_column = stock.draw_card();
+            tableau_column.push_back(std::tuple<bool, Card>(false, card_to_place_on_column));
+         }
+      }
+
+      // flip the first card on each column
+      for (unsigned column=0; column<tableau.size(); column++)
+      {
+         flip_topmost_card_on_tableau_column_to_face_up(column);
+      }
+      return;
+
+
+  - name: set_state_playing
+    private: true
+    body: |
+      state = "playing";
+      return;
+
+
+  - name: check_game_win_or_lose
+    private: true
+    body: |
+      // TODO
+      return;
+
+
+  - name: set_state_game_won
+    private: true
+    body: |
+      state = "game_won";
+      return;
+
+
+  - name: set_state_game_lost
+    private: true
+    body: |
+      state = "game_over";
+      return;
+
+
+  - name: stock_num_cards
+    type: int
+    body: |
+      return stock.num_cards();
+
+
+dependencies:
+
+
+  - symbol: Deck
+    headers: [ Deck.hpp ]
+  - symbol: std::vector<std::vector<Deck>>
+    headers: [ vector, Deck.hpp ]
+  - symbol: DeckFactory
+    headers: [ DeckFactory.hpp ]
+  - symbol: std::vector<std::vector<std::tuple<bool, Card>>>
+    headers: [ vector, tuple, Card.hpp ]
+
+
