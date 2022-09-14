@@ -265,17 +265,10 @@ functions:
 dependencies:
 
 
-  - symbol: ALLEGRO_VERTEX_DECL*
-    headers: [ allegro5/allegro_primitives.h ]
-  - symbol: ALLEGRO_VERTEX_BUFFER*
-    headers: [ allegro5/allegro_primitives.h ]
-  - symbol: ALLEGRO_BITMAP*
-    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::MultiMeshUVAtlas
     headers: [ AllegroFlare/MultiMeshUVAtlas.hpp ]
   - symbol: std::size_t
     headers: [ cstddef ]
-
   - symbol: ALLEGRO_VERTEX_DECL
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: ALLEGRO_VERTEX_BUFFER
