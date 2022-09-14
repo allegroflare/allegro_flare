@@ -1,0 +1,27 @@
+properties:
+
+
+  - name: tiles
+    type: std::vector<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*>
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: fill
+    type: std::string
+    body: |
+      return "Hello World!";
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelTiles::Base
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.hpp ]
+
+
