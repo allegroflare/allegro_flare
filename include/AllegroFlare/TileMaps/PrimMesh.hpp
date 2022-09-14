@@ -13,7 +13,6 @@ namespace AllegroFlare::TileMaps
    {
    private:
       AllegroFlare::TileMaps::Atlas *atlas;
-      ALLEGRO_VERTEX_BUFFER *vertex_buffer;
       std::vector<ALLEGRO_VERTEX> vertexes;
       std::vector<int> tile_ids;
       //ALLEGRO_BITMAP *atlas_bitmap;
@@ -21,7 +20,6 @@ namespace AllegroFlare::TileMaps
       int num_rows;
       int tile_width;
       int tile_height;
-      bool use_primitive;
       bool initialized;
 
       void set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2);
