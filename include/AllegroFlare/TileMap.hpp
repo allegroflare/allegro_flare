@@ -10,8 +10,8 @@ namespace AllegroFlare
    class TileMap
    {
    private:
-      int width;
-      int height;
+      int num_columns;
+      int num_rows;
       std::vector<T> tiles;
       bool initialized;
 
@@ -22,8 +22,6 @@ namespace AllegroFlare
 
       void initialize();
 
-      int get_width();
-      int get_height();
       int get_num_columns();
       int get_num_rows();
 
@@ -45,111 +43,107 @@ namespace AllegroFlare
 
 template <class T>
 TileMap<T>::TileMap(int num_columns, int num_rows)
-   : width(num_columns)
-   , height(num_rows)
+   : num_columns(num_columns)
+   , num_rows(num_rows)
    , tiles()
    , initialized(false)
 {}
 
 
-TileMap::~TileMap()
+template <class T>
+TileMap<T>::~TileMap()
 {
 }
 
 
-void TileMap::initialize()
+template <class T>
+void TileMap<T>::initialize()
 {
-   if (initialized) throw std::runtime_error("AllegroFlare::TileMap::initialize() error: cannot call initialize twice.");
-   resize(width, height);
+   if (initialized) throw std::runtime_error("AllegroFlare::TileMap<T>::initialize() error: cannot call initialize twice.");
+   resize(num_columns, num_rows);
    initialized = true;
 }
 
 
-int TileMap::get_width()
+template <class T>
+int TileMap<T>::get_num_columns()
 {
-   // TODO: consider depreciating this in favor of get_num_columns
-   return width;
+   return num_columns;
 }
 
 
-int TileMap::get_height()
+template <class T>
+int TileMap<T>::get_num_rows()
 {
-   // TODO: consider depreciating this in favor of get_num_rows
-   return height;
+   return num_rows;
 }
 
 
-int TileMap::get_num_columns()
+template <class T>
+int TileMap<T>::infer_num_tiles()
 {
-   return width;
+   return num_columns * num_rows;
 }
 
 
-int TileMap::get_num_rows()
+template <class T>
+bool TileMap<T>::is_dimensionless()
 {
-   return height;
+   return (num_columns <= 0 || num_rows <= 0);
 }
 
 
-int TileMap::infer_num_tiles()
+template <class T>
+T TileMap<T>::get_tile(int tile_x, int tile_y)
 {
-   return width * height;
+   if (!initialized) throw std::runtime_error("AllegroFlare::TileMap<T>::get_tile() error: tile map must be initialized first.");
+
+   if (tile_x < 0 || (tile_x >= num_columns)) return -1;
+   if (tile_y < 0 || (tile_y >= num_rows)) return -1;
+
+   return tiles[tile_x + tile_y * num_columns];
 }
 
 
-bool TileMap::is_dimensionless()
-{
-   return (width <= 0 || height <= 0);
-}
-
-
-int TileMap::get_tile(int tile_x, int tile_y)
-{
-   if (!initialized) throw std::runtime_error("AllegroFlare::TileMap::get_tile() error: tile map must be initialized first.");
-
-   if (tile_x < 0 || (tile_x >= width)) return -1;
-   if (tile_y < 0 || (tile_y >= height)) return -1;
-
-   return tiles[tile_x + tile_y * width];
-}
-
-
-bool TileMap::set_tile(int tile_x, int tile_y, int value)
+template <class T>
+bool TileMap<T>::set_tile(int tile_x, int tile_y, T value)
    // if the tile is set to a negative number, then the tiles[tile_index] will be set to that number, but
    // the image will be the bitmap at index 0
 {
-   if (!initialized) throw std::runtime_error("AllegroFlare::TileMap::set_tile() error: tile map must be initialized first.");
+   if (!initialized) throw std::runtime_error("AllegroFlare::TileMap<T>::set_tile() error: tile map must be initialized first.");
 
-   if (tile_x < 0 || (tile_x >= width)) return false;
-   if (tile_y < 0 || (tile_y >= height)) return false;
+   if (tile_x < 0 || (tile_x >= num_columns)) return false;
+   if (tile_y < 0 || (tile_y >= num_rows)) return false;
 
-   tiles[tile_x + tile_y * width] = value;
+   tiles[tile_x + tile_y * num_columns] = value;
 
    return true;
 }
 
 
-std::pair<int, int> TileMap::get_coordinates_from_contiguous_number(int contiguous_tile_num)
+template <class T>
+std::pair<int, int> TileMap<T>::get_coordinates_from_contiguous_number(int contiguous_tile_num)
 {
    if (is_dimensionless()) return std::pair<int, int>(-1, -1);
 
-   int tile_x = contiguous_tile_num % width;
-   int tile_y = contiguous_tile_num / width;
+   int tile_x = contiguous_tile_num % num_columns;
+   int tile_y = contiguous_tile_num / num_columns;
 
    return std::pair<int, int>(tile_x, tile_y);
 }
 
 
-void TileMap::resize(int w, int h)
+template <class T>
+void TileMap<T>::resize(int num_columns, int h)
 {
    // TODO prevent assigning negative numbers
 
-   // set the width and height of our map
-   width = w;
-   height = h;
+   // set the num_columns and num_rows of our map
+   this->num_columns = num_columns;
+   num_rows = h;
 
    // resize and clear the tiles
-   tiles.assign(width * height, 0);
+   tiles.assign(num_columns* num_rows, 0);
 }
 
 
