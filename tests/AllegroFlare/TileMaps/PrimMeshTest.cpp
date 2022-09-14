@@ -31,7 +31,7 @@ const std::string TEST_TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
 
 TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, render__without_initialized__throws_an_error)
 {
-   AllegroFlare::TileMaps::Atlas atlas;
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
    AllegroFlare::TileMaps::PrimMesh mesh(&atlas);
 
    //ASSERT_THROW_WITH_MESSAGE(
@@ -47,7 +47,7 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, initialize
    return;
 
    ALLEGRO_BITMAP *atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
-   AllegroFlare::TileMaps::Atlas atlas;
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
    AllegroFlare::TileMaps::PrimMesh mesh(&atlas, 30, 20, 16, 16);
    atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);
    mesh.initialize();
@@ -74,7 +74,7 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, render__wi
    return;
 
    ALLEGRO_BITMAP *atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
-   AllegroFlare::TileMaps::Atlas atlas;
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
 
    AllegroFlare::TileMaps::PrimMesh mesh(&atlas, 30, 10, 16, 16);
    atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);

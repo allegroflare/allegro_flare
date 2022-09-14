@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/TileMaps/Atlas.hpp>
+#include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 
 #include <sstream>
 #include <iostream>
@@ -39,7 +39,7 @@ namespace AllegroFlare::TileMaps
    */
 
 
-Atlas::Atlas()
+PrimMeshAtlas::PrimMeshAtlas()
    : bitmap(nullptr)
    , bitmap_filename("unset-bitmap-filename.png")
    , tile_width(1)
@@ -50,9 +50,9 @@ Atlas::Atlas()
 }
 
 
-Atlas::~Atlas()
+PrimMeshAtlas::~PrimMeshAtlas()
 {
-   std::cout << "[~Atlas()] WARNING: tile atlas may contain a bitmap (and potentially depenedencies "
+   std::cout << "[~PrimMeshAtlas()] WARNING: tile atlas may contain a bitmap (and potentially depenedencies "
              << "reliant on it) that has not been properly freed. This destruction mechanism has not yet "
              << "been properly implemented."
              << std::endl;
@@ -60,92 +60,92 @@ Atlas::~Atlas()
 }
 
 
-ALLEGRO_BITMAP *Atlas::get_bitmap()
+ALLEGRO_BITMAP *PrimMeshAtlas::get_bitmap()
 {
    return bitmap;
 }
 
 
-int Atlas::get_bitmap_width()
+int PrimMeshAtlas::get_bitmap_width()
 {
    if (!bitmap) return 0;
    return al_get_bitmap_width(bitmap);
 }
 
 
-int Atlas::get_bitmap_height()
+int PrimMeshAtlas::get_bitmap_height()
 {
    if (!bitmap) return 0;
    return al_get_bitmap_height(bitmap);
 }
 
 
-std::string Atlas::get_bitmap_filename() const
+std::string PrimMeshAtlas::get_bitmap_filename() const
 {
    return bitmap_filename;
 }
 
 
-void Atlas::set_bitmap_filename(std::string bitmap_filename)
+void PrimMeshAtlas::set_bitmap_filename(std::string bitmap_filename)
 {
    this->bitmap_filename = bitmap_filename;
 }
 
 
-int Atlas::get_tile_width() const
+int PrimMeshAtlas::get_tile_width() const
 {
    return tile_width;
 }
 
 
-int Atlas::get_tile_height() const
+int PrimMeshAtlas::get_tile_height() const
 {
    return tile_height;
 }
 
 
-int Atlas::get_tile_spacing() const
+int PrimMeshAtlas::get_tile_spacing() const
 {
    return tile_spacing;
 }
 
 
-void Atlas::set_tile_width(int tile_width)
+void PrimMeshAtlas::set_tile_width(int tile_width)
 {
-   std::cout << "[Atlas::set_tile_width()] WARNING: setting the tile width will invalidate the mesh, please review."
+   std::cout << "[PrimMeshAtlas::set_tile_width()] WARNING: setting the tile width will invalidate the mesh, please review."
              << std::endl;
    // TODO: important, the mesh needs to be refreshed if this value is changed
    this->tile_width = tile_width;
 }
 
 
-void Atlas::set_tile_height(int tile_height)
+void PrimMeshAtlas::set_tile_height(int tile_height)
 {
-   std::cout << "[Atlas::set_tile_height()] WARNING: setting the tile height will invalidate the mesh, please review."
+   std::cout << "[PrimMeshAtlas::set_tile_height()] WARNING: setting the tile height will invalidate the mesh, please review."
              << std::endl;
    // TODO: important, the mesh needs to be refreshed if this value is changed
    this->tile_height = tile_height;
 }
 
 
- void Atlas::set_tile_spacing(int tile_spacing)
+ void PrimMeshAtlas::set_tile_spacing(int tile_spacing)
 {
-   std::cout << "[Atlas::set_tile_spacing()] WARNING: setting the tile spacing will invalidate the mesh, please review."
+   std::cout << "[PrimMeshAtlas::set_tile_spacing()] WARNING: setting the tile spacing will invalidate the mesh, please review."
              << std::endl;
    // TODO: important, the mesh needs to be refreshed if this value is changed
    this->tile_spacing = tile_spacing;
 }
 
 
-int Atlas::get_tile_index_size()
+int PrimMeshAtlas::get_tile_index_size()
 {
    return tile_index.size();
 }
 
 
-void Atlas::clear()
+void PrimMeshAtlas::clear()
 {
-   std::cout << "[Atlas::clear()] WARNING: this feature is destroying a bitmap that potentially may "
+   std::cout << "[PrimMeshAtlas::clear()] WARNING: this feature is destroying a bitmap that potentially may "
              << "have depenedencies (as sub-bitmaps). This destruction mechanism has not yet been properly "
              << "implemented."
              << std::endl;
@@ -158,7 +158,7 @@ void Atlas::clear()
 
 
 // load will *copy* the bitmap that you pass into it.  You probably would want to al_destroy_bitmap after loading;
-void Atlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int tile_width, int tile_height, int tile_spacing)
+void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int tile_width, int tile_height, int tile_spacing)
 {
    this->tile_width = tile_width;
    this->tile_height = tile_height;
@@ -166,7 +166,7 @@ void Atlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int tile_wi
 
    if (!source_bitmap)
    {
-      std::cout << "[Atlas::load()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
+      std::cout << "[PrimMeshAtlas::load()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
    }
 
    // clear the existing contents of this tile atlas (if any)
@@ -201,7 +201,7 @@ void Atlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int tile_wi
 }
 
 
-void Atlas::draw_tile_to_atlas(ALLEGRO_BITMAP *tile, int tile_num, ALLEGRO_COLOR color)
+void PrimMeshAtlas::draw_tile_to_atlas(ALLEGRO_BITMAP *tile, int tile_num, ALLEGRO_COLOR color)
 {
    // ok, this is a serious bit of a hack.  It will only work when the tiles are spaced with spaces of 1 px.
    if (!tile) return;
@@ -210,7 +210,7 @@ void Atlas::draw_tile_to_atlas(ALLEGRO_BITMAP *tile, int tile_num, ALLEGRO_COLOR
 
    if (!bitmap)
    {
-      std::cout << "[Atlas::draw_to_tile_atlas()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
+      std::cout << "[PrimMeshAtlas::draw_to_tile_atlas()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
       return;
    }
 
@@ -239,7 +239,7 @@ void Atlas::draw_tile_to_atlas(ALLEGRO_BITMAP *tile, int tile_num, ALLEGRO_COLOR
 }
 
 
-bool Atlas::get_tile_uv(int index_num, int *u1, int *v1, int *u2, int *v2)
+bool PrimMeshAtlas::get_tile_uv(int index_num, int *u1, int *v1, int *u2, int *v2)
 {
    if (index_num < 0 || index_num >= (int)tile_index.size()) return false;
 
@@ -252,7 +252,7 @@ bool Atlas::get_tile_uv(int index_num, int *u1, int *v1, int *u2, int *v2)
 }
 
 
-bool Atlas::get_tile_uv(int index_num, float *u1, float *v1, float *u2, float *v2)
+bool PrimMeshAtlas::get_tile_uv(int index_num, float *u1, float *v1, float *u2, float *v2)
 {
    if (index_num < 0 || index_num >= (int)tile_index.size()) return false;
 
@@ -265,12 +265,12 @@ bool Atlas::get_tile_uv(int index_num, float *u1, float *v1, float *u2, float *v
 }
 
 
-ALLEGRO_BITMAP* Atlas::get_bitmap(int index_num)
+ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap(int index_num)
 {
    if (index_num < 0 || index_num >= (int)tile_index.size())
    {
       std::stringstream error_message;
-      error_message << "Can not Atlas::get_bitmap on index_num " << index_num << ".";
+      error_message << "Can not PrimMeshAtlas::get_bitmap on index_num " << index_num << ".";
       throw std::runtime_error(error_message.str());
    }
 
@@ -278,7 +278,7 @@ ALLEGRO_BITMAP* Atlas::get_bitmap(int index_num)
 }
 
 
-std::vector<AllegroFlare::TileMaps::TileIndexInfo> Atlas::get_tile_index()
+std::vector<AllegroFlare::TileMaps::TileIndexInfo> PrimMeshAtlas::get_tile_index()
 {
    return tile_index;
 }

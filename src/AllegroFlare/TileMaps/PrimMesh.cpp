@@ -33,11 +33,10 @@ void PrimMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
 }
 
 
-PrimMesh::PrimMesh(AllegroFlare::TileMaps::Atlas *atlas, int num_columns, int num_rows, int tile_width, int tile_height)
+PrimMesh::PrimMesh(AllegroFlare::TileMaps::PrimMeshAtlas *atlas, int num_columns, int num_rows, int tile_width, int tile_height)
    : atlas(atlas)
    , vertexes()
    , tile_ids()
-   //, atlas_bitmap(atlas_bitmap)
    , num_columns(num_columns)
    , num_rows(num_rows)
    , tile_width(tile_width)
@@ -63,12 +62,10 @@ void PrimMesh::initialize()
    if (initialized)
    {
       throw std::runtime_error("[AllegroFlare::PrimMesh::initialize()] error: initialized must be false");
-      //return false
    }
 
    resize(num_columns, num_rows);
 
-   // set as initialized
    initialized = true;
 }
 
@@ -77,14 +74,6 @@ void PrimMesh::resize(int num_columns, int num_rows)
 {
    this->num_columns = num_columns;
    this->num_rows = num_rows;
-   //num_columns = w;
-   //num_rows = h;
-
-   //if (initialized)
-   //{
-      //throw std::runtime_error("[AllegroFlare::PrimMesh] error: initialized must be false");
-      ////return false
-   //}
 
    // resize the vertexes vector
    vertexes.clear();
@@ -93,9 +82,8 @@ void PrimMesh::resize(int num_columns, int num_rows)
    tile_ids.resize(num_columns*num_rows);
 
    // place the vertexes in the mesh
-   int v = 0;
    int num_vertexes = num_columns*num_rows*6;
-   for (; v<num_vertexes; v+=6)
+   for (int v=0; v<num_vertexes; v+=6)
    {
       long tile_num = v / 6;
 
@@ -106,56 +94,26 @@ void PrimMesh::resize(int num_columns, int num_rows)
 
       vertexes[v+0].x = x1;
       vertexes[v+0].y = y1;
-      //vbuff[0].x = x1;
-      //vbuff[0].y = y1;
-
       vertexes[v+1].x = x1;
       vertexes[v+1].y = y2;
-      //vbuff[1].x = x1;
-      //vbuff[1].y = y2;
-
       vertexes[v+2].x = x2;
       vertexes[v+2].y = y2;
-      //vbuff[2].x = x2;
-      //vbuff[2].y = y2;
-
       vertexes[v+3].x = x2;
       vertexes[v+3].y = y2;
-      //vbuff[3].x = x2;
-      //vbuff[3].y = y2;
-
       vertexes[v+4].x = x2;
       vertexes[v+4].y = y1;
-      //vbuff[4].x = x2;
-      //vbuff[4].y = y1;
-
       vertexes[v+5].x = x1;
       vertexes[v+5].y = y1;
-      //vbuff[5].x = x1;
-      //vbuff[5].y = y1;
    }
 
-   // "scale" the vertexes to the tile_w and tile_h
-   // and set other default values
-   //vbuff = vbuff_begin;
-   v = 0;
-   for (; v<num_vertexes; v++)
+   // "scale" the vertexes to the tile_w and tile_h and set other default values
+   for (int v=0; v<num_vertexes; v++)
    {
       vertexes[v].x *= tile_width;
       vertexes[v].y *= tile_height;
       vertexes[v].z = 0;
       vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
-      //vbuff[0].x *= tile_width;
-      //vbuff[0].y *= tile_height;
-      //vbuff[0].z = 0;
-      //vbuff[0].color = al_map_rgba_f(1, 1, 1, 1);//color::mix(color::white, random_color(), 0.5);
    }
-
-   //// unlock our buffer
-   //al_unlock_vertex_buffer(vertex_buffer);
-
-   // set as initialized
-   //initialized = true;
 }
 
 
@@ -207,8 +165,7 @@ bool PrimMesh::set_tile(int tile_x, int tile_y, int tile_id)
 
 bool PrimMesh::set_tile_id(int tile_x, int tile_y, int tile_id)
 {
-   if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
-   // if the tile index does not exist in the atlas, break out
+   if (!atlas) throw std::runtime_error("[AllegroFlare::TileMaps::PrimMesh] error: atlas must not be nullptr");
    if (tile_id >= (int)atlas->get_tile_index_size()) return false;
 
    // if the tile_id is a negative number, use the number "0" instead
@@ -246,17 +203,10 @@ std::vector<int> PrimMesh::get_tile_ids() const
 }
 
 
-AllegroFlare::TileMaps::Atlas *PrimMesh::get_atlas() const
+AllegroFlare::TileMaps::PrimMeshAtlas *PrimMesh::get_atlas() const
 {
    return atlas;
 }
-
-
- //void PrimMesh::set_atlas_bitmap(ALLEGRO_BITMAP *atlas_bitmap)
- //{
- //   this->atlas_bitmap = atlas_bitmap;
- //}
-
 
 
 void PrimMesh::render(bool draw_outline) //int camera_x, int camera_y)

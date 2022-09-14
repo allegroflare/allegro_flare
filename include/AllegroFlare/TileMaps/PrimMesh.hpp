@@ -3,7 +3,7 @@
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
-#include <AllegroFlare/TileMaps/Atlas.hpp>
+#include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <vector>
 
 
@@ -12,10 +12,9 @@ namespace AllegroFlare::TileMaps
    class PrimMesh
    {
    private:
-      AllegroFlare::TileMaps::Atlas *atlas;
+      AllegroFlare::TileMaps::PrimMeshAtlas *atlas;
       std::vector<ALLEGRO_VERTEX> vertexes;
       std::vector<int> tile_ids;
-      //ALLEGRO_BITMAP *atlas_bitmap;
       int num_columns;
       int num_rows;
       int tile_width;
@@ -25,7 +24,13 @@ namespace AllegroFlare::TileMaps
       void set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2);
 
    public:
-      PrimMesh(AllegroFlare::TileMaps::Atlas *atlas=nullptr, int num_columns=0, int num_rows=0, int tile_width=1, int tile_heigh=1);
+      PrimMesh(
+         AllegroFlare::TileMaps::PrimMeshAtlas *atlas=nullptr,
+         int num_columns=0,
+         int num_rows=0,
+         int tile_width=1,
+         int tile_heigh=1
+      );
       ~PrimMesh();
 
       void initialize();
@@ -43,15 +48,13 @@ namespace AllegroFlare::TileMaps
       int get_real_width() const;
       int get_real_height() const;
 
-      bool set_tile(int tile_x, int tile_y, int tile_id); // should deprecate this
+      bool set_tile(int tile_x, int tile_y, int tile_id);
       bool set_tile_id(int tile_x, int tile_y, int tile_id);
       int get_tile_id(int tile_x, int tile_y) const;
       std::vector<int> get_tile_ids() const;
-      AllegroFlare::TileMaps::Atlas *get_atlas() const;
-      //void set_atlas_bitmap(ALLEGRO_BITMAP *atlast_bitmap); // this should probably be removed
-      //void initialize(int w, int h, int tile_w, int tile_h);
+      AllegroFlare::TileMaps::PrimMeshAtlas *get_atlas() const;
    
-      void render(bool draw_outline=false); //int camera_x, int camera_y);
+      void render(bool draw_outline=false);
    };
 }
 

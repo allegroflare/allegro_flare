@@ -10,7 +10,7 @@
 
 namespace AllegroFlare::TileMaps
 {
-   class Atlas
+   class PrimMeshAtlas
    {
    private:
       ALLEGRO_BITMAP *bitmap; // Future: remove ALLEGRO_BITMAP from this object
@@ -21,8 +21,8 @@ namespace AllegroFlare::TileMaps
       std::vector<AllegroFlare::TileMaps::TileIndexInfo> tile_index;
 
    public:
-      Atlas();
-      ~Atlas();
+      PrimMeshAtlas();
+      ~PrimMeshAtlas();
 
       void clear();
 
