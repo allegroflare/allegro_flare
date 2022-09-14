@@ -344,7 +344,8 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/StoryboardPageFactory"
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/TileMaps/TileIndexInfo"
   ],
   "tan": [
     "AllegroFlare/Camera2D"

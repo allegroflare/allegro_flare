@@ -174,6 +174,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/TileIndexInfo.q.yml">quintessence/AllegroFlare/TileMaps/TileIndexInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Timeline/ActorFactory.q.yml">quintessence/AllegroFlare/Timeline/ActorFactory.q.yml</a></li>
@@ -8710,6 +8711,48 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/TileIndexInfo.q.yml">quintessence/AllegroFlare/TileMaps/TileIndexInfo.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">index_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">bitmap_source</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">sub_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">u1</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">v1</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">u2</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">v2</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</h3>
      <table>
 <tr>
@@ -9515,7 +9558,8 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/StoryboardPageFactory"
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/TileMaps/TileIndexInfo"
   ],
   "tan": [
     "AllegroFlare/Camera2D"
