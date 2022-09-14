@@ -6,7 +6,7 @@
 
 TEST(AllegroFlare_TileMapTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::TileMap tile_map;
+   AllegroFlare::TileMap<int> tile_map;
 }
 
 
