@@ -14,22 +14,22 @@ void PrimMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    int &i = id_start;
 
    vertexes[i+0].u = u1;
-   if (use_primitive) vertexes[i+0].v = v1;
+   vertexes[i+0].v = v1;
 
-   if (use_primitive) vertexes[i+1].u = u1;
-   if (use_primitive) vertexes[i+1].v = v2;
+   vertexes[i+1].u = u1;
+   vertexes[i+1].v = v2;
 
-   if (use_primitive) vertexes[i+2].u = u2;
-   if (use_primitive) vertexes[i+2].v = v2;
+   vertexes[i+2].u = u2;
+   vertexes[i+2].v = v2;
 
-   if (use_primitive) vertexes[i+3].u = u2;
-   if (use_primitive) vertexes[i+3].v = v2;
+   vertexes[i+3].u = u2;
+   vertexes[i+3].v = v2;
 
-   if (use_primitive) vertexes[i+4].u = u2;
-   if (use_primitive) vertexes[i+4].v = v1;
+   vertexes[i+4].u = u2;
+   vertexes[i+4].v = v1;
 
-   if (use_primitive) vertexes[i+5].u = u1;
-   if (use_primitive) vertexes[i+5].v = v1;
+   vertexes[i+5].u = u1;
+   vertexes[i+5].v = v1;
 }
 
 
@@ -42,7 +42,6 @@ PrimMesh::PrimMesh(AllegroFlare::TileMaps::Atlas *atlas, int num_columns, int nu
    , num_rows(num_rows)
    , tile_width(tile_width)
    , tile_height(tile_height)
-   , use_primitive(true)
    , initialized(false)
 {
 }
@@ -90,7 +89,7 @@ void PrimMesh::resize(int num_columns, int num_rows)
    // resize the vertexes vector
    vertexes.clear();
    tile_ids.clear();
-   if (use_primitive) vertexes.resize(num_columns*num_rows*6);
+   vertexes.resize(num_columns*num_rows*6);
    tile_ids.resize(num_columns*num_rows);
 
    // place the vertexes in the mesh
@@ -105,33 +104,33 @@ void PrimMesh::resize(int num_columns, int num_rows)
       int x2 = x1 + 1;
       int y2 = y1 + 1;
 
-      if (use_primitive) vertexes[v+0].x = x1;
-      if (use_primitive) vertexes[v+0].y = y1;
+      vertexes[v+0].x = x1;
+      vertexes[v+0].y = y1;
       //vbuff[0].x = x1;
       //vbuff[0].y = y1;
 
-      if (use_primitive) vertexes[v+1].x = x1;
-      if (use_primitive) vertexes[v+1].y = y2;
+      vertexes[v+1].x = x1;
+      vertexes[v+1].y = y2;
       //vbuff[1].x = x1;
       //vbuff[1].y = y2;
 
-      if (use_primitive) vertexes[v+2].x = x2;
-      if (use_primitive) vertexes[v+2].y = y2;
+      vertexes[v+2].x = x2;
+      vertexes[v+2].y = y2;
       //vbuff[2].x = x2;
       //vbuff[2].y = y2;
 
-      if (use_primitive) vertexes[v+3].x = x2;
-      if (use_primitive) vertexes[v+3].y = y2;
+      vertexes[v+3].x = x2;
+      vertexes[v+3].y = y2;
       //vbuff[3].x = x2;
       //vbuff[3].y = y2;
 
-      if (use_primitive) vertexes[v+4].x = x2;
-      if (use_primitive) vertexes[v+4].y = y1;
+      vertexes[v+4].x = x2;
+      vertexes[v+4].y = y1;
       //vbuff[4].x = x2;
       //vbuff[4].y = y1;
 
-      if (use_primitive) vertexes[v+5].x = x1;
-      if (use_primitive) vertexes[v+5].y = y1;
+      vertexes[v+5].x = x1;
+      vertexes[v+5].y = y1;
       //vbuff[5].x = x1;
       //vbuff[5].y = y1;
    }
@@ -142,10 +141,10 @@ void PrimMesh::resize(int num_columns, int num_rows)
    v = 0;
    for (; v<num_vertexes; v++)
    {
-      if (use_primitive) vertexes[v].x *= tile_width;
-      if (use_primitive) vertexes[v].y *= tile_height;
-      if (use_primitive) vertexes[v].z = 0;
-      if (use_primitive) vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
+      vertexes[v].x *= tile_width;
+      vertexes[v].y *= tile_height;
+      vertexes[v].z = 0;
+      vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
       //vbuff[0].x *= tile_width;
       //vbuff[0].y *= tile_height;
       //vbuff[0].z = 0;
