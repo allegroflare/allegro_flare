@@ -15,21 +15,14 @@ namespace TunnelTiles
 {
 
 
-Basic::Basic(std::string property)
+Basic::Basic()
    : AllegroFlare::Prototypes::MindDive::TunnelTiles::Base(AllegroFlare::Prototypes::MindDive::TunnelTiles::Basic::TYPE)
-   , property(property)
 {
 }
 
 
 Basic::~Basic()
 {
-}
-
-
-std::string Basic::get_property() const
-{
-   return property;
 }
 
 

@@ -28,6 +28,7 @@ namespace AllegroFlare
       int infer_num_tiles();
       bool is_dimensionless();
 
+      const std::vector<T> get_tiles() const;
       T get_tile(int tile_x, int tile_y);
       bool set_tile(int tile_x, int tile_y, T value);
       std::pair<int, int> get_coordinates_from_contiguous_number(int contiguous_tile_num);
@@ -94,9 +95,19 @@ bool TileMap<T>::is_dimensionless()
 
 
 template <class T>
+const std::vector<T> TileMap<T>::get_tiles() const
+{
+   return tiles;
+}
+
+
+template <class T>
 T TileMap<T>::get_tile(int tile_x, int tile_y)
 {
-   if (!initialized) throw std::runtime_error("AllegroFlare::TileMap<T>::get_tile() error: tile map must be initialized first.");
+   if (!initialized)
+   {
+      throw std::runtime_error("AllegroFlare::TileMap<T>::get_tile() error: tile map must be initialized first.");
+   }
 
    if (tile_x < 0 || (tile_x >= num_columns)) return -1;
    if (tile_y < 0 || (tile_y >= num_rows)) return -1;
@@ -110,7 +121,10 @@ bool TileMap<T>::set_tile(int tile_x, int tile_y, T value)
    // if the tile is set to a negative number, then the tiles[tile_index] will be set to that number, but
    // the image will be the bitmap at index 0
 {
-   if (!initialized) throw std::runtime_error("AllegroFlare::TileMap<T>::set_tile() error: tile map must be initialized first.");
+   if (!initialized)
+   {
+      throw std::runtime_error("AllegroFlare::TileMap<T>::set_tile() error: tile map must be initialized first.");
+   }
 
    if (tile_x < 0 || (tile_x >= num_columns)) return false;
    if (tile_y < 0 || (tile_y >= num_rows)) return false;

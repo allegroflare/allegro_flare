@@ -2,8 +2,7 @@
 
 
 #include <AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.hpp>
-#include <string>
-#include <vector>
+#include <AllegroFlare/TileMap.hpp>
 
 
 namespace AllegroFlare
@@ -15,18 +14,18 @@ namespace AllegroFlare
          class Tunnel
          {
          private:
-            std::vector<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tiles;
+            AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map;
 
          protected:
 
 
          public:
-            Tunnel(std::vector<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tiles={});
+            Tunnel(AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map={});
             ~Tunnel();
 
-            void set_tiles(std::vector<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tiles);
-            std::vector<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> get_tiles() const;
-            std::string fill();
+            void set_tile_map(AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map);
+            AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> get_tile_map() const;
+            void fill();
          };
       }
    }

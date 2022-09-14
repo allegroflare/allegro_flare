@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.hpp>
-#include <string>
 
 
 namespace AllegroFlare
@@ -19,16 +18,14 @@ namespace AllegroFlare
                static constexpr char* TYPE = "TunnelTiles/Basic";
 
             private:
-               std::string property;
 
             protected:
 
 
             public:
-               Basic(std::string property="[unset-property]");
+               Basic();
                ~Basic();
 
-               std::string get_property() const;
             };
          }
       }

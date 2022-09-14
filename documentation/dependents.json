@@ -1271,6 +1271,12 @@
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"
   ],
+  "AllegroFlare/TileMap": [
+    "AllegroFlare/Prototypes/MindDive/Tunnel"
+  ],
+  "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
+    "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
+  ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements"

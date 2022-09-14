@@ -9,12 +9,6 @@ parent_classes:
 properties:
 
 
-  - name: property
-    type: std::string
-    init_with: '"[unset-property]"'
-    constructor_arg: true
-    getter: true
-
   - name: TYPE
     type: char*
     init_with: '"TunnelTiles/Basic"'
