@@ -214,31 +214,8 @@ void PrimMesh::render(bool draw_outline) //int camera_x, int camera_y)
    if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
    if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
 
-
-   //return;
-
-   //std::vector<ALLEGRO_VERTEX> vertexes = {
-   //   ALLEGRO_VERTEX{ 0, 0, 0, ALLEGRO_COLOR{1, 0, 0, 1}, 0, 0 },
-   //};
-
-
-
    al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
-   //al_draw_prim(&vertexes[0], NULL, bmp, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-
-   //ALLEGRO_TRANSFORM prev, transform;
-
-   //al_draw_vertex_buffer(
-   //   vertex_buffer,
-   //   atlas->get_bitmap(),
-   //   0,
-   //   al_get_vertex_buffer_size(vertex_buffer),
-   //   ALLEGRO_PRIM_TRIANGLE_LIST);
-
-   // TODO: assuming a tile_width and a tile_height of 16
-   //float tile_width = 16;
-   //float tile_height = 16;
    if (draw_outline)
    {
       al_draw_rectangle(0, 0, num_columns * tile_width, num_rows * tile_height, ALLEGRO_COLOR{1, 0, 1, 1}, 2.0);
