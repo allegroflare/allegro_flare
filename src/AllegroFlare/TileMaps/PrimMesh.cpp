@@ -291,9 +291,9 @@ AllegroFlare::TileMaps::Atlas *PrimMesh::get_atlas() const
 
 
 
-void PrimMesh::render(bool draw_frame) //int camera_x, int camera_y)
+void PrimMesh::render(bool draw_outline) //int camera_x, int camera_y)
 {
-   if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh;:render] error: initialized can not be nullptr");
+   if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
    if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
 
 
@@ -321,7 +321,7 @@ void PrimMesh::render(bool draw_frame) //int camera_x, int camera_y)
    // TODO: assuming a tile_width and a tile_height of 16
    //float tile_width = 16;
    //float tile_height = 16;
-   if (draw_frame)
+   if (draw_outline)
    {
       al_draw_rectangle(0, 0, num_columns * tile_width, num_rows * tile_height, ALLEGRO_COLOR{1, 0, 1, 1}, 2.0);
    }

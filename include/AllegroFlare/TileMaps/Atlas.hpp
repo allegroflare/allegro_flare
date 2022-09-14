@@ -13,7 +13,7 @@ namespace AllegroFlare::TileMaps
    class Atlas
    {
    private:
-      ALLEGRO_BITMAP *bitmap;
+      ALLEGRO_BITMAP *bitmap; // Future: remove ALLEGRO_BITMAP from this object
       std::string bitmap_filename;
       int tile_width;
       int tile_height;

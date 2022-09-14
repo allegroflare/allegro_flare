@@ -37,7 +37,7 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, render__wi
    //ASSERT_THROW_WITH_MESSAGE(
    //   mesh.render(nullptr),
    //   std::runtime_error,
-   //   "[AllegroFlare::TileMaps::PrimMesh;:render] error: initialized can not be nullptr"
+   //   "[AllegroFlare::TileMaps::PrimMesh::render] error: initialized can not be nullptr"
    //);
 }
 

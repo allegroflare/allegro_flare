@@ -53,7 +53,7 @@ namespace AllegroFlare::TileMaps
       //void set_atlas_bitmap(ALLEGRO_BITMAP *atlast_bitmap); // this should probably be removed
       //void initialize(int w, int h, int tile_w, int tile_h);
    
-      void render(bool draw_frame=false); //int camera_x, int camera_y);
+      void render(bool draw_outline=false); //int camera_x, int camera_y);
    };
 }
 
