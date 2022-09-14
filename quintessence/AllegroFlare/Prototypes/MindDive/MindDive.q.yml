@@ -1,9 +1,48 @@
+properties:
+
+
+  - name: tunnel_mesh
+    type: AllegroFlare::Prototypes::MindDive::TunnelMesh
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: tunnel
+    type: AllegroFlare::Prototypes::MindDive::Tunnel
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+
 functions:
 
 
-  - name: run
-    type: std::string
+  - name: initialize
     body: |
-      return "Hello World!";
+      // TODO
+      return;
+
+
+  - name: render
+    body: |
+      // TODO
+      AllegroFlare::Prototypes::MindDive::TunnelRenderer tunnel_renderer(&tunnel_mesh);
+      tunnel_renderer.render();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::MindDive::TunnelRenderer
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::MindDive::Tunnel
+    headers: [ AllegroFlare/Prototypes/MindDive/Tunnel.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelRenderer
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelRenderer.hpp ]
 
 

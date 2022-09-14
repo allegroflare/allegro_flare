@@ -44,37 +44,9 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelRendererTest, render__without_prim
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelRendererTest, render__without_font_addon_initialized__raises_an_error)
-{
-   al_init();
-   al_init_primitives_addon();
-   AllegroFlare::Prototypes::MindDive::TunnelRenderer tunnel_renderer;
-   std::string expected_error_message =
-      "TunnelRenderer::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(tunnel_renderer.render(), std::runtime_error, expected_error_message);
-   al_shutdown_primitives_addon();
-   al_uninstall_system();
-}
-
-
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelRendererTest, render__without_a_font_bin__raises_an_error)
-{
-   al_init();
-   al_init_primitives_addon();
-   al_init_font_addon();
-   AllegroFlare::Prototypes::MindDive::TunnelRenderer tunnel_renderer;
-   std::string expected_error_message =
-      "TunnelRenderer::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(tunnel_renderer.render(), std::runtime_error, expected_error_message);
-   al_shutdown_font_addon();
-   al_shutdown_primitives_addon();
-   al_uninstall_system();
-}   
-
-
 TEST_F(AllegroFlare_Prototypes_MindDive_TunnelRendererTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Prototypes::MindDive::TunnelRenderer tunnel_renderer(&get_font_bin_ref());
+   AllegroFlare::Prototypes::MindDive::TunnelRenderer tunnel_renderer;
    tunnel_renderer.render();
    al_flip_display();
    sleep_for(1);
