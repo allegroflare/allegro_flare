@@ -1,11 +1,13 @@
 
 
-#include <AllegroFlare/MultiMeshUV.hpp>
+#include <AllegroFlare/TileMaps/MultiMeshUV.hpp>
 
 
 
 
 namespace AllegroFlare
+{
+namespace TileMaps
 {
 
 
@@ -82,6 +84,7 @@ float MultiMeshUV::infer_height()
 }
 
 
+} // namespace TileMaps
 } // namespace AllegroFlare
 
 

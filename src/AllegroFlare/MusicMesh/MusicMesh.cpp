@@ -29,7 +29,7 @@ MusicMesh::~MusicMesh()
 }
 
 
-void MusicMesh::set_multi_mesh_uv_atlas(AllegroFlare::MultiMeshUVAtlas multi_mesh_uv_atlas)
+void MusicMesh::set_multi_mesh_uv_atlas(AllegroFlare::TileMaps::MultiMeshUVAtlas multi_mesh_uv_atlas)
 {
    this->multi_mesh_uv_atlas = multi_mesh_uv_atlas;
 }
@@ -47,7 +47,7 @@ uint32_t MusicMesh::get_next_id() const
 }
 
 
-AllegroFlare::MultiMeshUVAtlas MusicMesh::get_multi_mesh_uv_atlas() const
+AllegroFlare::TileMaps::MultiMeshUVAtlas MusicMesh::get_multi_mesh_uv_atlas() const
 {
    return multi_mesh_uv_atlas;
 }

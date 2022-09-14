@@ -333,8 +333,6 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MultiMesh",
-    "AllegroFlare/MultiMeshUVAtlas",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
@@ -345,6 +343,7 @@
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/TileIndexInfo"
   ],
   "tan": [
@@ -864,8 +863,8 @@
   ],
   "std/size_t": [
     "AllegroFlare/EncoderDecoders/Base62",
-    "AllegroFlare/MultiMesh",
-    "AllegroFlare/Network2/Message"
+    "AllegroFlare/Network2/Message",
+    "AllegroFlare/TileMaps/MultiMesh"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
@@ -1037,22 +1036,6 @@
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory"
   ],
-  "AllegroFlare/MultiMeshUVAtlas": [
-    "AllegroFlare/MultiMesh",
-    "AllegroFlare/MusicMesh/MusicMesh"
-  ],
-  "ALLEGRO_VERTEX_DECL": [
-    "AllegroFlare/MultiMesh"
-  ],
-  "ALLEGRO_VERTEX_BUFFER": [
-    "AllegroFlare/MultiMesh"
-  ],
-  "std/map<int, AllegroFlare/MultiMeshUV>": [
-    "AllegroFlare/MultiMeshUVAtlas"
-  ],
-  "AllegroFlare/MultiMeshUV": [
-    "AllegroFlare/MultiMeshUVAtlas"
-  ],
   "std/setfill": [
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/UnicodeFontViewer"
@@ -1064,8 +1047,12 @@
   "AllegroFlare/MusicMesh/Stamp": [
     "AllegroFlare/MusicMesh/MusicMesh"
   ],
-  "AllegroFlare/MultiMesh": [
+  "AllegroFlare/TileMaps/MultiMesh": [
     "AllegroFlare/MusicMesh/MusicMesh"
+  ],
+  "AllegroFlare/TileMaps/MultiMeshUVAtlas": [
+    "AllegroFlare/MusicMesh/MusicMesh",
+    "AllegroFlare/TileMaps/MultiMesh"
   ],
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
     "AllegroFlare/MusicMesh/MusicMesh"
@@ -1376,6 +1363,15 @@
   ],
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_VERTEX_DECL": [
+    "AllegroFlare/TileMaps/MultiMesh"
+  ],
+  "ALLEGRO_VERTEX_BUFFER": [
+    "AllegroFlare/TileMaps/MultiMesh"
+  ],
+  "AllegroFlare/TileMaps/MultiMeshUV": [
+    "AllegroFlare/TileMaps/MultiMeshUVAtlas"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"

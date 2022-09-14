@@ -2,7 +2,7 @@ properties:
 
 
   - name: index
-    type: std::map<int, AllegroFlare::MultiMeshUV>
+    type: std::map<int, AllegroFlare::TileMaps::MultiMeshUV>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -30,7 +30,7 @@ functions:
         type: float
         default_argument: 1.0f
     body: |
-      index[index_num] = AllegroFlare::MultiMeshUV(u1, v1, u2, v2);
+      index[index_num] = AllegroFlare::TileMaps::MultiMeshUV(u1, v1, u2, v2);
       return;
 
 
@@ -45,7 +45,7 @@ functions:
 
 
   - name: get
-    type: AllegroFlare::MultiMeshUV
+    type: AllegroFlare::TileMaps::MultiMeshUV
     parameters:
       - name: index_num
         type: int
@@ -54,10 +54,10 @@ functions:
       if (!exists(index_num))
       {
          std::stringstream error_message;
-         error_message << "AllegroFlare::MultiMeshUVAtlas::get error: "
+         error_message << "AllegroFlare::TileMaps::MultiMeshUVAtlas::get error: "
                        << "Item does not exist at index_num " << index_num << ". Returning a default MultiMeshUV.";
          std::cout << error_message.str() << std::endl;
-         return AllegroFlare::MultiMeshUV();
+         return AllegroFlare::TileMaps::MultiMeshUV();
       }
       return index[index_num];
     body_dependency_symbols:
@@ -68,11 +68,7 @@ functions:
 dependencies:
 
 
-  - symbol: std::map<int, AllegroFlare::MultiMeshUV>
-    headers: [ map, AllegroFlare/MultiMeshUV.hpp ]
-  - symbol: AllegroFlare::MultiMeshUV
-    headers: [ AllegroFlare/MultiMeshUV.hpp ]
-  - symbol: ALLEGRO_BITMAP*
-    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::TileMaps::MultiMeshUV
+    headers: [ AllegroFlare/TileMaps/MultiMeshUV.hpp ]
  
 

@@ -1,12 +1,14 @@
 
 
-#include <AllegroFlare/MultiMesh.hpp>
+#include <AllegroFlare/TileMaps/MultiMesh.hpp>
 
 #include <sstream>
 #include <stdexcept>
 
 
 namespace AllegroFlare
+{
+namespace TileMaps
 {
 
 
@@ -45,7 +47,7 @@ ALLEGRO_BITMAP* MultiMesh::get_texture() const
 }
 
 
-void MultiMesh::set_atlas(AllegroFlare::MultiMeshUVAtlas atlas)
+void MultiMesh::set_atlas(AllegroFlare::TileMaps::MultiMeshUVAtlas atlas)
 {
    if (!((!initialized)))
    {
@@ -125,7 +127,7 @@ void MultiMesh::initialize()
 
 int MultiMesh::append(int atlas_item_index_num, float x, float y)
 {
-   AllegroFlare::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
+   AllegroFlare::TileMaps::MultiMeshUV atlas_item = atlas.get(atlas_item_index_num);
    return append_raw(
       x,
       y,
@@ -191,14 +193,14 @@ int MultiMesh::remove(int item_index)
    if (item_index < 0)
    {
       std::stringstream error_message;
-      error_message << "AllegroFlare::MultiMesh::remove() error: "
+      error_message << "AllegroFlare::TileMaps::MultiMesh::remove() error: "
                     << "The item_index that was passed (" << item_index << ") cannot be less than zero.";
       throw std::runtime_error(error_message.str());
    }
    if (item_index > infer_largest_index_num_in_use())
    {
       std::stringstream error_message;
-      error_message << "AllegroFlare::MultiMesh::remove() error: "
+      error_message << "AllegroFlare::TileMaps::MultiMesh::remove() error: "
                     << "The item_index that was passed (" << item_index << ") cannot be greater than or equal to "
                     << "the largest existing item index (" << infer_largest_index_num_in_use() << ").";
       throw std::runtime_error(error_message.str());
@@ -245,6 +247,7 @@ void MultiMesh::render()
 }
 
 
+} // namespace TileMaps
 } // namespace AllegroFlare
 
 
