@@ -4,7 +4,7 @@
 #include <vector>
 
 
-namespace AllegroFlare
+namespace AllegroFlare::TileMaps
 {
    template <class T>
    class TileMap
@@ -35,11 +35,7 @@ namespace AllegroFlare
 
       void resize(int w, int h);
    };
-} // namespace AllegroFlare
 
-
-namespace AllegroFlare
-{
 
 
 template <class T>
@@ -60,7 +56,7 @@ TileMap<T>::~TileMap()
 template <class T>
 void TileMap<T>::initialize()
 {
-   if (initialized) throw std::runtime_error("AllegroFlare::TileMap<T>::initialize() error: cannot call initialize twice.");
+   if (initialized) throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::initialize() error: cannot call initialize twice.");
    resize(num_columns, num_rows);
    initialized = true;
 }
@@ -106,7 +102,7 @@ T TileMap<T>::get_tile(int tile_x, int tile_y)
 {
    if (!initialized)
    {
-      throw std::runtime_error("AllegroFlare::TileMap<T>::get_tile() error: tile map must be initialized first.");
+      throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::get_tile() error: tile map must be initialized first.");
    }
 
    if (tile_x < 0 || (tile_x >= num_columns)) return -1;
@@ -123,7 +119,7 @@ bool TileMap<T>::set_tile(int tile_x, int tile_y, T value)
 {
    if (!initialized)
    {
-      throw std::runtime_error("AllegroFlare::TileMap<T>::set_tile() error: tile map must be initialized first.");
+      throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::set_tile() error: tile map must be initialized first.");
    }
 
    if (tile_x < 0 || (tile_x >= num_columns)) return false;
@@ -161,6 +157,6 @@ void TileMap<T>::resize(int num_columns, int h)
 }
 
 
-} // namespace AllegroFlare
+} // namespace AllegroFlare::TileMaps
 
 

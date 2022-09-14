@@ -13,7 +13,7 @@ namespace MindDive
 {
 
 
-Tunnel::Tunnel(AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map)
+Tunnel::Tunnel(AllegroFlare::TileMaps::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map)
    : tile_map(tile_map)
 {
 }
@@ -24,13 +24,13 @@ Tunnel::~Tunnel()
 }
 
 
-void Tunnel::set_tile_map(AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map)
+void Tunnel::set_tile_map(AllegroFlare::TileMaps::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map)
 {
    this->tile_map = tile_map;
 }
 
 
-AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> Tunnel::get_tile_map() const
+AllegroFlare::TileMaps::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> Tunnel::get_tile_map() const
 {
    return tile_map;
 }

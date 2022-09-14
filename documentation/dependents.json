@@ -384,6 +384,7 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle"
@@ -1235,7 +1236,8 @@
   ],
   "AllegroFlare/Shader": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
@@ -1275,7 +1277,7 @@
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"
   ],
-  "AllegroFlare/TileMap": [
+  "AllegroFlare/TileMaps/TileMap": [
     "AllegroFlare/Prototypes/MindDive/Tunnel"
   ],
   "AllegroFlare/Achievements": [
@@ -1306,6 +1308,9 @@
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "AllegroFlare/Shaders/Base": [
+    "AllegroFlare/Shaders/AllegroDefault"
   ],
   "std/vector<ALLEGRO_BITMAP>": [
     "AllegroFlare/StoryboardFactory"

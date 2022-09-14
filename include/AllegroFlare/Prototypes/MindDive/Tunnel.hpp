@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.hpp>
-#include <AllegroFlare/TileMap.hpp>
+#include <AllegroFlare/TileMaps/TileMap.hpp>
 
 
 namespace AllegroFlare
@@ -14,17 +14,17 @@ namespace AllegroFlare
          class Tunnel
          {
          private:
-            AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map;
+            AllegroFlare::TileMaps::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map;
 
          protected:
 
 
          public:
-            Tunnel(AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map={});
+            Tunnel(AllegroFlare::TileMaps::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map={});
             ~Tunnel();
 
-            void set_tile_map(AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map);
-            AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> get_tile_map() const;
+            void set_tile_map(AllegroFlare::TileMaps::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> tile_map);
+            AllegroFlare::TileMaps::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*> get_tile_map() const;
             void fill();
          };
       }

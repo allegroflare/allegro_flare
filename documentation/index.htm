@@ -168,6 +168,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/RollingCredits.q.yml">quintessence/AllegroFlare/Screens/RollingCredits.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Shaders/Base.q.yml">quintessence/AllegroFlare/Shaders/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
@@ -7300,7 +7302,7 @@ table td
      <table>
 <tr>
   <td class="property">tile_map</td>
-  <td class="property">AllegroFlare::TileMap&lt;AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*&gt;</td>
+  <td class="property">AllegroFlare::TileMaps::TileMap&lt;AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*&gt;</td>
 </tr>
     </table>
      <table>
@@ -7313,7 +7315,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelTiles::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMap.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -8323,6 +8325,76 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_vertex_source()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_fragment_source()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Shaders/Base.q.yml">quintessence/AllegroFlare/Shaders/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">vertex_source_code</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">fragment_source_code</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -9483,6 +9555,7 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle"
@@ -10334,7 +10407,8 @@ table td
   ],
   "AllegroFlare/Shader": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
@@ -10374,7 +10448,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"
   ],
-  "AllegroFlare/TileMap": [
+  "AllegroFlare/TileMaps/TileMap": [
     "AllegroFlare/Prototypes/MindDive/Tunnel"
   ],
   "AllegroFlare/Achievements": [
@@ -10405,6 +10479,9 @@ table td
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "AllegroFlare/Shaders/Base": [
+    "AllegroFlare/Shaders/AllegroDefault"
   ],
   "std/vector<ALLEGRO_BITMAP>": [
     "AllegroFlare/StoryboardFactory"

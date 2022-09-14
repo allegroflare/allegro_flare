@@ -2,7 +2,7 @@ properties:
 
 
   - name: tile_map
-    type: AllegroFlare::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*>
+    type: AllegroFlare::TileMaps::TileMap<AllegroFlare::Prototypes::MindDive::TunnelTiles::Base*>
     constructor_arg: true
     init_with: '{}'
     getter: true
@@ -22,7 +22,7 @@ dependencies:
 
   - symbol: AllegroFlare::Prototypes::MindDive::TunnelTiles::Base
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.hpp ]
-  - symbol: AllegroFlare::TileMap
-    headers: [ AllegroFlare/TileMap.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMap
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
 
 
