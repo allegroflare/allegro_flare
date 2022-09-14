@@ -209,7 +209,7 @@ AllegroFlare::TileMaps::PrimMeshAtlas *PrimMesh::get_atlas() const
 }
 
 
-void PrimMesh::render(bool draw_outline) //int camera_x, int camera_y)
+void PrimMesh::render(bool draw_outline)
 {
    if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
    if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
