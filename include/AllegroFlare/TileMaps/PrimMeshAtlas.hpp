@@ -2,7 +2,7 @@
 
 
 
-#include <AllegroFlare/TileMaps/TileIndexInfo.hpp>
+#include <AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.hpp>
 #include <allegro5/allegro.h>
 #include <string>
 #include <vector>
@@ -18,7 +18,7 @@ namespace AllegroFlare::TileMaps
       int tile_width;
       int tile_height;
       int tile_spacing;
-      std::vector<AllegroFlare::TileMaps::TileIndexInfo> tile_index;
+      std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index;
 
    public:
       PrimMeshAtlas();
@@ -48,7 +48,7 @@ namespace AllegroFlare::TileMaps
       bool get_tile_uv(int index_num, float *u1, float *v1, float *u2, float *v2);
       ALLEGRO_BITMAP *get_bitmap(int index_num);
 
-      std::vector<AllegroFlare::TileMaps::TileIndexInfo> get_tile_index();
+      std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> get_tile_index();
    };
 }
 

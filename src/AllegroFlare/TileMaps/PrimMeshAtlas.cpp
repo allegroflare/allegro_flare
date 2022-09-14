@@ -278,7 +278,7 @@ ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap(int index_num)
 }
 
 
-std::vector<AllegroFlare::TileMaps::TileIndexInfo> PrimMeshAtlas::get_tile_index()
+std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> PrimMeshAtlas::get_tile_index()
 {
    return tile_index;
 }

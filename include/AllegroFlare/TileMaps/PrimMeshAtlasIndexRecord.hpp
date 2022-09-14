@@ -8,7 +8,7 @@ namespace AllegroFlare
 {
    namespace TileMaps
    {
-      class TileIndexInfo
+      class PrimMeshAtlasIndexRecord
       {
       private:
          int index_num;
@@ -23,8 +23,8 @@ namespace AllegroFlare
 
 
       public:
-         TileIndexInfo(int index_num=-1, ALLEGRO_BITMAP* bitmap_source=nullptr, ALLEGRO_BITMAP* sub_bitmap=nullptr, float u1=0, float v1=0, float u2=0, float v2=0);
-         ~TileIndexInfo();
+         PrimMeshAtlasIndexRecord(int index_num=-1, ALLEGRO_BITMAP* bitmap_source=nullptr, ALLEGRO_BITMAP* sub_bitmap=nullptr, float u1=0, float v1=0, float u2=0, float v2=0);
+         ~PrimMeshAtlasIndexRecord();
 
          void set_index_num(int index_num);
          void set_bitmap_source(ALLEGRO_BITMAP* bitmap_source);

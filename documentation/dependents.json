@@ -344,7 +344,7 @@
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/TileMaps/MultiMesh",
-    "AllegroFlare/TileMaps/TileIndexInfo"
+    "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord"
   ],
   "tan": [
     "AllegroFlare/Camera2D"
