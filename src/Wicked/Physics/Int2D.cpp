@@ -1,10 +1,10 @@
 
 
-#include <Wicked/Int2D.hpp>
+#include <Wicked/Physics/Int2D.hpp>
 
 
 
-namespace Wicked
+namespace Wicked::Physics
 {
 
 

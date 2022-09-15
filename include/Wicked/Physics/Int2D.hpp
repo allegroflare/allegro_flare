@@ -4,7 +4,7 @@
 #include <string>
 
 
-namespace Wicked
+namespace Wicked::Physics
 {
    class Int2D
    {
