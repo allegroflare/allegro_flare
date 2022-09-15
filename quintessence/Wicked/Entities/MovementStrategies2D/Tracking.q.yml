@@ -1,0 +1,54 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: Wicked::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: tracked_entity
+    type: Wicked::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: speed
+    type: float
+    init_with: 0.5f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: update
+    override: true
+    guards: [ entity, tracked_entity ]
+    body: |
+      AllegroFlare::vec2d entity_position = entity->get_place_ref().position;
+      AllegroFlare::vec2d tracked_entity_position = tracked_entity->get_place_ref().position;
+
+      AllegroFlare::vec2d direction_vector = (tracked_entity_position - entity_position).normalized();
+      direction_vector *= speed;
+
+      entity->get_velocity_ref().position = direction_vector;
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::MovementStrategies2D::Base
+    headers: [ Wicked/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+
+

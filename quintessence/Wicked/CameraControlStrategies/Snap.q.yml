@@ -1,0 +1,60 @@
+parent_classes:
+
+
+  - class: Wicked::CameraControlStrategies::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity_to_follow
+    type: Wicked::Entities::Basic2D*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: update
+    virtual: true
+    override: true
+    guards: [ get_camera(), entity_to_follow ]
+    body: |
+      //camera->position = {width/2, height/2};
+
+      float assumed_tile_width = 16.0f;
+      float assumed_tile_height = 16.0f;
+
+      float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
+      float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
+
+      // note that Shovel Knight has 4.5x4.5 sized pixels (actually 4.8 x 4.5)
+         // this means:
+         //     - a virtual resolution of 400x240
+         //     = a native display resolution of 1920x1080 (HD)
+         //     - 25 tiles x 15 tiles to fill the virtual resolution
+         //     - 16x16 pixel tiles
+         // see https://www.yachtclubgames.com/blog/breaking-the-nes
+
+      //camera.scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
+      int room_x = (entity_to_follow->get_place_ref().position.x / room_width);
+      int room_y = (entity_to_follow->get_place_ref().position.y / room_height);
+      get_camera_ref()->position = {room_width/2, room_height/2};
+      get_camera_ref()->position += AllegroFlare::vec2d(room_x * room_width, room_y * room_height);
+
+      return;
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+  - symbol: Wicked::CameraControlStrategies::Base
+    headers: [ Wicked/CameraControlStrategies/Base.hpp ]
+
+

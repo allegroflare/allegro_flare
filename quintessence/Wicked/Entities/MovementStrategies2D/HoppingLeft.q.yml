@@ -1,0 +1,76 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: Wicked::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: jump_force
+    type: float
+    init_with: 5.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: speed
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: landing_delay
+    type: float
+    init_with: 2.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: timer
+    type: float
+    init_with: 0.0f
+
+functions:
+
+
+  - name: update
+    override: true
+    guards: [ entity ]
+    body: |
+      if (entity->exists("on_ground"))
+      {
+         entity->get_velocity_ref().position.x = 0;
+
+         timer -= (1.0/60.0f);
+         if (timer <= 0)
+         {
+            timer += landing_delay;
+            entity->get_velocity_ref().position.x = 0;
+            entity->get_velocity_ref().position.y = -jump_force;
+            entity->remove("on_ground");
+         }
+      }
+      else if (!entity->exists("on_ground"))
+      {
+         entity->get_velocity_ref().position.x = -speed;
+      }
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::MovementStrategies2D::Base
+    headers: [ Wicked/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+
+

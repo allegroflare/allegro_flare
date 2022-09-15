@@ -1,0 +1,31 @@
+properties:
+
+
+  - name: zone_id
+    type: int
+    init_with: -1
+    constructor_arg: true
+    getter: true
+
+  - name: entity
+    type: Wicked::Entity*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+
+  - name: event_type
+    type: Wicked::Physics::zone_collision_event_t
+    init_with: Wicked::Physics::COLLISION_EVENT_NONE
+    constructor_arg: true
+    getter: true
+
+
+dependencies:
+
+
+  - symbol: Wicked::Physics::zone_collision_event_t
+    headers: [ Wicked/Physics/ZoneCollisionEventEnum.hpp ]
+  - symbol: Wicked::Entity
+    headers: [ Wicked/Entity.hpp ]
+
+

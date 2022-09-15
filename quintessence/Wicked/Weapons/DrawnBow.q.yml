@@ -1,0 +1,84 @@
+parent_classes:
+
+
+  - class: Wicked::Weapons::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: draw_back_value
+    type: float
+    init_with: 1.0f
+
+  - name: being_drawn
+    type: bool
+    init_with: false
+    getter: true
+
+
+functions:
+
+
+  - name: stop_draw
+    body: |
+      if (!being_drawn) return;
+      draw_back_value = 1.0f;
+      being_drawn = false;
+
+
+  - name: start_draw
+    body: |
+      if (being_drawn) return;
+      draw_back_value = 1.0f;
+      being_drawn = true;
+
+
+  - name: get_strength
+    type: float
+    body: |
+      if (at_max()) return 1.0f;
+      return (1.0f - draw_back_value);
+
+
+  - name: at_max
+    type: bool
+    body: |
+      float strength = (1.0f - draw_back_value);
+      if (strength >= (1.0f - 0.0001f)) return true;
+      return false;
+
+
+  - name: get_strength_value_styled
+    type: float
+    body: |
+      if (at_max()) return 1.0f;
+      float strength = get_strength();
+      return AllegroFlare::interpolator::tripple_fast_in(strength) * 0.85;
+    body_dependency_symbols:
+      - AllegroFlare::Interpolators
+
+
+  - name: update
+    override: true
+    body: |
+      if (being_drawn)
+      {
+         float draw_back_rate = 0.025f;
+         draw_back_value -= draw_back_rate;
+         if (draw_back_value <= 0.0f) draw_back_value = 0.0f;
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: Wicked::Weapons::Base
+    headers: [ Wicked/Weapons/Base.hpp ]
+  - symbol: AllegroFlare::Interpolators
+    headers: [ AllegroFlare/Interpolators.hpp ]
+
+

@@ -1,0 +1,45 @@
+parent_classes:
+
+
+  - class: Wicked::TileMaps::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: tile_atlas
+    type: Tileo::Atlas*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: tile_mesh
+    type: Tileo::Mesh*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: collision_tile_mesh
+    type: Tileo::TileMap*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: Wicked::TileMaps::Base
+    headers: [ Wicked/TileMaps/Base.hpp ]
+  - symbol: Tileo::TileMap*
+    headers: [ Tileo/TileMap.hpp ]
+  - symbol: Tileo::Atlas
+    headers: [ Tileo/Atlas.hpp ]
+  - symbol: Tileo::Mesh
+    headers: [ Tileo/Mesh.hpp ]
+  - symbol: Tileo::TileMap
+    headers: [ Tileo/TileMap.hpp ]
+
+

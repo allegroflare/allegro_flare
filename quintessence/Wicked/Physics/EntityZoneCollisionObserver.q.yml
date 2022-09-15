@@ -1,0 +1,128 @@
+properties:
+
+
+  - name: collisions_at_start
+    type: std::vector<std::pair<Wicked::Entities::Basic3D*, Wicked::Entities::Zones::Base3D*>>
+    init_with: "{}"
+    constructor_arg: false
+    getter: true
+
+  - name: collisions_at_end
+    type: std::vector<std::pair<Wicked::Entities::Basic3D*, Wicked::Entities::Zones::Base3D*>>
+    init_with: "{}"
+    constructor_arg: false
+    getter: true
+
+
+functions:
+
+
+  - name: get_collided
+    parameters:
+      - name: entities
+        type: std::vector<Wicked::Entities::Basic3D*>
+        default_argument: "{}"
+      - name: zones
+        type: std::vector<Wicked::Entities::Zones::Base3D*>
+        default_argument: "{}"
+    type: std::vector<std::pair<Wicked::Entities::Basic3D*, Wicked::Entities::Zones::Base3D*>>
+    body: |
+      std::vector<std::pair<Wicked::Entities::Basic3D*, Wicked::Entities::Zones::Base3D*>> result;
+
+      for (auto &entity : entities)
+      {
+         for (auto &zone : zones)
+         {
+            if (collides(entity, zone)) result.push_back({ entity, zone });
+         }
+      }
+
+      return result;
+
+
+  - name: collides
+    type: bool
+    parameters:
+      - name: entity
+        type: Wicked::Entities::Basic3D*
+        default_argument: nullptr
+      - name: zone
+        type: Wicked::Entities::Zones::Base3D*
+        default_argument: nullptr
+    guards: [ entity, zone ]
+    body: |
+      // TODO: make different supported types for collision
+      return (zone->collides(entity->get_place_ref().position));
+
+
+  - name: observe_start_state
+    type: void
+    parameters:
+    - name: entities
+      type: std::vector<Wicked::Entities::Basic3D*>
+      default_argument: "{}"
+    - name: zones
+      type: std::vector<Wicked::Entities::Zones::Base3D*>
+      default_argument: "{}"
+    body: |
+      collisions_at_start = get_collided(entities, zones);
+      return;
+
+
+  - name: observe_end_state
+    type: void
+    parameters:
+    - name: entities
+      type: std::vector<Wicked::Entities::Basic3D*>
+      default_argument: "{}"
+    - name: zones
+      type: std::vector<Wicked::Entities::Zones::Base3D*>
+      default_argument: "{}"
+    body: |
+      collisions_at_end = get_collided(entities, zones);
+      return;
+
+
+  - name: collisions_added
+    type: std::vector<std::pair<Wicked::Entities::Basic3D*, Wicked::Entities::Zones::Base3D*>>
+    body: |
+       std::vector<std::pair<Wicked::Entities::Basic3D*, Wicked::Entities::Zones::Base3D*>> diff;
+
+       std::set_difference(
+         collisions_at_end.begin(), collisions_at_end.end(),
+         collisions_at_start.begin(), collisions_at_start.end(),
+         std::inserter(diff, diff.begin())
+       );
+
+       return diff;
+    body_dependency_symbols:
+      - std::set_difference
+
+
+  - name: collisions_removed
+    type: std::vector<std::pair<Wicked::Entities::Basic3D*, Wicked::Entities::Zones::Base3D*>>
+    body: |
+       std::vector<std::pair<Wicked::Entities::Basic3D*, Wicked::Entities::Zones::Base3D*>> diff;
+
+       std::set_difference(
+         collisions_at_start.begin(), collisions_at_start.end(),
+         collisions_at_end.begin(), collisions_at_end.end(),
+         std::inserter(diff, diff.begin())
+       );
+
+       return diff;
+    body_dependency_symbols:
+      - std::set_difference
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::Basic3D
+    headers: [ Wicked/Entities/Basic3D.hpp ]
+  - symbol: Wicked::Entities::Zones::Base3D
+    headers: [ Wicked/Entities/Zones/Base3D.hpp ]
+  - symbol: std::set_difference
+    headers: [ algorithm ]
+
+

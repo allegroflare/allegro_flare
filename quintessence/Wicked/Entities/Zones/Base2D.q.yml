@@ -1,0 +1,32 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::Base
+    scope: public
+    init_with: ''
+
+
+functions:
+
+
+  - name: collides
+    type: bool
+    virtual: true
+    parameters:
+      - name: point
+        type: AllegroFlare::vec2d
+        default_argument: "{}"
+    body: |
+      // TODO: make this a pure virtual
+      return false;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::vec2d
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: Wicked::Entities::Base
+    headers: [ Wicked/Entities/Base.hpp ]
+
+

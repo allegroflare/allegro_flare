@@ -1,0 +1,64 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::Zones::Base2D
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: x1
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+
+  - name: y1
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+
+  - name: x2
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+
+  - name: y2
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+
+
+functions:
+
+
+  - name: collides
+    type: bool
+    virtual: true
+    override: true
+    parameters:
+      - name: point
+        type: AllegroFlare::vec2d
+        default_argument: "{}"
+    body: |
+      if (point.x > x2) return false;
+      if (point.x < x1) return false;
+      if (point.y > y2) return false;
+      if (point.y < y1) return false;
+      return true;
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::Zones::Base2D
+    headers: [ Wicked/Entities/Zones/Base2D.hpp ]
+  - symbol: AllegroFlare::vec2d
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+

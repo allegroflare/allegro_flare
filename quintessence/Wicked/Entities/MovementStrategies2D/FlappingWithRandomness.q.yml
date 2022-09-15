@@ -1,0 +1,163 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: Wicked::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: target_elevation
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: flap_strength
+    type: float
+    init_with: 1.0f
+    getter: true
+    setter: true
+
+  - name: flap_recovery_rate
+    type: float
+    init_with: 0.1f
+    getter: true
+    setter: true
+
+  - name: flap_recovery_counter
+    type: float
+    init_with: 1.0f
+
+  - name: can_flap
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: random
+    type: AllegroFlare::Random
+    init_with: ''
+
+
+functions:
+
+
+  - name: set_random_seed
+    parameters:
+      - name: random_seed
+        type: uint32_t
+        default_argument: 0
+    body: |
+      random.set_seed(random_seed);
+      return;
+
+
+  - name: update
+    override: true
+    guards: [ entity ]
+    body: |
+      { // stick horizontal if on floor
+         if (entity->exists(ADJACENT_TO_FLOOR)) entity->get_velocity_ref().position.x = 0.0f;
+      }
+
+      update_flapability_status();
+
+      bool will_flap = decide_to_flap();
+      if (will_flap) flap();
+
+
+  - name: flap
+    guards: [ entity, al_is_system_installed() ]
+    body: |
+      if (can_flap)
+      {
+         float x_randomness = random.get_random_float(-0.15, 0.15);
+         float y_randomness = random.get_random_float(-1.0, 1.0);
+         float flap_recovery_randomness = random.get_random_float(-0.3, 0.3);
+
+         entity->get_velocity_ref().position += AllegroFlare::vec2d{x_randomness, -flap_strength + y_randomness};
+
+         flap_recovery_counter = 1.0f + flap_recovery_randomness;
+         can_flap = false;
+      }
+      return;
+
+
+  - name: update_flapability_status
+    private: true
+    guards: [ entity, al_is_system_installed() ]
+    body: |
+      if (!can_flap)
+      {
+         flap_recovery_counter -= flap_recovery_rate;
+         if (flap_recovery_counter <= 0.0f)
+         {
+            can_flap = true;
+            flap_recovery_counter = 0.0f;
+         }
+      }
+
+
+  - name: decide_to_flap
+    type: bool
+    private: true
+    guards: [ entity, al_is_system_installed() ]
+    body: |
+      if (can_flap)
+      {
+         // decide if entity should skip this flap
+         bool skip_occasional_flaps = false;
+         if (skip_occasional_flaps)
+         {
+            bool skip_this_flap = random.get_one_in_chance(3);
+            if (skip_this_flap)
+            {
+               flap_recovery_counter = 0.1;
+               can_flap = false;
+               return false;
+            }
+         }
+
+         // flap if on the ground
+         {
+            if (entity->exists(ADJACENT_TO_FLOOR)) return true;
+         }
+
+         // flap if below the target elevation
+         {
+            float sin_offset_from_target_elevation = sin(al_get_time()) * 16.0f;
+            if (entity->get_place_ref().position.y > (target_elevation + sin_offset_from_target_elevation)) return true;
+         }
+      }
+      else
+      {
+         return false;
+      }
+      return false;
+    body_dependency_symbols:
+      - Wicked::EntityFlagNames
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::vec2d
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: Wicked::Entities::MovementStrategies2D::Base
+    headers: [ Wicked/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::Random
+    headers: [ AllegroFlare/Random.hpp ]
+  - symbol: Wicked::EntityFlagNames
+    headers: [ Wicked/EntityFlagNames.hpp ]
+
+

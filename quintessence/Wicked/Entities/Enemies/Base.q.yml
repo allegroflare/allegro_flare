@@ -1,0 +1,49 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::Basic2D
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: movement_strategy
+    type: Wicked::Entities::MovementStrategies2D::Base*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      if (movement_strategy)
+      {
+         movement_strategy->update();
+      }
+      return;
+
+
+  - name: draw
+    virtual: true
+    override: true
+    body: |
+      Wicked::Entities::Basic2D::draw();
+      return;
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+  - symbol: Wicked::Entities::MovementStrategies2D::Base
+    headers: [ Wicked/Entities/MovementStrategies2D/Base.hpp ]
+
+
