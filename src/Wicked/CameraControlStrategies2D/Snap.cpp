@@ -13,7 +13,7 @@ namespace CameraControlStrategies2D
 
 
 Snap::Snap()
-   : Wicked::CameraControlStrategies::Base()
+   : Wicked::CameraControlStrategies2D::Base()
    , entity_to_follow(nullptr)
 {
 }

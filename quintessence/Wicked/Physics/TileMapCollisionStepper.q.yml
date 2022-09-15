@@ -2,7 +2,7 @@ properties:
 
 
   - name: collision_tile_map
-    type: Tileo::TileMap*
+    type: AllegroFlare::TileMaps::TileMap*
     init_with: nullptr
     constructor_arg: true
 
@@ -34,7 +34,7 @@ functions:
       //Wicked::Physics::AABB2D entity_aabb2d = build_entity_aabb2d();
       Wicked::Physics::AABB2D &obj = *aabb2d;
 
-      Tileo::TileMap &map = *collision_tile_map;
+      AllegroFlare::TileMaps::TileMap &map = *collision_tile_map;
 
       //// test horizontal first
       std::vector<Wicked::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords(
@@ -417,8 +417,8 @@ dependencies:
     headers: [ vector, Wicked/Int2D.hpp ]
   - symbol: std::pair<int, int>
     headers: [ utility ]
-  - symbol: Tileo::TileMap
-    headers: [ Tileo/TileMap.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMap
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: Wicked::Int2D
     headers: [ Wicked/Int2D.hpp ]
 

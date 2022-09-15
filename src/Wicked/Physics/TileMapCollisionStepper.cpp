@@ -14,7 +14,7 @@ namespace Physics
 {
 
 
-TileMapCollisionStepper::TileMapCollisionStepper(Tileo::TileMap* collision_tile_map, Wicked::Physics::AABB2D* aabb2d, float tile_width, float tile_height)
+TileMapCollisionStepper::TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap* collision_tile_map, Wicked::Physics::AABB2D* aabb2d, float tile_width, float tile_height)
    : collision_tile_map(collision_tile_map)
    , aabb2d(aabb2d)
    , tile_width(tile_width)
@@ -48,7 +48,7 @@ void TileMapCollisionStepper::step()
    //Wicked::Physics::AABB2D entity_aabb2d = build_entity_aabb2d();
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
-   Tileo::TileMap &map = *collision_tile_map;
+   AllegroFlare::TileMaps::TileMap &map = *collision_tile_map;
 
    //// test horizontal first
    std::vector<Wicked::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords(

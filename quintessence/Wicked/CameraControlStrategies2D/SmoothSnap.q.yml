@@ -1,7 +1,7 @@
 parent_classes:
 
 
-  - class: Wicked::CameraControlStrategies::Base
+  - class: Wicked::CameraControlStrategies2D::Base
     scope: public
     init_with: ''
 
@@ -80,8 +80,8 @@ functions:
 dependencies:
 
 
-  - symbol: Wicked::CameraControlStrategies::Base
-    headers: [ Wicked/CameraControlStrategies/Base.hpp ]
+  - symbol: Wicked::CameraControlStrategies2D::Base
+    headers: [ Wicked/CameraControlStrategies2D/Base.hpp ]
   - symbol: Wicked::Entities::Basic2D
     headers: [ Wicked/Entities/Basic2D.hpp ]
 

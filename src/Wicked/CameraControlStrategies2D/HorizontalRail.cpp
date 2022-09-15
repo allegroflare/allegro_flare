@@ -13,7 +13,7 @@ namespace CameraControlStrategies2D
 
 
 HorizontalRail::HorizontalRail()
-   : Wicked::CameraControlStrategies::Base()
+   : Wicked::CameraControlStrategies2D::Base()
    , entity_to_follow(nullptr)
 {
 }

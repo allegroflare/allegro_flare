@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <Tileo/TileMap.hpp>
+#include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <Wicked/Int2D.hpp>
 #include <Wicked/Physics/AABB2D.hpp>
 #include <utility>
@@ -15,7 +15,7 @@ namespace Wicked
       class TileMapCollisionStepper
       {
       private:
-         Tileo::TileMap* collision_tile_map;
+         AllegroFlare::TileMaps::TileMap* collision_tile_map;
          Wicked::Physics::AABB2D* aabb2d;
          float tile_width;
          float tile_height;
@@ -28,7 +28,7 @@ namespace Wicked
 
 
       public:
-         TileMapCollisionStepper(Tileo::TileMap* collision_tile_map=nullptr, Wicked::Physics::AABB2D* aabb2d=nullptr, float tile_width=16.0f, float tile_height=16.0f);
+         TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap* collision_tile_map=nullptr, Wicked::Physics::AABB2D* aabb2d=nullptr, float tile_width=16.0f, float tile_height=16.0f);
          ~TileMapCollisionStepper();
 
          void step();

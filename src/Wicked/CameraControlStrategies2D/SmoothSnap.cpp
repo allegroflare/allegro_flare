@@ -13,7 +13,7 @@ namespace CameraControlStrategies2D
 
 
 SmoothSnap::SmoothSnap(float room_width, float room_height)
-   : Wicked::CameraControlStrategies::Base()
+   : Wicked::CameraControlStrategies2D::Base()
    , room_width(room_width)
    , room_height(room_height)
    , entity_to_follow(nullptr)
