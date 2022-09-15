@@ -1,22 +1,21 @@
 #pragma once
 
 
-#include <Tileo/Atlas.hpp>
-#include <Tileo/Mesh.hpp>
-#include <Tileo/TileMap.hpp>
-#include <Wicked/TileMaps/Base.hpp>
+#include <AllegroFlare/TileMaps/PrimMesh.hpp>
+#include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
+#include <AllegroFlare/TileMaps/TileMap.hpp>
 
 
-namespace Wicked
+namespace AllegroFlare
 {
    namespace TileMaps
    {
-      class Basic2D : public Wicked::TileMaps::Base
+      class Basic2D
       {
       private:
-         Tileo::Atlas* tile_atlas;
-         Tileo::Mesh* tile_mesh;
-         Tileo::TileMap* collision_tile_mesh;
+         AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas;
+         AllegroFlare::TileMaps::PrimMesh* tile_mesh;
+         AllegroFlare::TileMaps::TileMap<int>* collision_tile_mesh;
 
       protected:
 
@@ -25,12 +24,12 @@ namespace Wicked
          Basic2D();
          ~Basic2D();
 
-         void set_tile_atlas(Tileo::Atlas* tile_atlas);
-         void set_tile_mesh(Tileo::Mesh* tile_mesh);
-         void set_collision_tile_mesh(Tileo::TileMap* collision_tile_mesh);
-         Tileo::Atlas* get_tile_atlas() const;
-         Tileo::Mesh* get_tile_mesh() const;
-         Tileo::TileMap* get_collision_tile_mesh() const;
+         void set_tile_atlas(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas);
+         void set_tile_mesh(AllegroFlare::TileMaps::PrimMesh* tile_mesh);
+         void set_collision_tile_mesh(AllegroFlare::TileMaps::TileMap<int>* collision_tile_mesh);
+         AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas() const;
+         AllegroFlare::TileMaps::PrimMesh* get_tile_mesh() const;
+         AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_mesh() const;
       };
    }
 }

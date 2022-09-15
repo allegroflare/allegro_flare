@@ -1,28 +1,20 @@
-parent_classes:
-
-
-  - class: Wicked::TileMaps::Base
-    scope: public
-    init_with: ''
-
-
 properties:
 
 
   - name: tile_atlas
-    type: Tileo::Atlas*
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
     init_with: nullptr
     getter: true
     setter: true
 
   - name: tile_mesh
-    type: Tileo::Mesh*
+    type: AllegroFlare::TileMaps::PrimMesh*
     init_with: nullptr
     getter: true
     setter: true
 
   - name: collision_tile_mesh
-    type: Tileo::TileMap*
+    type: AllegroFlare::TileMaps::TileMap<int>*
     init_with: nullptr
     getter: true
     setter: true
@@ -31,15 +23,11 @@ properties:
 dependencies:
 
 
-  - symbol: Wicked::TileMaps::Base
-    headers: [ Wicked/TileMaps/Base.hpp ]
-  - symbol: Tileo::TileMap*
-    headers: [ Tileo/TileMap.hpp ]
-  - symbol: Tileo::Atlas
-    headers: [ Tileo/Atlas.hpp ]
-  - symbol: Tileo::Mesh
-    headers: [ Tileo/Mesh.hpp ]
-  - symbol: Tileo::TileMap
-    headers: [ Tileo/TileMap.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMap
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMesh
+    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
 
 
