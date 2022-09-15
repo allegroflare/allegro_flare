@@ -5,15 +5,15 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/Model3D.hpp>
-//#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Shader.hpp>
 #include <AllegroFlare/Cubemap.hpp>
 
 
-#include <allegro_flare/shader.h>
-using allegro_flare::Shader;
+//#include <allegro_flare/shader.h>
+//using allegro_flare::Shader;
 using allegro_flare::ALLEGRO_FLARE_CUBEMAP_TEXTURE;
 
-using AllegroFlare::vec2d;
+//using AllegroFlare::vec2d;
 
 
 
@@ -42,7 +42,7 @@ public:
   // for example, one for each named object.  Initially,
   // however, we'll stick with one shader and texture set
   // per entity.
-  Shader *shader;
+  AllegroFlare::Shader *shader;
 
   // union of shader datas (should separate into derived shaders)
   ALLEGRO_BITMAP *diffuse_texture;
@@ -67,7 +67,7 @@ public:
 
   Entity();
 
-  void draw_for_depth_pass(Shader *shader_for_depth_pass);
+  void draw_for_depth_pass(AllegroFlare::Shader *shader_for_depth_pass);
   void draw(AllegroFlare::vec3d camera_position,
       AllegroFlare::vec3d light_position,
       ALLEGRO_TRANSFORM *shadow_map_depth_pass_transform=nullptr,
