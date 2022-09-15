@@ -139,6 +139,7 @@ namespace AllegroFlare
 
    bool Shader::set_sampler_cube(const char *name, AllegroFlare::Cubemap *cubemap, int unit)
    {
+      if (!cubemap) return false;
       // grab the currently active shader program
       GLint currProgram;
       glGetIntegerv(GL_CURRENT_PROGRAM, &currProgram);

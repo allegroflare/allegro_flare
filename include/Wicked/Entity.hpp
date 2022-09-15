@@ -11,7 +11,7 @@
 
 //#include <allegro_flare/shader.h>
 //using allegro_flare::Shader;
-using allegro_flare::ALLEGRO_FLARE_CUBEMAP_TEXTURE;
+//using allegro_flare::ALLEGRO_FLARE_CUBEMAP_TEXTURE;
 
 //using AllegroFlare::vec2d;
 
@@ -34,7 +34,7 @@ public:
   bool shader_applies_transform;
 
 
-  AllegroFlare::TileMaps::Atlas *atlas;
+  AllegroFlare::TileMaps::PrimMeshAtlas *atlas;
   AllegroFlare::TileMaps::PrimMesh *mesh;
 
 
@@ -48,10 +48,10 @@ public:
   ALLEGRO_BITMAP *diffuse_texture;
   ALLEGRO_BITMAP *normal_texture;
   ALLEGRO_BITMAP *specular_texture;
-  ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_A;
-  ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_B;
-  //AllegroFlare::Cubemap *cube_map_A;
-  //AllegroFlare::Cubemap *cube_map_B;
+  //ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_A;
+  //ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_B;
+  AllegroFlare::Cubemap *cube_map_A;
+  AllegroFlare::Cubemap *cube_map_B;
   bool cube_map_reflecting;
   ALLEGRO_COLOR cube_box_color;
   float cube_box_opacity;
