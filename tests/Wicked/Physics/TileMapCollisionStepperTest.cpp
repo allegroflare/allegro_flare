@@ -20,7 +20,7 @@ class Wicked_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixture :
 
 #include <AllegroFlare/Placement2D.hpp>
 
-void load_test_map(Tileo::TileMap &tile_map)
+void load_test_map(AllegroFlare::TileMaps::TileMap &tile_map)
 {
    tile_map.resize(25, 15);
 
@@ -90,7 +90,7 @@ void load_test_map(Tileo::TileMap &tile_map)
 }
 
 #include <allegro5/allegro_primitives.h>
-void render_tile_map(Tileo::TileMap &tile_map, float tile_width=16.0f, float tile_height=16.0f)
+void render_tile_map(AllegroFlare::TileMaps::TileMap &tile_map, float tile_width=16.0f, float tile_height=16.0f)
 {
    if (!al_is_primitives_addon_initialized()) throw std::runtime_error("render_tile_map: primitives must be init");
 
@@ -166,7 +166,7 @@ TEST_F(Wicked_Physics_TileMapCollisionStepperTest, render__without_a_collision_t
 
 TEST_F(Wicked_Physics_TileMapCollisionStepperTest, render__without_an_aabb2d__raises_an_error)
 {
-   Tileo::TileMap collision_tile_map;
+   AllegroFlare::TileMaps::TileMap collision_tile_map;
    Wicked::Physics::TileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map);
    std::string expected_error_message =
       "TileMapCollisionStepper::step: error: guard \"aabb2d\" not met";
@@ -186,7 +186,7 @@ TEST_F(Wicked_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixture, IN
    ALLEGRO_EVENT event;
 
    // initialize test subject(s)
-   Tileo::TileMap collision_tile_map;
+   AllegroFlare::TileMaps::TileMap collision_tile_map;
    Wicked::Physics::AABB2D aabb2d(80, 60, 16 - 1, 16*2 - 1);
    collision_tile_map.initialize();
    load_test_map(collision_tile_map);
