@@ -67,7 +67,7 @@ void Score::render()
    return;
 }
 
-void Score::get_score_str()
+std::string Score::get_score_str()
 {
    //ALLEGRO_FONT *font = obtain_hud_text_font();
    //int surface_width = 1920;
@@ -75,7 +75,6 @@ void Score::get_score_str()
    ss << "SCORE " << std::setw(6) << std::setfill('0') << score;
    return ss.str();
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, surface_width -50, 30, ALLEGRO_ALIGN_RIGHT, ss.str().c_str());
-   return;
 }
 
 ALLEGRO_FONT* Score::obtain_font()

@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro_font.h>
+#include <string>
 
 
 namespace AllegroFlare
@@ -24,7 +25,7 @@ namespace AllegroFlare
          ~Score();
 
          void render();
-         void get_score_str();
+         std::string get_score_str();
       };
    }
 }
