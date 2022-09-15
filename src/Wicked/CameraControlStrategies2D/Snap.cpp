@@ -1,6 +1,6 @@
 
 
-#include <Wicked/CameraControlStrategies/Snap.hpp>
+#include <Wicked/CameraControlStrategies2D/Snap.hpp>
 
 #include <sstream>
 #include <stdexcept>
@@ -8,12 +8,12 @@
 
 namespace Wicked
 {
-namespace CameraControlStrategies
+namespace CameraControlStrategies2D
 {
 
 
 Snap::Snap()
-   : Wicked::CameraControlStrategies::Base()
+   : Wicked::CameraControlStrategies2D::Base()
    , entity_to_follow(nullptr)
 {
 }
@@ -76,7 +76,7 @@ void Snap::update()
 }
 
 
-} // namespace CameraControlStrategies
+} // namespace CameraControlStrategies2D
 } // namespace Wicked
 
 

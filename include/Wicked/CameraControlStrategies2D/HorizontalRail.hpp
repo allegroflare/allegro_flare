@@ -1,15 +1,15 @@
 #pragma once
 
 
-#include <Wicked/CameraControlStrategies/Base.hpp>
+#include <Wicked/CameraControlStrategies2D/Base.hpp>
 #include <Wicked/Entities/Basic2D.hpp>
 
 
 namespace Wicked
 {
-   namespace CameraControlStrategies
+   namespace CameraControlStrategies2D
    {
-      class HorizontalRail : public Wicked::CameraControlStrategies::Base
+      class HorizontalRail : public Wicked::CameraControlStrategies2D::Base
       {
       private:
          Wicked::Entities::Basic2D* entity_to_follow;

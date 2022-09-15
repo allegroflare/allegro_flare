@@ -6,7 +6,7 @@
 
 namespace Wicked
 {
-   namespace CameraControlStrategies
+   namespace CameraControlStrategies2D
    {
       class Base
       {

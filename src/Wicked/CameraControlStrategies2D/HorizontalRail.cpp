@@ -1,6 +1,6 @@
 
 
-#include <Wicked/CameraControlStrategies/HorizontalRail.hpp>
+#include <Wicked/CameraControlStrategies2D/HorizontalRail.hpp>
 
 #include <sstream>
 #include <stdexcept>
@@ -8,12 +8,12 @@
 
 namespace Wicked
 {
-namespace CameraControlStrategies
+namespace CameraControlStrategies2D
 {
 
 
 HorizontalRail::HorizontalRail()
-   : Wicked::CameraControlStrategies::Base()
+   : Wicked::CameraControlStrategies2D::Base()
    , entity_to_follow(nullptr)
 {
 }
@@ -103,7 +103,7 @@ void HorizontalRail::update()
 }
 
 
-} // namespace CameraControlStrategies
+} // namespace CameraControlStrategies2D
 } // namespace Wicked
 
 

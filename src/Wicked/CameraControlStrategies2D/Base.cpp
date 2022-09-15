@@ -1,6 +1,6 @@
 
 
-#include <Wicked/CameraControlStrategies/Base.hpp>
+#include <Wicked/CameraControlStrategies2D/Base.hpp>
 
 #include <sstream>
 #include <stdexcept>
@@ -8,7 +8,7 @@
 
 namespace Wicked
 {
-namespace CameraControlStrategies
+namespace CameraControlStrategies2D
 {
 
 
@@ -66,7 +66,7 @@ void Base::update()
 }
 
 
-} // namespace CameraControlStrategies
+} // namespace CameraControlStrategies2D
 } // namespace Wicked
 
 
