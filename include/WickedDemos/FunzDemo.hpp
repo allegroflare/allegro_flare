@@ -4,7 +4,8 @@
 #include <cmath> // for sin, cos
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Inventory.hpp>
-#include <Wicked/Inventory.hpp>
+#include <AllegroFlare/Elements/Inventory.hpp>
+//#include <Wicked/Inventory.hpp>
 #include <Wicked/LevelLoader.hpp>
 #include <Wicked/PlayerControl.hpp>
 #include <Wicked/SceneFactory.hpp>
@@ -125,7 +126,8 @@ public:
    ALLEGRO_BITMAP *hud_surface;
 
    AllegroFlare::Inventory af_inventory;
-   Wicked::Inventory inventory;
+   //Wicked::Inventory inventory;
+   AllegroFlare::Elements::Inventory inventory;
    int input_mode;
 
 

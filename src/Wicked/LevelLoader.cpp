@@ -162,7 +162,7 @@ namespace Wicked
 {
 
 
-void to_json(nlohmann::json& j, const Wicked::Camera3& camera)
+void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera)
 {
    j = nlohmann::json{
       {"position", camera.position},
@@ -174,7 +174,7 @@ void to_json(nlohmann::json& j, const Wicked::Camera3& camera)
 }
 
 
-void from_json(const nlohmann::json& j, Wicked::Camera3& camera)
+void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera)
 {
    j.at("position").get_to(camera.position);
    j.at("stepout").get_to(camera.stepout);
@@ -253,7 +253,13 @@ LevelLoader::LevelLoader(std::string json_filename)
 
 
 
-void LevelLoader::write(std::vector<Wicked::Entity *> *entities, float time_of_day, Wicked::Entity *skybox, Wicked::Camera3 &camera, ShadowCastingLight &casting_light)
+void LevelLoader::write(
+      std::vector<Wicked::Entity *> *entities,
+      float time_of_day,
+      Wicked::Entity *skybox,
+      AllegroFlare::Camera3D &camera,
+      ShadowCastingLight &casting_light
+   )
 {
    if (!entities) throw std::runtime_error("NO entities there!");
    if (!skybox) throw std::runtime_error("need skybox in LevelLoader::write");
@@ -290,7 +296,13 @@ void LevelLoader::write(std::vector<Wicked::Entity *> *entities, float time_of_d
 
 
 
-void LevelLoader::load(EntityFactory &entity_factory, std::vector<Wicked::Entity *> &entities, Wicked::Entity **skybox_ptr, Wicked::Camera3 &camera, Wicked::Camera3 &casting_light)
+void LevelLoader::load(
+      EntityFactory &entity_factory,
+      std::vector<Wicked::Entity *> &entities,
+      Wicked::Entity **skybox_ptr,
+      AllegroFlare::Camera3D &camera,
+      AllegroFlare::Camera3D &casting_light
+   )
 {
    if (!skybox_ptr) throw std::runtime_error("need skybox_ptr in LevelLoader::load");
    //if (!camera) throw std::runtime_error("need camera in LevelLoader::load");
