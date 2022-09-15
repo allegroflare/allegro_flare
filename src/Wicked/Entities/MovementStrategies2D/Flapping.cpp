@@ -108,7 +108,7 @@ void Flapping::update_flapability_status()
       if (flap_recovery_counter <= 0.0f)
       {
          can_flap = true;
-         flap_recovery_counter == 0.0f;
+         flap_recovery_counter = 0.0f;
       }
    }
 }

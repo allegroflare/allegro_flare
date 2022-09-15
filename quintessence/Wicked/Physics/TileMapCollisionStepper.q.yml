@@ -2,7 +2,7 @@ properties:
 
 
   - name: collision_tile_map
-    type: AllegroFlare::TileMaps::TileMap*
+    type: AllegroFlare::TileMaps::TileMap<int>*
     init_with: nullptr
     constructor_arg: true
 
@@ -34,17 +34,17 @@ functions:
       //Wicked::Physics::AABB2D entity_aabb2d = build_entity_aabb2d();
       Wicked::Physics::AABB2D &obj = *aabb2d;
 
-      AllegroFlare::TileMaps::TileMap &map = *collision_tile_map;
+      AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
 
       //// test horizontal first
-      std::vector<Wicked::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords(
+      std::vector<Wicked::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords(
             obj.get_x(), obj.get_y(), obj.get_velocity_x(), obj.get_w(), obj.get_h(), tile_width, tile_height
       );
 
       // react to the collision here:
       if (!horizontal_collided_blocks.empty())
       {
-         for (Wicked::Int2D &t : horizontal_collided_blocks)
+         for (Wicked::Physics::Int2D &t : horizontal_collided_blocks)
          {
             if (map.get_tile(t.x, t.y) == 1) // tile is solid
             {
@@ -64,13 +64,13 @@ functions:
       obj.set_x(obj.get_x() + obj.get_velocity_x());
 
       // test vertical second
-      std::vector<Wicked::Int2D> vertical_collided_blocks = get_next_collided_tile_coords(
+      std::vector<Wicked::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords(
          obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w(), tile_height, tile_width
       );
-      for(Wicked::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
+      for(Wicked::Physics::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
       if (!vertical_collided_blocks.empty())
       {
-         for (Wicked::Int2D &t : vertical_collided_blocks)
+         for (Wicked::Physics::Int2D &t : vertical_collided_blocks)
          {
             if (map.get_tile(t.x, t.y) == 1) // tile is solid
             {
@@ -107,7 +107,7 @@ functions:
     body: |
       Wicked::Physics::AABB2D &obj = *aabb2d;
 
-      std::vector<Wicked::Int2D> tiles = get_next_collided_tile_coords(
+      std::vector<Wicked::Physics::Int2D> tiles = get_next_collided_tile_coords(
          obj.get_y(),
          obj.get_x(),
          0.0004,
@@ -139,7 +139,7 @@ functions:
     body: |
       Wicked::Physics::AABB2D &obj = *aabb2d;
 
-      std::vector<Wicked::Int2D> tiles = get_next_collided_tile_coords(
+      std::vector<Wicked::Physics::Int2D> tiles = get_next_collided_tile_coords(
          obj.get_x(),
          obj.get_y(),
          0.0004,
@@ -171,7 +171,7 @@ functions:
     body: |
       Wicked::Physics::AABB2D &obj = *aabb2d;
 
-      std::vector<Wicked::Int2D> tiles = get_next_collided_tile_coords(
+      std::vector<Wicked::Physics::Int2D> tiles = get_next_collided_tile_coords(
          obj.get_y(),
          obj.get_x(),
          -0.0004,
@@ -246,7 +246,7 @@ functions:
     body: |
       Wicked::Physics::AABB2D &obj = *aabb2d;
 
-      std::vector<Wicked::Int2D> tiles = get_next_collided_tile_coords(
+      std::vector<Wicked::Physics::Int2D> tiles = get_next_collided_tile_coords(
          obj.get_x(),
          obj.get_y(),
          -0.0004,
@@ -267,7 +267,7 @@ functions:
 
   - name: get_next_collided_tile_coords
     private: true
-    type: std::vector<Wicked::Int2D> 
+    type: std::vector<Wicked::Physics::Int2D> 
     parameters:
       - name: x
         type: float
@@ -291,7 +291,7 @@ functions:
         type: float
         default_argument: 1.0f
     body: |
-      std::vector<Wicked::Int2D> collided_tiles;
+      std::vector<Wicked::Physics::Int2D> collided_tiles;
 
       if (velocity > 0) x += depth_of_body;
 
@@ -309,7 +309,7 @@ functions:
          //// add a list of tiles to the thing
          for (int i=0; i<num_tiles_along_edge; i++)
          {
-            collided_tiles.push_back(Wicked::Int2D(next, start_y+i));
+            collided_tiles.push_back(Wicked::Physics::Int2D(next, start_y+i));
          }
       }
 
@@ -413,13 +413,13 @@ dependencies:
     headers: [ cmath ]
   - symbol: Wicked::Physics::AABB2D
     headers: [ Wicked/Physics/AABB2D.hpp ]
-  - symbol: std::vector<Wicked::Int2D> 
-    headers: [ vector, Wicked/Int2D.hpp ]
+  - symbol: std::vector<Wicked::Physics::Int2D> 
+    headers: [ vector, Wicked/Physics/Int2D.hpp ]
   - symbol: std::pair<int, int>
     headers: [ utility ]
   - symbol: AllegroFlare::TileMaps::TileMap
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
-  - symbol: Wicked::Int2D
-    headers: [ Wicked/Int2D.hpp ]
+  - symbol: Wicked::Physics::Int2D
+    headers: [ Wicked/Physics/Int2D.hpp ]
 
 

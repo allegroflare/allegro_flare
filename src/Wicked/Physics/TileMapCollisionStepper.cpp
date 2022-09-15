@@ -14,7 +14,7 @@ namespace Physics
 {
 
 
-TileMapCollisionStepper::TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap* collision_tile_map, Wicked::Physics::AABB2D* aabb2d, float tile_width, float tile_height)
+TileMapCollisionStepper::TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map, Wicked::Physics::AABB2D* aabb2d, float tile_width, float tile_height)
    : collision_tile_map(collision_tile_map)
    , aabb2d(aabb2d)
    , tile_width(tile_width)
@@ -48,17 +48,17 @@ void TileMapCollisionStepper::step()
    //Wicked::Physics::AABB2D entity_aabb2d = build_entity_aabb2d();
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
-   AllegroFlare::TileMaps::TileMap &map = *collision_tile_map;
+   AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
 
    //// test horizontal first
-   std::vector<Wicked::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords(
+   std::vector<Wicked::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords(
          obj.get_x(), obj.get_y(), obj.get_velocity_x(), obj.get_w(), obj.get_h(), tile_width, tile_height
    );
 
    // react to the collision here:
    if (!horizontal_collided_blocks.empty())
    {
-      for (Wicked::Int2D &t : horizontal_collided_blocks)
+      for (Wicked::Physics::Int2D &t : horizontal_collided_blocks)
       {
          if (map.get_tile(t.x, t.y) == 1) // tile is solid
          {
@@ -78,13 +78,13 @@ void TileMapCollisionStepper::step()
    obj.set_x(obj.get_x() + obj.get_velocity_x());
 
    // test vertical second
-   std::vector<Wicked::Int2D> vertical_collided_blocks = get_next_collided_tile_coords(
+   std::vector<Wicked::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords(
       obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w(), tile_height, tile_width
    );
-   for(Wicked::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
+   for(Wicked::Physics::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
    if (!vertical_collided_blocks.empty())
    {
-      for (Wicked::Int2D &t : vertical_collided_blocks)
+      for (Wicked::Physics::Int2D &t : vertical_collided_blocks)
       {
          if (map.get_tile(t.x, t.y) == 1) // tile is solid
          {
@@ -122,7 +122,7 @@ bool TileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, float ti
    }
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
-   std::vector<Wicked::Int2D> tiles = get_next_collided_tile_coords(
+   std::vector<Wicked::Physics::Int2D> tiles = get_next_collided_tile_coords(
       obj.get_y(),
       obj.get_x(),
       0.0004,
@@ -157,7 +157,7 @@ bool TileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float til
    }
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
-   std::vector<Wicked::Int2D> tiles = get_next_collided_tile_coords(
+   std::vector<Wicked::Physics::Int2D> tiles = get_next_collided_tile_coords(
       obj.get_x(),
       obj.get_y(),
       0.0004,
@@ -192,7 +192,7 @@ bool TileMapCollisionStepper::adjacent_to_top_edge(float tile_width, float tile_
    }
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
-   std::vector<Wicked::Int2D> tiles = get_next_collided_tile_coords(
+   std::vector<Wicked::Physics::Int2D> tiles = get_next_collided_tile_coords(
       obj.get_y(),
       obj.get_x(),
       -0.0004,
@@ -245,7 +245,7 @@ bool TileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile
    }
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
-   std::vector<Wicked::Int2D> tiles = get_next_collided_tile_coords(
+   std::vector<Wicked::Physics::Int2D> tiles = get_next_collided_tile_coords(
       obj.get_x(),
       obj.get_y(),
       -0.0004,
@@ -264,9 +264,9 @@ bool TileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile
    return false;
 }
 
-std::vector<Wicked::Int2D> TileMapCollisionStepper::get_next_collided_tile_coords(float x, float y, float velocity, float depth_of_body, float length_of_edge, float tile_length_n, float tile_length_m)
+std::vector<Wicked::Physics::Int2D> TileMapCollisionStepper::get_next_collided_tile_coords(float x, float y, float velocity, float depth_of_body, float length_of_edge, float tile_length_n, float tile_length_m)
 {
-   std::vector<Wicked::Int2D> collided_tiles;
+   std::vector<Wicked::Physics::Int2D> collided_tiles;
 
    if (velocity > 0) x += depth_of_body;
 
@@ -284,7 +284,7 @@ std::vector<Wicked::Int2D> TileMapCollisionStepper::get_next_collided_tile_coord
       //// add a list of tiles to the thing
       for (int i=0; i<num_tiles_along_edge; i++)
       {
-         collided_tiles.push_back(Wicked::Int2D(next, start_y+i));
+         collided_tiles.push_back(Wicked::Physics::Int2D(next, start_y+i));
       }
    }
 

@@ -73,19 +73,20 @@ functions:
 
 
   - name: find_map_by_name
-    type: Wicked::TileMaps::Basic2D*
+    type: AllegroFlare::TileMaps::Basic2D*
     parameters:
       - name: map_name
         type: std::string
         default_argument: '"[find-map-name-not-set]"'
     guards: [ entities ]
     body: |
-      std::vector<Wicked::Entities::Basic2D*> result;
-      for (auto &entity : (*entities))
-      {
-         if (entity->exists(MAP_NAME, map_name)) return static_cast<Wicked::TileMaps::Basic2D*>(entity);
-      }
-      return nullptr;
+      std::runtime_error("find_map_by_name not implemented");
+      //std::vector<Wicked::Entities::Basic2D*> result;
+      //for (auto &entity : (*entities))
+      //{
+         //if (entity->exists(MAP_NAME, map_name)) return static_cast<AllegroFlare::TileMaps::Basic2D*>(entity);
+      //}
+      //return nullptr;
     body_dependency_symbols:
       - Wicked::EntityFlagNames
 
@@ -98,7 +99,7 @@ dependencies:
     headers: [ Wicked/EntityFlagNames.hpp ]
   - symbol: Wicked::Entities::Basic2D
     headers: [ Wicked/Entities/Basic2D.hpp ]
-  - symbol: Wicked::TileMaps::Basic2D
-    headers: [ Wicked/TileMaps/Basic2D.hpp ]
+  - symbol: AllegroFlare::TileMaps::Basic2D
+    headers: [ AllegroFlare/TileMaps/Basic2D.hpp ]
 
 

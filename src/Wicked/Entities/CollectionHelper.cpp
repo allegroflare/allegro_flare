@@ -100,7 +100,7 @@ std::vector<Wicked::Entities::Basic2D*> CollectionHelper::select_on_map(std::str
    return result;
 }
 
-Wicked::TileMaps::Basic2D* CollectionHelper::find_map_by_name(std::string map_name)
+AllegroFlare::TileMaps::Basic2D* CollectionHelper::find_map_by_name(std::string map_name)
 {
    if (!(entities))
    {
@@ -108,12 +108,13 @@ Wicked::TileMaps::Basic2D* CollectionHelper::find_map_by_name(std::string map_na
       error_message << "CollectionHelper" << "::" << "find_map_by_name" << ": error: " << "guard \"entities\" not met";
       throw std::runtime_error(error_message.str());
    }
-   std::vector<Wicked::Entities::Basic2D*> result;
-   for (auto &entity : (*entities))
-   {
-      if (entity->exists(MAP_NAME, map_name)) return static_cast<Wicked::TileMaps::Basic2D*>(entity);
-   }
-   return nullptr;
+   std::runtime_error("find_map_by_name not implemented");
+   //std::vector<Wicked::Entities::Basic2D*> result;
+   //for (auto &entity : (*entities))
+   //{
+      //if (entity->exists(MAP_NAME, map_name)) return static_cast<AllegroFlare::TileMaps::Basic2D*>(entity);
+   //}
+   //return nullptr;
 }
 
 

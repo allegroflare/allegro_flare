@@ -407,35 +407,36 @@ functions:
         default_argument: '"[map-name-not-set]"'
     guards: [ bitmap_bin ]
     body: |
-      Wicked::TileMaps::Basic2D *created_map = nullptr;
-      Tileo::Atlas *tile_atlas = nullptr; //  = tmj_mesh_loader.get_tile_atlas();
-      Tileo::Mesh *tile_mesh = nullptr; // = tmj_mesh_loader.get_mesh();
-      Tileo::TileMap *collision_tile_mesh = nullptr; //tmj_mesh_loader.get_collision_tile_map();
+      throw std::runtime_error("create_tile_map not implemented!!");
+      //Wicked::TileMaps::Basic2D *created_map = nullptr;
+      //Tileo::Atlas *tile_atlas = nullptr; //  = tmj_mesh_loader.get_tile_atlas();
+      //Tileo::Mesh *tile_mesh = nullptr; // = tmj_mesh_loader.get_mesh();
+      //Tileo::TileMap *collision_tile_mesh = nullptr; //tmj_mesh_loader.get_collision_tile_map();
 
 
-      created_map = new Wicked::TileMaps::Basic2D;
+      //created_map = new Wicked::TileMaps::Basic2D;
       
-      Tileo::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
+      //Tileo::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
 
-      tmj_mesh_loader.load();
+      //tmj_mesh_loader.load();
 
-      tile_atlas = tmj_mesh_loader.get_tile_atlas();
-      tile_mesh = tmj_mesh_loader.get_mesh();
-      collision_tile_mesh = tmj_mesh_loader.get_collision_tile_map();
+      //tile_atlas = tmj_mesh_loader.get_tile_atlas();
+      //tile_mesh = tmj_mesh_loader.get_mesh();
+      //collision_tile_mesh = tmj_mesh_loader.get_collision_tile_map();
 
-      created_map->set_tile_atlas(tile_atlas);
-      created_map->set_tile_mesh(tile_mesh);
-      created_map->set_collision_tile_mesh(collision_tile_mesh);
-      created_map->set(MAP_NAME, map_name); //"map_a"); //set_collision_tile_mesh(collision_tile_mesh);
+      //created_map->set_tile_atlas(tile_atlas);
+      //created_map->set_tile_mesh(tile_mesh);
+      //created_map->set_collision_tile_mesh(collision_tile_mesh);
+      //created_map->set(MAP_NAME, map_name); //"map_a"); //set_collision_tile_mesh(collision_tile_mesh);
 
-      return created_map;
-      //entities.push_back(created_map); // TODO: prevent maps from having the same name
-    body_dependency_symbols:
-      - Tileo::TMJMeshLoader
-      - Wicked::TileMaps::Basic2D
-      - Tileo::Atlas
-      - Tileo::Mesh
-      - Tileo::TileMap
+      //return created_map;
+      ////entities.push_back(created_map); // TODO: prevent maps from having the same name
+      //body_dependency_symbols:
+        //- Tileo::TMJMeshLoader
+        //- Wicked::TileMaps::Basic2D
+        //- Tileo::Atlas
+        //- Tileo::Mesh
+        //- Tileo::TileMap
 
 
 dependencies:

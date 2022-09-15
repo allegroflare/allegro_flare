@@ -1,8 +1,8 @@
 #pragma once
 
 
+#include <AllegroFlare/TileMaps/Basic2D.hpp>
 #include <Wicked/Entities/Basic2D.hpp>
-#include <Wicked/TileMaps/Basic2D.hpp>
 #include <string>
 #include <vector>
 
@@ -29,7 +29,7 @@ namespace Wicked
          std::vector<Wicked::Entities::Basic2D*> select_goalposts();
          std::vector<Wicked::Entities::Basic2D*> select_doors();
          std::vector<Wicked::Entities::Basic2D*> select_on_map(std::string on_map_name="[on-map-name-not-set]");
-         Wicked::TileMaps::Basic2D* find_map_by_name(std::string map_name="[find-map-name-not-set]");
+         AllegroFlare::TileMaps::Basic2D* find_map_by_name(std::string map_name="[find-map-name-not-set]");
       };
    }
 }
