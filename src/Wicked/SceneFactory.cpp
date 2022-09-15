@@ -44,7 +44,7 @@
       EntityFactory &entity_factory,
       Entity **skybox,
       std::string filename,
-      Wicked::Camera3 &camera,
+      AllegroFlare::Camera3D &camera,
       ShadowCastingLight &casting_light
    )
    {

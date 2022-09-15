@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <Wicked/Entity.hpp>
-#include <Wicked/Camera3.hpp>
+#include <AllegroFlare/Camera3D.hpp>
 #include <Wicked/ShadowCastingLight.hpp>
 #include <WickedDemos/EntityFactory.hpp>
 
@@ -22,7 +22,7 @@ public:
       EntityFactory &entity_factory,
       Entity **skybox,
       std::string filename,
-      Wicked::Camera3 &camera,
+      AllegroFlare::Camera3D &camera,
       ShadowCastingLight &casting_light
    );
 
