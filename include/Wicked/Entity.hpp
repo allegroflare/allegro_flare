@@ -2,8 +2,8 @@
 
 #include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Model3D.hpp>
-#include <Tileo/Atlas.hpp>
-#include <Tileo/Mesh.hpp>
+#include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
+#include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/Model3D.hpp>
 //#include <AllegroFlare/Shader.hpp>
 #include <AllegroFlare/Cubemap.hpp>
@@ -34,8 +34,8 @@ public:
   bool shader_applies_transform;
 
 
-  Tileo::Atlas *atlas;
-  Tileo::Mesh *mesh;
+  AllegroFlare::TileMaps::Atlas *atlas;
+  AllegroFlare::TileMaps::PrimMesh *mesh;
 
 
   // Eventually, there could be n shaders for each model

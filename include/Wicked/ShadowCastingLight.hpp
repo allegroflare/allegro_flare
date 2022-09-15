@@ -3,10 +3,10 @@
 #pragma once
 
 
-#include <Wicked/Camera3.hpp> 
+#include <AllegroFlare/Camera3D.hpp> 
 
 
-class ShadowCastingLight : public Wicked::Camera3
+class ShadowCastingLight : public AllegroFlare::Camera3D
 {
 public:
    ShadowCastingLight();
