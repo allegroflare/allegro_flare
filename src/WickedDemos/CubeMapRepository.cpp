@@ -38,17 +38,31 @@ void CubeMapRepository::initialize()
    initialized = true;
 };
 
-ALLEGRO_FLARE_CUBEMAP_TEXTURE *CubeMapRepository::get_cube_map_A()
+//ALLEGRO_FLARE_CUBEMAP_TEXTURE *CubeMapRepository::get_cube_map_A()
+//{
+   //if (!initialized) throw std::runtime_error("!!! CubeMapRepository called without being initialized.");
+   //return cube_map_A;
+//}
+
+//ALLEGRO_FLARE_CUBEMAP_TEXTURE *CubeMapRepository::get_cube_map_B()
+//{
+   //if (!initialized) throw std::runtime_error("!!! CubeMapRepository called without being initialized.");
+   //return cube_map_B;
+//}
+
+
+AllegroFlare::Cubemap *CubeMapRepository::get_cube_map_A()
 {
    if (!initialized) throw std::runtime_error("!!! CubeMapRepository called without being initialized.");
    return cube_map_A;
 }
 
-ALLEGRO_FLARE_CUBEMAP_TEXTURE *CubeMapRepository::get_cube_map_B()
+AllegroFlare::Cubemap *CubeMapRepository::get_cube_map_B()
 {
    if (!initialized) throw std::runtime_error("!!! CubeMapRepository called without being initialized.");
    return cube_map_B;
 }
+
 
 
 

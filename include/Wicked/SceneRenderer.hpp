@@ -12,10 +12,10 @@ using AllegroFlare::Placement3D;
 //using allegro_flare::placement3d;
 using AllegroFlare::vec3d;
 using AllegroFlare::vec2d;
-//using AllegroFlare::Shader;
+using AllegroFlare::Shader;
 
-#include <allegro_flare/shader.h>
-using allegro_flare::Shader;
+//#include <allegro_flare/shader.h>
+//using allegro_flare::Shader;
 
 
 namespace Wicked
@@ -25,7 +25,7 @@ class SceneRenderer
 {
 private:
    ALLEGRO_BITMAP *backbuffer_sub_bitmap;
-   Shader depth_shader;
+   AllegroFlare::Shader *depth_shader;
    float shadow_scale_divisor; // note, increasing this divisor will
          // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
          // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size,
@@ -48,7 +48,7 @@ public:
 
    void setup_projection_SHADOW(ShadowCastingLight &shadow_casting_light, ALLEGRO_TRANSFORM *transform_to_fill=nullptr);
 
-   void setup_projection_SCENE(Wicked::Camera3 &camera, ALLEGRO_TRANSFORM *transform_to_fill=nullptr);
+   void setup_projection_SCENE(AllegroFlare::Camera3D &camera, ALLEGRO_TRANSFORM *transform_to_fill=nullptr);
 
    void draw_entities(
          vec3d camera_real_position,

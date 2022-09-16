@@ -4,6 +4,8 @@
 #include <allegro5/allegro_opengl.h>
 #include <iostream> // for cout
 
+#include <AllegroFlare/UsefulPHP.hpp>
+
 
 namespace Wicked
 {
@@ -11,12 +13,27 @@ namespace Wicked
 
    SceneRenderer::SceneRenderer()
       : backbuffer_sub_bitmap(nullptr)
-      , depth_shader("data/shaders/depth_vertex.glsl", "data/shaders/depth_fragment.glsl")
+      //, depth_shader("data/shaders/depth_vertex.glsl", "data/shaders/depth_fragment.glsl")
+      , depth_shader(nullptr)
       , shadow_scale_divisor(1.0) // note, increasing this divisor will
          // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
          // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size, but reduce
          // the resolution of the shadow. Original engine had a default of 1.0f;
-   {}
+   {
+      //("data/shaders/depth_vertex.glsl", "data/shaders/depth_fragment.glsl")
+      std::string vertex_filename;
+      std::string vertex_file_content;
+      std::string fragment_filename;
+      std::string fragment_file_content;
+
+      vertex_filename = "data/shaders/depth_vertex.glsl";
+      vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+      fragment_filename = "data/shaders/depth_fragment.glsl";
+      fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+
+      depth_shader = new AllegroFlare::Shader();
+      depth_shader->initialize();
+   }
 
 
    void SceneRenderer::set_shadow_scale_divisor(float shadow_scale_divisor)
@@ -56,15 +73,16 @@ namespace Wicked
       setup_projection_SHADOW(casting_light, shadow_map_depth_pass_transform);
 
       // setup the shader
-      depth_shader.use();
+      //depth_shader.use();
+      depth_shader->activate();
       
       // draw the objects
       for (unsigned i=0; i<entities.size(); i++)
-         entities[i]->draw_for_depth_pass(&depth_shader);
+         entities[i]->draw_for_depth_pass(depth_shader);
 
       if (pointer)
       {
-          pointer->draw_for_depth_pass(&depth_shader);
+          pointer->draw_for_depth_pass(depth_shader);
       }
 
 
@@ -122,7 +140,7 @@ namespace Wicked
    }
 
 
-   void SceneRenderer::setup_projection_SCENE(Wicked::Camera3 &camera, ALLEGRO_TRANSFORM *transform_to_fill)
+   void SceneRenderer::setup_projection_SCENE(AllegroFlare::Camera3D &camera, ALLEGRO_TRANSFORM *transform_to_fill)
    {
       camera.setup_projection_on(backbuffer_sub_bitmap);
    }
@@ -200,7 +218,8 @@ namespace Wicked
       }
 
 
-      Shader::stop();
+      //Shader::stop();
+      Shader::deactivate();
    }
 
 
