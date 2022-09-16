@@ -5,6 +5,7 @@
 #include <WickedDemos/ModelRepository.hpp>
 #include <WickedDemos/CubeMapRepository.hpp>
 #include <AllegroFlare/Useful.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 #include <Wicked/Entity.hpp>
 //#include <Wicked/Random.hpp>
@@ -30,7 +31,7 @@ EntityFactory::EntityFactory()
 {
 }
 
-Tileo::Atlas &EntityFactory::get_atlas()
+AllegroFlare::TileMaps::PrimMeshAtlas &EntityFactory::get_atlas()
 {
    if (initialized) throw std::runtime_error("EntityFactory::get_atlas() error: requires initialized");
    return atlas;

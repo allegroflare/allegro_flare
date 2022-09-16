@@ -187,6 +187,13 @@ namespace AllegroFlare
    {
       al_use_shader(nullptr);
    }
+
+
+
+   void Shader::global_deactivate()
+   {
+      al_use_shader(nullptr);
+   }
 }
 
 

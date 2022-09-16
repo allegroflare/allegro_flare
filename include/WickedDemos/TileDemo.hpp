@@ -2,21 +2,21 @@
 
 
 #include <AllegroFlare/Display.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/Framework.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Screen.hpp>
+#include <AllegroFlare/TileMaps/Basic2D.hpp>
+#include <AllegroFlare/TileMaps/PrimMesh.hpp>
+#include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
+#include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
-#include <Tileo/Atlas.hpp>
-#include <Tileo/Mesh.hpp>
-#include <Tileo/TileMap.hpp>
-#include <Wicked/CameraControlStrategies/Base.hpp>
+#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/VirtualControlsProcessor.hpp>
+#include <Wicked/CameraControlStrategies2D/Base.hpp>
 #include <Wicked/Entities/Basic2D.hpp>
-#include <Wicked/EventEmitter.hpp>
-#include <Wicked/TileMaps/Basic2D.hpp>
-#include <Wicked/VirtualControls.hpp>
-#include <Wicked/VirtualControlsProcessor.hpp>
 #include <Wicked/Weapons/DrawnBow.hpp>
-#include <allegro5/allegro.hpp>
+#include <allegro5/allegro.h>
 #include <string>
 #include <vector>
 
@@ -28,11 +28,11 @@ namespace WickedDemos
    private:
       AllegroFlare::Framework* framework;
       AllegroFlare::Display* display;
-      Wicked::EventEmitter* event_emitter;
+      AllegroFlare::EventEmitter* event_emitter;
       int native_display_resolution_width;
       int native_display_resolution_height;
       bool initialized;
-      Wicked::TileMaps::Basic2D* currently_active_map;
+      AllegroFlare::TileMaps::Basic2D* currently_active_map;
       std::string currently_active_map_name;
       std::vector<Wicked::Entities::Basic2D*> entities;
       float gravity;
@@ -42,12 +42,12 @@ namespace WickedDemos
       Wicked::Entities::Basic2D* player_controlled_entity;
       bool show_tile_mesh;
       bool show_collision_tile_mesh;
-      Wicked::VirtualControls player_controls;
-      Wicked::VirtualControlsProcessor virtual_controls_processor;
+      AllegroFlare::VirtualControls player_controls;
+      AllegroFlare::VirtualControlsProcessor virtual_controls_processor;
       bool showing_player_reticle;
       AllegroFlare::vec2d player_reticle_vector;
       Wicked::Weapons::DrawnBow bow;
-      Wicked::CameraControlStrategies::Base* camera_control_strategy;
+      Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
       int player_collected_items;
       void setup_camera();
       void initialize_entities();
@@ -56,10 +56,10 @@ namespace WickedDemos
 
 
    public:
-      TileDemo(AllegroFlare::Framework* framework=nullptr, AllegroFlare::Display* display=nullptr, Wicked::EventEmitter* event_emitter=nullptr);
+      TileDemo(AllegroFlare::Framework* framework=nullptr, AllegroFlare::Display* display=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
       virtual ~TileDemo();
 
-      void set_event_emitter(Wicked::EventEmitter* event_emitter);
+      void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
       void set_entities(std::vector<Wicked::Entities::Basic2D*> entities);
       void set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity);
       void set_show_tile_mesh(bool show_tile_mesh);
@@ -73,7 +73,7 @@ namespace WickedDemos
       AllegroFlare::vec2d get_player_reticle_vector() const;
       std::vector<Wicked::Entities::Basic2D*> &get_entities_ref();
       void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
-      Wicked::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
+      AllegroFlare::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
       void initialize_display_projection();
       void initialize_maps();
       void initialize_hud();
@@ -115,9 +115,9 @@ namespace WickedDemos
       void virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr);
       virtual void user_event_func(ALLEGRO_EVENT* event=nullptr) override;
       void render_collision_tile_mesh();
-      Tileo::Atlas* get_tile_atlas();
-      Tileo::Mesh* get_tile_mesh();
-      Tileo::TileMap* get_collision_tile_mesh();
+      AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
+      AllegroFlare::TileMaps::PrimMesh* get_tile_mesh();
+      AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_mesh();
       std::vector<Wicked::Entities::Basic2D*>& get_current_map_entities_ref();
       std::vector<Wicked::Entities::Basic2D*> get_current_map_entities();
    };

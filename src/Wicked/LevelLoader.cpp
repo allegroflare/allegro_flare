@@ -89,9 +89,9 @@ void from_json(const nlohmann::json& j, ALLEGRO_COLOR& color)
    //float tilt;
    //float zoom;
 
-namespace Tileo
+namespace AllegroFlare::TileMaps
 {
-   void to_json(nlohmann::json& j, const Tileo::Atlas& atlas)
+   void to_json(nlohmann::json& j, const AllegroFlare::TileMaps::PrimMeshAtlas& atlas)
    {
       j = nlohmann::json{
          { "bitmap_filename", atlas.get_bitmap_filename() },
@@ -103,7 +103,7 @@ namespace Tileo
       };
    }
 
-   void from_json(const nlohmann::json& j, Tileo::Atlas& atlas)
+   void from_json(const nlohmann::json& j, AllegroFlare::TileMaps::PrimMeshAtlas& atlas)
    {
       // get the values
       std::string bitmap_filename = "";
@@ -128,7 +128,7 @@ namespace Tileo
       //atlas.clear();
    }
 
-   void to_json(nlohmann::json& j, const Tileo::Mesh& mesh)
+   void to_json(nlohmann::json& j, const AllegroFlare::TileMaps::PrimMesh& mesh)
    {
       j = nlohmann::json{
          {"num_rows", mesh.get_num_rows()},
@@ -137,16 +137,16 @@ namespace Tileo
          {"tiles", mesh.get_tile_ids()},
       };
 
-      Tileo::Atlas *atlas_ptr = mesh.get_atlas();
+      AllegroFlare::TileMaps::PrimMeshAtlas *atlas_ptr = mesh.get_atlas();
       if (atlas_ptr)
       {
-         Tileo::Atlas &atlas = (*atlas_ptr);
+         AllegroFlare::TileMaps::PrimMeshAtlas &atlas = (*atlas_ptr);
          j["atlas"] = atlas;
       }
       //if mesh
    }
 
-   //void from_json(nlohmann::json& j, Tileo::Mesh& mesh)
+   //void from_json(nlohmann::json& j, AllegroFlare::TileMaps::PrimMesh& mesh)
    //{
       ////placement3d place = j["place"].get<placement3d>();
 
@@ -308,7 +308,7 @@ void LevelLoader::load(
    //if (!camera) throw std::runtime_error("need camera in LevelLoader::load");
    //if (!casting_light) throw std::runtime_error("need casting_light in LevelLoader::load");
 
-   Tileo::Atlas &atlas = entity_factory.get_atlas();
+   AllegroFlare::TileMaps::Atlas &atlas = entity_factory.get_atlas();
 
    std::ifstream infile(json_filename);
    nlohmann::json j;
@@ -381,8 +381,8 @@ void LevelLoader::load(
 
 void LevelLoader::load_mesh_and_atlas(
       AllegroFlare::BitmapBin *bitmap_bin,
-      Tileo::Atlas *atlas,
-      Tileo::Mesh *mesh,
+      AllegroFlare::TileMaps::Atlas *atlas,
+      AllegroFlare::TileMaps::PrimMesh *mesh,
       std::string json_string
    )
 {

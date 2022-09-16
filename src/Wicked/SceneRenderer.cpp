@@ -219,7 +219,7 @@ namespace Wicked
 
 
       //Shader::stop();
-      Shader::deactivate();
+      Shader::global_deactivate();
    }
 
 

@@ -3,13 +3,14 @@
 #include <WickedDemos/TileDemo.hpp>
 
 #include <AllegroFlare/Framework.hpp>
-#include <Tileo/Mesh.hpp>
+#include <AllegroFlare/TileMaps/Basic2D.hpp>
+#include <AllegroFlare/TileMaps/PrimMesh.hpp>
+#include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <Tileo/TMJMeshLoader.hpp>
 #include <Tileo/TileAtlasBuilder.hpp>
-#include <Tileo/TileMap.hpp>
-#include <Wicked/CameraControlStrategies/HorizontalRail.hpp>
-#include <Wicked/CameraControlStrategies/SmoothSnap.hpp>
-#include <Wicked/CameraControlStrategies/Snap.hpp>
+#include <Wicked/CameraControlStrategies2D/HorizontalRail.hpp>
+#include <Wicked/CameraControlStrategies2D/SmoothSnap.hpp>
+#include <Wicked/CameraControlStrategies2D/Snap.hpp>
 #include <Wicked/Entities/Basic2DFactory.hpp>
 #include <Wicked/Entities/CollectionHelper.hpp>
 #include <Wicked/Entities/Doors/Basic2D.hpp>
@@ -17,7 +18,6 @@
 #include <Wicked/EventNames.hpp>
 #include <Wicked/Physics/AABB2D.hpp>
 #include <Wicked/Physics/TileMapCollisionStepper.hpp>
-#include <Wicked/TileMaps/Basic2D.hpp>
 #include <algorithm>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_opengl.h>
@@ -30,7 +30,7 @@ namespace WickedDemos
 {
 
 
-TileDemo::TileDemo(AllegroFlare::Framework* framework, AllegroFlare::Display* display, Wicked::EventEmitter* event_emitter)
+TileDemo::TileDemo(AllegroFlare::Framework* framework, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
    : AllegroFlare::Screen(display)
    , framework(framework)
    , display(display)
@@ -64,7 +64,7 @@ TileDemo::~TileDemo()
 }
 
 
-void TileDemo::set_event_emitter(Wicked::EventEmitter* event_emitter)
+void TileDemo::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
 }
@@ -150,10 +150,10 @@ void TileDemo::set_currently_active_map(std::string name)
    return;
 }
 
-Wicked::TileMaps::Basic2D* TileDemo::find_map_by_name(std::string name)
+AllegroFlare::TileMaps::Basic2D* TileDemo::find_map_by_name(std::string name)
 {
    Wicked::Entities::CollectionHelper collection_helper(&entities);
-   Wicked::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
+   AllegroFlare::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
    if (!found_map)
    {
       std::stringstream error_message;
@@ -256,10 +256,10 @@ void TileDemo::initialize_camera_control()
    float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
    float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-   //Wicked::CameraControlStrategies::SmoothSnap *camera_control =
-      //new Wicked::CameraControlStrategies::SmoothSnap(room_width, room_height);
-   Wicked::CameraControlStrategies::HorizontalRail *camera_control =
-      new Wicked::CameraControlStrategies::HorizontalRail; //(room_width, room_height);
+   //Wicked::CameraControlStrategies2D::SmoothSnap *camera_control =
+      //new Wicked::CameraControlStrategies2D::SmoothSnap(room_width, room_height);
+   Wicked::CameraControlStrategies2D::HorizontalRail *camera_control =
+      new Wicked::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
    camera_control->set_camera(&camera);
    camera_control->set_entity_to_follow(player_controlled_entity);
    camera_control->initialize();
@@ -659,7 +659,7 @@ void TileDemo::check_player_collisions_with_doors()
          float target_spawn_y = door->get_target_spawn_y();
 
          // find the target map
-         Wicked::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
+         AllegroFlare::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
 
          // reposition player in map
          player_controlled_entity->set(ON_MAP_NAME, map_target_name);
@@ -761,7 +761,7 @@ void TileDemo::run(std::vector<std::string> args)
 {
    AllegroFlare::ScreenManager screen_manager;
    AllegroFlare::Framework framework(&screen_manager);
-   Wicked::EventEmitter event_emitter;
+   AllegroFlare::EventEmitter event_emitter;
 
    framework.initialize();
    event_emitter.initialize();
@@ -1103,33 +1103,33 @@ void TileDemo::virtual_control_button_down_func(ALLEGRO_EVENT* event)
 {
    int button_num = event->user.data1;
 
-   if (button_num == Wicked::VirtualControls::get_BUTTON_B())
+   if (button_num == AllegroFlare::VirtualControls::get_BUTTON_B())
    {
       player_controls.set_a_button_pressed(true);
       set_player_controlled_entity_jump();
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_X())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_X())
    {
       reverse_gravity();
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_Y())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_Y())
    {
       player_emit_projectile();
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_RIGHT())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
    {
       player_controls.set_right_button_pressed(true);
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_LEFT())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_LEFT())
    {
       player_controls.set_left_button_pressed(true);
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_UP())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_UP())
    {
       player_controls.set_up_button_pressed(true);
       check_player_collisions_with_doors();
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_RIGHT_BUMPER())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER())
    {
       player_controls.set_right_bumper_pressed(true);
       set_showing_player_reticle(true);
@@ -1142,19 +1142,19 @@ void TileDemo::virtual_control_button_up_func(ALLEGRO_EVENT* event)
 {
    int button_num = event->user.data1;
 
-   if (button_num == Wicked::VirtualControls::get_BUTTON_B())
+   if (button_num == AllegroFlare::VirtualControls::get_BUTTON_B())
    {
       player_controls.set_a_button_pressed(false);
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_RIGHT())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
    {
       player_controls.set_right_button_pressed(false);
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_LEFT())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_LEFT())
    {
       player_controls.set_left_button_pressed(false);
    }
-   else if (button_num == Wicked::VirtualControls::get_BUTTON_RIGHT_BUMPER())
+   else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER())
    {
       if (bow.at_max()) player_emit_projectile(15.0f);
       bow.stop_draw();
@@ -1170,7 +1170,7 @@ void TileDemo::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
    int axis = event->user.data2;
    float position = event->user.data3 / 255.0f;
 
-   if (stick == Wicked::VirtualControls::get_PRIMARY_STICK())
+   if (stick == AllegroFlare::VirtualControls::get_PRIMARY_STICK())
    {
       if (axis == 0)
       {
@@ -1225,7 +1225,7 @@ void TileDemo::render_collision_tile_mesh()
       error_message << "TileDemo" << "::" << "render_collision_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
-   Tileo::TileMap *tile_map = currently_active_map->get_collision_tile_mesh();
+   AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_mesh();
    float tile_width=16.0f;
    float tile_height=16.0f;
 
@@ -1256,7 +1256,7 @@ void TileDemo::render_collision_tile_mesh()
    return;
 }
 
-Tileo::Atlas* TileDemo::get_tile_atlas()
+AllegroFlare::TileMaps::PrimMeshAtlas* TileDemo::get_tile_atlas()
 {
    if (!(currently_active_map))
    {
@@ -1267,7 +1267,7 @@ Tileo::Atlas* TileDemo::get_tile_atlas()
    return currently_active_map->get_tile_atlas();
 }
 
-Tileo::Mesh* TileDemo::get_tile_mesh()
+AllegroFlare::TileMaps::PrimMesh* TileDemo::get_tile_mesh()
 {
    if (!(currently_active_map))
    {
@@ -1278,7 +1278,7 @@ Tileo::Mesh* TileDemo::get_tile_mesh()
    return currently_active_map->get_tile_mesh();
 }
 
-Tileo::TileMap* TileDemo::get_collision_tile_mesh()
+AllegroFlare::TileMaps::TileMap<int>* TileDemo::get_collision_tile_mesh()
 {
    if (!(currently_active_map))
    {

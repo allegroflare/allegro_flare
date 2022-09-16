@@ -41,11 +41,11 @@ void from_json(const nlohmann::json& j, ALLEGRO_COLOR& color);
 	//float tilt;
    //float zoom;
 
-namespace Tileo
+namespace AllegroFlare::TileMaps
 {
-   void to_json(nlohmann::json& j, const Tileo::Atlas& atlas);
-   void to_json(nlohmann::json& j, const Tileo::Mesh& mesh);
-   void from_json(const nlohmann::json& j, Tileo::Atlas& atlas);
+   void to_json(nlohmann::json& j, const AllegroFlare::TileMaps::PrimMeshAtlas& atlas);
+   void to_json(nlohmann::json& j, const AllegroFlare::TileMaps::PrimMesh& mesh);
+   void from_json(const nlohmann::json& j, AllegroFlare::TileMaps::PrimMeshAtlas& atlas);
 }
 
 
@@ -85,8 +85,8 @@ public:
 
    static void load_mesh_and_atlas(
       AllegroFlare::BitmapBin *bitmap_bin=nullptr,
-      Tileo::Atlas *atlas=nullptr,
-      Tileo::Mesh *mesh=nullptr,
+      AllegroFlare::TileMaps::PrimMeshAtlas *atlas=nullptr,
+      AllegroFlare::TileMaps::PrimMesh *mesh=nullptr,
       std::string json_string=""
    );
 };

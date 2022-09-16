@@ -44,6 +44,9 @@ namespace AllegroFlare
       // activate and deactivate
       virtual void activate();
       virtual void deactivate();
+
+      // force deactivate
+      static void global_deactivate(); // needed for one case in WickedDemos/SceneRenderer, please factor out
    };
 }
 

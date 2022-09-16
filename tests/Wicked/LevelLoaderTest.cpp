@@ -11,7 +11,7 @@ TEST(Wicked_LevelLoaderTest, can_be_created_without_blowing_up)
 
 TEST(Wicked_LevelLoaderTest, to_json__will_serialize_a_tileo_atlas_as_expected)
 {
-   Tileo::Atlas atlas;
+   AllegroFlare::PrimMeshAtlas atlas;
    atlas.set_bitmap_filename("some-atlas-bitmap.png");
 
    nlohmann::json j = atlas;
@@ -31,9 +31,9 @@ R"({
 
 TEST(Wicked_LevelLoaderTest, to_json__will_serialize_a_tileo_mesh_as_expected)
 {
-   //Tileo::Atlas atlas;
+   //AllegroFlare::PrimMeshAtlas atlas;
    //atlas.set_bitmap_filename("some-atlas-bitmap.png");
-   Tileo::Mesh mesh;
+   AllegroFlare::PrimMesh mesh;
 
    nlohmann::json j = mesh;
 
@@ -51,9 +51,9 @@ R"({
 
 TEST(Wicked_LevelLoaderTest, to_json__with_an_atlas_present__will_serialize_a_tileo_mesh_as_expected)
 {
-   Tileo::Atlas atlas;
+   AllegroFlare::PrimMeshAtlas atlas;
    atlas.set_bitmap_filename("some-atlas-bitmap.png");
-   Tileo::Mesh mesh(&atlas);
+   AllegroFlare::PrimMesh mesh(&atlas);
 
    nlohmann::json j = mesh;
    nlohmann::json atlas_j = j["atlas"];
@@ -73,7 +73,7 @@ R"({
 
 TEST(Wicked_LevelLoaderTest, from_json__will_serialize_a_tileo_atlas_as_expected)
 {
-   Tileo::Atlas atlas;
+   AllegroFlare::PrimMeshAtlas atlas;
 
    std::string atlas_json =
 R"({
@@ -99,7 +99,7 @@ R"({
 TEST(Wicked_LevelLoaderTest, from_json__will_leave_the_atlas_in_an_invalid_state_requiring_a_refresh)
 {
    // TODO
-   // and actually this would duplicate testing that should be in Tileo::Atlas
+   // and actually this would duplicate testing that should be in AllegroFlare::PrimMeshAtlas
 }
 
 

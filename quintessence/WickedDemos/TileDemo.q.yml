@@ -20,7 +20,7 @@ properties:
     constructor_arg: true
 
   - name: event_emitter
-    type: Wicked::EventEmitter*
+    type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
     setter: true
@@ -38,7 +38,7 @@ properties:
     init_with: false
 
   - name: currently_active_map
-    type: Wicked::TileMaps::Basic2D*
+    type: AllegroFlare::TileMaps::Basic2D*
     init_with: nullptr
 
   - name: currently_active_map_name
@@ -86,11 +86,11 @@ properties:
     setter: true
 
   - name: player_controls
-    type: Wicked::VirtualControls
+    type: AllegroFlare::VirtualControls
     init_with: ''
 
   - name: virtual_controls_processor
-    type: Wicked::VirtualControlsProcessor
+    type: AllegroFlare::VirtualControlsProcessor
     init_with: ''
 
   - name: showing_player_reticle
@@ -110,7 +110,7 @@ properties:
     init_with: ''
 
   - name: camera_control_strategy
-    type: Wicked::CameraControlStrategies::Base*
+    type: Wicked::CameraControlStrategies2D::Base*
     init_with: nullptr
 
   - name: player_collected_items
@@ -134,14 +134,14 @@ functions:
 
 
   - name: find_map_by_name
-    type: Wicked::TileMaps::Basic2D*
+    type: AllegroFlare::TileMaps::Basic2D*
     parameters:
       - name: name
         type: std::string
         default_argument: '"[unset-map-name]"'
     body: |
       Wicked::Entities::CollectionHelper collection_helper(&entities);
-      Wicked::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
+      AllegroFlare::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
       if (!found_map)
       {
          std::stringstream error_message;
@@ -246,10 +246,10 @@ functions:
       float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
       float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-      //Wicked::CameraControlStrategies::SmoothSnap *camera_control =
-         //new Wicked::CameraControlStrategies::SmoothSnap(room_width, room_height);
-      Wicked::CameraControlStrategies::HorizontalRail *camera_control =
-         new Wicked::CameraControlStrategies::HorizontalRail; //(room_width, room_height);
+      //Wicked::CameraControlStrategies2D::SmoothSnap *camera_control =
+         //new Wicked::CameraControlStrategies2D::SmoothSnap(room_width, room_height);
+      Wicked::CameraControlStrategies2D::HorizontalRail *camera_control =
+         new Wicked::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
       camera_control->set_camera(&camera);
       camera_control->set_entity_to_follow(player_controlled_entity);
       camera_control->initialize();
@@ -280,14 +280,14 @@ functions:
 
       return;
     body_dependency_symbols:
-      - Tileo::Mesh*
-      - Tileo::TileMap*
+      - AllegroFlare::TileMaps::PrimMesh*
+      - AllegroFlare::TileMaps::TileMap<int>*
       - TileAtlasBuilder
       - Tileo::TMJMeshLoader
-      - Wicked::CameraControlStrategies::Snap
-      - Wicked::CameraControlStrategies::SmoothSnap
-      - Wicked::CameraControlStrategies::HorizontalRail
-      - Wicked::TileMaps::Basic2D
+      - Wicked::CameraControlStrategies2D::Snap
+      - Wicked::CameraControlStrategies2D::SmoothSnap
+      - Wicked::CameraControlStrategies2D::HorizontalRail
+      - AllegroFlare::TileMaps::Basic2D
 
 
   - name: setup_orthographic_projection_on_backbuffer
@@ -631,7 +631,7 @@ functions:
             float target_spawn_y = door->get_target_spawn_y();
 
             // find the target map
-            Wicked::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
+            AllegroFlare::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
 
             // reposition player in map
             player_controlled_entity->set(ON_MAP_NAME, map_target_name);
@@ -726,7 +726,7 @@ functions:
     body: |
       AllegroFlare::ScreenManager screen_manager;
       AllegroFlare::Framework framework(&screen_manager);
-      Wicked::EventEmitter event_emitter;
+      AllegroFlare::EventEmitter event_emitter;
 
       framework.initialize();
       event_emitter.initialize();
@@ -1030,33 +1030,33 @@ functions:
     body: |
       int button_num = event->user.data1;
 
-      if (button_num == Wicked::VirtualControls::get_BUTTON_B())
+      if (button_num == AllegroFlare::VirtualControls::get_BUTTON_B())
       {
          player_controls.set_a_button_pressed(true);
          set_player_controlled_entity_jump();
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_X())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_X())
       {
          reverse_gravity();
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_Y())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_Y())
       {
          player_emit_projectile();
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_RIGHT())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
       {
          player_controls.set_right_button_pressed(true);
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_LEFT())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_LEFT())
       {
          player_controls.set_left_button_pressed(true);
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_UP())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_UP())
       {
          player_controls.set_up_button_pressed(true);
          check_player_collisions_with_doors();
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_RIGHT_BUMPER())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER())
       {
          player_controls.set_right_bumper_pressed(true);
          set_showing_player_reticle(true);
@@ -1073,19 +1073,19 @@ functions:
     body: |
       int button_num = event->user.data1;
 
-      if (button_num == Wicked::VirtualControls::get_BUTTON_B())
+      if (button_num == AllegroFlare::VirtualControls::get_BUTTON_B())
       {
          player_controls.set_a_button_pressed(false);
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_RIGHT())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
       {
          player_controls.set_right_button_pressed(false);
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_LEFT())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_LEFT())
       {
          player_controls.set_left_button_pressed(false);
       }
-      else if (button_num == Wicked::VirtualControls::get_BUTTON_RIGHT_BUMPER())
+      else if (button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER())
       {
          if (bow.at_max()) player_emit_projectile(15.0f);
          bow.stop_draw();
@@ -1105,7 +1105,7 @@ functions:
       int axis = event->user.data2;
       float position = event->user.data3 / 255.0f;
 
-      if (stick == Wicked::VirtualControls::get_PRIMARY_STICK())
+      if (stick == AllegroFlare::VirtualControls::get_PRIMARY_STICK())
       {
          if (axis == 0)
          {
@@ -1163,7 +1163,7 @@ functions:
   - name: render_collision_tile_mesh
     guards: [ currently_active_map ]
     body: |
-      Tileo::TileMap *tile_map = currently_active_map->get_collision_tile_mesh();
+      AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_mesh();
       float tile_width=16.0f;
       float tile_height=16.0f;
 
@@ -1196,21 +1196,21 @@ functions:
 
   - name: get_tile_atlas
     guards: [ currently_active_map ]
-    type: Tileo::Atlas*
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
     body: |
       return currently_active_map->get_tile_atlas();
 
 
   - name: get_tile_mesh
     guards: [ currently_active_map ]
-    type: Tileo::Mesh*
+    type: AllegroFlare::TileMaps::PrimMesh*
     body: |
       return currently_active_map->get_tile_mesh();
 
 
   - name: get_collision_tile_mesh
     guards: [ currently_active_map ]
-    type: Tileo::TileMap*
+    type: AllegroFlare::TileMaps::TileMap<int>*
     body: |
       return currently_active_map->get_collision_tile_mesh();
 
@@ -1244,20 +1244,20 @@ dependencies:
     headers: [ allegro5/allegro_opengl.h ]
   - symbol: std::map<int, int>
     headers: [ map ]
-  - symbol: Wicked::VirtualControls
-    headers: [ Wicked/VirtualControls.hpp ]
-  - symbol: Wicked::VirtualControlsProcessor
-    headers: [ Wicked/VirtualControlsProcessor.hpp ]
-  - symbol: Tileo::TileMap*
-    headers: [ Tileo/TileMap.hpp ]
-  - symbol: Tileo::Atlas*
-    headers: [ Tileo/Atlas.hpp ]
-  - symbol: Wicked::EventEmitter*
-    headers: [ Wicked/EventEmitter.hpp ]
+  - symbol: AllegroFlare::VirtualControls
+    headers: [ AllegroFlare/VirtualControls.hpp ]
+  - symbol: AllegroFlare::VirtualControlsProcessor
+    headers: [ AllegroFlare/VirtualControlsProcessor.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMap*
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: Wicked::EventNames
     headers: [ Wicked/EventNames.hpp ]
-  - symbol: Tileo::Mesh*
-    headers: [ Tileo/Mesh.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMesh*
+    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
   - symbol: Tileo::TMJMeshLoader
     headers: [ Tileo/TMJMeshLoader.hpp ]
   - symbol: std::vector<Wicked::Entities::Basic2D*>
@@ -1292,22 +1292,22 @@ dependencies:
     headers: [ Wicked/EntityFlagNames.hpp ]
   - symbol: Wicked::Weapons::DrawnBow
     headers: [ Wicked/Weapons/DrawnBow.hpp ]
-  - symbol: Wicked::CameraControlStrategies::Base*
-    headers: [ Wicked/CameraControlStrategies/Base.hpp ]
-  - symbol: Wicked::CameraControlStrategies::Snap
-    headers: [ Wicked/CameraControlStrategies/Snap.hpp ]
-  - symbol: Wicked::CameraControlStrategies::SmoothSnap
-    headers: [ Wicked/CameraControlStrategies/SmoothSnap.hpp ]
-  - symbol: Wicked::CameraControlStrategies::HorizontalRail
-    headers: [ Wicked/CameraControlStrategies/HorizontalRail.hpp ]
+  - symbol: Wicked::CameraControlStrategies2D::Base*
+    headers: [ Wicked/CameraControlStrategies2D/Base.hpp ]
+  - symbol: Wicked::CameraControlStrategies2D::Snap
+    headers: [ Wicked/CameraControlStrategies2D/Snap.hpp ]
+  - symbol: Wicked::CameraControlStrategies2D::SmoothSnap
+    headers: [ Wicked/CameraControlStrategies2D/SmoothSnap.hpp ]
+  - symbol: Wicked::CameraControlStrategies2D::HorizontalRail
+    headers: [ Wicked/CameraControlStrategies2D/HorizontalRail.hpp ]
   - symbol: Wicked::Entities::CollectionHelper
     headers: [ Wicked/Entities/CollectionHelper.hpp ]
-  - symbol: Wicked::TileMaps::Basic2D
-    headers: [ Wicked/TileMaps/Basic2D.hpp ]
-  - symbol: Wicked::TileMaps::Basic2D*
-    headers: [ Wicked/TileMaps/Basic2D.hpp ]
-  - symbol: std::map<std::string, Wicked::TileMaps::Basic2D*>
-    headers: [ map, Wicked/TileMaps/Basic2D.hpp ]
+  - symbol: AllegroFlare::TileMaps::Basic2D
+    headers: [ AllegroFlare/TileMaps/Basic2D.hpp ]
+  - symbol: AllegroFlare::TileMaps::Basic2D*
+    headers: [ AllegroFlare/TileMaps/Basic2D.hpp ]
+  - symbol: std::map<std::string, AllegroFlare::TileMaps::Basic2D*>
+    headers: [ map, AllegroFlare/TileMaps/Basic2D.hpp ]
   - symbol: Wicked::Entities::Doors::Basic2D
     headers: [ Wicked/Entities/Doors/Basic2D.hpp ]
   - symbol: std::vector<Wicked::Entities::Basic2D*>&
@@ -1316,20 +1316,18 @@ dependencies:
     headers: [ algorithm ]
   - symbol: tan
     headers: [ cmath ]
-  - symbol: Tileo::Mesh
-    headers: [ Tileo/Mesh.hpp ]
-  - symbol: Tileo::TileMap
-    headers: [ Tileo/TileMap.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMesh
+    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMap
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: ALLEGRO_EVENT
-    headers: [ allegro5/allegro.hpp ]
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Display
     headers: [ AllegroFlare/Display.hpp ]
-  - symbol: Tileo::Atlas
-    headers: [ Tileo/Atlas.hpp ]
-  - symbol: Wicked::CameraControlStrategies::Base
-    headers: [ Wicked/CameraControlStrategies/Base.hpp ]
+  - symbol: Wicked::CameraControlStrategies2D::Base
+    headers: [ Wicked/CameraControlStrategies2D/Base.hpp ]
   - symbol: Wicked::Entities::Basic2D
     headers: [ Wicked/Entities/Basic2D.hpp ]
-  - symbol: Wicked::EventEmitter
-    headers: [ Wicked/EventEmitter.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 

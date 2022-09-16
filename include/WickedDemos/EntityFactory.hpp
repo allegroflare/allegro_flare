@@ -36,7 +36,7 @@ private:
    AllegroFlare::Shader *simple_map_shader;
    AllegroFlare::Shader *standard_compound_shader;
    bool initialized;
-   Tileo::Atlas atlas;
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
    //Tileo::Mesh *mesh;
    AllegroFlare::Random random;
 
@@ -44,7 +44,7 @@ private:
 public:
    EntityFactory();
 
-   Tileo::Atlas &get_atlas();
+   AllegroFlare::TileMaps::PrimMeshAtlas &get_atlas();
 
    void initialize();
 
