@@ -50,10 +50,14 @@ namespace AllegroFlare::TileMaps
 
 
 
-namespace Wicked
+namespace AllegroFlare
 {
    void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera);
    void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera);
+}
+
+namespace Wicked
+{
    void to_json(nlohmann::json& j, const Wicked::Entity& entity);
    void from_json(const nlohmann::json& j, Wicked::Entity& entity);
 }// namespace Wicked

@@ -158,7 +158,7 @@ namespace AllegroFlare::TileMaps
 
 
 
-namespace Wicked
+namespace AllegroFlare
 {
 
 
@@ -183,6 +183,14 @@ void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera)
    j.at("zoom").get_to(camera.zoom);
 }
 
+
+} // namespace AllegroFlare
+
+
+
+
+namespace Wicked
+{
 
 void to_json(nlohmann::json& j, const Wicked::Entity& entity)
 {
@@ -308,7 +316,7 @@ void LevelLoader::load(
    //if (!camera) throw std::runtime_error("need camera in LevelLoader::load");
    //if (!casting_light) throw std::runtime_error("need casting_light in LevelLoader::load");
 
-   AllegroFlare::TileMaps::Atlas &atlas = entity_factory.get_atlas();
+   AllegroFlare::TileMaps::PrimMeshAtlas &atlas = entity_factory.get_atlas();
 
    std::ifstream infile(json_filename);
    nlohmann::json j;
@@ -381,7 +389,7 @@ void LevelLoader::load(
 
 void LevelLoader::load_mesh_and_atlas(
       AllegroFlare::BitmapBin *bitmap_bin,
-      AllegroFlare::TileMaps::Atlas *atlas,
+      AllegroFlare::TileMaps::PrimMeshAtlas *atlas,
       AllegroFlare::TileMaps::PrimMesh *mesh,
       std::string json_string
    )
