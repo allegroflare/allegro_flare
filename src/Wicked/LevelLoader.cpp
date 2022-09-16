@@ -1,6 +1,9 @@
 #include <Wicked/LevelLoader.hpp>
 
 #include <fstream> // might be redundant
+#include <AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/JSONLoaders/AllegroFlare/Vec3D.hpp>
+#include <AllegroFlare/JSONLoaders/Allegro.hpp>
 
 #include <lib/nlohmann/json.hpp>
 
@@ -20,21 +23,21 @@ using AllegroFlare::Placement3D;
 
 namespace AllegroFlare
 {
-   void to_json(nlohmann::json& j, const vec3d& v)
-   {
-      j = nlohmann::json{
-         {"x", v.x},
-         {"y", v.y},
-         {"z", v.z},
-      };
-   }
+   //void to_json(nlohmann::json& j, const vec3d& v)
+   //{
+      //j = nlohmann::json{
+         //{"x", v.x},
+         //{"y", v.y},
+         //{"z", v.z},
+      //};
+   //}
 
-   void from_json(const nlohmann::json& j, vec3d& v)
-   {
-      j.at("x").get_to(v.x);
-      j.at("y").get_to(v.y);
-      j.at("z").get_to(v.z);
-   }
+   //void from_json(const nlohmann::json& j, vec3d& v)
+   //{
+      //j.at("x").get_to(v.x);
+      //j.at("y").get_to(v.y);
+      //j.at("z").get_to(v.z);
+   //}
 
    void to_json(nlohmann::json& j, const AllegroFlare::Placement3D& place)
    {
@@ -61,23 +64,23 @@ namespace AllegroFlare
 
 
 
-void to_json(nlohmann::json& j, const ALLEGRO_COLOR& color)
-{
-   j = nlohmann::json{
-      {"r", color.r},
-      {"g", color.g},
-      {"b", color.b},
-      {"a", color.a},
-   };
-}
+//void to_json(nlohmann::json& j, const ALLEGRO_COLOR& color)
+//{
+   //j = nlohmann::json{
+      //{"r", color.r},
+      //{"g", color.g},
+      //{"b", color.b},
+      //{"a", color.a},
+   //};
+//}
 
-void from_json(const nlohmann::json& j, ALLEGRO_COLOR& color)
-{
-   j.at("r").get_to(color.r);
-   j.at("g").get_to(color.g);
-   j.at("b").get_to(color.b);
-   j.at("a").get_to(color.a);
-}
+//void from_json(const nlohmann::json& j, ALLEGRO_COLOR& color)
+//{
+   //j.at("r").get_to(color.r);
+   //j.at("g").get_to(color.g);
+   //j.at("b").get_to(color.b);
+   //j.at("a").get_to(color.a);
+//}
 
 
 //class Camera3
@@ -158,33 +161,33 @@ namespace AllegroFlare::TileMaps
 
 
 
-namespace AllegroFlare
-{
+//namespace AllegroFlare
+//{
 
 
-void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera)
-{
-   j = nlohmann::json{
-      {"position", camera.position},
-      {"stepout", camera.stepout},
-      {"spin", camera.spin},
-      {"tilt", camera.tilt},
-      {"zoom", camera.zoom},
-   };
-}
+//void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera)
+//{
+   //j = nlohmann::json{
+      //{"position", camera.position},
+      //{"stepout", camera.stepout},
+      //{"spin", camera.spin},
+      //{"tilt", camera.tilt},
+      //{"zoom", camera.zoom},
+   //};
+//}
 
 
-void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera)
-{
-   j.at("position").get_to(camera.position);
-   j.at("stepout").get_to(camera.stepout);
-   j.at("spin").get_to(camera.spin);
-   j.at("tilt").get_to(camera.tilt);
-   j.at("zoom").get_to(camera.zoom);
-}
+//void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera)
+//{
+   //j.at("position").get_to(camera.position);
+   //j.at("stepout").get_to(camera.stepout);
+   //j.at("spin").get_to(camera.spin);
+   //j.at("tilt").get_to(camera.tilt);
+   //j.at("zoom").get_to(camera.zoom);
+//}
 
 
-} // namespace AllegroFlare
+//} // namespace AllegroFlare
 
 
 

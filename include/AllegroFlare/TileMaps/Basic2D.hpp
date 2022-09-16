@@ -4,13 +4,14 @@
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
+#include <Wicked/Entities/Basic2D.hpp>
 
 
 namespace AllegroFlare
 {
    namespace TileMaps
    {
-      class Basic2D
+      class Basic2D : public Wicked::Entities::Basic2D
       {
       private:
          AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas;
@@ -30,6 +31,7 @@ namespace AllegroFlare
          AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas() const;
          AllegroFlare::TileMaps::PrimMesh* get_tile_mesh() const;
          AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_mesh() const;
+         void TODO();
       };
    }
 }

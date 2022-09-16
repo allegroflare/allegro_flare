@@ -12,7 +12,8 @@ namespace TileMaps
 
 
 Basic2D::Basic2D()
-   : tile_atlas(nullptr)
+   : Wicked::Entities::Basic2D()
+   , tile_atlas(nullptr)
    , tile_mesh(nullptr)
    , collision_tile_mesh(nullptr)
 {
@@ -60,6 +61,13 @@ AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_mesh() const
 }
 
 
+void Basic2D::TODO()
+{
+   // This class currently derives from Wicked::Entities::Basic2D so that the
+   // it can be used in WickedDemo as an entity. Please factor this out
+   // so that this class can be stand-alone.
+   return;
+}
 
 
 } // namespace TileMaps

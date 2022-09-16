@@ -14,8 +14,8 @@ using Wicked::Entity;
 
 namespace AllegroFlare
 {
-   void to_json(nlohmann::json& j, const vec3d& v);
-   void from_json(const nlohmann::json& j, vec3d& v);
+   //void to_json(nlohmann::json& j, const vec3d& v);
+   //void from_json(const nlohmann::json& j, vec3d& v);
    void to_json(nlohmann::json& j, const AllegroFlare::Placement3D& place);
    void from_json(const nlohmann::json& j, AllegroFlare::Placement3D& place);
 }
@@ -29,8 +29,8 @@ namespace AllegroFlare
 
 
 
-void to_json(nlohmann::json& j, const ALLEGRO_COLOR& color);
-void from_json(const nlohmann::json& j, ALLEGRO_COLOR& color);
+//void to_json(nlohmann::json& j, const ALLEGRO_COLOR& color);
+//void from_json(const nlohmann::json& j, ALLEGRO_COLOR& color);
 
 //class Camera3
 //{
@@ -50,11 +50,11 @@ namespace AllegroFlare::TileMaps
 
 
 
-namespace AllegroFlare
-{
-   void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera);
-   void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera);
-}
+//namespace AllegroFlare
+//{
+   //void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera);
+   //void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera);
+//}
 
 namespace Wicked
 {
