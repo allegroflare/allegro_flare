@@ -323,18 +323,12 @@ functions:
     type: void
     guards: [ framework ]
     body: |
-      std::cout << "AAAAAAAAA" << std::endl;
       initialize_display_projection();
-      std::cout << "BBBBBBBB" << std::endl;
       initialize_maps();
       initialize_entities();
-      std::cout << "CCCCCCCC" << std::endl;
       initialize_hud();
-      std::cout << "DDDDDDDDDD" << std::endl;
       initialize_camera_control();
-      std::cout << "EEEEEEEEE" << std::endl;
       initialize_player_controls();
-      std::cout << "FFFFFFFFF" << std::endl;
 
       initialized = true;
 
@@ -585,11 +579,10 @@ functions:
       bow.update();
       std::cout << "YYYYYYYYY" << std::endl;
 
-      return;
-
       // step
       for (auto &entity : get_current_map_entities())
       {
+         //continue;
          if (entity->exists(DOES_NOT_COLLIDE_WITH_WORLD))
          {
             AllegroFlare::Placement2D &place = entity->get_place_ref();
@@ -647,15 +640,19 @@ functions:
 
       // update the collectables
       update_player_collisions_with_collectables();
+      std::cout << "-------------" << std::endl;
 
       // update the player colliding on the goalposts
       update_player_collisions_with_goalposts();
 
+      std::cout << "!!!!!!!!!!!!!!" << std::endl;
       // update the player colliding on the doors
       //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
 
       // delete entities flagged to be deleted
       delete_entities_flagged_for_deletion();
+
+      std::cout << "RRRRRRRRRRRRRR" << std::endl;
 
       // update camera
       if (camera_control_strategy) camera_control_strategy->update();
@@ -902,7 +899,6 @@ functions:
   - name: draw
     guards: [ initialized, framework, currently_active_map, get_tile_mesh() ]
     body: |
-      return;
       //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
       //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
       //al_clear_depth_buffer(1000);
@@ -990,9 +986,19 @@ functions:
     virtual: true
     override: true
     body: |
+      al_draw_filled_rectangle(0, 0, 200, 300, ALLEGRO_COLOR{0, 1, 1, 1});
       //update();
       //draw();
       //al_flip_display();
+      return;
+
+
+  - name: __primary_timer_func
+    virtual: true
+    xoverride: true
+    body: |
+      update();
+      draw();
       return;
 
 

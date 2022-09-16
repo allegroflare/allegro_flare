@@ -336,18 +336,12 @@ void TileDemo::initialize()
       error_message << "TileDemo" << "::" << "initialize" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
-   std::cout << "AAAAAAAAA" << std::endl;
    initialize_display_projection();
-   std::cout << "BBBBBBBB" << std::endl;
    initialize_maps();
    initialize_entities();
-   std::cout << "CCCCCCCC" << std::endl;
    initialize_hud();
-   std::cout << "DDDDDDDDDD" << std::endl;
    initialize_camera_control();
-   std::cout << "EEEEEEEEE" << std::endl;
    initialize_player_controls();
-   std::cout << "FFFFFFFFF" << std::endl;
 
    initialized = true;
 
@@ -612,11 +606,10 @@ void TileDemo::update_entities()
    bow.update();
    std::cout << "YYYYYYYYY" << std::endl;
 
-   return;
-
    // step
    for (auto &entity : get_current_map_entities())
    {
+      //continue;
       if (entity->exists(DOES_NOT_COLLIDE_WITH_WORLD))
       {
          AllegroFlare::Placement2D &place = entity->get_place_ref();
@@ -674,15 +667,19 @@ void TileDemo::update_entities()
 
    // update the collectables
    update_player_collisions_with_collectables();
+   std::cout << "-------------" << std::endl;
 
    // update the player colliding on the goalposts
    update_player_collisions_with_goalposts();
 
+   std::cout << "!!!!!!!!!!!!!!" << std::endl;
    // update the player colliding on the doors
    //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
 
    // delete entities flagged to be deleted
    delete_entities_flagged_for_deletion();
+
+   std::cout << "RRRRRRRRRRRRRR" << std::endl;
 
    // update camera
    if (camera_control_strategy) camera_control_strategy->update();
@@ -963,7 +960,6 @@ void TileDemo::draw()
       error_message << "TileDemo" << "::" << "draw" << ": error: " << "guard \"get_tile_mesh()\" not met";
       throw std::runtime_error(error_message.str());
    }
-   return;
    //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
    //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
    //al_clear_depth_buffer(1000);
@@ -1052,9 +1048,17 @@ void TileDemo::toggle_show_tile_mesh()
 
 void TileDemo::primary_timer_func()
 {
+   al_draw_filled_rectangle(0, 0, 200, 300, ALLEGRO_COLOR{0, 1, 1, 1});
    //update();
    //draw();
    //al_flip_display();
+   return;
+}
+
+void TileDemo::__primary_timer_func()
+{
+   update();
+   draw();
    return;
 }
 

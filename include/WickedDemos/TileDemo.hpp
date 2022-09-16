@@ -104,6 +104,7 @@ namespace WickedDemos
       void toggle_show_collision_tile_mesh();
       void toggle_show_tile_mesh();
       virtual void primary_timer_func() override;
+      virtual void __primary_timer_func();
       virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
       virtual void joy_button_down_func(ALLEGRO_EVENT* event=nullptr) override;
       virtual void joy_button_up_func(ALLEGRO_EVENT* event=nullptr) override;
