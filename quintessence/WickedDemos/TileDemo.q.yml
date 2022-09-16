@@ -89,7 +89,7 @@ properties:
     type: AllegroFlare::VirtualControls
     init_with: ''
 
-  - name: virtual_controls_processor
+  - name: XXvirtual_controls_processor
     type: AllegroFlare::VirtualControlsProcessor
     init_with: ''
 
@@ -313,8 +313,8 @@ functions:
 
   - name: initialize_player_controls
     body: |
-      virtual_controls_processor.set_event_emitter(event_emitter);
-      virtual_controls_processor.initialize();
+      //virtual_controls_processor.set_event_emitter(event_emitter);
+      //virtual_controls_processor.initialize();
       player_controls.clear();
       return;
 
@@ -568,7 +568,7 @@ functions:
       }
 
 
-      std::cout << "XXXXXXXXXXX" << std::endl;
+      //std::cout << "XXXXXXXXXXX" << std::endl;
       // update the entities (typically includes movement strategies), may need to be done before applying gravity
       for (auto &entity : get_current_map_entities())
       {
@@ -577,7 +577,7 @@ functions:
 
       // weapons
       bow.update();
-      std::cout << "YYYYYYYYY" << std::endl;
+      //std::cout << "YYYYYYYYY" << std::endl;
 
       // step
       for (auto &entity : get_current_map_entities())
@@ -592,7 +592,7 @@ functions:
             continue;
          }
 
-         std::cout << "11111111111" << std::endl;
+         //std::cout << "11111111111" << std::endl;
 
          AllegroFlare::Placement2D &place = entity->get_place_ref();
          AllegroFlare::Placement2D &velocity = entity->get_velocity_ref();
@@ -613,9 +613,9 @@ functions:
             tile_height
          );
 
-         std::cout << "2222222222222" << std::endl;
+         //std::cout << "2222222222222" << std::endl;
          collision_stepper.step();
-         std::cout << "3333333333" << std::endl;
+         //std::cout << "3333333333" << std::endl;
 
          place.position.x = aabb2d.get_x() + place.size.x * place.align.x;
          place.position.y = aabb2d.get_y() + place.size.y * place.align.y;
@@ -636,23 +636,23 @@ functions:
          else entity->remove(ADJACENT_TO_RIGHT_WALL);
       }
 
-      std::cout << "ZZZZZZZZZZ" << std::endl;
+      //std::cout << "ZZZZZZZZZZ" << std::endl;
 
       // update the collectables
       update_player_collisions_with_collectables();
-      std::cout << "-------------" << std::endl;
+      //std::cout << "-------------" << std::endl;
 
       // update the player colliding on the goalposts
       update_player_collisions_with_goalposts();
 
-      std::cout << "!!!!!!!!!!!!!!" << std::endl;
+      //std::cout << "!!!!!!!!!!!!!!" << std::endl;
       // update the player colliding on the doors
       //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
 
       // delete entities flagged to be deleted
       delete_entities_flagged_for_deletion();
 
-      std::cout << "RRRRRRRRRRRRRR" << std::endl;
+         //std::cout << "RRRRRRRRRRRRRR" << std::endl;
 
       // update camera
       if (camera_control_strategy) camera_control_strategy->update();
@@ -986,9 +986,9 @@ functions:
     virtual: true
     override: true
     body: |
-      al_draw_filled_rectangle(0, 0, 200, 300, ALLEGRO_COLOR{0, 1, 1, 1});
-      //update();
-      //draw();
+      //al_draw_filled_rectangle(0, 0, 200, 300, ALLEGRO_COLOR{0, 1, 1, 1});
+      update();
+      draw();
       //al_flip_display();
       return;
 
@@ -1025,39 +1025,67 @@ functions:
       return;
 
 
-  - name: joy_button_down_func
+  - name: _joy_button_down_func
     virtual: true
-    override: true
+    xoverride: true
     parameters:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
     body: |
-      virtual_controls_processor.handle_raw_joystick_button_down_event(event);
+      //virtual_controls_processor.handle_raw_joystick_button_down_event(event);
       return;
 
 
-  - name: joy_button_up_func
+  - name: _joy_button_up_func
     virtual: true
-    override: true
+    xoverride: true
     parameters:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
     body: |
-      virtual_controls_processor.handle_raw_joystick_button_up_event(event);
+      //virtual_controls_processor.handle_raw_joystick_button_up_event(event);
       return;
      
 
-  - name: joy_axis_func
+  - name: _joy_axis_func
     virtual: true
-    override: true
+    xoverride: true
     parameters:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
     body: |
-      virtual_controls_processor.handle_raw_joystick_axis_change_event(event);
+      //virtual_controls_processor.handle_raw_joystick_axis_change_event(event);
+      return;
+
+
+  - name: _key_up_func
+    virtual: true
+    xoverride: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event, framework ]
+    body: |
+      //virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
+      return;
+
+
+  - name: _key_down_func
+    virtual: true
+    xoverride: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event, framework ]
+    body: |
+      if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
+
+      //virtual_controls_processor.handle_raw_keyboard_key_down_event(event);
       return;
 
 
@@ -1070,7 +1098,16 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event, framework ]
     body: |
-      virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
+      switch (event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_LEFT:
+            player_controls.set_left_button_pressed(false);
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+            player_controls.set_right_button_pressed(false);
+         break;
+      }
       return;
 
 
@@ -1083,9 +1120,20 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event, framework ]
     body: |
-      if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
+      switch (event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_LEFT:
+            player_controls.set_left_button_pressed(true);
+         break;
 
-      virtual_controls_processor.handle_raw_keyboard_key_down_event(event);
+         case ALLEGRO_KEY_RIGHT:
+            player_controls.set_right_button_pressed(true);
+         break;
+
+         case ALLEGRO_KEY_SPACE:
+            set_player_controlled_entity_jump();
+         break;
+      }
       return;
 
 
@@ -1096,6 +1144,8 @@ functions:
         default_argument: nullptr
     body: |
       int button_num = event->user.data1;
+
+      std::cout << "AAAAAAAAAA" << std::endl;
 
       if (button_num == AllegroFlare::VirtualControls::get_BUTTON_B())
       {

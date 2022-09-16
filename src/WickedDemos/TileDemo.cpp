@@ -48,7 +48,7 @@ TileDemo::TileDemo(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Disp
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , player_controls()
-   , virtual_controls_processor()
+   , XXvirtual_controls_processor()
    , showing_player_reticle(false)
    , player_reticle_vector()
    , bow()
@@ -322,8 +322,8 @@ void TileDemo::initialize_camera_control()
 
 void TileDemo::initialize_player_controls()
 {
-   virtual_controls_processor.set_event_emitter(event_emitter);
-   virtual_controls_processor.initialize();
+   //virtual_controls_processor.set_event_emitter(event_emitter);
+   //virtual_controls_processor.initialize();
    player_controls.clear();
    return;
 }
@@ -595,7 +595,7 @@ void TileDemo::update_entities()
    }
 
 
-   std::cout << "XXXXXXXXXXX" << std::endl;
+   //std::cout << "XXXXXXXXXXX" << std::endl;
    // update the entities (typically includes movement strategies), may need to be done before applying gravity
    for (auto &entity : get_current_map_entities())
    {
@@ -604,7 +604,7 @@ void TileDemo::update_entities()
 
    // weapons
    bow.update();
-   std::cout << "YYYYYYYYY" << std::endl;
+   //std::cout << "YYYYYYYYY" << std::endl;
 
    // step
    for (auto &entity : get_current_map_entities())
@@ -619,7 +619,7 @@ void TileDemo::update_entities()
          continue;
       }
 
-      std::cout << "11111111111" << std::endl;
+      //std::cout << "11111111111" << std::endl;
 
       AllegroFlare::Placement2D &place = entity->get_place_ref();
       AllegroFlare::Placement2D &velocity = entity->get_velocity_ref();
@@ -640,9 +640,9 @@ void TileDemo::update_entities()
          tile_height
       );
 
-      std::cout << "2222222222222" << std::endl;
+      //std::cout << "2222222222222" << std::endl;
       collision_stepper.step();
-      std::cout << "3333333333" << std::endl;
+      //std::cout << "3333333333" << std::endl;
 
       place.position.x = aabb2d.get_x() + place.size.x * place.align.x;
       place.position.y = aabb2d.get_y() + place.size.y * place.align.y;
@@ -663,23 +663,23 @@ void TileDemo::update_entities()
       else entity->remove(ADJACENT_TO_RIGHT_WALL);
    }
 
-   std::cout << "ZZZZZZZZZZ" << std::endl;
+   //std::cout << "ZZZZZZZZZZ" << std::endl;
 
    // update the collectables
    update_player_collisions_with_collectables();
-   std::cout << "-------------" << std::endl;
+   //std::cout << "-------------" << std::endl;
 
    // update the player colliding on the goalposts
    update_player_collisions_with_goalposts();
 
-   std::cout << "!!!!!!!!!!!!!!" << std::endl;
+   //std::cout << "!!!!!!!!!!!!!!" << std::endl;
    // update the player colliding on the doors
    //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
 
    // delete entities flagged to be deleted
    delete_entities_flagged_for_deletion();
 
-   std::cout << "RRRRRRRRRRRRRR" << std::endl;
+      //std::cout << "RRRRRRRRRRRRRR" << std::endl;
 
    // update camera
    if (camera_control_strategy) camera_control_strategy->update();
@@ -1048,9 +1048,9 @@ void TileDemo::toggle_show_tile_mesh()
 
 void TileDemo::primary_timer_func()
 {
-   al_draw_filled_rectangle(0, 0, 200, 300, ALLEGRO_COLOR{0, 1, 1, 1});
-   //update();
-   //draw();
+   //al_draw_filled_rectangle(0, 0, 200, 300, ALLEGRO_COLOR{0, 1, 1, 1});
+   update();
+   draw();
    //al_flip_display();
    return;
 }
@@ -1096,21 +1096,71 @@ void TileDemo::key_char_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void TileDemo::joy_button_down_func(ALLEGRO_EVENT* event)
+void TileDemo::_joy_button_down_func(ALLEGRO_EVENT* event)
 {
-   virtual_controls_processor.handle_raw_joystick_button_down_event(event);
+   //virtual_controls_processor.handle_raw_joystick_button_down_event(event);
    return;
 }
 
-void TileDemo::joy_button_up_func(ALLEGRO_EVENT* event)
+void TileDemo::_joy_button_up_func(ALLEGRO_EVENT* event)
 {
-   virtual_controls_processor.handle_raw_joystick_button_up_event(event);
+   //virtual_controls_processor.handle_raw_joystick_button_up_event(event);
    return;
 }
 
-void TileDemo::joy_axis_func(ALLEGRO_EVENT* event)
+void TileDemo::_joy_axis_func(ALLEGRO_EVENT* event)
 {
-   virtual_controls_processor.handle_raw_joystick_axis_change_event(event);
+   //virtual_controls_processor.handle_raw_joystick_axis_change_event(event);
+   return;
+}
+
+void TileDemo::_key_up_func(ALLEGRO_EVENT* event)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "TileDemo" << "::" << "_key_up_func" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(event))
+   {
+      std::stringstream error_message;
+      error_message << "TileDemo" << "::" << "_key_up_func" << ": error: " << "guard \"event\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(framework))
+   {
+      std::stringstream error_message;
+      error_message << "TileDemo" << "::" << "_key_up_func" << ": error: " << "guard \"framework\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   //virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
+   return;
+}
+
+void TileDemo::_key_down_func(ALLEGRO_EVENT* event)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "TileDemo" << "::" << "_key_down_func" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(event))
+   {
+      std::stringstream error_message;
+      error_message << "TileDemo" << "::" << "_key_down_func" << ": error: " << "guard \"event\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(framework))
+   {
+      std::stringstream error_message;
+      error_message << "TileDemo" << "::" << "_key_down_func" << ": error: " << "guard \"framework\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
+
+   //virtual_controls_processor.handle_raw_keyboard_key_down_event(event);
    return;
 }
 
@@ -1134,7 +1184,16 @@ void TileDemo::key_up_func(ALLEGRO_EVENT* event)
       error_message << "TileDemo" << "::" << "key_up_func" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
-   virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
+   switch (event->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_LEFT:
+         player_controls.set_left_button_pressed(false);
+      break;
+
+      case ALLEGRO_KEY_RIGHT:
+         player_controls.set_right_button_pressed(false);
+      break;
+   }
    return;
 }
 
@@ -1158,15 +1217,28 @@ void TileDemo::key_down_func(ALLEGRO_EVENT* event)
       error_message << "TileDemo" << "::" << "key_down_func" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
+   switch (event->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_LEFT:
+         player_controls.set_left_button_pressed(true);
+      break;
 
-   virtual_controls_processor.handle_raw_keyboard_key_down_event(event);
+      case ALLEGRO_KEY_RIGHT:
+         player_controls.set_right_button_pressed(true);
+      break;
+
+      case ALLEGRO_KEY_SPACE:
+         set_player_controlled_entity_jump();
+      break;
+   }
    return;
 }
 
 void TileDemo::virtual_control_button_down_func(ALLEGRO_EVENT* event)
 {
    int button_num = event->user.data1;
+
+   std::cout << "AAAAAAAAAA" << std::endl;
 
    if (button_num == AllegroFlare::VirtualControls::get_BUTTON_B())
    {

@@ -80,13 +80,13 @@ functions:
         default_argument: '"[find-map-name-not-set]"'
     guards: [ entities ]
     body: |
-      std::runtime_error("find_map_by_name not implemented");
+      //throw std::runtime_error("find_map_by_name not implemented");
       //std::vector<Wicked::Entities::Basic2D*> result;
-      //for (auto &entity : (*entities))
-      //{
-         //if (entity->exists(MAP_NAME, map_name)) return static_cast<AllegroFlare::TileMaps::Basic2D*>(entity);
-      //}
-      //return nullptr;
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(MAP_NAME, map_name)) return static_cast<AllegroFlare::TileMaps::Basic2D*>(entity);
+      }
+      return nullptr;
     body_dependency_symbols:
       - Wicked::EntityFlagNames
 

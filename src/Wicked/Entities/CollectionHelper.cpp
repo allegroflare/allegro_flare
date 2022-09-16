@@ -108,13 +108,13 @@ AllegroFlare::TileMaps::Basic2D* CollectionHelper::find_map_by_name(std::string 
       error_message << "CollectionHelper" << "::" << "find_map_by_name" << ": error: " << "guard \"entities\" not met";
       throw std::runtime_error(error_message.str());
    }
-   std::runtime_error("find_map_by_name not implemented");
+   //throw std::runtime_error("find_map_by_name not implemented");
    //std::vector<Wicked::Entities::Basic2D*> result;
-   //for (auto &entity : (*entities))
-   //{
-      //if (entity->exists(MAP_NAME, map_name)) return static_cast<AllegroFlare::TileMaps::Basic2D*>(entity);
-   //}
-   //return nullptr;
+   for (auto &entity : (*entities))
+   {
+      if (entity->exists(MAP_NAME, map_name)) return static_cast<AllegroFlare::TileMaps::Basic2D*>(entity);
+   }
+   return nullptr;
 }
 
 
