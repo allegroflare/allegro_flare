@@ -5,6 +5,7 @@
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Elements/Inventory.hpp>
+#include <AllegroFlare/InventoryIndex.hpp>
 //#include <Wicked/Inventory.hpp>
 #include <Wicked/LevelLoader.hpp>
 #include <Wicked/PlayerControl.hpp>
@@ -12,13 +13,14 @@
 #include <Wicked/SceneRenderer.hpp>
 #include <Wicked/Light.hpp>
 
-#include <Tileo/Atlas.hpp>
-#include <Tileo/Mesh.hpp>
+//#include <Tileo/Atlas.hpp>
+//#include <Tileo/Mesh.hpp>
 #include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/Screen.hpp> //
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Motion.hpp>
+//#include <AllegroFlare/Motion.hpp>
 
 #include <AllegroFlare/Display.hpp> //
 #include <AllegroFlare/Framework.hpp> //
@@ -76,12 +78,14 @@ public:
    // bins
    AllegroFlare::Framework *framework;
 
+   AllegroFlare::InventoryIndex inventory_index;
    //ALLEGRO_BITMAP *backbuffer_sub_bitmap;
 
    BitmapBin bitmap_bin;
    SampleBin sample_bin;
    FontBin font_bin;
    AllegroFlare::Random random;
+
 
    ModelRepository model_repository;
    EntityFactory entity_factory;
@@ -98,7 +102,7 @@ public:
    static float max_zoom;
 
    // assets
-   Wicked::Camera3 camera;
+   AllegroFlare::Camera3D camera;
    ShadowCastingLight casting_light;
    Light light;
    vec2d texture_offset;

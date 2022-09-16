@@ -730,7 +730,8 @@ functions:
 
       framework.initialize();
       event_emitter.initialize();
-      al_register_event_source(framework.event_queue, &event_emitter.get_screen_switcher_event_source_ref());
+      //al_register_event_source(framework.event_queue, &event_emitter.get_event_source_ref());
+      al_register_event_source(framework.event_queue, &event_emitter.get_event_source_ref());
 
       framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/bitmaps");
 
@@ -1142,22 +1143,22 @@ functions:
     body: |
       switch(event->type)
       {
-         case WICKED_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
+         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
            virtual_control_button_up_func(event);
          break;
 
-         case WICKED_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
+         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
            virtual_control_button_down_func(event);
          break;
 
-         case WICKED_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
+         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
            virtual_control_axis_change_func(event);
          break;
       }
 
       return;
     body_dependency_symbols:
-      - Wicked::EventNames
+      - AllegroFlare::EventNames
 
 
   - name: render_collision_tile_mesh
@@ -1254,8 +1255,8 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
   - symbol: AllegroFlare::EventEmitter*
     headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: Wicked::EventNames
-    headers: [ Wicked/EventNames.hpp ]
+  - symbol: AllegroFlare::EventNames
+    headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMesh*
     headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
   - symbol: Tileo::TMJMeshLoader

@@ -14,6 +14,7 @@ using AllegroFlare::TAU;
 FunzDemo::FunzDemo(AllegroFlare::Framework *framework, Display *display)
    : framework(framework)
    , Screen(display)
+   , inventory_index()
    , bitmap_bin()
    , sample_bin()
    , font_bin()
@@ -53,12 +54,18 @@ FunzDemo::FunzDemo(AllegroFlare::Framework *framework, Display *display)
    , menu_cursor_move_click_sound(nullptr)
    , camera_target_zoom(1.0)
    , af_inventory()
-   , inventory(&font_bin, &bitmap_bin, &af_inventory, CREATORS_INVENTORY_INDEX)
+   //, inventory(&font_bin, &bitmap_bin, &af_inventory, CREATORS_INVENTORY_INDEX)
+   , inventory(&font_bin, &bitmap_bin, &af_inventory, &inventory_index, nullptr)
+                                                  // ^^ note new nullptr event_emitter
    , input_mode(INPUT_MODE_WORLD_BUILDING)
    , control_strategy(nullptr)
    //, atlas()
    //, mesh(&atlas, 10, 20)
-{}
+{
+   // TODO: note this is a cheap replacement for the map in globls.hpp
+   inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;
+}
 
 FunzDemo::~FunzDemo()
 {
@@ -156,7 +163,9 @@ void FunzDemo::initialize()
    shadow_map_depth_pass_surface = al_create_bitmap(display->get_width(), display->get_height());
    hud_surface = al_create_sub_bitmap(al_get_backbuffer(display->al_display), 0, 0, display->get_width(), display->get_height());
 
-   inventory.scale_for(al_get_bitmap_width(hud_surface), al_get_bitmap_height(hud_surface));
+   //inventory.scale_for(al_get_bitmap_width(hud_surface), al_get_bitmap_height(hud_surface));
+   // ^^ NOTE: not sure what this is for
+   std::cout << "WARNING: FunzDemo::initialize() bypassing inventory.scale_for(..). This could cause the inventory window to not appear properly." << std::endl;
 
 
 

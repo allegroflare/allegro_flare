@@ -120,7 +120,7 @@ void EntityFactory::initialize()
 
 Entity *EntityFactory::create_basic_mesh(int num_columns, int num_rows, vec3d position)
 {
-   Tileo::Mesh *mesh = new Tileo::Mesh(&atlas, num_columns, num_rows);
+   AllegroFlare::TileMaps::PrimMesh *mesh = new AllegroFlare::TileMaps::PrimMesh(&atlas, num_columns, num_rows);
    //mesh->flip_z();
    mesh->initialize();
 

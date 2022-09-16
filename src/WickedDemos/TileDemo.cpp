@@ -2,6 +2,7 @@
 
 #include <WickedDemos/TileDemo.hpp>
 
+#include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Framework.hpp>
 #include <AllegroFlare/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
@@ -15,7 +16,6 @@
 #include <Wicked/Entities/CollectionHelper.hpp>
 #include <Wicked/Entities/Doors/Basic2D.hpp>
 #include <Wicked/EntityFlagNames.hpp>
-#include <Wicked/EventNames.hpp>
 #include <Wicked/Physics/AABB2D.hpp>
 #include <Wicked/Physics/TileMapCollisionStepper.hpp>
 #include <algorithm>
@@ -765,7 +765,8 @@ void TileDemo::run(std::vector<std::string> args)
 
    framework.initialize();
    event_emitter.initialize();
-   al_register_event_source(framework.event_queue, &event_emitter.get_screen_switcher_event_source_ref());
+   //al_register_event_source(framework.event_queue, &event_emitter.get_event_source_ref());
+   al_register_event_source(framework.event_queue, &event_emitter.get_event_source_ref());
 
    framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/bitmaps");
 
@@ -1201,15 +1202,15 @@ void TileDemo::user_event_func(ALLEGRO_EVENT* event)
 {
    switch(event->type)
    {
-      case WICKED_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
+      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
         virtual_control_button_up_func(event);
       break;
 
-      case WICKED_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
+      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
         virtual_control_button_down_func(event);
       break;
 
-      case WICKED_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
+      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
         virtual_control_axis_change_func(event);
       break;
    }
