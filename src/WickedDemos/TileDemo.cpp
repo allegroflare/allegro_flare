@@ -176,6 +176,7 @@ void TileDemo::initialize_maps()
 {
    // load up a world
    Wicked::Entities::Basic2DFactory factory(&framework->get_bitmap_bin_ref());
+   //Wicked::Entities::Basic2D *created_map = nullptr;
    Wicked::Entities::Basic2D *created_map = nullptr;
 
    std::map<std::string, std::string> map_dictionary_entries = {
@@ -189,6 +190,29 @@ void TileDemo::initialize_maps()
       std::string map_filename = std::get<1>(map_dictionary_entry);
 
       created_map = factory.create_tile_map(map_filename, map_name);
+
+      if (!created_map)
+      {
+         std::cout << "ERROR: Could not create map \"" << map_filename << "\"" << std::endl;
+      }
+      else
+      {
+         std::cout << "NOTE: TMJ Tile map file \"" << map_filename << "\" loaded successfully." << std::endl;
+      }
+
+      AllegroFlare::TileMaps::Basic2D* __created_map =
+         static_cast<AllegroFlare::TileMaps::Basic2D*>(created_map); // = nullptr;
+
+      if (!__created_map->get_tile_mesh())
+      {
+         std::cout << "ERROR: could not create tile mesh on \"" << map_filename << "\"" << std::endl;
+      }
+      else
+      {
+         std::cout << "NOTE: TMJ Tile loaded tile mesh \"" << map_filename << "\" loaded successfully." << std::endl;
+      }
+
+
       entities.push_back(created_map);
    }
 
@@ -283,12 +307,18 @@ void TileDemo::initialize()
       error_message << "TileDemo" << "::" << "initialize" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
+   std::cout << "AAAAAAAAA" << std::endl;
    initialize_display_projection();
+   std::cout << "BBBBBBBB" << std::endl;
    initialize_maps();
    initialize_entities();
+   std::cout << "CCCCCCCC" << std::endl;
    initialize_hud();
+   std::cout << "DDDDDDDDDD" << std::endl;
    initialize_camera_control();
+   std::cout << "EEEEEEEEE" << std::endl;
    initialize_player_controls();
+   std::cout << "FFFFFFFFF" << std::endl;
 
    initialized = true;
 

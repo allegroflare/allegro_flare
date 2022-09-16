@@ -66,6 +66,7 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
+    "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
   ],
   "AllegroFlare/Elements/Backgrounds/Monoplex": [
@@ -327,7 +328,8 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "Wicked/CameraControlStrategies2D/Base",
-    "Wicked/Entities/Basic2D"
+    "Wicked/Entities/Basic2D",
+    "WickedDemos/TileDemo"
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
@@ -356,7 +358,8 @@
     "Wicked/Entities/Basic2D"
   ],
   "tan": [
-    "AllegroFlare/Camera2D"
+    "AllegroFlare/Camera2D",
+    "WickedDemos/TileDemo"
   ],
   "GLuint": [
     "AllegroFlare/Cubemap"
@@ -515,7 +518,9 @@
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/VirtualControlsProcessor",
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/AdvancingText",
@@ -529,7 +534,9 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor",
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Elements/AdvancingText",
@@ -703,7 +710,9 @@
   ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "al_draw_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -1019,7 +1028,9 @@
   ],
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",
-    "AllegroFlare/MotionComposer/MessageProcessor"
+    "AllegroFlare/MotionComposer/MessageProcessor",
+    "Tileo/TMJDataLoader",
+    "Tileo/TMJMeshLoader"
   ],
   "AllegroFlare/MotionComposer/Messages/Base": [
     "AllegroFlare/MotionComposer/MessageProcessor",
@@ -1287,7 +1298,11 @@
   "AllegroFlare/TileMaps/TileMap": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/TileMaps/Basic2D",
-    "Wicked/Physics/TileMapCollisionStepper"
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Physics/TileMapCollisionStepper",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
@@ -1303,7 +1318,8 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
@@ -1385,11 +1401,42 @@
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "Wicked/Entities/Basic2D": [
+    "AllegroFlare/TileMaps/Basic2D",
+    "Wicked/CameraControlStrategies2D/HorizontalRail",
+    "Wicked/CameraControlStrategies2D/SmoothSnap",
+    "Wicked/CameraControlStrategies2D/Snap",
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Entities/CollectionHelper",
+    "Wicked/Entities/Doors/Basic2D",
+    "Wicked/Entities/Enemies/Base",
+    "Wicked/Entities/MovementStrategies2D/Anchored",
+    "Wicked/Entities/MovementStrategies2D/BackAndForthHorizontal",
+    "Wicked/Entities/MovementStrategies2D/FallOnTrackingRange",
+    "Wicked/Entities/MovementStrategies2D/Flapping",
+    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
+    "Wicked/Entities/MovementStrategies2D/HoppingLeft",
+    "Wicked/Entities/MovementStrategies2D/MoveInDirection",
+    "Wicked/Entities/MovementStrategies2D/MoveLeft",
+    "Wicked/Entities/MovementStrategies2D/MoveRight",
+    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
+    "Wicked/Entities/MovementStrategies2D/StayStill",
+    "Wicked/Entities/MovementStrategies2D/Tracking",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
+  ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
-    "AllegroFlare/TileMaps/Basic2D"
+    "AllegroFlare/TileMaps/Basic2D",
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/TileMaps/PrimMesh": [
-    "AllegroFlare/TileMaps/Basic2D"
+    "AllegroFlare/TileMaps/Basic2D",
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "ALLEGRO_VERTEX_DECL": [
     "AllegroFlare/TileMaps/MultiMesh"
@@ -1430,10 +1477,12 @@
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
     "Wicked/Entities/MovementStrategies2D/MoveInDirection",
     "Wicked/Entities/Zones/Base2D",
-    "Wicked/Entities/Zones/Rectangle2D"
+    "Wicked/Entities/Zones/Rectangle2D",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventNames": [
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
   ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/VirtualControlsProcessor"
@@ -1446,33 +1495,36 @@
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "std/map<int, int>": [
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
   ],
-  "Wicked/Entities/Basic2D": [
-    "Wicked/CameraControlStrategies2D/HorizontalRail",
-    "Wicked/CameraControlStrategies2D/SmoothSnap",
-    "Wicked/CameraControlStrategies2D/Snap",
-    "Wicked/Entities/Basic2DFactory",
-    "Wicked/Entities/CollectionHelper",
-    "Wicked/Entities/Doors/Basic2D",
-    "Wicked/Entities/Enemies/Base",
-    "Wicked/Entities/MovementStrategies2D/Anchored",
-    "Wicked/Entities/MovementStrategies2D/BackAndForthHorizontal",
-    "Wicked/Entities/MovementStrategies2D/FallOnTrackingRange",
-    "Wicked/Entities/MovementStrategies2D/Flapping",
-    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "Wicked/Entities/MovementStrategies2D/HoppingLeft",
-    "Wicked/Entities/MovementStrategies2D/MoveInDirection",
-    "Wicked/Entities/MovementStrategies2D/MoveLeft",
-    "Wicked/Entities/MovementStrategies2D/MoveRight",
-    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
-    "Wicked/Entities/MovementStrategies2D/StayStill",
-    "Wicked/Entities/MovementStrategies2D/Tracking"
+  "Blast/FileExistenceChecker": [
+    "Tileo/TMJDataLoader"
+  ],
+  "std/stringstream": [
+    "Tileo/TMJDataLoader"
+  ],
+  "std/ifstream": [
+    "Tileo/TMJDataLoader"
+  ],
+  "std/vector<int>": [
+    "Tileo/TMJDataLoader"
+  ],
+  "ifstream": [
+    "Tileo/TMJMeshLoader"
+  ],
+  "Tileo/TileAtlasBuilder": [
+    "Tileo/TMJMeshLoader"
+  ],
+  "Tileo/TMJDataLoader": [
+    "Tileo/TMJMeshLoader"
   ],
   "Wicked/CameraControlStrategies2D/Base": [
     "Wicked/CameraControlStrategies2D/HorizontalRail",
     "Wicked/CameraControlStrategies2D/SmoothSnap",
-    "Wicked/CameraControlStrategies2D/Snap"
+    "Wicked/CameraControlStrategies2D/Snap",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "Wicked/Entities/Base": [
     "Wicked/Entities/Basic2D",
@@ -1485,7 +1537,8 @@
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Entities/CollectionHelper",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls"
+    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
+    "WickedDemos/TileDemo"
   ],
   "Wicked/Entities/MovementStrategies2D/MoveLeft": [
     "Wicked/Entities/Basic2DFactory"
@@ -1521,28 +1574,21 @@
     "Wicked/Entities/Basic2DFactory"
   ],
   "Wicked/Entities/Doors/Basic2D": [
-    "Wicked/Entities/Basic2DFactory"
+    "Wicked/Entities/Basic2DFactory",
+    "WickedDemos/TileDemo"
   ],
-  "Wicked/TileMaps/Basic2D": [
-    "Wicked/Entities/Basic2DFactory"
-  ],
-  "Tileo/Atlas": [
-    "Wicked/Entities/Basic2DFactory"
-  ],
-  "Tileo/Mesh": [
-    "Wicked/Entities/Basic2DFactory"
-  ],
-  "Tileo/TileMap": [
-    "Wicked/Entities/Basic2DFactory"
+  "AllegroFlare/TileMaps/Basic2D": [
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Entities/CollectionHelper",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "Tileo/TMJMeshLoader": [
-    "Wicked/Entities/Basic2DFactory"
+    "Wicked/Entities/Basic2DFactory",
+    "WickedDemos/TileDemo"
   ],
   "Wicked/Entities/Enemies/Base": [
     "Wicked/Entities/Basic2DFactory"
-  ],
-  "AllegroFlare/TileMaps/Basic2D": [
-    "Wicked/Entities/CollectionHelper"
   ],
   "Wicked/Entities/MovementStrategies2D/Base": [
     "Wicked/Entities/Enemies/Base",
@@ -1576,7 +1622,8 @@
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "Wicked/Physics/AABB2D": [
-    "Wicked/Physics/TileMapCollisionStepper"
+    "Wicked/Physics/TileMapCollisionStepper",
+    "WickedDemos/TileDemo"
   ],
   "std/vector<Wicked/Physics/Int2D>": [
     "Wicked/Physics/TileMapCollisionStepper"
@@ -1589,5 +1636,58 @@
   ],
   "AllegroFlare/Interpolators": [
     "Wicked/Weapons/DrawnBow"
+  ],
+  "glEnable": [
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/VirtualControlsProcessor": [
+    "WickedDemos/TileDemo"
+  ],
+  "std/vector<Wicked/Entities/Basic2D>": [
+    "WickedDemos/TileDemo"
+  ],
+  "TileAtlasBuilder": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/Entities/Basic2DFactory": [
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Screen": [
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Display": [
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Framework": [
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/Physics/TileMapCollisionStepper": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/Weapons/DrawnBow": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/CameraControlStrategies2D/Snap": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/CameraControlStrategies2D/SmoothSnap": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/CameraControlStrategies2D/HorizontalRail": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/Entities/CollectionHelper": [
+    "WickedDemos/TileDemo"
+  ],
+  "std/map<std/string, AllegroFlare/TileMaps/Basic2D>": [
+    "WickedDemos/TileDemo"
+  ],
+  "std/vector<Wicked/Entities/Basic2D>&": [
+    "WickedDemos/TileDemo"
+  ],
+  "std/find": [
+    "WickedDemos/TileDemo"
   ]
 }

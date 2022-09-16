@@ -273,6 +273,12 @@ Wicked::Entities::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_
    tile_mesh = tmj_mesh_loader.get_mesh();
    collision_tile_mesh = tmj_mesh_loader.get_collision_tile_map();
 
+
+   if (!tile_mesh)
+   {
+      throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create tile_mesh");
+   }
+
    created_map->set_tile_atlas(tile_atlas);
    created_map->set_tile_mesh(tile_mesh);
    created_map->set_collision_tile_mesh(collision_tile_mesh);
