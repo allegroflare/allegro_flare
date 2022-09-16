@@ -3,9 +3,9 @@
 
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
-#include <AllegroFlare/Framework.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/Placement2D.hpp>
-#include <AllegroFlare/Screen.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
@@ -23,10 +23,10 @@
 
 namespace WickedDemos
 {
-   class TileDemo : public AllegroFlare::Screen
+   class TileDemo : public AllegroFlare::Screens::Base
    {
    private:
-      AllegroFlare::Framework* framework;
+      AllegroFlare::Frameworks::Full* framework;
       AllegroFlare::Display* display;
       AllegroFlare::EventEmitter* event_emitter;
       int native_display_resolution_width;
@@ -56,7 +56,7 @@ namespace WickedDemos
 
 
    public:
-      TileDemo(AllegroFlare::Framework* framework=nullptr, AllegroFlare::Display* display=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+      TileDemo(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::Display* display=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
       virtual ~TileDemo();
 
       void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);

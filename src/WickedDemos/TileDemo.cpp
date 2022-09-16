@@ -3,7 +3,7 @@
 #include <WickedDemos/TileDemo.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/Framework.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
@@ -30,8 +30,8 @@ namespace WickedDemos
 {
 
 
-TileDemo::TileDemo(AllegroFlare::Framework* framework, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
-   : AllegroFlare::Screen(display)
+TileDemo::TileDemo(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
+   : AllegroFlare::Screens::Base("TileDemo")
    , framework(framework)
    , display(display)
    , event_emitter(event_emitter)
@@ -830,8 +830,8 @@ void TileDemo::draw_hud()
 
 void TileDemo::run(std::vector<std::string> args)
 {
-   AllegroFlare::ScreenManager screen_manager;
-   AllegroFlare::Framework framework(&screen_manager);
+   //AllegroFlare::ScreenManager screen_manager;
+   AllegroFlare::Frameworks::Full framework; //(&screen_manager);
    AllegroFlare::EventEmitter event_emitter;
 
    framework.initialize();
@@ -859,7 +859,10 @@ void TileDemo::run(std::vector<std::string> args)
 
    WickedDemos::TileDemo *program = new WickedDemos::TileDemo(&framework, display, &event_emitter);
    program->initialize();
-   screen_manager.add(program);
+
+   framework.register_screen("tile_demo", program);
+   framework.activate_screen("tile_demo");
+   //screen_manager.add(program);
    framework.run_loop();
    delete program;
 }
@@ -916,8 +919,9 @@ void TileDemo::update()
       error_message << "TileDemo" << "::" << "update" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
-   return;
+   //return;
    update_player_controls_on_player_controlled_entity();
+   //return;
    update_entities();
    return;
 }
@@ -970,10 +974,10 @@ void TileDemo::draw()
       error_message << "TileDemo" << "::" << "draw" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(currently_active_map->get_tile_mesh()))
+   if (!(get_tile_mesh()))
    {
       std::stringstream error_message;
-      error_message << "TileDemo" << "::" << "draw" << ": error: " << "guard \"currently_active_map->get_tile_mesh()\" not met";
+      error_message << "TileDemo" << "::" << "draw" << ": error: " << "guard \"get_tile_mesh()\" not met";
       throw std::runtime_error(error_message.str());
    }
    return;
@@ -998,7 +1002,7 @@ void TileDemo::draw()
       al_copy_transform(&trans, al_get_current_transform());
       al_translate_transform_3d(&trans, 0, 0, -1000);
       al_use_transform(&trans);
-      currently_active_map->get_tile_mesh()->render();
+      get_tile_mesh()->render();
       al_restore_state(&state);
    }
 
@@ -1007,7 +1011,7 @@ void TileDemo::draw()
    al_draw_filled_rectangle(0, 0, 1920, 1080, ALLEGRO_COLOR{0.02f*o, 0.016f*o, 0.136f*o, 1.0f*o});
    al_clear_depth_buffer(2000);
 
-   if (show_tile_mesh) currently_active_map->get_tile_mesh()->render();
+   if (show_tile_mesh) get_tile_mesh()->render();
    if (show_collision_tile_mesh) render_collision_tile_mesh();
    //draw_entities();
    if (showing_player_reticle) draw_player_reticle();
@@ -1349,6 +1353,7 @@ AllegroFlare::TileMaps::PrimMesh* TileDemo::get_tile_mesh()
       error_message << "TileDemo" << "::" << "get_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
+   //if (!currently_active_map) throw std::runtime_error("AAAAA");
    return currently_active_map->get_tile_mesh();
 }
 

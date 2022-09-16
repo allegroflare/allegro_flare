@@ -1,16 +1,16 @@
 parent_classes:
 
 
-  - class: AllegroFlare::Screen
+  - class: AllegroFlare::Screens::Base
     scope: public
-    init_with: 'display'
+    init_with: '"TileDemo"'
 
 
 properties:
 
 
   - name: framework
-    type: AllegroFlare::Framework*
+    type: AllegroFlare::Frameworks::Full*
     init_with: nullptr
     constructor_arg: true
 
@@ -795,8 +795,8 @@ functions:
         type: std::vector<std::string>
         default_argument: '{}'
     body: |
-      AllegroFlare::ScreenManager screen_manager;
-      AllegroFlare::Framework framework(&screen_manager);
+      //AllegroFlare::ScreenManager screen_manager;
+      AllegroFlare::Frameworks::Full framework; //(&screen_manager);
       AllegroFlare::EventEmitter event_emitter;
 
       framework.initialize();
@@ -824,11 +824,14 @@ functions:
 
       WickedDemos::TileDemo *program = new WickedDemos::TileDemo(&framework, display, &event_emitter);
       program->initialize();
-      screen_manager.add(program);
+
+      framework.register_screen("tile_demo", program);
+      framework.activate_screen("tile_demo");
+      //screen_manager.add(program);
       framework.run_loop();
       delete program;
     body_dependency_symbols:
-      - AllegroFlare::Framework
+      - AllegroFlare::Frameworks::Full
       - glEnable
 
 
@@ -868,8 +871,9 @@ functions:
   - name: update
     guards: [ initialized, framework ]
     body: |
-      return;
+      //return;
       update_player_controls_on_player_controlled_entity();
+      //return;
       update_entities();
       return;
 
@@ -913,7 +917,7 @@ functions:
 
 
   - name: draw
-    guards: [ initialized, framework, currently_active_map, currently_active_map->get_tile_mesh() ]
+    guards: [ initialized, framework, currently_active_map, get_tile_mesh() ]
     body: |
       return;
       //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
@@ -937,7 +941,7 @@ functions:
          al_copy_transform(&trans, al_get_current_transform());
          al_translate_transform_3d(&trans, 0, 0, -1000);
          al_use_transform(&trans);
-         currently_active_map->get_tile_mesh()->render();
+         get_tile_mesh()->render();
          al_restore_state(&state);
       }
 
@@ -946,7 +950,7 @@ functions:
       al_draw_filled_rectangle(0, 0, 1920, 1080, ALLEGRO_COLOR{0.02f*o, 0.016f*o, 0.136f*o, 1.0f*o});
       al_clear_depth_buffer(2000);
 
-      if (show_tile_mesh) currently_active_map->get_tile_mesh()->render();
+      if (show_tile_mesh) get_tile_mesh()->render();
       if (show_collision_tile_mesh) render_collision_tile_mesh();
       //draw_entities();
       if (showing_player_reticle) draw_player_reticle();
@@ -1279,6 +1283,7 @@ functions:
     guards: [ currently_active_map ]
     type: AllegroFlare::TileMaps::PrimMesh*
     body: |
+      //if (!currently_active_map) throw std::runtime_error("AAAAA");
       return currently_active_map->get_tile_mesh();
 
 
@@ -1348,8 +1353,8 @@ dependencies:
     headers: [ AllegroFlare/Display.hpp ]
   - symbol: AllegroFlare::Framework*
     headers: [ AllegroFlare/Framework.hpp ]
-  - symbol: AllegroFlare::Framework
-    headers: [ AllegroFlare/Framework.hpp ]
+  - symbol: AllegroFlare::Frameworks::Full
+    headers: [ AllegroFlare/Frameworks/Full.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::vec2d
@@ -1404,4 +1409,6 @@ dependencies:
     headers: [ Wicked/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
 

@@ -478,7 +478,8 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/AdvancingText",
@@ -1660,7 +1661,9 @@
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Framework": [
-    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Frameworks/Full": [
     "WickedDemos/TileDemo"
   ],
   "Wicked/Physics/TileMapCollisionStepper": [
