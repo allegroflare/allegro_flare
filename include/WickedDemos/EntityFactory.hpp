@@ -16,9 +16,12 @@ using AllegroFlare::vec2d;
 using AllegroFlare::vec3d;
 
 
-#include <allegro_flare/shader.h>
-using allegro_flare::ALLEGRO_FLARE_CUBEMAP_TEXTURE;
-using allegro_flare::Shader;
+//#include <allegro_flare/shader.h>
+//using allegro_flare::ALLEGRO_FLARE_CUBEMAP_TEXTURE;
+//using allegro_flare::Shader;
+
+#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Cubemap.hpp>
 
 
 class EntityFactory
@@ -29,9 +32,9 @@ private:
    BitmapBin bitmap_bin;
    //ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_A;
    //ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_B;
-   Shader cubemap_shader;
-   Shader simple_map_shader;
-   Shader standard_compound_shader;
+   AllegroFlare::Shader *cubemap_shader;
+   AllegroFlare::Shader *simple_map_shader;
+   AllegroFlare::Shader *standard_compound_shader;
    bool initialized;
    Tileo::Atlas atlas;
    //Tileo::Mesh *mesh;

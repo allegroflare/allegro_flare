@@ -21,9 +21,9 @@ EntityFactory::EntityFactory()
    , bitmap_bin()
    //, cube_map_A(nullptr)
    //, cube_map_B(nullptr)
-   , cubemap_shader("data/shaders/cube_vertex.glsl", "data/shaders/cube_fragment.glsl")
-   , simple_map_shader("data/shaders/simple_map_vertex_with_light.glsl", "data/shaders/simple_map_fragment_with_light.glsl")
-   , standard_compound_shader("data/shaders/standard_compound_vertex.glsl", "data/shaders/standard_compound_fragment.glsl")
+   , cubemap_shader(nullptr)
+   , simple_map_shader(nullptr)
+   , standard_compound_shader(nullptr)
    , initialized(false)
    , atlas()
    , random()
@@ -57,9 +57,58 @@ void EntityFactory::initialize()
    atlas.duplicate_bitmap_and_load(bitmap_bin[TILE_MAP_BITMAP], 16, 16);
    al_restore_state(&previous_bitmap_state);
 
-   //cubemap_shader.initialize();
-   //simple_map_shader.initialize();
-   //standard_compound_shader.initialize();
+
+
+
+
+
+
+
+
+
+
+   // load up the shaders
+   std::string vertex_filename;
+   std::string vertex_file_content;
+   std::string fragment_filename;
+   std::string fragment_file_content;
+
+   vertex_filename = "data/shaders/cube_vertex.glsl";
+   vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   fragment_filename = "data/shaders/cube_fragment.glsl";
+   fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   cubemap_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
+
+
+   vertex_filename = "data/shaders/simple_map_vertex_with_light.glsl";
+   vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   fragment_filename = "data/shaders/simple_map_fragment_with_light.glsl";
+   fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   simple_map_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
+
+
+   vertex_filename = "data/shaders/standard_compound_vertex.glsl";
+   vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   fragment_filename = "data/shaders/standard_compound_fragment.glsl";
+   fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   standard_compound_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
+
+   //, cubemap_shader("data/shaders/cube_vertex.glsl", "data/shaders/cube_fragment.glsl")
+   //, simple_map_shader("data/shaders/simple_map_vertex_with_light.glsl", "data/shaders/simple_map_fragment_with_light.glsl")
+   //, standard_compound_shader("data/shaders/standard_compound_vertex.glsl", "data/shaders/standard_compound_fragment.glsl")
+
+
+
+
+
+
+
+
+
+
+   cubemap_shader->initialize();
+   simple_map_shader->initialize();
+   standard_compound_shader->initialize();
 
    //const std::string TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
    //atlas.duplicate_bitmap_and_load(bitmap_bin[TILE_MAP_BITMAP], 16, 16);
@@ -86,7 +135,7 @@ Entity *EntityFactory::create_basic_mesh(int num_columns, int num_rows, vec3d po
    }
 
    Entity *entity = new Entity();
-   entity->shader = &standard_compound_shader; // nullptr; // &simple_map_shader;
+   entity->shader = standard_compound_shader; // nullptr; // simple_map_shader;
    entity->model = nullptr; //model_repository.get_flat_stage();
    entity->mesh = mesh;
    entity->diffuse_texture = atlas.get_bitmap(); //bitmap_bin["uv.png"]; // though this probably doens't matter
@@ -100,7 +149,7 @@ Entity *EntityFactory::create_skybox(ALLEGRO_COLOR cube_box_color, float cube_bo
 {
    Entity *entity = new Entity();
    entity->model = model_repository.get_skybox();
-   entity->shader = &cubemap_shader;
+   entity->shader = cubemap_shader;
    entity->cube_map_A = cube_map_repository.get_cube_map_B();
    entity->cube_map_B = cube_map_repository.get_cube_map_B();
    entity->cube_box_color = cube_box_color; //al_color_html("fe93f3"); //ALLEGRO_COLOR{1.0, 0.74, 0.0, 1.0};
@@ -113,7 +162,7 @@ Entity *EntityFactory::create_skybox(ALLEGRO_COLOR cube_box_color, float cube_bo
 Entity *EntityFactory::create_10x10_floor(vec3d position)
 {
    Entity *entity = new Entity();
-      entity->shader = &simple_map_shader;
+      entity->shader = simple_map_shader;
       entity->model = model_repository.get_flat_stage();
          entity->diffuse_texture = bitmap_bin["uv.png"];//tex_grass_002.jpg"];
          entity->place.position = position; // vec3d(i*10, 0, 0);//tex_grass_002.jpg"];
@@ -154,7 +203,7 @@ Entity *EntityFactory::create_as_basic(std::string model_identifier, std::string
    entity->cube_map_A = cube_map_repository.get_cube_map_B();
    entity->cube_map_B = cube_map_repository.get_cube_map_B();
    entity->place.position = position;
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    entity->diffuse_texture = bitmap_bin[texture];
    entity->type = type;
    return entity;
@@ -169,8 +218,8 @@ Entity *EntityFactory::create_mushed_up_cube(vec3d position)
    entity->place.position = position; // vec3d(random_float(-5, 5), random_float(0, 5), random_float(-5, 5));
    //entity->place.rotation = vec3d(random_float(0, 1), random_float(0, 1), random_float(0, 1));
    //entity->velocity.rotation = vec3d(random_float(0, 0.001), random_float(0, 0.001), random_float(0, 0.001));
-   entity->shader = &simple_map_shader;
-   //entity->shader = &cubemap_shader;
+   entity->shader = simple_map_shader;
+   //entity->shader = cubemap_shader;
    //entity->diffuse_texture = bitmaps["rounded_unit_cube_uv-01.png"];//tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmaps["tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmap_bin["TexturesCom_RockSmoothErosion0015_1_seamless_S.png"]; //mushed-up-cube-01.png"];
@@ -190,7 +239,7 @@ Entity *EntityFactory::create_cube(vec3d position)
    entity->place.position = position; // vec3d(random_float(-5, 5), random_float(0, 5), random_float(-5, 5));
    entity->place.rotation = vec3d(random_float(0, 1), random_float(0, 1), random_float(0, 1));
    entity->velocity.rotation = vec3d(random_float(0, 0.001), random_float(0, 0.001), random_float(0, 0.001));
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    //entity->diffuse_texture = bitmaps["rounded_unit_cube_uv-01.png"];//tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmaps["tex_grass_002.jpg"];
    entity->diffuse_texture = bitmap_bin["uv.png"];
@@ -202,7 +251,7 @@ Entity *EntityFactory::create_coin_ring(vec3d position)
 {
    Entity *entity = new Entity();
    entity->diffuse_texture = nullptr; // bitmaps["uv.png"];
-   entity->shader = &cubemap_shader;
+   entity->shader = cubemap_shader;
    entity->model = model_repository.get_coin_ring();
    entity->cube_map_A = cube_map_repository.get_cube_map_A();
    entity->cube_map_B = cube_map_repository.get_cube_map_A();
@@ -219,7 +268,7 @@ Entity *EntityFactory::create_stone_fence(vec3d position)
 {
    // borders to the archway
    Entity *entity = new Entity();
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    entity->model = model_repository.get_stone_fence();
    entity->diffuse_texture = bitmap_bin["bricksz.jpg"];//tex_grass_002.jpg"];
    entity->place.position = position; //vec3d(-5 + i*spacing, 0, -4);
@@ -231,7 +280,7 @@ Entity *EntityFactory::create_stone_fence(vec3d position)
 Entity *EntityFactory::create_archway(vec3d position)
 {
    Entity *entity = new Entity();
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    entity->model = model_repository.get_archway();
    entity->diffuse_texture = bitmap_bin["bricksz.jpg"];//tex_grass_002.jpg"];
    entity->place.position = position; //vec3d(-5 + i*spacing, 0, 0);//tex_grass_002.jpg"];
@@ -249,7 +298,7 @@ Entity *EntityFactory::create_black_stone(vec3d position)
    entity->place.rotation = vec3d(0, random_float(0, TAU), 0);
    //entity->place.rotation = vec3d(random_float(0, 1), random_float(0, 1), random_float(0, 1));
    //entity->velocity.rotation = vec3d(random_float(0, 0.001), random_float(0, 0.001), random_float(0, 0.001));
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    //entity->diffuse_texture = bitmaps["rounded_unit_cube_uv-01.png"];//tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmaps["tex_grass_002.jpg"];
    entity->diffuse_texture = bitmap_bin["TexturesCom_RockSmoothErosion0015_1_seamless_S-small.png"];
@@ -261,7 +310,7 @@ Entity *EntityFactory::create_metal_cube(vec3d position)
 {
    Entity *entity = new Entity();
    entity->diffuse_texture = nullptr; // bitmaps["uv.png"];
-   entity->shader = &cubemap_shader;
+   entity->shader = cubemap_shader;
    entity->model = model_repository.get_rounded_medium_cube();
    entity->cube_map_A = cube_map_repository.get_cube_map_A();
    entity->cube_map_B = cube_map_repository.get_cube_map_A();
@@ -282,7 +331,7 @@ Entity *EntityFactory::create_stairbox(vec3d position, float y_rotation)
    entity->place.rotation = vec3d(0, y_rotation, 0) ;//y_rotation * TAU, 0);
    //entity->place.rotation = vec3d(random_float(0, 1), random_float(0, 1), random_float(0, 1));
    //entity->velocity.rotation = vec3d(random_float(0, 0.001), random_float(0, 0.001), random_float(0, 0.001));
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    //entity->diffuse_texture = bitmaps["rounded_unit_cube_uv-01.png"];//tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmaps["tex_grass_002.jpg"];
    entity->diffuse_texture = bitmap_bin["TexturesCom_RockSmoothErosion0015_1_seamless_S-small.png"];
@@ -300,7 +349,7 @@ Entity *EntityFactory::create_pointer(vec3d position)
    //entity->place.rotation = vec3d(0, y_rotation, 0) ;//y_rotation * TAU, 0);
    //entity->place.rotation = vec3d(0, 0, 0);
    entity->velocity.rotation = vec3d(0, -0.002, 0);
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    //entity->diffuse_texture = bitmaps["rounded_unit_cube_uv-01.png"];//tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmaps["tex_grass_002.jpg"];
    entity->diffuse_texture = bitmap_bin["pointer-violet.png"];
@@ -319,7 +368,7 @@ Entity *EntityFactory::create_plate_2x2(vec3d position, float y_rotation)
    //entity->place.rotation = vec3d(0, 0, 0);
    //entity->velocity.rotation = vec3d(0, -0.002, 0);
    entity->place.rotation = vec3d(0, y_rotation, 0) ;//y_rotation * TAU, 0);
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    //entity->diffuse_texture = bitmaps["rounded_unit_cube_uv-01.png"];//tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmaps["tex_grass_002.jpg"];
    entity->diffuse_texture = bitmap_bin["TexturesCom_RockSmoothErosion0015_1_seamless_S.png"];
@@ -338,7 +387,7 @@ Entity *EntityFactory::create_plate_2x10(vec3d position, float y_rotation)
    //entity->place.rotation = vec3d(0, 0, 0);
    //entity->velocity.rotation = vec3d(0, -0.002, 0);
    entity->place.rotation = vec3d(0, y_rotation, 0) ;//y_rotation * TAU, 0);
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    //entity->diffuse_texture = bitmaps["rounded_unit_cube_uv-01.png"];//tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmaps["tex_grass_002.jpg"];
    entity->diffuse_texture = bitmap_bin["TexturesCom_RockSmoothErosion0015_1_seamless_S.png"];
@@ -357,7 +406,7 @@ Entity *EntityFactory::create_plate_10x10(vec3d position, float y_rotation)
    //entity->place.rotation = vec3d(0, 0, 0);
    //entity->velocity.rotation = vec3d(0, -0.002, 0);
    entity->place.rotation = vec3d(0, y_rotation, 0) ;//y_rotation * TAU, 0);
-   entity->shader = &simple_map_shader;
+   entity->shader = simple_map_shader;
    //entity->diffuse_texture = bitmaps["rounded_unit_cube_uv-01.png"];//tex_grass_002.jpg"];
    //entity->diffuse_texture = bitmaps["tex_grass_002.jpg"];
    entity->diffuse_texture = bitmap_bin["TexturesCom_RockSmoothErosion0015_1_seamless_S.png"];
