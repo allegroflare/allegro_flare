@@ -34,6 +34,7 @@ namespace AllegroFlare::TileMaps
       ~PrimMesh();
 
       void initialize();
+      bool get_initialized();
 
       void resize(int num_columns=0, int num_rows=0);
 

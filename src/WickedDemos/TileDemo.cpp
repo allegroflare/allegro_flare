@@ -213,6 +213,36 @@ void TileDemo::initialize_maps()
       }
 
 
+      if (!__created_map->get_tile_mesh()->get_initialized())
+      {
+         std::cout << "ERROR: prim mesh not initialized on \"" << map_filename << "\"" << std::endl;
+      }
+      else
+      {
+         std::cout << "NOTE: prim mesh initialized on \"" << map_filename << "\" loaded successfully." << std::endl;
+      }
+
+
+      if (!__created_map->get_collision_tile_mesh())
+      {
+         std::cout << "ERROR: collision tile map not loaded on \"" << map_filename << "\"" << std::endl;
+      }
+      else
+      {
+         std::cout << "NOTE: collision tile map loaded on \"" << map_filename << "\" loaded successfully." << std::endl;
+      }
+
+
+      if (!__created_map->get_collision_tile_mesh())
+      {
+         std::cout << "ERROR: collision tile map not loaded on \"" << map_filename << "\"" << std::endl;
+      }
+      else
+      {
+         std::cout << "NOTE: collision tile map loaded on \"" << map_filename << "\" loaded successfully." << std::endl;
+      }
+
+
       entities.push_back(created_map);
    }
 
@@ -571,6 +601,8 @@ void TileDemo::update_entities()
       velocity.position.y += (gravity_reversed ? -gravity : gravity);
    }
 
+
+   std::cout << "XXXXXXXXXXX" << std::endl;
    // update the entities (typically includes movement strategies), may need to be done before applying gravity
    for (auto &entity : get_current_map_entities())
    {
@@ -579,6 +611,9 @@ void TileDemo::update_entities()
 
    // weapons
    bow.update();
+   std::cout << "YYYYYYYYY" << std::endl;
+
+   return;
 
    // step
    for (auto &entity : get_current_map_entities())
@@ -591,6 +626,8 @@ void TileDemo::update_entities()
          place.position.y += velocity.position.y;
          continue;
       }
+
+      std::cout << "11111111111" << std::endl;
 
       AllegroFlare::Placement2D &place = entity->get_place_ref();
       AllegroFlare::Placement2D &velocity = entity->get_velocity_ref();
@@ -611,7 +648,9 @@ void TileDemo::update_entities()
          tile_height
       );
 
+      std::cout << "2222222222222" << std::endl;
       collision_stepper.step();
+      std::cout << "3333333333" << std::endl;
 
       place.position.x = aabb2d.get_x() + place.size.x * place.align.x;
       place.position.y = aabb2d.get_y() + place.size.y * place.align.y;
@@ -631,6 +670,8 @@ void TileDemo::update_entities()
       if (collision_stepper.adjacent_to_right_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_RIGHT_WALL);
       else entity->remove(ADJACENT_TO_RIGHT_WALL);
    }
+
+   std::cout << "ZZZZZZZZZZ" << std::endl;
 
    // update the collectables
    update_player_collisions_with_collectables();
@@ -875,6 +916,7 @@ void TileDemo::update()
       error_message << "TileDemo" << "::" << "update" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
+   return;
    update_player_controls_on_player_controlled_entity();
    update_entities();
    return;
@@ -934,6 +976,7 @@ void TileDemo::draw()
       error_message << "TileDemo" << "::" << "draw" << ": error: " << "guard \"currently_active_map->get_tile_mesh()\" not met";
       throw std::runtime_error(error_message.str());
    }
+   return;
    //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
    //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
    //al_clear_depth_buffer(1000);

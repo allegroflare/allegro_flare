@@ -70,6 +70,12 @@ void PrimMesh::initialize()
 }
 
 
+bool PrimMesh::get_initialized()
+{
+   return initialized;
+}
+
+
 void PrimMesh::resize(int num_columns, int num_rows)
 {
    this->num_columns = num_columns;
