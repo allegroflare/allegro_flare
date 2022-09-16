@@ -20,7 +20,6 @@
 #include <Wicked/Physics/TileMapCollisionStepper.hpp>
 #include <algorithm>
 #include <allegro5/allegro_color.h>
-#include <allegro5/allegro_opengl.h>
 #include <cmath>
 #include <sstream>
 #include <stdexcept>
@@ -830,41 +829,25 @@ void TileDemo::draw_hud()
 
 void TileDemo::run(std::vector<std::string> args)
 {
-   //AllegroFlare::ScreenManager screen_manager;
-   AllegroFlare::Frameworks::Full framework; //(&screen_manager);
-   AllegroFlare::EventEmitter event_emitter;
-
+   AllegroFlare::Frameworks::Full framework;
+   framework.disable_fullscreen();
    framework.initialize();
-   event_emitter.initialize();
-   //al_register_event_source(framework.event_queue, &event_emitter.get_event_source_ref());
-   al_register_event_source(framework.event_queue, &event_emitter.get_event_source_ref());
 
    framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/bitmaps");
 
-   al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
-   al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
-   al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
-   //glEnable(GL_DEPTH_TEST);
-   //glDisable(GL_CULL_FACE);
+   WickedDemos::TileDemo tile_demo(
+      &framework,
+      framework.get_primary_display(),
+      &framework.get_event_emitter_ref()
+   );
+   tile_demo.initialize();
 
-   AllegroFlare::Display *display =
-      framework.create_display(
-         1920,
-         1080,
-         ALLEGRO_FULLSCREEN_WINDOW | ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE
-      );
-
-   //glEnable(GL_DEPTH_TEST);
-   //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
-
-   WickedDemos::TileDemo *program = new WickedDemos::TileDemo(&framework, display, &event_emitter);
-   program->initialize();
-
-   framework.register_screen("tile_demo", program);
+   framework.register_screen("tile_demo", &tile_demo);
    framework.activate_screen("tile_demo");
-   //screen_manager.add(program);
+
    framework.run_loop();
-   delete program;
+
+   return;
 }
 
 void TileDemo::update_player_controls_on_player_controlled_entity()
@@ -1069,9 +1052,9 @@ void TileDemo::toggle_show_tile_mesh()
 
 void TileDemo::primary_timer_func()
 {
-   update();
-   draw();
-   al_flip_display();
+   //update();
+   //draw();
+   //al_flip_display();
    return;
 }
 
