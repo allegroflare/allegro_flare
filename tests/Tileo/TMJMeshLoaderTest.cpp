@@ -49,7 +49,7 @@ TEST_F(Tileo_TMJMeshLoaderTestWithAllegroRenderingFixture, load__creates_the_mes
 
    tmjmesh_loader.load();
 
-   Tileo::Mesh *mesh = tmjmesh_loader.get_mesh();
+   AllegroFlare::TileMaps::PrimMesh *mesh = tmjmesh_loader.get_mesh();
 
    ASSERT_NE(nullptr, mesh);
    EXPECT_EQ(15, mesh->get_num_rows());
@@ -69,7 +69,7 @@ TEST_F(Tileo_TMJMeshLoaderTestWithAllegroRenderingFixture,
 
    tmjmesh_loader.load();
 
-   Tileo::TileMap *collision_tile_map = tmjmesh_loader.get_collision_tile_map();
+   AllegroFlare::TileMaps::TileMap<int> *collision_tile_map = tmjmesh_loader.get_collision_tile_map();
 
    ASSERT_NE(nullptr, collision_tile_map);
    //EXPECT_EQ(15, mesh->get_num_rows());
@@ -87,7 +87,7 @@ TEST_F(Tileo_TMJMeshLoaderTestWithAllegroRenderingFixture, INTERACTIVE__works_as
 
    tmjmesh_loader.load();
 
-   Tileo::Mesh *mesh = tmjmesh_loader.get_mesh();
+   AllegroFlare::TileMaps::PrimMesh *mesh = tmjmesh_loader.get_mesh();
    mesh->render();
    al_flip_display();
    //sleep(2.0);
