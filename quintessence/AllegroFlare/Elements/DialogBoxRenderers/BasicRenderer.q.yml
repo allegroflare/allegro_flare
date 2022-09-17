@@ -263,8 +263,6 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_filled_rounded_rectangle
     headers: [ allegro5/allegro_primitives.h ]
-  - symbol: Blast::StringJoiner
-    headers: [ Blast/StringJoiner.hpp ]
   - symbol: AllegroFlare::BitmapBin*
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin*

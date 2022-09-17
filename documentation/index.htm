@@ -225,6 +225,7 @@ table td
   <li><a href="#quintessence/Wicked/Weapons/DrawnBow.q.yml">quintessence/Wicked/Weapons/DrawnBow.q.yml</a></li>
   <li><a href="#quintessence/WickedDemos/ProgramRunner.q.yml">quintessence/WickedDemos/ProgramRunner.q.yml</a></li>
   <li><a href="#quintessence/WickedDemos/TileDemo.q.yml">quintessence/WickedDemos/TileDemo.q.yml</a></li>
+  <li><a href="#quintessence/WickedDemos/TileDemo2.q.yml">quintessence/WickedDemos/TileDemo2.q.yml</a></li>
 </ul>
 <h1>Components</h1>
 <ul>
@@ -1348,9 +1349,6 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Blast::StringJoiner&quot;, &quot;headers&quot;=&gt;[&quot;Blast/StringJoiner.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -1495,9 +1493,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Blast::StringJoiner&quot;, &quot;headers&quot;=&gt;[&quot;Blast/StringJoiner.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
@@ -9419,14 +9414,11 @@ table td
 <tr>
   <td class="method">load()</td>
 </tr>
+<tr>
+  <td class="private_method">file_exists(1)</td>
+</tr>
     </table>
      <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Blast::FileExistenceChecker&quot;, &quot;headers&quot;=&gt;[&quot;Blast/FileExistenceChecker.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::stringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
-</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ifstream&quot;, &quot;headers&quot;=&gt;[&quot;fstream&quot;]}</td>
 </tr>
@@ -9434,7 +9426,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -11284,6 +11276,300 @@ table td
     </table>
   </div>
 </ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/WickedDemos/TileDemo2.q.yml">quintessence/WickedDemos/TileDemo2.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">framework</td>
+  <td class="property">AllegroFlare::Frameworks::Full*</td>
+</tr>
+<tr>
+  <td class="property">display</td>
+  <td class="property">AllegroFlare::Display*</td>
+</tr>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">native_display_resolution_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">native_display_resolution_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">currently_active_map</td>
+  <td class="property">AllegroFlare::TileMaps::Basic2D*</td>
+</tr>
+<tr>
+  <td class="property">currently_active_map_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">entities</td>
+  <td class="property">std::vector&lt;Wicked::Entities::Basic2D*&gt;</td>
+</tr>
+<tr>
+  <td class="property">gravity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">gravity_reversed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">hud_projection</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">show_tile_mesh</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">show_collision_tile_mesh</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">player_controls</td>
+  <td class="property">AllegroFlare::VirtualControls</td>
+</tr>
+<tr>
+  <td class="property">virtual_controls_processor</td>
+  <td class="property">AllegroFlare::VirtualControlsProcessor</td>
+</tr>
+<tr>
+  <td class="property">showing_player_reticle</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">player_reticle_vector</td>
+  <td class="property">AllegroFlare::vec2d</td>
+</tr>
+<tr>
+  <td class="property">bow</td>
+  <td class="property">Wicked::Weapons::DrawnBow</td>
+</tr>
+<tr>
+  <td class="property">camera_control_strategy</td>
+  <td class="property">Wicked::CameraControlStrategies2D::Base*</td>
+</tr>
+<tr>
+  <td class="property">player_collected_items</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_currently_active_map(1)</td>
+</tr>
+<tr>
+  <td class="method">find_map_by_name(1)</td>
+</tr>
+<tr>
+  <td class="method">initialize_maps()</td>
+</tr>
+<tr>
+  <td class="method">initialize_hud()</td>
+</tr>
+<tr>
+  <td class="method">initialize_display_projection()</td>
+</tr>
+<tr>
+  <td class="method">initialize_camera_control()</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">setup_orthographic_projection_on_backbuffer()</td>
+</tr>
+<tr>
+  <td class="private_method">setup_camera()</td>
+</tr>
+<tr>
+  <td class="method">run(1)</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">draw_dimentional_grid(3)</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="method">render_collision_tile_mesh()</td>
+</tr>
+<tr>
+  <td class="method">get_tile_atlas()</td>
+</tr>
+<tr>
+  <td class="method">get_tile_mesh()</td>
+</tr>
+<tr>
+  <td class="method">get_collision_tile_mesh()</td>
+</tr>
+<tr>
+  <td class="method">get_current_map_entities_ref()</td>
+</tr>
+<tr>
+  <td class="method">get_current_map_entities()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControlsProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControlsProcessor.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tileo::TMJMeshLoader&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/TMJMeshLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;Wicked::Entities::Basic2D*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;Wicked/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;TileAtlasBuilder&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/TileAtlasBuilder.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::Basic2D*&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::Basic2DFactory&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/Basic2DFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Display*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Display.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Framework*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Framework.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Frameworks::Full&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Frameworks/Full.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::vec2d&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Physics::TileMapCollisionStepper&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Physics/TileMapCollisionStepper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Physics::AABB2D&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Physics/AABB2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::EntityFlagNames&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/EntityFlagNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Weapons::DrawnBow&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Weapons/DrawnBow.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::CameraControlStrategies2D::Base*&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/CameraControlStrategies2D/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::CameraControlStrategies2D::Snap&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/CameraControlStrategies2D/Snap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::CameraControlStrategies2D::SmoothSnap&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/CameraControlStrategies2D/SmoothSnap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::CameraControlStrategies2D::HorizontalRail&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/CameraControlStrategies2D/HorizontalRail.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::CollectionHelper&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/CollectionHelper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::Basic2D*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;std::string, AllegroFlare::TileMaps::Basic2D*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;AllegroFlare/TileMaps/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::Doors::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/Doors/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;Wicked::Entities::Basic2D*&gt;&amp;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;Wicked/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::find&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;tan&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Display&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Display.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::CameraControlStrategies2D::Base&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/CameraControlStrategies2D/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
 <h1>Dependents</h1>
 <pre>
 {
@@ -11617,7 +11903,8 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "Wicked/CameraControlStrategies2D/Base",
     "Wicked/Entities/Basic2D",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
@@ -11647,7 +11934,8 @@ table td
   ],
   "tan": [
     "AllegroFlare/Camera2D",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "GLuint": [
     "AllegroFlare/Cubemap"
@@ -11767,7 +12055,8 @@ table td
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/AdvancingText",
@@ -11809,7 +12098,9 @@ table td
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/AdvancingText",
@@ -11825,7 +12116,9 @@ table td
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "al_draw_multiline_text": [
     "AllegroFlare/Elements/AdvancingText",
@@ -11961,10 +12254,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer"
   ],
-  "Blast/StringJoiner": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
-  ],
   "AllegroFlare/Elements/DialogBoxes/Base": [
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -12001,7 +12290,9 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "al_draw_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -12591,7 +12882,9 @@ table td
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Physics/TileMapCollisionStepper",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
@@ -12608,7 +12901,8 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
@@ -12712,20 +13006,25 @@ table td
     "Wicked/Entities/MovementStrategies2D/StayStill",
     "Wicked/Entities/MovementStrategies2D/Tracking",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/TileMaps/PrimMesh": [
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "ALLEGRO_VERTEX_DECL": [
     "AllegroFlare/TileMaps/MultiMesh"
@@ -12767,11 +13066,13 @@ table td
     "Wicked/Entities/MovementStrategies2D/MoveInDirection",
     "Wicked/Entities/Zones/Base2D",
     "Wicked/Entities/Zones/Rectangle2D",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/VirtualControlsProcessor"
@@ -12785,18 +13086,13 @@ table td
   ],
   "std/map<int, int>": [
     "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo"
-  ],
-  "Blast/FileExistenceChecker": [
-    "Tileo/TMJDataLoader"
-  ],
-  "std/stringstream": [
-    "Tileo/TMJDataLoader"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "std/ifstream": [
     "Tileo/TMJDataLoader"
   ],
-  "std/vector<int>": [
+  "std/filesystem/exists": [
     "Tileo/TMJDataLoader"
   ],
   "ifstream": [
@@ -12813,7 +13109,9 @@ table td
     "Wicked/CameraControlStrategies2D/SmoothSnap",
     "Wicked/CameraControlStrategies2D/Snap",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/Entities/Base": [
     "Wicked/Entities/Basic2D",
@@ -12827,7 +13125,8 @@ table td
     "Wicked/Entities/CollectionHelper",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
     "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/Entities/MovementStrategies2D/MoveLeft": [
     "Wicked/Entities/Basic2DFactory"
@@ -12864,17 +13163,21 @@ table td
   ],
   "Wicked/Entities/Doors/Basic2D": [
     "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/TileMaps/Basic2D": [
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Entities/CollectionHelper",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "Tileo/TMJMeshLoader": [
     "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/Entities/Enemies/Base": [
     "Wicked/Entities/Basic2DFactory"
@@ -12912,7 +13215,8 @@ table td
   ],
   "Wicked/Physics/AABB2D": [
     "Wicked/Physics/TileMapCollisionStepper",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "std/vector<Wicked/Physics/Int2D>": [
     "Wicked/Physics/TileMapCollisionStepper"
@@ -12927,56 +13231,74 @@ table td
     "Wicked/Weapons/DrawnBow"
   ],
   "AllegroFlare/VirtualControlsProcessor": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "std/vector<Wicked/Entities/Basic2D>": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "TileAtlasBuilder": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/Entities/Basic2DFactory": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/Screen": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/Display": [
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/Framework": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "AllegroFlare/Frameworks/Full": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/Physics/TileMapCollisionStepper": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/Weapons/DrawnBow": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/CameraControlStrategies2D/Snap": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/CameraControlStrategies2D/SmoothSnap": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/CameraControlStrategies2D/HorizontalRail": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "Wicked/Entities/CollectionHelper": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "std/map<std/string, AllegroFlare/TileMaps/Basic2D>": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "std/vector<Wicked/Entities/Basic2D>&": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ],
   "std/find": [
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo2"
   ]
 }
 </pre>

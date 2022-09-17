@@ -2,7 +2,7 @@
 
 #include <Tileo/TMJDataLoader.hpp>
 
-#include <Blast/FileExistenceChecker.hpp>
+#include <filesystem>
 #include <fstream>
 #include <lib/nlohmann/json.hpp>
 #include <sstream>
@@ -159,8 +159,7 @@ bool TMJDataLoader::load()
       error_message << "TMJDataLoader" << "::" << "load" << ": error: " << "guard \"(!loaded)\" not met";
       throw std::runtime_error(error_message.str());
    }
-   Blast::FileExistenceChecker file_existence_checker(filename);
-   if (!file_existence_checker.exists())
+   if (!file_exists(filename))
    {
       std::stringstream error_message;
       error_message << "[Tileo/TMJDataLoader] load() error: the file \"" << filename << "\" does not exist.";
@@ -248,6 +247,11 @@ bool TMJDataLoader::load()
    i.close();
 
    return true;
+}
+
+bool TMJDataLoader::file_exists(std::string filename)
+{
+   return std::filesystem::exists(filename);
 }
 
 

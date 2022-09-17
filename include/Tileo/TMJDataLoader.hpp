@@ -22,6 +22,7 @@ namespace Tileo
       int collision_layer_num_rows;
       std::vector<int> collision_layer_tile_data;
       bool loaded;
+      static bool file_exists(std::string filename="[unset-filename]");
 
    protected:
 
