@@ -9,3 +9,13 @@ TEST(WickedDemos_FunzDemoTest, DISABLED__can_be_created_without_blowing_up)
    FunzDemo funz_demo;
 }
 
+
+TEST(WickedDemos_FunzDemoTest, run__will_run_the_application)
+{
+   // HERE
+   // TODO
+   //FunzDemo::run();
+   //funz_demo.run();
+}
+
+

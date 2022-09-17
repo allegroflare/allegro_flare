@@ -14,13 +14,13 @@
 
 
 //#include <Wicked/Camera3.hpp>
-#include <Wicked/ShadowCastingLight.hpp>
-#include <Wicked/Light.hpp>
-#include <Wicked/StandardCompoundShader.hpp>
-#include <Wicked/Entity.hpp>
-#include <Wicked/SceneRenderer.hpp>
+//#include <Wicked/ShadowCastingLight.hpp>
+//#include <Wicked/Light.hpp>
+//#include <Wicked/StandardCompoundShader.hpp>
+//#include <Wicked/Entity.hpp>
+//#include <Wicked/SceneRenderer.hpp>
 
-#include <WickedDemos/EntityFactory.hpp>
+//#include <WickedDemos/EntityFactory.hpp>
 //#include <WickedDemos/OriginalDemo.hpp>
 #include <WickedDemos/FunzDemo.hpp>
 

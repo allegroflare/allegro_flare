@@ -140,6 +140,9 @@ public:
    
 
 
+   static void run();
+
+
    ControlStrategyBase *control_strategy;
 
 

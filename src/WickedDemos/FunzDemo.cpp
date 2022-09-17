@@ -67,6 +67,54 @@ FunzDemo::FunzDemo(AllegroFlare::Framework *framework, Display *display)
    std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;
 }
 
+
+
+//#include <sstream>
+//#include <iostream>
+
+void FunzDemo::run()
+{
+   AllegroFlare::ScreenManager screens;
+   AllegroFlare::Framework framework(&screens);
+   framework.initialize();
+   //framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/bitmaps");
+   AllegroFlare::Display *display = framework.create_display(1920/3*4, 1080/3*4, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+
+   AllegroFlare::Screen *project = nullptr;
+
+   //std::cout << "*** Starting " << << " demo ***" << std::endl;
+
+
+   //if (demo_to_pick == "funz")
+   //{
+      FunzDemo *demo = new FunzDemo(&framework, display);
+      demo->initialize();
+      screens.add(demo);
+
+      project = demo;
+   //}
+   //else if (demo_to_pick == "original")
+   //{
+      ////OriginalDemo *demo = new OriginalDemo(display);
+      ////demo->initialize();
+      ////project = demo;
+   //}
+   //else
+   //{
+      ////OriginalDemo *demo = new OriginalDemo(display);
+      ////demo->initialize();
+      ////project = demo;
+   //}
+
+   framework.run_loop();
+   screens.remove(project);
+
+   delete project;
+   //return 0;
+}
+
+
+
 FunzDemo::~FunzDemo()
 {
    if (cursor_move) delete cursor_move;
