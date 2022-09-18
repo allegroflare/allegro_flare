@@ -11,7 +11,7 @@ class Wicked_Entities_Basic2DFactoryTest : public ::testing::Test {};
 class Wicked_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
-#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/Wicked/tests/fixtures/bitmaps"
+#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps"
 
 #include <Wicked/EntityFlagNames.hpp>
 

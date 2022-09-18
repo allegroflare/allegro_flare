@@ -52,7 +52,6 @@
       if (!(skybox)) throw std::runtime_error("need skybox in SceneFactory");
       std::vector<Entity*> &entities = (*_entities);
 
-      //LevelLoader level_loader("/Users/markoates/Repos/Wicked/saved_level-N2wPcrBY9tVVCVk8.json");
       LevelLoader level_loader(filename);
       std::vector<Entity *> loaded_entities;
       

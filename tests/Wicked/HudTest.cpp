@@ -35,13 +35,10 @@ TEST_F(Wicked_HudTest, render__without_allegro_initialized__raises_an_error)
 
 TEST_F(Wicked_HudTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
-   get_font_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/fonts");
-
    Wicked::Hud hud(&get_font_bin_ref());
    hud.render();
 
    al_flip_display();
    sleep_for(2);
-   SUCCEED();
 }
 

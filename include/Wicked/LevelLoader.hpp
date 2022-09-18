@@ -69,7 +69,7 @@ private:
    std::string json_filename;
 
 public:
-   LevelLoader(std::string json_filename="/Users/markoates/Repos/Wicked/outfile.json");
+   LevelLoader(std::string json_filename="/Users/markoates/Repos/allegro_flare/tmp/outfile.json");
 
    void write(
       std::vector<Wicked::Entity *> *entities,

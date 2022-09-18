@@ -3,7 +3,7 @@
 #include <AllegroFlare/Useful.hpp>
 #include <WickedDemos/globals.hpp>
 
-using AllegroFlare::Frameworks::Full;
+#include <cmath> // for sin, cos
 #include <AllegroFlare/Placement3D.hpp>
 #include <Wicked/LevelLoader.hpp>
 #include <Wicked/SceneFactory.hpp>
@@ -61,7 +61,6 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , input_mode(INPUT_MODE_WORLD_BUILDING)
    , control_strategy(nullptr)
 {
-   //std::cout << "AAAAAAAAAAA" << std::endl << std::flush;
    // TODO: note this is a cheap replacement for the map in globls.hpp
    //inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
    //std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;

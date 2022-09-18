@@ -138,7 +138,7 @@ class Wicked_Entities_Basic2DWithAllegroRenderingFixtureTest
 private:
    virtual void SetUp() override
    {
-      std::string TEST_FIXTURE_BITMAP_FOLDER = "/Users/markoates/Repos/Wicked/tests/fixtures/bitmaps";
+      std::string TEST_FIXTURE_BITMAP_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps";
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
       get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
    }
@@ -150,8 +150,6 @@ public:
       return bitmap_bin[filename];
    }
 };
-
-// #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/Wicked/tests/fixtures/bitmaps"
 
 
 TEST_F(Wicked_Entities_Basic2DTest, can_be_created_without_blowing_up)
@@ -234,17 +232,13 @@ TEST_F(Wicked_Entities_Basic2DWithAllegroRenderingFixtureTest, draw__can_be_call
 }
 
 
-TEST_F(Wicked_Entities_Basic2DWithAllegroRenderingFixtureTest, draw__with_a_bitmap__will_display_the_image)
+TEST_F(Wicked_Entities_Basic2DWithAllegroRenderingFixtureTest, CAPTURE__draw__with_a_bitmap__will_display_the_image)
 {
    Wicked::Entities::Basic2D basic2d_entity;
    basic2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
 
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
    basic2d_entity.draw();
-
-   std::string test_name = ::testing::UnitTest::GetInstance()->current_test_info()->name();
-   std::string full_test_name = "/Users/markoates/Repos/Wicked/tmp/tests/" + test_name + ".png";
-   al_save_bitmap(full_test_name.c_str(), al_get_backbuffer(al_get_current_display()));
 
    ALLEGRO_COLOR expected_sampled_color = al_color_html("f6e272"); // the color of the dragon's right toe nail
    ALLEGRO_COLOR actual_sampled_color = al_get_pixel(al_get_target_bitmap(), 46, 67);

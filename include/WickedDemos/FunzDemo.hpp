@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <cmath> // for sin, cos
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Elements/Inventory.hpp>
@@ -13,6 +12,7 @@
 #include <AllegroFlare/Motion.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
+
 #include <Wicked/PlayerControl.hpp>
 #include <Wicked/SceneRenderer.hpp>
 #include <Wicked/Light.hpp>
