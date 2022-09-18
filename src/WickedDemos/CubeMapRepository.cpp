@@ -20,12 +20,18 @@ void CubeMapRepository::initialize()
 
    if (initialized) return;
 
+
+   // TODO: update this bitmap_bin so that it is injected and the path can be dynamically coded
+   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/programs/";
+
    //AllegroFlare::Cubemap *af_cube_map_A = nullptr;
    //AllegroFlare::Cubemap *af_cube_map_B = nullptr;
    //af_cube_map_A = builder.glsl_create_cubemap_from_vertical_strip("data/bitmaps/sky4.png");
    //af_cube_map_B = builder.glsl_create_cubemap_from_vertical_strip("data/bitmaps/sky5_with_grid.png");
-   cube_map_A = builder.glsl_create_cubemap_from_vertical_strip("data/bitmaps/sky4.png");
-   cube_map_B = builder.glsl_create_cubemap_from_vertical_strip("data/bitmaps/sky5_with_grid.png");
+   cube_map_A = builder.glsl_create_cubemap_from_vertical_strip(
+      (BASE_PATH + std::string("data/bitmaps/sky4.png")).c_str());
+   cube_map_B = builder.glsl_create_cubemap_from_vertical_strip(
+      (BASE_PATH + std::string("data/bitmaps/sky5_with_grid.png")).c_str());
 
    //cube_map_A = new ALLEGRO_FLARE_CUBEMAP_TEXTURE{af_cube_map_A->get_id()};
    //cube_map_B = new ALLEGRO_FLARE_CUBEMAP_TEXTURE{af_cube_map_B->get_id()};
