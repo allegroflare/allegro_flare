@@ -174,7 +174,8 @@ TEST_F(Wicked_Physics_TileMapCollisionStepperTest, render__without_an_aabb2d__ra
 }
 
 
-TEST_F(Wicked_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixture, INTERACTIVE__will_work_as_expected)
+TEST_F(Wicked_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixture,
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
