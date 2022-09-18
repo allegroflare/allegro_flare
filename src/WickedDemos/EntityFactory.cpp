@@ -69,7 +69,6 @@ void EntityFactory::initialize()
 
 
 
-std::cout << "---------AAAAAAAAAAAAAAAA" << std::endl;
 
    std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
 
@@ -118,7 +117,6 @@ std::cout << "---------AAAAAAAAAAAAAAAA" << std::endl;
    standard_compound_shader->initialize();
 
 
-std::cout << "---------BBBBBBBBBBBBBB" << std::endl;
 
    //const std::string TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
    //atlas.duplicate_bitmap_and_load(bitmap_bin[TILE_MAP_BITMAP], 16, 16);

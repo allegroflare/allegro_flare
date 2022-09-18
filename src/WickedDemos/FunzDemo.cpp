@@ -79,6 +79,7 @@ void FunzDemo::run()
 {
    //AllegroFlare::ScreenManager screens;
    AllegroFlare::Frameworks::Full framework; //(&screens);
+   framework.disable_fullscreen();
    framework.initialize();
 
    //framework.get_sample_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/samples");
@@ -98,7 +99,6 @@ void FunzDemo::run()
 
       framework.register_screen("funz_demo", funz_demo);
 
-    std::cout << "XXXXXXXXXXXXXXXX" << std::endl;
 
       //project = demo;
    //}
@@ -144,14 +144,12 @@ void FunzDemo::initialize()
 
 
 
-   std::cout << "AAAAAAAAA" << std::endl;
 
    // activate a control strategy
    if (control_strategy) control_strategy->on_deactivate();
    control_strategy = new WorldBuildingControlStrategy(this);
    control_strategy->on_activate();
 
-   std::cout << "BBBBBBBBBb" << std::endl;
 
    // initialize the bins
    //bitmap_bin.set_path("data/bitmaps");
@@ -164,26 +162,22 @@ void FunzDemo::initialize()
    sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/samples");
    font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/fonts");
 
-   std::cout << "CCCCCCCCCCc" << std::endl;
    // preload the assets
    sample_bin.preload("cursor-move-01.wav");
    sample_bin.preload("rotate-selection-01.wav");
    sample_bin.preload("ui-input-bonk-01.wav");
    sample_bin.preload("delete-item-01.wav");
    sample_bin.preload("menu-click-01.wav");
-   std::cout << "DDDDDDDDDDd" << std::endl;
 
    cursor_move = new AllegroFlare::Sound(sample_bin["cursor-move-01.wav"]);
    rotate_selection_sound = new AllegroFlare::Sound(sample_bin["rotate-selection-01.wav"]);
    input_bonk_sound = new AllegroFlare::Sound(sample_bin["ui-input-bonk-01.wav"]);
    delete_item_sound = new AllegroFlare::Sound(sample_bin["delete-item-01.wav"]);
    menu_cursor_move_click_sound = new AllegroFlare::Sound(sample_bin["menu-click-01.wav"]);
-   std::cout << "EEEEEEEEEe" << std::endl;
 
    font_bin.preload("ui-font", "SourceSerif4_18pt-SemiBoldItalic.ttf -20");
    font_bin.preload("SourceSerif4_18pt-SemiBoldItalic.ttf -80");
    font_bin.preload("SourceSerif4_18pt-SemiBoldItalic.ttf -30");
-   std::cout << "FFFFFFFFFf" << std::endl;
 
 
    // NOTE:: removed usage of the backbuffer_bitmap (unknown consequences)
@@ -194,19 +188,14 @@ void FunzDemo::initialize()
 
    //create_and_use_backbuffer_sub_bitmap_of(al_get_backbuffer(al_get_current_display()));
 
-   std::cout << "GGGGGGGGGGGg" << std::endl;
 
    model_repository.initialize();
-   std::cout << "1111111111" << std::endl;
    entity_factory.initialize();
-   std::cout << "222222222" << std::endl;
    scene_renderer.set_backbuffer_sub_bitmap(backbuffer_sub_bitmap);
-   std::cout << "3333333333" << std::endl;
    scene_renderer.set_shadow_scale_divisor(1.0); // note, increasing this divisor will
       // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
       // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size, but reduce
       // the resolution of the shadow. Original engine had a default of 1.0f;
-   std::cout << "HHHHHHHHHHH" << std::endl;
 
    //motion.initialize();
 
@@ -242,7 +231,6 @@ void FunzDemo::initialize()
    camera_target_stepout_z = camera.stepout.z;
    camera_target_position = camera.position;
    camera_target_zoom = camera.zoom;
-   std::cout << "IIIIIIIII" << std::endl;
 
 
    shadow_map_depth_pass_surface = al_create_bitmap(display->get_width(), display->get_height());
@@ -252,14 +240,12 @@ void FunzDemo::initialize()
    // ^^ NOTE: not sure what this is for
    std::cout << "WARNING: FunzDemo::initialize() bypassing inventory.scale_for(..). This could cause the inventory window to not appear properly." << std::endl;
 
-   std::cout << "JJJJJJJJJJJJJJ" << std::endl;
 
 
    SceneFactory scene_factory;
 
 
    pointer = entity_factory.create_pointer();
-   std::cout << "KKKKKKKKK" << std::endl;
    
    //scene_factory.construct_scene(&entities, entity_factory, &skybox);
    scene_factory.load_level_from_file(
@@ -270,12 +256,10 @@ void FunzDemo::initialize()
       camera,
       casting_light
    );
-   std::cout << "LLLLLLLLLLLL" << std::endl;
 
    rescale_entity_ids();
    set_targets_to_currents();
 
-   std::cout << "MMMMMMMMM" << std::endl;
 
 
    //LevelLoader level_loader;
@@ -714,31 +698,24 @@ void FunzDemo::key_char_func(ALLEGRO_EVENT *ev)// override
 
 void FunzDemo::primary_timer_func()
 {
-   std::cout << "+++++++AAAAAAAAAAAAAAA" << std::endl;
    //ALLEGRO_EVENT *this_ev = Framework::current_event;
    if (control_strategy) control_strategy->primary_timer_func();
    update_camera_position_to_target();
-   std::cout << "+++++++BBBBBBBBBBBBBBB" << std::endl;
 
    // refresh what entity is currently selected
    update_selected();
-   std::cout << "+++++++CCCCCCCCCCCCCCC" << std::endl;
 
    // update the inventory
    inventory.update();
-   std::cout << "+++++++DDDDDDDDDDDDDDD" << std::endl;
 
    // update scene entities and states
    update_scene_physics();
-   std::cout << "+++++++EEEEEEEEEEEEEEEEe" << std::endl;
 
    // draw the scene
    draw_scene();
-   std::cout << "+++++++FFFFFFFFFFFFff" << std::endl;
 
    // draw the hud
    draw_hud();
-   std::cout << "+++++++GGGGGGGGGGGGGGg" << std::endl;
 
    //al_flip_display();
 }
