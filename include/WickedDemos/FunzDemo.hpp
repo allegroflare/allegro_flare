@@ -33,6 +33,7 @@ public:
    AllegroFlare::SampleBin sample_bin;
    AllegroFlare::FontBin font_bin;
    AllegroFlare::Random random;
+
    ModelRepository model_repository;
    EntityFactory entity_factory;
    Wicked::SceneRenderer scene_renderer;
@@ -40,6 +41,7 @@ public:
    PlayerControl player_control;
    int cursor_over_entity_id;
    int cursor_brush_id;
+
    static float min_zoom;
    static float max_zoom;
    AllegroFlare::Camera3D camera;

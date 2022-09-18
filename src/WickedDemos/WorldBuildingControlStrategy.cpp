@@ -1,6 +1,8 @@
 #include <WickedDemos/WorldBuildingControlStrategy.hpp>
 #include <WickedDemos/FunzDemo.hpp>
 
+#include <WickedDemos/globals.hpp>
+
 
 WorldBuildingControlStrategy::WorldBuildingControlStrategy(FunzDemo *funz_demo)
    : ControlStrategyBase("WorldBuildingControlStrategy")

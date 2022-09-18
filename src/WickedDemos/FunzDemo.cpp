@@ -7,6 +7,7 @@
 #include <AllegroFlare/Placement3D.hpp>
 #include <Wicked/LevelLoader.hpp>
 #include <Wicked/SceneFactory.hpp>
+
 #include <WickedDemos/WorldBuildingControlStrategy.hpp>
 #include <WickedDemos/InventoryControlStrategy.hpp>
 #include <WickedDemos/PlayerControlControlStrategy.hpp>
@@ -21,6 +22,7 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , sample_bin()
    , font_bin()
    , random()
+
    , model_repository()
    , entity_factory() // 
    , scene_renderer() // 
@@ -28,6 +30,9 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , player_control()
    , cursor_over_entity_id(0)
    , cursor_brush_id(CURSOR_BRUSH_CUBE)
+
+   //static float min_zoom;
+   //static float max_zoom;
    , camera()
    , casting_light() //
    , light(4, 4, 3) //
@@ -61,9 +66,6 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , input_mode(INPUT_MODE_WORLD_BUILDING)
    , control_strategy(nullptr)
 {
-   // TODO: note this is a cheap replacement for the map in globls.hpp
-   //inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
-   //std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;
 }
 
 
