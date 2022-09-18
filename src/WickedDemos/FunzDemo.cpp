@@ -3,18 +3,21 @@
 #include <allegro5/allegro_color.h>
 
 
-#include <AllegroFlare/Framework.hpp>
+//#include <AllegroFlare/Framework.hpp>
 #include <AllegroFlare/Useful.hpp>
 
-using AllegroFlare::Framework;
+//using AllegroFlare::Framework;
+using AllegroFlare::Frameworks::Full;
 //using AllegroFlare::random_string;
 using AllegroFlare::TAU;
 
 
-FunzDemo::FunzDemo(AllegroFlare::Framework *framework, Display *display)
+FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, Display *display)
    : framework(framework)
-   , Screen(display)
+   , AllegroFlare::Screens::Base("FunzDemo")//display)
+   , display(display)
    , inventory_index()
+   , backbuffer_sub_bitmap(nullptr)
    , bitmap_bin()
    , sample_bin()
    , font_bin()
@@ -74,24 +77,27 @@ FunzDemo::FunzDemo(AllegroFlare::Framework *framework, Display *display)
 
 void FunzDemo::run()
 {
-   AllegroFlare::ScreenManager screens;
-   AllegroFlare::Framework framework(&screens);
+   //AllegroFlare::ScreenManager screens;
+   AllegroFlare::Frameworks::Full framework; //(&screens);
    framework.initialize();
+
+   //framework.get_sample_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/samples");
    //framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/bitmaps");
+
    AllegroFlare::Display *display = framework.create_display(1920/3*4, 1080/3*4, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
 
-   AllegroFlare::Screen *project = nullptr;
+   //AllegroFlare::Screen *project = nullptr;
 
    //std::cout << "*** Starting " << << " demo ***" << std::endl;
 
 
    //if (demo_to_pick == "funz")
    //{
-      FunzDemo *demo = new FunzDemo(&framework, display);
-      demo->initialize();
-      screens.add(demo);
+      FunzDemo *funz_demo = new FunzDemo(&framework, display);
+      funz_demo->initialize();
+      framework.register_screen("funz_demo", funz_demo);
 
-      project = demo;
+      //project = demo;
    //}
    //else if (demo_to_pick == "original")
    //{
@@ -107,9 +113,9 @@ void FunzDemo::run()
    //}
 
    framework.run_loop();
-   screens.remove(project);
+   framework.unregister_screen(funz_demo);
 
-   delete project;
+   delete funz_demo;
    //return 0;
 }
 
@@ -139,9 +145,15 @@ void FunzDemo::initialize()
 
 
    // initialize the bins
-   bitmap_bin.set_path("data/bitmaps");
-   sample_bin.set_path("data/samples");
-   font_bin.set_path("data/fonts");
+   //bitmap_bin.set_path("data/bitmaps");
+   //sample_bin.set_path("data/samples");
+   //font_bin.set_path("data/fonts");
+
+   // NOTE, TODO, these assets are being stored in a location different from the rest of where the typical assets
+   // are stored with allegro_flare
+   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/bitmaps");
+   sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/samples");
+   font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/fonts");
 
    // preload the assets
    sample_bin.preload("cursor-move-01.wav");
@@ -161,7 +173,13 @@ void FunzDemo::initialize()
    font_bin.preload("SourceSerif4_18pt-SemiBoldItalic.ttf -30");
 
 
-   create_and_use_backbuffer_sub_bitmap_of(al_get_backbuffer(al_get_current_display()));
+   // NOTE:: removed usage of the backbuffer_bitmap (unknown consequences)
+   // MARK
+   ALLEGRO_BITMAP *backbuffer_sub_bitmap_target = al_get_backbuffer(al_get_current_display());
+   backbuffer_sub_bitmap = al_create_sub_bitmap(backbuffer_sub_bitmap,
+      0, 0, al_get_bitmap_width(backbuffer_sub_bitmap), al_get_bitmap_height(backbuffer_sub_bitmap));
+
+   //create_and_use_backbuffer_sub_bitmap_of(al_get_backbuffer(al_get_current_display()));
 
 
    model_repository.initialize();

@@ -21,17 +21,22 @@ namespace Wicked
          // the resolution of the shadow. Original engine had a default of 1.0f;
    {
       //("data/shaders/depth_vertex.glsl", "data/shaders/depth_fragment.glsl")
+
+      // TODO revise the technique needing a hard-coded path (does not work in test vs produ vs dev environments)
+      std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+
+
       std::string vertex_filename;
       std::string vertex_file_content;
       std::string fragment_filename;
       std::string fragment_file_content;
 
-      vertex_filename = "data/shaders/depth_vertex.glsl";
+      vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_vertex.glsl";
       vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
-      fragment_filename = "data/shaders/depth_fragment.glsl";
-      fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+      fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_fragment.glsl";
+      fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
 
-      depth_shader = new AllegroFlare::Shader();
+      depth_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
       depth_shader->initialize();
    }
 

@@ -65,7 +65,9 @@ void EntityFactory::initialize()
 
 
 
+std::cout << "AAAAAAAAAAAAAAAA" << std::endl;
 
+   std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/";
 
 
    // load up the shaders
@@ -74,23 +76,23 @@ void EntityFactory::initialize()
    std::string fragment_filename;
    std::string fragment_file_content;
 
-   vertex_filename = "data/shaders/cube_vertex.glsl";
+   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/cube_vertex.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
-   fragment_filename = "data/shaders/cube_fragment.glsl";
+   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/cube_fragment.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    cubemap_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
 
 
-   vertex_filename = "data/shaders/simple_map_vertex_with_light.glsl";
+   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/simple_map_vertex_with_light.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
-   fragment_filename = "data/shaders/simple_map_fragment_with_light.glsl";
+   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/simple_map_fragment_with_light.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    simple_map_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
 
 
-   vertex_filename = "data/shaders/standard_compound_vertex.glsl";
+   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/standard_compound_vertex.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
-   fragment_filename = "data/shaders/standard_compound_fragment.glsl";
+   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/standard_compound_fragment.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    standard_compound_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
 
@@ -110,6 +112,9 @@ void EntityFactory::initialize()
    cubemap_shader->initialize();
    simple_map_shader->initialize();
    standard_compound_shader->initialize();
+
+
+std::cout << "BBBBBBBBBBBBBB" << std::endl;
 
    //const std::string TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
    //atlas.duplicate_bitmap_and_load(bitmap_bin[TILE_MAP_BITMAP], 16, 16);

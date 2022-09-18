@@ -14,8 +14,7 @@ TEST(WickedDemos_FunzDemoTest, run__will_run_the_application)
 {
    // HERE
    // TODO
-   //FunzDemo::run();
-   //funz_demo.run();
+   FunzDemo::run();
 }
 
 

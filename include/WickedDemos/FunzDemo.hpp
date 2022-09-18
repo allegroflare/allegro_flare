@@ -16,14 +16,16 @@
 //#include <Tileo/Atlas.hpp>
 //#include <Tileo/Mesh.hpp>
 #include <AllegroFlare/Random.hpp>
-#include <AllegroFlare/Screen.hpp> //
+//#include <AllegroFlare/Screen.hpp> //
+#include <AllegroFlare/Screens/Base.hpp> //
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Motion.hpp>
 //#include <AllegroFlare/Motion.hpp>
 
 #include <AllegroFlare/Display.hpp> //
-#include <AllegroFlare/Framework.hpp> //
+//#include <AllegroFlare/Framework.hpp> //
+#include <AllegroFlare/Frameworks/Full.hpp> //
 
 //using AllegroFlare::Screen;
 using AllegroFlare::SampleBin;
@@ -31,7 +33,7 @@ using AllegroFlare::FontBin;
 //using AllegroFlare::Display;
 using AllegroFlare::Motion;
 using AllegroFlare::Placement3D;
-using AllegroFlare::Screen;
+//using AllegroFlare::Screen;
 using AllegroFlare::Display;
 
 
@@ -72,14 +74,15 @@ public:
 
 
 
-class FunzDemo : public Screen
+class FunzDemo : public AllegroFlare::Screens::Base
 {
 public:
    // bins
-   AllegroFlare::Framework *framework;
+   AllegroFlare::Frameworks::Full *framework;
+   AllegroFlare::Display *display;
 
    AllegroFlare::InventoryIndex inventory_index;
-   //ALLEGRO_BITMAP *backbuffer_sub_bitmap;
+   ALLEGRO_BITMAP *backbuffer_sub_bitmap;
 
    BitmapBin bitmap_bin;
    SampleBin sample_bin;
@@ -146,7 +149,7 @@ public:
    ControlStrategyBase *control_strategy;
 
 
-   FunzDemo(AllegroFlare::Framework *framework=nullptr, Display *display=nullptr);
+   FunzDemo(AllegroFlare::Frameworks::Full *framework=nullptr, Display *display=nullptr);
    ~FunzDemo();
 
    void initialize();
