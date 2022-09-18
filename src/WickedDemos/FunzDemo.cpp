@@ -72,55 +72,22 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, Display *display)
 
 
 
-//#include <sstream>
-//#include <iostream>
-
 void FunzDemo::run()
 {
-   //AllegroFlare::ScreenManager screens;
-   AllegroFlare::Frameworks::Full framework; //(&screens);
+   AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
    framework.initialize();
 
-   //framework.get_sample_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/samples");
-   //framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/bitmaps");
+   FunzDemo *funz_demo = new FunzDemo(&framework, framework.get_primary_display());
+   funz_demo->initialize();
 
-   //AllegroFlare::Display *display = framework.create_display(1920/3*4, 1080/3*4, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
-
-   //AllegroFlare::Screen *project = nullptr;
-
-   //std::cout << "*** Starting " << << " demo ***" << std::endl;
-
-
-   //if (demo_to_pick == "funz")
-   //{
-      FunzDemo *funz_demo = new FunzDemo(&framework, framework.get_primary_display());
-      funz_demo->initialize();
-
-      framework.register_screen("funz_demo", funz_demo);
-
-
-      //project = demo;
-   //}
-   //else if (demo_to_pick == "original")
-   //{
-      ////OriginalDemo *demo = new OriginalDemo(display);
-      ////demo->initialize();
-      ////project = demo;
-   //}
-   //else
-   //{
-      ////OriginalDemo *demo = new OriginalDemo(display);
-      ////demo->initialize();
-      ////project = demo;
-   //}
+   framework.register_screen("funz_demo", funz_demo);
    framework.activate_screen("funz_demo");
 
    framework.run_loop();
    framework.unregister_screen(funz_demo);
 
    delete funz_demo;
-   //return 0;
 }
 
 
