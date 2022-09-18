@@ -2,20 +2,14 @@
 
 
 #include <allegro5/allegro.h> // for ALLEGRO_BITMAP
-//#include <AllegroFlare/Shader.hpp>
 #include <Wicked/Entity.hpp>
 #include <Wicked/ShadowCastingLight.hpp>
-//#include <AllegroFlare/Placement3D.hpp>
 
 
 using AllegroFlare::Placement3D;
-//using allegro_flare::placement3d;
 using AllegroFlare::vec3d;
 using AllegroFlare::vec2d;
 using AllegroFlare::Shader;
-
-//#include <allegro_flare/shader.h>
-//using allegro_flare::Shader;
 
 
 namespace Wicked

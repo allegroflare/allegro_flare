@@ -87,7 +87,7 @@ void FunzDemo::run()
    framework.run_loop();
    framework.unregister_screen(funz_demo);
 
-   delete funz_demo;
+   //delete funz_demo;
 }
 
 
@@ -115,7 +115,7 @@ void FunzDemo::initialize()
    }
 
 
-   //scene_renderer.initialize();
+   scene_renderer.initialize();
 
 
    // activate a control strategy
