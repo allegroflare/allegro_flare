@@ -44,26 +44,26 @@ int main(int argc, char **argv)
    std::cout << "*** Starting " << demo_to_pick << " demo ***" << std::endl;
 
 
-   if (demo_to_pick == "funz")
-   {
+   //if (demo_to_pick == "funz")
+   //{
       FunzDemo *demo = new FunzDemo(&framework, display);
       demo->initialize();
       screens.add(demo);
 
       project = demo;
-   }
-   else if (demo_to_pick == "original")
-   {
-      //OriginalDemo *demo = new OriginalDemo(display);
-      //demo->initialize();
-      //project = demo;
-   }
-   else
-   {
-      //OriginalDemo *demo = new OriginalDemo(display);
-      //demo->initialize();
-      //project = demo;
-   }
+   //}
+   //else if (demo_to_pick == "original")
+   //{
+      ////OriginalDemo *demo = new OriginalDemo(display);
+      ////demo->initialize();
+      ////project = demo;
+   //}
+   //else
+   //{
+      ////OriginalDemo *demo = new OriginalDemo(display);
+      ////demo->initialize();
+      ////project = demo;
+   //}
 
 	framework.run_loop();
    screens.remove(project);

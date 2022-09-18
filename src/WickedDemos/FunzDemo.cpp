@@ -84,7 +84,7 @@ void FunzDemo::run()
    //framework.get_sample_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/samples");
    //framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/bitmaps");
 
-   AllegroFlare::Display *display = framework.create_display(1920/3*4, 1080/3*4, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+   //AllegroFlare::Display *display = framework.create_display(1920/3*4, 1080/3*4, ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
 
    //AllegroFlare::Screen *project = nullptr;
 
@@ -93,10 +93,12 @@ void FunzDemo::run()
 
    //if (demo_to_pick == "funz")
    //{
-      FunzDemo *funz_demo = new FunzDemo(&framework, display);
+      FunzDemo *funz_demo = new FunzDemo(&framework, framework.get_primary_display());
       funz_demo->initialize();
 
       framework.register_screen("funz_demo", funz_demo);
+
+    std::cout << "XXXXXXXXXXXXXXXX" << std::endl;
 
       //project = demo;
    //}
@@ -112,6 +114,7 @@ void FunzDemo::run()
       ////demo->initialize();
       ////project = demo;
    //}
+   framework.activate_screen("funz_demo");
 
    framework.run_loop();
    framework.unregister_screen(funz_demo);
@@ -130,6 +133,7 @@ FunzDemo::~FunzDemo()
    if (delete_item_sound) delete delete_item_sound;
    if (menu_cursor_move_click_sound) delete menu_cursor_move_click_sound;
 }
+
 
 void FunzDemo::initialize()
 {
@@ -271,6 +275,7 @@ void FunzDemo::initialize()
    rescale_entity_ids();
    set_targets_to_currents();
 
+   std::cout << "MMMMMMMMM" << std::endl;
 
 
    //LevelLoader level_loader;
@@ -709,24 +714,31 @@ void FunzDemo::key_char_func(ALLEGRO_EVENT *ev)// override
 
 void FunzDemo::primary_timer_func()
 {
+   std::cout << "+++++++AAAAAAAAAAAAAAA" << std::endl;
    //ALLEGRO_EVENT *this_ev = Framework::current_event;
    if (control_strategy) control_strategy->primary_timer_func();
    update_camera_position_to_target();
+   std::cout << "+++++++BBBBBBBBBBBBBBB" << std::endl;
 
    // refresh what entity is currently selected
    update_selected();
+   std::cout << "+++++++CCCCCCCCCCCCCCC" << std::endl;
 
    // update the inventory
    inventory.update();
+   std::cout << "+++++++DDDDDDDDDDDDDDD" << std::endl;
 
    // update scene entities and states
    update_scene_physics();
+   std::cout << "+++++++EEEEEEEEEEEEEEEEe" << std::endl;
 
    // draw the scene
    draw_scene();
+   std::cout << "+++++++FFFFFFFFFFFFff" << std::endl;
 
    // draw the hud
    draw_hud();
+   std::cout << "+++++++GGGGGGGGGGGGGGg" << std::endl;
 
    //al_flip_display();
 }

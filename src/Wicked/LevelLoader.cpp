@@ -379,7 +379,7 @@ void LevelLoader::load(
                   //int random_tile = random_element(elements); //random.get_random_int(0, atlas.get_tile_index_size());
                   int tile = tiles[x + y*created_entity->mesh->get_num_columns()];
                   //int random_tile = 4 + (5 * mesh.get_num_columns());
-                  created_entity->mesh->set_tile(x, y, tile);
+                  created_entity->mesh->set_tile_id(x, y, tile);
                }
             }
          }

@@ -187,7 +187,7 @@ public:
    //virtual void key_down_func(); // override;
    //virtual void key_char_func(); // override;
 
-   void primary_timer_func(); // override;
+   virtual void primary_timer_func() override;
 };
 
 

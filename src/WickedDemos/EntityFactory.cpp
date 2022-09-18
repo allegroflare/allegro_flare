@@ -69,9 +69,9 @@ void EntityFactory::initialize()
 
 
 
-std::cout << "AAAAAAAAAAAAAAAA" << std::endl;
+std::cout << "---------AAAAAAAAAAAAAAAA" << std::endl;
 
-   std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/";
+   std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
 
 
    // load up the shaders
@@ -83,21 +83,21 @@ std::cout << "AAAAAAAAAAAAAAAA" << std::endl;
    vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/cube_vertex.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/cube_fragment.glsl";
-   fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
    cubemap_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
 
 
    vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/simple_map_vertex_with_light.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/simple_map_fragment_with_light.glsl";
-   fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
    simple_map_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
 
 
    vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/standard_compound_vertex.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/standard_compound_fragment.glsl";
-   fragment_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
    standard_compound_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
 
    //, cubemap_shader("data/shaders/cube_vertex.glsl", "data/shaders/cube_fragment.glsl")
@@ -118,7 +118,7 @@ std::cout << "AAAAAAAAAAAAAAAA" << std::endl;
    standard_compound_shader->initialize();
 
 
-std::cout << "BBBBBBBBBBBBBB" << std::endl;
+std::cout << "---------BBBBBBBBBBBBBB" << std::endl;
 
    //const std::string TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
    //atlas.duplicate_bitmap_and_load(bitmap_bin[TILE_MAP_BITMAP], 16, 16);
@@ -140,7 +140,7 @@ Entity *EntityFactory::create_basic_mesh(int num_columns, int num_rows, vec3d po
       {
          int random_tile = random.get_random_int(0, atlas.get_tile_index_size());
          //int random_tile = 4 + (5 * mesh.get_num_columns());
-         mesh->set_tile(x, y, random_tile);
+         mesh->set_tile_id(x, y, random_tile);
       }
    }
 
