@@ -16,12 +16,18 @@ namespace Wicked
       //, depth_shader("data/shaders/depth_vertex.glsl", "data/shaders/depth_fragment.glsl")
       , depth_shader(nullptr)
       , shadow_scale_divisor(1.0) // note, increasing this divisor will
+      , initialized(false)
          // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
          // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size, but reduce
          // the resolution of the shadow. Original engine had a default of 1.0f;
 
          // Also, this article
          // https://docs.microsoft.com/en-us/windows/win32/dxtecharts/common-techniques-to-improve-shadow-depth-maps
+   {
+   }
+
+
+   void SceneRenderer::initialize()
    {
       //("data/shaders/depth_vertex.glsl", "data/shaders/depth_fragment.glsl")
 
@@ -41,6 +47,8 @@ namespace Wicked
 
       depth_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
       depth_shader->initialize();
+
+      initialized = true;
    }
 
 
@@ -64,6 +72,7 @@ namespace Wicked
          Entity *pointer
       )
    {
+      if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
       if (!_entities) throw std::runtime_error("CCc");
       std::vector<Entity *> &entities = (*_entities);
 
@@ -111,6 +120,7 @@ namespace Wicked
       ALLEGRO_TRANSFORM *transform_to_fill
    )
    {
+      if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SHADOW: ERROR: not initialized");
       if (!backbuffer_sub_bitmap) throw std::runtime_error("AAa");
 
       // setup the render settings
@@ -150,6 +160,7 @@ namespace Wicked
 
    void SceneRenderer::setup_projection_SCENE(AllegroFlare::Camera3D &camera, ALLEGRO_TRANSFORM *transform_to_fill)
    {
+      if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SCENE: ERROR: not initialized");
       camera.setup_projection_on(backbuffer_sub_bitmap);
    }
 
@@ -166,6 +177,7 @@ namespace Wicked
          vec3d camera_looking_at_point
       )
    {
+      if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::draw_entities: ERROR: not initialized");
       if (!skybox)
       {
          static bool skybox_error = false;
@@ -233,11 +245,13 @@ namespace Wicked
 
    void SceneRenderer::draw_scene()
    {
+      if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::draw_scene: ERROR: not initialized");
    }
 
 
    void SceneRenderer::render()
    {
+      if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::render: ERROR: not initialized");
    }
 
 

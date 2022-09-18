@@ -35,6 +35,7 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    //static float max_zoom;
    , camera()
    , casting_light() //
+
    , light(4, 4, 3) //
    , texture_offset(0, 0)
    , shadow_map_depth_pass_transform()
@@ -53,13 +54,14 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , camera_target_spin(0.0)
    , camera_target_stepout_z(0.0)
    , camera_target_position(0, 0, 0)
+   , camera_target_zoom(1.0)
+
    , cursor_move(nullptr)
    , rotate_selection_sound(nullptr)
-   , hud_surface(nullptr)
    , input_bonk_sound(nullptr)
    , delete_item_sound(nullptr)
    , menu_cursor_move_click_sound(nullptr)
-   , camera_target_zoom(1.0)
+   , hud_surface(nullptr)
    , inventory_index()
    , af_inventory()
    , inventory(&font_bin, &bitmap_bin, &af_inventory, &inventory_index, nullptr)
@@ -113,6 +115,7 @@ void FunzDemo::initialize()
    }
 
 
+   //scene_renderer.initialize();
 
 
    // activate a control strategy

@@ -46,6 +46,7 @@ public:
    static float max_zoom;
    AllegroFlare::Camera3D camera;
    ShadowCastingLight casting_light;
+
    Light light;
    vec2d texture_offset;
    ALLEGRO_TRANSFORM shadow_map_depth_pass_transform;
@@ -62,6 +63,7 @@ public:
    float camera_target_stepout_z;
    vec3d camera_target_position;
    float camera_target_zoom;
+
    AllegroFlare::Sound *cursor_move;
    AllegroFlare::Sound *rotate_selection_sound;
    AllegroFlare::Sound *input_bonk_sound;
@@ -97,7 +99,6 @@ public:
    virtual void key_char_func(ALLEGRO_EVENT *ev=nullptr) override;
    virtual void primary_timer_func() override;
 };
-
 
 
 

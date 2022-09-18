@@ -30,9 +30,12 @@ private:
          // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
          // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size,
          // but reduce. the resolution of the shadow. Original engine had a default of 1.0f;
+   bool initialized;
 
 public:
    SceneRenderer();
+
+   void initialize();
 
    void set_shadow_scale_divisor(float shadow_scale_divisor=1.0f);
 
