@@ -42,7 +42,11 @@ void EntityFactory::initialize()
    if (initialized) return;
    model_repository.initialize();
    cube_map_repository.initialize();
-   bitmap_bin.set_path("data/bitmaps");
+
+
+   // TODO: update this bitmap_bin so that it is injected and the path can be dynamically coded
+   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/programs/";
+   bitmap_bin.set_full_path(BASE_PATH + "data/bitmaps");
 
    bitmap_bin.preload("pointer-violet.png");
    bitmap_bin.preload("uv.png");

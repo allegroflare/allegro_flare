@@ -26,7 +26,12 @@ ModelRepository::ModelRepository()
 void ModelRepository::initialize()
 {
    if (initialized) return;
-   model_bin.set_path("data/models");
+
+   
+   // TODO: update this model_bin so that it is injected and the path can be dynamically coded
+   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/programs/";
+
+   model_bin.set_full_path(BASE_PATH + "data/models");
 
    model_bin.preload("rounded-unit-cube", "rounded_unit_cube-01.obj");
    model_bin.preload("rounded-medium-cube", "rounded_unit_cube-01.obj");
