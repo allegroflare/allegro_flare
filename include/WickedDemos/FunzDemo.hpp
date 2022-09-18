@@ -6,51 +6,26 @@
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Elements/Inventory.hpp>
 #include <AllegroFlare/InventoryIndex.hpp>
+#include <AllegroFlare/Random.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/SampleBin.hpp>
+#include <AllegroFlare/Placement3D.hpp>
+#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Motion.hpp>
+#include <AllegroFlare/Display.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
+
 #include <Wicked/LevelLoader.hpp>
 #include <Wicked/PlayerControl.hpp>
 #include <Wicked/SceneFactory.hpp>
 #include <Wicked/SceneRenderer.hpp>
 #include <Wicked/Light.hpp>
-#include <AllegroFlare/Random.hpp>
-#include <AllegroFlare/Screens/Base.hpp>
-#include <AllegroFlare/SampleBin.hpp>
-#include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/Motion.hpp>
-#include <AllegroFlare/Display.hpp>
-#include <AllegroFlare/Frameworks/Full.hpp>
-using AllegroFlare::SampleBin;
-using AllegroFlare::FontBin;
-using AllegroFlare::Motion;
-using AllegroFlare::Placement3D;
-using AllegroFlare::Display;
-
 
 #include <WickedDemos/globals.hpp>
 #include <WickedDemos/ControlStrategyBase.hpp>
-class FunzDemo;
 #include <WickedDemos/WorldBuildingControlStrategy.hpp>
-
-
-
-class PlayerControlControlStrategy : public ControlStrategyBase
-{
-private:
-   FunzDemo *funz_demo;
-
-public:
-   PlayerControlControlStrategy(FunzDemo *funz_demo=nullptr);
-
-   virtual void on_activate() override;
-   virtual void on_deactivate() override;
-
-   virtual void key_up_func(ALLEGRO_EVENT *ev=nullptr) override;
-   virtual void key_down_func(ALLEGRO_EVENT *ev=nullptr) override;
-   virtual void key_char_func(ALLEGRO_EVENT *ev=nullptr) override;
-   virtual void primary_timer_func() override;
-};
-
-
 #include <WickedDemos/InventoryControlStrategy.hpp>
+#include <WickedDemos/PlayerControlControlStrategy.hpp>
 
 
 
@@ -62,14 +37,14 @@ public:
    AllegroFlare::Display *display;
    AllegroFlare::InventoryIndex inventory_index;
    ALLEGRO_BITMAP *backbuffer_sub_bitmap;
-   BitmapBin bitmap_bin;
-   SampleBin sample_bin;
-   FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   AllegroFlare::SampleBin sample_bin;
+   AllegroFlare::FontBin font_bin;
    AllegroFlare::Random random;
    ModelRepository model_repository;
    EntityFactory entity_factory;
    Wicked::SceneRenderer scene_renderer;
-   Motion motion;
+   AllegroFlare::Motion motion;
    PlayerControl player_control;
    int cursor_over_entity_id;
    int cursor_brush_id;
@@ -104,7 +79,7 @@ public:
    int input_mode;
    ControlStrategyBase *control_strategy;
 
-   FunzDemo(AllegroFlare::Frameworks::Full *framework=nullptr, Display *display=nullptr);
+   FunzDemo(AllegroFlare::Frameworks::Full *framework=nullptr, AllegroFlare::Display *display=nullptr);
    ~FunzDemo();
 
    static void run();

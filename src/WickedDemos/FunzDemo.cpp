@@ -1,20 +1,15 @@
 #include <WickedDemos/FunzDemo.hpp>
 
 #include <allegro5/allegro_color.h>
-
-
-//#include <AllegroFlare/Framework.hpp>
 #include <AllegroFlare/Useful.hpp>
 
-//using AllegroFlare::Framework;
 using AllegroFlare::Frameworks::Full;
-//using AllegroFlare::random_string;
-using AllegroFlare::TAU;
+//using AllegroFlare::TAU;
 
 
-FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, Display *display)
-   : framework(framework)
-   , AllegroFlare::Screens::Base("FunzDemo")//display)
+FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Display *display)
+   : AllegroFlare::Screens::Base("FunzDemo")
+   , framework(framework)
    , display(display)
    , inventory_index()
    , backbuffer_sub_bitmap(nullptr)
@@ -23,20 +18,20 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, Display *display)
    , font_bin()
    , random()
    , model_repository()
-   , entity_factory()
-   , scene_renderer()
+   , entity_factory() // 
+   , scene_renderer() // 
    , motion()
    , player_control()
    , cursor_over_entity_id(0)
    , cursor_brush_id(CURSOR_BRUSH_CUBE)
    , camera()
-   , casting_light()
-   , light(4, 4, 3)
+   , casting_light() //
+   , light(4, 4, 3) //
    , texture_offset(0, 0)
    , shadow_map_depth_pass_transform()
-   , shadow_map_depth_pass_surface(nullptr)
-   , skybox(nullptr)
-   , pointer(nullptr)
+   , shadow_map_depth_pass_surface(nullptr) //
+   , skybox(nullptr) //
+   , pointer(nullptr) //
    , entities()
    , camera_spinning(true)
    , light_time_of_day(0.15)
@@ -57,17 +52,14 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, Display *display)
    , menu_cursor_move_click_sound(nullptr)
    , camera_target_zoom(1.0)
    , af_inventory()
-   //, inventory(&font_bin, &bitmap_bin, &af_inventory, CREATORS_INVENTORY_INDEX)
    , inventory(&font_bin, &bitmap_bin, &af_inventory, &inventory_index, nullptr)
-                                                  // ^^ note new nullptr event_emitter
    , input_mode(INPUT_MODE_WORLD_BUILDING)
    , control_strategy(nullptr)
-   //, atlas()
-   //, mesh(&atlas, 10, 20)
 {
+   //std::cout << "AAAAAAAAAAA" << std::endl << std::flush;
    // TODO: note this is a cheap replacement for the map in globls.hpp
-   inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
-   std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;
+   //inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   //std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;
 }
 
 
@@ -104,6 +96,11 @@ FunzDemo::~FunzDemo()
 
 void FunzDemo::initialize()
 {
+   // TODO: note this is a cheap replacement for the map in globls.hpp
+   inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;
+
+
    for (auto &inventory_dictionary_item : CREATORS_INVENTORY_INDEX)
    {
       af_inventory.add_item(inventory_dictionary_item.first);
@@ -719,7 +716,7 @@ float FunzDemo::max_zoom = 2.0;
 
 
 
-
+/*
 
 
 
@@ -860,4 +857,4 @@ void PlayerControlControlStrategy::primary_timer_func()
 }
 
 
-
+*/
