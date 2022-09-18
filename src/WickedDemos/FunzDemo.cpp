@@ -1,17 +1,21 @@
 #include <WickedDemos/FunzDemo.hpp>
 
-#include <allegro5/allegro_color.h>
 #include <AllegroFlare/Useful.hpp>
+#include <WickedDemos/globals.hpp>
 
 using AllegroFlare::Frameworks::Full;
-//using AllegroFlare::TAU;
+#include <AllegroFlare/Placement3D.hpp>
+#include <Wicked/LevelLoader.hpp>
+#include <Wicked/SceneFactory.hpp>
+#include <WickedDemos/WorldBuildingControlStrategy.hpp>
+#include <WickedDemos/InventoryControlStrategy.hpp>
+#include <WickedDemos/PlayerControlControlStrategy.hpp>
 
 
 FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Display *display)
    : AllegroFlare::Screens::Base("FunzDemo")
    , framework(framework)
    , display(display)
-   , inventory_index()
    , backbuffer_sub_bitmap(nullptr)
    , bitmap_bin()
    , sample_bin()
@@ -51,6 +55,7 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , delete_item_sound(nullptr)
    , menu_cursor_move_click_sound(nullptr)
    , camera_target_zoom(1.0)
+   , inventory_index()
    , af_inventory()
    , inventory(&font_bin, &bitmap_bin, &af_inventory, &inventory_index, nullptr)
    , input_mode(INPUT_MODE_WORLD_BUILDING)

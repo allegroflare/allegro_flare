@@ -1,3 +1,6 @@
+#pragma once
+
+
 class PlayerControl
 {
 public:
@@ -11,18 +14,20 @@ public:
    float strafe_left_right_velocity;
    float rotation_left_right_velocity;
 
-   float set_forward_backward_velocity(float v)
+   void set_forward_backward_velocity(float v)
    {
       forward_backward_velocity = v;
    }
 
-   float set_strafe_left_right_velocity(float v)
+   void set_strafe_left_right_velocity(float v)
    {
       strafe_left_right_velocity = v;
    }
 
-   float set_rotation_left_right_velocity(float v)
+   void set_rotation_left_right_velocity(float v)
    {
       rotation_left_right_velocity = v;
    }
 };
+
+

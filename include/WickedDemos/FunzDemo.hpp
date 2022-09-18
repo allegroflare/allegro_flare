@@ -9,24 +9,17 @@
 #include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/SampleBin.hpp>
-#include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Motion.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
-
-#include <Wicked/LevelLoader.hpp>
 #include <Wicked/PlayerControl.hpp>
-#include <Wicked/SceneFactory.hpp>
 #include <Wicked/SceneRenderer.hpp>
 #include <Wicked/Light.hpp>
 
-#include <WickedDemos/globals.hpp>
+#include <WickedDemos/EntityFactory.hpp>
+#include <WickedDemos/ModelRepository.hpp>
 #include <WickedDemos/ControlStrategyBase.hpp>
-#include <WickedDemos/WorldBuildingControlStrategy.hpp>
-#include <WickedDemos/InventoryControlStrategy.hpp>
-#include <WickedDemos/PlayerControlControlStrategy.hpp>
-
 
 
 
@@ -35,7 +28,6 @@ class FunzDemo : public AllegroFlare::Screens::Base
 public:
    AllegroFlare::Frameworks::Full *framework;
    AllegroFlare::Display *display;
-   AllegroFlare::InventoryIndex inventory_index;
    ALLEGRO_BITMAP *backbuffer_sub_bitmap;
    AllegroFlare::BitmapBin bitmap_bin;
    AllegroFlare::SampleBin sample_bin;
@@ -74,6 +66,7 @@ public:
    AllegroFlare::Sound *delete_item_sound;
    AllegroFlare::Sound *menu_cursor_move_click_sound;
    ALLEGRO_BITMAP *hud_surface;
+   AllegroFlare::InventoryIndex inventory_index;
    AllegroFlare::Inventory af_inventory;
    AllegroFlare::Elements::Inventory inventory;
    int input_mode;
