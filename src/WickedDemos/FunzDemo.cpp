@@ -220,7 +220,7 @@ void FunzDemo::initialize()
       &entities,
       entity_factory,
       &skybox,
-      "/Users/markoates/Repos/Wicked/bin/programs/data/worlds/world-with-boxes-01.json",
+      "/Users/markoates/Repos/allegro_flare/bin/programs/data/worlds/world-with-boxes-01.json",
       camera,
       casting_light
    );
@@ -646,9 +646,7 @@ void FunzDemo::key_char_func(ALLEGRO_EVENT *ev)// override
       }
    case ALLEGRO_KEY_6:
       {
-         //std::string filename_str = "/Users/markoates/Repos/Wicked/saved_level-" + random_string(16) + ".json";
-         //std::string filename_str = "/Users/markoates/Repos/Wicked/bin/programs/data/worlds/saved_level-" + random_string(16) + ".json";
-         std::string filename_str = "/Users/markoates/Repos/Wicked/bin/programs/data/worlds/world-with-boxes-01.json";
+         std::string filename_str = "/Users/markoates/Repos/allegro_flare/bin/programs/data/worlds/world-with-boxes-01.json";
          bool success = false;
          if (shift)
          {

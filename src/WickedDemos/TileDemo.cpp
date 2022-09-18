@@ -179,8 +179,8 @@ void TileDemo::initialize_maps()
    Wicked::Entities::Basic2D *created_map = nullptr;
 
    std::map<std::string, std::string> map_dictionary_entries = {
-      { "map_a", "/Users/markoates/Repos/Wicked/bin/programs/data/maps/map1-0x.tmj" },
-      { "map_b", "/Users/markoates/Repos/Wicked/bin/programs/data/maps/map1b-0x.tmj" },
+      { "map_a", "/Users/markoates/Repos/allegro_flare/bin/programs/data/maps/map1-0x.tmj" },
+      { "map_b", "/Users/markoates/Repos/allegro_flare/bin/programs/data/maps/map1b-0x.tmj" },
    };
 
    for (auto &map_dictionary_entry : map_dictionary_entries)
@@ -309,10 +309,10 @@ void TileDemo::initialize_camera_control()
    float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
    float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-   //Wicked::CameraControlStrategies2D::SmoothSnap *camera_control =
-      //new Wicked::CameraControlStrategies2D::SmoothSnap(room_width, room_height);
-   Wicked::CameraControlStrategies2D::HorizontalRail *camera_control =
-      new Wicked::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
+   Wicked::CameraControlStrategies2D::SmoothSnap *camera_control =
+      new Wicked::CameraControlStrategies2D::SmoothSnap(room_width, room_height);
+   //Wicked::CameraControlStrategies2D::HorizontalRail *camera_control =
+      //new Wicked::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
    camera_control->set_camera(&camera);
    camera_control->set_entity_to_follow(player_controlled_entity);
    camera_control->initialize();
@@ -830,7 +830,7 @@ void TileDemo::run(std::vector<std::string> args)
    framework.disable_fullscreen();
    framework.initialize();
 
-   framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/bitmaps");
+   framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/bitmaps");
 
    WickedDemos::TileDemo tile_demo(
       &framework,
