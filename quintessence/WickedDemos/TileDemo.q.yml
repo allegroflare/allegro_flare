@@ -168,8 +168,8 @@ functions:
       Wicked::Entities::Basic2D *created_map = nullptr;
 
       std::map<std::string, std::string> map_dictionary_entries = {
-         { "map_a", "/Users/markoates/Repos/allegro_flare/bin/programs/data/maps/map1-0x.tmj" },
-         { "map_b", "/Users/markoates/Repos/allegro_flare/bin/programs/data/maps/map1b-0x.tmj" },
+         { "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
+         { "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },
       };
 
       for (auto &map_dictionary_entry : map_dictionary_entries)
@@ -796,7 +796,7 @@ functions:
       framework.disable_fullscreen();
       framework.initialize();
 
-      framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/bitmaps");
+      framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
 
       WickedDemos::TileDemo tile_demo(
          &framework,

@@ -30,8 +30,11 @@ enum
 };
 
 
+#include <AllegroFlare/InventoryIndexItem.hpp>
+
 // id (for std::map), title, image-filename, description
 extern const std::map<int, std::tuple<std::string, std::string, std::string>> CREATORS_INVENTORY_INDEX;
+extern const std::map<int, AllegroFlare::InventoryIndexItem> CREATORS_INVENTORY_INDEX2;
 
 
 std::string inventory_index_id_to_factory_identifier(int id);

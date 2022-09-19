@@ -72,6 +72,7 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
 
 
 
+
 void FunzDemo::run()
 {
    AllegroFlare::Frameworks::Full framework;
@@ -104,16 +105,6 @@ FunzDemo::~FunzDemo()
 
 void FunzDemo::initialize()
 {
-   // TODO: note this is a cheap replacement for the map in globls.hpp
-   inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
-   std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;
-
-
-   for (auto &inventory_dictionary_item : CREATORS_INVENTORY_INDEX)
-   {
-      af_inventory.add_item(inventory_dictionary_item.first);
-   }
-
 
    scene_renderer.initialize();
 
@@ -131,9 +122,9 @@ void FunzDemo::initialize()
 
    // NOTE, TODO, these assets are being stored in a location different from the rest of where the typical assets
    // are stored with allegro_flare
-   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/bitmaps");
-   sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/samples");
-   font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/fonts");
+   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+   sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples");
+   font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
 
    // preload the assets
    sample_bin.preload("cursor-move-01.wav");
@@ -215,6 +206,24 @@ void FunzDemo::initialize()
 
 
 
+   // TODO: note this is a cheap replacement for the map in globls.hpp
+   //inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   //std::cout << "WARNING: Building FunzDemo::inventory_index with a placeholder index. Please update this index to be filled with the index provided in WickedDemos/globals.cpp, thank you." << std::endl;
+
+   inventory_index = AllegroFlare::InventoryIndex(CREATORS_INVENTORY_INDEX2);
+
+   inventory.set_event_emitter(&framework->get_event_emitter_ref());
+
+
+   for (auto &inventory_dictionary_item : CREATORS_INVENTORY_INDEX2)
+   {
+      af_inventory.add_item(inventory_dictionary_item.first);
+   }
+
+
+
+
+
    SceneFactory scene_factory;
 
 
@@ -225,7 +234,7 @@ void FunzDemo::initialize()
       &entities,
       entity_factory,
       &skybox,
-      "/Users/markoates/Repos/allegro_flare/bin/programs/data/worlds/world-with-boxes-01.json",
+      "/Users/markoates/Repos/allegro_flare/bin/data/worlds/world-with-boxes-01.json",
       camera,
       casting_light
    );
@@ -499,7 +508,7 @@ void FunzDemo::draw_hud()
                       + SPACER + "[N/P]  Next/Previous Entity"
                       + SPACER + "[Shift+8]  Capture screenshot"
                       + SPACER + "[PAD +/-]  Zoom"
-                      + SPACER + "[ESC]  Toggle Inventory"
+                      + SPACER + "[I]  Toggle Inventory"
                       + SPACER + "[-/+]  Change time of day";
    //float text_width = al_get_text_width(font, inputs.str());
    float text_height = al_get_font_line_height(font);
@@ -627,7 +636,7 @@ void FunzDemo::key_char_func(ALLEGRO_EVENT *ev)// override
          }
       }
       break;
-   case ALLEGRO_KEY_ESCAPE:
+   case ALLEGRO_KEY_I:
       {
          toggle_inventory();
          if (inventory.get_active()) setup_input_mode(INPUT_MODE_INVENTORY);
@@ -651,7 +660,7 @@ void FunzDemo::key_char_func(ALLEGRO_EVENT *ev)// override
       }
    case ALLEGRO_KEY_6:
       {
-         std::string filename_str = "/Users/markoates/Repos/allegro_flare/bin/programs/data/worlds/world-with-boxes-01.json";
+         std::string filename_str = "/Users/markoates/Repos/allegro_flare/bin/data/worlds/world-with-boxes-01.json";
          bool success = false;
          if (shift)
          {
