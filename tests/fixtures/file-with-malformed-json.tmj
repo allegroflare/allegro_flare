@@ -1,0 +1,28 @@
+         }}
+         "width":25,
+         "x":0,
+         "y":0
+        }, 
+        {
+         draworder":"topdown",
+         "id":2,
+         "name":"Object Layer 1",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         y":0 }],
+ "nextlayerid":5,
+ "nextobjectid":10,
+ "renderorder":"right-down",
+ "tiledversion":"1.8.2",
+         "firstgid":1,
+         "source":"..\/tiles_dungeon_v1.1.tsx"
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.8",
+ "width":25
+};
+

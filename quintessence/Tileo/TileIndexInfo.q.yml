@@ -1,0 +1,58 @@
+properties:
+
+
+  - name: index_num
+    type: int
+    init_with: -1
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: bitmap_source
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: sub_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: u1
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: v1
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: u2
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: v2
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    constructor_arg: true
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
