@@ -127,17 +127,17 @@ void FunzDemo::initialize()
    font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
 
    // preload the assets
-   sample_bin.preload("cursor-move-01.wav");
-   sample_bin.preload("rotate-selection-01.wav");
-   sample_bin.preload("ui-input-bonk-01.wav");
-   sample_bin.preload("delete-item-01.wav");
-   sample_bin.preload("menu-click-01.wav");
+   sample_bin.preload("cursor-move-01.ogg");
+   sample_bin.preload("rotate-selection-01.ogg");
+   sample_bin.preload("ui-input-bonk-01.ogg");
+   sample_bin.preload("delete-item-01.ogg");
+   sample_bin.preload("menu-click-01.ogg");
 
-   cursor_move = new AllegroFlare::Sound(sample_bin["cursor-move-01.wav"]);
-   rotate_selection_sound = new AllegroFlare::Sound(sample_bin["rotate-selection-01.wav"]);
-   input_bonk_sound = new AllegroFlare::Sound(sample_bin["ui-input-bonk-01.wav"]);
-   delete_item_sound = new AllegroFlare::Sound(sample_bin["delete-item-01.wav"]);
-   menu_cursor_move_click_sound = new AllegroFlare::Sound(sample_bin["menu-click-01.wav"]);
+   cursor_move = new AllegroFlare::Sound(sample_bin["cursor-move-01.ogg"]);
+   rotate_selection_sound = new AllegroFlare::Sound(sample_bin["rotate-selection-01.ogg"]);
+   input_bonk_sound = new AllegroFlare::Sound(sample_bin["ui-input-bonk-01.ogg"]);
+   delete_item_sound = new AllegroFlare::Sound(sample_bin["delete-item-01.ogg"]);
+   menu_cursor_move_click_sound = new AllegroFlare::Sound(sample_bin["menu-click-01.ogg"]);
 
    font_bin.preload("ui-font", "SourceSerif4_18pt-SemiBoldItalic.ttf -20");
    font_bin.preload("SourceSerif4_18pt-SemiBoldItalic.ttf -80");

@@ -37,7 +37,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , inventory_items_top_padding(80.0f)
    , inventory_items_box_size(150.0)
    , inventory_items_box_spacing((inventory_items_box_size + 20.0f))
-   , cursor_move_sound_identifier("menu-click-01.wav")
+   , cursor_move_sound_identifier("menu-click-01.ogg")
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
    , sound_is_disabled(false)

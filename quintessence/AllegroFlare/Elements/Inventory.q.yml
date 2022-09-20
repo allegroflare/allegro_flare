@@ -94,7 +94,7 @@ properties:
 
   - name: cursor_move_sound_identifier
     type: std::string
-    init_with: '"menu-click-01.wav"'
+    init_with: '"menu-click-01.ogg"'
     getter: true
     setter: true
 
