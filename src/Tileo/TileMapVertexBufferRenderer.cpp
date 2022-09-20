@@ -72,7 +72,7 @@ void TileMapVertexBufferRenderer::set_tile_uv(int tile_x, int tile_y, int u1, in
 }
 
 
-TileMapVertexBufferRenderer::TileMapVertexBufferRenderer(Tileo::Atlas &atlas)
+TileMapVertexBufferRenderer::TileMapVertexBufferRenderer(AllegroFlare::TileMaps::PrimMeshAtlas &atlas)
    : vertex_buffer(nullptr)
    , atlas(atlas)
    , width(0)
@@ -104,7 +104,7 @@ int TileMapVertexBufferRenderer::infer_num_tiles()
 }
 
 
-bool TileMapVertexBufferRenderer::set_tile(Tileo::Atlas &atlas, int tile_x, int tile_y, int tile_index)
+bool TileMapVertexBufferRenderer::set_tile(AllegroFlare::TileMaps::PrimMeshAtlas &atlas, int tile_x, int tile_y, int tile_index)
 {
    // if the tile index does not exist in the atlas, break out
    if (tile_index >= (int)atlas.get_tile_index_size()) return false;

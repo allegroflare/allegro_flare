@@ -6,7 +6,7 @@
 
 TEST(Tileo_TileMapVertexBufferRendererTest, can_be_created_without_blowing_up)
 {
-   Tileo::Atlas atlas;
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
    TileMapVertexBufferRenderer renderer(atlas);
 }
 
