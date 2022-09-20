@@ -40,7 +40,7 @@ void EntityFactory::initialize()
 
 
    // TODO: update this bitmap_bin so that it is injected and the path can be dynamically coded
-   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/programs/";
+   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/";
    bitmap_bin.set_full_path(BASE_PATH + "data/bitmaps");
 
    bitmap_bin.preload("pointer-violet.png");

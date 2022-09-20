@@ -11,8 +11,7 @@ TEST(WickedDemos_FunzDemoTest, can_be_created_without_blowing_up)
 
 TEST(WickedDemos_FunzDemoTest, run__will_run_the_application)
 {
-   // TODO: have this build again
-   //FunzDemo::run();
+   FunzDemo::run();
 }
 
 
