@@ -358,7 +358,6 @@
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
     "Tileo/Shaders/MeshWithNormals",
-    "Tileo/TileIndexInfo",
     "Wicked/Entities/Basic2D"
   ],
   "tan": [
