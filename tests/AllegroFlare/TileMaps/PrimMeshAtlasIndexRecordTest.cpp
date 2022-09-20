@@ -3,8 +3,8 @@
 
 #include <AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.hpp>
 
-TEST(Tileo__TileIndexInfoTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_TileMaps_PrimMeshAtlasIndexRecord, can_be_created_without_blowing_up)
 {
-   AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord tile_index_info;
+   AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord prim_mesh_atlas_index_record;
 }
 
