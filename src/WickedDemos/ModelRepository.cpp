@@ -29,7 +29,7 @@ void ModelRepository::initialize()
 
    
    // TODO: update this model_bin so that it is injected and the path can be dynamically coded
-   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/programs/";
+   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/";
 
    model_bin.set_full_path(BASE_PATH + "data/models");
 

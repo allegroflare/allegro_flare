@@ -8,11 +8,8 @@
 #include <AllegroFlare/UsefulPHP.hpp>
 
 #include <Wicked/Entity.hpp>
-//#include <Wicked/Random.hpp>
 
 using Wicked::Entity;
-//using AllegroFlare::random_float;
-//using AllegroFlare::random_sign;
 using AllegroFlare::TAU;
 
 
@@ -20,8 +17,6 @@ EntityFactory::EntityFactory()
    : model_repository()
    , cube_map_repository()
    , bitmap_bin()
-   //, cube_map_A(nullptr)
-   //, cube_map_B(nullptr)
    , cubemap_shader(nullptr)
    , simple_map_shader(nullptr)
    , standard_compound_shader(nullptr)
@@ -45,7 +40,7 @@ void EntityFactory::initialize()
 
 
    // TODO: update this bitmap_bin so that it is injected and the path can be dynamically coded
-   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/programs/";
+   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/";
    bitmap_bin.set_full_path(BASE_PATH + "data/bitmaps");
 
    bitmap_bin.preload("pointer-violet.png");

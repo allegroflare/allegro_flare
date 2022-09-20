@@ -1,0 +1,29 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Shader
+    scope: public
+    init_with: "vertex_source_code, fragment_source_code"
+
+
+properties:
+
+
+  - name: vertex_source_code
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+
+  - name: fragment_source_code
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Shader
+    headers: [ AllegroFlare/Shader.hpp ]
+
+

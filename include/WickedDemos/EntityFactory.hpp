@@ -16,10 +16,6 @@ using AllegroFlare::vec2d;
 using AllegroFlare::vec3d;
 
 
-//#include <allegro_flare/shader.h>
-//using allegro_flare::ALLEGRO_FLARE_CUBEMAP_TEXTURE;
-//using allegro_flare::Shader;
-
 #include <AllegroFlare/Shader.hpp>
 #include <AllegroFlare/Cubemap.hpp>
 
@@ -30,14 +26,11 @@ private:
    ModelRepository model_repository;
    CubeMapRepository cube_map_repository;
    BitmapBin bitmap_bin;
-   //ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_A;
-   //ALLEGRO_FLARE_CUBEMAP_TEXTURE *cube_map_B;
    AllegroFlare::Shader *cubemap_shader;
    AllegroFlare::Shader *simple_map_shader;
    AllegroFlare::Shader *standard_compound_shader;
    bool initialized;
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-   //Tileo::Mesh *mesh;
    AllegroFlare::Random random;
 
 

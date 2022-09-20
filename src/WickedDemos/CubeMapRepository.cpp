@@ -21,7 +21,7 @@ void CubeMapRepository::initialize()
    if (initialized) return;
 
    // TODO: update this bitmap_bin so that it is injected and the path can be dynamically coded
-   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/programs/";
+   std::string BASE_PATH = "/Users/markoates/Repos/allegro_flare/bin/";
 
    cube_map_A = builder.glsl_create_cubemap_from_vertical_strip(
       (BASE_PATH + std::string("data/bitmaps/sky4.png")).c_str());

@@ -9,14 +9,6 @@
 #include <AllegroFlare/Cubemap.hpp>
 
 
-//#include <allegro_flare/shader.h>
-//using allegro_flare::Shader;
-//using allegro_flare::ALLEGRO_FLARE_CUBEMAP_TEXTURE;
-
-//using AllegroFlare::vec2d;
-
-
-
 namespace Wicked
 {
 
