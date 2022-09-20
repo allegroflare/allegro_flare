@@ -186,8 +186,14 @@ table td
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
+  <li><a href="#quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</a></li>
+  <li><a href="#quintessence/Tileo/Shaders/AllegroDefault.q.yml">quintessence/Tileo/Shaders/AllegroDefault.q.yml</a></li>
+  <li><a href="#quintessence/Tileo/Shaders/Base.q.yml">quintessence/Tileo/Shaders/Base.q.yml</a></li>
+  <li><a href="#quintessence/Tileo/Shaders/MeshWithNormals.q.yml">quintessence/Tileo/Shaders/MeshWithNormals.q.yml</a></li>
   <li><a href="#quintessence/Tileo/TMJDataLoader.q.yml">quintessence/Tileo/TMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/Tileo/TMJMeshLoader.q.yml">quintessence/Tileo/TMJMeshLoader.q.yml</a></li>
+  <li><a href="#quintessence/Tileo/TileIndexInfo.q.yml">quintessence/Tileo/TileIndexInfo.q.yml</a></li>
+  <li><a href="#quintessence/Tileo/TileoTileVertexAllegroVertexDeclaration.q.yml">quintessence/Tileo/TileoTileVertexAllegroVertexDeclaration.q.yml</a></li>
   <li><a href="#quintessence/Wicked/CameraControlStrategies2D/Base.q.yml">quintessence/Wicked/CameraControlStrategies2D/Base.q.yml</a></li>
   <li><a href="#quintessence/Wicked/CameraControlStrategies2D/HorizontalRail.q.yml">quintessence/Wicked/CameraControlStrategies2D/HorizontalRail.q.yml</a></li>
   <li><a href="#quintessence/Wicked/CameraControlStrategies2D/SmoothSnap.q.yml">quintessence/Wicked/CameraControlStrategies2D/SmoothSnap.q.yml</a></li>
@@ -9328,6 +9334,219 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">tileo_tile_vertex_allegro_vertex_declaration</td>
+  <td class="property">Tileo::TileoTileVertexAllegroVertexDeclaration</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+</tr>
+<tr>
+  <td class="property">normal_atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+</tr>
+<tr>
+  <td class="property">tile_ids</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">normal_tile_ids</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">vertexes</td>
+  <td class="property">std::vector&lt;TILEO_TILE_VERTEX&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">destroyed</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">destroy()</td>
+</tr>
+<tr>
+  <td class="method">obtain_vertex_declaration()</td>
+</tr>
+<tr>
+  <td class="method">resize(2)</td>
+</tr>
+<tr>
+  <td class="method">set_tile(3)</td>
+</tr>
+<tr>
+  <td class="method">set_normal_tile(3)</td>
+</tr>
+<tr>
+  <td class="private_method">set_tile_uv(6)</td>
+</tr>
+<tr>
+  <td class="private_method">set_normal_tile_uv(6)</td>
+</tr>
+<tr>
+  <td class="private_method">place_vertexes_into_tile_mesh_shape()</td>
+</tr>
+<tr>
+  <td class="private_method">clear_and_reserve()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tileo::TileoTileVertexAllegroVertexDeclaration&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/TileoTileVertexAllegroVertexDeclaration.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX_DECL&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;TILEO_TILE_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/TileoTileVertex.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tileo/Shaders/AllegroDefault.q.yml">quintessence/Tileo/Shaders/AllegroDefault.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_vertex_source()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_fragment_source()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tileo::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tileo/Shaders/Base.q.yml">quintessence/Tileo/Shaders/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">vertex_source_code</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">fragment_source_code</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tileo/Shaders/MeshWithNormals.q.yml">quintessence/Tileo/Shaders/MeshWithNormals.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="method">set_flat_color(2)</td>
+</tr>
+<tr>
+  <td class="method">set_light_direction(1)</td>
+</tr>
+<tr>
+  <td class="method">set_light_spread(1)</td>
+</tr>
+<tr>
+  <td class="method">set_light_attenuation(1)</td>
+</tr>
+<tr>
+  <td class="method">set_primary_texture(1)</td>
+</tr>
+<tr>
+  <td class="method">set_normal_texture(1)</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_vertex_source()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_fragment_source()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tileo::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::vec3d&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/Tileo/TMJDataLoader.q.yml">quintessence/Tileo/TMJDataLoader.q.yml</h3>
      <table>
 <tr>
@@ -9501,6 +9720,95 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tileo::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tileo/TileIndexInfo.q.yml">quintessence/Tileo/TileIndexInfo.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">index_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">bitmap_source</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">sub_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">u1</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">v1</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">u2</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">v2</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tileo/TileoTileVertexAllegroVertexDeclaration.q.yml">quintessence/Tileo/TileoTileVertexAllegroVertexDeclaration.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">vertex_declaration</td>
+  <td class="property">ALLEGRO_VERTEX_DECL*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">destroyed</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_vertex_declaration()</td>
+</tr>
+<tr>
+  <td class="method">build_empty_vertex()</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">destroy()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX_DECL&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;TILEO_TILE_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/TileoTileVertex.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -11548,7 +11856,8 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
-    "AllegroFlare/Time"
+    "AllegroFlare/Time",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -11568,7 +11877,8 @@ table td
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/UnicodeFontViewer"
+    "AllegroFlare/UnicodeFontViewer",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -11634,6 +11944,8 @@ table td
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
+    "Tileo/Shaders/MeshWithNormals",
+    "Tileo/TileIndexInfo",
     "Wicked/Entities/Basic2D"
   ],
   "tan": [
@@ -11679,6 +11991,8 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
+    "Tileo/Shaders/AllegroDefault",
+    "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D",
     "Wicked/Entities/Basic2DFactory"
   ],
@@ -12531,7 +12845,8 @@ table td
   "AllegroFlare/Shader": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Shaders/Base"
+    "AllegroFlare/Shaders/Base",
+    "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
@@ -12703,6 +13018,7 @@ table td
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/TileMaps/Basic2D",
+    "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo"
@@ -12715,7 +13031,9 @@ table td
     "WickedDemos/TileDemo"
   ],
   "ALLEGRO_VERTEX_DECL": [
-    "AllegroFlare/TileMaps/MultiMesh"
+    "AllegroFlare/TileMaps/MultiMesh",
+    "Tileo/MeshWithNormals",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "ALLEGRO_VERTEX_BUFFER": [
     "AllegroFlare/TileMaps/MultiMesh"
@@ -12731,6 +13049,7 @@ table td
   ],
   "AllegroFlare/vec3d": [
     "AllegroFlare/Useful3D/Triangle",
+    "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Zones/Base3D",
     "Wicked/Entities/Zones/Rectangle3D"
   ],
@@ -12773,6 +13092,17 @@ table td
   "std/map<int, int>": [
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
+  ],
+  "Tileo/TileoTileVertexAllegroVertexDeclaration": [
+    "Tileo/MeshWithNormals"
+  ],
+  "TILEO_TILE_VERTEX": [
+    "Tileo/MeshWithNormals",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
+  ],
+  "Tileo/Shaders/Base": [
+    "Tileo/Shaders/AllegroDefault",
+    "Tileo/Shaders/MeshWithNormals"
   ],
   "std/ifstream": [
     "Tileo/TMJDataLoader"

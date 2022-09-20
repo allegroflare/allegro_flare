@@ -269,7 +269,8 @@
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
-    "AllegroFlare/Time"
+    "AllegroFlare/Time",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -289,7 +290,8 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/UnicodeFontViewer"
+    "AllegroFlare/UnicodeFontViewer",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -355,6 +357,8 @@
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
+    "Tileo/Shaders/MeshWithNormals",
+    "Tileo/TileIndexInfo",
     "Wicked/Entities/Basic2D"
   ],
   "tan": [
@@ -400,6 +404,8 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
+    "Tileo/Shaders/AllegroDefault",
+    "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D",
     "Wicked/Entities/Basic2DFactory"
   ],
@@ -1252,7 +1258,8 @@
   "AllegroFlare/Shader": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Shaders/Base"
+    "AllegroFlare/Shaders/Base",
+    "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
@@ -1424,6 +1431,7 @@
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/TileMaps/Basic2D",
+    "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo"
@@ -1436,7 +1444,9 @@
     "WickedDemos/TileDemo"
   ],
   "ALLEGRO_VERTEX_DECL": [
-    "AllegroFlare/TileMaps/MultiMesh"
+    "AllegroFlare/TileMaps/MultiMesh",
+    "Tileo/MeshWithNormals",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "ALLEGRO_VERTEX_BUFFER": [
     "AllegroFlare/TileMaps/MultiMesh"
@@ -1452,6 +1462,7 @@
   ],
   "AllegroFlare/vec3d": [
     "AllegroFlare/Useful3D/Triangle",
+    "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Zones/Base3D",
     "Wicked/Entities/Zones/Rectangle3D"
   ],
@@ -1494,6 +1505,17 @@
   "std/map<int, int>": [
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
+  ],
+  "Tileo/TileoTileVertexAllegroVertexDeclaration": [
+    "Tileo/MeshWithNormals"
+  ],
+  "TILEO_TILE_VERTEX": [
+    "Tileo/MeshWithNormals",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
+  ],
+  "Tileo/Shaders/Base": [
+    "Tileo/Shaders/AllegroDefault",
+    "Tileo/Shaders/MeshWithNormals"
   ],
   "std/ifstream": [
     "Tileo/TMJDataLoader"

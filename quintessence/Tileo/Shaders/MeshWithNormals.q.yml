@@ -349,7 +349,7 @@ dependencies:
     headers: [ Tileo/Shaders/Base.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
-  - symbol: ALLEGRO_BITMAP*
+  - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::vec3d
     headers: [ AllegroFlare/Vec3D.hpp ]

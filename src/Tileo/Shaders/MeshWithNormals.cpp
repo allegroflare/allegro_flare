@@ -1,8 +1,9 @@
 
 
 #include <Tileo/Shaders/MeshWithNormals.hpp>
-#include <stdexcept>
+
 #include <sstream>
+#include <stdexcept>
 
 
 namespace Tileo
@@ -32,11 +33,11 @@ void MeshWithNormals::initialize()
 void MeshWithNormals::activate()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "activate" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "activate" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    Tileo::Shaders::Base::activate();
 }
 
@@ -317,6 +318,8 @@ std::string MeshWithNormals::obtain_fragment_source()
    )DELIM";
    return source;
 }
+
+
 } // namespace Shaders
 } // namespace Tileo
 

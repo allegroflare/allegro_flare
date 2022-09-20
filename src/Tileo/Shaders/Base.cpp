@@ -4,6 +4,7 @@
 
 
 
+
 namespace Tileo
 {
 namespace Shaders
@@ -21,6 +22,8 @@ Base::Base(std::string vertex_source_code, std::string fragment_source_code)
 Base::~Base()
 {
 }
+
+
 
 
 } // namespace Shaders

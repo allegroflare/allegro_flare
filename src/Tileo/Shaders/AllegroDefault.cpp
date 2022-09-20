@@ -1,8 +1,9 @@
 
 
 #include <Tileo/Shaders/AllegroDefault.hpp>
-#include <stdexcept>
+
 #include <sstream>
+#include <stdexcept>
 
 
 namespace Tileo
@@ -32,11 +33,11 @@ void AllegroDefault::initialize()
 void AllegroDefault::activate()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "AllegroDefault" << "::" << "activate" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "AllegroDefault" << "::" << "activate" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    Tileo::Shaders::Base::activate();
 }
 
@@ -110,6 +111,8 @@ std::string AllegroDefault::obtain_fragment_source()
    )DELIM";
    return source;
 }
+
+
 } // namespace Shaders
 } // namespace Tileo
 

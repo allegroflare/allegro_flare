@@ -8,11 +8,8 @@
 #include <AllegroFlare/UsefulPHP.hpp>
 
 #include <Wicked/Entity.hpp>
-//#include <Wicked/Random.hpp>
 
 using Wicked::Entity;
-//using AllegroFlare::random_float;
-//using AllegroFlare::random_sign;
 using AllegroFlare::TAU;
 
 
@@ -20,8 +17,6 @@ EntityFactory::EntityFactory()
    : model_repository()
    , cube_map_repository()
    , bitmap_bin()
-   //, cube_map_A(nullptr)
-   //, cube_map_B(nullptr)
    , cubemap_shader(nullptr)
    , simple_map_shader(nullptr)
    , standard_compound_shader(nullptr)

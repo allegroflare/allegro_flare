@@ -14,12 +14,15 @@ namespace Tileo
       bool initialized;
       bool destroyed;
 
+   protected:
+
+
    public:
       TileoTileVertexAllegroVertexDeclaration();
       ~TileoTileVertexAllegroVertexDeclaration();
 
-      bool get_initialized();
-      bool get_destroyed();
+      bool get_initialized() const;
+      bool get_destroyed() const;
       ALLEGRO_VERTEX_DECL* get_vertex_declaration();
       static TILEO_TILE_VERTEX build_empty_vertex();
       void initialize();

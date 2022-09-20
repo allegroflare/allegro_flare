@@ -164,9 +164,9 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, INTERACTIVE__vertexes_will_ren
    ALLEGRO_BITMAP* tile_map_texture = bitmap_bin["tiles_dungeon_v1.1.png"];
    ALLEGRO_BITMAP* irrelevant_texture = bitmap_bin["test_texture.png"];
    ALLEGRO_BITMAP* normal_map_texture = bitmap_bin["normal-tileset-01.png"];
-   Tileo::Atlas atlas;
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
    atlas.duplicate_bitmap_and_load(tile_map_texture, 16, 16);
-   Tileo::Atlas normal_atlas;
+   AllegroFlare::TileMaps::PrimMeshAtlas normal_atlas;
    normal_atlas.duplicate_bitmap_and_load(normal_map_texture, 16, 16);
    Tileo::MeshWithNormals mesh_with_normals(25, 15, 16*4.8, 16*4.5, &atlas, &normal_atlas);
    mesh_with_normals.initialize();

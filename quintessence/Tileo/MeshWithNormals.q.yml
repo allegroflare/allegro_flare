@@ -28,12 +28,12 @@ properties:
     constructor_arg: true
 
   - name: atlas
-    type: Tileo::Atlas*
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
     init_with: nullptr
     constructor_arg: true
 
   - name: normal_atlas
-    type: Tileo::Atlas*
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
     init_with: nullptr
     constructor_arg: true
 
@@ -344,13 +344,13 @@ functions:
 dependencies:
 
 
-  - symbol: Tileo::Atlas*
-    headers: [ Tileo/Atlas.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
   - symbol: Tileo::TileoTileVertexAllegroVertexDeclaration
     headers: [ Tileo/TileoTileVertexAllegroVertexDeclaration.hpp ]
-  - symbol: ALLEGRO_VERTEX_DECL*
+  - symbol: ALLEGRO_VERTEX_DECL
     headers: [ allegro5/allegro_primitives.h ]
-  - symbol: std::vector<TILEO_TILE_VERTEX>
-    headers: [ vector, Tileo/TileoTileVertex.hpp ]
+  - symbol: TILEO_TILE_VERTEX
+    headers: [ Tileo/TileoTileVertex.hpp ]
 
 

@@ -13,6 +13,11 @@ namespace Tileo
       {
       private:
          bool initialized;
+         static std::string obtain_vertex_source();
+         static std::string obtain_fragment_source();
+
+      protected:
+
 
       public:
          AllegroDefault();
@@ -20,8 +25,6 @@ namespace Tileo
 
          void initialize();
          void activate();
-         static std::string obtain_vertex_source();
-         static std::string obtain_fragment_source();
       };
    }
 }

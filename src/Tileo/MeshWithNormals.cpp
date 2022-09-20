@@ -1,25 +1,16 @@
 
 
 #include <Tileo/MeshWithNormals.hpp>
-#include <stdexcept>
+
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
-#include <stdexcept>
-#include <sstream>
 
 
 namespace Tileo
 {
 
 
-MeshWithNormals::MeshWithNormals(int num_columns, int num_rows, float tile_width, float tile_height, Tileo::Atlas* atlas, Tileo::Atlas* normal_atlas)
+MeshWithNormals::MeshWithNormals(int num_columns, int num_rows, float tile_width, float tile_height, AllegroFlare::TileMaps::PrimMeshAtlas* atlas, AllegroFlare::TileMaps::PrimMeshAtlas* normal_atlas)
    : tileo_tile_vertex_allegro_vertex_declaration()
    , num_columns(num_columns)
    , num_rows(num_rows)
@@ -41,13 +32,13 @@ MeshWithNormals::~MeshWithNormals()
 }
 
 
-int MeshWithNormals::get_num_columns()
+int MeshWithNormals::get_num_columns() const
 {
    return num_columns;
 }
 
 
-int MeshWithNormals::get_num_rows()
+int MeshWithNormals::get_num_rows() const
 {
    return num_rows;
 }
@@ -62,23 +53,23 @@ std::vector<TILEO_TILE_VERTEX> &MeshWithNormals::get_vertexes_ref()
 void MeshWithNormals::initialize()
 {
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!((num_columns >= 0)))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "initialize" << ": error: " << "guard \"(num_columns >= 0)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "initialize" << ": error: " << "guard \"(num_columns >= 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!((num_rows >= 0)))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "initialize" << ": error: " << "guard \"(num_rows >= 0)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "initialize" << ": error: " << "guard \"(num_rows >= 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    tileo_tile_vertex_allegro_vertex_declaration.initialize();
    resize(num_columns, num_rows);
    initialized = true;
@@ -101,17 +92,17 @@ ALLEGRO_VERTEX_DECL* MeshWithNormals::obtain_vertex_declaration()
 void MeshWithNormals::resize(int num_columns, int num_rows)
 {
    if (!((num_columns >= 0)))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "resize" << ": error: " << "guard \"(num_columns >= 0)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "resize" << ": error: " << "guard \"(num_columns >= 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!((num_rows >= 0)))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "resize" << ": error: " << "guard \"(num_rows >= 0)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "resize" << ": error: " << "guard \"(num_rows >= 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    this->num_columns = num_columns;
    this->num_rows = num_rows;
 
@@ -124,17 +115,17 @@ void MeshWithNormals::resize(int num_columns, int num_rows)
 bool MeshWithNormals::set_tile(int tile_x, int tile_y, int tile_index_num)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "set_tile" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "set_tile" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(atlas))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "set_tile" << ": error: " << "guard \"atlas\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "set_tile" << ": error: " << "guard \"atlas\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (tile_x < 0) return false;
    if (tile_x >= num_columns) return false;
    if (tile_y < 0) return false;
@@ -161,17 +152,17 @@ bool MeshWithNormals::set_tile(int tile_x, int tile_y, int tile_index_num)
 bool MeshWithNormals::set_normal_tile(int tile_x, int tile_y, int tile_index_num)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "set_normal_tile" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "set_normal_tile" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(normal_atlas))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "set_normal_tile" << ": error: " << "guard \"normal_atlas\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "set_normal_tile" << ": error: " << "guard \"normal_atlas\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (tile_x < 0) return false;
    if (tile_x >= num_columns) return false;
    if (tile_y < 0) return false;
@@ -198,11 +189,11 @@ bool MeshWithNormals::set_normal_tile(int tile_x, int tile_y, int tile_index_num
 bool MeshWithNormals::set_tile_uv(int tile_x, int tile_y, float u1, float v1, float u2, float v2)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "set_tile_uv" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "set_tile_uv" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (tile_x < 0) return false;
    if (tile_x >= num_columns) return false;
    if (tile_y < 0) return false;
@@ -235,11 +226,11 @@ bool MeshWithNormals::set_tile_uv(int tile_x, int tile_y, float u1, float v1, fl
 bool MeshWithNormals::set_normal_tile_uv(int tile_x, int tile_y, float u1, float v1, float u2, float v2)
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "MeshWithNormals" << "::" << "set_normal_tile_uv" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "MeshWithNormals" << "::" << "set_normal_tile_uv" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (tile_x < 0) return false;
    if (tile_x >= num_columns) return false;
    if (tile_y < 0) return false;
@@ -323,6 +314,8 @@ void MeshWithNormals::clear_and_reserve()
 
    return;
 }
+
+
 } // namespace Tileo
 
 

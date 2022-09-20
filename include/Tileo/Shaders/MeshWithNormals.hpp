@@ -15,6 +15,11 @@ namespace Tileo
       {
       private:
          bool initialized;
+         static std::string obtain_vertex_source();
+         static std::string obtain_fragment_source();
+
+      protected:
+
 
       public:
          MeshWithNormals();
@@ -28,8 +33,6 @@ namespace Tileo
          void set_light_attenuation(float light_attenuation=1.0f);
          void set_primary_texture(ALLEGRO_BITMAP* primary_texture_bitmap=nullptr);
          void set_normal_texture(ALLEGRO_BITMAP* normal_texture_bitmap=nullptr);
-         static std::string obtain_vertex_source();
-         static std::string obtain_fragment_source();
       };
    }
 }

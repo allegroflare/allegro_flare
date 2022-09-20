@@ -4,6 +4,7 @@
 
 
 
+
 namespace Tileo
 {
 
@@ -67,46 +68,48 @@ void TileIndexInfo::set_v2(float v2)
 }
 
 
-int TileIndexInfo::get_index_num()
+int TileIndexInfo::get_index_num() const
 {
    return index_num;
 }
 
 
-ALLEGRO_BITMAP* TileIndexInfo::get_bitmap_source()
+ALLEGRO_BITMAP* TileIndexInfo::get_bitmap_source() const
 {
    return bitmap_source;
 }
 
 
-ALLEGRO_BITMAP* TileIndexInfo::get_sub_bitmap()
+ALLEGRO_BITMAP* TileIndexInfo::get_sub_bitmap() const
 {
    return sub_bitmap;
 }
 
 
-float TileIndexInfo::get_u1()
+float TileIndexInfo::get_u1() const
 {
    return u1;
 }
 
 
-float TileIndexInfo::get_v1()
+float TileIndexInfo::get_v1() const
 {
    return v1;
 }
 
 
-float TileIndexInfo::get_u2()
+float TileIndexInfo::get_u2() const
 {
    return u2;
 }
 
 
-float TileIndexInfo::get_v2()
+float TileIndexInfo::get_v2() const
 {
    return v2;
 }
+
+
 
 
 } // namespace Tileo

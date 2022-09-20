@@ -103,7 +103,7 @@ functions:
 dependencies:
 
 
-  - symbol: ALLEGRO_VERTEX_DECL*
+  - symbol: ALLEGRO_VERTEX_DECL
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_is_system_installed
     headers: [ allegro5/allegro.h ]
