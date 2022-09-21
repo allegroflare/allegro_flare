@@ -159,7 +159,7 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, INTERACTIVE__vertexes_will_ren
 {
    al_init_image_addon();
    AllegroFlare::BitmapBin bitmap_bin;
-   bitmap_bin.set_full_path("/Users/markoates/Repos/tileo/bin/programs/data/bitmaps/");
+   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/");
    //ALLEGRO_BITMAP* tile_map_texture = bitmap_bin["even-illumination-01.png"];
    ALLEGRO_BITMAP* tile_map_texture = bitmap_bin["tiles_dungeon_v1.1.png"];
    ALLEGRO_BITMAP* irrelevant_texture = bitmap_bin["test_texture.png"];
@@ -222,7 +222,8 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, INTERACTIVE__vertexes_will_ren
    ALLEGRO_BITMAP* texture = atlas.get_bitmap();
    //ALLEGRO_BITMAP* texture = nullptr;
 
-   int passes = 60*14;
+   //int passes = 60*14;
+   int passes = 60;
 
    //int passes = 30;
    for (int i=0; i<passes; i++)

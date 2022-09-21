@@ -9,7 +9,7 @@
 
 #include <Tileo/TMJDataLoader.hpp>
 
-#define TMJ_FIXTURE_PATH "/Users/markoates/Repos/tileo/tests/fixtures/"
+#define TMJ_FIXTURE_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
 #define TMJ_FIXTURE_WITH_MISSING_COLLISION_LAYER_FILENAME "map1.tmj"
 #define TMJ_FIXTURE_FILENAME "map1-02.tmj"
 #define TMJ_MALFORMED_JSON_FIXTURE_FILENAME "file-with-malformed-json.tmj"
@@ -59,9 +59,9 @@ TEST(Tileo_TMJDataLoaderTest, load__on_a_file_with_malformed_json__throws_an_err
    Tileo::TMJDataLoader loader(filename);
 
    std::string expected_error_message = "[Tileo/TMJDataLoader] load() error: the file \""
-      "/Users/markoates/Repos/tileo/tests/fixtures/file-with-malformed-json.tmj\" appears to have malformed JSON. "
-      "The following error was thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line 1, "
-      "column 10: syntax error while parsing value - unexpected '}'; expected '[', '{', or a literal\"";
+      "/Users/markoates/Repos/allegro_flare/tests/fixtures/file-with-malformed-json.tmj\" appears to have malformed "
+      "JSON. The following error was thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line "
+      "1, column 10: syntax error while parsing value - unexpected '}'; expected '[', '{', or a literal\"";
 
    ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }

@@ -125,7 +125,7 @@ TEST_F(Tileo_Shaders_MeshWithNormalsTest, when_active__renders_the_image_with_th
    //ASSERT_EQ(color.b, actual_color.b);
    //ASSERT_EQ(color.a, actual_color.a);
 
-   std::string tmp_path = "/Users/markoates/Repos/Tileo/tmp/";
+   std::string tmp_path = "/Users/markoates/Repos/allegro_flare/tmp/";
    std::string output_image_full_filename = tmp_path + "when_activated__renders_the_image_with_the_flat_color.png";
    ASSERT_EQ(true, al_save_bitmap(output_image_full_filename.c_str(), al_get_backbuffer(current_display)));
 }

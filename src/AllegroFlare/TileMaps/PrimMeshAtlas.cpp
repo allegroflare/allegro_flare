@@ -121,7 +121,7 @@ void PrimMeshAtlas::clear()
              << "implemented."
              << std::endl;
 
-   //for (unsigned i=0; i<tile_index.size(); i++) al_destroy_bitmap(tile_index[i].get_sub_bitmap());
+   for (unsigned i=0; i<tile_index.size(); i++) al_destroy_bitmap(tile_index[i].get_sub_bitmap());
    if (bitmap) al_destroy_bitmap(bitmap);
    bitmap = NULL;
    tile_index.clear();
@@ -162,7 +162,7 @@ void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int
 
       tile_index[index_num].set_index_num(index_num);
       tile_index[index_num].set_bitmap_source(nullptr);
-      //tile_index[index_num].set_sub_bitmap(al_create_sub_bitmap(bitmap, x1, y1, x2-x1, y2-y1));
+      tile_index[index_num].set_sub_bitmap(al_create_sub_bitmap(bitmap, x1, y1, x2-x1, y2-y1));
       tile_index[index_num].set_u1(x1);
       tile_index[index_num].set_v1(y1);
       tile_index[index_num].set_u2(x2);

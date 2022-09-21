@@ -8,8 +8,8 @@
 #include <allegro5/allegro_color.h>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 
-#define TEMP_TEST_FILE_PATH "/Users/markoates/Repos/tileo/tmp/tests/"
-#define TEST_TILE_ATLAS_BITMAP_PATH "/Users/markoates/Repos/tileo/tests/fixtures/tiles_dungeon_v1.1.png"
+#define TEMP_TEST_FILE_PATH "/Users/markoates/Repos/allegro_flare/tmp/tests/"
+#define TEST_TILE_ATLAS_BITMAP_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
 
 
 std::string build_test_filename_png(std::string test_name)
