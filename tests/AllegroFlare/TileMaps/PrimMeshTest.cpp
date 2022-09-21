@@ -120,4 +120,18 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, render__wi
 
 
 
+TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
+   DISABLED__rescale_tile_dimentions_to__will_resize_all_of_the_vertexes_to_the_new_dimentions)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
+   DISABLED__rescale_tile_dimentions_to__with_any_argument_with_a_value_less_than_or_equal_to_zero__will_throw_an_error)
+{
+   // TODO
+}
+
+
 
