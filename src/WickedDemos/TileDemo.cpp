@@ -7,7 +7,6 @@
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <Tileo/TMJMeshLoader.hpp>
-#include <Tileo/TileAtlasBuilder.hpp>
 #include <Wicked/CameraControlStrategies2D/HorizontalRail.hpp>
 #include <Wicked/CameraControlStrategies2D/SmoothSnap.hpp>
 #include <Wicked/CameraControlStrategies2D/Snap.hpp>

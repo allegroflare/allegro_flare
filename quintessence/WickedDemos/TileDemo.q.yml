@@ -336,7 +336,6 @@ functions:
     body_dependency_symbols:
       - AllegroFlare::TileMaps::PrimMesh*
       - AllegroFlare::TileMaps::TileMap<int>*
-      - TileAtlasBuilder
       - Tileo::TMJMeshLoader
       - Wicked::CameraControlStrategies2D::Snap
       - Wicked::CameraControlStrategies2D::SmoothSnap
@@ -1377,8 +1376,6 @@ dependencies:
     headers: [ Tileo/TMJMeshLoader.hpp ]
   - symbol: std::vector<Wicked::Entities::Basic2D*>
     headers: [ vector, Wicked/Entities/Basic2D.hpp ]
-  - symbol: TileAtlasBuilder
-    headers: [ Tileo/TileAtlasBuilder.hpp ]
   - symbol: Wicked::Entities::Basic2D*
     headers: [ Wicked/Entities/Basic2D.hpp ]
   - symbol: Wicked::Entities::Basic2DFactory

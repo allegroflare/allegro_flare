@@ -151,7 +151,7 @@ functions:
       {
          int scale = 3;
          ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-            TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
+            AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
          created_tile_atlas->duplicate_bitmap_and_load(
             scaled_extruded_tile_map_bitmap, tile_width*scale, tile_height*scale, 1
          );
@@ -213,7 +213,6 @@ functions:
       return true;
     body_dependency_symbols:
       - Tileo::TMJDataLoader
-      - Tileo::TileAtlasBuilder
       - nlohmann::json
       - ifstream
 
@@ -233,8 +232,6 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
   - symbol: AllegroFlare::TileMaps::TileMap
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
-  - symbol: Tileo::TileAtlasBuilder
-    headers: [ Tileo/TileAtlasBuilder.hpp ]
   - symbol: Tileo::TMJDataLoader
     headers: [ Tileo/TMJDataLoader.hpp ]
 

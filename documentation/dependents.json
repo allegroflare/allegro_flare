@@ -1504,9 +1504,6 @@
   "ifstream": [
     "Tileo/TMJMeshLoader"
   ],
-  "Tileo/TileAtlasBuilder": [
-    "Tileo/TMJMeshLoader"
-  ],
   "Tileo/TMJDataLoader": [
     "Tileo/TMJMeshLoader"
   ],
@@ -1654,9 +1651,6 @@
     "WickedDemos/TileDemo"
   ],
   "std/vector<Wicked/Entities/Basic2D>": [
-    "WickedDemos/TileDemo"
-  ],
-  "TileAtlasBuilder": [
     "WickedDemos/TileDemo"
   ],
   "Wicked/Entities/Basic2DFactory": [

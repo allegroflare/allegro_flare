@@ -3,7 +3,6 @@
 #include <Tileo/TMJMeshLoader.hpp>
 
 #include <Tileo/TMJDataLoader.hpp>
-#include <Tileo/TileAtlasBuilder.hpp>
 #include <fstream>
 #include <lib/nlohmann/json.hpp>
 #include <sstream>
@@ -169,7 +168,7 @@ bool TMJMeshLoader::load()
    {
       int scale = 3;
       ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-         TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
+         AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
       created_tile_atlas->duplicate_bitmap_and_load(
          scaled_extruded_tile_map_bitmap, tile_width*scale, tile_height*scale, 1
       );
