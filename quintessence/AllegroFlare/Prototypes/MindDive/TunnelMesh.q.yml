@@ -2,36 +2,37 @@ properties:
 
 
   - name: tile_atlas
-    type: AllegroFlare::TileMaps::PrimMeshAtlas*
-    init_with: nullptr
-    getter: true
-    setter: true
+    type: AllegroFlare::TileMaps::PrimMeshAtlas
+    init_with: ''
+    getter_ref: true
 
   - name: tile_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
-    init_with: nullptr
-    getter: true
-    setter: true
+    type: AllegroFlare::TileMaps::PrimMesh
+    init_with: ''
+    getter_ref: true
 
   - name: collision_tile_mesh
-    type: AllegroFlare::TileMaps::TileMap<int>*
-    init_with: nullptr
-    getter: true
-    setter: true
+    type: AllegroFlare::TileMaps::TileMap<int>
+    init_with: ''
+    getter_ref: true
+
+  - name: initialized
+    type: bool
+    init_with: false
 
 
 functions:
 
 
-  - name: TODO
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
-      // This class currently derives from Wicked::Entities::Basic2D so that the
-      // it can be used in WickedDemo as an entity. Please factor this out
-      // so that this class can be stand-alone.
+      initialized = true;
       return;
 
 
   - name: render
+    guards: [ initialized ]
     body: |
       return;
 

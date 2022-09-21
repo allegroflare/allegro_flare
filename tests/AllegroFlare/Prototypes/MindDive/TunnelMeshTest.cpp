@@ -24,57 +24,30 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, can_be_created_without_b
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
    std::string expected_error_message =
-      "TunnelMesh::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(tunnel_mesh.render(), std::runtime_error, expected_error_message);
+      "TunnelMesh::initialize: error: guard \"al_is_system_installed()\" not met";
+   EXPECT_THROW_WITH_MESSAGE(tunnel_mesh.initialize(), std::runtime_error, expected_error_message);
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, render__without_primitives_addon_initialized__raises_an_error)
+TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, render__before_being_initialized__raises_an_error)
 {
    al_init();
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
    std::string expected_error_message =
-      "TunnelMesh::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
+      "TunnelMesh::render: error: guard \"initialized\" not met";
    EXPECT_THROW_WITH_MESSAGE(tunnel_mesh.render(), std::runtime_error, expected_error_message);
    al_uninstall_system();
 }
-
-
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, render__without_font_addon_initialized__raises_an_error)
-{
-   al_init();
-   al_init_primitives_addon();
-   AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
-   std::string expected_error_message =
-      "TunnelMesh::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(tunnel_mesh.render(), std::runtime_error, expected_error_message);
-   al_shutdown_primitives_addon();
-   al_uninstall_system();
-}
-
-
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, render__without_a_font_bin__raises_an_error)
-{
-   al_init();
-   al_init_primitives_addon();
-   al_init_font_addon();
-   AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
-   std::string expected_error_message =
-      "TunnelMesh::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(tunnel_mesh.render(), std::runtime_error, expected_error_message);
-   al_shutdown_font_addon();
-   al_shutdown_primitives_addon();
-   al_uninstall_system();
-}   
 
 
 TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh(&get_font_bin_ref());
+   AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
+   tunnel_mesh.initialize();
    tunnel_mesh.render();
    al_flip_display();
    sleep_for(1);
