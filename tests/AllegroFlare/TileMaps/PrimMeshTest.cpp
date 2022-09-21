@@ -87,7 +87,7 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, render__wi
       {
          int random_tile = random.get_random_int(0, atlas.get_tile_index_size());
          //int random_tile = 1;
-         mesh.set_tile(x, y, random_tile);
+         mesh.set_tile_id(x, y, random_tile);
       }
    }
 

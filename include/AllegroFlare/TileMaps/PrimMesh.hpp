@@ -49,7 +49,6 @@ namespace AllegroFlare::TileMaps
       int get_real_width() const;
       int get_real_height() const;
 
-      bool set_tile(int tile_x, int tile_y, int tile_id);
       bool set_tile_id(int tile_x, int tile_y, int tile_id);
       int get_tile_id(int tile_x, int tile_y) const;
       std::vector<int> get_tile_ids() const;

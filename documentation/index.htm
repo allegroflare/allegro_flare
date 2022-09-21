@@ -7259,13 +7259,37 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml</h3>
      <table>
-    </table>
-     <table>
 <tr>
-  <td class="method">run()</td>
+  <td class="property">tile_atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+</tr>
+<tr>
+  <td class="property">tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
+</tr>
+<tr>
+  <td class="property">collision_tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">TODO()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -12835,10 +12859,27 @@ table td
   ],
   "AllegroFlare/TileMaps/TileMap": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Physics/TileMapCollisionStepper",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/TileMaps/PrimMeshAtlas": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/TileMaps/Basic2D",
+    "Tileo/MeshWithNormals",
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/TileMaps/PrimMesh": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/TileMaps/Basic2D",
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -12938,20 +12979,6 @@ table td
   ],
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "AllegroFlare/TileMaps/PrimMeshAtlas": [
-    "AllegroFlare/TileMaps/Basic2D",
-    "Tileo/MeshWithNormals",
-    "Tileo/TMJMeshLoader",
-    "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/TileMaps/PrimMesh": [
-    "AllegroFlare/TileMaps/Basic2D",
-    "Tileo/TMJMeshLoader",
-    "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
   ],
   "ALLEGRO_VERTEX_DECL": [
     "AllegroFlare/TileMaps/MultiMesh",

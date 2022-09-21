@@ -1,9 +1,49 @@
+properties:
+
+
+  - name: tile_atlas
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: tile_mesh
+    type: AllegroFlare::TileMaps::PrimMesh*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: collision_tile_mesh
+    type: AllegroFlare::TileMaps::TileMap<int>*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
 functions:
 
 
-  - name: run
-    type: std::string
+  - name: TODO
     body: |
-      return "Hello World!";
+      // This class currently derives from Wicked::Entities::Basic2D so that the
+      // it can be used in WickedDemo as an entity. Please factor this out
+      // so that this class can be stand-alone.
+      return;
+
+
+  - name: render
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::TileMaps::TileMap
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMesh
+    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
 
 

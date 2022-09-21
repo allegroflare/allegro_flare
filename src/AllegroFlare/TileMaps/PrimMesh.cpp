@@ -159,16 +159,6 @@ int PrimMesh::get_real_height() const
 }
 
 
-bool PrimMesh::set_tile(int tile_x, int tile_y, int tile_id)
-{
-   std::cout
-      << "[AllegroFlare::PrimMesh:set_tile] DEPRECATION WARNING: "
-      << "set_tile() is deprecated. use set_tile_id instead, which is identical in signature and behavior."
-      << std::endl;
-   return set_tile_id(tile_x, tile_y, tile_id);
-}
-
-
 bool PrimMesh::set_tile_id(int tile_x, int tile_y, int tile_id)
 {
    if (!atlas) throw std::runtime_error("[AllegroFlare::TileMaps::PrimMesh] error: atlas must not be nullptr");
