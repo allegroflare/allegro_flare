@@ -171,44 +171,6 @@ void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int
 }
 
 
-void PrimMeshAtlas::draw_tile_to_atlas(ALLEGRO_BITMAP *tile, int tile_num, ALLEGRO_COLOR color)
-{
-   // ok, this is a serious bit of a hack.  It will only work when the tiles are spaced with spaces of 1 px.
-   if (!tile) return;
-
-   std::cout << " - Drawing to tile " << tile_num << " - " << std::endl;
-
-   if (!bitmap)
-   {
-      std::cout << "[PrimMeshAtlas::draw_to_tile_atlas()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
-      return;
-   }
-
-   for (int index_num=0; index_num<(int)tile_index.size(); index_num++)
-   {
-      if (index_num != tile_num) continue;
-
-      ALLEGRO_STATE previous_state;
-      al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
-      al_set_target_bitmap(tile_index[index_num].get_sub_bitmap());
-
-      al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));
-      al_draw_tinted_bitmap(tile, color, 0, 0, 0);
-
-      al_restore_state(&previous_state);
-      /*
-         tile_index[index_num].index_num = index_num;
-         tile_index[index_num].bitmap_source = NULL;
-         tile_index[index_num].sub_bitmap = al_create_sub_bitmap(bitmap, x1, y1, x2-x1, y2-y1);
-         tile_index[index_num].u1 = x1;
-         tile_index[index_num].v1 = y1;
-         tile_index[index_num].u2 = x2;
-         tile_index[index_num].v2 = y2;
-         */
-   }
-}
-
-
 bool PrimMeshAtlas::get_tile_uv(int index_num, int *u1, int *v1, int *u2, int *v2)
 {
    if (index_num < 0 || index_num >= (int)tile_index.size()) return false;
