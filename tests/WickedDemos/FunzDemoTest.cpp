@@ -9,9 +9,9 @@ TEST(WickedDemos_FunzDemoTest, can_be_created_without_blowing_up)
 }
 
 
-TEST(WickedDemos_FunzDemoTest, run__will_run_the_application)
+TEST(WickedDemos_FunzDemoTest, DISABLED__INTERACTIVE__run__will_run_the_application)
 {
-   //FunzDemo::run();
+   FunzDemo::run();
 }
 
 
