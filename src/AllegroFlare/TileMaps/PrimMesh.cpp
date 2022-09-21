@@ -205,6 +205,12 @@ AllegroFlare::TileMaps::PrimMeshAtlas *PrimMesh::get_atlas() const
 }
 
 
+void PrimMesh::set_atlas(AllegroFlare::TileMaps::PrimMeshAtlas *atlas)
+{
+   this->atlas = atlas;
+}
+
+
 void PrimMesh::render(bool draw_outline)
 {
    if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");

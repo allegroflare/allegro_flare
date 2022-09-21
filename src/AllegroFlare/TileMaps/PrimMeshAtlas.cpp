@@ -8,35 +8,6 @@
 
 namespace AllegroFlare::TileMaps
 {
-// this vertex structure is something that could be used in the future when adding
-// lighting features
-
-/*
-   typedef struct
-   {
-   float x, y, z;
-   float texture_u, texture_v;
-   float normal_u, normal_v;
-   float height_u, height_v;
-   float height;
-   ALLEGRO_COLOR color;
-   } ALLEGRO_TILE_VERTEX;
-
-
-
-
-   ALLEGRO_VERTEX_ELEMENT elems[] = {
-   {ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, x)},
-   {ALLEGRO_PRIM_TEX_COORD, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, texture_u)},
-   {ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, normal_u)},
-   {ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, height_u)},
-   {ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, color)},
-   {ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, nx)},
-   {0, 0, 0}
-   };
-
-   ALLEGRO_VERTEX_DECLARATION *vertex_declaration = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX_WITH_NORMAL));
-   */
 
 
 PrimMeshAtlas::PrimMeshAtlas()
@@ -157,7 +128,6 @@ void PrimMeshAtlas::clear()
 }
 
 
-// load will *copy* the bitmap that you pass into it.  You probably would want to al_destroy_bitmap after loading;
 void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int tile_width, int tile_height, int tile_spacing)
 {
    this->tile_width = tile_width;
@@ -262,19 +232,6 @@ bool PrimMeshAtlas::get_tile_uv(int index_num, float *u1, float *v1, float *u2, 
    *v2 = tile_index[index_num].get_v2();
 
    return true;
-}
-
-
-ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap(int index_num)
-{
-   if (index_num < 0 || index_num >= (int)tile_index.size())
-   {
-      std::stringstream error_message;
-      error_message << "Can not PrimMeshAtlas::get_bitmap on index_num " << index_num << ".";
-      throw std::runtime_error(error_message.str());
-   }
-
-   return tile_index[index_num].get_sub_bitmap();
 }
 
 

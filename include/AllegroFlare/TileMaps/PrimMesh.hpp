@@ -36,7 +36,7 @@ namespace AllegroFlare::TileMaps
       void initialize();
       bool get_initialized();
 
-      void resize(int num_columns=0, int num_rows=0);
+      void resize(int num_columns=0, int num_rows=0); // should be renamed clear_and_resize()
 
       std::vector<ALLEGRO_VERTEX> &get_vertexes_ref();
 
@@ -53,6 +53,7 @@ namespace AllegroFlare::TileMaps
       int get_tile_id(int tile_x, int tile_y) const;
       std::vector<int> get_tile_ids() const;
       AllegroFlare::TileMaps::PrimMeshAtlas *get_atlas() const;
+      void set_atlas(AllegroFlare::TileMaps::PrimMeshAtlas *atlas);
    
       void render(bool draw_outline=false);
    };

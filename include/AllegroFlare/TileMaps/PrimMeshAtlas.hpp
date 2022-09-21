@@ -26,6 +26,8 @@ namespace AllegroFlare::TileMaps
 
       void clear();
 
+      // duplicate_bitmap_and_load will *copy* the bitmap that you pass into it.  You probably would
+      // want to al_destroy_bitmap the bitmap that you passed in after loading.
       void duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int tile_width, int tile_height, int spacing=0);
 
       std::string get_bitmap_filename() const;
@@ -46,7 +48,6 @@ namespace AllegroFlare::TileMaps
       void draw_tile_to_atlas(ALLEGRO_BITMAP *tile, int tile_num, ALLEGRO_COLOR color=al_map_rgba_f(1, 1, 1, 1));
       bool get_tile_uv(int index_num, int *u1, int *v1, int *u2, int *v2);
       bool get_tile_uv(int index_num, float *u1, float *v1, float *u2, float *v2);
-      ALLEGRO_BITMAP *get_bitmap(int index_num);
 
       std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> get_tile_index();
    };
