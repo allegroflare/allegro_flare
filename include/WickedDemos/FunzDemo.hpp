@@ -29,11 +29,10 @@ public:
    AllegroFlare::Frameworks::Full *framework;
    AllegroFlare::Display *display;
    ALLEGRO_BITMAP *backbuffer_sub_bitmap;
-   AllegroFlare::BitmapBin bitmap_bin;
-   AllegroFlare::SampleBin sample_bin;
-   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin *bitmap_bin;
+   AllegroFlare::SampleBin *sample_bin;
+   AllegroFlare::FontBin *font_bin;
    AllegroFlare::Random random;
-
    ModelRepository model_repository;
    EntityFactory entity_factory;
    Wicked::SceneRenderer scene_renderer;
@@ -41,12 +40,10 @@ public:
    PlayerControl player_control;
    int cursor_over_entity_id;
    int cursor_brush_id;
-
    static float min_zoom;
    static float max_zoom;
    AllegroFlare::Camera3D camera;
    ShadowCastingLight casting_light;
-
    Light light;
    vec2d texture_offset;
    ALLEGRO_TRANSFORM shadow_map_depth_pass_transform;
@@ -63,18 +60,18 @@ public:
    float camera_target_stepout_z;
    vec3d camera_target_position;
    float camera_target_zoom;
-
-   AllegroFlare::Sound *cursor_move;
-   AllegroFlare::Sound *rotate_selection_sound;
-   AllegroFlare::Sound *input_bonk_sound;
-   AllegroFlare::Sound *delete_item_sound;
-   AllegroFlare::Sound *menu_cursor_move_click_sound;
+   //AllegroFlare::Sound *cursor_move;
+   //AllegroFlare::Sound *rotate_selection_sound;
+   //AllegroFlare::Sound *input_bonk_sound;
+   //AllegroFlare::Sound *delete_item_sound;
+   //AllegroFlare::Sound *menu_cursor_move_click_sound;
    ALLEGRO_BITMAP *hud_surface;
    AllegroFlare::InventoryIndex inventory_index;
    AllegroFlare::Inventory af_inventory;
    AllegroFlare::Elements::Inventory inventory;
    int input_mode;
    ControlStrategyBase *control_strategy;
+   bool initialized;
 
    FunzDemo(AllegroFlare::Frameworks::Full *framework=nullptr, AllegroFlare::Display *display=nullptr);
    ~FunzDemo();

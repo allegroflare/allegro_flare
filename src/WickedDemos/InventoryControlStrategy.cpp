@@ -26,25 +26,29 @@ void InventoryControlStrategy::key_char_func(ALLEGRO_EVENT *ev)
    case ALLEGRO_KEY_K:
       funz_demo->inventory.move_cursor_up();
       funz_demo->cursor_brush_id = funz_demo->inventory.get_item_in_details_pane();
-      if (funz_demo->menu_cursor_move_click_sound) funz_demo->menu_cursor_move_click_sound->stop(); funz_demo->menu_cursor_move_click_sound->play();
+      // TODO: emit "menu_cursor_move_click_sound" sound
+      //if (funz_demo->menu_cursor_move_click_sound) funz_demo->menu_cursor_move_click_sound->stop(); funz_demo->menu_cursor_move_click_sound->play();
       break;
    case ALLEGRO_KEY_DOWN:
    case ALLEGRO_KEY_J:
       funz_demo->inventory.move_cursor_down();
       funz_demo->cursor_brush_id = funz_demo->inventory.get_item_in_details_pane();
-      if (funz_demo->menu_cursor_move_click_sound) funz_demo->menu_cursor_move_click_sound->stop(); funz_demo->menu_cursor_move_click_sound->play();
+      // TODO: emit "menu_cursor_move_click_sound" sound
+      //if (funz_demo->menu_cursor_move_click_sound) funz_demo->menu_cursor_move_click_sound->stop(); funz_demo->menu_cursor_move_click_sound->play();
       break;
    case ALLEGRO_KEY_LEFT:
    case ALLEGRO_KEY_H:
       funz_demo->inventory.move_cursor_left();
       funz_demo->cursor_brush_id = funz_demo->inventory.get_item_in_details_pane();
-      if (funz_demo->menu_cursor_move_click_sound) funz_demo->menu_cursor_move_click_sound->stop(); funz_demo->menu_cursor_move_click_sound->play();
+      // TODO: emit "menu_cursor_move_click_sound" sound
+      //if (funz_demo->menu_cursor_move_click_sound) funz_demo->menu_cursor_move_click_sound->stop(); funz_demo->menu_cursor_move_click_sound->play();
       break;
    case ALLEGRO_KEY_RIGHT:
    case ALLEGRO_KEY_L:
       funz_demo->inventory.move_cursor_right();
       funz_demo->cursor_brush_id = funz_demo->inventory.get_item_in_details_pane();
-      if (funz_demo->menu_cursor_move_click_sound) funz_demo->menu_cursor_move_click_sound->stop(); funz_demo->menu_cursor_move_click_sound->play();
+      // TODO: emit "menu_cursor_move_click_sound" sound
+      //if (funz_demo->menu_cursor_move_click_sound) funz_demo->menu_cursor_move_click_sound->stop(); funz_demo->menu_cursor_move_click_sound->play();
       break;
    }
 }

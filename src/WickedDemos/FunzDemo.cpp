@@ -18,11 +18,10 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , framework(framework)
    , display(display)
    , backbuffer_sub_bitmap(nullptr)
-   , bitmap_bin()
-   , sample_bin()
-   , font_bin()
+   , bitmap_bin(nullptr)
+   , sample_bin(nullptr)
+   , font_bin(nullptr)
    , random()
-
    , model_repository()
    , entity_factory() // 
    , scene_renderer() // 
@@ -30,12 +29,10 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , player_control()
    , cursor_over_entity_id(0)
    , cursor_brush_id(CURSOR_BRUSH_CUBE)
-
    //static float min_zoom;
    //static float max_zoom;
    , camera()
    , casting_light() //
-
    , light(4, 4, 3) //
    , texture_offset(0, 0)
    , shadow_map_depth_pass_transform()
@@ -55,18 +52,18 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
    , camera_target_stepout_z(0.0)
    , camera_target_position(0, 0, 0)
    , camera_target_zoom(1.0)
-
-   , cursor_move(nullptr)
-   , rotate_selection_sound(nullptr)
-   , input_bonk_sound(nullptr)
-   , delete_item_sound(nullptr)
-   , menu_cursor_move_click_sound(nullptr)
+   //, cursor_move(nullptr)
+   //, rotate_selection_sound(nullptr)
+   //, input_bonk_sound(nullptr)
+   //, delete_item_sound(nullptr)
+   //, menu_cursor_move_click_sound(nullptr)
    , hud_surface(nullptr)
    , inventory_index()
    , af_inventory()
-   , inventory(&font_bin, &bitmap_bin, &af_inventory, &inventory_index, nullptr)
+   , inventory() // &font_bin, &bitmap_bin, &af_inventory, &inventory_index, nullptr)
    , input_mode(INPUT_MODE_WORLD_BUILDING)
    , control_strategy(nullptr)
+   , initialized(false)
 {
 }
 
@@ -95,16 +92,50 @@ void FunzDemo::run()
 
 FunzDemo::~FunzDemo()
 {
-   if (cursor_move) delete cursor_move;
-   if (rotate_selection_sound) delete rotate_selection_sound;
-   if (input_bonk_sound) delete input_bonk_sound; 
-   if (delete_item_sound) delete delete_item_sound;
-   if (menu_cursor_move_click_sound) delete menu_cursor_move_click_sound;
+   //if (cursor_move) delete cursor_move;
+   //if (rotate_selection_sound) delete rotate_selection_sound;
+   //if (input_bonk_sound) delete input_bonk_sound; 
+   //if (delete_item_sound) delete delete_item_sound;
+   //if (menu_cursor_move_click_sound) delete menu_cursor_move_click_sound;
 }
 
 
 void FunzDemo::initialize()
 {
+   if (initialized)
+   {
+      std::stringstream error_message;
+      error_message << "WickedDemos::FunzDemo error: Cannot initialize more than once." << std::endl;
+      throw std::runtime_error(error_message.str());
+   }
+
+   if (!framework)
+   {
+      std::stringstream error_message;
+      error_message << "WickedDemos::FunzDemo error: framework cannot be nullptr." << std::endl;
+      throw std::runtime_error(error_message.str());
+   }
+
+
+   font_bin = &framework->get_font_bin_ref();
+   sample_bin = &framework->get_sample_bin_ref();
+   bitmap_bin = &framework->get_bitmap_bin_ref();
+
+
+   bitmap_bin->set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+   sample_bin->set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples");
+   font_bin->set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
+
+
+
+   //inventory() // &font_bin, &bitmap_bin, &af_inventory, &inventory_index, nullptr)
+   inventory.set_font_bin(&framework->get_font_bin_ref());
+   inventory.set_bitmap_bin(&framework->get_bitmap_bin_ref());
+   inventory.set_af_inventory(&af_inventory);
+   inventory.set_inventory_index(&inventory_index);
+   inventory.set_event_emitter(&framework->get_event_emitter_ref());
+
+
 
    scene_renderer.initialize();
 
@@ -122,26 +153,26 @@ void FunzDemo::initialize()
 
    // NOTE, TODO, these assets are being stored in a location different from the rest of where the typical assets
    // are stored with allegro_flare
-   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
-   sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples");
-   font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
+   //bitmap_bin->set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+   //sample_bin->set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples");
+   //font_bin->set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
 
    // preload the assets
-   sample_bin.preload("cursor-move-01.ogg");
-   sample_bin.preload("rotate-selection-01.ogg");
-   sample_bin.preload("ui-input-bonk-01.ogg");
-   sample_bin.preload("delete-item-01.ogg");
-   sample_bin.preload("menu-click-01.ogg");
+   //sample_bin->preload("cursor-move-01.ogg");
+   //sample_bin->preload("rotate-selection-01.ogg");
+   //sample_bin->preload("ui-input-bonk-01.ogg");
+   //sample_bin->preload("delete-item-01.ogg");
+   //sample_bin->preload("menu-click-01.ogg");
 
-   cursor_move = new AllegroFlare::Sound(sample_bin["cursor-move-01.ogg"]);
-   rotate_selection_sound = new AllegroFlare::Sound(sample_bin["rotate-selection-01.ogg"]);
-   input_bonk_sound = new AllegroFlare::Sound(sample_bin["ui-input-bonk-01.ogg"]);
-   delete_item_sound = new AllegroFlare::Sound(sample_bin["delete-item-01.ogg"]);
-   menu_cursor_move_click_sound = new AllegroFlare::Sound(sample_bin["menu-click-01.ogg"]);
+   //cursor_move = new AllegroFlare::Sound(sample_bin["cursor-move-01.ogg"]);
+   //rotate_selection_sound = new AllegroFlare::Sound(sample_bin["rotate-selection-01.ogg"]);
+   //input_bonk_sound = new AllegroFlare::Sound(sample_bin["ui-input-bonk-01.ogg"]);
+   //delete_item_sound = new AllegroFlare::Sound(sample_bin["delete-item-01.ogg"]);
+   //menu_cursor_move_click_sound = new AllegroFlare::Sound(sample_bin["menu-click-01.ogg"]);
 
-   font_bin.preload("ui-font", "SourceSerif4_18pt-SemiBoldItalic.ttf -20");
-   font_bin.preload("SourceSerif4_18pt-SemiBoldItalic.ttf -80");
-   font_bin.preload("SourceSerif4_18pt-SemiBoldItalic.ttf -30");
+   font_bin->preload("ui-font", "SourceSerif4_18pt-SemiBoldItalic.ttf -20");
+   font_bin->preload("SourceSerif4_18pt-SemiBoldItalic.ttf -80");
+   font_bin->preload("SourceSerif4_18pt-SemiBoldItalic.ttf -30");
 
 
    // NOTE:: removed usage of the backbuffer_bitmap (unknown consequences)
@@ -246,6 +277,10 @@ void FunzDemo::initialize()
 
    //LevelLoader level_loader;
    //level_loader.write(&entities, light_target_time_of_day);
+
+
+   initialized = true;
+
 }
 
 void FunzDemo::set_targets_to_currents()
@@ -459,7 +494,7 @@ void FunzDemo::draw_hud()
    //al_use_projection_transform(&t);
    al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
 
-   font = font_bin["SourceSerif4_18pt-SemiBoldItalic.ttf -80"];
+   font = font_bin->auto_get("SourceSerif4_18pt-SemiBoldItalic.ttf -80");
    int num_entity_ids = Entity::get_last_id();
 
    std::stringstream ss;
@@ -502,7 +537,7 @@ void FunzDemo::draw_hud()
    al_draw_filled_rectangle(0, al_get_bitmap_height(hud_surface)-height, al_get_bitmap_width(hud_surface), al_get_bitmap_height(hud_surface), backfill_color);
 
    // draw inputs text
-   font = font_bin["SourceSerif4_18pt-SemiBoldItalic.ttf -30"];
+   font = font_bin->auto_get("SourceSerif4_18pt-SemiBoldItalic.ttf -30");
    std::string SPACER = "         ";
    std::string inputs = "[W/A/S/D]  Move cursor"
                       + SPACER + "[N/P]  Next/Previous Entity"

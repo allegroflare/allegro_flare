@@ -17,7 +17,8 @@ void WorldBuildingControlStrategy::move_cursor_to_entity_id(int id)
    if (entity)
    {
       funz_demo->camera_target_position = entity->place.position;
-      if (funz_demo->cursor_move) { funz_demo->cursor_move->stop(); funz_demo->cursor_move->play(); }
+      // TODO: emit "cursor_move" sound
+      //if (funz_demo->cursor_move) { funz_demo->cursor_move->stop(); funz_demo->cursor_move->play(); }
    }
 }
 
@@ -29,7 +30,8 @@ void WorldBuildingControlStrategy::move_cursor_to_next_entity()
    if (entity)
    {
       funz_demo->camera_target_position = entity->place.position;
-      if (funz_demo->cursor_move) { funz_demo->cursor_move->stop(); funz_demo->cursor_move->play(); }
+      // TODO: emit "cursor_move" sound
+      //if (funz_demo->cursor_move) { funz_demo->cursor_move->stop(); funz_demo->cursor_move->play(); }
    }
 }
 
@@ -41,7 +43,8 @@ void WorldBuildingControlStrategy::move_cursor_to_previous_entity()
    if (entity)
    {
       funz_demo->camera_target_position = entity->place.position;
-      if (funz_demo->cursor_move) { funz_demo->cursor_move->stop(); funz_demo->cursor_move->play(); }
+      // TODO: emit "cursor_move" sound
+      //if (funz_demo->cursor_move) { funz_demo->cursor_move->stop(); funz_demo->cursor_move->play(); }
    }
 }
 
@@ -51,7 +54,8 @@ void WorldBuildingControlStrategy::rotate_currently_selected_entity()
    if (!entity) return;
 
    entity->place.rotation.y += (0.25 / 2);
-   if (funz_demo->rotate_selection_sound) { funz_demo->rotate_selection_sound->stop(); funz_demo->rotate_selection_sound->play(); }
+   // TODO: emit "rotate_selection_sound" sound
+   //if (funz_demo->rotate_selection_sound) { funz_demo->rotate_selection_sound->stop(); funz_demo->rotate_selection_sound->play(); }
 }
 
 void WorldBuildingControlStrategy::ascend_currently_selected_entity(float distance)
@@ -115,7 +119,8 @@ void WorldBuildingControlStrategy::delete_currently_selected_entity()
    Entity *entity = funz_demo->find_by_id(funz_demo->cursor_over_entity_id);
    if (!entity)
    {
-      if (funz_demo->input_bonk_sound) { funz_demo->input_bonk_sound->stop(); funz_demo->input_bonk_sound->play(); }
+      // TODO: emit "input_bonk_sound" sound
+      //if (funz_demo->input_bonk_sound) { funz_demo->input_bonk_sound->stop(); funz_demo->input_bonk_sound->play(); }
       return;
    }
 
@@ -129,7 +134,8 @@ void WorldBuildingControlStrategy::delete_currently_selected_entity()
       }
    }
 
-   if (funz_demo->delete_item_sound) { funz_demo->delete_item_sound->stop(); funz_demo->delete_item_sound->play(); }
+   // TODO: emit "delete_item_sound" sound
+   //if (funz_demo->delete_item_sound) { funz_demo->delete_item_sound->stop(); funz_demo->delete_item_sound->play(); }
 }
 void WorldBuildingControlStrategy::on_activate() {}
 void WorldBuildingControlStrategy::on_deactivate() {}
