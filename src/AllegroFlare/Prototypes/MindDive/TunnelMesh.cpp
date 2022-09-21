@@ -15,9 +15,9 @@ namespace MindDive
 
 
 TunnelMesh::TunnelMesh()
-   : tile_atlas()
-   , tile_mesh()
-   , collision_tile_mesh()
+   : atlas()
+   , prim_mesh()
+   , collision_tile_map()
    , initialized(false)
 {
 }
@@ -28,21 +28,21 @@ TunnelMesh::~TunnelMesh()
 }
 
 
-AllegroFlare::TileMaps::PrimMeshAtlas &TunnelMesh::get_tile_atlas_ref()
+AllegroFlare::TileMaps::PrimMeshAtlas &TunnelMesh::get_atlas_ref()
 {
-   return tile_atlas;
+   return atlas;
 }
 
 
-AllegroFlare::TileMaps::PrimMesh &TunnelMesh::get_tile_mesh_ref()
+AllegroFlare::TileMaps::PrimMesh &TunnelMesh::get_prim_mesh_ref()
 {
-   return tile_mesh;
+   return prim_mesh;
 }
 
 
-AllegroFlare::TileMaps::TileMap<int> &TunnelMesh::get_collision_tile_mesh_ref()
+AllegroFlare::TileMaps::TileMap<int> &TunnelMesh::get_collision_tile_map_ref()
 {
-   return collision_tile_mesh;
+   return collision_tile_map;
 }
 
 
@@ -66,6 +66,11 @@ void TunnelMesh::initialize()
       error_message << "TunnelMesh" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
       throw std::runtime_error(error_message.str());
    }
+   prim_mesh.initialize();
+   prim_mesh.set_atlas(&atlas);
+   prim_mesh.rescale_tile_dimentions_to(32, 32);
+   prim_mesh.resize(16, 32);
+
    initialized = true;
    return;
 }
@@ -78,6 +83,7 @@ void TunnelMesh::render()
       error_message << "TunnelMesh" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   prim_mesh.render(true);
    return;
 }
 

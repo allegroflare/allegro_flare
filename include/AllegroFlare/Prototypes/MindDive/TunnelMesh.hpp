@@ -15,9 +15,9 @@ namespace AllegroFlare
          class TunnelMesh
          {
          private:
-            AllegroFlare::TileMaps::PrimMeshAtlas tile_atlas;
-            AllegroFlare::TileMaps::PrimMesh tile_mesh;
-            AllegroFlare::TileMaps::TileMap<int> collision_tile_mesh;
+            AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+            AllegroFlare::TileMaps::PrimMesh prim_mesh;
+            AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
             bool initialized;
 
          protected:
@@ -27,9 +27,9 @@ namespace AllegroFlare
             TunnelMesh();
             ~TunnelMesh();
 
-            AllegroFlare::TileMaps::PrimMeshAtlas &get_tile_atlas_ref();
-            AllegroFlare::TileMaps::PrimMesh &get_tile_mesh_ref();
-            AllegroFlare::TileMaps::TileMap<int> &get_collision_tile_mesh_ref();
+            AllegroFlare::TileMaps::PrimMeshAtlas &get_atlas_ref();
+            AllegroFlare::TileMaps::PrimMesh &get_prim_mesh_ref();
+            AllegroFlare::TileMaps::TileMap<int> &get_collision_tile_map_ref();
             void initialize();
             void render();
          };

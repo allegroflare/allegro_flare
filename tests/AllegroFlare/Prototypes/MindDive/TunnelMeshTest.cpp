@@ -44,11 +44,30 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, render__before_being_ini
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
    tunnel_mesh.initialize();
    tunnel_mesh.render();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_draw_the_mesh_as_expected)
+{
+   AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
+   tunnel_mesh.initialize();
+
+   AllegroFlare::Placement2D place;
+   //place.scale = {16, 16};
+
+   clear();
+
+   place.start_transform();
+   tunnel_mesh.render();
+   place.restore_transform();
+
    al_flip_display();
    sleep_for(1);
 }

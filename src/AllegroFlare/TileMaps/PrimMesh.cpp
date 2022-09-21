@@ -3,10 +3,18 @@
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 
 #include <iostream> // for set_tile_uv
+#include <sstream>
 
 
 namespace AllegroFlare::TileMaps
 {
+
+
+int PrimMesh::infer_num_vertexes()
+{
+   return num_columns * num_rows * 6;
+}
+
 
 void PrimMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2)
 {
@@ -132,6 +140,43 @@ int PrimMesh::get_num_columns() const
 int PrimMesh::get_num_rows() const
 {
    return num_rows;
+}
+
+
+void PrimMesh::rescale_tile_dimentions_to(int new_tile_width, int new_tile_height)
+{
+   int old_tile_width = this->tile_width;
+   int old_tile_height = this->tile_height;
+
+   if (new_tile_width <= 0 || new_tile_height <= 0)
+   {
+      // TODO: test this assertion
+      std::stringstream error_message;
+      error_message << "AllegroFlare::TileMaps::PrimMesh::rescale_tile_dimentions_to: error: "
+                    << "new_tile_width and/or new_tile_height cannot be less than or equal to zero.";
+      throw std::runtime_error(error_message.str());
+   }
+
+   for (int v=0; v<infer_num_vertexes(); v++)
+   {
+      vertexes[v].x = vertexes[v].x / old_tile_width * new_tile_width;
+      vertexes[v].y = vertexes[v].y / old_tile_height * new_tile_height;
+   }
+
+   this->tile_width = new_tile_width;
+   this->tile_height = new_tile_height;
+}
+
+
+void PrimMesh::set_tile_width(int new_tile_width)
+{
+   rescale_tile_dimentions_to(new_tile_width, this->tile_height);
+}
+
+
+void PrimMesh::set_tile_height(int new_tile_height)
+{
+   rescale_tile_dimentions_to(this->tile_width, new_tile_height);
 }
 
 

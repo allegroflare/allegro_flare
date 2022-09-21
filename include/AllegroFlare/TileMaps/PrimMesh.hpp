@@ -22,6 +22,7 @@ namespace AllegroFlare::TileMaps
       bool initialized;
 
       void set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2);
+      int infer_num_vertexes();
 
    public:
       PrimMesh(
@@ -44,6 +45,9 @@ namespace AllegroFlare::TileMaps
       int get_num_rows() const;
       int infer_num_tiles();
 
+      void rescale_tile_dimentions_to(int new_tile_width, int new_tile_height);
+      void set_tile_width(int tile_width);
+      void set_tile_height(int tile_height);
       int get_tile_width() const;
       int get_tile_height() const;
       int get_real_width() const;

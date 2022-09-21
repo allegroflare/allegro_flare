@@ -1,17 +1,17 @@
 properties:
 
 
-  - name: tile_atlas
+  - name: atlas
     type: AllegroFlare::TileMaps::PrimMeshAtlas
     init_with: ''
     getter_ref: true
 
-  - name: tile_mesh
+  - name: prim_mesh
     type: AllegroFlare::TileMaps::PrimMesh
     init_with: ''
     getter_ref: true
 
-  - name: collision_tile_mesh
+  - name: collision_tile_map
     type: AllegroFlare::TileMaps::TileMap<int>
     init_with: ''
     getter_ref: true
@@ -27,6 +27,11 @@ functions:
   - name: initialize
     guards: [ (!initialized), al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
+      prim_mesh.initialize();
+      prim_mesh.set_atlas(&atlas);
+      prim_mesh.rescale_tile_dimentions_to(32, 32);
+      prim_mesh.resize(16, 32);
+
       initialized = true;
       return;
 
@@ -34,6 +39,7 @@ functions:
   - name: render
     guards: [ initialized ]
     body: |
+      prim_mesh.render(true);
       return;
 
 
