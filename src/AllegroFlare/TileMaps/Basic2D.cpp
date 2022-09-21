@@ -12,8 +12,7 @@ namespace TileMaps
 
 
 Basic2D::Basic2D()
-   : Wicked::Entities::Basic2D()
-   , tile_atlas(nullptr)
+   : tile_atlas(nullptr)
    , tile_mesh(nullptr)
    , collision_tile_mesh(nullptr)
 {

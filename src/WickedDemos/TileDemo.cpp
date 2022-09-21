@@ -4,7 +4,6 @@
 
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
-#include <AllegroFlare/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <Tileo/TMJMeshLoader.hpp>
@@ -149,10 +148,10 @@ void TileDemo::set_currently_active_map(std::string name)
    return;
 }
 
-AllegroFlare::TileMaps::Basic2D* TileDemo::find_map_by_name(std::string name)
+WickedDemos::TileMaps::Basic2D* TileDemo::find_map_by_name(std::string name)
 {
    Wicked::Entities::CollectionHelper collection_helper(&entities);
-   AllegroFlare::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
+   WickedDemos::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
    if (!found_map)
    {
       std::stringstream error_message;
@@ -199,8 +198,8 @@ void TileDemo::initialize_maps()
          std::cout << "NOTE: TMJ Tile map file \"" << map_filename << "\" loaded successfully." << std::endl;
       }
 
-      AllegroFlare::TileMaps::Basic2D* __created_map =
-         static_cast<AllegroFlare::TileMaps::Basic2D*>(created_map); // = nullptr;
+      WickedDemos::TileMaps::Basic2D* __created_map =
+         static_cast<WickedDemos::TileMaps::Basic2D*>(created_map); // = nullptr;
 
       if (!__created_map->get_tile_mesh())
       {
@@ -726,7 +725,7 @@ void TileDemo::check_player_collisions_with_doors()
          float target_spawn_y = door->get_target_spawn_y();
 
          // find the target map
-         AllegroFlare::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
+         WickedDemos::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
 
          // reposition player in map
          player_controlled_entity->set(ON_MAP_NAME, map_target_name);

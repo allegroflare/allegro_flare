@@ -6,7 +6,6 @@
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
-#include <AllegroFlare/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
@@ -16,6 +15,7 @@
 #include <Wicked/CameraControlStrategies2D/Base.hpp>
 #include <Wicked/Entities/Basic2D.hpp>
 #include <Wicked/Weapons/DrawnBow.hpp>
+#include <WickedDemos/TileMaps/Basic2D.hpp>
 #include <allegro5/allegro.h>
 #include <string>
 #include <vector>
@@ -32,7 +32,7 @@ namespace WickedDemos
       int native_display_resolution_width;
       int native_display_resolution_height;
       bool initialized;
-      AllegroFlare::TileMaps::Basic2D* currently_active_map;
+      WickedDemos::TileMaps::Basic2D* currently_active_map;
       std::string currently_active_map_name;
       std::vector<Wicked::Entities::Basic2D*> entities;
       float gravity;
@@ -73,7 +73,7 @@ namespace WickedDemos
       AllegroFlare::vec2d get_player_reticle_vector() const;
       std::vector<Wicked::Entities::Basic2D*> &get_entities_ref();
       void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
-      AllegroFlare::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
+      WickedDemos::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
       void initialize_display_projection();
       void initialize_maps();
       void initialize_hud();

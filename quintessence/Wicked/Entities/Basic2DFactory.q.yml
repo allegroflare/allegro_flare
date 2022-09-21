@@ -408,13 +408,15 @@ functions:
     guards: [ bitmap_bin ]
     body: |
       //throw std::runtime_error("create_tile_map not implemented!!");
-      AllegroFlare::TileMaps::Basic2D *created_map = nullptr;
+      //AllegroFlare::TileMaps::Basic2D *created_map = nullptr;
+      WickedDemos::TileMaps::Basic2D *created_map = nullptr;
       AllegroFlare::TileMaps::PrimMeshAtlas *tile_atlas = nullptr; //  = tmj_mesh_loader.get_tile_atlas();
       AllegroFlare::TileMaps::PrimMesh *tile_mesh = nullptr; // = tmj_mesh_loader.get_mesh();
       AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr; //tmj_mesh_loader.get_collision_tile_map();
 
 
-      created_map = new AllegroFlare::TileMaps::Basic2D;
+      //created_map = new AllegroFlare::TileMaps::Basic2D;
+      created_map = new WickedDemos::TileMaps::Basic2D;
       
       Tileo::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
 
@@ -439,7 +441,7 @@ functions:
       //entities.push_back(created_map); // TODO: prevent maps from having the same name
     body_dependency_symbols:
       - Tileo::TMJMeshLoader
-      - AllegroFlare::TileMaps::Basic2D
+      - WickedDemos::TileMaps::Basic2D
       - AllegroFlare::TileMaps::PrimMeshAtlas
       - AllegroFlare::TileMaps::PrimMesh
       - AllegroFlare::TileMaps::TileMap
@@ -478,8 +480,8 @@ dependencies:
     headers: [ Wicked/EntityFlagNames.hpp ]
   - symbol: Wicked::Entities::Doors::Basic2D
     headers: [ Wicked/Entities/Doors/Basic2D.hpp ]
-  - symbol: AllegroFlare::TileMaps::Basic2D
-    headers: [ AllegroFlare/TileMaps/Basic2D.hpp ]
+  - symbol: WickedDemos::TileMaps::Basic2D
+    headers: [ WickedDemos/TileMaps/Basic2D.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMesh

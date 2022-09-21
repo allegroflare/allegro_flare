@@ -1,11 +1,3 @@
-parent_classes:
-
-
-  - class: Wicked::Entities::Basic2D
-    scope: public
-    init_with: ''
-
-
 properties:
 
 
@@ -42,8 +34,6 @@ functions:
 dependencies:
 
 
-  - symbol: Wicked::Entities::Basic2D
-    headers: [ Wicked/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::TileMaps::TileMap
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
