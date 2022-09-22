@@ -15,6 +15,10 @@ properties:
 
   - name: surfer
     type: AllegroFlare::Vec2D
+    init_with: '{0, 0}'
+
+  - name: camera
+    type: AllegroFlare::Camera2D
     init_with: ''
 
   - name: initialized 
@@ -39,16 +43,48 @@ functions:
   - name: initialize
     guards: [ (!initialized), bitmap_bin ]
     body: |
+      camera.size.x = 1920;
+      camera.size.y = 1080;
+      camera.set_zoom(2.0f);
+
       tunnel_mesh.set_bitmap_bin(bitmap_bin);
       tunnel_mesh.initialize();
+
       initialized = true;
+      return;
+
+
+  - name: render_tunnel
+    body: |
+      tunnel_mesh.render();
+      return;
+
+
+  - name: render_surfer
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      al_draw_filled_circle(surfer.x, surfer.y, 10, ALLEGRO_COLOR{1, 1, 1, 1});
+      AllegroFlare::draw_crosshair(surfer.x, surfer.y, ALLEGRO_COLOR{1, 0, 0, 1}, 20);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Useful
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      camera.position.x = surfer.x;
+      camera.position.y = surfer.y;
       return;
 
 
   - name: render
     guards: [ initialized ]
     body: |
-      tunnel_mesh.render();
+      camera.start_reverse_transform();
+      render_tunnel();
+      render_surfer();
+      camera.restore_transform();
       return;
 
 
@@ -61,5 +97,9 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Useful
+    headers: [ AllegroFlare/Useful.hpp ]
+  - symbol: AllegroFlare::Camera2D
+    headers: [ AllegroFlare/Camera2D.hpp ]
 
 

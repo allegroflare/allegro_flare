@@ -24,22 +24,16 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTest, can_be_created_without_blo
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture, render__will_work_as_expected)
+TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
+   INTERACTIVE__render__will_work_as_expected)
 {
    AllegroFlare::Prototypes::MindDive::MindDive mind_dive(&get_bitmap_bin_ref());
    mind_dive.initialize();
 
-   AllegroFlare::Placement2D place = build_centered_placement(
-      mind_dive.get_tunnel_mesh_ref().infer_real_width(),
-      mind_dive.get_tunnel_mesh_ref().infer_real_height()
-   );
-   place.scale = {2.0, 2.0};
-
    clear();
 
-   place.start_transform();
+   mind_dive.update();
    mind_dive.render();
-   place.restore_transform();
 
    al_flip_display();
    sleep_for(1);

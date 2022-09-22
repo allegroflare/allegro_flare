@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 
@@ -18,6 +19,7 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
             AllegroFlare::Vec2D surfer;
+            AllegroFlare::Camera2D camera;
             bool initialized;
 
          protected:
@@ -31,6 +33,9 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::MindDive::TunnelMesh &get_tunnel_mesh_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void initialize();
+            void render_tunnel();
+            void render_surfer();
+            void update();
             void render();
          };
       }

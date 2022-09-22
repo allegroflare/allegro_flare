@@ -1292,6 +1292,12 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
   ],
+  "AllegroFlare/Useful": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"

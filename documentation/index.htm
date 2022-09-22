@@ -7214,6 +7214,10 @@ table td
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera2D</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -7224,6 +7228,15 @@ table td
 </tr>
 <tr>
   <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">render_tunnel()</td>
+</tr>
+<tr>
+  <td class="method">render_surfer()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -7238,6 +7251,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -12878,6 +12897,12 @@ table td
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
+  ],
+  "AllegroFlare/Useful": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
