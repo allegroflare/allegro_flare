@@ -43,7 +43,7 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void initialize();
             void pause_timer();
-            void reset_surfer_to_beginning();
+            void reset();
             void surfer_move_right();
             void surfer_move_left();
             void surfer_accelerate();

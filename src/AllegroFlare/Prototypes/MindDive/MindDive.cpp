@@ -125,7 +125,7 @@ void MindDive::reset_timer()
    return;
 }
 
-void MindDive::reset_surfer_to_beginning()
+void MindDive::reset()
 {
    surfer.x = tunnel_mesh.infer_real_width() / 2;
    surfer.y = tunnel_mesh.infer_real_height() - tunnel_mesh.obtain_tile_height() / 2;

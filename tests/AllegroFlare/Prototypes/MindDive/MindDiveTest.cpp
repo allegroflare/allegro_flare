@@ -70,7 +70,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    //pause_screen.set_event_emitter(&event_emitter);
 
    // start the level
-   mind_dive.reset_surfer_to_beginning();
+   mind_dive.reset();
 
    // run the interactive test
    al_start_timer(primary_timer);
@@ -101,7 +101,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
                break;
 
                case ALLEGRO_KEY_R:
-                  mind_dive.reset_surfer_to_beginning();
+                  mind_dive.reset();
                break;
             }
          }
