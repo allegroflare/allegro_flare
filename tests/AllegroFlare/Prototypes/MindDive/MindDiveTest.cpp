@@ -61,13 +61,11 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
 
    // initialize test subject
    
-   //AllegroFlare::Screens::PauseScreen pause_screen;
    AllegroFlare::Prototypes::MindDive::MindDive mind_dive;
    mind_dive.set_bitmap_bin(&get_bitmap_bin_ref());
-   //mind_dive.initialize();
    mind_dive.set_font_bin(&get_font_bin_ref());
    mind_dive.initialize();
-   //pause_screen.set_event_emitter(&event_emitter);
+   //mind_dive.set_event_emitter(&event_emitter);
 
    // start the level
    mind_dive.reset();
@@ -92,6 +90,10 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
                   mind_dive.surfer_accelerate();
                break;
 
+               case ALLEGRO_KEY_DOWN:
+                  mind_dive.surfer_reverse();
+               break;
+
                case ALLEGRO_KEY_RIGHT:
                   mind_dive.surfer_move_right();
                break;
@@ -111,6 +113,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
          {
             switch(event.keyboard.keycode)
             {
+               case ALLEGRO_KEY_UP:
                case ALLEGRO_KEY_DOWN:
                   mind_dive.surfer_stop();
                break;
@@ -127,8 +130,9 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
          break;
 
          case ALLEGRO_EVENT_TIMER:
-            clear();
             mind_dive.update();
+
+            clear();
             mind_dive.render();
             al_flip_display();
          break;

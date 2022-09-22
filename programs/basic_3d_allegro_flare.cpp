@@ -8,6 +8,7 @@
 #include <AllegroFlare/Placement3D.hpp>
 #include <cmath>
 #include <iostream>
+//#include <cmath>
 
 
 class Basic3D : public AllegroFlare::Screens::Base

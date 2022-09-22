@@ -16,6 +16,7 @@ class AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixture
 
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
+#include <AllegroFlare/Camera3D.hpp>
 
 
 TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, can_be_created_without_blowing_up)

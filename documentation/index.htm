@@ -7218,16 +7218,16 @@ table td
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
-  <td class="property">timer</td>
-  <td class="property">AllegroFlare::Timer</td>
-</tr>
-<tr>
   <td class="property">surfer_velocity</td>
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
+  <td class="property">timer</td>
+  <td class="property">AllegroFlare::Timer</td>
+</tr>
+<tr>
   <td class="property">camera</td>
-  <td class="property">AllegroFlare::Camera2D</td>
+  <td class="property">AllegroFlare::Camera3D</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -7266,6 +7266,9 @@ table td
   <td class="method">surfer_accelerate()</td>
 </tr>
 <tr>
+  <td class="method">surfer_reverse()</td>
+</tr>
+<tr>
   <td class="method">surfer_stop()</td>
 </tr>
 <tr>
@@ -7295,13 +7298,16 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Stopwatch&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Stopwatch.hpp&quot;]}</td>
@@ -7311,6 +7317,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;glCullFace&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_opengl.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -11747,6 +11759,7 @@ table td
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
     "Wicked/Entities/Basic3D"
   ],
   "std/vector<AllegroFlare/Bone3D>": [
@@ -12256,7 +12269,8 @@ table td
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/Monoplex",
-    "AllegroFlare/MotionFX/Sparkles"
+    "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/draw_offset_textured_rectangle": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
@@ -12963,10 +12977,13 @@ table td
   "AllegroFlare/Useful": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
-  "AllegroFlare/Camera2D": [
+  "AllegroFlare/Camera3D": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Elements/Stopwatch": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "glCullFace": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [

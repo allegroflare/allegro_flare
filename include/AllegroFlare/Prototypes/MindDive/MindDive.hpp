@@ -1,8 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Camera2D.hpp>
+#include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
 #include <AllegroFlare/Timer.hpp>
@@ -22,9 +21,9 @@ namespace AllegroFlare
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
             AllegroFlare::Vec2D surfer;
-            AllegroFlare::Timer timer;
             AllegroFlare::Vec2D surfer_velocity;
-            AllegroFlare::Camera2D camera;
+            AllegroFlare::Timer timer;
+            AllegroFlare::Camera3D camera;
             bool initialized;
             void start_timer();
             void reset_timer();
@@ -47,6 +46,7 @@ namespace AllegroFlare
             void surfer_move_right();
             void surfer_move_left();
             void surfer_accelerate();
+            void surfer_reverse();
             void surfer_stop();
             void surfer_move_horizontal_none();
             void render_tunnel();

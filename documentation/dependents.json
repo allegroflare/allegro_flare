@@ -81,6 +81,7 @@
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
     "Wicked/Entities/Basic3D"
   ],
   "std/vector<AllegroFlare/Bone3D>": [
@@ -590,7 +591,8 @@
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/Monoplex",
-    "AllegroFlare/MotionFX/Sparkles"
+    "AllegroFlare/MotionFX/Sparkles",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/draw_offset_textured_rectangle": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
@@ -1297,10 +1299,13 @@
   "AllegroFlare/Useful": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
-  "AllegroFlare/Camera2D": [
+  "AllegroFlare/Camera3D": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Elements/Stopwatch": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "glCullFace": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [

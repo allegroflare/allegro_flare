@@ -77,6 +77,10 @@ void WithAllegroRenderingFixture::SetUp()
 
    //display = al_create_display(1280 * 2, 720 * 2);
    //al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+   al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
+   al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
+   al_set_new_display_option(ALLEGRO_SAMPLES, 16, ALLEGRO_SUGGEST);
+   al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
    display = al_create_display(1920, 1080);
 
    ASSERT_NE(nullptr, display);
@@ -211,6 +215,7 @@ void WithAllegroRenderingFixture::clear_display()
 
 void WithAllegroRenderingFixture::clear()
 {
+   al_clear_depth_buffer(1);
    ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
    al_clear_to_color(eigengrau);
    return;

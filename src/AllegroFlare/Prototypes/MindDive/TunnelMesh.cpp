@@ -93,7 +93,8 @@ void TunnelMesh::initialize()
 
    prim_mesh.initialize();
    prim_mesh.set_atlas(&atlas);
-   prim_mesh.rescale_tile_dimentions_to(32, 32);
+   //prim_mesh.rescale_tile_dimentions_to(32, 32);
+   prim_mesh.rescale_tile_dimentions_to(2, 2);
    prim_mesh.resize(12, 32);
 
    AllegroFlare::Random random;
@@ -136,7 +137,7 @@ void TunnelMesh::render()
       error_message << "TunnelMesh" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   prim_mesh.render(true);
+   prim_mesh.render();
    return;
 }
 
