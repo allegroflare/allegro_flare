@@ -109,8 +109,8 @@ functions:
       reset_timer();
       start_timer();
 
-      camera.stepout = 10;
-      camera.tilt = 0.2;
+      //camera.stepout = 10;
+      //camera.tilt = 0.2;
       return;
 
 
@@ -128,7 +128,7 @@ functions:
 
   - name: surfer_accelerate
     body: |
-      surfer_velocity.y = -2;
+      surfer_velocity.y = -6;
       return;
 
 
@@ -193,23 +193,26 @@ functions:
       camera.position.y = surfer.y;
       //camera.position.z = sin(al_get_time()) * 5;
       camera.stepout = AllegroFlare::Vec3D(0, 0, 10); // camera's target is positioned at (0,0,0) but the camera will be 5 meters back
-      camera.tilt = 3.14 / 2 + 0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
+      //camera.tilt = 3.14 / 2 + 0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
+      camera.tilt = -0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
+      camera.spin = 0.5f;
       camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
-      camera.zoom = 2.1;
+      //camera.zoom = 2.1;
       //camera.spin += 0.01f;
 
-      //glEnable(GL_CULL_FACE); // requiring opengl should eventually be fazed out
-      glCullFace(GL_BACK); 
-      //glCullFace(GL_FRONT);
-      glDisable(GL_CULL_FACE);
+      //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
+      //glDisable(GL_CULL_FACE);
 
       //camera.start_reverse_transform();
       AllegroFlare::Placement3D place;
+      //place.size.x = tunnel_mesh.infer_real_width();
+      //place.size.y = tunnel_mesh.infer_real_height();
       //place.scale.x = 0.95; //1.0 / 32.0f;
       //place.scale.y = 0.95; //1.0 / 32.0f;
       //place.scale.z = 0.95; //1.0 / 32.0f;
       //place.rotation.y = al_get_time(); //1.0 / 32.0f;
       //place.rotation.x = al_get_time() * 0.25;
+      //place.rotation.x = -0.05;
       place.start_transform();
       render_tunnel();
       render_surfer();

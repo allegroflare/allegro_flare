@@ -15,7 +15,7 @@ namespace Wicked
   void Entity::__set_next_id(int next_id) { Entity::next_id = next_id; }
 
   Entity::Entity()
-     : id(next_id++) // WARNING: this probably should be last_id++; not changing for now cause doing other stuff don wanna break things
+     : id(next_id++) // NOTE: this probably should be last_id++
      , place()
      , velocity()
      , model(nullptr)
