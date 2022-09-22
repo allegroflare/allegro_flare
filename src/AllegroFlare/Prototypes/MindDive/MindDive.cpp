@@ -215,8 +215,9 @@ void MindDive::render()
    camera.start_reverse_transform();
    render_tunnel();
    render_surfer();
-   render_stopwatch();
    camera.restore_transform();
+
+   render_stopwatch();
    return;
 }
 
