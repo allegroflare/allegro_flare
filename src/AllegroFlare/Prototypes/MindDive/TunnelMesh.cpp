@@ -97,6 +97,14 @@ void TunnelMesh::initialize()
    prim_mesh.rescale_tile_dimentions_to(2, 2);
    prim_mesh.resize(12, 32);
 
+   random_fill();
+
+   initialized = true;
+   return;
+}
+
+void TunnelMesh::random_fill()
+{
    AllegroFlare::Random random;
    int num_tiles_in_atlas = 100;
    for (int y=0; y<prim_mesh.get_num_rows(); y++)
@@ -104,8 +112,6 @@ void TunnelMesh::initialize()
       {
          prim_mesh.set_tile_id(x, y, random.get_random_int(0, num_tiles_in_atlas-1));
       }
-
-   initialized = true;
    return;
 }
 

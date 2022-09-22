@@ -1,5 +1,7 @@
 #pragma once
 
+#define ALLEGRO_UNSTABLE
+
 
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Inventory.hpp>

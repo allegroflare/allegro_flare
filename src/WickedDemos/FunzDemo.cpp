@@ -283,6 +283,7 @@ void FunzDemo::initialize()
 
 }
 
+
 void FunzDemo::set_targets_to_currents()
 {
    //light_time_of_day;
@@ -295,6 +296,7 @@ void FunzDemo::set_targets_to_currents()
    camera_target_position = camera.position;
    camera_target_zoom = camera.zoom;
 }
+
 
 void FunzDemo::rescale_entity_ids()
 {
@@ -309,6 +311,7 @@ void FunzDemo::toggle_inventory()
    else inventory.show();
 }
 
+
 bool FunzDemo::basic_collide(Entity *entity, vec3d point, float padding) // TODO this was never finished
 {
    if (!entity) return false;
@@ -322,6 +325,7 @@ bool FunzDemo::basic_collide(Entity *entity, vec3d point, float padding) // TODO
    return true;
 }
 
+
 void FunzDemo::update_to_target(float &source, float target, float step_percentage)
 {
    if (target != source)
@@ -331,11 +335,13 @@ void FunzDemo::update_to_target(float &source, float target, float step_percenta
    }
 }
 
+
 Entity *FunzDemo::find_by_id(int id)
 {
    for (auto &entity : entities) { if (entity->get_id() == id) return entity; }
    return nullptr;
 }
+
 
 void FunzDemo::update_selected()
 {
@@ -412,6 +418,7 @@ void FunzDemo::update_scene_physics()
       entities[i]->place.position += entities[i]->velocity.position;
       entities[i]->place.rotation += entities[i]->velocity.rotation;
    }
+
    
    // uptate pointer
    pointer->place.position += pointer->velocity.position;
@@ -464,6 +471,7 @@ void FunzDemo::update_scene_physics()
    //al_restore_state(&previous_state);
 //}
 
+
 void FunzDemo::draw_scene()
 {
    // refresh pre-render textures and set the projection
@@ -480,6 +488,7 @@ void FunzDemo::draw_scene()
 
    //draw_ground_mesh();
 }
+
 
 void FunzDemo::draw_hud()
 {
@@ -711,6 +720,7 @@ void FunzDemo::key_char_func(ALLEGRO_EVENT *ev)// override
    };
 }
 
+
 void FunzDemo::primary_timer_func()
 {
    //ALLEGRO_EVENT *this_ev = Framework::current_event;
@@ -734,6 +744,7 @@ void FunzDemo::primary_timer_func()
 
    //al_flip_display();
 }
+
 
 float FunzDemo::min_zoom = 0.6;
 float FunzDemo::max_zoom = 2.0;
