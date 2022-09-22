@@ -17,6 +17,10 @@ properties:
     type: AllegroFlare::Vec2D
     init_with: '{0, 0}'
 
+  - name: surfer_velocity
+    type: AllegroFlare::Vec2D
+    init_with: '{0, 0}'
+
   - name: camera
     type: AllegroFlare::Camera2D
     init_with: ''
@@ -54,6 +58,43 @@ functions:
       return;
 
 
+  - name: reset_surfer_to_beginning
+    body: |
+      surfer.x = tunnel_mesh.infer_real_width() / 2;
+      surfer.y = tunnel_mesh.infer_real_height() - tunnel_mesh.obtain_tile_height() / 2;
+      return;
+
+
+  - name: surfer_move_right
+    body: |
+      surfer_velocity.x = 2;
+      return;
+
+
+  - name: surfer_move_left
+    body: |
+      surfer_velocity.x = -2;
+      return;
+
+
+  - name: surfer_accelerate
+    body: |
+      surfer_velocity.y = -2;
+      return;
+
+
+  - name: surfer_stop
+    body: |
+      surfer_velocity.y = 0;
+      return;
+
+
+  - name: surfer_move_horizontal_none
+    body: |
+      surfer_velocity.x = 0;
+      return;
+
+
   - name: render_tunnel
     body: |
       tunnel_mesh.render();
@@ -73,6 +114,8 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
+      surfer.x += surfer_velocity.x;
+      surfer.y += surfer_velocity.y;
       camera.position.x = surfer.x;
       camera.position.y = surfer.y;
       return;

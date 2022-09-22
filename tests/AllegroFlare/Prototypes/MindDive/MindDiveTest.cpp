@@ -68,6 +68,9 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    //pause_screen.set_font_bin(&get_font_bin_ref());
    //pause_screen.set_event_emitter(&event_emitter);
 
+   // start the level
+   mind_dive.reset_surfer_to_beginning();
+
    // run the interactive test
    al_start_timer(primary_timer);
    while(!abort)
@@ -82,6 +85,37 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
             {
                case ALLEGRO_KEY_ESCAPE:
                   abort = true;
+               break;
+
+               case ALLEGRO_KEY_UP:
+                  mind_dive.surfer_accelerate();
+               break;
+
+               case ALLEGRO_KEY_RIGHT:
+                  mind_dive.surfer_move_right();
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  mind_dive.surfer_move_left();
+               break;
+            }
+         }
+         break;
+
+         case ALLEGRO_EVENT_KEY_UP:
+         {
+            switch(event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_DOWN:
+                  mind_dive.surfer_stop();
+               break;
+
+               case ALLEGRO_KEY_RIGHT:
+                  mind_dive.surfer_move_horizontal_none();
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  mind_dive.surfer_move_horizontal_none();
                break;
             }
          }

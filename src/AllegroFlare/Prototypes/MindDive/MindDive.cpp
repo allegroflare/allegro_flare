@@ -19,6 +19,7 @@ MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin)
    : bitmap_bin(bitmap_bin)
    , tunnel_mesh()
    , surfer({0, 0})
+   , surfer_velocity({0, 0})
    , camera()
    , initialized(false)
 {
@@ -79,6 +80,43 @@ void MindDive::initialize()
    return;
 }
 
+void MindDive::reset_surfer_to_beginning()
+{
+   surfer.x = tunnel_mesh.infer_real_width() / 2;
+   surfer.y = tunnel_mesh.infer_real_height() - tunnel_mesh.obtain_tile_height() / 2;
+   return;
+}
+
+void MindDive::surfer_move_right()
+{
+   surfer_velocity.x = 2;
+   return;
+}
+
+void MindDive::surfer_move_left()
+{
+   surfer_velocity.x = -2;
+   return;
+}
+
+void MindDive::surfer_accelerate()
+{
+   surfer_velocity.y = -2;
+   return;
+}
+
+void MindDive::surfer_stop()
+{
+   surfer_velocity.y = 0;
+   return;
+}
+
+void MindDive::surfer_move_horizontal_none()
+{
+   surfer_velocity.x = 0;
+   return;
+}
+
 void MindDive::render_tunnel()
 {
    tunnel_mesh.render();
@@ -106,6 +144,8 @@ void MindDive::update()
       error_message << "MindDive" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   surfer.x += surfer_velocity.x;
+   surfer.y += surfer_velocity.y;
    camera.position.x = surfer.x;
    camera.position.y = surfer.y;
    return;

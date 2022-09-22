@@ -74,6 +74,18 @@ functions:
       return prim_mesh.get_real_height();
 
 
+  - name: obtain_tile_width
+    type: float
+    body: |
+      return prim_mesh.get_tile_width();
+
+
+  - name: obtain_tile_height
+    type: float
+    body: |
+      return prim_mesh.get_tile_height();
+
+
   - name: render
     guards: [ initialized ]
     body: |

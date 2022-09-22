@@ -118,6 +118,16 @@ float TunnelMesh::infer_real_height()
    return prim_mesh.get_real_height();
 }
 
+float TunnelMesh::obtain_tile_width()
+{
+   return prim_mesh.get_tile_width();
+}
+
+float TunnelMesh::obtain_tile_height()
+{
+   return prim_mesh.get_tile_height();
+}
+
 void TunnelMesh::render()
 {
    if (!(initialized))

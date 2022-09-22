@@ -37,6 +37,8 @@ namespace AllegroFlare
             void initialize();
             float infer_real_width();
             float infer_real_height();
+            float obtain_tile_width();
+            float obtain_tile_height();
             void render();
          };
       }
