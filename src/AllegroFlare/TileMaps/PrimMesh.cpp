@@ -143,6 +143,12 @@ int PrimMesh::get_num_rows() const
 }
 
 
+int PrimMesh::infer_num_tiles() const
+{
+   return num_rows * num_columns;
+}
+
+
 void PrimMesh::rescale_tile_dimentions_to(int new_tile_width, int new_tile_height)
 {
    int old_tile_width = this->tile_width;
