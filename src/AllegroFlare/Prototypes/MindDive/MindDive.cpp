@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/MindDive/MindDive.hpp>
 
+#include <AllegroFlare/Elements/Stopwatch.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <sstream>
 #include <stdexcept>
@@ -15,10 +16,12 @@ namespace MindDive
 {
 
 
-MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin)
+MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
    : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
    , tunnel_mesh()
    , surfer({0, 0})
+   , timer()
    , surfer_velocity({0, 0})
    , camera()
    , initialized(false)
@@ -34,6 +37,12 @@ MindDive::~MindDive()
 AllegroFlare::BitmapBin* MindDive::get_bitmap_bin() const
 {
    return bitmap_bin;
+}
+
+
+AllegroFlare::FontBin* MindDive::get_font_bin() const
+{
+   return font_bin;
 }
 
 
@@ -55,6 +64,18 @@ void MindDive::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    return;
 }
 
+void MindDive::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "set_font_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->font_bin = font_bin;
+   return;
+}
+
 void MindDive::initialize()
 {
    if (!((!initialized)))
@@ -69,6 +90,12 @@ void MindDive::initialize()
       error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    camera.size.x = 1920;
    camera.size.y = 1080;
    camera.set_zoom(2.0f);
@@ -80,10 +107,29 @@ void MindDive::initialize()
    return;
 }
 
+void MindDive::start_timer()
+{
+   timer.start();
+   return;
+}
+
+void MindDive::pause_timer()
+{
+   timer.pause();
+   return;
+}
+
+void MindDive::reset_timer()
+{
+   timer.reset();
+   return;
+}
+
 void MindDive::reset_surfer_to_beginning()
 {
    surfer.x = tunnel_mesh.infer_real_width() / 2;
    surfer.y = tunnel_mesh.infer_real_height() - tunnel_mesh.obtain_tile_height() / 2;
+   start_timer();
    return;
 }
 
@@ -120,6 +166,13 @@ void MindDive::surfer_move_horizontal_none()
 void MindDive::render_tunnel()
 {
    tunnel_mesh.render();
+   return;
+}
+
+void MindDive::render_stopwatch()
+{
+   AllegroFlare::Elements::Stopwatch stopwatch(font_bin, &timer);
+   stopwatch.render();
    return;
 }
 
@@ -162,6 +215,7 @@ void MindDive::render()
    camera.start_reverse_transform();
    render_tunnel();
    render_surfer();
+   render_stopwatch();
    camera.restore_transform();
    return;
 }

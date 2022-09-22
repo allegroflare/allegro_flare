@@ -28,7 +28,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTest, can_be_created_without_blo
 TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    CAPTURE__basic_update_and_render_will_work_as_expected)
 {
-   AllegroFlare::Prototypes::MindDive::MindDive mind_dive(&get_bitmap_bin_ref());
+   AllegroFlare::Prototypes::MindDive::MindDive mind_dive(&get_bitmap_bin_ref(), &get_font_bin_ref());
    mind_dive.initialize();
 
    clear();
@@ -64,8 +64,9 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    //AllegroFlare::Screens::PauseScreen pause_screen;
    AllegroFlare::Prototypes::MindDive::MindDive mind_dive;
    mind_dive.set_bitmap_bin(&get_bitmap_bin_ref());
+   //mind_dive.initialize();
+   mind_dive.set_font_bin(&get_font_bin_ref());
    mind_dive.initialize();
-   //pause_screen.set_font_bin(&get_font_bin_ref());
    //pause_screen.set_event_emitter(&event_emitter);
 
    // start the level
@@ -97,6 +98,10 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
 
                case ALLEGRO_KEY_LEFT:
                   mind_dive.surfer_move_left();
+               break;
+
+               case ALLEGRO_KEY_R:
+                  mind_dive.reset_surfer_to_beginning();
                break;
             }
          }

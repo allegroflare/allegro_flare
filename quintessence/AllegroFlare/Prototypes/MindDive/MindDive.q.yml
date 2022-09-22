@@ -8,6 +8,13 @@ properties:
     getter: true
     setter: false
 
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: false
+
   - name: tunnel_mesh
     type: AllegroFlare::Prototypes::MindDive::TunnelMesh
     init_with: ''
@@ -16,6 +23,10 @@ properties:
   - name: surfer
     type: AllegroFlare::Vec2D
     init_with: '{0, 0}'
+
+  - name: timer
+    type: AllegroFlare::Timer
+    init_with: ''
 
   - name: surfer_velocity
     type: AllegroFlare::Vec2D
@@ -44,8 +55,19 @@ functions:
       return;
 
 
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->font_bin = font_bin;
+      return;
+
+
   - name: initialize
-    guards: [ (!initialized), bitmap_bin ]
+    guards: [ (!initialized), bitmap_bin, font_bin ]
     body: |
       camera.size.x = 1920;
       camera.size.y = 1080;
@@ -58,10 +80,31 @@ functions:
       return;
 
 
+  - name: start_timer
+    private: true
+    body: |
+      timer.start();
+      return;
+
+
+  - name: pause_timer
+    body: |
+      timer.pause();
+      return;
+
+
+  - name: reset_timer
+    private: true
+    body: |
+      timer.reset();
+      return;
+
+
   - name: reset_surfer_to_beginning
     body: |
       surfer.x = tunnel_mesh.infer_real_width() / 2;
       surfer.y = tunnel_mesh.infer_real_height() - tunnel_mesh.obtain_tile_height() / 2;
+      start_timer();
       return;
 
 
@@ -101,6 +144,15 @@ functions:
       return;
 
 
+  - name: render_stopwatch
+    body: |
+      AllegroFlare::Elements::Stopwatch stopwatch(font_bin, &timer);
+      stopwatch.render();
+      return;
+    body_dependency_symbols:
+     - AllegroFlare::Elements::Stopwatch
+
+
   - name: render_surfer
     guards: [ al_is_primitives_addon_initialized() ]
     body: |
@@ -127,6 +179,7 @@ functions:
       camera.start_reverse_transform();
       render_tunnel();
       render_surfer();
+      render_stopwatch();
       camera.restore_transform();
       return;
 
@@ -144,5 +197,11 @@ dependencies:
     headers: [ AllegroFlare/Useful.hpp ]
   - symbol: AllegroFlare::Camera2D
     headers: [ AllegroFlare/Camera2D.hpp ]
+  - symbol: AllegroFlare::Elements::Stopwatch
+    headers: [ AllegroFlare/Elements/Stopwatch.hpp ]
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
 
 
