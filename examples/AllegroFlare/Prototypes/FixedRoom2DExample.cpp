@@ -22,7 +22,7 @@ int main(int argc, char **argv)
          { "menu-click-01.wav", { "menu-click-01.wav", false, "restart" } },
          });
 
-   AllegroFlare::Prototypes::FixedRoom2D::Screen example(&bitmap_bin, &font_bin, &event_emitter, &audio_controller);
+   AllegroFlare::Prototypes::FixedRoom2D::Screen example(&bitmap_bin, &font_bin, &event_emitter);
    example.initialize();
    example.load_gametest_configuration_and_start();
 

@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -24,7 +23,6 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::EventEmitter* event_emitter;
-            AllegroFlare::AudioController* audio_controller;
             AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
             bool initialized;
             void emit_event_to_set_input_hints();
@@ -35,14 +33,13 @@ namespace AllegroFlare
 
 
          public:
-            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::AudioController* audio_controller=nullptr);
+            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
             AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D &get_fixed_room_2d_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
-            void set_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr);
             void initialize();
             void load_gametest_configuration_and_start();
             void load_game_configuration_and_start(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={});

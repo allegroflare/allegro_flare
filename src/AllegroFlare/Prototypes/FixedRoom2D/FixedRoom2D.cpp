@@ -28,11 +28,10 @@ namespace FixedRoom2D
 {
 
 
-FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::AudioController* audio_controller)
+FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
-   , audio_controller(audio_controller)
    , inventory_index()
    , af_inventory({})
    , inventory_window({})
@@ -67,12 +66,6 @@ void FixedRoom2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 void FixedRoom2D::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
-}
-
-
-void FixedRoom2D::set_audio_controller(AllegroFlare::AudioController* audio_controller)
-{
-   this->audio_controller = audio_controller;
 }
 
 
@@ -157,12 +150,6 @@ void FixedRoom2D::initialize()
       error_message << "FixedRoom2D" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(audio_controller))
-   {
-      std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "initialize" << ": error: " << "guard \"audio_controller\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    subscribed_to_game_event_names = {
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
@@ -181,7 +168,6 @@ void FixedRoom2D::initialize()
    entity_collection_helper.set_entity_dictionary(&entity_dictionary);
    entity_collection_helper.set_entity_room_associations(&entity_room_associations);
 
-   script_runner.set_audio_controller(audio_controller);
    script_runner.set_af_inventory(&af_inventory);
    script_runner.set_event_emitter(event_emitter);
    script_runner.set_inventory_window(&inventory_window);

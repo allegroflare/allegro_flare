@@ -1,11 +1,6 @@
 properties:
 
 
-  - name: audio_controller
-    type: AllegroFlare::AudioController*
-    init_with: nullptr
-    setter: true
-
   - name: af_inventory
     type: AllegroFlare::Inventory*
     init_with: nullptr
@@ -146,7 +141,7 @@ functions:
       - name: auto_assume_uncommanded_line_is_dialog
         type: bool
         default_argument: true
-    guards: [ audio_controller, af_inventory, flags, inventory_window, script_dictionary, event_emitter ]
+    guards: [ af_inventory, flags, inventory_window, script_dictionary, event_emitter ]
     body: |
       std::string DIALOG = "DIALOG";
       std::string GOTO_MARKER = "GOTO_MARKER";
