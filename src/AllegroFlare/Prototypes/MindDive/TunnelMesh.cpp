@@ -101,9 +101,6 @@ void TunnelMesh::initialize()
    for (int y=0; y<prim_mesh.get_num_rows(); y++)
       for (int x=0; x<prim_mesh.get_num_columns(); x++)
       {
-         //std::cout << "." << std::flush;
-         //int x = i % 16;
-         //int y = i / 16;
          prim_mesh.set_tile_id(x, y, random.get_random_int(1, 99));
       }
 
