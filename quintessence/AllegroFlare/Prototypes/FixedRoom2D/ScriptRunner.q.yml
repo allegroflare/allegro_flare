@@ -453,22 +453,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::GameEventDatas::Base*
-    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: AllegroFlare::AudioController*
-    headers: [ AllegroFlare/AudioController.hpp ]
-  - symbol: std::pair<std::string, std::string>
-    headers: [ utility, string ]
-  - symbol: AllegroFlare::Inventory*
-    headers: [ AllegroFlare/Inventory.hpp ]
-  - symbol: AllegroFlare::Elements::Inventory*
-    headers: [ AllegroFlare/Elements/Inventory.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>*
-    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
@@ -477,13 +463,10 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp ]
-
   - symbol: AllegroFlare::GameEventDatas::Base
     headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: AllegroFlare::AudioController
-    headers: [ AllegroFlare/AudioController.hpp ]
   - symbol: AllegroFlare::Inventory
     headers: [ AllegroFlare/Inventory.hpp ]
   - symbol: AllegroFlare::Elements::Inventory

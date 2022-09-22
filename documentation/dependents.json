@@ -511,7 +511,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
@@ -776,7 +775,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/InventoryIndex": [
@@ -952,7 +950,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/php/str_replace": [
@@ -1136,8 +1133,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+    "AllegroFlare/Prototypes/FixedRoom2D/Room"
   ],
   "std/map<std/string, std/string>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
@@ -1217,9 +1213,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -1232,7 +1226,6 @@
   ],
   "AllegroFlare/Elements/Inventory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
@@ -1281,8 +1274,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "std/pair<std/string, std/string>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/Script",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+    "AllegroFlare/Prototypes/FixedRoom2D/Script"
   ],
   "AllegroFlare/php/trim": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
