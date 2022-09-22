@@ -63,6 +63,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixtur
       tunnel_mesh.infer_real_width(),
       tunnel_mesh.infer_real_height()
    );
+   place.scale = {2.0, 2.0};
 
    clear();
 

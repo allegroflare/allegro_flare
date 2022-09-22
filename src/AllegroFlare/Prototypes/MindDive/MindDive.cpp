@@ -2,7 +2,8 @@
 
 #include <AllegroFlare/Prototypes/MindDive/MindDive.hpp>
 
-#include <AllegroFlare/Prototypes/MindDive/TunnelRenderer.hpp>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -13,9 +14,11 @@ namespace MindDive
 {
 
 
-MindDive::MindDive(AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh, AllegroFlare::Prototypes::MindDive::Tunnel tunnel)
-   : tunnel_mesh(tunnel_mesh)
-   , tunnel(tunnel)
+MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin)
+   : bitmap_bin(bitmap_bin)
+   , tunnel_mesh()
+   , surfer()
+   , initialized(false)
 {
 }
 
@@ -25,41 +28,59 @@ MindDive::~MindDive()
 }
 
 
-void MindDive::set_tunnel_mesh(AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh)
+AllegroFlare::BitmapBin* MindDive::get_bitmap_bin() const
 {
-   this->tunnel_mesh = tunnel_mesh;
+   return bitmap_bin;
 }
 
 
-void MindDive::set_tunnel(AllegroFlare::Prototypes::MindDive::Tunnel tunnel)
-{
-   this->tunnel = tunnel;
-}
-
-
-AllegroFlare::Prototypes::MindDive::TunnelMesh MindDive::get_tunnel_mesh() const
+AllegroFlare::Prototypes::MindDive::TunnelMesh &MindDive::get_tunnel_mesh_ref()
 {
    return tunnel_mesh;
 }
 
 
-AllegroFlare::Prototypes::MindDive::Tunnel MindDive::get_tunnel() const
+void MindDive::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
-   return tunnel;
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "set_bitmap_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->bitmap_bin = bitmap_bin;
+   return;
 }
-
 
 void MindDive::initialize()
 {
-   // TODO
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   tunnel_mesh.set_bitmap_bin(bitmap_bin);
+   tunnel_mesh.initialize();
+   initialized = true;
    return;
 }
 
 void MindDive::render()
 {
-   // TODO
-   AllegroFlare::Prototypes::MindDive::TunnelRenderer tunnel_renderer(&tunnel_mesh);
-   tunnel_renderer.render();
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   tunnel_mesh.render();
    return;
 }
 

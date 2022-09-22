@@ -59,6 +59,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -873,6 +874,7 @@
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
   ],
   "std/setfill": [
@@ -1286,15 +1288,9 @@
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
-  "AllegroFlare/Prototypes/MindDive/Tunnel": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
-  ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
-  ],
-  "AllegroFlare/Prototypes/MindDive/TunnelRenderer": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",

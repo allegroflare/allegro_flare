@@ -1,48 +1,65 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: false
+
   - name: tunnel_mesh
     type: AllegroFlare::Prototypes::MindDive::TunnelMesh
-    constructor_arg: true
-    init_with: '{}'
-    getter: true
-    setter: true
+    init_with: ''
+    getter_ref: true
 
-  - name: tunnel
-    type: AllegroFlare::Prototypes::MindDive::Tunnel
-    constructor_arg: true
-    init_with: '{}'
-    getter: true
-    setter: true
+  - name: surfer
+    type: AllegroFlare::Vec2D
+    init_with: ''
+
+  - name: initialized 
+    type: bool
+    init_with: false
 
 
 functions:
 
 
-  - name: initialize
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
     body: |
-      // TODO
+      this->bitmap_bin = bitmap_bin;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), bitmap_bin ]
+    body: |
+      tunnel_mesh.set_bitmap_bin(bitmap_bin);
+      tunnel_mesh.initialize();
+      initialized = true;
       return;
 
 
   - name: render
+    guards: [ initialized ]
     body: |
-      // TODO
-      AllegroFlare::Prototypes::MindDive::TunnelRenderer tunnel_renderer(&tunnel_mesh);
-      tunnel_renderer.render();
+      tunnel_mesh.render();
       return;
-    body_dependency_symbols:
-      - AllegroFlare::Prototypes::MindDive::TunnelRenderer
 
 
 dependencies:
 
 
-  - symbol: AllegroFlare::Prototypes::MindDive::Tunnel
-    headers: [ AllegroFlare/Prototypes/MindDive/Tunnel.hpp ]
   - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
-  - symbol: AllegroFlare::Prototypes::MindDive::TunnelRenderer
-    headers: [ AllegroFlare/Prototypes/MindDive/TunnelRenderer.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 

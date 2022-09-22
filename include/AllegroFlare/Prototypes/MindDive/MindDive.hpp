@@ -1,8 +1,9 @@
 #pragma once
 
 
-#include <AllegroFlare/Prototypes/MindDive/Tunnel.hpp>
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 
 
 namespace AllegroFlare
@@ -14,20 +15,21 @@ namespace AllegroFlare
          class MindDive
          {
          private:
+            AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
-            AllegroFlare::Prototypes::MindDive::Tunnel tunnel;
+            AllegroFlare::Vec2D surfer;
+            bool initialized;
 
          protected:
 
 
          public:
-            MindDive(AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh={}, AllegroFlare::Prototypes::MindDive::Tunnel tunnel={});
+            MindDive(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             ~MindDive();
 
-            void set_tunnel_mesh(AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh);
-            void set_tunnel(AllegroFlare::Prototypes::MindDive::Tunnel tunnel);
-            AllegroFlare::Prototypes::MindDive::TunnelMesh get_tunnel_mesh() const;
-            AllegroFlare::Prototypes::MindDive::Tunnel get_tunnel() const;
+            AllegroFlare::BitmapBin* get_bitmap_bin() const;
+            AllegroFlare::Prototypes::MindDive::TunnelMesh &get_tunnel_mesh_ref();
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void initialize();
             void render();
          };

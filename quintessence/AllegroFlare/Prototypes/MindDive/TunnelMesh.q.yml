@@ -45,14 +45,14 @@ functions:
       prim_mesh.initialize();
       prim_mesh.set_atlas(&atlas);
       prim_mesh.rescale_tile_dimentions_to(32, 32);
-      prim_mesh.resize(16, 32);
+      prim_mesh.resize(12, 32);
 
       AllegroFlare::Random random;
       int num_tiles_in_atlas = 100;
       for (int y=0; y<prim_mesh.get_num_rows(); y++)
          for (int x=0; x<prim_mesh.get_num_columns(); x++)
          {
-            prim_mesh.set_tile_id(x, y, random.get_random_int(1, 99));
+            prim_mesh.set_tile_id(x, y, random.get_random_int(0, num_tiles_in_atlas-1));
          }
 
       initialized = true;

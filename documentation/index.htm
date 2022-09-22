@@ -7202,15 +7202,26 @@ table td
     <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml</h3>
      <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">tunnel_mesh</td>
   <td class="property">AllegroFlare::Prototypes::MindDive::TunnelMesh</td>
 </tr>
 <tr>
-  <td class="property">tunnel</td>
-  <td class="property">AllegroFlare::Prototypes::MindDive::Tunnel</td>
+  <td class="property">surfer</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">set_bitmap_bin(1)</td>
+</tr>
 <tr>
   <td class="method">initialize()</td>
 </tr>
@@ -7220,13 +7231,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::Tunnel&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/Tunnel.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelRenderer.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -11635,6 +11646,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -12449,6 +12461,7 @@ table td
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
   ],
   "std/setfill": [
@@ -12862,15 +12875,9 @@ table td
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
-  "AllegroFlare/Prototypes/MindDive/Tunnel": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
-  ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
-  ],
-  "AllegroFlare/Prototypes/MindDive/TunnelRenderer": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
