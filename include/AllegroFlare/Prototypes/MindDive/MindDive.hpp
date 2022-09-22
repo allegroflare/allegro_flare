@@ -19,7 +19,7 @@ namespace AllegroFlare
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
-            AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
+            AllegroFlare::Prototypes::MindDive::TunnelMesh* current_tunnel_mesh;
             AllegroFlare::Vec2D surfer;
             AllegroFlare::Vec2D surfer_velocity;
             AllegroFlare::Timer timer;
@@ -37,7 +37,7 @@ namespace AllegroFlare
 
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
-            AllegroFlare::Prototypes::MindDive::TunnelMesh &get_tunnel_mesh_ref();
+            AllegroFlare::Prototypes::MindDive::TunnelMesh* &get_current_tunnel_mesh_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void initialize();

@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Elements/Stopwatch.hpp>
 #include <AllegroFlare/Placement3D.hpp>
+#include <AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <allegro5/allegro_opengl.h>
 #include <cmath>
@@ -22,7 +23,7 @@ namespace MindDive
 MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
-   , tunnel_mesh()
+   , current_tunnel_mesh()
    , surfer({0, 0})
    , surfer_velocity({0, 0})
    , timer()
@@ -49,9 +50,9 @@ AllegroFlare::FontBin* MindDive::get_font_bin() const
 }
 
 
-AllegroFlare::Prototypes::MindDive::TunnelMesh &MindDive::get_tunnel_mesh_ref()
+AllegroFlare::Prototypes::MindDive::TunnelMesh* &MindDive::get_current_tunnel_mesh_ref()
 {
-   return tunnel_mesh;
+   return current_tunnel_mesh;
 }
 
 
@@ -102,9 +103,13 @@ void MindDive::initialize()
    //camera.size.x = 1920;
    //camera.size.y = 1080;
    //camera.set_zoom(2.0f);
+   AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
 
-   tunnel_mesh.set_bitmap_bin(bitmap_bin);
-   tunnel_mesh.initialize();
+   current_tunnel_mesh = factory.create_classic_random();
+   //AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
+
+   //tunnel_mesh.set_bitmap_bin(bitmap_bin);
+   //tunnel_mesh.initialize();
 
    initialized = true;
    return;
@@ -130,8 +135,8 @@ void MindDive::reset_timer()
 
 void MindDive::reset()
 {
-   surfer.x = tunnel_mesh.infer_real_width() / 2;
-   surfer.y = tunnel_mesh.infer_real_height() - tunnel_mesh.obtain_tile_height() / 2;
+   surfer.x = current_tunnel_mesh->infer_real_width() / 2;
+   surfer.y = current_tunnel_mesh->infer_real_height() - current_tunnel_mesh->obtain_tile_height() / 2;
    surfer_velocity.x = 0;
    surfer_velocity.y = 0;
    reset_timer();
@@ -180,7 +185,7 @@ void MindDive::surfer_move_horizontal_none()
 
 void MindDive::render_tunnel()
 {
-   tunnel_mesh.render();
+   current_tunnel_mesh->render();
    return;
 }
 

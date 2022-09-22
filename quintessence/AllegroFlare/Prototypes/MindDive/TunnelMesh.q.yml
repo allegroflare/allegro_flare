@@ -45,10 +45,10 @@ functions:
       prim_mesh.initialize();
       prim_mesh.set_atlas(&atlas);
       //prim_mesh.rescale_tile_dimentions_to(32, 32);
-      prim_mesh.rescale_tile_dimentions_to(2, 2);
-      prim_mesh.resize(12, 32);
+      //prim_mesh.rescale_tile_dimentions_to(2, 2);
+      //prim_mesh.resize(12, 32);
 
-      random_fill();
+      //random_fill();
 
       initialized = true;
       return;
