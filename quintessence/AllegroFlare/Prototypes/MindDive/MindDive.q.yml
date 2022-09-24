@@ -1,0 +1,264 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: false
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: false
+
+  - name: current_tunnel_mesh
+    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+    init_with: ''
+    getter_ref: true
+
+  - name: surfer
+    type: AllegroFlare::Vec2D
+    init_with: '{0, 0}'
+
+  - name: surfer_velocity
+    type: AllegroFlare::Vec2D
+    init_with: '{0, 0}'
+
+  - name: timer
+    type: AllegroFlare::Timer
+    init_with: ''
+
+  - name: camera
+    type: AllegroFlare::Camera3D
+    init_with: ''
+
+  - name: initialized 
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      return;
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->font_bin = font_bin;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), bitmap_bin, font_bin ]
+    body: |
+      //camera.size.x = 1920;
+      //camera.size.y = 1080;
+      //camera.set_zoom(2.0f);
+      AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
+
+      current_tunnel_mesh = factory.create_classic_random();
+      //AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
+
+      //tunnel_mesh.set_bitmap_bin(bitmap_bin);
+      //tunnel_mesh.initialize();
+
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
+
+
+  - name: start_timer
+    private: true
+    body: |
+      timer.start();
+      return;
+
+
+  - name: pause_timer
+    body: |
+      timer.pause();
+      return;
+
+
+  - name: reset_timer
+    private: true
+    body: |
+      timer.reset();
+      return;
+
+
+  - name: reset
+    body: |
+      surfer.x = current_tunnel_mesh->infer_real_width() / 2;
+      surfer.y = current_tunnel_mesh->infer_real_height() - current_tunnel_mesh->obtain_tile_height() / 2;
+      surfer_velocity.x = 0;
+      surfer_velocity.y = 0;
+      reset_timer();
+      start_timer();
+
+      //camera.stepout = 10;
+      //camera.tilt = 0.2;
+      return;
+
+
+  - name: surfer_move_right
+    body: |
+      surfer_velocity.x = 2;
+      return;
+
+
+  - name: surfer_move_left
+    body: |
+      surfer_velocity.x = -2;
+      return;
+
+
+  - name: surfer_accelerate
+    body: |
+      surfer_velocity.y = -6;
+      return;
+
+
+  - name: surfer_reverse
+    body: |
+      surfer_velocity.y = 2;
+      return;
+
+
+  - name: surfer_stop
+    body: |
+      surfer_velocity.y = 0;
+      return;
+
+
+  - name: surfer_move_horizontal_none
+    body: |
+      surfer_velocity.x = 0;
+      return;
+
+
+  - name: render_tunnel
+    body: |
+      current_tunnel_mesh->render();
+      return;
+
+
+  - name: render_stopwatch
+    body: |
+      AllegroFlare::Elements::Stopwatch stopwatch(font_bin, &timer);
+      stopwatch.render();
+      return;
+    body_dependency_symbols:
+     - AllegroFlare::Elements::Stopwatch
+
+
+  - name: render_surfer
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      al_draw_filled_circle(surfer.x, surfer.y, 0.25, ALLEGRO_COLOR{1, 1, 1, 1});
+      //AllegroFlare::draw_crosshair(surfer.x, surfer.y, ALLEGRO_COLOR{1, 0, 0, 1}, 20);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Useful
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      surfer.x += surfer_velocity.x * 0.01;
+      surfer.y += surfer_velocity.y * 0.01;
+      //camera.position.x = surfer.x;
+      //camera.position.y = surfer.y;
+      return;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      //al_clear_depth_buffer(1);
+      camera.position.x = surfer.x;
+      camera.position.y = surfer.y;
+      //camera.position.z = sin(al_get_time()) * 5;
+      camera.stepout = AllegroFlare::Vec3D(0, 0, 10); // camera's target is positioned at (0,0,0) but the camera will be 5 meters back
+      //camera.tilt = 3.14 / 2 + 0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
+      camera.tilt = -0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
+      camera.spin = 0.5f;
+      camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
+      //camera.zoom = 2.1;
+      //camera.spin += 0.01f;
+
+      //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
+      //glDisable(GL_CULL_FACE);
+
+      //camera.start_reverse_transform();
+      AllegroFlare::Placement3D place;
+      //place.size.x = tunnel_mesh.infer_real_width();
+      //place.size.y = tunnel_mesh.infer_real_height();
+      //place.scale.x = 0.95; //1.0 / 32.0f;
+      //place.scale.y = 0.95; //1.0 / 32.0f;
+      //place.scale.z = 0.95; //1.0 / 32.0f;
+      //place.rotation.y = al_get_time(); //1.0 / 32.0f;
+      //place.rotation.x = al_get_time() * 0.25;
+      //place.rotation.x = -0.05;
+      place.start_transform();
+      render_tunnel();
+      render_surfer();
+      place.restore_transform();
+      //camera.restore_transform();
+
+      //render_stopwatch();
+      return;
+    body_dependency_symbols:
+      - sin
+      - AllegroFlare::Placement3D
+      - glCullFace
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Useful
+    headers: [ AllegroFlare/Useful.hpp ]
+  - symbol: AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: AllegroFlare::Elements::Stopwatch
+    headers: [ AllegroFlare/Elements/Stopwatch.hpp ]
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: sin
+    headers: [ cmath ]
+  - symbol: glCullFace
+    headers: [ allegro5/allegro_opengl.h ]
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp ]
+
+

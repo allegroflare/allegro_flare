@@ -1,0 +1,21 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::Basic2D
+    scope: public
+    init_with: ''
+
+  - class: AllegroFlare::TileMaps::Basic2D
+    scope: public
+    init_with: ''
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::TileMaps::Basic2D
+    headers: [ AllegroFlare/TileMaps/Basic2D.hpp ]
+
+

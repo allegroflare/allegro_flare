@@ -1,0 +1,78 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::Zones::Base3D
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: x1
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+
+  - name: y1
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+
+  - name: z1
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+
+  - name: x2
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+
+  - name: y2
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+
+  - name: z2
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+
+
+functions:
+
+
+  - name: collides
+    type: bool
+    virtual: true
+    override: true
+    parameters:
+      - name: point
+        type: AllegroFlare::vec3d
+        default_argument: "{}"
+    body: |
+      if (point.x > x2) return false;
+      if (point.x < x1) return false;
+      if (point.y > y2) return false;
+      if (point.y < y1) return false;
+      if (point.z > z2) return false;
+      if (point.z < z1) return false;
+      return true;
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::Zones::Base3D
+    headers: [ Wicked/Entities/Zones/Base3D.hpp ]
+  - symbol: AllegroFlare::vec3d
+    headers: [ AllegroFlare/Vec3D.hpp ]
+
+

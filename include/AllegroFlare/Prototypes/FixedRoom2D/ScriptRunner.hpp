@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/Elements/Inventory.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
@@ -22,7 +21,6 @@ namespace AllegroFlare
          class ScriptRunner
          {
          private:
-            AllegroFlare::AudioController* audio_controller;
             AllegroFlare::Inventory* af_inventory;
             AllegroFlare::Elements::Inventory* inventory_window;
             AllegroFlare::EventEmitter* event_emitter;
@@ -43,7 +41,6 @@ namespace AllegroFlare
             ScriptRunner();
             ~ScriptRunner();
 
-            void set_audio_controller(AllegroFlare::AudioController* audio_controller);
             void set_af_inventory(AllegroFlare::Inventory* af_inventory);
             void set_inventory_window(AllegroFlare::Elements::Inventory* inventory_window);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);

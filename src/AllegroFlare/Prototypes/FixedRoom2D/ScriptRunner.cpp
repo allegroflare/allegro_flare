@@ -20,8 +20,7 @@ namespace FixedRoom2D
 
 
 ScriptRunner::ScriptRunner()
-   : audio_controller(nullptr)
-   , af_inventory(nullptr)
+   : af_inventory(nullptr)
    , inventory_window(nullptr)
    , event_emitter(nullptr)
    , script_dictionary(nullptr)
@@ -35,12 +34,6 @@ ScriptRunner::ScriptRunner()
 
 ScriptRunner::~ScriptRunner()
 {
-}
-
-
-void ScriptRunner::set_audio_controller(AllegroFlare::AudioController* audio_controller)
-{
-   this->audio_controller = audio_controller;
 }
 
 
@@ -174,12 +167,6 @@ void ScriptRunner::play_or_resume()
 
 bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num, bool auto_assume_uncommanded_line_is_dialog)
 {
-   if (!(audio_controller))
-   {
-      std::stringstream error_message;
-      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"audio_controller\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    if (!(af_inventory))
    {
       std::stringstream error_message;

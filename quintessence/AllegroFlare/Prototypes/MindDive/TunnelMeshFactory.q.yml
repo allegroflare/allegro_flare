@@ -1,0 +1,36 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: create_classic_random
+    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+    guards: [ bitmap_bin ]
+    body: |
+      AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+      result->set_bitmap_bin(bitmap_bin);
+      result->initialize();
+      result->get_prim_mesh_ref().rescale_tile_dimentions_to(2, 2);
+      result->get_prim_mesh_ref().resize(12, 32);
+      result->random_fill();
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
+
+

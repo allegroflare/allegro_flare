@@ -1,0 +1,41 @@
+properties:
+
+
+  - name: camera
+    type: AllegroFlare::Placement2D*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+
+functions:
+
+
+  - name: initialize
+    virtual: true
+    guards: [ (!initialized) ]
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: update
+    virtual: true
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+

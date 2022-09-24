@@ -264,6 +264,8 @@ bool Full::initialize()
    int display_flags = ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE;
    if (fullscreen) display_flags |= ALLEGRO_FULLSCREEN_WINDOW;
 
+   //al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 16, ALLEGRO_REQUIRE);
+
    primary_display = create_display(
          1920,
          1080,
@@ -277,6 +279,8 @@ bool Full::initialize()
    }
 
    ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
+
+
    primary_sub_bitmap = al_create_sub_bitmap(
       backbuffer_bitmap,
       0,
@@ -557,6 +561,8 @@ void Full::primary_render()
    al_set_target_bitmap(backbuffer_bitmap);
 
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+   al_clear_depth_buffer(1);
+
    screens.primary_timer_funcs();
 
    al_set_target_bitmap(primary_sub_bitmap);

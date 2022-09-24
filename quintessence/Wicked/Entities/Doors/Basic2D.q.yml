@@ -1,0 +1,48 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::Basic2D
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: target_map_name
+    type: std::string
+    init_with: '"[unset-target-map-name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: target_spawn_x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+    
+  - name: target_spawn_y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: run
+    type: std::string
+    body: return "Hello World!";
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+
+

@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/Inventory.hpp>
@@ -36,7 +35,6 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::EventEmitter* event_emitter;
-            AllegroFlare::AudioController* audio_controller;
             AllegroFlare::InventoryIndex inventory_index;
             AllegroFlare::Inventory af_inventory;
             AllegroFlare::Elements::Inventory inventory_window;
@@ -60,12 +58,11 @@ namespace AllegroFlare
 
 
          public:
-            FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::AudioController* audio_controller=nullptr);
+            FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             ~FixedRoom2D();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
-            void set_audio_controller(AllegroFlare::AudioController* audio_controller);
             void set_room_shader(AllegroFlare::Shader* room_shader);
             AllegroFlare::Shader* get_room_shader() const;
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &get_entity_collection_helper_ref();

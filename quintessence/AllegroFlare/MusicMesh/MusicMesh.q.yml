@@ -17,11 +17,11 @@ properties:
     getter: true
 
   - name: multi_mesh
-    type: AllegroFlare::MultiMesh
+    type: AllegroFlare::TileMaps::MultiMesh
     init_with: 4096
 
   - name: multi_mesh_uv_atlas
-    type: AllegroFlare::MultiMeshUVAtlas
+    type: AllegroFlare::TileMaps::MultiMeshUVAtlas
     init_with: ''
     getter: true
     setter: true
@@ -130,10 +130,10 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::MusicMesh::Stamp
     headers: [ AllegroFlare/MusicMesh/Stamp.hpp ]
-  - symbol: AllegroFlare::MultiMesh
-    headers: [ AllegroFlare/MultiMesh.hpp ]
-  - symbol: AllegroFlare::MultiMeshUVAtlas
-    headers: [ AllegroFlare/MultiMeshUVAtlas.hpp ]
+  - symbol: AllegroFlare::TileMaps::MultiMesh
+    headers: [ AllegroFlare/TileMaps/MultiMesh.hpp ]
+  - symbol: AllegroFlare::TileMaps::MultiMeshUVAtlas
+    headers: [ AllegroFlare/TileMaps/MultiMeshUVAtlas.hpp ]
   - symbol: AllegroFlare::MusicMesh::FontCharacterAtlasBuilder
     headers: [ AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.hpp ]
 

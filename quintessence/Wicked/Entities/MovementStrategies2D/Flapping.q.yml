@@ -1,0 +1,119 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: Wicked::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: target_elevation
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: flap_strength
+    type: float
+    init_with: 1.0f
+    getter: true
+    setter: true
+
+  - name: flap_recovery_rate
+    type: float
+    init_with: 0.1f
+    getter: true
+    setter: true
+
+  - name: flap_recovery_counter
+    type: float
+    init_with: 1.0f
+
+  - name: can_flap
+    type: bool
+    init_with: false
+    getter: true
+
+
+functions:
+
+
+  - name: update
+    override: true
+    guards: [ entity ]
+    body: |
+      update_flapability_status();
+
+      bool will_flap = decide_to_flap();
+
+      if (will_flap)
+      {
+         flap();
+      }
+      // TODO: this should include a slide, horizontal or otherwise
+      //entity->get_place_ref().position = anchor;
+      //entity->get_velocity_ref().position = AllegroFlare::vec2d{0, 0};
+
+
+  - name: update_flapability_status
+    private: true
+    guards: [ entity ]
+    body: |
+      if (!can_flap)
+      {
+         flap_recovery_counter -= flap_recovery_rate;
+         if (flap_recovery_counter <= 0.0f)
+         {
+            can_flap = true;
+            flap_recovery_counter = 0.0f;
+         }
+      }
+
+
+  - name: decide_to_flap
+    type: bool
+    private: true
+    guards: [ entity ]
+    body: |
+      if (can_flap)
+      {
+         if (entity->get_place_ref().position.y > target_elevation) return true;
+      }
+      else
+      {
+         return false;
+      }
+      return false;
+
+
+  - name: flap
+    guards: [ entity ]
+    body: |
+      if (can_flap)
+      {
+         entity->get_velocity_ref().position += AllegroFlare::vec2d{0, -flap_strength};
+         flap_recovery_counter = 1.0f;
+         can_flap = false;
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::vec2d
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: Wicked::Entities::MovementStrategies2D::Base
+    headers: [ Wicked/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+
+

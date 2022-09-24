@@ -1,0 +1,105 @@
+properties:
+
+
+  - name: entities
+    type: std::vector<Wicked::Entities::Basic2D*>*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: select_collectable_by_player
+    type: std::vector<Wicked::Entities::Basic2D*>
+    guards: [ entities ]
+    body: |
+      std::vector<Wicked::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(COLLECTABLE_BY_PLAYER)) result.push_back(entity);
+      }
+      return result;
+    body_dependency_symbols:
+      - Wicked::EntityFlagNames
+
+
+  - name: select_goalposts
+    type: std::vector<Wicked::Entities::Basic2D*>
+    guards: [ entities ]
+    body: |
+      std::vector<Wicked::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(TYPE, GOALPOST)) result.push_back(entity);
+      }
+      return result;
+    body_dependency_symbols:
+      - Wicked::EntityFlagNames
+
+
+  - name: select_doors
+    type: std::vector<Wicked::Entities::Basic2D*>
+    guards: [ entities ]
+    body: |
+      std::vector<Wicked::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(TYPE, DOOR)) result.push_back(entity);
+      }
+      return result;
+    body_dependency_symbols:
+      - Wicked::EntityFlagNames
+
+
+  - name: select_on_map
+    type: std::vector<Wicked::Entities::Basic2D*>
+    parameters:
+      - name: on_map_name
+        type: std::string
+        default_argument: '"[on-map-name-not-set]"'
+    guards: [ entities ]
+    body: |
+      std::vector<Wicked::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(ON_MAP_NAME, on_map_name)) result.push_back(entity);
+      }
+      return result;
+    body_dependency_symbols:
+      - Wicked::EntityFlagNames
+
+
+  - name: find_map_by_name
+    type: WickedDemos::TileMaps::Basic2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[find-map-name-not-set]"'
+    guards: [ entities ]
+    body: |
+      //throw std::runtime_error("find_map_by_name not implemented");
+      //std::vector<Wicked::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(MAP_NAME, map_name)) return static_cast<WickedDemos::TileMaps::Basic2D*>(entity);
+      }
+      return nullptr;
+    body_dependency_symbols:
+      - Wicked::EntityFlagNames
+
+
+
+dependencies:
+
+
+  - symbol: Wicked::EntityFlagNames
+    headers: [ Wicked/EntityFlagNames.hpp ]
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+  - symbol: WickedDemos::TileMaps::Basic2D
+    headers: [ WickedDemos/TileMaps/Basic2D.hpp ]
+
+

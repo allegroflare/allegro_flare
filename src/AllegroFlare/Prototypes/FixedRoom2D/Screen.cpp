@@ -14,12 +14,11 @@ namespace FixedRoom2D
 {
 
 
-Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::AudioController* audio_controller)
+Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : AllegroFlare::Screens::Base("Prototypes::FixedRoom2D::Screen")
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
-   , audio_controller(audio_controller)
    , fixed_room_2d({})
    , initialized(false)
 {
@@ -58,13 +57,6 @@ void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    return;
 }
 
-void Screen::set_audio_controller(AllegroFlare::AudioController* audio_controller)
-{
-   this->audio_controller = audio_controller;
-   fixed_room_2d.set_audio_controller(audio_controller);
-   return;
-}
-
 void Screen::initialize()
 {
    if (!((!initialized)))
@@ -91,16 +83,9 @@ void Screen::initialize()
       error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(audio_controller))
-   {
-      std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"audio_controller\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    fixed_room_2d.set_bitmap_bin(bitmap_bin);
    fixed_room_2d.set_font_bin(font_bin);
    fixed_room_2d.set_event_emitter(event_emitter);
-   fixed_room_2d.set_audio_controller(audio_controller);
    fixed_room_2d.initialize();
 
    initialized = true;

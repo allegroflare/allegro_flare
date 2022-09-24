@@ -1,0 +1,35 @@
+properties:
+
+
+  - name: tunnel_mesh
+    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+
+
+dependencies:
+
+
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
+
+

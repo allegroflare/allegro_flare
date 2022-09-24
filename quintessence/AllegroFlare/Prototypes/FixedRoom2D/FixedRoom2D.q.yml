@@ -18,12 +18,6 @@ properties:
     constructor_arg: true
     setter: true
 
-  - name: audio_controller
-    type: AllegroFlare::AudioController*
-    init_with: nullptr
-    constructor_arg: true
-    setter: true
-
   - name: inventory_index
     type: AllegroFlare::InventoryIndex
     init_with: ''
@@ -140,7 +134,7 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized), bitmap_bin, event_emitter, audio_controller ]
+    guards: [ (!initialized), bitmap_bin, event_emitter ]
     body: |
       subscribed_to_game_event_names = {
          AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
@@ -160,7 +154,6 @@ functions:
       entity_collection_helper.set_entity_dictionary(&entity_dictionary);
       entity_collection_helper.set_entity_room_associations(&entity_room_associations);
 
-      script_runner.set_audio_controller(audio_controller);
       script_runner.set_af_inventory(&af_inventory);
       script_runner.set_event_emitter(event_emitter);
       script_runner.set_inventory_window(&inventory_window);

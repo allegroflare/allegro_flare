@@ -247,7 +247,8 @@ TEST(AllegroFlare_Frameworks_FullTest,
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, DISABLED__emitting_an_ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT_will_cause_the_audio_to_play)
+TEST(AllegroFlare_Frameworks_FullTest,
+   DISABLED__emitting_an_ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT_will_cause_the_audio_to_play)
 {
    AllegroFlare::Frameworks::Full framework;
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();

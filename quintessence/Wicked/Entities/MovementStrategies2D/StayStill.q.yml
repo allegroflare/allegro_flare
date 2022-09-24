@@ -1,0 +1,36 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: Wicked::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: update
+    override: true
+    guards: [ entity ]
+    body: |
+      entity->get_velocity_ref().position = AllegroFlare::vec2d(0, 0);
+
+
+dependencies:
+
+
+  - symbol: Wicked::Entities::MovementStrategies2D::Base
+    headers: [ Wicked/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+
+

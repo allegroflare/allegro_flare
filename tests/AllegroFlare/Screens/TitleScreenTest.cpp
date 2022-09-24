@@ -119,7 +119,6 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
    ALLEGRO_EVENT event;
 
    // setup environment
-   //get_font_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/programs/data/fonts");
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());

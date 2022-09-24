@@ -37,7 +37,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , inventory_items_top_padding(80.0f)
    , inventory_items_box_size(150.0)
    , inventory_items_box_spacing((inventory_items_box_size + 20.0f))
-   , cursor_move_sound_identifier("menu-click-01.wav")
+   , cursor_move_sound_identifier("menu-click-01.ogg")
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
    , sound_is_disabled(false)
@@ -122,6 +122,12 @@ bool Inventory::get_active() const
 }
 
 
+int Inventory::get_item_in_details_pane() const
+{
+   return item_in_details_pane;
+}
+
+
 std::string Inventory::get_cursor_move_sound_identifier() const
 {
    return cursor_move_sound_identifier;
@@ -145,6 +151,12 @@ bool Inventory::get_sound_is_disabled() const
    return sound_is_disabled;
 }
 
+
+void Inventory::TODO()
+{
+   // note "item_in_details_pane" has a getter, it was added during a massive import and should prob be factored out
+   return;
+}
 
 void Inventory::update()
 {

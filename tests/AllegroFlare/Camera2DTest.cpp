@@ -12,6 +12,7 @@ TEST(AllegroFlare_Camera2DTest, can_be_created_without_blowing_up)
 
 TEST(AllegroFlare_Camera2DTest, setup_dimentional_projection__will_create_a_depth_projection_on_the_bitmap)
 {
+   // TODO: elaborate on this
    al_init();
 
    ALLEGRO_BITMAP *target_bitmap = al_create_bitmap(800, 600);

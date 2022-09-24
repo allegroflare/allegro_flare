@@ -1,0 +1,25 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Prototypes::MindDive::TunnelTiles::Base
+    scope: public
+    init_with: AllegroFlare::Prototypes::MindDive::TunnelTiles::Basic::TYPE
+
+
+properties:
+
+
+  - name: TYPE
+    type: char*
+    init_with: '"TunnelTiles/Basic"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelTiles::Base
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.hpp ]
+
+

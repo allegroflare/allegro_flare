@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: Wicked::Entities::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: place
+    type: AllegroFlare::Placement3D
+    init_with: ''
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: velocity
+    type: AllegroFlare::Placement3D
+    init_with: ''
+    getter: true
+    getter_ref: true
+    setter: true
+
+
+functions:
+
+
+  - name: TODO
+    body: |
+      // see Wicked/Entity for additional properties, notably "model"
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: Wicked::Entities::Base
+    headers: [ Wicked/Entities/Base.hpp ]
+
+

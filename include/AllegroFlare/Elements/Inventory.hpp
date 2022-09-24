@@ -75,10 +75,12 @@ namespace AllegroFlare
          int get_cursor_x() const;
          int get_cursor_y() const;
          bool get_active() const;
+         int get_item_in_details_pane() const;
          std::string get_cursor_move_sound_identifier() const;
          std::string get_inventory_show_sound_identifier() const;
          std::string get_inventory_hide_sound_identifier() const;
          bool get_sound_is_disabled() const;
+         void TODO();
          void update();
          void activate();
          void deactivate();

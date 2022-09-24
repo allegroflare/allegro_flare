@@ -74,6 +74,7 @@ properties:
   - name: item_in_details_pane
     type: int
     init_with: 0
+    getter: true
 
   - name: inventory_items_left_padding
     type: float
@@ -93,7 +94,7 @@ properties:
 
   - name: cursor_move_sound_identifier
     type: std::string
-    init_with: '"menu-click-01.wav"'
+    init_with: '"menu-click-01.ogg"'
     getter: true
     setter: true
 
@@ -116,6 +117,12 @@ properties:
 
 
 functions:
+
+
+  - name: TODO
+    body: | 
+      // note "item_in_details_pane" has a getter, it was added during a massive import and should prob be factored out
+      return;
 
 
   - name: update

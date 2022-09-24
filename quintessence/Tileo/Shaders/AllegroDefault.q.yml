@@ -1,0 +1,119 @@
+parent_classes:
+
+
+  - class: Tileo::Shaders::Base
+    scope: private
+    init_with: "obtain_vertex_source(), obtain_fragment_source()"
+
+
+properties:
+
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    type: void
+    body: |
+      if (!initialized) Tileo::Shaders::Base::initialize();
+      initialized = true;
+
+
+  - name: activate
+    type: void
+    guards: [ initialized ]
+    body: |
+      Tileo::Shaders::Base::activate();
+
+
+  - name: obtain_vertex_source
+    type: std::string
+    static: true
+    private: true
+    body: |
+      static const std::string source = R"DELIM(
+        attribute vec4 al_pos;
+        attribute vec4 al_color;
+        attribute vec2 al_texcoord;
+        uniform mat4 al_projview_matrix;
+        uniform bool al_use_tex_matrix;
+        uniform mat4 al_tex_matrix;
+        varying vec4 varying_color;
+        varying vec2 varying_texcoord;
+        void main()
+        {
+          varying_color = al_color;
+          if (al_use_tex_matrix) {
+            vec4 uv = al_tex_matrix * vec4(al_texcoord, 0, 1);
+            varying_texcoord = vec2(uv.x, uv.y);
+          }
+          else
+            varying_texcoord = al_texcoord;
+          gl_Position = al_projview_matrix * al_pos;
+        }
+      )DELIM";
+      return source;
+
+
+  - name: obtain_fragment_source
+    type: std::string
+    static: true
+    private: true
+    body: |
+      static const std::string source = R"DELIM(
+        #ifdef GL_ES
+        precision lowp float;
+        #endif
+        uniform sampler2D al_tex;
+        uniform bool al_use_tex;
+        uniform bool al_alpha_test;
+        uniform int al_alpha_func;
+        uniform float al_alpha_test_val;
+        varying vec4 varying_color;
+        varying vec2 varying_texcoord;
+
+        bool alpha_test_func(float x, int op, float compare);
+
+        void main()
+        {
+          vec4 c;
+          if (al_use_tex)
+            c = varying_color * texture2D(al_tex, varying_texcoord);
+          else
+            c = varying_color;
+          if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
+            gl_FragColor = c;
+          else
+            discard;
+        }
+
+        bool alpha_test_func(float x, int op, float compare)
+        {
+          if (op == 0) return false;
+          else if (op == 1) return true;
+          else if (op == 2) return x < compare;
+          else if (op == 3) return x == compare;
+          else if (op == 4) return x <= compare;
+          else if (op == 5) return x > compare;
+          else if (op == 6) return x != compare;
+          else if (op == 7) return x >= compare;
+          return false;
+        }
+      )DELIM";
+      return source;
+
+
+dependencies:
+
+
+  - symbol: Tileo::Shaders::Base
+    headers: [ Tileo/Shaders/Base.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+

@@ -39,8 +39,6 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTest, render__without_allegro_initiali
 
 TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
-   //get_font_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/fonts");
-
    AllegroFlare::Screens::GameOverScreen game_over_screen;
    game_over_screen.set_font_bin(&get_font_bin_ref());
    game_over_screen.initialize();
@@ -88,7 +86,6 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
    ALLEGRO_EVENT event;
 
    // setup environment
-   //get_font_bin_ref().set_full_path("/Users/markoates/Repos/Wicked/bin/programs/data/fonts");
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
