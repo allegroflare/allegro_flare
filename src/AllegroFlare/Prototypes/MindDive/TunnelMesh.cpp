@@ -87,19 +87,40 @@ void TunnelMesh::initialize()
       error_message << "TunnelMesh" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+
    ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get("uv.png");
    atlas.duplicate_bitmap_and_load(source_bitmap, 100, 100, 0);
-   // TODO: bitmap_bin->destroy["uv.png"]
 
    prim_mesh.initialize();
    prim_mesh.set_atlas(&atlas);
-   //prim_mesh.rescale_tile_dimentions_to(32, 32);
-   //prim_mesh.rescale_tile_dimentions_to(2, 2);
-   //prim_mesh.resize(12, 32);
-
-   //random_fill();
 
    initialized = true;
+   return;
+}
+
+void TunnelMesh::resize(int num_columns, int num_rows)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMesh" << "::" << "resize" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // TODO: no negative or 0 arguments
+   prim_mesh.resize(num_columns, num_rows);
+   return;
+}
+
+void TunnelMesh::rescale_tile_dimentions_to(float tile_width, float tile_height)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMesh" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // TODO: no negative or 0 arguments
+   prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
    return;
 }
 

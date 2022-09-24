@@ -35,6 +35,8 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::PrimMesh &get_prim_mesh_ref();
             AllegroFlare::TileMaps::TileMap<int> &get_collision_tile_map_ref();
             void initialize();
+            void resize(int num_columns=1, int num_rows=1);
+            void rescale_tile_dimentions_to(float tile_width=1, float tile_height=1);
             void random_fill();
             float infer_real_width();
             float infer_real_height();

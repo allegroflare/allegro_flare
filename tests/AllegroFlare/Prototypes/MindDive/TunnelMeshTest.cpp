@@ -60,6 +60,10 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixtur
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh(&get_bitmap_bin_ref());
    tunnel_mesh.initialize();
 
+   tunnel_mesh.resize(12, 32);
+   tunnel_mesh.rescale_tile_dimentions_to(32, 32);
+   tunnel_mesh.random_fill();
+
    AllegroFlare::Placement2D place = build_centered_placement(
       tunnel_mesh.infer_real_width(),
       tunnel_mesh.infer_real_height()

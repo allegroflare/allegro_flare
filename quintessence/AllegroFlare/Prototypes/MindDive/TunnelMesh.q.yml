@@ -38,23 +38,48 @@ functions:
       - al_is_primitives_addon_initialized()
       - bitmap_bin
     body: |
+ 
       ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get("uv.png");
       atlas.duplicate_bitmap_and_load(source_bitmap, 100, 100, 0);
-      // TODO: bitmap_bin->destroy["uv.png"]
 
       prim_mesh.initialize();
       prim_mesh.set_atlas(&atlas);
-      //prim_mesh.rescale_tile_dimentions_to(32, 32);
-      //prim_mesh.rescale_tile_dimentions_to(2, 2);
-      //prim_mesh.resize(12, 32);
-
-      //random_fill();
 
       initialized = true;
       return;
     body_dependency_symbols:
       - al_is_image_addon_initialized
       - AllegroFlare::Random
+
+
+  - name: resize
+    guards: [ initialized ]
+    parameters:
+      - name: num_columns
+        type: int
+        default_argument: 1
+      - name: num_rows
+        type: int
+        default_argument: 1
+    body: |
+      // TODO: no negative or 0 arguments
+      prim_mesh.resize(num_columns, num_rows);
+      return;
+
+
+  - name: rescale_tile_dimentions_to
+    guards: [ initialized ]
+    parameters:
+      - name: tile_width
+        type: float
+        default_argument: 1
+      - name: tile_height
+        type: float
+        default_argument: 1
+    body: |
+      // TODO: no negative or 0 arguments
+      prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
+      return;
 
 
   - name: random_fill
