@@ -69,17 +69,13 @@ dependencies:
 
   - symbol: AllegroFlare::Elements::Base
     headers: [ AllegroFlare/Elements/Base.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro.h ]
-
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+
 
