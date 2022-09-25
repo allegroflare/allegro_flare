@@ -9,10 +9,10 @@ AllegroFlare is set of complementary classes for the [Allegro 5 Game Programming
 
 The goal of AllegroFlare is to add new higher level features that are not otherwise a part of Allegro 5's low level design.  Hopefully, you may find some AllegroFlare components that make an otherwise complicated game programming task much easier to do.
 
+From a design perspective, AllegroFlare objects are meant to be atomic and orthagonal - that is, you shouldn't have to incorporate an entire framework or software design philosophy (such as SOAP, MVP) in order to work with AllegroFlare and it's objects. Pieces can be created and used in isolation and are ephemeral when possible, while others may contain state or require initialization.  If configuraions or options on objects become complex, then they are typically offered in additional simplified variants.  Objects are designed in such that you should be able to cherry-pick and incorporate what you need into your existing code, or you could even adopt entire frameworks.  With that in mind, there are some composite objects that do require a more complex integration. But, this is by nature of their requirements or underlying subsystems (OpenGL), and not so much a design philosophy.
+
 ## Some Examples
 
-- `Framework` for managing initialization and screen management (title screen, gameplay screen, etc)
-- Build individual game screens into `Screen`s.
 - Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`) that make loading and managing missing assets easier
 - Support multiple languages with `Internationalization`
 - Manage multiple player-optional inputs (keyboards, joysticks) as a single input event source with `VirtualControls`
@@ -20,7 +20,10 @@ The goal of AllegroFlare is to add new higher level features that are not otherw
 - Convert different datatypes to and from `JSON` for easier loading / saving
 - Place and position objects in a scene with `Placement2D` and `Placement3D`
 - Manage complex motion graphics effects with `Timeline/*` classes and/or the `Motion` class
+- `Frameworks` for managing initialization and screen management (title screen, gameplay screen, etc)
+- Build individual game screens into `Screen`s.
 - Profile code with `Profiler`
+- `TileMaps`
 - And more...
 
 Knowledge of Allegro 5 is expected, as you will still have direct access to all of Allegro 5 primitives and operations when using AllegroFlare.  However, you won't have to manage them as much.
