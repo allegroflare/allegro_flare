@@ -47,6 +47,7 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_classi
    }
    AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
    result->set_bitmap_bin(bitmap_bin);
+   result->set_atlas_configuration("uv.png", 100, 100);
    result->initialize();
    result->get_prim_mesh_ref().rescale_tile_dimentions_to(2, 2);
    result->get_prim_mesh_ref().resize(12, 32);

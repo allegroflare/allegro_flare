@@ -21,6 +21,9 @@ TunnelMesh::TunnelMesh(AllegroFlare::BitmapBin* bitmap_bin)
    , atlas()
    , prim_mesh()
    , collision_tile_map()
+   , atlas_bitmap_filename("[atlas_bitmap_filename-unset]")
+   , atlas_bitmap_tile_width(1)
+   , atlas_bitmap_tile_height(1)
    , initialized(false)
 {
 }
@@ -43,6 +46,24 @@ AllegroFlare::BitmapBin* TunnelMesh::get_bitmap_bin() const
 }
 
 
+std::string TunnelMesh::get_atlas_bitmap_filename() const
+{
+   return atlas_bitmap_filename;
+}
+
+
+int TunnelMesh::get_atlas_bitmap_tile_width() const
+{
+   return atlas_bitmap_tile_width;
+}
+
+
+int TunnelMesh::get_atlas_bitmap_tile_height() const
+{
+   return atlas_bitmap_tile_height;
+}
+
+
 AllegroFlare::TileMaps::PrimMeshAtlas &TunnelMesh::get_atlas_ref()
 {
    return atlas;
@@ -60,6 +81,20 @@ AllegroFlare::TileMaps::TileMap<int> &TunnelMesh::get_collision_tile_map_ref()
    return collision_tile_map;
 }
 
+
+void TunnelMesh::set_atlas_configuration(std::string atlas_bitmap_filename, int atlas_bitmap_tile_width, int atlas_bitmap_tile_height)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMesh" << "::" << "set_atlas_configuration" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->atlas_bitmap_filename = atlas_bitmap_filename;
+   this->atlas_bitmap_tile_width = atlas_bitmap_tile_width;
+   this->atlas_bitmap_tile_height = atlas_bitmap_tile_height;
+   return;
+}
 
 void TunnelMesh::initialize()
 {
@@ -87,9 +122,8 @@ void TunnelMesh::initialize()
       error_message << "TunnelMesh" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-
-   ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get("uv.png");
-   atlas.duplicate_bitmap_and_load(source_bitmap, 100, 100, 0);
+   ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get(atlas_bitmap_filename);
+   atlas.duplicate_bitmap_and_load(source_bitmap, atlas_bitmap_tile_width, atlas_bitmap_tile_height, 0);
 
    prim_mesh.initialize();
    prim_mesh.set_atlas(&atlas);

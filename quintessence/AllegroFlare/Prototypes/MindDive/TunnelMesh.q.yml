@@ -23,12 +23,50 @@ properties:
     init_with: ''
     getter_ref: true
 
+  - name: atlas_bitmap_filename
+    type: std::string
+    init_with: '"[atlas_bitmap_filename-unset]"'
+    getter: true
+    setter: false
+
+  - name: atlas_bitmap_tile_width
+    type: int
+    init_with: 1
+    getter: true
+    setter: false
+
+  - name: atlas_bitmap_tile_height
+    type: int
+    init_with: 1
+    getter: true
+    setter: false
+
   - name: initialized
     type: bool
     init_with: false
 
 
 functions:
+
+
+  - name: set_atlas_configuration
+    type: void
+    guards: [ (!initialized) ]
+    parameters:
+      - name: atlas_bitmap_filename
+        type: std::string
+        default_argument: '"[unset-atlas_bitmap_filename]"'
+      - name: atlas_bitmap_tile_width
+        type: int
+        default_argument: 1
+      - name: atlas_bitmap_tile_height
+        type: int
+        default_argument: 1
+    body: |
+      this->atlas_bitmap_filename = atlas_bitmap_filename;
+      this->atlas_bitmap_tile_width = atlas_bitmap_tile_width;
+      this->atlas_bitmap_tile_height = atlas_bitmap_tile_height;
+      return;
 
 
   - name: initialize
@@ -38,9 +76,8 @@ functions:
       - al_is_primitives_addon_initialized()
       - bitmap_bin
     body: |
- 
-      ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get("uv.png");
-      atlas.duplicate_bitmap_and_load(source_bitmap, 100, 100, 0);
+      ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get(atlas_bitmap_filename);
+      atlas.duplicate_bitmap_and_load(source_bitmap, atlas_bitmap_tile_width, atlas_bitmap_tile_height, 0);
 
       prim_mesh.initialize();
       prim_mesh.set_atlas(&atlas);

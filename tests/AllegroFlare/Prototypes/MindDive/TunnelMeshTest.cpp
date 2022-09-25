@@ -48,6 +48,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, render__before_being_ini
 TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh(&get_bitmap_bin_ref());
+   tunnel_mesh.set_atlas_configuration("uv.png", 100, 100);
    tunnel_mesh.initialize();
    tunnel_mesh.render();
    al_flip_display();
@@ -58,6 +59,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixtur
    CAPTURE__render__will_draw_the_mesh_as_expected)
 {
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh(&get_bitmap_bin_ref());
+   tunnel_mesh.set_atlas_configuration("uv.png", 100, 100);
    tunnel_mesh.initialize();
 
    tunnel_mesh.resize(12, 32);
