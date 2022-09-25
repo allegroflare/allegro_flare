@@ -98,14 +98,13 @@ functions:
       - name: num_rows
         type: int
         default_argument: 1
+    guards: [ (num_columns > 0), (num_rows > 0) ]
     body: |
-      // TODO: no negative or 0 arguments
       prim_mesh.resize(num_columns, num_rows);
       return;
 
 
   - name: rescale_tile_dimentions_to
-    guards: [ initialized ]
     parameters:
       - name: tile_width
         type: float
@@ -113,8 +112,8 @@ functions:
       - name: tile_height
         type: float
         default_argument: 1
+    guards: [ initialized, (tile_width > 0), (tile_height > 0) ]
     body: |
-      // TODO: no negative or 0 arguments
       prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
       return;
 

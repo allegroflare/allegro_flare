@@ -140,7 +140,6 @@ void TunnelMesh::resize(int num_columns, int num_rows)
       error_message << "TunnelMesh" << "::" << "resize" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // TODO: no negative or 0 arguments
    prim_mesh.resize(num_columns, num_rows);
    return;
 }
@@ -153,7 +152,18 @@ void TunnelMesh::rescale_tile_dimentions_to(float tile_width, float tile_height)
       error_message << "TunnelMesh" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // TODO: no negative or 0 arguments
+   if (!((tile_width > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMesh" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"(tile_width > 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((tile_height > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMesh" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"(tile_height > 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
    return;
 }
