@@ -1,39 +1,178 @@
 properties:
 
 
-  - name: tile_atlas
-    type: AllegroFlare::TileMaps::PrimMeshAtlas*
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
     init_with: nullptr
     getter: true
     setter: true
 
-  - name: tile_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
-    init_with: nullptr
+  - name: atlas_bitmap_filename
+    type: std::string
+    constructor_arg: true
+    init_with: '"[atlas_bitmap_filename-unset]"'
     getter: true
-    setter: true
+    setter: false
 
-  - name: collision_tile_mesh
-    type: AllegroFlare::TileMaps::TileMap<int>*
-    init_with: nullptr
+  - name: atlas_bitmap_tile_width
+    type: int
+    constructor_arg: true
+    init_with: 1
     getter: true
-    setter: true
+    setter: false
+
+  - name: atlas_bitmap_tile_height
+    type: int
+    constructor_arg: true
+    init_with: 1
+    getter: true
+    setter: false
+
+  - name: atlas
+    type: AllegroFlare::TileMaps::PrimMeshAtlas
+    init_with: ''
+    getter_ref: true
+
+  - name: prim_mesh
+    type: AllegroFlare::TileMaps::PrimMesh
+    init_with: ''
+    getter_ref: true
+
+  - name: collision_tile_map
+    type: AllegroFlare::TileMaps::TileMap<int>
+    init_with: ''
+    getter_ref: true
+
+  - name: initialized
+    type: bool
+    init_with: false
 
 
 functions:
 
 
-  - name: TODO
+  - name: set_atlas_configuration
+    type: void
+    guards: [ (!initialized) ]
+    parameters:
+      - name: atlas_bitmap_filename
+        type: std::string
+        default_argument: '"[unset-atlas_bitmap_filename]"'
+      - name: atlas_bitmap_tile_width
+        type: int
+        default_argument: 1
+      - name: atlas_bitmap_tile_height
+        type: int
+        default_argument: 1
     body: |
-      // This class currently derives from Wicked::Entities::Basic2D so that the
-      // it can be used in WickedDemo as an entity. Please factor this out
-      // so that this class can be stand-alone.
+      this->atlas_bitmap_filename = atlas_bitmap_filename;
+      this->atlas_bitmap_tile_width = atlas_bitmap_tile_width;
+      this->atlas_bitmap_tile_height = atlas_bitmap_tile_height;
+      return;
+
+
+  - name: initialize
+    guards: 
+      - (!initialized)
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - bitmap_bin
+    body: |
+      ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get(atlas_bitmap_filename);
+      atlas.duplicate_bitmap_and_load(source_bitmap, atlas_bitmap_tile_width, atlas_bitmap_tile_height, 0);
+
+      prim_mesh.initialize();
+      prim_mesh.set_atlas(&atlas);
+
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - al_is_image_addon_initialized
+      - AllegroFlare::Random
+
+
+  - name: resize
+    guards: [ initialized ]
+    parameters:
+      - name: num_columns
+        type: int
+        default_argument: 1
+      - name: num_rows
+        type: int
+        default_argument: 1
+    guards: [ (num_columns > 0), (num_rows > 0) ]
+    body: |
+      prim_mesh.resize(num_columns, num_rows);
+      return;
+
+
+  - name: rescale_tile_dimentions_to
+    parameters:
+      - name: tile_width
+        type: float
+        default_argument: 1
+      - name: tile_height
+        type: float
+        default_argument: 1
+    guards: [ initialized, (tile_width > 0), (tile_height > 0) ]
+    body: |
+      prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
+      return;
+
+
+  - name: random_fill
+    body: |
+      AllegroFlare::Random random;
+      int num_tiles_in_atlas = atlas.get_tile_index_size();
+      for (int y=0; y<prim_mesh.get_num_rows(); y++)
+         for (int x=0; x<prim_mesh.get_num_columns(); x++)
+         {
+            prim_mesh.set_tile_id(x, y, random.get_random_int(0, num_tiles_in_atlas-1));
+         }
+      return;
+
+
+  - name: infer_real_width
+    type: float
+    body: |
+      return prim_mesh.get_real_width();
+
+
+  - name: infer_real_height
+    type: float
+    body: |
+      return prim_mesh.get_real_height();
+
+
+  - name: obtain_tile_width
+    type: float
+    body: |
+      return prim_mesh.get_tile_width();
+
+
+  - name: obtain_tile_height
+    type: float
+    body: |
+      return prim_mesh.get_tile_height();
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      prim_mesh.render();
       return;
 
 
 dependencies:
 
 
+  - symbol: AllegroFlare::Random
+    headers: [ AllegroFlare/Random.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: al_is_image_addon_initialized
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::TileMaps::TileMap
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlas

@@ -8805,24 +8805,80 @@ table td
     <h3 id="quintessence/AllegroFlare/TileMaps/Basic2D.q.yml">quintessence/AllegroFlare/TileMaps/Basic2D.q.yml</h3>
      <table>
 <tr>
-  <td class="property">tile_atlas</td>
-  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
 <tr>
-  <td class="property">tile_mesh</td>
-  <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
+  <td class="property">atlas_bitmap_filename</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">collision_tile_mesh</td>
-  <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
+  <td class="property">atlas_bitmap_tile_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">atlas_bitmap_tile_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas</td>
+</tr>
+<tr>
+  <td class="property">prim_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMesh</td>
+</tr>
+<tr>
+  <td class="property">collision_tile_map</td>
+  <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
 </tr>
     </table>
      <table>
 <tr>
-  <td class="method">TODO()</td>
+  <td class="method">set_atlas_configuration(3)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">resize(2)</td>
+</tr>
+<tr>
+  <td class="method">rescale_tile_dimentions_to(2)</td>
+</tr>
+<tr>
+  <td class="method">random_fill()</td>
+</tr>
+<tr>
+  <td class="method">infer_real_width()</td>
+</tr>
+<tr>
+  <td class="method">infer_real_height()</td>
+</tr>
+<tr>
+  <td class="method">obtain_tile_width()</td>
+</tr>
+<tr>
+  <td class="method">obtain_tile_height()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_image_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
 </tr>
@@ -11788,6 +11844,7 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
     "Tileo/TMJMeshLoader",
@@ -12684,6 +12741,7 @@ table td
   "AllegroFlare/Random": [
     "AllegroFlare/Generators/PersonNameGenerator",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
   "AllegroFlare/InputDiagrams/KeyboardKey": [
@@ -13040,7 +13098,8 @@ table td
     "WickedDemos/TileMaps/Basic2D"
   ],
   "al_is_image_addon_initialized": [
-    "AllegroFlare/Prototypes/MindDive/TunnelMesh"
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/TileMaps/Basic2D"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",

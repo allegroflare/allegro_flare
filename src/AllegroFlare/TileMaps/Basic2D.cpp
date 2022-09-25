@@ -2,7 +2,10 @@
 
 #include <AllegroFlare/TileMaps/Basic2D.hpp>
 
-
+#include <AllegroFlare/Random.hpp>
+#include <allegro5/allegro.h>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -11,10 +14,15 @@ namespace TileMaps
 {
 
 
-Basic2D::Basic2D()
-   : tile_atlas(nullptr)
-   , tile_mesh(nullptr)
-   , collision_tile_mesh(nullptr)
+Basic2D::Basic2D(AllegroFlare::BitmapBin* bitmap_bin, std::string atlas_bitmap_filename, int atlas_bitmap_tile_width, int atlas_bitmap_tile_height)
+   : bitmap_bin(bitmap_bin)
+   , atlas_bitmap_filename(atlas_bitmap_filename)
+   , atlas_bitmap_tile_width(atlas_bitmap_tile_width)
+   , atlas_bitmap_tile_height(atlas_bitmap_tile_height)
+   , atlas()
+   , prim_mesh()
+   , collision_tile_map()
+   , initialized(false)
 {
 }
 
@@ -24,47 +32,181 @@ Basic2D::~Basic2D()
 }
 
 
-void Basic2D::set_tile_atlas(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas)
+void Basic2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
-   this->tile_atlas = tile_atlas;
+   this->bitmap_bin = bitmap_bin;
 }
 
 
-void Basic2D::set_tile_mesh(AllegroFlare::TileMaps::PrimMesh* tile_mesh)
+AllegroFlare::BitmapBin* Basic2D::get_bitmap_bin() const
 {
-   this->tile_mesh = tile_mesh;
+   return bitmap_bin;
 }
 
 
-void Basic2D::set_collision_tile_mesh(AllegroFlare::TileMaps::TileMap<int>* collision_tile_mesh)
+std::string Basic2D::get_atlas_bitmap_filename() const
 {
-   this->collision_tile_mesh = collision_tile_mesh;
+   return atlas_bitmap_filename;
 }
 
 
-AllegroFlare::TileMaps::PrimMeshAtlas* Basic2D::get_tile_atlas() const
+int Basic2D::get_atlas_bitmap_tile_width() const
 {
-   return tile_atlas;
+   return atlas_bitmap_tile_width;
 }
 
 
-AllegroFlare::TileMaps::PrimMesh* Basic2D::get_tile_mesh() const
+int Basic2D::get_atlas_bitmap_tile_height() const
 {
-   return tile_mesh;
+   return atlas_bitmap_tile_height;
 }
 
 
-AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_mesh() const
+AllegroFlare::TileMaps::PrimMeshAtlas &Basic2D::get_atlas_ref()
 {
-   return collision_tile_mesh;
+   return atlas;
 }
 
 
-void Basic2D::TODO()
+AllegroFlare::TileMaps::PrimMesh &Basic2D::get_prim_mesh_ref()
 {
-   // This class currently derives from Wicked::Entities::Basic2D so that the
-   // it can be used in WickedDemo as an entity. Please factor this out
-   // so that this class can be stand-alone.
+   return prim_mesh;
+}
+
+
+AllegroFlare::TileMaps::TileMap<int> &Basic2D::get_collision_tile_map_ref()
+{
+   return collision_tile_map;
+}
+
+
+void Basic2D::set_atlas_configuration(std::string atlas_bitmap_filename, int atlas_bitmap_tile_width, int atlas_bitmap_tile_height)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "set_atlas_configuration" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->atlas_bitmap_filename = atlas_bitmap_filename;
+   this->atlas_bitmap_tile_width = atlas_bitmap_tile_width;
+   this->atlas_bitmap_tile_height = atlas_bitmap_tile_height;
+   return;
+}
+
+void Basic2D::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get(atlas_bitmap_filename);
+   atlas.duplicate_bitmap_and_load(source_bitmap, atlas_bitmap_tile_width, atlas_bitmap_tile_height, 0);
+
+   prim_mesh.initialize();
+   prim_mesh.set_atlas(&atlas);
+
+   initialized = true;
+   return;
+}
+
+void Basic2D::resize(int num_columns, int num_rows)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "resize" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   prim_mesh.resize(num_columns, num_rows);
+   return;
+}
+
+void Basic2D::rescale_tile_dimentions_to(float tile_width, float tile_height)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((tile_width > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"(tile_width > 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((tile_height > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"(tile_height > 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
+   return;
+}
+
+void Basic2D::random_fill()
+{
+   AllegroFlare::Random random;
+   int num_tiles_in_atlas = atlas.get_tile_index_size();
+   for (int y=0; y<prim_mesh.get_num_rows(); y++)
+      for (int x=0; x<prim_mesh.get_num_columns(); x++)
+      {
+         prim_mesh.set_tile_id(x, y, random.get_random_int(0, num_tiles_in_atlas-1));
+      }
+   return;
+}
+
+float Basic2D::infer_real_width()
+{
+   return prim_mesh.get_real_width();
+}
+
+float Basic2D::infer_real_height()
+{
+   return prim_mesh.get_real_height();
+}
+
+float Basic2D::obtain_tile_width()
+{
+   return prim_mesh.get_tile_width();
+}
+
+float Basic2D::obtain_tile_height()
+{
+   return prim_mesh.get_tile_height();
+}
+
+void Basic2D::render()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Basic2D" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   prim_mesh.render();
    return;
 }
 

@@ -67,6 +67,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
     "Tileo/TMJMeshLoader",
@@ -963,6 +964,7 @@
   "AllegroFlare/Random": [
     "AllegroFlare/Generators/PersonNameGenerator",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
   "AllegroFlare/InputDiagrams/KeyboardKey": [
@@ -1319,7 +1321,8 @@
     "WickedDemos/TileMaps/Basic2D"
   ],
   "al_is_image_addon_initialized": [
-    "AllegroFlare/Prototypes/MindDive/TunnelMesh"
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/TileMaps/Basic2D"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
