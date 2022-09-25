@@ -1315,7 +1315,8 @@
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Physics/TileMapCollisionStepper",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "al_is_image_addon_initialized": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh"
@@ -1326,7 +1327,8 @@
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/TileMaps/PrimMesh": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
@@ -1334,7 +1336,8 @@
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
@@ -1540,7 +1543,8 @@
     "Wicked/Entities/MovementStrategies2D/StayStill",
     "Wicked/Entities/MovementStrategies2D/Tracking",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "Wicked/CameraControlStrategies2D/Base": [
     "Wicked/CameraControlStrategies2D/HorizontalRail",

@@ -5,9 +5,27 @@ parent_classes:
     scope: public
     init_with: ''
 
-  - class: AllegroFlare::TileMaps::Basic2D
-    scope: public
-    init_with: ''
+
+properties:
+
+
+  - name: tile_atlas
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: tile_mesh
+    type: AllegroFlare::TileMaps::PrimMesh*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: collision_tile_mesh
+    type: AllegroFlare::TileMaps::TileMap<int>*
+    init_with: nullptr
+    getter: true
+    setter: true
 
 
 dependencies:
@@ -15,7 +33,12 @@ dependencies:
 
   - symbol: Wicked::Entities::Basic2D
     headers: [ Wicked/Entities/Basic2D.hpp ]
-  - symbol: AllegroFlare::TileMaps::Basic2D
-    headers: [ AllegroFlare/TileMaps/Basic2D.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMap
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMesh
+    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
+
 
 

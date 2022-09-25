@@ -231,6 +231,7 @@ table td
   <li><a href="#quintessence/Wicked/Weapons/DrawnBow.q.yml">quintessence/Wicked/Weapons/DrawnBow.q.yml</a></li>
   <li><a href="#quintessence/WickedDemos/ProgramRunner.q.yml">quintessence/WickedDemos/ProgramRunner.q.yml</a></li>
   <li><a href="#quintessence/WickedDemos/TileDemo.q.yml">quintessence/WickedDemos/TileDemo.q.yml</a></li>
+  <li><a href="#quintessence/WickedDemos/TileMaps/Basic2D.q.yml">quintessence/WickedDemos/TileMaps/Basic2D.q.yml</a></li>
 </ul>
 <h1>Components</h1>
 <ul>
@@ -11681,6 +11682,41 @@ table td
     </table>
   </div>
 </ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/WickedDemos/TileMaps/Basic2D.q.yml">quintessence/WickedDemos/TileMaps/Basic2D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">tile_atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+</tr>
+<tr>
+  <td class="property">tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
+</tr>
+<tr>
+  <td class="property">collision_tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
 <h1>Dependents</h1>
 <pre>
 {
@@ -13000,7 +13036,8 @@ table td
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Physics/TileMapCollisionStepper",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "al_is_image_addon_initialized": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh"
@@ -13011,7 +13048,8 @@ table td
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/TileMaps/PrimMesh": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
@@ -13019,7 +13057,8 @@ table td
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
@@ -13225,7 +13264,8 @@ table td
     "Wicked/Entities/MovementStrategies2D/StayStill",
     "Wicked/Entities/MovementStrategies2D/Tracking",
     "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "Wicked/CameraControlStrategies2D/Base": [
     "Wicked/CameraControlStrategies2D/HorizontalRail",
