@@ -139,6 +139,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    }
    if (!key_exists(name)) return; // TODO: maybe cout a warning
    AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
+   // TODO: perform the action for the key
    key.set_last_pressed_at(al_get_time());
    return;
 }
@@ -289,6 +290,7 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
 
 
      // bottom row
+     { "SPACE", { "Space", 500, 500+y_spacing*1, 330, 80 } },
      { "BACKSPACE", { "Backspace", 900, 500+y_spacing*1, 330, 80 } },
      { "OK", { "OK", 1300, 500+y_spacing*1, 140, 80 } },
 
