@@ -129,15 +129,15 @@ public:
    {
       ALLEGRO_COLOR key_color_now = is_standard_key ? key_color : alt_key_color;
       if (mouse_over) key_color_now = AllegroFlare::Color::GreenYellow;
-      if (pressed_counter > 0) key_color_now = AllegroFlare::Color::mix(key_color_now, AllegroFlare::Color::GreenYellow, interpolator::tripple_fast_out(pressed_counter));
+      if (pressed_counter > 0) key_color_now = AllegroFlare::color::mix(key_color_now, AllegroFlare::Color::GreenYellow, AllegroFlare::interpolator::tripple_fast_out(pressed_counter));
 
       //: is_standard_key ? key_color : alt_key_color;
       al_draw_filled_rectangle(x, y, x+w, y+h, key_color_now);
       //al_draw_line(x, y+h-3, x+w, y+h-3, AllegroFlare::color(AllegroFlare::Color::Black, 0.2), 6.0);
-      al_draw_line(x, y+2, x+w, y+2, AllegroFlare::Color::color(AllegroFlare::Color::White, 0.2), 3.0);
+      al_draw_line(x, y+2, x+w, y+2, AllegroFlare::color::color(AllegroFlare::Color::White, 0.2), 3.0);
       if (!text.empty())
       {
-         if (!mouse_over) al_draw_text(bigfont ? large_font : small_font, AllegroFlare::Color(AllegroFlare::Color::Black, 0.4), x+w/2, y+h/2-al_get_font_line_height(bigfont ? large_font : small_font)/2*1.1+1, ALLEGRO_ALIGN_CENTRE, text.c_str());
+         if (!mouse_over) al_draw_text(bigfont ? large_font : small_font, AllegroFlare::color::color(AllegroFlare::Color::Black, 0.4), x+w/2, y+h/2-al_get_font_line_height(bigfont ? large_font : small_font)/2*1.1+1, ALLEGRO_ALIGN_CENTRE, text.c_str());
          al_draw_text(bigfont ? large_font : small_font, mouse_over ? AllegroFlare::Color::Black : AllegroFlare::Color::White, x+w/2, y+h/2-al_get_font_line_height(bigfont ? large_font : small_font)/2*1.1, ALLEGRO_ALIGN_CENTRE, text.c_str());
       }
       if (path)
@@ -198,6 +198,7 @@ public:
    //Display *display;
    // 43 keys
    SoftKeyKey key[43];
+   float x, y;
    float w, h;
    int num_cols;
    int num_rows;
@@ -205,11 +206,14 @@ public:
    AllegroFlare::vec2d mouse_world, mouse_screen;
    bool visible;
    bool shift_pressed;
+   bool initialized;
 
    UISoftwareKeyboard(float x, float y)
       //: UIWidget(parent, "UISoftwareKeyboard", new UISurfaceAreaBox(x, y, 850, 250))
       : motion_manager(3)
       , key()
+      , x(x)
+      , y(y)
       , w(850)
       , h(250)
       , num_cols(12)
@@ -219,6 +223,11 @@ public:
       , mouse_screen()
       , visible(true)
       , shift_pressed(false)
+      , initialized(false)
+   {
+   }
+
+   void initialize()
    {
       place.position.x = x;
       place.position.y = y;
@@ -287,6 +296,8 @@ public:
          //key[i].x -= w/2;
          //key[i].y -= h;
       }
+
+      initialized = true;
    }
 
    void on_draw() //override
@@ -394,12 +405,26 @@ class SoftKeyboardExample : public AllegroFlare::Screens::Base
 {
 private:
    UISoftwareKeyboard *keyboard;
+   bool initialized;
+
 public:
    SoftKeyboardExample()
       : AllegroFlare::Screens::Base("SoftKeyboardExample")
       , keyboard(NULL)
+      , initialized(false)
+   {
+   }
+
+   void initialize()
    {
       keyboard = new UISoftwareKeyboard(1920/2, 1080/2);
+      keyboard->initialize();
+      initialized = true;
+   }
+
+   void primary_timer_func() override
+   {
+      keyboard->on_draw();
    }
 };
 
@@ -412,9 +437,11 @@ int main(int argc, char *argv[])
    framework.initialize();
 
    framework.get_font_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
+   fonts = &framework.get_font_bin_ref();
 
    //Display *display = Framework::create_display(1100, 600);
    SoftKeyboardExample *example = new SoftKeyboardExample;
+   example->initialize();
 
    framework.register_screen("example", example);
    framework.activate_screen("example");
