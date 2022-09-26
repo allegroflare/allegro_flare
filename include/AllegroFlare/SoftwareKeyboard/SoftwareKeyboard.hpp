@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
 #include <unordered_map>
@@ -20,8 +21,10 @@ namespace AllegroFlare
          int font_size;
          std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
          int cursor_pos;
+         AllegroFlare::Vec2D cursor_location;
+         AllegroFlare::Vec2D cursor_size;
          bool initialized;
-         void update_cursor_placement();
+         void update_cursor_location();
          bool key_exists(std::string identifier="[unset-identifier]");
          ALLEGRO_FONT* obtain_font();
 
@@ -29,7 +32,7 @@ namespace AllegroFlare
 
 
       public:
-         SoftwareKeyboard(AllegroFlare::FontBin* font_bin=nullptr, std::string font_name="Inter-Medium.ttf", int font_size=-32);
+         SoftwareKeyboard(AllegroFlare::FontBin* font_bin=nullptr, std::string font_name="Inter-Medium.ttf", int font_size=-38);
          ~SoftwareKeyboard();
 
          void set_font_name(std::string font_name);
@@ -40,6 +43,7 @@ namespace AllegroFlare
          bool get_initialized() const;
          std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+         void set_keys(std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
          void initialize();
          void press_key_by_name(std::string name="[unset-name]");
          void increment_cursor_pos();

@@ -21,6 +21,8 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
    , font_size(font_size)
    , keys({})
    , cursor_pos(0)
+   , cursor_location({})
+   , cursor_size(80, 80)
    , initialized(false)
 {
 }
@@ -85,6 +87,14 @@ void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
+void SoftwareKeyboard::set_keys(std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys)
+{
+   this->keys = keys;
+   cursor_pos = 0;
+   update_cursor_location();
+   return;
+}
+
 void SoftwareKeyboard::initialize()
 {
    if (!(al_is_system_installed()))
@@ -129,7 +139,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    return;
 }
 
-void SoftwareKeyboard::update_cursor_placement()
+void SoftwareKeyboard::update_cursor_location()
 {
    if (keys.empty()) return;
    int i=0;
@@ -137,6 +147,9 @@ void SoftwareKeyboard::update_cursor_placement()
    {
       if (cursor_pos == i)
       {
+         auto &key = key_dictionary_element.second;
+         cursor_location.x = key.get_x();
+         cursor_location.y = key.get_y();
          // this key_dictionary_element is the current cursor selected key
       }
       i++;
@@ -149,7 +162,7 @@ void SoftwareKeyboard::increment_cursor_pos()
    if (keys.empty()) return; // TODO: play bonk sound
    cursor_pos++;
    while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
-   update_cursor_placement();
+   update_cursor_location();
    return;
 }
 
@@ -158,7 +171,7 @@ void SoftwareKeyboard::decrement_cursor_pos()
    if (keys.empty()) return; // TODO: play bonk sound
    cursor_pos--;
    while (cursor_pos < 0) cursor_pos += keys.size();
-   update_cursor_placement();
+   update_cursor_location();
    return;
 }
 
@@ -170,13 +183,21 @@ void SoftwareKeyboard::render()
       error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // draw keys
    int i=0;
    ALLEGRO_FONT *font = obtain_font();
    float font_hline_height = al_get_font_line_height(font) / 2;
    for (auto &key_dictionary_element : keys)
    {
       auto &key = key_dictionary_element.second;
-      al_draw_rectangle(key.get_x(), key.get_y(), key.get_x2(), key.get_y2(), ALLEGRO_COLOR{1, 1, 1, 1}, 2.0);
+      al_draw_rectangle(
+         key.get_x(),
+         key.get_y(),
+         key.get_x2(),
+         key.get_y2(),
+         ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
+         1.0
+      );
       al_draw_text(
          font,
          ALLEGRO_COLOR{1, 1, 1, 1},
@@ -187,6 +208,16 @@ void SoftwareKeyboard::render()
       );
       i++;
    }
+
+   // draw cursor
+   al_draw_rectangle(
+      cursor_location.x,
+      cursor_location.y,
+      cursor_location.x+cursor_size.x,
+      cursor_location.y+cursor_size.y,
+      ALLEGRO_COLOR{0.5, 1, 0.75, 1},
+      4.0
+   );
    return;
 }
 
@@ -221,6 +252,11 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
      { "F", { "F", 100+x_spacing*5, 100+y_spacing*0, 80, 80 } },
 
      { "G", { "G", 100+x_spacing*0, 100+y_spacing*1, 80, 80 } },
+     { "H", { "H", 100+x_spacing*1, 100+y_spacing*1, 80, 80 } },
+     { "I", { "I", 100+x_spacing*2, 100+y_spacing*1, 80, 80 } },
+     { "J", { "J", 100+x_spacing*3, 100+y_spacing*1, 80, 80 } },
+     { "K", { "K", 100+x_spacing*4, 100+y_spacing*1, 80, 80 } },
+     { "L", { "L", 100+x_spacing*5, 100+y_spacing*1, 80, 80 } },
    };
    return result;
 }

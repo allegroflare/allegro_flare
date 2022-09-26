@@ -17,7 +17,7 @@ properties:
 
   - name: font_size
     type: int
-    init_with: -32
+    init_with: -38
     constructor_arg: true
     getter: true
     setter: true
@@ -26,10 +26,19 @@ properties:
     type: std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
     init_with: '{}'
     getter_ref: true
+    setter: false
 
   - name: cursor_pos
     type: int
     init_with: 0
+
+  - name: cursor_location
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
+  - name: cursor_size
+    type: AllegroFlare::Vec2D
+    init_with: '80, 80'
 
   - name: initialized
     type: bool
@@ -48,6 +57,18 @@ functions:
     guards: [ (!initialized) ]
     body: |
       this->font_bin = font_bin;
+      return;
+
+
+  - name: set_keys
+    parameters:
+      - name: keys
+        type: std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
+        default_argument: '{}'
+    body: |
+      this->keys = keys;
+      cursor_pos = 0;
+      update_cursor_location();
       return;
 
 
@@ -79,7 +100,7 @@ functions:
       return;
 
 
-  - name: update_cursor_placement
+  - name: update_cursor_location
     private: true
     body: |
       if (keys.empty()) return;
@@ -88,6 +109,9 @@ functions:
       {
          if (cursor_pos == i)
          {
+            auto &key = key_dictionary_element.second;
+            cursor_location.x = key.get_x();
+            cursor_location.y = key.get_y();
             // this key_dictionary_element is the current cursor selected key
          }
          i++;
@@ -100,7 +124,7 @@ functions:
       if (keys.empty()) return; // TODO: play bonk sound
       cursor_pos++;
       while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
-      update_cursor_placement();
+      update_cursor_location();
       return;
 
 
@@ -109,20 +133,28 @@ functions:
       if (keys.empty()) return; // TODO: play bonk sound
       cursor_pos--;
       while (cursor_pos < 0) cursor_pos += keys.size();
-      update_cursor_placement();
+      update_cursor_location();
       return;
 
 
   - name: render
     guards: [ initialized ]
     body: |
+      // draw keys
       int i=0;
       ALLEGRO_FONT *font = obtain_font();
       float font_hline_height = al_get_font_line_height(font) / 2;
       for (auto &key_dictionary_element : keys)
       {
          auto &key = key_dictionary_element.second;
-         al_draw_rectangle(key.get_x(), key.get_y(), key.get_x2(), key.get_y2(), ALLEGRO_COLOR{1, 1, 1, 1}, 2.0);
+         al_draw_rectangle(
+            key.get_x(),
+            key.get_y(),
+            key.get_x2(),
+            key.get_y2(),
+            ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
+            1.0
+         );
          al_draw_text(
             font,
             ALLEGRO_COLOR{1, 1, 1, 1},
@@ -133,6 +165,16 @@ functions:
          );
          i++;
       }
+
+      // draw cursor
+      al_draw_rectangle(
+         cursor_location.x,
+         cursor_location.y,
+         cursor_location.x+cursor_size.x,
+         cursor_location.y+cursor_size.y,
+         ALLEGRO_COLOR{0.5, 1, 0.75, 1},
+         4.0
+      );
       return;
 
 
@@ -172,6 +214,11 @@ functions:
         { "F", { "F", 100+x_spacing*5, 100+y_spacing*0, 80, 80 } },
 
         { "G", { "G", 100+x_spacing*0, 100+y_spacing*1, 80, 80 } },
+        { "H", { "H", 100+x_spacing*1, 100+y_spacing*1, 80, 80 } },
+        { "I", { "I", 100+x_spacing*2, 100+y_spacing*1, 80, 80 } },
+        { "J", { "J", 100+x_spacing*3, 100+y_spacing*1, 80, 80 } },
+        { "K", { "K", 100+x_spacing*4, 100+y_spacing*1, 80, 80 } },
+        { "L", { "L", 100+x_spacing*5, 100+y_spacing*1, 80, 80 } },
       };
       return result;
 
