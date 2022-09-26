@@ -154,6 +154,8 @@ void SoftwareKeyboard::update_cursor_location()
          auto &key = key_dictionary_element.second;
          cursor_location.x = key.get_x();
          cursor_location.y = key.get_y();
+         cursor_size.x = key.get_width();
+         cursor_size.y = key.get_height();
          // this key_dictionary_element is the current cursor selected key
       }
       i++;
@@ -284,6 +286,12 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
      { "J", { "J", x_spacing*3, 100+y_spacing*1, 80, 80 } },
      { "K", { "K", x_spacing*4, 100+y_spacing*1, 80, 80 } },
      { "L", { "L", x_spacing*5, 100+y_spacing*1, 80, 80 } },
+
+
+     // bottom row
+     { "BACKSPACE", { "Backspace", 900, 500+y_spacing*1, 330, 80 } },
+     { "OK", { "OK", 1300, 500+y_spacing*1, 140, 80 } },
+
    };
    return result;
 }
