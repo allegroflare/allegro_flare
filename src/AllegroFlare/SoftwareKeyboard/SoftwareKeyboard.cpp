@@ -152,7 +152,21 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    }
    if (!key_exists(name)) return; // TODO: maybe cout a warning, or return false if key is not recognized
    AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
+
    // TODO: perform the action for the key
+   if (name == "SPACE") result_string += " ";
+   else if (name == "BACKSPACE")
+   {
+      if (result_string.empty()) {} // TODO; play bonk sound
+      else result_string.pop_back();
+   }
+   else if (name == "OK") {} // TODO: logic for this condition
+   else
+   {
+      // NOTE: assume the "name" is the character we want to append
+      result_string += name;
+   }
+
    key.set_last_pressed_at(al_get_time());
    return;
 }
@@ -165,12 +179,12 @@ void SoftwareKeyboard::update_cursor_location()
    {
       if (cursor_pos == i)
       {
+         // NOTE: this key_dictionary_element is the current cursor selected key
          auto &key = key_dictionary_element.second;
          cursor_location.x = key.get_x();
          cursor_location.y = key.get_y();
          cursor_size.x = key.get_width();
          cursor_size.y = key.get_height();
-         // this key_dictionary_element is the current cursor selected key
       }
       i++;
    }
@@ -182,6 +196,13 @@ void SoftwareKeyboard::increment_cursor_pos()
    if (keys.empty()) return; // TODO: play bonk sound
    cursor_pos++;
    while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
+   update_cursor_location();
+   return;
+}
+
+void SoftwareKeyboard::jump_cursor_pos_to_key_name(std::string name)
+{
+   // TODO: logic for this function
    update_cursor_location();
    return;
 }

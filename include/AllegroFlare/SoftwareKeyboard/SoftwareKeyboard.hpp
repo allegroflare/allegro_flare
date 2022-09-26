@@ -53,6 +53,7 @@ namespace AllegroFlare
          void initialize();
          void press_key_by_name(std::string name="[unset-name]");
          void increment_cursor_pos();
+         void jump_cursor_pos_to_key_name(std::string name="[unset-name]");
          void decrement_cursor_pos();
          void render();
          static std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();

@@ -133,9 +133,17 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    software_keyboard.set_result_string("Charlie");
 
    clear();
+   software_keyboard.press_key_by_name("A");
    software_keyboard.render();
    al_flip_display();
-   sleep(1);
+   sleep_for(0.1);
+
+   software_keyboard.press_key_by_name("C");
+   software_keyboard.render();
+   al_flip_display();
+   sleep_for(0.1);
+
+   sleep_for(1);
 }
 
 
