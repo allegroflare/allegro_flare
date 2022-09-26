@@ -136,6 +136,7 @@ void Classic::render()
 
    get_placement_ref().start_transform();
 
+   // TODO: This could be optimized to a single set of vertexes and a single draw call
    for (int i=0; i<max; i++)
    {
       if (i <= value)
