@@ -49,8 +49,8 @@ private:
    {
       if (!fonts) throw std::runtime_error("need fonts");
       if (initialized) return;
-      large_font = fonts->auto_get("DroidSans.ttf -32"); //, ALLEGRO_FLAGS_EMPTY);
-      small_font = fonts->auto_get("DroidSans.ttf -18"); //, ALLEGRO_FLAGS_EMPTY);
+      large_font = fonts->auto_get("Inter-Medium.ttf -32"); //, ALLEGRO_FLAGS_EMPTY);
+      small_font = fonts->auto_get("Inter-Medium.ttf -18"); //, ALLEGRO_FLAGS_EMPTY);
       //keyhover_sound = al_load_sample("data/samples/click.wav");
       //keypress_sound = al_load_sample("data/samples/keypress_light.wav");
       key_color = AllegroFlare::color::hex("646873");
@@ -90,14 +90,14 @@ public:
       initialize();
    }
 
-   bool collide(float x, float y)
-   {
-      if (x < this->x) return false;
-      if (y < this->y) return false;
-      if (x >= this->x+this->w) return false;
-      if (y >= this->y+this->h) return false;
-      return true;
-   }
+   //bool collide(float x, float y)
+   //{
+      //if (x < this->x) return false;
+      //if (y < this->y) return false;
+      //if (x >= this->x+this->w) return false;
+      //if (y >= this->y+this->h) return false;
+      //return true;
+   //}
 
    void set(float x, float y, float w, float h, AllegroFlare::Path2D *path, ALLEGRO_BITMAP *icon, bool is_standard_key, bool bigfont, std::string text, int allegro_key_code)
    {
@@ -121,7 +121,7 @@ public:
    void trigger()
    {
       //al_play_sample(keypress_sound, 0.6, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
-      if (allegro_key_code != ALLEGRO_KEY_MAX) std::cout << allegro_key_code << " ";
+      //if (allegro_key_code != ALLEGRO_KEY_MAX) std::cout << allegro_key_code << " ";
       pressed_counter = 1.0;
    }
 
@@ -137,8 +137,25 @@ public:
       al_draw_line(x, y+2, x+w, y+2, AllegroFlare::color::color(AllegroFlare::Color::White, 0.2), 3.0);
       if (!text.empty())
       {
-         if (!mouse_over) al_draw_text(bigfont ? large_font : small_font, AllegroFlare::color::color(AllegroFlare::Color::Black, 0.4), x+w/2, y+h/2-al_get_font_line_height(bigfont ? large_font : small_font)/2*1.1+1, ALLEGRO_ALIGN_CENTRE, text.c_str());
-         al_draw_text(bigfont ? large_font : small_font, mouse_over ? AllegroFlare::Color::Black : AllegroFlare::Color::White, x+w/2, y+h/2-al_get_font_line_height(bigfont ? large_font : small_font)/2*1.1, ALLEGRO_ALIGN_CENTRE, text.c_str());
+         if (!mouse_over)
+         {
+            al_draw_text(
+               bigfont ? large_font : small_font
+               , AllegroFlare::color::color(AllegroFlare::Color::Black, 0.4)
+               , x+w/2
+               , y+h/2-al_get_font_line_height(bigfont ? large_font : small_font)/2*1.1+1
+               , ALLEGRO_ALIGN_CENTRE
+               , text.c_str()
+            );
+         }
+         al_draw_text(
+            bigfont ? large_font : small_font
+            , mouse_over ? AllegroFlare::Color::Black : AllegroFlare::Color::White
+            , x+w/2
+            , y+h/2-al_get_font_line_height(bigfont ? large_font : small_font)/2*1.1
+            , ALLEGRO_ALIGN_CENTRE
+            , text.c_str()
+         );
       }
       if (path)
       {
@@ -151,29 +168,29 @@ public:
       al_draw_rounded_rectangle(x, y, x+w, y+h, key_roundness, key_roundness, AllegroFlare::Color::Black, 4.0);
    }
 
-   void on_mouse_enter()
-   {
-      //al_play_sample(keyhover_sound, 0.2, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
-   }
+   //void on_mouse_enter()
+   //{
+      ////al_play_sample(keyhover_sound, 0.2, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+   //}
 
-   void on_mouse_move(float mouse_x, float mouse_y)
-   {
-      bool mouse_now_over = false;
-      if (collide(mouse_x, mouse_y)) mouse_now_over = true;
-      if (mouse_now_over && !mouse_over) on_mouse_enter();
-      //else if (!mouse_now_over && mouse_over) on_mouse_leave();
-      mouse_over = mouse_now_over;
-   }
+   //void on_mouse_move(float mouse_x, float mouse_y)
+   //{
+      //bool mouse_now_over = false;
+      //if (collide(mouse_x, mouse_y)) mouse_now_over = true;
+      //if (mouse_now_over && !mouse_over) on_mouse_enter();
+      ////else if (!mouse_now_over && mouse_over) on_mouse_leave();
+      //mouse_over = mouse_now_over;
+   //}
 
-   bool on_mouse_down() // << TODO: shouldn't this be void?
-   {
-      if (mouse_over)
-      {
-         trigger();
-         return true;
-      }
-      return false; // ??
-   }
+   //bool on_mouse_down() // << TODO: shouldn't this be void?
+   //{
+      //if (mouse_over)
+      //{
+         //trigger();
+         //return true;
+      //}
+      //return false; // ??
+   //}
 };
 
 
@@ -197,6 +214,7 @@ public:
    AllegroFlare::Motion motion_manager;
    //Display *display;
    // 43 keys
+   static constexpr size_t KEY_COUNT_MAX = 43;
    SoftKeyKey key[43];
    float x, y;
    float w, h;
@@ -226,6 +244,7 @@ public:
       , initialized(false)
    {
    }
+
 
    void initialize()
    {
@@ -300,6 +319,7 @@ public:
       initialized = true;
    }
 
+
    void on_draw() //override
    {
       motion_manager.update(al_get_time());
@@ -313,6 +333,7 @@ public:
          key[i].draw();
       }
    }
+
 
    void toggle_visibility()
    {
@@ -342,6 +363,7 @@ public:
       visible = !visible;
    }
 
+
    void toggle_shift()
    {
       if (!visible) return;
@@ -355,12 +377,14 @@ public:
       shift_pressed = !shift_pressed;
    }
 
+
    void on_key_char(int allegro_keycode) //override
    {
       //TODO: int allegro_key = Framework::current_event->keyboard.keycode;
       for (unsigned i=0; i<43; i++)
          if (key[i].allegro_key_code == allegro_keycode) key[i].trigger();
    }
+
 
    void on_key_down(int keycode) //override
    {
@@ -371,31 +395,32 @@ public:
          toggle_shift();
    }
 
-   void on_mouse_move(float x, float y, float dx, float dy) //override
-   {
-      if (!visible) return;
 
-      mouse_screen = AllegroFlare::vec2d(x, y);
-      mouse_world = mouse_screen;
-      place.transform_coordinates(&mouse_world.x, &mouse_world.y);
+   //void on_mouse_move(float x, float y, float dx, float dy) //override
+   //{
+      //if (!visible) return;
 
-      for (unsigned i=0; i<43; i++)
-         key[i].on_mouse_move(mouse_world.x, mouse_world.y);
-   }
+      //mouse_screen = AllegroFlare::vec2d(x, y);
+      //mouse_world = mouse_screen;
+      //place.transform_coordinates(&mouse_world.x, &mouse_world.y);
+
+      //for (unsigned i=0; i<43; i++)
+         //key[i].on_mouse_move(mouse_world.x, mouse_world.y);
+   //}
 
 
-   void on_mouse_down() //override
-   {
-      if (!visible) return;
+   //void on_mouse_down() //override
+   //{
+      //if (!visible) return;
 
-      for (unsigned i=0; i<43; i++)
-      {
-         if (key[i].on_mouse_down())
-         {
-            // fire a keypress
-         }
-      }
-   }
+      //for (unsigned i=0; i<43; i++)
+      //{
+         //if (key[i].on_mouse_down())
+         //{
+            //// fire a keypress
+         //}
+      //}
+   //}
 };
 
 
@@ -434,6 +459,7 @@ public:
 int main(int argc, char *argv[])
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.disable_fullscreen();
    framework.initialize();
 
    framework.get_font_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
