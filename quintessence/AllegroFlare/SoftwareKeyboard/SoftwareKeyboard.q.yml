@@ -17,7 +17,7 @@ properties:
 
   - name: font_size
     type: int
-    init_with: -38
+    init_with: -54
     constructor_arg: true
     getter: true
     setter: true
@@ -44,6 +44,10 @@ properties:
     type: bool
     init_with: false
     getter: true
+
+  - name: show_rectangle_outline_on_keys
+    type: bool
+    init_with: false
 
 
 functions:
@@ -147,14 +151,17 @@ functions:
       for (auto &key_dictionary_element : keys)
       {
          auto &key = key_dictionary_element.second;
-         al_draw_rectangle(
-            key.get_x(),
-            key.get_y(),
-            key.get_x2(),
-            key.get_y2(),
-            ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
-            1.0
-         );
+         if (show_rectangle_outline_on_keys)
+         {
+            al_draw_rectangle(
+               key.get_x(),
+               key.get_y(),
+               key.get_x2(),
+               key.get_y2(),
+               ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
+               1.0
+            );
+         }
          al_draw_text(
             font,
             ALLEGRO_COLOR{1, 1, 1, 1},
@@ -212,6 +219,13 @@ functions:
         { "D", { "D", 100+x_spacing*3, 100+y_spacing*0, 80, 80 } },
         { "E", { "E", 100+x_spacing*4, 100+y_spacing*0, 80, 80 } },
         { "F", { "F", 100+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+
+        { "a", { "a", 700+x_spacing*0, 100+y_spacing*0, 80, 80 } },
+        { "b", { "b", 700+x_spacing*1, 100+y_spacing*0, 80, 80 } },
+        { "c", { "c", 700+x_spacing*2, 100+y_spacing*0, 80, 80 } },
+        { "d", { "d", 700+x_spacing*3, 100+y_spacing*0, 80, 80 } },
+        { "e", { "e", 700+x_spacing*4, 100+y_spacing*0, 80, 80 } },
+        { "f", { "f", 700+x_spacing*5, 100+y_spacing*0, 80, 80 } },
 
         { "G", { "G", 100+x_spacing*0, 100+y_spacing*1, 80, 80 } },
         { "H", { "H", 100+x_spacing*1, 100+y_spacing*1, 80, 80 } },

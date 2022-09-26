@@ -24,6 +24,7 @@ namespace AllegroFlare
          AllegroFlare::Vec2D cursor_location;
          AllegroFlare::Vec2D cursor_size;
          bool initialized;
+         bool show_rectangle_outline_on_keys;
          void update_cursor_location();
          bool key_exists(std::string identifier="[unset-identifier]");
          ALLEGRO_FONT* obtain_font();
@@ -32,7 +33,7 @@ namespace AllegroFlare
 
 
       public:
-         SoftwareKeyboard(AllegroFlare::FontBin* font_bin=nullptr, std::string font_name="Inter-Medium.ttf", int font_size=-38);
+         SoftwareKeyboard(AllegroFlare::FontBin* font_bin=nullptr, std::string font_name="Inter-Medium.ttf", int font_size=-54);
          ~SoftwareKeyboard();
 
          void set_font_name(std::string font_name);

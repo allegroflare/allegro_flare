@@ -24,6 +24,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
    , cursor_location({})
    , cursor_size(80, 80)
    , initialized(false)
+   , show_rectangle_outline_on_keys(false)
 {
 }
 
@@ -190,14 +191,17 @@ void SoftwareKeyboard::render()
    for (auto &key_dictionary_element : keys)
    {
       auto &key = key_dictionary_element.second;
-      al_draw_rectangle(
-         key.get_x(),
-         key.get_y(),
-         key.get_x2(),
-         key.get_y2(),
-         ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
-         1.0
-      );
+      if (show_rectangle_outline_on_keys)
+      {
+         al_draw_rectangle(
+            key.get_x(),
+            key.get_y(),
+            key.get_x2(),
+            key.get_y2(),
+            ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
+            1.0
+         );
+      }
       al_draw_text(
          font,
          ALLEGRO_COLOR{1, 1, 1, 1},
@@ -250,6 +254,13 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
      { "D", { "D", 100+x_spacing*3, 100+y_spacing*0, 80, 80 } },
      { "E", { "E", 100+x_spacing*4, 100+y_spacing*0, 80, 80 } },
      { "F", { "F", 100+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+
+     { "a", { "a", 700+x_spacing*0, 100+y_spacing*0, 80, 80 } },
+     { "b", { "b", 700+x_spacing*1, 100+y_spacing*0, 80, 80 } },
+     { "c", { "c", 700+x_spacing*2, 100+y_spacing*0, 80, 80 } },
+     { "d", { "d", 700+x_spacing*3, 100+y_spacing*0, 80, 80 } },
+     { "e", { "e", 700+x_spacing*4, 100+y_spacing*0, 80, 80 } },
+     { "f", { "f", 700+x_spacing*5, 100+y_spacing*0, 80, 80 } },
 
      { "G", { "G", 100+x_spacing*0, 100+y_spacing*1, 80, 80 } },
      { "H", { "H", 100+x_spacing*1, 100+y_spacing*1, 80, 80 } },
