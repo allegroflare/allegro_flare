@@ -15,8 +15,10 @@ namespace SoftwareKeyboard
 {
 
 
-SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin)
+SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string font_name, int font_size)
    : font_bin(font_bin)
+   , font_name(font_name)
+   , font_size(font_size)
    , keys({})
    , cursor({})
 {
@@ -34,9 +36,33 @@ void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void SoftwareKeyboard::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void SoftwareKeyboard::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
 AllegroFlare::FontBin* SoftwareKeyboard::get_font_bin() const
 {
    return font_bin;
+}
+
+
+std::string SoftwareKeyboard::get_font_name() const
+{
+   return font_name;
+}
+
+
+int SoftwareKeyboard::get_font_size() const
+{
+   return font_size;
 }
 
 
@@ -72,6 +98,19 @@ void SoftwareKeyboard::render()
       throw std::runtime_error(error_message.str());
    }
    return;
+}
+
+ALLEGRO_FONT* SoftwareKeyboard::obtain_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   std::stringstream composite_font_str;
+   composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
 }
 
 

@@ -8,6 +8,20 @@ properties:
     getter: true
     setter: true
 
+  - name: font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -32
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: keys
     type: std::vector<AllegroFlare::SoftwareKeyboard::KeyboardKey>
     init_with: '{}'
@@ -40,6 +54,16 @@ functions:
       - al_is_font_addon_initialized
 
 
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
+
+
 dependencies:
 
 
@@ -54,6 +78,8 @@ dependencies:
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_is_font_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
 
 

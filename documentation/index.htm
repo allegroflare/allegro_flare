@@ -170,6 +170,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Base.q.yml">quintessence/AllegroFlare/Shaders/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
@@ -8529,6 +8530,67 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">keys</td>
+  <td class="property">std::vector&lt;AllegroFlare::SoftwareKeyboard::KeyboardKey&gt;</td>
+</tr>
+<tr>
+  <td class="property">cursor</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">press_key()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SoftwareKeyboard::KeyboardKey&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_font_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</h3>
      <table>
 <tr>
@@ -11993,6 +12055,7 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
@@ -12068,6 +12131,7 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
@@ -12086,6 +12150,7 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Time",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
@@ -12107,6 +12172,7 @@ table td
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
@@ -12115,6 +12181,7 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/draw_3d_line": [
@@ -12689,7 +12756,8 @@ table td
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
+    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "std/setfill": [
     "AllegroFlare/Elements/Score",
@@ -13187,6 +13255,9 @@ table td
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/Shaders/AllegroDefault"
+  ],
+  "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "std/vector<ALLEGRO_BITMAP>": [
     "AllegroFlare/StoryboardFactory"

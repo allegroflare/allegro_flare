@@ -180,6 +180,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
@@ -255,6 +256,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
@@ -273,6 +275,7 @@
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Time",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
@@ -294,6 +297,7 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
@@ -302,6 +306,7 @@
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/draw_3d_line": [
@@ -876,7 +881,8 @@
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
+    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "std/setfill": [
     "AllegroFlare/Elements/Score",
@@ -1374,6 +1380,9 @@
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/Shaders/AllegroDefault"
+  ],
+  "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "std/vector<ALLEGRO_BITMAP>": [
     "AllegroFlare/StoryboardFactory"
