@@ -110,3 +110,18 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 }
 
 
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   press_key_by_name__will_mark_the_key_as_pressed_at_the_current_time)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   press_key_by_name__if_the_key_does_not_exist__will_do_nothing)
+{
+   // TODO
+   // TODO: consider capturing a cout warning
+}
+
+

@@ -73,7 +73,9 @@ functions:
         default_argument: '"[unset-name]"'
     guards: [ initialized ]
     body: |
-      // TODO
+      if (!key_exists(name)) return; // TODO: maybe cout a warning
+      AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
+      key.set_last_pressed_at(al_get_time());
       return;
 
 
@@ -106,6 +108,17 @@ functions:
     guards: [ initialized ]
     body: |
       return;
+
+
+  - name: key_exists
+    private: true
+    type: bool
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      return (keys.count(identifier) >= 1);
 
 
   - name: obtain_font

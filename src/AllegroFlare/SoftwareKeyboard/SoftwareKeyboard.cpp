@@ -123,7 +123,9 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       error_message << "SoftwareKeyboard" << "::" << "press_key_by_name" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // TODO
+   if (!key_exists(name)) return; // TODO: maybe cout a warning
+   AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
+   key.set_last_pressed_at(al_get_time());
    return;
 }
 
@@ -160,6 +162,11 @@ void SoftwareKeyboard::render()
       throw std::runtime_error(error_message.str());
    }
    return;
+}
+
+bool SoftwareKeyboard::key_exists(std::string identifier)
+{
+   return (keys.count(identifier) >= 1);
 }
 
 ALLEGRO_FONT* SoftwareKeyboard::obtain_font()

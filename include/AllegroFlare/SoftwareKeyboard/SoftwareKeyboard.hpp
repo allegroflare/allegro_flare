@@ -22,6 +22,7 @@ namespace AllegroFlare
          int cursor_pos;
          bool initialized;
          void update_cursor_placement();
+         bool key_exists(std::string identifier="[unset-identifier]");
          ALLEGRO_FONT* obtain_font();
 
       protected:
