@@ -253,7 +253,7 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
 {
    float x_spacing = 70;
    float y_spacing = 90;
-   float column_spacing = 600;
+   float column_spacing = 500;
    std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
      { "A", { "A", x_spacing*0, 100+y_spacing*0, 80, 80 } },
      { "B", { "B", x_spacing*1, 100+y_spacing*0, 80, 80 } },
@@ -262,12 +262,21 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
      { "E", { "E", x_spacing*4, 100+y_spacing*0, 80, 80 } },
      { "F", { "F", x_spacing*5, 100+y_spacing*0, 80, 80 } },
 
-     { "a", { "a", 600+x_spacing*0, 100+y_spacing*0, 80, 80 } },
-     { "b", { "b", 600+x_spacing*1, 100+y_spacing*0, 80, 80 } },
-     { "c", { "c", 600+x_spacing*2, 100+y_spacing*0, 80, 80 } },
-     { "d", { "d", 600+x_spacing*3, 100+y_spacing*0, 80, 80 } },
-     { "e", { "e", 600+x_spacing*4, 100+y_spacing*0, 80, 80 } },
-     { "f", { "f", 600+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+     { "a", { "a", column_spacing*1+x_spacing*0, 100+y_spacing*0, 80, 80 } },
+     { "b", { "b", column_spacing*1+x_spacing*1, 100+y_spacing*0, 80, 80 } },
+     { "c", { "c", column_spacing*1+x_spacing*2, 100+y_spacing*0, 80, 80 } },
+     { "d", { "d", column_spacing*1+x_spacing*3, 100+y_spacing*0, 80, 80 } },
+     { "e", { "e", column_spacing*1+x_spacing*4, 100+y_spacing*0, 80, 80 } },
+     { "f", { "f", column_spacing*1+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+
+     { "0", { "0", column_spacing*2+x_spacing*0, 100+y_spacing*0, 80, 80 } },
+     { "1", { "1", column_spacing*2+x_spacing*1, 100+y_spacing*0, 80, 80 } },
+     { "2", { "2", column_spacing*2+x_spacing*2, 100+y_spacing*0, 80, 80 } },
+     { "3", { "3", column_spacing*2+x_spacing*3, 100+y_spacing*0, 80, 80 } },
+     { "4", { "4", column_spacing*2+x_spacing*4, 100+y_spacing*0, 80, 80 } },
+     { "5", { "5", column_spacing*2+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+
+     // row 2
 
      { "G", { "G", x_spacing*0, 100+y_spacing*1, 80, 80 } },
      { "H", { "H", x_spacing*1, 100+y_spacing*1, 80, 80 } },
