@@ -1,0 +1,46 @@
+properties:
+
+
+  - name: character
+    type: char
+    init_with: "'-'"
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: x
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+    
+  - name: height
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+    
+  - name: last_pressed_at
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
