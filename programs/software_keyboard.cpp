@@ -344,11 +344,11 @@ public:
       shift_pressed = !shift_pressed;
    }
 
-   void on_key_char(int keycode) //override
+   void on_key_char(int allegro_keycode) //override
    {
       //TODO: int allegro_key = Framework::current_event->keyboard.keycode;
       for (unsigned i=0; i<43; i++)
-         if (key[i].allegro_key_code == allegro_key) key[i].trigger();
+         if (key[i].allegro_key_code == allegro_keycode) key[i].trigger();
    }
 
    void on_key_down(int keycode) //override
