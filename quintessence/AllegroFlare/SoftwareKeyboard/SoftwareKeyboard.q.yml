@@ -1,0 +1,59 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: keys
+    type: std::vector<AllegroFlare::SoftwareKeyboard::KeyboardKey>
+    init_with: '{}'
+
+  - name: cursor
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
+
+functions:
+
+
+  - name: press_key
+    type: std::string
+    body: |
+      return "Hello World!";
+
+
+  - name: render
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+    body: |
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - al_is_primitives_addon_initialized
+      - al_is_font_addon_initialized
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::SoftwareKeyboard::KeyboardKey
+    headers: [ AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_is_font_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+
+
