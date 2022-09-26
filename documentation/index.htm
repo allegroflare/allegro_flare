@@ -8499,7 +8499,7 @@ table td
      <table>
 <tr>
   <td class="property">character</td>
-  <td class="property">char</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">x</td>
@@ -8523,6 +8523,12 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">get_x2()</td>
+</tr>
+<tr>
+  <td class="method">get_y2()</td>
+</tr>
     </table>
      <table>
     </table>
@@ -8546,7 +8552,7 @@ table td
 </tr>
 <tr>
   <td class="property">keys</td>
-  <td class="property">std::map&lt;std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey&gt;</td>
+  <td class="property">std::unordered_map&lt;std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey&gt;</td>
 </tr>
 <tr>
   <td class="property">cursor_pos</td>
@@ -8584,6 +8590,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
+</tr>
+<tr>
+  <td class="method">build_boilerplate_keyboard_keys()</td>
 </tr>
     </table>
      <table>

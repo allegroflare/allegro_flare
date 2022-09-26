@@ -23,7 +23,7 @@ properties:
     setter: true
 
   - name: keys
-    type: std::map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
+    type: std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
     init_with: '{}'
     getter_ref: true
 
@@ -107,6 +107,13 @@ functions:
   - name: render
     guards: [ initialized ]
     body: |
+      int i=0;
+      for (auto &key_dictionary_element : keys)
+      {
+         auto &key = key_dictionary_element.second;
+         al_draw_rectangle(key.get_x(), key.get_y(), key.get_x2(), key.get_y2(), ALLEGRO_COLOR{1, 1, 1, 1}, 2.0);
+         i++;
+      }
       return;
 
 
@@ -129,6 +136,18 @@ functions:
       std::stringstream composite_font_str;
       composite_font_str << font_name << " " << font_size;
       return font_bin->auto_get(composite_font_str.str());
+
+
+  - name: build_boilerplate_keyboard_keys
+    static: true
+    type: std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
+    body: |
+      std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
+        { "A", { "A", 100, 100, 80, 80 } },
+        { "B", { "B", 190, 100, 80, 80 } },
+        { "C", { "C", 280, 100, 80, 80 } },
+      };
+      return result;
 
 
 dependencies:

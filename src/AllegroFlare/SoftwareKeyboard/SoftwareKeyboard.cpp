@@ -67,7 +67,7 @@ bool SoftwareKeyboard::get_initialized() const
 }
 
 
-std::map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &SoftwareKeyboard::get_keys_ref()
+std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &SoftwareKeyboard::get_keys_ref()
 {
    return keys;
 }
@@ -161,6 +161,13 @@ void SoftwareKeyboard::render()
       error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   int i=0;
+   for (auto &key_dictionary_element : keys)
+   {
+      auto &key = key_dictionary_element.second;
+      al_draw_rectangle(key.get_x(), key.get_y(), key.get_x2(), key.get_y2(), ALLEGRO_COLOR{1, 1, 1, 1}, 2.0);
+      i++;
+   }
    return;
 }
 
@@ -180,6 +187,16 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_font()
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
    return font_bin->auto_get(composite_font_str.str());
+}
+
+std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
+{
+   std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
+     { "A", { "A", 100, 100, 80, 80 } },
+     { "B", { "B", 190, 100, 80, 80 } },
+     { "C", { "C", 280, 100, 80, 80 } },
+   };
+   return result;
 }
 
 

@@ -4,8 +4,8 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
 #include <allegro5/allegro_font.h>
-#include <map>
 #include <string>
+#include <unordered_map>
 
 
 namespace AllegroFlare
@@ -18,7 +18,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          std::string font_name;
          int font_size;
-         std::map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
+         std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
          int cursor_pos;
          bool initialized;
          void update_cursor_placement();
@@ -38,13 +38,14 @@ namespace AllegroFlare
          std::string get_font_name() const;
          int get_font_size() const;
          bool get_initialized() const;
-         std::map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
+         std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void initialize();
          void press_key_by_name(std::string name="[unset-name]");
          void increment_cursor_pos();
          void decrement_cursor_pos();
          void render();
+         static std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();
       };
    }
 }

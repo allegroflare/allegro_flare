@@ -2,8 +2,8 @@ properties:
 
 
   - name: character
-    type: char
-    init_with: "'-'"
+    type: std::string
+    init_with: '"-"'
     constructor_arg: true
     getter: true
     setter: true
@@ -39,8 +39,22 @@ properties:
   - name: last_pressed_at
     type: float
     init_with: 0
-    constructor_arg: true
     getter: true
     setter: true
+
+
+functions:
+
+
+  - name: get_x2
+    type: float
+    body: |
+      return x+width;
+
+
+  - name: get_y2
+    type: float
+    body: |
+      return y+height;
 
 

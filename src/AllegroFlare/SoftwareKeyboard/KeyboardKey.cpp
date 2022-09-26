@@ -11,13 +11,13 @@ namespace SoftwareKeyboard
 {
 
 
-KeyboardKey::KeyboardKey(char character, float x, float y, float width, float height, float last_pressed_at)
+KeyboardKey::KeyboardKey(std::string character, float x, float y, float width, float height)
    : character(character)
    , x(x)
    , y(y)
    , width(width)
    , height(height)
-   , last_pressed_at(last_pressed_at)
+   , last_pressed_at(0)
 {
 }
 
@@ -27,7 +27,7 @@ KeyboardKey::~KeyboardKey()
 }
 
 
-void KeyboardKey::set_character(char character)
+void KeyboardKey::set_character(std::string character)
 {
    this->character = character;
 }
@@ -63,7 +63,7 @@ void KeyboardKey::set_last_pressed_at(float last_pressed_at)
 }
 
 
-char KeyboardKey::get_character() const
+std::string KeyboardKey::get_character() const
 {
    return character;
 }
@@ -99,6 +99,15 @@ float KeyboardKey::get_last_pressed_at() const
 }
 
 
+float KeyboardKey::get_x2()
+{
+   return x+width;
+}
+
+float KeyboardKey::get_y2()
+{
+   return y+height;
+}
 
 
 } // namespace SoftwareKeyboard

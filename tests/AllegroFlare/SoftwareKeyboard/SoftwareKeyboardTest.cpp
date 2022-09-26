@@ -73,12 +73,11 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, initialize__without_a
 }   
 
 
-TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
    software_keyboard.initialize();
    software_keyboard.render();
-   al_flip_display();
 }
 
 
@@ -122,6 +121,20 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 {
    // TODO
    // TODO: consider capturing a cout warning
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture, render__will_work_as_expected)
+{
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
+   software_keyboard.initialize();
+   software_keyboard.get_keys_ref() =
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys();
+
+   clear();
+   software_keyboard.render();
+   al_flip_display();
+   sleep(1);
 }
 
 
