@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
@@ -25,6 +26,7 @@ namespace AllegroFlare
          AllegroFlare::Vec2D cursor_size;
          bool initialized;
          bool show_rectangle_outline_on_keys;
+         AllegroFlare::Placement2D keyboard_placement;
          void update_cursor_location();
          bool key_exists(std::string identifier="[unset-identifier]");
          ALLEGRO_FONT* obtain_font();

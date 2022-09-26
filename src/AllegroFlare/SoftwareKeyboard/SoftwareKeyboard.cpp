@@ -25,6 +25,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
    , cursor_size(80, 80)
    , initialized(false)
    , show_rectangle_outline_on_keys(false)
+   , keyboard_placement({})
 {
 }
 
@@ -122,6 +123,8 @@ void SoftwareKeyboard::initialize()
       error_message << "SoftwareKeyboard" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+   keyboard_placement.position.x = 200;
+   keyboard_placement.position.y = 200;
    initialized = true;
    return;
 }
@@ -184,6 +187,7 @@ void SoftwareKeyboard::render()
       error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   keyboard_placement.start_transform();
    // draw keys
    int i=0;
    ALLEGRO_FONT *font = obtain_font();
@@ -222,6 +226,8 @@ void SoftwareKeyboard::render()
       ALLEGRO_COLOR{0.5, 1, 0.75, 1},
       4.0
    );
+
+   keyboard_placement.restore_transform();
    return;
 }
 
@@ -245,29 +251,30 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_font()
 
 std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
 {
-   float x_spacing = 90;
+   float x_spacing = 70;
    float y_spacing = 90;
+   float column_spacing = 600;
    std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
-     { "A", { "A", 100+x_spacing*0, 100+y_spacing*0, 80, 80 } },
-     { "B", { "B", 100+x_spacing*1, 100+y_spacing*0, 80, 80 } },
-     { "C", { "C", 100+x_spacing*2, 100+y_spacing*0, 80, 80 } },
-     { "D", { "D", 100+x_spacing*3, 100+y_spacing*0, 80, 80 } },
-     { "E", { "E", 100+x_spacing*4, 100+y_spacing*0, 80, 80 } },
-     { "F", { "F", 100+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+     { "A", { "A", x_spacing*0, 100+y_spacing*0, 80, 80 } },
+     { "B", { "B", x_spacing*1, 100+y_spacing*0, 80, 80 } },
+     { "C", { "C", x_spacing*2, 100+y_spacing*0, 80, 80 } },
+     { "D", { "D", x_spacing*3, 100+y_spacing*0, 80, 80 } },
+     { "E", { "E", x_spacing*4, 100+y_spacing*0, 80, 80 } },
+     { "F", { "F", x_spacing*5, 100+y_spacing*0, 80, 80 } },
 
-     { "a", { "a", 700+x_spacing*0, 100+y_spacing*0, 80, 80 } },
-     { "b", { "b", 700+x_spacing*1, 100+y_spacing*0, 80, 80 } },
-     { "c", { "c", 700+x_spacing*2, 100+y_spacing*0, 80, 80 } },
-     { "d", { "d", 700+x_spacing*3, 100+y_spacing*0, 80, 80 } },
-     { "e", { "e", 700+x_spacing*4, 100+y_spacing*0, 80, 80 } },
-     { "f", { "f", 700+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+     { "a", { "a", 600+x_spacing*0, 100+y_spacing*0, 80, 80 } },
+     { "b", { "b", 600+x_spacing*1, 100+y_spacing*0, 80, 80 } },
+     { "c", { "c", 600+x_spacing*2, 100+y_spacing*0, 80, 80 } },
+     { "d", { "d", 600+x_spacing*3, 100+y_spacing*0, 80, 80 } },
+     { "e", { "e", 600+x_spacing*4, 100+y_spacing*0, 80, 80 } },
+     { "f", { "f", 600+x_spacing*5, 100+y_spacing*0, 80, 80 } },
 
-     { "G", { "G", 100+x_spacing*0, 100+y_spacing*1, 80, 80 } },
-     { "H", { "H", 100+x_spacing*1, 100+y_spacing*1, 80, 80 } },
-     { "I", { "I", 100+x_spacing*2, 100+y_spacing*1, 80, 80 } },
-     { "J", { "J", 100+x_spacing*3, 100+y_spacing*1, 80, 80 } },
-     { "K", { "K", 100+x_spacing*4, 100+y_spacing*1, 80, 80 } },
-     { "L", { "L", 100+x_spacing*5, 100+y_spacing*1, 80, 80 } },
+     { "G", { "G", x_spacing*0, 100+y_spacing*1, 80, 80 } },
+     { "H", { "H", x_spacing*1, 100+y_spacing*1, 80, 80 } },
+     { "I", { "I", x_spacing*2, 100+y_spacing*1, 80, 80 } },
+     { "J", { "J", x_spacing*3, 100+y_spacing*1, 80, 80 } },
+     { "K", { "K", x_spacing*4, 100+y_spacing*1, 80, 80 } },
+     { "L", { "L", x_spacing*5, 100+y_spacing*1, 80, 80 } },
    };
    return result;
 }
