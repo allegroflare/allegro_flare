@@ -53,6 +53,12 @@ properties:
     type: AllegroFlare::Placement2D
     init_with: '{}'
 
+  - name: result_string
+    type: std::string
+    init_with: '{}'
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -104,7 +110,7 @@ functions:
         default_argument: '"[unset-name]"'
     guards: [ initialized ]
     body: |
-      if (!key_exists(name)) return; // TODO: maybe cout a warning
+      if (!key_exists(name)) return; // TODO: maybe cout a warning, or return false if key is not recognized
       AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
       // TODO: perform the action for the key
       key.set_last_pressed_at(al_get_time());
@@ -191,6 +197,16 @@ functions:
          cursor_location.y+cursor_size.y,
          ALLEGRO_COLOR{0.5, 1, 0.75, 1},
          4.0
+      );
+
+      // draw the result string
+      al_draw_text(
+         font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         1920/2 - 200, // TODO: make this positioning dynamic
+         1080/12, // TODO: make this positioning dynamic
+         ALLEGRO_ALIGN_LEFT,
+         result_string.c_str()
       );
 
       keyboard_placement.restore_transform();

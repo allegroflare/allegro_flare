@@ -26,6 +26,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
    , initialized(false)
    , show_rectangle_outline_on_keys(false)
    , keyboard_placement({})
+   , result_string({})
 {
 }
 
@@ -44,6 +45,12 @@ void SoftwareKeyboard::set_font_name(std::string font_name)
 void SoftwareKeyboard::set_font_size(int font_size)
 {
    this->font_size = font_size;
+}
+
+
+void SoftwareKeyboard::set_result_string(std::string result_string)
+{
+   this->result_string = result_string;
 }
 
 
@@ -68,6 +75,12 @@ int SoftwareKeyboard::get_font_size() const
 bool SoftwareKeyboard::get_initialized() const
 {
    return initialized;
+}
+
+
+std::string SoftwareKeyboard::get_result_string() const
+{
+   return result_string;
 }
 
 
@@ -137,7 +150,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       error_message << "SoftwareKeyboard" << "::" << "press_key_by_name" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!key_exists(name)) return; // TODO: maybe cout a warning
+   if (!key_exists(name)) return; // TODO: maybe cout a warning, or return false if key is not recognized
    AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
    // TODO: perform the action for the key
    key.set_last_pressed_at(al_get_time());
@@ -228,6 +241,16 @@ void SoftwareKeyboard::render()
       cursor_location.y+cursor_size.y,
       ALLEGRO_COLOR{0.5, 1, 0.75, 1},
       4.0
+   );
+
+   // draw the result string
+   al_draw_text(
+      font,
+      ALLEGRO_COLOR{1, 1, 1, 1},
+      1920/2 - 200, // TODO: make this positioning dynamic
+      1080/12, // TODO: make this positioning dynamic
+      ALLEGRO_ALIGN_LEFT,
+      result_string.c_str()
    );
 
    keyboard_placement.restore_transform();
