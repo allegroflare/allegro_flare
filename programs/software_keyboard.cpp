@@ -414,7 +414,7 @@ int main(int argc, char *argv[])
    framework.get_font_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
 
    //Display *display = Framework::create_display(1100, 600);
-   SoftKeyboardExample *example = new SoftKeyboardExample(display);
+   SoftKeyboardExample *example = new SoftKeyboardExample;
 
    framework.register_screen("example", example);
    framework.activate_screen("example");
