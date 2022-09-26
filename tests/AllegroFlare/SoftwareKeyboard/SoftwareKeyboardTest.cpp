@@ -124,7 +124,8 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 }
 
 
-TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture, render__will_work_as_expected)
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_work_as_expected)
 {
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
    software_keyboard.initialize();

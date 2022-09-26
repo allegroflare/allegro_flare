@@ -1,7 +1,7 @@
 properties:
 
 
-  - name: character
+  - name: label
     type: std::string
     init_with: '"-"'
     constructor_arg: true
@@ -50,6 +50,18 @@ functions:
     type: float
     body: |
       return x+width;
+
+
+  - name: get_center
+    type: float
+    body: |
+      return x+width * 0.5;
+
+
+  - name: get_middle
+    type: float
+    body: |
+      return y+height * 0.5;
 
 
   - name: get_y2

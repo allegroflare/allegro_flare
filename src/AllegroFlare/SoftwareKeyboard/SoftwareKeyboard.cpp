@@ -132,6 +132,15 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
 void SoftwareKeyboard::update_cursor_placement()
 {
    if (keys.empty()) return;
+   int i=0;
+   for (auto &key_dictionary_element : keys)
+   {
+      if (cursor_pos == i)
+      {
+         // this key_dictionary_element is the current cursor selected key
+      }
+      i++;
+   }
    return;
 }
 
@@ -162,10 +171,20 @@ void SoftwareKeyboard::render()
       throw std::runtime_error(error_message.str());
    }
    int i=0;
+   ALLEGRO_FONT *font = obtain_font();
+   float font_hline_height = al_get_font_line_height(font) / 2;
    for (auto &key_dictionary_element : keys)
    {
       auto &key = key_dictionary_element.second;
       al_draw_rectangle(key.get_x(), key.get_y(), key.get_x2(), key.get_y2(), ALLEGRO_COLOR{1, 1, 1, 1}, 2.0);
+      al_draw_text(
+         font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         key.get_center(),
+         key.get_middle() - font_hline_height,
+         ALLEGRO_ALIGN_CENTER,
+         key.get_label().c_str()
+      );
       i++;
    }
    return;
@@ -191,10 +210,17 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_font()
 
 std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
 {
+   float x_spacing = 90;
+   float y_spacing = 90;
    std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
-     { "A", { "A", 100, 100, 80, 80 } },
-     { "B", { "B", 190, 100, 80, 80 } },
-     { "C", { "C", 280, 100, 80, 80 } },
+     { "A", { "A", 100+x_spacing*0, 100+y_spacing*0, 80, 80 } },
+     { "B", { "B", 100+x_spacing*1, 100+y_spacing*0, 80, 80 } },
+     { "C", { "C", 100+x_spacing*2, 100+y_spacing*0, 80, 80 } },
+     { "D", { "D", 100+x_spacing*3, 100+y_spacing*0, 80, 80 } },
+     { "E", { "E", 100+x_spacing*4, 100+y_spacing*0, 80, 80 } },
+     { "F", { "F", 100+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+
+     { "G", { "G", 100+x_spacing*0, 100+y_spacing*1, 80, 80 } },
    };
    return result;
 }
