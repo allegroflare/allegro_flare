@@ -243,17 +243,18 @@ void SoftwareKeyboard::render()
       4.0
    );
 
+   keyboard_placement.restore_transform();
+
    // draw the result string
    al_draw_text(
       font,
       ALLEGRO_COLOR{1, 1, 1, 1},
-      1920/2 - 200, // TODO: make this positioning dynamic
-      1080/12, // TODO: make this positioning dynamic
-      ALLEGRO_ALIGN_LEFT,
+      1920/2, // TODO: make this positioning dynamic
+      1080/7, // TODO: make this positioning dynamic
+      ALLEGRO_ALIGN_CENTER,
       result_string.c_str()
    );
 
-   keyboard_placement.restore_transform();
    return;
 }
 
