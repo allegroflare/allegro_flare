@@ -7,7 +7,7 @@ namespace AllegroFlare
 {
    namespace SoftwareKeyboard
    {
-      class Key
+      class KeyboardKey
       {
       private:
          char character;
@@ -21,8 +21,8 @@ namespace AllegroFlare
 
 
       public:
-         Key(char character='-', float x=0, float y=0, float width=0, float height=0, float last_pressed_at=0);
-         ~Key();
+         KeyboardKey(char character='-', float x=0, float y=0, float width=0, float height=0, float last_pressed_at=0);
+         ~KeyboardKey();
 
          void set_character(char character);
          void set_x(float x);
