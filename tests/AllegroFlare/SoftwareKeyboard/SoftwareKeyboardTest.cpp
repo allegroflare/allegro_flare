@@ -130,18 +130,18 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
    software_keyboard.initialize();
    software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
-   software_keyboard.set_result_string("Charlie");
 
-   clear();
-   software_keyboard.press_key_by_name("A");
-   software_keyboard.render();
-   al_flip_display();
-   sleep_for(0.1);
+   std::vector<std::string> key_names_to_press = { "C", "h", "a", "r", "BACKSPACE", "r", "l", "i", "e", };
 
-   software_keyboard.press_key_by_name("C");
-   software_keyboard.render();
-   al_flip_display();
-   sleep_for(0.1);
+   for (auto &key_name_to_press : key_names_to_press)
+   {
+      software_keyboard.press_key_by_name(key_name_to_press);
+
+      clear();
+      software_keyboard.render();
+      al_flip_display();
+      sleep_for(0.2);
+   }
 
    sleep_for(1);
 }
