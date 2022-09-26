@@ -208,7 +208,7 @@ float SoftKeyKey::key_roundness = 0.0;
 
 
 
-class UISoftwareKeyboard// : public UIWidget
+class SoftwareKeyboard// : public UIWidget
 {
 public:
    AllegroFlare::Motion motion_manager;
@@ -226,8 +226,8 @@ public:
    bool shift_pressed;
    bool initialized;
 
-   UISoftwareKeyboard(float x, float y)
-      //: UIWidget(parent, "UISoftwareKeyboard", new UISurfaceAreaBox(x, y, 850, 250))
+   SoftwareKeyboard(float x, float y)
+      //: UIWidget(parent, "SoftwareKeyboard", new UISurfaceAreaBox(x, y, 850, 250))
       : motion_manager(3)
       , key()
       , x(x)
@@ -429,7 +429,7 @@ public:
 class SoftKeyboardExample : public AllegroFlare::Screens::Base
 {
 private:
-   UISoftwareKeyboard *keyboard;
+   SoftwareKeyboard *keyboard;
    bool initialized;
 
 public:
@@ -442,7 +442,7 @@ public:
 
    void initialize()
    {
-      keyboard = new UISoftwareKeyboard(1920/2, 1080/2);
+      keyboard = new SoftwareKeyboard(1920/2, 1080/2);
       keyboard->initialize();
       initialized = true;
    }
