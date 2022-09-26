@@ -21,18 +21,13 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
    , font_size(font_size)
    , keys({})
    , cursor_pos(0)
+   , initialized(false)
 {
 }
 
 
 SoftwareKeyboard::~SoftwareKeyboard()
 {
-}
-
-
-void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
-{
-   this->font_bin = font_bin;
 }
 
 
@@ -66,9 +61,76 @@ int SoftwareKeyboard::get_font_size() const
 }
 
 
-std::string SoftwareKeyboard::press_key()
+bool SoftwareKeyboard::get_initialized() const
 {
-   return "Hello World!";
+   return initialized;
+}
+
+
+std::map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &SoftwareKeyboard::get_keys_ref()
+{
+   return keys;
+}
+
+
+void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "set_font_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->font_bin = font_bin;
+   return;
+}
+
+void SoftwareKeyboard::initialize()
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_font_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "initialize" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   initialized = true;
+   return;
+}
+
+void SoftwareKeyboard::press_key_by_name(std::string name)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "press_key_by_name" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // TODO
+   return;
+}
+
+void SoftwareKeyboard::update_cursor_placement()
+{
+   if (keys.empty()) return;
+   return;
 }
 
 void SoftwareKeyboard::increment_cursor_pos()
@@ -76,6 +138,7 @@ void SoftwareKeyboard::increment_cursor_pos()
    if (keys.empty()) return; // TODO: play bonk sound
    cursor_pos++;
    while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
+   update_cursor_placement();
    return;
 }
 
@@ -84,33 +147,16 @@ void SoftwareKeyboard::decrement_cursor_pos()
    if (keys.empty()) return; // TODO: play bonk sound
    cursor_pos--;
    while (cursor_pos < 0) cursor_pos += keys.size();
+   update_cursor_placement();
    return;
 }
 
 void SoftwareKeyboard::render()
 {
-   if (!(al_is_system_installed()))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(al_is_primitives_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(al_is_font_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    return;
@@ -118,10 +164,10 @@ void SoftwareKeyboard::render()
 
 ALLEGRO_FONT* SoftwareKeyboard::obtain_font()
 {
-   if (!(font_bin))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "SoftwareKeyboard" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "SoftwareKeyboard" << "::" << "obtain_font" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    std::stringstream composite_font_str;

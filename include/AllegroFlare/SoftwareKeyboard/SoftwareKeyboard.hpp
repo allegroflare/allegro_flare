@@ -4,8 +4,8 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
 #include <allegro5/allegro_font.h>
+#include <map>
 #include <string>
-#include <vector>
 
 
 namespace AllegroFlare
@@ -18,8 +18,10 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          std::string font_name;
          int font_size;
-         std::vector<AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
+         std::map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
          int cursor_pos;
+         bool initialized;
+         void update_cursor_placement();
          ALLEGRO_FONT* obtain_font();
 
       protected:
@@ -29,13 +31,16 @@ namespace AllegroFlare
          SoftwareKeyboard(AllegroFlare::FontBin* font_bin=nullptr, std::string font_name="Inter-Medium.ttf", int font_size=-32);
          ~SoftwareKeyboard();
 
-         void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_font_name(std::string font_name);
          void set_font_size(int font_size);
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_font_name() const;
          int get_font_size() const;
-         std::string press_key();
+         bool get_initialized() const;
+         std::map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
+         void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+         void initialize();
+         void press_key_by_name(std::string name="[unset-name]");
          void increment_cursor_pos();
          void decrement_cursor_pos();
          void render();

@@ -6,7 +6,7 @@ properties:
     constructor_arg: true
     init_with: nullptr
     getter: true
-    setter: true
+    setter: false
 
   - name: font_name
     type: std::string
@@ -23,21 +23,65 @@ properties:
     setter: true
 
   - name: keys
-    type: std::vector<AllegroFlare::SoftwareKeyboard::KeyboardKey>
+    type: std::map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
     init_with: '{}'
+    getter_ref: true
 
   - name: cursor_pos
     type: int
     init_with: 0
 
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
 
 functions:
 
 
-  - name: press_key
-    type: std::string
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
     body: |
-      return "Hello World!";
+      this->font_bin = font_bin;
+      return;
+
+
+  - name: initialize
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+    body: |
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - al_is_primitives_addon_initialized
+      - al_is_font_addon_initialized
+
+
+  - name: press_key_by_name
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ initialized ]
+    body: |
+      // TODO
+      return;
+
+
+  - name: update_cursor_placement
+    private: true
+    body: |
+      if (keys.empty()) return;
+      return;
 
 
   - name: increment_cursor_pos
@@ -45,6 +89,7 @@ functions:
       if (keys.empty()) return; // TODO: play bonk sound
       cursor_pos++;
       while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
+      update_cursor_placement();
       return;
 
 
@@ -53,27 +98,20 @@ functions:
       if (keys.empty()) return; // TODO: play bonk sound
       cursor_pos--;
       while (cursor_pos < 0) cursor_pos += keys.size();
+      update_cursor_placement();
       return;
 
 
   - name: render
-    guards:
-      - al_is_system_installed()
-      - al_is_primitives_addon_initialized()
-      - al_is_font_addon_initialized()
-      - font_bin
+    guards: [ initialized ]
     body: |
       return;
-    body_dependency_symbols:
-      - al_is_system_installed
-      - al_is_primitives_addon_initialized
-      - al_is_font_addon_initialized
 
 
   - name: obtain_font
     private: true
     type: ALLEGRO_FONT*
-    guards: [ font_bin ]
+    guards: [ initialized ]
     body: |
       std::stringstream composite_font_str;
       composite_font_str << font_name << " " << font_size;

@@ -8546,16 +8546,29 @@ table td
 </tr>
 <tr>
   <td class="property">keys</td>
-  <td class="property">std::vector&lt;AllegroFlare::SoftwareKeyboard::KeyboardKey&gt;</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey&gt;</td>
 </tr>
 <tr>
   <td class="property">cursor_pos</td>
   <td class="property">int</td>
 </tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
 <tr>
-  <td class="method">press_key()</td>
+  <td class="method">set_font_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">press_key_by_name(1)</td>
+</tr>
+<tr>
+  <td class="private_method">update_cursor_placement()</td>
 </tr>
 <tr>
   <td class="method">increment_cursor_pos()</td>
