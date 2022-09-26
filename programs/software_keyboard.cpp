@@ -7,6 +7,8 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Path2D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
 
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -19,7 +21,7 @@
 
 
 
-AllegroFlare::FontBin fonts;
+AllegroFlare::FontBin *fonts;
 
 
 
@@ -45,9 +47,10 @@ private:
 
    void initialize()
    {
+      if (!fonts) throw std::runtime_error("need fonts");
       if (initialized) return;
-      large_font = fonts["DroidSans.ttf -32"]; //, ALLEGRO_FLAGS_EMPTY);
-      small_font = fonts["DroidSans.ttf -18"]; //, ALLEGRO_FLAGS_EMPTY);
+      large_font = fonts->auto_get("DroidSans.ttf -32"); //, ALLEGRO_FLAGS_EMPTY);
+      small_font = fonts->auto_get("DroidSans.ttf -18"); //, ALLEGRO_FLAGS_EMPTY);
       //keyhover_sound = al_load_sample("data/samples/click.wav");
       //keypress_sound = al_load_sample("data/samples/keypress_light.wav");
       key_color = AllegroFlare::color::hex("646873");
@@ -131,7 +134,7 @@ public:
       //: is_standard_key ? key_color : alt_key_color;
       al_draw_filled_rectangle(x, y, x+w, y+h, key_color_now);
       //al_draw_line(x, y+h-3, x+w, y+h-3, AllegroFlare::color(AllegroFlare::Color::Black, 0.2), 6.0);
-      al_draw_line(x, y+2, x+w, y+2, AllegroFlare::Color(AllegroFlare::Color::White, 0.2), 3.0);
+      al_draw_line(x, y+2, x+w, y+2, AllegroFlare::Color::color(AllegroFlare::Color::White, 0.2), 3.0);
       if (!text.empty())
       {
          if (!mouse_over) al_draw_text(bigfont ? large_font : small_font, AllegroFlare::Color(AllegroFlare::Color::Black, 0.4), x+w/2, y+h/2-al_get_font_line_height(bigfont ? large_font : small_font)/2*1.1+1, ALLEGRO_ALIGN_CENTRE, text.c_str());
@@ -191,31 +194,37 @@ float SoftKeyKey::key_roundness = 0.0;
 class UISoftwareKeyboard// : public UIWidget
 {
 public:
-   Motion motion_manager;
+   AllegroFlare::Motion motion_manager;
    //Display *display;
    // 43 keys
    SoftKeyKey key[43];
    float w, h;
    int num_cols;
    int num_rows;
-
+   AllegroFlare::Placement2D place;
    AllegroFlare::vec2d mouse_world, mouse_screen;
-
    bool visible;
-
    bool shift_pressed;
 
-   UISoftwareKeyboard(UIWidget *parent, float x, float y)
+   UISoftwareKeyboard(float x, float y)
       //: UIWidget(parent, "UISoftwareKeyboard", new UISurfaceAreaBox(x, y, 850, 250))
-      : num_cols(12)
-      , num_rows(4)
-      //  , display(display)
-      , motion_manager(3)
-      , visible(true)
+      : motion_manager(3)
+      , key()
       , w(850)
       , h(250)
+      , num_cols(12)
+      , num_rows(4)
+      //  , display(display)
+      , mouse_world()
+      , mouse_screen()
+      , visible(true)
       , shift_pressed(false)
    {
+      place.position.x = x;
+      place.position.y = y;
+      place.size.x = w;
+      place.size.y = h;
+
       key[0].set(0, 0, 1, 1, NULL, NULL, true, true, "q", ALLEGRO_KEY_Q);
       key[1].set(1, 0, 1, 1, NULL, NULL, true, true, "w", ALLEGRO_KEY_W);
       key[2].set(2, 0, 1, 1, NULL, NULL, true, true, "e", ALLEGRO_KEY_E);
@@ -282,7 +291,7 @@ public:
 
    void on_draw() //override
    {
-      motion_manager.update(Framework::time_now);
+      motion_manager.update(al_get_time());
 
       al_draw_filled_rectangle(0, 0, w, h, AllegroFlare::Color::Black);
       al_draw_rounded_rectangle(0, 0, w, h, 4, 4, AllegroFlare::Color::Black, 4.0);
@@ -335,18 +344,18 @@ public:
       shift_pressed = !shift_pressed;
    }
 
-   void on_key_char() //override
+   void on_key_char(int keycode) //override
    {
-      int allegro_key = Framework::current_event->keyboard.keycode;
+      //TODO: int allegro_key = Framework::current_event->keyboard.keycode;
       for (unsigned i=0; i<43; i++)
          if (key[i].allegro_key_code == allegro_key) key[i].trigger();
    }
 
-   void on_key_down() //override
+   void on_key_down(int keycode) //override
    {
       if (!visible) return;
 
-      int keycode = Framework::current_event->keyboard.keycode;
+      //TODO: int keycode = Framework::current_event->keyboard.keycode;
       if (keycode == ALLEGRO_KEY_RSHIFT || keycode == ALLEGRO_KEY_LSHIFT)
          toggle_shift();
    }
@@ -381,16 +390,16 @@ public:
 
 
 
-class SoftKeyboardExample : public UIScreen
+class SoftKeyboardExample : public AllegroFlare::Screens::Base
 {
 private:
    UISoftwareKeyboard *keyboard;
 public:
-   SoftKeyboardExample(Display *display)
-      : UIScreen(display)
+   SoftKeyboardExample()
+      : AllegroFlare::Screens::Base("SoftKeyboardExample")
       , keyboard(NULL)
    {
-      keyboard = new UISoftwareKeyboard(this, display->width()/2, display->height()/2);
+      keyboard = new UISoftwareKeyboard(this, 1920/2, 1080/2);
    }
 };
 
@@ -399,13 +408,20 @@ public:
 
 int main(int argc, char *argv[])
 {
-   Framework::initialize();
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize();
 
-   fonts.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
+   framework.get_font_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
 
-   Display *display = Framework::create_display(1100, 600);
+   //Display *display = Framework::create_display(1100, 600);
    SoftKeyboardExample *example = new SoftKeyboardExample(display);
-   Framework::run_loop();
+
+   framework.register_screen("example", example);
+   framework.activate_screen("example");
+
+
+   framework.run_loop();
+
    return 0;
 }
 
