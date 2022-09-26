@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
-#include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
 #include <vector>
@@ -20,7 +19,7 @@ namespace AllegroFlare
          std::string font_name;
          int font_size;
          std::vector<AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
-         AllegroFlare::Vec2D cursor;
+         int cursor_pos;
          ALLEGRO_FONT* obtain_font();
 
       protected:
@@ -37,6 +36,8 @@ namespace AllegroFlare
          std::string get_font_name() const;
          int get_font_size() const;
          std::string press_key();
+         void increment_cursor_pos();
+         void decrement_cursor_pos();
          void render();
       };
    }

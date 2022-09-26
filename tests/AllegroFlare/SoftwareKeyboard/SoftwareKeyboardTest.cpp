@@ -77,7 +77,34 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
    software_keyboard.render();
    al_flip_display();
-   sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   increment_cursor_pos__will_move_the_cursor_forward_by_one)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   increment_cursor_pos__will_loop_around_to_the_front_when_greater_than_the_number_of_keys)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   decrement_cursor_pos__will_move_the_cursor_backward_by_one)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   decrement_cursor_pos__will_loop_around_to_the_back_when_less_than_zero)
+{
+   // TODO
 }
 
 

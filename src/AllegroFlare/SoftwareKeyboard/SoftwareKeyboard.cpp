@@ -20,7 +20,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
    , font_name(font_name)
    , font_size(font_size)
    , keys({})
-   , cursor({})
+   , cursor_pos(0)
 {
 }
 
@@ -69,6 +69,22 @@ int SoftwareKeyboard::get_font_size() const
 std::string SoftwareKeyboard::press_key()
 {
    return "Hello World!";
+}
+
+void SoftwareKeyboard::increment_cursor_pos()
+{
+   if (keys.empty()) return; // TODO: play bonk sound
+   cursor_pos++;
+   while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
+   return;
+}
+
+void SoftwareKeyboard::decrement_cursor_pos()
+{
+   if (keys.empty()) return; // TODO: play bonk sound
+   cursor_pos--;
+   while (cursor_pos < 0) cursor_pos += keys.size();
+   return;
 }
 
 void SoftwareKeyboard::render()

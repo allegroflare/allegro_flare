@@ -26,9 +26,9 @@ properties:
     type: std::vector<AllegroFlare::SoftwareKeyboard::KeyboardKey>
     init_with: '{}'
 
-  - name: cursor
-    type: AllegroFlare::Vec2D
-    init_with: '{}'
+  - name: cursor_pos
+    type: int
+    init_with: 0
 
 
 functions:
@@ -38,6 +38,22 @@ functions:
     type: std::string
     body: |
       return "Hello World!";
+
+
+  - name: increment_cursor_pos
+    body: |
+      if (keys.empty()) return; // TODO: play bonk sound
+      cursor_pos++;
+      while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
+      return;
+
+
+  - name: decrement_cursor_pos
+    body: |
+      if (keys.empty()) return; // TODO: play bonk sound
+      cursor_pos--;
+      while (cursor_pos < 0) cursor_pos += keys.size();
+      return;
 
 
   - name: render
