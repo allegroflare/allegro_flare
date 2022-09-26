@@ -399,7 +399,7 @@ public:
       : AllegroFlare::Screens::Base("SoftKeyboardExample")
       , keyboard(NULL)
    {
-      keyboard = new UISoftwareKeyboard(this, 1920/2, 1080/2);
+      keyboard = new UISoftwareKeyboard(1920/2, 1080/2);
    }
 };
 
