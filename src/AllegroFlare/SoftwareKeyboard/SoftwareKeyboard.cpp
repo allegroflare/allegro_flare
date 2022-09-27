@@ -167,8 +167,6 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       result_string += name;
    }
 
-   // BREAKPOINT
-
    jump_cursor_pos_to_index_of_key_name(name);
    update_cursor_location();
    key.set_last_pressed_at(al_get_time());
