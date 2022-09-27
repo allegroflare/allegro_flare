@@ -27,7 +27,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , font_size(font_size)
    , keys({})
    , cursor_pos(0)
-   , cursor_location({})
+   , cursor_destination({})
    , cursor_size(80, 80)
    , initialized(false)
    , show_rectangle_outline_on_keys(false)
@@ -163,7 +163,7 @@ void SoftwareKeyboard::set_keys(tsl::ordered_map<std::string, AllegroFlare::Soft
 {
    this->keys = keys;
    cursor_pos = 0;
-   update_cursor_location();
+   update_cursor_destination();
    return;
 }
 
@@ -309,12 +309,12 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    }
 
    jump_cursor_pos_to_index_of_key_name(name);
-   update_cursor_location();
+   update_cursor_destination();
    key.set_last_pressed_at(al_get_time());
    return;
 }
 
-void SoftwareKeyboard::update_cursor_location()
+void SoftwareKeyboard::update_cursor_destination()
 {
    if (keys.empty()) return;
    int i=0;
@@ -324,8 +324,8 @@ void SoftwareKeyboard::update_cursor_location()
       {
          // NOTE: this key_dictionary_element is the current cursor selected key
          auto &key = key_dictionary_element.second;
-         cursor_location.x = key.get_x();
-         cursor_location.y = key.get_y();
+         cursor_destination.x = key.get_x();
+         cursor_destination.y = key.get_y();
          cursor_size.x = key.get_width();
          cursor_size.y = key.get_height();
          return;
@@ -372,7 +372,7 @@ void SoftwareKeyboard::increment_cursor_pos()
    if (keys.empty()) return; // TODO: play bonk sound
    cursor_pos++;
    while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
-   update_cursor_location();
+   update_cursor_destination();
    return;
 }
 
@@ -381,7 +381,7 @@ void SoftwareKeyboard::decrement_cursor_pos()
    if (keys.empty()) return; // TODO: play bonk sound
    cursor_pos--;
    while (cursor_pos < 0) cursor_pos += keys.size();
-   update_cursor_location();
+   update_cursor_destination();
    return;
 }
 
@@ -440,10 +440,10 @@ void SoftwareKeyboard::draw_cursor()
    float thickness = 6.0;
 
    al_draw_rounded_rectangle(
-      cursor_location.x,
-      cursor_location.y,
-      cursor_location.x + cursor_size.x,
-      cursor_location.y + cursor_size.y,
+      cursor_destination.x,
+      cursor_destination.y,
+      cursor_destination.x + cursor_size.x,
+      cursor_destination.y + cursor_size.y,
       r,
       r,
       color,
@@ -514,10 +514,10 @@ void SoftwareKeyboard::render()
    // draw cursor
    draw_cursor();
    //al_draw_rectangle(
-      //cursor_location.x,
-      //cursor_location.y,
-      //cursor_location.x+cursor_size.x,
-      //cursor_location.y+cursor_size.y,
+      //cursor_destination.x,
+      //cursor_destination.y,
+      //cursor_destination.x+cursor_size.x,
+      //cursor_destination.y+cursor_size.y,
       //ALLEGRO_COLOR{0.5, 1, 0.75, 1},
       //4.0
    //);
@@ -772,7 +772,7 @@ void SoftwareKeyboard::move_cursor_down()
 
       // move to the destination key and return
       jump_cursor_pos_to_index_of_key_name(key_name_to_move_to);
-      update_cursor_location();
+      update_cursor_destination();
       
       return;
    }
@@ -930,7 +930,7 @@ void SoftwareKeyboard::move_cursor_up()
 
       // move to the destination key and return
       jump_cursor_pos_to_index_of_key_name(key_name_to_move_to);
-      update_cursor_location();
+      update_cursor_destination();
       
       return;
    }

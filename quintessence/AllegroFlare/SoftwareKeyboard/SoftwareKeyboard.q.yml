@@ -39,7 +39,7 @@ properties:
     type: int
     init_with: 0
 
-  - name: cursor_location
+  - name: cursor_destination
     type: AllegroFlare::Vec2D
     init_with: '{}'
 
@@ -113,7 +113,7 @@ functions:
     body: |
       this->keys = keys;
       cursor_pos = 0;
-      update_cursor_location();
+      update_cursor_destination();
       return;
 
 
@@ -252,14 +252,14 @@ functions:
       }
 
       jump_cursor_pos_to_index_of_key_name(name);
-      update_cursor_location();
+      update_cursor_destination();
       key.set_last_pressed_at(al_get_time());
       return;
     body_dependency_symbols:
       - AllegroFlare::php::trim
 
 
-  - name: update_cursor_location
+  - name: update_cursor_destination
     private: true
     body: |
       if (keys.empty()) return;
@@ -270,8 +270,8 @@ functions:
          {
             // NOTE: this key_dictionary_element is the current cursor selected key
             auto &key = key_dictionary_element.second;
-            cursor_location.x = key.get_x();
-            cursor_location.y = key.get_y();
+            cursor_destination.x = key.get_x();
+            cursor_destination.y = key.get_y();
             cursor_size.x = key.get_width();
             cursor_size.y = key.get_height();
             return;
@@ -324,7 +324,7 @@ functions:
       if (keys.empty()) return; // TODO: play bonk sound
       cursor_pos++;
       while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
-      update_cursor_location();
+      update_cursor_destination();
       return;
 
 
@@ -333,7 +333,7 @@ functions:
       if (keys.empty()) return; // TODO: play bonk sound
       cursor_pos--;
       while (cursor_pos < 0) cursor_pos += keys.size();
-      update_cursor_location();
+      update_cursor_destination();
       return;
 
 
@@ -394,10 +394,10 @@ functions:
       float thickness = 6.0;
 
       al_draw_rounded_rectangle(
-         cursor_location.x,
-         cursor_location.y,
-         cursor_location.x + cursor_size.x,
-         cursor_location.y + cursor_size.y,
+         cursor_destination.x,
+         cursor_destination.y,
+         cursor_destination.x + cursor_size.x,
+         cursor_destination.y + cursor_size.y,
          r,
          r,
          color,
@@ -467,10 +467,10 @@ functions:
       // draw cursor
       draw_cursor();
       //al_draw_rectangle(
-         //cursor_location.x,
-         //cursor_location.y,
-         //cursor_location.x+cursor_size.x,
-         //cursor_location.y+cursor_size.y,
+         //cursor_destination.x,
+         //cursor_destination.y,
+         //cursor_destination.x+cursor_size.x,
+         //cursor_destination.y+cursor_size.y,
          //ALLEGRO_COLOR{0.5, 1, 0.75, 1},
          //4.0
       //);
@@ -727,7 +727,7 @@ functions:
 
           // move to the destination key and return
           jump_cursor_pos_to_index_of_key_name(key_name_to_move_to);
-          update_cursor_location();
+          update_cursor_destination();
           
           return;
        }
@@ -885,7 +885,7 @@ functions:
 
           // move to the destination key and return
           jump_cursor_pos_to_index_of_key_name(key_name_to_move_to);
-          update_cursor_location();
+          update_cursor_destination();
           
           return;
        }
