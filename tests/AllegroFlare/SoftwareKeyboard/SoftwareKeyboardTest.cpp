@@ -140,7 +140,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    //std::vector<std::string> key_names_to_press = { "C", "h", "a", "r", "BACKSPACE", "r", "l", "i", "e", };
    std::vector<std::string> key_names_to_press = { "P", "r", "i", "n", "c", "e", "s", "s", };
 
-   //sleep_for(0.2);
+   sleep_for(0.2);
 
    for (auto &key_name_to_press : key_names_to_press)
    {
@@ -149,7 +149,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
       clear();
       software_keyboard.render();
       al_flip_display();
-      //sleep_for(0.3);
+      sleep_for(0.3);
    }
 
    sleep_for(0.2);

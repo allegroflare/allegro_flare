@@ -293,9 +293,9 @@ void SoftwareKeyboard::decrement_cursor_pos()
 
 void SoftwareKeyboard::draw_result_string_and_boxes()
 {
-   float box_width = 60;
-   float box_height = 100;
-   float box_spacing_x = 70;
+   float box_width = 50;
+   float box_height = 90;
+   float box_spacing_x = 60;
    float calculated_width = num_permitted_chars * box_spacing_x; // TODO: this is not 100% accurate
    float x = 1920/2 - calculated_width / 2;
    float y = 1920/12*2 - 140;
