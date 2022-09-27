@@ -16,6 +16,7 @@ class AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixt
 
 #include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
+#include <allegro5/allegro_color.h> // for al_color_name();
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, can_be_created_without_blowing_up)
@@ -136,6 +137,9 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
    //software_keyboard.set_font_name("Lora-MediumItalic.ttf");
    software_keyboard.set_font_name("Lora-Medium.ttf");
+   software_keyboard.set_font_name("ChronoTrigger.ttf");
+   software_keyboard.set_prompt_text("Enter your name");
+
 
 
    //std::vector<std::string> key_names_to_press = { "C", "h", "a", "r", "BACKSPACE", "r", "l", "i", "e", };

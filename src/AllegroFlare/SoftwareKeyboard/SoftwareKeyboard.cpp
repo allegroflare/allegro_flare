@@ -299,7 +299,7 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
    float calculated_width = num_permitted_chars * box_spacing_x; // TODO: this is not 100% accurate
    float x = 1920/2 - calculated_width / 2;
    float y = 1920/12*2 - 120;
-   ALLEGRO_COLOR box_color = AllegroFlare::color::color(ALLEGRO_COLOR{0.7, 0.8, 0.8, 1.0}, 0.2);
+   ALLEGRO_COLOR box_color = AllegroFlare::color::color(ALLEGRO_COLOR{0.25, 0.25, 0.25, 0.25}, 0.5);
 
    float x_cursor = x;
    ALLEGRO_FONT *result_text_font = obtain_result_text_font();
