@@ -100,6 +100,20 @@ functions:
       return;
 
 
+  - name: set_keyboard_position
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0
+      - name: y
+        type: float
+        default_argument: 0
+    body: |
+      keyboard_placement.position.x = x;
+      keyboard_placement.position.y = y;
+      return;
+
+
   - name: initialize
     guards:
       - al_is_system_installed()

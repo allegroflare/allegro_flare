@@ -118,6 +118,13 @@ void SoftwareKeyboard::set_keyboard_dimentions(float width, float height)
    return;
 }
 
+void SoftwareKeyboard::set_keyboard_position(float x, float y)
+{
+   keyboard_placement.position.x = x;
+   keyboard_placement.position.y = y;
+   return;
+}
+
 void SoftwareKeyboard::initialize()
 {
    if (!(al_is_system_installed()))

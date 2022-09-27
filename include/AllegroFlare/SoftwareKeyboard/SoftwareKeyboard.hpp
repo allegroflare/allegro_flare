@@ -52,6 +52,7 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_keys(std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
          void set_keyboard_dimentions(float width=1, float height=1);
+         void set_keyboard_position(float x=0, float y=0);
          void initialize();
          void press_key_by_name(std::string name="[unset-name]");
          void jump_cursor_pos_to_index_of_key_name(std::string name="[unset-name]");
