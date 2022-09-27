@@ -225,6 +225,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       }
       else
       {
+         // TODO: ensure concating "string_to_append" will not result in a result_string that is longer than limit
          result_string += string_to_append;
       }
    }
