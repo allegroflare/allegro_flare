@@ -31,6 +31,7 @@ namespace AllegroFlare
          std::string result_string;
          int num_permitted_chars;
          void update_cursor_location();
+         std::string infer_current_key_name();
          void draw_result_string_and_boxes();
          void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
@@ -71,6 +72,8 @@ namespace AllegroFlare
          void decrement_cursor_pos();
          void render();
          static AllegroFlare::Vec2D calculate_boilerplate_keyboard_dimentions();
+         void move_cursor_pos_down();
+         void move_cursor_pos_up();
          static tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();
       };
    }

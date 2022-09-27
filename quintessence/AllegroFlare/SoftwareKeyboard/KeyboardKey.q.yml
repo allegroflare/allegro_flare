@@ -35,7 +35,7 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
-    
+
   - name: last_pressed_at
     type: float
     init_with: 0

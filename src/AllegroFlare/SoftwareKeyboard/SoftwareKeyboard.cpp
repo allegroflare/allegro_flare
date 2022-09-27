@@ -6,6 +6,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
+#include <map>
 #include <sstream>
 #include <stdexcept>
 
@@ -275,6 +276,21 @@ void SoftwareKeyboard::update_cursor_location()
    return;
 }
 
+std::string SoftwareKeyboard::infer_current_key_name()
+{
+   if (keys.empty()) return "";
+   int i=0;
+   for (auto &key_dictionary_element : keys)
+   {
+      if (cursor_pos == i)
+      {
+         return key_dictionary_element.first;
+      }
+      i++;
+   }
+   return ""; // TODO: cout warning
+}
+
 void SoftwareKeyboard::jump_cursor_pos_to_index_of_key_name(std::string name)
 {
    // TODO: logic for this function
@@ -502,6 +518,25 @@ AllegroFlare::Vec2D SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions(
    float y_spacing = 70;
    float column_spacing = 450;
    return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 500);
+}
+
+void SoftwareKeyboard::move_cursor_pos_down()
+{
+   return;
+}
+
+void SoftwareKeyboard::move_cursor_pos_up()
+{
+   if (keys.empty()) return;
+
+   std::map<std::string, std::string> up_move_destination_exceptions = {
+      { "BACKSPACE", "x" },
+   };
+
+   std::string current_key_name = "";
+
+   //if (up_move_destination_exceptions(
+   return;
 }
 
 tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
