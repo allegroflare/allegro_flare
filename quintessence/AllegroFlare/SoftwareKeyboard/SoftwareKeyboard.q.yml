@@ -65,8 +65,20 @@ properties:
     getter: true
     setter: true
 
+  - name: num_permitted_chars
+    type: int
+    init_with: 12
+    getter: true
+    setter: true
+
 
 functions:
+
+
+  - name: TODO
+    body: |
+      // set num_permitted_chars to a non-negative type like size_t
+      return;
 
 
   - name: set_font_bin
@@ -148,7 +160,9 @@ functions:
       AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
 
       // TODO: perform the action for the key
-      if (name == "SPACE") result_string += " ";
+      std::string string_to_append = "";
+
+      if (name == "SPACE") string_to_append = " ";
       else if (name == "BACKSPACE")
       {
          if (result_string.empty()) {} // TODO; play bonk sound
@@ -158,7 +172,20 @@ functions:
       else
       {
          // NOTE: assume the "name" is the character we want to append
-         result_string += name;
+         string_to_append = name;
+      }
+
+      // append string, or bonk if at limit
+      if (!string_to_append.empty())
+      {
+         if (result_string.size() >= num_permitted_chars)
+         {
+            // TODO: play bonk sound
+         }
+         else
+         {
+            result_string += string_to_append;
+         }
       }
 
       jump_cursor_pos_to_index_of_key_name(name);
@@ -293,7 +320,7 @@ functions:
          prompt_text_font,
          ALLEGRO_COLOR{1, 1, 1, 1},
          1920/2, // TODO: make this positioning dynamic
-         1080/7*1-70, // TODO: make this positioning dynamic
+         1080/7*1-80, // TODO: make this positioning dynamic
          ALLEGRO_ALIGN_CENTER,
          prompt_text.c_str()
       );
@@ -363,7 +390,7 @@ functions:
     guards: [ initialized ]
     body: |
       std::stringstream composite_font_str;
-      composite_font_str << font_name << " " << font_size;
+      composite_font_str << font_name << " " << (font_size - 23);
       return font_bin->auto_get(composite_font_str.str());
 
 

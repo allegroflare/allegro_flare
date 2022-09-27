@@ -29,6 +29,7 @@ namespace AllegroFlare
          AllegroFlare::Placement2D keyboard_placement;
          std::string prompt_text;
          std::string result_string;
+         int num_permitted_chars;
          void update_cursor_location();
          void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
@@ -47,13 +48,16 @@ namespace AllegroFlare
          void set_font_size(int font_size);
          void set_prompt_text(std::string prompt_text);
          void set_result_string(std::string result_string);
+         void set_num_permitted_chars(int num_permitted_chars);
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_font_name() const;
          int get_font_size() const;
          bool get_initialized() const;
          std::string get_prompt_text() const;
          std::string get_result_string() const;
+         int get_num_permitted_chars() const;
          std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
+         void TODO();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_keys(std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
          void set_keyboard_dimentions(float width=1, float height=1);

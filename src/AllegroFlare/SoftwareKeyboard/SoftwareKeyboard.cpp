@@ -29,6 +29,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
    , keyboard_placement({})
    , prompt_text("Enter your name")
    , result_string({})
+   , num_permitted_chars(12)
 {
 }
 
@@ -59,6 +60,12 @@ void SoftwareKeyboard::set_prompt_text(std::string prompt_text)
 void SoftwareKeyboard::set_result_string(std::string result_string)
 {
    this->result_string = result_string;
+}
+
+
+void SoftwareKeyboard::set_num_permitted_chars(int num_permitted_chars)
+{
+   this->num_permitted_chars = num_permitted_chars;
 }
 
 
@@ -98,11 +105,23 @@ std::string SoftwareKeyboard::get_result_string() const
 }
 
 
+int SoftwareKeyboard::get_num_permitted_chars() const
+{
+   return num_permitted_chars;
+}
+
+
 std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &SoftwareKeyboard::get_keys_ref()
 {
    return keys;
 }
 
+
+void SoftwareKeyboard::TODO()
+{
+   // set num_permitted_chars to a non-negative type like size_t
+   return;
+}
 
 void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
@@ -182,7 +201,9 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
 
    // TODO: perform the action for the key
-   if (name == "SPACE") result_string += " ";
+   std::string string_to_append = "";
+
+   if (name == "SPACE") string_to_append = " ";
    else if (name == "BACKSPACE")
    {
       if (result_string.empty()) {} // TODO; play bonk sound
@@ -192,7 +213,20 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    else
    {
       // NOTE: assume the "name" is the character we want to append
-      result_string += name;
+      string_to_append = name;
+   }
+
+   // append string, or bonk if at limit
+   if (!string_to_append.empty())
+   {
+      if (result_string.size() >= num_permitted_chars)
+      {
+         // TODO: play bonk sound
+      }
+      else
+      {
+         result_string += string_to_append;
+      }
    }
 
    jump_cursor_pos_to_index_of_key_name(name);
@@ -327,7 +361,7 @@ void SoftwareKeyboard::render()
       prompt_text_font,
       ALLEGRO_COLOR{1, 1, 1, 1},
       1920/2, // TODO: make this positioning dynamic
-      1080/7*1-70, // TODO: make this positioning dynamic
+      1080/7*1-80, // TODO: make this positioning dynamic
       ALLEGRO_ALIGN_CENTER,
       prompt_text.c_str()
    );
@@ -394,7 +428,7 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_prompt_text_font()
       throw std::runtime_error(error_message.str());
    }
    std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << font_size;
+   composite_font_str << font_name << " " << (font_size - 23);
    return font_bin->auto_get(composite_font_str.str());
 }
 
