@@ -248,7 +248,9 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
             {
                AllegroFlare::GameEvent *data = static_cast<AllegroFlare::GameEvent *>((void *)event.user.data1);
                if (!data) throw std::runtime_error("Unexpected GameEvent error");
-               if (data->is_type("submit_software_keyboard")) abort = true;
+               if (data->is_type(
+                  AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
+               )) abort = true;
             }
          break;
 

@@ -34,6 +34,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , prompt_text("Enter your name")
    , result_string({})
    , num_permitted_chars(12)
+   , event_to_emit_on_pressing_ok_key(DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY)
 {
 }
 
@@ -76,6 +77,12 @@ void SoftwareKeyboard::set_result_string(std::string result_string)
 void SoftwareKeyboard::set_num_permitted_chars(int num_permitted_chars)
 {
    this->num_permitted_chars = num_permitted_chars;
+}
+
+
+void SoftwareKeyboard::set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key)
+{
+   this->event_to_emit_on_pressing_ok_key = event_to_emit_on_pressing_ok_key;
 }
 
 
@@ -124,6 +131,12 @@ std::string SoftwareKeyboard::get_result_string() const
 int SoftwareKeyboard::get_num_permitted_chars() const
 {
    return num_permitted_chars;
+}
+
+
+std::string SoftwareKeyboard::get_event_to_emit_on_pressing_ok_key() const
+{
+   return event_to_emit_on_pressing_ok_key;
 }
 
 

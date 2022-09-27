@@ -77,6 +77,18 @@ properties:
     getter: true
     setter: true
 
+  - name: event_to_emit_on_pressing_ok_key
+    type: std::string
+    init_with: DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
+    getter: true
+    setter: true
+
+  - name: DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
+    type: const char*
+    constexpr: true
+    static: true
+    init_with: '"submit_software_keyboard"'
+
 
 functions:
 

@@ -17,6 +17,9 @@ namespace AllegroFlare
    {
       class SoftwareKeyboard
       {
+      public:
+         static constexpr const char* DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY = "submit_software_keyboard";
+
       private:
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
@@ -32,6 +35,7 @@ namespace AllegroFlare
          std::string prompt_text;
          std::string result_string;
          int num_permitted_chars;
+         std::string event_to_emit_on_pressing_ok_key;
          void update_cursor_location();
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();
@@ -55,6 +59,7 @@ namespace AllegroFlare
          void set_prompt_text(std::string prompt_text);
          void set_result_string(std::string result_string);
          void set_num_permitted_chars(int num_permitted_chars);
+         void set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_font_name() const;
@@ -63,6 +68,7 @@ namespace AllegroFlare
          std::string get_prompt_text() const;
          std::string get_result_string() const;
          int get_num_permitted_chars() const;
+         std::string get_event_to_emit_on_pressing_ok_key() const;
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void TODO();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
