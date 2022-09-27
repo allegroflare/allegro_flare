@@ -213,6 +213,10 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
                case ALLEGRO_KEY_ENTER:
                   software_keyboard.press_key_under_cursor();
                break;
+
+               case ALLEGRO_KEY_BACKSPACE:
+                  software_keyboard.press_key_by_name("BACKSPACE");
+               break;
             }
          }
          break;
