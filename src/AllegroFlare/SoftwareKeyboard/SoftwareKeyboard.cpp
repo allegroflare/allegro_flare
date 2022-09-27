@@ -253,9 +253,20 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
 
    if (name == "SPACE")
    {
-      // TODO: if preceeding character is a space, don't permit adding a second space
-      // TODO: if this is the first character, don't permit starting with a space
-      string_to_append = " ";
+      if (result_string.empty())
+      {
+         // NOTE: do nothing. E.g. do not allow starting a name with a space
+         // TODO: play bonk sound
+      }
+      else if (result_string.back() == ' ')
+      {
+         // NOTE: do nothing. E.g. do not allow multiple sequential spaces in a name
+         // TODO: play bonk sound
+      }
+      else
+      {
+         string_to_append = " ";
+      }
    }
    else if (name == "BACKSPACE")
    {

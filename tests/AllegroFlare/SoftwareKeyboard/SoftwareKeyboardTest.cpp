@@ -142,6 +142,27 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 }
 
 
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   press_key_by_name__when_pressing_the_SPACE_key__when_the_result_string_is_empty__will_not_append_a_space)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   press_key_by_name__when_pressing_the_SPACE_key__when_last_char_in_result_string_is_space__will_not_append_a_space)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   press_key_by_name__when_pressing_the_SPACE_key__will_append_a_space)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
    CAPTURE__ACTIVE__will_work_as_expected)
 {
@@ -173,6 +194,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)
+   //INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
