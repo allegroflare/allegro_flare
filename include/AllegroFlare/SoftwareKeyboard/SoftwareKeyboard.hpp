@@ -7,6 +7,7 @@
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
+#include <cstddef>
 #include <lib/ordered_map.h>
 #include <string>
 
@@ -34,7 +35,7 @@ namespace AllegroFlare
          AllegroFlare::Placement2D keyboard_placement;
          std::string prompt_text;
          std::string result_string;
-         int num_permitted_chars;
+         std::size_t num_permitted_chars;
          std::string event_to_emit_on_pressing_ok_key;
          void update_cursor_location();
          std::string infer_current_key_name();
@@ -58,7 +59,7 @@ namespace AllegroFlare
          void set_font_size(int font_size);
          void set_prompt_text(std::string prompt_text);
          void set_result_string(std::string result_string);
-         void set_num_permitted_chars(int num_permitted_chars);
+         void set_num_permitted_chars(std::size_t num_permitted_chars);
          void set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::FontBin* get_font_bin() const;
@@ -67,10 +68,9 @@ namespace AllegroFlare
          bool get_initialized() const;
          std::string get_prompt_text() const;
          std::string get_result_string() const;
-         int get_num_permitted_chars() const;
+         std::size_t get_num_permitted_chars() const;
          std::string get_event_to_emit_on_pressing_ok_key() const;
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
-         void TODO();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
          void set_keyboard_dimentions(float width=1, float height=1);

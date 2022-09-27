@@ -74,7 +74,7 @@ void SoftwareKeyboard::set_result_string(std::string result_string)
 }
 
 
-void SoftwareKeyboard::set_num_permitted_chars(int num_permitted_chars)
+void SoftwareKeyboard::set_num_permitted_chars(std::size_t num_permitted_chars)
 {
    this->num_permitted_chars = num_permitted_chars;
 }
@@ -128,7 +128,7 @@ std::string SoftwareKeyboard::get_result_string() const
 }
 
 
-int SoftwareKeyboard::get_num_permitted_chars() const
+std::size_t SoftwareKeyboard::get_num_permitted_chars() const
 {
    return num_permitted_chars;
 }
@@ -145,12 +145,6 @@ tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &Soft
    return keys;
 }
 
-
-void SoftwareKeyboard::TODO()
-{
-   // set num_permitted_chars to a non-negative type like size_t
-   return;
-}
 
 void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
 {

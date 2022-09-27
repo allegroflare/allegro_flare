@@ -72,7 +72,7 @@ properties:
     setter: true
 
   - name: num_permitted_chars
-    type: int
+    type: std::size_t
     init_with: 12
     getter: true
     setter: true
@@ -91,12 +91,6 @@ properties:
 
 
 functions:
-
-
-  - name: TODO
-    body: |
-      // set num_permitted_chars to a non-negative type like size_t
-      return;
 
 
   - name: set_font_bin
@@ -1032,5 +1026,7 @@ dependencies:
     headers: [ AllegroFlare/Interpolators.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: std::size_t
+    headers: [ cstddef ]
 
 

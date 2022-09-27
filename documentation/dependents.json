@@ -917,6 +917,7 @@
   "std/size_t": [
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TileMaps/MultiMesh"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [

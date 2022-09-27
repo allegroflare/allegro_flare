@@ -8598,7 +8598,7 @@ table td
 </tr>
 <tr>
   <td class="property">num_permitted_chars</td>
-  <td class="property">int</td>
+  <td class="property">std::size_t</td>
 </tr>
 <tr>
   <td class="property">event_to_emit_on_pressing_ok_key</td>
@@ -8610,9 +8610,6 @@ table td
 </tr>
     </table>
      <table>
-<tr>
-  <td class="method">TODO()</td>
-</tr>
 <tr>
   <td class="method">set_font_bin(1)</td>
 </tr>
@@ -8725,6 +8722,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -12932,6 +12932,7 @@ table td
   "std/size_t": [
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TileMaps/MultiMesh"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
