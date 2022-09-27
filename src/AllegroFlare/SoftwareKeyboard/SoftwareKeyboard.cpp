@@ -302,23 +302,31 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
    ALLEGRO_COLOR box_color = AllegroFlare::color::color(ALLEGRO_COLOR{0.7, 0.8, 0.8, 1.0}, 0.2);
 
    float x_cursor = x;
+   ALLEGRO_FONT *result_text_font = obtain_result_text_font();
+   float font_hline_height = al_get_font_line_height(result_text_font) * 0.5;
    for (int i=0; i<num_permitted_chars; i++)
    {
+      // draw box
       al_draw_filled_rectangle(x_cursor, y, x_cursor+box_width, y+box_height, box_color);
+
+      std::string this_char = " ";
+      if (i < result_string.size())
+      {
+         this_char[0] = result_string[i];
+         al_draw_text(
+            result_text_font,
+            ALLEGRO_COLOR{1, 1, 1, 1},
+            x_cursor + box_width * 0.5,
+            y + box_height*0.5 - font_hline_height,
+            ALLEGRO_ALIGN_CENTER,
+            this_char.c_str()
+         );
+      }
+
       x_cursor += box_spacing_x;
    }
 
 
-   ALLEGRO_FONT *result_text_font = obtain_result_text_font();
-   // draw the result string
-   al_draw_text(
-      result_text_font,
-      ALLEGRO_COLOR{1, 1, 1, 1},
-      1920/2, // TODO: make this positioning dynamic
-      1080/7*2-120, // TODO: make this positioning dynamic
-      ALLEGRO_ALIGN_CENTER,
-      result_string.c_str()
-   );
    return;
 }
 
@@ -465,7 +473,7 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_result_text_font()
       throw std::runtime_error(error_message.str());
    }
    std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << (font_size - 10);
+   composite_font_str << font_name << " " << (font_size - 20);
    return font_bin->auto_get(composite_font_str.str());
 }
 
