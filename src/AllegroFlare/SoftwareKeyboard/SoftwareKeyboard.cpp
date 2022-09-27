@@ -464,8 +464,8 @@ void SoftwareKeyboard::render()
       throw std::runtime_error(error_message.str());
    }
    // this is a soft "update" here to update the live-moving cursor location
-   cursor_location = (cursor_destination - cursor_location) * 0.5 + cursor_location;
-   cursor_size = (cursor_size_destination - cursor_size) * 0.5 + cursor_size;
+   cursor_location = (cursor_destination - cursor_location) * 0.55 + cursor_location;
+   cursor_size = (cursor_size_destination - cursor_size) * 0.55 + cursor_size;
 
    keyboard_placement.start_transform();
 
