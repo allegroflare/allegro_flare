@@ -23,7 +23,7 @@ properties:
     setter: true
 
   - name: keys
-    type: std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
+    type: tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
     init_with: '{}'
     getter_ref: true
     setter: false
@@ -95,7 +95,7 @@ functions:
   - name: set_keys
     parameters:
       - name: keys
-        type: std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
+        type: tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
         default_argument: '{}'
     body: |
       this->keys = keys;
@@ -147,6 +147,24 @@ functions:
       - al_is_system_installed
       - al_is_primitives_addon_initialized
       - al_is_font_addon_initialized
+
+
+  - name: press_key_under_cursor
+    body: |
+      if (keys.empty()) return;
+      int i=0;
+      for (auto &key_dictionary_element : keys)
+      {
+         if (cursor_pos == i)
+         {
+            // TODO: press key by name
+            press_key_by_name(key_dictionary_element.first);
+            return;
+         }
+         i++;
+      }
+      return;
+      return;
 
 
   - name: press_key_by_name
@@ -210,6 +228,7 @@ functions:
             cursor_location.y = key.get_y();
             cursor_size.x = key.get_width();
             cursor_size.y = key.get_height();
+            return;
          }
          i++;
       }
@@ -449,7 +468,7 @@ functions:
 
   - name: build_boilerplate_keyboard_keys
     static: true
-    type: std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
+    type: tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
     body: |
       float x_spacing = 65;
       float y_spacing = 70;
@@ -461,7 +480,7 @@ functions:
       float ok_width = 140;
       float right_edge = calculated_dimentions.x;
 
-      std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
+      tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
         // row 1
 
         { "A", { "A", x_spacing*0,                  y_spacing*0, 80, 80 } },
@@ -590,6 +609,8 @@ functions:
 dependencies:
 
 
+  - symbol: tsl::ordered_map
+    headers: [ lib/ordered_map.h ]
   - symbol: AllegroFlare::SoftwareKeyboard::KeyboardKey
     headers: [ AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp ]
   - symbol: AllegroFlare::Vec2D

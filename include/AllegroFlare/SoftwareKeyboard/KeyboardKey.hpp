@@ -37,10 +37,10 @@ namespace AllegroFlare
          float get_width() const;
          float get_height() const;
          float get_last_pressed_at() const;
-         float get_x2();
-         float get_center();
-         float get_middle();
-         float get_y2();
+         float get_x2() const;
+         float get_center() const;
+         float get_middle() const;
+         float get_y2() const;
       };
    }
 }

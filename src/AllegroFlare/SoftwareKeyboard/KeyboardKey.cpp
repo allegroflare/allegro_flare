@@ -99,22 +99,22 @@ float KeyboardKey::get_last_pressed_at() const
 }
 
 
-float KeyboardKey::get_x2()
+float KeyboardKey::get_x2() const
 {
    return x+width;
 }
 
-float KeyboardKey::get_center()
+float KeyboardKey::get_center() const
 {
    return x+width * 0.5;
 }
 
-float KeyboardKey::get_middle()
+float KeyboardKey::get_middle() const
 {
    return y+height * 0.5;
 }
 
-float KeyboardKey::get_y2()
+float KeyboardKey::get_y2() const
 {
    return y+height;
 }

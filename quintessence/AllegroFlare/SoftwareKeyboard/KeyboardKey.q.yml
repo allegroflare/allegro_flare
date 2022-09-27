@@ -48,24 +48,28 @@ functions:
 
   - name: get_x2
     type: float
+    const: true
     body: |
       return x+width;
 
 
   - name: get_center
     type: float
+    const: true
     body: |
       return x+width * 0.5;
 
 
   - name: get_middle
     type: float
+    const: true
     body: |
       return y+height * 0.5;
 
 
   - name: get_y2
     type: float
+    const: true
     body: |
       return y+height;
 

@@ -6,8 +6,8 @@
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
+#include <lib/ordered_map.h>
 #include <string>
-#include <unordered_map>
 
 
 namespace AllegroFlare
@@ -20,7 +20,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          std::string font_name;
          int font_size;
-         std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
+         tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
          int cursor_pos;
          AllegroFlare::Vec2D cursor_location;
          AllegroFlare::Vec2D cursor_size;
@@ -57,20 +57,21 @@ namespace AllegroFlare
          std::string get_prompt_text() const;
          std::string get_result_string() const;
          int get_num_permitted_chars() const;
-         std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
+         tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void TODO();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
-         void set_keys(std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
+         void set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
          void set_keyboard_dimentions(float width=1, float height=1);
          void set_keyboard_position(float x=0, float y=0);
          void initialize();
+         void press_key_under_cursor();
          void press_key_by_name(std::string name="[unset-name]");
          void jump_cursor_pos_to_index_of_key_name(std::string name="[unset-name]");
          void increment_cursor_pos();
          void decrement_cursor_pos();
          void render();
          static AllegroFlare::Vec2D calculate_boilerplate_keyboard_dimentions();
-         static std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();
+         static tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();
       };
    }
 }

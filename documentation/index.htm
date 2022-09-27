@@ -8558,7 +8558,7 @@ table td
 </tr>
 <tr>
   <td class="property">keys</td>
-  <td class="property">std::unordered_map&lt;std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey&gt;</td>
+  <td class="property">tsl::ordered_map&lt;std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey&gt;</td>
 </tr>
 <tr>
   <td class="property">cursor_pos</td>
@@ -8617,6 +8617,9 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
+  <td class="method">press_key_under_cursor()</td>
+</tr>
+<tr>
   <td class="method">press_key_by_name(1)</td>
 </tr>
 <tr>
@@ -8660,6 +8663,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;tsl::ordered_map&quot;, &quot;headers&quot;=&gt;[&quot;lib/ordered_map.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SoftwareKeyboard::KeyboardKey&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp&quot;]}</td>
 </tr>
@@ -13358,6 +13364,9 @@ table td
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/Shaders/AllegroDefault"
+  ],
+  "tsl/ordered_map": [
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"

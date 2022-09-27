@@ -190,9 +190,6 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    software_keyboard.set_keyboard_dimentions(keyboard_dimentions.x, keyboard_dimentions.y);
    software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
 
-   //AllegroFlare::Elements::AchievementsList achievements_list(&get_font_bin_ref());
-   //achievements_list.set_achievements(AllegroFlare::Elements::AchievementsList::build_placeholder_achievements());
-
    // run the interactive test
    al_start_timer(primary_timer);
    while(!abort)
@@ -210,7 +207,11 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  software_keyboard.increment_cursor_pos();
+                  software_keyboard.decrement_cursor_pos();
+               break;
+
+               case ALLEGRO_KEY_ENTER:
+                  software_keyboard.press_key_under_cursor();
                break;
             }
          }

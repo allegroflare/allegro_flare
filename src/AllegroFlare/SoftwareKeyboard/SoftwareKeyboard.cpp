@@ -111,7 +111,7 @@ int SoftwareKeyboard::get_num_permitted_chars() const
 }
 
 
-std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &SoftwareKeyboard::get_keys_ref()
+tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &SoftwareKeyboard::get_keys_ref()
 {
    return keys;
 }
@@ -135,7 +135,7 @@ void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
-void SoftwareKeyboard::set_keys(std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys)
+void SoftwareKeyboard::set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys)
 {
    this->keys = keys;
    cursor_pos = 0;
@@ -186,6 +186,24 @@ void SoftwareKeyboard::initialize()
    keyboard_placement.position.x = 1920/2;
    keyboard_placement.position.y = 1080/2;
    initialized = true;
+   return;
+}
+
+void SoftwareKeyboard::press_key_under_cursor()
+{
+   if (keys.empty()) return;
+   int i=0;
+   for (auto &key_dictionary_element : keys)
+   {
+      if (cursor_pos == i)
+      {
+         // TODO: press key by name
+         press_key_by_name(key_dictionary_element.first);
+         return;
+      }
+      i++;
+   }
+   return;
    return;
 }
 
@@ -250,6 +268,7 @@ void SoftwareKeyboard::update_cursor_location()
          cursor_location.y = key.get_y();
          cursor_size.x = key.get_width();
          cursor_size.y = key.get_height();
+         return;
       }
       i++;
    }
@@ -485,7 +504,7 @@ AllegroFlare::Vec2D SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions(
    return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 500);
 }
 
-std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
+tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
 {
    float x_spacing = 65;
    float y_spacing = 70;
@@ -497,7 +516,7 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
    float ok_width = 140;
    float right_edge = calculated_dimentions.x;
 
-   std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
+   tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
      // row 1
 
      { "A", { "A", x_spacing*0,                  y_spacing*0, 80, 80 } },
