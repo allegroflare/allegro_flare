@@ -33,6 +33,7 @@ namespace AllegroFlare
          void update_cursor_location();
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();
+         void draw_cursor();
          void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
          ALLEGRO_FONT* obtain_keyboard_font();

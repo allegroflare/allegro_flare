@@ -588,7 +588,8 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Image"
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
     "AllegroFlare/Elements/Backgrounds/Image",
@@ -750,7 +751,8 @@
   "AllegroFlare/interpolator": [
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",
