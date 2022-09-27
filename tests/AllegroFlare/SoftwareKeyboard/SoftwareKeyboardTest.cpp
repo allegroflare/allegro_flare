@@ -172,7 +172,6 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
    al_register_event_source(event_queue, al_get_keyboard_event_source());
    al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
-   //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    bool abort = false;
    ALLEGRO_EVENT event;
 
