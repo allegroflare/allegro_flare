@@ -128,8 +128,22 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 }
 
 
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   press_key_by_name__when_pressing_the_OK_key__will_emit_an_event)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   press_key_by_name__when_pressing_the_OK_key__when_the_result_string_is_blank__will_not_emit_an_event)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
-   CAPTURE__render__will_work_as_expected)
+   CAPTURE__ACTIVE__will_work_as_expected)
 {
    AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
@@ -139,17 +153,10 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
       AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions();
    software_keyboard.set_keyboard_dimentions(keyboard_dimentions.x, keyboard_dimentions.y);
    software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
-   //software_keyboard.set_font_name("Lora-MediumItalic.ttf");
-   software_keyboard.set_font_name("Lora-Medium.ttf");
-   software_keyboard.set_font_name("ChronoTrigger.ttf");
-   software_keyboard.set_prompt_text("Enter your name");
+   software_keyboard.set_font_name("Lora-MediumItalic.ttf");
 
-
-
-   //std::vector<std::string> key_names_to_press = { "C", "h", "a", "r", "BACKSPACE", "r", "l", "i", "e", };
-   std::vector<std::string> key_names_to_press = { "P", "r", "i", "n", "c", "e", "s", "s", };
-
-   //sleep_for(0.2);
+   std::vector<std::string> key_names_to_press =
+      { "P", "r", "i", "n", "BACKSPACE", "n", "c", "e", "s", "s", "SPACE", "1" };
 
    for (auto &key_name_to_press : key_names_to_press)
    {
@@ -158,15 +165,14 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
       clear();
       software_keyboard.render();
       al_flip_display();
-      //sleep_for(0.3);
    }
 
-   //sleep_for(0.2);
+   EXPECT_EQ("Princess 1", software_keyboard.get_result_string());
 }
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
-   INTERACTIVE__will_work_as_expected)
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
