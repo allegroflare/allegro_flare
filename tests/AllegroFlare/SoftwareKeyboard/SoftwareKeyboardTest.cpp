@@ -211,11 +211,24 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
                break;
 
                case ALLEGRO_KEY_ENTER:
-                  software_keyboard.press_key_under_cursor();
+                  {
+                     bool shift = (event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT);
+                     if (shift) { software_keyboard.press_key_by_name("OK"); }
+                     else { software_keyboard.press_key_under_cursor(); }
+                  }
                break;
 
                case ALLEGRO_KEY_BACKSPACE:
                   software_keyboard.press_key_by_name("BACKSPACE");
+               break;
+
+               case ALLEGRO_KEY_SPACE:
+                  software_keyboard.press_key_by_name("SPACE");
+               break;
+
+               default:
+                  std::string s(1, event.keyboard.unichar);
+                  software_keyboard.press_key_by_name(s);
                break;
             }
          }
