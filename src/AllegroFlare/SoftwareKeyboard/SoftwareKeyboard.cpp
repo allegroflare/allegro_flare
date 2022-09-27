@@ -167,6 +167,10 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       result_string += name;
    }
 
+   // BREAKPOINT
+
+   jump_cursor_pos_to_index_of_key_name(name);
+   update_cursor_location();
    key.set_last_pressed_at(al_get_time());
    return;
 }
@@ -191,18 +195,28 @@ void SoftwareKeyboard::update_cursor_location()
    return;
 }
 
+void SoftwareKeyboard::jump_cursor_pos_to_index_of_key_name(std::string name)
+{
+   // TODO: logic for this function
+   int i=0;
+   for (auto &key_dictionary_element : keys)
+   {
+      if (name == key_dictionary_element.first)
+      {
+         // NOTE: this key_dictionary_element is the named key we're looking for
+         cursor_pos = i;
+         return;
+      }
+      i++;
+   }
+   return;
+}
+
 void SoftwareKeyboard::increment_cursor_pos()
 {
    if (keys.empty()) return; // TODO: play bonk sound
    cursor_pos++;
    while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
-   update_cursor_location();
-   return;
-}
-
-void SoftwareKeyboard::jump_cursor_pos_to_key_name(std::string name)
-{
-   // TODO: logic for this function
    update_cursor_location();
    return;
 }

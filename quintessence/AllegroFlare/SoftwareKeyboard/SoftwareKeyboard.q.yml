@@ -127,6 +127,10 @@ functions:
          result_string += name;
       }
 
+      // BREAKPOINT
+
+      jump_cursor_pos_to_index_of_key_name(name);
+      update_cursor_location();
       key.set_last_pressed_at(al_get_time());
       return;
 
@@ -152,22 +156,32 @@ functions:
       return;
 
 
-  - name: increment_cursor_pos
-    body: |
-      if (keys.empty()) return; // TODO: play bonk sound
-      cursor_pos++;
-      while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
-      update_cursor_location();
-      return;
-
-
-  - name: jump_cursor_pos_to_key_name
+  - name: jump_cursor_pos_to_index_of_key_name
     parameters:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
     body: |
       // TODO: logic for this function
+      int i=0;
+      for (auto &key_dictionary_element : keys)
+      {
+         if (name == key_dictionary_element.first)
+         {
+            // NOTE: this key_dictionary_element is the named key we're looking for
+            cursor_pos = i;
+            return;
+         }
+         i++;
+      }
+      return;
+
+
+  - name: increment_cursor_pos
+    body: |
+      if (keys.empty()) return; // TODO: play bonk sound
+      cursor_pos++;
+      while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
       update_cursor_location();
       return;
 
