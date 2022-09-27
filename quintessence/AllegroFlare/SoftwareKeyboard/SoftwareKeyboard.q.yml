@@ -487,18 +487,128 @@ functions:
     body: |
        if (keys.empty()) return;
 
-       // special case solution
-
        std::map<std::string, std::string> up_move_destination_exceptions = {
-          { "Y", "A" },
-          { "Z", "B" },
+
+          // row 1
+
+          { "A", "G" },
+          { "B", "H" },
+          { "C", "I" },
+          { "D", "J" },
+          { "E", "K" },
+          { "F", "L" },
+
+          { "a", "g" },
+          { "b", "h" },
+          { "c", "i" },
+          { "d", "j" },
+          { "e", "k" },
+          { "f", "l" },
+
+          { "0", "6" },
+          { "1", "7" },
+          { "2", "8" },
+          { "3", "9" },
+          { "4", "." },
+          { "5", "-" },
+
+          // row 2
+
+          { "G", "M" },
+          { "H", "N" },
+          { "I", "O" },
+          { "J", "P" },
+          { "K", "Q" },
+          { "L", "R" },
+
+          { "g", "m" },
+          { "h", "n" },
+          { "i", "o" },
+          { "j", "p" },
+          { "k", "q" },
+          { "l", "r" },
+
+          { "6", "BACKSPACE" },
+          { "7", "BACKSPACE" },
+          { "8", "BACKSPACE" },
+          { "9", "OK" },
+          { ".", "OK" },
+          { "-", "OK" },
+
+          // row 3
+
+          { "M", "S" },
+          { "N", "T" },
+          { "O", "U" },
+          { "P", "V" },
+          { "Q", "W" },
+          { "R", "X" },
+              
+          { "m", "s" },
+          { "n", "t" },
+          { "o", "u" },
+          { "p", "v" },
+          { "q", "w" },
+          { "r", "x" },
+
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+
+          // row 4
+
+          { "S", "Y" },
+          { "T", "Z" },
           { "U", "C" },
           { "V", "D" },
           { "W", "E" },
           { "X", "F" },
+              
+          { "s", "y" },
+          { "t", "z" },
+          { "u", "SPACE" },
+          { "v", "SPACE" },
+          { "w", "SPACE" },
           { "x", "BACKSPACE" },
+
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+
+          // row 5
+
+          { "Y", "A" },
+          { "Z", "B" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+
           { "y", "SPACE" },
-          { "-", "OK" },
+          { "z", "SPACE" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+          //{ "X", "X" },
+
+          // bottom row
+
+          { "BACKSPACE", "0" },
+          { "SPACE", "a" },
+          { "OK", "4" },
        };
 
        std::string current_key_name = infer_current_key_name();
@@ -526,39 +636,6 @@ functions:
           return;
        }
 
-       // algorithmic solution
-
-       std::vector<std::string> plus18{
-          "A", "B", "C", "D", "E", "F",   "a", "b", "c", "d", "e", "f",   "0", "1", "2", "3", "4", "5",
-          "G", "H", "I", "J", "K", "L",   "g", "h", "i", "j", "k", "l", 
-       };
-       if (std::find(plus18.begin(), plus18.end(), current_key_name) != plus18.end())
-       {
-          cursor_pos += 18;
-          update_cursor_location();
-          return;
-       };
-
-       std::vector<std::string> plus12{
-          "M", "N", "O", "P", "Q", "R",   "m", "n", "o", "p", "q", "r",
-          "S", "T",                       "s", "t",
-       };
-       if (std::find(plus12.begin(), plus12.end(), current_key_name) != plus12.end())
-       {
-          cursor_pos += 12;
-          update_cursor_location();
-          return;
-       };
-
-       std::vector<std::string> minus18{
-          "6", "7", "8", "9", ".", "-",
-       };
-       if (std::find(minus18.begin(), minus18.end(), current_key_name) != minus18.end())
-       {
-          cursor_pos -= 18;
-          update_cursor_location();
-          return;
-       };
 
        return;
 
@@ -576,6 +653,7 @@ functions:
           { "D", "V" },
           { "E", "W" },
           { "F", "X" },
+
           { "BACKSPACE", "x" },
           { "SPACE", "y" },
           { "OK", "-" },
@@ -605,41 +683,6 @@ functions:
           
           return;
        }
-
-       // algorithmic solution
-
-       std::vector<std::string> minus18{
-          "A", "B", "C", "D", "E", "F",   "a", "b", "c", "d", "e", "f",   "0", "1", "2", "3", "4", "5",
-          "G", "H", "I", "J", "K", "L",   "g", "h", "i", "j", "k", "l", 
-       };
-       if (std::find(minus18.begin(), minus18.end(), current_key_name) != minus18.end())
-       {
-          cursor_pos -= 18;
-          update_cursor_location();
-          return;
-       };
-
-       std::vector<std::string> minus12{
-          "M", "N", "O", "P", "Q", "R",   "m", "n", "o", "p", "q", "r",
-          "S", "T",                       "s", "t",
-       };
-       if (std::find(minus12.begin(), minus12.end(), current_key_name) != minus12.end())
-       {
-          cursor_pos -= 12;
-          update_cursor_location();
-          return;
-       };
-
-       std::vector<std::string> plus18{
-          "6", "7", "8", "9", ".", "-",
-       };
-       if (std::find(plus18.begin(), plus18.end(), current_key_name) != plus18.end())
-       {
-          cursor_pos += 18;
-          update_cursor_location();
-          return;
-       };
-
 
        return;
     body_dependency_symbols:
