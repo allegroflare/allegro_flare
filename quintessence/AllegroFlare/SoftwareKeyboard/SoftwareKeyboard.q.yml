@@ -90,6 +90,10 @@ properties:
     static: true
     init_with: '"submit_software_keyboard"'
 
+  - name: cursor_location
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
 
 functions:
 
@@ -394,10 +398,10 @@ functions:
       float thickness = 6.0;
 
       al_draw_rounded_rectangle(
-         cursor_destination.x,
-         cursor_destination.y,
-         cursor_destination.x + cursor_size.x,
-         cursor_destination.y + cursor_size.y,
+         cursor_location.x,
+         cursor_location.y,
+         cursor_location.x + cursor_size.x,
+         cursor_location.y + cursor_size.y,
          r,
          r,
          color,
@@ -413,6 +417,9 @@ functions:
   - name: render
     guards: [ initialized ]
     body: |
+      // this is a soft "update" here to update the live-moving cursor location
+      cursor_location = (cursor_destination - cursor_location) * 0.5 + cursor_location;
+
       keyboard_placement.start_transform();
 
       // draw backfill and frame

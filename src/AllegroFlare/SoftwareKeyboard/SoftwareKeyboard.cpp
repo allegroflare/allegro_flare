@@ -36,6 +36,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , result_string({})
    , num_permitted_chars(12)
    , event_to_emit_on_pressing_ok_key(DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY)
+   , cursor_location({})
 {
 }
 
@@ -440,10 +441,10 @@ void SoftwareKeyboard::draw_cursor()
    float thickness = 6.0;
 
    al_draw_rounded_rectangle(
-      cursor_destination.x,
-      cursor_destination.y,
-      cursor_destination.x + cursor_size.x,
-      cursor_destination.y + cursor_size.y,
+      cursor_location.x,
+      cursor_location.y,
+      cursor_location.x + cursor_size.x,
+      cursor_location.y + cursor_size.y,
       r,
       r,
       color,
@@ -460,6 +461,9 @@ void SoftwareKeyboard::render()
       error_message << "SoftwareKeyboard" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // this is a soft "update" here to update the live-moving cursor location
+   cursor_location = (cursor_destination - cursor_location) * 0.5 + cursor_location;
+
    keyboard_placement.start_transform();
 
    // draw backfill and frame

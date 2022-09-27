@@ -37,6 +37,7 @@ namespace AllegroFlare
          std::string result_string;
          std::size_t num_permitted_chars;
          std::string event_to_emit_on_pressing_ok_key;
+         AllegroFlare::Vec2D cursor_location;
          void update_cursor_destination();
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();
