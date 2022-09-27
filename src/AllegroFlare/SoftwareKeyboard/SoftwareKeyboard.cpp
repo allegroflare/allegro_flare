@@ -298,7 +298,7 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
    float box_spacing_x = 60;
    float calculated_width = num_permitted_chars * box_spacing_x; // TODO: this is not 100% accurate
    float x = 1920/2 - calculated_width / 2;
-   float y = 1920/12*2 - 140;
+   float y = 1920/12*2 - 120;
    ALLEGRO_COLOR box_color = AllegroFlare::color::color(ALLEGRO_COLOR{0.7, 0.8, 0.8, 1.0}, 0.2);
 
    float x_cursor = x;
@@ -393,7 +393,7 @@ void SoftwareKeyboard::render()
       prompt_text_font,
       ALLEGRO_COLOR{1, 1, 1, 1},
       1920/2, // TODO: make this positioning dynamic
-      1080/7*1-80, // TODO: make this positioning dynamic
+      1080/7*1-85, // TODO: make this positioning dynamic
       ALLEGRO_ALIGN_CENTER,
       prompt_text.c_str()
    );

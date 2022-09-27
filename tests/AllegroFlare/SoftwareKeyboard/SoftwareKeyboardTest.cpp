@@ -133,8 +133,9 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    AllegroFlare::Vec2D keyboard_dimentions =
       AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions();
    software_keyboard.set_keyboard_dimentions(keyboard_dimentions.x, keyboard_dimentions.y);
-   software_keyboard.set_keyboard_position(1920/2, 1080/12*7);
-   software_keyboard.set_font_name("Lora-MediumItalic.ttf");
+   software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
+   //software_keyboard.set_font_name("Lora-MediumItalic.ttf");
+   software_keyboard.set_font_name("Lora-Medium.ttf");
 
 
    //std::vector<std::string> key_names_to_press = { "C", "h", "a", "r", "BACKSPACE", "r", "l", "i", "e", };
