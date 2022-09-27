@@ -429,7 +429,18 @@ functions:
          ALLEGRO_COLOR key_color = ALLEGRO_COLOR{1, 1, 1, 1};
          auto &key = key_dictionary_element.second;
          float pressed_age = time_now - key.get_last_pressed_at();
-         if (pressed_age <= 1.0) key_color = ALLEGRO_COLOR{0.24, 1, 1, 1};
+         float motion_duration = 0.6;
+         float y_offset = 0.0f;
+         if (pressed_age <= motion_duration)
+         {
+            float normalized_effect_time = pressed_age / motion_duration;
+            float inv_normalized_effect_time = 1.0 - normalized_effect_time;
+            float fast_curve = inv_normalized_effect_time * inv_normalized_effect_time;
+            ALLEGRO_COLOR color_a = al_color_name("aquamarine");
+            ALLEGRO_COLOR color_b = key_color;
+            key_color = AllegroFlare::color::mix(color_a, color_b, 1.0 - fast_curve);
+            y_offset = 8 * inv_normalized_effect_time * inv_normalized_effect_time;
+         }
 
          if (show_rectangle_outline_on_keys)
          {
@@ -446,7 +457,7 @@ functions:
             font,
             key_color,
             key.get_center(),
-            key.get_middle() - font_hline_height,
+            key.get_middle() - font_hline_height + y_offset,
             ALLEGRO_ALIGN_CENTER,
             key.get_label().c_str()
          );
