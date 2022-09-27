@@ -496,9 +496,30 @@ functions:
           { "BACKSPACE", "x" },
        };
 
-       std::string current_key_name = "";
+       std::string current_key_name = infer_current_key_name();
+       if (current_key_name.empty()) return;
 
-       //if (up_move_destination_exceptions(
+       if (keys.count(current_key_name) >= 1)
+       {
+          // key is found in the exception dictionary
+          std::string key_name_to_move_to = up_move_destination_exceptions[current_key_name];
+          if (keys.count(key_name_to_move_to) <= 0)
+          {
+             // TODO: test this condition
+             std::stringstream error_message;
+             error_message << "[AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::move_cursor_to_pos]: WARNING: "
+                           << "Attempting to move cursor to key named \"" << key_name_to_move_to << "\" but it does "
+                           << "not exist.";
+             std::cout << error_message.str() << std::endl;
+             return;
+          }
+
+          // move to the destination key and return
+          jump_cursor_pos_to_index_of_key_name(key_name_to_move_to);
+          update_cursor_location();
+          
+          return;
+       }
        return;
     body_dependency_symbols:
       - std::map
