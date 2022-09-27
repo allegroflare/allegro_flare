@@ -480,6 +480,7 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/Screens/Base": [

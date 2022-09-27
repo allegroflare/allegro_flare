@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
 
+#include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -295,6 +296,36 @@ void SoftwareKeyboard::render()
       result_string.c_str()
    );
 
+   return;
+}
+
+void SoftwareKeyboard::draw_backfill_and_frame()
+{
+   ALLEGRO_COLOR backfill_color = AllegroFlare::color::color(al_color_html("303030"), 0.3);
+   ALLEGRO_COLOR border_color = AllegroFlare::color::color(al_color_html("ffffff"), 0.8);
+   float roundness = 8.0f;
+   float border_thickness = 8.0f;
+   float border_padding = border_thickness * 1.75f;
+
+   al_draw_filled_rounded_rectangle(
+      0,
+      0,
+      keyboard_placement.size.x,
+      keyboard_placement.size.y,
+      roundness,
+      roundness,
+      backfill_color
+   );
+   al_draw_rounded_rectangle(
+      0 - border_padding,
+      0 - border_padding,
+      keyboard_placement.size.x + border_padding,
+      keyboard_placement.size.y + border_padding,
+      roundness,
+      roundness,
+      border_color,
+      border_thickness
+   );
    return;
 }
 

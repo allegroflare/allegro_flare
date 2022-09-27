@@ -29,6 +29,7 @@ namespace AllegroFlare
          AllegroFlare::Placement2D keyboard_placement;
          std::string result_string;
          void update_cursor_location();
+         void draw_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
          ALLEGRO_FONT* obtain_font();
 
