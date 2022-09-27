@@ -110,6 +110,13 @@ void SoftwareKeyboard::set_keys(std::unordered_map<std::string, AllegroFlare::So
    return;
 }
 
+void SoftwareKeyboard::set_keyboard_dimentions(float width, float height)
+{
+   keyboard_placement.size.x = width;
+   keyboard_placement.size.y = height;
+   return;
+}
+
 void SoftwareKeyboard::initialize()
 {
    if (!(al_is_system_installed()))
@@ -136,8 +143,8 @@ void SoftwareKeyboard::initialize()
       error_message << "SoftwareKeyboard" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   keyboard_placement.position.x = 200;
-   keyboard_placement.position.y = 200;
+   keyboard_placement.position.x = 1920/2;
+   keyboard_placement.position.y = 1080/2;
    initialized = true;
    return;
 }
@@ -309,11 +316,19 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_font()
    return font_bin->auto_get(composite_font_str.str());
 }
 
+AllegroFlare::Vec2D SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions()
+{
+   float x_spacing = 65;
+   float y_spacing = 70;
+   float column_spacing = 450;
+   return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 700);
+}
+
 std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
 {
-   float x_spacing = 70;
-   float y_spacing = 90;
-   float column_spacing = 500;
+   float x_spacing = 65;
+   float y_spacing = 70;
+   float column_spacing = 450;
    std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
      // row 1
 

@@ -50,12 +50,14 @@ namespace AllegroFlare
          std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_keys(std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
+         void set_keyboard_dimentions(float width=1, float height=1);
          void initialize();
          void press_key_by_name(std::string name="[unset-name]");
          void jump_cursor_pos_to_index_of_key_name(std::string name="[unset-name]");
          void increment_cursor_pos();
          void decrement_cursor_pos();
          void render();
+         static AllegroFlare::Vec2D calculate_boilerplate_keyboard_dimentions();
          static std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();
       };
    }

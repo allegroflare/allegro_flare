@@ -86,6 +86,20 @@ functions:
       return;
 
 
+  - name: set_keyboard_dimentions
+    parameters:
+      - name: width
+        type: float
+        default_argument: 1
+      - name: height
+        type: float
+        default_argument: 1
+    body: |
+      keyboard_placement.size.x = width;
+      keyboard_placement.size.y = height;
+      return;
+
+
   - name: initialize
     guards:
       - al_is_system_installed()
@@ -93,8 +107,8 @@ functions:
       - al_is_font_addon_initialized()
       - font_bin
     body: |
-      keyboard_placement.position.x = 200;
-      keyboard_placement.position.y = 200;
+      keyboard_placement.position.x = 1920/2;
+      keyboard_placement.position.y = 1080/2;
       initialized = true;
       return;
     body_dependency_symbols:
@@ -272,13 +286,23 @@ functions:
       return font_bin->auto_get(composite_font_str.str());
 
 
+  - name: calculate_boilerplate_keyboard_dimentions
+    static: true
+    type: AllegroFlare::Vec2D
+    body: |
+      float x_spacing = 65;
+      float y_spacing = 70;
+      float column_spacing = 450;
+      return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 700);
+
+
   - name: build_boilerplate_keyboard_keys
     static: true
     type: std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey>
     body: |
-      float x_spacing = 70;
-      float y_spacing = 90;
-      float column_spacing = 500;
+      float x_spacing = 65;
+      float y_spacing = 70;
+      float column_spacing = 450;
       std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
         // row 1
 
