@@ -1,5 +1,6 @@
 properties:
 
+
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     constructor_arg: true
