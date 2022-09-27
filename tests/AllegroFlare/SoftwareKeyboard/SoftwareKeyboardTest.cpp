@@ -140,10 +140,10 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
       clear();
       software_keyboard.render();
       al_flip_display();
-      sleep_for(0.2);
+      //sleep_for(0.2);
    }
 
-   sleep_for(1);
+   sleep_for(0.2);
 }
 
 
