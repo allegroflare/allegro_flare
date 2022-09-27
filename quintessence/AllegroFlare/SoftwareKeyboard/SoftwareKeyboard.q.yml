@@ -252,6 +252,7 @@ functions:
          {
             // TODO: ensure concating "string_to_append" will not result in a result_string that is longer than limit
             result_string += string_to_append;
+            // TODO: play click keypress sound
          }
       }
 
