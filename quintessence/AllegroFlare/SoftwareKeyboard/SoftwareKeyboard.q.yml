@@ -1,5 +1,11 @@
 properties:
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
 
   - name: font_bin
     type: AllegroFlare::FontBin*
@@ -138,6 +144,7 @@ functions:
       - al_is_primitives_addon_initialized()
       - al_is_font_addon_initialized()
       - font_bin
+      - event_emitter
     body: |
       keyboard_placement.position.x = 1920/2;
       keyboard_placement.position.y = 1080/2;
@@ -186,7 +193,18 @@ functions:
          if (result_string.empty()) {} // TODO; play bonk sound
          else result_string.pop_back();
       }
-      else if (name == "OK") {} // TODO: logic for this condition
+      else if (name == "OK")
+      {
+         // TODO: logic for this condition
+         if (result_string.empty())
+         {
+            // TODO: play bonk sound
+         }
+         else
+         {
+            event_emitter->emit_game_event(AllegroFlare::GameEvent("submit_software_keyboard"));
+         }
+      }
       else
       {
          // NOTE: assume the "name" is the character we want to append
@@ -1000,5 +1018,7 @@ dependencies:
     headers: [ cmath ]
   - symbol: AllegroFlare::interpolator
     headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 
 

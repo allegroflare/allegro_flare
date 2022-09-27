@@ -19,8 +19,9 @@ namespace SoftwareKeyboard
 {
 
 
-SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string font_name, int font_size)
-   : font_bin(font_bin)
+SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string font_name, int font_size)
+   : event_emitter(event_emitter)
+   , font_bin(font_bin)
    , font_name(font_name)
    , font_size(font_size)
    , keys({})
@@ -39,6 +40,12 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
 
 SoftwareKeyboard::~SoftwareKeyboard()
 {
+}
+
+
+void SoftwareKeyboard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
 }
 
 
@@ -69,6 +76,12 @@ void SoftwareKeyboard::set_result_string(std::string result_string)
 void SoftwareKeyboard::set_num_permitted_chars(int num_permitted_chars)
 {
    this->num_permitted_chars = num_permitted_chars;
+}
+
+
+AllegroFlare::EventEmitter* SoftwareKeyboard::get_event_emitter() const
+{
+   return event_emitter;
 }
 
 
@@ -186,6 +199,12 @@ void SoftwareKeyboard::initialize()
       error_message << "SoftwareKeyboard" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    keyboard_placement.position.x = 1920/2;
    keyboard_placement.position.y = 1080/2;
    initialized = true;
@@ -230,7 +249,18 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       if (result_string.empty()) {} // TODO; play bonk sound
       else result_string.pop_back();
    }
-   else if (name == "OK") {} // TODO: logic for this condition
+   else if (name == "OK")
+   {
+      // TODO: logic for this condition
+      if (result_string.empty())
+      {
+         // TODO: play bonk sound
+      }
+      else
+      {
+         event_emitter->emit_game_event(AllegroFlare::GameEvent("submit_software_keyboard"));
+      }
+   }
    else
    {
       // NOTE: assume the "name" is the character we want to append

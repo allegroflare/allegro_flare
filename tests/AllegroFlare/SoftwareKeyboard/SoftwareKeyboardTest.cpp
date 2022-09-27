@@ -18,6 +18,7 @@ class AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixt
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <allegro5/allegro_color.h> // for al_color_name();
 #include <AllegroFlare/EventEmitter.hpp> // for al_color_name();
+#include <AllegroFlare/EventNames.hpp> // for ALLEGRO_FLARE_EVENT_GAME_EVENT
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, can_be_created_without_blowing_up)
@@ -77,7 +78,8 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, initialize__without_a
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
-   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
    software_keyboard.initialize();
    software_keyboard.render();
 }
@@ -129,7 +131,8 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
    CAPTURE__render__will_work_as_expected)
 {
-   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
    software_keyboard.initialize();
    software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
    AllegroFlare::Vec2D keyboard_dimentions =
@@ -181,7 +184,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
-   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
    software_keyboard.initialize();
    software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
    AllegroFlare::Vec2D keyboard_dimentions =
@@ -239,6 +242,14 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
                break;
             }
          }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_GAME_EVENT:
+            {
+               AllegroFlare::GameEvent *data = static_cast<AllegroFlare::GameEvent *>((void *)event.user.data1);
+               if (!data) throw std::runtime_error("Unexpected GameEvent error");
+               if (data->is_type("submit_software_keyboard")) abort = true;
+            }
          break;
 
          case ALLEGRO_EVENT_TIMER:

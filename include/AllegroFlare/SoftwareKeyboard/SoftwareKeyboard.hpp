@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
@@ -17,6 +18,7 @@ namespace AllegroFlare
       class SoftwareKeyboard
       {
       private:
+         AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          std::string font_name;
          int font_size;
@@ -44,14 +46,16 @@ namespace AllegroFlare
 
 
       public:
-         SoftwareKeyboard(AllegroFlare::FontBin* font_bin=nullptr, std::string font_name="Inter-Medium.ttf", int font_size=-54);
+         SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string font_name="Inter-Medium.ttf", int font_size=-54);
          ~SoftwareKeyboard();
 
+         void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_name(std::string font_name);
          void set_font_size(int font_size);
          void set_prompt_text(std::string prompt_text);
          void set_result_string(std::string result_string);
          void set_num_permitted_chars(int num_permitted_chars);
+         AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_font_name() const;
          int get_font_size() const;
