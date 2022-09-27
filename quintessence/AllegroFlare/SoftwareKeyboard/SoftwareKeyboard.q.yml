@@ -420,12 +420,17 @@ functions:
 
       // draw keys
       int i=0;
+      float time_now = al_get_time();
       ALLEGRO_FONT *font = obtain_keyboard_font();
       ALLEGRO_FONT *prompt_text_font = obtain_prompt_text_font();
       float font_hline_height = al_get_font_line_height(font) / 2;
       for (auto &key_dictionary_element : keys)
       {
+         ALLEGRO_COLOR key_color = ALLEGRO_COLOR{1, 1, 1, 1};
          auto &key = key_dictionary_element.second;
+         float pressed_age = time_now - key.get_last_pressed_at();
+         if (pressed_age <= 1.0) key_color = ALLEGRO_COLOR{0.24, 1, 1, 1};
+
          if (show_rectangle_outline_on_keys)
          {
             al_draw_rectangle(
@@ -439,7 +444,7 @@ functions:
          }
          al_draw_text(
             font,
-            ALLEGRO_COLOR{1, 1, 1, 1},
+            key_color,
             key.get_center(),
             key.get_middle() - font_hline_height,
             ALLEGRO_ALIGN_CENTER,

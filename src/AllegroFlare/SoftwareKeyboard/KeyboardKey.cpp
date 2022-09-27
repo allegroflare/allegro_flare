@@ -17,7 +17,7 @@ KeyboardKey::KeyboardKey(std::string label, float x, float y, float width, float
    , y(y)
    , width(width)
    , height(height)
-   , last_pressed_at(0)
+   , last_pressed_at(-999.0f)
 {
 }
 

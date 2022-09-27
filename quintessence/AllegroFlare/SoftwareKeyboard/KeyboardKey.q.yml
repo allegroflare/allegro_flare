@@ -38,7 +38,7 @@ properties:
 
   - name: last_pressed_at
     type: float
-    init_with: 0
+    init_with: -999.0f
     getter: true
     setter: true
 
