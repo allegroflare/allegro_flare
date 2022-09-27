@@ -201,6 +201,14 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
          {
             switch(event.keyboard.keycode)
             {
+               case ALLEGRO_KEY_UP:
+                  software_keyboard.move_cursor_up();
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  software_keyboard.move_cursor_down();
+               break;
+
                case ALLEGRO_KEY_RIGHT:
                   software_keyboard.increment_cursor_pos();
                break;

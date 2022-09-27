@@ -520,17 +520,22 @@ AllegroFlare::Vec2D SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions(
    return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 500);
 }
 
-void SoftwareKeyboard::move_cursor_pos_down()
-{
-   return;
-}
-
-void SoftwareKeyboard::move_cursor_pos_up()
+void SoftwareKeyboard::move_cursor_down()
 {
    if (keys.empty()) return;
 
+   // special case solution
+
    std::map<std::string, std::string> up_move_destination_exceptions = {
-      { "BACKSPACE", "x" },
+      { "Y", "A" },
+      { "Z", "B" },
+      { "U", "C" },
+      { "V", "D" },
+      { "W", "E" },
+      { "X", "F" },
+      { "x", "BACKSPACE" },
+      { "y", "SPACE" },
+      { "-", "OK" },
    };
 
    std::string current_key_name = infer_current_key_name();
@@ -557,6 +562,122 @@ void SoftwareKeyboard::move_cursor_pos_up()
       
       return;
    }
+
+   // algorithmic solution
+
+   std::vector<std::string> plus18{
+      "A", "B", "C", "D", "E", "F",   "a", "b", "c", "d", "e", "f",   "0", "1", "2", "3", "4", "5",
+      "G", "H", "I", "J", "K", "L",   "g", "h", "i", "j", "k", "l", 
+   };
+   if (std::find(plus18.begin(), plus18.end(), current_key_name) != plus18.end())
+   {
+      cursor_pos += 18;
+      update_cursor_location();
+      return;
+   };
+
+   std::vector<std::string> plus12{
+      "M", "N", "O", "P", "Q", "R",   "m", "n", "o", "p", "q", "r",
+      "S", "T",                       "s", "t",
+   };
+   if (std::find(plus12.begin(), plus12.end(), current_key_name) != plus12.end())
+   {
+      cursor_pos += 12;
+      update_cursor_location();
+      return;
+   };
+
+   std::vector<std::string> minus18{
+      "6", "7", "8", "9", ".", "-",
+   };
+   if (std::find(minus18.begin(), minus18.end(), current_key_name) != minus18.end())
+   {
+      cursor_pos -= 18;
+      update_cursor_location();
+      return;
+   };
+
+   return;
+}
+
+void SoftwareKeyboard::move_cursor_up()
+{
+   if (keys.empty()) return;
+
+   // special case solution
+
+   std::map<std::string, std::string> up_move_destination_exceptions = {
+      { "A", "Y" },
+      { "B", "Z" },
+      { "C", "U" },
+      { "D", "V" },
+      { "E", "W" },
+      { "F", "X" },
+      { "BACKSPACE", "x" },
+      { "SPACE", "y" },
+      { "OK", "-" },
+   };
+
+   std::string current_key_name = infer_current_key_name();
+   if (current_key_name.empty()) return;
+
+   if (keys.count(current_key_name) >= 1)
+   {
+      // key is found in the exception dictionary
+      std::string key_name_to_move_to = up_move_destination_exceptions[current_key_name];
+      if (keys.count(key_name_to_move_to) <= 0)
+      {
+         // TODO: test this condition
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::move_cursor_to_pos]: WARNING: "
+                       << "Attempting to move cursor to key named \"" << key_name_to_move_to << "\" but it does "
+                       << "not exist.";
+         std::cout << error_message.str() << std::endl;
+         return;
+      }
+
+      // move to the destination key and return
+      jump_cursor_pos_to_index_of_key_name(key_name_to_move_to);
+      update_cursor_location();
+      
+      return;
+   }
+
+   // algorithmic solution
+
+   std::vector<std::string> minus18{
+      "A", "B", "C", "D", "E", "F",   "a", "b", "c", "d", "e", "f",   "0", "1", "2", "3", "4", "5",
+      "G", "H", "I", "J", "K", "L",   "g", "h", "i", "j", "k", "l", 
+   };
+   if (std::find(minus18.begin(), minus18.end(), current_key_name) != minus18.end())
+   {
+      cursor_pos -= 18;
+      update_cursor_location();
+      return;
+   };
+
+   std::vector<std::string> minus12{
+      "M", "N", "O", "P", "Q", "R",   "m", "n", "o", "p", "q", "r",
+      "S", "T",                       "s", "t",
+   };
+   if (std::find(minus12.begin(), minus12.end(), current_key_name) != minus12.end())
+   {
+      cursor_pos -= 12;
+      update_cursor_location();
+      return;
+   };
+
+   std::vector<std::string> plus18{
+      "6", "7", "8", "9", ".", "-",
+   };
+   if (std::find(plus18.begin(), plus18.end(), current_key_name) != plus18.end())
+   {
+      cursor_pos += 18;
+      update_cursor_location();
+      return;
+   };
+
+
    return;
 }
 

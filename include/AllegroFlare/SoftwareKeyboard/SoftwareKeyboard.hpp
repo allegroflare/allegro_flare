@@ -72,8 +72,8 @@ namespace AllegroFlare
          void decrement_cursor_pos();
          void render();
          static AllegroFlare::Vec2D calculate_boilerplate_keyboard_dimentions();
-         void move_cursor_pos_down();
-         void move_cursor_pos_up();
+         void move_cursor_down();
+         void move_cursor_up();
          static tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();
       };
    }
