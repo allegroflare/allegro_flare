@@ -17,6 +17,7 @@ class AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixt
 #include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <allegro5/allegro_color.h> // for al_color_name();
+#include <AllegroFlare/EventEmitter.hpp> // for al_color_name();
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, can_be_created_without_blowing_up)
@@ -145,7 +146,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    //std::vector<std::string> key_names_to_press = { "C", "h", "a", "r", "BACKSPACE", "r", "l", "i", "e", };
    std::vector<std::string> key_names_to_press = { "P", "r", "i", "n", "c", "e", "s", "s", };
 
-   sleep_for(0.2);
+   //sleep_for(0.2);
 
    for (auto &key_name_to_press : key_names_to_press)
    {
@@ -154,10 +155,83 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
       clear();
       software_keyboard.render();
       al_flip_display();
-      sleep_for(0.3);
+      //sleep_for(0.3);
    }
 
-   sleep_for(0.2);
+   //sleep_for(0.2);
 }
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
+   INTERACTIVE__will_work_as_expected)
+{
+   // setup system
+   al_install_keyboard();
+   al_install_joystick();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   bool abort = false;
+   ALLEGRO_EVENT event;
+
+   // setup environment
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+
+   // initialize test subject
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&get_font_bin_ref());
+   software_keyboard.initialize();
+   software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
+   AllegroFlare::Vec2D keyboard_dimentions =
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions();
+   software_keyboard.set_keyboard_dimentions(keyboard_dimentions.x, keyboard_dimentions.y);
+   software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
+
+   //AllegroFlare::Elements::AchievementsList achievements_list(&get_font_bin_ref());
+   //achievements_list.set_achievements(AllegroFlare::Elements::AchievementsList::build_placeholder_achievements());
+
+   // run the interactive test
+   al_start_timer(primary_timer);
+   while(!abort)
+   {
+      al_wait_for_event(event_queue, &event);
+
+      switch(event.type)
+      {
+         case ALLEGRO_EVENT_KEY_CHAR:
+         {
+            switch(event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_RIGHT:
+                  software_keyboard.increment_cursor_pos();
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  software_keyboard.increment_cursor_pos();
+               break;
+            }
+         }
+         break;
+
+         case ALLEGRO_EVENT_TIMER:
+            clear();
+            software_keyboard.render();
+            al_flip_display();
+         break;
+      }
+
+      if (event.type == ALLEGRO_EVENT_KEY_CHAR && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) abort = true;
+   }
+   
+   // teardown
+   // TODO: Audit if this teardown is complete. It may require other calls to destroy resources.
+   al_destroy_event_queue(event_queue);
+   al_destroy_timer(primary_timer);
+   al_uninstall_keyboard();
+}
+
 
 
