@@ -31,6 +31,7 @@ namespace AllegroFlare
          std::string result_string;
          int num_permitted_chars;
          void update_cursor_location();
+         void draw_result_string_and_boxes();
          void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
          ALLEGRO_FONT* obtain_keyboard_font();
