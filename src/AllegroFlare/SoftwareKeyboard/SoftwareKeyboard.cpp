@@ -245,6 +245,10 @@ void SoftwareKeyboard::render()
       throw std::runtime_error(error_message.str());
    }
    keyboard_placement.start_transform();
+
+   // draw backfill and frame
+   draw_backfill_and_frame();
+
    // draw keys
    int i=0;
    ALLEGRO_FONT *font = obtain_font();
@@ -303,24 +307,26 @@ void SoftwareKeyboard::draw_backfill_and_frame()
 {
    ALLEGRO_COLOR backfill_color = AllegroFlare::color::color(al_color_html("303030"), 0.3);
    ALLEGRO_COLOR border_color = AllegroFlare::color::color(al_color_html("ffffff"), 0.8);
-   float roundness = 8.0f;
-   float border_thickness = 8.0f;
+   float roundness = 6.0f;
+   float border_thickness = 6.0f;
    float border_padding = border_thickness * 1.75f;
+   float extra_padding_x = 60;
+   float extra_padding_y = 40;
 
    al_draw_filled_rounded_rectangle(
-      0,
-      0,
-      keyboard_placement.size.x,
-      keyboard_placement.size.y,
+      0 - extra_padding_x,
+      0 - extra_padding_y,
+      keyboard_placement.size.x + extra_padding_x,
+      keyboard_placement.size.y + extra_padding_y,
       roundness,
       roundness,
       backfill_color
    );
    al_draw_rounded_rectangle(
-      0 - border_padding,
-      0 - border_padding,
-      keyboard_placement.size.x + border_padding,
-      keyboard_placement.size.y + border_padding,
+      0 - border_padding - extra_padding_x,
+      0 - border_padding - extra_padding_y,
+      keyboard_placement.size.x + border_padding + extra_padding_x,
+      keyboard_placement.size.y + border_padding + extra_padding_y,
       roundness,
       roundness,
       border_color,
@@ -352,7 +358,7 @@ AllegroFlare::Vec2D SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions(
    float x_spacing = 65;
    float y_spacing = 70;
    float column_spacing = 450;
-   return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 600);
+   return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 500);
 }
 
 std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
@@ -370,118 +376,118 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
    std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
      // row 1
 
-     { "A", { "A", x_spacing*0, 100+y_spacing*0, 80, 80 } },
-     { "B", { "B", x_spacing*1, 100+y_spacing*0, 80, 80 } },
-     { "C", { "C", x_spacing*2, 100+y_spacing*0, 80, 80 } },
-     { "D", { "D", x_spacing*3, 100+y_spacing*0, 80, 80 } },
-     { "E", { "E", x_spacing*4, 100+y_spacing*0, 80, 80 } },
-     { "F", { "F", x_spacing*5, 100+y_spacing*0, 80, 80 } },
+     { "A", { "A", x_spacing*0,                  y_spacing*0, 80, 80 } },
+     { "B", { "B", x_spacing*1,                  y_spacing*0, 80, 80 } },
+     { "C", { "C", x_spacing*2,                  y_spacing*0, 80, 80 } },
+     { "D", { "D", x_spacing*3,                  y_spacing*0, 80, 80 } },
+     { "E", { "E", x_spacing*4,                  y_spacing*0, 80, 80 } },
+     { "F", { "F", x_spacing*5,                  y_spacing*0, 80, 80 } },
 
-     { "a", { "a", column_spacing*1+x_spacing*0, 100+y_spacing*0, 80, 80 } },
-     { "b", { "b", column_spacing*1+x_spacing*1, 100+y_spacing*0, 80, 80 } },
-     { "c", { "c", column_spacing*1+x_spacing*2, 100+y_spacing*0, 80, 80 } },
-     { "d", { "d", column_spacing*1+x_spacing*3, 100+y_spacing*0, 80, 80 } },
-     { "e", { "e", column_spacing*1+x_spacing*4, 100+y_spacing*0, 80, 80 } },
-     { "f", { "f", column_spacing*1+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+     { "a", { "a", column_spacing*1+x_spacing*0, y_spacing*0, 80, 80 } },
+     { "b", { "b", column_spacing*1+x_spacing*1, y_spacing*0, 80, 80 } },
+     { "c", { "c", column_spacing*1+x_spacing*2, y_spacing*0, 80, 80 } },
+     { "d", { "d", column_spacing*1+x_spacing*3, y_spacing*0, 80, 80 } },
+     { "e", { "e", column_spacing*1+x_spacing*4, y_spacing*0, 80, 80 } },
+     { "f", { "f", column_spacing*1+x_spacing*5, y_spacing*0, 80, 80 } },
 
-     { "0", { "0", column_spacing*2+x_spacing*0, 100+y_spacing*0, 80, 80 } },
-     { "1", { "1", column_spacing*2+x_spacing*1, 100+y_spacing*0, 80, 80 } },
-     { "2", { "2", column_spacing*2+x_spacing*2, 100+y_spacing*0, 80, 80 } },
-     { "3", { "3", column_spacing*2+x_spacing*3, 100+y_spacing*0, 80, 80 } },
-     { "4", { "4", column_spacing*2+x_spacing*4, 100+y_spacing*0, 80, 80 } },
-     { "5", { "5", column_spacing*2+x_spacing*5, 100+y_spacing*0, 80, 80 } },
+     { "0", { "0", column_spacing*2+x_spacing*0, y_spacing*0, 80, 80 } },
+     { "1", { "1", column_spacing*2+x_spacing*1, y_spacing*0, 80, 80 } },
+     { "2", { "2", column_spacing*2+x_spacing*2, y_spacing*0, 80, 80 } },
+     { "3", { "3", column_spacing*2+x_spacing*3, y_spacing*0, 80, 80 } },
+     { "4", { "4", column_spacing*2+x_spacing*4, y_spacing*0, 80, 80 } },
+     { "5", { "5", column_spacing*2+x_spacing*5, y_spacing*0, 80, 80 } },
 
      // row 2
 
-     { "G", { "G", x_spacing*0, 100+y_spacing*1, 80, 80 } },
-     { "H", { "H", x_spacing*1, 100+y_spacing*1, 80, 80 } },
-     { "I", { "I", x_spacing*2, 100+y_spacing*1, 80, 80 } },
-     { "J", { "J", x_spacing*3, 100+y_spacing*1, 80, 80 } },
-     { "K", { "K", x_spacing*4, 100+y_spacing*1, 80, 80 } },
-     { "L", { "L", x_spacing*5, 100+y_spacing*1, 80, 80 } },
+     { "G", { "G", x_spacing*0,                  y_spacing*1, 80, 80 } },
+     { "H", { "H", x_spacing*1,                  y_spacing*1, 80, 80 } },
+     { "I", { "I", x_spacing*2,                  y_spacing*1, 80, 80 } },
+     { "J", { "J", x_spacing*3,                  y_spacing*1, 80, 80 } },
+     { "K", { "K", x_spacing*4,                  y_spacing*1, 80, 80 } },
+     { "L", { "L", x_spacing*5,                  y_spacing*1, 80, 80 } },
 
-     { "g", { "g", column_spacing*1+x_spacing*0, 100+y_spacing*1, 80, 80 } },
-     { "h", { "h", column_spacing*1+x_spacing*1, 100+y_spacing*1, 80, 80 } },
-     { "i", { "i", column_spacing*1+x_spacing*2, 100+y_spacing*1, 80, 80 } },
-     { "j", { "j", column_spacing*1+x_spacing*3, 100+y_spacing*1, 80, 80 } },
-     { "k", { "k", column_spacing*1+x_spacing*4, 100+y_spacing*1, 80, 80 } },
-     { "l", { "l", column_spacing*1+x_spacing*5, 100+y_spacing*1, 80, 80 } },
+     { "g", { "g", column_spacing*1+x_spacing*0, y_spacing*1, 80, 80 } },
+     { "h", { "h", column_spacing*1+x_spacing*1, y_spacing*1, 80, 80 } },
+     { "i", { "i", column_spacing*1+x_spacing*2, y_spacing*1, 80, 80 } },
+     { "j", { "j", column_spacing*1+x_spacing*3, y_spacing*1, 80, 80 } },
+     { "k", { "k", column_spacing*1+x_spacing*4, y_spacing*1, 80, 80 } },
+     { "l", { "l", column_spacing*1+x_spacing*5, y_spacing*1, 80, 80 } },
 
-     { "6", { "6", column_spacing*2+x_spacing*0, 100+y_spacing*1, 80, 80 } },
-     { "7", { "7", column_spacing*2+x_spacing*1, 100+y_spacing*1, 80, 80 } },
-     { "8", { "8", column_spacing*2+x_spacing*2, 100+y_spacing*1, 80, 80 } },
-     { "9", { "9", column_spacing*2+x_spacing*3, 100+y_spacing*1, 80, 80 } },
-     { ".", { ".", column_spacing*2+x_spacing*4, 100+y_spacing*1, 80, 80 } },
-     { "-", { "-", column_spacing*2+x_spacing*5, 100+y_spacing*1, 80, 80 } },
+     { "6", { "6", column_spacing*2+x_spacing*0, y_spacing*1, 80, 80 } },
+     { "7", { "7", column_spacing*2+x_spacing*1, y_spacing*1, 80, 80 } },
+     { "8", { "8", column_spacing*2+x_spacing*2, y_spacing*1, 80, 80 } },
+     { "9", { "9", column_spacing*2+x_spacing*3, y_spacing*1, 80, 80 } },
+     { ".", { ".", column_spacing*2+x_spacing*4, y_spacing*1, 80, 80 } },
+     { "-", { "-", column_spacing*2+x_spacing*5, y_spacing*1, 80, 80 } },
 
      // row 3
 
-     { "M", { "M", x_spacing*0, 100+y_spacing*2, 80, 80 } },
-     { "N", { "N", x_spacing*1, 100+y_spacing*2, 80, 80 } },
-     { "O", { "O", x_spacing*2, 100+y_spacing*2, 80, 80 } },
-     { "P", { "P", x_spacing*3, 100+y_spacing*2, 80, 80 } },
-     { "Q", { "Q", x_spacing*4, 100+y_spacing*2, 80, 80 } },
-     { "R", { "R", x_spacing*5, 100+y_spacing*2, 80, 80 } },
+     { "M", { "M", x_spacing*0,                  y_spacing*2, 80, 80 } },
+     { "N", { "N", x_spacing*1,                  y_spacing*2, 80, 80 } },
+     { "O", { "O", x_spacing*2,                  y_spacing*2, 80, 80 } },
+     { "P", { "P", x_spacing*3,                  y_spacing*2, 80, 80 } },
+     { "Q", { "Q", x_spacing*4,                  y_spacing*2, 80, 80 } },
+     { "R", { "R", x_spacing*5,                  y_spacing*2, 80, 80 } },
 
-     { "m", { "m", column_spacing*1+x_spacing*0, 100+y_spacing*2, 80, 80 } },
-     { "n", { "n", column_spacing*1+x_spacing*1, 100+y_spacing*2, 80, 80 } },
-     { "o", { "o", column_spacing*1+x_spacing*2, 100+y_spacing*2, 80, 80 } },
-     { "p", { "p", column_spacing*1+x_spacing*3, 100+y_spacing*2, 80, 80 } },
-     { "q", { "q", column_spacing*1+x_spacing*4, 100+y_spacing*2, 80, 80 } },
-     { "r", { "r", column_spacing*1+x_spacing*5, 100+y_spacing*2, 80, 80 } },
+     { "m", { "m", column_spacing*1+x_spacing*0, y_spacing*2, 80, 80 } },
+     { "n", { "n", column_spacing*1+x_spacing*1, y_spacing*2, 80, 80 } },
+     { "o", { "o", column_spacing*1+x_spacing*2, y_spacing*2, 80, 80 } },
+     { "p", { "p", column_spacing*1+x_spacing*3, y_spacing*2, 80, 80 } },
+     { "q", { "q", column_spacing*1+x_spacing*4, y_spacing*2, 80, 80 } },
+     { "r", { "r", column_spacing*1+x_spacing*5, y_spacing*2, 80, 80 } },
 
-     //{ "~", { "~", column_spacing*2+x_spacing*0, 100+y_spacing*2, 80, 80 } },
-     //{ "~", { "~", column_spacing*2+x_spacing*1, 100+y_spacing*2, 80, 80 } },
-     //{ "~", { "~", column_spacing*2+x_spacing*2, 100+y_spacing*2, 80, 80 } },
-     //{ "~", { "~", column_spacing*2+x_spacing*3, 100+y_spacing*2, 80, 80 } },
-     //{ "~", { "~", column_spacing*2+x_spacing*4, 100+y_spacing*2, 80, 80 } },
-     //{ "~", { "~", column_spacing*2+x_spacing*5, 100+y_spacing*2, 80, 80 } },
+     //{ "~", { "~", column_spacing*2+x_spacing*0, y_spacing*2, 80, 80 } },
+     //{ "~", { "~", column_spacing*2+x_spacing*1, y_spacing*2, 80, 80 } },
+     //{ "~", { "~", column_spacing*2+x_spacing*2, y_spacing*2, 80, 80 } },
+     //{ "~", { "~", column_spacing*2+x_spacing*3, y_spacing*2, 80, 80 } },
+     //{ "~", { "~", column_spacing*2+x_spacing*4, y_spacing*2, 80, 80 } },
+     //{ "~", { "~", column_spacing*2+x_spacing*5, y_spacing*2, 80, 80 } },
 
      // row 4
 
-     { "S", { "S", x_spacing*0,                  100+y_spacing*3, 80, 80 } },
-     { "T", { "T", x_spacing*1,                  100+y_spacing*3, 80, 80 } },
-     { "U", { "U", x_spacing*2,                  100+y_spacing*3, 80, 80 } },
-     { "V", { "V", x_spacing*3,                  100+y_spacing*3, 80, 80 } },
-     { "W", { "W", x_spacing*4,                  100+y_spacing*3, 80, 80 } },
-     { "X", { "X", x_spacing*5,                  100+y_spacing*3, 80, 80 } },
+     { "S", { "S", x_spacing*0,                  y_spacing*3, 80, 80 } },
+     { "T", { "T", x_spacing*1,                  y_spacing*3, 80, 80 } },
+     { "U", { "U", x_spacing*2,                  y_spacing*3, 80, 80 } },
+     { "V", { "V", x_spacing*3,                  y_spacing*3, 80, 80 } },
+     { "W", { "W", x_spacing*4,                  y_spacing*3, 80, 80 } },
+     { "X", { "X", x_spacing*5,                  y_spacing*3, 80, 80 } },
 
-     { "s", { "s", column_spacing*1+x_spacing*0, 100+y_spacing*3, 80, 80 } },
-     { "t", { "t", column_spacing*1+x_spacing*1, 100+y_spacing*3, 80, 80 } },
-     { "u", { "u", column_spacing*1+x_spacing*2, 100+y_spacing*3, 80, 80 } },
-     { "v", { "v", column_spacing*1+x_spacing*3, 100+y_spacing*3, 80, 80 } },
-     { "w", { "w", column_spacing*1+x_spacing*4, 100+y_spacing*3, 80, 80 } },
-     { "x", { "x", column_spacing*1+x_spacing*5, 100+y_spacing*3, 80, 80 } },
+     { "s", { "s", column_spacing*1+x_spacing*0, y_spacing*3, 80, 80 } },
+     { "t", { "t", column_spacing*1+x_spacing*1, y_spacing*3, 80, 80 } },
+     { "u", { "u", column_spacing*1+x_spacing*2, y_spacing*3, 80, 80 } },
+     { "v", { "v", column_spacing*1+x_spacing*3, y_spacing*3, 80, 80 } },
+     { "w", { "w", column_spacing*1+x_spacing*4, y_spacing*3, 80, 80 } },
+     { "x", { "x", column_spacing*1+x_spacing*5, y_spacing*3, 80, 80 } },
 
-     //{ "x", { "x", column_spacing*2+x_spacing*0, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*1, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*2, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*3, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*4, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*5, 100+y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*0, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*1, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*2, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*3, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*4, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*5, y_spacing*3, 80, 80 } },
 
      // row 5
 
-     { "Y", { "Y", x_spacing*0,                  100+y_spacing*4, 80, 80 } },
-     { "Z", { "Z", x_spacing*1,                  100+y_spacing*4, 80, 80 } },
-     //{ " ", { " ", x_spacing*2,                  100+y_spacing*4, 80, 80 } },
-     //{ " ", { " ", x_spacing*3,                  100+y_spacing*4, 80, 80 } },
-     //{ " ", { " ", x_spacing*4,                  100+y_spacing*4, 80, 80 } },
-     //{ " ", { " ", x_spacing*5,                  100+y_spacing*4, 80, 80 } },
+     { "Y", { "Y", x_spacing*0,                    y_spacing*4, 80, 80 } },
+     { "Z", { "Z", x_spacing*1,                    y_spacing*4, 80, 80 } },
+     //{ " ", { " ", x_spacing*2,                  y_spacing*4, 80, 80 } },
+     //{ " ", { " ", x_spacing*3,                  y_spacing*4, 80, 80 } },
+     //{ " ", { " ", x_spacing*4,                  y_spacing*4, 80, 80 } },
+     //{ " ", { " ", x_spacing*5,                  y_spacing*4, 80, 80 } },
 
-     { "y", { "y", column_spacing*1+x_spacing*0, 100+y_spacing*4, 80, 80 } },
-     { "z", { "z", column_spacing*1+x_spacing*1, 100+y_spacing*4, 80, 80 } },
-     //{ " ", { " ", column_spacing*1+x_spacing*2, 100+y_spacing*4, 80, 80 } },
-     //{ " ", { " ", column_spacing*1+x_spacing*3, 100+y_spacing*4, 80, 80 } },
-     //{ " ", { " ", column_spacing*1+x_spacing*4, 100+y_spacing*4, 80, 80 } },
-     //{ " ", { " ", column_spacing*1+x_spacing*5, 100+y_spacing*4, 80, 80 } },
+     { "y", { "y", column_spacing*1+x_spacing*0,  y_spacing*4, 80, 80 } },
+     { "z", { "z", column_spacing*1+x_spacing*1,  y_spacing*4, 80, 80 } },
+     //{ " ", { " ", column_spacing*1+x_spacing*2, y_spacing*4, 80, 80 } },
+     //{ " ", { " ", column_spacing*1+x_spacing*3, y_spacing*4, 80, 80 } },
+     //{ " ", { " ", column_spacing*1+x_spacing*4, y_spacing*4, 80, 80 } },
+     //{ " ", { " ", column_spacing*1+x_spacing*5, y_spacing*4, 80, 80 } },
 
-     //{ "x", { "x", column_spacing*2+x_spacing*0, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*1, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*2, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*3, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*4, 100+y_spacing*3, 80, 80 } },
-     //{ "x", { "x", column_spacing*2+x_spacing*5, 100+y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*0, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*1, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*2, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*3, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*4, y_spacing*3, 80, 80 } },
+     //{ "x", { "x", column_spacing*2+x_spacing*5, y_spacing*3, 80, 80 } },
 
      // bottom row
 
