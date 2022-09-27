@@ -1289,7 +1289,8 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
   ],
   "AllegroFlare/php/trim": [
-    "AllegroFlare/Prototypes/FixedRoom2D/Script"
+    "AllegroFlare/Prototypes/FixedRoom2D/Script",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "std/map<std/string, int>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Script"

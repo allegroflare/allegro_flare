@@ -193,7 +193,12 @@ functions:
       // TODO: perform the action for the key
       std::string string_to_append = "";
 
-      if (name == "SPACE") string_to_append = " ";
+      if (name == "SPACE")
+      {
+         // TODO: if preceeding character is a space, don't permit adding a second space
+         // TODO: if this is the first character, don't permit starting with a space
+         string_to_append = " ";
+      }
       else if (name == "BACKSPACE")
       {
          if (result_string.empty()) {} // TODO; play bonk sound
@@ -201,8 +206,11 @@ functions:
       }
       else if (name == "OK")
       {
+         std::string sanitized_string = result_string;
+         sanitized_string = AllegroFlare::php::trim(sanitized_string);
+         
          // TODO: logic for this condition
-         if (result_string.empty())
+         if (sanitized_string.empty())
          {
             // TODO: play bonk sound
          }
@@ -235,6 +243,8 @@ functions:
       update_cursor_location();
       key.set_last_pressed_at(al_get_time());
       return;
+    body_dependency_symbols:
+      - AllegroFlare::php::trim
 
 
   - name: update_cursor_location
@@ -1028,5 +1038,7 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: std::size_t
     headers: [ cstddef ]
+  - symbol: AllegroFlare::php::trim
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
 
 

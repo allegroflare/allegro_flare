@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Interpolators.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -250,7 +251,12 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    // TODO: perform the action for the key
    std::string string_to_append = "";
 
-   if (name == "SPACE") string_to_append = " ";
+   if (name == "SPACE")
+   {
+      // TODO: if preceeding character is a space, don't permit adding a second space
+      // TODO: if this is the first character, don't permit starting with a space
+      string_to_append = " ";
+   }
    else if (name == "BACKSPACE")
    {
       if (result_string.empty()) {} // TODO; play bonk sound
@@ -258,8 +264,11 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    }
    else if (name == "OK")
    {
+      std::string sanitized_string = result_string;
+      sanitized_string = AllegroFlare::php::trim(sanitized_string);
+      
       // TODO: logic for this condition
-      if (result_string.empty())
+      if (sanitized_string.empty())
       {
          // TODO: play bonk sound
       }
