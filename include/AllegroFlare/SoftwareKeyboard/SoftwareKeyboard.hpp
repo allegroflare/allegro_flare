@@ -29,7 +29,7 @@ namespace AllegroFlare
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys;
          int cursor_pos;
          AllegroFlare::Vec2D cursor_destination;
-         AllegroFlare::Vec2D cursor_size;
+         AllegroFlare::Vec2D cursor_size_destination;
          bool initialized;
          bool show_rectangle_outline_on_keys;
          AllegroFlare::Placement2D keyboard_placement;
@@ -38,6 +38,7 @@ namespace AllegroFlare
          std::size_t num_permitted_chars;
          std::string event_to_emit_on_pressing_ok_key;
          AllegroFlare::Vec2D cursor_location;
+         AllegroFlare::Vec2D cursor_size;
          void update_cursor_destination();
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();

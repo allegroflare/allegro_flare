@@ -28,7 +28,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , keys({})
    , cursor_pos(0)
    , cursor_destination({})
-   , cursor_size(80, 80)
+   , cursor_size_destination(80, 80)
    , initialized(false)
    , show_rectangle_outline_on_keys(false)
    , keyboard_placement({})
@@ -37,6 +37,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , num_permitted_chars(12)
    , event_to_emit_on_pressing_ok_key(DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY)
    , cursor_location({})
+   , cursor_size(80, 80)
 {
 }
 
@@ -328,8 +329,8 @@ void SoftwareKeyboard::update_cursor_destination()
          auto &key = key_dictionary_element.second;
          cursor_destination.x = key.get_x();
          cursor_destination.y = key.get_y();
-         cursor_size.x = key.get_width();
-         cursor_size.y = key.get_height();
+         cursor_size_destination.x = key.get_width();
+         cursor_size_destination.y = key.get_height();
          return;
       }
       i++;
@@ -464,6 +465,7 @@ void SoftwareKeyboard::render()
    }
    // this is a soft "update" here to update the live-moving cursor location
    cursor_location = (cursor_destination - cursor_location) * 0.5 + cursor_location;
+   cursor_size = (cursor_size_destination - cursor_size) * 0.5 + cursor_size;
 
    keyboard_placement.start_transform();
 
@@ -521,8 +523,8 @@ void SoftwareKeyboard::render()
    //al_draw_rectangle(
       //cursor_destination.x,
       //cursor_destination.y,
-      //cursor_destination.x+cursor_size.x,
-      //cursor_destination.y+cursor_size.y,
+      //cursor_destination.x+cursor_size_destination.x,
+      //cursor_destination.y+cursor_size_destination.y,
       //ALLEGRO_COLOR{0.5, 1, 0.75, 1},
       //4.0
    //);

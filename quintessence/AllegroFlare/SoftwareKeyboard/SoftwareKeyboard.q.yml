@@ -43,7 +43,7 @@ properties:
     type: AllegroFlare::Vec2D
     init_with: '{}'
 
-  - name: cursor_size
+  - name: cursor_size_destination
     type: AllegroFlare::Vec2D
     init_with: '80, 80'
 
@@ -93,6 +93,10 @@ properties:
   - name: cursor_location
     type: AllegroFlare::Vec2D
     init_with: '{}'
+
+  - name: cursor_size
+    type: AllegroFlare::Vec2D
+    init_with: '80, 80'
 
 
 functions:
@@ -277,8 +281,8 @@ functions:
             auto &key = key_dictionary_element.second;
             cursor_destination.x = key.get_x();
             cursor_destination.y = key.get_y();
-            cursor_size.x = key.get_width();
-            cursor_size.y = key.get_height();
+            cursor_size_destination.x = key.get_width();
+            cursor_size_destination.y = key.get_height();
             return;
          }
          i++;
@@ -420,6 +424,7 @@ functions:
     body: |
       // this is a soft "update" here to update the live-moving cursor location
       cursor_location = (cursor_destination - cursor_location) * 0.5 + cursor_location;
+      cursor_size = (cursor_size_destination - cursor_size) * 0.5 + cursor_size;
 
       keyboard_placement.start_transform();
 
@@ -477,8 +482,8 @@ functions:
       //al_draw_rectangle(
          //cursor_destination.x,
          //cursor_destination.y,
-         //cursor_destination.x+cursor_size.x,
-         //cursor_destination.y+cursor_size.y,
+         //cursor_destination.x+cursor_size_destination.x,
+         //cursor_destination.y+cursor_size_destination.y,
          //ALLEGRO_COLOR{0.5, 1, 0.75, 1},
          //4.0
       //);
