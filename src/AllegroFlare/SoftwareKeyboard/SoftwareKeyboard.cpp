@@ -321,7 +321,7 @@ AllegroFlare::Vec2D SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions(
    float x_spacing = 65;
    float y_spacing = 70;
    float column_spacing = 450;
-   return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 700);
+   return AllegroFlare::Vec2D(column_spacing * 2 + x_spacing * 6, 600);
 }
 
 std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> SoftwareKeyboard::build_boilerplate_keyboard_keys()
@@ -329,6 +329,13 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
    float x_spacing = 65;
    float y_spacing = 70;
    float column_spacing = 450;
+   AllegroFlare::Vec2D calculated_dimentions = calculate_boilerplate_keyboard_dimentions();
+
+   float space_width = 330;
+   float backspace_width = 330;
+   float ok_width = 140;
+   float right_edge = calculated_dimentions.x;
+
    std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
      // row 1
 
@@ -445,15 +452,11 @@ std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Sof
      //{ "x", { "x", column_spacing*2+x_spacing*4, 100+y_spacing*3, 80, 80 } },
      //{ "x", { "x", column_spacing*2+x_spacing*5, 100+y_spacing*3, 80, 80 } },
 
-
-
-
-
-
      // bottom row
-     { "SPACE", { "Space", 500, 500+y_spacing*1, 330, 80 } },
-     { "BACKSPACE", { "Backspace", 900, 500+y_spacing*1, 330, 80 } },
-     { "OK", { "OK", 1300, 500+y_spacing*1, 140, 80 } },
+
+     { "SPACE",     { "Space", right_edge - 900, calculated_dimentions.y-80, 330, 80 } },
+     { "BACKSPACE", { "Backspace", right_edge - (140+330+50), calculated_dimentions.y-80, 330, 80 } },
+     { "OK",        { "OK", right_edge - 140, calculated_dimentions.y-80, 140, 80 } },
 
    };
    return result;
