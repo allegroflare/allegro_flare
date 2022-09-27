@@ -27,11 +27,14 @@ namespace AllegroFlare
          bool initialized;
          bool show_rectangle_outline_on_keys;
          AllegroFlare::Placement2D keyboard_placement;
+         std::string prompt_text;
          std::string result_string;
          void update_cursor_location();
-         void draw_backfill_and_frame();
+         void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
-         ALLEGRO_FONT* obtain_font();
+         ALLEGRO_FONT* obtain_keyboard_font();
+         ALLEGRO_FONT* obtain_prompt_text_font();
+         ALLEGRO_FONT* obtain_result_text_font();
 
       protected:
 
@@ -42,11 +45,13 @@ namespace AllegroFlare
 
          void set_font_name(std::string font_name);
          void set_font_size(int font_size);
+         void set_prompt_text(std::string prompt_text);
          void set_result_string(std::string result_string);
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_font_name() const;
          int get_font_size() const;
          bool get_initialized() const;
+         std::string get_prompt_text() const;
          std::string get_result_string() const;
          std::unordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

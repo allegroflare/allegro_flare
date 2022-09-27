@@ -53,6 +53,12 @@ properties:
     type: AllegroFlare::Placement2D
     init_with: '{}'
 
+  - name: prompt_text
+    type: std::string
+    init_with: '"Enter your name"'
+    getter: true
+    setter: true
+
   - name: result_string
     type: std::string
     init_with: '{}'
@@ -227,11 +233,13 @@ functions:
       keyboard_placement.start_transform();
 
       // draw backfill and frame
-      draw_backfill_and_frame();
+      draw_keyboard_backfill_and_frame();
 
       // draw keys
       int i=0;
-      ALLEGRO_FONT *font = obtain_font();
+      ALLEGRO_FONT *font = obtain_keyboard_font();
+      ALLEGRO_FONT *prompt_text_font = obtain_prompt_text_font();
+      ALLEGRO_FONT *result_text_font = obtain_result_text_font();
       float font_hline_height = al_get_font_line_height(font) / 2;
       for (auto &key_dictionary_element : keys)
       {
@@ -272,18 +280,28 @@ functions:
 
       // draw the result string
       al_draw_text(
-         font,
+         result_text_font,
          ALLEGRO_COLOR{1, 1, 1, 1},
          1920/2, // TODO: make this positioning dynamic
-         1080/7, // TODO: make this positioning dynamic
+         1080/7*2-120, // TODO: make this positioning dynamic
          ALLEGRO_ALIGN_CENTER,
          result_string.c_str()
+      );
+
+      // draw the prompt string
+      al_draw_text(
+         prompt_text_font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         1920/2, // TODO: make this positioning dynamic
+         1080/7*1-70, // TODO: make this positioning dynamic
+         ALLEGRO_ALIGN_CENTER,
+         prompt_text.c_str()
       );
 
       return;
 
 
-  - name: draw_backfill_and_frame
+  - name: draw_keyboard_backfill_and_frame
     private: true
     body: |
       ALLEGRO_COLOR backfill_color = AllegroFlare::color::color(al_color_html("303030"), 0.3);
@@ -329,13 +347,33 @@ functions:
       return (keys.count(identifier) >= 1);
 
 
-  - name: obtain_font
+  - name: obtain_keyboard_font
     private: true
     type: ALLEGRO_FONT*
     guards: [ initialized ]
     body: |
       std::stringstream composite_font_str;
       composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
+
+
+  - name: obtain_prompt_text_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ initialized ]
+    body: |
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
+
+
+  - name: obtain_result_text_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ initialized ]
+    body: |
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << (font_size - 10);
       return font_bin->auto_get(composite_font_str.str());
 
 

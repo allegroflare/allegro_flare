@@ -27,6 +27,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::FontBin* font_bin, std::string 
    , initialized(false)
    , show_rectangle_outline_on_keys(false)
    , keyboard_placement({})
+   , prompt_text("Enter your name")
    , result_string({})
 {
 }
@@ -46,6 +47,12 @@ void SoftwareKeyboard::set_font_name(std::string font_name)
 void SoftwareKeyboard::set_font_size(int font_size)
 {
    this->font_size = font_size;
+}
+
+
+void SoftwareKeyboard::set_prompt_text(std::string prompt_text)
+{
+   this->prompt_text = prompt_text;
 }
 
 
@@ -76,6 +83,12 @@ int SoftwareKeyboard::get_font_size() const
 bool SoftwareKeyboard::get_initialized() const
 {
    return initialized;
+}
+
+
+std::string SoftwareKeyboard::get_prompt_text() const
+{
+   return prompt_text;
 }
 
 
@@ -254,11 +267,13 @@ void SoftwareKeyboard::render()
    keyboard_placement.start_transform();
 
    // draw backfill and frame
-   draw_backfill_and_frame();
+   draw_keyboard_backfill_and_frame();
 
    // draw keys
    int i=0;
-   ALLEGRO_FONT *font = obtain_font();
+   ALLEGRO_FONT *font = obtain_keyboard_font();
+   ALLEGRO_FONT *prompt_text_font = obtain_prompt_text_font();
+   ALLEGRO_FONT *result_text_font = obtain_result_text_font();
    float font_hline_height = al_get_font_line_height(font) / 2;
    for (auto &key_dictionary_element : keys)
    {
@@ -299,18 +314,28 @@ void SoftwareKeyboard::render()
 
    // draw the result string
    al_draw_text(
-      font,
+      result_text_font,
       ALLEGRO_COLOR{1, 1, 1, 1},
       1920/2, // TODO: make this positioning dynamic
-      1080/7, // TODO: make this positioning dynamic
+      1080/7*2-120, // TODO: make this positioning dynamic
       ALLEGRO_ALIGN_CENTER,
       result_string.c_str()
+   );
+
+   // draw the prompt string
+   al_draw_text(
+      prompt_text_font,
+      ALLEGRO_COLOR{1, 1, 1, 1},
+      1920/2, // TODO: make this positioning dynamic
+      1080/7*1-70, // TODO: make this positioning dynamic
+      ALLEGRO_ALIGN_CENTER,
+      prompt_text.c_str()
    );
 
    return;
 }
 
-void SoftwareKeyboard::draw_backfill_and_frame()
+void SoftwareKeyboard::draw_keyboard_backfill_and_frame()
 {
    ALLEGRO_COLOR backfill_color = AllegroFlare::color::color(al_color_html("303030"), 0.3);
    ALLEGRO_COLOR border_color = AllegroFlare::color::color(al_color_html("ffffff"), 0.8);
@@ -347,16 +372,42 @@ bool SoftwareKeyboard::key_exists(std::string identifier)
    return (keys.count(identifier) >= 1);
 }
 
-ALLEGRO_FONT* SoftwareKeyboard::obtain_font()
+ALLEGRO_FONT* SoftwareKeyboard::obtain_keyboard_font()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "SoftwareKeyboard" << "::" << "obtain_font" << ": error: " << "guard \"initialized\" not met";
+      error_message << "SoftwareKeyboard" << "::" << "obtain_keyboard_font" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
+}
+
+ALLEGRO_FONT* SoftwareKeyboard::obtain_prompt_text_font()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "obtain_prompt_text_font" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   std::stringstream composite_font_str;
+   composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
+}
+
+ALLEGRO_FONT* SoftwareKeyboard::obtain_result_text_font()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "obtain_result_text_font" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   std::stringstream composite_font_str;
+   composite_font_str << font_name << " " << (font_size - 10);
    return font_bin->auto_get(composite_font_str.str());
 }
 
