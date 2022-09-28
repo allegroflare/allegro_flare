@@ -242,7 +242,6 @@ void SoftwareKeyboard::press_key_under_cursor()
    {
       if (cursor_pos == i)
       {
-         // TODO: press key by name
          press_key_by_name(key_dictionary_element.first);
          return;
       }
@@ -260,22 +259,26 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       error_message << "SoftwareKeyboard" << "::" << "press_key_by_name" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!key_exists(name)) return; // TODO: maybe cout a warning, or return false if key is not recognized
+   if (!key_exists(name))
+   {
+      // TODO: make this sound effect an option, or, output a warning
+      emit_bonk_sound_effect();
+      return;
+   }
    AllegroFlare::SoftwareKeyboard::KeyboardKey &key = keys[name];
 
-   // TODO: perform the action for the key
    std::string string_to_append = "";
 
    if (name == "SPACE")
    {
       if (result_string.empty())
       {
-         // NOTE: do nothing. E.g. do not allow starting a name with a space
+         // do nothing. E.g. do not allow starting a name with a space
          emit_bonk_sound_effect();
       }
       else if (result_string.back() == ' ')
       {
-         // NOTE: do nothing. E.g. do not allow multiple sequential spaces in a name
+         // do nothing. E.g. do not allow multiple sequential spaces in a name
          emit_bonk_sound_effect();
       }
       else
@@ -293,9 +296,9 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       std::string sanitized_string = result_string;
       sanitized_string = AllegroFlare::php::trim(sanitized_string);
       
-      // TODO: logic for this condition
       if (sanitized_string.empty())
       {
+         // TODO: show some error feedback that a name must be entered
          emit_bonk_sound_effect();
       }
       else
@@ -305,7 +308,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    }
    else
    {
-      // NOTE: assume the "name" is the character we want to append
+      // assume the "name" of the key is the same as the character we want to append
       string_to_append = name;
    }
 
