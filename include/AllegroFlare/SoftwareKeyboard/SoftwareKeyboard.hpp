@@ -6,6 +6,7 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
 #include <AllegroFlare/Vec2D.hpp>
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstddef>
 #include <lib/ordered_map.h>
@@ -48,6 +49,8 @@ namespace AllegroFlare
          void update_cursor_destination();
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();
+         ALLEGRO_COLOR build_cursor_color();
+         void draw_cursor_rectangle(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f);
          void draw_cursor();
          void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");

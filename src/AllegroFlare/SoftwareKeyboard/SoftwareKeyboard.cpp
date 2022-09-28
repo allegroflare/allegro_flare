@@ -474,38 +474,60 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
          );
       }
 
+      if (i == result_string.size())
+      {
+         // draw the character that is currently selected by the cursor
+         std::string current_key_name = infer_current_key_name();
+         if (current_key_name == "BACKSPACE") current_key_name = "<";
+         if (current_key_name.size() == 1)
+         {
+            ALLEGRO_COLOR cursor_color = build_cursor_color();
+            al_draw_text(
+               result_text_font,
+               cursor_color,
+               x_cursor + box_width * 0.5,
+               y + box_height*0.5 - font_hline_height,
+               ALLEGRO_ALIGN_CENTER,
+               current_key_name.c_str()
+            );
+         }
+
+         // draw the cursor box
+         if (!(current_key_name == "OK" || current_key_name == "<"))
+         {
+            draw_cursor_rectangle(x_cursor, y, box_width, box_height);
+         }
+      }
+
       x_cursor += box_spacing_x;
    }
 
    return;
 }
 
-void SoftwareKeyboard::draw_cursor()
+ALLEGRO_COLOR SoftwareKeyboard::build_cursor_color()
 {
-   // position
-   //x = inventory_items_left_padding;
-   //y = inventory_items_top_padding;
-   //float spacing = inventory_items_box_spacing;
-
-    // color
    ALLEGRO_COLOR color_a = al_color_name("aquamarine");
    ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
    float speed_multiplier = 0.9;
    float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
-   ALLEGRO_COLOR color = AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
+   return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
+}
+
+void SoftwareKeyboard::draw_cursor_rectangle(float x, float y, float w, float h)
+{
+   // color
+   ALLEGRO_COLOR color = build_cursor_color();
    float r = 8;
    float thickness = 6.0;
 
-   al_draw_rounded_rectangle(
-      cursor_location.x,
-      cursor_location.y,
-      cursor_location.x + cursor_size.x,
-      cursor_location.y + cursor_size.y,
-      r,
-      r,
-      color,
-      thickness
-   );
+   al_draw_rounded_rectangle(x, y, x + w, y + h, r, r, color, thickness);
+   return;
+}
+
+void SoftwareKeyboard::draw_cursor()
+{
+   draw_cursor_rectangle(cursor_location.x, cursor_location.y, cursor_size.x, cursor_size.y);
    return;
 }
 
@@ -574,14 +596,6 @@ void SoftwareKeyboard::render()
 
    // draw cursor
    draw_cursor();
-   //al_draw_rectangle(
-      //cursor_destination.x,
-      //cursor_destination.y,
-      //cursor_destination.x+cursor_size_destination.x,
-      //cursor_destination.y+cursor_size_destination.y,
-      //ALLEGRO_COLOR{0.5, 1, 0.75, 1},
-      //4.0
-   //);
 
    keyboard_placement.restore_transform();
 

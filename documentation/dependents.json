@@ -410,6 +410,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
