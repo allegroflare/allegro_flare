@@ -323,6 +323,14 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
          }
          break;
 
+         case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+            {
+               std::string *emitted_event_data = (std::string *)event.user.data1;
+               if (!emitted_event_data) throw std::runtime_error("Unexpected nullptr sound effect data error");
+               std::cout << "INFO: emitted sound effect event for sound \"" << *emitted_event_data << "\"" << std::endl;
+            }
+         break;
+
          case ALLEGRO_FLARE_EVENT_GAME_EVENT:
             {
                AllegroFlare::GameEvent *data = static_cast<AllegroFlare::GameEvent *>((void *)event.user.data1);
