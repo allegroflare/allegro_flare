@@ -302,7 +302,11 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    else if (name == "BACKSPACE")
    {
       if (result_string.empty()) emit_bonk_sound_effect();
-      else result_string.pop_back();
+      else
+      {
+         // TODO: add delete sound effect
+         result_string.pop_back();
+      }
    }
    else if (name == "OK")
    {
