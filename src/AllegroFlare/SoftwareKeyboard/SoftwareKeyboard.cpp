@@ -38,7 +38,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , event_to_emit_on_pressing_ok_key(DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY)
    , cursor_location({})
    , cursor_size(80, 80)
-   , bonk_sound_effect_identifier("ui-input-bonk-01.ogg")
+   , bonk_sound_effect_identifier(DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER)
 {
 }
 
@@ -271,12 +271,12 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       if (result_string.empty())
       {
          // NOTE: do nothing. E.g. do not allow starting a name with a space
-         // TODO: play bonk sound
+         emit_bonk_sound_effect();
       }
       else if (result_string.back() == ' ')
       {
          // NOTE: do nothing. E.g. do not allow multiple sequential spaces in a name
-         // TODO: play bonk sound
+         emit_bonk_sound_effect();
       }
       else
       {
@@ -285,7 +285,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    }
    else if (name == "BACKSPACE")
    {
-      if (result_string.empty()) {} // TODO; play bonk sound
+      if (result_string.empty()) emit_bonk_sound_effect();
       else result_string.pop_back();
    }
    else if (name == "OK")
@@ -296,7 +296,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       // TODO: logic for this condition
       if (sanitized_string.empty())
       {
-         // TODO: play bonk sound
+         emit_bonk_sound_effect();
       }
       else
       {
@@ -314,7 +314,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    {
       if (result_string.size() >= num_permitted_chars)
       {
-         // TODO: play bonk sound
+         emit_bonk_sound_effect();
       }
       else
       {
@@ -385,7 +385,11 @@ void SoftwareKeyboard::jump_cursor_pos_to_index_of_key_name(std::string name)
 
 void SoftwareKeyboard::increment_cursor_pos()
 {
-   if (keys.empty()) return; // TODO: play bonk sound
+   if (keys.empty())
+   {
+      emit_bonk_sound_effect();
+      return;
+   }
    cursor_pos++;
    while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
    update_cursor_destination();
@@ -394,7 +398,11 @@ void SoftwareKeyboard::increment_cursor_pos()
 
 void SoftwareKeyboard::decrement_cursor_pos()
 {
-   if (keys.empty()) return; // TODO: play bonk sound
+   if (keys.empty())
+   {
+      emit_bonk_sound_effect();
+      return;
+   }
    cursor_pos--;
    while (cursor_pos < 0) cursor_pos += keys.size();
    update_cursor_destination();

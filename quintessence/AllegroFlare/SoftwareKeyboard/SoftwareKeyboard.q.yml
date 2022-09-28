@@ -100,9 +100,15 @@ properties:
 
   - name: bonk_sound_effect_identifier
     type: std::string
-    init_with: '"ui-input-bonk-01.ogg"'
+    init_with: DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER
     getter: true
     setter: true
+
+  - name: DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER
+    type: const char*
+    constexpr: true
+    static: true
+    init_with: '"ui-input-bonk-01.ogg"'
 
 
 functions:
@@ -213,12 +219,12 @@ functions:
          if (result_string.empty())
          {
             // NOTE: do nothing. E.g. do not allow starting a name with a space
-            // TODO: play bonk sound
+            emit_bonk_sound_effect();
          }
          else if (result_string.back() == ' ')
          {
             // NOTE: do nothing. E.g. do not allow multiple sequential spaces in a name
-            // TODO: play bonk sound
+            emit_bonk_sound_effect();
          }
          else
          {
@@ -227,7 +233,7 @@ functions:
       }
       else if (name == "BACKSPACE")
       {
-         if (result_string.empty()) {} // TODO; play bonk sound
+         if (result_string.empty()) emit_bonk_sound_effect();
          else result_string.pop_back();
       }
       else if (name == "OK")
@@ -238,7 +244,7 @@ functions:
          // TODO: logic for this condition
          if (sanitized_string.empty())
          {
-            // TODO: play bonk sound
+            emit_bonk_sound_effect();
          }
          else
          {
@@ -256,7 +262,7 @@ functions:
       {
          if (result_string.size() >= num_permitted_chars)
          {
-            // TODO: play bonk sound
+            emit_bonk_sound_effect();
          }
          else
          {
@@ -336,7 +342,11 @@ functions:
 
   - name: increment_cursor_pos
     body: |
-      if (keys.empty()) return; // TODO: play bonk sound
+      if (keys.empty())
+      {
+         emit_bonk_sound_effect();
+         return;
+      }
       cursor_pos++;
       while (cursor_pos >= keys.size()) cursor_pos -= keys.size();
       update_cursor_destination();
@@ -345,7 +355,11 @@ functions:
 
   - name: decrement_cursor_pos
     body: |
-      if (keys.empty()) return; // TODO: play bonk sound
+      if (keys.empty())
+      {
+         emit_bonk_sound_effect();
+         return;
+      }
       cursor_pos--;
       while (cursor_pos < 0) cursor_pos += keys.size();
       update_cursor_destination();

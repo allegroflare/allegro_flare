@@ -28,11 +28,24 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, can_be_created_withou
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
-   bonk_sound_effect_identifier__has_the_expected_default_value)
+   bonk_sound_effect_identifier__is_initialized_to_the_default_value)
+{
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
+   std::string expected_bonk_sound_effect_identifier = 
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER;
+   EXPECT_EQ(expected_bonk_sound_effect_identifier, software_keyboard.get_bonk_sound_effect_identifier());
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER__has_the_expected_default_value)
 {
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
    std::string expected_bonk_sound_effect_identifier = "ui-input-bonk-01.ogg";
-   EXPECT_EQ(expected_bonk_sound_effect_identifier, software_keyboard.get_bonk_sound_effect_identifier());
+   EXPECT_EQ(
+      expected_bonk_sound_effect_identifier, 
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER
+   );
 }
 
 
@@ -91,6 +104,34 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
    software_keyboard.initialize();
    software_keyboard.render();
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
+   increment_cursor_pos__when_there_are_no_keys__will_emit_a_bonk_sound_effect_event)
+{
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
+   software_keyboard.initialize();
+   software_keyboard.set_bonk_sound_effect_identifier("my-custom-sound-effect.ogg");
+
+   ASSERT_EQ(true, software_keyboard.get_keys_ref().empty());
+
+   software_keyboard.increment_cursor_pos();
+
+   ALLEGRO_EVENT emitted_event;
+   ASSERT_EQ(true, al_peek_next_event(event_queue, &emitted_event));
+
+   EXPECT_EQ(ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT, emitted_event.type);
+   std::string *emitted_event_data = (std::string *)emitted_event.user.data1;
+   ASSERT_NE(nullptr, emitted_event_data);
+   EXPECT_EQ("my-custom-sound-effect.ogg", *emitted_event_data);
+
+   // teardown
+   al_destroy_event_queue(event_queue);
 }
 
 
@@ -202,8 +243,8 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
-   //DISABLED__INTERACTIVE__will_work_as_expected)
-   INTERACTIVE__will_work_as_expected)
+   DISABLED__INTERACTIVE__will_work_as_expected)
+   //INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();

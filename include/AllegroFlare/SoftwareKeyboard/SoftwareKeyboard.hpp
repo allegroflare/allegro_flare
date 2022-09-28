@@ -20,6 +20,7 @@ namespace AllegroFlare
       {
       public:
          static constexpr const char* DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY = "submit_software_keyboard";
+         static constexpr const char* DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER = "ui-input-bonk-01.ogg";
 
       private:
          AllegroFlare::EventEmitter* event_emitter;
