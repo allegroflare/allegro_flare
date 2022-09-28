@@ -98,6 +98,12 @@ properties:
     type: AllegroFlare::Vec2D
     init_with: '80, 80'
 
+  - name: bonk_sound_effect_identifier
+    type: std::string
+    init_with: '"ui-input-bonk-01.ogg"'
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -550,6 +556,14 @@ functions:
         default_argument: '"[unset-identifier]"'
     body: |
       return (keys.count(identifier) >= 1);
+
+
+  - name: emit_bonk_sound_effect
+    private: true
+    guards: [ initialized ]
+    body: |
+      event_emitter->emit_play_sound_effect_event(bonk_sound_effect_identifier);
+      return;
 
 
   - name: obtain_keyboard_font

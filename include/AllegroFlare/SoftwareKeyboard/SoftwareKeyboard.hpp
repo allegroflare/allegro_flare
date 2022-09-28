@@ -39,12 +39,14 @@ namespace AllegroFlare
          std::string event_to_emit_on_pressing_ok_key;
          AllegroFlare::Vec2D cursor_location;
          AllegroFlare::Vec2D cursor_size;
+         std::string bonk_sound_effect_identifier;
          void update_cursor_destination();
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();
          void draw_cursor();
          void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
+         void emit_bonk_sound_effect();
          ALLEGRO_FONT* obtain_keyboard_font();
          ALLEGRO_FONT* obtain_prompt_text_font();
          ALLEGRO_FONT* obtain_result_text_font();
@@ -63,6 +65,7 @@ namespace AllegroFlare
          void set_result_string(std::string result_string);
          void set_num_permitted_chars(std::size_t num_permitted_chars);
          void set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key);
+         void set_bonk_sound_effect_identifier(std::string bonk_sound_effect_identifier);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_font_name() const;
@@ -72,6 +75,7 @@ namespace AllegroFlare
          std::string get_result_string() const;
          std::size_t get_num_permitted_chars() const;
          std::string get_event_to_emit_on_pressing_ok_key() const;
+         std::string get_bonk_sound_effect_identifier() const;
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});

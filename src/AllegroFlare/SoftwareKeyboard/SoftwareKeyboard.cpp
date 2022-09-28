@@ -38,6 +38,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , event_to_emit_on_pressing_ok_key(DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY)
    , cursor_location({})
    , cursor_size(80, 80)
+   , bonk_sound_effect_identifier("ui-input-bonk-01.ogg")
 {
 }
 
@@ -86,6 +87,12 @@ void SoftwareKeyboard::set_num_permitted_chars(std::size_t num_permitted_chars)
 void SoftwareKeyboard::set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key)
 {
    this->event_to_emit_on_pressing_ok_key = event_to_emit_on_pressing_ok_key;
+}
+
+
+void SoftwareKeyboard::set_bonk_sound_effect_identifier(std::string bonk_sound_effect_identifier)
+{
+   this->bonk_sound_effect_identifier = bonk_sound_effect_identifier;
 }
 
 
@@ -140,6 +147,12 @@ std::size_t SoftwareKeyboard::get_num_permitted_chars() const
 std::string SoftwareKeyboard::get_event_to_emit_on_pressing_ok_key() const
 {
    return event_to_emit_on_pressing_ok_key;
+}
+
+
+std::string SoftwareKeyboard::get_bonk_sound_effect_identifier() const
+{
+   return bonk_sound_effect_identifier;
 }
 
 
@@ -582,6 +595,18 @@ void SoftwareKeyboard::draw_keyboard_backfill_and_frame()
 bool SoftwareKeyboard::key_exists(std::string identifier)
 {
    return (keys.count(identifier) >= 1);
+}
+
+void SoftwareKeyboard::emit_bonk_sound_effect()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "emit_bonk_sound_effect" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   event_emitter->emit_play_sound_effect_event(bonk_sound_effect_identifier);
+   return;
 }
 
 ALLEGRO_FONT* SoftwareKeyboard::obtain_keyboard_font()

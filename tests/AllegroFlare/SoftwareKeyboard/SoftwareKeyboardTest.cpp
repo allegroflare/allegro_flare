@@ -27,6 +27,15 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, can_be_created_withou
 }
 
 
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   bonk_sound_effect_identifier__has_the_expected_default_value)
+{
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
+   std::string expected_bonk_sound_effect_identifier = "ui-input-bonk-01.ogg";
+   EXPECT_EQ(expected_bonk_sound_effect_identifier, software_keyboard.get_bonk_sound_effect_identifier());
+}
+
+
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, initialized__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
