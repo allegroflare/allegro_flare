@@ -1380,6 +1380,9 @@
   "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
     "AllegroFlare/Screens/CharacterNameInput"
   ],
+  "AllegroFlare/:VirtualControls/": [
+    "AllegroFlare/Screens/CharacterNameInput"
+  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],

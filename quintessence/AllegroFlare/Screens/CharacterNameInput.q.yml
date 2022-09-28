@@ -28,13 +28,13 @@ properties:
 
   - name: mode
     type: int
-    init_with: MODE_USING_VIRTUAL_INPUT
+    init_with: MODE_USING_VIRTUAL_CONTROLS
 
   - name: initialized
     type: bool
     init_with: false
 
-  - name: MODE_USING_VIRTUAL_INPUT
+  - name: MODE_USING_VIRTUAL_CONTROLS
     type: int
     static: true
     constexpr: true
@@ -92,7 +92,7 @@ functions:
   - name: mode_is_using_virtual_controls
     type: bool
     body: |
-      return mode == MODE_USING_VIRTUAL_INPUT;
+      return mode == MODE_USING_VIRTUAL_CONTROLS;
 
 
   - name: set_mode_to_using_keyboard
@@ -101,9 +101,9 @@ functions:
       return;
 
 
-  - name: set_mode_to_using_virtual_input
+  - name: set_mode_to_using_virtual_controls
     body: |
-      mode = MODE_USING_VIRTUAL_INPUT;
+      mode = MODE_USING_VIRTUAL_CONTROLS;
       return;
 
 
@@ -122,10 +122,38 @@ functions:
         default_argument: 'false'
     guards: [ initialized ]
     body: |
-      if (mode != MODE_USING_VIRTUAL_INPUT) return;
-      // TODO: map this to constexprs
-      //if (button_num == AllegroFlare::VirtualControls::get_BUTTON_UP())
+      if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
+
+      switch(button_num)
+      {
+         case AllegroFlare::VirtualControls::BUTTON_UP:
+            software_keyboard.move_cursor_up();
+         break;
+
+         case AllegroFlare::VirtualControls::BUTTON_DOWN:
+            software_keyboard.move_cursor_down();
+         break;
+
+         case AllegroFlare::VirtualControls::BUTTON_LEFT:
+            software_keyboard.decrement_cursor_pos();
+         break;
+
+         case AllegroFlare::VirtualControls::BUTTON_RIGHT:
+            software_keyboard.increment_cursor_pos();
+         break;
+
+         case AllegroFlare::VirtualControls::BUTTON_A:
+            software_keyboard.press_key_under_cursor();
+         break;
+
+         case AllegroFlare::VirtualControls::BUTTON_X:
+            software_keyboard.press_key_by_name("BACKSPACE");
+         break;
+      }
+
       return;
+    body_dependency_symbols:
+      - "AllegroFlare:::VirtualControls::"
 
 
   - name: key_char_func
@@ -201,5 +229,7 @@ dependencies:
     headers: [ AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp ]
   - symbol: ALLEGRO_EVENT
     headers: [ allegro5/allegro.h ]
+  - symbol: "AllegroFlare:::VirtualControls::"
+    headers: [ AllegroFlare/VirtualControls.hpp ]
 
 

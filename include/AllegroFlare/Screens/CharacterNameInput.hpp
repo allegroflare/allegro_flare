@@ -15,7 +15,7 @@ namespace AllegroFlare
       class CharacterNameInput : public AllegroFlare::Screens::Base
       {
       public:
-         static constexpr int MODE_USING_VIRTUAL_INPUT = 1;
+         static constexpr int MODE_USING_VIRTUAL_CONTROLS = 1;
          static constexpr int MODE_USING_KEYBOARD = 2;
 
       private:
@@ -40,7 +40,7 @@ namespace AllegroFlare
          bool mode_is_using_keyboard();
          bool mode_is_using_virtual_controls();
          void set_mode_to_using_keyboard();
-         void set_mode_to_using_virtual_input();
+         void set_mode_to_using_virtual_controls();
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
          virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
          void render();

@@ -7647,7 +7647,7 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">MODE_USING_VIRTUAL_INPUT</td>
+  <td class="property">MODE_USING_VIRTUAL_CONTROLS</td>
   <td class="property">int</td>
 </tr>
 <tr>
@@ -7675,7 +7675,7 @@ table td
   <td class="method">set_mode_to_using_keyboard()</td>
 </tr>
 <tr>
-  <td class="method">set_mode_to_using_virtual_input()</td>
+  <td class="method">set_mode_to_using_virtual_controls()</td>
 </tr>
 <tr>
   <td class="method">virtual_control_button_down_func(3)</td>
@@ -7702,6 +7702,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare:::VirtualControls::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13534,6 +13537,9 @@ table td
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
+    "AllegroFlare/Screens/CharacterNameInput"
+  ],
+  "AllegroFlare/:VirtualControls/": [
     "AllegroFlare/Screens/CharacterNameInput"
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [

@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/CharacterNameInput.hpp>
 
+#include <AllegroFlare/VirtualControls.hpp>
 #include <sstream>
 #include <stdexcept>
 
@@ -17,7 +18,7 @@ CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , software_keyboard(software_keyboard)
-   , mode(MODE_USING_VIRTUAL_INPUT)
+   , mode(MODE_USING_VIRTUAL_CONTROLS)
    , initialized(false)
 {
 }
@@ -103,7 +104,7 @@ bool CharacterNameInput::mode_is_using_keyboard()
 
 bool CharacterNameInput::mode_is_using_virtual_controls()
 {
-   return mode == MODE_USING_VIRTUAL_INPUT;
+   return mode == MODE_USING_VIRTUAL_CONTROLS;
 }
 
 void CharacterNameInput::set_mode_to_using_keyboard()
@@ -112,9 +113,9 @@ void CharacterNameInput::set_mode_to_using_keyboard()
    return;
 }
 
-void CharacterNameInput::set_mode_to_using_virtual_input()
+void CharacterNameInput::set_mode_to_using_virtual_controls()
 {
-   mode = MODE_USING_VIRTUAL_INPUT;
+   mode = MODE_USING_VIRTUAL_CONTROLS;
    return;
 }
 
@@ -126,9 +127,35 @@ void CharacterNameInput::virtual_control_button_down_func(int player_num, int bu
       error_message << "CharacterNameInput" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (mode != MODE_USING_VIRTUAL_INPUT) return;
-   // TODO: map this to constexprs
-   //if (button_num == AllegroFlare::VirtualControls::get_BUTTON_UP())
+   if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
+
+   switch(button_num)
+   {
+      case AllegroFlare::VirtualControls::BUTTON_UP:
+         software_keyboard.move_cursor_up();
+      break;
+
+      case AllegroFlare::VirtualControls::BUTTON_DOWN:
+         software_keyboard.move_cursor_down();
+      break;
+
+      case AllegroFlare::VirtualControls::BUTTON_LEFT:
+         software_keyboard.decrement_cursor_pos();
+      break;
+
+      case AllegroFlare::VirtualControls::BUTTON_RIGHT:
+         software_keyboard.increment_cursor_pos();
+      break;
+
+      case AllegroFlare::VirtualControls::BUTTON_A:
+         software_keyboard.press_key_under_cursor();
+      break;
+
+      case AllegroFlare::VirtualControls::BUTTON_X:
+         software_keyboard.press_key_by_name("BACKSPACE");
+      break;
+   }
+
    return;
 }
 

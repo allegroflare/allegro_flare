@@ -16,6 +16,7 @@ class AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture
 
 #include <AllegroFlare/Screens/CharacterNameInput.hpp>
 #include <AllegroFlare/EventNames.hpp> // for ALLEGRO_FLARE_EVENT_GAME_EVENT
+#include <AllegroFlare/VirtualControls.hpp>
 
 
 TEST_F(AllegroFlare_Screens_CharacterNameInputTest, can_be_created_without_blowing_up)
@@ -44,8 +45,8 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
-   //INTERACTIVE__will_work_as_expected)
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
+   //DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -79,7 +80,24 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
       switch(event.type)
       {
          case ALLEGRO_EVENT_KEY_CHAR:
-            character_name_input_screen.key_char_func(&event);
+            if (character_name_input_screen.mode_is_using_keyboard())
+            {
+               character_name_input_screen.key_char_func(&event);
+            }
+            else if (character_name_input_screen.mode_is_using_virtual_controls())
+            {
+               int button_num = 0;
+               if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::BUTTON_UP;
+               if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::BUTTON_DOWN;
+               if (event.keyboard.keycode == ALLEGRO_KEY_LEFT) button_num = AllegroFlare::VirtualControls::BUTTON_LEFT;
+               if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT) button_num = AllegroFlare::VirtualControls::BUTTON_RIGHT;
+               if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualControls::BUTTON_A;
+               if (event.keyboard.keycode == ALLEGRO_KEY_X) button_num = AllegroFlare::VirtualControls::BUTTON_X;
+               if (button_num != 0) 
+               {
+                  character_name_input_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
+               }
+            }
          break;
 
          case ALLEGRO_EVENT_TIMER:
