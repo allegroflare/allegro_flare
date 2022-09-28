@@ -149,6 +149,16 @@ functions:
       return;
 
 
+  - name: reset
+    body: |
+      cursor_destination = {0, 0};
+      cursor_size_destination = {80, 80};
+      cursor_location = cursor_destination;
+      cursor_size = cursor_size_destination;
+      cursor_pos = 0;
+      return;
+
+
   - name: set_keys
     parameters:
       - name: keys

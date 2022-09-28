@@ -92,6 +92,7 @@ namespace AllegroFlare
          std::string get_erase_sound_effect_identifier() const;
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+         void reset();
          void set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
          void set_keyboard_dimentions(float width=1, float height=1);
          void set_keyboard_position(float x=0, float y=0);

@@ -1,0 +1,89 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: '"CharacterNameInputScreen"'
+
+
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: software_keyboard
+    type: AllegroFlare::SoftwareKeyboard::SoftwareKeyboard
+    constructor_arg: true
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized), event_emitter, font_bin ]
+    body: |
+      software_keyboard.set_event_emitter(event_emitter);
+      software_keyboard.set_font_bin(font_bin);
+      software_keyboard.initialize();
+      software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
+      AllegroFlare::Vec2D keyboard_dimentions =
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions();
+      software_keyboard.set_keyboard_dimentions(keyboard_dimentions.x, keyboard_dimentions.y);
+      software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
+      initialized = true;
+      return;
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      software_keyboard.reset();
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      render();
+      return;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      software_keyboard.render();
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::SoftwareKeyboard::SoftwareKeyboard
+    headers: [ AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp ]
+
+

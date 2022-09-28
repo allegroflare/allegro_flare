@@ -200,6 +200,16 @@ void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
+void SoftwareKeyboard::reset()
+{
+   cursor_destination = {0, 0};
+   cursor_size_destination = {80, 80};
+   cursor_location = cursor_destination;
+   cursor_size = cursor_size_destination;
+   cursor_pos = 0;
+   return;
+}
+
 void SoftwareKeyboard::set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys)
 {
    this->keys = keys;

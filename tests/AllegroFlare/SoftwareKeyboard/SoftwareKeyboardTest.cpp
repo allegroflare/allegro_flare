@@ -244,8 +244,8 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
-   //DISABLED__INTERACTIVE__will_work_as_expected)
-   INTERACTIVE__will_work_as_expected)
+   DISABLED__INTERACTIVE__will_work_as_expected)
+   //INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
