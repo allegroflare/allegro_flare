@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Screens/CharacterNameInputScreen.hpp>
+#include <AllegroFlare/Screens/CharacterNameInput.hpp>
 
 #include <sstream>
 #include <stdexcept>
@@ -12,8 +12,8 @@ namespace Screens
 {
 
 
-CharacterNameInputScreen::CharacterNameInputScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard)
-   : AllegroFlare::Screens::Base("CharacterNameInputScreen")
+CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard)
+   : AllegroFlare::Screens::Base("CharacterNameInput")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , software_keyboard(software_keyboard)
@@ -22,41 +22,41 @@ CharacterNameInputScreen::CharacterNameInputScreen(AllegroFlare::EventEmitter* e
 }
 
 
-CharacterNameInputScreen::~CharacterNameInputScreen()
+CharacterNameInput::~CharacterNameInput()
 {
 }
 
 
-void CharacterNameInputScreen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+void CharacterNameInput::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
 }
 
 
-void CharacterNameInputScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
+void CharacterNameInput::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
 }
 
 
-void CharacterNameInputScreen::initialize()
+void CharacterNameInput::initialize()
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "CharacterNameInputScreen" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "CharacterNameInput" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "CharacterNameInputScreen" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+      error_message << "CharacterNameInput" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "CharacterNameInputScreen" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "CharacterNameInput" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
    software_keyboard.set_event_emitter(event_emitter);
@@ -71,36 +71,36 @@ void CharacterNameInputScreen::initialize()
    return;
 }
 
-void CharacterNameInputScreen::on_activate()
+void CharacterNameInput::on_activate()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "CharacterNameInputScreen" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
+      error_message << "CharacterNameInput" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    software_keyboard.reset();
    return;
 }
 
-void CharacterNameInputScreen::primary_timer_func()
+void CharacterNameInput::primary_timer_func()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "CharacterNameInputScreen" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "CharacterNameInput" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    render();
    return;
 }
 
-void CharacterNameInputScreen::render()
+void CharacterNameInput::render()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "CharacterNameInputScreen" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      error_message << "CharacterNameInput" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    software_keyboard.render();

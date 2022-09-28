@@ -161,6 +161,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Achievements.q.yml">quintessence/AllegroFlare/Screens/Achievements.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml">quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameOverScreen.q.yml">quintessence/AllegroFlare/Screens/GameOverScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameWonScreen.q.yml">quintessence/AllegroFlare/Screens/GameWonScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/PauseScreen.q.yml">quintessence/AllegroFlare/Screens/PauseScreen.q.yml</a></li>
@@ -7623,6 +7624,57 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml">quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">software_keyboard</td>
+  <td class="property">AllegroFlare::SoftwareKeyboard::SoftwareKeyboard</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SoftwareKeyboard::SoftwareKeyboard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/GameOverScreen.q.yml">quintessence/AllegroFlare/Screens/GameOverScreen.q.yml</h3>
      <table>
 <tr>
@@ -12239,6 +12291,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -12561,6 +12614,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -12591,6 +12645,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -13443,6 +13498,9 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
+    "AllegroFlare/Screens/CharacterNameInput"
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"

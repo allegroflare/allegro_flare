@@ -11,7 +11,7 @@ namespace AllegroFlare
 {
    namespace Screens
    {
-      class CharacterNameInputScreen : public AllegroFlare::Screens::Base
+      class CharacterNameInput : public AllegroFlare::Screens::Base
       {
       private:
          AllegroFlare::EventEmitter* event_emitter;
@@ -23,8 +23,8 @@ namespace AllegroFlare
 
 
       public:
-         CharacterNameInputScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard={});
-         virtual ~CharacterNameInputScreen();
+         CharacterNameInput(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard={});
+         virtual ~CharacterNameInput();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);

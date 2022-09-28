@@ -168,6 +168,7 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -490,6 +491,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -520,6 +522,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -1372,6 +1375,9 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
+    "AllegroFlare/Screens/CharacterNameInput"
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
