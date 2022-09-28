@@ -40,6 +40,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , cursor_size(80, 80)
    , bonk_sound_effect_identifier(DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER)
    , key_click_sound_effect_identifier(DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER)
+   , erase_sound_effect_identifier(DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER)
 {
 }
 
@@ -100,6 +101,12 @@ void SoftwareKeyboard::set_bonk_sound_effect_identifier(std::string bonk_sound_e
 void SoftwareKeyboard::set_key_click_sound_effect_identifier(std::string key_click_sound_effect_identifier)
 {
    this->key_click_sound_effect_identifier = key_click_sound_effect_identifier;
+}
+
+
+void SoftwareKeyboard::set_erase_sound_effect_identifier(std::string erase_sound_effect_identifier)
+{
+   this->erase_sound_effect_identifier = erase_sound_effect_identifier;
 }
 
 
@@ -166,6 +173,12 @@ std::string SoftwareKeyboard::get_bonk_sound_effect_identifier() const
 std::string SoftwareKeyboard::get_key_click_sound_effect_identifier() const
 {
    return key_click_sound_effect_identifier;
+}
+
+
+std::string SoftwareKeyboard::get_erase_sound_effect_identifier() const
+{
+   return erase_sound_effect_identifier;
 }
 
 
@@ -304,8 +317,8 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       if (result_string.empty()) emit_bonk_sound_effect();
       else
       {
-         // TODO: add delete sound effect
          result_string.pop_back();
+         emit_erase_sound_effect();
       }
    }
    else if (name == "OK")
@@ -646,6 +659,18 @@ void SoftwareKeyboard::emit_key_click_sound_effect()
       throw std::runtime_error(error_message.str());
    }
    event_emitter->emit_play_sound_effect_event(key_click_sound_effect_identifier);
+   return;
+}
+
+void SoftwareKeyboard::emit_erase_sound_effect()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "emit_erase_sound_effect" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   event_emitter->emit_play_sound_effect_event(erase_sound_effect_identifier);
    return;
 }
 

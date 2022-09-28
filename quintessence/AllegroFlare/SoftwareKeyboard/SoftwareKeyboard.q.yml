@@ -122,6 +122,18 @@ properties:
     static: true
     init_with: '"menu-click-01.ogg"'
 
+  - name: erase_sound_effect_identifier
+    type: std::string
+    init_with: DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER
+    getter: true
+    setter: true
+   
+  - name: DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER
+    type: const char*
+    constexpr: true
+    static: true
+    init_with: '"delete-item-01.ogg"'
+
 
 functions:
 
@@ -251,8 +263,8 @@ functions:
          if (result_string.empty()) emit_bonk_sound_effect();
          else
          {
-            // TODO: add delete sound effect
             result_string.pop_back();
+            emit_erase_sound_effect();
          }
       }
       else if (name == "OK")
@@ -604,6 +616,14 @@ functions:
     guards: [ initialized ]
     body: |
       event_emitter->emit_play_sound_effect_event(key_click_sound_effect_identifier);
+      return;
+
+
+  - name: emit_erase_sound_effect
+    private: true
+    guards: [ initialized ]
+    body: |
+      event_emitter->emit_play_sound_effect_event(erase_sound_effect_identifier);
       return;
 
 
