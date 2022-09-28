@@ -97,6 +97,11 @@ void CharacterNameInput::primary_timer_func()
    return;
 }
 
+void CharacterNameInput::set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key)
+{
+   software_keyboard.set_event_to_emit_on_pressing_ok_key(event_to_emit_on_pressing_ok_key);
+}
+
 bool CharacterNameInput::mode_is_using_keyboard()
 {
    return mode == MODE_USING_KEYBOARD;
