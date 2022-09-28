@@ -179,7 +179,8 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
-   press_key_by_name__when_pressing_the_OK_key__will_emit_an_event)
+   press_key_by_name__when_pressing_the_OK_key__will_emit_an_AllegroFlare_GameEvent_with_a_type_\
+event_to_emit_on_pressing_ok_key)
 {
    // TODO
 }

@@ -343,7 +343,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       }
       else
       {
-         event_emitter->emit_game_event(AllegroFlare::GameEvent("submit_software_keyboard"));
+         event_emitter->emit_game_event(AllegroFlare::GameEvent(event_to_emit_on_pressing_ok_key));
       }
    }
    else
