@@ -17,6 +17,7 @@ CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , software_keyboard(software_keyboard)
+   , mode(MODE_USING_VIRTUAL_INPUT)
    , initialized(false)
 {
 }
@@ -95,6 +96,42 @@ void CharacterNameInput::primary_timer_func()
    return;
 }
 
+bool CharacterNameInput::mode_is_using_keyboard()
+{
+   return mode == MODE_USING_KEYBOARD;
+}
+
+bool CharacterNameInput::mode_is_using_virtual_controls()
+{
+   return mode == MODE_USING_VIRTUAL_INPUT;
+}
+
+void CharacterNameInput::set_mode_to_using_keyboard()
+{
+   mode = MODE_USING_KEYBOARD;
+   return;
+}
+
+void CharacterNameInput::set_mode_to_using_virtual_input()
+{
+   mode = MODE_USING_VIRTUAL_INPUT;
+   return;
+}
+
+void CharacterNameInput::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "CharacterNameInput" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (mode != MODE_USING_VIRTUAL_INPUT) return;
+   // TODO: map this to constexprs
+   //if (button_num == AllegroFlare::VirtualControls::get_BUTTON_UP())
+   return;
+}
+
 void CharacterNameInput::key_char_func(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
@@ -109,6 +146,8 @@ void CharacterNameInput::key_char_func(ALLEGRO_EVENT* event)
       error_message << "CharacterNameInput" << "::" << "key_char_func" << ": error: " << "guard \"event\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (mode != MODE_USING_KEYBOARD) return;
+
    switch(event->keyboard.keycode)
    {
       case ALLEGRO_KEY_UP:
