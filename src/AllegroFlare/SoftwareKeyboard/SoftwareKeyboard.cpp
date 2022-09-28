@@ -39,6 +39,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , cursor_location({})
    , cursor_size(80, 80)
    , bonk_sound_effect_identifier(DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER)
+   , key_click_sound_effect_identifier(DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER)
 {
 }
 
@@ -93,6 +94,12 @@ void SoftwareKeyboard::set_event_to_emit_on_pressing_ok_key(std::string event_to
 void SoftwareKeyboard::set_bonk_sound_effect_identifier(std::string bonk_sound_effect_identifier)
 {
    this->bonk_sound_effect_identifier = bonk_sound_effect_identifier;
+}
+
+
+void SoftwareKeyboard::set_key_click_sound_effect_identifier(std::string key_click_sound_effect_identifier)
+{
+   this->key_click_sound_effect_identifier = key_click_sound_effect_identifier;
 }
 
 
@@ -153,6 +160,12 @@ std::string SoftwareKeyboard::get_event_to_emit_on_pressing_ok_key() const
 std::string SoftwareKeyboard::get_bonk_sound_effect_identifier() const
 {
    return bonk_sound_effect_identifier;
+}
+
+
+std::string SoftwareKeyboard::get_key_click_sound_effect_identifier() const
+{
+   return key_click_sound_effect_identifier;
 }
 
 
@@ -323,7 +336,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       {
          // TODO: ensure concating "string_to_append" will not result in a result_string that is longer than limit
          result_string += string_to_append;
-         // TODO: play click keypress sound
+         emit_key_click_sound_effect();
       }
    }
 
@@ -617,6 +630,18 @@ void SoftwareKeyboard::emit_bonk_sound_effect()
       throw std::runtime_error(error_message.str());
    }
    event_emitter->emit_play_sound_effect_event(bonk_sound_effect_identifier);
+   return;
+}
+
+void SoftwareKeyboard::emit_key_click_sound_effect()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "SoftwareKeyboard" << "::" << "emit_key_click_sound_effect" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   event_emitter->emit_play_sound_effect_event(key_click_sound_effect_identifier);
    return;
 }
 

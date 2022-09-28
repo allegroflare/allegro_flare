@@ -110,6 +110,18 @@ properties:
     static: true
     init_with: '"ui-input-bonk-01.ogg"'
 
+  - name: key_click_sound_effect_identifier
+    type: std::string
+    init_with: DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER
+    getter: true
+    setter: true
+   
+  - name: DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER
+    type: const char*
+    constexpr: true
+    static: true
+    init_with: '"menu-click-01.ogg"'
+
 
 functions:
 
@@ -271,7 +283,7 @@ functions:
          {
             // TODO: ensure concating "string_to_append" will not result in a result_string that is longer than limit
             result_string += string_to_append;
-            // TODO: play click keypress sound
+            emit_key_click_sound_effect();
          }
       }
 
@@ -580,6 +592,14 @@ functions:
     guards: [ initialized ]
     body: |
       event_emitter->emit_play_sound_effect_event(bonk_sound_effect_identifier);
+      return;
+
+
+  - name: emit_key_click_sound_effect
+    private: true
+    guards: [ initialized ]
+    body: |
+      event_emitter->emit_play_sound_effect_event(key_click_sound_effect_identifier);
       return;
 
 

@@ -21,6 +21,7 @@ namespace AllegroFlare
       public:
          static constexpr const char* DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY = "submit_software_keyboard";
          static constexpr const char* DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER = "ui-input-bonk-01.ogg";
+         static constexpr const char* DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER = "menu-click-01.ogg";
 
       private:
          AllegroFlare::EventEmitter* event_emitter;
@@ -41,6 +42,7 @@ namespace AllegroFlare
          AllegroFlare::Vec2D cursor_location;
          AllegroFlare::Vec2D cursor_size;
          std::string bonk_sound_effect_identifier;
+         std::string key_click_sound_effect_identifier;
          void update_cursor_destination();
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();
@@ -48,6 +50,7 @@ namespace AllegroFlare
          void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
          void emit_bonk_sound_effect();
+         void emit_key_click_sound_effect();
          ALLEGRO_FONT* obtain_keyboard_font();
          ALLEGRO_FONT* obtain_prompt_text_font();
          ALLEGRO_FONT* obtain_result_text_font();
@@ -67,6 +70,7 @@ namespace AllegroFlare
          void set_num_permitted_chars(std::size_t num_permitted_chars);
          void set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key);
          void set_bonk_sound_effect_identifier(std::string bonk_sound_effect_identifier);
+         void set_key_click_sound_effect_identifier(std::string key_click_sound_effect_identifier);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_font_name() const;
@@ -77,6 +81,7 @@ namespace AllegroFlare
          std::size_t get_num_permitted_chars() const;
          std::string get_event_to_emit_on_pressing_ok_key() const;
          std::string get_bonk_sound_effect_identifier() const;
+         std::string get_key_click_sound_effect_identifier() const;
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
