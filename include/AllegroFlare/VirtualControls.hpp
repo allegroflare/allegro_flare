@@ -8,20 +8,22 @@ namespace AllegroFlare
 {
    class VirtualControls
    {
+   public:
+      static constexpr int BUTTON_UP = 1;
+      static constexpr int BUTTON_DOWN = 2;
+      static constexpr int BUTTON_LEFT = 3;
+      static constexpr int BUTTON_RIGHT = 4;
+      static constexpr int BUTTON_A = 5;
+      static constexpr int BUTTON_B = 6;
+      static constexpr int BUTTON_X = 7;
+      static constexpr int BUTTON_Y = 8;
+      static constexpr int BUTTON_START = 9;
+      static constexpr int BUTTON_RIGHT_BUMPER = 10;
+      static constexpr int BUTTON_LEFT_BUMPER = 11;
+      static constexpr int PRIMARY_STICK = 0;
+      static constexpr int SECONDARY_STICK = 1;
+
    private:
-      static int BUTTON_UP;
-      static int BUTTON_DOWN;
-      static int BUTTON_LEFT;
-      static int BUTTON_RIGHT;
-      static int BUTTON_A;
-      static int BUTTON_B;
-      static int BUTTON_X;
-      static int BUTTON_Y;
-      static int BUTTON_START;
-      static int BUTTON_RIGHT_BUMPER;
-      static int BUTTON_LEFT_BUMPER;
-      static int PRIMARY_STICK;
-      static int SECONDARY_STICK;
       bool right_button_pressed;
       bool left_button_pressed;
       bool up_button_pressed;
@@ -56,19 +58,6 @@ namespace AllegroFlare
       void set_start_button_pressed(bool start_button_pressed);
       void set_primary_stick_position(AllegroFlare::vec2d primary_stick_position);
       void set_secondary_stick_position(AllegroFlare::vec2d secondary_stick_position);
-      static int get_BUTTON_UP();
-      static int get_BUTTON_DOWN();
-      static int get_BUTTON_LEFT();
-      static int get_BUTTON_RIGHT();
-      static int get_BUTTON_A();
-      static int get_BUTTON_B();
-      static int get_BUTTON_X();
-      static int get_BUTTON_Y();
-      static int get_BUTTON_START();
-      static int get_BUTTON_RIGHT_BUMPER();
-      static int get_BUTTON_LEFT_BUMPER();
-      static int get_PRIMARY_STICK();
-      static int get_SECONDARY_STICK();
       bool get_right_button_pressed() const;
       bool get_left_button_pressed() const;
       bool get_up_button_pressed() const;

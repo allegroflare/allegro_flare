@@ -9,45 +9,6 @@ namespace AllegroFlare
 {
 
 
-int VirtualControls::BUTTON_UP = 1;
-
-
-int VirtualControls::BUTTON_DOWN = 2;
-
-
-int VirtualControls::BUTTON_LEFT = 3;
-
-
-int VirtualControls::BUTTON_RIGHT = 4;
-
-
-int VirtualControls::BUTTON_A = 5;
-
-
-int VirtualControls::BUTTON_B = 6;
-
-
-int VirtualControls::BUTTON_X = 7;
-
-
-int VirtualControls::BUTTON_Y = 8;
-
-
-int VirtualControls::BUTTON_START = 9;
-
-
-int VirtualControls::BUTTON_RIGHT_BUMPER = 10;
-
-
-int VirtualControls::BUTTON_LEFT_BUMPER = 11;
-
-
-int VirtualControls::PRIMARY_STICK = 0;
-
-
-int VirtualControls::SECONDARY_STICK = 1;
-
-
 VirtualControls::VirtualControls()
    : right_button_pressed(false)
    , left_button_pressed(false)
@@ -146,84 +107,6 @@ void VirtualControls::set_primary_stick_position(AllegroFlare::vec2d primary_sti
 void VirtualControls::set_secondary_stick_position(AllegroFlare::vec2d secondary_stick_position)
 {
    this->secondary_stick_position = secondary_stick_position;
-}
-
-
-int VirtualControls::get_BUTTON_UP()
-{
-   return BUTTON_UP;
-}
-
-
-int VirtualControls::get_BUTTON_DOWN()
-{
-   return BUTTON_DOWN;
-}
-
-
-int VirtualControls::get_BUTTON_LEFT()
-{
-   return BUTTON_LEFT;
-}
-
-
-int VirtualControls::get_BUTTON_RIGHT()
-{
-   return BUTTON_RIGHT;
-}
-
-
-int VirtualControls::get_BUTTON_A()
-{
-   return BUTTON_A;
-}
-
-
-int VirtualControls::get_BUTTON_B()
-{
-   return BUTTON_B;
-}
-
-
-int VirtualControls::get_BUTTON_X()
-{
-   return BUTTON_X;
-}
-
-
-int VirtualControls::get_BUTTON_Y()
-{
-   return BUTTON_Y;
-}
-
-
-int VirtualControls::get_BUTTON_START()
-{
-   return BUTTON_START;
-}
-
-
-int VirtualControls::get_BUTTON_RIGHT_BUMPER()
-{
-   return BUTTON_RIGHT_BUMPER;
-}
-
-
-int VirtualControls::get_BUTTON_LEFT_BUMPER()
-{
-   return BUTTON_LEFT_BUMPER;
-}
-
-
-int VirtualControls::get_PRIMARY_STICK()
-{
-   return PRIMARY_STICK;
-}
-
-
-int VirtualControls::get_SECONDARY_STICK()
-{
-   return SECONDARY_STICK;
 }
 
 

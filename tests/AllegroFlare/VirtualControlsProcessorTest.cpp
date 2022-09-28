@@ -57,18 +57,18 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible
 
    int PLAYER_0 = 0;
    std::map<int, std::pair<int, int>> expected_keyboard_button_map = {
-     { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_START() } },
-     { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_A() } },
-     { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_A() } },
-     { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_B() } },
-     { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_X() } },
-     { ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_Y() } },
-     { ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_UP() } },
-     { ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_DOWN() } },
-     { ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_LEFT() } },
-     { ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_RIGHT() } },
-     { ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER() } },
-     { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualControls::get_BUTTON_LEFT_BUMPER() } },
+     { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_START } },
+     { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_A } },
+     { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_A } },
+     { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_B } },
+     { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_X } },
+     { ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_Y } },
+     { ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_UP } },
+     { ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_DOWN } },
+     { ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_LEFT } },
+     { ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_RIGHT } },
+     { ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER } },
+     { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_LEFT_BUMPER } },
    };
 
    EXPECT_EQ(expected_keyboard_button_map, virtual_control_processor.get_keyboard_button_map());
@@ -82,13 +82,13 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible
    virtual_control_processor.initialize();
 
    std::map<int, int> expected_joystick_button_map = {
-     { 1, AllegroFlare::VirtualControls::get_BUTTON_A() },
-     { 0, AllegroFlare::VirtualControls::get_BUTTON_B() },
-     { 4, AllegroFlare::VirtualControls::get_BUTTON_X() },
-     { 3, AllegroFlare::VirtualControls::get_BUTTON_Y() },
-     { 6, AllegroFlare::VirtualControls::get_BUTTON_LEFT_BUMPER() },
-     { 7, AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER() },
-     { 11, AllegroFlare::VirtualControls::get_BUTTON_START() },
+     { 1, AllegroFlare::VirtualControls::BUTTON_A },
+     { 0, AllegroFlare::VirtualControls::BUTTON_B },
+     { 4, AllegroFlare::VirtualControls::BUTTON_X },
+     { 3, AllegroFlare::VirtualControls::BUTTON_Y },
+     { 6, AllegroFlare::VirtualControls::BUTTON_LEFT_BUMPER },
+     { 7, AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER },
+     { 11, AllegroFlare::VirtualControls::BUTTON_START },
    };
 
    EXPECT_EQ(expected_joystick_button_map, virtual_control_processor.get_joystick_button_map());
@@ -286,7 +286,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    virtual_control_processor.handle_raw_joystick_button_down_event(&raw_event);
 
-   int expected_mapped_button = AllegroFlare::VirtualControls::get_BUTTON_A();
+   int expected_mapped_button = AllegroFlare::VirtualControls::BUTTON_A;
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));
@@ -318,7 +318,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    virtual_control_processor.handle_raw_joystick_button_up_event(&raw_event);
 
-   int expected_mapped_button = AllegroFlare::VirtualControls::get_BUTTON_X();
+   int expected_mapped_button = AllegroFlare::VirtualControls::BUTTON_X;
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));
@@ -384,7 +384,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    virtual_control_processor.handle_raw_keyboard_key_down_event(&raw_event);
 
-   int expected_mapped_button = AllegroFlare::VirtualControls::get_BUTTON_RIGHT_BUMPER();
+   int expected_mapped_button = AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER;
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));
@@ -416,7 +416,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    virtual_control_processor.handle_raw_keyboard_key_up_event(&raw_event);
 
-   int expected_mapped_button = AllegroFlare::VirtualControls::get_BUTTON_A();
+   int expected_mapped_button = AllegroFlare::VirtualControls::BUTTON_A;
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));

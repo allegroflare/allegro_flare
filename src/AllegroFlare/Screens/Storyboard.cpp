@@ -163,9 +163,9 @@ void Storyboard::virtual_control_button_down_func(int player_num, int button_num
    }
    if (storyboard_element.get_finished()) return;
 
-   if (button_num == AllegroFlare::VirtualControls::get_BUTTON_A()
-     || button_num == AllegroFlare::VirtualControls::get_BUTTON_START()
-     || button_num == AllegroFlare::VirtualControls::get_BUTTON_RIGHT())
+   if (button_num == AllegroFlare::VirtualControls::BUTTON_A
+     || button_num == AllegroFlare::VirtualControls::BUTTON_START
+     || button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT)
    {
       advance();
    }

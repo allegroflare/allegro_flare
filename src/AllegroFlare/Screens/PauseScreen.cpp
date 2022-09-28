@@ -555,10 +555,10 @@ ALLEGRO_BITMAP* PauseScreen::obtain_title_bitmap()
 
 void PauseScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
-   if (button_num == VirtualControls::get_BUTTON_UP()) move_cursor_up();
-   if (button_num == VirtualControls::get_BUTTON_DOWN()) move_cursor_down();
-   if (button_num == VirtualControls::get_BUTTON_A()
-      || button_num == VirtualControls::get_BUTTON_START()
+   if (button_num == VirtualControls::BUTTON_UP) move_cursor_up();
+   if (button_num == VirtualControls::BUTTON_DOWN) move_cursor_down();
+   if (button_num == VirtualControls::BUTTON_A
+      || button_num == VirtualControls::BUTTON_START
       )
    {
       select_menu_option();
