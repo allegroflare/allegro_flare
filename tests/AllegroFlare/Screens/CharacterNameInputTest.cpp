@@ -46,16 +46,6 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
    INTERACTIVE__will_work_as_expected)
 {
-   AllegroFlare::EventEmitter event_emitter;
-   event_emitter.initialize();
-   AllegroFlare::Screens::CharacterNameInput character_name_input(&event_emitter, &get_font_bin_ref());
-   character_name_input.initialize();
-}
-
-
-TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__will_work_as_expected)
-{
    // setup system
    al_install_keyboard();
    al_install_joystick();
@@ -77,6 +67,7 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
    character_name_input_screen.set_font_bin(&get_font_bin_ref());
    //character_name_input_screen.set_bitmap_bin(&get_bitmap_bin_ref());
    character_name_input_screen.set_event_emitter(&event_emitter);
+   character_name_input_screen.initialize();
 
    // run the interactive test
    al_start_timer(primary_timer);
@@ -87,13 +78,7 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
       switch(event.type)
       {
          case ALLEGRO_EVENT_KEY_CHAR:
-         {
-            int button_num = 0;
-            //if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::get_BUTTON_UP();
-            //if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::get_BUTTON_DOWN();
-            //if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualControls::get_BUTTON_A();
-            //if (button_num != 0) .virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
-         }
+            character_name_input_screen.key_char_func(&event);
          break;
 
          case ALLEGRO_EVENT_TIMER:

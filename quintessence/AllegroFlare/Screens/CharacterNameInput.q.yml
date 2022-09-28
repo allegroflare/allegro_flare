@@ -67,6 +67,57 @@ functions:
       return;
 
 
+  - name: key_char_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event ]
+    body: |
+      switch(event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+            software_keyboard.move_cursor_up();
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            software_keyboard.move_cursor_down();
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+            software_keyboard.increment_cursor_pos();
+         break;
+
+         case ALLEGRO_KEY_LEFT:
+            software_keyboard.decrement_cursor_pos();
+         break;
+
+         case ALLEGRO_KEY_ENTER:
+            {
+               bool shift = (event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT);
+               if (shift) { software_keyboard.press_key_by_name("OK"); }
+               else { software_keyboard.press_key_under_cursor(); }
+            }
+         break;
+
+         case ALLEGRO_KEY_BACKSPACE:
+            software_keyboard.press_key_by_name("BACKSPACE");
+         break;
+
+         case ALLEGRO_KEY_SPACE:
+            software_keyboard.press_key_by_name("SPACE");
+         break;
+
+         default:
+            std::string s(1, event->keyboard.unichar);
+            software_keyboard.press_key_by_name(s);
+         break;
+      }
+      return;
+
+
   - name: render
     guards: [ initialized ]
     body: |
@@ -85,5 +136,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::SoftwareKeyboard::SoftwareKeyboard
     headers: [ AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
 
 

@@ -5,6 +5,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
+#include <allegro5/allegro.h>
 
 
 namespace AllegroFlare
@@ -31,6 +32,7 @@ namespace AllegroFlare
          void initialize();
          virtual void on_activate() override;
          virtual void primary_timer_func() override;
+         virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
          void render();
       };
    }

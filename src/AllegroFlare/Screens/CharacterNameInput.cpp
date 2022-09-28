@@ -95,6 +95,62 @@ void CharacterNameInput::primary_timer_func()
    return;
 }
 
+void CharacterNameInput::key_char_func(ALLEGRO_EVENT* event)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "CharacterNameInput" << "::" << "key_char_func" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(event))
+   {
+      std::stringstream error_message;
+      error_message << "CharacterNameInput" << "::" << "key_char_func" << ": error: " << "guard \"event\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   switch(event->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_UP:
+         software_keyboard.move_cursor_up();
+      break;
+
+      case ALLEGRO_KEY_DOWN:
+         software_keyboard.move_cursor_down();
+      break;
+
+      case ALLEGRO_KEY_RIGHT:
+         software_keyboard.increment_cursor_pos();
+      break;
+
+      case ALLEGRO_KEY_LEFT:
+         software_keyboard.decrement_cursor_pos();
+      break;
+
+      case ALLEGRO_KEY_ENTER:
+         {
+            bool shift = (event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT);
+            if (shift) { software_keyboard.press_key_by_name("OK"); }
+            else { software_keyboard.press_key_under_cursor(); }
+         }
+      break;
+
+      case ALLEGRO_KEY_BACKSPACE:
+         software_keyboard.press_key_by_name("BACKSPACE");
+      break;
+
+      case ALLEGRO_KEY_SPACE:
+         software_keyboard.press_key_by_name("SPACE");
+      break;
+
+      default:
+         std::string s(1, event->keyboard.unichar);
+         software_keyboard.press_key_by_name(s);
+      break;
+   }
+   return;
+}
+
 void CharacterNameInput::render()
 {
    if (!(initialized))
