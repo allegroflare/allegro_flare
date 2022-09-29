@@ -67,7 +67,7 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
    // initialize test subject
    AllegroFlare::Screens::CharacterNameInput character_name_input_screen;
    character_name_input_screen.set_font_bin(&get_font_bin_ref());
-   //character_name_input_screen.set_bitmap_bin(&get_bitmap_bin_ref());
+   character_name_input_screen.set_font_size(-40);
    character_name_input_screen.set_event_emitter(&event_emitter);
    character_name_input_screen.initialize();
 

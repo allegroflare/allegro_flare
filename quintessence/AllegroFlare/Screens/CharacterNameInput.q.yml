@@ -84,8 +84,13 @@ functions:
 
 
   - name: set_font_size
+    parameters:
+      - name: font_size
+        type: int
+        default_argument: 1
     body: |
-      // HERE
+      // TODO: guards, cannot be zero (or maybe this should be a guard in the bin if it is not)
+      software_keyboard.set_font_size(font_size);
       return;
 
 
