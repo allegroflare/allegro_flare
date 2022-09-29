@@ -101,16 +101,8 @@ void MindDive::initialize()
       error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   //camera.size.x = 1920;
-   //camera.size.y = 1080;
-   //camera.set_zoom(2.0f);
    AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
-
    current_tunnel_mesh = factory.create_classic_random();
-   //AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
-
-   //tunnel_mesh.set_bitmap_bin(bitmap_bin);
-   //tunnel_mesh.initialize();
 
    initialized = true;
    return;
@@ -136,8 +128,10 @@ void MindDive::reset_timer()
 
 void MindDive::reset()
 {
-   surfer_position.x = current_tunnel_mesh->infer_real_width() / 2;
-   surfer_position.z = current_tunnel_mesh->infer_real_height();
+   surfer_position.x = current_tunnel_mesh->infer_real_width() * 0.5
+                     - current_tunnel_mesh->obtain_tile_width() * 0.5;
+   surfer_position.z = current_tunnel_mesh->infer_real_height()
+                     - current_tunnel_mesh->obtain_tile_height() * 0.5;
 
    surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
@@ -153,19 +147,19 @@ void MindDive::reset()
 
 void MindDive::surfer_move_right()
 {
-   surfer_velocity.x = 2;
+   surfer_velocity.x = 3;
    return;
 }
 
 void MindDive::surfer_move_left()
 {
-   surfer_velocity.x = -2;
+   surfer_velocity.x = -3;
    return;
 }
 
 void MindDive::surfer_accelerate()
 {
-   surfer_velocity.z = -6;
+   surfer_velocity.z = -10;
    return;
 }
 
