@@ -10,11 +10,3 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperCollisionInfoTest, can_be_creat
 }
 
 
-TEST(AllegroFlare_Physics_TileMapCollisionStepperCollisionInfoTest, run__returns_the_expected_response)
-{
-   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo tile_map_collision_stepper_collision_info;
-   std::string expected_string = "Hello World!";
-   EXPECT_EQ(expected_string, tile_map_collision_stepper_collision_info.run());
-}
-
-

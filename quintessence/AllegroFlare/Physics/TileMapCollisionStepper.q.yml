@@ -26,8 +26,10 @@ functions:
 
 
   - name: step
+    type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
     guards: [ collision_tile_map, aabb2d ]
     body: |
+      std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
       AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
@@ -46,11 +48,29 @@ functions:
             {
                if (obj.get_velocity_x() > 0)
                {
+                  result_infos.push_back(
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                        AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                        obj.get_velocity_x(),
+                        obj.get_velocity_y(),
+                        true
+                     )
+                  );
+
                   obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - 0.0001);
                   obj.set_velocity_x(0.0);
                }
                else if (obj.get_velocity_x() < 0)
                {
+                  result_infos.push_back(
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                        AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                        obj.get_velocity_x(),
+                        obj.get_velocity_y(),
+                        true
+                     )
+                  );
+
                   obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + 0.0001);
                   obj.set_velocity_x(0.0);
                }
@@ -72,11 +92,29 @@ functions:
             {
                if (obj.get_velocity_y() > 0)
                {
+                  result_infos.push_back(
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                        AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                        obj.get_velocity_x(),
+                        obj.get_velocity_y(),
+                        true
+                     )
+                  );
+
                   obj.set_bottom_edge(get_tile_top_edge(t.get_y()) - 0.0001);
                   obj.set_velocity_y(0.0);
                }
                else if (obj.get_velocity_y() < 0)
                {
+                  result_infos.push_back(
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                        AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                        obj.get_velocity_x(),
+                        obj.get_velocity_y(),
+                        true
+                     )
+                  );
+
                   obj.set_top_edge(get_tile_bottom_edge(t.get_y()) + 0.0001);
                   obj.set_velocity_y(0.0);
                }
@@ -85,9 +123,10 @@ functions:
       }
       obj.set_y(obj.get_y() + obj.get_velocity_y());
 
-      return;
+      return result_infos;
     body_dependency_symbols:
       - AllegroFlare::Physics::AABB2D
+      - AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
 
 
   - name: adjacent_to_bottom_edge
@@ -417,5 +456,7 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: AllegroFlare::Physics::Int2D
     headers: [ AllegroFlare/Physics/Int2D.hpp ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
 
 

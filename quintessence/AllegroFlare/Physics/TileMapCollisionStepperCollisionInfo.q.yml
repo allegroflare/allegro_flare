@@ -1,9 +1,39 @@
-functions:
+properties:
 
 
-  - name: run
-    type: std::string
-    body: |
-      return "Hello World!";
+  - name: collided_tile_coordinate
+    type: AllegroFlare::Physics::Int2D
+    init_with: '{ -1, -1 }'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: collision_velocity_x
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+    
+  - name: collision_velocity_y
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: stopped_by_this_collision
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Physics::Int2D
+    headers: [ AllegroFlare/Physics/Int2D.hpp ]
 
 

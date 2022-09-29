@@ -1161,6 +1161,10 @@
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Physics/Int2D": [
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
+  ],
+  "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [

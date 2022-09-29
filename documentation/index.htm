@@ -5892,6 +5892,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/Int2D.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -5899,13 +5902,29 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</h3>
      <table>
-    </table>
-     <table>
 <tr>
-  <td class="method">run()</td>
+  <td class="property">collided_tile_coordinate</td>
+  <td class="property">AllegroFlare::Physics::Int2D</td>
+</tr>
+<tr>
+  <td class="property">collision_velocity_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">collision_velocity_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">stopped_by_this_collision</td>
+  <td class="property">bool</td>
 </tr>
     </table>
      <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/Int2D.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -13665,6 +13684,10 @@ table td
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Physics/Int2D": [
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
+  ],
+  "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [

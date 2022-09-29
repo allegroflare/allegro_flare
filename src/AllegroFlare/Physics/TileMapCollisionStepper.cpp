@@ -3,6 +3,7 @@
 #include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
 
 #include <AllegroFlare/Physics/AABB2D.hpp>
+#include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <cmath>
 #include <sstream>
 #include <stdexcept>
@@ -28,7 +29,7 @@ TileMapCollisionStepper::~TileMapCollisionStepper()
 }
 
 
-void TileMapCollisionStepper::step()
+std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMapCollisionStepper::step()
 {
    if (!(collision_tile_map))
    {
@@ -42,6 +43,7 @@ void TileMapCollisionStepper::step()
       error_message << "TileMapCollisionStepper" << "::" << "step" << ": error: " << "guard \"aabb2d\" not met";
       throw std::runtime_error(error_message.str());
    }
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
    AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
@@ -60,11 +62,29 @@ void TileMapCollisionStepper::step()
          {
             if (obj.get_velocity_x() > 0)
             {
+               result_infos.push_back(
+                  AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                     AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                     obj.get_velocity_x(),
+                     obj.get_velocity_y(),
+                     true
+                  )
+               );
+
                obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - 0.0001);
                obj.set_velocity_x(0.0);
             }
             else if (obj.get_velocity_x() < 0)
             {
+               result_infos.push_back(
+                  AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                     AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                     obj.get_velocity_x(),
+                     obj.get_velocity_y(),
+                     true
+                  )
+               );
+
                obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + 0.0001);
                obj.set_velocity_x(0.0);
             }
@@ -86,11 +106,29 @@ void TileMapCollisionStepper::step()
          {
             if (obj.get_velocity_y() > 0)
             {
+               result_infos.push_back(
+                  AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                     AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                     obj.get_velocity_x(),
+                     obj.get_velocity_y(),
+                     true
+                  )
+               );
+
                obj.set_bottom_edge(get_tile_top_edge(t.get_y()) - 0.0001);
                obj.set_velocity_y(0.0);
             }
             else if (obj.get_velocity_y() < 0)
             {
+               result_infos.push_back(
+                  AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                     AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                     obj.get_velocity_x(),
+                     obj.get_velocity_y(),
+                     true
+                  )
+               );
+
                obj.set_top_edge(get_tile_bottom_edge(t.get_y()) + 0.0001);
                obj.set_velocity_y(0.0);
             }
@@ -99,7 +137,7 @@ void TileMapCollisionStepper::step()
    }
    obj.set_y(obj.get_y() + obj.get_velocity_y());
 
-   return;
+   return result_infos;
 }
 
 bool TileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, float tile_height)

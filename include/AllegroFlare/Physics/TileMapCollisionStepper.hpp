@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Physics/AABB2D.hpp>
 #include <AllegroFlare/Physics/Int2D.hpp>
+#include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <utility>
 #include <vector>
@@ -31,7 +32,7 @@ namespace AllegroFlare
          TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map=nullptr, AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float tile_width=16.0f, float tile_height=16.0f);
          ~TileMapCollisionStepper();
 
-         void step();
+         std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step();
          bool adjacent_to_bottom_edge(float tile_width=16.0f, float tile_height=16.0f);
          bool adjacent_to_right_edge(float tile_width=16.0f, float tile_height=16.0f);
          bool adjacent_to_top_edge(float tile_width=16.0f, float tile_height=16.0f);
