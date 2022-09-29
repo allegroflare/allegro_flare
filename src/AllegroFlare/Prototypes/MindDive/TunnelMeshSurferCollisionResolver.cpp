@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp>
 
+#include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
 #include <sstream>
 #include <stdexcept>
 
@@ -63,6 +64,13 @@ AllegroFlare::Vec3D* TunnelMeshSurferCollisionResolver::get_surfer_velocity() co
 }
 
 
+void TunnelMeshSurferCollisionResolver::resolve_classic()
+{
+   surfer_position->x += surfer_velocity->x * 0.01;
+   surfer_position->z += surfer_velocity->z * 0.01;
+   return;
+}
+
 void TunnelMeshSurferCollisionResolver::resolve()
 {
    if (!(tunnel_mesh))
@@ -83,8 +91,36 @@ void TunnelMeshSurferCollisionResolver::resolve()
       error_message << "TunnelMeshSurferCollisionResolver" << "::" << "resolve" << ": error: " << "guard \"surfer_velocity\" not met";
       throw std::runtime_error(error_message.str());
    }
-   surfer_position->x += surfer_velocity->x * 0.01;
-   surfer_position->z += surfer_velocity->z * 0.01;
+   // make an AABB2D to represent the surfer
+   float surfer_size = 0.2;
+   float surfer_hsize = surfer_size * 0.5;
+   AllegroFlare::Physics::AABB2D aabb2d(
+      surfer_position->x - surfer_hsize,
+      surfer_position->z - surfer_hsize,
+      surfer_size,
+      surfer_size,
+      surfer_velocity->x * 0.01,
+      surfer_velocity->z * 0.01
+   );
+
+   // create a collision stepper
+   AllegroFlare::Physics::TileMapCollisionStepper collision_stepper(
+      &tunnel_mesh->get_collision_tile_map_ref(), 
+      &aabb2d,
+      tunnel_mesh->obtain_tile_width(),
+      tunnel_mesh->obtain_tile_height()
+   );
+
+   // step the collision and collect the collision info
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_info =
+      collision_stepper.step();
+
+   // reposition our surfer to the stepper-modified aabb2d
+   surfer_position->x = aabb2d.get_x() + surfer_hsize;
+   surfer_position->z = aabb2d.get_y() + surfer_hsize;
+   surfer_velocity->x = (aabb2d.get_velocity_x() * 100);
+   surfer_velocity->z = (aabb2d.get_velocity_y() * 100);
+      
    return;
 }
 

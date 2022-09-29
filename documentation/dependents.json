@@ -1401,6 +1401,9 @@
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
   ],
+  "AllegroFlare/Physics/TileMapCollisionStepper": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+  ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements"

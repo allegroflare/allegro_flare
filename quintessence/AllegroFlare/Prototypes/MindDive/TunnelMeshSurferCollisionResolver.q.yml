@@ -26,12 +26,49 @@ properties:
 functions:
 
 
-  - name: resolve
-    guards: [ tunnel_mesh, surfer_position, surfer_velocity ]
+  - name: resolve_classic
     body: |
       surfer_position->x += surfer_velocity->x * 0.01;
       surfer_position->z += surfer_velocity->z * 0.01;
       return;
+
+
+  - name: resolve
+    guards: [ tunnel_mesh, surfer_position, surfer_velocity ]
+    body: |
+      // make an AABB2D to represent the surfer
+      float surfer_size = 0.2;
+      float surfer_hsize = surfer_size * 0.5;
+      AllegroFlare::Physics::AABB2D aabb2d(
+         surfer_position->x - surfer_hsize,
+         surfer_position->z - surfer_hsize,
+         surfer_size,
+         surfer_size,
+         surfer_velocity->x * 0.01,
+         surfer_velocity->z * 0.01
+      );
+
+      // create a collision stepper
+      AllegroFlare::Physics::TileMapCollisionStepper collision_stepper(
+         &tunnel_mesh->get_collision_tile_map_ref(), 
+         &aabb2d,
+         tunnel_mesh->obtain_tile_width(),
+         tunnel_mesh->obtain_tile_height()
+      );
+
+      // step the collision and collect the collision info
+      std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_info =
+         collision_stepper.step();
+
+      // reposition our surfer to the stepper-modified aabb2d
+      surfer_position->x = aabb2d.get_x() + surfer_hsize;
+      surfer_position->z = aabb2d.get_y() + surfer_hsize;
+      surfer_velocity->x = (aabb2d.get_velocity_x() * 100);
+      surfer_velocity->z = (aabb2d.get_velocity_y() * 100);
+         
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Physics::TileMapCollisionStepper
 
 
 dependencies:
@@ -41,5 +78,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepper
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepper.hpp ]
 
 

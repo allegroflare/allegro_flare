@@ -129,6 +129,8 @@ void TunnelMesh::initialize()
    prim_mesh.set_atlas(&atlas);
    prim_mesh.swap_yz();
 
+   collision_tile_map.initialize();
+
    initialized = true;
    return;
 }
@@ -142,6 +144,7 @@ void TunnelMesh::resize(int num_columns, int num_rows)
       throw std::runtime_error(error_message.str());
    }
    prim_mesh.resize(num_columns, num_rows);
+   collision_tile_map.resize(num_columns, num_rows);
    return;
 }
 

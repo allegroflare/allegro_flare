@@ -31,6 +31,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::MindDive::TunnelMesh* get_tunnel_mesh() const;
             AllegroFlare::Vec3D* get_surfer_position() const;
             AllegroFlare::Vec3D* get_surfer_velocity() const;
+            void resolve_classic();
             void resolve();
          };
       }

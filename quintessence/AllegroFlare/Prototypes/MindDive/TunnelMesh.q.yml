@@ -83,6 +83,8 @@ functions:
       prim_mesh.set_atlas(&atlas);
       prim_mesh.swap_yz();
 
+      collision_tile_map.initialize();
+
       initialized = true;
       return;
     body_dependency_symbols:
@@ -102,6 +104,7 @@ functions:
     guards: [ (num_columns > 0), (num_rows > 0) ]
     body: |
       prim_mesh.resize(num_columns, num_rows);
+      collision_tile_map.resize(num_columns, num_rows);
       return;
 
 
