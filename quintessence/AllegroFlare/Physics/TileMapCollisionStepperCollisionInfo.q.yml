@@ -8,6 +8,13 @@ properties:
     getter: true
     setter: true
 
+  - name: tile_value
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: collision_velocity_x
     type: float
     init_with: 0

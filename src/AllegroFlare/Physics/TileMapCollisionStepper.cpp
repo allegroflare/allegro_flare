@@ -58,13 +58,16 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       for (AllegroFlare::Physics::Int2D &t : horizontal_collided_blocks)
       {
-         if (map.get_tile(t.get_x(), t.get_y()) == 1) // tile is solid
+         int tile_value = map.get_tile(t.get_x(), t.get_y());
+
+         if (tile_value == 1) // tile is solid
          {
             if (obj.get_velocity_x() > 0)
             {
                result_infos.push_back(
                   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
                      AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                     tile_value,
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
                      true
@@ -79,6 +82,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                result_infos.push_back(
                   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
                      AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                     tile_value,
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
                      true
@@ -88,6 +92,18 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + 0.0001);
                obj.set_velocity_x(0.0);
             }
+         }
+         else // tile is not solid (aka, "1")
+         {
+            result_infos.push_back(
+               AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                  AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                  tile_value,
+                  obj.get_velocity_x(),
+                  obj.get_velocity_y(),
+                  false
+               )
+            );
          }
       }
    }
@@ -102,13 +118,16 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       for (AllegroFlare::Physics::Int2D &t : vertical_collided_blocks)
       {
-         if (map.get_tile(t.get_x(), t.get_y()) == 1) // tile is solid
+         int tile_value = map.get_tile(t.get_x(), t.get_y());
+
+         if (tile_value == 1) // tile is solid
          {
             if (obj.get_velocity_y() > 0)
             {
                result_infos.push_back(
                   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
                      AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                     tile_value,
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
                      true
@@ -123,6 +142,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                result_infos.push_back(
                   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
                      AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                     tile_value,
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
                      true
@@ -132,6 +152,18 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                obj.set_top_edge(get_tile_bottom_edge(t.get_y()) + 0.0001);
                obj.set_velocity_y(0.0);
             }
+         }
+         else // tile is not solid (aka, "1")
+         {
+            result_infos.push_back(
+               AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                  AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                  tile_value,
+                  obj.get_velocity_x(),
+                  obj.get_velocity_y(),
+                  false
+               )
+            );
          }
       }
    }
