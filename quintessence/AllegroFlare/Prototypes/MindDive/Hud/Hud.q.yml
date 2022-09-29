@@ -17,7 +17,7 @@ properties:
 
   - name: slate_text
     type: std::string
-    init_with: '"-- WIN --"'
+    init_with: '""'
     constructor_arg: true
 
   - name: backbuffer_sub_bitmap
@@ -34,6 +34,24 @@ properties:
 
 
 functions:
+
+
+  - name: show_win_slate
+    body: |
+      slate_text = "-- WIN --";
+      return;
+
+
+  - name: show_ready_slate
+    body: |
+      slate_text = "-- READY --";
+      return;
+
+
+  - name: clear_slate
+    body: |
+      slate_text = "";
+      return;
 
 
   - name: initialize
@@ -77,6 +95,8 @@ functions:
   - name: render_slate
     private: true
     body: |
+      if (slate_text.empty()) return;
+
       float x = 1920/2;
       float y = 1080/2;
       ALLEGRO_FONT *font = obtain_font();
@@ -101,8 +121,10 @@ functions:
       ALLEGRO_STATE previous_state;
       al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
       al_set_target_bitmap(backbuffer_sub_bitmap);
+
       render_slate();
       render_stopwatch();
+
       al_restore_state(&previous_state);
       return;
 

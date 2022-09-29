@@ -33,13 +33,16 @@ namespace AllegroFlare
 
 
             public:
-               Hud(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Timer* timer=nullptr, std::string slate_text="-- WIN --");
+               Hud(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Timer* timer=nullptr, std::string slate_text="");
                ~Hud();
 
                void set_font_bin(AllegroFlare::FontBin* font_bin);
                void set_timer(AllegroFlare::Timer* timer);
                AllegroFlare::FontBin* get_font_bin() const;
                AllegroFlare::Timer* get_timer() const;
+               void show_win_slate();
+               void show_ready_slate();
+               void clear_slate();
                void initialize();
                void render();
             };

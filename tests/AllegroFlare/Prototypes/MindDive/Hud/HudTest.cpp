@@ -79,6 +79,21 @@ TEST_F(AllegroFlare_Prototypes_MindDive_Hud_HudTestWithAllegroRenderingFixture, 
    hud.initialize();
    hud.render();
    al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Prototypes_MindDive_Hud_HudTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_work_as_expected)
+{
+   AllegroFlare::Timer timer;
+   AllegroFlare::Prototypes::MindDive::Hud::Hud hud(&get_font_bin_ref(), &timer);
+   hud.initialize();
+
+   hud.show_win_slate();
+
+   hud.render();
+   al_flip_display();
+
    sleep_for(1);
 }
 

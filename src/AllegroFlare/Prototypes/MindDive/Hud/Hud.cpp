@@ -60,6 +60,24 @@ AllegroFlare::Timer* Hud::get_timer() const
 }
 
 
+void Hud::show_win_slate()
+{
+   slate_text = "-- WIN --";
+   return;
+}
+
+void Hud::show_ready_slate()
+{
+   slate_text = "-- READY --";
+   return;
+}
+
+void Hud::clear_slate()
+{
+   slate_text = "";
+   return;
+}
+
 void Hud::initialize()
 {
    if (!((!initialized)))
@@ -131,6 +149,8 @@ void Hud::render_stopwatch()
 
 void Hud::render_slate()
 {
+   if (slate_text.empty()) return;
+
    float x = 1920/2;
    float y = 1080/2;
    ALLEGRO_FONT *font = obtain_font();
@@ -155,8 +175,10 @@ void Hud::render()
    ALLEGRO_STATE previous_state;
    al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
    al_set_target_bitmap(backbuffer_sub_bitmap);
+
    render_slate();
    render_stopwatch();
+
    al_restore_state(&previous_state);
    return;
 }
