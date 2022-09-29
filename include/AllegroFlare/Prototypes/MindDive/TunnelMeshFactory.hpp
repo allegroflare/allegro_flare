@@ -26,6 +26,7 @@ namespace AllegroFlare
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* create_classic_random();
+            AllegroFlare::Prototypes::MindDive::TunnelMesh* create_random_with_walls();
          };
       }
    }

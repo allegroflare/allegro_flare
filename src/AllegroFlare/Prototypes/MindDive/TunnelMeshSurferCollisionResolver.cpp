@@ -115,6 +115,8 @@ void TunnelMeshSurferCollisionResolver::resolve()
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_info =
       collision_stepper.step();
 
+   std::cout << "COLLISIONS: " << collision_info.size() << std::endl;
+
    // reposition our surfer to the stepper-modified aabb2d
    surfer_position->x = aabb2d.get_x() + surfer_hsize;
    surfer_position->z = aabb2d.get_y() + surfer_hsize;

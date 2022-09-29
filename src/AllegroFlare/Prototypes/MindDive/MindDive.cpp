@@ -104,7 +104,8 @@ void MindDive::initialize()
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
-   current_tunnel_mesh = factory.create_classic_random();
+   //current_tunnel_mesh = factory.create_classic_random();
+   current_tunnel_mesh = factory.create_random_with_walls();
 
    hud.set_font_bin(font_bin);
    hud.set_timer(&timer);
