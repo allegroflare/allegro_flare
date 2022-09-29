@@ -125,7 +125,7 @@ void PrimMesh::resize(int num_columns, int num_rows)
    {
       vertexes[v].x *= tile_width;
       vertexes[v].y *= tile_height;
-      vertexes[v].z = 0;
+      //vertexes[v].z *= tile_height;
       vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
    }
 }

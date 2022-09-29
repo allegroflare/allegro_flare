@@ -9,7 +9,8 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
-class AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest : public AllegroFlare::Testing::WithAllegroRenderingFixture
+class AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
    //AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest()
       //: AllegroFlare::Testing::WithAllegroRenderingFixture(
@@ -42,7 +43,8 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, render__wi
 }
 
 
-TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, initialize__will_set_the_number_of_vertexes_to_the_expected_amount)
+TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
+   initialize__will_set_the_number_of_vertexes_to_the_expected_amount)
 {
    return;
 
@@ -63,7 +65,8 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
 }
 
 
-TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, get_real_height__will_return_the_real_world_vertical_size_of_the_mesh)
+TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
+   get_real_height__will_return_the_real_world_vertical_size_of_the_mesh)
 {
    // TODO
 }
