@@ -1133,6 +1133,36 @@
   "std/copy_if": [
     "AllegroFlare/Notifications"
   ],
+  "std/fmod": [
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "Wicked/Physics/TileMapCollisionStepper"
+  ],
+  "AllegroFlare/Physics/AABB2D": [
+    "AllegroFlare/Physics/TileMapCollisionStepper"
+  ],
+  "std/vector<AllegroFlare/Physics/Int2D>": [
+    "AllegroFlare/Physics/TileMapCollisionStepper"
+  ],
+  "std/pair<int, int>": [
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/VirtualControlsProcessor",
+    "Wicked/Physics/TileMapCollisionStepper"
+  ],
+  "AllegroFlare/TileMaps/TileMap": [
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Prototypes/MindDive/Tunnel",
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/TileMaps/Basic2D",
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Physics/TileMapCollisionStepper",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/Physics/Int2D": [
+    "AllegroFlare/Physics/TileMapCollisionStepper"
+  ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
@@ -1340,17 +1370,6 @@
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"
   ],
-  "AllegroFlare/TileMaps/TileMap": [
-    "AllegroFlare/Prototypes/MindDive/Tunnel",
-    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
-    "AllegroFlare/TileMaps/Basic2D",
-    "Tileo/TMJMeshLoader",
-    "Wicked/Entities/Basic2DFactory",
-    "Wicked/Physics/TileMapCollisionStepper",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileMaps/Basic2D"
-  ],
   "al_is_image_addon_initialized": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/TileMaps/Basic2D"
@@ -1537,10 +1556,6 @@
   "std/map<int, std/pair<int, int>>": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
-  "std/pair<int, int>": [
-    "AllegroFlare/VirtualControlsProcessor",
-    "Wicked/Physics/TileMapCollisionStepper"
-  ],
   "std/map<int, int>": [
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
@@ -1689,9 +1704,6 @@
   ],
   "std/set_difference": [
     "Wicked/Physics/EntityZoneCollisionObserver"
-  ],
-  "std/fmod": [
-    "Wicked/Physics/TileMapCollisionStepper"
   ],
   "Wicked/Physics/AABB2D": [
     "Wicked/Physics/TileMapCollisionStepper",

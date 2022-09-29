@@ -1,0 +1,28 @@
+properties:
+
+
+  - name: x
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: rotate
+    body: |
+      int s = x;
+      x = y;
+      y = s;
+
+

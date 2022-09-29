@@ -1,0 +1,112 @@
+properties:
+
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: w
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+    
+  - name: h
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: velocity_x
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+    
+  - name: velocity_y
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+    
+
+functions:
+
+
+  - name: get_left_edge
+    type: float
+    body: |
+      return x;
+
+
+  - name: get_right_edge
+    type: float
+    body: |
+      return x + w;
+
+
+  - name: get_top_edge
+    type: float
+    body: |
+      return y;
+
+
+  - name: get_bottom_edge
+    type: float
+    body: |
+      return y + h;
+
+
+  - name: set_left_edge
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+    body: |
+      this->x = x;
+      return;
+
+
+  - name: set_right_edge
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+    body: |
+      this->x = x - w;
+      return;
+
+
+  - name: set_top_edge
+    parameters:
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      this->y = y;
+      return;
+
+
+  - name: set_bottom_edge
+    parameters:
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      this->y = y - h;
+      return;
+

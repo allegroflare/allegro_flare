@@ -135,6 +135,10 @@ table td
   <li><a href="#quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/AABB2D.q.yml">quintessence/AllegroFlare/Physics/AABB2D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/Int2D.q.yml">quintessence/AllegroFlare/Physics/Int2D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml</a></li>
@@ -5716,6 +5720,191 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::AchievementUnlocked*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp&quot;]}</td>
 </tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/AABB2D.q.yml">quintessence/AllegroFlare/Physics/AABB2D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">w</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">h</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">velocity_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">velocity_y</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_left_edge()</td>
+</tr>
+<tr>
+  <td class="method">get_right_edge()</td>
+</tr>
+<tr>
+  <td class="method">get_top_edge()</td>
+</tr>
+<tr>
+  <td class="method">get_bottom_edge()</td>
+</tr>
+<tr>
+  <td class="method">set_left_edge(1)</td>
+</tr>
+<tr>
+  <td class="method">set_right_edge(1)</td>
+</tr>
+<tr>
+  <td class="method">set_top_edge(1)</td>
+</tr>
+<tr>
+  <td class="method">set_bottom_edge(1)</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/Int2D.q.yml">quintessence/AllegroFlare/Physics/Int2D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">rotate()</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">collision_tile_map</td>
+  <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
+</tr>
+<tr>
+  <td class="property">aabb2d</td>
+  <td class="property">AllegroFlare::Physics::AABB2D*</td>
+</tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">step()</td>
+</tr>
+<tr>
+  <td class="method">adjacent_to_bottom_edge(2)</td>
+</tr>
+<tr>
+  <td class="method">adjacent_to_right_edge(2)</td>
+</tr>
+<tr>
+  <td class="method">adjacent_to_top_edge(2)</td>
+</tr>
+<tr>
+  <td class="method">get_tile_coords_below_left_foot(3)</td>
+</tr>
+<tr>
+  <td class="method">get_tile_coords_below_right_foot(4)</td>
+</tr>
+<tr>
+  <td class="method">adjacent_to_left_edge(2)</td>
+</tr>
+<tr>
+  <td class="private_method">get_next_collided_tile_coords(7)</td>
+</tr>
+<tr>
+  <td class="private_method">world_coords_to_tile_coords(2)</td>
+</tr>
+<tr>
+  <td class="private_method">world_x_coords_to_tile_coords_x(1)</td>
+</tr>
+<tr>
+  <td class="private_method">world_y_coords_to_tile_coords_y(1)</td>
+</tr>
+<tr>
+  <td class="method">get_tile_left_edge(2)</td>
+</tr>
+<tr>
+  <td class="method">get_tile_right_edge(2)</td>
+</tr>
+<tr>
+  <td class="method">get_tile_top_edge(2)</td>
+</tr>
+<tr>
+  <td class="method">get_tile_bottom_edge(2)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Physics::Int2D&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Physics/Int2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::pair&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/Int2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">run()</td>
+</tr>
+    </table>
+     <table>
     </table>
   </div>
 </ul>
@@ -13412,6 +13601,36 @@ table td
   "std/copy_if": [
     "AllegroFlare/Notifications"
   ],
+  "std/fmod": [
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "Wicked/Physics/TileMapCollisionStepper"
+  ],
+  "AllegroFlare/Physics/AABB2D": [
+    "AllegroFlare/Physics/TileMapCollisionStepper"
+  ],
+  "std/vector<AllegroFlare/Physics/Int2D>": [
+    "AllegroFlare/Physics/TileMapCollisionStepper"
+  ],
+  "std/pair<int, int>": [
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/VirtualControlsProcessor",
+    "Wicked/Physics/TileMapCollisionStepper"
+  ],
+  "AllegroFlare/TileMaps/TileMap": [
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Prototypes/MindDive/Tunnel",
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/TileMaps/Basic2D",
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Physics/TileMapCollisionStepper",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/Physics/Int2D": [
+    "AllegroFlare/Physics/TileMapCollisionStepper"
+  ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
@@ -13619,17 +13838,6 @@ table td
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"
   ],
-  "AllegroFlare/TileMaps/TileMap": [
-    "AllegroFlare/Prototypes/MindDive/Tunnel",
-    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
-    "AllegroFlare/TileMaps/Basic2D",
-    "Tileo/TMJMeshLoader",
-    "Wicked/Entities/Basic2DFactory",
-    "Wicked/Physics/TileMapCollisionStepper",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileMaps/Basic2D"
-  ],
   "al_is_image_addon_initialized": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/TileMaps/Basic2D"
@@ -13816,10 +14024,6 @@ table td
   "std/map<int, std/pair<int, int>>": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
-  "std/pair<int, int>": [
-    "AllegroFlare/VirtualControlsProcessor",
-    "Wicked/Physics/TileMapCollisionStepper"
-  ],
   "std/map<int, int>": [
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
@@ -13968,9 +14172,6 @@ table td
   ],
   "std/set_difference": [
     "Wicked/Physics/EntityZoneCollisionObserver"
-  ],
-  "std/fmod": [
-    "Wicked/Physics/TileMapCollisionStepper"
   ],
   "Wicked/Physics/AABB2D": [
     "Wicked/Physics/TileMapCollisionStepper",
