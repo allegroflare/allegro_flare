@@ -20,7 +20,7 @@ class AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtur
 
 #include <AllegroFlare/Placement2D.hpp>
 
-void load_test_map(AllegroFlare::TileMaps::TileMap<int> &tile_map)
+static void load_test_map(AllegroFlare::TileMaps::TileMap<int> &tile_map)
 {
    tile_map.resize(25, 15);
 
@@ -90,7 +90,11 @@ void load_test_map(AllegroFlare::TileMaps::TileMap<int> &tile_map)
 }
 
 #include <allegro5/allegro_primitives.h>
-void render_tile_map(AllegroFlare::TileMaps::TileMap<int> &tile_map, float tile_width=16.0f, float tile_height=16.0f)
+void static render_tile_map(
+      AllegroFlare::TileMaps::TileMap<int> &tile_map,
+      float tile_width=16.0f,
+      float tile_height=16.0f
+   )
 {
    if (!al_is_primitives_addon_initialized()) throw std::runtime_error("render_tile_map: primitives must be init");
 
