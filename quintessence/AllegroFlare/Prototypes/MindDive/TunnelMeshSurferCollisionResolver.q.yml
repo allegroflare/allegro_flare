@@ -1,0 +1,45 @@
+properties:
+
+
+  - name: tunnel_mesh
+    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: surfer_position
+    type: AllegroFlare::Vec3D*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: surfer_velocity
+    type: AllegroFlare::Vec3D*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: resolve
+    guards: [ tunnel_mesh, surfer_position, surfer_velocity ]
+    body: |
+      surfer_position->x += surfer_velocity->x * 0.01;
+      surfer_position->z += surfer_velocity->z * 0.01;
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+
+

@@ -162,6 +162,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Tunnel.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Tunnel.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml</a></li>
@@ -7595,6 +7596,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::Hud::Hud&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -7733,6 +7737,38 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">tunnel_mesh</td>
+  <td class="property">AllegroFlare::Prototypes::MindDive::TunnelMesh*</td>
+</tr>
+<tr>
+  <td class="property">surfer_position</td>
+  <td class="property">AllegroFlare::Vec3D*</td>
+</tr>
+<tr>
+  <td class="property">surfer_velocity</td>
+  <td class="property">AllegroFlare::Vec3D*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">resolve()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13814,10 +13850,12 @@ table td
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
   ],
   "AllegroFlare/Vec3D": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
   "AllegroFlare/Useful": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
@@ -13832,6 +13870,9 @@ table td
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/Hud/Hud": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [

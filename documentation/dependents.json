@@ -1346,10 +1346,12 @@
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
   ],
   "AllegroFlare/Vec3D": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
   "AllegroFlare/Useful": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
@@ -1364,6 +1366,9 @@
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/Hud/Hud": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [

@@ -5,6 +5,7 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp>
+#include <AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <allegro5/allegro_opengl.h>
 #include <cmath>
@@ -251,12 +252,14 @@ void MindDive::update()
       error_message << "MindDive" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   surfer_position.x += surfer_velocity.x * 0.01;
-   surfer_position.z += surfer_velocity.z * 0.01;
+   AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
+      current_tunnel_mesh,
+      &surfer_position,
+      &surfer_velocity
+   );
+   collision_resolver.resolve();
 
-   camera.position.x = surfer_position.x;
-   camera.position.y = surfer_position.y;
-   camera.position.z = surfer_position.z;
+   camera.position = surfer_position;
 
    evaluate_surfer_past_goal();
 

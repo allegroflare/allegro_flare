@@ -242,16 +242,20 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
-      surfer_position.x += surfer_velocity.x * 0.01;
-      surfer_position.z += surfer_velocity.z * 0.01;
+      AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
+         current_tunnel_mesh,
+         &surfer_position,
+         &surfer_velocity
+      );
+      collision_resolver.resolve();
 
-      camera.position.x = surfer_position.x;
-      camera.position.y = surfer_position.y;
-      camera.position.z = surfer_position.z;
+      camera.position = surfer_position;
 
       evaluate_surfer_past_goal();
 
       return;
+    body_dependency_symbols:
+     - AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver
 
 
   - name: render
@@ -310,5 +314,7 @@ dependencies:
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: AllegroFlare::Prototypes::MindDive::Hud::Hud
     headers: [ AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp ]
 
 
