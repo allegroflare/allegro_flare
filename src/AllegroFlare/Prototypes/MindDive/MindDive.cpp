@@ -142,6 +142,8 @@ void MindDive::reset()
 
    camera.stepout = AllegroFlare::Vec3D(0, 2, 5);
    state = STATE_WAITING_START;
+
+   hud.show_ready_slate();
    //camera.tilt = 0.4;
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;
@@ -155,6 +157,7 @@ void MindDive::start_racing()
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
    start_timer();
+   hud.clear_slate();
    return;
 }
 
@@ -234,7 +237,7 @@ void MindDive::evaluate_surfer_past_goal()
       state = STATE_WON;
       surfer_velocity.x = 0.0f;
       surfer_velocity.z = 0.0f;
-      // TODO: spawn goal animation
+      hud.show_win_slate();
    }
 
    return;
