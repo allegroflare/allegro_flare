@@ -29,6 +29,7 @@ MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* f
    , surfer_velocity({0, 0, 0})
    , timer()
    , camera()
+   , state(STATE_WAITING_START)
    , initialized(false)
 {
 }
@@ -136,41 +137,54 @@ void MindDive::reset()
    surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
    camera.stepout = AllegroFlare::Vec3D(0, 2, 5);
+   state = STATE_WAITING_START;
    //camera.tilt = 0.4;
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;
 
    reset_timer();
+   return;
+}
+
+void MindDive::start_racing()
+{
+   if (state != STATE_WAITING_START) return;
+   state = STATE_RACING;
    start_timer();
    return;
 }
 
 void MindDive::surfer_move_right()
 {
+   if (state == STATE_WAITING_START) start_racing();
    surfer_velocity.x = 3;
    return;
 }
 
 void MindDive::surfer_move_left()
 {
+   if (state == STATE_WAITING_START) start_racing();
    surfer_velocity.x = -3;
    return;
 }
 
 void MindDive::surfer_accelerate()
 {
-   surfer_velocity.z = -10;
+   if (state == STATE_WAITING_START) start_racing();
+   surfer_velocity.z = -20;
    return;
 }
 
 void MindDive::surfer_reverse()
 {
+   if (state == STATE_WAITING_START) start_racing();
    surfer_velocity.z = 2;
    return;
 }
 
 void MindDive::surfer_stop()
 {
+   if (state == STATE_WAITING_START) start_racing();
    surfer_velocity.z = 0;
    return;
 }
@@ -207,6 +221,22 @@ void MindDive::render_surfer()
    return;
 }
 
+void MindDive::evaluate_surfer_past_goal()
+{
+   if (state != STATE_RACING) return;
+
+   if (surfer_position.z <= 0)
+   {
+      timer.pause();
+      state = STATE_WON;
+      surfer_velocity.x = 0.0f;
+      surfer_velocity.z = 0.0f;
+      // TODO: spawn goal animation
+   }
+
+   return;
+}
+
 void MindDive::update()
 {
    if (!(initialized))
@@ -221,6 +251,9 @@ void MindDive::update()
    camera.position.x = surfer_position.x;
    camera.position.y = surfer_position.y;
    camera.position.z = surfer_position.z;
+
+   evaluate_surfer_past_goal();
+
    return;
 }
 

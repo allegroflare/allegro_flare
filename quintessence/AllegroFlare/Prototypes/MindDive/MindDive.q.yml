@@ -36,9 +36,31 @@ properties:
     type: AllegroFlare::Camera3D
     init_with: ''
 
+  - name: state
+    type: int
+    init_with: STATE_WAITING_START
+
   - name: initialized 
     type: bool
     init_with: false
+
+  - name: STATE_RACING
+    type: int
+    constexpr: true
+    static: true
+    init_with: 1
+
+  - name: STATE_WON
+    type: int
+    constexpr: true
+    static: true
+    init_with: 2
+
+  - name: STATE_WAITING_START
+    type: int
+    constexpr: true
+    static: true
+    init_with: 3
 
 
 functions:
@@ -108,41 +130,54 @@ functions:
       surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
       camera.stepout = AllegroFlare::Vec3D(0, 2, 5);
+      state = STATE_WAITING_START;
       //camera.tilt = 0.4;
       //camera.zoom = 2.1;
       //camera.spin += 0.01f;
 
       reset_timer();
+      return;
+
+
+  - name: start_racing
+    body: |
+      if (state != STATE_WAITING_START) return;
+      state = STATE_RACING;
       start_timer();
       return;
 
 
   - name: surfer_move_right
     body: |
+      if (state == STATE_WAITING_START) start_racing();
       surfer_velocity.x = 3;
       return;
 
 
   - name: surfer_move_left
     body: |
+      if (state == STATE_WAITING_START) start_racing();
       surfer_velocity.x = -3;
       return;
 
 
   - name: surfer_accelerate
     body: |
-      surfer_velocity.z = -10;
+      if (state == STATE_WAITING_START) start_racing();
+      surfer_velocity.z = -20;
       return;
 
 
   - name: surfer_reverse
     body: |
+      if (state == STATE_WAITING_START) start_racing();
       surfer_velocity.z = 2;
       return;
 
 
   - name: surfer_stop
     body: |
+      if (state == STATE_WAITING_START) start_racing();
       surfer_velocity.z = 0;
       return;
 
@@ -179,6 +214,23 @@ functions:
       - AllegroFlare::Color
 
 
+  - name: evaluate_surfer_past_goal
+    private: true
+    body: |
+      if (state != STATE_RACING) return;
+
+      if (surfer_position.z <= 0)
+      {
+         timer.pause();
+         state = STATE_WON;
+         surfer_velocity.x = 0.0f;
+         surfer_velocity.z = 0.0f;
+         // TODO: spawn goal animation
+      }
+
+      return;
+
+
   - name: update
     guards: [ initialized ]
     body: |
@@ -188,6 +240,9 @@ functions:
       camera.position.x = surfer_position.x;
       camera.position.y = surfer_position.y;
       camera.position.z = surfer_position.z;
+
+      evaluate_surfer_past_goal();
+
       return;
 
 

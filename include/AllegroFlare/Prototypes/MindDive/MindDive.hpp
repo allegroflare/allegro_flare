@@ -16,6 +16,11 @@ namespace AllegroFlare
       {
          class MindDive
          {
+         public:
+            static constexpr int STATE_RACING = 1;
+            static constexpr int STATE_WON = 2;
+            static constexpr int STATE_WAITING_START = 3;
+
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
@@ -24,9 +29,11 @@ namespace AllegroFlare
             AllegroFlare::Vec3D surfer_velocity;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
+            int state;
             bool initialized;
             void start_timer();
             void reset_timer();
+            void evaluate_surfer_past_goal();
 
          protected:
 
@@ -43,6 +50,7 @@ namespace AllegroFlare
             void initialize();
             void pause_timer();
             void reset();
+            void start_racing();
             void surfer_move_right();
             void surfer_move_left();
             void surfer_accelerate();
