@@ -155,7 +155,8 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, can_be_created_without_
 }
 
 
-TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, render__without_a_collision_tile_map__initialized__raises_an_error)
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   render__without_a_collision_tile_map__initialized__raises_an_error)
 {
    AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper;
    std::string expected_error_message =
@@ -325,4 +326,33 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 {
    // TODO
 }
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__when_a_collision_occurs_along_the_positive_x_axis__will_return_collision_info_with_the_expected_values)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__when_a_collision_occurs_along_the_negative_x_axis__will_return_collision_info_with_the_expected_values)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__when_a_collision_occurs_along_the_positive_y_axis__will_return_collision_info_with_the_expected_values)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__when_a_collision_occurs_along_the_negative_y_axis__will_return_collision_info_with_the_expected_values)
+{
+   // TODO
+}
+
 
