@@ -63,23 +63,19 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixtur
    tunnel_mesh.initialize();
 
    tunnel_mesh.resize(12, 32);
-   tunnel_mesh.rescale_tile_dimentions_to(32, 32);
    tunnel_mesh.random_fill();
 
-   AllegroFlare::Placement2D place = build_centered_placement(
-      tunnel_mesh.infer_real_width(),
-      tunnel_mesh.infer_real_height()
-   );
-   place.scale = {2.0, 2.0};
+   AllegroFlare::Camera3D camera;
+   camera.position = AllegroFlare::Vec3D(5.5, 0, 0);
+   camera.stepout = AllegroFlare::Vec3D(0, 0, 10);
+   camera.tilt = 0.4;
 
+   camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
    clear();
-
-   place.start_transform();
    tunnel_mesh.render();
-   place.restore_transform();
-
    al_flip_display();
-   sleep_for(1);
+
+   //sleep_for(1);
 }
 
 

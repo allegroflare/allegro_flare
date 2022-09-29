@@ -135,8 +135,8 @@ void MindDive::reset_timer()
 
 void MindDive::reset()
 {
-   surfer.x = current_tunnel_mesh->infer_real_width() / 2;
-   surfer.y = current_tunnel_mesh->infer_real_height() - current_tunnel_mesh->obtain_tile_height() / 2;
+   //surfer.x = current_tunnel_mesh->infer_real_width() / 2;
+   //surfer.y = current_tunnel_mesh->infer_real_height() - current_tunnel_mesh->obtain_tile_height() / 2;
    surfer_velocity.x = 0;
    surfer_velocity.y = 0;
    reset_timer();
@@ -233,13 +233,13 @@ void MindDive::render()
       throw std::runtime_error(error_message.str());
    }
    //al_clear_depth_buffer(1);
-   camera.position.x = surfer.x;
-   camera.position.y = surfer.y;
+   //camera.position.x = surfer.x;
+   //camera.position.y = surfer.y;
    //camera.position.z = sin(al_get_time()) * 5;
-   camera.stepout = AllegroFlare::Vec3D(0, 0, 10); // camera's target is positioned at (0,0,0) but the camera will be 5 meters back
    //camera.tilt = 3.14 / 2 + 0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
-   camera.tilt = -0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
-   camera.spin = 0.5f;
+   camera.stepout = AllegroFlare::Vec3D(0, 0, 10);
+   camera.tilt = 0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
+   //camera.spin = 0.5f;
    camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;

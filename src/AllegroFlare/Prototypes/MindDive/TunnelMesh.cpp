@@ -127,6 +127,7 @@ void TunnelMesh::initialize()
 
    prim_mesh.initialize();
    prim_mesh.set_atlas(&atlas);
+   prim_mesh.swap_yz();
 
    initialized = true;
    return;
