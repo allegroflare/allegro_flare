@@ -904,7 +904,6 @@ void SoftwareKeyboard::move_cursor_down()
 
 void SoftwareKeyboard::move_cursor_up()
 {
-   // HERE: reverse these rules
    if (keys.empty()) return;
 
    std::map<std::string, std::string> up_move_destination_exceptions = {

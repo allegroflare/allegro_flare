@@ -83,6 +83,12 @@ functions:
       return;
 
 
+  - name: set_font_size
+    body: |
+      // HERE
+      return;
+
+
   - name: set_event_to_emit_on_pressing_ok_key
     parameters:
       - name: event_to_emit_on_pressing_ok_key
