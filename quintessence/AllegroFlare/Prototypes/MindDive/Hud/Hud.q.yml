@@ -5,6 +5,15 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: timer
+    type: AllegroFlare::Timer*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
 
   - name: slate_text
     type: std::string
@@ -13,6 +22,16 @@ properties:
 
 
 functions:
+
+
+  - name: render_stopwatch
+    guards: [ font_bin, timer ]
+    body: |
+      AllegroFlare::Elements::Stopwatch stopwatch(font_bin, timer);
+      stopwatch.render();
+      return;
+    body_dependency_symbols:
+     - AllegroFlare::Elements::Stopwatch
 
 
   - name: render_slate
@@ -40,6 +59,7 @@ functions:
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
     body: |
       render_slate();
+      render_stopwatch();
       return;
 
 
@@ -64,5 +84,9 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Elements::Stopwatch
+    headers: [ AllegroFlare/Elements/Stopwatch.hpp ]
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
 
 

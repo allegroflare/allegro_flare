@@ -194,13 +194,10 @@ functions:
       return;
 
 
-  - name: render_stopwatch
+  - name: render_hud
     body: |
-      AllegroFlare::Elements::Stopwatch stopwatch(font_bin, &timer);
-      stopwatch.render();
+      // TODO
       return;
-    body_dependency_symbols:
-     - AllegroFlare::Elements::Stopwatch
 
 
   - name: render_surfer
@@ -263,7 +260,7 @@ functions:
       //place.restore_transform();
       //camera.restore_transform();
 
-      //render_stopwatch();
+      render_hud();
       return;
     body_dependency_symbols:
       - sin

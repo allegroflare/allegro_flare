@@ -58,7 +58,7 @@ namespace AllegroFlare
             void surfer_stop();
             void surfer_move_horizontal_none();
             void render_tunnel();
-            void render_stopwatch();
+            void render_hud();
             void render_surfer();
             void update();
             void render();

@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Timer.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
 
@@ -18,6 +19,7 @@ namespace AllegroFlare
             {
             private:
                AllegroFlare::FontBin* font_bin;
+               AllegroFlare::Timer* timer;
                std::string slate_text;
                void render_slate();
                ALLEGRO_FONT* obtain_font();
@@ -26,9 +28,14 @@ namespace AllegroFlare
 
 
             public:
-               Hud(AllegroFlare::FontBin* font_bin=nullptr, std::string slate_text="-- WIN --");
+               Hud(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Timer* timer=nullptr, std::string slate_text="-- WIN --");
                ~Hud();
 
+               void set_font_bin(AllegroFlare::FontBin* font_bin);
+               void set_timer(AllegroFlare::Timer* timer);
+               AllegroFlare::FontBin* get_font_bin() const;
+               AllegroFlare::Timer* get_timer() const;
+               void render_stopwatch();
                void render();
             };
          }

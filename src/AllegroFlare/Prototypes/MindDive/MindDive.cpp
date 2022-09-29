@@ -3,7 +3,6 @@
 #include <AllegroFlare/Prototypes/MindDive/MindDive.hpp>
 
 #include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Elements/Stopwatch.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp>
 #include <AllegroFlare/Useful.hpp>
@@ -201,10 +200,9 @@ void MindDive::render_tunnel()
    return;
 }
 
-void MindDive::render_stopwatch()
+void MindDive::render_hud()
 {
-   AllegroFlare::Elements::Stopwatch stopwatch(font_bin, &timer);
-   stopwatch.render();
+   // TODO
    return;
 }
 
@@ -279,7 +277,7 @@ void MindDive::render()
    //place.restore_transform();
    //camera.restore_transform();
 
-   //render_stopwatch();
+   render_hud();
    return;
 }
 

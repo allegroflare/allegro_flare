@@ -74,7 +74,8 @@ TEST_F(AllegroFlare_Prototypes_MindDive_Hud_HudTest, render__without_a_font_bin_
 
 TEST_F(AllegroFlare_Prototypes_MindDive_Hud_HudTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Prototypes::MindDive::Hud::Hud hud(&get_font_bin_ref());
+   AllegroFlare::Timer timer;
+   AllegroFlare::Prototypes::MindDive::Hud::Hud hud(&get_font_bin_ref(), &timer);
    hud.render();
    al_flip_display();
    sleep_for(1);

@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp>
 
+#include <AllegroFlare/Elements/Stopwatch.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -19,8 +20,9 @@ namespace Hud
 {
 
 
-Hud::Hud(AllegroFlare::FontBin* font_bin, std::string slate_text)
+Hud::Hud(AllegroFlare::FontBin* font_bin, AllegroFlare::Timer* timer, std::string slate_text)
    : font_bin(font_bin)
+   , timer(timer)
    , slate_text(slate_text)
 {
 }
@@ -30,6 +32,49 @@ Hud::~Hud()
 {
 }
 
+
+void Hud::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void Hud::set_timer(AllegroFlare::Timer* timer)
+{
+   this->timer = timer;
+}
+
+
+AllegroFlare::FontBin* Hud::get_font_bin() const
+{
+   return font_bin;
+}
+
+
+AllegroFlare::Timer* Hud::get_timer() const
+{
+   return timer;
+}
+
+
+void Hud::render_stopwatch()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "Hud" << "::" << "render_stopwatch" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(timer))
+   {
+      std::stringstream error_message;
+      error_message << "Hud" << "::" << "render_stopwatch" << ": error: " << "guard \"timer\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   AllegroFlare::Elements::Stopwatch stopwatch(font_bin, timer);
+   stopwatch.render();
+   return;
+}
 
 void Hud::render_slate()
 {
@@ -73,6 +118,7 @@ void Hud::render()
       throw std::runtime_error(error_message.str());
    }
    render_slate();
+   render_stopwatch();
    return;
 }
 
