@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
 #include <AllegroFlare/Timer.hpp>
 #include <AllegroFlare/Vec3D.hpp>
@@ -29,6 +30,7 @@ namespace AllegroFlare
             AllegroFlare::Vec3D surfer_velocity;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
+            AllegroFlare::Prototypes::MindDive::Hud::Hud hud;
             int state;
             bool initialized;
             void start_timer();

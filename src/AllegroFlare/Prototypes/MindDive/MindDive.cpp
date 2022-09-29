@@ -28,6 +28,7 @@ MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* f
    , surfer_velocity({0, 0, 0})
    , timer()
    , camera()
+   , hud({})
    , state(STATE_WAITING_START)
    , initialized(false)
 {
@@ -103,6 +104,9 @@ void MindDive::initialize()
    }
    AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
    current_tunnel_mesh = factory.create_classic_random();
+
+   hud.set_font_bin(font_bin);
+   hud.set_timer(&timer);
 
    initialized = true;
    return;

@@ -36,6 +36,10 @@ properties:
     type: AllegroFlare::Camera3D
     init_with: ''
 
+  - name: hud
+    type: AllegroFlare::Prototypes::MindDive::Hud::Hud
+    init_with: '{}'
+
   - name: state
     type: int
     init_with: STATE_WAITING_START
@@ -93,6 +97,9 @@ functions:
     body: |
       AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
       current_tunnel_mesh = factory.create_classic_random();
+
+      hud.set_font_bin(font_bin);
+      hud.set_timer(&timer);
 
       initialized = true;
       return;
@@ -297,5 +304,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp ]
   - symbol: AllegroFlare::Color
     headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::Hud::Hud
+    headers: [ AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp ]
 
 

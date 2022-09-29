@@ -24,6 +24,9 @@ Hud::Hud(AllegroFlare::FontBin* font_bin, AllegroFlare::Timer* timer, std::strin
    : font_bin(font_bin)
    , timer(timer)
    , slate_text(slate_text)
+   , backbuffer_sub_bitmap(nullptr)
+   , initialized(false)
+   , camera({})
 {
 }
 
@@ -57,20 +60,70 @@ AllegroFlare::Timer* Hud::get_timer() const
 }
 
 
-void Hud::render_stopwatch()
+void Hud::initialize()
 {
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_font_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "Hud" << "::" << "render_stopwatch" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(timer))
    {
       std::stringstream error_message;
-      error_message << "Hud" << "::" << "render_stopwatch" << ": error: " << "guard \"timer\" not met";
+      error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"timer\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!(al_get_current_display))
+   {
+      std::stringstream error_message;
+      error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"al_get_current_display\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // TODO: have a destroy mechanism, need to destory the backbuffer on destruction
+   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+   if (!backbuffer) throw std::runtime_error("MindDive/Hud/Hud error: no backbuffer");
+
+   backbuffer_sub_bitmap = al_create_sub_bitmap(
+      backbuffer,
+      0,
+      0,
+      al_get_bitmap_width(backbuffer),
+      al_get_bitmap_height(backbuffer)
+   );
+
+   camera.setup_dimentional_projection(backbuffer_sub_bitmap);
+
+   initialized = true;
+   return;
+}
+
+void Hud::render_stopwatch()
+{
    AllegroFlare::Elements::Stopwatch stopwatch(font_bin, timer);
    stopwatch.render();
    return;
@@ -93,28 +146,10 @@ void Hud::render_slate()
 
 void Hud::render()
 {
-   if (!(al_is_system_installed()))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Hud" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(al_is_primitives_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "Hud" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(al_is_font_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "Hud" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "Hud" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "Hud" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    render_slate();

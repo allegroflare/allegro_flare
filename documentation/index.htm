@@ -7174,10 +7174,25 @@ table td
   <td class="property">slate_text</td>
   <td class="property">std::string</td>
 </tr>
+<tr>
+  <td class="property">backbuffer_sub_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera2D</td>
+</tr>
     </table>
      <table>
 <tr>
-  <td class="method">render_stopwatch()</td>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="private_method">render_stopwatch()</td>
 </tr>
 <tr>
   <td class="private_method">render_slate()</td>
@@ -7192,6 +7207,9 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
@@ -7210,6 +7228,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7245,6 +7266,10 @@ table td
 <tr>
   <td class="property">camera</td>
   <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">hud</td>
+  <td class="property">AllegroFlare::Prototypes::MindDive::Hud::Hud</td>
 </tr>
 <tr>
   <td class="property">state</td>
@@ -7368,6 +7393,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::Hud::Hud&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -12601,6 +12629,7 @@ table td
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -13551,6 +13580,9 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud"
+  ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
@@ -13569,6 +13601,9 @@ table td
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "AllegroFlare/Prototypes/MindDive/Hud/Hud": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [

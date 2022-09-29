@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Timer.hpp>
 #include <allegro5/allegro_font.h>
@@ -21,6 +22,10 @@ namespace AllegroFlare
                AllegroFlare::FontBin* font_bin;
                AllegroFlare::Timer* timer;
                std::string slate_text;
+               ALLEGRO_BITMAP* backbuffer_sub_bitmap;
+               bool initialized;
+               AllegroFlare::Camera2D camera;
+               void render_stopwatch();
                void render_slate();
                ALLEGRO_FONT* obtain_font();
 
@@ -35,7 +40,7 @@ namespace AllegroFlare
                void set_timer(AllegroFlare::Timer* timer);
                AllegroFlare::FontBin* get_font_bin() const;
                AllegroFlare::Timer* get_timer() const;
-               void render_stopwatch();
+               void initialize();
                void render();
             };
          }

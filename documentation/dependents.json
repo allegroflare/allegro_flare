@@ -359,6 +359,7 @@
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -1309,6 +1310,9 @@
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud"
+  ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
@@ -1327,6 +1331,9 @@
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "AllegroFlare/Prototypes/MindDive/Hud/Hud": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
