@@ -45,8 +45,8 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
-   INTERACTIVE__will_work_as_expected)
-   //DISABLED__INTERACTIVE__will_work_as_expected)
+   //INTERACTIVE__will_work_as_expected)
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
