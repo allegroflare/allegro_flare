@@ -155,7 +155,7 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTestWithAllegroRenderi
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTestWithAllegroRenderingFixture,
-   DISABLED__VISUAL__render__will_draw_the_current_page_text_to_the_screen)
+   CAPTURE__VISUAL__render__will_draw_the_current_page_text_to_the_screen)
 {
    std::string text = "Hello StoryboardPages::AdvancingText!";
    AllegroFlare::Elements::StoryboardPages::AdvancingText storyboard(&get_font_bin_ref(), text);
@@ -164,7 +164,7 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTestWithAllegroRenderi
    storyboard.render();
    al_flip_display();
 
-   sleep_for(1);
+   //sleep_for(1);
 
    SUCCEED();
 }

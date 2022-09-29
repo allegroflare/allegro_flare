@@ -128,7 +128,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 {
    AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "This is Page 1!"),
       new StoryboardPageTestClass(font, "This is the second page!"),
@@ -160,7 +160,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    ALLEGRO_EVENT event;
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "This is page 1."),
       new StoryboardPageTestClass(font, "Here is the last page!"),

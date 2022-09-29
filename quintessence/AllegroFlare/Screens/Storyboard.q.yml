@@ -141,23 +141,15 @@ dependencies:
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: ALLEGRO_EVENT*
-    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
   - symbol: al_draw_multiline_text
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::VirtualControls
     headers: [ AllegroFlare/VirtualControls.hpp ]
-
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+
 
