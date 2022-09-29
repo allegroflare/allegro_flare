@@ -136,11 +136,13 @@ void MindDive::reset_timer()
 
 void MindDive::reset()
 {
-   surfer_position = AllegroFlare::Vec3D(0, 0, 0);
+   surfer_position.x = current_tunnel_mesh->infer_real_width() / 2;
+   surfer_position.z = current_tunnel_mesh->infer_real_height();
+
    surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
-   camera.stepout = AllegroFlare::Vec3D(0, 0, 10);
-   camera.tilt = 0.4;
+   camera.stepout = AllegroFlare::Vec3D(0, 2, 5);
+   //camera.tilt = 0.4;
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;
 
