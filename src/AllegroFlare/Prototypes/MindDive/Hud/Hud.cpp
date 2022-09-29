@@ -152,8 +152,12 @@ void Hud::render()
       error_message << "Hud" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   ALLEGRO_STATE previous_state;
+   al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
+   al_set_target_bitmap(backbuffer_sub_bitmap);
    render_slate();
    render_stopwatch();
+   al_restore_state(&previous_state);
    return;
 }
 

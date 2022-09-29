@@ -98,8 +98,12 @@ functions:
     type: void
     guards: [ initialized ]
     body: |
+      ALLEGRO_STATE previous_state;
+      al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
+      al_set_target_bitmap(backbuffer_sub_bitmap);
       render_slate();
       render_stopwatch();
+      al_restore_state(&previous_state);
       return;
 
 

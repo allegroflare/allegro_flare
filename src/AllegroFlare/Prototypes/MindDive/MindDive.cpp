@@ -107,6 +107,7 @@ void MindDive::initialize()
 
    hud.set_font_bin(font_bin);
    hud.set_timer(&timer);
+   hud.initialize();
 
    initialized = true;
    return;
@@ -206,7 +207,7 @@ void MindDive::render_tunnel()
 
 void MindDive::render_hud()
 {
-   // TODO
+   hud.render();
    return;
 }
 
