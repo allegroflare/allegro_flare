@@ -97,6 +97,13 @@ void CharacterNameInput::primary_timer_func()
    return;
 }
 
+void CharacterNameInput::set_font_name(std::string font_name)
+{
+   // TODO: guards, cannot be blank (or maybe this should be a guard in the bin if it is not)
+   software_keyboard.set_font_name(font_name);
+   return;
+}
+
 void CharacterNameInput::set_font_size(int font_size)
 {
    // TODO: guards, cannot be zero (or maybe this should be a guard in the bin if it is not)

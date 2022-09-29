@@ -83,6 +83,17 @@ functions:
       return;
 
 
+  - name: set_font_name
+    parameters:
+      - name: font_name
+        type: std::string
+        default_argument: AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_FONT_NAME
+    body: |
+      // TODO: guards, cannot be blank (or maybe this should be a guard in the bin if it is not)
+      software_keyboard.set_font_name(font_name);
+      return;
+
+
   - name: set_font_size
     parameters:
       - name: font_size

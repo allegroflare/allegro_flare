@@ -24,6 +24,7 @@ namespace AllegroFlare
          static constexpr const char* DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER = "ui-input-bonk-01.ogg";
          static constexpr const char* DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER = "menu-click-01.ogg";
          static constexpr const char* DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER = "delete-item-01.ogg";
+         static constexpr const char* DEFAULT_FONT_NAME = "Inter-Medium.ttf";
 
       private:
          AllegroFlare::EventEmitter* event_emitter;
@@ -65,7 +66,7 @@ namespace AllegroFlare
 
 
       public:
-         SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string font_name="Inter-Medium.ttf", int font_size=-54);
+         SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string font_name=DEFAULT_FONT_NAME, int font_size=-40);
          ~SoftwareKeyboard();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);

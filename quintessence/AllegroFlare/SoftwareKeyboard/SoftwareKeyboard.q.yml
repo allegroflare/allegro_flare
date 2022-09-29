@@ -17,14 +17,14 @@ properties:
 
   - name: font_name
     type: std::string
-    init_with: '"Inter-Medium.ttf"'
+    init_with: DEFAULT_FONT_NAME
     constructor_arg: true
     getter: true
     setter: true
 
   - name: font_size
     type: int
-    init_with: -54
+    init_with: -40
     constructor_arg: true
     getter: true
     setter: true
@@ -133,6 +133,12 @@ properties:
     constexpr: true
     static: true
     init_with: '"delete-item-01.ogg"'
+
+  - name: DEFAULT_FONT_NAME
+    type: const char*
+    constexpr: true
+    static: true
+    init_with: '"Inter-Medium.ttf"'
 
 
 functions:
