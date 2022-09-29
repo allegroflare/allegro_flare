@@ -50,6 +50,7 @@ PrimMesh::PrimMesh(AllegroFlare::TileMaps::PrimMeshAtlas *atlas, int num_columns
    , tile_width(tile_width)
    , tile_height(tile_height)
    , initialized(false)
+   , yz_swapped(false)
 {
 }
 
@@ -125,8 +126,15 @@ void PrimMesh::resize(int num_columns, int num_rows)
    {
       vertexes[v].x *= tile_width;
       vertexes[v].y *= tile_height;
-      vertexes[v].z = 0; //tile_height;
+      vertexes[v].z = 0;
       vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
+   }
+
+   if (yz_swapped)
+   {
+      swap_yz();
+      yz_swapped = true; // NOTE: This is a bit of an akward way to re-assign yz_swapped
+                         // simply because swap_yz() toggles the yz_swapped value.
    }
 }
 
@@ -271,6 +279,8 @@ void PrimMesh::swap_yz()
       vertex.y = vertex.z;
       vertex.z = swap;
    }
+
+   yz_swapped = !yz_swapped;
 }
 
 

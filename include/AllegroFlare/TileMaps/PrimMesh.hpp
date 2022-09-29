@@ -20,6 +20,7 @@ namespace AllegroFlare::TileMaps
       int tile_width;
       int tile_height;
       bool initialized;
+      bool yz_swapped;
 
       void set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2);
       int infer_num_vertexes();
