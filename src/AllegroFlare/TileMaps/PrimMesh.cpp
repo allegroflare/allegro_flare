@@ -125,7 +125,7 @@ void PrimMesh::resize(int num_columns, int num_rows)
    {
       vertexes[v].x *= tile_width;
       vertexes[v].y *= tile_height;
-      //vertexes[v].z *= tile_height;
+      vertexes[v].z = 0; //tile_height;
       vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
    }
 }
@@ -167,6 +167,7 @@ void PrimMesh::rescale_tile_dimentions_to(int new_tile_width, int new_tile_heigh
    {
       vertexes[v].x = vertexes[v].x / old_tile_width * new_tile_width;
       vertexes[v].y = vertexes[v].y / old_tile_height * new_tile_height;
+      vertexes[v].z = vertexes[v].z / old_tile_height * new_tile_height;
    }
 
    this->tile_width = new_tile_width;
@@ -259,6 +260,17 @@ AllegroFlare::TileMaps::PrimMeshAtlas *PrimMesh::get_atlas() const
 void PrimMesh::set_atlas(AllegroFlare::TileMaps::PrimMeshAtlas *atlas)
 {
    this->atlas = atlas;
+}
+
+
+void PrimMesh::swap_yz()
+{
+   for (auto &vertex : vertexes)
+   {
+      float swap = vertex.y;
+      vertex.y = vertex.z;
+      vertex.z = swap;
+   }
 }
 
 

@@ -59,6 +59,7 @@ namespace AllegroFlare::TileMaps
       AllegroFlare::TileMaps::PrimMeshAtlas *get_atlas() const;
       void set_atlas(AllegroFlare::TileMaps::PrimMeshAtlas *atlas);
    
+      void swap_yz();
       void render(bool draw_outline=false);
    };
 }
