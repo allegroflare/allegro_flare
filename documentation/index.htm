@@ -7174,12 +7174,12 @@ table td
   <td class="property">AllegroFlare::Prototypes::MindDive::TunnelMesh*</td>
 </tr>
 <tr>
-  <td class="property">surfer</td>
-  <td class="property">AllegroFlare::Vec2D</td>
+  <td class="property">surfer_position</td>
+  <td class="property">AllegroFlare::Vec3D</td>
 </tr>
 <tr>
   <td class="property">surfer_velocity</td>
-  <td class="property">AllegroFlare::Vec2D</td>
+  <td class="property">AllegroFlare::Vec3D</td>
 </tr>
 <tr>
   <td class="property">timer</td>
@@ -7255,7 +7255,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;}</td>
@@ -7286,6 +7286,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMeshFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -12639,6 +12642,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer"
@@ -13046,7 +13050,6 @@ table td
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
@@ -13463,6 +13466,9 @@ table td
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
+  ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Useful": [
     "AllegroFlare/Prototypes/MindDive/MindDive"

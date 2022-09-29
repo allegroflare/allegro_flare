@@ -20,13 +20,13 @@ properties:
     init_with: ''
     getter_ref: true
 
-  - name: surfer
-    type: AllegroFlare::Vec2D
-    init_with: '{0, 0}'
+  - name: surfer_position
+    type: AllegroFlare::Vec3D
+    init_with: '{0, 0, 0}'
 
   - name: surfer_velocity
-    type: AllegroFlare::Vec2D
-    init_with: '{0, 0}'
+    type: AllegroFlare::Vec3D
+    init_with: '{0, 0, 0}'
 
   - name: timer
     type: AllegroFlare::Timer
@@ -108,15 +108,16 @@ functions:
 
   - name: reset
     body: |
-      //surfer.x = current_tunnel_mesh->infer_real_width() / 2;
-      //surfer.y = current_tunnel_mesh->infer_real_height() - current_tunnel_mesh->obtain_tile_height() / 2;
-      surfer_velocity.x = 0;
-      surfer_velocity.y = 0;
+      surfer_position = AllegroFlare::Vec3D(0, 0, 0);
+      surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
+
+      camera.stepout = AllegroFlare::Vec3D(0, 0, 10);
+      camera.tilt = 0.4;
+      //camera.zoom = 2.1;
+      //camera.spin += 0.01f;
+
       reset_timer();
       start_timer();
-
-      //camera.stepout = 10;
-      //camera.tilt = 0.2;
       return;
 
 
@@ -134,19 +135,19 @@ functions:
 
   - name: surfer_accelerate
     body: |
-      surfer_velocity.y = -6;
+      surfer_velocity.z = -6;
       return;
 
 
   - name: surfer_reverse
     body: |
-      surfer_velocity.y = 2;
+      surfer_velocity.z = 2;
       return;
 
 
   - name: surfer_stop
     body: |
-      surfer_velocity.y = 0;
+      surfer_velocity.z = 0;
       return;
 
 
@@ -174,20 +175,23 @@ functions:
   - name: render_surfer
     guards: [ al_is_primitives_addon_initialized() ]
     body: |
-      al_draw_filled_circle(surfer.x, surfer.y, 0.25, ALLEGRO_COLOR{1, 1, 1, 1});
-      //AllegroFlare::draw_crosshair(surfer.x, surfer.y, ALLEGRO_COLOR{1, 0, 0, 1}, 20);
+      draw_crosshair(surfer_position, AllegroFlare::Color::Yellow, 0.75);
+      //al_draw_filled_circle(surfer_position.x, surfer_position.z, 0.25, ALLEGRO_COLOR{1, 1, 1, 1});
       return;
     body_dependency_symbols:
       - AllegroFlare::Useful
+      - AllegroFlare::Color
 
 
   - name: update
     guards: [ initialized ]
     body: |
-      surfer.x += surfer_velocity.x * 0.01;
-      surfer.y += surfer_velocity.y * 0.01;
-      //camera.position.x = surfer.x;
-      //camera.position.y = surfer.y;
+      surfer_position.x += surfer_velocity.x * 0.01;
+      surfer_position.z += surfer_velocity.z * 0.01;
+
+      camera.position.x = surfer_position.x;
+      camera.position.y = surfer_position.y;
+      camera.position.z = surfer_position.z;
       return;
 
 
@@ -195,34 +199,17 @@ functions:
     guards: [ initialized ]
     body: |
       //al_clear_depth_buffer(1);
-      //camera.position.x = surfer.x;
-      //camera.position.y = surfer.y;
-      //camera.position.z = sin(al_get_time()) * 5;
-      //camera.tilt = 3.14 / 2 + 0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
-      camera.stepout = AllegroFlare::Vec3D(0, 0, 10);
-      camera.tilt = 0.4;  //al_get_time() * 0.5; // tilt the camera, looking down slightly at the target
-      //camera.spin = 0.5f;
       camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
-      //camera.zoom = 2.1;
-      //camera.spin += 0.01f;
 
       //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
       //glDisable(GL_CULL_FACE);
 
       //camera.start_reverse_transform();
-      AllegroFlare::Placement3D place;
-      //place.size.x = tunnel_mesh.infer_real_width();
-      //place.size.y = tunnel_mesh.infer_real_height();
-      //place.scale.x = 0.95; //1.0 / 32.0f;
-      //place.scale.y = 0.95; //1.0 / 32.0f;
-      //place.scale.z = 0.95; //1.0 / 32.0f;
-      //place.rotation.y = al_get_time(); //1.0 / 32.0f;
-      //place.rotation.x = al_get_time() * 0.25;
-      //place.rotation.x = -0.05;
-      place.start_transform();
+      //AllegroFlare::Placement3D place;
+      //place.start_transform();
       render_tunnel();
       render_surfer();
-      place.restore_transform();
+      //place.restore_transform();
       //camera.restore_transform();
 
       //render_stopwatch();
@@ -238,8 +225,8 @@ dependencies:
 
   - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
-  - symbol: AllegroFlare::Vec2D
-    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
   - symbol: AllegroFlare::BitmapBin
   - symbol: AllegroFlare::Placement3D
     headers: [ AllegroFlare/Placement3D.hpp ]
@@ -260,5 +247,7 @@ dependencies:
     headers: [ allegro5/allegro_opengl.h ]
   - symbol: AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
 
 

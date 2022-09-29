@@ -5,7 +5,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
 #include <AllegroFlare/Timer.hpp>
-#include <AllegroFlare/Vec2D.hpp>
+#include <AllegroFlare/Vec3D.hpp>
 
 
 namespace AllegroFlare
@@ -20,8 +20,8 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* current_tunnel_mesh;
-            AllegroFlare::Vec2D surfer;
-            AllegroFlare::Vec2D surfer_velocity;
+            AllegroFlare::Vec3D surfer_position;
+            AllegroFlare::Vec3D surfer_velocity;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
             bool initialized;

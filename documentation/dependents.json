@@ -479,6 +479,7 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer"
@@ -886,7 +887,6 @@
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
@@ -1303,6 +1303,9 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
+  ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Useful": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
