@@ -115,9 +115,9 @@ void TunnelMeshSurferCollisionResolver::resolve()
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_info =
       collision_stepper.step();
 
-   std::cout << "COLLISIONS: " << collision_info.size() << std::endl;
    if (!collision_info.empty())
    {
+      std::cout << "COLLISIONS: " << collision_info.size() << std::endl;
       std::cout << "  - [0] tile_value: " << collision_info[0].get_tile_value() << std::endl;
       std::cout << "        coord_x:    " << collision_info[0].get_collided_tile_coordinate().get_x() << std::endl;
       std::cout << "        coord_y:    " << collision_info[0].get_collided_tile_coordinate().get_y() << std::endl;
