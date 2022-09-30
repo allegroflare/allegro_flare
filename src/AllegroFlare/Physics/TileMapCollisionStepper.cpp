@@ -134,7 +134,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                   )
                );
 
-               obj.set_bottom_edge(get_tile_top_edge(t.get_y()) - 0.0001);
+               obj.set_bottom_edge(get_tile_top_edge(t.get_y(), tile_height) - 0.0001);
                obj.set_velocity_y(0.0);
             }
             else if (obj.get_velocity_y() < 0)
@@ -149,7 +149,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                   )
                );
 
-               obj.set_top_edge(get_tile_bottom_edge(t.get_y()) + 0.0001);
+               obj.set_top_edge(get_tile_bottom_edge(t.get_y(), tile_height) + 0.0001);
                obj.set_velocity_y(0.0);
             }
          }

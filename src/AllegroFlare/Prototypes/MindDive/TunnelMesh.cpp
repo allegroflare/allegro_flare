@@ -205,10 +205,8 @@ void TunnelMesh::random_fill_excluding(std::set<int> exclusion_list)
             if (tries_left < 0) still_tries_left = false;
          } while (int_is_excluded && still_tries_left);
 
-         //prim_mesh.set_tile_id(x, y, random_int);
-         //if (random_int == 1) collision_tile_map.set_tile(x, y, 1);
-         prim_mesh.set_tile_id(x, y, 1);
-         collision_tile_map.set_tile(x, y, 1);
+         prim_mesh.set_tile_id(x, y, random_int);
+         if (random_int == 1) collision_tile_map.set_tile(x, y, 1);
       }
    return;
 }

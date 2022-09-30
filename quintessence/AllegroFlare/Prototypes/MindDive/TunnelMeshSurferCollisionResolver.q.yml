@@ -60,12 +60,17 @@ functions:
       std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_info =
          collision_stepper.step();
 
-      if (!collision_info.empty())
+      bool output_collision_debug_data = false;
+      if (output_collision_debug_data && !collision_info.empty())
       {
          std::cout << "COLLISIONS: " << collision_info.size() << std::endl;
          std::cout << "  - [0] tile_value: " << collision_info[0].get_tile_value() << std::endl;
          std::cout << "        coord_x:    " << collision_info[0].get_collided_tile_coordinate().get_x() << std::endl;
          std::cout << "        coord_y:    " << collision_info[0].get_collided_tile_coordinate().get_y() << std::endl;
+         std::cout << "        prev_x:    " << surfer_position->x << std::endl;
+         std::cout << "        prev_z:    " << surfer_position->z << std::endl;
+         std::cout << "        new_x:    " << aabb2d.get_x() << std::endl;
+         std::cout << "        new_z:    " << aabb2d.get_y() << std::endl;
       }
 
       // reposition our surfer to the stepper-modified aabb2d
