@@ -71,7 +71,6 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    result->rescale_tile_dimentions_to(2, 2*2);
    result->resize(12, 32);
    random_fill_excluding(result, {0, 1, 2, 3});
-   //result->random_fill_excluding(std::set<int>({0, 1, 2, 3}));
    return result;
 }
 
