@@ -5,7 +5,6 @@
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
-#include <set>
 #include <string>
 
 
@@ -46,13 +45,12 @@ namespace AllegroFlare
             void initialize();
             void resize(int num_columns=1, int num_rows=1);
             void rescale_tile_dimentions_to(float tile_width=1, float tile_height=1);
-            void random_fill();
-            void random_fill_excluding(std::set<int> exclusion_list={});
             float infer_real_width();
             float infer_real_height();
             float obtain_tile_width();
             float obtain_tile_height();
             void render();
+            void random_fill();
          };
       }
    }
