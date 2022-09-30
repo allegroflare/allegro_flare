@@ -4,6 +4,7 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
 #include <set>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -28,6 +29,7 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* create_classic_random();
             AllegroFlare::Prototypes::MindDive::TunnelMesh* create_random_with_walls();
+            void random_fill_from(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh=nullptr, std::vector<int> inclusion_list={});
             void random_fill_excluding(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh=nullptr, std::set<int> exclusion_list={});
          };
       }

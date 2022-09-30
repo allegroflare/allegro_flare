@@ -40,6 +40,30 @@ functions:
       return result;
 
 
+  - name: random_fill_from
+    parameters:
+      - name: tunnel_mesh
+        type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+        default_argument: nullptr
+      - name: inclusion_list
+        type: std::vector<int>
+        default_argument: '{}'
+    guards: [ tunnel_mesh, (!inclusion_list.empty()) ]
+    body: |
+      AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
+      AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = tunnel_mesh->get_collision_tile_map_ref();
+      AllegroFlare::Random random;
+      for (int y=0; y<prim_mesh.get_num_rows(); y++)
+         for (int x=0; x<prim_mesh.get_num_columns(); x++)
+         {
+            int random_int = random.get_random_element(inclusion_list);
+            prim_mesh.set_tile_id(x, y, random_int);
+         }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Random
+
+
   - name: random_fill_excluding
     parameters:
       - name: tunnel_mesh
@@ -73,7 +97,6 @@ functions:
             } while(int_is_excluded && still_tries_left);
 
             prim_mesh.set_tile_id(x, y, random_int);
-            if (random_int == 1) collision_tile_map.set_tile(x, y, 1);
          }
       return;
     body_dependency_symbols:

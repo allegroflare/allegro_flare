@@ -74,6 +74,32 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    return result;
 }
 
+void TunnelMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh, std::vector<int> inclusion_list)
+{
+   if (!(tunnel_mesh))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"tunnel_mesh\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((!inclusion_list.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"(!inclusion_list.empty())\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
+   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = tunnel_mesh->get_collision_tile_map_ref();
+   AllegroFlare::Random random;
+   for (int y=0; y<prim_mesh.get_num_rows(); y++)
+      for (int x=0; x<prim_mesh.get_num_columns(); x++)
+      {
+         int random_int = random.get_random_element(inclusion_list);
+         prim_mesh.set_tile_id(x, y, random_int);
+      }
+   return;
+}
+
 void TunnelMeshFactory::random_fill_excluding(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh, std::set<int> exclusion_list)
 {
    if (!(tunnel_mesh))
@@ -105,7 +131,6 @@ void TunnelMeshFactory::random_fill_excluding(AllegroFlare::Prototypes::MindDive
          } while(int_is_excluded && still_tries_left);
 
          prim_mesh.set_tile_id(x, y, random_int);
-         if (random_int == 1) collision_tile_map.set_tile(x, y, 1);
       }
    return;
 }
