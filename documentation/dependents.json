@@ -984,6 +984,7 @@
   "AllegroFlare/Random": [
     "AllegroFlare/Generators/PersonNameGenerator",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
