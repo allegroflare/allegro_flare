@@ -7541,6 +7541,10 @@ table td
   <td class="property">AllegroFlare::Sound*</td>
 </tr>
 <tr>
+  <td class="property">current_music_track_bpm</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">surfer_position</td>
   <td class="property">AllegroFlare::Vec3D</td>
 </tr>
@@ -7565,6 +7569,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">surfer_attached_to_playhead</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -7583,6 +7591,14 @@ table td
 <tr>
   <td class="property">STATE_WAITING_START</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">debug_metronome_sound</td>
+  <td class="property">AllegroFlare::Sound*</td>
+</tr>
+<tr>
+  <td class="property">music_started_at</td>
+  <td class="property">float</td>
 </tr>
     </table>
      <table>
@@ -7611,10 +7627,19 @@ table td
   <td class="private_method">reset_timer()</td>
 </tr>
 <tr>
+  <td class="private_method">calculate_current_tunnel_mesh_height()</td>
+</tr>
+<tr>
+  <td class="private_method">calculate_current_tunnel_mesh_tile_depth()</td>
+</tr>
+<tr>
   <td class="method">reset()</td>
 </tr>
 <tr>
   <td class="method">start_racing()</td>
+</tr>
+<tr>
+  <td class="method">attach_surfer_to_playhead()</td>
 </tr>
 <tr>
   <td class="method">stop_racing_due_to_death()</td>

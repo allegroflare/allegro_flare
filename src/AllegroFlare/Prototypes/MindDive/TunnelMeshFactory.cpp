@@ -68,7 +68,8 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    result->set_bitmap_bin(bitmap_bin);
    result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
    result->initialize();
-   result->rescale_tile_dimentions_to(2, 6);
+   //result->rescale_tile_dimentions_to(2, 6);
+   result->rescale_tile_dimentions_to(1, 1);
    result->resize(12, 32);
    random_fill_from(result, { { 2, 2 } });
    random_sparce_placement(result, { { 0, 0 } }, 20);
