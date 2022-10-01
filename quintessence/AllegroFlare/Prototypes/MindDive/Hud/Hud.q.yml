@@ -19,6 +19,15 @@ properties:
     type: std::string
     init_with: '""'
     constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: slate_text_color
+    type: ALLEGRO_COLOR
+    init_with: '{1, 1, 1, 1}'
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: backbuffer_sub_bitmap
     type: ALLEGRO_BITMAP*
@@ -39,24 +48,30 @@ functions:
   - name: show_win_slate
     body: |
       slate_text = "-- WIN --";
+      slate_text_color = AllegroFlare::Color::Gold;
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Color
 
 
   - name: show_die_slate
     body: |
-      slate_text = "--///- FAIL -///--";
+      slate_text = "/////////////// FAIL ///////////////";
+      slate_text_color = AllegroFlare::Color::Red;
       return;
 
 
   - name: show_ready_slate
     body: |
       slate_text = "-- READY --";
+      slate_text_color = AllegroFlare::Color::Orange;
       return;
 
 
   - name: clear_slate
     body: |
       slate_text = "";
+      slate_text_color = AllegroFlare::Color::White;
       return;
 
 
@@ -112,7 +127,7 @@ functions:
       float h_text_height = text_height/2;
       AllegroFlare::Vec2D padding = {30, 20};
 
-      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, slate_text.c_str());
+      al_draw_text(font, slate_text_color, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, slate_text.c_str());
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
@@ -152,6 +167,8 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_draw_rounded_rectangle
@@ -164,5 +181,7 @@ dependencies:
     headers: [ AllegroFlare/Timer.hpp ]
   - symbol: AllegroFlare::Camera2D
     headers: [ AllegroFlare/Camera2D.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
 
 

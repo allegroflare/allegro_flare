@@ -28,7 +28,9 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTest, can_be_created_without_blo
 TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    CAPTURE__basic_update_and_render_will_work_as_expected)
 {
-   AllegroFlare::Prototypes::MindDive::MindDive mind_dive(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::Prototypes::MindDive::MindDive mind_dive(&event_emitter, &get_bitmap_bin_ref(), &get_font_bin_ref());
    mind_dive.initialize();
 
    clear();

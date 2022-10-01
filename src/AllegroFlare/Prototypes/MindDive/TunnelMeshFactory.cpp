@@ -71,8 +71,8 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    result->rescale_tile_dimentions_to(2, 6);
    result->resize(12, 32);
    random_fill_from(result, { { 2, 2 } });
-   random_sparce_placement(result, { { 0, 0 } }, 6);
-   random_sparce_placement(result, { { 1, 1 } }, 20);
+   random_sparce_placement(result, { { 0, 0 } }, 20);
+   random_sparce_placement(result, { { 1, 1 } }, 40);
    return result;
 }
 

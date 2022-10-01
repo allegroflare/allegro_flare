@@ -21,8 +21,9 @@ namespace MindDive
 {
 
 
-MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
-   : bitmap_bin(bitmap_bin)
+MindDive::MindDive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+   : event_emitter(event_emitter)
+   , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , current_tunnel_mesh()
    , surfer_position({0, 0, 0})
@@ -38,6 +39,18 @@ MindDive::MindDive(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* f
 
 MindDive::~MindDive()
 {
+}
+
+
+void MindDive::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
+AllegroFlare::EventEmitter* MindDive::get_event_emitter() const
+{
+   return event_emitter;
 }
 
 
@@ -150,6 +163,7 @@ void MindDive::reset()
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;
 
+   //AllegroFlare::EventEmitter emit_play_music_track_event("[unset-music-track-identifier]");
    reset_timer();
    return;
 }

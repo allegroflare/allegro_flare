@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
 #include <AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp>
@@ -25,6 +26,7 @@ namespace AllegroFlare
             static constexpr int STATE_WAITING_START = 4;
 
          private:
+            AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* current_tunnel_mesh;
@@ -43,9 +45,11 @@ namespace AllegroFlare
 
 
          public:
-            MindDive(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
+            MindDive(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
             ~MindDive();
 
+            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+            AllegroFlare::EventEmitter* get_event_emitter() const;
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* &get_current_tunnel_mesh_ref();

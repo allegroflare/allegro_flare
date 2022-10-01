@@ -1,6 +1,13 @@
 properties:
 
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     constructor_arg: true
@@ -152,6 +159,7 @@ functions:
       //camera.zoom = 2.1;
       //camera.spin += 0.01f;
 
+      //AllegroFlare::EventEmitter emit_play_music_track_event("[unset-music-track-identifier]");
       reset_timer();
       return;
 
@@ -374,5 +382,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp ]
   - symbol: AllegroFlare::Physics::TileMapCollisionStepperStepResult
     headers: [ AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 
 

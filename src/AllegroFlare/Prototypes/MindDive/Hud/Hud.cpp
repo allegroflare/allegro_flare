@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp>
 
+#include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Elements/Stopwatch.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
@@ -20,10 +21,11 @@ namespace Hud
 {
 
 
-Hud::Hud(AllegroFlare::FontBin* font_bin, AllegroFlare::Timer* timer, std::string slate_text)
+Hud::Hud(AllegroFlare::FontBin* font_bin, AllegroFlare::Timer* timer, std::string slate_text, ALLEGRO_COLOR slate_text_color)
    : font_bin(font_bin)
    , timer(timer)
    , slate_text(slate_text)
+   , slate_text_color(slate_text_color)
    , backbuffer_sub_bitmap(nullptr)
    , initialized(false)
    , camera({})
@@ -48,6 +50,18 @@ void Hud::set_timer(AllegroFlare::Timer* timer)
 }
 
 
+void Hud::set_slate_text(std::string slate_text)
+{
+   this->slate_text = slate_text;
+}
+
+
+void Hud::set_slate_text_color(ALLEGRO_COLOR slate_text_color)
+{
+   this->slate_text_color = slate_text_color;
+}
+
+
 AllegroFlare::FontBin* Hud::get_font_bin() const
 {
    return font_bin;
@@ -60,27 +74,43 @@ AllegroFlare::Timer* Hud::get_timer() const
 }
 
 
+std::string Hud::get_slate_text() const
+{
+   return slate_text;
+}
+
+
+ALLEGRO_COLOR Hud::get_slate_text_color() const
+{
+   return slate_text_color;
+}
+
+
 void Hud::show_win_slate()
 {
    slate_text = "-- WIN --";
+   slate_text_color = AllegroFlare::Color::Gold;
    return;
 }
 
 void Hud::show_die_slate()
 {
-   slate_text = "--///- FAIL -///--";
+   slate_text = "/////////////// FAIL ///////////////";
+   slate_text_color = AllegroFlare::Color::Red;
    return;
 }
 
 void Hud::show_ready_slate()
 {
    slate_text = "-- READY --";
+   slate_text_color = AllegroFlare::Color::Orange;
    return;
 }
 
 void Hud::clear_slate()
 {
    slate_text = "";
+   slate_text_color = AllegroFlare::Color::White;
    return;
 }
 
@@ -166,7 +196,7 @@ void Hud::render_slate()
    float h_text_height = text_height/2;
    AllegroFlare::Vec2D padding = {30, 20};
 
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, slate_text.c_str());
+   al_draw_text(font, slate_text_color, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, slate_text.c_str());
    return;
 }
 
