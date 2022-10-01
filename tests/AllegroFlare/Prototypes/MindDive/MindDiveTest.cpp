@@ -17,6 +17,7 @@ class AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture
 #include <AllegroFlare/Prototypes/MindDive/MindDive.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/EventEmitter.hpp>
+#include <allegro5/allegro_acodec.h>
 
 
 TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTest, can_be_created_without_blowing_up)
@@ -28,9 +29,19 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTest, can_be_created_without_blo
 TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    CAPTURE__basic_update_and_render_will_work_as_expected)
 {
+   al_install_audio();
+   al_reserve_samples(8);
+   al_init_acodec_addon();
+   AllegroFlare::SampleBin sample_bin;
+   sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples/");
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
-   AllegroFlare::Prototypes::MindDive::MindDive mind_dive(&event_emitter, &get_bitmap_bin_ref(), &get_font_bin_ref());
+   AllegroFlare::Prototypes::MindDive::MindDive mind_dive(
+      &event_emitter,
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      &sample_bin
+   );
    mind_dive.initialize();
 
    clear();
@@ -49,6 +60,9 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    // setup system
    al_install_keyboard();
    al_install_joystick();
+   al_install_audio();
+   al_reserve_samples(8);
+   al_init_acodec_addon();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
    al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -62,11 +76,17 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
+   AllegroFlare::SampleBin sample_bin;
+   sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples/");
+   //sample_bin.initialize();
+
    // initialize test subject
    
    AllegroFlare::Prototypes::MindDive::MindDive mind_dive;
    mind_dive.set_bitmap_bin(&get_bitmap_bin_ref());
    mind_dive.set_font_bin(&get_font_bin_ref());
+   mind_dive.set_event_emitter(&event_emitter);
+   mind_dive.set_sample_bin(&sample_bin);
    mind_dive.initialize();
    //mind_dive.set_event_emitter(&event_emitter);
 

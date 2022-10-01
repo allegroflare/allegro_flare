@@ -7529,8 +7529,16 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">sample_bin</td>
+  <td class="property">AllegroFlare::SampleBin*</td>
+</tr>
+<tr>
   <td class="property">current_tunnel_mesh</td>
   <td class="property">AllegroFlare::Prototypes::MindDive::TunnelMesh*</td>
+</tr>
+<tr>
+  <td class="property">current_music_track</td>
+  <td class="property">AllegroFlare::Sound*</td>
 </tr>
 <tr>
   <td class="property">surfer_position</td>
@@ -7582,7 +7590,13 @@ table td
   <td class="method">set_bitmap_bin(1)</td>
 </tr>
 <tr>
+  <td class="method">set_sample_bin(1)</td>
+</tr>
+<tr>
   <td class="method">set_font_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">infer_playhead_position_sec()</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -7647,16 +7661,22 @@ table td
     </table>
      <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_audio_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_acodec_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_acodec.h&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
@@ -7696,6 +7716,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Sound&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Sound.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -12630,7 +12656,8 @@ table td
   ],
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",
-    "AllegroFlare/AudioController"
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/AudioRepositoryElement": [
     "AllegroFlare/AudioController"
@@ -12643,13 +12670,15 @@ table td
   ],
   "AllegroFlare/Sound": [
     "AllegroFlare/AudioController",
-    "AllegroFlare/AudioController"
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "al_is_audio_initialized": [
     "AllegroFlare/AudioController"
   ],
   "al_is_acodec_addon_initialized": [
-    "AllegroFlare/AudioController"
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
@@ -13978,6 +14007,9 @@ table td
   ],
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud"
+  ],
+  "al_is_audio_installed": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",

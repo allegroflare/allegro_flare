@@ -7,6 +7,8 @@
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp>
 #include <AllegroFlare/Useful.hpp>
+#include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_opengl.h>
 #include <cmath>
 #include <sstream>
@@ -21,11 +23,13 @@ namespace MindDive
 {
 
 
-MindDive::MindDive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+MindDive::MindDive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::SampleBin* sample_bin)
    : event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
+   , sample_bin(sample_bin)
    , current_tunnel_mesh()
+   , current_music_track(nullptr)
    , surfer_position({0, 0, 0})
    , surfer_velocity({0, 0, 0})
    , timer()
@@ -66,6 +70,12 @@ AllegroFlare::FontBin* MindDive::get_font_bin() const
 }
 
 
+AllegroFlare::SampleBin* MindDive::get_sample_bin() const
+{
+   return sample_bin;
+}
+
+
 AllegroFlare::Prototypes::MindDive::TunnelMesh* &MindDive::get_current_tunnel_mesh_ref()
 {
    return current_tunnel_mesh;
@@ -84,6 +94,18 @@ void MindDive::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    return;
 }
 
+void MindDive::set_sample_bin(AllegroFlare::SampleBin* sample_bin)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "set_sample_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->sample_bin = sample_bin;
+   return;
+}
+
 void MindDive::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    if (!((!initialized)))
@@ -96,12 +118,36 @@ void MindDive::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
+float MindDive::infer_playhead_position_sec()
+{
+   if (!current_music_track) return 0;
+   return current_music_track->position();
+}
+
 void MindDive::initialize()
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
       error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_audio_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"al_is_audio_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_acodec_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"al_is_acodec_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(bitmap_bin))
@@ -116,9 +162,16 @@ void MindDive::initialize()
       error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!(sample_bin))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
    //current_tunnel_mesh = factory.create_classic_random();
    current_tunnel_mesh = factory.create_random_with_walls();
+   current_music_track = new AllegroFlare::Sound(sample_bin->auto_get("music_tracks/some-jamzz-04.ogg"));
 
    hud.set_font_bin(font_bin);
    hud.set_timer(&timer);
@@ -148,6 +201,12 @@ void MindDive::reset_timer()
 
 void MindDive::reset()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "reset" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    surfer_position.x = current_tunnel_mesh->infer_real_width() * 0.5
                      - current_tunnel_mesh->obtain_tile_width() * 0.5;
    surfer_position.z = current_tunnel_mesh->infer_real_height()
@@ -163,7 +222,8 @@ void MindDive::reset()
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;
 
-   //AllegroFlare::EventEmitter emit_play_music_track_event("[unset-music-track-identifier]");
+   event_emitter->emit_play_music_track_event("[unset-music-track-identifier]");
+   if (current_music_track) current_music_track->stop();
    reset_timer();
    return;
 }
@@ -172,6 +232,7 @@ void MindDive::start_racing()
 {
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
+   if (current_music_track) current_music_track->play();
    start_timer();
    hud.clear_slate();
    return;

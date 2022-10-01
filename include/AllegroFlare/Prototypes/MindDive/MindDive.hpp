@@ -1,12 +1,15 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
 #include <AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
+#include <AllegroFlare/SampleBin.hpp>
+#include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Timer.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 
@@ -29,7 +32,9 @@ namespace AllegroFlare
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
+            AllegroFlare::SampleBin* sample_bin;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* current_tunnel_mesh;
+            AllegroFlare::Sound* current_music_track;
             AllegroFlare::Vec3D surfer_position;
             AllegroFlare::Vec3D surfer_velocity;
             AllegroFlare::Timer timer;
@@ -45,16 +50,19 @@ namespace AllegroFlare
 
 
          public:
-            MindDive(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
+            MindDive(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SampleBin* sample_bin=nullptr);
             ~MindDive();
 
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             AllegroFlare::EventEmitter* get_event_emitter() const;
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
+            AllegroFlare::SampleBin* get_sample_bin() const;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* &get_current_tunnel_mesh_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
+            void set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+            float infer_playhead_position_sec();
             void initialize();
             void pause_timer();
             void reset();

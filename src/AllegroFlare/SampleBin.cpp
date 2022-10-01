@@ -21,6 +21,7 @@ namespace AllegroFlare
    bool SampleBin::validate()
    {
       // TODO investigate why this line does not return the output error regardless if acodec has not be initialized
+      // NOTE: I think it's related to a bug in allegro5 that does not shutdow the acodec addon on destruction
       if (!al_is_acodec_addon_initialized())
       {
          std::cout << "[SampleBin::validate] not properly initialized (requires al_init_acodec_addon()). "

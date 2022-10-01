@@ -22,10 +22,21 @@ properties:
     getter: true
     setter: false
 
+  - name: sample_bin
+    type: AllegroFlare::SampleBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: false
+
   - name: current_tunnel_mesh
     type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
     init_with: ''
     getter_ref: true
+
+  - name: current_music_track
+    type: AllegroFlare::Sound*
+    init_with: nullptr
 
   - name: surfer_position
     type: AllegroFlare::Vec3D
@@ -94,6 +105,17 @@ functions:
       return;
 
 
+  - name: set_sample_bin
+    parameters:
+      - name: sample_bin
+        type: AllegroFlare::SampleBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->sample_bin = sample_bin;
+      return;
+
+
   - name: set_font_bin
     parameters:
       - name: font_bin
@@ -105,12 +127,27 @@ functions:
       return;
 
 
+  - name: infer_playhead_position_sec
+    type: float
+    body: |
+      if (!current_music_track) return 0;
+      return current_music_track->position();
+
+
   - name: initialize
-    guards: [ (!initialized), bitmap_bin, font_bin ]
+    guards:
+      - (!initialized)
+      - al_is_audio_installed()
+      - al_is_acodec_addon_initialized()
+      - event_emitter
+      - bitmap_bin
+      - font_bin
+      - sample_bin
     body: |
       AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
       //current_tunnel_mesh = factory.create_classic_random();
       current_tunnel_mesh = factory.create_random_with_walls();
+      current_music_track = new AllegroFlare::Sound(sample_bin->auto_get("music_tracks/some-jamzz-04.ogg"));
 
       hud.set_font_bin(font_bin);
       hud.set_timer(&timer);
@@ -119,6 +156,8 @@ functions:
       initialized = true;
       return;
     body_dependency_symbols:
+      - al_is_audio_installed
+      - al_is_acodec_addon_initialized
       - AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
 
 
@@ -143,6 +182,7 @@ functions:
 
 
   - name: reset
+    guards: [ initialized ]
     body: |
       surfer_position.x = current_tunnel_mesh->infer_real_width() * 0.5
                         - current_tunnel_mesh->obtain_tile_width() * 0.5;
@@ -159,7 +199,8 @@ functions:
       //camera.zoom = 2.1;
       //camera.spin += 0.01f;
 
-      //AllegroFlare::EventEmitter emit_play_music_track_event("[unset-music-track-identifier]");
+      event_emitter->emit_play_music_track_event("[unset-music-track-identifier]");
+      if (current_music_track) current_music_track->stop();
       reset_timer();
       return;
 
@@ -168,6 +209,7 @@ functions:
     body: |
       if (state != STATE_WAITING_START) return;
       state = STATE_RACING;
+      if (current_music_track) current_music_track->play();
       start_timer();
       hud.clear_slate();
       return;
@@ -350,13 +392,17 @@ functions:
 dependencies:
 
 
+  - symbol: al_is_audio_installed
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: al_is_acodec_addon_initialized
+    headers: [ allegro5/allegro_acodec.h ]
   - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
-  - symbol: AllegroFlare::BitmapBin
   - symbol: AllegroFlare::Placement3D
     headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Useful
     headers: [ AllegroFlare/Useful.hpp ]
@@ -384,5 +430,9 @@ dependencies:
     headers: [ AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Sound
+    headers: [ AllegroFlare/Sound.hpp ]
+  - symbol: AllegroFlare::SampleBin
+    headers: [ AllegroFlare/SampleBin.hpp ]
 
 

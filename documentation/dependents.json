@@ -4,7 +4,8 @@
   ],
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",
-    "AllegroFlare/AudioController"
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/AudioRepositoryElement": [
     "AllegroFlare/AudioController"
@@ -17,13 +18,15 @@
   ],
   "AllegroFlare/Sound": [
     "AllegroFlare/AudioController",
-    "AllegroFlare/AudioController"
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "al_is_audio_initialized": [
     "AllegroFlare/AudioController"
   ],
   "al_is_acodec_addon_initialized": [
-    "AllegroFlare/AudioController"
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
@@ -1352,6 +1355,9 @@
   ],
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud"
+  ],
+  "al_is_audio_installed": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",

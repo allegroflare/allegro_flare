@@ -17,6 +17,7 @@ namespace AllegroFlare
       , _position(0)
       , _paused(false)
    {
+      // TODO: move this to an initialize(), along with the creation of mixer and voice
       if (!sample)
       {
          std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
