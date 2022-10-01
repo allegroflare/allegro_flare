@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 
@@ -32,7 +33,7 @@ namespace AllegroFlare
             AllegroFlare::Vec3D* get_surfer_position() const;
             AllegroFlare::Vec3D* get_surfer_velocity() const;
             void resolve_classic();
-            void resolve();
+            AllegroFlare::Physics::TileMapCollisionStepperStepResult resolve();
          };
       }
    }

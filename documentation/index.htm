@@ -139,6 +139,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Physics/Int2D.q.yml">quintessence/AllegroFlare/Physics/Int2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml</a></li>
@@ -5934,6 +5935,47 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">subject_position_before</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">subject_velocity_before</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">subject_position_after</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">subject_velocity_after</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">collisions</td>
+  <td class="property">std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;</td>
+</tr>
+<tr>
+  <td class="property">subject_was_stopped_by_collision</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</h3>
      <table>
 <tr>
@@ -7816,6 +7858,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperStepResult&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13443,6 +13488,7 @@ table td
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
@@ -13717,7 +13763,8 @@ table td
     "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
-    "AllegroFlare/Physics/TileMapCollisionStepper"
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/TileMapCollisionStepperStepResult"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
@@ -13954,6 +14001,9 @@ table td
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+  ],
+  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
   "AllegroFlare/Achievements": [

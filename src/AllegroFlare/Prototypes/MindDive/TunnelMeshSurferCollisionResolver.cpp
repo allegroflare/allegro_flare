@@ -71,7 +71,7 @@ void TunnelMeshSurferCollisionResolver::resolve_classic()
    return;
 }
 
-void TunnelMeshSurferCollisionResolver::resolve()
+AllegroFlare::Physics::TileMapCollisionStepperStepResult TunnelMeshSurferCollisionResolver::resolve()
 {
    if (!(tunnel_mesh))
    {
@@ -91,6 +91,12 @@ void TunnelMeshSurferCollisionResolver::resolve()
       error_message << "TunnelMeshSurferCollisionResolver" << "::" << "resolve" << ": error: " << "guard \"surfer_velocity\" not met";
       throw std::runtime_error(error_message.str());
    }
+   AllegroFlare::Physics::TileMapCollisionStepperStepResult result;
+
+   // set the result "before" data
+   result.set_subject_position_before(AllegroFlare::Vec2D(surfer_position->x, surfer_position->z));
+   result.set_subject_velocity_before(AllegroFlare::Vec2D(surfer_velocity->x, surfer_velocity->z));
+
    // make an AABB2D to represent the surfer
    float surfer_size = 0.2;
    float surfer_hsize = surfer_size * 0.5;
@@ -112,16 +118,17 @@ void TunnelMeshSurferCollisionResolver::resolve()
    );
 
    // step the collision and collect the collision info
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_info =
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_infos =
       collision_stepper.step();
+   result.set_collisions(collision_infos);
 
    bool output_collision_debug_data = false;
-   if (output_collision_debug_data && !collision_info.empty())
+   if (output_collision_debug_data && !collision_infos.empty())
    {
-      std::cout << "COLLISIONS: " << collision_info.size() << std::endl;
-      std::cout << "  - [0] tile_value: " << collision_info[0].get_tile_value() << std::endl;
-      std::cout << "        coord_x:    " << collision_info[0].get_collided_tile_coordinate().get_x() << std::endl;
-      std::cout << "        coord_y:    " << collision_info[0].get_collided_tile_coordinate().get_y() << std::endl;
+      std::cout << "COLLISIONS: " << collision_infos.size() << std::endl;
+      std::cout << "  - [0] tile_value: " << collision_infos[0].get_tile_value() << std::endl;
+      std::cout << "        coord_x:    " << collision_infos[0].get_collided_tile_coordinate().get_x() << std::endl;
+      std::cout << "        coord_y:    " << collision_infos[0].get_collided_tile_coordinate().get_y() << std::endl;
       std::cout << "        prev_x:    " << surfer_position->x << std::endl;
       std::cout << "        prev_z:    " << surfer_position->z << std::endl;
       std::cout << "        new_x:    " << aabb2d.get_x() << std::endl;
@@ -133,8 +140,24 @@ void TunnelMeshSurferCollisionResolver::resolve()
    surfer_position->z = aabb2d.get_y() + surfer_hsize;
    surfer_velocity->x = (aabb2d.get_velocity_x() * 100);
    surfer_velocity->z = (aabb2d.get_velocity_y() * 100);
-      
-   return;
+
+   // set the result "after" data
+   result.set_subject_position_after(AllegroFlare::Vec2D(surfer_position->x, surfer_position->z));
+   result.set_subject_velocity_after(AllegroFlare::Vec2D(surfer_velocity->x, surfer_velocity->z));
+
+   // set flag if subject was stopped by a collision during this step
+   bool subject_was_stopped_by_collision = false;
+   for (auto &collision_info : collision_infos)
+   {
+      if (collision_info.get_stopped_by_this_collision())
+      {
+         subject_was_stopped_by_collision = true;
+         break;
+      }
+   }
+   result.set_subject_was_stopped_by_collision(subject_was_stopped_by_collision);
+     
+   return result;
 }
 
 

@@ -892,6 +892,7 @@
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
@@ -1166,7 +1167,8 @@
     "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
-    "AllegroFlare/Physics/TileMapCollisionStepper"
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/TileMapCollisionStepperStepResult"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
@@ -1403,6 +1405,9 @@
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+  ],
+  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
   "AllegroFlare/Achievements": [

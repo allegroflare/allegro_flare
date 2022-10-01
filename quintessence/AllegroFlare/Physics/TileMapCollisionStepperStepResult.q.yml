@@ -1,0 +1,49 @@
+properties:
+
+
+  - name: subject_position_before
+    type: AllegroFlare::Vec2D
+    init_with: '{ 0, 0 }'
+    getter: true
+    setter: true
+
+  - name: subject_velocity_before
+    type: AllegroFlare::Vec2D
+    init_with: '{ 0, 0 }'
+    getter: true
+    setter: true
+
+  - name: subject_position_after
+    type: AllegroFlare::Vec2D
+    init_with: '{ 0, 0 }'
+    getter: true
+    setter: true
+
+  - name: subject_velocity_after
+    type: AllegroFlare::Vec2D
+    init_with: '{ 0, 0 }'
+    getter: true
+    setter: true
+
+  - name: collisions
+    type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: subject_was_stopped_by_collision
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+
