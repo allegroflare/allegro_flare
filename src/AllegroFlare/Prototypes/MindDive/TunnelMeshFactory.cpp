@@ -70,13 +70,13 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    result->initialize();
    result->rescale_tile_dimentions_to(2, 6);
    result->resize(12, 32);
-   random_fill_from(result, { 2 });
+   random_fill_from(result, { { 2, 2 } });
    random_sparce_placement(result, { { 0, 0 } }, 6);
    random_sparce_placement(result, { { 1, 1 } }, 20);
    return result;
 }
 
-void TunnelMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh, std::vector<int> inclusion_list)
+void TunnelMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh, std::vector<std::pair<int, int>> inclusion_list)
 {
    if (!(tunnel_mesh))
    {
@@ -96,8 +96,9 @@ void TunnelMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::Tun
    for (int y=0; y<prim_mesh.get_num_rows(); y++)
       for (int x=0; x<prim_mesh.get_num_columns(); x++)
       {
-         int random_int = random.get_random_element(inclusion_list);
-         prim_mesh.set_tile_id(x, y, random_int);
+         std::pair<int, int> random_element = random.get_random_element(inclusion_list);
+         prim_mesh.set_tile_id(x, y, random_element.first);
+         collision_tile_map.set_tile(x, y, random_element.second);
       }
    return;
 }

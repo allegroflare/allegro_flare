@@ -36,7 +36,7 @@ functions:
       result->initialize();
       result->rescale_tile_dimentions_to(2, 6);
       result->resize(12, 32);
-      random_fill_from(result, { 2 });
+      random_fill_from(result, { { 2, 2 } });
       random_sparce_placement(result, { { 0, 0 } }, 6);
       random_sparce_placement(result, { { 1, 1 } }, 20);
       return result;
@@ -48,7 +48,7 @@ functions:
         type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
         default_argument: nullptr
       - name: inclusion_list
-        type: std::vector<int>
+        type: std::vector<std::pair<int, int>>
         default_argument: '{}'
     guards: [ tunnel_mesh, (!inclusion_list.empty()) ]
     body: |
@@ -58,8 +58,9 @@ functions:
       for (int y=0; y<prim_mesh.get_num_rows(); y++)
          for (int x=0; x<prim_mesh.get_num_columns(); x++)
          {
-            int random_int = random.get_random_element(inclusion_list);
-            prim_mesh.set_tile_id(x, y, random_int);
+            std::pair<int, int> random_element = random.get_random_element(inclusion_list);
+            prim_mesh.set_tile_id(x, y, random_element.first);
+            collision_tile_map.set_tile(x, y, random_element.second);
          }
       return;
     body_dependency_symbols:

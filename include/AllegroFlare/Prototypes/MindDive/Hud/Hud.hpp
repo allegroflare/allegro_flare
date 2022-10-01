@@ -41,6 +41,7 @@ namespace AllegroFlare
                AllegroFlare::FontBin* get_font_bin() const;
                AllegroFlare::Timer* get_timer() const;
                void show_win_slate();
+               void show_die_slate();
                void show_ready_slate();
                void clear_slate();
                void initialize();

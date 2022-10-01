@@ -42,6 +42,12 @@ functions:
       return;
 
 
+  - name: show_die_slate
+    body: |
+      slate_text = "--///- FAIL -///--";
+      return;
+
+
   - name: show_ready_slate
     body: |
       slate_text = "-- READY --";

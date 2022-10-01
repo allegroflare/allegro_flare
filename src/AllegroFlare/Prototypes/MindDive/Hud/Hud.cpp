@@ -66,6 +66,12 @@ void Hud::show_win_slate()
    return;
 }
 
+void Hud::show_die_slate()
+{
+   slate_text = "--///- FAIL -///--";
+   return;
+}
+
 void Hud::show_ready_slate()
 {
    slate_text = "-- READY --";
