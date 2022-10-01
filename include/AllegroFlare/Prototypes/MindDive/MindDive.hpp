@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
 #include <AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
 #include <AllegroFlare/Timer.hpp>
@@ -20,7 +21,8 @@ namespace AllegroFlare
          public:
             static constexpr int STATE_RACING = 1;
             static constexpr int STATE_WON = 2;
-            static constexpr int STATE_WAITING_START = 3;
+            static constexpr int STATE_DEAD = 3;
+            static constexpr int STATE_WAITING_START = 4;
 
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
@@ -53,6 +55,7 @@ namespace AllegroFlare
             void pause_timer();
             void reset();
             void start_racing();
+            void stop_racing_due_to_death();
             void surfer_move_right();
             void surfer_move_left();
             void surfer_accelerate();
@@ -63,6 +66,7 @@ namespace AllegroFlare
             void render_hud();
             void render_surfer();
             void update();
+            void play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result=nullptr);
             void render();
          };
       }

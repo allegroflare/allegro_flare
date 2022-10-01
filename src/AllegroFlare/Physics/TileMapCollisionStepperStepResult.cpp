@@ -99,6 +99,12 @@ bool TileMapCollisionStepperStepResult::get_subject_was_stopped_by_collision() c
 }
 
 
+std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> &TileMapCollisionStepperStepResult::get_collisions_ref()
+{
+   return collisions;
+}
+
+
 
 
 } // namespace Physics

@@ -163,9 +163,21 @@ void MindDive::start_racing()
    return;
 }
 
+void MindDive::stop_racing_due_to_death()
+{
+   if (state == STATE_DEAD) return;
+   state = STATE_DEAD;
+   pause_timer();
+   surfer_velocity.x = 0.0f;
+   surfer_velocity.z = 0.0f;
+   hud.show_die_slate();
+   return;
+}
+
 void MindDive::surfer_move_right()
 {
    if (state == STATE_WAITING_START) start_racing();
+   if (state != STATE_RACING) return;
    surfer_velocity.x = 3;
    return;
 }
@@ -173,6 +185,7 @@ void MindDive::surfer_move_right()
 void MindDive::surfer_move_left()
 {
    if (state == STATE_WAITING_START) start_racing();
+   if (state != STATE_RACING) return;
    surfer_velocity.x = -3;
    return;
 }
@@ -180,6 +193,7 @@ void MindDive::surfer_move_left()
 void MindDive::surfer_accelerate()
 {
    if (state == STATE_WAITING_START) start_racing();
+   if (state != STATE_RACING) return;
    surfer_velocity.z = -20;
    return;
 }
@@ -187,6 +201,7 @@ void MindDive::surfer_accelerate()
 void MindDive::surfer_reverse()
 {
    if (state == STATE_WAITING_START) start_racing();
+   if (state != STATE_RACING) return;
    surfer_velocity.z = 2;
    return;
 }
@@ -194,6 +209,7 @@ void MindDive::surfer_reverse()
 void MindDive::surfer_stop()
 {
    if (state == STATE_WAITING_START) start_racing();
+   if (state != STATE_RACING) return;
    surfer_velocity.z = 0;
    return;
 }
@@ -258,12 +274,52 @@ void MindDive::update()
       &surfer_position,
       &surfer_velocity
    );
-   collision_resolver.resolve();
+   AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
+
+   play_around_with_collision_step_result(&step_result);
 
    camera.position = surfer_position;
 
    evaluate_surfer_past_goal();
 
+   return;
+}
+
+void MindDive::play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result)
+{
+   if (!(step_result))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"step_result\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(current_tunnel_mesh))
+   {
+      std::stringstream error_message;
+      error_message << "MindDive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"current_tunnel_mesh\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   for (auto &collision : step_result->get_collisions_ref())
+   {
+      // stop racing due do death
+      if (collision.get_tile_value() == 0)
+      {
+         stop_racing_due_to_death();
+      }
+
+      // change tiles if surfer collided with them
+      else if (collision.get_tile_value() == 2)
+      {
+         // this is cool just disabled
+         bool disable_this_feature = true;
+         if (!disable_this_feature)
+         {
+            AllegroFlare::Physics::Int2D tile_pos = collision.get_collided_tile_coordinate();
+            current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_pos.get_x(), tile_pos.get_y(), 3);
+            current_tunnel_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
+         }
+      }
+   }
    return;
 }
 

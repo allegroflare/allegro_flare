@@ -7555,6 +7555,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">STATE_DEAD</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">STATE_WAITING_START</td>
   <td class="property">int</td>
 </tr>
@@ -7583,6 +7587,9 @@ table td
 </tr>
 <tr>
   <td class="method">start_racing()</td>
+</tr>
+<tr>
+  <td class="method">stop_racing_due_to_death()</td>
 </tr>
 <tr>
   <td class="method">surfer_move_right()</td>
@@ -7616,6 +7623,9 @@ table td
 </tr>
 <tr>
   <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">play_around_with_collision_step_result(1)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -7666,6 +7676,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperStepResult&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13974,6 +13987,10 @@ table td
   "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
+  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+  ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"
@@ -14001,9 +14018,6 @@ table td
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
-  ],
-  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
   "AllegroFlare/Achievements": [

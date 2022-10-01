@@ -28,6 +28,7 @@ properties:
   - name: collisions
     type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
     init_with: '{}'
+    getter_ref: true
     getter: true
     setter: true
 

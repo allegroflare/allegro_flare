@@ -1378,6 +1378,10 @@
   "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
+  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+  ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"
@@ -1405,9 +1409,6 @@
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
-  ],
-  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
   "AllegroFlare/Achievements": [

@@ -39,6 +39,7 @@ namespace AllegroFlare
          AllegroFlare::Vec2D get_subject_velocity_after() const;
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> get_collisions() const;
          bool get_subject_was_stopped_by_collision() const;
+         std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> &get_collisions_ref();
       };
    }
 }

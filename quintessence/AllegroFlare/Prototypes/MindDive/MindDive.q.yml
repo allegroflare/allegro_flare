@@ -60,11 +60,17 @@ properties:
     static: true
     init_with: 2
 
-  - name: STATE_WAITING_START
+  - name: STATE_DEAD
     type: int
     constexpr: true
     static: true
     init_with: 3
+
+  - name: STATE_WAITING_START
+    type: int
+    constexpr: true
+    static: true
+    init_with: 4
 
 
 functions:
@@ -159,9 +165,21 @@ functions:
       return;
 
 
+  - name: stop_racing_due_to_death
+    body: |
+      if (state == STATE_DEAD) return;
+      state = STATE_DEAD;
+      pause_timer();
+      surfer_velocity.x = 0.0f;
+      surfer_velocity.z = 0.0f;
+      hud.show_die_slate();
+      return;
+
+
   - name: surfer_move_right
     body: |
       if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
       surfer_velocity.x = 3;
       return;
 
@@ -169,6 +187,7 @@ functions:
   - name: surfer_move_left
     body: |
       if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
       surfer_velocity.x = -3;
       return;
 
@@ -176,6 +195,7 @@ functions:
   - name: surfer_accelerate
     body: |
       if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
       surfer_velocity.z = -20;
       return;
 
@@ -183,6 +203,7 @@ functions:
   - name: surfer_reverse
     body: |
       if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
       surfer_velocity.z = 2;
       return;
 
@@ -190,6 +211,7 @@ functions:
   - name: surfer_stop
     body: |
       if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
       surfer_velocity.z = 0;
       return;
 
@@ -248,7 +270,9 @@ functions:
          &surfer_position,
          &surfer_velocity
       );
-      collision_resolver.resolve();
+      AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
+
+      play_around_with_collision_step_result(&step_result);
 
       camera.position = surfer_position;
 
@@ -257,6 +281,37 @@ functions:
       return;
     body_dependency_symbols:
      - AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver
+
+
+  - name: play_around_with_collision_step_result
+    parameters:
+      - name: step_result
+        type: AllegroFlare::Physics::TileMapCollisionStepperStepResult*
+        default_argument: nullptr
+    guards: [ step_result, current_tunnel_mesh ]
+    body: |
+      for (auto &collision : step_result->get_collisions_ref())
+      {
+         // stop racing due do death
+         if (collision.get_tile_value() == 0)
+         {
+            stop_racing_due_to_death();
+         }
+
+         // change tiles if surfer collided with them
+         else if (collision.get_tile_value() == 2)
+         {
+            // this is cool just disabled
+            bool disable_this_feature = true;
+            if (!disable_this_feature)
+            {
+               AllegroFlare::Physics::Int2D tile_pos = collision.get_collided_tile_coordinate();
+               current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_pos.get_x(), tile_pos.get_y(), 3);
+               current_tunnel_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
+            }
+         }
+      }
+      return;
 
 
   - name: render
@@ -317,5 +372,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp ]
   - symbol: AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperStepResult
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp ]
 
 
