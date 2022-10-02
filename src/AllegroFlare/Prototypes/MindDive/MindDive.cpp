@@ -429,7 +429,14 @@ void MindDive::update()
       //surfer_next_position_z = (calculate_current_tunnel_mesh_height() + current_tunnel_mesh->obtain_tile_height())
                              //- playhead_tile_position;
       surfer_position.z = playhead_tile_position;
-      surfer_velocity.z = previous_surfer_position_z - surfer_position.z; //-1.0f;
+      //surfer_velocity.z = previous_surfer_position_z - surfer_position.z; //-1.0f;
+
+      int tile_y = (int)surfer_position.z;
+      int tile_x = (int)surfer_position.x;
+
+      current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_x, tile_y, 4);
+
+      
 
       //surfer_next_position_z = (calculate_current_tunnel_mesh_height() + current_tunnel_mesh->obtain_tile_height());
       //surfer_velocity.z = -surfer_position.z - previous_surfer_position_z; //-1.0f;
@@ -437,18 +444,20 @@ void MindDive::update()
                                // this is implicit, and only used for the collision resolver to calculate
                                // collisions.  It should be set constant to the rate of the music track playing
    }
+   else
+   {
+      AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
+         current_tunnel_mesh,
+         &surfer_position,
+         &surfer_velocity
+      );
+      AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
 
-   AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
-      current_tunnel_mesh,
-      &surfer_position,
-      &surfer_velocity
-   );
-   AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
+      //surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
 
-   //surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
-
-   play_around_with_collision_step_result(&step_result);
-   //surfer_position.z = surfer_next_position_z;
+      play_around_with_collision_step_result(&step_result);
+      //surfer_position.z = surfer_next_position_z;
+   }
 
    camera.position = surfer_position;
 
