@@ -36,6 +36,7 @@ namespace AllegroFlare
             void TODO();
             void set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue=nullptr);
             float get_timer_milliseconds();
+            float get_timer_microseconds();
             float time_since_last_beat();
             void start();
             void initialize();

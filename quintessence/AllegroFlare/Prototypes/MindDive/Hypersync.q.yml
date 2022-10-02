@@ -65,7 +65,13 @@ functions:
   - name: get_timer_milliseconds
     type: float
     body: |
-      float time_with_latency = timer.get_elapsed_time_milliseconds() - (latency_sec * 1000);
+      return get_timer_microseconds() * 0.001f;
+
+
+  - name: get_timer_microseconds
+    type: float
+    body: |
+      float time_with_latency = timer.get_elapsed_time_microseconds() - (latency_sec * 1000000);
       if (time_with_latency < 0) return 0;
       return time_with_latency;
 

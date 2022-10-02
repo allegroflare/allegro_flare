@@ -63,7 +63,12 @@ void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
 
 float Hypersync::get_timer_milliseconds()
 {
-   float time_with_latency = timer.get_elapsed_time_milliseconds() - (latency_sec * 1000);
+   return get_timer_microseconds() * 0.001f;
+}
+
+float Hypersync::get_timer_microseconds()
+{
+   float time_with_latency = timer.get_elapsed_time_microseconds() - (latency_sec * 1000000);
    if (time_with_latency < 0) return 0;
    return time_with_latency;
 }
