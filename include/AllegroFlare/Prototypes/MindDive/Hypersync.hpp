@@ -4,6 +4,7 @@
 #include <AllegroFlare/Timer.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
+#include <string>
 
 
 namespace AllegroFlare
@@ -35,9 +36,11 @@ namespace AllegroFlare
             ALLEGRO_EVENT_QUEUE* get_event_queue() const;
             void TODO();
             void set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue=nullptr);
+            float get_timer_seconds();
             float get_timer_milliseconds();
             float get_timer_microseconds();
-            float time_since_last_beat();
+            int get_beat_num();
+            std::string build_beat_clock_str();
             void start();
             void initialize();
             void destruct();

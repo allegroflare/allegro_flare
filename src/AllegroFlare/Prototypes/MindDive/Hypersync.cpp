@@ -3,7 +3,6 @@
 #include <AllegroFlare/Prototypes/MindDive/Hypersync.hpp>
 
 #include <allegro5/allegro_acodec.h>
-#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -26,7 +25,7 @@ Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
    , initialized(false)
    , stream_is_attached(false)
    , song_bpm(130.0f)
-   , latency_sec(0.125f)
+   , latency_sec(0.075f)
 {
 }
 
@@ -61,6 +60,11 @@ void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
    return;
 }
 
+float Hypersync::get_timer_seconds()
+{
+   return get_timer_microseconds() * 0.000001f;
+}
+
 float Hypersync::get_timer_milliseconds()
 {
    return get_timer_microseconds() * 0.001f;
@@ -73,10 +77,17 @@ float Hypersync::get_timer_microseconds()
    return time_with_latency;
 }
 
-float Hypersync::time_since_last_beat()
+int Hypersync::get_beat_num()
 {
-   // TODO
-   return 0.0f;
+   float beat = (get_timer_seconds() * (song_bpm / 60.0) + 1);
+   return (int)beat;
+}
+
+std::string Hypersync::build_beat_clock_str()
+{
+   std::stringstream result;
+   result << get_beat_num();
+   return result.str();
 }
 
 void Hypersync::start()

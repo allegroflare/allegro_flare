@@ -100,13 +100,22 @@ TEST(AllegroFlare_Prototypes_MindDive_HypersyncTest, start__will_synchronize_the
 
          case ALLEGRO_EVENT_TIMER:
             al_clear_to_color(ALLEGRO_COLOR{1, 1, 1, 1});
-            { // draw text
+            { // draw timer
                std::string timer_format = AllegroFlare::TimerFormatter(hypersync.get_timer_milliseconds()).format();
                AllegroFlare::Placement2D place;
                place.scale = { 8, 8 };
-               place.position = { 1920/2, 1080/2 };
+               place.position = { 1920/2, 1080/3 };
                place.start_transform();
                al_draw_text(al_font, ALLEGRO_COLOR{0, 0, 0, 1}, 0, 0, ALLEGRO_ALIGN_CENTER, timer_format.c_str());
+               place.restore_transform();
+            }
+            { // draw beat clock
+               AllegroFlare::Placement2D place;
+               place.scale = { 8, 8 };
+               place.position = { 1920/2, 1080/3*2 };
+               place.start_transform();
+               std::string beat_clock_str = hypersync.build_beat_clock_str();
+               al_draw_text(al_font, ALLEGRO_COLOR{0, 0, 0, 1}, 0, 0, ALLEGRO_ALIGN_CENTER, beat_clock_str.c_str());
                place.restore_transform();
             }
             al_flip_display();
