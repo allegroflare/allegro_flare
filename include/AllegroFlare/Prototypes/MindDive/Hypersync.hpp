@@ -23,6 +23,7 @@ namespace AllegroFlare
             ALLEGRO_MIXER* audio_mixer;
             bool initialized;
             bool stream_is_attached;
+            std::string song_filename;
             float song_bpm;
             float latency_sec;
 

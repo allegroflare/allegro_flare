@@ -24,8 +24,9 @@ Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
    , audio_mixer(nullptr)
    , initialized(false)
    , stream_is_attached(false)
+   , song_filename("/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg")
    , song_bpm(130.0f)
-   , latency_sec(0.065f)
+   , latency_sec(0.086f)
 {
 }
 
@@ -79,8 +80,8 @@ float Hypersync::get_timer_microseconds()
 
 int Hypersync::get_beat_num(float seconds)
 {
-   float beat = (seconds * (song_bpm / 60.0) + 1);
-   return ((int)beat) % 4;
+   float beat = (seconds * (song_bpm / 60.0));
+   return ((int)beat) % 4 + 1;
 }
 
 int Hypersync::get_measure_num(float seconds)
@@ -147,11 +148,16 @@ void Hypersync::initialize()
       throw std::runtime_error("could not attach mixer to voice");
    }
 
-   std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg";
-   float song_bpm = 130.0f;
-   //std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/skate2.ogg";
+   song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg";
+   song_bpm = 130.0f;
 
-   audio_stream = al_load_audio_stream(filename.c_str(), 4, 2048);
+   //song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/tempo-track-180.ogg";
+   //song_bpm = 180.0f;
+
+   //song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/tempo-track-152.ogg";
+   //song_bpm = 152.0f;
+
+   audio_stream = al_load_audio_stream(song_filename.c_str(), 4, 2048);
    if (!audio_stream) throw std::runtime_error("could not load stream!!");
 
    al_set_audio_stream_playmode(audio_stream, ALLEGRO_PLAYMODE_ONCE);
