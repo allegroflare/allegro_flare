@@ -39,7 +39,8 @@ namespace AllegroFlare
             float get_timer_seconds();
             float get_timer_milliseconds();
             float get_timer_microseconds();
-            int get_beat_num();
+            int get_beat_num(float seconds=0.0f);
+            int get_measure_num(float seconds=0.0f);
             std::string build_beat_clock_str();
             void start();
             void initialize();

@@ -25,7 +25,7 @@ Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
    , initialized(false)
    , stream_is_attached(false)
    , song_bpm(130.0f)
-   , latency_sec(0.075f)
+   , latency_sec(0.065f)
 {
 }
 
@@ -77,16 +77,23 @@ float Hypersync::get_timer_microseconds()
    return time_with_latency;
 }
 
-int Hypersync::get_beat_num()
+int Hypersync::get_beat_num(float seconds)
 {
-   float beat = (get_timer_seconds() * (song_bpm / 60.0) + 1);
-   return (int)beat;
+   float beat = (seconds * (song_bpm / 60.0) + 1);
+   return ((int)beat) % 4;
+}
+
+int Hypersync::get_measure_num(float seconds)
+{
+   float beat = (seconds * (song_bpm / 60.0));
+   return ((int)beat) / 4;
 }
 
 std::string Hypersync::build_beat_clock_str()
 {
+   float seconds = get_timer_seconds();
    std::stringstream result;
-   result << get_beat_num();
+   result << get_measure_num(seconds) << ":" << get_beat_num(seconds);
    return result.str();
 }
 
@@ -141,6 +148,7 @@ void Hypersync::initialize()
    }
 
    std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg";
+   float song_bpm = 130.0f;
    //std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/skate2.ogg";
 
    audio_stream = al_load_audio_stream(filename.c_str(), 4, 2048);

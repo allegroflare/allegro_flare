@@ -38,7 +38,7 @@ properties:
 
   - name: latency_sec
     type: float
-    init_with: 0.075f
+    init_with: 0.065f
 
 
 functions:
@@ -84,16 +84,32 @@ functions:
 
   - name: get_beat_num
     type: int
+    parameters:
+      - name: seconds
+        type: float
+        default_argument: 0.0f
     body: |
-      float beat = (get_timer_seconds() * (song_bpm / 60.0) + 1);
-      return (int)beat;
+      float beat = (seconds * (song_bpm / 60.0) + 1);
+      return ((int)beat) % 4;
+
+
+  - name: get_measure_num
+    type: int
+    parameters:
+      - name: seconds
+        type: float
+        default_argument: 0.0f
+    body: |
+      float beat = (seconds * (song_bpm / 60.0));
+      return ((int)beat) / 4;
 
 
   - name: build_beat_clock_str
     type: std::string
     body: |
+      float seconds = get_timer_seconds();
       std::stringstream result;
-      result << get_beat_num();
+      result << get_measure_num(seconds) << ":" << get_beat_num(seconds);
       return result.str();
 
 
@@ -129,6 +145,7 @@ functions:
       }
 
       std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg";
+      float song_bpm = 130.0f;
       //std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/skate2.ogg";
 
       audio_stream = al_load_audio_stream(filename.c_str(), 4, 2048);
