@@ -23,6 +23,9 @@ Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
    , audio_voice(nullptr)
    , audio_mixer(nullptr)
    , initialized(false)
+   , stream_is_attached(false)
+   , song_bpm(130.0f)
+   , latency_sec(0.065f)
 {
 }
 
@@ -52,17 +55,26 @@ void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
 
 int Hypersync::get_timer_milliseconds()
 {
-   return timer.get_elapsed_time_milliseconds();
+   return timer.get_elapsed_time_milliseconds() - latency_sec;
+}
+
+float Hypersync::time_since_last_beat()
+{
+   // TODO
+   return 0.0f;
 }
 
 void Hypersync::start()
 {
-   al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
-   if (!al_attach_audio_stream_to_mixer(audio_stream, audio_mixer))
+   if (!stream_is_attached)
    {
-      throw std::runtime_error("boobaz");
+      al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
+      if (!al_attach_audio_stream_to_mixer(audio_stream, audio_mixer))
+      {
+         throw std::runtime_error("boobaz");
+      }
+      timer.start();
    }
-   timer.start();
 
    return;
 }
@@ -118,9 +130,12 @@ void Hypersync::destruct()
 {
    if (audio_mixer)
    {
-      // TODO: sort out this destruction
-      //al_detach_voice(audio_voice);
-      //al_destroy_mixer(audio_mixer);
+      if (stream_is_attached)
+      {
+         // TODO: sort out this destruction
+         al_detach_voice(audio_voice);
+         al_destroy_mixer(audio_mixer);
+      }
    }
    if (audio_voice)
    {

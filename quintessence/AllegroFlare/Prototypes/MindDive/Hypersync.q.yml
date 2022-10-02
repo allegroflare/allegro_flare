@@ -28,6 +28,18 @@ properties:
     type: bool
     init_with: false
 
+  - name: stream_is_attached
+    type: bool
+    init_with: false
+
+  - name: song_bpm
+    type: float
+    init_with: 130.0f
+
+  - name: latency_sec
+    type: float
+    init_with: 0.065f
+
 
 functions:
 
@@ -46,17 +58,27 @@ functions:
   - name: get_timer_milliseconds
     type: int
     body: |
-      return timer.get_elapsed_time_milliseconds();
+      return timer.get_elapsed_time_milliseconds() - latency_sec;
+
+
+  - name: time_since_last_beat
+    type: float
+    body: |
+      // TODO
+      return 0.0f;
 
 
   - name: start
     body: |
-      al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
-      if (!al_attach_audio_stream_to_mixer(audio_stream, audio_mixer))
+      if (!stream_is_attached)
       {
-         throw std::runtime_error("boobaz");
+         al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
+         if (!al_attach_audio_stream_to_mixer(audio_stream, audio_mixer))
+         {
+            throw std::runtime_error("boobaz");
+         }
+         timer.start();
       }
-      timer.start();
 
       return;
 
@@ -96,9 +118,12 @@ functions:
     body: |
       if (audio_mixer)
       {
-         // TODO: sort out this destruction
-         //al_detach_voice(audio_voice);
-         //al_destroy_mixer(audio_mixer);
+         if (stream_is_attached)
+         {
+            // TODO: sort out this destruction
+            al_detach_voice(audio_voice);
+            al_destroy_mixer(audio_mixer);
+         }
       }
       if (audio_voice)
       {
