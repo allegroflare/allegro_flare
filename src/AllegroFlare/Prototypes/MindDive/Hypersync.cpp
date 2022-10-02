@@ -26,7 +26,7 @@ Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
    , stream_is_attached(false)
    , song_filename("/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg")
    , song_bpm(130.0f)
-   , latency_sec(0.086f)
+   , latency_sec(0.140f)
 {
 }
 

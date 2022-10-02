@@ -42,7 +42,7 @@ properties:
 
   - name: latency_sec
     type: float
-    init_with: 0.086f
+    init_with: 0.140f
 
 
 functions:
