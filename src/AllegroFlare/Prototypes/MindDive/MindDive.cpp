@@ -191,7 +191,7 @@ void MindDive::initialize()
    };
 
    //std::string playlist_song_to_play = "song-152bpm";
-   //std::string playlist_song_to_play = "song-120bpm";
+   //std::string playlist_song_to_play = "song-80bpm";
    //std::string playlist_song_to_play = "song-120bpm";
    std::string playlist_song_to_play = "original-jamzz";
 
@@ -410,13 +410,14 @@ void MindDive::update()
       //float song_bpm = 120.0;
       static const float SECONDS_PER_MINUTE = 60.0f;
       //static const int TILES_PER_BEAT = 4;
-      static const float TILES_PER_BEAT = 0.5;
+      static const float TILES_PER_BEAT = 1;
       float time_multiplier = song_bpm / SECONDS_PER_MINUTE;
       //float time_multiplier = SECONDS_PER_MINUTE / song_bpm;
       float playhead_tile_position = calculate_current_tunnel_mesh_tile_depth()
                                    * TILES_PER_BEAT
                                    * explicit_playhead_position
                                    * time_multiplier
+                                   - 0.05; // some weird sync offset needs this for some reason
                                    ;
 
     
@@ -428,7 +429,7 @@ void MindDive::update()
       //surfer_next_position_z = playhead_tile_position; //calculate_current_tunnel_mesh_height() - playhead_tile_position;
       //surfer_next_position_z = (calculate_current_tunnel_mesh_height() + current_tunnel_mesh->obtain_tile_height())
                              //- playhead_tile_position;
-      surfer_position.z = playhead_tile_position;
+      surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
       //surfer_velocity.z = previous_surfer_position_z - surfer_position.z; //-1.0f;
 
       int tile_y = (int)surfer_position.z;

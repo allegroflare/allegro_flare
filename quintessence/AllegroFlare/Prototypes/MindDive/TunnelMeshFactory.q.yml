@@ -38,8 +38,8 @@ functions:
       result->rescale_tile_dimentions_to(1, 1);
       result->resize(12, 32 * 2);
       random_fill_from(result, { { 2, 2 } });
-      //random_sparce_placement(result, { { 0, 0 } }, 20);
-      //random_sparce_placement(result, { { 1, 1 } }, 40);
+      random_sparce_placement(result, { { 0, 0 } }, 20);
+      random_sparce_placement(result, { { 1, 1 } }, 40);
       return result;
 
 
