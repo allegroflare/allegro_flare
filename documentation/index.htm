@@ -165,6 +165,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml</a></li>
@@ -8054,6 +8055,110 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">layer_num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">layer_num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">layer_tile_data</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">collision_layer_num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">collision_layer_num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">collision_layer_tile_data</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_num_columns()</td>
+</tr>
+<tr>
+  <td class="method">get_num_rows()</td>
+</tr>
+<tr>
+  <td class="method">get_tile_width()</td>
+</tr>
+<tr>
+  <td class="method">get_tile_height()</td>
+</tr>
+<tr>
+  <td class="method">get_layer_num_columns()</td>
+</tr>
+<tr>
+  <td class="method">get_layer_num_rows()</td>
+</tr>
+<tr>
+  <td class="method">get_layer_tile_data()</td>
+</tr>
+<tr>
+  <td class="method">get_collision_layer_num_columns()</td>
+</tr>
+<tr>
+  <td class="method">get_collision_layer_num_rows()</td>
+</tr>
+<tr>
+  <td class="method">get_collision_layer_tile_data()</td>
+</tr>
+<tr>
+  <td class="method">load()</td>
+</tr>
+<tr>
+  <td class="private_method">file_exists(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ifstream&quot;, &quot;headers&quot;=&gt;[&quot;fstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml</h3>
      <table>
 <tr>
@@ -13851,6 +13956,7 @@ table td
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -14218,6 +14324,14 @@ table td
   "AllegroFlare/Physics/TileMapCollisionStepper": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
+  "std/ifstream": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
+  "std/filesystem/exists": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements"
@@ -14396,12 +14510,6 @@ table td
   "Tileo/Shaders/Base": [
     "Tileo/Shaders/AllegroDefault",
     "Tileo/Shaders/MeshWithNormals"
-  ],
-  "std/ifstream": [
-    "Tileo/TMJDataLoader"
-  ],
-  "std/filesystem/exists": [
-    "Tileo/TMJDataLoader"
   ],
   "ifstream": [
     "Tileo/TMJMeshLoader"

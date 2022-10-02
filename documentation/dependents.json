@@ -1068,6 +1068,7 @@
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -1435,6 +1436,14 @@
   "AllegroFlare/Physics/TileMapCollisionStepper": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
+  "std/ifstream": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
+  "std/filesystem/exists": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements"
@@ -1613,12 +1622,6 @@
   "Tileo/Shaders/Base": [
     "Tileo/Shaders/AllegroDefault",
     "Tileo/Shaders/MeshWithNormals"
-  ],
-  "std/ifstream": [
-    "Tileo/TMJDataLoader"
-  ],
-  "std/filesystem/exists": [
-    "Tileo/TMJDataLoader"
   ],
   "ifstream": [
     "Tileo/TMJMeshLoader"
