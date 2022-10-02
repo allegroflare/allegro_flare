@@ -1,0 +1,73 @@
+properties:
+
+
+  - name: event_queue
+    type: ALLEGRO_EVENT_QUEUE*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: audio_stream
+    type: ALLEGRO_AUDIO_STREAM*
+    init_with: nullptr
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: set_event_queue
+    parameters:
+      - name: event_queue
+        type: ALLEGRO_EVENT_QUEUE*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      this->event_queue = event_queue;
+      return;
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - al_is_audio_installed()
+      - al_is_acodec_addon_initialized()
+      - event_queue
+    body: |
+      std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg";
+      audio_stream = al_load_audio_stream(filename.c_str(), 4, 2048);
+      if (!audio_stream) throw std::runtime_error("could not load stream!!");
+
+      al_set_audio_stream_playmode(audio_stream, ALLEGRO_PLAYMODE_ONCE);
+      al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - al_is_acodec_addon_initialized
+
+
+  - name: destruct
+    body: |
+      if (audio_stream)
+      {
+         al_unregister_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
+         al_destroy_audio_stream(audio_stream);
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_EVENT_QUEUE
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_AUDIO_STREAM
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: al_is_acodec_addon_initialized
+    headers: [ allegro5/allegro_acodec.h ]
+
+
