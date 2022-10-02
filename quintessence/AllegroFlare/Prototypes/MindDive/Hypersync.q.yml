@@ -12,6 +12,14 @@ properties:
     type: ALLEGRO_AUDIO_STREAM*
     init_with: nullptr
 
+  - name: audio_voice
+    type: ALLEGRO_VOICE*
+    init_with: nullptr
+
+  - name: audio_mixer
+    type: ALLEGRO_MIXER*
+    init_with: nullptr
+
   - name: initialized
     type: bool
     init_with: false
@@ -31,6 +39,17 @@ functions:
       return;
 
 
+  - name: start
+    body: |
+      al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
+      if (!al_attach_audio_stream_to_mixer(audio_stream, audio_mixer))
+      {
+         throw std::runtime_error("boobaz");
+      }
+
+      return;
+
+
   - name: initialize
     guards:
       - (!initialized)
@@ -38,20 +57,42 @@ functions:
       - al_is_acodec_addon_initialized()
       - event_queue
     body: |
+      audio_voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
+      if (!audio_voice) throw std::runtime_error("could not create voice!!");
+
+      audio_mixer = al_create_mixer(44100, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+      if (!al_attach_mixer_to_voice(audio_mixer, audio_voice))
+      {
+         throw std::runtime_error("could not attach mixer to voice");
+      }
+
       std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg";
+      //std::string filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/skate2.ogg";
+
       audio_stream = al_load_audio_stream(filename.c_str(), 4, 2048);
       if (!audio_stream) throw std::runtime_error("could not load stream!!");
 
       al_set_audio_stream_playmode(audio_stream, ALLEGRO_PLAYMODE_ONCE);
-      al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
+
       initialized = true;
       return;
     body_dependency_symbols:
       - al_is_acodec_addon_initialized
+      - std::cout
 
 
   - name: destruct
     body: |
+      if (audio_mixer)
+      {
+         // TODO: sort out this destruction
+         //al_detach_voice(audio_voice);
+         //al_destroy_mixer(audio_mixer);
+      }
+      if (audio_voice)
+      {
+         al_destroy_voice(audio_voice);
+      }
       if (audio_stream)
       {
          al_unregister_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
@@ -66,6 +107,10 @@ dependencies:
   - symbol: ALLEGRO_EVENT_QUEUE
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_AUDIO_STREAM
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: ALLEGRO_VOICE
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: ALLEGRO_MIXER
     headers: [ allegro5/allegro_audio.h ]
   - symbol: al_is_acodec_addon_initialized
     headers: [ allegro5/allegro_acodec.h ]

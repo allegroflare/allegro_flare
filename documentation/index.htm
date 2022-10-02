@@ -7526,6 +7526,14 @@ table td
   <td class="property">ALLEGRO_AUDIO_STREAM*</td>
 </tr>
 <tr>
+  <td class="property">audio_voice</td>
+  <td class="property">ALLEGRO_VOICE*</td>
+</tr>
+<tr>
+  <td class="property">audio_mixer</td>
+  <td class="property">ALLEGRO_MIXER*</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -7533,6 +7541,9 @@ table td
      <table>
 <tr>
   <td class="method">set_event_queue(1)</td>
+</tr>
+<tr>
+  <td class="method">start()</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -7547,6 +7558,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_AUDIO_STREAM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VOICE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_acodec_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_acodec.h&quot;]}</td>
@@ -14080,6 +14097,12 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "ALLEGRO_AUDIO_STREAM": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_VOICE": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_MIXER": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "al_is_audio_installed": [

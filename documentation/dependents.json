@@ -1363,6 +1363,12 @@
   "ALLEGRO_AUDIO_STREAM": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
+  "ALLEGRO_VOICE": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_MIXER": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
   "al_is_audio_installed": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
