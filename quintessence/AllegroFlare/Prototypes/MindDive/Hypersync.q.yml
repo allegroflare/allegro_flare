@@ -8,6 +8,10 @@ properties:
     getter: true
     setter: false
 
+  - name: timer
+    type: AllegroFlare::Timer
+    init_with: '{}'
+
   - name: audio_stream
     type: ALLEGRO_AUDIO_STREAM*
     init_with: nullptr
@@ -39,6 +43,12 @@ functions:
       return;
 
 
+  - name: get_timer_milliseconds
+    type: int
+    body: |
+      return timer.get_elapsed_time_milliseconds();
+
+
   - name: start
     body: |
       al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
@@ -46,6 +56,7 @@ functions:
       {
          throw std::runtime_error("boobaz");
       }
+      timer.start();
 
       return;
 
@@ -114,5 +125,7 @@ dependencies:
     headers: [ allegro5/allegro_audio.h ]
   - symbol: al_is_acodec_addon_initialized
     headers: [ allegro5/allegro_acodec.h ]
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
 
 

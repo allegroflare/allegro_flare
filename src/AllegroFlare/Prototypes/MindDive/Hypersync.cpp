@@ -18,6 +18,7 @@ namespace MindDive
 
 Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
    : event_queue(event_queue)
+   , timer({})
    , audio_stream(nullptr)
    , audio_voice(nullptr)
    , audio_mixer(nullptr)
@@ -49,6 +50,11 @@ void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
    return;
 }
 
+int Hypersync::get_timer_milliseconds()
+{
+   return timer.get_elapsed_time_milliseconds();
+}
+
 void Hypersync::start()
 {
    al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
@@ -56,6 +62,7 @@ void Hypersync::start()
    {
       throw std::runtime_error("boobaz");
    }
+   timer.start();
 
    return;
 }

@@ -7522,6 +7522,10 @@ table td
   <td class="property">ALLEGRO_EVENT_QUEUE*</td>
 </tr>
 <tr>
+  <td class="property">timer</td>
+  <td class="property">AllegroFlare::Timer</td>
+</tr>
+<tr>
   <td class="property">audio_stream</td>
   <td class="property">ALLEGRO_AUDIO_STREAM*</td>
 </tr>
@@ -7541,6 +7545,9 @@ table td
      <table>
 <tr>
   <td class="method">set_event_queue(1)</td>
+</tr>
+<tr>
+  <td class="method">get_timer_milliseconds()</td>
 </tr>
 <tr>
   <td class="method">start()</td>
@@ -7567,6 +7574,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_acodec_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_acodec.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timer.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13653,6 +13663,7 @@ table td
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
