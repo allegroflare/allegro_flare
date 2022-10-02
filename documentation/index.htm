@@ -159,6 +159,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Hud/Hud.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Tunnel.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Tunnel.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml</a></li>
@@ -7514,6 +7515,47 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_queue</td>
+  <td class="property">ALLEGRO_EVENT_QUEUE*</td>
+</tr>
+<tr>
+  <td class="property">audio_stream</td>
+  <td class="property">ALLEGRO_AUDIO_STREAM*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_event_queue(1)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">destruct()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_QUEUE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_AUDIO_STREAM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_acodec_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_acodec.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml</h3>
      <table>
 <tr>
@@ -12703,6 +12745,7 @@ table td
   ],
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/BitmapBin": [
@@ -14032,6 +14075,12 @@ table td
   ],
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud"
+  ],
+  "ALLEGRO_EVENT_QUEUE": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_AUDIO_STREAM": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "al_is_audio_installed": [
     "AllegroFlare/Prototypes/MindDive/MindDive"

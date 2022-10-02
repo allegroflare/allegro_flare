@@ -26,6 +26,7 @@
   ],
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/BitmapBin": [
@@ -1355,6 +1356,12 @@
   ],
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud"
+  ],
+  "ALLEGRO_EVENT_QUEUE": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_AUDIO_STREAM": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "al_is_audio_installed": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
