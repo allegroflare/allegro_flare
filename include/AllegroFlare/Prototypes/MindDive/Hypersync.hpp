@@ -33,8 +33,9 @@ namespace AllegroFlare
             ~Hypersync();
 
             ALLEGRO_EVENT_QUEUE* get_event_queue() const;
+            void TODO();
             void set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue=nullptr);
-            int get_timer_milliseconds();
+            float get_timer_milliseconds();
             float time_since_last_beat();
             void start();
             void initialize();

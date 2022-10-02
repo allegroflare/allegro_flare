@@ -604,6 +604,7 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [

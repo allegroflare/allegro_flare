@@ -3,6 +3,7 @@
 #include <AllegroFlare/Prototypes/MindDive/Hypersync.hpp>
 
 #include <allegro5/allegro_acodec.h>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -25,7 +26,7 @@ Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
    , initialized(false)
    , stream_is_attached(false)
    , song_bpm(130.0f)
-   , latency_sec(0.065f)
+   , latency_sec(0.125f)
 {
 }
 
@@ -41,6 +42,13 @@ ALLEGRO_EVENT_QUEUE* Hypersync::get_event_queue() const
 }
 
 
+void Hypersync::TODO()
+{
+   // TODO: investigate calculating the amount of latency needed.
+   // - you might consume stream filling events, size of buffer, etc.
+   return;
+}
+
 void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
 {
    if (!(initialized))
@@ -53,9 +61,11 @@ void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
    return;
 }
 
-int Hypersync::get_timer_milliseconds()
+float Hypersync::get_timer_milliseconds()
 {
-   return timer.get_elapsed_time_milliseconds() - latency_sec;
+   float time_with_latency = timer.get_elapsed_time_milliseconds() - (latency_sec * 1000);
+   if (time_with_latency < 0) return 0;
+   return time_with_latency;
 }
 
 float Hypersync::time_since_last_beat()
