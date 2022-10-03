@@ -25,6 +25,10 @@ properties:
     type: ALLEGRO_MIXER*
     init_with: nullptr
 
+  - name: reverb_mixer
+    type: ALLEGRO_MIXER*
+    init_with: nullptr
+
   - name: initialized
     type: bool
     init_with: false
@@ -34,18 +38,53 @@ functions:
 
 
   - name: initialize
-    guards: [ al_is_audio_installed() ]
+    guards: [ al_is_system_installed(), al_is_audio_installed(), al_get_default_mixer() ]
     body: |
+      // set the master_mixer provided by allegro
       master_mixer = al_get_default_mixer();
+      if (!master_mixer)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::AcousticEnvironments::Reverb::initialize error: "
+                       << "there was an error getting the master_mixer from allegro.";
+         throw std::runtime_error(error_message.str());
+      }
+
+      // create our reverb mixer with properties that match the master_mixer
+      reverb_mixer = al_create_mixer(
+         al_get_mixer_frequency(master_mixer),
+         al_get_mixer_depth(master_mixer), 
+         al_get_mixer_channels(master_mixer)
+      );
+      if (!reverb_mixer)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::AcousticEnvironments::Reverb::initialize error: "
+                       << "there was an error creating the reverb_mixer.";
+         throw std::runtime_error(error_message.str());
+      }
+
+      bool mixer_attachment_was_successful = al_attach_mixer_to_mixer(reverb_mixer, master_mixer);
+      if (!mixer_attachment_was_successful)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::AcousticEnvironments::Reverb::initialize error: "
+                       << "there was an error attaching the reverb_mixer to the master_mixer.";
+         throw std::runtime_error(error_message.str());
+      }
+
       initialized = true;
       return;
     body_dependency_symbols:
+     - al_is_system_installed
      - al_is_audio_installed
 
 
 dependencies:
 
 
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
   - symbol: al_is_audio_installed
     headers: [ allegro5/allegro_audio.h ]
   - symbol: ALLEGRO_MIXER

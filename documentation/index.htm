@@ -287,6 +287,10 @@ table td
   <td class="property">ALLEGRO_MIXER*</td>
 </tr>
 <tr>
+  <td class="property">reverb_mixer</td>
+  <td class="property">ALLEGRO_MIXER*</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -297,6 +301,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_audio_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
 </tr>
@@ -12941,6 +12948,23 @@ table td
 <h1>Dependents</h1>
 <pre>
 {
+  "al_is_system_installed": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/DialogBoxFrame",
+    "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Time",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
+  ],
   "al_is_audio_installed": [
     "AllegroFlare/AcousticEnvironments/Reverb",
     "AllegroFlare/Prototypes/MindDive/MindDive"
@@ -13220,22 +13244,6 @@ table td
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Hud"
-  ],
-  "al_is_system_installed": [
-    "AllegroFlare/Bone3DGraphRenderer",
-    "AllegroFlare/Elements/DialogBoxFrame",
-    "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/Scrollbar",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/NotificationsFactory",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/Time",
-    "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",

@@ -18,6 +18,7 @@ namespace AllegroFlare
       private:
          std::string property;
          ALLEGRO_MIXER* master_mixer;
+         ALLEGRO_MIXER* reverb_mixer;
          bool initialized;
 
       protected:

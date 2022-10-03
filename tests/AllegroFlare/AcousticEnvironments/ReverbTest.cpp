@@ -24,10 +24,17 @@ TEST(AllegroFlare_AcousticEnvironments_ReverbTest, type__has_the_expected_value_
 }
 
 
-TEST(AllegroFlare_AcousticEnvironments_ReverbTest,
-   playing_audio_samples_through_the_mixer_will_result_in_an_audio_effect)
+TEST(AllegroFlare_AcousticEnvironments_ReverbTest, initialize__will_not_blow_up)
 {
+   al_init();
+   al_install_audio();
+   al_reserve_samples(32); // used to implicitly create the default mixer and default voice
+
    AllegroFlare::AcousticEnvironments::Reverb reverb;
+   reverb.initialize();
+
+   al_uninstall_audio();
+   al_uninstall_system();
 }
 
 
