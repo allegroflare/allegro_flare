@@ -192,6 +192,16 @@ float TunnelMesh::obtain_tile_height()
    return prim_mesh.get_tile_height();
 }
 
+float TunnelMesh::obtain_num_rows()
+{
+   return prim_mesh.get_num_rows();
+}
+
+float TunnelMesh::obtain_num_columns()
+{
+   return prim_mesh.get_num_columns();
+}
+
 void TunnelMesh::render()
 {
    if (!(initialized))

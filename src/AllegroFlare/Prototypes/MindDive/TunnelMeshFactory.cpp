@@ -89,16 +89,21 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_from_t
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader tmj_data_loader(tmj_filename);
    tmj_data_loader.load();
 
+   int num_columns = tmj_data_loader.get_num_columns();
+   if (num_columns != 12)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::Prototypes::MindDive::TunnelMeshFactory error: "
+                    << "Expecting data loaded from \"" << tmj_filename << "\" to have a column count of "
+                    << "\"12\", but it is \"" << num_columns << "\"";
+      throw std::runtime_error(error_message.str());
+   }
+
    AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
    result->set_bitmap_bin(bitmap_bin);
    result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
    result->initialize();
-   //result->rescale_tile_dimentions_to(2, 6);
-   //result->rescale_tile_dimentions_to(1, 1);
-   result->resize(12, 32 * 2);
-   //random_fill_from(result, { { 2, 2 } });
-   //random_sparce_placement(result, { { 0, 0 } }, 20);
-   //random_sparce_placement(result, { { 1, 1 } }, 40);
+   result->resize(num_columns, tmj_data_loader.get_num_rows());
    return result;
 }
 

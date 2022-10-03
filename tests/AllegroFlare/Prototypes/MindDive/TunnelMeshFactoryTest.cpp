@@ -38,6 +38,9 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshFactoryTest,
 
    ASSERT_NE(nullptr, created_tunnel_mesh);
 
+   EXPECT_EQ(12, created_tunnel_mesh->obtain_num_columns());
+   EXPECT_EQ(96, created_tunnel_mesh->obtain_num_rows());
+
    bitmap_bin.clear();
    al_shutdown_image_addon();
    al_shutdown_primitives_addon();

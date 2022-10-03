@@ -79,3 +79,17 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixtur
 }
 
 
+TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixture,
+   obtain_num_rows__will_return_the_number_of_rows_in_the_tunnel_mesh)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTestWithAllegroRenderingFixture,
+   obtain_num_columns__will_return_the_number_of_columns_in_the_tunnel_mesh)
+{
+   // TODO
+}
+
+
