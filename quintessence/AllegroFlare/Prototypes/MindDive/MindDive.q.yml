@@ -162,7 +162,9 @@ functions:
     body: |
       AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
       //current_tunnel_mesh = factory.create_classic_random();
-      current_tunnel_mesh = factory.create_random_with_walls();
+      //current_tunnel_mesh = factory.create_random_with_walls();
+      std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
+      current_tunnel_mesh = factory.create_from_tmj(map_filename);
 
       //current_music_track_identifier = "music_tracks/some-jamzz-04.ogg";
       //std::string current_music_track_identifier = "music_tracks/tempo-track-152.ogg";
