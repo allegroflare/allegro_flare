@@ -26,6 +26,7 @@
   ],
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/BitmapBin": [
@@ -603,6 +604,7 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
@@ -916,6 +918,7 @@
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
@@ -1065,6 +1068,7 @@
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -1356,6 +1360,18 @@
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud"
   ],
+  "ALLEGRO_EVENT_QUEUE": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_AUDIO_STREAM": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_VOICE": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_MIXER": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
   "al_is_audio_installed": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
@@ -1417,8 +1433,19 @@
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
   ],
+  "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory"
+  ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+  ],
+  "std/ifstream": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
+  "std/filesystem/exists": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
@@ -1598,12 +1625,6 @@
   "Tileo/Shaders/Base": [
     "Tileo/Shaders/AllegroDefault",
     "Tileo/Shaders/MeshWithNormals"
-  ],
-  "std/ifstream": [
-    "Tileo/TMJDataLoader"
-  ],
-  "std/filesystem/exists": [
-    "Tileo/TMJDataLoader"
   ],
   "ifstream": [
     "Tileo/TMJMeshLoader"

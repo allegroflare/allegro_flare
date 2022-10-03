@@ -49,6 +49,8 @@ namespace AllegroFlare
             float infer_real_height();
             float obtain_tile_width();
             float obtain_tile_height();
+            float obtain_num_rows();
+            float obtain_num_columns();
             void render();
             void random_fill();
          };

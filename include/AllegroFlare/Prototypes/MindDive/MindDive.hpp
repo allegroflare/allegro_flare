@@ -35,15 +35,21 @@ namespace AllegroFlare
             AllegroFlare::SampleBin* sample_bin;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* current_tunnel_mesh;
             AllegroFlare::Sound* current_music_track;
+            float current_music_track_bpm;
             AllegroFlare::Vec3D surfer_position;
             AllegroFlare::Vec3D surfer_velocity;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
             AllegroFlare::Prototypes::MindDive::Hud::Hud hud;
             int state;
+            bool surfer_attached_to_playhead;
             bool initialized;
+            AllegroFlare::Sound* debug_metronome_sound;
+            float music_started_at;
             void start_timer();
             void reset_timer();
+            float calculate_current_tunnel_mesh_height();
+            float calculate_current_tunnel_mesh_tile_depth();
             void evaluate_surfer_past_goal();
 
          protected:
@@ -67,6 +73,7 @@ namespace AllegroFlare
             void pause_timer();
             void reset();
             void start_racing();
+            void attach_surfer_to_playhead();
             void stop_racing_due_to_death();
             void surfer_move_right();
             void surfer_move_left();

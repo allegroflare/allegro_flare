@@ -159,11 +159,13 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Hud/Hud.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Tunnel.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Tunnel.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml</a></li>
@@ -7514,6 +7516,111 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_queue</td>
+  <td class="property">ALLEGRO_EVENT_QUEUE*</td>
+</tr>
+<tr>
+  <td class="property">timer</td>
+  <td class="property">AllegroFlare::Timer</td>
+</tr>
+<tr>
+  <td class="property">audio_stream</td>
+  <td class="property">ALLEGRO_AUDIO_STREAM*</td>
+</tr>
+<tr>
+  <td class="property">audio_voice</td>
+  <td class="property">ALLEGRO_VOICE*</td>
+</tr>
+<tr>
+  <td class="property">audio_mixer</td>
+  <td class="property">ALLEGRO_MIXER*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">stream_is_attached</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">song_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">song_bpm</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">latency_sec</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">TODO()</td>
+</tr>
+<tr>
+  <td class="method">set_event_queue(1)</td>
+</tr>
+<tr>
+  <td class="method">get_timer_seconds()</td>
+</tr>
+<tr>
+  <td class="method">get_timer_milliseconds()</td>
+</tr>
+<tr>
+  <td class="method">get_timer_microseconds()</td>
+</tr>
+<tr>
+  <td class="method">get_beat_num(1)</td>
+</tr>
+<tr>
+  <td class="method">get_measure_num(1)</td>
+</tr>
+<tr>
+  <td class="method">build_beat_clock_str()</td>
+</tr>
+<tr>
+  <td class="method">start()</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">destruct()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_QUEUE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_AUDIO_STREAM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VOICE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_acodec_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_acodec.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml</h3>
      <table>
 <tr>
@@ -7541,6 +7648,10 @@ table td
   <td class="property">AllegroFlare::Sound*</td>
 </tr>
 <tr>
+  <td class="property">current_music_track_bpm</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">surfer_position</td>
   <td class="property">AllegroFlare::Vec3D</td>
 </tr>
@@ -7565,6 +7676,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">surfer_attached_to_playhead</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -7583,6 +7698,14 @@ table td
 <tr>
   <td class="property">STATE_WAITING_START</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">debug_metronome_sound</td>
+  <td class="property">AllegroFlare::Sound*</td>
+</tr>
+<tr>
+  <td class="property">music_started_at</td>
+  <td class="property">float</td>
 </tr>
     </table>
      <table>
@@ -7611,10 +7734,19 @@ table td
   <td class="private_method">reset_timer()</td>
 </tr>
 <tr>
+  <td class="private_method">calculate_current_tunnel_mesh_height()</td>
+</tr>
+<tr>
+  <td class="private_method">calculate_current_tunnel_mesh_tile_depth()</td>
+</tr>
+<tr>
   <td class="method">reset()</td>
 </tr>
 <tr>
   <td class="method">start_racing()</td>
+</tr>
+<tr>
+  <td class="method">attach_surfer_to_playhead()</td>
 </tr>
 <tr>
   <td class="method">stop_racing_due_to_death()</td>
@@ -7813,6 +7945,12 @@ table td
   <td class="method">obtain_tile_height()</td>
 </tr>
 <tr>
+  <td class="method">obtain_num_rows()</td>
+</tr>
+<tr>
+  <td class="method">obtain_num_columns()</td>
+</tr>
+<tr>
   <td class="method">render()</td>
 </tr>
 <tr>
@@ -7858,6 +7996,9 @@ table td
   <td class="method">create_random_with_walls()</td>
 </tr>
 <tr>
+  <td class="method">create_from_tmj(1)</td>
+</tr>
+<tr>
   <td class="method">random_fill_from(2)</td>
 </tr>
 <tr>
@@ -7876,6 +8017,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7917,6 +8061,89 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperStepResult&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">layer_num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">layer_num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">layer_tile_data</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_num_columns()</td>
+</tr>
+<tr>
+  <td class="method">get_num_rows()</td>
+</tr>
+<tr>
+  <td class="method">get_tile_width()</td>
+</tr>
+<tr>
+  <td class="method">get_tile_height()</td>
+</tr>
+<tr>
+  <td class="method">get_layer_num_columns()</td>
+</tr>
+<tr>
+  <td class="method">get_layer_num_rows()</td>
+</tr>
+<tr>
+  <td class="method">get_layer_tile_data()</td>
+</tr>
+<tr>
+  <td class="method">load()</td>
+</tr>
+<tr>
+  <td class="private_method">file_exists(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ifstream&quot;, &quot;headers&quot;=&gt;[&quot;fstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -12678,6 +12905,7 @@ table td
   ],
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/BitmapBin": [
@@ -13255,6 +13483,7 @@ table td
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
@@ -13568,6 +13797,7 @@ table td
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
@@ -13717,6 +13947,7 @@ table td
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -14008,6 +14239,18 @@ table td
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud"
   ],
+  "ALLEGRO_EVENT_QUEUE": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_AUDIO_STREAM": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_VOICE": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_MIXER": [
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
   "al_is_audio_installed": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
@@ -14069,8 +14312,19 @@ table td
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
   ],
+  "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory"
+  ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+  ],
+  "std/ifstream": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
+  "std/filesystem/exists": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
@@ -14250,12 +14504,6 @@ table td
   "Tileo/Shaders/Base": [
     "Tileo/Shaders/AllegroDefault",
     "Tileo/Shaders/MeshWithNormals"
-  ],
-  "std/ifstream": [
-    "Tileo/TMJDataLoader"
-  ],
-  "std/filesystem/exists": [
-    "Tileo/TMJDataLoader"
   ],
   "ifstream": [
     "Tileo/TMJMeshLoader"

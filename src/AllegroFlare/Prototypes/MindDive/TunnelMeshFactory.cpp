@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp>
 
+#include <AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.hpp>
 #include <AllegroFlare/Random.hpp>
 #include <sstream>
 #include <stdexcept>
@@ -68,11 +69,58 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    result->set_bitmap_bin(bitmap_bin);
    result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
    result->initialize();
-   result->rescale_tile_dimentions_to(2, 6);
-   result->resize(12, 32);
+   //result->rescale_tile_dimentions_to(2, 6);
+   result->rescale_tile_dimentions_to(1, 1);
+   result->resize(12, 32 * 2);
    random_fill_from(result, { { 2, 2 } });
    random_sparce_placement(result, { { 0, 0 } }, 20);
    random_sparce_placement(result, { { 1, 1 } }, 40);
+   return result;
+}
+
+AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_from_tmj(std::string tmj_filename)
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMeshFactory" << "::" << "create_from_tmj" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader tmj_data_loader(tmj_filename);
+   tmj_data_loader.load();
+
+   int num_columns = tmj_data_loader.get_num_columns();
+   if (num_columns != 12)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::Prototypes::MindDive::TunnelMeshFactory error: "
+                    << "Expecting data loaded from \"" << tmj_filename << "\" to have a column count of "
+                    << "\"12\", but it is \"" << num_columns << "\"";
+      throw std::runtime_error(error_message.str());
+   }
+
+   AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+   result->set_bitmap_bin(bitmap_bin);
+   result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
+   result->initialize();
+
+   // resize the mesh and fill with data
+   AllegroFlare::TileMaps::PrimMesh &prim_mesh = result->get_prim_mesh_ref();
+   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = result->get_collision_tile_map_ref();
+   result->resize(num_columns, tmj_data_loader.get_num_rows());
+   int tile_count = 0;
+   for (auto &tile : tmj_data_loader.get_layer_tile_data())
+   {
+      int tile_x = tile_count % num_columns;
+      int tile_y = tile_count / num_columns;
+      int tile_value = tile - 1; // offset by one, Tiled likes to index the first tile as 1, rather than 0
+
+      prim_mesh.set_tile_id(tile_x, tile_y, tile_value);
+      collision_tile_map.set_tile(tile_x, tile_y, tile_value);
+
+      tile_count++;
+   }
+
    return result;
 }
 

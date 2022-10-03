@@ -11,6 +11,7 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_opengl.h>
 #include <cmath>
+#include <map>
 #include <sstream>
 #include <stdexcept>
 
@@ -30,13 +31,17 @@ MindDive::MindDive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bitm
    , sample_bin(sample_bin)
    , current_tunnel_mesh()
    , current_music_track(nullptr)
+   , current_music_track_bpm(130.0f)
    , surfer_position({0, 0, 0})
    , surfer_velocity({0, 0, 0})
    , timer()
    , camera()
    , hud({})
    , state(STATE_WAITING_START)
+   , surfer_attached_to_playhead(false)
    , initialized(false)
+   , debug_metronome_sound(nullptr)
+   , music_started_at(0.0f)
 {
 }
 
@@ -170,8 +175,33 @@ void MindDive::initialize()
    }
    AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
    //current_tunnel_mesh = factory.create_classic_random();
-   current_tunnel_mesh = factory.create_random_with_walls();
-   current_music_track = new AllegroFlare::Sound(sample_bin->auto_get("music_tracks/some-jamzz-04.ogg"));
+   //current_tunnel_mesh = factory.create_random_with_walls();
+   std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
+   current_tunnel_mesh = factory.create_from_tmj(map_filename);
+
+   //current_music_track_identifier = "music_tracks/some-jamzz-04.ogg";
+   //std::string current_music_track_identifier = "music_tracks/tempo-track-152.ogg";
+   //current_music_track_bpm = 152;
+   //current_music_track_bpm = 152;
+
+   std::map<std::string, std::pair<std::string, float>> playlist = {
+      { "song-60bpm",     { "music_tracks/tempo-track-60.ogg", 60.0f } },
+      { "song-80bpm",     { "music_tracks/tempo-track-80.ogg", 80.0f } },
+      { "song-120bpm",     { "music_tracks/tempo-track-120.ogg", 120.0f } },
+      { "song-152bpm",     { "music_tracks/tempo-track-152.ogg", 152.0f } },
+      { "original-jamzz",  { "music_tracks/some-jamzz-04.ogg", 130.0f } },
+   };
+
+   //std::string playlist_song_to_play = "song-152bpm";
+   //std::string playlist_song_to_play = "song-80bpm";
+   //std::string playlist_song_to_play = "song-120bpm";
+   std::string playlist_song_to_play = "original-jamzz";
+
+   std::string current_music_track_identifier = playlist[playlist_song_to_play].first;
+   current_music_track_bpm = playlist[playlist_song_to_play].second;
+   current_music_track = new AllegroFlare::Sound(sample_bin->auto_get(current_music_track_identifier));
+
+   debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));
 
    hud.set_font_bin(font_bin);
    hud.set_timer(&timer);
@@ -199,6 +229,18 @@ void MindDive::reset_timer()
    return;
 }
 
+float MindDive::calculate_current_tunnel_mesh_height()
+{
+   if (!current_tunnel_mesh) return 0.0f;
+   return current_tunnel_mesh->infer_real_height();
+}
+
+float MindDive::calculate_current_tunnel_mesh_tile_depth()
+{
+   if (!current_tunnel_mesh) return 0.0f;
+   return current_tunnel_mesh->obtain_tile_height();
+}
+
 void MindDive::reset()
 {
    if (!(initialized))
@@ -210,7 +252,7 @@ void MindDive::reset()
    surfer_position.x = current_tunnel_mesh->infer_real_width() * 0.5
                      - current_tunnel_mesh->obtain_tile_width() * 0.5;
    surfer_position.z = current_tunnel_mesh->infer_real_height()
-                     - current_tunnel_mesh->obtain_tile_height() * 0.5;
+                     - current_tunnel_mesh->obtain_tile_height();
 
    surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
@@ -221,8 +263,9 @@ void MindDive::reset()
    //camera.tilt = 0.4;
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;
+   music_started_at = 0.0f;
 
-   event_emitter->emit_play_music_track_event("[unset-music-track-identifier]");
+   //event_emitter->emit_play_music_track_event("[unset-music-track-identifier]");
    if (current_music_track) current_music_track->stop();
    reset_timer();
    return;
@@ -232,9 +275,20 @@ void MindDive::start_racing()
 {
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
-   if (current_music_track) current_music_track->play();
+   if (current_music_track)
+   {
+      attach_surfer_to_playhead();
+      current_music_track->play();
+      music_started_at = al_get_time();
+   }
    start_timer();
    hud.clear_slate();
+   return;
+}
+
+void MindDive::attach_surfer_to_playhead()
+{
+   surfer_attached_to_playhead = true;
    return;
 }
 
@@ -344,14 +398,69 @@ void MindDive::update()
       error_message << "MindDive" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
-      current_tunnel_mesh,
-      &surfer_position,
-      &surfer_velocity
-   );
-   AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
+   float time_now = al_get_time();
+   static float previous_surfer_position_z = surfer_position.z;
+   float surfer_next_position_z = 0;//previous_surfer_position_z;
 
-   play_around_with_collision_step_result(&step_result);
+   if (surfer_attached_to_playhead)
+   {
+      //float explicit_playhead_position = time_now - music_started_at;
+      float explicit_playhead_position = (float) timer.get_elapsed_time_microseconds() / 1000000;
+
+      // update the surfer playhead position
+      float song_bpm = current_music_track_bpm;
+      //float song_bpm = 120.0;
+      static const float SECONDS_PER_MINUTE = 60.0f;
+      //static const int TILES_PER_BEAT = 4;
+      static const float TILES_PER_BEAT = 1;
+      float time_multiplier = song_bpm / SECONDS_PER_MINUTE;
+      //float time_multiplier = SECONDS_PER_MINUTE / song_bpm;
+      float playhead_tile_position = calculate_current_tunnel_mesh_tile_depth()
+                                   * TILES_PER_BEAT
+                                   * explicit_playhead_position
+                                   * time_multiplier
+                                   - 0.05; // some weird sync offset needs this for some reason
+                                   ;
+
+    
+                                   
+                                   //* infer_playhead_position_sec();
+                                   //* time_multiplier;
+
+      //surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
+      //surfer_next_position_z = playhead_tile_position; //calculate_current_tunnel_mesh_height() - playhead_tile_position;
+      //surfer_next_position_z = (calculate_current_tunnel_mesh_height() + current_tunnel_mesh->obtain_tile_height())
+                             //- playhead_tile_position;
+      surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
+      //surfer_velocity.z = previous_surfer_position_z - surfer_position.z; //-1.0f;
+
+      int tile_y = (int)surfer_position.z;
+      int tile_x = (int)surfer_position.x;
+
+      current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_x, tile_y, 4);
+
+      
+
+      //surfer_next_position_z = (calculate_current_tunnel_mesh_height() + current_tunnel_mesh->obtain_tile_height());
+      //surfer_velocity.z = -surfer_position.z - previous_surfer_position_z; //-1.0f;
+
+                               // this is implicit, and only used for the collision resolver to calculate
+                               // collisions.  It should be set constant to the rate of the music track playing
+   }
+   else
+   {
+      AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
+         current_tunnel_mesh,
+         &surfer_position,
+         &surfer_velocity
+      );
+      AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
+
+      //surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
+
+      play_around_with_collision_step_result(&step_result);
+      //surfer_position.z = surfer_next_position_z;
+   }
 
    camera.position = surfer_position;
 
@@ -374,6 +483,12 @@ void MindDive::play_around_with_collision_step_result(AllegroFlare::Physics::Til
       error_message << "MindDive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"current_tunnel_mesh\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (step_result->get_collisions_ref().empty()) return;
+
+   //event_emitter->emit_play_sound_effect_event("menu-click-01.ogg");
+   //debug_metronome_sound->stop();
+   //debug_metronome_sound->play();
+
    for (auto &collision : step_result->get_collisions_ref())
    {
       // stop racing due do death
@@ -386,12 +501,12 @@ void MindDive::play_around_with_collision_step_result(AllegroFlare::Physics::Til
       else if (collision.get_tile_value() == 2)
       {
          // this is cool just disabled
-         bool disable_this_feature = true;
+         bool disable_this_feature = false;
          if (!disable_this_feature)
          {
             AllegroFlare::Physics::Int2D tile_pos = collision.get_collided_tile_coordinate();
             current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_pos.get_x(), tile_pos.get_y(), 3);
-            current_tunnel_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
+            //current_tunnel_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
          }
       }
    }

@@ -1,0 +1,182 @@
+properties:
+
+
+  - name: filename
+    type: std::string
+    init_with: '"filename-not-set.tmj"'
+    constructor_arg: true
+
+  - name: num_columns
+    type: int
+    init_with: 0
+    getter: explicit
+
+  - name: num_rows
+    type: int
+    init_with: 0
+    getter: explicit
+
+  - name: tile_width
+    type: int
+    init_with: 0
+    getter: explicit
+
+  - name: tile_height
+    type: int
+    init_with: 0
+    getter: explicit
+
+  - name: layer_num_columns
+    type: int
+    init_with: 0
+    getter: explicit
+
+  - name: layer_num_rows
+    type: int
+    init_with: 0
+    getter: explicit
+
+  - name: layer_tile_data
+    type: std::vector<int>
+    init_with: '{}'
+    getter: explicit
+
+  - name: loaded
+    type: bool
+    init_with: false
+    getter: true
+
+
+functions:
+
+
+  - name: get_num_columns
+    type: int
+    guards: [ loaded ]
+    body: return num_columns;
+
+
+  - name: get_num_rows
+    type: int
+    guards: [ loaded ]
+    body: return num_rows;
+
+
+  - name: get_tile_width
+    type: int
+    guards: [ loaded ]
+    body: return tile_width;
+
+
+  - name: get_tile_height
+    type: int
+    guards: [ loaded ]
+    body: return tile_height;
+
+
+  - name: get_layer_num_columns
+    type: int
+    guards: [ loaded ]
+    body: return layer_num_columns;
+
+
+  - name: get_layer_num_rows
+    type: int
+    guards: [ loaded ]
+    body: return layer_num_rows;
+
+
+  - name: get_layer_tile_data
+    type: std::vector<int>
+    guards: [ loaded ]
+    body: return layer_tile_data;
+
+
+  - name: load
+    type: bool
+    guards: [ (!loaded) ]
+    body: |
+      if (!file_exists(filename))
+      {
+         std::stringstream error_message;
+         error_message << "[MindDive::TunnelMeshTMJDataLoader] load() error: the file \""
+                       << filename << "\" does not exist.";
+         throw std::runtime_error(error_message.str());
+      }
+
+      // load and validate the json data to variables
+      std::ifstream i(filename);
+      nlohmann::json j;
+      try
+      {
+         i >> j;
+      }
+      catch (const std::exception& e)
+      {
+         i.close();
+         std::stringstream error_message;
+         error_message << "[MindDive::TunnelMeshTMJDataLoader] load() error: the file \""
+                       << filename << "\" appears to have"
+                       << " malformed JSON. The following error was thrown by nlohmann::json: \""
+                       << e.what() << "\"";
+         throw std::runtime_error(error_message.str());
+      }
+
+      num_columns = j["width"]; // get width
+      num_rows = j["height"]; // get height
+      tile_width = j["tilewidth"]; // get width
+      tile_height = j["tileheight"]; // get height
+
+      // get first j["layers"] that is a ["type"] == "tilelayer"
+      bool tilelayer_type_found = false;
+      nlohmann::json tilelayer;
+      for (auto &layer : j["layers"].items())
+      {
+         if (layer.value()["type"] == "tilelayer" && layer.value()["name"] != "collision")
+         {
+            tilelayer = layer.value();
+            tilelayer_type_found = true;
+            break;
+         }
+      }
+      if (!tilelayer_type_found) throw std::runtime_error("TMJMeshLoader: error: tilelayer type not found.");
+
+      layer_num_columns = tilelayer["width"];
+      layer_num_rows = tilelayer["height"];
+      layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+
+      loaded = true;
+
+      i.close();
+
+      return true;
+    body_dependency_symbols:
+      - std::stringstream
+      - nlohmann::json
+      - std::ifstream
+
+
+  - name: file_exists
+    type: bool
+    static: true
+    private: true
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+    body: |
+      return std::filesystem::exists(filename);
+    body_dependency_symbols:
+      - std::filesystem::exists
+
+
+dependencies:
+
+
+  - symbol: std::ifstream
+    headers: [ fstream ]
+  - symbol: nlohmann::json
+    headers: [ lib/nlohmann/json.hpp ]
+  - symbol: std::filesystem::exists
+    headers: [ filesystem ]
+

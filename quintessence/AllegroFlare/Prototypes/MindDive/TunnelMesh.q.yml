@@ -146,6 +146,18 @@ functions:
       return prim_mesh.get_tile_height();
 
 
+  - name: obtain_num_rows
+    type: float
+    body: |
+      return prim_mesh.get_num_rows();
+
+
+  - name: obtain_num_columns
+    type: float
+    body: |
+      return prim_mesh.get_num_columns();
+
+
   - name: render
     guards: [ initialized ]
     body: |
