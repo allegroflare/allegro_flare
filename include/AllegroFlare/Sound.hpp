@@ -23,7 +23,7 @@ namespace AllegroFlare
       void validate_initialized(std::string function_name);
 
    public:
-      Sound(ALLEGRO_SAMPLE *sample);
+      Sound(ALLEGRO_SAMPLE *sample=nullptr);
       //Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice);
 
       void initialize();
