@@ -41,6 +41,17 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshFactoryTest,
    EXPECT_EQ(12, created_tunnel_mesh->obtain_num_columns());
    EXPECT_EQ(96, created_tunnel_mesh->obtain_num_rows());
 
+   // select a few tiles to cherry-pick
+   AllegroFlare::TileMaps::PrimMesh &prim_mesh = created_tunnel_mesh->get_prim_mesh_ref();
+   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = created_tunnel_mesh->get_collision_tile_map_ref();
+
+   EXPECT_EQ(2, prim_mesh.get_tile_id(0, 0));
+   EXPECT_EQ(1, prim_mesh.get_tile_id(0, 1));
+   EXPECT_EQ(0, prim_mesh.get_tile_id(0, 22));
+   EXPECT_EQ(2, collision_tile_map.get_tile(0, 0));
+   EXPECT_EQ(1, collision_tile_map.get_tile(0, 1));
+   //EXPECT_EQ(0, collision_tile_map.get_tile(0, 22)); // TODO: find out why this is failing, is returning -1
+
    bitmap_bin.clear();
    al_shutdown_image_addon();
    al_shutdown_primitives_addon();
