@@ -29,6 +29,7 @@ namespace AllegroFlare
          ~Reverb();
 
          std::string get_property() const;
+         static void mixer_postprocess_callback(void* buf=nullptr, unsigned int samples=0, void* data=nullptr);
          void initialize();
       };
    }

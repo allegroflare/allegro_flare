@@ -37,6 +37,31 @@ properties:
 functions:
 
 
+  - name: mixer_postprocess_callback
+    type: void
+    static: true
+    parameters:
+      - name: buf
+        type: void*
+        default_argument: nullptr
+      - name: samples
+        type: unsigned int
+        default_argument: 0
+      - name: data
+        type: void*
+        default_argument: nullptr
+    guards: [ data ]
+    body: |
+      AllegroFlare::AcousticEnvironments::Reverb *reverb_environment =
+         static_cast<AllegroFlare::AcousticEnvironments::Reverb*>(data);
+      
+      std::cout << "Callback on \"" << reverb_environment->get_type() << "\"" << std::endl;
+
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
   - name: initialize
     guards: [ al_is_system_installed(), al_is_audio_installed(), al_get_default_mixer() ]
     body: |
@@ -70,6 +95,20 @@ functions:
          std::stringstream error_message;
          error_message << "AllegroFlare::AcousticEnvironments::Reverb::initialize error: "
                        << "there was an error attaching the reverb_mixer to the master_mixer.";
+         throw std::runtime_error(error_message.str());
+      }
+
+      // setup the mixer callback
+      bool mixer_postprocess_callback_setup_was_successful = al_set_mixer_postprocess_callback(
+         reverb_mixer,
+         AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback,
+         this
+      );
+      if (!mixer_postprocess_callback_setup_was_successful)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::AcousticEnvironments::Reverb::initialize error: "
+                       << "there was an error setting up the mixer postprocess callback.";
          throw std::runtime_error(error_message.str());
       }
 

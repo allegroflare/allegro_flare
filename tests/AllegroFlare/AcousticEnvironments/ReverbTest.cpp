@@ -33,6 +33,8 @@ TEST(AllegroFlare_AcousticEnvironments_ReverbTest, initialize__will_not_blow_up)
    AllegroFlare::AcousticEnvironments::Reverb reverb;
    reverb.initialize();
 
+   al_rest(1);
+
    al_uninstall_audio();
    al_uninstall_system();
 }

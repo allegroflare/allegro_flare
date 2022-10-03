@@ -4,6 +4,7 @@
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -34,6 +35,22 @@ std::string Reverb::get_property() const
    return property;
 }
 
+
+void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* data)
+{
+   if (!(data))
+   {
+      std::stringstream error_message;
+      error_message << "Reverb" << "::" << "mixer_postprocess_callback" << ": error: " << "guard \"data\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   AllegroFlare::AcousticEnvironments::Reverb *reverb_environment =
+      static_cast<AllegroFlare::AcousticEnvironments::Reverb*>(data);
+
+   std::cout << "Callback on \"" << reverb_environment->get_type() << "\"" << std::endl;
+
+   return;
+}
 
 void Reverb::initialize()
 {
@@ -85,6 +102,20 @@ void Reverb::initialize()
       std::stringstream error_message;
       error_message << "AllegroFlare::AcousticEnvironments::Reverb::initialize error: "
                     << "there was an error attaching the reverb_mixer to the master_mixer.";
+      throw std::runtime_error(error_message.str());
+   }
+
+   // setup the mixer callback
+   bool mixer_postprocess_callback_setup_was_successful = al_set_mixer_postprocess_callback(
+      reverb_mixer,
+      AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback,
+      this
+   );
+   if (!mixer_postprocess_callback_setup_was_successful)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::AcousticEnvironments::Reverb::initialize error: "
+                    << "there was an error setting up the mixer postprocess callback.";
       throw std::runtime_error(error_message.str());
    }
 
