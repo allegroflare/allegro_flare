@@ -26,9 +26,6 @@ TunnelMeshTMJDataLoader::TunnelMeshTMJDataLoader(std::string filename)
    , layer_num_columns(0)
    , layer_num_rows(0)
    , layer_tile_data({})
-   , collision_layer_num_columns(0)
-   , collision_layer_num_rows(0)
-   , collision_layer_tile_data({})
    , loaded(false)
 {
 }
@@ -122,39 +119,6 @@ std::vector<int> TunnelMeshTMJDataLoader::get_layer_tile_data()
    return layer_tile_data;
 }
 
-int TunnelMeshTMJDataLoader::get_collision_layer_num_columns()
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "TunnelMeshTMJDataLoader" << "::" << "get_collision_layer_num_columns" << ": error: " << "guard \"loaded\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   return collision_layer_num_columns;
-}
-
-int TunnelMeshTMJDataLoader::get_collision_layer_num_rows()
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "TunnelMeshTMJDataLoader" << "::" << "get_collision_layer_num_rows" << ": error: " << "guard \"loaded\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   return collision_layer_num_rows;
-}
-
-std::vector<int> TunnelMeshTMJDataLoader::get_collision_layer_tile_data()
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "TunnelMeshTMJDataLoader" << "::" << "get_collision_layer_tile_data" << ": error: " << "guard \"loaded\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   return collision_layer_tile_data;
-}
-
 bool TunnelMeshTMJDataLoader::load()
 {
    if (!((!loaded)))
@@ -211,47 +175,6 @@ bool TunnelMeshTMJDataLoader::load()
    layer_num_columns = tilelayer["width"];
    layer_num_rows = tilelayer["height"];
    layer_tile_data = tilelayer["data"].get<std::vector<int>>();
-
-
-   // capture the collision tilelayer data (if it is requested)
-
-   bool capture_collision_tilelayer_data = false;
-   if (capture_collision_tilelayer_data)
-   {
-     // get first j["layers"] that is a ["type"] == "tilelayer"
-     bool collision_tilelayer_type_found = false;
-     nlohmann::json collision_tilelayer;
-     for (auto &layer : j["layers"].items())
-     {
-        if (layer.value()["type"] == "tilelayer" && layer.value()["name"] == "collision")
-        {
-           collision_tilelayer = layer.value();
-           collision_tilelayer_type_found = true;
-           break;
-        }
-     }
-
-     if (!collision_tilelayer_type_found)
-     {
-        std::stringstream error_message;
-        error_message << "TMJMeshLoader: error: collision_tilelayer type not found. Expecting a layer of type "
-                      << "\"tilelayer\" that also has a \"name\" property of \"collision\". Note that only "
-                      << "the following layers present: \"" << std::endl;
-        int layer_num = 0;
-        for (auto &layer : j["layers"].items())
-        {
-           layer_num++;
-           error_message << "  - layer " << layer_num << ":" << std::endl;
-           error_message << "    - type: \"" << layer.value()["type"] << "\"" << std::endl;
-           error_message << "    - name: \"" << layer.value()["name"] << "\"" << std::endl;
-        }
-        throw std::runtime_error(error_message.str());
-     }
-     
-     collision_layer_num_columns = collision_tilelayer["width"];
-     collision_layer_num_rows = collision_tilelayer["height"];
-     collision_layer_tile_data = collision_tilelayer["data"].get<std::vector<int>>();
-   }
 
    loaded = true;
 

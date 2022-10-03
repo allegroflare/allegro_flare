@@ -33,7 +33,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest, get_loaded__b
 }
 
 
-TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest, DISABLED__get_loaded__after_calling_load__returns_true)
+TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest, get_loaded__after_calling_load__returns_true)
 {
    std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader(filename);
@@ -78,7 +78,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest, load__returns
 
 
 TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
-   DISABLED__load__if_load_has_already_been_called__throws_an_error)
+   load__if_load_has_already_been_called__throws_an_error)
 {
    std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader(filename);
@@ -91,90 +91,57 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 
 
 TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
-   DISABLED__load__will_set_the_properties_to_the_expected_values_for_the_layer)
+   load__will_set_the_properties_to_the_expected_values_for_the_layer)
 {
    std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader(filename);
 
    loader.load();
 
-   ASSERT_EQ(25, loader.get_num_columns());
-   ASSERT_EQ(15, loader.get_num_rows());
-   ASSERT_EQ(25, loader.get_layer_num_columns());
-   ASSERT_EQ(15, loader.get_layer_num_rows());
-   ASSERT_EQ(16, loader.get_tile_width());
-   ASSERT_EQ(16, loader.get_tile_height());
+   ASSERT_EQ(12, loader.get_num_columns());
+   ASSERT_EQ(96, loader.get_num_rows());
+   ASSERT_EQ(12, loader.get_layer_num_columns());
+   ASSERT_EQ(96, loader.get_layer_num_rows());
+   ASSERT_EQ(50, loader.get_tile_width());
+   ASSERT_EQ(50, loader.get_tile_height());
 
    std::vector<int> expected_tile_layer_data = {
-      81, 102, 123, 123, 103, 82, 104, 114, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131,
-      131, 113, 103, 104, 122, 82, 103, 103, 82, 83, 82, 124, 132, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84,
-      84, 84, 84, 130, 113, 123, 101, 84, 84, 84, 84, 84, 102, 123, 84, 84, 84, 84, 84, 84, 84, 84, 84,
-      84, 84, 84, 84, 84, 84, 130, 131, 131, 84, 84, 84, 84, 84, 104, 102, 84, 84, 84, 84, 84, 84, 84, 84,
-      84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 121, 83, 84, 84, 84, 84, 84, 84, 84, 84,
-      84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 122, 123, 84, 84, 84, 84, 84, 84, 84,
-      84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 81, 101, 84, 84, 84, 84, 84, 84, 84,
-      84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 81, 124, 84, 84, 84, 84, 84, 84, 84,
-      84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 84, 81, 104, 84, 84, 84, 181, 84, 84,
-      84, 84, 84, 84, 84, 84, 84, 90, 91, 91, 91, 91, 84, 84, 84, 84, 84, 103, 121, 84, 84, 84, 201, 84,
-      84, 84, 161, 161, 84, 84, 84, 90, 93, 447, 91, 407, 427, 84, 84, 84, 84, 84, 124, 123, 84, 84, 84,
-      201, 84, 84, 162, 163, 163, 164, 84, 90, 93, 408, 427, 447, 408, 427, 121, 123, 103, 101, 102, 124,
-      122, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 91, 93, 408, 446, 427, 446, 408, 446, 124, 124, 101,
-      104, 103, 81, 121, 122, 102, 124, 123, 101, 101, 101, 122, 101, 121, 427, 81, 427, 408, 407, 407,
-      447, 408, 82, 123, 101, 123, 103, 121, 124, 103, 121, 101, 124, 121, 103, 123, 104, 82, 406, 428,
-      447, 406, 447, 447, 81, 426, 81, 81, 121, 103, 101, 101, 104, 104, 101, 104, 124, 122, 122, 104,
-      102, 104, 408, 408, 81, 447, 408, 427, 408, 447, 446, 408
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 3, 3, 2,
+      3, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 3,
+      3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3,
+      3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3,
+      3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3,
+      0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3,
+      3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3,
+      3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0,
+      0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3, 0, 3, 0, 0, 0, 0,
+      0, 0, 3, 0, 3, 3, 0, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0,
+      0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0,
+      0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 1, 1, 3, 3, 3, 3, 3,
+      3, 1, 1, 0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 0, 0, 1, 1, 3, 3, 3, 3,
+      3, 3, 1, 1, 0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
    };
 
    ASSERT_EQ(expected_tile_layer_data, loader.get_layer_tile_data());
-}
-
-
-TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
-   DISABLED__load__will_set_the_properties_to_the_expected_values_for_the_collision_layer)
-{
-   std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
-   AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader(filename);
-
-   loader.load();
-
-   ASSERT_EQ(25, loader.get_collision_layer_num_columns());
-   ASSERT_EQ(15, loader.get_collision_layer_num_rows());
-
-   std::vector<int> expected_collision_layer_tile_data = {
-      1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-      1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1,
-      1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-      0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-      1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
-   };
-
-   ASSERT_EQ(expected_collision_layer_tile_data, loader.get_collision_layer_tile_data());
-}
-
-
-TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
-   DISABLED__load__when_a_tilelayer_named_collision_is_not_present__throws_an_error_and_outputs_the_existing_layer_info)
-{
-   std::string filename = TMJ_FIXTURE_WITH_MISSING_COLLISION_LAYER_PATH_AND_FILENAME;
-   AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader(filename);
-
-std::string expected_error_message = R"(TMJMeshLoader: error: collision_tilelayer type not found. Expecting a layer of type "tilelayer" that also has a "name" property of "collision". Note that only the following layers present: "
-  - layer 1:
-    - type: ""tilelayer""
-    - name: ""Tile Layer 1""
-  - layer 2:
-    - type: ""objectgroup""
-    - name: ""Object Layer 1""
-)";
-
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
 
 

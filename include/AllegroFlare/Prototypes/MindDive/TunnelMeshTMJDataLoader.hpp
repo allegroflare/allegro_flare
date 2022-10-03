@@ -22,9 +22,6 @@ namespace AllegroFlare
             int layer_num_columns;
             int layer_num_rows;
             std::vector<int> layer_tile_data;
-            int collision_layer_num_columns;
-            int collision_layer_num_rows;
-            std::vector<int> collision_layer_tile_data;
             bool loaded;
             static bool file_exists(std::string filename="[unset-filename]");
 
@@ -43,9 +40,6 @@ namespace AllegroFlare
             int get_layer_num_columns();
             int get_layer_num_rows();
             std::vector<int> get_layer_tile_data();
-            int get_collision_layer_num_columns();
-            int get_collision_layer_num_rows();
-            std::vector<int> get_collision_layer_tile_data();
             bool load();
          };
       }
