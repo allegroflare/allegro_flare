@@ -5,15 +5,17 @@
 
 #include <allegro5/allegro_primitives.h>
 
+
 #ifdef _WIN32
-//#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
+#define TMJ_FIXTURE_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/"
 #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
-//#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
 #else
-//#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
+#define TMJ_FIXTURE_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
 #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
-//#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
 #endif
+
+#define TMJ_FIXTURE_FILENAME (TMJ_FIXTURE_PATH "tunnel_mesh-02.tmj")
+
 
 TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshFactoryTest, can_be_created_without_blowing_up)
 {
@@ -31,7 +33,8 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshFactoryTest,
 
    bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
    AllegroFlare::Prototypes::MindDive::TunnelMeshFactory tunnel_mesh_factory(&bitmap_bin);
-   AllegroFlare::Prototypes::MindDive::TunnelMesh* created_tunnel_mesh = tunnel_mesh_factory.create_from_tmj();
+   AllegroFlare::Prototypes::MindDive::TunnelMesh* created_tunnel_mesh =
+      tunnel_mesh_factory.create_from_tmj(TMJ_FIXTURE_FILENAME);
 
    ASSERT_NE(nullptr, created_tunnel_mesh);
 

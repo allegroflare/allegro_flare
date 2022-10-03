@@ -47,21 +47,26 @@ functions:
     type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
     guards: [ bitmap_bin ]
     parameters:
-      - name: tmj_filenmae
+      - name: tmj_filename
         type: std::string
-        default_argument: '"[unset-tmj_filename]"'
+        default_argument: '"unset-tmj_filename.tmj"'
     body: |
+      AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader tmj_data_loader(tmj_filename);
+      tmj_data_loader.load();
+
       AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
       result->set_bitmap_bin(bitmap_bin);
       result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
       result->initialize();
       //result->rescale_tile_dimentions_to(2, 6);
-      result->rescale_tile_dimentions_to(1, 1);
+      //result->rescale_tile_dimentions_to(1, 1);
       result->resize(12, 32 * 2);
-      random_fill_from(result, { { 2, 2 } });
-      random_sparce_placement(result, { { 0, 0 } }, 20);
-      random_sparce_placement(result, { { 1, 1 } }, 40);
+      //random_fill_from(result, { { 2, 2 } });
+      //random_sparce_placement(result, { { 0, 0 } }, 20);
+      //random_sparce_placement(result, { { 1, 1 } }, 40);
       return result;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader
 
 
   - name: random_fill_from
@@ -169,5 +174,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
   - symbol: AllegroFlare::Random
     headers: [ AllegroFlare/Random.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader
+    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.hpp ]
 
 

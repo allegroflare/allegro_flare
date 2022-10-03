@@ -1433,6 +1433,9 @@
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
   ],
+  "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader": [
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory"
+  ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],

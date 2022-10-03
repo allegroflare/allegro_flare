@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp>
 
+#include <AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.hpp>
 #include <AllegroFlare/Random.hpp>
 #include <sstream>
 #include <stdexcept>
@@ -77,7 +78,7 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    return result;
 }
 
-AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_from_tmj(std::string tmj_filenmae)
+AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_from_tmj(std::string tmj_filename)
 {
    if (!(bitmap_bin))
    {
@@ -85,16 +86,19 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_from_t
       error_message << "TunnelMeshFactory" << "::" << "create_from_tmj" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+   AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader tmj_data_loader(tmj_filename);
+   tmj_data_loader.load();
+
    AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
    result->set_bitmap_bin(bitmap_bin);
    result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
    result->initialize();
    //result->rescale_tile_dimentions_to(2, 6);
-   result->rescale_tile_dimentions_to(1, 1);
+   //result->rescale_tile_dimentions_to(1, 1);
    result->resize(12, 32 * 2);
-   random_fill_from(result, { { 2, 2 } });
-   random_sparce_placement(result, { { 0, 0 } }, 20);
-   random_sparce_placement(result, { { 1, 1 } }, 40);
+   //random_fill_from(result, { { 2, 2 } });
+   //random_sparce_placement(result, { { 0, 0 } }, 20);
+   //random_sparce_placement(result, { { 1, 1 } }, 40);
    return result;
 }
 
