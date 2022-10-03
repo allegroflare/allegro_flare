@@ -77,6 +77,27 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    return result;
 }
 
+AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_from_tmj(std::string tmj_filenmae)
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "TunnelMeshFactory" << "::" << "create_from_tmj" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+   result->set_bitmap_bin(bitmap_bin);
+   result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
+   result->initialize();
+   //result->rescale_tile_dimentions_to(2, 6);
+   result->rescale_tile_dimentions_to(1, 1);
+   result->resize(12, 32 * 2);
+   random_fill_from(result, { { 2, 2 } });
+   random_sparce_placement(result, { { 0, 0 } }, 20);
+   random_sparce_placement(result, { { 1, 1 } }, 40);
+   return result;
+}
+
 void TunnelMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh, std::vector<std::pair<int, int>> inclusion_list)
 {
    if (!(tunnel_mesh))

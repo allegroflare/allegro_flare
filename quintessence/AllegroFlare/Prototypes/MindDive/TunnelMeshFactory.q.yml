@@ -43,6 +43,27 @@ functions:
       return result;
 
 
+  - name: create_from_tmj
+    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+    guards: [ bitmap_bin ]
+    parameters:
+      - name: tmj_filenmae
+        type: std::string
+        default_argument: '"[unset-tmj_filename]"'
+    body: |
+      AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+      result->set_bitmap_bin(bitmap_bin);
+      result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
+      result->initialize();
+      //result->rescale_tile_dimentions_to(2, 6);
+      result->rescale_tile_dimentions_to(1, 1);
+      result->resize(12, 32 * 2);
+      random_fill_from(result, { { 2, 2 } });
+      random_sparce_placement(result, { { 0, 0 } }, 20);
+      random_sparce_placement(result, { { 1, 1 } }, 40);
+      return result;
+
+
   - name: random_fill_from
     parameters:
       - name: tunnel_mesh
