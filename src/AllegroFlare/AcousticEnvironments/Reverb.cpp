@@ -20,6 +20,9 @@ Reverb::Reverb(std::string property)
    , property(property)
    , master_mixer(nullptr)
    , reverb_mixer(nullptr)
+   , reverb_mixer_depth(ALLEGRO_AUDIO_DEPTH_FLOAT32)
+   , reverb_mixer_frequency(0)
+   , reverb_mixer_channel_configuration(ALLEGRO_CHANNEL_CONF_2)
    , initialized(false)
 {
 }
@@ -36,6 +39,24 @@ std::string Reverb::get_property() const
 }
 
 
+ALLEGRO_AUDIO_DEPTH Reverb::get_reverb_mixer_depth() const
+{
+   return reverb_mixer_depth;
+}
+
+
+unsigned int Reverb::get_reverb_mixer_frequency() const
+{
+   return reverb_mixer_frequency;
+}
+
+
+ALLEGRO_CHANNEL_CONF Reverb::get_reverb_mixer_channel_configuration() const
+{
+   return reverb_mixer_channel_configuration;
+}
+
+
 void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* data)
 {
    if (!(data))
@@ -47,7 +68,36 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
    AllegroFlare::AcousticEnvironments::Reverb *reverb_environment =
       static_cast<AllegroFlare::AcousticEnvironments::Reverb*>(data);
 
-   std::cout << "Callback on \"" << reverb_environment->get_type() << "\"" << std::endl;
+   std::cout << "Callback on \"" << reverb_environment->get_type() << "\": "
+             << "samples: " << samples
+             << std::endl;
+
+   if (reverb_environment->get_reverb_mixer_depth() != ALLEGRO_AUDIO_DEPTH_FLOAT32)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback: error: "
+                    << "expecting reverb_mixer_depth of the passed AcousticEnvironments::Reverb to be "
+                    << "ALLEGRO_AUDIO_DEPTH_FLOAT32 but it is not.";
+      throw std::runtime_error(error_message.str());
+   }
+   if (reverb_environment->get_reverb_mixer_channel_configuration() != ALLEGRO_CHANNEL_CONF_2)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback: error: "
+                    << "expecting reverb_mixer_depth of the passed AcousticEnvironments::Reverb to be "
+                    << "ALLEGRO_CHANNEL_CONF_2 but it is not.";
+      throw std::runtime_error(error_message.str());
+   }
+   if (reverb_environment->get_reverb_mixer_frequency() != 44100)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback: error: "
+                    << "expecting reverb_mixer_depth of the passed AcousticEnvironments::Reverb to be "
+                    << "44100 but it is not.";
+      throw std::runtime_error(error_message.str());
+   }
+
+   // TODO: process audio here
 
    return;
 }
@@ -83,11 +133,10 @@ void Reverb::initialize()
    }
 
    // create our reverb mixer with properties that match the master_mixer
-   reverb_mixer = al_create_mixer(
-      al_get_mixer_frequency(master_mixer),
-      al_get_mixer_depth(master_mixer), 
-      al_get_mixer_channels(master_mixer)
-   );
+   reverb_mixer_depth = al_get_mixer_depth(master_mixer);
+   reverb_mixer_frequency = al_get_mixer_frequency(master_mixer);
+   reverb_mixer_channel_configuration = al_get_mixer_channels(master_mixer);
+   reverb_mixer = al_create_mixer(reverb_mixer_frequency, reverb_mixer_depth, reverb_mixer_channel_configuration);
    if (!reverb_mixer)
    {
       std::stringstream error_message;

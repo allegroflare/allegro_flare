@@ -27,6 +27,12 @@
   "AllegroFlare/AcousticEnvironments/Base": [
     "AllegroFlare/AcousticEnvironments/Reverb"
   ],
+  "ALLEGRO_AUDIO_DEPTH": [
+    "AllegroFlare/AcousticEnvironments/Reverb"
+  ],
+  "ALLEGRO_CHANNEL_CONF": [
+    "AllegroFlare/AcousticEnvironments/Reverb"
+  ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController"
   ],

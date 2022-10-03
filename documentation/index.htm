@@ -291,6 +291,18 @@ table td
   <td class="property">ALLEGRO_MIXER*</td>
 </tr>
 <tr>
+  <td class="property">reverb_mixer_depth</td>
+  <td class="property">ALLEGRO_AUDIO_DEPTH</td>
+</tr>
+<tr>
+  <td class="property">reverb_mixer_frequency</td>
+  <td class="property">unsigned int</td>
+</tr>
+<tr>
+  <td class="property">reverb_mixer_channel_configuration</td>
+  <td class="property">ALLEGRO_CHANNEL_CONF</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -315,6 +327,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AcousticEnvironments::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AcousticEnvironments/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_AUDIO_DEPTH&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_CHANNEL_CONF&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -12977,6 +12995,12 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "AllegroFlare/AcousticEnvironments/Base": [
+    "AllegroFlare/AcousticEnvironments/Reverb"
+  ],
+  "ALLEGRO_AUDIO_DEPTH": [
+    "AllegroFlare/AcousticEnvironments/Reverb"
+  ],
+  "ALLEGRO_CHANNEL_CONF": [
     "AllegroFlare/AcousticEnvironments/Reverb"
   ],
   "AllegroFlare/TerminalColors": [
