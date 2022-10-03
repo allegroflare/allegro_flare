@@ -8,10 +8,8 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 
-
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/SampleBin.hpp>
-
 
 
 TEST(AllegroFlare_SoundTest, can_be_created_without_blowing_up)

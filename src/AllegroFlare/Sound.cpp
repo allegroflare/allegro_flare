@@ -56,7 +56,8 @@ void Sound::initialize()
    if (initialized) throw std::runtime_error("Sound::initialize: error: cannot call initialize more than once");
 
    mixer = al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
-   voice = al_create_voice(41000, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
+   //voice = al_create_voice(41000, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
+   voice = al_get_default_voice();
 
    if (!sample)
    {

@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::AcousticEnvironments::Base
+    scope: public
+    init_with: AllegroFlare::AcousticEnvironments::Reverb::TYPE
+
+
+properties:
+
+
+  - name: property
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"AcousticEnvironments/Reverb"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: property_is
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_property());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::AcousticEnvironments::Base
+    headers: [ AllegroFlare/AcousticEnvironments/Base.hpp ]
+
+
