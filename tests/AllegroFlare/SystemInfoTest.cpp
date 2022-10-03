@@ -52,8 +52,8 @@ TEST(AllegroFlare_SystemInfoTest, get_hostname__will_return_a_string_representin
 TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing_the_system)
 {
    AllegroFlare::SystemInfo system_info;
-   std::string expected_version = "Darwin Kernel Version 21.6.0: Sat Jun 18 17:05:47 PDT 2022; "
-                                  "root:xnu-8020.140.41~1/RELEASE_ARM64_T8101";
+   std::string expected_version = "Darwin Kernel Version 21.6.0: Mon Aug 22 20:20:05 PDT 2022; "
+                                  "root:xnu-8020.140.49~2/RELEASE_ARM64_T8101;
    EXPECT_EQ(expected_version, system_info.get_version());
 }
 
