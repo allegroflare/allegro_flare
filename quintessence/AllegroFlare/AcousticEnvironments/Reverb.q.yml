@@ -21,23 +21,35 @@ properties:
     static: true
     constexpr: true
 
+  - name: master_mixer
+    type: ALLEGRO_MIXER*
+    init_with: nullptr
+
+  - name: initialized
+    type: bool
+    init_with: false
+
 
 functions:
 
 
-  - name: property_is
-    type: bool
-    parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
+  - name: initialize
+    guards: [ al_is_audio_installed() ]
     body: |
-      return (possible_type == get_property());
+      master_mixer = al_get_default_mixer();
+      initialized = true;
+      return;
+    body_dependency_symbols:
+     - al_is_audio_installed
 
 
 dependencies:
 
 
+  - symbol: al_is_audio_installed
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: ALLEGRO_MIXER
+    headers: [ allegro5/allegro_audio.h ]
   - symbol: AllegroFlare::AcousticEnvironments::Base
     headers: [ AllegroFlare/AcousticEnvironments/Base.hpp ]
 

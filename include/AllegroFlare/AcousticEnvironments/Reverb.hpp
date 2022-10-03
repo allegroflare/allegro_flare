@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/AcousticEnvironments/Base.hpp>
+#include <allegro5/allegro_audio.h>
 #include <string>
 
 
@@ -16,6 +17,8 @@ namespace AllegroFlare
 
       private:
          std::string property;
+         ALLEGRO_MIXER* master_mixer;
+         bool initialized;
 
       protected:
 
@@ -25,7 +28,7 @@ namespace AllegroFlare
          ~Reverb();
 
          std::string get_property() const;
-         bool property_is(std::string possible_type="");
+         void initialize();
       };
    }
 }

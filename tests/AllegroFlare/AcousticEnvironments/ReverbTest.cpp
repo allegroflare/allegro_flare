@@ -24,3 +24,10 @@ TEST(AllegroFlare_AcousticEnvironments_ReverbTest, type__has_the_expected_value_
 }
 
 
+TEST(AllegroFlare_AcousticEnvironments_ReverbTest,
+   playing_audio_samples_through_the_mixer_will_result_in_an_audio_effect)
+{
+   AllegroFlare::AcousticEnvironments::Reverb reverb;
+}
+
+

@@ -49,6 +49,8 @@ table td
 <body>
 <h1>TOC</h1>
 <ul>
+  <li><a href="#quintessence/AllegroFlare/AcousticEnvironments/Base.q.yml">quintessence/AllegroFlare/AcousticEnvironments/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml">quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/BackgroundFactory.q.yml">quintessence/AllegroFlare/BackgroundFactory.q.yml</a></li>
@@ -246,6 +248,67 @@ table td
   <li><a href="#quintessence/WickedDemos/TileMaps/Basic2D.q.yml">quintessence/WickedDemos/TileMaps/Basic2D.q.yml</a></li>
 </ul>
 <h1>Components</h1>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AcousticEnvironments/Base.q.yml">quintessence/AllegroFlare/AcousticEnvironments/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(1)</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml">quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">master_mixer</td>
+  <td class="property">ALLEGRO_MIXER*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_audio_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AcousticEnvironments::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AcousticEnvironments/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</h3>
@@ -12878,6 +12941,17 @@ table td
 <h1>Dependents</h1>
 <pre>
 {
+  "al_is_audio_installed": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "ALLEGRO_MIXER": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "AllegroFlare/AcousticEnvironments/Base": [
+    "AllegroFlare/AcousticEnvironments/Reverb"
+  ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController"
   ],
@@ -14247,12 +14321,6 @@ table td
   ],
   "ALLEGRO_VOICE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
-  ],
-  "ALLEGRO_MIXER": [
-    "AllegroFlare/Prototypes/MindDive/Hypersync"
-  ],
-  "al_is_audio_installed": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",

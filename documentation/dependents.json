@@ -1,4 +1,15 @@
 {
+  "al_is_audio_installed": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "ALLEGRO_MIXER": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "AllegroFlare/AcousticEnvironments/Base": [
+    "AllegroFlare/AcousticEnvironments/Reverb"
+  ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController"
   ],
@@ -1368,12 +1379,6 @@
   ],
   "ALLEGRO_VOICE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
-  ],
-  "ALLEGRO_MIXER": [
-    "AllegroFlare/Prototypes/MindDive/Hypersync"
-  ],
-  "al_is_audio_installed": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
