@@ -45,6 +45,7 @@ namespace AllegroFlare
          ALLEGRO_CHANNEL_CONF get_reverb_mixer_channel_configuration() const;
          std::size_t get_reverb_mixer_channel_count() const;
          ALLEGRO_MIXER* get_reverb_mixer();
+         static float clamp_intensity(float val=0);
          static void mixer_postprocess_callback(void* buf=nullptr, unsigned int samples=0, void* data=nullptr);
          void initialize();
       };
