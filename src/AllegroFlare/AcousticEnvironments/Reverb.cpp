@@ -25,6 +25,7 @@ Reverb::Reverb(std::string property)
    , reverb_mixer_channel_configuration(ALLEGRO_CHANNEL_CONF_2)
    , initialized(false)
    , processing_buffer({})
+   , swap_buffer({})
 {
 }
 
@@ -123,7 +124,27 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
              << "  - stride: " << stride << std::endl
              << "  - first_sample_value: " << fbuf[0] << std::endl;
 
+   // capture the existing buffer into our processing_buffer
+   //memcpy(reverb_environment->processing_buffer.data(), fbuf, samples * stride);
+   memcpy(reverb_environment->swap_buffer.data(), fbuf, samples * stride);
+
+   float *processing_buffer = reverb_environment->processing_buffer.data();
    // TODO: process audio here
+   for (int i=0; i<samples; i++)
+   {
+      //fbuf[i] = fbuf[i] + (processing_buffer[i] * 0.5);
+      fbuf[i] = processing_buffer[i];
+      //fbuf[i*2] = processing_buffer[i * 2];
+      //fbuf[i * 2] = processing_buffer[i * 2];
+      //fbuf[i*stride] = processing_buffer[i*stride];
+      //fbuf[i*stride+2] = processing_buffer[i*stride+2];
+      //fbuf[i*stride+2] = processing_buffer[i*stride+2];
+      //fbuf[i*stride+3] = processing_buffer[i*stride+3];
+      //fbuf[i * 2] = fbuf[i * 2]; // + (processing_buffer[i * 2]);
+      //fbuf[i] = fbuf[i];
+   }
+
+   memcpy(reverb_environment->processing_buffer.data(), reverb_environment->swap_buffer.data(), samples * stride);
 
    return;
 }
@@ -195,7 +216,8 @@ void Reverb::initialize()
    }
 
    // setup the processing buffer
-   processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE, 0);
+   processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4, 0);
+   swap_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4, 0);
 
    initialized = true;
    return;

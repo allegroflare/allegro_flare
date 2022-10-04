@@ -53,6 +53,10 @@ properties:
     type: std::vector<float>
     init_with: '{}'
 
+  - name: swap_buffer
+    type: std::vector<float>
+    init_with: '{}'
+
   - name: PROCESSING_BUFFER_INITIAL_SIZE
     constexpr: true
     static: true
@@ -131,8 +135,28 @@ functions:
                 << "  - stride: " << stride << std::endl
                 << "  - first_sample_value: " << fbuf[0] << std::endl;
 
-      // TODO: process audio here
+      // capture the existing buffer into our processing_buffer
+      //memcpy(reverb_environment->processing_buffer.data(), fbuf, samples * stride);
+      memcpy(reverb_environment->swap_buffer.data(), fbuf, samples * stride);
 
+      float *processing_buffer = reverb_environment->processing_buffer.data();
+      // TODO: process audio here
+      for (int i=0; i<samples; i++)
+      {
+         //fbuf[i] = fbuf[i] + (processing_buffer[i] * 0.5);
+         fbuf[i] = processing_buffer[i];
+         //fbuf[i*2] = processing_buffer[i * 2];
+         //fbuf[i * 2] = processing_buffer[i * 2];
+         //fbuf[i*stride] = processing_buffer[i*stride];
+         //fbuf[i*stride+2] = processing_buffer[i*stride+2];
+         //fbuf[i*stride+2] = processing_buffer[i*stride+2];
+         //fbuf[i*stride+3] = processing_buffer[i*stride+3];
+         //fbuf[i * 2] = fbuf[i * 2]; // + (processing_buffer[i * 2]);
+         //fbuf[i] = fbuf[i];
+      }
+
+      memcpy(reverb_environment->processing_buffer.data(), reverb_environment->swap_buffer.data(), samples * stride);
+ 
       return;
     body_dependency_symbols:
       - std::cout
@@ -188,7 +212,8 @@ functions:
       }
 
       // setup the processing buffer
-      processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE, 0);
+      processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4, 0);
+      swap_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4, 0);
 
       initialized = true;
       return;

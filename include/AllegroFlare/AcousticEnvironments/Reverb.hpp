@@ -26,6 +26,7 @@ namespace AllegroFlare
          ALLEGRO_CHANNEL_CONF reverb_mixer_channel_configuration;
          bool initialized;
          std::vector<float> processing_buffer;
+         std::vector<float> swap_buffer;
 
       protected:
 
