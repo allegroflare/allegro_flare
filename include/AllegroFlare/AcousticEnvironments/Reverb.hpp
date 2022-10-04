@@ -4,6 +4,7 @@
 #include <AllegroFlare/AcousticEnvironments/Base.hpp>
 #include <allegro5/allegro_audio.h>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -23,6 +24,8 @@ namespace AllegroFlare
          unsigned int reverb_mixer_frequency;
          ALLEGRO_CHANNEL_CONF reverb_mixer_channel_configuration;
          bool initialized;
+         std::vector<float> processing_buffer;
+         int PROCESSING_BUFFER_INITIAL_SIZE;
 
       protected:
 

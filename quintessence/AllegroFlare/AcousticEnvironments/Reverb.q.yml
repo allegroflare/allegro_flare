@@ -48,6 +48,14 @@ properties:
     type: bool
     init_with: false
 
+  - name: processing_buffer
+    type: std::vector<float>
+    init_with: '{}'
+
+  - name: PROCESSING_BUFFER_INITIAL_SIZE
+    type: int
+    init_with: 2048
+
 
 functions:
 
@@ -154,6 +162,9 @@ functions:
                        << "there was an error setting up the mixer postprocess callback.";
          throw std::runtime_error(error_message.str());
       }
+
+      // setup the processing buffer
+      processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE, 0);
 
       initialized = true;
       return;

@@ -24,6 +24,8 @@ Reverb::Reverb(std::string property)
    , reverb_mixer_frequency(0)
    , reverb_mixer_channel_configuration(ALLEGRO_CHANNEL_CONF_2)
    , initialized(false)
+   , processing_buffer({})
+   , PROCESSING_BUFFER_INITIAL_SIZE(2048)
 {
 }
 
@@ -167,6 +169,9 @@ void Reverb::initialize()
                     << "there was an error setting up the mixer postprocess callback.";
       throw std::runtime_error(error_message.str());
    }
+
+   // setup the processing buffer
+   processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE, 0);
 
    initialized = true;
    return;
