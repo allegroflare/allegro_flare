@@ -140,6 +140,7 @@ functions:
       std::size_t depth_size = reverb_environment->get_reverb_mixer_depth_size();
       unsigned int channel_count = reverb_environment->get_reverb_mixer_channel_count();
       float *swap_buffer = reverb_environment->swap_buffer.data();
+      float *processing_buffer = reverb_environment->processing_buffer.data();
 
       // output some debug data
       std::cout << "Callback on \"" << reverb_environment->get_type() << "\":" << std::endl
@@ -154,20 +155,10 @@ functions:
       // TODO: process audio here
       for (int i=0; i<(samples * depth_size * channel_count); i++)
       {
-         //fbuf[i] = fbuf[i] + (processing_buffer[i] * 0.5);
-         //fbuf[i] = fbuf[i];
          fbuf[i] = swap_buffer[i];
-         //fbuf[i*2] = processing_buffer[i * 2];
-         //fbuf[i * 2] = processing_buffer[i * 2];
-         //fbuf[i*stride] = processing_buffer[i*stride];
-         //fbuf[i*stride+2] = processing_buffer[i*stride+2];
-         //fbuf[i*stride+2] = processing_buffer[i*stride+2];
-         //fbuf[i*stride+3] = processing_buffer[i*stride+3];
-         //fbuf[i * 2] = fbuf[i * 2]; // + (processing_buffer[i * 2]);
-         //fbuf[i] = fbuf[i];
       }
 
-      //memcpy(reverb_environment->processing_buffer.data(), reverb_environment->swap_buffer.data(), samples * stride);
+      memcpy(processing_buffer, swap_buffer, samples * depth_size * channel_count);
  
       return;
     body_dependency_symbols:
