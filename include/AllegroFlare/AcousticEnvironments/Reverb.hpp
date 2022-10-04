@@ -38,6 +38,7 @@ namespace AllegroFlare
          ALLEGRO_AUDIO_DEPTH get_reverb_mixer_depth() const;
          unsigned int get_reverb_mixer_frequency() const;
          ALLEGRO_CHANNEL_CONF get_reverb_mixer_channel_configuration() const;
+         ALLEGRO_MIXER* get_reverb_mixer();
          static void mixer_postprocess_callback(void* buf=nullptr, unsigned int samples=0, void* data=nullptr);
          void initialize();
       };

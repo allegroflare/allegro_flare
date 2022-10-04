@@ -59,6 +59,17 @@ ALLEGRO_CHANNEL_CONF Reverb::get_reverb_mixer_channel_configuration() const
 }
 
 
+ALLEGRO_MIXER* Reverb::get_reverb_mixer()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Reverb" << "::" << "get_reverb_mixer" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return reverb_mixer;
+}
+
 void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* data)
 {
    if (!(data))
@@ -70,10 +81,7 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
    AllegroFlare::AcousticEnvironments::Reverb *reverb_environment =
       static_cast<AllegroFlare::AcousticEnvironments::Reverb*>(data);
 
-   std::cout << "Callback on \"" << reverb_environment->get_type() << "\": "
-             << "samples: " << samples
-             << std::endl;
-
+   // validate configuration
    if (reverb_environment->get_reverb_mixer_depth() != ALLEGRO_AUDIO_DEPTH_FLOAT32)
    {
       std::stringstream error_message;
@@ -98,6 +106,15 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
                     << "44100 but it is not.";
       throw std::runtime_error(error_message.str());
    }
+
+   float *fbuf = (float *)buf;
+   std::size_t stride = sizeof(float);
+
+   // output some debug data
+   std::cout << "Callback on \"" << reverb_environment->get_type() << "\":" << std::endl
+             << "  - samples: " << samples << std::endl
+             << "  - stride: " << stride << std::endl
+             << "  - first_sample_value: " << fbuf[0] << std::endl;
 
    // TODO: process audio here
 
@@ -156,7 +173,7 @@ void Reverb::initialize()
       throw std::runtime_error(error_message.str());
    }
 
-   // setup the mixer callback
+    //setup the mixer callback
    bool mixer_postprocess_callback_setup_was_successful = al_set_mixer_postprocess_callback(
       reverb_mixer,
       AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback,

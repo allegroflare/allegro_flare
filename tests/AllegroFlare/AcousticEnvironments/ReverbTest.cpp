@@ -36,9 +36,17 @@ TEST(AllegroFlare_AcousticEnvironments_ReverbTest, initialize__will_not_blow_up)
    std::string sample_filename = "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/music_tracks/music-01.ogg";
    ALLEGRO_SAMPLE *sample = al_load_sample(sample_filename.c_str());
    ASSERT_NE(nullptr, sample);
+   ALLEGRO_SAMPLE_INSTANCE *sample_instance = al_create_sample_instance(sample);
+   ASSERT_NE(nullptr, sample_instance);
 
-   AllegroFlare::AcousticEnvironments::Reverb reverb;
-   reverb.initialize();
+
+   AllegroFlare::AcousticEnvironments::Reverb reverb_environment;
+   reverb_environment.initialize();
+
+   al_attach_sample_instance_to_mixer(sample_instance, reverb_environment.get_reverb_mixer());
+
+   al_play_sample_instance(sample_instance);
+
 
    al_rest(1);
 

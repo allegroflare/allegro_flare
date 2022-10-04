@@ -28,6 +28,7 @@ properties:
   - name: reverb_mixer
     type: ALLEGRO_MIXER*
     init_with: nullptr
+    getter: explicit
   
   - name: reverb_mixer_depth
     type: ALLEGRO_AUDIO_DEPTH
@@ -60,6 +61,13 @@ properties:
 functions:
 
 
+  - name: get_reverb_mixer
+    type: ALLEGRO_MIXER*
+    guards: [ initialized ]
+    body: |
+      return reverb_mixer;
+
+
   - name: mixer_postprocess_callback
     type: void
     static: true
@@ -77,11 +85,8 @@ functions:
     body: |
       AllegroFlare::AcousticEnvironments::Reverb *reverb_environment =
          static_cast<AllegroFlare::AcousticEnvironments::Reverb*>(data);
-      
-      std::cout << "Callback on \"" << reverb_environment->get_type() << "\": "
-                << "samples: " << samples
-                << std::endl;
 
+      // validate configuration
       if (reverb_environment->get_reverb_mixer_depth() != ALLEGRO_AUDIO_DEPTH_FLOAT32)
       {
          std::stringstream error_message;
@@ -106,6 +111,15 @@ functions:
                        << "44100 but it is not.";
          throw std::runtime_error(error_message.str());
       }
+
+      float *fbuf = (float *)buf;
+      std::size_t stride = sizeof(float);
+
+      // output some debug data
+      std::cout << "Callback on \"" << reverb_environment->get_type() << "\":" << std::endl
+                << "  - samples: " << samples << std::endl
+                << "  - stride: " << stride << std::endl
+                << "  - first_sample_value: " << fbuf[0] << std::endl;
 
       // TODO: process audio here
 
@@ -149,7 +163,7 @@ functions:
          throw std::runtime_error(error_message.str());
       }
 
-      // setup the mixer callback
+       //setup the mixer callback
       bool mixer_postprocess_callback_setup_was_successful = al_set_mixer_postprocess_callback(
          reverb_mixer,
          AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback,
