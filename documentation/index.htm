@@ -295,12 +295,20 @@ table td
   <td class="property">ALLEGRO_AUDIO_DEPTH</td>
 </tr>
 <tr>
+  <td class="property">reverb_mixer_depth_size</td>
+  <td class="property">std::size_t</td>
+</tr>
+<tr>
   <td class="property">reverb_mixer_frequency</td>
   <td class="property">unsigned int</td>
 </tr>
 <tr>
   <td class="property">reverb_mixer_channel_configuration</td>
   <td class="property">ALLEGRO_CHANNEL_CONF</td>
+</tr>
+<tr>
+  <td class="property">reverb_mixer_channel_count</td>
+  <td class="property">std::size_t</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -348,6 +356,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_CHANNEL_CONF&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13018,6 +13029,13 @@ table td
   "ALLEGRO_CHANNEL_CONF": [
     "AllegroFlare/AcousticEnvironments/Reverb"
   ],
+  "std/size_t": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/EncoderDecoders/Base62",
+    "AllegroFlare/Network2/Message",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/TileMaps/MultiMesh"
+  ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController"
   ],
@@ -13934,12 +13952,6 @@ table td
   ],
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
-  ],
-  "std/size_t": [
-    "AllegroFlare/EncoderDecoders/Base62",
-    "AllegroFlare/Network2/Message",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/TileMaps/MultiMesh"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"

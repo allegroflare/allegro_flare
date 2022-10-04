@@ -21,8 +21,10 @@ Reverb::Reverb(std::string property)
    , master_mixer(nullptr)
    , reverb_mixer(nullptr)
    , reverb_mixer_depth(ALLEGRO_AUDIO_DEPTH_FLOAT32)
+   , reverb_mixer_depth_size(0)
    , reverb_mixer_frequency(0)
    , reverb_mixer_channel_configuration(ALLEGRO_CHANNEL_CONF_2)
+   , reverb_mixer_channel_count(0)
    , initialized(false)
    , processing_buffer({})
    , swap_buffer({})
@@ -47,6 +49,12 @@ ALLEGRO_AUDIO_DEPTH Reverb::get_reverb_mixer_depth() const
 }
 
 
+std::size_t Reverb::get_reverb_mixer_depth_size() const
+{
+   return reverb_mixer_depth_size;
+}
+
+
 unsigned int Reverb::get_reverb_mixer_frequency() const
 {
    return reverb_mixer_frequency;
@@ -56,6 +64,12 @@ unsigned int Reverb::get_reverb_mixer_frequency() const
 ALLEGRO_CHANNEL_CONF Reverb::get_reverb_mixer_channel_configuration() const
 {
    return reverb_mixer_channel_configuration;
+}
+
+
+std::size_t Reverb::get_reverb_mixer_channel_count() const
+{
+   return reverb_mixer_channel_count;
 }
 
 
@@ -116,24 +130,26 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
    }
 
    float *fbuf = (float *)buf;
-   std::size_t stride = sizeof(float);
+   std::size_t depth_size = reverb_environment->get_reverb_mixer_depth_size();
+   unsigned int channel_count = reverb_environment->get_reverb_mixer_channel_count();
+   float *swap_buffer = reverb_environment->swap_buffer.data();
 
    // output some debug data
    std::cout << "Callback on \"" << reverb_environment->get_type() << "\":" << std::endl
              << "  - samples: " << samples << std::endl
-             << "  - stride: " << stride << std::endl
+             << "  - depth_size: " << depth_size << std::endl
+             << "  - channel_count: " << channel_count << std::endl
              << "  - first_sample_value: " << fbuf[0] << std::endl;
 
    // capture the existing buffer into our processing_buffer
-   //memcpy(reverb_environment->processing_buffer.data(), fbuf, samples * stride);
-   memcpy(reverb_environment->swap_buffer.data(), fbuf, samples * stride);
+   memcpy(swap_buffer, fbuf, samples * depth_size * channel_count);
 
-   float *processing_buffer = reverb_environment->processing_buffer.data();
    // TODO: process audio here
-   for (int i=0; i<samples; i++)
+   for (int i=0; i<(samples * depth_size * channel_count); i++)
    {
       //fbuf[i] = fbuf[i] + (processing_buffer[i] * 0.5);
-      fbuf[i] = processing_buffer[i];
+      //fbuf[i] = fbuf[i];
+      fbuf[i] = swap_buffer[i];
       //fbuf[i*2] = processing_buffer[i * 2];
       //fbuf[i * 2] = processing_buffer[i * 2];
       //fbuf[i*stride] = processing_buffer[i*stride];
@@ -144,7 +160,7 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
       //fbuf[i] = fbuf[i];
    }
 
-   memcpy(reverb_environment->processing_buffer.data(), reverb_environment->swap_buffer.data(), samples * stride);
+   //memcpy(reverb_environment->processing_buffer.data(), reverb_environment->swap_buffer.data(), samples * stride);
 
    return;
 }
@@ -184,6 +200,8 @@ void Reverb::initialize()
    reverb_mixer_frequency = al_get_mixer_frequency(master_mixer);
    reverb_mixer_channel_configuration = al_get_mixer_channels(master_mixer);
    reverb_mixer = al_create_mixer(reverb_mixer_frequency, reverb_mixer_depth, reverb_mixer_channel_configuration);
+   reverb_mixer_depth_size = al_get_audio_depth_size(reverb_mixer_depth);
+   reverb_mixer_channel_count = al_get_channel_count(reverb_mixer_channel_configuration);
    if (!reverb_mixer)
    {
       std::stringstream error_message;
@@ -216,8 +234,8 @@ void Reverb::initialize()
    }
 
    // setup the processing buffer
-   processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4, 0);
-   swap_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4, 0);
+   processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4 * 2, 0);
+   swap_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4 * 2, 0);
 
    initialized = true;
    return;
