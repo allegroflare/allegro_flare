@@ -50,7 +50,7 @@ TEST(AllegroFlare_AcousticEnvironments_ReverbTest, initialize__will_not_blow_up)
    //al_play_sample(sample, 1.0, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
 
 
-   //al_rest(2);
+   al_rest(2);
 
    al_uninstall_audio();
    // al_shugdown_acodec_addon(); // <- does not exist

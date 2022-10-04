@@ -92,6 +92,9 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
       error_message << "Reverb" << "::" << "mixer_postprocess_callback" << ": error: " << "guard \"data\" not met";
       throw std::runtime_error(error_message.str());
    }
+   static int callback_count = 0;
+   callback_count++;
+
    AllegroFlare::AcousticEnvironments::Reverb *reverb_environment =
       static_cast<AllegroFlare::AcousticEnvironments::Reverb*>(data);
 
@@ -140,15 +143,27 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
              << "  - samples: " << samples << std::endl
              << "  - depth_size: " << depth_size << std::endl
              << "  - channel_count: " << channel_count << std::endl
-             << "  - first_sample_value: " << fbuf[0] << std::endl;
+             << "  - first_sample_value: " << fbuf[0] << std::endl
+             << "  - callback_count: " << callback_count << std::endl
+             ;
 
    // capture the existing buffer into our processing_buffer
    memcpy(swap_buffer, fbuf, samples * depth_size * channel_count);
 
    // TODO: process audio here
-   for (int i=0; i<(samples * depth_size * channel_count); i++)
+
+   //// process by float
+   //for (int i=0; i<(samples * depth_size * channel_count); i++)
+   //{
+      //fbuf[i] = swap_buffer[i];
+   //}
+
+   // process by channel
+   for (int i=0; i<(samples * depth_size); i++)
    {
-      fbuf[i] = swap_buffer[i];
+      int buff_pos = i * channel_count;
+      fbuf[buff_pos + 0] = swap_buffer[buff_pos + 0]; // left channel
+      fbuf[buff_pos + 1] = swap_buffer[buff_pos + 1]; // right channel
    }
 
    memcpy(processing_buffer, swap_buffer, samples * depth_size * channel_count);
