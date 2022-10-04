@@ -25,7 +25,6 @@ Reverb::Reverb(std::string property)
    , reverb_mixer_channel_configuration(ALLEGRO_CHANNEL_CONF_2)
    , initialized(false)
    , processing_buffer({})
-   , PROCESSING_BUFFER_INITIAL_SIZE(2048)
 {
 }
 
@@ -104,6 +103,14 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
       error_message << "AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback: error: "
                     << "expecting reverb_mixer_depth of the passed AcousticEnvironments::Reverb to be "
                     << "44100 but it is not.";
+      throw std::runtime_error(error_message.str());
+   }
+   if (samples != PROCESSING_BUFFER_INITIAL_SIZE)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback: error: "
+                    << "expecting number of samples to of the passed data to be "
+                    << PROCESSING_BUFFER_INITIAL_SIZE << " but it was not (" << samples << ").";
       throw std::runtime_error(error_message.str());
    }
 

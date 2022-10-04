@@ -15,6 +15,7 @@ namespace AllegroFlare
       {
       public:
          static constexpr char* TYPE = "AcousticEnvironments/Reverb";
+         static constexpr int PROCESSING_BUFFER_INITIAL_SIZE = 2048;
 
       private:
          std::string property;
@@ -25,7 +26,6 @@ namespace AllegroFlare
          ALLEGRO_CHANNEL_CONF reverb_mixer_channel_configuration;
          bool initialized;
          std::vector<float> processing_buffer;
-         int PROCESSING_BUFFER_INITIAL_SIZE;
 
       protected:
 
