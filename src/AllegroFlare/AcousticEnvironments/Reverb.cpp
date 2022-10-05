@@ -28,6 +28,7 @@ Reverb::Reverb(std::string property)
    , initialized(false)
    , processing_buffer({})
    , swap_buffer({})
+   , output_debug_info_on_postprocess(false)
 {
 }
 
@@ -99,9 +100,8 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
       error_message << "Reverb" << "::" << "mixer_postprocess_callback" << ": error: " << "guard \"data\" not met";
       throw std::runtime_error(error_message.str());
    }
-   std::cout << "------------" << std::endl;
-   //static int callback_count = 0;
-   //callback_count++;
+   static int callback_count = 0;
+   callback_count++;
 
    AllegroFlare::AcousticEnvironments::Reverb *reverb_environment =
       static_cast<AllegroFlare::AcousticEnvironments::Reverb*>(data);
@@ -147,16 +147,19 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
    float *processing_buffer = reverb_environment->processing_buffer.data();
 
    // output some debug data
-   std::cout << "Callback on \"" << reverb_environment->get_type() << "\":" << std::endl
-             << "  - samples: " << samples << std::endl
-             << "  - depth_size: " << depth_size << std::endl
-             << "  - channel_count: " << channel_count << std::endl
-             << "  - first_sample_value: " << fbuf[0] << std::endl
-             //<< "  - callback_count: " << callback_count << std::endl
+   if (reverb_environment->output_debug_info_on_postprocess)
+   {
+      std::cout << "Callback on \"" << reverb_environment->get_type() << "\":" << std::endl
+                << "  - samples: " << samples << std::endl
+                << "  - depth_size: " << depth_size << std::endl
+                << "  - channel_count: " << channel_count << std::endl
+                << "  - first_sample_value: " << fbuf[0] << std::endl
+                << "  - callback_count: " << callback_count << std::endl
              ;
+   }
 
    // capture the existing buffer into our processing_buffer
-   //memcpy(swap_buffer, fbuf, samples * depth_size * channel_count);
+   memcpy(swap_buffer, fbuf, samples * depth_size * channel_count);
 
    // TODO: process audio here
 
@@ -166,40 +169,20 @@ void Reverb::mixer_postprocess_callback(void* buf, unsigned int samples, void* d
       //fbuf[i] = swap_buffer[i];
    //}
 
-   //al_rest(0.5);
-   //al_rest(0.2);
-
    // process by channel
-   for (int i=0; i<(samples); i++)
+   for (int i=0; i<samples; i++)
    {
-      fbuf[i * channel_count + 0] = fbuf[i * channel_count + 0] * 0.5; // * 0.5;
-      fbuf[i * channel_count + 1] = fbuf[i * channel_count + 1] * 0.5; // * 0.5;
-      //int buff_pos = i * channel_count;
-
+      int pos = i*channel_count;
       // left channel
-      //fbuf[buff_pos + 0] = clamp_intensity(
-                              //swap_buffer[buff_pos + 0]
-                              //+ (processing_buffer[buff_pos + 0] * 0.8)
-                           //);
+      fbuf[pos+0] = fbuf[pos+0] + processing_buffer[pos + 0] * 0.8;
       // right channel
-      //fbuf[buff_pos + 1] = clamp_intensity(
-                              //swap_buffer[buff_pos + 1]
-                              //+ (processing_buffer[buff_pos + 1] * 0.8)
-                           //);
-
-      //if (fbuf[buff_pos + 0] > 1) std::cout << "+++++" << fbuf[buff_pos + 0] << std::endl;
-      //if (fbuf[buff_pos + 0] < -1) std::cout << "-----" << fbuf[buff_pos + 0] << std::endl;
-      //if (fbuf[buff_pos + 1] > 1) std::cout << "+++++" << fbuf[buff_pos + 0] << std::endl;
-      //if (fbuf[buff_pos + 1] < -1) std::cout << "-----" << fbuf[buff_pos + 0] << std::endl;
+      fbuf[pos+1] = fbuf[pos+1] + processing_buffer[pos + 1] * 0.8;
    }
 
-   //std::cout << std::flush;
-
-   //al_rest(0.2);
    memcpy(processing_buffer, fbuf, samples * depth_size * channel_count);
+   //memcpy(processing_buffer, swap_buffer, samples * depth_size * channel_count);
    //memcpy(fbuf, processing_buffer, samples * depth_size * channel_count);
 
-   std::cout << "++++++++++++++" << std::endl;
    return;
 }
 

@@ -30,6 +30,7 @@ namespace AllegroFlare
          bool initialized;
          std::vector<float> processing_buffer;
          std::vector<float> swap_buffer;
+         bool output_debug_info_on_postprocess;
 
       protected:
 
