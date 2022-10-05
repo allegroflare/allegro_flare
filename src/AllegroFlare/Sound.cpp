@@ -6,59 +6,80 @@
 
 #include <AllegroFlare/SampleBin.hpp>
 
+#include <sstream>
+
+
 
 
 namespace AllegroFlare
 {
    Sound::Sound(ALLEGRO_SAMPLE *sample)
-      : sample_instance(nullptr)
-      , mixer(al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2))
-      , voice(al_create_voice(41000, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2))
+      : sample(sample)
+      , sample_instance(nullptr)
+      , mixer(nullptr)
+      , voice(nullptr)
       , _position(0)
       , _paused(false)
    {
-      // TODO: move this to an initialize(), along with the creation of mixer and voice
-      if (!sample)
-      {
-         std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
-                   << "is a nullptr." << std::endl;
-      }
-      else
-      {
-         sample_instance = al_create_sample_instance(sample);
-         al_attach_sample_instance_to_mixer(sample_instance, mixer);
-         al_attach_mixer_to_voice(mixer, voice);
-      }
+      //initialize();
    }
 
 
 
 
-   Sound::Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice)
-      : sample_instance(nullptr)
-      , mixer(al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2))
-      , voice(voice)
-      , _position(0)
-      , _paused(false)
+   //Sound::Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice)
+      //: sample_instance(nullptr)
+      //, mixer(al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2))
+      //, voice(voice)
+      //, _position(0)
+      //, _paused(false)
+   //{
+      //initialize();
+   //}
+
+
+
+void Sound::validate_initialized(std::string function_name)
+{
+   if (!initialized)
    {
-      if (!sample)
-      {
-         std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
-                   << "is a nullptr." << std::endl;
-      }
-      else
-      {
-         sample_instance = al_create_sample_instance(sample);
-         al_attach_sample_instance_to_mixer(sample_instance, mixer);
-         al_attach_mixer_to_voice(mixer, voice);
-      }
+      std::stringstream error_message;
+      error_message << "Sound::" << function_name << ": error: you must initialize Sound before calling this function.";
+      throw std::runtime_error(error_message.str());
    }
+}
+
+
+
+void Sound::initialize()
+{
+   if (initialized) throw std::runtime_error("Sound::initialize: error: cannot call initialize more than once");
+
+   mixer = al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+   //voice = al_create_voice(41000, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
+   voice = al_get_default_voice();
+
+   if (!sample)
+   {
+      std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
+                << "is a nullptr." << std::endl;
+   }
+   else
+   {
+      sample_instance = al_create_sample_instance(sample);
+      al_attach_sample_instance_to_mixer(sample_instance, mixer);
+      al_attach_mixer_to_voice(mixer, voice);
+   }
+   
+   initialized = true;
+}
 
 
 
 
    Sound &Sound::play()
    {
+      validate_initialized("play");
       if (!al_play_sample_instance(sample_instance))
       {
          std::cout << "[AllegroFlare::Sound::" << __FUNCTION__ << "] could not al_play_sample_instance" << std::endl;
@@ -72,6 +93,7 @@ namespace AllegroFlare
 
    Sound &Sound::toggle_playback()
    {
+      validate_initialized("toggle_playback");
       if (is_playing()) stop();
       else play();
       return *this;
@@ -82,6 +104,7 @@ namespace AllegroFlare
 
    Sound &Sound::toggle_pause()
    {
+      validate_initialized("toggle_pause");
       if (is_playing()) pause();
       else unpause();
       return *this;
@@ -92,6 +115,7 @@ namespace AllegroFlare
 
    Sound &Sound::pause()
    {
+      validate_initialized("pause");
       _position = position();
       al_stop_sample_instance(sample_instance);
       _paused = true;
@@ -103,6 +127,7 @@ namespace AllegroFlare
 
    Sound &Sound::unpause()
    {
+      validate_initialized("unpause");
       if (is_paused())
       {
          play();
@@ -125,6 +150,7 @@ namespace AllegroFlare
 
    Sound &Sound::stop()
    {
+      validate_initialized("stop");
       al_stop_sample_instance(sample_instance);
       position(0);
       return *this;
@@ -135,6 +161,7 @@ namespace AllegroFlare
 
    Sound &Sound::rewind()
    {
+      validate_initialized("rewind");
       position(0);
       return *this;
    }
@@ -144,6 +171,7 @@ namespace AllegroFlare
 
    float Sound::volume()
    {
+      validate_initialized("volume");
       return al_get_sample_instance_gain(sample_instance);
    }
 
@@ -152,6 +180,7 @@ namespace AllegroFlare
 
    Sound &Sound::volume(float vol)
    {
+      validate_initialized("volume");
       al_set_sample_instance_gain(sample_instance, vol);
       return *this;
    }
@@ -161,6 +190,7 @@ namespace AllegroFlare
 
    double Sound::get_length_sec()
    {
+      validate_initialized("get_length_sec");
       return al_get_sample_instance_time(sample_instance);
    }
 
@@ -169,6 +199,7 @@ namespace AllegroFlare
 
    double Sound::position()
    {
+      validate_initialized("position");
       if (is_paused()) return _position;
 
       _position = (float)al_get_sample_instance_position(sample_instance)
@@ -183,6 +214,7 @@ namespace AllegroFlare
 
    Sound &Sound::position(double time)
    {
+      validate_initialized("position");
       unsigned int pos = (unsigned int)(al_get_sample_instance_length(sample_instance)
             * (time / al_get_sample_instance_time(sample_instance)));
       al_set_sample_instance_position(sample_instance, pos);
@@ -194,6 +226,7 @@ namespace AllegroFlare
 
    bool Sound::is_playing()
    {
+      validate_initialized("is_playing");
       return al_get_sample_instance_playing(sample_instance);
    }
 
@@ -202,6 +235,7 @@ namespace AllegroFlare
 
    Sound &Sound::pan(float pan)
    {
+      validate_initialized("pan");
       al_set_sample_instance_pan(sample_instance, pan);
       return *this;
    }
@@ -211,6 +245,7 @@ namespace AllegroFlare
 
    float Sound::pan()
    {
+      validate_initialized("pan");
       return al_get_sample_instance_pan(sample_instance);
    }
 
@@ -219,6 +254,7 @@ namespace AllegroFlare
 
    Sound &Sound::loop(bool yes)
    {
+      validate_initialized("loop");
       if (yes) al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_LOOP);
       else al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_ONCE);
       return *this;
@@ -229,6 +265,7 @@ namespace AllegroFlare
 
    Sound &Sound::bidir()
    {
+      validate_initialized("bidir");
       al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_BIDIR);
       return *this;
    }
@@ -238,6 +275,7 @@ namespace AllegroFlare
 
    Sound &Sound::speed(float speed)
    {
+      validate_initialized("speed");
       al_set_sample_instance_speed(sample_instance, speed);
       return *this;
    }
@@ -247,6 +285,7 @@ namespace AllegroFlare
 
    float Sound::speed()
    {
+      validate_initialized("speed");
       return al_get_sample_instance_speed(sample_instance);
    }
 

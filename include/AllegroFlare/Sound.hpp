@@ -3,6 +3,7 @@
 
 
 #include <allegro5/allegro_audio.h>
+#include <string>
 
 
 
@@ -12,15 +13,20 @@ namespace AllegroFlare
    class Sound
    {
    private:
+      ALLEGRO_SAMPLE *sample;
       ALLEGRO_SAMPLE_INSTANCE *sample_instance;
       ALLEGRO_MIXER *mixer;
       ALLEGRO_VOICE *voice;
       float _position;
       float _paused;
+      bool initialized;
+      void validate_initialized(std::string function_name);
 
    public:
-      Sound(ALLEGRO_SAMPLE *sample);
-      Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice);
+      Sound(ALLEGRO_SAMPLE *sample=nullptr);
+      //Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice);
+
+      void initialize();
 
       Sound &play();
       Sound &stop();

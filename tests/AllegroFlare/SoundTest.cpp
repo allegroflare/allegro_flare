@@ -8,17 +8,23 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 
-
 #include <AllegroFlare/Sound.hpp>
-
+#include <AllegroFlare/SampleBin.hpp>
 
 
 TEST(AllegroFlare_SoundTest, can_be_created_without_blowing_up)
 {
+   AllegroFlare::Sound sound;
+}
+
+
+TEST(AllegroFlare_SoundTest, initialize__will_not_blow_up)
+{
    al_init();
    al_install_audio();
 
-   AllegroFlare::Sound sound(nullptr);
+   AllegroFlare::Sound sound;
+   sound.initialize();
 
    al_uninstall_system();
 }

@@ -200,6 +200,8 @@ void MindDive::initialize()
    std::string current_music_track_identifier = playlist[playlist_song_to_play].first;
    current_music_track_bpm = playlist[playlist_song_to_play].second;
    current_music_track = new AllegroFlare::Sound(sample_bin->auto_get(current_music_track_identifier));
+   current_music_track->initialize();
+
 
    debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));
 
