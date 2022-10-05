@@ -25,7 +25,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, can_be_created_without_b
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, initialize__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, DISABLED__initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
    std::string expected_error_message =
