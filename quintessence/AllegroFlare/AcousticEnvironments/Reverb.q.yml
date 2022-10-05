@@ -175,6 +175,7 @@ functions:
       }
 
       // capture the existing buffer into our processing_buffer
+      //memcpy(swap_buffer, fbuf, samples * depth_size * channel_count);
       memcpy(swap_buffer, fbuf, samples * depth_size * channel_count);
 
       // TODO: process audio here
@@ -189,10 +190,27 @@ functions:
       for (int i=0; i<samples; i++)
       {
          int pos = i*channel_count;
+         //int q1pos = ((i + (samples / 4 * 0)) % samples) * channel_count;
+         int q2pos = ((i + (samples / 4 * 1)) % samples) * channel_count;
+         //int q3pos = ((i + (samples / 4 * 2)) % samples) * channel_count;
+         //int q4pos = ((i + (samples / 4 * 3)) % samples) * channel_count;
+         //int q12pos = ((i + (samples / 4 * 0 + samples / 8)) % samples) * channel_count;
+         //int q22pos = ((i + (samples / 4 * 1 + samples / 8)) % samples) * channel_count;
+         //int q32pos = ((i + (samples / 4 * 2 + samples / 8)) % samples) * channel_count;
+         //int q42pos = ((i + (samples / 4 * 3 + samples / 8)) % samples) * channel_count;
+
          // left channel
-         fbuf[pos+0] = fbuf[pos+0] + processing_buffer[pos + 0] * 0.8;
+         fbuf[pos+0] = fbuf[pos+0]
+                     //+ processing_buffer[q1pos + 0] * 0.1
+                     + processing_buffer[q2pos + 0] * 0.5;
+                     //+ processing_buffer[q3pos + 0] * 0.1
+                     //+ processing_buffer[q4pos + 0] * 0.1;
          // right channel
-         fbuf[pos+1] = fbuf[pos+1] + processing_buffer[pos + 1] * 0.8;
+         fbuf[pos+1] = fbuf[pos+1]
+                     //+ processing_buffer[q1pos + 1] * 0.1
+                     + processing_buffer[q2pos + 1] * 0.5;
+                     //+ processing_buffer[q3pos + 1] * 0.1
+                     //+ processing_buffer[q4pos + 1] * 0.1;
       }
 
       memcpy(processing_buffer, fbuf, samples * depth_size * channel_count);
@@ -256,8 +274,8 @@ functions:
       }
 
       // setup the processing buffer
-      processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4 * 2, 0);
-      swap_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 4 * 2, 0);
+      processing_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 2, 0);
+      swap_buffer.resize(PROCESSING_BUFFER_INITIAL_SIZE * 2, 0);
 
       initialized = true;
       return;

@@ -1,0 +1,116 @@
+properties:
+
+
+  - name: block
+    type: std::vector<float>
+    init_with: '{}'
+
+  - name: depth_type
+    type: ALLEGRO_AUDIO_DEPTH
+    init_with: ALLEGRO_AUDIO_DEPTH_FLOAT32
+    getter: true
+    constructor_arg: true
+
+  - name: depth_type_size
+    type: std::size_t
+    init_with: al_get_audio_depth_size(depth_type)
+    getter: true
+
+  - name: frequency
+    type: unsigned int
+    init_with: 44100
+    getter: true
+
+  - name: channel_configuration
+    type: ALLEGRO_CHANNEL_CONF
+    init_with: ALLEGRO_CHANNEL_CONF_2
+    getter: true
+
+  - name: channel_count
+    type: std::size_t
+    init_with: al_get_channel_count(ALLEGRO_CHANNEL_CONF_2)
+    getter: true
+
+  - name: CHANNEL_LEFT
+    type: int
+    constexpr: true
+    static: true
+    init_with: 0
+
+  - name: CHANNEL_RIGHT
+    type: int
+    constexpr: true
+    static: true
+    init_with: 1
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    body: |
+      block.resize(2048 * channel_count);
+      initialized = true;
+
+
+  - name: get_sample_at
+    type: float
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+      - name: channel_t
+        type: int
+        default_argument: CHANNEL_LEFT
+    body: |
+      return block[position + channel_t];
+
+
+  - name: set_sample_at
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+      - name: channel_t
+        type: int
+        default_argument: CHANNEL_LEFT
+      - name: value
+        type: float
+        default_argument: 0.0f
+    body: |
+      block[position + channel_t] = value;
+
+
+  - name: set_sample_at
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+      - name: left_channel_value
+        type: float
+        default_argument: 0.0f
+      - name: right_channel_value
+        type: float
+        default_argument: 0.0f
+    body: |
+      block[position + CHANNEL_LEFT] = left_channel_value;
+      block[position + CHANNEL_RIGHT] = right_channel_value;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_MIXER
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: ALLEGRO_AUDIO_DEPTH
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: ALLEGRO_CHANNEL_CONF
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: std::size_t
+    headers: [ cstddef ]
+
+
