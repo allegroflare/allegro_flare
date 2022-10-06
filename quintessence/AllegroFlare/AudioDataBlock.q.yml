@@ -49,6 +49,10 @@ properties:
     static: true
     init_with: 2048
 
+  - name: head
+    type: std::size_t
+    init_with: 0
+
   - name: initialized
     type: bool
     init_with: false
@@ -73,6 +77,8 @@ functions:
         type: int
         default_argument: CHANNEL_LEFT
     body: |
+      sample_position = clamp_loop_sample_position(head + sample_position);
+
       return block[(sample_position * channel_count) + channel_t];
 
 
@@ -88,7 +94,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      in_place_clamp_loop_sample_position(&sample_position);
+      sample_position = clamp_loop_sample_position(head + sample_position);
 
       block[(sample_position * channel_count) + channel_t] = value;
 
@@ -105,7 +111,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      in_place_clamp_loop_sample_position(&sample_position);
+      sample_position = clamp_loop_sample_position(head + sample_position);
 
       block[sample_position + CHANNEL_LEFT] = left_channel_value;
       block[sample_position + CHANNEL_RIGHT] = right_channel_value;
@@ -124,7 +130,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      in_place_clamp_loop_sample_position(&sample_position);
+      sample_position = clamp_loop_sample_position(head + sample_position);
       
       return std::pair<float, float>{
          block[(sample_position * channel_count) + CHANNEL_LEFT],
@@ -132,16 +138,17 @@ functions:
       };
 
 
-  - name: in_place_clamp_loop_sample_position
+  - name: clamp_loop_sample_position
+    type: int
     private: true
     parameters:
       - name: sample_position
-        type: int*
+        type: int
         default_argument: 0
     body: |
-      while (*sample_position >= SAMPLE_COUNT) *sample_position -= SAMPLE_COUNT;
-      while (*sample_position < 0) *sample_position += SAMPLE_COUNT;
-      return ;
+      while (sample_position >= SAMPLE_COUNT) sample_position -= SAMPLE_COUNT;
+      while (sample_position < 0) sample_position += SAMPLE_COUNT;
+      return sample_position;
 
 
 dependencies:

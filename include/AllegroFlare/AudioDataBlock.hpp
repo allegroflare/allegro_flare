@@ -23,8 +23,9 @@ namespace AllegroFlare
       unsigned int frequency;
       ALLEGRO_CHANNEL_CONF channel_configuration;
       std::size_t channel_count;
+      std::size_t head;
       bool initialized;
-      void in_place_clamp_loop_sample_position(int* sample_position=0);
+      int clamp_loop_sample_position(int sample_position=0);
 
    protected:
 

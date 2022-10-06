@@ -16,6 +16,7 @@ AudioDataBlock::AudioDataBlock(ALLEGRO_AUDIO_DEPTH depth_type)
    , frequency(44100)
    , channel_configuration(ALLEGRO_CHANNEL_CONF_2)
    , channel_count(al_get_channel_count(ALLEGRO_CHANNEL_CONF_2))
+   , head(0)
    , initialized(false)
 {
 }
@@ -64,19 +65,21 @@ void AudioDataBlock::initialize()
 
 float AudioDataBlock::get_sample_at(int sample_position, int channel_t)
 {
+   sample_position = clamp_loop_sample_position(head + sample_position);
+
    return block[(sample_position * channel_count) + channel_t];
 }
 
 void AudioDataBlock::set_sample_at(int sample_position, int channel_t, float value)
 {
-   in_place_clamp_loop_sample_position(&sample_position);
+   sample_position = clamp_loop_sample_position(head + sample_position);
 
    block[(sample_position * channel_count) + channel_t] = value;
 }
 
 void AudioDataBlock::set_sample_at(int sample_position, float left_channel_value, float right_channel_value)
 {
-   in_place_clamp_loop_sample_position(&sample_position);
+   sample_position = clamp_loop_sample_position(head + sample_position);
 
    block[sample_position + CHANNEL_LEFT] = left_channel_value;
    block[sample_position + CHANNEL_RIGHT] = right_channel_value;
@@ -84,7 +87,7 @@ void AudioDataBlock::set_sample_at(int sample_position, float left_channel_value
 
 std::pair<float, float> AudioDataBlock::get_sample_at(int sample_position, float left_channel_value, float right_channel_value)
 {
-   in_place_clamp_loop_sample_position(&sample_position);
+   sample_position = clamp_loop_sample_position(head + sample_position);
 
    return std::pair<float, float>{
       block[(sample_position * channel_count) + CHANNEL_LEFT],
@@ -92,11 +95,11 @@ std::pair<float, float> AudioDataBlock::get_sample_at(int sample_position, float
    };
 }
 
-void AudioDataBlock::in_place_clamp_loop_sample_position(int* sample_position)
+int AudioDataBlock::clamp_loop_sample_position(int sample_position)
 {
-   while (*sample_position >= SAMPLE_COUNT) *sample_position -= SAMPLE_COUNT;
-   while (*sample_position < 0) *sample_position += SAMPLE_COUNT;
-   return ;
+   while (sample_position >= SAMPLE_COUNT) sample_position -= SAMPLE_COUNT;
+   while (sample_position < 0) sample_position += SAMPLE_COUNT;
+   return sample_position;
 }
 
 
