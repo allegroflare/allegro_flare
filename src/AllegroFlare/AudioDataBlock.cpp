@@ -84,6 +84,14 @@ void AudioDataBlock::initialize()
    initialized = true;
 }
 
+void AudioDataBlock::move_head_by(std::size_t delta)
+{
+   // TODO: test this
+   head += delta;
+   while (head > block.size()) head -= block.size();
+   return;
+}
+
 void AudioDataBlock::set_sample_count(std::size_t sample_count)
 {
    if (!((!initialized)))

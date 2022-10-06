@@ -41,6 +41,7 @@ namespace AllegroFlare
       ALLEGRO_CHANNEL_CONF get_channel_configuration() const;
       std::size_t get_channel_count() const;
       void initialize();
+      void move_head_by(std::size_t delta=0);
       void set_sample_count(std::size_t sample_count=2048);
       float get_sample_at(int sample_position=0, int channel_t=CHANNEL_LEFT);
       void set_sample_at(int sample_position=0, int channel_t=CHANNEL_LEFT, float value=0.0f);

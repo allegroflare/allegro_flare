@@ -92,11 +92,13 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
 
    for (int i=0; i<(samples * channel_count); i += channel_count)
    {
-      fbuf[i+0] = fbuf[i+0];
-      fbuf[i+1] = fbuf[i+1];
-      
-      // TODO: write the current memory sample, existing buffer, dry, wet into the memory buffer
-      //memory.set_sample_at(i, fbuf[i+0], fbuf[i+1]);
+      // TODO: write the sample with delay and fill the memory bufer
+
+      //float swap_l = fbuf[i+0];
+      //float swap_r = fbuf[i+1];
+
+      //fbuf[i+0] = fbuf[i+0] * dry + memory.get_sample_at(i, 0) * wet;
+      //fbuf[i+1] = fbuf[i+1] * dry + memory.get_sample_at(i, 1) * wet;
    }
 
    return;

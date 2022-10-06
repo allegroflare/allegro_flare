@@ -70,6 +70,18 @@ functions:
       initialized = true;
 
 
+  - name: move_head_by
+    parameters:
+      - name: delta
+        type: std::size_t
+        default_argument: 0
+    body: |
+      // TODO: test this
+      head += delta;
+      while (head > block.size()) head -= block.size();
+      return;
+
+
   - name: set_sample_count
     parameters:
       - name: sample_count
