@@ -13,11 +13,14 @@ namespace AllegroFlare
    {
    private:
       ALLEGRO_SAMPLE *sample;
-      bool composite_stereo_render;
+      bool split_stereo_render;
 
    public:
       AudioWaveformRenderer(ALLEGRO_SAMPLE *sample=nullptr);
       ~AudioWaveformRenderer();
+
+      void set_split_stereo_render(bool split_stereo_render=false);
+      bool get_split_stereo_render() const;
 
       void draw_waveform(ALLEGRO_BITMAP *dest);
       void draw_waveform(ALLEGRO_BITMAP *dest, float samp_start, float samp_end);

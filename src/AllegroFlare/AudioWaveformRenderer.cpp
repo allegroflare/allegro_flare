@@ -16,7 +16,7 @@ namespace AllegroFlare
 
 AudioWaveformRenderer::AudioWaveformRenderer(ALLEGRO_SAMPLE *sample)
    : sample(sample)
-   , composite_stereo_render(true)
+   , split_stereo_render(false)
 {
 }
 
@@ -24,6 +24,20 @@ AudioWaveformRenderer::AudioWaveformRenderer(ALLEGRO_SAMPLE *sample)
 
 AudioWaveformRenderer::~AudioWaveformRenderer()
 {
+}
+
+
+
+void AudioWaveformRenderer::set_split_stereo_render(bool split_stereo_render)
+{
+   this->split_stereo_render = split_stereo_render;
+}
+
+
+
+bool AudioWaveformRenderer::get_split_stereo_render() const
+{
+   return this->split_stereo_render;
 }
 
 
@@ -70,18 +84,18 @@ float AudioWaveformRenderer::get_max_f_sample_within(float pos_begin, float pos_
 
 
 
-
 void AudioWaveformRenderer::draw_waveform(ALLEGRO_BITMAP *dest)
 {
+   // TODO: add guards
    if (!sample) return;
    draw_waveform(dest, 0, al_get_sample_length(sample));
 }
 
 
 
-
 void AudioWaveformRenderer::draw_waveform(ALLEGRO_BITMAP *dest, float samp_start, float samp_end)
 {
+   // TODO: add guards
    if (!dest) { std::cout << "(!) Could not render sample: destination bitmap is invalid." << std::endl; return; }
    ALLEGRO_BITMAP *prev = al_get_target_bitmap();
    al_set_target_bitmap(dest);
@@ -94,23 +108,23 @@ void AudioWaveformRenderer::draw_waveform(ALLEGRO_BITMAP *dest, float samp_start
 
 
 
-
 void AudioWaveformRenderer::draw_waveform(float x, float y, float width, float height, float samp_start, float samp_end)
 {
+   // TODO: add guards
    if (!sample) return;
 
    float center_y = y+height*0.5f;
    float half_h = height*0.5f;
 
    //al_draw_rectangle(x, y, x+width, y+height, al_color_name("orange"), 1.0f);
-   if (composite_stereo_render)
-   {
-      al_draw_line(x, center_y, x+width, center_y, al_color_name("lightgreen"), 1.0f);
-   }
-   else
+   if (split_stereo_render)
    {
       al_draw_line(x, center_y-half_h/2, x+width, center_y-half_h/2, al_color_name("lightgreen"), 1.0f);
       al_draw_line(x, center_y+half_h/2, x+width, center_y+half_h/2, al_color_name("lightgreen"), 1.0f);
+   }
+   else
+   {
+      al_draw_line(x, center_y, x+width, center_y, al_color_name("lightgreen"), 1.0f);
    }
 
    //float scale = 0.05f;
@@ -122,7 +136,7 @@ void AudioWaveformRenderer::draw_waveform(float x, float y, float width, float h
 
    ALLEGRO_COLOR color = al_color_name("lightblue");
    float alpha = 0.04;
-   if (composite_stereo_render) alpha = 0.02;
+   if (!split_stereo_render) alpha = 0.02;
    color.r *= alpha;
    color.g *= alpha;
    color.b *= alpha;
@@ -138,7 +152,7 @@ void AudioWaveformRenderer::draw_waveform(float x, float y, float width, float h
    float right_center_y = half_h/2;
    float signal_half_scale = half_h*0.25f;
 
-   if (composite_stereo_render)
+   if (!split_stereo_render)
    {
       left_center_y = right_center_y = 0;
       signal_half_scale *= 2;
@@ -165,7 +179,6 @@ void AudioWaveformRenderer::draw_waveform(float x, float y, float width, float h
 
    al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA);
 }
-
 
 
 
