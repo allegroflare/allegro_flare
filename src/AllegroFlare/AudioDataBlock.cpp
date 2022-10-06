@@ -2,7 +2,8 @@
 
 #include <AllegroFlare/AudioDataBlock.hpp>
 
-
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -16,6 +17,7 @@ AudioDataBlock::AudioDataBlock(ALLEGRO_AUDIO_DEPTH depth_type)
    , frequency(44100)
    , channel_configuration(ALLEGRO_CHANNEL_CONF_2)
    , channel_count(al_get_channel_count(ALLEGRO_CHANNEL_CONF_2))
+   , sample_count(2048)
    , head(0)
    , initialized(false)
 {
@@ -57,10 +59,40 @@ std::size_t AudioDataBlock::get_channel_count() const
 }
 
 
+std::size_t AudioDataBlock::get_sample_count() const
+{
+   return sample_count;
+}
+
+
 void AudioDataBlock::initialize()
 {
-   block.resize(SAMPLE_COUNT * channel_count);
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "AudioDataBlock" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   block.resize(sample_count * channel_count);
    initialized = true;
+}
+
+void AudioDataBlock::set_sample_count(std::size_t sample_count)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "AudioDataBlock" << "::" << "set_sample_count" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((sample_count > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "AudioDataBlock" << "::" << "set_sample_count" << ": error: " << "guard \"(sample_count > 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->sample_count = sample_count;
+   return;
 }
 
 float AudioDataBlock::get_sample_at(int sample_position, int channel_t)
@@ -97,8 +129,8 @@ std::pair<float, float> AudioDataBlock::get_sample_at(int sample_position, float
 
 int AudioDataBlock::clamp_loop_sample_position(int sample_position)
 {
-   while (sample_position >= SAMPLE_COUNT) sample_position -= SAMPLE_COUNT;
-   while (sample_position < 0) sample_position += SAMPLE_COUNT;
+   while (sample_position >= sample_count) sample_position -= sample_count;
+   while (sample_position < 0) sample_position += sample_count;
    return sample_position;
 }
 

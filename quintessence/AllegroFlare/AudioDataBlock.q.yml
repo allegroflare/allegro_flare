@@ -43,11 +43,11 @@ properties:
     static: true
     init_with: 1
 
-  - name: SAMPLE_COUNT
+  - name: sample_count
     type: std::size_t
-    constexpr: true
-    static: true
     init_with: 2048
+    getter: true
+    setter: false
 
   - name: head
     type: std::size_t
@@ -62,9 +62,21 @@ functions:
 
 
   - name: initialize
+    guards: [ (!initialized) ]
     body: |
-      block.resize(SAMPLE_COUNT * channel_count);
+      block.resize(sample_count * channel_count);
       initialized = true;
+
+
+  - name: set_sample_count
+    parameters:
+      - name: sample_count
+        type: std::size_t
+        default_argument: 2048
+    guards: [ (!initialized), (sample_count > 0) ]
+    body: |
+      this->sample_count = sample_count;
+      return;
 
 
   - name: get_sample_at
@@ -146,8 +158,8 @@ functions:
         type: int
         default_argument: 0
     body: |
-      while (sample_position >= SAMPLE_COUNT) sample_position -= SAMPLE_COUNT;
-      while (sample_position < 0) sample_position += SAMPLE_COUNT;
+      while (sample_position >= sample_count) sample_position -= sample_count;
+      while (sample_position < 0) sample_position += sample_count;
       return sample_position;
 
 
