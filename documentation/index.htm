@@ -710,6 +710,10 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">mixer</td>
+  <td class="property">AllegroFlare::AudioMixer</td>
+</tr>
+<tr>
   <td class="property">memory</td>
   <td class="property">AllegroFlare::AudioDataBlock</td>
 </tr>
@@ -720,6 +724,9 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">get_al_mixer()</td>
+</tr>
+<tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
@@ -729,6 +736,12 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioDataBlock.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioMixer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioMixer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13252,6 +13265,7 @@ table td
     "AllegroFlare/AcousticEnvironments/Reverb",
     "AllegroFlare/AudioDataBlock",
     "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/Delay",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "AllegroFlare/AcousticEnvironments/Base": [
@@ -13310,6 +13324,9 @@ table td
     "AllegroFlare/AudioMixer"
   ],
   "AllegroFlare/AudioDataBlock": [
+    "AllegroFlare/AudioProcessing/Delay"
+  ],
+  "AllegroFlare/AudioMixer": [
     "AllegroFlare/AudioProcessing/Delay"
   ],
   "AllegroFlare/BitmapBin": [

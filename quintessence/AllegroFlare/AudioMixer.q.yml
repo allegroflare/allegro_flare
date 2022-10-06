@@ -97,13 +97,11 @@ functions:
          throw std::runtime_error(error_message.str());
       }
 
-      // create our reverb mixer with properties that match the parent_mixer
+      // create our mixer with properties that match the parent_mixer
       audio_depth = al_get_mixer_depth(parent_mixer);
       frequency = al_get_mixer_frequency(parent_mixer);
       channel_configuration = al_get_mixer_channels(parent_mixer);
       mixer = al_create_mixer(frequency, audio_depth, channel_configuration);
-      audio_depth_size = al_get_audio_depth_size(audio_depth);
-      channel_count = al_get_channel_count(channel_configuration);
       if (!mixer)
       {
          std::stringstream error_message;
@@ -121,21 +119,9 @@ functions:
          throw std::runtime_error(error_message.str());
       }
 
-      /*
-       //setup the mixer callback
-      bool mixer_postprocess_callback_setup_was_successful = al_set_mixer_postprocess_callback(
-         mixer,
-         AllegroFlare::AcousticEnvironments::Reverb::mixer_postprocess_callback,
-         this
-      );
-      if (!mixer_postprocess_callback_setup_was_successful)
-      {
-         std::stringstream error_message;
-         error_message << "AllegroFlare::AcousticEnvironments::Reverb::initialize error: "
-                       << "there was an error setting up the mixer postprocess callback.";
-         throw std::runtime_error(error_message.str());
-      }
-      */
+      // store some properties locally
+      audio_depth_size = al_get_audio_depth_size(audio_depth);
+      channel_count = al_get_channel_count(channel_configuration);
 
       initialized = true;
       return;

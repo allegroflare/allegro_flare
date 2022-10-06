@@ -12,23 +12,6 @@ TEST(AllegroFlare_AudioProcessing_DelayTest, can_be_created_without_blowing_up)
 }
 
 
-/*
-TEST(AllegroFlare_AudioProcessing_DelayTest, TYPE__has_the_expected_value)
-{
-   AllegroFlare::AudioProcessing::Delay delay;
-   EXPECT_EQ("AudioProcessing/Delay", delay.get_type());
-}
-
-
-TEST(AllegroFlare_AudioProcessing_DelayTest, type__has_the_expected_value_matching_TYPE)
-{
-   AllegroFlare::AudioProcessing::Delay delay;
-   EXPECT_EQ(AllegroFlare::AudioProcessing::Delay::TYPE, delay.get_type());
-}
-*/
-
-
-/*
 TEST(AllegroFlare_AudioProcessing_DelayTest, initialize__will_not_blow_up)
 {
    al_init();
@@ -44,10 +27,10 @@ TEST(AllegroFlare_AudioProcessing_DelayTest, initialize__will_not_blow_up)
    ASSERT_NE(nullptr, sample_instance);
 
 
-   AllegroFlare::AudioProcessing::Delay delay_environment;
-   delay_environment.initialize();
+   AllegroFlare::AudioProcessing::Delay delay;
+   delay.initialize();
 
-   al_attach_sample_instance_to_mixer(sample_instance, delay_environment.get_delay_mixer());
+   al_attach_sample_instance_to_mixer(sample_instance, delay.get_al_mixer());
    //al_attach_sample_instance_to_mixer(sample_instance, al_get_default_mixer());
 
    al_play_sample_instance(sample_instance);
@@ -60,6 +43,5 @@ TEST(AllegroFlare_AudioProcessing_DelayTest, initialize__will_not_blow_up)
    // al_shugdown_acodec_addon(); // <- does not exist
    al_uninstall_system();
 }
-*/
 
 

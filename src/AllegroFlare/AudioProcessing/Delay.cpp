@@ -16,6 +16,7 @@ namespace AudioProcessing
 Delay::Delay(float delay_sec, float decay)
    : delay_sec(delay_sec)
    , decay(decay)
+   , mixer({})
    , memory({})
    , initialized(false)
 {
@@ -39,6 +40,17 @@ float Delay::get_decay() const
 }
 
 
+ALLEGRO_MIXER* Delay::get_al_mixer()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Delay" << "::" << "get_al_mixer" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return mixer.get_mixer();
+}
+
 void Delay::initialize()
 {
    if (!((!initialized)))
@@ -47,10 +59,19 @@ void Delay::initialize()
       error_message << "Delay" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // initialize the mixer
+   mixer.initialize();
+
+   // initialize the memory
    float frequency = memory.get_frequency(); // same as "samples per second"
    int samples_needed = (int)(frequency * delay_sec);
    memory.set_sample_count(samples_needed);
    memory.initialize();
+
+   // attach the
+   mixer.set_postprocess_callback(mixer_postprocess_callback, this);
+
+   // set initialized
    initialized = true;
    return;
 }
@@ -67,22 +88,16 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
    AllegroFlare::AudioProcessing::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Delay*>(data);
    float wet = 0.8;
    float dry = 1.0;
+   int channel_count = delay->mixer.get_channel_count();
 
-   // process by channel
-   for (int i=0; i<samples; i++)
+   for (int i=0; i<(samples * channel_count); i += channel_count)
    {
-      int pos = i*2; // 2 == channel_count;
-      fbuf[pos+0] = fbuf[pos+0];
-      fbuf[pos+1] = fbuf[pos+1];
+      fbuf[i+0] = fbuf[i+0];
+      fbuf[i+1] = fbuf[i+1];
       
-      // write the current memory sample + (existing buffer * dry) to the delay buffer
-      //memory.set_sample_at(pos, fbuf);
-
-      // (int pos = i*channel_count)
+      // TODO: write the current memory sample, existing buffer, dry, wet into the memory buffer
+      //memory.set_sample_at(i, fbuf[i+0], fbuf[i+1]);
    }
-
-   //memcpy(processing_buffer, fbuf, samples * channel_count);
-   // write the signal data to the delay buffer
 
    return;
 }
