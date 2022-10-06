@@ -71,23 +71,23 @@ float AudioWaveformRenderer::get_max_f_sample_within(float pos_begin, float pos_
 
 
 
-void AudioWaveformRenderer::draw_wav_sample(ALLEGRO_BITMAP *dest)
+void AudioWaveformRenderer::draw_waveform(ALLEGRO_BITMAP *dest)
 {
    if (!sample) return;
-   draw_wav_sample(dest, 0, al_get_sample_length(sample));
+   draw_waveform(dest, 0, al_get_sample_length(sample));
 }
 
 
 
 
-void AudioWaveformRenderer::draw_wav_sample(ALLEGRO_BITMAP *dest, float samp_start, float samp_end)
+void AudioWaveformRenderer::draw_waveform(ALLEGRO_BITMAP *dest, float samp_start, float samp_end)
 {
    if (!dest) { std::cout << "(!) Could not render sample: destination bitmap is invalid." << std::endl; return; }
    ALLEGRO_BITMAP *prev = al_get_target_bitmap();
    al_set_target_bitmap(dest);
    al_clear_to_color(al_color_name("black"));
 
-   draw_wav_sample(1, 1, al_get_bitmap_width(dest)-1, al_get_bitmap_height(dest)-2, samp_start, samp_end);
+   draw_waveform(1, 1, al_get_bitmap_width(dest)-1, al_get_bitmap_height(dest)-2, samp_start, samp_end);
 
    al_set_target_bitmap(prev);
 }
@@ -95,7 +95,7 @@ void AudioWaveformRenderer::draw_wav_sample(ALLEGRO_BITMAP *dest, float samp_sta
 
 
 
-void AudioWaveformRenderer::draw_wav_sample(float x, float y, float width, float height, float samp_start, float samp_end)
+void AudioWaveformRenderer::draw_waveform(float x, float y, float width, float height, float samp_start, float samp_end)
 {
    if (!sample) return;
 
