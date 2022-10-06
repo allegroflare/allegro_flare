@@ -34,6 +34,7 @@ namespace AllegroFlare
       ALLEGRO_MIXER* get_mixer();
       void validate_configuration();
       void initialize();
+      void set_postprocess_callback(void (*callback)(void*, unsigned int, void*) /*callback*/=nullptr, void* user_data=nullptr);
    };
 }
 

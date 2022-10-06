@@ -53,6 +53,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml">quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioDataBlock.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AudioMixer.q.yml">quintessence/AllegroFlare/AudioMixer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Delay.q.yml">quintessence/AllegroFlare/AudioProcessing/Delay.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Int2.q.yml">quintessence/AllegroFlare/AudioProcessing/Int2.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
@@ -616,6 +617,82 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AudioMixer.q.yml">quintessence/AllegroFlare/AudioMixer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">parent_mixer</td>
+  <td class="property">ALLEGRO_MIXER*</td>
+</tr>
+<tr>
+  <td class="property">mixer</td>
+  <td class="property">ALLEGRO_MIXER*</td>
+</tr>
+<tr>
+  <td class="property">audio_depth</td>
+  <td class="property">ALLEGRO_AUDIO_DEPTH</td>
+</tr>
+<tr>
+  <td class="property">audio_depth_size</td>
+  <td class="property">std::size_t</td>
+</tr>
+<tr>
+  <td class="property">frequency</td>
+  <td class="property">unsigned int</td>
+</tr>
+<tr>
+  <td class="property">channel_configuration</td>
+  <td class="property">ALLEGRO_CHANNEL_CONF</td>
+</tr>
+<tr>
+  <td class="property">channel_count</td>
+  <td class="property">std::size_t</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_mixer()</td>
+</tr>
+<tr>
+  <td class="method">validate_configuration()</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">set_postprocess_callback(2)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_audio_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_AUDIO_DEPTH&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_CHANNEL_CONF&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;callback&quot;}</td>
 </tr>
     </table>
   </div>
@@ -13150,6 +13227,7 @@ table td
 {
   "al_is_system_installed": [
     "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioMixer",
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
@@ -13167,11 +13245,13 @@ table td
   ],
   "al_is_audio_installed": [
     "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioMixer",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AcousticEnvironments/Reverb",
     "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "AllegroFlare/AcousticEnvironments/Base": [
@@ -13179,15 +13259,18 @@ table td
   ],
   "ALLEGRO_AUDIO_DEPTH": [
     "AllegroFlare/AcousticEnvironments/Reverb",
-    "AllegroFlare/AudioDataBlock"
+    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer"
   ],
   "ALLEGRO_CHANNEL_CONF": [
     "AllegroFlare/AcousticEnvironments/Reverb",
-    "AllegroFlare/AudioDataBlock"
+    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer"
   ],
   "std/size_t": [
     "AllegroFlare/AcousticEnvironments/Reverb",
     "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer",
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -13222,6 +13305,9 @@ table td
     "AllegroFlare/AudioController",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "callback": [
+    "AllegroFlare/AudioMixer"
   ],
   "AllegroFlare/AudioDataBlock": [
     "AllegroFlare/AudioProcessing/Delay"

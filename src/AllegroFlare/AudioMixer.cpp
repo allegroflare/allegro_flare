@@ -182,6 +182,20 @@ void AudioMixer::initialize()
    return;
 }
 
+void AudioMixer::set_postprocess_callback(void (*callback)(void*, unsigned int, void*) /*callback*/, void* user_data)
+{
+   bool mixer_postprocess_callback_setup_was_successful =
+      al_set_mixer_postprocess_callback(mixer, callback, user_data);
+   if (!mixer_postprocess_callback_setup_was_successful)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::AudioMixer::set_postprocess_callback error: "
+                    << "there was an error setting up the mixer postprocess callback.";
+      throw std::runtime_error(error_message.str());
+   }
+   return;
+}
+
 
 } // namespace AllegroFlare
 

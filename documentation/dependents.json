@@ -1,6 +1,7 @@
 {
   "al_is_system_installed": [
     "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioMixer",
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
@@ -18,11 +19,13 @@
   ],
   "al_is_audio_installed": [
     "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioMixer",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AcousticEnvironments/Reverb",
     "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "AllegroFlare/AcousticEnvironments/Base": [
@@ -30,15 +33,18 @@
   ],
   "ALLEGRO_AUDIO_DEPTH": [
     "AllegroFlare/AcousticEnvironments/Reverb",
-    "AllegroFlare/AudioDataBlock"
+    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer"
   ],
   "ALLEGRO_CHANNEL_CONF": [
     "AllegroFlare/AcousticEnvironments/Reverb",
-    "AllegroFlare/AudioDataBlock"
+    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer"
   ],
   "std/size_t": [
     "AllegroFlare/AcousticEnvironments/Reverb",
     "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer",
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -73,6 +79,9 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "callback": [
+    "AllegroFlare/AudioMixer"
   ],
   "AllegroFlare/AudioDataBlock": [
     "AllegroFlare/AudioProcessing/Delay"
