@@ -5,6 +5,13 @@ properties:
     type: std::vector<float>
     init_with: '{}'
 
+  - name: sample_count
+    type: std::size_t
+    constructor_arg: true
+    init_with: 2048
+    getter: true
+    setter: false
+
   - name: depth_type
     type: ALLEGRO_AUDIO_DEPTH
     init_with: ALLEGRO_AUDIO_DEPTH_FLOAT32
@@ -28,7 +35,7 @@ properties:
 
   - name: channel_count
     type: std::size_t
-    init_with: al_get_channel_count(ALLEGRO_CHANNEL_CONF_2)
+    init_with: 0
     getter: true
 
   - name: CHANNEL_LEFT
@@ -43,12 +50,6 @@ properties:
     static: true
     init_with: 1
 
-  - name: sample_count
-    type: std::size_t
-    init_with: 2048
-    getter: true
-    setter: false
-
   - name: head
     type: std::size_t
     init_with: 0
@@ -62,8 +63,9 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized) ]
+    guards: [ (!initialized), (sample_count > 0) ]
     body: |
+      channel_count = al_get_channel_count(channel_configuration);
       block.resize(sample_count * channel_count);
       initialized = true;
 

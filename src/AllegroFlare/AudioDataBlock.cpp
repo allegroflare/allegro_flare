@@ -10,14 +10,14 @@ namespace AllegroFlare
 {
 
 
-AudioDataBlock::AudioDataBlock(ALLEGRO_AUDIO_DEPTH depth_type)
+AudioDataBlock::AudioDataBlock(std::size_t sample_count, ALLEGRO_AUDIO_DEPTH depth_type)
    : block({})
+   , sample_count(sample_count)
    , depth_type(depth_type)
    , depth_type_size(al_get_audio_depth_size(depth_type))
    , frequency(44100)
    , channel_configuration(ALLEGRO_CHANNEL_CONF_2)
-   , channel_count(al_get_channel_count(ALLEGRO_CHANNEL_CONF_2))
-   , sample_count(2048)
+   , channel_count(0)
    , head(0)
    , initialized(false)
 {
@@ -26,6 +26,12 @@ AudioDataBlock::AudioDataBlock(ALLEGRO_AUDIO_DEPTH depth_type)
 
 AudioDataBlock::~AudioDataBlock()
 {
+}
+
+
+std::size_t AudioDataBlock::get_sample_count() const
+{
+   return sample_count;
 }
 
 
@@ -59,12 +65,6 @@ std::size_t AudioDataBlock::get_channel_count() const
 }
 
 
-std::size_t AudioDataBlock::get_sample_count() const
-{
-   return sample_count;
-}
-
-
 void AudioDataBlock::initialize()
 {
    if (!((!initialized)))
@@ -73,6 +73,13 @@ void AudioDataBlock::initialize()
       error_message << "AudioDataBlock" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!((sample_count > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "AudioDataBlock" << "::" << "initialize" << ": error: " << "guard \"(sample_count > 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   channel_count = al_get_channel_count(channel_configuration);
    block.resize(sample_count * channel_count);
    initialized = true;
 }

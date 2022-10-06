@@ -1,0 +1,45 @@
+properties:
+
+
+  - name: delay_sec
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+
+  - name: decay
+    type: float
+    init_with: 0.8
+    constructor_arg: true
+    getter: true
+
+  - name: memory
+    type: AllegroFlare::AudioDataBlock
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      float frequency = memory.get_frequency(); // same as "samples per second"
+      int samples_needed = (int)(frequency * delay_sec);
+      memory.set_sample_count(samples_needed);
+      memory.initialize();
+      initialized = true;
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::AudioDataBlock
+    headers: [ AllegroFlare/AudioDataBlock.hpp ]
+
+
