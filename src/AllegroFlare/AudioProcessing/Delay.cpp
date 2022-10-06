@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/AudioProcessing/Delay.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -51,6 +52,38 @@ void Delay::initialize()
    memory.set_sample_count(samples_needed);
    memory.initialize();
    initialized = true;
+   return;
+}
+
+void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* data)
+{
+   if (!(data))
+   {
+      std::stringstream error_message;
+      error_message << "Delay" << "::" << "mixer_postprocess_callback" << ": error: " << "guard \"data\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   float *fbuf = (float *)buf;
+   AllegroFlare::AudioProcessing::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Delay*>(data);
+   float wet = 0.8;
+   float dry = 1.0;
+
+   // process by channel
+   for (int i=0; i<samples; i++)
+   {
+      int pos = i*2; // 2 == channel_count;
+      fbuf[pos+0] = fbuf[pos+0];
+      fbuf[pos+1] = fbuf[pos+1];
+      
+      // write the current memory sample + (existing buffer * dry) to the delay buffer
+      //memory.set_sample_at(pos, fbuf);
+
+      // (int pos = i*channel_count)
+   }
+
+   //memcpy(processing_buffer, fbuf, samples * channel_count);
+   // write the signal data to the delay buffer
+
    return;
 }
 

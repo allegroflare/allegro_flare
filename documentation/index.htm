@@ -53,6 +53,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml">quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioDataBlock.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AudioProcessing/Delay.q.yml">quintessence/AllegroFlare/AudioProcessing/Delay.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Int2.q.yml">quintessence/AllegroFlare/AudioProcessing/Int2.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/BackgroundFactory.q.yml">quintessence/AllegroFlare/BackgroundFactory.q.yml</a></li>
@@ -615,6 +616,42 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AudioProcessing/Delay.q.yml">quintessence/AllegroFlare/AudioProcessing/Delay.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">delay_sec</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">decay</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">memory</td>
+  <td class="property">AllegroFlare::AudioDataBlock</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">mixer_postprocess_callback(3)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioDataBlock.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13185,6 +13222,9 @@ table td
     "AllegroFlare/AudioController",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "AllegroFlare/AudioDataBlock": [
+    "AllegroFlare/AudioProcessing/Delay"
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
