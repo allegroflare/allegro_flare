@@ -3,6 +3,7 @@
 
 #include <allegro5/allegro_audio.h>
 #include <cstddef>
+#include <utility>
 #include <vector>
 
 
@@ -23,6 +24,7 @@ namespace AllegroFlare
       ALLEGRO_CHANNEL_CONF channel_configuration;
       std::size_t channel_count;
       bool initialized;
+      void in_place_clamp_loop_sample_position(int* sample_position=0);
 
    protected:
 
@@ -37,9 +39,10 @@ namespace AllegroFlare
       ALLEGRO_CHANNEL_CONF get_channel_configuration() const;
       std::size_t get_channel_count() const;
       void initialize();
-      float get_sample_at(int position=0, int channel_t=CHANNEL_LEFT);
-      void set_sample_at(int position=0, int channel_t=CHANNEL_LEFT, float value=0.0f);
-      void set_sample_at(int position=0, float left_channel_value=0.0f, float right_channel_value=0.0f);
+      float get_sample_at(int sample_position=0, int channel_t=CHANNEL_LEFT);
+      void set_sample_at(int sample_position=0, int channel_t=CHANNEL_LEFT, float value=0.0f);
+      void set_sample_at(int sample_position=0, float left_channel_value=0.0f, float right_channel_value=0.0f);
+      std::pair<float, float> get_sample_at(int sample_position=0, float left_channel_value=0.0f, float right_channel_value=0.0f);
    };
 }
 

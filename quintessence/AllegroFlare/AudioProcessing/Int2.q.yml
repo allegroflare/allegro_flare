@@ -1,0 +1,16 @@
+properties:
+
+
+  - name: x
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+    
+
