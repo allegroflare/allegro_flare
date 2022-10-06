@@ -22,19 +22,23 @@
   ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "AllegroFlare/AcousticEnvironments/Base": [
     "AllegroFlare/AcousticEnvironments/Reverb"
   ],
   "ALLEGRO_AUDIO_DEPTH": [
-    "AllegroFlare/AcousticEnvironments/Reverb"
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock"
   ],
   "ALLEGRO_CHANNEL_CONF": [
-    "AllegroFlare/AcousticEnvironments/Reverb"
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock"
   ],
   "std/size_t": [
     "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock",
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",

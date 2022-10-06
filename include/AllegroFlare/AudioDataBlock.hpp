@@ -13,6 +13,7 @@ namespace AllegroFlare
    public:
       static constexpr int CHANNEL_LEFT = 0;
       static constexpr int CHANNEL_RIGHT = 1;
+      static constexpr std::size_t SAMPLE_COUNT = 2048;
 
    private:
       std::vector<float> block;

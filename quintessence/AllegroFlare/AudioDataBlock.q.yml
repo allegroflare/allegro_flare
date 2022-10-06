@@ -43,6 +43,12 @@ properties:
     static: true
     init_with: 1
 
+  - name: SAMPLE_COUNT
+    type: std::size_t
+    constexpr: true
+    static: true
+    init_with: 2048
+
   - name: initialized
     type: bool
     init_with: false
@@ -53,7 +59,7 @@ functions:
 
   - name: initialize
     body: |
-      block.resize(2048 * channel_count);
+      block.resize(SAMPLE_COUNT * channel_count);
       initialized = true;
 
 

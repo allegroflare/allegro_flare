@@ -52,6 +52,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AcousticEnvironments/Base.q.yml">quintessence/AllegroFlare/AcousticEnvironments/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml">quintessence/AllegroFlare/AcousticEnvironments/Reverb.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioDataBlock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/BackgroundFactory.q.yml">quintessence/AllegroFlare/BackgroundFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3D.q.yml">quintessence/AllegroFlare/Bone3D.q.yml</a></li>
@@ -525,6 +526,81 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Sound&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Sound.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioDataBlock.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">block</td>
+  <td class="property">std::vector&lt;float&gt;</td>
+</tr>
+<tr>
+  <td class="property">depth_type</td>
+  <td class="property">ALLEGRO_AUDIO_DEPTH</td>
+</tr>
+<tr>
+  <td class="property">depth_type_size</td>
+  <td class="property">std::size_t</td>
+</tr>
+<tr>
+  <td class="property">frequency</td>
+  <td class="property">unsigned int</td>
+</tr>
+<tr>
+  <td class="property">channel_configuration</td>
+  <td class="property">ALLEGRO_CHANNEL_CONF</td>
+</tr>
+<tr>
+  <td class="property">channel_count</td>
+  <td class="property">std::size_t</td>
+</tr>
+<tr>
+  <td class="property">CHANNEL_LEFT</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">CHANNEL_RIGHT</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">SAMPLE_COUNT</td>
+  <td class="property">std::size_t</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">get_sample_at(2)</td>
+</tr>
+<tr>
+  <td class="method">set_sample_at(3)</td>
+</tr>
+<tr>
+  <td class="method">set_sample_at(3)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_AUDIO_DEPTH&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_CHANNEL_CONF&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::size_t&quot;, &quot;headers&quot;=&gt;[&quot;cstddef&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13025,19 +13101,23 @@ table td
   ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "AllegroFlare/AcousticEnvironments/Base": [
     "AllegroFlare/AcousticEnvironments/Reverb"
   ],
   "ALLEGRO_AUDIO_DEPTH": [
-    "AllegroFlare/AcousticEnvironments/Reverb"
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock"
   ],
   "ALLEGRO_CHANNEL_CONF": [
-    "AllegroFlare/AcousticEnvironments/Reverb"
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock"
   ],
   "std/size_t": [
     "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock",
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",

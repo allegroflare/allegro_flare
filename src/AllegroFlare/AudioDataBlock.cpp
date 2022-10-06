@@ -58,7 +58,7 @@ std::size_t AudioDataBlock::get_channel_count() const
 
 void AudioDataBlock::initialize()
 {
-   block.resize(2048 * channel_count);
+   block.resize(SAMPLE_COUNT * channel_count);
    initialized = true;
 }
 
