@@ -28,18 +28,13 @@ TEST(AllegroFlare_AudioProcessing_DelayTest, initialize__will_not_blow_up)
 
 
    AllegroFlare::AudioProcessing::Delay delay;
-   delay.set_delay_sec(0.25);
    delay.initialize();
-   // DEBUG:
+   delay.set_delay_sec(0.1);
 
    al_attach_sample_instance_to_mixer(sample_instance, delay.get_al_mixer());
-   //al_attach_sample_instance_to_mixer(sample_instance, al_get_default_mixer());
-
    al_play_sample_instance(sample_instance);
-   //al_play_sample(sample, 1.0, 0.5, 1.0, ALLEGRO_PLAYMODE_ONCE, nullptr);
 
-
-   al_rest(2);
+   al_rest(3);
 
    al_uninstall_audio();
    // al_shugdown_acodec_addon(); // <- does not exist

@@ -31,7 +31,7 @@ namespace AllegroFlare
 
 
    public:
-      AudioDataBlock(std::size_t sample_count=2048, ALLEGRO_AUDIO_DEPTH depth_type=ALLEGRO_AUDIO_DEPTH_FLOAT32);
+      AudioDataBlock();
       ~AudioDataBlock();
 
       std::vector<float> get_block() const;

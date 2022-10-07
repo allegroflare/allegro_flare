@@ -29,9 +29,36 @@ TEST(AllegroFlare_AudioDataBlockTest, initialize__will_work_without_blowing_up)
 }
 
 
+TEST(AllegroFlare_AudioDataBlockTest, initialize__will_set_the_data_block_to_the_expected_size)
+{
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.initialize();
+   EXPECT_EQ(2048*2, audio_data_block.get_block_ref().size());
+}
+
+
+TEST(AllegroFlare_AudioDataBlockTest, sample_count__when_setting__will_resize_the_data_block_to_fit)
+{
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.initialize();
+   audio_data_block.set_sample_count(8);
+   EXPECT_EQ(16, audio_data_block.get_block_ref().size());
+}
+
+
+TEST(AllegroFlare_AudioDataBlockTest, sample_count__before_being_initialized__will_throw_an_error)
+   // NOTE: At the time of writing, this guard is only needed because the "channel_count" has not yet been set
+{
+   AllegroFlare::AudioDataBlock audio_data_block;
+   std::string expected_error_message = "AudioDataBlock::set_sample_count: error: guard \"initialized\" not met";
+   EXPECT_THROW_WITH_MESSAGE(audio_data_block.set_sample_count(256), std::runtime_error, expected_error_message);
+}
+
+
 TEST(AllegroFlare_AudioDataBlockTest, sample_count__when_setting_to_a_value_of_0__raises_an_exception)
 {
    AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.initialize();
    std::string expected_error_message = "AudioDataBlock::set_sample_count: error: guard \"(sample_count > 0)\" not met";
    EXPECT_THROW_WITH_MESSAGE(audio_data_block.set_sample_count(0), std::runtime_error, expected_error_message);
 }
@@ -65,7 +92,8 @@ TEST(AllegroFlare_AudioDataBlockTest,
 
 TEST(AllegroFlare_AudioDataBlockTest, set_sample_at__will_set_the_sample_at_the_position)
 {
-   AllegroFlare::AudioDataBlock audio_data_block(4);
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.set_sample_count(4);
    audio_data_block.initialize();
    audio_data_block.set_sample_at(2, 0.2, 0.3);
    std::vector<float> expected_block = { 0.0f, 0.0f,   0.0f, 0.0f,   0.2f, 0.3f,   0.0f, 0.0f, };
@@ -76,7 +104,8 @@ TEST(AllegroFlare_AudioDataBlockTest, set_sample_at__will_set_the_sample_at_the_
 TEST(AllegroFlare_AudioDataBlockTest,
    set_sample_at__will_set_the_sample_position_offset_by_the_head_position)
 {
-   AllegroFlare::AudioDataBlock audio_data_block(4);
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.set_sample_count(4);
    audio_data_block.initialize();
    audio_data_block.move_sample_head_position_by(2);
    audio_data_block.set_sample_at(1, 0.4, 0.5);
@@ -88,7 +117,8 @@ TEST(AllegroFlare_AudioDataBlockTest,
 TEST(AllegroFlare_AudioDataBlockTest,
    set_sample_at__will_set_the_sample_position_if_the_head_position_is_past_the_length)
 {
-   AllegroFlare::AudioDataBlock audio_data_block(4);
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.set_sample_count(4);
    audio_data_block.initialize();
    audio_data_block.move_sample_head_position_by(6);
    audio_data_block.set_sample_at(3, 0.4, 0.5);
@@ -100,7 +130,8 @@ TEST(AllegroFlare_AudioDataBlockTest,
 TEST(AllegroFlare_AudioDataBlockTest,
    get_sample_at__will_return_the_sample_at_the_position)
 {
-   AllegroFlare::AudioDataBlock audio_data_block(4);
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.set_sample_count(4);
    audio_data_block.initialize();
    audio_data_block.get_block_ref() = { 0.0f, 0.0f,   0.4f, 0.5f,   0.0f, 0.0f,   0.0f, 0.0f, };
    std::pair<float, float> expected_sample = { 0.4f, 0.5f };
@@ -112,7 +143,8 @@ TEST(AllegroFlare_AudioDataBlockTest,
 TEST(AllegroFlare_AudioDataBlockTest,
    get_sample_at__will_return_the_sample_at_the_position_respecting_the_sample_head_position)
 {
-   AllegroFlare::AudioDataBlock audio_data_block(4);
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.set_sample_count(4);
    audio_data_block.initialize();
    audio_data_block.get_block_ref() = { 0.0f, 0.0f,   0.0f, 0.0f,   0.0f, 0.0f,   0.4f, 0.5f, };
    audio_data_block.move_sample_head_position_by(2);
@@ -125,7 +157,8 @@ TEST(AllegroFlare_AudioDataBlockTest,
 TEST(AllegroFlare_AudioDataBlockTest,
    get_sample_at__will_return_the_sample_at_the_position_respecting_the_sample_head_position_when_it_is_past_the_length)
 {
-   AllegroFlare::AudioDataBlock audio_data_block(4);
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.set_sample_count(4);
    audio_data_block.initialize();
    audio_data_block.get_block_ref() = { 0.0f, 0.0f,   0.0f, 0.0f,   0.4f, 0.5f,   0.0f, 0.0f };
    audio_data_block.move_sample_head_position_by(5);

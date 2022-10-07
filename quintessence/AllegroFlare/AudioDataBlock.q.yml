@@ -9,7 +9,6 @@ properties:
 
   - name: sample_count
     type: std::size_t
-    constructor_arg: true
     init_with: 2048
     getter: true
     setter: false
@@ -18,7 +17,6 @@ properties:
     type: ALLEGRO_AUDIO_DEPTH
     init_with: ALLEGRO_AUDIO_DEPTH_FLOAT32
     getter: true
-    constructor_arg: true
 
   - name: depth_type_size
     type: std::size_t
@@ -37,7 +35,7 @@ properties:
 
   - name: channel_count
     type: std::size_t
-    init_with: 0
+    init_with: 2
     getter: true
 
   - name: CHANNEL_LEFT
@@ -93,8 +91,9 @@ functions:
       - name: clear
         type: bool
         default_argument: false
-    guards: [ (sample_count > 0) ]
+    guards: [ initialized, (sample_count > 0) ]
     body: |
+      sample_head_position = 0;
       this->sample_count = sample_count;
       block.resize(sample_count * channel_count, 0);
       return;

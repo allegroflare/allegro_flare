@@ -10,14 +10,14 @@ namespace AllegroFlare
 {
 
 
-AudioDataBlock::AudioDataBlock(std::size_t sample_count, ALLEGRO_AUDIO_DEPTH depth_type)
+AudioDataBlock::AudioDataBlock()
    : block({})
-   , sample_count(sample_count)
-   , depth_type(depth_type)
+   , sample_count(2048)
+   , depth_type(ALLEGRO_AUDIO_DEPTH_FLOAT32)
    , depth_type_size(al_get_audio_depth_size(depth_type))
    , frequency(44100)
    , channel_configuration(ALLEGRO_CHANNEL_CONF_2)
-   , channel_count(0)
+   , channel_count(2)
    , sample_head_position(0)
    , initialized(false)
 {
@@ -117,12 +117,19 @@ void AudioDataBlock::move_sample_head_position_by(std::size_t delta)
 
 void AudioDataBlock::set_sample_count(std::size_t sample_count, bool clear)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "AudioDataBlock" << "::" << "set_sample_count" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    if (!((sample_count > 0)))
    {
       std::stringstream error_message;
       error_message << "AudioDataBlock" << "::" << "set_sample_count" << ": error: " << "guard \"(sample_count > 0)\" not met";
       throw std::runtime_error(error_message.str());
    }
+   sample_head_position = 0;
    this->sample_count = sample_count;
    block.resize(sample_count * channel_count, 0);
    return;

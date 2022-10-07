@@ -16,8 +16,8 @@ namespace AudioProcessing
 Delay::Delay(float delay_sec, float decay)
    : delay_sec(delay_sec)
    , decay(decay)
-   , mixer({})
-   , data_block({})
+   , mixer()
+   , data_block()
    , initialized(false)
 {
 }
@@ -72,13 +72,14 @@ void Delay::initialize()
       throw std::runtime_error(error_message.str());
    }
    // initialize the mixer
+   // DEBUG:
    mixer.initialize();
 
    // initialize the data_block
+   data_block.initialize();
    float frequency = data_block.get_frequency(); // same as "samples per second"
    int samples_needed = (int)(frequency * delay_sec);
    data_block.set_sample_count(samples_needed);
-   data_block.initialize();
 
    // attach the
    mixer.set_postprocess_callback(mixer_postprocess_callback, this);
@@ -103,16 +104,19 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
    float dry = 1.0;
    int channel_count = delay->mixer.get_channel_count();
 
-   for (int i=0; i<(samples * channel_count); i += channel_count)
+   for (int i=0; i<samples; i++)
    {
-      // TODO: figure out how to offset the buffer to repeat sound at delay_sec intervals
+      int bufpos = i * 2;
 
-      fbuf[i+0] = fbuf[i+0] * dry + data_block.get_sample_at_mono(i/channel_count, 0) * wet;
-      fbuf[i+1] = fbuf[i+1] * dry + data_block.get_sample_at_mono(i/channel_count, 1) * wet;
+      float l_result = fbuf[bufpos+0] * dry + data_block.get_sample_at_mono(i, 0) * wet;
+      float r_result = fbuf[bufpos+1] * dry + data_block.get_sample_at_mono(i, 1) * wet;
 
-      data_block.set_sample_at((i/channel_count)-1, fbuf[i+0], fbuf[i+1]);
+      data_block.set_sample_at(i-1, l_result, r_result);
+
+      fbuf[bufpos+0] = l_result;
+      fbuf[bufpos+1] = r_result;
    }
-   //data_block.move_sample_head_position_by(samples);
+   data_block.move_sample_head_position_by(samples);
 
    return;
 }
