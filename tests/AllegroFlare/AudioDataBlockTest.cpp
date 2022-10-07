@@ -122,3 +122,16 @@ TEST(AllegroFlare_AudioDataBlockTest,
 }
 
 
+TEST(AllegroFlare_AudioDataBlockTest,
+   get_sample_at__will_return_the_sample_at_the_position_respecting_the_sample_head_position_when_it_is_past_the_length)
+{
+   AllegroFlare::AudioDataBlock audio_data_block(4);
+   audio_data_block.initialize();
+   audio_data_block.get_block_ref() = { 0.0f, 0.0f,   0.0f, 0.0f,   0.4f, 0.5f,   0.0f, 0.0f };
+   audio_data_block.move_sample_head_position_by(5);
+   std::pair<float, float> expected_sample = { 0.4f, 0.5f };
+   std::pair<float, float> actual_sample = audio_data_block.get_sample_at(1);
+   EXPECT_EQ(expected_sample, actual_sample);
+}
+
+
