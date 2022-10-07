@@ -34,6 +34,7 @@ namespace AllegroFlare
       AudioDataBlock(std::size_t sample_count=2048, ALLEGRO_AUDIO_DEPTH depth_type=ALLEGRO_AUDIO_DEPTH_FLOAT32);
       ~AudioDataBlock();
 
+      std::vector<float> get_block() const;
       std::size_t get_sample_count() const;
       ALLEGRO_AUDIO_DEPTH get_depth_type() const;
       std::size_t get_depth_type_size() const;
@@ -46,7 +47,7 @@ namespace AllegroFlare
       void set_sample_count(std::size_t sample_count=2048, bool clear=false);
       std::size_t get_block_size();
       float get_sample_at(int sample_position=0, int channel_t=CHANNEL_LEFT);
-      void set_sample_at(int sample_position=0, int channel_t=CHANNEL_LEFT, float value=0.0f);
+      void set_sample_at_mono(int sample_position=0, int channel_t=CHANNEL_LEFT, float value=0.0f);
       void set_sample_at(int sample_position=0, float left_channel_value=0.0f, float right_channel_value=0.0f);
       std::pair<float, float> get_sample_at(int sample_position=0, float left_channel_value=0.0f, float right_channel_value=0.0f);
    };

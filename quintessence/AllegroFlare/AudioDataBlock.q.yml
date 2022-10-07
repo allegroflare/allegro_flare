@@ -4,6 +4,7 @@ properties:
   - name: block
     type: std::vector<float>
     init_with: '{}'
+    getter: true
 
   - name: sample_count
     type: std::size_t
@@ -119,7 +120,7 @@ functions:
       return block[(sample_position * channel_count) + channel_t];
 
 
-  - name: set_sample_at
+  - name: set_sample_at_mono
     parameters:
       - name: sample_position
         type: int

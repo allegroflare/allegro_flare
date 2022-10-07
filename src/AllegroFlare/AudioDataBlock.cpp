@@ -29,6 +29,12 @@ AudioDataBlock::~AudioDataBlock()
 }
 
 
+std::vector<float> AudioDataBlock::get_block() const
+{
+   return block;
+}
+
+
 std::size_t AudioDataBlock::get_sample_count() const
 {
    return sample_count;
@@ -128,7 +134,7 @@ float AudioDataBlock::get_sample_at(int sample_position, int channel_t)
    return block[(sample_position * channel_count) + channel_t];
 }
 
-void AudioDataBlock::set_sample_at(int sample_position, int channel_t, float value)
+void AudioDataBlock::set_sample_at_mono(int sample_position, int channel_t, float value)
 {
    sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 

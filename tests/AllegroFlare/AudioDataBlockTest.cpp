@@ -63,3 +63,17 @@ TEST(AllegroFlare_AudioDataBlockTest,
 }
 
 
+TEST(AllegroFlare_AudioDataBlockTest,
+   get_sample_at__will_return_the_sample_position_offset_by_the_head_position)
+{
+   AllegroFlare::AudioDataBlock audio_data_block(8);
+   audio_data_block.initialize();
+   audio_data_block.set_sample_at(2, 0.2, 0.3);
+   std::vector<float> expected_block = {
+       0.0f, 0.0f,   0.0f, 0.0f,   0.2f, 0.3f,   0.0f, 0.0f,
+       0.0f, 0.0f,   0.0f, 0.0f,   0.0f, 0.0f,   0.0f, 0.0f,
+   };
+   EXPECT_EQ(expected_block, audio_data_block.get_block());
+}
+
+
