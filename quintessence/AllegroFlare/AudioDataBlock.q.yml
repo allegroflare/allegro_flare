@@ -79,7 +79,7 @@ functions:
     guards: [ initialized ]
     body: |
       sample_head_position += delta;
-      while (sample_head_position > sample_count) sample_head_position -= sample_count;
+      while (sample_head_position >= sample_count) sample_head_position -= sample_count;
       return;
 
 
@@ -150,8 +150,8 @@ functions:
     body: |
       sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
-      block[sample_position + CHANNEL_LEFT] = left_channel_value;
-      block[sample_position + CHANNEL_RIGHT] = right_channel_value;
+      block[(sample_position * channel_count) + CHANNEL_LEFT] = left_channel_value;
+      block[(sample_position * channel_count) + CHANNEL_RIGHT] = right_channel_value;
 
 
   - name: get_sample_at

@@ -38,7 +38,6 @@ functions:
         default_argument: 1.0f
     body: |
       data_block.set_sample_count(data_block.get_frequency() * delay_sec);
-      // DEBUG:
       return;
 
 
@@ -98,8 +97,9 @@ functions:
          fbuf[i+0] = fbuf[i+0] * dry + data_block.get_sample_at(i/channel_count, 0) * wet;
          fbuf[i+1] = fbuf[i+1] * dry + data_block.get_sample_at(i/channel_count, 1) * wet;
 
-         data_block.set_sample_at(i-1, fbuf[i+0], fbuf[i+1]);
+         data_block.set_sample_at((i/channel_count)-1, fbuf[i+0], fbuf[i+1]);
       }
+      //data_block.move_sample_head_position_by(samples);
  
       return;
     body_dependency_symbols:

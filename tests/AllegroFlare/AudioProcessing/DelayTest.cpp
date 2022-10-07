@@ -30,6 +30,7 @@ TEST(AllegroFlare_AudioProcessing_DelayTest, initialize__will_not_blow_up)
    AllegroFlare::AudioProcessing::Delay delay;
    delay.set_delay_sec(0.25);
    delay.initialize();
+   // DEBUG:
 
    al_attach_sample_instance_to_mixer(sample_instance, delay.get_al_mixer());
    //al_attach_sample_instance_to_mixer(sample_instance, al_get_default_mixer());

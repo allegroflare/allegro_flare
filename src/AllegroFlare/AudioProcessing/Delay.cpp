@@ -49,7 +49,6 @@ AllegroFlare::AudioDataBlock &Delay::get_data_block_ref()
 void Delay::set_delay_sec(float delay_sec)
 {
    data_block.set_sample_count(data_block.get_frequency() * delay_sec);
-   // DEBUG:
    return;
 }
 
@@ -111,8 +110,9 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
       fbuf[i+0] = fbuf[i+0] * dry + data_block.get_sample_at(i/channel_count, 0) * wet;
       fbuf[i+1] = fbuf[i+1] * dry + data_block.get_sample_at(i/channel_count, 1) * wet;
 
-      data_block.set_sample_at(i-1, fbuf[i+0], fbuf[i+1]);
+      data_block.set_sample_at((i/channel_count)-1, fbuf[i+0], fbuf[i+1]);
    }
+   //data_block.move_sample_head_position_by(samples);
 
    return;
 }

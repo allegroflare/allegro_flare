@@ -99,7 +99,7 @@ void AudioDataBlock::move_sample_head_position_by(std::size_t delta)
       throw std::runtime_error(error_message.str());
    }
    sample_head_position += delta;
-   while (sample_head_position > sample_count) sample_head_position -= sample_count;
+   while (sample_head_position >= sample_count) sample_head_position -= sample_count;
    return;
 }
 
@@ -139,8 +139,8 @@ void AudioDataBlock::set_sample_at(int sample_position, float left_channel_value
 {
    sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
-   block[sample_position + CHANNEL_LEFT] = left_channel_value;
-   block[sample_position + CHANNEL_RIGHT] = right_channel_value;
+   block[(sample_position * channel_count) + CHANNEL_LEFT] = left_channel_value;
+   block[(sample_position * channel_count) + CHANNEL_RIGHT] = right_channel_value;
 }
 
 std::pair<float, float> AudioDataBlock::get_sample_at(int sample_position, float left_channel_value, float right_channel_value)
