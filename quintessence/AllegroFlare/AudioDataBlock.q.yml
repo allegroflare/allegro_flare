@@ -5,6 +5,7 @@ properties:
     type: std::vector<float>
     init_with: '{}'
     getter: true
+    getter_ref: true
 
   - name: sample_count
     type: std::size_t
@@ -105,7 +106,7 @@ functions:
       return block.size();
 
 
-  - name: get_sample_at
+  - name: get_sample_at_mono
     type: float
     parameters:
       - name: sample_position
@@ -132,6 +133,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
+      throw std::runtime_error("This feature is not fully built and would require a little development before use.");
       sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
       block[(sample_position * channel_count) + channel_t] = value;
@@ -161,12 +163,6 @@ functions:
       - name: sample_position
         type: int
         default_argument: 0
-      - name: left_channel_value
-        type: float
-        default_argument: 0.0f
-      - name: right_channel_value
-        type: float
-        default_argument: 0.0f
     body: |
       sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
       

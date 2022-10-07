@@ -63,7 +63,7 @@ TEST(AllegroFlare_AudioDataBlockTest,
 }
 
 
-TEST(AllegroFlare_AudioDataBlockTest, set_sample_at__will_return_the_sample_at_the_position)
+TEST(AllegroFlare_AudioDataBlockTest, set_sample_at__will_set_the_sample_at_the_position)
 {
    AllegroFlare::AudioDataBlock audio_data_block(4);
    audio_data_block.initialize();
@@ -74,7 +74,7 @@ TEST(AllegroFlare_AudioDataBlockTest, set_sample_at__will_return_the_sample_at_t
 
 
 TEST(AllegroFlare_AudioDataBlockTest,
-   set_sample_at__will_return_the_sample_position_offset_by_the_head_position)
+   set_sample_at__will_set_the_sample_position_offset_by_the_head_position)
 {
    AllegroFlare::AudioDataBlock audio_data_block(4);
    audio_data_block.initialize();
@@ -86,7 +86,7 @@ TEST(AllegroFlare_AudioDataBlockTest,
 
 
 TEST(AllegroFlare_AudioDataBlockTest,
-   set_sample_at__will_return_the_sample_position_if_the_head_position_is_past_the_length)
+   set_sample_at__will_set_the_sample_position_if_the_head_position_is_past_the_length)
 {
    AllegroFlare::AudioDataBlock audio_data_block(4);
    audio_data_block.initialize();
@@ -94,6 +94,18 @@ TEST(AllegroFlare_AudioDataBlockTest,
    audio_data_block.set_sample_at(3, 0.4, 0.5);
    std::vector<float> expected_block = { 0.0f, 0.0f,   0.4f, 0.5f,   0.0f, 0.0f,   0.0f, 0.0f, };
    EXPECT_EQ(expected_block, audio_data_block.get_block());
+}
+
+
+TEST(AllegroFlare_AudioDataBlockTest,
+   get_sample_at__will_return_the_sample_at_the_position)
+{
+   AllegroFlare::AudioDataBlock audio_data_block(4);
+   audio_data_block.initialize();
+   audio_data_block.get_block_ref() = { 0.0f, 0.0f,   0.4f, 0.5f,   0.0f, 0.0f,   0.0f, 0.0f, };
+   std::pair<float, float> expected_sample = { 0.4f, 0.5f };
+   std::pair<float, float> actual_sample = audio_data_block.get_sample_at(1);
+   EXPECT_EQ(expected_sample, actual_sample);
 }
 
 

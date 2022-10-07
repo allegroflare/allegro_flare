@@ -94,8 +94,8 @@ functions:
       {
          // TODO: figure out how to offset the buffer to repeat sound at delay_sec intervals
 
-         fbuf[i+0] = fbuf[i+0] * dry + data_block.get_sample_at(i/channel_count, 0) * wet;
-         fbuf[i+1] = fbuf[i+1] * dry + data_block.get_sample_at(i/channel_count, 1) * wet;
+         fbuf[i+0] = fbuf[i+0] * dry + data_block.get_sample_at_mono(i/channel_count, 0) * wet;
+         fbuf[i+1] = fbuf[i+1] * dry + data_block.get_sample_at_mono(i/channel_count, 1) * wet;
 
          data_block.set_sample_at((i/channel_count)-1, fbuf[i+0], fbuf[i+1]);
       }

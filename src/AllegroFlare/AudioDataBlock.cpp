@@ -77,6 +77,12 @@ std::size_t AudioDataBlock::get_sample_head_position() const
 }
 
 
+std::vector<float> &AudioDataBlock::get_block_ref()
+{
+   return block;
+}
+
+
 void AudioDataBlock::initialize()
 {
    if (!((!initialized)))
@@ -127,7 +133,7 @@ std::size_t AudioDataBlock::get_block_size()
    return block.size();
 }
 
-float AudioDataBlock::get_sample_at(int sample_position, int channel_t)
+float AudioDataBlock::get_sample_at_mono(int sample_position, int channel_t)
 {
    sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
@@ -136,6 +142,7 @@ float AudioDataBlock::get_sample_at(int sample_position, int channel_t)
 
 void AudioDataBlock::set_sample_at_mono(int sample_position, int channel_t, float value)
 {
+   throw std::runtime_error("This feature is not fully built and would require a little development before use.");
    sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
    block[(sample_position * channel_count) + channel_t] = value;
@@ -149,7 +156,7 @@ void AudioDataBlock::set_sample_at(int sample_position, float left_channel_value
    block[(sample_position * channel_count) + CHANNEL_RIGHT] = right_channel_value;
 }
 
-std::pair<float, float> AudioDataBlock::get_sample_at(int sample_position, float left_channel_value, float right_channel_value)
+std::pair<float, float> AudioDataBlock::get_sample_at(int sample_position)
 {
    sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
