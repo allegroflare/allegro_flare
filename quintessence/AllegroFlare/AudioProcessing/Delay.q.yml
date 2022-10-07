@@ -87,7 +87,7 @@ functions:
       float *fbuf = (float *)buf;
       AllegroFlare::AudioProcessing::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Delay*>(data);
       AllegroFlare::AudioDataBlock &data_block = delay->get_data_block_ref();
-      float wet = 0.8;
+      float wet = delay->decay;
       float dry = 1.0;
       int channel_count = delay->mixer.get_channel_count();
 
