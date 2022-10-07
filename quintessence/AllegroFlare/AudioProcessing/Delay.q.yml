@@ -93,10 +93,7 @@ functions:
 
       for (int i=0; i<(samples * channel_count); i += channel_count)
       {
-         // TODO: write the sample with delay and fill the memory bufer
-
-         //float swap_l = fbuf[i+0];
-         //float swap_r = fbuf[i+1];
+         // TODO: figure out how to offset the buffer to repeat sound at delay_sec intervals
 
          fbuf[i+0] = fbuf[i+0] * dry + data_block.get_sample_at(i/channel_count, 0) * wet;
          fbuf[i+1] = fbuf[i+1] * dry + data_block.get_sample_at(i/channel_count, 1) * wet;
