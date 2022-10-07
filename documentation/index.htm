@@ -54,6 +54,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioDataBlock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioMixer.q.yml">quintessence/AllegroFlare/AudioMixer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AudioProcessing/AllPass.q.yml">quintessence/AllegroFlare/AudioProcessing/AllPass.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Delay.q.yml">quintessence/AllegroFlare/AudioProcessing/Delay.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Int2.q.yml">quintessence/AllegroFlare/AudioProcessing/Int2.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
@@ -699,6 +700,58 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;callback&quot;}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AudioProcessing/AllPass.q.yml">quintessence/AllegroFlare/AudioProcessing/AllPass.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">offset_sec</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">decay</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">mixer</td>
+  <td class="property">AllegroFlare::AudioMixer</td>
+</tr>
+<tr>
+  <td class="property">data_block</td>
+  <td class="property">AllegroFlare::AudioDataBlock</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_offset_sec(1)</td>
+</tr>
+<tr>
+  <td class="method">get_al_mixer()</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">mixer_postprocess_callback(3)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioDataBlock.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioMixer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioMixer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -13274,6 +13327,7 @@ table td
     "AllegroFlare/AcousticEnvironments/Reverb",
     "AllegroFlare/AudioDataBlock",
     "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AllPass",
     "AllegroFlare/AudioProcessing/Delay",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
@@ -13333,9 +13387,11 @@ table td
     "AllegroFlare/AudioMixer"
   ],
   "AllegroFlare/AudioDataBlock": [
+    "AllegroFlare/AudioProcessing/AllPass",
     "AllegroFlare/AudioProcessing/Delay"
   ],
   "AllegroFlare/AudioMixer": [
+    "AllegroFlare/AudioProcessing/AllPass",
     "AllegroFlare/AudioProcessing/Delay"
   ],
   "AllegroFlare/BitmapBin": [

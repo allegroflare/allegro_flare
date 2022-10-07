@@ -26,6 +26,7 @@
     "AllegroFlare/AcousticEnvironments/Reverb",
     "AllegroFlare/AudioDataBlock",
     "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AllPass",
     "AllegroFlare/AudioProcessing/Delay",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
@@ -85,9 +86,11 @@
     "AllegroFlare/AudioMixer"
   ],
   "AllegroFlare/AudioDataBlock": [
+    "AllegroFlare/AudioProcessing/AllPass",
     "AllegroFlare/AudioProcessing/Delay"
   ],
   "AllegroFlare/AudioMixer": [
+    "AllegroFlare/AudioProcessing/AllPass",
     "AllegroFlare/AudioProcessing/Delay"
   ],
   "AllegroFlare/BitmapBin": [
