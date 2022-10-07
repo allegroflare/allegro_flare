@@ -53,6 +53,7 @@ properties:
   - name: head
     type: std::size_t
     init_with: 0
+    getter: true
 
   - name: initialized
     type: bool
@@ -66,7 +67,7 @@ functions:
     guards: [ (!initialized), (sample_count > 0) ]
     body: |
       channel_count = al_get_channel_count(channel_configuration);
-      block.resize(sample_count * channel_count);
+      block.resize(sample_count * channel_count, 0);
       initialized = true;
 
 
@@ -75,6 +76,7 @@ functions:
       - name: delta
         type: std::size_t
         default_argument: 0
+    guards: [ initialized ]
     body: |
       // TODO: test this
       head += delta;
@@ -87,9 +89,13 @@ functions:
       - name: sample_count
         type: std::size_t
         default_argument: 2048
-    guards: [ (!initialized), (sample_count > 0) ]
+      - name: clear
+        type: bool
+        default_argument: false
+    guards: [ (sample_count > 0) ]
     body: |
       this->sample_count = sample_count;
+      block.resize(sample_count * channel_count, 0);
       return;
 
 

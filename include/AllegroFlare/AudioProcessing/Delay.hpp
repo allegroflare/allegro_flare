@@ -16,7 +16,7 @@ namespace AllegroFlare
          float delay_sec;
          float decay;
          AllegroFlare::AudioMixer mixer;
-         AllegroFlare::AudioDataBlock memory;
+         AllegroFlare::AudioDataBlock data_block;
          bool initialized;
 
       protected:
@@ -28,6 +28,8 @@ namespace AllegroFlare
 
          float get_delay_sec() const;
          float get_decay() const;
+         AllegroFlare::AudioDataBlock &get_data_block_ref();
+         void set_delay_sec(float delay_sec=1.0f);
          ALLEGRO_MIXER* get_al_mixer();
          void initialize();
          static void mixer_postprocess_callback(void* buf=nullptr, unsigned int samples=0, void* data=nullptr);

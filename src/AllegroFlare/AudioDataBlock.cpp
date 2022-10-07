@@ -65,6 +65,12 @@ std::size_t AudioDataBlock::get_channel_count() const
 }
 
 
+std::size_t AudioDataBlock::get_head() const
+{
+   return head;
+}
+
+
 void AudioDataBlock::initialize()
 {
    if (!((!initialized)))
@@ -80,26 +86,26 @@ void AudioDataBlock::initialize()
       throw std::runtime_error(error_message.str());
    }
    channel_count = al_get_channel_count(channel_configuration);
-   block.resize(sample_count * channel_count);
+   block.resize(sample_count * channel_count, 0);
    initialized = true;
 }
 
 void AudioDataBlock::move_head_by(std::size_t delta)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "AudioDataBlock" << "::" << "move_head_by" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    // TODO: test this
    head += delta;
    while (head > block.size()) head -= block.size();
    return;
 }
 
-void AudioDataBlock::set_sample_count(std::size_t sample_count)
+void AudioDataBlock::set_sample_count(std::size_t sample_count, bool clear)
 {
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "AudioDataBlock" << "::" << "set_sample_count" << ": error: " << "guard \"(!initialized)\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    if (!((sample_count > 0)))
    {
       std::stringstream error_message;
@@ -107,6 +113,7 @@ void AudioDataBlock::set_sample_count(std::size_t sample_count)
       throw std::runtime_error(error_message.str());
    }
    this->sample_count = sample_count;
+   block.resize(sample_count * channel_count, 0);
    return;
 }
 

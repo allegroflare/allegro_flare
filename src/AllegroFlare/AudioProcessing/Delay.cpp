@@ -17,7 +17,7 @@ Delay::Delay(float delay_sec, float decay)
    : delay_sec(delay_sec)
    , decay(decay)
    , mixer({})
-   , memory({})
+   , data_block({})
    , initialized(false)
 {
 }
@@ -39,6 +39,19 @@ float Delay::get_decay() const
    return decay;
 }
 
+
+AllegroFlare::AudioDataBlock &Delay::get_data_block_ref()
+{
+   return data_block;
+}
+
+
+void Delay::set_delay_sec(float delay_sec)
+{
+   data_block.set_sample_count(data_block.get_frequency() * delay_sec);
+   // DEBUG:
+   return;
+}
 
 ALLEGRO_MIXER* Delay::get_al_mixer()
 {
@@ -62,11 +75,11 @@ void Delay::initialize()
    // initialize the mixer
    mixer.initialize();
 
-   // initialize the memory
-   float frequency = memory.get_frequency(); // same as "samples per second"
+   // initialize the data_block
+   float frequency = data_block.get_frequency(); // same as "samples per second"
    int samples_needed = (int)(frequency * delay_sec);
-   memory.set_sample_count(samples_needed);
-   memory.initialize();
+   data_block.set_sample_count(samples_needed);
+   data_block.initialize();
 
    // attach the
    mixer.set_postprocess_callback(mixer_postprocess_callback, this);
@@ -86,6 +99,7 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
    }
    float *fbuf = (float *)buf;
    AllegroFlare::AudioProcessing::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Delay*>(data);
+   AllegroFlare::AudioDataBlock &data_block = delay->get_data_block_ref();
    float wet = 0.8;
    float dry = 1.0;
    int channel_count = delay->mixer.get_channel_count();
@@ -97,8 +111,10 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
       //float swap_l = fbuf[i+0];
       //float swap_r = fbuf[i+1];
 
-      //fbuf[i+0] = fbuf[i+0] * dry + memory.get_sample_at(i, 0) * wet;
-      //fbuf[i+1] = fbuf[i+1] * dry + memory.get_sample_at(i, 1) * wet;
+      fbuf[i+0] = fbuf[i+0] * dry + data_block.get_sample_at(i/channel_count, 0) * wet;
+      fbuf[i+1] = fbuf[i+1] * dry + data_block.get_sample_at(i/channel_count, 1) * wet;
+
+      data_block.set_sample_at(i-1, fbuf[i+0], fbuf[i+1]);
    }
 
    return;

@@ -22,11 +22,34 @@ TEST(AllegroFlare_AudioDataBlockTest, sample_count__is_set_to_the_expected_defau
 }
 
 
+TEST(AllegroFlare_AudioDataBlockTest, initialize__will_work_without_blowing_up)
+{
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.initialize();
+}
+
+
 TEST(AllegroFlare_AudioDataBlockTest, sample_count__when_setting_to_a_value_of_0__raises_an_exception)
 {
    AllegroFlare::AudioDataBlock audio_data_block;
    std::string expected_error_message = "AudioDataBlock::set_sample_count: error: guard \"(sample_count > 0)\" not met";
    EXPECT_THROW_WITH_MESSAGE(audio_data_block.set_sample_count(0), std::runtime_error, expected_error_message);
+}
+
+
+TEST(AllegroFlare_AudioDataBlockTest, head__has_the_expected_default_value)
+{
+   AllegroFlare::AudioDataBlock audio_data_block;
+   EXPECT_EQ(0, audio_data_block.get_head());
+}
+
+
+TEST(AllegroFlare_AudioDataBlockTest, move_head_by__will_move_the_head)
+{
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.initialize();
+   audio_data_block.move_head_by(256);
+   EXPECT_EQ(256, audio_data_block.get_head());
 }
 
 
