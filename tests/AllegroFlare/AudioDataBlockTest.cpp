@@ -37,19 +37,29 @@ TEST(AllegroFlare_AudioDataBlockTest, sample_count__when_setting_to_a_value_of_0
 }
 
 
-TEST(AllegroFlare_AudioDataBlockTest, head__has_the_expected_default_value)
+TEST(AllegroFlare_AudioDataBlockTest, sample_head_position__has_the_expected_default_value)
 {
    AllegroFlare::AudioDataBlock audio_data_block;
-   EXPECT_EQ(0, audio_data_block.get_head());
+   EXPECT_EQ(0, audio_data_block.get_sample_head_position());
 }
 
 
-TEST(AllegroFlare_AudioDataBlockTest, move_head_by__will_move_the_head)
+TEST(AllegroFlare_AudioDataBlockTest, move_sample_head_position_by__will_move_the_sample_head_position)
 {
    AllegroFlare::AudioDataBlock audio_data_block;
    audio_data_block.initialize();
-   audio_data_block.move_head_by(256);
-   EXPECT_EQ(256, audio_data_block.get_head());
+   audio_data_block.move_sample_head_position_by(256);
+   EXPECT_EQ(256, audio_data_block.get_sample_head_position());
+}
+
+
+TEST(AllegroFlare_AudioDataBlockTest,
+   move_sample_head_position_by__when_moving_beyond_the_length_of_the_block__will_modulo_the_sample_head_position)
+{
+   AllegroFlare::AudioDataBlock audio_data_block;
+   audio_data_block.initialize();
+   audio_data_block.move_sample_head_position_by(256 + audio_data_block.get_sample_count());
+   EXPECT_EQ(256, audio_data_block.get_sample_head_position());
 }
 
 

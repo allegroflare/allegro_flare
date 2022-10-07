@@ -50,7 +50,7 @@ properties:
     static: true
     init_with: 1
 
-  - name: head
+  - name: sample_head_position
     type: std::size_t
     init_with: 0
     getter: true
@@ -71,16 +71,15 @@ functions:
       initialized = true;
 
 
-  - name: move_head_by
+  - name: move_sample_head_position_by
     parameters:
       - name: delta
         type: std::size_t
         default_argument: 0
     guards: [ initialized ]
     body: |
-      // TODO: test this
-      head += delta;
-      while (head > block.size()) head -= block.size();
+      sample_head_position += delta;
+      while (sample_head_position > sample_count) sample_head_position -= sample_count;
       return;
 
 
@@ -99,6 +98,12 @@ functions:
       return;
 
 
+  - name: get_block_size
+    type: std::size_t
+    body: |
+      return block.size();
+
+
   - name: get_sample_at
     type: float
     parameters:
@@ -109,7 +114,7 @@ functions:
         type: int
         default_argument: CHANNEL_LEFT
     body: |
-      sample_position = clamp_loop_sample_position(head + sample_position);
+      sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
       return block[(sample_position * channel_count) + channel_t];
 
@@ -126,7 +131,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      sample_position = clamp_loop_sample_position(head + sample_position);
+      sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
       block[(sample_position * channel_count) + channel_t] = value;
 
@@ -143,7 +148,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      sample_position = clamp_loop_sample_position(head + sample_position);
+      sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
       block[sample_position + CHANNEL_LEFT] = left_channel_value;
       block[sample_position + CHANNEL_RIGHT] = right_channel_value;
@@ -162,7 +167,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      sample_position = clamp_loop_sample_position(head + sample_position);
+      sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
       
       return std::pair<float, float>{
          block[(sample_position * channel_count) + CHANNEL_LEFT],

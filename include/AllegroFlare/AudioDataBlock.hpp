@@ -23,7 +23,7 @@ namespace AllegroFlare
       unsigned int frequency;
       ALLEGRO_CHANNEL_CONF channel_configuration;
       std::size_t channel_count;
-      std::size_t head;
+      std::size_t sample_head_position;
       bool initialized;
       int clamp_loop_sample_position(int sample_position=0);
 
@@ -40,10 +40,11 @@ namespace AllegroFlare
       unsigned int get_frequency() const;
       ALLEGRO_CHANNEL_CONF get_channel_configuration() const;
       std::size_t get_channel_count() const;
-      std::size_t get_head() const;
+      std::size_t get_sample_head_position() const;
       void initialize();
-      void move_head_by(std::size_t delta=0);
+      void move_sample_head_position_by(std::size_t delta=0);
       void set_sample_count(std::size_t sample_count=2048, bool clear=false);
+      std::size_t get_block_size();
       float get_sample_at(int sample_position=0, int channel_t=CHANNEL_LEFT);
       void set_sample_at(int sample_position=0, int channel_t=CHANNEL_LEFT, float value=0.0f);
       void set_sample_at(int sample_position=0, float left_channel_value=0.0f, float right_channel_value=0.0f);

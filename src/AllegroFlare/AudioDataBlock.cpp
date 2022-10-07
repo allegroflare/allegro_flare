@@ -18,7 +18,7 @@ AudioDataBlock::AudioDataBlock(std::size_t sample_count, ALLEGRO_AUDIO_DEPTH dep
    , frequency(44100)
    , channel_configuration(ALLEGRO_CHANNEL_CONF_2)
    , channel_count(0)
-   , head(0)
+   , sample_head_position(0)
    , initialized(false)
 {
 }
@@ -65,9 +65,9 @@ std::size_t AudioDataBlock::get_channel_count() const
 }
 
 
-std::size_t AudioDataBlock::get_head() const
+std::size_t AudioDataBlock::get_sample_head_position() const
 {
-   return head;
+   return sample_head_position;
 }
 
 
@@ -90,17 +90,16 @@ void AudioDataBlock::initialize()
    initialized = true;
 }
 
-void AudioDataBlock::move_head_by(std::size_t delta)
+void AudioDataBlock::move_sample_head_position_by(std::size_t delta)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "AudioDataBlock" << "::" << "move_head_by" << ": error: " << "guard \"initialized\" not met";
+      error_message << "AudioDataBlock" << "::" << "move_sample_head_position_by" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // TODO: test this
-   head += delta;
-   while (head > block.size()) head -= block.size();
+   sample_head_position += delta;
+   while (sample_head_position > sample_count) sample_head_position -= sample_count;
    return;
 }
 
@@ -117,23 +116,28 @@ void AudioDataBlock::set_sample_count(std::size_t sample_count, bool clear)
    return;
 }
 
+std::size_t AudioDataBlock::get_block_size()
+{
+   return block.size();
+}
+
 float AudioDataBlock::get_sample_at(int sample_position, int channel_t)
 {
-   sample_position = clamp_loop_sample_position(head + sample_position);
+   sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
    return block[(sample_position * channel_count) + channel_t];
 }
 
 void AudioDataBlock::set_sample_at(int sample_position, int channel_t, float value)
 {
-   sample_position = clamp_loop_sample_position(head + sample_position);
+   sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
    block[(sample_position * channel_count) + channel_t] = value;
 }
 
 void AudioDataBlock::set_sample_at(int sample_position, float left_channel_value, float right_channel_value)
 {
-   sample_position = clamp_loop_sample_position(head + sample_position);
+   sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
    block[sample_position + CHANNEL_LEFT] = left_channel_value;
    block[sample_position + CHANNEL_RIGHT] = right_channel_value;
@@ -141,7 +145,7 @@ void AudioDataBlock::set_sample_at(int sample_position, float left_channel_value
 
 std::pair<float, float> AudioDataBlock::get_sample_at(int sample_position, float left_channel_value, float right_channel_value)
 {
-   sample_position = clamp_loop_sample_position(head + sample_position);
+   sample_position = clamp_loop_sample_position(sample_head_position + sample_position);
 
    return std::pair<float, float>{
       block[(sample_position * channel_count) + CHANNEL_LEFT],
