@@ -87,21 +87,46 @@ functions:
       float *fbuf = (float *)buf;
       AllegroFlare::AudioProcessing::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::AllPass*>(data);
       AllegroFlare::AudioDataBlock &data_block = all_pass->get_data_block_ref();
-      float wet = all_pass->decay;
+      float wet = 1.0; //all_pass->decay;
       float dry = 1.0;
       int channel_count = all_pass->mixer.get_channel_count();
+
+      int sample_offset = 256;
+      static std::pair<float, float> delayed_sample = {0, 0};
+
+      float allPassGain = 1.0;
 
       for (int i=0; i<samples; i++)
       {
          int bufpos = i * 2;
 
-         float l_result = fbuf[bufpos+0] * dry + data_block.get_sample_at_mono(i, 0) * wet;
-         float r_result = fbuf[bufpos+1] * dry + data_block.get_sample_at_mono(i, 1) * wet;
+         //float delayOutput = allPassDelayedSample;
+         std::pair<float, float> delayOutput = delayed_sample;
 
-         data_block.set_sample_at(i-1, l_result, r_result);
+         //float feedBack = delayOutput * allPassGain;
+         std::pair<float, float> feedBack = std::pair<float, float>(
+            delayOutput.first * allPassGain,
+            delayOutput.second * allPassGain
+         );
 
-         fbuf[bufpos+0] = l_result;
-         fbuf[bufpos+1] = r_result;
+         //float delayInput = inSamp + feedBack;
+         std::pair<float, float> delayInput = std::pair<float, float>(
+            fbuf[bufpos+0] + feedBack.first,
+            fbuf[bufpos+1] + feedBack.second
+         );
+
+         //float feedForward = delayInput * -allPassGain;
+         std::pair<float, float> feedForward = std::pair<float, float>(
+            delayInput.first * -allPassGain,
+            delayInput.second * -allPassGain
+         );
+
+         //allPassDelayedSample = delayInput;
+         delayed_sample = delayInput;
+
+         //return delayOutput + feedForward;
+         fbuf[bufpos+0] = delayOutput.first + feedForward.first;
+         fbuf[bufpos+1] = delayOutput.second + feedForward.second;
       }
       data_block.move_sample_head_position_by(samples);
  
