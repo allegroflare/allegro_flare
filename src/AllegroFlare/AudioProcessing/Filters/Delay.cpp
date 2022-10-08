@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/AudioProcessing/Delay.hpp>
+#include <AllegroFlare/AudioProcessing/Filters/Delay.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -10,6 +10,8 @@
 namespace AllegroFlare
 {
 namespace AudioProcessing
+{
+namespace Filters
 {
 
 
@@ -98,7 +100,7 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
       throw std::runtime_error(error_message.str());
    }
    float *fbuf = (float *)buf;
-   AllegroFlare::AudioProcessing::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Delay*>(data);
+   AllegroFlare::AudioProcessing::Filters::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Filters::Delay*>(data);
    AllegroFlare::AudioDataBlock &data_block = delay->get_data_block_ref();
    float wet = delay->decay;
    float dry = 1.0;
@@ -122,6 +124,7 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
 }
 
 
+} // namespace Filters
 } // namespace AudioProcessing
 } // namespace AllegroFlare
 

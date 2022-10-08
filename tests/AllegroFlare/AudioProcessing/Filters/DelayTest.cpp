@@ -1,18 +1,18 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/AudioProcessing/Delay.hpp>
+#include <AllegroFlare/AudioProcessing/Filters/Delay.hpp>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
 
-TEST(AllegroFlare_AudioProcessing_DelayTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_AudioProcessing_Filters_DelayTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::AudioProcessing::Delay delay;
+   AllegroFlare::AudioProcessing::Filters::Delay delay;
 }
 
 
-TEST(AllegroFlare_AudioProcessing_DelayTest, initialize__will_not_blow_up)
+TEST(AllegroFlare_AudioProcessing_Filters_DelayTest, initialize__will_not_blow_up)
 {
    al_init();
    al_install_audio();
@@ -27,7 +27,7 @@ TEST(AllegroFlare_AudioProcessing_DelayTest, initialize__will_not_blow_up)
    ASSERT_NE(nullptr, sample_instance);
 
 
-   AllegroFlare::AudioProcessing::Delay delay;
+   AllegroFlare::AudioProcessing::Filters::Delay delay;
    delay.initialize();
    delay.set_delay_sec(60.0f/130.0f/4.0f); // 60.0f / 130.0f // 130 is the bpm of the sample
 

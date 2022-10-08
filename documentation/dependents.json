@@ -32,8 +32,8 @@
   "ALLEGRO_MIXER": [
     "AllegroFlare/AudioDataBlock",
     "AllegroFlare/AudioMixer",
-    "AllegroFlare/AudioProcessing/Delay",
     "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "ALLEGRO_AUDIO_DEPTH": [
@@ -77,12 +77,12 @@
     "AllegroFlare/AudioMixer"
   ],
   "AllegroFlare/AudioDataBlock": [
-    "AllegroFlare/AudioProcessing/Delay",
-    "AllegroFlare/AudioProcessing/Filters/AllPass"
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay"
   ],
   "AllegroFlare/AudioMixer": [
-    "AllegroFlare/AudioProcessing/Delay",
-    "AllegroFlare/AudioProcessing/Filters/AllPass"
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay"
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
