@@ -1,18 +1,18 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/AudioProcessing/AllPass.hpp>
+#include <AllegroFlare/AudioProcessing/Filters/AllPass.hpp>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
 
-TEST(AllegroFlare_AudioProcessing_AllPassTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_AudioProcessing_Filters_AllPassTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::AudioProcessing::AllPass all_pass;
+   AllegroFlare::AudioProcessing::Filters::AllPass all_pass;
 }
 
 
-TEST(AllegroFlare_AudioProcessing_AllPassTest, initialize__will_not_blow_up)
+TEST(AllegroFlare_AudioProcessing_Filters_AllPassTest, initialize__will_not_blow_up)
 {
    al_init();
    al_install_audio();
@@ -29,7 +29,7 @@ TEST(AllegroFlare_AudioProcessing_AllPassTest, initialize__will_not_blow_up)
    ASSERT_NE(nullptr, sample_instance);
 
 
-   AllegroFlare::AudioProcessing::AllPass all_pass;
+   AllegroFlare::AudioProcessing::Filters::AllPass all_pass;
    all_pass.initialize();
    all_pass.set_offset_sec(0.0042);
    all_pass.set_wet(1.0f);

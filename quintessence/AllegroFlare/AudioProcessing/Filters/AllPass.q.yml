@@ -135,7 +135,7 @@ functions:
     guards: [ data ]
     body: |
       float *fbuf = (float *)buf;
-      AllegroFlare::AudioProcessing::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::AllPass*>(data);
+      AllegroFlare::AudioProcessing::Filters::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::Filters::AllPass*>(data);
       AllegroFlare::AudioDataBlock &data_block = all_pass->get_data_block_ref();
       int channel_count = all_pass->mixer.get_channel_count();
       float &gain = all_pass->gain;
