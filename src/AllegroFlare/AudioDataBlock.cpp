@@ -129,6 +129,7 @@ void AudioDataBlock::set_sample_count(std::size_t sample_count, bool clear)
       error_message << "AudioDataBlock" << "::" << "set_sample_count" << ": error: " << "guard \"(sample_count > 0)\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // TODO: permit this value to be set before initialization
    sample_head_position = 0;
    this->sample_count = sample_count;
    block.resize(sample_count * channel_count, 0);

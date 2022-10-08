@@ -93,6 +93,7 @@ functions:
         default_argument: false
     guards: [ initialized, (sample_count > 0) ]
     body: |
+      // TODO: permit this value to be set before initialization
       sample_head_position = 0;
       this->sample_count = sample_count;
       block.resize(sample_count * channel_count, 0);
