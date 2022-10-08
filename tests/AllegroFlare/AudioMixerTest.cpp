@@ -20,7 +20,7 @@ TEST(AllegroFlare_AudioMixerTest, initialize__will_not_blow_up)
    al_reserve_samples(32); // used to implicitly create the default mixer and default voice
 
    std::string sample_filename =
-      "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/music_tracks/test-bips-short-01.ogg";
+      "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/music_tracks/test-bips-short-130bpm-01.ogg";
    ALLEGRO_SAMPLE *sample = al_load_sample(sample_filename.c_str());
    ASSERT_NE(nullptr, sample);
    ALLEGRO_SAMPLE_INSTANCE *sample_instance = al_create_sample_instance(sample);

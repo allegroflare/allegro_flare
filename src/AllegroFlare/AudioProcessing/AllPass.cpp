@@ -114,7 +114,7 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
       int bufpos = i * 2;
 
       //float delayOutput = allPassDelayedSample;
-      std::pair<float, float> delayOutput = data_block.get_sample_at(i+1);
+      std::pair<float, float> delayOutput = data_block.get_sample_at(i-1);
 
       //float feedBack = delayOutput * allPassGain;
       std::pair<float, float> feedBack = std::pair<float, float>(
