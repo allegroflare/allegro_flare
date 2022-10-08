@@ -8,11 +8,26 @@ properties:
     getter: true
     setter: false
 
-  - name: decay
+  - name: gain
     type: float
-    init_with: 0.8
+    init_with: 0.7
     constructor_arg: true
     getter: true
+    setter: false
+
+  - name: wet
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: dry
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: false
 
   - name: mixer
     type: AllegroFlare::AudioMixer
@@ -37,7 +52,42 @@ functions:
         type: float
         default_argument: 1.0f
     body: |
+      // Sample count must be at minimum 1 sample (data_block.set_sample_count will throw an error in this case)
+      // With a sample rate of 44100, this would be an offset_sec of 0.000022675736961
       data_block.set_sample_count(data_block.get_frequency() * offset_sec);
+      return;
+
+
+  - name: set_gain
+    parameters:
+      - name: gain
+        type: float
+        default_argument: 1.0f
+    guards: [ (gain >= 0.0f), (gain <= 1.0f) ]
+    body: |
+      this->gain = gain;
+      return;
+
+
+  - name: set_wet
+    parameters:
+      - name: wet
+        type: float
+        default_argument: 1.0f
+    guards: [ (wet >= 0.0f), (wet <= 1.0f) ]
+    body: |
+      this->wet = wet;
+      return;
+
+
+  - name: set_dry
+    parameters:
+      - name: dry
+        type: float
+        default_argument: 1.0f
+    guards: [ (dry >= 0.0f), (dry <= 1.0f) ]
+    body: |
+      this->dry = dry;
       return;
 
 
@@ -87,14 +137,10 @@ functions:
       float *fbuf = (float *)buf;
       AllegroFlare::AudioProcessing::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::AllPass*>(data);
       AllegroFlare::AudioDataBlock &data_block = all_pass->get_data_block_ref();
-      float wet = 1.0;
-      float dry = 0.5; // NOTE: there is 0 dry here
       int channel_count = all_pass->mixer.get_channel_count();
-
-      //int sample_offset = 256;
-      //static std::pair<float, float> delayed_sample = {0, 0};
-
-      float allPassGain = 1.0;
+      float &gain = all_pass->gain;
+      float &wet = all_pass->wet;
+      float &dry = all_pass->dry;
 
       for (int i=0; i<samples; i++)
       {
@@ -108,8 +154,8 @@ functions:
 
          //float feedBack = delayOutput * allPassGain;
          std::pair<float, float> feedBack = std::pair<float, float>(
-            delayOutput.first * allPassGain,
-            delayOutput.second * allPassGain
+            delayOutput.first * gain,
+            delayOutput.second * gain
          );
 
          //float delayInput = inSamp + feedBack;
@@ -120,8 +166,8 @@ functions:
 
          //float feedForward = delayInput * -allPassGain;
          std::pair<float, float> feedForward = std::pair<float, float>(
-            delayInput.first * -allPassGain,
-            delayInput.second * -allPassGain
+            delayInput.first * -gain,
+            delayInput.second * -gain
          );
 
          //allPassDelayedSample = delayInput;

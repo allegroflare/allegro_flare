@@ -31,7 +31,9 @@ TEST(AllegroFlare_AudioProcessing_AllPassTest, initialize__will_not_blow_up)
 
    AllegroFlare::AudioProcessing::AllPass all_pass;
    all_pass.initialize();
-   all_pass.set_offset_sec(0.06); // 60.0f / 130.0f // 130 is the bpm of the sample
+   all_pass.set_offset_sec(0.0042);
+   all_pass.set_wet(1.0f);
+   all_pass.set_dry(1.0f);
 
    al_attach_sample_instance_to_mixer(sample_instance, all_pass.get_al_mixer());
    al_play_sample_instance(sample_instance);

@@ -13,9 +13,11 @@ namespace AudioProcessing
 {
 
 
-AllPass::AllPass(float offset_sec, float decay)
+AllPass::AllPass(float offset_sec, float gain, float wet, float dry)
    : offset_sec(offset_sec)
-   , decay(decay)
+   , gain(gain)
+   , wet(wet)
+   , dry(dry)
    , mixer()
    , data_block()
    , initialized(false)
@@ -34,9 +36,21 @@ float AllPass::get_offset_sec() const
 }
 
 
-float AllPass::get_decay() const
+float AllPass::get_gain() const
 {
-   return decay;
+   return gain;
+}
+
+
+float AllPass::get_wet() const
+{
+   return wet;
+}
+
+
+float AllPass::get_dry() const
+{
+   return dry;
 }
 
 
@@ -48,7 +62,63 @@ AllegroFlare::AudioDataBlock &AllPass::get_data_block_ref()
 
 void AllPass::set_offset_sec(float offset_sec)
 {
+   // Sample count must be at minimum 1 sample (data_block.set_sample_count will throw an error in this case)
+   // With a sample rate of 44100, this would be an offset_sec of 0.000022675736961
    data_block.set_sample_count(data_block.get_frequency() * offset_sec);
+   return;
+}
+
+void AllPass::set_gain(float gain)
+{
+   if (!((gain >= 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "AllPass" << "::" << "set_gain" << ": error: " << "guard \"(gain >= 0.0f)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((gain <= 1.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "AllPass" << "::" << "set_gain" << ": error: " << "guard \"(gain <= 1.0f)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->gain = gain;
+   return;
+}
+
+void AllPass::set_wet(float wet)
+{
+   if (!((wet >= 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "AllPass" << "::" << "set_wet" << ": error: " << "guard \"(wet >= 0.0f)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((wet <= 1.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "AllPass" << "::" << "set_wet" << ": error: " << "guard \"(wet <= 1.0f)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->wet = wet;
+   return;
+}
+
+void AllPass::set_dry(float dry)
+{
+   if (!((dry >= 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "AllPass" << "::" << "set_dry" << ": error: " << "guard \"(dry >= 0.0f)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((dry <= 1.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "AllPass" << "::" << "set_dry" << ": error: " << "guard \"(dry <= 1.0f)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->dry = dry;
    return;
 }
 
@@ -100,14 +170,10 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
    float *fbuf = (float *)buf;
    AllegroFlare::AudioProcessing::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::AllPass*>(data);
    AllegroFlare::AudioDataBlock &data_block = all_pass->get_data_block_ref();
-   float wet = 1.0;
-   float dry = 0.5; // NOTE: there is 0 dry here
    int channel_count = all_pass->mixer.get_channel_count();
-
-   //int sample_offset = 256;
-   //static std::pair<float, float> delayed_sample = {0, 0};
-
-   float allPassGain = 1.0;
+   float &gain = all_pass->gain;
+   float &wet = all_pass->wet;
+   float &dry = all_pass->dry;
 
    for (int i=0; i<samples; i++)
    {
@@ -121,8 +187,8 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
 
       //float feedBack = delayOutput * allPassGain;
       std::pair<float, float> feedBack = std::pair<float, float>(
-         delayOutput.first * allPassGain,
-         delayOutput.second * allPassGain
+         delayOutput.first * gain,
+         delayOutput.second * gain
       );
 
       //float delayInput = inSamp + feedBack;
@@ -133,8 +199,8 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
 
       //float feedForward = delayInput * -allPassGain;
       std::pair<float, float> feedForward = std::pair<float, float>(
-         delayInput.first * -allPassGain,
-         delayInput.second * -allPassGain
+         delayInput.first * -gain,
+         delayInput.second * -gain
       );
 
       //allPassDelayedSample = delayInput;
