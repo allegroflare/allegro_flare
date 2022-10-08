@@ -53,7 +53,8 @@ TEST(AllegroFlare_Prototypes_MindDive_HypersyncTest, DISABLED__start__will_play_
 }
 
 
-TEST(AllegroFlare_Prototypes_MindDive_HypersyncTest, DISABLED__start__will_synchronize_the_audio_stream_with_the_timer)
+TEST(AllegroFlare_Prototypes_MindDive_HypersyncTest,
+   DISABLED__INTERACTIVE__start__will_synchronize_the_audio_stream_with_the_timer)
 {
    al_init();
    al_init_acodec_addon();
