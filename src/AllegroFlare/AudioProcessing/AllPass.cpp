@@ -100,8 +100,8 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
    float *fbuf = (float *)buf;
    AllegroFlare::AudioProcessing::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::AllPass*>(data);
    AllegroFlare::AudioDataBlock &data_block = all_pass->get_data_block_ref();
-   float wet = 1.0; //all_pass->decay;
-   float dry = 1.0;
+   float wet = 1.0;
+   float dry = 0.5; // NOTE: there is 0 dry here
    int channel_count = all_pass->mixer.get_channel_count();
 
    //int sample_offset = 256;
@@ -112,6 +112,9 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
    for (int i=0; i<samples; i++)
    {
       int bufpos = i * 2;
+
+      // collect the now_sample to mix in a wet/dry mix
+      std::pair<float, float> dry_sample = { fbuf[bufpos+0], fbuf[bufpos+1] };
 
       //float delayOutput = allPassDelayedSample;
       std::pair<float, float> delayOutput = data_block.get_sample_at(i-1);
@@ -138,8 +141,8 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
       data_block.set_sample_at(i-1, delayInput.first, delayInput.second);
 
       //return delayOutput + feedForward;
-      fbuf[bufpos+0] = delayOutput.first + feedForward.first;
-      fbuf[bufpos+1] = delayOutput.second + feedForward.second;
+      fbuf[bufpos+0] = dry_sample.first * dry + (delayOutput.first + feedForward.first) * wet;
+      fbuf[bufpos+1] = dry_sample.second * dry + (delayOutput.second + feedForward.second) * wet;
    }
    data_block.move_sample_head_position_by(samples);
 
