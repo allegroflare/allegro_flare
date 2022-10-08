@@ -1,18 +1,18 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/AudioMixer.hpp>
+#include <AllegroFlare/AudioProcessing/AudioMixer.hpp>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
 
-TEST(AllegroFlare_AudioMixerTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_AudioProcessing_AudioMixerTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::AudioMixer audio_mixer;
+   AllegroFlare::AudioProcessing::AudioMixer audio_mixer;
 }
 
 
-TEST(AllegroFlare_AudioMixerTest, initialize__will_not_blow_up)
+TEST(AllegroFlare_AudioProcessing_AudioMixerTest, initialize__will_not_blow_up)
 {
    al_init();
    al_install_audio();
@@ -26,7 +26,7 @@ TEST(AllegroFlare_AudioMixerTest, initialize__will_not_blow_up)
    ALLEGRO_SAMPLE_INSTANCE *sample_instance = al_create_sample_instance(sample);
    ASSERT_NE(nullptr, sample_instance);
 
-   AllegroFlare::AudioMixer audio_mixer;
+   AllegroFlare::AudioProcessing::AudioMixer audio_mixer;
    audio_mixer.initialize();
 
    al_attach_sample_instance_to_mixer(sample_instance, audio_mixer.get_mixer());

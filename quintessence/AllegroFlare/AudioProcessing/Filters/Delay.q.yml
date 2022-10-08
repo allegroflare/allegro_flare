@@ -15,7 +15,7 @@ properties:
     getter: true
 
   - name: mixer
-    type: AllegroFlare::AudioMixer
+    type: AllegroFlare::AudioProcessing::AudioMixer
     init_with: ''
 
   - name: data_block
@@ -115,8 +115,8 @@ dependencies:
 
   - symbol: AllegroFlare::AudioDataBlock
     headers: [ AllegroFlare/AudioDataBlock.hpp ]
-  - symbol: AllegroFlare::AudioMixer
-    headers: [ AllegroFlare/AudioMixer.hpp ]
+  - symbol: AllegroFlare::AudioProcessing::AudioMixer
+    headers: [ AllegroFlare/AudioProcessing/AudioMixer.hpp ]
   - symbol: ALLEGRO_MIXER
     headers: [ allegro5/allegro_audio.h ]
 

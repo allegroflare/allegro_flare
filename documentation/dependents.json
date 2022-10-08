@@ -31,29 +31,29 @@
   ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AudioDataBlock",
-    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/AudioProcessing/Filters/AllPass",
     "AllegroFlare/AudioProcessing/Filters/Delay",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "ALLEGRO_AUDIO_DEPTH": [
     "AllegroFlare/AudioDataBlock",
-    "AllegroFlare/AudioMixer"
+    "AllegroFlare/AudioProcessing/AudioMixer"
   ],
   "ALLEGRO_CHANNEL_CONF": [
     "AllegroFlare/AudioDataBlock",
-    "AllegroFlare/AudioMixer"
+    "AllegroFlare/AudioProcessing/AudioMixer"
   ],
   "std/size_t": [
     "AllegroFlare/AudioDataBlock",
-    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TileMaps/MultiMesh"
   ],
   "al_is_system_installed": [
-    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
@@ -70,17 +70,17 @@
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "al_is_audio_installed": [
-    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "callback": [
-    "AllegroFlare/AudioMixer"
+    "AllegroFlare/AudioProcessing/AudioMixer"
   ],
   "AllegroFlare/AudioDataBlock": [
     "AllegroFlare/AudioProcessing/Filters/AllPass",
     "AllegroFlare/AudioProcessing/Filters/Delay"
   ],
-  "AllegroFlare/AudioMixer": [
+  "AllegroFlare/AudioProcessing/AudioMixer": [
     "AllegroFlare/AudioProcessing/Filters/AllPass",
     "AllegroFlare/AudioProcessing/Filters/Delay"
   ],

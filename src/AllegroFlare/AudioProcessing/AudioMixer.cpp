@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/AudioMixer.hpp>
+#include <AllegroFlare/AudioProcessing/AudioMixer.hpp>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
@@ -10,6 +10,8 @@
 
 
 namespace AllegroFlare
+{
+namespace AudioProcessing
 {
 
 
@@ -84,7 +86,7 @@ void AudioMixer::validate_configuration()
    if (audio_depth != ALLEGRO_AUDIO_DEPTH_FLOAT32)
    {
       std::stringstream error_message;
-      error_message << "AllegroFlare::AudioMixer::validate_configuration: error: "
+      error_message << "AllegroFlare::AudioProcessing::AudioMixer::validate_configuration: error: "
                     << "expecting audio_depth of the passed AcousticEnvironments::Reverb to be "
                     << "ALLEGRO_AUDIO_DEPTH_FLOAT32 but it is not.";
       throw std::runtime_error(error_message.str());
@@ -92,7 +94,7 @@ void AudioMixer::validate_configuration()
    if (channel_configuration != ALLEGRO_CHANNEL_CONF_2)
    {
       std::stringstream error_message;
-      error_message << "AllegroFlare::AudioMixer::validate_configuration: error: "
+      error_message << "AllegroFlare::AudioProcessing::AudioMixer::validate_configuration: error: "
                     << "expecting channel_configuration of to be "
                     << "ALLEGRO_CHANNEL_CONF_2 but it is not.";
       throw std::runtime_error(error_message.str());
@@ -100,7 +102,7 @@ void AudioMixer::validate_configuration()
    if (frequency != 44100)
    {
       std::stringstream error_message;
-      error_message << "AllegroFlare::AudioMixer::validate_configuration: error: "
+      error_message << "AllegroFlare::AudioProcessing::AudioMixer::validate_configuration: error: "
                     << "expecting frequency to be 44100 but it is not.";
       throw std::runtime_error(error_message.str());
    }
@@ -175,7 +177,7 @@ void AudioMixer::set_postprocess_callback(void (*callback)(void*, unsigned int, 
    if (!mixer_postprocess_callback_setup_was_successful)
    {
       std::stringstream error_message;
-      error_message << "AllegroFlare::AudioMixer::set_postprocess_callback error: "
+      error_message << "AllegroFlare::AudioProcessing::AudioMixer::set_postprocess_callback error: "
                     << "there was an error setting up the mixer postprocess callback.";
       throw std::runtime_error(error_message.str());
    }
@@ -183,6 +185,7 @@ void AudioMixer::set_postprocess_callback(void (*callback)(void*, unsigned int, 
 }
 
 
+} // namespace AudioProcessing
 } // namespace AllegroFlare
 
 

@@ -51,7 +51,7 @@ table td
 <ul>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioDataBlock.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/AudioMixer.q.yml">quintessence/AllegroFlare/AudioMixer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Filters/AllPass.q.yml">quintessence/AllegroFlare/AudioProcessing/Filters/AllPass.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Filters/Delay.q.yml">quintessence/AllegroFlare/AudioProcessing/Filters/Delay.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
@@ -505,7 +505,7 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/AudioMixer.q.yml">quintessence/AllegroFlare/AudioMixer.q.yml</h3>
+    <h3 id="quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml</h3>
      <table>
 <tr>
   <td class="property">parent_mixer</td>
@@ -601,7 +601,7 @@ table td
 </tr>
 <tr>
   <td class="property">mixer</td>
-  <td class="property">AllegroFlare::AudioMixer</td>
+  <td class="property">AllegroFlare::AudioProcessing::AudioMixer</td>
 </tr>
 <tr>
   <td class="property">data_block</td>
@@ -640,7 +640,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioDataBlock.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioMixer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioMixer.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioProcessing::AudioMixer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioProcessing/AudioMixer.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
@@ -662,7 +662,7 @@ table td
 </tr>
 <tr>
   <td class="property">mixer</td>
-  <td class="property">AllegroFlare::AudioMixer</td>
+  <td class="property">AllegroFlare::AudioProcessing::AudioMixer</td>
 </tr>
 <tr>
   <td class="property">data_block</td>
@@ -692,7 +692,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioDataBlock.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioMixer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioMixer.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioProcessing::AudioMixer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioProcessing/AudioMixer.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MIXER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_audio.h&quot;]}</td>
@@ -13205,29 +13205,29 @@ table td
   ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AudioDataBlock",
-    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/AudioProcessing/Filters/AllPass",
     "AllegroFlare/AudioProcessing/Filters/Delay",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "ALLEGRO_AUDIO_DEPTH": [
     "AllegroFlare/AudioDataBlock",
-    "AllegroFlare/AudioMixer"
+    "AllegroFlare/AudioProcessing/AudioMixer"
   ],
   "ALLEGRO_CHANNEL_CONF": [
     "AllegroFlare/AudioDataBlock",
-    "AllegroFlare/AudioMixer"
+    "AllegroFlare/AudioProcessing/AudioMixer"
   ],
   "std/size_t": [
     "AllegroFlare/AudioDataBlock",
-    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TileMaps/MultiMesh"
   ],
   "al_is_system_installed": [
-    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
@@ -13244,17 +13244,17 @@ table td
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "al_is_audio_installed": [
-    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "callback": [
-    "AllegroFlare/AudioMixer"
+    "AllegroFlare/AudioProcessing/AudioMixer"
   ],
   "AllegroFlare/AudioDataBlock": [
     "AllegroFlare/AudioProcessing/Filters/AllPass",
     "AllegroFlare/AudioProcessing/Filters/Delay"
   ],
-  "AllegroFlare/AudioMixer": [
+  "AllegroFlare/AudioProcessing/AudioMixer": [
     "AllegroFlare/AudioProcessing/Filters/AllPass",
     "AllegroFlare/AudioProcessing/Filters/Delay"
   ],

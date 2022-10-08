@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/AudioDataBlock.hpp>
-#include <AllegroFlare/AudioMixer.hpp>
+#include <AllegroFlare/AudioProcessing/AudioMixer.hpp>
 #include <allegro5/allegro_audio.h>
 
 
@@ -17,7 +17,7 @@ namespace AllegroFlare
          private:
             float delay_sec;
             float decay;
-            AllegroFlare::AudioMixer mixer;
+            AllegroFlare::AudioProcessing::AudioMixer mixer;
             AllegroFlare::AudioDataBlock data_block;
             bool initialized;
 
