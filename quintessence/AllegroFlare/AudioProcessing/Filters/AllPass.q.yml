@@ -34,7 +34,7 @@ properties:
     init_with: ''
 
   - name: data_block
-    type: AllegroFlare::AudioDataBlock
+    type: AllegroFlare::AudioProcessing::AudioDataBlock
     init_with: ''
     getter_ref: true
 
@@ -136,7 +136,7 @@ functions:
     body: |
       float *fbuf = (float *)buf;
       AllegroFlare::AudioProcessing::Filters::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::Filters::AllPass*>(data);
-      AllegroFlare::AudioDataBlock &data_block = all_pass->get_data_block_ref();
+      AllegroFlare::AudioProcessing::AudioDataBlock &data_block = all_pass->get_data_block_ref();
       int channel_count = all_pass->mixer.get_channel_count();
       float &gain = all_pass->gain;
       float &wet = all_pass->wet;
@@ -187,8 +187,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::AudioDataBlock
-    headers: [ AllegroFlare/AudioDataBlock.hpp ]
+  - symbol: AllegroFlare::AudioProcessing::AudioDataBlock
+    headers: [ AllegroFlare/AudioProcessing/AudioDataBlock.hpp ]
   - symbol: AllegroFlare::AudioProcessing::AudioMixer
     headers: [ AllegroFlare/AudioProcessing/AudioMixer.hpp ]
   - symbol: ALLEGRO_MIXER

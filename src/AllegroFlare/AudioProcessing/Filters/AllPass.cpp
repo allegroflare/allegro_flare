@@ -56,7 +56,7 @@ float AllPass::get_dry() const
 }
 
 
-AllegroFlare::AudioDataBlock &AllPass::get_data_block_ref()
+AllegroFlare::AudioProcessing::AudioDataBlock &AllPass::get_data_block_ref()
 {
    return data_block;
 }
@@ -171,7 +171,7 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
    }
    float *fbuf = (float *)buf;
    AllegroFlare::AudioProcessing::Filters::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::Filters::AllPass*>(data);
-   AllegroFlare::AudioDataBlock &data_block = all_pass->get_data_block_ref();
+   AllegroFlare::AudioProcessing::AudioDataBlock &data_block = all_pass->get_data_block_ref();
    int channel_count = all_pass->mixer.get_channel_count();
    float &gain = all_pass->gain;
    float &wet = all_pass->wet;

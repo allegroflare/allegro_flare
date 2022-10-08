@@ -42,7 +42,7 @@ float Delay::get_decay() const
 }
 
 
-AllegroFlare::AudioDataBlock &Delay::get_data_block_ref()
+AllegroFlare::AudioProcessing::AudioDataBlock &Delay::get_data_block_ref()
 {
    return data_block;
 }
@@ -101,7 +101,7 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
    }
    float *fbuf = (float *)buf;
    AllegroFlare::AudioProcessing::Filters::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Filters::Delay*>(data);
-   AllegroFlare::AudioDataBlock &data_block = delay->get_data_block_ref();
+   AllegroFlare::AudioProcessing::AudioDataBlock &data_block = delay->get_data_block_ref();
    float wet = delay->decay;
    float dry = 1.0;
    int channel_count = delay->mixer.get_channel_count();

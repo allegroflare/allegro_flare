@@ -1,12 +1,14 @@
 
 
-#include <AllegroFlare/AudioDataBlock.hpp>
+#include <AllegroFlare/AudioProcessing/AudioDataBlock.hpp>
 
 #include <sstream>
 #include <stdexcept>
 
 
 namespace AllegroFlare
+{
+namespace AudioProcessing
 {
 
 
@@ -182,6 +184,7 @@ int AudioDataBlock::clamp_loop_sample_position(int sample_position)
 }
 
 
+} // namespace AudioProcessing
 } // namespace AllegroFlare
 
 

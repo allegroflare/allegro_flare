@@ -50,7 +50,7 @@ table td
 <h1>TOC</h1>
 <ul>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioDataBlock.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Filters/AllPass.q.yml">quintessence/AllegroFlare/AudioProcessing/Filters/AllPass.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Filters/Delay.q.yml">quintessence/AllegroFlare/AudioProcessing/Filters/Delay.q.yml</a></li>
@@ -411,7 +411,7 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioDataBlock.q.yml</h3>
+    <h3 id="quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml</h3>
      <table>
 <tr>
   <td class="property">block</td>
@@ -605,7 +605,7 @@ table td
 </tr>
 <tr>
   <td class="property">data_block</td>
-  <td class="property">AllegroFlare::AudioDataBlock</td>
+  <td class="property">AllegroFlare::AudioProcessing::AudioDataBlock</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -637,7 +637,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioDataBlock.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioProcessing::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioProcessing/AudioDataBlock.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioProcessing::AudioMixer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioProcessing/AudioMixer.hpp&quot;]}</td>
@@ -666,7 +666,7 @@ table td
 </tr>
 <tr>
   <td class="property">data_block</td>
-  <td class="property">AllegroFlare::AudioDataBlock</td>
+  <td class="property">AllegroFlare::AudioProcessing::AudioDataBlock</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -689,7 +689,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioDataBlock.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioProcessing::AudioDataBlock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioProcessing/AudioDataBlock.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioProcessing::AudioMixer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioProcessing/AudioMixer.hpp&quot;]}</td>
@@ -13204,22 +13204,22 @@ table td
     "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "ALLEGRO_MIXER": [
-    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
     "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/AudioProcessing/Filters/AllPass",
     "AllegroFlare/AudioProcessing/Filters/Delay",
     "AllegroFlare/Prototypes/MindDive/Hypersync"
   ],
   "ALLEGRO_AUDIO_DEPTH": [
-    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
     "AllegroFlare/AudioProcessing/AudioMixer"
   ],
   "ALLEGRO_CHANNEL_CONF": [
-    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
     "AllegroFlare/AudioProcessing/AudioMixer"
   ],
   "std/size_t": [
-    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
     "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
@@ -13250,7 +13250,7 @@ table td
   "callback": [
     "AllegroFlare/AudioProcessing/AudioMixer"
   ],
-  "AllegroFlare/AudioDataBlock": [
+  "AllegroFlare/AudioProcessing/AudioDataBlock": [
     "AllegroFlare/AudioProcessing/Filters/AllPass",
     "AllegroFlare/AudioProcessing/Filters/Delay"
   ],

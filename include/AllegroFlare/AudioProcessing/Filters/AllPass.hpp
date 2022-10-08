@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/AudioDataBlock.hpp>
+#include <AllegroFlare/AudioProcessing/AudioDataBlock.hpp>
 #include <AllegroFlare/AudioProcessing/AudioMixer.hpp>
 #include <allegro5/allegro_audio.h>
 
@@ -20,7 +20,7 @@ namespace AllegroFlare
             float wet;
             float dry;
             AllegroFlare::AudioProcessing::AudioMixer mixer;
-            AllegroFlare::AudioDataBlock data_block;
+            AllegroFlare::AudioProcessing::AudioDataBlock data_block;
             bool initialized;
 
          protected:
@@ -34,7 +34,7 @@ namespace AllegroFlare
             float get_gain() const;
             float get_wet() const;
             float get_dry() const;
-            AllegroFlare::AudioDataBlock &get_data_block_ref();
+            AllegroFlare::AudioProcessing::AudioDataBlock &get_data_block_ref();
             void set_offset_sec(float offset_sec=1.0f);
             void set_gain(float gain=1.0f);
             void set_wet(float wet=1.0f);
