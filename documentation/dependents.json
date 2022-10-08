@@ -1,4 +1,57 @@
 {
+  "al_is_system_installed": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioMixer",
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/DialogBoxFrame",
+    "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Time",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
+  ],
+  "al_is_audio_installed": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioMixer",
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "ALLEGRO_MIXER": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer",
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Delay",
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "AllegroFlare/AcousticEnvironments/Base": [
+    "AllegroFlare/AcousticEnvironments/Reverb"
+  ],
+  "ALLEGRO_AUDIO_DEPTH": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer"
+  ],
+  "ALLEGRO_CHANNEL_CONF": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer"
+  ],
+  "std/size_t": [
+    "AllegroFlare/AcousticEnvironments/Reverb",
+    "AllegroFlare/AudioDataBlock",
+    "AllegroFlare/AudioMixer",
+    "AllegroFlare/EncoderDecoders/Base62",
+    "AllegroFlare/Network2/Message",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/TileMaps/MultiMesh"
+  ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController"
   ],
@@ -28,6 +81,17 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
+  "callback": [
+    "AllegroFlare/AudioMixer"
+  ],
+  "AllegroFlare/AudioDataBlock": [
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Delay"
+  ],
+  "AllegroFlare/AudioMixer": [
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Delay"
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
@@ -267,22 +331,6 @@
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Hud"
-  ],
-  "al_is_system_installed": [
-    "AllegroFlare/Bone3DGraphRenderer",
-    "AllegroFlare/Elements/DialogBoxFrame",
-    "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/Scrollbar",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/NotificationsFactory",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/Time",
-    "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
@@ -932,12 +980,6 @@
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
   ],
-  "std/size_t": [
-    "AllegroFlare/EncoderDecoders/Base62",
-    "AllegroFlare/Network2/Message",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/TileMaps/MultiMesh"
-  ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
   ],
@@ -1368,12 +1410,6 @@
   ],
   "ALLEGRO_VOICE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
-  ],
-  "ALLEGRO_MIXER": [
-    "AllegroFlare/Prototypes/MindDive/Hypersync"
-  ],
-  "al_is_audio_installed": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMesh": [
     "AllegroFlare/Prototypes/MindDive/MindDive",

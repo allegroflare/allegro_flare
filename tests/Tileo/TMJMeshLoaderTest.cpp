@@ -79,7 +79,7 @@ TEST_F(Tileo_TMJMeshLoaderTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(Tileo_TMJMeshLoaderTestWithAllegroRenderingFixture, INTERACTIVE__works_as_expected)
+TEST_F(Tileo_TMJMeshLoaderTestWithAllegroRenderingFixture, CAPTURE__works_as_expected)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    bitmap_bin.set_full_path(TMJ_FIXTURE_PATH);

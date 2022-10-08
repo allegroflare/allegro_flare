@@ -1,0 +1,196 @@
+properties:
+
+
+  - name: offset_sec
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: gain
+    type: float
+    init_with: 0.7
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: wet
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: dry
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: mixer
+    type: AllegroFlare::AudioMixer
+    init_with: ''
+
+  - name: data_block
+    type: AllegroFlare::AudioDataBlock
+    init_with: ''
+    getter_ref: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: set_offset_sec
+    parameters:
+      - name: offset_sec
+        type: float
+        default_argument: 1.0f
+    body: |
+      // Sample count must be at minimum 1 sample (data_block.set_sample_count will throw an error in this case)
+      // With a sample rate of 44100, this would be an offset_sec of 0.000022675736961
+      data_block.set_sample_count(data_block.get_frequency() * offset_sec);
+      return;
+
+
+  - name: set_gain
+    parameters:
+      - name: gain
+        type: float
+        default_argument: 1.0f
+    guards: [ (gain >= 0.0f), (gain <= 1.0f) ]
+    body: |
+      this->gain = gain;
+      return;
+
+
+  - name: set_wet
+    parameters:
+      - name: wet
+        type: float
+        default_argument: 1.0f
+    guards: [ (wet >= 0.0f), (wet <= 1.0f) ]
+    body: |
+      this->wet = wet;
+      return;
+
+
+  - name: set_dry
+    parameters:
+      - name: dry
+        type: float
+        default_argument: 1.0f
+    guards: [ (dry >= 0.0f), (dry <= 1.0f) ]
+    body: |
+      this->dry = dry;
+      return;
+
+
+  - name: get_al_mixer
+    type: ALLEGRO_MIXER*
+    guards: [ initialized ]
+    body: |
+      return mixer.get_mixer();
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      // initialize the mixer
+      // DEBUG:
+      mixer.initialize();
+
+      // initialize the data_block
+      data_block.initialize();
+      float frequency = data_block.get_frequency(); // same as "samples per second"
+      int samples_needed = (int)(frequency * offset_sec);
+      data_block.set_sample_count(samples_needed);
+
+      // attach the
+      mixer.set_postprocess_callback(mixer_postprocess_callback, this);
+
+      // set initialized
+      initialized = true;
+      return;
+
+
+  - name: mixer_postprocess_callback
+    type: void
+    static: true
+    parameters:
+      - name: buf
+        type: void*
+        default_argument: nullptr
+      - name: samples
+        type: unsigned int
+        default_argument: 0
+      - name: data
+        type: void*
+        default_argument: nullptr
+    guards: [ data ]
+    body: |
+      float *fbuf = (float *)buf;
+      AllegroFlare::AudioProcessing::Filters::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::Filters::AllPass*>(data);
+      AllegroFlare::AudioDataBlock &data_block = all_pass->get_data_block_ref();
+      int channel_count = all_pass->mixer.get_channel_count();
+      float &gain = all_pass->gain;
+      float &wet = all_pass->wet;
+      float &dry = all_pass->dry;
+
+      for (int i=0; i<samples; i++)
+      {
+         int bufpos = i * 2;
+
+         // collect the now_sample to mix in a wet/dry mix
+         std::pair<float, float> dry_sample = { fbuf[bufpos+0], fbuf[bufpos+1] };
+
+         //float delayOutput = allPassDelayedSample;
+         std::pair<float, float> delayOutput = data_block.get_sample_at(i-1);
+
+         //float feedBack = delayOutput * allPassGain;
+         std::pair<float, float> feedBack = std::pair<float, float>(
+            delayOutput.first * gain,
+            delayOutput.second * gain
+         );
+
+         //float delayInput = inSamp + feedBack;
+         std::pair<float, float> delayInput = std::pair<float, float>(
+            fbuf[bufpos+0] + feedBack.first,
+            fbuf[bufpos+1] + feedBack.second
+         );
+
+         //float feedForward = delayInput * -allPassGain;
+         std::pair<float, float> feedForward = std::pair<float, float>(
+            delayInput.first * -gain,
+            delayInput.second * -gain
+         );
+
+         //allPassDelayedSample = delayInput;
+         data_block.set_sample_at(i-1, delayInput.first, delayInput.second);
+
+         //return delayOutput + feedForward;
+         fbuf[bufpos+0] = dry_sample.first * dry + (delayOutput.first + feedForward.first) * wet;
+         fbuf[bufpos+1] = dry_sample.second * dry + (delayOutput.second + feedForward.second) * wet;
+      }
+      data_block.move_sample_head_position_by(samples);
+ 
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::AudioDataBlock
+    headers: [ AllegroFlare/AudioDataBlock.hpp ]
+  - symbol: AllegroFlare::AudioMixer
+    headers: [ AllegroFlare/AudioMixer.hpp ]
+  - symbol: ALLEGRO_MIXER
+    headers: [ allegro5/allegro_audio.h ]
+

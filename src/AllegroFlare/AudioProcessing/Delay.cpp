@@ -1,0 +1,128 @@
+
+
+#include <AllegroFlare/AudioProcessing/Delay.hpp>
+
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+
+
+namespace AllegroFlare
+{
+namespace AudioProcessing
+{
+
+
+Delay::Delay(float delay_sec, float decay)
+   : delay_sec(delay_sec)
+   , decay(decay)
+   , mixer()
+   , data_block()
+   , initialized(false)
+{
+}
+
+
+Delay::~Delay()
+{
+}
+
+
+float Delay::get_delay_sec() const
+{
+   return delay_sec;
+}
+
+
+float Delay::get_decay() const
+{
+   return decay;
+}
+
+
+AllegroFlare::AudioDataBlock &Delay::get_data_block_ref()
+{
+   return data_block;
+}
+
+
+void Delay::set_delay_sec(float delay_sec)
+{
+   data_block.set_sample_count(data_block.get_frequency() * delay_sec);
+   return;
+}
+
+ALLEGRO_MIXER* Delay::get_al_mixer()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Delay" << "::" << "get_al_mixer" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return mixer.get_mixer();
+}
+
+void Delay::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Delay" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // initialize the mixer
+   // DEBUG:
+   mixer.initialize();
+
+   // initialize the data_block
+   data_block.initialize();
+   float frequency = data_block.get_frequency(); // same as "samples per second"
+   int samples_needed = (int)(frequency * delay_sec);
+   data_block.set_sample_count(samples_needed);
+
+   // attach the
+   mixer.set_postprocess_callback(mixer_postprocess_callback, this);
+
+   // set initialized
+   initialized = true;
+   return;
+}
+
+void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* data)
+{
+   if (!(data))
+   {
+      std::stringstream error_message;
+      error_message << "Delay" << "::" << "mixer_postprocess_callback" << ": error: " << "guard \"data\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   float *fbuf = (float *)buf;
+   AllegroFlare::AudioProcessing::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Delay*>(data);
+   AllegroFlare::AudioDataBlock &data_block = delay->get_data_block_ref();
+   float wet = delay->decay;
+   float dry = 1.0;
+   int channel_count = delay->mixer.get_channel_count();
+
+   for (int i=0; i<samples; i++)
+   {
+      int bufpos = i * 2;
+
+      float l_result = fbuf[bufpos+0] * dry + data_block.get_sample_at_mono(i, 0) * wet;
+      float r_result = fbuf[bufpos+1] * dry + data_block.get_sample_at_mono(i, 1) * wet;
+
+      data_block.set_sample_at(i-1, l_result, r_result);
+
+      fbuf[bufpos+0] = l_result;
+      fbuf[bufpos+1] = r_result;
+   }
+   data_block.move_sample_head_position_by(samples);
+
+   return;
+}
+
+
+} // namespace AudioProcessing
+} // namespace AllegroFlare
+
+
