@@ -104,8 +104,8 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
    float dry = 1.0;
    int channel_count = all_pass->mixer.get_channel_count();
 
-   int sample_offset = 256;
-   static std::pair<float, float> delayed_sample = {0, 0};
+   //int sample_offset = 256;
+   //static std::pair<float, float> delayed_sample = {0, 0};
 
    float allPassGain = 1.0;
 
@@ -114,7 +114,7 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
       int bufpos = i * 2;
 
       //float delayOutput = allPassDelayedSample;
-      std::pair<float, float> delayOutput = delayed_sample;
+      std::pair<float, float> delayOutput = data_block.get_sample_at(i+1);
 
       //float feedBack = delayOutput * allPassGain;
       std::pair<float, float> feedBack = std::pair<float, float>(
@@ -135,7 +135,7 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
       );
 
       //allPassDelayedSample = delayInput;
-      delayed_sample = delayInput;
+      data_block.set_sample_at(i-1, delayInput.first, delayInput.second);
 
       //return delayOutput + feedForward;
       fbuf[bufpos+0] = delayOutput.first + feedForward.first;
