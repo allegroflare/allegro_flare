@@ -30,6 +30,7 @@ MindDive::MindDive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bitm
    , font_bin(font_bin)
    , sample_bin(sample_bin)
    , current_tunnel_mesh()
+   , hypersync()
    , current_music_track(nullptr)
    , current_music_track_bpm(130.0f)
    , surfer_position({0, 0, 0})

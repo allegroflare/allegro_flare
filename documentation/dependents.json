@@ -1427,6 +1427,9 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
   ],
+  "AllegroFlare/Prototypes/MindDive/Hypersync": [
+    "AllegroFlare/Prototypes/MindDive/MindDive"
+  ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic"

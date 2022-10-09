@@ -34,6 +34,10 @@ properties:
     init_with: ''
     getter_ref: true
 
+  - name: hypersync
+    type: AllegroFlare::Prototypes::MindDive::Hypersync
+    init_with: ''
+
   - name: current_music_track
     type: AllegroFlare::Sound*
     init_with: nullptr
@@ -567,5 +571,7 @@ dependencies:
     headers: [ AllegroFlare/Sound.hpp ]
   - symbol: AllegroFlare::SampleBin
     headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::Hypersync
+    headers: [ AllegroFlare/Prototypes/MindDive/Hypersync.hpp ]
 
 
