@@ -34,6 +34,7 @@ MindDive::MindDive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bitm
    , surfer_position({0, 0, 0})
    , surfer_velocity({0, 0, 0})
    , surfer_accelerator_pressed(false)
+   , surfer_break_pressed(false)
    , timer()
    , camera()
    , hud({})
@@ -327,12 +328,17 @@ void MindDive::surfer_unpress_accelerator()
    return;
 }
 
-void MindDive::surfer_reverse()
+void MindDive::surfer_press_break()
 {
-   if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   // TODO: fix this state so that it will slow down the racer, rather than hard back
-   surfer_velocity.z = 2;
+   surfer_break_pressed = true;
+   return;
+}
+
+void MindDive::surfer_unpress_break()
+{
+   if (state != STATE_RACING) return;
+   surfer_break_pressed = false;
    return;
 }
 
@@ -402,7 +408,15 @@ void MindDive::update()
    //static float previous_surfer_position_z = surfer_position.z;
    //float surfer_next_position_z = 0;
 
-   if (surfer_accelerator_pressed)
+   if (surfer_break_pressed)
+   {
+      float surfer_break_velocity = 0.2;
+      float SURFER_MAX_REVERSE_VELOCITY = 4;
+
+      surfer_velocity.z += surfer_break_velocity;
+      if (surfer_velocity.z >= SURFER_MAX_REVERSE_VELOCITY) surfer_velocity.z = SURFER_MAX_REVERSE_VELOCITY;
+   }
+   else if (surfer_accelerator_pressed)
    {
       float surfer_accelerator_velocity = -0.1;
       float SURFER_MAX_FORWARD_VELOCITY = -20;
@@ -410,10 +424,9 @@ void MindDive::update()
       surfer_velocity.z += surfer_accelerator_velocity;
       if (surfer_velocity.z <= SURFER_MAX_FORWARD_VELOCITY) surfer_velocity.z = SURFER_MAX_FORWARD_VELOCITY;
    }
-   else
-   {
-      // do not include natural decelaration in this case
-   }
+
+   // NOTE: do not include natural decelaration or environmental friction for this racer
+
 
    if (surfer_attached_to_playhead)
    {

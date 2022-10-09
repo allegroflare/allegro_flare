@@ -114,7 +114,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
                break;
 
                case ALLEGRO_KEY_DOWN:
-                  mind_dive.surfer_reverse();
+                  mind_dive.surfer_press_break();
                break;
 
                case ALLEGRO_KEY_RIGHT:
@@ -137,8 +137,11 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
             switch(event.keyboard.keycode)
             {
                case ALLEGRO_KEY_UP:
-               case ALLEGRO_KEY_DOWN:
                   mind_dive.surfer_unpress_accelerator();
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  mind_dive.surfer_unpress_break();
                break;
 
                case ALLEGRO_KEY_RIGHT:

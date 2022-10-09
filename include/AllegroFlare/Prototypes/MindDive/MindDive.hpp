@@ -39,6 +39,7 @@ namespace AllegroFlare
             AllegroFlare::Vec3D surfer_position;
             AllegroFlare::Vec3D surfer_velocity;
             bool surfer_accelerator_pressed;
+            bool surfer_break_pressed;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
             AllegroFlare::Prototypes::MindDive::Hud::Hud hud;
@@ -79,7 +80,8 @@ namespace AllegroFlare
             void surfer_move_left();
             void surfer_press_accelerator();
             void surfer_unpress_accelerator();
-            void surfer_reverse();
+            void surfer_press_break();
+            void surfer_unpress_break();
             void surfer_stop();
             void surfer_move_horizontal_none();
             void render_tunnel();
