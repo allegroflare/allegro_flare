@@ -204,7 +204,14 @@ void MindDive::initialize()
    current_music_track->initialize();
 
 
-   hypersync.initialize();
+   //std::string pwd = "/Users/markoates/Repos/allegro_flare/bin/data/samples/";
+   //std::string song_filename = pwd + playlist[playlist_song_to_play].first;
+   //float song_bpm = playlist[playlist_song_to_play].second;
+
+   //hypersync.set_event_queue(&event_queue);
+   //hypersync.set_song_filename(song_filename);
+   //hypersync.set_song_bpm(song_bpm);
+   //hypersync.initialize();
 
 
    debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));

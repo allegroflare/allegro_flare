@@ -67,10 +67,10 @@ void Hypersync::TODO()
 
 void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
 {
-   if (!(initialized))
+   if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Hypersync" << "::" << "set_event_queue" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Hypersync" << "::" << "set_event_queue" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
    this->event_queue = event_queue;
@@ -79,10 +79,10 @@ void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
 
 void Hypersync::set_song_filename(std::string song_filename)
 {
-   if (!(initialized))
+   if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Hypersync" << "::" << "set_song_filename" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Hypersync" << "::" << "set_song_filename" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
    this->song_filename = song_filename;
@@ -91,10 +91,10 @@ void Hypersync::set_song_filename(std::string song_filename)
 
 void Hypersync::set_song_bpm(float song_bpm)
 {
-   if (!(initialized))
+   if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Hypersync" << "::" << "set_song_bpm" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Hypersync" << "::" << "set_song_bpm" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!((song_bpm >= MIN_SONG_BPM)))

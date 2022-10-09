@@ -73,7 +73,7 @@ functions:
       - name: event_queue
         type: ALLEGRO_EVENT_QUEUE*
         default_argument: nullptr
-    guards: [ initialized ]
+    guards: [ (!initialized) ]
     body: |
       this->event_queue = event_queue;
       return;
@@ -84,7 +84,7 @@ functions:
       - name: song_filename
         type: std::string
         default_argument: '"[unset-song-filename.ogg]"'
-    guards: [ initialized ]
+    guards: [ (!initialized) ]
     body: |
       this->song_filename = song_filename;
       return;
@@ -95,7 +95,7 @@ functions:
       - name: song_bpm
         type: float
         default_argument: 0.0f
-    guards: [ initialized, (song_bpm >= MIN_SONG_BPM) ]
+    guards: [ (!initialized), (song_bpm >= MIN_SONG_BPM) ]
     body: |
       this->song_bpm = song_bpm;
       return;
