@@ -77,6 +77,19 @@ functions:
          );
       result.set_collisions(collision_infos);
 
+      bool output_collision_debug_data = true;
+      if (output_collision_debug_data && !collision_infos.empty())
+      {
+         std::cout << "COLLISIONS: " << collision_infos.size() << std::endl;
+         std::cout << "  - [0] tile_value: " << collision_infos[0].get_tile_value() << std::endl;
+         std::cout << "        coord_x:    " << collision_infos[0].get_collided_tile_coordinate().get_x() << std::endl;
+         std::cout << "        coord_y:    " << collision_infos[0].get_collided_tile_coordinate().get_y() << std::endl;
+         std::cout << "        prev_x:    " << surfer_position->x << std::endl;
+         std::cout << "        prev_z:    " << surfer_position->z << std::endl;
+         std::cout << "        new_x:    " << aabb2d.get_x() << std::endl;
+         std::cout << "        new_z:    " << aabb2d.get_y() << std::endl;
+      }
+
       // move the box by the velocity
       aabb2d.set_x(aabb2d.get_x() + aabb2d.get_velocity_x());
       aabb2d.set_y(aabb2d.get_y() + aabb2d.get_velocity_y());
