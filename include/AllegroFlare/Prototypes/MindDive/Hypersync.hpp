@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/Timer.hpp>
-#include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h>
 #include <string>
 
@@ -16,7 +15,6 @@ namespace AllegroFlare
          class Hypersync
          {
          private:
-            ALLEGRO_EVENT_QUEUE* event_queue;
             std::string song_filename;
             float song_bpm;
             AllegroFlare::Timer timer;
@@ -32,14 +30,12 @@ namespace AllegroFlare
 
 
          public:
-            Hypersync(ALLEGRO_EVENT_QUEUE* event_queue=nullptr, std::string song_filename="/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg", float song_bpm=130.0f);
+            Hypersync(std::string song_filename="/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg", float song_bpm=130.0f);
             ~Hypersync();
 
-            ALLEGRO_EVENT_QUEUE* get_event_queue() const;
             std::string get_song_filename() const;
             float get_song_bpm() const;
             void TODO();
-            void set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue=nullptr);
             void set_song_filename(std::string song_filename="[unset-song-filename.ogg]");
             void set_song_bpm(float song_bpm=0.0f);
             float get_timer_seconds();

@@ -1,13 +1,6 @@
 properties:
 
 
-  - name: event_queue
-    type: ALLEGRO_EVENT_QUEUE*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: false
-
   - name: song_filename
     type: std::string
     init_with: '"/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg"'
@@ -65,17 +58,6 @@ functions:
       //   filling events, size of buffer, etc.
       // - add a "reset" option
       // - permit changing the song and bpm after initialization (which will implicitly stop stream and reset the timer)
-      return;
-
-
-  - name: set_event_queue
-    parameters:
-      - name: event_queue
-        type: ALLEGRO_EVENT_QUEUE*
-        default_argument: nullptr
-    guards: [ (!initialized) ]
-    body: |
-      this->event_queue = event_queue;
       return;
 
 
@@ -156,7 +138,6 @@ functions:
     body: |
       if (!stream_is_attached)
       {
-         al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
          if (!al_attach_audio_stream_to_mixer(audio_stream, audio_mixer))
          {
             throw std::runtime_error("boobaz");
@@ -172,7 +153,6 @@ functions:
       - (!initialized)
       - al_is_audio_installed()
       - al_is_acodec_addon_initialized()
-      - event_queue
     guards: [ (!song_filename.empty()), (song_bpm >= MIN_SONG_BPM) ]
     body: |
       audio_voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
@@ -213,7 +193,6 @@ functions:
       }
       if (audio_stream)
       {
-         al_unregister_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
          al_destroy_audio_stream(audio_stream);
       }
       return;

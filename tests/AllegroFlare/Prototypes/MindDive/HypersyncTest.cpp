@@ -20,13 +20,11 @@ TEST(AllegroFlare_Prototypes_MindDive_HypersyncTest, DISABLED__initialize__does_
    al_init();
    al_install_audio();
    al_init_acodec_addon();
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-   AllegroFlare::Prototypes::MindDive::Hypersync hypersync(event_queue);
+   AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
 
    hypersync.initialize();
 
    hypersync.destruct();
-   al_destroy_event_queue(event_queue);
    al_uninstall_audio();
    al_uninstall_system();
 }
@@ -40,14 +38,12 @@ TEST(AllegroFlare_Prototypes_MindDive_HypersyncTest, DISABLED__start__will_play_
    al_init_acodec_addon();
    al_install_audio();
    al_init_acodec_addon();
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-   AllegroFlare::Prototypes::MindDive::Hypersync hypersync(event_queue);
+   AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
    hypersync.initialize();
 
    hypersync.start();
 
    hypersync.destruct();
-   al_destroy_event_queue(event_queue);
    al_uninstall_audio();
    al_uninstall_system();
 }
@@ -72,7 +68,7 @@ TEST(AllegroFlare_Prototypes_MindDive_HypersyncTest,
    ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
    al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-   AllegroFlare::Prototypes::MindDive::Hypersync hypersync(event_queue);
+   AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
    hypersync.initialize();
    //hypersync.start();
 

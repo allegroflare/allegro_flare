@@ -16,9 +16,8 @@ namespace MindDive
 {
 
 
-Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue, std::string song_filename, float song_bpm)
-   : event_queue(event_queue)
-   , song_filename(song_filename)
+Hypersync::Hypersync(std::string song_filename, float song_bpm)
+   : song_filename(song_filename)
    , song_bpm(song_bpm)
    , timer({})
    , audio_stream(nullptr)
@@ -34,12 +33,6 @@ Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue, std::string song_filename
 
 Hypersync::~Hypersync()
 {
-}
-
-
-ALLEGRO_EVENT_QUEUE* Hypersync::get_event_queue() const
-{
-   return event_queue;
 }
 
 
@@ -62,18 +55,6 @@ void Hypersync::TODO()
    //   filling events, size of buffer, etc.
    // - add a "reset" option
    // - permit changing the song and bpm after initialization (which will implicitly stop stream and reset the timer)
-   return;
-}
-
-void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "Hypersync" << "::" << "set_event_queue" << ": error: " << "guard \"(!initialized)\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   this->event_queue = event_queue;
    return;
 }
 
@@ -148,7 +129,6 @@ void Hypersync::start()
 {
    if (!stream_is_attached)
    {
-      al_register_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
       if (!al_attach_audio_stream_to_mixer(audio_stream, audio_mixer))
       {
          throw std::runtime_error("boobaz");
@@ -177,12 +157,6 @@ void Hypersync::initialize()
    {
       std::stringstream error_message;
       error_message << "Hypersync" << "::" << "initialize" << ": error: " << "guard \"al_is_acodec_addon_initialized()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(event_queue))
-   {
-      std::stringstream error_message;
-      error_message << "Hypersync" << "::" << "initialize" << ": error: " << "guard \"event_queue\" not met";
       throw std::runtime_error(error_message.str());
    }
    audio_voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
@@ -220,7 +194,6 @@ void Hypersync::destruct()
    }
    if (audio_stream)
    {
-      al_unregister_event_source(event_queue, al_get_audio_stream_event_source(audio_stream));
       al_destroy_audio_stream(audio_stream);
    }
    return;
