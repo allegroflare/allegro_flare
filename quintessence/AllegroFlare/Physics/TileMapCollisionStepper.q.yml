@@ -25,17 +25,33 @@ properties:
 functions:
 
 
-  - name: step
+  - name: step_without_modification
     type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
     guards: [ collision_tile_map, aabb2d ]
     body: |
       std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
+      AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
 
+      std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords_2d(
+         // TODO: this logic
+      );
+
+      return result_infos;
+
+
+  - name: step
+    type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
+    guards: [ collision_tile_map, aabb2d ]
+    body: |
+      // TODO: include EVENT_ENTERED, EVENT_EXITED, EVENT_COLLIDED_AGAINST to the CollisionInfo result data
+
+      std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
+      AllegroFlare::Physics::AABB2D &obj = *aabb2d;
       AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
 
       // test horizontal first
-      std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords(
+      std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords_1d(
             obj.get_x(), obj.get_y(), obj.get_velocity_x(), obj.get_w(), obj.get_h(), tile_width, tile_height
       );
 
@@ -93,10 +109,11 @@ functions:
             }
          }
       }
+
       obj.set_x(obj.get_x() + obj.get_velocity_x());
 
       // test vertical second
-      std::vector<AllegroFlare::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords(
+      std::vector<AllegroFlare::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords_1d(
          obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w(), tile_height, tile_width
       );
       for(AllegroFlare::Physics::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
@@ -174,7 +191,7 @@ functions:
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
-      std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords(
+      std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_y(),
          obj.get_x(),
          0.0004,
@@ -206,7 +223,7 @@ functions:
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
-      std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords(
+      std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_x(),
          obj.get_y(),
          0.0004,
@@ -238,7 +255,7 @@ functions:
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
-      std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords(
+      std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_y(),
          obj.get_x(),
          -0.0004,
@@ -313,7 +330,7 @@ functions:
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
-      std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords(
+      std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_x(),
          obj.get_y(),
          -0.0004,
@@ -332,7 +349,7 @@ functions:
       return false;
 
 
-  - name: get_next_collided_tile_coords
+  - name: get_next_collided_tile_coords_1d
     private: true
     type: std::vector<AllegroFlare::Physics::Int2D> 
     parameters:
@@ -379,6 +396,64 @@ functions:
             collided_tiles.push_back(AllegroFlare::Physics::Int2D(next, start_y+i));
          }
       }
+
+      return collided_tiles;
+    body_dependency_symbols:
+      - std::fmod
+
+
+  - name: get_next_collided_tile_coords_2d
+    private: true
+    type: std::vector<AllegroFlare::Physics::Int2D> 
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: velocity_x
+        type: float
+        default_argument: 0.0f
+      - name: velocity_y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 1.0f
+      - name: height
+        type: float
+        default_argument: 1.0f
+      - name: tile_width
+        type: float
+        default_argument: 1.0f
+      - name: tile_height
+        type: float
+        default_argument: 1.0f
+    body: |
+      // TODO: this logic
+
+      std::vector<AllegroFlare::Physics::Int2D> collided_tiles;
+
+      //if (velocity > 0) x += depth_of_body;
+
+      //int now = world_coords_to_tile_coords(x, tile_length_n); //TileMap::world_to_tile(x);
+      //int next = world_coords_to_tile_coords(x + velocity, tile_length_n); //TileMap::world_to_tile(x + velocity);
+
+      //if (now != next)
+      //{
+         //// new tiles have been entered
+         //int start_y = world_coords_to_tile_coords(y, tile_length_m); //TileMap::world_to_tile(y);
+         //float inset_y = std::fmod(y, tile_length_m); // fmod(y, 16.0);
+         //int num_tiles_along_edge = std::max(1, (int)std::ceil((length_of_edge + inset_y) / tile_length_m));
+         //collided_tiles.reserve(num_tiles_along_edge);
+
+         //// add a list of tiles to the thing
+         //for (int i=0; i<num_tiles_along_edge; i++)
+         //{
+            //collided_tiles.push_back(AllegroFlare::Physics::Int2D(next, start_y+i));
+         //}
+      //}
 
       return collided_tiles;
     body_dependency_symbols:

@@ -29,6 +29,31 @@ TileMapCollisionStepper::~TileMapCollisionStepper()
 }
 
 
+std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMapCollisionStepper::step_without_modification()
+{
+   if (!(collision_tile_map))
+   {
+      std::stringstream error_message;
+      error_message << "TileMapCollisionStepper" << "::" << "step_without_modification" << ": error: " << "guard \"collision_tile_map\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(aabb2d))
+   {
+      std::stringstream error_message;
+      error_message << "TileMapCollisionStepper" << "::" << "step_without_modification" << ": error: " << "guard \"aabb2d\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
+   AllegroFlare::Physics::AABB2D &obj = *aabb2d;
+   AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
+
+   std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords_2d(
+      // TODO: this logic
+   );
+
+   return result_infos;
+}
+
 std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMapCollisionStepper::step()
 {
    if (!(collision_tile_map))
@@ -43,13 +68,14 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       error_message << "TileMapCollisionStepper" << "::" << "step" << ": error: " << "guard \"aabb2d\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // TODO: include EVENT_ENTERED, EVENT_EXITED, EVENT_COLLIDED_AGAINST to the CollisionInfo result data
+
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
-
    AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
 
    // test horizontal first
-   std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords(
+   std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords_1d(
          obj.get_x(), obj.get_y(), obj.get_velocity_x(), obj.get_w(), obj.get_h(), tile_width, tile_height
    );
 
@@ -107,10 +133,11 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
          }
       }
    }
+
    obj.set_x(obj.get_x() + obj.get_velocity_x());
 
    // test vertical second
-   std::vector<AllegroFlare::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords(
+   std::vector<AllegroFlare::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords_1d(
       obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w(), tile_height, tile_width
    );
    for(AllegroFlare::Physics::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
@@ -188,7 +215,7 @@ bool TileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, float ti
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
-   std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords(
+   std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
       obj.get_y(),
       obj.get_x(),
       0.0004,
@@ -223,7 +250,7 @@ bool TileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float til
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
-   std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords(
+   std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
       obj.get_x(),
       obj.get_y(),
       0.0004,
@@ -258,7 +285,7 @@ bool TileMapCollisionStepper::adjacent_to_top_edge(float tile_width, float tile_
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
-   std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords(
+   std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
       obj.get_y(),
       obj.get_x(),
       -0.0004,
@@ -311,7 +338,7 @@ bool TileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
-   std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords(
+   std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
       obj.get_x(),
       obj.get_y(),
       -0.0004,
@@ -330,7 +357,7 @@ bool TileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile
    return false;
 }
 
-std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::get_next_collided_tile_coords(float x, float y, float velocity, float depth_of_body, float length_of_edge, float tile_length_n, float tile_length_m)
+std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::get_next_collided_tile_coords_1d(float x, float y, float velocity, float depth_of_body, float length_of_edge, float tile_length_n, float tile_length_m)
 {
    std::vector<AllegroFlare::Physics::Int2D> collided_tiles;
 
@@ -353,6 +380,35 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::get_next_coll
          collided_tiles.push_back(AllegroFlare::Physics::Int2D(next, start_y+i));
       }
    }
+
+   return collided_tiles;
+}
+
+std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::get_next_collided_tile_coords_2d(float x, float y, float velocity_x, float velocity_y, float width, float height, float tile_width, float tile_height)
+{
+   // TODO: this logic
+
+   std::vector<AllegroFlare::Physics::Int2D> collided_tiles;
+
+   //if (velocity > 0) x += depth_of_body;
+
+   //int now = world_coords_to_tile_coords(x, tile_length_n); //TileMap::world_to_tile(x);
+   //int next = world_coords_to_tile_coords(x + velocity, tile_length_n); //TileMap::world_to_tile(x + velocity);
+
+   //if (now != next)
+   //{
+      //// new tiles have been entered
+      //int start_y = world_coords_to_tile_coords(y, tile_length_m); //TileMap::world_to_tile(y);
+      //float inset_y = std::fmod(y, tile_length_m); // fmod(y, 16.0);
+      //int num_tiles_along_edge = std::max(1, (int)std::ceil((length_of_edge + inset_y) / tile_length_m));
+      //collided_tiles.reserve(num_tiles_along_edge);
+
+      //// add a list of tiles to the thing
+      //for (int i=0; i<num_tiles_along_edge; i++)
+      //{
+         //collided_tiles.push_back(AllegroFlare::Physics::Int2D(next, start_y+i));
+      //}
+   //}
 
    return collided_tiles;
 }

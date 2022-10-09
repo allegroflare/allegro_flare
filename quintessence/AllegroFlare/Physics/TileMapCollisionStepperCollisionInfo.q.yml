@@ -36,6 +36,37 @@ properties:
     getter: true
     setter: true
 
+  - name: event
+    type: int
+    init_with: EVENT_UNDEFINED
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: EVENT_UNDEFINED
+    constexpr: true
+    static: true
+    type: int
+    init_with: 1
+
+  - name: EVENT_ENTERED
+    constexpr: true
+    static: true
+    type: int
+    init_with: 1
+
+  - name: EVENT_EXITED
+    constexpr: true
+    static: true
+    type: int
+    init_with: 2
+
+  - name: EVENT_COLLIDED_AGAINST
+    constexpr: true
+    static: true
+    type: int
+    init_with: 3
+
 
 dependencies:
 

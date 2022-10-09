@@ -6105,6 +6105,9 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">step_without_modification()</td>
+</tr>
+<tr>
   <td class="method">step()</td>
 </tr>
 <tr>
@@ -6126,7 +6129,10 @@ table td
   <td class="method">adjacent_to_left_edge(2)</td>
 </tr>
 <tr>
-  <td class="private_method">get_next_collided_tile_coords(7)</td>
+  <td class="private_method">get_next_collided_tile_coords_1d(7)</td>
+</tr>
+<tr>
+  <td class="private_method">get_next_collided_tile_coords_2d(8)</td>
 </tr>
 <tr>
   <td class="private_method">world_coords_to_tile_coords(2)</td>
@@ -6198,6 +6204,26 @@ table td
 <tr>
   <td class="property">stopped_by_this_collision</td>
   <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">event</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">EVENT_UNDEFINED</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">EVENT_ENTERED</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">EVENT_EXITED</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">EVENT_COLLIDED_AGAINST</td>
+  <td class="property">int</td>
 </tr>
     </table>
      <table>

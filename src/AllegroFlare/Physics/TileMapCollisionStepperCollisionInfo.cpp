@@ -11,12 +11,13 @@ namespace Physics
 {
 
 
-TileMapCollisionStepperCollisionInfo::TileMapCollisionStepperCollisionInfo(AllegroFlare::Physics::Int2D collided_tile_coordinate, int tile_value, float collision_velocity_x, float collision_velocity_y, bool stopped_by_this_collision)
+TileMapCollisionStepperCollisionInfo::TileMapCollisionStepperCollisionInfo(AllegroFlare::Physics::Int2D collided_tile_coordinate, int tile_value, float collision_velocity_x, float collision_velocity_y, bool stopped_by_this_collision, int event)
    : collided_tile_coordinate(collided_tile_coordinate)
    , tile_value(tile_value)
    , collision_velocity_x(collision_velocity_x)
    , collision_velocity_y(collision_velocity_y)
    , stopped_by_this_collision(stopped_by_this_collision)
+   , event(event)
 {
 }
 
@@ -56,6 +57,12 @@ void TileMapCollisionStepperCollisionInfo::set_stopped_by_this_collision(bool st
 }
 
 
+void TileMapCollisionStepperCollisionInfo::set_event(int event)
+{
+   this->event = event;
+}
+
+
 AllegroFlare::Physics::Int2D TileMapCollisionStepperCollisionInfo::get_collided_tile_coordinate() const
 {
    return collided_tile_coordinate;
@@ -83,6 +90,12 @@ float TileMapCollisionStepperCollisionInfo::get_collision_velocity_y() const
 bool TileMapCollisionStepperCollisionInfo::get_stopped_by_this_collision() const
 {
    return stopped_by_this_collision;
+}
+
+
+int TileMapCollisionStepperCollisionInfo::get_event() const
+{
+   return event;
 }
 
 
