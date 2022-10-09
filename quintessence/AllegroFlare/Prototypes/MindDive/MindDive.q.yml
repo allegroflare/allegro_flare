@@ -393,31 +393,10 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
-      float time_now = al_get_time();
-      //static float previous_surfer_position_z = surfer_position.z;
-      //float surfer_next_position_z = 0;
-
-      if (surfer_break_pressed)
-      {
-         float surfer_break_velocity = 0.2;
-         float SURFER_MAX_REVERSE_VELOCITY = 4;
-
-         surfer_velocity.z += surfer_break_velocity;
-         if (surfer_velocity.z >= SURFER_MAX_REVERSE_VELOCITY) surfer_velocity.z = SURFER_MAX_REVERSE_VELOCITY;
-      }
-      else if (surfer_accelerator_pressed)
-      {
-         float surfer_accelerator_velocity = -0.1;
-         float SURFER_MAX_FORWARD_VELOCITY = -20;
-
-         surfer_velocity.z += surfer_accelerator_velocity;
-         if (surfer_velocity.z <= SURFER_MAX_FORWARD_VELOCITY) surfer_velocity.z = SURFER_MAX_FORWARD_VELOCITY;
-      }
-
-      // NOTE: do not include natural decelaration or environmental friction for this racer
-
       if (surfer_attached_to_playhead_track) // the player velocity is synchronized to the music track
       {
+         //static float previous_surfer_position_z = surfer_position.z;
+         //float surfer_next_position_z = 0;
 
          // -------------- legacy: ---------------
 
