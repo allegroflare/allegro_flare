@@ -439,7 +439,6 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::tiles_within(
       error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(tile_height > 0.0f)\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // NOTE: assumes (width >= 0), (height >= 0), (tile_width > 0), (tile_height > 0)
    std::vector<AllegroFlare::Physics::Int2D> result_tiles;
 
    int left_tile_x = world_coords_to_tile_coords(x, tile_width);
@@ -447,15 +446,11 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::tiles_within(
    int right_tile_x = world_coords_to_tile_coords(x+width, tile_width);
    int bottom_tile_y = world_coords_to_tile_coords(y+height, tile_height);
 
-   //for (int tile_y = top_tile_y; tile_y >
-   for (int tile_x = left_tile_x; tile_x <= right_tile_x; tile_x++)
-   {
-   }
-
-   //float depth_tile_x = right_tile_x - left_tile_x;
-   //float depth_tile_y = bottom_tile_y - top_tile_y;
-
-   //int next = world_coords_to_tile_coords(x + velocity, tile_length_n); //TileMap::world_to_tile(x + velocity);
+   for (int tile_y = top_tile_y; tile_y <= bottom_tile_y; tile_y++)
+      for (int tile_x = left_tile_x; tile_x <= right_tile_x; tile_x++)
+      {
+         result_tiles.push_back(AllegroFlare::Physics::Int2D(tile_x, tile_y));
+      }
 
    return result_tiles;
 }
