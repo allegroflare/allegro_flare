@@ -403,34 +403,20 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: X
     headers:
       - allegro5/allegro_primitives.h
       - allegro5/allegro_color.h
-  - symbol: std::map<int, std::tuple<std::string, std::string, std::string>>
-    headers: [ map, utility, string ]
-  - symbol: std::vector<std::tuple<std::string, std::string, std::string>>
-    headers: [ vector, utility, string ]
-  - symbol: std::tuple<std::string, std::string, std::string>
-    headers: [ utility, string ]
   - symbol: AllegroFlare::Color
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: AllegroFlare::interpolator
     headers: [ AllegroFlare/Interpolators.hpp ]
   - symbol: fmod
     headers: [ cmath ]
-  - symbol: std::vector<std::pair<std::string, std::string>>
-    headers: [ vector, utility, string ]
   - symbol: ALLEGRO_FLARE_EVENT_SELECT_LEVEL
     headers: [ AllegroFlare/EventNames.hpp ]
 
