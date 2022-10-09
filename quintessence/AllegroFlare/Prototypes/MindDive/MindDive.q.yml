@@ -147,13 +147,6 @@ functions:
       return;
 
 
-  - name: infer_playhead_position_sec
-    type: float
-    body: |
-      if (!current_music_track) return 0;
-      return current_music_track->position();
-
-
   - name: initialize
     guards:
       - (!initialized)

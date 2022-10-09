@@ -124,12 +124,6 @@ void MindDive::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
-float MindDive::infer_playhead_position_sec()
-{
-   if (!current_music_track) return 0;
-   return current_music_track->position();
-}
-
 void MindDive::initialize()
 {
    if (!((!initialized)))
