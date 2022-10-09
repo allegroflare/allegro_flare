@@ -204,6 +204,9 @@ void MindDive::initialize()
    current_music_track->initialize();
 
 
+   hypersync.initialize();
+
+
    debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));
 
    hud.set_font_bin(font_bin);

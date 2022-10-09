@@ -8,6 +8,20 @@ properties:
     getter: true
     setter: false
 
+  - name: song_filename
+    type: std::string
+    init_with: '"/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg"'
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: song_bpm
+    type: float
+    init_with: 130.0f
+    constructor_arg: true
+    getter: true
+    setter: false
+
   - name: timer
     type: AllegroFlare::Timer
     init_with: '{}'
@@ -32,14 +46,6 @@ properties:
     type: bool
     init_with: false
 
-  - name: song_filename
-    type: std::string
-    init_with: '"/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg"'
-
-  - name: song_bpm
-    type: float
-    init_with: 130.0f
-
   - name: MIN_SONG_BPM
     type: float
     init_with: 20.0f
@@ -54,8 +60,11 @@ functions:
 
   - name: TODO
     body: |
-      // TODO: investigate calculating the amount of latency needed.
-      // - you might consume stream filling events, size of buffer, etc.
+      // TODO:
+      // - investigate calculating the amount of latency needed, you might consume stream
+      //   filling events, size of buffer, etc.
+      // - add a "reset" option
+      // - permit changing the song and bpm after initialization (which will implicitly stop stream and reset the timer)
       return;
 
 
@@ -67,6 +76,28 @@ functions:
     guards: [ initialized ]
     body: |
       this->event_queue = event_queue;
+      return;
+
+
+  - name: set_song_filename
+    parameters:
+      - name: song_filename
+        type: std::string
+        default_argument: '"[unset-song-filename.ogg]"'
+    guards: [ initialized ]
+    body: |
+      this->song_filename = song_filename;
+      return;
+
+
+  - name: set_song_bpm
+    parameters:
+      - name: song_bpm
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized, (song_bpm >= MIN_SONG_BPM) ]
+    body: |
+      this->song_bpm = song_bpm;
       return;
 
 
@@ -142,7 +173,7 @@ functions:
       - al_is_audio_installed()
       - al_is_acodec_addon_initialized()
       - event_queue
-    guards: [ (!song_filename.empty()), (song_bpm > MIN_SONG_BPM) ]
+    guards: [ (!song_filename.empty()), (song_bpm >= MIN_SONG_BPM) ]
     body: |
       audio_voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
       if (!audio_voice) throw std::runtime_error("could not create voice!!");

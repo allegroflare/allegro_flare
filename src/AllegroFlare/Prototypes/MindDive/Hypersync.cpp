@@ -16,16 +16,16 @@ namespace MindDive
 {
 
 
-Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
+Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue, std::string song_filename, float song_bpm)
    : event_queue(event_queue)
+   , song_filename(song_filename)
+   , song_bpm(song_bpm)
    , timer({})
    , audio_stream(nullptr)
    , audio_voice(nullptr)
    , audio_mixer(nullptr)
    , initialized(false)
    , stream_is_attached(false)
-   , song_filename("/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg")
-   , song_bpm(130.0f)
    , MIN_SONG_BPM(20.0f)
    , latency_sec(0.140f)
 {
@@ -43,10 +43,25 @@ ALLEGRO_EVENT_QUEUE* Hypersync::get_event_queue() const
 }
 
 
+std::string Hypersync::get_song_filename() const
+{
+   return song_filename;
+}
+
+
+float Hypersync::get_song_bpm() const
+{
+   return song_bpm;
+}
+
+
 void Hypersync::TODO()
 {
-   // TODO: investigate calculating the amount of latency needed.
-   // - you might consume stream filling events, size of buffer, etc.
+   // TODO:
+   // - investigate calculating the amount of latency needed, you might consume stream
+   //   filling events, size of buffer, etc.
+   // - add a "reset" option
+   // - permit changing the song and bpm after initialization (which will implicitly stop stream and reset the timer)
    return;
 }
 
@@ -59,6 +74,36 @@ void Hypersync::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
       throw std::runtime_error(error_message.str());
    }
    this->event_queue = event_queue;
+   return;
+}
+
+void Hypersync::set_song_filename(std::string song_filename)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Hypersync" << "::" << "set_song_filename" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->song_filename = song_filename;
+   return;
+}
+
+void Hypersync::set_song_bpm(float song_bpm)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Hypersync" << "::" << "set_song_bpm" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((song_bpm >= MIN_SONG_BPM)))
+   {
+      std::stringstream error_message;
+      error_message << "Hypersync" << "::" << "set_song_bpm" << ": error: " << "guard \"(song_bpm >= MIN_SONG_BPM)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->song_bpm = song_bpm;
    return;
 }
 
