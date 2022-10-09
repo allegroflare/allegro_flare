@@ -36,8 +36,6 @@ namespace AllegroFlare
             AllegroFlare::SampleBin* sample_bin;
             AllegroFlare::Prototypes::MindDive::TunnelMesh* current_tunnel_mesh;
             AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
-            AllegroFlare::Sound* current_music_track;
-            float current_music_track_bpm;
             AllegroFlare::Vec3D surfer_position;
             AllegroFlare::Vec3D surfer_velocity;
             AllegroFlare::Timer timer;

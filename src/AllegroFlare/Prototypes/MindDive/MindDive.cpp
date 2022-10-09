@@ -31,8 +31,6 @@ MindDive::MindDive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bitm
    , sample_bin(sample_bin)
    , current_tunnel_mesh()
    , hypersync()
-   , current_music_track(nullptr)
-   , current_music_track_bpm(130.0f)
    , surfer_position({0, 0, 0})
    , surfer_velocity({0, 0, 0})
    , timer()
@@ -174,11 +172,6 @@ void MindDive::initialize()
    std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
    current_tunnel_mesh = factory.create_from_tmj(map_filename);
 
-   //current_music_track_identifier = "music_tracks/some-jamzz-04.ogg";
-   //std::string current_music_track_identifier = "music_tracks/tempo-track-152.ogg";
-   //current_music_track_bpm = 152;
-   //current_music_track_bpm = 152;
-
    std::map<std::string, std::pair<std::string, float>> playlist = {
       { "song-60bpm",     { "music_tracks/tempo-track-60.ogg", 60.0f } },
       { "song-80bpm",     { "music_tracks/tempo-track-80.ogg", 80.0f } },
@@ -191,12 +184,6 @@ void MindDive::initialize()
    //std::string playlist_song_to_play = "song-80bpm";
    //std::string playlist_song_to_play = "song-120bpm";
    std::string playlist_song_to_play = "original-jamzz";
-
-   //std::string current_music_track_identifier = playlist[playlist_song_to_play].first;
-   //current_music_track_bpm = playlist[playlist_song_to_play].second;
-   //current_music_track = new AllegroFlare::Sound(sample_bin->auto_get(current_music_track_identifier));
-   //current_music_track->initialize();
-
 
    std::string pwd = "/Users/markoates/Repos/allegro_flare/bin/data/samples/";
    std::string song_filename = pwd + playlist[playlist_song_to_play].first;
@@ -271,8 +258,7 @@ void MindDive::reset()
    //camera.spin += 0.01f;
    music_started_at = 0.0f;
 
-   //event_emitter->emit_play_music_track_event("[unset-music-track-identifier]");
-   if (current_music_track) current_music_track->stop();
+   // TODO: hypersync->stop();
    reset_timer();
    return;
 }
@@ -281,13 +267,10 @@ void MindDive::start_racing()
 {
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
-   if (current_music_track)
-   {
-      attach_surfer_to_playhead();
-      current_music_track->play();
-      music_started_at = al_get_time();
-   }
+
+   //TODO: attach_surfer_to_playhead();
    hypersync.start();
+
    start_timer();
    hud.clear_slate();
    return;
@@ -410,24 +393,24 @@ void MindDive::update()
 
    if (surfer_attached_to_playhead)
    {
-      float explicit_playhead_position = (float) timer.get_elapsed_time_microseconds() / 1000000;
-      float song_bpm = current_music_track_bpm;
-      static const float SECONDS_PER_MINUTE = 60.0f;
-      static const float TILES_PER_BEAT = 1;
-      float time_multiplier = song_bpm / SECONDS_PER_MINUTE;
-      float playhead_tile_position = calculate_current_tunnel_mesh_tile_depth()
-                                   * TILES_PER_BEAT
-                                   * explicit_playhead_position
-                                   * time_multiplier
-                                   - 0.05
-                                   ;
+      //float explicit_playhead_position = (float) timer.get_elapsed_time_microseconds() / 1000000;
+      //float song_bpm = current_music_track_bpm;
+      //static const float SECONDS_PER_MINUTE = 60.0f;
+      //static const float TILES_PER_BEAT = 1;
+      //float time_multiplier = song_bpm / SECONDS_PER_MINUTE;
+      //float playhead_tile_position = calculate_current_tunnel_mesh_tile_depth()
+                                   //* TILES_PER_BEAT
+                                   //* explicit_playhead_position
+                                   //* time_multiplier
+                                   //- 0.05
+                                   //;
 
-      surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
+      //surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
 
-      int tile_y = (int)surfer_position.z;
-      int tile_x = (int)surfer_position.x;
+      //int tile_y = (int)surfer_position.z;
+      //int tile_x = (int)surfer_position.x;
 
-      current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_x, tile_y, 4);
+      //current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_x, tile_y, 4);
    }
    else
    {
