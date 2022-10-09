@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Physics/Int2D.hpp>
+#include <string>
 
 
 namespace AllegroFlare
@@ -12,9 +13,9 @@ namespace AllegroFlare
       {
       public:
          static constexpr int EVENT_UNDEFINED = 1;
-         static constexpr int EVENT_ENTERED = 1;
-         static constexpr int EVENT_EXITED = 2;
-         static constexpr int EVENT_COLLIDED_AGAINST = 3;
+         static constexpr int EVENT_ENTERED = 2;
+         static constexpr int EVENT_EXITED = 3;
+         static constexpr int EVENT_COLLIDED_AGAINST = 4;
 
       private:
          AllegroFlare::Physics::Int2D collided_tile_coordinate;
@@ -43,6 +44,7 @@ namespace AllegroFlare
          float get_collision_velocity_y() const;
          bool get_stopped_by_this_collision() const;
          int get_event() const;
+         static std::string build_event_name(int event=0);
       };
    }
 }

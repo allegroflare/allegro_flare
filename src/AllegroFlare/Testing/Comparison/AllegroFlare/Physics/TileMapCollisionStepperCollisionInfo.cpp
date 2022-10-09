@@ -29,6 +29,9 @@ void PrintTo(const TileMapCollisionStepperCollisionInfo& object, ::std::ostream*
        << ", "
        << object.get_collision_velocity_y()
        << ", "
+       << (object.get_stopped_by_this_collision() ? "true" : "false")
+       << ", "
+       << object.build_event_name(object.get_event())
        << ")";
 }
 

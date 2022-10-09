@@ -99,6 +99,28 @@ int TileMapCollisionStepperCollisionInfo::get_event() const
 }
 
 
+std::string TileMapCollisionStepperCollisionInfo::build_event_name(int event)
+{
+   switch(event)
+   {
+      case EVENT_UNDEFINED:
+         return "undefined";
+      break;
+
+      case EVENT_ENTERED:
+         return "entered";
+      break;
+
+      case EVENT_EXITED:
+         return "exited";
+      break;
+
+      case EVENT_COLLIDED_AGAINST:
+         return "collided_against";
+      break;
+   }
+   return "[build_event_name-error_value]";
+}
 
 
 } // namespace Physics
