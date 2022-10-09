@@ -41,6 +41,7 @@ namespace AllegroFlare
          std::pair<int, int> get_tile_coords_below_left_foot(float x=0.0f, float y=0.0f, float height=1.0f);
          std::pair<int, int> get_tile_coords_below_right_foot(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f);
          bool adjacent_to_left_edge(float tile_width=16.0f, float tile_height=16.0f);
+         std::vector<AllegroFlare::Physics::Int2D> tiles_within(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f);
          float get_tile_left_edge(float tile_x=0.0f, float tile_width=16.0f);
          float get_tile_right_edge(float tile_x=0.0f, float tile_width=16.0f);
          float get_tile_top_edge(float tile_y=0.0f, float tile_height=16.0f);

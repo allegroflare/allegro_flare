@@ -19,6 +19,7 @@ class AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtur
 #include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
 
 #include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D.hpp>
 
 static void load_test_map(AllegroFlare::TileMaps::TileMap<int> &tile_map)
 {
@@ -357,6 +358,18 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    step__when_a_collision_occurs_along_the_negative_y_axis__will_return_collision_info_with_the_expected_values)
 {
    // TODO
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, tiles_within__returns_the_expected_values)
+{
+   AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper;
+   std::vector<AllegroFlare::Physics::Int2D> expected_result_tiles = {
+   };
+   std::vector<AllegroFlare::Physics::Int2D> actual_result_tiles =
+      tile_map_collision_stepper.tiles_within(80, 60, 16-1, 16*2-1);
+
+   EXPECT_EQ(expected_result_tiles, actual_result_tiles);
 }
 
 

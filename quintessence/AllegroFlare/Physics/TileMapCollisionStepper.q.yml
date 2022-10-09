@@ -460,6 +460,50 @@ functions:
       - std::fmod
 
 
+  - name: tiles_within
+    type: std::vector<AllegroFlare::Physics::Int2D> 
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 1.0f
+      - name: height
+        type: float
+        default_argument: 1.0f
+      - name: tile_width
+        type: float
+        default_argument: 1.0f
+      - name: tile_height
+        type: float
+        default_argument: 1.0f
+    guards: [ (width >= 0), (height >= 0), (tile_width > 0.0f), (tile_height > 0.0f) ]
+    body: |
+      // NOTE: assumes (width >= 0), (height >= 0), (tile_width > 0), (tile_height > 0)
+      std::vector<AllegroFlare::Physics::Int2D> result_tiles;
+
+      int left_tile_x = world_coords_to_tile_coords(x, tile_width);
+      int top_tile_y = world_coords_to_tile_coords(y, tile_height);
+      int right_tile_x = world_coords_to_tile_coords(x+width, tile_width);
+      int bottom_tile_y = world_coords_to_tile_coords(y+height, tile_height);
+
+      //for (int tile_y = top_tile_y; tile_y >
+      for (int tile_x = left_tile_x; tile_x <= right_tile_x; tile_x++)
+      {
+      }
+
+      //float depth_tile_x = right_tile_x - left_tile_x;
+      //float depth_tile_y = bottom_tile_y - top_tile_y;
+
+      //int next = world_coords_to_tile_coords(x + velocity, tile_length_n); //TileMap::world_to_tile(x + velocity);
+      
+      return result_tiles;
+
+
   - name: world_coords_to_tile_coords
     private: true
     type: int

@@ -413,6 +413,53 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::get_next_coll
    return collided_tiles;
 }
 
+std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::tiles_within(float x, float y, float width, float height, float tile_width, float tile_height)
+{
+   if (!((width >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(width >= 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((height >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(height >= 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((tile_width > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(tile_width > 0.0f)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((tile_height > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(tile_height > 0.0f)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // NOTE: assumes (width >= 0), (height >= 0), (tile_width > 0), (tile_height > 0)
+   std::vector<AllegroFlare::Physics::Int2D> result_tiles;
+
+   int left_tile_x = world_coords_to_tile_coords(x, tile_width);
+   int top_tile_y = world_coords_to_tile_coords(y, tile_height);
+   int right_tile_x = world_coords_to_tile_coords(x+width, tile_width);
+   int bottom_tile_y = world_coords_to_tile_coords(y+height, tile_height);
+
+   //for (int tile_y = top_tile_y; tile_y >
+   for (int tile_x = left_tile_x; tile_x <= right_tile_x; tile_x++)
+   {
+   }
+
+   //float depth_tile_x = right_tile_x - left_tile_x;
+   //float depth_tile_y = bottom_tile_y - top_tile_y;
+
+   //int next = world_coords_to_tile_coords(x + velocity, tile_length_n); //TileMap::world_to_tile(x + velocity);
+
+   return result_tiles;
+}
+
 int TileMapCollisionStepper::world_coords_to_tile_coords(float world_pos, float tile_length)
 {
    return (int)(world_pos / tile_length);
