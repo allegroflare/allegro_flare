@@ -25,6 +25,7 @@ namespace AllegroFlare
             bool stream_is_attached;
             std::string song_filename;
             float song_bpm;
+            float MIN_SONG_BPM;
             float latency_sec;
 
          protected:

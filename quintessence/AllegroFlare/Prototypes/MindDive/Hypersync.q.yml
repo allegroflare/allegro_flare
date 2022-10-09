@@ -40,6 +40,10 @@ properties:
     type: float
     init_with: 130.0f
 
+  - name: MIN_SONG_BPM
+    type: float
+    init_with: 20.0f
+
   - name: latency_sec
     type: float
     init_with: 0.140f
@@ -138,6 +142,7 @@ functions:
       - al_is_audio_installed()
       - al_is_acodec_addon_initialized()
       - event_queue
+    guards: [ (!song_filename.empty()), (song_bpm > MIN_SONG_BPM) ]
     body: |
       audio_voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
       if (!audio_voice) throw std::runtime_error("could not create voice!!");
@@ -147,15 +152,6 @@ functions:
       {
          throw std::runtime_error("could not attach mixer to voice");
       }
-
-      song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg";
-      song_bpm = 130.0f;
-
-      //song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/tempo-track-180.ogg";
-      //song_bpm = 180.0f;
-
-      //song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/tempo-track-152.ogg";
-      //song_bpm = 152.0f;
 
       audio_stream = al_load_audio_stream(song_filename.c_str(), 4, 2048);
       if (!audio_stream) throw std::runtime_error("could not load stream!!");

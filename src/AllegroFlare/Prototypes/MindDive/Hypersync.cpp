@@ -26,6 +26,7 @@ Hypersync::Hypersync(ALLEGRO_EVENT_QUEUE* event_queue)
    , stream_is_attached(false)
    , song_filename("/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg")
    , song_bpm(130.0f)
+   , MIN_SONG_BPM(20.0f)
    , latency_sec(0.140f)
 {
 }
@@ -147,15 +148,6 @@ void Hypersync::initialize()
    {
       throw std::runtime_error("could not attach mixer to voice");
    }
-
-   song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/some-jamzz-04.ogg";
-   song_bpm = 130.0f;
-
-   //song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/tempo-track-180.ogg";
-   //song_bpm = 180.0f;
-
-   //song_filename = "/Users/markoates/Repos/allegro_flare/bin/data/samples/music_tracks/tempo-track-152.ogg";
-   //song_bpm = 152.0f;
 
    audio_stream = al_load_audio_stream(song_filename.c_str(), 4, 2048);
    if (!audio_stream) throw std::runtime_error("could not load stream!!");
