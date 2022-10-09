@@ -44,7 +44,7 @@ namespace AllegroFlare
             AllegroFlare::Camera3D camera;
             AllegroFlare::Prototypes::MindDive::Hud::Hud hud;
             int state;
-            bool surfer_attached_to_playhead;
+            bool surfer_attached_to_playhead_track;
             bool initialized;
             AllegroFlare::Sound* debug_metronome_sound;
             float music_started_at;
@@ -74,7 +74,7 @@ namespace AllegroFlare
             void pause_timer();
             void reset();
             void start_racing();
-            void attach_surfer_to_playhead();
+            void attach_surfer_to_playhead_track();
             void stop_racing_due_to_death();
             void surfer_move_right();
             void surfer_move_left();

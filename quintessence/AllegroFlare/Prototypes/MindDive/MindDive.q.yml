@@ -70,7 +70,7 @@ properties:
     type: int
     init_with: STATE_WAITING_START
 
-  - name: surfer_attached_to_playhead
+  - name: surfer_attached_to_playhead_track
     type: bool
     init_with: false
 
@@ -265,7 +265,7 @@ functions:
       if (state != STATE_WAITING_START) return;
       state = STATE_RACING;
 
-      //TODO: attach_surfer_to_playhead();
+      //TODO: attach_surfer_to_playhead_track();
       hypersync.start();
 
       start_timer();
@@ -273,9 +273,9 @@ functions:
       return;
 
 
-  - name: attach_surfer_to_playhead
+  - name: attach_surfer_to_playhead_track
     body: |
-      surfer_attached_to_playhead = true;
+      surfer_attached_to_playhead_track = true;
       return;
 
 
@@ -416,8 +416,7 @@ functions:
 
       // NOTE: do not include natural decelaration or environmental friction for this racer
 
-
-      if (surfer_attached_to_playhead)
+      if (surfer_attached_to_playhead_track) // the player velocity is synchronized to the music track
       {
 
          // -------------- legacy: ---------------
@@ -441,8 +440,29 @@ functions:
 
          //current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_x, tile_y, 4);
       }
-      else
+      else // player controls speed and velocity of surfer
       {
+         if (surfer_break_pressed)
+         {
+            float surfer_break_velocity = 0.2;
+            float SURFER_MAX_REVERSE_VELOCITY = 4;
+
+            surfer_velocity.z += surfer_break_velocity;
+            if (surfer_velocity.z >= SURFER_MAX_REVERSE_VELOCITY) surfer_velocity.z = SURFER_MAX_REVERSE_VELOCITY;
+         }
+         else if (surfer_accelerator_pressed)
+         {
+            float surfer_accelerator_velocity = -0.1;
+            float SURFER_MAX_FORWARD_VELOCITY = -20;
+
+            surfer_velocity.z += surfer_accelerator_velocity;
+            if (surfer_velocity.z <= SURFER_MAX_FORWARD_VELOCITY) surfer_velocity.z = SURFER_MAX_FORWARD_VELOCITY;
+         }
+   
+         // NOTE: do not include natural decelaration or environmental friction for this racer
+
+         // handle collision resolving including collisions that will stop the player
+
          AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
             current_tunnel_mesh,
             &surfer_position,
