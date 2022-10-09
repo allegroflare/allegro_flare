@@ -431,31 +431,34 @@ functions:
         type: float
         default_argument: 1.0f
     body: |
-      // TODO: this logic
+      std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height, tile_width, tile_height);
+      std::vector<AllegroFlare::Physics::Int2D> exited_tiles;
+      std::vector<AllegroFlare::Physics::Int2D> entered_tiles = tiles_within(
+         x+velocity_x,
+         y+velocity_y,
+         width+velocity_x,
+         height+velocity_y,
+         tile_width,
+         tile_height
+      );
 
-      std::vector<AllegroFlare::Physics::Int2D> collided_tiles;
+      for (int i=0; i<entered_tiles.size(); i++)
+      {
+         for (auto &now_tile : now_tiles)
+         {
+            if (entered_tiles[i].get_x() != now_tile.get_x()) continue;
+            if (entered_tiles[i].get_y() != now_tile.get_y()) continue;
 
-      //if (velocity > 0) x += depth_of_body;
+            // add the tile from the exited_tiles list
+            exited_tiles.push_back(entered_tiles[i]);
 
-      //int now = world_coords_to_tile_coords(x, tile_length_n); //TileMap::world_to_tile(x);
-      //int next = world_coords_to_tile_coords(x + velocity, tile_length_n); //TileMap::world_to_tile(x + velocity);
-
-      //if (now != next)
-      //{
-         //// new tiles have been entered
-         //int start_y = world_coords_to_tile_coords(y, tile_length_m); //TileMap::world_to_tile(y);
-         //float inset_y = std::fmod(y, tile_length_m); // fmod(y, 16.0);
-         //int num_tiles_along_edge = std::max(1, (int)std::ceil((length_of_edge + inset_y) / tile_length_m));
-         //collided_tiles.reserve(num_tiles_along_edge);
-
-         //// add a list of tiles to the thing
-         //for (int i=0; i<num_tiles_along_edge; i++)
-         //{
-            //collided_tiles.push_back(AllegroFlare::Physics::Int2D(next, start_y+i));
-         //}
-      //}
-
-      return collided_tiles;
+            // remove the tile from the entered_tiles list
+            entered_tiles.erase(entered_tiles.begin() + i);
+            i--;
+         }
+      }
+      
+      return entered_tiles;
     body_dependency_symbols:
       - std::fmod
 
