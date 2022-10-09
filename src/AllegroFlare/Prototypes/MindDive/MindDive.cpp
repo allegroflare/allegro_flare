@@ -270,7 +270,7 @@ void MindDive::start_racing()
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
 
-   //attach_surfer_to_playhead_track();
+   attach_surfer_to_playhead_track();
    hypersync.start();
 
    start_timer();
@@ -406,6 +406,7 @@ void MindDive::update()
    }
    if (surfer_attached_to_playhead_track) // the player velocity is synchronized to the music track
    {
+      // TODO: set thes velocity relative to the music
       surfer_velocity.z = -6.0;
 
       AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
@@ -415,42 +416,6 @@ void MindDive::update()
       );
       AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve_basic();
       play_around_with_collision_step_result(&step_result);
-
-
-      //AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
-         //current_tunnel_mesh,
-         //&surfer_position,
-         //&surfer_velocity
-      //);
-
-      //AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve_basic();
-      //play_around_with_collision_step_result(&step_result);
-
-
-
-      //static float previous_surfer_position_z = surfer_position.z;
-      //float surfer_next_position_z = 0;
-
-      // -------------- legacy: ---------------
-
-      //float explicit_playhead_position = (float) timer.get_elapsed_time_microseconds() / 1000000;
-      //float song_bpm = current_music_track_bpm;
-      //static const float SECONDS_PER_MINUTE = 60.0f;
-      //static const float TILES_PER_BEAT = 1;
-      //float time_multiplier = song_bpm / SECONDS_PER_MINUTE;
-      //float playhead_tile_position = calculate_current_tunnel_mesh_tile_depth()
-                                   //* TILES_PER_BEAT
-                                   //* explicit_playhead_position
-                                   //* time_multiplier
-                                   //- 0.05
-                                   //;
-
-      //surfer_position.z = calculate_current_tunnel_mesh_height() - playhead_tile_position;
-
-      //int tile_y = (int)surfer_position.z;
-      //int tile_x = (int)surfer_position.x;
-
-      //current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_x, tile_y, 4);
    }
    else // player controls speed and velocity of surfer
    {

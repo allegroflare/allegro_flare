@@ -91,9 +91,6 @@ AllegroFlare::Physics::TileMapCollisionStepperStepResult TunnelMeshSurferCollisi
       error_message << "TunnelMeshSurferCollisionResolver" << "::" << "resolve_basic" << ": error: " << "guard \"surfer_velocity\" not met";
       throw std::runtime_error(error_message.str());
    }
-   throw std::runtime_error("resolve_basic: this code is not properly implemented and "
-                            "requires additional development."); 
-
    AllegroFlare::Physics::TileMapCollisionStepperStepResult result;
 
    // set the result "before" data
@@ -134,8 +131,9 @@ AllegroFlare::Physics::TileMapCollisionStepperStepResult TunnelMeshSurferCollisi
       );
    result.set_collisions(collision_infos);
 
-   result.set_subject_position_after(AllegroFlare::Vec2D(surfer_position->x, surfer_position->z));
-   result.set_subject_velocity_after(AllegroFlare::Vec2D(surfer_velocity->x, surfer_velocity->z));
+   // move the box by the velocity
+   aabb2d.set_x(aabb2d.get_x() + aabb2d.get_velocity_x());
+   aabb2d.set_y(aabb2d.get_y() + aabb2d.get_velocity_y());
 
    // reposition our surfer to the stepper-modified aabb2d
    surfer_position->x = aabb2d.get_x() + surfer_hsize;
