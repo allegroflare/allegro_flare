@@ -26,7 +26,7 @@ namespace AllegroFlare
          public:
             static constexpr int STATE_RACING = 1;
             static constexpr int STATE_WON = 2;
-            static constexpr int STATE_DEAD = 3;
+            static constexpr int STATE_PLAYER_DIED = 3;
             static constexpr int STATE_WAITING_START = 4;
 
          private:

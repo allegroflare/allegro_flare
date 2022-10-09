@@ -284,8 +284,8 @@ void MindDive::attach_surfer_to_playhead()
 
 void MindDive::stop_racing_due_to_death()
 {
-   if (state == STATE_DEAD) return;
-   state = STATE_DEAD;
+   if (state == STATE_PLAYER_DIED) return;
+   state = STATE_PLAYER_DIED;
    pause_timer();
    surfer_velocity.x = 0.0f;
    surfer_velocity.z = 0.0f;
