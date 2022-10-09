@@ -33,6 +33,7 @@ namespace AllegroFlare
             AllegroFlare::Vec3D* get_surfer_position() const;
             AllegroFlare::Vec3D* get_surfer_velocity() const;
             void resolve_classic();
+            AllegroFlare::Physics::TileMapCollisionStepperStepResult resolve_basic();
             AllegroFlare::Physics::TileMapCollisionStepperStepResult resolve();
          };
       }

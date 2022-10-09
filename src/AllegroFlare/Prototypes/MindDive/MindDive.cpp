@@ -270,7 +270,7 @@ void MindDive::start_racing()
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
 
-   //TODO: attach_surfer_to_playhead_track();
+   //attach_surfer_to_playhead_track();
    hypersync.start();
 
    start_timer();
@@ -406,6 +406,28 @@ void MindDive::update()
    }
    if (surfer_attached_to_playhead_track) // the player velocity is synchronized to the music track
    {
+      surfer_velocity.z = -6.0;
+
+      AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
+         current_tunnel_mesh,
+         &surfer_position,
+         &surfer_velocity
+      );
+      AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve_basic();
+      play_around_with_collision_step_result(&step_result);
+
+
+      //AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
+         //current_tunnel_mesh,
+         //&surfer_position,
+         //&surfer_velocity
+      //);
+
+      //AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve_basic();
+      //play_around_with_collision_step_result(&step_result);
+
+
+
       //static float previous_surfer_position_z = surfer_position.z;
       //float surfer_next_position_z = 0;
 

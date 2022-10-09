@@ -29,31 +29,6 @@ TileMapCollisionStepper::~TileMapCollisionStepper()
 }
 
 
-std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMapCollisionStepper::step_without_modification()
-{
-   if (!(collision_tile_map))
-   {
-      std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "step_without_modification" << ": error: " << "guard \"collision_tile_map\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(aabb2d))
-   {
-      std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "step_without_modification" << ": error: " << "guard \"aabb2d\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
-   AllegroFlare::Physics::AABB2D &obj = *aabb2d;
-   AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
-
-   //std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords_2d(
-      // TODO: this logic (possibly remove this function)
-   //);
-
-   return result_infos;
-}
-
 std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMapCollisionStepper::step()
 {
    if (!(collision_tile_map))
@@ -389,8 +364,9 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result;
 
    std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height, tile_width, tile_height);
+   std::vector<AllegroFlare::Physics::Int2D> entered_tiles;
    std::vector<AllegroFlare::Physics::Int2D> exited_tiles;
-   std::vector<AllegroFlare::Physics::Int2D> entered_tiles = tiles_within(
+   std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within(
       x+velocity_x,
       y+velocity_y,
       width+velocity_x,
@@ -399,20 +375,20 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       tile_height
    );
 
-   for (int i=0; i<entered_tiles.size(); i++)
+   // TODO: add a test for this, this logic is not correct
+   for (int i=0; i<next_tiles.size(); i++)
    {
       for (auto &now_tile : now_tiles)
       {
-         if (entered_tiles[i].get_x() != now_tile.get_x()) continue;
-         if (entered_tiles[i].get_y() != now_tile.get_y()) continue;
+         if (next_tiles[i].get_x() != now_tile.get_x()) continue;
+         if (next_tiles[i].get_y() != now_tile.get_y()) continue;
 
          // TODO: add the tile from the exited_tiles list (if needed)
          //exited_tiles.push_back(entered_tiles[i]);
          //result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(...));
 
-         // remove the tile from the entered_tiles list
-         entered_tiles.erase(entered_tiles.begin() + i);
-         i--;
+         // add the tile to the entered_tiles list
+         entered_tiles.push_back(now_tile);
       }
    }
 
@@ -421,6 +397,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
          entered_tile,
+         -1, // TODO: fill this value
          velocity_x,
          velocity_y,
          false,
