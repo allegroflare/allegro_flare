@@ -65,7 +65,8 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
-   DISABLED__draw_selection_cursor__renders_an_animated_style)
+   //VISUAL__draw_selection_cursor__renders_an_animated_style)
+   DISABLED__VISUAL__draw_selection_cursor__renders_an_animated_style)
 {
    AllegroFlare::EventEmitter event_emitter;
    std::vector<std::pair<std::string, std::string>> levels_list;
