@@ -33,6 +33,7 @@ MindDive::MindDive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bitm
    , hypersync()
    , surfer_position({0, 0, 0})
    , surfer_velocity({0, 0, 0})
+   , surfer_accelerator_pressed(false)
    , timer()
    , camera()
    , hud({})
@@ -309,11 +310,20 @@ void MindDive::surfer_move_left()
    return;
 }
 
-void MindDive::surfer_accelerate()
+void MindDive::surfer_press_accelerator()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   surfer_velocity.z = -20;
+   surfer_accelerator_pressed = true;
+   //surfer_velocity.z = -20;
+   return;
+}
+
+void MindDive::surfer_unpress_accelerator()
+{
+   if (state == STATE_WAITING_START) start_racing();
+   if (state != STATE_RACING) return;
+   surfer_accelerator_pressed = false;
    return;
 }
 
@@ -321,6 +331,7 @@ void MindDive::surfer_reverse()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
+   // TODO: fix this state so that it will slow down the racer, rather than hard back
    surfer_velocity.z = 2;
    return;
 }
@@ -388,11 +399,27 @@ void MindDive::update()
       throw std::runtime_error(error_message.str());
    }
    float time_now = al_get_time();
-   static float previous_surfer_position_z = surfer_position.z;
-   float surfer_next_position_z = 0;
+   //static float previous_surfer_position_z = surfer_position.z;
+   //float surfer_next_position_z = 0;
+
+   if (surfer_accelerator_pressed)
+   {
+      float surfer_accelerator_velocity = -0.1;
+      float SURFER_MAX_FORWARD_VELOCITY = -20;
+
+      surfer_velocity.z += surfer_accelerator_velocity;
+      if (surfer_velocity.z <= SURFER_MAX_FORWARD_VELOCITY) surfer_velocity.z = SURFER_MAX_FORWARD_VELOCITY;
+   }
+   else
+   {
+      // do not include natural decelaration in this case
+   }
 
    if (surfer_attached_to_playhead)
    {
+
+      // -------------- legacy: ---------------
+
       //float explicit_playhead_position = (float) timer.get_elapsed_time_microseconds() / 1000000;
       //float song_bpm = current_music_track_bpm;
       //static const float SECONDS_PER_MINUTE = 60.0f;

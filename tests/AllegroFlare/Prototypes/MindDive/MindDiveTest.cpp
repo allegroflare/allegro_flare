@@ -110,7 +110,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
                break;
 
                case ALLEGRO_KEY_UP:
-                  mind_dive.surfer_accelerate();
+                  mind_dive.surfer_press_accelerator();
                break;
 
                case ALLEGRO_KEY_DOWN:
@@ -138,7 +138,7 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
             {
                case ALLEGRO_KEY_UP:
                case ALLEGRO_KEY_DOWN:
-                  mind_dive.surfer_stop();
+                  mind_dive.surfer_unpress_accelerator();
                break;
 
                case ALLEGRO_KEY_RIGHT:
