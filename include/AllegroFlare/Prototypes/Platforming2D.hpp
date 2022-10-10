@@ -82,7 +82,6 @@ namespace AllegroFlare
          void initialize_camera_control();
          void initialize_player_controls();
          void initialize();
-         void setup_orthographic_projection_on_backbuffer();
          void unset_player_controlled_entity_vertical_velocity();
          void unset_player_controlled_entity_horizontal_velocity();
          void set_player_controlled_entity_jump();

@@ -171,7 +171,6 @@ WickedDemos::TileMaps::Basic2D* Platforming2D::find_map_by_name(std::string name
 
 void Platforming2D::initialize_display_projection()
 {
-   //setup_orthographic_projection_on_backbuffer();
    setup_projection();
    return;
 }
@@ -350,43 +349,6 @@ void Platforming2D::initialize()
 
    initialized = true;
 
-   return;
-}
-
-void Platforming2D::setup_orthographic_projection_on_backbuffer()
-{
-   // set the orthographic display projection
-   // the display coordinate values used throughout the program will map to these values from here on
-   // (unless the projection is modified)
-
-   ALLEGRO_DISPLAY *al_display = display->al_display;
-   float fov = tan(90 * ALLEGRO_PI / 180 / 2); 
-
-   float left = 0;
-   float top = 0;
-   float right = native_display_resolution_width;
-   float bottom = native_display_resolution_height;
-   ALLEGRO_BITMAP *display_bitmap = al_get_backbuffer(al_display);
-   ALLEGRO_TRANSFORM trans;
-   al_identity_transform(&trans);
-   al_orthographic_transform(
-   //al_perspective_transform(
-         &trans,
-         left,
-         top,
-         -1.0f,//-100, //right/2/fov, //-100.0,
-         right,
-         bottom,
-         1.0f //100 //2000 //100.0
-      );
-
-   ALLEGRO_STATE previous_target_bitmap_state;
-   al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
-
-   al_set_target_bitmap(display_bitmap);
-   al_use_projection_transform(&trans);
-
-   al_restore_state(&previous_target_bitmap_state);
    return;
 }
 
