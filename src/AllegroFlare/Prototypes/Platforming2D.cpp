@@ -48,7 +48,6 @@ Platforming2D::Platforming2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , player_controls()
-   , XXvirtual_controls_processor()
    , bow()
    , camera_control_strategy(nullptr)
    , player_collected_items(0)
@@ -326,8 +325,6 @@ void Platforming2D::initialize_camera_control()
 
 void Platforming2D::initialize_player_controls()
 {
-   //virtual_controls_processor.set_event_emitter(event_emitter);
-   //virtual_controls_processor.initialize();
    player_controls.clear();
    return;
 }

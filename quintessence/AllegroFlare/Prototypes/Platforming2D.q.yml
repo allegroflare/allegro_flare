@@ -97,10 +97,6 @@ properties:
     type: AllegroFlare::VirtualControls
     init_with: ''
 
-  - name: XXvirtual_controls_processor
-    type: AllegroFlare::VirtualControlsProcessor
-    init_with: ''
-
   - name: bow
     type: Wicked::Weapons::DrawnBow
     init_with: ''
@@ -323,8 +319,6 @@ functions:
 
   - name: initialize_player_controls
     body: |
-      //virtual_controls_processor.set_event_emitter(event_emitter);
-      //virtual_controls_processor.initialize();
       player_controls.clear();
       return;
 
