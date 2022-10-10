@@ -48,7 +48,6 @@ Platforming2D::Platforming2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , player_controls()
-   , bow()
    , camera_control_strategy(nullptr)
    , player_collected_items(0)
 {
@@ -560,10 +559,6 @@ void Platforming2D::update_entities()
       entity->update();
    }
 
-   // weapons
-   bow.update();
-   //std::cout << "YYYYYYYYY" << std::endl;
-
    // step
    for (auto &entity : get_current_map_entities())
    {
@@ -765,14 +760,6 @@ void Platforming2D::draw_entities()
 
 void Platforming2D::draw_hud()
 {
-   float draw_strength = bow.get_strength_value_styled();
-   float width = 20;
-   float height = 3;
-
-   ALLEGRO_COLOR back = ALLEGRO_COLOR{0, 0, 0, 1};
-   ALLEGRO_COLOR front = (bow.at_max()) ? ALLEGRO_COLOR{0, 1.0, 0.6, 1} : ALLEGRO_COLOR{0, 0.6, 1.0, 1};
-   al_draw_filled_rectangle(0, 0, width, height, back);
-   al_draw_filled_rectangle(1, 1, 1+(width-2) * draw_strength, height-1, front);
    // currently empty
    return;
 }
@@ -1032,7 +1019,6 @@ void Platforming2D::virtual_control_button_down_func(ALLEGRO_EVENT* event)
    else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER)
    {
       player_controls.set_right_bumper_pressed(true);
-      bow.start_draw();
    }
    return;
 }
@@ -1055,8 +1041,6 @@ void Platforming2D::virtual_control_button_up_func(ALLEGRO_EVENT* event)
    }
    else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER)
    {
-      if (bow.at_max()) player_emit_projectile(15.0f);
-      bow.stop_draw();
       player_controls.set_right_bumper_pressed(false);
    }
    return;

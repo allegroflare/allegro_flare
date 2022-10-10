@@ -97,10 +97,6 @@ properties:
     type: AllegroFlare::VirtualControls
     init_with: ''
 
-  - name: bow
-    type: Wicked::Weapons::DrawnBow
-    init_with: ''
-
   - name: camera_control_strategy
     type: Wicked::CameraControlStrategies2D::Base*
     init_with: nullptr
@@ -536,10 +532,6 @@ functions:
          entity->update();
       }
 
-      // weapons
-      bow.update();
-      //std::cout << "YYYYYYYYY" << std::endl;
-
       // step
       for (auto &entity : get_current_map_entities())
       {
@@ -734,14 +726,6 @@ functions:
 
   - name: draw_hud
     body: |
-      float draw_strength = bow.get_strength_value_styled();
-      float width = 20;
-      float height = 3;
-      
-      ALLEGRO_COLOR back = ALLEGRO_COLOR{0, 0, 0, 1};
-      ALLEGRO_COLOR front = (bow.at_max()) ? ALLEGRO_COLOR{0, 1.0, 0.6, 1} : ALLEGRO_COLOR{0, 0.6, 1.0, 1};
-      al_draw_filled_rectangle(0, 0, width, height, back);
-      al_draw_filled_rectangle(1, 1, 1+(width-2) * draw_strength, height-1, front);
       // currently empty
       return;
 
@@ -967,7 +951,6 @@ functions:
       else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER)
       {
          player_controls.set_right_bumper_pressed(true);
-         bow.start_draw();
       }
       return;
 
@@ -994,8 +977,6 @@ functions:
       }
       else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER)
       {
-         if (bow.at_max()) player_emit_projectile(15.0f);
-         bow.stop_draw();
          player_controls.set_right_bumper_pressed(false);
       }
       return;

@@ -12,7 +12,6 @@
 #include <AllegroFlare/VirtualControls.hpp>
 #include <Wicked/CameraControlStrategies2D/Base.hpp>
 #include <Wicked/Entities/Basic2D.hpp>
-#include <Wicked/Weapons/DrawnBow.hpp>
 #include <WickedDemos/TileMaps/Basic2D.hpp>
 #include <allegro5/allegro.h>
 #include <map>
@@ -45,7 +44,6 @@ namespace AllegroFlare
          bool show_tile_mesh;
          bool show_collision_tile_mesh;
          AllegroFlare::VirtualControls player_controls;
-         Wicked::Weapons::DrawnBow bow;
          Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
          int player_collected_items;
          void initialize_maps();
