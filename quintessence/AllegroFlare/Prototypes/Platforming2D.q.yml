@@ -776,40 +776,11 @@ functions:
   - name: draw
     guards: [ initialized, currently_active_map, get_tile_mesh() ]
     body: |
-      //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-      //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
-      //al_clear_depth_buffer(1000);
-      //al_clear_to_color(ALLEGRO_COLOR{0.16, 0.16, 0.16, 1.0f});
-      //al_clear_to_color(ALLEGRO_COLOR{0.02, 0.016, 0.136, 1.0f});
-      //al_clear_to_color(al_color_name("aliceblue"));
-      al_set_render_state(ALLEGRO_DEPTH_TEST, true);
-      al_clear_depth_buffer(2000);
-
       camera.start_reverse_transform();
 
-      draw_entities(); // < TODO: fix work-around where drawing entities *before* the mesh so the z buffer is not
-                       // filled with the mesh first, thereby not rendering the entities
-      //// NOTE:: Do not show background tile mesh
-      //if (show_tile_mesh)
-      //{
-         //ALLEGRO_TRANSFORM trans;
-         //ALLEGRO_STATE state;
-         //al_store_state(&state, ALLEGRO_STATE_TRANSFORM);
-         //al_copy_transform(&trans, al_get_current_transform());
-         //al_translate_transform_3d(&trans, 0, 0, -1000);
-         //al_use_transform(&trans);
-         //get_tile_mesh()->render();
-         //al_restore_state(&state);
-      //}
-
-      //float o = 0.5;
-      //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
-      //al_draw_filled_rectangle(0, 0, 1920, 1080, ALLEGRO_COLOR{0.02f*o, 0.016f*o, 0.136f*o, 1.0f*o});
-      //al_clear_depth_buffer(2000);
-
       if (show_tile_mesh) get_tile_mesh()->render();
+      draw_entities();
       if (show_collision_tile_mesh) render_collision_tile_mesh();
-      //draw_entities();
 
       camera.restore_transform();
       
