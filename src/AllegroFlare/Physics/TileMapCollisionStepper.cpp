@@ -425,7 +425,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
          stayed_on_tile,
-         -1, // TODO: fill this value
+         -999, // TODO: fill this value
          velocity_x,
          velocity_y,
          false,
@@ -438,7 +438,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
          entered_tile,
-         -1, // TODO: fill this value
+         -999, // TODO: fill this value
          velocity_x,
          velocity_y,
          false,
@@ -451,7 +451,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
          exited_tile,
-         -1, // TODO: fill this value
+         -999, // TODO: fill this value
          velocity_x,
          velocity_y,
          false,

@@ -391,16 +391,16 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, get_stepped_tile_collis
    AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper;
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
    {
-      TileMapCollisionStepperCollisionInfo({3, 4}, -1, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({3, 5}, -1, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({2, 4}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({2, 5}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({2, 6}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 6}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 3}, -1, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 3}, -1, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 4}, -1, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 5}, -1, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({3, 4}, -999, -8, 8, false, EVENT_STAYED_ON),
+      TileMapCollisionStepperCollisionInfo({3, 5}, -999, -8, 8, false, EVENT_STAYED_ON),
+      TileMapCollisionStepperCollisionInfo({2, 4}, -999, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({2, 5}, -999, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({2, 6}, -999, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({3, 6}, -999, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({3, 3}, -999, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 3}, -999, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 4}, -999, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 5}, -999, -8, 8, false, EVENT_EXITED),
    };
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
       tile_map_collision_stepper.get_stepped_tile_collisions(50, 60, -8, 8, 16-1, 16*2-1, 16, 16);

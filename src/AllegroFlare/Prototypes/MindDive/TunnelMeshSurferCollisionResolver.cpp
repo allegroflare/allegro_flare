@@ -131,7 +131,7 @@ AllegroFlare::Physics::TileMapCollisionStepperStepResult TunnelMeshSurferCollisi
       );
    result.set_collisions(collision_infos);
 
-   bool output_collision_debug_data = true;
+   bool output_collision_debug_data = false;
    if (output_collision_debug_data && !collision_infos.empty())
    {
       std::cout << "COLLISIONS: " << collision_infos.size() << std::endl;

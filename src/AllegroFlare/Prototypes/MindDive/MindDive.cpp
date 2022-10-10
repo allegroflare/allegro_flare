@@ -485,7 +485,7 @@ void MindDive::play_around_with_collision_step_result(AllegroFlare::Physics::Til
       }
 
       // change tiles if surfer collided with them
-      else if (collision.get_tile_value() == 2)
+      else if (collision.get_tile_value() == 2 || (collision.get_tile_value() == -999))
       {
          // this is cool just disabled
          bool disable_this_feature = false;
