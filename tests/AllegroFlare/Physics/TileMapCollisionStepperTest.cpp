@@ -17,6 +17,7 @@ class AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtur
 
 
 #include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D.hpp>
@@ -382,20 +383,20 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, tiles_within__returns_t
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, get_stepped_tile_collisions__returns_the_expected_values)
    // TODO: consider more elaborate testing on this function
 {
+   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
+
    AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper;
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
    {
-   //std::vector<AllegroFlare::Physics::Int2D> expected_result_tiles = {
-      //{20, 7},  {21, 7},  {22, 7},  {23, 7},
-      //{20, 8},  {21, 8},  {22, 8},  {23, 8},
-      //{20, 9},  {21, 9},  {22, 9},  {23, 9},
-      //{20, 10}, {21, 10}, {22, 10}, {23, 10},
-      //{20, 11}, {21, 11}, {22, 11}, {23, 11}
+      //TileMapCollisionStepperCollisionInfo({5, 3}, -1, -3, 3, false, EVENT_ENTERED),
+      //TileMapCollisionStepperCollisionInfo({5, 4}, -1, -3, 3, false, EVENT_ENTERED),
+      //TileMapCollisionStepperCollisionInfo({5, 5}, -1, -3, 3, false, EVENT_ENTERED),
    };
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
       tile_map_collision_stepper.get_stepped_tile_collisions(80, 60, -3, 3, 16-1, 16*2-1, 16, 16);
 
-   //EXPECT_EQ(expected_result_collisions, actual_result_collisions);
+   EXPECT_EQ(expected_result_collisions, actual_result_collisions);
 }
 
 
