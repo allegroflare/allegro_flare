@@ -20,6 +20,7 @@ namespace AllegroFlare
       float _position;
       float _paused;
       bool initialized;
+
       void validate_initialized(std::string function_name);
 
    public:

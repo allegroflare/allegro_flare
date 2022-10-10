@@ -20,6 +20,7 @@ namespace AllegroFlare
       , voice(nullptr)
       , _position(0)
       , _paused(false)
+      , initialized(false)
    {
       //initialize();
    }
