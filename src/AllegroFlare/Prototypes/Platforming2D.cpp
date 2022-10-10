@@ -28,9 +28,9 @@ namespace Prototypes
 {
 
 
-Platforming2D::Platforming2D(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
+Platforming2D::Platforming2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
    : AllegroFlare::Screens::Base("TileDemo")
-   , framework(framework)
+   , bitmap_bin(bitmap_bin)
    , display(display)
    , event_emitter(event_emitter)
    , native_display_resolution_width(1920)
@@ -59,6 +59,12 @@ Platforming2D::Platforming2D(AllegroFlare::Frameworks::Full* framework, AllegroF
 
 Platforming2D::~Platforming2D()
 {
+}
+
+
+void Platforming2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
 }
 
 
@@ -101,6 +107,12 @@ void Platforming2D::set_showing_player_reticle(bool showing_player_reticle)
 void Platforming2D::set_player_reticle_vector(AllegroFlare::vec2d player_reticle_vector)
 {
    this->player_reticle_vector = player_reticle_vector;
+}
+
+
+AllegroFlare::BitmapBin* Platforming2D::get_bitmap_bin() const
+{
+   return bitmap_bin;
 }
 
 
@@ -173,7 +185,7 @@ void Platforming2D::initialize_display_projection()
 void Platforming2D::initialize_maps()
 {
    // load up a world
-   Wicked::Entities::Basic2DFactory factory(&framework->get_bitmap_bin_ref());
+   Wicked::Entities::Basic2DFactory factory(bitmap_bin);
    //Wicked::Entities::Basic2D *created_map = nullptr;
    Wicked::Entities::Basic2D *created_map = nullptr;
 
@@ -329,10 +341,10 @@ void Platforming2D::initialize_player_controls()
 
 void Platforming2D::initialize()
 {
-   if (!(framework))
+   if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "initialize" << ": error: " << "guard \"framework\" not met";
+      error_message << "Platforming2D" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
    initialize_display_projection();
@@ -426,13 +438,7 @@ void Platforming2D::setup_camera()
 
 void Platforming2D::initialize_entities()
 {
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "initialize_entities" << ": error: " << "guard \"framework\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   Wicked::Entities::Basic2DFactory factory(&framework->get_bitmap_bin_ref());
+   Wicked::Entities::Basic2DFactory factory(bitmap_bin);
    //Wicked::Entities::Basic2D* created_entity = factory.create_from_bitmap_filename(
    //   "map_a", "golden_dragon.png", "top_left");
    //created_entity->get_place_ref().size.x *= 0.5;
@@ -549,7 +555,7 @@ void Platforming2D::player_emit_projectile(float magnitude)
    std::string on_map_name = player_controlled_entity->get(ON_MAP_NAME);
 
 
-   Wicked::Entities::Basic2DFactory factory(&framework->get_bitmap_bin_ref());
+   Wicked::Entities::Basic2DFactory factory(bitmap_bin);
    Wicked::Entities::Basic2D* projectile = factory.create_player_projectile(
       on_map_name,
       player_pos.x,
@@ -767,12 +773,6 @@ void Platforming2D::update_player_collisions_with_collectables()
 
 void Platforming2D::update_player_collisions_with_goalposts()
 {
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "update_player_collisions_with_goalposts" << ": error: " << "guard \"framework\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
@@ -788,7 +788,8 @@ void Platforming2D::update_player_collisions_with_goalposts()
    {
       if (entity->get_place_ref().collide(player_x, player_y, 8, 8, 8, 8))
       {
-         framework->shutdown_program = true;
+         // TODO: this logic requires injection of the event emitter
+         //framework->shutdown_program = true;
       }
    }
    return;
@@ -869,12 +870,6 @@ void Platforming2D::update()
       error_message << "Platforming2D" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "update" << ": error: " << "guard \"framework\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    //return;
    update_player_controls_on_player_controlled_entity();
    //return;
@@ -916,12 +911,6 @@ void Platforming2D::draw()
    {
       std::stringstream error_message;
       error_message << "Platforming2D" << "::" << "draw" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "draw" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(currently_active_map))
@@ -1052,12 +1041,6 @@ void Platforming2D::key_char_func(ALLEGRO_EVENT* event)
       error_message << "Platforming2D" << "::" << "key_char_func" << ": error: " << "guard \"event\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_char_func" << ": error: " << "guard \"framework\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    switch (event->keyboard.keycode)
    {
    case ALLEGRO_KEY_1:
@@ -1104,12 +1087,6 @@ void Platforming2D::_key_up_func(ALLEGRO_EVENT* event)
       error_message << "Platforming2D" << "::" << "_key_up_func" << ": error: " << "guard \"event\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "_key_up_func" << ": error: " << "guard \"framework\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    //virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
    return;
 }
@@ -1128,13 +1105,8 @@ void Platforming2D::_key_down_func(ALLEGRO_EVENT* event)
       error_message << "Platforming2D" << "::" << "_key_down_func" << ": error: " << "guard \"event\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "_key_down_func" << ": error: " << "guard \"framework\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
+
+   //if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
 
    //virtual_controls_processor.handle_raw_keyboard_key_down_event(event);
    return;
@@ -1152,12 +1124,6 @@ void Platforming2D::key_up_func(ALLEGRO_EVENT* event)
    {
       std::stringstream error_message;
       error_message << "Platforming2D" << "::" << "key_up_func" << ": error: " << "guard \"event\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_up_func" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
    switch (event->keyboard.keycode)
@@ -1185,12 +1151,6 @@ void Platforming2D::key_down_func(ALLEGRO_EVENT* event)
    {
       std::stringstream error_message;
       error_message << "Platforming2D" << "::" << "key_down_func" << ": error: " << "guard \"event\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(framework))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_down_func" << ": error: " << "guard \"framework\" not met";
       throw std::runtime_error(error_message.str());
    }
    switch (event->keyboard.keycode)

@@ -3,6 +3,8 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D.hpp>
 
+#include <AllegroFlare/Frameworks/Full.hpp>
+
 
 TEST(AllegroFlare_Prototypes_Platforming2DTest, can_be_created_without_blowing_up)
 {
@@ -20,7 +22,7 @@ TEST(AllegroFlare_Prototypes_Platforming2DTest,
    framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
 
    AllegroFlare::Prototypes::Platforming2D platforming_2d(
-      &framework,
+      &framework.get_bitmap_bin_ref(),
       framework.get_primary_display(),
       &framework.get_event_emitter_ref()
    );

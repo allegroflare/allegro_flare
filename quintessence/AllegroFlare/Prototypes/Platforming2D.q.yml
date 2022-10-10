@@ -9,10 +9,12 @@ parent_classes:
 properties:
 
 
-  - name: framework
-    type: AllegroFlare::Frameworks::Full*
-    init_with: nullptr
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
     constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
 
   - name: display
     type: AllegroFlare::Display*
@@ -161,9 +163,10 @@ functions:
 
 
   - name: initialize_maps
+    private: true
     body: |
       // load up a world
-      Wicked::Entities::Basic2DFactory factory(&framework->get_bitmap_bin_ref());
+      Wicked::Entities::Basic2DFactory factory(bitmap_bin);
       //Wicked::Entities::Basic2D *created_map = nullptr;
       Wicked::Entities::Basic2D *created_map = nullptr;
 
@@ -321,7 +324,7 @@ functions:
 
   - name: initialize
     type: void
-    guards: [ framework ]
+    guards: [ bitmap_bin ]
     body: |
       initialize_display_projection();
       initialize_maps();
@@ -408,9 +411,8 @@ functions:
 
   - name: initialize_entities
     private: true
-    guards: [ framework ]
     body: |
-      Wicked::Entities::Basic2DFactory factory(&framework->get_bitmap_bin_ref());
+      Wicked::Entities::Basic2DFactory factory(bitmap_bin);
       //Wicked::Entities::Basic2D* created_entity = factory.create_from_bitmap_filename(
       //   "map_a", "golden_dragon.png", "top_left");
       //created_entity->get_place_ref().size.x *= 0.5;
@@ -533,7 +535,7 @@ functions:
       std::string on_map_name = player_controlled_entity->get(ON_MAP_NAME);
 
 
-      Wicked::Entities::Basic2DFactory factory(&framework->get_bitmap_bin_ref());
+      Wicked::Entities::Basic2DFactory factory(bitmap_bin);
       Wicked::Entities::Basic2D* projectile = factory.create_player_projectile(
          on_map_name,
          player_pos.x,
@@ -736,7 +738,7 @@ functions:
 
 
   - name: update_player_collisions_with_goalposts
-    guards: [ framework, player_controlled_entity ]
+    guards: [ player_controlled_entity ]
     body: |
       std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
       Wicked::Entities::CollectionHelper collection_helper(&_entities);
@@ -747,7 +749,8 @@ functions:
       {
          if (entity->get_place_ref().collide(player_x, player_y, 8, 8, 8, 8))
          {
-            framework->shutdown_program = true;
+            // TODO: this logic requires injection of the event emitter
+            //framework->shutdown_program = true;
          }
       }
       return;
@@ -816,7 +819,7 @@ functions:
 
 
   - name: update
-    guards: [ initialized, framework ]
+    guards: [ initialized ]
     body: |
       //return;
       update_player_controls_on_player_controlled_entity();
@@ -864,7 +867,7 @@ functions:
 
 
   - name: draw
-    guards: [ initialized, framework, currently_active_map, get_tile_mesh() ]
+    guards: [ initialized, currently_active_map, get_tile_mesh() ]
     body: |
       //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
       //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
@@ -976,7 +979,7 @@ functions:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
-    guards: [ initialized, event, framework ]
+    guards: [ initialized, event ]
     body: |
       switch (event->keyboard.keycode)
       {
@@ -1035,7 +1038,7 @@ functions:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
-    guards: [ initialized, event, framework ]
+    guards: [ initialized, event ]
     body: |
       //virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
       return;
@@ -1048,9 +1051,10 @@ functions:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
-    guards: [ initialized, event, framework ]
+    guards: [ initialized, event ]
     body: |
-      if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
+     
+      //if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
 
       //virtual_controls_processor.handle_raw_keyboard_key_down_event(event);
       return;
@@ -1063,7 +1067,7 @@ functions:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
-    guards: [ initialized, event, framework ]
+    guards: [ initialized, event ]
     body: |
       switch (event->keyboard.keycode)
       {
@@ -1085,7 +1089,7 @@ functions:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
-    guards: [ initialized, event, framework ]
+    guards: [ initialized, event ]
     body: |
       switch (event->keyboard.keycode)
       {
@@ -1323,6 +1327,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: al_color_name
     headers: [ allegro5/allegro_color.h ]
   - symbol: std::map<int, int>
@@ -1409,3 +1415,5 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
+
+
