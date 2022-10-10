@@ -1156,7 +1156,6 @@ functions:
     guards: [ currently_active_map ]
     type: AllegroFlare::TileMaps::PrimMesh*
     body: |
-      //if (!currently_active_map) throw std::runtime_error("AAAAA");
       return currently_active_map->get_tile_mesh();
 
 
@@ -1172,7 +1171,6 @@ functions:
     guards: [ currently_active_map ]
     body: |
       return entities;
-      //return currently_active_map->get_entities_ref();
 
 
   - name: get_current_map_entities
@@ -1180,8 +1178,7 @@ functions:
     guards: [ player_controlled_entity ]
     body: |
       Wicked::Entities::CollectionHelper collection_helper(&get_current_map_entities_ref());
-      //std::string on_map_name = player_controlled_entity->get(ON_MAP_NAME);
-      std::string on_map_name = currently_active_map_name; //player_controlled_entity->get(ON_MAP_NAME);
+      std::string on_map_name = currently_active_map_name;
       return collection_helper.select_on_map(on_map_name);
     body_dependency_symbols:
       - Wicked::Entities::CollectionHelper
@@ -1200,38 +1197,22 @@ dependencies:
     headers: [ AllegroFlare/VirtualControls.hpp ]
   - symbol: AllegroFlare::VirtualControlsProcessor
     headers: [ AllegroFlare/VirtualControlsProcessor.hpp ]
-  - symbol: AllegroFlare::TileMaps::TileMap*
-    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::EventNames
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: AllegroFlare::TileMaps::PrimMesh*
-    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
   - symbol: Tileo::TMJMeshLoader
     headers: [ Tileo/TMJMeshLoader.hpp ]
-  - symbol: std::vector<Wicked::Entities::Basic2D*>
-    headers: [ vector, Wicked/Entities/Basic2D.hpp ]
-  - symbol: Wicked::Entities::Basic2D*
-    headers: [ Wicked/Entities/Basic2D.hpp ]
   - symbol: Wicked::Entities::Basic2DFactory
     headers: [ Wicked/Entities/Basic2DFactory.hpp ]
   - symbol: AllegroFlare::Screen
     headers: [ AllegroFlare/Screen.hpp ]
-  - symbol: AllegroFlare::Display*
-    headers: [ AllegroFlare/Display.hpp ]
-  - symbol: AllegroFlare::Framework*
-    headers: [ AllegroFlare/Framework.hpp ]
   - symbol: AllegroFlare::Frameworks::Full
     headers: [ AllegroFlare/Frameworks/Full.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::vec2d
     headers: [ AllegroFlare/Vec2D.hpp ]
-  - symbol: ALLEGRO_EVENT*
-    headers: [ allegro5/allegro.h ]
   - symbol: al_color_name
     headers: [ allegro5/allegro_color.h ]
   - symbol: Wicked::Physics::TileMapCollisionStepper
@@ -1242,8 +1223,6 @@ dependencies:
     headers: [ Wicked/EntityFlagNames.hpp ]
   - symbol: Wicked::Weapons::DrawnBow
     headers: [ Wicked/Weapons/DrawnBow.hpp ]
-  - symbol: Wicked::CameraControlStrategies2D::Base*
-    headers: [ Wicked/CameraControlStrategies2D/Base.hpp ]
   - symbol: Wicked::CameraControlStrategies2D::Snap
     headers: [ Wicked/CameraControlStrategies2D/Snap.hpp ]
   - symbol: Wicked::CameraControlStrategies2D::SmoothSnap
@@ -1256,8 +1235,6 @@ dependencies:
     headers: [ WickedDemos/TileMaps/Basic2D.hpp ]
   - symbol: Wicked::Entities::Doors::Basic2D
     headers: [ Wicked/Entities/Doors/Basic2D.hpp ]
-  - symbol: std::vector<Wicked::Entities::Basic2D*>&
-    headers: [ vector, Wicked/Entities/Basic2D.hpp ]
   - symbol: std::find
     headers: [ algorithm ]
   - symbol: tan

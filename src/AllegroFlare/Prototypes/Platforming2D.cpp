@@ -1214,7 +1214,6 @@ AllegroFlare::TileMaps::PrimMesh* Platforming2D::get_tile_mesh()
       error_message << "Platforming2D" << "::" << "get_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
-   //if (!currently_active_map) throw std::runtime_error("AAAAA");
    return currently_active_map->get_tile_mesh();
 }
 
@@ -1238,7 +1237,6 @@ std::vector<Wicked::Entities::Basic2D*>& Platforming2D::get_current_map_entities
       throw std::runtime_error(error_message.str());
    }
    return entities;
-   //return currently_active_map->get_entities_ref();
 }
 
 std::vector<Wicked::Entities::Basic2D*> Platforming2D::get_current_map_entities()
@@ -1250,8 +1248,7 @@ std::vector<Wicked::Entities::Basic2D*> Platforming2D::get_current_map_entities(
       throw std::runtime_error(error_message.str());
    }
    Wicked::Entities::CollectionHelper collection_helper(&get_current_map_entities_ref());
-   //std::string on_map_name = player_controlled_entity->get(ON_MAP_NAME);
-   std::string on_map_name = currently_active_map_name; //player_controlled_entity->get(ON_MAP_NAME);
+   std::string on_map_name = currently_active_map_name;
    return collection_helper.select_on_map(on_map_name);
 }
 

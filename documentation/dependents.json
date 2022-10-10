@@ -570,7 +570,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/Platforming2D",
-    "AllegroFlare/Prototypes/Platforming2D",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -599,7 +598,6 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D",
     "AllegroFlare/Prototypes/Platforming2D",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -1201,7 +1199,6 @@
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D",
-    "AllegroFlare/Prototypes/Platforming2D",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -1466,7 +1463,6 @@
   "AllegroFlare/TileMaps/PrimMesh": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D",
-    "AllegroFlare/Prototypes/Platforming2D",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -1518,51 +1514,11 @@
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo"
   ],
-  "std/vector<Wicked/Entities/Basic2D>": [
-    "AllegroFlare/Prototypes/Platforming2D",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/Entities/Basic2D": [
-    "AllegroFlare/Prototypes/Platforming2D",
-    "AllegroFlare/Prototypes/Platforming2D",
-    "Wicked/CameraControlStrategies2D/HorizontalRail",
-    "Wicked/CameraControlStrategies2D/SmoothSnap",
-    "Wicked/CameraControlStrategies2D/Snap",
-    "Wicked/Entities/Basic2DFactory",
-    "Wicked/Entities/CollectionHelper",
-    "Wicked/Entities/Doors/Basic2D",
-    "Wicked/Entities/Enemies/Base",
-    "Wicked/Entities/MovementStrategies2D/Anchored",
-    "Wicked/Entities/MovementStrategies2D/BackAndForthHorizontal",
-    "Wicked/Entities/MovementStrategies2D/FallOnTrackingRange",
-    "Wicked/Entities/MovementStrategies2D/Flapping",
-    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "Wicked/Entities/MovementStrategies2D/HoppingLeft",
-    "Wicked/Entities/MovementStrategies2D/MoveInDirection",
-    "Wicked/Entities/MovementStrategies2D/MoveLeft",
-    "Wicked/Entities/MovementStrategies2D/MoveRight",
-    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
-    "Wicked/Entities/MovementStrategies2D/StayStill",
-    "Wicked/Entities/MovementStrategies2D/Tracking",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileMaps/Basic2D"
-  ],
   "Wicked/Entities/Basic2DFactory": [
     "AllegroFlare/Prototypes/Platforming2D",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [
-    "AllegroFlare/Prototypes/Platforming2D",
-    "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/Display": [
-    "AllegroFlare/Prototypes/Platforming2D",
-    "AllegroFlare/Prototypes/Platforming2D",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/Framework": [
     "AllegroFlare/Prototypes/Platforming2D",
     "WickedDemos/TileDemo"
   ],
@@ -1604,15 +1560,6 @@
     "AllegroFlare/Prototypes/Platforming2D",
     "WickedDemos/TileDemo"
   ],
-  "Wicked/CameraControlStrategies2D/Base": [
-    "AllegroFlare/Prototypes/Platforming2D",
-    "AllegroFlare/Prototypes/Platforming2D",
-    "Wicked/CameraControlStrategies2D/HorizontalRail",
-    "Wicked/CameraControlStrategies2D/SmoothSnap",
-    "Wicked/CameraControlStrategies2D/Snap",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
-  ],
   "Wicked/CameraControlStrategies2D/Snap": [
     "AllegroFlare/Prototypes/Platforming2D",
     "WickedDemos/TileDemo"
@@ -1640,13 +1587,47 @@
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo"
   ],
-  "std/vector<Wicked/Entities/Basic2D>&": [
-    "AllegroFlare/Prototypes/Platforming2D",
-    "WickedDemos/TileDemo"
-  ],
   "std/find": [
     "AllegroFlare/Prototypes/Platforming2D",
     "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Display": [
+    "AllegroFlare/Prototypes/Platforming2D",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/CameraControlStrategies2D/Base": [
+    "AllegroFlare/Prototypes/Platforming2D",
+    "Wicked/CameraControlStrategies2D/HorizontalRail",
+    "Wicked/CameraControlStrategies2D/SmoothSnap",
+    "Wicked/CameraControlStrategies2D/Snap",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/Entities/Basic2D": [
+    "AllegroFlare/Prototypes/Platforming2D",
+    "Wicked/CameraControlStrategies2D/HorizontalRail",
+    "Wicked/CameraControlStrategies2D/SmoothSnap",
+    "Wicked/CameraControlStrategies2D/Snap",
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Entities/CollectionHelper",
+    "Wicked/Entities/Doors/Basic2D",
+    "Wicked/Entities/Enemies/Base",
+    "Wicked/Entities/MovementStrategies2D/Anchored",
+    "Wicked/Entities/MovementStrategies2D/BackAndForthHorizontal",
+    "Wicked/Entities/MovementStrategies2D/FallOnTrackingRange",
+    "Wicked/Entities/MovementStrategies2D/Flapping",
+    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
+    "Wicked/Entities/MovementStrategies2D/HoppingLeft",
+    "Wicked/Entities/MovementStrategies2D/MoveInDirection",
+    "Wicked/Entities/MovementStrategies2D/MoveLeft",
+    "Wicked/Entities/MovementStrategies2D/MoveRight",
+    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
+    "Wicked/Entities/MovementStrategies2D/StayStill",
+    "Wicked/Entities/MovementStrategies2D/Tracking",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
@@ -1885,5 +1866,14 @@
   ],
   "AllegroFlare/Interpolators": [
     "Wicked/Weapons/DrawnBow"
+  ],
+  "std/vector<Wicked/Entities/Basic2D>": [
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Framework": [
+    "WickedDemos/TileDemo"
+  ],
+  "std/vector<Wicked/Entities/Basic2D>&": [
+    "WickedDemos/TileDemo"
   ]
 }
