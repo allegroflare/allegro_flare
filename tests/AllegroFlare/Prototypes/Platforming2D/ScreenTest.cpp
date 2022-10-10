@@ -14,8 +14,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_bl
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
-   //INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
-   DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+   INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+   //DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
@@ -23,11 +23,10 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
    framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
 
-   AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d(
-      &framework.get_bitmap_bin_ref(),
-      framework.get_primary_display(),
-      &framework.get_event_emitter_ref()
-   );
+   AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d;
+   platforming_2d.set_bitmap_bin(&framework.get_bitmap_bin_ref());
+   platforming_2d.set_display(framework.get_primary_display());
+   platforming_2d.set_event_emitter(&framework.get_event_emitter_ref());
    platforming_2d.set_map_dictionary({
       { "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
       { "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },

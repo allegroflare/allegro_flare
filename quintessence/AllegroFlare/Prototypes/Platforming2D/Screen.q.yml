@@ -14,18 +14,19 @@ properties:
     constructor_arg: true
     init_with: nullptr
     getter: true
-    setter: true
+    setter: false
 
   - name: display
     type: AllegroFlare::Display*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
-    setter: true
+    setter: false
 
   - name: native_display_resolution_width
     type: int
@@ -118,6 +119,39 @@ functions:
     body: |
       this->map_dictionary = map_dictionary;
       // TODO: allow this to be set after initialization
+      return;
+
+
+  - name: set_display
+    parameters:
+      - name: display
+        type: AllegroFlare::Display*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->display = display;
+      return;
+
+
+  - name: set_event_emitter
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->event_emitter = event_emitter;
+      return;
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->bitmap_bin = bitmap_bin;
       return;
 
 

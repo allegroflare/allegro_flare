@@ -57,8 +57,6 @@ namespace AllegroFlare
             Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Display* display=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
-            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
-            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_entities(std::vector<Wicked::Entities::Basic2D*> entities);
             void set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity);
             void set_show_tile_mesh(bool show_tile_mesh);
@@ -70,6 +68,9 @@ namespace AllegroFlare
             bool get_show_collision_tile_mesh() const;
             std::vector<Wicked::Entities::Basic2D*> &get_entities_ref();
             void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
+            void set_display(AllegroFlare::Display* display=nullptr);
+            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
             WickedDemos::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
             void initialize_display_projection();

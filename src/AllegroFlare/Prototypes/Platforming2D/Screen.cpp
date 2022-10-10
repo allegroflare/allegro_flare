@@ -61,18 +61,6 @@ Screen::~Screen()
 }
 
 
-void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
-{
-   this->bitmap_bin = bitmap_bin;
-}
-
-
-void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
-{
-   this->event_emitter = event_emitter;
-}
-
-
 void Screen::set_entities(std::vector<Wicked::Entities::Basic2D*> entities)
 {
    this->entities = entities;
@@ -143,6 +131,42 @@ void Screen::set_map_dictionary(std::map<std::string, std::string> map_dictionar
    }
    this->map_dictionary = map_dictionary;
    // TODO: allow this to be set after initialization
+   return;
+}
+
+void Screen::set_display(AllegroFlare::Display* display)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "set_display" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->display = display;
+   return;
+}
+
+void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "set_event_emitter" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->event_emitter = event_emitter;
+   return;
+}
+
+void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "set_bitmap_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->bitmap_bin = bitmap_bin;
    return;
 }
 
