@@ -46,7 +46,6 @@ namespace AllegroFlare
          AllegroFlare::VirtualControls player_controls;
          Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
          int player_collected_items;
-         void initialize_maps();
          void setup_camera();
          void initialize_entities();
 
@@ -73,6 +72,7 @@ namespace AllegroFlare
          void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
          WickedDemos::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
          void initialize_display_projection();
+         void initialize_maps();
          void initialize_hud();
          void setup_projection();
          void initialize_camera_control();

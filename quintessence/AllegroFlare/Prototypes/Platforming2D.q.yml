@@ -160,7 +160,7 @@ functions:
 
 
   - name: initialize_maps
-    private: true
+    xxprivate: true
     body: |
       Wicked::Entities::Basic2DFactory factory(bitmap_bin);
       Wicked::Entities::Basic2D *created_map = nullptr;
@@ -318,8 +318,8 @@ functions:
     guards: [ bitmap_bin ]
     body: |
       initialize_display_projection();
-      initialize_maps();
-      initialize_entities();
+      //initialize_maps();
+      //initialize_entities();
       initialize_hud();
       initialize_camera_control();
       initialize_player_controls();
@@ -363,28 +363,19 @@ functions:
   - name: initialize_entities
     private: true
     body: |
+      return;
       Wicked::Entities::Basic2DFactory factory(bitmap_bin);
-      //Wicked::Entities::Basic2D* created_entity = factory.create_from_bitmap_filename(
-      //   "map_a", "golden_dragon.png", "top_left");
-      //created_entity->get_place_ref().size.x *= 0.5;
-      //created_entity->get_place_ref().size.y *= 0.5;
-      //created_entity->get_place_ref().position.x = 400/2;
-      //created_entity->get_place_ref().position.y = 240/2;
       Wicked::Entities::Basic2D* created_entity = factory.create_for_aabb2d("map_a", 16-1, 32-1);
       created_entity->get_place_ref().position.x = 400/2;
       created_entity->get_place_ref().position.y = 240/2;
 
+      //return;
+
+      return;
       set_player_controlled_entity(created_entity);
+      //return;
       get_current_map_entities_ref().push_back(created_entity);
-
-
-      // add an "enemy"
-      //Wicked::Entities::Basic2D* enemy = factory.create_enemy_move_left(400/8*7, 240/2);
-      //entities.push_back(enemy);
-      //Wicked::Entities::Basic2D* enemy = factory.create_tracking_enemy(
-         //"map_a", player_controlled_entity, 400/8*6, 240/3*1, 16.0-1.0f, 16.0-1.0f);
-      //get_current_map_entities_ref().push_back(enemy);
-
+      //return;
 
       for (unsigned i=0; i<6; i++)
       {
@@ -401,21 +392,12 @@ functions:
          get_current_map_entities_ref().push_back(enemy);
       }
 
-
-
-      // add a collectable
-      //Wicked::Entities::Basic2D* collectable = factory.create_collectable(400/8*6, 240/3*1);
-      //entities.push_back(collectable);
+      //return;
 
       Wicked::Entities::Basic2D* collectable2 = factory.create_collectable("map_a", 5*16, 20*16);
       get_current_map_entities_ref().push_back(collectable2);
 
-      //entities.push_back(factory.create_collectable(18*16, 13*16));
       get_current_map_entities_ref().push_back(factory.create_collectable("map_a", 45*16, 2*16));
-
-
-      // create the goalpost
-      //entities.push_back(factory.create_door(46*16, 26*16));
 
       // create the door
       get_current_map_entities_ref().push_back(
