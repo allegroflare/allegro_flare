@@ -876,6 +876,11 @@ void Platforming2D::key_down_func(ALLEGRO_EVENT* event)
          player_controls.set_right_button_pressed(true);
       break;
 
+      case ALLEGRO_KEY_UP:
+         player_controls.set_up_button_pressed(true);
+         check_player_collisions_with_doors();
+      break;
+
       case ALLEGRO_KEY_SPACE:
          set_player_controlled_entity_jump();
       break;
@@ -910,6 +915,7 @@ void Platforming2D::virtual_control_button_down_func(ALLEGRO_EVENT* event)
    }
    else if (button_num == AllegroFlare::VirtualControls::BUTTON_UP)
    {
+      std::cout << "UPUPUPUP";
       player_controls.set_up_button_pressed(true);
       check_player_collisions_with_doors();
    }
