@@ -9,7 +9,6 @@
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
-#include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
 #include <Wicked/CameraControlStrategies2D/Base.hpp>
@@ -48,8 +47,6 @@ namespace AllegroFlare
          bool show_collision_tile_mesh;
          AllegroFlare::VirtualControls player_controls;
          AllegroFlare::VirtualControlsProcessor XXvirtual_controls_processor;
-         bool showing_player_reticle;
-         AllegroFlare::vec2d player_reticle_vector;
          Wicked::Weapons::DrawnBow bow;
          Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
          int player_collected_items;
@@ -70,15 +67,11 @@ namespace AllegroFlare
          void set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity);
          void set_show_tile_mesh(bool show_tile_mesh);
          void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
-         void set_showing_player_reticle(bool showing_player_reticle);
-         void set_player_reticle_vector(AllegroFlare::vec2d player_reticle_vector);
          AllegroFlare::BitmapBin* get_bitmap_bin() const;
          std::map<std::string, std::string> get_map_dictionary() const;
          Wicked::Entities::Basic2D* get_player_controlled_entity() const;
          bool get_show_tile_mesh() const;
          bool get_show_collision_tile_mesh() const;
-         bool get_showing_player_reticle() const;
-         AllegroFlare::vec2d get_player_reticle_vector() const;
          std::vector<Wicked::Entities::Basic2D*> &get_entities_ref();
          void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
          void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
@@ -107,7 +100,6 @@ namespace AllegroFlare
          void update();
          void draw_dimentional_grid(float x=0.0f, float y=0.0f, float z=0.0f);
          void draw();
-         void draw_player_reticle();
          void toggle_show_collision_tile_mesh();
          void toggle_show_tile_mesh();
          virtual void primary_timer_func() override;

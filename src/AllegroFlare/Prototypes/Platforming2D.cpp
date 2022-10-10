@@ -49,8 +49,6 @@ Platforming2D::Platforming2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::
    , show_collision_tile_mesh(false)
    , player_controls()
    , XXvirtual_controls_processor()
-   , showing_player_reticle(false)
-   , player_reticle_vector()
    , bow()
    , camera_control_strategy(nullptr)
    , player_collected_items(0)
@@ -99,18 +97,6 @@ void Platforming2D::set_show_collision_tile_mesh(bool show_collision_tile_mesh)
 }
 
 
-void Platforming2D::set_showing_player_reticle(bool showing_player_reticle)
-{
-   this->showing_player_reticle = showing_player_reticle;
-}
-
-
-void Platforming2D::set_player_reticle_vector(AllegroFlare::vec2d player_reticle_vector)
-{
-   this->player_reticle_vector = player_reticle_vector;
-}
-
-
 AllegroFlare::BitmapBin* Platforming2D::get_bitmap_bin() const
 {
    return bitmap_bin;
@@ -138,18 +124,6 @@ bool Platforming2D::get_show_tile_mesh() const
 bool Platforming2D::get_show_collision_tile_mesh() const
 {
    return show_collision_tile_mesh;
-}
-
-
-bool Platforming2D::get_showing_player_reticle() const
-{
-   return showing_player_reticle;
-}
-
-
-AllegroFlare::vec2d Platforming2D::get_player_reticle_vector() const
-{
-   return player_reticle_vector;
 }
 
 
@@ -958,27 +932,27 @@ void Platforming2D::draw()
 
    draw_entities(); // < TODO: fix work-around where drawing entities *before* the mesh so the z buffer is not
                     // filled with the mesh first, thereby not rendering the entities
-   if (show_tile_mesh)
-   {
-      ALLEGRO_TRANSFORM trans;
-      ALLEGRO_STATE state;
-      al_store_state(&state, ALLEGRO_STATE_TRANSFORM);
-      al_copy_transform(&trans, al_get_current_transform());
-      al_translate_transform_3d(&trans, 0, 0, -1000);
-      al_use_transform(&trans);
-      get_tile_mesh()->render();
-      al_restore_state(&state);
-   }
+   //// NOTE:: Do not show background tile mesh
+   //if (show_tile_mesh)
+   //{
+      //ALLEGRO_TRANSFORM trans;
+      //ALLEGRO_STATE state;
+      //al_store_state(&state, ALLEGRO_STATE_TRANSFORM);
+      //al_copy_transform(&trans, al_get_current_transform());
+      //al_translate_transform_3d(&trans, 0, 0, -1000);
+      //al_use_transform(&trans);
+      //get_tile_mesh()->render();
+      //al_restore_state(&state);
+   //}
 
-   float o = 0.5;
-   al_set_render_state(ALLEGRO_DEPTH_TEST, true);
-   al_draw_filled_rectangle(0, 0, 1920, 1080, ALLEGRO_COLOR{0.02f*o, 0.016f*o, 0.136f*o, 1.0f*o});
-   al_clear_depth_buffer(2000);
+   //float o = 0.5;
+   //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
+   //al_draw_filled_rectangle(0, 0, 1920, 1080, ALLEGRO_COLOR{0.02f*o, 0.016f*o, 0.136f*o, 1.0f*o});
+   //al_clear_depth_buffer(2000);
 
    if (show_tile_mesh) get_tile_mesh()->render();
    if (show_collision_tile_mesh) render_collision_tile_mesh();
    //draw_entities();
-   if (showing_player_reticle) draw_player_reticle();
 
    //draw_dimentional_grid((25*16*4.8)*1.5, (15*16*4.5)*1.5, 0);
 
@@ -987,34 +961,6 @@ void Platforming2D::draw()
    hud_projection.start_transform();
    draw_hud();
    hud_projection.restore_transform();
-
-   return;
-}
-
-void Platforming2D::draw_player_reticle()
-{
-   if (!(player_controlled_entity))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "draw_player_reticle" << ": error: " << "guard \"player_controlled_entity\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   float radius = 48;
-   AllegroFlare::vec2d player_pos = player_controlled_entity->get_place_ref().position;
-   AllegroFlare::vec2d player_center_pos = player_pos;
-
-   AllegroFlare::vec2d aim_pos = player_controls.get_primary_stick_position(); //.normalized();
-
-   al_draw_filled_circle(player_center_pos.x, player_center_pos.y, 48, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.1});
-   ALLEGRO_COLOR reticle_color = ALLEGRO_COLOR{0.02, 0.016, 0.136, 1.0f};
-
-   al_draw_circle(
-      player_center_pos.x + aim_pos.x * radius,
-      player_center_pos.y + aim_pos.y * radius,
-      8,
-      reticle_color,
-      1.0f
-   );
 
    return;
 }
@@ -1157,7 +1103,6 @@ void Platforming2D::virtual_control_button_down_func(ALLEGRO_EVENT* event)
    else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER)
    {
       player_controls.set_right_bumper_pressed(true);
-      set_showing_player_reticle(true);
       bow.start_draw();
    }
    return;
@@ -1184,7 +1129,6 @@ void Platforming2D::virtual_control_button_up_func(ALLEGRO_EVENT* event)
       if (bow.at_max()) player_emit_projectile(15.0f);
       bow.stop_draw();
       player_controls.set_right_bumper_pressed(false);
-      set_showing_player_reticle(false);
    }
    return;
 }
