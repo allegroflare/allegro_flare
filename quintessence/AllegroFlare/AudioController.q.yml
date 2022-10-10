@@ -145,6 +145,7 @@ functions:
 
          ALLEGRO_SAMPLE *sample = sample_bin->auto_get(asset_key);
          Sound *sound = new Sound(sample);
+         sound->initialize();
          sound->loop(loop);
          sound->volume(global_volume);
 
@@ -173,6 +174,7 @@ functions:
 
          ALLEGRO_SAMPLE *sample = sample_bin->auto_get(asset_key);
          Sound *sound = new Sound(sample);
+         sound->initialize();
          sound->loop(loop);
          sound->volume(global_volume);
 

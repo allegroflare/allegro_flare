@@ -148,6 +148,7 @@ void AudioController::load_sound_effects()
 
       ALLEGRO_SAMPLE *sample = sample_bin->auto_get(asset_key);
       Sound *sound = new Sound(sample);
+      sound->initialize();
       sound->loop(loop);
       sound->volume(global_volume);
 
@@ -175,6 +176,7 @@ void AudioController::load_music_tracks()
 
       ALLEGRO_SAMPLE *sample = sample_bin->auto_get(asset_key);
       Sound *sound = new Sound(sample);
+      sound->initialize();
       sound->loop(loop);
       sound->volume(global_volume);
 

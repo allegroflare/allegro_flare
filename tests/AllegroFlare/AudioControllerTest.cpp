@@ -211,6 +211,7 @@ TEST(AllegroFlare_AudioControllerTest,
    al_init();
    al_install_audio();
    al_init_acodec_addon();
+   al_reserve_samples(8);
 
    AllegroFlare::SampleBin sample_bin;
    sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME);
@@ -224,8 +225,6 @@ TEST(AllegroFlare_AudioControllerTest,
    audio_controller.initialize();
 
    audio_controller.play_music_track(music_identifier);
-
-   //usleep(2000);
    sleep(2);
 
    audio_controller.destruct();
@@ -236,13 +235,14 @@ TEST(AllegroFlare_AudioControllerTest,
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   DISABLED__set_and_load_sound_effect_elements__will_load_the_sound_effects_into_the_directory)
+   DISABLED__AUDIBLE__set_and_load_sound_effect_elements__will_load_the_sound_effects_into_the_directory)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
    al_init();
    al_install_audio();
    al_init_acodec_addon();
+   al_reserve_samples(8);
 
    AllegroFlare::SampleBin sample_bin;
    sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME);
@@ -255,8 +255,8 @@ TEST(AllegroFlare_AudioControllerTest,
 
    audio_controller.set_and_load_sound_effect_elements(sound_effect_elements);
 
-   // audio_controller.play_sound_effect_by_identifier("pickup_health"); // works, but disabled for annoyance
-   // sleep(2);
+   audio_controller.play_sound_effect("pickup_health");
+   sleep(2);
 
    audio_controller.destruct();
 
