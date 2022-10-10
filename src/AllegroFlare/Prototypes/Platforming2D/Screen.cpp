@@ -45,7 +45,6 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , gravity(0.25f)
    , gravity_reversed(false)
    , camera(0, 0, 1920, 1080)
-   , hud_projection(0, 0, 0, 0)
    , player_controlled_entity(nullptr)
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
@@ -272,18 +271,6 @@ void Screen::initialize_maps()
    return;
 }
 
-void Screen::initialize_hud()
-{
-   hud_projection.scale = {4.5, 4.5}; // note that Shovel Knight has 4.5x4.5 sized pixels (actually 4.8 x 4.5)
-                                      // this means:
-                                      //     - a virtual resolution of 400x240
-                                      //     = a native display resolution of 1920x1080 (HD)
-                                      //     - 25 tiles x 15 tiles to fill the virtual resolution
-                                      //     - 16x16 pixel tiles
-                                      // see https://www.yachtclubgames.com/blog/breaking-the-nes
-   return;
-}
-
 void Screen::setup_projection()
 {
    // The goal here is to setup a projection transform that behaves as if normal 2D pixels were drawn for z=0
@@ -359,7 +346,6 @@ void Screen::initialize()
    initialize_display_projection();
    //initialize_maps();
    //initialize_entities();
-   initialize_hud();
    initialize_camera_control();
    initialize_player_controls();
 
@@ -710,12 +696,6 @@ void Screen::draw_entities()
    return;
 }
 
-void Screen::draw_hud()
-{
-   // currently empty
-   return;
-}
-
 void Screen::update_player_controls_on_player_controlled_entity()
 {
    if (!(player_controlled_entity))
@@ -796,10 +776,6 @@ void Screen::draw()
    if (show_collision_tile_mesh) render_collision_tile_mesh();
 
    camera.restore_transform();
-
-   hud_projection.start_transform();
-   draw_hud();
-   hud_projection.restore_transform();
 
    return;
 }

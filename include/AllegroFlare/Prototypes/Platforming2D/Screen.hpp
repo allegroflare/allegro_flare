@@ -41,7 +41,6 @@ namespace AllegroFlare
             float gravity;
             bool gravity_reversed;
             AllegroFlare::Placement2D camera;
-            AllegroFlare::Placement2D hud_projection;
             Wicked::Entities::Basic2D* player_controlled_entity;
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
@@ -75,7 +74,6 @@ namespace AllegroFlare
             WickedDemos::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
             void initialize_display_projection();
             void initialize_maps();
-            void initialize_hud();
             void setup_projection();
             void initialize_camera_control();
             void initialize_player_controls();
@@ -92,7 +90,6 @@ namespace AllegroFlare
             void update_player_collisions_with_goalposts();
             void player_increment_collected_items();
             void draw_entities();
-            void draw_hud();
             void update_player_controls_on_player_controlled_entity();
             void update();
             void draw();
