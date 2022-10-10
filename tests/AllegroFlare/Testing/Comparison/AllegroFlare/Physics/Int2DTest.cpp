@@ -38,3 +38,11 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Physics_Int2DTest,
 }
 
 
+TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Physics_Int2DTest,
+   inequality_operator__works_with_several_test_conditions)
+{
+   EXPECT_NE(AllegroFlare::Physics::Int2D(3, 4), AllegroFlare::Physics::Int2D(3, 5));
+   EXPECT_NE(AllegroFlare::Physics::Int2D(3, 9), AllegroFlare::Physics::Int2D(4, 9));
+}
+
+

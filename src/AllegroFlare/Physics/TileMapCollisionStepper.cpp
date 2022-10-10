@@ -4,7 +4,9 @@
 
 #include <AllegroFlare/Physics/AABB2D.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D.hpp>
 #include <cmath>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -373,32 +375,56 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       tile_height
    );
 
-   std::vector<AllegroFlare::Physics::Int2D> entered_tiles;
    std::vector<AllegroFlare::Physics::Int2D> stayed_on_tiles;
-   std::vector<AllegroFlare::Physics::Int2D> exited_tiles;
+   //std::vector<AllegroFlare::Physics::Int2D> &entered_tiles = next_tiles;
+   //std::vector<AllegroFlare::Physics::Int2D> &exited_tiles = now_tiles;
 
-   // TODO: add a test for this, this logic is not correct
+   std::set<int> next_tile_indexes_to_remove;
+   std::set<int> now_tile_indexes_to_remove;
+
    for (int i=0; i<next_tiles.size(); i++)
    {
-      for (auto &now_tile : now_tiles)
+      for (int j=0; j<now_tiles.size(); j++)
+      //for (auto &now_tile : now_tiles)
       {
-         if (next_tiles[i].get_x() != now_tile.get_x()) continue;
-         if (next_tiles[i].get_y() != now_tile.get_y()) continue;
+         if (next_tiles[i] == now_tiles[j])
+         {
+            // add them to the stayed_on_tiles
+            stayed_on_tiles.push_back(now_tiles[j]);
 
-         // TODO: add the tile from the exited_tiles list (if needed)
-         //exited_tiles.push_back(entered_tiles[i]);
-         //result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(...));
-
-         // add the tile to the entered_tiles list
-         stayed_on_tiles.push_back(now_tile);
+            // remove this tile from both sets
+            next_tile_indexes_to_remove.insert(i);
+            now_tile_indexes_to_remove.insert(j);
+         }
       }
    }
 
+   //std::cout << "next tiles count: " << next_tiles.size() << std::endl;
+   //std::cout << "now tiles count: " << now_tiles.size() << std::endl;
+   //std::cout << "next tiles to remove count: " << next_tile_indexes_to_remove.size() << std::endl;
+   //std::cout << "now tiles to remove count: " << now_tile_indexes_to_remove.size() << std::endl;
+
+   // remove the indexes from the set
+   for (int i=next_tile_indexes_to_remove.size()-1; i>=0; i--)
+   {
+      int index_to_remove = *std::next(next_tile_indexes_to_remove.begin(), i);
+      next_tiles.erase(next_tiles.begin() + index_to_remove);
+   }
+   for (int i=now_tile_indexes_to_remove.size()-1; i>=0; i--)
+   {
+      int index_to_remove = *std::next(now_tile_indexes_to_remove.begin(), i);
+      now_tiles.erase(now_tiles.begin() + index_to_remove);
+   }
+
+   // aggrigate the results
+   std::vector<AllegroFlare::Physics::Int2D> &entered_tiles = next_tiles;
+   std::vector<AllegroFlare::Physics::Int2D> &exited_tiles = now_tiles;
+
    // aggrigate the result (EVENT_STAYED_ON)
-   for (auto &entered_tile : entered_tiles)
+   for (auto &stayed_on_tile : stayed_on_tiles)
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
-         entered_tile,
+         stayed_on_tile,
          -1, // TODO: fill this value
          velocity_x,
          velocity_y,
@@ -407,14 +433,30 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       ));
    }
 
+   // aggrigate the result (EVENT_ENTERED)
    for (auto &entered_tile : entered_tiles)
    {
-      // TODO
+      result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+         entered_tile,
+         -1, // TODO: fill this value
+         velocity_x,
+         velocity_y,
+         false,
+         AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
+      ));
    }
 
+   // aggrigate the result (EVENT_EXITED)
    for (auto &exited_tile : exited_tiles)
    {
-      // TODO
+      result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+         exited_tile,
+         -1, // TODO: fill this value
+         velocity_x,
+         velocity_y,
+         false,
+         AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED
+      ));
    }
 
    return result;

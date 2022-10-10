@@ -17,9 +17,9 @@ bool operator==(const Int2D& object, const Int2D& other_object)
 
 bool operator!=(const Int2D& object, const Int2D& other_object)
 {
-   if (object.get_x() == other_object.get_x()) return false;
-   if (object.get_y() == other_object.get_y()) return false;
-   return true;
+   if (object.get_x() != other_object.get_x()) return true;
+   if (object.get_y() != other_object.get_y()) return true;
+   return false;
 }
 
 
