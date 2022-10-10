@@ -175,16 +175,10 @@ void Platforming2D::initialize_display_projection()
 
 void Platforming2D::initialize_maps()
 {
-   // load up a world
    Wicked::Entities::Basic2DFactory factory(bitmap_bin);
-   //Wicked::Entities::Basic2D *created_map = nullptr;
    Wicked::Entities::Basic2D *created_map = nullptr;
 
-   //std::map<std::string, std::string> map_dictionary_entries = {
-      //{ "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
-      //{ "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },
-   //};
-
+   // TODO: clean this up
    for (auto &map_dictionary_entry : map_dictionary)
    {
       std::string map_name = std::get<0>(map_dictionary_entry);
