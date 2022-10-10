@@ -841,7 +841,7 @@ void Platforming2D::draw()
    //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
    //al_clear_depth_buffer(1000);
    //al_clear_to_color(ALLEGRO_COLOR{0.16, 0.16, 0.16, 1.0f});
-   al_clear_to_color(ALLEGRO_COLOR{0.02, 0.016, 0.136, 1.0f});
+   //al_clear_to_color(ALLEGRO_COLOR{0.02, 0.016, 0.136, 1.0f});
    //al_clear_to_color(al_color_name("aliceblue"));
    al_set_render_state(ALLEGRO_DEPTH_TEST, true);
    al_clear_depth_buffer(2000);
