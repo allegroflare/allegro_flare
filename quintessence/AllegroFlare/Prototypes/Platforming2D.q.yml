@@ -53,6 +53,12 @@ properties:
     getter_ref: true
     setter: true
 
+  - name: map_dictionary
+    type: std::map<std::string, std::string>
+    init_with: '{}'
+    getter: true
+    setter: false
+
   - name: gravity
     type: float
     init_with: 0.25f
@@ -123,6 +129,18 @@ properties:
 functions:
 
 
+  - name: set_map_dictionary
+    parameters:
+      - name: map_dictionary
+        type: std::map<std::string, std::string>
+        default_argument: '{}'
+    guards: [ (!initialized) ]
+    body: |
+      this->map_dictionary = map_dictionary;
+      // TODO: allow this to be set after initialization
+      return;
+
+
   - name: set_currently_active_map
     parameters:
       - name: name
@@ -170,12 +188,12 @@ functions:
       //Wicked::Entities::Basic2D *created_map = nullptr;
       Wicked::Entities::Basic2D *created_map = nullptr;
 
-      std::map<std::string, std::string> map_dictionary_entries = {
-         { "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
-         { "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },
-      };
+      //std::map<std::string, std::string> map_dictionary_entries = {
+         //{ "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
+         //{ "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },
+      //};
 
-      for (auto &map_dictionary_entry : map_dictionary_entries)
+      for (auto &map_dictionary_entry : map_dictionary)
       {
          std::string map_name = std::get<0>(map_dictionary_entry);
          std::string map_filename = std::get<1>(map_dictionary_entry);
@@ -1039,8 +1057,6 @@ functions:
         default_argument: nullptr
     body: |
       int button_num = event->user.data1;
-
-      std::cout << "AAAAAAAAAA" << std::endl;
 
       if (button_num == AllegroFlare::VirtualControls::BUTTON_B)
       {

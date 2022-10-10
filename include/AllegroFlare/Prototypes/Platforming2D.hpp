@@ -17,6 +17,7 @@
 #include <Wicked/Weapons/DrawnBow.hpp>
 #include <WickedDemos/TileMaps/Basic2D.hpp>
 #include <allegro5/allegro.h>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -37,6 +38,7 @@ namespace AllegroFlare
          WickedDemos::TileMaps::Basic2D* currently_active_map;
          std::string currently_active_map_name;
          std::vector<Wicked::Entities::Basic2D*> entities;
+         std::map<std::string, std::string> map_dictionary;
          float gravity;
          bool gravity_reversed;
          AllegroFlare::Placement2D camera;
@@ -71,12 +73,14 @@ namespace AllegroFlare
          void set_showing_player_reticle(bool showing_player_reticle);
          void set_player_reticle_vector(AllegroFlare::vec2d player_reticle_vector);
          AllegroFlare::BitmapBin* get_bitmap_bin() const;
+         std::map<std::string, std::string> get_map_dictionary() const;
          Wicked::Entities::Basic2D* get_player_controlled_entity() const;
          bool get_show_tile_mesh() const;
          bool get_show_collision_tile_mesh() const;
          bool get_showing_player_reticle() const;
          AllegroFlare::vec2d get_player_reticle_vector() const;
          std::vector<Wicked::Entities::Basic2D*> &get_entities_ref();
+         void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
          void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
          WickedDemos::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
          void initialize_display_projection();

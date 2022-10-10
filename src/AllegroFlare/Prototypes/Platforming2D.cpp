@@ -39,6 +39,7 @@ Platforming2D::Platforming2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
    , entities({})
+   , map_dictionary({})
    , gravity(0.25f)
    , gravity_reversed(false)
    , camera(0, 0, 1920, 1080)
@@ -116,6 +117,12 @@ AllegroFlare::BitmapBin* Platforming2D::get_bitmap_bin() const
 }
 
 
+std::map<std::string, std::string> Platforming2D::get_map_dictionary() const
+{
+   return map_dictionary;
+}
+
+
 Wicked::Entities::Basic2D* Platforming2D::get_player_controlled_entity() const
 {
    return player_controlled_entity;
@@ -151,6 +158,19 @@ std::vector<Wicked::Entities::Basic2D*> &Platforming2D::get_entities_ref()
    return entities;
 }
 
+
+void Platforming2D::set_map_dictionary(std::map<std::string, std::string> map_dictionary)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Platforming2D" << "::" << "set_map_dictionary" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->map_dictionary = map_dictionary;
+   // TODO: allow this to be set after initialization
+   return;
+}
 
 void Platforming2D::set_currently_active_map(std::string name)
 {
@@ -189,12 +209,12 @@ void Platforming2D::initialize_maps()
    //Wicked::Entities::Basic2D *created_map = nullptr;
    Wicked::Entities::Basic2D *created_map = nullptr;
 
-   std::map<std::string, std::string> map_dictionary_entries = {
-      { "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
-      { "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },
-   };
+   //std::map<std::string, std::string> map_dictionary_entries = {
+      //{ "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
+      //{ "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },
+   //};
 
-   for (auto &map_dictionary_entry : map_dictionary_entries)
+   for (auto &map_dictionary_entry : map_dictionary)
    {
       std::string map_name = std::get<0>(map_dictionary_entry);
       std::string map_filename = std::get<1>(map_dictionary_entry);
@@ -1107,8 +1127,6 @@ void Platforming2D::key_down_func(ALLEGRO_EVENT* event)
 void Platforming2D::virtual_control_button_down_func(ALLEGRO_EVENT* event)
 {
    int button_num = event->user.data1;
-
-   std::cout << "AAAAAAAAAA" << std::endl;
 
    if (button_num == AllegroFlare::VirtualControls::BUTTON_B)
    {

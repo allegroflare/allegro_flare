@@ -26,6 +26,10 @@ TEST(AllegroFlare_Prototypes_Platforming2DTest,
       framework.get_primary_display(),
       &framework.get_event_emitter_ref()
    );
+   platforming_2d.set_map_dictionary({
+      { "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
+      { "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },
+   });
    platforming_2d.initialize();
 
    framework.register_screen("platforming_2d", &platforming_2d);
