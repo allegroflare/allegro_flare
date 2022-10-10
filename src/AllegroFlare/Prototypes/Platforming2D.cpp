@@ -1013,15 +1013,6 @@ void Platforming2D::toggle_show_tile_mesh()
 
 void Platforming2D::primary_timer_func()
 {
-   //al_draw_filled_rectangle(0, 0, 200, 300, ALLEGRO_COLOR{0, 1, 1, 1});
-   update();
-   draw();
-   //al_flip_display();
-   return;
-}
-
-void Platforming2D::__primary_timer_func()
-{
    update();
    draw();
    return;
@@ -1052,63 +1043,6 @@ void Platforming2D::key_char_func(ALLEGRO_EVENT* event)
    default:
       break;
    }
-   return;
-}
-
-void Platforming2D::_joy_button_down_func(ALLEGRO_EVENT* event)
-{
-   //virtual_controls_processor.handle_raw_joystick_button_down_event(event);
-   return;
-}
-
-void Platforming2D::_joy_button_up_func(ALLEGRO_EVENT* event)
-{
-   //virtual_controls_processor.handle_raw_joystick_button_up_event(event);
-   return;
-}
-
-void Platforming2D::_joy_axis_func(ALLEGRO_EVENT* event)
-{
-   //virtual_controls_processor.handle_raw_joystick_axis_change_event(event);
-   return;
-}
-
-void Platforming2D::_key_up_func(ALLEGRO_EVENT* event)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "_key_up_func" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(event))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "_key_up_func" << ": error: " << "guard \"event\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   //virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
-   return;
-}
-
-void Platforming2D::_key_down_func(ALLEGRO_EVENT* event)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "_key_down_func" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(event))
-   {
-      std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "_key_down_func" << ": error: " << "guard \"event\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-
-   //if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
-
-   //virtual_controls_processor.handle_raw_keyboard_key_down_event(event);
    return;
 }
 

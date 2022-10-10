@@ -956,17 +956,6 @@ functions:
     virtual: true
     override: true
     body: |
-      //al_draw_filled_rectangle(0, 0, 200, 300, ALLEGRO_COLOR{0, 1, 1, 1});
-      update();
-      draw();
-      //al_flip_display();
-      return;
-
-
-  - name: __primary_timer_func
-    virtual: true
-    xoverride: true
-    body: |
       update();
       draw();
       return;
@@ -992,71 +981,6 @@ functions:
       default:
          break;
       }
-      return;
-
-
-  - name: _joy_button_down_func
-    virtual: true
-    xoverride: true
-    parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
-    body: |
-      //virtual_controls_processor.handle_raw_joystick_button_down_event(event);
-      return;
-
-
-  - name: _joy_button_up_func
-    virtual: true
-    xoverride: true
-    parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
-    body: |
-      //virtual_controls_processor.handle_raw_joystick_button_up_event(event);
-      return;
-     
-
-  - name: _joy_axis_func
-    virtual: true
-    xoverride: true
-    parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
-    body: |
-      //virtual_controls_processor.handle_raw_joystick_axis_change_event(event);
-      return;
-
-
-  - name: _key_up_func
-    virtual: true
-    xoverride: true
-    parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
-    guards: [ initialized, event ]
-    body: |
-      //virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
-      return;
-
-
-  - name: _key_down_func
-    virtual: true
-    xoverride: true
-    parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
-    guards: [ initialized, event ]
-    body: |
-     
-      //if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
-
-      //virtual_controls_processor.handle_raw_keyboard_key_down_event(event);
       return;
 
 
