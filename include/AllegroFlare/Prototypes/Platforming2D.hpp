@@ -47,7 +47,6 @@ namespace AllegroFlare
          Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
          int player_collected_items;
          void setup_camera();
-         void initialize_entities();
 
       protected:
 

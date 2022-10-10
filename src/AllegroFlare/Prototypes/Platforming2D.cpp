@@ -382,56 +382,6 @@ void Platforming2D::setup_camera()
    return;
 }
 
-void Platforming2D::initialize_entities()
-{
-   return;
-   Wicked::Entities::Basic2DFactory factory(bitmap_bin);
-   Wicked::Entities::Basic2D* created_entity = factory.create_for_aabb2d("map_a", 16-1, 32-1);
-   created_entity->get_place_ref().position.x = 400/2;
-   created_entity->get_place_ref().position.y = 240/2;
-
-   //return;
-
-   return;
-   set_player_controlled_entity(created_entity);
-   //return;
-   get_current_map_entities_ref().push_back(created_entity);
-   //return;
-
-   for (unsigned i=0; i<6; i++)
-   {
-      Wicked::Entities::Basic2D* enemy = factory.create_flapping_enemy(
-         "map_a",
-         400/8*6,
-         240/3*1,
-         16.0-1.0f,
-         16.0-1.0f,
-         80.0f, // target elevation
-         4.0f, // flap strength
-         0.1f // recovery rate
-      );
-      get_current_map_entities_ref().push_back(enemy);
-   }
-
-   //return;
-
-   Wicked::Entities::Basic2D* collectable2 = factory.create_collectable("map_a", 5*16, 20*16);
-   get_current_map_entities_ref().push_back(collectable2);
-
-   get_current_map_entities_ref().push_back(factory.create_collectable("map_a", 45*16, 2*16));
-
-   // create the door
-   get_current_map_entities_ref().push_back(
-      factory.create_door("map_b", 4.5*16, 7*16, "map_a", 46*16, 26*16)
-   );
-   get_current_map_entities_ref().push_back(
-      factory.create_door("map_a", 46*16, 26*16, "map_b", 4.5*16, 7*16)
-   );
-
-
-   return;
-}
-
 void Platforming2D::unset_player_controlled_entity_vertical_velocity()
 {
    if (!player_controlled_entity) return;
