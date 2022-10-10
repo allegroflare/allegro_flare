@@ -1,20 +1,21 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/Prototypes/Platforming2D.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Screen.hpp>
 
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <Wicked/Entities/Basic2DFactory.hpp>
 
 
-TEST(AllegroFlare_Prototypes_Platforming2DTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Prototypes::Platforming2D platforming2d;
+   AllegroFlare::Prototypes::Platforming2D::Screen platforming2d;
 }
 
 
-TEST(AllegroFlare_Prototypes_Platforming2DTest,
-   INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
+   //INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+   DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
@@ -22,7 +23,7 @@ TEST(AllegroFlare_Prototypes_Platforming2DTest,
 
    framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
 
-   AllegroFlare::Prototypes::Platforming2D platforming_2d(
+   AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d(
       &framework.get_bitmap_bin_ref(),
       framework.get_primary_display(),
       &framework.get_event_emitter_ref()

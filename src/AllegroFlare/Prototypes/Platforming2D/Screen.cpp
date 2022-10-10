@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Prototypes/Platforming2D.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Screen.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
@@ -26,10 +26,12 @@ namespace AllegroFlare
 {
 namespace Prototypes
 {
+namespace Platforming2D
+{
 
 
-Platforming2D::Platforming2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
-   : AllegroFlare::Screens::Base("TileDemo")
+Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
+   : AllegroFlare::Screens::Base("Prototypes::Platforming2D::Screen")
    , bitmap_bin(bitmap_bin)
    , display(display)
    , event_emitter(event_emitter)
@@ -54,89 +56,89 @@ Platforming2D::Platforming2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::
 }
 
 
-Platforming2D::~Platforming2D()
+Screen::~Screen()
 {
 }
 
 
-void Platforming2D::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    this->bitmap_bin = bitmap_bin;
 }
 
 
-void Platforming2D::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
 }
 
 
-void Platforming2D::set_entities(std::vector<Wicked::Entities::Basic2D*> entities)
+void Screen::set_entities(std::vector<Wicked::Entities::Basic2D*> entities)
 {
    this->entities = entities;
 }
 
 
-void Platforming2D::set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity)
+void Screen::set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity)
 {
    this->player_controlled_entity = player_controlled_entity;
 }
 
 
-void Platforming2D::set_show_tile_mesh(bool show_tile_mesh)
+void Screen::set_show_tile_mesh(bool show_tile_mesh)
 {
    this->show_tile_mesh = show_tile_mesh;
 }
 
 
-void Platforming2D::set_show_collision_tile_mesh(bool show_collision_tile_mesh)
+void Screen::set_show_collision_tile_mesh(bool show_collision_tile_mesh)
 {
    this->show_collision_tile_mesh = show_collision_tile_mesh;
 }
 
 
-AllegroFlare::BitmapBin* Platforming2D::get_bitmap_bin() const
+AllegroFlare::BitmapBin* Screen::get_bitmap_bin() const
 {
    return bitmap_bin;
 }
 
 
-std::map<std::string, std::string> Platforming2D::get_map_dictionary() const
+std::map<std::string, std::string> Screen::get_map_dictionary() const
 {
    return map_dictionary;
 }
 
 
-Wicked::Entities::Basic2D* Platforming2D::get_player_controlled_entity() const
+Wicked::Entities::Basic2D* Screen::get_player_controlled_entity() const
 {
    return player_controlled_entity;
 }
 
 
-bool Platforming2D::get_show_tile_mesh() const
+bool Screen::get_show_tile_mesh() const
 {
    return show_tile_mesh;
 }
 
 
-bool Platforming2D::get_show_collision_tile_mesh() const
+bool Screen::get_show_collision_tile_mesh() const
 {
    return show_collision_tile_mesh;
 }
 
 
-std::vector<Wicked::Entities::Basic2D*> &Platforming2D::get_entities_ref()
+std::vector<Wicked::Entities::Basic2D*> &Screen::get_entities_ref()
 {
    return entities;
 }
 
 
-void Platforming2D::set_map_dictionary(std::map<std::string, std::string> map_dictionary)
+void Screen::set_map_dictionary(std::map<std::string, std::string> map_dictionary)
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "set_map_dictionary" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "Screen" << "::" << "set_map_dictionary" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
    this->map_dictionary = map_dictionary;
@@ -144,7 +146,7 @@ void Platforming2D::set_map_dictionary(std::map<std::string, std::string> map_di
    return;
 }
 
-void Platforming2D::set_currently_active_map(std::string name)
+void Screen::set_currently_active_map(std::string name)
 {
    currently_active_map = find_map_by_name(name);
    if (!currently_active_map) throw std::runtime_error("Bruh, no map");
@@ -152,7 +154,7 @@ void Platforming2D::set_currently_active_map(std::string name)
    return;
 }
 
-WickedDemos::TileMaps::Basic2D* Platforming2D::find_map_by_name(std::string name)
+WickedDemos::TileMaps::Basic2D* Screen::find_map_by_name(std::string name)
 {
    Wicked::Entities::CollectionHelper collection_helper(&entities);
    WickedDemos::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
@@ -167,13 +169,13 @@ WickedDemos::TileMaps::Basic2D* Platforming2D::find_map_by_name(std::string name
    return found_map;
 }
 
-void Platforming2D::initialize_display_projection()
+void Screen::initialize_display_projection()
 {
    setup_projection();
    return;
 }
 
-void Platforming2D::initialize_maps()
+void Screen::initialize_maps()
 {
    Wicked::Entities::Basic2DFactory factory(bitmap_bin);
    Wicked::Entities::Basic2D *created_map = nullptr;
@@ -246,7 +248,7 @@ void Platforming2D::initialize_maps()
    return;
 }
 
-void Platforming2D::initialize_hud()
+void Screen::initialize_hud()
 {
    hud_projection.scale = {4.5, 4.5}; // note that Shovel Knight has 4.5x4.5 sized pixels (actually 4.8 x 4.5)
                                       // this means:
@@ -258,7 +260,7 @@ void Platforming2D::initialize_hud()
    return;
 }
 
-void Platforming2D::setup_projection()
+void Screen::setup_projection()
 {
    // The goal here is to setup a projection transform that behaves as if normal 2D pixels were drawn for z=0
    // (i.e. as with the normal orthographic transform set up by Allegro), but allows some perspective effects for
@@ -298,7 +300,7 @@ void Platforming2D::setup_projection()
    return;
 }
 
-void Platforming2D::initialize_camera_control()
+void Screen::initialize_camera_control()
 {
    float assumed_tile_width = 16.0f;
    float assumed_tile_height = 16.0f;
@@ -316,18 +318,18 @@ void Platforming2D::initialize_camera_control()
    return;
 }
 
-void Platforming2D::initialize_player_controls()
+void Screen::initialize_player_controls()
 {
    player_controls.clear();
    return;
 }
 
-void Platforming2D::initialize()
+void Screen::initialize()
 {
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
    initialize_display_projection();
@@ -342,24 +344,24 @@ void Platforming2D::initialize()
    return;
 }
 
-void Platforming2D::setup_camera()
+void Screen::setup_camera()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(currently_active_map->get_tile_atlas()))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map->get_tile_atlas()\" not met";
+      error_message << "Screen" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map->get_tile_atlas()\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(currently_active_map->get_tile_mesh()))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map->get_tile_mesh()\" not met";
+      error_message << "Screen" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map->get_tile_mesh()\" not met";
       throw std::runtime_error(error_message.str());
    }
    //float width = tile_mesh->get_real_width();
@@ -382,21 +384,21 @@ void Platforming2D::setup_camera()
    return;
 }
 
-void Platforming2D::unset_player_controlled_entity_vertical_velocity()
+void Screen::unset_player_controlled_entity_vertical_velocity()
 {
    if (!player_controlled_entity) return;
    player_controlled_entity->get_velocity_ref().position.y = 0;
    return;
 }
 
-void Platforming2D::unset_player_controlled_entity_horizontal_velocity()
+void Screen::unset_player_controlled_entity_horizontal_velocity()
 {
    if (!player_controlled_entity) return;
    player_controlled_entity->get_velocity_ref().position.x = 0;
    return;
 }
 
-void Platforming2D::set_player_controlled_entity_jump()
+void Screen::set_player_controlled_entity_jump()
 {
    if (!player_controlled_entity) return;
    if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
@@ -416,7 +418,7 @@ void Platforming2D::set_player_controlled_entity_jump()
    return;
 }
 
-void Platforming2D::player_emit_projectile(float magnitude)
+void Screen::player_emit_projectile(float magnitude)
 {
    AllegroFlare::vec2d player_pos = player_controlled_entity->get_place_ref().position;
    //AllegroFlare::vec2d player_center_pos = player_pos;
@@ -450,23 +452,23 @@ void Platforming2D::player_emit_projectile(float magnitude)
    return;
 }
 
-void Platforming2D::reverse_gravity()
+void Screen::reverse_gravity()
 {
    gravity_reversed = !gravity_reversed;
 }
 
-void Platforming2D::update_entities()
+void Screen::update_entities()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "update_entities" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Screen" << "::" << "update_entities" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "update_entities" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "update_entities" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    // apply gravity
@@ -566,7 +568,7 @@ void Platforming2D::update_entities()
    return;
 }
 
-void Platforming2D::delete_entities_flagged_for_deletion()
+void Screen::delete_entities_flagged_for_deletion()
 {
    for (int i=0; i<get_current_map_entities_ref().size(); i++)
    {
@@ -581,12 +583,12 @@ void Platforming2D::delete_entities_flagged_for_deletion()
    return;
 }
 
-void Platforming2D::check_player_collisions_with_doors()
+void Screen::check_player_collisions_with_doors()
 {
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "check_player_collisions_with_doors" << ": error: " << "guard \"player_controlled_entity\" not met";
+      error_message << "Screen" << "::" << "check_player_collisions_with_doors" << ": error: " << "guard \"player_controlled_entity\" not met";
       throw std::runtime_error(error_message.str());
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
@@ -621,12 +623,12 @@ void Platforming2D::check_player_collisions_with_doors()
    return;
 }
 
-void Platforming2D::update_player_collisions_with_collectables()
+void Screen::update_player_collisions_with_collectables()
 {
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "update_player_collisions_with_collectables" << ": error: " << "guard \"player_controlled_entity\" not met";
+      error_message << "Screen" << "::" << "update_player_collisions_with_collectables" << ": error: " << "guard \"player_controlled_entity\" not met";
       throw std::runtime_error(error_message.str());
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
@@ -645,12 +647,12 @@ void Platforming2D::update_player_collisions_with_collectables()
    return;
 }
 
-void Platforming2D::update_player_collisions_with_goalposts()
+void Screen::update_player_collisions_with_goalposts()
 {
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "update_player_collisions_with_goalposts" << ": error: " << "guard \"player_controlled_entity\" not met";
+      error_message << "Screen" << "::" << "update_player_collisions_with_goalposts" << ": error: " << "guard \"player_controlled_entity\" not met";
       throw std::runtime_error(error_message.str());
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
@@ -669,13 +671,13 @@ void Platforming2D::update_player_collisions_with_goalposts()
    return;
 }
 
-void Platforming2D::player_increment_collected_items()
+void Screen::player_increment_collected_items()
 {
    player_collected_items++;
    return;
 }
 
-void Platforming2D::draw_entities()
+void Screen::draw_entities()
 {
    for (auto &entity : get_current_map_entities())
    {
@@ -684,18 +686,18 @@ void Platforming2D::draw_entities()
    return;
 }
 
-void Platforming2D::draw_hud()
+void Screen::draw_hud()
 {
    // currently empty
    return;
 }
 
-void Platforming2D::update_player_controls_on_player_controlled_entity()
+void Screen::update_player_controls_on_player_controlled_entity()
 {
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "update_player_controls_on_player_controlled_entity" << ": error: " << "guard \"player_controlled_entity\" not met";
+      error_message << "Screen" << "::" << "update_player_controls_on_player_controlled_entity" << ": error: " << "guard \"player_controlled_entity\" not met";
       throw std::runtime_error(error_message.str());
    }
    // if this block is active, the player cannot control themselves while in the air, only when on the ground:
@@ -728,12 +730,12 @@ void Platforming2D::update_player_controls_on_player_controlled_entity()
    return;
 }
 
-void Platforming2D::update()
+void Screen::update()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Screen" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    //return;
@@ -743,24 +745,24 @@ void Platforming2D::update()
    return;
 }
 
-void Platforming2D::draw()
+void Screen::draw()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "draw" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Screen" << "::" << "draw" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "draw" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "draw" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(get_tile_mesh()))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "draw" << ": error: " << "guard \"get_tile_mesh()\" not met";
+      error_message << "Screen" << "::" << "draw" << ": error: " << "guard \"get_tile_mesh()\" not met";
       throw std::runtime_error(error_message.str());
    }
    camera.start_reverse_transform();
@@ -778,37 +780,37 @@ void Platforming2D::draw()
    return;
 }
 
-void Platforming2D::toggle_show_collision_tile_mesh()
+void Screen::toggle_show_collision_tile_mesh()
 {
    show_collision_tile_mesh = !show_collision_tile_mesh;
    return;
 }
 
-void Platforming2D::toggle_show_tile_mesh()
+void Screen::toggle_show_tile_mesh()
 {
    show_tile_mesh = !show_tile_mesh;
    return;
 }
 
-void Platforming2D::primary_timer_func()
+void Screen::primary_timer_func()
 {
    update();
    draw();
    return;
 }
 
-void Platforming2D::key_char_func(ALLEGRO_EVENT* event)
+void Screen::key_char_func(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_char_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Screen" << "::" << "key_char_func" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_char_func" << ": error: " << "guard \"event\" not met";
+      error_message << "Screen" << "::" << "key_char_func" << ": error: " << "guard \"event\" not met";
       throw std::runtime_error(error_message.str());
    }
    switch (event->keyboard.keycode)
@@ -825,18 +827,18 @@ void Platforming2D::key_char_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Platforming2D::key_up_func(ALLEGRO_EVENT* event)
+void Screen::key_up_func(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_up_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Screen" << "::" << "key_up_func" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_up_func" << ": error: " << "guard \"event\" not met";
+      error_message << "Screen" << "::" << "key_up_func" << ": error: " << "guard \"event\" not met";
       throw std::runtime_error(error_message.str());
    }
    switch (event->keyboard.keycode)
@@ -852,18 +854,18 @@ void Platforming2D::key_up_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Platforming2D::key_down_func(ALLEGRO_EVENT* event)
+void Screen::key_down_func(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_down_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Screen" << "::" << "key_down_func" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "key_down_func" << ": error: " << "guard \"event\" not met";
+      error_message << "Screen" << "::" << "key_down_func" << ": error: " << "guard \"event\" not met";
       throw std::runtime_error(error_message.str());
    }
    switch (event->keyboard.keycode)
@@ -888,7 +890,7 @@ void Platforming2D::key_down_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Platforming2D::virtual_control_button_down_func(ALLEGRO_EVENT* event)
+void Screen::virtual_control_button_down_func(ALLEGRO_EVENT* event)
 {
    int button_num = event->user.data1;
 
@@ -926,7 +928,7 @@ void Platforming2D::virtual_control_button_down_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Platforming2D::virtual_control_button_up_func(ALLEGRO_EVENT* event)
+void Screen::virtual_control_button_up_func(ALLEGRO_EVENT* event)
 {
    int button_num = event->user.data1;
 
@@ -949,7 +951,7 @@ void Platforming2D::virtual_control_button_up_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Platforming2D::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
+void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
 {
    int stick = event->user.data1;
    int axis = event->user.data2;
@@ -982,7 +984,7 @@ void Platforming2D::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Platforming2D::user_event_func(ALLEGRO_EVENT* event)
+void Screen::user_event_func(ALLEGRO_EVENT* event)
 {
    switch(event->type)
    {
@@ -1002,12 +1004,12 @@ void Platforming2D::user_event_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Platforming2D::render_collision_tile_mesh()
+void Screen::render_collision_tile_mesh()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "render_collision_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "render_collision_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_mesh();
@@ -1041,56 +1043,56 @@ void Platforming2D::render_collision_tile_mesh()
    return;
 }
 
-AllegroFlare::TileMaps::PrimMeshAtlas* Platforming2D::get_tile_atlas()
+AllegroFlare::TileMaps::PrimMeshAtlas* Screen::get_tile_atlas()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "get_tile_atlas" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "get_tile_atlas" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    return currently_active_map->get_tile_atlas();
 }
 
-AllegroFlare::TileMaps::PrimMesh* Platforming2D::get_tile_mesh()
+AllegroFlare::TileMaps::PrimMesh* Screen::get_tile_mesh()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "get_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "get_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    return currently_active_map->get_tile_mesh();
 }
 
-AllegroFlare::TileMaps::TileMap<int>* Platforming2D::get_collision_tile_mesh()
+AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_mesh()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "get_collision_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "get_collision_tile_mesh" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    return currently_active_map->get_collision_tile_mesh();
 }
 
-std::vector<Wicked::Entities::Basic2D*>& Platforming2D::get_current_map_entities_ref()
+std::vector<Wicked::Entities::Basic2D*>& Screen::get_current_map_entities_ref()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "get_current_map_entities_ref" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "get_current_map_entities_ref" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    return entities;
 }
 
-std::vector<Wicked::Entities::Basic2D*> Platforming2D::get_current_map_entities()
+std::vector<Wicked::Entities::Basic2D*> Screen::get_current_map_entities()
 {
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "Platforming2D" << "::" << "get_current_map_entities" << ": error: " << "guard \"player_controlled_entity\" not met";
+      error_message << "Screen" << "::" << "get_current_map_entities" << ": error: " << "guard \"player_controlled_entity\" not met";
       throw std::runtime_error(error_message.str());
    }
    Wicked::Entities::CollectionHelper collection_helper(&get_current_map_entities_ref());
@@ -1099,6 +1101,7 @@ std::vector<Wicked::Entities::Basic2D*> Platforming2D::get_current_map_entities(
 }
 
 
+} // namespace Platforming2D
 } // namespace Prototypes
 } // namespace AllegroFlare
 
