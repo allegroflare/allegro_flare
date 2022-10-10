@@ -19,6 +19,7 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperCollisionInfoTest,
       { AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED,          "entered" },
       { AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED,           "exited" },
       { AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST, "collided_against" },
+      { AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON,        "stayed_on" },
    };
 
    for (auto &expected_type_and_name : expected_types_and_names)

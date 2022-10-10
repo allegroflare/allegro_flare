@@ -118,6 +118,10 @@ std::string TileMapCollisionStepperCollisionInfo::build_event_name(int event)
       case EVENT_COLLIDED_AGAINST:
          return "collided_against";
       break;
+
+      case EVENT_STAYED_ON:
+         return "stayed_on";
+      break;
    }
    return "[build_event_name-error_value]";
 }

@@ -16,6 +16,7 @@ namespace AllegroFlare
          static constexpr int EVENT_ENTERED = 2;
          static constexpr int EVENT_EXITED = 3;
          static constexpr int EVENT_COLLIDED_AGAINST = 4;
+         static constexpr int EVENT_STAYED_ON = 5;
 
       private:
          AllegroFlare::Physics::Int2D collided_tile_coordinate;

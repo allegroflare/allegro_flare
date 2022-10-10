@@ -364,8 +364,6 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result;
 
    std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height, tile_width, tile_height);
-   std::vector<AllegroFlare::Physics::Int2D> entered_tiles;
-   std::vector<AllegroFlare::Physics::Int2D> exited_tiles;
    std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within(
       x+velocity_x,
       y+velocity_y,
@@ -374,6 +372,10 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       tile_width,
       tile_height
    );
+
+   std::vector<AllegroFlare::Physics::Int2D> entered_tiles;
+   std::vector<AllegroFlare::Physics::Int2D> stayed_on_tiles;
+   std::vector<AllegroFlare::Physics::Int2D> exited_tiles;
 
    // TODO: add a test for this, this logic is not correct
    for (int i=0; i<next_tiles.size(); i++)
@@ -388,11 +390,11 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
          //result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(...));
 
          // add the tile to the entered_tiles list
-         entered_tiles.push_back(now_tile);
+         stayed_on_tiles.push_back(now_tile);
       }
    }
 
-   // aggrigate the result
+   // aggrigate the result (EVENT_STAYED_ON)
    for (auto &entered_tile : entered_tiles)
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
@@ -401,8 +403,18 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
          velocity_x,
          velocity_y,
          false,
-         AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
+         AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON
       ));
+   }
+
+   for (auto &entered_tile : entered_tiles)
+   {
+      // TODO
+   }
+
+   for (auto &exited_tile : exited_tiles)
+   {
+      // TODO
    }
 
    return result;
