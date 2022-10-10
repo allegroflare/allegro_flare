@@ -9,10 +9,21 @@ namespace AllegroFlare::Physics
 {
 
 
-bool operator==(const TileMapCollisionStepperCollisionInfo& object, const TileMapCollisionStepperCollisionInfo& other_object)
+bool operator==(
+      const TileMapCollisionStepperCollisionInfo& object,
+      const TileMapCollisionStepperCollisionInfo& other_object
+   )
 {
-   //if (object.x != other_object.x) return false;
-   //if (object.y != other_object.y) return false;
+   AllegroFlare::Physics::Int2D collided_tile_coordinate = object.get_collided_tile_coordinate();
+   AllegroFlare::Physics::Int2D other_collided_tile_coordinate = other_object.get_collided_tile_coordinate();
+
+   if (collided_tile_coordinate != other_collided_tile_coordinate) return false;
+   if (object.get_tile_value() != other_object.get_tile_value()) return false;
+   if (object.get_collision_velocity_x() != other_object.get_collision_velocity_x()) return false;
+   if (object.get_collision_velocity_y() != other_object.get_collision_velocity_y()) return false;
+   if (object.get_stopped_by_this_collision() != other_object.get_stopped_by_this_collision()) return false;
+   if (object.get_event() != other_object.get_event()) return false;
+
    return true;
 }
 

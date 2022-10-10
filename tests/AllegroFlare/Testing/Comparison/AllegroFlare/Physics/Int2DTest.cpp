@@ -19,12 +19,22 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Physics_Int2DTest,
 
 
 TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Physics_Int2DTest,
-   equality_operator__works_with_google_test_EXPECT_statement)
+   equality_operator__works_with_google_test_EXPECT_EQ_statement)
 {
    AllegroFlare::Physics::Int2D vec;
    AllegroFlare::Physics::Int2D other_vec;
 
    EXPECT_EQ(vec, other_vec);
+}
+
+
+TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Physics_Int2DTest,
+   inequality_operator__works_with_google_test_EXPECT_NE_statement)
+{
+   AllegroFlare::Physics::Int2D vec(3, 4);
+   AllegroFlare::Physics::Int2D other_vec(5, 6);
+
+   EXPECT_NE(vec, other_vec);
 }
 
 
