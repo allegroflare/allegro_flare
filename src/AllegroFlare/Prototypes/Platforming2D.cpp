@@ -871,34 +871,6 @@ void Platforming2D::update()
    return;
 }
 
-void Platforming2D::draw_dimentional_grid(float x, float y, float z)
-{
-   float spacing = 16 * 4.8;
-   for (int zz=-10; zz<10; zz++)
-      for (int xx=-10; xx<10; xx++)
-         for (int yy=-10; yy<10; yy++)
-         {
-            ALLEGRO_STATE previous_target_bitmap_state;
-            al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TRANSFORM);
-            //al_set_target_bitmap(display_bitmap);
-            //al_use_projection_transform(&trans);
-
-            ALLEGRO_TRANSFORM trans;
-
-            al_copy_transform(&trans, al_get_current_transform());
-
-            //al_identity_transform(&trans);
-            al_translate_transform_3d(&trans, x+xx*spacing, y+yy*spacing, z+zz*spacing);
-            al_use_transform(&trans);
-            al_draw_filled_rectangle(-0.5, -0.5, 0.5, 0.5, ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5});
-            //al_start_transform(&trans);
-
-            al_restore_state(&previous_target_bitmap_state);
-         }
-
-   return;
-}
-
 void Platforming2D::draw()
 {
    if (!(initialized))
@@ -953,8 +925,6 @@ void Platforming2D::draw()
    if (show_tile_mesh) get_tile_mesh()->render();
    if (show_collision_tile_mesh) render_collision_tile_mesh();
    //draw_entities();
-
-   //draw_dimentional_grid((25*16*4.8)*1.5, (15*16*4.5)*1.5, 0);
 
    camera.restore_transform();
 
