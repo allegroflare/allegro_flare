@@ -9062,8 +9062,30 @@ table td
   <td class="property">tile_drive</td>
   <td class="property">AllegroFlare::Prototypes::TileDrive::TileDrive</td>
 </tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="method">set_bitmap_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">set_sample_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">key_down_func(1)</td>
+</tr>
+<tr>
+  <td class="method">key_up_func(1)</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -9080,6 +9102,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::TileDrive&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/TileDrive.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14843,6 +14871,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -14905,6 +14934,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",

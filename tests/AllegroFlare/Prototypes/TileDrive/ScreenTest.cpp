@@ -10,11 +10,3 @@ TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest, can_be_created_without_blowin
 }
 
 
-TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest, run__returns_the_expected_response)
-{
-   //AllegroFlare::Prototypes::TileDrive::Screen screen;
-   //std::string expected_string = "Hello World!";
-   //EXPECT_EQ(expected_string, screen.run());
-}
-
-
