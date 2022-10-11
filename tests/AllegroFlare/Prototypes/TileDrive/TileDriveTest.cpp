@@ -43,6 +43,10 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
       &sample_bin
    );
    tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
+   tile_drive.set_terrain_mesh_dictionary({
+      { "og-tunnel-mesh", { "tunnel_mesh-02.tmj", nullptr } },
+   });
+   tile_drive.set_current_map_identifier("og-tunnel-mesh");
    tile_drive.initialize();
 
    clear();
@@ -89,6 +93,10 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    tile_drive.set_event_emitter(&event_emitter);
    tile_drive.set_sample_bin(&sample_bin);
    tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
+   tile_drive.set_terrain_mesh_dictionary({
+      { "og-tunnel-mesh", { "tunnel_mesh-02.tmj", nullptr } },
+   });
+   tile_drive.set_current_map_identifier("og-tunnel-mesh");
    tile_drive.initialize();
    //tile_drive.set_event_emitter(&event_emitter);
 

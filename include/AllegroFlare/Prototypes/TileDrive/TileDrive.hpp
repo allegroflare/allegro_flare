@@ -39,6 +39,7 @@ namespace AllegroFlare
             AllegroFlare::SampleBin* sample_bin;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* current_terrain_mesh;
             std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary;
+            std::string current_map_identifier;
             std::string maps_folder;
             AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
             AllegroFlare::Vec3D driver_position;
@@ -73,6 +74,7 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::SampleBin* get_sample_bin() const;
+            std::string get_current_map_identifier() const;
             std::string get_maps_folder() const;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* &get_current_terrain_mesh_ref();
             std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> &get_terrain_mesh_dictionary_ref();
@@ -80,6 +82,8 @@ namespace AllegroFlare
             void set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_maps_folder(std::string maps_folder="[unset-maps_folder-arg]");
+            void set_terrain_mesh_dictionary(std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary={});
+            void set_current_map_identifier(std::string current_map_identifier="[unset-current_map_identifier-arg]");
             void initialize();
             void pause_timer();
             void reset();
