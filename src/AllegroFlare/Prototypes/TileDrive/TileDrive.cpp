@@ -33,6 +33,7 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , hypersync()
    , driver_position({0, 0, 0})
    , driver_velocity({0, 0, 0})
+   , driver_acceleration_velocity(0.0f)
    , driver_turn_rotation(0.0f)
    , driver_turning_velocity(0.0f)
    , driver_accelerator_pressed(false)
@@ -283,8 +284,9 @@ void TileDrive::stop_racing_due_to_death()
    if (state == STATE_PLAYER_DIED) return;
    state = STATE_PLAYER_DIED;
    pause_timer();
-   driver_velocity.x = 0.0f;
-   driver_velocity.z = 0.0f;
+   driver_acceleration_velocity = 0.0f;
+   //driver_velocity.x = 0.0f;
+   //driver_velocity.z = 0.0f;
    hud.show_die_slate();
    return;
 }
@@ -404,6 +406,7 @@ void TileDrive::evaluate_driver_past_goal()
    {
       timer.pause();
       state = STATE_WON;
+      driver_acceleration_velocity = 0.0f;
       driver_velocity.x = 0.0f;
       driver_velocity.z = 0.0f;
       hud.show_win_slate();
@@ -421,24 +424,51 @@ void TileDrive::update()
       throw std::runtime_error(error_message.str());
    }
 
-   driver_turn_rotation += driver_turning_velocity;
+   //driver_turn_rotation += driver_turning_velocity;
+   //float &angle = driver_turn_rotation;
+   //float &magnitude = driver_acceleration_velocity;
+   //driver_velocity = AllegroFlare::Vec3D(magnitude * std::cos(angle), 0, magnitude * std::sin(angle));
 
    if (driver_break_pressed)
    {
       float driver_break_velocity = 0.2;
       float DRIVER_MAX_REVERSE_VELOCITY = 4;
 
-      driver_velocity.z += driver_break_velocity;
-      if (driver_velocity.z >= DRIVER_MAX_REVERSE_VELOCITY) driver_velocity.z = DRIVER_MAX_REVERSE_VELOCITY;
+      driver_acceleration_velocity += driver_break_velocity;
+      if (driver_acceleration_velocity >= DRIVER_MAX_REVERSE_VELOCITY)
+      {
+         driver_acceleration_velocity = DRIVER_MAX_REVERSE_VELOCITY;
+      }
+      //driver_velocity.z += driver_break_velocity;
+      //if (driver_velocity.z >= DRIVER_MAX_REVERSE_VELOCITY) driver_velocity.z = DRIVER_MAX_REVERSE_VELOCITY;
    }
    else if (driver_accelerator_pressed)
    {
       float driver_accelerator_velocity = -0.1;
       float DRIVER_MAX_FORWARD_VELOCITY = -20;
 
-      driver_velocity.z += driver_accelerator_velocity;
-      if (driver_velocity.z <= DRIVER_MAX_FORWARD_VELOCITY) driver_velocity.z = DRIVER_MAX_FORWARD_VELOCITY;
+      driver_acceleration_velocity += driver_accelerator_velocity;
+      if (driver_acceleration_velocity <= DRIVER_MAX_FORWARD_VELOCITY)
+      {
+         driver_acceleration_velocity = DRIVER_MAX_FORWARD_VELOCITY;
+      }
+      //driver_velocity.z += driver_accelerator_velocity;
+      //if (driver_velocity.z <= DRIVER_MAX_FORWARD_VELOCITY) driver_velocity.z = DRIVER_MAX_FORWARD_VELOCITY;
    }
+
+
+
+   driver_turn_rotation += driver_turning_velocity;
+   float &angle = driver_turn_rotation;
+   float &magnitude = driver_acceleration_velocity;
+   float angle_offset = 3.14 / 2;
+   driver_velocity = AllegroFlare::Vec3D(
+      magnitude * std::cos(angle+angle_offset),
+      0,
+      magnitude * std::sin(angle+angle_offset)
+   );
+   //driver_velocity.
+
 
    // NOTE: do not include natural decelaration or environmental friction for this racer
 
