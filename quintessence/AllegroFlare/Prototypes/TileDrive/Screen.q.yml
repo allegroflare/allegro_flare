@@ -126,6 +126,20 @@ functions:
       return;
 
 
+  - name: set_collision_stepper_step_result_callback
+    parameters:
+      - name: collision_stepper_step_result_callback
+        type: std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*,AllegroFlare::Prototypes::TileDrive::TileDrive*,void*)> 
+        default_argument: '{}'
+      - name: collision_stepper_step_result_callback_user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      tile_drive.set_collision_stepper_step_result_callback(collision_stepper_step_result_callback);
+      tile_drive.set_collision_stepper_step_result_callback_user_data(collision_stepper_step_result_callback_user_data);
+      return;
+
 
   - name: initialize
     guards:
@@ -238,5 +252,9 @@ dependencies:
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMesh
     headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp ]
+  - symbol: std::function
+    headers: [ functional ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperStepResult
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp ]
 
 

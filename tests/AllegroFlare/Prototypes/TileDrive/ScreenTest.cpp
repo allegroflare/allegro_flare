@@ -78,6 +78,10 @@ TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest,
       { "og-tunnel-mesh", { "tunnel_mesh-02.tmj", nullptr } },
    });
    tile_drive_screen.set_current_map_identifier("og-tunnel-mesh");
+   tile_drive_screen.set_collision_stepper_step_result_callback(
+      AllegroFlare::Prototypes::TileDrive::TileDrive::development_play_around_with_collision_steper_callback,
+      nullptr // might typically be the caller, an event_emitter, or something similar to be consumed by the callback
+   );
 
    tile_drive_screen.initialize();
 

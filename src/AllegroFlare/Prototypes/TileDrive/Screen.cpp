@@ -119,6 +119,19 @@ void Screen::set_current_map_identifier(std::string current_map_identifier)
    return;
 }
 
+void Screen::set_collision_stepper_step_result_callback(std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*,AllegroFlare::Prototypes::TileDrive::TileDrive*,void*)> collision_stepper_step_result_callback, void* collision_stepper_step_result_callback_user_data)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "set_collision_stepper_step_result_callback" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   tile_drive.set_collision_stepper_step_result_callback(collision_stepper_step_result_callback);
+   tile_drive.set_collision_stepper_step_result_callback_user_data(collision_stepper_step_result_callback_user_data);
+   return;
+}
+
 void Screen::initialize()
 {
    if (!((!initialized)))

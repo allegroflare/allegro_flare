@@ -1485,6 +1485,7 @@
   "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -1695,6 +1696,10 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
+  "std/function": [
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader": [
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory"
   ],
@@ -1705,9 +1710,6 @@
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "std/function": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Achievements": [

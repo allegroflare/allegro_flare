@@ -9090,6 +9090,9 @@ table td
   <td class="method">set_current_map_identifier(1)</td>
 </tr>
 <tr>
+  <td class="method">set_collision_stepper_step_result_callback(2)</td>
+</tr>
+<tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
@@ -9126,6 +9129,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::TerrainMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::function&quot;, &quot;headers&quot;=&gt;[&quot;functional&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperStepResult&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15840,6 +15849,7 @@ table td
   "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -16050,6 +16060,10 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
+  "std/function": [
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader": [
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory"
   ],
@@ -16060,9 +16074,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "std/function": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Achievements": [
