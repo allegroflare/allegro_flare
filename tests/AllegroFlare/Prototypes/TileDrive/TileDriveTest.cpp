@@ -98,6 +98,10 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    });
    tile_drive.set_current_map_identifier("og-tunnel-mesh");
    tile_drive.initialize();
+   tile_drive.set_collision_stepper_step_result_callback(
+      AllegroFlare::Prototypes::TileDrive::TileDrive::development_play_around_with_collision_steper_callback
+   );
+
    //tile_drive.set_event_emitter(&event_emitter);
 
    // start the level

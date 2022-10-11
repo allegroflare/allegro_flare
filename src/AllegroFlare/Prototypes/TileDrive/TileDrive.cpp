@@ -41,7 +41,7 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , driver_turning_velocity(0.0f)
    , driver_accelerator_pressed(false)
    , driver_break_pressed(false)
-   , collision_stepper_step_result_callback({})
+   , collision_stepper_step_result_callback()
    , collision_stepper_step_result_callback_user_data(nullptr)
    , timer()
    , camera()
@@ -65,7 +65,7 @@ void TileDrive::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
-void TileDrive::set_collision_stepper_step_result_callback(std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> collision_stepper_step_result_callback)
+void TileDrive::set_collision_stepper_step_result_callback(std::function< void( AllegroFlare::Physics::TileMapCollisionStepperStepResult*, AllegroFlare::Prototypes::TileDrive::TileDrive*, void* ) > collision_stepper_step_result_callback)
 {
    this->collision_stepper_step_result_callback = collision_stepper_step_result_callback;
 }
@@ -113,7 +113,7 @@ std::string TileDrive::get_maps_folder() const
 }
 
 
-std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> TileDrive::get_collision_stepper_step_result_callback() const
+std::function< void( AllegroFlare::Physics::TileMapCollisionStepperStepResult*, AllegroFlare::Prototypes::TileDrive::TileDrive*, void* ) > TileDrive::get_collision_stepper_step_result_callback() const
 {
    return collision_stepper_step_result_callback;
 }
@@ -584,12 +584,15 @@ void TileDrive::update()
       &driver_velocity
    );
    AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
-   play_around_with_collision_step_result(
-      &step_result,
-      this, 
-      collision_stepper_step_result_callback_user_data
-   );
-
+   // call the callback after the stepper has processed the step
+   if (collision_stepper_step_result_callback)
+   {
+      collision_stepper_step_result_callback(
+         &step_result,
+         this,
+         collision_stepper_step_result_callback_user_data
+      );
+   }
 
    camera.position = driver_position;
    camera.spin = driver_turn_rotation;
@@ -597,18 +600,18 @@ void TileDrive::update()
    return;
 }
 
-void TileDrive::play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result, AllegroFlare::Prototypes::TileDrive::TileDrive* tile_drive, void* user_data)
+void TileDrive::development_play_around_with_collision_steper_callback(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result, AllegroFlare::Prototypes::TileDrive::TileDrive* tile_drive, void* user_data)
 {
    if (!(step_result))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"step_result\" not met";
+      error_message << "TileDrive" << "::" << "development_play_around_with_collision_steper_callback" << ": error: " << "guard \"step_result\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(tile_drive))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"tile_drive\" not met";
+      error_message << "TileDrive" << "::" << "development_play_around_with_collision_steper_callback" << ": error: " << "guard \"tile_drive\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (step_result->get_collisions_ref().empty()) return;

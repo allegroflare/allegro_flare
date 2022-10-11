@@ -84,8 +84,14 @@ properties:
     init_with: false
 
   - name: collision_stepper_step_result_callback
-    type: std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> 
-    init_with: '{}'
+    type:
+      std::function<
+         void(
+            AllegroFlare::Physics::TileMapCollisionStepperStepResult*,
+            AllegroFlare::Prototypes::TileDrive::TileDrive*, void*
+         )
+      > 
+    init_with: ''
     getter: true
     setter: true
 
@@ -557,12 +563,15 @@ functions:
          &driver_velocity
       );
       AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
-      play_around_with_collision_step_result(
-         &step_result,
-         this, 
-         collision_stepper_step_result_callback_user_data
-      );
-
+      // call the callback after the stepper has processed the step
+      if (collision_stepper_step_result_callback)
+      {
+         collision_stepper_step_result_callback(
+            &step_result,
+            this,
+            collision_stepper_step_result_callback_user_data
+         );
+      }
 
       camera.position = driver_position;
       camera.spin = driver_turn_rotation;
@@ -572,7 +581,7 @@ functions:
      - AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver
 
 
-  - name: play_around_with_collision_step_result
+  - name: development_play_around_with_collision_steper_callback
     static: true
     parameters:
       - name: step_result
