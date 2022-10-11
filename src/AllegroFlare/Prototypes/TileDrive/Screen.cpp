@@ -31,36 +31,6 @@ Screen::~Screen()
 }
 
 
-void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
-{
-   this->event_emitter = event_emitter;
-}
-
-
-AllegroFlare::EventEmitter* Screen::get_event_emitter() const
-{
-   return event_emitter;
-}
-
-
-AllegroFlare::BitmapBin* Screen::get_bitmap_bin() const
-{
-   return bitmap_bin;
-}
-
-
-AllegroFlare::FontBin* Screen::get_font_bin() const
-{
-   return font_bin;
-}
-
-
-AllegroFlare::SampleBin* Screen::get_sample_bin() const
-{
-   return sample_bin;
-}
-
-
 void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    if (!((!initialized)))
@@ -70,6 +40,7 @@ void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
       throw std::runtime_error(error_message.str());
    }
    this->bitmap_bin = bitmap_bin;
+   tile_drive.set_bitmap_bin(bitmap_bin);
    return;
 }
 
@@ -82,6 +53,7 @@ void Screen::set_sample_bin(AllegroFlare::SampleBin* sample_bin)
       throw std::runtime_error(error_message.str());
    }
    this->sample_bin = sample_bin;
+   tile_drive.set_sample_bin(sample_bin);
    return;
 }
 
@@ -94,6 +66,20 @@ void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
       throw std::runtime_error(error_message.str());
    }
    this->font_bin = font_bin;
+   tile_drive.set_font_bin(font_bin);
+   return;
+}
+
+void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "set_event_emitter" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->event_emitter = event_emitter;
+   tile_drive.set_event_emitter(event_emitter);
    return;
 }
 
@@ -105,6 +91,12 @@ void Screen::initialize()
       error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
+   tile_drive.set_bitmap_bin(bitmap_bin);
+   tile_drive.set_font_bin(font_bin);
+   tile_drive.set_event_emitter(event_emitter);
+   tile_drive.set_sample_bin(sample_bin);
+   tile_drive.initialize();
+
    initialized = true;
    return;
 }

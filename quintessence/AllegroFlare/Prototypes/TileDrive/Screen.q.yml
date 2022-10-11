@@ -13,28 +13,24 @@ properties:
     type: AllegroFlare::EventEmitter*
     constructor_arg: true
     init_with: nullptr
-    getter: true
-    setter: true
+    setter: false
 
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     constructor_arg: true
     init_with: nullptr
-    getter: true
     setter: false
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     constructor_arg: true
     init_with: nullptr
-    getter: true
     setter: false
 
   - name: sample_bin
     type: AllegroFlare::SampleBin*
     constructor_arg: true
     init_with: nullptr
-    getter: true
     setter: false
 
   - name: tile_drive
@@ -57,6 +53,7 @@ functions:
     guards: [ (!initialized) ]
     body: |
       this->bitmap_bin = bitmap_bin;
+      tile_drive.set_bitmap_bin(bitmap_bin);
       return;
 
 
@@ -68,6 +65,7 @@ functions:
     guards: [ (!initialized) ]
     body: |
       this->sample_bin = sample_bin;
+      tile_drive.set_sample_bin(sample_bin);
       return;
 
 
@@ -79,6 +77,19 @@ functions:
     guards: [ (!initialized) ]
     body: |
       this->font_bin = font_bin;
+      tile_drive.set_font_bin(font_bin);
+      return;
+
+
+  - name: set_event_emitter
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->event_emitter = event_emitter;
+      tile_drive.set_event_emitter(event_emitter);
       return;
 
 
@@ -86,6 +97,12 @@ functions:
     guards:
       - (!initialized)
     body: |
+      tile_drive.set_bitmap_bin(bitmap_bin);
+      tile_drive.set_font_bin(font_bin);
+      tile_drive.set_event_emitter(event_emitter);
+      tile_drive.set_sample_bin(sample_bin);
+      tile_drive.initialize();
+
       initialized = true;
       return;
 
