@@ -30,6 +30,8 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , font_bin(font_bin)
    , sample_bin(sample_bin)
    , current_terrain_mesh()
+   , terrain_mesh_dictionary({})
+   , maps_folder("[unset-maps_folder]")
    , hypersync()
    , driver_position({0, 0, 0})
    , driver_velocity({0, 0, 0})
@@ -84,9 +86,21 @@ AllegroFlare::SampleBin* TileDrive::get_sample_bin() const
 }
 
 
+std::string TileDrive::get_maps_folder() const
+{
+   return maps_folder;
+}
+
+
 AllegroFlare::Prototypes::TileDrive::TerrainMesh* &TileDrive::get_current_terrain_mesh_ref()
 {
    return current_terrain_mesh;
+}
+
+
+std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> &TileDrive::get_terrain_mesh_dictionary_ref()
+{
+   return terrain_mesh_dictionary;
 }
 
 
@@ -123,6 +137,18 @@ void TileDrive::set_font_bin(AllegroFlare::FontBin* font_bin)
       throw std::runtime_error(error_message.str());
    }
    this->font_bin = font_bin;
+   return;
+}
+
+void TileDrive::set_maps_folder(std::string maps_folder)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "TileDrive" << "::" << "set_maps_folder" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->maps_folder = maps_folder;
    return;
 }
 
@@ -173,9 +199,49 @@ void TileDrive::initialize()
    AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory factory(bitmap_bin);
    //current_terrain_mesh = factory.create_classic_random();
    //current_terrain_mesh = factory.create_random_with_walls();
-   std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
-   current_terrain_mesh = factory.create_from_tmj(map_filename);
+   //std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
+   //current_terrain_mesh = factory.create_from_tmj(map_filename);
 
+
+
+   //std::map<std::string std::pair<std::string, 
+
+   //std::string maps_folder = "/Users/markoates/Repos/allegro_flare/bin/data/maps/";
+   // load all the maps
+   terrain_mesh_dictionary = {
+      { "og-tunnel-mesh", { "tunnel_mesh-02.tmj", nullptr } },
+   };
+   //current_terrain_mesh = factory.create_from_tmj(map_filename);
+   //= factory.create_from_tmj(map_filename);
+
+
+   // load up all the maps
+   for (auto& terrain_mesh_dictionary_item : terrain_mesh_dictionary)
+   {
+      std::string identifier = terrain_mesh_dictionary_item.first;
+      std::string filename = std::get<0>(terrain_mesh_dictionary_item.second);
+      AllegroFlare::Prototypes::TileDrive::TerrainMesh* &mesh_ptr = std::get<1>(terrain_mesh_dictionary_item.second);
+
+      mesh_ptr = factory.create_from_tmj(maps_folder + filename);
+      if (!mesh_ptr)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize error: "
+                       << "could not load file \""
+                       << filename << "\" for identifier \"" << identifier << "\"";
+         throw std::runtime_error(error_message.str());
+      }
+   }
+
+
+
+   //std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
+   //current_terrain_mesh = factory.create_from_tmj(map_filename);
+   std::string current_map_identifier = "og-tunnel-mesh";
+   current_terrain_mesh = std::get<1>(terrain_mesh_dictionary[current_map_identifier]);
+
+
+   // create local music track playlist
    std::map<std::string, std::pair<std::string, float>> playlist = {
       { "song-60bpm",     { "music_tracks/tempo-track-60.ogg", 60.0f } },
       { "song-80bpm",     { "music_tracks/tempo-track-80.ogg", 80.0f } },

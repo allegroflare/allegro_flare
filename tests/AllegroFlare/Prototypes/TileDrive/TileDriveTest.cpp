@@ -22,7 +22,7 @@ class AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixture
 
 TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Prototypes::TileDrive::TileDrive tile_dive;
+   AllegroFlare::Prototypes::TileDrive::TileDrive tile_drive;
 }
 
 
@@ -36,18 +36,19 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples/");
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
-   AllegroFlare::Prototypes::TileDrive::TileDrive tile_dive(
+   AllegroFlare::Prototypes::TileDrive::TileDrive tile_drive(
       &event_emitter,
       &get_bitmap_bin_ref(),
       &get_font_bin_ref(),
       &sample_bin
    );
-   tile_dive.initialize();
+   tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
+   tile_drive.initialize();
 
    clear();
 
-   tile_dive.update();
-   tile_dive.render();
+   tile_drive.update();
+   tile_drive.render();
 
    al_flip_display();
 }
@@ -82,16 +83,17 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
 
    // initialize test subject
    
-   AllegroFlare::Prototypes::TileDrive::TileDrive tile_dive;
-   tile_dive.set_bitmap_bin(&get_bitmap_bin_ref());
-   tile_dive.set_font_bin(&get_font_bin_ref());
-   tile_dive.set_event_emitter(&event_emitter);
-   tile_dive.set_sample_bin(&sample_bin);
-   tile_dive.initialize();
-   //tile_dive.set_event_emitter(&event_emitter);
+   AllegroFlare::Prototypes::TileDrive::TileDrive tile_drive;
+   tile_drive.set_bitmap_bin(&get_bitmap_bin_ref());
+   tile_drive.set_font_bin(&get_font_bin_ref());
+   tile_drive.set_event_emitter(&event_emitter);
+   tile_drive.set_sample_bin(&sample_bin);
+   tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
+   tile_drive.initialize();
+   //tile_drive.set_event_emitter(&event_emitter);
 
    // start the level
-   tile_dive.reset();
+   tile_drive.reset();
 
    // run the interactive test
    al_start_timer(primary_timer);
@@ -110,23 +112,23 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
                break;
 
                case ALLEGRO_KEY_UP:
-                  tile_dive.driver_press_accelerator();
+                  tile_drive.driver_press_accelerator();
                break;
 
                case ALLEGRO_KEY_DOWN:
-                  tile_dive.driver_press_break();
+                  tile_drive.driver_press_break();
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                  tile_dive.driver_turn_right();
+                  tile_drive.driver_turn_right();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  tile_dive.driver_turn_left();
+                  tile_drive.driver_turn_left();
                break;
 
                case ALLEGRO_KEY_R:
-                  tile_dive.reset();
+                  tile_drive.reset();
                break;
             }
          }
@@ -137,29 +139,29 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
             switch(event.keyboard.keycode)
             {
                case ALLEGRO_KEY_UP:
-                  tile_dive.driver_unpress_accelerator();
+                  tile_drive.driver_unpress_accelerator();
                break;
 
                case ALLEGRO_KEY_DOWN:
-                  tile_dive.driver_unpress_break();
+                  tile_drive.driver_unpress_break();
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                  tile_dive.driver_turn_none();
+                  tile_drive.driver_turn_none();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  tile_dive.driver_turn_none();
+                  tile_drive.driver_turn_none();
                break;
             }
          }
          break;
 
          case ALLEGRO_EVENT_TIMER:
-            tile_dive.update();
+            tile_drive.update();
 
             clear();
-            tile_dive.render();
+            tile_drive.render();
             al_flip_display();
          break;
       }

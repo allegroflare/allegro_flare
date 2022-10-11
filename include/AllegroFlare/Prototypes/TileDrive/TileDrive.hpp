@@ -13,6 +13,9 @@
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Timer.hpp>
 #include <AllegroFlare/Vec3D.hpp>
+#include <map>
+#include <string>
+#include <tuple>
 
 
 namespace AllegroFlare
@@ -35,6 +38,8 @@ namespace AllegroFlare
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::SampleBin* sample_bin;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* current_terrain_mesh;
+            std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary;
+            std::string maps_folder;
             AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
             AllegroFlare::Vec3D driver_position;
             AllegroFlare::Vec3D driver_velocity;
@@ -68,10 +73,13 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::SampleBin* get_sample_bin() const;
+            std::string get_maps_folder() const;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* &get_current_terrain_mesh_ref();
+            std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> &get_terrain_mesh_dictionary_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+            void set_maps_folder(std::string maps_folder="[unset-maps_folder-arg]");
             void initialize();
             void pause_timer();
             void reset();
