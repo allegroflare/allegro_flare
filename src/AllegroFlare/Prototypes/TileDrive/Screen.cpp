@@ -83,6 +83,42 @@ void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    return;
 }
 
+void Screen::set_maps_folder(std::string maps_folder)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "set_maps_folder" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   tile_drive.set_maps_folder(maps_folder);
+   return;
+}
+
+void Screen::set_terrain_mesh_dictionary(std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "set_terrain_mesh_dictionary" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   tile_drive.set_terrain_mesh_dictionary(terrain_mesh_dictionary);
+   return;
+}
+
+void Screen::set_current_map_identifier(std::string current_map_identifier)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "set_current_map_identifier" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   tile_drive.set_current_map_identifier(current_map_identifier);
+   return;
+}
+
 void Screen::initialize()
 {
    if (!((!initialized)))

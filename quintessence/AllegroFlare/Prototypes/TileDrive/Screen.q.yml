@@ -93,6 +93,40 @@ functions:
       return;
 
 
+  - name: set_maps_folder
+    parameters:
+      - name: maps_folder
+        type: std::string
+        default_argument: '"[unset-maps_folder-arg]"'
+    guards: [ (!initialized) ]
+    body: |
+      tile_drive.set_maps_folder(maps_folder);
+      return;
+
+
+  - name: set_terrain_mesh_dictionary
+    parameters:
+      - name: terrain_mesh_dictionary
+        type: std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>>
+        default_argument: '{}'
+    guards: [ (!initialized) ]
+    body: |
+      tile_drive.set_terrain_mesh_dictionary(terrain_mesh_dictionary);
+      return;
+
+
+  - name: set_current_map_identifier
+    parameters:
+      - name: current_map_identifier
+        type: std::string
+        default_argument: '"[unset-current_map_identifier-arg]"'
+    guards: [ (!initialized) ]
+    body: |
+      tile_drive.set_current_map_identifier(current_map_identifier);
+      return;
+
+
+
   - name: initialize
     guards:
       - (!initialized)
@@ -202,5 +236,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMesh
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp ]
 
 

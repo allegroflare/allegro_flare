@@ -1689,6 +1689,7 @@
     "AllegroFlare/Prototypes/TileDrive/Screen"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
