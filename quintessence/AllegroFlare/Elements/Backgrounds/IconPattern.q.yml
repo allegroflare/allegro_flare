@@ -1,0 +1,137 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Backgrounds::Base
+    scope: public
+    init_with: '"IconPattern"'
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: background_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0}
+    getter: true
+    setter: true
+
+  - name: icon_a
+    type: uint32_t
+    init_with: 0
+
+  - name: icon_b
+    type: uint32_t
+    init_with: 0
+
+  - name: font_awesome_font_name
+    type: std::string
+    init_with: '"fa-solid-900.ttf"'
+
+  - name: time
+    type: float
+    init_with: 0
+
+
+functions:
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      time = al_get_time();
+      return;
+
+
+  - name: render
+    virtual: true
+    override: true
+    guards: [ al_is_font_addon_initialized(), font_bin ]
+    body: |
+      al_clear_to_color(background_color);
+      ALLEGRO_FONT *font = obtain_font_awesome_font();
+      ALLEGRO_COLOR font_color = AllegroFlare::Color::HotPink;
+
+      int display_width = 1920;
+      int display_height = 1080;
+
+      int spacing = 120;
+
+      for (int step_y=0; (step_y*spacing)<display_height; step_y++)
+         for (int step_x=0; (step_x*spacing)<display_width; step_x++)
+         {
+            float x = step_x * spacing;
+            float y = step_y * spacing;
+
+            if (step_y % 2 == 0) x += spacing / 2;
+
+            draw_unicode_character(font, font_color, 61444, ALLEGRO_ALIGN_CENTER, x, y);
+         }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Color
+      - AllegroFlare::Placement2D
+      - sin
+
+
+  - name: draw_unicode_character
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: icon
+        type: int32_t
+        default_argument: 61444
+      - name: flags
+        type: int
+        default_argument: 0
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      al_draw_ustr(font, color, x, y, flags, ustr);
+      return;
+
+
+  - name: obtain_font_awesome_font
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream font_identifier_and_size;
+      font_identifier_and_size << font_awesome_font_name << " " << -50;
+      return font_bin->auto_get(font_identifier_and_size.str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: sin
+    headers: [ cmath ]
+
+
