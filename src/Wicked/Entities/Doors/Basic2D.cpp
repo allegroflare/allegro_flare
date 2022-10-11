@@ -13,8 +13,9 @@ namespace Doors
 {
 
 
-Basic2D::Basic2D(std::string target_map_name, float target_spawn_x, float target_spawn_y)
+Basic2D::Basic2D(std::string game_event_name_to_emit, std::string target_map_name, float target_spawn_x, float target_spawn_y)
    : Wicked::Entities::Basic2D()
+   , game_event_name_to_emit(game_event_name_to_emit)
    , target_map_name(target_map_name)
    , target_spawn_x(target_spawn_x)
    , target_spawn_y(target_spawn_y)
@@ -24,6 +25,12 @@ Basic2D::Basic2D(std::string target_map_name, float target_spawn_x, float target
 
 Basic2D::~Basic2D()
 {
+}
+
+
+void Basic2D::set_game_event_name_to_emit(std::string game_event_name_to_emit)
+{
+   this->game_event_name_to_emit = game_event_name_to_emit;
 }
 
 
@@ -45,6 +52,12 @@ void Basic2D::set_target_spawn_y(float target_spawn_y)
 }
 
 
+std::string Basic2D::get_game_event_name_to_emit() const
+{
+   return game_event_name_to_emit;
+}
+
+
 std::string Basic2D::get_target_map_name() const
 {
    return target_map_name;
@@ -63,10 +76,6 @@ float Basic2D::get_target_spawn_y() const
 }
 
 
-std::string Basic2D::run()
-{
-   return "Hello World!";
-}
 
 
 } // namespace Doors

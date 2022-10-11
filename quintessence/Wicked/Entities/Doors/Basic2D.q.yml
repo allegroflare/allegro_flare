@@ -9,9 +9,16 @@ parent_classes:
 properties:
 
 
+  - name: game_event_name_to_emit
+    type: std::string
+    init_with: '"[unset-game_event_name_to_emit]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: target_map_name
     type: std::string
-    init_with: '"[unset-target-map-name]"'
+    init_with: '"[unset-target_map_name]"'
     constructor_arg: true
     getter: true
     setter: true
@@ -29,14 +36,6 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
-
-
-functions:
-
-
-  - name: run
-    type: std::string
-    body: return "Hello World!";
 
 
 dependencies:

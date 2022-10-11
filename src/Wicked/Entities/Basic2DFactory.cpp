@@ -229,6 +229,29 @@ Wicked::Entities::Basic2D* Basic2DFactory::create_door(std::string map_name, flo
    return created_door;
 }
 
+Wicked::Entities::Basic2D* Basic2DFactory::create_game_event_door(std::string map_name, float x, float y, std::string game_event_name_to_emit)
+{
+   // create the enemy
+   Wicked::Entities::Doors::Basic2D *created_door = new Wicked::Entities::Doors::Basic2D;
+   created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
+   created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
+   created_door->get_place_ref().position.x = x;
+   created_door->get_place_ref().position.y = y;
+   created_door->set_game_event_name_to_emit(game_event_name_to_emit);
+   //created_door->set_target_map_name(target_map_name);
+   //created_door->set_target_spawn_x(target_spawn_x);
+   //created_door->set_target_spawn_y(target_spawn_y);
+
+   // give it a noticable box color
+   created_door->set_debug_box_color(goalpost_box_color);
+
+   created_door->set(TYPE, DOOR);
+   created_door->set(ON_MAP_NAME, map_name);
+
+   // return the entity
+   return created_door;
+}
+
 Wicked::Entities::Basic2D* Basic2DFactory::create_goalpost(std::string map_name, float x, float y)
 {
    // create the enemy

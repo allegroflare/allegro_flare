@@ -941,7 +941,6 @@ void Screen::virtual_control_button_down_func(ALLEGRO_EVENT* event)
    }
    else if (button_num == AllegroFlare::VirtualControls::BUTTON_UP)
    {
-      std::cout << "UPUPUPUP";
       player_controls.set_up_button_pressed(true);
       check_player_collisions_with_doors();
    }

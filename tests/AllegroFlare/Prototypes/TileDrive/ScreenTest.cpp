@@ -57,8 +57,8 @@ TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest, DISABLED__initialize__does_no
 
 
 TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest,
-   INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
-   //DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+   //INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+   DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();

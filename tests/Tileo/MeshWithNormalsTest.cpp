@@ -155,7 +155,8 @@ AllegroFlare::vec3d build_light_from_top_right(float z=1.0) { return build_light
 AllegroFlare::vec3d build_light_from_top(float z=1.0) { return build_light_from(0.75, z); }
 
 
-TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, INTERACTIVE__vertexes_will_render_as_expected)
+TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest,
+   VISUAL__vertexes_will_render_as_expected)
 {
    al_init_image_addon();
    AllegroFlare::BitmapBin bitmap_bin;

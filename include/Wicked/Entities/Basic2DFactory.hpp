@@ -36,6 +36,7 @@ namespace Wicked
          Wicked::Entities::Enemies::Base* create_flapping_enemy(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f), float target_elevation=0.0f, float flap_strength=1.0f, float flap_recovery_rate=0.1f);
          Wicked::Entities::Basic2D* create_collectable(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f);
          Wicked::Entities::Basic2D* create_door(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, std::string target_map_name="[unset-target-map-name]", float target_spawn_x=0.0f, float target_spawn_y=0.0f);
+         Wicked::Entities::Basic2D* create_game_event_door(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, std::string game_event_name_to_emit="[unset-game_event_name_to_emit]");
          Wicked::Entities::Basic2D* create_goalpost(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f);
          Wicked::Entities::Basic2D* create_tile_map(std::string map_json_filename="[a-map-tmj-filename-that-is-not-set]", std::string map_name="[map-name-not-set]");
       };

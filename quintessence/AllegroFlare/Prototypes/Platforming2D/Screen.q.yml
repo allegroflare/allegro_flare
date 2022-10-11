@@ -607,6 +607,9 @@ functions:
          if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
          {
             Wicked::Entities::Doors::Basic2D *door = static_cast<Wicked::Entities::Doors::Basic2D*>(entity);
+
+            //std::string event_name_to_emit = door->get_event_name_to_emit();
+
             std::string map_target_name = door->get_target_map_name(); // do nothing with this for now
             float target_spawn_x = door->get_target_spawn_x();
             float target_spawn_y = door->get_target_spawn_y();
@@ -871,7 +874,6 @@ functions:
       }
       else if (button_num == AllegroFlare::VirtualControls::BUTTON_UP)
       {
-         std::cout << "UPUPUPUP";
          player_controls.set_up_button_pressed(true);
          check_player_collisions_with_doors();
       }
