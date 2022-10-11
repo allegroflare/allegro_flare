@@ -73,7 +73,7 @@ void IconPattern::render()
    int display_width = 1920;
    int display_height = 1080;
 
-   int spacing = 120;
+   int spacing = 110;
    float offset_x = spacing * 0.5;
    float offset_y = spacing * 0.25;
    AllegroFlare::Placement2D place;
@@ -121,7 +121,7 @@ ALLEGRO_FONT* IconPattern::obtain_font_awesome_font()
       throw std::runtime_error(error_message.str());
    }
    std::stringstream font_identifier_and_size;
-   font_identifier_and_size << font_awesome_font_name << " " << -50;
+   font_identifier_and_size << font_awesome_font_name << " " << -40;
    return font_bin->auto_get(font_identifier_and_size.str());
 }
 
