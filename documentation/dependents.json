@@ -1706,6 +1706,9 @@
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
+  "collision_stepper_step_result_callback": [
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements"

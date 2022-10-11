@@ -368,7 +368,7 @@ functions:
       return;
 
 
-  - name: start_racing
+  - name: start
     body: |
       if (state != STATE_WAITING_START) return;
       state = STATE_RACING;
@@ -394,7 +394,7 @@ functions:
 
   - name: driver_turn_right
     body: |
-      if (state == STATE_WAITING_START) start_racing();
+      if (state == STATE_WAITING_START) start();
       if (state != STATE_RACING) return;
       driver_turning_velocity = 0.02;
       return;
@@ -402,7 +402,7 @@ functions:
 
   - name: driver_turn_left
     body: |
-      if (state == STATE_WAITING_START) start_racing();
+      if (state == STATE_WAITING_START) start();
       if (state != STATE_RACING) return;
       driver_turning_velocity = -0.02;
       return;
@@ -410,7 +410,7 @@ functions:
 
   - name: driver_strafe_right
     body: |
-      if (state == STATE_WAITING_START) start_racing();
+      if (state == STATE_WAITING_START) start();
       if (state != STATE_RACING) return;
       driver_velocity.x = 3;
       return;
@@ -418,7 +418,7 @@ functions:
 
   - name: driver_strafe_left
     body: |
-      if (state == STATE_WAITING_START) start_racing();
+      if (state == STATE_WAITING_START) start();
       if (state != STATE_RACING) return;
       driver_velocity.x = -3;
       return;
@@ -426,7 +426,7 @@ functions:
 
   - name: driver_press_accelerator
     body: |
-      if (state == STATE_WAITING_START) start_racing();
+      if (state == STATE_WAITING_START) start();
       if (state != STATE_RACING) return;
       driver_accelerator_pressed = true;
       //driver_velocity.z = -20;
@@ -435,7 +435,7 @@ functions:
 
   - name: driver_unpress_accelerator
     body: |
-      if (state == STATE_WAITING_START) start_racing();
+      if (state == STATE_WAITING_START) start();
       if (state != STATE_RACING) return;
       driver_accelerator_pressed = false;
       return;
@@ -457,7 +457,7 @@ functions:
 
   - name: driver_stop
     body: |
-      if (state == STATE_WAITING_START) start_racing();
+      if (state == STATE_WAITING_START) start();
       if (state != STATE_RACING) return;
       driver_velocity.z = 0;
       return;
@@ -495,24 +495,6 @@ functions:
     body_dependency_symbols:
       - AllegroFlare::Useful
       - AllegroFlare::Color
-
-
-  - name: evaluate_driver_past_goal
-    private: true
-    body: |
-      if (state != STATE_RACING) return;
-
-      if (driver_position.z <= 0)
-      {
-         timer.pause();
-         state = STATE_WON;
-         driver_acceleration_velocity = 0.0f;
-         driver_velocity.x = 0.0f;
-         driver_velocity.z = 0.0f;
-         hud.show_win_slate();
-      }
-
-      return;
 
 
   - name: update
@@ -581,14 +563,13 @@ functions:
       camera.position = driver_position;
       camera.spin = driver_turn_rotation;
 
-      evaluate_driver_past_goal();
-
       return;
     body_dependency_symbols:
      - AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver
 
 
   - name: play_around_with_collision_step_result
+    virtual: true
     parameters:
       - name: step_result
         type: AllegroFlare::Physics::TileMapCollisionStepperStepResult*
@@ -697,6 +678,7 @@ dependencies:
     headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: AllegroFlare::Prototypes::MindDive::Hypersync
     headers: [ AllegroFlare/Prototypes/MindDive/Hypersync.hpp ]
+  - symbol: collision_stepper_step_result_callback
 
 
 

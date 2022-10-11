@@ -55,14 +55,14 @@ functions:
       tmj_data_loader.load();
 
       int num_columns = tmj_data_loader.get_num_columns();
-      if (num_columns != 12)
-      {
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory error: "
-                       << "Expecting data loaded from \"" << tmj_filename << "\" to have a column count of "
-                       << "\"12\", but it is \"" << num_columns << "\"";
-         throw std::runtime_error(error_message.str());
-      }
+      //if (num_columns != 12) // NOTE: I believe this was here for development check
+      //{
+         //std::stringstream error_message;
+         //error_message << "AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory error: "
+                       //<< "Expecting data loaded from \"" << tmj_filename << "\" to have a column count of "
+                       //<< "\"12\", but it is \"" << num_columns << "\"";
+         //throw std::runtime_error(error_message.str());
+      //}
 
       AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
       result->set_bitmap_bin(bitmap_bin);

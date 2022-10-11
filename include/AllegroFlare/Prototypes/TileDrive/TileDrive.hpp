@@ -60,14 +60,13 @@ namespace AllegroFlare
             void reset_timer();
             float calculate_current_terrain_mesh_height();
             float calculate_current_terrain_mesh_tile_depth();
-            void evaluate_driver_past_goal();
 
          protected:
 
 
          public:
             TileDrive(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SampleBin* sample_bin=nullptr);
-            ~TileDrive();
+            virtual ~TileDrive();
 
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             AllegroFlare::EventEmitter* get_event_emitter() const;
@@ -87,7 +86,7 @@ namespace AllegroFlare
             void initialize();
             void pause_timer();
             void reset();
-            void start_racing();
+            void start();
             void stop_racing_due_to_death();
             void driver_turn_right();
             void driver_turn_left();
@@ -104,7 +103,7 @@ namespace AllegroFlare
             void render_hud();
             void render_driver();
             void update();
-            void play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result=nullptr);
+            virtual void play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result=nullptr);
             void render();
          };
       }

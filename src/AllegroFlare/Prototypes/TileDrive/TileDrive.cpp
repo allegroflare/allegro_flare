@@ -374,7 +374,7 @@ void TileDrive::reset()
    return;
 }
 
-void TileDrive::start_racing()
+void TileDrive::start()
 {
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
@@ -400,7 +400,7 @@ void TileDrive::stop_racing_due_to_death()
 
 void TileDrive::driver_turn_right()
 {
-   if (state == STATE_WAITING_START) start_racing();
+   if (state == STATE_WAITING_START) start();
    if (state != STATE_RACING) return;
    driver_turning_velocity = 0.02;
    return;
@@ -408,7 +408,7 @@ void TileDrive::driver_turn_right()
 
 void TileDrive::driver_turn_left()
 {
-   if (state == STATE_WAITING_START) start_racing();
+   if (state == STATE_WAITING_START) start();
    if (state != STATE_RACING) return;
    driver_turning_velocity = -0.02;
    return;
@@ -416,7 +416,7 @@ void TileDrive::driver_turn_left()
 
 void TileDrive::driver_strafe_right()
 {
-   if (state == STATE_WAITING_START) start_racing();
+   if (state == STATE_WAITING_START) start();
    if (state != STATE_RACING) return;
    driver_velocity.x = 3;
    return;
@@ -424,7 +424,7 @@ void TileDrive::driver_strafe_right()
 
 void TileDrive::driver_strafe_left()
 {
-   if (state == STATE_WAITING_START) start_racing();
+   if (state == STATE_WAITING_START) start();
    if (state != STATE_RACING) return;
    driver_velocity.x = -3;
    return;
@@ -432,7 +432,7 @@ void TileDrive::driver_strafe_left()
 
 void TileDrive::driver_press_accelerator()
 {
-   if (state == STATE_WAITING_START) start_racing();
+   if (state == STATE_WAITING_START) start();
    if (state != STATE_RACING) return;
    driver_accelerator_pressed = true;
    //driver_velocity.z = -20;
@@ -441,7 +441,7 @@ void TileDrive::driver_press_accelerator()
 
 void TileDrive::driver_unpress_accelerator()
 {
-   if (state == STATE_WAITING_START) start_racing();
+   if (state == STATE_WAITING_START) start();
    if (state != STATE_RACING) return;
    driver_accelerator_pressed = false;
    return;
@@ -463,7 +463,7 @@ void TileDrive::driver_unpress_break()
 
 void TileDrive::driver_stop()
 {
-   if (state == STATE_WAITING_START) start_racing();
+   if (state == STATE_WAITING_START) start();
    if (state != STATE_RACING) return;
    driver_velocity.z = 0;
    return;
@@ -502,23 +502,6 @@ void TileDrive::render_driver()
       throw std::runtime_error(error_message.str());
    }
    draw_crosshair(driver_position, AllegroFlare::Color::Yellow, 0.75);
-   return;
-}
-
-void TileDrive::evaluate_driver_past_goal()
-{
-   if (state != STATE_RACING) return;
-
-   if (driver_position.z <= 0)
-   {
-      timer.pause();
-      state = STATE_WON;
-      driver_acceleration_velocity = 0.0f;
-      driver_velocity.x = 0.0f;
-      driver_velocity.z = 0.0f;
-      hud.show_win_slate();
-   }
-
    return;
 }
 
@@ -592,8 +575,6 @@ void TileDrive::update()
 
    camera.position = driver_position;
    camera.spin = driver_turn_rotation;
-
-   evaluate_driver_past_goal();
 
    return;
 }
