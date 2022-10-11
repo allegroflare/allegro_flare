@@ -1,0 +1,188 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: timer
+    type: AllegroFlare::Timer*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: slate_text
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: slate_text_color
+    type: ALLEGRO_COLOR
+    init_with: '{1, 1, 1, 1}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: backbuffer_sub_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: camera
+    type: AllegroFlare::Camera2D
+    init_with: '{}'
+
+
+functions:
+
+
+  - name: show_win_slate
+    body: |
+      slate_text = "-- WIN --";
+      slate_text_color = AllegroFlare::Color::Gold;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Color
+
+
+  - name: show_die_slate
+    body: |
+      slate_text = "/////////////// FAIL ///////////////";
+      slate_text_color = AllegroFlare::Color::Red;
+      return;
+
+
+  - name: show_ready_slate
+    body: |
+      slate_text = "-- READY --";
+      slate_text_color = AllegroFlare::Color::Orange;
+      return;
+
+
+  - name: clear_slate
+    body: |
+      slate_text = "";
+      slate_text_color = AllegroFlare::Color::White;
+      return;
+
+
+  - name: initialize
+    guards: 
+      - (!initialized)
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+      - timer
+      - al_get_current_display
+    body: |
+      // TODO: have a destroy mechanism, need to destory the backbuffer on destruction
+      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+      if (!backbuffer) throw std::runtime_error("TileDrive/Hud/Hud error: no backbuffer");
+
+      backbuffer_sub_bitmap = al_create_sub_bitmap(
+         backbuffer,
+         0,
+         0,
+         al_get_bitmap_width(backbuffer),
+         al_get_bitmap_height(backbuffer)
+      );
+
+      camera.setup_dimentional_projection(backbuffer_sub_bitmap);
+
+      initialized = true;
+      return;
+
+
+  - name: render_stopwatch
+    private: true
+    body: |
+      AllegroFlare::Elements::Stopwatch stopwatch(font_bin, timer);
+      stopwatch.render();
+      return;
+    body_dependency_symbols:
+     - AllegroFlare::Elements::Stopwatch
+
+
+  - name: render_slate
+    private: true
+    body: |
+      if (slate_text.empty()) return;
+
+      float x = 1920/2;
+      float y = 1080/2;
+      ALLEGRO_FONT *font = obtain_font();
+      float text_width = al_get_text_width(font, slate_text.c_str());
+      float text_height = al_get_font_line_height(font);
+      float h_text_width = text_width/2;
+      float h_text_height = text_height/2;
+      AllegroFlare::Vec2D padding = {30, 20};
+
+      al_draw_text(font, slate_text_color, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, slate_text.c_str());
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: render
+    type: void
+    guards: [ initialized ]
+    body: |
+      ALLEGRO_STATE previous_state;
+      al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
+      al_set_target_bitmap(backbuffer_sub_bitmap);
+
+      render_slate();
+      render_stopwatch();
+
+      al_restore_state(&previous_state);
+      return;
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Bold.ttf -90");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Elements::Stopwatch
+    headers: [ AllegroFlare/Elements/Stopwatch.hpp ]
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
+  - symbol: AllegroFlare::Camera2D
+    headers: [ AllegroFlare/Camera2D.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+
+
+

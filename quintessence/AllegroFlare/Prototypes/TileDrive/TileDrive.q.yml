@@ -1,0 +1,602 @@
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: false
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: false
+
+  - name: sample_bin
+    type: AllegroFlare::SampleBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: false
+
+  - name: current_terrain_mesh
+    type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
+    init_with: ''
+    getter_ref: true
+
+  - name: hypersync
+    type: AllegroFlare::Prototypes::MindDive::Hypersync
+    init_with: ''
+
+  - name: driver_position
+    type: AllegroFlare::Vec3D
+    init_with: '{0, 0, 0}'
+
+  - name: driver_velocity
+    type: AllegroFlare::Vec3D
+    init_with: '{0, 0, 0}'
+
+  - name: driver_acceleration_velocity
+    type: float
+    init_with: 0.0f
+
+  - name: driver_turn_rotation
+    type: float
+    init_with: 0.0f
+
+  - name: driver_turning_velocity
+    type: float
+    init_with: 0.0f
+
+  - name: driver_accelerator_pressed
+    type: bool
+    init_with: false
+
+  - name: driver_break_pressed
+    type: bool
+    init_with: false
+
+  - name: timer
+    type: AllegroFlare::Timer
+    init_with: ''
+
+  - name: camera
+    type: AllegroFlare::Camera3D
+    init_with: ''
+
+  - name: hud
+    type: AllegroFlare::Prototypes::TileDrive::Hud::Hud
+    init_with: '{}'
+
+  - name: state
+    type: int
+    init_with: STATE_WAITING_START
+
+  - name: initialized 
+    type: bool
+    init_with: false
+
+  - name: STATE_RACING
+    type: int
+    constexpr: true
+    static: true
+    init_with: 1
+
+  - name: STATE_WON
+    type: int
+    constexpr: true
+    static: true
+    init_with: 2
+
+  - name: STATE_PLAYER_DIED
+    type: int
+    constexpr: true
+    static: true
+    init_with: 3
+
+  - name: STATE_WAITING_START
+    type: int
+    constexpr: true
+    static: true
+    init_with: 4
+
+  - name: debug_metronome_sound
+    type: AllegroFlare::Sound*
+    init_with: nullptr
+
+  - name: music_started_at
+    type: float
+    init_with: 0.0f
+
+
+functions:
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      return;
+
+
+  - name: set_sample_bin
+    parameters:
+      - name: sample_bin
+        type: AllegroFlare::SampleBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->sample_bin = sample_bin;
+      return;
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->font_bin = font_bin;
+      return;
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - al_is_audio_installed()
+      - al_is_acodec_addon_initialized()
+      - event_emitter
+      - bitmap_bin
+      - font_bin
+      - sample_bin
+    body: |
+      AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory factory(bitmap_bin);
+      //current_terrain_mesh = factory.create_classic_random();
+      //current_terrain_mesh = factory.create_random_with_walls();
+      std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
+      current_terrain_mesh = factory.create_from_tmj(map_filename);
+
+      std::map<std::string, std::pair<std::string, float>> playlist = {
+         { "song-60bpm",     { "music_tracks/tempo-track-60.ogg", 60.0f } },
+         { "song-80bpm",     { "music_tracks/tempo-track-80.ogg", 80.0f } },
+         { "song-120bpm",     { "music_tracks/tempo-track-120.ogg", 120.0f } },
+         { "song-152bpm",     { "music_tracks/tempo-track-152.ogg", 152.0f } },
+         { "original-jamzz",  { "music_tracks/some-jamzz-04.ogg", 130.0f } },
+      };
+
+      //std::string playlist_song_to_play = "song-152bpm";
+      //std::string playlist_song_to_play = "song-80bpm";
+      //std::string playlist_song_to_play = "song-120bpm";
+      std::string playlist_song_to_play = "original-jamzz";
+
+      std::string pwd = "/Users/markoates/Repos/allegro_flare/bin/data/samples/";
+      std::string song_filename = pwd + playlist[playlist_song_to_play].first;
+      float song_bpm = playlist[playlist_song_to_play].second;
+
+      hypersync.set_song_filename(song_filename);
+      hypersync.set_song_bpm(song_bpm);
+      hypersync.initialize();
+
+
+      debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));
+
+      hud.set_font_bin(font_bin);
+      hud.set_timer(&timer);
+      hud.initialize();
+
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - std::map
+      - al_is_audio_installed
+      - al_is_acodec_addon_initialized
+      - AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory
+
+
+  - name: start_timer
+    private: true
+    body: |
+      timer.start();
+      return;
+
+
+  - name: pause_timer
+    body: |
+      timer.pause();
+      return;
+
+
+  - name: reset_timer
+    private: true
+    body: |
+      timer.reset();
+      return;
+
+
+  - name: calculate_current_terrain_mesh_height
+    type: float
+    private: true
+    body: |
+      if (!current_terrain_mesh) return 0.0f;
+      return current_terrain_mesh->infer_real_height();
+
+
+  - name: calculate_current_terrain_mesh_tile_depth
+    type: float
+    private: true
+    body: |
+      if (!current_terrain_mesh) return 0.0f;
+      return current_terrain_mesh->obtain_tile_height();
+
+
+  - name: reset
+    guards: [ initialized ]
+    body: |
+      driver_position.x = current_terrain_mesh->infer_real_width() * 0.5
+                        - current_terrain_mesh->obtain_tile_width() * 0.5;
+      driver_position.z = current_terrain_mesh->infer_real_height()
+                        - current_terrain_mesh->obtain_tile_height();
+
+      driver_velocity = AllegroFlare::Vec3D(0, 0, 0);
+
+      camera.stepout = AllegroFlare::Vec3D(0, 2, 5);
+      state = STATE_WAITING_START;
+
+      hud.show_ready_slate();
+      //camera.tilt = 0.4;
+      //camera.zoom = 2.1;
+      //camera.spin += 0.01f;
+      music_started_at = 0.0f;
+
+      // TODO: hypersync->stop();
+      reset_timer();
+      return;
+
+
+  - name: start_racing
+    body: |
+      if (state != STATE_WAITING_START) return;
+      state = STATE_RACING;
+
+      hypersync.start();
+
+      start_timer();
+      hud.clear_slate();
+      return;
+
+
+  - name: stop_racing_due_to_death
+    body: |
+      if (state == STATE_PLAYER_DIED) return;
+      state = STATE_PLAYER_DIED;
+      pause_timer();
+      driver_acceleration_velocity = 0.0f;
+      //driver_velocity.x = 0.0f;
+      //driver_velocity.z = 0.0f;
+      hud.show_die_slate();
+      return;
+
+
+  - name: driver_turn_right
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_turning_velocity = 0.02;
+      return;
+
+
+  - name: driver_turn_left
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_turning_velocity = -0.02;
+      return;
+
+
+  - name: driver_strafe_right
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_velocity.x = 3;
+      return;
+
+
+  - name: driver_strafe_left
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_velocity.x = -3;
+      return;
+
+
+  - name: driver_press_accelerator
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_accelerator_pressed = true;
+      //driver_velocity.z = -20;
+      return;
+
+
+  - name: driver_unpress_accelerator
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_accelerator_pressed = false;
+      return;
+
+
+  - name: driver_press_break
+    body: |
+      if (state != STATE_RACING) return;
+      driver_break_pressed = true;
+      return;
+
+
+  - name: driver_unpress_break
+    body: |
+      if (state != STATE_RACING) return;
+      driver_break_pressed = false;
+      return;
+
+
+  - name: driver_stop
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_velocity.z = 0;
+      return;
+
+
+  - name: driver_strafe_none
+    body: |
+      driver_velocity.x = 0;
+      return;
+
+
+  - name: driver_turn_none
+    body: |
+      driver_turning_velocity = 0;
+      return;
+
+
+  - name: render_terrain
+    body: |
+      current_terrain_mesh->render();
+      return;
+
+
+  - name: render_hud
+    body: |
+      hud.render();
+      return;
+
+
+  - name: render_driver
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      draw_crosshair(driver_position, AllegroFlare::Color::Yellow, 0.75);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Useful
+      - AllegroFlare::Color
+
+
+  - name: evaluate_driver_past_goal
+    private: true
+    body: |
+      if (state != STATE_RACING) return;
+
+      if (driver_position.z <= 0)
+      {
+         timer.pause();
+         state = STATE_WON;
+         driver_acceleration_velocity = 0.0f;
+         driver_velocity.x = 0.0f;
+         driver_velocity.z = 0.0f;
+         hud.show_win_slate();
+      }
+
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+
+      //driver_turn_rotation += driver_turning_velocity;
+      //float &angle = driver_turn_rotation;
+      //float &magnitude = driver_acceleration_velocity;
+      //driver_velocity = AllegroFlare::Vec3D(magnitude * std::cos(angle), 0, magnitude * std::sin(angle));
+
+      if (driver_break_pressed)
+      {
+         float driver_break_velocity = 0.3;
+         float DRIVER_MAX_REVERSE_VELOCITY = 4;
+
+         driver_acceleration_velocity += driver_break_velocity;
+         if (driver_acceleration_velocity >= DRIVER_MAX_REVERSE_VELOCITY)
+         {
+            driver_acceleration_velocity = DRIVER_MAX_REVERSE_VELOCITY;
+         }
+         //driver_velocity.z += driver_break_velocity;
+         //if (driver_velocity.z >= DRIVER_MAX_REVERSE_VELOCITY) driver_velocity.z = DRIVER_MAX_REVERSE_VELOCITY;
+      }
+      else if (driver_accelerator_pressed)
+      {
+         float driver_accelerator_velocity = -0.2;
+         float DRIVER_MAX_FORWARD_VELOCITY = -6;
+
+         driver_acceleration_velocity += driver_accelerator_velocity;
+         if (driver_acceleration_velocity <= DRIVER_MAX_FORWARD_VELOCITY)
+         {
+            driver_acceleration_velocity = DRIVER_MAX_FORWARD_VELOCITY;
+         }
+         //driver_velocity.z += driver_accelerator_velocity;
+         //if (driver_velocity.z <= DRIVER_MAX_FORWARD_VELOCITY) driver_velocity.z = DRIVER_MAX_FORWARD_VELOCITY;
+      }
+
+
+
+      driver_turn_rotation += driver_turning_velocity;
+      float &angle = driver_turn_rotation;
+      float &magnitude = driver_acceleration_velocity;
+      float angle_offset = 3.14 / 2;
+      driver_velocity = AllegroFlare::Vec3D(
+         magnitude * std::cos(angle+angle_offset),
+         0,
+         magnitude * std::sin(angle+angle_offset)
+      );
+      //driver_velocity.
+
+
+      // NOTE: do not include natural decelaration or environmental friction for this racer
+
+      // handle collision resolving including collisions that will stop the player
+
+      AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
+         current_terrain_mesh,
+         &driver_position,
+         &driver_velocity
+      );
+      AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
+      play_around_with_collision_step_result(&step_result);
+
+
+      camera.position = driver_position;
+      camera.spin = driver_turn_rotation;
+
+      evaluate_driver_past_goal();
+
+      return;
+    body_dependency_symbols:
+     - AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver
+
+
+  - name: play_around_with_collision_step_result
+    parameters:
+      - name: step_result
+        type: AllegroFlare::Physics::TileMapCollisionStepperStepResult*
+        default_argument: nullptr
+    guards: [ step_result, current_terrain_mesh ]
+    body: |
+      if (step_result->get_collisions_ref().empty()) return;
+
+      //event_emitter->emit_play_sound_effect_event("menu-click-01.ogg");
+      //debug_metronome_sound->stop();
+      //debug_metronome_sound->play();
+
+      for (auto &collision : step_result->get_collisions_ref())
+      {
+         // stop racing due do death
+         if (collision.get_tile_value() == 0)
+         {
+            stop_racing_due_to_death();
+         }
+
+         // change tiles if driver collided with them
+         else if (collision.get_tile_value() == 2 || (collision.get_tile_value() == -999))
+         {
+            // this is cool just disabled
+            bool disable_this_feature = false;
+            if (!disable_this_feature)
+            {
+               AllegroFlare::Physics::Int2D tile_pos = collision.get_collided_tile_coordinate();
+               current_terrain_mesh->get_prim_mesh_ref().set_tile_id(tile_pos.get_x(), tile_pos.get_y(), 3);
+               //current_terrain_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
+            }
+         }
+      }
+      return;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      //al_clear_depth_buffer(1);
+      camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
+
+      //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
+      //glDisable(GL_CULL_FACE);
+
+      //camera.start_reverse_transform();
+      //AllegroFlare::Placement3D place;
+      //place.start_transform();
+      render_terrain();
+      render_driver();
+      //place.restore_transform();
+      //camera.restore_transform();
+
+      render_hud();
+      return;
+    body_dependency_symbols:
+      - sin
+      - AllegroFlare::Placement3D
+      - glCullFace
+
+
+dependencies:
+
+
+  - symbol: al_is_audio_installed
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: al_is_acodec_addon_initialized
+    headers: [ allegro5/allegro_acodec.h ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMesh
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Useful
+    headers: [ AllegroFlare/Useful.hpp ]
+  - symbol: AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: AllegroFlare::Elements::Stopwatch
+    headers: [ AllegroFlare/Elements/Stopwatch.hpp ]
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: sin
+    headers: [ cmath ]
+  - symbol: glCullFace
+    headers: [ allegro5/allegro_opengl.h ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::Hud::Hud
+    headers: [ AllegroFlare/Prototypes/TileDrive/Hud/Hud.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.hpp ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperStepResult
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Sound
+    headers: [ AllegroFlare/Sound.hpp ]
+  - symbol: AllegroFlare::SampleBin
+    headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::MindDive::Hypersync
+    headers: [ AllegroFlare/Prototypes/MindDive/Hypersync.hpp ]
+
+
+

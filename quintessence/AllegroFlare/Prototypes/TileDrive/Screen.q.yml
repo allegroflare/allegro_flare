@@ -1,0 +1,206 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: '"Prototypes::TileDrive::Screen"'
+
+
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    constructor_arg: true
+    init_with: nullptr
+    setter: false
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    setter: false
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    constructor_arg: true
+    init_with: nullptr
+    setter: false
+
+  - name: sample_bin
+    type: AllegroFlare::SampleBin*
+    constructor_arg: true
+    init_with: nullptr
+    setter: false
+
+  - name: tile_drive
+    type: AllegroFlare::Prototypes::TileDrive::TileDrive
+    init_with: ''
+
+  - name: initialized 
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      tile_drive.set_bitmap_bin(bitmap_bin);
+      return;
+
+
+  - name: set_sample_bin
+    parameters:
+      - name: sample_bin
+        type: AllegroFlare::SampleBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->sample_bin = sample_bin;
+      tile_drive.set_sample_bin(sample_bin);
+      return;
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->font_bin = font_bin;
+      tile_drive.set_font_bin(font_bin);
+      return;
+
+
+  - name: set_event_emitter
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->event_emitter = event_emitter;
+      tile_drive.set_event_emitter(event_emitter);
+      return;
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+    body: |
+      // initialize tile_drive
+      tile_drive.set_bitmap_bin(bitmap_bin);
+      tile_drive.set_font_bin(font_bin);
+      tile_drive.set_event_emitter(event_emitter);
+      tile_drive.set_sample_bin(sample_bin);
+      tile_drive.initialize();
+
+      // start the level
+      tile_drive.reset();
+
+      initialized = true;
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      tile_drive.update();
+      tile_drive.render();
+      return;
+
+
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event ]
+    body: |
+      switch(event->keyboard.keycode)
+      {
+        case ALLEGRO_KEY_UP:
+          tile_drive.driver_press_accelerator();
+          break;
+
+        case ALLEGRO_KEY_DOWN:
+          tile_drive.driver_press_break();
+          break;
+
+        case ALLEGRO_KEY_RIGHT:
+          tile_drive.driver_turn_right();
+          break;
+
+        case ALLEGRO_KEY_LEFT:
+          tile_drive.driver_turn_left();
+          break;
+
+        case ALLEGRO_KEY_R:
+          tile_drive.reset();
+          break;
+      }
+      return;
+
+
+  - name: key_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event ]
+    body: |
+      switch(event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+           tile_drive.driver_unpress_accelerator();
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+           tile_drive.driver_unpress_break();
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+           tile_drive.driver_turn_none();
+         break;
+
+         case ALLEGRO_KEY_LEFT:
+            tile_drive.driver_turn_none();
+         break;
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::SampleBin
+    headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TileDrive
+    headers: [ AllegroFlare/Prototypes/TileDrive/TileDrive.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+
+
