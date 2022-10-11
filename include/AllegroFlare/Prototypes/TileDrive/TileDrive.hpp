@@ -38,13 +38,13 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
             AllegroFlare::Vec3D driver_position;
             AllegroFlare::Vec3D driver_velocity;
+            float driver_turn_rotation;
             bool driver_accelerator_pressed;
             bool driver_break_pressed;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
             AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
             int state;
-            bool driver_attached_to_playhead_track;
             bool initialized;
             AllegroFlare::Sound* debug_metronome_sound;
             float music_started_at;
@@ -74,8 +74,9 @@ namespace AllegroFlare
             void pause_timer();
             void reset();
             void start_racing();
-            void attach_driver_to_playhead_track();
             void stop_racing_due_to_death();
+            void driver_turn_right();
+            void driver_turn_left();
             void driver_strafe_right();
             void driver_strafe_left();
             void driver_press_accelerator();
@@ -84,6 +85,7 @@ namespace AllegroFlare
             void driver_unpress_break();
             void driver_stop();
             void driver_strafe_none();
+            void driver_turn_none();
             void render_terrain();
             void render_hud();
             void render_driver();

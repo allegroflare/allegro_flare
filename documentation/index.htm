@@ -9343,6 +9343,10 @@ table td
   <td class="property">AllegroFlare::Vec3D</td>
 </tr>
 <tr>
+  <td class="property">driver_turn_rotation</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">driver_accelerator_pressed</td>
   <td class="property">bool</td>
 </tr>
@@ -9365,10 +9369,6 @@ table td
 <tr>
   <td class="property">state</td>
   <td class="property">int</td>
-</tr>
-<tr>
-  <td class="property">driver_attached_to_playhead_track</td>
-  <td class="property">bool</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -9434,16 +9434,19 @@ table td
   <td class="method">start_racing()</td>
 </tr>
 <tr>
-  <td class="method">attach_driver_to_playhead_track()</td>
-</tr>
-<tr>
   <td class="method">stop_racing_due_to_death()</td>
 </tr>
 <tr>
-  <td class="method">driver_move_right()</td>
+  <td class="method">driver_turn_right()</td>
 </tr>
 <tr>
-  <td class="method">driver_move_left()</td>
+  <td class="method">driver_turn_left()</td>
+</tr>
+<tr>
+  <td class="method">driver_strafe_right()</td>
+</tr>
+<tr>
+  <td class="method">driver_strafe_left()</td>
 </tr>
 <tr>
   <td class="method">driver_press_accelerator()</td>
@@ -9461,7 +9464,10 @@ table td
   <td class="method">driver_stop()</td>
 </tr>
 <tr>
-  <td class="method">driver_move_horizontal_none()</td>
+  <td class="method">driver_strafe_none()</td>
+</tr>
+<tr>
+  <td class="method">driver_turn_none()</td>
 </tr>
 <tr>
   <td class="method">render_terrain()</td>

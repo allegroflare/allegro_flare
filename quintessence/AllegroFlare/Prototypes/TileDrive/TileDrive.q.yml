@@ -46,6 +46,10 @@ properties:
     type: AllegroFlare::Vec3D
     init_with: '{0, 0, 0}'
 
+  - name: driver_turn_rotation
+    type: float
+    init_with: 0.0f
+
   - name: driver_accelerator_pressed
     type: bool
     init_with: false
@@ -69,10 +73,6 @@ properties:
   - name: state
     type: int
     init_with: STATE_WAITING_START
-
-  - name: driver_attached_to_playhead_track
-    type: bool
-    init_with: false
 
   - name: initialized 
     type: bool
@@ -265,17 +265,10 @@ functions:
       if (state != STATE_WAITING_START) return;
       state = STATE_RACING;
 
-      attach_driver_to_playhead_track();
       hypersync.start();
 
       start_timer();
       hud.clear_slate();
-      return;
-
-
-  - name: attach_driver_to_playhead_track
-    body: |
-      driver_attached_to_playhead_track = true;
       return;
 
 
@@ -287,6 +280,22 @@ functions:
       driver_velocity.x = 0.0f;
       driver_velocity.z = 0.0f;
       hud.show_die_slate();
+      return;
+
+
+  - name: driver_turn_right
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_turn_rotation = 0.2;
+      return;
+
+
+  - name: driver_turn_left
+    body: |
+      if (state == STATE_WAITING_START) start_racing();
+      if (state != STATE_RACING) return;
+      driver_turn_rotation = -0.2;
       return;
 
 
@@ -351,6 +360,12 @@ functions:
       return;
 
 
+  - name: driver_turn_none
+    body: |
+      driver_turn_rotation = 0;
+      return;
+
+
   - name: render_terrain
     body: |
       current_terrain_mesh->render();
@@ -393,52 +408,38 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
-      if (driver_attached_to_playhead_track) // the player velocity is synchronized to the music track
+      if (driver_break_pressed)
       {
-         // TODO: set thes velocity relative to the music
-         driver_velocity.z = -6.0;
+         float driver_break_velocity = 0.2;
+         float DRIVER_MAX_REVERSE_VELOCITY = 4;
 
-         AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
-            current_terrain_mesh,
-            &driver_position,
-            &driver_velocity
-         );
-         AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve_basic();
-         play_around_with_collision_step_result(&step_result);
+         driver_velocity.z += driver_break_velocity;
+         if (driver_velocity.z >= DRIVER_MAX_REVERSE_VELOCITY) driver_velocity.z = DRIVER_MAX_REVERSE_VELOCITY;
       }
-      else // player controls speed and velocity of driver
+      else if (driver_accelerator_pressed)
       {
-         if (driver_break_pressed)
-         {
-            float driver_break_velocity = 0.2;
-            float DRIVER_MAX_REVERSE_VELOCITY = 4;
+         float driver_accelerator_velocity = -0.1;
+         float DRIVER_MAX_FORWARD_VELOCITY = -20;
 
-            driver_velocity.z += driver_break_velocity;
-            if (driver_velocity.z >= DRIVER_MAX_REVERSE_VELOCITY) driver_velocity.z = DRIVER_MAX_REVERSE_VELOCITY;
-         }
-         else if (driver_accelerator_pressed)
-         {
-            float driver_accelerator_velocity = -0.1;
-            float DRIVER_MAX_FORWARD_VELOCITY = -20;
-
-            driver_velocity.z += driver_accelerator_velocity;
-            if (driver_velocity.z <= DRIVER_MAX_FORWARD_VELOCITY) driver_velocity.z = DRIVER_MAX_FORWARD_VELOCITY;
-         }
-   
-         // NOTE: do not include natural decelaration or environmental friction for this racer
-
-         // handle collision resolving including collisions that will stop the player
-
-         AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
-            current_terrain_mesh,
-            &driver_position,
-            &driver_velocity
-         );
-         AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
-         play_around_with_collision_step_result(&step_result);
+         driver_velocity.z += driver_accelerator_velocity;
+         if (driver_velocity.z <= DRIVER_MAX_FORWARD_VELOCITY) driver_velocity.z = DRIVER_MAX_FORWARD_VELOCITY;
       }
+
+      // NOTE: do not include natural decelaration or environmental friction for this racer
+
+      // handle collision resolving including collisions that will stop the player
+
+      AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
+         current_terrain_mesh,
+         &driver_position,
+         &driver_velocity
+      );
+      AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
+      play_around_with_collision_step_result(&step_result);
+
 
       camera.position = driver_position;
+      camera.spin = driver_turn_rotation;
 
       evaluate_driver_past_goal();
 
