@@ -29,7 +29,7 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , sample_bin(sample_bin)
-   , current_terrain_mesh()
+   , current_terrain_mesh(nullptr)
    , terrain_mesh_dictionary({})
    , current_map_identifier("[unset-current_map_identifier]")
    , maps_folder("[unset-maps_folder]")
@@ -41,6 +41,8 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , driver_turning_velocity(0.0f)
    , driver_accelerator_pressed(false)
    , driver_break_pressed(false)
+   , collision_stepper_step_result_callback({})
+   , collision_stepper_step_result_callback_user_data(nullptr)
    , timer()
    , camera()
    , hud({})
@@ -60,6 +62,18 @@ TileDrive::~TileDrive()
 void TileDrive::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
+}
+
+
+void TileDrive::set_collision_stepper_step_result_callback(std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> collision_stepper_step_result_callback)
+{
+   this->collision_stepper_step_result_callback = collision_stepper_step_result_callback;
+}
+
+
+void TileDrive::set_collision_stepper_step_result_callback_user_data(void* collision_stepper_step_result_callback_user_data)
+{
+   this->collision_stepper_step_result_callback_user_data = collision_stepper_step_result_callback_user_data;
 }
 
 
@@ -96,6 +110,18 @@ std::string TileDrive::get_current_map_identifier() const
 std::string TileDrive::get_maps_folder() const
 {
    return maps_folder;
+}
+
+
+std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> TileDrive::get_collision_stepper_step_result_callback() const
+{
+   return collision_stepper_step_result_callback;
+}
+
+
+void* TileDrive::get_collision_stepper_step_result_callback_user_data() const
+{
+   return collision_stepper_step_result_callback_user_data;
 }
 
 
@@ -386,18 +412,6 @@ void TileDrive::start()
    return;
 }
 
-void TileDrive::stop_racing_due_to_death()
-{
-   if (state == STATE_PLAYER_DIED) return;
-   state = STATE_PLAYER_DIED;
-   pause_timer();
-   driver_acceleration_velocity = 0.0f;
-   //driver_velocity.x = 0.0f;
-   //driver_velocity.z = 0.0f;
-   hud.show_die_slate();
-   return;
-}
-
 void TileDrive::driver_turn_right()
 {
    if (state == STATE_WAITING_START) start();
@@ -570,7 +584,11 @@ void TileDrive::update()
       &driver_velocity
    );
    AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
-   play_around_with_collision_step_result(&step_result);
+   play_around_with_collision_step_result(
+      &step_result,
+      this, 
+      collision_stepper_step_result_callback_user_data
+   );
 
 
    camera.position = driver_position;
@@ -579,7 +597,7 @@ void TileDrive::update()
    return;
 }
 
-void TileDrive::play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result)
+void TileDrive::play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result, AllegroFlare::Prototypes::TileDrive::TileDrive* tile_drive, void* user_data)
 {
    if (!(step_result))
    {
@@ -587,13 +605,17 @@ void TileDrive::play_around_with_collision_step_result(AllegroFlare::Physics::Ti
       error_message << "TileDrive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"step_result\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(current_terrain_mesh))
+   if (!(tile_drive))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"current_terrain_mesh\" not met";
+      error_message << "TileDrive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"tile_drive\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (step_result->get_collisions_ref().empty()) return;
+
+   AllegroFlare::Prototypes::TileDrive::TerrainMesh *current_terrain_mesh =
+      tile_drive->get_current_terrain_mesh_ref();
+   if (!current_terrain_mesh) return;
 
    //event_emitter->emit_play_sound_effect_event("menu-click-01.ogg");
    //debug_metronome_sound->stop();
@@ -601,10 +623,9 @@ void TileDrive::play_around_with_collision_step_result(AllegroFlare::Physics::Ti
 
    for (auto &collision : step_result->get_collisions_ref())
    {
-      // stop racing due do death
       if (collision.get_tile_value() == 0)
       {
-         stop_racing_due_to_death();
+         //stop_racing_due_to_death();
       }
 
       // change tiles if driver collided with them

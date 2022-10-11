@@ -1686,7 +1686,8 @@
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Prototypes/TileDrive/TileDrive": [
-    "AllegroFlare/Prototypes/TileDrive/Screen"
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -1706,7 +1707,7 @@
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
-  "collision_stepper_step_result_callback": [
+  "std/function": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Achievements": [

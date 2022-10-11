@@ -9468,6 +9468,14 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">collision_stepper_step_result_callback</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">collision_stepper_step_result_callback_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">timer</td>
   <td class="property">AllegroFlare::Timer</td>
 </tr>
@@ -9556,9 +9564,6 @@ table td
   <td class="method">start()</td>
 </tr>
 <tr>
-  <td class="method">stop_racing_due_to_death()</td>
-</tr>
-<tr>
   <td class="method">driver_turn_right()</td>
 </tr>
 <tr>
@@ -9601,13 +9606,10 @@ table td
   <td class="method">render_driver()</td>
 </tr>
 <tr>
-  <td class="private_method">evaluate_driver_past_goal()</td>
-</tr>
-<tr>
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">play_around_with_collision_step_result(1)</td>
+  <td class="method">play_around_with_collision_step_result(3)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -9681,7 +9683,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MindDive::Hypersync&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MindDive/Hypersync.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;collision_stepper_step_result_callback&quot;}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::function&quot;, &quot;headers&quot;=&gt;[&quot;functional&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::TileDrive&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/TileDrive.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -16036,7 +16041,8 @@ table td
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Prototypes/TileDrive/TileDrive": [
-    "AllegroFlare/Prototypes/TileDrive/Screen"
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -16056,7 +16062,7 @@ table td
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
-  "collision_stepper_step_result_callback": [
+  "std/function": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Achievements": [

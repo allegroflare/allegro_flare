@@ -9,10 +9,12 @@
 #include <AllegroFlare/Prototypes/MindDive/Hypersync.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/Hud/Hud.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TileDrive.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Timer.hpp>
 #include <AllegroFlare/Vec3D.hpp>
+#include <functional>
 #include <map>
 #include <string>
 #include <tuple>
@@ -49,6 +51,8 @@ namespace AllegroFlare
             float driver_turning_velocity;
             bool driver_accelerator_pressed;
             bool driver_break_pressed;
+            std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> collision_stepper_step_result_callback;
+            void* collision_stepper_step_result_callback_user_data;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
             AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
@@ -66,15 +70,19 @@ namespace AllegroFlare
 
          public:
             TileDrive(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SampleBin* sample_bin=nullptr);
-            virtual ~TileDrive();
+            ~TileDrive();
 
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+            void set_collision_stepper_step_result_callback(std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> collision_stepper_step_result_callback);
+            void set_collision_stepper_step_result_callback_user_data(void* collision_stepper_step_result_callback_user_data);
             AllegroFlare::EventEmitter* get_event_emitter() const;
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::SampleBin* get_sample_bin() const;
             std::string get_current_map_identifier() const;
             std::string get_maps_folder() const;
+            std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> get_collision_stepper_step_result_callback() const;
+            void* get_collision_stepper_step_result_callback_user_data() const;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* &get_current_terrain_mesh_ref();
             std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> &get_terrain_mesh_dictionary_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
@@ -87,7 +95,6 @@ namespace AllegroFlare
             void pause_timer();
             void reset();
             void start();
-            void stop_racing_due_to_death();
             void driver_turn_right();
             void driver_turn_left();
             void driver_strafe_right();
@@ -103,7 +110,7 @@ namespace AllegroFlare
             void render_hud();
             void render_driver();
             void update();
-            virtual void play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result=nullptr);
+            static void play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result=nullptr, AllegroFlare::Prototypes::TileDrive::TileDrive* tile_drive=nullptr, void* user_data=nullptr);
             void render();
          };
       }

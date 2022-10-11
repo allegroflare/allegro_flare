@@ -31,7 +31,7 @@ properties:
 
   - name: current_terrain_mesh
     type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
-    init_with: ''
+    init_with: nullptr
     getter_ref: true
 
   - name: terrain_mesh_dictionary
@@ -82,6 +82,18 @@ properties:
   - name: driver_break_pressed
     type: bool
     init_with: false
+
+  - name: collision_stepper_step_result_callback
+    type: std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*, void*, void*)> 
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: collision_stepper_step_result_callback_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
 
   - name: timer
     type: AllegroFlare::Timer
@@ -380,18 +392,6 @@ functions:
       return;
 
 
-  - name: stop_racing_due_to_death
-    body: |
-      if (state == STATE_PLAYER_DIED) return;
-      state = STATE_PLAYER_DIED;
-      pause_timer();
-      driver_acceleration_velocity = 0.0f;
-      //driver_velocity.x = 0.0f;
-      //driver_velocity.z = 0.0f;
-      hud.show_die_slate();
-      return;
-
-
   - name: driver_turn_right
     body: |
       if (state == STATE_WAITING_START) start();
@@ -557,7 +557,11 @@ functions:
          &driver_velocity
       );
       AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
-      play_around_with_collision_step_result(&step_result);
+      play_around_with_collision_step_result(
+         &step_result,
+         this, 
+         collision_stepper_step_result_callback_user_data
+      );
 
 
       camera.position = driver_position;
@@ -569,14 +573,24 @@ functions:
 
 
   - name: play_around_with_collision_step_result
-    virtual: true
+    static: true
     parameters:
       - name: step_result
         type: AllegroFlare::Physics::TileMapCollisionStepperStepResult*
         default_argument: nullptr
-    guards: [ step_result, current_terrain_mesh ]
+      - name: tile_drive
+        type: AllegroFlare::Prototypes::TileDrive::TileDrive*
+        default_argument: nullptr
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ step_result, tile_drive ]
     body: |
       if (step_result->get_collisions_ref().empty()) return;
+
+      AllegroFlare::Prototypes::TileDrive::TerrainMesh *current_terrain_mesh =
+         tile_drive->get_current_terrain_mesh_ref();
+      if (!current_terrain_mesh) return;
 
       //event_emitter->emit_play_sound_effect_event("menu-click-01.ogg");
       //debug_metronome_sound->stop();
@@ -584,10 +598,9 @@ functions:
 
       for (auto &collision : step_result->get_collisions_ref())
       {
-         // stop racing due do death
          if (collision.get_tile_value() == 0)
          {
-            stop_racing_due_to_death();
+            //stop_racing_due_to_death();
          }
 
          // change tiles if driver collided with them
@@ -678,7 +691,10 @@ dependencies:
     headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: AllegroFlare::Prototypes::MindDive::Hypersync
     headers: [ AllegroFlare/Prototypes/MindDive/Hypersync.hpp ]
-  - symbol: collision_stepper_step_result_callback
+  - symbol: std::function
+    headers: [ functional ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TileDrive
+    headers: [ AllegroFlare/Prototypes/TileDrive/TileDrive.hpp ]
 
 
 
