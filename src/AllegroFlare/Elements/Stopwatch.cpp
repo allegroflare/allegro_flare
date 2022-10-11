@@ -127,7 +127,7 @@ ALLEGRO_FONT* Stopwatch::obtain_font()
       error_message << "Stopwatch" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   return font_bin->auto_get("DroidSans.ttf -74");
+   return font_bin->auto_get("Inter-Medium.ttf -74");
 }
 
 
