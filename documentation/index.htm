@@ -63,6 +63,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/AchievementsList.q.yml">quintessence/AllegroFlare/Elements/AchievementsList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</a></li>
@@ -1215,6 +1216,74 @@ table td
 </tr>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">icon_a</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">icon_b</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">font_awesome_font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">time</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">draw_unicode_character(6)</td>
+</tr>
+<tr>
+  <td class="method">obtain_font_awesome_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -13689,6 +13758,7 @@ table td
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -13783,6 +13853,7 @@ table td
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -13886,6 +13957,7 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
@@ -13953,6 +14025,7 @@ table td
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogRollRenderer",
@@ -14046,6 +14119,7 @@ table td
   ],
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -14176,11 +14250,13 @@ table td
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
+    "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "sin": [
+    "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/Prototypes/MindDive/MindDive"

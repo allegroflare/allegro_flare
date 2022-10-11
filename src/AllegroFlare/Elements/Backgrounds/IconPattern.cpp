@@ -74,12 +74,14 @@ void IconPattern::render()
    int display_height = 1080;
 
    int spacing = 120;
+   float offset_x = spacing * 0.5;
+   float offset_y = spacing * 0.25;
 
-   for (int step_y=0; (step_y*spacing)<display_height; step_y++)
-      for (int step_x=0; (step_x*spacing)<display_width; step_x++)
+   for (int step_y=-1; (step_y*spacing)<display_height; step_y++)
+      for (int step_x=-1; (step_x*spacing)<display_width; step_x++)
       {
-         float x = step_x * spacing;
-         float y = step_y * spacing;
+         float x = step_x * spacing + offset_x;
+         float y = step_y * spacing + offset_y;
 
          if (step_y % 2 == 0) x += spacing / 2;
 
