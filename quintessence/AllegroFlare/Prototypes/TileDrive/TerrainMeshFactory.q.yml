@@ -50,6 +50,16 @@ functions:
       - name: tmj_filename
         type: std::string
         default_argument: '"unset-tmj_filename.tmj"'
+      - name: tilemap_bitmap_identifier
+        type: std::string
+        default_argument: '"[unset-tilemap_bitmap_identifier]"'
+      - name: tilemap_tile_width
+        type: int
+        default_argument: 50
+      - name: tilemap_tile_height
+        type: int
+        default_argument: 50
+    guards: [ (tilemap_image_filename.empty()), (tilemap_tile_width > 1), (tilemap_tile_height > 1) ]
     body: |
       AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader tmj_data_loader(tmj_filename);
       tmj_data_loader.load();
@@ -66,7 +76,8 @@ functions:
 
       AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
       result->set_bitmap_bin(bitmap_bin);
-      result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
+      //result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
+      result->set_atlas_configuration(tilemap_bitmap_identifier, tilemap_tile_width, tilemap_tile_height);
       result->initialize();
 
       // resize the mesh and fill with data

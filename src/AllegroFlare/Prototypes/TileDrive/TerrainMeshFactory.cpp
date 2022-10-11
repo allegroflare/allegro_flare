@@ -78,7 +78,7 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_ran
    return result;
 }
 
-AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_from_tmj(std::string tmj_filename)
+AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_from_tmj(std::string tmj_filename, std::string tilemap_bitmap_identifier, int tilemap_tile_width, int tilemap_tile_height)
 {
    if (!(bitmap_bin))
    {
@@ -101,7 +101,8 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_fro
 
    AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
    result->set_bitmap_bin(bitmap_bin);
-   result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
+   //result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
+   result->set_atlas_configuration(tilemap_bitmap_identifier, tilemap_tile_width, tilemap_tile_height);
    result->initialize();
 
    // resize the mesh and fill with data
