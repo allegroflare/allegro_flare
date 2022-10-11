@@ -346,6 +346,8 @@ functions:
       created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
       created_door->get_place_ref().position.x = x;
       created_door->get_place_ref().position.y = y;
+      created_door->set_game_event_name_to_emit(""); // TODO: fix this requirement:
+                                                     // this must be set to blank to not activate as an event
       created_door->set_target_map_name(target_map_name);
       created_door->set_target_spawn_x(target_spawn_x);
       created_door->set_target_spawn_y(target_spawn_y);
