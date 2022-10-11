@@ -50,6 +50,10 @@ properties:
     type: float
     init_with: 0.0f
 
+  - name: driver_turning_velocity
+    type: float
+    init_with: 0.0f
+
   - name: driver_accelerator_pressed
     type: bool
     init_with: false
@@ -287,7 +291,7 @@ functions:
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
-      driver_turn_rotation = 0.2;
+      driver_turning_velocity = 0.02;
       return;
 
 
@@ -295,7 +299,7 @@ functions:
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
-      driver_turn_rotation = -0.2;
+      driver_turning_velocity = -0.02;
       return;
 
 
@@ -362,7 +366,7 @@ functions:
 
   - name: driver_turn_none
     body: |
-      driver_turn_rotation = 0;
+      driver_turning_velocity = 0;
       return;
 
 
@@ -408,6 +412,9 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
+
+      driver_turn_rotation += driver_turning_velocity;
+
       if (driver_break_pressed)
       {
          float driver_break_velocity = 0.2;

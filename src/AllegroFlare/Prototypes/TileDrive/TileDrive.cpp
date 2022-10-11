@@ -34,6 +34,7 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , driver_position({0, 0, 0})
    , driver_velocity({0, 0, 0})
    , driver_turn_rotation(0.0f)
+   , driver_turning_velocity(0.0f)
    , driver_accelerator_pressed(false)
    , driver_break_pressed(false)
    , timer()
@@ -292,7 +293,7 @@ void TileDrive::driver_turn_right()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   driver_turn_rotation = 0.2;
+   driver_turning_velocity = 0.02;
    return;
 }
 
@@ -300,7 +301,7 @@ void TileDrive::driver_turn_left()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   driver_turn_rotation = -0.2;
+   driver_turning_velocity = -0.02;
    return;
 }
 
@@ -367,7 +368,7 @@ void TileDrive::driver_strafe_none()
 
 void TileDrive::driver_turn_none()
 {
-   driver_turn_rotation = 0;
+   driver_turning_velocity = 0;
    return;
 }
 
@@ -419,6 +420,9 @@ void TileDrive::update()
       error_message << "TileDrive" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+
+   driver_turn_rotation += driver_turning_velocity;
+
    if (driver_break_pressed)
    {
       float driver_break_velocity = 0.2;

@@ -39,6 +39,7 @@ namespace AllegroFlare
             AllegroFlare::Vec3D driver_position;
             AllegroFlare::Vec3D driver_velocity;
             float driver_turn_rotation;
+            float driver_turning_velocity;
             bool driver_accelerator_pressed;
             bool driver_break_pressed;
             AllegroFlare::Timer timer;
