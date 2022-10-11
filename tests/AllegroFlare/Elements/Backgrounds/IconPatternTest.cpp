@@ -38,7 +38,8 @@ TEST(AllegroFlare_Elements_Backgrounds_IconPatternTest, has_the_expected_type)
 }
 
 
-TEST_F(AllegroFlare_Elements_Backgrounds_IconPatternWithAllegroRenderingFixtureTest, render__will_render_in_motion)
+TEST_F(AllegroFlare_Elements_Backgrounds_IconPatternWithAllegroRenderingFixtureTest,
+   CAPTURE__render__will_render_in_motion)
 {
    get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
