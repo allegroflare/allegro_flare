@@ -130,7 +130,7 @@ bool TerrainMeshTMJDataLoader::load()
    if (!file_exists(filename))
    {
       std::stringstream error_message;
-      error_message << "[MindDive::TunnelMeshTMJDataLoader] load() error: the file \""
+      error_message << "[TileDrive::TerrainMeshTMJDataLoader] load() error: the file \""
                     << filename << "\" does not exist.";
       throw std::runtime_error(error_message.str());
    }
@@ -146,7 +146,7 @@ bool TerrainMeshTMJDataLoader::load()
    {
       i.close();
       std::stringstream error_message;
-      error_message << "[MindDive::TunnelMeshTMJDataLoader] load() error: the file \""
+      error_message << "[TileDrive::TerrainMeshTMJDataLoader] load() error: the file \""
                     << filename << "\" appears to have"
                     << " malformed JSON. The following error was thrown by nlohmann::json: \""
                     << e.what() << "\"";

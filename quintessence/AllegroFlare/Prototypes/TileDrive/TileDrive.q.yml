@@ -29,8 +29,8 @@ properties:
     getter: true
     setter: false
 
-  - name: current_tunnel_mesh
-    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+  - name: current_terrain_mesh
+    type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
     init_with: ''
     getter_ref: true
 
@@ -63,7 +63,7 @@ properties:
     init_with: ''
 
   - name: hud
-    type: AllegroFlare::Prototypes::MindDive::Hud::Hud
+    type: AllegroFlare::Prototypes::TileDrive::Hud::Hud
     init_with: '{}'
 
   - name: state
@@ -157,11 +157,11 @@ functions:
       - font_bin
       - sample_bin
     body: |
-      AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
-      //current_tunnel_mesh = factory.create_classic_random();
-      //current_tunnel_mesh = factory.create_random_with_walls();
+      AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory factory(bitmap_bin);
+      //current_terrain_mesh = factory.create_classic_random();
+      //current_terrain_mesh = factory.create_random_with_walls();
       std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
-      current_tunnel_mesh = factory.create_from_tmj(map_filename);
+      current_terrain_mesh = factory.create_from_tmj(map_filename);
 
       std::map<std::string, std::pair<std::string, float>> playlist = {
          { "song-60bpm",     { "music_tracks/tempo-track-60.ogg", 60.0f } },
@@ -197,7 +197,7 @@ functions:
       - std::map
       - al_is_audio_installed
       - al_is_acodec_addon_initialized
-      - AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
+      - AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory
 
 
   - name: start_timer
@@ -220,29 +220,29 @@ functions:
       return;
 
 
-  - name: calculate_current_tunnel_mesh_height
+  - name: calculate_current_terrain_mesh_height
     type: float
     private: true
     body: |
-      if (!current_tunnel_mesh) return 0.0f;
-      return current_tunnel_mesh->infer_real_height();
+      if (!current_terrain_mesh) return 0.0f;
+      return current_terrain_mesh->infer_real_height();
 
 
-  - name: calculate_current_tunnel_mesh_tile_depth
+  - name: calculate_current_terrain_mesh_tile_depth
     type: float
     private: true
     body: |
-      if (!current_tunnel_mesh) return 0.0f;
-      return current_tunnel_mesh->obtain_tile_height();
+      if (!current_terrain_mesh) return 0.0f;
+      return current_terrain_mesh->obtain_tile_height();
 
 
   - name: reset
     guards: [ initialized ]
     body: |
-      surfer_position.x = current_tunnel_mesh->infer_real_width() * 0.5
-                        - current_tunnel_mesh->obtain_tile_width() * 0.5;
-      surfer_position.z = current_tunnel_mesh->infer_real_height()
-                        - current_tunnel_mesh->obtain_tile_height();
+      surfer_position.x = current_terrain_mesh->infer_real_width() * 0.5
+                        - current_terrain_mesh->obtain_tile_width() * 0.5;
+      surfer_position.z = current_terrain_mesh->infer_real_height()
+                        - current_terrain_mesh->obtain_tile_height();
 
       surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
@@ -351,9 +351,9 @@ functions:
       return;
 
 
-  - name: render_tunnel
+  - name: render_terrain
     body: |
-      current_tunnel_mesh->render();
+      current_terrain_mesh->render();
       return;
 
 
@@ -398,8 +398,8 @@ functions:
          // TODO: set thes velocity relative to the music
          surfer_velocity.z = -6.0;
 
-         AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
-            current_tunnel_mesh,
+         AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
+            current_terrain_mesh,
             &surfer_position,
             &surfer_velocity
          );
@@ -429,8 +429,8 @@ functions:
 
          // handle collision resolving including collisions that will stop the player
 
-         AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
-            current_tunnel_mesh,
+         AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
+            current_terrain_mesh,
             &surfer_position,
             &surfer_velocity
          );
@@ -444,7 +444,7 @@ functions:
 
       return;
     body_dependency_symbols:
-     - AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver
+     - AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver
 
 
   - name: play_around_with_collision_step_result
@@ -452,7 +452,7 @@ functions:
       - name: step_result
         type: AllegroFlare::Physics::TileMapCollisionStepperStepResult*
         default_argument: nullptr
-    guards: [ step_result, current_tunnel_mesh ]
+    guards: [ step_result, current_terrain_mesh ]
     body: |
       if (step_result->get_collisions_ref().empty()) return;
 
@@ -476,8 +476,8 @@ functions:
             if (!disable_this_feature)
             {
                AllegroFlare::Physics::Int2D tile_pos = collision.get_collided_tile_coordinate();
-               current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_pos.get_x(), tile_pos.get_y(), 3);
-               //current_tunnel_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
+               current_terrain_mesh->get_prim_mesh_ref().set_tile_id(tile_pos.get_x(), tile_pos.get_y(), 3);
+               //current_terrain_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
             }
          }
       }
@@ -496,7 +496,7 @@ functions:
       //camera.start_reverse_transform();
       //AllegroFlare::Placement3D place;
       //place.start_transform();
-      render_tunnel();
+      render_terrain();
       render_surfer();
       //place.restore_transform();
       //camera.restore_transform();
@@ -516,8 +516,8 @@ dependencies:
     headers: [ allegro5/allegro_audio.h ]
   - symbol: al_is_acodec_addon_initialized
     headers: [ allegro5/allegro_acodec.h ]
-  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
-    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMesh
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
   - symbol: AllegroFlare::Placement3D
@@ -538,14 +538,14 @@ dependencies:
     headers: [ cmath ]
   - symbol: glCullFace
     headers: [ allegro5/allegro_opengl.h ]
-  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMeshFactory
-    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.hpp ]
   - symbol: AllegroFlare::Color
     headers: [ AllegroFlare/Color.hpp ]
-  - symbol: AllegroFlare::Prototypes::MindDive::Hud::Hud
-    headers: [ AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp ]
-  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver
-    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::Hud::Hud
+    headers: [ AllegroFlare/Prototypes/TileDrive/Hud/Hud.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.hpp ]
   - symbol: AllegroFlare::Physics::TileMapCollisionStepperStepResult
     headers: [ AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp ]
   - symbol: AllegroFlare::EventEmitter

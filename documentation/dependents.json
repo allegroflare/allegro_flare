@@ -5,7 +5,8 @@
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/AudioRepositoryElement": [
     "AllegroFlare/AudioController"
@@ -19,7 +20,8 @@
   "AllegroFlare/Sound": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "al_is_audio_initialized": [
     "AllegroFlare/AudioController"
@@ -27,7 +29,8 @@
   "al_is_acodec_addon_initialized": [
     "AllegroFlare/AudioController",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AudioProcessing/AudioDataBlock",
@@ -71,7 +74,8 @@
   ],
   "al_is_audio_installed": [
     "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "callback": [
     "AllegroFlare/AudioProcessing/AudioMixer"
@@ -122,6 +126,9 @@
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -144,6 +151,7 @@
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "Wicked/Entities/Basic3D"
   ],
   "std/vector<AllegroFlare/Bone3D>": [
@@ -227,6 +235,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -534,6 +543,7 @@
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer"
@@ -575,6 +585,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -663,7 +674,8 @@
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/MotionFX/Sparkles",
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/draw_offset_textured_rectangle": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
@@ -966,7 +978,8 @@
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/Storyboard",
@@ -1036,6 +1049,8 @@
     "AllegroFlare/Generators/PersonNameGenerator",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
@@ -1110,6 +1125,7 @@
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -1206,6 +1222,7 @@
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -1400,7 +1417,8 @@
   ],
   "AllegroFlare/Elements/Stopwatch": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud"
@@ -1422,16 +1440,20 @@
   ],
   "AllegroFlare/Vec3D": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Useful": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Camera3D": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "glCullFace": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
@@ -1444,10 +1466,12 @@
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/MindDive/Hypersync": [
-    "AllegroFlare/Prototypes/MindDive/MindDive"
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelTiles/Base": [
     "AllegroFlare/Prototypes/MindDive/Tunnel",
@@ -1455,11 +1479,13 @@
   ],
   "al_is_image_addon_initialized": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
@@ -1470,6 +1496,7 @@
   "AllegroFlare/TileMaps/PrimMesh": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -1485,10 +1512,12 @@
   ],
   "std/ifstream": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
   "std/filesystem/exists": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
   "std/map<int, int>": [
@@ -1635,6 +1664,22 @@
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader": [
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory": [
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/Hud/Hud": [
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",

@@ -8,25 +8,25 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
-class AllegroFlare_Prototypes_MindDive_MindDiveTest : public ::testing::Test {};
-class AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture
+class AllegroFlare_Prototypes_TileDrive_TileDriveTest : public ::testing::Test {};
+class AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
 
-#include <AllegroFlare/Prototypes/MindDive/MindDive.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TileDrive.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/EventEmitter.hpp>
 #include <allegro5/allegro_acodec.h>
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Prototypes::MindDive::MindDive mind_dive;
+   AllegroFlare::Prototypes::TileDrive::TileDrive tile_dive;
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixture,
    CAPTURE__basic_update_and_render_will_work_as_expected)
 {
    al_install_audio();
@@ -36,24 +36,24 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
    sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples/");
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
-   AllegroFlare::Prototypes::MindDive::MindDive mind_dive(
+   AllegroFlare::Prototypes::TileDrive::TileDrive tile_dive(
       &event_emitter,
       &get_bitmap_bin_ref(),
       &get_font_bin_ref(),
       &sample_bin
    );
-   mind_dive.initialize();
+   tile_dive.initialize();
 
    clear();
 
-   mind_dive.update();
-   mind_dive.render();
+   tile_dive.update();
+   tile_dive.render();
 
    al_flip_display();
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixture,
    INTERACTIVE__will_work_as_expected)
    //DISABLED__INTERACTIVE__will_work_as_expected)
 {
@@ -82,16 +82,16 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
 
    // initialize test subject
    
-   AllegroFlare::Prototypes::MindDive::MindDive mind_dive;
-   mind_dive.set_bitmap_bin(&get_bitmap_bin_ref());
-   mind_dive.set_font_bin(&get_font_bin_ref());
-   mind_dive.set_event_emitter(&event_emitter);
-   mind_dive.set_sample_bin(&sample_bin);
-   mind_dive.initialize();
-   //mind_dive.set_event_emitter(&event_emitter);
+   AllegroFlare::Prototypes::TileDrive::TileDrive tile_dive;
+   tile_dive.set_bitmap_bin(&get_bitmap_bin_ref());
+   tile_dive.set_font_bin(&get_font_bin_ref());
+   tile_dive.set_event_emitter(&event_emitter);
+   tile_dive.set_sample_bin(&sample_bin);
+   tile_dive.initialize();
+   //tile_dive.set_event_emitter(&event_emitter);
 
    // start the level
-   mind_dive.reset();
+   tile_dive.reset();
 
    // run the interactive test
    al_start_timer(primary_timer);
@@ -110,23 +110,23 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
                break;
 
                case ALLEGRO_KEY_UP:
-                  mind_dive.surfer_press_accelerator();
+                  tile_dive.surfer_press_accelerator();
                break;
 
                case ALLEGRO_KEY_DOWN:
-                  mind_dive.surfer_press_break();
+                  tile_dive.surfer_press_break();
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                  mind_dive.surfer_move_right();
+                  tile_dive.surfer_move_right();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  mind_dive.surfer_move_left();
+                  tile_dive.surfer_move_left();
                break;
 
                case ALLEGRO_KEY_R:
-                  mind_dive.reset();
+                  tile_dive.reset();
                break;
             }
          }
@@ -137,29 +137,29 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
             switch(event.keyboard.keycode)
             {
                case ALLEGRO_KEY_UP:
-                  mind_dive.surfer_unpress_accelerator();
+                  tile_dive.surfer_unpress_accelerator();
                break;
 
                case ALLEGRO_KEY_DOWN:
-                  mind_dive.surfer_unpress_break();
+                  tile_dive.surfer_unpress_break();
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                  mind_dive.surfer_move_horizontal_none();
+                  tile_dive.surfer_move_horizontal_none();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  mind_dive.surfer_move_horizontal_none();
+                  tile_dive.surfer_move_horizontal_none();
                break;
             }
          }
          break;
 
          case ALLEGRO_EVENT_TIMER:
-            mind_dive.update();
+            tile_dive.update();
 
             clear();
-            mind_dive.render();
+            tile_dive.render();
             al_flip_display();
          break;
       }

@@ -4,8 +4,8 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Placement3D.hpp>
-#include <AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp>
-#include <AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_audio.h>
@@ -29,7 +29,7 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , sample_bin(sample_bin)
-   , current_tunnel_mesh()
+   , current_terrain_mesh()
    , hypersync()
    , surfer_position({0, 0, 0})
    , surfer_velocity({0, 0, 0})
@@ -82,9 +82,9 @@ AllegroFlare::SampleBin* TileDrive::get_sample_bin() const
 }
 
 
-AllegroFlare::Prototypes::MindDive::TunnelMesh* &TileDrive::get_current_tunnel_mesh_ref()
+AllegroFlare::Prototypes::TileDrive::TerrainMesh* &TileDrive::get_current_terrain_mesh_ref()
 {
-   return current_tunnel_mesh;
+   return current_terrain_mesh;
 }
 
 
@@ -168,11 +168,11 @@ void TileDrive::initialize()
       error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
-   //current_tunnel_mesh = factory.create_classic_random();
-   //current_tunnel_mesh = factory.create_random_with_walls();
+   AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory factory(bitmap_bin);
+   //current_terrain_mesh = factory.create_classic_random();
+   //current_terrain_mesh = factory.create_random_with_walls();
    std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
-   current_tunnel_mesh = factory.create_from_tmj(map_filename);
+   current_terrain_mesh = factory.create_from_tmj(map_filename);
 
    std::map<std::string, std::pair<std::string, float>> playlist = {
       { "song-60bpm",     { "music_tracks/tempo-track-60.ogg", 60.0f } },
@@ -224,16 +224,16 @@ void TileDrive::reset_timer()
    return;
 }
 
-float TileDrive::calculate_current_tunnel_mesh_height()
+float TileDrive::calculate_current_terrain_mesh_height()
 {
-   if (!current_tunnel_mesh) return 0.0f;
-   return current_tunnel_mesh->infer_real_height();
+   if (!current_terrain_mesh) return 0.0f;
+   return current_terrain_mesh->infer_real_height();
 }
 
-float TileDrive::calculate_current_tunnel_mesh_tile_depth()
+float TileDrive::calculate_current_terrain_mesh_tile_depth()
 {
-   if (!current_tunnel_mesh) return 0.0f;
-   return current_tunnel_mesh->obtain_tile_height();
+   if (!current_terrain_mesh) return 0.0f;
+   return current_terrain_mesh->obtain_tile_height();
 }
 
 void TileDrive::reset()
@@ -244,10 +244,10 @@ void TileDrive::reset()
       error_message << "TileDrive" << "::" << "reset" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   surfer_position.x = current_tunnel_mesh->infer_real_width() * 0.5
-                     - current_tunnel_mesh->obtain_tile_width() * 0.5;
-   surfer_position.z = current_tunnel_mesh->infer_real_height()
-                     - current_tunnel_mesh->obtain_tile_height();
+   surfer_position.x = current_terrain_mesh->infer_real_width() * 0.5
+                     - current_terrain_mesh->obtain_tile_width() * 0.5;
+   surfer_position.z = current_terrain_mesh->infer_real_height()
+                     - current_terrain_mesh->obtain_tile_height();
 
    surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
@@ -356,9 +356,9 @@ void TileDrive::surfer_move_horizontal_none()
    return;
 }
 
-void TileDrive::render_tunnel()
+void TileDrive::render_terrain()
 {
-   current_tunnel_mesh->render();
+   current_terrain_mesh->render();
    return;
 }
 
@@ -409,8 +409,8 @@ void TileDrive::update()
       // TODO: set thes velocity relative to the music
       surfer_velocity.z = -6.0;
 
-      AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
-         current_tunnel_mesh,
+      AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
+         current_terrain_mesh,
          &surfer_position,
          &surfer_velocity
       );
@@ -440,8 +440,8 @@ void TileDrive::update()
 
       // handle collision resolving including collisions that will stop the player
 
-      AllegroFlare::Prototypes::MindDive::TunnelMeshSurferCollisionResolver collision_resolver(
-         current_tunnel_mesh,
+      AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
+         current_terrain_mesh,
          &surfer_position,
          &surfer_velocity
       );
@@ -464,10 +464,10 @@ void TileDrive::play_around_with_collision_step_result(AllegroFlare::Physics::Ti
       error_message << "TileDrive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"step_result\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(current_tunnel_mesh))
+   if (!(current_terrain_mesh))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"current_tunnel_mesh\" not met";
+      error_message << "TileDrive" << "::" << "play_around_with_collision_step_result" << ": error: " << "guard \"current_terrain_mesh\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (step_result->get_collisions_ref().empty()) return;
@@ -492,8 +492,8 @@ void TileDrive::play_around_with_collision_step_result(AllegroFlare::Physics::Ti
          if (!disable_this_feature)
          {
             AllegroFlare::Physics::Int2D tile_pos = collision.get_collided_tile_coordinate();
-            current_tunnel_mesh->get_prim_mesh_ref().set_tile_id(tile_pos.get_x(), tile_pos.get_y(), 3);
-            //current_tunnel_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
+            current_terrain_mesh->get_prim_mesh_ref().set_tile_id(tile_pos.get_x(), tile_pos.get_y(), 3);
+            //current_terrain_mesh->get_collision_tile_map_ref().set_tile(tile_pos.get_x(), tile_pos.get_y(), 0);
          }
       }
    }
@@ -517,7 +517,7 @@ void TileDrive::render()
    //camera.start_reverse_transform();
    //AllegroFlare::Placement3D place;
    //place.start_transform();
-   render_tunnel();
+   render_terrain();
    render_surfer();
    //place.restore_transform();
    //camera.restore_transform();

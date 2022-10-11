@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.hpp>
 
-#include <AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.hpp>
 #include <AllegroFlare/Random.hpp>
 #include <sstream>
 #include <stdexcept>
@@ -39,7 +39,7 @@ AllegroFlare::BitmapBin* TerrainMeshFactory::get_bitmap_bin() const
 }
 
 
-AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_classic_random()
+AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_classic_random()
 {
    if (!(bitmap_bin))
    {
@@ -47,7 +47,7 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_class
       error_message << "TerrainMeshFactory" << "::" << "create_classic_random" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+   AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
    result->set_bitmap_bin(bitmap_bin);
    result->set_atlas_configuration("uv.png", 100, 100);
    result->initialize();
@@ -57,7 +57,7 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_class
    return result;
 }
 
-AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_random_with_walls()
+AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_random_with_walls()
 {
    if (!(bitmap_bin))
    {
@@ -65,7 +65,7 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_rando
       error_message << "TerrainMeshFactory" << "::" << "create_random_with_walls" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+   AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
    result->set_bitmap_bin(bitmap_bin);
    result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
    result->initialize();
@@ -78,7 +78,7 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_rando
    return result;
 }
 
-AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_from_tmj(std::string tmj_filename)
+AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_from_tmj(std::string tmj_filename)
 {
    if (!(bitmap_bin))
    {
@@ -86,20 +86,20 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_from_
       error_message << "TerrainMeshFactory" << "::" << "create_from_tmj" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader tmj_data_loader(tmj_filename);
+   AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader tmj_data_loader(tmj_filename);
    tmj_data_loader.load();
 
    int num_columns = tmj_data_loader.get_num_columns();
    if (num_columns != 12)
    {
       std::stringstream error_message;
-      error_message << "AllegroFlare::Prototypes::MindDive::TunnelMeshFactory error: "
+      error_message << "AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory error: "
                     << "Expecting data loaded from \"" << tmj_filename << "\" to have a column count of "
                     << "\"12\", but it is \"" << num_columns << "\"";
       throw std::runtime_error(error_message.str());
    }
 
-   AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+   AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
    result->set_bitmap_bin(bitmap_bin);
    result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
    result->initialize();
@@ -124,12 +124,12 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TerrainMeshFactory::create_from_
    return result;
 }
 
-void TerrainMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh, std::vector<std::pair<int, int>> inclusion_list)
+void TerrainMeshFactory::random_fill_from(AllegroFlare::Prototypes::TileDrive::TerrainMesh* terrain_mesh, std::vector<std::pair<int, int>> inclusion_list)
 {
-   if (!(tunnel_mesh))
+   if (!(terrain_mesh))
    {
       std::stringstream error_message;
-      error_message << "TerrainMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"tunnel_mesh\" not met";
+      error_message << "TerrainMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"terrain_mesh\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!((!inclusion_list.empty())))
@@ -138,8 +138,8 @@ void TerrainMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::Tu
       error_message << "TerrainMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"(!inclusion_list.empty())\" not met";
       throw std::runtime_error(error_message.str());
    }
-   AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
-   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = tunnel_mesh->get_collision_tile_map_ref();
+   AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
+   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();
    AllegroFlare::Random random;
    for (int y=0; y<prim_mesh.get_num_rows(); y++)
       for (int x=0; x<prim_mesh.get_num_columns(); x++)
@@ -151,11 +151,11 @@ void TerrainMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::Tu
    return;
 }
 
-void TerrainMeshFactory::random_sparce_placement(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh, std::vector<std::pair<int, int>> inclusion_list, int one_in_chance)
+void TerrainMeshFactory::random_sparce_placement(AllegroFlare::Prototypes::TileDrive::TerrainMesh* terrain_mesh, std::vector<std::pair<int, int>> inclusion_list, int one_in_chance)
 {
    if (inclusion_list.empty()) return;
-   AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
-   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = tunnel_mesh->get_collision_tile_map_ref();
+   AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
+   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();
    AllegroFlare::Random random;
    for (int y=0; y<prim_mesh.get_num_rows(); y++)
       for (int x=0; x<prim_mesh.get_num_columns(); x++)
@@ -171,16 +171,16 @@ void TerrainMeshFactory::random_sparce_placement(AllegroFlare::Prototypes::MindD
    return;
 }
 
-void TerrainMeshFactory::random_fill_excluding(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh, std::set<int> exclusion_list)
+void TerrainMeshFactory::random_fill_excluding(AllegroFlare::Prototypes::TileDrive::TerrainMesh* terrain_mesh, std::set<int> exclusion_list)
 {
-   if (!(tunnel_mesh))
+   if (!(terrain_mesh))
    {
       std::stringstream error_message;
-      error_message << "TerrainMeshFactory" << "::" << "random_fill_excluding" << ": error: " << "guard \"tunnel_mesh\" not met";
+      error_message << "TerrainMeshFactory" << "::" << "random_fill_excluding" << ": error: " << "guard \"terrain_mesh\" not met";
       throw std::runtime_error(error_message.str());
    }
-   AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
-   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = tunnel_mesh->get_collision_tile_map_ref();
+   AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
+   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();
 
    AllegroFlare::Random random;
    int num_tiles_in_atlas = 100;

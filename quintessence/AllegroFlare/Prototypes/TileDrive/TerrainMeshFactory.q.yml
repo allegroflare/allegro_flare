@@ -13,10 +13,10 @@ functions:
 
 
   - name: create_classic_random
-    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+    type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
     guards: [ bitmap_bin ]
     body: |
-      AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+      AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
       result->set_bitmap_bin(bitmap_bin);
       result->set_atlas_configuration("uv.png", 100, 100);
       result->initialize();
@@ -27,10 +27,10 @@ functions:
 
 
   - name: create_random_with_walls
-    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+    type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
     guards: [ bitmap_bin ]
     body: |
-      AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+      AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
       result->set_bitmap_bin(bitmap_bin);
       result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
       result->initialize();
@@ -44,27 +44,27 @@ functions:
 
 
   - name: create_from_tmj
-    type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+    type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
     guards: [ bitmap_bin ]
     parameters:
       - name: tmj_filename
         type: std::string
         default_argument: '"unset-tmj_filename.tmj"'
     body: |
-      AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader tmj_data_loader(tmj_filename);
+      AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader tmj_data_loader(tmj_filename);
       tmj_data_loader.load();
 
       int num_columns = tmj_data_loader.get_num_columns();
       if (num_columns != 12)
       {
          std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::MindDive::TunnelMeshFactory error: "
+         error_message << "AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory error: "
                        << "Expecting data loaded from \"" << tmj_filename << "\" to have a column count of "
                        << "\"12\", but it is \"" << num_columns << "\"";
          throw std::runtime_error(error_message.str());
       }
 
-      AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
+      AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
       result->set_bitmap_bin(bitmap_bin);
       result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
       result->initialize();
@@ -88,21 +88,21 @@ functions:
 
       return result;
     body_dependency_symbols:
-      - AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader
+      - AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader
 
 
   - name: random_fill_from
     parameters:
-      - name: tunnel_mesh
-        type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+      - name: terrain_mesh
+        type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
         default_argument: nullptr
       - name: inclusion_list
         type: std::vector<std::pair<int, int>>
         default_argument: '{}'
-    guards: [ tunnel_mesh, (!inclusion_list.empty()) ]
+    guards: [ terrain_mesh, (!inclusion_list.empty()) ]
     body: |
-      AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
-      AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = tunnel_mesh->get_collision_tile_map_ref();
+      AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
+      AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();
       AllegroFlare::Random random;
       for (int y=0; y<prim_mesh.get_num_rows(); y++)
          for (int x=0; x<prim_mesh.get_num_columns(); x++)
@@ -118,8 +118,8 @@ functions:
 
   - name: random_sparce_placement
     parameters:
-      - name: tunnel_mesh
-        type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+      - name: terrain_mesh
+        type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
         default_argument: nullptr
       - name: inclusion_list
         type: std::vector<std::pair<int, int>>
@@ -129,8 +129,8 @@ functions:
         default_argument: 2
     body: |
       if (inclusion_list.empty()) return;
-      AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
-      AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = tunnel_mesh->get_collision_tile_map_ref();
+      AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
+      AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();
       AllegroFlare::Random random;
       for (int y=0; y<prim_mesh.get_num_rows(); y++)
          for (int x=0; x<prim_mesh.get_num_columns(); x++)
@@ -150,16 +150,16 @@ functions:
 
   - name: random_fill_excluding
     parameters:
-      - name: tunnel_mesh
-        type: AllegroFlare::Prototypes::MindDive::TunnelMesh*
+      - name: terrain_mesh
+        type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
         default_argument: nullptr
       - name: exclusion_list
         type: std::set<int>
         default_argument: '{}'
-    guards: [ tunnel_mesh ]
+    guards: [ terrain_mesh ]
     body: |
-      AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
-      AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = tunnel_mesh->get_collision_tile_map_ref();
+      AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
+      AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();
       
       AllegroFlare::Random random;
       int num_tiles_in_atlas = 100;
@@ -192,11 +192,11 @@ dependencies:
 
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
-  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMesh
-    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMesh
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp ]
   - symbol: AllegroFlare::Random
     headers: [ AllegroFlare/Random.hpp ]
-  - symbol: AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader
-    headers: [ AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.hpp ]
 
 

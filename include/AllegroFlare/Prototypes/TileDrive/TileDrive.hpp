@@ -6,9 +6,9 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
-#include <AllegroFlare/Prototypes/MindDive/Hud/Hud.hpp>
 #include <AllegroFlare/Prototypes/MindDive/Hypersync.hpp>
-#include <AllegroFlare/Prototypes/MindDive/TunnelMesh.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/Hud/Hud.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Timer.hpp>
@@ -34,7 +34,7 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::SampleBin* sample_bin;
-            AllegroFlare::Prototypes::MindDive::TunnelMesh* current_tunnel_mesh;
+            AllegroFlare::Prototypes::TileDrive::TerrainMesh* current_terrain_mesh;
             AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
             AllegroFlare::Vec3D surfer_position;
             AllegroFlare::Vec3D surfer_velocity;
@@ -42,7 +42,7 @@ namespace AllegroFlare
             bool surfer_break_pressed;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
-            AllegroFlare::Prototypes::MindDive::Hud::Hud hud;
+            AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
             int state;
             bool surfer_attached_to_playhead_track;
             bool initialized;
@@ -50,8 +50,8 @@ namespace AllegroFlare
             float music_started_at;
             void start_timer();
             void reset_timer();
-            float calculate_current_tunnel_mesh_height();
-            float calculate_current_tunnel_mesh_tile_depth();
+            float calculate_current_terrain_mesh_height();
+            float calculate_current_terrain_mesh_tile_depth();
             void evaluate_surfer_past_goal();
 
          protected:
@@ -66,7 +66,7 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::SampleBin* get_sample_bin() const;
-            AllegroFlare::Prototypes::MindDive::TunnelMesh* &get_current_tunnel_mesh_ref();
+            AllegroFlare::Prototypes::TileDrive::TerrainMesh* &get_current_terrain_mesh_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
@@ -84,7 +84,7 @@ namespace AllegroFlare
             void surfer_unpress_break();
             void surfer_stop();
             void surfer_move_horizontal_none();
-            void render_tunnel();
+            void render_terrain();
             void render_hud();
             void render_surfer();
             void update();

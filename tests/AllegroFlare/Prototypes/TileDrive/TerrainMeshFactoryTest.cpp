@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/Prototypes/MindDive/TunnelMeshFactory.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.hpp>
 
 #include <allegro5/allegro_primitives.h>
 
@@ -17,14 +17,14 @@
 #define TMJ_FIXTURE_FILENAME (TMJ_FIXTURE_PATH "tunnel_mesh-02.tmj")
 
 
-TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshFactoryTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshFactoryTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Prototypes::MindDive::TunnelMeshFactory tunnel_mesh_factory;
+   AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory terrain_mesh_factory;
 }
 
 
-TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshFactoryTest,
-   create_from_tmj__will_create_a_tunnel_mesh_with_with_the_expected_values_from_a_tmj_file)
+TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshFactoryTest,
+   create_from_tmj__will_create_a_terrain_mesh_with_with_the_expected_values_from_a_tmj_file)
 {
    al_init();
    al_init_primitives_addon();
@@ -32,18 +32,18 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshFactoryTest,
    AllegroFlare::BitmapBin bitmap_bin;
 
    bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
-   AllegroFlare::Prototypes::MindDive::TunnelMeshFactory tunnel_mesh_factory(&bitmap_bin);
-   AllegroFlare::Prototypes::MindDive::TunnelMesh* created_tunnel_mesh =
-      tunnel_mesh_factory.create_from_tmj(TMJ_FIXTURE_FILENAME);
+   AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory terrain_mesh_factory(&bitmap_bin);
+   AllegroFlare::Prototypes::TileDrive::TerrainMesh* created_terrain_mesh =
+      terrain_mesh_factory.create_from_tmj(TMJ_FIXTURE_FILENAME);
 
-   ASSERT_NE(nullptr, created_tunnel_mesh);
+   ASSERT_NE(nullptr, created_terrain_mesh);
 
-   EXPECT_EQ(12, created_tunnel_mesh->obtain_num_columns());
-   EXPECT_EQ(96, created_tunnel_mesh->obtain_num_rows());
+   EXPECT_EQ(12, created_terrain_mesh->obtain_num_columns());
+   EXPECT_EQ(96, created_terrain_mesh->obtain_num_rows());
 
    // select a few tiles to cherry-pick
-   AllegroFlare::TileMaps::PrimMesh &prim_mesh = created_tunnel_mesh->get_prim_mesh_ref();
-   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = created_tunnel_mesh->get_collision_tile_map_ref();
+   AllegroFlare::TileMaps::PrimMesh &prim_mesh = created_terrain_mesh->get_prim_mesh_ref();
+   AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = created_terrain_mesh->get_collision_tile_map_ref();
 
    EXPECT_EQ(2, prim_mesh.get_tile_id(0, 0));
    EXPECT_EQ(1, prim_mesh.get_tile_id(0, 1));
