@@ -72,6 +72,8 @@ namespace AllegroFlare
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
             WickedDemos::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
+            virtual void on_activate() override;
+            virtual void on_deactivate() override;
             void initialize_display_projection();
             void initialize_maps();
             void setup_projection();

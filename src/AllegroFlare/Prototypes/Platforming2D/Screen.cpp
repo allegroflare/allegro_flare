@@ -192,6 +192,30 @@ WickedDemos::TileMaps::Basic2D* Screen::find_map_by_name(std::string name)
    return found_map;
 }
 
+void Screen::on_activate()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   setup_projection();
+   return;
+}
+
+void Screen::on_deactivate()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "on_deactivate" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // nothing here
+   return;
+}
+
 void Screen::initialize_display_projection()
 {
    setup_projection();

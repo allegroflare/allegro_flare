@@ -183,6 +183,24 @@ functions:
       return found_map;
 
 
+  - name: on_activate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      setup_projection();
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      // nothing here
+      return;
+
+
   - name: initialize_display_projection
     body: |
       setup_projection();
