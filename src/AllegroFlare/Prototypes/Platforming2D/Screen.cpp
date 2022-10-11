@@ -625,6 +625,12 @@ void Screen::check_player_collisions_with_doors()
       error_message << "Screen" << "::" << "check_player_collisions_with_doors" << ": error: " << "guard \"player_controlled_entity\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "check_player_collisions_with_doors" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
 
    Wicked::Entities::CollectionHelper collection_helper(&_entities);
@@ -636,20 +642,30 @@ void Screen::check_player_collisions_with_doors()
       if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
       {
          Wicked::Entities::Doors::Basic2D *door = static_cast<Wicked::Entities::Doors::Basic2D*>(entity);
-         std::string map_target_name = door->get_target_map_name(); // do nothing with this for now
-         float target_spawn_x = door->get_target_spawn_x();
-         float target_spawn_y = door->get_target_spawn_y();
 
-         // find the target map
-         WickedDemos::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
+         std::string game_event_name_to_emit = door->get_game_event_name_to_emit();
+         bool this_door_emits_game_event = !game_event_name_to_emit.empty();
+         if (this_door_emits_game_event)
+         {
+            event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit));
+         }
+         else // will door travel to another map or place on the current map
+         {
+            std::string map_target_name = door->get_target_map_name(); // do nothing with this for now
+            float target_spawn_x = door->get_target_spawn_x();
+            float target_spawn_y = door->get_target_spawn_y();
 
-         // reposition player in map
-         player_controlled_entity->set(ON_MAP_NAME, map_target_name);
-         player_controlled_entity->get_place_ref().position.x = target_spawn_x;
-         player_controlled_entity->get_place_ref().position.y = target_spawn_y;
+            // find the target map
+            WickedDemos::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
 
-         // set current map
-         set_currently_active_map(map_target_name);
+            // reposition player in map
+            player_controlled_entity->set(ON_MAP_NAME, map_target_name);
+            player_controlled_entity->get_place_ref().position.x = target_spawn_x;
+            player_controlled_entity->get_place_ref().position.y = target_spawn_y;
+
+            // set current map
+            set_currently_active_map(map_target_name);
+         }
          
          return;
       }
