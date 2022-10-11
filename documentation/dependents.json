@@ -6,6 +6,7 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/AudioRepositoryElement": [
@@ -126,6 +127,7 @@
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
@@ -236,6 +238,7 @@
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
@@ -591,6 +594,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
@@ -1678,6 +1682,9 @@
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/TileDrive": [
+    "AllegroFlare/Prototypes/TileDrive/Screen"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",

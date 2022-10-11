@@ -176,6 +176,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml</a></li>
@@ -9039,6 +9040,52 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">sample_bin</td>
+  <td class="property">AllegroFlare::SampleBin*</td>
+</tr>
+<tr>
+  <td class="property">tile_drive</td>
+  <td class="property">AllegroFlare::Prototypes::TileDrive::TileDrive</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::TileDrive&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/TileDrive.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml</h3>
      <table>
 <tr>
@@ -14239,6 +14286,7 @@ table td
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/AudioRepositoryElement": [
@@ -14359,6 +14407,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
@@ -14469,6 +14518,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
@@ -14824,6 +14874,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
@@ -15911,6 +15962,9 @@ table td
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/TileDrive": [
+    "AllegroFlare/Prototypes/TileDrive/Screen"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
