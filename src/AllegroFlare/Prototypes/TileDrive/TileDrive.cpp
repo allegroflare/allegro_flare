@@ -31,15 +31,15 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , sample_bin(sample_bin)
    , current_terrain_mesh()
    , hypersync()
-   , surfer_position({0, 0, 0})
-   , surfer_velocity({0, 0, 0})
-   , surfer_accelerator_pressed(false)
-   , surfer_break_pressed(false)
+   , driver_position({0, 0, 0})
+   , driver_velocity({0, 0, 0})
+   , driver_accelerator_pressed(false)
+   , driver_break_pressed(false)
    , timer()
    , camera()
    , hud({})
    , state(STATE_WAITING_START)
-   , surfer_attached_to_playhead_track(false)
+   , driver_attached_to_playhead_track(false)
    , initialized(false)
    , debug_metronome_sound(nullptr)
    , music_started_at(0.0f)
@@ -244,12 +244,12 @@ void TileDrive::reset()
       error_message << "TileDrive" << "::" << "reset" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   surfer_position.x = current_terrain_mesh->infer_real_width() * 0.5
+   driver_position.x = current_terrain_mesh->infer_real_width() * 0.5
                      - current_terrain_mesh->obtain_tile_width() * 0.5;
-   surfer_position.z = current_terrain_mesh->infer_real_height()
+   driver_position.z = current_terrain_mesh->infer_real_height()
                      - current_terrain_mesh->obtain_tile_height();
 
-   surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
+   driver_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
    camera.stepout = AllegroFlare::Vec3D(0, 2, 5);
    state = STATE_WAITING_START;
@@ -270,7 +270,7 @@ void TileDrive::start_racing()
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
 
-   attach_surfer_to_playhead_track();
+   attach_driver_to_playhead_track();
    hypersync.start();
 
    start_timer();
@@ -278,9 +278,9 @@ void TileDrive::start_racing()
    return;
 }
 
-void TileDrive::attach_surfer_to_playhead_track()
+void TileDrive::attach_driver_to_playhead_track()
 {
-   surfer_attached_to_playhead_track = true;
+   driver_attached_to_playhead_track = true;
    return;
 }
 
@@ -289,70 +289,70 @@ void TileDrive::stop_racing_due_to_death()
    if (state == STATE_PLAYER_DIED) return;
    state = STATE_PLAYER_DIED;
    pause_timer();
-   surfer_velocity.x = 0.0f;
-   surfer_velocity.z = 0.0f;
+   driver_velocity.x = 0.0f;
+   driver_velocity.z = 0.0f;
    hud.show_die_slate();
    return;
 }
 
-void TileDrive::surfer_move_right()
+void TileDrive::driver_move_right()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   surfer_velocity.x = 3;
+   driver_velocity.x = 3;
    return;
 }
 
-void TileDrive::surfer_move_left()
+void TileDrive::driver_move_left()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   surfer_velocity.x = -3;
+   driver_velocity.x = -3;
    return;
 }
 
-void TileDrive::surfer_press_accelerator()
+void TileDrive::driver_press_accelerator()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   surfer_accelerator_pressed = true;
-   //surfer_velocity.z = -20;
+   driver_accelerator_pressed = true;
+   //driver_velocity.z = -20;
    return;
 }
 
-void TileDrive::surfer_unpress_accelerator()
+void TileDrive::driver_unpress_accelerator()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   surfer_accelerator_pressed = false;
+   driver_accelerator_pressed = false;
    return;
 }
 
-void TileDrive::surfer_press_break()
+void TileDrive::driver_press_break()
 {
    if (state != STATE_RACING) return;
-   surfer_break_pressed = true;
+   driver_break_pressed = true;
    return;
 }
 
-void TileDrive::surfer_unpress_break()
+void TileDrive::driver_unpress_break()
 {
    if (state != STATE_RACING) return;
-   surfer_break_pressed = false;
+   driver_break_pressed = false;
    return;
 }
 
-void TileDrive::surfer_stop()
+void TileDrive::driver_stop()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
-   surfer_velocity.z = 0;
+   driver_velocity.z = 0;
    return;
 }
 
-void TileDrive::surfer_move_horizontal_none()
+void TileDrive::driver_move_horizontal_none()
 {
-   surfer_velocity.x = 0;
+   driver_velocity.x = 0;
    return;
 }
 
@@ -368,28 +368,28 @@ void TileDrive::render_hud()
    return;
 }
 
-void TileDrive::render_surfer()
+void TileDrive::render_driver()
 {
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "render_surfer" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      error_message << "TileDrive" << "::" << "render_driver" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
       throw std::runtime_error(error_message.str());
    }
-   draw_crosshair(surfer_position, AllegroFlare::Color::Yellow, 0.75);
+   draw_crosshair(driver_position, AllegroFlare::Color::Yellow, 0.75);
    return;
 }
 
-void TileDrive::evaluate_surfer_past_goal()
+void TileDrive::evaluate_driver_past_goal()
 {
    if (state != STATE_RACING) return;
 
-   if (surfer_position.z <= 0)
+   if (driver_position.z <= 0)
    {
       timer.pause();
       state = STATE_WON;
-      surfer_velocity.x = 0.0f;
-      surfer_velocity.z = 0.0f;
+      driver_velocity.x = 0.0f;
+      driver_velocity.z = 0.0f;
       hud.show_win_slate();
    }
 
@@ -404,36 +404,36 @@ void TileDrive::update()
       error_message << "TileDrive" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (surfer_attached_to_playhead_track) // the player velocity is synchronized to the music track
+   if (driver_attached_to_playhead_track) // the player velocity is synchronized to the music track
    {
       // TODO: set thes velocity relative to the music
-      surfer_velocity.z = -6.0;
+      driver_velocity.z = -6.0;
 
       AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
          current_terrain_mesh,
-         &surfer_position,
-         &surfer_velocity
+         &driver_position,
+         &driver_velocity
       );
       AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve_basic();
       play_around_with_collision_step_result(&step_result);
    }
-   else // player controls speed and velocity of surfer
+   else // player controls speed and velocity of driver
    {
-      if (surfer_break_pressed)
+      if (driver_break_pressed)
       {
-         float surfer_break_velocity = 0.2;
-         float SURFER_MAX_REVERSE_VELOCITY = 4;
+         float driver_break_velocity = 0.2;
+         float DRIVER_MAX_REVERSE_VELOCITY = 4;
 
-         surfer_velocity.z += surfer_break_velocity;
-         if (surfer_velocity.z >= SURFER_MAX_REVERSE_VELOCITY) surfer_velocity.z = SURFER_MAX_REVERSE_VELOCITY;
+         driver_velocity.z += driver_break_velocity;
+         if (driver_velocity.z >= DRIVER_MAX_REVERSE_VELOCITY) driver_velocity.z = DRIVER_MAX_REVERSE_VELOCITY;
       }
-      else if (surfer_accelerator_pressed)
+      else if (driver_accelerator_pressed)
       {
-         float surfer_accelerator_velocity = -0.1;
-         float SURFER_MAX_FORWARD_VELOCITY = -20;
+         float driver_accelerator_velocity = -0.1;
+         float DRIVER_MAX_FORWARD_VELOCITY = -20;
 
-         surfer_velocity.z += surfer_accelerator_velocity;
-         if (surfer_velocity.z <= SURFER_MAX_FORWARD_VELOCITY) surfer_velocity.z = SURFER_MAX_FORWARD_VELOCITY;
+         driver_velocity.z += driver_accelerator_velocity;
+         if (driver_velocity.z <= DRIVER_MAX_FORWARD_VELOCITY) driver_velocity.z = DRIVER_MAX_FORWARD_VELOCITY;
       }
 
       // NOTE: do not include natural decelaration or environmental friction for this racer
@@ -442,16 +442,16 @@ void TileDrive::update()
 
       AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
          current_terrain_mesh,
-         &surfer_position,
-         &surfer_velocity
+         &driver_position,
+         &driver_velocity
       );
       AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
       play_around_with_collision_step_result(&step_result);
    }
 
-   camera.position = surfer_position;
+   camera.position = driver_position;
 
-   evaluate_surfer_past_goal();
+   evaluate_driver_past_goal();
 
    return;
 }
@@ -484,7 +484,7 @@ void TileDrive::play_around_with_collision_step_result(AllegroFlare::Physics::Ti
          stop_racing_due_to_death();
       }
 
-      // change tiles if surfer collided with them
+      // change tiles if driver collided with them
       else if (collision.get_tile_value() == 2 || (collision.get_tile_value() == -999))
       {
          // this is cool just disabled
@@ -518,7 +518,7 @@ void TileDrive::render()
    //AllegroFlare::Placement3D place;
    //place.start_transform();
    render_terrain();
-   render_surfer();
+   render_driver();
    //place.restore_transform();
    //camera.restore_transform();
 

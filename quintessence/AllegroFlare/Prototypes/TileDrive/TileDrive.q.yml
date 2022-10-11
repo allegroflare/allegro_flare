@@ -38,19 +38,19 @@ properties:
     type: AllegroFlare::Prototypes::MindDive::Hypersync
     init_with: ''
 
-  - name: surfer_position
+  - name: driver_position
     type: AllegroFlare::Vec3D
     init_with: '{0, 0, 0}'
 
-  - name: surfer_velocity
+  - name: driver_velocity
     type: AllegroFlare::Vec3D
     init_with: '{0, 0, 0}'
 
-  - name: surfer_accelerator_pressed
+  - name: driver_accelerator_pressed
     type: bool
     init_with: false
 
-  - name: surfer_break_pressed
+  - name: driver_break_pressed
     type: bool
     init_with: false
 
@@ -70,7 +70,7 @@ properties:
     type: int
     init_with: STATE_WAITING_START
 
-  - name: surfer_attached_to_playhead_track
+  - name: driver_attached_to_playhead_track
     type: bool
     init_with: false
 
@@ -239,12 +239,12 @@ functions:
   - name: reset
     guards: [ initialized ]
     body: |
-      surfer_position.x = current_terrain_mesh->infer_real_width() * 0.5
+      driver_position.x = current_terrain_mesh->infer_real_width() * 0.5
                         - current_terrain_mesh->obtain_tile_width() * 0.5;
-      surfer_position.z = current_terrain_mesh->infer_real_height()
+      driver_position.z = current_terrain_mesh->infer_real_height()
                         - current_terrain_mesh->obtain_tile_height();
 
-      surfer_velocity = AllegroFlare::Vec3D(0, 0, 0);
+      driver_velocity = AllegroFlare::Vec3D(0, 0, 0);
 
       camera.stepout = AllegroFlare::Vec3D(0, 2, 5);
       state = STATE_WAITING_START;
@@ -265,7 +265,7 @@ functions:
       if (state != STATE_WAITING_START) return;
       state = STATE_RACING;
 
-      attach_surfer_to_playhead_track();
+      attach_driver_to_playhead_track();
       hypersync.start();
 
       start_timer();
@@ -273,9 +273,9 @@ functions:
       return;
 
 
-  - name: attach_surfer_to_playhead_track
+  - name: attach_driver_to_playhead_track
     body: |
-      surfer_attached_to_playhead_track = true;
+      driver_attached_to_playhead_track = true;
       return;
 
 
@@ -284,70 +284,70 @@ functions:
       if (state == STATE_PLAYER_DIED) return;
       state = STATE_PLAYER_DIED;
       pause_timer();
-      surfer_velocity.x = 0.0f;
-      surfer_velocity.z = 0.0f;
+      driver_velocity.x = 0.0f;
+      driver_velocity.z = 0.0f;
       hud.show_die_slate();
       return;
 
 
-  - name: surfer_move_right
+  - name: driver_move_right
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
-      surfer_velocity.x = 3;
+      driver_velocity.x = 3;
       return;
 
 
-  - name: surfer_move_left
+  - name: driver_move_left
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
-      surfer_velocity.x = -3;
+      driver_velocity.x = -3;
       return;
 
 
-  - name: surfer_press_accelerator
+  - name: driver_press_accelerator
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
-      surfer_accelerator_pressed = true;
-      //surfer_velocity.z = -20;
+      driver_accelerator_pressed = true;
+      //driver_velocity.z = -20;
       return;
 
 
-  - name: surfer_unpress_accelerator
+  - name: driver_unpress_accelerator
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
-      surfer_accelerator_pressed = false;
+      driver_accelerator_pressed = false;
       return;
 
 
-  - name: surfer_press_break
+  - name: driver_press_break
     body: |
       if (state != STATE_RACING) return;
-      surfer_break_pressed = true;
+      driver_break_pressed = true;
       return;
 
 
-  - name: surfer_unpress_break
+  - name: driver_unpress_break
     body: |
       if (state != STATE_RACING) return;
-      surfer_break_pressed = false;
+      driver_break_pressed = false;
       return;
 
 
-  - name: surfer_stop
+  - name: driver_stop
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
-      surfer_velocity.z = 0;
+      driver_velocity.z = 0;
       return;
 
 
-  - name: surfer_move_horizontal_none
+  - name: driver_move_horizontal_none
     body: |
-      surfer_velocity.x = 0;
+      driver_velocity.x = 0;
       return;
 
 
@@ -363,27 +363,27 @@ functions:
       return;
 
 
-  - name: render_surfer
+  - name: render_driver
     guards: [ al_is_primitives_addon_initialized() ]
     body: |
-      draw_crosshair(surfer_position, AllegroFlare::Color::Yellow, 0.75);
+      draw_crosshair(driver_position, AllegroFlare::Color::Yellow, 0.75);
       return;
     body_dependency_symbols:
       - AllegroFlare::Useful
       - AllegroFlare::Color
 
 
-  - name: evaluate_surfer_past_goal
+  - name: evaluate_driver_past_goal
     private: true
     body: |
       if (state != STATE_RACING) return;
 
-      if (surfer_position.z <= 0)
+      if (driver_position.z <= 0)
       {
          timer.pause();
          state = STATE_WON;
-         surfer_velocity.x = 0.0f;
-         surfer_velocity.z = 0.0f;
+         driver_velocity.x = 0.0f;
+         driver_velocity.z = 0.0f;
          hud.show_win_slate();
       }
 
@@ -393,36 +393,36 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
-      if (surfer_attached_to_playhead_track) // the player velocity is synchronized to the music track
+      if (driver_attached_to_playhead_track) // the player velocity is synchronized to the music track
       {
          // TODO: set thes velocity relative to the music
-         surfer_velocity.z = -6.0;
+         driver_velocity.z = -6.0;
 
          AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
             current_terrain_mesh,
-            &surfer_position,
-            &surfer_velocity
+            &driver_position,
+            &driver_velocity
          );
          AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve_basic();
          play_around_with_collision_step_result(&step_result);
       }
-      else // player controls speed and velocity of surfer
+      else // player controls speed and velocity of driver
       {
-         if (surfer_break_pressed)
+         if (driver_break_pressed)
          {
-            float surfer_break_velocity = 0.2;
-            float SURFER_MAX_REVERSE_VELOCITY = 4;
+            float driver_break_velocity = 0.2;
+            float DRIVER_MAX_REVERSE_VELOCITY = 4;
 
-            surfer_velocity.z += surfer_break_velocity;
-            if (surfer_velocity.z >= SURFER_MAX_REVERSE_VELOCITY) surfer_velocity.z = SURFER_MAX_REVERSE_VELOCITY;
+            driver_velocity.z += driver_break_velocity;
+            if (driver_velocity.z >= DRIVER_MAX_REVERSE_VELOCITY) driver_velocity.z = DRIVER_MAX_REVERSE_VELOCITY;
          }
-         else if (surfer_accelerator_pressed)
+         else if (driver_accelerator_pressed)
          {
-            float surfer_accelerator_velocity = -0.1;
-            float SURFER_MAX_FORWARD_VELOCITY = -20;
+            float driver_accelerator_velocity = -0.1;
+            float DRIVER_MAX_FORWARD_VELOCITY = -20;
 
-            surfer_velocity.z += surfer_accelerator_velocity;
-            if (surfer_velocity.z <= SURFER_MAX_FORWARD_VELOCITY) surfer_velocity.z = SURFER_MAX_FORWARD_VELOCITY;
+            driver_velocity.z += driver_accelerator_velocity;
+            if (driver_velocity.z <= DRIVER_MAX_FORWARD_VELOCITY) driver_velocity.z = DRIVER_MAX_FORWARD_VELOCITY;
          }
    
          // NOTE: do not include natural decelaration or environmental friction for this racer
@@ -431,16 +431,16 @@ functions:
 
          AllegroFlare::Prototypes::TileDrive::TerrainMeshDriverCollisionResolver collision_resolver(
             current_terrain_mesh,
-            &surfer_position,
-            &surfer_velocity
+            &driver_position,
+            &driver_velocity
          );
          AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result = collision_resolver.resolve();
          play_around_with_collision_step_result(&step_result);
       }
 
-      camera.position = surfer_position;
+      camera.position = driver_position;
 
-      evaluate_surfer_past_goal();
+      evaluate_driver_past_goal();
 
       return;
     body_dependency_symbols:
@@ -468,7 +468,7 @@ functions:
             stop_racing_due_to_death();
          }
 
-         // change tiles if surfer collided with them
+         // change tiles if driver collided with them
          else if (collision.get_tile_value() == 2 || (collision.get_tile_value() == -999))
          {
             // this is cool just disabled
@@ -497,7 +497,7 @@ functions:
       //AllegroFlare::Placement3D place;
       //place.start_transform();
       render_terrain();
-      render_surfer();
+      render_driver();
       //place.restore_transform();
       //camera.restore_transform();
 

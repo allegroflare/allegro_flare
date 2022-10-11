@@ -110,19 +110,19 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
                break;
 
                case ALLEGRO_KEY_UP:
-                  tile_dive.surfer_press_accelerator();
+                  tile_dive.driver_press_accelerator();
                break;
 
                case ALLEGRO_KEY_DOWN:
-                  tile_dive.surfer_press_break();
+                  tile_dive.driver_press_break();
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                  tile_dive.surfer_move_right();
+                  tile_dive.driver_move_right();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  tile_dive.surfer_move_left();
+                  tile_dive.driver_move_left();
                break;
 
                case ALLEGRO_KEY_R:
@@ -137,19 +137,19 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
             switch(event.keyboard.keycode)
             {
                case ALLEGRO_KEY_UP:
-                  tile_dive.surfer_unpress_accelerator();
+                  tile_dive.driver_unpress_accelerator();
                break;
 
                case ALLEGRO_KEY_DOWN:
-                  tile_dive.surfer_unpress_break();
+                  tile_dive.driver_unpress_break();
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                  tile_dive.surfer_move_horizontal_none();
+                  tile_dive.driver_move_horizontal_none();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  tile_dive.surfer_move_horizontal_none();
+                  tile_dive.driver_move_horizontal_none();
                break;
             }
          }

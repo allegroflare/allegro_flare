@@ -36,15 +36,15 @@ namespace AllegroFlare
             AllegroFlare::SampleBin* sample_bin;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* current_terrain_mesh;
             AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
-            AllegroFlare::Vec3D surfer_position;
-            AllegroFlare::Vec3D surfer_velocity;
-            bool surfer_accelerator_pressed;
-            bool surfer_break_pressed;
+            AllegroFlare::Vec3D driver_position;
+            AllegroFlare::Vec3D driver_velocity;
+            bool driver_accelerator_pressed;
+            bool driver_break_pressed;
             AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
             AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
             int state;
-            bool surfer_attached_to_playhead_track;
+            bool driver_attached_to_playhead_track;
             bool initialized;
             AllegroFlare::Sound* debug_metronome_sound;
             float music_started_at;
@@ -52,7 +52,7 @@ namespace AllegroFlare
             void reset_timer();
             float calculate_current_terrain_mesh_height();
             float calculate_current_terrain_mesh_tile_depth();
-            void evaluate_surfer_past_goal();
+            void evaluate_driver_past_goal();
 
          protected:
 
@@ -74,19 +74,19 @@ namespace AllegroFlare
             void pause_timer();
             void reset();
             void start_racing();
-            void attach_surfer_to_playhead_track();
+            void attach_driver_to_playhead_track();
             void stop_racing_due_to_death();
-            void surfer_move_right();
-            void surfer_move_left();
-            void surfer_press_accelerator();
-            void surfer_unpress_accelerator();
-            void surfer_press_break();
-            void surfer_unpress_break();
-            void surfer_stop();
-            void surfer_move_horizontal_none();
+            void driver_move_right();
+            void driver_move_left();
+            void driver_press_accelerator();
+            void driver_unpress_accelerator();
+            void driver_press_break();
+            void driver_unpress_break();
+            void driver_stop();
+            void driver_move_horizontal_none();
             void render_terrain();
             void render_hud();
-            void render_surfer();
+            void render_driver();
             void update();
             void play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result=nullptr);
             void render();
