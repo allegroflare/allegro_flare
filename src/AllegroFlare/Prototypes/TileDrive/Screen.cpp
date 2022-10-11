@@ -91,13 +91,30 @@ void Screen::initialize()
       error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // initialize tile_drive
    tile_drive.set_bitmap_bin(bitmap_bin);
    tile_drive.set_font_bin(font_bin);
    tile_drive.set_event_emitter(event_emitter);
    tile_drive.set_sample_bin(sample_bin);
    tile_drive.initialize();
 
+   // start the level
+   tile_drive.reset();
+
    initialized = true;
+   return;
+}
+
+void Screen::primary_timer_func()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   tile_drive.update();
+   tile_drive.render();
    return;
 }
 
