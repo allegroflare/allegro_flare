@@ -175,7 +175,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml</a></li>
@@ -8938,6 +8940,105 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">timer</td>
+  <td class="property">AllegroFlare::Timer*</td>
+</tr>
+<tr>
+  <td class="property">slate_text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">slate_text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">backbuffer_sub_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera2D</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">show_win_slate()</td>
+</tr>
+<tr>
+  <td class="method">show_die_slate()</td>
+</tr>
+<tr>
+  <td class="method">show_ready_slate()</td>
+</tr>
+<tr>
+  <td class="method">clear_slate()</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="private_method">render_stopwatch()</td>
+</tr>
+<tr>
+  <td class="private_method">render_slate()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Stopwatch&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Stopwatch.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml</h3>
      <table>
 <tr>
@@ -9029,6 +9130,50 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">tunnel_mesh</td>
+  <td class="property">AllegroFlare::Prototypes::TileDrive::TerrainMesh*</td>
+</tr>
+<tr>
+  <td class="property">surfer_position</td>
+  <td class="property">AllegroFlare::Vec3D*</td>
+</tr>
+<tr>
+  <td class="property">surfer_velocity</td>
+  <td class="property">AllegroFlare::Vec3D*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">resolve_classic()</td>
+</tr>
+<tr>
+  <td class="method">resolve_basic()</td>
+</tr>
+<tr>
+  <td class="method">resolve()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::TerrainMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperStepResult&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -9190,19 +9335,19 @@ table td
   <td class="property">AllegroFlare::Prototypes::MindDive::Hypersync</td>
 </tr>
 <tr>
-  <td class="property">surfer_position</td>
+  <td class="property">driver_position</td>
   <td class="property">AllegroFlare::Vec3D</td>
 </tr>
 <tr>
-  <td class="property">surfer_velocity</td>
+  <td class="property">driver_velocity</td>
   <td class="property">AllegroFlare::Vec3D</td>
 </tr>
 <tr>
-  <td class="property">surfer_accelerator_pressed</td>
+  <td class="property">driver_accelerator_pressed</td>
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">surfer_break_pressed</td>
+  <td class="property">driver_break_pressed</td>
   <td class="property">bool</td>
 </tr>
 <tr>
@@ -9222,7 +9367,7 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
-  <td class="property">surfer_attached_to_playhead_track</td>
+  <td class="property">driver_attached_to_playhead_track</td>
   <td class="property">bool</td>
 </tr>
 <tr>
@@ -9289,34 +9434,34 @@ table td
   <td class="method">start_racing()</td>
 </tr>
 <tr>
-  <td class="method">attach_surfer_to_playhead_track()</td>
+  <td class="method">attach_driver_to_playhead_track()</td>
 </tr>
 <tr>
   <td class="method">stop_racing_due_to_death()</td>
 </tr>
 <tr>
-  <td class="method">surfer_move_right()</td>
+  <td class="method">driver_move_right()</td>
 </tr>
 <tr>
-  <td class="method">surfer_move_left()</td>
+  <td class="method">driver_move_left()</td>
 </tr>
 <tr>
-  <td class="method">surfer_press_accelerator()</td>
+  <td class="method">driver_press_accelerator()</td>
 </tr>
 <tr>
-  <td class="method">surfer_unpress_accelerator()</td>
+  <td class="method">driver_unpress_accelerator()</td>
 </tr>
 <tr>
-  <td class="method">surfer_press_break()</td>
+  <td class="method">driver_press_break()</td>
 </tr>
 <tr>
-  <td class="method">surfer_unpress_break()</td>
+  <td class="method">driver_unpress_break()</td>
 </tr>
 <tr>
-  <td class="method">surfer_stop()</td>
+  <td class="method">driver_stop()</td>
 </tr>
 <tr>
-  <td class="method">surfer_move_horizontal_none()</td>
+  <td class="method">driver_move_horizontal_none()</td>
 </tr>
 <tr>
   <td class="method">render_terrain()</td>
@@ -9325,10 +9470,10 @@ table td
   <td class="method">render_hud()</td>
 </tr>
 <tr>
-  <td class="method">render_surfer()</td>
+  <td class="method">render_driver()</td>
 </tr>
 <tr>
-  <td class="private_method">evaluate_surfer_past_goal()</td>
+  <td class="private_method">evaluate_driver_past_goal()</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -14309,6 +14454,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
@@ -14391,6 +14537,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -14489,6 +14636,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -14540,6 +14688,7 @@ table td
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
@@ -14568,7 +14717,8 @@ table td
     "AllegroFlare/Elements/Text",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud"
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
@@ -14617,6 +14767,7 @@ table td
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -14715,7 +14866,8 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
+    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingText",
@@ -15036,6 +15188,7 @@ table td
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "std/setfill": [
@@ -15053,6 +15206,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
@@ -15492,10 +15646,12 @@ table td
   "AllegroFlare/Elements/Stopwatch": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Camera2D": [
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud"
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "ALLEGRO_EVENT_QUEUE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
@@ -15515,6 +15671,7 @@ table td
   "AllegroFlare/Vec3D": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Useful": [
@@ -15541,6 +15698,7 @@ table td
   "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/MindDive/Hypersync": [
@@ -15582,7 +15740,8 @@ table td
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver"
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver"
   ],
   "std/ifstream": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
@@ -15740,6 +15899,7 @@ table td
     "WickedDemos/TileMaps/Basic2D"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],

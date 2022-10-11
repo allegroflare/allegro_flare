@@ -290,7 +290,7 @@ functions:
       return;
 
 
-  - name: driver_move_right
+  - name: driver_strafe_right
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
@@ -298,7 +298,7 @@ functions:
       return;
 
 
-  - name: driver_move_left
+  - name: driver_strafe_left
     body: |
       if (state == STATE_WAITING_START) start_racing();
       if (state != STATE_RACING) return;
@@ -345,7 +345,7 @@ functions:
       return;
 
 
-  - name: driver_move_horizontal_none
+  - name: driver_strafe_none
     body: |
       driver_velocity.x = 0;
       return;

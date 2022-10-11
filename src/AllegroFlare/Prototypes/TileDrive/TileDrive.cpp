@@ -295,7 +295,7 @@ void TileDrive::stop_racing_due_to_death()
    return;
 }
 
-void TileDrive::driver_move_right()
+void TileDrive::driver_strafe_right()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
@@ -303,7 +303,7 @@ void TileDrive::driver_move_right()
    return;
 }
 
-void TileDrive::driver_move_left()
+void TileDrive::driver_strafe_left()
 {
    if (state == STATE_WAITING_START) start_racing();
    if (state != STATE_RACING) return;
@@ -350,7 +350,7 @@ void TileDrive::driver_stop()
    return;
 }
 
-void TileDrive::driver_move_horizontal_none()
+void TileDrive::driver_strafe_none()
 {
    driver_velocity.x = 0;
    return;

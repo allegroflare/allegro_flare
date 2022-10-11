@@ -118,11 +118,11 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                  tile_dive.driver_move_right();
+                  tile_dive.driver_strafe_right();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  tile_dive.driver_move_left();
+                  tile_dive.driver_strafe_left();
                break;
 
                case ALLEGRO_KEY_R:
@@ -145,11 +145,11 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                  tile_dive.driver_move_horizontal_none();
+                  tile_dive.driver_strafe_none();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  tile_dive.driver_move_horizontal_none();
+                  tile_dive.driver_strafe_none();
                break;
             }
          }

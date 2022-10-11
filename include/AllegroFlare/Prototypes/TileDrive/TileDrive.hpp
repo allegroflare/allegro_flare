@@ -76,14 +76,14 @@ namespace AllegroFlare
             void start_racing();
             void attach_driver_to_playhead_track();
             void stop_racing_due_to_death();
-            void driver_move_right();
-            void driver_move_left();
+            void driver_strafe_right();
+            void driver_strafe_left();
             void driver_press_accelerator();
             void driver_unpress_accelerator();
             void driver_press_break();
             void driver_unpress_break();
             void driver_stop();
-            void driver_move_horizontal_none();
+            void driver_strafe_none();
             void render_terrain();
             void render_hud();
             void render_driver();
