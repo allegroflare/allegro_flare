@@ -992,9 +992,7 @@
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+    "AllegroFlare/Prototypes/MindDive/MindDive"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/Storyboard",
