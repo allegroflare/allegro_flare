@@ -6,7 +6,6 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
-#include <AllegroFlare/Prototypes/MindDive/Hypersync.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/Hud/Hud.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/TileDrive.hpp>
@@ -43,7 +42,6 @@ namespace AllegroFlare
             std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary;
             std::string current_map_identifier;
             std::string maps_folder;
-            AllegroFlare::Prototypes::MindDive::Hypersync hypersync;
             AllegroFlare::Vec3D driver_position;
             AllegroFlare::Vec3D driver_velocity;
             float driver_acceleration_velocity;
@@ -59,7 +57,6 @@ namespace AllegroFlare
             int state;
             bool initialized;
             AllegroFlare::Sound* debug_metronome_sound;
-            float music_started_at;
             void start_timer();
             void reset_timer();
             float calculate_current_terrain_mesh_height();

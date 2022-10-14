@@ -33,7 +33,6 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , terrain_mesh_dictionary({})
    , current_map_identifier("[unset-current_map_identifier]")
    , maps_folder("[unset-maps_folder]")
-   , hypersync()
    , driver_position({0, 0, 0})
    , driver_velocity({0, 0, 0})
    , driver_acceleration_velocity(0.0f)
@@ -49,7 +48,6 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , state(STATE_WAITING_START)
    , initialized(false)
    , debug_metronome_sound(nullptr)
-   , music_started_at(0.0f)
 {
 }
 
@@ -308,29 +306,6 @@ void TileDrive::initialize()
    current_terrain_mesh = std::get<1>(terrain_mesh_dictionary[current_map_identifier]);
 
 
-   // create local music track playlist
-   std::map<std::string, std::pair<std::string, float>> playlist = {
-      { "song-60bpm",     { "music_tracks/tempo-track-60.ogg", 60.0f } },
-      { "song-80bpm",     { "music_tracks/tempo-track-80.ogg", 80.0f } },
-      { "song-120bpm",     { "music_tracks/tempo-track-120.ogg", 120.0f } },
-      { "song-152bpm",     { "music_tracks/tempo-track-152.ogg", 152.0f } },
-      { "original-jamzz",  { "music_tracks/some-jamzz-04.ogg", 130.0f } },
-   };
-
-   //std::string playlist_song_to_play = "song-152bpm";
-   //std::string playlist_song_to_play = "song-80bpm";
-   //std::string playlist_song_to_play = "song-120bpm";
-   std::string playlist_song_to_play = "original-jamzz";
-
-   std::string pwd = "/Users/markoates/Repos/allegro_flare/bin/data/samples/";
-   std::string song_filename = pwd + playlist[playlist_song_to_play].first;
-   float song_bpm = playlist[playlist_song_to_play].second;
-
-   hypersync.set_song_filename(song_filename);
-   hypersync.set_song_bpm(song_bpm);
-   hypersync.initialize();
-
-
    debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));
 
    hud.set_font_bin(font_bin);
@@ -393,9 +368,7 @@ void TileDrive::reset()
    //camera.tilt = 0.4;
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;
-   music_started_at = 0.0f;
 
-   // TODO: hypersync->stop();
    reset_timer();
    return;
 }
@@ -404,8 +377,6 @@ void TileDrive::start()
 {
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
-
-   hypersync.start();
 
    start_timer();
    hud.clear_slate();
