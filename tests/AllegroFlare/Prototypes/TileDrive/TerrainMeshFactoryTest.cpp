@@ -15,6 +15,7 @@
 #endif
 
 #define TMJ_FIXTURE_FILENAME (TMJ_FIXTURE_PATH "tunnel_mesh-02.tmj")
+#define TILEMAP_BITMAP_IDENTIFIER "uv-with-decorations-0x.png"
 
 
 TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshFactoryTest, can_be_created_without_blowing_up)
@@ -34,7 +35,7 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshFactoryTest,
    bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
    AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory terrain_mesh_factory(&bitmap_bin);
    AllegroFlare::Prototypes::TileDrive::TerrainMesh* created_terrain_mesh =
-      terrain_mesh_factory.create_from_tmj(TMJ_FIXTURE_FILENAME);
+      terrain_mesh_factory.create_from_tmj(TMJ_FIXTURE_FILENAME, TILEMAP_BITMAP_IDENTIFIER, 50, 50);
 
    ASSERT_NE(nullptr, created_terrain_mesh);
 
