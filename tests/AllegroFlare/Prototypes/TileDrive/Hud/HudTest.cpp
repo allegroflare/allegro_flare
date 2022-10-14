@@ -74,8 +74,7 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTest, initialize__without_a_font
 
 TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Timer timer;
-   AllegroFlare::Prototypes::TileDrive::Hud::Hud hud(&get_font_bin_ref(), &timer);
+   AllegroFlare::Prototypes::TileDrive::Hud::Hud hud(&get_font_bin_ref());
    hud.initialize();
    hud.render();
    al_flip_display();
@@ -85,8 +84,7 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTestWithAllegroRenderingFixture,
    CAPTURE__render__will_work_as_expected)
 {
-   AllegroFlare::Timer timer;
-   AllegroFlare::Prototypes::TileDrive::Hud::Hud hud(&get_font_bin_ref(), &timer);
+   AllegroFlare::Prototypes::TileDrive::Hud::Hud hud(&get_font_bin_ref());
    hud.initialize();
 
    hud.show_win_slate();

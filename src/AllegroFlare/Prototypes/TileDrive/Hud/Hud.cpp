@@ -3,7 +3,6 @@
 #include <AllegroFlare/Prototypes/TileDrive/Hud/Hud.hpp>
 
 #include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Elements/Stopwatch.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -21,9 +20,8 @@ namespace Hud
 {
 
 
-Hud::Hud(AllegroFlare::FontBin* font_bin, AllegroFlare::Timer* timer, std::string slate_text, ALLEGRO_COLOR slate_text_color)
+Hud::Hud(AllegroFlare::FontBin* font_bin, std::string slate_text, ALLEGRO_COLOR slate_text_color)
    : font_bin(font_bin)
-   , timer(timer)
    , slate_text(slate_text)
    , slate_text_color(slate_text_color)
    , backbuffer_sub_bitmap(nullptr)
@@ -44,12 +42,6 @@ void Hud::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void Hud::set_timer(AllegroFlare::Timer* timer)
-{
-   this->timer = timer;
-}
-
-
 void Hud::set_slate_text(std::string slate_text)
 {
    this->slate_text = slate_text;
@@ -65,12 +57,6 @@ void Hud::set_slate_text_color(ALLEGRO_COLOR slate_text_color)
 AllegroFlare::FontBin* Hud::get_font_bin() const
 {
    return font_bin;
-}
-
-
-AllegroFlare::Timer* Hud::get_timer() const
-{
-   return timer;
 }
 
 
@@ -146,12 +132,6 @@ void Hud::initialize()
       error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!(timer))
-   {
-      std::stringstream error_message;
-      error_message << "Hud" << "::" << "initialize" << ": error: " << "guard \"timer\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    if (!(al_get_current_display))
    {
       std::stringstream error_message;
@@ -173,13 +153,6 @@ void Hud::initialize()
    camera.setup_dimentional_projection(backbuffer_sub_bitmap);
 
    initialized = true;
-   return;
-}
-
-void Hud::render_stopwatch()
-{
-   AllegroFlare::Elements::Stopwatch stopwatch(font_bin, timer);
-   stopwatch.render();
    return;
 }
 
@@ -213,7 +186,6 @@ void Hud::render()
    al_set_target_bitmap(backbuffer_sub_bitmap);
 
    render_slate();
-   render_stopwatch();
 
    al_restore_state(&previous_state);
    return;

@@ -11,7 +11,6 @@
 #include <AllegroFlare/Prototypes/TileDrive/TileDrive.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Sound.hpp>
-#include <AllegroFlare/Timer.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <functional>
 #include <map>
@@ -51,14 +50,11 @@ namespace AllegroFlare
             bool driver_break_pressed;
             std::function< void( AllegroFlare::Physics::TileMapCollisionStepperStepResult*, AllegroFlare::Prototypes::TileDrive::TileDrive*, void* ) > collision_stepper_step_result_callback;
             void* collision_stepper_step_result_callback_user_data;
-            AllegroFlare::Timer timer;
             AllegroFlare::Camera3D camera;
             AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
             int state;
             bool initialized;
             AllegroFlare::Sound* debug_metronome_sound;
-            void start_timer();
-            void reset_timer();
             float calculate_current_terrain_mesh_height();
             float calculate_current_terrain_mesh_tile_depth();
 
@@ -89,7 +85,6 @@ namespace AllegroFlare
             void set_terrain_mesh_dictionary(std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary={});
             void set_current_map_identifier(std::string current_map_identifier="[unset-current_map_identifier-arg]");
             void initialize();
-            void pause_timer();
             void reset();
             void start();
             void driver_turn_right();

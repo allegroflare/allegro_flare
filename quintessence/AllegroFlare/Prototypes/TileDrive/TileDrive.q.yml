@@ -97,10 +97,6 @@ properties:
     getter: true
     setter: true
 
-  - name: timer
-    type: AllegroFlare::Timer
-    init_with: ''
-
   - name: camera
     type: AllegroFlare::Camera3D
     init_with: ''
@@ -283,7 +279,6 @@ functions:
       debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));
 
       hud.set_font_bin(font_bin);
-      hud.set_timer(&timer);
       hud.initialize();
 
       initialized = true;
@@ -293,26 +288,6 @@ functions:
       - al_is_audio_installed
       - al_is_acodec_addon_initialized
       - AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory
-
-
-  - name: start_timer
-    private: true
-    body: |
-      timer.start();
-      return;
-
-
-  - name: pause_timer
-    body: |
-      timer.pause();
-      return;
-
-
-  - name: reset_timer
-    private: true
-    body: |
-      timer.reset();
-      return;
 
 
   - name: calculate_current_terrain_mesh_height
@@ -349,7 +324,6 @@ functions:
       //camera.zoom = 2.1;
       //camera.spin += 0.01f;
 
-      reset_timer();
       return;
 
 
@@ -358,7 +332,6 @@ functions:
       if (state != STATE_WAITING_START) return;
       state = STATE_RACING;
 
-      start_timer();
       hud.clear_slate();
       return;
 
@@ -639,8 +612,6 @@ dependencies:
     headers: [ AllegroFlare/Camera3D.hpp ]
   - symbol: AllegroFlare::Elements::Stopwatch
     headers: [ AllegroFlare/Elements/Stopwatch.hpp ]
-  - symbol: AllegroFlare::Timer
-    headers: [ AllegroFlare/Timer.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: sin

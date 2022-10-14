@@ -42,7 +42,6 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , driver_break_pressed(false)
    , collision_stepper_step_result_callback()
    , collision_stepper_step_result_callback_user_data(nullptr)
-   , timer()
    , camera()
    , hud({})
    , state(STATE_WAITING_START)
@@ -309,28 +308,9 @@ void TileDrive::initialize()
    debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));
 
    hud.set_font_bin(font_bin);
-   hud.set_timer(&timer);
    hud.initialize();
 
    initialized = true;
-   return;
-}
-
-void TileDrive::start_timer()
-{
-   timer.start();
-   return;
-}
-
-void TileDrive::pause_timer()
-{
-   timer.pause();
-   return;
-}
-
-void TileDrive::reset_timer()
-{
-   timer.reset();
    return;
 }
 
@@ -369,7 +349,6 @@ void TileDrive::reset()
    //camera.zoom = 2.1;
    //camera.spin += 0.01f;
 
-   reset_timer();
    return;
 }
 
@@ -378,7 +357,6 @@ void TileDrive::start()
    if (state != STATE_WAITING_START) return;
    state = STATE_RACING;
 
-   start_timer();
    hud.clear_slate();
    return;
 }
