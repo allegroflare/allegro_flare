@@ -11,7 +11,7 @@ TEST(AllegroFlare_Integrations_CameraProjectionChangesTest, can_be_created_witho
 
 
 TEST(AllegroFlare_Integrations_CameraProjectionChangesTest,
-   INTERACTIVE__initialize__will_not_blow_up)
+   initialize__will_not_blow_up)
 {
    AllegroFlare::Integrations::CameraProjectionChanges camera_projection_changes;
    camera_projection_changes.initialize();
