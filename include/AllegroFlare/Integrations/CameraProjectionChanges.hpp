@@ -23,8 +23,8 @@ namespace AllegroFlare
          ~CameraProjectionChanges();
 
          void initialize();
-         void start_tile_drive();
-         void start_platforming_2d();
+         void initialize_tile_drive();
+         void initialize_platforming_2d();
       };
    }
 }

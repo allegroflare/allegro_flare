@@ -28,15 +28,20 @@ void CameraProjectionChanges::initialize()
    framework.disable_fullscreen();
    framework.initialize();
    framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+
+   initialize_platforming_2d();
+
+   framework.register_screen("platforming_2d", &platforming_2d);
+
    return;
 }
 
-void CameraProjectionChanges::start_tile_drive()
+void CameraProjectionChanges::initialize_tile_drive()
 {
    return;
 }
 
-void CameraProjectionChanges::start_platforming_2d()
+void CameraProjectionChanges::initialize_platforming_2d()
 {
    AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d;
    platforming_2d.set_bitmap_bin(&framework.get_bitmap_bin_ref());

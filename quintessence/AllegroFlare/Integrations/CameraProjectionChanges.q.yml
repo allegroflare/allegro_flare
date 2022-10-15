@@ -18,15 +18,20 @@ functions:
       framework.disable_fullscreen();
       framework.initialize();
       framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+
+      initialize_platforming_2d();
+
+      framework.register_screen("platforming_2d", &platforming_2d);
+
       return;
 
 
-  - name: start_tile_drive
+  - name: initialize_tile_drive
     body: |
       return;
 
 
-  - name: start_platforming_2d
+  - name: initialize_platforming_2d
     body: |
       AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d;
       platforming_2d.set_bitmap_bin(&framework.get_bitmap_bin_ref());
