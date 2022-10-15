@@ -1,6 +1,8 @@
 #pragma once
 
 
+#include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Screen.hpp>
 
 
 namespace AllegroFlare
@@ -10,6 +12,8 @@ namespace AllegroFlare
       class CameraProjectionChanges
       {
       private:
+         AllegroFlare::Frameworks::Full framework;
+         AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d;
 
       protected:
 
@@ -18,7 +22,7 @@ namespace AllegroFlare
          CameraProjectionChanges();
          ~CameraProjectionChanges();
 
-         void initialize_test_subjects();
+         void initialize();
          void start_tile_drive();
          void start_platforming_2d();
       };
