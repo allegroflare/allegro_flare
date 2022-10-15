@@ -25,6 +25,7 @@ namespace AllegroFlare
          ~CameraProjectionChanges();
 
          void initialize();
+         void run();
          void initialize_tile_drive();
          void initialize_platforming_2d();
       };

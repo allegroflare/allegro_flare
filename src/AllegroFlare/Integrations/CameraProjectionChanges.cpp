@@ -29,6 +29,8 @@ void CameraProjectionChanges::initialize()
    framework.disable_fullscreen();
    framework.initialize();
    framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+   framework.get_font_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
+   framework.get_sample_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples");
 
    initialize_platforming_2d();
    initialize_tile_drive();
@@ -36,6 +38,14 @@ void CameraProjectionChanges::initialize()
    framework.register_screen("platforming_2d_screen", &platforming_2d_screen);
    framework.register_screen("tile_drive_screen", &tile_drive_screen);
 
+   return;
+}
+
+void CameraProjectionChanges::run()
+{
+   framework.activate_screen("tile_drive_screen");
+
+   framework.run_loop();
    return;
 }
 
