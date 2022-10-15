@@ -5121,8 +5121,15 @@ table td
   <td class="property">tile_drive_screen</td>
   <td class="property">AllegroFlare::Prototypes::TileDrive::Screen</td>
 </tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="method">callback(2)</td>
+</tr>
 <tr>
   <td class="method">initialize()</td>
 </tr>
@@ -5145,6 +5152,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::Basic2DFactory&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/Basic2DFactory.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14968,6 +14984,7 @@ table td
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -15030,6 +15047,7 @@ table td
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -15490,6 +15508,11 @@ table td
   ],
   "AllegroFlare/Prototypes/TileDrive/Screen": [
     "AllegroFlare/Integrations/CameraProjectionChanges"
+  ],
+  "Wicked/Entities/Basic2DFactory": [
+    "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "WickedDemos/TileDemo"
   ],
   "void": [
     "AllegroFlare/Integrations/Network"
@@ -15985,10 +16008,6 @@ table td
   "Tileo/TMJMeshLoader": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/Entities/Basic2DFactory": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [

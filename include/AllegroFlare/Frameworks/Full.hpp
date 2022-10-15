@@ -60,6 +60,8 @@ namespace AllegroFlare
 
          void draw_overlay();
         
+         std::map<int, std::pair<std::function<void(ALLEGRO_EVENT*, void*)>, void*>> event_callbacks;
+         uint32_t next_event_callback_id;
 
          friend class AllegroFlare_Frameworks_FullTest;
 
@@ -144,6 +146,9 @@ namespace AllegroFlare
          void open_log_window();
          void close_log_window();
          void log(std::string message);
+
+         uint32_t register_event_callback(std::function<void(ALLEGRO_EVENT*, void*)> callback, void* user_data);
+         bool unregister_event_callback(uint32_t id);
       };
    } // namespace Frameworks
 } // namespace AllegroFlare

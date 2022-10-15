@@ -562,6 +562,7 @@
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -624,6 +625,7 @@
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -1084,6 +1086,11 @@
   ],
   "AllegroFlare/Prototypes/TileDrive/Screen": [
     "AllegroFlare/Integrations/CameraProjectionChanges"
+  ],
+  "Wicked/Entities/Basic2DFactory": [
+    "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "WickedDemos/TileDemo"
   ],
   "void": [
     "AllegroFlare/Integrations/Network"
@@ -1579,10 +1586,6 @@
   "Tileo/TMJMeshLoader": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/Entities/Basic2DFactory": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [

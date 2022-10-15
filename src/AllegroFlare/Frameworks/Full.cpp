@@ -58,6 +58,8 @@ Full::Full()
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
    , fullscreen(true)
+   , event_callbacks()
+   , next_event_callback_id(1)
    , event_queue(nullptr)
    , builtin_font(nullptr)
    , shutdown_program(false)
@@ -577,6 +579,14 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       ALLEGRO_EVENT &this_event = *ev;
       ALLEGRO_EVENT next_event;
 
+      // process callbacks first
+      for (auto &event_callback : event_callbacks)
+      {
+         // call the callback function, and pass in the user_data provided when the
+         // callback was registered
+         event_callback.second.first(&this_event, event_callback.second.second);
+      }
+
       screens.on_events(current_event);
 
       switch(this_event.type)
@@ -1041,6 +1051,25 @@ void Full::log(std::string message)
 {
    if (!textlog) return;
    al_append_native_text_log(textlog, message.c_str());
+}
+
+
+uint32_t Full::register_event_callback(std::function<void(ALLEGRO_EVENT*, void*)> callback, void* user_data)
+{
+   event_callbacks.insert({
+      next_event_callback_id,
+      { callback, user_data }
+   });
+
+   next_event_callback_id++;
+}
+
+
+bool Full::unregister_event_callback(uint32_t id)
+{
+   if (event_callbacks.count(id) == 0) return false;
+   event_callbacks.erase(id);
+   return true;
 }
 
 
