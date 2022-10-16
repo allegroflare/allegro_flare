@@ -2,10 +2,10 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/Screen.hpp>
 
+#include <AllegroFlare/CameraControlStrategies2D/HorizontalRail.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnap.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Snap.hpp>
 #include <AllegroFlare/EventNames.hpp>
-#include <Wicked/CameraControlStrategies2D/HorizontalRail.hpp>
 #include <Wicked/Entities/Basic2DFactory.hpp>
 #include <Wicked/Entities/CollectionHelper.hpp>
 #include <Wicked/Entities/Doors/Basic2D.hpp>

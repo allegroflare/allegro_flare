@@ -310,7 +310,7 @@ functions:
     body_dependency_symbols:
       - AllegroFlare::CameraControlStrategies2D::Snap
       - AllegroFlare::CameraControlStrategies2D::SmoothSnap
-      - Wicked::CameraControlStrategies2D::HorizontalRail
+      - AllegroFlare::CameraControlStrategies2D::HorizontalRail
 
 
   - name: initialize_player_controls
@@ -1088,8 +1088,8 @@ dependencies:
     headers: [ AllegroFlare/CameraControlStrategies2D/Snap.hpp ]
   - symbol: AllegroFlare::CameraControlStrategies2D::SmoothSnap
     headers: [ AllegroFlare/CameraControlStrategies2D/SmoothSnap.hpp ]
-  - symbol: Wicked::CameraControlStrategies2D::HorizontalRail
-    headers: [ Wicked/CameraControlStrategies2D/HorizontalRail.hpp ]
+  - symbol: AllegroFlare::CameraControlStrategies2D::HorizontalRail
+    headers: [ AllegroFlare/CameraControlStrategies2D/HorizontalRail.hpp ]
   - symbol: Wicked::Entities::CollectionHelper
     headers: [ Wicked/Entities/CollectionHelper.hpp ]
   - symbol: WickedDemos::TileMaps::Basic2D
