@@ -46,7 +46,6 @@ namespace AllegroFlare
             bool show_collision_tile_mesh;
             AllegroFlare::VirtualControls player_controls;
             Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
-            int player_collected_items;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             void initialize_camera();
             void cleanup_entities_flagged_for_deletion();
@@ -90,7 +89,6 @@ namespace AllegroFlare
             void player_emit_projectile(float magnitude=3.0f);
             void reverse_gravity();
             void update_entities();
-            void player_increment_collected_items();
             void draw_entities();
             void update_player_controls_on_player_controlled_entity();
             void update();

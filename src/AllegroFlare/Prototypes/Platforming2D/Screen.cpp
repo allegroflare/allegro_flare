@@ -46,7 +46,6 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , show_collision_tile_mesh(false)
    , player_controls()
    , camera_control_strategy(nullptr)
-   , player_collected_items(0)
    , backbuffer_sub_bitmap(nullptr)
 {
 }
@@ -658,7 +657,7 @@ void Screen::update_player_collisions_with_collectables()
       if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
       {
          entity->set(PLEASE_DELETE);
-         player_increment_collected_items();
+         // NOTE: typically will do something here as a result of picking up the item
       }
    }
    return;
@@ -685,12 +684,6 @@ void Screen::update_player_collisions_with_goalposts()
          //framework->shutdown_program = true;
       }
    }
-   return;
-}
-
-void Screen::player_increment_collected_items()
-{
-   player_collected_items++;
    return;
 }
 

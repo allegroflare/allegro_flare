@@ -98,10 +98,6 @@ properties:
     type: Wicked::CameraControlStrategies2D::Base*
     init_with: nullptr
 
-  - name: player_collected_items
-    type: int
-    init_with: 0
-
   - name: backbuffer_sub_bitmap
     type: ALLEGRO_BITMAP*
     init_with: nullptr
@@ -620,7 +616,7 @@ functions:
          if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
          {
             entity->set(PLEASE_DELETE);
-            player_increment_collected_items();
+            // NOTE: typically will do something here as a result of picking up the item
          }
       }
       return;
@@ -643,12 +639,6 @@ functions:
             //framework->shutdown_program = true;
          }
       }
-      return;
-
-
-  - name: player_increment_collected_items
-    body: |
-      player_collected_items++;
       return;
 
 
