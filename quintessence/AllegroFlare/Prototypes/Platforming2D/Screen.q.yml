@@ -1019,13 +1019,6 @@ functions:
       return currently_active_map->get_collision_tile_mesh();
 
 
-  - name: get_current_map_entities_ref
-    type: std::vector<Wicked::Entities::Basic2D*>&
-    guards: [ currently_active_map ]
-    body: |
-      return entity_pool;
-
-
   - name: get_current_map_entities
     type: std::vector<Wicked::Entities::Basic2D*>
     guards: [ player_controlled_entity ]

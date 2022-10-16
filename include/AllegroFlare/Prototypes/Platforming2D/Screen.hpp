@@ -107,7 +107,6 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
             AllegroFlare::TileMaps::PrimMesh* get_tile_mesh();
             AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_mesh();
-            std::vector<Wicked::Entities::Basic2D*>& get_current_map_entities_ref();
             std::vector<Wicked::Entities::Basic2D*> get_current_map_entities();
          };
       }

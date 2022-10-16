@@ -1089,17 +1089,6 @@ AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_mesh()
    return currently_active_map->get_collision_tile_mesh();
 }
 
-std::vector<Wicked::Entities::Basic2D*>& Screen::get_current_map_entities_ref()
-{
-   if (!(currently_active_map))
-   {
-      std::stringstream error_message;
-      error_message << "Screen" << "::" << "get_current_map_entities_ref" << ": error: " << "guard \"currently_active_map\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   return entity_pool;
-}
-
 std::vector<Wicked::Entities::Basic2D*> Screen::get_current_map_entities()
 {
    if (!(player_controlled_entity))
