@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/CameraControlStrategies2D/HorizontalRail.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnap.hpp>
+#include <AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Snap.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <Wicked/Entities/Basic2DFactory.hpp>
@@ -305,13 +306,14 @@ void Screen::initialize_camera_control()
    float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
    float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-   AllegroFlare::CameraControlStrategies2D::SmoothSnap *camera_control =
-      new AllegroFlare::CameraControlStrategies2D::SmoothSnap(room_width, room_height);
+   AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect *camera_control =
+      new AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect(room_width, room_height);
    //Wicked::CameraControlStrategies2D::HorizontalRail *camera_control =
       //new Wicked::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
    camera_control->set_camera(&camera);
    camera_control->set_entity_to_follow(player_controlled_entity);
    camera_control->initialize();
+
    camera_control_strategy = camera_control;
    return;
 }

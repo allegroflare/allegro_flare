@@ -452,11 +452,13 @@
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
+    "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
     "AllegroFlare/CameraControlStrategies2D/SmoothSnap",
     "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "Wicked/Entities/Basic2D": [
+    "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
     "AllegroFlare/CameraControlStrategies2D/SmoothSnap",
     "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -1669,9 +1671,8 @@
   "AllegroFlare/CameraControlStrategies2D/SmoothSnap": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
-  "Wicked/CameraControlStrategies2D/HorizontalRail": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "WickedDemos/TileDemo"
+  "AllegroFlare/CameraControlStrategies2D/HorizontalRail": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "Wicked/Entities/CollectionHelper": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -1981,6 +1982,9 @@
     "WickedDemos/TileDemo"
   ],
   "Wicked/CameraControlStrategies2D/SmoothSnap": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/CameraControlStrategies2D/HorizontalRail": [
     "WickedDemos/TileDemo"
   ],
   "std/vector<Wicked/Entities/Basic2D>&": [

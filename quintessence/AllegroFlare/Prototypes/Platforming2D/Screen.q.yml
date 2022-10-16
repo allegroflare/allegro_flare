@@ -298,18 +298,20 @@ functions:
       float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
       float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-      AllegroFlare::CameraControlStrategies2D::SmoothSnap *camera_control =
-         new AllegroFlare::CameraControlStrategies2D::SmoothSnap(room_width, room_height);
+      AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect *camera_control =
+         new AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect(room_width, room_height);
       //Wicked::CameraControlStrategies2D::HorizontalRail *camera_control =
          //new Wicked::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
       camera_control->set_camera(&camera);
       camera_control->set_entity_to_follow(player_controlled_entity);
       camera_control->initialize();
+
       camera_control_strategy = camera_control;
       return;
     body_dependency_symbols:
       - AllegroFlare::CameraControlStrategies2D::Snap
       - AllegroFlare::CameraControlStrategies2D::SmoothSnap
+      - AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect
       - AllegroFlare::CameraControlStrategies2D::HorizontalRail
 
 
@@ -1088,6 +1090,8 @@ dependencies:
     headers: [ AllegroFlare/CameraControlStrategies2D/Snap.hpp ]
   - symbol: AllegroFlare::CameraControlStrategies2D::SmoothSnap
     headers: [ AllegroFlare/CameraControlStrategies2D/SmoothSnap.hpp ]
+  - symbol: AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect
+    headers: [ AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp ]
   - symbol: AllegroFlare::CameraControlStrategies2D::HorizontalRail
     headers: [ AllegroFlare/CameraControlStrategies2D/HorizontalRail.hpp ]
   - symbol: Wicked::Entities::CollectionHelper
