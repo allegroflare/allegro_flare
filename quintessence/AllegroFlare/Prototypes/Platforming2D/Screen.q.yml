@@ -100,7 +100,7 @@ properties:
     init_with: ''
 
   - name: camera_control_strategy
-    type: Wicked::CameraControlStrategies2D::Base*
+    type: AllegroFlare::CameraControlStrategies2D::Base*
     init_with: nullptr
 
   - name: backbuffer_sub_bitmap
@@ -298,8 +298,8 @@ functions:
       float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
       float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-      Wicked::CameraControlStrategies2D::SmoothSnap *camera_control =
-         new Wicked::CameraControlStrategies2D::SmoothSnap(room_width, room_height);
+      AllegroFlare::CameraControlStrategies2D::SmoothSnap *camera_control =
+         new AllegroFlare::CameraControlStrategies2D::SmoothSnap(room_width, room_height);
       //Wicked::CameraControlStrategies2D::HorizontalRail *camera_control =
          //new Wicked::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
       camera_control->set_camera(&camera);
@@ -308,8 +308,8 @@ functions:
       camera_control_strategy = camera_control;
       return;
     body_dependency_symbols:
-      - Wicked::CameraControlStrategies2D::Snap
-      - Wicked::CameraControlStrategies2D::SmoothSnap
+      - AllegroFlare::CameraControlStrategies2D::Snap
+      - AllegroFlare::CameraControlStrategies2D::SmoothSnap
       - Wicked::CameraControlStrategies2D::HorizontalRail
 
 
@@ -1082,12 +1082,12 @@ dependencies:
     headers: [ Wicked/EntityFlagNames.hpp ]
   - symbol: Wicked::Weapons::DrawnBow
     headers: [ Wicked/Weapons/DrawnBow.hpp ]
-  - symbol: Wicked::CameraControlStrategies2D::Base
-    headers: [ Wicked/CameraControlStrategies2D/Base.hpp ]
-  - symbol: Wicked::CameraControlStrategies2D::Snap
-    headers: [ Wicked/CameraControlStrategies2D/Snap.hpp ]
-  - symbol: Wicked::CameraControlStrategies2D::SmoothSnap
-    headers: [ Wicked/CameraControlStrategies2D/SmoothSnap.hpp ]
+  - symbol: AllegroFlare::CameraControlStrategies2D::Base
+    headers: [ AllegroFlare/CameraControlStrategies2D/Base.hpp ]
+  - symbol: AllegroFlare::CameraControlStrategies2D::Snap
+    headers: [ AllegroFlare/CameraControlStrategies2D/Snap.hpp ]
+  - symbol: AllegroFlare::CameraControlStrategies2D::SmoothSnap
+    headers: [ AllegroFlare/CameraControlStrategies2D/SmoothSnap.hpp ]
   - symbol: Wicked::CameraControlStrategies2D::HorizontalRail
     headers: [ Wicked/CameraControlStrategies2D/HorizontalRail.hpp ]
   - symbol: Wicked::Entities::CollectionHelper

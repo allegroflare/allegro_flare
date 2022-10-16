@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Camera2D.hpp>
+#include <AllegroFlare/CameraControlStrategies2D/Base.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
@@ -11,7 +12,6 @@
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
-#include <Wicked/CameraControlStrategies2D/Base.hpp>
 #include <Wicked/Entities/Basic2D.hpp>
 #include <WickedDemos/TileMaps/Basic2D.hpp>
 #include <allegro5/allegro.h>
@@ -47,7 +47,7 @@ namespace AllegroFlare
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
             AllegroFlare::VirtualControls player_controls;
-            Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
+            AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             void initialize_camera();
             void cleanup_entities_flagged_for_deletion();
