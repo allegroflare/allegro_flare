@@ -75,9 +75,7 @@ namespace AllegroFlare
             WickedDemos::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
             virtual void on_activate() override;
             virtual void on_deactivate() override;
-            void initialize_display_projection();
             void initialize_maps();
-            void setup_projection();
             void initialize_camera_control();
             void initialize_player_controls();
             void initialize();

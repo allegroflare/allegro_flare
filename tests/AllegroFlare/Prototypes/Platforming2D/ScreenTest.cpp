@@ -14,8 +14,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_bl
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
-   //INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
-   DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+   INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+   //DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
