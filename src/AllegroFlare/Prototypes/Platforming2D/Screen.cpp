@@ -492,31 +492,27 @@ void Screen::update_entities()
       velocity.position.y += (gravity_reversed ? -gravity : gravity);
    }
 
-
-   //std::cout << "XXXXXXXXXXX" << std::endl;
-   // update the entities (typically includes movement strategies), may need to be done before applying gravity
+   // update the entities (typically includes movement strategies)
    for (auto &entity : get_current_map_entities())
    {
       entity->update();
    }
 
-   // step
+   // step each entity
    for (auto &entity : get_current_map_entities())
    {
-      //continue;
+      AllegroFlare::Placement2D &place = entity->get_place_ref();
+      AllegroFlare::Placement2D &velocity = entity->get_velocity_ref();
+
+      // handle case where entity does not interact with world tile mesh
       if (entity->exists(DOES_NOT_COLLIDE_WITH_WORLD))
       {
-         AllegroFlare::Placement2D &place = entity->get_place_ref();
-         AllegroFlare::Placement2D &velocity = entity->get_velocity_ref();
          place.position.x += velocity.position.x;
          place.position.y += velocity.position.y;
          continue;
       }
 
-      //std::cout << "11111111111" << std::endl;
-
-      AllegroFlare::Placement2D &place = entity->get_place_ref();
-      AllegroFlare::Placement2D &velocity = entity->get_velocity_ref();
+      // create a "simulated aabb2d" of the entity and run it through the collision stepper
       Wicked::Physics::AABB2D aabb2d(
          place.position.x - place.size.x * place.align.x,
          place.position.y - place.size.y * place.align.y,
@@ -533,11 +529,9 @@ void Screen::update_entities()
          tile_width,
          tile_height
       );
-
-      //std::cout << "2222222222222" << std::endl;
       collision_stepper.step();
-      //std::cout << "3333333333" << std::endl;
 
+      // modify the 
       place.position.x = aabb2d.get_x() + place.size.x * place.align.x;
       place.position.y = aabb2d.get_y() + place.size.y * place.align.y;
       velocity.position.x = aabb2d.get_velocity_x();
