@@ -51,7 +51,6 @@ properties:
   - name: entities
     type: std::vector<Wicked::Entities::Basic2D*>
     init_with: '{}'
-    getter_ref: true
     setter: true
 
   - name: map_dictionary

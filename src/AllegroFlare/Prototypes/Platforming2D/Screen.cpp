@@ -110,12 +110,6 @@ bool Screen::get_show_collision_tile_mesh() const
 }
 
 
-std::vector<Wicked::Entities::Basic2D*> &Screen::get_entities_ref()
-{
-   return entities;
-}
-
-
 void Screen::set_map_dictionary(std::map<std::string, std::string> map_dictionary)
 {
    if (!((!initialized)))

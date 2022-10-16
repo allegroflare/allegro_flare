@@ -69,7 +69,6 @@ namespace AllegroFlare
             Wicked::Entities::Basic2D* get_player_controlled_entity() const;
             bool get_show_tile_mesh() const;
             bool get_show_collision_tile_mesh() const;
-            std::vector<Wicked::Entities::Basic2D*> &get_entities_ref();
             void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
             void set_display(AllegroFlare::Display* display=nullptr);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
