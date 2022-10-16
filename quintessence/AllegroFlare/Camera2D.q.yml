@@ -85,11 +85,8 @@ dependencies:
 
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
-  - symbol: ALLEGRO_BITMAP*
-    headers: [ allegro5/allegro.h ]
   - symbol: tan
     headers: [ cmath ]
-
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
 
