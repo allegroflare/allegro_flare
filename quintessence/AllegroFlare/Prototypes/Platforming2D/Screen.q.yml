@@ -48,7 +48,7 @@ properties:
     type: std::string
     init_with: '"[currently-active-map-name-unset]"'
 
-  - name: entities
+  - name: entity_pool
     type: std::vector<Wicked::Entities::Basic2D*>
     init_with: '{}'
     setter: true
@@ -169,7 +169,7 @@ functions:
         type: std::string
         default_argument: '"[unset-map-name]"'
     body: |
-      Wicked::Entities::CollectionHelper collection_helper(&entities);
+      Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
       WickedDemos::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
       if (!found_map)
       {
@@ -265,7 +265,7 @@ functions:
          }
 
 
-         entities.push_back(created_map);
+         entity_pool.push_back(created_map);
       }
 
       set_currently_active_map("map_a");
@@ -1012,7 +1012,7 @@ functions:
     type: std::vector<Wicked::Entities::Basic2D*>&
     guards: [ currently_active_map ]
     body: |
-      return entities;
+      return entity_pool;
 
 
   - name: get_current_map_entities

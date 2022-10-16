@@ -36,7 +36,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , initialized(false)
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
-   , entities({})
+   , entity_pool({})
    , map_dictionary({})
    , gravity(0.25f)
    , gravity_reversed(false)
@@ -56,9 +56,9 @@ Screen::~Screen()
 }
 
 
-void Screen::set_entities(std::vector<Wicked::Entities::Basic2D*> entities)
+void Screen::set_entity_pool(std::vector<Wicked::Entities::Basic2D*> entity_pool)
 {
-   this->entities = entities;
+   this->entity_pool = entity_pool;
 }
 
 
@@ -169,7 +169,7 @@ void Screen::set_currently_active_map(std::string name)
 
 WickedDemos::TileMaps::Basic2D* Screen::find_map_by_name(std::string name)
 {
-   Wicked::Entities::CollectionHelper collection_helper(&entities);
+   Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
    WickedDemos::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
    if (!found_map)
    {
@@ -271,7 +271,7 @@ void Screen::initialize_maps()
       }
 
 
-      entities.push_back(created_map);
+      entity_pool.push_back(created_map);
    }
 
    set_currently_active_map("map_a");
@@ -1091,7 +1091,7 @@ std::vector<Wicked::Entities::Basic2D*>& Screen::get_current_map_entities_ref()
       error_message << "Screen" << "::" << "get_current_map_entities_ref" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
-   return entities;
+   return entity_pool;
 }
 
 std::vector<Wicked::Entities::Basic2D*> Screen::get_current_map_entities()

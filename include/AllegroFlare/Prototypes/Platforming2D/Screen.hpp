@@ -36,7 +36,7 @@ namespace AllegroFlare
             bool initialized;
             WickedDemos::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
-            std::vector<Wicked::Entities::Basic2D*> entities;
+            std::vector<Wicked::Entities::Basic2D*> entity_pool;
             std::map<std::string, std::string> map_dictionary;
             float gravity;
             bool gravity_reversed;
@@ -60,7 +60,7 @@ namespace AllegroFlare
             Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Display* display=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
-            void set_entities(std::vector<Wicked::Entities::Basic2D*> entities);
+            void set_entity_pool(std::vector<Wicked::Entities::Basic2D*> entity_pool);
             void set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity);
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
