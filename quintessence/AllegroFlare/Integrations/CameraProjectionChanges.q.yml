@@ -133,7 +133,7 @@ functions:
       created_entity->get_place_ref().position.y = 240/2;
 
       platforming_2d_screen.set_player_controlled_entity(created_entity);
-      platforming_2d_screen.get_current_map_entities_ref().push_back(created_entity);
+      platforming_2d_screen.add_entity_to_pool(created_entity);
 
       for (unsigned i=0; i<6; i++)
       {
@@ -147,19 +147,19 @@ functions:
             4.0f, // flap strength
             0.1f // recovery rate
          );
-         platforming_2d_screen.get_current_map_entities_ref().push_back(enemy);
+         platforming_2d_screen.add_entity_to_pool(enemy);
       }
 
       Wicked::Entities::Basic2D* collectable2 = factory.create_collectable("map_a", 5*16, 20*16);
-      platforming_2d_screen.get_current_map_entities_ref().push_back(collectable2);
+      platforming_2d_screen.add_entity_to_pool(collectable2);
 
-      platforming_2d_screen.get_current_map_entities_ref().push_back(factory.create_collectable("map_a", 45*16, 2*16));
+      platforming_2d_screen.add_entity_to_pool(factory.create_collectable("map_a", 45*16, 2*16));
 
       // create the door
-      platforming_2d_screen.get_current_map_entities_ref().push_back(
+      platforming_2d_screen.add_entity_to_pool(
          factory.create_door("map_b", 4.5*16, 7*16, "map_a", 46*16, 26*16)
       );
-      platforming_2d_screen.get_current_map_entities_ref().push_back(
+      platforming_2d_screen.add_entity_to_pool(
          factory.create_door("map_a", 46*16, 26*16, "map_b", 4.5*16, 7*16)
       );
 
