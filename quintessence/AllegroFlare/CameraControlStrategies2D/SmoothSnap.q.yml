@@ -1,0 +1,77 @@
+parent_classes:
+
+
+  - class: AllegroFlare::CameraControlStrategies2D::Base
+    scope: public
+    init_with: AllegroFlare::CameraControlStrategies2D::SmoothSnap::TYPE
+
+
+properties:
+
+
+  - name: room_width
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+
+  - name: room_height
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    
+  - name: entity_to_follow
+    type: Wicked::Entities::Basic2D*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"AllegroFlare/CameraControlStrategies2D/SmoothSnap"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: initialize
+    virtual: true
+    override: true
+    guards: [ (!get_initialized()), get_camera() ]
+    body: |
+      get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
+      get_camera_ref()->position = {room_width/2, room_height/2};
+
+      Base::initialize();
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    guards: [ get_initialized(), get_camera(), entity_to_follow ]
+    body: |
+      int room_x = (entity_to_follow->get_place_ref().position.x / room_width);
+      int room_y = (entity_to_follow->get_place_ref().position.y / room_height);
+      AllegroFlare::vec2d target = {room_width/2, room_height/2};
+      target += AllegroFlare::vec2d(room_x * room_width, room_y * room_height);
+
+      AllegroFlare::vec2d position = get_camera_ref()->position;
+
+      AllegroFlare::vec2d delta = target - position;
+
+      get_camera_ref()->position += (delta * 0.1);
+
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::CameraControlStrategies2D::Base
+    headers: [ AllegroFlare/CameraControlStrategies2D/Base.hpp ]
+  - symbol: Wicked::Entities::Basic2D
+    headers: [ Wicked/Entities/Basic2D.hpp ]
+
+

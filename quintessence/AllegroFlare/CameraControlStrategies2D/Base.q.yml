@@ -1,0 +1,63 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::CameraControlStrategies2D::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"AllegroFlare/CameraControlStrategies2D/Base"'
+    static: true
+    constexpr: true
+
+  - name: camera
+    type: AllegroFlare::Placement2D*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+
+functions:
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+
+  - name: initialize
+    virtual: true
+    guards: [ (!initialized) ]
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: update
+    virtual: true
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+
