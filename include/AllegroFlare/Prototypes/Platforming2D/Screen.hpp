@@ -48,7 +48,7 @@ namespace AllegroFlare
             Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
             int player_collected_items;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
-            void setup_camera();
+            void initialize_camera();
 
          protected:
 
@@ -78,6 +78,7 @@ namespace AllegroFlare
             void initialize_maps();
             void initialize_camera_control();
             void initialize_player_controls();
+            void initialize_backbuffer_sub_bitmap();
             void initialize();
             void unset_player_controlled_entity_vertical_velocity();
             void unset_player_controlled_entity_horizontal_velocity();

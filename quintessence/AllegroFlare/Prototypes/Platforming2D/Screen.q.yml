@@ -295,6 +295,10 @@ functions:
       camera_control->initialize();
       camera_control_strategy = camera_control;
       return;
+    body_dependency_symbols:
+      - Wicked::CameraControlStrategies2D::Snap
+      - Wicked::CameraControlStrategies2D::SmoothSnap
+      - Wicked::CameraControlStrategies2D::HorizontalRail
 
 
   - name: initialize_player_controls
@@ -303,15 +307,8 @@ functions:
       return;
 
 
-  - name: initialize
-    type: void
-    guards:
-      - bitmap_bin
-      - al_get_current_display()
+  - name: initialize_backbuffer_sub_bitmap
     body: |
-      initialize_camera_control();
-      initialize_player_controls();
-
       ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
       backbuffer_sub_bitmap = al_create_sub_bitmap(
          backbuffer,
@@ -328,22 +325,24 @@ functions:
                        << "could not create backbuffer_sub_bitmap";
          throw std::runtime_error(error_message.str());
       }
-
-      setup_camera();
-
-      initialized = true;
-
       return;
-    body_dependency_symbols:
-      - AllegroFlare::TileMaps::PrimMesh*
-      - AllegroFlare::TileMaps::TileMap<int>*
-      - Tileo::TMJMeshLoader
-      - Wicked::CameraControlStrategies2D::Snap
-      - Wicked::CameraControlStrategies2D::SmoothSnap
-      - Wicked::CameraControlStrategies2D::HorizontalRail
 
 
-  - name: setup_camera
+  - name: initialize
+    type: void
+    guards:
+      - bitmap_bin
+      - al_get_current_display()
+    body: |
+      initialize_camera_control();
+      initialize_player_controls();
+      initialize_backbuffer_sub_bitmap();
+      initialize_camera();
+      initialized = true;
+      return;
+
+
+  - name: initialize_camera
     private: true
     guards: [ currently_active_map, currently_active_map->get_tile_atlas(), currently_active_map->get_tile_mesh() ]
     body: |

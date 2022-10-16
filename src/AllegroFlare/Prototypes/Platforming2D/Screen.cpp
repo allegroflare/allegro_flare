@@ -3,9 +3,6 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Screen.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/TileMaps/PrimMesh.hpp>
-#include <AllegroFlare/TileMaps/TileMap.hpp>
-#include <Tileo/TMJMeshLoader.hpp>
 #include <Wicked/CameraControlStrategies2D/HorizontalRail.hpp>
 #include <Wicked/CameraControlStrategies2D/SmoothSnap.hpp>
 #include <Wicked/CameraControlStrategies2D/Snap.hpp>
@@ -313,23 +310,8 @@ void Screen::initialize_player_controls()
    return;
 }
 
-void Screen::initialize()
+void Screen::initialize_backbuffer_sub_bitmap()
 {
-   if (!(bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(al_get_current_display()))
-   {
-      std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"al_get_current_display()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   initialize_camera_control();
-   initialize_player_controls();
-
    ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
    backbuffer_sub_bitmap = al_create_sub_bitmap(
       backbuffer,
@@ -346,32 +328,49 @@ void Screen::initialize()
                     << "could not create backbuffer_sub_bitmap";
       throw std::runtime_error(error_message.str());
    }
-
-   setup_camera();
-
-   initialized = true;
-
    return;
 }
 
-void Screen::setup_camera()
+void Screen::initialize()
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_get_current_display()))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"al_get_current_display()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   initialize_camera_control();
+   initialize_player_controls();
+   initialize_backbuffer_sub_bitmap();
+   initialize_camera();
+   initialized = true;
+   return;
+}
+
+void Screen::initialize_camera()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map\" not met";
+      error_message << "Screen" << "::" << "initialize_camera" << ": error: " << "guard \"currently_active_map\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(currently_active_map->get_tile_atlas()))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map->get_tile_atlas()\" not met";
+      error_message << "Screen" << "::" << "initialize_camera" << ": error: " << "guard \"currently_active_map->get_tile_atlas()\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(currently_active_map->get_tile_mesh()))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map->get_tile_mesh()\" not met";
+      error_message << "Screen" << "::" << "initialize_camera" << ": error: " << "guard \"currently_active_map->get_tile_mesh()\" not met";
       throw std::runtime_error(error_message.str());
    }
    //camera.size = { 1920.0f, 1080.0f };
