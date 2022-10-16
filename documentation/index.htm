@@ -61,6 +61,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Camera2D.q.yml">quintessence/AllegroFlare/Camera2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/Base.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnap.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Cubemap.q.yml">quintessence/AllegroFlare/Cubemap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AchievementsList.q.yml">quintessence/AllegroFlare/Elements/AchievementsList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
@@ -970,6 +971,34 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">entity_to_follow</td>
+  <td class="property">Wicked::Entities::Basic2D*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::CameraControlStrategies2D::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/CameraControlStrategies2D/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14969,10 +14998,12 @@ table td
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/SmoothSnap",
+    "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "Wicked/Entities/Basic2D": [
     "AllegroFlare/CameraControlStrategies2D/SmoothSnap",
+    "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "Wicked/CameraControlStrategies2D/HorizontalRail",
     "Wicked/CameraControlStrategies2D/SmoothSnap",
