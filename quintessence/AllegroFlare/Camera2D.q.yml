@@ -10,8 +10,8 @@ properties:
 
 
   - name: zoom
-    type: float
-    init_with: 1.0f
+    type: AllegroFlare::Vec2D
+    init_with: '{1.0f, 1.0f}'
     getter: true
 
 
@@ -21,10 +21,11 @@ functions:
   - name: set_zoom
     parameters:
       - name: zoom
-        type: float
-        default_argument: 1.0f
+        type: AllegroFlare::Vec2D
+        default_argument: '{1.0f, 1.0f}'
     body: |
-      scale = AllegroFlare::vec2d(1.0 / zoom, 1.0 / zoom);
+      scale = AllegroFlare::vec2d(1.0 / zoom.x, 1.0 / zoom.y);
+      this->zoom = zoom;
       return;
 
 
@@ -94,5 +95,7 @@ dependencies:
     headers: [ cmath ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
 
 

@@ -13,7 +13,7 @@ namespace AllegroFlare
 
 Camera2D::Camera2D()
    : AllegroFlare::Placement2D()
-   , zoom(1.0f)
+   , zoom({1.0f, 1.0f})
 {
 }
 
@@ -23,15 +23,16 @@ Camera2D::~Camera2D()
 }
 
 
-float Camera2D::get_zoom() const
+AllegroFlare::Vec2D Camera2D::get_zoom() const
 {
    return zoom;
 }
 
 
-void Camera2D::set_zoom(float zoom)
+void Camera2D::set_zoom(AllegroFlare::Vec2D zoom)
 {
-   scale = AllegroFlare::vec2d(1.0 / zoom, 1.0 / zoom);
+   scale = AllegroFlare::vec2d(1.0 / zoom.x, 1.0 / zoom.y);
+   this->zoom = zoom;
    return;
 }
 

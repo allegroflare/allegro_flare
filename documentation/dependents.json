@@ -439,6 +439,17 @@
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
+  "AllegroFlare/Vec2D": [
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+  ],
   "GLuint": [
     "AllegroFlare/Cubemap"
   ],
@@ -972,15 +983,6 @@
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header"
-  ],
-  "AllegroFlare/Vec2D": [
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "std/setfill": [
     "AllegroFlare/Elements/Score",

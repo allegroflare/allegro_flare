@@ -71,6 +71,12 @@ properties:
     type: AllegroFlare::Camera2D
     init_with: ''
 
+  - name: camera_baseline_zoom
+    type: AllegroFlare::Vec2D
+    init_with: '{4.8f, 4.5f}'
+    getter: true
+    setter: true
+
   - name: player_controlled_entity
     type: Wicked::Entities::Basic2D*
     init_with: nullptr
@@ -370,7 +376,8 @@ functions:
          //     - 16x16 pixel tiles
          // see https://www.yachtclubgames.com/blog/breaking-the-nes
 
-      camera.scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
+      camera.set_zoom(camera_baseline_zoom);
+      //AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
       camera.position = {room_width/2, room_height/2};
 
       return;
@@ -772,6 +779,12 @@ functions:
       case ALLEGRO_KEY_2:
          //toggle_show_tile_mesh();
          break;
+      case ALLEGRO_KEY_PAD_PLUS:
+         camera.set_zoom(camera.get_zoom() + AllegroFlare::Vec2D({0.1, 0.1}));
+         break;
+      case ALLEGRO_KEY_PAD_MINUS:
+         camera.set_zoom(camera.get_zoom() - AllegroFlare::Vec2D({0.1, 0.1}));
+         break;
       default:
          break;
       }
@@ -1105,5 +1118,7 @@ dependencies:
     headers: [ AllegroFlare/Camera2D.hpp ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
 
 

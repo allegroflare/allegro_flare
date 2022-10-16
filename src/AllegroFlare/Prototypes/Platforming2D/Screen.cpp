@@ -41,6 +41,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , gravity(0.25f)
    , gravity_reversed(false)
    , camera()
+   , camera_baseline_zoom({4.8f, 4.5f})
    , player_controlled_entity(nullptr)
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
@@ -59,6 +60,12 @@ Screen::~Screen()
 void Screen::set_entity_pool(std::vector<Wicked::Entities::Basic2D*> entity_pool)
 {
    this->entity_pool = entity_pool;
+}
+
+
+void Screen::set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom)
+{
+   this->camera_baseline_zoom = camera_baseline_zoom;
 }
 
 
@@ -89,6 +96,12 @@ AllegroFlare::BitmapBin* Screen::get_bitmap_bin() const
 std::map<std::string, std::string> Screen::get_map_dictionary() const
 {
    return map_dictionary;
+}
+
+
+AllegroFlare::Vec2D Screen::get_camera_baseline_zoom() const
+{
+   return camera_baseline_zoom;
 }
 
 
@@ -390,7 +403,8 @@ void Screen::initialize_camera()
       //     - 16x16 pixel tiles
       // see https://www.yachtclubgames.com/blog/breaking-the-nes
 
-   camera.scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
+   camera.set_zoom(camera_baseline_zoom);
+   //AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
    camera.position = {room_width/2, room_height/2};
 
    return;
@@ -834,6 +848,12 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
       break;
    case ALLEGRO_KEY_2:
       //toggle_show_tile_mesh();
+      break;
+   case ALLEGRO_KEY_PAD_PLUS:
+      camera.set_zoom(camera.get_zoom() + AllegroFlare::Vec2D({0.1, 0.1}));
+      break;
+   case ALLEGRO_KEY_PAD_MINUS:
+      camera.set_zoom(camera.get_zoom() - AllegroFlare::Vec2D({0.1, 0.1}));
       break;
    default:
       break;

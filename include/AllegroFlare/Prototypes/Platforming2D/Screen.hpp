@@ -9,6 +9,7 @@
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <Wicked/CameraControlStrategies2D/Base.hpp>
 #include <Wicked/Entities/Basic2D.hpp>
@@ -41,6 +42,7 @@ namespace AllegroFlare
             float gravity;
             bool gravity_reversed;
             AllegroFlare::Camera2D camera;
+            AllegroFlare::Vec2D camera_baseline_zoom;
             Wicked::Entities::Basic2D* player_controlled_entity;
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
@@ -61,11 +63,13 @@ namespace AllegroFlare
             virtual ~Screen();
 
             void set_entity_pool(std::vector<Wicked::Entities::Basic2D*> entity_pool);
+            void set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom);
             void set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity);
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             std::map<std::string, std::string> get_map_dictionary() const;
+            AllegroFlare::Vec2D get_camera_baseline_zoom() const;
             Wicked::Entities::Basic2D* get_player_controlled_entity() const;
             bool get_show_tile_mesh() const;
             bool get_show_collision_tile_mesh() const;

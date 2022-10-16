@@ -867,7 +867,7 @@ table td
      <table>
 <tr>
   <td class="property">zoom</td>
-  <td class="property">float</td>
+  <td class="property">AllegroFlare::Vec2D</td>
 </tr>
     </table>
      <table>
@@ -887,6 +887,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -8734,6 +8737,10 @@ table td
   <td class="property">AllegroFlare::Camera2D</td>
 </tr>
 <tr>
+  <td class="property">camera_baseline_zoom</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
   <td class="property">player_controlled_entity</td>
   <td class="property">Wicked::Entities::Basic2D*</td>
 </tr>
@@ -9000,6 +9007,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14865,6 +14875,17 @@ table td
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
+  "AllegroFlare/Vec2D": [
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+  ],
   "GLuint": [
     "AllegroFlare/Cubemap"
   ],
@@ -15398,15 +15419,6 @@ table td
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header"
-  ],
-  "AllegroFlare/Vec2D": [
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "std/setfill": [
     "AllegroFlare/Elements/Score",
