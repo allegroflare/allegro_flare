@@ -454,12 +454,14 @@
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
     "AllegroFlare/CameraControlStrategies2D/SmoothSnap",
+    "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect",
     "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "Wicked/Entities/Basic2D": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
     "AllegroFlare/CameraControlStrategies2D/SmoothSnap",
+    "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect",
     "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "Wicked/CameraControlStrategies2D/HorizontalRail",
@@ -1669,6 +1671,9 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/CameraControlStrategies2D/SmoothSnap": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
+  "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/CameraControlStrategies2D/HorizontalRail": [

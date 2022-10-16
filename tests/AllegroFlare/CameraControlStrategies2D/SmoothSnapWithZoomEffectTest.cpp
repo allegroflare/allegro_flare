@@ -21,7 +21,10 @@ TEST(AllegroFlare_CameraControlStrategies2D_SmoothSnapWithZoomEffectTest, TYPE__
 TEST(AllegroFlare_CameraControlStrategies2D_SmoothSnapWithZoomEffectTest, type__has_the_expected_value_matching_TYPE)
 {
    AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect smooth_snap_with_zoom_effect;
-   EXPECT_EQ(AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::TYPE, smooth_snap_with_zoom_effect.get_type());
+   EXPECT_EQ(
+      AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::TYPE,
+      smooth_snap_with_zoom_effect.get_type()
+   );
 }
 
 

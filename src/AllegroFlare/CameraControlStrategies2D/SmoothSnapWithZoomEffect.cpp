@@ -88,6 +88,15 @@ void SmoothSnapWithZoomEffect::update()
 
    AllegroFlare::vec2d delta = target - position;
 
+   if (delta == AllegroFlare::Vec2D(0.0, 0.0))
+   {
+      // no zoom effect
+   }
+   else
+   {
+      // TODO: work out some fun here
+   }
+
    get_camera_ref()->position += (delta * 0.1);
 
    return;
