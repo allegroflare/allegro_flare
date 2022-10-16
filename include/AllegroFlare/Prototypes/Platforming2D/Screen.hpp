@@ -49,6 +49,10 @@ namespace AllegroFlare
             int player_collected_items;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             void initialize_camera();
+            void cleanup_entities_flagged_for_deletion();
+            void check_player_collisions_with_doors();
+            void update_player_collisions_with_collectables();
+            void update_player_collisions_with_goalposts();
 
          protected:
 
@@ -86,10 +90,6 @@ namespace AllegroFlare
             void player_emit_projectile(float magnitude=3.0f);
             void reverse_gravity();
             void update_entities();
-            void delete_entities_flagged_for_deletion();
-            void check_player_collisions_with_doors();
-            void update_player_collisions_with_collectables();
-            void update_player_collisions_with_goalposts();
             void player_increment_collected_items();
             void draw_entities();
             void update_player_controls_on_player_controlled_entity();

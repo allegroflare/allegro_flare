@@ -551,23 +551,17 @@ void Screen::update_entities()
       else entity->remove(ADJACENT_TO_RIGHT_WALL);
    }
 
-   //std::cout << "ZZZZZZZZZZ" << std::endl;
-
    // update the collectables
    update_player_collisions_with_collectables();
-   //std::cout << "-------------" << std::endl;
 
    // update the player colliding on the goalposts
    update_player_collisions_with_goalposts();
 
-   //std::cout << "!!!!!!!!!!!!!!" << std::endl;
    // update the player colliding on the doors
    //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
 
    // delete entities flagged to be deleted
-   delete_entities_flagged_for_deletion();
-
-      //std::cout << "RRRRRRRRRRRRRR" << std::endl;
+   cleanup_entities_flagged_for_deletion();
 
    // update camera
    if (camera_control_strategy) camera_control_strategy->update();
@@ -575,7 +569,7 @@ void Screen::update_entities()
    return;
 }
 
-void Screen::delete_entities_flagged_for_deletion()
+void Screen::cleanup_entities_flagged_for_deletion()
 {
    for (int i=0; i<get_current_map_entities_ref().size(); i++)
    {
@@ -624,7 +618,7 @@ void Screen::check_player_collisions_with_doors()
          }
          else // will door travel to another map or place on the current map
          {
-            std::string map_target_name = door->get_target_map_name(); // do nothing with this for now
+            std::string map_target_name = door->get_target_map_name();
             float target_spawn_x = door->get_target_spawn_x();
             float target_spawn_y = door->get_target_spawn_y();
 
