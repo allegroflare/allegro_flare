@@ -73,6 +73,7 @@ void CameraProjectionChanges::initialize()
    framework.register_screen("tile_drive_screen", &tile_drive_screen);
    framework.register_screen("camera_projection_changes_screen", this);
 
+
    framework.register_event_callback(callback, &framework);
 
    initialized = true;

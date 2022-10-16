@@ -329,6 +329,8 @@ bool Full::shutdown()
    fonts.clear();
    models.clear();
 
+   event_callbacks.clear();
+
    if (primary_sub_bitmap) al_destroy_bitmap(primary_sub_bitmap);
    if (primary_display) al_destroy_display(primary_display->al_display);
 

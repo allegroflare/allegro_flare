@@ -12,6 +12,7 @@
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Vec3D.hpp>
+#include <allegro5/allegro.h>
 #include <functional>
 #include <map>
 #include <string>
@@ -55,6 +56,7 @@ namespace AllegroFlare
             int state;
             bool initialized;
             AllegroFlare::Sound* debug_metronome_sound;
+            ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             float calculate_current_terrain_mesh_height();
             float calculate_current_terrain_mesh_tile_depth();
 

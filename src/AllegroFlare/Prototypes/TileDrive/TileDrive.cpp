@@ -47,6 +47,7 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , state(STATE_WAITING_START)
    , initialized(false)
    , debug_metronome_sound(nullptr)
+   , backbuffer_sub_bitmap(nullptr)
 {
 }
 
@@ -250,6 +251,31 @@ void TileDrive::initialize()
       error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!(al_get_current_display()))
+   {
+      std::stringstream error_message;
+      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"al_get_current_display()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+
+   backbuffer_sub_bitmap = al_create_sub_bitmap(
+      backbuffer,
+      0,
+      0,
+      al_get_bitmap_width(backbuffer),
+      al_get_bitmap_height(backbuffer)
+   );
+
+   if (!backbuffer_sub_bitmap)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
+                    << "could not create backbuffer_sub_bitmap";
+      throw std::runtime_error(error_message.str());
+   }
+
+
    AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory factory(bitmap_bin);
    //current_terrain_mesh = factory.create_classic_random();
    //current_terrain_mesh = factory.create_random_with_walls();
@@ -605,7 +631,11 @@ void TileDrive::render()
       throw std::runtime_error(error_message.str());
    }
    //al_clear_depth_buffer(1);
-   camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
+   ALLEGRO_STATE previous_target_bitmap_state;
+   al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
+   camera.setup_projection_on(backbuffer_sub_bitmap);
+   al_set_target_bitmap(backbuffer_sub_bitmap);
+   //camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
 
    //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
    //glDisable(GL_CULL_FACE);
@@ -617,6 +647,7 @@ void TileDrive::render()
    render_driver();
    //place.restore_transform();
    //camera.restore_transform();
+   al_restore_state(&previous_target_bitmap_state);
 
    render_hud();
    return;
