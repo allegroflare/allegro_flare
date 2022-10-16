@@ -8731,7 +8731,7 @@ table td
 </tr>
 <tr>
   <td class="property">camera</td>
-  <td class="property">AllegroFlare::Placement2D</td>
+  <td class="property">AllegroFlare::Camera2D</td>
 </tr>
 <tr>
   <td class="property">player_controlled_entity</td>
@@ -8756,6 +8756,10 @@ table td
 <tr>
   <td class="property">player_collected_items</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">backbuffer_sub_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
     </table>
      <table>
@@ -9000,6 +9004,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14850,6 +14860,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/PauseScreen",
@@ -15881,6 +15892,7 @@ table td
   ],
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "ALLEGRO_EVENT_QUEUE": [

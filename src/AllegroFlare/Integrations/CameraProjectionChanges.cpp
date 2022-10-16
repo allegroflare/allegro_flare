@@ -45,6 +45,7 @@ void CameraProjectionChanges::callback(ALLEGRO_EVENT* event, void* user_data)
    if (event->type != ALLEGRO_EVENT_KEY_DOWN) return;
    AllegroFlare::Frameworks::Full &framework = *static_cast<AllegroFlare::Frameworks::Full*>(user_data);
 
+
    switch (event->keyboard.keycode)
    {
       case ALLEGRO_KEY_1:

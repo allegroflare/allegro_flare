@@ -2,9 +2,9 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
-#include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
@@ -40,13 +40,14 @@ namespace AllegroFlare
             std::map<std::string, std::string> map_dictionary;
             float gravity;
             bool gravity_reversed;
-            AllegroFlare::Placement2D camera;
+            AllegroFlare::Camera2D camera;
             Wicked::Entities::Basic2D* player_controlled_entity;
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
             AllegroFlare::VirtualControls player_controls;
             Wicked::CameraControlStrategies2D::Base* camera_control_strategy;
             int player_collected_items;
+            ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             void setup_camera();
 
          protected:

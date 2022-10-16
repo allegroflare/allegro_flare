@@ -44,13 +44,14 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , map_dictionary({})
    , gravity(0.25f)
    , gravity_reversed(false)
-   , camera(0, 0, 1920, 1080)
+   , camera()
    , player_controlled_entity(nullptr)
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , player_controls()
    , camera_control_strategy(nullptr)
    , player_collected_items(0)
+   , backbuffer_sub_bitmap(nullptr)
 {
 }
 
@@ -200,7 +201,7 @@ void Screen::on_activate()
       error_message << "Screen" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   setup_projection();
+   //setup_projection();
    return;
 }
 
@@ -218,7 +219,7 @@ void Screen::on_deactivate()
 
 void Screen::initialize_display_projection()
 {
-   setup_projection();
+   //setup_projection();
    return;
 }
 
@@ -367,11 +368,36 @@ void Screen::initialize()
       error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!(al_get_current_display()))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"al_get_current_display()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
    initialize_display_projection();
    //initialize_maps();
    //initialize_entities();
    initialize_camera_control();
    initialize_player_controls();
+
+   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+   backbuffer_sub_bitmap = al_create_sub_bitmap(
+      backbuffer,
+      0,
+      0,
+      al_get_bitmap_width(backbuffer),
+      al_get_bitmap_height(backbuffer)
+   );
+
+   if (!backbuffer_sub_bitmap)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::Prototypes::Platforming2D::Screen::initialize() error: "
+                    << "could not create backbuffer_sub_bitmap";
+      throw std::runtime_error(error_message.str());
+   }
+
+   setup_camera();
 
    initialized = true;
 
@@ -398,6 +424,10 @@ void Screen::setup_camera()
       error_message << "Screen" << "::" << "setup_camera" << ": error: " << "guard \"currently_active_map->get_tile_mesh()\" not met";
       throw std::runtime_error(error_message.str());
    }
+   //camera.size = { 1920.0f, 1080.0f };
+   camera.size = AllegroFlare::vec2d(1920.0f, 1080.0f);
+   camera.align = AllegroFlare::vec2d(0.5, 0.5);
+
    //float width = tile_mesh->get_real_width();
    //float height = tile_mesh->get_real_height();
 
@@ -809,13 +839,27 @@ void Screen::draw()
       error_message << "Screen" << "::" << "draw" << ": error: " << "guard \"get_tile_mesh()\" not met";
       throw std::runtime_error(error_message.str());
    }
-   camera.start_reverse_transform();
+   camera.setup_dimentional_projection(backbuffer_sub_bitmap);
 
+   ALLEGRO_STATE previous_target_bitmap;
+   al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
+   al_set_target_bitmap(backbuffer_sub_bitmap);
+   camera.start_reverse_transform();
+   //camera.start_transform();
+
+   al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
+                                                                           // subsequent renders at the same
+                                                                           // z-level to overwrite. This 
+                                                                           // mimics the rendering of typical
+                                                                           // "traditional" drawing functions
+   //draw_entities(); // entities are drawn before the tilemap so there is not collision with the
+                      // zbuffer
    if (show_tile_mesh) get_tile_mesh()->render();
    draw_entities();
    if (show_collision_tile_mesh) render_collision_tile_mesh();
 
    camera.restore_transform();
+   al_restore_state(&previous_target_bitmap);
 
    return;
 }
@@ -856,10 +900,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
    switch (event->keyboard.keycode)
    {
    case ALLEGRO_KEY_1:
-      toggle_show_collision_tile_mesh();
+      //toggle_show_collision_tile_mesh();
       break;
    case ALLEGRO_KEY_2:
-      toggle_show_tile_mesh();
+      //toggle_show_tile_mesh();
       break;
    default:
       break;

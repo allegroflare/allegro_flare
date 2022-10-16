@@ -19,8 +19,8 @@ TEST(AllegroFlare_Integrations_CameraProjectionChangesTest,
 
 
 TEST(AllegroFlare_Integrations_CameraProjectionChangesTest,
-   //DISABLED__INTERACTIVE__start__will_work_as_expected)
-   INTERACTIVE__start__will_work_as_expected)
+   DISABLED__INTERACTIVE__start__will_work_as_expected)
+   //INTERACTIVE__start__will_work_as_expected)
 {
    AllegroFlare::Integrations::CameraProjectionChanges camera_projection_changes;
    camera_projection_changes.initialize();

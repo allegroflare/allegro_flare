@@ -69,8 +69,8 @@ properties:
     init_with: false
 
   - name: camera
-    type: AllegroFlare::Placement2D
-    init_with: '0, 0, 1920, 1080'
+    type: AllegroFlare::Camera2D
+    init_with: ''
 
   - name: player_controlled_entity
     type: Wicked::Entities::Basic2D*
@@ -101,6 +101,10 @@ properties:
   - name: player_collected_items
     type: int
     init_with: 0
+
+  - name: backbuffer_sub_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
 
 
 functions:
@@ -188,7 +192,7 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      setup_projection();
+      //setup_projection();
       return;
 
 
@@ -203,7 +207,7 @@ functions:
 
   - name: initialize_display_projection
     body: |
-      setup_projection();
+      //setup_projection();
       return;
 
 
@@ -350,13 +354,34 @@ functions:
 
   - name: initialize
     type: void
-    guards: [ bitmap_bin ]
+    guards:
+      - bitmap_bin
+      - al_get_current_display()
     body: |
       initialize_display_projection();
       //initialize_maps();
       //initialize_entities();
       initialize_camera_control();
       initialize_player_controls();
+
+      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+      backbuffer_sub_bitmap = al_create_sub_bitmap(
+         backbuffer,
+         0,
+         0,
+         al_get_bitmap_width(backbuffer),
+         al_get_bitmap_height(backbuffer)
+      );
+
+      if (!backbuffer_sub_bitmap)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Prototypes::Platforming2D::Screen::initialize() error: "
+                       << "could not create backbuffer_sub_bitmap";
+         throw std::runtime_error(error_message.str());
+      }
+
+      setup_camera();
 
       initialized = true;
 
@@ -374,6 +399,10 @@ functions:
     private: true
     guards: [ currently_active_map, currently_active_map->get_tile_atlas(), currently_active_map->get_tile_mesh() ]
     body: |
+      //camera.size = { 1920.0f, 1080.0f };
+      camera.size = AllegroFlare::vec2d(1920.0f, 1080.0f);
+      camera.align = AllegroFlare::vec2d(0.5, 0.5);
+ 
       //float width = tile_mesh->get_real_width();
       //float height = tile_mesh->get_real_height();
 
@@ -739,13 +768,27 @@ functions:
   - name: draw
     guards: [ initialized, currently_active_map, get_tile_mesh() ]
     body: |
-      camera.start_reverse_transform();
+      camera.setup_dimentional_projection(backbuffer_sub_bitmap);
 
+      ALLEGRO_STATE previous_target_bitmap;
+      al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
+      al_set_target_bitmap(backbuffer_sub_bitmap);
+      camera.start_reverse_transform();
+      //camera.start_transform();
+
+      al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
+                                                                              // subsequent renders at the same
+                                                                              // z-level to overwrite. This 
+                                                                              // mimics the rendering of typical
+                                                                              // "traditional" drawing functions
+      //draw_entities(); // entities are drawn before the tilemap so there is not collision with the
+                         // zbuffer
       if (show_tile_mesh) get_tile_mesh()->render();
       draw_entities();
       if (show_collision_tile_mesh) render_collision_tile_mesh();
 
       camera.restore_transform();
+      al_restore_state(&previous_target_bitmap);
       
       return;
     body_dependency_symbols:
@@ -785,10 +828,10 @@ functions:
       switch (event->keyboard.keycode)
       {
       case ALLEGRO_KEY_1:
-         toggle_show_collision_tile_mesh();
+         //toggle_show_collision_tile_mesh();
          break;
       case ALLEGRO_KEY_2:
-         toggle_show_tile_mesh();
+         //toggle_show_tile_mesh();
          break;
       default:
          break;
@@ -1126,5 +1169,9 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::Camera2D
+    headers: [ AllegroFlare/Camera2D.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
 
 
