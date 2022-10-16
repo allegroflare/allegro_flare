@@ -531,7 +531,7 @@ void Screen::update_entities()
       );
       collision_stepper.step();
 
-      // modify the 
+      // supplant our entity's position and velocity values with the "simulated aabb2d"'s values
       place.position.x = aabb2d.get_x() + place.size.x * place.align.x;
       place.position.y = aabb2d.get_y() + place.size.y * place.align.y;
       velocity.position.x = aabb2d.get_velocity_x();
