@@ -1630,6 +1630,14 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
+  "Wicked/CameraControlStrategies2D/Base": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "Wicked/CameraControlStrategies2D/HorizontalRail",
+    "Wicked/CameraControlStrategies2D/SmoothSnap",
+    "Wicked/CameraControlStrategies2D/Snap",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
+  ],
   "Wicked/CameraControlStrategies2D/Snap": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
@@ -1663,14 +1671,6 @@
   ],
   "AllegroFlare/Display": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/CameraControlStrategies2D/Base": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "Wicked/CameraControlStrategies2D/HorizontalRail",
-    "Wicked/CameraControlStrategies2D/SmoothSnap",
-    "Wicked/CameraControlStrategies2D/Snap",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],

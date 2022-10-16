@@ -1082,6 +1082,8 @@ dependencies:
     headers: [ Wicked/EntityFlagNames.hpp ]
   - symbol: Wicked::Weapons::DrawnBow
     headers: [ Wicked/Weapons/DrawnBow.hpp ]
+  - symbol: Wicked::CameraControlStrategies2D::Base
+    headers: [ Wicked/CameraControlStrategies2D/Base.hpp ]
   - symbol: Wicked::CameraControlStrategies2D::Snap
     headers: [ Wicked/CameraControlStrategies2D/Snap.hpp ]
   - symbol: Wicked::CameraControlStrategies2D::SmoothSnap
@@ -1106,8 +1108,6 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Display
     headers: [ AllegroFlare/Display.hpp ]
-  - symbol: Wicked::CameraControlStrategies2D::Base
-    headers: [ Wicked/CameraControlStrategies2D/Base.hpp ]
   - symbol: Wicked::Entities::Basic2D
     headers: [ Wicked/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::EventEmitter
