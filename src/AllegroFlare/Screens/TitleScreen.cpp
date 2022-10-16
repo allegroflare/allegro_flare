@@ -363,6 +363,9 @@ void TitleScreen::render()
       error_message << "TitleScreen" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
       throw std::runtime_error(error_message.str());
    }
+   //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS);
+   //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
+
    draw_background();
    draw_title();
    draw_copyright_text();

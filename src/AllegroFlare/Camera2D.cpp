@@ -88,9 +88,9 @@ void Camera2D::setup_dimentional_projection(ALLEGRO_BITMAP* bitmap)
    al_store_state(&previous_bitmap_target_state, ALLEGRO_STATE_TARGET_BITMAP);
    al_set_target_bitmap(bitmap);
 
-   al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-   al_clear_depth_buffer(1);
+   //al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+   //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+   //al_clear_depth_buffer(1);
 
    al_use_projection_transform(&view);
    al_restore_state(&previous_bitmap_target_state);
