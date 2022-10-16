@@ -279,6 +279,12 @@ void Screen::initialize_maps()
    return;
 }
 
+void Screen::add_entity_to_pool(Wicked::Entities::Basic2D* entity)
+{
+   entity_pool.push_back(entity);
+   return;
+}
+
 void Screen::initialize_camera_control()
 {
    float assumed_tile_width = 16.0f;
@@ -451,7 +457,7 @@ void Screen::player_emit_projectile(float magnitude)
       aim_pos,
       magnitude
    );
-   get_current_map_entities_ref().push_back(projectile);
+   entity_pool.push_back(projectile);
 
 
    // HERE
@@ -564,13 +570,13 @@ void Screen::update_entities()
 
 void Screen::cleanup_entities_flagged_for_deletion()
 {
-   for (int i=0; i<get_current_map_entities_ref().size(); i++)
+   for (int i=0; i<entity_pool.size(); i++)
    {
-      if (get_current_map_entities_ref()[i]->exists(PLEASE_DELETE))
+      if (entity_pool[i]->exists(PLEASE_DELETE))
       {
          std::cout << "NOTICE: deleting entity." << std::endl;
-         delete get_current_map_entities_ref()[i];
-         get_current_map_entities_ref().erase(get_current_map_entities_ref().begin() + i);
+         delete entity_pool[i];
+         entity_pool.erase(entity_pool.begin() + i);
          i--;
       }
    }
@@ -1102,7 +1108,7 @@ std::vector<Wicked::Entities::Basic2D*> Screen::get_current_map_entities()
       error_message << "Screen" << "::" << "get_current_map_entities" << ": error: " << "guard \"player_controlled_entity\" not met";
       throw std::runtime_error(error_message.str());
    }
-   Wicked::Entities::CollectionHelper collection_helper(&get_current_map_entities_ref());
+   Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
    std::string on_map_name = currently_active_map_name;
    return collection_helper.select_on_map(on_map_name);
 }

@@ -273,6 +273,17 @@ functions:
       return;
 
 
+  - name: add_entity_to_pool
+    type: void
+    parameters:
+      - name: entity
+        type: Wicked::Entities::Basic2D*
+        default_argument: nullptr
+    body: |
+      entity_pool.push_back(entity);
+      return;
+
+
   - name: initialize_camera_control
     type: void
     body: |
@@ -430,7 +441,7 @@ functions:
          aim_pos,
          magnitude
       );
-      get_current_map_entities_ref().push_back(projectile);
+      entity_pool.push_back(projectile);
 
 
       // HERE
@@ -539,13 +550,13 @@ functions:
   - name: cleanup_entities_flagged_for_deletion
     private: true
     body: |
-      for (int i=0; i<get_current_map_entities_ref().size(); i++)
+      for (int i=0; i<entity_pool.size(); i++)
       {
-         if (get_current_map_entities_ref()[i]->exists(PLEASE_DELETE))
+         if (entity_pool[i]->exists(PLEASE_DELETE))
          {
             std::cout << "NOTICE: deleting entity." << std::endl;
-            delete get_current_map_entities_ref()[i];
-            get_current_map_entities_ref().erase(get_current_map_entities_ref().begin() + i);
+            delete entity_pool[i];
+            entity_pool.erase(entity_pool.begin() + i);
             i--;
          }
       }
@@ -1019,7 +1030,7 @@ functions:
     type: std::vector<Wicked::Entities::Basic2D*>
     guards: [ player_controlled_entity ]
     body: |
-      Wicked::Entities::CollectionHelper collection_helper(&get_current_map_entities_ref());
+      Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
       std::string on_map_name = currently_active_map_name;
       return collection_helper.select_on_map(on_map_name);
     body_dependency_symbols:
