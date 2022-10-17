@@ -302,7 +302,8 @@ void TileDrive::initialize()
       std::string filename = std::get<0>(terrain_mesh_dictionary_item.second);
       AllegroFlare::Prototypes::TileDrive::TerrainMesh* &mesh_ptr = std::get<1>(terrain_mesh_dictionary_item.second);
 
-      mesh_ptr = factory.create_from_tmj(maps_folder + filename, "uv-with-decorations-0x.png", 50, 50);
+      //mesh_ptr = factory.create_from_tmj(maps_folder + filename, "uv-with-decorations-0x.png", 50, 50);
+      mesh_ptr = factory.create_from_tmj(maps_folder + filename, "Village_Tileset.png", 16, 16);
       if (!mesh_ptr)
       {
          std::stringstream error_message;
