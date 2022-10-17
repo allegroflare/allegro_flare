@@ -51,7 +51,7 @@ functions:
     body: |
       const int EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
 
-      if (subject_is_on_or_was_previously_on_tile_value(tile_value)) return false;
+      if (subject_is_still_on_or_was_previously_on_tile_value(tile_value)) return false;
       for (auto &collision : collisions)
       {
          if (collision.is_tile_value(tile_value) && collision.is_event(EVENT_ENTERED)) return true;
@@ -59,7 +59,7 @@ functions:
       return false;
 
 
-  - name: subject_is_on_or_was_previously_on_tile_value
+  - name: subject_is_still_on_or_was_previously_on_tile_value
     type: bool
     parameters:
       - name: tile_value
