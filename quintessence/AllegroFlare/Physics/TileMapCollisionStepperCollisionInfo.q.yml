@@ -77,6 +77,26 @@ properties:
 functions:
 
 
+  - name: is_tile_value
+    type: bool
+    parameters:
+      - name: tile_value
+        type: int
+        default_argument: -999
+    body: |
+      return this->tile_value == tile_value;
+
+
+  - name: is_event
+    type: bool
+    parameters:
+      - name: event
+        type: int
+        default_argument: EVENT_UNDEFINED
+    body: |
+      return this->event == event;
+
+
   - name: build_event_name
     static: true
     type: std::string

@@ -45,6 +45,8 @@ namespace AllegroFlare
          float get_collision_velocity_y() const;
          bool get_stopped_by_this_collision() const;
          int get_event() const;
+         bool is_tile_value(int tile_value=-999);
+         bool is_event(int event=EVENT_UNDEFINED);
          static std::string build_event_name(int event=0);
       };
    }

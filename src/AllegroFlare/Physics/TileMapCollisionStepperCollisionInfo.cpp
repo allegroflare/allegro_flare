@@ -99,6 +99,16 @@ int TileMapCollisionStepperCollisionInfo::get_event() const
 }
 
 
+bool TileMapCollisionStepperCollisionInfo::is_tile_value(int tile_value)
+{
+   return this->tile_value == tile_value;
+}
+
+bool TileMapCollisionStepperCollisionInfo::is_event(int event)
+{
+   return this->event == event;
+}
+
 std::string TileMapCollisionStepperCollisionInfo::build_event_name(int event)
 {
    switch(event)

@@ -524,7 +524,7 @@ void TileDrive::update()
    else if (driver_accelerator_pressed)
    {
       float driver_accelerator_velocity = -0.2;
-      float DRIVER_MAX_FORWARD_VELOCITY = -6;
+      float DRIVER_MAX_FORWARD_VELOCITY = -8;
 
       driver_acceleration_velocity += driver_accelerator_velocity;
       if (driver_acceleration_velocity <= DRIVER_MAX_FORWARD_VELOCITY)
