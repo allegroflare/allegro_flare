@@ -68,7 +68,7 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
 
 
 TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
-   subject_entered_tile_value__will_return_true_if_the_subject_had_not_prevously_been_on_a_tile_and_now_is)
+   subject_entered_tile_value__will_return_true_if_the_subject_had_not_prevously_been_on_a_tile_value_and_now_is)
    // TODO
 {
    //AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result;
