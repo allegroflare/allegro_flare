@@ -15,7 +15,8 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
    // TODO
 {
    AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result;
-   
+   step_result.set_collisions({
+   });
 }
 
 

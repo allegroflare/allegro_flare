@@ -33,3 +33,39 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperCollisionInfoTest,
 }
 
 
+TEST(AllegroFlare_Physics_TileMapCollisionStepperCollisionInfoTest,
+   is_tile_value__will_return_true_if_the_tile_value_matches)
+{
+   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo info;
+   info.set_tile_value(123);
+   EXPECT_EQ(true, info.is_tile_value(123));
+}
+
+
+TEST(AllegroFlare_Physics_TileMapCollisionStepperCollisionInfoTest,
+   is_tile_value__will_return_false_if_the_tile_value_matches)
+{
+   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo info;
+   info.set_tile_value(123);
+   EXPECT_EQ(false, info.is_tile_value(999));
+}
+
+
+TEST(AllegroFlare_Physics_TileMapCollisionStepperCollisionInfoTest,
+   is_event__will_return_true_if_the_tile_value_matches)
+{
+   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo info;
+   info.set_event(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED);
+   EXPECT_EQ(true, info.is_event(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED));
+}
+
+
+TEST(AllegroFlare_Physics_TileMapCollisionStepperCollisionInfoTest,
+   is_event__will_return_false_if_the_tile_value_matches)
+{
+   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo info;
+   info.set_event(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED);
+   EXPECT_EQ(false, info.is_event(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED));
+}
+
+
