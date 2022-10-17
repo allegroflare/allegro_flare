@@ -487,6 +487,14 @@
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
   ],
+  "fabs": [
+    "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect"
+  ],
+  "AllegroFlare/Useful": [
+    "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
   "GLuint": [
     "AllegroFlare/Cubemap"
   ],
@@ -1517,10 +1525,6 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/Useful": [
-    "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Camera3D": [

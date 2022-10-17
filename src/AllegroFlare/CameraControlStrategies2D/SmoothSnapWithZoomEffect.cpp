@@ -2,6 +2,8 @@
 
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp>
 
+#include <AllegroFlare/Useful.hpp>
+#include <cmath>
 #include <sstream>
 #include <stdexcept>
 
@@ -52,6 +54,20 @@ void SmoothSnapWithZoomEffect::initialize()
       error_message << "SmoothSnapWithZoomEffect" << "::" << "initialize" << ": error: " << "guard \"get_camera()\" not met";
       throw std::runtime_error(error_message.str());
    }
+   if (!((room_width > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "SmoothSnapWithZoomEffect" << "::" << "initialize" << ": error: " << "guard \"(room_width > 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!((room_height > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "SmoothSnapWithZoomEffect" << "::" << "initialize" << ": error: " << "guard \"(room_height > 0)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // TODO: only allow setting "room_width" and "room_height" to positive values
+
    get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
    get_camera_ref()->position = {room_width/2, room_height/2};
 
@@ -79,25 +95,22 @@ void SmoothSnapWithZoomEffect::update()
       error_message << "SmoothSnapWithZoomEffect" << "::" << "update" << ": error: " << "guard \"entity_to_follow\" not met";
       throw std::runtime_error(error_message.str());
    }
-   int room_x = (entity_to_follow->get_place_ref().position.x / room_width);
-   int room_y = (entity_to_follow->get_place_ref().position.y / room_height);
-   AllegroFlare::vec2d target = {room_width/2, room_height/2};
-   target += AllegroFlare::vec2d(room_x * room_width, room_y * room_height);
+   int target_room_x = (entity_to_follow->get_place_ref().position.x / room_width);
+   int target_room_y = (entity_to_follow->get_place_ref().position.y / room_height);
+   AllegroFlare::vec2d target_position = {room_width/2, room_height/2};
+   target_position += AllegroFlare::vec2d(target_room_x * room_width, target_room_y * room_height);
 
-   AllegroFlare::vec2d position = get_camera_ref()->position;
-
-   AllegroFlare::vec2d delta = target - position;
-
-   if (delta == AllegroFlare::Vec2D(0.0, 0.0))
-   {
-      // no zoom effect
-   }
-   else
-   {
-      // TODO: work out some fun here
-   }
+   AllegroFlare::vec2d current_camera_position = get_camera_ref()->position;
+   AllegroFlare::vec2d delta = target_position - current_camera_position;
+   AllegroFlare::vec2d largest_possible_fabs_delta = AllegroFlare::Vec2D(room_width*0.5, room_height*0.5);
 
    get_camera_ref()->position += (delta * 0.1);
+
+   float distance = AllegroFlare::distance(get_camera_ref()->position, target_position);
+
+   AllegroFlare::vec2d abs_delta = AllegroFlare::Vec2D(distance * 0.01, distance * 0.01);
+   float xtra_zoom = (abs_delta.x + abs_delta.y);
+   get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / (4.8 + xtra_zoom), 1.0 / (4.5 + xtra_zoom));
 
    return;
 }
