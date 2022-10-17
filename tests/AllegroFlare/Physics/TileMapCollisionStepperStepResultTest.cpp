@@ -61,6 +61,9 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
    EXPECT_EQ(false, step_result.subject_is_still_on_or_was_previously_on_tile_value(22));
    EXPECT_EQ(false, step_result.subject_is_still_on_or_was_previously_on_tile_value(27));
    EXPECT_EQ(false, step_result.subject_is_still_on_or_was_previously_on_tile_value(-1));
+
+   // "tile completely not involved" case
+   EXPECT_EQ(false, step_result.subject_is_still_on_or_was_previously_on_tile_value(7));
 }
 
 
