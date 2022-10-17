@@ -36,11 +36,6 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest, can_be_created_
 TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
    subject_is_still_on_or_was_previously_on_tile_value__will_return_true_if_a_collision_matches_the_description)
 {
-   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
-   auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
-   auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
-
    AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result;
    step_result.set_collisions(build_setpper_step_result_fixture());
 
@@ -59,11 +54,6 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
 TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
    subject_is_still_on_or_was_previously_on_tile_value__will_return_false_if_no_collision_matches_the_description)
 {
-   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
-   auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
-   auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
-
    AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result;
    step_result.set_collisions(build_setpper_step_result_fixture());
 
