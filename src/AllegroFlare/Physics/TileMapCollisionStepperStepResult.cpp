@@ -105,10 +105,22 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> &TileMa
 }
 
 
+bool TileMapCollisionStepperStepResult::subject_entered_tile_value(int tile_value)
+{
+   const int EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
+
+   if (subject_is_on_or_was_previously_on_tile_value(tile_value)) return false;
+   for (auto &collision : collisions)
+   {
+      if (collision.is_tile_value(tile_value) && collision.is_event(EVENT_ENTERED)) return true;
+   }
+   return false;
+}
+
 bool TileMapCollisionStepperStepResult::subject_is_on_or_was_previously_on_tile_value(int tile_value)
 {
-   int EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
-   int EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
+   const int EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
+   const int EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
 
    for (auto &collision : collisions)
    {

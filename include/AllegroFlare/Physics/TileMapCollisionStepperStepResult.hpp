@@ -40,6 +40,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> get_collisions() const;
          bool get_subject_was_stopped_by_collision() const;
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> &get_collisions_ref();
+         bool subject_entered_tile_value(int tile_value=0);
          bool subject_is_on_or_was_previously_on_tile_value(int tile_value=0);
       };
    }
