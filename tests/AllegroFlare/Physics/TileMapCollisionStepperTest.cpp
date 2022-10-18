@@ -455,3 +455,39 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 }
 
 
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__when_there_are_no_solid_blocks__returns_expected_results)
+   // TODO: consider more elaborate testing on this function
+{
+   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
+   auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
+   auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
+
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+   collision_tile_map.initialize();
+   load_increment_tile_num_map(collision_tile_map);
+
+   AllegroFlare::Physics::AABB2D aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
+
+   AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
+   {
+      TileMapCollisionStepperCollisionInfo({3, 4}, 23, -8, 8, false, EVENT_STAYED_ON),
+      TileMapCollisionStepperCollisionInfo({3, 5}, 28, -8, 8, false, EVENT_STAYED_ON),
+      TileMapCollisionStepperCollisionInfo({2, 4}, 22, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({2, 5}, 27, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({2, 6}, -1, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({3, 6}, -1, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({3, 3}, 18, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 3}, 19, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 4}, 24, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 5}, 29, -8, 8, false, EVENT_EXITED),
+   };
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
+      tile_map_collision_stepper.step();
+
+   EXPECT_EQ(expected_result_collisions, actual_result_collisions);
+}
+
+

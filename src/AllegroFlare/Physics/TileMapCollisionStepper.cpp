@@ -203,6 +203,11 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       calculate_difference_info(now_tiles, next_tiles, obj_before.get_velocity_x(), obj_before.get_velocity_y());
 
 
+   // append the difference_infos to the result
+   result_infos.insert(result_infos.end(), difference_infos.begin(), difference_infos.end());
+
+
+
    return result_infos;
 }
 
