@@ -381,8 +381,6 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result;
 
    std::vector<AllegroFlare::Physics::Int2D> stayed_on_tiles;
-   //std::vector<AllegroFlare::Physics::Int2D> &entered_tiles = next_tiles;
-   //std::vector<AllegroFlare::Physics::Int2D> &exited_tiles = now_tiles;
 
    std::set<int> next_tile_indexes_to_remove;
    std::set<int> now_tile_indexes_to_remove;
@@ -390,7 +388,6 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    for (int i=0; i<next_tiles.size(); i++)
    {
       for (int j=0; j<now_tiles.size(); j++)
-      //for (auto &now_tile : now_tiles)
       {
          if (next_tiles[i] == now_tiles[j])
          {
@@ -403,11 +400,6 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
          }
       }
    }
-
-   //std::cout << "next tiles count: " << next_tiles.size() << std::endl;
-   //std::cout << "now tiles count: " << now_tiles.size() << std::endl;
-   //std::cout << "next tiles to remove count: " << next_tile_indexes_to_remove.size() << std::endl;
-   //std::cout << "now tiles to remove count: " << now_tile_indexes_to_remove.size() << std::endl;
 
    // remove the indexes from the set
    for (int i=next_tile_indexes_to_remove.size()-1; i>=0; i--)
