@@ -184,6 +184,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml</a></li>
@@ -9403,6 +9404,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperStepResult&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -9499,6 +9503,40 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">tmj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">tile_atlas_bitmap_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">tile_atlas_tile_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_atlas_tile_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">terrain_mesh</td>
+  <td class="property">AllegroFlare::Prototypes::TileDrive::TerrainMesh*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::TerrainMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -9701,7 +9739,7 @@ table td
 </tr>
 <tr>
   <td class="property">terrain_mesh_dictionary</td>
-  <td class="property">std::map&lt;std::string, std::tuple&lt;std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*&gt;&gt;</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord&gt;</td>
 </tr>
 <tr>
   <td class="property">current_map_identifier</td>
@@ -9946,6 +9984,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -16351,11 +16392,16 @@ table td
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
     "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "std/function": [
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord": [
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],

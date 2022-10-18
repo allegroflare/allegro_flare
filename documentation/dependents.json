@@ -1713,11 +1713,16 @@
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMesh": [
     "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "std/function": [
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord": [
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],

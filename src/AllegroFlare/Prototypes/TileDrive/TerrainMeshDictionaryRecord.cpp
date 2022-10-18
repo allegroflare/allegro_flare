@@ -13,12 +13,12 @@ namespace TileDrive
 {
 
 
-TerrainMeshDictionaryRecord::TerrainMeshDictionaryRecord()
-   : tmj_filename("[unset-tmj_filename]")
-   , tile_atlas_bitmap_identifier("[unset-tile_atlas_bitmap_identifier]")
-   , tile_atlas_tile_width(1)
-   , tile_atlas_tile_height(1)
-   , terrain_mesh(nullptr)
+TerrainMeshDictionaryRecord::TerrainMeshDictionaryRecord(std::string tmj_filename, std::string tile_atlas_bitmap_identifier, int tile_atlas_tile_width, int tile_atlas_tile_height, AllegroFlare::Prototypes::TileDrive::TerrainMesh* terrain_mesh)
+   : tmj_filename(tmj_filename)
+   , tile_atlas_bitmap_identifier(tile_atlas_bitmap_identifier)
+   , tile_atlas_tile_width(tile_atlas_tile_width)
+   , tile_atlas_tile_height(tile_atlas_tile_height)
+   , terrain_mesh(terrain_mesh)
 {
 }
 
@@ -83,6 +83,12 @@ int TerrainMeshDictionaryRecord::get_tile_atlas_tile_height() const
 
 
 AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshDictionaryRecord::get_terrain_mesh() const
+{
+   return terrain_mesh;
+}
+
+
+AllegroFlare::Prototypes::TileDrive::TerrainMesh* &TerrainMeshDictionaryRecord::get_terrain_mesh_ref()
 {
    return terrain_mesh;
 }

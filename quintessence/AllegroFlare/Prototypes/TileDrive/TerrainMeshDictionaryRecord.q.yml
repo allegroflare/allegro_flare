@@ -4,31 +4,37 @@ properties:
   - name: tmj_filename
     type: std::string
     init_with: '"[unset-tmj_filename]"'
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: tile_atlas_bitmap_identifier
     type: std::string
     init_with: '"[unset-tile_atlas_bitmap_identifier]"'
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: tile_atlas_tile_width
     type: int
     init_with: 1
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: tile_atlas_tile_height
     type: int
     init_with: 1
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: terrain_mesh
     type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
     init_with: nullptr
+    constructor_arg: true
     getter: true
+    getter_ref: true
     setter: true
 
 

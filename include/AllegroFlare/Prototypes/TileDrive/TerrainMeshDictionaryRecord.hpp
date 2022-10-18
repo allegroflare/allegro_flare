@@ -24,7 +24,7 @@ namespace AllegroFlare
 
 
          public:
-            TerrainMeshDictionaryRecord();
+            TerrainMeshDictionaryRecord(std::string tmj_filename="[unset-tmj_filename]", std::string tile_atlas_bitmap_identifier="[unset-tile_atlas_bitmap_identifier]", int tile_atlas_tile_width=1, int tile_atlas_tile_height=1, AllegroFlare::Prototypes::TileDrive::TerrainMesh* terrain_mesh=nullptr);
             ~TerrainMeshDictionaryRecord();
 
             void set_tmj_filename(std::string tmj_filename);
@@ -37,6 +37,7 @@ namespace AllegroFlare
             int get_tile_atlas_tile_width() const;
             int get_tile_atlas_tile_height() const;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* get_terrain_mesh() const;
+            AllegroFlare::Prototypes::TileDrive::TerrainMesh* &get_terrain_mesh_ref();
          };
       }
    }

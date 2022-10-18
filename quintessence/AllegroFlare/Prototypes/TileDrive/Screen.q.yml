@@ -107,7 +107,7 @@ functions:
   - name: set_terrain_mesh_dictionary
     parameters:
       - name: terrain_mesh_dictionary
-        type: std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>>
+        type: std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord>
         default_argument: '{}'
     guards: [ (!initialized) ]
     body: |
@@ -256,5 +256,7 @@ dependencies:
     headers: [ functional ]
   - symbol: AllegroFlare::Physics::TileMapCollisionStepperStepResult
     headers: [ AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp ]
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.hpp ]
 
 

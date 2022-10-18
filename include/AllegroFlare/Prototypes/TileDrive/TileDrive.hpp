@@ -8,6 +8,7 @@
 #include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/Hud/Hud.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/TileDrive.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Sound.hpp>
@@ -16,7 +17,6 @@
 #include <functional>
 #include <map>
 #include <string>
-#include <tuple>
 
 
 namespace AllegroFlare
@@ -39,7 +39,7 @@ namespace AllegroFlare
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::SampleBin* sample_bin;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* current_terrain_mesh;
-            std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary;
+            std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> terrain_mesh_dictionary;
             std::string current_map_identifier;
             std::string maps_folder;
             AllegroFlare::Vec3D driver_position;
@@ -79,12 +79,12 @@ namespace AllegroFlare
             std::function< void( AllegroFlare::Physics::TileMapCollisionStepperStepResult*, AllegroFlare::Prototypes::TileDrive::TileDrive*, void* ) > get_collision_stepper_step_result_callback() const;
             void* get_collision_stepper_step_result_callback_user_data() const;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* &get_current_terrain_mesh_ref();
-            std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> &get_terrain_mesh_dictionary_ref();
+            std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> &get_terrain_mesh_dictionary_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_maps_folder(std::string maps_folder="[unset-maps_folder-arg]");
-            void set_terrain_mesh_dictionary(std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary={});
+            void set_terrain_mesh_dictionary(std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> terrain_mesh_dictionary={});
             void set_current_map_identifier(std::string current_map_identifier="[unset-current_map_identifier-arg]");
             void initialize();
             void reset();

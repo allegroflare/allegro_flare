@@ -60,6 +60,8 @@ TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest,
    //INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
    DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
 {
+   using AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord;
+
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
    framework.initialize();
@@ -75,7 +77,13 @@ TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest,
    tile_drive_screen.set_event_emitter(&framework.get_event_emitter_ref());
    tile_drive_screen.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
    tile_drive_screen.set_terrain_mesh_dictionary({
-      { "og-tunnel-mesh", { "tunnel_mesh-02.tmj", nullptr } },
+      { "og-tunnel-mesh", TerrainMeshDictionaryRecord(
+         "tunnel_mesh-02.tmj",
+         "uv-with-decorations-0x.png",
+         50,
+         50,
+         nullptr)
+      },
    });
    tile_drive_screen.set_current_map_identifier("og-tunnel-mesh");
    tile_drive_screen.set_collision_stepper_step_result_callback(

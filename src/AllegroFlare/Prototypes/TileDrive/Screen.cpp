@@ -95,7 +95,7 @@ void Screen::set_maps_folder(std::string maps_folder)
    return;
 }
 
-void Screen::set_terrain_mesh_dictionary(std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary)
+void Screen::set_terrain_mesh_dictionary(std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> terrain_mesh_dictionary)
 {
    if (!((!initialized)))
    {

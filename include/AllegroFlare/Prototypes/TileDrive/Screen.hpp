@@ -5,7 +5,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
-#include <AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp>
+#include <AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/TileDrive.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
@@ -13,7 +13,6 @@
 #include <functional>
 #include <map>
 #include <string>
-#include <tuple>
 
 
 namespace AllegroFlare
@@ -44,7 +43,7 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_maps_folder(std::string maps_folder="[unset-maps_folder-arg]");
-            void set_terrain_mesh_dictionary(std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary={});
+            void set_terrain_mesh_dictionary(std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> terrain_mesh_dictionary={});
             void set_current_map_identifier(std::string current_map_identifier="[unset-current_map_identifier-arg]");
             void set_collision_stepper_step_result_callback(std::function<void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*,AllegroFlare::Prototypes::TileDrive::TileDrive*,void*)> collision_stepper_step_result_callback={}, void* collision_stepper_step_result_callback_user_data=nullptr);
             void initialize();

@@ -29,6 +29,8 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTest, can_be_created_without_b
 TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixture,
    CAPTURE__basic_update_and_render_will_work_as_expected)
 {
+   using AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord;
+
    al_install_audio();
    al_reserve_samples(8);
    al_init_acodec_addon();
@@ -44,7 +46,13 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    );
    tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
    tile_drive.set_terrain_mesh_dictionary({
-      { "og-tunnel-mesh", { "tunnel_mesh-02.tmj", nullptr } },
+      { "og-tunnel-mesh", TerrainMeshDictionaryRecord(
+         "tunnel_mesh-02.tmj",
+         "uv-with-decorations-0x.png",
+         50,
+         50,
+         nullptr)
+      },
    });
    tile_drive.set_current_map_identifier("og-tunnel-mesh");
    tile_drive.initialize();
@@ -62,6 +70,8 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    INTERACTIVE__will_work_as_expected)
    //DISABLED__INTERACTIVE__will_work_as_expected)
 {
+   using AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord;
+
    // setup system
    al_install_keyboard();
    al_install_joystick();
@@ -94,7 +104,13 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    tile_drive.set_sample_bin(&sample_bin);
    tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
    tile_drive.set_terrain_mesh_dictionary({
-      { "og-tunnel-mesh", { "tunnel_mesh-02.tmj", nullptr } },
+      { "og-tunnel-mesh", TerrainMeshDictionaryRecord(
+         "tunnel_mesh-02.tmj",
+         "uv-with-decorations-0x.png",
+         50,
+         50,
+         nullptr)
+      },
    });
    tile_drive.set_current_map_identifier("og-tunnel-mesh");
    tile_drive.initialize();

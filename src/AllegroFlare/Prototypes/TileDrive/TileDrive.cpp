@@ -129,7 +129,7 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* &TileDrive::get_current_terrai
 }
 
 
-std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> &TileDrive::get_terrain_mesh_dictionary_ref()
+std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> &TileDrive::get_terrain_mesh_dictionary_ref()
 {
    return terrain_mesh_dictionary;
 }
@@ -183,7 +183,7 @@ void TileDrive::set_maps_folder(std::string maps_folder)
    return;
 }
 
-void TileDrive::set_terrain_mesh_dictionary(std::map<std::string, std::tuple<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMesh*>> terrain_mesh_dictionary)
+void TileDrive::set_terrain_mesh_dictionary(std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> terrain_mesh_dictionary)
 {
    if (!((!initialized)))
    {
@@ -299,8 +299,10 @@ void TileDrive::initialize()
    for (auto& terrain_mesh_dictionary_item : terrain_mesh_dictionary)
    {
       std::string identifier = terrain_mesh_dictionary_item.first;
-      std::string filename = std::get<0>(terrain_mesh_dictionary_item.second);
-      AllegroFlare::Prototypes::TileDrive::TerrainMesh* &mesh_ptr = std::get<1>(terrain_mesh_dictionary_item.second);
+      AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord &record = terrain_mesh_dictionary_item.second;
+
+      std::string filename = record.get_tmj_filename();
+      AllegroFlare::Prototypes::TileDrive::TerrainMesh* &mesh_ptr = record.get_terrain_mesh_ref();
 
       //mesh_ptr = factory.create_from_tmj(maps_folder + filename, "uv-with-decorations-0x.png", 50, 50);
       mesh_ptr = factory.create_from_tmj(maps_folder + filename, "Village_Tileset.png", 16, 16);
@@ -329,7 +331,10 @@ void TileDrive::initialize()
                     << "there is not a map that has the name \"" << current_map_identifier << "\". Could not load.";
       throw std::runtime_error(error_message.str());
    }
-   current_terrain_mesh = std::get<1>(terrain_mesh_dictionary[current_map_identifier]);
+
+   AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord &record = 
+      terrain_mesh_dictionary[current_map_identifier];
+   current_terrain_mesh = record.get_terrain_mesh();
 
 
    debug_metronome_sound = new AllegroFlare::Sound(sample_bin->auto_get("metronome-01.ogg"));
