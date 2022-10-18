@@ -46,6 +46,11 @@ properties:
     init_with: '{}'
     getter: explicit
 
+  - name: collision_layer_present
+    type: bool
+    init_with: false
+    getter: explicit
+
   - name: loaded
     type: bool
     init_with: false
@@ -101,6 +106,12 @@ functions:
     type: std::vector<int>
     guards: [ loaded ]
     body: return collision_layer_tile_data;
+
+
+  - name: get_collision_layer_present
+    type: bool
+    guards: [ loaded ]
+    body: return collision_layer_present;
 
 
   - name: load
@@ -179,6 +190,7 @@ functions:
                }
                collision_tilelayer = layer.value();
                collision_tilelayer_type_found = true;
+               collision_layer_present = true;
             }
          }
       }

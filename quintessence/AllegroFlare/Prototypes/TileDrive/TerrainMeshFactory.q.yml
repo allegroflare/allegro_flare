@@ -84,6 +84,7 @@ functions:
       AllegroFlare::TileMaps::PrimMesh &prim_mesh = result->get_prim_mesh_ref();
       AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = result->get_collision_tile_map_ref();
       result->resize(num_columns, tmj_data_loader.get_num_rows());
+      bool collision_tile_data_is_present = tmj_data_loader.get_collision_layer_present();
       int tile_count = 0;
       for (auto &tile : tmj_data_loader.get_layer_tile_data())
       {
@@ -92,9 +93,21 @@ functions:
          int tile_value = tile - 1; // offset by one, Tiled likes to index the first tile as 1, rather than 0
 
          prim_mesh.set_tile_id(tile_x, tile_y, tile_value);
-         collision_tile_map.set_tile(tile_x, tile_y, tile_value);
+         // Set this only when collision layer data is not present; TODO: test this condition
+         if (!collision_tile_data_is_present) collision_tile_map.set_tile(tile_x, tile_y, tile_value);
 
          tile_count++;
+      }
+      int collision_tile_count = 0;
+      for (auto &tile : tmj_data_loader.get_collision_layer_tile_data())
+      {
+         int tile_x = collision_tile_count % num_columns;
+         int tile_y = collision_tile_count / num_columns;
+         int tile_value = tile - 1; // offset by one, Tiled likes to index the first tile as 1, rather than 0
+
+         collision_tile_map.set_tile(tile_x, tile_y, tile_value);
+
+         collision_tile_count++;
       }
 
       return result;

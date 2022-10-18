@@ -28,6 +28,7 @@ TerrainMeshTMJDataLoader::TerrainMeshTMJDataLoader(std::string filename)
    , layer_num_rows(0)
    , layer_tile_data({})
    , collision_layer_tile_data({})
+   , collision_layer_present(false)
    , loaded(false)
 {
 }
@@ -132,6 +133,17 @@ std::vector<int> TerrainMeshTMJDataLoader::get_collision_layer_tile_data()
    return collision_layer_tile_data;
 }
 
+bool TerrainMeshTMJDataLoader::get_collision_layer_present()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "TerrainMeshTMJDataLoader" << "::" << "get_collision_layer_present" << ": error: " << "guard \"loaded\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return collision_layer_present;
+}
+
 bool TerrainMeshTMJDataLoader::load()
 {
    if (!((!loaded)))
@@ -212,6 +224,7 @@ bool TerrainMeshTMJDataLoader::load()
             }
             collision_tilelayer = layer.value();
             collision_tilelayer_type_found = true;
+            collision_layer_present = true;
          }
       }
    }
