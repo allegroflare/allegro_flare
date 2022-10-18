@@ -393,7 +393,11 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       tile_width,
       tile_height
    );
+   return calculate_difference_info(now_tiles, next_tiles, velocity_x, velocity_y);
+}
 
+std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMapCollisionStepper::calculate_difference_info(std::vector<AllegroFlare::Physics::Int2D> now_tiles, std::vector<AllegroFlare::Physics::Int2D> next_tiles, float velocity_x, float velocity_y)
+{
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result;
 
    std::vector<AllegroFlare::Physics::Int2D> stayed_on_tiles;

@@ -445,7 +445,25 @@ functions:
          tile_width,
          tile_height
       );
+      return calculate_difference_info(now_tiles, next_tiles, velocity_x, velocity_y);
 
+
+  - name: calculate_difference_info
+    type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
+    parameters:
+      - name: now_tiles
+        type: std::vector<AllegroFlare::Physics::Int2D>
+        default_argument: '{}'
+      - name: next_tiles
+        type: std::vector<AllegroFlare::Physics::Int2D>
+        default_argument: '{}'
+      - name: velocity_x
+        type: float
+        default_argument: 0.0f
+      - name: velocity_y
+        type: float
+        default_argument: 0.0f
+    body: |
       std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result;
 
       std::vector<AllegroFlare::Physics::Int2D> stayed_on_tiles;
