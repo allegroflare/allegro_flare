@@ -106,17 +106,19 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
          }
          else // tile is not solid (aka, "1")
          {
-            result_infos.push_back(
-               AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
-                  AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
-                  tile_value,
-                  obj.get_velocity_x(),
-                  obj.get_velocity_y(),
-                  false,
-                  // NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
-                  AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
-               )
-            );
+            // NOTE: this code is comment out as it is now handled *after* velocity step and collision blocking 
+
+            //result_infos.push_back(
+               //AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                  //AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                  //tile_value,
+                  //obj.get_velocity_x(),
+                  //obj.get_velocity_y(),
+                  //false,
+                  //// NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
+                  //AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
+               //)
+            //);
          }
       }
    }
@@ -173,17 +175,19 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
          }
          else // tile is not solid (aka, "1")
          {
-            result_infos.push_back(
-               AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
-                  AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
-                  tile_value,
-                  obj.get_velocity_x(),
-                  obj.get_velocity_y(),
-                  false,
-                  // NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
-                  AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
-               )
-            );
+            // NOTE: this code is comment out as it is now handled *after* velocity step and collision blocking 
+
+            //result_infos.push_back(
+               //AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
+                  //AllegroFlare::Physics::Int2D(t.get_x(), t.get_y()),
+                  //tile_value,
+                  //obj.get_velocity_x(),
+                  //obj.get_velocity_y(),
+                  //false,
+                  //// NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
+                  //AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
+               //)
+            //);
          }
       }
    }
