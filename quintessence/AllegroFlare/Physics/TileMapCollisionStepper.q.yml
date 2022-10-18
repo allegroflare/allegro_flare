@@ -181,6 +181,11 @@ functions:
       AllegroFlare::Physics::AABB2D obj_after = obj;
 
 
+      std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within_aabb2d(obj_before);
+      std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within_aabb2d(obj_after);
+      std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> difference_infos =
+         calculate_difference_info(now_tiles, next_tiles, obj_before.get_velocity_x(), obj_before.get_velocity_y());
+
 
       return result_infos;
     body_dependency_symbols:
@@ -559,6 +564,16 @@ functions:
       - std::fmod
       - AllegroFlare::Testing::Comparison::AllegroFlare::Physics::Int2D
       - std::set
+
+
+  - name: tiles_within_aabb2d
+    type: std::vector<AllegroFlare::Physics::Int2D> 
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D
+        default_argument: '{}'
+    body: |
+      return tiles_within(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_w(), aabb2d.get_h(), tile_width, tile_height);
 
 
   - name: tiles_within

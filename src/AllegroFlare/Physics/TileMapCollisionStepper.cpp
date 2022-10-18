@@ -197,6 +197,11 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    AllegroFlare::Physics::AABB2D obj_after = obj;
 
 
+   std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within_aabb2d(obj_before);
+   std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within_aabb2d(obj_after);
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> difference_infos =
+      calculate_difference_info(now_tiles, next_tiles, obj_before.get_velocity_x(), obj_before.get_velocity_y());
+
 
    return result_infos;
 }
@@ -489,6 +494,11 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    }
 
    return result;
+}
+
+std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::tiles_within_aabb2d(AllegroFlare::Physics::AABB2D aabb2d)
+{
+   return tiles_within(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_w(), aabb2d.get_h(), tile_width, tile_height);
 }
 
 std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::tiles_within(float x, float y, float width, float height, float tile_width, float tile_height)

@@ -41,6 +41,7 @@ namespace AllegroFlare
          bool adjacent_to_left_edge(float tile_width=16.0f, float tile_height=16.0f);
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> get_stepped_tile_collisions(float x=0.0f, float y=0.0f, float velocity_x=0.0f, float velocity_y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f);
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> calculate_difference_info(std::vector<AllegroFlare::Physics::Int2D> now_tiles={}, std::vector<AllegroFlare::Physics::Int2D> next_tiles={}, float velocity_x=0.0f, float velocity_y=0.0f);
+         std::vector<AllegroFlare::Physics::Int2D> tiles_within_aabb2d(AllegroFlare::Physics::AABB2D aabb2d={});
          std::vector<AllegroFlare::Physics::Int2D> tiles_within(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f);
          float get_tile_left_edge(float tile_x=0.0f, float tile_width=16.0f);
          float get_tile_right_edge(float tile_x=0.0f, float tile_width=16.0f);
