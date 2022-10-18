@@ -45,11 +45,15 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       error_message << "TileMapCollisionStepper" << "::" << "step" << ": error: " << "guard \"aabb2d\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // TODO: include EVENT_ENTERED, EVENT_EXITED, EVENT_COLLIDED_AGAINST to the CollisionInfo result data
+   // NEXT: TODO: include EVENT_ENTERED, EVENT_EXITED, EVENT_STAYED_ON, EVENT_COLLIDED_AGAINST to the
+   // CollisionInfo result data
 
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
    AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
+
+   // collect the position before any alterations
+   AllegroFlare::Physics::AABB2D obj_before = obj;
 
    // test horizontal first
    std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords_1d(
@@ -73,7 +77,9 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                      tile_value,
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
-                     true
+                     true,
+                     // NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST
                   )
                );
 
@@ -88,7 +94,9 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                      tile_value,
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
-                     true
+                     true,
+                     // NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST
                   )
                );
 
@@ -104,7 +112,9 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                   tile_value,
                   obj.get_velocity_x(),
                   obj.get_velocity_y(),
-                  false
+                  false,
+                  // NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
+                  AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
                )
             );
          }
@@ -134,7 +144,9 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                      tile_value,
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
-                     true
+                     true,
+                     // NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST
                   )
                );
 
@@ -149,7 +161,9 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                      tile_value,
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
-                     true
+                     true,
+                  // NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST
                   )
                );
 
@@ -165,13 +179,20 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                   tile_value,
                   obj.get_velocity_x(),
                   obj.get_velocity_y(),
-                  false
+                  false,
+                  // NEXT: TODO: ensure this is correct and calcualte "entered", "exited" and "stayed_on" tiles
+                  AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
                )
             );
          }
       }
    }
    obj.set_y(obj.get_y() + obj.get_velocity_y());
+
+
+   AllegroFlare::Physics::AABB2D obj_after = obj;
+
+
 
    return result_infos;
 }
@@ -363,8 +384,6 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::get_next_coll
 
 std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMapCollisionStepper::get_stepped_tile_collisions(float x, float y, float velocity_x, float velocity_y, float width, float height, float tile_width, float tile_height)
 {
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result;
-
    std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height, tile_width, tile_height);
    std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within(
       x+velocity_x,
@@ -374,6 +393,8 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
       tile_width,
       tile_height
    );
+
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result;
 
    std::vector<AllegroFlare::Physics::Int2D> stayed_on_tiles;
    //std::vector<AllegroFlare::Physics::Int2D> &entered_tiles = next_tiles;
