@@ -26,7 +26,6 @@ static std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> 
 }
 
 
-
 TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result;
@@ -69,11 +68,34 @@ TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
 
 TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
    subject_entered_tile_value__will_return_true_if_the_subject_had_not_prevously_been_on_a_tile_value_and_now_is)
-   // TODO
 {
-   //AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result;
-   //EXPECT_EQ(true, step_result.subject_entered_tile_value(22));
-   //EXPECT_EQ(true, step_result.subject_entered_tile_value(27));
+   AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result;
+   step_result.set_collisions(build_setpper_step_result_fixture());
+
+   // "new tiles entered" case
+   EXPECT_EQ(true, step_result.subject_entered_tile_value(22));
+   EXPECT_EQ(true, step_result.subject_entered_tile_value(27));
+
+   // "empty space" case
+   EXPECT_EQ(true, step_result.subject_entered_tile_value(-1));
+}
+
+
+TEST(AllegroFlare_Physics_TileMapCollisionStepperStepResultTest,
+   subject_entered_tile_value__will_return_false_if_the_subject_had_prevously_been_on_a_tile_value)
+{
+   AllegroFlare::Physics::TileMapCollisionStepperStepResult step_result;
+   step_result.set_collisions(build_setpper_step_result_fixture());
+
+   // "still on this tile" case
+   EXPECT_EQ(false, step_result.subject_entered_tile_value(23));
+   EXPECT_EQ(false, step_result.subject_entered_tile_value(28));
+
+   // "just exited this tile" case
+   EXPECT_EQ(false, step_result.subject_entered_tile_value(18));
+   EXPECT_EQ(false, step_result.subject_entered_tile_value(19));
+   EXPECT_EQ(false, step_result.subject_entered_tile_value(24));
+   EXPECT_EQ(false, step_result.subject_entered_tile_value(29));
 }
 
 
