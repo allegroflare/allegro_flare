@@ -145,6 +145,10 @@ properties:
     type: ALLEGRO_BITMAP*
     init_with: nullptr
 
+  - name: backbuffer_sub_bitmap_background
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+
 
 functions:
 
@@ -215,6 +219,13 @@ functions:
       return;
 
 
+  - name: create_new_backbuffer_sub_bitmap
+    type: ALLEGRO_BITMAP*
+    body: |
+      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+      return al_create_sub_bitmap(backbuffer, 0, 0, al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
+
+
   - name: initialize
     guards:
       - (!initialized)
@@ -226,21 +237,20 @@ functions:
       - sample_bin
       - al_get_current_display()
     body: |
-      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
-
-      backbuffer_sub_bitmap = al_create_sub_bitmap(
-         backbuffer,
-         0,
-         0,
-         al_get_bitmap_width(backbuffer),
-         al_get_bitmap_height(backbuffer)
-      );
-
+      backbuffer_sub_bitmap = create_new_backbuffer_sub_bitmap();
       if (!backbuffer_sub_bitmap)
       {
          std::stringstream error_message;
          error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
                        << "could not create backbuffer_sub_bitmap";
+         throw std::runtime_error(error_message.str());
+      }
+      backbuffer_sub_bitmap_background = create_new_backbuffer_sub_bitmap();
+      if (!backbuffer_sub_bitmap_background)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
+                       << "could not create backbuffer_sub_bitmap_background";
          throw std::runtime_error(error_message.str());
       }
 
@@ -604,7 +614,13 @@ functions:
       return;
 
 
-  - name: render
+  - name: render_background
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: render_world
     guards: [ initialized ]
     body: |
       //al_clear_depth_buffer(1);
@@ -612,20 +628,19 @@ functions:
       al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
       camera.setup_projection_on(backbuffer_sub_bitmap);
       al_set_target_bitmap(backbuffer_sub_bitmap);
-      //camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
-
       //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
       //glDisable(GL_CULL_FACE);
-
-      //camera.start_reverse_transform();
-      //AllegroFlare::Placement3D place;
-      //place.start_transform();
       render_terrain();
       render_driver();
-      //place.restore_transform();
-      //camera.restore_transform();
       al_restore_state(&previous_target_bitmap_state);
+      return;
 
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      render_background();
+      render_world();
       render_hud();
       return;
     body_dependency_symbols:

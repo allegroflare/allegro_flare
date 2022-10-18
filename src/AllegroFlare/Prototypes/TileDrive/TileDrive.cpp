@@ -48,6 +48,7 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , initialized(false)
    , debug_metronome_sound(nullptr)
    , backbuffer_sub_bitmap(nullptr)
+   , backbuffer_sub_bitmap_background(nullptr)
 {
 }
 
@@ -207,6 +208,12 @@ void TileDrive::set_current_map_identifier(std::string current_map_identifier)
    return;
 }
 
+ALLEGRO_BITMAP* TileDrive::create_new_backbuffer_sub_bitmap()
+{
+   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+   return al_create_sub_bitmap(backbuffer, 0, 0, al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
+}
+
 void TileDrive::initialize()
 {
    if (!((!initialized)))
@@ -257,21 +264,20 @@ void TileDrive::initialize()
       error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"al_get_current_display()\" not met";
       throw std::runtime_error(error_message.str());
    }
-   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
-
-   backbuffer_sub_bitmap = al_create_sub_bitmap(
-      backbuffer,
-      0,
-      0,
-      al_get_bitmap_width(backbuffer),
-      al_get_bitmap_height(backbuffer)
-   );
-
+   backbuffer_sub_bitmap = create_new_backbuffer_sub_bitmap();
    if (!backbuffer_sub_bitmap)
    {
       std::stringstream error_message;
       error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
                     << "could not create backbuffer_sub_bitmap";
+      throw std::runtime_error(error_message.str());
+   }
+   backbuffer_sub_bitmap_background = create_new_backbuffer_sub_bitmap();
+   if (!backbuffer_sub_bitmap_background)
+   {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
+                    << "could not create backbuffer_sub_bitmap_background";
       throw std::runtime_error(error_message.str());
    }
 
@@ -636,6 +642,38 @@ void TileDrive::development_play_around_with_collision_steper_callback(AllegroFl
    return;
 }
 
+void TileDrive::render_background()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "TileDrive" << "::" << "render_background" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return;
+}
+
+void TileDrive::render_world()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "TileDrive" << "::" << "render_world" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   //al_clear_depth_buffer(1);
+   ALLEGRO_STATE previous_target_bitmap_state;
+   al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
+   camera.setup_projection_on(backbuffer_sub_bitmap);
+   al_set_target_bitmap(backbuffer_sub_bitmap);
+   //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
+   //glDisable(GL_CULL_FACE);
+   render_terrain();
+   render_driver();
+   al_restore_state(&previous_target_bitmap_state);
+   return;
+}
+
 void TileDrive::render()
 {
    if (!(initialized))
@@ -644,25 +682,8 @@ void TileDrive::render()
       error_message << "TileDrive" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   //al_clear_depth_buffer(1);
-   ALLEGRO_STATE previous_target_bitmap_state;
-   al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
-   camera.setup_projection_on(backbuffer_sub_bitmap);
-   al_set_target_bitmap(backbuffer_sub_bitmap);
-   //camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
-
-   //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
-   //glDisable(GL_CULL_FACE);
-
-   //camera.start_reverse_transform();
-   //AllegroFlare::Placement3D place;
-   //place.start_transform();
-   render_terrain();
-   render_driver();
-   //place.restore_transform();
-   //camera.restore_transform();
-   al_restore_state(&previous_target_bitmap_state);
-
+   render_background();
+   render_world();
    render_hud();
    return;
 }
