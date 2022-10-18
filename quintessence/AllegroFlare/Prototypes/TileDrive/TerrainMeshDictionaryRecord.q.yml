@@ -1,0 +1,41 @@
+properties:
+
+
+  - name: tmj_filename
+    type: std::string
+    init_with: '"[unset-tmj_filename]"'
+    getter: true
+    setter: true
+
+  - name: tile_atlas_bitmap_identifier
+    type: std::string
+    init_with: '"[unset-tile_atlas_bitmap_identifier]"'
+    getter: true
+    setter: true
+
+  - name: tile_atlas_tile_width
+    type: int
+    init_with: 1
+    getter: true
+    setter: true
+
+  - name: tile_atlas_tile_height
+    type: int
+    init_with: 1
+    getter: true
+    setter: true
+
+  - name: terrain_mesh
+    type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::TileDrive::TerrainMesh
+    headers: [ AllegroFlare/Prototypes/TileDrive/TerrainMesh.hpp ]
+
+
