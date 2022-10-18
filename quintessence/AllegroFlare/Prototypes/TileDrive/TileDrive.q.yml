@@ -100,6 +100,7 @@ properties:
   - name: parallax_background
     type: AllegroFlare::Elements::Backgrounds::Parallax
     init_with: ''
+    getter_ref: true
 
   - name: camera
     type: AllegroFlare::Camera3D
@@ -261,11 +262,11 @@ functions:
 
 
       // setup the background
-      parallax_background.set_layers({
-         {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Sky3.png")},
-         {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3a.png")},
-         {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3b.png")},
-      });
+      //parallax_background.set_layers({
+         //{0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Sky3.png")},
+         //{0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3a.png")},
+         //{0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3b.png")},
+      //});
 
 
 

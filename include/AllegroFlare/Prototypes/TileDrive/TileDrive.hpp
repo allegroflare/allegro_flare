@@ -83,6 +83,7 @@ namespace AllegroFlare
             void* get_collision_stepper_step_result_callback_user_data() const;
             AllegroFlare::Prototypes::TileDrive::TerrainMesh* &get_current_terrain_mesh_ref();
             std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> &get_terrain_mesh_dictionary_ref();
+            AllegroFlare::Elements::Backgrounds::Parallax &get_parallax_background_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

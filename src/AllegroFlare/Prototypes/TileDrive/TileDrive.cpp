@@ -138,6 +138,12 @@ std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionary
 }
 
 
+AllegroFlare::Elements::Backgrounds::Parallax &TileDrive::get_parallax_background_ref()
+{
+   return parallax_background;
+}
+
+
 void TileDrive::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    if (!((!initialized)))
@@ -286,11 +292,11 @@ void TileDrive::initialize()
 
 
    // setup the background
-   parallax_background.set_layers({
-      {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Sky3.png")},
-      {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3a.png")},
-      {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3b.png")},
-   });
+   //parallax_background.set_layers({
+      //{0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Sky3.png")},
+      //{0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3a.png")},
+      //{0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3b.png")},
+   //});
 
 
 

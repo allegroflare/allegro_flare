@@ -103,6 +103,11 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    tile_drive.set_event_emitter(&event_emitter);
    tile_drive.set_sample_bin(&sample_bin);
    tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
+   tile_drive.get_parallax_background_ref().set_layers({
+      {0, 0, 1.0 / (3.1415 / 2), get_bitmap_bin_ref().auto_get("backgrounds/Sky3.png")},
+      {0, 0, 1.0 / (3.1415 / 2), get_bitmap_bin_ref().auto_get("backgrounds/Cloud3a.png")},
+      {0, 0, 1.0 / (3.1415 / 2), get_bitmap_bin_ref().auto_get("backgrounds/Cloud3b.png")},
+   });
    tile_drive.set_terrain_mesh_dictionary({
       { "og-tunnel-mesh", TerrainMeshDictionaryRecord(
          "tunnel_mesh-02.tmj",
