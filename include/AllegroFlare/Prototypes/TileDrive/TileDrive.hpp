@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Parallax.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp>
@@ -51,6 +52,7 @@ namespace AllegroFlare
             bool driver_break_pressed;
             std::function< void( AllegroFlare::Physics::TileMapCollisionStepperStepResult*, AllegroFlare::Prototypes::TileDrive::TileDrive*, void* ) > collision_stepper_step_result_callback;
             void* collision_stepper_step_result_callback_user_data;
+            AllegroFlare::Elements::Backgrounds::Parallax parallax_background;
             AllegroFlare::Camera3D camera;
             AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
             int state;

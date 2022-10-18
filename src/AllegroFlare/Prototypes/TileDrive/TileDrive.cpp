@@ -3,6 +3,7 @@
 #include <AllegroFlare/Prototypes/TileDrive/TileDrive.hpp>
 
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Parallax.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver.hpp>
 #include <AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.hpp>
@@ -42,6 +43,7 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , driver_break_pressed(false)
    , collision_stepper_step_result_callback()
    , collision_stepper_step_result_callback_user_data(nullptr)
+   , parallax_background()
    , camera()
    , hud({})
    , state(STATE_WAITING_START)
@@ -280,6 +282,17 @@ void TileDrive::initialize()
                     << "could not create backbuffer_sub_bitmap_background";
       throw std::runtime_error(error_message.str());
    }
+
+
+
+   // setup the background
+   parallax_background.set_layers({
+      {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Sky3.png")},
+      {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3a.png")},
+      {0, 0, 1.0 / (3.1415 / 2), bitmap_bin->auto_get("backgrounds/Cloud3b.png")},
+   });
+
+
 
 
    AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory factory(bitmap_bin);
@@ -592,6 +605,11 @@ void TileDrive::update()
    camera.position = driver_position;
    camera.spin = driver_turn_rotation;
 
+
+   // update background rotation to match camera spin
+   parallax_background.set_offset_x(camera.spin * 1920);
+
+
    return;
 }
 
@@ -650,6 +668,8 @@ void TileDrive::render_background()
       error_message << "TileDrive" << "::" << "render_background" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
+   parallax_background.render();
    return;
 }
 

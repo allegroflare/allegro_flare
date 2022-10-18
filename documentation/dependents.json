@@ -1738,6 +1738,9 @@
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
+  "AllegroFlare/Elements/Backgrounds/Parallax": [
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements"
