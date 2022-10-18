@@ -144,7 +144,6 @@ void AllPass::initialize()
       throw std::runtime_error(error_message.str());
    }
    // initialize the mixer
-   // DEBUG:
    mixer.initialize();
 
    // initialize the data_block

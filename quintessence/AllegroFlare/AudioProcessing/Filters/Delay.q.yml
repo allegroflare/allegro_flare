@@ -52,7 +52,6 @@ functions:
     guards: [ (!initialized) ]
     body: |
       // initialize the mixer
-      // DEBUG:
       mixer.initialize();
 
       // initialize the data_block
