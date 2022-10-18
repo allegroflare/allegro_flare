@@ -271,10 +271,18 @@ functions:
          AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord &record = terrain_mesh_dictionary_item.second;
 
          std::string filename = record.get_tmj_filename();
+         std::string tile_atlas_bitmap_identifier = record.get_tile_atlas_bitmap_identifier();
+         int tile_atlas_tile_width = record.get_tile_atlas_tile_width();
+         int tile_atlas_tile_height = record.get_tile_atlas_tile_height();
          AllegroFlare::Prototypes::TileDrive::TerrainMesh* &mesh_ptr = record.get_terrain_mesh_ref();
 
          //mesh_ptr = factory.create_from_tmj(maps_folder + filename, "uv-with-decorations-0x.png", 50, 50);
-         mesh_ptr = factory.create_from_tmj(maps_folder + filename, "Village_Tileset.png", 16, 16);
+         mesh_ptr = factory.create_from_tmj(
+            maps_folder + filename,
+            tile_atlas_bitmap_identifier,
+            tile_atlas_tile_width,
+            tile_atlas_tile_height
+         );
          if (!mesh_ptr)
          {
             std::stringstream error_message;
