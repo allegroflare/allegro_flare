@@ -25,7 +25,8 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshFactoryTest, can_be_created_wi
 
 
 TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshFactoryTest,
-   create_from_tmj__will_create_a_terrain_mesh_with_with_the_expected_values_from_a_tmj_file)
+   create_from_tmj__when_collision_layer_is_not_present__will_assign_equivelent_data_to_prim_mesh_\
+and_collision_tile_map)
 {
    al_init();
    al_init_primitives_addon();
@@ -57,6 +58,13 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshFactoryTest,
    al_shutdown_image_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshFactoryTest,
+   create_from_tmj__when_a_collision_layer_is_present__will_assign_expected_values)
+{
+   // TODO
 }
 
 
