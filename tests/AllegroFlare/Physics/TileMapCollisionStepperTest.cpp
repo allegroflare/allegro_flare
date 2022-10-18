@@ -375,7 +375,6 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
 
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, tiles_within__returns_the_expected_values)
-   // TODO: consider more elaborate testing on this function
 {
    AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper;
    std::vector<AllegroFlare::Physics::Int2D> expected_result_tiles = {
@@ -393,7 +392,6 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, tiles_within__returns_t
 
 
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, get_stepped_tile_collisions__returns_the_expected_values)
-   // TODO: consider more elaborate testing on this function
 {
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
    auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
@@ -423,7 +421,6 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, get_stepped_tile_collis
 
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    get_stepped_tile_collisions__returns_the_expected_values_when_a_collision_tile_map_is_present)
-   // TODO: consider more elaborate testing on this function
 {
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
    auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
@@ -457,7 +454,6 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    step__when_there_are_no_solid_blocks__returns_expected_results)
-   // TODO: consider more elaborate testing on this function
 {
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
    auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
@@ -488,6 +484,62 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
       tile_map_collision_stepper.step();
 
    EXPECT_EQ(expected_result_collisions, actual_result_collisions);
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__when_solid_blocks_are_present__returns_expected_results)
+{
+   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+   auto EVENT_COLLIDED_AGAINST = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST;
+   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
+   auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
+   auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
+
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+   collision_tile_map.initialize();
+   load_increment_tile_num_map(collision_tile_map);
+
+   // add a "solid" tile to the map, blocking the path of the aabb2d within this step
+   collision_tile_map.set_tile(2, 4, 1); // "1" is a default solid tile
+
+   AllegroFlare::Physics::AABB2D aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
+
+   AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
+   {
+      TileMapCollisionStepperCollisionInfo({2, 4}, 1, -8, 8, true, EVENT_COLLIDED_AGAINST),
+      TileMapCollisionStepperCollisionInfo({3, 4}, 23, -8, 8, false, EVENT_STAYED_ON),
+      TileMapCollisionStepperCollisionInfo({3, 5}, 28, -8, 8, false, EVENT_STAYED_ON),
+      TileMapCollisionStepperCollisionInfo({3, 6}, -1, -8, 8, false, EVENT_ENTERED),
+      TileMapCollisionStepperCollisionInfo({3, 3}, 18, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 3}, 19, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 4}, 24, -8, 8, false, EVENT_EXITED),
+      TileMapCollisionStepperCollisionInfo({4, 5}, 29, -8, 8, false, EVENT_EXITED),
+   };
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
+      tile_map_collision_stepper.step();
+
+   EXPECT_EQ(expected_result_collisions, actual_result_collisions);
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__when_solid_blocks_are_present__will_reposition_the_aabb2d_ajacent_to_the_collided_block)
+   // TODO: This function needs an AABB2D comparison operator and assertion on the subject
+{
+   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+   collision_tile_map.initialize();
+   load_increment_tile_num_map(collision_tile_map);
+   // add a "solid" tile to the map, blocking the path of the aabb2d within this step
+   collision_tile_map.set_tile(2, 4, 1); // "1" is a default solid tile
+   AllegroFlare::Physics::AABB2D aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
+
+   AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
+
+   //AllegroFlare::Physics::AABB2D expected_result_aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
+   //EXPECT_EQ(aabb2d, aabb2d);
 }
 
 
