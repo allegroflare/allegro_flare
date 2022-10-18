@@ -36,6 +36,7 @@ properties:
   - name: tile_drive
     type: AllegroFlare::Prototypes::TileDrive::TileDrive
     init_with: ''
+    getter_ref: true
 
   - name: initialized 
     type: bool

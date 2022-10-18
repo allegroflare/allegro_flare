@@ -4,6 +4,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <lib/nlohmann/json.hpp>
 #include <sstream>
 #include <stdexcept>
@@ -26,6 +27,7 @@ TerrainMeshTMJDataLoader::TerrainMeshTMJDataLoader(std::string filename)
    , layer_num_columns(0)
    , layer_num_rows(0)
    , layer_tile_data({})
+   , collision_layer_tile_data({})
    , loaded(false)
 {
 }
@@ -119,6 +121,17 @@ std::vector<int> TerrainMeshTMJDataLoader::get_layer_tile_data()
    return layer_tile_data;
 }
 
+std::vector<int> TerrainMeshTMJDataLoader::get_collision_layer_tile_data()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "TerrainMeshTMJDataLoader" << "::" << "get_collision_layer_tile_data" << ": error: " << "guard \"loaded\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return collision_layer_tile_data;
+}
+
 bool TerrainMeshTMJDataLoader::load()
 {
    if (!((!loaded)))
@@ -161,13 +174,45 @@ bool TerrainMeshTMJDataLoader::load()
    // get first j["layers"] that is a ["type"] == "tilelayer"
    bool tilelayer_type_found = false;
    nlohmann::json tilelayer;
+
+   bool collision_tilelayer_type_found = false;
+   nlohmann::json collision_tilelayer;
+
    for (auto &layer : j["layers"].items())
    {
-      if (layer.value()["type"] == "tilelayer" && layer.value()["name"] != "collision")
+      if (layer.value()["type"] == "tilelayer")
       {
-         tilelayer = layer.value();
-         tilelayer_type_found = true;
-         break;
+         if (layer.value()["name"] != "collision")
+         {
+            // Throw error if there is more than one "tilelayer" layer (not of type "collision")
+            if (tilelayer_type_found)
+            {
+               // TODO: test this condition
+               std::stringstream error_message;
+               error_message << "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::load error: "
+                             << "More than one layer of type \"tilelayer\" (that is not \"collision\") cannot "
+                             << "be present.";
+               throw std::runtime_error(error_message.str());
+            }
+            tilelayer = layer.value();
+            tilelayer_type_found = true;
+            //break;
+         }
+         else if (layer.value()["name"] == "collision")
+         {
+            // Throw error if there is more than one layer called "collision"
+            if (collision_tilelayer_type_found)
+            {
+               // TODO: test this condition
+               std::stringstream error_message;
+               error_message << "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::load error: "
+                             << "More than one layer of type \"tilelayer\" (that is not \"collision\") cannot "
+                             << "be present.";
+               throw std::runtime_error(error_message.str());
+            }
+            collision_tilelayer = layer.value();
+            collision_tilelayer_type_found = true;
+         }
       }
    }
    if (!tilelayer_type_found) throw std::runtime_error("TMJMeshLoader: error: tilelayer type not found.");
@@ -175,6 +220,15 @@ bool TerrainMeshTMJDataLoader::load()
    layer_num_columns = tilelayer["width"];
    layer_num_rows = tilelayer["height"];
    layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+   if (!collision_tilelayer_type_found)
+   {
+      // TODO: test this case
+      std::cout << "WARNING: collision_tilelayer_type_found is false" << std::endl;
+   }
+   else
+   {
+      collision_layer_tile_data = collision_tilelayer["data"].get<std::vector<int>>();
+   }
 
    loaded = true;
 

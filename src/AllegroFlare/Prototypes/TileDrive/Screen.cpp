@@ -31,6 +31,12 @@ Screen::~Screen()
 }
 
 
+AllegroFlare::Prototypes::TileDrive::TileDrive &Screen::get_tile_drive_ref()
+{
+   return tile_drive;
+}
+
+
 void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    if (!((!initialized)))

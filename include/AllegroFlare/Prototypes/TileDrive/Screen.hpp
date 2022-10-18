@@ -38,6 +38,7 @@ namespace AllegroFlare
             Screen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SampleBin* sample_bin=nullptr);
             virtual ~Screen();
 
+            AllegroFlare::Prototypes::TileDrive::TileDrive &get_tile_drive_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
