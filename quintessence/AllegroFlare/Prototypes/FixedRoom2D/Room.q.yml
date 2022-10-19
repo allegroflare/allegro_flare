@@ -231,35 +231,16 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Cursor
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp ]
-  - symbol: AllegroFlare::Color::*
-    headers: [ AllegroFlare/Color.hpp ]
-  - symbol: AllegroFlare::BitmapBin*
-    headers: [ AllegroFlare/BitmapBin.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>*
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
-    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
-  - symbol: std::map<std::string, std::string>*
-    headers: [ map, string ]
-  - symbol: std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
-    headers: [ vector, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
-
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::FontBin
