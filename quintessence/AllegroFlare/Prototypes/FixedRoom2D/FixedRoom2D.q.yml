@@ -143,8 +143,6 @@ functions:
          "unpause_game",
       };
 
-      //inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
-
       inventory_window.set_font_bin(font_bin);
       inventory_window.set_bitmap_bin(bitmap_bin);
       inventory_window.set_event_emitter(event_emitter);
@@ -194,8 +192,8 @@ functions:
       }
       else
       {
-         std::cout << "[FixedRoom2D::FixedRoom2D::load_story_and_start]: ERROR: there was an error loading the "
-                   << "configuration."
+         std::cout << "[FixedRoom2D::FixedRoom2D::load_configuration_and_start]: ERROR: there was an error loading "
+                   << "the configuration."
                    << std::endl;
       }
 
