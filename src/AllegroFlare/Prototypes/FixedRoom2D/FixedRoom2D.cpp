@@ -201,7 +201,7 @@ bool FixedRoom2D::load_configuration(AllegroFlare::Prototypes::FixedRoom2D::Conf
 
    if (!load_was_successful)
    {
-      std::cout << "[FixedRoom2D::FixedRoom2D::load_configuration_and_enter_start_room]: ERROR: there was an "
+      std::cout << "[FixedRoom2D::FixedRoom2D::load_configuration]: ERROR: there was an "
                 << "error loading the configuration."
                 << std::endl;
    }
@@ -354,7 +354,7 @@ void FixedRoom2D::render()
    }
    else
    {
-      // TODO render_void_room();
+      render_void_room();
    }
 
    // render the active dialog
@@ -379,6 +379,12 @@ void FixedRoom2D::render()
       dialog_box_renderer.render();
    }
 
+   return;
+}
+
+void FixedRoom2D::render_void_room()
+{
+   al_clear_to_color(ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3});
    return;
 }
 

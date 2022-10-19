@@ -193,7 +193,7 @@ functions:
 
       if (!load_was_successful)
       {
-         std::cout << "[FixedRoom2D::FixedRoom2D::load_configuration_and_enter_start_room]: ERROR: there was an "
+         std::cout << "[FixedRoom2D::FixedRoom2D::load_configuration]: ERROR: there was an "
                    << "error loading the configuration."
                    << std::endl;
       }
@@ -333,7 +333,7 @@ functions:
       }
       else
       {
-         // TODO render_void_room();
+         render_void_room();
       }
 
       // render the active dialog
@@ -363,6 +363,12 @@ functions:
       - AllegroFlare::Color::*
       - AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
       - AllegroFlare::Elements::DialogBoxRenderer
+
+
+  - name: render_void_room
+    body: |
+      al_clear_to_color(ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3});
+      return;
 
 
   - name: process_subscribed_to_game_event

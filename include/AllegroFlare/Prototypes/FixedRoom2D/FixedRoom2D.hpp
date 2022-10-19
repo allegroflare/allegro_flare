@@ -80,6 +80,7 @@ namespace AllegroFlare
             void reset_cursors_to_default_in_all_rooms();
             std::string get_current_room_dictionary_name(AllegroFlare::Prototypes::FixedRoom2D::Room* room=nullptr);
             void render();
+            void render_void_room();
             void process_subscribed_to_game_event(AllegroFlare::GameEvent* game_event=nullptr);
             void render_entities_in_current_room();
             std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> get_entities_in_current_room();
