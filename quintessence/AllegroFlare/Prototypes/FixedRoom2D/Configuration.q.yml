@@ -72,17 +72,6 @@ dependencies:
     headers: [ AllegroFlare/Inventory.hpp ]
   - symbol: AllegroFlare::InventoryIndex
     headers: [ AllegroFlare/InventoryIndex.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>
-    headers: [ map, string, AllegroFlare/Prototypes/FixedRoom2D/Room.hpp ]
-  - symbol: std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>
-    headers: [ map, AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
-  - symbol: std::map<std::string, std::string>
-    headers: [ map, string ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]
-
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Room
