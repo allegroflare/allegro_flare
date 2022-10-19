@@ -115,7 +115,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
@@ -222,7 +221,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
@@ -636,7 +634,6 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
@@ -837,7 +834,6 @@
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
@@ -1070,7 +1066,6 @@
   "AllegroFlare/GameEvent": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
@@ -1078,7 +1073,6 @@
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEvent",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
@@ -1217,7 +1211,6 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room"
   ],
   "AllegroFlare/Color/Gold": [
@@ -1322,7 +1315,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
   ],
@@ -1358,15 +1350,13 @@
   ],
   "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
-    "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper"
   ],
   "std/map<int, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper"
   ],
   "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
   ],
   "std/map<std/string, std/string>": [
@@ -1376,18 +1366,6 @@
   "AllegroFlare/Prototypes/FixedRoom2D/Cursor": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room"
-  ],
-  "AllegroFlare/AudioController": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
-  ],
-  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Room>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "std/map<std/string, AllegroFlare/Prototypes/FixedRoom2D/Script>": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -1420,21 +1398,24 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
-  "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
   "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
-  "AllegroFlare/Shader": [
+  "AllegroFlare/AudioController": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
+  ],
+  "AllegroFlare/Shader": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Shaders/Base",
     "Tileo/Shaders/Base"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
