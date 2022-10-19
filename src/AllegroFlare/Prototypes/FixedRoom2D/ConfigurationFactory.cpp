@@ -65,7 +65,7 @@ AllegroFlare::Prototypes::FixedRoom2D::Configuration ConfigurationFactory::load_
       result.get_entity_room_associations_ref();
    std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> &script_dictionary =
       result.get_script_dictionary_ref();
-   std::string &starting_in_room_identifier = result.get_starting_in_room_identifier_ref();
+   std::string &starting_room_identifier = result.get_starting_room_identifier_ref();
 
 
 
@@ -129,7 +129,7 @@ AllegroFlare::Prototypes::FixedRoom2D::Configuration ConfigurationFactory::load_
       })},
    };
 
-   starting_in_room_identifier = "front_hall";
+   starting_room_identifier = "front_hall";
     
    //enter_room("front_hall");
    //enter_room("study");

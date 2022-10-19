@@ -180,6 +180,7 @@ functions:
     body: |
       AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader configuration_loader;
       configuration_loader.set_source_configuration(&configuration);
+
       configuration_loader.set_destination_inventory_index(&inventory_index);
       configuration_loader.set_destination_af_inventory(&af_inventory);
       configuration_loader.set_destination_flags(&flags);
@@ -187,7 +188,7 @@ functions:
       configuration_loader.set_destination_room_dictionary(&room_dictionary);
       configuration_loader.set_destination_entity_room_associations(&entity_room_associations);
       configuration_loader.set_destination_script_dictionary(&script_dictionary);
-      starting_room_identifier = configuration_loader.get_starting_in_room_identifier();
+      configuration_loader.set_destination_starting_room_identifier(&starting_room_identifier);
 
       bool load_was_successful = configuration_loader.load_from_source_configuration();
 

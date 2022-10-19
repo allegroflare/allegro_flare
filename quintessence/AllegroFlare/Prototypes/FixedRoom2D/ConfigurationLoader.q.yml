@@ -57,10 +57,12 @@ properties:
     getter: true
     setter: true
 
-  - name: starting_in_room_identifier
-    type: std::string
-    init_with: '"[unset-starting_in_room_identifier]"'
+  - name: destination_starting_room_identifier
+    type: std::string*
+    init_with: nullptr
+    constructor_arg: true
     getter: true
+    setter: true
 
 
 functions:
@@ -76,7 +78,7 @@ functions:
       *destination_entity_dictionary = source_configuration->get_entity_dictionary();
       *destination_entity_room_associations = source_configuration->get_entity_room_associations();
       *destination_script_dictionary = source_configuration->get_script_dictionary();
-      starting_in_room_identifier = source_configuration->get_starting_in_room_identifier();
+      *destination_starting_room_identifier = source_configuration->get_starting_room_identifier();
       return true;
 
 

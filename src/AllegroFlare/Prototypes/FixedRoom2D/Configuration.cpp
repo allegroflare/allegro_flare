@@ -21,7 +21,7 @@ Configuration::Configuration(AllegroFlare::InventoryIndex inventory_index, Alleg
    , room_dictionary(room_dictionary)
    , entity_room_associations(entity_room_associations)
    , script_dictionary(script_dictionary)
-   , starting_in_room_identifier("[unset-starting_in_room_identifier]")
+   , starting_room_identifier("[unset-starting_room_identifier]")
 {
 }
 
@@ -73,9 +73,9 @@ void Configuration::set_script_dictionary(std::map<std::string, AllegroFlare::Pr
 }
 
 
-void Configuration::set_starting_in_room_identifier(std::string starting_in_room_identifier)
+void Configuration::set_starting_room_identifier(std::string starting_room_identifier)
 {
-   this->starting_in_room_identifier = starting_in_room_identifier;
+   this->starting_room_identifier = starting_room_identifier;
 }
 
 
@@ -121,9 +121,9 @@ std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> Configurati
 }
 
 
-std::string Configuration::get_starting_in_room_identifier() const
+std::string Configuration::get_starting_room_identifier() const
 {
-   return starting_in_room_identifier;
+   return starting_room_identifier;
 }
 
 
@@ -169,9 +169,9 @@ std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> &Configurat
 }
 
 
-std::string &Configuration::get_starting_in_room_identifier_ref()
+std::string &Configuration::get_starting_room_identifier_ref()
 {
-   return starting_in_room_identifier;
+   return starting_room_identifier;
 }
 
 

@@ -14,7 +14,7 @@ namespace FixedRoom2D
 {
 
 
-ConfigurationLoader::ConfigurationLoader(AllegroFlare::Prototypes::FixedRoom2D::Configuration* source_configuration, AllegroFlare::InventoryIndex* destination_inventory_index, AllegroFlare::Inventory* destination_af_inventory, AllegroFlare::Inventory* destination_flags, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* destination_entity_dictionary, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary, std::map<std::string, std::string>* destination_entity_room_associations, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary)
+ConfigurationLoader::ConfigurationLoader(AllegroFlare::Prototypes::FixedRoom2D::Configuration* source_configuration, AllegroFlare::InventoryIndex* destination_inventory_index, AllegroFlare::Inventory* destination_af_inventory, AllegroFlare::Inventory* destination_flags, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>* destination_entity_dictionary, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>* destination_room_dictionary, std::map<std::string, std::string>* destination_entity_room_associations, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* destination_script_dictionary, std::string* destination_starting_room_identifier)
    : source_configuration(source_configuration)
    , destination_inventory_index(destination_inventory_index)
    , destination_af_inventory(destination_af_inventory)
@@ -23,7 +23,7 @@ ConfigurationLoader::ConfigurationLoader(AllegroFlare::Prototypes::FixedRoom2D::
    , destination_room_dictionary(destination_room_dictionary)
    , destination_entity_room_associations(destination_entity_room_associations)
    , destination_script_dictionary(destination_script_dictionary)
-   , starting_in_room_identifier("[unset-starting_in_room_identifier]")
+   , destination_starting_room_identifier(destination_starting_room_identifier)
 {
 }
 
@@ -81,6 +81,12 @@ void ConfigurationLoader::set_destination_script_dictionary(std::map<std::string
 }
 
 
+void ConfigurationLoader::set_destination_starting_room_identifier(std::string* destination_starting_room_identifier)
+{
+   this->destination_starting_room_identifier = destination_starting_room_identifier;
+}
+
+
 AllegroFlare::Prototypes::FixedRoom2D::Configuration* ConfigurationLoader::get_source_configuration() const
 {
    return source_configuration;
@@ -129,9 +135,9 @@ std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* Configurat
 }
 
 
-std::string ConfigurationLoader::get_starting_in_room_identifier() const
+std::string* ConfigurationLoader::get_destination_starting_room_identifier() const
 {
-   return starting_in_room_identifier;
+   return destination_starting_room_identifier;
 }
 
 
@@ -149,7 +155,7 @@ bool ConfigurationLoader::load_from_source_configuration()
    *destination_entity_dictionary = source_configuration->get_entity_dictionary();
    *destination_entity_room_associations = source_configuration->get_entity_room_associations();
    *destination_script_dictionary = source_configuration->get_script_dictionary();
-   starting_in_room_identifier = source_configuration->get_starting_in_room_identifier();
+   *destination_starting_room_identifier = source_configuration->get_starting_room_identifier();
    return true;
 }
 

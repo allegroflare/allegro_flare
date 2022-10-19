@@ -57,9 +57,9 @@ properties:
     getter_ref: true
     setter: true
 
-  - name: starting_in_room_identifier
+  - name: starting_room_identifier
     type: std::string
-    init_with: '"[unset-starting_in_room_identifier]"'
+    init_with: '"[unset-starting_room_identifier]"'
     getter: true
     setter: true
     getter_ref: true
