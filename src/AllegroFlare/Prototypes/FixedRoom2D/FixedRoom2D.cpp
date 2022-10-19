@@ -197,16 +197,16 @@ void FixedRoom2D::load_from_configuration_and_start(AllegroFlare::Prototypes::Fi
 
    bool load_was_successful = configuration_loader.load_from_source_configuration();
 
-   if (load_was_successful)
-   {
-      std::string room_to_start_in = configuration_loader.get_starting_in_room_identifier();
-      enter_room(room_to_start_in);
-   }
-   else
+   if (!load_was_successful)
    {
       std::cout << "[FixedRoom2D::FixedRoom2D::load_configuration_and_start]: ERROR: there was an error loading "
                 << "the configuration."
                 << std::endl;
+   }
+   else
+   {
+      std::string room_to_start_in = configuration_loader.get_starting_in_room_identifier();
+      enter_room(room_to_start_in);
    }
 
    return;
