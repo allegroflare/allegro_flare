@@ -24,7 +24,8 @@ int main(int argc, char **argv)
 
    AllegroFlare::Prototypes::FixedRoom2D::Screen example(&bitmap_bin, &font_bin, &event_emitter);
    example.initialize();
-   example.load_gametest_configuration_and_start();
+   example.load_gametest_configuration();
+   example.enter_start_room();
 
    framework.register_screen("example", &example);
 
