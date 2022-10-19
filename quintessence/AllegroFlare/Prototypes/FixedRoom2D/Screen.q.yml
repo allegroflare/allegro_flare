@@ -85,22 +85,30 @@ functions:
       return;
 
 
-  - name: load_gametest_configuration_and_start
+  - name: load_gametest_configuration
     guards: [ initialized ]
     body: |
-      fixed_room_2d.load_gametest_configuration_and_start();
+      // TODO: build and inject "gametest_configuration" and pass into a "load_configuration()" call
+      fixed_room_2d.load_gametest_configuration();
       return;
 
 
-  - name: load_game_configuration_and_start
+  - name: load_configuration
     parameters:
       - name: configuration
         type: AllegroFlare::Prototypes::FixedRoom2D::Configuration
         default_argument: '{}'
     guards: [ initialized ]
     body: |
-      fixed_room_2d.load_from_configuration_and_start(configuration);
+      fixed_room_2d.load_configuration(configuration);
       return;
+
+
+  - name: enter_start_room
+    type: bool
+    guards: [ initialized ]
+    body: |
+      return fixed_room_2d.enter_start_room();
 
 
   - name: on_activate

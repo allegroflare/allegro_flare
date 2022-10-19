@@ -45,6 +45,7 @@ namespace AllegroFlare
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary;
             AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner;
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper entity_collection_helper;
+            std::string starting_room_identifier;
             AllegroFlare::Prototypes::FixedRoom2D::Room* current_room;
             AllegroFlare::Shader* room_shader;
             bool initialized;
@@ -70,8 +71,9 @@ namespace AllegroFlare
             std::set<std::string> get_subscribed_to_game_event_names();
             bool is_subscribed_to_game_event_name(std::string game_event_name="[unset-game_event_name]");
             void initialize();
-            void load_from_configuration_and_start(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={});
-            void load_gametest_configuration_and_start();
+            bool load_configuration(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={});
+            bool enter_start_room();
+            bool load_gametest_configuration();
             void update();
             bool enter_room(std::string room_name="[unset-room_name]");
             void unhover_any_and_all_entities();

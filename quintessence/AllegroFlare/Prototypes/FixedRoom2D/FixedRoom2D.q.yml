@@ -59,6 +59,10 @@ properties:
     init_with: '{}'
     getter_ref: true
 
+  - name: starting_room_identifier
+    type: std::string
+    init_with: '"[unset-starting_room_identifier]"'
+
   - name: current_room
     type: AllegroFlare::Prototypes::FixedRoom2D::Room*
     init_with: nullptr
@@ -166,7 +170,8 @@ functions:
       - AllegroFlare::Prototypes::FixedRoom2D::RoomFactory
 
 
-  - name: load_from_configuration_and_start
+  - name: load_configuration
+    type: bool
     guards: [ initialized ]
     parameters:
       - name: configuration
@@ -182,35 +187,40 @@ functions:
       configuration_loader.set_destination_room_dictionary(&room_dictionary);
       configuration_loader.set_destination_entity_room_associations(&entity_room_associations);
       configuration_loader.set_destination_script_dictionary(&script_dictionary);
+      starting_room_identifier = configuration_loader.get_starting_in_room_identifier();
 
       bool load_was_successful = configuration_loader.load_from_source_configuration();
 
       if (!load_was_successful)
       {
-         std::cout << "[FixedRoom2D::FixedRoom2D::load_configuration_and_start]: ERROR: there was an error loading "
-                   << "the configuration."
+         std::cout << "[FixedRoom2D::FixedRoom2D::load_configuration_and_enter_start_room]: ERROR: there was an "
+                   << "error loading the configuration."
                    << std::endl;
       }
-      else
-      {
-         std::string room_to_start_in = configuration_loader.get_starting_in_room_identifier();
-         enter_room(room_to_start_in);
-      }
 
-      return;
+      return load_was_successful;
     body_dependency_symbols:
      - AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader
 
 
-  - name: load_gametest_configuration_and_start
+  - name: enter_start_room
+    type: bool
     guards: [ initialized ]
     body: |
+      return enter_room(starting_room_identifier);
+
+
+  - name: load_gametest_configuration
+    type: bool
+    guards: [ initialized ]
+    body: |
+      // TODO: rename this to build_gametest_configuration
       AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
       AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
         configuration_factory.load_original_gametest_default(
           bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
 
-      return load_from_configuration_and_start(source_configuration);
+      return load_configuration(source_configuration);
     body_dependency_symbols:
      - AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory
      - AllegroFlare::Prototypes::FixedRoom2D::Configuration

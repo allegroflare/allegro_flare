@@ -41,8 +41,9 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void initialize();
-            void load_gametest_configuration_and_start();
-            void load_game_configuration_and_start(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={});
+            void load_gametest_configuration();
+            void load_configuration(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={});
+            bool enter_start_room();
             virtual void on_activate() override;
             virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
             virtual void on_deactivate() override;

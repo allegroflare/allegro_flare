@@ -92,28 +92,40 @@ void Screen::initialize()
    return;
 }
 
-void Screen::load_gametest_configuration_and_start()
+void Screen::load_gametest_configuration()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "load_gametest_configuration_and_start" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Screen" << "::" << "load_gametest_configuration" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   fixed_room_2d.load_gametest_configuration_and_start();
+   // TODO: build and inject "gametest_configuration" and pass into a "load_configuration()" call
+   fixed_room_2d.load_gametest_configuration();
    return;
 }
 
-void Screen::load_game_configuration_and_start(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration)
+void Screen::load_configuration(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "load_game_configuration_and_start" << ": error: " << "guard \"initialized\" not met";
+      error_message << "Screen" << "::" << "load_configuration" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   fixed_room_2d.load_from_configuration_and_start(configuration);
+   fixed_room_2d.load_configuration(configuration);
    return;
+}
+
+bool Screen::enter_start_room()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "Screen" << "::" << "enter_start_room" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return fixed_room_2d.enter_start_room();
 }
 
 void Screen::on_activate()
