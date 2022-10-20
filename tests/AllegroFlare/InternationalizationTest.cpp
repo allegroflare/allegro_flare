@@ -11,7 +11,8 @@
 
 struct AllegroFlare_InternationalizationTest : public ::testing::Test
 {
-   const char *TEST_FOLDER = "./data/languages/";
+   const char *TEST_BASE_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+   const char *TEST_FOLDER = "data/languages/";
    static AllegroFlare::Internationalization internationalization;
 
    virtual void SetUp() override
@@ -19,9 +20,9 @@ struct AllegroFlare_InternationalizationTest : public ::testing::Test
       ASSERT_EQ(false, al_is_system_installed());
       ASSERT_EQ(true, al_init());
 
-      ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
-      al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
-      al_destroy_path(resource_path);
+      ALLEGRO_PATH *test_working_directory = al_create_path(TEST_BASE_FOLDER);
+      al_change_directory(al_path_cstr(test_working_directory, ALLEGRO_NATIVE_PATH_SEP));
+      al_destroy_path(test_working_directory);
 
       internationalization.set_languages_folder(TEST_FOLDER);
    }
@@ -39,10 +40,10 @@ AllegroFlare::Internationalization AllegroFlare_InternationalizationTest::intern
 
 TEST_F(AllegroFlare_InternationalizationTest, expected_test_files_and_folders_exist)
 {
-   ASSERT_EQ(true, al_filename_exists("./data/languages/"));
-   ASSERT_EQ(true, al_filename_exists("./data/languages/en.txt"));
-   ASSERT_EQ(true, al_filename_exists("./data/languages/fr.txt"));
-   ASSERT_EQ(true, al_filename_exists("./data/languages/it.txt"));
+   EXPECT_EQ(true, al_filename_exists("data/languages/"));
+   EXPECT_EQ(true, al_filename_exists("data/languages/en.txt"));
+   EXPECT_EQ(true, al_filename_exists("data/languages/fr.txt"));
+   EXPECT_EQ(true, al_filename_exists("data/languages/it.txt"));
 }
 
 
@@ -104,13 +105,13 @@ TEST_F(AllegroFlare_InternationalizationTest, finds_a_language_file_by_language_
 {
    std::string expected_filename = "";
 
-   expected_filename = "./data/languages/en.txt";
+   expected_filename = "data/languages/en.txt";
    ASSERT_EQ(expected_filename, internationalization.find_language_file("en"));
 
-   expected_filename = "./data/languages/fr.txt";
+   expected_filename = "data/languages/fr.txt";
    ASSERT_EQ(expected_filename, internationalization.find_language_file("fr"));
 
-   expected_filename = "./data/languages/it.txt";
+   expected_filename = "data/languages/it.txt";
    ASSERT_EQ(expected_filename, internationalization.find_language_file("it"));
 }
 
@@ -128,9 +129,9 @@ TEST_F(AllegroFlare_InternationalizationTest, DISABLED__returns_an_empty_string_
 
 TEST_F(AllegroFlare_InternationalizationTest, returns_true_when_a_language_file_loads_successfully)
 {
-   ASSERT_EQ(true, internationalization.load_language_file("en", "English", "./data/languages/en.txt"));
-   ASSERT_EQ(true, internationalization.load_language_file("fr", "French", "./data/languages/fr.txt"));
-   ASSERT_EQ(true, internationalization.load_language_file("it", "Italian", "./data/languages/it.txt"));
+   ASSERT_EQ(true, internationalization.load_language_file("en", "English", "data/languages/en.txt"));
+   ASSERT_EQ(true, internationalization.load_language_file("fr", "French", "data/languages/fr.txt"));
+   ASSERT_EQ(true, internationalization.load_language_file("it", "Italian", "data/languages/it.txt"));
 }
 
 
@@ -138,15 +139,15 @@ TEST_F(AllegroFlare_InternationalizationTest, returns_true_when_a_language_file_
 
 TEST_F(AllegroFlare_InternationalizationTest, sets_the_language_designator_and_language_name_when_loading_a_language_file)
 {
-   internationalization.load_language_file("en", "English", "./data/languages/en.txt");
+   internationalization.load_language_file("en", "English", "data/languages/en.txt");
    ASSERT_EQ("en", internationalization.get_language());
    ASSERT_EQ("English", internationalization.get_language_name());
 
-   internationalization.load_language_file("fr", "French", "./data/languages/fr.txt");
+   internationalization.load_language_file("fr", "French", "data/languages/fr.txt");
    ASSERT_EQ("fr", internationalization.get_language());
    ASSERT_EQ("French", internationalization.get_language_name());
 
-   internationalization.load_language_file("it", "Italian", "./data/languages/it.txt");
+   internationalization.load_language_file("it", "Italian", "data/languages/it.txt");
    ASSERT_EQ("it", internationalization.get_language());
    ASSERT_EQ("Italian", internationalization.get_language_name());
 }
@@ -164,7 +165,7 @@ TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_unable_to_load_
 
 TEST_F(AllegroFlare_InternationalizationTest, successfully_populates_labels_when_loading_a_language_file)
 {
-   EXPECT_EQ(true, internationalization.load_language_file("en", "English", "./data/languages/en.txt"));
+   EXPECT_EQ(true, internationalization.load_language_file("en", "English", "data/languages/en.txt"));
 
    ASSERT_EQ("Welcome to Allegro!", internationalization.t("welcome_message"));
    ASSERT_EQ("start", internationalization.t("start_button"));
