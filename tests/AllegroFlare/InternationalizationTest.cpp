@@ -37,7 +37,6 @@ AllegroFlare::Internationalization AllegroFlare_InternationalizationTest::intern
 
 
 
-
 TEST_F(AllegroFlare_InternationalizationTest, expected_test_files_and_folders_exist)
 {
    EXPECT_EQ(true, al_filename_exists("data/languages/"));
@@ -48,12 +47,10 @@ TEST_F(AllegroFlare_InternationalizationTest, expected_test_files_and_folders_ex
 
 
 
-
 TEST_F(AllegroFlare_InternationalizationTest, can_set_a_languages_folder)
 {
    EXPECT_EQ(TEST_FOLDER, internationalization.get_languages_folder());
 }
-
 
 
 
@@ -62,7 +59,6 @@ TEST_F(AllegroFlare_InternationalizationTest, initialized_its_languages_folder_t
    AllegroFlare::Internationalization internationalization;
    EXPECT_EQ("data/languages/", internationalization.get_languages_folder());
 }
-
 
 
 
@@ -100,7 +96,6 @@ TEST_F(AllegroFlare_InternationalizationTest, returns_a_list_of_language_files_i
 
 
 
-
 TEST_F(AllegroFlare_InternationalizationTest, finds_a_language_file_by_language_designator)
 {
    std::string expected_filename = "";
@@ -117,13 +112,11 @@ TEST_F(AllegroFlare_InternationalizationTest, finds_a_language_file_by_language_
 
 
 
-
 TEST_F(AllegroFlare_InternationalizationTest, DISABLED__returns_an_empty_string_when_a_language_file_cannot_be_found)
    // TODO: This crashes on Windows
 {
    EXPECT_EQ("", internationalization.find_language_file("language_designator_that_doesnt_exist"));
 }
-
 
 
 
@@ -136,8 +129,8 @@ TEST_F(AllegroFlare_InternationalizationTest, returns_true_when_a_language_file_
 
 
 
-
-TEST_F(AllegroFlare_InternationalizationTest, sets_the_language_designator_and_language_name_when_loading_a_language_file)
+TEST_F(AllegroFlare_InternationalizationTest,
+   sets_the_language_designator_and_language_name_when_loading_a_language_file)
 {
    internationalization.load_language_file("en", "English", "data/languages/en.txt");
    EXPECT_EQ("en", internationalization.get_language());
@@ -154,12 +147,10 @@ TEST_F(AllegroFlare_InternationalizationTest, sets_the_language_designator_and_l
 
 
 
-
 TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_unable_to_load_a_language_file)
 {
-   EXPECT_EQ(false, internationalization.load_language_file("foo", "Fooanese", "foo/folder/file_that_doesnt_exist.txt"));
+   EXPECT_EQ(false, internationalization.load_language_file("foo", "Fooanese", "foo/baz/file_that_doesnt_exist.txt"));
 }
-
 
 
 
@@ -173,7 +164,6 @@ TEST_F(AllegroFlare_InternationalizationTest, successfully_populates_labels_when
 
 
 
-
 TEST_F(AllegroFlare_InternationalizationTest, can_set_a_language)
 {
    EXPECT_EQ(true, internationalization.set_language("en"));
@@ -183,12 +173,10 @@ TEST_F(AllegroFlare_InternationalizationTest, can_set_a_language)
 
 
 
-
 TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_unable_to_set_a_language)
 {
    EXPECT_EQ(false, internationalization.set_language("not_a_language"));
 }
-
 
 
 
@@ -203,7 +191,6 @@ TEST_F(AllegroFlare_InternationalizationTest, can_retrieve_the_current_language_
    internationalization.set_language("it");
    EXPECT_EQ("it", internationalization.get_language());
 }
-
 
 
 
@@ -224,7 +211,6 @@ TEST_F(AllegroFlare_InternationalizationTest, loads_translations_when_a_language
 
 
 
-
 TEST_F(AllegroFlare_InternationalizationTest, knows_if_a_translation_label_exists_or_not)
 {
    internationalization.set_language("en");
@@ -235,15 +221,14 @@ TEST_F(AllegroFlare_InternationalizationTest, knows_if_a_translation_label_exist
 
 
 
-
-TEST_F(AllegroFlare_InternationalizationTest, returns_an_empty_string_when_a_translation_is_blank_or_does_not_exist_for_that_label)
+TEST_F(AllegroFlare_InternationalizationTest,
+   returns_an_empty_string_when_a_translation_is_blank_or_does_not_exist_for_that_label)
 {
    internationalization.set_language("en");
 
    EXPECT_EQ("", internationalization.t("blank_content"));
    EXPECT_EQ("", internationalization.t("label_that_does_not_exist"));
 }
-
 
 
 
@@ -262,8 +247,6 @@ TEST_F(AllegroFlare_InternationalizationTest, DISABLED__formats_a_translation_wi
    EXPECT_EQ("Il tempo di percorrenza è di 6 ore e 45 minuti.", internationalization.tf("travel_time", 6, 45));
    EXPECT_EQ("Piacere di conoscerti, Alex.", internationalization.tf("greeting", "Alex"));
 }
-
-
 
 
 
