@@ -79,5 +79,19 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
 
 
 
+TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
+   get_tile_sub_bitmap__returns_the_sub_bitmap_of_the_tile)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
+   get_tile_sub_bitmap__when_a_tile_does_not_exist_at_that_index__returns_a_nullptr)
+{
+   // TODO
+}
+
+
 
 

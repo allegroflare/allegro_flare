@@ -47,6 +47,7 @@ namespace AllegroFlare::TileMaps
 
       bool get_tile_uv(int index_num, int *u1, int *v1, int *u2, int *v2);
       bool get_tile_uv(int index_num, float *u1, float *v1, float *u2, float *v2);
+      ALLEGRO_BITMAP *get_tile_sub_bitmap(int index_num);
 
       std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> get_tile_index();
 

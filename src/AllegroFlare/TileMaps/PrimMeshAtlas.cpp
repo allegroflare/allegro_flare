@@ -198,6 +198,13 @@ bool PrimMeshAtlas::get_tile_uv(int index_num, float *u1, float *v1, float *u2, 
 }
 
 
+ALLEGRO_BITMAP *PrimMeshAtlas::get_tile_sub_bitmap(int index_num)
+{
+   if (index_num < 0 || index_num >= (int)tile_index.size()) return nullptr;
+   return tile_index[index_num].get_sub_bitmap();
+}
+
+
 std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> PrimMeshAtlas::get_tile_index()
 {
    return tile_index;
