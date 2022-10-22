@@ -82,7 +82,23 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
 TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
    get_tile_sub_bitmap__returns_the_sub_bitmap_of_the_tile)
 {
-   // TODO
+   al_init();
+   al_init_image_addon();
+   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
+   ASSERT_NE(nullptr, source_bitmap);
+
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+   atlas.duplicate_bitmap_and_load(source_bitmap, 16, 16, 0);
+
+   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> actual_tile_index = atlas.get_tile_index();
+   ALLEGRO_BITMAP *expected_sub_bitmap = actual_tile_index[32].get_sub_bitmap();
+   ASSERT_NE(nullptr, expected_sub_bitmap);
+   EXPECT_EQ(atlas.get_tile_sub_bitmap(32), actual_tile_index[32].get_sub_bitmap());
+
+   //atlas.clear();
+   al_destroy_bitmap(source_bitmap);
+   al_shutdown_image_addon();
+   al_uninstall_system();
 }
 
 
