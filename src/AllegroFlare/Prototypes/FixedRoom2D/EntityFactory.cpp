@@ -62,6 +62,30 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_ent
    return result;
 }
 
+AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_entity_bmp(ALLEGRO_BITMAP* bitmap, float x, float y, float scale, std::string name, std::string on_interact_script_name)
+{
+   if (!(bitmap))
+   {
+      std::stringstream error_message;
+      error_message << "EntityFactory" << "::" << "create_entity_bmp" << ": error: " << "guard \"bitmap\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* result = new
+      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base(bitmap);
+
+   AllegroFlare::Placement2D &placement = result->get_placement_ref();
+   result->set_on_cursor_interact_script_name(on_interact_script_name);
+
+   placement.position = {x, y};
+   placement.scale = {scale, scale};
+   placement.align = {0.5, 1.0};
+   if (bitmap) placement.size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
+
+   result->set("name", name);
+
+   return result;
+}
+
 
 } // namespace FixedRoom2D
 } // namespace Prototypes

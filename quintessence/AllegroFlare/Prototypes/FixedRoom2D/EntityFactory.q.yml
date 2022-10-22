@@ -65,16 +65,53 @@ functions:
       return result;
 
 
+  - name: create_entity_bmp
+    type: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
+    parameters:
+      - name: bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: x
+        type: float
+        default_argument: 0
+      - name: y
+        type: float
+        default_argument: 0
+      - name: scale
+        type: float
+        default_argument: 1.0f
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: on_interact_script_name
+        type: std::string
+        default_argument: '"[unset-on_interact_script_name]"'
+    guards: [ bitmap ]
+    body: |
+      AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* result = new
+         AllegroFlare::Prototypes::FixedRoom2D::Entities::Base(bitmap);
+
+      AllegroFlare::Placement2D &placement = result->get_placement_ref();
+      result->set_on_cursor_interact_script_name(on_interact_script_name);
+
+      placement.position = {x, y};
+      placement.scale = {scale, scale};
+      placement.align = {0.5, 1.0};
+      if (bitmap) placement.size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
+
+      result->set("name", name);
+
+      return result;
+
+
 dependencies:
 
 
-  - symbol: AllegroFlare::BitmapBin*
-    headers: [ AllegroFlare/BitmapBin.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
-
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
+
 
