@@ -46,6 +46,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , show_backframe(true)
    , show_title_text(true)
    , draw_details_pane_func()
+   , draw_details_pane_func_user_data(nullptr)
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
    , sound_is_disabled(false)
@@ -160,9 +161,15 @@ void Inventory::set_show_title_text(bool show_title_text)
 }
 
 
-void Inventory::set_draw_details_pane_func(std::function<void(AllegroFlare::Elements::Inventory*)> draw_details_pane_func)
+void Inventory::set_draw_details_pane_func(std::function<void(AllegroFlare::Elements::Inventory*, void*)> draw_details_pane_func)
 {
    this->draw_details_pane_func = draw_details_pane_func;
+}
+
+
+void Inventory::set_draw_details_pane_func_user_data(void* draw_details_pane_func_user_data)
+{
+   this->draw_details_pane_func_user_data = draw_details_pane_func_user_data;
 }
 
 
@@ -286,9 +293,15 @@ bool Inventory::get_show_title_text() const
 }
 
 
-std::function<void(AllegroFlare::Elements::Inventory*)> Inventory::get_draw_details_pane_func() const
+std::function<void(AllegroFlare::Elements::Inventory*, void*)> Inventory::get_draw_details_pane_func() const
 {
    return draw_details_pane_func;
+}
+
+
+void* Inventory::get_draw_details_pane_func_user_data() const
+{
+   return draw_details_pane_func_user_data;
 }
 
 
@@ -588,7 +601,7 @@ void Inventory::render()
    draw_inventory_boxes();
    draw_item_selection_cursor();
    draw_inventory_items();
-   draw_details_pane_func ? draw_details_pane_func(this) : draw_details_pane();
+   draw_details_pane_func ? draw_details_pane_func(this, draw_details_pane_func_user_data) : draw_details_pane();
 
    time_based_place.restore_transform();
 
