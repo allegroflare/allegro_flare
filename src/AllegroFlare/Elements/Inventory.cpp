@@ -153,12 +153,6 @@ bool Inventory::get_sound_is_disabled() const
 }
 
 
-void Inventory::TODO()
-{
-   // note "item_in_details_pane" has a getter, it was added during a massive import and should prob be factored out
-   return;
-}
-
 void Inventory::update()
 {
    if (!(font_bin))

@@ -81,7 +81,6 @@ namespace AllegroFlare
          std::string get_inventory_show_sound_identifier() const;
          std::string get_inventory_hide_sound_identifier() const;
          bool get_sound_is_disabled() const;
-         void TODO();
          void update();
          void activate();
          void deactivate();

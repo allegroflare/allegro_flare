@@ -123,12 +123,6 @@ properties:
 functions:
 
 
-  - name: TODO
-    body: | 
-      // note "item_in_details_pane" has a getter, it was added during a massive import and should prob be factored out
-      return;
-
-
   - name: update
     guards: [ font_bin, bitmap_bin, af_inventory ]
     body: |
