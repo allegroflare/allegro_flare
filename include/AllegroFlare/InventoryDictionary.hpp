@@ -11,17 +11,17 @@ namespace AllegroFlare
    class InventoryDictionary
    {
    private:
-      std::map<int, AllegroFlare::InventoryIndexItem> index;
+      std::map<int, AllegroFlare::InventoryIndexItem> dictionary;
 
    protected:
 
 
    public:
-      InventoryDictionary(std::map<int, AllegroFlare::InventoryIndexItem> index={});
+      InventoryDictionary(std::map<int, AllegroFlare::InventoryIndexItem> dictionary={});
       ~InventoryDictionary();
 
-      void set_index(std::map<int, AllegroFlare::InventoryIndexItem> index);
-      std::map<int, AllegroFlare::InventoryIndexItem> get_index() const;
+      void set_dictionary(std::map<int, AllegroFlare::InventoryIndexItem> dictionary);
+      std::map<int, AllegroFlare::InventoryIndexItem> get_dictionary() const;
       int size();
       bool exists(int id=0);
       AllegroFlare::InventoryIndexItem at(int id=0);

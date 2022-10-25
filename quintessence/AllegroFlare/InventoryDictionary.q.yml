@@ -1,7 +1,7 @@
 properties:
 
 
-  - name: index
+  - name: dictionary
     type: std::map<int, AllegroFlare::InventoryIndexItem>
     init_with: '{}'
     constructor_arg: true
@@ -15,7 +15,7 @@ functions:
   - name: size
     type: int
     body: |
-      return index.size();
+      return dictionary.size();
 
 
   - name: exists
@@ -25,7 +25,7 @@ functions:
         type: int
         default_argument: 0
     body: |
-      return (index.count(id) > 0);
+      return (dictionary.count(id) > 0);
 
 
   - name: at
@@ -36,7 +36,7 @@ functions:
         default_argument: 0
     body: |
       if (!exists(id)) return AllegroFlare::InventoryIndexItem("", "", "");
-      return index.at(id);
+      return dictionary.at(id);
 
 
   - name: build_placeholder_inventory_dictionary

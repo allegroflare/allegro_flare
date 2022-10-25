@@ -9,8 +9,8 @@ namespace AllegroFlare
 {
 
 
-InventoryDictionary::InventoryDictionary(std::map<int, AllegroFlare::InventoryIndexItem> index)
-   : index(index)
+InventoryDictionary::InventoryDictionary(std::map<int, AllegroFlare::InventoryIndexItem> dictionary)
+   : dictionary(dictionary)
 {
 }
 
@@ -20,32 +20,32 @@ InventoryDictionary::~InventoryDictionary()
 }
 
 
-void InventoryDictionary::set_index(std::map<int, AllegroFlare::InventoryIndexItem> index)
+void InventoryDictionary::set_dictionary(std::map<int, AllegroFlare::InventoryIndexItem> dictionary)
 {
-   this->index = index;
+   this->dictionary = dictionary;
 }
 
 
-std::map<int, AllegroFlare::InventoryIndexItem> InventoryDictionary::get_index() const
+std::map<int, AllegroFlare::InventoryIndexItem> InventoryDictionary::get_dictionary() const
 {
-   return index;
+   return dictionary;
 }
 
 
 int InventoryDictionary::size()
 {
-   return index.size();
+   return dictionary.size();
 }
 
 bool InventoryDictionary::exists(int id)
 {
-   return (index.count(id) > 0);
+   return (dictionary.count(id) > 0);
 }
 
 AllegroFlare::InventoryIndexItem InventoryDictionary::at(int id)
 {
    if (!exists(id)) return AllegroFlare::InventoryIndexItem("", "", "");
-   return index.at(id);
+   return dictionary.at(id);
 }
 
 AllegroFlare::InventoryDictionary InventoryDictionary::build_placeholder_inventory_dictionary()
