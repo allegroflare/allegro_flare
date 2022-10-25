@@ -55,6 +55,24 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   CAPTURE__render__with_non_default_design_configuration__will_render_as_expected)
+{
+   AllegroFlare::Inventory af_inventory;
+   AllegroFlare::InventoryIndex index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory, &index);
+   af_inventory.add_item(1);
+   af_inventory.add_item(2);
+   af_inventory.add_item(3);
+   af_inventory.add_item(4);
+
+   inventory.render();
+
+   al_flip_display();
+   sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    draw_item_selection_cursor__renders_an_animated_style)
 {
    AllegroFlare::Inventory af_inventory;
@@ -239,8 +257,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
 #include <AllegroFlare/EventNames.hpp>
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
-   INTERACTIVE__will_work_as_expected)
-   //DISABLED__INTERACTIVE__will_work_as_expected)
+   //INTERACTIVE__will_work_as_expected)
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    al_install_keyboard();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();

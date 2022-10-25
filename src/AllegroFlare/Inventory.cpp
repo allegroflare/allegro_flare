@@ -24,6 +24,12 @@ namespace AllegroFlare
    }
 
 
+   void Inventory::add_items(std::vector<int> items_to_add)
+   {
+      items.insert(items.end(), items_to_add.begin(), items_to_add.end());
+   }
+
+
    bool Inventory::has_item(int item_type)
    {
       for (auto &item : items) if (item == item_type) return true;

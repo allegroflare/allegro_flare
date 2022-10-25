@@ -240,7 +240,7 @@ functions:
 
       return;
     body_dependency_symbols:
-     - X
+      - X
 
 
   - name: draw_backframe
