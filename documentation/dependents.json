@@ -105,7 +105,6 @@
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
@@ -183,7 +182,6 @@
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
@@ -276,7 +274,6 @@
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
@@ -556,7 +553,6 @@
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Elements/Scrollbar": [
@@ -627,7 +623,6 @@
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
@@ -912,8 +907,11 @@
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
-  "AllegroFlare/Inventory": [
+  "X": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
+  ],
+  "AllegroFlare/Inventory": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
@@ -922,22 +920,10 @@
   ],
   "AllegroFlare/InventoryIndex": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/InventoryIndex",
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "X": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
-  ],
-  "std/map<int, std/tuple<std/string, std/string, std/string>>": [
-    "AllegroFlare/Elements/Inventory"
-  ],
-  "std/tuple<std/string, std/string, std/string>": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/InventoryIndexItem"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -1153,6 +1139,9 @@
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
+  ],
+  "std/tuple<std/string, std/string, std/string>": [
+    "AllegroFlare/InventoryIndexItem"
   ],
   "AllegroFlare/MotionComposer/Messages/Clear": [
     "AllegroFlare/MotionComposer/MessageFactory"

@@ -3115,37 +3115,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryIndex*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryIndex.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;X&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;, &quot;allegro5/allegro_color.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, std::tuple&lt;std::string, std::string, std::string&gt;&gt;*&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tuple&lt;std::string, std::string, std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;, &quot;string&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
@@ -3155,9 +3131,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
@@ -14687,7 +14660,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
@@ -14765,7 +14737,6 @@ table td
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
@@ -14858,7 +14829,6 @@ table td
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
@@ -15138,7 +15108,6 @@ table td
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Elements/Scrollbar": [
@@ -15209,7 +15178,6 @@ table td
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
@@ -15494,8 +15462,11 @@ table td
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
-  "AllegroFlare/Inventory": [
+  "X": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect"
+  ],
+  "AllegroFlare/Inventory": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
@@ -15504,22 +15475,10 @@ table td
   ],
   "AllegroFlare/InventoryIndex": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/Inventory",
     "AllegroFlare/InventoryIndex",
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "X": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect"
-  ],
-  "std/map<int, std/tuple<std/string, std/string, std/string>>": [
-    "AllegroFlare/Elements/Inventory"
-  ],
-  "std/tuple<std/string, std/string, std/string>": [
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/InventoryIndexItem"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -15735,6 +15694,9 @@ table td
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryIndex"
+  ],
+  "std/tuple<std/string, std/string, std/string>": [
+    "AllegroFlare/InventoryIndexItem"
   ],
   "AllegroFlare/MotionComposer/Messages/Clear": [
     "AllegroFlare/MotionComposer/MessageFactory"
