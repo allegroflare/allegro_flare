@@ -96,18 +96,26 @@ properties:
   - name: inventory_items_box_size_x
     type: float
     init_with: 150.0
+    getter: true
+    setter: true
 
   - name: inventory_items_box_size_y
     type: float
     init_with: 150.0
+    getter: true
+    setter: true
 
   - name: inventory_items_box_gutter_x
     type: float
     init_with: 20.0f
+    getter: true
+    setter: true
 
   - name: inventory_items_box_gutter_y
     type: float
     init_with: 20.0f
+    getter: true
+    setter: true
 
   - name: cursor_move_sound_identifier
     type: std::string
@@ -315,9 +323,9 @@ functions:
       float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
       int inventory_position = 0;
-      for (unsigned row=0; row<3; row++)
+      for (unsigned row=0; row<num_rows; row++)
       {
-         for (unsigned column=0; column<4; column++)
+         for (unsigned column=0; column<num_columns; column++)
          {
             int item_to_draw = 0;
             if (inventory_position >= items_in_inventory.size()) {}
@@ -340,9 +348,9 @@ functions:
       float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
       float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
-      for (unsigned row=0; row<3; row++)
+      for (unsigned row=0; row<num_rows; row++)
       {
-         for (unsigned column=0; column<4; column++)
+         for (unsigned column=0; column<num_columns; column++)
          {
             draw_inventory_box(x + column * spacing_x, y + row * spacing_y);
          }

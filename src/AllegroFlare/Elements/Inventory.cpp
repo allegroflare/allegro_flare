@@ -83,6 +83,30 @@ void Inventory::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
+void Inventory::set_inventory_items_box_size_x(float inventory_items_box_size_x)
+{
+   this->inventory_items_box_size_x = inventory_items_box_size_x;
+}
+
+
+void Inventory::set_inventory_items_box_size_y(float inventory_items_box_size_y)
+{
+   this->inventory_items_box_size_y = inventory_items_box_size_y;
+}
+
+
+void Inventory::set_inventory_items_box_gutter_x(float inventory_items_box_gutter_x)
+{
+   this->inventory_items_box_gutter_x = inventory_items_box_gutter_x;
+}
+
+
+void Inventory::set_inventory_items_box_gutter_y(float inventory_items_box_gutter_y)
+{
+   this->inventory_items_box_gutter_y = inventory_items_box_gutter_y;
+}
+
+
 void Inventory::set_cursor_move_sound_identifier(std::string cursor_move_sound_identifier)
 {
    this->cursor_move_sound_identifier = cursor_move_sound_identifier;
@@ -146,6 +170,30 @@ int Inventory::get_item_in_details_pane() const
 float Inventory::get_item_in_details_pane_set_at() const
 {
    return item_in_details_pane_set_at;
+}
+
+
+float Inventory::get_inventory_items_box_size_x() const
+{
+   return inventory_items_box_size_x;
+}
+
+
+float Inventory::get_inventory_items_box_size_y() const
+{
+   return inventory_items_box_size_y;
+}
+
+
+float Inventory::get_inventory_items_box_gutter_x() const
+{
+   return inventory_items_box_gutter_x;
+}
+
+
+float Inventory::get_inventory_items_box_gutter_y() const
+{
+   return inventory_items_box_gutter_y;
 }
 
 
@@ -368,9 +416,9 @@ void Inventory::draw_inventory_items()
    float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
    int inventory_position = 0;
-   for (unsigned row=0; row<3; row++)
+   for (unsigned row=0; row<num_rows; row++)
    {
-      for (unsigned column=0; column<4; column++)
+      for (unsigned column=0; column<num_columns; column++)
       {
          int item_to_draw = 0;
          if (inventory_position >= items_in_inventory.size()) {}
@@ -392,9 +440,9 @@ void Inventory::draw_inventory_boxes()
    float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
    float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
-   for (unsigned row=0; row<3; row++)
+   for (unsigned row=0; row<num_rows; row++)
    {
-      for (unsigned column=0; column<4; column++)
+      for (unsigned column=0; column<num_columns; column++)
       {
          draw_inventory_box(x + column * spacing_x, y + row * spacing_y);
       }

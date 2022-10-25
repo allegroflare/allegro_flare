@@ -60,15 +60,23 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    AllegroFlare::Inventory af_inventory;
    AllegroFlare::InventoryIndex index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory, &index);
-   af_inventory.add_item(1);
-   af_inventory.add_item(2);
-   af_inventory.add_item(3);
-   af_inventory.add_item(4);
+   af_inventory.add_items({ 1, 2, 3, 4 });
 
+   // setup a custom configuration
+   inventory.set_num_columns(4);
+   inventory.set_num_rows(4);
+   inventory.set_inventory_items_box_size_x(134);
+   inventory.set_inventory_items_box_size_y(160);
+   inventory.set_inventory_items_box_gutter_x(20);
+   inventory.set_inventory_items_box_gutter_y(24);
+
+   // TODO: ellaborate here
+
+   inventory.activate();
    inventory.render();
 
    al_flip_display();
-   sleep_for(1);
+   //sleep_for(1);
 }
 
 
@@ -139,6 +147,60 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, hide__doe
       al_flip_display();
       //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   set_num_rows__with_a_value_less_than_or_equal_to_zero__will_raise_an_exception)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   set_num_rows__will_set_the_number_of_rows)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   set_num_rows__will_reposition_the_cursor_to_0x_0y)
+{
+   // TODO
+}
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   set_num_rows__will_set_the_item_in_the_details_pane)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   set_num_columns__with_a_value_less_than_or_equal_to_zero__will_raise_an_exception)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   set_num_columns__will_set_the_number_of_columns)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   set_num_columns__will_reposition_the_cursor_to_0x_0y)
+{
+   // TODO
+}
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   set_num_columns__will_set_the_item_in_the_details_pane)
+{
+   // TODO
 }
 
 

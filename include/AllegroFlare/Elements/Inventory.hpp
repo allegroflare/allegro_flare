@@ -72,6 +72,10 @@ namespace AllegroFlare
          void set_af_inventory(AllegroFlare::Inventory* af_inventory);
          void set_inventory_index(AllegroFlare::InventoryIndex* inventory_index);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+         void set_inventory_items_box_size_x(float inventory_items_box_size_x);
+         void set_inventory_items_box_size_y(float inventory_items_box_size_y);
+         void set_inventory_items_box_gutter_x(float inventory_items_box_gutter_x);
+         void set_inventory_items_box_gutter_y(float inventory_items_box_gutter_y);
          void set_cursor_move_sound_identifier(std::string cursor_move_sound_identifier);
          void set_inventory_show_sound_identifier(std::string inventory_show_sound_identifier);
          void set_inventory_hide_sound_identifier(std::string inventory_hide_sound_identifier);
@@ -83,6 +87,10 @@ namespace AllegroFlare
          bool get_active() const;
          int get_item_in_details_pane() const;
          float get_item_in_details_pane_set_at() const;
+         float get_inventory_items_box_size_x() const;
+         float get_inventory_items_box_size_y() const;
+         float get_inventory_items_box_gutter_x() const;
+         float get_inventory_items_box_gutter_y() const;
          std::string get_cursor_move_sound_identifier() const;
          std::string get_inventory_show_sound_identifier() const;
          std::string get_inventory_hide_sound_identifier() const;
