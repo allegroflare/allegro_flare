@@ -102,7 +102,7 @@ TEST_F(AllegroFlare_InventoryDictionaryTestWithDictionary, at__if_the_item_does_
 
 
 TEST_F(AllegroFlare_InventoryDictionaryTest,
-   DISABLED__build_placeholder_inventory_dictionary__returns_an_inventory_dictionary_with_the_expected_items)
+   build_placeholder_inventory_dictionary__returns_an_inventory_dictionary_with_the_expected_items)
 {
    using AllegroFlare::InventoryDictionaryItems::ClassicItem;
 
@@ -142,10 +142,12 @@ TEST_F(AllegroFlare_InventoryDictionaryTest,
    
    for (auto &expected_inventory_dictionary_item : expected_inventory_dictionary)
    {
-      //int key = expected_inventory_dictionary_item.first;
-      //AllegroFlare::InventoryIndexItem expected_item_listing = expected_inventory_dictionary_item.second;
+      int key = expected_inventory_dictionary_item.first;
+      AllegroFlare::InventoryDictionaryItems::ClassicItem *expected_item_listing =
+         static_cast<AllegroFlare::InventoryDictionaryItems::ClassicItem*>(expected_inventory_dictionary_item.second);
 
-      //EXPECT_EQ(true, built_placeholder_inventory_dictionary.exists(key));
+      ASSERT_EQ(true, built_placeholder_inventory_dictionary.exists(key));
+      // TODO: this expectation
       //EXPECT_EQ(expected_item_listing.to_tuple(), built_placeholder_inventory_dictionary.at(key).to_tuple());
    }
 }
