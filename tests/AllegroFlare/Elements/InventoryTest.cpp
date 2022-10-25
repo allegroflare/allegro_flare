@@ -125,6 +125,20 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, hide__doe
 
 
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   moving_the_cursor__will_set_the_item_in_details_pane)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   moving_the_cursor__will_set_the_item_in_details_pane_at_to_the_current_time)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    CAPTURE__moving_the_cursor__animates_the_details_pane)
 {
    AllegroFlare::Inventory af_inventory;

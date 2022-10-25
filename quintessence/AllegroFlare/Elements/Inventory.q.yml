@@ -76,6 +76,11 @@ properties:
     init_with: 0
     getter: true
 
+  - name: item_in_details_pane_set_at
+    type: float
+    init_with: -999
+    getter: true
+
   - name: inventory_items_left_padding
     type: float
     init_with: 80.0f
@@ -165,11 +170,13 @@ functions:
 
 
   - name: set_details_pane
+    private: true
     body: |
       if (!af_inventory) return;
       int cursor_position_abs = cursor_y * num_columns + cursor_x;
       if (cursor_position_abs >= af_inventory->get_items_ref().size()) item_in_details_pane = 0;
       else item_in_details_pane = af_inventory->get_items_ref()[cursor_position_abs];
+      item_in_details_pane_set_at = al_get_time();
       return;
 
 

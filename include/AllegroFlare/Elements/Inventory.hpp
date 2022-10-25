@@ -35,6 +35,7 @@ namespace AllegroFlare
          int details_num_revealed_characters;
          float reveal_counter;
          int item_in_details_pane;
+         float item_in_details_pane_set_at;
          float inventory_items_left_padding;
          float inventory_items_top_padding;
          float inventory_items_box_size_x;
@@ -45,6 +46,7 @@ namespace AllegroFlare
          std::string inventory_show_sound_identifier;
          std::string inventory_hide_sound_identifier;
          bool sound_is_disabled;
+         void set_details_pane();
          void draw_backframe();
          void draw_title_text();
          void draw_inventory_items();
@@ -78,6 +80,7 @@ namespace AllegroFlare
          int get_cursor_y() const;
          bool get_active() const;
          int get_item_in_details_pane() const;
+         float get_item_in_details_pane_set_at() const;
          std::string get_cursor_move_sound_identifier() const;
          std::string get_inventory_show_sound_identifier() const;
          std::string get_inventory_hide_sound_identifier() const;
@@ -85,7 +88,6 @@ namespace AllegroFlare
          void update();
          void activate();
          void deactivate();
-         void set_details_pane();
          ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0});
          ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
          float inv_reveal_counter();

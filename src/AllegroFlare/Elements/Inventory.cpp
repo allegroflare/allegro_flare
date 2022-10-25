@@ -33,6 +33,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , details_num_revealed_characters(999)
    , reveal_counter(0)
    , item_in_details_pane(0)
+   , item_in_details_pane_set_at(-999)
    , inventory_items_left_padding(80.0f)
    , inventory_items_top_padding(80.0f)
    , inventory_items_box_size_x(150.0)
@@ -130,6 +131,12 @@ int Inventory::get_item_in_details_pane() const
 }
 
 
+float Inventory::get_item_in_details_pane_set_at() const
+{
+   return item_in_details_pane_set_at;
+}
+
+
 std::string Inventory::get_cursor_move_sound_identifier() const
 {
    return cursor_move_sound_identifier;
@@ -214,6 +221,7 @@ void Inventory::set_details_pane()
    int cursor_position_abs = cursor_y * num_columns + cursor_x;
    if (cursor_position_abs >= af_inventory->get_items_ref().size()) item_in_details_pane = 0;
    else item_in_details_pane = af_inventory->get_items_ref()[cursor_position_abs];
+   item_in_details_pane_set_at = al_get_time();
    return;
 }
 
