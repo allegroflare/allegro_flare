@@ -1134,10 +1134,17 @@
   "std/atomic": [
     "AllegroFlare/Integrations/Network"
   ],
-  "std/map<int, AllegroFlare/InventoryIndexItem>": [
-    "AllegroFlare/InventoryIndex"
+  "AllegroFlare/InventoryDictionary": [
+    "AllegroFlare/InventoryDictionary"
   ],
   "AllegroFlare/InventoryIndexItem": [
+    "AllegroFlare/InventoryDictionary",
+    "AllegroFlare/InventoryIndex"
+  ],
+  "AllegroFlare/InventoryDictionaryItems/Base": [
+    "AllegroFlare/InventoryDictionaryItems/WithAttributes"
+  ],
+  "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],
   "std/tuple<std/string, std/string, std/string>": [

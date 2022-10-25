@@ -129,6 +129,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/InputHints.q.yml">quintessence/AllegroFlare/InputHints.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Integrations/CameraProjectionChanges.q.yml">quintessence/AllegroFlare/Integrations/CameraProjectionChanges.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/InventoryDictionary.q.yml">quintessence/AllegroFlare/InventoryDictionary.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/InventoryDictionaryItems/Base.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/MessageFactory.q.yml">quintessence/AllegroFlare/MotionComposer/MessageFactory.q.yml</a></li>
@@ -5436,6 +5439,86 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::mutex&quot;, &quot;headers&quot;=&gt;[&quot;mutex&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/InventoryDictionary.q.yml">quintessence/AllegroFlare/InventoryDictionary.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">index</td>
+  <td class="property">std::map&lt;int, AllegroFlare::InventoryIndexItem&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">size()</td>
+</tr>
+<tr>
+  <td class="method">exists(1)</td>
+</tr>
+<tr>
+  <td class="method">at(1)</td>
+</tr>
+<tr>
+  <td class="method">build_placeholder_inventory_dictionary()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionary&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionary.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryIndexItem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryIndexItem.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/InventoryDictionaryItems/Base.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(1)</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">property_is(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15725,10 +15808,17 @@ table td
   "std/atomic": [
     "AllegroFlare/Integrations/Network"
   ],
-  "std/map<int, AllegroFlare/InventoryIndexItem>": [
-    "AllegroFlare/InventoryIndex"
+  "AllegroFlare/InventoryDictionary": [
+    "AllegroFlare/InventoryDictionary"
   ],
   "AllegroFlare/InventoryIndexItem": [
+    "AllegroFlare/InventoryDictionary",
+    "AllegroFlare/InventoryIndex"
+  ],
+  "AllegroFlare/InventoryDictionaryItems/Base": [
+    "AllegroFlare/InventoryDictionaryItems/WithAttributes"
+  ],
+  "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],
   "std/tuple<std/string, std/string, std/string>": [

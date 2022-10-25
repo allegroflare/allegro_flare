@@ -1,0 +1,62 @@
+properties:
+
+
+  - name: index
+    type: std::map<int, AllegroFlare::InventoryIndexItem>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: size
+    type: int
+    body: |
+      return index.size();
+
+
+  - name: exists
+    type: bool
+    parameters:
+      - name: id
+        type: int
+        default_argument: 0
+    body: |
+      return (index.count(id) > 0);
+
+
+  - name: at
+    type: AllegroFlare::InventoryIndexItem
+    parameters:
+      - name: id
+        type: int
+        default_argument: 0
+    body: |
+      if (!exists(id)) return AllegroFlare::InventoryIndexItem("", "", "");
+      return index.at(id);
+
+
+  - name: build_placeholder_inventory_dictionary
+    type: AllegroFlare::InventoryDictionary
+    static: true
+    body: |
+      return AllegroFlare::InventoryDictionary({
+            { 1, { "Walkie-Talkie", "walkie-02.png", "A small portable radio to communicate with someone far away." } },
+            { 2, { "Blaster", "blaster-02.png", "Standard issue weaponry." } },
+            { 3, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
+            { 4, { "Metal Pipe", "metal-pipe-01.png", "Made of galvanized metal, this pipe is very sturdy." } },
+         });
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::InventoryDictionary
+    headers: [ AllegroFlare/InventoryDictionary.hpp ]
+  - symbol: AllegroFlare::InventoryIndexItem
+    headers: [ AllegroFlare/InventoryIndexItem.hpp ]
+
+
