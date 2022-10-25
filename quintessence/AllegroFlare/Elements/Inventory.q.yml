@@ -743,6 +743,18 @@ functions:
       return font_bin->auto_get("Inter-Bold.ttf -48");
 
 
+  - name: infer_item_boxes_width
+    type: float
+    body: |
+      return num_columns * inventory_items_box_size_x + (num_columns - 1) * inventory_items_box_gutter_x;
+
+
+  - name: infer_item_boxes_height
+    type: float
+    body: |
+      return num_rows * inventory_items_box_size_y + (num_rows - 1) * inventory_items_box_gutter_y;
+
+
   - name: play_move_cursor_sound
     private: true
     body: |

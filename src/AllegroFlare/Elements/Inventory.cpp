@@ -863,6 +863,16 @@ ALLEGRO_FONT* Inventory::obtain_details_header_font()
    return font_bin->auto_get("Inter-Bold.ttf -48");
 }
 
+float Inventory::infer_item_boxes_width()
+{
+   return num_columns * inventory_items_box_size_x + (num_columns - 1) * inventory_items_box_gutter_x;
+}
+
+float Inventory::infer_item_boxes_height()
+{
+   return num_rows * inventory_items_box_size_y + (num_rows - 1) * inventory_items_box_gutter_y;
+}
+
 void Inventory::play_move_cursor_sound()
 {
    play_sound(cursor_move_sound_identifier);

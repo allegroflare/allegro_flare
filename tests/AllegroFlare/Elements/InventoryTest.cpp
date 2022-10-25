@@ -26,12 +26,47 @@ TEST_F(AllegroFlare_Elements_InventoryTest, can_be_created_without_blowing_up)
 }
 
 
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   draw_item_selection_cursor__renders_an_animated_style)
+{
+   AllegroFlare::Inventory af_inventory;
+   AllegroFlare::InventoryIndex index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+   AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory, &index);
+
+   af_inventory.add_item(2);
+
+   //int passes = 60 * 2;
+   int passes = 1;
+   for (unsigned i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0});
+      inventory.draw_item_selection_cursor();
+      al_flip_display();
+      //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+   }
+}
+
+
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, render__does_not_blow_up)
 {
    AllegroFlare::Inventory af_inventory;
    AllegroFlare::InventoryIndex index;
    AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory, &index);
    inventory.render();
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   infer_item_boxes_width__returns_the_width_of_the_item_boxes_not_including_a_margin)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   infer_item_boxes_height__returns_the_height_of_the_item_boxes_not_including_a_margin)
+{
+   // TODO
 }
 
 
@@ -88,27 +123,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
-   draw_item_selection_cursor__renders_an_animated_style)
-{
-   AllegroFlare::Inventory af_inventory;
-   AllegroFlare::InventoryIndex index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
-   AllegroFlare::Elements::Inventory inventory(&get_font_bin_ref(), &get_bitmap_bin_ref(), &af_inventory, &index);
-
-   af_inventory.add_item(2);
-
-   //int passes = 60 * 2;
-   int passes = 1;
-   for (unsigned i=0; i<passes; i++)
-   {
-      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0});
-      inventory.draw_item_selection_cursor();
-      al_flip_display();
-      //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
-   }
-}
-
-
-TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, show__does_a_cool_animation)
+   show__does_a_cool_animation)
 {
    AllegroFlare::Inventory af_inventory;
    AllegroFlare::InventoryIndex index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
@@ -132,7 +147,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, show__doe
 }
 
 
-TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest, hide__does_a_cool_animation)
+TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
+   hide__does_a_cool_animation)
 {
    AllegroFlare::Inventory af_inventory;
    AllegroFlare::InventoryIndex index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();

@@ -137,6 +137,8 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_description_font();
          ALLEGRO_FONT* obtain_item_name_font();
          ALLEGRO_FONT* obtain_details_header_font();
+         float infer_item_boxes_width();
+         float infer_item_boxes_height();
          void play_sound(std::string sound_identifier="[unset-play_sound]");
          static AllegroFlare::InventoryIndex* create_placeholder_inventory_index();
       };
