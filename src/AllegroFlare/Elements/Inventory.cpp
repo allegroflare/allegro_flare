@@ -219,8 +219,6 @@ void Inventory::set_details_pane()
 
 ALLEGRO_COLOR Inventory::opaquify(ALLEGRO_COLOR color)
 {
-   //AllegroFlare::color::change_alpha(color, reveal_counter);
-   //AllegroFlare::color::change_alpha(color, 1.0);
    float alpha = reveal_counter;
       color.a *= alpha;
       color.r *= color.a;

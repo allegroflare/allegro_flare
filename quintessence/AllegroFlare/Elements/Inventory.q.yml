@@ -180,8 +180,6 @@ functions:
         type: ALLEGRO_COLOR
         default_argument: '{0,0,0,0}'
     body: |
-      //AllegroFlare::color::change_alpha(color, reveal_counter);
-      //AllegroFlare::color::change_alpha(color, 1.0);
       float alpha = reveal_counter;
          color.a *= alpha;
          color.r *= color.a;
