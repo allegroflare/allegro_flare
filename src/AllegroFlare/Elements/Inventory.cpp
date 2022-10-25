@@ -83,6 +83,12 @@ void Inventory::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
+void Inventory::set_place(AllegroFlare::Placement2D place)
+{
+   this->place = place;
+}
+
+
 void Inventory::set_inventory_items_box_size_x(float inventory_items_box_size_x)
 {
    this->inventory_items_box_size_x = inventory_items_box_size_x;
@@ -218,6 +224,12 @@ std::string Inventory::get_inventory_hide_sound_identifier() const
 bool Inventory::get_sound_is_disabled() const
 {
    return sound_is_disabled;
+}
+
+
+AllegroFlare::Placement2D &Inventory::get_place_ref()
+{
+   return place;
 }
 
 

@@ -72,6 +72,7 @@ namespace AllegroFlare
          void set_af_inventory(AllegroFlare::Inventory* af_inventory);
          void set_inventory_index(AllegroFlare::InventoryIndex* inventory_index);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+         void set_place(AllegroFlare::Placement2D place);
          void set_inventory_items_box_size_x(float inventory_items_box_size_x);
          void set_inventory_items_box_size_y(float inventory_items_box_size_y);
          void set_inventory_items_box_gutter_x(float inventory_items_box_gutter_x);
@@ -95,6 +96,7 @@ namespace AllegroFlare
          std::string get_inventory_show_sound_identifier() const;
          std::string get_inventory_hide_sound_identifier() const;
          bool get_sound_is_disabled() const;
+         AllegroFlare::Placement2D &get_place_ref();
          void update();
          void activate();
          void deactivate();
