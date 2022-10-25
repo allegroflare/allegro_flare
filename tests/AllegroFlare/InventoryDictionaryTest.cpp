@@ -4,13 +4,23 @@
 #include <AllegroFlare/InventoryDictionary.hpp>
 
 
-TEST(AllegroFlare_InventoryDictionaryTest, can_be_created_without_blowing_up)
+class AllegroFlare_InventoryDictionaryTest: public ::testing::Test {};
+class AllegroFlare_InventoryDictionaryTestWithDictionary : public ::testing::Test
+{
+   void SetUp()
+   {
+      // TODO
+   }
+};
+
+
+TEST_F(AllegroFlare_InventoryDictionaryTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::InventoryDictionary inventory_dictionary;
 }
 
 
-TEST(AllegroFlare_InventoryDictionaryTest, exists__returns_true_if_the_id_exists_in_the_dictionary)
+TEST_F(AllegroFlare_InventoryDictionaryTest, exists__returns_true_if_the_id_exists_in_the_dictionary)
 {
    AllegroFlare::InventoryDictionary inventory_dictionary({
      { 4, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
@@ -26,7 +36,7 @@ TEST(AllegroFlare_InventoryDictionaryTest, exists__returns_true_if_the_id_exists
 }
 
 
-TEST(AllegroFlare_InventoryDictionaryTest, exists__returns_false_if_the_id_does_not_exist_in_the_dictionary)
+TEST_F(AllegroFlare_InventoryDictionaryTest, exists__returns_false_if_the_id_does_not_exist_in_the_dictionary)
 {
    AllegroFlare::InventoryDictionary inventory_dictionary({
      { 4, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
@@ -41,7 +51,7 @@ TEST(AllegroFlare_InventoryDictionaryTest, exists__returns_false_if_the_id_does_
 }
 
 
-TEST(AllegroFlare_InventoryDictionaryTest, size__returns_the_number_of_items_in_the_dictionary)
+TEST_F(AllegroFlare_InventoryDictionaryTest, size__returns_the_number_of_items_in_the_dictionary)
 {
    AllegroFlare::InventoryDictionary inventory_dictionary({
      { 4, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
@@ -54,7 +64,7 @@ TEST(AllegroFlare_InventoryDictionaryTest, size__returns_the_number_of_items_in_
 }
 
 
-TEST(AllegroFlare_InventoryDictionaryTest, at__returns_the_inventory_dictionary_listing)
+TEST_F(AllegroFlare_InventoryDictionaryTest, at__returns_the_inventory_dictionary_listing)
 {
    AllegroFlare::InventoryDictionary inventory_dictionary({
      { 1, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
@@ -70,7 +80,7 @@ TEST(AllegroFlare_InventoryDictionaryTest, at__returns_the_inventory_dictionary_
 }
 
 
-TEST(AllegroFlare_InventoryDictionaryTest, at__if_the_item_does_not_exist__returns_an_empty_inventory_dictionary_item)
+TEST_F(AllegroFlare_InventoryDictionaryTest, at__if_the_item_does_not_exist__returns_an_empty_inventory_dictionary_item)
 {
    AllegroFlare::InventoryDictionary inventory_dictionary({
      { 1, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
@@ -83,7 +93,7 @@ TEST(AllegroFlare_InventoryDictionaryTest, at__if_the_item_does_not_exist__retur
 }
 
 
-TEST(AllegroFlare_InventoryDictionaryTest,
+TEST_F(AllegroFlare_InventoryDictionaryTest,
    build_placeholder_inventory_dictionary__returns_an_inventory_dictionary_with_the_expected_items)
 {
    std::map<int, AllegroFlare::InventoryIndexItem> expected_inventory_dictionary = {
