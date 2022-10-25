@@ -47,6 +47,9 @@ namespace AllegroFlare
          std::string inventory_hide_sound_identifier;
          bool sound_is_disabled;
          void set_details_pane();
+         ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0});
+         ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
+         float inv_reveal_counter();
          void draw_backframe();
          void draw_title_text();
          void draw_inventory_items();
@@ -100,12 +103,6 @@ namespace AllegroFlare
          void update();
          void activate();
          void deactivate();
-         void set_num_columns(int num_columns=1);
-         void set_num_rows(int num_rows=1);
-         ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0});
-         ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
-         float inv_reveal_counter();
-         void render();
          void move_cursor_up();
          void move_cursor_down();
          void move_cursor_left();
@@ -117,6 +114,9 @@ namespace AllegroFlare
          void enable_sound();
          bool is_sound_disabled();
          bool is_sound_enabled();
+         void set_num_columns(int num_columns=1);
+         void set_num_rows(int num_rows=1);
+         void render();
          void draw_item_selection_cursor(float x=0.0f, float y=0.0f);
          std::tuple<std::string, std::string, std::string> get_item_definition(int index=0);
          ALLEGRO_FONT* obtain_title_font();

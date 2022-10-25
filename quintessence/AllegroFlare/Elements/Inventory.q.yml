@@ -183,6 +183,111 @@ functions:
       return;
 
 
+  - name: move_cursor_up
+    guards: [ has_valid_size() ]
+    body: |
+      if (!active) return;
+      cursor_y--;
+      while(cursor_y < 0) cursor_y += num_rows;
+      details_reveal_counter = 0.0f;
+      details_num_revealed_characters = 0;
+      set_details_pane();
+      play_move_cursor_sound();
+      return;
+
+
+  - name: move_cursor_down
+    guards: [ has_valid_size() ]
+    body: |
+      if (!active) return;
+      cursor_y++;
+      cursor_y = cursor_y % num_rows;
+      details_reveal_counter = 0.0f;
+      details_num_revealed_characters = 0;
+      set_details_pane();
+      play_move_cursor_sound();
+      return;
+
+
+  - name: move_cursor_left
+    guards: [ has_valid_size() ]
+    body: |
+      if (!active) return;
+      cursor_x--;
+      while(cursor_x < 0) cursor_x += num_columns;
+      details_reveal_counter = 0.0f;
+      details_num_revealed_characters = 0;
+      set_details_pane();
+      play_move_cursor_sound();
+      return;
+
+
+  - name: move_cursor_right
+    guards: [ has_valid_size() ]
+    body: |
+      if (!active) return;
+      cursor_x++;
+      cursor_x = cursor_x % num_columns;
+      details_reveal_counter = 0.0f;
+      details_num_revealed_characters = 0;
+      set_details_pane();
+      play_move_cursor_sound();
+      return;
+
+
+  - name: show
+    type: bool
+    body: |
+      if (active) return false;
+      active = true;
+      details_reveal_counter = 0.0f;
+      details_num_revealed_characters = 0;
+      set_details_pane();
+      play_hide_inventory_sound();
+      return active;
+
+
+  - name: hide
+    type: bool
+    body: |
+      if (!active) return false;
+      active = false;
+      play_hide_inventory_sound();
+      return active;
+
+
+  - name: toggle_show_hide
+    body: |
+      if (!active) show();
+      else hide();
+      return;
+
+
+  - name: disable_sound
+    body: |
+      sound_is_disabled = true;
+      return;
+
+
+  - name: enable_sound
+    body: |
+      sound_is_disabled = false;
+      return;
+
+
+  - name: is_sound_disabled
+    type: bool
+    body: |
+      return sound_is_disabled;
+
+
+  - name: is_sound_enabled
+    type: bool
+    body: |
+      return !sound_is_disabled;
+
+
+
   - name: set_num_columns
     parameters:
       - name: num_columns
@@ -224,6 +329,7 @@ functions:
 
   - name: opaquify
     type: ALLEGRO_COLOR
+    private: true
     parameters:
       - name: color
         type: ALLEGRO_COLOR
@@ -239,6 +345,7 @@ functions:
 
   - name: change_a
     type: ALLEGRO_COLOR
+    private: true
     parameters:
       - name: color
         type: ALLEGRO_COLOR
@@ -255,6 +362,7 @@ functions:
 
 
   - name: inv_reveal_counter
+    private: true
     type: float
     body: |
       return 1.0 - reveal_counter;
@@ -449,110 +557,6 @@ functions:
          concat_text(text, details_num_revealed_characters).c_str()
       );
       return;
-
-
-  - name: move_cursor_up
-    guards: [ has_valid_size() ]
-    body: |
-      if (!active) return;
-      cursor_y--;
-      while(cursor_y < 0) cursor_y += num_rows;
-      details_reveal_counter = 0.0f;
-      details_num_revealed_characters = 0;
-      set_details_pane();
-      play_move_cursor_sound();
-      return;
-
-
-  - name: move_cursor_down
-    guards: [ has_valid_size() ]
-    body: |
-      if (!active) return;
-      cursor_y++;
-      cursor_y = cursor_y % num_rows;
-      details_reveal_counter = 0.0f;
-      details_num_revealed_characters = 0;
-      set_details_pane();
-      play_move_cursor_sound();
-      return;
-
-
-  - name: move_cursor_left
-    guards: [ has_valid_size() ]
-    body: |
-      if (!active) return;
-      cursor_x--;
-      while(cursor_x < 0) cursor_x += num_columns;
-      details_reveal_counter = 0.0f;
-      details_num_revealed_characters = 0;
-      set_details_pane();
-      play_move_cursor_sound();
-      return;
-
-
-  - name: move_cursor_right
-    guards: [ has_valid_size() ]
-    body: |
-      if (!active) return;
-      cursor_x++;
-      cursor_x = cursor_x % num_columns;
-      details_reveal_counter = 0.0f;
-      details_num_revealed_characters = 0;
-      set_details_pane();
-      play_move_cursor_sound();
-      return;
-
-
-  - name: show
-    type: bool
-    body: |
-      if (active) return false;
-      active = true;
-      details_reveal_counter = 0.0f;
-      details_num_revealed_characters = 0;
-      set_details_pane();
-      play_hide_inventory_sound();
-      return active;
-
-
-  - name: hide
-    type: bool
-    body: |
-      if (!active) return false;
-      active = false;
-      play_hide_inventory_sound();
-      return active;
-
-
-  - name: toggle_show_hide
-    body: |
-      if (!active) show();
-      else hide();
-      return;
-
-
-  - name: disable_sound
-    body: |
-      sound_is_disabled = true;
-      return;
-
-
-  - name: enable_sound
-    body: |
-      sound_is_disabled = false;
-      return;
-
-
-  - name: is_sound_disabled
-    type: bool
-    body: |
-      return sound_is_disabled;
-
-
-  - name: is_sound_enabled
-    type: bool
-    body: |
-      return !sound_is_disabled;
 
 
   - name: has_valid_size

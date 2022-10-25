@@ -287,6 +287,126 @@ void Inventory::deactivate()
    return;
 }
 
+void Inventory::move_cursor_up()
+{
+   if (!(has_valid_size()))
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "move_cursor_up" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!active) return;
+   cursor_y--;
+   while(cursor_y < 0) cursor_y += num_rows;
+   details_reveal_counter = 0.0f;
+   details_num_revealed_characters = 0;
+   set_details_pane();
+   play_move_cursor_sound();
+   return;
+}
+
+void Inventory::move_cursor_down()
+{
+   if (!(has_valid_size()))
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "move_cursor_down" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!active) return;
+   cursor_y++;
+   cursor_y = cursor_y % num_rows;
+   details_reveal_counter = 0.0f;
+   details_num_revealed_characters = 0;
+   set_details_pane();
+   play_move_cursor_sound();
+   return;
+}
+
+void Inventory::move_cursor_left()
+{
+   if (!(has_valid_size()))
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "move_cursor_left" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!active) return;
+   cursor_x--;
+   while(cursor_x < 0) cursor_x += num_columns;
+   details_reveal_counter = 0.0f;
+   details_num_revealed_characters = 0;
+   set_details_pane();
+   play_move_cursor_sound();
+   return;
+}
+
+void Inventory::move_cursor_right()
+{
+   if (!(has_valid_size()))
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "move_cursor_right" << ": error: " << "guard \"has_valid_size()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!active) return;
+   cursor_x++;
+   cursor_x = cursor_x % num_columns;
+   details_reveal_counter = 0.0f;
+   details_num_revealed_characters = 0;
+   set_details_pane();
+   play_move_cursor_sound();
+   return;
+}
+
+bool Inventory::show()
+{
+   if (active) return false;
+   active = true;
+   details_reveal_counter = 0.0f;
+   details_num_revealed_characters = 0;
+   set_details_pane();
+   play_hide_inventory_sound();
+   return active;
+}
+
+bool Inventory::hide()
+{
+   if (!active) return false;
+   active = false;
+   play_hide_inventory_sound();
+   return active;
+}
+
+void Inventory::toggle_show_hide()
+{
+   if (!active) show();
+   else hide();
+   return;
+}
+
+void Inventory::disable_sound()
+{
+   sound_is_disabled = true;
+   return;
+}
+
+void Inventory::enable_sound()
+{
+   sound_is_disabled = false;
+   return;
+}
+
+bool Inventory::is_sound_disabled()
+{
+   return sound_is_disabled;
+}
+
+bool Inventory::is_sound_enabled()
+{
+   return !sound_is_disabled;
+}
+
 void Inventory::set_num_columns(int num_columns)
 {
    if (!(num_columns > 0))
@@ -550,126 +670,6 @@ void Inventory::draw_details_frame()
       concat_text(text, details_num_revealed_characters).c_str()
    );
    return;
-}
-
-void Inventory::move_cursor_up()
-{
-   if (!(has_valid_size()))
-   {
-      std::stringstream error_message;
-      error_message << "Inventory" << "::" << "move_cursor_up" << ": error: " << "guard \"has_valid_size()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!active) return;
-   cursor_y--;
-   while(cursor_y < 0) cursor_y += num_rows;
-   details_reveal_counter = 0.0f;
-   details_num_revealed_characters = 0;
-   set_details_pane();
-   play_move_cursor_sound();
-   return;
-}
-
-void Inventory::move_cursor_down()
-{
-   if (!(has_valid_size()))
-   {
-      std::stringstream error_message;
-      error_message << "Inventory" << "::" << "move_cursor_down" << ": error: " << "guard \"has_valid_size()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!active) return;
-   cursor_y++;
-   cursor_y = cursor_y % num_rows;
-   details_reveal_counter = 0.0f;
-   details_num_revealed_characters = 0;
-   set_details_pane();
-   play_move_cursor_sound();
-   return;
-}
-
-void Inventory::move_cursor_left()
-{
-   if (!(has_valid_size()))
-   {
-      std::stringstream error_message;
-      error_message << "Inventory" << "::" << "move_cursor_left" << ": error: " << "guard \"has_valid_size()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!active) return;
-   cursor_x--;
-   while(cursor_x < 0) cursor_x += num_columns;
-   details_reveal_counter = 0.0f;
-   details_num_revealed_characters = 0;
-   set_details_pane();
-   play_move_cursor_sound();
-   return;
-}
-
-void Inventory::move_cursor_right()
-{
-   if (!(has_valid_size()))
-   {
-      std::stringstream error_message;
-      error_message << "Inventory" << "::" << "move_cursor_right" << ": error: " << "guard \"has_valid_size()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!active) return;
-   cursor_x++;
-   cursor_x = cursor_x % num_columns;
-   details_reveal_counter = 0.0f;
-   details_num_revealed_characters = 0;
-   set_details_pane();
-   play_move_cursor_sound();
-   return;
-}
-
-bool Inventory::show()
-{
-   if (active) return false;
-   active = true;
-   details_reveal_counter = 0.0f;
-   details_num_revealed_characters = 0;
-   set_details_pane();
-   play_hide_inventory_sound();
-   return active;
-}
-
-bool Inventory::hide()
-{
-   if (!active) return false;
-   active = false;
-   play_hide_inventory_sound();
-   return active;
-}
-
-void Inventory::toggle_show_hide()
-{
-   if (!active) show();
-   else hide();
-   return;
-}
-
-void Inventory::disable_sound()
-{
-   sound_is_disabled = true;
-   return;
-}
-
-void Inventory::enable_sound()
-{
-   sound_is_disabled = false;
-   return;
-}
-
-bool Inventory::is_sound_disabled()
-{
-   return sound_is_disabled;
-}
-
-bool Inventory::is_sound_enabled()
-{
-   return !sound_is_disabled;
 }
 
 bool Inventory::has_valid_size()
