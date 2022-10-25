@@ -45,6 +45,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , show_background(false)
    , show_backframe(true)
    , show_title_text(true)
+   , draw_details_pane_func()
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
    , sound_is_disabled(false)
@@ -156,6 +157,12 @@ void Inventory::set_show_backframe(bool show_backframe)
 void Inventory::set_show_title_text(bool show_title_text)
 {
    this->show_title_text = show_title_text;
+}
+
+
+void Inventory::set_draw_details_pane_func(std::function<void(AllegroFlare::Elements::Inventory*)> draw_details_pane_func)
+{
+   this->draw_details_pane_func = draw_details_pane_func;
 }
 
 
@@ -276,6 +283,12 @@ bool Inventory::get_show_backframe() const
 bool Inventory::get_show_title_text() const
 {
    return show_title_text;
+}
+
+
+std::function<void(AllegroFlare::Elements::Inventory*)> Inventory::get_draw_details_pane_func() const
+{
+   return draw_details_pane_func;
 }
 
 
@@ -575,7 +588,7 @@ void Inventory::render()
    draw_inventory_boxes();
    draw_item_selection_cursor();
    draw_inventory_items();
-   draw_details_pane();
+   draw_details_pane_func ? draw_details_pane_func(this) : draw_details_pane();
 
    time_based_place.restore_transform();
 

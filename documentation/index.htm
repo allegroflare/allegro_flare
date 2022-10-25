@@ -3011,6 +3011,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">draw_details_pane_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::Inventory*)&gt;</td>
+</tr>
+<tr>
   <td class="property">inventory_show_sound_identifier</td>
   <td class="property">std::string</td>
 </tr>
@@ -3103,7 +3107,7 @@ table td
   <td class="private_method">draw_inventory_boxes()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_details_frame()</td>
+  <td class="private_method">draw_details_pane()</td>
 </tr>
 <tr>
   <td class="private_method">has_valid_size()</td>
@@ -3196,6 +3200,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionary&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionary.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::function&quot;, &quot;headers&quot;=&gt;[&quot;functional&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15646,6 +15656,16 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/InventoryDictionary"
   ],
+  "AllegroFlare/Elements/Inventory": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "std/function": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
   ],
@@ -16097,10 +16117,6 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
-  "AllegroFlare/Elements/Inventory": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -16383,10 +16399,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "std/function": [
-    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord": [

@@ -929,6 +929,16 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/InventoryDictionary"
   ],
+  "AllegroFlare/Elements/Inventory": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "std/function": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
   ],
@@ -1380,10 +1390,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
-  "AllegroFlare/Elements/Inventory": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -1666,10 +1672,6 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "std/function": [
-    "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDictionaryRecord": [
