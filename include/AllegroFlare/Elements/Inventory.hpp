@@ -46,7 +46,7 @@ namespace AllegroFlare
          std::string inventory_hide_sound_identifier;
          bool sound_is_disabled;
          void draw_backframe();
-         void draw_inventory_title_text();
+         void draw_title_text();
          void draw_inventory_items();
          void draw_inventory_boxes();
          void draw_details_frame();

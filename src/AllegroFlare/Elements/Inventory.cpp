@@ -272,7 +272,7 @@ void Inventory::render()
    time_based_place.start_transform();
 
    draw_backframe();
-   draw_inventory_title_text();
+   draw_title_text();
    draw_inventory_boxes();
    draw_item_selection_cursor();
    draw_inventory_items();
@@ -302,7 +302,7 @@ void Inventory::draw_backframe()
    return;
 }
 
-void Inventory::draw_inventory_title_text()
+void Inventory::draw_title_text()
 {
    ALLEGRO_FONT *font = obtain_title_font();
    ALLEGRO_COLOR color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
