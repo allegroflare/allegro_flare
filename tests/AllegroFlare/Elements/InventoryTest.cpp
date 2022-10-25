@@ -225,8 +225,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
 #include <AllegroFlare/EventNames.hpp>
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
-   INTERACTIVE__collides__will_return_true_if_the_placement_collides_with_another_placement)
-   //DISABLED__INTERACTIVE__collides__will_return_true_if_the_placement_collides_with_another_placement)
+   INTERACTIVE__will_work_as_expected)
+   //DISABLED__INTERACTIVE__will_work_as_expected)
 {
    al_install_keyboard();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
