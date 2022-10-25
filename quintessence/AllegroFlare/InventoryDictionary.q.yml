@@ -2,7 +2,7 @@ properties:
 
 
   - name: dictionary
-    type: std::map<int, AllegroFlare::InventoryIndexItem>
+    type: std::map<int, AllegroFlare::InventoryDictionaryItems::Base*>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -29,13 +29,13 @@ functions:
 
 
   - name: at
-    type: AllegroFlare::InventoryIndexItem
+    type: AllegroFlare::InventoryDictionaryItems::Base*
     parameters:
       - name: id
         type: int
         default_argument: 0
     body: |
-      if (!exists(id)) return AllegroFlare::InventoryIndexItem("", "", "");
+      if (!exists(id)) return nullptr;
       return dictionary.at(id);
 
 
@@ -43,12 +43,41 @@ functions:
     type: AllegroFlare::InventoryDictionary
     static: true
     body: |
+      using AllegroFlare::InventoryDictionaryItems::ClassicItem;
+
       return AllegroFlare::InventoryDictionary({
-            { 1, { "Walkie-Talkie", "walkie-02.png", "A small portable radio to communicate with someone far away." } },
-            { 2, { "Blaster", "blaster-02.png", "Standard issue weaponry." } },
-            { 3, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
-            { 4, { "Metal Pipe", "metal-pipe-01.png", "Made of galvanized metal, this pipe is very sturdy." } },
+            { 1, new ClassicItem
+               (
+                  "Walkie-Talkie",
+                  "walkie-02.png",
+                  "A small portable radio to communicate with someone far away."
+               )
+            },
+            { 2, new ClassicItem
+               (
+                  "Blaster",
+                  "blaster-02.png",
+                  "Standard issue weaponry."
+               )
+            },
+            { 3, new ClassicItem
+               (
+                  "Train",
+                  "toy-train-02.png",
+                  "It sure has a lot of detail."
+               )
+            },
+            { 4, new ClassicItem
+               (
+                  "Metal Pipe",
+                  "metal-pipe-01.png",
+                  "Made of galvanized metal, this pipe is very sturdy."
+               )
+            },
          });
+    body_dependency_symbols:
+      - AllegroFlare::InventoryDictionaryItems::ClassicItem
+
 
 
 dependencies:
@@ -58,5 +87,9 @@ dependencies:
     headers: [ AllegroFlare/InventoryDictionary.hpp ]
   - symbol: AllegroFlare::InventoryIndexItem
     headers: [ AllegroFlare/InventoryIndexItem.hpp ]
+  - symbol: AllegroFlare::InventoryDictionaryItems::Base
+    headers: [ AllegroFlare/InventoryDictionaryItems/Base.hpp ]
+  - symbol: AllegroFlare::InventoryDictionaryItems::ClassicItem
+    headers: [ AllegroFlare/InventoryDictionaryItems/ClassicItem.hpp ]
 
 

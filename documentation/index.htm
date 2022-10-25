@@ -5450,7 +5450,7 @@ table td
      <table>
 <tr>
   <td class="property">dictionary</td>
-  <td class="property">std::map&lt;int, AllegroFlare::InventoryIndexItem&gt;</td>
+  <td class="property">std::map&lt;int, AllegroFlare::InventoryDictionaryItems::Base*&gt;</td>
 </tr>
     </table>
      <table>
@@ -5473,6 +5473,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryIndexItem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryIndexItem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::ClassicItem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/ClassicItem.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15846,8 +15852,12 @@ table td
     "AllegroFlare/InventoryIndex"
   ],
   "AllegroFlare/InventoryDictionaryItems/Base": [
+    "AllegroFlare/InventoryDictionary",
     "AllegroFlare/InventoryDictionaryItems/ClassicItem",
     "AllegroFlare/InventoryDictionaryItems/WithAttributes"
+  ],
+  "AllegroFlare/InventoryDictionaryItems/ClassicItem": [
+    "AllegroFlare/InventoryDictionary"
   ],
   "AllegroFlare/Attributes": [
     "AllegroFlare/InventoryDictionaryItems/WithAttributes"

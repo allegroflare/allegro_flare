@@ -1142,8 +1142,12 @@
     "AllegroFlare/InventoryIndex"
   ],
   "AllegroFlare/InventoryDictionaryItems/Base": [
+    "AllegroFlare/InventoryDictionary",
     "AllegroFlare/InventoryDictionaryItems/ClassicItem",
     "AllegroFlare/InventoryDictionaryItems/WithAttributes"
+  ],
+  "AllegroFlare/InventoryDictionaryItems/ClassicItem": [
+    "AllegroFlare/InventoryDictionary"
   ],
   "AllegroFlare/Attributes": [
     "AllegroFlare/InventoryDictionaryItems/WithAttributes"
