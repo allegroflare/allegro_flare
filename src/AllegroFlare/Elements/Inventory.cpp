@@ -575,7 +575,7 @@ void Inventory::render()
    draw_inventory_boxes();
    draw_item_selection_cursor();
    draw_inventory_items();
-   draw_details_frame();
+   draw_details_pane();
 
    time_based_place.restore_transform();
 
@@ -659,7 +659,7 @@ void Inventory::draw_inventory_boxes()
    return;
 }
 
-void Inventory::draw_details_frame()
+void Inventory::draw_details_pane()
 {
    ALLEGRO_COLOR revealed_white = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
 

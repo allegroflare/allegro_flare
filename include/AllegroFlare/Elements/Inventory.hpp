@@ -59,7 +59,7 @@ namespace AllegroFlare
          void draw_title_text();
          void draw_inventory_items();
          void draw_inventory_boxes();
-         void draw_details_frame();
+         void draw_details_pane();
          bool has_valid_size();
          void draw_inventory_box(float x=0.0f, float y=0.0f);
          void draw_inventory_item(float x=0.0f, float y=0.0f, int item=0);
