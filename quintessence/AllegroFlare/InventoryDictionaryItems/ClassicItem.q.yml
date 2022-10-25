@@ -1,0 +1,55 @@
+parent_classes:
+
+
+  - class: AllegroFlare::InventoryDictionaryItems::Base
+    scope: public
+    init_with: AllegroFlare::InventoryDictionaryItems::ClassicItem::TYPE
+
+
+properties:
+
+
+  - name: title
+    type: std::string
+    init_with: '"[unset-title]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bitmap_filename
+    type: std::string
+    init_with: '"[unset-bitmap_filename]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: description
+    type: std::string
+    init_with: '"[unset-description]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"InventoryDictionaryItems/ClassicItem"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: to_tuple
+    type: std::tuple<std::string, std::string, std::string>
+    body: |
+      return std::tuple<std::string, std::string, std::string>(title, bitmap_filename, description);
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::InventoryDictionaryItems::Base
+    headers: [ AllegroFlare/InventoryDictionaryItems/Base.hpp ]
+
+

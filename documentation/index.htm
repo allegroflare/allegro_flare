@@ -131,6 +131,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryDictionary.q.yml">quintessence/AllegroFlare/InventoryDictionary.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryDictionaryItems/Base.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/InventoryDictionaryItems/ClassicItem.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/ClassicItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
@@ -5495,6 +5496,39 @@ table td
 </tr>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/InventoryDictionaryItems/ClassicItem.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/ClassicItem.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">title</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">bitmap_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">description</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">to_tuple()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/Base.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -15812,6 +15846,7 @@ table td
     "AllegroFlare/InventoryIndex"
   ],
   "AllegroFlare/InventoryDictionaryItems/Base": [
+    "AllegroFlare/InventoryDictionaryItems/ClassicItem",
     "AllegroFlare/InventoryDictionaryItems/WithAttributes"
   ],
   "AllegroFlare/Attributes": [
