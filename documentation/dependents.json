@@ -1144,6 +1144,9 @@
   "AllegroFlare/InventoryDictionaryItems/Base": [
     "AllegroFlare/InventoryDictionaryItems/WithAttributes"
   ],
+  "AllegroFlare/Attributes": [
+    "AllegroFlare/InventoryDictionaryItems/WithAttributes"
+  ],
   "std/map<int, AllegroFlare/InventoryIndexItem>": [
     "AllegroFlare/InventoryIndex"
   ],
