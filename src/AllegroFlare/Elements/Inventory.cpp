@@ -36,7 +36,8 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , inventory_items_left_padding(80.0f)
    , inventory_items_top_padding(80.0f)
    , inventory_items_box_size(150.0)
-   , inventory_items_box_spacing((inventory_items_box_size + 20.0f))
+   , inventory_items_box_spacing_x((inventory_items_box_size + 20.0f))
+   , inventory_items_box_spacing_y((inventory_items_box_size + 20.0f))
    , cursor_move_sound_identifier("menu-click-01.ogg")
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
@@ -320,7 +321,8 @@ void Inventory::draw_inventory_items()
 
    float x = inventory_items_left_padding;
    float y = inventory_items_top_padding;
-   float spacing = inventory_items_box_spacing;
+   float spacing_x = inventory_items_box_spacing_x;
+   float spacing_y = inventory_items_box_spacing_y;
 
    int inventory_position = 0;
    for (unsigned row=0; row<3; row++)
@@ -331,7 +333,7 @@ void Inventory::draw_inventory_items()
          if (inventory_position >= items_in_inventory.size()) {}
          else { item_to_draw = items_in_inventory[inventory_position]; }
 
-         draw_inventory_item(x + column * spacing, y + row * spacing, item_to_draw);
+         draw_inventory_item(x + column * spacing_x, y + row * spacing_y, item_to_draw);
          inventory_position++;
       }
    }
@@ -344,13 +346,14 @@ void Inventory::draw_inventory_boxes()
 
    float x = inventory_items_left_padding;
    float y = inventory_items_top_padding;
-   float spacing = inventory_items_box_spacing;
+   float spacing_x = inventory_items_box_spacing_x;
+   float spacing_y = inventory_items_box_spacing_y;
 
    for (unsigned row=0; row<3; row++)
    {
       for (unsigned column=0; column<4; column++)
       {
-         draw_inventory_box(x + column * spacing, y + row * spacing);
+         draw_inventory_box(x + column * spacing_x, y + row * spacing_y);
       }
    }
    return;
@@ -576,7 +579,8 @@ void Inventory::draw_item_selection_cursor(float x, float y)
    // position
    x = inventory_items_left_padding;
    y = inventory_items_top_padding;
-   float spacing = inventory_items_box_spacing;
+   float spacing_x = inventory_items_box_spacing_x;
+   float spacing_y = inventory_items_box_spacing_y;
 
     // color
    ALLEGRO_COLOR color_a = al_color_name("aquamarine");
@@ -588,10 +592,10 @@ void Inventory::draw_item_selection_cursor(float x, float y)
    float thickness = 6.0;
 
    al_draw_rounded_rectangle(
-      x + cursor_x*spacing,
-      y + cursor_y*spacing,
-      x + cursor_x*spacing + inventory_items_box_size,
-      y + cursor_y*spacing + inventory_items_box_size,
+      x + cursor_x*spacing_x,
+      y + cursor_y*spacing_y,
+      x + cursor_x*spacing_x + inventory_items_box_size,
+      y + cursor_y*spacing_y + inventory_items_box_size,
       r,
       r,
       color,
