@@ -103,13 +103,13 @@ namespace AllegroFlare
          void update();
          void activate();
          void deactivate();
+         bool show();
+         bool hide();
+         void toggle_show_hide();
          void move_cursor_up();
          void move_cursor_down();
          void move_cursor_left();
          void move_cursor_right();
-         bool show();
-         bool hide();
-         void toggle_show_hide();
          void disable_sound();
          void enable_sound();
          bool is_sound_disabled();

@@ -183,6 +183,34 @@ functions:
       return;
 
 
+  - name: show
+    type: bool
+    body: |
+      if (active) return false;
+      active = true;
+      details_reveal_counter = 0.0f;
+      details_num_revealed_characters = 0;
+      set_details_pane();
+      play_hide_inventory_sound();
+      return active;
+
+
+  - name: hide
+    type: bool
+    body: |
+      if (!active) return false;
+      active = false;
+      play_hide_inventory_sound();
+      return active;
+
+
+  - name: toggle_show_hide
+    body: |
+      if (!active) show();
+      else hide();
+      return;
+
+
   - name: move_cursor_up
     guards: [ has_valid_size() ]
     body: |
@@ -232,34 +260,6 @@ functions:
       details_num_revealed_characters = 0;
       set_details_pane();
       play_move_cursor_sound();
-      return;
-
-
-  - name: show
-    type: bool
-    body: |
-      if (active) return false;
-      active = true;
-      details_reveal_counter = 0.0f;
-      details_num_revealed_characters = 0;
-      set_details_pane();
-      play_hide_inventory_sound();
-      return active;
-
-
-  - name: hide
-    type: bool
-    body: |
-      if (!active) return false;
-      active = false;
-      play_hide_inventory_sound();
-      return active;
-
-
-  - name: toggle_show_hide
-    body: |
-      if (!active) show();
-      else hide();
       return;
 
 

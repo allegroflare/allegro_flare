@@ -287,6 +287,32 @@ void Inventory::deactivate()
    return;
 }
 
+bool Inventory::show()
+{
+   if (active) return false;
+   active = true;
+   details_reveal_counter = 0.0f;
+   details_num_revealed_characters = 0;
+   set_details_pane();
+   play_hide_inventory_sound();
+   return active;
+}
+
+bool Inventory::hide()
+{
+   if (!active) return false;
+   active = false;
+   play_hide_inventory_sound();
+   return active;
+}
+
+void Inventory::toggle_show_hide()
+{
+   if (!active) show();
+   else hide();
+   return;
+}
+
 void Inventory::move_cursor_up()
 {
    if (!(has_valid_size()))
@@ -356,32 +382,6 @@ void Inventory::move_cursor_right()
    details_num_revealed_characters = 0;
    set_details_pane();
    play_move_cursor_sound();
-   return;
-}
-
-bool Inventory::show()
-{
-   if (active) return false;
-   active = true;
-   details_reveal_counter = 0.0f;
-   details_num_revealed_characters = 0;
-   set_details_pane();
-   play_hide_inventory_sound();
-   return active;
-}
-
-bool Inventory::hide()
-{
-   if (!active) return false;
-   active = false;
-   play_hide_inventory_sound();
-   return active;
-}
-
-void Inventory::toggle_show_hide()
-{
-   if (!active) show();
-   else hide();
    return;
 }
 
