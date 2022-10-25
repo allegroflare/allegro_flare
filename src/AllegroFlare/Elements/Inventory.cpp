@@ -37,8 +37,8 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , inventory_items_top_padding(80.0f)
    , inventory_items_box_size_x(150.0)
    , inventory_items_box_size_y(150.0)
-   , inventory_items_box_spacing_x((inventory_items_box_size_x + 20.0f))
-   , inventory_items_box_spacing_y((inventory_items_box_size_y + 20.0f))
+   , inventory_items_box_gutter_x(20.0f)
+   , inventory_items_box_gutter_y(20.0f)
    , cursor_move_sound_identifier("menu-click-01.ogg")
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
@@ -316,8 +316,8 @@ void Inventory::draw_inventory_items()
 
    float x = inventory_items_left_padding;
    float y = inventory_items_top_padding;
-   float spacing_x = inventory_items_box_spacing_x;
-   float spacing_y = inventory_items_box_spacing_y;
+   float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
+   float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
    int inventory_position = 0;
    for (unsigned row=0; row<3; row++)
@@ -341,8 +341,8 @@ void Inventory::draw_inventory_boxes()
 
    float x = inventory_items_left_padding;
    float y = inventory_items_top_padding;
-   float spacing_x = inventory_items_box_spacing_x;
-   float spacing_y = inventory_items_box_spacing_y;
+   float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
+   float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
    for (unsigned row=0; row<3; row++)
    {
@@ -574,8 +574,8 @@ void Inventory::draw_item_selection_cursor(float x, float y)
    // position
    x = inventory_items_left_padding;
    y = inventory_items_top_padding;
-   float spacing_x = inventory_items_box_spacing_x;
-   float spacing_y = inventory_items_box_spacing_y;
+   float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
+   float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
     // color
    ALLEGRO_COLOR color_a = al_color_name("aquamarine");

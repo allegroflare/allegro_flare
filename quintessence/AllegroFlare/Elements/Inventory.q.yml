@@ -92,13 +92,13 @@ properties:
     type: float
     init_with: 150.0
 
-  - name: inventory_items_box_spacing_x
+  - name: inventory_items_box_gutter_x
     type: float
-    init_with: (inventory_items_box_size_x + 20.0f)
+    init_with: 20.0f
 
-  - name: inventory_items_box_spacing_y
+  - name: inventory_items_box_gutter_y
     type: float
-    init_with: (inventory_items_box_size_y + 20.0f)
+    init_with: 20.0f
 
   - name: cursor_move_sound_identifier
     type: std::string
@@ -274,8 +274,8 @@ functions:
 
       float x = inventory_items_left_padding;
       float y = inventory_items_top_padding;
-      float spacing_x = inventory_items_box_spacing_x;
-      float spacing_y = inventory_items_box_spacing_y;
+      float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
+      float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
       int inventory_position = 0;
       for (unsigned row=0; row<3; row++)
@@ -300,8 +300,8 @@ functions:
 
       float x = inventory_items_left_padding;
       float y = inventory_items_top_padding;
-      float spacing_x = inventory_items_box_spacing_x;
-      float spacing_y = inventory_items_box_spacing_y;
+      float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
+      float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
       for (unsigned row=0; row<3; row++)
       {
@@ -528,8 +528,8 @@ functions:
       // position
       x = inventory_items_left_padding;
       y = inventory_items_top_padding;
-      float spacing_x = inventory_items_box_spacing_x;
-      float spacing_y = inventory_items_box_spacing_y;
+      float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
+      float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 
        // color
       ALLEGRO_COLOR color_a = al_color_name("aquamarine");
