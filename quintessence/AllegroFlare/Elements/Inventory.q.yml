@@ -49,10 +49,14 @@ properties:
   - name: num_columns
     type: int
     init_with: 4
+    getter: true
+    setter: false
 
   - name: num_rows
     type: int
     init_with: 3
+    getter: true
+    setter: false
 
   - name: active
     type: bool
@@ -166,6 +170,34 @@ functions:
       reveal_counter = 0.0;
       details_num_revealed_characters = 0;
       details_reveal_counter = 0.0;
+      return;
+
+
+  - name: set_num_columns
+    parameters:
+      - name: num_columns
+        type: int
+        default_argument: 1
+    guards: [ num_columns > 0 ]
+    body: |
+      this->num_columns = num_columns;
+      cursor_x = 0;
+      cursor_y = 0;
+      set_details_pane();
+      return;
+
+
+  - name: set_num_rows
+    parameters:
+      - name: num_rows
+        type: int
+        default_argument: 1
+    guards: [ num_rows > 0 ]
+    body: |
+      this->num_rows = num_rows;
+      cursor_x = 0;
+      cursor_y = 0;
+      set_details_pane();
       return;
 
 

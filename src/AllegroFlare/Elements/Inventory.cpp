@@ -119,6 +119,18 @@ int Inventory::get_cursor_y() const
 }
 
 
+int Inventory::get_num_columns() const
+{
+   return num_columns;
+}
+
+
+int Inventory::get_num_rows() const
+{
+   return num_rows;
+}
+
+
 bool Inventory::get_active() const
 {
    return active;
@@ -212,6 +224,36 @@ void Inventory::deactivate()
    reveal_counter = 0.0;
    details_num_revealed_characters = 0;
    details_reveal_counter = 0.0;
+   return;
+}
+
+void Inventory::set_num_columns(int num_columns)
+{
+   if (!(num_columns > 0))
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "set_num_columns" << ": error: " << "guard \"num_columns > 0\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->num_columns = num_columns;
+   cursor_x = 0;
+   cursor_y = 0;
+   set_details_pane();
+   return;
+}
+
+void Inventory::set_num_rows(int num_rows)
+{
+   if (!(num_rows > 0))
+   {
+      std::stringstream error_message;
+      error_message << "Inventory" << "::" << "set_num_rows" << ": error: " << "guard \"num_rows > 0\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->num_rows = num_rows;
+   cursor_x = 0;
+   cursor_y = 0;
+   set_details_pane();
    return;
 }
 

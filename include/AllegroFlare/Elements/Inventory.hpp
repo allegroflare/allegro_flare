@@ -78,6 +78,8 @@ namespace AllegroFlare
          AllegroFlare::Placement2D get_place() const;
          int get_cursor_x() const;
          int get_cursor_y() const;
+         int get_num_columns() const;
+         int get_num_rows() const;
          bool get_active() const;
          int get_item_in_details_pane() const;
          float get_item_in_details_pane_set_at() const;
@@ -88,6 +90,8 @@ namespace AllegroFlare
          void update();
          void activate();
          void deactivate();
+         void set_num_columns(int num_columns=1);
+         void set_num_rows(int num_rows=1);
          ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0});
          ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
          float inv_reveal_counter();
