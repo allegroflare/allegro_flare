@@ -90,10 +90,14 @@ properties:
   - name: inventory_items_left_padding
     type: float
     init_with: 80.0f
+    getter: true
+    setter: true
 
   - name: inventory_items_top_padding
     type: float
     init_with: 80.0f
+    getter: true
+    setter: true
 
   - name: inventory_items_box_size_x
     type: float
@@ -122,6 +126,24 @@ properties:
   - name: cursor_move_sound_identifier
     type: std::string
     init_with: '"menu-click-01.ogg"'
+    getter: true
+    setter: true
+
+  - name: show_background
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: show_backframe
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
+  - name: show_title_text
+    type: bool
+    init_with: true
     getter: true
     setter: true
 
@@ -379,8 +401,9 @@ functions:
 
       time_based_place.start_transform();
 
-      draw_backframe();
-      draw_title_text();
+      if (show_background) draw_background();
+      if (show_backframe) draw_backframe();
+      if (show_title_text) draw_title_text();
       draw_inventory_boxes();
       draw_item_selection_cursor();
       draw_inventory_items();
@@ -391,6 +414,12 @@ functions:
       return;
     body_dependency_symbols:
       - X
+
+
+  - name: draw_background
+    body: |
+      al_clear_to_color(al_color_name("dodgerblue"));
+      return;
 
 
   - name: draw_backframe

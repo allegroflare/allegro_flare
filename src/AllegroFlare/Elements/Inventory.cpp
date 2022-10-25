@@ -41,6 +41,9 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , inventory_items_box_gutter_x(20.0f)
    , inventory_items_box_gutter_y(20.0f)
    , cursor_move_sound_identifier("menu-click-01.ogg")
+   , show_background(false)
+   , show_backframe(true)
+   , show_title_text(true)
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
    , sound_is_disabled(false)
@@ -89,6 +92,18 @@ void Inventory::set_place(AllegroFlare::Placement2D place)
 }
 
 
+void Inventory::set_inventory_items_left_padding(float inventory_items_left_padding)
+{
+   this->inventory_items_left_padding = inventory_items_left_padding;
+}
+
+
+void Inventory::set_inventory_items_top_padding(float inventory_items_top_padding)
+{
+   this->inventory_items_top_padding = inventory_items_top_padding;
+}
+
+
 void Inventory::set_inventory_items_box_size_x(float inventory_items_box_size_x)
 {
    this->inventory_items_box_size_x = inventory_items_box_size_x;
@@ -116,6 +131,24 @@ void Inventory::set_inventory_items_box_gutter_y(float inventory_items_box_gutte
 void Inventory::set_cursor_move_sound_identifier(std::string cursor_move_sound_identifier)
 {
    this->cursor_move_sound_identifier = cursor_move_sound_identifier;
+}
+
+
+void Inventory::set_show_background(bool show_background)
+{
+   this->show_background = show_background;
+}
+
+
+void Inventory::set_show_backframe(bool show_backframe)
+{
+   this->show_backframe = show_backframe;
+}
+
+
+void Inventory::set_show_title_text(bool show_title_text)
+{
+   this->show_title_text = show_title_text;
 }
 
 
@@ -179,6 +212,18 @@ float Inventory::get_item_in_details_pane_set_at() const
 }
 
 
+float Inventory::get_inventory_items_left_padding() const
+{
+   return inventory_items_left_padding;
+}
+
+
+float Inventory::get_inventory_items_top_padding() const
+{
+   return inventory_items_top_padding;
+}
+
+
 float Inventory::get_inventory_items_box_size_x() const
 {
    return inventory_items_box_size_x;
@@ -206,6 +251,24 @@ float Inventory::get_inventory_items_box_gutter_y() const
 std::string Inventory::get_cursor_move_sound_identifier() const
 {
    return cursor_move_sound_identifier;
+}
+
+
+bool Inventory::get_show_background() const
+{
+   return show_background;
+}
+
+
+bool Inventory::get_show_backframe() const
+{
+   return show_backframe;
+}
+
+
+bool Inventory::get_show_title_text() const
+{
+   return show_title_text;
 }
 
 
@@ -499,8 +562,9 @@ void Inventory::render()
 
    time_based_place.start_transform();
 
-   draw_backframe();
-   draw_title_text();
+   if (show_background) draw_background();
+   if (show_backframe) draw_backframe();
+   if (show_title_text) draw_title_text();
    draw_inventory_boxes();
    draw_item_selection_cursor();
    draw_inventory_items();
@@ -508,6 +572,12 @@ void Inventory::render()
 
    time_based_place.restore_transform();
 
+   return;
+}
+
+void Inventory::draw_background()
+{
+   al_clear_to_color(al_color_name("dodgerblue"));
    return;
 }
 
