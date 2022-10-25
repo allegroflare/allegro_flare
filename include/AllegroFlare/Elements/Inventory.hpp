@@ -37,7 +37,8 @@ namespace AllegroFlare
          int item_in_details_pane;
          float inventory_items_left_padding;
          float inventory_items_top_padding;
-         float inventory_items_box_size;
+         float inventory_items_box_size_x;
+         float inventory_items_box_size_y;
          float inventory_items_box_spacing_x;
          float inventory_items_box_spacing_y;
          std::string cursor_move_sound_identifier;

@@ -35,9 +35,10 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , item_in_details_pane(0)
    , inventory_items_left_padding(80.0f)
    , inventory_items_top_padding(80.0f)
-   , inventory_items_box_size(150.0)
-   , inventory_items_box_spacing_x((inventory_items_box_size + 20.0f))
-   , inventory_items_box_spacing_y((inventory_items_box_size + 20.0f))
+   , inventory_items_box_size_x(150.0)
+   , inventory_items_box_size_y(150.0)
+   , inventory_items_box_spacing_x((inventory_items_box_size_x + 20.0f))
+   , inventory_items_box_spacing_y((inventory_items_box_size_y + 20.0f))
    , cursor_move_sound_identifier("menu-click-01.ogg")
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
@@ -588,8 +589,8 @@ void Inventory::draw_item_selection_cursor(float x, float y)
    al_draw_rounded_rectangle(
       x + cursor_x*spacing_x,
       y + cursor_y*spacing_y,
-      x + cursor_x*spacing_x + inventory_items_box_size,
-      y + cursor_y*spacing_y + inventory_items_box_size,
+      x + cursor_x*spacing_x + inventory_items_box_size_x,
+      y + cursor_y*spacing_y + inventory_items_box_size_y,
       r,
       r,
       color,
@@ -607,8 +608,8 @@ void Inventory::draw_inventory_box(float x, float y)
    al_draw_filled_rounded_rectangle(
          x+0,
          y+0,
-         x+inventory_items_box_size,
-         y+inventory_items_box_size,
+         x+inventory_items_box_size_x,
+         y+inventory_items_box_size_y,
          roundness,
          roundness,
          backfill_color
@@ -635,8 +636,8 @@ void Inventory::draw_inventory_item(float x, float y, int item)
       //al_draw_text(font, color, x, y + 150 - 20, ALLEGRO_ALIGN_LEFT, item_name.c_str());
 
       AllegroFlare::Placement2D box_place;
-      box_place.position.x = x + inventory_items_box_size * 0.5f;
-      box_place.position.y = y + inventory_items_box_size * 0.5f;
+      box_place.position.x = x + inventory_items_box_size_x * 0.5f;
+      box_place.position.y = y + inventory_items_box_size_y * 0.5f;
       box_place.size.x = al_get_bitmap_width(bitmap);
       box_place.size.y = al_get_bitmap_height(bitmap);
       box_place.scale.x = 1.0f;
@@ -644,7 +645,9 @@ void Inventory::draw_inventory_item(float x, float y, int item)
 
       // scale the bitmap to fit the dimentions of the box
       float fit_padding = 3.0f; // extra pixels of padding so the bitmap does not stretch to the whole box
-      float fit_scale = (inventory_items_box_size-fit_padding*2) / al_get_bitmap_width(bitmap);
+      // NOTE: using "inventory_items_box_size_x" to fit the image to this window for the time beeing. In the future,
+      // may select different "fit" strategies, for example, scale-to-fit, stretch-to-fit, etc..
+      float fit_scale = (inventory_items_box_size_x-fit_padding*2) / al_get_bitmap_width(bitmap);
       box_place.scale.x = fit_scale;
       box_place.scale.y = fit_scale;
 
