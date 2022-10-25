@@ -747,11 +747,11 @@ bool Inventory::has_valid_size()
    return !(num_columns == 0 || num_rows == 0);
 }
 
-void Inventory::draw_item_selection_cursor(float x, float y)
+void Inventory::draw_item_selection_cursor()
 {
    // position
-   x = inventory_items_left_padding;
-   y = inventory_items_top_padding;
+   float x = inventory_items_left_padding;
+   float y = inventory_items_top_padding;
    float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
    float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 

@@ -596,18 +596,10 @@ functions:
 
 
   - name: draw_item_selection_cursor
-    xprivate: true
-    parameters:
-      - name: x
-        type: float
-        default_argument: 0.0f
-      - name: y
-        type: float
-        default_argument: 0.0f
     body: |
       // position
-      x = inventory_items_left_padding;
-      y = inventory_items_top_padding;
+      float x = inventory_items_left_padding;
+      float y = inventory_items_top_padding;
       float spacing_x = inventory_items_box_gutter_x + inventory_items_box_size_x;
       float spacing_y = inventory_items_box_gutter_y + inventory_items_box_size_y;
 

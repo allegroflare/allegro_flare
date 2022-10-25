@@ -63,6 +63,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    af_inventory.add_items({ 1, 2, 3, 4 });
 
    // setup a custom configuration
+   inventory.get_place_ref().size.x = 1920 - 180;
+   inventory.get_place_ref().size.y = 1080 - 250;
    inventory.set_num_columns(4);
    inventory.set_num_rows(4);
    inventory.set_inventory_items_box_size_x(134);
@@ -70,11 +72,9 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    inventory.set_inventory_items_box_gutter_x(20);
    inventory.set_inventory_items_box_gutter_y(24);
    inventory.set_inventory_items_left_padding(20.0);
-   inventory.set_inventory_items_top_padding(20.0);
-   inventory.get_place_ref().size.x = 1920 - 180;
-   inventory.get_place_ref().size.y = 1080 - 250;
+   inventory.set_inventory_items_top_padding(40.0);
    inventory.set_show_title_text(false);
-   inventory.set_show_backframe(false);
+   inventory.set_show_backframe(true);
    inventory.set_show_background(true);
 
    // TODO: ellaborate here
@@ -101,7 +101,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    for (unsigned i=0; i<passes; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0});
-      inventory.draw_item_selection_cursor(1920/2, 1080/2);
+      inventory.draw_item_selection_cursor();
       al_flip_display();
       //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
    }
