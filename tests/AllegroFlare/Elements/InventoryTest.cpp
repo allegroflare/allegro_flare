@@ -72,9 +72,9 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    inventory.set_inventory_items_box_gutter_x(20);
    inventory.set_inventory_items_box_gutter_y(24);
    inventory.set_inventory_items_left_padding(20.0);
-   inventory.set_inventory_items_top_padding(40.0);
+   inventory.set_inventory_items_top_padding(60.0);
    inventory.set_show_title_text(false);
-   inventory.set_show_backframe(true);
+   inventory.set_show_backframe(false);
    inventory.set_show_background(true);
 
    // TODO: ellaborate here
