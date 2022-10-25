@@ -81,12 +81,17 @@ TEST_F(AllegroFlare_InventoryDictionaryTestWithDictionary, size__returns_the_num
 }
 
 
-TEST_F(AllegroFlare_InventoryDictionaryTestWithDictionary, DISABLED__at__returns_the_inventory_dictionary_listing)
+TEST_F(AllegroFlare_InventoryDictionaryTestWithDictionary, at__returns_the_inventory_dictionary_listing)
 {
-   //std::tuple<std::string, std::string, std::string> expected_listing = 
-      //{ "Toy Train", "toy-train-02.png", "It sure has a lot of detail." };
+   std::tuple<std::string, std::string, std::string> expected_listing = {
+      "Toy Train", "toy-train-02.png", "It sure has a lot of detail."
+   };
 
-   //EXPECT_EQ(expected_listing, inventory_dictionary.at(4).to_tuple());
+   AllegroFlare::InventoryDictionaryItems::Base* item = inventory_dictionary.at(4);
+   ASSERT_NE(nullptr, item);
+   AllegroFlare::InventoryDictionaryItems::ClassicItem* item_as_classic_item =
+      static_cast<AllegroFlare::InventoryDictionaryItems::ClassicItem*>(item);
+   EXPECT_EQ(expected_listing, item_as_classic_item->to_tuple());
 }
 
 
