@@ -17,11 +17,12 @@ namespace Elements
 {
 
 
-Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Inventory* af_inventory, AllegroFlare::InventoryIndex* inventory_index, AllegroFlare::EventEmitter* event_emitter)
+Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Inventory* af_inventory, AllegroFlare::InventoryIndex* inventory_index, AllegroFlare::InventoryDictionary* inventory_dictionary, AllegroFlare::EventEmitter* event_emitter)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , af_inventory(af_inventory)
    , inventory_index(inventory_index)
+   , inventory_dictionary(inventory_dictionary)
    , event_emitter(event_emitter)
    , place({ 1920/2, 1080/2, 1300, 700 })
    , cursor_x(0)
@@ -77,6 +78,12 @@ void Inventory::set_af_inventory(AllegroFlare::Inventory* af_inventory)
 void Inventory::set_inventory_index(AllegroFlare::InventoryIndex* inventory_index)
 {
    this->inventory_index = inventory_index;
+}
+
+
+void Inventory::set_inventory_dictionary(AllegroFlare::InventoryDictionary* inventory_dictionary)
+{
+   this->inventory_dictionary = inventory_dictionary;
 }
 
 

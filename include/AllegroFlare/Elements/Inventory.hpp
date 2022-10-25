@@ -5,6 +5,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Inventory.hpp>
+#include <AllegroFlare/InventoryDictionary.hpp>
 #include <AllegroFlare/InventoryIndex.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
@@ -24,6 +25,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::Inventory* af_inventory;
          AllegroFlare::InventoryIndex* inventory_index;
+         AllegroFlare::InventoryDictionary* inventory_dictionary;
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::Placement2D place;
          int cursor_x;
@@ -70,13 +72,14 @@ namespace AllegroFlare
 
 
       public:
-         Inventory(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Inventory* af_inventory=nullptr, AllegroFlare::InventoryIndex* inventory_index=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+         Inventory(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Inventory* af_inventory=nullptr, AllegroFlare::InventoryIndex* inventory_index=nullptr, AllegroFlare::InventoryDictionary* inventory_dictionary=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
          ~Inventory();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_af_inventory(AllegroFlare::Inventory* af_inventory);
          void set_inventory_index(AllegroFlare::InventoryIndex* inventory_index);
+         void set_inventory_dictionary(AllegroFlare::InventoryDictionary* inventory_dictionary);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_place(AllegroFlare::Placement2D place);
          void set_inventory_items_left_padding(float inventory_items_left_padding);

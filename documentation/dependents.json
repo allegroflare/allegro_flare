@@ -925,6 +925,10 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
+  "AllegroFlare/InventoryDictionary": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/InventoryDictionary"
+  ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
   ],
@@ -1133,9 +1137,6 @@
   ],
   "std/atomic": [
     "AllegroFlare/Integrations/Network"
-  ],
-  "AllegroFlare/InventoryDictionary": [
-    "AllegroFlare/InventoryDictionary"
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryDictionary",

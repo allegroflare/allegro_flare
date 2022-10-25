@@ -25,6 +25,12 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: inventory_dictionary
+    type: AllegroFlare::InventoryDictionary*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
@@ -850,5 +856,7 @@ dependencies:
     headers: [ AllegroFlare/InventoryIndex.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::InventoryDictionary
+    headers: [ AllegroFlare/InventoryDictionary.hpp ]
 
 

@@ -361,6 +361,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       &get_bitmap_bin_ref(),
       &af_inventory,
       &index,
+      nullptr,
       &event_emitter
    );
 

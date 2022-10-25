@@ -2919,6 +2919,10 @@ table td
   <td class="property">AllegroFlare::InventoryIndex*</td>
 </tr>
 <tr>
+  <td class="property">inventory_dictionary</td>
+  <td class="property">AllegroFlare::InventoryDictionary*</td>
+</tr>
+<tr>
   <td class="property">event_emitter</td>
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
@@ -3189,6 +3193,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionary&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionary.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15635,6 +15642,10 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
+  "AllegroFlare/InventoryDictionary": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/InventoryDictionary"
+  ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
   ],
@@ -15843,9 +15854,6 @@ table td
   ],
   "std/atomic": [
     "AllegroFlare/Integrations/Network"
-  ],
-  "AllegroFlare/InventoryDictionary": [
-    "AllegroFlare/InventoryDictionary"
   ],
   "AllegroFlare/InventoryIndexItem": [
     "AllegroFlare/InventoryDictionary",
