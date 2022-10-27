@@ -165,6 +165,18 @@ properties:
     getter: true
     setter: true
 
+  - name: draw_inventory_item_func
+    type: std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: draw_inventory_item_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: inventory_show_sound_identifier
     type: std::string
     init_with: '""'
@@ -488,7 +500,20 @@ functions:
             if (inventory_position >= items_in_inventory.size()) {}
             else { item_to_draw = items_in_inventory[inventory_position]; }
 
-            draw_inventory_item(x + column * spacing_x, y + row * spacing_y, item_to_draw);
+            if (draw_inventory_item_func)
+            {
+               draw_inventory_item_func(
+                  this,
+                  x + column * spacing_x,
+                  y + row * spacing_y,
+                  item_to_draw,
+                  draw_inventory_item_func_user_data
+               );
+            }
+            else
+            {
+               draw_inventory_item(x + column * spacing_x, y + row * spacing_y, item_to_draw);
+            }
             inventory_position++;
          }
       }

@@ -47,6 +47,8 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , show_title_text(true)
    , draw_details_pane_func()
    , draw_details_pane_func_user_data(nullptr)
+   , draw_inventory_item_func()
+   , draw_inventory_item_func_user_data(nullptr)
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
    , sound_is_disabled(false)
@@ -170,6 +172,18 @@ void Inventory::set_draw_details_pane_func(std::function<void(AllegroFlare::Elem
 void Inventory::set_draw_details_pane_func_user_data(void* draw_details_pane_func_user_data)
 {
    this->draw_details_pane_func_user_data = draw_details_pane_func_user_data;
+}
+
+
+void Inventory::set_draw_inventory_item_func(std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> draw_inventory_item_func)
+{
+   this->draw_inventory_item_func = draw_inventory_item_func;
+}
+
+
+void Inventory::set_draw_inventory_item_func_user_data(void* draw_inventory_item_func_user_data)
+{
+   this->draw_inventory_item_func_user_data = draw_inventory_item_func_user_data;
 }
 
 
@@ -302,6 +316,18 @@ std::function<void(AllegroFlare::Elements::Inventory*, void*)> Inventory::get_dr
 void* Inventory::get_draw_details_pane_func_user_data() const
 {
    return draw_details_pane_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> Inventory::get_draw_inventory_item_func() const
+{
+   return draw_inventory_item_func;
+}
+
+
+void* Inventory::get_draw_inventory_item_func_user_data() const
+{
+   return draw_inventory_item_func_user_data;
 }
 
 
@@ -659,7 +685,20 @@ void Inventory::draw_inventory_items()
          if (inventory_position >= items_in_inventory.size()) {}
          else { item_to_draw = items_in_inventory[inventory_position]; }
 
-         draw_inventory_item(x + column * spacing_x, y + row * spacing_y, item_to_draw);
+         if (draw_inventory_item_func)
+         {
+            draw_inventory_item_func(
+               this,
+               x + column * spacing_x,
+               y + row * spacing_y,
+               item_to_draw,
+               draw_inventory_item_func_user_data
+            );
+         }
+         else
+         {
+            draw_inventory_item(x + column * spacing_x, y + row * spacing_y, item_to_draw);
+         }
          inventory_position++;
       }
    }

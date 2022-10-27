@@ -52,6 +52,8 @@ namespace AllegroFlare
          bool show_title_text;
          std::function<void(AllegroFlare::Elements::Inventory*, void*)> draw_details_pane_func;
          void* draw_details_pane_func_user_data;
+         std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> draw_inventory_item_func;
+         void* draw_inventory_item_func_user_data;
          std::string inventory_show_sound_identifier;
          std::string inventory_hide_sound_identifier;
          bool sound_is_disabled;
@@ -98,6 +100,8 @@ namespace AllegroFlare
          void set_show_title_text(bool show_title_text);
          void set_draw_details_pane_func(std::function<void(AllegroFlare::Elements::Inventory*, void*)> draw_details_pane_func);
          void set_draw_details_pane_func_user_data(void* draw_details_pane_func_user_data);
+         void set_draw_inventory_item_func(std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> draw_inventory_item_func);
+         void set_draw_inventory_item_func_user_data(void* draw_inventory_item_func_user_data);
          void set_inventory_show_sound_identifier(std::string inventory_show_sound_identifier);
          void set_inventory_hide_sound_identifier(std::string inventory_hide_sound_identifier);
          AllegroFlare::Placement2D get_place() const;
@@ -120,6 +124,8 @@ namespace AllegroFlare
          bool get_show_title_text() const;
          std::function<void(AllegroFlare::Elements::Inventory*, void*)> get_draw_details_pane_func() const;
          void* get_draw_details_pane_func_user_data() const;
+         std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> get_draw_inventory_item_func() const;
+         void* get_draw_inventory_item_func_user_data() const;
          std::string get_inventory_show_sound_identifier() const;
          std::string get_inventory_hide_sound_identifier() const;
          bool get_sound_is_disabled() const;
