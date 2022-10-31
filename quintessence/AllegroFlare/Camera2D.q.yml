@@ -29,6 +29,13 @@ functions:
       return;
 
 
+  - name: get_inv_zoom
+    type: AllegroFlare::Vec2D
+    body: |
+      // TODO: rename this function and the zoom property
+      return AllegroFlare::vec2d(1.0 / zoom.x, 1.0 / zoom.y);
+
+
   - name: setup_dimentional_projection
     parameters:
       - name: bitmap

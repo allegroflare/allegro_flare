@@ -22,6 +22,7 @@ namespace AllegroFlare
 
       AllegroFlare::Vec2D get_zoom() const;
       void set_zoom(AllegroFlare::Vec2D zoom={1.0f, 1.0f});
+      AllegroFlare::Vec2D get_inv_zoom();
       void setup_dimentional_projection(ALLEGRO_BITMAP* bitmap=nullptr);
    };
 }

@@ -36,6 +36,12 @@ void Camera2D::set_zoom(AllegroFlare::Vec2D zoom)
    return;
 }
 
+AllegroFlare::Vec2D Camera2D::get_inv_zoom()
+{
+   // TODO: rename this function and the zoom property
+   return AllegroFlare::vec2d(1.0 / zoom.x, 1.0 / zoom.y);
+}
+
 void Camera2D::setup_dimentional_projection(ALLEGRO_BITMAP* bitmap)
 {
    if (!(al_is_system_installed()))
