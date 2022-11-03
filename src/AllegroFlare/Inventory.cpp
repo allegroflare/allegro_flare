@@ -55,6 +55,12 @@ namespace AllegroFlare
    }
 
 
+   bool Inventory::is_empty()
+   {
+      return items.empty();
+   }
+
+
    int Inventory::get_item_count(int item_type)
    {
       int count = 0;

@@ -24,6 +24,7 @@ namespace AllegroFlare
       bool remove_item(int item_type);
 
       std::vector<int> &get_items_ref();
+      bool is_empty();
 
       std::string get_str();
    };

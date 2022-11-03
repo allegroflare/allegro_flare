@@ -40,4 +40,15 @@ TEST(AllegroFlare_InventoryTest, add_items__will_append_items_to_the_list_of_ite
 }
 
 
+TEST(AllegroFlare_InventoryTest, is_empty__will_return_true_if_there_are_no_items_present)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_InventoryTest, is_empty__will_return_false_if_there_are_no_items_present)
+{
+   // TODO
+}
+
 
