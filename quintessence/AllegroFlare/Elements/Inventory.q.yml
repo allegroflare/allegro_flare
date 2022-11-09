@@ -74,14 +74,17 @@ properties:
   - name: details_reveal_counter
     type: float
     init_with: 0.0f
+    getter: true
 
   - name: details_num_revealed_characters
     type: int
     init_with: 999
+    getter: true
 
   - name: reveal_counter
     type: float
     init_with: 0
+    getter: true
 
   - name: item_in_details_pane
     type: int
@@ -852,7 +855,7 @@ functions:
 
   - name: concat_text
     type: std::string
-    private: true
+    static: true
     parameters:
       - name: source_text
         type: std::string

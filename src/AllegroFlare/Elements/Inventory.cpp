@@ -235,6 +235,24 @@ bool Inventory::get_active() const
 }
 
 
+float Inventory::get_details_reveal_counter() const
+{
+   return details_reveal_counter;
+}
+
+
+int Inventory::get_details_num_revealed_characters() const
+{
+   return details_num_revealed_characters;
+}
+
+
+float Inventory::get_reveal_counter() const
+{
+   return reveal_counter;
+}
+
+
 int Inventory::get_item_in_details_pane() const
 {
    return item_in_details_pane;

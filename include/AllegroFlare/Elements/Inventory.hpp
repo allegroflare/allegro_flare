@@ -72,7 +72,6 @@ namespace AllegroFlare
          void play_move_cursor_sound();
          void play_hide_inventory_sound();
          void play_show_inventory_sound();
-         std::string concat_text(std::string source_text="", int length=0);
 
       protected:
 
@@ -110,6 +109,9 @@ namespace AllegroFlare
          int get_num_columns() const;
          int get_num_rows() const;
          bool get_active() const;
+         float get_details_reveal_counter() const;
+         int get_details_num_revealed_characters() const;
+         float get_reveal_counter() const;
          int get_item_in_details_pane() const;
          float get_item_in_details_pane_set_at() const;
          float get_inventory_items_left_padding() const;
@@ -158,6 +160,7 @@ namespace AllegroFlare
          float infer_item_boxes_height();
          void play_sound(std::string sound_identifier="[unset-play_sound]");
          static AllegroFlare::InventoryIndex* create_placeholder_inventory_index();
+         static std::string concat_text(std::string source_text="", int length=0);
       };
    }
 }
