@@ -777,6 +777,46 @@ void Inventory::draw_details_item_name(float x, float y, ALLEGRO_FONT* font)
    return;
 }
 
+void Inventory::draw_details_item_description(float x, float y, float width, ALLEGRO_FONT* font)
+{
+   std::tuple<std::string, std::string, std::string> item_definition = get_item_definition(item_in_details_pane);
+   bool contains_item = !std::get<0>(item_definition).empty();
+   if (!contains_item) return;
+
+   if (font == nullptr) font = obtain_description_font();
+   std::string item_description = std::get<2>(item_definition);
+   //std::string item_name = std::get<0>(item_definition);
+
+
+
+   //float x = 820;
+   //float y = 430;
+   //float width = 1300 - 800- 50 + 5;
+   //int dialog_box_num_revealed_characters = 999;
+   std::string text = item_description; //"This is the details text that will be shown in the right pane.";
+   //float text_padding_x = 40.0f;
+   //float text_padding_y = 30.0f;
+   //float text_box_max_width = width - (text_padding_x * 2);
+   //float text_box_max_width = width;
+   //ALLEGRO_FONT* text_font = obtain_description_font();
+   float line_height = al_get_font_line_height(font) * 1.2;
+   ALLEGRO_COLOR text_color = al_color_html("ffffff");
+
+   al_draw_multiline_text(
+      font,
+      text_color,
+      x,
+      y,
+      width,
+      line_height,
+      ALLEGRO_ALIGN_LEFT,
+      concat_text(text, details_num_revealed_characters).c_str()
+   );
+
+
+   return;
+}
+
 void Inventory::draw_details_pane()
 {
    ALLEGRO_COLOR revealed_white = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
@@ -828,43 +868,20 @@ void Inventory::draw_details_pane()
    //
 
    draw_details_item_name(850, 85);
-   ALLEGRO_FONT* font = obtain_details_header_font();
-   float details_header_reveal_offset = calc_details_header_reveal_x_offset();
-   al_draw_text(
-      font,
-      calc_details_header_reveal_color(),
-      850 + details_header_reveal_offset,
-      85,
-      ALLEGRO_ALIGN_LEFT,
-      item_name.c_str()
-   );
 
 
    // draw multiline description
    //
 
-   float x = 820;
-   float y = 430;
-   float width = 1300 - 800- 50 + 5;
-   //int dialog_box_num_revealed_characters = 999;
-   std::string text = item_description; //"This is the details text that will be shown in the right pane.";
    float text_padding_x = 40.0f;
    float text_padding_y = 30.0f;
-   float text_box_max_width = width - (text_padding_x * 2);
-   ALLEGRO_FONT* text_font = obtain_description_font();
-   float line_height = al_get_font_line_height(text_font) * 1.2;
-   ALLEGRO_COLOR text_color = opaquify(al_color_html("ffffff"));
+   float x = 820 + text_padding_x;
+   float y = 430 + text_padding_y;
+   float width = 1300 - 800- 50 + 5 - text_padding_x * 2;
 
-   al_draw_multiline_text(
-      text_font,
-      text_color,
-      x + text_padding_x,
-      y + text_padding_y,
-      text_box_max_width,
-      line_height,
-      ALLEGRO_ALIGN_LEFT,
-      concat_text(text, details_num_revealed_characters).c_str()
-   );
+   draw_details_item_description(x, y, width);
+
+
    return;
 }
 
