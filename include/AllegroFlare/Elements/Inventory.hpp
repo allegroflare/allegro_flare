@@ -142,6 +142,8 @@ namespace AllegroFlare
          void move_cursor_down();
          void move_cursor_left();
          void move_cursor_right();
+         float calc_details_header_reveal_x_offset();
+         ALLEGRO_COLOR calc_details_header_reveal_color();
          void disable_sound();
          void enable_sound();
          bool is_sound_disabled();

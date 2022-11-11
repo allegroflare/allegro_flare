@@ -318,6 +318,22 @@ functions:
       return;
 
 
+  - name: calc_details_header_reveal_x_offset
+    type: float
+    body: |
+      return 60 * (1.0 - AllegroFlare::interpolator::fast_in(details_reveal_counter));
+
+
+  - name: calc_details_header_reveal_color
+    type: ALLEGRO_COLOR
+    body: |
+      return opaquify(ALLEGRO_COLOR{
+         details_reveal_counter,
+         details_reveal_counter,
+         details_reveal_counter,
+         details_reveal_counter});
+
+
   - name: disable_sound
     body: |
       sound_is_disabled = true;
@@ -595,10 +611,10 @@ functions:
       //
 
       ALLEGRO_FONT* font = obtain_details_header_font();
-      float details_header_reveal_offset = 60 * (1.0 - AllegroFlare::interpolator::fast_in(details_reveal_counter));
+      float details_header_reveal_offset = calc_details_header_reveal_x_offset();
       al_draw_text(
          font,
-         opaquify(ALLEGRO_COLOR{details_reveal_counter, details_reveal_counter, details_reveal_counter, details_reveal_counter}),
+         calc_details_header_reveal_color(),
          850 + details_header_reveal_offset,
          85,
          ALLEGRO_ALIGN_LEFT,

@@ -525,6 +525,20 @@ void Inventory::move_cursor_right()
    return;
 }
 
+float Inventory::calc_details_header_reveal_x_offset()
+{
+   return 60 * (1.0 - AllegroFlare::interpolator::fast_in(details_reveal_counter));
+}
+
+ALLEGRO_COLOR Inventory::calc_details_header_reveal_color()
+{
+   return opaquify(ALLEGRO_COLOR{
+      details_reveal_counter,
+      details_reveal_counter,
+      details_reveal_counter,
+      details_reveal_counter});
+}
+
 void Inventory::disable_sound()
 {
    sound_is_disabled = true;
@@ -793,10 +807,10 @@ void Inventory::draw_details_pane()
    //
 
    ALLEGRO_FONT* font = obtain_details_header_font();
-   float details_header_reveal_offset = 60 * (1.0 - AllegroFlare::interpolator::fast_in(details_reveal_counter));
+   float details_header_reveal_offset = calc_details_header_reveal_x_offset();
    al_draw_text(
       font,
-      opaquify(ALLEGRO_COLOR{details_reveal_counter, details_reveal_counter, details_reveal_counter, details_reveal_counter}),
+      calc_details_header_reveal_color(),
       850 + details_header_reveal_offset,
       85,
       ALLEGRO_ALIGN_LEFT,
