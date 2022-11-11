@@ -756,6 +756,27 @@ void Inventory::draw_inventory_boxes()
    return;
 }
 
+void Inventory::draw_details_item_name(float x, float y, ALLEGRO_FONT* font)
+{
+   std::tuple<std::string, std::string, std::string> item_definition = get_item_definition(item_in_details_pane);
+   bool contains_item = !std::get<0>(item_definition).empty();
+   if (!contains_item) return;
+
+   if (font == nullptr) font = obtain_details_header_font();
+   std::string item_name = std::get<0>(item_definition);
+
+   float details_header_reveal_offset = calc_details_header_reveal_x_offset();
+   al_draw_text(
+      font,
+      calc_details_header_reveal_color(),
+      x + details_header_reveal_offset,
+      y,
+      ALLEGRO_ALIGN_LEFT,
+      item_name.c_str()
+   );
+   return;
+}
+
 void Inventory::draw_details_pane()
 {
    ALLEGRO_COLOR revealed_white = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
@@ -806,6 +827,7 @@ void Inventory::draw_details_pane()
    // draw the item name
    //
 
+   draw_details_item_name(850, 85);
    ALLEGRO_FONT* font = obtain_details_header_font();
    float details_header_reveal_offset = calc_details_header_reveal_x_offset();
    al_draw_text(

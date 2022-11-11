@@ -152,6 +152,7 @@ namespace AllegroFlare
          void set_num_rows(int num_rows=1);
          void render();
          void draw_background();
+         void draw_details_item_name(float x=0, float y=0, ALLEGRO_FONT* font=nullptr);
          void draw_item_selection_cursor();
          std::tuple<std::string, std::string, std::string> get_item_definition(int index=0);
          ALLEGRO_FONT* obtain_title_font();

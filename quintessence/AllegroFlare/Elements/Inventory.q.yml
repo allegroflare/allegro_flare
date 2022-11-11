@@ -559,6 +559,37 @@ functions:
       return;
 
 
+  - name: draw_details_item_name
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0
+      - name: y
+        type: float
+        default_argument: 0
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+    body: |
+      std::tuple<std::string, std::string, std::string> item_definition = get_item_definition(item_in_details_pane);
+      bool contains_item = !std::get<0>(item_definition).empty();
+      if (!contains_item) return;
+
+      if (font == nullptr) font = obtain_details_header_font();
+      std::string item_name = std::get<0>(item_definition);
+
+      float details_header_reveal_offset = calc_details_header_reveal_x_offset();
+      al_draw_text(
+         font,
+         calc_details_header_reveal_color(),
+         x + details_header_reveal_offset,
+         y,
+         ALLEGRO_ALIGN_LEFT,
+         item_name.c_str()
+      );
+      return;
+
+
   - name: draw_details_pane
     private: true
     body: |
@@ -610,6 +641,7 @@ functions:
       // draw the item name
       //
 
+      draw_details_item_name(850, 85);
       ALLEGRO_FONT* font = obtain_details_header_font();
       float details_header_reveal_offset = calc_details_header_reveal_x_offset();
       al_draw_text(
