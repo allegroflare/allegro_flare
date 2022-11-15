@@ -208,6 +208,13 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
      case ALLEGRO_KEY_R:
        tile_drive.reset();
        break;
+
+     case ALLEGRO_KEY_X:
+       // TODO: re-evaluate this, consider adding an injectable list of emittable game events
+       // HACK:
+       if (!event_emitter) throw std::runtime_error("TileDrive/Screen error: KEY_X without an event_emitter");
+       event_emitter->emit_game_event(AllegroFlare::GameEvent("open_chronicle_screen"));
+       break;
    }
    return;
 }
