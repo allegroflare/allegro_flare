@@ -41,6 +41,7 @@ namespace AllegroFlare
          void prevent_disabled_screens_from_receiving_events();
 
          // management
+         // TODO: update to prefer usage of term "identifier" instead of "name"
          Screens::Base *find(std::string identifier);
          std::string find_name(Screens::Base *screen);
          bool exists(Screens::Base *screen);
@@ -52,6 +53,7 @@ namespace AllegroFlare
          //void bring_to_front(Screens::Base *s);
          //void bring_to_front(std::string name);
          bool activate(std::string name);
+         std::string get_currently_active_screen_name();
          //bool deactivate(std::string name); // not to be implemented; screens will be deactivated implicitly
                                               // when a screen is activated through activate();
          //void show(std::string name);

@@ -180,6 +180,12 @@ properties:
     getter: true
     setter: true
 
+  - name: render_selectable_items_before_details_pane
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
   - name: inventory_show_sound_identifier
     type: std::string
     init_with: '""'
@@ -453,16 +459,23 @@ functions:
       if (show_background) draw_background();
       if (show_backframe) draw_backframe();
       if (show_title_text) draw_title_text();
-      draw_inventory_boxes();
-      draw_item_selection_cursor();
-      draw_inventory_items();
+      if (render_selectable_items_before_details_pane) draw_selectable_items();
       draw_details_pane_func ? draw_details_pane_func(this, draw_details_pane_func_user_data) : draw_details_pane();
+      if (!render_selectable_items_before_details_pane) draw_selectable_items();
 
       time_based_place.restore_transform();
 
       return;
     body_dependency_symbols:
       - X
+
+
+  - name: draw_selectable_items
+    body: |
+      draw_inventory_boxes();
+      draw_inventory_items();
+      draw_item_selection_cursor();
+      return;
 
 
   - name: draw_background

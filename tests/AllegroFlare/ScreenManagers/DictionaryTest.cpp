@@ -59,3 +59,25 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest,
 }
 
 
+TEST(AllegroFlare_ScreenManagers_DictionaryTest,
+   DISABLED__add__with_a_name_that_is_an_empty_string__will_throw_an_error)
+{
+   // TODO
+   //AllegroFlare::Screens::Base screen;
+   //AllegroFlare::ScreenManagers::Dictionary dictionary;
+}
+
+
+TEST(AllegroFlare_ScreenManagers_DictionaryTest,
+   DISABLED__get_currently_active_screen_name__when_there_is_no_active_screen__will_return_an_empty_string)
+{
+   // TODO
+}
+
+TEST(AllegroFlare_ScreenManagers_DictionaryTest,
+   DISABLED__get_currently_active_screen_name__will_return_the_identifier_of_the_currently_active_screen)
+{
+   // TODO
+}
+
+

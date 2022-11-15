@@ -405,6 +405,12 @@ void Full::activate_screen(std::string name)
 }
 
 
+std::string Full::get_currently_active_screen_name()
+{
+   return screens.get_currently_active_screen_name();
+}
+
+
 void Full::register_achievement(std::string name, Achievement *achievement)
 {
    achievements.add(name, achievement);

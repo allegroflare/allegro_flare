@@ -54,6 +54,7 @@ namespace AllegroFlare
          void* draw_details_pane_func_user_data;
          std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> draw_inventory_item_func;
          void* draw_inventory_item_func_user_data;
+         bool render_selectable_items_before_details_pane;
          std::string inventory_show_sound_identifier;
          std::string inventory_hide_sound_identifier;
          bool sound_is_disabled;
@@ -101,6 +102,7 @@ namespace AllegroFlare
          void set_draw_details_pane_func_user_data(void* draw_details_pane_func_user_data);
          void set_draw_inventory_item_func(std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> draw_inventory_item_func);
          void set_draw_inventory_item_func_user_data(void* draw_inventory_item_func_user_data);
+         void set_render_selectable_items_before_details_pane(bool render_selectable_items_before_details_pane);
          void set_inventory_show_sound_identifier(std::string inventory_show_sound_identifier);
          void set_inventory_hide_sound_identifier(std::string inventory_hide_sound_identifier);
          AllegroFlare::Placement2D get_place() const;
@@ -128,6 +130,7 @@ namespace AllegroFlare
          void* get_draw_details_pane_func_user_data() const;
          std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> get_draw_inventory_item_func() const;
          void* get_draw_inventory_item_func_user_data() const;
+         bool get_render_selectable_items_before_details_pane() const;
          std::string get_inventory_show_sound_identifier() const;
          std::string get_inventory_hide_sound_identifier() const;
          bool get_sound_is_disabled() const;
@@ -151,6 +154,7 @@ namespace AllegroFlare
          void set_num_columns(int num_columns=1);
          void set_num_rows(int num_rows=1);
          void render();
+         void draw_selectable_items();
          void draw_background();
          void draw_details_item_name(float x=0, float y=0, ALLEGRO_FONT* font=nullptr);
          void draw_details_item_description(float x=0, float y=0, float width=1, ALLEGRO_FONT* font=nullptr);

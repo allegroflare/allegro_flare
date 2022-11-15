@@ -112,6 +112,7 @@ namespace AllegroFlare
          void register_screen(std::string name, AllegroFlare::Screens::Base *screen);
          void unregister_screen(AllegroFlare::Screens::Base *screen);
          void activate_screen(std::string name);
+         std::string get_currently_active_screen_name();
 
          void register_achievement(std::string name, Achievement *achievement);
          void unregister_achievement(Achievement *achievement); // NOT IMPLEMENTED

@@ -98,6 +98,7 @@ bool Dictionary::exists(Screens::Base *screen)
 
 bool Dictionary::add(std::string name, Screens::Base *screen)
 {
+   // TODO: prevent an empty string from being a valid name
    if (exists(name))
    {
       std::stringstream error_message;
@@ -186,6 +187,15 @@ bool Dictionary::activate(std::string identifier)
    }
    return activated;
 }
+
+
+
+std::string Dictionary::get_currently_active_screen_name()
+{
+   for (auto &screen : screens) if (screen.second.active) return screen.first;
+   return "";
+}
+
 
 
 std::map<std::string, Dictionary::Listing> Dictionary::get_dictionary_copy()

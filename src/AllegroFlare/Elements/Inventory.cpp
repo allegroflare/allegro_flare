@@ -49,6 +49,7 @@ Inventory::Inventory(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* b
    , draw_details_pane_func_user_data(nullptr)
    , draw_inventory_item_func()
    , draw_inventory_item_func_user_data(nullptr)
+   , render_selectable_items_before_details_pane(true)
    , inventory_show_sound_identifier("")
    , inventory_hide_sound_identifier("")
    , sound_is_disabled(false)
@@ -184,6 +185,12 @@ void Inventory::set_draw_inventory_item_func(std::function<void(AllegroFlare::El
 void Inventory::set_draw_inventory_item_func_user_data(void* draw_inventory_item_func_user_data)
 {
    this->draw_inventory_item_func_user_data = draw_inventory_item_func_user_data;
+}
+
+
+void Inventory::set_render_selectable_items_before_details_pane(bool render_selectable_items_before_details_pane)
+{
+   this->render_selectable_items_before_details_pane = render_selectable_items_before_details_pane;
 }
 
 
@@ -346,6 +353,12 @@ std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)
 void* Inventory::get_draw_inventory_item_func_user_data() const
 {
    return draw_inventory_item_func_user_data;
+}
+
+
+bool Inventory::get_render_selectable_items_before_details_pane() const
+{
+   return render_selectable_items_before_details_pane;
 }
 
 
@@ -656,13 +669,20 @@ void Inventory::render()
    if (show_background) draw_background();
    if (show_backframe) draw_backframe();
    if (show_title_text) draw_title_text();
-   draw_inventory_boxes();
-   draw_item_selection_cursor();
-   draw_inventory_items();
+   if (render_selectable_items_before_details_pane) draw_selectable_items();
    draw_details_pane_func ? draw_details_pane_func(this, draw_details_pane_func_user_data) : draw_details_pane();
+   if (!render_selectable_items_before_details_pane) draw_selectable_items();
 
    time_based_place.restore_transform();
 
+   return;
+}
+
+void Inventory::draw_selectable_items()
+{
+   draw_inventory_boxes();
+   draw_inventory_items();
+   draw_item_selection_cursor();
    return;
 }
 
