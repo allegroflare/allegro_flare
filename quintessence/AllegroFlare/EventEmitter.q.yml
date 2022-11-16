@@ -114,6 +114,18 @@ functions:
       - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY
 
 
+  - name: emit_set_input_hints_bar_height_event
+    parameters:
+      - name: height
+        type: float
+        default_argument: 60.0f
+    body: |
+      intptr_t data_to_pass = (intptr_t)(void *)(new float(height));
+      emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT, data_to_pass);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT
+
+
   - name: emit_post_unlocked_achievement_notification_event
     parameters:
       - name: achievement_name
@@ -225,6 +237,8 @@ dependencies:
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_EVENT_SOURCE
     headers: [ allegro5/allegro.h ]

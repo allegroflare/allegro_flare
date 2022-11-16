@@ -57,6 +57,7 @@ Full::Full()
    , escape_key_will_shutdown(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
+   , input_hints_bar_height(60)
    , fullscreen(true)
    , event_callbacks()
    , next_event_callback_id(1)
@@ -750,6 +751,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      delete data;
                   } break;
 
+                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT: {
+                     float *data = (float *)this_event.user.data1;
+                     input_hints_bar_height = *data;
+                     delete data;
+                  } break;
+
                   case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR: {
                      std::vector<std::string> *data = (std::vector<std::string> *)this_event.user.data1;
                      set_input_hints_tokens(*data);
@@ -991,6 +998,7 @@ void Full::draw_overlay()
          text_color.a *= input_hints_text_opacity;
          input_hints.set_keyboard_key_combo_tokens(input_hints_tokens);
          input_hints.set_text_color(text_color);
+         input_hints.set_bar_height(input_hints_bar_height);
          input_hints.render();
       }
    }

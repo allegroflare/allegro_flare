@@ -120,6 +120,12 @@ void EventEmitter::emit_set_input_hints_bar_opacity_event(float opacity)
    emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY, data_to_pass);
 }
 
+void EventEmitter::emit_set_input_hints_bar_height_event(float height)
+{
+   intptr_t data_to_pass = (intptr_t)(void *)(new float(height));
+   emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT, data_to_pass);
+}
+
 void EventEmitter::emit_post_unlocked_achievement_notification_event(std::string achievement_name)
 {
    if (!(initialized))
