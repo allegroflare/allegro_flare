@@ -440,6 +440,12 @@ void Inventory::deactivate()
    return;
 }
 
+void Inventory::refresh()
+{
+   set_details_pane();
+   return;
+}
+
 bool Inventory::show()
 {
    if (active) return false;

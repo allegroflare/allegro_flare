@@ -43,8 +43,10 @@ namespace AllegroFlare
       al_set_new_display_flags(display_flags);
 
       // create the actual display
+      std::cout << "Display::Display: creating display" << std::endl;
       al_display = al_create_display(width, height);
-
+      std::cout << "Display::Display: display created" << std::endl;
+ 
       // add the display to AllegroFlare's list of displays
       displays.push_back(this);
    }

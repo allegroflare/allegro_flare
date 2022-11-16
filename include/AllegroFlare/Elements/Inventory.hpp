@@ -138,6 +138,7 @@ namespace AllegroFlare
          void update();
          void activate();
          void deactivate();
+         void refresh();
          bool show();
          bool hide();
          void toggle_show_hide();

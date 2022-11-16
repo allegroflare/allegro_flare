@@ -73,6 +73,7 @@ functions:
     body: |
       // draw inputs
       float backfill_opacity = 0.35;
+      // TODO: if (backfill_opacity <= 0.0001) return;
       ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, backfill_opacity};
       al_draw_filled_rectangle(0, surface_height-bar_height, surface_width, surface_height, backfill_color);
       return;

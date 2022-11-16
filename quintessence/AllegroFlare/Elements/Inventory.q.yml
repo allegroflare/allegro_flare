@@ -244,6 +244,12 @@ functions:
       return;
 
 
+  - name: refresh
+    body: |
+      set_details_pane();
+      return;
+
+
   - name: show
     type: bool
     body: |
