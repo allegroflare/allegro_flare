@@ -17,6 +17,9 @@ namespace AllegroFlare
    {
       class Achievements : public AllegroFlare::Screens::Base
       {
+      public:
+         static constexpr char* DEFAULT_EVENT_NAME_ON_EXIT = "exit_achievements_screen";
+
       private:
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
@@ -36,7 +39,7 @@ namespace AllegroFlare
 
 
       public:
-         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Achievements* achievements=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_return="achievements_screen_finished");
+         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Achievements* achievements=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_return=DEFAULT_EVENT_NAME_ON_EXIT);
          virtual ~Achievements();
 
          void set_achievements(AllegroFlare::Achievements* achievements);

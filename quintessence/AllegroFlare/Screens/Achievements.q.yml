@@ -39,7 +39,7 @@ properties:
 
   - name: game_event_name_to_emit_on_return
     type: std::string
-    init_with: '"achievements_screen_finished"'
+    init_with: DEFAULT_EVENT_NAME_ON_EXIT
     constructor_arg: true
     getter: true
     setter: true
@@ -47,6 +47,12 @@ properties:
   - name: initialized
     type: bool
     init_with: false
+
+  - name: DEFAULT_EVENT_NAME_ON_EXIT
+    type: char*
+    init_with: '"exit_achievements_screen"'
+    static: true
+    constexpr: true
     
 
 functions:
