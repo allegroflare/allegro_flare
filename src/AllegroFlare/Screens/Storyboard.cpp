@@ -135,6 +135,7 @@ void Storyboard::advance()
       error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // TODO: consider making this private
    if (storyboard_element.get_finished()) return;
 
    storyboard_element.advance();

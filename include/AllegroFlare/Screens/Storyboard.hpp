@@ -22,6 +22,7 @@ namespace AllegroFlare
          std::string game_event_name_to_emit_after_completing;
          bool initialized;
          void emit_completion_event();
+         void advance();
 
       protected:
 
@@ -40,7 +41,6 @@ namespace AllegroFlare
          void initialize();
          virtual void on_activate() override;
          virtual void primary_timer_func() override;
-         void advance();
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
       };
    }
