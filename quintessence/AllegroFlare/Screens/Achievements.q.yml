@@ -37,7 +37,7 @@ properties:
     init_with: '{}'
     getter_ref: true
 
-  - name: game_event_name_to_emit_on_return
+  - name: game_event_name_to_emit_on_exit
     type: std::string
     init_with: DEFAULT_EVENT_NAME_ON_EXIT
     constructor_arg: true
@@ -213,7 +213,7 @@ functions:
     body: |
       if (button_num == VirtualControls::BUTTON_UP) move_scrollbar_position_up();
       if (button_num == VirtualControls::BUTTON_DOWN) move_scrollbar_position_down();
-      else event_emitter->emit_game_event(game_event_name_to_emit_on_return);
+      else event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
     body_dependency_symbols:
       - AllegroFlare::VirtualControls
 

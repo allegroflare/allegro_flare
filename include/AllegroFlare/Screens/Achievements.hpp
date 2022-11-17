@@ -26,7 +26,7 @@ namespace AllegroFlare
          AllegroFlare::Achievements* achievements;
          float scrollbar_dest_position;
          AllegroFlare::Elements::AchievementsList achievements_list;
-         std::string game_event_name_to_emit_on_return;
+         std::string game_event_name_to_emit_on_exit;
          bool initialized;
          void update();
          void move_scrollbar_position_to(float position=0.0f);
@@ -39,12 +39,12 @@ namespace AllegroFlare
 
 
       public:
-         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Achievements* achievements=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_return=DEFAULT_EVENT_NAME_ON_EXIT);
+         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Achievements* achievements=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_exit=DEFAULT_EVENT_NAME_ON_EXIT);
          virtual ~Achievements();
 
          void set_achievements(AllegroFlare::Achievements* achievements);
-         void set_game_event_name_to_emit_on_return(std::string game_event_name_to_emit_on_return);
-         std::string get_game_event_name_to_emit_on_return() const;
+         void set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit);
+         std::string get_game_event_name_to_emit_on_exit() const;
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void refresh_achievements_list();

@@ -14,14 +14,14 @@ namespace Screens
 {
 
 
-Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Achievements* achievements, float scrollbar_dest_position, std::string game_event_name_to_emit_on_return)
+Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Achievements* achievements, float scrollbar_dest_position, std::string game_event_name_to_emit_on_exit)
    : AllegroFlare::Screens::Base("Achievements")
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , achievements(achievements)
    , scrollbar_dest_position(scrollbar_dest_position)
    , achievements_list({})
-   , game_event_name_to_emit_on_return(game_event_name_to_emit_on_return)
+   , game_event_name_to_emit_on_exit(game_event_name_to_emit_on_exit)
    , initialized(false)
 {
 }
@@ -38,15 +38,15 @@ void Achievements::set_achievements(AllegroFlare::Achievements* achievements)
 }
 
 
-void Achievements::set_game_event_name_to_emit_on_return(std::string game_event_name_to_emit_on_return)
+void Achievements::set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit)
 {
-   this->game_event_name_to_emit_on_return = game_event_name_to_emit_on_return;
+   this->game_event_name_to_emit_on_exit = game_event_name_to_emit_on_exit;
 }
 
 
-std::string Achievements::get_game_event_name_to_emit_on_return() const
+std::string Achievements::get_game_event_name_to_emit_on_exit() const
 {
-   return game_event_name_to_emit_on_return;
+   return game_event_name_to_emit_on_exit;
 }
 
 
@@ -246,7 +246,7 @@ void Achievements::virtual_control_button_down_func(int player_num, int button_n
 {
    if (button_num == VirtualControls::BUTTON_UP) move_scrollbar_position_up();
    if (button_num == VirtualControls::BUTTON_DOWN) move_scrollbar_position_down();
-   else event_emitter->emit_game_event(game_event_name_to_emit_on_return);
+   else event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
 }
 
 void Achievements::render()
