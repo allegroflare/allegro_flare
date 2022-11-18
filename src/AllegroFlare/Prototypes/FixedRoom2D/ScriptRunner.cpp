@@ -153,6 +153,7 @@ void ScriptRunner::play_or_resume()
          if (current_internally_running_script.get_finished()) break;
          continue_count++;
       }
+
       if (continue_count > 500)
       {
          continue_directly_to_next_script_line = false;
@@ -279,7 +280,7 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       std::string item_bitmap_identifier = std::get<1>(item_definition);
 
       // add the item to the inventory
-      af_inventory->add_item(item_id);
+      af_inventory->add_item(item_id); // TODO: remove this and handle it in the reception of the event
 
       // cout for debugging
       std::cout << "You got an item " << argument << std::endl;
