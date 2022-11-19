@@ -70,6 +70,7 @@
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Testing/Rulers",
     "AllegroFlare/Time",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
@@ -345,6 +346,7 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Testing/Rulers",
     "AllegroFlare/UnicodeFontViewer",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
