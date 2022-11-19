@@ -829,6 +829,7 @@
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
@@ -1076,6 +1077,7 @@
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
@@ -1428,6 +1430,9 @@
     "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [

@@ -460,8 +460,40 @@ functions:
         default_argument: nullptr
     guards: [ initialized ]
     body: |
-      // HERE:
+      using namespace AllegroFlare::Prototypes::FixedRoom2D;
+
+      if (!game_event_data)
+      {
+         std::cout << "ERROR: A weird error occurred. In FixedRoom2D/FixedRoom2D::process_dialog_event, sxpecting "
+                   << "script_event_data to be valid but it is nullptr" << std::endl;
+         return;
+      }
+      else
+      {
+         if (game_event_data->get_type() == "CloseDialog")
+         {
+            DialogEventDatas::CloseDialog* close_dialog_event_data =
+               static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
+
+            // HERE:
+            // TODO: shutdown dialog:
+            // TODO: vaildate active_dialog is dialog in event_data (TODO in the future: ensure it is a dialog
+            //   in the stack of dialogs.)
+            shutdown_dialog();
+            resume_all_rooms();
+            if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
+         }
+         else
+         {
+            std::cout << "[FixedRoom2D::FixedRoom2D::process_dialog_event]: error: "
+                      << "Unknown game_event_data type "
+                      << "\"" << game_event_data->get_type() << "\""
+                      << std::endl;
+         }
+      }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
 
 
   - name: process_script_event
@@ -728,9 +760,10 @@ functions:
          dialog_advance();
          if (dialog_is_finished())
          {
-            shutdown_dialog();
-            resume_all_rooms();
-            if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
+            emit_close_dialog_event(active_dialog);
+            //shutdown_dialog();
+            //resume_all_rooms();
+            //if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
          }
       }
       else if (current_room && !current_room->get_suspended())
@@ -739,6 +772,24 @@ functions:
       }
 
       return;
+
+
+  - name: emit_close_dialog_event
+    parameters:
+      - name: dialog
+        type: AllegroFlare::Elements::DialogBoxes::Base*
+        default_argument: nullptr
+    guards: [ initialized, dialog, event_emitter ]
+    body: |
+      AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog *close_dialog_event_data = new
+        AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog();
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME,
+         close_dialog_event_data
+      ));
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
 
 
   - name: move_cursor_up
@@ -853,5 +904,7 @@ dependencies:
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: 'AllegroFlare::Prototypes::FixedRoom2D::EventNames::'
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp ]
   
   

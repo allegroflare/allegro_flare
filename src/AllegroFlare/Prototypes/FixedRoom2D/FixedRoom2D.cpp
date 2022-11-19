@@ -8,6 +8,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
@@ -472,7 +473,37 @@ void FixedRoom2D::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_
       error_message << "FixedRoom2D" << "::" << "process_dialog_event" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // HERE:
+   using namespace AllegroFlare::Prototypes::FixedRoom2D;
+
+   if (!game_event_data)
+   {
+      std::cout << "ERROR: A weird error occurred. In FixedRoom2D/FixedRoom2D::process_dialog_event, sxpecting "
+                << "script_event_data to be valid but it is nullptr" << std::endl;
+      return;
+   }
+   else
+   {
+      if (game_event_data->get_type() == "CloseDialog")
+      {
+         DialogEventDatas::CloseDialog* close_dialog_event_data =
+            static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
+
+         // HERE:
+         // TODO: shutdown dialog:
+         // TODO: vaildate active_dialog is dialog in event_data (TODO in the future: ensure it is a dialog
+         //   in the stack of dialogs.)
+         shutdown_dialog();
+         resume_all_rooms();
+         if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
+      }
+      else
+      {
+         std::cout << "[FixedRoom2D::FixedRoom2D::process_dialog_event]: error: "
+                   << "Unknown game_event_data type "
+                   << "\"" << game_event_data->get_type() << "\""
+                   << std::endl;
+      }
+   }
    return;
 }
 
@@ -789,9 +820,10 @@ void FixedRoom2D::activate_primary_action()
       dialog_advance();
       if (dialog_is_finished())
       {
-         shutdown_dialog();
-         resume_all_rooms();
-         if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
+         emit_close_dialog_event(active_dialog);
+         //shutdown_dialog();
+         //resume_all_rooms();
+         //if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
       }
    }
    else if (current_room && !current_room->get_suspended())
@@ -799,6 +831,35 @@ void FixedRoom2D::activate_primary_action()
       current_room->interact_with_item_under_cursor();
    }
 
+   return;
+}
+
+void FixedRoom2D::emit_close_dialog_event(AllegroFlare::Elements::DialogBoxes::Base* dialog)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "FixedRoom2D" << "::" << "emit_close_dialog_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(dialog))
+   {
+      std::stringstream error_message;
+      error_message << "FixedRoom2D" << "::" << "emit_close_dialog_event" << ": error: " << "guard \"dialog\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "FixedRoom2D" << "::" << "emit_close_dialog_event" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog *close_dialog_event_data = new
+     AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog();
+   event_emitter->emit_game_event(AllegroFlare::GameEvent(
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME,
+      close_dialog_event_data
+   ));
    return;
 }
 

@@ -159,6 +159,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.q.yml</a></li>
@@ -7089,6 +7090,27 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">dialog</td>
+  <td class="property">AllegroFlare::Elements::DialogBoxes::Base*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml</h3>
      <table>
 <tr>
@@ -7447,6 +7469,9 @@ table td
   <td class="method">activate_primary_action()</td>
 </tr>
 <tr>
+  <td class="method">emit_close_dialog_event(1)</td>
+</tr>
+<tr>
   <td class="method">move_cursor_up()</td>
 </tr>
 <tr>
@@ -7552,6 +7577,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EventNames::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15612,6 +15640,7 @@ table td
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
@@ -15859,6 +15888,7 @@ table td
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
@@ -16211,6 +16241,9 @@ table td
     "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
