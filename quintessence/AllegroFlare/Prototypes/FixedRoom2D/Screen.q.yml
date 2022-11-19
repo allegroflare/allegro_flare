@@ -36,6 +36,19 @@ properties:
     type: bool
     init_with: false
 
+  - name: game_event_name_to_emit_on_exit
+    type: std::string
+    init_with: DEFAULT_EVENT_NAME_ON_EXIT
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_EVENT_NAME_ON_EXIT
+    type: char*
+    init_with: '"exit_fixed_room_2d_screen"'
+    static: true
+    constexpr: true
+
 
 functions:
 
@@ -197,6 +210,10 @@ functions:
             emit_event_to_set_input_hints();
          break;
 
+         case ALLEGRO_KEY_X:
+            emit_event_to_exit();
+         break;
+
          case ALLEGRO_KEY_P:
             event_emitter->emit_game_event(AllegroFlare::GameEvent("pause_game"));
             //fixed_room_2d.pause_game();
@@ -207,6 +224,13 @@ functions:
             //fixed_room_2d.unpause_game();
          break;
       }
+      return;
+
+
+  - name: emit_event_to_exit
+    body: |
+      // NOTE: may need guards, or a confirmation dialog
+      event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
       return;
 
 

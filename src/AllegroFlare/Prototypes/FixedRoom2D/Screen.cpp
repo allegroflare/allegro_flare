@@ -14,19 +14,32 @@ namespace FixedRoom2D
 {
 
 
-Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
+Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string game_event_name_to_emit_on_exit)
    : AllegroFlare::Screens::Base("Prototypes::FixedRoom2D::Screen")
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , fixed_room_2d({})
    , initialized(false)
+   , game_event_name_to_emit_on_exit(game_event_name_to_emit_on_exit)
 {
 }
 
 
 Screen::~Screen()
 {
+}
+
+
+void Screen::set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit)
+{
+   this->game_event_name_to_emit_on_exit = game_event_name_to_emit_on_exit;
+}
+
+
+std::string Screen::get_game_event_name_to_emit_on_exit() const
+{
+   return game_event_name_to_emit_on_exit;
 }
 
 
@@ -227,6 +240,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
          emit_event_to_set_input_hints();
       break;
 
+      case ALLEGRO_KEY_X:
+         emit_event_to_exit();
+      break;
+
       case ALLEGRO_KEY_P:
          event_emitter->emit_game_event(AllegroFlare::GameEvent("pause_game"));
          //fixed_room_2d.pause_game();
@@ -237,6 +254,13 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
          //fixed_room_2d.unpause_game();
       break;
    }
+   return;
+}
+
+void Screen::emit_event_to_exit()
+{
+   // NOTE: may need guards, or a confirmation dialog
+   event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
    return;
 }
 

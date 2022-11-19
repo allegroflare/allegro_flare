@@ -9,6 +9,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <allegro5/allegro.h>
+#include <string>
 
 
 namespace AllegroFlare
@@ -19,12 +20,16 @@ namespace AllegroFlare
       {
          class Screen : public AllegroFlare::Screens::Base
          {
+         public:
+            static constexpr char* DEFAULT_EVENT_NAME_ON_EXIT = "exit_fixed_room_2d_screen";
+
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
             bool initialized;
+            std::string game_event_name_to_emit_on_exit;
             void emit_event_to_set_input_hints();
             void emit_event_to_set_input_hints_bar_to_inventory_controls();
             void emit_event_to_set_input_hints_bar_to_room_controls();
@@ -33,9 +38,11 @@ namespace AllegroFlare
 
 
          public:
-            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::string game_event_name_to_emit_on_exit=DEFAULT_EVENT_NAME_ON_EXIT);
             virtual ~Screen();
 
+            void set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit);
+            std::string get_game_event_name_to_emit_on_exit() const;
             AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D &get_fixed_room_2d_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
@@ -49,6 +56,7 @@ namespace AllegroFlare
             virtual void on_deactivate() override;
             virtual void primary_timer_func() override;
             virtual void key_char_func(ALLEGRO_EVENT* ev=nullptr) override;
+            void emit_event_to_exit();
          };
       }
    }
