@@ -37,6 +37,7 @@ TEST(AllegroFlare_ScreenCaptureTest, create_capture__will_create_a_capture_of_th
    al_destroy_display(display);
    al_shutdown_primitives_addon(); // for Testing::Rulers
    al_shutdown_image_addon(); // for al_save_bitmap
+   al_uninstall_system();
 }
 
 
@@ -65,6 +66,7 @@ TEST(AllegroFlare_ScreenCaptureTest, create_capture_as_scaled_bitmap__will_creat
    al_destroy_display(display);
    al_shutdown_primitives_addon(); // for Testing::Rulers
    al_shutdown_image_addon(); // for al_save_bitmap
+   al_uninstall_system();
 }
 
 
