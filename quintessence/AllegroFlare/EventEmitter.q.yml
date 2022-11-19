@@ -118,7 +118,7 @@ functions:
     parameters:
       - name: opacity
         type: float
-        default_argument: 1.0f
+        default_argument: 0.35f
     body: |
       intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
       emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY, data_to_pass);
