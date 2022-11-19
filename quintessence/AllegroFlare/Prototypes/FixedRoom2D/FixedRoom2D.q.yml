@@ -143,6 +143,7 @@ functions:
       subscribed_to_game_event_names = {
          AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
          AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME,
          "pause_game",
          "unpause_game",
       };
@@ -388,6 +389,10 @@ functions:
       {
          process_script_event(game_event->get_data());
       }
+      else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
+      {
+         process_dialog_event(game_event->get_data());
+      }
       else if (game_event->is_type("unpause_game"))
       {
          unpause_game();
@@ -445,6 +450,18 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
+
+
+  - name: process_dialog_event
+    private: true
+    parameters:
+      - name: game_event_data
+        type: AllegroFlare::GameEventDatas::Base*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      // HERE:
+      return;
 
 
   - name: process_script_event

@@ -154,6 +154,7 @@ void FixedRoom2D::initialize()
    subscribed_to_game_event_names = {
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME,
       "pause_game",
       "unpause_game",
    };
@@ -405,6 +406,10 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
    {
       process_script_event(game_event->get_data());
    }
+   else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
+   {
+      process_dialog_event(game_event->get_data());
+   }
    else if (game_event->is_type("unpause_game"))
    {
       unpause_game();
@@ -456,6 +461,18 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::GameEventDatas::Base* 
    {
       std::cout << "Expecting game_event_data to be present but it is a nullptr" << std::endl;
    }
+   return;
+}
+
+void FixedRoom2D::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "FixedRoom2D" << "::" << "process_dialog_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // HERE:
    return;
 }
 
