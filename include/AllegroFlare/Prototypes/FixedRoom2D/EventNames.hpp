@@ -15,6 +15,7 @@ namespace AllegroFlare
          public:
             static const std::string INTERACTION_EVENT_NAME;
             static const std::string SCRIPT_EVENT_NAME;
+            static const std::string DIALOG_EVENT_NAME;
          };
       }
    }
