@@ -157,7 +157,7 @@ TEST(AllegroFlare_Framewors_FullTest, input_hints_text_opacity__has_the_expected
 
 
 TEST(AllegroFlare_Framewors_FullTest,
-   ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY__when_emitted__will_set_the_opacity_for_the_input_hints_text)
+   ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY__when_emitted__will_set_the_opacity_for_the_input_hints_text)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
@@ -166,10 +166,29 @@ TEST(AllegroFlare_Framewors_FullTest,
 
    float opacity = 0.618033;
 
-   event_emitter.emit_set_input_hints_bar_opacity_event(opacity);
+   event_emitter.emit_set_input_hints_bar_text_opacity_event(opacity);
    framework.process_events_in_queue();
 
    float actual_opacity = framework.get_input_hints_text_opacity();
+   EXPECT_EQ(opacity, actual_opacity);
+}
+
+
+TEST(AllegroFlare_Framewors_FullTest,
+   ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY__when_emitted__will_set_the_backfill_opacity_for_the\
+_input_hints_bar)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.initialize();
+   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
+
+   float opacity = 0.618033;
+
+   event_emitter.emit_set_input_hints_bar_backfill_opacity_event(opacity);
+   framework.process_events_in_queue();
+
+   float actual_opacity = framework.get_input_hints_backfill_opacity();
    EXPECT_EQ(opacity, actual_opacity);
 }
 

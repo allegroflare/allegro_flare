@@ -32,7 +32,8 @@ namespace AllegroFlare
       void emit_show_input_hints_bar_event();
       void emit_hide_input_hints_bar_event();
       void emit_set_input_hints_bar_event(std::vector<std::string> tokens={});
-      void emit_set_input_hints_bar_opacity_event(float opacity=1.0f);
+      void emit_set_input_hints_bar_text_opacity_event(float opacity=1.0f);
+      void emit_set_input_hints_bar_backfill_opacity_event(float opacity=1.0f);
       void emit_set_input_hints_bar_height_event(float height=60.0f);
       void emit_post_unlocked_achievement_notification_event(std::string achievement_name="[unset-achievement_name]");
       void emit_play_sound_effect_event(std::string sound_effect_identifier="[unset-sound-effect-identifier]");

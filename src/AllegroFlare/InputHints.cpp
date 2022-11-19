@@ -21,6 +21,7 @@ InputHints::InputHints(AllegroFlare::FontBin* font_bin, std::vector<std::pair<st
    , keyboard_key_combo_tokens(keyboard_key_combo_tokens)
    , bar_height(60)
    , text_color(ALLEGRO_COLOR{0.4, 0.4, 0.45, 0.6})
+   , backfill_color(ALLEGRO_COLOR{0, 0, 0, 0.35})
    , surface_width(1920)
    , surface_height(1080)
 {
@@ -59,6 +60,12 @@ void InputHints::set_bar_height(int bar_height)
 void InputHints::set_text_color(ALLEGRO_COLOR text_color)
 {
    this->text_color = text_color;
+}
+
+
+void InputHints::set_backfill_color(ALLEGRO_COLOR backfill_color)
+{
+   this->backfill_color = backfill_color;
 }
 
 
@@ -104,6 +111,12 @@ ALLEGRO_COLOR InputHints::get_text_color() const
 }
 
 
+ALLEGRO_COLOR InputHints::get_backfill_color() const
+{
+   return backfill_color;
+}
+
+
 int InputHints::get_surface_width() const
 {
    return surface_width;
@@ -142,18 +155,15 @@ void InputHints::render()
       error_message << "InputHints" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
       throw std::runtime_error(error_message.str());
    }
-   draw_inputs_bar();
+   draw_backfill_bar();
    if (!keyboard_key_combo_tokens.empty()) draw_keyboard_key_combo_tokens();
    else draw_inputs_hints_tokens();
    return;
 }
 
-void InputHints::draw_inputs_bar()
+void InputHints::draw_backfill_bar()
 {
-   // draw inputs
-   float backfill_opacity = 0.35;
-   // TODO: if (backfill_opacity <= 0.0001) return;
-   ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, backfill_opacity};
+   if (backfill_color.a <= 0.0001) return;
    al_draw_filled_rectangle(0, surface_height-bar_height, surface_width, surface_height, backfill_color);
    return;
 }

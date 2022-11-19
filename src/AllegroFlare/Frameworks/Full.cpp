@@ -57,6 +57,8 @@ Full::Full()
    , escape_key_will_shutdown(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
+   , input_hints_backfill_color(ALLEGRO_COLOR{0, 0, 0, 0})
+   , input_hints_backfill_opacity(0.35)
    , input_hints_bar_height(60)
    , fullscreen(true)
    , event_callbacks()
@@ -745,9 +747,15 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      enable_drawing_inputs_bar_overlay();
                   break;
 
-                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY: {
+                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY: {
                      float *data = (float *)this_event.user.data1;
                      input_hints_text_opacity = *data;
+                     delete data;
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY: {
+                     float *data = (float *)this_event.user.data1;
+                     input_hints_backfill_opacity = *data;
                      delete data;
                   } break;
 
@@ -992,12 +1000,18 @@ void Full::draw_overlay()
       {
          AllegroFlare::InputHints input_hints(&fonts);
          ALLEGRO_COLOR text_color = input_hints_text_color;
+         ALLEGRO_COLOR backfill_color = input_hints_backfill_color;
          text_color.r *= input_hints_text_opacity;
          text_color.g *= input_hints_text_opacity;
          text_color.b *= input_hints_text_opacity;
          text_color.a *= input_hints_text_opacity;
+         backfill_color.r *= input_hints_backfill_opacity;
+         backfill_color.g *= input_hints_backfill_opacity;
+         backfill_color.b *= input_hints_backfill_opacity;
+         backfill_color.a *= input_hints_backfill_opacity;
          input_hints.set_keyboard_key_combo_tokens(input_hints_tokens);
          input_hints.set_text_color(text_color);
+         input_hints.set_backfill_color(backfill_color);
          input_hints.set_bar_height(input_hints_bar_height);
          input_hints.render();
       }
@@ -1041,6 +1055,12 @@ std::vector<std::string> Full::get_input_hints_tokens()
 float Full::get_input_hints_text_opacity()
 {
    return input_hints_text_opacity;
+}
+
+
+float Full::get_input_hints_backfill_opacity()
+{
+   return input_hints_backfill_opacity;
 }
 
 

@@ -34,6 +34,12 @@ properties:
     getter: true
     setter: true
 
+  - name: backfill_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0, 0, 0, 0.35}
+    getter: true
+    setter: true
+
   - name: surface_width
     type: int
     init_with: 1920
@@ -58,7 +64,7 @@ functions:
       - al_is_ttf_addon_initialized()
       - al_is_primitives_addon_initialized()
     body: |
-      draw_inputs_bar();
+      draw_backfill_bar();
       if (!keyboard_key_combo_tokens.empty()) draw_keyboard_key_combo_tokens();
       else draw_inputs_hints_tokens();
       return;
@@ -69,12 +75,9 @@ functions:
       - al_is_primitives_addon_initialized
 
 
-  - name: draw_inputs_bar
+  - name: draw_backfill_bar
     body: |
-      // draw inputs
-      float backfill_opacity = 0.35;
-      // TODO: if (backfill_opacity <= 0.0001) return;
-      ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, backfill_opacity};
+      if (backfill_color.a <= 0.0001) return;
       al_draw_filled_rectangle(0, surface_height-bar_height, surface_width, surface_height, backfill_color);
       return;
 

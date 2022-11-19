@@ -56,6 +56,8 @@ namespace AllegroFlare
          bool escape_key_will_shutdown;
          ALLEGRO_COLOR input_hints_text_color;
          float input_hints_text_opacity;
+         ALLEGRO_COLOR input_hints_backfill_color;
+         float input_hints_backfill_opacity;
          float input_hints_bar_height;
          bool fullscreen;
 
@@ -127,6 +129,7 @@ namespace AllegroFlare
          void clear_input_hints_tokens();
          std::vector<std::string> get_input_hints_tokens();
          float get_input_hints_text_opacity();
+         float get_input_hints_backfill_opacity();
          float get_input_hints_bar_height();
 
          Display *create_display(int width=1280, int height=720);

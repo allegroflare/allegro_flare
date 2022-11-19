@@ -102,16 +102,28 @@ functions:
       - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR
 
 
-  - name: emit_set_input_hints_bar_opacity_event
+  - name: emit_set_input_hints_bar_text_opacity_event
     parameters:
       - name: opacity
         type: float
         default_argument: 1.0f
     body: |
       intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
-      emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY, data_to_pass);
+      emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY, data_to_pass);
     body_dependency_symbols:
-      - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY
+      - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY
+
+
+  - name: emit_set_input_hints_bar_backfill_opacity_event
+    parameters:
+      - name: opacity
+        type: float
+        default_argument: 1.0f
+    body: |
+      intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
+      emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY, data_to_pass);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY
 
 
   - name: emit_set_input_hints_bar_height_event
@@ -236,7 +248,9 @@ dependencies:
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY
+  - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT
     headers: [ AllegroFlare/EventNames.hpp ]

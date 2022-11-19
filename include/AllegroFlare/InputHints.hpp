@@ -19,6 +19,7 @@ namespace AllegroFlare
       std::vector<std::string> keyboard_key_combo_tokens;
       int bar_height;
       ALLEGRO_COLOR text_color;
+      ALLEGRO_COLOR backfill_color;
       int surface_width;
       int surface_height;
       ALLEGRO_FONT* obtain_font();
@@ -35,6 +36,7 @@ namespace AllegroFlare
       void set_keyboard_key_combo_tokens(std::vector<std::string> keyboard_key_combo_tokens);
       void set_bar_height(int bar_height);
       void set_text_color(ALLEGRO_COLOR text_color);
+      void set_backfill_color(ALLEGRO_COLOR backfill_color);
       void set_surface_width(int surface_width);
       void set_surface_height(int surface_height);
       AllegroFlare::FontBin* get_font_bin() const;
@@ -42,10 +44,11 @@ namespace AllegroFlare
       std::vector<std::string> get_keyboard_key_combo_tokens() const;
       int get_bar_height() const;
       ALLEGRO_COLOR get_text_color() const;
+      ALLEGRO_COLOR get_backfill_color() const;
       int get_surface_width() const;
       int get_surface_height() const;
       void render();
-      void draw_inputs_bar();
+      void draw_backfill_bar();
       void draw_keyboard_key_combo_tokens();
       void draw_inputs_hints_tokens();
       static std::vector<std::pair<std::string, std::string>> build_placeholder_input_hints_tokens();

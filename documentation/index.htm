@@ -4875,7 +4875,10 @@ table td
   <td class="method">emit_set_input_hints_bar_event(1)</td>
 </tr>
 <tr>
-  <td class="method">emit_set_input_hints_bar_opacity_event(1)</td>
+  <td class="method">emit_set_input_hints_bar_text_opacity_event(1)</td>
+</tr>
+<tr>
+  <td class="method">emit_set_input_hints_bar_backfill_opacity_event(1)</td>
 </tr>
 <tr>
   <td class="method">emit_set_input_hints_bar_height_event(1)</td>
@@ -4919,7 +4922,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
@@ -5337,6 +5343,10 @@ table td
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
+  <td class="property">backfill_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">surface_width</td>
   <td class="property">int</td>
 </tr>
@@ -5350,7 +5360,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">draw_inputs_bar()</td>
+  <td class="method">draw_backfill_bar()</td>
 </tr>
 <tr>
   <td class="method">draw_keyboard_key_combo_tokens()</td>
@@ -15987,7 +15997,10 @@ table td
   "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR": [
     "AllegroFlare/EventEmitter"
   ],
-  "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY": [
+  "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY": [
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT": [

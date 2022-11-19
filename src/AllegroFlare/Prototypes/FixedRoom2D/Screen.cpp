@@ -274,7 +274,7 @@ void Screen::emit_event_to_set_input_hints()
    }
    if (fixed_room_2d.inventory_is_open()) emit_event_to_set_input_hints_bar_to_inventory_controls();
    else emit_event_to_set_input_hints_bar_to_room_controls();
-   event_emitter->emit_set_input_hints_bar_opacity_event(0.265);
+   event_emitter->emit_set_input_hints_bar_text_opacity_event(0.265);
    return;
 }
 

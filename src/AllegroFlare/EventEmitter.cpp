@@ -114,10 +114,16 @@ void EventEmitter::emit_set_input_hints_bar_event(std::vector<std::string> token
    emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR, data_to_pass);
 }
 
-void EventEmitter::emit_set_input_hints_bar_opacity_event(float opacity)
+void EventEmitter::emit_set_input_hints_bar_text_opacity_event(float opacity)
 {
    intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
-   emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_OPACITY, data_to_pass);
+   emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY, data_to_pass);
+}
+
+void EventEmitter::emit_set_input_hints_bar_backfill_opacity_event(float opacity)
+{
+   intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
+   emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY, data_to_pass);
 }
 
 void EventEmitter::emit_set_input_hints_bar_height_event(float height)
