@@ -12,14 +12,49 @@ functions:
       return captured_screen;
 
 
-  - name: clone_as_scaled_bitmap
+  - name: create_capture_as_scaled_bitmap
     type: ALLEGRO_BITMAP*
     static: true
-    guards: [ al_is_system_installed(), al_get_current_display() ]
+    parameters:
+      - name: destination_width
+        type: int
+        default_argument: 1920
+      - name: destination_height
+        type: int
+        default_argument: 1080
+    guards: [ al_is_system_installed(), al_get_current_display(), destination_width >= 1, destination_height >= 1 ]
     body: |
-      ALLEGRO_BITMAP *clone = create_capture();
-      // TODO: finish out this logic
-      return clone;
+      ALLEGRO_BITMAP *capture = create_capture();
+      // TODO: consider new bitmap flags
+      // TODO: consider capturing new bitmap flags when storing "previous_target" state
+      ALLEGRO_BITMAP *destination = al_create_bitmap(destination_width, destination_height);
+
+      if (!capture || !destination)
+      {
+         // TODO: throw an error message
+      }
+
+      ALLEGRO_STATE previous_target;
+      al_store_state(&previous_target, ALLEGRO_STATE_TARGET_BITMAP);
+
+      al_set_target_bitmap(destination);
+      al_draw_scaled_bitmap(
+         capture,
+         0,
+         0,
+         al_get_bitmap_width(capture),
+         al_get_bitmap_height(capture),
+         0,
+         0,
+         al_get_bitmap_width(destination),
+         al_get_bitmap_height(destination),
+         0
+      );
+
+      al_restore_state(&previous_target);
+
+      al_destroy_bitmap(capture);
+      return destination;
 
 
 dependencies:
