@@ -1140,6 +1140,7 @@
   ],
   ":testing/Test": [
     "AllegroFlare/Integrations/Network",
+    "AllegroFlare/Testing/TestNameInference",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/Network2/Client": [

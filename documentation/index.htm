@@ -211,6 +211,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/Rulers.q.yml">quintessence/AllegroFlare/Testing/Rulers.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Testing/TestNameInference.q.yml">quintessence/AllegroFlare/Testing/TestNameInference.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/Basic2D.q.yml">quintessence/AllegroFlare/TileMaps/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml">quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml</a></li>
@@ -11783,6 +11784,32 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Testing/TestNameInference.q.yml">quintessence/AllegroFlare/Testing/TestNameInference.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_test_name()</td>
+</tr>
+<tr>
+  <td class="method">get_test_suite_name()</td>
+</tr>
+<tr>
+  <td class="method">build_full_test_name_str()</td>
+</tr>
+<tr>
+  <td class="method">build_test_snapshot_full_filename()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;:&quot;:testing::Test&quot;, &quot;headers&quot;=&gt;[&quot;gtest/gtest.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</h3>
      <table>
 <tr>
@@ -16024,6 +16051,7 @@ table td
   ],
   ":testing/Test": [
     "AllegroFlare/Integrations/Network",
+    "AllegroFlare/Testing/TestNameInference",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/Network2/Client": [
