@@ -3,7 +3,7 @@ properties:
 
   - name: type
     type: std::string
-    init_with: '"Base"'
+    init_with: TYPE
     constructor_arg: true
     getter: true
 
@@ -12,6 +12,12 @@ properties:
     init_with: 0
     getter: true
     setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"DialogBoxes/Base"'
+    static: true
+    constexpr: true
 
 
 functions:

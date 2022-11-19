@@ -26,7 +26,7 @@ public:
 
 TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, type__when_not_from_a_derived_class__is_the_expected_default)
 {
-   std::string expected_type = "Base";
+   std::string expected_type = "DialogBoxes/Base";
    AllegroFlare::Elements::DialogBoxes::Base base_dialog_box;
    ASSERT_EQ(expected_type, base_dialog_box.get_type());
 }

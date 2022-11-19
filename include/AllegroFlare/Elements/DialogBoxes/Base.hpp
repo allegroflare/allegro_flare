@@ -12,6 +12,9 @@ namespace AllegroFlare
       {
          class Base
          {
+         public:
+            static constexpr char* TYPE = "DialogBoxes/Base";
+
          private:
             std::string type;
             float created_at;
@@ -20,7 +23,7 @@ namespace AllegroFlare
 
 
          public:
-            Base(std::string type="Base");
+            Base(std::string type=TYPE);
             virtual ~Base();
 
             void set_created_at(float created_at);
