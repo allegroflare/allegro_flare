@@ -226,10 +226,13 @@ functions:
          std::string item_bitmap_identifier = std::get<1>(item_definition);
 
          // add the item to the inventory
-         af_inventory->add_item(item_id); // TODO: remove this and handle it in the reception of the event
+         //af_inventory->add_item(item_id); // TODO: remove this and handle it in the reception of the event
 
          // cout for debugging
-         std::cout << "You got an item " << argument << std::endl;
+         //std::cout << "You got an item " << argument << std::endl;
+
+         current_internally_running_script.goto_next_line();
+         paused_for_dialog_to_finish = true; // should this be in the event processing?
 
          // construct the dialog
          //if (command == COLLECT_SILENTLY)
