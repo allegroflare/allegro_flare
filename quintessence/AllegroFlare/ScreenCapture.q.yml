@@ -7,7 +7,7 @@ functions:
     parameters:
       - name: flip_display_for_capture
         type: bool
-        default_argument: true
+        default_argument: false
     guards: [ al_is_system_installed(), al_get_current_display() ]
     body: |
       if (flip_display_for_capture) al_flip_display();
@@ -28,7 +28,7 @@ functions:
         default_argument: 1080
       - name: flip_display_for_capture
         type: bool
-        default_argument: true
+        default_argument: false
     guards: [ al_is_system_installed(), al_get_current_display(), destination_width >= 1, destination_height >= 1 ]
     body: |
       ALLEGRO_BITMAP *capture = create_capture(flip_display_for_capture);
