@@ -70,3 +70,6 @@ TEST(AllegroFlare_ScreenCaptureTest, create_capture_as_scaled_bitmap__will_creat
 }
 
 
+// TODO: add tests for helper functions
+
+
