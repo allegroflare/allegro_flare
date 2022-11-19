@@ -73,6 +73,12 @@ ALLEGRO_BITMAP* ScreenCapture::create_capture_as_scaled_bitmap(int destination_w
 
    if (!capture || !destination)
    {
+      std::stringstream error_message;
+      error_message << "AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap() error: "
+                    << "Either \"capture\" or \"destination\" bitmaps are nullptr. (capture: " << capture << ", "
+                    << "destination: " << destination << ").";
+      throw std::runtime_error(error_message.str());
+
       // TODO: throw an error message
    }
 
