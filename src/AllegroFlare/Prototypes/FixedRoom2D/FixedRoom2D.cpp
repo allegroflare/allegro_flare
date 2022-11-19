@@ -729,13 +729,18 @@ void FixedRoom2D::dialog_advance()
    if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
+   // TODO: account for different dialog types
    if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
    }
    else
    {
-      // TODO: Throw exception for unhandled type of dialog
+      // TODO: test this condition
+      std::stringstream error_message;
+      error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_advance: ERROR: "
+                    << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
+      throw std::runtime_error(error_message.str());
    }
    return;
 }
@@ -751,14 +756,18 @@ void FixedRoom2D::dialog_cursor_up()
    if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
+   // TODO: account for different dialog types
    if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
-      // TODO: cast to different dialog type and "cursor_up"
-      //dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
+      // do nothing
    }
    else
    {
-      // TODO: Throw exception for unhandled type of dialog
+      // TODO: test this condition
+      std::stringstream error_message;
+      error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_advance: ERROR: "
+                    << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
+      throw std::runtime_error(error_message.str());
    }
    return;
 }
@@ -774,14 +783,18 @@ void FixedRoom2D::dialog_cursor_down()
    if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
+   // TODO: account for different dialog types
    if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
-      // TODO: cast to different dialog type and "cursor_down"
-      //dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
+      // do nothing
    }
    else
    {
-      // TODO: Throw exception for unhandled type of dialog
+      // TODO: test this condition
+      std::stringstream error_message;
+      error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_advance: ERROR: "
+                    << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
+      throw std::runtime_error(error_message.str());
    }
    return;
 }
