@@ -10,6 +10,9 @@ namespace AllegroFlare
    {
       class Base
       {
+      public:
+         static constexpr char* TYPE = "GameEventDatas/Base";
+
       private:
          std::string type;
 
@@ -17,11 +20,12 @@ namespace AllegroFlare
 
 
       public:
-         Base(std::string type="Base");
+         Base(std::string type=AllegroFlare::GameEventDatas::Base::TYPE);
          ~Base();
 
          void set_type(std::string type);
          std::string get_type() const;
+         bool is_type(std::string possible_type="");
       };
    }
 }

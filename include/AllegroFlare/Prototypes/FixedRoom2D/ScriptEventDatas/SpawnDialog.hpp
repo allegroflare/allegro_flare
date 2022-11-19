@@ -16,6 +16,9 @@ namespace AllegroFlare
          {
             class SpawnDialog : public AllegroFlare::GameEventDatas::Base
             {
+            public:
+               static constexpr char* TYPE = "ScriptEventDatas/SpawnDialog";
+
             private:
                std::vector<std::string> dialog_pages;
 

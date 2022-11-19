@@ -16,7 +16,7 @@ namespace DialogEventDatas
 
 
 CloseDialog::CloseDialog(AllegroFlare::Elements::DialogBoxes::Base* dialog)
-   : AllegroFlare::GameEventDatas::Base("SpawnDialog")
+   : AllegroFlare::GameEventDatas::Base(AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog::TYPE)
    , dialog(dialog)
 {
 }

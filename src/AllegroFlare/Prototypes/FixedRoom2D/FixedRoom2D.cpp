@@ -483,7 +483,7 @@ void FixedRoom2D::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_
    }
    else
    {
-      if (game_event_data->get_type() == "CloseDialog")
+      if (game_event_data->get_type() == AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog::TYPE)
       {
          DialogEventDatas::CloseDialog* close_dialog_event_data =
             static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
@@ -524,7 +524,7 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
    }
    else
    {
-      if (game_event_data->get_type() == "SpawnDialog")
+      if (game_event_data->is_type(ScriptEventDatas::SpawnDialog::TYPE))
       {
          AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog* spawn_dialog_event_data =
              static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog*>(game_event_data);
@@ -734,6 +734,10 @@ void FixedRoom2D::dialog_advance()
    {
       dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
    }
+   else
+   {
+      // TODO: Throw exception for unhandled type of dialog
+   }
    return;
 }
 
@@ -753,6 +757,10 @@ void FixedRoom2D::dialog_cursor_up()
       // TODO: cast to different dialog type and "cursor_up"
       //dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
    }
+   else
+   {
+      // TODO: Throw exception for unhandled type of dialog
+   }
    return;
 }
 
@@ -770,6 +778,10 @@ bool FixedRoom2D::dialog_cursor_down()
       // TODO: cast to different dialog type and "cursor_down"
       //dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
    }
+   else
+   {
+      // TODO: Throw exception for unhandled type of dialog
+   }
    return true;
 }
 
@@ -785,6 +797,10 @@ bool FixedRoom2D::dialog_is_finished()
    if (active_dialog->is_type("Basic"))
    {
       return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
+   }
+   else
+   {
+      // TODO: Throw exception for unhandled type of dialog
    }
    return true;
 }
@@ -821,9 +837,6 @@ void FixedRoom2D::activate_primary_action()
       if (dialog_is_finished())
       {
          emit_close_dialog_event(active_dialog);
-         //shutdown_dialog();
-         //resume_all_rooms();
-         //if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
       }
    }
    else if (current_room && !current_room->get_suspended())
@@ -855,7 +868,7 @@ void FixedRoom2D::emit_close_dialog_event(AllegroFlare::Elements::DialogBoxes::B
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog *close_dialog_event_data = new
-     AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog();
+     AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog(dialog);
    event_emitter->emit_game_event(AllegroFlare::GameEvent(
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME,
       close_dialog_event_data

@@ -16,7 +16,7 @@ namespace ScriptEventDatas
 
 
 SpawnDialog::SpawnDialog(std::vector<std::string> dialog_pages)
-   : AllegroFlare::GameEventDatas::Base("SpawnDialog")
+   : AllegroFlare::GameEventDatas::Base(AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog::TYPE)
    , dialog_pages(dialog_pages)
 {
 }

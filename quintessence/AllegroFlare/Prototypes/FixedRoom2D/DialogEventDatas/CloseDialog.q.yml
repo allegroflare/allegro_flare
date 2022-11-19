@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::GameEventDatas::Base
     scope: public
-    init_with: '"SpawnDialog"'
+    init_with: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog::TYPE
 
 
 properties:
@@ -15,6 +15,13 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"DialogEventDatas/CloseDialog"'
+    static: true
+    constexpr: true
+    
 
 
 dependencies:

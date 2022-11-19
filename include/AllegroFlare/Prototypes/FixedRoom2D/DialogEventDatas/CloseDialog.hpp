@@ -15,6 +15,9 @@ namespace AllegroFlare
          {
             class CloseDialog : public AllegroFlare::GameEventDatas::Base
             {
+            public:
+               static constexpr char* TYPE = "DialogEventDatas/CloseDialog";
+
             private:
                AllegroFlare::Elements::DialogBoxes::Base* dialog;
 
