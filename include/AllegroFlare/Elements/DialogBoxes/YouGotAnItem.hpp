@@ -19,16 +19,20 @@ namespace AllegroFlare
          private:
             std::string item_name;
             std::string item_bitmap_identifier;
+            bool finished;
 
          protected:
 
 
          public:
             YouGotAnItem(std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]");
-            ~YouGotAnItem();
+            virtual ~YouGotAnItem();
 
             std::string get_item_name() const;
             std::string get_item_bitmap_identifier() const;
+            bool get_finished() const;
+            virtual void update() override;
+            void advance();
          };
       }
    }

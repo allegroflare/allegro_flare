@@ -735,9 +735,9 @@ void FixedRoom2D::dialog_advance()
    {
       dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
    }
-   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
    {
-      dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
+      dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
    }
    else
    {
@@ -821,6 +821,10 @@ bool FixedRoom2D::dialog_is_finished()
    if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
+   }
+   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
+   {
+      return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->get_finished();
    }
    else
    {
