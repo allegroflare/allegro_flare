@@ -1,0 +1,20 @@
+functions:
+
+
+  - name: create_capture
+    type: ALLEGRO_BITMAP*
+    guards: [ al_is_system_installed(), al_get_current_display() ]
+    body: |
+      al_flip_display();
+      ALLEGRO_BITMAP *captured_screen = al_clone_bitmap(al_get_backbuffer(al_get_current_display()));
+      al_flip_display();
+      return captured_screen;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+
+
