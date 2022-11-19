@@ -198,6 +198,8 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // TODO: remove af_inventory dependency, and other unnecessary dependencies
+
    std::string DIALOG = "DIALOG";
    std::string GOTO_MARKER = "GOTO_MARKER";
    std::string ENTER_ROOM = "ENTER_ROOM";
@@ -280,10 +282,8 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       std::string item_bitmap_identifier = std::get<1>(item_definition);
 
       // add the item to the inventory
-      //af_inventory->add_item(item_id); // TODO: remove this and handle it in the reception of the event
-
-      // cout for debugging
-      //std::cout << "You got an item " << argument << std::endl;
+      af_inventory->add_item(item_id); // TODO: remove this and handle it in the reception of the event. Note,
+                                       // the CollectItem event datas will need to be modified
 
       current_internally_running_script.goto_next_line();
       paused_for_dialog_to_finish = true; // should this be in the event processing?
