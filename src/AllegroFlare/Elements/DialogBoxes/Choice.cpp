@@ -15,7 +15,7 @@ namespace DialogBoxes
 
 
 Choice::Choice(std::string prompt, std::vector<std::pair<std::string, std::string>> options)
-   : AllegroFlare::Elements::DialogBoxes::Base("Choice")
+   : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::Choice::TYPE)
    , prompt(prompt)
    , options(options)
    , cursor_position(-1)

@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::DialogBoxes::Base
     scope: public
-    init_with: '"Choice"'
+    init_with: AllegroFlare::Elements::DialogBoxes::Choice::TYPE
 
 
 properties:
@@ -27,6 +27,12 @@ properties:
   - name: initialized
     type: bool
     init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '"DialogBoxes/Choice"'
+    static: true
+    constexpr: true
 
 
 functions:

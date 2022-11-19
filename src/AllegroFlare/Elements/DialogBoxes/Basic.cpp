@@ -16,7 +16,7 @@ namespace DialogBoxes
 
 
 Basic::Basic(std::vector<std::string> pages)
-   : AllegroFlare::Elements::DialogBoxes::Base("Basic")
+   : AllegroFlare::Elements::DialogBoxes::Base(TYPE)
    , pages(pages)
    , current_page_num(-1)
    , finished(false)

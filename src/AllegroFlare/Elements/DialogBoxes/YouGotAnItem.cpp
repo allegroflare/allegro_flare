@@ -14,7 +14,7 @@ namespace DialogBoxes
 
 
 YouGotAnItem::YouGotAnItem(std::string item_name, std::string item_bitmap_identifier)
-   : AllegroFlare::Elements::DialogBoxes::Base("YouGotAnItem")
+   : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE)
    , item_name(item_name)
    , item_bitmap_identifier(item_bitmap_identifier)
 {

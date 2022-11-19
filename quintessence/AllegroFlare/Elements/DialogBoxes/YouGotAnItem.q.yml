@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::DialogBoxes::Base
     scope: public
-    init_with: '"YouGotAnItem"'
+    init_with: AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE
 
 
 properties:
@@ -20,6 +20,12 @@ properties:
     init_with: '"[unset-item_bitmap_identifier]"'
     constructor_arg: true
     getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"DialogBoxes/YouGotAnItem"'
+    static: true
+    constexpr: true
 
 
 dependencies:

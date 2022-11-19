@@ -13,6 +13,9 @@ namespace AllegroFlare
       {
          class YouGotAnItem : public AllegroFlare::Elements::DialogBoxes::Base
          {
+         public:
+            static constexpr char* TYPE = "DialogBoxes/YouGotAnItem";
+
          private:
             std::string item_name;
             std::string item_bitmap_identifier;

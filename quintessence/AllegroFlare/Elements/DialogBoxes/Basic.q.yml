@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::DialogBoxes::Base
     scope: public
-    init_with: '"Basic"'
+    init_with: TYPE
 
 
 properties:
@@ -44,6 +44,12 @@ properties:
     type: float
     init_with: 0.0f
     getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"DialogBoxes/Basic"'
+    static: true
+    constexpr: true
 
 
 functions:

@@ -18,7 +18,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, can_be_created_without_blowin
 TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_type__returns_the_expected_value)
 {
    AllegroFlare::Elements::DialogBoxes::Choice choice;
-   EXPECT_EQ("Choice", choice.get_type());
+   EXPECT_EQ("DialogBoxes/Choice", choice.get_type());
 }
 
 

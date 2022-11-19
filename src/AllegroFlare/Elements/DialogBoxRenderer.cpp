@@ -85,7 +85,7 @@ void DialogBoxRenderer::render()
    float standard_dialog_box_width = 1920/2;
    float standard_dialog_box_height = 1080/5;
 
-   if (dialog_box->is_type("Choice"))
+   if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
    {
       AllegroFlare::Placement2D place{
          standard_dialog_box_x,
@@ -109,7 +109,7 @@ void DialogBoxRenderer::render()
       choice_dialog_box_renderer.render();
       place.restore_transform();
    }
-   else if (dialog_box->is_type("YouGotAnItem"))
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
    {
       AllegroFlare::Placement2D place{ 1920/2, 1080/2, 400, 420 };
 
@@ -130,7 +130,7 @@ void DialogBoxRenderer::render()
       you_got_an_item_dialog_box_renderer.render();
       place.restore_transform();
    }
-   else if (dialog_box->is_type("Basic"))
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       AllegroFlare::Placement2D place{
          standard_dialog_box_x,
@@ -160,7 +160,7 @@ void DialogBoxRenderer::render()
    {
       // TODO include this:
       //std::cout << "Unrecognized dialog box type:: " + dialog_box->get_type();
-      //throw std::runtime_error("Unrecognized dialog box type:: " + dialog_box->get_type());
+      throw std::runtime_error("Elements/DialogBoxRenderer: Unrecognized dialog box type:: " + dialog_box->get_type());
    }
 
    return;
