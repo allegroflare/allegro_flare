@@ -54,10 +54,10 @@ TEST(AllegroFlare_ScreenCaptureTest, create_capture_as_scaled_bitmap__will_creat
    AllegroFlare::Testing::Rulers::draw_2d_grid(1920/2, 1080/2, 8.0f);
    al_flip_display();
 
-   ALLEGRO_BITMAP *created_capture = AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap(800, 300);
+   ALLEGRO_BITMAP *created_capture = AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap(192, 108);
    ASSERT_NE(nullptr, created_capture);
-   ASSERT_EQ(800, al_get_bitmap_width(created_capture));
-   ASSERT_EQ(300, al_get_bitmap_height(created_capture));
+   ASSERT_EQ(192, al_get_bitmap_width(created_capture));
+   ASSERT_EQ(108, al_get_bitmap_height(created_capture));
 
    al_save_bitmap(full_file_save_location.c_str(), created_capture);
 
