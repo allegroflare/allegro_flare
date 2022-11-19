@@ -4,11 +4,15 @@ functions:
   - name: create_capture
     type: ALLEGRO_BITMAP*
     static: true
+    parameters:
+      - name: flip_display_for_capture
+        type: bool
+        default_argument: true
     guards: [ al_is_system_installed(), al_get_current_display() ]
     body: |
-      al_flip_display();
+      if (flip_display_for_capture) al_flip_display();
       ALLEGRO_BITMAP *captured_screen = al_clone_bitmap(al_get_backbuffer(al_get_current_display()));
-      al_flip_display();
+      if (flip_display_for_capture) al_flip_display();
       return captured_screen;
 
 
@@ -22,9 +26,12 @@ functions:
       - name: destination_height
         type: int
         default_argument: 1080
+      - name: flip_display_for_capture
+        type: bool
+        default_argument: true
     guards: [ al_is_system_installed(), al_get_current_display(), destination_width >= 1, destination_height >= 1 ]
     body: |
-      ALLEGRO_BITMAP *capture = create_capture();
+      ALLEGRO_BITMAP *capture = create_capture(flip_display_for_capture);
       // TODO: consider new bitmap flags
       // TODO: consider capturing new bitmap flags when storing "previous_target" state
       ALLEGRO_BITMAP *destination = al_create_bitmap(destination_width, destination_height);

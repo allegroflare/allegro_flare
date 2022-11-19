@@ -20,7 +20,7 @@ ScreenCapture::~ScreenCapture()
 }
 
 
-ALLEGRO_BITMAP* ScreenCapture::create_capture()
+ALLEGRO_BITMAP* ScreenCapture::create_capture(bool flip_display_for_capture)
 {
    if (!(al_is_system_installed()))
    {
@@ -34,13 +34,13 @@ ALLEGRO_BITMAP* ScreenCapture::create_capture()
       error_message << "ScreenCapture" << "::" << "create_capture" << ": error: " << "guard \"al_get_current_display()\" not met";
       throw std::runtime_error(error_message.str());
    }
-   al_flip_display();
+   if (flip_display_for_capture) al_flip_display();
    ALLEGRO_BITMAP *captured_screen = al_clone_bitmap(al_get_backbuffer(al_get_current_display()));
-   al_flip_display();
+   if (flip_display_for_capture) al_flip_display();
    return captured_screen;
 }
 
-ALLEGRO_BITMAP* ScreenCapture::create_capture_as_scaled_bitmap(int destination_width, int destination_height)
+ALLEGRO_BITMAP* ScreenCapture::create_capture_as_scaled_bitmap(int destination_width, int destination_height, bool flip_display_for_capture)
 {
    if (!(al_is_system_installed()))
    {
@@ -66,7 +66,7 @@ ALLEGRO_BITMAP* ScreenCapture::create_capture_as_scaled_bitmap(int destination_w
       error_message << "ScreenCapture" << "::" << "create_capture_as_scaled_bitmap" << ": error: " << "guard \"destination_height >= 1\" not met";
       throw std::runtime_error(error_message.str());
    }
-   ALLEGRO_BITMAP *capture = create_capture();
+   ALLEGRO_BITMAP *capture = create_capture(flip_display_for_capture);
    // TODO: consider new bitmap flags
    // TODO: consider capturing new bitmap flags when storing "previous_target" state
    ALLEGRO_BITMAP *destination = al_create_bitmap(destination_width, destination_height);
