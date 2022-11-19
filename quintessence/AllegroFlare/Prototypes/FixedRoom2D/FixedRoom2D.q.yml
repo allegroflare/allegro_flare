@@ -689,9 +689,9 @@ functions:
     guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) return;
-
       if (!active_dialog) return;
-      if (active_dialog->is_type("Basic"))
+
+      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
       {
          dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
       }
@@ -706,9 +706,9 @@ functions:
     guards: [ initialized ]
     body: |
       if (inventory_window.get_active()) return;
-
       if (!active_dialog) return;
-      if (active_dialog->is_type("Basic"))
+
+      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
       {
          // TODO: cast to different dialog type and "cursor_up"
          //dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
@@ -721,11 +721,12 @@ functions:
 
 
   - name: dialog_cursor_down
-    type: bool
     guards: [ initialized ]
     body: |
-      if (!active_dialog) return true;
-      if (active_dialog->is_type("Basic"))
+      if (inventory_window.get_active()) return;
+      if (!active_dialog) return;
+
+      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
       {
          // TODO: cast to different dialog type and "cursor_down"
          //dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
@@ -734,7 +735,7 @@ functions:
       {
          // TODO: Throw exception for unhandled type of dialog
       }
-      return true;
+      return;
 
 
   - name: dialog_is_finished
@@ -742,7 +743,7 @@ functions:
     guards: [ initialized ]
     body: |
       if (!active_dialog) return true;
-      if (active_dialog->is_type("Basic"))
+      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
       {
          return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
       }

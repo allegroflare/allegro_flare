@@ -97,7 +97,7 @@ namespace AllegroFlare
             bool inventory_is_open();
             void dialog_advance();
             void dialog_cursor_up();
-            bool dialog_cursor_down();
+            void dialog_cursor_down();
             bool dialog_is_finished();
             bool shutdown_dialog();
             void activate_primary_action();

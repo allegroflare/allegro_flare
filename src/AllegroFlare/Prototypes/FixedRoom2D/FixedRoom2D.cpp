@@ -727,9 +727,9 @@ void FixedRoom2D::dialog_advance()
       throw std::runtime_error(error_message.str());
    }
    if (inventory_window.get_active()) return;
-
    if (!active_dialog) return;
-   if (active_dialog->is_type("Basic"))
+
+   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
    }
@@ -749,9 +749,9 @@ void FixedRoom2D::dialog_cursor_up()
       throw std::runtime_error(error_message.str());
    }
    if (inventory_window.get_active()) return;
-
    if (!active_dialog) return;
-   if (active_dialog->is_type("Basic"))
+
+   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       // TODO: cast to different dialog type and "cursor_up"
       //dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
@@ -763,7 +763,7 @@ void FixedRoom2D::dialog_cursor_up()
    return;
 }
 
-bool FixedRoom2D::dialog_cursor_down()
+void FixedRoom2D::dialog_cursor_down()
 {
    if (!(initialized))
    {
@@ -771,8 +771,10 @@ bool FixedRoom2D::dialog_cursor_down()
       error_message << "FixedRoom2D" << "::" << "dialog_cursor_down" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (!active_dialog) return true;
-   if (active_dialog->is_type("Basic"))
+   if (inventory_window.get_active()) return;
+   if (!active_dialog) return;
+
+   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       // TODO: cast to different dialog type and "cursor_down"
       //dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
@@ -781,7 +783,7 @@ bool FixedRoom2D::dialog_cursor_down()
    {
       // TODO: Throw exception for unhandled type of dialog
    }
-   return true;
+   return;
 }
 
 bool FixedRoom2D::dialog_is_finished()
@@ -793,7 +795,7 @@ bool FixedRoom2D::dialog_is_finished()
       throw std::runtime_error(error_message.str());
    }
    if (!active_dialog) return true;
-   if (active_dialog->is_type("Basic"))
+   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
    }
