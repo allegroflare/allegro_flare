@@ -483,13 +483,12 @@ void FixedRoom2D::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_
    }
    else
    {
-      if (game_event_data->get_type() == AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog::TYPE)
+      if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
       {
          DialogEventDatas::CloseDialog* close_dialog_event_data =
             static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
 
          // HERE:
-         // TODO: shutdown dialog:
          // TODO: vaildate active_dialog is dialog in event_data (TODO in the future: ensure it is a dialog
          //   in the stack of dialogs.)
          shutdown_dialog();
