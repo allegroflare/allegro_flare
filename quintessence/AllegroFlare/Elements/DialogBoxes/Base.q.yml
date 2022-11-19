@@ -3,7 +3,7 @@ properties:
 
   - name: type
     type: std::string
-    init_with: TYPE
+    init_with: AllegroFlare::Elements::DialogBoxes::Base::TYPE
     constructor_arg: true
     getter: true
 

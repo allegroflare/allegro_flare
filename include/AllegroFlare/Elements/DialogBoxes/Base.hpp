@@ -23,7 +23,7 @@ namespace AllegroFlare
 
 
          public:
-            Base(std::string type=TYPE);
+            Base(std::string type=AllegroFlare::Elements::DialogBoxes::Base::TYPE);
             virtual ~Base();
 
             void set_created_at(float created_at);
