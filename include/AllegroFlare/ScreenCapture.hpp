@@ -17,7 +17,8 @@ namespace AllegroFlare
       ScreenCapture();
       ~ScreenCapture();
 
-      ALLEGRO_BITMAP* create_capture();
+      static ALLEGRO_BITMAP* create_capture();
+      static ALLEGRO_BITMAP* clone_as_scaled_bitmap();
    };
 }
 

@@ -1,0 +1,48 @@
+functions:
+
+
+  - name: get_test_name
+    static: true
+    type: std::string
+    body: |
+      const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
+      return test_info->name();
+    body_dependency_symbols:
+      - ::testing::Test
+
+
+  - name: get_test_suite_name
+    static: true
+    type: std::string
+    body: |
+      const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
+      return test_info->test_suite_name();
+
+
+  - name: build_full_test_name_str
+    static: true
+    type: std::string
+    body: |
+      return get_test_suite_name() + " - " + get_test_name();
+
+
+  - name: build_test_snapshot_full_filename
+    static: true
+    type: std::string
+    body: |
+      // TODO: improve this logic dependent on #define and not in sync with Testing/WithAllegroRenderingFixture
+      #ifdef _WIN32
+      #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
+      #else
+      #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
+      #endif
+      return TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER + build_full_test_name_str() + ".png";
+
+
+dependencies:
+
+
+  - symbol: ::testing::Test
+    headers: [ gtest/gtest.h ]
+
+

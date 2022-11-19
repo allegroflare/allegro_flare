@@ -40,6 +40,25 @@ ALLEGRO_BITMAP* ScreenCapture::create_capture()
    return captured_screen;
 }
 
+ALLEGRO_BITMAP* ScreenCapture::clone_as_scaled_bitmap()
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "ScreenCapture" << "::" << "clone_as_scaled_bitmap" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_get_current_display()))
+   {
+      std::stringstream error_message;
+      error_message << "ScreenCapture" << "::" << "clone_as_scaled_bitmap" << ": error: " << "guard \"al_get_current_display()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   ALLEGRO_BITMAP *clone = create_capture();
+   // TODO: finish out this logic
+   return clone;
+}
+
 
 } // namespace AllegroFlare
 

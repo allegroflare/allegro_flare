@@ -41,7 +41,6 @@ functions:
       al_init_image_addon();
 
       #ifdef _WIN32
-      // NOTE  was in  Repos/Krampus21
       #define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
       #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
       #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
@@ -132,6 +131,7 @@ functions:
   - name: get_test_name
     type: std::string
     body: |
+      // TODO: use AllegroFlare::Testing::TestNameInference for this logic
       const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
       return test_info->name();
 
@@ -139,6 +139,7 @@ functions:
   - name: get_test_suite_name
     type: std::string
     body: |
+      // TODO: use AllegroFlare::Testing::TestNameInference for this logic
       const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
       return test_info->test_suite_name();
 
@@ -146,6 +147,7 @@ functions:
   - name: build_full_test_name_str
     type: std::string
     body: |
+      // TODO: use AllegroFlare::Testing::TestNameInference for this logic
       return get_test_suite_name() + " - " + get_test_name();
 
 
@@ -258,6 +260,7 @@ functions:
         type: std::string
         default_argument: '"WithAllegroRenderingFixture-screenshot.png"'
     body: |
+      // TODO: use AllegroFlare::Testing::TestNameInference for this logic
       std::string full_file_save_location = TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER + base_filename;
 
       al_flip_display(); // this capture_screenshot technique assumes the pixels to capture are currently being
