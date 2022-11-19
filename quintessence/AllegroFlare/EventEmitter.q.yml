@@ -120,6 +120,7 @@ functions:
         type: float
         default_argument: 0.35f
     body: |
+      // TODO: use a shared constant for the default value
       intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
       emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY, data_to_pass);
     body_dependency_symbols:

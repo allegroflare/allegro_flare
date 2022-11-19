@@ -122,6 +122,7 @@ void EventEmitter::emit_set_input_hints_bar_text_opacity_event(float opacity)
 
 void EventEmitter::emit_set_input_hints_bar_backfill_opacity_event(float opacity)
 {
+   // TODO: use a shared constant for the default value
    intptr_t data_to_pass = (intptr_t)(void *)(new float(opacity));
    emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY, data_to_pass);
 }
