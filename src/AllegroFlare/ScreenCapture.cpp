@@ -20,6 +20,16 @@ ScreenCapture::~ScreenCapture()
 }
 
 
+ALLEGRO_BITMAP* ScreenCapture::create_backbuffer_capture()
+{
+   return create_capture(false);
+}
+
+ALLEGRO_BITMAP* ScreenCapture::create_frontbuffer_capture()
+{
+   return create_capture(true);
+}
+
 ALLEGRO_BITMAP* ScreenCapture::create_capture(bool flip_display_for_capture)
 {
    if (!(al_is_system_installed()))
@@ -38,6 +48,16 @@ ALLEGRO_BITMAP* ScreenCapture::create_capture(bool flip_display_for_capture)
    ALLEGRO_BITMAP *captured_screen = al_clone_bitmap(al_get_backbuffer(al_get_current_display()));
    if (flip_display_for_capture) al_flip_display();
    return captured_screen;
+}
+
+ALLEGRO_BITMAP* ScreenCapture::create_frontbuffer_capture_as_scaled_bitmap(int destination_width, int destination_height)
+{
+   return create_capture_as_scaled_bitmap(destination_width, destination_height, true);
+}
+
+ALLEGRO_BITMAP* ScreenCapture::create_backbuffer_capture_as_scaled_bitmap(int destination_width, int destination_height)
+{
+   return create_capture_as_scaled_bitmap(destination_width, destination_height, false);
 }
 
 ALLEGRO_BITMAP* ScreenCapture::create_capture_as_scaled_bitmap(int destination_width, int destination_height, bool flip_display_for_capture)

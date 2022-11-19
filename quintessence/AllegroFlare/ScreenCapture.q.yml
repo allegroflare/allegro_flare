@@ -1,6 +1,20 @@
 functions:
 
 
+  - name: create_backbuffer_capture
+    type: ALLEGRO_BITMAP*
+    static: true
+    body: |
+      return create_capture(false);
+
+
+  - name: create_frontbuffer_capture
+    type: ALLEGRO_BITMAP*
+    static: true
+    body: |
+      return create_capture(true);
+
+
   - name: create_capture
     type: ALLEGRO_BITMAP*
     static: true
@@ -14,6 +28,34 @@ functions:
       ALLEGRO_BITMAP *captured_screen = al_clone_bitmap(al_get_backbuffer(al_get_current_display()));
       if (flip_display_for_capture) al_flip_display();
       return captured_screen;
+
+
+  - name: create_frontbuffer_capture_as_scaled_bitmap
+    type: ALLEGRO_BITMAP*
+    static: true
+    parameters:
+      - name: destination_width
+        type: int
+        default_argument: 1920
+      - name: destination_height
+        type: int
+        default_argument: 1080
+    body: |
+      return create_capture_as_scaled_bitmap(destination_width, destination_height, true);
+
+
+  - name: create_backbuffer_capture_as_scaled_bitmap
+    type: ALLEGRO_BITMAP*
+    static: true
+    parameters:
+      - name: destination_width
+        type: int
+        default_argument: 1920
+      - name: destination_height
+        type: int
+        default_argument: 1080
+    body: |
+      return create_capture_as_scaled_bitmap(destination_width, destination_height, false);
 
 
   - name: create_capture_as_scaled_bitmap
