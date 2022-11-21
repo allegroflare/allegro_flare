@@ -35,10 +35,10 @@ functions:
     body: |
       ASSERT_EQ(false, al_is_system_installed());
       ASSERT_EQ(true, al_init());
-      al_init_primitives_addon();
-      al_init_font_addon();
-      al_init_ttf_addon();
-      al_init_image_addon();
+      ASSERT_EQ(true, al_init_primitives_addon());
+      ASSERT_EQ(true, al_init_font_addon());
+      ASSERT_EQ(true, al_init_ttf_addon());
+      ASSERT_EQ(true, al_init_image_addon());
 
       #ifdef _WIN32
       #define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
