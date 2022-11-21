@@ -108,6 +108,26 @@ functions:
       - al_get_time
 
 
+  - name: create_you_got_new_evidence_dialog
+    type: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
+    parameters:
+      - name: evidence_name
+        type: std::string
+        default_argument: '"[unset-evidence_name]"'
+      - name: evidence_bitmap_identifier
+        type: std::string
+        default_argument: '"[unset-evidence_bitmap_identifier]"'
+    guards: [ al_is_system_installed() ]
+    body: |
+      AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_new_evidence_dialog_box =
+         new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(evidence_name, evidence_bitmap_identifier);
+      you_got_new_evidence_dialog_box->set_created_at(al_get_time());
+
+      return you_got_new_evidence_dialog_box;
+    body_dependency_symbols:
+      - al_get_time
+
+
 dependencies:
 
 

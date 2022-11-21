@@ -119,6 +119,21 @@ AllegroFlare::Elements::DialogBoxes::YouGotAnItem* DialogBoxFactory::create_you_
    return you_got_an_item_dialog_box;
 }
 
+AllegroFlare::Elements::DialogBoxes::YouGotAnItem* DialogBoxFactory::create_you_got_new_evidence_dialog(std::string evidence_name, std::string evidence_bitmap_identifier)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "DialogBoxFactory" << "::" << "create_you_got_new_evidence_dialog" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_new_evidence_dialog_box =
+      new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(evidence_name, evidence_bitmap_identifier);
+   you_got_new_evidence_dialog_box->set_created_at(al_get_time());
+
+   return you_got_new_evidence_dialog_box;
+}
+
 
 } // namespace Elements
 } // namespace AllegroFlare

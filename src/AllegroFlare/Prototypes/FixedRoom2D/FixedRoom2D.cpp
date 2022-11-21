@@ -14,6 +14,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
@@ -556,6 +557,27 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
          active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
                "Keys",
                "key-keychain-house-keys-door-photo-pixabay-25.png"
+            );
+         suspend_all_rooms();
+      }
+      else if (game_event_data->get_type() ==
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence::TYPE)
+      {
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence* collect_evidence_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence*>(game_event_data);
+
+         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+         if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+         // TODO: add an item to the evidence (currently it is added at script event assembly and emit time)
+
+         std::string item_name = collect_evidence_event_data->get_item_dictionary_name_to_collect();
+         std::string item_image = "new-evidence-01.png";
+
+         // TODO: create new dialog for collecting evidence
+         active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
+               item_name,
+               item_image
             );
          suspend_all_rooms();
       }

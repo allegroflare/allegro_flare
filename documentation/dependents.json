@@ -1086,6 +1086,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog",
@@ -1416,6 +1417,10 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
@@ -1464,9 +1469,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Script"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Elements/Stopwatch": [
