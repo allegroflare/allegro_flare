@@ -3,6 +3,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
@@ -206,6 +207,7 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    std::string MARKER = "MARKER";
    std::string SIGNAL = "SIGNAL"; // outputs text to the terminal
    std::string COLLECT = "COLLECT";
+   std::string COLLECT_EVIDENCE = "COLLECT_EVIDENCE";
    std::string OPEN_SCRIPT = "OPEN_SCRIPT";
    std::string PLAY_SOUND_EFFECT = "PLAY_SOUND_EFFECT";
    std::string PLAY_MUSIC_TRACK = "PLAY_MUSIC_TRACK";
@@ -295,6 +297,17 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       //}
       AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem *event_data =
          new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem(item_name);
+      emit_script_event(event_data);
+   }
+   else if (command == COLLECT_EVIDENCE)
+   {
+      std::string item_name = argument;
+
+      current_internally_running_script.goto_next_line();
+      paused_for_dialog_to_finish = true;
+
+      AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence *event_data =
+         new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence(item_name);
       emit_script_event(event_data);
    }
    else if (command == MARKER)

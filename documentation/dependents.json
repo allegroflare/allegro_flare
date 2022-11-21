@@ -1466,6 +1466,9 @@
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/SCRIPT_EVENT_NAME": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence": [
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
   "AllegroFlare/Elements/Stopwatch": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
