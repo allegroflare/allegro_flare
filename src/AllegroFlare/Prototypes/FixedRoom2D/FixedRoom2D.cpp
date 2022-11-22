@@ -6,6 +6,7 @@
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
+#include <AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
@@ -550,6 +551,9 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
          if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
 
          // TODO: add an item to the inventory here (currently it is added at script event assembly and emit time)
+         // HERE:
+         // Use "AllegroFlare::InventoryDictionaryItems::WithAttributes" class InventoryItem
+         // to extract properties to create dialog
 
          active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
                "Keys",
@@ -569,7 +573,7 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
          // TODO: add an item to the evidence (currently it is added at script event assembly and emit time)
 
          std::string item_name = collect_evidence_event_data->get_item_dictionary_name_to_collect();
-         std::string item_image = "new-evidence-01.png";
+         std::string item_image = "evidence-placeholder-480x300.png";
 
          // TODO: create new dialog for collecting evidence
          active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
@@ -708,7 +712,6 @@ void FixedRoom2D::dialog_advance()
    {
       dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
    }
-   //else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
    else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
    {
       dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->advance();

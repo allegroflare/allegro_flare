@@ -1468,6 +1468,9 @@
   "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
+  "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
