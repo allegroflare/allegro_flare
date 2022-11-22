@@ -14,7 +14,7 @@ namespace FixedRoom2D
 {
 
 
-Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string game_event_name_to_emit_on_exit)
+Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string game_event_name_to_emit_on_exit, std::string game_event_name_to_emit_to_open_chronicle)
    : AllegroFlare::Screens::Base("Prototypes::FixedRoom2D::Screen")
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
@@ -22,6 +22,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , fixed_room_2d({})
    , initialized(false)
    , game_event_name_to_emit_on_exit(game_event_name_to_emit_on_exit)
+   , game_event_name_to_emit_to_open_chronicle(game_event_name_to_emit_to_open_chronicle)
 {
 }
 
@@ -37,9 +38,21 @@ void Screen::set_game_event_name_to_emit_on_exit(std::string game_event_name_to_
 }
 
 
+void Screen::set_game_event_name_to_emit_to_open_chronicle(std::string game_event_name_to_emit_to_open_chronicle)
+{
+   this->game_event_name_to_emit_to_open_chronicle = game_event_name_to_emit_to_open_chronicle;
+}
+
+
 std::string Screen::get_game_event_name_to_emit_on_exit() const
 {
    return game_event_name_to_emit_on_exit;
+}
+
+
+std::string Screen::get_game_event_name_to_emit_to_open_chronicle() const
+{
+   return game_event_name_to_emit_to_open_chronicle;
 }
 
 
@@ -235,12 +248,13 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
          fixed_room_2d.activate_primary_action();
       break;
 
-      //case ALLEGRO_KEY_I:
+      case ALLEGRO_KEY_I:
          //fixed_room_2d.toggle_inventory();
          //emit_event_to_set_input_hints();
-      //break;
+         emit_event_to_open_chronicle();
+      break;
 
-      case ALLEGRO_KEY_X:
+      case ALLEGRO_KEY_E:
          emit_event_to_exit();
       break;
 
@@ -261,6 +275,13 @@ void Screen::emit_event_to_exit()
 {
    // NOTE: may need guards, or a confirmation dialog
    event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+   return;
+}
+
+void Screen::emit_event_to_open_chronicle()
+{
+   // NOTE: may need guards, for example if a dialog is open
+   event_emitter->emit_game_event(game_event_name_to_emit_to_open_chronicle);
    return;
 }
 
@@ -309,9 +330,11 @@ void Screen::emit_event_to_set_input_hints_bar_to_room_controls()
       "%SEPARATOR",
       "ENTER", "%SPACER", "LABEL>>", "Inspect object",
       "%SEPARATOR",
-      //"I", "%SPACER", "LABEL>>", "Toggle Inventory",
-      //"%SEPARATOR",
+      "I", "%SPACER", "LABEL>>", "Toggle Chronicle",
+      "%SEPARATOR",
       "P", "%SPACER", "LABEL>>", "Toggle pause",
+      "%SEPARATOR",
+      "E", "%SPACER", "LABEL>>", "Exit",
    });
    return;
 }

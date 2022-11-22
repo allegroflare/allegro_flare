@@ -43,11 +43,25 @@ properties:
     getter: true
     setter: true
 
+  - name: game_event_name_to_emit_to_open_chronicle
+    type: std::string
+    init_with: DEFAULT_EVENT_NAME_TO_OPEN_CHRONICLE
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: DEFAULT_EVENT_NAME_ON_EXIT
     type: char*
     init_with: '"exit_fixed_room_2d_screen"'
     static: true
     constexpr: true
+
+  - name: DEFAULT_EVENT_NAME_TO_OPEN_CHRONICLE
+    type: char*
+    init_with: '"open_chronicle"'
+    static: true
+    constexpr: true
+
 
 
 functions:
@@ -205,12 +219,13 @@ functions:
             fixed_room_2d.activate_primary_action();
          break;
 
-         //case ALLEGRO_KEY_I:
+         case ALLEGRO_KEY_I:
             //fixed_room_2d.toggle_inventory();
             //emit_event_to_set_input_hints();
-         //break;
+            emit_event_to_open_chronicle();
+         break;
 
-         case ALLEGRO_KEY_X:
+         case ALLEGRO_KEY_E:
             emit_event_to_exit();
          break;
 
@@ -231,6 +246,13 @@ functions:
     body: |
       // NOTE: may need guards, or a confirmation dialog
       event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+      return;
+
+
+  - name: emit_event_to_open_chronicle
+    body: |
+      // NOTE: may need guards, for example if a dialog is open
+      event_emitter->emit_game_event(game_event_name_to_emit_to_open_chronicle);
       return;
 
 
@@ -267,9 +289,11 @@ functions:
          "%SEPARATOR",
          "ENTER", "%SPACER", "LABEL>>", "Inspect object",
          "%SEPARATOR",
-         //"I", "%SPACER", "LABEL>>", "Toggle Inventory",
-         //"%SEPARATOR",
+         "I", "%SPACER", "LABEL>>", "Toggle Chronicle",
+         "%SEPARATOR",
          "P", "%SPACER", "LABEL>>", "Toggle pause",
+         "%SEPARATOR",
+         "E", "%SPACER", "LABEL>>", "Exit",
       });
       return;
 
