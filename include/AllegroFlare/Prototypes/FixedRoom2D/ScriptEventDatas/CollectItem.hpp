@@ -15,6 +15,9 @@ namespace AllegroFlare
          {
             class CollectItem : public AllegroFlare::GameEventDatas::Base
             {
+            public:
+               static constexpr char* TYPE = "ScriptEventDatas/CollectItem";
+
             private:
                std::string item_dictionary_name_to_collect;
 

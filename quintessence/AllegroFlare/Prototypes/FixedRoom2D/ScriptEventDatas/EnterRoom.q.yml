@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::GameEventDatas::Base
     scope: public
-    init_with: '"EnterRoom"'
+    init_with: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom::TYPE
 
 
 properties:
@@ -15,6 +15,12 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"ScriptEventDatas/EnterRoom"'
+    static: true
+    constexpr: true
 
 
 dependencies:

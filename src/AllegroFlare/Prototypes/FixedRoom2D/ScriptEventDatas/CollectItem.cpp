@@ -16,7 +16,7 @@ namespace ScriptEventDatas
 
 
 CollectItem::CollectItem(std::string item_dictionary_name_to_collect)
-   : AllegroFlare::GameEventDatas::Base("CollectItem")
+   : AllegroFlare::GameEventDatas::Base(AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem::TYPE)
    , item_dictionary_name_to_collect(item_dictionary_name_to_collect)
 {
 }

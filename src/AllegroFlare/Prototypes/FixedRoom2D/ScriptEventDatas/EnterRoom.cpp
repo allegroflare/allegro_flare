@@ -16,7 +16,7 @@ namespace ScriptEventDatas
 
 
 EnterRoom::EnterRoom(std::string room_dictionary_name_to_enter)
-   : AllegroFlare::GameEventDatas::Base("EnterRoom")
+   : AllegroFlare::GameEventDatas::Base(AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom::TYPE)
    , room_dictionary_name_to_enter(room_dictionary_name_to_enter)
 {
 }

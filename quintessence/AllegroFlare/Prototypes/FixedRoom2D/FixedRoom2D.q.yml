@@ -505,7 +505,15 @@ functions:
       }
       else
       {
-         if (game_event_data->is_type(ScriptEventDatas::SpawnDialog::TYPE))
+         if (game_event_data->is_type(ScriptEventDatas::EnterRoom::TYPE))
+         {
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom* enter_room_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom*>(game_event_data);
+            std::string room_name_to_enter = enter_room_event_data->get_room_dictionary_name_to_enter();
+
+            enter_room(room_name_to_enter);
+         }
+         else if (game_event_data->is_type(ScriptEventDatas::SpawnDialog::TYPE))
          {
             AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog* spawn_dialog_event_data =
                 static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog*>(game_event_data);
@@ -517,15 +525,7 @@ functions:
             active_dialog = dialog_box_factory.create_basic_dialog(pages);
             suspend_all_rooms();
          }
-         else if (game_event_data->get_type() == "EnterRoom")
-         {
-            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom* enter_room_event_data =
-                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom*>(game_event_data);
-            std::string room_name_to_enter = enter_room_event_data->get_room_dictionary_name_to_enter();
-
-            enter_room(room_name_to_enter);
-         }
-         else if (game_event_data->get_type() == "CollectItem")
+         else if (game_event_data->is_type(ScriptEventDatas::CollectItem::TYPE))
          {
             AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
                 static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
@@ -544,8 +544,7 @@ functions:
                );
             suspend_all_rooms();
          }
-         else if (game_event_data->get_type() ==
-            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence::TYPE)
+         else if (game_event_data->is_type(ScriptEventDatas::CollectEvidence::TYPE))
          {
             AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence* collect_evidence_event_data =
                 static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence*>(game_event_data);
