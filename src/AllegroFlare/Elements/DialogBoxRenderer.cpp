@@ -6,9 +6,11 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_color.h>
@@ -128,6 +130,27 @@ void DialogBoxRenderer::render()
 
       place.start_transform();
       you_got_an_item_dialog_box_renderer.render();
+      place.restore_transform();
+   }
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+   {
+      AllegroFlare::Placement2D place{ 1920/2, 1080/2, 400, 420 };
+
+      AllegroFlare::Elements::DialogBoxes::YouGotEvidence* you_got_evidence_dialog_box =
+         dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(dialog_box);
+
+      AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer you_got_evidence_dialog_box_renderer(
+         font_bin,
+         bitmap_bin,
+         you_got_evidence_dialog_box->get_evidence_name(),
+         you_got_evidence_dialog_box->get_evidence_bitmap_identifier(),
+         you_got_evidence_dialog_box->infer_age(),
+         place.size.x,
+         place.size.y
+      );
+
+      place.start_transform();
+      you_got_evidence_dialog_box_renderer.render();
       place.restore_transform();
    }
    else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))

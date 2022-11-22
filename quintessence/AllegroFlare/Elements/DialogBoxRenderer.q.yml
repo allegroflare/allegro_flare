@@ -34,7 +34,7 @@ functions:
       float standard_dialog_box_y = 1080/8*6;
       float standard_dialog_box_width = 1920/2;
       float standard_dialog_box_height = 1080/5;
-  
+
       if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
       {
          AllegroFlare::Placement2D place{
@@ -78,6 +78,27 @@ functions:
 
          place.start_transform();
          you_got_an_item_dialog_box_renderer.render();
+         place.restore_transform();
+      }
+      else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+      {
+         AllegroFlare::Placement2D place{ 1920/2, 1080/2, 400, 420 };
+
+         AllegroFlare::Elements::DialogBoxes::YouGotEvidence* you_got_evidence_dialog_box =
+            dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(dialog_box);
+
+         AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer you_got_evidence_dialog_box_renderer(
+            font_bin,
+            bitmap_bin,
+            you_got_evidence_dialog_box->get_evidence_name(),
+            you_got_evidence_dialog_box->get_evidence_bitmap_identifier(),
+            you_got_evidence_dialog_box->infer_age(),
+            place.size.x,
+            place.size.y
+         );
+
+         place.start_transform();
+         you_got_evidence_dialog_box_renderer.render();
          place.restore_transform();
       }
       else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
@@ -124,9 +145,11 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::Basic*
       - AllegroFlare::Elements::DialogBoxes::Choice*
       - AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
+      - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
       - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer
+      - AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer
 
 
 dependencies:
@@ -160,10 +183,14 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp ]
 

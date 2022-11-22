@@ -13,9 +13,10 @@ namespace DialogBoxes
 {
 
 
-YouGotEvidence::YouGotEvidence(std::string property)
+YouGotEvidence::YouGotEvidence(std::string evidence_name, std::string evidence_bitmap_identifier)
    : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE)
-   , property(property)
+   , evidence_name(evidence_name)
+   , evidence_bitmap_identifier(evidence_bitmap_identifier)
    , finished(false)
 {
 }
@@ -26,9 +27,15 @@ YouGotEvidence::~YouGotEvidence()
 }
 
 
-std::string YouGotEvidence::get_property() const
+std::string YouGotEvidence::get_evidence_name() const
 {
-   return property;
+   return evidence_name;
+}
+
+
+std::string YouGotEvidence::get_evidence_bitmap_identifier() const
+{
+   return evidence_bitmap_identifier;
 }
 
 

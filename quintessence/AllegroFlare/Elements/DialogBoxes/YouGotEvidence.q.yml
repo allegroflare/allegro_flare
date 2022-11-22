@@ -9,9 +9,15 @@ parent_classes:
 properties:
 
 
-  - name: property
+  - name: evidence_name
     type: std::string
-    init_with: '"[unset-property]"'
+    init_with: '"[unset-evidence_name]"'
+    constructor_arg: true
+    getter: true
+
+  - name: evidence_bitmap_identifier
+    type: std::string
+    init_with: '"[unset-evidence_bitmap_identifier]"'
     constructor_arg: true
     getter: true
 
