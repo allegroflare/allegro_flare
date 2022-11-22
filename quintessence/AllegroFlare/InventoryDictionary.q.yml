@@ -5,6 +5,7 @@ properties:
     type: std::map<int, AllegroFlare::InventoryDictionaryItems::Base*>
     init_with: '{}'
     constructor_arg: true
+    getter_ref: true
     getter: true
     setter: true
 

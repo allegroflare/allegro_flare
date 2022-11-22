@@ -32,6 +32,12 @@ std::map<int, AllegroFlare::InventoryDictionaryItems::Base*> InventoryDictionary
 }
 
 
+std::map<int, AllegroFlare::InventoryDictionaryItems::Base*> &InventoryDictionary::get_dictionary_ref()
+{
+   return dictionary;
+}
+
+
 int InventoryDictionary::size()
 {
    return dictionary.size();

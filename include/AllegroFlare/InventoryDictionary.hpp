@@ -22,6 +22,7 @@ namespace AllegroFlare
 
       void set_dictionary(std::map<int, AllegroFlare::InventoryDictionaryItems::Base*> dictionary);
       std::map<int, AllegroFlare::InventoryDictionaryItems::Base*> get_dictionary() const;
+      std::map<int, AllegroFlare::InventoryDictionaryItems::Base*> &get_dictionary_ref();
       int size();
       bool exists(int id=0);
       AllegroFlare::InventoryDictionaryItems::Base* at(int id=0);
