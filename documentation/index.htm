@@ -162,6 +162,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Cursor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.q.yml</a></li>
@@ -7306,6 +7307,46 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">quote</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15342,6 +15383,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
@@ -15434,6 +15476,7 @@ table td
     "AllegroFlare/MusicMesh/MusicMesh",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Screens/GameOverScreen",
@@ -15563,6 +15606,7 @@ table td
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -15678,6 +15722,7 @@ table td
     "AllegroFlare/Elements/Text",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
@@ -15825,6 +15870,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogOverlay",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
