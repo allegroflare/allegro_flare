@@ -1,0 +1,65 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::DialogBoxes::Base
+    scope: public
+    init_with: AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE
+
+
+properties:
+
+
+  - name: property
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+
+  - name: finished
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"DialogBoxes/YouGotEvidence"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      if (finished) return;
+      if (infer_age() > 1.0) // NOTE: giving it one second before can be dismissed
+      {
+         finished = true;
+      }
+      return;
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: advance
+    body: |
+      // TODO: rather than have this "finish" it should advance the animation to the end.  Then, if the dialog
+      // has "advance()" called a second time, it will set finished to true.
+      // NOTE: this is similar behavior to DialogBoxes/YouGotAnItem, it should be updated accordingly as well
+      if (finished) return;
+      finished = true;
+
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
+
+
