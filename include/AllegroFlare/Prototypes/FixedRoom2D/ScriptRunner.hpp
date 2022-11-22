@@ -1,10 +1,8 @@
 #pragma once
 
 
-#include <AllegroFlare/Elements/Inventory.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
-#include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <map>
 #include <string>
@@ -21,11 +19,8 @@ namespace AllegroFlare
          class ScriptRunner
          {
          private:
-            AllegroFlare::Inventory* af_inventory;
-            AllegroFlare::Elements::Inventory* inventory_window;
             AllegroFlare::EventEmitter* event_emitter;
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary;
-            AllegroFlare::Inventory* flags;
             AllegroFlare::Prototypes::FixedRoom2D::Script current_internally_running_script;
             bool script_freshly_loaded_via_OPEN_SCRIPT;
             bool paused_for_dialog_to_finish;
@@ -41,11 +36,8 @@ namespace AllegroFlare
             ScriptRunner();
             ~ScriptRunner();
 
-            void set_af_inventory(AllegroFlare::Inventory* af_inventory);
-            void set_inventory_window(AllegroFlare::Elements::Inventory* inventory_window);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary);
-            void set_flags(AllegroFlare::Inventory* flags);
             void set_script_freshly_loaded_via_OPEN_SCRIPT(bool script_freshly_loaded_via_OPEN_SCRIPT);
             void set_paused_for_dialog_to_finish(bool paused_for_dialog_to_finish);
             bool get_script_freshly_loaded_via_OPEN_SCRIPT() const;

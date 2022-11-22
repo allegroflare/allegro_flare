@@ -157,11 +157,8 @@ functions:
       entity_collection_helper.set_entity_dictionary(&entity_dictionary);
       entity_collection_helper.set_entity_room_associations(&entity_room_associations);
 
-      script_runner.set_af_inventory(&af_inventory);
       script_runner.set_event_emitter(event_emitter);
-      script_runner.set_inventory_window(&inventory_window);
       script_runner.set_script_dictionary(&script_dictionary);
-      script_runner.set_flags(&flags);
 
       initialized = true;
 

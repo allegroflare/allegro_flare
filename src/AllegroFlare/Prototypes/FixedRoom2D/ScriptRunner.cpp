@@ -21,11 +21,8 @@ namespace FixedRoom2D
 
 
 ScriptRunner::ScriptRunner()
-   : af_inventory(nullptr)
-   , inventory_window(nullptr)
-   , event_emitter(nullptr)
+   : event_emitter(nullptr)
    , script_dictionary(nullptr)
-   , flags(nullptr)
    , current_internally_running_script()
    , script_freshly_loaded_via_OPEN_SCRIPT(false)
    , paused_for_dialog_to_finish(false)
@@ -38,18 +35,6 @@ ScriptRunner::~ScriptRunner()
 }
 
 
-void ScriptRunner::set_af_inventory(AllegroFlare::Inventory* af_inventory)
-{
-   this->af_inventory = af_inventory;
-}
-
-
-void ScriptRunner::set_inventory_window(AllegroFlare::Elements::Inventory* inventory_window)
-{
-   this->inventory_window = inventory_window;
-}
-
-
 void ScriptRunner::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
@@ -59,12 +44,6 @@ void ScriptRunner::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 void ScriptRunner::set_script_dictionary(std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary)
 {
    this->script_dictionary = script_dictionary;
-}
-
-
-void ScriptRunner::set_flags(AllegroFlare::Inventory* flags)
-{
-   this->flags = flags;
 }
 
 
@@ -169,24 +148,6 @@ void ScriptRunner::play_or_resume()
 
 bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num, bool auto_assume_uncommanded_line_is_dialog)
 {
-   if (!(af_inventory))
-   {
-      std::stringstream error_message;
-      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"af_inventory\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(flags))
-   {
-      std::stringstream error_message;
-      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"flags\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(inventory_window))
-   {
-      std::stringstream error_message;
-      error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"inventory_window\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    if (!(script_dictionary))
    {
       std::stringstream error_message;
@@ -199,8 +160,6 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       error_message << "ScriptRunner" << "::" << "parse_and_run_line" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // TODO: remove af_inventory dependency, and other unnecessary dependencies
-
    std::string DIALOG = "DIALOG";
    std::string GOTO_MARKER = "GOTO_MARKER";
    std::string ENTER_ROOM = "ENTER_ROOM";
@@ -279,13 +238,14 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    else if (command == COLLECT)
    {
       int item_id = atoi(argument.c_str());
-      std::tuple<std::string, std::string, std::string> item_definition = inventory_window->get_item_definition(item_id);
-      std::string item_name = std::get<0>(item_definition);
-      std::string item_bitmap_identifier = std::get<1>(item_definition);
+      std::string item_id_as_str = std::to_string(item_id);
+      //std::tuple<std::string, std::string, std::string> item_definition = inventory_window->get_item_definition(item_id);
+      //std::string item_name = std::get<0>(item_definition);
+      //std::string item_bitmap_identifier = std::get<1>(item_definition);
 
       // add the item to the inventory
-      af_inventory->add_item(item_id); // TODO: remove this and handle it in the reception of the event. Note,
-                                       // the CollectItem event datas will need to be modified
+      //af_inventory->add_item(item_id); // TODO: remove this and handle it in the reception of the event. Note,
+                                       //// the CollectItem event datas will need to be modified
 
       current_internally_running_script.goto_next_line();
       paused_for_dialog_to_finish = true; // should this be in the event processing?
@@ -296,7 +256,7 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
          //continue_directly_to_next_script_line = true;
       //}
       AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem *event_data =
-         new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem(item_name);
+         new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem(item_id_as_str);
       emit_script_event(event_data);
    }
    else if (command == COLLECT_EVIDENCE)
