@@ -25,6 +25,7 @@ namespace AllegroFlare
             float height;
             ALLEGRO_FONT* obtain_notification_text_font();
             ALLEGRO_FONT* obtain_evidence_name_text_font();
+            ALLEGRO_FONT* obtain_evidence_description_font();
 
          protected:
 

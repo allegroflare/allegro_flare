@@ -62,7 +62,7 @@ void YouGotEvidenceRenderer::render()
       throw std::runtime_error(error_message.str());
    }
    // source data
-   std::string notification_text = "YOU GOT EVIDENCE";
+   std::string notification_text = "You got new evidence";
    std::string evidence_name_text = get_evidence_name(); // "Watch";
    std::string evidence_bitmap_identifier = get_evidence_bitmap_identifier();
    ALLEGRO_BITMAP* evidence_bitmap = bitmap_bin->auto_get(evidence_bitmap_identifier);
@@ -71,8 +71,10 @@ void YouGotEvidenceRenderer::render()
    ALLEGRO_COLOR fading_white = opaquify(ALLEGRO_COLOR{1, 1, 1, 1});
    ALLEGRO_FONT* notification_text_font = obtain_notification_text_font();
    ALLEGRO_FONT* evidence_name_text_font = obtain_evidence_name_text_font();
+   ALLEGRO_FONT* evidence_description_font = obtain_evidence_description_font();
    float notification_text_font_line_heigt = al_get_font_line_height(notification_text_font);
    float evidence_name_text_font_line_heigt = al_get_font_line_height(evidence_name_text_font);
+   float evidence_description_font_line_height = al_get_font_line_height(evidence_description_font);
    //ALLEGRO_COLOR text_color = opaquify(al_color_html("fbedc3"));
    ALLEGRO_COLOR text_color = opaquify(al_color_html("ffffff"));
    ALLEGRO_COLOR evidence_name_text_color = opaquify(al_color_html("ffffff"));
@@ -103,8 +105,7 @@ void YouGotEvidenceRenderer::render()
       notification_text_font,
       text_color,
       width/2,
-      30, //height/2 - 180,
-      //height - 180,
+      46,
       ALLEGRO_ALIGN_CENTER,
       notification_text.c_str()
    );
@@ -115,23 +116,30 @@ void YouGotEvidenceRenderer::render()
    evidence_place.restore_transform();
 
    // the collected evidence name
-   // draw a nice little drop shadow :)
-   float evidence_name_text_y_position = height - 80;//height/2 + 120;
-   al_draw_text(
-      evidence_name_text_font,
-      evidence_name_text_dropshadow_color,
-      width/2,
-      evidence_name_text_y_position + 3,
-      ALLEGRO_ALIGN_CENTER,
-      evidence_name_text.c_str()
-   );
+   float evidence_name_text_y_position = 180;//height/2 + 120;
+   float column_gutter = 38;
    al_draw_text(
       evidence_name_text_font,
       evidence_name_text_color,
-      width/2,
+      width/2 + column_gutter/2,
       evidence_name_text_y_position,
-      ALLEGRO_ALIGN_CENTER,
+      ALLEGRO_ALIGN_LEFT,
       evidence_name_text.c_str()
+   );
+
+   // the description paragraph
+   float description_text_y_position = evidence_name_text_y_position + 100;
+   std::string description_text = "A short paragraph describing that you got new evidence and where to see it";
+
+   al_draw_multiline_text(
+      evidence_description_font,
+      evidence_name_text_color,
+      width/2 + column_gutter/2,
+      description_text_y_position,
+      480,
+      evidence_description_font_line_height,
+      ALLEGRO_ALIGN_LEFT,
+      description_text.c_str()
    );
 
    return;
@@ -167,14 +175,19 @@ ALLEGRO_FONT* YouGotEvidenceRenderer::obtain_notification_text_font()
       error_message << "YouGotEvidenceRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -52";
+   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -48";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }
 
 ALLEGRO_FONT* YouGotEvidenceRenderer::obtain_evidence_name_text_font()
 {
-   return font_bin->auto_get("Inter-Bold.ttf -36");
+   return font_bin->auto_get("Inter-Medium.ttf -42");
+}
+
+ALLEGRO_FONT* YouGotEvidenceRenderer::obtain_evidence_description_font()
+{
+   return font_bin->auto_get("Inter-Medium.ttf -36");
 }
 
 ALLEGRO_COLOR YouGotEvidenceRenderer::opaquify(ALLEGRO_COLOR color)

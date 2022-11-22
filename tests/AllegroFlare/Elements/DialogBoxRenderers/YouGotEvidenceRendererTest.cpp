@@ -30,8 +30,38 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotEvidenceRendererTest, can_
    AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer you_got_evidence_renderer;
 }
 
+
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotEvidenceRendererWithAllegroRenderingFixtureTest,
-   render__renders_the_dialog_box)
+   CAPTURE__render__when_the_dialog_is_fully_revealed__renders_as_expected)
+{
+   get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
+
+   AllegroFlare::Placement2D place{ 1920/2, 1080/4*2, 1200, 540 };
+   std::string evidence_name = "Standard Issue Blaster";
+   std::string evidence_bitmap_identifier = "blaster-02.png";
+   float age = 5.0;
+
+   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+   place.start_transform();
+   AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer you_got_evidence_renderer(
+      &get_font_bin_ref(),
+      &get_bitmap_bin_ref(),
+      evidence_name,
+      evidence_bitmap_identifier,
+      age,
+      place.size.x,
+      place.size.y
+   );
+   you_got_evidence_renderer.render();
+   place.restore_transform();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotEvidenceRendererWithAllegroRenderingFixtureTest,
+   DISABLED__VISUAL__render__renders_the_dialog_box)
+   //DISABLED__render__renders_the_dialog_box)
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
    get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
@@ -62,4 +92,5 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotEvidenceRendererWithAllegr
       age += 1.0/60.0f;
    }
 }
+
 
