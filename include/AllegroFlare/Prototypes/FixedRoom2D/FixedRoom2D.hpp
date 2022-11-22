@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
-#include <AllegroFlare/Elements/Inventory.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEvent.hpp>
@@ -37,7 +36,6 @@ namespace AllegroFlare
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::InventoryIndex inventory_index;
             AllegroFlare::Inventory af_inventory;
-            AllegroFlare::Elements::Inventory inventory_window;
             AllegroFlare::Inventory flags;
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entity_dictionary;
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*> room_dictionary;
@@ -91,10 +89,6 @@ namespace AllegroFlare
             void resume_all_rooms();
             void pause_game();
             void unpause_game();
-            void show_inventory();
-            void hide_inventory();
-            void toggle_inventory();
-            bool inventory_is_open();
             void dialog_advance();
             void dialog_cursor_up();
             void dialog_cursor_down();

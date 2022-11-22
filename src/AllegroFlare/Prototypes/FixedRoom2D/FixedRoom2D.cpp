@@ -36,7 +36,6 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , event_emitter(event_emitter)
    , inventory_index()
    , af_inventory({})
-   , inventory_window({})
    , flags({})
    , entity_dictionary({})
    , room_dictionary({})
@@ -94,7 +93,7 @@ void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
 
-   inventory_window.set_font_bin(font_bin);
+   //inventory_window.set_font_bin(font_bin);
 
    // set the font_bin in each of the rooms (likely the font_bin dependency should be moved to a RoomRenderer)
    for (auto &room_dictionary_listing : room_dictionary)
@@ -161,11 +160,11 @@ void FixedRoom2D::initialize()
       "unpause_game",
    };
 
-   inventory_window.set_font_bin(font_bin);
-   inventory_window.set_bitmap_bin(bitmap_bin);
-   inventory_window.set_event_emitter(event_emitter);
-   inventory_window.set_af_inventory(&af_inventory);
-   inventory_window.set_inventory_index(&inventory_index);
+   //inventory_window.set_font_bin(font_bin);
+   //inventory_window.set_bitmap_bin(bitmap_bin);
+   //inventory_window.set_event_emitter(event_emitter);
+   //inventory_window.set_af_inventory(&af_inventory);
+   //inventory_window.set_inventory_index(&inventory_index);
 
    entity_collection_helper.set_entity_dictionary(&entity_dictionary);
    entity_collection_helper.set_entity_room_associations(&entity_room_associations);
@@ -251,7 +250,7 @@ void FixedRoom2D::update()
 
    if (active_dialog) active_dialog->update();
 
-   inventory_window.update();
+   //inventory_window.update();
    return;
 }
 
@@ -365,8 +364,8 @@ void FixedRoom2D::render()
       dialog_box_renderer.render();
    }
 
-   // render the inventory window
-   inventory_window.render();
+   //// render the inventory window
+   //inventory_window.render();
 
    // render paused notification
    if (paused)
@@ -687,56 +686,6 @@ void FixedRoom2D::unpause_game()
    return;
 }
 
-void FixedRoom2D::show_inventory()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "show_inventory" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   inventory_window.show();
-   suspend_all_rooms();
-   return;
-}
-
-void FixedRoom2D::hide_inventory()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "hide_inventory" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   inventory_window.hide();
-   resume_all_rooms();
-   return;
-}
-
-void FixedRoom2D::toggle_inventory()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "toggle_inventory" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (inventory_window.get_active()) hide_inventory();
-   else show_inventory();
-   return;
-}
-
-bool FixedRoom2D::inventory_is_open()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "inventory_is_open" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   return inventory_window.get_active();
-}
-
 void FixedRoom2D::dialog_advance()
 {
    if (!(initialized))
@@ -745,7 +694,7 @@ void FixedRoom2D::dialog_advance()
       error_message << "FixedRoom2D" << "::" << "dialog_advance" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (inventory_window.get_active()) return;
+   //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
    // TODO: modify this branching notation to a map<string, function>
@@ -777,7 +726,7 @@ void FixedRoom2D::dialog_cursor_up()
       error_message << "FixedRoom2D" << "::" << "dialog_cursor_up" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (inventory_window.get_active()) return;
+   //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
    // TODO: modify this branching notation to a map<string, function>
@@ -805,7 +754,7 @@ void FixedRoom2D::dialog_cursor_down()
       error_message << "FixedRoom2D" << "::" << "dialog_cursor_down" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (inventory_window.get_active()) return;
+   //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
    // TODO: modify this branching notation to a map<string, function>
@@ -878,11 +827,12 @@ void FixedRoom2D::activate_primary_action()
       error_message << "FixedRoom2D" << "::" << "activate_primary_action" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (inventory_window.get_active())
-   {
-      // IDEA: inventory_window.select_item_currently_under_cursor();
-   }
-   else if (active_dialog)
+   //if (inventory_window.get_active())
+   //{
+      //// IDEA: inventory_window.select_item_currently_under_cursor();
+   //}
+   //else if (active_dialog)
+   if (active_dialog)
    {
       dialog_advance();
       if (dialog_is_finished())
@@ -935,8 +885,8 @@ void FixedRoom2D::move_cursor_up()
       error_message << "FixedRoom2D" << "::" << "move_cursor_up" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (inventory_window.get_active()) inventory_window.move_cursor_up();
-   else if (active_dialog) dialog_cursor_up();
+   //if (inventory_window.get_active()) inventory_window.move_cursor_up();
+   if (active_dialog) dialog_cursor_up();
    return;
 }
 
@@ -948,8 +898,8 @@ void FixedRoom2D::move_cursor_down()
       error_message << "FixedRoom2D" << "::" << "move_cursor_down" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (inventory_window.get_active()) inventory_window.move_cursor_down();
-   else if (active_dialog) dialog_cursor_down();
+   //if (inventory_window.get_active()) inventory_window.move_cursor_down();
+   if (active_dialog) dialog_cursor_down();
    return;
 }
 
@@ -961,7 +911,7 @@ void FixedRoom2D::move_cursor_left()
       error_message << "FixedRoom2D" << "::" << "move_cursor_left" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (inventory_window.get_active()) inventory_window.move_cursor_left();
+   //if (inventory_window.get_active()) inventory_window.move_cursor_left();
    return;
 }
 
@@ -973,7 +923,7 @@ void FixedRoom2D::move_cursor_right()
       error_message << "FixedRoom2D" << "::" << "move_cursor_right" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (inventory_window.get_active()) inventory_window.move_cursor_right();
+   //if (inventory_window.get_active()) inventory_window.move_cursor_right();
    return;
 }
 

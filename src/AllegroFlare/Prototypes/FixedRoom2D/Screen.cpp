@@ -235,10 +235,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
          fixed_room_2d.activate_primary_action();
       break;
 
-      case ALLEGRO_KEY_I:
-         fixed_room_2d.toggle_inventory();
-         emit_event_to_set_input_hints();
-      break;
+      //case ALLEGRO_KEY_I:
+         //fixed_room_2d.toggle_inventory();
+         //emit_event_to_set_input_hints();
+      //break;
 
       case ALLEGRO_KEY_X:
          emit_event_to_exit();
@@ -272,7 +272,7 @@ void Screen::emit_event_to_set_input_hints()
       error_message << "Screen" << "::" << "emit_event_to_set_input_hints" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   if (fixed_room_2d.inventory_is_open()) emit_event_to_set_input_hints_bar_to_inventory_controls();
+   //if (fixed_room_2d.inventory_is_open()) emit_event_to_set_input_hints_bar_to_inventory_controls();
    else emit_event_to_set_input_hints_bar_to_room_controls();
    event_emitter->emit_set_input_hints_bar_text_opacity_event(0.265);
    return;
@@ -309,8 +309,8 @@ void Screen::emit_event_to_set_input_hints_bar_to_room_controls()
       "%SEPARATOR",
       "ENTER", "%SPACER", "LABEL>>", "Inspect object",
       "%SEPARATOR",
-      "I", "%SPACER", "LABEL>>", "Toggle Inventory",
-      "%SEPARATOR",
+      //"I", "%SPACER", "LABEL>>", "Toggle Inventory",
+      //"%SEPARATOR",
       "P", "%SPACER", "LABEL>>", "Toggle pause",
    });
    return;
