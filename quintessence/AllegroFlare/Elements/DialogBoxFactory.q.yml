@@ -109,7 +109,7 @@ functions:
 
 
   - name: create_you_got_new_evidence_dialog
-    type: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
+    type: AllegroFlare::Elements::DialogBoxes::YouGotEvidence*
     parameters:
       - name: evidence_name
         type: std::string
@@ -119,13 +119,14 @@ functions:
         default_argument: '"[unset-evidence_bitmap_identifier]"'
     guards: [ al_is_system_installed() ]
     body: |
-      AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_new_evidence_dialog_box =
-         new AllegroFlare::Elements::DialogBoxes::YouGotAnItem(evidence_name, evidence_bitmap_identifier);
+      AllegroFlare::Elements::DialogBoxes::YouGotEvidence* you_got_new_evidence_dialog_box =
+         new AllegroFlare::Elements::DialogBoxes::YouGotEvidence(evidence_name, evidence_bitmap_identifier);
       you_got_new_evidence_dialog_box->set_created_at(al_get_time());
 
       return you_got_new_evidence_dialog_box;
     body_dependency_symbols:
       - al_get_time
+      - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
 
 
 dependencies:
@@ -133,8 +134,6 @@ dependencies:
 
   - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
-    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Choice*
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Basic*
@@ -148,5 +147,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
 
 

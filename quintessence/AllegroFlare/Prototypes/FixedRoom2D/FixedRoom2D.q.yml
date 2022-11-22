@@ -685,6 +685,11 @@ functions:
       {
          dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
       }
+      //else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+      {
+         dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->advance();
+      }
       else
       {
          // TODO: test this condition
@@ -694,6 +699,8 @@ functions:
          throw std::runtime_error(error_message.str());
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
 
 
   - name: dialog_cursor_up
@@ -757,6 +764,10 @@ functions:
       else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
       {
          return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->get_finished();
+      }
+      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+      {
+         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->get_finished();
       }
       else
       {
@@ -927,6 +938,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
   - symbol: AllegroFlare::Shader
     headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script
