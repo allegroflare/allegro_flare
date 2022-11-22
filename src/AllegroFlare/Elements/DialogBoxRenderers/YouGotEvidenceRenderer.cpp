@@ -62,7 +62,7 @@ void YouGotEvidenceRenderer::render()
       throw std::runtime_error(error_message.str());
    }
    // source data
-   std::string notification_text = "You got new evidence!";
+   std::string notification_text = "YOU GOT EVIDENCE";
    std::string evidence_name_text = get_evidence_name(); // "Watch";
    std::string evidence_bitmap_identifier = get_evidence_bitmap_identifier();
    ALLEGRO_BITMAP* evidence_bitmap = bitmap_bin->auto_get(evidence_bitmap_identifier);
@@ -82,7 +82,8 @@ void YouGotEvidenceRenderer::render()
    AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
    //dialog_box_frame.set_fill_color(opaquify(al_color_html("2a2104")));
    //dialog_box_frame.set_border_color(opaquify(al_color_html("c49505")));
-   dialog_box_frame.set_border_color(opaquify(ALLEGRO_COLOR{1.0, .65, 0.0, 1.0}));
+   dialog_box_frame.set_border_color(opaquify(ALLEGRO_COLOR{0.0, .75, 1.0, 1.0}));
+   dialog_box_frame.set_backfill_color(opaquify(al_color_html("2a2c38")));
    AllegroFlare::Placement2D evidence_place(width/2, height/2, evidence_bitmap_width, evidence_bitmap_height);
    evidence_place.scale.x = 0.55;
    evidence_place.scale.y = 0.55;
@@ -166,7 +167,7 @@ ALLEGRO_FONT* YouGotEvidenceRenderer::obtain_notification_text_font()
       error_message << "YouGotEvidenceRenderer" << "::" << "obtain_notification_text_font" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
+   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -52";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }

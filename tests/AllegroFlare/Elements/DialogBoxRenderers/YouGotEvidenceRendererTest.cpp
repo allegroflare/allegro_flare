@@ -36,7 +36,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotEvidenceRendererWithAllegr
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
    get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
-   AllegroFlare::Placement2D place{ 1920/2, 1080/4*2, 600, 460 };
+   AllegroFlare::Placement2D place{ 1920/2, 1080/4*2, 1200, 540 };
    std::string evidence_name = "Standard Issue Blaster";
    std::string evidence_bitmap_identifier = "blaster-02.png";
    float age = 0.0;

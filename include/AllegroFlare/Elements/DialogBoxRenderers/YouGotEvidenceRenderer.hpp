@@ -30,7 +30,7 @@ namespace AllegroFlare
 
 
          public:
-            YouGotEvidenceRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string evidence_name="[a-name-that-has-not-been-set]", std::string evidence_bitmap_identifier="[an-bitmap-identifier-that-nas-not-been-set]", float age=0, float width=600, float height=460);
+            YouGotEvidenceRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string evidence_name="[a-name-that-has-not-been-set]", std::string evidence_bitmap_identifier="[an-bitmap-identifier-that-nas-not-been-set]", float age=0, float width=1200, float height=540);
             ~YouGotEvidenceRenderer();
 
             std::string get_evidence_name() const;
