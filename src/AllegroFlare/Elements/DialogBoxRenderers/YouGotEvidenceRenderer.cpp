@@ -53,6 +53,18 @@ float YouGotEvidenceRenderer::get_age() const
 }
 
 
+float YouGotEvidenceRenderer::get_width() const
+{
+   return width;
+}
+
+
+float YouGotEvidenceRenderer::get_height() const
+{
+   return height;
+}
+
+
 void YouGotEvidenceRenderer::render()
 {
    if (!(bitmap_bin))

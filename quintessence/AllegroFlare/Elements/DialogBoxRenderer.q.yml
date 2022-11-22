@@ -82,10 +82,15 @@ functions:
       }
       else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
       {
-         AllegroFlare::Placement2D place{ 1920/2, 1080/2, 400, 420 };
-
          AllegroFlare::Elements::DialogBoxes::YouGotEvidence* you_got_evidence_dialog_box =
             dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(dialog_box);
+
+         AllegroFlare::Placement2D place{
+            1920/2,
+            1080/2,
+            AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer::DEFAULT_WIDTH,
+            AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer::DEFAULT_HEIGHT,
+         };
 
          AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer you_got_evidence_dialog_box_renderer(
             font_bin,

@@ -31,13 +31,27 @@ properties:
 
   - name: width
     type: float
-    init_with: 1200
+    init_with: DEFAULT_WIDTH
     constructor_arg: true
+    getter: true
 
   - name: height
     type: float
-    init_with: 540
+    init_with: DEFAULT_HEIGHT
     constructor_arg: true
+    getter: true
+
+  - name: DEFAULT_WIDTH
+    type: float
+    init_with: 1200
+    constexpr: true
+    static: true
+
+  - name: DEFAULT_HEIGHT
+    type: float
+    init_with: 540
+    constexpr: true
+    static: true
 
 
 functions:
