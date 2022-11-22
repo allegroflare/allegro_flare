@@ -39,7 +39,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotEvidenceRendererWithAllegr
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/4*2, 1200, 540 };
    std::string evidence_name = "Standard Issue Blaster";
-   std::string evidence_bitmap_identifier = "blaster-02.png";
+   std::string evidence_bitmap_identifier = "evidence-placeholder-480x300.png";
    float age = 5.0;
 
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
@@ -68,7 +68,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_YouGotEvidenceRendererWithAllegr
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/4*2, 1200, 540 };
    std::string evidence_name = "Standard Issue Blaster";
-   std::string evidence_bitmap_identifier = "blaster-02.png";
+   std::string evidence_bitmap_identifier = "evidence-placeholder-480x300.png";
    float age = 0.0;
 
    int passes = 60*2;

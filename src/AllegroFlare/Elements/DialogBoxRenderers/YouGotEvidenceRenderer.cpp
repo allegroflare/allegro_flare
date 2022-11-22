@@ -86,9 +86,9 @@ void YouGotEvidenceRenderer::render()
    //dialog_box_frame.set_border_color(opaquify(al_color_html("c49505")));
    dialog_box_frame.set_border_color(opaquify(ALLEGRO_COLOR{0.0, .75, 1.0, 1.0}));
    dialog_box_frame.set_backfill_color(opaquify(al_color_html("2a2c38")));
-   AllegroFlare::Placement2D evidence_place(width/2, height/2, evidence_bitmap_width, evidence_bitmap_height);
-   evidence_place.scale.x = 0.55;
-   evidence_place.scale.y = 0.55;
+   AllegroFlare::Placement2D evidence_place(340, 292, evidence_bitmap_width, evidence_bitmap_height);
+   //evidence_place.scale.x = 0.55;
+   //evidence_place.scale.y = 0.55;
 
    // animations
    float reveal_counter = get_live_reveal_counter();
@@ -128,15 +128,15 @@ void YouGotEvidenceRenderer::render()
    );
 
    // the description paragraph
-   float description_text_y_position = evidence_name_text_y_position + 100;
-   std::string description_text = "A short paragraph describing that you got new evidence and where to see it";
+   float description_text_y_position = evidence_name_text_y_position + 80;
+   std::string description_text = "A short paragraph describing that you got new evidence and where to see it.";
 
    al_draw_multiline_text(
       evidence_description_font,
       evidence_name_text_color,
       width/2 + column_gutter/2,
       description_text_y_position,
-      480,
+      492,
       evidence_description_font_line_height,
       ALLEGRO_ALIGN_LEFT,
       description_text.c_str()
