@@ -1,0 +1,39 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::Base
+    scope: public
+    init_with: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog::TYPE
+
+
+properties:
+
+
+  - name: item_name
+    type: std::string
+    init_with: '"[unset-item_name]"'
+    constructor_arg: true
+    getter: true
+
+  - name: item_bitmap_identifier
+    type: std::string
+    init_with: '"[unset-item_bitmap_identifier]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"DialogEventDatas/CreateYouGotAnItemDialog"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::Base
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/Base.hpp ]
+
+

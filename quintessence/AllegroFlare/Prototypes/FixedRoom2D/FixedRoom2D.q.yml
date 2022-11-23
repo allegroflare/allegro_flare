@@ -512,7 +512,6 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog
-      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence
       - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
       - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom
       - AllegroFlare::InventoryDictionaryItems::WithAttributes
@@ -743,8 +742,6 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomFactory
