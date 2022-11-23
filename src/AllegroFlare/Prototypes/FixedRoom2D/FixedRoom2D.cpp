@@ -94,8 +94,6 @@ void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
 
-   //inventory_window.set_font_bin(font_bin);
-
    // set the font_bin in each of the rooms (likely the font_bin dependency should be moved to a RoomRenderer)
    for (auto &room_dictionary_listing : room_dictionary)
    {
@@ -167,12 +165,6 @@ void FixedRoom2D::initialize()
    dialog_system.set_font_bin(font_bin);
    dialog_system.set_event_emitter(event_emitter);
    dialog_system.initialize();
-
-   //inventory_window.set_font_bin(font_bin);
-   //inventory_window.set_bitmap_bin(bitmap_bin);
-   //inventory_window.set_event_emitter(event_emitter);
-   //inventory_window.set_af_inventory(&af_inventory);
-   //inventory_window.set_inventory_index(&inventory_index);
 
    entity_collection_helper.set_entity_dictionary(&entity_dictionary);
    entity_collection_helper.set_entity_room_associations(&entity_room_associations);
