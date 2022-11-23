@@ -16,7 +16,7 @@ namespace DialogEventDatas
 
 
 CreateYouGotAnItemDialog::CreateYouGotAnItemDialog(std::string item_name, std::string item_bitmap_identifier)
-   : AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::Base(AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog::TYPE)
+   : AllegroFlare::GameEventDatas::Base(AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog::TYPE)
    , item_name(item_name)
    , item_bitmap_identifier(item_bitmap_identifier)
 {

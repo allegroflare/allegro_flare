@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/Base.hpp>
+#include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <string>
 
 
@@ -13,7 +13,7 @@ namespace AllegroFlare
       {
          namespace DialogEventDatas
          {
-            class CreateYouGotAnItemDialog : public AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::Base
+            class CreateYouGotAnItemDialog : public AllegroFlare::GameEventDatas::Base
             {
             public:
                static constexpr char* TYPE = "DialogEventDatas/CreateYouGotAnItemDialog";

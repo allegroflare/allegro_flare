@@ -1,7 +1,7 @@
 parent_classes:
 
 
-  - class: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::Base
+  - class: AllegroFlare::GameEventDatas::Base
     scope: public
     init_with: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog::TYPE
 
@@ -33,7 +33,5 @@ dependencies:
 
   - symbol: AllegroFlare::GameEventDatas::Base
     headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::Base
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/Base.hpp ]
 
 
