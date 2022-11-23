@@ -496,23 +496,6 @@ functions:
                   "key-keychain-house-keys-door-photo-pixabay-25.png"
                );
          }
-         else if (game_event_data->is_type(ScriptEventDatas::CollectEvidence::TYPE))
-         {
-            //// NOTE: This is being moved to external object, specifically to CatDetective "process_game_event"
-            //// HERE: blast this code and replace with code to emit a CreateYouGotNewEvidenceDialog
-            //// note this logic will be moved to FixedRoom2D/FixedRoom2D
-
-            //AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence* collect_evidence_event_data =
-                //static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence*>(game_event_data);
-
-            //std::map<std::string, int> evidence_identifier_to_id;
-
-            //// TODO: move this to emitting an event
-            //dialog_system.spawn_you_got_new_evidence_dialog(
-                  //"Evidence Name",
-                  //"evidence-placeholder-480x300.png"
-               //);
-         }
          else
          {
             // TODO: fix this design flaw:
