@@ -49,6 +49,7 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , current_room(nullptr)
    , room_shader(nullptr)
    , initialized(false)
+   , dialog_system(nullptr)
    , active_dialog(nullptr)
    , paused(false)
    , subscribed_to_game_event_names({})

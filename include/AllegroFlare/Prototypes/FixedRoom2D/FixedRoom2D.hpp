@@ -10,6 +10,7 @@
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/InventoryIndex.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/DialogSystem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
@@ -47,6 +48,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::FixedRoom2D::Room* current_room;
             AllegroFlare::Shader* room_shader;
             bool initialized;
+            AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
             AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
             bool paused;
             std::set<std::string> subscribed_to_game_event_names;

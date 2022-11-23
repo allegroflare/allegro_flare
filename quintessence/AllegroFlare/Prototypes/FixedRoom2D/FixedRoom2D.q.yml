@@ -73,6 +73,10 @@ properties:
     type: bool
     init_with: false
 
+  - name: dialog_system
+    type: AllegroFlare::Prototypes::FixedRoom2D::DialogSystem
+    init_with: nullptr
+
   - name: active_dialog
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
@@ -954,5 +958,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp ]
   - symbol: AllegroFlare::InventoryDictionaryItems::WithAttributes
     headers: [ AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogSystem
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogSystem.hpp ]
   
   
