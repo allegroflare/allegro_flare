@@ -97,7 +97,7 @@ namespace AllegroFlare
             bool dialog_is_finished();
             bool shutdown_dialog();
             void activate_primary_action();
-            void emit_close_dialog_event(AllegroFlare::Elements::DialogBoxes::Base* dialog=nullptr);
+            void emit_close_current_active_dialog_event();
             void move_cursor_up();
             void move_cursor_down();
             void move_cursor_left();

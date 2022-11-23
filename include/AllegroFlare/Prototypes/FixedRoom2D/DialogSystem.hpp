@@ -33,8 +33,10 @@ namespace AllegroFlare
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
+            AllegroFlare::Elements::DialogBoxes::Base* &get_active_dialog_ref();
             void initialize();
             void update();
+            bool a_dialog_is_active();
             void render();
             void process_game_event(AllegroFlare::GameEvent* game_event=nullptr);
             bool process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);

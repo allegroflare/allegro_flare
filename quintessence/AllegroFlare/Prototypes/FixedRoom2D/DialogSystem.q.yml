@@ -16,6 +16,7 @@ properties:
   - name: active_dialog
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
+    getter_ref: true
 
   - name: initialized
     type: bool
@@ -44,6 +45,12 @@ functions:
     body: |
       if (active_dialog) active_dialog->update();
       return;
+
+
+  - name: a_dialog_is_active
+    type: bool
+    body: |
+      return (active_dialog != nullptr);
 
 
   - name: render
@@ -208,10 +215,12 @@ functions:
       }
       else
       {
+         std::cout << "- in DialogSystem::process_dialog_event event data type is \"" << game_event_data->get_type()
+                   << "\"" << std::endl;
          if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
          {
-            DialogEventDatas::CloseDialog* close_dialog_event_data =
-               static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
+            //DialogEventDatas::CloseDialog* close_dialog_event_data =
+               //static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
 
             // HERE:
             // TODO: vaildate active_dialog is dialog in event_data (TODO in the future: ensure it is a dialog
@@ -359,6 +368,7 @@ functions:
     type: bool
     guards: [ initialized ]
     body: |
+      std::cout << "- in DialogSystem::shutdown_dialog()" << std::endl;
       if (!active_dialog) return false;
       delete active_dialog;
       active_dialog = nullptr;

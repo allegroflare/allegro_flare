@@ -55,6 +55,12 @@ void DialogSystem::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+AllegroFlare::Elements::DialogBoxes::Base* &DialogSystem::get_active_dialog_ref()
+{
+   return active_dialog;
+}
+
+
 void DialogSystem::initialize()
 {
    if (!((!initialized)))
@@ -108,6 +114,11 @@ void DialogSystem::update()
    }
    if (active_dialog) active_dialog->update();
    return;
+}
+
+bool DialogSystem::a_dialog_is_active()
+{
+   return (active_dialog != nullptr);
 }
 
 void DialogSystem::render()
@@ -262,10 +273,12 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
    }
    else
    {
+      std::cout << "- in DialogSystem::process_dialog_event event data type is \"" << game_event_data->get_type()
+                << "\"" << std::endl;
       if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
       {
-         DialogEventDatas::CloseDialog* close_dialog_event_data =
-            static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
+         //DialogEventDatas::CloseDialog* close_dialog_event_data =
+            //static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
 
          // HERE:
          // TODO: vaildate active_dialog is dialog in event_data (TODO in the future: ensure it is a dialog
@@ -422,6 +435,7 @@ bool DialogSystem::shutdown_dialog()
       error_message << "DialogSystem" << "::" << "shutdown_dialog" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   std::cout << "- in DialogSystem::shutdown_dialog()" << std::endl;
    if (!active_dialog) return false;
    delete active_dialog;
    active_dialog = nullptr;

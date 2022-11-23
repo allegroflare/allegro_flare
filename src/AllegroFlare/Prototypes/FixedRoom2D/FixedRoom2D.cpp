@@ -415,8 +415,9 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
    }
    else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
    {
-      process_dialog_event(game_event->get_data());
       dialog_system.process_dialog_event(game_event->get_data());
+      process_dialog_event(game_event->get_data());
+      //dialog_system.process_dialog_event(game_event->get_data());
    }
    else if (game_event->is_type("unpause_game"))
    {
@@ -824,14 +825,14 @@ void FixedRoom2D::activate_primary_action()
       //// IDEA: inventory_window.select_item_currently_under_cursor();
    //}
    //else if (active_dialog)
-   if (active_dialog)
+   if (dialog_system.a_dialog_is_active())
    {
-      //dialog_advance();
-      dialog_system.dialog_advance();
+      dialog_advance();
+      //dialog_system.dialog_advance();
       //if (dialog_is_finished())
       if (dialog_system.dialog_is_finished())
       {
-         emit_close_dialog_event(active_dialog);
+         emit_close_current_active_dialog_event(); //(active_dialog);
       }
    }
    else if (current_room && !current_room->get_suspended())
@@ -842,28 +843,28 @@ void FixedRoom2D::activate_primary_action()
    return;
 }
 
-void FixedRoom2D::emit_close_dialog_event(AllegroFlare::Elements::DialogBoxes::Base* dialog)
+void FixedRoom2D::emit_close_current_active_dialog_event()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "emit_close_dialog_event" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(dialog))
-   {
-      std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "emit_close_dialog_event" << ": error: " << "guard \"dialog\" not met";
+      error_message << "FixedRoom2D" << "::" << "emit_close_current_active_dialog_event" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "emit_close_dialog_event" << ": error: " << "guard \"event_emitter\" not met";
+      error_message << "FixedRoom2D" << "::" << "emit_close_current_active_dialog_event" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
+   AllegroFlare::Elements::DialogBoxes::Base* dialog_to_close = nullptr;
+   // TODO: consider having the dialog_system itself emit the event to close the dialog?
+   // the exact ownership of the dialog controls is still up for clarification
+   dialog_to_close = dialog_system.get_active_dialog_ref();
+
+   std::cout << "EMITTING in FixedRoom2D emit_close_dialog_event" << std::endl;
    AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog *close_dialog_event_data = new
-     AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog(dialog);
+     AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog(dialog_to_close);
    event_emitter->emit_game_event(AllegroFlare::GameEvent(
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME,
       close_dialog_event_data
