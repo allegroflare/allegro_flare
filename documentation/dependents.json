@@ -1125,7 +1125,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/php/str_replace": [
@@ -1422,7 +1422,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
-  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog": [
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog": [
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"

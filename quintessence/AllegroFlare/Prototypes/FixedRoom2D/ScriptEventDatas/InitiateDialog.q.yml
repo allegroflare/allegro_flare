@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::GameEventDatas::Base
     scope: public
-    init_with: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog::TYPE
+    init_with: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog::TYPE
 
 
 properties:
@@ -18,7 +18,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"ScriptEventDatas/SpawnDialog"'
+    init_with: '"ScriptEventDatas/InitiateDialog"'
     static: true
     constexpr: true
 

@@ -18,7 +18,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog.hpp>
 #include <sstream>
 #include <stdexcept>
 

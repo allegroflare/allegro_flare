@@ -14,10 +14,10 @@ namespace AllegroFlare
       {
          namespace ScriptEventDatas
          {
-            class SpawnDialog : public AllegroFlare::GameEventDatas::Base
+            class InitiateDialog : public AllegroFlare::GameEventDatas::Base
             {
             public:
-               static constexpr char* TYPE = "ScriptEventDatas/SpawnDialog";
+               static constexpr char* TYPE = "ScriptEventDatas/InitiateDialog";
 
             private:
                std::vector<std::string> dialog_pages;
@@ -26,8 +26,8 @@ namespace AllegroFlare
 
 
             public:
-               SpawnDialog(std::vector<std::string> dialog_pages={"[unset-dialog_pages]"});
-               ~SpawnDialog();
+               InitiateDialog(std::vector<std::string> dialog_pages={"[unset-dialog_pages]"});
+               ~InitiateDialog();
 
                void set_dialog_pages(std::vector<std::string> dialog_pages);
                std::vector<std::string> get_dialog_pages() const;

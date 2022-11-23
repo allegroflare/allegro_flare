@@ -6,7 +6,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -184,13 +184,13 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    if (command == DIALOG)
    {
       std::vector<std::string> tokens = tokenize(argument);
-      AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog *spawn_dialog_event_data =
-         new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog(tokens);
+      AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog *initiate_dialog_event_data =
+         new AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog(tokens);
 
       current_internally_running_script.goto_next_line();
       paused_for_dialog_to_finish = true; // should this be in the event processing?
 
-      emit_script_event(spawn_dialog_event_data);
+      emit_script_event(initiate_dialog_event_data);
    }
    else if (command == ENTER_ROOM)
    {

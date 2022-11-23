@@ -544,7 +544,7 @@ functions:
       }
       return;
     body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
+      - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog
       - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence
       - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
       - AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom
@@ -766,8 +766,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFactory
     headers: [ AllegroFlare/Elements/DialogBoxFactory.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence

@@ -14,7 +14,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -198,10 +198,10 @@ bool DialogSystem::process_script_event(AllegroFlare::GameEventDatas::Base* game
    }
    else
    {
-      if (game_event_data->is_type(ScriptEventDatas::SpawnDialog::TYPE))
+      if (game_event_data->is_type(ScriptEventDatas::InitiateDialog::TYPE))
       {
-         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog* spawn_dialog_event_data =
-             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog*>(game_event_data);
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog* spawn_dialog_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog*>(game_event_data);
          std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
 
          AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
@@ -215,6 +215,7 @@ bool DialogSystem::process_script_event(AllegroFlare::GameEventDatas::Base* game
          AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
              static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
 
+         // TODO: emit event to spawn dialog
          spawn_you_got_an_item_dialog(
                "Keys",
                "key-keychain-house-keys-door-photo-pixabay-25.png"
