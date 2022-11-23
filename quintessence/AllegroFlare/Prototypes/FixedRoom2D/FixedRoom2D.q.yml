@@ -397,7 +397,7 @@ functions:
          // like it's doing now.  Please review and improve.
          // HERE:
          dialog_system.process_dialog_event(game_event->get_data());
-         process_dialog_event(game_event->get_data());
+         // TODO: remove this: process_dialog_event(game_event->get_data());
       }
       else if (game_event->is_type("unpause_game"))
       {
@@ -456,49 +456,6 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
-
-
-  - name: process_dialog_event
-    private: true
-    parameters:
-      - name: game_event_data
-        type: AllegroFlare::GameEventDatas::Base*
-        default_argument: nullptr
-    guards: [ initialized ]
-    body: |
-      using namespace AllegroFlare::Prototypes::FixedRoom2D;
-
-      if (!game_event_data)
-      {
-         std::cout << "ERROR: A weird error occurred. In FixedRoom2D/FixedRoom2D::process_dialog_event, sxpecting "
-                   << "script_event_data to be valid but it is nullptr" << std::endl;
-         return;
-      }
-      else
-      {
-         // TODO: This event should be replaced with a "resume_from_dialog_suspend" type of event that is dispatched
-         // from something handling it.  It's possible that either:
-         //   - The CloseDialog event could be processed (query dialog_system and ask if currrently blocked)
-         //     and then infer to resume rooms
-         //   - A new "resume" event is dispached from the dialog_system when there are no dialogs present.  That
-         //     event would be handled here and the FixedRoom2D would suspend appropriately.
-         //   - Some other design that handles dialog actions/reactions externally a layer out.
-         if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
-         {
-            resume_all_rooms();
-            if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
-         }
-         else
-         {
-            std::cout << "[FixedRoom2D::FixedRoom2D::process_dialog_event]: error: "
-                      << "Unknown game_event_data type "
-                      << "\"" << game_event_data->get_type() << "\""
-                      << std::endl;
-         }
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
 
 
   - name: process_script_event

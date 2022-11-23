@@ -420,7 +420,7 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
       // like it's doing now.  Please review and improve.
       // HERE:
       dialog_system.process_dialog_event(game_event->get_data());
-      process_dialog_event(game_event->get_data());
+      // TODO: remove this: process_dialog_event(game_event->get_data());
    }
    else if (game_event->is_type("unpause_game"))
    {
@@ -472,47 +472,6 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::GameEventDatas::Base* 
    else
    {
       std::cout << "Expecting game_event_data to be present but it is a nullptr" << std::endl;
-   }
-   return;
-}
-
-void FixedRoom2D::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "FixedRoom2D" << "::" << "process_dialog_event" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   using namespace AllegroFlare::Prototypes::FixedRoom2D;
-
-   if (!game_event_data)
-   {
-      std::cout << "ERROR: A weird error occurred. In FixedRoom2D/FixedRoom2D::process_dialog_event, sxpecting "
-                << "script_event_data to be valid but it is nullptr" << std::endl;
-      return;
-   }
-   else
-   {
-      // TODO: This event should be replaced with a "resume_from_dialog_suspend" type of event that is dispatched
-      // from something handling it.  It's possible that either:
-      //   - The CloseDialog event could be processed (query dialog_system and ask if currrently blocked)
-      //     and then infer to resume rooms
-      //   - A new "resume" event is dispached from the dialog_system when there are no dialogs present.  That
-      //     event would be handled here and the FixedRoom2D would suspend appropriately.
-      //   - Some other design that handles dialog actions/reactions externally a layer out.
-      if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
-      {
-         resume_all_rooms();
-         if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
-      }
-      else
-      {
-         std::cout << "[FixedRoom2D::FixedRoom2D::process_dialog_event]: error: "
-                   << "Unknown game_event_data type "
-                   << "\"" << game_event_data->get_type() << "\""
-                   << std::endl;
-      }
    }
    return;
 }

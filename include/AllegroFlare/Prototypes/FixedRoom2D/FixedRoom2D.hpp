@@ -51,7 +51,6 @@ namespace AllegroFlare
             bool paused;
             std::set<std::string> subscribed_to_game_event_names;
             void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
-            void process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
 
          protected:
