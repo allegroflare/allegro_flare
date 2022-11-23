@@ -1117,6 +1117,7 @@
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEvent",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
@@ -1447,6 +1448,9 @@
   "AllegroFlare/Elements/DialogBoxFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog": [
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
   ],
   "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",

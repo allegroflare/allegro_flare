@@ -9,6 +9,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
@@ -145,32 +146,10 @@ void DialogSystem::process_game_event(AllegroFlare::GameEvent* game_event)
       error_message << "DialogSystem" << "::" << "process_game_event" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   //if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
-   //{
-      //process_interaction_event(game_event->get_data());
-   //}
-   //else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
-   //{
-      //process_script_event(game_event->get_data());
-   //}
+   // TODO: convert this to a set of subscribed-to events
    if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
    {
       process_dialog_event(game_event->get_data());
-   }
-   //else if (game_event->is_type("unpause_game"))
-   //{
-      //unpause_game();
-   //}
-   //else if (game_event->is_type("pause_game"))
-   //{
-      //pause_game();
-   //}
-   else
-   {
-      std::cout << "[FixedRoom2D::FixedRoom2D::process_subscribed_to_game_event]: "
-                << "error: unexpected game_event type "
-                << "\"" << game_event->get_type() << "\". Doing nothing (except outputting this error)."
-                << std::endl;
    }
    return;
 }
@@ -226,6 +205,9 @@ bool DialogSystem::process_script_event(AllegroFlare::GameEventDatas::Base* game
       }
       else if (game_event_data->is_type(ScriptEventDatas::CollectEvidence::TYPE))
       {
+         // HERE: blast this code and replace with code to emit a CreateYouGotNewEvidenceDialog
+         // note this logic will be moved to FixedRoom2D/FixedRoom2D
+
          AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence* collect_evidence_event_data =
              static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence*>(game_event_data);
 
@@ -267,36 +249,64 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
 
    if (!game_event_data)
    {
-      std::cout << "ERROR: A weird error occurred. In FixedRoom2D/FixedRoom2D::process_dialog_event, sxpecting "
+      std::cout << "ERROR: A weird error occurred. In FixedRoom2D/DialogSystem::process_dialog_event, expecting "
                 << "script_event_data to be valid but it is nullptr" << std::endl;
       return;
    }
    else
    {
-      std::cout << "- in DialogSystem::process_dialog_event event data type is \"" << game_event_data->get_type()
-                << "\"" << std::endl;
       if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
       {
-         //DialogEventDatas::CloseDialog* close_dialog_event_data =
-            //static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
-
-         // HERE:
-         // TODO: vaildate active_dialog is dialog in event_data (TODO in the future: ensure it is a dialog
-         //   in the stack of dialogs.)
          shutdown_dialog();
-         // NOTE: artifact from when dialog code was in FixedRoom2D/FixedRoom2D:
-         // resume_all_rooms();
-         // NOTE: artifact from when dialog code was in FixedRoom2D/FixedRoom2D:
-         //if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
+         // TODO: if there are no more dialogs, emit a "dialog_switch_out" (or something similar) event.
+         // A "dialog_switch_out" event would do the following:
+         // - resume_all_rooms()
+         // - if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
+
+         // TODO:
+         // emit_dialog_system_switch_out_event() (if not currently active)
+      }
+      if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
+      {
+         // HERE:
+         //AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+         if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+         DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
+            static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
+
+         spawn_you_got_new_evidence_dialog(
+            dialog_event_data->get_evidence_name(),
+            dialog_event_data->get_evidence_bitmap_identifier()
+         );
+
+         // TODO:
+         // emit_dialog_system_switch_in_event() (if not currently active, or, possibly do it in the function)
       }
       else
       {
-         std::cout << "[FixedRoom2D::FixedRoom2D::process_dialog_event]: error: "
+         std::cout << "[FixedRoom2D::DialogSystem::process_dialog_event]: error: "
                    << "Unknown game_event_data type "
                    << "\"" << game_event_data->get_type() << "\""
                    << std::endl;
       }
    }
+   return;
+}
+
+void DialogSystem::spawn_you_got_new_evidence_dialog(std::string evidence_name, std::string evidence_bitmap_identifier)
+{
+   // HERE:
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+   active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
+         evidence_name,
+         evidence_bitmap_identifier
+      );
+
+   // TODO:
+   // emit_dialog_system_switch_in_event() (if not currently active)
    return;
 }
 

@@ -7,6 +7,7 @@
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <allegro5/allegro_font.h>
+#include <string>
 
 
 namespace AllegroFlare
@@ -41,6 +42,7 @@ namespace AllegroFlare
             void process_game_event(AllegroFlare::GameEvent* game_event=nullptr);
             bool process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
+            void spawn_you_got_new_evidence_dialog(std::string evidence_name="[unset-evidence_name]", std::string evidence_bitmap_identifier="[unset-evidence_bitmap_identifier]");
             void dialog_advance();
             void dialog_cursor_up();
             void dialog_cursor_down();
