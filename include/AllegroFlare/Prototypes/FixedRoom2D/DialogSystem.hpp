@@ -5,7 +5,6 @@
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
@@ -43,7 +42,6 @@ namespace AllegroFlare
             void update();
             bool a_dialog_is_active();
             void render();
-            void process_game_event(AllegroFlare::GameEvent* game_event=nullptr);
             void process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void emit_dialog_switch_in_event();
             void emit_dialog_switch_out_event();

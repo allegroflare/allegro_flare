@@ -685,6 +685,9 @@ void FixedRoom2D::activate_primary_action()
       error_message << "FixedRoom2D" << "::" << "activate_primary_action" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // TODO: probably remove this branching logic here and have the dialog_system manage the active/deactive
+   // emit closing dialog logic.  The FixedRoom2D should be "suspended"/"unsuspended" while control is handed
+   // off to the dialog_system.
    if (dialog_system.a_dialog_is_active())
    {
       dialog_system.dialog_advance();
@@ -715,6 +718,9 @@ void FixedRoom2D::emit_close_current_active_dialog_event()
       error_message << "FixedRoom2D" << "::" << "emit_close_current_active_dialog_event" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // TODO: probably remove this function and have all the logic surrounding "close_current_active_dialog"
+   // to be handled in the dialog_system
+
    AllegroFlare::Elements::DialogBoxes::Base* dialog_to_close = nullptr;
    // TODO: consider having the dialog_system itself emit the event to close the dialog?
    // the exact ownership of the dialog controls is still up for clarification

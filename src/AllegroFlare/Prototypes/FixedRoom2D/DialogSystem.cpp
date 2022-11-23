@@ -159,22 +159,6 @@ void DialogSystem::render()
    }
 }
 
-void DialogSystem::process_game_event(AllegroFlare::GameEvent* game_event)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "DialogSystem" << "::" << "process_game_event" << ": error: " << "guard \"initialized\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   // TODO: convert this to a set of subscribed-to events
-   if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
-   {
-      process_dialog_event(game_event->get_data());
-   }
-   return;
-}
-
 void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data)
 {
    if (!(initialized))
@@ -184,20 +168,15 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
       throw std::runtime_error(error_message.str());
    }
    using namespace AllegroFlare::Prototypes::FixedRoom2D;
+   // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
+   // It might not be important:
+   // if (!game_event_data->is_type(FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
 
    if (!game_event_data)
    {
       std::cout << "ERROR: A weird error occurred. In FixedRoom2D/DialogSystem::process_dialog_event, expecting "
                 << "script_event_data to be valid but it is nullptr" << std::endl;
       return;
-   }
-   if (!game_event_data->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::process_dialog_event]: error: "
-                    << "Expecting \"game_event_data\" to be of type DIALOG_EVENT_NAME but it is of type "
-                    << "\"" << game_event_data->get_type() << "\". Aborting.";
-      throw std::runtime_error(error_message.str());
    }
 
    // handle *all* the different DIALOG_EVENT_NAME types
