@@ -139,6 +139,16 @@ functions:
             dialog_event_data->get_evidence_bitmap_identifier()
          );
       }
+      else if (game_event_data->is_type(DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
+      {
+         DialogEventDatas::CreateYouGotAnItemDialog *dialog_event_data =
+            static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(game_event_data);
+
+         spawn_you_got_an_item_dialog(
+            dialog_event_data->get_item_name(),
+            dialog_event_data->get_item_bitmap_identifier()
+         );
+      }
       else
       {
          std::stringstream error_message;
@@ -150,6 +160,7 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
+      - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog
       - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotEvidenceDialog
 
 
@@ -455,6 +466,8 @@ dependencies:
     headers: [ AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFactory
     headers: [ AllegroFlare/Elements/DialogBoxFactory.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotEvidenceDialog
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog.hpp ]
   - symbol: AllegroFlare::EventEmitter

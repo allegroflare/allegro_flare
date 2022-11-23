@@ -8,6 +8,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
 #include <AllegroFlare/Vec2D.hpp>
@@ -194,6 +195,16 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
       spawn_you_got_new_evidence_dialog(
          dialog_event_data->get_evidence_name(),
          dialog_event_data->get_evidence_bitmap_identifier()
+      );
+   }
+   else if (game_event_data->is_type(DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
+   {
+      DialogEventDatas::CreateYouGotAnItemDialog *dialog_event_data =
+         static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(game_event_data);
+
+      spawn_you_got_an_item_dialog(
+         dialog_event_data->get_item_name(),
+         dialog_event_data->get_item_bitmap_identifier()
       );
    }
    else

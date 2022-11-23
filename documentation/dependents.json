@@ -813,8 +813,7 @@
   "AllegroFlare/Elements/DialogBoxes/YouGotEvidence": [
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
@@ -1449,6 +1448,9 @@
   "AllegroFlare/Elements/DialogBoxFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog": [
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog": [
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
