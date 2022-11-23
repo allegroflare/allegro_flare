@@ -454,14 +454,6 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp ]
-  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::EnterRoom
-    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp ]
   - symbol: AllegroFlare::InventoryDictionaryItems::WithAttributes
     headers: [ AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFactory
