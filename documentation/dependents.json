@@ -1420,6 +1420,34 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog": [
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence": [
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem": [
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom": [
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Elements/DialogBoxFactory": [
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
   "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper"
@@ -1448,25 +1476,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
-  "AllegroFlare/Elements/DialogBoxFactory": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
   "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -1484,9 +1493,6 @@
     "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem": [

@@ -22,7 +22,6 @@ namespace AllegroFlare
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
             bool initialized;
-            void process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             ALLEGRO_FONT* obtain_font();
 
          protected:
@@ -33,10 +32,13 @@ namespace AllegroFlare
             ~DialogSystem();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+            void set_font_bin(AllegroFlare::FontBin* font_bin);
             void initialize();
             void update();
             void render();
             void process_game_event(AllegroFlare::GameEvent* game_event=nullptr);
+            bool process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
+            void process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void dialog_advance();
             void dialog_cursor_up();
             void dialog_cursor_down();

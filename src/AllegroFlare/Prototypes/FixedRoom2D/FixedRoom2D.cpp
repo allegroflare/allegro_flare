@@ -96,6 +96,8 @@ void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
 
+   dialog_system.set_font_bin(font_bin);
+
    //inventory_window.set_font_bin(font_bin);
 
    // set the font_bin in each of the rooms (likely the font_bin dependency should be moved to a RoomRenderer)
@@ -251,7 +253,8 @@ void FixedRoom2D::update()
    //room.update();
    update_all_rooms();
 
-   if (active_dialog) active_dialog->update();
+   //if (active_dialog) active_dialog->update();
+   dialog_system.update();
 
    //inventory_window.update();
    return;
@@ -361,11 +364,12 @@ void FixedRoom2D::render()
    }
 
    // render the active dialog
-   if (active_dialog)
-   {
-      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
-      dialog_box_renderer.render();
-   }
+   //if (active_dialog)
+   //{
+      //AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
+      //dialog_box_renderer.render();
+   //}
+   dialog_system.render();
 
    //// render the inventory window
    //inventory_window.render();
@@ -410,6 +414,7 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
    else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
    {
       process_dialog_event(game_event->get_data());
+      dialog_system.process_dialog_event(game_event->get_data());
    }
    else if (game_event->is_type("unpause_game"))
    {
@@ -488,11 +493,11 @@ void FixedRoom2D::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_
          DialogEventDatas::CloseDialog* close_dialog_event_data =
             static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
 
-         // HERE:
-         // TODO: vaildate active_dialog is dialog in event_data (TODO in the future: ensure it is a dialog
-         //   in the stack of dialogs.)
          shutdown_dialog();
+
+         // HERE: handle this event:
          resume_all_rooms();
+         // HERE: handle this event:
          if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
       }
       else
@@ -531,59 +536,16 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
 
          enter_room(room_name_to_enter);
       }
-      else if (game_event_data->is_type(ScriptEventDatas::SpawnDialog::TYPE))
-      {
-         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog* spawn_dialog_event_data =
-             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog*>(game_event_data);
-         std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
-
-         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-         if (active_dialog) delete active_dialog;
-
-         active_dialog = dialog_box_factory.create_basic_dialog(pages);
-         suspend_all_rooms();
-      }
-      else if (game_event_data->is_type(ScriptEventDatas::CollectItem::TYPE))
-      {
-         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
-             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
-
-         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-         if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
-
-         // TODO: add an item to the inventory here (currently it is added at script event assembly and emit time)
-         // HERE:
-         // Use "AllegroFlare::InventoryDictionaryItems::WithAttributes" class InventoryItem
-         // to extract properties to create dialog
-
-         active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
-               "Keys",
-               "key-keychain-house-keys-door-photo-pixabay-25.png"
-            );
-         suspend_all_rooms();
-      }
-      else if (game_event_data->is_type(ScriptEventDatas::CollectEvidence::TYPE))
-      {
-         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence* collect_evidence_event_data =
-             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence*>(game_event_data);
-
-         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-         if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
-
-         // TODO: add an item to the evidence (currently it is added at script event assembly and emit time)
-
-         std::string item_name = collect_evidence_event_data->get_item_dictionary_name_to_collect();
-         std::string item_image = "evidence-placeholder-480x300.png";
-
-         // TODO: create new dialog for collecting evidence
-         active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
-               item_name,
-               item_image
-            );
-         suspend_all_rooms();
-      }
       else
       {
+         bool a_new_dialog_was_spawned = dialog_system.process_script_event(game_event_data);
+         if (a_new_dialog_was_spawned) suspend_all_rooms();
+
+         // TODO: fix this design flaw:
+         // NOTE: this cout section below represents a fracture in design since delegating dialog management to
+         // the dialog_system.  There's currently no way to know if the "process_script_event" was handled
+         // by either this FixedRoom2D or by any delegates.
+
          std::cout << "[FixedRoom2D::FixedRoom2D::process_script_event]: error: "
                    << "Unknown game_event_data type "
                    << "\"" << game_event_data->get_type() << "\""
@@ -699,6 +661,9 @@ void FixedRoom2D::dialog_advance()
       error_message << "FixedRoom2D" << "::" << "dialog_advance" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   dialog_system.dialog_advance();
+   return;
+
    //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
@@ -735,6 +700,9 @@ void FixedRoom2D::dialog_cursor_up()
       error_message << "FixedRoom2D" << "::" << "dialog_cursor_up" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   dialog_system.dialog_cursor_up();
+   return;
+
    //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
@@ -763,6 +731,9 @@ void FixedRoom2D::dialog_cursor_down()
       error_message << "FixedRoom2D" << "::" << "dialog_cursor_down" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   dialog_system.dialog_cursor_down();
+   return;
+
    //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 
@@ -791,6 +762,9 @@ bool FixedRoom2D::dialog_is_finished()
       error_message << "FixedRoom2D" << "::" << "dialog_is_finished" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   return dialog_system.dialog_is_finished();
+
+
    if (!active_dialog) return true;
 
    // TODO: modify this branching notation to a map<string, function>
@@ -826,6 +800,9 @@ bool FixedRoom2D::shutdown_dialog()
       error_message << "FixedRoom2D" << "::" << "shutdown_dialog" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   return dialog_system.shutdown_dialog();
+
+
    if (!active_dialog) return false;
    delete active_dialog;
    active_dialog = nullptr;
@@ -847,8 +824,10 @@ void FixedRoom2D::activate_primary_action()
    //else if (active_dialog)
    if (active_dialog)
    {
-      dialog_advance();
-      if (dialog_is_finished())
+      //dialog_advance();
+      dialog_system.dialog_advance();
+      //if (dialog_is_finished())
+      if (dialog_system.dialog_is_finished())
       {
          emit_close_dialog_event(active_dialog);
       }
@@ -898,6 +877,9 @@ void FixedRoom2D::move_cursor_up()
       error_message << "FixedRoom2D" << "::" << "move_cursor_up" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   dialog_system.move_cursor_up();
+   return;
+
    //if (inventory_window.get_active()) inventory_window.move_cursor_up();
    if (active_dialog) dialog_cursor_up();
    return;
@@ -911,6 +893,10 @@ void FixedRoom2D::move_cursor_down()
       error_message << "FixedRoom2D" << "::" << "move_cursor_down" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
+   dialog_system.move_cursor_down();
+   return;
+
+
    //if (inventory_window.get_active()) inventory_window.move_cursor_down();
    if (active_dialog) dialog_cursor_down();
    return;

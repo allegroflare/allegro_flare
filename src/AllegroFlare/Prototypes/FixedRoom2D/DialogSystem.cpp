@@ -2,12 +2,18 @@
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/DialogSystem.hpp>
 
+#include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
+#include <AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/SpawnDialog.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -40,6 +46,12 @@ DialogSystem::~DialogSystem()
 void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    this->bitmap_bin = bitmap_bin;
+}
+
+
+void DialogSystem::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
 }
 
 
@@ -81,6 +93,7 @@ void DialogSystem::initialize()
       error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
+   // TODO: enable setting font_bin and bitmap_bin before initialization
    initialized = true;
    return;
 }
@@ -149,6 +162,86 @@ void DialogSystem::process_game_event(AllegroFlare::GameEvent* game_event)
                 << std::endl;
    }
    return;
+}
+
+bool DialogSystem::process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "process_script_event" << ": error: " << "guard \"initialized\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   bool a_new_dialog_was_spawned = false;
+   using namespace AllegroFlare::Prototypes::FixedRoom2D;
+
+   if (!game_event_data)
+   {
+      std::cout << "A weird error occurred. Expecting script_event_data to be valid but it is nullptr" << std::endl;
+      return false;
+   }
+   else
+   {
+      if (game_event_data->is_type(ScriptEventDatas::SpawnDialog::TYPE))
+      {
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog* spawn_dialog_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::SpawnDialog*>(game_event_data);
+         std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
+
+         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+         if (active_dialog) delete active_dialog;
+
+         active_dialog = dialog_box_factory.create_basic_dialog(pages);
+         a_new_dialog_was_spawned = true;
+      }
+      else if (game_event_data->is_type(ScriptEventDatas::CollectItem::TYPE))
+      {
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
+
+         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+         if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+         // TODO: add an item to the inventory here (currently it is added at script event assembly and emit time)
+         // HERE:
+         // Use "AllegroFlare::InventoryDictionaryItems::WithAttributes" class InventoryItem
+         // to extract properties to create dialog
+
+         active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
+               "Keys",
+               "key-keychain-house-keys-door-photo-pixabay-25.png"
+            );
+         a_new_dialog_was_spawned = true;
+      }
+      else if (game_event_data->is_type(ScriptEventDatas::CollectEvidence::TYPE))
+      {
+         AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence* collect_evidence_event_data =
+             static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence*>(game_event_data);
+
+         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+         if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+         // TODO: add an item to the evidence (currently it is added at script event assembly and emit time)
+
+         std::string item_name = collect_evidence_event_data->get_item_dictionary_name_to_collect();
+         std::string item_image = "evidence-placeholder-480x300.png";
+
+         // TODO: create new dialog for collecting evidence
+         active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
+               item_name,
+               item_image
+            );
+         a_new_dialog_was_spawned = true;
+      }
+      else
+      {
+         std::cout << "[FixedRoom2D::DialogSystem::process_script_event]: error: "
+                   << "Unknown game_event_data type "
+                   << "\"" << game_event_data->get_type() << "\""
+                   << std::endl;
+      }
+   }
+   return a_new_dialog_was_spawned;
 }
 
 void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data)
