@@ -141,7 +141,8 @@ void YouGotEvidenceRenderer::render()
 
    // the description paragraph
    float description_text_y_position = evidence_name_text_y_position + 80;
-   std::string description_text = "A short paragraph describing that you got new evidence and where to see it.";
+   std::string description_text = "The item was added to your [List of Evidence].  You can view the "
+                                  "[List of Evidence] in the chronicle menu.";
 
    al_draw_multiline_text(
       evidence_description_font,
