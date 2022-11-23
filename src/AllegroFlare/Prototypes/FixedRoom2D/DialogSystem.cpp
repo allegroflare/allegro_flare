@@ -128,7 +128,6 @@ void DialogSystem::initialize()
       error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // TODO: enable setting font_bin, bitmap_bin, event_emitter before initialization
    initialized = true;
    return;
 }
