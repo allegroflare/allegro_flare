@@ -34,10 +34,10 @@ namespace AllegroFlare
             DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             ~DialogSystem();
 
-            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
-            void set_font_bin(AllegroFlare::FontBin* font_bin);
-            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             AllegroFlare::Elements::DialogBoxes::Base* &get_active_dialog_ref();
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
+            void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void initialize();
             void update();
             bool a_dialog_is_active();

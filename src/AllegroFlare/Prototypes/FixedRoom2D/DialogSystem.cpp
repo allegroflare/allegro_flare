@@ -45,29 +45,44 @@ DialogSystem::~DialogSystem()
 }
 
 
-void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
-{
-   this->bitmap_bin = bitmap_bin;
-}
-
-
-void DialogSystem::set_font_bin(AllegroFlare::FontBin* font_bin)
-{
-   this->font_bin = font_bin;
-}
-
-
-void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
-{
-   this->event_emitter = event_emitter;
-}
-
-
 AllegroFlare::Elements::DialogBoxes::Base* &DialogSystem::get_active_dialog_ref()
 {
    return active_dialog;
 }
 
+
+void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "set_bitmap_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->bitmap_bin = bitmap_bin;
+}
+
+void DialogSystem::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "set_font_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->font_bin = font_bin;
+}
+
+void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "set_event_emitter" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   this->event_emitter = event_emitter;
+}
 
 void DialogSystem::initialize()
 {
