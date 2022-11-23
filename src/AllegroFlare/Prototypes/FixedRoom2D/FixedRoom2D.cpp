@@ -96,8 +96,6 @@ void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
 
-   dialog_system.set_font_bin(font_bin);
-
    //inventory_window.set_font_bin(font_bin);
 
    // set the font_bin in each of the rooms (likely the font_bin dependency should be moved to a RoomRenderer)
@@ -164,6 +162,10 @@ void FixedRoom2D::initialize()
       "pause_game",
       "unpause_game",
    };
+
+   dialog_system.set_bitmap_bin(bitmap_bin);
+   dialog_system.set_font_bin(font_bin);
+   dialog_system.initialize();
 
    //inventory_window.set_font_bin(font_bin);
    //inventory_window.set_bitmap_bin(bitmap_bin);
@@ -490,10 +492,10 @@ void FixedRoom2D::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_
    {
       if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
       {
-         DialogEventDatas::CloseDialog* close_dialog_event_data =
-            static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
+         //DialogEventDatas::CloseDialog* close_dialog_event_data =
+            //static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
 
-         shutdown_dialog();
+         //shutdown_dialog();
 
          // HERE: handle this event:
          resume_all_rooms();
