@@ -24,6 +24,19 @@ properties:
 functions:
 
 
+  - name: initialize
+    guards:
+       - (!initialized)
+       - al_is_system_installed()
+       - al_is_primitives_addon_initialized()
+       - al_is_font_addon_initialized()
+       - bitmap_bin
+       - font_bin
+    body: |
+      initialized = true;
+      return;
+
+
   - name: update
     guards: [ initialized ]
     body: |
@@ -33,7 +46,7 @@ functions:
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
+    guards: [ initialized ]
     body: |
       // render the active dialog
       if (active_dialog)

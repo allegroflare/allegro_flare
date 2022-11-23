@@ -33,6 +33,7 @@ namespace AllegroFlare
             ~DialogSystem();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+            void initialize();
             void update();
             void render();
             void process_game_event(AllegroFlare::GameEvent* game_event=nullptr);

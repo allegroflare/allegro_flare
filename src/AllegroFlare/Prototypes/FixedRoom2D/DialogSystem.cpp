@@ -43,6 +43,48 @@ void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 }
 
 
+void DialogSystem::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(al_is_font_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   initialized = true;
+   return;
+}
+
 void DialogSystem::update()
 {
    if (!(initialized))
@@ -57,28 +99,10 @@ void DialogSystem::update()
 
 void DialogSystem::render()
 {
-   if (!(al_is_system_installed()))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "DialogSystem" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(al_is_primitives_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "DialogSystem" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(al_is_font_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "DialogSystem" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "DialogSystem" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "DialogSystem" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
    // render the active dialog
