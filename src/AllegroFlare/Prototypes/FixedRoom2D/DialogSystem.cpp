@@ -215,15 +215,7 @@ bool DialogSystem::process_script_event(AllegroFlare::GameEventDatas::Base* game
          AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
              static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
 
-         AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-         if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
-
-         // TODO: add an item to the inventory here (currently it is added at script event assembly and emit time)
-         // HERE:
-         // Use "AllegroFlare::InventoryDictionaryItems::WithAttributes" class InventoryItem
-         // to extract properties to create dialog
-
-         active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
+         spawn_you_got_an_item_dialog(
                "Keys",
                "key-keychain-house-keys-door-photo-pixabay-25.png"
             );
@@ -320,6 +312,25 @@ void DialogSystem::emit_dialog_switch_out_event()
    event_emitter->emit_game_event(AllegroFlare::GameEvent(
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME
    ));
+   return;
+}
+
+void DialogSystem::spawn_you_got_an_item_dialog(std::string item_name, std::string item_bitmap_identifier)
+{
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
+         "Keys",
+         "key-keychain-house-keys-door-photo-pixabay-25.png"
+      );
+
+   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   {
+      emit_dialog_switch_in_event();
+   }
    return;
 }
 
