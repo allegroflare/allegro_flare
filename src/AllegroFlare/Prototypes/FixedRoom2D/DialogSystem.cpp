@@ -286,11 +286,8 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
          shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
                             // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
       }
-      if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
+      else if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
       {
-         // HERE:
-         if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
-
          DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
             static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
 
@@ -298,9 +295,6 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
             dialog_event_data->get_evidence_name(),
             dialog_event_data->get_evidence_bitmap_identifier()
          );
-
-         // TODO:
-         // emit_dialog_system_switch_in_event() (if not currently active, or, possibly do it in the function)
       }
       else
       {
@@ -332,10 +326,9 @@ void DialogSystem::emit_dialog_switch_out_event()
 void DialogSystem::spawn_you_got_new_evidence_dialog(std::string evidence_name, std::string evidence_bitmap_identifier)
 {
    bool a_dialog_existed_before = a_dialog_is_active();
-
-   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
 
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
          evidence_name,
          evidence_bitmap_identifier
