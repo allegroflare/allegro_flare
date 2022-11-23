@@ -135,31 +135,40 @@ functions:
                    << "script_event_data to be valid but it is nullptr" << std::endl;
          return;
       }
+      if (!game_event_data->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::process_dialog_event]: error: "
+                       << "Expecting \"game_event_data\" to be of type DIALOG_EVENT_NAME but it is of type "
+                       << "\"" << game_event_data->get_type() << "\". Aborting.";
+         throw std::runtime_error(error_message.str());
+      }
+
+      // handle *all* the different DIALOG_EVENT_NAME types
+
+      if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
+      {
+         shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
+                            // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
+      }
+      else if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
+      {
+         DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
+            static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
+
+         spawn_you_got_new_evidence_dialog(
+            dialog_event_data->get_evidence_name(),
+            dialog_event_data->get_evidence_bitmap_identifier()
+         );
+      }
       else
       {
-         if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
-         {
-            shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
-                               // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
-         }
-         else if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
-         {
-            DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
-               static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
-
-            spawn_you_got_new_evidence_dialog(
-               dialog_event_data->get_evidence_name(),
-               dialog_event_data->get_evidence_bitmap_identifier()
-            );
-         }
-         else
-         {
-            std::cout << "[FixedRoom2D::DialogSystem::process_dialog_event]: error: "
-                      << "Unknown game_event_data type "
-                      << "\"" << game_event_data->get_type() << "\""
-                      << std::endl;
-         }
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::process_dialog_event]: error: "
+                       << "Unhandled game_event_data type \"" << game_event_data->get_type() << "\". Aborting.";
+         throw std::runtime_error(error_message.str());
       }
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
