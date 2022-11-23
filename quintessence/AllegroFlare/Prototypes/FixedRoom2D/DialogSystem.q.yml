@@ -69,7 +69,6 @@ functions:
        - font_bin
        - event_emitter
     body: |
-      // TODO: enable setting font_bin, bitmap_bin, event_emitter before initialization
       initialized = true;
       return;
 
