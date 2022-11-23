@@ -157,7 +157,6 @@ void DialogSystem::render()
       error_message << "DialogSystem" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // render the active dialog
    if (active_dialog)
    {
       AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
@@ -284,14 +283,8 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
    {
       if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
       {
-         shutdown_dialog();
-         // TODO: if there are no more dialogs, emit a "dialog_switch_out" (or something similar) event.
-         // A "dialog_switch_out" event would do the following:
-         // - resume_all_rooms()
-         // - if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
-
-         // TODO:
-         // emit_dialog_system_switch_out_event() (if not currently active)
+         shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
+                            // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
       }
       if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
       {
@@ -338,7 +331,8 @@ void DialogSystem::emit_dialog_switch_out_event()
 
 void DialogSystem::spawn_you_got_new_evidence_dialog(std::string evidence_name, std::string evidence_bitmap_identifier)
 {
-   // HERE:
+   bool a_dialog_existed_before = a_dialog_is_active();
+
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
 
@@ -347,8 +341,11 @@ void DialogSystem::spawn_you_got_new_evidence_dialog(std::string evidence_name, 
          evidence_bitmap_identifier
       );
 
-   // TODO:
-   // emit_dialog_system_switch_in_event() (if not currently active)
+   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   {
+      emit_dialog_switch_in_event();
+   }
    return;
 }
 
@@ -491,6 +488,7 @@ bool DialogSystem::shutdown_dialog()
    if (!active_dialog) return false;
    delete active_dialog;
    active_dialog = nullptr;
+   emit_dialog_switch_out_event();
    return true;
 }
 

@@ -405,7 +405,7 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
    }
    else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME))
    {
-      // TODO: here
+      suspend_all_rooms();
    }
    else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME))
    {
@@ -418,6 +418,7 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
       // to dialog_system to process_dialog_event(). It's more likely that the dialog_system will need to
       // consume the incoming game_event on its own, rather than have FixedRoom2D dispatch/delegeate to it here
       // like it's doing now.  Please review and improve.
+      // HERE:
       dialog_system.process_dialog_event(game_event->get_data());
       process_dialog_event(game_event->get_data());
    }
@@ -544,7 +545,7 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
       else
       {
          bool a_new_dialog_was_spawned = dialog_system.process_script_event(game_event_data);
-         if (a_new_dialog_was_spawned) suspend_all_rooms();
+         //if (a_new_dialog_was_spawned) suspend_all_rooms();
 
          // TODO: fix this design flaw:
          // NOTE: this cout section below represents a fracture in design since delegating dialog management to
