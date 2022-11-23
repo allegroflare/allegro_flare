@@ -509,6 +509,7 @@ functions:
         default_argument: nullptr
     guards: [ initialized ]
     body: |
+      //bool a_new_dialog_was_spawned = false;
       using namespace AllegroFlare::Prototypes::FixedRoom2D;
 
       if (!game_event_data)
@@ -526,11 +527,42 @@ functions:
 
             enter_room(room_name_to_enter);
          }
+         else if (game_event_data->is_type(ScriptEventDatas::InitiateDialog::TYPE))
+         {
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog* spawn_dialog_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::InitiateDialog*>(game_event_data);
+            std::vector<std::string> pages = spawn_dialog_event_data->get_dialog_pages();
+
+            // TODO: move this to emitting an event
+            dialog_system.spawn_basic_dialog(pages);
+         }
+         else if (game_event_data->is_type(ScriptEventDatas::CollectItem::TYPE))
+         {
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem* collect_item_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectItem*>(game_event_data);
+
+            // TODO: move this to emitting an event
+            dialog_system.spawn_you_got_an_item_dialog(
+                  "Keys",
+                  "key-keychain-house-keys-door-photo-pixabay-25.png"
+               );
+         }
+         else if (game_event_data->is_type(ScriptEventDatas::CollectEvidence::TYPE))
+         {
+            // HERE: blast this code and replace with code to emit a CreateYouGotNewEvidenceDialog
+            // note this logic will be moved to FixedRoom2D/FixedRoom2D
+
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence* collect_evidence_event_data =
+                static_cast<AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence*>(game_event_data);
+
+            // TODO: move this to emitting an event
+            dialog_system.spawn_you_got_new_evidence_dialog(
+                  "Evidence Name",
+                  "evidence-placeholder-480x300.png"
+               );
+         }
          else
          {
-            bool a_new_dialog_was_spawned = dialog_system.process_script_event(game_event_data);
-            //if (a_new_dialog_was_spawned) suspend_all_rooms();
-
             // TODO: fix this design flaw:
             // NOTE: this cout section below represents a fracture in design since delegating dialog management to
             // the dialog_system.  There's currently no way to know if the "process_script_event" was handled
