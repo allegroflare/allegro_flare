@@ -77,10 +77,6 @@ properties:
     type: AllegroFlare::Prototypes::FixedRoom2D::DialogSystem
     init_with: nullptr
 
-  - name: active_dialog
-    type: AllegroFlare::Elements::DialogBoxes::Base*
-    init_with: nullptr
-
   - name: paused
     type: bool
     init_with: false
@@ -232,13 +228,10 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
-      //room.update();
       update_all_rooms();
 
-      //if (active_dialog) active_dialog->update();
       dialog_system.update();
 
-      //inventory_window.update();
       return;
 
 
@@ -340,16 +333,8 @@ functions:
          render_void_room();
       }
 
-      // render the active dialog
-      //if (active_dialog)
-      //{
-         //AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
-         //dialog_box_renderer.render();
-      //}
+      // render the dialog_system
       dialog_system.render();
-
-      //// render the inventory window
-      //inventory_window.render();
 
       // render paused notification
       if (paused)
@@ -394,9 +379,12 @@ functions:
       }
       else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
       {
+         // TODO: Address how this current design requires calling these two methods here, specifically delegating
+         // to dialog_system to process_dialog_event(). It's more likely that the dialog_system will need to
+         // consume the incoming game_event on its own, rather than have FixedRoom2D dispatch/delegeate to it here
+         // like it's doing now.  Please review and improve.
          dialog_system.process_dialog_event(game_event->get_data());
          process_dialog_event(game_event->get_data());
-         //dialog_system.process_dialog_event(game_event->get_data());
       }
       else if (game_event->is_type("unpause_game"))
       {
@@ -475,16 +463,16 @@ functions:
       }
       else
       {
+         // TODO: This event should be replaced with a "resume_from_dialog_suspend" type of event that is dispatched
+         // from something handling it.  It's possible that either:
+         //   - The CloseDialog event could be processed (query dialog_system and ask if currrently blocked)
+         //     and then infer to resume rooms
+         //   - A new "resume" event is dispached from the dialog_system when there are no dialogs present.  That
+         //     event would be handled here and the FixedRoom2D would suspend appropriately.
+         //   - Some other design that handles dialog actions/reactions externally a layer out.
          if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
          {
-            //DialogEventDatas::CloseDialog* close_dialog_event_data =
-               //static_cast<DialogEventDatas::CloseDialog*>(game_event_data);
-
-            //shutdown_dialog();
-
-            // HERE: handle this event:
             resume_all_rooms();
-            // HERE: handle this event:
             if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
          }
          else
@@ -641,65 +629,10 @@ functions:
       return;
 
 
-  - name: dialog_advance
-    guards: [ initialized ]
-    body: |
-      dialog_system.dialog_advance();
-      return;
-
-      //if (inventory_window.get_active()) return;
-      if (!active_dialog) return;
-
-      // TODO: modify this branching notation to a map<string, function>
-      // TODO: account for different dialog types
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-      {
-         dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
-      }
-      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
-      {
-         dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
-      }
-      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
-      {
-         dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->advance();
-      }
-      else
-      {
-         // TODO: test this condition
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_advance: ERROR: "
-                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
-
-
   - name: dialog_cursor_up
     guards: [ initialized ]
     body: |
       dialog_system.dialog_cursor_up();
-      return;
-
-      //if (inventory_window.get_active()) return;
-      if (!active_dialog) return;
-
-      // TODO: modify this branching notation to a map<string, function>
-      // TODO: account for different dialog types
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-      {
-         // do nothing
-      }
-      else
-      {
-         // TODO: test this condition
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_cursor_up: ERROR: "
-                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
       return;
 
 
@@ -707,25 +640,6 @@ functions:
     guards: [ initialized ]
     body: |
       dialog_system.dialog_cursor_down();
-      return;
-
-      //if (inventory_window.get_active()) return;
-      if (!active_dialog) return;
-
-      // TODO: modify this branching notation to a map<string, function>
-      // TODO: account for different dialog types
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-      {
-         // do nothing
-      }
-      else
-      {
-         // TODO: test this condition
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_cursor_down: ERROR: "
-                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
       return;
 
 
@@ -736,59 +650,12 @@ functions:
       return dialog_system.dialog_is_finished();
 
 
-      if (!active_dialog) return true;
-
-      // TODO: modify this branching notation to a map<string, function>
-      // TODO: account for different dialog types
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-      {
-         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
-      }
-      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
-      {
-         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->get_finished();
-      }
-      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
-      {
-         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->get_finished();
-      }
-      else
-      {
-         // TODO: test this condition
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_is_finished: ERROR: "
-                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
-      return true;
-
-
-  - name: shutdown_dialog
-    type: bool
-    guards: [ initialized ]
-    body: |
-      return dialog_system.shutdown_dialog();
-
-
-      if (!active_dialog) return false;
-      delete active_dialog;
-      active_dialog = nullptr;
-      return true;
-
-
   - name: activate_primary_action
     guards: [ initialized ]
     body: |
-      //if (inventory_window.get_active())
-      //{
-         //// IDEA: inventory_window.select_item_currently_under_cursor();
-      //}
-      //else if (active_dialog)
       if (dialog_system.a_dialog_is_active())
       {
-         dialog_advance();
-         //dialog_system.dialog_advance();
-         //if (dialog_is_finished())
+         dialog_system.dialog_advance();
          if (dialog_system.dialog_is_finished())
          {
             emit_close_current_active_dialog_event(); //(active_dialog);
@@ -828,10 +695,6 @@ functions:
       dialog_system.move_cursor_up();
       return;
 
-      //if (inventory_window.get_active()) inventory_window.move_cursor_up();
-      if (active_dialog) dialog_cursor_up();
-      return;
-
 
   - name: move_cursor_down
     guards: [ initialized ]
@@ -840,22 +703,15 @@ functions:
       return;
 
 
-      //if (inventory_window.get_active()) inventory_window.move_cursor_down();
-      if (active_dialog) dialog_cursor_down();
-      return;
-
-
   - name: move_cursor_left
     guards: [ initialized ]
     body: |
-      //if (inventory_window.get_active()) inventory_window.move_cursor_left();
       return;
 
 
   - name: move_cursor_right
     guards: [ initialized ]
     body: |
-      //if (inventory_window.get_active()) inventory_window.move_cursor_right();
       return;
 
 

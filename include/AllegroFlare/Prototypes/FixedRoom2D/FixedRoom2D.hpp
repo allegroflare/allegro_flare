@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEvent.hpp>
@@ -49,7 +48,6 @@ namespace AllegroFlare
             AllegroFlare::Shader* room_shader;
             bool initialized;
             AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
-            AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
             bool paused;
             std::set<std::string> subscribed_to_game_event_names;
             void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
@@ -91,11 +89,9 @@ namespace AllegroFlare
             void resume_all_rooms();
             void pause_game();
             void unpause_game();
-            void dialog_advance();
             void dialog_cursor_up();
             void dialog_cursor_down();
             bool dialog_is_finished();
-            bool shutdown_dialog();
             void activate_primary_action();
             void emit_close_current_active_dialog_event();
             void move_cursor_up();
