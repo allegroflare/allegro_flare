@@ -30,9 +30,10 @@ namespace FixedRoom2D
 {
 
 
-DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
+   , event_emitter(event_emitter)
    , active_dialog(nullptr)
    , initialized(false)
 {
@@ -53,6 +54,12 @@ void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 void DialogSystem::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
+}
+
+
+void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
 }
 
 
@@ -100,7 +107,13 @@ void DialogSystem::initialize()
       error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   // TODO: enable setting font_bin and bitmap_bin before initialization
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "DialogSystem" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   // TODO: enable setting font_bin, bitmap_bin, event_emitter before initialization
    initialized = true;
    return;
 }
@@ -269,7 +282,6 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
       if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
       {
          // HERE:
-         //AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
          if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
 
          DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
@@ -291,6 +303,22 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
                    << std::endl;
       }
    }
+   return;
+}
+
+void DialogSystem::emit_dialog_switch_in_event()
+{
+   event_emitter->emit_game_event(AllegroFlare::GameEvent(
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME
+   ));
+   return;
+}
+
+void DialogSystem::emit_dialog_switch_out_event()
+{
+   event_emitter->emit_game_event(AllegroFlare::GameEvent(
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME
+   ));
    return;
 }
 

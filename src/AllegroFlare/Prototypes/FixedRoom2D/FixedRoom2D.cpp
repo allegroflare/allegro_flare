@@ -157,12 +157,15 @@ void FixedRoom2D::initialize()
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME,
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME,
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME,
       "pause_game",
       "unpause_game",
    };
 
    dialog_system.set_bitmap_bin(bitmap_bin);
    dialog_system.set_font_bin(font_bin);
+   dialog_system.set_event_emitter(event_emitter);
    dialog_system.initialize();
 
    //inventory_window.set_font_bin(font_bin);
@@ -399,6 +402,15 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
    else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME))
    {
       process_script_event(game_event->get_data());
+   }
+   else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME))
+   {
+      // TODO: here
+   }
+   else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME))
+   {
+      resume_all_rooms();
+      if (script_runner.get_paused_for_dialog_to_finish()) script_runner.play_or_resume();
    }
    else if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
    {

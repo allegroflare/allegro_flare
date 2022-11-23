@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
@@ -21,6 +22,7 @@ namespace AllegroFlare
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
+            AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
             bool initialized;
             ALLEGRO_FONT* obtain_font();
@@ -29,11 +31,12 @@ namespace AllegroFlare
 
 
          public:
-            DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
+            DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             ~DialogSystem();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
+            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             AllegroFlare::Elements::DialogBoxes::Base* &get_active_dialog_ref();
             void initialize();
             void update();
@@ -42,6 +45,8 @@ namespace AllegroFlare
             void process_game_event(AllegroFlare::GameEvent* game_event=nullptr);
             bool process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
+            void emit_dialog_switch_in_event();
+            void emit_dialog_switch_out_event();
             void spawn_you_got_new_evidence_dialog(std::string evidence_name="[unset-evidence_name]", std::string evidence_bitmap_identifier="[unset-evidence_bitmap_identifier]");
             void dialog_advance();
             void dialog_cursor_up();

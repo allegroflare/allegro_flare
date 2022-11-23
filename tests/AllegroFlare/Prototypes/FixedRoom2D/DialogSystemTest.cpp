@@ -92,10 +92,34 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest, initialize__without
 }   
 
 
+TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest, initialize__without_an_event_emitter__raises_an_error)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   AllegroFlare::BitmapBin bitmap_bin;
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
+   dialog_system.set_bitmap_bin(&bitmap_bin);
+   dialog_system.set_font_bin(&font_bin);
+   std::string expected_error_message =
+      "DialogSystem::initialize: error: guard \"event_emitter\" not met";
+   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   al_shutdown_font_addon();
+   al_shutdown_primitives_addon();
+   al_uninstall_system();
+}
+
+
 TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTestWithAllegroRenderingFixture,
    CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      &event_emitter
+   );
    dialog_system.initialize();
    dialog_system.render();
    al_flip_display();

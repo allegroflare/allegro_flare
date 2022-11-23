@@ -13,6 +13,12 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: active_dialog
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
@@ -34,8 +40,9 @@ functions:
        - al_is_font_addon_initialized()
        - bitmap_bin
        - font_bin
+       - event_emitter
     body: |
-      // TODO: enable setting font_bin and bitmap_bin before initialization
+      // TODO: enable setting font_bin, bitmap_bin, event_emitter before initialization
       initialized = true;
       return;
 
@@ -209,7 +216,6 @@ functions:
          if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
          {
             // HERE:
-            //AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
             if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
 
             DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
@@ -235,6 +241,22 @@ functions:
     body_dependency_symbols:
       - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
       - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotEvidenceDialog
+
+
+  - name: emit_dialog_switch_in_event
+    body: |
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME
+      ));
+      return;
+
+
+  - name: emit_dialog_switch_out_event
+    body: |
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME
+      ));
+      return;
 
 
   - name: spawn_you_got_new_evidence_dialog
@@ -465,5 +487,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxFactory.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotEvidenceDialog
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 
 

@@ -7351,6 +7351,10 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
   <td class="property">active_dialog</td>
   <td class="property">AllegroFlare::Elements::DialogBoxes::Base*</td>
 </tr>
@@ -7380,6 +7384,12 @@ table td
 </tr>
 <tr>
   <td class="method">process_dialog_event(1)</td>
+</tr>
+<tr>
+  <td class="method">emit_dialog_switch_in_event()</td>
+</tr>
+<tr>
+  <td class="method">emit_dialog_switch_out_event()</td>
 </tr>
 <tr>
   <td class="method">spawn_you_got_new_evidence_dialog(2)</td>
@@ -7478,6 +7488,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotEvidenceDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15932,6 +15945,7 @@ table td
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
