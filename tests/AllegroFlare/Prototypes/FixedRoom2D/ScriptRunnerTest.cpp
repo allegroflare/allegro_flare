@@ -4,6 +4,19 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
 
 
+static bool my_custom_bool_eval_func(
+      std::string expression="[unset-expression]",
+      AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner* script_runner=nullptr,
+      void* user_data=nullptr
+   )
+{
+   if (expression == "expression_that_evaluates_to_true") return true;
+   if (expression == "expression_that_evaluates_to_false") return false;
+
+   throw std::runtime_error("The expression could not be evaluated.");
+}
+
+
 TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner;
@@ -210,18 +223,81 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
 
 
 TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
-   play_or_resume__when_an_IF_command_is_present_with_a_true_expression__will_evalute_the_true_consequence)
+   DISABLED__play_or_resume__when_an_IF_command_is_present_with_a_true_expression__will_evalute_the_true_consequence)
 {
-   std::string script_line = "IF: expression_that_evaluates_to_true | SIGNAL: it was true. | SIGNAL: it was false.\n";
+   std::string script_line = "IF: expression_that_evaluates_to_true | SIGNAL: It was true. | SIGNAL: It was false.\n";
    AllegroFlare::EventEmitter event_emitter;
    std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary;
    AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner(&event_emitter, &script_dictionary);
+
+   script_runner.set_bool_eval_func(my_custom_bool_eval_func);
 
    testing::internal::CaptureStdout();
    script_runner.parse_and_run_line(script_line);
    std::string cout_output = testing::internal::GetCapturedStdout();
 
-   EXPECT_EQ("it was true.\n", cout_output);
+   EXPECT_EQ("It was true.\n", cout_output);
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   DISABLED__play_or_resume__when_an_IF_command_is_present_with_a_false_expression__will_evalute_the_false_consequence)
+{
+   std::string script_line = "IF: expression_that_evaluates_to_false | SIGNAL: It was true. | SIGNAL: It was false.";
+   AllegroFlare::EventEmitter event_emitter;
+   std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary;
+   AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner(&event_emitter, &script_dictionary);
+
+   script_runner.set_bool_eval_func(my_custom_bool_eval_func);
+
+   testing::internal::CaptureStdout();
+   script_runner.parse_and_run_line(script_line);
+   std::string cout_output = testing::internal::GetCapturedStdout();
+
+   EXPECT_EQ("It was false.\n", cout_output);
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   play_or_resume__will_skip_over_blank_lines)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   play_or_resume__when_an_IF_command_is_present__will_continue_to_the_next_line_after_evaluating_the_consequence)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary;
+   AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner(&event_emitter, &script_dictionary);
+
+   std::vector<std::string> script_lines = {
+      "IF: expression_that_evaluates_to_false | GOTO_MARKER: #MARKER_A | GOTO_MARKER: #MARKER_B",
+      "",
+      "MARKER: #MARKER_A",
+      "   SIGNAL: Played marker a.",
+      "   GOTO_MARKER: #MARKER_AB_END",
+      "MARKER: #MARKER_B",
+      "   SIGNAL: Played marker b.",
+      "   GOTO_MARKER: #MARKER_AB_END",
+      "MARKER: #MARKER_AB_END",
+      "",
+      "SIGNAL: Finished script.",
+   };
+
+   // load the script lines
+   script_runner.load_script_lines(script_lines);
+
+   // set our custom eval function
+   script_runner.set_bool_eval_func(my_custom_bool_eval_func);
+
+   // capture the test output
+   testing::internal::CaptureStdout();
+   script_runner.play_or_resume();
+   std::string cout_output = testing::internal::GetCapturedStdout();
+
+   EXPECT_EQ("Played marker b.\nFinished script.\n", cout_output);
 }
 
 

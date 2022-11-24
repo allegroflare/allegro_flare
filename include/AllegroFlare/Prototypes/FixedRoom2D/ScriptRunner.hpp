@@ -28,6 +28,7 @@ namespace AllegroFlare
             void* bool_eval_func_user_data;
             bool script_freshly_loaded_via_OPEN_SCRIPT;
             bool paused_for_dialog_to_finish;
+            bool debug_output;
             void emit_script_event(AllegroFlare::GameEventDatas::Base* event_data=nullptr);
             static std::vector<std::string> split(std::string string="", char delimiter=' ');
             static std::string trim(std::string s="");
@@ -45,10 +46,13 @@ namespace AllegroFlare
             void set_bool_eval_func_user_data(void* bool_eval_func_user_data);
             void set_script_freshly_loaded_via_OPEN_SCRIPT(bool script_freshly_loaded_via_OPEN_SCRIPT);
             void set_paused_for_dialog_to_finish(bool paused_for_dialog_to_finish);
+            void set_debug_output(bool debug_output);
             std::function<bool(std::string, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*, void*)> get_bool_eval_func() const;
             void* get_bool_eval_func_user_data() const;
             bool get_script_freshly_loaded_via_OPEN_SCRIPT() const;
             bool get_paused_for_dialog_to_finish() const;
+            bool get_debug_output() const;
+            AllegroFlare::Prototypes::FixedRoom2D::Script &get_current_internally_running_script_ref();
             bool load_script_by_dictionary_name(std::string script_dictionary_name="[unset-script_dictionary_name]");
             bool load_script_lines(std::vector<std::string> script_lines={});
             void play_or_resume();

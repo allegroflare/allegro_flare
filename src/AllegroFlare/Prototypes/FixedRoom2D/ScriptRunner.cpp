@@ -28,6 +28,7 @@ ScriptRunner::ScriptRunner(AllegroFlare::EventEmitter* event_emitter, std::map<s
    , bool_eval_func_user_data(nullptr)
    , script_freshly_loaded_via_OPEN_SCRIPT(false)
    , paused_for_dialog_to_finish(false)
+   , debug_output(false)
 {
 }
 
@@ -73,6 +74,12 @@ void ScriptRunner::set_paused_for_dialog_to_finish(bool paused_for_dialog_to_fin
 }
 
 
+void ScriptRunner::set_debug_output(bool debug_output)
+{
+   this->debug_output = debug_output;
+}
+
+
 std::function<bool(std::string, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*, void*)> ScriptRunner::get_bool_eval_func() const
 {
    return bool_eval_func;
@@ -94,6 +101,18 @@ bool ScriptRunner::get_script_freshly_loaded_via_OPEN_SCRIPT() const
 bool ScriptRunner::get_paused_for_dialog_to_finish() const
 {
    return paused_for_dialog_to_finish;
+}
+
+
+bool ScriptRunner::get_debug_output() const
+{
+   return debug_output;
+}
+
+
+AllegroFlare::Prototypes::FixedRoom2D::Script &ScriptRunner::get_current_internally_running_script_ref()
+{
+   return current_internally_running_script;
 }
 
 
@@ -222,9 +241,20 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    std::string command = command_and_argument.first;
    std::string argument = command_and_argument.second;
 
+   if (debug_output) std::cout << "EVALUATING(" << line_num << "): " << raw_script_line << std::endl;
 
+
+   // skip blank lines
+   if (command.empty() && argument.empty())
+   {
+      continue_directly_to_next_script_line = true;
+      return continue_directly_to_next_script_line;
+   }
+
+   // autoset a line without a command as a DIALOG command
    if (auto_assume_uncommanded_line_is_dialog && command.empty()) command = DIALOG;
 
+   // evaluate the different commands
    if (command == DIALOG)
    {
       std::vector<std::string> tokens = tokenize(argument);
@@ -263,15 +293,15 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
          // run "true statement" (probably a GOTO)
          std::string if_condition_true_expression = tokens[1];
          parse_and_run_line(if_condition_true_expression, line_num, auto_assume_uncommanded_line_is_dialog);
-         continue_directly_to_next_script_line = true;
       }
       else
       {
          // run "false statement" (probably a GOTO)
          std::string if_condition_false_expression = tokens[2];
          parse_and_run_line(if_condition_false_expression, line_num, auto_assume_uncommanded_line_is_dialog);
-         continue_directly_to_next_script_line = true;
       }
+
+      continue_directly_to_next_script_line = true;
    }
    else if (command == ENTER_ROOM)
    {
@@ -360,9 +390,12 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       bool successful = current_internally_running_script.goto_marker(argument);
       if (!successful)
       {
-         std::cout << "WARNING: Attempted to GOTO_MARKER a marker named \"" << argument << "\" "
-                   << "but that marker does not exist. This is from line ["
-                   << line_num << "], which is \"" << script_line << "\"" << std::endl;
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner] error: "
+                       << "Attempted to GOTO_MARKER a marker named \"" << argument << "\" "
+                       << "but that marker does not exist. This is from line ["
+                       << line_num << "], which is \"" << script_line << "\"" << std::endl;
+         throw std::runtime_error(error_message.str());
       }
       continue_directly_to_next_script_line = true;
    }

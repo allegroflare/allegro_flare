@@ -16,6 +16,7 @@ properties:
   - name: current_internally_running_script
     type: AllegroFlare::Prototypes::FixedRoom2D::Script
     init_with: ''
+    getter_ref: true
 
   - name: bool_eval_func
     type: std::function<bool(std::string, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*, void*)>
@@ -36,6 +37,12 @@ properties:
     setter: true
 
   - name: paused_for_dialog_to_finish
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: debug_output
     type: bool
     init_with: false
     getter: true
@@ -186,9 +193,20 @@ functions:
       std::string command = command_and_argument.first;
       std::string argument = command_and_argument.second;
 
+      if (debug_output) std::cout << "EVALUATING(" << line_num << "): " << raw_script_line << std::endl;
 
+
+      // skip blank lines
+      if (command.empty() && argument.empty())
+      {
+         continue_directly_to_next_script_line = true;
+         return continue_directly_to_next_script_line;
+      }
+
+      // autoset a line without a command as a DIALOG command
       if (auto_assume_uncommanded_line_is_dialog && command.empty()) command = DIALOG;
 
+      // evaluate the different commands
       if (command == DIALOG)
       {
          std::vector<std::string> tokens = tokenize(argument);
@@ -227,15 +245,15 @@ functions:
             // run "true statement" (probably a GOTO)
             std::string if_condition_true_expression = tokens[1];
             parse_and_run_line(if_condition_true_expression, line_num, auto_assume_uncommanded_line_is_dialog);
-            continue_directly_to_next_script_line = true;
          }
          else
          {
             // run "false statement" (probably a GOTO)
             std::string if_condition_false_expression = tokens[2];
             parse_and_run_line(if_condition_false_expression, line_num, auto_assume_uncommanded_line_is_dialog);
-            continue_directly_to_next_script_line = true;
          }
+
+         continue_directly_to_next_script_line = true;
       }
       else if (command == ENTER_ROOM)
       {
@@ -324,9 +342,12 @@ functions:
          bool successful = current_internally_running_script.goto_marker(argument);
          if (!successful)
          {
-            std::cout << "WARNING: Attempted to GOTO_MARKER a marker named \"" << argument << "\" "
-                      << "but that marker does not exist. This is from line ["
-                      << line_num << "], which is \"" << script_line << "\"" << std::endl;
+            std::stringstream error_message;
+            error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner] error: "
+                          << "Attempted to GOTO_MARKER a marker named \"" << argument << "\" "
+                          << "but that marker does not exist. This is from line ["
+                          << line_num << "], which is \"" << script_line << "\"" << std::endl;
+            throw std::runtime_error(error_message.str());
          }
          continue_directly_to_next_script_line = true;
       }
