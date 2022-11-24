@@ -20,9 +20,9 @@ namespace FixedRoom2D
 {
 
 
-ScriptRunner::ScriptRunner()
-   : event_emitter(nullptr)
-   , script_dictionary(nullptr)
+ScriptRunner::ScriptRunner(AllegroFlare::EventEmitter* event_emitter, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary)
+   : event_emitter(event_emitter)
+   , script_dictionary(script_dictionary)
    , current_internally_running_script()
    , bool_eval_func(AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func)
    , bool_eval_func_user_data(nullptr)
@@ -238,9 +238,12 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    }
    else if (command == IF)
    {
-      if (argument.empty())
+      std::vector<std::string> tokens = tokenize(argument);
+      if (!assert_token_count_eq(tokens, 3))
       {
-         std::cout << "IF - expecting argument on line " << line_num << ", but it is empty." << std::endl;
+         std::cout << "IF - expecting argument on line " << line_num << " to contain 3 arguments, "
+                   << "(CONDITION_EXPRESSION | DO_IF_TRUE | DO_IF_FALSE), each expression separated "
+                   << "by the BAR character ('|'), but it does not match this format." << std::endl;
          return false;
       }
 
@@ -252,15 +255,22 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
          throw std::runtime_error(error_message.str());
       }
 
-      bool expression_result = bool_eval_func(argument, this, bool_eval_func_user_data);
+      std::string conditional_expression = tokens[0];
+      bool expression_result = bool_eval_func(conditional_expression, this, bool_eval_func_user_data);
 
       if (expression_result)
       {
-         // TODO: go to next line and play
+         // run "true statement" (probably a GOTO)
+         std::string if_condition_true_expression = tokens[1];
+         parse_and_run_line(if_condition_true_expression, line_num, auto_assume_uncommanded_line_is_dialog);
+         continue_directly_to_next_script_line = true;
       }
       else
       {
-         // TODO: jump to next ELSE or ELSE_IF
+         // run "false statement" (probably a GOTO)
+         std::string if_condition_false_expression = tokens[2];
+         parse_and_run_line(if_condition_false_expression, line_num, auto_assume_uncommanded_line_is_dialog);
+         continue_directly_to_next_script_line = true;
       }
    }
    else if (command == ENTER_ROOM)

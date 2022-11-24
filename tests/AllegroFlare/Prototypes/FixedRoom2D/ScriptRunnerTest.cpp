@@ -208,3 +208,20 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
    // note this is a private method test
 }
 
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   play_or_resume__when_an_IF_command_is_present_with_a_true_expression__will_evalute_the_true_consequence)
+{
+   std::string script_line = "IF: expression_that_evaluates_to_true | SIGNAL: it was true. | SIGNAL: it was false.\n";
+   AllegroFlare::EventEmitter event_emitter;
+   std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary;
+   AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner(&event_emitter, &script_dictionary);
+
+   testing::internal::CaptureStdout();
+   script_runner.parse_and_run_line(script_line);
+   std::string cout_output = testing::internal::GetCapturedStdout();
+
+   EXPECT_EQ("it was true.\n", cout_output);
+}
+
+

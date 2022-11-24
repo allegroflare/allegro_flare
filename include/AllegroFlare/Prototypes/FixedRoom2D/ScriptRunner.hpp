@@ -28,7 +28,6 @@ namespace AllegroFlare
             void* bool_eval_func_user_data;
             bool script_freshly_loaded_via_OPEN_SCRIPT;
             bool paused_for_dialog_to_finish;
-            bool parse_and_run_line(std::string raw_script_line="[empty-script-line]", int line_num=0, bool auto_assume_uncommanded_line_is_dialog=true);
             void emit_script_event(AllegroFlare::GameEventDatas::Base* event_data=nullptr);
             static std::vector<std::string> split(std::string string="", char delimiter=' ');
             static std::string trim(std::string s="");
@@ -37,7 +36,7 @@ namespace AllegroFlare
 
 
          public:
-            ScriptRunner();
+            ScriptRunner(AllegroFlare::EventEmitter* event_emitter=nullptr, std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script>* script_dictionary=nullptr);
             ~ScriptRunner();
 
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
@@ -54,6 +53,7 @@ namespace AllegroFlare
             bool load_script_lines(std::vector<std::string> script_lines={});
             void play_or_resume();
             static bool default_bool_eval_func(std::string expression="[unset-expression]", AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner* script_runner=nullptr, void* user_data=nullptr);
+            bool parse_and_run_line(std::string raw_script_line="[empty-script-line]", int line_num=0, bool auto_assume_uncommanded_line_is_dialog=true);
             static std::pair<std::string, std::string> parse_command_and_argument(std::string script_line={});
             static std::vector<std::string> tokenize(std::string str="", char delim='|');
             static bool assert_min_token_count(std::vector<std::string> tokens={}, int min=0);
