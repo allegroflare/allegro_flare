@@ -24,6 +24,8 @@ ScriptRunner::ScriptRunner()
    : event_emitter(nullptr)
    , script_dictionary(nullptr)
    , current_internally_running_script()
+   , bool_eval_func(AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func)
+   , bool_eval_func_user_data(nullptr)
    , script_freshly_loaded_via_OPEN_SCRIPT(false)
    , paused_for_dialog_to_finish(false)
 {
@@ -47,6 +49,18 @@ void ScriptRunner::set_script_dictionary(std::map<std::string, AllegroFlare::Pro
 }
 
 
+void ScriptRunner::set_bool_eval_func(std::function<bool(std::string, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*, void*)> bool_eval_func)
+{
+   this->bool_eval_func = bool_eval_func;
+}
+
+
+void ScriptRunner::set_bool_eval_func_user_data(void* bool_eval_func_user_data)
+{
+   this->bool_eval_func_user_data = bool_eval_func_user_data;
+}
+
+
 void ScriptRunner::set_script_freshly_loaded_via_OPEN_SCRIPT(bool script_freshly_loaded_via_OPEN_SCRIPT)
 {
    this->script_freshly_loaded_via_OPEN_SCRIPT = script_freshly_loaded_via_OPEN_SCRIPT;
@@ -56,6 +70,18 @@ void ScriptRunner::set_script_freshly_loaded_via_OPEN_SCRIPT(bool script_freshly
 void ScriptRunner::set_paused_for_dialog_to_finish(bool paused_for_dialog_to_finish)
 {
    this->paused_for_dialog_to_finish = paused_for_dialog_to_finish;
+}
+
+
+std::function<bool(std::string, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*, void*)> ScriptRunner::get_bool_eval_func() const
+{
+   return bool_eval_func;
+}
+
+
+void* ScriptRunner::get_bool_eval_func_user_data() const
+{
+   return bool_eval_func_user_data;
 }
 
 
@@ -146,6 +172,23 @@ void ScriptRunner::play_or_resume()
    return;
 }
 
+bool ScriptRunner::default_bool_eval_func(std::string expression, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner* script_runner, void* user_data)
+{
+   if (!((!expression.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "default_bool_eval_func" << ": error: " << "guard \"(!expression.empty())\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   if (!(script_runner))
+   {
+      std::stringstream error_message;
+      error_message << "ScriptRunner" << "::" << "default_bool_eval_func" << ": error: " << "guard \"script_runner\" not met";
+      throw std::runtime_error(error_message.str());
+   }
+   return true;
+}
+
 bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num, bool auto_assume_uncommanded_line_is_dialog)
 {
    if (!(script_dictionary))
@@ -170,6 +213,7 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
    std::string OPEN_SCRIPT = "OPEN_SCRIPT";
    std::string PLAY_SOUND_EFFECT = "PLAY_SOUND_EFFECT";
    std::string PLAY_MUSIC_TRACK = "PLAY_MUSIC_TRACK";
+   std::string IF = "IF";
 
    bool continue_directly_to_next_script_line = false;
 
@@ -191,6 +235,33 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       paused_for_dialog_to_finish = true; // should this be in the event processing?
 
       emit_script_event(initiate_dialog_event_data);
+   }
+   else if (command == IF)
+   {
+      if (argument.empty())
+      {
+         std::cout << "IF - expecting argument on line " << line_num << ", but it is empty." << std::endl;
+         return false;
+      }
+
+      if (!bool_eval_func)
+      {
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner error: "
+                    << "THING_THAT_HAPPENED";
+         throw std::runtime_error(error_message.str());
+      }
+
+      bool expression_result = bool_eval_func(argument, this, bool_eval_func_user_data);
+
+      if (expression_result)
+      {
+         // TODO: go to next line and play
+      }
+      else
+      {
+         // TODO: jump to next ELSE or ELSE_IF
+      }
    }
    else if (command == ENTER_ROOM)
    {

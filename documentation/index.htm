@@ -8516,6 +8516,14 @@ table td
   <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Script</td>
 </tr>
 <tr>
+  <td class="property">bool_eval_func</td>
+  <td class="property">std::function&lt;bool(std::string, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">bool_eval_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">script_freshly_loaded_via_OPEN_SCRIPT</td>
   <td class="property">bool</td>
 </tr>
@@ -8533,6 +8541,9 @@ table td
 </tr>
 <tr>
   <td class="method">play_or_resume()</td>
+</tr>
+<tr>
+  <td class="method">default_bool_eval_func(3)</td>
 </tr>
 <tr>
   <td class="private_method">parse_and_run_line(3)</td>
@@ -8595,6 +8606,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Script&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Script.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::function&quot;, &quot;headers&quot;=&gt;[&quot;functional&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -16291,6 +16308,7 @@ table td
   ],
   "std/function": [
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -16776,7 +16794,8 @@ table td
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room"
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",

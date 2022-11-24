@@ -15,6 +15,18 @@ properties:
     type: AllegroFlare::Prototypes::FixedRoom2D::Script
     init_with: ''
 
+  - name: bool_eval_func
+    type: std::function<bool(std::string, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*, void*)>
+    init_with: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func
+    getter: true
+    setter: true
+
+  - name: bool_eval_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: script_freshly_loaded_via_OPEN_SCRIPT
     type: bool
     init_with: false
@@ -26,6 +38,12 @@ properties:
     init_with: false
     getter: true
     setter: true
+
+
+todo:
+
+
+  - remove setter in "paused_for_dialog_to_finish"
 
 
 functions:
@@ -114,6 +132,24 @@ functions:
       - std::cout
 
 
+  - name: default_bool_eval_func
+    static: true
+    type: bool
+    parameters:
+      - name: expression
+        type: std::string
+        default_argument: '"[unset-expression]"'
+      - name: script_runner
+        type: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*
+        default_argument: nullptr
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ (!expression.empty()), script_runner ]
+    body: |
+      return true;
+
+
   - name: parse_and_run_line
     private: true
     type: bool
@@ -139,6 +175,7 @@ functions:
       std::string OPEN_SCRIPT = "OPEN_SCRIPT";
       std::string PLAY_SOUND_EFFECT = "PLAY_SOUND_EFFECT";
       std::string PLAY_MUSIC_TRACK = "PLAY_MUSIC_TRACK";
+      std::string IF = "IF";
 
       bool continue_directly_to_next_script_line = false;
 
@@ -160,6 +197,33 @@ functions:
          paused_for_dialog_to_finish = true; // should this be in the event processing?
 
          emit_script_event(initiate_dialog_event_data);
+      }
+      else if (command == IF)
+      {
+         if (argument.empty())
+         {
+            std::cout << "IF - expecting argument on line " << line_num << ", but it is empty." << std::endl;
+            return false;
+         }
+
+         if (!bool_eval_func)
+         {
+            std::stringstream error_message;
+            error_message << "AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner error: "
+                       << "THING_THAT_HAPPENED";
+            throw std::runtime_error(error_message.str());
+         }
+
+         bool expression_result = bool_eval_func(argument, this, bool_eval_func_user_data);
+
+         if (expression_result)
+         {
+            // TODO: go to next line and play
+         }
+         else
+         {
+            // TODO: jump to next ELSE or ELSE_IF
+         }
       }
       else if (command == ENTER_ROOM)
       {
@@ -476,5 +540,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/Inventory.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Script.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp ]
+  - symbol: std::function
+    headers: [ functional ]
 
 
