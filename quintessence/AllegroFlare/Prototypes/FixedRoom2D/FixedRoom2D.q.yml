@@ -49,6 +49,7 @@ properties:
   - name: script_runner
     type: AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner
     init_with: '{}'
+    getter_ref: true
 
   - name: entity_collection_helper
     type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper

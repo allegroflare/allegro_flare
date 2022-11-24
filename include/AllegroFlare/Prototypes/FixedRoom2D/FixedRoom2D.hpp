@@ -64,6 +64,7 @@ namespace AllegroFlare
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_room_shader(AllegroFlare::Shader* room_shader);
             AllegroFlare::Shader* get_room_shader() const;
+            AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner &get_script_runner_ref();
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &get_entity_collection_helper_ref();
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             std::set<std::string> get_subscribed_to_game_event_names();

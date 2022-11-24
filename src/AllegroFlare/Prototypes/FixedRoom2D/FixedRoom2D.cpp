@@ -83,6 +83,12 @@ AllegroFlare::Shader* FixedRoom2D::get_room_shader() const
 }
 
 
+AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner &FixedRoom2D::get_script_runner_ref()
+{
+   return script_runner;
+}
+
+
 AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &FixedRoom2D::get_entity_collection_helper_ref()
 {
    return entity_collection_helper;
