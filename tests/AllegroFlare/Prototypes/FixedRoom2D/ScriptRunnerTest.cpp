@@ -6,6 +6,14 @@
    catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
+template<typename T, typename... U>
+static size_t GET_FUNCTION_ADDRESS(std::function<T(U...)> f) {
+    typedef T(fnType)(U...);
+    fnType ** fnPointer = f.template target<fnType*>();
+    return (size_t) *fnPointer;
+}
+
+
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
 
@@ -290,14 +298,16 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
 
 
 TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
-   DISABLED__bool_eval_func__is_assigned_to__default_bool_eval_func__by_default)
+   bool_eval_func__is_assigned_to__default_bool_eval_func__by_default)
 {
    AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner;
-   // TODO: get this expression to evaluate
-   //EXPECT_EQ(
-      //AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func,
-      //script_runner.get_bool_eval_func()
-   //);
+
+   std::function<bool(std::string, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner*, void*)> expected_function =
+      AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func;
+   EXPECT_EQ(
+      GET_FUNCTION_ADDRESS(expected_function),
+      GET_FUNCTION_ADDRESS(script_runner.get_bool_eval_func())
+   );
 }
 
 
