@@ -1,6 +1,12 @@
 
 #include <gtest/gtest.h>
 
+#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
+   try { code; FAIL() << "Expected " # raised_exception_type; } \
+   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
+   catch (...) { FAIL() << "Expected " # raised_exception_type; }
+
+
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
 
 
@@ -262,6 +268,36 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
    play_or_resume__will_skip_over_blank_lines)
 {
    // TODO
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   default_bool_eval_func__throws_an_expected_error_when_called)
+{
+   std::string expected_error_message =
+      "[AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func] error: "
+      "ScripRunner is running with its default_bool_eval_func assigned to the the bool_eval_func. "
+      "You should create your own function (with the expected signature) and assign it to the "
+      "bool_eval_func so it can be used to evaluate the conditional logic in the context of your "
+      "game.";
+
+   EXPECT_THROW_WITH_MESSAGE(
+      AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func(),
+      std::runtime_error,
+      expected_error_message
+   );
+}
+
+
+TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptRunnerTest,
+   DISABLED__bool_eval_func__is_assigned_to__default_bool_eval_func__by_default)
+{
+   AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner;
+   // TODO: get this expression to evaluate
+   //EXPECT_EQ(
+      //AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func,
+      //script_runner.get_bool_eval_func()
+   //);
 }
 
 

@@ -154,7 +154,6 @@ functions:
       - name: user_data
         type: void*
         default_argument: nullptr
-    guards: [ (!expression.empty()), script_runner ]
     body: |
       std::stringstream error_message;
       error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func] error: "

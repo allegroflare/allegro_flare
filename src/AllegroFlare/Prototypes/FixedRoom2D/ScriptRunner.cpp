@@ -193,18 +193,6 @@ void ScriptRunner::play_or_resume()
 
 bool ScriptRunner::default_bool_eval_func(std::string expression, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner* script_runner, void* user_data)
 {
-   if (!((!expression.empty())))
-   {
-      std::stringstream error_message;
-      error_message << "ScriptRunner" << "::" << "default_bool_eval_func" << ": error: " << "guard \"(!expression.empty())\" not met";
-      throw std::runtime_error(error_message.str());
-   }
-   if (!(script_runner))
-   {
-      std::stringstream error_message;
-      error_message << "ScriptRunner" << "::" << "default_bool_eval_func" << ": error: " << "guard \"script_runner\" not met";
-      throw std::runtime_error(error_message.str());
-   }
    std::stringstream error_message;
    error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner::default_bool_eval_func] error: "
                  << "ScripRunner is running with its default_bool_eval_func assigned to the the bool_eval_func. "
