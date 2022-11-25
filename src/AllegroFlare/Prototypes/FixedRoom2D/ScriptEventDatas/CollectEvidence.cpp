@@ -15,9 +15,9 @@ namespace ScriptEventDatas
 {
 
 
-CollectEvidence::CollectEvidence(std::string item_dictionary_name_to_collect)
+CollectEvidence::CollectEvidence(std::string evidence_dictionary_name_to_collect)
    : AllegroFlare::GameEventDatas::Base(AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence::TYPE)
-   , item_dictionary_name_to_collect(item_dictionary_name_to_collect)
+   , evidence_dictionary_name_to_collect(evidence_dictionary_name_to_collect)
 {
 }
 
@@ -27,15 +27,15 @@ CollectEvidence::~CollectEvidence()
 }
 
 
-void CollectEvidence::set_item_dictionary_name_to_collect(std::string item_dictionary_name_to_collect)
+void CollectEvidence::set_evidence_dictionary_name_to_collect(std::string evidence_dictionary_name_to_collect)
 {
-   this->item_dictionary_name_to_collect = item_dictionary_name_to_collect;
+   this->evidence_dictionary_name_to_collect = evidence_dictionary_name_to_collect;
 }
 
 
-std::string CollectEvidence::get_item_dictionary_name_to_collect() const
+std::string CollectEvidence::get_evidence_dictionary_name_to_collect() const
 {
-   return item_dictionary_name_to_collect;
+   return evidence_dictionary_name_to_collect;
 }
 
 

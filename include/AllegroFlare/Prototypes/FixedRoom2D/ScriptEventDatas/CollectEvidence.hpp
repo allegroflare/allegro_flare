@@ -19,17 +19,17 @@ namespace AllegroFlare
                static constexpr char* TYPE = "ScriptEventDatas/CollectEvidence";
 
             private:
-               std::string item_dictionary_name_to_collect;
+               std::string evidence_dictionary_name_to_collect;
 
             protected:
 
 
             public:
-               CollectEvidence(std::string item_dictionary_name_to_collect="[unset-item_dictionary_name_to_collect]");
+               CollectEvidence(std::string evidence_dictionary_name_to_collect="[unset-evidence_dictionary_name_to_collect]");
                ~CollectEvidence();
 
-               void set_item_dictionary_name_to_collect(std::string item_dictionary_name_to_collect);
-               std::string get_item_dictionary_name_to_collect() const;
+               void set_evidence_dictionary_name_to_collect(std::string evidence_dictionary_name_to_collect);
+               std::string get_evidence_dictionary_name_to_collect() const;
             };
          }
       }

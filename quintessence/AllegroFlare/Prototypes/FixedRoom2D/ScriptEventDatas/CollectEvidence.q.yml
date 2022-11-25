@@ -9,9 +9,9 @@ parent_classes:
 properties:
 
 
-  - name: item_dictionary_name_to_collect
+  - name: evidence_dictionary_name_to_collect
     type: std::string
-    init_with: '"[unset-item_dictionary_name_to_collect]"'
+    init_with: '"[unset-evidence_dictionary_name_to_collect]"'
     constructor_arg: true
     getter: true
     setter: true

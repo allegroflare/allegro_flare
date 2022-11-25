@@ -13,6 +13,6 @@ TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptEventDatas_CollectEvidenceTest, c
 TEST(AllegroFlare_Prototypes_FixedRoom2D_ScriptEventDatas_CollectEvidenceTest, has_the_expected_type)
 {
    AllegroFlare::Prototypes::FixedRoom2D::ScriptEventDatas::CollectEvidence collect_evidence;
-   EXPECT_EQ("CollectEvidence", collect_evidence.get_type());
+   EXPECT_EQ("ScriptEventDatas/CollectEvidence", collect_evidence.get_type());
 }
 
