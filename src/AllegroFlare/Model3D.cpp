@@ -16,10 +16,42 @@
 namespace AllegroFlare
 {
    Model3D::Model3D()
-      : vertex_declaration(NULL)
+      : vertex_declaration(nullptr)
       , vertexes()
-      , texture(NULL)
+      , vertex_buffer(nullptr)
+      , texture(nullptr)
+      , named_objects()
+      , initialized(false)
    {
+      //build_vertex_declaration();
+   }
+
+
+
+
+   Model3D::~Model3D()
+   {
+      if (vertex_declaration) al_destroy_vertex_decl(vertex_declaration);
+   }
+
+
+   void Model3D::initialize()
+   {
+      if (initialized) throw std::runtime_error("[AllegroFlare::Model3D::initialize]: error: cannot initialize "
+                                                "more than once.");
+      if (!al_is_system_installed() || !al_is_primitives_addon_initialized() || !al_get_current_display())
+      {
+         throw std::runtime_error("[AllegroFlare::Model3D::initialize]: error: al_is_system_installed() or "
+                                  "al_is_primitives_addon_initialized() or al_get_current_display() not met.");
+      }
+      build_vertex_declaration();
+   }
+
+
+   void Model3D::build_vertex_declaration()
+   {
+      if (vertex_declaration) return;
+
       ALLEGRO_VERTEX_ELEMENT elems[] = {
          {ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, x)},
          {ALLEGRO_PRIM_TEX_COORD, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, u)},
@@ -34,16 +66,9 @@ namespace AllegroFlare
 
 
 
-   Model3D::~Model3D()
-   {
-      al_destroy_vertex_decl(vertex_declaration);
-   }
-
-
-
-
    bool Model3D::load_obj_file(const char *filename, float scale)
    {
+      validate_initialized_or_output_to_cerr("load_obj_file");
       Model3DObjLoader loader(this, filename, scale);
       return loader.load();
    }
@@ -60,8 +85,20 @@ namespace AllegroFlare
 
 
 
+   void Model3D::validate_initialized_or_output_to_cerr(std::string calling_function)
+   {
+      if (!initialized)
+      {
+         std::cerr << "[AllegroFlare::Model3D::" << calling_function << "]: error: initialized not met." << std::endl;
+      }
+   }
+
+
+
+
    void Model3D::clear()
    {
+      validate_initialized_or_output_to_cerr("clear");
       vertexes.clear();
       named_objects.clear();
    }
@@ -87,6 +124,7 @@ namespace AllegroFlare
 
    void Model3D::draw()
    {
+      validate_initialized_or_output_to_cerr("draw");
       if (vertexes.empty()) return;
 
       if (named_objects.empty())
@@ -109,6 +147,7 @@ namespace AllegroFlare
 
    bool Model3D::draw_object(int index)
    {
+      validate_initialized_or_output_to_cerr("draw_object");
       if (index < 0 || index > (int)named_objects.size()) return false;
 
       named_object &object = named_objects[index];
@@ -125,6 +164,7 @@ namespace AllegroFlare
 
    bool Model3D::draw_object(std::string name)
    {
+      validate_initialized_or_output_to_cerr("draw_object");
       bool object_exists = false;
       for (unsigned i=0; i<named_objects.size(); i++)
       {
@@ -142,6 +182,7 @@ namespace AllegroFlare
 
    void Model3D::set_texture(ALLEGRO_BITMAP *tx)
    {
+      validate_initialized_or_output_to_cerr("set_texture");
       texture = tx;
    }
 
@@ -150,6 +191,7 @@ namespace AllegroFlare
 
    bool Model3D::set_named_object_texture(int index, ALLEGRO_BITMAP *tx)
    {
+      validate_initialized_or_output_to_cerr("set_named_object_texture");
       if (index < 0 || index > (int)named_objects.size()) return false;
       named_objects[index].texture = tx;
       return true;
@@ -160,6 +202,7 @@ namespace AllegroFlare
 
    bool Model3D::set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx)
    {
+      validate_initialized_or_output_to_cerr("set_named_object_texture");
       bool object_exists = false;
       for (unsigned i=0; i<named_objects.size(); i++)
       {
@@ -177,6 +220,7 @@ namespace AllegroFlare
 
    void Model3D::scale(float scale)
    {
+      validate_initialized_or_output_to_cerr("scale");
       for (unsigned i=0; i<vertexes.size(); i++)
       {
          vertexes[i].x *= scale;
@@ -190,6 +234,7 @@ namespace AllegroFlare
 
    vec3d Model3D::get_min_vertex_coordinate()
    {
+      validate_initialized_or_output_to_cerr("get_min_vertex_coordinate");
       if (vertexes.empty()) return vec3d(0, 0, 0);
 
       vec3d min_coord = vec3d(vertexes[0].x, vertexes[0].y, vertexes[0].z);
@@ -207,6 +252,7 @@ namespace AllegroFlare
 
    vec3d Model3D::get_max_vertex_coordinate()
    {
+      validate_initialized_or_output_to_cerr("get_max_vertex_coordinate");
       if (vertexes.empty()) return vec3d(0, 0, 0);
 
       vec3d max_coord = vec3d(vertexes[0].x, vertexes[0].y, vertexes[0].z);

@@ -43,15 +43,21 @@ namespace AllegroFlare
          float v;
       };
 
+      bool initialized;
+      void validate_initialized_or_output_to_cerr(std::string calling_function);
+
    public:
       ALLEGRO_VERTEX_DECL *vertex_declaration;
       std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vertexes;
+      ALLEGRO_VERTEX_BUFFER *vertex_buffer;
       ALLEGRO_BITMAP *texture;
       std::vector<named_object> named_objects;
 
       Model3D();
       ~Model3D();
 
+      void initialize();
+      void build_vertex_declaration();
       bool load_obj_file(const char *filename, float scale=1.0);
       void inspect();
       void clear();
