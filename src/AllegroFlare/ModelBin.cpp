@@ -27,6 +27,7 @@ namespace AllegroFlare
    {
       validate();
       Model3D *m = new Model3D();
+      m->initialize();
       if (m->load_obj_file(identifier.c_str(), 1.0f)) return m;
       delete m;
       return NULL;
