@@ -57,8 +57,8 @@ namespace AllegroFlare
       void clear();
       int get_num_vertexes();
       int get_num_named_objects();
-      vec3d get_min_vertex_coordinate();
-      vec3d get_max_vertex_coordinate();
+      vec3d get_min_vertex_coordinate(); // should be renamed "calc_min_vertex..."
+      vec3d get_max_vertex_coordinate(); // should be renamed "calc_min_vertex..."
 
       void draw();
       bool draw_object(int index);
