@@ -45,6 +45,8 @@ namespace AllegroFlare
                                   "al_is_primitives_addon_initialized() or al_get_current_display() not met.");
       }
       build_vertex_declaration();
+
+      initialized = true;
    }
 
 
