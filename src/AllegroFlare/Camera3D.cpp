@@ -18,6 +18,7 @@ Camera3D::Camera3D()
    , stepout(0, 0, 0)
    , spin(0)
    , tilt(0)
+   , roll(0)
    , zoom(1.0) // note this is used in the scene renderer to setup the projection
 {}
 
@@ -35,6 +36,7 @@ void Camera3D::position_transform(ALLEGRO_TRANSFORM *t)
    al_translate_transform_3d(t, stepout.x, stepout.y, stepout.z);
    al_rotate_transform_3d(t, -1, 0, 0, tilt);
    al_rotate_transform_3d(t, 0, -1, 0, spin);
+   al_rotate_transform_3d(t, 0, 0, -1, roll);
    al_translate_transform_3d(t, position.x, position.y, position.z);
 }
 
@@ -46,6 +48,7 @@ void Camera3D::reverse_position_transform(ALLEGRO_TRANSFORM *t)
    al_identity_transform(t);
 
    al_translate_transform_3d(t, -position.x, -position.y, -position.z);
+   al_rotate_transform_3d(t, 0, 0, 1, roll);
    al_rotate_transform_3d(t, 0, 1, 0, spin);
    al_rotate_transform_3d(t, 1, 0, 0, tilt);
    al_translate_transform_3d(t, -stepout.x, -stepout.y, -stepout.z);

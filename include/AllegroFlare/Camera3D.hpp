@@ -14,6 +14,7 @@ namespace AllegroFlare
       AllegroFlare::vec3d stepout;
       float spin;
       float tilt;
+      float roll;
       float zoom;
 
       Camera3D();
