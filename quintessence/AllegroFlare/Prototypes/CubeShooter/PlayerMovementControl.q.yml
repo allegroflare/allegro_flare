@@ -1,0 +1,167 @@
+properties:
+
+
+  - name: player_controlled_entity
+    type: AllegroFlare::Prototypes::CubeShooter::Entity*
+    init_with: nullptr
+
+  - name: position
+    type: AllegroFlare::Vec3D*
+    init_with: nullptr
+
+  - name: velocity
+    type: AllegroFlare::Vec3D*
+    init_with: nullptr
+
+  - name: max_velocity_x
+    type: float
+    init_with: 0.06
+
+  - name: max_velocity_y
+    type: float
+    init_with: 0.045
+
+  - name: acceleration
+    type: float
+    init_with: 0.008
+
+  - name: thruster_max_velocity
+    type: float
+    init_with: 0.1
+    getter: true
+    setter: true
+
+  - name: thruster_acceleration_force
+    type: float
+    init_with: 0.008
+    getter: true
+    setter: true
+
+  - name: thruster_active
+    type: bool
+    init_with: false
+    setter: true
+
+  - name: moving_up
+    type: bool
+    init_with: false
+    setter: true
+
+  - name: moving_down
+    type: bool
+    init_with: false
+    setter: true
+
+  - name: moving_left
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: moving_right
+    type: bool
+    init_with: false
+    setter: true
+    getter: true
+
+  - name: firing_blaster
+    type: bool
+    init_with: false
+    setter: true
+
+  - name: blaster_fired_at
+    type: float
+    init_with: -999
+
+  - name: blaster_refire_rate
+    type: float
+    init_with: 0.2
+
+  - name: blaster_fired_on_last_update
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: max_x
+    type: float
+    init_with: 8.0f
+    getter: true
+    setter: true
+
+  - name: min_x
+    type: float
+    init_with: -8.0f
+    getter: true
+    setter: true
+
+  - name: max_y
+    type: float
+    init_with: 5.0f
+    getter: true
+    setter: true
+
+  - name: min_y
+    type: float
+    init_with: 2.0f
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: set_player_controlled_entity
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::CubeShooter::Entity*
+        default_argument: nullptr
+    guards: [ player_controlled_entity ]
+    body: |
+      this->player_controlled_entity = player_controlled_entity;
+      position = &player_controlled_entity->get_placement_ref().position;
+      velocity = &player_controlled_entity->get_velocity_ref().position;
+      return;
+
+
+  - name: update
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0
+    guards: [ player_controlled_entity ]
+    body: |
+      // reset
+      blaster_fired_on_last_update = false;
+
+      // update the x/y position movement
+      if (moving_up && velocity->y < max_velocity_y && position->y < max_y)
+         velocity->y += acceleration;
+      if (moving_down && velocity->y > -max_velocity_y && position->y > min_y)
+         velocity->y -= acceleration;
+      if (moving_left && velocity->x > -max_velocity_x && position->x > min_x)
+         velocity->x -= acceleration;
+      if (moving_right && velocity->x < max_velocity_x && position->x < max_x)
+         velocity->x += acceleration;
+
+      // update the thruster/forward velocity
+      if (thruster_active && velocity->z > -thruster_max_velocity)
+         velocity->z -= thruster_acceleration_force;
+
+      // update the firing of the blaster
+      if (firing_blaster && (time_now - blaster_fired_at > blaster_refire_rate))
+      {
+         blaster_fired_at = time_now;
+         blaster_fired_on_last_update = true;
+      } 
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::CubeShooter::Entity
+    headers: [ AllegroFlare/Prototypes/CubeShooter/Entity.hpp ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+
+

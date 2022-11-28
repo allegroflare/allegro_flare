@@ -1,0 +1,528 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: AllegroFlare::Prototypes::CubeShooter::Screen::TYPE
+
+
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: sample_bin
+    type: AllegroFlare::SampleBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: scene_root
+    type: AllegroFlare::ElementID
+    init_with: ''
+
+  - name: entity_factory
+    type: AllegroFlare::Prototypes::CubeShooter::EntityFactory
+    init_with: ''
+
+  - name: player_controlled_entity
+    type: AllegroFlare::Prototypes::CubeShooter::Entity*
+    init_with: nullptr
+
+  - name: player_movement_control
+    type: AllegroFlare::Prototypes::CubeShooter::PlayerMovementControl
+    init_with: ''
+
+  - name: camera
+    type: AllegroFlare::Camera3D
+    init_with: ''
+
+  - name: shader
+    type: AllegroFlare::Shader*
+    init_with: ''
+
+  - name: multiply_shader
+    type: AllegroFlare::Prototypes::CubeShooter::Shaders::Multiply
+    init_with: ''
+
+  - name: fog_shader
+    type: AllegroFlare::Prototypes::CubeShooter::Shaders::Fog
+    init_with: ''
+
+  - name: depth_darken_shader
+    type: AllegroFlare::Prototypes::CubeShooter::Shaders::DepthDarken
+    init_with: ''
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '"CubeShooter/Screen"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: set_event_emitter
+    guards: [ (!initialized) ]
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    body: |
+      this->event_emitter = event_emitter;
+      return;
+
+
+  - name: set_bitmap_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      return;
+
+
+  - name: set_font_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    body: |
+      this->font_bin = font_bin;
+      return;
+
+
+  - name: set_sample_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: sample_bin
+        type: AllegroFlare::SampleBin*
+        default_argument: nullptr
+    body: |
+      this->sample_bin = sample_bin;
+
+
+  - name: set_model_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: model_bin
+        type: AllegroFlare::ModelBin*
+        default_argument: nullptr
+    body: |
+      this->model_bin = model_bin;
+      return;
+      return;
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - event_emitter
+      - bitmap_bin
+      - font_bin
+      - sample_bin
+      - model_bin
+    body: |
+      entity_factory.set_scene_root(&scene_root);
+      entity_factory.set_bitmap_bin(bitmap_bin);
+      entity_factory.set_model_bin(model_bin);
+      entity_factory.initialize();
+
+      player_movement_control.set_thruster_max_velocity(1.0);
+
+      //depth_darken_shader.initialize();
+      multiply_shader.initialize();
+      //fog_shader.initialize();
+      shader = &multiply_shader;
+
+      initialized = true;
+      return;
+
+
+  - name: load_level
+    guards: [ initialized ]
+    body: |
+      player_controlled_entity = entity_factory.add_player_ship(0, 1, 0);
+      entity_factory.add_world_mesh();
+      entity_factory.add_cube(4, 5, -10);
+      entity_factory.add_cube(0, 1, -10);
+      entity_factory.add_cube(-5, 3, -10);
+      player_movement_control.set_player_controlled_entity(player_controlled_entity);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::CubeShooter::EntityFactory
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      // for now:
+      load_level();
+      //emit_event_to_update_input_hints_bar();
+      //emit_show_and_size_input_hints_bar_event();
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      //emit_hide_and_restore_size_input_hints_bar_event();
+      return;
+
+
+  - name: update
+    body: |
+      float time_now = al_get_time();
+
+      // update expired entities and remove entities that can be deleted
+      for (auto &entity : scene_root.get_flat_list_of_descendants<AllegroFlare::Prototypes::CubeShooter::Entity>())
+      {
+         if (entity->has_attribute("lifespan"))
+         {
+            if (entity->infer_age(time_now) > entity->get_as_float("lifespan"))
+            {
+               entity->set("can_be_deleted");
+            }
+         }
+      }
+
+      // clear all entities that are flagged to be deleted
+      for (auto &entity : scene_root.get_flat_list_of_descendants<AllegroFlare::Prototypes::CubeShooter::Entity>())
+      {
+         if (entity->has_attribute("can_be_deleted"))
+         {
+            // NOTE: I think this this the way to do this
+            entity->reassign_parent(nullptr);
+            delete entity;
+         }
+      }
+
+      // update velocities based on movement controls
+      player_movement_control.update(time_now);
+      bool blaster_fired = player_movement_control.get_blaster_fired_on_last_update();
+
+      // create new bullets
+      if (blaster_fired)
+      {
+         AllegroFlare::Vec3D player_position = player_controlled_entity->get_placement_ref().position;
+         entity_factory.add_player_bullet(player_position.x, player_position.y, player_position.z);
+      }
+
+      // update physics
+      float air_drag = 0.05;
+      float forward_air_drag = 0.02;
+      // move entities by velocity
+      for (auto &entity : scene_root.get_flat_list_of_descendants<AllegroFlare::Prototypes::CubeShooter::Entity>())
+      {
+         entity->get_placement_ref().position += entity->get_velocity_ref().position;
+         entity->get_placement_ref().rotation += entity->get_velocity_ref().rotation;
+         if (!entity->has_attribute("ignore_environmental_physics"))
+         {
+            entity->get_velocity_ref().position.x *= (1.0 - air_drag);
+            entity->get_velocity_ref().position.y *= (1.0 - air_drag);
+            entity->get_velocity_ref().position.z *= (1.0 - forward_air_drag);
+         }
+      }
+
+      // TODO: check for collisions here (may want to revise this technique)
+      std::vector<AllegroFlare::Prototypes::CubeShooter::Entity*> bullets = {};
+      std::vector<AllegroFlare::Prototypes::CubeShooter::Entity*> entities_that_can_be_hit_by_bullets = {};
+      for (auto &entity : scene_root.get_flat_list_of_descendants<AllegroFlare::Prototypes::CubeShooter::Entity>())
+      {
+         if (entity == player_controlled_entity) continue;
+
+         if (entity->has_attribute("player_bullet")) bullets.push_back(entity);
+         else if (!entity->has_attribute("ignore")) entities_that_can_be_hit_by_bullets.push_back(entity);
+      }
+      for (auto &bullet : bullets)
+      {
+         for (auto &entity_that_can_be_hit_by_bullet : entities_that_can_be_hit_by_bullets)
+         {
+            if (collides(bullet, entity_that_can_be_hit_by_bullet))
+            {
+               // TODO: play sound effect
+               bullet->set_attribute("can_be_deleted");
+               entity_that_can_be_hit_by_bullet->get_placement_ref().scale *= 0.5;
+               if (entity_that_can_be_hit_by_bullet->get_placement_ref().scale.x < 0.24)
+               {
+                  entity_that_can_be_hit_by_bullet->set_attribute("can_be_deleted");
+               }
+            }
+         }
+      }
+
+      // update camera tracking camera
+      camera.position.x = player_controlled_entity->get_placement_ref().position.x * 0.6;
+      camera.position.y = player_controlled_entity->get_placement_ref().position.y * 0.25;
+      camera.position.z = player_controlled_entity->get_placement_ref().position.z;
+      float target_camera_tilt = 0.3 + camera.position.y * -0.04;
+      //float roll_increment = 0.001f;
+      float target_camera_spin = camera.position.x * 0.025;
+      // HERE:
+      float max_roll = 0.17; // 0.07 is dramatic (maybe roll control can be tied to remaining health)
+                             // -0.17 feels like the gound is falling out
+      float target_camera_roll = player_movement_control.get_moving_right()
+                               ? max_roll
+                               : (player_movement_control.get_moving_left() ? -max_roll : 0.0f);
+      float spin_tilt_lag = 0.06; //1.0; //0.03;
+      //player_controlled_entity->get_placement_ref().rotation.z = -target_camera_roll;
+
+      camera.stepout = AllegroFlare::Vec3D(0, 0.3, 10);
+      //camera.tilt = 0.3;
+      camera.tilt= (target_camera_tilt - camera.tilt) * spin_tilt_lag + camera.tilt;
+      camera.zoom = 1.1;
+      // NOTE: spin+ rotates the scene as if turning your head right and strafing left
+      camera.spin = (target_camera_spin - camera.spin) * spin_tilt_lag + camera.spin;
+      camera.roll = (target_camera_roll - camera.roll) * 0.02 + camera.roll;
+
+      float &player_roll = player_controlled_entity->get_placement_ref().rotation.z;
+      player_roll = ((-target_camera_roll) - player_roll) * 0.03 + player_roll;
+
+      return;
+
+
+  - name: collides
+    type: bool
+    parameters:
+      - name: entity_a
+        type: AllegroFlare::Prototypes::CubeShooter::Entity*
+        default_argument: nullptr
+      - name: entity_b
+        type: AllegroFlare::Prototypes::CubeShooter::Entity*
+        default_argument: nullptr
+    body: |
+      AllegroFlare::Vec3D &entity_a_position = entity_a->get_placement_ref().position;
+      AllegroFlare::Vec3D &entity_b_position = entity_b->get_placement_ref().position;
+
+      AllegroFlare::Vec3D a_min = entity_a->get_min_bounding_box_coordinates() + entity_a_position;
+      AllegroFlare::Vec3D a_max = entity_a->get_max_bounding_box_coordinates() + entity_a_position;
+      AllegroFlare::Vec3D b_min = entity_b->get_min_bounding_box_coordinates() + entity_b_position;
+      AllegroFlare::Vec3D b_max = entity_b->get_max_bounding_box_coordinates() + entity_b_position;
+
+      return (
+         a_min.x <= b_max.x &&
+         a_max.x >= b_min.x &&
+         a_min.y <= b_max.y &&
+         a_max.y >= b_min.y &&
+         a_min.z <= b_max.z &&
+         a_max.z >= b_min.z
+      );
+
+
+  - name: render_crosshair
+    parameters:
+      - name: position
+        type: AllegroFlare::Vec3D
+        default_argument: ''
+    body: |
+      draw_crosshair(position, ALLEGRO_COLOR{1, 0, 1, 1}, 0.01);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Useful
+      - AllegroFlare::Color
+
+
+  - name: render
+    body: |
+      ALLEGRO_STATE previous_target_bitmap_state;
+      al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
+
+      al_clear_depth_buffer(1);
+      al_clear_to_color(ALLEGRO_COLOR{0, 0.12, 0.3, 1.0});
+
+      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+
+      camera.setup_projection_on(backbuffer);
+      al_set_target_bitmap(backbuffer);
+
+      if (shader)
+      {
+         multiply_shader.set_time_now(al_get_time());
+         shader->activate();
+      }
+
+      for (auto &entity : scene_root.get_flat_list_of_descendants<AllegroFlare::Prototypes::CubeShooter::Entity>())
+      {
+         entity->get_placement_ref().start_transform();
+         entity->get_model_3d_ref()->draw();
+         entity->get_placement_ref().restore_transform();
+
+         //draw_crosshair(entity->get_min_bounding_box_coordinates() + entity->get_placement_ref().position);
+         //draw_crosshair(entity->get_max_bounding_box_coordinates() + entity->get_placement_ref().position);
+      }
+      //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
+      //glDisable(GL_CULL_FACE);
+
+      if (shader) shader->deactivate();
+
+      al_restore_state(&previous_target_bitmap_state);
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      update();
+      render();
+      return;
+
+
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event ]
+    body: |
+      switch(event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+            player_movement_control.set_moving_up(true);
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            player_movement_control.set_moving_down(true);
+         break;
+
+         case ALLEGRO_KEY_LEFT:
+            player_movement_control.set_moving_left(true);
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+            player_movement_control.set_moving_right(true);
+         break;
+
+         case ALLEGRO_KEY_X:
+         case ALLEGRO_KEY_Z:
+            player_movement_control.set_thruster_active(true);
+         break;
+
+         case ALLEGRO_KEY_SPACE:
+            player_movement_control.set_firing_blaster(true);
+         break;
+
+         case ALLEGRO_KEY_P:
+            multiply_shader.set_pulse_created_at(al_get_time());
+         break;
+      }
+      return;
+
+
+  - name: key_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event, event_emitter ]
+    body: |
+      switch(event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+            player_movement_control.set_moving_up(false);
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            player_movement_control.set_moving_down(false);
+         break;
+
+         case ALLEGRO_KEY_LEFT:
+            player_movement_control.set_moving_left(false);
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+            player_movement_control.set_moving_right(false);
+         break;
+
+         case ALLEGRO_KEY_X:
+         case ALLEGRO_KEY_Z:
+            player_movement_control.set_thruster_active(false);
+         break;
+
+         case ALLEGRO_KEY_SPACE:
+            player_movement_control.set_firing_blaster(false);
+         break;
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
+  - symbol: AllegroFlare::SampleBin
+    headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: AllegroFlare::Prototypes::CubeShooter::Entity
+    headers: [ AllegroFlare/Prototypes/CubeShooter/Entity.hpp ]
+  - symbol: AllegroFlare::Prototypes::CubeShooter::EntityFactory
+    headers: [ AllegroFlare/Prototypes/CubeShooter/EntityFactory.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Prototypes::CubeShooter::PlayerMovementControl
+    headers: [ AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.hpp ]
+  - symbol: AllegroFlare::ElementID
+    headers: [ AllegroFlare/ElementID.hpp ]
+  - symbol: AllegroFlare::Useful
+    headers: [ AllegroFlare/Useful.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Prototypes::CubeShooter::Shaders::DepthDarken
+    headers: [ AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken.hpp ]
+  - symbol: AllegroFlare::Prototypes::CubeShooter::Shaders::Multiply
+    headers: [ AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply.hpp ]
+  - symbol: AllegroFlare::Prototypes::CubeShooter::Shaders::Fog
+    headers: [ AllegroFlare/Prototypes/CubeShooter/Shaders/Fog.hpp ]
+  - symbol: AllegroFlare::Shader
+    headers: [ AllegroFlare/Shader.hpp ]
+
+

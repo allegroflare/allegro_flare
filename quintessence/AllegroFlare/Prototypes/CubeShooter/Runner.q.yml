@@ -1,0 +1,291 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: '"Runner"'
+
+
+properties:
+
+
+  - name: mode
+    type: std::string
+    init_with: MODE_PRODUCTION
+    constructor_arg: true
+
+  - name: framework
+    type: AllegroFlare::Frameworks::Full*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: sample_bin
+    type: AllegroFlare::SampleBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: cube_shooter_screen
+    type: AllegroFlare::Prototypes::CubeShooter::Screen
+    init_with: ''
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: EVENT_ACTIVATE_CUBE_SHOOTER_SCREEN
+    type: char*
+    init_with: '"activate_cube_shooter_screen"'
+    static: true
+    constexpr: true
+
+  - name: MODE_TEST
+    type: char*
+    init_with: '"test"'
+    static: true
+    constexpr: true
+
+  - name: MODE_PRODUCTION
+    type: char*
+    init_with: '"production"'
+    static: true
+    constexpr: true
+
+  - name: MODE_DEVELOPMENT
+    type: char*
+    init_with: '"development"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - framework
+      - event_emitter
+      - bitmap_bin
+      - font_bin
+      - sample_bin
+      - model_bin
+    body: |
+      cube_shooter_screen.set_event_emitter(event_emitter);
+      cube_shooter_screen.set_bitmap_bin(bitmap_bin);
+      cube_shooter_screen.set_font_bin(font_bin);
+      cube_shooter_screen.set_sample_bin(sample_bin);
+      cube_shooter_screen.set_model_bin(model_bin);
+      cube_shooter_screen.initialize();
+      framework->register_screen("cube_shooter_screen", &cube_shooter_screen);
+      return;
+
+
+  - name: event_map
+    type: std::map<std::string, std::function<void()>>
+    body: |
+      return {};
+
+
+  - name: game_event_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
+    guards: [ ev, event_emitter ]
+    body: |
+      std::string event_name = ev->get_type();
+      std::cout << "EVENT_EMITTED: \"" << event_name << "\"" << std::endl;
+
+      std::map<std::string, std::function<void()>> event_map = {
+         { "initialize", [this](){
+            event_emitter->emit_game_event(AllegroFlare::GameEvent(EVENT_ACTIVATE_CUBE_SHOOTER_SCREEN));
+         }},
+         { EVENT_ACTIVATE_CUBE_SHOOTER_SCREEN, [this](){
+            framework->activate_screen("cube_shooter_screen");
+         }},
+         //{ EVENT_PAUSE_GAME, [this](){
+            //push_screen();
+            //framework->activate_screen("pause_screen");
+         //}},
+         //{ EVENT_UNPAUSE_GAME, [this](){
+            //std::string previous_screen = pop_screen();
+            //framework->activate_screen("pause_screen");
+         //}},
+      };
+
+      // locate and call the function to handle the event
+      if (event_map.count(event_name) == 0)
+      {
+         // event not found
+         std::cout << "ERROR: event not found: \"" << event_name << "\"" << std::endl;
+      }
+      else
+      {
+         // call the event
+         event_map[event_name]();
+      }
+
+      return;
+
+
+  - name: RUN
+    parameters:
+      - name: mode
+        type: std::string
+        default_argument: '"production"'
+      - name: disable_escape_key_will_shutdown
+        type: bool
+        default_argument: false
+    static: true
+    guards: [ is_valid_mode(mode) ]
+    body: |
+      // setup the framework
+      AllegroFlare::Frameworks::Full framework;
+      if (disable_escape_key_will_shutdown) framework.disable_escape_key_will_shutdown();
+      framework.disable_fullscreen();
+      framework.initialize();
+
+      // setup the environment/asset folders
+      if (is_test_mode(mode) || is_development_mode(mode) || is_production_mode(mode))
+      {
+         std::string PROJECT_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/data/CubeShooter";
+         framework.get_font_bin_ref().set_full_path(PROJECT_DATA_FOLDER + "/fonts");
+         framework.get_bitmap_bin_ref().set_full_path(PROJECT_DATA_FOLDER + "/bitmaps");
+         framework.get_sample_bin_ref().set_full_path(PROJECT_DATA_FOLDER + "/samples");
+         framework.get_model_bin_ref().set_full_path(PROJECT_DATA_FOLDER + "/models");
+      }
+
+
+      // instantiate our actual game runner
+      Runner runner(
+         mode,
+         &framework,
+         &framework.get_event_emitter_ref(),
+         &framework.get_bitmap_bin_ref(),
+         &framework.get_font_bin_ref(),
+         &framework.get_sample_bin_ref(),
+         &framework.get_model_bin_ref()
+      );
+      runner.initialize();
+      framework.register_screen("runner", &runner);
+
+      framework.run_loop();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Frameworks::Full
+
+
+  - name: is_test_mode
+    type: bool
+    static: true
+    parameters:
+      - name: mode
+        type: std::string
+        default_argument: '"[unset-mode]"'
+    body: |
+      return mode == MODE_TEST;
+
+
+  - name: is_development_mode
+    type: bool
+    static: true
+    parameters:
+      - name: mode
+        type: std::string
+        default_argument: '"[unset-mode]"'
+    body: |
+      return mode == MODE_DEVELOPMENT;
+
+
+  - name: is_production_mode
+    type: bool
+    static: true
+    parameters:
+      - name: mode
+        type: std::string
+        default_argument: '"[unset-mode]"'
+    body: |
+      return mode == MODE_PRODUCTION;
+
+
+  - name: in_development_mode
+    type: bool
+    body: |
+      return mode == MODE_DEVELOPMENT;
+
+
+  - name: in_production_mode
+    type: bool
+    body: |
+      return mode == MODE_PRODUCTION;
+
+
+  - name: in_test_mode
+    type: bool
+    body: |
+      return mode == MODE_TEST;
+
+
+  - name: is_valid_mode
+    static: true
+    type: bool
+    parameters:
+      - name: mode
+        type: std::string
+        default_argument: '"[unset-mode]"'
+    body: |
+      static const std::set<std::string> VALID_MODES = {
+         MODE_PRODUCTION,
+         MODE_DEVELOPMENT,
+         MODE_TEST,
+      };
+      return (VALID_MODES.count(mode) > 0);
+    body_dependency_symbols:
+      - std::set
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Frameworks::Full
+    headers: [ AllegroFlare/Frameworks/Full.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
+  - symbol: AllegroFlare::SampleBin
+    headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: AllegroFlare::GameEvent
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::Prototypes::CubeShooter::Screen
+    headers: [ AllegroFlare/Prototypes/CubeShooter/Screen.hpp ]
+
+

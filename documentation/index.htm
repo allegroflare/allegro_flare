@@ -157,6 +157,14 @@ table td
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Runner.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Runner.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Screen.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Screen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/Fog.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/Fog.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/Configuration.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.q.yml</a></li>
@@ -7016,6 +7024,702 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">placement</td>
+  <td class="property">AllegroFlare::Placement3D</td>
+</tr>
+<tr>
+  <td class="property">velocity</td>
+  <td class="property">AllegroFlare::Placement3D</td>
+</tr>
+<tr>
+  <td class="property">model_3d</td>
+  <td class="property">AllegroFlare::Model3D*</td>
+</tr>
+<tr>
+  <td class="property">created_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">min_bounding_box_coordinates</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+<tr>
+  <td class="property">max_bounding_box_coordinates</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">infer_age(1)</td>
+</tr>
+<tr>
+  <td class="method">has_attribute(1)</td>
+</tr>
+<tr>
+  <td class="method">set_attribute(1)</td>
+</tr>
+<tr>
+  <td class="method">unset_attribute(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">scene_root</td>
+  <td class="property">AllegroFlare::ElementID*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">add_cube(3)</td>
+</tr>
+<tr>
+  <td class="method">add_player_bullet(3)</td>
+</tr>
+<tr>
+  <td class="method">add_player_ship(3)</td>
+</tr>
+<tr>
+  <td class="method">add_world_mesh()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::Entity&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/Entity.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">player_controlled_entity</td>
+  <td class="property">AllegroFlare::Prototypes::CubeShooter::Entity*</td>
+</tr>
+<tr>
+  <td class="property">position</td>
+  <td class="property">AllegroFlare::Vec3D*</td>
+</tr>
+<tr>
+  <td class="property">velocity</td>
+  <td class="property">AllegroFlare::Vec3D*</td>
+</tr>
+<tr>
+  <td class="property">max_velocity_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">max_velocity_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">acceleration</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">thruster_max_velocity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">thruster_acceleration_force</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">thruster_active</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">moving_up</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">moving_down</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">moving_left</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">moving_right</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">firing_blaster</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">blaster_fired_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">blaster_refire_rate</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">blaster_fired_on_last_update</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">max_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">min_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">max_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">min_y</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_player_controlled_entity(1)</td>
+</tr>
+<tr>
+  <td class="method">update(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::Entity&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/Entity.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/CubeShooter/Runner.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Runner.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">mode</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">framework</td>
+  <td class="property">AllegroFlare::Frameworks::Full*</td>
+</tr>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">sample_bin</td>
+  <td class="property">AllegroFlare::SampleBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">cube_shooter_screen</td>
+  <td class="property">AllegroFlare::Prototypes::CubeShooter::Screen</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">EVENT_ACTIVATE_CUBE_SHOOTER_SCREEN</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">MODE_TEST</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">MODE_PRODUCTION</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">MODE_DEVELOPMENT</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">event_map()</td>
+</tr>
+<tr>
+  <td class="method">game_event_func(1)</td>
+</tr>
+<tr>
+  <td class="method">RUN(2)</td>
+</tr>
+<tr>
+  <td class="method">is_test_mode(1)</td>
+</tr>
+<tr>
+  <td class="method">is_development_mode(1)</td>
+</tr>
+<tr>
+  <td class="method">is_production_mode(1)</td>
+</tr>
+<tr>
+  <td class="method">in_development_mode()</td>
+</tr>
+<tr>
+  <td class="method">in_production_mode()</td>
+</tr>
+<tr>
+  <td class="method">in_test_mode()</td>
+</tr>
+<tr>
+  <td class="method">is_valid_mode(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Frameworks::Full&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Frameworks/Full.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/Screen.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/CubeShooter/Screen.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Screen.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">sample_bin</td>
+  <td class="property">AllegroFlare::SampleBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">scene_root</td>
+  <td class="property">AllegroFlare::ElementID</td>
+</tr>
+<tr>
+  <td class="property">entity_factory</td>
+  <td class="property">AllegroFlare::Prototypes::CubeShooter::EntityFactory</td>
+</tr>
+<tr>
+  <td class="property">player_controlled_entity</td>
+  <td class="property">AllegroFlare::Prototypes::CubeShooter::Entity*</td>
+</tr>
+<tr>
+  <td class="property">player_movement_control</td>
+  <td class="property">AllegroFlare::Prototypes::CubeShooter::PlayerMovementControl</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">shader</td>
+  <td class="property">AllegroFlare::Shader*</td>
+</tr>
+<tr>
+  <td class="property">multiply_shader</td>
+  <td class="property">AllegroFlare::Prototypes::CubeShooter::Shaders::Multiply</td>
+</tr>
+<tr>
+  <td class="property">fog_shader</td>
+  <td class="property">AllegroFlare::Prototypes::CubeShooter::Shaders::Fog</td>
+</tr>
+<tr>
+  <td class="property">depth_darken_shader</td>
+  <td class="property">AllegroFlare::Prototypes::CubeShooter::Shaders::DepthDarken</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_event_emitter(1)</td>
+</tr>
+<tr>
+  <td class="method">set_bitmap_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">set_sample_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">set_model_bin(1)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">load_level()</td>
+</tr>
+<tr>
+  <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">on_deactivate()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">collides(2)</td>
+</tr>
+<tr>
+  <td class="method">render_crosshair(1)</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="method">key_down_func(1)</td>
+</tr>
+<tr>
+  <td class="method">key_up_func(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::Entity&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/Entity.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::EntityFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/EntityFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::PlayerMovementControl&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::Shaders::DepthDarken&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::Shaders::Multiply&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::Shaders::Fog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/Shaders/Fog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">torch_type</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">set_torch_type(1)</td>
+</tr>
+<tr>
+  <td class="method">set_torch_on()</td>
+</tr>
+<tr>
+  <td class="method">set_torch_off()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="method">deactivate()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_vertex_source()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_fragment_source()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/Fog.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/Fog.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">tint</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">tint_intensity</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="private_method">set_values_to_activated_shader()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_vertex_source()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_fragment_source()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">tint</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">tint_intensity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">pulse_created_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">time_now</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">far_plane</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="private_method">set_values_to_activated_shader()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_vertex_source()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_fragment_source()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15345,6 +16049,8 @@ table td
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
@@ -15453,6 +16159,11 @@ table td
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
@@ -15490,6 +16201,7 @@ table td
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "Wicked/Entities/Basic3D"
@@ -15561,6 +16273,10 @@ table td
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
@@ -15835,6 +16551,7 @@ table td
   ],
   "AllegroFlare/Useful": [
     "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -15871,6 +16588,9 @@ table td
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
@@ -15951,6 +16671,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
@@ -15964,6 +16685,8 @@ table td
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -15983,6 +16706,10 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -16023,6 +16750,7 @@ table td
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -16102,6 +16830,9 @@ table td
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "Wicked/Entities/Base"
   ],
@@ -16448,6 +17179,7 @@ table td
   ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
@@ -16496,6 +17228,7 @@ table td
   ],
   "AllegroFlare/Frameworks/Full": [
     "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
@@ -16706,6 +17439,69 @@ table td
   "AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D": [
     "AllegroFlare/Physics/TileMapCollisionStepper"
   ],
+  "AllegroFlare/Model3D": [
+    "AllegroFlare/Prototypes/CubeShooter/Entity"
+  ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Entity": [
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/ModelBin": [
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Screen": [
+    "AllegroFlare/Prototypes/CubeShooter/Runner"
+  ],
+  "AllegroFlare/Camera3D": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/EntityFactory": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Shader": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Shaders/Base",
+    "Tileo/Shaders/Base"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
@@ -16744,13 +17540,6 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
-    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room",
-    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
-    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames": [
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
@@ -16829,11 +17618,6 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
-  "AllegroFlare/Shader": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Shaders/Base",
-    "Tileo/Shaders/Base"
-  ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -16892,16 +17676,6 @@ table td
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
-  ],
-  "AllegroFlare/Vec3D": [
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/Camera3D": [
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "glCullFace": [
     "AllegroFlare/Prototypes/MindDive/MindDive",

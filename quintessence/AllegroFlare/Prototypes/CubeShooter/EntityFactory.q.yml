@@ -1,0 +1,171 @@
+properties:
+
+
+  - name: scene_root
+    type: AllegroFlare::ElementID*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ scene_root, bitmap_bin, model_bin ]
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: add_cube
+    type: AllegroFlare::Prototypes::CubeShooter::Entity*
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: z
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
+      result->reassign_parent(scene_root);
+      result->set_created_at(al_get_time());
+
+      result->get_placement_ref().position = AllegroFlare::Vec3D(x, y, z);
+
+      AllegroFlare::Model3D *model = model_bin->auto_get("unit_cube-01.obj");
+      result->set_model_3d(model);
+      result->set_min_bounding_box_coordinates(model->get_min_vertex_coordinate());
+      result->set_max_bounding_box_coordinates(model->get_max_vertex_coordinate());
+
+      return result;
+
+
+  - name: add_player_bullet
+    type: AllegroFlare::Prototypes::CubeShooter::Entity*
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: z
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
+      result->reassign_parent(scene_root);
+      result->set_created_at(al_get_time());
+
+      AllegroFlare::Model3D *model = model_bin->auto_get("unit_cube-01.obj");
+
+      // size and movement
+      result->get_placement_ref().position = AllegroFlare::Vec3D(x, y, z);
+      result->get_velocity_ref().position = AllegroFlare::Vec3D(0, 0, -1);
+      result->set_model_3d(model);
+      result->set_min_bounding_box_coordinates(model->get_min_vertex_coordinate());
+      result->set_max_bounding_box_coordinates(model->get_max_vertex_coordinate());
+
+      // attributes
+      result->set_attribute("ignore_environmental_physics");
+      result->set_attribute("player_bullet");
+      result->set("lifespan", 1.0);
+
+      // appearance
+      result->get_placement_ref().scale = AllegroFlare::Vec3D(0.4, 0.4, 0.4);
+      result->get_velocity_ref().rotation = AllegroFlare::Vec3D(-1.6, 4.7, -3.14);
+      return result;
+
+
+  - name: add_player_ship
+    type: AllegroFlare::Prototypes::CubeShooter::Entity*
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: z
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      static bool loaded_already = false;
+      AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
+      result->reassign_parent(scene_root);
+      result->set_created_at(al_get_time());
+
+      AllegroFlare::Model3D *model = model_bin->auto_get("ship-01.obj");
+      model->set_texture(bitmap_bin->auto_get("ship-01.png"));
+      if (!loaded_already) { model->scale(0.5); loaded_already = true; }
+      result->set_model_3d(model);
+      result->set_min_bounding_box_coordinates(model->get_min_vertex_coordinate() * 0.7);
+      result->set_max_bounding_box_coordinates(model->get_max_vertex_coordinate() * 0.7);
+
+      result->get_placement_ref().position = AllegroFlare::Vec3D(x, y, z);
+      result->get_placement_ref().rotation.y = 0.5;
+      result->set_model_3d(model_bin->auto_get("ship-01.obj"));
+
+      return result;
+
+
+  - name: add_world_mesh
+    type: AllegroFlare::Prototypes::CubeShooter::Entity*
+    guards: [ initialized ]
+    body: |
+      AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
+      result->reassign_parent(scene_root);
+      result->set_created_at(al_get_time());
+
+      AllegroFlare::Model3D *model = model_bin->auto_get("level-03-long.obj");
+      model->set_texture(bitmap_bin->auto_get("level-03.png"));
+      result->set_model_3d(model);
+      result->set_min_bounding_box_coordinates(model->get_min_vertex_coordinate());
+      result->set_max_bounding_box_coordinates(model->get_max_vertex_coordinate());
+
+      result->set_attribute("ignore_environmental_physics");
+      result->set_attribute("ignore");
+
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::CubeShooter::Entity
+    headers: [ AllegroFlare/Prototypes/CubeShooter/Entity.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::ElementID
+    headers: [ AllegroFlare/ElementID.hpp ]
+
+

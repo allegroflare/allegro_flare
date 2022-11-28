@@ -1,0 +1,130 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Shader
+    scope: public
+    init_with: "obtain_vertex_source(), obtain_fragment_source()"
+
+
+properties:
+
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: tint
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: tint_intensity
+    type: float
+    init_with: 1.0f
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: initialize
+    type: void
+    guards: [ (!initialized) ]
+    body: |
+      AllegroFlare::Shader::initialize();
+      initialized = true;
+      return;
+
+
+  - name: activate
+    type: void
+    virtual: true
+    override: true
+    body: |
+      if (!initialized)
+      {
+         throw std::runtime_error("[CatDetective::Shaders::Multiply] Attempting to activate() "
+                                  "shader before it has been initialized");
+      }
+      AllegroFlare::Shader::activate();
+      set_values_to_activated_shader();
+      return;
+
+
+  - name: set_values_to_activated_shader
+    private: true
+    body: |
+      set_vec3("tint", tint.r, tint.g, tint.b);
+      set_float("tint_intensity", tint_intensity);
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
+  - name: obtain_vertex_source
+    type: std::string
+    static: true
+    private: true
+    body: |
+      static const std::string source = R"DELIM(
+        attribute vec4 al_pos;
+        attribute vec4 al_color;
+        attribute vec2 al_texcoord;
+        uniform mat4 al_projview_matrix;
+        varying vec4 varying_color;
+        varying vec2 varying_texcoord;
+        varying float depth;
+
+        void main()
+        {
+           varying_color = al_color;
+           varying_texcoord = al_texcoord;
+           gl_Position = al_projview_matrix * al_pos;
+           depth = gl_Position.z / 100.0; // NOTE: 100.0 is the far plane in Camera3D
+                                          // TODO: pass in far_plane as a varying
+                                          // https://stackoverflow.com/a/17621928/6072362
+        }
+      )DELIM";
+      return source;
+
+
+  - name: obtain_fragment_source
+    type: std::string
+    static: true
+    private: true
+    body: |
+      static const std::string source = R"DELIM(
+        uniform sampler2D al_tex;
+        uniform float tint_intensity;
+        uniform vec3 tint;
+        varying vec4 varying_color;
+        varying vec2 varying_texcoord;
+        varying float depth;
+
+        void main()
+        {
+           // render a depth style effect
+           gl_FragColor = vec4(depth, depth, depth, 1.0);
+           return;
+        }
+      )DELIM";
+      return source;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Shader
+    headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp ]

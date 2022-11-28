@@ -5,6 +5,8 @@
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
@@ -113,6 +115,11 @@
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
@@ -150,6 +157,7 @@
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "Wicked/Entities/Basic3D"
@@ -221,6 +229,10 @@
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
@@ -495,6 +507,7 @@
   ],
   "AllegroFlare/Useful": [
     "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -531,6 +544,9 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
@@ -611,6 +627,7 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
@@ -624,6 +641,8 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -643,6 +662,10 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -683,6 +706,7 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -762,6 +786,9 @@
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "Wicked/Entities/Base"
   ],
@@ -1108,6 +1135,7 @@
   ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
@@ -1156,6 +1184,7 @@
   ],
   "AllegroFlare/Frameworks/Full": [
     "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
@@ -1366,6 +1395,69 @@
   "AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D": [
     "AllegroFlare/Physics/TileMapCollisionStepper"
   ],
+  "AllegroFlare/Model3D": [
+    "AllegroFlare/Prototypes/CubeShooter/Entity"
+  ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Entity": [
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/ModelBin": [
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Screen": [
+    "AllegroFlare/Prototypes/CubeShooter/Runner"
+  ],
+  "AllegroFlare/Camera3D": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/EntityFactory": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen"
+  ],
+  "AllegroFlare/Shader": [
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Shaders/Base",
+    "Tileo/Shaders/Base"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
+  ],
   "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base": [
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
@@ -1404,13 +1496,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
-    "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room",
-    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
-    "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames": [
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
@@ -1489,11 +1574,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
-  "AllegroFlare/Shader": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Shaders/Base",
-    "Tileo/Shaders/Base"
-  ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
@@ -1552,16 +1632,6 @@
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer"
-  ],
-  "AllegroFlare/Vec3D": [
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/Camera3D": [
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "glCullFace": [
     "AllegroFlare/Prototypes/MindDive/MindDive",

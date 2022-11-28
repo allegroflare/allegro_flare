@@ -1,0 +1,105 @@
+parent_classes:
+
+
+  - class: AllegroFlare::ElementID
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: placement
+    type: AllegroFlare::Placement3D
+    init_with: ''
+    getter: true
+    setter: true
+    getter_ref: true
+
+  - name: velocity
+    type: AllegroFlare::Placement3D
+    init_with: ''
+    getter: true
+    setter: true
+    getter_ref: true
+
+  - name: model_3d
+    type: AllegroFlare::Model3D*
+    init_with: nullptr
+    getter: true
+    setter: true
+    getter_ref: true
+
+  - name: created_at
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: min_bounding_box_coordinates
+    type: AllegroFlare::Vec3D
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: max_bounding_box_coordinates
+    type: AllegroFlare::Vec3D
+    init_with: ''
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: infer_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      return time_now - created_at;
+    
+
+  - name: has_attribute
+    type: bool
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[attribute]"'
+    body: |
+       return AllegroFlare::Attributes::exists(attribute);
+
+
+  - name: set_attribute
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[attribute]"'
+    body: |
+       AllegroFlare::Attributes::set(attribute);
+
+
+  - name: unset_attribute
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[attribute]"'
+    body: |
+       AllegroFlare::Attributes::remove(attribute);
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Model3D
+    headers: [ AllegroFlare/Model3D.hpp ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: AllegroFlare::ElementID
+    headers: [ AllegroFlare/ElementID.hpp ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+
+
