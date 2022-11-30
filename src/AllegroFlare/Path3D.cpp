@@ -279,6 +279,7 @@ namespace AllegroFlare
 
    Path3D &Path3D::rotate(float angle)
    {
+      throw std::runtime_error("Path3D::rotate not implemented");
       return rotate(angle, 0, 0);
    }
 
@@ -371,6 +372,8 @@ namespace AllegroFlare
          if (point[i].x > _bottom_back_right.x) _bottom_back_right.x = point[i].x;
          if (point[i].y < _top_front_left.y) _top_front_left.y = point[i].y;
          if (point[i].y > _bottom_back_right.y) _bottom_back_right.y = point[i].y;
+         if (point[i].z < _top_front_left.z) _top_front_left.z = point[i].z;
+         if (point[i].z > _bottom_back_right.z) _bottom_back_right.z = point[i].z;
       }
    }
 
