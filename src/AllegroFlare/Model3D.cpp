@@ -233,6 +233,19 @@ namespace AllegroFlare
 
 
 
+   void Model3D::displace(AllegroFlare::Vec3D displacement)
+   {
+      validate_initialized_or_output_to_cerr("displace");
+      for (unsigned i=0; i<vertexes.size(); i++)
+      {
+         vertexes[i].x += displacement.x;
+         vertexes[i].y += displacement.y;
+         vertexes[i].z += displacement.z;
+      }
+   }
+
+
+
 
    vec3d Model3D::get_min_vertex_coordinate()
    {

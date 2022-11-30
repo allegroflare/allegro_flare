@@ -76,6 +76,7 @@ namespace AllegroFlare
       bool set_named_object_color(int index, ALLEGRO_COLOR col);
       bool set_named_object_color(std::string object_name, ALLEGRO_COLOR col);
       void scale(float scale);
+      void displace(AllegroFlare::Vec3D displacement);
    };
 }
 
