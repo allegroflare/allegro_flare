@@ -39,13 +39,17 @@ namespace AllegroFlare
 
 
 
-   Path3D &Path3D::add_point(float x, float y, bool refresh)
+   Path3D &Path3D::add_point(float x, float y, float z, bool refresh)
    {
-      point.push_back(AllegroFlare::Vec3D(x, y));
+      point.push_back(AllegroFlare::Vec3D(x, y, z));
       if (point.size() == 1) _length = 0.0f;
       else
       {
-         segment.push_back(new SegmentInfo3D(point[point.size()-2], point[point.size()-1]));
+         throw std::runtime_error("Path3D::add_point this commented code not implemented");
+         //segment.push_back(new SegmentInfo3D(
+            //point[point.size()-2],
+            //point[point.size()-1]
+          //));
          _length += segment.back()->length;
       }
 
@@ -70,7 +74,7 @@ namespace AllegroFlare
       al_calculate_arc(&(points[0]), sizeof(float)*2, center_x, center_y,
             radius_x, radius_y, start_theta, delta_theta, 0, num_segments);
 
-      for (int i=0; i<num_segments*2; i+=2) add_point(points[i], points[i+1], false);
+      for (int i=0; i<num_segments*2; i+=2) add_point(points[i], points[i+1], points[i+2], false);
       if (refresh) refresh_segment_info();
 
       return *this;
@@ -135,51 +139,60 @@ namespace AllegroFlare
 
 
 
-   AllegroFlare::Vec3D Path3D::top_left() { return _top_left; }
+   AllegroFlare::Vec3D Path3D::top_front_left() { return _top_front_left; }
 
 
 
 
-   AllegroFlare::Vec3D Path3D::bottom_right() { return _bottom_right; }
+   AllegroFlare::Vec3D Path3D::bottom_back_right() { return _bottom_back_right; }
 
 
 
 
-   float Path3D::width() { return _bottom_right.x - _top_left.x; }
+   float Path3D::width() { return _bottom_back_right.x - _top_front_left.x; }
 
 
 
 
-   float Path3D::height() { return _bottom_right.y - _top_left.y; }
+   float Path3D::height() { return _bottom_back_right.y - _top_front_left.y; }
 
 
 
 
-   Path3D &Path3D::top_left(float x, float y)
+   float Path3D::depth() { return _bottom_back_right.z - _top_front_left.z; }
+
+
+
+
+   Path3D &Path3D::top_front_left(float x, float y, float z)
    {
-      AllegroFlare::Vec3D disp = AllegroFlare::Vec3D(x, y) - _top_left;
-      return move(disp.x, disp.y);
+      AllegroFlare::Vec3D disp = AllegroFlare::Vec3D(x, y, z) - _top_front_left;
+      return move(disp.x, disp.y, disp.z);
    }
 
 
 
 
    // math might be wrong
-   Path3D &Path3D::bottom_right(float x, float y)
+   Path3D &Path3D::bottom_back_right(float x, float y, float z)
    {
-      AllegroFlare::Vec3D disp = _bottom_right - AllegroFlare::Vec3D(x, y);
-      return move(disp.x, disp.y);
+      AllegroFlare::Vec3D disp = _bottom_back_right - AllegroFlare::Vec3D(x, y, z);
+      return move(disp.x, disp.y, disp.z);
    }
 
 
 
 
    // this has not been tested
-   Path3D &Path3D::insert_point(unsigned at, float x, float y, bool refresh)
+   Path3D &Path3D::insert_point(unsigned at, float x, float y, float z, bool refresh)
    {
-      if (point.size() <= at) { std::cout << "[Path3D::insert] could not insert point at index " << at << " - point.size() is " << point.size(); return *this; }
+      if (point.size() <= at)
+      {
+         std::cout << "[Path3D::insert] could not insert point at index "
+                   << at << " - point.size() is " << point.size(); return *this;
+      }
 
-      point.insert(point.begin()+at, AllegroFlare::Vec3D(x, y));
+      point.insert(point.begin()+at, AllegroFlare::Vec3D(x, y, z));
       if (refresh) refresh_segment_info();
 
       return *this;
@@ -276,7 +289,7 @@ namespace AllegroFlare
    {
       // this can be optimized
       // one possibility is to add an "off switch" for update_segment_info, so it can be done at the end, instead of at each step
-      AllegroFlare::Vec3D pos = this->_top_left;
+      AllegroFlare::Vec3D pos = this->_top_front_left;
 
       this->to_origin();
 
@@ -285,7 +298,7 @@ namespace AllegroFlare
 
       refresh_segment_info(); // <-- needed to recalc the bounding box
 
-      this->top_left(pos.x, pos.y);
+      this->top_front_left(pos.x, pos.y, pos.z);
 
       return *this;
    }
@@ -297,7 +310,7 @@ namespace AllegroFlare
    {
       // this can be optimized
       // one possibility is to add an "off switch" for update_segment_info, so it can be done at the end, instead of at each step
-      AllegroFlare::Vec3D pos = this->_top_left;
+      AllegroFlare::Vec3D pos = this->_top_front_left;
 
       this->to_origin();
 
@@ -306,7 +319,7 @@ namespace AllegroFlare
 
       refresh_segment_info(); // <-- needed to recalc the bounding box
 
-      this->top_left(pos.x, pos.y);
+      this->top_front_left(pos.x, pos.y, pos.z);
 
       return *this;
    }
@@ -346,18 +359,18 @@ namespace AllegroFlare
       for (int i=0; i<(int)segment.size(); i++) delete segment[i];
       segment.clear();
 
-      _top_left = point.front();
-      _bottom_right = point.front();
+      _top_front_left = point.front();
+      _bottom_back_right = point.front();
 
       for (int i=1; i<(int)point.size(); i++)
       {
          segment.push_back(new SegmentInfo3D(point[i-1], point[i]));
          _length += segment.back()->length;
 
-         if (point[i].x < _top_left.x) _top_left.x = point[i].x;
-         if (point[i].x > _bottom_right.x) _bottom_right.x = point[i].x;
-         if (point[i].y < _top_left.y) _top_left.y = point[i].y;
-         if (point[i].y > _bottom_right.y) _bottom_right.y = point[i].y;
+         if (point[i].x < _top_front_left.x) _top_front_left.x = point[i].x;
+         if (point[i].x > _bottom_back_right.x) _bottom_back_right.x = point[i].x;
+         if (point[i].y < _top_front_left.y) _top_front_left.y = point[i].y;
+         if (point[i].y > _bottom_back_right.y) _bottom_back_right.y = point[i].y;
       }
    }
 
@@ -430,21 +443,25 @@ namespace AllegroFlare
 
 
 
-   Path3D &Path3D::move(float x, float y)
+   Path3D &Path3D::move(float x, float y, float z)
    {
       for (int i=0; i<(int)point.size(); i++)
       {
          point[i].x += x;
          point[i].y += y;
+         point[i].z += z;
       }
       for (int i=0; i<(int)segment.size(); i++)
       {
          segment[i]->start.x += x;
          segment[i]->start.y += y;
+         segment[i]->start.z += z;
          segment[i]->end.x += x;
          segment[i]->end.y += y;
+         segment[i]->end.z += z;
          segment[i]->middle.x += x;
          segment[i]->middle.y += y;
+         segment[i]->middle.z += z;
       }
 
       refresh_segment_info();
@@ -457,16 +474,16 @@ namespace AllegroFlare
 
    Path3D &Path3D::to_origin()
    {
-      return this->move_start_to(0,0);
+      return this->move_start_to(0,0,0);
    }
 
 
 
 
-   Path3D &Path3D::move_start_to(float x, float y)
+   Path3D &Path3D::move_start_to(float x, float y, float z)
    {
       if (point.empty()) return *this;
-      move(-point[0].x + x, -point[0].y + y);
+      move(-point[0].x + x, -point[0].y + y, -point[0].z + z);
 
       return *this;
    }
@@ -474,10 +491,10 @@ namespace AllegroFlare
 
 
 
-   Path3D &Path3D::move_end_to(float x, float y)
+   Path3D &Path3D::move_end_to(float x, float y, float z)
    {
       if (point.empty()) return *this;
-      move(-point.back().x + x, -point.back().y + y);
+      move(-point.back().x + x, -point.back().y + y, -point.back().z + z);
 
       return *this;
    }
@@ -487,26 +504,27 @@ namespace AllegroFlare
 
    Path3D &Path3D::scale(float s)
    {
-      return this->scale(s, s);
+      return this->scale(s, s, s);
    }
 
 
 
 
-   Path3D &Path3D::scale_to(float w, float h)
+   Path3D &Path3D::scale_to(float w, float h, float d)
    {
-      return scale(w/width(), h/height());
+      return scale(w/width(), h/height(), d/depth());
    }
 
 
 
 
-   Path3D &Path3D::scale(float x, float y)
+   Path3D &Path3D::scale(float x, float y, float z)
    {
       for (int i=0; i<(int)point.size(); i++)
       {
          point[i].x *= x;
          point[i].y *= y;
+         point[i].z *= z;
       }
       refresh_segment_info();
 
@@ -591,7 +609,17 @@ namespace AllegroFlare
    {
       if (point.size() <= 1) return;
 
-      if (show_bounding_box) al_draw_rectangle(_top_left.x, _top_left.y, _bottom_right.x, _bottom_right.y, al_color_name("yellow"), 1.0);
+      if (show_bounding_box)
+      {
+         al_draw_rectangle(
+            _top_front_left.x,
+            _top_front_left.y,
+            _bottom_back_right.x,
+            _bottom_back_right.y,
+            al_color_name("yellow"),
+            1.0
+         );
+      }
 
       for (int i=1; i<(int)point.size(); i++)
       {
@@ -684,7 +712,7 @@ namespace AllegroFlare
       {
          //std::cout << parts[i] << std::endl;
          std::vector<std::string> coord_string = AllegroFlare::php::explode(" ", parts[i]);
-         add_point(atof(coord_string[0].c_str()), atof(coord_string[1].c_str()), false);
+         add_point(atof(coord_string[0].c_str()), atof(coord_string[1].c_str()), atof(coord_string[2].c_str()), false);
       }
 
       refresh_segment_info();
@@ -747,17 +775,18 @@ namespace AllegroFlare
 
    void Path3D::draw_shape(ALLEGRO_COLOR color)
    {
+      throw std::runtime_error("Path3D::draw_shape not implemented");
       al_draw_filled_polygon(&point[0].x, point.size(), color);
    }
 
 
 
 
-   void Path3D::draw_shape(float x, float y, ALLEGRO_COLOR color)
+   void Path3D::draw_shape(float x, float y, float z, ALLEGRO_COLOR color)
    {
-      this->move(x, y);
+      this->move(x, y, z);
       draw_shape(color);
-      this->move(-x, -y);
+      this->move(-x, -y, -z);
    }
 
 
@@ -777,11 +806,11 @@ namespace AllegroFlare
 
 
 
-   void Path3D::draw_outline(float x, float y, const ALLEGRO_COLOR &color, float thickness)
+   void Path3D::draw_outline(float x, float y, float z, const ALLEGRO_COLOR &color, float thickness)
    {
-      this->move(x, y);
+      this->move(x, y, z);
       draw_outline(color, thickness);
-      this->move(-x, -y);
+      this->move(-x, -y, -z);
    }
 
 
