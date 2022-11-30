@@ -11,7 +11,7 @@ namespace AllegroFlare
    {
    public:
       // camera and viewport settings
-      float far;
+      float far_plane;
 
       // camera controls
       AllegroFlare::vec3d position;
@@ -29,8 +29,8 @@ namespace AllegroFlare
       AllegroFlare::vec3d get_real_position();
       void setup_projection_on(ALLEGRO_BITMAP *surface);
 
-      float get_far();
-      void set_far(float far=100);
+      float get_far_plane();
+      void set_far_plane(float far_plane=100);
 
       void strafe_xy(float displacement=0.0f);
    };

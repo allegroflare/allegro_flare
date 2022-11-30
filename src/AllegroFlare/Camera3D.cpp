@@ -14,7 +14,7 @@ namespace AllegroFlare
 
 
 Camera3D::Camera3D()
-   : far(100)
+   : far_plane(100)
    , position(0, 0, 0)
    , stepout(0, 0, 0)
    , spin(0)
@@ -88,21 +88,21 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 
    float mul = 1.0 / zoom;
    float aspect_ratio = (float)al_get_bitmap_height(surface) / al_get_bitmap_width(surface);
-   al_perspective_transform(&t, -1 * mul, aspect_ratio * mul, 1, 1 * mul, -aspect_ratio * mul, far);
+   al_perspective_transform(&t, -1 * mul, aspect_ratio * mul, 1, 1 * mul, -aspect_ratio * mul, far_plane);
 
    al_use_projection_transform(&t);
 }
 
 
-float Camera3D::get_far()
+float Camera3D::get_far_plane()
 {
-   return far;
+   return far_plane;
 }
 
 
-void Camera3D::set_far(float far)
+void Camera3D::set_far_plane(float far_plane)
 {
-   this->far = far;
+   this->far_plane = far_plane;
 }
 
 
