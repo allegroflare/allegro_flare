@@ -15,8 +15,9 @@ namespace AllegroFlare
       middle = from_start/2 + start; // TODO: address: divide by 2?
       length = distance(start, end);
       radius = length/2; // TODO: address: divide by 2?
-      perpendicular = AllegroFlare::Vec3D(-from_start.y, from_start.x);
-      normal = ~-perpendicular;
+      // TODO: create a perpendicular for this class
+      //perpendicular = AllegroFlare::Vec3D(-from_start.y, from_start.x);
+      //normal = ~-perpendicular;
    }
 }
 
