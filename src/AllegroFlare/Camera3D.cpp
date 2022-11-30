@@ -94,6 +94,18 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 }
 
 
+float Camera3D::get_far()
+{
+   return far;
+}
+
+
+void Camera3D::set_far(float far)
+{
+   this->far = far;
+}
+
+
 void Camera3D::strafe_xy(float displacement)
 {
    AllegroFlare::Vec2D move_vec(cos(spin), sin(spin));
