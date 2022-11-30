@@ -160,6 +160,7 @@ namespace AllegroFlare
    float distance(float x1, float y1, float x2, float y2);
    float distance(const vec2d &point1, const vec2d &point2);
    float distance(const vec2d *point1, const vec2d *point2);
+   float distance(const Vec3D &point1, const Vec3D &point2);
 
    // Calculates the manhattan distance between points (google "Manhattan Distance").
    // Manhattan distance is a slightly faster (but less accurate) alternative to the distance formula.

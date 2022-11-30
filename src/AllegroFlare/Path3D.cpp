@@ -81,22 +81,22 @@ namespace AllegroFlare
 
    Path3D &Path3D::make_arc(int first_index, float arc_strength, int num_segments, bool refresh)
    {
-      float points[256];
+      throw std::runtime_error("Path3D::make_arc not implemented");
 
-      num_segments++;
+      //float points[256];
+      //num_segments++;
 
-      AllegroFlare::Vec3D arc_center = (point[first_index+1] + point[first_index]) / 2;
-      float radius = distance(point[first_index+1], point[first_index]) / 2;
-      float start_theta = (point[first_index+1] - arc_center).get_angle();
-      float end_theta = (point[first_index] - arc_center).get_angle();
+      //AllegroFlare::Vec3D arc_center = (point[first_index+1] + point[first_index]) / 2;
+      //float radius = distance(point[first_index+1], point[first_index]) / 2;
+      //float start_theta = (point[first_index+1] - arc_center).get_angle();
+      //float end_theta = (point[first_index] - arc_center).get_angle();
 
-      al_calculate_arc(&(points[0]), sizeof(float)*2, arc_center.x, arc_center.y,
-            radius, radius, start_theta, start_theta-end_theta, 0, num_segments);
+      //al_calculate_arc(&(points[0]), sizeof(float)*2, arc_center.x, arc_center.y,
+            //radius, radius, start_theta, start_theta-end_theta, 0, num_segments);
 
-      for (int i=2; i<(num_segments-1)*2; i+=2)
-         insert_point(first_index+1, points[i], points[i+1], true);
-      //add_point(points[i], points[i+1], false);
-      if (refresh) refresh_segment_info();
+      //for (int i=2; i<(num_segments-1)*2; i+=2)
+         //insert_point(first_index+1, points[i], points[i+1], true);
+      //if (refresh) refresh_segment_info();
 
       return *this;
    }
@@ -372,51 +372,57 @@ namespace AllegroFlare
 
 
 
-   Path33D&Path3D::soften()
+   Path3D &Path3D::soften()
    {
-      if (point.size() <= 1) return *this;
+      throw std::runtime_error("Path3D::soften not implemented");
 
-      std::vector<AllegroFlare::Vec3D> *newpoints = new std::vector<AllegroFlare::Vec3D>;
+      ////////
+      //// NOTE: This commented code is from the Path2D implementation (for reference)
+      ////////
 
-      // break each segment into 4 seperate segments
-      for (int i=1; i<(int)point.size(); i++)
-      {
-         newpoints->push_back(AllegroFlare::Vec3D((point[i]-point[i-1])*0.0 + point[i-1]));
-         newpoints->push_back(AllegroFlare::Vec3D((point[i]-point[i-1])*0.25 + point[i-1]));
-         newpoints->push_back(AllegroFlare::Vec3D((point[i]-point[i-1])*0.5 + point[i-1]));
-         newpoints->push_back(AllegroFlare::Vec3D((point[i]-point[i-1])*0.75 + point[i-1]));
-      }
-      newpoints->push_back(point[point.size()-1]);
+      //if (point.size() <= 1) return *this;
 
+      //std::vector<AllegroFlare::Vec3D> *newpoints = new std::vector<AllegroFlare::Vec3D>;
 
-      // skip the first 2
-      // erase every other point
-      bool keep = true;
-      for (int i=1; i<(int)newpoints->size(); i++)
-      {
-         if (!keep)
-         {
-            //delete newpoints->at(i);
-            newpoints->erase(newpoints->begin()+i);
-            i--;
-         }
-         keep = !keep;
-      }
-      newpoints->push_back(AllegroFlare::Vec3D(point[point.size()-1]));
-
-      //delete newpoints->at(1);
-      newpoints->erase(newpoints->begin()+1);
-
-      //delete newpoints->at((int)newpoints->size()-2);
-      newpoints->erase(newpoints->end()-2);
+      //// break each segment into 4 seperate segments
+      //for (int i=1; i<(int)point.size(); i++)
+      //{
+         //newpoints->push_back(AllegroFlare::Vec3D((point[i]-point[i-1])*0.0 + point[i-1]));
+         //newpoints->push_back(AllegroFlare::Vec3D((point[i]-point[i-1])*0.25 + point[i-1]));
+         //newpoints->push_back(AllegroFlare::Vec3D((point[i]-point[i-1])*0.5 + point[i-1]));
+         //newpoints->push_back(AllegroFlare::Vec3D((point[i]-point[i-1])*0.75 + point[i-1]));
+      //}
+      //newpoints->push_back(point[point.size()-1]);
 
 
-      // clear the current points
-      // and fill with the new points
-      clear();
-      point = *newpoints;
+      //// skip the first 2
+      //// erase every other point
+      //bool keep = true;
+      //for (int i=1; i<(int)newpoints->size(); i++)
+      //{
+         //if (!keep)
+         //{
+            ////delete newpoints->at(i);
+            //newpoints->erase(newpoints->begin()+i);
+            //i--;
+         //}
+         //keep = !keep;
+      //}
+      //newpoints->push_back(AllegroFlare::Vec3D(point[point.size()-1]));
 
-      refresh_segment_info();
+      ////delete newpoints->at(1);
+      //newpoints->erase(newpoints->begin()+1);
+
+      ////delete newpoints->at((int)newpoints->size()-2);
+      //newpoints->erase(newpoints->end()-2);
+
+
+      //// clear the current points
+      //// and fill with the new points
+      //clear();
+      //point = *newpoints;
+
+      //refresh_segment_info();
 
       return *this;
    }
@@ -783,24 +789,33 @@ namespace AllegroFlare
 
    Path3D *Path3D::create_extrapolation(float radian, float theta)
    {
-      float angle = 0;
-      Path3D *result = new Path3D();
+      throw std::runtime_error("Path3D::create_extrapolation not implemented");
 
-      for (int i=0; i<(int)point.size()-1; i++)
-      {
-         angle = segment[i]->normal.get_angle();
-         std::cout << std::endl << i << " " << angle;
-         if (angle > radian && angle < radian+theta)
-         {
-            result->add_point(point[i].x, point[i].y, false);
-            //result->add_point(point[i]->x, point[i]->y, false);
-         }
-      }
+      ////////
+      //// NOTE: This commented code is from the Path2D implementation (for reference)
+      ////////
 
-      std::cout << std::endl << result->point.size();
+      //float angle = 0;
+      //Path3D *result = new Path3D();
 
-      //result->refresh_segment_info();
-      return result;
+      //for (int i=0; i<(int)point.size()-1; i++)
+      //{
+         //angle = segment[i]->normal.get_angle();
+         //std::cout << std::endl << i << " " << angle;
+         //if (angle > radian && angle < radian+theta)
+         //{
+            //result->add_point(point[i].x, point[i].y, false);
+            ////result->add_point(point[i]->x, point[i]->y, false);
+         //}
+      //}
+
+      //std::cout << std::endl << result->point.size();
+
+      ////result->refresh_segment_info();
+
+      //return result;
+
+      return nullptr;
    }
 
 

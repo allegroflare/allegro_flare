@@ -75,6 +75,18 @@ namespace AllegroFlare
 
 
 
+   float distance(const Vec3D &point1, const Vec3D &point2)
+   {
+      // TODO: add tests for this function
+      return sqrt(
+           ((point1.x - point2.x) * (point1.x - point2.x))
+         + ((point1.y - point2.y) * (point1.y - point2.y))
+         + ((point1.z - point2.z) * (point1.z - point2.z))
+      );
+   }
+
+
+
    float manhattan_distance(const vec2d *point1, const vec2d *point2)
    {
       // may consider writing out the abs function
