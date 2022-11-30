@@ -45,11 +45,11 @@ namespace AllegroFlare
       if (point.size() == 1) _length = 0.0f;
       else
       {
-         throw std::runtime_error("Path3D::add_point this commented code not implemented");
-         //segment.push_back(new SegmentInfo3D(
-            //point[point.size()-2],
-            //point[point.size()-1]
-          //));
+         //throw std::runtime_error("Path3D::add_point this commented code not implemented");
+         segment.push_back(new SegmentInfo3D(
+            point[point.size()-2],
+            point[point.size()-1]
+          ));
          _length += segment.back()->length;
       }
 
