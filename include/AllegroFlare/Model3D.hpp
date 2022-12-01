@@ -45,6 +45,7 @@ namespace AllegroFlare
 
       bool initialized;
       void validate_initialized_or_output_to_cerr(std::string calling_function);
+      void validate_not_vertex_buffer(std::string calling_function);
 
    public:
       ALLEGRO_VERTEX_DECL *vertex_declaration;
@@ -61,12 +62,14 @@ namespace AllegroFlare
       bool load_obj_file(const char *filename, float scale=1.0);
       void inspect_vertices();
       void inspect_status();
+      void destroy_and_clear_vertex_buffer();
       void clear();
 
       void append(AllegroFlare::Model3D &other);
       bool flatten_single_named_object();
       int get_num_vertexes();
       int get_num_named_objects();
+      void promote_to_vertex_buffer();
 
       vec3d get_min_vertex_coordinate(); // should be renamed "calc_min_vertex..."
       vec3d get_max_vertex_coordinate(); // should be renamed "calc_min_vertex..."

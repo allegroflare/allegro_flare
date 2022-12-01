@@ -121,12 +121,36 @@ namespace AllegroFlare
 
 
 
+   void Model3D::validate_not_vertex_buffer(std::string calling_function)
+   {
+      if (vertex_buffer)
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Model3D::" << calling_function << "]: error: This function is not supported "
+                       << "in this current model state. The model is being rendered as a vertex_buffer.";
+         throw std::runtime_error(error_message.str());
+      }
+   }
+
+
+   void Model3D::destroy_and_clear_vertex_buffer()
+   {
+      if (vertex_buffer)
+      {
+         al_destroy_vertex_buffer(vertex_buffer);
+         vertex_buffer = nullptr;
+         return;
+      }
+   }
+
 
    void Model3D::clear()
    {
       validate_initialized_or_output_to_cerr("clear");
+
       vertexes.clear();
       named_objects.clear();
+      destroy_and_clear_vertex_buffer();
    }
 
 
@@ -159,8 +183,7 @@ namespace AllegroFlare
                    << "be destroyed and will need to be recreated if you wish to use one with the newly merged data."
                    << std::endl;
 
-         al_destroy_vertex_buffer(vertex_buffer);
-         vertex_buffer = nullptr;
+         destroy_and_clear_vertex_buffer();
       }
 
       vertexes.insert(vertexes.end(), other.vertexes.begin(), other.vertexes.end());
@@ -171,6 +194,8 @@ namespace AllegroFlare
    // returns true if flattened or if is already flattened
    bool Model3D::flatten_single_named_object()
    {
+      validate_not_vertex_buffer("flatten_single_named_object");
+
       // if there are more than one named object, throw an error
       if (get_num_named_objects() > 1)
       {
@@ -209,10 +234,28 @@ namespace AllegroFlare
 
 
 
+   void Model3D::promote_to_vertex_buffer()
+   {
+      validate_initialized_or_output_to_cerr("promote_to_vertex_buffer");
+      if (vertex_buffer) return;
+
+      // HERE
+      // TODO
+   }
+
+
 
    void Model3D::draw()
    {
       validate_initialized_or_output_to_cerr("draw");
+
+      if (vertex_buffer)
+      {
+         // HERE
+         // TODO
+         return;
+      }
+
       if (vertexes.empty()) return;
 
       if (named_objects.empty())
@@ -236,6 +279,8 @@ namespace AllegroFlare
    bool Model3D::draw_object(int index)
    {
       validate_initialized_or_output_to_cerr("draw_object");
+      validate_not_vertex_buffer("draw_object");
+
       if (index < 0 || index > (int)named_objects.size()) return false;
 
       named_object &object = named_objects[index];
@@ -253,6 +298,8 @@ namespace AllegroFlare
    bool Model3D::draw_object(std::string name)
    {
       validate_initialized_or_output_to_cerr("draw_object");
+      validate_not_vertex_buffer("draw_object");
+
       bool object_exists = false;
       for (unsigned i=0; i<named_objects.size(); i++)
       {
@@ -280,6 +327,8 @@ namespace AllegroFlare
    bool Model3D::set_named_object_texture(int index, ALLEGRO_BITMAP *tx)
    {
       validate_initialized_or_output_to_cerr("set_named_object_texture");
+      validate_not_vertex_buffer("set_named_object_texture");
+
       if (index < 0 || index > (int)named_objects.size()) return false;
       named_objects[index].texture = tx;
       return true;
@@ -291,6 +340,8 @@ namespace AllegroFlare
    bool Model3D::set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx)
    {
       validate_initialized_or_output_to_cerr("set_named_object_texture");
+      validate_not_vertex_buffer("set_named_object_texture");
+
       bool object_exists = false;
       for (unsigned i=0; i<named_objects.size(); i++)
       {
@@ -309,6 +360,8 @@ namespace AllegroFlare
    void Model3D::scale(float scale)
    {
       validate_initialized_or_output_to_cerr("scale");
+      validate_not_vertex_buffer("scale");
+
       for (unsigned i=0; i<vertexes.size(); i++)
       {
          vertexes[i].x *= scale;
@@ -322,6 +375,8 @@ namespace AllegroFlare
    void Model3D::displace(AllegroFlare::Vec3D displacement)
    {
       validate_initialized_or_output_to_cerr("displace");
+      validate_not_vertex_buffer("displace");
+
       for (unsigned i=0; i<vertexes.size(); i++)
       {
          vertexes[i].x += displacement.x;
