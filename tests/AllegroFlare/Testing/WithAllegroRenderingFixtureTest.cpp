@@ -45,3 +45,10 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 }
 
 
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   DISABLED__get_display_backbuffer__will_return_the_backbuffer_of_the_test_window)
+{
+   // TODO
+}
+
+

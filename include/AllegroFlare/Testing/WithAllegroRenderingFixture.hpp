@@ -34,6 +34,7 @@ namespace AllegroFlare
          virtual void SetUp() override;
          virtual void TearDown() override;
          ALLEGRO_FONT* get_any_font();
+         ALLEGRO_BITMAP* get_display_backbuffer();
          void sleep_for_frame();
          void sleep_for(float length_in_seconds=0.0f);
          std::string get_test_name();

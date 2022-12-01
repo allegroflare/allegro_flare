@@ -449,6 +449,7 @@
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
     "Tileo/Shaders/MeshWithNormals",

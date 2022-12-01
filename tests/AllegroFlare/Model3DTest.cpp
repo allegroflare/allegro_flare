@@ -33,18 +33,25 @@ TEST_F(AllegroFlare_Model3DTest, initialize__will_work_as_expected)
 }
 
 
-TEST_F(AllegroFlare_Model3DTest, draw__will_draw_the_object)
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest, draw__will_draw_the_object)
 {
-   al_init();
-   al_init_primitives_addon();
+   std::string MODEL_TEST_DATA_FILENAME = "/Users/markoates/Repos/allegro_flare/bin/data/models/coin_ring-01.obj";
    AllegroFlare::Camera3D camera;
    AllegroFlare::Model3D model_3d;
-   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
-
    model_3d.initialize();
+   model_3d.load_obj_file(MODEL_TEST_DATA_FILENAME.c_str());
 
-   al_destroy_display(display);
-   al_uninstall_system();
+   al_clear_depth_buffer(1);
+   al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.12, 1.0});
+
+   camera.stepout = {0, 0, 4};
+   camera.setup_projection_on(get_display_backbuffer());
+
+   model_3d.draw();
+
+   al_flip_display();
+
+   al_rest(2);
 }
 
 

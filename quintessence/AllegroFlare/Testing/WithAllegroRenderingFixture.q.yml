@@ -104,6 +104,12 @@ functions:
       return font_bin.auto_get("consolas.ttf 32");
 
 
+  - name: get_display_backbuffer
+    type: ALLEGRO_BITMAP*
+    body: |
+      return al_get_backbuffer(display);
+
+
   - name: sleep_for_frame
     type: void
     body: |
@@ -318,9 +324,11 @@ dependencies:
     headers: [ chrono ]
   - symbol: std::this_thread::sleep_for
     headers: [ thread ]
-
   - symbol: ALLEGRO_DISPLAY
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+
 
