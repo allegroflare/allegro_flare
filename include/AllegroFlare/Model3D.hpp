@@ -61,6 +61,7 @@ namespace AllegroFlare
       bool load_obj_file(const char *filename, float scale=1.0);
       void inspect();
       void clear();
+      void append(AllegroFlare::Model3D &other);
       int get_num_vertexes();
       int get_num_named_objects();
       vec3d get_min_vertex_coordinate(); // should be renamed "calc_min_vertex..."

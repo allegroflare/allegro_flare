@@ -41,6 +41,7 @@ namespace AllegroFlare
                                                 "more than once.");
       if (!al_is_system_installed() || !al_is_primitives_addon_initialized() || !al_get_current_display())
       {
+         // TODO: be sure if al_get_current_display() is even required here
          throw std::runtime_error("[AllegroFlare::Model3D::initialize]: error: al_is_system_installed() or "
                                   "al_is_primitives_addon_initialized() or al_get_current_display() not met.");
       }
@@ -105,6 +106,19 @@ namespace AllegroFlare
       named_objects.clear();
    }
 
+
+
+   void Model3D::append(AllegroFlare::Model3D &other)
+   {
+      // HERE
+      // TODO
+      // 1. clear as vertex buffer
+      if (vertex_buffer)
+      {
+         al_destroy_vertex_buffer(vertex_buffer);
+         vertex_buffer = nullptr;
+      }
+   }
 
 
 
