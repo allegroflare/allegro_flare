@@ -143,19 +143,26 @@ namespace AllegroFlare
          throw std::runtime_error(error_message.str());
       }
 
+      // Output warning if the textures do not match
+      if (other.texture && (other.texture != texture))
+      {
+         std::cout << "[AllegroFlare::Model3D::append]: warning: The object being appended contains a texture that is "
+                   << "different from this source model's texture. The source model's texture will be used."
+                   << std::endl;
+      }
+
       // Destroy our existing vertex buffer if it exists
       if (vertex_buffer)
       {
+         std::cout << "[AllegroFlare::Model3D::append]: warning: The source model contains a vertex buffer. It will "
+                   << "be destroyed and will need to be recreated if you wish to use one with the newly merged data."
+                   << std::endl;
+
          al_destroy_vertex_buffer(vertex_buffer);
          vertex_buffer = nullptr;
       }
 
-      if (other.texture && (other.texture != texture))
-      {
-         std::cout << "[AllegroFlare::Model3D::append]: warning: The object being appended contains a bitmap that is ";
-                   << "different from this source model's bitmap. The source model's bitmap will be used."
-                   << std::endl;
-      }
+      vertexes.insert(vertexes.end(), other.vertexes.begin(), other.vertexes.end());
    }
 
 
