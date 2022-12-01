@@ -33,7 +33,7 @@ TEST_F(AllegroFlare_Model3DTest, initialize__will_work_as_expected)
 }
 
 
-TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest, draw__will_draw_the_object)
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest, VISUAL__draw__will_draw_the_object)
 {
    std::string MODEL_TEST_DATA_FILENAME = "/Users/markoates/Repos/allegro_flare/bin/data/models/coin_ring-01.obj";
    AllegroFlare::Camera3D camera;
