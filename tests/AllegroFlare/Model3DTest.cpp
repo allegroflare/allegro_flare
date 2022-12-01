@@ -170,8 +170,30 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
-   //DISABLED__VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
+   DISABLED__promote_to_vertex_buffer__will_be_reflected_in_inspect_status)
+   //promote_to_vertex_buffer__will_be_reflected_in_inspect_status)
+{
+   load_subject();
+   subject.flatten_single_named_object();
+   subject.promote_to_vertex_buffer();
+
+   testing::internal::CaptureStdout();
+   subject.inspect_status();
+   std::string actual_cout = testing::internal::GetCapturedStdout();
+
+   std::string expected_cout =
+       "-             model:\n"
+       "       num_vertices: 1440\n"
+       "  has_vertex_buffer: true\n" // <-- expected modified line
+       "  num_named_objects: 0\n";
+
+   ASSERT_EQ(expected_cout, actual_cout);
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   //VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
+   DISABLED__VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
 {
    load_subject();
    subject.flatten_single_named_object();
@@ -181,6 +203,36 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    std::string actual_cout = testing::internal::GetCapturedStdout();
    std::string expected_cout = ""; // Expecting no output warnings
 
+   EXPECT_EQ(expected_cout, actual_cout);
+
+   examine_subject(4);
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   VISUAL__flattening_appending_and_promoting_to_vertex_object_will_work_as_expected_without_warnings)
+   //DISABLED__VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
+{
+   load_subject();
+   AllegroFlare::Model3D model_to_append;
+   model_to_append.initialize();
+   std::string model_filename_to_merge = "/Users/markoates/Repos/allegro_flare/bin/data/models/archway-01.obj";
+   model_to_append.load_obj_file(model_filename_to_merge.c_str());
+
+   testing::internal::CaptureStdout();
+
+   // 1. flatten any named objects on the models to be merged (appended)
+   subject.flatten_single_named_object();
+   model_to_append.flatten_single_named_object();
+
+   // 2. append other model
+   subject.append(model_to_append);
+
+   // 3. promote to vertex buffer
+   subject.promote_to_vertex_buffer();
+
+   std::string actual_cout = testing::internal::GetCapturedStdout();
+   std::string expected_cout = ""; // Expecting no output warnings
    EXPECT_EQ(expected_cout, actual_cout);
 
    examine_subject(4);
