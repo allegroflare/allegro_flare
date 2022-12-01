@@ -202,7 +202,7 @@ namespace AllegroFlare
          std::stringstream error_message;
          error_message << "[AllegroFlare::Model3D::flatten_single_named_object] error: "
                        << "Cannot flatten model because it contains more than one named object "
-                       << "(" << get_num_named_objects() << ").";
+                       << "(" << get_num_named_objects() << " named object(s)).";
          throw std::runtime_error(error_message.str());
       }
 
@@ -239,8 +239,21 @@ namespace AllegroFlare
       validate_initialized_or_output_to_cerr("promote_to_vertex_buffer");
       if (vertex_buffer) return;
 
-      // HERE
-      // TODO
+      if (get_num_named_objects() >= 1)
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Model3D::promote_to_vertex_buffer] error: "
+                       << "Cannot promote because it contains more than one named object "
+                       << "(" << get_num_named_objects() << " named object(s)).";
+         throw std::runtime_error(error_message.str());
+      }
+
+      vertex_buffer = al_create_vertex_buffer(
+         vertex_declaration,
+         &vertexes[0],
+         vertexes.size(),
+         ALLEGRO_PRIM_BUFFER_STATIC
+      );
    }
 
 
