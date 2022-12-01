@@ -62,9 +62,12 @@ namespace AllegroFlare
       void inspect_vertices();
       void inspect_status();
       void clear();
+
       void append(AllegroFlare::Model3D &other);
+      bool flatten_single_named_object();
       int get_num_vertexes();
       int get_num_named_objects();
+
       vec3d get_min_vertex_coordinate(); // should be renamed "calc_min_vertex..."
       vec3d get_max_vertex_coordinate(); // should be renamed "calc_min_vertex..."
 

@@ -122,13 +122,7 @@ namespace AllegroFlare
 
    void Model3D::append(AllegroFlare::Model3D &other)
    {
-      if (vertex_buffer)
-      {
-         al_destroy_vertex_buffer(vertex_buffer);
-         vertex_buffer = nullptr;
-      }
-
-      // if the model contains named objects, append is not supported
+      // Either model contains named objects, append is not supported
       if ((named_objects.size() > 0) || (other.named_objects.size() > 0))
       {
          std::stringstream error_message;
@@ -137,6 +131,39 @@ namespace AllegroFlare
                        << "with named objects is not supported.";
          throw std::runtime_error(error_message.str());
       }
+
+      // Destroy our existing vertex buffer if it exists
+      if (vertex_buffer)
+      {
+         al_destroy_vertex_buffer(vertex_buffer);
+         vertex_buffer = nullptr;
+      }
+   }
+
+
+
+   // returns true if flattened or if is already flattened
+   bool Model3D::flatten_single_named_object()
+   {
+      // if there are more than one named object, throw an error
+      if (get_num_named_objects() > 1)
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Model3D::flatten_single_named_object] error: "
+                       << "Cannot flatten model because it contains more than one named object "
+                       << "(" << get_num_named_objects() << ").";
+         throw std::runtime_error(error_message.str());
+      }
+
+      if (named_objects[0].texture)
+      {
+         std::cout << "[AllegroFlare::Model3D::flatten_single_named_object]: warning: The named object (identifier: \""
+                   << named_objects[0].identifier << "\") contains a bitmap.  It may be left dangling as it is "
+                   << "flattened."
+                   << std::endl;
+      }
+
+      named_objects.clear();
    }
 
 
