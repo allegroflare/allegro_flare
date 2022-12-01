@@ -41,17 +41,22 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest, draw__will_draw_the_
    model_3d.initialize();
    model_3d.load_obj_file(MODEL_TEST_DATA_FILENAME.c_str());
 
-   al_clear_depth_buffer(1);
-   al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.12, 1.0});
+   camera.stepout = {0, 0, 4}; // step back from the origin
+   camera.tilt = 0.35;           // look down slightly
 
-   camera.stepout = {0, 0, 4};
-   camera.setup_projection_on(get_display_backbuffer());
+   int loops=60;
+   for (int i=0; i<loops; i++)
+   {
+      // update
+      camera.spin += 0.01;
 
-   model_3d.draw();
-
-   al_flip_display();
-
-   al_rest(2);
+      // draw
+      al_clear_depth_buffer(1);
+      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.12, 1.0});
+      camera.setup_projection_on(get_display_backbuffer());
+      model_3d.draw();
+      al_flip_display();
+   }
 }
 
 
