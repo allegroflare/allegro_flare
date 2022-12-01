@@ -94,6 +94,17 @@ namespace AllegroFlare
       output << "-             model:" << std::endl;
       output << "       num_vertices: " << vertexes.size() << std::endl;
       output << "  has_vertex_buffer: " << (vertex_buffer ? "true" : "false") << std::endl;
+      output << "  num_named_objects: " << named_objects.size() << std::endl;
+
+      // output info for named objects
+      if (named_objects.size() > 0) output << "      named_objects:" << std::endl;
+      for (int i=0; i<named_objects.size(); i++)
+      {
+         output << "                     - named_object:" << std::endl;
+         output << "                         identifier: \"" << named_objects[i].identifier << "\"" << std::endl;
+         output << "                        num_indexes: " << named_objects[i].index_list.size() << std::endl;
+      }
+
       std::cout << output.str();
    }
 

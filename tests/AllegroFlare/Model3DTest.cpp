@@ -54,7 +54,8 @@ TEST_F(AllegroFlare_Model3DTest, can_be_created_without_blowing_up)
 }
 
 
-TEST_F(AllegroFlare_Model3DTest, initialize__will_work_as_expected)
+TEST_F(AllegroFlare_Model3DTest,
+   DISABLED__initialize__will_work_as_expected)
 {
    al_init();
    al_init_primitives_addon();
@@ -93,7 +94,8 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   inspect_status__will_output_information_about_the_model_in_its_current_state)
+   DISABLED__inspect_status__will_output_information_about_the_model_in_its_current_state)
+   //inspect_status__will_output_information_about_the_model_in_its_current_state)
 {
    load_subject();
 
@@ -104,7 +106,33 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    std::string expected_cout =
        "-             model:\n"
        "       num_vertices: 1440\n"
-       "  has_vertex_buffer: false\n";
+       "  has_vertex_buffer: false\n"
+       "  num_named_objects: 1\n"
+       "      named_objects:\n"
+       "                     - named_object:\n"
+       "                         identifier: \"Torus\"\n"
+       "                        num_indexes: 1440\n";
+
+   ASSERT_EQ(expected_cout, actual_cout);
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   //DISABLED__flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
+   flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
+{
+   load_subject();
+   subject.flatten_single_named_object();
+
+   testing::internal::CaptureStdout();
+   subject.inspect_status();
+   std::string actual_cout = testing::internal::GetCapturedStdout();
+
+   std::string expected_cout =
+       "-             model:\n"
+       "       num_vertices: 1440\n"
+       "  has_vertex_buffer: false\n"
+       "  num_named_objects: 0\n";
 
    ASSERT_EQ(expected_cout, actual_cout);
 }
