@@ -20,10 +20,9 @@ public:
       subject.initialize();
    }
 
-   void load_subject()
+   void load_subject(std::string filename="/Users/markoates/Repos/allegro_flare/bin/data/models/coin_ring-01.obj")
    {
-      std::string MODEL_TEST_DATA_FILENAME = "/Users/markoates/Repos/allegro_flare/bin/data/models/coin_ring-01.obj";
-      subject.load_obj_file(MODEL_TEST_DATA_FILENAME.c_str());
+      subject.load_obj_file(filename.c_str());
    }
 
    void examine_subject(float number_of_seconds=1.0f)
@@ -69,10 +68,43 @@ TEST_F(AllegroFlare_Model3DTest, initialize__will_work_as_expected)
 }
 
 
-TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest, VISUAL__draw__will_draw_the_object)
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   append__when_either_object_has_named_objects__will_throw_an_error)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   append__if_the_object_has_an_active_vertex_buffer__will_destroy_the_vertex_buffer_and_set_to_null)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   // NOTE: this test is disabled due to a new allegro bug on my system that causes sequential create/destroy
+   // of display to intemittently crash
+   DISABLED__VISUAL__draw__will_draw_the_subject)
 {
    load_subject();
-   examine_subject(6);
+   examine_subject(2);
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
+{
+   load_subject();
+
+   AllegroFlare::Model3D model_to_append;
+   model_to_append.initialize();
+   std::string model_filename_to_merge = "/Users/markoates/Repos/allegro_flare/bin/data/models/archway-01.obj";
+   model_to_append.load_obj_file(model_filename_to_merge.c_str());
+
+   subject.append(model_to_append);
+
+   examine_subject(2);
 }
 
 

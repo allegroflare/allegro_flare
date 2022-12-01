@@ -9,6 +9,7 @@
 #include <AllegroFlare/Vec3D.hpp>
 #include <cstdio>
 #include <iostream>
+#include <sstream>
 
 
 
@@ -79,7 +80,7 @@ namespace AllegroFlare
 
 
 
-   void Model3D::inspect()
+   void Model3D::inspect_vertices()
    {
       for (unsigned i=0; i<vertexes.size(); i++)
          printf("[%d] %f %f %f : %f %f : %f %f %f\n", i, vertexes[i].x, vertexes[i].y, vertexes[i].z, vertexes[i].u, vertexes[i].v, vertexes[i].nx, vertexes[i].ny, vertexes[i].nz);
@@ -110,13 +111,20 @@ namespace AllegroFlare
 
    void Model3D::append(AllegroFlare::Model3D &other)
    {
-      // HERE
-      // TODO
-      // 1. clear as vertex buffer
       if (vertex_buffer)
       {
          al_destroy_vertex_buffer(vertex_buffer);
          vertex_buffer = nullptr;
+      }
+
+      // if the model contains named objects, append is not supported
+      if ((named_objects.size() > 0) || (other.named_objects.size() > 0))
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Model3D::append] error: "
+                       << "Models cannot be merged because one or the other contains named objects. Merging models "
+                       << "with named objects is not supported.";
+         throw std::runtime_error(error_message.str());
       }
    }
 

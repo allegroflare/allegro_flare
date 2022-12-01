@@ -59,7 +59,7 @@ namespace AllegroFlare
       void initialize();
       void build_vertex_declaration();
       bool load_obj_file(const char *filename, float scale=1.0);
-      void inspect();
+      void inspect_vertices();
       void clear();
       void append(AllegroFlare::Model3D &other);
       int get_num_vertexes();
