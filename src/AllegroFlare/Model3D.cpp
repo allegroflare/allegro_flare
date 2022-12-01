@@ -264,8 +264,7 @@ namespace AllegroFlare
 
       if (vertex_buffer)
       {
-         // HERE
-         // TODO
+         al_draw_vertex_buffer(vertex_buffer, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
          return;
       }
 

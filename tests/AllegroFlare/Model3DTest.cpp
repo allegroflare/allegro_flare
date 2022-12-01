@@ -139,8 +139,8 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   VISUAL__append__will_append_vertexes_from_another_model)
-   //DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
+   //VISUAL__append__will_append_vertexes_from_another_model)
+   DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
 {
    load_subject();
    AllegroFlare::Model3D model_to_append;
@@ -166,6 +166,24 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    DISABLED__promote_to_vertex_buffer__when_there_are_one_or_more_named_objects__will_throw_an_error)
 {
    // TODO
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
+   //DISABLED__VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
+{
+   load_subject();
+   subject.flatten_single_named_object();
+
+   testing::internal::CaptureStdout();
+   subject.promote_to_vertex_buffer();
+   std::string actual_cout = testing::internal::GetCapturedStdout();
+   std::string expected_cout = ""; // Expecting no output warnings
+
+   EXPECT_EQ(expected_cout, actual_cout);
+
+   examine_subject(4);
 }
 
 
