@@ -138,8 +138,9 @@ namespace AllegroFlare
       {
          std::stringstream error_message;
          error_message << "[AllegroFlare::Model3D::append] error: "
-                       << "Models cannot be merged because one or the other contains named objects. Merging models "
-                       << "with named objects is not supported.";
+                       << "Models cannot be merged because one or the other contains named objects. If you wish to "
+                       << "merge, you will need to flatten (flatten_single_named_object()) the model. Merging models "
+                       << "with named objects is not supported for the time being.";
          throw std::runtime_error(error_message.str());
       }
 

@@ -70,20 +70,6 @@ TEST_F(AllegroFlare_Model3DTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   append__when_either_object_has_named_objects__will_throw_an_error)
-{
-   // TODO
-}
-
-
-TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   append__if_the_object_has_an_active_vertex_buffer__will_destroy_the_vertex_buffer_and_set_to_null)
-{
-   // TODO
-}
-
-
-TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    // NOTE: this test is disabled due to a new allegro bug on my system that causes sequential create/destroy
    // of display to intemittently crash
    DISABLED__VISUAL__draw__will_draw_the_subject)
@@ -118,8 +104,8 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   //DISABLED__flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
-   flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
+   DISABLED__flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
+   //flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
 {
    load_subject();
    subject.flatten_single_named_object();
@@ -139,18 +125,40 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
+   append__when_either_object_has_named_objects__will_throw_an_error)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   append__if_the_object_has_an_active_vertex_buffer__will_destroy_the_vertex_buffer_and_output_a_warning_message)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   VISUAL__append__will_append_vertexes_from_another_model)
+   //DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
 {
    load_subject();
-
    AllegroFlare::Model3D model_to_append;
    model_to_append.initialize();
    std::string model_filename_to_merge = "/Users/markoates/Repos/allegro_flare/bin/data/models/archway-01.obj";
    model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
-   subject.append(model_to_append);
+   subject.flatten_single_named_object();
+   model_to_append.flatten_single_named_object();
 
-   examine_subject(2);
+   testing::internal::CaptureStdout();
+   subject.append(model_to_append);
+   std::string actual_cout = testing::internal::GetCapturedStdout();
+   std::string expected_cout = ""; // Expecting no output warnings
+
+   EXPECT_EQ(expected_cout, actual_cout);
+
+   examine_subject(4);
 }
 
 
