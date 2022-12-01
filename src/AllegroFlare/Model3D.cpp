@@ -88,6 +88,17 @@ namespace AllegroFlare
 
 
 
+   void Model3D::inspect_status()
+   {
+      std::stringstream output;
+      output << "-             model:" << std::endl;
+      output << "       num_vertices: " << vertexes.size() << std::endl;
+      output << "  has_vertex_buffer: " << (vertex_buffer ? "true" : "false") << std::endl;
+      std::cout << output.str();
+   }
+
+
+
 
    void Model3D::validate_initialized_or_output_to_cerr(std::string calling_function)
    {

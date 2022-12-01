@@ -93,6 +93,24 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   inspect_status__will_output_information_about_the_model_in_its_current_state)
+{
+   load_subject();
+
+   testing::internal::CaptureStdout();
+   subject.inspect_status();
+   std::string actual_cout = testing::internal::GetCapturedStdout();
+
+   std::string expected_cout =
+       "-             model:\n"
+       "       num_vertices: 1440\n"
+       "  has_vertex_buffer: false\n";
+
+   ASSERT_EQ(expected_cout, actual_cout);
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
 {
    load_subject();
