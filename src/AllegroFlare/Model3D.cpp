@@ -194,6 +194,7 @@ namespace AllegroFlare
    // returns true if flattened or if is already flattened
    bool Model3D::flatten_single_named_object()
    {
+      validate_initialized_or_output_to_cerr("flatten_single_named_object");
       validate_not_vertex_buffer("flatten_single_named_object");
 
       // if there are more than one named object, throw an error
