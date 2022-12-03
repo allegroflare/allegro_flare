@@ -290,6 +290,9 @@ static void run_client(
          callback,
          callback_passed_data
    );
+   // NOTE: might be able to use ngrok like this, for example:
+   //client.set_host("6.tcp.ngrok.io");
+   //client.set_port("13981");
    client.run_blocking_while_awaiting_abort();
 }
 
