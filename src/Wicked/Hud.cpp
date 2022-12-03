@@ -105,7 +105,8 @@ ALLEGRO_FONT* Hud::obtain_hud_text_font()
       error_message << "Hud" << "::" << "obtain_hud_text_font" << ": error: " << "guard \"font_bin\" not met";
       throw std::runtime_error(error_message.str());
    }
-   return font_bin->auto_get("Manrope-Light.ttf -48");
+   return font_bin->auto_get("Inter-Medium.ttf -48");
+   //NOTE: previously return font_bin->auto_get("Manrope-Light.ttf -48");
 }
 
 
