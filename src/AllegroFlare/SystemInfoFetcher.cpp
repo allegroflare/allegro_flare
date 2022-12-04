@@ -75,6 +75,9 @@ std::string SystemInfoFetcher::get_machine()
 
 std::string SystemInfoFetcher::get_hostname()
 {
+#ifdef _WIN32 || _WIN64
+   return "[not-supported-on-this-system]";
+#else
    // SUSv2 guarantees that "Host names are limited to 255 bytes".
    // POSIX.1 guarantees that "Host names (not including the
    // terminating null byte) are limited to HOST_NAME_MAX bytes".  On
@@ -90,6 +93,7 @@ std::string SystemInfoFetcher::get_hostname()
    }
    std::string result = hostname;
    return result;
+#endif
 }
 
 
