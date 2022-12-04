@@ -394,21 +394,21 @@ void Inventory::update()
       std::stringstream error_message;
       error_message << "[Inventory::update]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::update: error: guard \"font_bin\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
       error_message << "[Inventory::update]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::update: error: guard \"bitmap_bin\" not met");
    }
    if (!(af_inventory))
    {
       std::stringstream error_message;
       error_message << "[Inventory::update]: error: guard \"af_inventory\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::update: error: guard \"af_inventory\" not met");
    }
    float reveal_speed = (1.0f/60.0f) * 4;  // 60 fps
    if (active) reveal_counter += reveal_speed;
@@ -483,7 +483,7 @@ void Inventory::move_cursor_up()
       std::stringstream error_message;
       error_message << "[Inventory::move_cursor_up]: error: guard \"has_valid_size()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::move_cursor_up: error: guard \"has_valid_size()\" not met");
    }
    if (!active) return;
    cursor_y--;
@@ -502,7 +502,7 @@ void Inventory::move_cursor_down()
       std::stringstream error_message;
       error_message << "[Inventory::move_cursor_down]: error: guard \"has_valid_size()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::move_cursor_down: error: guard \"has_valid_size()\" not met");
    }
    if (!active) return;
    cursor_y++;
@@ -521,7 +521,7 @@ void Inventory::move_cursor_left()
       std::stringstream error_message;
       error_message << "[Inventory::move_cursor_left]: error: guard \"has_valid_size()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::move_cursor_left: error: guard \"has_valid_size()\" not met");
    }
    if (!active) return;
    cursor_x--;
@@ -540,7 +540,7 @@ void Inventory::move_cursor_right()
       std::stringstream error_message;
       error_message << "[Inventory::move_cursor_right]: error: guard \"has_valid_size()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::move_cursor_right: error: guard \"has_valid_size()\" not met");
    }
    if (!active) return;
    cursor_x++;
@@ -595,7 +595,7 @@ void Inventory::set_num_columns(int num_columns)
       std::stringstream error_message;
       error_message << "[Inventory::set_num_columns]: error: guard \"num_columns > 0\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::set_num_columns: error: guard \"num_columns > 0\" not met");
    }
    this->num_columns = num_columns;
    cursor_x = 0;
@@ -611,7 +611,7 @@ void Inventory::set_num_rows(int num_rows)
       std::stringstream error_message;
       error_message << "[Inventory::set_num_rows]: error: guard \"num_rows > 0\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::set_num_rows: error: guard \"num_rows > 0\" not met");
    }
    this->num_rows = num_rows;
    cursor_x = 0;
@@ -661,21 +661,21 @@ void Inventory::render()
       std::stringstream error_message;
       error_message << "[Inventory::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::render: error: guard \"font_bin\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
       error_message << "[Inventory::render]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::render: error: guard \"bitmap_bin\" not met");
    }
    if (!(af_inventory))
    {
       std::stringstream error_message;
       error_message << "[Inventory::render]: error: guard \"af_inventory\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Inventory::render: error: guard \"af_inventory\" not met");
    }
    if (reveal_counter <= 0.001) return;
 

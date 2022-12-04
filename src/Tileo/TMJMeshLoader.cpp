@@ -40,7 +40,7 @@ AllegroFlare::TileMaps::PrimMeshAtlas* TMJMeshLoader::get_tile_atlas()
       std::stringstream error_message;
       error_message << "[TMJMeshLoader::get_tile_atlas]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TMJMeshLoader::get_tile_atlas: error: guard \"loaded\" not met");
    }
    return tile_atlas;
 }
@@ -52,7 +52,7 @@ AllegroFlare::TileMaps::PrimMesh* TMJMeshLoader::get_mesh()
       std::stringstream error_message;
       error_message << "[TMJMeshLoader::get_mesh]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TMJMeshLoader::get_mesh: error: guard \"loaded\" not met");
    }
    return mesh;
 }
@@ -64,7 +64,7 @@ AllegroFlare::TileMaps::TileMap<int>* TMJMeshLoader::get_collision_tile_map()
       std::stringstream error_message;
       error_message << "[TMJMeshLoader::get_collision_tile_map]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TMJMeshLoader::get_collision_tile_map: error: guard \"loaded\" not met");
    }
    return collision_tile_map;
 }
@@ -76,14 +76,14 @@ bool TMJMeshLoader::load()
       std::stringstream error_message;
       error_message << "[TMJMeshLoader::load]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TMJMeshLoader::load: error: guard \"bitmap_bin\" not met");
    }
    if (!((!loaded)))
    {
       std::stringstream error_message;
       error_message << "[TMJMeshLoader::load]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TMJMeshLoader::load: error: guard \"(!loaded)\" not met");
    }
    // 1
    // load and validate the json data to variables

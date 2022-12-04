@@ -146,7 +146,7 @@ void LevelSelect::render()
       std::stringstream error_message;
       error_message << "[LevelSelect::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("LevelSelect::render: error: guard \"font_bin\" not met");
    }
    place.start_transform();
 
@@ -264,7 +264,7 @@ void LevelSelect::move_cursor_up()
       std::stringstream error_message;
       error_message << "[LevelSelect::move_cursor_up]: error: guard \"has_valid_size()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("LevelSelect::move_cursor_up: error: guard \"has_valid_size()\" not met");
    }
    cursor_y--;
    while(cursor_y < 0) cursor_y += num_rows;
@@ -278,7 +278,7 @@ void LevelSelect::move_cursor_down()
       std::stringstream error_message;
       error_message << "[LevelSelect::move_cursor_down]: error: guard \"has_valid_size()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("LevelSelect::move_cursor_down: error: guard \"has_valid_size()\" not met");
    }
    cursor_y++;
    cursor_y = cursor_y % num_rows;
@@ -292,7 +292,7 @@ void LevelSelect::move_cursor_left()
       std::stringstream error_message;
       error_message << "[LevelSelect::move_cursor_left]: error: guard \"has_valid_size()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("LevelSelect::move_cursor_left: error: guard \"has_valid_size()\" not met");
    }
    cursor_x--;
    while(cursor_x < 0) cursor_x += num_columns;
@@ -306,7 +306,7 @@ void LevelSelect::move_cursor_right()
       std::stringstream error_message;
       error_message << "[LevelSelect::move_cursor_right]: error: guard \"has_valid_size()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("LevelSelect::move_cursor_right: error: guard \"has_valid_size()\" not met");
    }
    cursor_x++;
    cursor_x = cursor_x % num_columns;
@@ -374,7 +374,7 @@ void LevelSelect::activate_selected_menu_option()
       std::stringstream error_message;
       error_message << "[LevelSelect::activate_selected_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("LevelSelect::activate_selected_menu_option: error: guard \"event_emitter\" not met");
    }
    if (list_is_empty())
    {

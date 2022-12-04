@@ -139,14 +139,14 @@ float ColumnWithLabels::render(bool only_calculate_height_dont_render)
       std::stringstream error_message;
       error_message << "[ColumnWithLabels::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ColumnWithLabels::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[ColumnWithLabels::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ColumnWithLabels::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    ALLEGRO_FONT *font = obtain_font();
    float cursor_y = 0;
@@ -179,7 +179,7 @@ ALLEGRO_FONT* ColumnWithLabels::obtain_font()
       std::stringstream error_message;
       error_message << "[ColumnWithLabels::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ColumnWithLabels::obtain_font: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier;
    font_identifier << font_name << " " << font_size;

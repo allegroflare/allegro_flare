@@ -74,7 +74,7 @@ void HoppingLeft::update()
       std::stringstream error_message;
       error_message << "[HoppingLeft::update]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("HoppingLeft::update: error: guard \"entity\" not met");
    }
    if (entity->exists("on_ground"))
    {

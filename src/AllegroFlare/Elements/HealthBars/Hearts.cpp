@@ -121,21 +121,21 @@ void Hearts::render()
       std::stringstream error_message;
       error_message << "[Hearts::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Hearts::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[Hearts::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Hearts::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[Hearts::render]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Hearts::render: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_FONT *font_awesome_font = obtain_font_awesome_font();
@@ -177,7 +177,7 @@ ALLEGRO_FONT* Hearts::obtain_font_awesome_font()
       std::stringstream error_message;
       error_message << "[Hearts::obtain_font_awesome_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Hearts::obtain_font_awesome_font: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier_and_size;
    font_identifier_and_size << font_awesome_font_name << " " << heart_size;

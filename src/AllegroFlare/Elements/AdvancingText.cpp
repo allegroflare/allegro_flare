@@ -170,14 +170,14 @@ void AdvancingText::render()
       std::stringstream error_message;
       error_message << "[AdvancingText::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AdvancingText::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[AdvancingText::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AdvancingText::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    ALLEGRO_FONT *text_font = obtain_font();
 
@@ -231,7 +231,7 @@ ALLEGRO_FONT* AdvancingText::obtain_font()
       std::stringstream error_message;
       error_message << "[AdvancingText::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AdvancingText::obtain_font: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;

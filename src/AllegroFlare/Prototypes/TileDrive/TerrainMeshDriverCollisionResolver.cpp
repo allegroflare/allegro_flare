@@ -79,21 +79,21 @@ AllegroFlare::Physics::TileMapCollisionStepperStepResult TerrainMeshDriverCollis
       std::stringstream error_message;
       error_message << "[TerrainMeshDriverCollisionResolver::resolve_basic]: error: guard \"tunnel_mesh\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshDriverCollisionResolver::resolve_basic: error: guard \"tunnel_mesh\" not met");
    }
    if (!(surfer_position))
    {
       std::stringstream error_message;
       error_message << "[TerrainMeshDriverCollisionResolver::resolve_basic]: error: guard \"surfer_position\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshDriverCollisionResolver::resolve_basic: error: guard \"surfer_position\" not met");
    }
    if (!(surfer_velocity))
    {
       std::stringstream error_message;
       error_message << "[TerrainMeshDriverCollisionResolver::resolve_basic]: error: guard \"surfer_velocity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshDriverCollisionResolver::resolve_basic: error: guard \"surfer_velocity\" not met");
    }
    AllegroFlare::Physics::TileMapCollisionStepperStepResult result;
 
@@ -173,21 +173,21 @@ AllegroFlare::Physics::TileMapCollisionStepperStepResult TerrainMeshDriverCollis
       std::stringstream error_message;
       error_message << "[TerrainMeshDriverCollisionResolver::resolve]: error: guard \"tunnel_mesh\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshDriverCollisionResolver::resolve: error: guard \"tunnel_mesh\" not met");
    }
    if (!(surfer_position))
    {
       std::stringstream error_message;
       error_message << "[TerrainMeshDriverCollisionResolver::resolve]: error: guard \"surfer_position\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshDriverCollisionResolver::resolve: error: guard \"surfer_position\" not met");
    }
    if (!(surfer_velocity))
    {
       std::stringstream error_message;
       error_message << "[TerrainMeshDriverCollisionResolver::resolve]: error: guard \"surfer_velocity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshDriverCollisionResolver::resolve: error: guard \"surfer_velocity\" not met");
    }
    AllegroFlare::Physics::TileMapCollisionStepperStepResult result;
 

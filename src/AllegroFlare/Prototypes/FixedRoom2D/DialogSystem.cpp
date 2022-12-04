@@ -55,7 +55,7 @@ void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
       std::stringstream error_message;
       error_message << "[DialogSystem::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::set_bitmap_bin: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
 }
@@ -67,7 +67,7 @@ void DialogSystem::set_font_bin(AllegroFlare::FontBin* font_bin)
       std::stringstream error_message;
       error_message << "[DialogSystem::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::set_font_bin: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
 }
@@ -79,7 +79,7 @@ void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
       std::stringstream error_message;
       error_message << "[DialogSystem::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::set_event_emitter: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
 }
@@ -91,49 +91,49 @@ void DialogSystem::initialize()
       std::stringstream error_message;
       error_message << "[DialogSystem::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::initialize: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
       error_message << "[DialogSystem::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::initialize: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[DialogSystem::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[DialogSystem::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
       error_message << "[DialogSystem::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::initialize: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[DialogSystem::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::initialize: error: guard \"font_bin\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[DialogSystem::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::initialize: error: guard \"event_emitter\" not met");
    }
    initialized = true;
    return;
@@ -146,7 +146,7 @@ void DialogSystem::update()
       std::stringstream error_message;
       error_message << "[DialogSystem::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::update: error: guard \"initialized\" not met");
    }
    if (active_dialog) active_dialog->update();
    return;
@@ -164,7 +164,7 @@ void DialogSystem::render()
       std::stringstream error_message;
       error_message << "[DialogSystem::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::render: error: guard \"initialized\" not met");
    }
    if (active_dialog)
    {
@@ -180,7 +180,7 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
       std::stringstream error_message;
       error_message << "[DialogSystem::process_dialog_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::process_dialog_event: error: guard \"initialized\" not met");
    }
    using namespace AllegroFlare::Prototypes::FixedRoom2D;
    // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
@@ -309,7 +309,7 @@ void DialogSystem::dialog_advance()
       std::stringstream error_message;
       error_message << "[DialogSystem::dialog_advance]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"initialized\" not met");
    }
    //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
@@ -346,7 +346,7 @@ void DialogSystem::dialog_cursor_up()
       std::stringstream error_message;
       error_message << "[DialogSystem::dialog_cursor_up]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::dialog_cursor_up: error: guard \"initialized\" not met");
    }
    //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
@@ -375,7 +375,7 @@ void DialogSystem::dialog_cursor_down()
       std::stringstream error_message;
       error_message << "[DialogSystem::dialog_cursor_down]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::dialog_cursor_down: error: guard \"initialized\" not met");
    }
    //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
@@ -404,7 +404,7 @@ bool DialogSystem::dialog_is_finished()
       std::stringstream error_message;
       error_message << "[DialogSystem::dialog_is_finished]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::dialog_is_finished: error: guard \"initialized\" not met");
    }
    if (!active_dialog) return true;
 
@@ -440,7 +440,7 @@ bool DialogSystem::shutdown_dialog()
       std::stringstream error_message;
       error_message << "[DialogSystem::shutdown_dialog]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"initialized\" not met");
    }
    std::cout << "- in DialogSystem::shutdown_dialog()" << std::endl;
    if (!active_dialog) return false;
@@ -457,7 +457,7 @@ void DialogSystem::move_cursor_up()
       std::stringstream error_message;
       error_message << "[DialogSystem::move_cursor_up]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::move_cursor_up: error: guard \"initialized\" not met");
    }
    //if (inventory_window.get_active()) inventory_window.move_cursor_up();
    if (active_dialog) dialog_cursor_up();
@@ -471,7 +471,7 @@ void DialogSystem::move_cursor_down()
       std::stringstream error_message;
       error_message << "[DialogSystem::move_cursor_down]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::move_cursor_down: error: guard \"initialized\" not met");
    }
    //if (inventory_window.get_active()) inventory_window.move_cursor_down();
    if (active_dialog) dialog_cursor_down();
@@ -485,7 +485,7 @@ ALLEGRO_FONT* DialogSystem::obtain_font()
       std::stringstream error_message;
       error_message << "[DialogSystem::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogSystem::obtain_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf -52");
 }

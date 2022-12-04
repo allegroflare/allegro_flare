@@ -93,14 +93,14 @@ void AudioDataBlock::initialize()
       std::stringstream error_message;
       error_message << "[AudioDataBlock::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioDataBlock::initialize: error: guard \"(!initialized)\" not met");
    }
    if (!((sample_count > 0)))
    {
       std::stringstream error_message;
       error_message << "[AudioDataBlock::initialize]: error: guard \"(sample_count > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioDataBlock::initialize: error: guard \"(sample_count > 0)\" not met");
    }
    channel_count = al_get_channel_count(channel_configuration);
    block.resize(sample_count * channel_count, 0);
@@ -114,7 +114,7 @@ void AudioDataBlock::move_sample_head_position_by(std::size_t delta)
       std::stringstream error_message;
       error_message << "[AudioDataBlock::move_sample_head_position_by]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioDataBlock::move_sample_head_position_by: error: guard \"initialized\" not met");
    }
    sample_head_position += delta;
    while (sample_head_position >= sample_count) sample_head_position -= sample_count;
@@ -128,14 +128,14 @@ void AudioDataBlock::set_sample_count(std::size_t sample_count, bool clear)
       std::stringstream error_message;
       error_message << "[AudioDataBlock::set_sample_count]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioDataBlock::set_sample_count: error: guard \"initialized\" not met");
    }
    if (!((sample_count > 0)))
    {
       std::stringstream error_message;
       error_message << "[AudioDataBlock::set_sample_count]: error: guard \"(sample_count > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioDataBlock::set_sample_count: error: guard \"(sample_count > 0)\" not met");
    }
    // TODO: permit this value to be set before initialization
    sample_head_position = 0;

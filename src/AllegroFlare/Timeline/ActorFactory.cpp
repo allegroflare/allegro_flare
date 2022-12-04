@@ -43,7 +43,7 @@ AllegroFlare::Timeline::Actors::Actor2D* ActorFactory::create_actor2d_with_scrip
       std::stringstream error_message;
       error_message << "[ActorFactory::create_actor2d_with_script]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ActorFactory::create_actor2d_with_script: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Timeline::Actors::Actor2D* result = new AllegroFlare::Timeline::Actors::Actor2D(
       identifier,

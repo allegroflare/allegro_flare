@@ -196,7 +196,7 @@ void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::set_font_bin: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -241,35 +241,35 @@ void SoftwareKeyboard::initialize()
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::initialize: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::initialize: error: guard \"font_bin\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::initialize: error: guard \"event_emitter\" not met");
    }
    keyboard_placement.position.x = 1920/2;
    keyboard_placement.position.y = 1080/2;
@@ -301,7 +301,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::press_key_by_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::press_key_by_name: error: guard \"initialized\" not met");
    }
    if (!key_exists(name))
    {
@@ -556,7 +556,7 @@ void SoftwareKeyboard::render()
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::render: error: guard \"initialized\" not met");
    }
    // this is a soft "update" here to update the live-moving cursor location
    cursor_location = (cursor_destination - cursor_location) * 0.55 + cursor_location;
@@ -678,7 +678,7 @@ void SoftwareKeyboard::emit_bonk_sound_effect()
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::emit_bonk_sound_effect]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::emit_bonk_sound_effect: error: guard \"initialized\" not met");
    }
    event_emitter->emit_play_sound_effect_event(bonk_sound_effect_identifier);
    return;
@@ -691,7 +691,7 @@ void SoftwareKeyboard::emit_key_click_sound_effect()
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::emit_key_click_sound_effect]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::emit_key_click_sound_effect: error: guard \"initialized\" not met");
    }
    event_emitter->emit_play_sound_effect_event(key_click_sound_effect_identifier);
    return;
@@ -704,7 +704,7 @@ void SoftwareKeyboard::emit_erase_sound_effect()
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::emit_erase_sound_effect]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::emit_erase_sound_effect: error: guard \"initialized\" not met");
    }
    event_emitter->emit_play_sound_effect_event(erase_sound_effect_identifier);
    return;
@@ -717,7 +717,7 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_keyboard_font()
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::obtain_keyboard_font]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::obtain_keyboard_font: error: guard \"initialized\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
@@ -731,7 +731,7 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_prompt_text_font()
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::obtain_prompt_text_font]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::obtain_prompt_text_font: error: guard \"initialized\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << (font_size - 23);
@@ -745,7 +745,7 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_result_text_font()
       std::stringstream error_message;
       error_message << "[SoftwareKeyboard::obtain_result_text_font]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("SoftwareKeyboard::obtain_result_text_font: error: guard \"initialized\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << (font_size - 20);

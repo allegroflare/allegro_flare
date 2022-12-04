@@ -321,7 +321,7 @@ void TitleScreen::select_menu_option()
       std::stringstream error_message;
       error_message << "[TitleScreen::select_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::select_menu_option: error: guard \"event_emitter\" not met");
    }
    if (menu_is_empty())
    {
@@ -352,21 +352,21 @@ void TitleScreen::render()
       std::stringstream error_message;
       error_message << "[TitleScreen::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[TitleScreen::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[TitleScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS);
    //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
@@ -457,7 +457,7 @@ void TitleScreen::draw_menu()
       std::stringstream error_message;
       error_message << "[TitleScreen::draw_menu]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::draw_menu: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
@@ -545,7 +545,7 @@ ALLEGRO_FONT* TitleScreen::obtain_title_font()
       std::stringstream error_message;
       error_message << "[TitleScreen::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::obtain_title_font: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << title_font_size;
@@ -559,7 +559,7 @@ ALLEGRO_FONT* TitleScreen::obtain_menu_font()
       std::stringstream error_message;
       error_message << "[TitleScreen::obtain_menu_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::obtain_menu_font: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << menu_font_size;
@@ -573,7 +573,7 @@ ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
       std::stringstream error_message;
       error_message << "[TitleScreen::obtain_copyright_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::obtain_copyright_font: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << copyright_font_size;
@@ -587,7 +587,7 @@ ALLEGRO_BITMAP* TitleScreen::obtain_background_bitmap()
       std::stringstream error_message;
       error_message << "[TitleScreen::obtain_background_bitmap]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::obtain_background_bitmap: error: guard \"bitmap_bin\" not met");
    }
    return bitmap_bin->auto_get(background_bitmap_name);
 }
@@ -599,7 +599,7 @@ ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
       std::stringstream error_message;
       error_message << "[TitleScreen::obtain_title_bitmap]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TitleScreen::obtain_title_bitmap: error: guard \"bitmap_bin\" not met");
    }
    return bitmap_bin->auto_get(title_bitmap_name);
 }

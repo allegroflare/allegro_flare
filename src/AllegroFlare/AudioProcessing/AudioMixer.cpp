@@ -70,7 +70,7 @@ ALLEGRO_MIXER* AudioMixer::get_mixer()
       std::stringstream error_message;
       error_message << "[AudioMixer::get_mixer]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioMixer::get_mixer: error: guard \"initialized\" not met");
    }
    return mixer;
 }
@@ -82,7 +82,7 @@ void AudioMixer::validate_configuration()
       std::stringstream error_message;
       error_message << "[AudioMixer::validate_configuration]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioMixer::validate_configuration: error: guard \"initialized\" not met");
    }
    // validate configuration
    if (audio_depth != ALLEGRO_AUDIO_DEPTH_FLOAT32)
@@ -119,21 +119,21 @@ void AudioMixer::initialize()
       std::stringstream error_message;
       error_message << "[AudioMixer::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioMixer::initialize: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_audio_installed()))
    {
       std::stringstream error_message;
       error_message << "[AudioMixer::initialize]: error: guard \"al_is_audio_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioMixer::initialize: error: guard \"al_is_audio_installed()\" not met");
    }
    if (!(al_get_default_mixer()))
    {
       std::stringstream error_message;
       error_message << "[AudioMixer::initialize]: error: guard \"al_get_default_mixer()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AudioMixer::initialize: error: guard \"al_get_default_mixer()\" not met");
    }
    // set the parent_mixer provided by allegro
    parent_mixer = al_get_default_mixer();

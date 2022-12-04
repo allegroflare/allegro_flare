@@ -72,21 +72,21 @@ void EntityFactory::initialize()
       std::stringstream error_message;
       error_message << "[EntityFactory::initialize]: error: guard \"scene_root\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::initialize: error: guard \"scene_root\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
       error_message << "[EntityFactory::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::initialize: error: guard \"bitmap_bin\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
       error_message << "[EntityFactory::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::initialize: error: guard \"model_bin\" not met");
    }
    initialized = true;
    return;
@@ -99,7 +99,7 @@ AllegroFlare::Prototypes::CubeShooter::Entity* EntityFactory::add_cube(float x, 
       std::stringstream error_message;
       error_message << "[EntityFactory::add_cube]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::add_cube: error: guard \"initialized\" not met");
    }
    AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
    result->reassign_parent(scene_root);
@@ -122,7 +122,7 @@ AllegroFlare::Prototypes::CubeShooter::Entity* EntityFactory::add_player_bullet(
       std::stringstream error_message;
       error_message << "[EntityFactory::add_player_bullet]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::add_player_bullet: error: guard \"initialized\" not met");
    }
    AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
    result->reassign_parent(scene_root);
@@ -155,7 +155,7 @@ AllegroFlare::Prototypes::CubeShooter::Entity* EntityFactory::add_player_ship(fl
       std::stringstream error_message;
       error_message << "[EntityFactory::add_player_ship]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::add_player_ship: error: guard \"initialized\" not met");
    }
    static bool loaded_already = false;
    AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
@@ -183,7 +183,7 @@ AllegroFlare::Prototypes::CubeShooter::Entity* EntityFactory::add_world_mesh()
       std::stringstream error_message;
       error_message << "[EntityFactory::add_world_mesh]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::add_world_mesh: error: guard \"initialized\" not met");
    }
    AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
    result->reassign_parent(scene_root);

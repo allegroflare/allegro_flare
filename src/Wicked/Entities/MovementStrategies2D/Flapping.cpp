@@ -81,7 +81,7 @@ void Flapping::update()
       std::stringstream error_message;
       error_message << "[Flapping::update]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Flapping::update: error: guard \"entity\" not met");
    }
    update_flapability_status();
 
@@ -103,7 +103,7 @@ void Flapping::update_flapability_status()
       std::stringstream error_message;
       error_message << "[Flapping::update_flapability_status]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Flapping::update_flapability_status: error: guard \"entity\" not met");
    }
    if (!can_flap)
    {
@@ -123,7 +123,7 @@ bool Flapping::decide_to_flap()
       std::stringstream error_message;
       error_message << "[Flapping::decide_to_flap]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Flapping::decide_to_flap: error: guard \"entity\" not met");
    }
    if (can_flap)
    {
@@ -143,7 +143,7 @@ void Flapping::flap()
       std::stringstream error_message;
       error_message << "[Flapping::flap]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Flapping::flap: error: guard \"entity\" not met");
    }
    if (can_flap)
    {

@@ -68,7 +68,7 @@ void Message::set_body_length(std::size_t new_length)
       std::stringstream error_message;
       error_message << "[Message::set_body_length]: error: guard \"(!(new_length > MAX_BODY_LENGTH))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Message::set_body_length: error: guard \"(!(new_length > MAX_BODY_LENGTH))\" not met");
    }
    body_length = new_length;
    return;
@@ -81,7 +81,7 @@ void Message::set_body(std::string content)
       std::stringstream error_message;
       error_message << "[Message::set_body]: error: guard \"(!(content.size() > MAX_BODY_LENGTH))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Message::set_body: error: guard \"(!(content.size() > MAX_BODY_LENGTH))\" not met");
    }
    set_body_length(content.size());
    std::memcpy(data_ptr() + HEADER_LENGTH, content.c_str(), body_length);

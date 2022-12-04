@@ -34,28 +34,28 @@ AllegroFlare::Prototypes::FixedRoom2D::Configuration ConfigurationFactory::load_
       std::stringstream error_message;
       error_message << "[ConfigurationFactory::load_original_gametest_default]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ConfigurationFactory::load_original_gametest_default: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[ConfigurationFactory::load_original_gametest_default]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ConfigurationFactory::load_original_gametest_default: error: guard \"font_bin\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[ConfigurationFactory::load_original_gametest_default]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ConfigurationFactory::load_original_gametest_default: error: guard \"event_emitter\" not met");
    }
    if (!(entity_collection_helper))
    {
       std::stringstream error_message;
       error_message << "[ConfigurationFactory::load_original_gametest_default]: error: guard \"entity_collection_helper\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ConfigurationFactory::load_original_gametest_default: error: guard \"entity_collection_helper\" not met");
    }
    AllegroFlare::Prototypes::FixedRoom2D::Configuration result;
 

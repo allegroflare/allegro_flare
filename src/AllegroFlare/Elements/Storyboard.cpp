@@ -110,14 +110,14 @@ void Storyboard::render()
       std::stringstream error_message;
       error_message << "[Storyboard::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[Storyboard::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
    if (!current_page) return;
@@ -297,7 +297,7 @@ ALLEGRO_FONT* Storyboard::obtain_next_button_font()
       std::stringstream error_message;
       error_message << "[Storyboard::obtain_next_button_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::obtain_next_button_font: error: guard \"font_bin\" not met");
    }
    std::string font_name = "Inter-Medium.ttf";
    std::stringstream composite_font_str;

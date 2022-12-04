@@ -65,14 +65,14 @@ void GameWonScreen::render()
       std::stringstream error_message;
       error_message << "[GameWonScreen::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("GameWonScreen::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[GameWonScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("GameWonScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    draw_primary_text();
    draw_instruction_text();
@@ -126,7 +126,7 @@ ALLEGRO_FONT* GameWonScreen::obtain_title_font()
       std::stringstream error_message;
       error_message << "[GameWonScreen::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("GameWonScreen::obtain_title_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("DroidSans.ttf -80");
 }
@@ -138,7 +138,7 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
       std::stringstream error_message;
       error_message << "[GameWonScreen::obtain_instruction_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("GameWonScreen::obtain_instruction_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("DroidSans.ttf -48");
 }

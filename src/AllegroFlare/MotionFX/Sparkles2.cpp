@@ -90,7 +90,7 @@ void Sparkles2::initialize()
       std::stringstream error_message;
       error_message << "[Sparkles2::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Sparkles2::initialize: error: guard \"(!initialized)\" not met");
    }
    // create the actor
    std::string star_bitmap_filename = "star-b.png";
@@ -197,21 +197,21 @@ void Sparkles2::render()
       std::stringstream error_message;
       error_message << "[Sparkles2::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Sparkles2::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[Sparkles2::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Sparkles2::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(initialized))
    {
       std::stringstream error_message;
       error_message << "[Sparkles2::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Sparkles2::render: error: guard \"initialized\" not met");
    }
    Placement2D place(x, y, 0, 0);
    place.scale.x = scale;
@@ -229,7 +229,7 @@ ALLEGRO_BITMAP* Sparkles2::obtain_star_bitmap()
       std::stringstream error_message;
       error_message << "[Sparkles2::obtain_star_bitmap]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Sparkles2::obtain_star_bitmap: error: guard \"bitmap_bin\" not met");
    }
    return bitmap_bin->auto_get("star-b.png");
 }

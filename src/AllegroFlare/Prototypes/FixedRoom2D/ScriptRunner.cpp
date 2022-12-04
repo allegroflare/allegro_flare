@@ -123,7 +123,7 @@ bool ScriptRunner::load_script_by_dictionary_name(std::string script_dictionary_
       std::stringstream error_message;
       error_message << "[ScriptRunner::load_script_by_dictionary_name]: error: guard \"script_dictionary\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ScriptRunner::load_script_by_dictionary_name: error: guard \"script_dictionary\" not met");
    }
    if (script_dictionary->count(script_dictionary_name) == 0)
    {
@@ -211,14 +211,14 @@ bool ScriptRunner::parse_and_run_line(std::string raw_script_line, int line_num,
       std::stringstream error_message;
       error_message << "[ScriptRunner::parse_and_run_line]: error: guard \"script_dictionary\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ScriptRunner::parse_and_run_line: error: guard \"script_dictionary\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[ScriptRunner::parse_and_run_line]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ScriptRunner::parse_and_run_line: error: guard \"event_emitter\" not met");
    }
    std::string DIALOG = "DIALOG";
    std::string GOTO_MARKER = "GOTO_MARKER";
@@ -473,7 +473,7 @@ void ScriptRunner::emit_script_event(AllegroFlare::GameEventDatas::Base* event_d
       std::stringstream error_message;
       error_message << "[ScriptRunner::emit_script_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("ScriptRunner::emit_script_event: error: guard \"event_emitter\" not met");
    }
    AllegroFlare::GameEvent game_event(
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::SCRIPT_EVENT_NAME,

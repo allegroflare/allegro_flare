@@ -122,7 +122,7 @@ std::set<std::string> FixedRoom2D::get_subscribed_to_game_event_names()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::get_subscribed_to_game_event_names]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::get_subscribed_to_game_event_names: error: guard \"initialized\" not met");
    }
    return subscribed_to_game_event_names;
 }
@@ -134,7 +134,7 @@ bool FixedRoom2D::is_subscribed_to_game_event_name(std::string game_event_name)
       std::stringstream error_message;
       error_message << "[FixedRoom2D::is_subscribed_to_game_event_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::is_subscribed_to_game_event_name: error: guard \"initialized\" not met");
    }
    return (subscribed_to_game_event_names.count(game_event_name) != 0);
 }
@@ -146,21 +146,21 @@ void FixedRoom2D::initialize()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::initialize: error: guard \"(!initialized)\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
       error_message << "[FixedRoom2D::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::initialize: error: guard \"bitmap_bin\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[FixedRoom2D::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::initialize: error: guard \"event_emitter\" not met");
    }
    subscribed_to_game_event_names = {
       AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
@@ -195,7 +195,7 @@ bool FixedRoom2D::load_configuration(AllegroFlare::Prototypes::FixedRoom2D::Conf
       std::stringstream error_message;
       error_message << "[FixedRoom2D::load_configuration]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::load_configuration: error: guard \"initialized\" not met");
    }
    AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader configuration_loader;
    configuration_loader.set_source_configuration(&configuration);
@@ -228,7 +228,7 @@ bool FixedRoom2D::enter_start_room()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::enter_start_room]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::enter_start_room: error: guard \"initialized\" not met");
    }
    return enter_room(starting_room_identifier);
 }
@@ -240,7 +240,7 @@ bool FixedRoom2D::load_gametest_configuration()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::load_gametest_configuration]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::load_gametest_configuration: error: guard \"initialized\" not met");
    }
    // TODO: rename this to build_gametest_configuration
    AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
@@ -258,7 +258,7 @@ void FixedRoom2D::update()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::update: error: guard \"initialized\" not met");
    }
    update_all_rooms();
 
@@ -274,7 +274,7 @@ bool FixedRoom2D::enter_room(std::string room_name)
       std::stringstream error_message;
       error_message << "[FixedRoom2D::enter_room]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::enter_room: error: guard \"initialized\" not met");
    }
    // find the room name
    std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*>::iterator it =
@@ -340,7 +340,7 @@ std::string FixedRoom2D::get_current_room_dictionary_name(AllegroFlare::Prototyp
       std::stringstream error_message;
       error_message << "[FixedRoom2D::get_current_room_dictionary_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::get_current_room_dictionary_name: error: guard \"initialized\" not met");
    }
    if (!current_room) return nullptr;
    for (auto &room_dictionary_listing : room_dictionary)
@@ -357,7 +357,7 @@ void FixedRoom2D::render()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::render: error: guard \"initialized\" not met");
    }
    // render the current room
    if (current_room)
@@ -404,7 +404,7 @@ void FixedRoom2D::process_subscribed_to_game_event(AllegroFlare::GameEvent* game
       std::stringstream error_message;
       error_message << "[FixedRoom2D::process_subscribed_to_game_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::process_subscribed_to_game_event: error: guard \"initialized\" not met");
    }
    if (game_event->is_type(AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME))
    {
@@ -458,7 +458,7 @@ void FixedRoom2D::process_interaction_event(AllegroFlare::GameEventDatas::Base* 
       std::stringstream error_message;
       error_message << "[FixedRoom2D::process_interaction_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::process_interaction_event: error: guard \"initialized\" not met");
    }
    if (game_event_data && game_event_data->get_type() == "InteractionEventData")
    {
@@ -495,7 +495,7 @@ void FixedRoom2D::process_script_event(AllegroFlare::GameEventDatas::Base* game_
       std::stringstream error_message;
       error_message << "[FixedRoom2D::process_script_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::process_script_event: error: guard \"initialized\" not met");
    }
    //bool a_new_dialog_was_spawned = false;
    using namespace AllegroFlare::Prototypes::FixedRoom2D;
@@ -628,7 +628,7 @@ void FixedRoom2D::pause_game()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::pause_game]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::pause_game: error: guard \"initialized\" not met");
    }
    if (paused) return;
    suspend_all_rooms();
@@ -643,7 +643,7 @@ void FixedRoom2D::unpause_game()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::unpause_game]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::unpause_game: error: guard \"initialized\" not met");
    }
    if (!paused) return;
    resume_all_rooms();
@@ -658,7 +658,7 @@ void FixedRoom2D::dialog_cursor_up()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::dialog_cursor_up]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::dialog_cursor_up: error: guard \"initialized\" not met");
    }
    dialog_system.dialog_cursor_up();
    return;
@@ -671,7 +671,7 @@ void FixedRoom2D::dialog_cursor_down()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::dialog_cursor_down]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::dialog_cursor_down: error: guard \"initialized\" not met");
    }
    dialog_system.dialog_cursor_down();
    return;
@@ -684,7 +684,7 @@ bool FixedRoom2D::dialog_is_finished()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::dialog_is_finished]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::dialog_is_finished: error: guard \"initialized\" not met");
    }
    return dialog_system.dialog_is_finished();
 }
@@ -696,7 +696,7 @@ void FixedRoom2D::activate_primary_action()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::activate_primary_action]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::activate_primary_action: error: guard \"initialized\" not met");
    }
    // TODO: probably remove this branching logic here and have the dialog_system manage the active/deactive
    // emit closing dialog logic.  The FixedRoom2D should be "suspended"/"unsuspended" while control is handed
@@ -724,14 +724,14 @@ void FixedRoom2D::emit_close_current_active_dialog_event()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::emit_close_current_active_dialog_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::emit_close_current_active_dialog_event: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[FixedRoom2D::emit_close_current_active_dialog_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::emit_close_current_active_dialog_event: error: guard \"event_emitter\" not met");
    }
    // TODO: probably remove this function and have all the logic surrounding "close_current_active_dialog"
    // to be handled in the dialog_system
@@ -758,7 +758,7 @@ void FixedRoom2D::move_cursor_up()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::move_cursor_up]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::move_cursor_up: error: guard \"initialized\" not met");
    }
    dialog_system.move_cursor_up();
    return;
@@ -771,7 +771,7 @@ void FixedRoom2D::move_cursor_down()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::move_cursor_down]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::move_cursor_down: error: guard \"initialized\" not met");
    }
    dialog_system.move_cursor_down();
    return;
@@ -784,7 +784,7 @@ void FixedRoom2D::move_cursor_left()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::move_cursor_left]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::move_cursor_left: error: guard \"initialized\" not met");
    }
    return;
 }
@@ -796,7 +796,7 @@ void FixedRoom2D::move_cursor_right()
       std::stringstream error_message;
       error_message << "[FixedRoom2D::move_cursor_right]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::move_cursor_right: error: guard \"initialized\" not met");
    }
    return;
 }
@@ -808,7 +808,7 @@ void FixedRoom2D::move_cursor(float distance_x, float distance_y)
       std::stringstream error_message;
       error_message << "[FixedRoom2D::move_cursor]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("FixedRoom2D::move_cursor: error: guard \"initialized\" not met");
    }
    if (current_room && !current_room->get_suspended())
    { 

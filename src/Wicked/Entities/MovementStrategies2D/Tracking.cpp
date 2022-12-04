@@ -48,14 +48,14 @@ void Tracking::update()
       std::stringstream error_message;
       error_message << "[Tracking::update]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Tracking::update: error: guard \"entity\" not met");
    }
    if (!(tracked_entity))
    {
       std::stringstream error_message;
       error_message << "[Tracking::update]: error: guard \"tracked_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Tracking::update: error: guard \"tracked_entity\" not met");
    }
    AllegroFlare::vec2d entity_position = entity->get_place_ref().position;
    AllegroFlare::vec2d tracked_entity_position = tracked_entity->get_place_ref().position;

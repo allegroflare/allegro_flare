@@ -127,14 +127,14 @@ void AchievementsList::render()
       std::stringstream error_message;
       error_message << "[AchievementsList::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AchievementsList::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[AchievementsList::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AchievementsList::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    draw_achievements_list_items_and_scrollbar();
    draw_achievements_list_title_text_and_completed_title_text();
@@ -508,7 +508,7 @@ ALLEGRO_FONT* AchievementsList::obtain_title_font()
       std::stringstream error_message;
       error_message << "[AchievementsList::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AchievementsList::obtain_title_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Bold.ttf -40");
 }
@@ -520,7 +520,7 @@ ALLEGRO_FONT* AchievementsList::obtain_item_title_font()
       std::stringstream error_message;
       error_message << "[AchievementsList::obtain_item_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AchievementsList::obtain_item_title_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Bold.ttf -34");
 }
@@ -532,7 +532,7 @@ ALLEGRO_FONT* AchievementsList::obtain_item_description_font()
       std::stringstream error_message;
       error_message << "[AchievementsList::obtain_item_description_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AchievementsList::obtain_item_description_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf -26");
 }
@@ -544,7 +544,7 @@ ALLEGRO_FONT* AchievementsList::obtain_icon_font()
       std::stringstream error_message;
       error_message << "[AchievementsList::obtain_icon_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("AchievementsList::obtain_icon_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("fa-solid-900.ttf -50");
 }

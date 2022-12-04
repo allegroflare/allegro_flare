@@ -80,7 +80,7 @@ void Storyboard::initialize()
       std::stringstream error_message;
       error_message << "[Storyboard::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::initialize: error: guard \"(!initialized)\" not met");
    }
    storyboard_element.set_font_bin(font_bin);
    initialized = true;
@@ -94,7 +94,7 @@ void Storyboard::on_activate()
       std::stringstream error_message;
       error_message << "[Storyboard::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::on_activate: error: guard \"initialized\" not met");
    }
    storyboard_element.reset();
    return;
@@ -107,7 +107,7 @@ void Storyboard::primary_timer_func()
       std::stringstream error_message;
       error_message << "[Storyboard::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::primary_timer_func: error: guard \"initialized\" not met");
    }
    storyboard_element.update();
    if (storyboard_element.get_can_advance_to_next_page() && auto_advance) advance();
@@ -132,14 +132,14 @@ void Storyboard::advance()
       std::stringstream error_message;
       error_message << "[Storyboard::advance]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::advance: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[Storyboard::advance]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::advance: error: guard \"event_emitter\" not met");
    }
    // TODO: consider making this private
    if (storyboard_element.get_finished()) return;
@@ -161,14 +161,14 @@ void Storyboard::virtual_control_button_down_func(int player_num, int button_num
       std::stringstream error_message;
       error_message << "[Storyboard::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[Storyboard::virtual_control_button_down_func]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Storyboard::virtual_control_button_down_func: error: guard \"event_emitter\" not met");
    }
    if (storyboard_element.get_finished()) return;
 

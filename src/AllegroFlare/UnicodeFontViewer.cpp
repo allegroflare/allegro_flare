@@ -65,35 +65,35 @@ void UnicodeFontViewer::render()
       std::stringstream error_message;
       error_message << "[UnicodeFontViewer::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("UnicodeFontViewer::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[UnicodeFontViewer::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("UnicodeFontViewer::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[UnicodeFontViewer::render]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("UnicodeFontViewer::render: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[UnicodeFontViewer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("UnicodeFontViewer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[UnicodeFontViewer::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("UnicodeFontViewer::render: error: guard \"font_bin\" not met");
    }
    uint32_t unicode_range_end = unicode_range_start+0x00ff; // unicode_range_start to unicode_range_start+255
    ALLEGRO_FONT *ui_font = obtain_ui_font();
@@ -201,7 +201,7 @@ ALLEGRO_FONT* UnicodeFontViewer::obtain_unicode_font()
       std::stringstream error_message;
       error_message << "[UnicodeFontViewer::obtain_unicode_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("UnicodeFontViewer::obtain_unicode_font: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier_and_size;
    font_identifier_and_size << font_identifier << " 42";
@@ -215,7 +215,7 @@ ALLEGRO_FONT* UnicodeFontViewer::obtain_ui_font()
       std::stringstream error_message;
       error_message << "[UnicodeFontViewer::obtain_ui_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("UnicodeFontViewer::obtain_ui_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf 20");
 }
@@ -227,7 +227,7 @@ ALLEGRO_FONT* UnicodeFontViewer::obtain_ui_font_mini()
       std::stringstream error_message;
       error_message << "[UnicodeFontViewer::obtain_ui_font_mini]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("UnicodeFontViewer::obtain_ui_font_mini: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf 10");
 }

@@ -36,14 +36,14 @@ void TileMapCollisionStepper::step()
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::step]: error: guard \"collision_tile_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::step: error: guard \"collision_tile_map\" not met");
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::step]: error: guard \"aabb2d\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::step: error: guard \"aabb2d\" not met");
    }
    // ported code from:
    // https://github.com/MarkOates/beary2d/blob/master/src/tile_map_collision_helper.cpp
@@ -116,14 +116,14 @@ bool TileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, float ti
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"collision_tile_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::adjacent_to_bottom_edge: error: guard \"collision_tile_map\" not met");
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"aabb2d\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::adjacent_to_bottom_edge: error: guard \"aabb2d\" not met");
    }
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
@@ -153,14 +153,14 @@ bool TileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float til
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"collision_tile_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::adjacent_to_right_edge: error: guard \"collision_tile_map\" not met");
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"aabb2d\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::adjacent_to_right_edge: error: guard \"aabb2d\" not met");
    }
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
@@ -190,14 +190,14 @@ bool TileMapCollisionStepper::adjacent_to_top_edge(float tile_width, float tile_
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"collision_tile_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::adjacent_to_top_edge: error: guard \"collision_tile_map\" not met");
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"aabb2d\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::adjacent_to_top_edge: error: guard \"aabb2d\" not met");
    }
    Wicked::Physics::AABB2D &obj = *aabb2d;
 
@@ -245,14 +245,14 @@ bool TileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::adjacent_to_left_edge]: error: guard \"collision_tile_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::adjacent_to_left_edge: error: guard \"collision_tile_map\" not met");
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
       error_message << "[TileMapCollisionStepper::adjacent_to_left_edge]: error: guard \"aabb2d\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TileMapCollisionStepper::adjacent_to_left_edge: error: guard \"aabb2d\" not met");
    }
    Wicked::Physics::AABB2D &obj = *aabb2d;
 

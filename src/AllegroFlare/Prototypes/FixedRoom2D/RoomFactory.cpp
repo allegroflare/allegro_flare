@@ -84,28 +84,28 @@ AllegroFlare::Prototypes::FixedRoom2D::Room* RoomFactory::create_room(float widt
       std::stringstream error_message;
       error_message << "[RoomFactory::create_room]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("RoomFactory::create_room: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[RoomFactory::create_room]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("RoomFactory::create_room: error: guard \"font_bin\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[RoomFactory::create_room]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("RoomFactory::create_room: error: guard \"event_emitter\" not met");
    }
    if (!(entity_collection_helper))
    {
       std::stringstream error_message;
       error_message << "[RoomFactory::create_room]: error: guard \"entity_collection_helper\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("RoomFactory::create_room: error: guard \"entity_collection_helper\" not met");
    }
    AllegroFlare::Prototypes::FixedRoom2D::Room* result =
       new AllegroFlare::Prototypes::FixedRoom2D::Room(font_bin, event_emitter, entity_collection_helper);

@@ -29,7 +29,7 @@ AllegroFlare::Elements::Notifications::AchievementUnlocked* NotificationsFactory
       std::stringstream error_message;
       error_message << "[NotificationsFactory::create_achievement_unlocked_notification]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("NotificationsFactory::create_achievement_unlocked_notification: error: guard \"al_is_system_installed()\" not met");
    }
    AllegroFlare::Elements::Notifications::AchievementUnlocked *result =
       new AllegroFlare::Elements::Notifications::AchievementUnlocked(achievement_name);

@@ -83,7 +83,7 @@ void Cursor::draw()
       std::stringstream error_message;
       error_message << "[Cursor::draw]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Cursor::draw: error: guard \"font_bin\" not met");
    }
    AllegroFlare::Placement2D placement(x, y, 0, 0);
    placement.start_transform();
@@ -159,7 +159,7 @@ ALLEGRO_FONT* Cursor::obtain_cursor_font()
       std::stringstream error_message;
       error_message << "[Cursor::obtain_cursor_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Cursor::obtain_cursor_font: error: guard \"font_bin\" not met");
    }
    std::string font_name = "fa-solid-900.ttf";
    int cursor_font_size = 30;
@@ -176,7 +176,7 @@ ALLEGRO_FONT* Cursor::obtain_info_text_font()
       std::stringstream error_message;
       error_message << "[Cursor::obtain_info_text_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Cursor::obtain_info_text_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf 20");
 }

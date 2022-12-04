@@ -49,7 +49,7 @@ Wicked::Entities::Basic2D* Basic2DFactory::create_from_bitmap_filename(std::stri
       std::stringstream error_message;
       error_message << "[Basic2DFactory::create_from_bitmap_filename]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Basic2DFactory::create_from_bitmap_filename: error: guard \"bitmap_bin\" not met");
    }
    ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
    Wicked::Entities::Basic2D *result = new Wicked::Entities::Basic2D;
@@ -282,7 +282,7 @@ Wicked::Entities::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_
       std::stringstream error_message;
       error_message << "[Basic2DFactory::create_tile_map]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Basic2DFactory::create_tile_map: error: guard \"bitmap_bin\" not met");
    }
    //throw std::runtime_error("create_tile_map not implemented!!");
    //AllegroFlare::TileMaps::Basic2D *created_map = nullptr;

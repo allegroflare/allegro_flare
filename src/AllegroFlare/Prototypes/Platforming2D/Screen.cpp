@@ -132,7 +132,7 @@ void Screen::set_map_dictionary(std::map<std::string, std::string> map_dictionar
       std::stringstream error_message;
       error_message << "[Screen::set_map_dictionary]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::set_map_dictionary: error: guard \"(!initialized)\" not met");
    }
    this->map_dictionary = map_dictionary;
    // TODO: allow this to be set after initialization
@@ -146,7 +146,7 @@ void Screen::set_display(AllegroFlare::Display* display)
       std::stringstream error_message;
       error_message << "[Screen::set_display]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::set_display: error: guard \"(!initialized)\" not met");
    }
    this->display = display;
    return;
@@ -159,7 +159,7 @@ void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
       std::stringstream error_message;
       error_message << "[Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::set_event_emitter: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    return;
@@ -172,7 +172,7 @@ void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
       std::stringstream error_message;
       error_message << "[Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -208,7 +208,7 @@ void Screen::on_activate()
       std::stringstream error_message;
       error_message << "[Screen::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::on_activate: error: guard \"initialized\" not met");
    }
    // nothing here
    return;
@@ -221,7 +221,7 @@ void Screen::on_deactivate()
       std::stringstream error_message;
       error_message << "[Screen::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::on_deactivate: error: guard \"initialized\" not met");
    }
    // nothing here
    return;
@@ -359,14 +359,14 @@ void Screen::initialize()
       std::stringstream error_message;
       error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
       error_message << "[Screen::initialize]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::initialize: error: guard \"al_get_current_display()\" not met");
    }
    initialize_camera_control();
    initialize_player_controls();
@@ -383,21 +383,21 @@ void Screen::initialize_camera()
       std::stringstream error_message;
       error_message << "[Screen::initialize_camera]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::initialize_camera: error: guard \"currently_active_map\" not met");
    }
    if (!(currently_active_map->get_tile_atlas()))
    {
       std::stringstream error_message;
       error_message << "[Screen::initialize_camera]: error: guard \"currently_active_map->get_tile_atlas()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::initialize_camera: error: guard \"currently_active_map->get_tile_atlas()\" not met");
    }
    if (!(currently_active_map->get_tile_mesh()))
    {
       std::stringstream error_message;
       error_message << "[Screen::initialize_camera]: error: guard \"currently_active_map->get_tile_mesh()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::initialize_camera: error: guard \"currently_active_map->get_tile_mesh()\" not met");
    }
    //camera.size = { 1920.0f, 1080.0f };
    camera.size = AllegroFlare::vec2d(1920.0f, 1080.0f);
@@ -504,14 +504,14 @@ void Screen::update_entities()
       std::stringstream error_message;
       error_message << "[Screen::update_entities]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::update_entities: error: guard \"initialized\" not met");
    }
    if (!(currently_active_map))
    {
       std::stringstream error_message;
       error_message << "[Screen::update_entities]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::update_entities: error: guard \"currently_active_map\" not met");
    }
    // apply gravity
    for (auto &entity : get_current_map_entities())
@@ -620,14 +620,14 @@ void Screen::check_player_collisions_with_doors()
       std::stringstream error_message;
       error_message << "[Screen::check_player_collisions_with_doors]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::check_player_collisions_with_doors: error: guard \"player_controlled_entity\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[Screen::check_player_collisions_with_doors]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::check_player_collisions_with_doors: error: guard \"event_emitter\" not met");
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
 
@@ -678,7 +678,7 @@ void Screen::update_player_collisions_with_collectables()
       std::stringstream error_message;
       error_message << "[Screen::update_player_collisions_with_collectables]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::update_player_collisions_with_collectables: error: guard \"player_controlled_entity\" not met");
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
    Wicked::Entities::CollectionHelper collection_helper(&_entities);
@@ -703,7 +703,7 @@ void Screen::update_player_collisions_with_goalposts()
       std::stringstream error_message;
       error_message << "[Screen::update_player_collisions_with_goalposts]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::update_player_collisions_with_goalposts: error: guard \"player_controlled_entity\" not met");
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
    Wicked::Entities::CollectionHelper collection_helper(&_entities);
@@ -737,7 +737,7 @@ void Screen::update_player_controls_on_player_controlled_entity()
       std::stringstream error_message;
       error_message << "[Screen::update_player_controls_on_player_controlled_entity]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::update_player_controls_on_player_controlled_entity: error: guard \"player_controlled_entity\" not met");
    }
    // if this block is active, the player cannot control themselves while in the air, only when on the ground:
    //if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
@@ -776,7 +776,7 @@ void Screen::update()
       std::stringstream error_message;
       error_message << "[Screen::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::update: error: guard \"initialized\" not met");
    }
    //return;
    update_player_controls_on_player_controlled_entity();
@@ -792,21 +792,21 @@ void Screen::draw()
       std::stringstream error_message;
       error_message << "[Screen::draw]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::draw: error: guard \"initialized\" not met");
    }
    if (!(currently_active_map))
    {
       std::stringstream error_message;
       error_message << "[Screen::draw]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::draw: error: guard \"currently_active_map\" not met");
    }
    if (!(get_tile_mesh()))
    {
       std::stringstream error_message;
       error_message << "[Screen::draw]: error: guard \"get_tile_mesh()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::draw: error: guard \"get_tile_mesh()\" not met");
    }
    camera.setup_dimentional_projection(backbuffer_sub_bitmap);
 
@@ -859,14 +859,14 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
       std::stringstream error_message;
       error_message << "[Screen::key_char_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::key_char_func: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
       error_message << "[Screen::key_char_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::key_char_func: error: guard \"event\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -895,14 +895,14 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
       std::stringstream error_message;
       error_message << "[Screen::key_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::key_up_func: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
       error_message << "[Screen::key_up_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::key_up_func: error: guard \"event\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -924,14 +924,14 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
       std::stringstream error_message;
       error_message << "[Screen::key_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::key_down_func: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
       error_message << "[Screen::key_down_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -1075,7 +1075,7 @@ void Screen::render_collision_tile_mesh()
       std::stringstream error_message;
       error_message << "[Screen::render_collision_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::render_collision_tile_mesh: error: guard \"currently_active_map\" not met");
    }
    AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_mesh();
    float tile_width=16.0f;
@@ -1115,7 +1115,7 @@ AllegroFlare::TileMaps::PrimMeshAtlas* Screen::get_tile_atlas()
       std::stringstream error_message;
       error_message << "[Screen::get_tile_atlas]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::get_tile_atlas: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_tile_atlas();
 }
@@ -1127,7 +1127,7 @@ AllegroFlare::TileMaps::PrimMesh* Screen::get_tile_mesh()
       std::stringstream error_message;
       error_message << "[Screen::get_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::get_tile_mesh: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_tile_mesh();
 }
@@ -1139,7 +1139,7 @@ AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_mesh()
       std::stringstream error_message;
       error_message << "[Screen::get_collision_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::get_collision_tile_mesh: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_collision_tile_mesh();
 }
@@ -1151,7 +1151,7 @@ std::vector<Wicked::Entities::Basic2D*> Screen::get_current_map_entities()
       std::stringstream error_message;
       error_message << "[Screen::get_current_map_entities]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Screen::get_current_map_entities: error: guard \"player_controlled_entity\" not met");
    }
    Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
    std::string on_map_name = currently_active_map_name;

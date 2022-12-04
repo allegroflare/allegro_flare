@@ -43,7 +43,7 @@ void Choice::initialize()
       std::stringstream error_message;
       error_message << "[Choice::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Choice::initialize: error: guard \"(!initialized)\" not met");
    }
    if (options.empty())
    {
@@ -64,7 +64,7 @@ std::string Choice::get_prompt()
       std::stringstream error_message;
       error_message << "[Choice::get_prompt]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Choice::get_prompt: error: guard \"initialized\" not met");
    }
    return prompt;
 }
@@ -76,7 +76,7 @@ std::vector<std::pair<std::string, std::string>> Choice::get_options()
       std::stringstream error_message;
       error_message << "[Choice::get_options]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Choice::get_options: error: guard \"initialized\" not met");
    }
    return options;
 }
@@ -88,7 +88,7 @@ std::string Choice::get_current_selection_text()
       std::stringstream error_message;
       error_message << "[Choice::get_current_selection_text]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Choice::get_current_selection_text: error: guard \"initialized\" not met");
    }
    if (!has_valid_cursor_position()) return "";
    return options[cursor_position].first;
@@ -101,7 +101,7 @@ std::string Choice::get_current_selection_value()
       std::stringstream error_message;
       error_message << "[Choice::get_current_selection_value]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Choice::get_current_selection_value: error: guard \"initialized\" not met");
    }
    if (!has_valid_cursor_position()) return "";
    return options[cursor_position].second;
@@ -114,7 +114,7 @@ void Choice::move_cursor_position_down()
       std::stringstream error_message;
       error_message << "[Choice::move_cursor_position_down]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Choice::move_cursor_position_down: error: guard \"initialized\" not met");
    }
    if (!has_valid_cursor_position()) return;
 
@@ -130,7 +130,7 @@ void Choice::move_cursor_position_up()
       std::stringstream error_message;
       error_message << "[Choice::move_cursor_position_up]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Choice::move_cursor_position_up: error: guard \"initialized\" not met");
    }
    if (!has_valid_cursor_position()) return;
 

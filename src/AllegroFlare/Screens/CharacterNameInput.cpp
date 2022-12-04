@@ -49,21 +49,21 @@ void CharacterNameInput::initialize()
       std::stringstream error_message;
       error_message << "[CharacterNameInput::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::initialize: error: guard \"(!initialized)\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[CharacterNameInput::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::initialize: error: guard \"event_emitter\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[CharacterNameInput::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::initialize: error: guard \"font_bin\" not met");
    }
    software_keyboard.set_event_emitter(event_emitter);
    software_keyboard.set_font_bin(font_bin);
@@ -84,7 +84,7 @@ void CharacterNameInput::on_activate()
       std::stringstream error_message;
       error_message << "[CharacterNameInput::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::on_activate: error: guard \"initialized\" not met");
    }
    software_keyboard.reset();
    return;
@@ -97,7 +97,7 @@ void CharacterNameInput::primary_timer_func()
       std::stringstream error_message;
       error_message << "[CharacterNameInput::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::primary_timer_func: error: guard \"initialized\" not met");
    }
    render();
    return;
@@ -152,7 +152,7 @@ void CharacterNameInput::virtual_control_button_down_func(int player_num, int bu
       std::stringstream error_message;
       error_message << "[CharacterNameInput::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
    if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
 
@@ -193,14 +193,14 @@ void CharacterNameInput::key_char_func(ALLEGRO_EVENT* event)
       std::stringstream error_message;
       error_message << "[CharacterNameInput::key_char_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::key_char_func: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
       error_message << "[CharacterNameInput::key_char_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::key_char_func: error: guard \"event\" not met");
    }
    if (mode != MODE_USING_KEYBOARD) return;
 
@@ -253,7 +253,7 @@ void CharacterNameInput::render()
       std::stringstream error_message;
       error_message << "[CharacterNameInput::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("CharacterNameInput::render: error: guard \"initialized\" not met");
    }
    software_keyboard.render();
    return;

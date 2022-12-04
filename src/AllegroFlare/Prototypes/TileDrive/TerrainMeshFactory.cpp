@@ -47,7 +47,7 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_cla
       std::stringstream error_message;
       error_message << "[TerrainMeshFactory::create_classic_random]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshFactory::create_classic_random: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
    result->set_bitmap_bin(bitmap_bin);
@@ -66,7 +66,7 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_ran
       std::stringstream error_message;
       error_message << "[TerrainMeshFactory::create_random_with_walls]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshFactory::create_random_with_walls: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
    result->set_bitmap_bin(bitmap_bin);
@@ -88,7 +88,7 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_fro
       std::stringstream error_message;
       error_message << "[TerrainMeshFactory::create_from_tmj]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshFactory::create_from_tmj: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader tmj_data_loader(tmj_filename);
    tmj_data_loader.load();
@@ -149,14 +149,14 @@ void TerrainMeshFactory::random_fill_from(AllegroFlare::Prototypes::TileDrive::T
       std::stringstream error_message;
       error_message << "[TerrainMeshFactory::random_fill_from]: error: guard \"terrain_mesh\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshFactory::random_fill_from: error: guard \"terrain_mesh\" not met");
    }
    if (!((!inclusion_list.empty())))
    {
       std::stringstream error_message;
       error_message << "[TerrainMeshFactory::random_fill_from]: error: guard \"(!inclusion_list.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshFactory::random_fill_from: error: guard \"(!inclusion_list.empty())\" not met");
    }
    AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
    AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();
@@ -198,7 +198,7 @@ void TerrainMeshFactory::random_fill_excluding(AllegroFlare::Prototypes::TileDri
       std::stringstream error_message;
       error_message << "[TerrainMeshFactory::random_fill_excluding]: error: guard \"terrain_mesh\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshFactory::random_fill_excluding: error: guard \"terrain_mesh\" not met");
    }
    AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
    AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();

@@ -60,14 +60,14 @@ void IconPattern::render()
       std::stringstream error_message;
       error_message << "[IconPattern::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("IconPattern::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[IconPattern::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("IconPattern::render: error: guard \"font_bin\" not met");
    }
    al_clear_to_color(background_color);
    ALLEGRO_FONT *font = obtain_font_awesome_font();
@@ -122,7 +122,7 @@ ALLEGRO_FONT* IconPattern::obtain_font_awesome_font()
       std::stringstream error_message;
       error_message << "[IconPattern::obtain_font_awesome_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("IconPattern::obtain_font_awesome_font: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier_and_size;
    font_identifier_and_size << font_awesome_font_name << " " << -40;

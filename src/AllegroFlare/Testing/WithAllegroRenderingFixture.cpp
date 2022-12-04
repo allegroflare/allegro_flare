@@ -161,7 +161,7 @@ AllegroFlare::Placement2D WithAllegroRenderingFixture::build_centered_placement(
       std::stringstream error_message;
       error_message << "[WithAllegroRenderingFixture::build_centered_placement]: error: guard \"al_get_target_bitmap()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("WithAllegroRenderingFixture::build_centered_placement: error: guard \"al_get_target_bitmap()\" not met");
    }
    AllegroFlare::Placement2D place(al_get_display_width(display)/2, al_get_display_height(display)/2, width, height);
    return place;
@@ -174,7 +174,7 @@ void WithAllegroRenderingFixture::draw_rulers()
       std::stringstream error_message;
       error_message << "[WithAllegroRenderingFixture::draw_rulers]: error: guard \"al_get_target_bitmap()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("WithAllegroRenderingFixture::draw_rulers: error: guard \"al_get_target_bitmap()\" not met");
    }
    al_draw_line(1920/2, 0, 1920/2, 1080, al_color_name("gray"), 1.0); // rulers down the center
    al_draw_line(0, 1080/2, 1920, 1080/2, al_color_name("gray"), 1.0); // rulers across the middle
@@ -187,7 +187,7 @@ void WithAllegroRenderingFixture::draw_crosshair(float x, float y, ALLEGRO_COLOR
       std::stringstream error_message;
       error_message << "[WithAllegroRenderingFixture::draw_crosshair]: error: guard \"al_get_target_bitmap()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("WithAllegroRenderingFixture::draw_crosshair: error: guard \"al_get_target_bitmap()\" not met");
    }
    float h_size = size * 0.5;
    // draw horizontal line
@@ -203,7 +203,7 @@ void WithAllegroRenderingFixture::draw_horizontal_crosshair(float x, float y, AL
       std::stringstream error_message;
       error_message << "[WithAllegroRenderingFixture::draw_horizontal_crosshair]: error: guard \"al_get_target_bitmap()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("WithAllegroRenderingFixture::draw_horizontal_crosshair: error: guard \"al_get_target_bitmap()\" not met");
    }
    float h_size_h = size_h * 0.5;
    float h_size_v = size_v * 0.5;

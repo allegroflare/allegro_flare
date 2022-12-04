@@ -52,7 +52,7 @@ int TerrainMeshTMJDataLoader::get_num_columns()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_num_columns]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_num_columns: error: guard \"loaded\" not met");
    }
    return num_columns;
 }
@@ -64,7 +64,7 @@ int TerrainMeshTMJDataLoader::get_num_rows()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_num_rows]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_num_rows: error: guard \"loaded\" not met");
    }
    return num_rows;
 }
@@ -76,7 +76,7 @@ int TerrainMeshTMJDataLoader::get_tile_width()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_tile_width]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_tile_width: error: guard \"loaded\" not met");
    }
    return tile_width;
 }
@@ -88,7 +88,7 @@ int TerrainMeshTMJDataLoader::get_tile_height()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_tile_height]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_tile_height: error: guard \"loaded\" not met");
    }
    return tile_height;
 }
@@ -100,7 +100,7 @@ int TerrainMeshTMJDataLoader::get_layer_num_columns()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_layer_num_columns]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_layer_num_columns: error: guard \"loaded\" not met");
    }
    return layer_num_columns;
 }
@@ -112,7 +112,7 @@ int TerrainMeshTMJDataLoader::get_layer_num_rows()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_layer_num_rows: error: guard \"loaded\" not met");
    }
    return layer_num_rows;
 }
@@ -124,7 +124,7 @@ std::vector<int> TerrainMeshTMJDataLoader::get_layer_tile_data()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_layer_tile_data]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met");
    }
    return layer_tile_data;
 }
@@ -136,7 +136,7 @@ std::vector<int> TerrainMeshTMJDataLoader::get_collision_layer_tile_data()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_collision_layer_tile_data]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_collision_layer_tile_data: error: guard \"loaded\" not met");
    }
    return collision_layer_tile_data;
 }
@@ -148,7 +148,7 @@ bool TerrainMeshTMJDataLoader::get_collision_layer_present()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::get_collision_layer_present]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::get_collision_layer_present: error: guard \"loaded\" not met");
    }
    return collision_layer_present;
 }
@@ -160,7 +160,7 @@ bool TerrainMeshTMJDataLoader::load()
       std::stringstream error_message;
       error_message << "[TerrainMeshTMJDataLoader::load]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("TerrainMeshTMJDataLoader::load: error: guard \"(!loaded)\" not met");
    }
    if (!file_exists(filename))
    {

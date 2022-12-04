@@ -59,21 +59,21 @@ void Stopwatch::fit_placement_width_and_height_to_stopwatch()
       std::stringstream error_message;
       error_message << "[Stopwatch::fit_placement_width_and_height_to_stopwatch]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Stopwatch::fit_placement_width_and_height_to_stopwatch: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[Stopwatch::fit_placement_width_and_height_to_stopwatch]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Stopwatch::fit_placement_width_and_height_to_stopwatch: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[Stopwatch::fit_placement_width_and_height_to_stopwatch]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Stopwatch::fit_placement_width_and_height_to_stopwatch: error: guard \"font_bin\" not met");
    }
    std::string ellapsed_time_str = build_ellapsed_time_str();
    float width = al_get_text_width(obtain_font(), ellapsed_time_str.c_str());
@@ -90,21 +90,21 @@ void Stopwatch::render()
       std::stringstream error_message;
       error_message << "[Stopwatch::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Stopwatch::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[Stopwatch::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Stopwatch::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[Stopwatch::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Stopwatch::render: error: guard \"font_bin\" not met");
    }
    ALLEGRO_FONT *font = obtain_font();
    std::string ellapsed_time_str = build_ellapsed_time_str();
@@ -122,7 +122,7 @@ std::string Stopwatch::build_ellapsed_time_str()
       std::stringstream error_message;
       error_message << "[Stopwatch::build_ellapsed_time_str]: error: guard \"timer\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Stopwatch::build_ellapsed_time_str: error: guard \"timer\" not met");
    }
    return AllegroFlare::TimerFormatter(timer->get_elapsed_time_milliseconds()).format();
 }
@@ -134,7 +134,7 @@ ALLEGRO_FONT* Stopwatch::obtain_font()
       std::stringstream error_message;
       error_message << "[Stopwatch::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Stopwatch::obtain_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf -74");
 }

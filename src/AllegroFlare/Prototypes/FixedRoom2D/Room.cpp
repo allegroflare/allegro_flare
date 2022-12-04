@@ -67,7 +67,7 @@ void Room::suspend()
       std::stringstream error_message;
       error_message << "[Room::suspend]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::suspend: error: guard \"initialized\" not met");
    }
    if (suspended) return;
    suspended = true;
@@ -82,7 +82,7 @@ void Room::resume()
       std::stringstream error_message;
       error_message << "[Room::resume]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::resume: error: guard \"initialized\" not met");
    }
    if (!suspended) return;
    suspended = false;
@@ -97,7 +97,7 @@ void Room::show()
       std::stringstream error_message;
       error_message << "[Room::show]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::show: error: guard \"initialized\" not met");
    }
    return;
 }
@@ -109,7 +109,7 @@ void Room::hide()
       std::stringstream error_message;
       error_message << "[Room::hide]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::hide: error: guard \"initialized\" not met");
    }
    return;
 }
@@ -121,7 +121,7 @@ void Room::initialize()
       std::stringstream error_message;
       error_message << "[Room::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::initialize: error: guard \"(!initialized)\" not met");
    }
    cursor.set_font_bin(font_bin);
 
@@ -140,7 +140,7 @@ void Room::update()
       std::stringstream error_message;
       error_message << "[Room::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::update: error: guard \"initialized\" not met");
    }
    if (suspended) return;
 
@@ -163,7 +163,7 @@ void Room::render(std::string this_rooms_dictionary_name__this_injection_is_temp
       std::stringstream error_message;
       error_message << "[Room::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::render: error: guard \"initialized\" not met");
    }
    // draw the entities
    //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
@@ -186,21 +186,21 @@ void Room::interact_with_item_under_cursor()
       std::stringstream error_message;
       error_message << "[Room::interact_with_item_under_cursor]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::interact_with_item_under_cursor: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
       error_message << "[Room::interact_with_item_under_cursor]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::interact_with_item_under_cursor: error: guard \"event_emitter\" not met");
    }
    if (!(entity_collection_helper))
    {
       std::stringstream error_message;
       error_message << "[Room::interact_with_item_under_cursor]: error: guard \"entity_collection_helper\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::interact_with_item_under_cursor: error: guard \"entity_collection_helper\" not met");
    }
    std::string name = entity_collection_helper->find_dictionary_name_of_entity_that_cursor_is_now_over();
    emit_interaction_event(name, cursor.get_x(), cursor.get_y());
@@ -214,7 +214,7 @@ void Room::move_cursor(float distance_x, float distance_y, std::vector<AllegroFl
       std::stringstream error_message;
       error_message << "[Room::move_cursor]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::move_cursor: error: guard \"initialized\" not met");
    }
    cursor.move(distance_x, distance_y);
 
@@ -276,7 +276,7 @@ void Room::emit_interaction_event(std::string item_dictionary_name, float cursor
       std::stringstream error_message;
       error_message << "[Room::emit_interaction_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Room::emit_interaction_event: error: guard \"initialized\" not met");
    }
    AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
       new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);

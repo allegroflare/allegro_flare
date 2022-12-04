@@ -131,7 +131,7 @@ bool Basic::next_page()
       std::stringstream error_message;
       error_message << "[Basic::next_page]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Basic::next_page: error: guard \"al_is_system_installed()\" not met");
    }
    //if (at_last_page()) return false;
    if (get_finished()) return false;
@@ -186,7 +186,7 @@ void Basic::reveal_all_characters()
       std::stringstream error_message;
       error_message << "[Basic::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("Basic::reveal_all_characters: error: guard \"al_is_system_installed()\" not met");
    }
    num_revealed_characters = 9999;
    page_finished = true;

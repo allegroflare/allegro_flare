@@ -50,28 +50,28 @@ void DialogBoxNameTag::render()
       std::stringstream error_message;
       error_message << "[DialogBoxNameTag::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogBoxNameTag::render: error: guard \"font_bin\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
       error_message << "[DialogBoxNameTag::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogBoxNameTag::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[DialogBoxNameTag::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogBoxNameTag::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
       error_message << "[DialogBoxNameTag::render]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogBoxNameTag::render: error: guard \"al_get_current_display()\" not met");
    }
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
    draw_text();
@@ -100,21 +100,21 @@ ALLEGRO_FONT* DialogBoxNameTag::obtain_dialog_font()
       std::stringstream error_message;
       error_message << "[DialogBoxNameTag::obtain_dialog_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogBoxNameTag::obtain_dialog_font: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[DialogBoxNameTag::obtain_dialog_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogBoxNameTag::obtain_dialog_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[DialogBoxNameTag::obtain_dialog_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("DialogBoxNameTag::obtain_dialog_font: error: guard \"font_bin\" not met");
    }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);

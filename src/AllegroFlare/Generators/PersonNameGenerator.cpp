@@ -36,7 +36,7 @@ void PersonNameGenerator::initialize()
       std::stringstream error_message;
       error_message << "[PersonNameGenerator::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("PersonNameGenerator::initialize: error: guard \"(!initialized)\" not met");
    }
    randomize();
    initialized = true;
@@ -62,7 +62,7 @@ std::string PersonNameGenerator::generate_boy_name()
       std::stringstream error_message;
       error_message << "[PersonNameGenerator::generate_boy_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("PersonNameGenerator::generate_boy_name: error: guard \"initialized\" not met");
    }
    if (next_boy_name_index >= victorian_boy_names.size()) return ""; return victorian_boy_names[next_boy_name_index++];
 }
@@ -74,7 +74,7 @@ std::string PersonNameGenerator::generate_girl_name()
       std::stringstream error_message;
       error_message << "[PersonNameGenerator::generate_girl_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("PersonNameGenerator::generate_girl_name: error: guard \"initialized\" not met");
    }
    if (next_girl_name_index >= victorian_girl_names.size()) return ""; return victorian_girl_names[next_girl_name_index++];
 }

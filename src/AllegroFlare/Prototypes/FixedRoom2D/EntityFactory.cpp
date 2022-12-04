@@ -33,7 +33,7 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_cha
       std::stringstream error_message;
       error_message << "[EntityFactory::create_chair_entity]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::create_chair_entity: error: guard \"bitmap_bin\" not met");
    }
    return create_entity("wooden-chair-png-transparent-image-pngpix-0.png", x, y, 0.1, "chair");
 }
@@ -45,7 +45,7 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_ent
       std::stringstream error_message;
       error_message << "[EntityFactory::create_entity]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::create_entity: error: guard \"bitmap_bin\" not met");
    }
    ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get(bitmap_image_identifier);
 
@@ -72,7 +72,7 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_ent
       std::stringstream error_message;
       error_message << "[EntityFactory::create_entity_bmp]: error: guard \"bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("EntityFactory::create_entity_bmp: error: guard \"bitmap\" not met");
    }
    AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* result = new
       AllegroFlare::Prototypes::FixedRoom2D::Entities::Base(bitmap);

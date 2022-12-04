@@ -73,7 +73,7 @@ void YouGotEvidenceRenderer::render()
       std::stringstream error_message;
       error_message << "[YouGotEvidenceRenderer::render]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("YouGotEvidenceRenderer::render: error: guard \"bitmap_bin\" not met");
    }
    // source data
    std::string notification_text = "You got new evidence";
@@ -177,21 +177,21 @@ ALLEGRO_FONT* YouGotEvidenceRenderer::obtain_notification_text_font()
       std::stringstream error_message;
       error_message << "[YouGotEvidenceRenderer::obtain_notification_text_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("YouGotEvidenceRenderer::obtain_notification_text_font: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
       error_message << "[YouGotEvidenceRenderer::obtain_notification_text_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("YouGotEvidenceRenderer::obtain_notification_text_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
       error_message << "[YouGotEvidenceRenderer::obtain_notification_text_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error(error_message.str());
+      throw std::runtime_error("YouGotEvidenceRenderer::obtain_notification_text_font: error: guard \"font_bin\" not met");
    }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -48";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
