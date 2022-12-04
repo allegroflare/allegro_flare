@@ -72,8 +72,12 @@ TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing
 TEST(AllegroFlare_SystemInfoTest, get_release__will_return_a_string_representing_the_system)
 {
    AllegroFlare::SystemInfo system_info;
-   std::string expected_release = "22.1.0";
-   EXPECT_EQ(expected_release, system_info.get_release());
+   std::vector<std::string> expected_possible_releases = {
+      "22.1.0", // Mark's Mac Laptop
+      "21.6.0", // Mark's MacMini
+   };
+   std::string actual_release = system_info.get_release();
+   EXPECT_THAT(expected_possible_releases, testing::Contains(actual_release));
 }
 
 
