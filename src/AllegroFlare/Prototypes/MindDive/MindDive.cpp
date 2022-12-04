@@ -174,6 +174,7 @@ void MindDive::initialize()
    std::string map_filename = "/Users/markoates/Repos/allegro_flare/bin/data/maps/tunnel_mesh-02.tmj";
    current_tunnel_mesh = factory.create_from_tmj(map_filename);
 
+   // TODO: abstract this so it can be tested with a test data ogg file.
    std::map<std::string, std::pair<std::string, float>> playlist = {
       { "song-60bpm",     { "music_tracks/tempo-track-60.ogg", 60.0f } },
       { "song-80bpm",     { "music_tracks/tempo-track-80.ogg", 80.0f } },

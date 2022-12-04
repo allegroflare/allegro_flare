@@ -27,7 +27,8 @@ TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTest, can_be_created_without_blo
 
 
 TEST_F(AllegroFlare_Prototypes_MindDive_MindDiveTestWithAllegroRenderingFixture,
-   CAPTURE__basic_update_and_render_will_work_as_expected)
+   // TODO: abstract MindDive so it can be tested with a test data.
+   DISABLED__CAPTURE__basic_update_and_render_will_work_as_expected)
 {
    al_install_audio();
    al_reserve_samples(8);
