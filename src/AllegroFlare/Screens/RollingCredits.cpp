@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/RollingCredits.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -141,7 +142,8 @@ void RollingCredits::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[RollingCredits::on_activate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    y_offset = -surface_height;
@@ -154,7 +156,8 @@ void RollingCredits::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "set_font_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[RollingCredits::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->font_bin = font_bin;
@@ -172,13 +175,15 @@ void RollingCredits::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[RollingCredits::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[RollingCredits::initialize]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    rolling_credits_component.set_surface_height(surface_height);
@@ -225,13 +230,15 @@ void RollingCredits::primary_timer_func()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "primary_timer_func" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[RollingCredits::primary_timer_func]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "primary_timer_func" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[RollingCredits::primary_timer_func]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    update();

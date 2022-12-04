@@ -2,6 +2,7 @@
 
 #include <Wicked/Entities/MovementStrategies2D/Flapping.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -78,7 +79,8 @@ void Flapping::update()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "Flapping" << "::" << "update" << ": error: " << "guard \"entity\" not met";
+      error_message << "[Flapping::update]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    update_flapability_status();
@@ -99,7 +101,8 @@ void Flapping::update_flapability_status()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "Flapping" << "::" << "update_flapability_status" << ": error: " << "guard \"entity\" not met";
+      error_message << "[Flapping::update_flapability_status]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!can_flap)
@@ -118,7 +121,8 @@ bool Flapping::decide_to_flap()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "Flapping" << "::" << "decide_to_flap" << ": error: " << "guard \"entity\" not met";
+      error_message << "[Flapping::decide_to_flap]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (can_flap)
@@ -137,7 +141,8 @@ void Flapping::flap()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "Flapping" << "::" << "flap" << ": error: " << "guard \"entity\" not met";
+      error_message << "[Flapping::flap]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (can_flap)

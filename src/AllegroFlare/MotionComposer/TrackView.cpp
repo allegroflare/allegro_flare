@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -159,19 +160,22 @@ void TrackView::render()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      error_message << "[TrackView::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[TrackView::render]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(track))
    {
       std::stringstream error_message;
-      error_message << "TrackView" << "::" << "render" << ": error: " << "guard \"track\" not met";
+      error_message << "[TrackView::render]: error: guard \"track\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
@@ -238,7 +242,8 @@ ALLEGRO_FONT* TrackView::obtain_icon_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "TrackView" << "::" << "obtain_icon_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[TrackView::obtain_icon_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::stringstream ss;
@@ -251,7 +256,8 @@ ALLEGRO_FONT* TrackView::obtain_bigger_icon_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "TrackView" << "::" << "obtain_bigger_icon_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[TrackView::obtain_bigger_icon_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::stringstream ss;
@@ -264,7 +270,8 @@ ALLEGRO_FONT* TrackView::obtain_track_values_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "TrackView" << "::" << "obtain_track_values_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[TrackView::obtain_track_values_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return font_bin->auto_get("Inter-Medium.ttf -20");

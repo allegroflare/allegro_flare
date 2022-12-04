@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.hpp>
 #include <AllegroFlare/Random.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -44,7 +45,8 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_classi
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "TunnelMeshFactory" << "::" << "create_classic_random" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[TunnelMeshFactory::create_classic_random]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
@@ -62,7 +64,8 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_random
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "TunnelMeshFactory" << "::" << "create_random_with_walls" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[TunnelMeshFactory::create_random_with_walls]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::MindDive::TunnelMesh *result = new AllegroFlare::Prototypes::MindDive::TunnelMesh;
@@ -83,7 +86,8 @@ AllegroFlare::Prototypes::MindDive::TunnelMesh* TunnelMeshFactory::create_from_t
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "TunnelMeshFactory" << "::" << "create_from_tmj" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[TunnelMeshFactory::create_from_tmj]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader tmj_data_loader(tmj_filename);
@@ -129,13 +133,15 @@ void TunnelMeshFactory::random_fill_from(AllegroFlare::Prototypes::MindDive::Tun
    if (!(tunnel_mesh))
    {
       std::stringstream error_message;
-      error_message << "TunnelMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"tunnel_mesh\" not met";
+      error_message << "[TunnelMeshFactory::random_fill_from]: error: guard \"tunnel_mesh\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((!inclusion_list.empty())))
    {
       std::stringstream error_message;
-      error_message << "TunnelMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"(!inclusion_list.empty())\" not met";
+      error_message << "[TunnelMeshFactory::random_fill_from]: error: guard \"(!inclusion_list.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();
@@ -176,7 +182,8 @@ void TunnelMeshFactory::random_fill_excluding(AllegroFlare::Prototypes::MindDive
    if (!(tunnel_mesh))
    {
       std::stringstream error_message;
-      error_message << "TunnelMeshFactory" << "::" << "random_fill_excluding" << ": error: " << "guard \"tunnel_mesh\" not met";
+      error_message << "[TunnelMeshFactory::random_fill_excluding]: error: guard \"tunnel_mesh\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::TileMaps::PrimMesh &prim_mesh = tunnel_mesh->get_prim_mesh_ref();

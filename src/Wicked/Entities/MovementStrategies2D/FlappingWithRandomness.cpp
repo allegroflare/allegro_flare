@@ -3,6 +3,7 @@
 #include <Wicked/Entities/MovementStrategies2D/FlappingWithRandomness.hpp>
 
 #include <Wicked/EntityFlagNames.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -86,7 +87,8 @@ void FlappingWithRandomness::update()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "FlappingWithRandomness" << "::" << "update" << ": error: " << "guard \"entity\" not met";
+      error_message << "[FlappingWithRandomness::update]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    { // stick horizontal if on floor
@@ -104,13 +106,15 @@ void FlappingWithRandomness::flap()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "FlappingWithRandomness" << "::" << "flap" << ": error: " << "guard \"entity\" not met";
+      error_message << "[FlappingWithRandomness::flap]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "FlappingWithRandomness" << "::" << "flap" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[FlappingWithRandomness::flap]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (can_flap)
@@ -132,13 +136,15 @@ void FlappingWithRandomness::update_flapability_status()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "FlappingWithRandomness" << "::" << "update_flapability_status" << ": error: " << "guard \"entity\" not met";
+      error_message << "[FlappingWithRandomness::update_flapability_status]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "FlappingWithRandomness" << "::" << "update_flapability_status" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[FlappingWithRandomness::update_flapability_status]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!can_flap)
@@ -157,13 +163,15 @@ bool FlappingWithRandomness::decide_to_flap()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "FlappingWithRandomness" << "::" << "decide_to_flap" << ": error: " << "guard \"entity\" not met";
+      error_message << "[FlappingWithRandomness::decide_to_flap]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "FlappingWithRandomness" << "::" << "decide_to_flap" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[FlappingWithRandomness::decide_to_flap]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (can_flap)

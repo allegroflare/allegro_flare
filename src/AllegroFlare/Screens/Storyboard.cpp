@@ -3,6 +3,7 @@
 #include <AllegroFlare/Screens/Storyboard.hpp>
 
 #include <AllegroFlare/VirtualControls.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -77,7 +78,8 @@ void Storyboard::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Storyboard" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Storyboard::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    storyboard_element.set_font_bin(font_bin);
@@ -90,7 +92,8 @@ void Storyboard::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Storyboard" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Storyboard::on_activate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    storyboard_element.reset();
@@ -102,7 +105,8 @@ void Storyboard::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Storyboard" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Storyboard::primary_timer_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    storyboard_element.update();
@@ -126,13 +130,15 @@ void Storyboard::advance()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Storyboard::advance]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "Storyboard" << "::" << "advance" << ": error: " << "guard \"event_emitter\" not met";
+      error_message << "[Storyboard::advance]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    // TODO: consider making this private
@@ -153,13 +159,15 @@ void Storyboard::virtual_control_button_down_func(int player_num, int button_num
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Storyboard" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Storyboard::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "Storyboard" << "::" << "virtual_control_button_down_func" << ": error: " << "guard \"event_emitter\" not met";
+      error_message << "[Storyboard::virtual_control_button_down_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (storyboard_element.get_finished()) return;

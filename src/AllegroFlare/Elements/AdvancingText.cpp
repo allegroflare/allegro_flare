@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro_font.h>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -167,13 +168,15 @@ void AdvancingText::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "AdvancingText" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[AdvancingText::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "AdvancingText" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[AdvancingText::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    ALLEGRO_FONT *text_font = obtain_font();
@@ -226,7 +229,8 @@ ALLEGRO_FONT* AdvancingText::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "AdvancingText" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[AdvancingText::obtain_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::stringstream composite_font_str;

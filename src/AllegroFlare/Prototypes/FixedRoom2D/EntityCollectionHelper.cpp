@@ -3,6 +3,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
+#include <iostream>
 #include <map>
 #include <sstream>
 #include <stdexcept>
@@ -57,7 +58,8 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
    if (!(entity_dictionary))
    {
       std::stringstream error_message;
-      error_message << "EntityCollectionHelper" << "::" << "select_all_in_room_ordered_by_id" << ": error: " << "guard \"entity_dictionary\" not met";
+      error_message << "[EntityCollectionHelper::select_all_in_room_ordered_by_id]: error: guard \"entity_dictionary\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<std::string> entity_names_in_room = select_all_entity_names_in_room_name(room_name);
@@ -71,7 +73,8 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
    if (!(entity_dictionary))
    {
       std::stringstream error_message;
-      error_message << "EntityCollectionHelper" << "::" << "select_all" << ": error: " << "guard \"entity_dictionary\" not met";
+      error_message << "[EntityCollectionHelper::select_all]: error: guard \"entity_dictionary\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
@@ -84,7 +87,8 @@ std::string EntityCollectionHelper::find_dictionary_name_of_entity_that_cursor_i
    if (!(entity_dictionary))
    {
       std::stringstream error_message;
-      error_message << "EntityCollectionHelper" << "::" << "find_dictionary_name_of_entity_that_cursor_is_now_over" << ": error: " << "guard \"entity_dictionary\" not met";
+      error_message << "[EntityCollectionHelper::find_dictionary_name_of_entity_that_cursor_is_now_over]: error: guard \"entity_dictionary\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    for (auto &entity : *entity_dictionary)
@@ -99,7 +103,8 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityCollectionHelper::f
    if (!(entity_dictionary))
    {
       std::stringstream error_message;
-      error_message << "EntityCollectionHelper" << "::" << "find_entity_by_dictionary_name" << ": error: " << "guard \"entity_dictionary\" not met";
+      error_message << "[EntityCollectionHelper::find_entity_by_dictionary_name]: error: guard \"entity_dictionary\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*>::iterator it =
@@ -131,7 +136,8 @@ std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> EntityCollec
    if (!(entity_dictionary))
    {
       std::stringstream error_message;
-      error_message << "EntityCollectionHelper" << "::" << "get_entities_by_entity_names" << ": error: " << "guard \"entity_dictionary\" not met";
+      error_message << "[EntityCollectionHelper::get_entities_by_entity_names]: error: guard \"entity_dictionary\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> result;
@@ -159,7 +165,8 @@ std::vector<std::string> EntityCollectionHelper::select_all_entity_names_in_room
    if (!(entity_room_associations))
    {
       std::stringstream error_message;
-      error_message << "EntityCollectionHelper" << "::" << "select_all_entity_names_in_room_name" << ": error: " << "guard \"entity_room_associations\" not met";
+      error_message << "[EntityCollectionHelper::select_all_entity_names_in_room_name]: error: guard \"entity_room_associations\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<std::string> result;

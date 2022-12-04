@@ -63,6 +63,7 @@ functions:
         type: uint32_t
         default_argument: 0
     body: |
+      // TODO: add initialized guard
       std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> uvs =
          font_character_atlas_builder.get_uv_for_index(music_symbol_to_stamp);
       AllegroFlare::Vec2D uv1 = uvs.first;
@@ -100,6 +101,7 @@ functions:
         type: int
         default_argument: 0
     body: |
+      // TODO: add initialized guard
       // TODO bounds checking
       uint32_t multi_mesh_id_to_remove = stamps[index_of_stamp].get_multi_mesh_id();
       uint32_t multi_mesh_id_to_swap = multi_mesh.remove(multi_mesh_id_to_remove);

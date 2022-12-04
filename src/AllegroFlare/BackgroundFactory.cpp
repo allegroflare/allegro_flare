@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/BackgroundFactory.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -26,7 +27,8 @@ AllegroFlare::Elements::Backgrounds::Monoplex* BackgroundFactory::create_monople
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "BackgroundFactory" << "::" << "create_monoplex" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[BackgroundFactory::create_monoplex]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Elements::Backgrounds::Monoplex* monoplex_background =
@@ -39,7 +41,8 @@ AllegroFlare::Elements::Backgrounds::Image* BackgroundFactory::create_image(std:
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "BackgroundFactory" << "::" << "create_image" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[BackgroundFactory::create_image]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Elements::Backgrounds::Image* image_background =

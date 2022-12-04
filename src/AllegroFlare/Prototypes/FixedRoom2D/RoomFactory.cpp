@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -81,25 +82,29 @@ AllegroFlare::Prototypes::FixedRoom2D::Room* RoomFactory::create_room(float widt
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[RoomFactory::create_room]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[RoomFactory::create_room]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"event_emitter\" not met";
+      error_message << "[RoomFactory::create_room]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(entity_collection_helper))
    {
       std::stringstream error_message;
-      error_message << "RoomFactory" << "::" << "create_room" << ": error: " << "guard \"entity_collection_helper\" not met";
+      error_message << "[RoomFactory::create_room]: error: guard \"entity_collection_helper\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::FixedRoom2D::Room* result =

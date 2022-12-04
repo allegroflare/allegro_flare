@@ -3,6 +3,7 @@
 #include <Wicked/Entities/CollectionHelper.hpp>
 
 #include <Wicked/EntityFlagNames.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -41,7 +42,8 @@ std::vector<Wicked::Entities::Basic2D*> CollectionHelper::select_collectable_by_
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "CollectionHelper" << "::" << "select_collectable_by_player" << ": error: " << "guard \"entities\" not met";
+      error_message << "[CollectionHelper::select_collectable_by_player]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<Wicked::Entities::Basic2D*> result;
@@ -57,7 +59,8 @@ std::vector<Wicked::Entities::Basic2D*> CollectionHelper::select_goalposts()
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "CollectionHelper" << "::" << "select_goalposts" << ": error: " << "guard \"entities\" not met";
+      error_message << "[CollectionHelper::select_goalposts]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<Wicked::Entities::Basic2D*> result;
@@ -73,7 +76,8 @@ std::vector<Wicked::Entities::Basic2D*> CollectionHelper::select_doors()
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "CollectionHelper" << "::" << "select_doors" << ": error: " << "guard \"entities\" not met";
+      error_message << "[CollectionHelper::select_doors]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<Wicked::Entities::Basic2D*> result;
@@ -89,7 +93,8 @@ std::vector<Wicked::Entities::Basic2D*> CollectionHelper::select_on_map(std::str
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "CollectionHelper" << "::" << "select_on_map" << ": error: " << "guard \"entities\" not met";
+      error_message << "[CollectionHelper::select_on_map]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<Wicked::Entities::Basic2D*> result;
@@ -105,7 +110,8 @@ WickedDemos::TileMaps::Basic2D* CollectionHelper::find_map_by_name(std::string m
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "CollectionHelper" << "::" << "find_map_by_name" << ": error: " << "guard \"entities\" not met";
+      error_message << "[CollectionHelper::find_map_by_name]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    //throw std::runtime_error("find_map_by_name not implemented");

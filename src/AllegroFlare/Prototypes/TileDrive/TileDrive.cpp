@@ -12,6 +12,7 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_opengl.h>
 #include <cmath>
+#include <iostream>
 #include <map>
 #include <sstream>
 #include <stdexcept>
@@ -149,7 +150,8 @@ void TileDrive::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "set_bitmap_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[TileDrive::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->bitmap_bin = bitmap_bin;
@@ -161,7 +163,8 @@ void TileDrive::set_sample_bin(AllegroFlare::SampleBin* sample_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "set_sample_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[TileDrive::set_sample_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->sample_bin = sample_bin;
@@ -173,7 +176,8 @@ void TileDrive::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "set_font_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[TileDrive::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->font_bin = font_bin;
@@ -185,7 +189,8 @@ void TileDrive::set_maps_folder(std::string maps_folder)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "set_maps_folder" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[TileDrive::set_maps_folder]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->maps_folder = maps_folder;
@@ -197,7 +202,8 @@ void TileDrive::set_terrain_mesh_dictionary(std::map<std::string, AllegroFlare::
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "set_terrain_mesh_dictionary" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[TileDrive::set_terrain_mesh_dictionary]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->terrain_mesh_dictionary = terrain_mesh_dictionary;
@@ -209,7 +215,8 @@ void TileDrive::set_current_map_identifier(std::string current_map_identifier)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "set_current_map_identifier" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[TileDrive::set_current_map_identifier]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->current_map_identifier = current_map_identifier;
@@ -227,49 +234,57 @@ void TileDrive::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[TileDrive::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_audio_installed()))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"al_is_audio_installed()\" not met";
+      error_message << "[TileDrive::initialize]: error: guard \"al_is_audio_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_acodec_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"al_is_acodec_addon_initialized()\" not met";
+      error_message << "[TileDrive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+      error_message << "[TileDrive::initialize]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[TileDrive::initialize]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[TileDrive::initialize]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(sample_bin))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
+      error_message << "[TileDrive::initialize]: error: guard \"sample_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "initialize" << ": error: " << "guard \"al_get_current_display()\" not met";
+      error_message << "[TileDrive::initialize]: error: guard \"al_get_current_display()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    backbuffer_sub_bitmap = create_new_backbuffer_sub_bitmap();
@@ -396,7 +411,8 @@ void TileDrive::reset()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "reset" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[TileDrive::reset]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    driver_position.x = current_terrain_mesh->infer_real_width() * 0.5
@@ -526,7 +542,8 @@ void TileDrive::render_driver()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "render_driver" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      error_message << "[TileDrive::render_driver]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    draw_crosshair(driver_position, AllegroFlare::Color::Yellow, 0.75);
@@ -538,7 +555,8 @@ void TileDrive::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "update" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[TileDrive::update]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
 
@@ -624,13 +642,15 @@ void TileDrive::development_play_around_with_collision_steper_callback(AllegroFl
    if (!(step_result))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "development_play_around_with_collision_steper_callback" << ": error: " << "guard \"step_result\" not met";
+      error_message << "[TileDrive::development_play_around_with_collision_steper_callback]: error: guard \"step_result\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(tile_drive))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "development_play_around_with_collision_steper_callback" << ": error: " << "guard \"tile_drive\" not met";
+      error_message << "[TileDrive::development_play_around_with_collision_steper_callback]: error: guard \"tile_drive\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (step_result->get_collisions_ref().empty()) return;
@@ -671,7 +691,8 @@ void TileDrive::render_background()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "render_background" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[TileDrive::render_background]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
@@ -684,7 +705,8 @@ void TileDrive::render_world()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "render_world" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[TileDrive::render_world]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    //al_clear_depth_buffer(1);
@@ -705,7 +727,8 @@ void TileDrive::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "TileDrive" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[TileDrive::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    render_background();

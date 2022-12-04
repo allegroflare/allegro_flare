@@ -7,6 +7,7 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -81,7 +82,8 @@ void Image::start()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Image" << "::" << "start" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Image::start]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    started_at = al_get_time();
@@ -100,13 +102,15 @@ void Image::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Image" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Image::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "Image" << "::" << "render" << ": error: " << "guard \"al_get_current_display()\" not met";
+      error_message << "[Image::render]: error: guard \"al_get_current_display()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!bitmap) return;
@@ -145,13 +149,15 @@ void Image::modify_params_for_hide(AllegroFlare::Placement2D* place, ALLEGRO_COL
    if (!(place))
    {
       std::stringstream error_message;
-      error_message << "Image" << "::" << "modify_params_for_hide" << ": error: " << "guard \"place\" not met";
+      error_message << "[Image::modify_params_for_hide]: error: guard \"place\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(color))
    {
       std::stringstream error_message;
-      error_message << "Image" << "::" << "modify_params_for_hide" << ": error: " << "guard \"color\" not met";
+      error_message << "[Image::modify_params_for_hide]: error: guard \"color\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    float age = infer_age();
@@ -190,13 +196,15 @@ void Image::modify_params_for_reveal(AllegroFlare::Placement2D* place, ALLEGRO_C
    if (!(place))
    {
       std::stringstream error_message;
-      error_message << "Image" << "::" << "modify_params_for_reveal" << ": error: " << "guard \"place\" not met";
+      error_message << "[Image::modify_params_for_reveal]: error: guard \"place\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(color))
    {
       std::stringstream error_message;
-      error_message << "Image" << "::" << "modify_params_for_reveal" << ": error: " << "guard \"color\" not met";
+      error_message << "[Image::modify_params_for_reveal]: error: guard \"color\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    float age = infer_age();

@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Useful.hpp>
 #include <cmath>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -45,25 +46,29 @@ void SmoothSnapWithZoomEffect::initialize()
    if (!((!get_initialized())))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnapWithZoomEffect" << "::" << "initialize" << ": error: " << "guard \"(!get_initialized())\" not met";
+      error_message << "[SmoothSnapWithZoomEffect::initialize]: error: guard \"(!get_initialized())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnapWithZoomEffect" << "::" << "initialize" << ": error: " << "guard \"get_camera()\" not met";
+      error_message << "[SmoothSnapWithZoomEffect::initialize]: error: guard \"get_camera()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((room_width > 0)))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnapWithZoomEffect" << "::" << "initialize" << ": error: " << "guard \"(room_width > 0)\" not met";
+      error_message << "[SmoothSnapWithZoomEffect::initialize]: error: guard \"(room_width > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((room_height > 0)))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnapWithZoomEffect" << "::" << "initialize" << ": error: " << "guard \"(room_height > 0)\" not met";
+      error_message << "[SmoothSnapWithZoomEffect::initialize]: error: guard \"(room_height > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    // TODO: only allow setting "room_width" and "room_height" to positive values
@@ -80,19 +85,22 @@ void SmoothSnapWithZoomEffect::update()
    if (!(get_initialized()))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnapWithZoomEffect" << "::" << "update" << ": error: " << "guard \"get_initialized()\" not met";
+      error_message << "[SmoothSnapWithZoomEffect::update]: error: guard \"get_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnapWithZoomEffect" << "::" << "update" << ": error: " << "guard \"get_camera()\" not met";
+      error_message << "[SmoothSnapWithZoomEffect::update]: error: guard \"get_camera()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(entity_to_follow))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnapWithZoomEffect" << "::" << "update" << ": error: " << "guard \"entity_to_follow\" not met";
+      error_message << "[SmoothSnapWithZoomEffect::update]: error: guard \"entity_to_follow\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    int target_room_x = (entity_to_follow->get_place_ref().position.x / room_width);

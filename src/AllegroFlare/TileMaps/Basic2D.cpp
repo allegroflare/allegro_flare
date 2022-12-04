@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Random.hpp>
 #include <allegro5/allegro.h>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -85,7 +86,8 @@ void Basic2D::set_atlas_configuration(std::string atlas_bitmap_filename, int atl
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "set_atlas_configuration" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Basic2D::set_atlas_configuration]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->atlas_bitmap_filename = atlas_bitmap_filename;
@@ -99,25 +101,29 @@ void Basic2D::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Basic2D::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Basic2D::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      error_message << "[Basic2D::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[Basic2D::initialize]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get(atlas_bitmap_filename);
@@ -135,7 +141,8 @@ void Basic2D::resize(int num_columns, int num_rows)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "resize" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Basic2D::resize]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    prim_mesh.resize(num_columns, num_rows);
@@ -147,19 +154,22 @@ void Basic2D::rescale_tile_dimentions_to(float tile_width, float tile_height)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Basic2D::rescale_tile_dimentions_to]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((tile_width > 0)))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"(tile_width > 0)\" not met";
+      error_message << "[Basic2D::rescale_tile_dimentions_to]: error: guard \"(tile_width > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((tile_height > 0)))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "rescale_tile_dimentions_to" << ": error: " << "guard \"(tile_height > 0)\" not met";
+      error_message << "[Basic2D::rescale_tile_dimentions_to]: error: guard \"(tile_height > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
@@ -203,7 +213,8 @@ void Basic2D::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Basic2D" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Basic2D::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    prim_mesh.render();

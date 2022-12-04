@@ -3,6 +3,7 @@
 #include <Wicked/Physics/EntityZoneCollisionObserver.hpp>
 
 #include <algorithm>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -57,13 +58,15 @@ bool EntityZoneCollisionObserver::collides(Wicked::Entities::Basic3D* entity, Wi
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "EntityZoneCollisionObserver" << "::" << "collides" << ": error: " << "guard \"entity\" not met";
+      error_message << "[EntityZoneCollisionObserver::collides]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(zone))
    {
       std::stringstream error_message;
-      error_message << "EntityZoneCollisionObserver" << "::" << "collides" << ": error: " << "guard \"zone\" not met";
+      error_message << "[EntityZoneCollisionObserver::collides]: error: guard \"zone\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    // TODO: make different supported types for collision

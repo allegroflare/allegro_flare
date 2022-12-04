@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnap.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -43,13 +44,15 @@ void SmoothSnap::initialize()
    if (!((!get_initialized())))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnap" << "::" << "initialize" << ": error: " << "guard \"(!get_initialized())\" not met";
+      error_message << "[SmoothSnap::initialize]: error: guard \"(!get_initialized())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnap" << "::" << "initialize" << ": error: " << "guard \"get_camera()\" not met";
+      error_message << "[SmoothSnap::initialize]: error: guard \"get_camera()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
@@ -64,19 +67,22 @@ void SmoothSnap::update()
    if (!(get_initialized()))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnap" << "::" << "update" << ": error: " << "guard \"get_initialized()\" not met";
+      error_message << "[SmoothSnap::update]: error: guard \"get_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnap" << "::" << "update" << ": error: " << "guard \"get_camera()\" not met";
+      error_message << "[SmoothSnap::update]: error: guard \"get_camera()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(entity_to_follow))
    {
       std::stringstream error_message;
-      error_message << "SmoothSnap" << "::" << "update" << ": error: " << "guard \"entity_to_follow\" not met";
+      error_message << "[SmoothSnap::update]: error: guard \"entity_to_follow\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    int room_x = (entity_to_follow->get_place_ref().position.x / room_width);

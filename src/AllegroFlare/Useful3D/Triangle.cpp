@@ -3,6 +3,7 @@
 #include <AllegroFlare/Useful3D/Triangle.hpp>
 
 #include <AllegroFlare/Useful.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -31,13 +32,15 @@ bool Triangle::intersect(AllegroFlare::Useful3D::Ray* ray_, AllegroFlare::Useful
    if (!(ray_))
    {
       std::stringstream error_message;
-      error_message << "Triangle" << "::" << "intersect" << ": error: " << "guard \"ray_\" not met";
+      error_message << "[Triangle::intersect]: error: guard \"ray_\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(intersect_data))
    {
       std::stringstream error_message;
-      error_message << "Triangle" << "::" << "intersect" << ": error: " << "guard \"intersect_data\" not met";
+      error_message << "[Triangle::intersect]: error: guard \"intersect_data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    IntersectData &isectData = (*intersect_data);
@@ -67,7 +70,8 @@ void Triangle::draw(ALLEGRO_COLOR color)
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "Triangle" << "::" << "draw" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      error_message << "[Triangle::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    ALLEGRO_VERTEX vtx[3];

@@ -5,6 +5,7 @@
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Timeline/Actors/Actor2D.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -87,7 +88,8 @@ void Sparkles2::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Sparkles2" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Sparkles2::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    // create the actor
@@ -193,19 +195,22 @@ void Sparkles2::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Sparkles2::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[Sparkles2::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Sparkles2" << "::" << "render" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Sparkles2::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    Placement2D place(x, y, 0, 0);
@@ -222,7 +227,8 @@ ALLEGRO_BITMAP* Sparkles2::obtain_star_bitmap()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "Sparkles2" << "::" << "obtain_star_bitmap" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[Sparkles2::obtain_star_bitmap]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return bitmap_bin->auto_get("star-b.png");

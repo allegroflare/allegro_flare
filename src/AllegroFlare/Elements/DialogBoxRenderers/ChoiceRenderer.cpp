@@ -5,6 +5,7 @@
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -87,13 +88,15 @@ void ChoiceRenderer::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "ChoiceRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[ChoiceRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "ChoiceRenderer" << "::" << "render" << ": error: " << "guard \"choice_dialog_box\" not met";
+      error_message << "[ChoiceRenderer::render]: error: guard \"choice_dialog_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
@@ -175,19 +178,22 @@ ALLEGRO_FONT* ChoiceRenderer::obtain_dialog_font()
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[ChoiceRenderer::obtain_dialog_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"al_is_ttf_addon_initialized()\" not met";
+      error_message << "[ChoiceRenderer::obtain_dialog_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "ChoiceRenderer" << "::" << "obtain_dialog_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[ChoiceRenderer::obtain_dialog_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
@@ -200,7 +206,8 @@ std::string ChoiceRenderer::obtain_choice_dialog_box_prompt()
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_prompt" << ": error: " << "guard \"choice_dialog_box\" not met";
+      error_message << "[ChoiceRenderer::obtain_choice_dialog_box_prompt]: error: guard \"choice_dialog_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return choice_dialog_box->get_prompt();
@@ -211,7 +218,8 @@ std::vector<std::pair<std::string, std::string>> ChoiceRenderer::obtain_choice_d
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_options" << ": error: " << "guard \"choice_dialog_box\" not met";
+      error_message << "[ChoiceRenderer::obtain_choice_dialog_box_options]: error: guard \"choice_dialog_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return choice_dialog_box->get_options();
@@ -222,7 +230,8 @@ int ChoiceRenderer::obtain_choice_dialog_box_cursor_position()
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "ChoiceRenderer" << "::" << "obtain_choice_dialog_box_cursor_position" << ": error: " << "guard \"choice_dialog_box\" not met";
+      error_message << "[ChoiceRenderer::obtain_choice_dialog_box_cursor_position]: error: guard \"choice_dialog_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return choice_dialog_box->get_cursor_position();

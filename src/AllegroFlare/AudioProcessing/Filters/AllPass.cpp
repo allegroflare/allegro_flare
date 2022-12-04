@@ -75,13 +75,15 @@ void AllPass::set_gain(float gain)
    if (!((gain >= 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "set_gain" << ": error: " << "guard \"(gain >= 0.0f)\" not met";
+      error_message << "[AllPass::set_gain]: error: guard \"(gain >= 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((gain <= 1.0f)))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "set_gain" << ": error: " << "guard \"(gain <= 1.0f)\" not met";
+      error_message << "[AllPass::set_gain]: error: guard \"(gain <= 1.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->gain = gain;
@@ -93,13 +95,15 @@ void AllPass::set_wet(float wet)
    if (!((wet >= 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "set_wet" << ": error: " << "guard \"(wet >= 0.0f)\" not met";
+      error_message << "[AllPass::set_wet]: error: guard \"(wet >= 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((wet <= 1.0f)))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "set_wet" << ": error: " << "guard \"(wet <= 1.0f)\" not met";
+      error_message << "[AllPass::set_wet]: error: guard \"(wet <= 1.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->wet = wet;
@@ -111,13 +115,15 @@ void AllPass::set_dry(float dry)
    if (!((dry >= 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "set_dry" << ": error: " << "guard \"(dry >= 0.0f)\" not met";
+      error_message << "[AllPass::set_dry]: error: guard \"(dry >= 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((dry <= 1.0f)))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "set_dry" << ": error: " << "guard \"(dry <= 1.0f)\" not met";
+      error_message << "[AllPass::set_dry]: error: guard \"(dry <= 1.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->dry = dry;
@@ -129,7 +135,8 @@ ALLEGRO_MIXER* AllPass::get_al_mixer()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "get_al_mixer" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[AllPass::get_al_mixer]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return mixer.get_mixer();
@@ -140,7 +147,8 @@ void AllPass::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[AllPass::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    // initialize the mixer
@@ -165,7 +173,8 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
    if (!(data))
    {
       std::stringstream error_message;
-      error_message << "AllPass" << "::" << "mixer_postprocess_callback" << ": error: " << "guard \"data\" not met";
+      error_message << "[AllPass::mixer_postprocess_callback]: error: guard \"data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    float *fbuf = (float *)buf;

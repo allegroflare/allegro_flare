@@ -3,6 +3,7 @@
 #include <AllegroFlare/Camera2D.hpp>
 
 #include <cmath>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -47,13 +48,15 @@ void Camera2D::setup_dimentional_projection(ALLEGRO_BITMAP* bitmap)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Camera2D" << "::" << "setup_dimentional_projection" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Camera2D::setup_dimentional_projection]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(bitmap))
    {
       std::stringstream error_message;
-      error_message << "Camera2D" << "::" << "setup_dimentional_projection" << ": error: " << "guard \"bitmap\" not met";
+      error_message << "[Camera2D::setup_dimentional_projection]: error: guard \"bitmap\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    // The goal here is to setup a projection transform that behaves as if normal 2D pixels were drawn for z=0

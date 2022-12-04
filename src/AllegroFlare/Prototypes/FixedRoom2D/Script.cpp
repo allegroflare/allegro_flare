@@ -54,7 +54,8 @@ void Script::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Script" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Script::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    markers_index = build_markers_index(lines);
@@ -77,7 +78,8 @@ std::string Script::get_current_line_text()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Script" << "::" << "get_current_line_text" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Script::get_current_line_text]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!at_valid_line()) return "";
@@ -89,7 +91,8 @@ bool Script::goto_next_line()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Script" << "::" << "goto_next_line" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Script::goto_next_line]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (at_last_line())
@@ -111,7 +114,8 @@ bool Script::goto_marker(std::string identifier)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Script" << "::" << "goto_marker" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Script::goto_marker]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (markers_index.find(identifier) == markers_index.end()) return false;
@@ -125,7 +129,8 @@ bool Script::goto_line_num(int line_num)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Script" << "::" << "goto_line_num" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Script::goto_line_num]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    int line_index_num = line_num - 1;
@@ -141,7 +146,8 @@ bool Script::at_last_line()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Script" << "::" << "at_last_line" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Script::at_last_line]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return (!lines.empty() && (current_line_num == lines.size()));

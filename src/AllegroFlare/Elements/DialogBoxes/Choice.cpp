@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -40,7 +41,8 @@ void Choice::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Choice" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Choice::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (options.empty())
@@ -60,7 +62,8 @@ std::string Choice::get_prompt()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Choice" << "::" << "get_prompt" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Choice::get_prompt]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return prompt;
@@ -71,7 +74,8 @@ std::vector<std::pair<std::string, std::string>> Choice::get_options()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Choice" << "::" << "get_options" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Choice::get_options]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return options;
@@ -82,7 +86,8 @@ std::string Choice::get_current_selection_text()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Choice" << "::" << "get_current_selection_text" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Choice::get_current_selection_text]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!has_valid_cursor_position()) return "";
@@ -94,7 +99,8 @@ std::string Choice::get_current_selection_value()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Choice" << "::" << "get_current_selection_value" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Choice::get_current_selection_value]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!has_valid_cursor_position()) return "";
@@ -106,7 +112,8 @@ void Choice::move_cursor_position_down()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Choice" << "::" << "move_cursor_position_down" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Choice::move_cursor_position_down]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!has_valid_cursor_position()) return;
@@ -121,7 +128,8 @@ void Choice::move_cursor_position_up()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Choice" << "::" << "move_cursor_position_up" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Choice::move_cursor_position_up]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!has_valid_cursor_position()) return;

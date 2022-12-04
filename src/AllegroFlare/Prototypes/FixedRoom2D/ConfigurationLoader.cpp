@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -146,7 +147,8 @@ bool ConfigurationLoader::load_from_source_configuration()
    if (!(source_configuration))
    {
       std::stringstream error_message;
-      error_message << "ConfigurationLoader" << "::" << "load_from_source_configuration" << ": error: " << "guard \"source_configuration\" not met";
+      error_message << "[ConfigurationLoader::load_from_source_configuration]: error: guard \"source_configuration\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    *destination_inventory_index = source_configuration->get_inventory_index_ref();

@@ -6,6 +6,7 @@
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -107,7 +108,8 @@ void RollingCredits::initialize()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[RollingCredits::initialize]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    height_calculated = calculate_height();
@@ -129,13 +131,15 @@ float RollingCredits::calculate_height()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "calculate_height" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[RollingCredits::calculate_height]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "calculate_height" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[RollingCredits::calculate_height]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return render_or_calculate_height(true);
@@ -146,13 +150,15 @@ void RollingCredits::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[RollingCredits::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[RollingCredits::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    render_or_calculate_height(false);
@@ -218,7 +224,8 @@ ALLEGRO_FONT* RollingCredits::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "RollingCredits" << "::" << "obtain_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[RollingCredits::obtain_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return font_bin->auto_get("Inter-Medium.ftf -32");

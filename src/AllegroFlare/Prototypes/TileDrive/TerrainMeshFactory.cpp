@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.hpp>
 #include <AllegroFlare/Random.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -44,7 +45,8 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_cla
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "TerrainMeshFactory" << "::" << "create_classic_random" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[TerrainMeshFactory::create_classic_random]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
@@ -62,7 +64,8 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_ran
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "TerrainMeshFactory" << "::" << "create_random_with_walls" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[TerrainMeshFactory::create_random_with_walls]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
@@ -83,7 +86,8 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_fro
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "TerrainMeshFactory" << "::" << "create_from_tmj" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[TerrainMeshFactory::create_from_tmj]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader tmj_data_loader(tmj_filename);
@@ -143,13 +147,15 @@ void TerrainMeshFactory::random_fill_from(AllegroFlare::Prototypes::TileDrive::T
    if (!(terrain_mesh))
    {
       std::stringstream error_message;
-      error_message << "TerrainMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"terrain_mesh\" not met";
+      error_message << "[TerrainMeshFactory::random_fill_from]: error: guard \"terrain_mesh\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((!inclusion_list.empty())))
    {
       std::stringstream error_message;
-      error_message << "TerrainMeshFactory" << "::" << "random_fill_from" << ": error: " << "guard \"(!inclusion_list.empty())\" not met";
+      error_message << "[TerrainMeshFactory::random_fill_from]: error: guard \"(!inclusion_list.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
@@ -190,7 +196,8 @@ void TerrainMeshFactory::random_fill_excluding(AllegroFlare::Prototypes::TileDri
    if (!(terrain_mesh))
    {
       std::stringstream error_message;
-      error_message << "TerrainMeshFactory" << "::" << "random_fill_excluding" << ": error: " << "guard \"terrain_mesh\" not met";
+      error_message << "[TerrainMeshFactory::random_fill_excluding]: error: guard \"terrain_mesh\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();

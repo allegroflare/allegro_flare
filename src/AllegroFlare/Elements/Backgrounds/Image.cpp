@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/Backgrounds/Image.hpp>
 
 #include <AllegroFlare/Placement2D.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -42,7 +43,8 @@ void Image::render()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "Image" << "::" << "render" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[Image::render]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    float o = infer_opacity();

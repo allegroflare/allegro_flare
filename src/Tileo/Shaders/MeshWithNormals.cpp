@@ -2,6 +2,7 @@
 
 #include <Tileo/Shaders/MeshWithNormals.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -35,7 +36,8 @@ void MeshWithNormals::activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "MeshWithNormals" << "::" << "activate" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[MeshWithNormals::activate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    Tileo::Shaders::Base::activate();

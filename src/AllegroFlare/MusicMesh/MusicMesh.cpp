@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/MusicMesh/MusicMesh.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -58,7 +59,8 @@ void MusicMesh::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "MusicMesh" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[MusicMesh::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    font_character_atlas_builder.set_font_bin(font_bin);
@@ -73,6 +75,7 @@ void MusicMesh::initialize()
 
 void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stamp)
 {
+   // TODO: add initialized guard
    std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> uvs =
       font_character_atlas_builder.get_uv_for_index(music_symbol_to_stamp);
    AllegroFlare::Vec2D uv1 = uvs.first;
@@ -106,6 +109,7 @@ void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stam
 
 void MusicMesh::remove_stamp_at(int index_of_stamp)
 {
+   // TODO: add initialized guard
    // TODO bounds checking
    uint32_t multi_mesh_id_to_remove = stamps[index_of_stamp].get_multi_mesh_id();
    uint32_t multi_mesh_id_to_swap = multi_mesh.remove(multi_mesh_id_to_remove);
@@ -124,13 +128,15 @@ void MusicMesh::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "MusicMesh" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[MusicMesh::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "MusicMesh" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[MusicMesh::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    multi_mesh.render();

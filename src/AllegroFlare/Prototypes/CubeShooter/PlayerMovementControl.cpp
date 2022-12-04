@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -176,7 +177,8 @@ void PlayerMovementControl::set_player_controlled_entity(AllegroFlare::Prototype
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "PlayerMovementControl" << "::" << "set_player_controlled_entity" << ": error: " << "guard \"player_controlled_entity\" not met";
+      error_message << "[PlayerMovementControl::set_player_controlled_entity]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->player_controlled_entity = player_controlled_entity;
@@ -190,7 +192,8 @@ void PlayerMovementControl::update(float time_now)
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "PlayerMovementControl" << "::" << "update" << ": error: " << "guard \"player_controlled_entity\" not met";
+      error_message << "[PlayerMovementControl::update]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    // reset

@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Shaders/AllegroDefault.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -35,7 +36,8 @@ void AllegroDefault::activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "AllegroDefault" << "::" << "activate" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[AllegroDefault::activate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Shaders::Base::activate();

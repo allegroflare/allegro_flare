@@ -4,6 +4,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <lib/nlohmann/json.hpp>
 #include <sstream>
 #include <stdexcept>
@@ -46,7 +47,8 @@ int TMJDataLoader::get_num_columns()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_num_columns" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_num_columns]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return num_columns;
@@ -57,7 +59,8 @@ int TMJDataLoader::get_num_rows()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_num_rows" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_num_rows]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return num_rows;
@@ -68,7 +71,8 @@ int TMJDataLoader::get_tile_width()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_tile_width" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_tile_width]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return tile_width;
@@ -79,7 +83,8 @@ int TMJDataLoader::get_tile_height()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_tile_height" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_tile_height]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return tile_height;
@@ -90,7 +95,8 @@ int TMJDataLoader::get_layer_num_columns()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_layer_num_columns" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_layer_num_columns]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return layer_num_columns;
@@ -101,7 +107,8 @@ int TMJDataLoader::get_layer_num_rows()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_layer_num_rows" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return layer_num_rows;
@@ -112,7 +119,8 @@ std::vector<int> TMJDataLoader::get_layer_tile_data()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_layer_tile_data" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_layer_tile_data]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return layer_tile_data;
@@ -123,7 +131,8 @@ int TMJDataLoader::get_collision_layer_num_columns()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_collision_layer_num_columns" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_collision_layer_num_columns]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return collision_layer_num_columns;
@@ -134,7 +143,8 @@ int TMJDataLoader::get_collision_layer_num_rows()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_collision_layer_num_rows" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_collision_layer_num_rows]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return collision_layer_num_rows;
@@ -145,7 +155,8 @@ std::vector<int> TMJDataLoader::get_collision_layer_tile_data()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "get_collision_layer_tile_data" << ": error: " << "guard \"loaded\" not met";
+      error_message << "[TMJDataLoader::get_collision_layer_tile_data]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return collision_layer_tile_data;
@@ -156,7 +167,8 @@ bool TMJDataLoader::load()
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "TMJDataLoader" << "::" << "load" << ": error: " << "guard \"(!loaded)\" not met";
+      error_message << "[TMJDataLoader::load]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!file_exists(filename))

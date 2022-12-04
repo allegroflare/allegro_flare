@@ -6,6 +6,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -31,25 +32,29 @@ void Bone3DGraphRenderer::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Bone3DGraphRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      error_message << "[Bone3DGraphRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[Bone3DGraphRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(root_bone))
    {
       std::stringstream error_message;
-      error_message << "Bone3DGraphRenderer" << "::" << "render" << ": error: " << "guard \"root_bone\" not met";
+      error_message << "[Bone3DGraphRenderer::render]: error: guard \"root_bone\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    render_recursive(root_bone);
@@ -61,7 +66,8 @@ void Bone3DGraphRenderer::render_recursive(AllegroFlare::Bone3D* bone)
    if (!(bone))
    {
       std::stringstream error_message;
-      error_message << "Bone3DGraphRenderer" << "::" << "render_recursive" << ": error: " << "guard \"bone\" not met";
+      error_message << "[Bone3DGraphRenderer::render_recursive]: error: guard \"bone\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    //allegro_flare::draw_3d_line(AllegroFlare::vec3d(0, 0, 0), bone->position);

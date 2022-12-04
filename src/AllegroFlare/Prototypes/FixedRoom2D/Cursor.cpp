@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -80,7 +81,8 @@ void Cursor::draw()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "Cursor" << "::" << "draw" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[Cursor::draw]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Placement2D placement(x, y, 0, 0);
@@ -155,7 +157,8 @@ ALLEGRO_FONT* Cursor::obtain_cursor_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "Cursor" << "::" << "obtain_cursor_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[Cursor::obtain_cursor_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::string font_name = "fa-solid-900.ttf";
@@ -171,7 +174,8 @@ ALLEGRO_FONT* Cursor::obtain_info_text_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "Cursor" << "::" << "obtain_info_text_font" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[Cursor::obtain_info_text_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    return font_bin->auto_get("Inter-Medium.ttf 20");

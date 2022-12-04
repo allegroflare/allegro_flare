@@ -5,6 +5,7 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Prototypes/CubeShooter/EntityFactory.hpp>
 #include <AllegroFlare/Useful.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -48,7 +49,8 @@ void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "set_event_emitter" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->event_emitter = event_emitter;
@@ -60,7 +62,8 @@ void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "set_bitmap_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->bitmap_bin = bitmap_bin;
@@ -72,7 +75,8 @@ void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "set_font_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->font_bin = font_bin;
@@ -84,7 +88,8 @@ void Screen::set_sample_bin(AllegroFlare::SampleBin* sample_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "set_sample_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Screen::set_sample_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->sample_bin = sample_bin;
@@ -95,7 +100,8 @@ void Screen::set_model_bin(AllegroFlare::ModelBin* model_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "set_model_bin" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Screen::set_model_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    this->model_bin = model_bin;
@@ -108,55 +114,64 @@ void Screen::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
+      error_message << "[Screen::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Screen::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"al_is_primitives_addon_initialized()\" not met";
+      error_message << "[Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"al_is_font_addon_initialized()\" not met";
+      error_message << "[Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"event_emitter\" not met";
+      error_message << "[Screen::initialize]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"bitmap_bin\" not met";
+      error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"font_bin\" not met";
+      error_message << "[Screen::initialize]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(sample_bin))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"sample_bin\" not met";
+      error_message << "[Screen::initialize]: error: guard \"sample_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "initialize" << ": error: " << "guard \"model_bin\" not met";
+      error_message << "[Screen::initialize]: error: guard \"model_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    entity_factory.set_scene_root(&scene_root);
@@ -180,7 +195,8 @@ void Screen::load_level()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "load_level" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Screen::load_level]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    player_controlled_entity = entity_factory.add_player_ship(0, 1, 0);
@@ -197,7 +213,8 @@ void Screen::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "on_activate" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Screen::on_activate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    // for now:
@@ -212,7 +229,8 @@ void Screen::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "on_deactivate" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Screen::on_deactivate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    //emit_hide_and_restore_size_input_hints_bar_event();
@@ -398,7 +416,8 @@ void Screen::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Screen::primary_timer_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    update();
@@ -411,13 +430,15 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "key_down_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Screen::key_down_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "key_down_func" << ": error: " << "guard \"event\" not met";
+      error_message << "[Screen::key_down_func]: error: guard \"event\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    switch(event->keyboard.keycode)
@@ -459,19 +480,22 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "key_up_func" << ": error: " << "guard \"initialized\" not met";
+      error_message << "[Screen::key_up_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "key_up_func" << ": error: " << "guard \"event\" not met";
+      error_message << "[Screen::key_up_func]: error: guard \"event\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "Screen" << "::" << "key_up_func" << ": error: " << "guard \"event_emitter\" not met";
+      error_message << "[Screen::key_up_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    switch(event->keyboard.keycode)

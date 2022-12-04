@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 
 #include <allegro5/allegro.h>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -128,7 +129,8 @@ bool Basic::next_page()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Basic" << "::" << "next_page" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Basic::next_page]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    //if (at_last_page()) return false;
@@ -182,7 +184,8 @@ void Basic::reveal_all_characters()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "Basic" << "::" << "reveal_all_characters" << ": error: " << "guard \"al_is_system_installed()\" not met";
+      error_message << "[Basic::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    num_revealed_characters = 9999;

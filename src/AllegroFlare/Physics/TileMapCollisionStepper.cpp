@@ -6,6 +6,7 @@
 #include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D.hpp>
 #include <cmath>
+#include <iostream>
 #include <set>
 #include <sstream>
 #include <stdexcept>
@@ -36,13 +37,15 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    if (!(collision_tile_map))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "step" << ": error: " << "guard \"collision_tile_map\" not met";
+      error_message << "[TileMapCollisionStepper::step]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "step" << ": error: " << "guard \"aabb2d\" not met";
+      error_message << "[TileMapCollisionStepper::step]: error: guard \"aabb2d\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
@@ -182,13 +185,15 @@ bool TileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, float ti
    if (!(collision_tile_map))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "adjacent_to_bottom_edge" << ": error: " << "guard \"collision_tile_map\" not met";
+      error_message << "[TileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "adjacent_to_bottom_edge" << ": error: " << "guard \"aabb2d\" not met";
+      error_message << "[TileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"aabb2d\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -217,13 +222,15 @@ bool TileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float til
    if (!(collision_tile_map))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "adjacent_to_right_edge" << ": error: " << "guard \"collision_tile_map\" not met";
+      error_message << "[TileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "adjacent_to_right_edge" << ": error: " << "guard \"aabb2d\" not met";
+      error_message << "[TileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"aabb2d\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -252,13 +259,15 @@ bool TileMapCollisionStepper::adjacent_to_top_edge(float tile_width, float tile_
    if (!(collision_tile_map))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "adjacent_to_top_edge" << ": error: " << "guard \"collision_tile_map\" not met";
+      error_message << "[TileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "adjacent_to_top_edge" << ": error: " << "guard \"aabb2d\" not met";
+      error_message << "[TileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"aabb2d\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -305,13 +314,15 @@ bool TileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile
    if (!(collision_tile_map))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "adjacent_to_left_edge" << ": error: " << "guard \"collision_tile_map\" not met";
+      error_message << "[TileMapCollisionStepper::adjacent_to_left_edge]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "adjacent_to_left_edge" << ": error: " << "guard \"aabb2d\" not met";
+      error_message << "[TileMapCollisionStepper::adjacent_to_left_edge]: error: guard \"aabb2d\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -469,25 +480,29 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::tiles_within(
    if (!((width >= 0)))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(width >= 0)\" not met";
+      error_message << "[TileMapCollisionStepper::tiles_within]: error: guard \"(width >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((height >= 0)))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(height >= 0)\" not met";
+      error_message << "[TileMapCollisionStepper::tiles_within]: error: guard \"(height >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((tile_width > 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(tile_width > 0.0f)\" not met";
+      error_message << "[TileMapCollisionStepper::tiles_within]: error: guard \"(tile_width > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    if (!((tile_height > 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "TileMapCollisionStepper" << "::" << "tiles_within" << ": error: " << "guard \"(tile_height > 0.0f)\" not met";
+      error_message << "[TileMapCollisionStepper::tiles_within]: error: guard \"(tile_height > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error(error_message.str());
    }
    std::vector<AllegroFlare::Physics::Int2D> result_tiles;
