@@ -72,10 +72,9 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
 }
 
 
-TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, render__will_render_the_mesh_as_expected)
+TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
+   CAPTURE__VISUAL__render__will_render_the_mesh_as_expected)
 {
-   return;
-
    ALLEGRO_BITMAP *atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
 
@@ -118,7 +117,7 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest, render__wi
 
    // flip the display and sleep
    al_flip_display();
-   sleep(1);
+   al_rest(1.0);
 }
 
 
