@@ -49,7 +49,7 @@ std::string SystemInfo::get_processor_type()
    std::string machine = get_machine();
    if (machine.empty()) return "[unable-to-detect]";
    if (machine.substr(0, 3) == "arm") return "arm";
-   if (machine.substr(0, 1) == "i") return "intel";
+   if (machine.substr(0, 3) == "x86" && operating_system() == "MacOS") return "intel";
    return "[chip-kind-not-detected]";
 }
 

@@ -97,9 +97,8 @@ TEST(AllegroFlare_SystemInfoTest, get_chip_kind__will_return_a_string_representi
 {
    AllegroFlare::SystemInfo system_info;
    std::vector<std::string> expected_possible_processor_types = {
-      "arm",                      // Mark's Mac Laptop
-      // TODO: fix this undetected case:
-      "[chip-kind-not-detected]", // Mark's MacMini
+      "arm",   // Mark's Mac Laptop
+      "intel", // Mark's MacMini
    };
    std::string actual_processor_type = system_info.get_processor_type();
    EXPECT_THAT(expected_possible_processor_types, testing::Contains(actual_processor_type));
