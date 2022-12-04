@@ -2,6 +2,7 @@
 
 
 #include <vector>
+#include <stdexcept>
 
 
 namespace AllegroFlare::TileMaps
