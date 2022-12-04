@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken.hpp>
 
-
+#include <stdexcept>
 
 
 namespace AllegroFlare

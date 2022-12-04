@@ -50,6 +50,8 @@ functions:
       if (!initialized) throw std::runtime_error("[LabyrinthOfLore::Shader::ClampedColor] Attempting to activate() shader before it has been initialized");
       AllegroFlare::Shader::activate();
       Shader::set_int("torch_type", torch_type);
+    body_dependency_symbols:
+      - std::runtime_error
 
 
   - name: deactivate
