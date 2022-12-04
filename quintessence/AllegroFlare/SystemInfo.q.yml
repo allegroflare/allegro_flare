@@ -48,34 +48,25 @@ functions:
   - name: get_sysname
     type: std::string
     body: |
-      utsname buf;
-      uname(&buf);
-      std::string sysname = buf.sysname;
-      return sysname;
+      return AllegroFlare::SystemInfoFetcher().get_sysname();
     body_dependency_symbols:
-      - uname
+      - AllegroFlare::SystemInfoFetcher
 
 
   - name: get_version
     type: std::string
     body: |
-      utsname buf;
-      uname(&buf);
-      std::string version = buf.version;
-      return version;
+      return AllegroFlare::SystemInfoFetcher().get_version();
     body_dependency_symbols:
-      - uname
+      - AllegroFlare::SystemInfoFetcher
 
 
   - name: get_release
     type: std::string
     body: |
-      utsname buf;
-      uname(&buf);
-      std::string release = buf.release;
-      return release;
+      return AllegroFlare::SystemInfoFetcher().get_release();
     body_dependency_symbols:
-      - uname
+      - AllegroFlare::SystemInfoFetcher
 
 
   - name: get_hostname
@@ -103,12 +94,9 @@ functions:
   - name: get_machine
     type: std::string
     body: |
-      utsname buf;
-      uname(&buf);
-      std::string machine = buf.machine;
-      return machine;
+      return AllegroFlare::SystemInfoFetcher().get_machine();
     body_dependency_symbols:
-      - uname
+      - AllegroFlare::SystemInfoFetcher
 
 
   - name: operating_system
@@ -140,9 +128,9 @@ dependencies:
     headers: [ AllegroFlare/Version.hpp ]
   - symbol: std::thread::hardware_concurrency
     headers: [ thread ]
-  - symbol: uname
-    headers: [ sys/utsname.h ]
   - symbol: gethostname
     headers: [ unistd.h ]
+  - symbol: AllegroFlare::SystemInfoFetcher
+    headers: [ AllegroFlare/SystemInfoFetcher.hpp ]
 
 

@@ -1908,10 +1908,10 @@
   "std/thread/hardware_concurrency": [
     "AllegroFlare/SystemInfo"
   ],
-  "uname": [
+  "gethostname": [
     "AllegroFlare/SystemInfo"
   ],
-  "gethostname": [
+  "AllegroFlare/SystemInfoFetcher": [
     "AllegroFlare/SystemInfo"
   ],
   "ALLEGRO_STATE": [

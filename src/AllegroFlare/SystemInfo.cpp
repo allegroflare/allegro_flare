@@ -2,8 +2,8 @@
 
 #include <AllegroFlare/SystemInfo.hpp>
 
+#include <AllegroFlare/SystemInfoFetcher.hpp>
 #include <AllegroFlare/Version.hpp>
-#include <sys/utsname.h>
 #include <thread>
 #include <unistd.h>
 
@@ -55,26 +55,17 @@ std::string SystemInfo::get_processor_type()
 
 std::string SystemInfo::get_sysname()
 {
-   utsname buf;
-   uname(&buf);
-   std::string sysname = buf.sysname;
-   return sysname;
+   return AllegroFlare::SystemInfoFetcher().get_sysname();
 }
 
 std::string SystemInfo::get_version()
 {
-   utsname buf;
-   uname(&buf);
-   std::string version = buf.version;
-   return version;
+   return AllegroFlare::SystemInfoFetcher().get_version();
 }
 
 std::string SystemInfo::get_release()
 {
-   utsname buf;
-   uname(&buf);
-   std::string release = buf.release;
-   return release;
+   return AllegroFlare::SystemInfoFetcher().get_release();
 }
 
 std::string SystemInfo::get_hostname()
@@ -98,10 +89,7 @@ std::string SystemInfo::get_hostname()
 
 std::string SystemInfo::get_machine()
 {
-   utsname buf;
-   uname(&buf);
-   std::string machine = buf.machine;
-   return machine;
+   return AllegroFlare::SystemInfoFetcher().get_machine();
 }
 
 std::string SystemInfo::operating_system()
