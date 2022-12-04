@@ -5,7 +5,6 @@
 #include <AllegroFlare/SystemInfoFetcher.hpp>
 #include <AllegroFlare/Version.hpp>
 #include <thread>
-#include <unistd.h>
 
 
 namespace AllegroFlare
@@ -70,21 +69,7 @@ std::string SystemInfo::get_release()
 
 std::string SystemInfo::get_hostname()
 {
-   // SUSv2 guarantees that "Host names are limited to 255 bytes".
-   // POSIX.1 guarantees that "Host names (not including the
-   // terminating null byte) are limited to HOST_NAME_MAX bytes".  On
-   // Linux, HOST_NAME_MAX is defined with the value 64, which has been
-   // the limit since Linux 1.0 (earlier kernels imposed a limit of 8
-   // bytes).
-   char hostname[256];
-
-   int gethostname_response = gethostname(hostname, 256);
-   if (gethostname_response != 0)
-   {
-      return "[could-not-determine-hostname]";
-   }
-   std::string result = hostname;
-   return result;
+   return AllegroFlare::SystemInfoFetcher().get_hostname();
 }
 
 std::string SystemInfo::get_machine()

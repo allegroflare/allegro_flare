@@ -1908,9 +1908,6 @@
   "std/thread/hardware_concurrency": [
     "AllegroFlare/SystemInfo"
   ],
-  "gethostname": [
-    "AllegroFlare/SystemInfo"
-  ],
   "AllegroFlare/SystemInfoFetcher": [
     "AllegroFlare/SystemInfo"
   ],

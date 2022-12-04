@@ -16,6 +16,7 @@ namespace AllegroFlare
       std::string get_version();
       std::string get_release();
       std::string get_machine();
+      std::string get_hostname();
    };
 }
 
