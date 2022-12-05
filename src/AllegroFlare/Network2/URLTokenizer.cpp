@@ -52,13 +52,13 @@ std::pair<std::string, std::string> URLTokenizer::split_tokens()
 
    if (full_url.substr(0, length_of_prefix) != "tcp://")
    {
-      throw std::runtime_error("Network2::URLTokenizer: invalid url format (error 1)");
+      throw std::invalid_argument("Network2::URLTokenizer: invalid url format (error 1)");
    }
 
    std::size_t pos_of_port_start = full_url.find_first_of(":", length_of_prefix);
    if (pos_of_port_start == std::string::npos)
    {
-      throw std::runtime_error("Network2::URLTokenizer: invalid url format (error 2)");
+      throw std::invalid_argument("Network2::URLTokenizer: invalid url format (error 2)");
    }
 
    // strip off the port number
@@ -68,15 +68,32 @@ std::pair<std::string, std::string> URLTokenizer::split_tokens()
    std::string subresult = full_url.substr(0, pos_of_port_start);
    result.first = subresult.substr(6);
 
-   if (!(has_min_length(result.second, 1)))
+   // validate the extracted tokens
+
+   // the host has at least 4 characters
+   if (!(has_min_length(result.first, 4)))
    {
-      throw std::runtime_error("Network2::URLTokenizer: invalid url format (error 3)");
+      throw std::invalid_argument("Network2::URLTokenizer: invalid url format (error 3)");
    }
 
+   // the port has at least 4 characters
    if (!(has_min_length(result.second, 4)))
    {
-      throw std::runtime_error("Network2::URLTokenizer: invalid url format (error 4)");
+      throw std::invalid_argument("Network2::URLTokenizer: invalid url format (error 4)");
    }
+
+   // the port has no more than 6 characters
+   if (!(fits_max_length(result.second, 6)))
+   {
+      throw std::invalid_argument("Network2::URLTokenizer: invalid url format (error 5)");
+   }
+
+   // the port consists of only numerical characters
+   if (!(only_numerical_characters(result.second)))
+   {
+      throw std::invalid_argument("Network2::URLTokenizer: invalid url format (error 6)");
+   }
+
 
    return result;
 }
@@ -84,6 +101,16 @@ std::pair<std::string, std::string> URLTokenizer::split_tokens()
 bool URLTokenizer::has_min_length(std::string string, int min)
 {
    return (string.length() >= min);
+}
+
+bool URLTokenizer::fits_max_length(std::string string, int max)
+{
+   return (string.length() <= max);
+}
+
+bool URLTokenizer::only_numerical_characters(std::string string)
+{
+   return (string.find_first_not_of("9876543210") == std::string::npos);
 }
 
 std::string URLTokenizer::trim(std::string s)

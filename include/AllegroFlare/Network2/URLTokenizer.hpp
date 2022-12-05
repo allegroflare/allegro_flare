@@ -13,8 +13,9 @@ namespace AllegroFlare
       {
       private:
          std::string full_url;
-         std::pair<std::string, std::string> split_tokens();
          static bool has_min_length(std::string string="", int min=0);
+         static bool fits_max_length(std::string string="", int max=0);
+         static bool only_numerical_characters(std::string string="");
          static std::string trim(std::string s="");
 
       protected:
@@ -28,6 +29,7 @@ namespace AllegroFlare
          std::string get_full_url() const;
          std::string extract_port();
          std::string extract_host();
+         std::pair<std::string, std::string> split_tokens();
       };
    }
 }
