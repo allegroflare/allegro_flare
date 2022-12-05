@@ -1,0 +1,36 @@
+properties:
+
+
+  - name: string
+    type: std::string
+    constructor_arg: true
+    init_with: '"[unset-string]"'
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: fits_max_length
+    type: bool
+    parameters:
+      - name: max
+        type: std::size_t
+        default_argument: 0
+    body: |
+      return (string.length() <= max);
+
+
+  - name: only_numerical_characters
+    type: bool
+    body: |
+      return (string.find_first_not_of("9876543210") == std::string::npos);
+
+
+dependencies:
+
+
+  - symbol: std::size_t
+
+
