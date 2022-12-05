@@ -51,7 +51,7 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
 
 
 TEST(AllegroFlare_Network2_URLTokenizerTest,
-   only_numerical_characters__will_return_true_if_the_string_contains_only_numerical_characters)
+   has_only_numerical_characters__will_return_true_if_the_string_contains_only_numerical_characters)
 {
    std::vector<std::string> test_strings = {
       "",
@@ -65,13 +65,13 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
    for (auto &test_string : test_strings)
    {
       AllegroFlare::StringFormatValidator string_format_validator(test_string);
-      EXPECT_EQ(true, string_format_validator.only_numerical_characters());
+      EXPECT_EQ(true, string_format_validator.has_only_numerical_characters());
    }
 }
 
 
 TEST(AllegroFlare_Network2_URLTokenizerTest,
-   only_numerical_characters__will_return_false_if_any_characters_in_the_string_are_not_numbers)
+   has_only_numerical_characters__will_return_false_if_any_characters_in_the_string_are_not_numbers)
 {
    std::vector<std::string> test_strings = {
       "0.0",
@@ -85,7 +85,7 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
    for (auto &test_string : test_strings)
    {
       AllegroFlare::StringFormatValidator string_format_validator(test_string);
-      EXPECT_EQ(false, string_format_validator.only_numerical_characters());
+      EXPECT_EQ(false, string_format_validator.has_only_numerical_characters());
    }
 }
 

@@ -22,7 +22,7 @@ functions:
       return (string.size() <= max);
 
 
-  - name: only_numerical_characters
+  - name: has_only_numerical_characters
     type: bool
     body: |
       return (string.find_first_not_of("9876543210") == std::string::npos);

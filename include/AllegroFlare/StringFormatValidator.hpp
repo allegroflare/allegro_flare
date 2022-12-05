@@ -21,7 +21,7 @@ namespace AllegroFlare
       void set_string(std::string string);
       std::string get_string() const;
       bool fits_max_length(std::size_t max=0);
-      bool only_numerical_characters();
+      bool has_only_numerical_characters();
    };
 }
 
