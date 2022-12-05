@@ -13,6 +13,7 @@
 #include <string>
 #include <iostream>
 
+#include <AllegroFlare/Network2/URLTokenizer.hpp>
 
 
 #include <AllegroFlare/MotionComposer/MessageFactory.hpp>
@@ -280,7 +281,9 @@ static void run_client(
       std::vector<std::string> *messages_queue=nullptr,
       std::mutex *messages_queue_mutex=nullptr,
       void (*callback)(std::string, void*)=nullptr,
-      void *callback_passed_data=nullptr
+      void *callback_passed_data=nullptr,
+      std::string host=AllegroFlare::Network2::Client::DEFAULT_HOST,
+      std::string port=AllegroFlare::Network2::Client::DEFAULT_PORT
    )
 {
    AllegroFlare::Network2::Client client(
@@ -293,6 +296,10 @@ static void run_client(
    // NOTE: might be able to use ngrok like this, for example:
    //client.set_host("6.tcp.ngrok.io");
    //client.set_port("13981");
+
+   client.set_host(host);
+   client.set_port(port);
+
    client.run_blocking_while_awaiting_abort();
 }
 
@@ -310,6 +317,22 @@ int main(int argc, char **argv)
    //void *callback_passed_data=nullptr
 
 
+   std::string host = AllegroFlare::Network2::Client::DEFAULT_HOST;
+   std::string port = AllegroFlare::Network2::Client::DEFAULT_PORT;
+
+   if (argc > 1)
+   {
+      std::string url_arg = argv[1];
+      AllegroFlare::Network2::URLTokenizer url_tokenizer(url_arg);
+      host = url_tokenizer.extract_host();
+      port = url_tokenizer.extract_port();
+   }
+
+   std::cout << "Using default host/port:" << std::endl;
+   std::cout << "   host: " << host << std::endl;
+   std::cout << "   port: " << port << std::endl;
+
+
    std::thread first(
          framework_main,
          &global_abort,
@@ -322,7 +345,9 @@ int main(int argc, char **argv)
          &messages_queue,
          &messages_queue_mutex,
          nullptr,
-         nullptr
+         nullptr,
+         host,
+         port
    );
 
    first.join();
