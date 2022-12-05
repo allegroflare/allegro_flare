@@ -50,3 +50,43 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
 }
 
 
+TEST(AllegroFlare_Network2_URLTokenizerTest,
+   only_numerical_characters__will_return_true_if_the_string_contains_only_numerical_characters)
+{
+   std::vector<std::string> test_strings = {
+      "",
+      "0",
+      "123",
+      "54321",
+      "0123456789",
+      "4845314804864861561534048643054789465132222311567774887975642313",
+   };
+
+   for (auto &test_string : test_strings)
+   {
+      AllegroFlare::StringFormatValidator string_format_validator(test_string);
+      EXPECT_EQ(true, string_format_validator.only_numerical_characters());
+   }
+}
+
+
+TEST(AllegroFlare_Network2_URLTokenizerTest,
+   only_numerical_characters__will_return_false_if_any_characters_in_the_string_are_not_numbers)
+{
+   std::vector<std::string> test_strings = {
+      "0.0",
+      " 123",
+      "123 ",
+      "12_543_2345",
+      "12,543.00",
+      "$5",
+   };
+
+   for (auto &test_string : test_strings)
+   {
+      AllegroFlare::StringFormatValidator string_format_validator(test_string);
+      EXPECT_EQ(false, string_format_validator.only_numerical_characters());
+   }
+}
+
+
