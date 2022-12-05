@@ -19,7 +19,7 @@ functions:
         type: std::size_t
         default_argument: 0
     body: |
-      return (string.length() <= max);
+      return (string.size() <= max);
 
 
   - name: only_numerical_characters

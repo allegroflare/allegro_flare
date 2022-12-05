@@ -34,7 +34,7 @@ std::string StringFormatValidator::get_string() const
 
 bool StringFormatValidator::fits_max_length(std::size_t max)
 {
-   return (string.length() <= max);
+   return (string.size() <= max);
 }
 
 bool StringFormatValidator::only_numerical_characters()
