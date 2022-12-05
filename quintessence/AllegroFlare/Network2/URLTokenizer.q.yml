@@ -49,8 +49,33 @@ functions:
       // strip off tcp prefix:
       std::string subresult = full_url.substr(0, pos_of_port_start);
       result.first = subresult.substr(6);
+
+      if (!(has_min_length(result.second, 1)))
+      {
+         throw std::runtime_error("Network2::URLTokenizer: invalid url format (error 3)");
+      }
+      
+      if (!(has_min_length(result.second, 4)))
+      {
+         throw std::runtime_error("Network2::URLTokenizer: invalid url format (error 4)");
+      }
       
       return result;
+
+
+  - name: has_min_length
+    type: bool
+    private: true
+    static: true
+    parameters:
+      - name: string
+        type: std::string
+        default_argument: '""'
+      - name: min
+        type: int
+        default_argument: 0
+    body: |
+      return (string.length() >= min);
 
 
   - name: trim

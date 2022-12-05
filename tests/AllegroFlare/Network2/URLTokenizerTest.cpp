@@ -24,3 +24,16 @@ TEST(AllegroFlare_Network2_URLTokenizerTest, extract_port__will_return_the_port_
 }
 
 
+TEST(AllegroFlare_Network2_URLTokenizerTest, extract_tokens__will_throw_an_error_on_invalid_or_unsupported_urls)
+{
+   // TODO
+   // examples of invalid urls:
+   std::vector<std::string> invalid_urls = {
+      "foobar",                 // no port, no "tcp://" prefix
+      "tcp://8.tcp.ngrok.io:",  // no port numbers
+      "tcp://x:54321",          // invalid host (fewer than 4 characters)
+      "http://www.url.com",     // not a "tcp://" prefix
+   };
+}
+
+

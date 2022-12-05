@@ -68,7 +68,22 @@ std::pair<std::string, std::string> URLTokenizer::split_tokens()
    std::string subresult = full_url.substr(0, pos_of_port_start);
    result.first = subresult.substr(6);
 
+   if (!(has_min_length(result.second, 1)))
+   {
+      throw std::runtime_error("Network2::URLTokenizer: invalid url format (error 3)");
+   }
+
+   if (!(has_min_length(result.second, 4)))
+   {
+      throw std::runtime_error("Network2::URLTokenizer: invalid url format (error 4)");
+   }
+
    return result;
+}
+
+bool URLTokenizer::has_min_length(std::string string, int min)
+{
+   return (string.length() >= min);
 }
 
 std::string URLTokenizer::trim(std::string s)

@@ -14,6 +14,7 @@ namespace AllegroFlare
       private:
          std::string full_url;
          std::pair<std::string, std::string> split_tokens();
+         static bool has_min_length(std::string string="", int min=0);
          static std::string trim(std::string s="");
 
       protected:
