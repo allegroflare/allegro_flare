@@ -37,6 +37,11 @@ bool StringFormatValidator::fits_max_length(std::size_t max)
    return (string.size() <= max);
 }
 
+bool StringFormatValidator::fits_min_length(std::size_t min)
+{
+   return (string.size() >= min);
+}
+
 bool StringFormatValidator::has_only_numerical_characters()
 {
    return (string.find_first_not_of("9876543210") == std::string::npos);

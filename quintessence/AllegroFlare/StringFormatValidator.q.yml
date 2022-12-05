@@ -22,6 +22,16 @@ functions:
       return (string.size() <= max);
 
 
+  - name: fits_min_length
+    type: bool
+    parameters:
+      - name: min
+        type: std::size_t
+        default_argument: 0
+    body: |
+      return (string.size() >= min);
+
+
   - name: has_only_numerical_characters
     type: bool
     body: |
