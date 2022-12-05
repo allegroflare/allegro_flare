@@ -23,11 +23,12 @@ namespace AllegroFlare
 
       public:
          static constexpr std::size_t BODY_LENGTH_MAX = AllegroFlare::Network2::Message::MAX_BODY_LENGTH;
+         static constexpr const char* DEFAULT_PORT_NUM = "5432";
 
          Server(std::atomic<bool> *global_abort=nullptr);
          ~Server();
 
-         void set_port(std::string port="5432");
+         void set_port(std::string port=DEFAULT_PORT_NUM);
          void run_blocking_while_awaiting_abort();
       };
    }
