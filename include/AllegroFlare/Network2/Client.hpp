@@ -28,8 +28,8 @@ namespace AllegroFlare
 
       public:
          static constexpr std::size_t MESSAGE_BODY_LENGTH_MAX = AllegroFlare::Network2::Message::MAX_BODY_LENGTH;
-         static constexpr const char* DEFAULT_PORT_NUM = "5432";
-         static constexpr const char* DEFAULT_HOST_NAME = "localhost";
+         static constexpr const char* DEFAULT_PORT = "5432";
+         static constexpr const char* DEFAULT_HOST = "localhost";
 
          Client(
             std::atomic<bool> *global_abort=nullptr,
@@ -41,8 +41,8 @@ namespace AllegroFlare
 
          ~Client();
 
-         void set_host(std::string host=DEFAULT_HOST_NAME);
-         void set_port(std::string port=DEFAULT_PORT_NUM);
+         void set_host(std::string host=DEFAULT_HOST);
+         void set_port(std::string port=DEFAULT_PORT);
 
          void run_blocking_while_awaiting_abort();
       };
