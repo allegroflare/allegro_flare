@@ -16,13 +16,17 @@ int main(int argc, char **argv)
    {
       std::string port_num_argument = argv[1];
       AllegroFlare::StringFormatValidator string_format_validator(port_num_argument);
-      if (!string_format_validator.fits_max_length(4))
+      if (!string_format_validator.fits_min_length(4))
       {
          throw std::invalid_argument("[programs/motion_edit_server]: error: Invalid argument for port (error 1)");
       }
-      if (!string_format_validator.has_only_numerical_characters())
+      if (!string_format_validator.fits_max_length(6))
       {
          throw std::invalid_argument("[programs/motion_edit_server]: error: Invalid argument for port (error 2)");
+      }
+      if (!string_format_validator.has_only_numerical_characters())
+      {
+         throw std::invalid_argument("[programs/motion_edit_server]: error: Invalid argument for port (error 3)");
       }
       server.set_port(port_num_argument);
    }
