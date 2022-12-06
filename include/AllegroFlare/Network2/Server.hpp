@@ -30,6 +30,7 @@ namespace AllegroFlare
 
          void set_port(std::string port=DEFAULT_PORT);
          void run_blocking_while_awaiting_abort();
+         std::string get_port();
       };
    }
 }

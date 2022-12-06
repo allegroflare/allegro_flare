@@ -334,6 +334,12 @@ void Server::set_port(std::string port)
 }
 
 
+std::string Server::get_port()
+{
+   return port;
+}
+
+
 void Server::run_blocking_while_awaiting_abort()
 {
    if (!global_abort)

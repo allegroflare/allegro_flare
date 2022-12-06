@@ -2,6 +2,69 @@
 #include <AllegroFlare/Network2/Server.hpp>
 #include <AllegroFlare/StringFormatValidator.hpp>
 
+
+const std::string ASCII_BANNER = R"END(
+    __  _______  ______________  _   __   __________  __________
+   /  |/  / __ \/_  __/  _/ __ \/ | / /  / ____/ __ \/  _/_  __/
+  / /|_/ / / / / / /  / // / / /  |/ /  / __/ / / / // /  / /
+ / /  / / /_/ / / / _/ // /_/ / /|  /  / /___/ /_/ // /  / /
+/_/  /_/\____/ /_/ /___/\____/_/ |_/  /_____/_____/___/ /_/
+   ___________ _   _________
+  / __/ __/ _ \ | / / __/ _ \ ----------------------------------
+ _\ \/ _// , _/ |/ / _// , _/ ---------------------------------
+/___/___/_/|_||___/___/_/|_| ---------------------------------
+
+)END";
+
+
+const char *CYAN = "\033[1;34m";
+const char *YELLOW = "\033[1;33m";
+const char *MAGENTA = "\033[1;35m";
+const char *DEFAULT = "\033[0m";
+#include <sstream>
+
+static std::vector<std::string> split(std::string text, char delimiter)
+{
+   std::vector<std::string> elems;
+   auto result = std::back_inserter(elems);
+   std::stringstream ss(text);
+   std::string item;
+   while (std::getline(ss, item, delimiter)) { *(result++) = item; }
+   return elems;
+}
+
+std::string join(std::vector<std::string> tokens, std::string delimiter)
+{
+   std::stringstream result;
+   bool last = false;
+   for (unsigned i=0; i<tokens.size(); i++)
+   {
+      result << tokens[i];
+      if (i == tokens.size()-1) last = true;
+      if (!last) result << delimiter;
+   }
+   return result.str();
+}
+
+std::string stylize_banner(std::string text)
+{
+   std::vector<std::string> lines = split(text, '\n');
+   for (auto &line : lines)
+   {
+      line = CYAN + line + DEFAULT;
+   }
+   return join(lines, "\n");
+}
+
+std::string yellow(std::string text)
+{
+   return YELLOW + text + DEFAULT;
+}
+
+
+
+#include <iostream>
+
 int main(int argc, char **argv)
 {
    std::atomic<bool> global_abort = false;
@@ -30,7 +93,11 @@ int main(int argc, char **argv)
       }
       server.set_port(port_num_argument);
    }
-   //client.set_port("13981");
+
+   std::cout << stylize_banner(ASCII_BANNER) << std::endl;
+   std::cout << "   - Running on port: " << yellow(server.get_port()) << std::endl;
+   std::cout << "   - Press Ctrl+C to abort." << std::endl;
+   std::cout << std::endl;
 
    server.run_blocking_while_awaiting_abort();
 
