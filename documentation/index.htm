@@ -200,6 +200,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/TunnelTiles/Basic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml</a></li>
@@ -10180,6 +10182,110 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">parent</td>
+  <td class="property">AllegroFlare::ElementID*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">draw()</td>
+</tr>
+<tr>
+  <td class="method">is_type(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">place</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">velocity</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_alignment_strategy</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">bitmap_flip_h</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">debug_box_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">draw()</td>
+</tr>
+<tr>
+  <td class="method">fit_to_bitmap()</td>
+</tr>
+<tr>
+  <td class="private_method">assign_alignment_strategy_values(5)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::EntityFlagNames&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/EntityFlagNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</h3>
      <table>
 <tr>
@@ -16521,6 +16627,7 @@ table td
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -16551,6 +16658,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
@@ -16663,6 +16771,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -16904,6 +17013,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Base",
     "Wicked/Entities/Base"
   ],
   "al_get_time": [
@@ -17040,6 +17150,7 @@ table td
   "al_draw_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Entities/Basic2D"
   ],
@@ -17819,6 +17930,19 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/Base": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
+  ],
+  "Wicked/EntityFlagNames": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "Wicked/Entities/Basic2D",
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Entities/CollectionHelper",
+    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
+    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
+    "WickedDemos/TileDemo"
+  ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/VirtualControlsProcessor",
@@ -17872,15 +17996,6 @@ table td
   "Wicked/Physics/AABB2D": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "Wicked/Physics/TileMapCollisionStepper",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/EntityFlagNames": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "Wicked/Entities/Basic2D",
-    "Wicked/Entities/Basic2DFactory",
-    "Wicked/Entities/CollectionHelper",
-    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
     "WickedDemos/TileDemo"
   ],
   "Wicked/Weapons/DrawnBow": [

@@ -9,11 +9,43 @@ parent_classes:
 properties:
 
 
-  - name: property
-    type: std::string
-    init_with: '"[unset-property]"'
-    constructor_arg: true
+  - name: place
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
     getter: true
+    getter_ref: true
+    setter: true
+
+  - name: velocity
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: bitmap_alignment_strategy
+    type: std::string
+    init_with: '"top_left"'
+    getter: true
+    setter: true
+
+  - name: bitmap_flip_h
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: debug_box_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0, 0.375, 0.75, 0.75}
+    getter: true
+    setter: true
 
   - name: TYPE
     type: char*
@@ -25,14 +57,160 @@ properties:
 functions:
 
 
-  - name: property_is
-    type: bool
-    parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
+  - name: update
+    virtual: true
+    override: true
     body: |
-      return (possible_type == get_property());
+      //place.position += velocity.position; // <-- this is now managed in the stepper
+      //place.rotation += velocity.rotation;
+
+      //place.scale += velocity.scale; // TODO: figure out what/how to apply scale velocity
+      // TODO: align, size, anchor, flip
+
+      return;
+
+
+  - name: draw
+    virtual: true
+    override: true
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      // TODO: add some reasonable guards
+      //if (bitmap)
+      //{
+         // TODO: find a more proper place for this
+         //if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
+         //if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
+
+         place.start_transform();
+
+      if (bitmap)
+      {
+         if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
+         if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
+         // draw the bitmap
+         float bitmap_x = 0;
+         float bitmap_y = 0;
+         assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+         assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+         al_draw_bitmap(bitmap, bitmap_x, bitmap_y, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
+
+         // draw the bitmap's boundary debug rectangle
+         // TODO: move this out of "if (bitmap)" clause
+         al_draw_rectangle(
+            bitmap_x,
+            bitmap_y,
+            bitmap_x + al_get_bitmap_width(bitmap),
+            bitmap_y + al_get_bitmap_height(bitmap),
+            ALLEGRO_COLOR{0, 0.5, 0.25, 0.5},
+            1.0
+         );
+      }
+
+         // draw the bounding box rectangle
+         // TODO: move this out of "if (bitmap)" clause
+         al_draw_rectangle(
+            0,
+            0,
+            place.size.x,
+            place.size.y,
+            debug_box_color,
+            1.0
+         );
+
+         place.restore_transform();
+
+         // draw a box around the unaltered position
+         al_draw_rectangle(
+            place.position.x-3,
+            place.position.y-3,
+            place.position.x+3,
+            place.position.y+3,
+            debug_box_color,
+            1.0
+         );
+
+      if (exists(ADJACENT_TO_CEILING))
+      {
+         al_draw_filled_circle(place.position.x, place.position.y - 6, 2, debug_box_color);
+      }
+      if (exists(ADJACENT_TO_LEFT_WALL))
+      {
+         al_draw_filled_circle(place.position.x-6, place.position.y, 2, debug_box_color);
+      }
+      if (exists(ADJACENT_TO_RIGHT_WALL))
+      {
+         al_draw_filled_circle(place.position.x+6, place.position.y, 2, debug_box_color);
+      }
+      if (exists(ADJACENT_TO_FLOOR))
+      {
+         al_draw_filled_circle(place.position.x, place.position.y+6, 2, debug_box_color);
+      }
+
+      //}
+      return;
+    body_dependency_symbols:
+      - al_draw_rectangle
+      - Wicked::EntityFlagNames
+
+
+  - name: fit_to_bitmap
+    guards: [ bitmap ]
+    body: |
+      place.size.x = al_get_bitmap_width(bitmap);
+      place.size.y = al_get_bitmap_height(bitmap);
+      return;
+
+
+  - name: assign_alignment_strategy_values
+    static: true
+    private: true
+    parameters:
+      - name: parent_placement
+        type: AllegroFlare::Placement2D*
+        default_argument: nullptr
+      - name: bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: bitmap_x
+        type: float*
+        default_argument: nullptr
+      - name: bitmap_y
+        type: float*
+        default_argument: nullptr
+      - name: bitmap_alignment_strategy
+        type: std::string
+        default_argument: '"centered"'
+    guards: [ parent_placement, bitmap, bitmap_x, bitmap_y ]
+    body: |
+      if (bitmap_alignment_strategy == "top_left")
+      {
+         *bitmap_x = 0;
+         *bitmap_y = 0;
+      }
+      else if (bitmap_alignment_strategy == "centered") // as in a schmup
+      {
+         // TODO: fix this so that it works as expected with different parent_placement alignment
+         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
+         *bitmap_y = -(al_get_bitmap_height(bitmap) * 0.5) + parent_placement->size.y * 0.5;
+      }
+      else if (bitmap_alignment_strategy == "bottom_centered") // as in a top-down 2D dungeon crawler
+      {
+         //TODO: clarify this concept
+         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
+         *bitmap_y = -al_get_bitmap_height(bitmap) + parent_placement->size.y * 0.5;
+      }
+      else if (bitmap_alignment_strategy == "bottom_centered_edge") // as in a 2D platformer
+      {
+         // TODO: this is broken for different types of sizes.
+         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
+         *bitmap_y = -(al_get_bitmap_height(bitmap) * 0.25);
+      }
+      else
+      {
+         throw std::runtime_error("[Wicked/Entities/Basic2D] error: Unrecognized bitmap_alignment_strategy");
+      }
+      return;
 
 
 dependencies:
@@ -40,5 +218,15 @@ dependencies:
 
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Base
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Base.hpp ]
+  - symbol: Wicked::EntityFlagNames
+    headers: [ Wicked/EntityFlagNames.hpp ]
+  - symbol: al_draw_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
 
 

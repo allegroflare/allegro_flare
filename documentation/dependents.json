@@ -409,6 +409,7 @@
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -439,6 +440,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
@@ -551,6 +553,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -792,6 +795,7 @@
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Base",
     "Wicked/Entities/Base"
   ],
   "al_get_time": [
@@ -928,6 +932,7 @@
   "al_draw_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Entities/Basic2D"
   ],
@@ -1707,6 +1712,19 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/Base": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
+  ],
+  "Wicked/EntityFlagNames": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "Wicked/Entities/Basic2D",
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Entities/CollectionHelper",
+    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
+    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
+    "WickedDemos/TileDemo"
+  ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/VirtualControlsProcessor",
@@ -1760,15 +1778,6 @@
   "Wicked/Physics/AABB2D": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "Wicked/Physics/TileMapCollisionStepper",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/EntityFlagNames": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "Wicked/Entities/Basic2D",
-    "Wicked/Entities/Basic2DFactory",
-    "Wicked/Entities/CollectionHelper",
-    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
     "WickedDemos/TileDemo"
   ],
   "Wicked/Weapons/DrawnBow": [
