@@ -17,7 +17,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"AllegroFlare/CameraControlStrategies2D/Snap"'
+    init_with: '(char*)"AllegroFlare/CameraControlStrategies2D/Snap"'
     static: true
     constexpr: true
 

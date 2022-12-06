@@ -12,7 +12,7 @@ namespace AllegroFlare
       class HorizontalRail : public AllegroFlare::CameraControlStrategies2D::Base
       {
       public:
-         static constexpr char* TYPE = "CameraControlStrategies2D/HorizontalRail";
+         static constexpr char* TYPE = (char*)"CameraControlStrategies2D/HorizontalRail";
 
       private:
          Wicked::Entities::Basic2D* entity_to_follow;

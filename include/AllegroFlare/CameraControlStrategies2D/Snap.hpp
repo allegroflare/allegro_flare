@@ -12,7 +12,7 @@ namespace AllegroFlare
       class Snap : public AllegroFlare::CameraControlStrategies2D::Base
       {
       public:
-         static constexpr char* TYPE = "AllegroFlare/CameraControlStrategies2D/Snap";
+         static constexpr char* TYPE = (char*)"AllegroFlare/CameraControlStrategies2D/Snap";
 
       private:
          Wicked::Entities::Basic2D* entity_to_follow;

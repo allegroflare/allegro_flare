@@ -9,7 +9,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"AllegroFlare/CameraControlStrategies2D/Base"'
+    init_with: '(char*)"AllegroFlare/CameraControlStrategies2D/Base"'
     static: true
     constexpr: true
 

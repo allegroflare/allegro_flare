@@ -17,7 +17,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"CameraControlStrategies2D/HorizontalRail"'
+    init_with: '(char*)"CameraControlStrategies2D/HorizontalRail"'
     static: true
     constexpr: true
 

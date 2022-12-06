@@ -12,7 +12,7 @@ namespace AllegroFlare
       class SmoothSnap : public AllegroFlare::CameraControlStrategies2D::Base
       {
       public:
-         static constexpr char* TYPE = "AllegroFlare/CameraControlStrategies2D/SmoothSnap";
+         static constexpr char* TYPE = (char*)"AllegroFlare/CameraControlStrategies2D/SmoothSnap";
 
       private:
          float room_width;

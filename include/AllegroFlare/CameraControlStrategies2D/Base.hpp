@@ -12,7 +12,7 @@ namespace AllegroFlare
       class Base
       {
       public:
-         static constexpr char* TYPE = "AllegroFlare/CameraControlStrategies2D/Base";
+         static constexpr char* TYPE = (char*)"AllegroFlare/CameraControlStrategies2D/Base";
 
       private:
          std::string type;

@@ -108,7 +108,7 @@ properties:
     type: const char*
     constexpr: true
     static: true
-    init_with: '"ui-input-bonk-01.ogg"'
+    init_with: '(char*)"ui-input-bonk-01.ogg"'
 
   - name: key_click_sound_effect_identifier
     type: std::string
@@ -120,7 +120,7 @@ properties:
     type: const char*
     constexpr: true
     static: true
-    init_with: '"menu-click-01.ogg"'
+    init_with: '(char*)"menu-click-01.ogg"'
 
   - name: erase_sound_effect_identifier
     type: std::string
@@ -132,13 +132,13 @@ properties:
     type: const char*
     constexpr: true
     static: true
-    init_with: '"delete-item-01.ogg"'
+    init_with: '(char*)"delete-item-01.ogg"'
 
   - name: DEFAULT_FONT_NAME
     type: const char*
     constexpr: true
     static: true
-    init_with: '"Inter-Medium.ttf"'
+    init_with: '(char*)"Inter-Medium.ttf"'
 
 
 functions:
