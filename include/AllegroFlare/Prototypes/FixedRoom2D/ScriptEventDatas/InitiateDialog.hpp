@@ -17,7 +17,7 @@ namespace AllegroFlare
             class InitiateDialog : public AllegroFlare::GameEventDatas::Base
             {
             public:
-               static constexpr char* TYPE = "ScriptEventDatas/InitiateDialog";
+               static constexpr char* TYPE = (char*)"ScriptEventDatas/InitiateDialog";
 
             private:
                std::vector<std::string> dialog_pages;

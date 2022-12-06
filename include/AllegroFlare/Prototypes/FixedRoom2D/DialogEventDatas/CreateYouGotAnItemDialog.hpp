@@ -16,7 +16,7 @@ namespace AllegroFlare
             class CreateYouGotAnItemDialog : public AllegroFlare::GameEventDatas::Base
             {
             public:
-               static constexpr char* TYPE = "DialogEventDatas/CreateYouGotAnItemDialog";
+               static constexpr char* TYPE = (char*)"DialogEventDatas/CreateYouGotAnItemDialog";
 
             private:
                std::string item_name;

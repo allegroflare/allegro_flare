@@ -13,7 +13,7 @@ namespace AllegroFlare
          class Base
          {
          public:
-            static constexpr char* TYPE = "DialogBoxes/Base";
+            static constexpr char* TYPE = (char*)"DialogBoxes/Base";
 
          private:
             std::string type;

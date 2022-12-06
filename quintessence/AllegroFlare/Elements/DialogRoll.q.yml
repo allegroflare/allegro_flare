@@ -10,7 +10,7 @@ properties:
 
   - name: SPEAKER_INTERNAL
     type: char*
-    init_with: '"internal"'
+    init_with: '(char*)"internal"'
     constexpr: true
     static: true
 

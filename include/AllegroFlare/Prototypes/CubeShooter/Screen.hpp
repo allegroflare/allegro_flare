@@ -29,7 +29,7 @@ namespace AllegroFlare
          class Screen : public AllegroFlare::Screens::Base
          {
          public:
-            static constexpr char* TYPE = "CubeShooter/Screen";
+            static constexpr char* TYPE = (char*)"CubeShooter/Screen";
 
          private:
             AllegroFlare::EventEmitter* event_emitter;

@@ -14,7 +14,7 @@ namespace AllegroFlare
          class YouGotAnItem : public AllegroFlare::Elements::DialogBoxes::Base
          {
          public:
-            static constexpr char* TYPE = "DialogBoxes/YouGotAnItem";
+            static constexpr char* TYPE = (char*)"DialogBoxes/YouGotAnItem";
 
          private:
             std::string item_name;

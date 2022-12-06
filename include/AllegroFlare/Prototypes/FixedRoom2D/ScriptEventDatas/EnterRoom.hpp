@@ -16,7 +16,7 @@ namespace AllegroFlare
             class EnterRoom : public AllegroFlare::GameEventDatas::Base
             {
             public:
-               static constexpr char* TYPE = "ScriptEventDatas/EnterRoom";
+               static constexpr char* TYPE = (char*)"ScriptEventDatas/EnterRoom";
 
             private:
                std::string room_dictionary_name_to_enter;

@@ -24,10 +24,10 @@ namespace AllegroFlare
          class Runner : public AllegroFlare::Screens::Base
          {
          public:
-            static constexpr char* EVENT_ACTIVATE_CUBE_SHOOTER_SCREEN = "activate_cube_shooter_screen";
-            static constexpr char* MODE_TEST = "test";
-            static constexpr char* MODE_PRODUCTION = "production";
-            static constexpr char* MODE_DEVELOPMENT = "development";
+            static constexpr char* EVENT_ACTIVATE_CUBE_SHOOTER_SCREEN = (char*)"activate_cube_shooter_screen";
+            static constexpr char* MODE_TEST = (char*)"test";
+            static constexpr char* MODE_PRODUCTION = (char*)"production";
+            static constexpr char* MODE_DEVELOPMENT = (char*)"development";
 
          private:
             std::string mode;

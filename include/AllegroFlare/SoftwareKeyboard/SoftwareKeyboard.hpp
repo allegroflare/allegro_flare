@@ -20,7 +20,7 @@ namespace AllegroFlare
       class SoftwareKeyboard
       {
       public:
-         static constexpr const char* DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY = "submit_software_keyboard";
+         static constexpr const char* DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY = (char*)"submit_software_keyboard";
          static constexpr const char* DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER = (char*)"ui-input-bonk-01.ogg";
          static constexpr const char* DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER = (char*)"menu-click-01.ogg";
          static constexpr const char* DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER = (char*)"delete-item-01.ogg";

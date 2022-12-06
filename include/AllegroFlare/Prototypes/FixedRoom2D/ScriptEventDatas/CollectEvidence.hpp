@@ -16,7 +16,7 @@ namespace AllegroFlare
             class CollectEvidence : public AllegroFlare::GameEventDatas::Base
             {
             public:
-               static constexpr char* TYPE = "ScriptEventDatas/CollectEvidence";
+               static constexpr char* TYPE = (char*)"ScriptEventDatas/CollectEvidence";
 
             private:
                std::string evidence_dictionary_name_to_collect;

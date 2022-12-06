@@ -12,7 +12,7 @@ namespace AllegroFlare
 namespace Useful3D
 {
 
-   static bool intersectPlane(
+   bool intersectPlane(
          const AllegroFlare::vec3d &n,
          const AllegroFlare::vec3d &p0,
          const AllegroFlare::vec3d& l0,
@@ -31,7 +31,7 @@ namespace Useful3D
    }
 
 
-   static void draw_3d_line(AllegroFlare::vec3d start, AllegroFlare::vec3d end, ALLEGRO_COLOR col)
+   void draw_3d_line(AllegroFlare::vec3d start, AllegroFlare::vec3d end, ALLEGRO_COLOR col)
    {
       ALLEGRO_VERTEX vtx[2];
       vtx[0] = AllegroFlare::build_vertex(start.x, start.y, start.z, col, 0, 0);
@@ -42,7 +42,7 @@ namespace Useful3D
 
 
 
-   static ALLEGRO_VERTEX create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
+   ALLEGRO_VERTEX create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
    {
       return AllegroFlare::build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
    }
@@ -50,7 +50,7 @@ namespace Useful3D
 
 
 
-   static AllegroFlare::vec3d centroid(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3)
+   AllegroFlare::vec3d centroid(AllegroFlare::vec3d v1, AllegroFlare::vec3d v2, AllegroFlare::vec3d v3)
    {
       return (v1 + v2 + v3) / 3;
    }
@@ -58,7 +58,7 @@ namespace Useful3D
 
 
 
-   static AllegroFlare::vec3d tovec3d(ALLEGRO_VERTEX v1)
+   AllegroFlare::vec3d tovec3d(ALLEGRO_VERTEX v1)
    {
       return AllegroFlare::vec3d(v1.x, v1.y, v1.z);
    }
@@ -66,7 +66,7 @@ namespace Useful3D
 
 
 
-   static AllegroFlare::vec3d centroid(
+   AllegroFlare::vec3d centroid(
          AllegroFlare::vec3d v1,
          AllegroFlare::vec3d v2,
          AllegroFlare::vec3d v3,
@@ -79,7 +79,7 @@ namespace Useful3D
 
 
 
-   static void draw_3d_triangle(
+   void draw_3d_triangle(
          AllegroFlare::vec3d v1,
          AllegroFlare::vec3d v2,
          AllegroFlare::vec3d v3,
@@ -96,7 +96,7 @@ namespace Useful3D
 
 
 
-   static bool basically_equal(const AllegroFlare::vec3d &first, const AllegroFlare::vec3d &other, float threshold)
+   bool basically_equal(const AllegroFlare::vec3d &first, const AllegroFlare::vec3d &other, float threshold)
    {
       return fabs(first.x - other.x) < threshold
           && fabs(first.y - other.y) < threshold

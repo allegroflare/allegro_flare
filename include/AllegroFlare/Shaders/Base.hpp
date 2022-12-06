@@ -12,7 +12,7 @@ namespace AllegroFlare
       class Base : public AllegroFlare::Shader
       {
       public:
-         static constexpr char* TYPE = "Shaders/Base";
+         static constexpr char* TYPE = (char*)"Shaders/Base";
 
       private:
          std::string type;

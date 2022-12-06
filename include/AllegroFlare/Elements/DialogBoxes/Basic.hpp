@@ -15,7 +15,7 @@ namespace AllegroFlare
          class Basic : public AllegroFlare::Elements::DialogBoxes::Base
          {
          public:
-            static constexpr char* TYPE = "DialogBoxes/Basic";
+            static constexpr char* TYPE = (char*)"DialogBoxes/Basic";
 
          private:
             std::vector<std::string> pages;

@@ -16,7 +16,7 @@ namespace AllegroFlare
          class Choice : public AllegroFlare::Elements::DialogBoxes::Base
          {
          public:
-            static constexpr char* TYPE = "DialogBoxes/Choice";
+            static constexpr char* TYPE = (char*)"DialogBoxes/Choice";
 
          private:
             std::string prompt;

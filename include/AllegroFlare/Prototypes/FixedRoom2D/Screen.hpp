@@ -21,8 +21,8 @@ namespace AllegroFlare
          class Screen : public AllegroFlare::Screens::Base
          {
          public:
-            static constexpr char* DEFAULT_EVENT_NAME_ON_EXIT = "exit_fixed_room_2d_screen";
-            static constexpr char* DEFAULT_EVENT_NAME_TO_OPEN_CHRONICLE = "open_chronicle";
+            static constexpr char* DEFAULT_EVENT_NAME_ON_EXIT = (char*)"exit_fixed_room_2d_screen";
+            static constexpr char* DEFAULT_EVENT_NAME_TO_OPEN_CHRONICLE = (char*)"open_chronicle";
 
          private:
             AllegroFlare::BitmapBin* bitmap_bin;

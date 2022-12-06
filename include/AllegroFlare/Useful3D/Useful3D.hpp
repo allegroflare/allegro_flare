@@ -12,7 +12,6 @@ namespace AllegroFlare
 {
 namespace Useful3D
 {
-
    static bool intersectPlane(
       const AllegroFlare::vec3d &n,
       const AllegroFlare::vec3d &p0,

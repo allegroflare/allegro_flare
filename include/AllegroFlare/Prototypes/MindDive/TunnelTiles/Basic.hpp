@@ -15,7 +15,7 @@ namespace AllegroFlare
             class Basic : public AllegroFlare::Prototypes::MindDive::TunnelTiles::Base
             {
             public:
-               static constexpr char* TYPE = "TunnelTiles/Basic";
+               static constexpr char* TYPE = (char*)"TunnelTiles/Basic";
 
             private:
 

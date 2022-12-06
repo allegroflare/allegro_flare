@@ -12,7 +12,7 @@ namespace AllegroFlare
       class AllegroDefault : private AllegroFlare::Shaders::Base
       {
       public:
-         static constexpr char* TYPE = "Shaders/AllegroDefault";
+         static constexpr char* TYPE = (char*)"Shaders/AllegroDefault";
 
       private:
          bool initialized;
