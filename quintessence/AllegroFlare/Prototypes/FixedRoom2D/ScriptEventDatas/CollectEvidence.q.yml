@@ -18,7 +18,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"ScriptEventDatas/CollectEvidence"'
+    init_with: '(char*)"ScriptEventDatas/CollectEvidence"'
     static: true
     constexpr: true
 

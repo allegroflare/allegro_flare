@@ -18,7 +18,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"DialogEventDatas/CloseDialog"'
+    init_with: '(char*)"DialogEventDatas/CloseDialog"'
     static: true
     constexpr: true
     

@@ -47,7 +47,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"DialogBoxes/Basic"'
+    init_with: '(char*)"DialogBoxes/Basic"'
     static: true
     constexpr: true
 

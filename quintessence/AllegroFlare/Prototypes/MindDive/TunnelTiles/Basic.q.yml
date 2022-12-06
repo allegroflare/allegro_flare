@@ -11,7 +11,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"TunnelTiles/Basic"'
+    init_with: '(char*)"TunnelTiles/Basic"'
     static: true
     constexpr: true
 

@@ -76,7 +76,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"CubeShooter/Screen"'
+    init_with: '(char*)"CubeShooter/Screen"'
     static: true
     constexpr: true
 

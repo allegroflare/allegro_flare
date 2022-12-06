@@ -17,7 +17,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"Shaders/Base"'
+    init_with: '(char*)"Shaders/Base"'
     static: true
     constexpr: true
 

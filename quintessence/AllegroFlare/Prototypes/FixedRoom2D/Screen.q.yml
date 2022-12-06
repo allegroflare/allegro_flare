@@ -52,13 +52,13 @@ properties:
 
   - name: DEFAULT_EVENT_NAME_ON_EXIT
     type: char*
-    init_with: '"exit_fixed_room_2d_screen"'
+    init_with: '(char*)"exit_fixed_room_2d_screen"'
     static: true
     constexpr: true
 
   - name: DEFAULT_EVENT_NAME_TO_OPEN_CHRONICLE
     type: char*
-    init_with: '"open_chronicle"'
+    init_with: '(char*)"open_chronicle"'
     static: true
     constexpr: true
 

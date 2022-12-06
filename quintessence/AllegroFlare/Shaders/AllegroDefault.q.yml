@@ -11,7 +11,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"Shaders/AllegroDefault"'
+    init_with: '(char*)"Shaders/AllegroDefault"'
     static: true
     constexpr: true
 

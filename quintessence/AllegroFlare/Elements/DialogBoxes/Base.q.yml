@@ -15,7 +15,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"DialogBoxes/Base"'
+    init_with: '(char*)"DialogBoxes/Base"'
     static: true
     constexpr: true
 

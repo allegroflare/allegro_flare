@@ -54,25 +54,25 @@ properties:
 
   - name: EVENT_ACTIVATE_CUBE_SHOOTER_SCREEN
     type: char*
-    init_with: '"activate_cube_shooter_screen"'
+    init_with: '(char*)"activate_cube_shooter_screen"'
     static: true
     constexpr: true
 
   - name: MODE_TEST
     type: char*
-    init_with: '"test"'
+    init_with: '(char*)"test"'
     static: true
     constexpr: true
 
   - name: MODE_PRODUCTION
     type: char*
-    init_with: '"production"'
+    init_with: '(char*)"production"'
     static: true
     constexpr: true
 
   - name: MODE_DEVELOPMENT
     type: char*
-    init_with: '"development"'
+    init_with: '(char*)"development"'
     static: true
     constexpr: true
 

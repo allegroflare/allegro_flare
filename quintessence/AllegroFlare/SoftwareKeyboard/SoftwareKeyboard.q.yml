@@ -88,7 +88,7 @@ properties:
     type: const char*
     constexpr: true
     static: true
-    init_with: '"submit_software_keyboard"'
+    init_with: '(char*)"submit_software_keyboard"'
 
   - name: cursor_location
     type: AllegroFlare::Vec2D

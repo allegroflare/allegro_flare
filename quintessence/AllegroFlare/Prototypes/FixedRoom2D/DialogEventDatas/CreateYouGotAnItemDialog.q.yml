@@ -23,7 +23,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"DialogEventDatas/CreateYouGotAnItemDialog"'
+    init_with: '(char*)"DialogEventDatas/CreateYouGotAnItemDialog"'
     static: true
     constexpr: true
 

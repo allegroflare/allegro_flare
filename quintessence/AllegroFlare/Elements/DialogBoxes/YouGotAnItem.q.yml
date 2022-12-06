@@ -28,7 +28,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"DialogBoxes/YouGotAnItem"'
+    init_with: '(char*)"DialogBoxes/YouGotAnItem"'
     static: true
     constexpr: true
 

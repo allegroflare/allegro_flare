@@ -9,7 +9,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"TunnelTiles/Base"'
+    init_with: '(char*)"TunnelTiles/Base"'
     static: true
     constexpr: true
 

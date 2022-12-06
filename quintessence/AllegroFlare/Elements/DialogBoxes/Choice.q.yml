@@ -30,7 +30,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"DialogBoxes/Choice"'
+    init_with: '(char*)"DialogBoxes/Choice"'
     static: true
     constexpr: true
 

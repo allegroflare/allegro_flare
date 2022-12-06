@@ -18,7 +18,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"ScriptEventDatas/EnterRoom"'
+    init_with: '(char*)"ScriptEventDatas/EnterRoom"'
     static: true
     constexpr: true
 
