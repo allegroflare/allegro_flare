@@ -286,7 +286,8 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
    }
    else
    {
-      throw std::runtime_error("[Wicked/Entities/Basic2D] error: Unrecognized bitmap_alignment_strategy");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D] error: "
+                               "Unrecognized bitmap_alignment_strategy");
    }
    return;
 }
