@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 
-#include <Wicked/EntityFlagNames.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -140,6 +140,7 @@ void Basic2D::draw()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2D::draw: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D;
    // TODO: add some reasonable guards
    //if (bitmap)
    //{

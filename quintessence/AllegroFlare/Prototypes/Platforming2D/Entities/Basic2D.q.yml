@@ -75,6 +75,7 @@ functions:
     override: true
     guards: [ al_is_primitives_addon_initialized() ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D;
       // TODO: add some reasonable guards
       //if (bitmap)
       //{
@@ -151,7 +152,7 @@ functions:
       return;
     body_dependency_symbols:
       - al_draw_rectangle
-      - Wicked::EntityFlagNames
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
   - name: fit_to_bitmap
@@ -218,8 +219,8 @@ dependencies:
 
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Base
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Base.hpp ]
-  - symbol: Wicked::EntityFlagNames
-    headers: [ Wicked/EntityFlagNames.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+    headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
   - symbol: al_draw_rectangle
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Placement2D
