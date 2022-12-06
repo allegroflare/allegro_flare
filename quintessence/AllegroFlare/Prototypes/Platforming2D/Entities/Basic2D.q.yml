@@ -75,7 +75,7 @@ functions:
     override: true
     guards: [ al_is_primitives_addon_initialized() ]
     body: |
-      using namespace AllegroFlare::Prototypes::Platforming2D;
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
       // TODO: add some reasonable guards
       //if (bitmap)
       //{
@@ -107,6 +107,7 @@ functions:
             1.0
          );
       }
+
 
          // draw the bounding box rectangle
          // TODO: move this out of "if (bitmap)" clause

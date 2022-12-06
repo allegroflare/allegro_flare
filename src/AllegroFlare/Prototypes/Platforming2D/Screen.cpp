@@ -7,10 +7,10 @@
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Snap.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <Wicked/Entities/Basic2DFactory.hpp>
 #include <Wicked/Entities/CollectionHelper.hpp>
 #include <Wicked/Entities/Doors/Basic2D.hpp>
-#include <Wicked/EntityFlagNames.hpp>
 #include <Wicked/Physics/AABB2D.hpp>
 #include <Wicked/Physics/TileMapCollisionStepper.hpp>
 #include <algorithm>
@@ -440,6 +440,8 @@ void Screen::unset_player_controlled_entity_horizontal_velocity()
 
 void Screen::set_player_controlled_entity_jump()
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    if (!player_controlled_entity) return;
    if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
    {
@@ -460,6 +462,8 @@ void Screen::set_player_controlled_entity_jump()
 
 void Screen::player_emit_projectile(float magnitude)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    AllegroFlare::vec2d player_pos = player_controlled_entity->get_place_ref().position;
    //AllegroFlare::vec2d player_center_pos = player_pos;
    //AllegroFlare::vec2d aim_dir = player_controls.get_primary_stick_position(); //.normalized();
@@ -513,6 +517,8 @@ void Screen::update_entities()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update_entities: error: guard \"currently_active_map\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    // apply gravity
    for (auto &entity : get_current_map_entities())
    {
@@ -600,6 +606,8 @@ void Screen::update_entities()
 
 void Screen::cleanup_entities_flagged_for_deletion()
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    for (int i=0; i<entity_pool.size(); i++)
    {
       if (entity_pool[i]->exists(PLEASE_DELETE))
@@ -629,6 +637,8 @@ void Screen::check_player_collisions_with_doors()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::check_player_collisions_with_doors: error: guard \"event_emitter\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
 
    Wicked::Entities::CollectionHelper collection_helper(&_entities);
@@ -680,6 +690,8 @@ void Screen::update_player_collisions_with_collectables()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update_player_collisions_with_collectables: error: guard \"player_controlled_entity\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
    Wicked::Entities::CollectionHelper collection_helper(&_entities);
    float player_x = player_controlled_entity->get_place_ref().position.x;
@@ -723,6 +735,8 @@ void Screen::update_player_collisions_with_goalposts()
 
 void Screen::draw_entities()
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    for (auto &entity : get_current_map_entities())
    {
       if (!entity->exists(INVISIBLE)) entity->draw();
@@ -739,6 +753,8 @@ void Screen::update_player_controls_on_player_controlled_entity()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update_player_controls_on_player_controlled_entity: error: guard \"player_controlled_entity\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    // if this block is active, the player cannot control themselves while in the air, only when on the ground:
    //if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
    //{

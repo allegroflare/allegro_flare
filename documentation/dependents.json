@@ -1716,7 +1716,8 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityFlagNames": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -1771,19 +1772,6 @@
   "Wicked/Physics/AABB2D": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "Wicked/Physics/TileMapCollisionStepper",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/EntityFlagNames": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "Wicked/Entities/Basic2D",
-    "Wicked/Entities/Basic2DFactory",
-    "Wicked/Entities/CollectionHelper",
-    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/Weapons/DrawnBow": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/CameraControlStrategies2D/Snap": [
@@ -2021,6 +2009,14 @@
     "Wicked/Entities/Zones/Base2D",
     "Wicked/Entities/Zones/Base3D"
   ],
+  "Wicked/EntityFlagNames": [
+    "Wicked/Entities/Basic2D",
+    "Wicked/Entities/Basic2DFactory",
+    "Wicked/Entities/CollectionHelper",
+    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness",
+    "Wicked/Entities/MovementStrategies2D/ReflectOffWalls",
+    "WickedDemos/TileDemo"
+  ],
   "Wicked/Entities/MovementStrategies2D/MoveLeft": [
     "Wicked/Entities/Basic2DFactory"
   ],
@@ -2101,6 +2097,9 @@
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Framework": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/Weapons/DrawnBow": [
     "WickedDemos/TileDemo"
   ],
   "Wicked/CameraControlStrategies2D/Snap": [
