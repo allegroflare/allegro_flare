@@ -216,6 +216,7 @@ namespace AllegroFlare
       }
 
       named_objects.clear();
+      return true;
    }
 
 
