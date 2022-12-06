@@ -12,7 +12,7 @@ namespace AllegroFlare
       class WithAttributes : public AllegroFlare::InventoryDictionaryItems::Base, public AllegroFlare::Attributes
       {
       public:
-         static constexpr char* TYPE = "InventoryDictionaryItems/WithAttributes";
+         static constexpr char* TYPE = (char*)"InventoryDictionaryItems/WithAttributes";
 
       private:
 

@@ -32,7 +32,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"InventoryDictionaryItems/ClassicItem"'
+    init_with: '(char*)"InventoryDictionaryItems/ClassicItem"'
     static: true
     constexpr: true
 

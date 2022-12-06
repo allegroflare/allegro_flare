@@ -15,7 +15,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"InventoryDictionaryItems/WithAttributes"'
+    init_with: '(char*)"InventoryDictionaryItems/WithAttributes"'
     static: true
     constexpr: true
 

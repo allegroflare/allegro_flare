@@ -13,7 +13,7 @@ namespace AllegroFlare
       class ClassicItem : public AllegroFlare::InventoryDictionaryItems::Base
       {
       public:
-         static constexpr char* TYPE = "InventoryDictionaryItems/ClassicItem";
+         static constexpr char* TYPE = (char*)"InventoryDictionaryItems/ClassicItem";
 
       private:
          std::string title;

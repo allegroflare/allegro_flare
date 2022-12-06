@@ -9,7 +9,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"InventoryDictionaryItems/Base"'
+    init_with: '(char*)"InventoryDictionaryItems/Base"'
     static: true
     constexpr: true
 

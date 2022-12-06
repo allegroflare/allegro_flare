@@ -11,7 +11,7 @@ namespace AllegroFlare
       class Base
       {
       public:
-         static constexpr char* TYPE = "InventoryDictionaryItems/Base";
+         static constexpr char* TYPE = (char*)"InventoryDictionaryItems/Base";
 
       private:
          std::string type;
