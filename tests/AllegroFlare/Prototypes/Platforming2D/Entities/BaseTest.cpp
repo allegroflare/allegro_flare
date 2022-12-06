@@ -185,35 +185,3 @@ bool Base::collides(const Base &other)
 */
 
 
-
-#include <gtest/gtest.h>
-
-
-#include <Wicked/Entities/Base.hpp>
-
-
-TEST(Wicked_Entities_BaseTest, can_be_created_without_blowing_up)
-{
-   Wicked::Entities::Base base;
-}
-
-
-TEST(Wicked_Entities_BaseTest, update__can_be_called_without_blowing_up)
-{
-   Wicked::Entities::Base base;
-   base.update();
-   SUCCEED();
-}
-
-
-TEST(Wicked_Entities_BaseTest, draw__can_be_called_without_blowing_up)
-{
-   Wicked::Entities::Base base;
-   base.draw();
-   SUCCEED();
-}
-
-
-
-
-
