@@ -3,7 +3,7 @@
 #include <AllegroFlare/SystemInfoFetcher.hpp>
 
 
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
    // note: not supported
 #else
    #include <sys/utsname.h> // for utsname, uname
@@ -27,7 +27,7 @@ SystemInfoFetcher::~SystemInfoFetcher()
 
 std::string SystemInfoFetcher::get_sysname()
 {
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
    return "[not-supported-on-this-system]";
 #else
    utsname buf;
@@ -39,7 +39,7 @@ std::string SystemInfoFetcher::get_sysname()
 
 std::string SystemInfoFetcher::get_version()
 {
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
    return "[not-supported-on-this-system]";
 #else
    utsname buf;
@@ -51,7 +51,7 @@ std::string SystemInfoFetcher::get_version()
 
 std::string SystemInfoFetcher::get_release()
 {
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
    return "[not-supported-on-this-system]";
 #else
    utsname buf;
@@ -63,7 +63,7 @@ std::string SystemInfoFetcher::get_release()
 
 std::string SystemInfoFetcher::get_machine()
 {
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
    return "[not-supported-on-this-system]";
 #else
    utsname buf;
@@ -75,7 +75,7 @@ std::string SystemInfoFetcher::get_machine()
 
 std::string SystemInfoFetcher::get_hostname()
 {
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
    return "[not-supported-on-this-system]";
 #else
    // SUSv2 guarantees that "Host names are limited to 255 bytes".
