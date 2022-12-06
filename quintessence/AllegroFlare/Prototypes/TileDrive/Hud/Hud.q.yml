@@ -75,7 +75,7 @@ functions:
       - al_is_primitives_addon_initialized()
       - al_is_font_addon_initialized()
       - font_bin
-      - al_get_current_display
+      - al_get_current_display()
     body: |
       // TODO: have a destroy mechanism, need to destory the backbuffer on destruction
       ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
