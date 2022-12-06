@@ -50,7 +50,7 @@ properties:
 
   - name: DEFAULT_EVENT_NAME_ON_EXIT
     type: char*
-    init_with: '"exit_achievements_screen"'
+    init_with: '(char*)"exit_achievements_screen"'
     static: true
     constexpr: true
     

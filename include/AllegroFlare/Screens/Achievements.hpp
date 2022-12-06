@@ -18,7 +18,7 @@ namespace AllegroFlare
       class Achievements : public AllegroFlare::Screens::Base
       {
       public:
-         static constexpr char* DEFAULT_EVENT_NAME_ON_EXIT = "exit_achievements_screen";
+         static constexpr char* DEFAULT_EVENT_NAME_ON_EXIT = (char*)"exit_achievements_screen";
 
       private:
          AllegroFlare::FontBin* font_bin;
