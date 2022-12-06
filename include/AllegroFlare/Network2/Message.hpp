@@ -15,7 +15,7 @@ namespace AllegroFlare
       public:
          static constexpr std::size_t HEADER_LENGTH = 16;
          static constexpr std::size_t MAX_BODY_LENGTH = (512*4);
-         static constexpr char* MAGIC_HEADER_CHUNK = "AFNM";
+         static constexpr char* MAGIC_HEADER_CHUNK = (char*)"AFNM";
 
       private:
          std::string data;

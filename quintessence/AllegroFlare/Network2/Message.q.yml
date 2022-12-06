@@ -19,7 +19,7 @@ properties:
     static: true
     const: true
     type: char*
-    init_with: '"AFNM"'
+    init_with: '(char*)"AFNM"'
     constexpr: true
 
   - name: data
