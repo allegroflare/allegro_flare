@@ -1172,7 +1172,7 @@ dependencies:
 
 
   - symbol: tsl::ordered_map
-    headers: [ lib/ordered_map.h ]
+    headers: [ lib/tsl/ordered_map.h ]
   - symbol: AllegroFlare::SoftwareKeyboard::KeyboardKey
     headers: [ AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp ]
   - symbol: AllegroFlare::Vec2D

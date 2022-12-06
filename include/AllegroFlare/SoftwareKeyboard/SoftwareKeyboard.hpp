@@ -9,7 +9,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstddef>
-#include <lib/ordered_map.h>
+#include <lib/tsl/ordered_map.h>
 #include <string>
 
 
