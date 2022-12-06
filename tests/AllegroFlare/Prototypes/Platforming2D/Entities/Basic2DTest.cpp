@@ -129,7 +129,8 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
 }
 
 
-TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest, CAPTURE__draw__with_a_bitmap__will_display_the_image)
+TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
+   CAPTURE__draw__with_a_bitmap__will_display_the_image)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    basic2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
@@ -147,7 +148,8 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
 }
 
 
-TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest, draw__with_a_modified_place__will_display_the_image)
+TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
+   draw__with_a_modified_place__will_display_the_image)
 {
    ALLEGRO_BITMAP *bitmap = FIXTURE_get_bitmap("test-sprite-128.png");
 
