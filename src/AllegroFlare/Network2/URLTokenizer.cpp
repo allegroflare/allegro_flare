@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Network2/URLTokenizer.hpp>
 
+#include <algorithm>
 #include <stdexcept>
 
 

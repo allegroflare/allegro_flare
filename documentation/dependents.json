@@ -1353,6 +1353,10 @@
   "std/invalid_argument": [
     "AllegroFlare/Network2/URLTokenizer"
   ],
+  "std/find_if": [
+    "AllegroFlare/Network2/URLTokenizer",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
     "AllegroFlare/Notifications"
   ],

@@ -137,6 +137,8 @@ functions:
       // rtrim
       s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
       return s;
+    body_dependency_symbols:
+      - std::find_if
 
 
 dependencies:
@@ -144,5 +146,7 @@ dependencies:
 
   - symbol: std::invalid_argument
     headers: [ stdexcept ]
+  - symbol: std::find_if
+    headers: [ algorithm ]
 
 
