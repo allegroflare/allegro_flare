@@ -48,6 +48,8 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EntityCollectionHelper::select_collectable_by_player: error: guard \"entities\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
    for (auto &entity : (*entities))
    {
@@ -65,6 +67,8 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EntityCollectionHelper::select_goalposts: error: guard \"entities\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
    for (auto &entity : (*entities))
    {
@@ -82,6 +86,8 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EntityCollectionHelper::select_doors: error: guard \"entities\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
    for (auto &entity : (*entities))
    {
@@ -99,6 +105,8 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EntityCollectionHelper::select_on_map: error: guard \"entities\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
    for (auto &entity : (*entities))
    {
@@ -116,6 +124,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* EntityColl
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EntityCollectionHelper::find_map_by_name: error: guard \"entities\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    //throw std::runtime_error("find_map_by_name not implemented");
    //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
    for (auto &entity : (*entities))

@@ -21,15 +21,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryTest, can_be_c
 }
 
 
-TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryTest, can_be_created_without_blowing_up)
-{
-   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2d_factory;
-}
-
-
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest,
    create_from_bitmap_filename__returns_a_basic2d_entity_with_the_expected_bitmap_and_size_and_bitmap_alignment_strategy)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
@@ -47,7 +43,5 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
 
    delete created_entity;
 }
-
-
 
 

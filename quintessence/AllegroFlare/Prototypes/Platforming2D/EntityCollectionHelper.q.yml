@@ -16,6 +16,8 @@ functions:
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     guards: [ entities ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
       for (auto &entity : (*entities))
       {
@@ -30,6 +32,8 @@ functions:
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     guards: [ entities ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
       for (auto &entity : (*entities))
       {
@@ -44,6 +48,8 @@ functions:
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     guards: [ entities ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
       for (auto &entity : (*entities))
       {
@@ -62,6 +68,8 @@ functions:
         default_argument: '"[on-map-name-not-set]"'
     guards: [ entities ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
       for (auto &entity : (*entities))
       {
@@ -80,6 +88,8 @@ functions:
         default_argument: '"[find-map-name-not-set]"'
     guards: [ entities ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       //throw std::runtime_error("find_map_by_name not implemented");
       //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
       for (auto &entity : (*entities))

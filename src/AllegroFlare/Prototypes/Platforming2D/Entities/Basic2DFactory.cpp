@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FallOnTrackingRange.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Flapping.hpp>
@@ -16,7 +17,6 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <Tileo/TMJMeshLoader.hpp>
-#include <Wicked/Entities/Doors/Basic2D.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -55,6 +55,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2DFactory::create_from_bitmap_filename: error: guard \"bitmap_bin\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
    result->set_bitmap(bitmap);
@@ -66,6 +68,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_for_aabb2d(std::string map_name, float width, float height)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    //ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
    result->get_place_ref().size.x = width;
@@ -79,6 +83,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_player_projectile(std::string map_name, float x, float y, float width, float height, AllegroFlare::vec2d vector, float magnitude)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    vector = vector.normalized();
    vector *= magnitude;
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
@@ -98,6 +104,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_enemy_move_left(std::string map_name, float x, float y, float width, float height)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
    created_entity->get_place_ref().size.x = width;
@@ -126,6 +134,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_tracking_enemy(std::string map_name, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* tracked_entity, float x, float y, float width, float height)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
    created_entity->get_place_ref().size.x = width;
@@ -162,6 +172,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_flapping_enemy(std::string map_name, float x, float y, float width, float height, float target_elevation, float flap_strength, float flap_recovery_rate)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    static unsigned int seed = 7654;
    seed++;
    // create the enemy
@@ -196,6 +208,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_collectable(std::string map_name, float x, float y)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
    created_entity->get_place_ref().size.x = 15.0f;
@@ -215,8 +229,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_door(std::string map_name, float x, float y, std::string target_map_name, float target_spawn_x, float target_spawn_y)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    // create the enemy
-   Wicked::Entities::Doors::Basic2D *created_door = new Wicked::Entities::Doors::Basic2D;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *created_door = new AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D;
    created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
    created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
    created_door->get_place_ref().position.x = x;
@@ -239,8 +255,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_game_event_door(std::string map_name, float x, float y, std::string game_event_name_to_emit)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    // create the enemy
-   Wicked::Entities::Doors::Basic2D *created_door = new Wicked::Entities::Doors::Basic2D;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *created_door = new AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D;
    created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
    created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
    created_door->get_place_ref().position.x = x;
@@ -262,6 +280,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
 AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_goalpost(std::string map_name, float x, float y)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
    created_entity->get_place_ref().size.x = 16.0f - 1.0f;
@@ -288,6 +308,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2DFactory::create_tile_map: error: guard \"bitmap_bin\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    //throw std::runtime_error("create_tile_map not implemented!!");
    //AllegroFlare::TileMaps::Basic2D *created_map = nullptr;
    AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;

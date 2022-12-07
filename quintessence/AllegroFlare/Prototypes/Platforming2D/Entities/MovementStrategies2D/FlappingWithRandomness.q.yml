@@ -64,6 +64,8 @@ functions:
     override: true
     guards: [ entity ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       { // stick horizontal if on floor
          if (entity->exists(ADJACENT_TO_FLOOR)) entity->get_velocity_ref().position.x = 0.0f;
       }
@@ -111,6 +113,8 @@ functions:
     private: true
     guards: [ entity, al_is_system_installed() ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       if (can_flap)
       {
          // decide if entity should skip this flap

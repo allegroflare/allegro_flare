@@ -95,6 +95,8 @@ void FlappingWithRandomness::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("FlappingWithRandomness::update: error: guard \"entity\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    { // stick horizontal if on floor
       if (entity->exists(ADJACENT_TO_FLOOR)) entity->get_velocity_ref().position.x = 0.0f;
    }
@@ -178,6 +180,8 @@ bool FlappingWithRandomness::decide_to_flap()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("FlappingWithRandomness::decide_to_flap: error: guard \"al_is_system_installed()\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    if (can_flap)
    {
       // decide if entity should skip this flap

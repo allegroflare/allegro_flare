@@ -35,6 +35,8 @@ functions:
         default_argument: '"centered"'
     guards: [ bitmap_bin ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
       result->set_bitmap(bitmap);
@@ -57,6 +59,8 @@ functions:
         type: float
         default_argument: (16.0f-1.0f)
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       //ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
       result->get_place_ref().size.x = width;
@@ -93,6 +97,8 @@ functions:
         type: float
         default_argument: 1.0f
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       vector = vector.normalized();
       vector *= magnitude;
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
@@ -132,6 +138,8 @@ functions:
         type: float
         default_argument: (16.0f-1.0f)
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       // create the enemy
       AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
       created_entity->get_place_ref().size.x = width;
@@ -183,6 +191,8 @@ functions:
         type: float
         default_argument: (16.0f-1.0f)
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       // create the enemy
       AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
       created_entity->get_place_ref().size.x = width;
@@ -249,6 +259,8 @@ functions:
         type: float
         default_argument: 0.1f
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       static unsigned int seed = 7654;
       seed++;
       // create the enemy
@@ -297,6 +309,8 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       // create the enemy
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
       created_entity->get_place_ref().size.x = 15.0f;
@@ -340,8 +354,10 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       // create the enemy
-      Wicked::Entities::Doors::Basic2D *created_door = new Wicked::Entities::Doors::Basic2D;
+      AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *created_door = new AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D;
       created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
       created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
       created_door->get_place_ref().position.x = x;
@@ -361,7 +377,7 @@ functions:
       // return the entity
       return created_door;
     body_dependency_symbols:
-      - Wicked::Entities::Doors::Basic2D
+      - AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D
 
 
   - name: create_game_event_door
@@ -380,8 +396,10 @@ functions:
         type: std::string
         default_argument: '"[unset-game_event_name_to_emit]"'
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       // create the enemy
-      Wicked::Entities::Doors::Basic2D *created_door = new Wicked::Entities::Doors::Basic2D;
+      AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *created_door = new AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D;
       created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
       created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
       created_door->get_place_ref().position.x = x;
@@ -400,7 +418,7 @@ functions:
       // return the entity
       return created_door;
     body_dependency_symbols:
-      - Wicked::Entities::Doors::Basic2D
+      - AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D
 
 
   - name: create_goalpost
@@ -416,6 +434,8 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       // create the enemy
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
       created_entity->get_place_ref().size.x = 16.0f - 1.0f;
@@ -448,6 +468,8 @@ functions:
         default_argument: '"[map-name-not-set]"'
     guards: [ bitmap_bin ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       //throw std::runtime_error("create_tile_map not implemented!!");
       //AllegroFlare::TileMaps::Basic2D *created_map = nullptr;
       AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;
@@ -482,6 +504,7 @@ functions:
       //entities.push_back(created_map); // TODO: prevent maps from having the same name
     body_dependency_symbols:
       - Tileo::TMJMeshLoader
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
       - AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D
       - AllegroFlare::TileMaps::PrimMeshAtlas
       - AllegroFlare::TileMaps::PrimMesh
@@ -519,8 +542,8 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
-  - symbol: Wicked::Entities::Doors::Basic2D
-    headers: [ Wicked/Entities/Doors/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlas

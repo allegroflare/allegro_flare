@@ -10,13 +10,15 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/HoppingLeft.hpp>
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
+   can_be_created_without_blowing_up)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy;
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, update__without_an_entity__throws_an_error)
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
+   update__without_an_entity__throws_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy;
    std::string expected_error_message = "HoppingLeft::update: error: guard \"entity\" not met";
@@ -24,21 +26,22 @@ TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, update__without_an_en
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, jump_force__has_the_expected_default_value)
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
+   jump_force__has_the_expected_default_value)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy;
    ASSERT_EQ(5.0f, strategy.get_jump_force());
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, speed__has_the_expected_default_value)
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest, speed__has_the_expected_default_value)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy;
    ASSERT_EQ(1.0f, strategy.get_speed());
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, update__will_not_blow_up)
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest, update__will_not_blow_up)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy(&basic2d_entity);
@@ -46,7 +49,7 @@ TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, update__will_not_blow
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_on_the_ground__will_set_the_vertical_velocity_to_the_jump_force)
 {
    float jump_force = 7.3f;
@@ -62,7 +65,7 @@ TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_on_the_ground__will_remove_the_on_ground_flag)
 {
    float jump_force = 7.3f;
@@ -78,7 +81,7 @@ TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_on_the_ground__set_the_horizontal_velocity_to_zero)
 {
    float jump_force = 7.3f;
@@ -94,7 +97,7 @@ TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_not_on_the_ground__will_set_the_left_velocity_to_the_speed)
 {
    float jump_force = 7.3f;
@@ -111,9 +114,10 @@ TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
 }
 
 
-TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest,
+TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_not_on_the_ground__will_leave_vertical_velocity_unchanged)
 {
+
    float jump_force = 7.3f;
    float speed = 2.6f;
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;

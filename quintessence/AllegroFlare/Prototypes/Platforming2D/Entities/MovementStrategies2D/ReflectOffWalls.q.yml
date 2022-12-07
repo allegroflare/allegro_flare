@@ -39,6 +39,8 @@ functions:
     override: true
     guards: [ entity ]
     body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
       AllegroFlare::vec2d velocity_position;
 
       // vertical

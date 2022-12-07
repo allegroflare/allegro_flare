@@ -56,6 +56,8 @@ void ReflectOffWalls::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ReflectOffWalls::update: error: guard \"entity\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    AllegroFlare::vec2d velocity_position;
 
    // vertical

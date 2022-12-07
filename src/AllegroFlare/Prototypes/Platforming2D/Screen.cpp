@@ -8,9 +8,9 @@
 #include <AllegroFlare/CameraControlStrategies2D/Snap.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
-#include <Wicked/Entities/Doors/Basic2D.hpp>
 #include <Wicked/Physics/AABB2D.hpp>
 #include <Wicked/Physics/TileMapCollisionStepper.hpp>
 #include <algorithm>
@@ -650,7 +650,8 @@ void Screen::check_player_collisions_with_doors()
    {
       if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
       {
-         Wicked::Entities::Doors::Basic2D *door = static_cast<Wicked::Entities::Doors::Basic2D*>(entity);
+         AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *door =
+            static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*>(entity);
 
          std::string game_event_name_to_emit = door->get_game_event_name_to_emit();
          bool this_door_emits_game_event = !game_event_name_to_emit.empty();
