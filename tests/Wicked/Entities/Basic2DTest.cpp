@@ -138,7 +138,12 @@ class Wicked_Entities_Basic2DWithAllegroRenderingFixtureTest
 private:
    virtual void SetUp() override
    {
+// TODO: improve this:
+#if defined(_WIN32) || defined(_WIN64)
+      std::string TEST_FIXTURE_BITMAP_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/bitmaps";
+#else
       std::string TEST_FIXTURE_BITMAP_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps";
+#endif
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
       get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
    }
