@@ -46,7 +46,7 @@ namespace AllegroFlare
    }
 
 
-   bool Achievement::set_description(std::string description)
+   void Achievement::set_description(std::string description)
    {
       this->description = description;
    }

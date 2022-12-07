@@ -24,7 +24,7 @@ namespace AllegroFlare
 
       void set_title(std::string title);
       std::string get_title();
-      bool set_description(std::string description);
+      void set_description(std::string description);
       std::string get_description();
    };
 }
