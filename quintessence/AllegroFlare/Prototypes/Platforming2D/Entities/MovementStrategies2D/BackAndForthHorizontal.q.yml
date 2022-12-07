@@ -1,0 +1,73 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: timer
+    type: float
+    init_with: 0
+
+  - name: travel_speed
+    type: float
+    init_with: 4.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: travel_duration
+    type: float
+    init_with: 4.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: direction_of_travel_is_left
+    type: bool
+    init_with: true
+
+
+functions:
+
+
+  - name: update
+    override: true
+    guards: [ entity ]
+    body: |
+      timer -= (1.0/60.0);
+
+      if (timer <= 0.0f)
+      {
+         timer += travel_duration; 
+         direction_of_travel_is_left = !direction_of_travel_is_left;
+      }
+
+      if (direction_of_travel_is_left)
+      {
+         entity->get_velocity_ref().position = AllegroFlare::vec2d(-travel_speed, 0);
+      }
+      else
+      {
+         entity->get_velocity_ref().position = AllegroFlare::vec2d(travel_speed, 0);
+      }
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+
+

@@ -1,0 +1,43 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: speed
+    type: float
+    init_with: 5.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: update
+    override: true
+    guards: [ entity ]
+    body: |
+      entity->get_velocity_ref().position = AllegroFlare::vec2d(-speed, 0);
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+
+

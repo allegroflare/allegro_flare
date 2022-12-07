@@ -7,9 +7,9 @@
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Snap.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <Wicked/Entities/Basic2DFactory.hpp>
-#include <Wicked/Entities/CollectionHelper.hpp>
 #include <Wicked/Entities/Doors/Basic2D.hpp>
 #include <Wicked/Physics/AABB2D.hpp>
 #include <Wicked/Physics/TileMapCollisionStepper.hpp>
@@ -59,7 +59,7 @@ Screen::~Screen()
 }
 
 
-void Screen::set_entity_pool(std::vector<Wicked::Entities::Basic2D*> entity_pool)
+void Screen::set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool)
 {
    this->entity_pool = entity_pool;
 }
@@ -71,7 +71,7 @@ void Screen::set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom)
 }
 
 
-void Screen::set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity)
+void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity)
 {
    this->player_controlled_entity = player_controlled_entity;
 }
@@ -107,7 +107,7 @@ AllegroFlare::Vec2D Screen::get_camera_baseline_zoom() const
 }
 
 
-Wicked::Entities::Basic2D* Screen::get_player_controlled_entity() const
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Screen::get_player_controlled_entity() const
 {
    return player_controlled_entity;
 }
@@ -188,7 +188,7 @@ void Screen::set_currently_active_map(std::string name)
 
 WickedDemos::TileMaps::Basic2D* Screen::find_map_by_name(std::string name)
 {
-   Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
+   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
    WickedDemos::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
    if (!found_map)
    {
@@ -230,7 +230,7 @@ void Screen::on_deactivate()
 void Screen::initialize_maps()
 {
    Wicked::Entities::Basic2DFactory factory(bitmap_bin);
-   Wicked::Entities::Basic2D *created_map = nullptr;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_map = nullptr;
 
    // TODO: clean this up
    for (auto &map_dictionary_entry : map_dictionary)
@@ -300,7 +300,7 @@ void Screen::initialize_maps()
    return;
 }
 
-void Screen::add_entity_to_pool(Wicked::Entities::Basic2D* entity)
+void Screen::add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
 {
    entity_pool.push_back(entity);
    return;
@@ -480,7 +480,7 @@ void Screen::player_emit_projectile(float magnitude)
 
 
    Wicked::Entities::Basic2DFactory factory(bitmap_bin);
-   Wicked::Entities::Basic2D* projectile = factory.create_player_projectile(
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* projectile = factory.create_player_projectile(
       on_map_name,
       player_pos.x,
       player_pos.y,
@@ -639,9 +639,9 @@ void Screen::check_player_collisions_with_doors()
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-   std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
 
-   Wicked::Entities::CollectionHelper collection_helper(&_entities);
    float player_x = player_controlled_entity->get_place_ref().position.x;
    float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
@@ -692,8 +692,8 @@ void Screen::update_player_collisions_with_collectables()
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-   std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
-   Wicked::Entities::CollectionHelper collection_helper(&_entities);
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
    float player_x = player_controlled_entity->get_place_ref().position.x;
    float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
@@ -717,8 +717,9 @@ void Screen::update_player_collisions_with_goalposts()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update_player_collisions_with_goalposts: error: guard \"player_controlled_entity\" not met");
    }
-   std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
-   Wicked::Entities::CollectionHelper collection_helper(&_entities);
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+
    float player_x = player_controlled_entity->get_place_ref().position.x;
    float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
@@ -1160,7 +1161,7 @@ AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_mesh()
    return currently_active_map->get_collision_tile_mesh();
 }
 
-std::vector<Wicked::Entities::Basic2D*> Screen::get_current_map_entities()
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Screen::get_current_map_entities()
 {
    if (!(player_controlled_entity))
    {
@@ -1169,7 +1170,7 @@ std::vector<Wicked::Entities::Basic2D*> Screen::get_current_map_entities()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::get_current_map_entities: error: guard \"player_controlled_entity\" not met");
    }
-   Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
+   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
    std::string on_map_name = currently_active_map_name;
    return collection_helper.select_on_map(on_map_name);
 }

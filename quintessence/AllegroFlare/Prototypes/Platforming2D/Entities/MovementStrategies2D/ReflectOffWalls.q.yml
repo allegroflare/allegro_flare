@@ -1,0 +1,85 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: speed
+    type: float
+    init_with: 3.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: moving_right
+    type: bool
+    init_with: true
+    constructor_arg: true
+
+  - name: moving_down
+    type: bool
+    init_with: true
+    constructor_arg: true
+
+
+functions:
+
+
+  - name: update
+    override: true
+    guards: [ entity ]
+    body: |
+      AllegroFlare::vec2d velocity_position;
+
+      // vertical
+      if (moving_down && entity->exists(ADJACENT_TO_FLOOR)) 
+      {
+         moving_down = false;
+      }
+      else if (!moving_down && entity->exists(ADJACENT_TO_CEILING)) 
+      {
+         moving_down = true;
+      }
+
+      if (moving_down) velocity_position.y = 1.0f;
+      else velocity_position.y = -1.0f;
+
+      // horizgonal
+      if (moving_right && entity->exists(ADJACENT_TO_RIGHT_WALL)) 
+      {
+         moving_right = false;
+      }
+      else if (!moving_right && entity->exists(ADJACENT_TO_LEFT_WALL)) 
+      {
+         moving_right = true;
+      }
+
+      if (moving_right) velocity_position.x = 1.0f;
+      else velocity_position.x = -1.0f;
+
+      entity->get_velocity_ref().position = velocity_position;
+
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+    headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+

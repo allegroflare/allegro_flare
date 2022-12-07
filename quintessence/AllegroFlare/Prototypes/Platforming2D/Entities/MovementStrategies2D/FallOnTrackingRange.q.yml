@@ -1,0 +1,71 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: entity
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: tracked_entity
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: range_radius
+    type: float
+    init_with: 72.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: triggered
+    type: bool
+    init_with: false
+    getter: true
+
+
+functions:
+
+
+  - name: update
+    override: true
+    guards: [ entity, tracked_entity ]
+    body: |
+      if (!triggered)
+      {
+         AllegroFlare::vec2d entity_position = entity->get_place_ref().position;
+         AllegroFlare::vec2d tracked_entity_position = tracked_entity->get_place_ref().position;
+
+         float padding = 8;
+         float tracked_entity_x = tracked_entity->get_place_ref().position.x;
+         float tracked_entity_y = tracked_entity->get_place_ref().position.y;
+         if (entity->get_place_ref().in_range(tracked_entity_x, tracked_entity_y, range_radius))
+         {
+            triggered = true;
+         }
+
+         if (!triggered)
+         {
+            entity->get_velocity_ref().position = AllegroFlare::vec2d{0, 0};
+         }
+         //if (entity_position)
+      }
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+
+

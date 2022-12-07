@@ -49,7 +49,7 @@ properties:
     init_with: '"[currently-active-map-name-unset]"'
 
   - name: entity_pool
-    type: std::vector<Wicked::Entities::Basic2D*>
+    type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     init_with: '{}'
     setter: true
 
@@ -78,7 +78,7 @@ properties:
     setter: true
 
   - name: player_controlled_entity
-    type: Wicked::Entities::Basic2D*
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
     init_with: nullptr
     getter: true
     setter: true
@@ -175,7 +175,7 @@ functions:
         type: std::string
         default_argument: '"[unset-map-name]"'
     body: |
-      Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
+      AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
       WickedDemos::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
       if (!found_map)
       {
@@ -209,7 +209,7 @@ functions:
   - name: initialize_maps
     body: |
       Wicked::Entities::Basic2DFactory factory(bitmap_bin);
-      Wicked::Entities::Basic2D *created_map = nullptr;
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_map = nullptr;
 
       // TODO: clean this up
       for (auto &map_dictionary_entry : map_dictionary)
@@ -283,7 +283,7 @@ functions:
     type: void
     parameters:
       - name: entity
-        type: Wicked::Entities::Basic2D*
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
         default_argument: nullptr
     body: |
       entity_pool.push_back(entity);
@@ -447,7 +447,7 @@ functions:
 
 
       Wicked::Entities::Basic2DFactory factory(bitmap_bin);
-      Wicked::Entities::Basic2D* projectile = factory.create_player_projectile(
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* projectile = factory.create_player_projectile(
          on_map_name,
          player_pos.x,
          player_pos.y,
@@ -562,7 +562,7 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
       - Wicked::Physics::AABB2D
       - Wicked::Physics::TileMapCollisionStepper
-      - Wicked::Entities::CollectionHelper
+      - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
 
 
   - name: cleanup_entities_flagged_for_deletion
@@ -591,9 +591,9 @@ functions:
     body: |
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-      std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+      AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
 
-      Wicked::Entities::CollectionHelper collection_helper(&_entities);
       float player_x = player_controlled_entity->get_place_ref().position.x;
       float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
@@ -633,6 +633,7 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+      - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
       - Wicked::Entities::Doors::Basic2D
       - std::find
 
@@ -643,8 +644,8 @@ functions:
     body: |
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-      std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
-      Wicked::Entities::CollectionHelper collection_helper(&_entities);
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+      AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
       float player_x = player_controlled_entity->get_place_ref().position.x;
       float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
@@ -659,14 +660,16 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+      - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
 
 
   - name: update_player_collisions_with_goalposts
     private: true
     guards: [ player_controlled_entity ]
     body: |
-      std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
-      Wicked::Entities::CollectionHelper collection_helper(&_entities);
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+      AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+
       float player_x = player_controlled_entity->get_place_ref().position.x;
       float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
@@ -679,6 +682,8 @@ functions:
          }
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
 
 
   - name: draw_entities
@@ -1063,14 +1068,14 @@ functions:
 
 
   - name: get_current_map_entities
-    type: std::vector<Wicked::Entities::Basic2D*>
+    type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     guards: [ player_controlled_entity ]
     body: |
-      Wicked::Entities::CollectionHelper collection_helper(&entity_pool);
+      AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
       std::string on_map_name = currently_active_map_name;
       return collection_helper.select_on_map(on_map_name);
     body_dependency_symbols:
-      - Wicked::Entities::CollectionHelper
+      - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
 
 
 dependencies:
@@ -1120,8 +1125,8 @@ dependencies:
     headers: [ AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp ]
   - symbol: AllegroFlare::CameraControlStrategies2D::HorizontalRail
     headers: [ AllegroFlare/CameraControlStrategies2D/HorizontalRail.hpp ]
-  - symbol: Wicked::Entities::CollectionHelper
-    headers: [ Wicked/Entities/CollectionHelper.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
+    headers: [ AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp ]
   - symbol: WickedDemos::TileMaps::Basic2D
     headers: [ WickedDemos/TileMaps/Basic2D.hpp ]
   - symbol: Wicked::Entities::Doors::Basic2D
@@ -1138,8 +1143,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Display
     headers: [ AllegroFlare/Display.hpp ]
-  - symbol: Wicked::Entities::Basic2D
-    headers: [ Wicked/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::Screens::Base

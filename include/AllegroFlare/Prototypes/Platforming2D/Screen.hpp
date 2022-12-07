@@ -6,13 +6,13 @@
 #include <AllegroFlare/CameraControlStrategies2D/Base.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
-#include <Wicked/Entities/Basic2D.hpp>
 #include <WickedDemos/TileMaps/Basic2D.hpp>
 #include <allegro5/allegro.h>
 #include <map>
@@ -37,13 +37,13 @@ namespace AllegroFlare
             bool initialized;
             WickedDemos::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
-            std::vector<Wicked::Entities::Basic2D*> entity_pool;
+            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool;
             std::map<std::string, std::string> map_dictionary;
             float gravity;
             bool gravity_reversed;
             AllegroFlare::Camera2D camera;
             AllegroFlare::Vec2D camera_baseline_zoom;
-            Wicked::Entities::Basic2D* player_controlled_entity;
+            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity;
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
             AllegroFlare::VirtualControls player_controls;
@@ -62,15 +62,15 @@ namespace AllegroFlare
             Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Display* display=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
-            void set_entity_pool(std::vector<Wicked::Entities::Basic2D*> entity_pool);
+            void set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool);
             void set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom);
-            void set_player_controlled_entity(Wicked::Entities::Basic2D* player_controlled_entity);
+            void set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity);
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             std::map<std::string, std::string> get_map_dictionary() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
-            Wicked::Entities::Basic2D* get_player_controlled_entity() const;
+            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_player_controlled_entity() const;
             bool get_show_tile_mesh() const;
             bool get_show_collision_tile_mesh() const;
             void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
@@ -82,7 +82,7 @@ namespace AllegroFlare
             virtual void on_activate() override;
             virtual void on_deactivate() override;
             void initialize_maps();
-            void add_entity_to_pool(Wicked::Entities::Basic2D* entity=nullptr);
+            void add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
             void initialize_camera_control();
             void initialize_player_controls();
             void initialize_backbuffer_sub_bitmap();
@@ -111,7 +111,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
             AllegroFlare::TileMaps::PrimMesh* get_tile_mesh();
             AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_mesh();
-            std::vector<Wicked::Entities::Basic2D*> get_current_map_entities();
+            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> get_current_map_entities();
          };
       }
    }
