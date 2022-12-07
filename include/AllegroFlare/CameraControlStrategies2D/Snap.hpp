@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/CameraControlStrategies2D/Base.hpp>
-#include <Wicked/Entities/Basic2D.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 
 
 namespace AllegroFlare
@@ -15,7 +15,7 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/CameraControlStrategies2D/Snap";
 
       private:
-         Wicked::Entities::Basic2D* entity_to_follow;
+         AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity_to_follow;
 
       protected:
 
@@ -24,8 +24,8 @@ namespace AllegroFlare
          Snap();
          virtual ~Snap();
 
-         void set_entity_to_follow(Wicked::Entities::Basic2D* entity_to_follow);
-         Wicked::Entities::Basic2D* get_entity_to_follow() const;
+         void set_entity_to_follow(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity_to_follow);
+         AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_entity_to_follow() const;
          virtual void update() override;
       };
    }

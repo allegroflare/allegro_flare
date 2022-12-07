@@ -25,13 +25,13 @@ HorizontalRail::~HorizontalRail()
 }
 
 
-void HorizontalRail::set_entity_to_follow(Wicked::Entities::Basic2D* entity_to_follow)
+void HorizontalRail::set_entity_to_follow(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity_to_follow)
 {
    this->entity_to_follow = entity_to_follow;
 }
 
 
-Wicked::Entities::Basic2D* HorizontalRail::get_entity_to_follow() const
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* HorizontalRail::get_entity_to_follow() const
 {
    return entity_to_follow;
 }

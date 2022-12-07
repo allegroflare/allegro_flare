@@ -10,7 +10,7 @@ properties:
 
 
   - name: entity_to_follow
-    type: Wicked::Entities::Basic2D*
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
     init_with: nullptr
     getter: true
     setter: true
@@ -78,7 +78,7 @@ dependencies:
 
   - symbol: AllegroFlare::CameraControlStrategies2D::Base
     headers: [ AllegroFlare/CameraControlStrategies2D/Base.hpp ]
-  - symbol: Wicked::Entities::Basic2D
-    headers: [ Wicked/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
 
 
