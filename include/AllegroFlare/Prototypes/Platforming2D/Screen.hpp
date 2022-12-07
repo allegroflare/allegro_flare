@@ -105,7 +105,7 @@ namespace AllegroFlare
             virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;
             void virtual_control_button_down_func(ALLEGRO_EVENT* event=nullptr);
             void virtual_control_button_up_func(ALLEGRO_EVENT* event=nullptr);
-            void virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr);
+            virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr) override;
             virtual void user_event_func(ALLEGRO_EVENT* event=nullptr) override;
             void render_collision_tile_mesh();
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
