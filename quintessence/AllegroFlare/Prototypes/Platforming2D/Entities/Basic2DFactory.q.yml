@@ -1,0 +1,540 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: enemy_debug_box_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.827, 0.184, 0.184, 1.0}
+
+  - name: player_collectable_box_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.96, 0.93, 0.06, 1.0}
+
+  - name: goalpost_box_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.06, 0.93, 0.184, 1.0}
+
+functions:
+
+
+  - name: create_from_bitmap_filename
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: bitmap_filename
+        type: std::string
+        default_argument: '"bitmap-filename-that-has-not-been-set.png"'
+      - name: bitmap_alignment_strategy
+        type: std::string
+        default_argument: '"centered"'
+    guards: [ bitmap_bin ]
+    body: |
+      ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+      result->set_bitmap(bitmap);
+      result->fit_to_bitmap();
+      result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
+      result->set(ON_MAP_NAME, map_name);
+      return result;
+
+
+  - name: create_for_aabb2d
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: width
+        type: float
+        default_argument: (16.0f-1.0f)
+      - name: height
+        type: float
+        default_argument: (16.0f-1.0f)
+    body: |
+      //ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+      result->get_place_ref().size.x = width;
+      result->get_place_ref().size.y = height;
+      //result->set_bitmap(bitmap);
+      result->set(ON_MAP_NAME, map_name);
+      //result->fit_to_bitmap();
+      //result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
+      return result;
+
+
+  - name: create_player_projectile
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: (8.0f-1.0f)
+      - name: height
+        type: float
+        default_argument: (8.0f-1.0f)
+      - name: vector
+        type: AllegroFlare::vec2d
+        default_argument: AllegroFlare::vec2d(0.0f, 1.0f)
+      - name: magnitude
+        type: float
+        default_argument: 1.0f
+    body: |
+      vector = vector.normalized();
+      vector *= magnitude;
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+      created_entity->get_place_ref().position.x = x;
+      created_entity->get_place_ref().position.y = y;
+      created_entity->get_place_ref().size.x = width;
+      created_entity->get_place_ref().size.y = height;
+      created_entity->get_velocity_ref().position.x = vector.x;
+      created_entity->get_velocity_ref().position.y = vector.y;
+      created_entity->set(NOT_AFFECTED_BY_GRAVITY);
+      created_entity->get(DOES_NOT_COLLIDE_WITH_WORLD);
+
+      created_entity->set(ON_MAP_NAME, map_name);
+
+      return created_entity;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::MoveInDirection
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
+  - name: create_enemy_move_left
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: (16.0f-1.0f)
+      - name: height
+        type: float
+        default_argument: (16.0f-1.0f)
+    body: |
+      // create the enemy
+      AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
+      created_entity->get_place_ref().size.x = width;
+      created_entity->get_place_ref().size.y = height;
+      created_entity->get_place_ref().position.x = x;
+      created_entity->get_place_ref().position.y = y;
+
+      // create the movement strategy
+      AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft* movement_strategy =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft(created_entity);
+
+      // assign the movement strategy to the entity
+      created_entity->set_movement_strategy(movement_strategy);
+
+      // set as "damages_player"
+      // created_entity->set("damages_player"); // <-- soon
+
+      // give it a "enemy" debug box color
+      created_entity->set_debug_box_color(enemy_debug_box_color);
+
+      created_entity->set(ON_MAP_NAME, map_name);
+
+      // return the entity
+      return created_entity;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::BackAndForthHorizontal
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft
+
+
+  - name: create_tracking_enemy
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: tracked_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: (16.0f-1.0f)
+      - name: height
+        type: float
+        default_argument: (16.0f-1.0f)
+    body: |
+      // create the enemy
+      AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
+      created_entity->get_place_ref().size.x = width;
+      created_entity->get_place_ref().size.y = height;
+      created_entity->get_place_ref().position.x = x;
+      created_entity->get_place_ref().position.y = y;
+
+      // create the movement strategy
+      AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::ReflectOffWalls* movement_strategy =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::ReflectOffWalls(created_entity);
+
+      // create the movement strategy
+      //AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Tracking* movement_strategy =
+      //   new AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Tracking(created_entity, tracked_entity);
+
+      // create the movement strategy
+      //AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FallOnTrackingRange* movement_strategy =
+      //   new AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FallOnTrackingRange(created_entity, tracked_entity);
+
+      // assign the movement strategy to the entity
+      created_entity->set_movement_strategy(movement_strategy);
+
+      // set as "damages_player"
+      // created_entity->set("damages_player"); // <-- soon
+
+      // give it a "enemy" debug box color
+      created_entity->set_debug_box_color(enemy_debug_box_color);
+
+      created_entity->set(ON_MAP_NAME, map_name);
+
+      // return the entity
+      return created_entity;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Tracking
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FallOnTrackingRange
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::ReflectOffWalls
+
+
+  - name: create_flapping_enemy
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: (16.0f-1.0f)
+      - name: height
+        type: float
+        default_argument: (16.0f-1.0f)
+      - name: target_elevation
+        type: float
+        default_argument: 0.0f
+      - name: flap_strength
+        type: float
+        default_argument: 1.0f
+      - name: flap_recovery_rate
+        type: float
+        default_argument: 0.1f
+    body: |
+      static unsigned int seed = 7654;
+      seed++;
+      // create the enemy
+      AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
+      created_entity->get_place_ref().size.x = width;
+      created_entity->get_place_ref().size.y = height;
+      created_entity->get_place_ref().position.x = x;
+      created_entity->get_place_ref().position.y = y;
+
+      // create the movement strategy
+      AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FlappingWithRandomness* movement_strategy =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FlappingWithRandomness(created_entity);
+      movement_strategy->set_target_elevation(target_elevation);
+      movement_strategy->set_flap_strength(flap_strength);
+      movement_strategy->set_flap_recovery_rate(flap_recovery_rate);
+      movement_strategy->set_random_seed(seed);
+
+      // assign the movement strategy to the entity
+      created_entity->set_movement_strategy(movement_strategy);
+
+      // set as "damages_player"
+      // created_entity->set("damages_player"); // <-- soon
+
+      // give it a "enemy" debug box color
+      created_entity->set_debug_box_color(enemy_debug_box_color);
+
+      created_entity->set(ON_MAP_NAME, map_name);
+
+      // return the entity
+      return created_entity;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Flapping
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FlappingWithRandomness
+
+
+  - name: create_collectable
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      // create the enemy
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+      created_entity->get_place_ref().size.x = 15.0f;
+      created_entity->get_place_ref().size.y = 15.0f;
+      created_entity->get_place_ref().position.x = x;
+      created_entity->get_place_ref().position.y = y;
+
+      // give it a noticable box color
+      created_entity->set_debug_box_color(player_collectable_box_color);
+
+      created_entity->set(COLLECTABLE_BY_PLAYER);
+      created_entity->set(ON_MAP_NAME, map_name);
+
+      // return the entity
+      return created_entity;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Tracking
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FallOnTrackingRange
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::ReflectOffWalls
+
+
+  - name: create_door
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: target_map_name
+        type: std::string
+        default_argument: '"[unset-target-map-name]"'
+      - name: target_spawn_x
+        type: float
+        default_argument: 0.0f
+      - name: target_spawn_y
+        type: float
+        default_argument: 0.0f
+    body: |
+      // create the enemy
+      Wicked::Entities::Doors::Basic2D *created_door = new Wicked::Entities::Doors::Basic2D;
+      created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
+      created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
+      created_door->get_place_ref().position.x = x;
+      created_door->get_place_ref().position.y = y;
+      created_door->set_game_event_name_to_emit(""); // TODO: fix this requirement:
+                                                     // this must be set to blank to not activate as an event
+      created_door->set_target_map_name(target_map_name);
+      created_door->set_target_spawn_x(target_spawn_x);
+      created_door->set_target_spawn_y(target_spawn_y);
+
+      // give it a noticable box color
+      created_door->set_debug_box_color(goalpost_box_color);
+
+      created_door->set(TYPE, DOOR);
+      created_door->set(ON_MAP_NAME, map_name);
+
+      // return the entity
+      return created_door;
+    body_dependency_symbols:
+      - Wicked::Entities::Doors::Basic2D
+
+
+  - name: create_game_event_door
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: game_event_name_to_emit
+        type: std::string
+        default_argument: '"[unset-game_event_name_to_emit]"'
+    body: |
+      // create the enemy
+      Wicked::Entities::Doors::Basic2D *created_door = new Wicked::Entities::Doors::Basic2D;
+      created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
+      created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
+      created_door->get_place_ref().position.x = x;
+      created_door->get_place_ref().position.y = y;
+      created_door->set_game_event_name_to_emit(game_event_name_to_emit);
+      //created_door->set_target_map_name(target_map_name);
+      //created_door->set_target_spawn_x(target_spawn_x);
+      //created_door->set_target_spawn_y(target_spawn_y);
+
+      // give it a noticable box color
+      created_door->set_debug_box_color(goalpost_box_color);
+
+      created_door->set(TYPE, DOOR);
+      created_door->set(ON_MAP_NAME, map_name);
+
+      // return the entity
+      return created_door;
+    body_dependency_symbols:
+      - Wicked::Entities::Doors::Basic2D
+
+
+  - name: create_goalpost
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      // create the enemy
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+      created_entity->get_place_ref().size.x = 16.0f - 1.0f;
+      created_entity->get_place_ref().size.y = 32.0f - 1.0f;
+      created_entity->get_place_ref().position.x = x;
+      created_entity->get_place_ref().position.y = y;
+
+      // give it a noticable box color
+      created_entity->set_debug_box_color(goalpost_box_color);
+
+      created_entity->set(TYPE, GOALPOST);
+      created_entity->set(ON_MAP_NAME, map_name);
+
+      // return the entity
+      return created_entity;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Tracking
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FallOnTrackingRange
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::ReflectOffWalls
+
+
+  - name: create_tile_map
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: map_json_filename
+        type: std::string
+        default_argument: '"[a-map-tmj-filename-that-is-not-set]"'
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+    guards: [ bitmap_bin ]
+    body: |
+      //throw std::runtime_error("create_tile_map not implemented!!");
+      //AllegroFlare::TileMaps::Basic2D *created_map = nullptr;
+      WickedDemos::TileMaps::Basic2D *created_map = nullptr;
+      AllegroFlare::TileMaps::PrimMeshAtlas *tile_atlas = nullptr; //  = tmj_mesh_loader.get_tile_atlas();
+      AllegroFlare::TileMaps::PrimMesh *tile_mesh = nullptr; // = tmj_mesh_loader.get_mesh();
+      AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr; //tmj_mesh_loader.get_collision_tile_map();
+
+
+      //created_map = new AllegroFlare::TileMaps::Basic2D;
+      created_map = new WickedDemos::TileMaps::Basic2D;
+      
+      Tileo::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
+
+      tmj_mesh_loader.load();
+
+      tile_atlas = tmj_mesh_loader.get_tile_atlas();
+      tile_mesh = tmj_mesh_loader.get_mesh();
+      collision_tile_mesh = tmj_mesh_loader.get_collision_tile_map();
+
+
+      if (!tile_mesh)
+      {
+         throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create tile_mesh");
+      }
+
+      created_map->set_tile_atlas(tile_atlas);
+      created_map->set_tile_mesh(tile_mesh);
+      created_map->set_collision_tile_mesh(collision_tile_mesh);
+      created_map->set(MAP_NAME, map_name); //"map_a"); //set_collision_tile_mesh(collision_tile_mesh);
+
+      return created_map;
+      //entities.push_back(created_map); // TODO: prevent maps from having the same name
+    body_dependency_symbols:
+      - Tileo::TMJMeshLoader
+      - WickedDemos::TileMaps::Basic2D
+      - AllegroFlare::TileMaps::PrimMeshAtlas
+      - AllegroFlare::TileMaps::PrimMesh
+      - AllegroFlare::TileMaps::TileMap
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::vec2d
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::MoveLeft
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveLeft.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::MoveRight
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveRight.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::StayStill
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::BackAndForthHorizontal
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/HoppingLeft.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Tracking
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FallOnTrackingRange
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FallOnTrackingRange.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::ReflectOffWalls
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::MoveInDirection
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveInDirection.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Flapping
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Flapping.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FlappingWithRandomness
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+    headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
+  - symbol: Wicked::Entities::Doors::Basic2D
+    headers: [ Wicked/Entities/Doors/Basic2D.hpp ]
+  - symbol: WickedDemos::TileMaps::Basic2D
+    headers: [ WickedDemos/TileMaps/Basic2D.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMesh
+    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMap
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
+  - symbol: Tileo::TMJMeshLoader
+    headers: [ Tileo/TMJMeshLoader.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base.hpp ]
+
