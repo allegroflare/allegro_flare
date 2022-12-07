@@ -107,7 +107,7 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    return result;
 }
 
-WickedDemos::TileMaps::Basic2D* EntityCollectionHelper::find_map_by_name(std::string map_name)
+AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* EntityCollectionHelper::find_map_by_name(std::string map_name)
 {
    if (!(entities))
    {
@@ -120,7 +120,10 @@ WickedDemos::TileMaps::Basic2D* EntityCollectionHelper::find_map_by_name(std::st
    //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
    for (auto &entity : (*entities))
    {
-      if (entity->exists(MAP_NAME, map_name)) return static_cast<WickedDemos::TileMaps::Basic2D*>(entity);
+      if (entity->exists(MAP_NAME, map_name))
+      {
+         return static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*>(entity);
+      }
    }
    return nullptr;
 }

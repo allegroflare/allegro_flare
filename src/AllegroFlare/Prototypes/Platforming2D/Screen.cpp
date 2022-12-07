@@ -7,9 +7,9 @@
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Snap.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
-#include <Wicked/Entities/Basic2DFactory.hpp>
 #include <Wicked/Entities/Doors/Basic2D.hpp>
 #include <Wicked/Physics/AABB2D.hpp>
 #include <Wicked/Physics/TileMapCollisionStepper.hpp>
@@ -186,10 +186,11 @@ void Screen::set_currently_active_map(std::string name)
    return;
 }
 
-WickedDemos::TileMaps::Basic2D* Screen::find_map_by_name(std::string name)
+AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Screen::find_map_by_name(std::string name)
 {
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
-   WickedDemos::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
+   AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* found_map =
+      collection_helper.find_map_by_name(name);
    if (!found_map)
    {
       std::stringstream error_message;
@@ -229,7 +230,7 @@ void Screen::on_deactivate()
 
 void Screen::initialize_maps()
 {
-   Wicked::Entities::Basic2DFactory factory(bitmap_bin);
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_map = nullptr;
 
    // TODO: clean this up
@@ -249,8 +250,8 @@ void Screen::initialize_maps()
          std::cout << "NOTE: TMJ Tile map file \"" << map_filename << "\" loaded successfully." << std::endl;
       }
 
-      WickedDemos::TileMaps::Basic2D* __created_map =
-         static_cast<WickedDemos::TileMaps::Basic2D*>(created_map); // = nullptr;
+      AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* __created_map =
+         static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*>(created_map);
 
       if (!__created_map->get_tile_mesh())
       {
@@ -479,7 +480,7 @@ void Screen::player_emit_projectile(float magnitude)
    std::string on_map_name = player_controlled_entity->get(ON_MAP_NAME);
 
 
-   Wicked::Entities::Basic2DFactory factory(bitmap_bin);
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* projectile = factory.create_player_projectile(
       on_map_name,
       player_pos.x,
@@ -664,7 +665,8 @@ void Screen::check_player_collisions_with_doors()
             float target_spawn_y = door->get_target_spawn_y();
 
             // find the target map
-            WickedDemos::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
+            AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* target_map =
+               find_map_by_name(map_target_name);
 
             // reposition player in map
             player_controlled_entity->set(ON_MAP_NAME, map_target_name);

@@ -41,7 +41,7 @@ properties:
     init_with: false
 
   - name: currently_active_map
-    type: WickedDemos::TileMaps::Basic2D*
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     init_with: nullptr
 
   - name: currently_active_map_name
@@ -169,14 +169,15 @@ functions:
 
 
   - name: find_map_by_name
-    type: WickedDemos::TileMaps::Basic2D*
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     parameters:
       - name: name
         type: std::string
         default_argument: '"[unset-map-name]"'
     body: |
       AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
-      WickedDemos::TileMaps::Basic2D *found_map = collection_helper.find_map_by_name(name);
+      AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* found_map =
+         collection_helper.find_map_by_name(name);
       if (!found_map)
       {
          std::stringstream error_message;
@@ -228,8 +229,8 @@ functions:
             std::cout << "NOTE: TMJ Tile map file \"" << map_filename << "\" loaded successfully." << std::endl;
          }
 
-         WickedDemos::TileMaps::Basic2D* __created_map =
-            static_cast<WickedDemos::TileMaps::Basic2D*>(created_map); // = nullptr;
+         AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* __created_map =
+            static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*>(created_map);
 
          if (!__created_map->get_tile_mesh())
          {
@@ -616,7 +617,8 @@ functions:
                float target_spawn_y = door->get_target_spawn_y();
 
                // find the target map
-               WickedDemos::TileMaps::Basic2D* target_map = find_map_by_name(map_target_name);
+               AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* target_map =
+                  find_map_by_name(map_target_name);
 
                // reposition player in map
                player_controlled_entity->set(ON_MAP_NAME, map_target_name);
@@ -1127,8 +1129,8 @@ dependencies:
     headers: [ AllegroFlare/CameraControlStrategies2D/HorizontalRail.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp ]
-  - symbol: WickedDemos::TileMaps::Basic2D
-    headers: [ WickedDemos/TileMaps/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp ]
   - symbol: Wicked::Entities::Doors::Basic2D
     headers: [ Wicked/Entities/Doors/Basic2D.hpp ]
   - symbol: std::find

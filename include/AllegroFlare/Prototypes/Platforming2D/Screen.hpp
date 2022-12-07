@@ -7,13 +7,13 @@
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
-#include <WickedDemos/TileMaps/Basic2D.hpp>
 #include <allegro5/allegro.h>
 #include <map>
 #include <string>
@@ -35,7 +35,7 @@ namespace AllegroFlare
             int native_display_resolution_width;
             int native_display_resolution_height;
             bool initialized;
-            WickedDemos::TileMaps::Basic2D* currently_active_map;
+            AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool;
             std::map<std::string, std::string> map_dictionary;
@@ -78,7 +78,7 @@ namespace AllegroFlare
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
-            WickedDemos::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
+            AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
             virtual void on_activate() override;
             virtual void on_deactivate() override;
             void initialize_maps();

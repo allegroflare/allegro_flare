@@ -10,13 +10,13 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveInDirection.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <Tileo/TMJMeshLoader.hpp>
 #include <Wicked/Entities/Doors/Basic2D.hpp>
-#include <WickedDemos/TileMaps/Basic2D.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -290,14 +290,14 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    }
    //throw std::runtime_error("create_tile_map not implemented!!");
    //AllegroFlare::TileMaps::Basic2D *created_map = nullptr;
-   WickedDemos::TileMaps::Basic2D *created_map = nullptr;
+   AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;
    AllegroFlare::TileMaps::PrimMeshAtlas *tile_atlas = nullptr; //  = tmj_mesh_loader.get_tile_atlas();
    AllegroFlare::TileMaps::PrimMesh *tile_mesh = nullptr; // = tmj_mesh_loader.get_mesh();
    AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr; //tmj_mesh_loader.get_collision_tile_map();
 
 
    //created_map = new AllegroFlare::TileMaps::Basic2D;
-   created_map = new WickedDemos::TileMaps::Basic2D;
+   created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
 
    Tileo::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
 

@@ -73,7 +73,7 @@ functions:
 
 
   - name: find_map_by_name
-    type: WickedDemos::TileMaps::Basic2D*
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     parameters:
       - name: map_name
         type: std::string
@@ -84,7 +84,10 @@ functions:
       //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
       for (auto &entity : (*entities))
       {
-         if (entity->exists(MAP_NAME, map_name)) return static_cast<WickedDemos::TileMaps::Basic2D*>(entity);
+         if (entity->exists(MAP_NAME, map_name))
+         {
+            return static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*>(entity);
+         }
       }
       return nullptr;
     body_dependency_symbols:
@@ -99,7 +102,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
-  - symbol: WickedDemos::TileMaps::Basic2D
-    headers: [ WickedDemos/TileMaps/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp ]
 
 
