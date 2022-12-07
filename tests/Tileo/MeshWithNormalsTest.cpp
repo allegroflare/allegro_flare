@@ -160,7 +160,13 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest,
 {
    al_init_image_addon();
    AllegroFlare::BitmapBin bitmap_bin;
-   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/");
+// TODO: improve this:
+#if defined(_WIN32) || defined(_WIN64)
+      std::string TEST_FIXTURE_BITMAP_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps";
+#else
+      std::string TEST_FIXTURE_BITMAP_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps";
+#endif
+   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
    //ALLEGRO_BITMAP* tile_map_texture = bitmap_bin["even-illumination-01.png"];
    ALLEGRO_BITMAP* tile_map_texture = bitmap_bin["tiles_dungeon_v1.1.png"];
    ALLEGRO_BITMAP* irrelevant_texture = bitmap_bin["test_texture.png"];
