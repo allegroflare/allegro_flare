@@ -30,7 +30,12 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlasTest, can_be_created_without_blowing_up)
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 
 #define TEMP_TEST_FILE_PATH "/Users/markoates/Repos/allegro_flare/tmp/tests/"
+// TODO: improve this:
+#if defined(_WIN32) || defined(_WIN64)
+#define TEST_TILE_ATLAS_BITMAP_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
+#else
 #define TEST_TILE_ATLAS_BITMAP_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
+#endif
 
 
 std::string build_test_filename_png(std::string test_name)
