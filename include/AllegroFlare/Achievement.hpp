@@ -22,7 +22,7 @@ namespace AllegroFlare
       bool virtual test_condition();
       void virtual on_unlocked();
 
-      bool set_title(std::string title);
+      void set_title(std::string title);
       std::string get_title();
       bool set_description(std::string description);
       std::string get_description();

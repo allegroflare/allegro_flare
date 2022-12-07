@@ -34,7 +34,7 @@ namespace AllegroFlare
    void Achievement::on_unlocked() {}
 
 
-   bool Achievement::set_title(std::string title)
+   void Achievement::set_title(std::string title)
    {
       this->title = title;
    }
