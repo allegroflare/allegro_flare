@@ -76,8 +76,9 @@ functions:
          throw std::invalid_argument("Network2::URLTokenizer: invalid url format (error 6)");
       }
       
-      
       return result;
+    body_dependency_symbols:
+      - std::invalid_argument
 
 
   - name: has_min_length
@@ -136,6 +137,12 @@ functions:
       // rtrim
       s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
       return s;
-    
+
+
+dependencies:
+
+
+  - symbol: std::invalid_argument
+    headers: [ stdexcept ]
 
 

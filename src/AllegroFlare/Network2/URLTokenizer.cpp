@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Network2/URLTokenizer.hpp>
 
-
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -93,7 +93,6 @@ std::pair<std::string, std::string> URLTokenizer::split_tokens()
    {
       throw std::invalid_argument("Network2::URLTokenizer: invalid url format (error 6)");
    }
-
 
    return result;
 }

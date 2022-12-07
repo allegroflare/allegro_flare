@@ -1350,6 +1350,9 @@
   "AllegroFlare/SHA2": [
     "AllegroFlare/Network2/Message"
   ],
+  "std/invalid_argument": [
+    "AllegroFlare/Network2/URLTokenizer"
+  ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
     "AllegroFlare/Notifications"
   ],
