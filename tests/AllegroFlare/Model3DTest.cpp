@@ -7,6 +7,14 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
+// TODO: improve this:
+#if defined(_WIN32) || defined(_WIN64)
+      std::string TEST_FIXTURE_MODEL_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/bin/data/models/";
+#else
+      std::string TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/data/models/";
+#endif
+
+
 class AllegroFlare_Model3DTest : public ::testing::Test {};
 class AllegroFlare_Model3DWithAllegroRenderingFixtureTest : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
@@ -20,7 +28,7 @@ public:
       subject.initialize();
    }
 
-   void load_subject(std::string filename="/Users/markoates/Repos/allegro_flare/bin/data/models/coin_ring-01.obj")
+   void load_subject(std::string filename=TEST_FIXTURE_MODEL_FOLDER+"coin_ring-01.obj")
    {
       subject.load_obj_file(filename.c_str());
    }
@@ -145,7 +153,7 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    load_subject();
    AllegroFlare::Model3D model_to_append;
    model_to_append.initialize();
-   std::string model_filename_to_merge = "/Users/markoates/Repos/allegro_flare/bin/data/models/archway-01.obj";
+   std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER+"archway-01.obj";
    model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
    subject.flatten_single_named_object();
@@ -216,7 +224,7 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    load_subject();
    AllegroFlare::Model3D model_to_append;
    model_to_append.initialize();
-   std::string model_filename_to_merge = "/Users/markoates/Repos/allegro_flare/bin/data/models/archway-01.obj";
+   std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER+"archway-01.obj";
    model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
    testing::internal::CaptureStdout();
