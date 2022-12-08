@@ -39,7 +39,7 @@ bool Internationalization::set_languages_folder(std::string folder)
    if (!al_filename_exists(folder.c_str()))
    {
       std::cout << CONSOLE_COLOR_RED
-                << "[AllegroFlare::Internationalization::set_languages_folder()]: error: Could not open folder "
+                << "[AllegroFlare::Internationalization::set_languages_folder()]: error: Could not find folder "
                 << "\"" << folder << "\" to find language files."
                 << CONSOLE_COLOR_DEFAULT
                 << std::endl
