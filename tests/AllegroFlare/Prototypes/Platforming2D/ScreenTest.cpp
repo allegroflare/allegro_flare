@@ -9,7 +9,7 @@
 
 // TODO: improve this:
 #if defined(_WIN32) || defined(_WIN64)
-#define TEST_BASE_FOLDER "/msys64/Mark/Repos/allegro_flare/bin/data/"
+#define TEST_BASE_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/"
 #else
 #define TEST_BASE_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/"
 #endif
