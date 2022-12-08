@@ -184,6 +184,9 @@ int main(int argc, char* argv[])
 std::string port = argv[2];
 
   client_runner(host, port);
+
+  return 0;
+
   //try
   //{
     //if (argc != 3)
