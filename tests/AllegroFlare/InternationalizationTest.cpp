@@ -86,7 +86,7 @@ TEST_F(AllegroFlare_InternationalizationTest,
    std::string output = testing::internal::GetCapturedStdout();
 
    std::string expected_cerr_output = "\x1B[1;31m[AllegroFlare::Internationalization::set_languages_folder()]: error: "
-                                      "Could not open folder \"foo/dir/that/doesnt/exist/\" " \
+                                      "Could not open folder \"foo/dir/that/doesnt/exist/\" "
                                       "to find language files.\x1B[0m\n";
    EXPECT_EQ(expected_cerr_output, output);
 }
