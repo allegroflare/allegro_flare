@@ -481,7 +481,7 @@ functions:
       //created_map = new AllegroFlare::TileMaps::Basic2D;
       created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
       
-      Tileo::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
+      AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
 
       tmj_mesh_loader.load();
 
@@ -503,7 +503,7 @@ functions:
       return created_map;
       //entities.push_back(created_map); // TODO: prevent maps from having the same name
     body_dependency_symbols:
-      - Tileo::TMJMeshLoader
+      - AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
       - AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D
       - AllegroFlare::TileMaps::PrimMeshAtlas
@@ -552,8 +552,8 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
   - symbol: AllegroFlare::TileMaps::TileMap
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
-  - symbol: Tileo::TMJMeshLoader
-    headers: [ Tileo/TMJMeshLoader.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader
+    headers: [ AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.hpp ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D

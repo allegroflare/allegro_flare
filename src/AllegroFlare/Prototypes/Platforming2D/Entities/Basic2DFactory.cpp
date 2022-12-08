@@ -13,10 +13,10 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
-#include <Tileo/TMJMeshLoader.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -321,7 +321,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    //created_map = new AllegroFlare::TileMaps::Basic2D;
    created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
 
-   Tileo::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
+   AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
 
    tmj_mesh_loader.load();
 
