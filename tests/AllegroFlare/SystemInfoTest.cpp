@@ -39,7 +39,12 @@ TEST(AllegroFlare_SystemInfoTest, num_available_threads_are_known__when_the_syst
 TEST(AllegroFlare_SystemInfoTest, get_sysname__will_return_a_string_representing_the_system)
 {
    AllegroFlare::SystemInfo system_info;
-   EXPECT_EQ("Darwin", system_info.get_sysname());
+   std::vector<std::string> expected_possible_hostnames = {
+      "Windows 10.0 (build 19044)", // Mark's Windows Laptop
+      "Darwin",                     // Mark's MacMini, Mark's Mac Laptop
+   };
+   std::string actual_hostname = system_info.get_sysname();
+   EXPECT_THAT(expected_possible_hostnames, testing::Contains(actual_hostname));
 }
 
 

@@ -4,11 +4,41 @@
 
 
 #if defined(_WIN32) || defined(_WIN64)
-   // note: not supported
+   // functionality below
 #else
    #include <sys/utsname.h> // for utsname, uname
    #include <unistd.h>      // for gethostname
 #endif
+
+
+#if defined(_WIN32) || defined(_WIN64)
+#include <windows.h>
+#include <sstream>
+static std::string build_version_name()
+{
+   DWORD dwVersion = 0;
+   DWORD dwMajorVersion = 0;
+   DWORD dwMinorVersion = 0;
+   DWORD dwBuild = 0;
+
+   dwVersion = GetVersion();
+
+   // Get the Windows version.
+
+   dwMajorVersion = (DWORD)(LOBYTE(LOWORD(dwVersion)));
+   dwMinorVersion = (DWORD)(HIBYTE(LOWORD(dwVersion)));
+
+   // Get the build number.
+
+   if (dwVersion < 0x80000000)
+      dwBuild = (DWORD)(HIWORD(dwVersion));
+
+   std::stringstream result;
+   result << "Windows " << dwMajorVersion << "." << dwMinorVersion << " " << "(build " << dwBuild << ")";
+   return result.str();
+}
+#endif
+ 
 
 
 namespace AllegroFlare
@@ -28,7 +58,7 @@ SystemInfoFetcher::~SystemInfoFetcher()
 std::string SystemInfoFetcher::get_sysname()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return "[not-supported-on-this-system]";
+   return build_version_name(); 
 #else
    utsname buf;
    uname(&buf);
