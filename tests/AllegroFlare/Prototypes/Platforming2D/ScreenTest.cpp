@@ -7,6 +7,15 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 
 
+// TODO: improve this:
+#if defined(_WIN32) || defined(_WIN64)
+#define TEST_BASE_FOLDER "/msys64/Mark/Repos/allegro_flare/bin/data/"
+#else
+#define TEST_BASE_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/"
+#endif
+
+
+
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Prototypes::Platforming2D::Screen platforming2d;
@@ -14,22 +23,22 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_bl
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
-   INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
-   //DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
+   INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
    framework.initialize();
 
-   framework.get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps");
+   framework.get_bitmap_bin_ref().set_full_path(TEST_BASE_FOLDER "bitmaps/");
 
    AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d;
    platforming_2d.set_bitmap_bin(&framework.get_bitmap_bin_ref());
    platforming_2d.set_display(framework.get_primary_display());
    platforming_2d.set_event_emitter(&framework.get_event_emitter_ref());
    platforming_2d.set_map_dictionary({
-      { "map_a", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1-0x.tmj" },
-      { "map_b", "/Users/markoates/Repos/allegro_flare/bin/data/maps/map1b-0x.tmj" },
+      { "map_a", TEST_BASE_FOLDER "maps/map1-0x.tmj" },
+      { "map_b", TEST_BASE_FOLDER "maps/map1b-0x.tmj" },
    });
    platforming_2d.initialize_maps();
    platforming_2d.set_currently_active_map("map_a");
