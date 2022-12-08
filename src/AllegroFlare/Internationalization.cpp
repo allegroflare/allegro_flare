@@ -35,10 +35,12 @@ namespace AllegroFlare
    {
       if (!al_filename_exists(folder.c_str()))
       {
-         std::cout << CONSOLE_COLOR_RED;
-         std::cout << "Could not open folder \"" << folder << "\" to find language files.";
-         std::cout << CONSOLE_COLOR_DEFAULT;
-         std::cout << std::endl;
+         std::cout << CONSOLE_COLOR_RED
+                   << "[AllegroFlare::Internationalization::set_languages_folder()]: error: Could not open folder "
+                   << "\"" << folder << "\" to find language files."
+                   << CONSOLE_COLOR_DEFAULT
+                   << std::endl
+                   ;
          return false;
       }
       languages_folder = folder;
@@ -79,10 +81,12 @@ namespace AllegroFlare
       std::string filename = find_language_file(language_code);
       if (filename == "")
       {
-         std::cout << CONSOLE_COLOR_RED;
-         std::cout << "Could not find language file for language_code \"" << language_code << "\"";
-         std::cout << CONSOLE_COLOR_DEFAULT;
-         std::cout << std::endl;
+         std::cout << CONSOLE_COLOR_RED
+                   << "[AllegroFlare::Internationalization::set_language()]: error: "
+                   << "Could not find language file for language_code \"" << language_code << "\""
+                   << CONSOLE_COLOR_DEFAULT
+                   << std::endl
+                   ;
          return false;
       }
 

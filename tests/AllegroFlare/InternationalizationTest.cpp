@@ -13,7 +13,7 @@ struct AllegroFlare_InternationalizationTest : public ::testing::Test
 {
 // TODO: improve this:
 #if defined(_WIN32) || defined(_WIN64)
-   const char *TEST_BASE_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/";
+   const char *TEST_BASE_FOLDER = "/msys64/Mark/Repos/allegro_flare/tests/fixtures/";
 #else
    const char *TEST_BASE_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
 #endif
@@ -85,7 +85,8 @@ TEST_F(AllegroFlare_InternationalizationTest,
    EXPECT_EQ(false, internationalization.set_languages_folder(fake_folder));
    std::string output = testing::internal::GetCapturedStdout();
 
-   std::string expected_cerr_output = "\x1B[1;31mCould not open folder \"foo/dir/that/doesnt/exist/\" " \
+   std::string expected_cerr_output = "\x1B[1;31m[AllegroFlare::Internationalization::set_languages_folder()]: error: "
+                                      "Could not open folder \"foo/dir/that/doesnt/exist/\" " \
                                       "to find language files.\x1B[0m\n";
    EXPECT_EQ(expected_cerr_output, output);
 }
@@ -182,6 +183,14 @@ TEST_F(AllegroFlare_InternationalizationTest, can_set_a_language)
 TEST_F(AllegroFlare_InternationalizationTest, returns_false_when_unable_to_set_a_language)
 {
    EXPECT_EQ(false, internationalization.set_language("not_a_language"));
+}
+
+
+
+TEST_F(AllegroFlare_InternationalizationTest, set_language__outputs_an_error_message_when_a_language_cannot_be_set)
+{
+   // TODO: this test
+   // NOTE: consider throwing in this case rather than just an error message
 }
 
 
