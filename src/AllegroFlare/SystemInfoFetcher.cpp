@@ -95,7 +95,7 @@ static std::string get_release_WIN()
 // Note this implementation from:
 // https://learn.microsoft.com/en-us/windows/win32/sysinfo/getting-hardware-information
 
-static std::string get_sysinfo_WIN()
+static std::string get_machine_WIN()
 {
    SYSTEM_INFO siSysInfo;
  
@@ -106,7 +106,14 @@ static std::string get_sysinfo_WIN()
    // Display the contents of the SYSTEM_INFO structure. 
 
    std::stringstream result;
-   result << "OEM ID: " << siSysInfo.dwOemId;
+   result << "OEM ID: " << siSysInfo.dwOemId
+          << "; Number of processors: " << siSysInfo.dwNumberOfProcessors
+          << "; Page size: " << siSysInfo.dwPageSize
+          << "; Processor type: " << siSysInfo.dwProcessorType
+          << "; Minimum application address: " << siSysInfo.lpMinimumApplicationAddress
+          << "; Maximum application address: " << siSysInfo.lpMaximumApplicationAddress
+          << "; Active processor mask: " << siSysInfo.dwActiveProcessorMask
+          ;
 
    // TODO: consider including this additional information
    //printf("Hardware information: \n");
@@ -181,7 +188,7 @@ std::string SystemInfoFetcher::get_release()
 std::string SystemInfoFetcher::get_machine()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return "[not-supported-on-this-system]";
+   return get_machine_WIN();
 #else
    utsname buf;
    uname(&buf);
