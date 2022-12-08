@@ -531,7 +531,6 @@ functions:
       return result;
     body_dependency_symbols:
       - std::fmod
-      - AllegroFlare::Testing::Comparison::AllegroFlare::Physics::Int2D
       - std::set
 
 
@@ -702,7 +701,5 @@ dependencies:
     headers: [ AllegroFlare/Physics/Int2D.hpp ]
   - symbol: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
     headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
-  - symbol: AllegroFlare::Testing::Comparison::AllegroFlare::Physics::Int2D
-    headers: [ AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D.hpp ]
 
 

@@ -4,7 +4,6 @@
 
 #include <AllegroFlare/Physics/AABB2D.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
-#include <AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D.hpp>
 #include <cmath>
 #include <iostream>
 #include <set>
