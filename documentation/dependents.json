@@ -1411,9 +1411,6 @@
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult"
   ],
-  "AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D": [
-    "AllegroFlare/Physics/TileMapCollisionStepper"
-  ],
   "AllegroFlare/Model3D": [
     "AllegroFlare/Prototypes/CubeShooter/Entity"
   ],

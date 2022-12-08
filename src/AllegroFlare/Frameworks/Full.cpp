@@ -1092,12 +1092,15 @@ void Full::log(std::string message)
 
 uint32_t Full::register_event_callback(std::function<void(ALLEGRO_EVENT*, void*)> callback, void* user_data)
 {
+   uint32_t this_next_event_callback_id = next_event_callback_id;
+
    event_callbacks.insert({
-      next_event_callback_id,
+      this_next_event_callback_id,
       { callback, user_data }
    });
 
    next_event_callback_id++;
+   return this_next_event_callback_id;
 }
 
 
