@@ -64,6 +64,8 @@ TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing
 {
    AllegroFlare::SystemInfo system_info;
    std::vector<std::string> expected_possible_versions = {
+      // Mark's Windows Laptop:
+      "10.0",
       // Mark's Mac Laptop:
       "Darwin Kernel Version 22.1.0: Sun Oct  9 20:14:30 PDT 2022; root:xnu-8792.41.9~2/RELEASE_ARM64_T8103",
       // Mark's MacMini:
@@ -78,6 +80,7 @@ TEST(AllegroFlare_SystemInfoTest, get_release__will_return_a_string_representing
 {
    AllegroFlare::SystemInfo system_info;
    std::vector<std::string> expected_possible_releases = {
+      "10.0 (build 19044)",
       "22.1.0", // Mark's Mac Laptop
       "21.6.0", // Mark's MacMini
    };

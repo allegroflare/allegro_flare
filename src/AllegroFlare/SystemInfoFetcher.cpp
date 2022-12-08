@@ -19,7 +19,7 @@
 #include <windows.h>
 #include <sstream>
 
-static std::string get_sysname()
+static std::string get_sysname_WIN()
 {
    DWORD dwVersion = 0;
    DWORD dwMajorVersion = 0;
@@ -43,7 +43,7 @@ static std::string get_sysname()
    return result.str();
 }
 
-static std::string get_version()
+static std::string get_version_WIN()
 {
    DWORD dwVersion = 0;
    DWORD dwMajorVersion = 0;
@@ -68,7 +68,7 @@ static std::string get_version()
 }
 
 
-static std::string get_release()
+static std::string get_release_WIN()
 {
    DWORD dwVersion = 0;
    DWORD dwMajorVersion = 0;
@@ -92,7 +92,10 @@ static std::string get_release()
    return result.str();
 }
 
-static std::string get_sysinfo()
+// Note this implementation from:
+// https://learn.microsoft.com/en-us/windows/win32/sysinfo/getting-hardware-information
+
+static std::string get_sysinfo_WIN()
 {
    SYSTEM_INFO siSysInfo;
  
@@ -102,18 +105,24 @@ static std::string get_sysinfo()
  
    // Display the contents of the SYSTEM_INFO structure. 
 
-   printf("Hardware information: \n");  
-   printf("  OEM ID: %u\n", siSysInfo.dwOemId);
-   printf("  Number of processors: %u\n", 
-      siSysInfo.dwNumberOfProcessors); 
-   printf("  Page size: %u\n", siSysInfo.dwPageSize); 
-   printf("  Processor type: %u\n", siSysInfo.dwProcessorType); 
-   printf("  Minimum application address: %lx\n", 
-      siSysInfo.lpMinimumApplicationAddress); 
-   printf("  Maximum application address: %lx\n", 
-      siSysInfo.lpMaximumApplicationAddress); 
-   printf("  Active processor mask: %u\n", 
-      siSysInfo.dwActiveProcessorMask); 
+   std::stringstream result;
+   result << "OEM ID: " << siSysInfo.dwOemId;
+
+   // TODO: consider including this additional information
+   //printf("Hardware information: \n");
+   //printf("  OEM ID: %u\n", siSysInfo.dwOemId);
+   //printf("  Number of processors: %u\n",
+      //siSysInfo.dwNumberOfProcessors);
+   //printf("  Page size: %u\n", siSysInfo.dwPageSize);
+   //printf("  Processor type: %u\n", siSysInfo.dwProcessorType);
+   //printf("  Minimum application address: %lx\n",
+      //siSysInfo.lpMinimumApplicationAddress);
+   //printf("  Maximum application address: %lx\n",
+      //siSysInfo.lpMaximumApplicationAddress);
+   //printf("  Active processor mask: %u\n",
+      //siSysInfo.dwActiveProcessorMask);
+
+   return result.str();
 }
 #endif
  
@@ -136,7 +145,7 @@ SystemInfoFetcher::~SystemInfoFetcher()
 std::string SystemInfoFetcher::get_sysname()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return get_sysname(); 
+   return get_sysname_WIN();
 #else
    utsname buf;
    uname(&buf);
@@ -148,7 +157,7 @@ std::string SystemInfoFetcher::get_sysname()
 std::string SystemInfoFetcher::get_version()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return get_version(); 
+   return get_version_WIN();
 #else
    utsname buf;
    uname(&buf);
@@ -160,7 +169,7 @@ std::string SystemInfoFetcher::get_version()
 std::string SystemInfoFetcher::get_release()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return get_release(); 
+   return get_release_WIN();
 #else
    utsname buf;
    uname(&buf);
