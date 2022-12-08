@@ -17,7 +17,12 @@ class Tileo_TMJMeshLoaderTestWithAllegroRenderingFixture : public AllegroFlare::
 
 #include <Tileo/TMJMeshLoader.hpp>
 
+// TODO: improve this:
+#if defined(_WIN32) || defined(_WIN64)
+#define TMJ_FIXTURE_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/"
+#else
 #define TMJ_FIXTURE_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
+#endif
 #define TMJ_FIXTURE_FILENAME "map1-02.tmj"
 //#define TILE_ATLAS_FILENAME "tiles_dungeon_v1.1.png"
 
