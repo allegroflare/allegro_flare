@@ -276,17 +276,22 @@ functions:
       bool screenshot_successful = al_save_bitmap(full_file_save_location.c_str(), al_get_backbuffer(display));
       if (screenshot_successful)
       {
-         std::cout << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: info: screenshot saved to "
+         std::cout << AllegroFlare::TerminalColors::CYAN
+                   << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: info: screenshot saved to "
                    << "\"" << full_file_save_location << "\""
+                   << AllegroFlare::TerminalColors::DEFAULT
                    << std::endl;
       }
       else
       {
-         std::cout << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: ERROR: screenshot "
+         std::cout << AllegroFlare::TerminalColors::RED
+                   << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: error: screenshot "
                    << "CAPTURE was not successful when trying to saving to \"" << full_file_save_location << "\""
+                   << AllegroFlare::TerminalColors::DEFAULT
                    << std::endl;
       }
     body_dependency_symbols:
+      - AllegroFlare::TerminalColors
       - std::chrono::milliseconds
       - std::this_thread::sleep_for
 
@@ -330,5 +335,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::TerminalColors
+    headers: [ AllegroFlare/TerminalColors.hpp ]
 
 

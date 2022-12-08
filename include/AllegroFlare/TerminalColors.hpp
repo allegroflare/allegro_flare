@@ -15,6 +15,7 @@ namespace AllegroFlare
       extern const char *YELLOW;
       extern const char *GREEN;
       extern const char *BLUE;
+      extern const char *CYAN;
       extern const char *DEFAULT;
 
    } // namespace TerminalColors

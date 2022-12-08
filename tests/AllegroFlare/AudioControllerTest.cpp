@@ -23,7 +23,7 @@ TEST(AllegroFlare_AudioControllerTest, can_be_created_without_blowing_up)
 }
 
 
-TEST(AllegroFlare_AudioControllerTest, initialized__without_allegro_initialized__raises_an_exception)
+TEST(AllegroFlare_AudioControllerTest, initialize__without_allegro_initialized__raises_an_exception)
 {
    AllegroFlare::AudioController audio_controller;
    std::string expected_error_message =

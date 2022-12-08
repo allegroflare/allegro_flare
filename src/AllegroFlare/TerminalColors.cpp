@@ -18,6 +18,7 @@ const char *RED = "\033[1;31m";
 const char *YELLOW = "\033[1;33m";
 const char *GREEN = "\033[1;32m";
 const char *BLUE = "\033[1;36m";
+const char *CYAN= "\036[1;36m";
 const char *DEFAULT = "\033[0m";
 
 

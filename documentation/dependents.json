@@ -1,6 +1,7 @@
 {
   "AllegroFlare/TerminalColors": [
-    "AllegroFlare/AudioController"
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/SampleBin": [
     "AllegroFlare/AudioController",

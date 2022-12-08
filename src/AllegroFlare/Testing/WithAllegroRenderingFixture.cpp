@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+#include <AllegroFlare/TerminalColors.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
@@ -245,14 +246,18 @@ void WithAllegroRenderingFixture::capture_screenshot(std::string base_filename)
    bool screenshot_successful = al_save_bitmap(full_file_save_location.c_str(), al_get_backbuffer(display));
    if (screenshot_successful)
    {
-      std::cout << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: info: screenshot saved to "
+      std::cout << AllegroFlare::TerminalColors::CYAN
+                << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: info: screenshot saved to "
                 << "\"" << full_file_save_location << "\""
+                << AllegroFlare::TerminalColors::DEFAULT
                 << std::endl;
    }
    else
    {
-      std::cout << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: ERROR: screenshot "
+      std::cout << AllegroFlare::TerminalColors::RED
+                << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: error: screenshot "
                 << "CAPTURE was not successful when trying to saving to \"" << full_file_save_location << "\""
+                << AllegroFlare::TerminalColors::DEFAULT
                 << std::endl;
    }
 }
