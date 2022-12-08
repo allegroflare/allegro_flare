@@ -135,6 +135,7 @@
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
@@ -1285,6 +1286,8 @@
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
@@ -1390,6 +1393,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
@@ -1686,6 +1690,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/MeshWithNormals",
@@ -1699,6 +1704,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
@@ -1717,11 +1723,13 @@
   ],
   "std/ifstream": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
   "std/filesystem/exists": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
@@ -1797,7 +1805,6 @@
   ],
   "Tileo/TMJMeshLoader": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo"
   ],
@@ -1871,6 +1878,13 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
+  ],
+  "ifstream": [
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "Tileo/TMJMeshLoader"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader"
   ],
   "AllegroFlare/Prototypes/TileDrive/TileDrive": [
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -2051,9 +2065,6 @@
   "Tileo/Shaders/Base": [
     "Tileo/Shaders/AllegroDefault",
     "Tileo/Shaders/MeshWithNormals"
-  ],
-  "ifstream": [
-    "Tileo/TMJMeshLoader"
   ],
   "Tileo/TMJDataLoader": [
     "Tileo/TMJMeshLoader"

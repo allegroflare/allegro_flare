@@ -1100,8 +1100,6 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
   - symbol: AllegroFlare::EventNames
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: Tileo::TMJMeshLoader
-    headers: [ Tileo/TMJMeshLoader.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp ]
   - symbol: AllegroFlare::Screen
