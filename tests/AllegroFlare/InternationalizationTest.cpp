@@ -13,7 +13,7 @@ struct AllegroFlare_InternationalizationTest : public ::testing::Test
 {
 // TODO: improve this:
 #if defined(_WIN32) || defined(_WIN64)
-   const char *TEST_BASE_FOLDER = "/msys64/Mark/Repos/allegro_flare/tests/fixtures/";
+   const char *TEST_BASE_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/";
 #else
    const char *TEST_BASE_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
 #endif
