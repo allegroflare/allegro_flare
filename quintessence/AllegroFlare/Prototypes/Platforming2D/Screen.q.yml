@@ -505,7 +505,7 @@ functions:
          }
 
          // create a "simulated aabb2d" of the entity and run it through the collision stepper
-         Wicked::Physics::AABB2D aabb2d(
+         AllegroFlare::Physics::AABB2D aabb2d(
             place.position.x - place.size.x * place.align.x,
             place.position.y - place.size.y * place.align.y,
             place.size.x,
@@ -515,7 +515,7 @@ functions:
          );
          float tile_width = 16.0f;
          float tile_height = 16.0f;
-         Wicked::Physics::TileMapCollisionStepper collision_stepper(
+         AllegroFlare::Physics::TileMapCollisionStepper collision_stepper(
             currently_active_map->get_collision_tile_mesh(),
             &aabb2d,
             tile_width,
@@ -561,8 +561,8 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
-      - Wicked::Physics::AABB2D
-      - Wicked::Physics::TileMapCollisionStepper
+      - AllegroFlare::Physics::AABB2D
+      - AllegroFlare::Physics::TileMapCollisionStepper
       - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
 
 
@@ -1114,10 +1114,10 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: al_color_name
     headers: [ allegro5/allegro_color.h ]
-  - symbol: Wicked::Physics::TileMapCollisionStepper
-    headers: [ Wicked/Physics/TileMapCollisionStepper.hpp ]
-  - symbol: Wicked::Physics::AABB2D
-    headers: [ Wicked/Physics/AABB2D.hpp ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepper
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepper.hpp ]
+  - symbol: AllegroFlare::Physics::AABB2D
+    headers: [ AllegroFlare/Physics/AABB2D.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
   - symbol: AllegroFlare::CameraControlStrategies2D::Base

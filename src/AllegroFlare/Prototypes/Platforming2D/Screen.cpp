@@ -7,12 +7,12 @@
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Snap.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/Physics/AABB2D.hpp>
+#include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
-#include <Wicked/Physics/AABB2D.hpp>
-#include <Wicked/Physics/TileMapCollisionStepper.hpp>
 #include <algorithm>
 #include <allegro5/allegro_color.h>
 #include <iostream>
@@ -549,7 +549,7 @@ void Screen::update_entities()
       }
 
       // create a "simulated aabb2d" of the entity and run it through the collision stepper
-      Wicked::Physics::AABB2D aabb2d(
+      AllegroFlare::Physics::AABB2D aabb2d(
          place.position.x - place.size.x * place.align.x,
          place.position.y - place.size.y * place.align.y,
          place.size.x,
@@ -559,7 +559,7 @@ void Screen::update_entities()
       );
       float tile_width = 16.0f;
       float tile_height = 16.0f;
-      Wicked::Physics::TileMapCollisionStepper collision_stepper(
+      AllegroFlare::Physics::TileMapCollisionStepper collision_stepper(
          currently_active_map->get_collision_tile_mesh(),
          &aabb2d,
          tile_width,

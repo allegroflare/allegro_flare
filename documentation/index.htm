@@ -11305,10 +11305,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Physics::TileMapCollisionStepper&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Physics/TileMapCollisionStepper.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepper.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Wicked::Physics::AABB2D&quot;, &quot;headers&quot;=&gt;[&quot;Wicked/Physics/AABB2D.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB2D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::EntityFlagNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp&quot;]}</td>
@@ -18348,7 +18348,8 @@ table td
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "AllegroFlare/Physics/AABB2D": [
-    "AllegroFlare/Physics/TileMapCollisionStepper"
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "std/vector<AllegroFlare/Physics/Int2D>": [
     "AllegroFlare/Physics/TileMapCollisionStepper"
@@ -18687,6 +18688,7 @@ table td
   ],
   "AllegroFlare/Physics/TileMapCollisionStepper": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver"
   ],
   "std/ifstream": [
@@ -18820,15 +18822,6 @@ table td
   ],
   "AllegroFlare/Screen": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/Physics/TileMapCollisionStepper": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "WickedDemos/TileDemo"
-  ],
-  "Wicked/Physics/AABB2D": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "Wicked/Physics/TileMapCollisionStepper",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/CameraControlStrategies2D/Snap": [
@@ -19159,6 +19152,10 @@ table td
   "std/set_difference": [
     "Wicked/Physics/EntityZoneCollisionObserver"
   ],
+  "Wicked/Physics/AABB2D": [
+    "Wicked/Physics/TileMapCollisionStepper",
+    "WickedDemos/TileDemo"
+  ],
   "std/vector<Wicked/Physics/Int2D>": [
     "Wicked/Physics/TileMapCollisionStepper"
   ],
@@ -19178,6 +19175,9 @@ table td
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Framework": [
+    "WickedDemos/TileDemo"
+  ],
+  "Wicked/Physics/TileMapCollisionStepper": [
     "WickedDemos/TileDemo"
   ],
   "Wicked/Weapons/DrawnBow": [
