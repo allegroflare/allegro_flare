@@ -12,9 +12,14 @@
 
 
 #if defined(_WIN32) || defined(_WIN64)
+
+// Note this implementation is from:
+// https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
+
 #include <windows.h>
 #include <sstream>
-static std::string build_version_name()
+
+static std::string get_sysname()
 {
    DWORD dwVersion = 0;
    DWORD dwMajorVersion = 0;
@@ -37,6 +42,79 @@ static std::string build_version_name()
    result << "Windows " << dwMajorVersion << "." << dwMinorVersion << " " << "(build " << dwBuild << ")";
    return result.str();
 }
+
+static std::string get_version()
+{
+   DWORD dwVersion = 0;
+   DWORD dwMajorVersion = 0;
+   DWORD dwMinorVersion = 0;
+   DWORD dwBuild = 0;
+
+   dwVersion = GetVersion();
+
+   // Get the Windows version.
+
+   dwMajorVersion = (DWORD)(LOBYTE(LOWORD(dwVersion)));
+   dwMinorVersion = (DWORD)(HIBYTE(LOWORD(dwVersion)));
+
+   // Get the build number.
+
+   if (dwVersion < 0x80000000)
+      dwBuild = (DWORD)(HIWORD(dwVersion));
+
+   std::stringstream result;
+   result << dwMajorVersion << "." << dwMinorVersion;
+   return result.str();
+}
+
+
+static std::string get_release()
+{
+   DWORD dwVersion = 0;
+   DWORD dwMajorVersion = 0;
+   DWORD dwMinorVersion = 0;
+   DWORD dwBuild = 0;
+
+   dwVersion = GetVersion();
+
+   // Get the Windows version.
+
+   dwMajorVersion = (DWORD)(LOBYTE(LOWORD(dwVersion)));
+   dwMinorVersion = (DWORD)(HIBYTE(LOWORD(dwVersion)));
+
+   // Get the build number.
+
+   if (dwVersion < 0x80000000)
+      dwBuild = (DWORD)(HIWORD(dwVersion));
+
+   std::stringstream result;
+   result << dwMajorVersion << "." << dwMinorVersion << " " << "(build " << dwBuild << ")";
+   return result.str();
+}
+
+static std::string get_sysinfo()
+{
+   SYSTEM_INFO siSysInfo;
+ 
+   // Copy the hardware information to the SYSTEM_INFO structure. 
+ 
+   GetSystemInfo(&siSysInfo); 
+ 
+   // Display the contents of the SYSTEM_INFO structure. 
+
+   printf("Hardware information: \n");  
+   printf("  OEM ID: %u\n", siSysInfo.dwOemId);
+   printf("  Number of processors: %u\n", 
+      siSysInfo.dwNumberOfProcessors); 
+   printf("  Page size: %u\n", siSysInfo.dwPageSize); 
+   printf("  Processor type: %u\n", siSysInfo.dwProcessorType); 
+   printf("  Minimum application address: %lx\n", 
+      siSysInfo.lpMinimumApplicationAddress); 
+   printf("  Maximum application address: %lx\n", 
+      siSysInfo.lpMaximumApplicationAddress); 
+   printf("  Active processor mask: %u\n", 
+      siSysInfo.dwActiveProcessorMask); 
+}
 #endif
  
 
@@ -58,7 +136,7 @@ SystemInfoFetcher::~SystemInfoFetcher()
 std::string SystemInfoFetcher::get_sysname()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return build_version_name(); 
+   return get_sysname(); 
 #else
    utsname buf;
    uname(&buf);
@@ -70,7 +148,7 @@ std::string SystemInfoFetcher::get_sysname()
 std::string SystemInfoFetcher::get_version()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return "[not-supported-on-this-system]";
+   return get_version(); 
 #else
    utsname buf;
    uname(&buf);
@@ -82,7 +160,7 @@ std::string SystemInfoFetcher::get_version()
 std::string SystemInfoFetcher::get_release()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return "[not-supported-on-this-system]";
+   return get_release(); 
 #else
    utsname buf;
    uname(&buf);
