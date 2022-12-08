@@ -6892,6 +6892,10 @@ table td
   <td class="property">tile_height</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">dummy_int2d</td>
+  <td class="property">AllegroFlare::Physics::Int2D</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -6929,6 +6933,9 @@ table td
 </tr>
 <tr>
   <td class="method">tiles_within(6)</td>
+</tr>
+<tr>
+  <td class="method">tiles_have_equal_coordinates(2)</td>
 </tr>
 <tr>
   <td class="private_method">world_coords_to_tile_coords(2)</td>
@@ -10428,7 +10435,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tileo::TMJMeshLoader&quot;, &quot;headers&quot;=&gt;[&quot;Tileo/TMJMeshLoader.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
@@ -18954,10 +18961,8 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
-  "Tileo/TMJMeshLoader": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
+  "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
@@ -19305,6 +19310,10 @@ table td
   "WickedDemos/TileMaps/Basic2D": [
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Entities/CollectionHelper",
+    "WickedDemos/TileDemo"
+  ],
+  "Tileo/TMJMeshLoader": [
+    "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo"
   ],
   "Wicked/Entities/Enemies/Base": [

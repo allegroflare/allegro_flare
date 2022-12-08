@@ -18,6 +18,9 @@ namespace Physics
 {
 
 
+AllegroFlare::Physics::Int2D TileMapCollisionStepper::dummy_int2d = {};
+
+
 TileMapCollisionStepper::TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map, AllegroFlare::Physics::AABB2D* aabb2d, float tile_width, float tile_height)
    : collision_tile_map(collision_tile_map)
    , aabb2d(aabb2d)
@@ -29,6 +32,12 @@ TileMapCollisionStepper::TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap
 
 TileMapCollisionStepper::~TileMapCollisionStepper()
 {
+}
+
+
+AllegroFlare::Physics::Int2D &TileMapCollisionStepper::get_dummy_int2d_ref()
+{
+   return dummy_int2d;
 }
 
 
@@ -400,7 +409,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       for (int j=0; j<now_tiles.size(); j++)
       {
-         if (next_tiles[i] == now_tiles[j])
+         if (tiles_have_equal_coordinates(next_tiles[i], now_tiles[j]))
          {
             // add them to the stayed_on_tiles
             stayed_on_tiles.push_back(now_tiles[j]);
@@ -519,6 +528,11 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::tiles_within(
       }
 
    return result_tiles;
+}
+
+bool TileMapCollisionStepper::tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D& a, AllegroFlare::Physics::Int2D& b)
+{
+   return (a.get_x() == b.get_x() && a.get_y() == b.get_y());
 }
 
 int TileMapCollisionStepper::world_coords_to_tile_coords(float world_pos, float tile_length)

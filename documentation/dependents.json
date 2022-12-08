@@ -1803,10 +1803,8 @@
     "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
-  "Tileo/TMJMeshLoader": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo"
+  "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
@@ -2154,6 +2152,10 @@
   "WickedDemos/TileMaps/Basic2D": [
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Entities/CollectionHelper",
+    "WickedDemos/TileDemo"
+  ],
+  "Tileo/TMJMeshLoader": [
+    "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo"
   ],
   "Wicked/Entities/Enemies/Base": [

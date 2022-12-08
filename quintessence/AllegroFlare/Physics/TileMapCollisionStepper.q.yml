@@ -21,6 +21,12 @@ properties:
     init_with: 16.0f
     constructor_arg: true
 
+  - name: dummy_int2d
+    type: AllegroFlare::Physics::Int2D
+    init_with: '{}'
+    getter_ref: true
+    static: true
+
 
 functions:
 
@@ -455,7 +461,7 @@ functions:
       {
          for (int j=0; j<now_tiles.size(); j++)
          {
-            if (next_tiles[i] == now_tiles[j])
+            if (tiles_have_equal_coordinates(next_tiles[i], now_tiles[j]))
             {
                // add them to the stayed_on_tiles
                stayed_on_tiles.push_back(now_tiles[j]);
@@ -576,6 +582,19 @@ functions:
          }
 
       return result_tiles;
+
+
+  - name: tiles_have_equal_coordinates
+    type: bool
+    parameters:
+      - name: a
+        type: AllegroFlare::Physics::Int2D&
+        default_argument: get_dummy_int2d_ref()
+      - name: b
+        type: AllegroFlare::Physics::Int2D&
+        default_argument: get_dummy_int2d_ref()
+    body: |
+      return (a.get_x() == b.get_x() && a.get_y() == b.get_y());
 
 
   - name: world_coords_to_tile_coords
