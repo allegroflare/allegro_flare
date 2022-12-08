@@ -73,7 +73,7 @@ void ReflectOffWalls::update()
    if (moving_down) velocity_position.y = 1.0f;
    else velocity_position.y = -1.0f;
 
-   // horizgonal
+   // horizonal
    if (moving_right && entity->exists(ADJACENT_TO_RIGHT_WALL)) 
    {
       moving_right = false;
