@@ -285,8 +285,15 @@ public:
    }
 };
 
+
+#if defined(_WIN32) || defined(_WIN64)
+#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
+#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
+#elif
 #define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
 #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
+#endif
+
 
 
 void framework_main(std::atomic<bool>* global_abort=nullptr)
