@@ -124,6 +124,7 @@ static std::string get_machine_WIN()
    return result.str();
 }
 
+#include <iostream> // for std::cerr
 static std::string get_hostname_WIN()
 {
    constexpr int INFO_BUFFER_SIZE = 32767;

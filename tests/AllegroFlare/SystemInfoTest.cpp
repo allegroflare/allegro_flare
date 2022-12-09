@@ -104,6 +104,10 @@ TEST(AllegroFlare_SystemInfoTest, get_machine__will_return_a_string_representing
 
 TEST(AllegroFlare_SystemInfoTest, get_chip_kind__will_return_a_string_representing_the_system)
 {
+// TODO: implement this test case
+#if defined(_WIN32) || defined(_WIN64)
+   GTEST_SKIP() << "This test is currently not implemented for Windows.";
+#endif
    AllegroFlare::SystemInfo system_info;
    std::vector<std::string> expected_possible_processor_types = {
       "arm",   // Mark's Mac Laptop
