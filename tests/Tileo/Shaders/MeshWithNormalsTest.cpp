@@ -15,6 +15,13 @@
 #include <AllegroFlare/BitmapBin.hpp>
 
 
+#if defined(_WIN32) || defined(_WIN64)
+#define TEST_FIXTURES_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/"
+#else
+#define TEST_FIXTURES_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
+#endif
+
+
 class Tileo_Shaders_MeshWithNormalsTest : public ::testing::Test
 {
 protected:
@@ -86,7 +93,7 @@ TEST_F(Tileo_Shaders_MeshWithNormalsTest, when_active__renders_the_image_with_th
 {
    Tileo::Shaders::MeshWithNormals flat_color_shader;
    AllegroFlare::BitmapBin bitmap_bin;
-   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/tests/fixtures/");
+   bitmap_bin.set_full_path(TEST_FIXTURES_PATH);
 
    flat_color_shader.initialize();
    flat_color_shader.activate();
