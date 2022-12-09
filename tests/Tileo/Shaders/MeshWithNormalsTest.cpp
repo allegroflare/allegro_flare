@@ -17,8 +17,10 @@
 
 #if defined(_WIN32) || defined(_WIN64)
 #define TEST_FIXTURES_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/"
+#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
 #else
 #define TEST_FIXTURES_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
+#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
 #endif
 
 
@@ -132,8 +134,11 @@ TEST_F(Tileo_Shaders_MeshWithNormalsTest, when_active__renders_the_image_with_th
    //ASSERT_EQ(color.b, actual_color.b);
    //ASSERT_EQ(color.a, actual_color.a);
 
-   std::string tmp_path = "/Users/markoates/Repos/allegro_flare/tmp/";
-   std::string output_image_full_filename = tmp_path + "when_activated__renders_the_image_with_the_flat_color.png";
+
+   // TODO: improve this test snapshot naming inference
+   std::string output_image_full_filename =
+      TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "Tileo_Shaders_MeshWithNormalsTest_when_active__renders_"
+      "the_image_with_the_flat_color.png";
    ASSERT_EQ(true, al_save_bitmap(output_image_full_filename.c_str(), al_get_backbuffer(current_display)));
 }
 
