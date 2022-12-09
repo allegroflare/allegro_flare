@@ -64,12 +64,14 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest, load__on_a_fi
    std::string filename = TMJ_MALFORMED_JSON_FIXTURE_PATH_AND_FILENAME;
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader(filename);
 
-   std::string expected_error_message = "[MindDive::TunnelMeshTMJDataLoader] load() error: the file \""
-      "/Users/markoates/Repos/allegro_flare/tests/fixtures/file-with-malformed-json.tmj\" appears to have malformed "
+   std::stringstream expected_error_message;
+   expected_error_message << "[MindDive::TunnelMeshTMJDataLoader] load() error: the file "
+      "\"" << TMJ_MALFORMED_JSON_FIXTURE_PATH_AND_FILENAME << "\" "
+      "appears to have malformed "
       "JSON. The following error was thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line "
       "1, column 10: syntax error while parsing value - unexpected '}'; expected '[', '{', or a literal\"";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message.str());
 }
 
 
