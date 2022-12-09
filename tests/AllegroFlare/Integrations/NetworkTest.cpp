@@ -66,8 +66,19 @@ TEST_F(AllegroFlare_Integrations_NetworkTest, client__can_be_created_and_aborted
    std::vector<std::string> messages_queue;
    std::mutex messages_queue_mutex;
    //std::thread server(run_server_blocking, get_global_abort_ptr());
-   std::thread client(run_client_blocking, get_global_abort_ptr(), &messages_queue, &messages_queue_mutex, nullptr, nullptr);
-   std::thread aborter(emit_abort_signal_after_n_sec, get_global_abort_ptr(), 1);
+   std::thread client(
+         run_client_blocking,
+         get_global_abort_ptr(),
+         &messages_queue,
+         &messages_queue_mutex,
+         nullptr,
+         nullptr
+      );
+   std::thread aborter(
+         emit_abort_signal_after_n_sec,
+         get_global_abort_ptr(),
+         1
+      );
 
    //server.join();
    client.join();
@@ -78,6 +89,10 @@ TEST_F(AllegroFlare_Integrations_NetworkTest, client__can_be_created_and_aborted
 TEST_F(AllegroFlare_Integrations_NetworkTest,
    FLAKEY__client_will_receive_messages_sent_by_another_client)
 {
+#if defined(_WIN32) || defined(_WIN64)
+   GTEST_SKIP() << "This test is currently not implemented for Windows.";
+#endif
+   
    // TODO
    std::vector<std::string> sending_messages_queue;
    std::mutex sending_messages_queue_mutex;
