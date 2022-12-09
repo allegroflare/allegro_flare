@@ -92,7 +92,7 @@ TEST_F(AllegroFlare_Integrations_NetworkTest,
 #if defined(_WIN32) || defined(_WIN64)
    GTEST_SKIP() << "This test is currently not implemented for Windows. The client is working on this platform in "
                    "production, but the server-and-client appear to have issues in this context. Specifically, "
-                   "client appears to be unable to connect to the server when it is running in the test."
+                   "client appears to be unable to connect to the server when it is running in the test.";
 #endif
    
    // TODO
