@@ -11,7 +11,12 @@ class Wicked_Entities_Basic2DFactoryTest : public ::testing::Test {};
 class Wicked_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
+
+#if defined(_WIN32) || defined(_WIN64)
+#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/bitmaps"
+#else
 #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps"
+#endif
 
 #include <Wicked/EntityFlagNames.hpp>
 
