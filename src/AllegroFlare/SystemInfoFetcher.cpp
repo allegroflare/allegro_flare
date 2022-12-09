@@ -106,6 +106,12 @@ static std::string get_machine_WIN()
    // Display the contents of the SYSTEM_INFO structure. 
 
    std::stringstream result;
+
+   // TODO: Update this condition to provide more accuracy. See the following link:
+   // https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info
+   if (siSysInfo.dwProcessorType == 8664) return "x86_64";
+
+   // TODO: consider including this additional information
    result << "OEM ID: " << siSysInfo.dwOemId
           << "; Number of processors: " << siSysInfo.dwNumberOfProcessors
           << "; Page size: " << siSysInfo.dwPageSize
@@ -115,22 +121,32 @@ static std::string get_machine_WIN()
           << "; Active processor mask: " << siSysInfo.dwActiveProcessorMask
           ;
 
-   // TODO: consider including this additional information
-   //printf("Hardware information: \n");
-   //printf("  OEM ID: %u\n", siSysInfo.dwOemId);
-   //printf("  Number of processors: %u\n",
-      //siSysInfo.dwNumberOfProcessors);
-   //printf("  Page size: %u\n", siSysInfo.dwPageSize);
-   //printf("  Processor type: %u\n", siSysInfo.dwProcessorType);
-   //printf("  Minimum application address: %lx\n",
-      //siSysInfo.lpMinimumApplicationAddress);
-   //printf("  Maximum application address: %lx\n",
-      //siSysInfo.lpMaximumApplicationAddress);
-   //printf("  Active processor mask: %u\n",
-      //siSysInfo.dwActiveProcessorMask);
+   return result.str();
+}
+
+static std::string get_hostname_WIN()
+{
+   constexpr int INFO_BUFFER_SIZE = 32767;
+   TCHAR  infoBuf[INFO_BUFFER_SIZE];
+   DWORD  bufCharCount = INFO_BUFFER_SIZE;
+   std::stringstream result;
+
+   // Get and display the name of the computer.
+   // TODO: Add fallbacks if getting computer name is unsuccessful
+   bool get_computer_name_successful = GetComputerName(infoBuf, &bufCharCount);
+   if (!get_computer_name_successful) std::cerr << "[AllegroFlare::SystemInfoFetcher::get_hostname()]: "
+                                                << "error: Could not extract hostname." << std::endl;
+   //if(!get_computer_name_successful) printError( TEXT("GetComputerName") );
+      //_tprintf( TEXT("\nComputer name:      %s"), infoBuf );
+   result << infoBuf;
+
+   // Get and display the user name.
+   //if( !GetUserName( infoBuf, &bufCharCount ) ) printError( TEXT("GetUserName") );
+   //_tprintf( TEXT("\nUser name:          %s"), infoBuf );
 
    return result.str();
 }
+
 #endif
  
 
@@ -200,7 +216,7 @@ std::string SystemInfoFetcher::get_machine()
 std::string SystemInfoFetcher::get_hostname()
 {
 #if defined(_WIN32) || defined(_WIN64)
-   return "[not-supported-on-this-system]";
+   return get_hostname_WIN();
 #else
    // SUSv2 guarantees that "Host names are limited to 255 bytes".
    // POSIX.1 guarantees that "Host names (not including the
