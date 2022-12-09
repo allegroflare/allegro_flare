@@ -9,7 +9,11 @@ class AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryTest : public
 class AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
-#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps"
+#if defined(_WIN32) || defined(_WIN64)
+#define TEST_FIXTURES_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/"
+#else
+#define TEST_FIXTURES_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
+#endif
 
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 
@@ -27,7 +31,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
-   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
+   bitmap_bin.set_full_path(TEST_FIXTURES_PATH "bitmaps/");
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2d_factory(&get_bitmap_bin_ref());
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity =
