@@ -63,12 +63,13 @@ TEST(Tileo_TMJDataLoaderTest, load__on_a_file_with_malformed_json__throws_an_err
    std::string filename = TMJ_MALFORMED_JSON_FIXTURE_PATH_AND_FILENAME;
    Tileo::TMJDataLoader loader(filename);
 
-   std::string expected_error_message = "[Tileo/TMJDataLoader] load() error: the file \""
-      "/Users/markoates/Repos/allegro_flare/tests/fixtures/file-with-malformed-json.tmj\" appears to have malformed "
+   std::stringstream expected_error_message;
+   expected_error_message << "[Tileo/TMJDataLoader] load() error: the file "
+      << "\"" << filename << "\" appears to have malformed "
       "JSON. The following error was thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line "
       "1, column 10: syntax error while parsing value - unexpected '}'; expected '[', '{', or a literal\"";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message.str());
 }
 
 
