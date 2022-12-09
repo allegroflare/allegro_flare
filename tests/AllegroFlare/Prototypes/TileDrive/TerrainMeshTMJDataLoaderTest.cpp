@@ -49,7 +49,8 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest, get_loaded_
 }
 
 
-TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest, load__on_a_file_that_does_not_exist__throws_an_error)
+TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
+   load__on_a_file_that_does_not_exist__throws_an_error)
 {
    std::string filename = "some-file-that-does-not-exist.tmj";
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader(filename);
@@ -61,17 +62,20 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest, load__on_a_
 }
 
 
-TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest, load__on_a_file_with_malformed_json__throws_an_error)
+TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
+   load__on_a_file_with_malformed_json__throws_an_error)
 {
    std::string filename = TMJ_MALFORMED_JSON_FIXTURE_PATH_AND_FILENAME;
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader(filename);
 
-   std::string expected_error_message = "[TileDrive::TerrainMeshTMJDataLoader] load() error: the file \""
-      "/Users/markoates/Repos/allegro_flare/tests/fixtures/file-with-malformed-json.tmj\" appears to have malformed "
-      "JSON. The following error was thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line "
-      "1, column 10: syntax error while parsing value - unexpected '}'; expected '[', '{', or a literal\"";
+   std::stringstream expected_error_message;
+   expected_error_message << "[TileDrive::TerrainMeshTMJDataLoader] load() error: the file "
+                           "\"" << filename << "\" appears to have malformed JSON. The following error was "
+                           "thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line "
+                           "1, column 10: syntax error while parsing value - unexpected '}'; expected '[', "
+                           "'{', or a literal\"";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message.str());
 }
 
 
@@ -192,7 +196,8 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_layer_num_columns__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message = "TerrainMeshTMJDataLoader::get_layer_num_columns: error: guard \"loaded\" not met";
+   std::string expected_error_message =
+      "TerrainMeshTMJDataLoader::get_layer_num_columns: error: guard \"loaded\" not met";
    ASSERT_THROW_WITH_MESSAGE(loader.get_layer_num_columns(), std::runtime_error, expected_error_message);
 }
 
@@ -210,7 +215,8 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_layer_tile_data__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message = "TerrainMeshTMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met";
+   std::string expected_error_message =
+      "TerrainMeshTMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met";
    ASSERT_THROW_WITH_MESSAGE(loader.get_layer_tile_data(), std::runtime_error, expected_error_message);
 }
 
