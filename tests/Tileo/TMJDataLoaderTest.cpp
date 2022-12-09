@@ -9,7 +9,12 @@
 
 #include <Tileo/TMJDataLoader.hpp>
 
+// TODO: improve this:
+#if defined(_WIN32) || defined(_WIN64)
+#define TMJ_FIXTURE_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/"
+#else
 #define TMJ_FIXTURE_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
+#endif
 #define TMJ_FIXTURE_WITH_MISSING_COLLISION_LAYER_FILENAME "map1.tmj"
 #define TMJ_FIXTURE_FILENAME "map1-02.tmj"
 #define TMJ_MALFORMED_JSON_FIXTURE_FILENAME "file-with-malformed-json.tmj"
