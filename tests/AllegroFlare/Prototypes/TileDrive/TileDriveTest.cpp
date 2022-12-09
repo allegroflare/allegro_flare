@@ -8,6 +8,13 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
+#if defined(_WIN32) || defined(_WIN64)
+#define TEST_FIXTURES_PATH "/msys64/home/Mark/Repos/allegro_flare/bin/data/"
+#else
+#define TEST_FIXTURES_PATH "/Users/markoates/Repos/allegro_flare/bin/data/"
+#endif
+
+
 class AllegroFlare_Prototypes_TileDrive_TileDriveTest : public ::testing::Test {};
 class AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
@@ -35,7 +42,7 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    al_reserve_samples(8);
    al_init_acodec_addon();
    AllegroFlare::SampleBin sample_bin;
-   sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples/");
+   sample_bin.set_full_path(TEST_FIXTURES_PATH "samples/");
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    AllegroFlare::Prototypes::TileDrive::TileDrive tile_drive(
@@ -44,7 +51,7 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
       &get_font_bin_ref(),
       &sample_bin
    );
-   tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
+   tile_drive.set_maps_folder(TEST_FIXTURES_PATH "maps/");
    tile_drive.set_terrain_mesh_dictionary({
       { "og-tunnel-mesh", TerrainMeshDictionaryRecord(
          "tunnel_mesh-02.tmj",
@@ -92,7 +99,7 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    AllegroFlare::SampleBin sample_bin;
-   sample_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/samples/");
+   sample_bin.set_full_path(TEST_FIXTURES_PATH "samples/");
    //sample_bin.initialize();
 
    // initialize test subject
@@ -102,7 +109,7 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    tile_drive.set_font_bin(&get_font_bin_ref());
    tile_drive.set_event_emitter(&event_emitter);
    tile_drive.set_sample_bin(&sample_bin);
-   tile_drive.set_maps_folder("/Users/markoates/Repos/allegro_flare/bin/data/maps/");
+   tile_drive.set_maps_folder(TEST_FIXTURES_PATH "maps/");
    tile_drive.get_parallax_background_ref().set_layers({
       {0, 0, 1.0 / (3.1415 / 2), get_bitmap_bin_ref().auto_get("backgrounds/Sky3.png")},
       {0, 0, 1.0 / (3.1415 / 2), get_bitmap_bin_ref().auto_get("backgrounds/Cloud3a.png")},
