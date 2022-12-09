@@ -14,9 +14,12 @@ static std::string build_full_test_name()
 }
 
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
+// TODO: fix this test fixture path from "test_fixtures/" folder to "fixtures/"
+#define TEST_FIXTURES_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/test_fixtures/"
 #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
 #else
+#define TEST_FIXTURES_PATH "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/"
 #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
 #endif
 
@@ -41,7 +44,7 @@ TEST(AllegroFlare_AudioWaveformRendererTest, draw_waveform__will_render_a_wavefo
    al_init_image_addon();
    al_init_acodec_addon();
    ALLEGRO_BITMAP *surface = al_create_bitmap(1920, 1080);
-   std::string sample_filename = "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/music_tracks/music-01.ogg";
+   std::string sample_filename = TEST_FIXTURES_PATH "music_tracks/music-01.ogg";
    ALLEGRO_SAMPLE *sample = al_load_sample(sample_filename.c_str());
    ASSERT_NE(nullptr, sample);
    al_set_target_bitmap(surface);
@@ -70,7 +73,7 @@ TEST(AllegroFlare_AudioWaveformRendererTest,
    al_init_image_addon();
    al_init_acodec_addon();
    ALLEGRO_BITMAP *surface = al_create_bitmap(1920, 1080);
-   std::string sample_filename = "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/music_tracks/music-01.ogg";
+   std::string sample_filename = TEST_FIXTURES_PATH "music_tracks/music-01.ogg";
    ALLEGRO_SAMPLE *sample = al_load_sample(sample_filename.c_str());
    ASSERT_NE(nullptr, sample);
    al_set_target_bitmap(surface);
