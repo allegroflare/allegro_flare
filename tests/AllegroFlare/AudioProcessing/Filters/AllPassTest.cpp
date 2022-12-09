@@ -4,6 +4,15 @@
 #include <AllegroFlare/AudioProcessing/Filters/AllPass.hpp>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <AllegroFlare/SampleBin.hpp>
+
+
+#if defined(_WIN32) || defined(_WIN64)
+// TODO: fix this test fixture path from "test_fixtures/" folder to "fixtures/"
+#define TEST_FIXTURES_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/test_fixtures/"
+#else
+#define TEST_FIXTURES_PATH "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/"
+#endif
 
 
 TEST(AllegroFlare_AudioProcessing_Filters_AllPassTest, can_be_created_without_blowing_up)
@@ -19,11 +28,10 @@ TEST(AllegroFlare_AudioProcessing_Filters_AllPassTest, initialize__will_not_blow
    al_init_acodec_addon();
    al_reserve_samples(32); // used to implicitly create the default mixer and default voice
 
-   std::string sample_filename =
-      //"/Users/markoates/Repos/allegro_flare/tests/test_fixtures/music_tracks/test-bips-short-130bpm-01.ogg";
-      "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/music_tracks/music-01.ogg";
+   AllegroFlare::SampleBin sample_bin;
+   sample_bin.set_full_path(TEST_FIXTURES_PATH);
 
-   ALLEGRO_SAMPLE *sample = al_load_sample(sample_filename.c_str());
+   ALLEGRO_SAMPLE *sample = sample_bin.auto_get("music_tracks/music-01.ogg");
    ASSERT_NE(nullptr, sample);
    ALLEGRO_SAMPLE_INSTANCE *sample_instance = al_create_sample_instance(sample);
    ASSERT_NE(nullptr, sample_instance);
@@ -40,8 +48,13 @@ TEST(AllegroFlare_AudioProcessing_Filters_AllPassTest, initialize__will_not_blow
 
    al_rest(3);
 
+   // TODO: audit this destruction sequence
+   al_stop_sample_instance(sample_instance);
+   al_detach_sample_instance(sample_instance);
+   al_destroy_sample_instance(sample_instance);
+   sample_bin.clear();
    al_uninstall_audio();
-   // al_shugdown_acodec_addon(); // <- does not exist
+   // al_shutdown_acodec_addon(); // <- does not exist
    al_uninstall_system();
 }
 
