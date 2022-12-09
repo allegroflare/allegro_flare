@@ -173,9 +173,9 @@ std::string MeshWithNormals::obtain_fragment_source()
 
        if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
        {
-         c = alter_by_normal_texture_color(c, normal_c);
-         c = alter_by_tint(c);
-         c = downsample_color_8bit(c);
+         alter_by_normal_texture_color(c, normal_c);
+         alter_by_tint(c);
+         downsample_color_8bit(c);
 
          gl_FragColor = c;
        }
