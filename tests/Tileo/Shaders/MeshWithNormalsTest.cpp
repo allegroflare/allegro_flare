@@ -12,6 +12,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_color.h>
 #include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/BitmapBin.hpp>
 
 
 class Tileo_Shaders_MeshWithNormalsTest : public ::testing::Test
@@ -84,16 +85,15 @@ TEST_F(Tileo_Shaders_MeshWithNormalsTest, activate__works_without_blowing_up)
 TEST_F(Tileo_Shaders_MeshWithNormalsTest, when_active__renders_the_image_with_the_flat_color)
 {
    Tileo::Shaders::MeshWithNormals flat_color_shader;
+   AllegroFlare::BitmapBin bitmap_bin;
+   bitmap_bin.set_full_path("/Users/markoates/Repos/hexagon/tests/fixtures/data/");
 
    flat_color_shader.initialize();
    flat_color_shader.activate();
 
    al_init_image_addon();
 
-   ALLEGRO_BITMAP *test_image =
-      al_load_bitmap("/Users/markoates/Repos/hexagon/tests/fixtures/data/bitmaps/billboarding_tester_sprite.png");
-   ASSERT_NE(nullptr, test_image);
-
+   ALLEGRO_BITMAP *test_image = bitmap_bin.auto_get("bitmaps/billboarding_tester_sprite.png");
 
    ALLEGRO_COLOR color = al_color_name("red");
 
