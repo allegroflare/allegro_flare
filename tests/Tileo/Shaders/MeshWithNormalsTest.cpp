@@ -86,7 +86,7 @@ TEST_F(Tileo_Shaders_MeshWithNormalsTest, when_active__renders_the_image_with_th
 {
    Tileo::Shaders::MeshWithNormals flat_color_shader;
    AllegroFlare::BitmapBin bitmap_bin;
-   bitmap_bin.set_full_path("/Users/markoates/Repos/hexagon/tests/fixtures/data/");
+   bitmap_bin.set_full_path("/Users/markoates/Repos/allegro_flare/tests/fixtures/");
 
    flat_color_shader.initialize();
    flat_color_shader.activate();
