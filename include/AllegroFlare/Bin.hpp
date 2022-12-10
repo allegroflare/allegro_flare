@@ -28,7 +28,7 @@ namespace AllegroFlare
          ~Record();
       };
 
-      bool set_cout_record_names_on_clear(bool cout_record_names_on_clear=false);
+      void set_cout_record_names_on_clear(bool cout_record_names_on_clear=false);
 
       Bin(std::string type="Bin");
       void set_path(std::string directory); // <- hmm
@@ -261,7 +261,7 @@ namespace AllegroFlare
 
 
    template<class T2, class T>
-   bool Bin<T2, T>::set_cout_record_names_on_clear(bool cout_record_names_on_clear)
+   void Bin<T2, T>::set_cout_record_names_on_clear(bool cout_record_names_on_clear)
    {
       this->cout_record_names_on_clear = cout_record_names_on_clear;
    }
