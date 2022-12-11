@@ -111,9 +111,17 @@ public:
       post_message(message);
    }
 
-   void send_run_build_process(std::string platform="windows", std::string source_release_zip_url="http://foo.io/release-1234.zip")
+   void send_run_build_process(
+         std::string platform="windows",
+         std::string source_release_zip_url="http://foo.io/release-1234.zip",
+         std::string name_of_source_release_folder="FoobarProject-SourcRelease-221209175604UTC"
+      )
    {
-      std::string message = message_factory.build_run_build_process_message_json(platform, source_release_zip_url);
+      std::string message = message_factory.build_run_build_process_message_json(
+            platform,
+            source_release_zip_url,
+            name_of_source_release_folder
+        );
       post_message(message);
    }
 
