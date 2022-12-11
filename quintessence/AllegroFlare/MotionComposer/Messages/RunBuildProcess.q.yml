@@ -1,0 +1,32 @@
+parent_classes:
+
+
+  - class: AllegroFlare::MotionComposer::Messages::Base
+    scope: public
+    init_with: AllegroFlare::MotionComposer::Messages::RunBuildProcess::TYPE
+
+
+properties:
+
+
+  - name: platform
+    type: std::string
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"Messages/RunBuildProcess"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MotionComposer::Messages::Base
+    headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
+
+
