@@ -145,8 +145,9 @@ public:
          else if (message_to_execute->is_type(Messages::RunBuildProcess::TYPE))
          {
             Messages::RunBuildProcess *typed_message = static_cast<Messages::RunBuildProcess*>(message_to_execute);
-            std::string platform = typed_message->get_platform_ref();
-            run_build_process(platform);
+            std::string platform = typed_message->get_platform();
+            std::string source_release_zip_url = typed_message->get_source_release_zip_url();
+            run_build_process(platform, source_release_zip_url);
          }
          else
          {
@@ -191,7 +192,7 @@ public:
       playhead_position = position;
    }
 
-   void run_build_process(std::string platform)
+   void run_build_process(std::string platform, std::string source_release_zip_url)
    {
       // TODO: here!!
    }

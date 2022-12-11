@@ -111,9 +111,9 @@ public:
       post_message(message);
    }
 
-   void send_run_build_process(std::string platform="windows")
+   void send_run_build_process(std::string platform="windows", std::string source_release_zip_url="http://foo.io/release-1234.zip")
    {
-      std::string message = message_factory.build_run_build_process_message_json(platform);
+      std::string message = message_factory.build_run_build_process_message_json(platform, source_release_zip_url);
       post_message(message);
    }
 
@@ -168,7 +168,7 @@ public:
          send_set_playhead(0.0);
          break;
       case ALLEGRO_KEY_B:
-         run_build_process("windows");
+         send_run_build_process("windows");
          break;
       case ALLEGRO_KEY_A: 
          send_create_test_actor();

@@ -53,9 +53,9 @@ std::string MessageFactory::build_clear_message_json()
    return json.dump(2);
 }
 
-std::string MessageFactory::build_run_build_process_message_json(std::string platform)
+std::string MessageFactory::build_run_build_process_message_json(std::string platform, std::string source_release_zip_url)
 {
-   AllegroFlare::MotionComposer::Messages::RunBuildProcess message(platform);
+   AllegroFlare::MotionComposer::Messages::RunBuildProcess message(platform, source_release_zip_url);
    nlohmann::json json;
    json["message"] = message;
    json["message"]["type"] = message.get_type();

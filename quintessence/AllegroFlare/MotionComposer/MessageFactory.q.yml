@@ -50,8 +50,11 @@ functions:
       - name: platform
         type: std::string
         default_argument: '"[unset-platform]"'
+      - name: source_release_zip_url
+        type: std::string
+        default_argument: '"[unset-source_release_zip_url]"'
     body: |
-       AllegroFlare::MotionComposer::Messages::RunBuildProcess message(platform);
+       AllegroFlare::MotionComposer::Messages::RunBuildProcess message(platform, source_release_zip_url);
        nlohmann::json json;
        json["message"] = message;
        json["message"]["type"] = message.get_type();
