@@ -111,6 +111,12 @@ public:
       post_message(message);
    }
 
+   void send_run_build_process(std::string platform="windows")
+   {
+      std::string message = message_factory.build_run_build_process_message_json(platform);
+      post_message(message);
+   }
+
    void send_create_test_actor()
    {
       std::vector<std::string> script_lines = {
@@ -160,6 +166,9 @@ public:
       {
       case ALLEGRO_KEY_R: 
          send_set_playhead(0.0);
+         break;
+      case ALLEGRO_KEY_B:
+         run_build_process("windows");
          break;
       case ALLEGRO_KEY_A: 
          send_create_test_actor();

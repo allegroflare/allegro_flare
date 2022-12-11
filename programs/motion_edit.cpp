@@ -22,6 +22,7 @@
 #include <AllegroFlare/MotionComposer/Messages/AddActor2D.hpp>
 #include <AllegroFlare/MotionComposer/Messages/TogglePlayback.hpp>
 #include <AllegroFlare/MotionComposer/Messages/Clear.hpp>
+#include <AllegroFlare/MotionComposer/Messages/RunBuildProcess.hpp>
 
 
 #include <AllegroFlare/MotionFX/Sparkles2.hpp>
@@ -141,6 +142,12 @@ public:
             //Messages::Clear *typed_message = static_cast<Messages::Clear*>(message_to_execute);
             clear();
          }
+         else if (message_to_execute->is_type(Messages::RunBuildProcess::TYPE))
+         {
+            Messages::RunBuildProcess *typed_message = static_cast<Messages::RunBuildProcess*>(message_to_execute);
+            std::string platform = typed_message->get_platform_ref();
+            run_build_process(platform);
+         }
          else
          {
             std::stringstream error_message;
@@ -182,6 +189,11 @@ public:
    void set_playhead_position(float position=0.0)
    {
       playhead_position = position;
+   }
+
+   void run_build_process(std::string platform)
+   {
+      // TODO: here!!
    }
 
    void add_actor2d_with_script(std::string identifier, std::string bitmap_identifier, std::string script)
