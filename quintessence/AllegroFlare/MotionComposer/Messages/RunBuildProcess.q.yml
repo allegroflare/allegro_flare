@@ -12,7 +12,8 @@ properties:
   - name: platform
     type: std::string
     constructor_arg: true
-    init_with: '{}'
+    init_with: '"[unset-platform]"'
+    getter_ref: true
     getter: true
     setter: true
 

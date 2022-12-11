@@ -1296,6 +1296,7 @@
     "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/MotionComposer/MessageProcessor",
     "AllegroFlare/MotionComposer/Messages/AddActor2D",
+    "AllegroFlare/MotionComposer/Messages/RunBuildProcess",
     "AllegroFlare/MotionComposer/Messages/SetPlayheadPosition",
     "AllegroFlare/MotionComposer/Messages/SetScript"
   ],
