@@ -10,12 +10,13 @@
 TEST(AllegroFlare_JSONLoaders_MotionComposer_Messages_RunBuildProcessTest,
    to_json__returns_the_object_as_json_with_the_expected_values)
 {
-   AllegroFlare::MotionComposer::Messages::RunBuildProcess run_build_process("windows");
+   AllegroFlare::MotionComposer::Messages::RunBuildProcess run_build_process("windows", "https://foo.io/release42.zip");
    nlohmann::json j = run_build_process;
 
    std::string expected_values =
 R"({
-  "platform": "windows"
+  "platform": "windows",
+  "source_release_zip_url": "https://foo.io/release42.zip"
 })";
 
    std::string actual_values = j.dump(2);
@@ -30,13 +31,14 @@ TEST(AllegroFlare_JSONLoaders_MotionComposer_Messages_RunBuildProcessTest,
 
    std::string json =
 R"({
-  "platform": "windows"
+  "platform": "windows",
+  "source_release_zip_url": "https://foo.io/release42.zip"
 })";
 
    nlohmann::json parsed_json = nlohmann::json::parse(json);
    parsed_json.get_to(run_build_process);
 
-   AllegroFlare::MotionComposer::Messages::RunBuildProcess expected("windows");
+   AllegroFlare::MotionComposer::Messages::RunBuildProcess expected("windows", "https://foo.io/release42.zip");
 
    EXPECT_EQ(expected, run_build_process);
 }
