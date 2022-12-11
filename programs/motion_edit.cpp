@@ -26,7 +26,7 @@
 
 
 #include <AllegroFlare/MotionFX/Sparkles2.hpp>
-
+#include <AllegroFlare/UsefulPHP.hpp>
 
 #include <AllegroFlare/Timeline/ActorFactory.hpp>
 
@@ -194,7 +194,10 @@ public:
 
    void run_build_process(std::string platform, std::string source_release_zip_url)
    {
-      // TODO: here!!
+      std::string BUILD_INFO_FILE = "/Users/markoates/Releases/release_info.txt";
+      std::string build_info_file_contents = "platform: " + platform + "\nsource_release_zip_url: " + source_release_zip_url;
+      AllegroFlare::php::file_put_contents(BUILD_INFO_FILE, build_info_file_contents);
+      std::cout << "[programs/motion_edit::MotionEdit::run_build_process()] info: Updated ~/Releases/release_info.txt." << std::endl;
    }
 
    void add_actor2d_with_script(std::string identifier, std::string bitmap_identifier, std::string script)
