@@ -154,7 +154,8 @@ public:
             Messages::RunBuildProcess *typed_message = static_cast<Messages::RunBuildProcess*>(message_to_execute);
             std::string platform = typed_message->get_platform();
             std::string source_release_zip_url = typed_message->get_source_release_zip_url();
-            run_build_process(platform, source_release_zip_url);
+            std::string name_of_source_release_folder = typed_message->get_name_of_source_release_folder();
+            run_build_process(platform, source_release_zip_url, name_of_source_release_folder);
          }
          else
          {
@@ -199,9 +200,13 @@ public:
       playhead_position = position;
    }
 
-   void run_build_process(std::string platform, std::string source_release_zip_url)
+   void run_build_process(std::string platform, std::string source_release_zip_url, std::string name_of_source_release_folder)
    {
-      std::string build_info_file_contents = "platform: " + platform + "\nsource_release_zip_url: " + source_release_zip_url;
+      std::string build_info_file_contents = "platform = " + platform + "\n"
+                                             "source_release_zip_url = " + source_release_zip_url + "\n"
+                                             "name_of_source_release_folder = " + name_of_source_release_folder + "\n"
+                                           ;
+
       std::cout << "FULL_PATH_TO_BUILD_INFO_FILE: " << FULL_PATH_TO_BUILD_INFO_FILE << std::endl;
       std::cout << "build_info_file_contents: " << std::endl << build_info_file_contents << std::endl;
       AllegroFlare::php::file_put_contents(FULL_PATH_TO_BUILD_INFO_FILE, build_info_file_contents);
