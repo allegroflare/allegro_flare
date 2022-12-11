@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/MotionComposer/Messages/RunBuildProcess.hpp>
+// TODO: this needs to be moved to:
 //#include <AllegroFlare/Testing/Comparison/AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess.hpp>
 
 
@@ -36,8 +38,7 @@ R"({
 
    AllegroFlare::MotionComposer::Messages::RunBuildProcess expected("windows");
 
-   // TODO: add comparison
-   //EXPECT_EQ(expected, run_build_process);
+   EXPECT_EQ(expected, run_build_process);
 }
 
 

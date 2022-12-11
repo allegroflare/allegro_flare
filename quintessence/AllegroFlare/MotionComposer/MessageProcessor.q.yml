@@ -166,10 +166,6 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::MotionComposer::Messages::Base*
-    headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
-  - symbol: std::vector<AllegroFlare::MotionComposer::Messages::Base*>
-    headers: [ vector, AllegroFlare/MotionComposer/Messages/Base.hpp ]
   - symbol: nlohmann::json
     headers: [ lib/nlohmann/json.hpp ]
   - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
@@ -180,7 +176,6 @@ dependencies:
     headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp ]
   - symbol: AllegroFlare::JSONLoaders::AllegroFlare::MotionComposer::Messages::AddActor2D
     headers: [ AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp ]
-
   - symbol: AllegroFlare::MotionComposer::Messages::Base
     headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
 
