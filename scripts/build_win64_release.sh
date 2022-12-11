@@ -3,10 +3,17 @@
 
 ## TODO: validate "unzip" is present
 
+# https://drive.google.com/file/d/15hxKFtqS_wSF7JeNXAapgarmYrEK5bdi/view?usp=share_link
+# https://drive.google.com/uc?export=download&id=15hxKFtqS_wSF7JeNXAapgarmYrEK5bdi
+# https://drive.google.com/uc?export=download&id=15hxKFtqS_wSF7JeNXAapgarmYrEK5bdi
+# SOURCE_TOKEN="1NyqegdnLt8auGmsZfq9aeIBAbUmv-I6N";
 
-SOURCE_URL="https://drive.google.com/uc?export=download&id=1NyqegdnLt8auGmsZfq9aeIBAbUmv-I6N";
+SOURCE_TOKEN="15hxKFtqS_wSF7JeNXAapgarmYrEK5bdi"
 SOURCE_FOLDER_NAME="Krampus22_test1-SourceRelease-221209225033UTC"
 
+
+
+SOURCE_URL="https://drive.google.com/uc?export=download&id=$SOURCE_TOKEN";
 TEMP_BUILD_DIR="/c/Users/Mark/Desktop/temp_location_for_building/"
 FOOBAR="local_zip_name.zip"
 FOOBAR_WITHOUT_ZIP="local_zip_name"
