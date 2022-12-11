@@ -1282,6 +1282,10 @@
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor"
   ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess": [
+    "AllegroFlare/MotionComposer/MessageFactory",
+    "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
   "nlohmann/json": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor",

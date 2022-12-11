@@ -44,6 +44,23 @@ functions:
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::Clear
 
 
+  - name: build_run_build_process_message_json
+    type: std::string
+    parameters:
+      - name: platform
+        type: std::string
+        default_argument: '"[unset-platform]"'
+    body: |
+       AllegroFlare::MotionComposer::Messages::RunBuildProcess message(platform);
+       nlohmann::json json;
+       json["message"] = message;
+       json["message"]["type"] = message.get_type();
+       return json.dump(2);
+    body_dependency_symbols:
+      - nlohmann::json
+      - AllegroFlare::JSONLoaders::MotionComposer::Messages::RunBuildProcess
+
+
   - name: build_add_actor2d_with_script_message_json
     type: std::string
     parameters:
@@ -86,6 +103,8 @@ dependencies:
     headers: [ AllegroFlare/MotionComposer/Messages/SetPlayheadPosition.hpp ]
   - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition
     headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::RunBuildProcess
+    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess.hpp ]
   - symbol: nlohmann::json
     headers: [ lib/nlohmann/json.hpp ]
 

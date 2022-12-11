@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/Clear.hpp>
+#include <AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp>
 #include <AllegroFlare/JSONLoaders/MotionComposer/Messages/TogglePlayback.hpp>
 #include <lib/nlohmann/json.hpp>
@@ -162,6 +163,14 @@ AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_fr
          {
             AllegroFlare::MotionComposer::Messages::TogglePlayback *typed_result =
                new AllegroFlare::MotionComposer::Messages::TogglePlayback();
+            parsed_json["message"].get_to(*typed_result);
+            result = typed_result;
+         }
+         else if (type == AllegroFlare::MotionComposer::Messages::RunBuildProcess::TYPE)
+         //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
+         {
+            AllegroFlare::MotionComposer::Messages::RunBuildProcess *typed_result =
+               new AllegroFlare::MotionComposer::Messages::RunBuildProcess();
             parsed_json["message"].get_to(*typed_result);
             result = typed_result;
          }

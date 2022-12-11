@@ -144,6 +144,14 @@ functions:
                parsed_json["message"].get_to(*typed_result);
                result = typed_result;
             }
+            else if (type == AllegroFlare::MotionComposer::Messages::RunBuildProcess::TYPE)
+            //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
+            {
+               AllegroFlare::MotionComposer::Messages::RunBuildProcess *typed_result =
+                  new AllegroFlare::MotionComposer::Messages::RunBuildProcess();
+               parsed_json["message"].get_to(*typed_result);
+               result = typed_result;
+            }
             else
             {
                std::stringstream error_message;
@@ -161,6 +169,7 @@ functions:
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::TogglePlayback
       - AllegroFlare::JSONLoaders::MotionComposer::Messages::Clear
       - AllegroFlare::JSONLoaders::AllegroFlare::MotionComposer::Messages::AddActor2D
+      - AllegroFlare::JSONLoaders::MotionComposer::Messages::RunBuildProcess
 
 
 dependencies:
@@ -178,5 +187,7 @@ dependencies:
     headers: [ AllegroFlare/JSONLoaders/AllegroFlare/MotionComposer/Messages/AddActor2D.hpp ]
   - symbol: AllegroFlare::MotionComposer::Messages::Base
     headers: [ AllegroFlare/MotionComposer/Messages/Base.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::MotionComposer::Messages::RunBuildProcess
+    headers: [ AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess.hpp ]
 
 

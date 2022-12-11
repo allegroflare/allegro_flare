@@ -5934,6 +5934,9 @@ table td
   <td class="method">build_clear_message_json()</td>
 </tr>
 <tr>
+  <td class="method">build_run_build_process_message_json(1)</td>
+</tr>
+<tr>
   <td class="method">build_add_actor2d_with_script_message_json(3)</td>
 </tr>
     </table>
@@ -5961,6 +5964,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::MotionComposer::Messages::SetPlayheadPosition&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::MotionComposer::Messages::RunBuildProcess&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
@@ -6016,6 +6022,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionComposer::Messages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionComposer/Messages/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::MotionComposer::Messages::RunBuildProcess&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -18451,6 +18460,10 @@ table td
     "AllegroFlare/MotionComposer/MessageFactory"
   ],
   "AllegroFlare/JSONLoaders/MotionComposer/Messages/SetPlayheadPosition": [
+    "AllegroFlare/MotionComposer/MessageFactory",
+    "AllegroFlare/MotionComposer/MessageProcessor"
+  ],
+  "AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor"
   ],
