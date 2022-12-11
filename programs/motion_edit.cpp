@@ -39,6 +39,13 @@ std::vector<std::string> message_queue = {};
 
 
 
+#define BUILD_INFO_FILENAME "release_info.txt"
+#if defined(_WIN32) || defined(_WIN64)
+#define FULL_PATH_TO_BUILD_INFO_FILE ("/Users/markoates/Releases/" BUILD_INFO_FILENAME)
+#else
+#define FULL_PATH_TO_BUILD_INFO_FILE ("/msys64/home/Mark/Releases" BUILD_INFO_FILENAME)
+#endif
+
 
 
 class MotionEdit : public AllegroFlare::Screens::Base
@@ -194,9 +201,8 @@ public:
 
    void run_build_process(std::string platform, std::string source_release_zip_url)
    {
-      std::string BUILD_INFO_FILE = "/Users/markoates/Releases/release_info.txt";
       std::string build_info_file_contents = "platform: " + platform + "\nsource_release_zip_url: " + source_release_zip_url;
-      AllegroFlare::php::file_put_contents(BUILD_INFO_FILE, build_info_file_contents);
+      AllegroFlare::php::file_put_contents(FULL_PATH_TO_BUILD_INFO_FILE, build_info_file_contents);
       std::cout << "[programs/motion_edit::MotionEdit::run_build_process()] info: Updated ~/Releases/release_info.txt." << std::endl;
    }
 
