@@ -17,6 +17,14 @@ properties:
     getter: true
     setter: true
 
+  - name: name_of_source_release_folder
+    type: std::string
+    constructor_arg: true
+    init_with: '"[unset-name_of_source_release_folder]"'
+    getter_ref: true
+    getter: true
+    setter: true
+
   - name: source_release_zip_url
     type: std::string
     constructor_arg: true
