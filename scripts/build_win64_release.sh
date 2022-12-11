@@ -3,13 +3,13 @@
 
 ## CRITICAL: validate an arg is present representing the download token
 
-if [ $# -ne 1 ]; then
+if [ $# -ne 2 ]; then
     echo ""
-    echo "!! Error: Incorrect number of arguments provided. You must provide a token corresponding to the google drive's file id."
+    echo "!! Error: Incorrect number of arguments provided. You must provide a token corresponding to the google drive's file id and the expected source release folder name."
     echo ""
     echo "Example:"
     echo ""
-    echo "./bin/scripts 15hxKFtqS_wSF7JeNXAapgarmYrEK5bdi"
+    echo "./bin/scripts 15hxKFtqS_wSF7JeNXAapgarmYrEK5bdi TheWeepingHouse-SourceRelease-221209225033UTC"
     exit 1
 fi
 
@@ -39,13 +39,26 @@ fi
 
 if [[ $1 =~ ^[0-9a-zA-Z_-]+$ ]]
 then
-    echo "✅ Argument format validated."
+    echo "."
 else
-    echo "Error. Argument contains invalid characters."
+    echo "Error. First argument contains invalid characters."
     exit 4
 fi
 
 
+
+## CRITICAL: validate the second arg contains only the expected characters, numbers, and symbols ('-' and '_')
+
+if [[ $1 =~ ^[0-9a-zA-Z_-]+$ ]]
+then
+    echo "."
+else
+    echo "Error. Second argument contains invalid characters."
+    exit 5
+fi
+
+
+echo "✅ Argument format validated."
 
 ## Assign the arg token to the value here:
 
@@ -54,7 +67,8 @@ SOURCE_TOKEN=$1
 
 
 
-SOURCE_FOLDER_NAME="Krampus22_test1-SourceRelease-221209225033UTC"
+# SOURCE_FOLDER_NAME="Krampus22_test1-SourceRelease-221209225033UTC"
+SOURCE_FOLDER_NAME=$2
 
 
 
@@ -90,6 +104,19 @@ curl -L -o $TEMP_BUILD_DIR$FOOBAR $SOURCE_URL
 (cd $TEMP_BUILD_DIR || exit 1)
 
 (cd $TEMP_BUILD_DIR && (unzip $FOOBAR || exit 1))
+
+
+## TODO: CRITICAL: verify and validate that the expected folder exists in the zip file
+
+#(cd $TEMP_BUILD_DIR &&\
+#if [ -d $SOURCE_FOLDER_NAME ] \
+#then
+    #echo "Directory /path/to/dir exists."
+#else
+    #echo "Error: Directory /path/to/dir does not exists."
+    #exit 6
+#fi
+#)
 
 (cd $TEMP_BUILD_DIR && cd $SOURCE_FOLDER_NAME && make)
 
