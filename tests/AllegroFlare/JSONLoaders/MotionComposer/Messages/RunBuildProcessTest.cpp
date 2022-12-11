@@ -19,9 +19,9 @@ TEST(AllegroFlare_JSONLoaders_MotionComposer_Messages_RunBuildProcessTest,
 
    std::string expected_values =
 R"({
+  "name_of_source_release_folder": "KrampusHack22-SourceRelease-221209175604UTC",
   "platform": "windows",
-  "source_release_zip_url": "https://foo.io/release42.zip",
-  "name_of_source_release_folder": "KrampusHack22-SourceRelease-221209175604UTC"
+  "source_release_zip_url": "https://foo.io/release42.zip"
 })";
 
    std::string actual_values = j.dump(2);
@@ -36,9 +36,9 @@ TEST(AllegroFlare_JSONLoaders_MotionComposer_Messages_RunBuildProcessTest,
 
    std::string json =
 R"({
+  "name_of_source_release_folder": "KrampusHack22-SourceRelease-221209175604UTC",
   "platform": "windows",
-  "source_release_zip_url": "https://foo.io/release42.zip",
-  "name_of_source_release_folder": "KrampusHack22-SourceRelease-221209175604UTC"
+  "source_release_zip_url": "https://foo.io/release42.zip"
 })";
 
    nlohmann::json parsed_json = nlohmann::json::parse(json);

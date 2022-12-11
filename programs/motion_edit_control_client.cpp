@@ -14,6 +14,7 @@
 #include <iostream>
 
 #include <AllegroFlare/Network2/URLTokenizer.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 
 #include <AllegroFlare/MotionComposer/MessageFactory.hpp>
@@ -117,6 +118,23 @@ public:
          std::string name_of_source_release_folder="FoobarProject-SourcRelease-221209175604UTC"
       )
    {
+      std::string SOURCE_BUILD_INFO_FILE = "/Users/markoates/Releases/outgoing_build_info.txt";
+      std::vector<std::string> result_lines = AllegroFlare::php::file_get_contents_split(SOURCE_BUILD_INFO_FILE);
+
+      if (result_lines.size() != 3)
+      {
+         // TODO: improve this error message
+         std::cerr << "ERROR: send_run_build_process not work good: 2" << std::endl;
+         return;
+      }
+      else
+      {
+         platform = result_lines[0];
+         source_release_zip_url = result_lines[1];
+         name_of_source_release_folder = result_lines[2];
+      }
+
+
       std::string message = message_factory.build_run_build_process_message_json(
             platform,
             source_release_zip_url,
