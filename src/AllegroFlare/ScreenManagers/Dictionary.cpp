@@ -197,6 +197,12 @@ std::string Dictionary::get_currently_active_screen_name()
 }
 
 
+bool Dictionary::no_active_screens()
+{
+   for (auto &screen : screens) if (screen.second.active) return false;
+   return true;
+}
+
 
 std::map<std::string, Dictionary::Listing> Dictionary::get_dictionary_copy()
 {

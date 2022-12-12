@@ -59,6 +59,7 @@ namespace AllegroFlare
          //void show(std::string name);
          //void hide(std::string name);
          int get_num_screens();
+         bool no_active_screens();
          std::map<std::string, Listing> get_dictionary_copy();
 
          // for processing

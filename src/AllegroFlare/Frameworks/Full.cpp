@@ -326,6 +326,8 @@ bool Full::shutdown()
 {
    if (!initialized) return false;
 
+   al_destroy_font(builtin_font);
+
    // TODO autit this function
    samples.clear();
    bitmaps.clear();
