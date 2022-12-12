@@ -155,6 +155,8 @@ namespace AllegroFlare
 
          uint32_t register_event_callback(std::function<void(ALLEGRO_EVENT*, void*)> callback, void* user_data);
          bool unregister_event_callback(uint32_t id);
+
+         void draw_no_active_screens_text();
       };
    } // namespace Frameworks
 } // namespace AllegroFlare

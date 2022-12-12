@@ -578,7 +578,14 @@ void Full::primary_render()
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
    al_clear_depth_buffer(1);
 
-   screens.primary_timer_funcs();
+   if (screens.no_active_screens())
+   {
+      draw_no_active_screens_text();
+   }
+   else
+   {
+      screens.primary_timer_funcs();
+   }
 
    al_set_target_bitmap(primary_sub_bitmap);
    draw_overlay();
@@ -1111,6 +1118,24 @@ bool Full::unregister_event_callback(uint32_t id)
    if (event_callbacks.count(id) == 0) return false;
    event_callbacks.erase(id);
    return true;
+}
+
+
+void Full::draw_no_active_screens_text()
+{
+   if (!primary_display) return;
+   int surface_width = 1920; //al_get_display_height();
+   int surface_height = 1080; // al_get_display_height(primary_height);
+   int font_height = al_get_font_line_height(builtin_font);
+
+   al_draw_text(
+      builtin_font,
+      ALLEGRO_COLOR{0.8, 0.8, 0.8, 0.8},
+      surface_width/2,
+      surface_height/2 - font_height/2,
+      ALLEGRO_ALIGN_CENTER,
+      "No screens are currently active"
+   );
 }
 
 
