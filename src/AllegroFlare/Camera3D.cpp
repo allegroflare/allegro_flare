@@ -4,6 +4,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 
 #include <algorithm>
+#include <stdexcept>
 #include <cmath>
 
 
