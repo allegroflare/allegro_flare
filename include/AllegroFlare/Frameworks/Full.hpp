@@ -2,6 +2,7 @@
 
 
 #include <string>
+#include <functional>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_native_dialog.h>
@@ -63,7 +64,7 @@ namespace AllegroFlare
 
          void draw_overlay();
         
-         std::map<int, std::pair<std::function<void(ALLEGRO_EVENT*, void*)>, void*>> event_callbacks;
+         std::map<uint32_t, std::pair<std::function<void(ALLEGRO_EVENT*, void*)>, void*>> event_callbacks;
          uint32_t next_event_callback_id;
 
          friend class AllegroFlare_Frameworks_FullTest;
