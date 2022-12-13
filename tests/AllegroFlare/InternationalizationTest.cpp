@@ -96,7 +96,7 @@ TEST_F(AllegroFlare_InternationalizationTest,
 TEST_F(AllegroFlare_InternationalizationTest, returns_a_list_of_language_files_in_the_languages_folder)
 {
    std::vector<std::string> expected_files = {"en.txt", "fr.txt", "it.txt"};
-   std::vector<std::string> returned_files = internationalization.get_language_filenames();
+   std::vector<std::string> returned_files = internationalization.find_language_filenames();
 
    EXPECT_THAT(returned_files, ::testing::UnorderedElementsAreArray(expected_files.begin(), expected_files.end()));
 }
@@ -247,8 +247,9 @@ TEST_F(AllegroFlare_InternationalizationTest,
 
 
 
-TEST_F(AllegroFlare_InternationalizationTest, DISABLED__formats_a_translation_with_variable_args)
-   // TODO: test crashes on Windows
+TEST_F(AllegroFlare_InternationalizationTest, formats_a_translation_with_variable_args)
+   // NOTE: This test previously crashed on Windows. It's been modified when on a Mac and has since been unDISABLED.
+   // TODO: See if this test works on Win and remove these comments.
 {
    internationalization.set_language("en");
    EXPECT_EQ("Travel time is 6 hours and 45 minutes.", internationalization.tf("travel_time", 6, 45));

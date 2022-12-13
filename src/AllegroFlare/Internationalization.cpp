@@ -65,7 +65,7 @@ std::string Internationalization::find_language_file(std::string language_code)
 {
    if (language_code.empty()) return "";
 
-   std::vector<std::string> filenames = get_language_filenames();
+   std::vector<std::string> filenames = find_language_filenames();
 
    for (auto &filename : filenames)
    {
@@ -111,7 +111,11 @@ std::string Internationalization::get_language()
 
 
 
-bool Internationalization::load_language_file(std::string as_language_code, std::string as_language_name, std::string filename)
+bool Internationalization::load_language_file(
+      std::string as_language_code,
+      std::string as_language_name,
+      std::string filename
+   )
 {
    if (!al_filename_exists(filename.c_str()))
    {
@@ -186,15 +190,9 @@ std::string Internationalization::tf(std::string text_label, ...)
 {
    std::string format = lines[text_label];
    char buff[512];
-
    va_list args;
 
-// TODO: see if this #pragma warning silencing can be removed
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wvarargs"
-   va_start(args, format);
-#pragma clang diagnostic pop
-
+   va_start(args, text_label);
    vsnprintf(buff, sizeof(buff), format.c_str(), args);
    va_end(args);
 
@@ -204,7 +202,7 @@ std::string Internationalization::tf(std::string text_label, ...)
 
 
 
-std::vector<std::string> Internationalization::get_language_filenames()
+std::vector<std::string> Internationalization::find_language_filenames()
 {
    std::vector<std::string> results;
    ALLEGRO_FS_ENTRY* dir = al_create_fs_entry(languages_folder.c_str());

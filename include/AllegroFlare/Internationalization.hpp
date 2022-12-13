@@ -33,7 +33,7 @@ namespace AllegroFlare
       bool t_exists(std::string text_label);
       std::string t(std::string text_label);
       std::string tf(std::string text_label, ...);
-      std::vector<std::string> get_language_filenames();
+      std::vector<std::string> find_language_filenames();
       std::string find_language_file(std::string language_code);
    };
 }
