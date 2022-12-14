@@ -100,6 +100,10 @@ namespace AllegroFlare
       , anchor(0, 0)
       , flip(false, false)
       , rotation(0)
+      , x(position.x)
+      , y(position.y)
+      , w(size.x)
+      , h(size.y)
    {}
 
 
@@ -113,6 +117,10 @@ namespace AllegroFlare
       , anchor(0, 0)
       , flip(false, false)
       , rotation(0)
+      , x(position.x)
+      , y(position.y)
+      , w(size.x)
+      , h(size.y)
    {}
 
 
@@ -126,6 +134,10 @@ namespace AllegroFlare
       , anchor(anchor_x, anchor_y)
       , flip(false, false)
       , rotation(rotation)
+      , x(position.x)
+      , y(position.y)
+      , w(size.x)
+      , h(size.y)
    {}
 
 
