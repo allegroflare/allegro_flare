@@ -124,7 +124,10 @@ bool Dictionary::remove(Screens::Base *screen)
    }
    else
    {
-      
+      throw std::runtime_error("[Dictionary::remove]: critical error: This feature is currently not implemented. "
+                               "If you need it, it wouldn't be hard to implement. There's already code that does "
+                               "all the work it just needs to be assembled."
+                               );
       return true;
    }
 

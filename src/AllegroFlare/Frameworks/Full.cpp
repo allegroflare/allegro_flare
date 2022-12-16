@@ -25,6 +25,7 @@
 #include <AllegroFlare/NotificationsFactory.hpp>
 
 
+
 namespace AllegroFlare
 {
 namespace Frameworks
@@ -211,7 +212,7 @@ bool Full::initialize_without_display()
 
 
    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
-   //	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+   //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
    builtin_font = al_create_builtin_font();
 
@@ -799,6 +800,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   break;
 
                   case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
+                    // TODO: extract more relevant data and inject into this function
                     screens.virtual_control_axis_change_funcs(&this_event);
                   break;
 
@@ -934,11 +936,15 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                         }
                      }
                   break;
+
+                  default:
+                     screens.user_event_funcs(&this_event);
+                  break;
                }
             }
             else
             {
-               screens.user_event_funcs(&this_event);
+               //screens.user_event_funcs(&this_event);
             }
          }
          else
