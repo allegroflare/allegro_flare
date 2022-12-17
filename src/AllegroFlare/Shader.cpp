@@ -55,6 +55,11 @@ namespace AllegroFlare
 
    Shader::~Shader()
    {
+      if (!al_is_system_installed())
+      {
+         throw std::runtime_error("AllegroFlare/Shader: Attempting to destroy a shader but allegro is not installed ."
+                                  "This will probably crash.");
+      }
       al_destroy_shader(shader);
    }
 
