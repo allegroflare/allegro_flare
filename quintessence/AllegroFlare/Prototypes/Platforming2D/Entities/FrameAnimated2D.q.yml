@@ -85,7 +85,7 @@ functions:
   - name: refresh_bitmap
     body: |
       bitmap_internal = animation.get_frame_now();
-      fit_to_bitmap(); // This may be redundant, however it's not yet determined if Animation/Book will
+      //fit_to_bitmap(); // This may be redundant, however it's not yet determined if Animation/Book will
                        // always be returning fixed size bitmaps.  Also, in some scenarios it's likely the
                        // collision box will be different from the bitmap, and for the time being it appears
                        // the two are considered the same.
@@ -182,7 +182,7 @@ functions:
       - name: animation_name
         type: std::string
         default_argument: '"[unset-animation_name]"'
-    guards: [ animation_book ]
+    guards: [ animation_book, animation_book->animation_exists(animation_name) ]
     body: |
       // TODO: check "exists" in animation_book
       animation = animation_book->find_animation_by_name(animation_name);

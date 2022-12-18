@@ -33,6 +33,7 @@ namespace AllegroFlare
          AllegroFlare::FrameAnimation::SpriteSheet* get_sprite_sheet();
          void initialize();
          ALLEGRO_BITMAP* get_still_frame(std::string tag_name="[unset-tag_name]");
+         bool animation_exists(std::string name="[unset-name]");
          AllegroFlare::FrameAnimation::Animation find_animation_by_name(std::string name="[unset-name]");
       };
    }

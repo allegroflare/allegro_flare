@@ -78,57 +78,8 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DTest,
 }
 
 
-TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DTest,
-   DISABLED__update__with_a_position_velocity__will_apply_the_position_velocity_to_the_position_place)
-   // TODO: ensure this functionality is managed in the collision stepper and this can be removed
-{
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
-   frame_animated2d_entity.get_velocity_ref().position = {2, 3};
-
-   frame_animated2d_entity.update();
-
-   AllegroFlare::vec2d expected_position = {2, 3};
-   AllegroFlare::vec2d actual_position = frame_animated2d_entity.get_place_ref().position;
-
-   EXPECT_EQ(expected_position, actual_position);
-}
-
-
-TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DTest,
-   DISABLED__update__with_a_rotation_velocity__will_apply_the_rotation_velocity_to_the_rotation_place)
-   // TODO: ensure this functionality is managed in the collision stepper and this can be removed
-{
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
-   frame_animated2d_entity.get_velocity_ref().rotation = 0.01;
-
-   frame_animated2d_entity.update();
-
-   float expected_rotation = 0.01;
-   float actual_rotation = frame_animated2d_entity.get_place_ref().rotation;
-
-   EXPECT_EQ(expected_rotation, actual_rotation);
-}
-
-
-TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DTest,
-   DISABLED__update__with_a_scale_velocity__will_apply_the_scale_velocity_to_the_scale_place)
-   // TODO: this is a bit awkward because the scale velocity initializes to (1.0, 1.0), meaning it increases on each
-   // update.  For now, it will be disabled until it's clear what the ideal arrangement should be
-{
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
-   frame_animated2d_entity.get_velocity_ref().scale = { 0.01, 0.99 };
-
-   frame_animated2d_entity.update();
-
-   AllegroFlare::vec2d expected_scale = { 1.01, 1.99 };
-   AllegroFlare::vec2d actual_scale = frame_animated2d_entity.get_place_ref().scale;
-
-   EXPECT_EQ(expected_scale, actual_scale);
-}
-
-
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
-   draw__without_primitives_addon_initialized__will_throw_an_error)
+   DISABLED__draw__without_primitives_addon_initialized__will_throw_an_error)
 {
    // TODO
 }
@@ -142,21 +93,21 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
    SUCCEED();
 }
 
-/*
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
    CAPTURE__draw__with_a_bitmap__will_display_the_image)
 {
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
-   frame_animated2d_entity.set_animation("golden_dragon");
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
+   frame_animated2d_entity.set_animation("blob");
    //frame_animated2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
 
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
    frame_animated2d_entity.draw();
 
-   ALLEGRO_COLOR expected_sampled_color = al_color_html("f6e272"); // the color of the dragon's right toe nail
-   ALLEGRO_COLOR actual_sampled_color = al_get_pixel(al_get_target_bitmap(), 46, 67);
+   ALLEGRO_COLOR expected_sampled_color = al_color_html("687160"); // the blob's top tip
+   ALLEGRO_COLOR actual_sampled_color = al_get_pixel(al_get_target_bitmap(), 123, 176);
 
+   // TODO: update this sample pick
    EXPECT_EQ(expected_sampled_color, actual_sampled_color);
 
    al_flip_display();
@@ -169,13 +120,13 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 {
    ALLEGRO_BITMAP *bitmap = FIXTURE_get_bitmap("test-sprite-128.png");
 
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
    frame_animated2d_entity.get_place_ref().size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
    frame_animated2d_entity.get_place_ref().position = {800, 400};
    frame_animated2d_entity.get_place_ref().scale = {7, 7};
    frame_animated2d_entity.get_place_ref().rotation = 0.2f;
    //frame_animated2d_entity.set_bitmap(bitmap);
-   frame_animated2d_entity.set_animation("golden_dragon");
+   frame_animated2d_entity.set_animation("blob");
 
    frame_animated2d_entity.draw();
 
@@ -187,15 +138,15 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
-   draw__will_render_the_different_alignment_strategies_as_expected)
+   CAPTURE__draw__will_render_the_different_alignment_strategies_as_expected)
 {
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
    //frame_animated2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
-   frame_animated2d_entity.set_animation("golden_dragon");
+   frame_animated2d_entity.set_animation("blob");
    //frame_animated2d_entity.fit_to_bitmap();
    frame_animated2d_entity.get_place_ref().size.x *= 0.75;
    frame_animated2d_entity.get_place_ref().size.y *= 0.75;
-   frame_animated2d_entity.get_place_ref().scale = {2.0, 2.0};
+   frame_animated2d_entity.get_place_ref().scale = {1.0, 1.0};
 
    frame_animated2d_entity.get_place_ref().position = {1920/8*1, 1080/2};
    frame_animated2d_entity.get_place_ref().align = {0.5, 0.5};
@@ -231,6 +182,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 }
 
 
+
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
    fit_to_bitmap__without_a_bitmap__will_raise_an_exception)
 {
@@ -239,19 +191,19 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
+   // TODO: update this test to accomodate the concerns for animation
    fit_to_bitmap__will_set_the_size_of_the_entity_to_match_the_dimentions_of_the_bitmap)
 {
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
    //frame_animated2d_entity.set_bitmap(FIXTURE_get_bitmap("test-sprite-128.png"));
-   frame_animated2d_entity.set_animation("golden_dragon");
-   //frame_animated2d_entity.fit_to_bitmap();
+   frame_animated2d_entity.set_animation("blob");
+   frame_animated2d_entity.fit_to_bitmap();
 
-   AllegroFlare::vec2d expected_size = {128, 128}; // TODO: use a different bitmap that has different
+   AllegroFlare::vec2d expected_size = {240, 240}; // TODO: use a different bitmap that has different
                                                    // values for width/height
    AllegroFlare::vec2d actual_size = frame_animated2d_entity.get_place_ref().size;
 
    EXPECT_EQ(expected_size, actual_size);
 }
 
-*/
 

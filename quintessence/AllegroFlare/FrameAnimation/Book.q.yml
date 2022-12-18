@@ -77,6 +77,16 @@ functions:
       return find_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
 
 
+  - name: animation_exists
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      return (dictionary.count(name) > 0);
+
+
   - name: find_animation_by_name
     type: AllegroFlare::FrameAnimation::Animation
     parameters:

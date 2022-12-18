@@ -94,6 +94,11 @@ ALLEGRO_BITMAP* Book::get_still_frame(std::string tag_name)
    return find_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
 }
 
+bool Book::animation_exists(std::string name)
+{
+   return (dictionary.count(name) > 0);
+}
+
 AllegroFlare::FrameAnimation::Animation Book::find_animation_by_name(std::string name)
 {
    if (dictionary.count(name) == 0)

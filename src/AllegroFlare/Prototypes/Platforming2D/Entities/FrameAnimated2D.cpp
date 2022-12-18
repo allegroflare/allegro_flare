@@ -138,7 +138,7 @@ void FrameAnimated2D::update()
 void FrameAnimated2D::refresh_bitmap()
 {
    bitmap_internal = animation.get_frame_now();
-   fit_to_bitmap(); // This may be redundant, however it's not yet determined if Animation/Book will
+   //fit_to_bitmap(); // This may be redundant, however it's not yet determined if Animation/Book will
                     // always be returning fixed size bitmaps.  Also, in some scenarios it's likely the
                     // collision box will be different from the bitmap, and for the time being it appears
                     // the two are considered the same.
@@ -239,6 +239,13 @@ void FrameAnimated2D::set_animation(std::string animation_name)
       error_message << "[FrameAnimated2D::set_animation]: error: guard \"animation_book\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("FrameAnimated2D::set_animation: error: guard \"animation_book\" not met");
+   }
+   if (!(animation_book->animation_exists(animation_name)))
+   {
+      std::stringstream error_message;
+      error_message << "[FrameAnimated2D::set_animation]: error: guard \"animation_book->animation_exists(animation_name)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FrameAnimated2D::set_animation: error: guard \"animation_book->animation_exists(animation_name)\" not met");
    }
    // TODO: check "exists" in animation_book
    animation = animation_book->find_animation_by_name(animation_name);

@@ -45,7 +45,7 @@ TEST(AllegroFlare_FrameAnimation_BookTest, VISUAL__will_load_an_animation)
       animation.draw();
 
       // draw info text
-      uint32_t frame_id = animation.get_frame_id_at(0.21);
+      uint32_t frame_id = animation.get_frame_id_at(0.21); // TODO: <-- fix this line, it's static 0.21 time
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", frame_id);
 
       al_flip_display(); // assumes a rest of 1/60.0f
