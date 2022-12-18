@@ -283,7 +283,7 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
    {
       // TODO: this is broken for different types of sizes.
       *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-      *bitmap_y = -(al_get_bitmap_height(bitmap) * 0.25);
+      *bitmap_y = parent_placement->size.y - al_get_bitmap_height(bitmap);
    }
    else
    {

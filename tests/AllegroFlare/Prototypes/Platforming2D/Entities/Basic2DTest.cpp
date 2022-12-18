@@ -175,7 +175,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
-   draw__will_render_the_different_alignment_strategies_as_expected)
+   CAPTURE__draw__will_render_the_different_alignment_strategies_as_expected)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    basic2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
