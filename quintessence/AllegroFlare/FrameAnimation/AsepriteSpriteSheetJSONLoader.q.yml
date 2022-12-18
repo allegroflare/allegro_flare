@@ -35,18 +35,18 @@ functions:
 
       if (!parsed_json.contains("frames"))
       {
-         Errors::throw_error("AllegroFlare::FrameAnimation/AsepriteSpriteSheetJSONDataLoader", "missing \"frames\" element in json");
+         Errors::throw_error("AllegroFlare::FrameAnimation/AsepriteSpriteSheetJSONDataLoader",
+                             "missing \"frames\" element in json");
       }
       if (!parsed_json.contains("meta"))
       {
-         Errors::throw_error("AllegroFlare::FrameAnimation/AsepriteSpriteSheetJSONDataLoader", "missing \"meta\" element in json");
+         Errors::throw_error("AllegroFlare::FrameAnimation/AsepriteSpriteSheetJSONDataLoader",
+                             "missing \"meta\" element in json");
       }
       if (!parsed_json["meta"].contains("frameTags"))
       {
-         Errors::throw_error(
-         "AllegroFlare::FrameAnimation/AsepriteSpriteSheetJSONDataLoader",
-            "missing [\"meta\"][\"tags\"] element in json"
-         );
+         Errors::throw_error("AllegroFlare::FrameAnimation/AsepriteSpriteSheetJSONDataLoader",
+                             "missing [\"meta\"][\"tags\"] element in json");
       }
 
       // load frame data
