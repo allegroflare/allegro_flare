@@ -145,12 +145,9 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
    CAPTURE__draw__will_render_the_different_alignment_strategies_as_expected)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
-   //frame_animated2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
    frame_animated2d_entity.set_animation("blob");
-   //frame_animated2d_entity.fit_to_bitmap();
-   frame_animated2d_entity.get_place_ref().size.x *= 0.75;
-   frame_animated2d_entity.get_place_ref().size.y *= 0.75;
    frame_animated2d_entity.get_place_ref().scale = {1.0, 1.0};
+   frame_animated2d_entity.get_place_ref().size = { 80, 60 };
 
    frame_animated2d_entity.get_place_ref().position = {1920/8*1, 1080/2};
    frame_animated2d_entity.get_place_ref().align = {0.5, 0.5};
