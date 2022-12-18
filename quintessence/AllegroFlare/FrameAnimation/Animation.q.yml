@@ -2,7 +2,7 @@ properties:
 
 
   - name: sprite_sheet
-    type: SpriteSheet*
+    type: AllegroFlare::FrameAnimation::SpriteSheet*
     init_with: nullptr
     constructor_arg: true
 
@@ -229,8 +229,8 @@ dependencies:
 
   - symbol: AllegroFlare::FrameAnimation::Frame
     headers: [ AllegroFlare/FrameAnimation/Frame.hpp ]
-  - symbol: SpriteSheet
-    headers: [ dungeon/models/sprite_sheet.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::SpriteSheet
+    headers: [ AllegroFlare/FrameAnimation/SpriteSheet.hpp ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: fmod

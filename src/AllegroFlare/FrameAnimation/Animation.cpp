@@ -14,7 +14,7 @@ namespace FrameAnimation
 {
 
 
-Animation::Animation(SpriteSheet* sprite_sheet, std::string name, std::vector<AllegroFlare::FrameAnimation::Frame> frames, uint32_t playmode)
+Animation::Animation(AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet, std::string name, std::vector<AllegroFlare::FrameAnimation::Frame> frames, uint32_t playmode)
    : sprite_sheet(sprite_sheet)
    , name(name)
    , frames(frames)

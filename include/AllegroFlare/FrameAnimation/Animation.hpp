@@ -2,9 +2,9 @@
 
 
 #include <AllegroFlare/FrameAnimation/Frame.hpp>
+#include <AllegroFlare/FrameAnimation/SpriteSheet.hpp>
 #include <allegro5/allegro.h>
 #include <cstdint>
-#include <dungeon/models/sprite_sheet.hpp>
 #include <string>
 #include <vector>
 
@@ -22,7 +22,7 @@ namespace AllegroFlare
          static constexpr uint32_t PLAYMODE_FORWARD_PING_PONG = 3;
 
       private:
-         SpriteSheet* sprite_sheet;
+         AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet;
          std::string name;
          std::vector<AllegroFlare::FrameAnimation::Frame> frames;
          uint32_t playmode;
@@ -34,7 +34,7 @@ namespace AllegroFlare
 
 
       public:
-         Animation(SpriteSheet* sprite_sheet=nullptr, std::string name="[unset-name]", std::vector<AllegroFlare::FrameAnimation::Frame> frames={}, uint32_t playmode=PLAYMODE_UNDEF);
+         Animation(AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet=nullptr, std::string name="[unset-name]", std::vector<AllegroFlare::FrameAnimation::Frame> frames={}, uint32_t playmode=PLAYMODE_UNDEF);
          ~Animation();
 
          std::vector<AllegroFlare::FrameAnimation::Frame> get_frames() const;
