@@ -1,9 +1,132 @@
+properties:
+
+
+  - name: png_source_filename
+    type: std::string
+    init_with: '"./bin/data/bitmaps/sprites_grid-x.png"'
+    constructor_arg: true
+
+  - name: json_source_filename
+    type: std::string
+    init_with: '"./bin/data/bitmaps/sprites_grid-x.json"'
+    constructor_arg: true
+
+  - name: sprite_sheet
+    type: AllegroFlare::FrameAnimation::SpriteSheet*
+    init_with: nullptr
+    getter: false
+
+  - name: dictionary
+    type: std::map<std::string, AllegroFlare::FrameAnimation::Animation>
+    init_with: '{}'
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
 functions:
 
 
-  - name: run
-    type: std::string
+  - name: get_sprite_sheet
+    type: AllegroFlare::FrameAnimation::SpriteSheet*
+    guards: [ initialized ]
     body: |
-      return "Hello World!";
+      return sprite_sheet;
+
+
+  - name: init
+    guards: [ (!initialized) ]
+    body: |
+      // build the sprite sheet
+      if (!AllegroFlare::php::file_exists(png_source_filename))
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::FrameAnimation::AnimationBook::init] error: "
+                       << "expected png file does not exist. Looking in \"" << png_source_filename << "\".";
+         throw std::runtime_error(error_message.str());
+      }
+
+      ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap(png_source_filename.c_str());
+      // TODO: add validation for unloadable sprite_sheet_bitmap
+      sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 5); // auto-inits
+      al_destroy_bitmap(sprite_sheet_bitmap);
+
+      // load the data
+
+      AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader(json_source_filename, sprite_sheet);
+      dictionary = loader.load();
+
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::UsefulPHP
+      - AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader
+
+
+  - name: get_still_frame
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: tag_name
+        type: std::string
+        default_argument: '"[unset-tag_name]"'
+    guards: [ initialized ]
+    body: |
+      return get_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
+
+
+  - name: get_animation_by_name
+    type: AllegroFlare::FrameAnimation::Animation
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      if (dictionary.count(name) == 0)
+      {
+         std::stringstream error_message;
+         error_message << "No animation exists for name \"" << name << "\"";
+         AllegroFlare::Errors::throw_error("DungeonPlus::AnimationBook::get_animation_by_name", error_message.str());
+      }
+      return dictionary[name];
+    body_dependency_symbols:
+      - AllegroFlare::Errors
+
+
+  - name: _build_placeholder_dictionary
+    private: true
+    body: |
+      dictionary =  {
+         { "blob", AllegroFlare::FrameAnimation::Animation(
+               sprite_sheet,
+               "blob",
+               std::vector<AllegroFlare::FrameAnimation::Frame>{
+                  { 1, 0.200f },
+                  { 2, 0.100f },
+                  { 3, 0.200f },
+               }, AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_PING_PONG
+         )},
+      };
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FrameAnimation::Animation
+    headers: [ AllegroFlare/FrameAnimation/Animation.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::SpriteSheet
+    headers: [ AllegroFlare/FrameAnimation/SpriteSheet.hpp ]
+  - symbol: AllegroFlare::Errors
+    headers: [ AllegroFlare/Errors.hpp ]
+  - symbol: AllegroFlare::UsefulPHP
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader
+    headers: [ AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::Animation
+    headers: [ AllegroFlare/FrameAnimation/Animation.hpp ]
 
 

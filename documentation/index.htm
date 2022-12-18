@@ -122,6 +122,10 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EncoderDecoders/Base62.q.yml">quintessence/AllegroFlare/EncoderDecoders/Base62.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/FrameAnimation/Animation.q.yml">quintessence/AllegroFlare/FrameAnimation/Animation.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml">quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/FrameAnimation/Book.q.yml">quintessence/AllegroFlare/FrameAnimation/Book.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/FrameAnimation/Frame.q.yml">quintessence/AllegroFlare/FrameAnimation/Frame.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEvent.q.yml">quintessence/AllegroFlare/GameEvent.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/Base.q.yml">quintessence/AllegroFlare/GameEventDatas/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
@@ -5133,6 +5137,241 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
 </tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/FrameAnimation/Animation.q.yml">quintessence/AllegroFlare/FrameAnimation/Animation.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">sprite_sheet</td>
+  <td class="property">AllegroFlare::FrameAnimation::SpriteSheet*</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">frames</td>
+  <td class="property">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
+</tr>
+<tr>
+  <td class="property">playmode</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">playhead</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">finished</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">PLAYMODE_UNDEF</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">PLAYMODE_FORWARD_ONCE</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">PLAYMODE_FORWARD_LOOP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">PLAYMODE_FORWARD_PING_PONG</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">start()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">draw()</td>
+</tr>
+<tr>
+  <td class="method">get_num_frames()</td>
+</tr>
+<tr>
+  <td class="method">get_frame_now()</td>
+</tr>
+<tr>
+  <td class="method">get_bitmap_at_frame_num(1)</td>
+</tr>
+<tr>
+  <td class="method">get_frame_id_now()</td>
+</tr>
+<tr>
+  <td class="method">get_frame_id_at(1)</td>
+</tr>
+<tr>
+  <td class="method">get_frame_at(1)</td>
+</tr>
+<tr>
+  <td class="method">calculate_duration()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Frame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Frame.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteSheet&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteSheet.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml">quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">sprite_sheet</td>
+  <td class="property">AllegroFlare::FrameAnimation::SpriteSheet*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">load()</td>
+</tr>
+<tr>
+  <td class="method">_build_animation_frames_for(3)</td>
+</tr>
+<tr>
+  <td class="method">_get_playmode_from_direction(1)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Errors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Errors.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Animation&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Animation.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Frame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Frame.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteSheet&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteSheet.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Errors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Errors.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/FrameAnimation/Book.q.yml">quintessence/AllegroFlare/FrameAnimation/Book.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">png_source_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">json_source_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">sprite_sheet</td>
+  <td class="property">AllegroFlare::FrameAnimation::SpriteSheet*</td>
+</tr>
+<tr>
+  <td class="property">dictionary</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::FrameAnimation::Animation&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_sprite_sheet()</td>
+</tr>
+<tr>
+  <td class="method">init()</td>
+</tr>
+<tr>
+  <td class="method">get_still_frame(1)</td>
+</tr>
+<tr>
+  <td class="method">get_animation_by_name(1)</td>
+</tr>
+<tr>
+  <td class="private_method">_build_placeholder_dictionary()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Animation&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Animation.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteSheet&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteSheet.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Errors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Errors.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Animation&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Animation.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/FrameAnimation/Frame.q.yml">quintessence/AllegroFlare/FrameAnimation/Frame.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">index</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">duration</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
     </table>
   </div>
 </ul>
@@ -17625,6 +17864,8 @@ table td
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -17952,6 +18193,7 @@ table td
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
@@ -18352,6 +18594,45 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/FrameAnimation/Frame": [
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
+  ],
+  "AllegroFlare/FrameAnimation/SpriteSheet": [
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/UsefulPHP": [
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "nlohmann/json": [
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/MotionComposer/MessageFactory",
+    "AllegroFlare/MotionComposer/MessageProcessor",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "Tileo/TMJDataLoader",
+    "Tileo/TMJMeshLoader"
+  ],
+  "AllegroFlare/Errors": [
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/FrameAnimation/Animation": [
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/FrameAnimation/Errors": [
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
+  ],
+  "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader": [
+    "AllegroFlare/FrameAnimation/Book"
+  ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
   ],
@@ -18474,16 +18755,6 @@ table td
   "AllegroFlare/JSONLoaders/MotionComposer/Messages/RunBuildProcess": [
     "AllegroFlare/MotionComposer/MessageFactory",
     "AllegroFlare/MotionComposer/MessageProcessor"
-  ],
-  "nlohmann/json": [
-    "AllegroFlare/MotionComposer/MessageFactory",
-    "AllegroFlare/MotionComposer/MessageProcessor",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
-    "Tileo/TMJDataLoader",
-    "Tileo/TMJMeshLoader"
   ],
   "AllegroFlare/MotionComposer/Messages/Base": [
     "AllegroFlare/MotionComposer/MessageProcessor",

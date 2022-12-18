@@ -1,0 +1,51 @@
+functions:
+
+
+  - name: build_error_message
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: message
+        type: std::string
+        default_argument: '"[unset-message]"'
+    type: std::string
+    body: |
+      const std::string CONSOLE_COLOR_RED = "[1;31m";
+      const std::string CONSOLE_COLOR_DEFAULT = "[0m";
+      std::stringstream result;
+      result << CONSOLE_COLOR_RED << "[" << from << "] error: " << message << CONSOLE_COLOR_DEFAULT << std::endl;
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: throw_error
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: message
+        type: std::string
+        default_argument: '"[unset-message]"'
+    body: |
+      std::stringstream error_message;
+      error_message << "[" << from << "] error: " << message;
+
+      const std::string CONSOLE_COLOR_RED = "[1;31m";
+      const std::string CONSOLE_COLOR_DEFAULT = "[0m";
+      std::stringstream error_message_for_cout;
+      error_message_for_cout << CONSOLE_COLOR_RED
+                             << "[" << from << "] error: " << message
+                             << CONSOLE_COLOR_DEFAULT << std::endl;
+
+      std::cout << error_message_for_cout.str();
+
+      throw std::runtime_error(error_message.str());
+    body_dependency_symbols:
+      - std::stringstream
+      - std::cout
+
+
