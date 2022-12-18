@@ -47,15 +47,34 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
 
+   // create an animation book (to create an frame_animated type from the factory)
+   // TODO: introduce this concept to the test
+   //AllegroFlare::FrameAnimation::Book animation_book;
+   //animation_book.initialize();
 
-      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(&framework.get_bitmap_bin_ref());
+
+
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(
+         &framework.get_bitmap_bin_ref()
+         //&animation_book
+      );
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* created_entity =
          factory.create_for_aabb2d("map_a", 16-1, 32-1);
       created_entity->get_place_ref().position.x = 400/2;
       created_entity->get_place_ref().position.y = 240/2;
 
-      platforming_2d.set_player_controlled_entity(created_entity);
       platforming_2d.add_entity_to_pool(created_entity);
+
+      //AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity =
+         //factory.create_frame_animated("map_a", 16-1, 32-1);
+      //created_animated_entity->get_place_ref().position.x = 400/2;
+      //created_animated_entity->get_place_ref().position.y = 240/2;
+
+      //platforming_2d.add_entity_to_pool(created_animated_entity);
+
+
+      platforming_2d.set_player_controlled_entity(created_entity);
+
 
       for (unsigned i=0; i<6; i++)
       {

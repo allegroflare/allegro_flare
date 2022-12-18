@@ -10633,6 +10633,10 @@ table td
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
 <tr>
+  <td class="property">animation_book</td>
+  <td class="property">AllegroFlare::FrameAnimation::Book*</td>
+</tr>
+<tr>
   <td class="property">enemy_debug_box_color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
@@ -10651,6 +10655,9 @@ table td
 </tr>
 <tr>
   <td class="method">create_for_aabb2d(3)</td>
+</tr>
+<tr>
+  <td class="method">create_frame_animated(5)</td>
 </tr>
 <tr>
   <td class="method">create_player_projectile(7)</td>
@@ -10749,6 +10756,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Book&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Book.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -19397,6 +19410,13 @@ table td
   "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
+  "AllegroFlare/FrameAnimation/Book": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
+  ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
@@ -19411,9 +19431,6 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
-  ],
-  "AllegroFlare/FrameAnimation/Book": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
   ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",

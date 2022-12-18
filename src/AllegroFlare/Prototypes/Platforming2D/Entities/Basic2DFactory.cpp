@@ -32,8 +32,9 @@ namespace Entities
 {
 
 
-Basic2DFactory::Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin)
+Basic2DFactory::Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FrameAnimation::Book* animation_book)
    : bitmap_bin(bitmap_bin)
+   , animation_book(animation_book)
    , enemy_debug_box_color(ALLEGRO_COLOR{0.827, 0.184, 0.184, 1.0})
    , player_collectable_box_color(ALLEGRO_COLOR{0.96, 0.93, 0.06, 1.0})
    , goalpost_box_color(ALLEGRO_COLOR{0.06, 0.93, 0.184, 1.0})
@@ -43,6 +44,12 @@ Basic2DFactory::Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin)
 
 Basic2DFactory::~Basic2DFactory()
 {
+}
+
+
+void Basic2DFactory::set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book)
+{
+   this->animation_book = animation_book;
 }
 
 
@@ -79,6 +86,28 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    result->set(ON_MAP_NAME, map_name);
    //result->fit_to_bitmap();
    //result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
+   return result;
+}
+
+AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFactory::create_frame_animated(std::string map_name, float x, float y, std::string start_animation_name, std::string bitmap_alignment_strategy)
+{
+   if (!(animation_book))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2DFactory::create_frame_animated]: error: guard \"animation_book\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2DFactory::create_frame_animated: error: guard \"animation_book\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+   using namespace AllegroFlare::Prototypes::Platforming2D;
+
+   Entities::FrameAnimated2D *result = new Entities::FrameAnimated2D(animation_book);
+   result->get_place_ref().position.x = x;
+   result->get_place_ref().position.y = y;
+   result->fit_to_bitmap(); // <-- TODO: not sure if this is necessary
+   result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
+
+   result->set(ON_MAP_NAME, map_name);
    return result;
 }
 

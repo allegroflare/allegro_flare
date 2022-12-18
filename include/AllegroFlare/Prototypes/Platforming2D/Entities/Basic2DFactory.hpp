@@ -2,8 +2,10 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/FrameAnimation/Book.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <string>
@@ -21,6 +23,7 @@ namespace AllegroFlare
             {
             private:
                AllegroFlare::BitmapBin* bitmap_bin;
+               AllegroFlare::FrameAnimation::Book* animation_book;
                ALLEGRO_COLOR enemy_debug_box_color;
                ALLEGRO_COLOR player_collectable_box_color;
                ALLEGRO_COLOR goalpost_box_color;
@@ -29,11 +32,13 @@ namespace AllegroFlare
 
 
             public:
-               Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
+               Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FrameAnimation::Book* animation_book=nullptr);
                ~Basic2DFactory();
 
+               void set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book);
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_from_bitmap_filename(std::string map_name="[map-name-not-set]", std::string bitmap_filename="bitmap-filename-that-has-not-been-set.png", std::string bitmap_alignment_strategy="centered");
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_for_aabb2d(std::string map_name="[map-name-not-set]", float width=(16.0f-1.0f), float height=(16.0f-1.0f));
+               AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* create_frame_animated(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, std::string start_animation_name="[unset-start_animation_name]", std::string bitmap_alignment_strategy="centered");
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_player_projectile(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, float width=(8.0f-1.0f), float height=(8.0f-1.0f), AllegroFlare::vec2d vector=AllegroFlare::vec2d(0.0f, 1.0f), float magnitude=1.0f);
                AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* create_enemy_move_left(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f));
                AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* create_tracking_enemy(std::string map_name="[map-name-not-set]", AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* tracked_entity=nullptr, float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f));

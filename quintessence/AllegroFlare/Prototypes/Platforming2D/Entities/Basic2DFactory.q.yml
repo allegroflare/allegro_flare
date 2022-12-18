@@ -6,6 +6,12 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: animation_book
+    type: AllegroFlare::FrameAnimation::Book*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: enemy_debug_box_color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{0.827, 0.184, 0.184, 1.0}
@@ -70,6 +76,39 @@ functions:
       result->set(ON_MAP_NAME, map_name);
       //result->fit_to_bitmap();
       //result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
+      return result;
+
+
+  - name: create_frame_animated
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D*
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: start_animation_name
+        type: std::string
+        default_argument: '"[unset-start_animation_name]"'
+      - name: bitmap_alignment_strategy
+        type: std::string
+        default_argument: '"centered"'
+    guards: [ animation_book ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+      using namespace AllegroFlare::Prototypes::Platforming2D;
+
+      Entities::FrameAnimated2D *result = new Entities::FrameAnimated2D(animation_book);
+      result->get_place_ref().position.x = x;
+      result->get_place_ref().position.y = y;
+      result->fit_to_bitmap(); // <-- TODO: not sure if this is necessary
+      result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
+
+      result->set(ON_MAP_NAME, map_name);
       return result;
 
 
@@ -566,5 +605,9 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::Book
+    headers: [ AllegroFlare/FrameAnimation/Book.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.hpp ]
 
 
