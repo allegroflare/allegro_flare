@@ -127,6 +127,19 @@ int Animation::get_num_frames()
    return frames.size();
 }
 
+ALLEGRO_BITMAP* Animation::get_frame_at(float time)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_frame_at]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_frame_at: error: guard \"initialized\" not met");
+   }
+   uint32_t cell_id = get_frame_id_at(time);
+   return sprite_sheet->get_cell(cell_id);
+}
+
 ALLEGRO_BITMAP* Animation::get_frame_now()
 {
    if (!(initialized))
@@ -137,6 +150,18 @@ ALLEGRO_BITMAP* Animation::get_frame_now()
       throw std::runtime_error("Animation::get_frame_now: error: guard \"initialized\" not met");
    }
    return get_frame_at(playhead);
+}
+
+uint32_t Animation::get_frame_id_now()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_frame_id_now]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_frame_id_now: error: guard \"initialized\" not met");
+   }
+   return get_frame_id_at(playhead);
 }
 
 ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
@@ -164,18 +189,6 @@ ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
    }
    uint32_t cell_id = frames[frame_num].get_index();
    return sprite_sheet->get_cell(cell_id);
-}
-
-uint32_t Animation::get_frame_id_now()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Animation::get_frame_id_now]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_id_now: error: guard \"initialized\" not met");
-   }
-   return get_frame_id_at(playhead);
 }
 
 uint32_t Animation::get_frame_id_at(float time)
@@ -225,19 +238,6 @@ uint32_t Animation::get_frame_id_at(float time)
       } break;
    }
    return 0;
-}
-
-ALLEGRO_BITMAP* Animation::get_frame_at(float time)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Animation::get_frame_at]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_at: error: guard \"initialized\" not met");
-   }
-   uint32_t cell_id = get_frame_id_at(time);
-   return sprite_sheet->get_cell(cell_id);
 }
 
 float Animation::calculate_duration()

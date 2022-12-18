@@ -49,14 +49,14 @@ AllegroFlare::FrameAnimation::SpriteSheet* Book::get_sprite_sheet()
    return sprite_sheet;
 }
 
-void Book::init()
+void Book::initialize()
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Book::init]: error: guard \"(!initialized)\" not met.";
+      error_message << "[Book::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Book::init: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("Book::initialize: error: guard \"(!initialized)\" not met");
    }
    // TODO: rename this function to initialize
    // build the sprite sheet

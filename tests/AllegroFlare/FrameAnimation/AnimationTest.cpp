@@ -75,14 +75,17 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, DISABLED__dev_test)
 #define EXPECT_GUARD EXPECT_THROW_GUARD_ERROR
 
 
-TEST(AllegroFlare_FrameAnimation_AnimationTest, all_functions__wihtout_initialization__will_throw_an_error)
+TEST(AllegroFlare_FrameAnimation_AnimationTest, before_initialization__most_functions_will_throw_an_error)
 {
    // Trying this out here
-   //EXPECT_GUARD(Animation().start(),          "Animation::start", "initialized");
-   //EXPECT_GUARD(Animation().update(),         "Animation::update", "initialized");
-   //EXPECT_GUARD(Animation().draw(),           "Animation::draw", "initialized");
-   //EXPECT_GUARD(Animation().get_num_frames(), "Animation::get_num_frames", "initialized");
-   //EXPECT_GUARD(Animation().get_frame_now(),  "Animation::get_frame_now", "initialized");
+   EXPECT_GUARD(Animation().start(),                   "Animation::start",                   "initialized");
+   EXPECT_GUARD(Animation().update(),                  "Animation::update",                  "initialized");
+   EXPECT_GUARD(Animation().draw(),                    "Animation::draw",                    "initialized");
+   //EXPECT_GUARD(Animation().get_num_frames(),        "Animation::get_num_frames",          "initialized");
+   EXPECT_GUARD(Animation().get_frame_now(),           "Animation::get_frame_now",           "initialized");
+   EXPECT_GUARD(Animation().get_bitmap_at_frame_num(), "Animation::get_bitmap_at_frame_num", "initialized");
+   EXPECT_GUARD(Animation().get_frame_id_now(),        "Animation::get_frame_id_now",        "initialized");
+   EXPECT_GUARD(Animation().get_frame_at(),            "Animation::get_frame_at",            "initialized");
    // TODO: add more checks here
 }
 

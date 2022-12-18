@@ -31,7 +31,7 @@ namespace AllegroFlare
 
          void set_dictionary(std::map<std::string, AllegroFlare::FrameAnimation::Animation> dictionary);
          AllegroFlare::FrameAnimation::SpriteSheet* get_sprite_sheet();
-         void init();
+         void initialize();
          ALLEGRO_BITMAP* get_still_frame(std::string tag_name="[unset-tag_name]");
          AllegroFlare::FrameAnimation::Animation get_animation_by_name(std::string name="[unset-name]");
       };

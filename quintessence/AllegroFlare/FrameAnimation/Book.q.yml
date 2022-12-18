@@ -36,7 +36,7 @@ functions:
       return sprite_sheet;
 
 
-  - name: init
+  - name: initialize
     guards: [ (!initialized) ]
     body: |
       // TODO: rename this function to initialize
