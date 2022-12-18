@@ -10,8 +10,6 @@
 
 using AllegroFlare::FrameAnimation::Book;
 using AllegroFlare::FrameAnimation::Animation;
-//using AllegroFlare::FrameAnimation::Frame;
-//using AllegroFlare::FrameAnimation::SpriteSheet;
 
 
 

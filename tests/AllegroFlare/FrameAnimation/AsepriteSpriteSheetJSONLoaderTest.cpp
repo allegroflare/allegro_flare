@@ -8,15 +8,15 @@
 
 TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader aseprite_sprite_sheet_jsonloader;
+   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader;
 }
 
 
 TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    load__will_not_blow_up)
 {
-   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader asesprite_sheet_jsondata_loader;
-   asesprite_sheet_jsondata_loader.load();
+   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader;
+   loader.load();
 }
 
 
@@ -34,8 +34,8 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
 TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    load__fills_the_animation_book_with_the_expected_values)
 {
-   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader asesprite_sheet_jsondata_loader;
-   std::map<std::string, AllegroFlare::FrameAnimation::Animation> actual = asesprite_sheet_jsondata_loader.load();
+   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader;
+   std::map<std::string, AllegroFlare::FrameAnimation::Animation> actual = loader.load();
 
    EXPECT_EQ(1, actual.count("blob"));
    EXPECT_EQ(3, actual["blob"].get_num_frames());
