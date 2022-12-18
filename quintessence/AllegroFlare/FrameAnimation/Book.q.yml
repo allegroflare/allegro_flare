@@ -39,6 +39,7 @@ functions:
   - name: init
     guards: [ (!initialized) ]
     body: |
+      // TODO: rename this function to initialize
       // build the sprite sheet
       if (!AllegroFlare::php::file_exists(png_source_filename))
       {
