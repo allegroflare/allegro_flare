@@ -15,10 +15,29 @@ functions:
       const std::string CONSOLE_COLOR_RED = "[1;31m";
       const std::string CONSOLE_COLOR_DEFAULT = "[0m";
       std::stringstream result;
-      result << CONSOLE_COLOR_RED << "[" << from << "] error: " << message << CONSOLE_COLOR_DEFAULT << std::endl;
+      result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT << std::endl;
       return result.str();
     body_dependency_symbols:
       - std::stringstream
+
+
+  - name: throw_missing_file_error
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+      - name: filetype
+        type: std::string
+        default_argument: '"[unset-filetype]"'
+    body: |
+      std::stringstream error_message;
+      error_message << "The expected " << filetype << " file does not exist. Looking in \"" << filename << "\"";
+      throw_error(from, error_message.str());
+      return;
 
 
   - name: throw_error
@@ -32,7 +51,7 @@ functions:
         default_argument: '"[unset-message]"'
     body: |
       std::stringstream error_message;
-      error_message << "[" << from << "] error: " << message;
+      error_message << "[" << from << "]: error: " << message;
 
       const std::string CONSOLE_COLOR_RED = "[1;31m";
       const std::string CONSOLE_COLOR_DEFAULT = "[0m";

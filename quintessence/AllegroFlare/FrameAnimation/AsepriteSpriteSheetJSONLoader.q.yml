@@ -22,10 +22,11 @@ functions:
       //std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
       if (!AllegroFlare::php::file_exists(filename))
       {
-         std::stringstream error_message;
-         error_message << "[AllegroFlare::FrameAnimation::AnimationBook::init] error: "
-                       << "expected json file does not exist. Looking in \"" << filename << "\".";
-         throw std::runtime_error(error_message.str());
+         AllegroFlare::Errors::throw_missing_file_error(
+            "AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader::load",
+            filename,
+            "json"
+         );
       }
       nlohmann::json parsed_json = nlohmann::json::parse(AllegroFlare::php::file_get_contents(filename));
       std::map<std::string, AllegroFlare::FrameAnimation::Animation> result;
