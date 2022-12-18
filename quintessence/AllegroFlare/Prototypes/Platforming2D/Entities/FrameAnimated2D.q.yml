@@ -9,6 +9,13 @@ parent_classes:
 properties:
 
 
+  - name: animation_book
+    type: AllegroFlare::FrameAnimation::Book*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: place
     type: AllegroFlare::Placement2D
     init_with: '{}'
@@ -23,11 +30,14 @@ properties:
     getter_ref: true
     setter: true
 
-  - name: bitmap
+  - name: animation
+    type: AllegroFlare::FrameAnimation::Animation
+    init_with: '{}'
+    setter: false
+
+  - name: bitmap_internal
     type: ALLEGRO_BITMAP*
     init_with: nullptr
-    getter: true
-    setter: true
 
   - name: bitmap_alignment_strategy
     type: std::string
@@ -61,12 +71,24 @@ functions:
     virtual: true
     override: true
     body: |
+      animation.update();
+      refresh_bitmap();
       //place.position += velocity.position; // <-- this is now managed in the stepper
       //place.rotation += velocity.rotation;
 
       //place.scale += velocity.scale; // TODO: figure out what/how to apply scale velocity
       // TODO: align, size, anchor, flip
 
+      return;
+
+
+  - name: refresh_bitmap
+    body: |
+      bitmap_internal = animation.get_frame_now();
+      fit_to_bitmap(); // This may be redundant, however it's not yet determined if Animation/Book will
+                       // always be returning fixed size bitmaps.  Also, in some scenarios it's likely the
+                       // collision box will be different from the bitmap, and for the time being it appears
+                       // the two are considered the same.
       return;
 
 
@@ -85,24 +107,24 @@ functions:
 
          place.start_transform();
 
-      if (bitmap)
+      if (bitmap_internal)
       {
          if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
          if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
          // draw the bitmap
          float bitmap_x = 0;
          float bitmap_y = 0;
-         assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
-         assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
-         al_draw_bitmap(bitmap, bitmap_x, bitmap_y, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
+         assign_alignment_strategy_values(&place, bitmap_internal, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+         assign_alignment_strategy_values(&place, bitmap_internal, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+         al_draw_bitmap(bitmap_internal, bitmap_x, bitmap_y, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
 
          // draw the bitmap's boundary debug rectangle
          // TODO: move this out of "if (bitmap)" clause
          al_draw_rectangle(
             bitmap_x,
             bitmap_y,
-            bitmap_x + al_get_bitmap_width(bitmap),
-            bitmap_y + al_get_bitmap_height(bitmap),
+            bitmap_x + al_get_bitmap_width(bitmap_internal),
+            bitmap_y + al_get_bitmap_height(bitmap_internal),
             ALLEGRO_COLOR{0, 0.5, 0.25, 0.5},
             1.0
          );
@@ -149,18 +171,33 @@ functions:
          al_draw_filled_circle(place.position.x, place.position.y+6, 2, debug_box_color);
       }
 
-      //}
       return;
     body_dependency_symbols:
       - al_draw_rectangle
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
-  - name: fit_to_bitmap
-    guards: [ bitmap ]
+  - name: set_animation
+    parameters:
+      - name: animation_name
+        type: std::string
+        default_argument: '"[unset-animation_name]"'
+    guards: [ animation_book ]
     body: |
-      place.size.x = al_get_bitmap_width(bitmap);
-      place.size.y = al_get_bitmap_height(bitmap);
+      // TODO: check "exists" in animation_book
+      animation = animation_book->find_animation_by_name(animation_name);
+      animation.initialize();
+      animation.start(); // NOTE: consider if automatic "start" is needed here
+      refresh_bitmap();
+      return;
+
+
+  - name: fit_to_bitmap
+    xprivate: true
+    guards: [ bitmap_internal ]
+    body: |
+      place.size.x = al_get_bitmap_width(bitmap_internal);
+      place.size.y = al_get_bitmap_height(bitmap_internal);
       return;
 
 
@@ -231,4 +268,9 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FrameAnimation::Book
+    headers: [ AllegroFlare/FrameAnimation/Book.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::Animation
+    headers: [ AllegroFlare/FrameAnimation/Animation.hpp ]
+
 

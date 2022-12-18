@@ -19,11 +19,13 @@ namespace Entities
 {
 
 
-FrameAnimated2D::FrameAnimated2D()
+FrameAnimated2D::FrameAnimated2D(AllegroFlare::FrameAnimation::Book* animation_book)
    : AllegroFlare::Prototypes::Platforming2D::Entities::Base(AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D::TYPE)
+   , animation_book(animation_book)
    , place({})
    , velocity({})
-   , bitmap(nullptr)
+   , animation({})
+   , bitmap_internal(nullptr)
    , bitmap_alignment_strategy("top_left")
    , bitmap_flip_h(false)
    , debug_box_color(ALLEGRO_COLOR{0, 0.375, 0.75, 0.75})
@@ -36,6 +38,12 @@ FrameAnimated2D::~FrameAnimated2D()
 }
 
 
+void FrameAnimated2D::set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book)
+{
+   this->animation_book = animation_book;
+}
+
+
 void FrameAnimated2D::set_place(AllegroFlare::Placement2D place)
 {
    this->place = place;
@@ -45,12 +53,6 @@ void FrameAnimated2D::set_place(AllegroFlare::Placement2D place)
 void FrameAnimated2D::set_velocity(AllegroFlare::Placement2D velocity)
 {
    this->velocity = velocity;
-}
-
-
-void FrameAnimated2D::set_bitmap(ALLEGRO_BITMAP* bitmap)
-{
-   this->bitmap = bitmap;
 }
 
 
@@ -72,6 +74,12 @@ void FrameAnimated2D::set_debug_box_color(ALLEGRO_COLOR debug_box_color)
 }
 
 
+AllegroFlare::FrameAnimation::Book* FrameAnimated2D::get_animation_book() const
+{
+   return animation_book;
+}
+
+
 AllegroFlare::Placement2D FrameAnimated2D::get_place() const
 {
    return place;
@@ -81,12 +89,6 @@ AllegroFlare::Placement2D FrameAnimated2D::get_place() const
 AllegroFlare::Placement2D FrameAnimated2D::get_velocity() const
 {
    return velocity;
-}
-
-
-ALLEGRO_BITMAP* FrameAnimated2D::get_bitmap() const
-{
-   return bitmap;
 }
 
 
@@ -122,12 +124,24 @@ AllegroFlare::Placement2D &FrameAnimated2D::get_velocity_ref()
 
 void FrameAnimated2D::update()
 {
+   animation.update();
+   refresh_bitmap();
    //place.position += velocity.position; // <-- this is now managed in the stepper
    //place.rotation += velocity.rotation;
 
    //place.scale += velocity.scale; // TODO: figure out what/how to apply scale velocity
    // TODO: align, size, anchor, flip
 
+   return;
+}
+
+void FrameAnimated2D::refresh_bitmap()
+{
+   bitmap_internal = animation.get_frame_now();
+   fit_to_bitmap(); // This may be redundant, however it's not yet determined if Animation/Book will
+                    // always be returning fixed size bitmaps.  Also, in some scenarios it's likely the
+                    // collision box will be different from the bitmap, and for the time being it appears
+                    // the two are considered the same.
    return;
 }
 
@@ -150,24 +164,24 @@ void FrameAnimated2D::draw()
 
       place.start_transform();
 
-   if (bitmap)
+   if (bitmap_internal)
    {
       if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
       if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
       // draw the bitmap
       float bitmap_x = 0;
       float bitmap_y = 0;
-      assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
-      assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
-      al_draw_bitmap(bitmap, bitmap_x, bitmap_y, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
+      assign_alignment_strategy_values(&place, bitmap_internal, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+      assign_alignment_strategy_values(&place, bitmap_internal, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+      al_draw_bitmap(bitmap_internal, bitmap_x, bitmap_y, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
 
       // draw the bitmap's boundary debug rectangle
       // TODO: move this out of "if (bitmap)" clause
       al_draw_rectangle(
          bitmap_x,
          bitmap_y,
-         bitmap_x + al_get_bitmap_width(bitmap),
-         bitmap_y + al_get_bitmap_height(bitmap),
+         bitmap_x + al_get_bitmap_width(bitmap_internal),
+         bitmap_y + al_get_bitmap_height(bitmap_internal),
          ALLEGRO_COLOR{0, 0.5, 0.25, 0.5},
          1.0
       );
@@ -214,21 +228,37 @@ void FrameAnimated2D::draw()
       al_draw_filled_circle(place.position.x, place.position.y+6, 2, debug_box_color);
    }
 
-   //}
+   return;
+}
+
+void FrameAnimated2D::set_animation(std::string animation_name)
+{
+   if (!(animation_book))
+   {
+      std::stringstream error_message;
+      error_message << "[FrameAnimated2D::set_animation]: error: guard \"animation_book\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FrameAnimated2D::set_animation: error: guard \"animation_book\" not met");
+   }
+   // TODO: check "exists" in animation_book
+   animation = animation_book->find_animation_by_name(animation_name);
+   animation.initialize();
+   animation.start(); // NOTE: consider if automatic "start" is needed here
+   refresh_bitmap();
    return;
 }
 
 void FrameAnimated2D::fit_to_bitmap()
 {
-   if (!(bitmap))
+   if (!(bitmap_internal))
    {
       std::stringstream error_message;
-      error_message << "[FrameAnimated2D::fit_to_bitmap]: error: guard \"bitmap\" not met.";
+      error_message << "[FrameAnimated2D::fit_to_bitmap]: error: guard \"bitmap_internal\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FrameAnimated2D::fit_to_bitmap: error: guard \"bitmap\" not met");
+      throw std::runtime_error("FrameAnimated2D::fit_to_bitmap: error: guard \"bitmap_internal\" not met");
    }
-   place.size.x = al_get_bitmap_width(bitmap);
-   place.size.y = al_get_bitmap_height(bitmap);
+   place.size.x = al_get_bitmap_width(bitmap_internal);
+   place.size.y = al_get_bitmap_height(bitmap_internal);
    return;
 }
 

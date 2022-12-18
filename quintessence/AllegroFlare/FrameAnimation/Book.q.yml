@@ -74,10 +74,10 @@ functions:
         default_argument: '"[unset-tag_name]"'
     guards: [ initialized ]
     body: |
-      return get_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
+      return find_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
 
 
-  - name: get_animation_by_name
+  - name: find_animation_by_name
     type: AllegroFlare::FrameAnimation::Animation
     parameters:
       - name: name
@@ -88,7 +88,7 @@ functions:
       {
          std::stringstream error_message;
          error_message << "No animation exists for name \"" << name << "\"";
-         AllegroFlare::Errors::throw_error("DungeonPlus::AnimationBook::get_animation_by_name", error_message.str());
+         AllegroFlare::Errors::throw_error("DungeonPlus::AnimationBook::find_animation_by_name", error_message.str());
       }
       return dictionary[name];
     body_dependency_symbols:

@@ -1201,7 +1201,8 @@
   "AllegroFlare/FrameAnimation/Animation": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/FrameAnimation/Book"
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
   ],
   "AllegroFlare/FrameAnimation/Errors": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
@@ -1859,6 +1860,9 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
+  ],
+  "AllegroFlare/FrameAnimation/Book": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
   ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",

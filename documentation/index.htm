@@ -5043,7 +5043,16 @@ table td
   <td class="method">build_error_message(2)</td>
 </tr>
 <tr>
+  <td class="method">build_warning_message(2)</td>
+</tr>
+<tr>
+  <td class="method">build_info_message(2)</td>
+</tr>
+<tr>
   <td class="method">throw_missing_file_error(3)</td>
+</tr>
+<tr>
+  <td class="method">warn_from(2)</td>
 </tr>
 <tr>
   <td class="method">throw_error(2)</td>
@@ -5347,7 +5356,7 @@ table td
   <td class="method">get_still_frame(1)</td>
 </tr>
 <tr>
-  <td class="method">get_animation_by_name(1)</td>
+  <td class="method">find_animation_by_name(1)</td>
 </tr>
 <tr>
   <td class="private_method">_build_placeholder_dictionary()</td>
@@ -10803,6 +10812,10 @@ table td
     <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.q.yml</h3>
      <table>
 <tr>
+  <td class="property">animation_book</td>
+  <td class="property">AllegroFlare::FrameAnimation::Book*</td>
+</tr>
+<tr>
   <td class="property">place</td>
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
@@ -10811,7 +10824,11 @@ table td
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
 <tr>
-  <td class="property">bitmap</td>
+  <td class="property">animation</td>
+  <td class="property">AllegroFlare::FrameAnimation::Animation</td>
+</tr>
+<tr>
+  <td class="property">bitmap_internal</td>
   <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
 <tr>
@@ -10836,7 +10853,13 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
+  <td class="method">refresh_bitmap()</td>
+</tr>
+<tr>
   <td class="method">draw()</td>
+</tr>
+<tr>
+  <td class="method">set_animation(1)</td>
 </tr>
 <tr>
   <td class="method">fit_to_bitmap()</td>
@@ -10863,6 +10886,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Book&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Book.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Animation&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Animation.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -18720,7 +18749,8 @@ table td
   "AllegroFlare/FrameAnimation/Animation": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/FrameAnimation/Book"
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
   ],
   "AllegroFlare/FrameAnimation/Errors": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
@@ -19378,6 +19408,9 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
+  ],
+  "AllegroFlare/FrameAnimation/Book": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
   ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",

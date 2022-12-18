@@ -71,7 +71,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    //ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
-   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
    result->get_place_ref().size.x = width;
    result->get_place_ref().size.y = height;
    //result->set_bitmap(bitmap);
@@ -137,7 +138,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    // create the enemy
-   AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
    created_entity->get_place_ref().size.x = width;
    created_entity->get_place_ref().size.y = height;
    created_entity->get_place_ref().position.x = x;
@@ -177,7 +179,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    static unsigned int seed = 7654;
    seed++;
    // create the enemy
-   AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
    created_entity->get_place_ref().size.x = width;
    created_entity->get_place_ref().size.y = height;
    created_entity->get_place_ref().position.x = x;
@@ -210,8 +213,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-   // create the enemy
-   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+   // create the entity
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
    created_entity->get_place_ref().size.x = 15.0f;
    created_entity->get_place_ref().size.y = 15.0f;
    created_entity->get_place_ref().position.x = x;
@@ -223,7 +227,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    created_entity->set(COLLECTABLE_BY_PLAYER);
    created_entity->set(ON_MAP_NAME, map_name);
 
-   // return the entity
+   // return the collectable entity
    return created_entity;
 }
 
@@ -231,8 +235,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-   // create the enemy
-   AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *created_door = new AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D;
+   // create the door entity
+   AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *created_door =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D;
    created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
    created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
    created_door->get_place_ref().position.x = x;
@@ -283,7 +288,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    // create the enemy
-   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
    created_entity->get_place_ref().size.x = 16.0f - 1.0f;
    created_entity->get_place_ref().size.y = 32.0f - 1.0f;
    created_entity->get_place_ref().position.x = x;

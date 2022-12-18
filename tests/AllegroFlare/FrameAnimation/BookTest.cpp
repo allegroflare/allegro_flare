@@ -31,7 +31,7 @@ TEST(AllegroFlare_FrameAnimation_BookTest, VISUAL__will_load_an_animation)
    Book animation_book;
    animation_book.initialize();
 
-   Animation animation = animation_book.get_animation_by_name("blob");
+   Animation animation = animation_book.find_animation_by_name("blob");
    animation.initialize();
    
    int frames = 120;

@@ -49,7 +49,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(&framework.get_bitmap_bin_ref());
-      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* created_entity = factory.create_for_aabb2d("map_a", 16-1, 32-1);
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* created_entity =
+         factory.create_for_aabb2d("map_a", 16-1, 32-1);
       created_entity->get_place_ref().position.x = 400/2;
       created_entity->get_place_ref().position.y = 240/2;
 
@@ -71,7 +72,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
          platforming_2d.add_entity_to_pool(enemy);
       }
 
-      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* collectable2 = factory.create_collectable("map_a", 5*16, 20*16);
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* collectable2 =
+         factory.create_collectable("map_a", 5*16, 20*16);
       platforming_2d.add_entity_to_pool(collectable2);
 
       platforming_2d.add_entity_to_pool(factory.create_collectable("map_a", 45*16, 2*16));

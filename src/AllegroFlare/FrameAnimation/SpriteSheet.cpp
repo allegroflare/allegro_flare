@@ -3,6 +3,8 @@
 #include <AllegroFlare/FrameAnimation/SpriteSheet.hpp>
 
 #include <AllegroFlare/ImageProcessing.hpp>
+#include <AllegroFlare/Errors.hpp>
+#include <sstream> // for error message
 
 
 
@@ -24,6 +26,10 @@ SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width, int sprite_he
    , initialized(false)
    , destroyed(false)
 {
+   AllegroFlare::Errors::warn_from("AllegroFlare::FrameAnimation::SpriteSheet::SpriteSheet()", 
+                                   "SpriteSheet is auto-initializing on construction. This should be fixed");
+
+   // TODO: prevent auto-initialization
    init();
 }
 

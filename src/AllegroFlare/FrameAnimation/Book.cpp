@@ -91,16 +91,16 @@ ALLEGRO_BITMAP* Book::get_still_frame(std::string tag_name)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Book::get_still_frame: error: guard \"initialized\" not met");
    }
-   return get_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
+   return find_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
 }
 
-AllegroFlare::FrameAnimation::Animation Book::get_animation_by_name(std::string name)
+AllegroFlare::FrameAnimation::Animation Book::find_animation_by_name(std::string name)
 {
    if (dictionary.count(name) == 0)
    {
       std::stringstream error_message;
       error_message << "No animation exists for name \"" << name << "\"";
-      AllegroFlare::Errors::throw_error("DungeonPlus::AnimationBook::get_animation_by_name", error_message.str());
+      AllegroFlare::Errors::throw_error("DungeonPlus::AnimationBook::find_animation_by_name", error_message.str());
    }
    return dictionary[name];
 }
