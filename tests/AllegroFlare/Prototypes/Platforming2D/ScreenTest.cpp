@@ -23,8 +23,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_bl
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
-   //INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
@@ -49,14 +49,20 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
    // create an animation book (to create an frame_animated type from the factory)
    // TODO: introduce this concept to the test
-   //AllegroFlare::FrameAnimation::Book animation_book;
-   //animation_book.initialize();
+   AllegroFlare::FrameAnimation::Book animation_book(
+      "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.png",
+      "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.json",
+      1
+   );
+   animation_book.initialize();
+
+
 
 
 
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(
-         &framework.get_bitmap_bin_ref()
-         //&animation_book
+         &framework.get_bitmap_bin_ref(),
+         &animation_book
       );
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* created_entity =
          factory.create_for_aabb2d("map_a", 16-1, 32-1);
@@ -65,12 +71,13 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
       platforming_2d.add_entity_to_pool(created_entity);
 
-      //AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity =
-         //factory.create_frame_animated("map_a", 16-1, 32-1);
-      //created_animated_entity->get_place_ref().position.x = 400/2;
-      //created_animated_entity->get_place_ref().position.y = 240/2;
+      AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity =
+         factory.create_frame_animated("map_a", 16-1, 32-1, "blob", "bottom_centered");
+      created_animated_entity->get_place_ref().position.x = 400/2;
+      created_animated_entity->get_place_ref().position.y = 240/2;
 
-      //platforming_2d.add_entity_to_pool(created_animated_entity);
+
+      platforming_2d.add_entity_to_pool(created_animated_entity);
 
 
       platforming_2d.set_player_controlled_entity(created_entity);

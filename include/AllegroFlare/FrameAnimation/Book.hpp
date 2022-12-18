@@ -17,6 +17,7 @@ namespace AllegroFlare
       private:
          std::string png_source_filename;
          std::string json_source_filename;
+         int sprite_sheet_scale;
          AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet;
          std::map<std::string, AllegroFlare::FrameAnimation::Animation> dictionary;
          bool initialized;
@@ -26,10 +27,12 @@ namespace AllegroFlare
 
 
       public:
-         Book(std::string png_source_filename="./bin/data/bitmaps/sprites_grid-x.png", std::string json_source_filename="./bin/data/bitmaps/sprites_grid-x.json");
+         Book(std::string png_source_filename="./bin/data/bitmaps/sprites_grid-x.png", std::string json_source_filename="./bin/data/bitmaps/sprites_grid-x.json", int sprite_sheet_scale=5);
          ~Book();
 
          void set_dictionary(std::map<std::string, AllegroFlare::FrameAnimation::Animation> dictionary);
+         int get_sprite_sheet_scale() const;
+         void set_sprite_sheet_scale(int sprite_sheet_scale=5);
          AllegroFlare::FrameAnimation::SpriteSheet* get_sprite_sheet();
          void initialize();
          ALLEGRO_BITMAP* get_still_frame(std::string tag_name="[unset-tag_name]");

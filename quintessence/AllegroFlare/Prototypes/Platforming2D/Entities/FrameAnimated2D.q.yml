@@ -1,9 +1,9 @@
 parent_classes:
 
 
-  - class: AllegroFlare::Prototypes::Platforming2D::Entities::Base
+  - class: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
     scope: public
-    init_with: AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D::TYPE
+    init_with: ''
 
 
 properties:
@@ -16,46 +16,10 @@ properties:
     getter: true
     setter: true
 
-  - name: place
-    type: AllegroFlare::Placement2D
-    init_with: '{}'
-    getter: true
-    getter_ref: true
-    setter: true
-
-  - name: velocity
-    type: AllegroFlare::Placement2D
-    init_with: '{}'
-    getter: true
-    getter_ref: true
-    setter: true
-
   - name: animation
     type: AllegroFlare::FrameAnimation::Animation
     init_with: '{}'
     setter: false
-
-  - name: bitmap_internal
-    type: ALLEGRO_BITMAP*
-    init_with: nullptr
-
-  - name: bitmap_alignment_strategy
-    type: std::string
-    init_with: '"top_left"'
-    getter: true
-    setter: true
-
-  - name: bitmap_flip_h
-    type: bool
-    init_with: false
-    getter: true
-    setter: true
-
-  - name: debug_box_color
-    type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{0, 0.375, 0.75, 0.75}
-    getter: true
-    setter: true
 
   - name: TYPE
     type: char*
@@ -84,97 +48,12 @@ functions:
 
   - name: refresh_bitmap
     body: |
-      bitmap_internal = animation.get_frame_now();
+      set_bitmap(animation.get_frame_now());
       //fit_to_bitmap(); // This may be redundant, however it's not yet determined if Animation/Book will
                        // always be returning fixed size bitmaps.  Also, in some scenarios it's likely the
                        // collision box will be different from the bitmap, and for the time being it appears
                        // the two are considered the same.
       return;
-
-
-  - name: draw
-    virtual: true
-    override: true
-    guards: [ al_is_primitives_addon_initialized() ]
-    body: |
-      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
-      // TODO: add some reasonable guards
-      //if (bitmap)
-      //{
-         // TODO: find a more proper place for this
-         //if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
-         //if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
-
-         place.start_transform();
-
-      if (bitmap_internal)
-      {
-         if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
-         if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
-         // draw the bitmap
-         float bitmap_x = 0;
-         float bitmap_y = 0;
-         assign_alignment_strategy_values(&place, bitmap_internal, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
-         assign_alignment_strategy_values(&place, bitmap_internal, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
-         al_draw_bitmap(bitmap_internal, bitmap_x, bitmap_y, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
-
-         // draw the bitmap's boundary debug rectangle
-         // TODO: move this out of "if (bitmap)" clause
-         al_draw_rectangle(
-            bitmap_x,
-            bitmap_y,
-            bitmap_x + al_get_bitmap_width(bitmap_internal),
-            bitmap_y + al_get_bitmap_height(bitmap_internal),
-            ALLEGRO_COLOR{0, 0.5, 0.25, 0.5},
-            1.0
-         );
-      }
-
-
-         // draw the bounding box rectangle
-         // TODO: move this out of "if (bitmap)" clause
-         al_draw_rectangle(
-            0,
-            0,
-            place.size.x,
-            place.size.y,
-            debug_box_color,
-            1.0
-         );
-
-         place.restore_transform();
-
-         // draw a box around the unaltered position
-         al_draw_rectangle(
-            place.position.x-3,
-            place.position.y-3,
-            place.position.x+3,
-            place.position.y+3,
-            debug_box_color,
-            1.0
-         );
-
-      if (exists(ADJACENT_TO_CEILING))
-      {
-         al_draw_filled_circle(place.position.x, place.position.y - 6, 2, debug_box_color);
-      }
-      if (exists(ADJACENT_TO_LEFT_WALL))
-      {
-         al_draw_filled_circle(place.position.x-6, place.position.y, 2, debug_box_color);
-      }
-      if (exists(ADJACENT_TO_RIGHT_WALL))
-      {
-         al_draw_filled_circle(place.position.x+6, place.position.y, 2, debug_box_color);
-      }
-      if (exists(ADJACENT_TO_FLOOR))
-      {
-         al_draw_filled_circle(place.position.x, place.position.y+6, 2, debug_box_color);
-      }
-
-      return;
-    body_dependency_symbols:
-      - al_draw_rectangle
-      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
   - name: set_animation
@@ -184,7 +63,6 @@ functions:
         default_argument: '"[unset-animation_name]"'
     guards: [ animation_book, animation_book->animation_exists(animation_name) ]
     body: |
-      // TODO: check "exists" in animation_book
       animation = animation_book->find_animation_by_name(animation_name);
       animation.initialize();
       animation.start(); // NOTE: consider if automatic "start" is needed here
@@ -192,72 +70,11 @@ functions:
       return;
 
 
-  - name: fit_to_bitmap
-    xprivate: true
-    guards: [ bitmap_internal ]
-    body: |
-      place.size.x = al_get_bitmap_width(bitmap_internal);
-      place.size.y = al_get_bitmap_height(bitmap_internal);
-      return;
-
-
-  - name: assign_alignment_strategy_values
-    static: true
-    private: true
-    parameters:
-      - name: parent_placement
-        type: AllegroFlare::Placement2D*
-        default_argument: nullptr
-      - name: bitmap
-        type: ALLEGRO_BITMAP*
-        default_argument: nullptr
-      - name: bitmap_x
-        type: float*
-        default_argument: nullptr
-      - name: bitmap_y
-        type: float*
-        default_argument: nullptr
-      - name: bitmap_alignment_strategy
-        type: std::string
-        default_argument: '"centered"'
-    guards: [ parent_placement, bitmap, bitmap_x, bitmap_y ]
-    body: |
-      if (bitmap_alignment_strategy == "top_left")
-      {
-         *bitmap_x = 0;
-         *bitmap_y = 0;
-      }
-      else if (bitmap_alignment_strategy == "centered") // as in a schmup
-      {
-         // TODO: fix this so that it works as expected with different parent_placement alignment
-         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-         *bitmap_y = -(al_get_bitmap_height(bitmap) * 0.5) + parent_placement->size.y * 0.5;
-      }
-      else if (bitmap_alignment_strategy == "bottom_centered") // as in a top-down 2D dungeon crawler
-      {
-         //TODO: clarify this concept
-         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-         *bitmap_y = -al_get_bitmap_height(bitmap) + parent_placement->size.y * 0.5;
-      }
-      else if (bitmap_alignment_strategy == "bottom_centered_edge") // as in a 2D platformer
-      {
-         // TODO: this is broken for different types of sizes.
-         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-         *bitmap_y = -(al_get_bitmap_height(bitmap) * 0.25);
-      }
-      else
-      {
-         throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D] error: "
-                                  "Unrecognized bitmap_alignment_strategy");
-      }
-      return;
-
-
 dependencies:
 
 
-  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Base
-    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
   - symbol: al_draw_rectangle

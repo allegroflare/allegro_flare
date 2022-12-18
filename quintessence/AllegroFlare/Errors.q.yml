@@ -75,9 +75,15 @@ functions:
         default_argument: '"[unset-filetype]"'
     body: |
       std::stringstream error_message;
-      error_message << "The expected " << filetype << " file does not exist. Looking in \"" << filename << "\"";
+      std::string current_path = std::filesystem::current_path();
+
+      error_message << "The expected " << filetype << " file does not exist. "
+                    << "Looking for \"" << filename << "\" from the current path "
+                    << "\"" << current_path << "\".";
       throw_error(from, error_message.str());
       return;
+    body_dependency_symbols:
+      - std::filesystem
 
 
   - name: warn_from
@@ -122,5 +128,12 @@ functions:
     body_dependency_symbols:
       - std::stringstream
       - std::cout
+
+
+dependencies:
+
+
+  - symbol: std::filesystem
+    headers: [ filesystem ]
 
 

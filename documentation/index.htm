@@ -5059,6 +5059,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -5333,6 +5336,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">sprite_sheet_scale</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">sprite_sheet</td>
   <td class="property">AllegroFlare::FrameAnimation::SpriteSheet*</td>
 </tr>
@@ -5346,6 +5353,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">set_sprite_sheet_scale(1)</td>
+</tr>
 <tr>
   <td class="method">get_sprite_sheet()</td>
 </tr>
@@ -10832,32 +10842,8 @@ table td
   <td class="property">AllegroFlare::FrameAnimation::Book*</td>
 </tr>
 <tr>
-  <td class="property">place</td>
-  <td class="property">AllegroFlare::Placement2D</td>
-</tr>
-<tr>
-  <td class="property">velocity</td>
-  <td class="property">AllegroFlare::Placement2D</td>
-</tr>
-<tr>
   <td class="property">animation</td>
   <td class="property">AllegroFlare::FrameAnimation::Animation</td>
-</tr>
-<tr>
-  <td class="property">bitmap_internal</td>
-  <td class="property">ALLEGRO_BITMAP*</td>
-</tr>
-<tr>
-  <td class="property">bitmap_alignment_strategy</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">bitmap_flip_h</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
-  <td class="property">debug_box_color</td>
-  <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -10872,21 +10858,12 @@ table td
   <td class="method">refresh_bitmap()</td>
 </tr>
 <tr>
-  <td class="method">draw()</td>
-</tr>
-<tr>
   <td class="method">set_animation(1)</td>
-</tr>
-<tr>
-  <td class="method">fit_to_bitmap()</td>
-</tr>
-<tr>
-  <td class="private_method">assign_alignment_strategy_values(5)</td>
 </tr>
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Base.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::EntityFlagNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp&quot;]}</td>
@@ -18056,6 +18033,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FallOnTrackingRange",
@@ -18679,6 +18657,9 @@ table td
   ],
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
+  ],
+  "std/filesystem": [
+    "AllegroFlare/Errors"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
@@ -19333,8 +19314,7 @@ table td
     "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Base": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityFlagNames": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",

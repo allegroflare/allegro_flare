@@ -16,9 +16,10 @@ namespace FrameAnimation
 {
 
 
-Book::Book(std::string png_source_filename, std::string json_source_filename)
+Book::Book(std::string png_source_filename, std::string json_source_filename, int sprite_sheet_scale)
    : png_source_filename(png_source_filename)
    , json_source_filename(json_source_filename)
+   , sprite_sheet_scale(sprite_sheet_scale)
    , sprite_sheet(nullptr)
    , dictionary({})
    , initialized(false)
@@ -36,6 +37,32 @@ void Book::set_dictionary(std::map<std::string, AllegroFlare::FrameAnimation::An
    this->dictionary = dictionary;
 }
 
+
+int Book::get_sprite_sheet_scale() const
+{
+   return sprite_sheet_scale;
+}
+
+
+void Book::set_sprite_sheet_scale(int sprite_sheet_scale)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::set_sprite_sheet_scale]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::set_sprite_sheet_scale: error: guard \"(!initialized)\" not met");
+   }
+   if (!((sprite_sheet_scale > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::set_sprite_sheet_scale]: error: guard \"(sprite_sheet_scale > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::set_sprite_sheet_scale: error: guard \"(sprite_sheet_scale > 0)\" not met");
+   }
+   this->sprite_sheet_scale = sprite_sheet_scale;
+   return;
+}
 
 AllegroFlare::FrameAnimation::SpriteSheet* Book::get_sprite_sheet()
 {
@@ -58,19 +85,26 @@ void Book::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Book::initialize: error: guard \"(!initialized)\" not met");
    }
+   if (!((sprite_sheet_scale > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::initialize]: error: guard \"(sprite_sheet_scale > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::initialize: error: guard \"(sprite_sheet_scale > 0)\" not met");
+   }
    // TODO: rename this function to initialize
    // build the sprite sheet
    if (!AllegroFlare::php::file_exists(png_source_filename))
    {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::FrameAnimation::AnimationBook::init] error: "
-                    << "expected png file does not exist. Looking in \"" << png_source_filename << "\".";
-      throw std::runtime_error(error_message.str());
+      AllegroFlare::Errors::throw_missing_file_error("AllegroFlare::FrameAnimation::Book::initialize",
+            png_source_filename,
+            "png"
+      );
    }
 
    ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap(png_source_filename.c_str());
    // TODO: add validation for unloadable sprite_sheet_bitmap
-   sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, 5); // auto-inits
+   sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, sprite_sheet_scale); // auto-inits
    al_destroy_bitmap(sprite_sheet_bitmap);
 
    // load the data

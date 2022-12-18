@@ -89,7 +89,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return result;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFactory::create_frame_animated(std::string map_name, float x, float y, std::string start_animation_name, std::string bitmap_alignment_strategy)
+AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFactory::create_frame_animated(std::string map_name, float x, float y, std::string initial_animation_name, std::string bitmap_alignment_strategy)
 {
    if (!(animation_book))
    {
@@ -104,7 +104,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFacto
    Entities::FrameAnimated2D *result = new Entities::FrameAnimated2D(animation_book);
    result->get_place_ref().position.x = x;
    result->get_place_ref().position.y = y;
-   result->fit_to_bitmap(); // <-- TODO: not sure if this is necessary
+   result->set_animation(initial_animation_name);
+   //result->fit_to_bitmap(); // <-- TODO: don't think this is necessary, done automatically with "set_animation"
    result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
 
    result->set(ON_MAP_NAME, map_name);

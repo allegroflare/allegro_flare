@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Errors.hpp>
 
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 
@@ -50,7 +51,11 @@ std::string Errors::build_info_message(std::string from, std::string message)
 void Errors::throw_missing_file_error(std::string from, std::string filename, std::string filetype)
 {
    std::stringstream error_message;
-   error_message << "The expected " << filetype << " file does not exist. Looking in \"" << filename << "\"";
+   std::string current_path = std::filesystem::current_path();
+
+   error_message << "The expected " << filetype << " file does not exist. "
+                 << "Looking for \"" << filename << "\" from the current path "
+                 << "\"" << current_path << "\".";
    throw_error(from, error_message.str());
    return;
 }

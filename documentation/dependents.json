@@ -492,6 +492,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FallOnTrackingRange",
@@ -1115,6 +1116,9 @@
   ],
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
+  ],
+  "std/filesystem": [
+    "AllegroFlare/Errors"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
@@ -1769,8 +1773,7 @@
     "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Base": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityFlagNames": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
