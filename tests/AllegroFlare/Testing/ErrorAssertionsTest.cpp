@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/Testing/ErrorAssertion.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 // TODO: add tests for these macros
