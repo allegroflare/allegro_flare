@@ -46,6 +46,7 @@ void FrameAnimated2D::update()
 {
    animation.update();
    refresh_bitmap();
+   fit_to_bitmap(); // TODO: see if there is a better way/place to have the bitmap fitting
    //place.position += velocity.position; // <-- this is now managed in the stepper
    //place.rotation += velocity.rotation;
 

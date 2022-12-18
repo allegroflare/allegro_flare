@@ -60,6 +60,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
 
+
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(
          &framework.get_bitmap_bin_ref(),
          &animation_book
@@ -72,9 +73,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
       platforming_2d.add_entity_to_pool(created_entity);
 
       AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity =
-         factory.create_frame_animated("map_a", 16-1, 32-1, "blob", "bottom_centered");
-      created_animated_entity->get_place_ref().position.x = 400/2;
-      created_animated_entity->get_place_ref().position.y = 240/2;
+         factory.create_frame_animated("map_a", 400/2, 240/2, "blob"); //, "bottom_centered");
+      //created_animated_entity->get_place_ref().scale = { 0.25f, 0.25f };
 
 
       platforming_2d.add_entity_to_pool(created_animated_entity);

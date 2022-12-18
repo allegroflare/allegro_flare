@@ -104,6 +104,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFacto
    Entities::FrameAnimated2D *result = new Entities::FrameAnimated2D(animation_book);
    result->get_place_ref().position.x = x;
    result->get_place_ref().position.y = y;
+   //result->get_place_ref().size.x = w;
+   //result->get_place_ref().size.y = h;
    result->set_animation(initial_animation_name);
    //result->fit_to_bitmap(); // <-- TODO: don't think this is necessary, done automatically with "set_animation"
    result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
