@@ -1,0 +1,239 @@
+properties:
+
+
+  - name: sprite_sheet
+    type: SpriteSheet*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    constructor_arg: true
+
+  - name: frames
+    type: std::vector<AllegroFlare::FrameAnimation::Frame>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+
+  - name: playmode
+    type: uint32_t
+    init_with: PLAYMODE_UNDEF
+    constructor_arg: true
+    getter: true
+
+  - name: playhead
+    type: float
+    init_with: 0.0f
+
+  - name: finished
+    type: bool
+    init_with: false
+
+  - name: PLAYMODE_UNDEF
+    type: uint32_t
+    const: true
+    constexpr: true
+    static: true
+    init_with: 0
+
+  - name: PLAYMODE_FORWARD_ONCE
+    type: uint32_t
+    const: true
+    constexpr: true
+    static: true
+    init_with: 1
+
+  - name: PLAYMODE_FORWARD_LOOP
+    type: uint32_t
+    const: true
+    constexpr: true
+    static: true
+    init_with: 2
+
+  - name: PLAYMODE_FORWARD_PING_PONG
+    type: uint32_t
+    const: true
+    constexpr: true
+    static: true
+    init_with: 3
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - sprite_sheet
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: start
+    guards: [ initialized ]
+    body: |
+      playhead = 0.0f;
+      finished = false;
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      const float FRAME_INCREMENT = 1.0f/60.0f;
+      playhead += FRAME_INCREMENT;
+
+      // update "finished"
+      switch(playmode)
+      {
+         case PLAYMODE_FORWARD_ONCE:
+           if (playhead > calculate_duration()) finished = true;
+         break;
+
+         case PLAYMODE_FORWARD_LOOP:
+           // NOTE: nothing to do, FORWARD_LOOP plays indefinitely
+         break;
+
+         case PLAYMODE_FORWARD_PING_PONG:
+           // NOTE: nothing to do, PING_PONG plays indefinitely
+         break;
+      }
+      return;
+
+
+  - name: draw
+    guards: [ initialized ]
+    body: |
+      ALLEGRO_BITMAP *bitmap = get_frame_at(playhead);
+      if (!bitmap) return;
+      al_draw_bitmap(bitmap, 0, 0, 0);
+      return;
+
+
+  - name: get_num_frames
+    type: int
+    guards: [ initialized ]
+    body: |
+      return frames.size();
+
+
+  - name: get_frame_now
+    type: ALLEGRO_BITMAP*
+    guards: [ initialized ]
+    body: |
+      return get_frame_at(playhead);
+
+
+  - name: get_bitmap_at_frame_num
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: frame_num
+        type: int
+        default_argument: 0
+    guards: [ initialized, (frame_num < 0), (frame_num >= frames.size()) ]
+    body: |
+      uint32_t cell_id = frames[frame_num].get_index();
+      return sprite_sheet->get_cell(cell_id);
+
+
+  - name: get_frame_id_now
+    type: uint32_t
+    guards: [ initialized ]
+    body: |
+      return get_frame_id_at(playhead);
+
+
+  - name: get_frame_id_at
+    type: uint32_t
+    parameters:
+      - name: time
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      float duration = calculate_duration();
+      if (duration < 0.0001) return 0;
+
+      switch(playmode)
+      {
+         case PLAYMODE_FORWARD_ONCE: {
+            float duration_so_far = 0.0f;
+            for (auto &frame : frames)
+            {
+               duration_so_far += frame.get_duration();
+               if (time < duration_so_far) return frame.get_index();
+            }
+         } break;
+
+         case PLAYMODE_FORWARD_LOOP: {
+            float duration_so_far = 0.0f;
+            float duration = calculate_duration();
+            float looped_playhead = fmod(time, duration);
+            for (auto &frame : frames)
+            {
+               duration_so_far += frame.get_duration();
+               if (looped_playhead < duration_so_far) return frame.get_index();
+            }
+         } break;
+
+         case PLAYMODE_FORWARD_PING_PONG: {
+            float duration_so_far = 0.0f;
+            float duration = calculate_duration();
+            float ping_pong_playhead = fmod(time, duration*2);
+            if (ping_pong_playhead > duration) ping_pong_playhead = duration*2 - ping_pong_playhead;
+            for (auto &frame : frames)
+            {
+               duration_so_far += frame.get_duration();
+               if (ping_pong_playhead < duration_so_far) return frame.get_index();
+            }
+         } break;
+      }
+      return 0;
+    body_dependency_symbols:
+      - fmod
+
+
+  - name: get_frame_at
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: time
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      uint32_t cell_id = get_frame_id_at(time);
+      return sprite_sheet->get_cell(cell_id);
+
+
+  - name: calculate_duration
+    type: float
+    guards: [ initialized ]
+    body: |
+      float result = 0.0f;
+      for (auto &frame : frames)
+      {
+         result += frame.get_duration();
+      }
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FrameAnimation::Frame
+    headers: [ AllegroFlare/FrameAnimation/Frame.hpp ]
+  - symbol: SpriteSheet
+    headers: [ dungeon/models/sprite_sheet.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: fmod
+    headers: [ cmath ]
+
+

@@ -1,0 +1,16 @@
+properties:
+
+
+  - name: index
+    type: uint32_t
+    constructor_arg: true
+    init_with: 0
+    getter: true
+
+  - name: duration
+    type: float
+    constructor_arg: true
+    init_with: 0.2f
+    getter: true
+
+
