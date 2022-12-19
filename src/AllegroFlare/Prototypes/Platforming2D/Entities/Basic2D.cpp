@@ -24,6 +24,7 @@ Basic2D::Basic2D()
    , place({})
    , velocity({})
    , bitmap(nullptr)
+   , bitmap_placement({})
    , bitmap_alignment_strategy("top_left")
    , bitmap_flip_h(false)
    , debug_box_color(ALLEGRO_COLOR{0, 0.375, 0.75, 0.75})
@@ -51,6 +52,12 @@ void Basic2D::set_velocity(AllegroFlare::Placement2D velocity)
 void Basic2D::set_bitmap(ALLEGRO_BITMAP* bitmap)
 {
    this->bitmap = bitmap;
+}
+
+
+void Basic2D::set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement)
+{
+   this->bitmap_placement = bitmap_placement;
 }
 
 
@@ -90,6 +97,12 @@ ALLEGRO_BITMAP* Basic2D::get_bitmap() const
 }
 
 
+AllegroFlare::Placement2D Basic2D::get_bitmap_placement() const
+{
+   return bitmap_placement;
+}
+
+
 std::string Basic2D::get_bitmap_alignment_strategy() const
 {
    return bitmap_alignment_strategy;
@@ -117,6 +130,12 @@ AllegroFlare::Placement2D &Basic2D::get_place_ref()
 AllegroFlare::Placement2D &Basic2D::get_velocity_ref()
 {
    return velocity;
+}
+
+
+AllegroFlare::Placement2D &Basic2D::get_bitmap_placement_ref()
+{
+   return bitmap_placement;
 }
 
 
@@ -155,18 +174,29 @@ void Basic2D::draw()
       float bitmap_y = 0;
 
       assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
-      al_draw_bitmap(bitmap, bitmap_x, bitmap_y, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
+
+      // TODO: resolve how/where scale and rotation apply to the placement and/or to bitmap_x, bitmap_y
+      bitmap_placement.align = { 0, 0 };
+      bitmap_placement.size = { (float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap) };
+      bitmap_placement.scale = { 1.0f, 1.0f };
+      bitmap_placement.position = { bitmap_x, bitmap_y };
+
+      bitmap_placement.start_transform();
+      al_draw_bitmap(bitmap, 0, 0, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
 
       // draw the bitmap's boundary debug rectangle
       // TODO: move this out of "if (bitmap)" clause
       al_draw_rectangle(
-         bitmap_x,
-         bitmap_y,
-         bitmap_x + al_get_bitmap_width(bitmap),
-         bitmap_y + al_get_bitmap_height(bitmap),
+         0, //bitmap_x,
+         0, //bitmap_y,
+         al_get_bitmap_width(bitmap), //bitmap_x + al_get_bitmap_width(bitmap),
+         al_get_bitmap_width(bitmap),//bitmap_y + al_get_bitmap_height(bitmap),
          ALLEGRO_COLOR{0, 0.5, 0.25, 0.5},
-         1.0
+         1.0 / bitmap_placement.scale.x / place.scale.x // dividing by the scalle will ensure the lines
+                                                        // have a constant thickness, regardless of the scale
+                                                        // of the entity or bitmap scale
       );
+      bitmap_placement.restore_transform();
    }
 
 
@@ -197,19 +227,19 @@ void Basic2D::draw()
    // add markers to help indicate status (ajacent to walls, ceiling, floor, ...)
    if (exists(ADJACENT_TO_CEILING))
    {
-      al_draw_filled_circle(place.position.x, place.position.y - 6, 2, debug_box_color);
+      al_draw_filled_circle(place.position.x, place.position.y - 3, 1.5, debug_box_color);
    }
    if (exists(ADJACENT_TO_LEFT_WALL))
    {
-      al_draw_filled_circle(place.position.x-6, place.position.y, 2, debug_box_color);
+      al_draw_filled_circle(place.position.x-3, place.position.y, 1.5, debug_box_color);
    }
    if (exists(ADJACENT_TO_RIGHT_WALL))
    {
-      al_draw_filled_circle(place.position.x+6, place.position.y, 2, debug_box_color);
+      al_draw_filled_circle(place.position.x+3, place.position.y, 1.5, debug_box_color);
    }
    if (exists(ADJACENT_TO_FLOOR))
    {
-      al_draw_filled_circle(place.position.x, place.position.y+6, 2, debug_box_color);
+      al_draw_filled_circle(place.position.x, place.position.y+3, 1.5, debug_box_color);
    }
 
    return;
