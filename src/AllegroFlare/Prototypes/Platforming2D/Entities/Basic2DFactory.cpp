@@ -48,6 +48,12 @@ Basic2DFactory::~Basic2DFactory()
 }
 
 
+void Basic2DFactory::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
 void Basic2DFactory::set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book)
 {
    this->animation_book = animation_book;

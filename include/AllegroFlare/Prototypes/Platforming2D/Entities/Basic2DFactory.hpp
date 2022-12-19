@@ -36,6 +36,7 @@ namespace AllegroFlare
                Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FrameAnimation::Book* animation_book=nullptr);
                ~Basic2DFactory();
 
+               void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
                void set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book);
                void set_init_entities_drawing_debug(bool init_entities_drawing_debug);
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_from_bitmap_filename(std::string map_name="[map-name-not-set]", std::string bitmap_filename="bitmap-filename-that-has-not-been-set.png", std::string bitmap_alignment_strategy="centered");
