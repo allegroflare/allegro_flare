@@ -24,6 +24,7 @@ namespace AllegroFlare
             private:
                AllegroFlare::BitmapBin* bitmap_bin;
                AllegroFlare::FrameAnimation::Book* animation_book;
+               bool init_entities_drawing_debug;
                ALLEGRO_COLOR enemy_debug_box_color;
                ALLEGRO_COLOR player_collectable_box_color;
                ALLEGRO_COLOR goalpost_box_color;
@@ -36,6 +37,7 @@ namespace AllegroFlare
                ~Basic2DFactory();
 
                void set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book);
+               void set_init_entities_drawing_debug(bool init_entities_drawing_debug);
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_from_bitmap_filename(std::string map_name="[map-name-not-set]", std::string bitmap_filename="bitmap-filename-that-has-not-been-set.png", std::string bitmap_alignment_strategy="centered");
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_for_aabb2d(std::string map_name="[map-name-not-set]", float width=(16.0f-1.0f), float height=(16.0f-1.0f));
                AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* create_frame_animated(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, std::string initial_animation_name="[unset-initial_animation_name]", std::string bitmap_alignment_strategy="centered");

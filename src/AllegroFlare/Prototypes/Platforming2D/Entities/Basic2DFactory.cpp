@@ -35,6 +35,7 @@ namespace Entities
 Basic2DFactory::Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FrameAnimation::Book* animation_book)
    : bitmap_bin(bitmap_bin)
    , animation_book(animation_book)
+   , init_entities_drawing_debug(false)
    , enemy_debug_box_color(ALLEGRO_COLOR{0.827, 0.184, 0.184, 1.0})
    , player_collectable_box_color(ALLEGRO_COLOR{0.96, 0.93, 0.06, 1.0})
    , goalpost_box_color(ALLEGRO_COLOR{0.06, 0.93, 0.184, 1.0})
@@ -50,6 +51,12 @@ Basic2DFactory::~Basic2DFactory()
 void Basic2DFactory::set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book)
 {
    this->animation_book = animation_book;
+}
+
+
+void Basic2DFactory::set_init_entities_drawing_debug(bool init_entities_drawing_debug)
+{
+   this->init_entities_drawing_debug = init_entities_drawing_debug;
 }
 
 
@@ -70,6 +77,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    result->fit_to_bitmap();
    result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
    result->set(ON_MAP_NAME, map_name);
+
+   if (init_entities_drawing_debug) result->set_draw_debug(true);
    return result;
 }
 
@@ -86,6 +95,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    result->set(ON_MAP_NAME, map_name);
    //result->fit_to_bitmap();
    //result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
+   if (init_entities_drawing_debug) result->set_draw_debug(true);
    return result;
 }
 
@@ -111,6 +121,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFacto
    result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
 
    result->set(ON_MAP_NAME, map_name);
+
+   if (init_entities_drawing_debug) result->set_draw_debug(true);
    return result;
 }
 
@@ -132,6 +144,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
    created_entity->set(ON_MAP_NAME, map_name);
 
+   if (init_entities_drawing_debug) created_entity->set_draw_debug(true);
    return created_entity;
 }
 
@@ -162,6 +175,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    created_entity->set(ON_MAP_NAME, map_name);
 
    // return the entity
+   if (init_entities_drawing_debug) created_entity->set_draw_debug(true);
    return created_entity;
 }
 
@@ -201,6 +215,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    created_entity->set(ON_MAP_NAME, map_name);
 
    // return the entity
+   if (init_entities_drawing_debug) created_entity->set_draw_debug(true);
    return created_entity;
 }
 
@@ -238,6 +253,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    created_entity->set(ON_MAP_NAME, map_name);
 
    // return the entity
+   if (init_entities_drawing_debug) created_entity->set_draw_debug(true);
    return created_entity;
 }
 
@@ -260,6 +276,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    created_entity->set(ON_MAP_NAME, map_name);
 
    // return the collectable entity
+   if (init_entities_drawing_debug) created_entity->set_draw_debug(true);
    return created_entity;
 }
 
@@ -287,6 +304,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    created_door->set(ON_MAP_NAME, map_name);
 
    // return the entity
+   if (init_entities_drawing_debug) created_door->set_draw_debug(true);
    return created_door;
 }
 
@@ -312,6 +330,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    created_door->set(ON_MAP_NAME, map_name);
 
    // return the entity
+   if (init_entities_drawing_debug) created_door->set_draw_debug(true);
    return created_door;
 }
 
@@ -334,6 +353,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    created_entity->set(ON_MAP_NAME, map_name);
 
    // return the entity
+   if (init_entities_drawing_debug) created_entity->set_draw_debug(true);
    return created_entity;
 }
 
@@ -378,6 +398,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    created_map->set_collision_tile_mesh(collision_tile_mesh);
    created_map->set(MAP_NAME, map_name); //"map_a"); //set_collision_tile_mesh(collision_tile_mesh);
 
+   if (init_entities_drawing_debug) created_map->set_draw_debug(true);
    return created_map;
    //entities.push_back(created_map); // TODO: prevent maps from having the same name
 }

@@ -65,6 +65,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
          &framework.get_bitmap_bin_ref(),
          &animation_book
       );
+      factory.set_init_entities_drawing_debug(true);
+
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* created_entity =
          factory.create_for_aabb2d("map_a", 16-1, 32-1);
       created_entity->get_place_ref().position.x = 400/2;
