@@ -172,20 +172,30 @@ void Basic2D::draw()
       // draw the bitmap
       float bitmap_x = 0;
       float bitmap_y = 0;
+      float bitmap_align_x = 0;
+      float bitmap_align_y = 0;
 
-      assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+      assign_alignment_strategy_values(
+         &place,
+         bitmap,
+         &bitmap_x,
+         &bitmap_y,
+         &bitmap_align_x,
+         &bitmap_align_y,
+         bitmap_alignment_strategy
+      );
 
       // TODO: resolve how/where scale and rotation apply to the placement and/or to bitmap_x, bitmap_y
-      bitmap_placement.align = { 0, 0 };
       bitmap_placement.size = { (float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap) };
       bitmap_placement.scale = { 1.0f, 1.0f };
       bitmap_placement.position = { bitmap_x, bitmap_y };
+      bitmap_placement.align = { bitmap_align_x, bitmap_align_y };
 
       bitmap_placement.start_transform();
       al_draw_bitmap(bitmap, 0, 0, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
 
-      // draw the bitmap's boundary debug rectangle
-      // TODO: move this out of "if (bitmap)" clause
+      // draw the bitmap's boundary rectangle
+
       al_draw_rectangle(
          0, //bitmap_x,
          0, //bitmap_y,
@@ -259,7 +269,7 @@ void Basic2D::fit_to_bitmap()
    return;
 }
 
-void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement, ALLEGRO_BITMAP* bitmap, float* bitmap_x, float* bitmap_y, std::string bitmap_alignment_strategy)
+void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement, ALLEGRO_BITMAP* bitmap, float* bitmap_x, float* bitmap_y, float* bitmap_align_x, float* bitmap_align_y, std::string bitmap_alignment_strategy)
 {
    if (!(parent_placement))
    {
@@ -289,6 +299,20 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_y\" not met");
    }
+   if (!(bitmap_align_x))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_align_x\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_align_x\" not met");
+   }
+   if (!(bitmap_align_y))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_align_y\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_align_y\" not met");
+   }
    if (bitmap_alignment_strategy == "top_left")
    {
       *bitmap_x = 0;
@@ -296,21 +320,25 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
    }
    else if (bitmap_alignment_strategy == "centered") // as in a schmup
    {
-      // TODO: fix this so that it works as expected with different parent_placement alignment
-      *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-      *bitmap_y = -(al_get_bitmap_height(bitmap) * 0.5) + parent_placement->size.y * 0.5;
+      *bitmap_x = parent_placement->size.x * 0.5;
+      *bitmap_y = parent_placement->size.y * 0.5;
+      *bitmap_align_x = 0.5;
+      *bitmap_align_y = 0.5;
    }
    else if (bitmap_alignment_strategy == "bottom_centered") // as in a top-down 2D dungeon crawler
    {
-      //TODO: clarify this concept
-      *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-      *bitmap_y = -al_get_bitmap_height(bitmap) + parent_placement->size.y * 0.5;
+      *bitmap_x = parent_placement->size.x * 0.5;
+      *bitmap_y = parent_placement->size.y * 0.5;
+      *bitmap_align_x = 0.5;
+      *bitmap_align_y = 1.0;
    }
    else if (bitmap_alignment_strategy == "bottom_centered_edge") // as in a 2D platformer
    {
       // TODO: this is broken for different types of sizes.
-      *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-      *bitmap_y = parent_placement->size.y - al_get_bitmap_height(bitmap);
+      *bitmap_x = parent_placement->size.x * 0.5;
+      *bitmap_y = parent_placement->size.y;
+      *bitmap_align_x = 0.5;
+      *bitmap_align_y = 1.0;
    }
    else
    {

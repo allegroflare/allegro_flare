@@ -95,20 +95,30 @@ functions:
          // draw the bitmap
          float bitmap_x = 0;
          float bitmap_y = 0;
+         float bitmap_align_x = 0;
+         float bitmap_align_y = 0;
 
-         assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+         assign_alignment_strategy_values(
+            &place,
+            bitmap,
+            &bitmap_x,
+            &bitmap_y,
+            &bitmap_align_x,
+            &bitmap_align_y,
+            bitmap_alignment_strategy
+         );
 
          // TODO: resolve how/where scale and rotation apply to the placement and/or to bitmap_x, bitmap_y
-         bitmap_placement.align = { 0, 0 };
          bitmap_placement.size = { (float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap) };
          bitmap_placement.scale = { 1.0f, 1.0f };
          bitmap_placement.position = { bitmap_x, bitmap_y };
+         bitmap_placement.align = { bitmap_align_x, bitmap_align_y };
 
          bitmap_placement.start_transform();
          al_draw_bitmap(bitmap, 0, 0, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
 
-         // draw the bitmap's boundary debug rectangle
-         // TODO: move this out of "if (bitmap)" clause
+         // draw the bitmap's boundary rectangle
+
          al_draw_rectangle(
             0, //bitmap_x,
             0, //bitmap_y,
@@ -195,10 +205,16 @@ functions:
       - name: bitmap_y
         type: float*
         default_argument: nullptr
+      - name: bitmap_align_x
+        type: float*
+        default_argument: nullptr
+      - name: bitmap_align_y
+        type: float*
+        default_argument: nullptr
       - name: bitmap_alignment_strategy
         type: std::string
         default_argument: '"centered"'
-    guards: [ parent_placement, bitmap, bitmap_x, bitmap_y ]
+    guards: [ parent_placement, bitmap, bitmap_x, bitmap_y, bitmap_align_x, bitmap_align_y ]
     body: |
       if (bitmap_alignment_strategy == "top_left")
       {
@@ -207,21 +223,25 @@ functions:
       }
       else if (bitmap_alignment_strategy == "centered") // as in a schmup
       {
-         // TODO: fix this so that it works as expected with different parent_placement alignment
-         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-         *bitmap_y = -(al_get_bitmap_height(bitmap) * 0.5) + parent_placement->size.y * 0.5;
+         *bitmap_x = parent_placement->size.x * 0.5;
+         *bitmap_y = parent_placement->size.y * 0.5;
+         *bitmap_align_x = 0.5;
+         *bitmap_align_y = 0.5;
       }
       else if (bitmap_alignment_strategy == "bottom_centered") // as in a top-down 2D dungeon crawler
       {
-         //TODO: clarify this concept
-         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-         *bitmap_y = -al_get_bitmap_height(bitmap) + parent_placement->size.y * 0.5;
+         *bitmap_x = parent_placement->size.x * 0.5;
+         *bitmap_y = parent_placement->size.y * 0.5;
+         *bitmap_align_x = 0.5;
+         *bitmap_align_y = 1.0;
       }
       else if (bitmap_alignment_strategy == "bottom_centered_edge") // as in a 2D platformer
       {
          // TODO: this is broken for different types of sizes.
-         *bitmap_x = -(al_get_bitmap_width(bitmap) * 0.5) + parent_placement->size.x * 0.5;
-         *bitmap_y = parent_placement->size.y - al_get_bitmap_height(bitmap);
+         *bitmap_x = parent_placement->size.x * 0.5;
+         *bitmap_y = parent_placement->size.y;
+         *bitmap_align_x = 0.5;
+         *bitmap_align_y = 1.0;
       }
       else
       {

@@ -28,7 +28,7 @@ namespace AllegroFlare
                std::string bitmap_alignment_strategy;
                bool bitmap_flip_h;
                ALLEGRO_COLOR debug_box_color;
-               static void assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement=nullptr, ALLEGRO_BITMAP* bitmap=nullptr, float* bitmap_x=nullptr, float* bitmap_y=nullptr, std::string bitmap_alignment_strategy="centered");
+               static void assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement=nullptr, ALLEGRO_BITMAP* bitmap=nullptr, float* bitmap_x=nullptr, float* bitmap_y=nullptr, float* bitmap_align_x=nullptr, float* bitmap_align_y=nullptr, std::string bitmap_alignment_strategy="centered");
 
             protected:
 

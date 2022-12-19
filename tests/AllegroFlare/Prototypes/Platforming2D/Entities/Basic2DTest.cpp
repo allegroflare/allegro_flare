@@ -215,6 +215,47 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
+   CAPTURE__draw__with_bitmap_scale_and_rotation_applied__will_render_the_alignment_strategies_as_expected)
+{
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
+   basic2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
+   basic2d_entity.fit_to_bitmap();
+   basic2d_entity.get_place_ref().position = {1920/8, 1080/2};
+   basic2d_entity.get_place_ref().align = {0.5, 0.5};
+   basic2d_entity.get_place_ref().size.x *= 0.75;
+   basic2d_entity.get_place_ref().size.y *= 0.75;
+   basic2d_entity.get_place_ref().scale = {2.0, 2.0};
+
+   basic2d_entity.get_bitmap_placement_ref().scale = { 1.5, 1.5 };
+   basic2d_entity.get_bitmap_placement_ref().rotation = 0.2;
+
+   basic2d_entity.get_place_ref().position.x = 1920/8*1;
+   basic2d_entity.set_bitmap_alignment_strategy("top_left");
+   basic2d_entity.draw();
+
+   basic2d_entity.get_place_ref().position.x = 1920/8*3;
+   basic2d_entity.set_bitmap_alignment_strategy("centered");
+   basic2d_entity.draw();
+
+   basic2d_entity.get_place_ref().position.x = 1920/8*5;
+   basic2d_entity.set_bitmap_alignment_strategy("bottom_centered");
+   basic2d_entity.draw();
+
+   basic2d_entity.get_place_ref().position.x = 1920/8*7;
+   basic2d_entity.set_bitmap_alignment_strategy("bottom_centered_edge");
+   basic2d_entity.draw();
+
+   al_draw_line(0, 1080/2, 1920, 1080/2, ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}, 1.0f);
+   //al_draw_line(0, 1080/2, 1920, 1080/2, ALLEGRO_COLOR{1, 1, 0, 1});
+
+   al_flip_display();
+   //sleep(4);
+
+   SUCCEED(); // TODO: pick pixel
+}
+
+
+TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
    fit_to_bitmap__without_a_bitmap__will_raise_an_exception)
 {
    // TODO
