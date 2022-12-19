@@ -91,6 +91,12 @@ functions:
       - name: y
         type: float
         default_argument: 0.0f
+      - name: w
+        type: float
+        default_argument: 0.0f
+      - name: h
+        type: float
+        default_argument: 0.0f
       - name: initial_animation_name
         type: std::string
         default_argument: '"[unset-initial_animation_name]"'
@@ -105,8 +111,8 @@ functions:
       Entities::FrameAnimated2D *result = new Entities::FrameAnimated2D(animation_book);
       result->get_place_ref().position.x = x;
       result->get_place_ref().position.y = y;
-      //result->get_place_ref().size.x = w;
-      //result->get_place_ref().size.y = h;
+      result->get_place_ref().size.x = w;
+      result->get_place_ref().size.y = h;
       result->set_animation(initial_animation_name);
       //result->fit_to_bitmap(); // <-- TODO: don't think this is necessary, done automatically with "set_animation"
       result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);

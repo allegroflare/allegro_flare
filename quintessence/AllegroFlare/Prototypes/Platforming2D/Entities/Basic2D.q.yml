@@ -77,22 +77,18 @@ functions:
     body: |
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
       // TODO: add some reasonable guards
-      //if (bitmap)
-      //{
-         // TODO: find a more proper place for this
-         //if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
-         //if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
 
-         place.start_transform();
+      place.start_transform();
 
       if (bitmap)
       {
+         // TODO: find a more proper place for this
          if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
          if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
          // draw the bitmap
          float bitmap_x = 0;
          float bitmap_y = 0;
-         assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
+
          assign_alignment_strategy_values(&place, bitmap, &bitmap_x, &bitmap_y, bitmap_alignment_strategy);
          al_draw_bitmap(bitmap, bitmap_x, bitmap_y, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
 
@@ -109,29 +105,31 @@ functions:
       }
 
 
-         // draw the bounding box rectangle
-         // TODO: move this out of "if (bitmap)" clause
-         al_draw_rectangle(
-            0,
-            0,
-            place.size.x,
-            place.size.y,
-            debug_box_color,
-            1.0
-         );
+      // draw the bounding box rectangle
+      al_draw_rectangle(
+         0,
+         0,
+         place.size.x,
+         place.size.y,
+         debug_box_color,
+         1.0 / place.scale.x // dividing by scale will ensure the lines have a constant thickness,
+                             // regardless of the scale of the entity
+      );
 
-         place.restore_transform();
+      place.restore_transform();
 
-         // draw a box around the unaltered position
-         al_draw_rectangle(
-            place.position.x-3,
-            place.position.y-3,
-            place.position.x+3,
-            place.position.y+3,
-            debug_box_color,
-            1.0
-         );
+      // draw a box around the origin
+      al_draw_rectangle(
+         place.position.x-1,
+         place.position.y-1,
+         place.position.x+1,
+         place.position.y+1,
+         debug_box_color,
+         1.0
+      );
 
+
+      // add markers to help indicate status (ajacent to walls, ceiling, floor, ...)
       if (exists(ADJACENT_TO_CEILING))
       {
          al_draw_filled_circle(place.position.x, place.position.y - 6, 2, debug_box_color);
@@ -149,7 +147,6 @@ functions:
          al_draw_filled_circle(place.position.x, place.position.y+6, 2, debug_box_color);
       }
 
-      //}
       return;
     body_dependency_symbols:
       - al_draw_rectangle
