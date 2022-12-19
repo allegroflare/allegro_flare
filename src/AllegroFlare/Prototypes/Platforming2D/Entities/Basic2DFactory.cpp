@@ -66,6 +66,18 @@ void Basic2DFactory::set_init_entities_drawing_debug(bool init_entities_drawing_
 }
 
 
+AllegroFlare::BitmapBin* Basic2DFactory::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+AllegroFlare::FrameAnimation::Book* Basic2DFactory::get_animation_book() const
+{
+   return animation_book;
+}
+
+
 AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_from_bitmap_filename(std::string map_name, std::string bitmap_filename, std::string bitmap_alignment_strategy)
 {
    if (!(bitmap_bin))

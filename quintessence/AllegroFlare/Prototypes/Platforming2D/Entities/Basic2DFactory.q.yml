@@ -6,12 +6,14 @@ properties:
     init_with: nullptr
     constructor_arg: true
     setter: true
+    getter: true
 
   - name: animation_book
     type: AllegroFlare::FrameAnimation::Book*
     init_with: nullptr
     constructor_arg: true
     setter: true
+    getter: true
 
   - name: init_entities_drawing_debug
     type: bool
