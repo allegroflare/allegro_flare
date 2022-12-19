@@ -122,19 +122,20 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
    CAPTURE__draw__with_a_modified_place__will_display_the_image)
 {
-   //ALLEGRO_BITMAP *bitmap = FIXTURE_get_bitmap("test-sprite-128.png");
-
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
+
    frame_animated2d_entity.set_animation("blob");
+   frame_animated2d_entity.disable_bitmap_alignment_strategy();
+   frame_animated2d_entity.set_draw_debug(true);
 
    frame_animated2d_entity.get_place_ref().position = { 1920/2, 1080/2 };
-   frame_animated2d_entity.get_place_ref().scale = { 3.0, 3.0 };
+   frame_animated2d_entity.get_place_ref().scale = { 2.0, 3.0 };
+   frame_animated2d_entity.get_place_ref().align = { 0.5, 0.5 };
    frame_animated2d_entity.get_place_ref().rotation = 0.2f;
 
    frame_animated2d_entity.draw();
 
    al_flip_display();
-   //sleep(2);
 
    SUCCEED(); // TODO: pick pixel
 }
@@ -150,25 +151,21 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
    frame_animated2d_entity.get_place_ref().size = { 80, 60 };
 
    frame_animated2d_entity.get_place_ref().position = {1920/8*1, 1080/2};
-   frame_animated2d_entity.get_place_ref().align = {0.5, 0.5};
    frame_animated2d_entity.set_bitmap_alignment_strategy("top_left");
    frame_animated2d_entity.update();
    frame_animated2d_entity.draw();
 
    frame_animated2d_entity.get_place_ref().position = {1920/8*3, 1080/2};
-   frame_animated2d_entity.get_place_ref().align = {0.5, 0.5};
    frame_animated2d_entity.set_bitmap_alignment_strategy("centered");
    frame_animated2d_entity.update();
    frame_animated2d_entity.draw();
 
    frame_animated2d_entity.get_place_ref().position = {1920/8*5, 1080/2};
-   frame_animated2d_entity.get_place_ref().align = {0.5, 0.5};
    frame_animated2d_entity.set_bitmap_alignment_strategy("bottom_centered");
    frame_animated2d_entity.update();
    frame_animated2d_entity.draw();
 
    frame_animated2d_entity.get_place_ref().position = {1920/8*7, 1080/2};
-   frame_animated2d_entity.get_place_ref().align = {0.5, 0.5};
    frame_animated2d_entity.set_bitmap_alignment_strategy("bottom_centered_edge");
    frame_animated2d_entity.update();
    frame_animated2d_entity.draw();

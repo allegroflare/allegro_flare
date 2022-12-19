@@ -201,6 +201,12 @@ functions:
       return;
 
 
+  - name: disable_bitmap_alignment_strategy
+    body: |
+      bitmap_alignment_strategy = "disabled";
+      return;
+
+
   - name: assign_alignment_strategy_values
     static: true
     private: true

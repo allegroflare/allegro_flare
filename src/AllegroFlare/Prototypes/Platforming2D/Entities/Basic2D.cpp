@@ -288,6 +288,12 @@ void Basic2D::fit_to_bitmap()
    return;
 }
 
+void Basic2D::disable_bitmap_alignment_strategy()
+{
+   bitmap_alignment_strategy = "disabled";
+   return;
+}
+
 void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement, ALLEGRO_BITMAP* bitmap, float* bitmap_x, float* bitmap_y, float* bitmap_align_x, float* bitmap_align_y, std::string bitmap_alignment_strategy)
 {
    if (!(parent_placement))

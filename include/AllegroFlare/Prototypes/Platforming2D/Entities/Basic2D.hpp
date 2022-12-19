@@ -60,6 +60,7 @@ namespace AllegroFlare
                virtual void update() override;
                virtual void draw() override;
                void fit_to_bitmap();
+               void disable_bitmap_alignment_strategy();
             };
          }
       }
