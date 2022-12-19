@@ -377,6 +377,18 @@ void Full::disable_escape_key_will_shutdown()
 }
 
 
+void Full::enable_auto_created_config_warning()
+{
+   this->output_auto_created_config_warning = true;
+}
+
+
+void Full::disable_auto_created_config_warning()
+{
+   this->output_auto_created_config_warning = false;
+}
+
+
 bool Full::is_initialized()
 {
    return initialized;
