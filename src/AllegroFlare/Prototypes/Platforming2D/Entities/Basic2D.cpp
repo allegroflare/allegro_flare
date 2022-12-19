@@ -181,24 +181,22 @@ void Basic2D::draw()
    {
       // work out the bitmap placement and alignment
 
-      float bitmap_x = 0;
-      float bitmap_y = 0;
-      float bitmap_align_x = 0;
-      float bitmap_align_y = 0;
+      float *bitmap_x = &bitmap_placement.position.x;
+      float *bitmap_y = &bitmap_placement.position.y;
+      float *bitmap_align_x = &bitmap_placement.align.x;
+      float *bitmap_align_y = &bitmap_placement.align.y;
 
       assign_alignment_strategy_values(
          &place,
          bitmap,
-         &bitmap_x,
-         &bitmap_y,
-         &bitmap_align_x,
-         &bitmap_align_y,
+         bitmap_x,
+         bitmap_y,
+         bitmap_align_x,
+         bitmap_align_y,
          bitmap_alignment_strategy
       );
 
       bitmap_placement.size = { (float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap) };
-      bitmap_placement.position = { bitmap_x, bitmap_y };
-      bitmap_placement.align = { bitmap_align_x, bitmap_align_y };
 
       // draw the bitmap
 
@@ -357,11 +355,14 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
    }
    else if (bitmap_alignment_strategy == "bottom_centered_edge") // as in a 2D platformer
    {
-      // TODO: this is broken for different types of sizes.
       *bitmap_x = parent_placement->size.x * 0.5;
       *bitmap_y = parent_placement->size.y;
       *bitmap_align_x = 0.5;
       *bitmap_align_y = 1.0;
+   }
+   else if (bitmap_alignment_strategy == "disabled") // You can assign your own custom values and they are retained
+   {
+      // NOTE: do nothing here
    }
    else
    {

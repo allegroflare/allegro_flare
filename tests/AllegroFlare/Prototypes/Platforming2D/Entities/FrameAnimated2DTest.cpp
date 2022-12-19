@@ -120,17 +120,16 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
-   draw__with_a_modified_place__will_display_the_image)
+   CAPTURE__draw__with_a_modified_place__will_display_the_image)
 {
-   ALLEGRO_BITMAP *bitmap = FIXTURE_get_bitmap("test-sprite-128.png");
+   //ALLEGRO_BITMAP *bitmap = FIXTURE_get_bitmap("test-sprite-128.png");
 
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
-   frame_animated2d_entity.get_place_ref().size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
-   frame_animated2d_entity.get_place_ref().position = {800, 400};
-   frame_animated2d_entity.get_place_ref().scale = {7, 7};
-   frame_animated2d_entity.get_place_ref().rotation = 0.2f;
-   //frame_animated2d_entity.set_bitmap(bitmap);
    frame_animated2d_entity.set_animation("blob");
+
+   frame_animated2d_entity.get_place_ref().position = { 1920/2, 1080/2 };
+   frame_animated2d_entity.get_place_ref().scale = { 3.0, 3.0 };
+   frame_animated2d_entity.get_place_ref().rotation = 0.2f;
 
    frame_animated2d_entity.draw();
 
@@ -146,6 +145,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
    frame_animated2d_entity.set_animation("blob");
+   frame_animated2d_entity.set_draw_debug(true);
    frame_animated2d_entity.get_place_ref().scale = {1.0, 1.0};
    frame_animated2d_entity.get_place_ref().size = { 80, 60 };
 
