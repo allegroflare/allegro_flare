@@ -84,19 +84,19 @@ TEST_F(AllegroFlare_ConfigTest,
    std::string filename_that_does_not_exist = "/Some/file/that/does_not_exist.txt";
    Config config = Config(filename_that_does_not_exist);
 
-   std::stringstream expected_error_message;
-   expected_error_message
-      << "[AllegroFlare::Config::load_or_create_empty] the file \""
-      << filename_that_does_not_exist
-      << "\" could not be found."
-      << " Now creating an empty config to use in its place... Done: empty config created."
-      << std::endl;
+   std::stringstream expected_warning_message;
+   expected_warning_message
+      << "\x1B[1;33m[AllegroFlare::Config::load_or_create_empty]: warning: A config file "
+      << "\"/Some/file/that/does_not_exist.txt\" was not found so a config will be created automatically. "
+      << "To stop this warning, you create the config file, or disable this warning entirely with "
+      << "\"AllegroFlare::Frameworks::Full::disable_auto_created_config_warning()\".\x1B[0m\n"
+      ;
 
-   testing::internal::CaptureStderr();
+   testing::internal::CaptureStdout();
    config.load_or_create_empty();
-   std::string output = testing::internal::GetCapturedStderr();
+   std::string output = testing::internal::GetCapturedStdout();
 
-   ASSERT_EQ(expected_error_message.str(), output);
+   ASSERT_EQ(expected_warning_message.str(), output);
 }
 
 

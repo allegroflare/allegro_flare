@@ -19,7 +19,7 @@ namespace AllegroFlare
       Config(std::string filename);
 
       bool load();
-      bool load_or_create_empty();
+      bool load_or_create_empty(bool output_warning_if_auto_created=true);
       bool reload();
 
       bool has_value(std::string section, std::string key);

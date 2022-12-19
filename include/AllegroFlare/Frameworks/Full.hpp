@@ -55,6 +55,7 @@ namespace AllegroFlare
          std::vector<std::string> input_hints_tokens;
          bool initialize_without_display(); // only use initialize() publically from now on
          bool escape_key_will_shutdown;
+         bool output_auto_created_config_warning;
          ALLEGRO_COLOR input_hints_text_color;
          float input_hints_text_opacity;
          ALLEGRO_COLOR input_hints_backfill_color;
@@ -109,6 +110,8 @@ namespace AllegroFlare
 
          void enable_escape_key_will_shutdown();
          void disable_escape_key_will_shutdown();
+         void disable_auto_created_config_warning();
+         void enable_auto_created_config_warning();
 
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <AllegroFlare/Errors.hpp>
 
 
 namespace AllegroFlare
@@ -24,7 +25,7 @@ namespace AllegroFlare
 
 
 
-   bool Config::load_or_create_empty()
+   bool Config::load_or_create_empty(bool output_warning_if_auto_created)
    {
       ensure_initialized_allegro();
 
@@ -33,16 +34,32 @@ namespace AllegroFlare
 
       if (!config_file)
       {
-         std::stringstream error_message;
-         error_message << "[AllegroFlare::Config::"
-                       << __FUNCTION__
-                       << "] the file \""
-                       << filename
-                       << "\" could not be found. Now creating an empty config to use in its place...";
-         std::cerr << error_message.str();
-         //throw std::runtime_error(error_message.str());
+         if (output_warning_if_auto_created)
+         {
+            std::stringstream error_message;
+
+            // TODO: Remove this warning from AllegroFlare/Config, and move it to the caller(s), (probably 
+            // AllegroFlare/Frameworks/Full if not in other places).  Also, refactor this AllegroFlare/Config a bit
+            // and add a "will_config_be_auto_created()" that would be called (and potentially emit the warning) before
+            // calling this "load_or_create_empty" function.
+            error_message << "A config file \""
+                          << filename
+                          << "\" was not found so a config will be created automatically. To stop this warning, "
+                          << "you create the config file, or disable this warning entirely with "
+                          << "\"AllegroFlare::Frameworks::Full::disable_auto_created_config_warning()\".";
+
+            std::stringstream from;
+            from << "AllegroFlare::Config::" << __func__;
+
+            AllegroFlare::Errors::warn_from(from.str(), error_message.str());
+         }
+
          config_file = al_create_config();
-         std::cerr << " Done: empty config created." << std::endl;
+
+         if (output_warning_if_auto_created)
+         {
+            //std::cerr << " Done: empty config created." << std::endl;
+         }
       }
       return true;
    }

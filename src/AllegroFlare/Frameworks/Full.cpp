@@ -56,6 +56,7 @@ Full::Full()
    , drawing_notifications(true)
    , input_hints_tokens({})
    , escape_key_will_shutdown(true)
+   , output_auto_created_config_warning(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
    , input_hints_backfill_color(ALLEGRO_COLOR{0, 0, 0, 0})
@@ -244,7 +245,8 @@ bool Full::initialize_without_display()
    samples.set_path("data/samples");
    bitmaps.set_path("data/bitmaps");
    models.set_path("data/models");
-   config.load_or_create_empty();
+
+   config.load_or_create_empty(output_auto_created_config_warning);
 
    Attributes::create_datatype_definition(
       AllegroColorAttributeDatatype::IDENTIFIER,
