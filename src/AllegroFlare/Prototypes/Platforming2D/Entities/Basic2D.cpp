@@ -27,6 +27,7 @@ Basic2D::Basic2D()
    , bitmap_placement({})
    , bitmap_alignment_strategy("top_left")
    , bitmap_flip_h(false)
+   , draw_debug(false)
    , debug_box_color(ALLEGRO_COLOR{0, 0.375, 0.75, 0.75})
 {
 }
@@ -73,6 +74,12 @@ void Basic2D::set_bitmap_flip_h(bool bitmap_flip_h)
 }
 
 
+void Basic2D::set_draw_debug(bool draw_debug)
+{
+   this->draw_debug = draw_debug;
+}
+
+
 void Basic2D::set_debug_box_color(ALLEGRO_COLOR debug_box_color)
 {
    this->debug_box_color = debug_box_color;
@@ -112,6 +119,12 @@ std::string Basic2D::get_bitmap_alignment_strategy() const
 bool Basic2D::get_bitmap_flip_h() const
 {
    return bitmap_flip_h;
+}
+
+
+bool Basic2D::get_draw_debug() const
+{
+   return draw_debug;
 }
 
 
@@ -166,10 +179,8 @@ void Basic2D::draw()
 
    if (bitmap)
    {
-      // TODO: find a more proper place for this
-      if (bitmap_alignment_strategy == "bottom_centered_edge") place.align.y = 1.0;
-      if (bitmap_alignment_strategy == "bottom_centered") place.align.y = 0.5;
-      // draw the bitmap
+      // work out the bitmap placement and alignment
+
       float bitmap_x = 0;
       float bitmap_y = 0;
       float bitmap_align_x = 0;
@@ -185,16 +196,16 @@ void Basic2D::draw()
          bitmap_alignment_strategy
       );
 
-      // TODO: resolve how/where scale and rotation apply to the placement and/or to bitmap_x, bitmap_y
       bitmap_placement.size = { (float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap) };
-      bitmap_placement.scale = { 1.0f, 1.0f };
       bitmap_placement.position = { bitmap_x, bitmap_y };
       bitmap_placement.align = { bitmap_align_x, bitmap_align_y };
+
+      // draw the bitmap
 
       bitmap_placement.start_transform();
       al_draw_bitmap(bitmap, 0, 0, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
 
-      // draw the bitmap's boundary rectangle
+      // draw the boundary rectangle for the bitmap
 
       al_draw_rectangle(
          0, //bitmap_x,
@@ -206,11 +217,12 @@ void Basic2D::draw()
                                                         // have a constant thickness, regardless of the scale
                                                         // of the entity or bitmap scale
       );
+
       bitmap_placement.restore_transform();
    }
 
+   // draw the bounding box rectangle for the entity
 
-   // draw the bounding box rectangle
    al_draw_rectangle(
       0,
       0,
@@ -224,6 +236,7 @@ void Basic2D::draw()
    place.restore_transform();
 
    // draw a box around the origin
+
    al_draw_rectangle(
       place.position.x-1,
       place.position.y-1,
@@ -232,7 +245,6 @@ void Basic2D::draw()
       debug_box_color,
       1.0
    );
-
 
    // add markers to help indicate status (ajacent to walls, ceiling, floor, ...)
    if (exists(ADJACENT_TO_CEILING))
@@ -317,6 +329,8 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
    {
       *bitmap_x = 0;
       *bitmap_y = 0;
+      *bitmap_align_x = 0;
+      *bitmap_align_y = 0;
    }
    else if (bitmap_alignment_strategy == "centered") // as in a schmup
    {
