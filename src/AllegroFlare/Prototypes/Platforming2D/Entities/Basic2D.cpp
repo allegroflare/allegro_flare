@@ -207,61 +207,70 @@ void Basic2D::draw()
 
       // draw the boundary rectangle for the bitmap
 
-      al_draw_rectangle(
-         0, //bitmap_x,
-         0, //bitmap_y,
-         al_get_bitmap_width(bitmap), //bitmap_x + al_get_bitmap_width(bitmap),
-         al_get_bitmap_width(bitmap),//bitmap_y + al_get_bitmap_height(bitmap),
-         ALLEGRO_COLOR{0, 0.5, 0.25, 0.5},
-         1.0 / bitmap_placement.scale.x / place.scale.x // dividing by the scalle will ensure the lines
-                                                        // have a constant thickness, regardless of the scale
-                                                        // of the entity or bitmap scale
-      );
+      if (draw_debug)
+      {
+         al_draw_rectangle(
+            0, //bitmap_x,
+            0, //bitmap_y,
+            al_get_bitmap_width(bitmap), //bitmap_x + al_get_bitmap_width(bitmap),
+            al_get_bitmap_width(bitmap),//bitmap_y + al_get_bitmap_height(bitmap),
+            ALLEGRO_COLOR{0, 0.5, 0.25, 0.5},
+            1.0 / bitmap_placement.scale.x / place.scale.x // dividing by the scalle will ensure the lines
+                                                           // have a constant thickness, regardless of the scale
+                                                           // of the entity or bitmap scale
+         );
+      }
 
       bitmap_placement.restore_transform();
    }
 
    // draw the bounding box rectangle for the entity
 
-   al_draw_rectangle(
-      0,
-      0,
-      place.size.x,
-      place.size.y,
-      debug_box_color,
-      1.0 / place.scale.x // dividing by scale will ensure the lines have a constant thickness,
-                          // regardless of the scale of the entity
-   );
+   if (draw_debug)
+   {
+      al_draw_rectangle(
+         0,
+         0,
+         place.size.x,
+         place.size.y,
+         debug_box_color,
+         1.0 / place.scale.x // dividing by scale will ensure the lines have a constant thickness,
+                             // regardless of the scale of the entity
+      );
+   }
 
    place.restore_transform();
 
    // draw a box around the origin
 
-   al_draw_rectangle(
-      place.position.x-1,
-      place.position.y-1,
-      place.position.x+1,
-      place.position.y+1,
-      debug_box_color,
-      1.0
-   );
+   if (draw_debug)
+   {
+      al_draw_rectangle(
+         place.position.x-1,
+         place.position.y-1,
+         place.position.x+1,
+         place.position.y+1,
+         debug_box_color,
+         1.0
+      );
 
-   // add markers to help indicate status (ajacent to walls, ceiling, floor, ...)
-   if (exists(ADJACENT_TO_CEILING))
-   {
-      al_draw_filled_circle(place.position.x, place.position.y - 3, 1.5, debug_box_color);
-   }
-   if (exists(ADJACENT_TO_LEFT_WALL))
-   {
-      al_draw_filled_circle(place.position.x-3, place.position.y, 1.5, debug_box_color);
-   }
-   if (exists(ADJACENT_TO_RIGHT_WALL))
-   {
-      al_draw_filled_circle(place.position.x+3, place.position.y, 1.5, debug_box_color);
-   }
-   if (exists(ADJACENT_TO_FLOOR))
-   {
-      al_draw_filled_circle(place.position.x, place.position.y+3, 1.5, debug_box_color);
+      // add markers to help indicate status (ajacent to walls, ceiling, floor, ...)
+      if (exists(ADJACENT_TO_CEILING))
+      {
+         al_draw_filled_circle(place.position.x, place.position.y - 3, 1.5, debug_box_color);
+      }
+      if (exists(ADJACENT_TO_LEFT_WALL))
+      {
+         al_draw_filled_circle(place.position.x-3, place.position.y, 1.5, debug_box_color);
+      }
+      if (exists(ADJACENT_TO_RIGHT_WALL))
+      {
+         al_draw_filled_circle(place.position.x+3, place.position.y, 1.5, debug_box_color);
+      }
+      if (exists(ADJACENT_TO_FLOOR))
+      {
+         al_draw_filled_circle(place.position.x, place.position.y+3, 1.5, debug_box_color);
+      }
    }
 
    return;
