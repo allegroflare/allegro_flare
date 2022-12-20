@@ -1076,7 +1076,6 @@ functions:
 
   - name: get_current_map_entities
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
-    guards: [ player_controlled_entity ]
     body: |
       AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
       std::string on_map_name = currently_active_map_name;

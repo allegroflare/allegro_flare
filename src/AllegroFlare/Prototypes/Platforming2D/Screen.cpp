@@ -1168,13 +1168,6 @@ AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_mesh()
 
 std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Screen::get_current_map_entities()
 {
-   if (!(player_controlled_entity))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::get_current_map_entities]: error: guard \"player_controlled_entity\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::get_current_map_entities: error: guard \"player_controlled_entity\" not met");
-   }
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
    std::string on_map_name = currently_active_map_name;
    return collection_helper.select_on_map(on_map_name);
