@@ -18,6 +18,8 @@ namespace AllegroFlare
          float room_width;
          float room_height;
          AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity_to_follow;
+         float tracking_target_position_x;
+         float tracking_target_position_y;
 
       protected:
 

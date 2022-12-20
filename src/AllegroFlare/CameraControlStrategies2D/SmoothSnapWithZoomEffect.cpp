@@ -20,6 +20,8 @@ SmoothSnapWithZoomEffect::SmoothSnapWithZoomEffect(float room_width, float room_
    , room_width(room_width)
    , room_height(room_height)
    , entity_to_follow(nullptr)
+   , tracking_target_position_x(0.0)
+   , tracking_target_position_y(0.0)
 {
 }
 
@@ -96,15 +98,16 @@ void SmoothSnapWithZoomEffect::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SmoothSnapWithZoomEffect::update: error: guard \"get_camera()\" not met");
    }
-   if (!(entity_to_follow))
+   // If the camera loses track of the "entity_to_follow" (the tracking target dies for example), this logic will
+   // retain the last coordinate that had been tracked, and use it until a new tracking target is introduced.
+   if (entity_to_follow)
    {
-      std::stringstream error_message;
-      error_message << "[SmoothSnapWithZoomEffect::update]: error: guard \"entity_to_follow\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnapWithZoomEffect::update: error: guard \"entity_to_follow\" not met");
+      tracking_target_position_x = entity_to_follow->get_place_ref().position.x;
+      tracking_target_position_y = entity_to_follow->get_place_ref().position.y;
    }
-   int target_room_x = (entity_to_follow->get_place_ref().position.x / room_width);
-   int target_room_y = (entity_to_follow->get_place_ref().position.y / room_height);
+
+   int target_room_x = (tracking_target_position_x / room_width);
+   int target_room_y = (tracking_target_position_y / room_height);
    AllegroFlare::vec2d target_position = {room_width/2, room_height/2};
    target_position += AllegroFlare::vec2d(target_room_x * room_width, target_room_y * room_height);
 
