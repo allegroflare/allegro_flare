@@ -403,6 +403,7 @@ functions:
 
 
   - name: set_player_controlled_entity_jump
+    guards: [ player_controlled_entity ]
     body: |
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -546,10 +547,12 @@ functions:
       }
 
       // update the collectables
-      update_player_collisions_with_collectables();
+      // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+      if (player_controlled_entity) update_player_collisions_with_collectables();
 
       // update the player colliding on the goalposts
-      update_player_collisions_with_goalposts();
+      // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+      if (player_controlled_entity) update_player_collisions_with_goalposts();
 
       // update the player colliding on the doors
       //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
@@ -647,6 +650,7 @@ functions:
     private: true
     guards: [ player_controlled_entity ]
     body: |
+      // TODO: allow this function to run without being coupled with a "player_controlled_entity"
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
@@ -672,6 +676,7 @@ functions:
     private: true
     guards: [ player_controlled_entity ]
     body: |
+      // TODO: allow this function to run without being coupled with a "player_controlled_entity"
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
       AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
 

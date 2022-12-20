@@ -443,6 +443,13 @@ void Screen::unset_player_controlled_entity_horizontal_velocity()
 
 void Screen::set_player_controlled_entity_jump()
 {
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_player_controlled_entity_jump]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_player_controlled_entity_jump: error: guard \"player_controlled_entity\" not met");
+   }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    if (!player_controlled_entity) return;
@@ -590,10 +597,12 @@ void Screen::update_entities()
    }
 
    // update the collectables
-   update_player_collisions_with_collectables();
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+   if (player_controlled_entity) update_player_collisions_with_collectables();
 
    // update the player colliding on the goalposts
-   update_player_collisions_with_goalposts();
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+   if (player_controlled_entity) update_player_collisions_with_goalposts();
 
    // update the player colliding on the doors
    //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
@@ -695,6 +704,7 @@ void Screen::update_player_collisions_with_collectables()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update_player_collisions_with_collectables: error: guard \"player_controlled_entity\" not met");
    }
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
@@ -722,6 +732,7 @@ void Screen::update_player_collisions_with_goalposts()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update_player_collisions_with_goalposts: error: guard \"player_controlled_entity\" not met");
    }
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
 
