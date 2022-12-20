@@ -115,6 +115,33 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    return result;
 }
 
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityCollectionHelper::select_on_map_y_sorted(std::string on_map_name)
+{
+   if (!(entities))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityCollectionHelper::select_on_map_y_sorted]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityCollectionHelper::select_on_map_y_sorted: error: guard \"entities\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+   using AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+
+   std::vector<Basic2D*> result;
+   for (auto &entity : (*entities))
+   {
+      if (entity->exists(ON_MAP_NAME, on_map_name)) result.push_back(entity);
+   }
+
+   // TODO: see if there is a better way to do this without using "get_place_ref()", maybe a comparison
+   // operator on the class.
+   std::sort(result.begin(), result.end(),[](Basic2D *a, Basic2D *b)
+         { return a->get_place_ref().position.y < b->get_place_ref().position.y; }
+      );
+
+   return result;
+}
+
 AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* EntityCollectionHelper::find_map_by_name(std::string map_name)
 {
    if (!(entities))

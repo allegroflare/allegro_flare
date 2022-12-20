@@ -80,6 +80,34 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: select_on_map_y_sorted
+    type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
+    parameters:
+      - name: on_map_name
+        type: std::string
+        default_argument: '"[on-map-name-not-set]"'
+    guards: [ entities ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+      using AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+
+      std::vector<Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(ON_MAP_NAME, on_map_name)) result.push_back(entity);
+      }
+
+      // TODO: see if there is a better way to do this without using "get_place_ref()", maybe a comparison
+      // operator on the class.
+      std::sort(result.begin(), result.end(),[](Basic2D *a, Basic2D *b)
+            { return a->get_place_ref().position.y < b->get_place_ref().position.y; }
+         );
+
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
   - name: find_map_by_name
     type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     parameters:
