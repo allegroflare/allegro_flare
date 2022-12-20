@@ -44,6 +44,32 @@ int Book::get_sprite_sheet_scale() const
 }
 
 
+void Book::set_png_source_filename(std::string png_source_filename)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::set_png_source_filename]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::set_png_source_filename: error: guard \"(!initialized)\" not met");
+   }
+   this->png_source_filename = png_source_filename;
+   return;
+}
+
+void Book::set_json_source_filename(std::string json_source_filename)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::set_json_source_filename]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::set_json_source_filename: error: guard \"(!initialized)\" not met");
+   }
+   this->json_source_filename = json_source_filename;
+   return;
+}
+
 void Book::set_sprite_sheet_scale(int sprite_sheet_scale)
 {
    if (!((!initialized)))

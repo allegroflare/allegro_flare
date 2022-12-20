@@ -32,6 +32,8 @@ namespace AllegroFlare
 
          void set_dictionary(std::map<std::string, AllegroFlare::FrameAnimation::Animation> dictionary);
          int get_sprite_sheet_scale() const;
+         void set_png_source_filename(std::string png_source_filename="[unset-png_source_filename]");
+         void set_json_source_filename(std::string json_source_filename="[unset-json_source_filename]");
          void set_sprite_sheet_scale(int sprite_sheet_scale=5);
          AllegroFlare::FrameAnimation::SpriteSheet* get_sprite_sheet();
          void initialize();

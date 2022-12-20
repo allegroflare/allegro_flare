@@ -5,11 +5,13 @@ properties:
     type: std::string
     init_with: '"./bin/data/bitmaps/sprites_grid-x.png"'
     constructor_arg: true
+    setter: false
 
   - name: json_source_filename
     type: std::string
     init_with: '"./bin/data/bitmaps/sprites_grid-x.json"'
     constructor_arg: true
+    setter: false
 
   - name: sprite_sheet_scale
     type: int
@@ -34,6 +36,28 @@ properties:
 
 
 functions:
+
+
+  - name: set_png_source_filename
+    parameters:
+      - name: png_source_filename
+        type: std::string
+        default_argument: '"[unset-png_source_filename]"'
+    guards: [ (!initialized) ]
+    body: |
+      this->png_source_filename = png_source_filename;
+      return;
+
+
+  - name: set_json_source_filename
+    parameters:
+      - name: json_source_filename
+        type: std::string
+        default_argument: '"[unset-json_source_filename]"'
+    guards: [ (!initialized) ]
+    body: |
+      this->json_source_filename = json_source_filename;
+      return;
 
 
   - name: set_sprite_sheet_scale
