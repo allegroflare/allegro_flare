@@ -801,7 +801,7 @@ void Screen::update()
       throw std::runtime_error("Screen::update: error: guard \"initialized\" not met");
    }
    //return;
-   update_player_controls_on_player_controlled_entity();
+   if (player_controlled_entity) update_player_controls_on_player_controlled_entity();
    //return;
    update_entities();
    return;
