@@ -21,6 +21,18 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, can_be_created_without_blowing_u
 }
 
 
+TEST(AllegroFlare_FrameAnimation_AnimationTest,
+   set_playspeed_multiplier__with_a_value_less_than_0__will_throw_an_error)
+{
+   AllegroFlare::FrameAnimation::Animation animation;
+   EXPECT_THROW_WITH_MESSAGE(
+      animation.set_playspeed_multiplier(-0.0001),
+      std::runtime_error,
+      "Animation::set_playspeed_multiplier: error: guard \"(playspeed_multiplier >= 0.0f)\" not met"
+   );
+}
+
+
 TEST(AllegroFlare_FrameAnimation_AnimationTest, DISABLED__dev_test)
 {
    al_init();

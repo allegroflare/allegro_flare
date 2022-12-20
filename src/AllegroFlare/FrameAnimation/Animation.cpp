@@ -19,6 +19,7 @@ Animation::Animation(AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet, st
    , name(name)
    , frames(frames)
    , playmode(playmode)
+   , playspeed_multiplier(1.0f)
    , playhead(0.0f)
    , finished(false)
    , initialized(false)
@@ -40,6 +41,12 @@ std::vector<AllegroFlare::FrameAnimation::Frame> Animation::get_frames() const
 uint32_t Animation::get_playmode() const
 {
    return playmode;
+}
+
+
+float Animation::get_playspeed_multiplier() const
+{
+   return playspeed_multiplier;
 }
 
 
@@ -77,6 +84,19 @@ void Animation::start()
    return;
 }
 
+void Animation::set_playspeed_multiplier(float playspeed_multiplier)
+{
+   if (!((playspeed_multiplier >= 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::set_playspeed_multiplier]: error: guard \"(playspeed_multiplier >= 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::set_playspeed_multiplier: error: guard \"(playspeed_multiplier >= 0.0f)\" not met");
+   }
+   this->playspeed_multiplier = playspeed_multiplier;
+   return;
+}
+
 void Animation::update()
 {
    if (!(initialized))
@@ -87,7 +107,7 @@ void Animation::update()
       throw std::runtime_error("Animation::update: error: guard \"initialized\" not met");
    }
    const float FRAME_INCREMENT = 1.0f/60.0f;
-   playhead += FRAME_INCREMENT;
+   playhead += (FRAME_INCREMENT * playspeed_multiplier);
 
    // update "finished"
    switch(playmode)

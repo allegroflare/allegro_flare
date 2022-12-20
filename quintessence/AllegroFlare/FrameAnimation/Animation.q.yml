@@ -23,6 +23,12 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: playspeed_multiplier
+    type: float
+    init_with: 1.0f
+    getter: true
+    setter: false
+
   - name: playhead
     type: float
     init_with: 0.0f
@@ -84,11 +90,22 @@ functions:
       return;
 
 
+  - name: set_playspeed_multiplier
+    parameters:
+      - name: playspeed_multiplier
+        type: float
+        default_argument: 1.0
+    guards: [ (playspeed_multiplier >= 0.0f) ]
+    body: |
+      this->playspeed_multiplier = playspeed_multiplier;
+      return;
+
+
   - name: update
     guards: [ initialized ]
     body: |
       const float FRAME_INCREMENT = 1.0f/60.0f;
-      playhead += FRAME_INCREMENT;
+      playhead += (FRAME_INCREMENT * playspeed_multiplier);
 
       // update "finished"
       switch(playmode)
