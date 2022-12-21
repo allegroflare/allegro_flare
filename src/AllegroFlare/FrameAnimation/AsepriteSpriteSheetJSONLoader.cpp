@@ -96,26 +96,35 @@ std::map<std::string, AllegroFlare::FrameAnimation::Animation> AsepriteSpriteShe
 
    for (auto &tag : tags)
    {
+      std::string unsanitized_tag_name;
       std::string tag_name;
       std::string mode;
       int start_frame, end_frame;
 
-      tag.at("name").get_to(tag_name);
+      tag.at("name").get_to(unsanitized_tag_name);
       tag.at("from").get_to(start_frame);
       tag.at("to").get_to(end_frame);
       tag.at("direction").get_to(mode);
 
+      bool tag_name_ends_in_at_char = ends_in_at_char(unsanitized_tag_name);
+      tag_name = strip_appended_at_char(unsanitized_tag_name);
+
       if (result.count(tag_name) > 0)
       {
+         std::stringstream error_message;
+         error_message << "duplicate key (a.k.a. tag) for \"" << tag_name << "\"";
          Errors::throw_error("AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONDataLoader::load",
-                             "duplicate key (a.k.a. tag) for [showing-duplicate-name-key-not-supported]");
+                             error_message.str());
       }
+
+
+      bool playmode_is_looped = tag_name_ends_in_at_char;
 
       result[tag_name] = AllegroFlare::FrameAnimation::Animation(
          sprite_sheet,
          tag_name,
          _build_animation_frames_for(start_frame, end_frame, frame_data), // <- NOTE: this copy arg can be optimized
-         _get_playmode_from_direction(mode)
+         _get_playmode_from_direction(mode, playmode_is_looped)
       );
    }
 
@@ -146,12 +155,33 @@ std::vector<AllegroFlare::FrameAnimation::Frame> AsepriteSpriteSheetJSONLoader::
    return result;
 }
 
-uint32_t AsepriteSpriteSheetJSONLoader::_get_playmode_from_direction(std::string direction)
+bool AsepriteSpriteSheetJSONLoader::ends_in_at_char(std::string str)
+{
+   if (str.size() <= 1) return false;
+   return str[str.size()-1] == '@';
+}
+
+std::string AsepriteSpriteSheetJSONLoader::strip_appended_at_char(std::string str)
+{
+   if (!ends_in_at_char(str)) return str;
+   str.pop_back();
+   return str;
+}
+
+uint32_t AsepriteSpriteSheetJSONLoader::_get_playmode_from_direction(std::string direction, bool playmode_is_looped)
 {
    std::map<std::string, uint32_t> playmode_map = {
-     { "pingpong", AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_PING_PONG },
-     { "forward",  AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_LOOP },
+      { "pingpong", AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_PING_PONG },
+      { "forward",  AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE },
    };
+
+   if (playmode_is_looped)
+   {
+      if (direction == "forward")
+      {
+         return AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_LOOP;
+      }
+   }
 
    if (playmode_map.count(direction) == 0)
    {

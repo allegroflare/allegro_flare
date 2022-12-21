@@ -29,7 +29,9 @@ namespace AllegroFlare
 
          std::map<std::string, AllegroFlare::FrameAnimation::Animation> load();
          std::vector<AllegroFlare::FrameAnimation::Frame> _build_animation_frames_for(uint32_t start_frame=0, uint32_t end_frame=0, std::map<int, int> frame_data={});
-         uint32_t _get_playmode_from_direction(std::string direction="[unset-direction]");
+         bool ends_in_at_char(std::string str="[unset-str]");
+         std::string strip_appended_at_char(std::string str="[unset-str]");
+         uint32_t _get_playmode_from_direction(std::string direction="[unset-direction]", bool playmode_is_looped=true);
       };
    }
 }
