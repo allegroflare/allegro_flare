@@ -78,7 +78,7 @@ bool FrameAnimated2D::get_animation_finished()
    return animation.get_finished();
 }
 
-bool FrameAnimated2D::get_current_animation_frame_num()
+int FrameAnimated2D::get_current_animation_frame_num()
 {
    return animation.get_frame_num_now();
 }

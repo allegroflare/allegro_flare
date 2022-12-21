@@ -75,7 +75,7 @@ functions:
 
 
   - name: get_current_animation_frame_num
-    type: bool
+    type: int
     body: |
       return animation.get_frame_num_now();
 
