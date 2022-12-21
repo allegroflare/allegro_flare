@@ -146,7 +146,9 @@ std::map<std::string, AllegroFlare::FrameAnimation::Animation> AsepriteSpriteShe
       }
 
 
-      bool playmode_is_looped = tag_name_ends_in_at_char;
+      bool playmode_is_looped = load_tag_names_ending_in_at_char_with_looping_playmode
+                              ? tag_name_ends_in_at_char
+                              : true;
 
       result[tag_name] = AllegroFlare::FrameAnimation::Animation(
          sprite_sheet,
