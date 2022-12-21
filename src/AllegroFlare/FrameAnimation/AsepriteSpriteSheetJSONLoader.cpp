@@ -21,12 +21,38 @@ namespace FrameAnimation
 AsepriteSpriteSheetJSONLoader::AsepriteSpriteSheetJSONLoader(std::string filename, AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet)
    : filename(filename)
    , sprite_sheet(sprite_sheet)
+   , load_tag_names_ending_in_at_char_with_looping_playmode(true)
+   , discard_last_at_char_in_tag_names(true)
 {
 }
 
 
 AsepriteSpriteSheetJSONLoader::~AsepriteSpriteSheetJSONLoader()
 {
+}
+
+
+void AsepriteSpriteSheetJSONLoader::set_load_tag_names_ending_in_at_char_with_looping_playmode(bool load_tag_names_ending_in_at_char_with_looping_playmode)
+{
+   this->load_tag_names_ending_in_at_char_with_looping_playmode = load_tag_names_ending_in_at_char_with_looping_playmode;
+}
+
+
+void AsepriteSpriteSheetJSONLoader::set_discard_last_at_char_in_tag_names(bool discard_last_at_char_in_tag_names)
+{
+   this->discard_last_at_char_in_tag_names = discard_last_at_char_in_tag_names;
+}
+
+
+bool AsepriteSpriteSheetJSONLoader::get_load_tag_names_ending_in_at_char_with_looping_playmode() const
+{
+   return load_tag_names_ending_in_at_char_with_looping_playmode;
+}
+
+
+bool AsepriteSpriteSheetJSONLoader::get_discard_last_at_char_in_tag_names() const
+{
+   return discard_last_at_char_in_tag_names;
 }
 
 
@@ -107,7 +133,9 @@ std::map<std::string, AllegroFlare::FrameAnimation::Animation> AsepriteSpriteShe
       tag.at("direction").get_to(mode);
 
       bool tag_name_ends_in_at_char = ends_in_at_char(unsanitized_tag_name);
-      tag_name = strip_appended_at_char(unsanitized_tag_name);
+      tag_name = discard_last_at_char_in_tag_names
+               ? strip_appended_at_char(unsanitized_tag_name)
+               : unsanitized_tag_name;
 
       if (result.count(tag_name) > 0)
       {

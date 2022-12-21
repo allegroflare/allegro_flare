@@ -11,6 +11,18 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: load_tag_names_ending_in_at_char_with_looping_playmode
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
+  - name: discard_last_at_char_in_tag_names
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -93,7 +105,9 @@ functions:
          tag.at("direction").get_to(mode);
 
          bool tag_name_ends_in_at_char = ends_in_at_char(unsanitized_tag_name);
-         tag_name = strip_appended_at_char(unsanitized_tag_name);
+         tag_name = discard_last_at_char_in_tag_names
+                  ? strip_appended_at_char(unsanitized_tag_name)
+                  : unsanitized_tag_name;
 
          if (result.count(tag_name) > 0)
          {

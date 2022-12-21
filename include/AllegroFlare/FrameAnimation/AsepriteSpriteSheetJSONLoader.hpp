@@ -19,6 +19,8 @@ namespace AllegroFlare
       private:
          std::string filename;
          AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet;
+         bool load_tag_names_ending_in_at_char_with_looping_playmode;
+         bool discard_last_at_char_in_tag_names;
 
       protected:
 
@@ -27,6 +29,10 @@ namespace AllegroFlare
          AsepriteSpriteSheetJSONLoader(std::string filename="./bin/data/bitmaps/sprites_grid-x.json", AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet=nullptr);
          ~AsepriteSpriteSheetJSONLoader();
 
+         void set_load_tag_names_ending_in_at_char_with_looping_playmode(bool load_tag_names_ending_in_at_char_with_looping_playmode);
+         void set_discard_last_at_char_in_tag_names(bool discard_last_at_char_in_tag_names);
+         bool get_load_tag_names_ending_in_at_char_with_looping_playmode() const;
+         bool get_discard_last_at_char_in_tag_names() const;
          std::map<std::string, AllegroFlare::FrameAnimation::Animation> load();
          std::vector<AllegroFlare::FrameAnimation::Frame> _build_animation_frames_for(uint32_t start_frame=0, uint32_t end_frame=0, std::map<int, int> frame_data={});
          bool ends_in_at_char(std::string str="[unset-str]");
