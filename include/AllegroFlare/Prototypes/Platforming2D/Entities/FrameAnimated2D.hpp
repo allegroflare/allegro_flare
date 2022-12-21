@@ -35,6 +35,7 @@ namespace AllegroFlare
                AllegroFlare::FrameAnimation::Book* get_animation_book() const;
                virtual void update() override;
                void refresh_bitmap();
+               void set_animation_playback_rate(float multiplier=1.0f);
                void set_animation(std::string animation_name="[unset-animation_name]");
             };
          }

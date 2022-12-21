@@ -67,6 +67,12 @@ void FrameAnimated2D::refresh_bitmap()
    return;
 }
 
+void FrameAnimated2D::set_animation_playback_rate(float multiplier)
+{
+   animation.set_playspeed_multiplier(multiplier);
+   return;
+}
+
 void FrameAnimated2D::set_animation(std::string animation_name)
 {
    if (!(animation_book))

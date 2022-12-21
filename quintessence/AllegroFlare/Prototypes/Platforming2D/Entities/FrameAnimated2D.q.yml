@@ -58,6 +58,16 @@ functions:
       return;
 
 
+  - name: set_animation_playback_rate
+    parameters:
+      - name: multiplier
+        type: float
+        default_argument: 1.0f
+    body: |
+      animation.set_playspeed_multiplier(multiplier);
+      return;
+
+
   - name: set_animation
     parameters:
       - name: animation_name
