@@ -68,6 +68,18 @@ functions:
       return;
 
 
+  - name: get_animation_finished
+    type: bool
+    body: |
+      return animation.get_finished();
+
+
+  - name: get_current_animation_frame_num
+    type: bool
+    body: |
+      return animation.get_frame_num_now();
+
+
   - name: set_animation
     parameters:
       - name: animation_name

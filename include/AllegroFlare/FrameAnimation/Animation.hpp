@@ -6,6 +6,7 @@
 #include <allegro5/allegro.h>
 #include <cstdint>
 #include <string>
+#include <utility>
 #include <vector>
 
 
@@ -30,6 +31,7 @@ namespace AllegroFlare
          float playhead;
          bool finished;
          bool initialized;
+         std::pair<int, uint32_t> get_frame_info_at(float time=0.0f);
 
       protected:
 
@@ -41,6 +43,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::FrameAnimation::Frame> get_frames() const;
          uint32_t get_playmode() const;
          float get_playspeed_multiplier() const;
+         bool get_finished() const;
          void initialize();
          void start();
          void set_playspeed_multiplier(float playspeed_multiplier=1.0);
@@ -50,8 +53,10 @@ namespace AllegroFlare
          ALLEGRO_BITMAP* get_frame_at(float time=0.0f);
          ALLEGRO_BITMAP* get_frame_now();
          uint32_t get_frame_id_now();
+         int get_frame_num_now();
          ALLEGRO_BITMAP* get_bitmap_at_frame_num(int frame_num=0);
          uint32_t get_frame_id_at(float time=0.0f);
+         int get_frame_num_at(float time=0.0f);
          float calculate_duration();
       };
    }

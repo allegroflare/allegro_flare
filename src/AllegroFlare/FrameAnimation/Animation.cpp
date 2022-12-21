@@ -50,6 +50,12 @@ float Animation::get_playspeed_multiplier() const
 }
 
 
+bool Animation::get_finished() const
+{
+   return finished;
+}
+
+
 void Animation::initialize()
 {
    if (!((!initialized)))
@@ -184,6 +190,18 @@ uint32_t Animation::get_frame_id_now()
    return get_frame_id_at(playhead);
 }
 
+int Animation::get_frame_num_now()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_frame_num_now]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_frame_num_now: error: guard \"initialized\" not met");
+   }
+   return get_frame_num_at(playhead);
+}
+
 ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
 {
    if (!(initialized))
@@ -220,8 +238,34 @@ uint32_t Animation::get_frame_id_at(float time)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_frame_id_at: error: guard \"initialized\" not met");
    }
+   return get_frame_info_at(time).second;
+}
+
+int Animation::get_frame_num_at(float time)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_frame_num_at]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_frame_num_at: error: guard \"initialized\" not met");
+   }
+   return get_frame_info_at(time).first;
+}
+
+std::pair<int, uint32_t> Animation::get_frame_info_at(float time)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_frame_info_at]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_frame_info_at: error: guard \"initialized\" not met");
+   }
    float duration = calculate_duration();
-   if (duration < 0.0001) return 0;
+   if (duration < 0.0001) return { 0, 0 }; // TODO: have a value other than 0 representing the frame_count when not
+                                           // present
+   int current_frame_count = 0;
 
    switch(playmode)
    {
@@ -230,7 +274,8 @@ uint32_t Animation::get_frame_id_at(float time)
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
-            if (time < duration_so_far) return frame.get_index();
+            if (time < duration_so_far) return { current_frame_count, frame.get_index() };
+            current_frame_count++;
          }
       } break;
 
@@ -241,7 +286,8 @@ uint32_t Animation::get_frame_id_at(float time)
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
-            if (looped_playhead < duration_so_far) return frame.get_index();
+            if (looped_playhead < duration_so_far) return { current_frame_count, frame.get_index() };
+            current_frame_count++;
          }
       } break;
 
@@ -253,11 +299,12 @@ uint32_t Animation::get_frame_id_at(float time)
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
-            if (ping_pong_playhead < duration_so_far) return frame.get_index();
+            if (ping_pong_playhead < duration_so_far) return { current_frame_count, frame.get_index() };
+            current_frame_count++;
          }
       } break;
    }
-   return 0;
+   return { current_frame_count, 0 };
 }
 
 float Animation::calculate_duration()

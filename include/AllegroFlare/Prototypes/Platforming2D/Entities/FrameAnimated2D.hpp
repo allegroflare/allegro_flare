@@ -36,6 +36,8 @@ namespace AllegroFlare
                virtual void update() override;
                void refresh_bitmap();
                void set_animation_playback_rate(float multiplier=1.0f);
+               bool get_animation_finished();
+               bool get_current_animation_frame_num();
                void set_animation(std::string animation_name="[unset-animation_name]");
             };
          }

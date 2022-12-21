@@ -73,6 +73,16 @@ void FrameAnimated2D::set_animation_playback_rate(float multiplier)
    return;
 }
 
+bool FrameAnimated2D::get_animation_finished()
+{
+   return animation.get_finished();
+}
+
+bool FrameAnimated2D::get_current_animation_frame_num()
+{
+   return animation.get_frame_num_now();
+}
+
 void FrameAnimated2D::set_animation(std::string animation_name)
 {
    if (!(animation_book))
