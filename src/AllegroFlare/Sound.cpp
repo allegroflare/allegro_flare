@@ -77,7 +77,7 @@ void Sound::initialize()
                                         "currently implemented to rely on the presence of Allegro's auto-created "
                                         "mixer (a result of a call to al_reserve_samples()). "
                                         "AllegroFlare/Sound obtains this mixer via al_get_default_mixer(), but it is "
-                                        "not present"
+                                        "not present."
                                         );
    }
 
