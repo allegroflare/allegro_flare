@@ -100,11 +100,6 @@ void Sound::initialize()
    Sound &Sound::play()
    {
       validate_initialized("play");
-      if (al_get_sample_instance_playing(sample_instance)) // NOTE: this represents "overplay" mode
-      {
-         al_stop_sample_instance(sample_instance);
-      }
-    
       if (!al_play_sample_instance(sample_instance))
       {
          std::cout << "[AllegroFlare::Sound::" << __FUNCTION__ << "] could not al_play_sample_instance" << std::endl;
