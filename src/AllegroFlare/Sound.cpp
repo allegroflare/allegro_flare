@@ -5,6 +5,7 @@
 #include <AllegroFlare/Sound.hpp>
 
 #include <AllegroFlare/SampleBin.hpp>
+#include <AllegroFlare/Errors.hpp>
 
 #include <sstream>
 
@@ -17,7 +18,7 @@ namespace AllegroFlare
       : sample(sample)
       , sample_instance(nullptr)
       , mixer(nullptr)
-      , voice(nullptr)
+      //, voice(nullptr)
       , _position(0)
       , _paused(false)
       , initialized(false)
@@ -56,21 +57,39 @@ void Sound::initialize()
 {
    if (initialized) throw std::runtime_error("Sound::initialize: error: cannot call initialize more than once");
 
-   mixer = al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
+   //mixer = al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
    //voice = al_create_voice(41000, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
-   voice = al_get_default_voice();
+   mixer = al_get_default_mixer();
+   //voice = al_get_default_voice();
 
    if (!sample)
    {
-      std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
-                << "is a nullptr." << std::endl;
+      AllegroFlare::Errors::throw_error("AllegroFlare::Sound::initialize",
+                                        "Could not create sample instance because ALLEGRO_SAMPLE is nullptr.");
+      //std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
+                //<< "is a nullptr." << std::endl;
    }
-   else
+
+   if (!mixer)
    {
-      sample_instance = al_create_sample_instance(sample);
-      al_attach_sample_instance_to_mixer(sample_instance, mixer);
-      al_attach_mixer_to_voice(mixer, voice);
+      AllegroFlare::Errors::throw_error("AllegroFlare::Sound::initialize",
+                                        "Was not able to successfully obtain a mixer. AllegroFlare/Sound is "
+                                        "currently implemented to rely on the presence of Allegro's auto-created "
+                                        "mixer (a result of a call to al_reserve_samples()). "
+                                        "AllegroFlare/Sound obtains this mixer via al_get_default_mixer(), but it is "
+                                        "not present"
+                                        );
    }
+
+   //if (!voice)
+   //{
+      //AllegroFlare::Errors::throw_error("AllegroFlare::Sound::initialize",
+                                        //"Was not able to successfully obtain a voice.");
+   //}
+
+   sample_instance = al_create_sample_instance(sample);
+   al_attach_sample_instance_to_mixer(sample_instance, mixer);
+   //al_attach_mixer_to_voice(mixer, voice);
    
    initialized = true;
 }

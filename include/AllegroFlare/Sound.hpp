@@ -16,7 +16,7 @@ namespace AllegroFlare
       ALLEGRO_SAMPLE *sample;
       ALLEGRO_SAMPLE_INSTANCE *sample_instance;
       ALLEGRO_MIXER *mixer;
-      ALLEGRO_VOICE *voice;
+      //ALLEGRO_VOICE *voice;
       float _position;
       float _paused;
       bool initialized;
