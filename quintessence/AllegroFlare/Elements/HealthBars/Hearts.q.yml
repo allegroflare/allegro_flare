@@ -43,23 +43,41 @@ properties:
     getter: true
     setter: true
 
+  - name: outline_color
+    type: ALLEGRO_COLOR
+    init_with: '(ALLEGRO_COLOR{0.08, 0.12, 0.2, 1})'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: heart_size
     type: int
-    init_with: 44
+    init_with: 26
     constructor_arg: true
     getter: true
     setter: true
 
   - name: heart_spacing
     type: float
-    init_with: 52
+    init_with: 32
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: font_awesome_font_name
+  - name: drawing_outline
+    type: bool
+    init_with: true
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_awesome_solid_font_name
     type: std::string
     init_with: '"fa-solid-900.ttf"'
+
+  - name: font_awesome_outline_font_name
+    type: std::string
+    init_with: '"fa-regular-400.ttf"'
 
 
 functions:
@@ -69,10 +87,11 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_ttf_addon_initialized() ]
     body: |
-      ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_FONT *font_awesome_font = obtain_font_awesome_font();
+      ALLEGRO_FONT *font_awesome_solid_font = obtain_font_awesome_solid_font();
+      ALLEGRO_FONT *font_awesome_outline_font = obtain_font_awesome_outline_font();
       const uint32_t heart_glyph = AllegroFlare::FontAwesome::heart;
       const uint32_t heart_empty_glyph = AllegroFlare::FontAwesome::heart;
+      const uint32_t outline_heart_glyph = 0xf004;
 
       get_placement_ref().start_transform();
 
@@ -81,14 +100,43 @@ functions:
          if (i <= value)
          {
             // draw filled heart
-            draw_unicode_character(font_awesome_font, fill_color, heart_glyph, ALLEGRO_ALIGN_CENTRE, i*heart_spacing);
+            draw_unicode_character(
+               font_awesome_solid_font,
+               fill_color,
+               heart_glyph,
+               ALLEGRO_ALIGN_CENTRE,
+               i*heart_spacing
+            );
          }
          else
          {
             // draw empty heart
-            draw_unicode_character(font_awesome_font, empty_color, heart_glyph, ALLEGRO_ALIGN_CENTRE, i*heart_spacing);
+            draw_unicode_character(
+               font_awesome_solid_font,
+               empty_color,
+               heart_glyph,
+               ALLEGRO_ALIGN_CENTRE,
+               i*heart_spacing
+            );
          }
       }
+
+      if (drawing_outline)
+      {
+         for (int i=0; i<max; i++)
+         {
+            // draw outline stroke heart
+            draw_unicode_character(
+               font_awesome_outline_font,
+               outline_color,
+               outline_heart_glyph,
+               ALLEGRO_ALIGN_CENTRE,
+               i*heart_spacing,
+               -1
+            );
+         }
+      }
+
       get_placement_ref().restore_transform();
       return;
     body_dependency_symbols:
@@ -124,12 +172,23 @@ functions:
       return;
 
 
-  - name: obtain_font_awesome_font
+  - name: obtain_font_awesome_solid_font
+    private: true
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
       std::stringstream font_identifier_and_size;
-      font_identifier_and_size << font_awesome_font_name << " " << heart_size;
+      font_identifier_and_size << font_awesome_solid_font_name << " " << heart_size;
+      return font_bin->auto_get(font_identifier_and_size.str());
+
+
+  - name: obtain_font_awesome_outline_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream font_identifier_and_size;
+      font_identifier_and_size << font_awesome_outline_font_name << " " << (heart_size+2);
       return font_bin->auto_get(font_identifier_and_size.str());
 
 

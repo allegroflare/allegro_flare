@@ -3086,6 +3086,10 @@ table td
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
+  <td class="property">outline_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">heart_size</td>
   <td class="property">int</td>
 </tr>
@@ -3094,7 +3098,15 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
-  <td class="property">font_awesome_font_name</td>
+  <td class="property">drawing_outline</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">font_awesome_solid_font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_awesome_outline_font_name</td>
   <td class="property">std::string</td>
 </tr>
     </table>
@@ -3106,7 +3118,10 @@ table td
   <td class="method">draw_unicode_character(6)</td>
 </tr>
 <tr>
-  <td class="method">obtain_font_awesome_font()</td>
+  <td class="private_method">obtain_font_awesome_solid_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font_awesome_outline_font()</td>
 </tr>
     </table>
      <table>
