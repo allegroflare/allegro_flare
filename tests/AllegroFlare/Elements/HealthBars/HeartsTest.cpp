@@ -59,7 +59,7 @@ TEST_F(AllegroFlare_Elements_HealthBars_HeartsTest, render__without_ttf_addon_in
 TEST_F(AllegroFlare_Elements_HealthBars_HeartsTestWithAllegroRenderingFixture,
    CAPTURE__render__will_draw_the_health_bar_to_the_screen)
 {
-   AllegroFlare::Elements::HealthBars::Hearts health_bar(&get_font_bin_ref(), 10, 6);
+   AllegroFlare::Elements::HealthBars::Hearts health_bar(&get_font_bin_ref(), 10, 9);
    health_bar.get_placement_ref().position = {200, 300};
    health_bar.render();
    al_flip_display();

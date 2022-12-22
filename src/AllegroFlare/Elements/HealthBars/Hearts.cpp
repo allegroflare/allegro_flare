@@ -174,7 +174,7 @@ void Hearts::render()
 
    for (int i=0; i<max; i++)
    {
-      if (i <= value)
+      if (i <= (value - 1))
       {
          // draw filled heart
          draw_unicode_character(
