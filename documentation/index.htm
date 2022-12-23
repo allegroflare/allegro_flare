@@ -381,10 +381,10 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">set_and_load_sound_effect_elements(1)</td>
+  <td class="method">set_and_load_sound_effect_elements(std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt; sound_effect_elements={})</td>
 </tr>
 <tr>
-  <td class="method">set_and_load_music_track_elements(1)</td>
+  <td class="method">set_and_load_music_track_elements(std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt; music_track_elements={})</td>
 </tr>
 <tr>
   <td class="private_method">load_sound_effects()</td>
@@ -414,31 +414,31 @@ table td
   <td class="private_method">stop_all_sound_effects()</td>
 </tr>
 <tr>
-  <td class="method">set_global_volume(1)</td>
+  <td class="method">set_global_volume(float volume=0.1)</td>
 </tr>
 <tr>
-  <td class="method">play_sound_effect(1)</td>
+  <td class="method">play_sound_effect(std::string identifier=&quot;a-sound-effect-identifier-that-is-not-set&quot;)</td>
 </tr>
 <tr>
-  <td class="method">play_music_track(1)</td>
+  <td class="method">play_music_track(std::string identifier=&quot;a-music-track-identifier-that-is-not-set&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">sound_effect_element_exists(1)</td>
+  <td class="private_method">sound_effect_element_exists(std::string identifier=&quot;a-sound-effect-identifier-that-is-not-set&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">find_sound_effect_sound_object_by_identifier(1)</td>
+  <td class="private_method">find_sound_effect_sound_object_by_identifier(std::string identifier=&quot;a-sound-effect-identifier-that-is-not-set&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">find_sound_effect_element_by_identifier(1)</td>
+  <td class="private_method">find_sound_effect_element_by_identifier(std::string identifier=&quot;a-sound-effect-identifier-that-is-not-set&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">find_music_track_sound_object_by_identifier(1)</td>
+  <td class="private_method">find_music_track_sound_object_by_identifier(std::string identifier=&quot;a-music-track-identifier-that-is-not-set&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">music_track_element_exists(1)</td>
+  <td class="private_method">music_track_element_exists(std::string identifier=&quot;a-music-track-identifier-that-is-not-set&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">find_music_track_element_by_identifier(1)</td>
+  <td class="private_method">find_music_track_element_by_identifier(std::string identifier=&quot;a-music-track-identifier-that-is-not-set&quot;)</td>
 </tr>
 <tr>
   <td class="method">dump_to_cout()</td>
@@ -532,28 +532,28 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">move_sample_head_position_by(1)</td>
+  <td class="method">move_sample_head_position_by(std::size_t delta=0)</td>
 </tr>
 <tr>
-  <td class="method">set_sample_count(2)</td>
+  <td class="method">set_sample_count(std::size_t sample_count=2048, bool clear=false)</td>
 </tr>
 <tr>
   <td class="method">get_block_size()</td>
 </tr>
 <tr>
-  <td class="method">get_sample_at_mono(2)</td>
+  <td class="method">get_sample_at_mono(int sample_position=0, int channel_t=CHANNEL_LEFT)</td>
 </tr>
 <tr>
-  <td class="method">set_sample_at_mono(3)</td>
+  <td class="method">set_sample_at_mono(int sample_position=0, int channel_t=CHANNEL_LEFT, float value=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_sample_at(3)</td>
+  <td class="method">set_sample_at(int sample_position=0, float left_channel_value=0.0f, float right_channel_value=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_sample_at(1)</td>
+  <td class="method">get_sample_at(int sample_position=0)</td>
 </tr>
 <tr>
-  <td class="private_method">clamp_loop_sample_position(1)</td>
+  <td class="private_method">clamp_loop_sample_position(int sample_position=0)</td>
 </tr>
     </table>
      <table>
@@ -620,7 +620,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">set_postprocess_callback(2)</td>
+  <td class="method">set_postprocess_callback(void (*callback)(void*, unsigned int, void*) /*callback*/=nullptr, void* user_data=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -683,16 +683,16 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_offset_sec(1)</td>
+  <td class="method">set_offset_sec(float offset_sec=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_gain(1)</td>
+  <td class="method">set_gain(float gain=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_wet(1)</td>
+  <td class="method">set_wet(float wet=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_dry(1)</td>
+  <td class="method">set_dry(float dry=1.0f)</td>
 </tr>
 <tr>
   <td class="method">get_al_mixer()</td>
@@ -701,7 +701,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">mixer_postprocess_callback(3)</td>
+  <td class="method">mixer_postprocess_callback(void* buf=nullptr, unsigned int samples=0, void* data=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -744,7 +744,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_delay_sec(1)</td>
+  <td class="method">set_delay_sec(float delay_sec=1.0f)</td>
 </tr>
 <tr>
   <td class="method">get_al_mixer()</td>
@@ -753,7 +753,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">mixer_postprocess_callback(3)</td>
+  <td class="method">mixer_postprocess_callback(void* buf=nullptr, unsigned int samples=0, void* data=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -812,7 +812,7 @@ table td
   <td class="method">create_monoplex()</td>
 </tr>
 <tr>
-  <td class="method">create_image(1)</td>
+  <td class="method">create_image(std::string image_identifier=&quot;[unset-default-image-identifer-for-background-factory]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -848,7 +848,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">add_child(1)</td>
+  <td class="method">add_child(AllegroFlare::Bone3D* bone={})</td>
 </tr>
     </table>
      <table>
@@ -885,7 +885,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">render_recursive(1)</td>
+  <td class="method">render_recursive(AllegroFlare::Bone3D* bone=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -930,13 +930,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_zoom(1)</td>
+  <td class="method">set_zoom(AllegroFlare::Vec2D zoom={1.0f, 1.0f})</td>
 </tr>
 <tr>
   <td class="method">get_inv_zoom()</td>
 </tr>
 <tr>
-  <td class="method">setup_dimentional_projection(1)</td>
+  <td class="method">setup_dimentional_projection(ALLEGRO_BITMAP* bitmap=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -978,7 +978,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -1213,10 +1213,10 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">move_scrollbar_position(1)</td>
+  <td class="method">move_scrollbar_position(float distance_y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_scrollbar_position(1)</td>
+  <td class="method">set_scrollbar_position(float scrollbar_position=0.0f)</td>
 </tr>
 <tr>
   <td class="method">set_scrollbar_position_to_max()</td>
@@ -1261,19 +1261,19 @@ table td
   <td class="private_method">draw_achievements_list_items_and_scrollbar()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_achievement_box(5)</td>
+  <td class="private_method">draw_achievement_box(float x=0.0f, float y=0.0f, std::string status=&quot;[unset-status]&quot;, std::string title=&quot;[unset-title]&quot;, std::string description=&quot;[unset-description]&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">infer_icon_character_by_status(1)</td>
+  <td class="private_method">infer_icon_character_by_status(std::string status=&quot;[unset-status]&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">infer_icon_color_by_status(4)</td>
+  <td class="private_method">infer_icon_color_by_status(std::string status=&quot;[unset-status]&quot;, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
 </tr>
 <tr>
-  <td class="private_method">filter_item_title_through_status(2)</td>
+  <td class="private_method">filter_item_title_through_status(std::string title=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">filter_item_description_through_status(2)</td>
+  <td class="private_method">filter_item_description_through_status(std::string description=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_title_font()</td>
@@ -1288,7 +1288,7 @@ table td
   <td class="private_method">obtain_icon_font()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_unicode_character(6)</td>
+  <td class="private_method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0)</td>
 </tr>
     </table>
      <table>
@@ -1524,7 +1524,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">draw_unicode_character(6)</td>
+  <td class="method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
   <td class="method">obtain_font_awesome_font()</td>
@@ -1787,19 +1787,19 @@ table td
   <td class="method">create_basic_test_dialog()</td>
 </tr>
 <tr>
-  <td class="method">build_basic_dialog(1)</td>
+  <td class="method">build_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
-  <td class="method">create_basic_dialog(1)</td>
+  <td class="method">create_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
-  <td class="method">create_choice_dialog(2)</td>
+  <td class="method">create_choice_dialog(std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={})</td>
 </tr>
 <tr>
-  <td class="method">create_you_got_an_item_dialog(2)</td>
+  <td class="method">create_you_got_an_item_dialog(std::string item_name=&quot;[unset-item-name]&quot;, std::string item_bitmap_identifier=&quot;[unset-item-bitmap-identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_you_got_new_evidence_dialog(2)</td>
+  <td class="method">create_you_got_new_evidence_dialog(std::string evidence_name=&quot;[unset-evidence_name]&quot;, std::string evidence_bitmap_identifier=&quot;[unset-evidence_bitmap_identifier]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -2120,16 +2120,16 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_special_state_empty_text(2)</td>
+  <td class="private_method">draw_special_state_empty_text(float width=1, float height=1)</td>
 </tr>
 <tr>
-  <td class="private_method">draw_action_text(3)</td>
+  <td class="private_method">draw_action_text(std::string text=&quot;[unset-action-text]&quot;, float width=1, float height=1)</td>
 </tr>
 <tr>
-  <td class="method">draw_styled_revealed_text(3)</td>
+  <td class="method">draw_styled_revealed_text(float max_width=1, std::string text=&quot;[unset-text]&quot;, int num_revealed_characters=999)</td>
 </tr>
 <tr>
-  <td class="private_method">concat_text(2)</td>
+  <td class="private_method">concat_text(std::string source_text=&quot;&quot;, int length=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_dialog_font()</td>
@@ -2234,7 +2234,7 @@ table td
   <td class="method">draw_prompt_text()</td>
 </tr>
 <tr>
-  <td class="method">draw_choices_with_cursor_and_current_selection(1)</td>
+  <td class="method">draw_choices_with_cursor_and_current_selection(float start_y=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_dialog_font()</td>
@@ -2249,7 +2249,7 @@ table td
   <td class="private_method">obtain_choice_dialog_box_cursor_position()</td>
 </tr>
 <tr>
-  <td class="private_method">concat_text(2)</td>
+  <td class="private_method">concat_text(std::string source_text=&quot;&quot;, int length=0)</td>
 </tr>
     </table>
      <table>
@@ -2354,7 +2354,7 @@ table td
   <td class="private_method">obtain_item_name_text_font()</td>
 </tr>
 <tr>
-  <td class="method">opaquify(1)</td>
+  <td class="method">opaquify(ALLEGRO_COLOR color={0,0,0,0})</td>
 </tr>
     </table>
      <table>
@@ -2455,7 +2455,7 @@ table td
   <td class="private_method">obtain_evidence_description_font()</td>
 </tr>
 <tr>
-  <td class="method">opaquify(1)</td>
+  <td class="method">opaquify(ALLEGRO_COLOR color={0,0,0,0})</td>
 </tr>
     </table>
      <table>
@@ -2523,7 +2523,7 @@ table td
   <td class="method">infer_age()</td>
 </tr>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -2581,7 +2581,7 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">set_pages(1)</td>
+  <td class="method">set_pages(std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
   <td class="method">reset()</td>
@@ -3115,7 +3115,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">draw_unicode_character(6)</td>
+  <td class="method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font_awesome_solid_font()</td>
@@ -3353,19 +3353,19 @@ table td
   <td class="method">is_sound_enabled()</td>
 </tr>
 <tr>
-  <td class="method">set_num_columns(1)</td>
+  <td class="method">set_num_columns(int num_columns=1)</td>
 </tr>
 <tr>
-  <td class="method">set_num_rows(1)</td>
+  <td class="method">set_num_rows(int num_rows=1)</td>
 </tr>
 <tr>
   <td class="private_method">set_details_pane()</td>
 </tr>
 <tr>
-  <td class="private_method">opaquify(1)</td>
+  <td class="private_method">opaquify(ALLEGRO_COLOR color={0,0,0,0})</td>
 </tr>
 <tr>
-  <td class="private_method">change_a(2)</td>
+  <td class="private_method">change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f)</td>
 </tr>
 <tr>
   <td class="private_method">inv_reveal_counter()</td>
@@ -3392,10 +3392,10 @@ table td
   <td class="private_method">draw_inventory_boxes()</td>
 </tr>
 <tr>
-  <td class="method">draw_details_item_name(3)</td>
+  <td class="method">draw_details_item_name(float x=0, float y=0, ALLEGRO_FONT* font=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">draw_details_item_description(4)</td>
+  <td class="method">draw_details_item_description(float x=0, float y=0, float width=1, ALLEGRO_FONT* font=nullptr)</td>
 </tr>
 <tr>
   <td class="private_method">draw_details_pane()</td>
@@ -3407,13 +3407,13 @@ table td
   <td class="method">draw_item_selection_cursor()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_inventory_box(2)</td>
+  <td class="private_method">draw_inventory_box(float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">draw_inventory_item(3)</td>
+  <td class="private_method">draw_inventory_item(float x=0.0f, float y=0.0f, int item=0)</td>
 </tr>
 <tr>
-  <td class="method">get_item_definition(1)</td>
+  <td class="method">get_item_definition(int index=0)</td>
 </tr>
 <tr>
   <td class="method">obtain_title_font()</td>
@@ -3443,13 +3443,13 @@ table td
   <td class="private_method">play_show_inventory_sound()</td>
 </tr>
 <tr>
-  <td class="method">play_sound(1)</td>
+  <td class="method">play_sound(std::string sound_identifier=&quot;[unset-play_sound]&quot;)</td>
 </tr>
 <tr>
   <td class="method">create_placeholder_inventory_index()</td>
 </tr>
 <tr>
-  <td class="method">concat_text(2)</td>
+  <td class="method">concat_text(std::string source_text=&quot;&quot;, int length=0)</td>
 </tr>
     </table>
      <table>
@@ -3556,10 +3556,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">opaquify(1)</td>
+  <td class="method">opaquify(ALLEGRO_COLOR color={0,0,0,0})</td>
 </tr>
 <tr>
-  <td class="method">change_a(2)</td>
+  <td class="method">change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -3592,10 +3592,10 @@ table td
   <td class="private_method">list_is_empty()</td>
 </tr>
 <tr>
-  <td class="method">draw_selection_cursor(2)</td>
+  <td class="method">draw_selection_cursor(float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">draw_level_list_item_box(5)</td>
+  <td class="private_method">draw_level_list_item_box(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label=&quot;[unlabeled]&quot;)</td>
 </tr>
 <tr>
   <td class="method">activate_selected_menu_option()</td>
@@ -3755,13 +3755,13 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_achievement_box(2)</td>
+  <td class="private_method">draw_achievement_box(std::string title=&quot;[unset-title]&quot;, std::string description=&quot;[unset-description]&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">infer_icon_character_by_status(1)</td>
+  <td class="private_method">infer_icon_character_by_status(std::string status=&quot;[unset-status]&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">infer_icon_color_by_status(4)</td>
+  <td class="private_method">infer_icon_color_by_status(std::string status=&quot;[unset-status]&quot;, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
 </tr>
 <tr>
   <td class="private_method">obtain_item_title_font()</td>
@@ -3773,7 +3773,7 @@ table td
   <td class="private_method">obtain_icon_font()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_unicode_character(6)</td>
+  <td class="private_method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0)</td>
 </tr>
     </table>
      <table>
@@ -3840,7 +3840,7 @@ table td
   <td class="method">infer_age()</td>
 </tr>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -3944,7 +3944,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">put_card_on_top(1)</td>
+  <td class="method">put_card_on_top(AllegroFlare::Elements::PlayingCards::Card card={})</td>
 </tr>
 <tr>
   <td class="method">shuffle()</td>
@@ -4034,7 +4034,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">set_sections(1)</td>
+  <td class="method">set_sections(std::vector&lt;AllegroFlare::Elements::RollingCredits::Sections::Base*&gt; sections={})</td>
 </tr>
 <tr>
   <td class="method">calculate_height()</td>
@@ -4043,7 +4043,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">render_or_calculate_height(1)</td>
+  <td class="method">render_or_calculate_height(bool only_calculate_height_dont_render=false)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -4090,10 +4090,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">create_column_with_labels(1)</td>
+  <td class="method">create_column_with_labels(std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt; elements={})</td>
 </tr>
 <tr>
-  <td class="method">create_header(1)</td>
+  <td class="method">create_header(std::string text={})</td>
 </tr>
     </table>
      <table>
@@ -4126,10 +4126,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">render(1)</td>
+  <td class="method">render(bool only_calculate_height_dont_render=false)</td>
 </tr>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -4178,7 +4178,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">render(1)</td>
+  <td class="method">render(bool only_calculate_height_dont_render=false)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -4244,7 +4244,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">render(1)</td>
+  <td class="method">render(bool only_calculate_height_dont_render=false)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -4283,7 +4283,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -4839,10 +4839,10 @@ table td
   <td class="method">infer_age()</td>
 </tr>
 <tr>
-  <td class="method">modify_params_for_hide(2)</td>
+  <td class="method">modify_params_for_hide(AllegroFlare::Placement2D* place=nullptr, ALLEGRO_COLOR* color=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">modify_params_for_reveal(2)</td>
+  <td class="method">modify_params_for_reveal(AllegroFlare::Placement2D* place=nullptr, ALLEGRO_COLOR* color=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -5048,10 +5048,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">encode(2)</td>
+  <td class="method">encode(int value=0, std::size_t zerofill_count=0)</td>
 </tr>
 <tr>
-  <td class="method">decode(1)</td>
+  <td class="method">decode(std::string value=&quot;0&quot;)</td>
 </tr>
     </table>
      <table>
@@ -5071,22 +5071,22 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">build_error_message(2)</td>
+  <td class="method">build_error_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">build_warning_message(2)</td>
+  <td class="method">build_warning_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">build_info_message(2)</td>
+  <td class="method">build_info_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">throw_missing_file_error(3)</td>
+  <td class="method">throw_missing_file_error(std::string from=&quot;[unset-from]&quot;, std::string filename=&quot;[unset-filename]&quot;, std::string filetype=&quot;[unset-filetype]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">warn_from(2)</td>
+  <td class="method">warn_from(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">throw_error(2)</td>
+  <td class="method">throw_error(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -5114,10 +5114,10 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">emit_event(5)</td>
+  <td class="method">emit_event(uint32_t type=0, intptr_t data1=0, intptr_t data2=0, intptr_t data3=0, intptr_t data4=0)</td>
 </tr>
 <tr>
-  <td class="method">emit_switch_screen_event(1)</td>
+  <td class="method">emit_switch_screen_event(std::string screen_identifier_to_switch_to=0)</td>
 </tr>
 <tr>
   <td class="method">emit_exit_game_event()</td>
@@ -5129,37 +5129,37 @@ table td
   <td class="method">emit_hide_input_hints_bar_event()</td>
 </tr>
 <tr>
-  <td class="method">emit_set_input_hints_bar_event(1)</td>
+  <td class="method">emit_set_input_hints_bar_event(std::vector&lt;std::string&gt; tokens={})</td>
 </tr>
 <tr>
-  <td class="method">emit_set_input_hints_bar_text_opacity_event(1)</td>
+  <td class="method">emit_set_input_hints_bar_text_opacity_event(float opacity=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">emit_set_input_hints_bar_backfill_opacity_event(1)</td>
+  <td class="method">emit_set_input_hints_bar_backfill_opacity_event(float opacity=0.35f)</td>
 </tr>
 <tr>
-  <td class="method">emit_set_input_hints_bar_height_event(1)</td>
+  <td class="method">emit_set_input_hints_bar_height_event(float height=60.0f)</td>
 </tr>
 <tr>
-  <td class="method">emit_post_unlocked_achievement_notification_event(1)</td>
+  <td class="method">emit_post_unlocked_achievement_notification_event(std::string achievement_name=&quot;[unset-achievement_name]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">emit_play_sound_effect_event(1)</td>
+  <td class="method">emit_play_sound_effect_event(std::string sound_effect_identifier=&quot;[unset-sound-effect-identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">emit_play_music_track_event(1)</td>
+  <td class="method">emit_play_music_track_event(std::string music_track_identifier=&quot;[unset-music-track-identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_button_up_event(1)</td>
+  <td class="method">emit_virtual_controls_button_up_event(int virtual_button_num=0)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_button_down_event(1)</td>
+  <td class="method">emit_virtual_controls_button_down_event(int virtual_button_num=0)</td>
 </tr>
 <tr>
-  <td class="method">emit_game_event(1)</td>
+  <td class="method">emit_game_event(AllegroFlare::GameEvent game_event={})</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_axis_change_event(3)</td>
+  <td class="method">emit_virtual_controls_axis_change_event(int stick=0, int axis=0, float position=0.0f)</td>
 </tr>
 <tr>
   <td class="method">TODO()</td>
@@ -5266,7 +5266,7 @@ table td
   <td class="method">start()</td>
 </tr>
 <tr>
-  <td class="method">set_playspeed_multiplier(1)</td>
+  <td class="method">set_playspeed_multiplier(float playspeed_multiplier=1.0)</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -5278,7 +5278,7 @@ table td
   <td class="method">get_num_frames()</td>
 </tr>
 <tr>
-  <td class="method">get_frame_at(1)</td>
+  <td class="method">get_frame_at(float time=0.0f)</td>
 </tr>
 <tr>
   <td class="method">get_frame_now()</td>
@@ -5290,16 +5290,16 @@ table td
   <td class="method">get_frame_num_now()</td>
 </tr>
 <tr>
-  <td class="method">get_bitmap_at_frame_num(1)</td>
+  <td class="method">get_bitmap_at_frame_num(int frame_num=0)</td>
 </tr>
 <tr>
-  <td class="method">get_frame_id_at(1)</td>
+  <td class="method">get_frame_id_at(float time=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_frame_num_at(1)</td>
+  <td class="method">get_frame_num_at(float time=0.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">get_frame_info_at(1)</td>
+  <td class="private_method">get_frame_info_at(float time=0.0f)</td>
 </tr>
 <tr>
   <td class="method">calculate_duration()</td>
@@ -5347,16 +5347,16 @@ table td
   <td class="method">load()</td>
 </tr>
 <tr>
-  <td class="method">_build_animation_frames_for(3)</td>
+  <td class="method">_build_animation_frames_for(uint32_t start_frame=0, uint32_t end_frame=0, std::map&lt;int, int&gt; frame_data={})</td>
 </tr>
 <tr>
-  <td class="method">ends_in_at_char(1)</td>
+  <td class="method">ends_in_at_char(std::string str=&quot;[unset-str]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">strip_appended_at_char(1)</td>
+  <td class="method">strip_appended_at_char(std::string str=&quot;[unset-str]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">_get_playmode_from_direction(2)</td>
+  <td class="method">_get_playmode_from_direction(std::string direction=&quot;[unset-direction]&quot;, bool playmode_is_looped=true)</td>
 </tr>
     </table>
      <table>
@@ -5415,13 +5415,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_png_source_filename(1)</td>
+  <td class="method">set_png_source_filename(std::string png_source_filename=&quot;[unset-png_source_filename]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_json_source_filename(1)</td>
+  <td class="method">set_json_source_filename(std::string json_source_filename=&quot;[unset-json_source_filename]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_sprite_sheet_scale(1)</td>
+  <td class="method">set_sprite_sheet_scale(int sprite_sheet_scale=5)</td>
 </tr>
 <tr>
   <td class="method">get_sprite_sheet()</td>
@@ -5430,13 +5430,13 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">get_still_frame(1)</td>
+  <td class="method">get_still_frame(std::string tag_name=&quot;[unset-tag_name]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">animation_exists(1)</td>
+  <td class="method">animation_exists(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">find_animation_by_name(1)</td>
+  <td class="method">find_animation_by_name(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">_build_placeholder_dictionary()</td>
@@ -5504,7 +5504,7 @@ table td
   <td class="method">get_name()</td>
 </tr>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;[unset-possible_type]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -5532,7 +5532,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -5550,28 +5550,28 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">generate_characters(1)</td>
+  <td class="method">generate_characters(int num_characters=1)</td>
 </tr>
 <tr>
-  <td class="method">generate_characters_about(1)</td>
+  <td class="method">generate_characters_about(int num_characters=1)</td>
 </tr>
 <tr>
-  <td class="method">generate_words(1)</td>
+  <td class="method">generate_words(int num_words=1)</td>
 </tr>
 <tr>
-  <td class="method">generate_sentences(1)</td>
+  <td class="method">generate_sentences(int num_sentences=1)</td>
 </tr>
 <tr>
-  <td class="method">generate_paragraphs(1)</td>
+  <td class="method">generate_paragraphs(int num_paragraphs=1)</td>
 </tr>
 <tr>
   <td class="private_method">generate_source_text()</td>
 </tr>
 <tr>
-  <td class="private_method">split(2)</td>
+  <td class="private_method">split(std::string text=&quot;&quot;, char delimiter=&#39; &#39;)</td>
 </tr>
 <tr>
-  <td class="private_method">join(2)</td>
+  <td class="private_method">join(std::vector&lt;std::string&gt; tokens={}, std::string delimiter=&quot;, &quot;)</td>
 </tr>
     </table>
      <table>
@@ -5618,7 +5618,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">randomize(1)</td>
+  <td class="method">randomize(uint32_t seed=(uint32_t)time(0))</td>
 </tr>
 <tr>
   <td class="method">generate_boy_name()</td>
@@ -5686,16 +5686,16 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_keyboard_key_box_height(1)</td>
+  <td class="method">set_keyboard_key_box_height(float keyboard_key_box_height=42)</td>
 </tr>
 <tr>
-  <td class="method">render(1)</td>
+  <td class="method">render(bool calculate_width_only_and_do_not_draw=false)</td>
 </tr>
 <tr>
   <td class="method">calculate_width()</td>
 </tr>
 <tr>
-  <td class="method">guarantee_even_number(1)</td>
+  <td class="method">guarantee_even_number(int potentially_odd_number=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -5801,16 +5801,16 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_keyboard_key_box_height(1)</td>
+  <td class="method">set_keyboard_key_box_height(float keyboard_key_box_height=42)</td>
 </tr>
 <tr>
-  <td class="method">render(1)</td>
+  <td class="method">render(bool calculate_width_only_and_do_not_draw=false)</td>
 </tr>
 <tr>
   <td class="method">calculate_width()</td>
 </tr>
 <tr>
-  <td class="method">guarantee_even_number(1)</td>
+  <td class="method">guarantee_even_number(int potentially_odd_number=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -5973,7 +5973,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">callback(2)</td>
+  <td class="method">callback(ALLEGRO_EVENT* event=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -6042,13 +6042,13 @@ table td
   <td class="method">TearDown()</td>
 </tr>
 <tr>
-  <td class="method">run_server_blocking(1)</td>
+  <td class="method">run_server_blocking(std::atomic&lt;bool&gt;* global_abort=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">run_client_blocking(5)</td>
+  <td class="method">run_client_blocking(std::atomic&lt;bool&gt;* global_abort=nullptr, std::vector&lt;std::string&gt;* messages_queue=nullptr, std::mutex* messages_queue_mutex=nullptr, void (*callback)(std::string, void*)=nullptr, void* callback_data=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">simple_capture_callback(2)</td>
+  <td class="method">simple_capture_callback(std::string message=&quot;[unset-message]&quot;, void* data=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -6102,10 +6102,10 @@ table td
   <td class="method">size()</td>
 </tr>
 <tr>
-  <td class="method">exists(1)</td>
+  <td class="method">exists(int id=0)</td>
 </tr>
 <tr>
-  <td class="method">at(1)</td>
+  <td class="method">at(int id=0)</td>
 </tr>
 <tr>
   <td class="method">build_placeholder_inventory_dictionary()</td>
@@ -6142,7 +6142,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -6217,10 +6217,10 @@ table td
   <td class="method">size()</td>
 </tr>
 <tr>
-  <td class="method">exists(1)</td>
+  <td class="method">exists(int id=0)</td>
 </tr>
 <tr>
-  <td class="method">at(1)</td>
+  <td class="method">at(int id=0)</td>
 </tr>
 <tr>
   <td class="method">build_placeholder_inventory_index()</td>
@@ -6275,7 +6275,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">build_set_playhead_position_message_json(1)</td>
+  <td class="method">build_set_playhead_position_message_json(float position=0.0f)</td>
 </tr>
 <tr>
   <td class="method">build_toggle_playback_message_json()</td>
@@ -6284,10 +6284,10 @@ table td
   <td class="method">build_clear_message_json()</td>
 </tr>
 <tr>
-  <td class="method">build_run_build_process_message_json(3)</td>
+  <td class="method">build_run_build_process_message_json(std::string platform=&quot;[unset-platform]&quot;, std::string source_release_zip_url=&quot;[unset-source_release_zip_url]&quot;, std::string name_of_source_release_folder=&quot;[unset-name_of_source_release_folder]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">build_add_actor2d_with_script_message_json(3)</td>
+  <td class="method">build_add_actor2d_with_script_message_json(std::string identifier=&quot;[unset-identifier]&quot;, std::string bitmap_identifier=&quot;[unset-bitmap_identifier]&quot;, std::string script=&quot;[unset-script]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -6339,7 +6339,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">push_one(1)</td>
+  <td class="method">push_one(std::string message_json_as_string=&quot;{}&quot;)</td>
 </tr>
 <tr>
   <td class="method">get_one_message_and_pop()</td>
@@ -6351,7 +6351,7 @@ table td
   <td class="method">process_one()</td>
 </tr>
 <tr>
-  <td class="method">build_message_from_json(1)</td>
+  <td class="method">build_message_from_json(std::string json_as_string=&quot;{}&quot;)</td>
 </tr>
     </table>
      <table>
@@ -6419,7 +6419,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -6545,13 +6545,13 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_selected_node_icon(2)</td>
+  <td class="private_method">draw_selected_node_icon(float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">draw_node_icon(2)</td>
+  <td class="private_method">draw_node_icon(float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">draw_centered_unicode_character(6)</td>
+  <td class="private_method">draw_centered_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61445, int flags=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_icon_font()</td>
@@ -6653,7 +6653,7 @@ table td
   <td class="private_method">obtain_mini_icon_font()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_centered_unicode_character(6)</td>
+  <td class="private_method">draw_centered_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61445, int flags=0)</td>
 </tr>
     </table>
      <table>
@@ -6731,7 +6731,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">build_friend_star_script_lines(1)</td>
+  <td class="method">build_friend_star_script_lines(float rotation=0.0f)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -6811,7 +6811,7 @@ table td
   <td class="method">todo()</td>
 </tr>
 <tr>
-  <td class="method">get_uv_for_index(1)</td>
+  <td class="method">get_uv_for_index(uint32_t unicode_index=0)</td>
 </tr>
 <tr>
   <td class="method">infer_font_descent()</td>
@@ -6820,7 +6820,7 @@ table td
   <td class="method">create()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_unicode_character(6)</td>
+  <td class="private_method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_unicode_font()</td>
@@ -6832,10 +6832,10 @@ table td
   <td class="private_method">obtain_ui_font_mini()</td>
 </tr>
 <tr>
-  <td class="method">as_hex(2)</td>
+  <td class="method">as_hex(uint32_t value=0, int zero_fill_width=6)</td>
 </tr>
 <tr>
-  <td class="method">as_int(1)</td>
+  <td class="method">as_int(uint32_t value=0)</td>
 </tr>
     </table>
      <table>
@@ -6904,10 +6904,10 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">add_music_symbol(3)</td>
+  <td class="method">add_music_symbol(float x=0, float y=0, uint32_t music_symbol_to_stamp=0)</td>
 </tr>
 <tr>
-  <td class="method">remove_stamp_at(1)</td>
+  <td class="method">remove_stamp_at(int index_of_stamp=0)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -6958,7 +6958,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">reassign_multi_mesh_id(1)</td>
+  <td class="method">reassign_multi_mesh_id(uint32_t new_multi_mesh_id=0)</td>
 </tr>
     </table>
      <table>
@@ -7004,10 +7004,10 @@ table td
   <td class="method">length()</td>
 </tr>
 <tr>
-  <td class="method">set_body_length(1)</td>
+  <td class="method">set_body_length(std::size_t new_length=0)</td>
 </tr>
 <tr>
-  <td class="method">set_body(1)</td>
+  <td class="method">set_body(std::string content=&quot;&quot;)</td>
 </tr>
 <tr>
   <td class="method">get_header()</td>
@@ -7025,7 +7025,7 @@ table td
   <td class="method">encode_header()</td>
 </tr>
 <tr>
-  <td class="method">first_4_chars_hash_of(1)</td>
+  <td class="method">first_4_chars_hash_of(std::string string_to_hash=&quot;&quot;)</td>
 </tr>
 <tr>
   <td class="method">body_size_base62()</td>
@@ -7034,7 +7034,7 @@ table td
   <td class="method">decode_body_size_chunk()</td>
 </tr>
 <tr>
-  <td class="method">extract_nth_header_chunk(1)</td>
+  <td class="method">extract_nth_header_chunk(int position=0)</td>
 </tr>
 <tr>
   <td class="method">ignore()</td>
@@ -7079,16 +7079,16 @@ table td
   <td class="method">split_tokens()</td>
 </tr>
 <tr>
-  <td class="private_method">has_min_length(2)</td>
+  <td class="private_method">has_min_length(std::string string=&quot;&quot;, int min=0)</td>
 </tr>
 <tr>
-  <td class="private_method">fits_max_length(2)</td>
+  <td class="private_method">fits_max_length(std::string string=&quot;&quot;, int max=0)</td>
 </tr>
 <tr>
-  <td class="private_method">only_numerical_characters(1)</td>
+  <td class="private_method">only_numerical_characters(std::string string=&quot;&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">trim(1)</td>
+  <td class="private_method">trim(std::string s=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -7115,19 +7115,19 @@ table td
   <td class="method">size()</td>
 </tr>
 <tr>
-  <td class="method">add(1)</td>
+  <td class="method">add(AllegroFlare::Elements::Notifications::Base* notification=nullptr)</td>
 </tr>
 <tr>
   <td class="method">select_all_order_by_created_at_desc()</td>
 </tr>
 <tr>
-  <td class="method">select_created_at_since_order_by_created_at(1)</td>
+  <td class="method">select_created_at_since_order_by_created_at(float min_created_at=0.0f)</td>
 </tr>
 <tr>
   <td class="method">destroy_all()</td>
 </tr>
 <tr>
-  <td class="method">sort_by_created_at_desc_func(2)</td>
+  <td class="method">sort_by_created_at_desc_func(AllegroFlare::Elements::Notifications::Base* a=nullptr, AllegroFlare::Elements::Notifications::Base* b=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -7156,7 +7156,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">create_achievement_unlocked_notification(1)</td>
+  <td class="method">create_achievement_unlocked_notification(std::string achievement_name=&quot;[unset-achievement_name]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -7218,16 +7218,16 @@ table td
   <td class="method">get_bottom_edge()</td>
 </tr>
 <tr>
-  <td class="method">set_left_edge(1)</td>
+  <td class="method">set_left_edge(float x=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_right_edge(1)</td>
+  <td class="method">set_right_edge(float x=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_top_edge(1)</td>
+  <td class="method">set_top_edge(float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_bottom_edge(1)</td>
+  <td class="method">set_bottom_edge(float y=0.0f)</td>
 </tr>
     </table>
      <table>
@@ -7286,61 +7286,61 @@ table td
   <td class="method">step()</td>
 </tr>
 <tr>
-  <td class="method">adjacent_to_bottom_edge(2)</td>
+  <td class="method">adjacent_to_bottom_edge(float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">adjacent_to_right_edge(2)</td>
+  <td class="method">adjacent_to_right_edge(float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">adjacent_to_top_edge(2)</td>
+  <td class="method">adjacent_to_top_edge(float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_coords_below_left_foot(3)</td>
+  <td class="method">get_tile_coords_below_left_foot(float x=0.0f, float y=0.0f, float height=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_coords_below_right_foot(4)</td>
+  <td class="method">get_tile_coords_below_right_foot(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">adjacent_to_left_edge(2)</td>
+  <td class="method">adjacent_to_left_edge(float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">get_next_collided_tile_coords_1d(7)</td>
+  <td class="private_method">get_next_collided_tile_coords_1d(float x=0.0f, float y=0.0f, float velocity=0.0f, float depth_of_body=1.0f, float length_of_edge=1.0f, float tile_length_n=1.0f, float tile_length_m=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_stepped_tile_collisions(8)</td>
+  <td class="method">get_stepped_tile_collisions(float x=0.0f, float y=0.0f, float velocity_x=0.0f, float velocity_y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">calculate_difference_info(4)</td>
+  <td class="method">calculate_difference_info(std::vector&lt;AllegroFlare::Physics::Int2D&gt; now_tiles={}, std::vector&lt;AllegroFlare::Physics::Int2D&gt; next_tiles={}, float velocity_x=0.0f, float velocity_y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">tiles_within_aabb2d(1)</td>
+  <td class="method">tiles_within_aabb2d(AllegroFlare::Physics::AABB2D aabb2d={})</td>
 </tr>
 <tr>
-  <td class="method">tiles_within(6)</td>
+  <td class="method">tiles_within(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">tiles_have_equal_coordinates(2)</td>
+  <td class="method">tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D&amp; a=get_dummy_int2d_ref(), AllegroFlare::Physics::Int2D&amp; b=get_dummy_int2d_ref())</td>
 </tr>
 <tr>
-  <td class="private_method">world_coords_to_tile_coords(2)</td>
+  <td class="private_method">world_coords_to_tile_coords(float world_pos=0.0f, float tile_length=1.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">world_x_coords_to_tile_coords_x(1)</td>
+  <td class="private_method">world_x_coords_to_tile_coords_x(float world_pos_x=0.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">world_y_coords_to_tile_coords_y(1)</td>
+  <td class="private_method">world_y_coords_to_tile_coords_y(float world_pos_y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_left_edge(2)</td>
+  <td class="method">get_tile_left_edge(float tile_x=0.0f, float tile_width=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_right_edge(2)</td>
+  <td class="method">get_tile_right_edge(float tile_x=0.0f, float tile_width=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_top_edge(2)</td>
+  <td class="method">get_tile_top_edge(float tile_y=0.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_bottom_edge(2)</td>
+  <td class="method">get_tile_bottom_edge(float tile_y=0.0f, float tile_height=16.0f)</td>
 </tr>
     </table>
      <table>
@@ -7419,13 +7419,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_tile_value(1)</td>
+  <td class="method">is_tile_value(int tile_value=-999)</td>
 </tr>
 <tr>
-  <td class="method">is_event(1)</td>
+  <td class="method">is_event(int event=EVENT_UNDEFINED)</td>
 </tr>
 <tr>
-  <td class="method">build_event_name(1)</td>
+  <td class="method">build_event_name(int event=0)</td>
 </tr>
     </table>
      <table>
@@ -7466,10 +7466,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">subject_entered_tile_value(1)</td>
+  <td class="method">subject_entered_tile_value(int tile_value=0)</td>
 </tr>
 <tr>
-  <td class="method">subject_is_still_on_or_was_previously_on_tile_value(1)</td>
+  <td class="method">subject_is_still_on_or_was_previously_on_tile_value(int tile_value=0)</td>
 </tr>
     </table>
      <table>
@@ -7513,16 +7513,16 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">infer_age(1)</td>
+  <td class="method">infer_age(float time_now=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">has_attribute(1)</td>
+  <td class="method">has_attribute(std::string attribute=&quot;[attribute]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_attribute(1)</td>
+  <td class="method">set_attribute(std::string attribute=&quot;[attribute]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">unset_attribute(1)</td>
+  <td class="method">unset_attribute(std::string attribute=&quot;[attribute]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -7567,13 +7567,13 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">add_cube(3)</td>
+  <td class="method">add_cube(float x=0.0f, float y=0.0f, float z=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">add_player_bullet(3)</td>
+  <td class="method">add_player_bullet(float x=0.0f, float y=0.0f, float z=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">add_player_ship(3)</td>
+  <td class="method">add_player_ship(float x=0.0f, float y=0.0f, float z=0.0f)</td>
 </tr>
 <tr>
   <td class="method">add_world_mesh()</td>
@@ -7686,10 +7686,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_player_controlled_entity(1)</td>
+  <td class="method">set_player_controlled_entity(AllegroFlare::Prototypes::CubeShooter::Entity* player_controlled_entity=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">update(1)</td>
+  <td class="method">update(float time_now=0)</td>
 </tr>
     </table>
      <table>
@@ -7767,19 +7767,19 @@ table td
   <td class="method">event_map()</td>
 </tr>
 <tr>
-  <td class="method">game_event_func(1)</td>
+  <td class="method">game_event_func(AllegroFlare::GameEvent* ev=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">RUN(2)</td>
+  <td class="method">RUN(std::string mode=&quot;production&quot;, bool disable_escape_key_will_shutdown=false)</td>
 </tr>
 <tr>
-  <td class="method">is_test_mode(1)</td>
+  <td class="method">is_test_mode(std::string mode=&quot;[unset-mode]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">is_development_mode(1)</td>
+  <td class="method">is_development_mode(std::string mode=&quot;[unset-mode]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">is_production_mode(1)</td>
+  <td class="method">is_production_mode(std::string mode=&quot;[unset-mode]&quot;)</td>
 </tr>
 <tr>
   <td class="method">in_development_mode()</td>
@@ -7791,7 +7791,7 @@ table td
   <td class="method">in_test_mode()</td>
 </tr>
 <tr>
-  <td class="method">is_valid_mode(1)</td>
+  <td class="method">is_valid_mode(std::string mode=&quot;[unset-mode]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -7896,19 +7896,19 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_event_emitter(1)</td>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_bitmap_bin(1)</td>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_sample_bin(1)</td>
+  <td class="method">set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_model_bin(1)</td>
+  <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -7926,10 +7926,10 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">collides(2)</td>
+  <td class="method">collides(AllegroFlare::Prototypes::CubeShooter::Entity* entity_a=nullptr, AllegroFlare::Prototypes::CubeShooter::Entity* entity_b=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">render_crosshair(1)</td>
+  <td class="method">render_crosshair(AllegroFlare::Vec3D position=)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -7938,10 +7938,10 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
-  <td class="method">key_down_func(1)</td>
+  <td class="method">key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">key_up_func(1)</td>
+  <td class="method">key_up_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -8023,7 +8023,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">set_torch_type(1)</td>
+  <td class="method">set_torch_type(int type=0)</td>
 </tr>
 <tr>
   <td class="method">set_torch_on()</td>
@@ -8243,7 +8243,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">load_original_gametest_default(4)</td>
+  <td class="method">load_original_gametest_default(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -8394,10 +8394,10 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">move(2)</td>
+  <td class="method">move(float distance_x=0.0f, float distance_y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">move_to(2)</td>
+  <td class="method">move_to(float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
   <td class="method">clear_info_text()</td>
@@ -8409,7 +8409,7 @@ table td
   <td class="method">set_cursor_to_grab()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_unicode_character(4)</td>
+  <td class="private_method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_cursor_font()</td>
@@ -8550,13 +8550,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_bitmap_bin(1)</td>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_event_emitter(1)</td>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -8571,7 +8571,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">process_dialog_event(1)</td>
+  <td class="method">process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">emit_dialog_switch_in_event()</td>
@@ -8580,13 +8580,13 @@ table td
   <td class="method">emit_dialog_switch_out_event()</td>
 </tr>
 <tr>
-  <td class="method">spawn_basic_dialog(1)</td>
+  <td class="method">spawn_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
-  <td class="method">spawn_you_got_an_item_dialog(2)</td>
+  <td class="method">spawn_you_got_an_item_dialog(std::string item_name=&quot;[unset-item_name]&quot;, std::string item_bitmap_identifier=&quot;[unset-item_bitmap_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">spawn_you_got_new_evidence_dialog(2)</td>
+  <td class="method">spawn_you_got_new_evidence_dialog(std::string evidence_name=&quot;[unset-evidence_name]&quot;, std::string evidence_bitmap_identifier=&quot;[unset-evidence_bitmap_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">dialog_advance()</td>
@@ -8766,7 +8766,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">select_all_in_room_ordered_by_id(1)</td>
+  <td class="method">select_all_in_room_ordered_by_id(std::string room_name=&quot;[unset-room_name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">select_all()</td>
@@ -8775,16 +8775,16 @@ table td
   <td class="method">find_dictionary_name_of_entity_that_cursor_is_now_over()</td>
 </tr>
 <tr>
-  <td class="method">find_entity_by_dictionary_name(1)</td>
+  <td class="method">find_entity_by_dictionary_name(std::string dictionary_listing_name=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">order_by_id(1)</td>
+  <td class="method">order_by_id(std::vector&lt;AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt; entities_to_order={})</td>
 </tr>
 <tr>
-  <td class="method">get_entities_by_entity_names(1)</td>
+  <td class="method">get_entities_by_entity_names(std::vector&lt;std::string&gt; entity_dictionary_names={})</td>
 </tr>
 <tr>
-  <td class="method">select_all_entity_names_in_room_name(1)</td>
+  <td class="method">select_all_entity_names_in_room_name(std::string room_name=&quot;[unset-room_name]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -8823,13 +8823,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">create_chair_entity(2)</td>
+  <td class="method">create_chair_entity(float x=1920/2, float y=1080/2)</td>
 </tr>
 <tr>
-  <td class="method">create_entity(6)</td>
+  <td class="method">create_entity(std::string bitmap_image_identifier=&quot;[unset-bitmap_identifier]&quot;, float x=1920/2, float y=1080/2, float scale=1.0f, std::string name=&quot;[unset-name]&quot;, std::string on_interact_script_name=&quot;[unset-on_interact_script_name]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_entity_bmp(6)</td>
+  <td class="method">create_entity_bmp(ALLEGRO_BITMAP* bitmap=nullptr, float x=0, float y=0, float scale=1.0f, std::string name=&quot;[unset-name]&quot;, std::string on_interact_script_name=&quot;[unset-on_interact_script_name]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -8928,19 +8928,19 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
   <td class="method">get_subscribed_to_game_event_names()</td>
 </tr>
 <tr>
-  <td class="method">is_subscribed_to_game_event_name(1)</td>
+  <td class="method">is_subscribed_to_game_event_name(std::string game_event_name=&quot;[unset-game_event_name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">load_configuration(1)</td>
+  <td class="method">load_configuration(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={})</td>
 </tr>
 <tr>
   <td class="method">enter_start_room()</td>
@@ -8952,7 +8952,7 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">enter_room(1)</td>
+  <td class="method">enter_room(std::string room_name=&quot;[unset-room_name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">unhover_any_and_all_entities()</td>
@@ -8961,7 +8961,7 @@ table td
   <td class="method">reset_cursors_to_default_in_all_rooms()</td>
 </tr>
 <tr>
-  <td class="method">get_current_room_dictionary_name(1)</td>
+  <td class="method">get_current_room_dictionary_name(AllegroFlare::Prototypes::FixedRoom2D::Room* room=nullptr)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -8970,13 +8970,13 @@ table td
   <td class="method">render_void_room()</td>
 </tr>
 <tr>
-  <td class="method">process_subscribed_to_game_event(1)</td>
+  <td class="method">process_subscribed_to_game_event(AllegroFlare::GameEvent* game_event=nullptr)</td>
 </tr>
 <tr>
-  <td class="private_method">process_interaction_event(1)</td>
+  <td class="private_method">process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr)</td>
 </tr>
 <tr>
-  <td class="private_method">process_script_event(1)</td>
+  <td class="private_method">process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">render_entities_in_current_room()</td>
@@ -9030,7 +9030,7 @@ table td
   <td class="method">move_cursor_right()</td>
 </tr>
 <tr>
-  <td class="method">move_cursor(2)</td>
+  <td class="method">move_cursor(float distance_x=0.0, float distance_y=0.0)</td>
 </tr>
     </table>
      <table>
@@ -9215,19 +9215,19 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">render(1)</td>
+  <td class="method">render(std::string this_rooms_dictionary_name__this_injection_is_temporary_measure=&quot;[unset-this_rooms_dictionary_name__this_injection_is_temporary_measure]&quot;)</td>
 </tr>
 <tr>
   <td class="method">interact_with_item_under_cursor()</td>
 </tr>
 <tr>
-  <td class="method">move_cursor(3)</td>
+  <td class="method">move_cursor(float distance_x=0.0, float distance_y=0.0, std::vector&lt;AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*&gt; entities_in_this_room={})</td>
 </tr>
 <tr>
   <td class="method">reset_cursor_to_default()</td>
 </tr>
 <tr>
-  <td class="private_method">emit_interaction_event(3)</td>
+  <td class="private_method">emit_interaction_event(std::string item_dictionary_name=&quot;[unset-item_dictionary_name]&quot;, float cursor_x=0.0, float cursor_y=0.0)</td>
 </tr>
     </table>
      <table>
@@ -9301,7 +9301,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">create_room(2)</td>
+  <td class="method">create_room(float width=(1920-200), float height=(1080-200))</td>
 </tr>
     </table>
      <table>
@@ -9387,13 +9387,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_bitmap_bin(1)</td>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_event_emitter(1)</td>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -9402,7 +9402,7 @@ table td
   <td class="method">load_gametest_configuration()</td>
 </tr>
 <tr>
-  <td class="method">load_configuration(1)</td>
+  <td class="method">load_configuration(AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration={})</td>
 </tr>
 <tr>
   <td class="method">enter_start_room()</td>
@@ -9411,7 +9411,7 @@ table td
   <td class="method">on_activate()</td>
 </tr>
 <tr>
-  <td class="method">game_event_func(1)</td>
+  <td class="method">game_event_func(AllegroFlare::GameEvent* game_event=nullptr)</td>
 </tr>
 <tr>
   <td class="method">on_deactivate()</td>
@@ -9420,7 +9420,7 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
-  <td class="method">key_char_func(1)</td>
+  <td class="method">key_char_func(ALLEGRO_EVENT* ev=nullptr)</td>
 </tr>
 <tr>
   <td class="method">emit_event_to_exit()</td>
@@ -9532,10 +9532,10 @@ table td
   <td class="method">goto_next_line()</td>
 </tr>
 <tr>
-  <td class="method">goto_marker(1)</td>
+  <td class="method">goto_marker(std::string identifier=&quot;[unset-marker-to-goto]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">goto_line_num(1)</td>
+  <td class="method">goto_line_num(int line_num=0)</td>
 </tr>
 <tr>
   <td class="method">at_last_line()</td>
@@ -9547,13 +9547,13 @@ table td
   <td class="private_method">infer_current_line_index_num()</td>
 </tr>
 <tr>
-  <td class="method">parse_command_and_argument(1)</td>
+  <td class="method">parse_command_and_argument(std::string script_line={})</td>
 </tr>
 <tr>
-  <td class="method">build_markers_index(1)</td>
+  <td class="method">build_markers_index(std::vector&lt;std::string&gt; script_lines={})</td>
 </tr>
 <tr>
-  <td class="method">is_valid_command_string(1)</td>
+  <td class="method">is_valid_command_string(std::string command=&quot;[unset-command]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -9696,43 +9696,43 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">load_script_by_dictionary_name(1)</td>
+  <td class="method">load_script_by_dictionary_name(std::string script_dictionary_name=&quot;[unset-script_dictionary_name]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">load_script_lines(1)</td>
+  <td class="method">load_script_lines(std::vector&lt;std::string&gt; script_lines={})</td>
 </tr>
 <tr>
   <td class="method">play_or_resume()</td>
 </tr>
 <tr>
-  <td class="method">default_bool_eval_func(3)</td>
+  <td class="method">default_bool_eval_func(std::string expression=&quot;[unset-expression]&quot;, AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner* script_runner=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">parse_and_run_line(3)</td>
+  <td class="method">parse_and_run_line(std::string raw_script_line=&quot;[empty-script-line]&quot;, int line_num=0, bool auto_assume_uncommanded_line_is_dialog=true)</td>
 </tr>
 <tr>
-  <td class="method">parse_command_and_argument(1)</td>
+  <td class="method">parse_command_and_argument(std::string script_line={})</td>
 </tr>
 <tr>
-  <td class="private_method">emit_script_event(1)</td>
+  <td class="private_method">emit_script_event(AllegroFlare::GameEventDatas::Base* event_data=nullptr)</td>
 </tr>
 <tr>
-  <td class="private_method">split(2)</td>
+  <td class="private_method">split(std::string string=&quot;&quot;, char delimiter=&#39; &#39;)</td>
 </tr>
 <tr>
-  <td class="method">tokenize(2)</td>
+  <td class="method">tokenize(std::string str=&quot;&quot;, char delim=&#39;|&#39;)</td>
 </tr>
 <tr>
-  <td class="method">assert_min_token_count(2)</td>
+  <td class="method">assert_min_token_count(std::vector&lt;std::string&gt; tokens={}, int min=0)</td>
 </tr>
 <tr>
-  <td class="method">assert_token_count_eq(2)</td>
+  <td class="method">assert_token_count_eq(std::vector&lt;std::string&gt; tokens={}, int value=0)</td>
 </tr>
 <tr>
-  <td class="method">assert_odd_token_count(2)</td>
+  <td class="method">assert_odd_token_count(std::vector&lt;std::string&gt; tokens={}, int min=0)</td>
 </tr>
 <tr>
-  <td class="private_method">trim(1)</td>
+  <td class="private_method">trim(std::string s=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -9930,10 +9930,10 @@ table td
   <td class="method">TODO()</td>
 </tr>
 <tr>
-  <td class="method">set_song_filename(1)</td>
+  <td class="method">set_song_filename(std::string song_filename=&quot;[unset-song-filename.ogg]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_song_bpm(1)</td>
+  <td class="method">set_song_bpm(float song_bpm=0.0f)</td>
 </tr>
 <tr>
   <td class="method">get_timer_seconds()</td>
@@ -9945,10 +9945,10 @@ table td
   <td class="method">get_timer_microseconds()</td>
 </tr>
 <tr>
-  <td class="method">get_beat_num(1)</td>
+  <td class="method">get_beat_num(float seconds=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_measure_num(1)</td>
+  <td class="method">get_measure_num(float seconds=0.0f)</td>
 </tr>
 <tr>
   <td class="method">build_beat_clock_str()</td>
@@ -10083,13 +10083,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_bitmap_bin(1)</td>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_sample_bin(1)</td>
+  <td class="method">set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -10161,7 +10161,7 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">play_around_with_collision_step_result(1)</td>
+  <td class="method">play_around_with_collision_step_result(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result=nullptr)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -10300,16 +10300,16 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_atlas_configuration(3)</td>
+  <td class="method">set_atlas_configuration(std::string atlas_bitmap_filename=&quot;[unset-atlas_bitmap_filename]&quot;, int atlas_bitmap_tile_width=1, int atlas_bitmap_tile_height=1)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">resize(2)</td>
+  <td class="method">resize(int num_columns=1, int num_rows=1)</td>
 </tr>
 <tr>
-  <td class="method">rescale_tile_dimentions_to(2)</td>
+  <td class="method">rescale_tile_dimentions_to(float tile_width=1, float tile_height=1)</td>
 </tr>
 <tr>
   <td class="method">infer_real_width()</td>
@@ -10375,16 +10375,16 @@ table td
   <td class="method">create_random_with_walls()</td>
 </tr>
 <tr>
-  <td class="method">create_from_tmj(1)</td>
+  <td class="method">create_from_tmj(std::string tmj_filename=&quot;unset-tmj_filename.tmj&quot;)</td>
 </tr>
 <tr>
-  <td class="method">random_fill_from(2)</td>
+  <td class="method">random_fill_from(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh=nullptr, std::vector&lt;std::pair&lt;int, int&gt;&gt; inclusion_list={})</td>
 </tr>
 <tr>
-  <td class="method">random_sparce_placement(3)</td>
+  <td class="method">random_sparce_placement(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh=nullptr, std::vector&lt;std::pair&lt;int, int&gt;&gt; inclusion_list={}, int one_in_chance=2)</td>
 </tr>
 <tr>
-  <td class="method">random_fill_excluding(2)</td>
+  <td class="method">random_fill_excluding(AllegroFlare::Prototypes::MindDive::TunnelMesh* tunnel_mesh=nullptr, std::set&lt;int&gt; exclusion_list={})</td>
 </tr>
     </table>
      <table>
@@ -10514,7 +10514,7 @@ table td
   <td class="method">load()</td>
 </tr>
 <tr>
-  <td class="private_method">file_exists(1)</td>
+  <td class="private_method">file_exists(std::string filename=&quot;[unset-filename]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -10572,7 +10572,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -10622,7 +10622,7 @@ table td
   <td class="method">draw()</td>
 </tr>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -10687,7 +10687,7 @@ table td
   <td class="method">disable_bitmap_alignment_strategy()</td>
 </tr>
 <tr>
-  <td class="private_method">assign_alignment_strategy_values(7)</td>
+  <td class="private_method">assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement=nullptr, ALLEGRO_BITMAP* bitmap=nullptr, float* bitmap_x=nullptr, float* bitmap_y=nullptr, float* bitmap_align_x=nullptr, float* bitmap_align_y=nullptr, std::string bitmap_alignment_strategy=&quot;centered&quot;)</td>
 </tr>
     </table>
      <table>
@@ -10743,40 +10743,40 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">create_from_bitmap_filename(3)</td>
+  <td class="method">create_from_bitmap_filename(std::string map_name=&quot;[map-name-not-set]&quot;, std::string bitmap_filename=&quot;bitmap-filename-that-has-not-been-set.png&quot;, std::string bitmap_alignment_strategy=&quot;centered&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_for_aabb2d(3)</td>
+  <td class="method">create_for_aabb2d(std::string map_name=&quot;[map-name-not-set]&quot;, float width=(16.0f-1.0f), float height=(16.0f-1.0f))</td>
 </tr>
 <tr>
-  <td class="method">create_frame_animated(7)</td>
+  <td class="method">create_frame_animated(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, std::string initial_animation_name=&quot;[unset-initial_animation_name]&quot;, std::string bitmap_alignment_strategy=&quot;centered&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_player_projectile(7)</td>
+  <td class="method">create_player_projectile(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=(8.0f-1.0f), float height=(8.0f-1.0f), AllegroFlare::vec2d vector=AllegroFlare::vec2d(0.0f, 1.0f), float magnitude=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">create_enemy_move_left(5)</td>
+  <td class="method">create_enemy_move_left(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f))</td>
 </tr>
 <tr>
-  <td class="method">create_tracking_enemy(6)</td>
+  <td class="method">create_tracking_enemy(std::string map_name=&quot;[map-name-not-set]&quot;, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* tracked_entity=nullptr, float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f))</td>
 </tr>
 <tr>
-  <td class="method">create_flapping_enemy(8)</td>
+  <td class="method">create_flapping_enemy(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f), float target_elevation=0.0f, float flap_strength=1.0f, float flap_recovery_rate=0.1f)</td>
 </tr>
 <tr>
-  <td class="method">create_collectable(3)</td>
+  <td class="method">create_collectable(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">create_door(6)</td>
+  <td class="method">create_door(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, std::string target_map_name=&quot;[unset-target-map-name]&quot;, float target_spawn_x=0.0f, float target_spawn_y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">create_game_event_door(4)</td>
+  <td class="method">create_game_event_door(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, std::string game_event_name_to_emit=&quot;[unset-game_event_name_to_emit]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_goalpost(3)</td>
+  <td class="method">create_goalpost(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">create_tile_map(2)</td>
+  <td class="method">create_tile_map(std::string map_json_filename=&quot;[a-map-tmj-filename-that-is-not-set]&quot;, std::string map_name=&quot;[map-name-not-set]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -10940,7 +10940,7 @@ table td
   <td class="method">refresh_bitmap()</td>
 </tr>
 <tr>
-  <td class="method">set_animation_playback_rate(1)</td>
+  <td class="method">set_animation_playback_rate(float multiplier=1.0f)</td>
 </tr>
 <tr>
   <td class="method">get_animation_finished()</td>
@@ -10949,7 +10949,7 @@ table td
   <td class="method">get_current_animation_frame_num()</td>
 </tr>
 <tr>
-  <td class="method">set_animation(1)</td>
+  <td class="method">set_animation(std::string animation_name=&quot;[unset-animation_name]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -11195,7 +11195,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_random_seed(1)</td>
+  <td class="method">set_random_seed(uint32_t random_seed=0)</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -11506,13 +11506,13 @@ table td
   <td class="method">select_doors()</td>
 </tr>
 <tr>
-  <td class="method">select_on_map(1)</td>
+  <td class="method">select_on_map(std::string on_map_name=&quot;[on-map-name-not-set]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">select_on_map_y_sorted(1)</td>
+  <td class="method">select_on_map_y_sorted(std::string on_map_name=&quot;[on-map-name-not-set]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">find_map_by_name(1)</td>
+  <td class="method">find_map_by_name(std::string map_name=&quot;[find-map-name-not-set]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -11615,22 +11615,22 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_map_dictionary(1)</td>
+  <td class="method">set_map_dictionary(std::map&lt;std::string, std::string&gt; map_dictionary={})</td>
 </tr>
 <tr>
-  <td class="method">set_display(1)</td>
+  <td class="method">set_display(AllegroFlare::Display* display=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_event_emitter(1)</td>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_bitmap_bin(1)</td>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_currently_active_map(1)</td>
+  <td class="method">set_currently_active_map(std::string name=&quot;[unset-current-map-name-to-use]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">find_map_by_name(1)</td>
+  <td class="method">find_map_by_name(std::string name=&quot;[unset-map-name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">on_activate()</td>
@@ -11642,7 +11642,7 @@ table td
   <td class="method">initialize_maps()</td>
 </tr>
 <tr>
-  <td class="method">add_entity_to_pool(1)</td>
+  <td class="method">add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize_camera_control()</td>
@@ -11669,7 +11669,7 @@ table td
   <td class="method">set_player_controlled_entity_jump()</td>
 </tr>
 <tr>
-  <td class="method">player_emit_projectile(1)</td>
+  <td class="method">player_emit_projectile(float magnitude=3.0f)</td>
 </tr>
 <tr>
   <td class="method">reverse_gravity()</td>
@@ -11711,25 +11711,25 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
-  <td class="method">key_char_func(1)</td>
+  <td class="method">key_char_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">key_up_func(1)</td>
+  <td class="method">key_up_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">key_down_func(1)</td>
+  <td class="method">key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(1)</td>
+  <td class="method">virtual_control_button_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_up_func(1)</td>
+  <td class="method">virtual_control_button_up_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_axis_change_func(1)</td>
+  <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">user_event_func(1)</td>
+  <td class="method">user_event_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
   <td class="method">render_collision_tile_mesh()</td>
@@ -11947,7 +11947,7 @@ table td
   <td class="method">load()</td>
 </tr>
 <tr>
-  <td class="private_method">file_exists(1)</td>
+  <td class="private_method">file_exists(std::string filename=&quot;[unset-filename]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -12155,28 +12155,28 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_bitmap_bin(1)</td>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_sample_bin(1)</td>
+  <td class="method">set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_event_emitter(1)</td>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_maps_folder(1)</td>
+  <td class="method">set_maps_folder(std::string maps_folder=&quot;[unset-maps_folder-arg]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_terrain_mesh_dictionary(1)</td>
+  <td class="method">set_terrain_mesh_dictionary(std::map&lt;std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord&gt; terrain_mesh_dictionary={})</td>
 </tr>
 <tr>
-  <td class="method">set_current_map_identifier(1)</td>
+  <td class="method">set_current_map_identifier(std::string current_map_identifier=&quot;[unset-current_map_identifier-arg]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_collision_stepper_step_result_callback(2)</td>
+  <td class="method">set_collision_stepper_step_result_callback(std::function&lt;void(AllegroFlare::Physics::TileMapCollisionStepperStepResult*,AllegroFlare::Prototypes::TileDrive::TileDrive*,void*)&gt; collision_stepper_step_result_callback={}, void* collision_stepper_step_result_callback_user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -12185,10 +12185,10 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
-  <td class="method">key_down_func(1)</td>
+  <td class="method">key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">key_up_func(1)</td>
+  <td class="method">key_up_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -12267,16 +12267,16 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_atlas_configuration(3)</td>
+  <td class="method">set_atlas_configuration(std::string atlas_bitmap_filename=&quot;[unset-atlas_bitmap_filename]&quot;, int atlas_bitmap_tile_width=1, int atlas_bitmap_tile_height=1)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">resize(2)</td>
+  <td class="method">resize(int num_columns=1, int num_rows=1)</td>
 </tr>
 <tr>
-  <td class="method">rescale_tile_dimentions_to(2)</td>
+  <td class="method">rescale_tile_dimentions_to(float tile_width=1, float tile_height=1)</td>
 </tr>
 <tr>
   <td class="method">infer_real_width()</td>
@@ -12420,16 +12420,16 @@ table td
   <td class="method">create_random_with_walls()</td>
 </tr>
 <tr>
-  <td class="method">create_from_tmj(4)</td>
+  <td class="method">create_from_tmj(std::string tmj_filename=&quot;unset-tmj_filename.tmj&quot;, std::string tilemap_bitmap_identifier=&quot;[unset-tilemap_bitmap_identifier]&quot;, int tilemap_tile_width=50, int tilemap_tile_height=50)</td>
 </tr>
 <tr>
-  <td class="method">random_fill_from(2)</td>
+  <td class="method">random_fill_from(AllegroFlare::Prototypes::TileDrive::TerrainMesh* terrain_mesh=nullptr, std::vector&lt;std::pair&lt;int, int&gt;&gt; inclusion_list={})</td>
 </tr>
 <tr>
-  <td class="method">random_sparce_placement(3)</td>
+  <td class="method">random_sparce_placement(AllegroFlare::Prototypes::TileDrive::TerrainMesh* terrain_mesh=nullptr, std::vector&lt;std::pair&lt;int, int&gt;&gt; inclusion_list={}, int one_in_chance=2)</td>
 </tr>
 <tr>
-  <td class="method">random_fill_excluding(2)</td>
+  <td class="method">random_fill_excluding(AllegroFlare::Prototypes::TileDrive::TerrainMesh* terrain_mesh=nullptr, std::set&lt;int&gt; exclusion_list={})</td>
 </tr>
     </table>
      <table>
@@ -12529,7 +12529,7 @@ table td
   <td class="method">load()</td>
 </tr>
 <tr>
-  <td class="private_method">file_exists(1)</td>
+  <td class="private_method">file_exists(std::string filename=&quot;[unset-filename]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -12668,22 +12668,22 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_bitmap_bin(1)</td>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_sample_bin(1)</td>
+  <td class="method">set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_maps_folder(1)</td>
+  <td class="method">set_maps_folder(std::string maps_folder=&quot;[unset-maps_folder-arg]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_terrain_mesh_dictionary(1)</td>
+  <td class="method">set_terrain_mesh_dictionary(std::map&lt;std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord&gt; terrain_mesh_dictionary={})</td>
 </tr>
 <tr>
-  <td class="method">set_current_map_identifier(1)</td>
+  <td class="method">set_current_map_identifier(std::string current_map_identifier=&quot;[unset-current_map_identifier-arg]&quot;)</td>
 </tr>
 <tr>
   <td class="method">create_new_backbuffer_sub_bitmap()</td>
@@ -12749,7 +12749,7 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">development_play_around_with_collision_steper_callback(3)</td>
+  <td class="method">development_play_around_with_collision_steper_callback(AllegroFlare::Physics::TileMapCollisionStepperStepResult* step_result=nullptr, AllegroFlare::Prototypes::TileDrive::TileDrive* tile_drive=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">render_background()</td>
@@ -12856,16 +12856,16 @@ table td
   <td class="method">create_frontbuffer_capture()</td>
 </tr>
 <tr>
-  <td class="method">create_capture(1)</td>
+  <td class="method">create_capture(bool flip_display_for_capture=false)</td>
 </tr>
 <tr>
-  <td class="method">create_frontbuffer_capture_as_scaled_bitmap(2)</td>
+  <td class="method">create_frontbuffer_capture_as_scaled_bitmap(int destination_width=1920, int destination_height=1080)</td>
 </tr>
 <tr>
-  <td class="method">create_backbuffer_capture_as_scaled_bitmap(2)</td>
+  <td class="method">create_backbuffer_capture_as_scaled_bitmap(int destination_width=1920, int destination_height=1080)</td>
 </tr>
 <tr>
-  <td class="method">create_capture_as_scaled_bitmap(3)</td>
+  <td class="method">create_capture_as_scaled_bitmap(int destination_width=1920, int destination_height=1080, bool flip_display_for_capture=false)</td>
 </tr>
     </table>
      <table>
@@ -12914,13 +12914,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
   <td class="method">refresh_achievements_list()</td>
 </tr>
 <tr>
-  <td class="method">set_event_emitter(1)</td>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
   <td class="method">on_activate()</td>
@@ -12938,7 +12938,7 @@ table td
   <td class="private_method">update()</td>
 </tr>
 <tr>
-  <td class="private_method">move_scrollbar_position_to(1)</td>
+  <td class="private_method">move_scrollbar_position_to(float position=0.0f)</td>
 </tr>
 <tr>
   <td class="private_method">move_scrollbar_position_up()</td>
@@ -12947,7 +12947,7 @@ table td
   <td class="private_method">move_scrollbar_position_down()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(3)</td>
+  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -13049,13 +13049,13 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
-  <td class="method">set_font_name(1)</td>
+  <td class="method">set_font_name(std::string font_name=AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_FONT_NAME)</td>
 </tr>
 <tr>
-  <td class="method">set_font_size(1)</td>
+  <td class="method">set_font_size(int font_size=1)</td>
 </tr>
 <tr>
-  <td class="method">set_event_to_emit_on_pressing_ok_key(1)</td>
+  <td class="method">set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key=AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY)</td>
 </tr>
 <tr>
   <td class="method">mode_is_using_keyboard()</td>
@@ -13070,10 +13070,10 @@ table td
   <td class="method">set_mode_to_using_virtual_controls()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(3)</td>
+  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">key_char_func(1)</td>
+  <td class="method">key_char_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -13164,7 +13164,7 @@ table td
   <td class="private_method">obtain_menu_font()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(3)</td>
+  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
 </tr>
     </table>
      <table>
@@ -13238,7 +13238,7 @@ table td
   <td class="private_method">obtain_instruction_font()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(3)</td>
+  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
 </tr>
     </table>
      <table>
@@ -13364,7 +13364,7 @@ table td
   <td class="method">on_activate()</td>
 </tr>
 <tr>
-  <td class="method">set_menu_options(1)</td>
+  <td class="method">set_menu_options(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; menu_options={})</td>
 </tr>
 <tr>
   <td class="private_method">move_cursor_up()</td>
@@ -13373,7 +13373,7 @@ table td
   <td class="private_method">move_cursor_down()</td>
 </tr>
 <tr>
-  <td class="method">activate_menu_option(1)</td>
+  <td class="method">activate_menu_option(std::string menu_option_name=&quot;[unset-menu-option-name]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">select_menu_option()</td>
@@ -13418,7 +13418,7 @@ table td
   <td class="private_method">obtain_title_bitmap()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(3)</td>
+  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="private_method">menu_is_empty()</td>
@@ -13545,10 +13545,10 @@ table td
   <td class="method">on_activate()</td>
 </tr>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_sections(1)</td>
+  <td class="method">set_sections(std::vector&lt;AllegroFlare::Elements::RollingCredits::Sections::Base*&gt; sections={})</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -13643,7 +13643,7 @@ table td
   <td class="private_method">advance()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(3)</td>
+  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
 </tr>
     </table>
      <table>
@@ -13764,7 +13764,7 @@ table td
   <td class="method">on_activate()</td>
 </tr>
 <tr>
-  <td class="method">set_menu_options(1)</td>
+  <td class="method">set_menu_options(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; menu_options={})</td>
 </tr>
 <tr>
   <td class="private_method">move_cursor_up()</td>
@@ -13773,7 +13773,7 @@ table td
   <td class="private_method">move_cursor_down()</td>
 </tr>
 <tr>
-  <td class="method">activate_menu_option(1)</td>
+  <td class="method">activate_menu_option(std::string menu_option_name=&quot;[unset-menu-option-name]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">select_menu_option()</td>
@@ -13818,7 +13818,7 @@ table td
   <td class="private_method">obtain_title_bitmap()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(3)</td>
+  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="private_method">menu_is_empty()</td>
@@ -13951,7 +13951,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_type(1)</td>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
@@ -14115,19 +14115,19 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
   <td class="method">reset()</td>
 </tr>
 <tr>
-  <td class="method">set_keys(1)</td>
+  <td class="method">set_keys(tsl::ordered_map&lt;std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey&gt; keys={})</td>
 </tr>
 <tr>
-  <td class="method">set_keyboard_dimentions(2)</td>
+  <td class="method">set_keyboard_dimentions(float width=1, float height=1)</td>
 </tr>
 <tr>
-  <td class="method">set_keyboard_position(2)</td>
+  <td class="method">set_keyboard_position(float x=0, float y=0)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -14136,7 +14136,7 @@ table td
   <td class="method">press_key_under_cursor()</td>
 </tr>
 <tr>
-  <td class="method">press_key_by_name(1)</td>
+  <td class="method">press_key_by_name(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">update_cursor_destination()</td>
@@ -14145,7 +14145,7 @@ table td
   <td class="private_method">infer_current_key_name()</td>
 </tr>
 <tr>
-  <td class="method">jump_cursor_pos_to_index_of_key_name(1)</td>
+  <td class="method">jump_cursor_pos_to_index_of_key_name(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">increment_cursor_pos()</td>
@@ -14160,7 +14160,7 @@ table td
   <td class="private_method">build_cursor_color()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_cursor_rectangle(4)</td>
+  <td class="private_method">draw_cursor_rectangle(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f)</td>
 </tr>
 <tr>
   <td class="private_method">draw_cursor()</td>
@@ -14172,7 +14172,7 @@ table td
   <td class="private_method">draw_keyboard_backfill_and_frame()</td>
 </tr>
 <tr>
-  <td class="private_method">key_exists(1)</td>
+  <td class="private_method">key_exists(std::string identifier=&quot;[unset-identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">emit_bonk_sound_effect()</td>
@@ -14276,13 +14276,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_font_bin(1)</td>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">create_images_storyboard_screen(2)</td>
+  <td class="method">create_images_storyboard_screen(std::vector&lt;ALLEGRO_BITMAP*&gt; source_bitmaps={}, int button_font_size=-40)</td>
 </tr>
 <tr>
-  <td class="method">create_advancing_text_storyboard_screen(7)</td>
+  <td class="method">create_advancing_text_storyboard_screen(std::vector&lt;std::string&gt; pages_text={}, int button_font_size=-40, float page_top_padding=400, float page_left_padding=400, float page_right_padding=400, int page_text_font_size=-40, float page_text_line_height_multiplier=1.5)</td>
 </tr>
     </table>
      <table>
@@ -14345,13 +14345,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">create_text_page(1)</td>
+  <td class="method">create_text_page(std::string text=&quot;[unset-text]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_advancing_text_page(1)</td>
+  <td class="method">create_advancing_text_page(std::string text=&quot;[unset-text]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_image_page(1)</td>
+  <td class="method">create_image_page(ALLEGRO_BITMAP* image=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -14399,10 +14399,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">fits_max_length(1)</td>
+  <td class="method">fits_max_length(std::size_t max=0)</td>
 </tr>
 <tr>
-  <td class="method">fits_min_length(1)</td>
+  <td class="method">fits_min_length(std::size_t min=0)</td>
 </tr>
 <tr>
   <td class="method">has_only_numerical_characters()</td>
@@ -14475,10 +14475,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">draw_dimentional_grid(4)</td>
+  <td class="method">draw_dimentional_grid(float x=0.0f, float y=0.0f, float z=0.0f, float spacing=(16*4.8))</td>
 </tr>
 <tr>
-  <td class="method">draw_2d_grid(4)</td>
+  <td class="method">draw_2d_grid(float x=0.0f, float y=0.0f, float size=1.0f, float spacing=(16*4.8))</td>
 </tr>
     </table>
      <table>
@@ -14557,7 +14557,7 @@ table td
   <td class="method">sleep_for_frame()</td>
 </tr>
 <tr>
-  <td class="method">sleep_for(1)</td>
+  <td class="method">sleep_for(float length_in_seconds=0.0f)</td>
 </tr>
 <tr>
   <td class="method">get_test_name()</td>
@@ -14569,16 +14569,16 @@ table td
   <td class="method">build_full_test_name_str()</td>
 </tr>
 <tr>
-  <td class="method">build_centered_placement(2)</td>
+  <td class="method">build_centered_placement(float width=0.0f, float height=0.0f)</td>
 </tr>
 <tr>
   <td class="method">draw_rulers()</td>
 </tr>
 <tr>
-  <td class="method">draw_crosshair(4)</td>
+  <td class="method">draw_crosshair(float x=0.0f, float y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 0, 0, 1}, float size=200.0f)</td>
 </tr>
 <tr>
-  <td class="method">draw_horizontal_crosshair(5)</td>
+  <td class="method">draw_horizontal_crosshair(float x=0.0f, float y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 0, 1}, float size_v=30.0f, float size_h=500.0f)</td>
 </tr>
 <tr>
   <td class="method">test_name_indicates_it_wants_a_screenshot()</td>
@@ -14590,7 +14590,7 @@ table td
   <td class="method">clear()</td>
 </tr>
 <tr>
-  <td class="method">capture_screenshot(1)</td>
+  <td class="method">capture_screenshot(std::string base_filename=&quot;WithAllegroRenderingFixture-screenshot.png&quot;)</td>
 </tr>
     </table>
      <table>
@@ -14693,16 +14693,16 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_atlas_configuration(3)</td>
+  <td class="method">set_atlas_configuration(std::string atlas_bitmap_filename=&quot;[unset-atlas_bitmap_filename]&quot;, int atlas_bitmap_tile_width=1, int atlas_bitmap_tile_height=1)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">resize(2)</td>
+  <td class="method">resize(int num_columns=1, int num_rows=1)</td>
 </tr>
 <tr>
-  <td class="method">rescale_tile_dimentions_to(2)</td>
+  <td class="method">rescale_tile_dimentions_to(float tile_width=1, float tile_height=1)</td>
 </tr>
 <tr>
   <td class="method">random_fill()</td>
@@ -14788,10 +14788,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_atlas(1)</td>
+  <td class="method">set_atlas(AllegroFlare::TileMaps::MultiMeshUVAtlas atlas={})</td>
 </tr>
 <tr>
-  <td class="method">set_num_items(1)</td>
+  <td class="method">set_num_items(std::size_t num_items=256)</td>
 </tr>
 <tr>
   <td class="method">infer_num_items_in_use()</td>
@@ -14803,13 +14803,13 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">append(3)</td>
+  <td class="method">append(int atlas_item_index_num=0, float x=0, float y=0)</td>
 </tr>
 <tr>
-  <td class="method">append_raw(8)</td>
+  <td class="method">append_raw(float x=0, float y=0, float w=1, float h=1, float u1=100.0f, float v1=100.0f, float u2=200.0f, float v2=200.0f)</td>
 </tr>
 <tr>
-  <td class="method">remove(1)</td>
+  <td class="method">remove(int item_index=0)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -14878,13 +14878,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">add(5)</td>
+  <td class="method">add(int index_num=0, float u1=0.0f, float v1=0.0f, float u2=1.0f, float v2=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">exists(1)</td>
+  <td class="method">exists(int index_num=0)</td>
 </tr>
 <tr>
-  <td class="method">get(1)</td>
+  <td class="method">get(int index_num=0)</td>
 </tr>
     </table>
      <table>
@@ -14985,7 +14985,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">create_actor2d_with_script(3)</td>
+  <td class="method">create_actor2d_with_script(std::string identifier=&quot;[unset-identifier]&quot;, std::string bitmap_identifier=&quot;[unset-bitmap_identifier]&quot;, std::string script=&quot;[unset-bitmap_identifier]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -15032,13 +15032,13 @@ table td
   <td class="method">next_page()</td>
 </tr>
 <tr>
-  <td class="method">as_hex(2)</td>
+  <td class="method">as_hex(uint32_t value=0, int zero_fill_width=6)</td>
 </tr>
 <tr>
-  <td class="method">as_int(1)</td>
+  <td class="method">as_int(uint32_t value=0)</td>
 </tr>
 <tr>
-  <td class="private_method">draw_unicode_character(6)</td>
+  <td class="private_method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, uint32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_unicode_font()</td>
@@ -15106,10 +15106,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">intersect(2)</td>
+  <td class="method">intersect(AllegroFlare::Useful3D::Ray* ray_=nullptr, AllegroFlare::Useful3D::IntersectData* intersect_data=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">draw(1)</td>
+  <td class="method">draw(ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
 </tr>
     </table>
      <table>
@@ -15331,34 +15331,34 @@ table td
   <td class="method">build_sensible_keyboard_button_map()</td>
 </tr>
 <tr>
-  <td class="method">handle_raw_keyboard_key_down_event(1)</td>
+  <td class="method">handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">handle_raw_keyboard_key_up_event(1)</td>
+  <td class="method">handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">handle_raw_joystick_button_down_event(1)</td>
+  <td class="method">handle_raw_joystick_button_down_event(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">handle_raw_joystick_button_up_event(1)</td>
+  <td class="method">handle_raw_joystick_button_up_event(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">handle_raw_joystick_axis_change_event(1)</td>
+  <td class="method">handle_raw_joystick_axis_change_event(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="private_method">get_joystick_mapped_virtual_button(1)</td>
+  <td class="private_method">get_joystick_mapped_virtual_button(int native_button_num=-1)</td>
 </tr>
 <tr>
-  <td class="private_method">get_keyboard_mapped_player_num_and_virtual_button(1)</td>
+  <td class="private_method">get_keyboard_mapped_player_num_and_virtual_button(int native_key_num=-1)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_button_up_event(3)</td>
+  <td class="method">emit_virtual_controls_button_up_event(int player_num=0, int virtual_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_button_down_event(3)</td>
+  <td class="method">emit_virtual_controls_button_down_event(int player_num=0, int virtual_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_axis_change_event(3)</td>
+  <td class="method">emit_virtual_controls_axis_change_event(int stick=0, int axis=0, float position=0.0f)</td>
 </tr>
     </table>
      <table>
@@ -15459,19 +15459,19 @@ table td
   <td class="method">obtain_vertex_declaration()</td>
 </tr>
 <tr>
-  <td class="method">resize(2)</td>
+  <td class="method">resize(int num_columns=1, int num_rows=1)</td>
 </tr>
 <tr>
-  <td class="method">set_tile(3)</td>
+  <td class="method">set_tile(int tile_x=0, int tile_y=0, int tile_index_num=0)</td>
 </tr>
 <tr>
-  <td class="method">set_normal_tile(3)</td>
+  <td class="method">set_normal_tile(int tile_x=0, int tile_y=0, int tile_index_num=0)</td>
 </tr>
 <tr>
-  <td class="private_method">set_tile_uv(6)</td>
+  <td class="private_method">set_tile_uv(int tile_x=0, int tile_y=0, float u1=0.0f, float v1=0.0f, float u2=0.0f, float v2=0.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">set_normal_tile_uv(6)</td>
+  <td class="private_method">set_normal_tile_uv(int tile_x=0, int tile_y=0, float u1=0.0f, float v1=0.0f, float u2=0.0f, float v2=0.0f)</td>
 </tr>
 <tr>
   <td class="private_method">place_vertexes_into_tile_mesh_shape()</td>
@@ -15568,22 +15568,22 @@ table td
   <td class="method">activate()</td>
 </tr>
 <tr>
-  <td class="method">set_flat_color(2)</td>
+  <td class="method">set_flat_color(ALLEGRO_COLOR flat_color={}, float intensity=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_light_direction(1)</td>
+  <td class="method">set_light_direction(AllegroFlare::vec3d light_direction={0, 0, 0})</td>
 </tr>
 <tr>
-  <td class="method">set_light_spread(1)</td>
+  <td class="method">set_light_spread(int light_spread=0)</td>
 </tr>
 <tr>
-  <td class="method">set_light_attenuation(1)</td>
+  <td class="method">set_light_attenuation(float light_attenuation=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_primary_texture(1)</td>
+  <td class="method">set_primary_texture(ALLEGRO_BITMAP* primary_texture_bitmap=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_normal_texture(1)</td>
+  <td class="method">set_normal_texture(ALLEGRO_BITMAP* normal_texture_bitmap=nullptr)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_vertex_source()</td>
@@ -15696,7 +15696,7 @@ table td
   <td class="method">load()</td>
 </tr>
 <tr>
-  <td class="private_method">file_exists(1)</td>
+  <td class="private_method">file_exists(std::string filename=&quot;[unset-filename]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -16009,7 +16009,7 @@ table td
   <td class="method">fit_to_bitmap()</td>
 </tr>
 <tr>
-  <td class="private_method">assign_alignment_strategy_values(5)</td>
+  <td class="private_method">assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement=nullptr, ALLEGRO_BITMAP* bitmap=nullptr, float* bitmap_x=nullptr, float* bitmap_y=nullptr, std::string bitmap_alignment_strategy=&quot;centered&quot;)</td>
 </tr>
     </table>
      <table>
@@ -16057,37 +16057,37 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">create_from_bitmap_filename(3)</td>
+  <td class="method">create_from_bitmap_filename(std::string map_name=&quot;[map-name-not-set]&quot;, std::string bitmap_filename=&quot;bitmap-filename-that-has-not-been-set.png&quot;, std::string bitmap_alignment_strategy=&quot;centered&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_for_aabb2d(3)</td>
+  <td class="method">create_for_aabb2d(std::string map_name=&quot;[map-name-not-set]&quot;, float width=(16.0f-1.0f), float height=(16.0f-1.0f))</td>
 </tr>
 <tr>
-  <td class="method">create_player_projectile(7)</td>
+  <td class="method">create_player_projectile(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=(8.0f-1.0f), float height=(8.0f-1.0f), AllegroFlare::vec2d vector=AllegroFlare::vec2d(0.0f, 1.0f), float magnitude=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">create_enemy_move_left(5)</td>
+  <td class="method">create_enemy_move_left(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f))</td>
 </tr>
 <tr>
-  <td class="method">create_tracking_enemy(6)</td>
+  <td class="method">create_tracking_enemy(std::string map_name=&quot;[map-name-not-set]&quot;, Wicked::Entities::Basic2D* tracked_entity=nullptr, float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f))</td>
 </tr>
 <tr>
-  <td class="method">create_flapping_enemy(8)</td>
+  <td class="method">create_flapping_enemy(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f), float target_elevation=0.0f, float flap_strength=1.0f, float flap_recovery_rate=0.1f)</td>
 </tr>
 <tr>
-  <td class="method">create_collectable(3)</td>
+  <td class="method">create_collectable(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">create_door(6)</td>
+  <td class="method">create_door(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, std::string target_map_name=&quot;[unset-target-map-name]&quot;, float target_spawn_x=0.0f, float target_spawn_y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">create_game_event_door(4)</td>
+  <td class="method">create_game_event_door(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, std::string game_event_name_to_emit=&quot;[unset-game_event_name_to_emit]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_goalpost(3)</td>
+  <td class="method">create_goalpost(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">create_tile_map(2)</td>
+  <td class="method">create_tile_map(std::string map_json_filename=&quot;[a-map-tmj-filename-that-is-not-set]&quot;, std::string map_name=&quot;[map-name-not-set]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -16211,10 +16211,10 @@ table td
   <td class="method">select_doors()</td>
 </tr>
 <tr>
-  <td class="method">select_on_map(1)</td>
+  <td class="method">select_on_map(std::string on_map_name=&quot;[on-map-name-not-set]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">find_map_by_name(1)</td>
+  <td class="method">find_map_by_name(std::string map_name=&quot;[find-map-name-not-set]&quot;)</td>
 </tr>
     </table>
      <table>
@@ -16516,7 +16516,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_random_seed(1)</td>
+  <td class="method">set_random_seed(uint32_t random_seed=0)</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -16779,7 +16779,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">collides(1)</td>
+  <td class="method">collides(AllegroFlare::vec2d point={})</td>
 </tr>
     </table>
      <table>
@@ -16799,7 +16799,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">collides(1)</td>
+  <td class="method">collides(AllegroFlare::vec3d point={})</td>
 </tr>
     </table>
      <table>
@@ -16835,7 +16835,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">collides(1)</td>
+  <td class="method">collides(AllegroFlare::vec2d point={})</td>
 </tr>
     </table>
      <table>
@@ -16879,7 +16879,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">collides(1)</td>
+  <td class="method">collides(AllegroFlare::vec3d point={})</td>
 </tr>
     </table>
      <table>
@@ -16982,16 +16982,16 @@ table td
   <td class="method">get_bottom_edge()</td>
 </tr>
 <tr>
-  <td class="method">set_left_edge(1)</td>
+  <td class="method">set_left_edge(float x=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_right_edge(1)</td>
+  <td class="method">set_right_edge(float x=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_top_edge(1)</td>
+  <td class="method">set_top_edge(float y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_bottom_edge(1)</td>
+  <td class="method">set_bottom_edge(float y=0.0f)</td>
 </tr>
     </table>
      <table>
@@ -17013,16 +17013,16 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">get_collided(2)</td>
+  <td class="method">get_collided(std::vector&lt;Wicked::Entities::Basic3D*&gt; entities={}, std::vector&lt;Wicked::Entities::Zones::Base3D*&gt; zones={})</td>
 </tr>
 <tr>
-  <td class="method">collides(2)</td>
+  <td class="method">collides(Wicked::Entities::Basic3D* entity=nullptr, Wicked::Entities::Zones::Base3D* zone=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">observe_start_state(2)</td>
+  <td class="method">observe_start_state(std::vector&lt;Wicked::Entities::Basic3D*&gt; entities={}, std::vector&lt;Wicked::Entities::Zones::Base3D*&gt; zones={})</td>
 </tr>
 <tr>
-  <td class="method">observe_end_state(2)</td>
+  <td class="method">observe_end_state(std::vector&lt;Wicked::Entities::Basic3D*&gt; entities={}, std::vector&lt;Wicked::Entities::Zones::Base3D*&gt; zones={})</td>
 </tr>
 <tr>
   <td class="method">collisions_added()</td>
@@ -17070,46 +17070,46 @@ table td
   <td class="method">step()</td>
 </tr>
 <tr>
-  <td class="method">adjacent_to_bottom_edge(2)</td>
+  <td class="method">adjacent_to_bottom_edge(float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">adjacent_to_right_edge(2)</td>
+  <td class="method">adjacent_to_right_edge(float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">adjacent_to_top_edge(2)</td>
+  <td class="method">adjacent_to_top_edge(float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_coords_below_left_foot(3)</td>
+  <td class="method">get_tile_coords_below_left_foot(float x=0.0f, float y=0.0f, float height=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_coords_below_right_foot(4)</td>
+  <td class="method">get_tile_coords_below_right_foot(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">adjacent_to_left_edge(2)</td>
+  <td class="method">adjacent_to_left_edge(float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">get_next_collided_tile_coords(7)</td>
+  <td class="private_method">get_next_collided_tile_coords(float x=0.0f, float y=0.0f, float velocity=0.0f, float depth_of_body=1.0f, float length_of_edge=1.0f, float tile_length_n=1.0f, float tile_length_m=1.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">world_coords_to_tile_coords(2)</td>
+  <td class="private_method">world_coords_to_tile_coords(float world_pos=0.0f, float tile_length=1.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">world_x_coords_to_tile_coords_x(1)</td>
+  <td class="private_method">world_x_coords_to_tile_coords_x(float world_pos_x=0.0f)</td>
 </tr>
 <tr>
-  <td class="private_method">world_y_coords_to_tile_coords_y(1)</td>
+  <td class="private_method">world_y_coords_to_tile_coords_y(float world_pos_y=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_left_edge(2)</td>
+  <td class="method">get_tile_left_edge(float tile_x=0.0f, float tile_width=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_right_edge(2)</td>
+  <td class="method">get_tile_right_edge(float tile_x=0.0f, float tile_width=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_top_edge(2)</td>
+  <td class="method">get_tile_top_edge(float tile_y=0.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
-  <td class="method">get_tile_bottom_edge(2)</td>
+  <td class="method">get_tile_bottom_edge(float tile_y=0.0f, float tile_height=16.0f)</td>
 </tr>
     </table>
      <table>
@@ -17304,10 +17304,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">set_currently_active_map(1)</td>
+  <td class="method">set_currently_active_map(std::string name=&quot;[unset-current-map-name-to-use]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">find_map_by_name(1)</td>
+  <td class="method">find_map_by_name(std::string name=&quot;[unset-map-name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">initialize_display_projection()</td>
@@ -17349,7 +17349,7 @@ table td
   <td class="method">set_player_controlled_entity_jump()</td>
 </tr>
 <tr>
-  <td class="method">player_emit_projectile(1)</td>
+  <td class="method">player_emit_projectile(float magnitude=3.0f)</td>
 </tr>
 <tr>
   <td class="method">reverse_gravity()</td>
@@ -17379,7 +17379,7 @@ table td
   <td class="method">draw_hud()</td>
 </tr>
 <tr>
-  <td class="method">run(1)</td>
+  <td class="method">run(std::vector&lt;std::string&gt; args={})</td>
 </tr>
 <tr>
   <td class="method">update_player_controls_on_player_controlled_entity()</td>
@@ -17388,7 +17388,7 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">draw_dimentional_grid(3)</td>
+  <td class="method">draw_dimentional_grid(float x=0.0f, float y=0.0f, float z=0.0f)</td>
 </tr>
 <tr>
   <td class="method">draw()</td>
@@ -17409,40 +17409,40 @@ table td
   <td class="method">__primary_timer_func()</td>
 </tr>
 <tr>
-  <td class="method">key_char_func(1)</td>
+  <td class="method">key_char_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">_joy_button_down_func(1)</td>
+  <td class="method">_joy_button_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">_joy_button_up_func(1)</td>
+  <td class="method">_joy_button_up_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">_joy_axis_func(1)</td>
+  <td class="method">_joy_axis_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">_key_up_func(1)</td>
+  <td class="method">_key_up_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">_key_down_func(1)</td>
+  <td class="method">_key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">key_up_func(1)</td>
+  <td class="method">key_up_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">key_down_func(1)</td>
+  <td class="method">key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(1)</td>
+  <td class="method">virtual_control_button_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_up_func(1)</td>
+  <td class="method">virtual_control_button_up_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_axis_change_func(1)</td>
+  <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">user_event_func(1)</td>
+  <td class="method">user_event_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
   <td class="method">render_collision_tile_mesh()</td>
