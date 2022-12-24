@@ -149,6 +149,7 @@ void AudioController::load_sound_effects()
       std::string identifier = sound_effect_element.first;
       std::string filename = sound_effect_element.second.get_filename();
       bool loop = sound_effect_element.second.get_loop();
+      bool volume = sound_effect_element.second.get_volume();
 
       std::string asset_key = sound_effects_identifier_prefix + filename;
 
@@ -158,7 +159,7 @@ void AudioController::load_sound_effects()
       Sound *sound = new Sound(sample);
       sound->initialize();
       sound->loop(loop);
-      sound->volume(global_volume);
+      sound->volume(global_volume * volume);
 
       // TODO manage case where identifier already exists for this record
 
