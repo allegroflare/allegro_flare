@@ -19,6 +19,12 @@ properties:
     init_with: '"ignore"'
     getter: true
 
+  - name: volume
+    type: float
+    constructor_arg: true
+    init_with: 1.0
+    getter: true
+
 
 functions:
 

@@ -37,6 +37,7 @@ functions:
 
   - name: create_from_bitmap_filename
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -64,6 +65,7 @@ functions:
 
   - name: create_for_aabb2d
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -92,6 +94,7 @@ functions:
 
   - name: create_frame_animated
     type: AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -136,6 +139,7 @@ functions:
 
   - name: create_player_projectile
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -184,6 +188,7 @@ functions:
 
   - name: create_enemy_move_left
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -235,6 +240,7 @@ functions:
 
   - name: create_tracking_enemy
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -299,6 +305,7 @@ functions:
 
   - name: create_flapping_enemy
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -366,6 +373,7 @@ functions:
 
   - name: create_collectable
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -404,6 +412,7 @@ functions:
 
   - name: create_door
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -454,6 +463,7 @@ functions:
 
   - name: create_game_event_door
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -496,6 +506,7 @@ functions:
 
   - name: create_goalpost
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
     parameters:
       - name: map_name
         type: std::string
@@ -534,6 +545,7 @@ functions:
 
   - name: create_tile_map
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
     parameters:
       - name: map_json_filename
         type: std::string

@@ -23,7 +23,7 @@ AudioController::AudioController(AllegroFlare::SampleBin* sample_bin, std::map<s
    , sound_effects({})
    , music_tracks({})
    , current_music_track_identifier("")
-   , global_volume(1.0)
+   , global_volume(1.0f)
    , output_loading_debug_to_cout(false)
    , initialized(false)
    , music_tracks_loaded(false)
@@ -177,6 +177,7 @@ void AudioController::load_music_tracks()
       std::string identifier = music_track_element.first;
       std::string filename = music_track_element.second.get_filename();
       bool loop = music_track_element.second.get_loop();
+      float volume = music_track_element.second.get_volume();
 
       std::string asset_key = music_tracks_identifier_prefix + filename;
 
@@ -186,7 +187,7 @@ void AudioController::load_music_tracks()
       Sound *sound = new Sound(sample);
       sound->initialize();
       sound->loop(loop);
-      sound->volume(global_volume);
+      sound->volume(global_volume * volume);
 
       // TODO manage case where identifier already exists for this record
 

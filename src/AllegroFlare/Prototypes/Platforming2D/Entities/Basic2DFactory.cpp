@@ -78,7 +78,7 @@ AllegroFlare::FrameAnimation::Book* Basic2DFactory::get_animation_book() const
 }
 
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_from_bitmap_filename(std::string map_name, std::string bitmap_filename, std::string bitmap_alignment_strategy)
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_from_bitmap_filename(std::string map_name, std::string bitmap_filename, std::string bitmap_alignment_strategy) const
 {
    if (!(bitmap_bin))
    {
@@ -100,7 +100,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return result;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_for_aabb2d(std::string map_name, float width, float height)
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_for_aabb2d(std::string map_name, float width, float height) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -117,7 +117,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return result;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFactory::create_frame_animated(std::string map_name, float x, float y, float w, float h, std::string initial_animation_name, std::string bitmap_alignment_strategy)
+AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFactory::create_frame_animated(std::string map_name, float x, float y, float w, float h, std::string initial_animation_name, std::string bitmap_alignment_strategy) const
 {
    if (!(animation_book))
    {
@@ -144,7 +144,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFacto
    return result;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_player_projectile(std::string map_name, float x, float y, float width, float height, AllegroFlare::vec2d vector, float magnitude)
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_player_projectile(std::string map_name, float x, float y, float width, float height, AllegroFlare::vec2d vector, float magnitude) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -166,7 +166,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_enemy_move_left(std::string map_name, float x, float y, float width, float height)
+AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_enemy_move_left(std::string map_name, float x, float y, float width, float height) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -197,7 +197,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_tracking_enemy(std::string map_name, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* tracked_entity, float x, float y, float width, float height)
+AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_tracking_enemy(std::string map_name, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* tracked_entity, float x, float y, float width, float height) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -237,7 +237,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_flapping_enemy(std::string map_name, float x, float y, float width, float height, float target_elevation, float flap_strength, float flap_recovery_rate)
+AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_flapping_enemy(std::string map_name, float x, float y, float width, float height, float target_elevation, float flap_strength, float flap_recovery_rate) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -275,7 +275,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_collectable(std::string map_name, float x, float y)
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_collectable(std::string map_name, float x, float y) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -298,7 +298,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_door(std::string map_name, float x, float y, std::string target_map_name, float target_spawn_x, float target_spawn_y)
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_door(std::string map_name, float x, float y, std::string target_map_name, float target_spawn_x, float target_spawn_y) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -326,7 +326,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_door;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_game_event_door(std::string map_name, float x, float y, std::string game_event_name_to_emit)
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_game_event_door(std::string map_name, float x, float y, std::string game_event_name_to_emit) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -352,7 +352,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_door;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_goalpost(std::string map_name, float x, float y)
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_goalpost(std::string map_name, float x, float y) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -375,7 +375,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_filename, std::string map_name)
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_filename, std::string map_name) const
 {
    if (!(bitmap_bin))
    {
