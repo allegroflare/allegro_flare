@@ -55,7 +55,21 @@ properties:
     getter: true
     setter: true
 
-  - name: font_name
+  - name: title_font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: menu_font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: copyright_font_name
     type: std::string
     init_with: '"Inter-Medium.ttf"'
     constructor_arg: true
@@ -192,6 +206,18 @@ functions:
     body: |
       // There is some confusing naming between "selected", "chosen", etc.  Selected seems to signify
       // either "highlighted" or "chosen" depending on the casses.
+      return;
+
+
+  - name: set_font_name
+    parameters:
+      - name: font_name
+        type: std::string
+        default_argument: '"[unset-font_name]"'
+    body: |
+      title_font_name = font_name;
+      menu_font_name = font_name;
+      copyright_font_name = font_name;
       return;
 
 
@@ -496,7 +522,7 @@ functions:
     guards: [ font_bin ]
     body: |
       std::stringstream composite_font_str;
-      composite_font_str << font_name << " " << title_font_size;
+      composite_font_str << title_font_name << " " << title_font_size;
       return font_bin->auto_get(composite_font_str.str());
 
 
@@ -506,7 +532,7 @@ functions:
     guards: [ font_bin ]
     body: |
       std::stringstream composite_font_str;
-      composite_font_str << font_name << " " << menu_font_size;
+      composite_font_str << menu_font_name << " " << menu_font_size;
       return font_bin->auto_get(composite_font_str.str());
 
 
@@ -516,7 +542,7 @@ functions:
     guards: [ font_bin ]
     body: |
       std::stringstream composite_font_str;
-      composite_font_str << font_name << " " << copyright_font_size;
+      composite_font_str << copyright_font_name << " " << copyright_font_size;
       return font_bin->auto_get(composite_font_str.str());
 
 

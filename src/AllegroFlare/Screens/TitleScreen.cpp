@@ -17,7 +17,7 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, int title_font_size, int menu_font_size, int copyright_font_size)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string title_font_name, std::string menu_font_name, std::string copyright_font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, int title_font_size, int menu_font_size, int copyright_font_size)
    : AllegroFlare::Screens::Base("TitleScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -26,7 +26,9 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , copyright_text(copyright_text)
    , background_bitmap_name(background_bitmap_name)
    , title_bitmap_name(title_bitmap_name)
-   , font_name(font_name)
+   , title_font_name(title_font_name)
+   , menu_font_name(menu_font_name)
+   , copyright_font_name(copyright_font_name)
    , title_text_color(title_text_color)
    , menu_text_color(menu_text_color)
    , menu_selector_color(menu_selector_color)
@@ -98,9 +100,21 @@ void TitleScreen::set_title_bitmap_name(std::string title_bitmap_name)
 }
 
 
-void TitleScreen::set_font_name(std::string font_name)
+void TitleScreen::set_title_font_name(std::string title_font_name)
 {
-   this->font_name = font_name;
+   this->title_font_name = title_font_name;
+}
+
+
+void TitleScreen::set_menu_font_name(std::string menu_font_name)
+{
+   this->menu_font_name = menu_font_name;
+}
+
+
+void TitleScreen::set_copyright_font_name(std::string copyright_font_name)
+{
+   this->copyright_font_name = copyright_font_name;
 }
 
 
@@ -218,9 +232,21 @@ std::string TitleScreen::get_title_bitmap_name() const
 }
 
 
-std::string TitleScreen::get_font_name() const
+std::string TitleScreen::get_title_font_name() const
 {
-   return font_name;
+   return title_font_name;
+}
+
+
+std::string TitleScreen::get_menu_font_name() const
+{
+   return menu_font_name;
+}
+
+
+std::string TitleScreen::get_copyright_font_name() const
+{
+   return copyright_font_name;
 }
 
 
@@ -342,6 +368,14 @@ void TitleScreen::TODO()
 {
    // There is some confusing naming between "selected", "chosen", etc.  Selected seems to signify
    // either "highlighted" or "chosen" depending on the casses.
+   return;
+}
+
+void TitleScreen::set_font_name(std::string font_name)
+{
+   title_font_name = font_name;
+   menu_font_name = font_name;
+   copyright_font_name = font_name;
    return;
 }
 
@@ -654,7 +688,7 @@ ALLEGRO_FONT* TitleScreen::obtain_title_font()
       throw std::runtime_error("TitleScreen::obtain_title_font: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << title_font_size;
+   composite_font_str << title_font_name << " " << title_font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
 
@@ -668,7 +702,7 @@ ALLEGRO_FONT* TitleScreen::obtain_menu_font()
       throw std::runtime_error("TitleScreen::obtain_menu_font: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << menu_font_size;
+   composite_font_str << menu_font_name << " " << menu_font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
 
@@ -682,7 +716,7 @@ ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
       throw std::runtime_error("TitleScreen::obtain_copyright_font: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
-   composite_font_str << font_name << " " << copyright_font_size;
+   composite_font_str << copyright_font_name << " " << copyright_font_size;
    return font_bin->auto_get(composite_font_str.str());
 }
 
