@@ -43,6 +43,10 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_move_sound_effect_enabled(true)
    , menu_select_option_sound_effect_identifier("menu_select")
    , menu_select_option_sound_effect_enabled(true)
+   , menu_option_activated(false)
+   , menu_option_chosen(false)
+   , menu_option_chosen_at(0.0f)
+   , menu_option_selection_activation_delay(2.0f)
 {
 }
 
@@ -313,6 +317,8 @@ bool TitleScreen::get_menu_select_option_sound_effect_enabled() const
 void TitleScreen::on_activate()
 {
    cursor_position = 0;
+   menu_option_chosen = false;
+   menu_option_activated = false;
    return;
 }
 
@@ -326,6 +332,7 @@ void TitleScreen::set_menu_options(std::vector<std::pair<std::string, std::strin
 void TitleScreen::move_cursor_up()
 {
    if (menu_is_empty()) return;
+   if (menu_option_chosen) return;
 
    if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -338,6 +345,7 @@ void TitleScreen::move_cursor_up()
 void TitleScreen::move_cursor_down()
 {
    if (menu_is_empty()) return;
+   if (menu_option_chosen) return;
 
    if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -349,6 +357,13 @@ void TitleScreen::move_cursor_down()
 
 void TitleScreen::activate_menu_option(std::string menu_option_name)
 {
+   if (!((!menu_option_chosen)))
+   {
+      std::stringstream error_message;
+      error_message << "[TitleScreen::activate_menu_option]: error: guard \"(!menu_option_chosen)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TitleScreen::activate_menu_option: error: guard \"(!menu_option_chosen)\" not met");
+   }
    event_emitter->emit_game_event(menu_option_name);
    return;
 }
@@ -371,17 +386,31 @@ void TitleScreen::select_menu_option()
       return;
    }
 
+   menu_option_chosen_at = al_get_time();
+   menu_option_chosen = true;
+
    //if (menu_select_option_sound_effect) play_menu_select_option_sound_effect();
    if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
 
-   std::string current_menu_option_value = infer_current_menu_option_value();
-   activate_menu_option(current_menu_option_value);
+   //std::string current_menu_option_value = infer_current_menu_option_value();
+   //activate_menu_option(current_menu_option_value);
 
    return;
 }
 
 void TitleScreen::primary_timer_func()
 {
+   if (menu_option_chosen && !menu_option_activated)
+   {
+      float state_age = (al_get_time() - menu_option_chosen_at);
+      if (state_age > menu_option_selection_activation_delay)
+      {
+         std::string current_menu_option_value = infer_current_menu_option_value();
+         activate_menu_option(current_menu_option_value);
+         menu_option_activated = true;
+      }
+   }
+
    render();
    return;
 }
@@ -659,6 +688,8 @@ ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
 
 void TitleScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
+   if (menu_option_chosen) return;
+
    if (button_num == VirtualControls::BUTTON_UP) move_cursor_up();
    if (button_num == VirtualControls::BUTTON_DOWN) move_cursor_down();
    if (button_num == VirtualControls::BUTTON_A

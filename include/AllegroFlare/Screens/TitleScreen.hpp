@@ -43,6 +43,10 @@ namespace AllegroFlare
          bool menu_move_sound_effect_enabled;
          std::string menu_select_option_sound_effect_identifier;
          bool menu_select_option_sound_effect_enabled;
+         bool menu_option_activated;
+         bool menu_option_chosen;
+         float menu_option_chosen_at;
+         float menu_option_selection_activation_delay;
          void move_cursor_up();
          void move_cursor_down();
          void select_menu_option();
