@@ -138,7 +138,7 @@ functions:
          std::string identifier = sound_effect_element.first;
          std::string filename = sound_effect_element.second.get_filename();
          bool loop = sound_effect_element.second.get_loop();
-         bool volume = sound_effect_element.second.get_volume();
+         float volume = sound_effect_element.second.get_volume();
 
          std::string asset_key = sound_effects_identifier_prefix + filename;
 
