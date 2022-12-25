@@ -262,6 +262,8 @@ void AudioController::set_global_volume(float volume)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("AudioController::set_global_volume: error: guard \"initialized\" not met");
    }
+   // TODO: tweak this so that calling this function will not overwrite custom volumes
+   // that exist on the repository elements
    for (auto &sound_effect : sound_effects) sound_effect.second->volume(global_volume);
    for (auto &music_track : music_tracks) music_track.second->volume(global_volume);
    return;

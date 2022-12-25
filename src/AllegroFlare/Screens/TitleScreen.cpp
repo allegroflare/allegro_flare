@@ -188,6 +188,12 @@ void TitleScreen::set_menu_select_option_sound_effect_enabled(bool menu_select_o
 }
 
 
+void TitleScreen::set_menu_option_selection_activation_delay(float menu_option_selection_activation_delay)
+{
+   this->menu_option_selection_activation_delay = menu_option_selection_activation_delay;
+}
+
+
 std::string TitleScreen::get_title_text() const
 {
    return title_text;
@@ -311,6 +317,24 @@ std::string TitleScreen::get_menu_select_option_sound_effect_identifier() const
 bool TitleScreen::get_menu_select_option_sound_effect_enabled() const
 {
    return menu_select_option_sound_effect_enabled;
+}
+
+
+bool TitleScreen::get_menu_option_activated() const
+{
+   return menu_option_activated;
+}
+
+
+bool TitleScreen::get_menu_option_chosen() const
+{
+   return menu_option_chosen;
+}
+
+
+float TitleScreen::get_menu_option_selection_activation_delay() const
+{
+   return menu_option_selection_activation_delay;
 }
 
 

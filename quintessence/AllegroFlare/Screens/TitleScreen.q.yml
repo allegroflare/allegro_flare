@@ -167,10 +167,12 @@ properties:
   - name: menu_option_activated
     type: bool
     init_with: false
+    getter: true
 
   - name: menu_option_chosen
     type: bool
     init_with: false
+    getter: true
 
   - name: menu_option_chosen_at
     type: float
@@ -179,6 +181,8 @@ properties:
   - name: menu_option_selection_activation_delay
     type: float
     init_with: 1.0f
+    getter: true
+    setter: true
 
 
 functions:
@@ -477,7 +481,6 @@ functions:
     body: |
       event_emitter->emit_play_sound_effect_event(menu_select_option_sound_effect_identifier);
       return;
-
 
 
   - name: obtain_title_font

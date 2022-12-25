@@ -250,6 +250,8 @@ functions:
         type: float
         default_argument: 0.1
     body: |
+      // TODO: tweak this so that calling this function will not overwrite custom volumes
+      // that exist on the repository elements
       for (auto &sound_effect : sound_effects) sound_effect.second->volume(global_volume);
       for (auto &music_track : music_tracks) music_track.second->volume(global_volume);
       return;

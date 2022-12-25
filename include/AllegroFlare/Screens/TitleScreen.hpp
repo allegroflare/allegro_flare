@@ -89,6 +89,7 @@ namespace AllegroFlare
          void set_menu_move_sound_effect_enabled(bool menu_move_sound_effect_enabled);
          void set_menu_select_option_sound_effect_identifier(std::string menu_select_option_sound_effect_identifier);
          void set_menu_select_option_sound_effect_enabled(bool menu_select_option_sound_effect_enabled);
+         void set_menu_option_selection_activation_delay(float menu_option_selection_activation_delay);
          std::string get_title_text() const;
          std::string get_copyright_text() const;
          std::string get_background_bitmap_name() const;
@@ -110,6 +111,9 @@ namespace AllegroFlare
          bool get_menu_move_sound_effect_enabled() const;
          std::string get_menu_select_option_sound_effect_identifier() const;
          bool get_menu_select_option_sound_effect_enabled() const;
+         bool get_menu_option_activated() const;
+         bool get_menu_option_chosen() const;
+         float get_menu_option_selection_activation_delay() const;
          virtual void on_activate() override;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");
