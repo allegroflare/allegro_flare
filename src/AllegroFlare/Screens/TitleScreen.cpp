@@ -46,7 +46,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_option_activated(false)
    , menu_option_chosen(false)
    , menu_option_chosen_at(0.0f)
-   , menu_option_selection_activation_delay(2.0f)
+   , menu_option_selection_activation_delay(1.0f)
 {
 }
 
@@ -357,13 +357,6 @@ void TitleScreen::move_cursor_down()
 
 void TitleScreen::activate_menu_option(std::string menu_option_name)
 {
-   if (!((!menu_option_chosen)))
-   {
-      std::stringstream error_message;
-      error_message << "[TitleScreen::activate_menu_option]: error: guard \"(!menu_option_chosen)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::activate_menu_option: error: guard \"(!menu_option_chosen)\" not met");
-   }
    event_emitter->emit_game_event(menu_option_name);
    return;
 }

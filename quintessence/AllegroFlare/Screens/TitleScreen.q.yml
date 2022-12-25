@@ -178,7 +178,7 @@ properties:
 
   - name: menu_option_selection_activation_delay
     type: float
-    init_with: 2.0f
+    init_with: 1.0f
 
 
 functions:
@@ -239,7 +239,6 @@ functions:
       - name: menu_option_name
         type: std::string
         default_argument: '"[unset-menu-option-name]"'
-    guards: [ (!menu_option_chosen) ]
     body: |
       event_emitter->emit_game_event(menu_option_name);
       return;
