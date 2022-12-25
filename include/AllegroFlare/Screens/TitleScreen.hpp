@@ -114,6 +114,7 @@ namespace AllegroFlare
          bool get_menu_option_activated() const;
          bool get_menu_option_chosen() const;
          float get_menu_option_selection_activation_delay() const;
+         void TODO();
          virtual void on_activate() override;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");

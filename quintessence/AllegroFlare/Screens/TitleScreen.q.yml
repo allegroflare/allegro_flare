@@ -188,6 +188,13 @@ properties:
 functions:
 
 
+  - name: TODO
+    body: |
+      // There is some confusing naming between "selected", "chosen", etc.  Selected seems to signify
+      // either "highlighted" or "chosen" depending on the casses.
+      return;
+
+
   - name: on_activate
     virtual: true
     override: true

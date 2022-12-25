@@ -338,6 +338,13 @@ float TitleScreen::get_menu_option_selection_activation_delay() const
 }
 
 
+void TitleScreen::TODO()
+{
+   // There is some confusing naming between "selected", "chosen", etc.  Selected seems to signify
+   // either "highlighted" or "chosen" depending on the casses.
+   return;
+}
+
 void TitleScreen::on_activate()
 {
    cursor_position = 0;
