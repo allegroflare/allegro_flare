@@ -853,6 +853,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                     }
                   break;
 
+                  case ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS:
+                    {
+                       audio_controller.stop_all_music_tracks();
+                    }
+                  break;
+
                   case ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION:
                     {
                        // TODO: handle other types of notifications and pass data on event

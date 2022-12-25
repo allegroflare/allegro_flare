@@ -408,7 +408,7 @@ table td
   <td class="method">stop_all()</td>
 </tr>
 <tr>
-  <td class="private_method">stop_all_music_tracks()</td>
+  <td class="method">stop_all_music_tracks()</td>
 </tr>
 <tr>
   <td class="private_method">stop_all_sound_effects()</td>
@@ -5154,6 +5154,9 @@ table td
   <td class="method">emit_play_music_track_event(std::string music_track_identifier=&quot;[unset-music-track-identifier]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">emit_stop_all_music_tracks_event()</td>
+</tr>
+<tr>
   <td class="method">emit_virtual_controls_button_up_event(int virtual_button_num=0)</td>
 </tr>
 <tr>
@@ -5187,6 +5190,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
@@ -18827,6 +18833,9 @@ table td
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS": [
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT": [

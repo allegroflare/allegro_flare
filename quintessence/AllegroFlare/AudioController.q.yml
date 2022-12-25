@@ -229,7 +229,6 @@ functions:
 
 
   - name: stop_all_music_tracks
-    private: true
     body: |
       for (auto &music_track : music_tracks) music_track.second->stop();
       current_music_track_identifier = "";

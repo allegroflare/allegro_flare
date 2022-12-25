@@ -180,6 +180,15 @@ functions:
       - ALLEGRO_FLARE_EVENT_EXIT_GAME
 
 
+  - name: emit_stop_all_music_tracks_event
+    guards: [ initialized ]
+    body: |
+      emit_event(ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS
+
+
   - name: emit_virtual_controls_button_up_event
     parameters:
       - name: virtual_button_num
@@ -252,6 +261,8 @@ dependencies:
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT
     headers: [ AllegroFlare/EventNames.hpp ]

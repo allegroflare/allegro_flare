@@ -180,6 +180,19 @@ void EventEmitter::emit_play_music_track_event(std::string music_track_identifie
    return;
 }
 
+void EventEmitter::emit_stop_all_music_tracks_event()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_stop_all_music_tracks_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_stop_all_music_tracks_event: error: guard \"initialized\" not met");
+   }
+   emit_event(ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS);
+   return;
+}
+
 void EventEmitter::emit_virtual_controls_button_up_event(int virtual_button_num)
 {
    if (!(initialized))

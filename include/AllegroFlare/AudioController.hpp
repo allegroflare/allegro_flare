@@ -31,7 +31,6 @@ namespace AllegroFlare
       void destruct_all();
       void destruct_all_sound_effects();
       void destruct_all_music_tracks();
-      void stop_all_music_tracks();
       void stop_all_sound_effects();
       bool sound_effect_element_exists(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       AllegroFlare::Sound* find_sound_effect_sound_object_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
@@ -55,6 +54,7 @@ namespace AllegroFlare
       void set_and_load_music_track_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});
       void destruct();
       void stop_all();
+      void stop_all_music_tracks();
       void set_global_volume(float volume=0.1);
       void play_sound_effect(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       void play_music_track(std::string identifier="a-music-track-identifier-that-is-not-set");
