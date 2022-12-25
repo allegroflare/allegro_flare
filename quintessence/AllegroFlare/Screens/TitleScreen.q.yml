@@ -140,6 +140,30 @@ properties:
     init_with: 0
     getter: true
 
+  - name: menu_move_sound_effect_identifier
+    type: std::string
+    init_with: '"menu_move"'
+    getter: true
+    setter: true
+
+  - name: menu_move_sound_effect_enabled
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
+  - name: menu_select_option_sound_effect_identifier
+    type: std::string
+    init_with: '"menu_select"'
+    getter: true
+    setter: true
+
+  - name: menu_select_option_sound_effect_enabled
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -168,8 +192,11 @@ functions:
     body: |
       if (menu_is_empty()) return;
 
+      if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
+
       cursor_position--;
       if (cursor_position < 0) cursor_position += menu_options.size();
+
       return;
 
 
@@ -178,8 +205,11 @@ functions:
     body: |
       if (menu_is_empty()) return;
 
+      if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
+
       cursor_position++;
       if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
+
       return;
 
 
@@ -191,26 +221,7 @@ functions:
         default_argument: '"[unset-menu-option-name]"'
     body: |
       event_emitter->emit_game_event(menu_option_name);
-
-      //if (menu_option_name == "start_new_game")
-      //{
-         //event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
-         ////event_emitter->emit_game_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
-      //}
-      //else if (menu_option_name == "exit_game")
-      //{
-         //event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
-         ////event_emitter->emit_game_event(menu_option_name);
-      //}
-      //else
-      //{
-         //std::stringstream ss;
-         //ss << "[AllegroFlare::Screens::TitleScreen::activate_menu_option()] error: There is no consequential action "
-               //"assigned for the menu option value \"" << menu_option_name <<  "\".  Note this is "
-               //"the value for the menu item labeled \"" << menu_option_name << "\".";
-         //throw std::runtime_error(ss.str());
-      //}
-      //return;
+      return;
     
 
   - name: select_menu_option
@@ -226,8 +237,10 @@ functions:
          return;
       }
 
-      std::string current_menu_option_value = infer_current_menu_option_value();
+      //if (menu_select_option_sound_effect) play_menu_select_option_sound_effect();
+      if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
 
+      std::string current_menu_option_value = infer_current_menu_option_value();
       activate_menu_option(current_menu_option_value);
 
       return;
@@ -417,6 +430,19 @@ functions:
       }
       std::string current_menu_option_value = std::get<1>(menu_options[cursor_position]);
       return current_menu_option_value;
+
+
+  - name: play_menu_move_sound_effect
+    body: |
+      event_emitter->emit_play_sound_effect_event(menu_move_sound_effect_identifier);
+      return;
+
+
+  - name: play_menu_select_option_sound_effect
+    body: |
+      event_emitter->emit_play_sound_effect_event(menu_select_option_sound_effect_identifier);
+      return;
+
 
 
   - name: obtain_title_font

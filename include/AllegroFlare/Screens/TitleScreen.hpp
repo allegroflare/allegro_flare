@@ -39,6 +39,10 @@ namespace AllegroFlare
          float menu_position_x;
          float menu_position_y;
          int cursor_position;
+         std::string menu_move_sound_effect_identifier;
+         bool menu_move_sound_effect_enabled;
+         std::string menu_select_option_sound_effect_identifier;
+         bool menu_select_option_sound_effect_enabled;
          void move_cursor_up();
          void move_cursor_down();
          void select_menu_option();
@@ -77,6 +81,10 @@ namespace AllegroFlare
          void set_copyright_font_size(int copyright_font_size);
          void set_menu_position_x(float menu_position_x);
          void set_menu_position_y(float menu_position_y);
+         void set_menu_move_sound_effect_identifier(std::string menu_move_sound_effect_identifier);
+         void set_menu_move_sound_effect_enabled(bool menu_move_sound_effect_enabled);
+         void set_menu_select_option_sound_effect_identifier(std::string menu_select_option_sound_effect_identifier);
+         void set_menu_select_option_sound_effect_enabled(bool menu_select_option_sound_effect_enabled);
          std::string get_title_text() const;
          std::string get_copyright_text() const;
          std::string get_background_bitmap_name() const;
@@ -94,6 +102,10 @@ namespace AllegroFlare
          float get_menu_position_x() const;
          float get_menu_position_y() const;
          int get_cursor_position() const;
+         std::string get_menu_move_sound_effect_identifier() const;
+         bool get_menu_move_sound_effect_enabled() const;
+         std::string get_menu_select_option_sound_effect_identifier() const;
+         bool get_menu_select_option_sound_effect_enabled() const;
          virtual void on_activate() override;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");
@@ -103,6 +115,8 @@ namespace AllegroFlare
          void draw_title();
          void draw_copyright_text();
          void draw_menu();
+         void play_menu_move_sound_effect();
+         void play_menu_select_option_sound_effect();
          virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
          static std::vector<std::pair<std::string, std::string>> build_default_menu_options();
       };

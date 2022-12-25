@@ -106,6 +106,7 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)
+   //INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -151,6 +152,10 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
             al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
             title_screen.primary_timer_func();
             al_flip_display();
+         break;
+
+         case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+            std::cout << "Event emitted to play sound effect." << std::endl;
          break;
 
          case ALLEGRO_FLARE_EVENT_GAME_EVENT:

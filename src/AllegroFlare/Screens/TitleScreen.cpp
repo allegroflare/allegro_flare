@@ -39,6 +39,10 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_position_x(1920 / 2)
    , menu_position_y(1080 / 2)
    , cursor_position(0)
+   , menu_move_sound_effect_identifier("menu_move")
+   , menu_move_sound_effect_enabled(true)
+   , menu_select_option_sound_effect_identifier("menu_select")
+   , menu_select_option_sound_effect_enabled(true)
 {
 }
 
@@ -156,6 +160,30 @@ void TitleScreen::set_menu_position_y(float menu_position_y)
 }
 
 
+void TitleScreen::set_menu_move_sound_effect_identifier(std::string menu_move_sound_effect_identifier)
+{
+   this->menu_move_sound_effect_identifier = menu_move_sound_effect_identifier;
+}
+
+
+void TitleScreen::set_menu_move_sound_effect_enabled(bool menu_move_sound_effect_enabled)
+{
+   this->menu_move_sound_effect_enabled = menu_move_sound_effect_enabled;
+}
+
+
+void TitleScreen::set_menu_select_option_sound_effect_identifier(std::string menu_select_option_sound_effect_identifier)
+{
+   this->menu_select_option_sound_effect_identifier = menu_select_option_sound_effect_identifier;
+}
+
+
+void TitleScreen::set_menu_select_option_sound_effect_enabled(bool menu_select_option_sound_effect_enabled)
+{
+   this->menu_select_option_sound_effect_enabled = menu_select_option_sound_effect_enabled;
+}
+
+
 std::string TitleScreen::get_title_text() const
 {
    return title_text;
@@ -258,6 +286,30 @@ int TitleScreen::get_cursor_position() const
 }
 
 
+std::string TitleScreen::get_menu_move_sound_effect_identifier() const
+{
+   return menu_move_sound_effect_identifier;
+}
+
+
+bool TitleScreen::get_menu_move_sound_effect_enabled() const
+{
+   return menu_move_sound_effect_enabled;
+}
+
+
+std::string TitleScreen::get_menu_select_option_sound_effect_identifier() const
+{
+   return menu_select_option_sound_effect_identifier;
+}
+
+
+bool TitleScreen::get_menu_select_option_sound_effect_enabled() const
+{
+   return menu_select_option_sound_effect_enabled;
+}
+
+
 void TitleScreen::on_activate()
 {
    cursor_position = 0;
@@ -275,8 +327,11 @@ void TitleScreen::move_cursor_up()
 {
    if (menu_is_empty()) return;
 
+   if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
+
    cursor_position--;
    if (cursor_position < 0) cursor_position += menu_options.size();
+
    return;
 }
 
@@ -284,34 +339,18 @@ void TitleScreen::move_cursor_down()
 {
    if (menu_is_empty()) return;
 
+   if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
+
    cursor_position++;
    if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
+
    return;
 }
 
 void TitleScreen::activate_menu_option(std::string menu_option_name)
 {
    event_emitter->emit_game_event(menu_option_name);
-
-   //if (menu_option_name == "start_new_game")
-   //{
-      //event_emitter->emit_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
-      ////event_emitter->emit_game_event(ALLEGRO_FLARE_EVENT_START_NEW_GAME);
-   //}
-   //else if (menu_option_name == "exit_game")
-   //{
-      //event_emitter->emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
-      ////event_emitter->emit_game_event(menu_option_name);
-   //}
-   //else
-   //{
-      //std::stringstream ss;
-      //ss << "[AllegroFlare::Screens::TitleScreen::activate_menu_option()] error: There is no consequential action "
-            //"assigned for the menu option value \"" << menu_option_name <<  "\".  Note this is "
-            //"the value for the menu item labeled \"" << menu_option_name << "\".";
-      //throw std::runtime_error(ss.str());
-   //}
-   //return;
+   return;
 }
 
 void TitleScreen::select_menu_option()
@@ -332,8 +371,10 @@ void TitleScreen::select_menu_option()
       return;
    }
 
-   std::string current_menu_option_value = infer_current_menu_option_value();
+   //if (menu_select_option_sound_effect) play_menu_select_option_sound_effect();
+   if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
 
+   std::string current_menu_option_value = infer_current_menu_option_value();
    activate_menu_option(current_menu_option_value);
 
    return;
@@ -536,6 +577,18 @@ std::string TitleScreen::infer_current_menu_option_label()
    }
    std::string current_menu_option_value = std::get<1>(menu_options[cursor_position]);
    return current_menu_option_value;
+}
+
+void TitleScreen::play_menu_move_sound_effect()
+{
+   event_emitter->emit_play_sound_effect_event(menu_move_sound_effect_identifier);
+   return;
+}
+
+void TitleScreen::play_menu_select_option_sound_effect()
+{
+   event_emitter->emit_play_sound_effect_event(menu_select_option_sound_effect_identifier);
+   return;
 }
 
 ALLEGRO_FONT* TitleScreen::obtain_title_font()
