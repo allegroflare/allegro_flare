@@ -311,8 +311,8 @@ void AudioController::play_music_track(std::string identifier)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("AudioController::play_music_track: error: guard \"initialized\" not met");
    }
-   Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
-   AudioRepositoryElement element = find_sound_effect_element_by_identifier(identifier);
+   Sound *sound = find_music_track_sound_object_by_identifier(identifier);
+   AudioRepositoryElement element = find_music_track_element_by_identifier(identifier);
    if (sound)
    {
       if (!sound->is_playing())
