@@ -144,7 +144,13 @@ void Classic::render()
    {
       if (i <= (value - 1))
       {
-         al_draw_filled_rectangle(i*bar_spacing, 0, i*bar_spacing+bar_width, bar_height, fill_color);
+         al_draw_filled_rectangle(
+            i*bar_spacing,
+            0,
+            i*bar_spacing+bar_width,
+            bar_height,
+            fill_color
+         );
       }
       else
       {
@@ -159,6 +165,12 @@ void Classic::render()
       }
    }
    get_placement_ref().restore_transform();
+   return;
+}
+
+void Classic::fit_placement_width_and_height()
+{
+   get_placement_ref().size = { calculate_width(), bar_height };
    return;
 }
 

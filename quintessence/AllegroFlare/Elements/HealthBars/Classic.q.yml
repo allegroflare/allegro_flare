@@ -76,7 +76,13 @@ functions:
       {
          if (i <= (value - 1))
          {
-            al_draw_filled_rectangle(i*bar_spacing, 0, i*bar_spacing+bar_width, bar_height, fill_color);
+            al_draw_filled_rectangle(
+               i*bar_spacing,
+               0,
+               i*bar_spacing+bar_width,
+               bar_height,
+               fill_color
+            );
          }
          else
          {
@@ -94,6 +100,12 @@ functions:
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
+
+
+  - name: fit_placement_width_and_height
+    body: |
+      get_placement_ref().size = { calculate_width(), bar_height };
+      return;
 
 
   - name: calculate_width
