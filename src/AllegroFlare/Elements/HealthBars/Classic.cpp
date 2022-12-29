@@ -142,7 +142,7 @@ void Classic::render()
    // TODO: This could be optimized to a single set of vertexes and a single draw call
    for (int i=0; i<max; i++)
    {
-      if (i <= value)
+      if (i <= (value - 1))
       {
          al_draw_filled_rectangle(i*bar_spacing, 0, i*bar_spacing+bar_width, bar_height, fill_color);
       }
@@ -160,6 +160,14 @@ void Classic::render()
    }
    get_placement_ref().restore_transform();
    return;
+}
+
+float Classic::calculate_width()
+{
+   if (max <= 0) return 0;
+   // TODO: modify this so that it is coupled with render
+   // TODO: add "fit_width" and "fit_height" functions to set the width and height of this Elements::Base dimensions
+   return (max - 1)*bar_spacing+bar_width;
 }
 
 

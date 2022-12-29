@@ -46,3 +46,21 @@ TEST_F(AllegroFlare_Elements_HealthBars_ClassicTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_Elements_HealthBars_ClassicTestWithAllegroRenderingFixture,
+   calculate_width__will_return_the_width_of_the_entire_bar_when_rendered)
+{
+   AllegroFlare::Elements::HealthBars::Classic health_bar(10, 6);
+   EXPECT_EQ(24*(10-1)+16, health_bar.calculate_width());
+
+   health_bar.set_bar_spacing(36);
+   health_bar.set_bar_width(30);
+   EXPECT_EQ(36*(10-1)+30, health_bar.calculate_width());
+
+   health_bar.set_max(1);
+   EXPECT_EQ(30, health_bar.calculate_width());
+
+   health_bar.set_max(0);
+   EXPECT_EQ(0, health_bar.calculate_width());
+}
+
+

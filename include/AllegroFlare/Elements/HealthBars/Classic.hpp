@@ -44,6 +44,7 @@ namespace AllegroFlare
             float get_bar_height() const;
             float get_bar_stroke_thickness() const;
             void render();
+            float calculate_width();
          };
       }
    }
