@@ -311,11 +311,29 @@ void AudioController::play_music_track(std::string identifier)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("AudioController::play_music_track: error: guard \"initialized\" not met");
    }
-   if (identifier == current_music_track_identifier) return; // NOTE: GUARD COULD BE IMPROVED
-   // TODO: implement "overplay_strategy" here
-   stop_all_music_tracks();
-   Sound *sound = find_music_track_sound_object_by_identifier(identifier);
-   if (sound) sound->play();
+   Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
+   AudioRepositoryElement element = find_sound_effect_element_by_identifier(identifier);
+   if (sound)
+   {
+      if (!sound->is_playing())
+      {
+         stop_all_music_tracks();
+         sound->play();
+      }
+      else // sound is currently playing, do some logic depending on what the configuration is
+      {
+         if (element.overplay_strategy_is_ignore())
+         {
+            // do nothing
+         }
+         else if (element.overplay_strategy_is_restart())
+         {
+            stop_all_music_tracks();
+            sound->stop();
+            sound->play();
+         }
+      }
+   }
    return;
 }
 
