@@ -29,6 +29,8 @@ namespace AllegroFlare
 
             std::string const ON_MAP_NAME = "on_map_name";
             std::string const MAP_NAME = "map_name";
+            std::string const EPHEMERAL = "ephemeral";
+
 
 
             /*
