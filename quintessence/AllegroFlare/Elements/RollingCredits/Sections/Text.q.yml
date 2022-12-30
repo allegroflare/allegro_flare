@@ -1,0 +1,31 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::RollingCredits::Sections::Base
+    scope: public
+    init_with: AllegroFlare::Elements::RollingCredits::Sections::Text::TYPE
+
+
+properties:
+
+
+  - name: text
+    type: std::string
+    init_with: '"[unset-text]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"Sections/Text"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+
+
