@@ -75,3 +75,10 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTestWithAllegro
 }
 
 
+TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTestWithAllegroRenderingFixture,
+   render__will_return_the_height_of_the_section)
+{
+   // TODO
+}
+
+
