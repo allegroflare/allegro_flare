@@ -1,0 +1,172 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+    scope: public
+    init_with: AllegroFlare::Elements::RollingCredits::SectionRenderers::Text::TYPE
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text
+    type: std::string
+    init_with: '"[unset-text]"'
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: max_width
+    type: float
+    init_with: 1920.0f/2.0f
+    getter: true
+    setter: true
+
+  - name: font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -32
+    getter: true
+    setter: true
+
+  - name: text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: _multiline_text_line_number
+    type: int
+    init_with: 0
+    static: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"SectionRenderers/Text"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: render
+    virtual: true
+    override: true
+    type: float
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    parameters:
+      - name: only_calculate_height_dont_render
+        type: bool
+        default_argument: false
+    body: |
+      ALLEGRO_FONT *font = obtain_font();
+      float font_line_height = (al_get_font_line_height(font) + 1);
+      if (!text.empty())
+      {
+         if (!only_calculate_height_dont_render)
+         {
+            al_draw_multiline_text(
+               font,
+               text_color,
+               (1920.0 - max_width)*0.5, // centered in the window crawl
+               y,
+               max_width,
+               font_line_height,
+               ALLEGRO_ALIGN_LEFT,
+               text.c_str()
+            );
+         }
+      }
+      return count_num_lines_will_render(font, max_width, text) * font_line_height;
+
+
+  - name: multiline_text_draw_callback
+    type: bool
+    static: true
+    parameters:
+      - name: line_num
+        type: int
+        default_argument: 0
+      - name: line
+        type: const char*
+        default_argument: nullptr
+      - name: size
+        type: int
+        default_argument: 0
+      - name: extra
+        type: void*
+        default_argument: nullptr
+    body: |
+      _multiline_text_line_number = line_num;
+      return true;
+
+
+  - name: count_num_lines_will_render
+    type: int
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: max_width
+        type: float
+        default_argument: 0.0f
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    body: |
+      if (text.empty()) return 0;
+
+      _multiline_text_line_number = 0;
+      al_do_multiline_text(font, max_width, text.c_str(), multiline_text_draw_callback, nullptr);
+
+      // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
+      return _multiline_text_line_number + 1;
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream font_identifier;
+      font_identifier << font_name << " " << font_size;
+      return font_bin->auto_get(font_identifier.str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+

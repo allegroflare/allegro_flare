@@ -1,0 +1,212 @@
+
+
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.hpp>
+
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+
+
+namespace AllegroFlare
+{
+namespace Elements
+{
+namespace RollingCredits
+{
+namespace SectionRenderers
+{
+
+
+int Text::_multiline_text_line_number = 0;
+
+
+Text::Text(AllegroFlare::FontBin* font_bin, std::string text)
+   : AllegroFlare::Elements::RollingCredits::SectionRenderers::Base(AllegroFlare::Elements::RollingCredits::SectionRenderers::Text::TYPE)
+   , font_bin(font_bin)
+   , text(text)
+   , x(0.0f)
+   , y(0.0f)
+   , max_width(1920.0f/2.0f)
+   , font_name("Inter-Medium.ttf")
+   , font_size(-32)
+   , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
+{
+}
+
+
+Text::~Text()
+{
+}
+
+
+void Text::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void Text::set_text(std::string text)
+{
+   this->text = text;
+}
+
+
+void Text::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void Text::set_y(float y)
+{
+   this->y = y;
+}
+
+
+void Text::set_max_width(float max_width)
+{
+   this->max_width = max_width;
+}
+
+
+void Text::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void Text::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
+void Text::set_text_color(ALLEGRO_COLOR text_color)
+{
+   this->text_color = text_color;
+}
+
+
+AllegroFlare::FontBin* Text::get_font_bin() const
+{
+   return font_bin;
+}
+
+
+std::string Text::get_text() const
+{
+   return text;
+}
+
+
+float Text::get_x() const
+{
+   return x;
+}
+
+
+float Text::get_y() const
+{
+   return y;
+}
+
+
+float Text::get_max_width() const
+{
+   return max_width;
+}
+
+
+std::string Text::get_font_name() const
+{
+   return font_name;
+}
+
+
+int Text::get_font_size() const
+{
+   return font_size;
+}
+
+
+ALLEGRO_COLOR Text::get_text_color() const
+{
+   return text_color;
+}
+
+
+float Text::render(bool only_calculate_height_dont_render)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[Text::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Text::render: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_font_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[Text::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Text::render: error: guard \"al_is_font_addon_initialized()\" not met");
+   }
+   ALLEGRO_FONT *font = obtain_font();
+   float font_line_height = (al_get_font_line_height(font) + 1);
+   if (!text.empty())
+   {
+      if (!only_calculate_height_dont_render)
+      {
+         al_draw_multiline_text(
+            font,
+            text_color,
+            (1920.0 - max_width)*0.5, // centered in the window crawl
+            y,
+            max_width,
+            font_line_height,
+            ALLEGRO_ALIGN_LEFT,
+            text.c_str()
+         );
+      }
+   }
+   return count_num_lines_will_render(font, max_width, text) * font_line_height;
+}
+
+bool Text::multiline_text_draw_callback(int line_num, const char* line, int size, void* extra)
+{
+   _multiline_text_line_number = line_num;
+   return true;
+}
+
+int Text::count_num_lines_will_render(ALLEGRO_FONT* font, float max_width, std::string text)
+{
+   if (text.empty()) return 0;
+
+   _multiline_text_line_number = 0;
+   al_do_multiline_text(font, max_width, text.c_str(), multiline_text_draw_callback, nullptr);
+
+   // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
+   return _multiline_text_line_number + 1;
+}
+
+ALLEGRO_FONT* Text::obtain_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Text::obtain_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Text::obtain_font: error: guard \"font_bin\" not met");
+   }
+   std::stringstream font_identifier;
+   font_identifier << font_name << " " << font_size;
+   return font_bin->auto_get(font_identifier.str());
+}
+
+
+} // namespace SectionRenderers
+} // namespace RollingCredits
+} // namespace Elements
+} // namespace AllegroFlare
+
+
