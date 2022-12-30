@@ -59,3 +59,19 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTestWithAllegro
    SUCCEED();
 }
 
+
+TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_the_text_as_expected)
+{
+   std::string text = "This game is a work of fiction. Any resemblance to actual persons, living or dead, "
+      "or events is purely coincidental.";
+   AllegroFlare::Elements::RollingCredits::SectionRenderers::Text text_section_renderer(
+      &get_font_bin_ref(),
+      text
+   );
+   text_section_renderer.render();
+   al_flip_display();
+   al_rest(1);
+}
+
+
