@@ -16,11 +16,12 @@ namespace HealthBars
 {
 
 
-Classic::Classic(int max, int value, ALLEGRO_COLOR fill_color, float bar_width, float bar_spacing, float bar_height, float bar_stroke_thickness)
+Classic::Classic(int max, int value, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR empty_box_outline_color, float bar_width, float bar_spacing, float bar_height, float bar_stroke_thickness)
    : AllegroFlare::Elements::Base()
    , max(max)
    , value(value)
    , fill_color(fill_color)
+   , empty_box_outline_color(empty_box_outline_color)
    , bar_width(bar_width)
    , bar_spacing(bar_spacing)
    , bar_height(bar_height)
@@ -49,6 +50,12 @@ void Classic::set_value(int value)
 void Classic::set_fill_color(ALLEGRO_COLOR fill_color)
 {
    this->fill_color = fill_color;
+}
+
+
+void Classic::set_empty_box_outline_color(ALLEGRO_COLOR empty_box_outline_color)
+{
+   this->empty_box_outline_color = empty_box_outline_color;
 }
 
 
@@ -94,6 +101,12 @@ ALLEGRO_COLOR Classic::get_fill_color() const
 }
 
 
+ALLEGRO_COLOR Classic::get_empty_box_outline_color() const
+{
+   return empty_box_outline_color;
+}
+
+
 float Classic::get_bar_width() const
 {
    return bar_width;
@@ -135,7 +148,7 @@ void Classic::render()
       throw std::runtime_error("Classic::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    float h_thickness = bar_stroke_thickness * 0.5;
-   ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   //ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
    get_placement_ref().start_transform();
 
@@ -159,7 +172,7 @@ void Classic::render()
                0 + h_thickness,
                i*bar_spacing+bar_width - h_thickness,
                bar_height - h_thickness,
-               outline_color,
+               empty_box_outline_color,
                bar_stroke_thickness
             );
       }

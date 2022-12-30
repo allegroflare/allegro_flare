@@ -30,6 +30,13 @@ properties:
     getter: true
     setter: true
 
+  - name: empty_box_outline_color
+    type: ALLEGRO_COLOR
+    init_with: '(ALLEGRO_COLOR{1, 1, 1, 1} /*white*/)'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: bar_width
     type: float
     init_with: 16
@@ -67,7 +74,7 @@ functions:
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
       float h_thickness = bar_stroke_thickness * 0.5;
-      ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      //ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
       get_placement_ref().start_transform();
 
@@ -91,7 +98,7 @@ functions:
                   0 + h_thickness,
                   i*bar_spacing+bar_width - h_thickness,
                   bar_height - h_thickness,
-                  outline_color,
+                  empty_box_outline_color,
                   bar_stroke_thickness
                );
          }
