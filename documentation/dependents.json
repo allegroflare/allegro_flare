@@ -206,7 +206,6 @@
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
-    "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
@@ -302,7 +301,6 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
-    "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -1056,26 +1054,6 @@
   "AllegroFlare/Elements/PlayingCards/Deck": [
     "AllegroFlare/Elements/PlayingCards/DeckFactory"
   ],
-  "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
-    "AllegroFlare/Elements/RollingCredits/RollingCredits",
-    "AllegroFlare/Screens/RollingCredits"
-  ],
-  "AllegroFlare/Elements/RollingCredits/Sections/Header": [
-    "AllegroFlare/Elements/RollingCredits/RollingCredits",
-    "AllegroFlare/Elements/RollingCredits/SectionFactory",
-    "AllegroFlare/Elements/RollingCredits/SectionFactory"
-  ],
-  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header": [
-    "AllegroFlare/Elements/RollingCredits/RollingCredits"
-  ],
-  "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels": [
-    "AllegroFlare/Elements/RollingCredits/RollingCredits",
-    "AllegroFlare/Elements/RollingCredits/SectionFactory",
-    "AllegroFlare/Elements/RollingCredits/SectionFactory"
-  ],
-  "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels": [
-    "AllegroFlare/Elements/RollingCredits/RollingCredits"
-  ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
@@ -1083,15 +1061,35 @@
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
     "AllegroFlare/Screens/RollingCredits"
   ],
-  "std/vector<std/tuple<std/string, std/string>>": [
-    "AllegroFlare/Elements/RollingCredits/SectionFactory",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
-    "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
+  "AllegroFlare/Elements/RollingCredits/Sections/Header": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Text": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
   ],
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text"
+  ],
+  "std/vector<std/tuple<std/string, std/string>>": [
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
   ],
   "std/setfill": [
     "AllegroFlare/Elements/Score",
@@ -1988,6 +1986,9 @@
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Elements/RollingCredits/RollingCredits": [
+    "AllegroFlare/Screens/RollingCredits"
+  ],
+  "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
     "AllegroFlare/Screens/RollingCredits"
   ],
   "AllegroFlare/Elements/Storyboard": [

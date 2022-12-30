@@ -25,19 +25,26 @@ functions:
       return section;
     
 
+  - name: create_text
+    type: AllegroFlare::Elements::RollingCredits::Sections::Text*
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '{}'
+    body: |
+      AllegroFlare::Elements::RollingCredits::Sections::Text* section =
+        new AllegroFlare::Elements::RollingCredits::Sections::Text(text);
+      return section;
+    
+
 dependencies:
 
-
-  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header*
-    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
-  - symbol: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels*
-    headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
-  - symbol: std::vector<std::tuple<std::string, std::string>>
-    headers: [ vector, tuple, string ]
 
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Text
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Text.hpp ]
 
 

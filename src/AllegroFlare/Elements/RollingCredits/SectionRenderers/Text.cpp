@@ -160,7 +160,7 @@ float Text::render(bool only_calculate_height_dont_render)
          al_draw_multiline_text(
             font,
             text_color,
-            (1920.0 - max_width)*0.5, // centered in the window crawl
+            x+-max_width*0.5, // centered in the window crawl
             y,
             max_width,
             font_line_height,

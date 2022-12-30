@@ -11,6 +11,7 @@
 
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Text.hpp>
 
 
 class AllegroFlare_Elements_RollingCredits_RollingCreditsTest : public ::testing::Test
@@ -110,6 +111,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
          std::pair<std::string, std::string>("Line Producer", "Zeebra Stripe"),
          std::pair<std::string, std::string>("Lead Programmer", "Selma Sloth"),
       }),
+      new Text("No animals were harmed in the making of these credits."),
    });
 
    rolling_credits.render();
@@ -133,12 +135,13 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
          std::pair<std::string, std::string>("Line Producer", "Zeebra Stripe"),
          std::pair<std::string, std::string>("Lead Programmer", "Selma Sloth"),
       }),
+      new Text("No animals were harmed in the making of these credits."),
    });
 
    float calculated_height = rolling_credits.calculate_height();
    float surface_center = rolling_credits.get_surface_width() / 2;
 
-   EXPECT_EQ(176, calculated_height);
+   EXPECT_EQ(245, calculated_height);
 
    // TODO: destroy sections
 }
@@ -157,6 +160,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
          std::pair<std::string, std::string>("Line Producer", "Zeebra Stripe"),
          std::pair<std::string, std::string>("Lead Programmer", "Selma Sloth"),
       }),
+      new Text("No animals were harmed in the making of these credits."),
    });
 
    float calculated_height = rolling_credits.calculate_height();
@@ -187,6 +191,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
          std::pair<std::string, std::string>("Line Producer", "Zeebra Stripe"),
          std::pair<std::string, std::string>("Lead Programmer", "Selma Sloth"),
       }),
+      new Text("No animals were harmed in the making of these credits."),
    });
 
    int passes = 60 * 2;

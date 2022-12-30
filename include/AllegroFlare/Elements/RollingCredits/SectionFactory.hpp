@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Text.hpp>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -27,6 +28,7 @@ namespace AllegroFlare
 
             AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels* create_column_with_labels(std::vector<std::tuple<std::string, std::string>> elements={});
             AllegroFlare::Elements::RollingCredits::Sections::Header* create_header(std::string text={});
+            AllegroFlare::Elements::RollingCredits::Sections::Text* create_text(std::string text={});
          };
       }
    }

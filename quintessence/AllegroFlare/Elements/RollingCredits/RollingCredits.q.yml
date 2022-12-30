@@ -128,6 +128,17 @@ functions:
             renderer.set_y(cursor_y);
             this_section_height = renderer.render(only_calculate_height_dont_render);
          }
+         else if (section->is_type(AllegroFlare::Elements::RollingCredits::Sections::Text::TYPE))
+         {
+            Sections::Text *typed_section = static_cast<Sections::Text *>(section);
+            SectionRenderers::Text renderer(
+                  font_bin,
+                  typed_section->get_text()
+               );
+            renderer.set_x(surface_center);
+            renderer.set_y(cursor_y);
+            this_section_height = renderer.render(only_calculate_height_dont_render);
+         }
          else
          {
             std::stringstream error_message;
@@ -150,6 +161,8 @@ functions:
       - AllegroFlare::Elements::RollingCredits::SectionRenderers::Header
       - AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels
       - AllegroFlare::Elements::RollingCredits::SectionRenderers::ColumnWithLabels
+      - AllegroFlare::Elements::RollingCredits::Sections::Text
+      - AllegroFlare::Elements::RollingCredits::SectionRenderers::Text
 
 
   - name: obtain_font
@@ -163,12 +176,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
-    headers: [ vector, AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::Header
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Header.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Header
@@ -177,9 +186,10 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::ColumnWithLabels
     headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.hpp ]
-
-  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
-    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Text
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Text.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Text
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::FontBin
