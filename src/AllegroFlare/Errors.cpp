@@ -51,7 +51,7 @@ std::string Errors::build_info_message(std::string from, std::string message)
 void Errors::throw_missing_file_error(std::string from, std::string filename, std::string filetype)
 {
    std::stringstream error_message;
-   std::string current_path = std::filesystem::current_path();
+   std::string current_path = std::filesystem::current_path().string();
 
    error_message << "The expected " << filetype << " file does not exist. "
                  << "Looking for \"" << filename << "\" from the current path "
