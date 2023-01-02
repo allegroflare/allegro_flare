@@ -55,7 +55,6 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
    std::string disclaimer_3 = "During the production of this game, no animals were suject to injury, indignity, "
       "or mistreatment of any kind.";
 
-
    return std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>{
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1),
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2),
