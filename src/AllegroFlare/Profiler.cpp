@@ -141,10 +141,6 @@ namespace AllegroFlare
 
       //instance = new Profiler;
       ALLEGRO_COLOR bg_color = al_color_name("black");
-      ALLEGRO_COLOR bar_color = al_color_name("orange");
-      ALLEGRO_COLOR font_color = al_color_name("white");
-      ALLEGRO_COLOR limit_bar_color = al_color_name("lightblue");
-      //ALLEGRO_COLOR font = al_create_builtin_font();
 
       float w = 300;
       float line_height = 25;
@@ -152,7 +148,7 @@ namespace AllegroFlare
       float h = timers.size()*line_height + pad*2;
       //fla duration = 0.0;
       int i=0;
-      char time[32];
+      char buff[32];
 
       float target_microseconds = 16666;
       float horizontal_scale = 0.01f;
@@ -162,41 +158,70 @@ namespace AllegroFlare
 
       if (timers.empty())
       {
-         // TODO: draw a nice little frame
+         // Draw empty state
+
          int font_line_height = al_get_font_line_height(font);
          ALLEGRO_COLOR timer_empty_text_color = ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2};
-         const char* text = "Profiler is not tracking any timers. [Press F1 to close]";
-         al_draw_text(font, timer_empty_text_color, x + w/2, y+h/2-font_line_height/2, ALLEGRO_ALIGN_CENTER, text);
-         return;
-      }
-
-      //std::vector<profile_timer_class *>::iterator it = Profiler::get_instance()->timer.begin();
-      for (auto &timer : timers)
-      {
-         int duration_microseconds = std::get<1>(timer).get_elapsed_time_microseconds();
-         float bar_width = duration_microseconds * horizontal_scale;
-         al_draw_filled_rectangle(
-            x,
-            y+pad+line_height*i+15,
-            x+bar_width,
-            y+pad+line_height*i+20,
-            bar_color
+         std::string text = "Profiler is not tracking any timers. [Press F1 to close]";
+         al_draw_text(
+            font,
+            timer_empty_text_color,
+            x + w/2,
+            y+h/2-font_line_height/2,
+            ALLEGRO_ALIGN_CENTER,
+            text.c_str()
          );
-
-         al_draw_text(font, font_color, x+pad, y+pad+line_height*i, 0, timer.first.c_str());
-         sprintf(time, "%d", duration_microseconds);
-         al_draw_text(font, font_color, x+pad+300, y+pad+line_height*i, ALLEGRO_ALIGN_RIGHT, time);
-         i++;
       }
+      else
+      {
+         // Draw the graph
 
-      al_draw_line(
-         target_microseconds * horizontal_scale,
-         0,
-         target_microseconds * horizontal_scale,
-         h,
-         ALLEGRO_COLOR{0, 1, 1, 1},
-         2.0
-      );
+         ALLEGRO_COLOR bg_color = al_color_name("black");
+         ALLEGRO_COLOR bar_color = al_color_name("orange");
+         ALLEGRO_COLOR font_color = al_color_name("white");
+         ALLEGRO_COLOR limit_bar_color = al_color_name("lightblue");
+         //ALLEGRO_COLOR font = al_create_builtin_font();
+
+         //float w = 300;
+         //float line_height = 25;
+         //float pad = 20;
+         //float h = timers.size()*line_height + pad*2;
+         ////fla duration = 0.0;
+         //int i=0;
+         //char buff[32];
+
+         float target_microseconds = 16666;
+         float horizontal_scale = 0.01f;
+
+
+         //std::vector<profile_timer_class *>::iterator it = Profiler::get_instance()->timer.begin();
+         for (auto &timer : timers)
+         {
+            int duration_microseconds = std::get<1>(timer).get_elapsed_time_microseconds();
+            float bar_width = duration_microseconds * horizontal_scale;
+            al_draw_filled_rectangle(
+               x,
+               y+pad+line_height*i+15,
+               x+bar_width,
+               y+pad+line_height*i+20,
+               bar_color
+            );
+
+            al_draw_text(font, font_color, x+pad, y+pad+line_height*i, 0, timer.first.c_str());
+            sprintf(buff, "%d", duration_microseconds);
+            al_draw_text(font, font_color, x+pad+300, y+pad+line_height*i, ALLEGRO_ALIGN_RIGHT, buff);
+            i++;
+         }
+
+         al_draw_line(
+            target_microseconds * horizontal_scale,
+            0,
+            target_microseconds * horizontal_scale,
+            h,
+            ALLEGRO_COLOR{0, 1, 1, 1},
+            2.0
+         );
+      }
    }
 }
 
