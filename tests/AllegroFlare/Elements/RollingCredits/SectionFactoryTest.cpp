@@ -10,3 +10,10 @@ TEST(AllegroFlare_Elements_RollingCredits_SectionFactoryTest, can_be_created_wit
 }
 
 
+TEST(AllegroFlare_Elements_RollingCredits_SectionFactoryTest,
+   create_standard_disclaimers_text__returns_text_sections_with_the_expected_disclaimer_text)
+{
+   // TODO
+}
+
+

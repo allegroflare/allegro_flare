@@ -29,6 +29,7 @@ namespace AllegroFlare
             AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels* create_column_with_labels(std::vector<std::tuple<std::string, std::string>> elements={});
             AllegroFlare::Elements::RollingCredits::Sections::Header* create_header(std::string text={});
             AllegroFlare::Elements::RollingCredits::Sections::Text* create_text(std::string text={});
+            std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> create_standard_disclaimers_text(std::string text={});
          };
       }
    }
