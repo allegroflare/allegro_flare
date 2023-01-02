@@ -123,7 +123,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/Text.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EncoderDecoders/Base62.q.yml">quintessence/AllegroFlare/EncoderDecoders/Base62.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Errors.q.yml">quintessence/AllegroFlare/Errors.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Animation.q.yml">quintessence/AllegroFlare/FrameAnimation/Animation.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml">quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml</a></li>
@@ -144,6 +143,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Logger.q.yml">quintessence/AllegroFlare/Logger.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/MessageFactory.q.yml">quintessence/AllegroFlare/MotionComposer/MessageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml">quintessence/AllegroFlare/MotionComposer/MessageProcessor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionComposer/Messages/AddActor2D.q.yml">quintessence/AllegroFlare/MotionComposer/Messages/AddActor2D.q.yml</a></li>
@@ -5170,38 +5170,6 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/Errors.q.yml">quintessence/AllegroFlare/Errors.q.yml</h3>
-     <table>
-    </table>
-     <table>
-<tr>
-  <td class="method">build_error_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">build_warning_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">build_info_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">throw_missing_file_error(std::string from=&quot;[unset-from]&quot;, std::string filename=&quot;[unset-filename]&quot;, std::string filetype=&quot;[unset-filetype]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">warn_from(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">throw_error(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
     <h3 id="quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</h3>
      <table>
 <tr>
@@ -6374,6 +6342,41 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tuple&lt;std::string, std::string, std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;tuple&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Logger.q.yml">quintessence/AllegroFlare/Logger.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">build_error_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_warning_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_info_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">throw_missing_file_error(std::string from=&quot;[unset-from]&quot;, std::string filename=&quot;[unset-filename]&quot;, std::string filetype=&quot;[unset-filetype]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">warn_from(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">throw_error(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ConsoleColors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ConsoleColors.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -18915,9 +18918,6 @@ table td
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
   ],
-  "std/filesystem": [
-    "AllegroFlare/Errors"
-  ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
   ],
@@ -19105,6 +19105,12 @@ table td
   ],
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/InventoryIndexItem"
+  ],
+  "std/filesystem": [
+    "AllegroFlare/Logger"
+  ],
+  "AllegroFlare/ConsoleColors": [
+    "AllegroFlare/Logger"
   ],
   "AllegroFlare/MotionComposer/Messages/Clear": [
     "AllegroFlare/MotionComposer/MessageFactory"

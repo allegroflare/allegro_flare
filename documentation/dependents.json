@@ -1118,9 +1118,6 @@
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
   ],
-  "std/filesystem": [
-    "AllegroFlare/Errors"
-  ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
   ],
@@ -1308,6 +1305,12 @@
   ],
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/InventoryIndexItem"
+  ],
+  "std/filesystem": [
+    "AllegroFlare/Logger"
+  ],
+  "AllegroFlare/ConsoleColors": [
+    "AllegroFlare/Logger"
   ],
   "AllegroFlare/MotionComposer/Messages/Clear": [
     "AllegroFlare/MotionComposer/MessageFactory"

@@ -23,6 +23,7 @@
 #include <AllegroFlare/InputHints.hpp>
 #include <AllegroFlare/Elements/NotificationsRenderer.hpp>
 #include <AllegroFlare/NotificationsFactory.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 
@@ -248,6 +249,8 @@ bool Full::initialize_without_display()
 
    //instance = new Full(config_filename);
 
+   // TODO: prevent these paths from being hard-coded, or, allow it to be hard-coded in the context of
+   // different deployment environments.
    fonts.set_path("data/fonts");
    samples.set_path("data/samples");
    bitmaps.set_path("data/bitmaps");
@@ -1072,7 +1075,7 @@ void Full::draw_overlay()
 
    if (drawing_profiler_graph)
    {
-      profiler.draw(0, 0, builtin_font); // TODO: update this font to something much nicer
+      profiler.draw(0, 0, obtain_profiler_graph_font()); // TODO: update this font to something much nicer
    }
 }
 
@@ -1174,6 +1177,12 @@ void Full::draw_no_active_screens_text()
       ALLEGRO_ALIGN_CENTER,
       "No screens are currently active"
    );
+}
+
+
+ALLEGRO_FONT *Full::obtain_profiler_graph_font()
+{
+   return fonts.auto_get("Inter-Medium.ttf -22");
 }
 
 

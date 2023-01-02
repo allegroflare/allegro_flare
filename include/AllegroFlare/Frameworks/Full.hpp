@@ -35,7 +35,7 @@ namespace AllegroFlare
          bool initialized;
          Config config;
          AllegroFlare::Profiler profiler;
-         FontBin fonts;
+         FontBin fonts; // TODO: fix this to "font_bin"
          SampleBin samples;
          BitmapBin bitmaps;
          ModelBin models;
@@ -71,13 +71,14 @@ namespace AllegroFlare
          uint32_t next_event_callback_id;
 
          friend class AllegroFlare_Frameworks_FullTest;
+         ALLEGRO_FONT *obtain_profiler_graph_font();
 
       public:
          Full();
          ~Full();
 
          ALLEGRO_EVENT_QUEUE *event_queue;
-         ALLEGRO_FONT *builtin_font;
+         ALLEGRO_FONT *builtin_font; // TODO: Femove this. There is now an expected Inter font for use
          bool shutdown_program; // set this to true at any time to shutdown the program
          Screens::Base *current_screen;
          ALLEGRO_EVENT *current_event;
