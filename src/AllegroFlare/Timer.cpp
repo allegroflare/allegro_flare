@@ -12,6 +12,7 @@ namespace AllegroFlare
       , end_time()
       , elapsed_time(0.0)
       , running(false)
+      , stopped(true)
    {}
 
 
@@ -38,6 +39,11 @@ namespace AllegroFlare
    void Timer::start()
    {
       if (running) return;
+      if (stopped)
+      {
+         reset();
+         stopped = false;
+      }
 
       elapsed_time += end_time - start_time;
       start_time = std::chrono::high_resolution_clock::now();
@@ -52,6 +58,14 @@ namespace AllegroFlare
       end_time = std::chrono::high_resolution_clock::now();
       elapsed_time += end_time - start_time;
       running = false;
+   }
+
+
+   void Timer::stop()
+   {
+      if (stopped) return;
+      pause();
+      stopped = true;
    }
 
 

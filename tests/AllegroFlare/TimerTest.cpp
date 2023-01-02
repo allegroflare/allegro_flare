@@ -95,3 +95,4 @@ TEST(AllegroFlare_TimerTest, DISABLED_FOR_WIN__reset__will_clear_the_values_and_
    EXPECT_EQ(false, timer.is_running());
 }
 
+
