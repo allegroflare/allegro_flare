@@ -134,6 +134,8 @@ TEST_F(Tileo_Shaders_MeshWithNormalsTest, when_active__renders_the_image_with_th
    //ASSERT_EQ(color.b, actual_color.b);
    //ASSERT_EQ(color.a, actual_color.a);
 
+   //al_flip_display();
+
 
    // TODO: improve this test snapshot naming inference
    std::string output_image_full_filename =

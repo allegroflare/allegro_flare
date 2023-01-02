@@ -14,12 +14,23 @@
 #include <Tileo/Shaders/AllegroDefault.hpp>
 #include <allegro5/allegro_color.h> // for al_color_html
 
+
+#if defined(_WIN32) || defined(_WIN64)
+//#define TEST_FIXTURES_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/"
+#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
+#else
+//#define TEST_FIXTURES_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
+#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
+#endif
+
+
 class Tileo_MeshWithNormalsRenderingFixtureTest : public ::testing::Test
 {
 private:
-   ALLEGRO_DISPLAY *display;
+   //ALLEGRO_DISPLAY *display;
 
 public:
+   ALLEGRO_DISPLAY *display;
    Tileo_MeshWithNormalsRenderingFixtureTest()
       : display(nullptr)
    {}
@@ -235,7 +246,7 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest,
    //int passes = 30;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       //al_clear_to_color(al_color_html("a4dddb"));
       float arc = (float)((int)(((float)(i)/passes * 16))) / 16;
 
@@ -271,6 +282,14 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest,
 
       al_flip_display();
    }
+
+
+   // TODO: improve this test snapshot naming inference
+   std::string output_image_full_filename =
+      TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "Tileo_MeshWithNormalsRenderingFixtureTest_VISUAL__vertexes_will_r"
+         "ender_as_expected.png";
+      //"the_image_with_the_flat_color.png";
+   ASSERT_EQ(true, al_save_bitmap(output_image_full_filename.c_str(), al_get_backbuffer(display)));
 
    //sleep(2);
 
