@@ -21,6 +21,7 @@
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
 #include <AllegroFlare/AudioRepositoryElement.hpp>
 #include <AllegroFlare/Camera2D.hpp>
+#include <AllegroFlare/Profiler.hpp>
 
 
 namespace AllegroFlare
@@ -33,6 +34,7 @@ namespace AllegroFlare
          ScreenManagers::Dictionary screens;
          bool initialized;
          Config config;
+         AllegroFlare::Profiler profiler;
          FontBin fonts;
          SampleBin samples;
          BitmapBin bitmaps;
@@ -88,6 +90,7 @@ namespace AllegroFlare
          ALLEGRO_BITMAP *bitmap(std::string identifier);
          ALLEGRO_SAMPLE *sample(std::string identifier);
          Model3D *model(std::string identifier);
+         Profiler &get_profiler_ref();
          Motion &motion(); // we'll do this for now
          Config &get_config();
          FontBin &get_font_bin_ref();

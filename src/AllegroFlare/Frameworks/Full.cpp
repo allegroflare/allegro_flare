@@ -36,6 +36,7 @@ Full::Full()
    : screens()
    , initialized(false)
    , config("data/config/config.cfg")
+   , profiler()
    , fonts()
    , samples()
    , bitmaps()
@@ -105,6 +106,12 @@ ALLEGRO_SAMPLE *Full::sample(std::string identifier)
 Model3D *Full::model(std::string identifier)
 {
    return models[identifier];
+}
+
+
+Profiler &Full::get_profiler_ref()
+{
+   return profiler;
 }
 
 
