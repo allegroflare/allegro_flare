@@ -1069,6 +1069,11 @@ void Full::draw_overlay()
       AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&bitmaps, &fonts, notifications_to_render);
       notifications_renderer.render();
    }
+
+   if (drawing_profiler_graph)
+   {
+      profiler.draw(0, 0, builtin_font); // TODO: update this font to something much nicer
+   }
 }
 
 
