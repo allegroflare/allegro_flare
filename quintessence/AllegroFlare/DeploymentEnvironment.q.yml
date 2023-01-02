@@ -1,0 +1,47 @@
+properties:
+
+
+  - name: environment
+    type: std::string
+    constructor_arg: true
+    init_with: ENVIRONMENT_PRODUCTION
+    getter: true
+
+  - name: ENVIRONMENT_TEST
+    type: char*
+    init_with: '"test"'
+    static: true
+    constexpr: true
+
+  - name: ENVIRONMENT_DEVELOPMENT
+    type: char*
+    init_with: '"development"'
+    static: true
+    constexpr: true
+
+  - name: ENVIRONMENT_PRODUCTION
+    type: char*
+    init_with: '"production"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: is_production
+    type: bool
+    body: |
+      return environment == ENVIRONMENT_PRODUCTION;
+
+  - name: is_test
+    type: bool
+    body: |
+      return environment == ENVIRONMENT_TEST;
+
+  - name: is_development
+    type: bool
+    body: |
+      return environment == ENVIRONMENT_DEVELOPMENT;
+
+
