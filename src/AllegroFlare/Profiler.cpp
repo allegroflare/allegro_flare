@@ -159,7 +159,16 @@ namespace AllegroFlare
 
       al_draw_filled_rounded_rectangle(x, y, x+w, y+h, 8, 8, bg_color);
 
-      //if (!font) return;
+
+      if (timers.empty())
+      {
+         // TODO: draw a nice little frame
+         int font_line_height = al_get_font_line_height(font);
+         ALLEGRO_COLOR timer_empty_text_color = ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2};
+         const char* text = "Profiler is not tracking any timers. [Press F1 to close]";
+         al_draw_text(font, timer_empty_text_color, x + w/2, y+h/2-font_line_height/2, ALLEGRO_ALIGN_CENTER, text);
+         return;
+      }
 
       //std::vector<profile_timer_class *>::iterator it = Profiler::get_instance()->timer.begin();
       for (auto &timer : timers)
