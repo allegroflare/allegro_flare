@@ -35,6 +35,7 @@ namespace AllegroFlare
 
       void start(std::string name);
       void pause(std::string name);
+      void stop(std::string name);
       void reset(std::string name);
       void clear();
 

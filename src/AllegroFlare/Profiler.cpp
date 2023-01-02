@@ -94,6 +94,12 @@ namespace AllegroFlare
    }
 
 
+   void Profiler::stop(std::string name)
+   {
+      find_or_create(name)->stop();
+   }
+
+
    void Profiler::reset(std::string name)
    {
       find_or_create(name)->reset();
