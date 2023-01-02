@@ -44,16 +44,20 @@ functions:
         type: std::string
         default_argument: '{}'
     body: |
-      // TODO: Consider alternatives to this trademarked phrase: "No animals were harmed in the making of this media."
-      // see: https://www.dvm360.com/view/movies-misuse-no-animals-were-harmed-disclaimer
       std::string disclaimer_1 = "This is a work of fiction. Any resemblance to actual persons, living or dead, "
          "or events is purely coincidental.";
       std::string disclaimer_2 = "The views and opinions expressed in this media do not necessarily reflect the "
          "views and opinions of the developers or the production company.";
+      // NOTE: This statement is an alternative to this trademarked phrase: "No animals were harmed.":
+      // see: https://www.dvm360.com/view/movies-misuse-no-animals-were-harmed-disclaimer
+      std::string disclaimer_3 = "During the production of this game, no animals were suject to injury, indignity, "
+         "or mistreatment of any kind.";
+
 
       return std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>{
          new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1),
          new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2),
+         new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_3),
       };
     
 
