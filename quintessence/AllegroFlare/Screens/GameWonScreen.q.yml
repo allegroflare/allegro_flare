@@ -93,7 +93,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("DroidSans.ttf -80");
+      return font_bin->auto_get("Inter-Medium.ttf -80");
 
 
   - name: obtain_instruction_font
@@ -101,7 +101,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("DroidSans.ttf -48");
+      return font_bin->auto_get("Inter-Medium.ttf -48");
 
 
   - name: virtual_control_button_down_func
@@ -129,27 +129,19 @@ functions:
 dependencies:
 
 
-  - symbol: ALLEGRO_EVENT*
-    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::VirtualControls
     headers: [ AllegroFlare/VirtualControls.hpp ]
-
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+
 
