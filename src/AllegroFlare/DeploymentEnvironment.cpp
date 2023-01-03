@@ -106,7 +106,8 @@ std::string DeploymentEnvironment::get_data_folder_path()
    else
    {
       AllegroFlare::Logger::throw_error("AllegroFlare::DeploymentEnvironment::get_base_data_path",
-         "Unexpected error occurred where a path was requested on an invalid deployment environment."
+            "Unexpected error occurred where a path was requested on an invalid deployment environment."
+            + AllegroFlare::Logger::build_unhandled_case_message(environment)
          );
    }
    return "";
